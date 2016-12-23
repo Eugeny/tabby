@@ -1,0 +1,108 @@
+cache:
+  untracked: true
+  key: "$CI_BUILD_REF_NAME"
+  paths:
+    - app/node_modules
+    - node_modules
+    - typings
+
+stages:
+    - Build
+    - Test
+    - Package
+    - Upload
+
+Build:
+  stage: Build
+  script:
+    - npm prune
+    - npm install
+    - cd app; npm prune && npm install; cd ..
+    - ./node_modules/.bin/typings install
+  tags:
+    - Linux
+  artifacts:
+    paths:
+      - node_modules
+      - typings
+      - app
+
+Test:
+  stage: Test
+  dependencies:
+    - Build
+  script:
+    - apt-get install -y xvfb libxtst6 libxss1 libgconf2-4 libnss3 libasound2
+    - xvfb-run -a make coverage
+  tags:
+    - Linux
+
+Windows package:
+  stage: Package
+  dependencies:
+    - Build
+  script:
+    - call npm install
+    - call npm install webpack # regenerate the .cmd launcher
+    - cd app
+    - call npm install
+    - cd ..
+    - call ./node_modules/.bin/webpack.cmd --progress
+    - call make package-windows
+    - call copy dist\Elements-Electron.exe Elements-Windows-%CI_BUILD_REF_NAME%.exe
+  artifacts:
+    name: Elements-Windows-%CI_BUILD_REF_NAME%
+    paths:
+    - Elements-Windows-%CI_BUILD_REF_NAME%.exe
+  tags:
+    - Windows
+
+macOS package:
+  stage: Package
+  dependencies:
+    - Build
+  script:
+    - npm install
+    - rm -rf node_modules/electron-macos-sign || true
+    - cp -r node_modules/electron-osx-sign node_modules/electron-macos-sign
+    - cd app; npm install; cd ..
+    - ./node_modules/.bin/webpack --progress
+    - security unlock-keychain -p rjvg login.keychain
+    - make package-mac
+    - cp dist/Elements-Electron.pkg ./Elements-macOS-$CI_BUILD_REF_NAME.pkg
+  artifacts:
+    name: Elements-macOS-$CI_BUILD_REF_NAME
+    paths:
+    - Elements-macOS-$CI_BUILD_REF_NAME.pkg
+  tags:
+    - macOS
+
+Linux package:
+  stage: Package
+  dependencies:
+    - Build
+  script:
+    - npm install
+    - cd app; npm install; cd ..
+    - ./node_modules/.bin/webpack --progress
+    - make build-linux
+    - cp dist/ELEMENTS*.AppImage ./Elements-Linux-$CI_BUILD_REF_NAME.AppImage
+  artifacts:
+    name: Elements-Linux-$CI_BUILD_REF_NAME
+    paths:
+    - Elements-Linux-$CI_BUILD_REF_NAME.AppImage
+  tags:
+    - Linux
+
+Upload packages:
+  stage: Upload
+  dependencies:
+    - Windows package
+    - macOS package
+    - Linux package
+  script:
+    - scp Elements-Windows-$CI_BUILD_REF_NAME.exe root@cloud.elements.tv:/mnt/elements/www/clients/
+    - scp Elements-macOS-$CI_BUILD_REF_NAME.pkg root@cloud.elements.tv:/mnt/elements/www/clients/
+    - scp Elements-Linux-$CI_BUILD_REF_NAME.AppImage root@cloud.elements.tv:/mnt/elements/www/clients/
+  tags:
+    - Local

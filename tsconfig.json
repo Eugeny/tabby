@@ -1,0 +1,26 @@
+{
+    "compilerOptions": {
+        "baseUrl": "./app/src",
+        "module": "commonjs",
+        "target": "es5",
+        "declaration": false,
+        "noImplicitAny": false,
+        "removeComments": false,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "sourceMap": true,
+        "noUnusedParameters": true,
+        "noImplicitReturns": true,
+        "noFallthroughCasesInSwitch": true
+    },
+    "compileOnSave": false,
+    "exclude": [
+        "node_modules"
+    ],
+    "files": [
+        "app/src/app.d.ts",
+        "app/src/entry.ts",
+        "typings/index.d.ts",
+        "node_modules/rxjs/Rx.d.ts"
+    ]
+}

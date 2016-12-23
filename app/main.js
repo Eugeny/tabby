@@ -1,0 +1,130 @@
+const Config = require('electron-config')
+const electron = require('electron')
+const platform = require('os').platform()
+require('electron-debug')({enabled: true, showDevTools: process.argv.indexOf('--debug') != -1})
+
+let app = electron.app
+let windowConfig = new Config({name: 'window'})
+
+
+setupWindowManagement = () => {
+    let windowCloseable
+
+    app.window.on('close', (e) => {
+        windowConfig.set('windowBoundaries', app.window.getBounds())
+        if (!windowCloseable) {
+            app.window.hide()
+            e.preventDefault()
+        }
+    })
+
+    app.window.on('closed', () => {
+        app.window = null
+    })
+
+    electron.ipcMain.on('window-closeable', (event, flag) => {
+        windowCloseable = flag
+    })
+
+    electron.ipcMain.on('window-focus', () => {
+        app.window.show()
+        app.window.focus()
+    })
+
+    app.on('before-quit', () => windowCloseable = true)
+}
+
+
+setupMenu = () => {
+    var template = [{
+        label: "Application",
+        submenu: [
+            { type: "separator" },
+            { label: "Quit", accelerator: "CmdOrCtrl+Q", click: () => {
+                app.window.webContents.send('host:quit-request')
+            }}
+        ]}, {
+            label: "Edit",
+            submenu: [
+                { label: "Undo", accelerator: "CmdOrCtrl+Z", selector: "undo:" },
+                { label: "Redo", accelerator: "Shift+CmdOrCtrl+Z", selector: "redo:" },
+                { type: "separator" },
+                { label: "Cut", accelerator: "CmdOrCtrl+X", selector: "cut:" },
+                { label: "Copy", accelerator: "CmdOrCtrl+C", selector: "copy:" },
+                { label: "Paste", accelerator: "CmdOrCtrl+V", selector: "paste:" },
+                { label: "Select All", accelerator: "CmdOrCtrl+A", selector: "selectAll:" }
+            ]
+        }]
+
+    electron.Menu.setApplicationMenu(electron.Menu.buildFromTemplate(template))
+}
+
+
+start = () => {
+    let t0 = Date.now()
+
+    let secondInstance = app.makeSingleInstance((argv) => {
+        app.window.focus()
+    })
+
+    if (secondInstance) {
+        app.quit()
+        return
+    }
+
+    let options = {
+        width: 800,
+        height: 400,
+        icon: `${app.getAppPath()}/assets/img/icon.png`,
+        title: 'ELEMENTS Benchmark',
+        minWidth: 800,
+        minHeight: 400,
+        'web-preferences': {'web-security': false},
+        //- background to avoid the flash of unstyled window
+        backgroundColor: '#1D272D',
+    }
+    Object.assign(options, windowConfig.get('windowBoundaries'))
+
+    if (platform == 'darwin') {
+        options.titleBarStyle = 'hidden'
+    } else {
+        options.frame = false
+    }
+
+    app.commandLine.appendSwitch('--disable-http-cache')
+
+    app.window = new electron.BrowserWindow(options)
+    app.window.loadURL(`file://${app.getAppPath()}/assets/webpack/index.html`, {extraHeaders: "pragma: no-cache\n"})
+
+    if (platform != 'darwin') {
+        app.window.setMenu(null)
+    }
+
+    app.window.show()
+    app.window.focus()
+
+    setupWindowManagement()
+    setupMenu()
+
+    console.info(`Host startup: ${Date.now() - t0}ms`)
+    t0 = Date.now()
+    electron.ipcMain.on('app:ready', () => {
+        console.info(`App startup: ${Date.now() - t0}ms`)
+    })
+}
+
+app.on('ready', start)
+
+app.on('activate', () => {
+    if (!app.window)
+        start()
+    else {
+        app.window.show()
+        app.window.focus()
+    }
+})
+
+process.on('uncaughtException', function(err) {
+    console.log(err)
+    app.window.webContents.send('uncaughtException', err)
+})

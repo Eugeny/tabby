@@ -1,0 +1,13 @@
+doctype html
+html
+    head
+        meta(charset='UTF-8')
+        title ELEMENTS Benchmark
+        base(href='index.html')
+        script.
+            console.timeStamp('index')
+            window.nodeRequire = require
+        script(src='./preload.js')
+        script(src='./bundle.js', defer)
+    body(style='background-image: radial-gradient(circle, #2b3840 0%, #1D272D 100%); min-height: 100vh')
+        app

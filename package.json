@@ -1,0 +1,76 @@
+{
+  "name": "term",
+  "devDependencies": {
+    "apply-loader": "^0.1.0",
+    "awesome-typescript-loader": "2.2.4",
+    "css-loader": "0.26.1",
+    "electron": "^1.4.13",
+    "electron-builder": "10.6.1",
+    "electron-osx-sign": "electron-userland/electron-osx-sign#f092181a1bffa2b3248a23ee28447a47e14a8f04",
+    "electron-rebuild": "1.4.0",
+    "file-loader": "^0.9.0",
+    "font-awesome": "4.7.0",
+    "html-loader": "^0.4.4",
+    "less": "^2.7.1",
+    "less-loader": "^2.2.3",
+    "node-gyp": "^3.4.0",
+    "pug-html-loader": "^1.0.9",
+    "pug-loader": "^2.3.0",
+    "pug-static-loader": "0.0.1",
+    "raw-loader": "^0.5.1",
+    "style-loader": "^0.13.1",
+    "to-string-loader": "^1.1.5",
+    "tslint": "4.0.2",
+    "typescript": "2.1.1",
+    "typings": "2.0.0",
+    "url-loader": "^0.5.7",
+    "val-loader": "^0.5.0",
+    "webpack": "2.2.0-rc.0"
+  },
+  "build": {
+    "appId": "com.elements.benchmark",
+    "productName": "ELEMENTS Benchmark",
+    "compression": "normal",
+    "win": {
+      "target": "zip",
+      "icon": "./app/assets/img/shortcut.ico"
+    },
+    "mac": {
+      "category": "public.app-category.video",
+      "icon": "./build/mac/icon.icns",
+      "identity": "Syslink GmbH"
+    },
+    "linux": {
+      "category": "Network",
+      "target": "AppImage",
+      "icon": "./app/assets/img/icon.png"
+    }
+  },
+  "scripts": {
+    "pack": "build --dir",
+    "postinstall": "install-app-deps",
+    "dist": "build"
+  },
+  "dependencies": {
+    "@angular/common": "2.3.1",
+    "@angular/compiler": "2.3.1",
+    "@angular/core": "2.3.1",
+    "@angular/forms": "2.3.1",
+    "@angular/http": "2.3.1",
+    "@angular/platform-browser": "2.3.1",
+    "@angular/platform-browser-dynamic": "2.3.1",
+    "@angular/platform-server": "2.3.1",
+    "@angular/router": "3.3.1",
+    "@ng-bootstrap/ng-bootstrap": "^1.0.0-alpha.15",
+    "angular2-localstorage": "github:AilisObrian/angular2-localstorage",
+    "angular2-perfect-scrollbar": "^1.1.0",
+    "angular2-toaster": "^1.1.0",
+    "bootstrap": "^3.3.7",
+    "core-js": "^2.4.1",
+    "jquery": "^3.1.1",
+    "rxjs": "5.0.0-rc.4",
+    "source-sans-pro": "^2.0.10",
+    "hterm-commonjs": "^1.0.0",
+    "zone.js": "0.7.2"
+  }
+}

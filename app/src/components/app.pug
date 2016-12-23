@@ -1,0 +1,19 @@
+div.navbar.navbar-default.draggable
+    button.btn.btn-default.navbar-btn.navbar-btn-big.btn-close.pull-right((click)='hide()', title='Hide')
+        | &times;
+    button.btn.btn-default.navbar-btn.navbar-btn-big.pull-right((click)='showSettings()', title='Settings')
+        i.fa.fa-cog
+    div.navbar-brand
+        img.logo(src=require("img/logo.svg"))
+
+perfect-scrollbar
+    div.container
+        div#term(style='width: 300px; height: 300px;')
+
+
+footer
+
+toaster-container([toasterconfig]="toasterconfig")
+template(ngbModalContainer)
+
+div.window-resizer.window-resizer-tl

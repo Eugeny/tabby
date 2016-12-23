@@ -1,0 +1,176 @@
+@import "~bootstrap/include.less";
+
+
+html.platform-win32 {
+    body.focused {
+        //border: 1px solid #9c9c00 !important;
+    }
+}
+
+body {
+    border: 1px solid #131313;
+    transition: 0.5s border;
+    overflow: hidden;
+    min-height: 100vh;
+}
+
+.no-drag, a, button, checkbox, .form-control, #toast-container {
+    -webkit-app-region: no-drag;
+    outline: 0 !important;
+
+    * {
+        outline: 0 !important;
+        -webkit-app-region: no-drag;
+    }
+}
+
+.form-control {
+    -webkit-user-select: initial;
+}
+
+.window-resizer {
+    -webkit-app-region: no-drag;
+    position: fixed;
+    width: 10px;
+    height: 10px;
+}
+
+.window-resizer-tl {
+    left: 0;
+    top: 0;
+}
+
+
+
+.no-wrap {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.word-wrap {
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+
+#toast-container.toast-top-full-width {
+    width: 100%;
+    top: 50px;
+
+    > div {
+        width: 100%;
+        border-radius: 0;
+        box-shadow: 0 0 2px rgba(0,0,0,.75);
+        opacity: 1;
+        filter: none;
+    }
+}
+
+.avatar {
+    margin: 20px;
+    width: 100px;
+    height: 100px;
+    border-radius: 50px;
+    box-shadow: 0 1px 1px rgba(0,0,0,.5);
+}
+
+
+
+.fa-live {
+    color: #7aff00;
+
+    .list-group-item &.fa-2x {
+        top: 10px;
+        position: relative;
+    }
+}
+
+
+.otp-input {
+    height: 50px;
+
+    input {
+        height: 50px;
+        font-size: 41px;
+        font-family: monospace;
+        text-align: center;
+    }
+
+    .btn {
+        height: 50px;
+        width: 50px;
+    }
+}
+
+
+ngb-modal-backdrop {
+    // ngbmodalwindow has its own, properly animated backdrop
+    background: transparent !important;
+}
+
+ngb-modal-window.fade.in {
+    &.out {
+        opacity: 0;
+
+        .modal-dialog {
+            transform: translate(0, -25%);
+        }
+    }
+}
+
+ngb-tabset {
+    >ul.nav-tabs.nav-justified {
+        border-bottom: none;
+        margin-bottom: 10px;
+        background: rgba(0,0,0,.25);
+
+        .nav-item .nav-link {
+            background: transparent;
+            border: none;
+
+            &.active {
+                background: rgba(0,0,0,.5);
+                border-bottom: 1px solid #777;
+            }
+
+            i {
+                display: block;
+                text-align: center;
+                font-size: 18px;
+                margin: 0 0 5px;
+            }
+        }
+    }
+
+    >.tab-content {
+        padding: 10px;
+    }
+}
+
+
+.btn {
+    i + * {
+        margin-left: 5px;
+    }
+}
+
+.list-group-item {
+    margin: none;
+
+    > .btn {
+        float: right;
+        margin: -7px -11px 0 0;
+        background: transparent;
+        box-shadow: none;
+
+        &:hover {
+            background: rgba(0,0,0,.25);
+        }
+    }
+}
+
+.ps-container.ps-in-scrolling>.ps-scrollbar-y-rail,
+.ps-container:hover>.ps-scrollbar-y-rail:hover {
+    background: rgba(0,0,0,.5) !important;
+}

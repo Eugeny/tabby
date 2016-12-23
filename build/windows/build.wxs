@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Wix RequiredVersion="3.6.2830.0" xmlns="http://schemas.microsoft.com/wix/2006/wi"
+     xmlns:bal="http://schemas.microsoft.com/wix/BalExtension">
+     <Bundle Name="ELEMENTS" Version="$(var.Version)" Manufacturer="ELEMENTS.tv" UpgradeCode="508475fc-0e76-4cd1-8e98-6953023ba518"
+         HelpUrl="http://elements.tv"
+         Copyright="Copyright © 2016 ELEMENTS" IconSourceFile="build/icon.ico"
+         AboutUrl="http://elements.tv">
+
+         <BootstrapperApplicationRef Id="WixStandardBootstrapperApplication.HyperlinkLicense">
+             <bal:WixStandardBootstrapperApplication
+                 LicenseUrl=""
+                 LogoFile="build\logo.png"
+                 ThemeFile="build\windows\wix-theme.xml"
+             />
+         </BootstrapperApplicationRef>
+
+         <Chain>
+             <MsiPackage
+                 Id="ClientMSI"
+                 Compressed="yes"
+                 ForcePerMachine="yes"
+                 SourceFile="dist\elements-app.msi"
+                 Vital="yes">
+             </MsiPackage>
+             <MsiPackage
+                 Id="DriverMSI"
+                 Compressed="yes"
+                 ForcePerMachine="yes"
+                 SourceFile="build/windows/ElementsDriver_x64.msi"
+                 Vital="yes">
+             </MsiPackage>
+         </Chain>
+     </Bundle>
+</Wix>
