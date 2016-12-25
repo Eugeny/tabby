@@ -1,4 +1,4 @@
-import { Component, ElementRef } from '@angular/core'
+import { Component } from '@angular/core'
 import { ModalService } from 'services/modal'
 import { ElectronService } from 'services/electron'
 import { HostAppService } from 'services/hostApp'
@@ -13,6 +13,17 @@ import 'angular2-toaster/lib/toaster.css'
 import 'global.less'
 
 
+class Tab {
+    id: number
+    name: string
+    static lastTabID = 0
+
+    constructor (public session: Session) {
+        this.id = Tab.lastTabID++
+    }
+}
+
+
 @Component({
     selector: 'app',
     template: require('./app.pug'),
@@ -24,7 +35,6 @@ export class AppComponent {
         private modal: ModalService,
         private electron: ElectronService,
         private sessions: SessionsService,
-        element: ElementRef,
         log: LogService,
         _quitter: QuitterService,
     ) {
@@ -41,17 +51,27 @@ export class AppComponent {
     }
 
     toasterConfig: ToasterConfig
-    tabs: Session[] = []
+    tabs: Tab[] = []
+    activeTab: Tab
 
     newTab () {
-        this.tabs.push(this.sessions.createSession({command: 'zsh'}))
+        const tab = new Tab(this.sessions.createSession({command: 'bash'}))
+        this.tabs.push(tab)
+        this.selectTab(tab)
     }
 
-    closeTab (session) {
-        session.destroy()
+    selectTab (tab) {
+        this.activeTab = tab
+    }
+
+    closeTab (tab) {
+        tab.session.destroy()
+        this.tabs = this.tabs.filter((x) => x != tab)
+        this.selectTab(this.tabs[0])
     }
 
     ngOnInit () {
+        this.newTab()
     }
 
     ngOnDestroy () {

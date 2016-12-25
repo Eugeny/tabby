@@ -75,10 +75,10 @@ start = () => {
     let options = {
         width: 800,
         height: 400,
-        icon: `${app.getAppPath()}/assets/img/icon.png`,
+        //icon: `${app.getAppPath()}/assets/img/icon.png`,
         title: 'ELEMENTS Benchmark',
-        minWidth: 800,
-        minHeight: 400,
+        minWidth: 300,
+        minHeight: 100,
         'web-preferences': {'web-security': false},
         //- background to avoid the flash of unstyled window
         backgroundColor: '#1D272D',

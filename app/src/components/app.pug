@@ -1,19 +1,14 @@
-div.navbar.navbar-default.draggable
-    button.btn.btn-default.navbar-btn.navbar-btn-big.btn-close.pull-right((click)='hide()', title='Hide')
-        | &times;
-    button.btn.btn-default.navbar-btn.navbar-btn-big.pull-right((click)='showSettings()', title='Settings')
-        i.fa.fa-cog
+.tabs
+    .tab(*ngFor='let tab of tabs; trackBy: tab?.id', (click)='selectTab(tab)', [class.active]='tab == activeTab')
+        div {{tab.name}}
+        button((click)='closeTab(tab)') &times;
+    .btn-new-tab((click)='newTab()')
+        i.fa.fa-plus
+        span Tab
 
-ngb-tabset
-    ngb-tab(*ngFor='let tab of tabs; trackBy: tab?.name')
-        template(ngbTabTitle)
-            span {{tab.name}}
-            button.btn.btn-default((click)='closeTab(tab)') &times;
-        template(ngbTabContent)
-            terminal([session]='tab', style='width: 300px; height: 300px;')
-
-button.btn.btn-default((click)='newTab()') New tab
-footer
+.tabs-content
+    .tab(*ngFor='let tab of tabs; trackBy: tab?.id', [class.active]='tab == activeTab')
+        terminal([session]='tab.session', '[(title)]'='tab.name')
 
 toaster-container([toasterconfig]="toasterconfig")
 template(ngbModalContainer)

@@ -12,121 +12,123 @@
     background: @body-bg;
 }
 
+@tabs-height: 40px;
 
-.navbar {
+.tabs {
     flex: none;
-    border-left: none;
-    border-right: none;
-    border-top: none;
-    -webkit-app-region: drag;
-    margin: 0;
+    height: @tabs-height;
 
-    background: @navbar-default-bg;
-    :host.platform-darwin & {
-        background: fade(@navbar-default-bg, 50%);
+    display: flex;
+    flex-direction: row;
+
+    .btn-new-tab, .tab {
+        line-height: @tabs-height - 2px;
+        cursor: pointer;
     }
 
-    .navbar-btn-big {
-        margin: 0;
-        padding: 15px 20px 15px;
-        background-color: #333;
-        text-align: left;
+    .btn-new-tab {
+        padding: 0 15px;
+        flex: none;
+        flex-grow: 0;
+        border-bottom: 2px solid transparent;
+        transition: 0.25s all;
 
-        background: transparent;
-        box-shadow: none;
+        text-transform: uppercase;
+        font-weight: bold;
+        color: #888;
 
-        &.btn-profile {
-            padding: 7px 14px 7px;
-            display: flex;
-            flex-direction: row;
-            max-width: 150px;
-
-            :host.platform-darwin & {
-                max-width: 120px;
-            }
-
-            >img {
-                flex: none;
-                float: left;
-                margin: 2px 10px 4px 0;
-                width: 30px;
-                height: 30px;
-
-                :host.platform-darwin & {
-                    margin-right: 0;
-                }
-            }
-
-            >div {
-                flex: auto;
-
-                :host.platform-darwin & {
-                    display: none;
-                }
-
-                .username {
-                }
-
-                .settings {
-                    font-size: 10px;
-                }
-            }
+        i {
+            margin-right: 10px;
         }
 
-        &.btn-close {
-            font-size: 38px;
-            padding: 1px 13px 2px;
-            line-height: 47px;
+        &:hover {
+            background: rgba(255, 255, 255, .1);
+        }
 
-            :host.platform-darwin & {
-                display: none;
-            }
+        &:active {
+            background: rgba(0, 0, 0, .1);
         }
     }
 
-    button.navbar-btn-big:hover {
-        background-color: #222;
-    }
+    .tab {
+        flex: auto;
+        flex-basis: 0;
+        flex-grow: 1;
 
-    button.navbar-btn-big:active {
-        background-color: #111;
-    }
+        display: flex;
+        flex-direction: row;
 
+        div {
+            flex: auto;
+            padding: 0 15px;
+        }
 
-    .navbar-brand {
-        padding: 11px 15px;
-        width: 150px;
+        border-bottom: 2px solid transparent;
+        transition: 0.25s all;
 
-        :host.platform-darwin & {
+        &:hover:not(.active) {
+            background: rgba(255, 255, 255, .05);
+        }
+
+        &:active {
+            background: rgba(0, 0, 0, .1);
+        }
+
+        &.active {
+            background: #141c23;
+            border-bottom: 2px solid #69bbea;
+        }
+
+        button {
+            flex: none;
+
+            border: none;
+            background: transparent;
+            opacity: 0;
+            transition: 0.25s all;
+
+            @button-size: @tabs-height * 0.6;
+            width: @button-size;
+            height: @button-size;
+            border-radius: @button-size / 2;
+            line-height: @button-size * 0.8;
+            margin-top: (@tabs-height - @button-size) * 0.4;
+            margin-right: 10px;
+
             display: block;
-            margin: auto;
-            float: none;
+            text-align: center;
+            font-size: 20px;
+
+            &:hover {
+                background: rgba(255, 255, 255, .05);
+            }
+
+            &:active {
+                background: rgba(0, 0, 0, .1);
+            }
         }
 
-        img {
-            height: 28px;
+        &:hover button {
+            opacity: 1;
         }
     }
 }
 
-[scrollable] {
-    width: 100vw;
+.tabs-content {
     flex: auto;
     display: flex;
 
-    .nano {
+    .tab {
+        display: none;
         flex: auto;
-        height: auto;
+        position: relative;
+
+        &.active {
+            display: flex;
+
+            >* {
+                flex: auto;
+            }
+        }
     }
-}
-
-footer {
-  display: block;
-  flex: none;
-  height: 1px;
-}
-
-perfect-scrollbar {
-    flex: auto;
-    min-height: 0;
 }

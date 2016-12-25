@@ -22,6 +22,7 @@ export class Session {
         this.name = options.name
         this.pty = ptyjs.spawn('sh', ['-c', options.command], {
             name: 'xterm-color',
+            //name: 'screen-256color',
             cols: 80,
             rows: 30,
             cwd: options.cwd || process.env.HOME,

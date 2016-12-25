@@ -15,7 +15,8 @@
     },
     "compileOnSave": false,
     "exclude": [
-        "node_modules"
+        "node_modules",
+        "platforms",
     ],
     "files": [
         "app/src/app.d.ts",
