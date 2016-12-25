@@ -19,21 +19,6 @@ div.modal-body
                         .title Server
                         .value Not connected
 
-                .status-line(*ngIf='!userInfo?.user')
-                    .icon
-                        img(src=require("img/user.png"))
-                    .main
-                        .title Login
-                        .value Not logged in
-
-                .status-line(*ngIf='userInfo?.user')
-                    .icon
-                        img([src]='userInfo.user.avatar || "../../assets/img/user.png"')
-                    .main
-                        .title Login
-                        .value {{ userInfo.user.full_name || userInfo.user.username }}
-
-                br
 
                 div.form-group
                     checkbox(text='Remember connected workspaces', '[(model)]'='config.store.rememberWorkspaces')

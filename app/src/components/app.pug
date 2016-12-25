@@ -3,14 +3,16 @@ div.navbar.navbar-default.draggable
         | &times;
     button.btn.btn-default.navbar-btn.navbar-btn-big.pull-right((click)='showSettings()', title='Settings')
         i.fa.fa-cog
-    div.navbar-brand
-        img.logo(src=require("img/logo.svg"))
 
-perfect-scrollbar
-    div.container
-        div#term(style='width: 300px; height: 300px;')
+ngb-tabset
+    ngb-tab(*ngFor='let tab of tabs; trackBy: tab?.name')
+        template(ngbTabTitle)
+            span {{tab.name}}
+            button.btn.btn-default((click)='closeTab(tab)') &times;
+        template(ngbTabContent)
+            terminal([session]='tab', style='width: 300px; height: 300px;')
 
-
+button.btn.btn-default((click)='newTab()') New tab
 footer
 
 toaster-container([toasterconfig]="toasterconfig")
