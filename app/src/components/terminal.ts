@@ -1,5 +1,4 @@
 import { Component, NgZone, Input, Output, EventEmitter, ElementRef } from '@angular/core'
-import { ElectronService } from 'services/electron'
 import { ConfigService } from 'services/config'
 
 import { Session } from 'services/sessions'
@@ -10,15 +9,24 @@ const hterm = require('hterm-commonjs')
 hterm.hterm.VT.ESC['k'] = function(parseState) {
     parseState.resetArguments();
 
-    function parseOSC(parseState) {
-        if (!this.parseUntilStringTerminator_(parseState) || parseState.func == parseOSC) {
+    function parseOSC(ps) {
+        if (!this.parseUntilStringTerminator_(ps) || ps.func == parseOSC) {
             return
         }
 
-        this.terminal.setWindowTitle(parseState.args[0])
+        this.terminal.setWindowTitle(ps.args[0])
     }
     parseState.func = parseOSC
 }
+
+hterm.hterm.defaultStorage = new hterm.lib.Storage.Memory()
+hterm.hterm.PreferenceManager.defaultPreferences['user-css'] = ``
+const oldDecorate = hterm.hterm.ScrollPort.prototype.decorate
+hterm.hterm.ScrollPort.prototype.decorate = function (...args) {
+    oldDecorate.bind(this)(...args)
+    this.screen_.style.cssText += `; padding-right: ${this.screen_.offsetWidth - this.screen_.clientWidth}px;`
+}
+
 
 @Component({
   selector: 'terminal',
@@ -33,7 +41,6 @@ export class TerminalComponent {
 
     constructor(
         private zone: NgZone,
-        private electron: ElectronService,
         private elementRef: ElementRef,
         public config: ConfigService,
     ) {
@@ -41,7 +48,6 @@ export class TerminalComponent {
 
     ngOnInit () {
         let io
-        hterm.hterm.defaultStorage = new hterm.lib.Storage.Memory()
         this.terminal = new hterm.hterm.Terminal()
         this.terminal.setWindowTitle = (title) => {
             this.zone.run(() => {
@@ -72,5 +78,6 @@ export class TerminalComponent {
     }
 
     ngOnDestroy () {
+        ;
     }
 }

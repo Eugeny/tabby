@@ -2,10 +2,7 @@ import { Component } from '@angular/core'
 import { ElectronService } from 'services/electron'
 import { HostAppService, PLATFORM_WINDOWS, PLATFORM_LINUX, PLATFORM_MAC } from 'services/hostApp'
 import { ConfigService } from 'services/config'
-import { QuitterService } from 'services/quitter'
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
-
-import * as os from 'os'
 
 
 @Component({
@@ -16,10 +13,9 @@ import * as os from 'os'
 export class SettingsModalComponent {
     constructor(
         private modalInstance: NgbActiveModal,
-        private hostApp: HostAppService,
-        private electron: ElectronService,
-        private quitter: QuitterService,
         public config: ConfigService,
+        hostApp: HostAppService,
+        electron: ElectronService,
     ) {
         this.isWindows = hostApp.platform == PLATFORM_WINDOWS
         this.isMac = hostApp.platform == PLATFORM_MAC

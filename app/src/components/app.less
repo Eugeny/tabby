@@ -3,20 +3,65 @@
 
 :host {
     display: flex;
-    width: 100vw;
-    height: 100vh;
+    width: ~"calc(100vw - 2px)";
+    height: ~"calc(100vh - 2px)";
     flex-direction: column;
     overflow: hidden;
     -webkit-user-select: none;
     -webkit-font-smoothing: antialiased;
+    cursor: default;
     background: @body-bg;
 }
 
+@titlebar-height: 35px;
 @tabs-height: 40px;
+@tab-border-radius: 3px;
+
+.button-states() {
+    transition: 0.125s all;
+
+    &:hover:not(.active) {
+        background: rgba(255, 255, 255, .033);
+    }
+
+    &:active:not(.active) {
+        background: rgba(0, 0, 0, .1);
+    }
+}
+
+.titlebar {
+    height: @titlebar-height;
+    background: #141c23;
+    flex: none;
+    display: flex;
+    flex-direction: row;
+
+    .title {
+        flex: auto;
+        padding-left: 15px;
+        line-height: @titlebar-height;
+        -webkit-app-region: drag;
+    }
+
+    .btn-minimize, .btn-maximize, .btn-close {
+        flex: none;
+        line-height: @titlebar-height - 2px;
+        padding: 0 15px;
+        font-size: 8px;
+
+        .button-states();
+        cursor: pointer;
+    }
+
+    .btn-close {
+        font-size: 12px;
+    }
+}
 
 .tabs {
     flex: none;
     height: @tabs-height;
+    background: #141c23;
 
     display: flex;
     flex-direction: row;
@@ -41,13 +86,7 @@
             margin-right: 10px;
         }
 
-        &:hover {
-            background: rgba(255, 255, 255, .1);
-        }
-
-        &:active {
-            background: rgba(0, 0, 0, .1);
-        }
+        .button-states();
     }
 
     .tab {
@@ -55,24 +94,41 @@
         flex-basis: 0;
         flex-grow: 1;
 
+        background: @body-bg;
+
         display: flex;
         flex-direction: row;
+        overflow: hidden;
+        min-width: 0;
 
-        div {
+        &.pre-selected, &:nth-last-child(2) {
+            border-top-right-radius: @tab-border-radius;
+        }
+
+        &.post-selected {
+            border-top-left-radius: @tab-border-radius;
+        }
+
+        div.index {
+            flex: none;
+            padding: 0 0 0 15px;
+            font-weight: bold;
+            color: #444;
+        }
+
+        div.name {
             flex: auto;
-            padding: 0 15px;
+            margin: 0 15px 0 10px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            min-width: 0;
         }
 
         border-bottom: 2px solid transparent;
         transition: 0.25s all;
 
-        &:hover:not(.active) {
-            background: rgba(255, 255, 255, .05);
-        }
-
-        &:active {
-            background: rgba(0, 0, 0, .1);
-        }
+        .button-states();
 
         &.active {
             background: #141c23;

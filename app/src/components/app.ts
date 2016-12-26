@@ -1,7 +1,8 @@
-import { Component } from '@angular/core'
+import { Component, ElementRef } from '@angular/core'
 import { ModalService } from 'services/modal'
 import { ElectronService } from 'services/electron'
 import { HostAppService } from 'services/hostApp'
+import { HotkeysService } from 'services/hotkeys'
 import { LogService } from 'services/log'
 import { QuitterService } from 'services/quitter'
 import { ToasterConfig } from 'angular2-toaster'
@@ -31,11 +32,13 @@ class Tab {
 })
 export class AppComponent {
     constructor(
-        private hostApp: HostAppService,
         private modal: ModalService,
-        private electron: ElectronService,
+        private elementRef: ElementRef,
         private sessions: SessionsService,
+        public hostApp: HostAppService,
+        public hotkeys: HotkeysService,
         log: LogService,
+        electron: ElectronService,
         _quitter: QuitterService,
     ) {
         console.timeStamp('AppComponent ctor')
@@ -48,6 +51,22 @@ export class AppComponent {
             preventDuplicates: true,
             timeout: 4000,
         })
+
+        this.hotkeys.key.subscribe((key) => {
+            if (key.event == 'keydown') {
+                if (key.alt && key.key >= '1' && key.key <= '9') {
+                    let index = key.key.charCodeAt(0) - '0'.charCodeAt(0) - 1
+                    if (index < this.tabs.length) {
+                        this.selectTab(this.tabs[index])
+                    }
+                }
+                if (key.alt && key.key == '0') {
+                    if (this.tabs.length >= 10) {
+                        this.selectTab(this.tabs[9])
+                    }
+                }
+            }
+        })
     }
 
     toasterConfig: ToasterConfig
@@ -55,23 +74,40 @@ export class AppComponent {
     activeTab: Tab
 
     newTab () {
-        const tab = new Tab(this.sessions.createSession({command: 'bash'}))
+        this.addSessionTab(this.sessions.createNewSession({command: 'bash'}))
+    }
+
+    addSessionTab (session) {
+        let tab = new Tab(session)
         this.tabs.push(tab)
         this.selectTab(tab)
     }
 
     selectTab (tab) {
         this.activeTab = tab
+        setImmediate(() => {
+            this.elementRef.nativeElement.querySelector(':scope .tab.active iframe').focus()
+        })
     }
 
     closeTab (tab) {
-        tab.session.destroy()
+        tab.session.gracefullyDestroy()
         this.tabs = this.tabs.filter((x) => x != tab)
-        this.selectTab(this.tabs[0])
+        if (tab == this.activeTab) {
+            this.selectTab(this.tabs[0])
+        }
     }
 
     ngOnInit () {
-        this.newTab()
+        this.sessions.recoverAll().then((recoveredSessions) => {
+            if (recoveredSessions.length > 0) {
+                recoveredSessions.forEach((session) => {
+                    this.addSessionTab(session)
+                })
+            } else {
+                this.newTab()
+            }
+        })
     }
 
     ngOnDestroy () {

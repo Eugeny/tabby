@@ -13,7 +13,7 @@ setupWindowManagement = () => {
     app.window.on('close', (e) => {
         windowConfig.set('windowBoundaries', app.window.getBounds())
         if (!windowCloseable) {
-            app.window.hide()
+            app.window.minimize()
             e.preventDefault()
         }
     })
@@ -29,6 +29,18 @@ setupWindowManagement = () => {
     electron.ipcMain.on('window-focus', () => {
         app.window.show()
         app.window.focus()
+    })
+
+    electron.ipcMain.on('window-maximize', () => {
+        if (app.window.isMaximized()) {
+            app.window.unmaximize()
+        } else {
+            app.window.maximize()
+        }
+    })
+
+    electron.ipcMain.on('window-minimize', () => {
+        app.window.minimize()
     })
 
     app.on('before-quit', () => windowCloseable = true)
@@ -82,16 +94,15 @@ start = () => {
         'web-preferences': {'web-security': false},
         //- background to avoid the flash of unstyled window
         backgroundColor: '#1D272D',
+        frame: false,
     }
     Object.assign(options, windowConfig.get('windowBoundaries'))
 
     if (platform == 'darwin') {
         options.titleBarStyle = 'hidden'
-    } else {
-        options.frame = false
     }
 
-    app.commandLine.appendSwitch('--disable-http-cache')
+    app.commandLine.appendSwitch('disable-http-cache')
 
     app.window = new electron.BrowserWindow(options)
     app.window.loadURL(`file://${app.getAppPath()}/assets/webpack/index.html`, {extraHeaders: "pragma: no-cache\n"})

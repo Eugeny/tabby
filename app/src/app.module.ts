@@ -9,6 +9,7 @@ import { ConfigService } from 'services/config'
 import { ElectronService } from 'services/electron'
 import { HostAppService } from 'services/hostApp'
 import { LogService } from 'services/log'
+import { HotkeysService } from 'services/hotkeys'
 import { ModalService } from 'services/modal'
 import { NotifyService } from 'services/notify'
 import { QuitterService } from 'services/quitter'
@@ -33,6 +34,7 @@ import { TerminalComponent } from 'components/terminal'
         ConfigService,
         ElectronService,
         HostAppService,
+        HotkeysService,
         LogService,
         ModalService,
         NotifyService,

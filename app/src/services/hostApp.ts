@@ -62,7 +62,15 @@ export class HostAppService {
         this.electron.ipcRenderer.send('window-focus')
     }
 
-    quit() {
+    minimizeWindow () {
+        this.electron.ipcRenderer.send('window-minimize')
+    }
+
+    maximizeWindow () {
+        this.electron.ipcRenderer.send('window-maximize')
+    }
+
+    quit () {
         this.logger.info('Quitting')
         this.electron.app.quit()
     }

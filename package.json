@@ -20,7 +20,7 @@
     "raw-loader": "^0.5.1",
     "style-loader": "^0.13.1",
     "to-string-loader": "^1.1.5",
-    "tslint": "4.0.2",
+    "tslint": "4.2.0",
     "typescript": "2.1.1",
     "typings": "2.0.0",
     "url-loader": "^0.5.7",

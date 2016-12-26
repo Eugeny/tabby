@@ -67,16 +67,19 @@ module.exports = {
         ]
     },
     externals: {
-        'electron': 'require("electron")',
+        'fs': 'require("fs")',
+        'buffer': 'require("buffer")',
+        'system': '{}',
+        'file': '{}',
+
         'net': 'require("net")',
+        'electron': 'require("electron")',
         'remote': 'require("remote")',
         'shell': 'require("shell")',
         'ipc': 'require("ipc")',
-        'fs': 'require("fs")',
-        'buffer': 'require("buffer")',
+        'crypto': 'require("crypto")',
         'pty.js': 'require("pty.js")',
-        'system': '{}',
-        'file': '{}'
+        'child-process-promise': 'require("child-process-promise")',
     },
     plugins: [
         new webpack.ProvidePlugin({

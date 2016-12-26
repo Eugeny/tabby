@@ -1,13 +1,11 @@
 import { Injectable } from '@angular/core'
 import { ToasterService } from 'angular2-toaster'
-import { LogService } from 'services/log'
 
 
 @Injectable()
 export class NotifyService {
     constructor(
         private toaster: ToasterService,
-        private log: LogService,
     ) {}
 
     pop(options) {

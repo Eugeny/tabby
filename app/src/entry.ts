@@ -19,7 +19,7 @@ if (nodeRequire('electron-is-dev')) {
 }
 
 console.timeStamp('angular bootstrap started')
-platformBrowserDynamic().bootstrapModule(AppModule)
+platformBrowserDynamic().bootstrapModule(AppModule);
 
 
-process.emitWarning = function () { console.log(arguments) }
+(<any>process).emitWarning = function () { console.log(arguments) }
