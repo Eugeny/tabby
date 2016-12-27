@@ -19,6 +19,7 @@ export class ElectronService {
         this.shell = this.electron.shell
         this.clipboard = this.electron.clipboard
         this.ipcRenderer = this.electron.ipcRenderer
+        this.globalShortcut = this.remoteElectron.globalShortcut
     }
 
     initTest() {
@@ -34,6 +35,7 @@ export class ElectronService {
     shell: any
     dialog: any
     clipboard: any
+    globalShortcut: any
     private electron: any
     private remoteElectron: any
 }

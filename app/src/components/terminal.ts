@@ -20,7 +20,12 @@ hterm.hterm.VT.ESC['k'] = function(parseState) {
 }
 
 hterm.hterm.defaultStorage = new hterm.lib.Storage.Memory()
-hterm.hterm.PreferenceManager.defaultPreferences['user-css'] = ``
+const pmgr = new hterm.hterm.PreferenceManager('default')
+pmgr.set('user-css', ``)
+pmgr.set('background-color', '#1D272D')
+pmgr.set('color-palette-overrides', {
+    0: '#1D272D',
+})
 const oldDecorate = hterm.hterm.ScrollPort.prototype.decorate
 hterm.hterm.ScrollPort.prototype.decorate = function (...args) {
     oldDecorate.bind(this)(...args)
@@ -73,6 +78,8 @@ export class TerminalComponent {
                 console.log(`Resizing to ${columns}x${rows}`)
                 this.session.resize(columns, rows)
             }
+
+            this.session.releaseInitialDataBuffer()
         }
         this.terminal.decorate(this.elementRef.nativeElement)
     }

@@ -1,4 +1,4 @@
-import { Component, ElementRef } from '@angular/core'
+import { Component, ElementRef, trigger, style, animate, transition, state } from '@angular/core'
 import { ModalService } from 'services/modal'
 import { ElectronService } from 'services/electron'
 import { HostAppService } from 'services/hostApp'
@@ -29,6 +29,24 @@ class Tab {
     selector: 'app',
     template: require('./app.pug'),
     styles: [require('./app.less')],
+    animations: [
+        trigger('animateTab', [
+            state('in', style({
+                'flex-grow': '1000',
+            })),
+            transition(':enter', [
+                style({
+                    'flex-grow': '1',
+                }),
+                animate('250ms ease-in-out')
+            ]),
+            transition(':leave', [
+                animate('250ms ease-in-out', style({
+                    'flex-grow': '1',
+                }))
+            ])
+        ])
+    ]
 })
 export class AppComponent {
     constructor(
@@ -65,7 +83,18 @@ export class AppComponent {
                         this.selectTab(this.tabs[9])
                     }
                 }
+                if (key.ctrl && key.shift && key.key == 'W' && this.activeTab) {
+                    this.closeTab(this.activeTab)
+                }
+                if (key.ctrl && key.shift && key.key == 'T' && this.activeTab) {
+                    this.newTab()
+                }
             }
+        })
+
+        this.hotkeys.registerHotkeys()
+        this.hotkeys.globalHotkey.subscribe(() => {
+            this.hostApp.toggleWindow()
         })
     }
 
@@ -92,9 +121,10 @@ export class AppComponent {
 
     closeTab (tab) {
         tab.session.gracefullyDestroy()
+        let newIndex = Math.max(0, this.tabs.indexOf(tab) - 1)
         this.tabs = this.tabs.filter((x) => x != tab)
         if (tab == this.activeTab) {
-            this.selectTab(this.tabs[0])
+            this.selectTab(this.tabs[newIndex])
         }
     }
 

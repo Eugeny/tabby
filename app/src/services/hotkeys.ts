@@ -1,4 +1,5 @@
 import { Injectable, NgZone, EventEmitter } from '@angular/core'
+import { ElectronService } from 'services/electron'
 const hterm = require('hterm-commonjs')
 
 
@@ -14,8 +15,12 @@ export interface Key {
 @Injectable()
 export class HotkeysService {
     key = new EventEmitter<Key>()
+    globalHotkey = new EventEmitter()
 
-    constructor(private zone: NgZone) {
+    constructor(
+        private zone: NgZone,
+        private electron: ElectronService,
+    ) {
         let events = [
             {
                 name: 'keydown',
@@ -45,7 +50,6 @@ export class HotkeysService {
     }
 
     emitNativeEvent (name, nativeEvent) {
-        console.debug('Key', nativeEvent)
         this.zone.run(() => {
             this.key.emit({
                 event: name,
@@ -55,6 +59,13 @@ export class HotkeysService {
                 ctrl: nativeEvent.ctrlKey,
                 key: nativeEvent.key,
             })
+        })
+    }
+
+    registerHotkeys () {
+        this.electron.globalShortcut.unregisterAll()
+        this.electron.globalShortcut.register('`', () => {
+            this.globalHotkey.emit()
         })
     }
 }

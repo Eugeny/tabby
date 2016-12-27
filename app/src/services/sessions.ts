@@ -57,17 +57,20 @@ export interface SessionOptions {
 export class Session {
     open: boolean
     name: string
-    pty: any
     dataAvailable = new EventEmitter()
     closed = new EventEmitter()
     destroyed = new EventEmitter()
+    private pty: any
+    private initialDataBuffer = ''
+    private initialDataBufferReleased = false
 
     constructor (options: SessionOptions) {
         this.name = options.name
         console.log('Spawning', options.command)
         this.pty = ptyjs.spawn('sh', ['-c', options.command], {
+            name: 'screen-256color',
+            //name: 'xterm-256color',
             //name: 'xterm-color',
-            name: 'xterm-256color',
             cols: 80,
             rows: 30,
             cwd: options.cwd || process.env.HOME,
@@ -77,13 +80,23 @@ export class Session {
         this.open = true
 
         this.pty.on('data', (data) => {
-            this.dataAvailable.emit(data)
+            if (!this.initialDataBufferReleased) {
+                this.initialDataBuffer += data
+            } else {
+                this.dataAvailable.emit(data)
+            }
         })
 
         this.pty.on('close', () => {
             this.open = false
             this.closed.emit()
         })
+    }
+
+    releaseInitialDataBuffer () {
+        this.initialDataBufferReleased = true
+        this.dataAvailable.emit(this.initialDataBuffer)
+        this.initialDataBuffer = null
     }
 
     resize (columns, rows) {
@@ -143,8 +156,8 @@ export class SessionsService {
         log: LogService,
     ) {
         this.logger = log.create('sessions')
-        this.recoveryProvider = new ScreenSessionRecoveryProvider()
-        //this.recoveryProvider = new NullSessionRecoveryProvider()
+        //this.recoveryProvider = new ScreenSessionRecoveryProvider()
+        this.recoveryProvider = new NullSessionRecoveryProvider()
     }
 
     createNewSession (options: SessionOptions) : Session {

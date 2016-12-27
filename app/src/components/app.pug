@@ -14,6 +14,7 @@
         [class.active]='tab == activeTab',
         [class.pre-selected]='tabs[idx + 1] == activeTab',
         [class.post-selected]='tabs[idx - 1] == activeTab',
+        @animateTab,
     )
         div.index {{idx + 1}}
         div.name {{tab.name || 'Terminal'}}
