@@ -22,6 +22,8 @@
     .btn-new-tab((click)='newTab()')
         i.fa.fa-plus
         span Tab
+    .btn-settings((click)='showSettings()')
+        i.fa.fa-cog
 
 .tabs-content
     .tab(*ngFor='let tab of tabs; trackBy: tab?.id', [class.active]='tab == activeTab')

@@ -18,6 +18,8 @@ import { LocalStorageService } from 'angular2-localstorage/LocalStorageEmitter'
 
 import { AppComponent } from 'components/app'
 import { CheckboxComponent } from 'components/checkbox'
+import { HotkeyInputComponent } from 'components/hotkeyInput'
+import { HotkeyInputModalComponent } from 'components/hotkeyInputModal'
 import { SettingsModalComponent } from 'components/settingsModal'
 import { TerminalComponent } from 'components/terminal'
 
@@ -43,11 +45,14 @@ import { TerminalComponent } from 'components/terminal'
         LocalStorageService,
     ],
     entryComponents: [
+        HotkeyInputModalComponent,
         SettingsModalComponent,
     ],
     declarations: [
         AppComponent,
         CheckboxComponent,
+        HotkeyInputComponent,
+        HotkeyInputModalComponent,
         SettingsModalComponent,
         TerminalComponent,
     ],

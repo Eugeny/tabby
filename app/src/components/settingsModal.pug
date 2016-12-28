@@ -2,95 +2,18 @@ div.modal-body
     ngb-tabset(type='tabs nav-justified')
         ngb-tab
             template(ngbTabTitle)
-                i.fa.fa-cog
-                | General
-            template(ngbTabContent)
-                .status-line.clickable(*ngIf='connectionHost', (click)='openWeb()')
-                    .icon
-                        i.fa.fa-rss.fa-2x.fa-live
-                    .main
-                        .title Server
-                        .value {{connectionHost}}
-
-                .status-line(*ngIf='!connectionHost')
-                    .icon
-                        i.fa.fa-rss.fa-2x
-                    .main
-                        .title Server
-                        .value Not connected
-
-
-                div.form-group
-                    checkbox(text='Remember connected workspaces', '[(model)]'='config.store.rememberWorkspaces')
-        ngb-tab
-            template(ngbTabTitle)
-                i.fa.fa-wrench
-                | Advanced
-            template(ngbTabContent)
-                div.form-group(*ngIf='isWindows || isLinux')
-                    div.input-group
-                        input.form-control(type='text', placeholder='SNFS projects folder', '[(ngModel)]'='config.store.snfsPath')
-                        div.input-group-btn
-                            button.btn.btn-default((click)='selectSNFSPath()')
-                                i.fa.fa-folder-open
-                div.form-group(*ngIf='isWindows')
-                    label First drive letter to use
-                    select.form-control('[(ngModel)]'='config.store.firstDrive')
-                        option(*ngFor='let x of drives', value='{{x}}') {{x}}:
-                div.form-group(*ngIf='isMac')
-                    label Extra NFS options
-                    input.form-control(type='text', '[(ngModel)]'='config.store.extraNFSOptions')
-                div.form-group(*ngIf='isMac')
-                    label Extra AFP options
-                    input.form-control(type='text', '[(ngModel)]'='config.store.extraAFPOptions')
-                div.form-group(*ngIf='isMac')
-                    label Extra SMB options
-                    input.form-control(type='text', '[(ngModel)]'='config.store.extraSMBOptions')
-                div.form-group(*ngIf='isLinux')
-                    label Extra NFS options
-                    input.form-control(type='text', '[(ngModel)]'='config.store.extraLinuxNFSOptions')
-                div.form-group(*ngIf='isLinux')
-                    label Extra SMB options
-                    input.form-control(type='text', '[(ngModel)]'='config.store.extraLinuxSMBOptions')
-
-        ngb-tab(*ngIf="apiServer.authorizedKeysStore.length > 0")
-            template(ngbTabTitle)
-                i.fa.fa-plug
-                | Apps
-            template(ngbTabContent)
-                .list-group
-                    .list-group-item(*ngFor="let key of apiServer.authorizedKeysStore")
-                        button.btn.btn-default((click)='apiServer.deauthorizeKey(key)')
-                            i.fa.fa-times
-                            span Disconnect this app
-                        div {{key.name}}
-
-        ngb-tab
-            template(ngbTabTitle)
-                i.fa.fa-info-circle
-                | About
+                i.fa.fa-keyboard-o
+                | Hotkeys
             template(ngbTabContent)
                 .form-group
-                    h1 ELEMENTS Client
-                    div syslink GmbH © {{year}}
-
-                .form-group
-                    label Version
-                    div {{version}}
-
-                .form-group
-                    button.btn.btn-default((click)='copyDiagnostics()') Copy diagnostic info
+                    table.table
+                        tr
+                            th Toggle terminal window
+                            td
+                                hotkey-input('[(model)]'='globalHotkey')
 
 div.modal-footer
     div.btn-group.btn-group-justified
-        a.btn.btn-default((click)='logout()', *ngIf='elementsClient.userInfo')
-            i.fa.fa-fw.fa-arrow-left
-            br
-            | Log out
-        a.btn.btn-default((click)='quit()')
-            i.fa.fa-fw.fa-power-off
-            br
-            | Quit
         a.btn.btn-default((click)='close()')
             i.fa.fa-fw.fa-check
             br

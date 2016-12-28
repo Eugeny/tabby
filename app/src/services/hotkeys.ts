@@ -1,21 +1,20 @@
 import { Injectable, NgZone, EventEmitter } from '@angular/core'
 import { ElectronService } from 'services/electron'
+import { NativeKeyEvent, stringifyKeySequence } from './hotkeys.util'
 const hterm = require('hterm-commonjs')
 
+const KEY_TIMEOUT = 2000
 
-export interface Key {
-    event: string,
-    alt: boolean,
-    ctrl: boolean,
-    cmd: boolean,
-    shift: boolean,
-    key: string
+interface EventBufferEntry {
+    event: NativeKeyEvent,
+    time: number,
 }
 
 @Injectable()
 export class HotkeysService {
-    key = new EventEmitter<Key>()
+    key = new EventEmitter<NativeKeyEvent>()
     globalHotkey = new EventEmitter()
+    private currentKeystrokes: EventBufferEntry[] = []
 
     constructor(
         private zone: NgZone,
@@ -25,10 +24,6 @@ export class HotkeysService {
             {
                 name: 'keydown',
                 htermHandler: 'onKeyDown_',
-            },
-            {
-                name: 'keypress',
-                htermHandler: 'onKeyPress_',
             },
             {
                 name: 'keyup',
@@ -50,16 +45,19 @@ export class HotkeysService {
     }
 
     emitNativeEvent (name, nativeEvent) {
+        nativeEvent.event = name
+
+        console.log(nativeEvent)
+        this.currentKeystrokes.push({ event: nativeEvent, time: performance.now() })
+
         this.zone.run(() => {
-            this.key.emit({
-                event: name,
-                alt: nativeEvent.altKey,
-                shift: nativeEvent.shiftKey,
-                cmd: nativeEvent.metaKey,
-                ctrl: nativeEvent.ctrlKey,
-                key: nativeEvent.key,
-            })
+            this.key.emit(nativeEvent)
         })
+    }
+
+    getCurrentKeystrokes () : string[] {
+        this.currentKeystrokes = this.currentKeystrokes.filter((x) => performance.now() - x.time < KEY_TIMEOUT )
+        return stringifyKeySequence(this.currentKeystrokes.map((x) => x.event))
     }
 
     registerHotkeys () {

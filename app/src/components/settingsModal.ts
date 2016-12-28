@@ -30,6 +30,8 @@ export class SettingsModalComponent {
     year: number
     version: string
 
+    globalHotkey = ['Ctrl+Shift+G']
+
     ngOnDestroy() {
         this.config.save()
     }
