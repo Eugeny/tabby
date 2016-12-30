@@ -1,0 +1,4 @@
+.body(*ngIf='partialHotkeyMatches?.length > 0')
+    .line(*ngFor='let match of partialHotkeyMatches; trackBy: match?.id', @animateLine)
+        hotkey-display([model]='match.strokes')
+        span {{ hotkeys.getHotkeyDescription(match.id).name }}

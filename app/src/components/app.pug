@@ -29,6 +29,8 @@
     .tab(*ngFor='let tab of tabs; trackBy: tab?.id', [class.active]='tab == activeTab')
         terminal([session]='tab.session', '[(title)]'='tab.name')
 
+hotkey-hint
+    
 toaster-container([toasterconfig]="toasterconfig")
 template(ngbModalContainer)
 

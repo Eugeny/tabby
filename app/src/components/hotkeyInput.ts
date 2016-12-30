@@ -5,7 +5,9 @@ import { HotkeyInputModalComponent } from './hotkeyInputModal'
 
 @Component({
   selector: 'hotkey-input',
-  template: require('./hotkeyInput.pug'),
+  template: `
+    <hotkey-display [model]='model'></hotkey-display>
+  `,
   styles: [require('./hotkeyInput.less')],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

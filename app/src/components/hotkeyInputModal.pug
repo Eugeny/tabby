@@ -1,11 +1,8 @@
 div.modal-body
     label Press the key now
     .input
-        .stroke(*ngFor='let stroke of value')
-            .key-container(*ngFor='let key of splitKeys(stroke); let isLast = last')
-                .key {{key}}
-                .plus(*ngIf='!isLast') +
+        hotkey-display([model]='value')
 
     .timeout
         div([style.width]='timeoutProgress + "%"')
-    a.btn.btn-default((click)='close()') Cancel
+    a.btn.btn-default.pull-right((click)='close()') Cancel

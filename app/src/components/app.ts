@@ -49,6 +49,10 @@ class Tab {
     ]
 })
 export class AppComponent {
+    toasterConfig: ToasterConfig
+    tabs: Tab[] = []
+    activeTab: Tab
+
     constructor(
         private modal: ModalService,
         private elementRef: ElementRef,
@@ -70,6 +74,17 @@ export class AppComponent {
             timeout: 4000,
         })
 
+        this.hotkeys.matchedHotkey.subscribe((hotkey) => {
+            if (hotkey == 'new-tab') {
+                this.newTab()
+            }
+            if (hotkey == 'close-tab') {
+                if (this.activeTab) {
+                    this.closeTab(this.activeTab)
+                }
+            }
+        })
+
         this.hotkeys.key.subscribe((key) => {
             if (key.event == 'keydown') {
                 if (key.alt && key.key >= '1' && key.key <= '9') {
@@ -83,12 +98,6 @@ export class AppComponent {
                         this.selectTab(this.tabs[9])
                     }
                 }
-                if (key.ctrl && key.shift && key.key == 'W' && this.activeTab) {
-                    this.closeTab(this.activeTab)
-                }
-                if (key.ctrl && key.shift && key.key == 'T' && this.activeTab) {
-                    this.newTab()
-                }
             }
         })
 
@@ -97,10 +106,6 @@ export class AppComponent {
             this.hostApp.toggleWindow()
         })
     }
-
-    toasterConfig: ToasterConfig
-    tabs: Tab[] = []
-    activeTab: Tab
 
     newTab () {
         this.addSessionTab(this.sessions.createNewSession({command: 'bash'}))

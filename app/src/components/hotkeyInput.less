@@ -1,4 +1,7 @@
-.button-states() {
+:host {
+    display: inline-block;
+    padding: 5px 10px;
+
     transition: 0.125s all;
 
     &:hover:not(.active) {
@@ -8,32 +11,4 @@
     &:active:not(.active) {
         background: rgba(0, 0, 0, .1);
     }
-}
-
-:host {
-    display: inline-block;
-    padding: 5px 10px;
-
-    .stroke {
-        display: inline-block;
-        margin-right: 5px;
-
-        .key-container {
-            display: inline-block;
-
-            .key {
-                display: inline-block;
-                padding: 4px 5px;
-                background: #333;
-                text-shadow: 0 1px 0 rgba(0,0,0,.5);
-            }
-
-            .plus {
-                display: inline-block;
-                margin: 0 5px;
-            }
-        }
-    }
-
-    .button-states();
 }

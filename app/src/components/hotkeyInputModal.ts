@@ -23,6 +23,7 @@ export class HotkeyInputModalComponent {
         private modalInstance: NgbActiveModal,
         public hotkeys: HotkeysService,
     ) {
+        this.hotkeys.clearCurrentKeystrokes()
         this.keySubscription = hotkeys.key.subscribe(() => {
             this.lastKeyEvent = performance.now()
             this.value = this.hotkeys.getCurrentKeystrokes()
