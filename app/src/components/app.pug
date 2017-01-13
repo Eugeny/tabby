@@ -16,9 +16,10 @@
         [class.post-selected]='tabs[idx - 1] == activeTab',
         @animateTab,
     )
-        div.index {{idx + 1}}
-        div.name {{tab.name || 'Terminal'}}
-        button((click)='closeTab(tab)') &times;
+        .content-wrapper
+            div.index {{idx + 1}}
+            div.name {{tab.name || 'Terminal'}}
+            button((click)='closeTab(tab)') &times;
     .btn-new-tab((click)='newTab()')
         i.fa.fa-plus
         span Tab
@@ -30,7 +31,7 @@
         terminal([session]='tab.session', '[(title)]'='tab.name')
 
 hotkey-hint
-    
+
 toaster-container([toasterconfig]="toasterconfig")
 template(ngbModalContainer)
 

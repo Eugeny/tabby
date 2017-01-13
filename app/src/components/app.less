@@ -15,7 +15,7 @@
 
 @titlebar-height: 35px;
 @tabs-height: 40px;
-@tab-border-radius: 3px;
+@tab-border-radius: 4px;
 
 .button-states() {
     transition: 0.125s all;
@@ -61,7 +61,7 @@
 .tabs {
     flex: none;
     height: @tabs-height;
-    background: #141c23;
+    background: @body-bg;
 
     display: flex;
     flex-direction: row;
@@ -81,6 +81,7 @@
         text-transform: uppercase;
         font-weight: bold;
         color: #888;
+        background: #141c23;
 
         i {
             margin-right: 10px;
@@ -94,78 +95,94 @@
         flex-basis: 0;
         flex-grow: 1000;
 
-        background: @body-bg;
-
         display: flex;
-        flex-direction: row;
         overflow: hidden;
         min-width: 0;
-
-        &.pre-selected, &:nth-last-child(2) {
-            border-top-right-radius: @tab-border-radius;
-        }
-
-        &.post-selected {
-            border-top-left-radius: @tab-border-radius;
-        }
-
-        div.index {
-            flex: none;
-            padding: 0 0 0 15px;
-            font-weight: bold;
-            color: #444;
-        }
-
-        div.name {
-            flex: auto;
-            margin: 0 15px 0 10px;
-            overflow: hidden;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-            min-width: 0;
-        }
-
-        border-bottom: 2px solid transparent;
-        transition: 0.25s all;
+        background: @body-bg;
 
         .button-states();
 
+        .content-wrapper {
+            display: flex;
+            flex-direction: row;
+            flex: auto;
+            min-width: 0;
+            background: #141c23;
+
+            div.index {
+                flex: none;
+                padding: 0 0 0 15px;
+                font-weight: bold;
+                color: #444;
+            }
+
+            div.name {
+                flex: auto;
+                margin: 0 1px 0 10px;
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                min-width: 0;
+            }
+
+            button {
+                flex: none;
+
+                border: none;
+                background: transparent;
+                opacity: 0;
+                transition: 0.25s all;
+
+                @button-size: @tabs-height * 0.6;
+                width: @button-size;
+                height: @button-size;
+                border-radius: @button-size / 2;
+                line-height: @button-size * 0.8;
+                margin-top: (@tabs-height - @button-size) * 0.4;
+                margin-right: 10px;
+
+                display: block;
+                text-align: center;
+                font-size: 20px;
+
+                &:hover {
+                    background: rgba(255, 255, 255, .05);
+                }
+
+                &:active {
+                    background: rgba(0, 0, 0, .1);
+                }
+            }
+
+            &:hover button {
+                opacity: 1;
+            }
+        }
+
+        //border-bottom: 2px solid transparent;
+        transition: 0.25s all;
+
+        &.pre-selected, &:nth-last-child(2) {
+            .content-wrapper {
+                border-bottom-right-radius: @tab-border-radius;
+            }
+        }
+
+        &.post-selected {
+            .content-wrapper {
+                border-bottom-left-radius: @tab-border-radius;
+            }
+        }
+
         &.active {
             background: #141c23;
-            border-bottom: 2px solid #69bbea;
-        }
 
-        button {
-            flex: none;
-
-            border: none;
-            background: transparent;
-            opacity: 0;
-            transition: 0.25s all;
-
-            @button-size: @tabs-height * 0.6;
-            width: @button-size;
-            height: @button-size;
-            border-radius: @button-size / 2;
-            line-height: @button-size * 0.8;
-            margin-top: (@tabs-height - @button-size) * 0.4;
-            margin-right: 10px;
-
-            display: block;
-            text-align: center;
-            font-size: 20px;
-
-            &:hover {
-                background: rgba(255, 255, 255, .05);
+            .content-wrapper {
+                //border-bottom: 2px solid #69bbea;
+                background: @body-bg;
+                border-top-left-radius: @tab-border-radius;
+                border-top-right-radius: @tab-border-radius;
             }
-
-            &:active {
-                background: rgba(0, 0, 0, .1);
-            }
-        }
-
-        &:hover button {
-            opacity: 1;
         }
     }
 }
