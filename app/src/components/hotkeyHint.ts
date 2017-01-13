@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, trigger, style, animate, transition, state } from '@angular/core'
+import { Component, ChangeDetectionStrategy, Input, trigger, style, animate, transition, state } from '@angular/core'
 import { HotkeysService, PartialHotkeyMatch } from 'services/hotkeys'
 
 
@@ -32,28 +32,39 @@ import { HotkeysService, PartialHotkeyMatch } from 'services/hotkeys'
   ]
 })
 export class HotkeyHintComponent {
-    partialHotkeyMatches: PartialHotkeyMatch[]
+    @Input() partialHotkeyMatches: PartialHotkeyMatch[]
     private keyTimeoutInterval: NodeJS.Timer = null
 
     constructor (
         public hotkeys: HotkeysService,
     ) {
         this.hotkeys.key.subscribe(() => {
+            //console.log('Keystrokes', this.hotkeys.getCurrentKeystrokes())
             let partialMatches = this.hotkeys.getCurrentPartiallyMatchedHotkeys()
             if (partialMatches.length > 0) {
-                console.log('Partial matches:', partialMatches)
-                this.partialHotkeyMatches = partialMatches
+                //console.log('Partial matches:', partialMatches)
+                this.setMatches(partialMatches)
 
                 if (this.keyTimeoutInterval == null) {
                     this.keyTimeoutInterval = setInterval(() => {
                         if (this.hotkeys.getCurrentPartiallyMatchedHotkeys().length == 0) {
                             clearInterval(this.keyTimeoutInterval)
                             this.keyTimeoutInterval = null
-                            this.partialHotkeyMatches = null
+                            this.setMatches(null)
                         }
                     }, 500)
                 }
+            } else {
+                this.setMatches(null)
             }
         })
+    }
+
+    setMatches (matches: PartialHotkeyMatch[]) {
+        this.partialHotkeyMatches = matches
+    }
+
+    trackByFn (_, item) {
+        return item && item.id
     }
 }

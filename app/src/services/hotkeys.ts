@@ -28,6 +28,21 @@ const HOTKEYS: HotkeyDescription[] = [
         name: 'Close tab',
         defaults: [['Ctrl+Shift+W'], ['Ctrl+A', 'K']],
     },
+    {
+        id: 'toggle-last-tab',
+        name: 'Toggle last tab',
+        defaults: [['Ctrl+A', 'A'], ['Ctrl+A', 'Ctrl+A']],
+    },
+    {
+        id: 'next-tab',
+        name: 'Next tab',
+        defaults: [['Ctrl+Shift-ArrowRight'], ['Ctrl+A', 'N']],
+    },
+    {
+        id: 'previous-tab',
+        name: 'Previous tab',
+        defaults: [['Ctrl+Shift-ArrowLeft'], ['Ctrl+A', 'P']],
+    },
 ]
 
 
@@ -79,7 +94,7 @@ export class HotkeysService {
     emitNativeEvent (name, nativeEvent) {
         nativeEvent.event = name
 
-        console.log(nativeEvent)
+        //console.log(nativeEvent)
         this.currentKeystrokes.push({ event: nativeEvent, time: performance.now() })
 
         this.zone.run(() => {
@@ -144,7 +159,7 @@ export class HotkeysService {
                 let currentStrokes = this.getCurrentKeystrokes()
 
                 for (let matchLength = Math.min(currentStrokes.length, sequence.length); matchLength > 0; matchLength--) {
-                    console.log(sequence, currentStrokes.slice(currentStrokes.length - sequence.length))
+                    //console.log(sequence, currentStrokes.slice(currentStrokes.length - sequence.length))
                     if (sequence.slice(0, matchLength).every((x, index) => {
                         return x.toLowerCase() == currentStrokes[currentStrokes.length - matchLength + index].toLowerCase()
                     })) {
