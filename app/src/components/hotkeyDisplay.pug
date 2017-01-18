@@ -1,7 +1,7 @@
 .stroke(*ngFor='let stroke of model')
     .key-container(
         *ngFor='let key of splitKeys(stroke); let isLast = last; trackBy: key',
-        @animateKey
+        [@animateKey]='animate ? "in" : ""'
     )
         .key {{key}}
         .plus(*ngIf='!isLast') +

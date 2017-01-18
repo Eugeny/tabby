@@ -57,6 +57,7 @@ export class HotkeysService {
     matchedHotkey = new EventEmitter<string>()
     globalHotkey = new EventEmitter()
     private currentKeystrokes: EventBufferEntry[] = []
+    private disabledLevel = 0
 
     constructor(
         private zone: NgZone,
@@ -98,11 +99,13 @@ export class HotkeysService {
         this.currentKeystrokes.push({ event: nativeEvent, time: performance.now() })
 
         this.zone.run(() => {
-            let matched = this.getCurrentFullyMatchedHotkey()
-            if (matched) {
-                console.log('Matched hotkey', matched)
-                this.matchedHotkey.emit(matched)
-                this.clearCurrentKeystrokes()
+            if (this.isEnabled()) {
+                let matched = this.getCurrentFullyMatchedHotkey()
+                if (matched) {
+                    console.log('Matched hotkey', matched)
+                    this.matchedHotkey.emit(matched)
+                    this.clearCurrentKeystrokes()
+                }
             }
             this.key.emit(nativeEvent)
         })
@@ -179,4 +182,17 @@ export class HotkeysService {
     getHotkeyDescription (id: string) : HotkeyDescription {
         return HOTKEYS.filter((x) => x.id == id)[0]
     }
+
+    enable () {
+        this.disabledLevel--
+    }
+
+    disable () {
+        this.disabledLevel++
+    }
+
+    isEnabled () {
+        return this.disabledLevel == 0
+    }
+
 }

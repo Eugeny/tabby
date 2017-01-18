@@ -44,9 +44,11 @@ export class HotkeyInputModalComponent {
                 this.modalInstance.close(this.value)
             }
         }, 25)
+        this.hotkeys.disable()
     }
 
     ngOnDestroy () {
+        this.hotkeys.enable()
         clearInterval(this.keyTimeoutInterval)
     }
 
