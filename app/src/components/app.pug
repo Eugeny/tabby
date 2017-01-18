@@ -1,12 +1,3 @@
-.titlebar
-    .title((dblclick)='hostApp.maximizeWindow()') Term
-    .btn-minimize((click)='hostApp.minimizeWindow()')
-        i.fa.fa-window-minimize
-    .btn-maximize((click)='hostApp.maximizeWindow()')
-        i.fa.fa-window-maximize
-    .btn-close((click)='hostApp.quit()')
-        i.fa.fa-close
-
 .tabs
     .tab(
         *ngFor='let tab of tabs; let idx = index; trackBy: tab?.id',
@@ -20,11 +11,16 @@
             div.index {{idx + 1}}
             div.name {{tab.name || 'Terminal'}}
             button((click)='closeTab(tab)') &times;
-    .btn-new-tab((click)='newTab()')
+    button.btn-new-tab((click)='newTab()')
         i.fa.fa-plus
-        span Tab
-    .btn-settings((click)='showSettings()')
+    button.btn-settings((click)='showSettings()')
         i.fa.fa-cog
+    button.btn-minimize((click)='hostApp.minimizeWindow()')
+        i.fa.fa-window-minimize
+    button.btn-maximize((click)='hostApp.maximizeWindow()')
+        i.fa.fa-window-maximize
+    button.btn-close((click)='hostApp.quit()')
+        i.fa.fa-close
 
 .tabs-content
     .tab(*ngFor='let tab of tabs; trackBy: tab?.id', [class.active]='tab == activeTab')

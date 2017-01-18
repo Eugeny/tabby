@@ -13,7 +13,6 @@
     background: @body-bg;
 }
 
-@titlebar-height: 35px;
 @tabs-height: 40px;
 @tab-border-radius: 4px;
 
@@ -29,35 +28,6 @@
     }
 }
 
-.titlebar {
-    height: @titlebar-height;
-    background: #141c23;
-    flex: none;
-    display: flex;
-    flex-direction: row;
-
-    .title {
-        flex: auto;
-        padding-left: 15px;
-        line-height: @titlebar-height;
-        -webkit-app-region: drag;
-    }
-
-    .btn-minimize, .btn-maximize, .btn-close {
-        flex: none;
-        line-height: @titlebar-height - 2px;
-        padding: 0 15px;
-        font-size: 8px;
-
-        .button-states();
-        cursor: pointer;
-    }
-
-    .btn-close {
-        font-size: 12px;
-    }
-}
-
 .tabs {
     flex: none;
     height: @tabs-height;
@@ -66,34 +36,41 @@
     display: flex;
     flex-direction: row;
 
-    .btn-settings, .btn-new-tab, .tab {
-        line-height: @tabs-height - 2px;
-        cursor: pointer;
-    }
-
-    .btn-new-tab, .btn-settings {
-        padding: 0 15px;
+    &>button {
+        border: none;
         flex: none;
-        flex-grow: 0;
-        border-bottom: 2px solid transparent;
-        transition: 0.25s all;
-
-        text-transform: uppercase;
-        font-weight: bold;
-        color: #888;
+        line-height: @tabs-height;
+        padding: 0 15px;
+        font-size: 8px;
         background: #141c23;
 
-        i {
-            margin-right: 10px;
+        .button-states();
+        cursor: pointer;
+
+        &.btn-close {
+            font-size: 12px;
         }
 
-        .button-states();
+        &.btn-new-tab {
+            border-bottom-left-radius: @tab-border-radius;
+            font-size: 14px;
+        }
+
+        &.btn-settings {
+            font-size: 14px;
+        }
     }
 
     .tab {
         flex: auto;
         flex-basis: 0;
         flex-grow: 1000;
+
+        &:active {
+            -webkit-app-region: drag;
+        }
+
+        line-height: @tabs-height - 2px;
 
         display: flex;
         overflow: hidden;
@@ -180,8 +157,6 @@
             .content-wrapper {
                 //border-bottom: 2px solid #69bbea;
                 background: @body-bg;
-                border-top-left-radius: @tab-border-radius;
-                border-top-right-radius: @tab-border-radius;
             }
         }
     }
