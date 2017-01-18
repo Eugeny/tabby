@@ -128,7 +128,11 @@ export class AppComponent {
     }
 
     selectTab (tab) {
-        this.lastTabIndex = this.tabs.indexOf(this.activeTab)
+        if (this.tabs.includes(this.activeTab)) {
+            this.lastTabIndex = this.tabs.indexOf(this.activeTab)
+        } else {
+            this.lastTabIndex = null
+        }
         this.activeTab = tab
         setImmediate(() => {
             this.elementRef.nativeElement.querySelector(':scope .tab.active iframe').focus()
