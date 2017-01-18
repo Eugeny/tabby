@@ -22,7 +22,7 @@ import { HotkeyInputComponent } from 'components/hotkeyInput'
 import { HotkeyDisplayComponent } from 'components/hotkeyDisplay'
 import { HotkeyHintComponent } from 'components/hotkeyHint'
 import { HotkeyInputModalComponent } from 'components/hotkeyInputModal'
-import { SettingsModalComponent } from 'components/settingsModal'
+import { SettingsPaneComponent } from 'components/settingsPane'
 import { TerminalComponent } from 'components/terminal'
 
 
@@ -48,7 +48,6 @@ import { TerminalComponent } from 'components/terminal'
     ],
     entryComponents: [
         HotkeyInputModalComponent,
-        SettingsModalComponent,
     ],
     declarations: [
         AppComponent,
@@ -57,7 +56,7 @@ import { TerminalComponent } from 'components/terminal'
         HotkeyHintComponent,
         HotkeyInputComponent,
         HotkeyInputModalComponent,
-        SettingsModalComponent,
+        SettingsPaneComponent,
         TerminalComponent,
     ],
     bootstrap: [

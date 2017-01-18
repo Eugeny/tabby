@@ -1,0 +1,12 @@
+ngb-tabset(type='tabs nav-justified')
+    ngb-tab
+        template(ngbTabTitle)
+            i.fa.fa-keyboard-o
+            | Hotkeys
+        template(ngbTabContent)
+            .form-group
+                table.table
+                    tr
+                        th Toggle terminal window
+                        td
+                            hotkey-input('[(model)]'='globalHotkey')

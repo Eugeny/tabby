@@ -19,6 +19,8 @@
 
 .button-states() {
     transition: 0.125s all;
+    border: none;
+    background: transparent;
 
     &:hover:not(.active) {
         background: rgba(255, 255, 255, .033);
@@ -43,7 +45,7 @@
         -webkit-app-region: drag;
     }
 
-    .btn-minimize, .btn-maximize, .btn-close {
+    button {
         flex: none;
         line-height: @titlebar-height - 2px;
         padding: 0 15px;
@@ -62,32 +64,36 @@
     flex: none;
     height: @tabs-height;
     background: @body-bg;
-
     display: flex;
     flex-direction: row;
 
-    .btn-settings, .btn-new-tab, .tab {
+    &>button, .tab {
         line-height: @tabs-height - 2px;
         cursor: pointer;
     }
 
-    .btn-new-tab, .btn-settings {
+    &>button {
         padding: 0 15px;
         flex: none;
         flex-grow: 0;
         border-bottom: 2px solid transparent;
         transition: 0.25s all;
+        font-size: 12px;
+
+        .button-states();
 
         text-transform: uppercase;
         font-weight: bold;
         color: #888;
         background: #141c23;
+    }
 
-        i {
-            margin-right: 10px;
-        }
+    &.active-tab-0 .btn-new-tab {
+        border-bottom-right-radius: @tab-border-radius;
+    }
 
-        .button-states();
+    .tab.active + button {
+        border-bottom-left-radius: @tab-border-radius;
     }
 
     .tab {
@@ -99,6 +105,7 @@
         overflow: hidden;
         min-width: 0;
         background: @body-bg;
+        transition: 0.25s all;
 
         .button-states();
 
@@ -108,6 +115,7 @@
             flex: auto;
             min-width: 0;
             background: #141c23;
+            transition: 0.25s all;
 
             div.index {
                 flex: none;
@@ -162,7 +170,7 @@
         //border-bottom: 2px solid transparent;
         transition: 0.25s all;
 
-        &.pre-selected, &:nth-last-child(2) {
+        &.pre-selected, &:nth-last-child(1) {
             .content-wrapper {
                 border-bottom-right-radius: @tab-border-radius;
             }
@@ -195,7 +203,7 @@
         display: none;
         flex: auto;
         position: relative;
-        padding: 10px 15px;
+        padding: 15px;
 
         &.active {
             display: flex;

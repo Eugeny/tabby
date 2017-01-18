@@ -22,6 +22,7 @@ hterm.hterm.VT.ESC['k'] = function(parseState) {
 hterm.hterm.defaultStorage = new hterm.lib.Storage.Memory()
 const pmgr = new hterm.hterm.PreferenceManager('default')
 pmgr.set('user-css', ``)
+pmgr.set('font-size', 12)
 pmgr.set('background-color', '#1D272D')
 pmgr.set('color-palette-overrides', {
     0: '#1D272D',

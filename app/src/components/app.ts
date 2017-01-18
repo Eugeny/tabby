@@ -1,5 +1,4 @@
 import { Component, ElementRef, trigger, style, animate, transition, state } from '@angular/core'
-import { ModalService } from 'services/modal'
 import { ElectronService } from 'services/electron'
 import { HostAppService } from 'services/hostApp'
 import { HotkeysService } from 'services/hotkeys'
@@ -8,19 +7,23 @@ import { QuitterService } from 'services/quitter'
 import { ToasterConfig } from 'angular2-toaster'
 import { Session, SessionsService } from 'services/sessions'
 
-import { SettingsModalComponent } from 'components/settingsModal'
-
 import 'angular2-toaster/lib/toaster.css'
 import 'global.less'
 
+
+const TYPE_TERMINAL = 'terminal'
+const TYPE_SETTINGS = 'settings'
 
 class Tab {
     id: number
     name: string
     static lastTabID = 0
 
-    constructor (public session: Session) {
+    constructor (public type: string, public session: Session) {
         this.id = Tab.lastTabID++
+        if (type == TYPE_SETTINGS) {
+            this.name = 'Settings'
+        }
     }
 }
 
@@ -55,7 +58,6 @@ export class AppComponent {
     lastTabIndex = 0
 
     constructor(
-        private modal: ModalService,
         private elementRef: ElementRef,
         private sessions: SessionsService,
         public hostApp: HostAppService,
@@ -118,11 +120,11 @@ export class AppComponent {
     }
 
     newTab () {
-        this.addSessionTab(this.sessions.createNewSession({command: 'bash'}))
+        this.addTerminalTab(this.sessions.createNewSession({command: 'bash'}))
     }
 
-    addSessionTab (session) {
-        let tab = new Tab(session)
+    addTerminalTab (session) {
+        let tab = new Tab(TYPE_TERMINAL, session)
         this.tabs.push(tab)
         this.selectTab(tab)
     }
@@ -161,7 +163,9 @@ export class AppComponent {
     }
 
     closeTab (tab) {
-        tab.session.gracefullyDestroy()
+        if (tab.session) {
+            tab.session.gracefullyDestroy()
+        }
         let newIndex = Math.max(0, this.tabs.indexOf(tab) - 1)
         this.tabs = this.tabs.filter((x) => x != tab)
         if (tab == this.activeTab) {
@@ -173,7 +177,7 @@ export class AppComponent {
         this.sessions.recoverAll().then((recoveredSessions) => {
             if (recoveredSessions.length > 0) {
                 recoveredSessions.forEach((session) => {
-                    this.addSessionTab(session)
+                    this.addTerminalTab(session)
                 })
             } else {
                 this.newTab()
@@ -185,6 +189,11 @@ export class AppComponent {
     }
 
     showSettings() {
-        this.modal.open(SettingsModalComponent)
+        let settingsTab = this.tabs.find((x) => x.type == TYPE_SETTINGS)
+        if (!settingsTab) {
+            settingsTab = new Tab(TYPE_SETTINGS, null)
+            this.tabs.push(settingsTab)
+        }
+        this.selectTab(settingsTab)
     }
 }
