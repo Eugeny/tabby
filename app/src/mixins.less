@@ -1,0 +1,24 @@
+@import "~variables.less";
+
+.button-states() {
+    transition: 0.125s all;
+    border: none;
+
+    &:hover:not(.active) {
+        background: rgba(255, 255, 255, .033);
+    }
+
+    &:active:not(.active),
+    &.active {
+        background: rgba(0, 0, 0, .1);
+    }
+}
+
+.list-group-item-style() {
+    display: block;
+    padding: 10px 15px;
+    background: @component-bg;
+    color: @text-color;
+    text-align: left;
+    .button-states();
+}

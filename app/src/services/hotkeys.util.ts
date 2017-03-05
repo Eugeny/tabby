@@ -52,7 +52,7 @@ export function stringifyKeySequence(events: NativeKeyEvent[]): string[] {
                 continue
             }
             itemKeys.push(lastEvent.key)
-            items.push(itemKeys.join('+'))
+            items.push(itemKeys.join('-'))
         }
         lastEvent = event
     }

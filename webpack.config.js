@@ -64,6 +64,7 @@ module.exports = {
                   name: 'fonts/[name].[hash:8].[ext]'
                 }
             },
+            { test: /\.yaml$/, loader: "json-loader!yaml-loader" },
         ]
     },
     externals: {

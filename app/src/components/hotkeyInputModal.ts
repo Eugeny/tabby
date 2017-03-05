@@ -14,7 +14,7 @@ const INPUT_TIMEOUT = 2000
 export class HotkeyInputModalComponent {
     private keySubscription: Subscription
     private lastKeyEvent: number
-    private keyTimeoutInterval: NodeJS.Timer
+    private keyTimeoutInterval: number = null
 
     @Input() value: string[] = []
     @Input() timeoutProgress = 0

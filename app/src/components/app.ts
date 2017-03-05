@@ -81,6 +81,12 @@ export class AppComponent {
             if (hotkey == 'new-tab') {
                 this.newTab()
             }
+            if (hotkey.startsWith('tab-')) {
+                let index = parseInt(hotkey.split('-')[1])
+                if (index <= this.tabs.length) {
+                    this.selectTab(this.tabs[index - 1])
+                }
+            }
             if (this.activeTab) {
                 if (hotkey == 'close-tab') {
                     this.closeTab(this.activeTab)
@@ -137,7 +143,10 @@ export class AppComponent {
         }
         this.activeTab = tab
         setImmediate(() => {
-            this.elementRef.nativeElement.querySelector(':scope .tab.active iframe').focus()
+            let iframe = this.elementRef.nativeElement.querySelector(':scope .tab.active iframe')
+            if (iframe) {
+                iframe.focus()
+            }
         })
     }
 

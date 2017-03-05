@@ -1,5 +1,6 @@
-@import "~bootstrap/less/variables.less";
-@import "~bootstrap/variables.less";
+@import "~variables.less";
+@import "~mixins.less";
+
 
 :host {
     display: flex;
@@ -16,20 +17,6 @@
 @titlebar-height: 35px;
 @tabs-height: 40px;
 @tab-border-radius: 4px;
-
-.button-states() {
-    transition: 0.125s all;
-    border: none;
-    background: transparent;
-
-    &:hover:not(.active) {
-        background: rgba(255, 255, 255, .033);
-    }
-
-    &:active:not(.active) {
-        background: rgba(0, 0, 0, .1);
-    }
-}
 
 .titlebar {
     height: @titlebar-height;
@@ -50,8 +37,15 @@
         line-height: @titlebar-height - 2px;
         padding: 0 15px;
         font-size: 8px;
+        color: #444;
+        background: transparent;
+        transition: 0.25s all;
 
         .button-states();
+
+        &:hover {
+            color: white;
+        }
         cursor: pointer;
     }
 
@@ -138,8 +132,11 @@
 
                 border: none;
                 background: transparent;
-                opacity: 0;
+                color: @text-color;
+
                 transition: 0.25s all;
+                display: block;
+                opacity: 0;
 
                 @button-size: @tabs-height * 0.6;
                 width: @button-size;
@@ -149,7 +146,6 @@
                 margin-top: (@tabs-height - @button-size) * 0.4;
                 margin-right: 10px;
 
-                display: block;
                 text-align: center;
                 font-size: 20px;
 
@@ -163,6 +159,8 @@
             }
 
             &:hover button {
+                transition: 0.25s opacity;
+                display: block;
                 opacity: 1;
             }
         }

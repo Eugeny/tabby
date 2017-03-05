@@ -10,5 +10,8 @@
     "electron-is-dev": "^0.1.2",
     "path": "^0.12.7",
     "pty.js": "https://github.com/Tyriar/pty.js/tarball/c75c2dcb6dcad83b0cb3ef2ae42d0448fb912642"
+  },
+  "devDependencies": {
+    "js-yaml": "^3.8.2"
   }
 }

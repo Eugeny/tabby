@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, Input, trigger, style, animate, transition, state } from '@angular/core'
+import { Component, Input, trigger, style, animate, transition, state } from '@angular/core'
 import { HotkeysService, PartialHotkeyMatch } from 'services/hotkeys'
 
 
@@ -33,7 +33,7 @@ import { HotkeysService, PartialHotkeyMatch } from 'services/hotkeys'
 })
 export class HotkeyHintComponent {
     @Input() partialHotkeyMatches: PartialHotkeyMatch[]
-    private keyTimeoutInterval: NodeJS.Timer = null
+    private keyTimeoutInterval: number = null
 
     constructor (
         public hotkeys: HotkeysService,

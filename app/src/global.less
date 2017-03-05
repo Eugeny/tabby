@@ -1,5 +1,16 @@
-@import "~bootstrap/include.less";
+@import "~variables.less";
+@import "~mixins.less";
 
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: @font-family;
+    font-size: @font-size;
+    color: @text-color;
+}
 
 html.platform-win32 {
     body.focused {
@@ -85,25 +96,37 @@ ngb-modal-window.fade.in {
 }
 
 ngb-tabset {
-    >ul.nav-tabs.nav-justified {
+    >ul.nav-tabs {
         border-bottom: none;
         margin-bottom: 10px;
         background: rgba(0,0,0,.25);
+        display: flex;
+        align-items: start;
+        padding: 0;
+        margin: 0;
 
-        .nav-item .nav-link {
-            background: transparent;
-            border: none;
+        .nav-item {
+            flex: none;
+            display: flex;
 
-            &.active {
-                background: rgba(0,0,0,.5);
-                border-bottom: 1px solid #777;
-            }
+            .nav-link {
+                background: transparent;
+                border: none;
+                padding: 10px 15px;
+                color: @text-color;
+                text-decoration: none;
 
-            i {
-                display: block;
-                text-align: center;
-                font-size: 18px;
-                margin: 0 0 5px;
+                &.active {
+                    background: rgba(0,0,0,.5);
+                    border-bottom: 1px solid #777;
+                }
+
+                i {
+                    display: block;
+                    text-align: center;
+                    font-size: 18px;
+                    margin: 0 0 5px;
+                }
             }
         }
     }
@@ -133,4 +156,22 @@ ngb-tabset {
             background: rgba(0,0,0,.25);
         }
     }
+}
+
+
+ngb-typeahead-window {
+    max-height: 200px;
+    overflow-y: auto;
+
+    >button {
+        display: block;
+        width: 100%;
+        -webkit-appearance: none;
+        border-bottom: 1px solid @dark-border;
+        .list-group-item-style();
+    }
+}
+
+.list-group-item {
+    .list-group-item-style();
 }

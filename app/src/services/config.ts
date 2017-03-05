@@ -1,40 +1,40 @@
+import * as yaml from 'js-yaml'
+import * as path from 'path'
+import * as fs from 'fs'
 import { Injectable } from '@angular/core'
-const Config = nodeRequire('electron-config')
+import { ElectronService } from 'services/electron'
 
+const defaultConfig : IConfigData = require('../../defaultConfig.yaml')
+
+export interface IConfigData {
+    hotkeys?: any
+}
 
 @Injectable()
 export class ConfigService {
-    constructor() {
-        this.config = new Config({name: 'config'})
+    constructor (
+        electron: ElectronService
+    ) {
+        this.path = path.join(electron.app.getPath('userData'), 'config.yaml')
         this.load()
     }
 
-    private config: any
-    private store: any
+    private path: string
+    private store: IConfigData
 
-    set(key: string, value: any) {
-        this.store.set(key, value)
-        this.save()
+    load () {
+        if (fs.existsSync(this.path)) {
+            this.store = yaml.safeLoad(fs.readFileSync(this.path, 'utf8'))
+        } else {
+            this.store = {}
+        }
     }
 
-    get(key: string): any {
-        return this.store[key]
+    save () {
+        fs.writeFileSync(this.path, yaml.safeDump(this.store), 'utf8')
     }
 
-    has(key: string): boolean {
-        return this.store[key] != undefined
-    }
-
-    delete(key: string) {
-        delete this.store[key]
-        this.save()
-    }
-
-    load() {
-        this.store = this.config.store
-    }
-
-    save() {
-        this.config.store = this.store
+    full () : IConfigData {
+        return Object.assign({}, defaultConfig, this.store)
     }
 }

@@ -12,6 +12,7 @@ import { LogService } from 'services/log'
 import { HotkeysService } from 'services/hotkeys'
 import { ModalService } from 'services/modal'
 import { NotifyService } from 'services/notify'
+import { PluginDispatcherService } from 'services/pluginDispatcher'
 import { QuitterService } from 'services/quitter'
 import { SessionsService } from 'services/sessions'
 import { LocalStorageService } from 'angular2-localstorage/LocalStorageEmitter'
@@ -42,6 +43,7 @@ import { TerminalComponent } from 'components/terminal'
         LogService,
         ModalService,
         NotifyService,
+        PluginDispatcherService,
         QuitterService,
         SessionsService,
         LocalStorageService,
@@ -63,4 +65,8 @@ import { TerminalComponent } from 'components/terminal'
         AppComponent
     ]
 })
-export class AppModule {}
+export class AppModule {
+    constructor (pluginDispatcher: PluginDispatcherService) {
+        pluginDispatcher.register(require('./plugin.hyperlinks').default)
+    }
+}

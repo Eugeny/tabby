@@ -1,9 +1,11 @@
 import { Component, NgZone, Input, Output, EventEmitter, ElementRef } from '@angular/core'
 import { ConfigService } from 'services/config'
+import { PluginDispatcherService } from 'services/pluginDispatcher'
 
 import { Session } from 'services/sessions'
 
 const hterm = require('hterm-commonjs')
+const dataurl = require('dataurl')
 
 
 hterm.hterm.VT.ESC['k'] = function(parseState) {
@@ -21,7 +23,19 @@ hterm.hterm.VT.ESC['k'] = function(parseState) {
 
 hterm.hterm.defaultStorage = new hterm.lib.Storage.Memory()
 const pmgr = new hterm.hterm.PreferenceManager('default')
-pmgr.set('user-css', ``)
+pmgr.set('user-css', dataurl.convert({
+    data: `
+        a {
+            cursor: pointer;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    `,
+    mimetype: 'text/css',
+    charset: 'utf8',
+}))
 pmgr.set('font-size', 12)
 pmgr.set('background-color', '#1D272D')
 pmgr.set('color-palette-overrides', {
@@ -43,18 +57,20 @@ export class TerminalComponent {
     @Input() session: Session
     title: string
     @Output() titleChange = new EventEmitter()
-    private terminal: any
+    terminal: any
 
     constructor(
         private zone: NgZone,
         private elementRef: ElementRef,
         public config: ConfigService,
+        private pluginDispatcher: PluginDispatcherService,
     ) {
     }
 
     ngOnInit () {
         let io
         this.terminal = new hterm.hterm.Terminal()
+        this.pluginDispatcher.emit('preTerminalInit', { terminal: this.terminal })
         this.terminal.setWindowTitle = (title) => {
             this.zone.run(() => {
                 this.title = title
@@ -83,6 +99,7 @@ export class TerminalComponent {
             this.session.releaseInitialDataBuffer()
         }
         this.terminal.decorate(this.elementRef.nativeElement)
+        this.pluginDispatcher.emit('postTerminalInit', { terminal: this.terminal })
     }
 
     ngOnDestroy () {

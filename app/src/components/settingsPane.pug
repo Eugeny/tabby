@@ -1,7 +1,13 @@
-ngb-tabset(type='tabs nav-justified')
+ngb-tabset(type='tabs')
     ngb-tab
         template(ngbTabTitle)
-            i.fa.fa-keyboard-o
+            | General
+        template(ngbTabContent)
+            .form-group
+                label Font
+                input.form-control(type='text', [ngbTypeahead]='fontAutocomplete', '[(ngModel)]'='font')
+    ngb-tab
+        template(ngbTabTitle)
             | Hotkeys
         template(ngbTabContent)
             .form-group

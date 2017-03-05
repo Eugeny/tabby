@@ -7,7 +7,6 @@ const hterm = require('hterm-commonjs')
 export interface HotkeyDescription {
     id: string,
     name: string,
-    defaults: string[][],
 }
 
 export interface PartialHotkeyMatch {
@@ -21,27 +20,62 @@ const HOTKEYS: HotkeyDescription[] = [
     {
         id: 'new-tab',
         name: 'New tab',
-        defaults: [['Ctrl+Shift+T'], ['Ctrl+A', 'C']],
     },
     {
         id: 'close-tab',
         name: 'Close tab',
-        defaults: [['Ctrl+Shift+W'], ['Ctrl+A', 'K']],
     },
     {
         id: 'toggle-last-tab',
         name: 'Toggle last tab',
-        defaults: [['Ctrl+A', 'A'], ['Ctrl+A', 'Ctrl+A']],
     },
     {
         id: 'next-tab',
         name: 'Next tab',
-        defaults: [['Ctrl+Shift-ArrowRight'], ['Ctrl+A', 'N']],
     },
     {
         id: 'previous-tab',
         name: 'Previous tab',
-        defaults: [['Ctrl+Shift-ArrowLeft'], ['Ctrl+A', 'P']],
+    },
+    {
+        id: 'tab-1',
+        name: 'Tab 1',
+    },
+    {
+        id: 'tab-2',
+        name: 'Tab 2',
+    },
+    {
+        id: 'tab-3',
+        name: 'Tab 3',
+    },
+    {
+        id: 'tab-4',
+        name: 'Tab 4',
+    },
+    {
+        id: 'tab-5',
+        name: 'Tab 5',
+    },
+    {
+        id: 'tab-6',
+        name: 'Tab 6',
+    },
+    {
+        id: 'tab-7',
+        name: 'Tab 7',
+    },
+    {
+        id: 'tab-8',
+        name: 'Tab 8',
+    },
+    {
+        id: 'tab-9',
+        name: 'Tab 9',
+    },
+    {
+        id: 'tab-10',
+        name: 'Tab 10',
     },
 ]
 
@@ -86,10 +120,6 @@ export class HotkeysService {
                 oldHandler.bind(this)(nativeEvent)
             }
         })
-
-        if (!config.get('hotkeys')) {
-            config.set('hotkeys', {})
-        }
     }
 
     emitNativeEvent (name, nativeEvent) {
@@ -122,18 +152,21 @@ export class HotkeysService {
 
     registerHotkeys () {
         this.electron.globalShortcut.unregisterAll()
-        this.electron.globalShortcut.register('`', () => {
+        // TODO
+        this.electron.globalShortcut.register('PrintScreen', () => {
             this.globalHotkey.emit()
         })
     }
 
     getHotkeysConfig () {
         let keys = {}
-        for (let key of HOTKEYS) {
-            keys[key.id] = key.defaults
-        }
-        for (let key in this.config.get('hotkeys')) {
-            keys[key] = this.config.get('hotkeys')[key]
+        for (let key in this.config.full().hotkeys) {
+            let value = this.config.full().hotkeys[key]
+            if (typeof value == 'string') {
+                value = [value]
+            }
+            value = value.map((item) => (typeof item == 'string') ? [item] : item)
+            keys[key] = value
         }
         return keys
     }

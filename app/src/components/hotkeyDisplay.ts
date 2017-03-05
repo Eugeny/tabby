@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectionStrategy, trigger, style, animate, transition, state } from '@angular/core'
+import { Component, Input, trigger, style, animate, transition } from '@angular/core'
 
 
 @Component({
