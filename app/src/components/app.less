@@ -1,6 +1,7 @@
 @import "~variables.less";
 @import "~mixins.less";
 
+@title-bg: #0f151b;
 
 :host {
     display: flex;
@@ -20,7 +21,7 @@
 
 .titlebar {
     height: @titlebar-height;
-    background: #141c23;
+    background: @title-bg;
     flex: none;
     display: flex;
     flex-direction: row;
@@ -79,7 +80,7 @@
         text-transform: uppercase;
         font-weight: bold;
         color: #888;
-        background: #141c23;
+        background: @title-bg;
     }
 
     &.active-tab-0 .btn-new-tab {
@@ -108,7 +109,7 @@
             flex-direction: row;
             flex: auto;
             min-width: 0;
-            background: #141c23;
+            background: @title-bg;
             transition: 0.25s all;
 
             div.index {
@@ -181,7 +182,7 @@
         }
 
         &.active {
-            background: #141c23;
+            background: @title-bg;
 
             .content-wrapper {
                 //border-bottom: 2px solid #69bbea;

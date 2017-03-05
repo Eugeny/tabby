@@ -59,10 +59,10 @@ export default class HyperlinksPlugin {
     }
 
     insertLinks (screen) {
-        const traverse = (element) => {
-            Array.from(element.childNodes).forEach((node) => {
+        const traverse = (parentNode: Node) => {
+            Array.from(parentNode.childNodes).forEach((node) => {
                 if (node.nodeName == '#text') {
-                    element.replaceChild(this.urlizeNode(node), node)
+                    parentNode.replaceChild(this.urlizeNode(node), node)
                 } else if (node.nodeName != 'A') {
                     traverse(node)
                 }

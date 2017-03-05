@@ -4,8 +4,21 @@ ngb-tabset(type='tabs')
             | General
         template(ngbTabContent)
             .form-group
-                label Font
-                input.form-control(type='text', [ngbTypeahead]='fontAutocomplete', '[(ngModel)]'='font')
+                label.control-label Font
+                input.form-control(
+                    type='text',
+                    [ngbTypeahead]='fontAutocomplete',
+                    '[(ngModel)]'='config.store.appearance.font',
+                    '(ngModelChange)'='config.save()',
+                )
+            .form-group
+                label.control-label Font size
+                input.form-control(
+                    type='number',
+                    '[(ngModel)]'='config.store.appearance.fontSize',
+                    '(ngModelChange)'='config.save()',
+                )
+
     ngb-tab
         template(ngbTabTitle)
             | Hotkeys

@@ -1,3 +1,6 @@
+appearance:
+  font: monospace
+  fontSize: 14
 hotkeys:
   new-tab:
     - ['Ctrl-A', 'C']

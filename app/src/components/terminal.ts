@@ -1,7 +1,8 @@
+import { Subscription } from 'rxjs'
 import { Component, NgZone, Input, Output, EventEmitter, ElementRef } from '@angular/core'
+
 import { ConfigService } from 'services/config'
 import { PluginDispatcherService } from 'services/pluginDispatcher'
-
 import { Session } from 'services/sessions'
 
 const hterm = require('hterm-commonjs')
@@ -22,8 +23,8 @@ hterm.hterm.VT.ESC['k'] = function(parseState) {
 }
 
 hterm.hterm.defaultStorage = new hterm.lib.Storage.Memory()
-const pmgr = new hterm.hterm.PreferenceManager('default')
-pmgr.set('user-css', dataurl.convert({
+const preferenceManager = new hterm.hterm.PreferenceManager('default')
+preferenceManager.set('user-css', dataurl.convert({
     data: `
         a {
             cursor: pointer;
@@ -36,11 +37,12 @@ pmgr.set('user-css', dataurl.convert({
     mimetype: 'text/css',
     charset: 'utf8',
 }))
-pmgr.set('font-size', 12)
-pmgr.set('background-color', '#1D272D')
-pmgr.set('color-palette-overrides', {
+preferenceManager.set('font-size', 12)
+preferenceManager.set('background-color', '#1D272D')
+preferenceManager.set('color-palette-overrides', {
     0: '#1D272D',
 })
+
 const oldDecorate = hterm.hterm.ScrollPort.prototype.decorate
 hterm.hterm.ScrollPort.prototype.decorate = function (...args) {
     oldDecorate.bind(this)(...args)
@@ -58,6 +60,7 @@ export class TerminalComponent {
     title: string
     @Output() titleChange = new EventEmitter()
     terminal: any
+    configSubscription: Subscription
 
     constructor(
         private zone: NgZone,
@@ -65,6 +68,9 @@ export class TerminalComponent {
         public config: ConfigService,
         private pluginDispatcher: PluginDispatcherService,
     ) {
+        this.configSubscription = config.change.subscribe(() => {
+            this.configure()
+        })
     }
 
     ngOnInit () {
@@ -99,10 +105,16 @@ export class TerminalComponent {
             this.session.releaseInitialDataBuffer()
         }
         this.terminal.decorate(this.elementRef.nativeElement)
+        this.configure()
         this.pluginDispatcher.emit('postTerminalInit', { terminal: this.terminal })
     }
 
+    configure () {
+        preferenceManager.set('font-family', this.config.full().appearance.font)
+        preferenceManager.set('font-size', this.config.full().appearance.fontSize)
+    }
+
     ngOnDestroy () {
-        ;
+        this.configSubscription.unsubscribe()
     }
 }

@@ -55,7 +55,7 @@ export class SettingsPaneComponent {
           .map(list => Array.from(new Set(list)))
     }
 
-    ngOnDestroy() {
+    ngOnDestroy () {
         this.config.save()
     }
 }

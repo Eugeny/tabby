@@ -110,7 +110,9 @@ export class HotkeysService {
         ]
         events.forEach((event) => {
             document.addEventListener(event.name, (nativeEvent) => {
-                this.emitNativeEvent(event.name, nativeEvent)
+                if (document.querySelectorAll(':focus').length == 0) {
+                    this.emitNativeEvent(event.name, nativeEvent)
+                }
             })
 
             let oldHandler = hterm.hterm.Keyboard.prototype[event.htermHandler]

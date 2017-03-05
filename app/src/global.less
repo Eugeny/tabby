@@ -35,10 +35,6 @@ body {
     }
 }
 
-.form-control {
-    -webkit-user-select: initial;
-}
-
 .window-resizer {
     -webkit-app-region: no-drag;
     position: fixed;
@@ -132,7 +128,7 @@ ngb-tabset {
     }
 
     >.tab-content {
-        padding: 10px;
+        padding: 10px 0;
     }
 }
 
@@ -174,4 +170,26 @@ ngb-typeahead-window {
 
 .list-group-item {
     .list-group-item-style();
+}
+
+label.control-label {
+    background: rgba(0, 0, 0, .25);
+    color: #ccc;
+    font-size: 10px;
+    display: block;
+    margin: 0;
+    padding: 5px 10px 0;
+}
+
+.form-control {
+    -webkit-user-select: initial;
+    background: rgba(0, 0, 0, .25);
+    display: block;
+    margin: 0 0 5px;
+    width: 100%;
+    border: none;
+    height: 30px;
+    line-height: 30px;
+    color: #eee;
+    padding: 0 10px;
 }
