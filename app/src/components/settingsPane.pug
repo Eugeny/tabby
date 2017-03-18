@@ -1,36 +1,165 @@
-.restart-bar(*ngIf='restartRequested')
-    button.btn.btn-default.pull-right('(click)'='restartApp()') Restart
-    | Restart the app to apply changes
+button.btn.btn-outline-warning.btn-block(*ngIf='restartRequested', '(click)'='restartApp()') Restart the app to apply changes
 
 ngb-tabset(type='tabs')
     ngb-tab
         template(ngbTabTitle)
-            | General
+            | Application
         template(ngbTabContent)
             .form-group
-                label.form-control
-                    input(
-                        type='checkbox',
-                        '[(ngModel)]'='config.store.appearance.useNativeFrame',
-                        '(ngModelChange)'='config.save(); requestRestart()',
-                    )
-                    | Use native window frame
-                    
-            .form-group
-                label.control-label Font
-                input.form-control(
-                    type='text',
-                    [ngbTypeahead]='fontAutocomplete',
-                    '[(ngModel)]'='config.store.appearance.font',
-                    '(ngModelChange)'='config.save()',
+                label Window frame
+                br
+                div(
+                    '[(ngModel)]'='config.store.appearance.useNativeFrame'
+                    '(ngModelChange)'='config.save(); requestRestart()'
+                    ngbRadioGroup
                 )
+                    label.btn.btn-secondary
+                        input(
+                            type='radio',
+                            [value]='true'
+                        )
+                        | Native
+                    label.btn.btn-secondary
+                        input(
+                            type='radio',
+                            [value]='false'
+                        )
+                        | Custom
+                small.form-text.text-muted Whether a custom window or an OS native window should be used
+
             .form-group
-                label.control-label Font size
-                input.form-control(
-                    type='number',
-                    '[(ngModel)]'='config.store.appearance.fontSize',
-                    '(ngModelChange)'='config.save()',
+                label Dock the terminal
+                br
+                .row
+                    .col-auto
+                        div(
+                            '[(ngModel)]'='config.store.appearance.dock'
+                            '(ngModelChange)'='config.save(); docking.dock()'
+                            ngbRadioGroup
+                        )
+                            label.btn.btn-secondary
+                                input(
+                                    type='radio',
+                                    [value]='"off"'
+                                )
+                                | Off
+                            label.btn.btn-secondary
+                                input(
+                                    type='radio',
+                                    [value]='"top"'
+                                )
+                                | Top
+                            label.btn.btn-secondary
+                                input(
+                                    type='radio',
+                                    [value]='"left"'
+                                )
+                                | Left
+                            label.btn.btn-secondary
+                                input(
+                                    type='radio',
+                                    [value]='"right"'
+                                )
+                                | Right
+                            label.btn.btn-secondary
+                                input(
+                                    type='radio',
+                                    [value]='"bottom"'
+                                )
+                                | Bottom
+                    .col
+                        input(
+                            type='range',
+                            '[(ngModel)]'='config.store.appearance.dockFill',
+                            '(ngModelChange)'='config.save(); docking.dock()',
+                            min='1',
+                            max='100',
+                            step='1'
+                        )
+                br
+                div(
+                    *ngIf='config.store.appearance.dock != "off"',
+                    '[(ngModel)]'='config.store.appearance.dockScreen'
+                    '(ngModelChange)'='config.save(); docking.dock()'
+                    ngbRadioGroup
                 )
+                    label.btn.btn-secondary
+                        input(
+                            type='radio',
+                            [value]='"current"'
+                        )
+                        | Current
+                    label.btn.btn-secondary(*ngFor='let screen of docking.getScreens()')
+                        input(
+                            type='radio',
+                            [value]='screen.id'
+                        )
+                        | {{screen.name}}
+
+    ngb-tab
+        template(ngbTabTitle)
+            | Appearance
+        template(ngbTabContent)
+            .row
+                .col-sm-6
+                    .form-group
+                        label Preview
+                        .appearance-preview(
+                            [style.font-family]='config.store.appearance.font',
+                            [style.font-size]='config.store.appearance.fontSize + "px"',
+                        )
+                            .text john@doe-pc$ ls
+                            .text foo bar
+                .col-sm-6
+                    .form-group
+                        label Font
+                        input.form-control(
+                            type='text',
+                            [ngbTypeahead]='fontAutocomplete',
+                            '[(ngModel)]'='config.store.appearance.font',
+                            '(ngModelChange)'='config.save()',
+                        )
+                        small.form-text.text-muted Font to be used in the terminal
+
+                    .form-group
+                        label Font size
+                        input.form-control(
+                            type='number',
+                            '[(ngModel)]'='config.store.appearance.fontSize',
+                            '(ngModelChange)'='config.save()',
+                        )
+                        small.form-text.text-muted Text size to be used in the terminal
+
+    ngb-tab
+        template(ngbTabTitle)
+            | Terminal
+        template(ngbTabContent)
+            .form-group
+                label Terminal bell
+                br
+                div(
+                    '[(ngModel)]'='config.store.terminal.bell'
+                    '(ngModelChange)'='config.save()'
+                    ngbRadioGroup
+                )
+                    label.btn.btn-secondary
+                        input(
+                            type='radio',
+                            [value]='"off"'
+                        )
+                        | Off
+                    label.btn.btn-secondary
+                        input(
+                            type='radio',
+                            [value]='"sound"'
+                        )
+                        | Sound
+                    label.btn.btn-secondary
+                        input(
+                            type='radio',
+                            [value]='"notification"'
+                        )
+                        | Notification
 
     ngb-tab
         template(ngbTabTitle)

@@ -1,6 +1,7 @@
 import * as fs from 'fs'
 import { ElectronService } from 'services/electron'
 
+const debounceDelay = 500
 
 abstract class Handler {
     constructor (protected plugin) { }
@@ -48,13 +49,28 @@ export default class HyperlinksPlugin {
         const oldDeleteChars = terminal.screen_.constructor.prototype.deleteChars
         terminal.screen_.insertString = (...args) => {
             let ret = oldInsertString.bind(terminal.screen_)(...args)
-            this.insertLinks(terminal.screen_)
+            this.debounceInsertLinks(terminal.screen_)
             return ret
         }
         terminal.screen_.deleteChars = (...args) => {
             let ret = oldDeleteChars.bind(terminal.screen_)(...args)
-            this.insertLinks(terminal.screen_)
+            this.debounceInsertLinks(terminal.screen_)
             return ret
+        }
+    }
+
+    debounceInsertLinks (screen) {
+        if (screen.__insertLinksTimeout) {
+            screen.__insertLinksRebounce = true
+        } else {
+            screen.__insertLinksTimeout = window.setTimeout(() => {
+                this.insertLinks(screen)
+                screen.__insertLinksTimeout = null
+                if (screen.__insertLinksRebounce) {
+                    screen.__insertLinksRebounce = false
+                    this.debounceInsertLinks(screen)
+                }
+            }, debounceDelay)
         }
     }
 

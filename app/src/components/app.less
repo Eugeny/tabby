@@ -1,7 +1,21 @@
 @import "~variables.less";
-@import "~mixins.less";
 
-@title-bg: #0f151b;
+.button-states() {
+    transition: 0.125s all;
+    border: none;
+
+    &:hover:not(.active) {
+        background: rgba(0, 0, 0, .15);
+    }
+
+    &:active:not(.active),
+    &.active {
+        background: rgba(0, 0, 0, .3);
+    }
+}
+
+
+@title-bg: #131d27;
 
 :host {
     display: flex;
@@ -20,11 +34,10 @@
 @tab-border-radius: 4px;
 
 .titlebar {
+    flex: 0 0 @titlebar-height;
+    display: flex;
     height: @titlebar-height;
     background: @title-bg;
-    flex: none;
-    display: flex;
-    flex-direction: row;
 
     .title {
         flex: auto;
@@ -34,20 +47,14 @@
     }
 
     button {
-        flex: none;
-        line-height: @titlebar-height - 2px;
-        padding: 0 15px;
+        border: none;
+        box-shadow: none;
+        border-radius: 0;
         font-size: 8px;
-        color: #444;
-        background: transparent;
-        transition: 0.25s all;
 
-        .button-states();
-
-        &:hover {
-            color: white;
+        &:not(:hover):not(:active) {
+            background: transparent;
         }
-        cursor: pointer;
     }
 
     .btn-close {
@@ -69,18 +76,20 @@
 
     &>button {
         padding: 0 15px;
-        flex: none;
-        flex-grow: 0;
+        flex: 0 0 auto;
         border-bottom: 2px solid transparent;
         transition: 0.25s all;
         font-size: 12px;
 
-        .button-states();
-
         text-transform: uppercase;
         font-weight: bold;
         color: #888;
-        background: @title-bg;
+        border: none;
+        border-radius: 0;
+
+        &:not(:hover):not(:active) {
+            background: @title-bg;
+        }
     }
 
     &.active-tab-0 .btn-new-tab {
@@ -98,6 +107,7 @@
 
         display: flex;
         overflow: hidden;
+
         min-width: 0;
         background: @body-bg;
         transition: 0.25s all;
@@ -131,11 +141,9 @@
             button {
                 flex: none;
 
-                border: none;
                 background: transparent;
                 color: @text-color;
 
-                transition: 0.25s all;
                 display: block;
                 opacity: 0;
 
@@ -150,13 +158,7 @@
                 text-align: center;
                 font-size: 20px;
 
-                &:hover {
-                    background: rgba(255, 255, 255, .05);
-                }
-
-                &:active {
-                    background: rgba(0, 0, 0, .1);
-                }
+                .button-states();
             }
 
             &:hover button {
@@ -203,6 +205,11 @@
         flex: auto;
         position: relative;
         padding: 15px;
+
+        overflow: hidden;
+        &.scrollable {
+            overflow-y: auto;
+        }
 
         &.active {
             display: flex;

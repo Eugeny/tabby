@@ -15,6 +15,7 @@ export class ElectronService {
         this.electron = require('electron')
         this.remoteElectron = this.remoteRequire('electron')
         this.app = this.remoteElectron.app
+        this.screen = this.remoteElectron.screen
         this.dialog = this.remoteElectron.dialog
         this.shell = this.electron.shell
         this.clipboard = this.electron.clipboard
@@ -36,6 +37,7 @@ export class ElectronService {
     dialog: any
     clipboard: any
     globalShortcut: any
+    screen: any
     private electron: any
     private remoteElectron: any
 }

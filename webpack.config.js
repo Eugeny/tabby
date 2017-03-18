@@ -51,6 +51,10 @@ module.exports = {
               include: [/app\/src\/components\//],
             },
             {
+              test: /\.scss$/,
+              use: ['style-loader', 'css-loader', 'sass-loader']
+            },
+            {
               test: /\.(png|svg)$/,
               loader: "file-loader",
               query: {

@@ -2,6 +2,7 @@ import { Component } from '@angular/core'
 import { ElectronService } from 'services/electron'
 import { HostAppService, PLATFORM_WINDOWS, PLATFORM_LINUX, PLATFORM_MAC } from 'services/hostApp'
 import { ConfigService } from 'services/config'
+import { DockingService } from 'services/docking'
 import { Observable } from 'rxjs/Observable'
 import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/debounceTime'
@@ -27,6 +28,7 @@ export class SettingsPaneComponent {
     constructor(
         public config: ConfigService,
         private electron: ElectronService,
+        public docking: DockingService,
         hostApp: HostAppService,
     ) {
         this.isWindows = hostApp.platform == PLATFORM_WINDOWS

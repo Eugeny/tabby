@@ -13,6 +13,10 @@ let windowConfig = new Config({name: 'window'})
 setupWindowManagement = () => {
     let windowCloseable
 
+    app.window.on('show', () => {
+      electron.ipcMain.send('window-shown')
+    })
+
     app.window.on('close', (e) => {
         windowConfig.set('windowBoundaries', app.window.getBounds())
         if (!windowCloseable) {
@@ -27,10 +31,6 @@ setupWindowManagement = () => {
 
     electron.ipcMain.on('window-closeable', (event, flag) => {
         windowCloseable = flag
-    })
-
-    electron.ipcMain.on('window-focus', () => {
-        app.window.focus()
     })
 
     electron.ipcMain.on('window-focus', () => {
@@ -57,6 +57,10 @@ setupWindowManagement = () => {
         app.window.minimize()
     })
 
+    electron.ipcMain.on('window-set-bounds', (event, bounds) => {
+        app.window.setBounds(bounds, true)
+    })
+
     app.on('before-quit', () => windowCloseable = true)
 }
 
@@ -69,18 +73,20 @@ setupMenu = () => {
             { label: "Quit", accelerator: "CmdOrCtrl+Q", click: () => {
                 app.window.webContents.send('host:quit-request')
             }}
-        ]}, {
-            label: "Edit",
-            submenu: [
-                { label: "Undo", accelerator: "CmdOrCtrl+Z", selector: "undo:" },
-                { label: "Redo", accelerator: "Shift+CmdOrCtrl+Z", selector: "redo:" },
-                { type: "separator" },
-                { label: "Cut", accelerator: "CmdOrCtrl+X", selector: "cut:" },
-                { label: "Copy", accelerator: "CmdOrCtrl+C", selector: "copy:" },
-                { label: "Paste", accelerator: "CmdOrCtrl+V", selector: "paste:" },
-                { label: "Select All", accelerator: "CmdOrCtrl+A", selector: "selectAll:" }
-            ]
-        }]
+        ]
+      },
+      {
+        label: "Edit",
+        submenu: [
+            { label: "Undo", accelerator: "CmdOrCtrl+Z", selector: "undo:" },
+            { label: "Redo", accelerator: "Shift+CmdOrCtrl+Z", selector: "redo:" },
+            { type: "separator" },
+            { label: "Cut", accelerator: "CmdOrCtrl+X", selector: "cut:" },
+            { label: "Copy", accelerator: "CmdOrCtrl+C", selector: "copy:" },
+            { label: "Paste", accelerator: "CmdOrCtrl+V", selector: "paste:" },
+            { label: "Select All", accelerator: "CmdOrCtrl+A", selector: "selectAll:" }
+        ]
+    }]
 
     electron.Menu.setApplicationMenu(electron.Menu.buildFromTemplate(template))
 }
@@ -141,7 +147,12 @@ start = () => {
     app.window.focus()
 
     setupWindowManagement()
-    setupMenu()
+
+    if (platform == 'darwin') {
+      setupMenu()
+    } else {
+      app.window.setMenu(null)
+    }
 
     console.info(`Host startup: ${Date.now() - t0}ms`)
     t0 = Date.now()

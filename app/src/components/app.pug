@@ -1,14 +1,14 @@
-.titlebar(*ngIf='!config.store.appearance.useNativeFrame')
+.titlebar(*ngIf='!config.store.appearance.useNativeFrame && config.store.appearance.dock == "off"')
     .title((dblclick)='hostApp.maximizeWindow()') Term
-    button.btn-minimize((click)='hostApp.minimizeWindow()')
+    button.btn.btn-secondary.btn-minimize((click)='hostApp.minimizeWindow()')
         i.fa.fa-window-minimize
-    button.btn-maximize((click)='hostApp.maximizeWindow()')
+    button.btn.btn-secondary.btn-maximize((click)='hostApp.maximizeWindow()')
         i.fa.fa-window-maximize
-    button.btn-close((click)='hostApp.quit()')
+    button.btn.btn-secondary.btn-close((click)='hostApp.quit()')
         i.fa.fa-close
 
 .tabs(class='active-tab-{{tabs.indexOf(activeTab)}}')
-    button.btn-new-tab((click)='newTab()')
+    button.btn.btn-secondary.btn-new-tab((click)='newTab()')
         i.fa.fa-plus
     .tab(
         *ngFor='let tab of tabs; let idx = index; trackBy: tab?.id',
@@ -22,11 +22,15 @@
             div.index {{idx + 1}}
             div.name {{tab.name || 'Terminal'}}
             button((click)='closeTab(tab)') &times;
-    button.btn-settings((click)='showSettings()')
+    button.btn.btn-secondary.btn-settings((click)='showSettings()')
         i.fa.fa-cog
 
 .tabs-content
-    .tab(*ngFor='let tab of tabs; trackBy: tab?.id', [class.active]='tab == activeTab')
+    .tab(
+        *ngFor='let tab of tabs; trackBy: tab?.id', 
+        [class.active]='tab == activeTab',
+        [class.scrollable]='tab.scrollable',
+    )
         terminal(*ngIf='tab.type == "terminal"', [session]='tab.session', '[(title)]'='tab.name')
         settings-pane(*ngIf='tab.type == "settings"')
 

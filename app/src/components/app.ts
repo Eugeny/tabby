@@ -7,10 +7,12 @@ import { HotkeysService } from 'services/hotkeys'
 import { LogService } from 'services/log'
 import { QuitterService } from 'services/quitter'
 import { ConfigService } from 'services/config'
+import { DockingService } from 'services/docking'
 import { Session, SessionsService } from 'services/sessions'
 
 import 'angular2-toaster/lib/toaster.css'
 import 'global.less'
+import 'theme.scss'
 
 
 const TYPE_TERMINAL = 'terminal'
@@ -19,6 +21,7 @@ const TYPE_SETTINGS = 'settings'
 class Tab {
     id: number
     name: string
+    scrollable: boolean
     static lastTabID = 0
 
     constructor (public type: string, public session: Session) {
@@ -62,6 +65,7 @@ export class AppComponent {
     constructor(
         private elementRef: ElementRef,
         private sessions: SessionsService,
+        private docking: DockingService,
         public hostApp: HostAppService,
         public hotkeys: HotkeysService,
         public config: ConfigService,
@@ -125,6 +129,11 @@ export class AppComponent {
         this.hotkeys.registerHotkeys()
         this.hotkeys.globalHotkey.subscribe(() => {
             this.hostApp.toggleWindow()
+        })
+
+        this.docking.dock()
+        this.hostApp.shown.subscribe(() => {
+            this.docking.dock()
         })
     }
 
@@ -192,18 +201,17 @@ export class AppComponent {
                     this.addTerminalTab(session)
                 })
             } else {
-                this.newTab()
+                // this.newTab()
+                this.showSettings();
             }
         })
-    }
-
-    ngOnDestroy () {
     }
 
     showSettings() {
         let settingsTab = this.tabs.find((x) => x.type == TYPE_SETTINGS)
         if (!settingsTab) {
             settingsTab = new Tab(TYPE_SETTINGS, null)
+            settingsTab.scrollable = true
             this.tabs.push(settingsTab)
         }
         this.selectTab(settingsTab)

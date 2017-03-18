@@ -23,6 +23,10 @@ export class HostAppService {
             console.error('Unhandled exception:', err)
         })
 
+        electron.ipcRenderer.on('window-shown', () => {
+            this.shown.emit()
+        })
+
         this.ready.subscribe(() => {
             electron.ipcRenderer.send('app:ready')
         })
@@ -31,6 +35,7 @@ export class HostAppService {
     platform: string;
     quitRequested = new EventEmitter<any>()
     ready = new EventEmitter<any>()
+    shown = new EventEmitter<any>()
 
     private logger: Logger;
 
@@ -72,6 +77,10 @@ export class HostAppService {
 
     maximizeWindow () {
         this.electron.ipcRenderer.send('window-maximize')
+    }
+
+    setBounds (bounds: Electron.Rectangle) {
+        this.electron.ipcRenderer.send('window-set-bounds', bounds)
     }
 
     quit () {

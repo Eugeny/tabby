@@ -110,8 +110,11 @@ export class TerminalComponent {
     }
 
     configure () {
-        preferenceManager.set('font-family', this.config.full().appearance.font)
-        preferenceManager.set('font-size', this.config.full().appearance.fontSize)
+        let config = this.config.full()
+        preferenceManager.set('font-family', config.appearance.font)
+        preferenceManager.set('font-size', config.appearance.fontSize)
+        preferenceManager.set('audible-bell-sound', '')
+        preferenceManager.set('desktop-notification-bell', config.terminal.bell == 'notification')
     }
 
     ngOnDestroy () {

@@ -1,0 +1,65 @@
+$white:  #fff !default;
+$black:  #000 !default;
+$red:    #d9534f !default;
+$orange: #f0ad4e !default;
+$yellow: #ffd500 !default;
+$green:  #5cb85c !default;
+$blue:   #0275d8 !default;
+$teal:   #5bc0de !default;
+$pink:   #ff5b77 !default;
+$purple: #613d7c !default;
+
+
+$body-bg: #1D272D;
+$body-bg2: #131d27;
+$body-color: #aaa;
+$font-family-sans-serif: "Source Sans Pro";
+$font-size-base: 14rem / 16;
+
+$btn-secondary-color:            #ccc;
+$btn-secondary-bg:               #222;
+$btn-secondary-border:           #444;
+
+//$btn-warning-bg:                 rgba($orange, .5);
+
+
+$nav-tabs-border-color:                       $body-bg2;
+$nav-tabs-border-width:                       1px;
+$nav-tabs-border-radius:                      0;
+$nav-tabs-link-hover-border-color:            $body-bg2;
+$nav-tabs-active-link-hover-color:            $body-color;
+$nav-tabs-active-link-hover-bg:               #424f56;
+$nav-tabs-active-link-hover-border-color:     $body-bg2;
+
+$input-bg:                       #111;
+$input-bg-disabled:              #333;
+
+$input-color:                    $body-color;
+//$input-border-color:             rgba($black,.15);
+//$input-box-shadow:               inset 0 1px 1px rgba($black,.075);
+
+$input-border-radius:            0;
+
+$input-bg-focus:                 $input-bg;
+//$input-border-focus:             lighten($brand-primary, 25%);
+//$input-box-shadow-focus:         $input-box-shadow, rgba($input-border-focus, .6);
+$input-color-focus:              $input-color;
+
+
+@import '~bootstrap/scss/bootstrap.scss';
+
+.nav-tabs {
+    background: $btn-secondary-bg;
+    .nav-link {
+        transition: 0.25s all;
+        border-bottom-color: $nav-tabs-border-color;
+    }
+}
+
+ngb-tabset .tab-content {
+    padding-top: 20px;
+}
+
+[ngbradiogroup] > label.active {
+    background: $blue;
+}

@@ -1,16 +1,6 @@
 @import "~variables.less";
 @import "~mixins.less";
 
-* {
-    box-sizing: border-box;
-}
-
-body {
-    margin: 0;
-    font-family: @font-family;
-    font-size: @font-size;
-    color: @text-color;
-}
 
 html.platform-win32 {
     body.focused {
@@ -23,6 +13,7 @@ body {
     transition: 0.5s border;
     overflow: hidden;
     min-height: 100vh;
+    cursor: default;
 }
 
 .no-drag, a, button, checkbox, .form-control, #toast-container {
@@ -91,46 +82,6 @@ ngb-modal-window.fade.in {
     }
 }
 
-ngb-tabset {
-    >ul.nav-tabs {
-        border-bottom: none;
-        margin-bottom: 10px;
-        background: rgba(0,0,0,.25);
-        display: flex;
-        align-items: start;
-        padding: 0;
-        margin: 0;
-
-        .nav-item {
-            flex: none;
-            display: flex;
-
-            .nav-link {
-                background: transparent;
-                border: none;
-                padding: 10px 15px;
-                color: @text-color;
-                text-decoration: none;
-
-                &.active {
-                    background: rgba(0,0,0,.5);
-                    border-bottom: 1px solid #777;
-                }
-
-                i {
-                    display: block;
-                    text-align: center;
-                    font-size: 18px;
-                    margin: 0 0 5px;
-                }
-            }
-        }
-    }
-
-    >.tab-content {
-        padding: 10px 0;
-    }
-}
 
 
 .btn {
@@ -163,33 +114,6 @@ ngb-typeahead-window {
         display: block;
         width: 100%;
         -webkit-appearance: none;
-        border-bottom: 1px solid @dark-border;
-        .list-group-item-style();
+        //border-bottom: 1px solid @dark-border;
     }
-}
-
-.list-group-item {
-    .list-group-item-style();
-}
-
-label.control-label {
-    background: rgba(0, 0, 0, .4);
-    color: #aaa;
-    font-size: 10px;
-    display: block;
-    margin: 0;
-    padding: 5px 10px 0;
-}
-
-.form-control {
-    -webkit-user-select: initial;
-    background: rgba(0, 0, 0, .4);
-    display: block;
-    margin: 0 0 5px;
-    width: 100%;
-    border: none;
-    height: 30px;
-    line-height: 30px;
-    color: #ccc;
-    padding: 0 10px;
 }

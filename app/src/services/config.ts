@@ -9,13 +9,21 @@ const defaultConfigValues : IConfigData = require('../../defaultConfigValues.yam
 const defaultConfigStructure : IConfigData = require('../../defaultConfigStructure.yaml')
 
 export interface IAppearanceData {
+    useNativeFrame: boolean
     font: string
     fontSize: number
+    dock: string
+    dockScreen: string
+}
+
+export interface ITerminalData {
+    bell: string|boolean
 }
 
 export interface IConfigData {
     appearance?: IAppearanceData
     hotkeys?: any
+    terminal?: ITerminalData
 }
 
 @Injectable()

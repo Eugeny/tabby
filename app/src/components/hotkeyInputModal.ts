@@ -35,7 +35,7 @@ export class HotkeyInputModalComponent {
     }
 
     ngOnInit () {
-        this.keyTimeoutInterval = setInterval(() => {
+        this.keyTimeoutInterval = window.setInterval(() => {
             if (!this.lastKeyEvent) {
                 return
             }

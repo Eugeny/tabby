@@ -46,7 +46,7 @@ export class HotkeyHintComponent {
                 this.setMatches(partialMatches)
 
                 if (this.keyTimeoutInterval == null) {
-                    this.keyTimeoutInterval = setInterval(() => {
+                    this.keyTimeoutInterval = window.setInterval(() => {
                         if (this.hotkeys.getCurrentPartiallyMatchedHotkeys().length == 0) {
                             clearInterval(this.keyTimeoutInterval)
                             this.keyTimeoutInterval = null

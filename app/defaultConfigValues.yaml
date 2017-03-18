@@ -1,6 +1,9 @@
 appearance:
   font: monospace
   fontSize: 14
+  dock: 'off'
+  dockScreen: 'current'
+  dockFill: 50
 hotkeys:
   new-tab:
     - ['Ctrl-A', 'C']
@@ -48,3 +51,5 @@ hotkeys:
   tab-10:
     - 'Alt-0'
     - ['Ctrl-A', '0']
+terminal:
+  bell: off
