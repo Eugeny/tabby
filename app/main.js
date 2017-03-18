@@ -1,3 +1,6 @@
+const yaml = require('js-yaml')
+const path = require('path')
+const fs = require('fs')
 const Config = require('electron-config')
 const electron = require('electron')
 const platform = require('os').platform()
@@ -95,11 +98,19 @@ start = () => {
         return
     }
 
+    let configPath = path.join(electron.app.getPath('userData'), 'config.yaml')
+    let configData
+    if (fs.existsSync(configPath)) {
+        configData = yaml.safeLoad(fs.readFileSync(configPath, 'utf8'))
+    } else {
+        configData = {}
+    }
+
     let options = {
         width: 800,
         height: 400,
         //icon: `${app.getAppPath()}/assets/img/icon.png`,
-        title: 'ELEMENTS Benchmark',
+        title: 'Term',
         minWidth: 300,
         minHeight: 100,
         'web-preferences': {'web-security': false},
@@ -111,6 +122,10 @@ start = () => {
 
     if (platform == 'darwin') {
         options.titleBarStyle = 'hidden'
+    }
+
+    if ((configData.appearance || {}).useNativeFrame) {
+        options.frame = true
     }
 
     app.commandLine.appendSwitch('disable-http-cache')

@@ -1,8 +1,21 @@
+.restart-bar(*ngIf='restartRequested')
+    button.btn.btn-default.pull-right('(click)'='restartApp()') Restart
+    | Restart the app to apply changes
+
 ngb-tabset(type='tabs')
     ngb-tab
         template(ngbTabTitle)
             | General
         template(ngbTabContent)
+            .form-group
+                label.form-control
+                    input(
+                        type='checkbox',
+                        '[(ngModel)]'='config.store.appearance.useNativeFrame',
+                        '(ngModelChange)'='config.save(); requestRestart()',
+                    )
+                    | Use native window frame
+                    
             .form-group
                 label.control-label Font
                 input.form-control(
@@ -29,3 +42,5 @@ ngb-tabset(type='tabs')
                         th Toggle terminal window
                         td
                             hotkey-input('[(model)]'='globalHotkey')
+                                
+                                

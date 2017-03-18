@@ -1,10 +1,12 @@
 import { Component, ElementRef, trigger, style, animate, transition, state } from '@angular/core'
+import { ToasterConfig } from 'angular2-toaster'
+
 import { ElectronService } from 'services/electron'
 import { HostAppService } from 'services/hostApp'
 import { HotkeysService } from 'services/hotkeys'
 import { LogService } from 'services/log'
 import { QuitterService } from 'services/quitter'
-import { ToasterConfig } from 'angular2-toaster'
+import { ConfigService } from 'services/config'
 import { Session, SessionsService } from 'services/sessions'
 
 import 'angular2-toaster/lib/toaster.css'
@@ -62,6 +64,7 @@ export class AppComponent {
         private sessions: SessionsService,
         public hostApp: HostAppService,
         public hotkeys: HotkeysService,
+        public config: ConfigService,
         log: LogService,
         electron: ElectronService,
         _quitter: QuitterService,

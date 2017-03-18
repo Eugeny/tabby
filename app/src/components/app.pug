@@ -1,4 +1,4 @@
-.titlebar
+.titlebar(*ngIf='!config.store.appearance.useNativeFrame')
     .title((dblclick)='hostApp.maximizeWindow()') Term
     button.btn-minimize((click)='hostApp.minimizeWindow()')
         i.fa.fa-window-minimize

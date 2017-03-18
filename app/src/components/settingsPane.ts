@@ -15,10 +15,19 @@ const childProcessPromise = nodeRequire('child-process-promise')
   styles: [require('./settingsPane.less')],
 })
 export class SettingsPaneComponent {
+    isWindows: boolean
+    isMac: boolean
+    isLinux: boolean
+    year: number
+    version: string
+    fonts: string[] = []
+    restartRequested: boolean
+    globalHotkey = ['Ctrl+Shift+G']
+
     constructor(
         public config: ConfigService,
+        private electron: ElectronService,
         hostApp: HostAppService,
-        electron: ElectronService,
     ) {
         this.isWindows = hostApp.platform == PLATFORM_WINDOWS
         this.isMac = hostApp.platform == PLATFORM_MAC
@@ -26,15 +35,6 @@ export class SettingsPaneComponent {
         this.version = electron.app.getVersion()
         this.year = new Date().getFullYear()
     }
-
-    isWindows: boolean
-    isMac: boolean
-    isLinux: boolean
-    year: number
-    version: string
-    fonts: string[] = []
-
-    globalHotkey = ['Ctrl+Shift+G']
 
     ngOnInit () {
         childProcessPromise.exec('fc-list :spacing=mono').then((result) => {
@@ -57,5 +57,14 @@ export class SettingsPaneComponent {
 
     ngOnDestroy () {
         this.config.save()
+    }
+
+    requestRestart () {
+        this.restartRequested = true
+    }
+
+    restartApp () {
+        this.electron.app.relaunch()
+        this.electron.app.exit()
     }
 }
