@@ -3,15 +3,15 @@
   "version": "1.0.0",
   "main": "main.js",
   "dependencies": {
-    "child-process-promise": "^2.2.0",
-    "devtron": "^1.4.0",
-    "electron-config": "^0.2.1",
-    "electron-debug": "^1.0.1",
-    "electron-is-dev": "^0.1.2",
-    "path": "^0.12.7",
-    "pty.js": "https://github.com/Tyriar/pty.js/tarball/c75c2dcb6dcad83b0cb3ef2ae42d0448fb912642"
+    "child-process-promise": "2.2.0",
+    "devtron": "1.4.0",
+    "electron-config": "0.2.1",
+    "electron-debug": "1.0.1",
+    "electron-is-dev": "0.1.2",
+    "node-pty": "0.6.3",
+    "path": "0.12.7"
   },
   "devDependencies": {
-    "js-yaml": "^3.8.2"
+    "js-yaml": "3.8.2"
   }
 }

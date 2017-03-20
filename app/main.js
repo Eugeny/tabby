@@ -1,12 +1,23 @@
+const electron = require('electron')
+
+let app = electron.app
+
+let secondInstance = app.makeSingleInstance((argv) => {
+  app.window.webContents.send('host:second-instance')
+})
+
+if (secondInstance) {
+  app.quit()
+  return
+}
+
+
 const yaml = require('js-yaml')
 const path = require('path')
 const fs = require('fs')
 const Config = require('electron-config')
-const electron = require('electron')
 const platform = require('os').platform()
 require('electron-debug')({enabled: true, showDevTools: process.argv.indexOf('--debug') != -1})
-
-let app = electron.app
 let windowConfig = new Config({name: 'window'})
 
 
@@ -14,7 +25,8 @@ setupWindowManagement = () => {
     let windowCloseable
 
     app.window.on('show', () => {
-      electron.ipcMain.send('window-shown')
+      app.window.focus()
+      app.window.webContents.send('host:window-shown')
     })
 
     app.window.on('close', (e) => {
@@ -46,6 +58,14 @@ setupWindowManagement = () => {
     })
 
     electron.ipcMain.on('window-maximize', () => {
+        app.window.maximize()
+    })
+
+    electron.ipcMain.on('window-unmaximize', () => {
+        app.window.unmaximize()
+    })
+
+    electron.ipcMain.on('window-toggle-maximize', () => {
         if (app.window.isMaximized()) {
             app.window.unmaximize()
         } else {
@@ -59,6 +79,10 @@ setupWindowManagement = () => {
 
     electron.ipcMain.on('window-set-bounds', (event, bounds) => {
         app.window.setBounds(bounds, true)
+    })
+
+    electron.ipcMain.on('window-set-always-on-top', (event, flag) => {
+        app.window.setAlwaysOnTop(flag)
     })
 
     app.on('before-quit', () => windowCloseable = true)
@@ -95,15 +119,6 @@ setupMenu = () => {
 start = () => {
     let t0 = Date.now()
 
-    let secondInstance = app.makeSingleInstance((argv) => {
-        app.window.focus()
-    })
-
-    if (secondInstance) {
-        app.quit()
-        return
-    }
-
     let configPath = path.join(electron.app.getPath('userData'), 'config.yaml')
     let configData
     if (fs.existsSync(configPath)) {
@@ -123,6 +138,7 @@ start = () => {
         //- background to avoid the flash of unstyled window
         backgroundColor: '#1D272D',
         frame: false,
+        type: 'toolbar',
     }
     Object.assign(options, windowConfig.get('windowBoundaries'))
 

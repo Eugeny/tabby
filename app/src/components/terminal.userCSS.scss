@@ -1,0 +1,11 @@
+a {
+    cursor: pointer;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+* {
+    font-feature-settings: "liga" 0; // disable ligatures (they break monospacing)
+}

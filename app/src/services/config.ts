@@ -14,6 +14,7 @@ export interface IAppearanceData {
     fontSize: number
     dock: string
     dockScreen: string
+    dockFill: number
 }
 
 export interface ITerminalData {

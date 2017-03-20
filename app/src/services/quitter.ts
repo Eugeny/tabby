@@ -13,7 +13,7 @@ export class QuitterService {
     }
 
     quit() {
-        this.hostApp.setWindowCloseable(true)
+        this.hostApp.setCloseable(true)
         this.hostApp.quit()
     }
 }

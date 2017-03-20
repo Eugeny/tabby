@@ -2,7 +2,8 @@ import { Injectable, NgZone, EventEmitter } from '@angular/core'
 import { Logger, LogService } from 'services/log'
 const exec = require('child-process-promise').exec
 import * as crypto from 'crypto'
-import * as ptyjs from 'pty.js'
+import * as nodePTY from 'node-pty'
+import * as fs from 'fs'
 
 
 export interface SessionRecoveryProvider {
@@ -42,16 +43,26 @@ export class ScreenSessionRecoveryProvider implements SessionRecoveryProvider {
 
     getNewSessionCommand(command: string): string {
         const id = crypto.randomBytes(8).toString('hex')
-        return `screen -U -S term-tab-${id} -- ${command}`
+        // TODO
+        let configPath = '/tmp/.termScreenConfig'
+        fs.writeFileSync(configPath, `
+            escape ^^^
+            vbell off
+            term xterm-color
+            bindkey "^[OH" beginning-of-line
+            bindkey "^[OF" end-of-line
+        `, 'utf-8')
+        return `screen -c ${configPath} -U -S term-tab-${id} -- ${command}`
     }
 }
 
 
 export interface SessionOptions {
     name?: string,
-    command: string,
+    command?: string,
+    shell?: string,
     cwd?: string,
-    env?: string,
+    env?: any,
 }
 
 export class Session {
@@ -67,14 +78,22 @@ export class Session {
     constructor (options: SessionOptions) {
         this.name = options.name
         console.log('Spawning', options.command)
-        this.pty = ptyjs.spawn('sh', ['-c', options.command], {
-            name: 'screen-256color',
-            //name: 'xterm-256color',
+
+        let binary = options.shell || 'sh'
+        let args = options.shell ? [] : ['-c', options.command]
+        let env = {
+            ...process.env,
+            ...options.env,
+            TERM: 'xterm-256color',
+        }
+        this.pty = nodePTY.spawn(binary, args, {
+            //name: 'screen-256color',
+            name: 'xterm-256color',
             //name: 'xterm-color',
             cols: 80,
             rows: 30,
             cwd: options.cwd || process.env.HOME,
-            env: options.env || process.env,
+            env: env,
         })
 
         this.open = true
@@ -156,8 +175,8 @@ export class SessionsService {
         log: LogService,
     ) {
         this.logger = log.create('sessions')
-        //this.recoveryProvider = new ScreenSessionRecoveryProvider()
-        this.recoveryProvider = new NullSessionRecoveryProvider()
+        this.recoveryProvider = new ScreenSessionRecoveryProvider()
+        //this.recoveryProvider = new NullSessionRecoveryProvider()
     }
 
     createNewSession (options: SessionOptions) : Session {

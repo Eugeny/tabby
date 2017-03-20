@@ -25,19 +25,10 @@ hterm.hterm.VT.ESC['k'] = function(parseState) {
 hterm.hterm.defaultStorage = new hterm.lib.Storage.Memory()
 const preferenceManager = new hterm.hterm.PreferenceManager('default')
 preferenceManager.set('user-css', dataurl.convert({
-    data: `
-        a {
-            cursor: pointer;
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
-    `,
+    data: require('./terminal.userCSS.scss'),
     mimetype: 'text/css',
     charset: 'utf8',
 }))
-preferenceManager.set('font-size', 12)
 preferenceManager.set('background-color', '#1D272D')
 preferenceManager.set('color-palette-overrides', {
     0: '#1D272D',
@@ -49,11 +40,12 @@ hterm.hterm.ScrollPort.prototype.decorate = function (...args) {
     this.screen_.style.cssText += `; padding-right: ${this.screen_.offsetWidth - this.screen_.clientWidth}px;`
 }
 
+hterm.hterm.Terminal.prototype.showOverlay = () => null
 
 @Component({
   selector: 'terminal',
   template: '',
-  styles: [require('./terminal.less')],
+  styles: [require('./terminal.scss')],
 })
 export class TerminalComponent {
     @Input() session: Session
@@ -115,6 +107,7 @@ export class TerminalComponent {
         preferenceManager.set('font-size', config.appearance.fontSize)
         preferenceManager.set('audible-bell-sound', '')
         preferenceManager.set('desktop-notification-bell', config.terminal.bell == 'notification')
+        preferenceManager.set('enable-clipboard-notice', false)
     }
 
     ngOnDestroy () {

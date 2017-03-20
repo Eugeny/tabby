@@ -1,0 +1,10 @@
+:host {
+    position: relative;
+    display: block;
+    overflow: hidden;
+
+    div[style]:last-child {
+        background: black !important;
+        color: white !important;
+    }
+}

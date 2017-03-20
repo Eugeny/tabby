@@ -66,11 +66,11 @@ export class AppComponent {
         private elementRef: ElementRef,
         private sessions: SessionsService,
         private docking: DockingService,
+        private electron: ElectronService,
         public hostApp: HostAppService,
         public hotkeys: HotkeysService,
         public config: ConfigService,
         log: LogService,
-        electron: ElectronService,
         _quitter: QuitterService,
     ) {
         console.timeStamp('AppComponent ctor')
@@ -135,10 +135,33 @@ export class AppComponent {
         this.hostApp.shown.subscribe(() => {
             this.docking.dock()
         })
+
+        this.hostApp.secondInstance.subscribe(() => {
+            if (this.electron.app.window.isFocused()) {
+                // focused
+                this.electron.app.window.hide()
+            } else {
+                if (!this.electron.app.window.isVisible()) {
+                    // unfocused, invisible
+                    this.electron.app.window.show()
+                } else {
+                    if (this.config.full().appearance.dock == 'off') {
+                        // not docked, visible
+                        setTimeout(() => {
+                            this.electron.app.window.focus()
+                        })
+                    } else {
+                        // docked, visible
+                        this.electron.app.window.hide()
+                    }
+                }
+            }
+            this.docking.dock()
+        })
     }
 
     newTab () {
-        this.addTerminalTab(this.sessions.createNewSession({command: 'bash'}))
+        this.addTerminalTab(this.sessions.createNewSession({shell: 'zsh'}))
     }
 
     addTerminalTab (session) {

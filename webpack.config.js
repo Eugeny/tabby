@@ -4,7 +4,7 @@ const webpack = require("webpack")
 module.exports = {
     target: 'node',
     entry: {
-        'index.ignore': 'file-loader?name=index.html!val-loader!pug-html-loader!./app/index.pug',
+        'index.ignore': 'file-loader?name=index.html!pug-html-loader!./app/index.pug',
         'preload': './app/src/entry.preload.ts',
         'bundle': './app/src/entry.ts',
     },
@@ -52,7 +52,13 @@ module.exports = {
             },
             {
               test: /\.scss$/,
-              use: ['style-loader', 'css-loader', 'sass-loader']
+              use: ['style-loader', 'css-loader', 'sass-loader'],
+              exclude: [/app\/src\/components\//],
+            },
+            {
+              test: /\.scss$/,
+              use: ['to-string-loader', 'css-loader', 'sass-loader'],
+              include: [/app\/src\/components\//],
             },
             {
               test: /\.(png|svg)$/,
@@ -83,7 +89,7 @@ module.exports = {
         'shell': 'require("shell")',
         'ipc': 'require("ipc")',
         'crypto': 'require("crypto")',
-        'pty.js': 'require("pty.js")',
+        'node-pty': 'require("node-pty")',
         'child-process-promise': 'require("child-process-promise")',
     },
     plugins: [

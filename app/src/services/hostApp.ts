@@ -23,8 +23,12 @@ export class HostAppService {
             console.error('Unhandled exception:', err)
         })
 
-        electron.ipcRenderer.on('window-shown', () => {
+        electron.ipcRenderer.on('host:window-shown', () => {
             this.shown.emit()
+        })
+
+        electron.ipcRenderer.on('host:second-instance', () => {
+            this.secondInstance.emit()
         })
 
         this.ready.subscribe(() => {
@@ -36,6 +40,7 @@ export class HostAppService {
     quitRequested = new EventEmitter<any>()
     ready = new EventEmitter<any>()
     shown = new EventEmitter<any>()
+    secondInstance = new EventEmitter<any>()
 
     private logger: Logger;
 
@@ -59,8 +64,8 @@ export class HostAppService {
         this.electron.app.webContents.openDevTools()
     }
 
-    setWindowCloseable(flag: boolean) {
-        this.electron.ipcRenderer.send('window-closeable', flag)
+    setCloseable(flag: boolean) {
+        this.electron.ipcRenderer.send('window-set-closeable', flag)
     }
 
     focusWindow() {
@@ -71,16 +76,28 @@ export class HostAppService {
         this.electron.ipcRenderer.send('window-toggle-focus')
     }
 
-    minimizeWindow () {
+    minimize () {
         this.electron.ipcRenderer.send('window-minimize')
     }
 
-    maximizeWindow () {
+    maximize () {
         this.electron.ipcRenderer.send('window-maximize')
+    }
+
+    unmaximize () {
+        this.electron.ipcRenderer.send('window-unmaximize')
+    }
+
+    toggleMaximize () {
+        this.electron.ipcRenderer.send('window-toggle-maximize')
     }
 
     setBounds (bounds: Electron.Rectangle) {
         this.electron.ipcRenderer.send('window-set-bounds', bounds)
+    }
+
+    setAlwaysOnTop (flag: boolean) {
+        this.electron.ipcRenderer.send('window-set-always-on-top', flag)
     }
 
     quit () {

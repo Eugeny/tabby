@@ -16,7 +16,6 @@ import { PluginDispatcherService } from 'services/pluginDispatcher'
 import { QuitterService } from 'services/quitter'
 import { SessionsService } from 'services/sessions'
 import { DockingService } from 'services/docking'
-import { LocalStorageService } from 'angular2-localstorage/LocalStorageEmitter'
 
 import { AppComponent } from 'components/app'
 import { CheckboxComponent } from 'components/checkbox'
@@ -48,7 +47,6 @@ import { TerminalComponent } from 'components/terminal'
         PluginDispatcherService,
         QuitterService,
         SessionsService,
-        LocalStorageService,
     ],
     entryComponents: [
         HotkeyInputModalComponent,

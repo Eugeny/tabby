@@ -26,18 +26,19 @@ export class DockingService {
 
         let dockSide = this.config.full().appearance.dock
         let newBounds: Electron.Rectangle = { x: 0, y: 0, width: 0, height: 0 }
-        let fill = 0.5
+        let fill = this.config.full().appearance.dockFill
 
         if (dockSide == 'off') {
+            this.hostApp.setAlwaysOnTop(false)
             return
         }
         if (dockSide == 'left' || dockSide == 'right') {
-            newBounds.width = fill * display.bounds.width
+            newBounds.width = Math.round(fill * display.bounds.width)
             newBounds.height = display.bounds.height
         }
         if (dockSide == 'top' || dockSide == 'bottom') {
             newBounds.width = display.bounds.width
-            newBounds.height = fill * display.bounds.height
+            newBounds.height = Math.round(fill * display.bounds.height)
         }
         if (dockSide == 'right') {
             newBounds.x = display.bounds.x + display.bounds.width * (1.0 - fill)
@@ -50,6 +51,8 @@ export class DockingService {
             newBounds.y = display.bounds.y
         }
 
+        this.hostApp.setAlwaysOnTop(true)
+        this.hostApp.unmaximize()
         this.hostApp.setBounds(newBounds)
     }
 
