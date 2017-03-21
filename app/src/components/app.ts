@@ -1,4 +1,4 @@
-import { Component, ElementRef, trigger, style, animate, transition, state } from '@angular/core'
+import { Component, ElementRef, Input, trigger, style, animate, transition, state } from '@angular/core'
 import { ToasterConfig } from 'angular2-toaster'
 
 import { ElectronService } from 'services/electron'
@@ -8,29 +8,13 @@ import { LogService } from 'services/log'
 import { QuitterService } from 'services/quitter'
 import { ConfigService } from 'services/config'
 import { DockingService } from 'services/docking'
-import { Session, SessionsService } from 'services/sessions'
+import { SessionsService } from 'services/sessions'
+
+import { Tab, SettingsTab, TerminalTab } from 'models/tab'
 
 import 'angular2-toaster/lib/toaster.css'
 import 'global.less'
 import 'theme.scss'
-
-
-const TYPE_TERMINAL = 'terminal'
-const TYPE_SETTINGS = 'settings'
-
-class Tab {
-    id: number
-    name: string
-    scrollable: boolean
-    static lastTabID = 0
-
-    constructor (public type: string, public session: Session) {
-        this.id = Tab.lastTabID++
-        if (type == TYPE_SETTINGS) {
-            this.name = 'Settings'
-        }
-    }
-}
 
 
 @Component({
@@ -58,8 +42,8 @@ class Tab {
 })
 export class AppComponent {
     toasterConfig: ToasterConfig
-    tabs: Tab[] = []
-    activeTab: Tab
+    @Input() tabs: Tab[] = []
+    @Input() activeTab: Tab
     lastTabIndex = 0
 
     constructor(
@@ -161,11 +145,11 @@ export class AppComponent {
     }
 
     newTab () {
-        this.addTerminalTab(this.sessions.createNewSession({shell: 'zsh'}))
+        this.addTerminalTab(this.sessions.createNewSession({command: 'zsh'}))
     }
 
     addTerminalTab (session) {
-        let tab = new Tab(TYPE_TERMINAL, session)
+        let tab = new TerminalTab(session)
         this.tabs.push(tab)
         this.selectTab(tab)
     }
@@ -175,6 +159,9 @@ export class AppComponent {
             this.lastTabIndex = this.tabs.indexOf(this.activeTab)
         } else {
             this.lastTabIndex = null
+        }
+        if (this.activeTab) {
+            this.activeTab.hasActivity = false
         }
         this.activeTab = tab
         setImmediate(() => {
@@ -207,8 +194,9 @@ export class AppComponent {
     }
 
     closeTab (tab) {
+        tab.destroy()
         if (tab.session) {
-            tab.session.gracefullyDestroy()
+            this.sessions.destroySession(tab.session)
         }
         let newIndex = Math.max(0, this.tabs.indexOf(tab) - 1)
         this.tabs = this.tabs.filter((x) => x != tab)
@@ -231,10 +219,9 @@ export class AppComponent {
     }
 
     showSettings() {
-        let settingsTab = this.tabs.find((x) => x.type == TYPE_SETTINGS)
+        let settingsTab = this.tabs.find((x) => x instanceof SettingsTab)
         if (!settingsTab) {
-            settingsTab = new Tab(TYPE_SETTINGS, null)
-            settingsTab.scrollable = true
+            settingsTab = new SettingsTab()
             this.tabs.push(settingsTab)
         }
         this.selectTab(settingsTab)

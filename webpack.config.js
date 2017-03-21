@@ -23,7 +23,7 @@ module.exports = {
         loaders: [
             {
                 test: /\.ts$/,
-                loader: 'awesome-typescript-loader'
+                loader: 'awesome-typescript-loader',
             },
             {
               test: /\.pug$/,
@@ -63,14 +63,14 @@ module.exports = {
             {
               test: /\.(png|svg)$/,
               loader: "file-loader",
-              query: {
+              options: {
                 name: 'images/[name].[hash:8].[ext]'
               }
             },
             {
                 test: /\.(ttf|eot|otf|woff|woff2)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
                 loader: "file-loader",
-                query: {
+                options: {
                   name: 'fonts/[name].[hash:8].[ext]'
                 }
             },

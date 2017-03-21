@@ -1,0 +1,4 @@
+.content-wrapper
+    .index {{index + 1}}
+    .name {{model.title  || "Terminal"}}
+    button((click)='closeClicked.emit()') &times;

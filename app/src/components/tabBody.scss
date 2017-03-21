@@ -1,0 +1,18 @@
+:host {
+    display: none;
+    flex: auto;
+    position: relative;
+    overflow: hidden;
+
+    &.scrollable {
+        overflow-y: auto;
+    }
+
+    &.active {
+        display: flex;
+
+        >* {
+            flex: auto;
+        }
+    }
+}

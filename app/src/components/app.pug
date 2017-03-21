@@ -7,32 +7,33 @@
     button.btn.btn-secondary.btn-close((click)='hostApp.quit()')
         i.fa.fa-close
 
+.spacer 
+
 .tabs(class='active-tab-{{tabs.indexOf(activeTab)}}')
     button.btn.btn-secondary.btn-new-tab((click)='newTab()')
         i.fa.fa-plus
-    .tab(
+    tab-header(
         *ngFor='let tab of tabs; let idx = index; trackBy: tab?.id',
-        (click)='selectTab(tab)',
-        [class.active]='tab == activeTab',
-        [class.pre-selected]='tabs[idx + 1] == activeTab',
-        [class.post-selected]='tabs[idx - 1] == activeTab',
+        [index]='idx',
+        [model]='tab',
+        [active]='tab == activeTab',
+        [hasActivity]='tab.hasActivity',
         @animateTab,
+        (click)='selectTab(tab)',
+        (closeClicked)='closeTab(tab)',
     )
-        .content-wrapper
-            div.index {{idx + 1}}
-            div.name {{tab.name || 'Terminal'}}
-            button((click)='closeTab(tab)') &times;
     button.btn.btn-secondary.btn-settings((click)='showSettings()')
         i.fa.fa-cog
 
 .tabs-content
-    .tab(
+    tab-body(
         *ngFor='let tab of tabs; trackBy: tab?.id', 
-        [class.active]='tab == activeTab',
+        [active]='tab == activeTab',
+        [model]='tab',
         [class.scrollable]='tab.scrollable',
     )
-        terminal(*ngIf='tab.type == "terminal"', [session]='tab.session', '[(title)]'='tab.name')
-        settings-pane(*ngIf='tab.type == "settings"')
+        //-terminal(*ngIf='tab.type == "terminal"', [session]='tab.session', '[(title)]'='tab.name')
+        //-settings-pane(*ngIf='tab.type == "settings"')
 
 hotkey-hint
 

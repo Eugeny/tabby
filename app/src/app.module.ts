@@ -24,6 +24,8 @@ import { HotkeyDisplayComponent } from 'components/hotkeyDisplay'
 import { HotkeyHintComponent } from 'components/hotkeyHint'
 import { HotkeyInputModalComponent } from 'components/hotkeyInputModal'
 import { SettingsPaneComponent } from 'components/settingsPane'
+import { TabBodyComponent } from 'components/tabBody'
+import { TabHeaderComponent } from 'components/tabHeader'
 import { TerminalComponent } from 'components/terminal'
 
 
@@ -50,6 +52,8 @@ import { TerminalComponent } from 'components/terminal'
     ],
     entryComponents: [
         HotkeyInputModalComponent,
+        SettingsPaneComponent,
+        TerminalComponent,
     ],
     declarations: [
         AppComponent,
@@ -59,10 +63,12 @@ import { TerminalComponent } from 'components/terminal'
         HotkeyInputComponent,
         HotkeyInputModalComponent,
         SettingsPaneComponent,
+        TabBodyComponent,
+        TabHeaderComponent,
         TerminalComponent,
     ],
     bootstrap: [
-        AppComponent
+        AppComponent,
     ]
 })
 export class AppModule {

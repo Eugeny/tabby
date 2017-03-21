@@ -63,3 +63,61 @@ ngb-tabset .tab-content {
 [ngbradiogroup] > label.active {
     background: $blue;
 }
+
+$tab-border-radius: 5px;
+
+.tabs tab-header {
+    background: $body-bg;
+    .content-wrapper {
+        background: $body-bg2;
+
+        .index {
+            color: #444;
+        }
+
+        button {
+            color: $body-color;
+            border: none;
+            transition: 0.25s all;
+
+            &:hover {
+                background: rgba(0, 0, 0, .25) !important;
+            }
+
+            &:active {
+                background: rgba(0, 0, 0, .5) !important;
+            }
+        }
+    }
+
+    &.pre-selected, &:nth-last-child(1) {
+        .content-wrapper {
+            border-bottom-right-radius: $tab-border-radius;
+        }
+    }
+
+    &.post-selected {
+        .content-wrapper {
+            border-bottom-left-radius: $tab-border-radius;
+        }
+    }
+
+    &.active {
+        background: $body-bg2;
+
+        .content-wrapper {
+            border-top: 1px solid $blue;
+            background: $body-bg;
+            border-top-left-radius: $tab-border-radius;
+            border-top-right-radius: $tab-border-radius;
+        }
+    }
+
+    &.has-activity:not(.active) {
+        .content-wrapper .index {
+            background: $blue;
+            color: white;
+            text-shadow: 0 1px 1px rgba(0,0,0,.95);
+        }
+    }
+}

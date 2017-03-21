@@ -9,13 +9,16 @@ import 'rxjs/add/operator/debounceTime'
 import 'rxjs/add/operator/distinctUntilChanged'
 const childProcessPromise = nodeRequire('child-process-promise')
 
+import { BaseTabComponent } from 'components/baseTab'
+import { SettingsTab } from 'models/tab'
+
 
 @Component({
   selector: 'settings-pane',
   template: require('./settingsPane.pug'),
   styles: [require('./settingsPane.less')],
 })
-export class SettingsPaneComponent {
+export class SettingsPaneComponent extends BaseTabComponent<SettingsTab> {
     isWindows: boolean
     isMac: boolean
     isLinux: boolean
@@ -31,6 +34,7 @@ export class SettingsPaneComponent {
         public docking: DockingService,
         hostApp: HostAppService,
     ) {
+        super()
         this.isWindows = hostApp.platform == PLATFORM_WINDOWS
         this.isMac = hostApp.platform == PLATFORM_MAC
         this.isLinux = hostApp.platform == PLATFORM_LINUX

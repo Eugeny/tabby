@@ -1,9 +1,12 @@
 import { Subscription } from 'rxjs'
-import { Component, NgZone, Input, Output, EventEmitter, ElementRef } from '@angular/core'
+import { Component, NgZone, Output, EventEmitter, ElementRef } from '@angular/core'
 
 import { ConfigService } from 'services/config'
 import { PluginDispatcherService } from 'services/pluginDispatcher'
-import { Session } from 'services/sessions'
+
+import { BaseTabComponent } from 'components/baseTab'
+import { TerminalTab } from 'models/tab'
+
 
 const hterm = require('hterm-commonjs')
 const dataurl = require('dataurl')
@@ -47,8 +50,7 @@ hterm.hterm.Terminal.prototype.showOverlay = () => null
   template: '',
   styles: [require('./terminal.scss')],
 })
-export class TerminalComponent {
-    @Input() session: Session
+export class TerminalComponent extends BaseTabComponent<TerminalTab> {
     title: string
     @Output() titleChange = new EventEmitter()
     terminal: any
@@ -60,12 +62,13 @@ export class TerminalComponent {
         public config: ConfigService,
         private pluginDispatcher: PluginDispatcherService,
     ) {
+        super()
         this.configSubscription = config.change.subscribe(() => {
             this.configure()
         })
     }
 
-    ngOnInit () {
+    initTab () {
         let io
         this.terminal = new hterm.hterm.Terminal()
         this.pluginDispatcher.emit('preTerminalInit', { terminal: this.terminal })
@@ -78,23 +81,23 @@ export class TerminalComponent {
         this.terminal.onTerminalReady = () => {
             this.terminal.installKeyboard()
             io = this.terminal.io.push()
-            const dataSubscription = this.session.dataAvailable.subscribe((data) => {
-                io.writeUTF16(data)
+            const dataSubscription = this.model.session.dataAvailable.subscribe((data) => {
+                io.writeUTF8(data)
             })
-            const closedSubscription = this.session.closed.subscribe(() => {
+            const closedSubscription = this.model.session.closed.subscribe(() => {
                 dataSubscription.unsubscribe()
                 closedSubscription.unsubscribe()
             })
 
             io.onVTKeystroke = io.sendString = (str) => {
-                this.session.write(str)
+                this.model.session.write(str)
             }
             io.onTerminalResize = (columns, rows) => {
                 console.log(`Resizing to ${columns}x${rows}`)
-                this.session.resize(columns, rows)
+                this.model.session.resize(columns, rows)
             }
 
-            this.session.releaseInitialDataBuffer()
+            this.model.session.releaseInitialDataBuffer()
         }
         this.terminal.decorate(this.elementRef.nativeElement)
         this.configure()
@@ -108,6 +111,8 @@ export class TerminalComponent {
         preferenceManager.set('audible-bell-sound', '')
         preferenceManager.set('desktop-notification-bell', config.terminal.bell == 'notification')
         preferenceManager.set('enable-clipboard-notice', false)
+        preferenceManager.set('receive-encoding', 'raw')
+        preferenceManager.set('send-encoding', 'raw')
     }
 
     ngOnDestroy () {

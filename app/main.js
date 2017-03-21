@@ -138,7 +138,7 @@ start = () => {
         //- background to avoid the flash of unstyled window
         backgroundColor: '#1D272D',
         frame: false,
-        type: 'toolbar',
+        //type: 'toolbar',
     }
     Object.assign(options, windowConfig.get('windowBoundaries'))
 

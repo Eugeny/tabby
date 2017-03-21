@@ -29,7 +29,7 @@
     background: @body-bg;
 }
 
-@titlebar-height: 35px;
+@titlebar-height: 30px;
 @tabs-height: 40px;
 @tab-border-radius: 4px;
 
@@ -51,6 +51,10 @@
         box-shadow: none;
         border-radius: 0;
         font-size: 8px;
+        width: 40px;
+        padding: 0;
+        line-height: @titlebar-height;
+        text-align: center;
 
         &:not(:hover):not(:active) {
             background: transparent;
@@ -62,6 +66,11 @@
     }
 }
 
+:host > .spacer {
+    flex: 0 0 5px;
+    background: @title-bg;
+}
+
 .tabs {
     flex: none;
     height: @tabs-height;
@@ -69,12 +78,10 @@
     display: flex;
     flex-direction: row;
 
-    &>button, .tab {
+    &>button {
         line-height: @tabs-height - 2px;
         cursor: pointer;
-    }
 
-    &>button {
         padding: 0 15px;
         flex: 0 0 auto;
         border-bottom: 2px solid transparent;
@@ -96,130 +103,14 @@
         border-bottom-right-radius: @tab-border-radius;
     }
 
-    .tab.active + button {
+    tab-header.active + button {
         border-bottom-left-radius: @tab-border-radius;
-    }
-
-    .tab {
-        flex: auto;
-        flex-basis: 0;
-        flex-grow: 1000;
-
-        display: flex;
-        overflow: hidden;
-
-        min-width: 0;
-        background: @body-bg;
-        transition: 0.25s all;
-
-        .button-states();
-
-        .content-wrapper {
-            display: flex;
-            flex-direction: row;
-            flex: auto;
-            min-width: 0;
-            background: @title-bg;
-            transition: 0.25s all;
-
-            div.index {
-                flex: none;
-                padding: 0 0 0 15px;
-                font-weight: bold;
-                color: #444;
-            }
-
-            div.name {
-                flex: auto;
-                margin: 0 1px 0 10px;
-                overflow: hidden;
-                white-space: nowrap;
-                text-overflow: ellipsis;
-                min-width: 0;
-            }
-
-            button {
-                flex: none;
-
-                background: transparent;
-                color: @text-color;
-
-                display: block;
-                opacity: 0;
-
-                @button-size: @tabs-height * 0.6;
-                width: @button-size;
-                height: @button-size;
-                border-radius: @button-size / 2;
-                line-height: @button-size * 0.8;
-                margin-top: (@tabs-height - @button-size) * 0.4;
-                margin-right: 10px;
-
-                text-align: center;
-                font-size: 20px;
-
-                .button-states();
-            }
-
-            &:hover button {
-                transition: 0.25s opacity;
-                display: block;
-                opacity: 1;
-            }
-        }
-
-        //border-bottom: 2px solid transparent;
-        transition: 0.25s all;
-
-        &.pre-selected, &:nth-last-child(1) {
-            .content-wrapper {
-                border-bottom-right-radius: @tab-border-radius;
-            }
-        }
-
-        &.post-selected {
-            .content-wrapper {
-                border-bottom-left-radius: @tab-border-radius;
-            }
-        }
-
-        &.active {
-            background: @title-bg;
-            box-shadow: 0px -1px 0px 0px blue;
-
-            .content-wrapper {
-                //border-bottom: 2px solid #69bbea;
-                background: @body-bg;
-                border-top-left-radius: @tab-border-radius;
-                border-top-right-radius: @tab-border-radius;
-            }
-        }
     }
 }
 
 .tabs-content {
     flex: auto;
     display: flex;
-
-    .tab {
-        display: none;
-        flex: auto;
-        position: relative;
-        padding: 15px;
-
-        overflow: hidden;
-        &.scrollable {
-            overflow-y: auto;
-        }
-
-        &.active {
-            display: flex;
-
-            >* {
-                flex: auto;
-            }
-        }
-    }
 }
 
 hotkey-hint {
