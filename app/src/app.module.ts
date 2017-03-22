@@ -26,7 +26,7 @@ import { HotkeyInputModalComponent } from 'components/hotkeyInputModal'
 import { SettingsPaneComponent } from 'components/settingsPane'
 import { TabBodyComponent } from 'components/tabBody'
 import { TabHeaderComponent } from 'components/tabHeader'
-import { TerminalComponent } from 'components/terminal'
+import { TerminalTabComponent } from 'components/terminalTab'
 
 
 @NgModule({
@@ -53,7 +53,7 @@ import { TerminalComponent } from 'components/terminal'
     entryComponents: [
         HotkeyInputModalComponent,
         SettingsPaneComponent,
-        TerminalComponent,
+        TerminalTabComponent,
     ],
     declarations: [
         AppComponent,
@@ -65,7 +65,7 @@ import { TerminalComponent } from 'components/terminal'
         SettingsPaneComponent,
         TabBodyComponent,
         TabHeaderComponent,
-        TerminalComponent,
+        TerminalTabComponent,
     ],
     bootstrap: [
         AppComponent,

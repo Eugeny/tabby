@@ -1,6 +1,7 @@
-import { Subscription } from 'rxjs'
+import { BaseTabComponent } from 'components/baseTab'
 import { Session } from 'services/sessions'
 
+declare type ComponentType<T extends Tab> = new (...args: any[]) => BaseTabComponent<T>
 
 export class Tab {
     id: number
@@ -13,7 +14,11 @@ export class Tab {
         this.id = Tab.lastTabID++
     }
 
-    getComponentType (): (new (...args: any[])) {
+    displayActivity () {
+        this.hasActivity = true
+    }
+
+    getComponentType (): ComponentType<Tab> {
         return null
     }
 
@@ -30,35 +35,20 @@ export class SettingsTab extends Tab {
         this.scrollable = true
     }
 
-    getComponentType (): (new (...args: any[])) {
+    getComponentType (): ComponentType<SettingsTab> {
         return SettingsPaneComponent
     }
 }
 
 
-import { TerminalComponent } from 'components/terminal'
+import { TerminalTabComponent } from 'components/terminalTab'
 
 export class TerminalTab extends Tab {
-    private activitySubscription: Subscription
-
     constructor (public session: Session) {
         super()
-        // ignore the initial refresh
-        setTimeout(() => {
-            this.activitySubscription = this.session.dataAvailable.subscribe(() => {
-                this.hasActivity = true
-            })
-        }, 500)
     }
 
-    getComponentType (): (new (...args: any[])) {
-        return TerminalComponent
-    }
-
-    destroy () {
-        super.destroy()
-        if (this.activitySubscription) {
-            this.activitySubscription.unsubscribe()
-        }
+    getComponentType (): ComponentType<TerminalTab> {
+        return TerminalTabComponent
     }
 }

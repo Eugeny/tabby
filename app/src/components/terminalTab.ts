@@ -7,54 +7,20 @@ import { PluginDispatcherService } from 'services/pluginDispatcher'
 import { BaseTabComponent } from 'components/baseTab'
 import { TerminalTab } from 'models/tab'
 
+import { hterm, preferenceManager } from 'hterm'
 
-const hterm = require('hterm-commonjs')
-const dataurl = require('dataurl')
-
-
-hterm.hterm.VT.ESC['k'] = function(parseState) {
-    parseState.resetArguments();
-
-    function parseOSC(ps) {
-        if (!this.parseUntilStringTerminator_(ps) || ps.func == parseOSC) {
-            return
-        }
-
-        this.terminal.setWindowTitle(ps.args[0])
-    }
-    parseState.func = parseOSC
-}
-
-hterm.hterm.defaultStorage = new hterm.lib.Storage.Memory()
-const preferenceManager = new hterm.hterm.PreferenceManager('default')
-preferenceManager.set('user-css', dataurl.convert({
-    data: require('./terminal.userCSS.scss'),
-    mimetype: 'text/css',
-    charset: 'utf8',
-}))
-preferenceManager.set('background-color', '#1D272D')
-preferenceManager.set('color-palette-overrides', {
-    0: '#1D272D',
-})
-
-const oldDecorate = hterm.hterm.ScrollPort.prototype.decorate
-hterm.hterm.ScrollPort.prototype.decorate = function (...args) {
-    oldDecorate.bind(this)(...args)
-    this.screen_.style.cssText += `; padding-right: ${this.screen_.offsetWidth - this.screen_.clientWidth}px;`
-}
-
-hterm.hterm.Terminal.prototype.showOverlay = () => null
 
 @Component({
-  selector: 'terminal',
+  selector: 'terminalTab',
   template: '',
-  styles: [require('./terminal.scss')],
+  styles: [require('./terminalTab.scss')],
 })
-export class TerminalComponent extends BaseTabComponent<TerminalTab> {
+export class TerminalTabComponent extends BaseTabComponent<TerminalTab> {
     title: string
     @Output() titleChange = new EventEmitter()
     terminal: any
     configSubscription: Subscription
+    startupTime: number
 
     constructor(
         private zone: NgZone,
@@ -63,6 +29,7 @@ export class TerminalComponent extends BaseTabComponent<TerminalTab> {
         private pluginDispatcher: PluginDispatcherService,
     ) {
         super()
+        this.startupTime = performance.now()
         this.configSubscription = config.change.subscribe(() => {
             this.configure()
         })
@@ -82,6 +49,11 @@ export class TerminalComponent extends BaseTabComponent<TerminalTab> {
             this.terminal.installKeyboard()
             io = this.terminal.io.push()
             const dataSubscription = this.model.session.dataAvailable.subscribe((data) => {
+                if (performance.now() - this.startupTime > 500)  {
+                    this.zone.run(() => {
+                        this.model.displayActivity()
+                    })
+                }
                 io.writeUTF8(data)
             })
             const closedSubscription = this.model.session.closed.subscribe(() => {
