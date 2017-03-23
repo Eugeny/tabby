@@ -1,3 +1,4 @@
+import { EventEmitter } from '@angular/core'
 import { BaseTabComponent } from 'components/baseTab'
 import { Session } from 'services/sessions'
 
@@ -8,6 +9,8 @@ export class Tab {
     title: string
     scrollable: boolean
     hasActivity = false
+    focused = new EventEmitter<any>()
+    blurred = new EventEmitter<any>()
     static lastTabID = 0
 
     constructor () {
@@ -51,4 +54,6 @@ export class TerminalTab extends Tab {
     getComponentType (): ComponentType<TerminalTab> {
         return TerminalTabComponent
     }
+
+    onFocus (): void { }
 }

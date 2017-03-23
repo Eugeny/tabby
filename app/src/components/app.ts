@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, trigger, style, animate, transition, state } from '@angular/core'
+import { Component, Input, trigger, style, animate, transition, state } from '@angular/core'
 import { ToasterConfig } from 'angular2-toaster'
 
 import { ElectronService } from 'services/electron'
@@ -47,7 +47,6 @@ export class AppComponent {
     lastTabIndex = 0
 
     constructor(
-        private elementRef: ElementRef,
         private sessions: SessionsService,
         private docking: DockingService,
         private electron: ElectronService,
@@ -162,14 +161,10 @@ export class AppComponent {
         }
         if (this.activeTab) {
             this.activeTab.hasActivity = false
+            this.activeTab.blurred.emit()
         }
         this.activeTab = tab
-        setImmediate(() => {
-            let iframe = this.elementRef.nativeElement.querySelector(':scope .tab.active iframe')
-            if (iframe) {
-                iframe.focus()
-            }
-        })
+        this.activeTab.focused.emit()
     }
 
     toggleLastTab () {

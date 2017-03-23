@@ -20,6 +20,7 @@ export class TerminalTabComponent extends BaseTabComponent<TerminalTab> {
     @Output() titleChange = new EventEmitter()
     terminal: any
     configSubscription: Subscription
+    focusedSubscription: Subscription
     startupTime: number
 
     constructor(
@@ -36,7 +37,10 @@ export class TerminalTabComponent extends BaseTabComponent<TerminalTab> {
     }
 
     initTab () {
-        let io
+        this.focusedSubscription = this.model.focused.subscribe(() => {
+            this.terminal.scrollPort_.focus()
+        })
+
         this.terminal = new hterm.hterm.Terminal()
         this.pluginDispatcher.emit('preTerminalInit', { terminal: this.terminal })
         this.terminal.setWindowTitle = (title) => {
@@ -47,7 +51,7 @@ export class TerminalTabComponent extends BaseTabComponent<TerminalTab> {
         }
         this.terminal.onTerminalReady = () => {
             this.terminal.installKeyboard()
-            io = this.terminal.io.push()
+            let io = this.terminal.io.push()
             const dataSubscription = this.model.session.dataAvailable.subscribe((data) => {
                 if (performance.now() - this.startupTime > 500)  {
                     this.zone.run(() => {
@@ -88,6 +92,7 @@ export class TerminalTabComponent extends BaseTabComponent<TerminalTab> {
     }
 
     ngOnDestroy () {
+        this.focusedSubscription.unsubscribe()
         this.configSubscription.unsubscribe()
     }
 }
