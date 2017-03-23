@@ -8,10 +8,10 @@ import { LogService } from 'services/log'
 import { QuitterService } from 'services/quitter'
 import { ConfigService } from 'services/config'
 import { DockingService } from 'services/docking'
-import { SessionsService } from 'services/sessions'
+// import { SessionsService } from 'services/sessions'
 import { PluginDispatcherService } from 'services/pluginDispatcher'
 
-import { Tab, TerminalTab } from 'models/tab'
+import { Tab } from 'models/tab'
 
 import 'angular2-toaster/lib/toaster.css'
 import 'global.less'
@@ -48,7 +48,7 @@ export class AppComponent {
     lastTabIndex = 0
 
     constructor(
-        private sessions: SessionsService,
+//        private sessions: SessionsService,
         private docking: DockingService,
         private electron: ElectronService,
         public hostApp: HostAppService,
@@ -146,11 +146,7 @@ export class AppComponent {
     }
 
     newTab () {
-        this.addTerminalTab(this.sessions.createNewSession({command: 'zsh'}))
-    }
-
-    addTerminalTab (session) {
-        let tab = new TerminalTab(session)
+        const tab = this.pluginDispatcher.temp2('zsh')
         this.tabs.push(tab)
         this.selectTab(tab)
     }
@@ -192,9 +188,9 @@ export class AppComponent {
 
     closeTab (tab) {
         tab.destroy()
-        if (tab.session) {
+        /* if (tab.session) {
             this.sessions.destroySession(tab.session)
-        }
+        } */
         let newIndex = Math.max(0, this.tabs.indexOf(tab) - 1)
         this.tabs = this.tabs.filter((x) => x != tab)
         if (tab == this.activeTab) {
@@ -203,6 +199,7 @@ export class AppComponent {
     }
 
     ngOnInit () {
+        /*
         this.sessions.recoverAll().then((recoveredSessions) => {
             if (recoveredSessions.length > 0) {
                 recoveredSessions.forEach((session) => {
@@ -213,6 +210,7 @@ export class AppComponent {
                 this.showSettings();
             }
         })
+        */
     }
 
     showSettings() {

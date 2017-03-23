@@ -7,7 +7,8 @@ import { ElectronService } from 'services/electron'
 export class PluginDispatcherService {
     plugins = []
     temp: any
-    
+    temp2: any
+
     constructor (
         private config: ConfigService,
         private electron: ElectronService,

@@ -14,19 +14,18 @@ import { ModalService } from 'services/modal'
 import { NotifyService } from 'services/notify'
 import { PluginDispatcherService } from 'services/pluginDispatcher'
 import { QuitterService } from 'services/quitter'
-import { SessionsService } from 'services/sessions'
 import { DockingService } from 'services/docking'
 
 import { AppComponent } from 'components/app'
 import { CheckboxComponent } from 'components/checkbox'
 import { TabBodyComponent } from 'components/tabBody'
 import { TabHeaderComponent } from 'components/tabHeader'
-import { TerminalTabComponent } from 'components/terminalTab'
 import { TitleBarComponent } from 'components/titleBar'
 
 
 let plugins = [
     require('./settings').default,
+    require('./terminal').default,
 ]
 
 @NgModule({
@@ -48,17 +47,14 @@ let plugins = [
         NotifyService,
         PluginDispatcherService,
         QuitterService,
-        SessionsService,
     ],
     entryComponents: [
-        TerminalTabComponent,
     ],
     declarations: [
         AppComponent,
         CheckboxComponent,
         TabBodyComponent,
         TabHeaderComponent,
-        TerminalTabComponent,
         TitleBarComponent,
     ],
     bootstrap: [

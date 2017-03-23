@@ -25,11 +25,13 @@
     "sass-loader": "^6.0.3",
     "style-loader": "^0.13.1",
     "to-string-loader": "^1.1.5",
-    "tslint": "4.2.0",
+    "tslint": "4.5.0",
+    "tslint-eslint-rules": "^3.5.1",
     "typescript": "2.2.1",
     "url-loader": "^0.5.7",
     "val-loader": "^0.5.0",
-    "webpack": "2.2.0-rc.4",
+    "vrsource-tslint-rules": "^4.0.1",
+    "webpack": "2.2.0",
     "yaml-loader": "^0.4.0"
   },
   "build": {

@@ -5,9 +5,9 @@ import { ConfigService } from 'services/config'
 import { PluginDispatcherService } from 'services/pluginDispatcher'
 
 import { BaseTabComponent } from 'components/baseTab'
-import { TerminalTab } from 'models/tab'
+import { TerminalTab } from '../tab'
 
-import { hterm, preferenceManager } from 'hterm'
+import { hterm, preferenceManager } from '../hterm'
 
 
 @Component({
