@@ -19,15 +19,15 @@ import { DockingService } from 'services/docking'
 
 import { AppComponent } from 'components/app'
 import { CheckboxComponent } from 'components/checkbox'
-import { HotkeyInputComponent } from 'components/hotkeyInput'
-import { HotkeyDisplayComponent } from 'components/hotkeyDisplay'
-import { HotkeyHintComponent } from 'components/hotkeyHint'
-import { HotkeyInputModalComponent } from 'components/hotkeyInputModal'
-import { SettingsPaneComponent } from 'components/settingsPane'
 import { TabBodyComponent } from 'components/tabBody'
 import { TabHeaderComponent } from 'components/tabHeader'
 import { TerminalTabComponent } from 'components/terminalTab'
+import { TitleBarComponent } from 'components/titleBar'
 
+
+let plugins = [
+    require('./settings').default,
+]
 
 @NgModule({
     imports: [
@@ -36,7 +36,7 @@ import { TerminalTabComponent } from 'components/terminalTab'
         FormsModule,
         ToasterModule,
         NgbModule.forRoot(),
-    ],
+    ].concat(plugins),
     providers: [
         ConfigService,
         DockingService,
@@ -51,21 +51,15 @@ import { TerminalTabComponent } from 'components/terminalTab'
         SessionsService,
     ],
     entryComponents: [
-        HotkeyInputModalComponent,
-        SettingsPaneComponent,
         TerminalTabComponent,
     ],
     declarations: [
         AppComponent,
         CheckboxComponent,
-        HotkeyDisplayComponent,
-        HotkeyHintComponent,
-        HotkeyInputComponent,
-        HotkeyInputModalComponent,
-        SettingsPaneComponent,
         TabBodyComponent,
         TabHeaderComponent,
         TerminalTabComponent,
+        TitleBarComponent,
     ],
     bootstrap: [
         AppComponent,

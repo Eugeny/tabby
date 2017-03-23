@@ -2,7 +2,7 @@ import { EventEmitter } from '@angular/core'
 import { BaseTabComponent } from 'components/baseTab'
 import { Session } from 'services/sessions'
 
-declare type ComponentType<T extends Tab> = new (...args: any[]) => BaseTabComponent<T>
+export declare type ComponentType<T extends Tab> = new (...args: any[]) => BaseTabComponent<T>
 
 export class Tab {
     id: number
@@ -24,23 +24,6 @@ export class Tab {
     getComponentType (): ComponentType<Tab> {
         return null
     }
-
-    destroy (): void { }
-}
-
-
-import { SettingsPaneComponent } from 'components/settingsPane'
-
-export class SettingsTab extends Tab {
-    constructor () {
-        super()
-        this.title = 'Settings'
-        this.scrollable = true
-    }
-
-    getComponentType (): ComponentType<SettingsTab> {
-        return SettingsPaneComponent
-    }
 }
 
 
@@ -54,6 +37,4 @@ export class TerminalTab extends Tab {
     getComponentType (): ComponentType<TerminalTab> {
         return TerminalTabComponent
     }
-
-    onFocus (): void { }
 }

@@ -29,42 +29,9 @@
     background: @body-bg;
 }
 
-@titlebar-height: 30px;
 @tabs-height: 40px;
 @tab-border-radius: 4px;
 
-.titlebar {
-    flex: 0 0 @titlebar-height;
-    display: flex;
-    height: @titlebar-height;
-    background: @title-bg;
-
-    .title {
-        flex: auto;
-        padding-left: 15px;
-        line-height: @titlebar-height;
-        -webkit-app-region: drag;
-    }
-
-    button {
-        border: none;
-        box-shadow: none;
-        border-radius: 0;
-        font-size: 8px;
-        width: 40px;
-        padding: 0;
-        line-height: @titlebar-height;
-        text-align: center;
-
-        &:not(:hover):not(:active) {
-            background: transparent;
-        }
-    }
-
-    .btn-close {
-        font-size: 12px;
-    }
-}
 
 :host > .spacer {
     flex: 0 0 5px;

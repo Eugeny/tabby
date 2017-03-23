@@ -10,7 +10,7 @@ import 'rxjs/add/operator/distinctUntilChanged'
 const childProcessPromise = nodeRequire('child-process-promise')
 
 import { BaseTabComponent } from 'components/baseTab'
-import { SettingsTab } from 'models/tab'
+import { SettingsTab } from '../tab'
 
 
 @Component({

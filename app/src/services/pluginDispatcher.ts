@@ -6,7 +6,8 @@ import { ElectronService } from 'services/electron'
 @Injectable()
 export class PluginDispatcherService {
     plugins = []
-
+    temp: any
+    
     constructor (
         private config: ConfigService,
         private electron: ElectronService,

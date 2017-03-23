@@ -9,8 +9,9 @@ import { QuitterService } from 'services/quitter'
 import { ConfigService } from 'services/config'
 import { DockingService } from 'services/docking'
 import { SessionsService } from 'services/sessions'
+import { PluginDispatcherService } from 'services/pluginDispatcher'
 
-import { Tab, SettingsTab, TerminalTab } from 'models/tab'
+import { Tab, TerminalTab } from 'models/tab'
 
 import 'angular2-toaster/lib/toaster.css'
 import 'global.less'
@@ -53,6 +54,7 @@ export class AppComponent {
         public hostApp: HostAppService,
         public hotkeys: HotkeysService,
         public config: ConfigService,
+        private pluginDispatcher: PluginDispatcherService,
         log: LogService,
         _quitter: QuitterService,
     ) {
@@ -214,6 +216,7 @@ export class AppComponent {
     }
 
     showSettings() {
+        const SettingsTab = this.pluginDispatcher.temp
         let settingsTab = this.tabs.find((x) => x instanceof SettingsTab)
         if (!settingsTab) {
             settingsTab = new SettingsTab()

@@ -65,6 +65,18 @@ ngb-tabset .tab-content {
 }
 
 $tab-border-radius: 5px;
+$button-hover-bg: rgba(0, 0, 0, .25);
+$button-active-bg: rgba(0, 0, 0, .5);
+
+title-bar {
+    background: $body-bg2;
+
+    button {
+        &:hover { background: $button-hover-bg !important; }
+        &:active { background: $button-active-bg !important; }
+    }
+}
+
 
 .tabs tab-header {
     background: $body-bg;
@@ -80,13 +92,8 @@ $tab-border-radius: 5px;
             border: none;
             transition: 0.25s all;
 
-            &:hover {
-                background: rgba(0, 0, 0, .25) !important;
-            }
-
-            &:active {
-                background: rgba(0, 0, 0, .5) !important;
-            }
+            &:hover { background: $button-hover-bg !important; }
+            &:active { background: $button-active-bg !important; }
         }
     }
 

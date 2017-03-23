@@ -1,11 +1,4 @@
-.titlebar(*ngIf='!config.store.appearance.useNativeFrame && config.store.appearance.dock == "off"')
-    .title((dblclick)='hostApp.toggleMaximize()') Term
-    button.btn.btn-secondary.btn-minimize((click)='hostApp.minimize()')
-        i.fa.fa-window-minimize
-    button.btn.btn-secondary.btn-maximize((click)='hostApp.toggleMaximize()')
-        i.fa.fa-window-maximize
-    button.btn.btn-secondary.btn-close((click)='hostApp.quit()')
-        i.fa.fa-close
+title-bar(*ngIf='!config.store.appearance.useNativeFrame && config.store.appearance.dock == "off"')
 
 .spacer 
 
@@ -32,10 +25,9 @@
         [model]='tab',
         [class.scrollable]='tab.scrollable',
     )
-        //-terminal(*ngIf='tab.type == "terminal"', [session]='tab.session', '[(title)]'='tab.name')
-        //-settings-pane(*ngIf='tab.type == "settings"')
 
-hotkey-hint
+// TODO
+//hotkey-hint
 
 toaster-container([toasterconfig]="toasterconfig")
 template(ngbModalContainer)

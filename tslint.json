@@ -10,8 +10,10 @@
         "no-eval": true,
         "no-invalid-this": true,
         "no-shadowed-variable": true,
+        "no-undef": true,
         "no-unused-expression": true,
         "no-unused-new": true,
+        "no-unused-variable": true,
         "no-use-before-declare": true,
         "no-var-keyword": true,
         "new-parens": true

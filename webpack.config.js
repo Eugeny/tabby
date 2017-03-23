@@ -43,22 +43,22 @@ module.exports = {
             {
               test: /\.less$/,
               loader: "style-loader!css-loader!less-loader",
-              exclude: [/app\/src\/components\//],
+              exclude: [/app\/.*components\//],
             },
             {
               test: /\.less$/,
               loader: "to-string-loader!css-loader!less-loader",
-              include: [/app\/src\/components\//],
+              include: [/app\/.*components\//],
             },
             {
               test: /\.scss$/,
               use: ['style-loader', 'css-loader', 'sass-loader'],
-              exclude: [/app\/src\/components\//],
+              exclude: [/app\/.*components\//],
             },
             {
               test: /\.scss$/,
               use: ['to-string-loader', 'css-loader', 'sass-loader'],
-              include: [/app\/src\/components\//],
+              include: [/app\/.*components\//],
             },
             {
               test: /\.(png|svg)$/,
