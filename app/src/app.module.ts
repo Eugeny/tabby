@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms'
 import { ToasterModule } from 'angular2-toaster'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 
+import { AppService } from 'services/app'
 import { ConfigService } from 'services/config'
 import { ElectronService } from 'services/electron'
 import { HostAppService } from 'services/hostApp'
@@ -12,11 +13,11 @@ import { LogService } from 'services/log'
 import { HotkeysService } from 'services/hotkeys'
 import { ModalService } from 'services/modal'
 import { NotifyService } from 'services/notify'
-import { PluginDispatcherService } from 'services/pluginDispatcher'
+import { PluginsService } from 'services/plugins'
 import { QuitterService } from 'services/quitter'
 import { DockingService } from 'services/docking'
 
-import { AppComponent } from 'components/app'
+import { AppRootComponent } from 'components/appRoot'
 import { CheckboxComponent } from 'components/checkbox'
 import { TabBodyComponent } from 'components/tabBody'
 import { TabHeaderComponent } from 'components/tabHeader'
@@ -37,6 +38,7 @@ let plugins = [
         NgbModule.forRoot(),
     ].concat(plugins),
     providers: [
+        AppService,
         ConfigService,
         DockingService,
         ElectronService,
@@ -45,24 +47,24 @@ let plugins = [
         LogService,
         ModalService,
         NotifyService,
-        PluginDispatcherService,
+        PluginsService,
         QuitterService,
     ],
     entryComponents: [
     ],
     declarations: [
-        AppComponent,
+        AppRootComponent,
         CheckboxComponent,
         TabBodyComponent,
         TabHeaderComponent,
         TitleBarComponent,
     ],
     bootstrap: [
-        AppComponent,
+        AppRootComponent,
     ]
 })
 export class AppModule {
-    constructor (pluginDispatcher: PluginDispatcherService) {
-        pluginDispatcher.register(require('./plugin.hyperlinks').default)
+    constructor () {
+        //pluginDispatcher.register(require('./plugin.hyperlinks').default)
     }
 }

@@ -1,4 +1,4 @@
-import { Component, Input, trigger, style, animate, transition, state } from '@angular/core'
+import { Component, trigger, style, animate, transition, state } from '@angular/core'
 import { ToasterConfig } from 'angular2-toaster'
 
 import { ElectronService } from 'services/electron'
@@ -8,10 +8,9 @@ import { LogService } from 'services/log'
 import { QuitterService } from 'services/quitter'
 import { ConfigService } from 'services/config'
 import { DockingService } from 'services/docking'
-// import { SessionsService } from 'services/sessions'
-import { PluginDispatcherService } from 'services/pluginDispatcher'
+import { PluginsService } from 'services/plugins'
 
-import { Tab } from 'models/tab'
+import { AppService, IToolbarButton, IToolbarButtonProvider, ToolbarButtonProviderType } from 'api'
 
 import 'angular2-toaster/lib/toaster.css'
 import 'global.less'
@@ -19,9 +18,9 @@ import 'theme.scss'
 
 
 @Component({
-    selector: 'app',
-    template: require('./app.pug'),
-    styles: [require('./app.less')],
+    selector: 'app-root',
+    template: require('./appRoot.pug'),
+    styles: [require('./appRoot.less')],
     animations: [
         trigger('animateTab', [
             state('in', style({
@@ -41,27 +40,24 @@ import 'theme.scss'
         ])
     ]
 })
-export class AppComponent {
+export class AppRootComponent {
     toasterConfig: ToasterConfig
-    @Input() tabs: Tab[] = []
-    @Input() activeTab: Tab
-    lastTabIndex = 0
 
     constructor(
-//        private sessions: SessionsService,
         private docking: DockingService,
         private electron: ElectronService,
         public hostApp: HostAppService,
         public hotkeys: HotkeysService,
         public config: ConfigService,
-        private pluginDispatcher: PluginDispatcherService,
+        private plugins: PluginsService,
+        public app: AppService,
         log: LogService,
         _quitter: QuitterService,
     ) {
         console.timeStamp('AppComponent ctor')
 
         let logger = log.create('main')
-        logger.info('ELEMENTS client', electron.app.getVersion())
+        logger.info('v', electron.app.getVersion())
 
         this.toasterConfig = new ToasterConfig({
             mouseoverTimerStop: true,
@@ -71,42 +67,26 @@ export class AppComponent {
 
         this.hotkeys.matchedHotkey.subscribe((hotkey) => {
             if (hotkey == 'new-tab') {
-                this.newTab()
+                // TODO this.newTab()
             }
             if (hotkey.startsWith('tab-')) {
                 let index = parseInt(hotkey.split('-')[1])
-                if (index <= this.tabs.length) {
-                    this.selectTab(this.tabs[index - 1])
+                if (index <= this.app.tabs.length) {
+                    this.app.selectTab(this.app.tabs[index - 1])
                 }
             }
-            if (this.activeTab) {
+            if (this.app.activeTab) {
                 if (hotkey == 'close-tab') {
-                    this.closeTab(this.activeTab)
+                    this.app.closeTab(this.app.activeTab)
                 }
                 if (hotkey == 'toggle-last-tab') {
-                    this.toggleLastTab()
+                    this.app.toggleLastTab()
                 }
                 if (hotkey == 'next-tab') {
-                    this.nextTab()
+                    this.app.nextTab()
                 }
                 if (hotkey == 'previous-tab') {
-                    this.previousTab()
-                }
-            }
-        })
-
-        this.hotkeys.key.subscribe((key) => {
-            if (key.event == 'keydown') {
-                if (key.alt && key.key >= '1' && key.key <= '9') {
-                    let index = key.key.charCodeAt(0) - '0'.charCodeAt(0) - 1
-                    if (index < this.tabs.length) {
-                        this.selectTab(this.tabs[index])
-                    }
-                }
-                if (key.alt && key.key == '0') {
-                    if (this.tabs.length >= 10) {
-                        this.selectTab(this.tabs[9])
-                    }
+                    this.app.previousTab()
                 }
             }
         })
@@ -145,57 +125,15 @@ export class AppComponent {
         })
     }
 
-    newTab () {
-        const tab = this.pluginDispatcher.temp2('zsh')
-        this.tabs.push(tab)
-        this.selectTab(tab)
-    }
-
-    selectTab (tab) {
-        if (this.tabs.includes(this.activeTab)) {
-            this.lastTabIndex = this.tabs.indexOf(this.activeTab)
-        } else {
-            this.lastTabIndex = null
-        }
-        if (this.activeTab) {
-            this.activeTab.hasActivity = false
-            this.activeTab.blurred.emit()
-        }
-        this.activeTab = tab
-        this.activeTab.focused.emit()
-    }
-
-    toggleLastTab () {
-        if (!this.lastTabIndex || this.lastTabIndex >= this.tabs.length) {
-            this.lastTabIndex = 0
-        }
-        this.selectTab(this.tabs[this.lastTabIndex])
-    }
-
-    nextTab () {
-        let tabIndex = this.tabs.indexOf(this.activeTab)
-        if (tabIndex < this.tabs.length - 1) {
-            this.selectTab(this.tabs[tabIndex + 1])
-        }
-    }
-
-    previousTab () {
-        let tabIndex = this.tabs.indexOf(this.activeTab)
-        if (tabIndex > 0) {
-            this.selectTab(this.tabs[tabIndex - 1])
-        }
-    }
-
-    closeTab (tab) {
-        tab.destroy()
-        /* if (tab.session) {
-            this.sessions.destroySession(tab.session)
-        } */
-        let newIndex = Math.max(0, this.tabs.indexOf(tab) - 1)
-        this.tabs = this.tabs.filter((x) => x != tab)
-        if (tab == this.activeTab) {
-            this.selectTab(this.tabs[newIndex])
-        }
+    getToolbarButtons (aboveZero: boolean): IToolbarButton[] {
+        let buttons: IToolbarButton[] = []
+        this.plugins.getAll<IToolbarButtonProvider>(ToolbarButtonProviderType)
+            .forEach((provider) => {
+                buttons = buttons.concat(provider.provide())
+            })
+        return buttons
+            .filter((button) => (button.weight > 0) === aboveZero)
+            .sort((a: IToolbarButton, b: IToolbarButton) => (a.weight || 0) - (b.weight || 0))
     }
 
     ngOnInit () {
@@ -211,15 +149,5 @@ export class AppComponent {
             }
         })
         */
-    }
-
-    showSettings() {
-        const SettingsTab = this.pluginDispatcher.temp
-        let settingsTab = this.tabs.find((x) => x instanceof SettingsTab)
-        if (!settingsTab) {
-            settingsTab = new SettingsTab()
-            this.tabs.push(settingsTab)
-        }
-        this.selectTab(settingsTab)
     }
 }

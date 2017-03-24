@@ -8,9 +8,11 @@ import { HotkeyDisplayComponent } from './components/hotkeyDisplay'
 import { HotkeyHintComponent } from './components/hotkeyHint'
 import { HotkeyInputModalComponent } from './components/hotkeyInputModal'
 import { SettingsPaneComponent } from './components/settingsPane'
-import { PluginDispatcherService } from 'services/pluginDispatcher'
 
-import { SettingsTab } from './tab'
+import { PluginsService, ToolbarButtonProviderType } from 'api'
+
+import { ButtonProvider } from './buttonProvider'
+
 
 @NgModule({
     imports: [
@@ -19,6 +21,7 @@ import { SettingsTab } from './tab'
         NgbModule,
     ],
     providers: [
+        ButtonProvider,
     ],
     entryComponents: [
         HotkeyInputModalComponent,
@@ -33,8 +36,8 @@ import { SettingsTab } from './tab'
     ],
 })
 class SettingsModule {
-    constructor (pluginDispatcher: PluginDispatcherService) {
-        pluginDispatcher.temp = SettingsTab
+    constructor (plugins: PluginsService, buttonProvider: ButtonProvider) {
+        plugins.register(ToolbarButtonProviderType, buttonProvider, 1)
     }
 }
 

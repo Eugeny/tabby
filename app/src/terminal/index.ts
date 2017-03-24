@@ -2,11 +2,11 @@ import { BrowserModule } from '@angular/platform-browser'
 import { NgModule } from '@angular/core'
 import { FormsModule } from '@angular/forms'
 
+import { PluginsService, ToolbarButtonProviderType } from 'api'
+
 import { TerminalTabComponent } from './components/terminalTab'
 import { SessionsService } from './services/sessions'
-import { TerminalTab } from './tab'
-
-import { PluginDispatcherService } from 'services/pluginDispatcher'
+import { ButtonProvider } from './buttonProvider'
 
 
 @NgModule({
@@ -15,6 +15,7 @@ import { PluginDispatcherService } from 'services/pluginDispatcher'
         FormsModule,
     ],
     providers: [
+        ButtonProvider,
         SessionsService,
     ],
     entryComponents: [
@@ -25,11 +26,8 @@ import { PluginDispatcherService } from 'services/pluginDispatcher'
     ],
 })
 class TerminalModule {
-    constructor (pluginDispatcher: PluginDispatcherService, sessions: SessionsService) {
-        pluginDispatcher.temp2 = (command) => {
-            let session = sessions.createNewSession({ command }))
-            return new TerminalTab(session)
-        }
+    constructor (plugins: PluginsService, buttonProvider: ButtonProvider) {
+        plugins.register(ToolbarButtonProviderType, buttonProvider)
     }
 }
 
