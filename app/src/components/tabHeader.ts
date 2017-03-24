@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter, HostBinding } from '@angular/core'
-import { Tab } from 'models/tab'
+import { Tab } from 'api/tab'
 
 import './tabHeader.scss'
 

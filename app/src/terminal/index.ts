@@ -2,11 +2,12 @@ import { BrowserModule } from '@angular/platform-browser'
 import { NgModule } from '@angular/core'
 import { FormsModule } from '@angular/forms'
 
-import { PluginsService, ToolbarButtonProviderType } from 'api'
+import { PluginsService, ToolbarButtonProviderType, TabRecoveryProviderType } from 'api'
 
 import { TerminalTabComponent } from './components/terminalTab'
 import { SessionsService } from './services/sessions'
 import { ButtonProvider } from './buttonProvider'
+import { RecoveryProvider } from './recoveryProvider'
 
 
 @NgModule({
@@ -17,6 +18,7 @@ import { ButtonProvider } from './buttonProvider'
     providers: [
         ButtonProvider,
         SessionsService,
+        RecoveryProvider,
     ],
     entryComponents: [
         TerminalTabComponent,
@@ -26,8 +28,13 @@ import { ButtonProvider } from './buttonProvider'
     ],
 })
 class TerminalModule {
-    constructor (plugins: PluginsService, buttonProvider: ButtonProvider) {
+    constructor (
+        plugins: PluginsService,
+        buttonProvider: ButtonProvider,
+        recoveryProvider: RecoveryProvider,
+    ) {
         plugins.register(ToolbarButtonProviderType, buttonProvider)
+        plugins.register(TabRecoveryProviderType, recoveryProvider)
     }
 }
 

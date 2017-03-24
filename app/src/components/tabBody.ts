@@ -1,5 +1,5 @@
 import { Component, Input, ViewContainerRef, ViewChild, HostBinding, ComponentFactoryResolver, ComponentRef } from '@angular/core'
-import { Tab } from 'models/tab'
+import { Tab } from 'api/tab'
 import { BaseTabComponent } from 'components/baseTab'
 
 @Component({

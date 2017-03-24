@@ -123,6 +123,8 @@ export class AppRootComponent {
             }
             this.docking.dock()
         })
+
+        this.app.restoreTabs()
     }
 
     getToolbarButtons (aboveZero: boolean): IToolbarButton[] {

@@ -9,9 +9,10 @@ import { HotkeyHintComponent } from './components/hotkeyHint'
 import { HotkeyInputModalComponent } from './components/hotkeyInputModal'
 import { SettingsPaneComponent } from './components/settingsPane'
 
-import { PluginsService, ToolbarButtonProviderType } from 'api'
+import { PluginsService, ToolbarButtonProviderType, TabRecoveryProviderType } from 'api'
 
 import { ButtonProvider } from './buttonProvider'
+import { RecoveryProvider } from './recoveryProvider'
 
 
 @NgModule({
@@ -22,6 +23,7 @@ import { ButtonProvider } from './buttonProvider'
     ],
     providers: [
         ButtonProvider,
+        RecoveryProvider,
     ],
     entryComponents: [
         HotkeyInputModalComponent,
@@ -36,8 +38,13 @@ import { ButtonProvider } from './buttonProvider'
     ],
 })
 class SettingsModule {
-    constructor (plugins: PluginsService, buttonProvider: ButtonProvider) {
+    constructor (
+        plugins: PluginsService,
+        buttonProvider: ButtonProvider,
+        recoveryProvider: RecoveryProvider,
+    ) {
         plugins.register(ToolbarButtonProviderType, buttonProvider, 1)
+        plugins.register(TabRecoveryProviderType, recoveryProvider)
     }
 }
 

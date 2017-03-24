@@ -1,4 +1,4 @@
-import { Tab } from 'models/tab'
+import { Tab } from 'api/tab'
 
 export class BaseTabComponent<T extends Tab> {
     protected model: T

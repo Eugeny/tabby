@@ -23,4 +23,8 @@ export class Tab {
     getComponentType (): ComponentType<Tab> {
         return null
     }
+
+    getRecoveryToken (): any {
+        return null
+    }
 }

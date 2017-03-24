@@ -1,5 +1,8 @@
-import { EventEmitter, Injectable } from '@angular/core'
-import { Tab } from 'models/tab'
+import { Injectable } from '@angular/core'
+import { Logger, LogService } from 'services/log'
+import { Tab } from 'api/tab'
+import { PluginsService } from 'services/plugins'
+import { ITabRecoveryProvider, TabRecoveryProviderType } from 'api/tabRecovery'
 
 
 @Injectable()
@@ -7,14 +10,19 @@ export class AppService {
     tabs: Tab[] = []
     activeTab: Tab
     lastTabIndex = 0
+    logger: Logger
 
-    constructor () {
-
+    constructor (
+        private plugins: PluginsService,
+        log: LogService,
+    ) {
+        this.logger = log.create('app')
     }
 
     openTab (tab: Tab): void {
         this.tabs.push(tab)
         this.selectTab(tab)
+        this.saveTabs()
     }
 
     selectTab (tab) {
@@ -61,6 +69,34 @@ export class AppService {
         this.tabs = this.tabs.filter((x) => x != tab)
         if (tab == this.activeTab) {
             this.selectTab(this.tabs[newIndex])
+        }
+        this.saveTabs()
+    }
+
+    saveTabs () {
+        window.localStorage.tabsRecovery = JSON.stringify(
+            this.tabs
+                .map((tab) => tab.getRecoveryToken())
+                .filter((token) => !!token)
+        )
+    }
+
+    restoreTabs () {
+        if (window.localStorage.tabsRecovery) {
+            let providers = this.plugins.getAll<ITabRecoveryProvider>(TabRecoveryProviderType)
+            JSON.parse(window.localStorage.tabsRecovery).forEach((token) => {
+                for (let provider of providers) {
+                    try {
+                        let tab = provider.recover(token)
+                        if (tab) {
+                            this.openTab(tab)
+                            return
+                        }
+                    } catch (_) { }
+                    this.logger.warn('Cannot restore tab from the token:', token)
+                }
+            })
+            this.saveTabs()
         }
     }
 }

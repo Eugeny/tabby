@@ -6,9 +6,8 @@ export class Logger {
         private name: string,
     ) {}
 
-    log(level: string, ...args: any[]) {
-        args.splice(0, 0, this.name + ':')
-        console[level](...args)
+    log (level: string, ...args: any[]) {
+        console[level](`%c[${this.name}]`, 'color: #aaa', ...args)
     }
 
     debug(...args: any[]) { this.log('debug', ...args) }

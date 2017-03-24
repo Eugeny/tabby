@@ -1,9 +1,8 @@
-import { IPlugin } from 'api'
 import { Injectable } from '@angular/core'
 
 
 interface IPluginEntry {
-    plugin: IPlugin
+    plugin: any
     weight: number
 }
 
@@ -15,14 +14,14 @@ export class PluginsService {
     ) {
     }
 
-    register (type: string, plugin: IPlugin, weight = 0): void {
+    register (type: string, plugin: any, weight = 0): void {
         if (!this.plugins[type]) {
             this.plugins[type] = []
         }
         this.plugins[type].push({ plugin, weight })
     }
 
-    getAll<T extends IPlugin> (type: string): T[] {
+    getAll<T> (type: string): T[] {
         let plugins = this.plugins[type] || []
         plugins = plugins.sort((a: IPluginEntry, b: IPluginEntry) => {
             if (a.weight < b.weight) {

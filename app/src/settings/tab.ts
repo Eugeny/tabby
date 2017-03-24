@@ -1,4 +1,4 @@
-import { Tab, ComponentType } from '../models/tab'
+import { Tab, ComponentType } from 'api/tab'
 import { SettingsPaneComponent } from './components/settingsPane'
 
 export class SettingsTab extends Tab {
@@ -10,5 +10,11 @@ export class SettingsTab extends Tab {
 
     getComponentType (): ComponentType<SettingsTab> {
         return SettingsPaneComponent
+    }
+
+    getRecoveryToken (): any {
+        return {
+            type: 'app:settings',
+        }
     }
 }
