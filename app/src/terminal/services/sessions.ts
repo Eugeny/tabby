@@ -1,87 +1,9 @@
-import { Injectable, NgZone, EventEmitter } from '@angular/core'
-import { Logger, LogService } from 'services/log'
-const exec = require('child-process-promise').exec
 import * as nodePTY from 'node-pty'
-import * as fs from 'fs'
 
+import { Injectable, EventEmitter } from '@angular/core'
+import { Logger, LogService } from 'services/log'
+import { SessionOptions, SessionPersistenceProvider } from '../api'
 
-export interface ISessionRecoveryProvider {
-    list (): Promise<any[]>
-    getRecoverySession (recoveryId: any): SessionOptions
-    wrapNewSession (options: SessionOptions): SessionOptions
-    terminateSession (recoveryId: string): Promise<any>
-}
-
-export class NullSessionRecoveryProvider implements ISessionRecoveryProvider {
-    async list (): Promise<any[]> {
-        return []
-    }
-
-    getRecoverySession (_recoveryId: any): SessionOptions {
-        return null
-    }
-
-    wrapNewSession (options: SessionOptions): SessionOptions {
-        return options
-    }
-
-    async terminateSession (_recoveryId: string): Promise<any> {
-        return null
-    }
-}
-
-export class ScreenSessionRecoveryProvider implements ISessionRecoveryProvider {
-    list(): Promise<any[]> {
-        return exec('screen -list').then((result) => {
-            return result.stdout.split('\n')
-                .filter((line) => /\bterm-tab-/.exec(line))
-                .map((line) => line.trim().split('.')[0])
-        }).catch(() => {
-            return []
-        })
-    }
-
-    getRecoverySession (recoveryId: any): SessionOptions {
-        return {
-            command: 'screen',
-            args: ['-r', recoveryId],
-        }
-    }
-
-    wrapNewSession (options: SessionOptions): SessionOptions {
-        // TODO
-        let configPath = '/tmp/.termScreenConfig'
-        fs.writeFileSync(configPath, `
-            escape ^^^
-            vbell off
-            term xterm-color
-            bindkey "^[OH" beginning-of-line
-            bindkey "^[OF" end-of-line
-            termcapinfo xterm* 'hs:ts=\\E]0;:fs=\\007:ds=\\E]0;\\007'
-            defhstatus "^Et"
-            hardstatus off
-        `, 'utf-8')
-        let recoveryId = `term-tab-${Date.now()}`
-        options.args = ['-c', configPath, '-U', '-S', recoveryId, '--', options.command].concat(options.args || [])
-        options.command = 'screen'
-        options.recoveryId = recoveryId
-        return options
-    }
-
-    async terminateSession (recoveryId: string): Promise<any> {
-        return exec(`screen -S ${recoveryId} -X quit`)
-    }
-}
-
-
-export interface SessionOptions {
-    name?: string,
-    command?: string,
-    args?: string[],
-    cwd?: string,
-    env?: any,
-    recoveryId?: string
-}
 
 export class Session {
     open: boolean
@@ -96,6 +18,7 @@ export class Session {
 
     constructor (options: SessionOptions) {
         this.name = options.name
+        this.recoveryId = options.recoveryId
         console.log('Spawning', options.command)
 
         let env = {
@@ -184,57 +107,44 @@ export class Session {
     }
 }
 
+
 @Injectable()
 export class SessionsService {
     sessions: {[id: string]: Session} = {}
     logger: Logger
     private lastID = 0
-    recoveryProvider: ISessionRecoveryProvider
 
     constructor(
-        private zone: NgZone,
+        private persistence: SessionPersistenceProvider,
         log: LogService,
     ) {
         this.logger = log.create('sessions')
-        this.recoveryProvider = new ScreenSessionRecoveryProvider()
-        //this.recoveryProvider = new NullSessionRecoveryProvider()
     }
 
-    createNewSession (options: SessionOptions) : Session {
-        options = this.recoveryProvider.wrapNewSession(options)
-        let session = this.createSession(options)
-        session.recoveryId = options.recoveryId
+    async createNewSession (options: SessionOptions) : Promise<Session> {
+        options = await this.persistence.createSession(options)
+        let session = this.addSession(options)
         return session
     }
 
-    createSession (options: SessionOptions) : Session {
+    addSession (options: SessionOptions) : Session {
         this.lastID++
         options.name = `session-${this.lastID}`
         let session = new Session(options)
         const destroySubscription = session.destroyed.subscribe(() => {
             delete this.sessions[session.name]
+            this.persistence.terminateSession(session.recoveryId)
             destroySubscription.unsubscribe()
         })
         this.sessions[session.name] = session
         return session
     }
 
-    async destroySession (session: Session): Promise<any> {
-        await session.gracefullyDestroy()
-        await this.recoveryProvider.terminateSession(session.recoveryId)
-        return null
-    }
-
-    recoverAll () : Promise<Session[]> {
-        return <Promise<Session[]>>(this.recoveryProvider.list().then((items) => {
-            return this.zone.run(() => {
-                return items.map((recoveryId) => {
-                    const options = this.recoveryProvider.getRecoverySession(recoveryId)
-                    let session = this.createSession(options)
-                    session.recoveryId = recoveryId
-                    return session
-                })
-            })
-        }))
+    async recover (recoveryId: string) : Promise<Session> {
+        const options = await this.persistence.recoverSession(recoveryId)
+        if (!options) {
+            return null
+        }
+        return this.addSession(options)
     }
 }

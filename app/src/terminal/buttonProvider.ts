@@ -17,8 +17,8 @@ export class ButtonProvider extends ToolbarButtonProvider {
         return [{
             icon: 'plus',
             title: 'New terminal',
-            click: () => {
-                let session = this.sessions.createNewSession({ command: 'zsh' })
+            click: async () => {
+                let session = await this.sessions.createNewSession({ command: 'zsh' })
                 this.app.openTab(new TerminalTab(session))
             }
         }]

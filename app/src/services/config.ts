@@ -15,6 +15,7 @@ export interface IAppearanceData {
     dock: string
     dockScreen: string
     dockFill: number
+    tabsOnTop: boolean
 }
 
 export interface ITerminalData {

@@ -80,20 +80,26 @@ export class AppService {
         )
     }
 
-    restoreTabs () {
+    async restoreTabs (): Promise<void> {
         if (window.localStorage.tabsRecovery) {
-            JSON.parse(window.localStorage.tabsRecovery).forEach((token) => {
+            for (let token of JSON.parse(window.localStorage.tabsRecovery)) {
+                let tab: Tab
                 for (let provider of this.tabRecoveryProviders) {
                     try {
-                        let tab = provider.recover(token)
+                        tab = await provider.recover(token)
                         if (tab) {
-                            this.openTab(tab)
-                            return
+                            break
                         }
-                    } catch (_) { }
+                    } catch (error) {
+                        this.logger.warn('Tab recovery crashed:', token, provider, error)
+                    }
                 }
-                this.logger.warn('Cannot restore tab from the token:', token)
-            })
+                if (tab) {
+                    this.openTab(tab)
+                } else {
+                    this.logger.warn('Cannot restore tab from the token:', token)
+                }
+            }
             this.saveTabs()
         }
     }

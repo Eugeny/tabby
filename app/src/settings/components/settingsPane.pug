@@ -5,101 +5,124 @@ ngb-tabset(type='tabs')
         template(ngbTabTitle)
             | Application
         template(ngbTabContent)
-            .form-group
-                label Window frame
-                br
-                div(
-                    '[(ngModel)]'='config.store.appearance.useNativeFrame'
-                    '(ngModelChange)'='config.save(); requestRestart()'
-                    ngbRadioGroup
-                )
-                    label.btn.btn-secondary
-                        input(
-                            type='radio',
-                            [value]='true'
-                        )
-                        | Native
-                    label.btn.btn-secondary
-                        input(
-                            type='radio',
-                            [value]='false'
-                        )
-                        | Custom
-                small.form-text.text-muted Whether a custom window or an OS native window should be used
-
             .row
-                .col.col-auto
+                .col.col-sm-6
                     .form-group
-                        label Dock the terminal
+                        label Show tabs
                         br
                         div(
-                            '[(ngModel)]'='config.store.appearance.dock'
-                            '(ngModelChange)'='config.save(); docking.dock()'
+                            '[(ngModel)]'='config.store.appearance.tabsOnTop'
+                            '(ngModelChange)'='config.save()'
                             ngbRadioGroup
                         )
                             label.btn.btn-secondary
                                 input(
                                     type='radio',
-                                    [value]='"off"'
+                                    [value]='true'
                                 )
-                                | Off
+                                | On top
                             label.btn.btn-secondary
                                 input(
                                     type='radio',
-                                    [value]='"top"'
+                                    [value]='false'
                                 )
-                                | Top
+                                | At the bottom
+                .col.col-sm-6
+                    .form-group
+                        label Window frame
+                        br
+                        div(
+                            '[(ngModel)]'='config.store.appearance.useNativeFrame'
+                            '(ngModelChange)'='config.save(); requestRestart()'
+                            ngbRadioGroup
+                        )
                             label.btn.btn-secondary
                                 input(
                                     type='radio',
-                                    [value]='"left"'
+                                    [value]='true'
                                 )
-                                | Left
+                                | Native
                             label.btn.btn-secondary
                                 input(
                                     type='radio',
-                                    [value]='"right"'
+                                    [value]='false'
                                 )
-                                | Right
-                            label.btn.btn-secondary
-                                input(
-                                    type='radio',
-                                    [value]='"bottom"'
-                                )
-                                | Bottom
+                                | Custom
+                        small.form-text.text-muted Whether a custom window or an OS native window should be used
 
-                    .form-group(*ngIf='config.store.appearance.dock != "off"')
-                        label Display on
-                        br
-                        div(
-                            '[(ngModel)]'='config.store.appearance.dockScreen'
-                            '(ngModelChange)'='config.save(); docking.dock()'
-                            ngbRadioGroup
-                        )
-                            label.btn.btn-secondary
-                                input(
-                                    type='radio',
-                                    [value]='"current"'
+                    .row
+                        .col.col-auto
+                            .form-group
+                                label Dock the terminal
+                                br
+                                div(
+                                    '[(ngModel)]'='config.store.appearance.dock'
+                                    '(ngModelChange)'='config.save(); docking.dock()'
+                                    ngbRadioGroup
                                 )
-                                | Current
-                            label.btn.btn-secondary(*ngFor='let screen of docking.getScreens()')
-                                input(
-                                    type='radio',
-                                    [value]='screen.id'
+                                    label.btn.btn-secondary
+                                        input(
+                                            type='radio',
+                                            [value]='"off"'
+                                        )
+                                        | Off
+                                    label.btn.btn-secondary
+                                        input(
+                                            type='radio',
+                                            [value]='"top"'
+                                        )
+                                        | Top
+                                    label.btn.btn-secondary
+                                        input(
+                                            type='radio',
+                                            [value]='"left"'
+                                        )
+                                        | Left
+                                    label.btn.btn-secondary
+                                        input(
+                                            type='radio',
+                                            [value]='"right"'
+                                        )
+                                        | Right
+                                    label.btn.btn-secondary
+                                        input(
+                                            type='radio',
+                                            [value]='"bottom"'
+                                        )
+                                        | Bottom
+
+                            .form-group(*ngIf='config.store.appearance.dock != "off"')
+                                label Display on
+                                br
+                                div(
+                                    '[(ngModel)]'='config.store.appearance.dockScreen'
+                                    '(ngModelChange)'='config.save(); docking.dock()'
+                                    ngbRadioGroup
                                 )
-                                | {{screen.name}}
-                .col.col-auto
-                    .form-group(*ngIf='config.store.appearance.dock != "off"')
-                        label Docked terminal size
-                        br
-                        input(
-                            type='range',
-                            '[(ngModel)]'='config.store.appearance.dockFill',
-                            '(mouseup)'='config.save(); docking.dock()',
-                            min='0.05',
-                            max='1',
-                            step='0.01'
-                        )
+                                    label.btn.btn-secondary
+                                        input(
+                                            type='radio',
+                                            [value]='"current"'
+                                        )
+                                        | Current
+                                    label.btn.btn-secondary(*ngFor='let screen of docking.getScreens()')
+                                        input(
+                                            type='radio',
+                                            [value]='screen.id'
+                                        )
+                                        | {{screen.name}}
+                        .col.col-auto
+                            .form-group(*ngIf='config.store.appearance.dock != "off"')
+                                label Docked terminal size
+                                br
+                                input(
+                                    type='range',
+                                    '[(ngModel)]'='config.store.appearance.dockFill',
+                                    '(mouseup)'='config.save(); docking.dock()',
+                                    min='0.05',
+                                    max='1',
+                                    step='0.01'
+                                )
 
     ngb-tab
         template(ngbTabTitle)

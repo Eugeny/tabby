@@ -5,7 +5,7 @@ import { SettingsTab } from './tab'
 
 @Injectable()
 export class RecoveryProvider extends TabRecoveryProvider {
-    recover (recoveryToken: any): Tab {
+    async recover (recoveryToken: any): Promise<Tab> {
         if (recoveryToken.type == 'app:settings') {
             return new SettingsTab()
         }

@@ -1,6 +1,7 @@
 {
   "name": "term",
   "devDependencies": {
+    "@types/fs-promise": "^1.0.1",
     "apply-loader": "^0.1.0",
     "autoprefixer": "^6.7.7",
     "awesome-typescript-loader": "3.0.8",

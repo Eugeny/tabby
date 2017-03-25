@@ -20,4 +20,8 @@ export class TerminalTab extends Tab {
             recoveryId: this.session.recoveryId,
         }
     }
+
+    destroy (): void {
+        this.session.gracefullyDestroy()
+    }
 }

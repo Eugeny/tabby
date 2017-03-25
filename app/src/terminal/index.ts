@@ -6,8 +6,10 @@ import { ToolbarButtonProvider, TabRecoveryProvider } from 'api'
 
 import { TerminalTabComponent } from './components/terminalTab'
 import { SessionsService } from './services/sessions'
+import { ScreenPersistenceProvider } from './persistenceProviders'
 import { ButtonProvider } from './buttonProvider'
 import { RecoveryProvider } from './recoveryProvider'
+import { SessionPersistenceProvider } from './api'
 
 
 @NgModule({
@@ -19,6 +21,7 @@ import { RecoveryProvider } from './recoveryProvider'
         { provide: ToolbarButtonProvider, useClass: ButtonProvider, multi: true },
         { provide: TabRecoveryProvider, useClass: RecoveryProvider, multi: true },
         SessionsService,
+        { provide: SessionPersistenceProvider, useClass: ScreenPersistenceProvider },
     ],
     entryComponents: [
         TerminalTabComponent,

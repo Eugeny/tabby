@@ -33,9 +33,15 @@
 @tab-border-radius: 4px;
 
 
-:host > .spacer {
-    flex: 0 0 5px;
+.content {
+    flex: auto;
+    display: flex;
+    flex-direction: column-reverse;
     background: @title-bg;
+
+    &.tabs-on-top {
+        flex-direction: column;
+    }
 }
 
 .tabs {

@@ -4,6 +4,7 @@ appearance:
   dock: 'off'
   dockScreen: 'current'
   dockFill: 50
+  tabsOnTop: true
 hotkeys:
   new-tab:
     - ['Ctrl-A', 'C']

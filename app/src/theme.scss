@@ -78,53 +78,107 @@ title-bar {
 }
 
 
-.tabs tab-header {
-    background: $body-bg;
-    .content-wrapper {
-        background: $body-bg2;
+app-root .content {
+    background: $body-bg2;
 
-        .index {
-            color: #444;
-        }
+    .tabs {
+        background: $body-bg;
 
-        button {
-            color: $body-color;
-            border: none;
-            transition: 0.25s all;
-
-            &:hover { background: $button-hover-bg !important; }
-            &:active { background: $button-active-bg !important; }
-        }
-    }
-
-    &.pre-selected, &:nth-last-child(1) {
-        .content-wrapper {
-            border-bottom-right-radius: $tab-border-radius;
-        }
-    }
-
-    &.post-selected {
-        .content-wrapper {
-            border-bottom-left-radius: $tab-border-radius;
-        }
-    }
-
-    &.active {
-        background: $body-bg2;
-
-        .content-wrapper {
-            border-top: 1px solid $blue;
+        tab-header {
             background: $body-bg;
-            border-top-left-radius: $tab-border-radius;
-            border-top-right-radius: $tab-border-radius;
+
+            .content-wrapper {
+                background: $body-bg2;
+
+                .index {
+                    color: #555;
+                }
+
+                button {
+                    color: $body-color;
+                    border: none;
+                    transition: 0.25s all;
+
+                    &:hover { background: $button-hover-bg !important; }
+                    &:active { background: $button-active-bg !important; }
+                }
+            }
+
+            &.active {
+                background: $body-bg2;
+
+                .content-wrapper {
+                    background: $body-bg;
+                }
+            }
+
+            &.has-activity:not(.active) {
+                .content-wrapper .index {
+                    background: $blue;
+                    color: white;
+                    text-shadow: 0 1px 1px rgba(0,0,0,.95);
+                }
+            }
         }
     }
 
-    &.has-activity:not(.active) {
-        .content-wrapper .index {
-            background: $blue;
-            color: white;
-            text-shadow: 0 1px 1px rgba(0,0,0,.95);
+    &.tabs-on-top .tabs {
+        margin-top: 3px;
+
+        tab-header {
+            &.pre-selected, &:nth-last-child(1) {
+                .content-wrapper {
+                    border-bottom-right-radius: $tab-border-radius;
+                }
+            }
+
+            &.post-selected {
+                .content-wrapper {
+                    border-bottom-left-radius: $tab-border-radius;
+                }
+            }
+
+            .content-wrapper {
+                border-top: 1px solid transparent;
+            }
+
+            &.active .content-wrapper {
+                border-top: 1px solid $blue;
+                border-top-left-radius: $tab-border-radius;
+                border-top-right-radius: $tab-border-radius;
+            }
         }
     }
+
+    &:not(.tabs-on-top) .tabs {
+        margin-bottom: 3px;
+
+        tab-header {
+            &.pre-selected, &:nth-last-child(1) {
+                .content-wrapper {
+                    border-top-right-radius: $tab-border-radius;
+                }
+            }
+
+            &.post-selected {
+                .content-wrapper {
+                    border-top-left-radius: $tab-border-radius;
+                }
+            }
+
+            .content-wrapper {
+                border-bottom: 1px solid transparent;
+            }
+
+            &.active .content-wrapper {
+                border-bottom: 1px solid $blue;
+                border-bottom-left-radius: $tab-border-radius;
+                border-bottom-right-radius: $tab-border-radius;
+            }
+        }
+    }
+}
+
+tab-body {
+    background: $body-bg;
 }

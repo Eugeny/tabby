@@ -1,5 +1,5 @@
 import { Tab } from './tab'
 
 export abstract class TabRecoveryProvider {
-    abstract recover (recoveryToken: any): Tab
+    abstract async recover (recoveryToken: any): Promise<Tab>
 }

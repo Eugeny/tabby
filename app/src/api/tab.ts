@@ -16,7 +16,7 @@ export class Tab {
         this.id = Tab.lastTabID++
     }
 
-    displayActivity () {
+    displayActivity (): void {
         this.hasActivity = true
     }
 
@@ -26,5 +26,8 @@ export class Tab {
 
     getRecoveryToken (): any {
         return null
+    }
+
+    destroy (): void {
     }
 }

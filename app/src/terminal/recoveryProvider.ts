@@ -10,11 +10,12 @@ export class RecoveryProvider extends TabRecoveryProvider {
         super()
     }
 
-    recover (recoveryToken: any): Tab {
+    async recover (recoveryToken: any): Promise<Tab> {
         if (recoveryToken.type == 'app:terminal') {
-            const options = this.sessions.recoveryProvider.getRecoverySession(recoveryToken.recoveryId)
-            let session = this.sessions.createSession(options)
-            session.recoveryId = recoveryToken.recoveryId
+            let session = await this.sessions.recover(recoveryToken.recoveryId)
+            if (!session) {
+                return null
+            }
             return new TerminalTab(session)
         }
         return null
