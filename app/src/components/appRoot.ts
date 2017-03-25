@@ -1,4 +1,4 @@
-import { Component, trigger, style, animate, transition, state } from '@angular/core'
+import { Component, Inject, trigger, style, animate, transition, state } from '@angular/core'
 import { ToasterConfig } from 'angular2-toaster'
 
 import { ElectronService } from 'services/electron'
@@ -8,9 +8,8 @@ import { LogService } from 'services/log'
 import { QuitterService } from 'services/quitter'
 import { ConfigService } from 'services/config'
 import { DockingService } from 'services/docking'
-import { PluginsService } from 'services/plugins'
 
-import { AppService, IToolbarButton, IToolbarButtonProvider, ToolbarButtonProviderType } from 'api'
+import { AppService, IToolbarButton, ToolbarButtonProvider } from 'api'
 
 import 'angular2-toaster/lib/toaster.css'
 import 'global.less'
@@ -49,8 +48,8 @@ export class AppRootComponent {
         public hostApp: HostAppService,
         public hotkeys: HotkeysService,
         public config: ConfigService,
-        private plugins: PluginsService,
         public app: AppService,
+        @Inject(ToolbarButtonProvider) private toolbarButtonProviders: ToolbarButtonProvider[],
         log: LogService,
         _quitter: QuitterService,
     ) {
@@ -129,10 +128,9 @@ export class AppRootComponent {
 
     getToolbarButtons (aboveZero: boolean): IToolbarButton[] {
         let buttons: IToolbarButton[] = []
-        this.plugins.getAll<IToolbarButtonProvider>(ToolbarButtonProviderType)
-            .forEach((provider) => {
-                buttons = buttons.concat(provider.provide())
-            })
+        this.toolbarButtonProviders.forEach((provider) => {
+            buttons = buttons.concat(provider.provide())
+        })
         return buttons
             .filter((button) => (button.weight > 0) === aboveZero)
             .sort((a: IToolbarButton, b: IToolbarButton) => (a.weight || 0) - (b.weight || 0))

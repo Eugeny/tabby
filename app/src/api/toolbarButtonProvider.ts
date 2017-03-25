@@ -5,8 +5,6 @@ export interface IToolbarButton {
     click: () => void
 }
 
-export interface IToolbarButtonProvider {
-    provide (): IToolbarButton[]
+export abstract class ToolbarButtonProvider {
+    abstract provide (): IToolbarButton[]
 }
-
-export const ToolbarButtonProviderType = 'app:ToolbarButtonProviderType'

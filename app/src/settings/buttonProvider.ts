@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core'
-import { IToolbarButtonProvider, IToolbarButton, AppService } from 'api'
+import { ToolbarButtonProvider, IToolbarButton, AppService } from 'api'
 import { SettingsTab } from './tab'
 
 
 @Injectable()
-export class ButtonProvider implements IToolbarButtonProvider {
+export class ButtonProvider extends ToolbarButtonProvider {
     constructor (
         private app: AppService,
-    ) { }
+    ) {
+        super()
+    }
 
     provide (): IToolbarButton[] {
         return [{

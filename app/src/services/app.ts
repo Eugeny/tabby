@@ -1,8 +1,7 @@
-import { Injectable } from '@angular/core'
+import { Inject, Injectable } from '@angular/core'
 import { Logger, LogService } from 'services/log'
 import { Tab } from 'api/tab'
-import { PluginsService } from 'services/plugins'
-import { ITabRecoveryProvider, TabRecoveryProviderType } from 'api/tabRecovery'
+import { TabRecoveryProvider } from 'api/tabRecovery'
 
 
 @Injectable()
@@ -13,7 +12,7 @@ export class AppService {
     logger: Logger
 
     constructor (
-        private plugins: PluginsService,
+        @Inject(TabRecoveryProvider) private tabRecoveryProviders: TabRecoveryProvider[],
         log: LogService,
     ) {
         this.logger = log.create('app')
@@ -83,9 +82,8 @@ export class AppService {
 
     restoreTabs () {
         if (window.localStorage.tabsRecovery) {
-            let providers = this.plugins.getAll<ITabRecoveryProvider>(TabRecoveryProviderType)
             JSON.parse(window.localStorage.tabsRecovery).forEach((token) => {
-                for (let provider of providers) {
+                for (let provider of this.tabRecoveryProviders) {
                     try {
                         let tab = provider.recover(token)
                         if (tab) {
@@ -93,8 +91,8 @@ export class AppService {
                             return
                         }
                     } catch (_) { }
-                    this.logger.warn('Cannot restore tab from the token:', token)
                 }
+                this.logger.warn('Cannot restore tab from the token:', token)
             })
             this.saveTabs()
         }

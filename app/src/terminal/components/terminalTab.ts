@@ -1,11 +1,11 @@
 import { Subscription } from 'rxjs'
-import { Component, NgZone, Output, EventEmitter, ElementRef } from '@angular/core'
+import { Component, NgZone, Output, Inject, EventEmitter, ElementRef } from '@angular/core'
 
 import { ConfigService } from 'services/config'
-import { PluginsService } from 'services/plugins'
 
 import { BaseTabComponent } from 'components/baseTab'
 import { TerminalTab } from '../tab'
+import { TerminalDecorator } from '../api'
 
 import { hterm, preferenceManager } from '../hterm'
 
@@ -27,7 +27,7 @@ export class TerminalTabComponent extends BaseTabComponent<TerminalTab> {
         private zone: NgZone,
         private elementRef: ElementRef,
         public config: ConfigService,
-        private plugins: PluginsService,
+        @Inject(TerminalDecorator) private decorators: TerminalDecorator[],
     ) {
         super()
         this.startupTime = performance.now()
@@ -42,7 +42,9 @@ export class TerminalTabComponent extends BaseTabComponent<TerminalTab> {
         })
 
         this.terminal = new hterm.hterm.Terminal()
-        //this.pluginDispatcher.emit('preTerminalInit', { terminal: this.terminal })
+        this.decorators.forEach((decorator) => {
+            decorator.decorate(this.terminal)
+        })
         this.terminal.setWindowTitle = (title) => {
             this.zone.run(() => {
                 this.title = title
@@ -77,7 +79,6 @@ export class TerminalTabComponent extends BaseTabComponent<TerminalTab> {
         }
         this.terminal.decorate(this.elementRef.nativeElement)
         this.configure()
-        //this.pluginDispatcher.emit('postTerminalInit', { terminal: this.terminal })
     }
 
     configure () {

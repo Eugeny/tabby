@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core'
-import { Tab, ITabRecoveryProvider } from 'api'
+import { Tab, TabRecoveryProvider } from 'api'
 import { TerminalTab } from './tab'
 import { SessionsService } from './services/sessions'
 
 
 @Injectable()
-export class RecoveryProvider implements ITabRecoveryProvider {
-    constructor (private sessions: SessionsService) { }
+export class RecoveryProvider extends TabRecoveryProvider {
+    constructor (private sessions: SessionsService) {
+        super()
+    }
 
     recover (recoveryToken: any): Tab {
         if (recoveryToken.type == 'app:terminal') {

@@ -1,5 +1,5 @@
-import { BrowserModule } from '@angular/platform-browser'
 import { NgModule } from '@angular/core'
+import { BrowserModule } from '@angular/platform-browser'
 import { FormsModule } from '@angular/forms'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 
@@ -9,7 +9,7 @@ import { HotkeyHintComponent } from './components/hotkeyHint'
 import { HotkeyInputModalComponent } from './components/hotkeyInputModal'
 import { SettingsPaneComponent } from './components/settingsPane'
 
-import { PluginsService, ToolbarButtonProviderType, TabRecoveryProviderType } from 'api'
+import { ToolbarButtonProvider, TabRecoveryProvider } from 'api'
 
 import { ButtonProvider } from './buttonProvider'
 import { RecoveryProvider } from './recoveryProvider'
@@ -22,8 +22,8 @@ import { RecoveryProvider } from './recoveryProvider'
         NgbModule,
     ],
     providers: [
-        ButtonProvider,
-        RecoveryProvider,
+        { provide: ToolbarButtonProvider, useClass: ButtonProvider, multi: true },
+        { provide: TabRecoveryProvider, useClass: RecoveryProvider, multi: true }
     ],
     entryComponents: [
         HotkeyInputModalComponent,
@@ -38,14 +38,6 @@ import { RecoveryProvider } from './recoveryProvider'
     ],
 })
 class SettingsModule {
-    constructor (
-        plugins: PluginsService,
-        buttonProvider: ButtonProvider,
-        recoveryProvider: RecoveryProvider,
-    ) {
-        plugins.register(ToolbarButtonProviderType, buttonProvider, 1)
-        plugins.register(TabRecoveryProviderType, recoveryProvider)
-    }
 }
 
 

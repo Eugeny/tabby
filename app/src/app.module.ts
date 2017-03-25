@@ -27,6 +27,7 @@ import { TitleBarComponent } from 'components/titleBar'
 let plugins = [
     require('./settings').default,
     require('./terminal').default,
+    require('./link-highlighter').default,
 ]
 
 @NgModule({
