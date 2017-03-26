@@ -1,16 +1,11 @@
-import { Component } from '@angular/core'
+import { Component, Inject } from '@angular/core'
 import { ElectronService } from 'services/electron'
-import { HostAppService, PLATFORM_WINDOWS, PLATFORM_LINUX, PLATFORM_MAC } from 'services/hostApp'
 import { ConfigService } from 'services/config'
 import { DockingService } from 'services/docking'
-import { Observable } from 'rxjs/Observable'
-import 'rxjs/add/operator/map'
-import 'rxjs/add/operator/debounceTime'
-import 'rxjs/add/operator/distinctUntilChanged'
-const childProcessPromise = nodeRequire('child-process-promise')
 
 import { BaseTabComponent } from 'components/baseTab'
 import { SettingsTab } from '../tab'
+import { SettingsProvider } from '../api'
 
 
 @Component({
@@ -19,54 +14,19 @@ import { SettingsTab } from '../tab'
   styles: [require('./settingsPane.less')],
 })
 export class SettingsPaneComponent extends BaseTabComponent<SettingsTab> {
-    isWindows: boolean
-    isMac: boolean
-    isLinux: boolean
-    year: number
-    version: string
-    fonts: string[] = []
-    restartRequested: boolean
     globalHotkey = ['Ctrl+Shift+G']
 
     constructor(
         public config: ConfigService,
         private electron: ElectronService,
         public docking: DockingService,
-        hostApp: HostAppService,
+        @Inject(SettingsProvider) public settingsProviders: SettingsProvider[]
     ) {
         super()
-        this.isWindows = hostApp.platform == PLATFORM_WINDOWS
-        this.isMac = hostApp.platform == PLATFORM_MAC
-        this.isLinux = hostApp.platform == PLATFORM_LINUX
-        this.version = electron.app.getVersion()
-        this.year = new Date().getFullYear()
-    }
-
-    ngOnInit () {
-        childProcessPromise.exec('fc-list :spacing=mono').then((result) => {
-            this.fonts = result.stdout
-                .split('\n')
-                .filter((x) => !!x)
-                .map((x) => x.split(':')[1].trim())
-                .map((x) => x.split(',')[0].trim())
-            this.fonts.sort()
-        })
-    }
-
-    fontAutocomplete = (text$: Observable<string>) => {
-        return text$
-          .debounceTime(200)
-          .distinctUntilChanged()
-          .map(query => this.fonts.filter(v => new RegExp(query, 'gi').test(v)))
-          .map(list => Array.from(new Set(list)))
     }
 
     ngOnDestroy () {
         this.config.save()
-    }
-
-    requestRestart () {
-        this.restartRequested = true
     }
 
     restartApp () {

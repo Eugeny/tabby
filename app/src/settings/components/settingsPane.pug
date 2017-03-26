@@ -1,6 +1,11 @@
-button.btn.btn-outline-warning.btn-block(*ngIf='restartRequested', '(click)'='restartApp()') Restart the app to apply changes
+button.btn.btn-outline-warning.btn-block(*ngIf='config.restartRequested', '(click)'='restartApp()') Restart the app to apply changes
 
 ngb-tabset(type='tabs')
+    ngb-tab(*ngFor='let provider of settingsProviders')
+        template(ngbTabTitle)
+            | {{provider.title}}
+        template(ngbTabContent)
+            settings-tab-body([provider]='provider')
     ngb-tab
         template(ngbTabTitle)
             | Application
@@ -123,71 +128,6 @@ ngb-tabset(type='tabs')
                                     max='1',
                                     step='0.01'
                                 )
-
-    ngb-tab
-        template(ngbTabTitle)
-            | Appearance
-        template(ngbTabContent)
-            .row
-                .col-sm-6
-                    .form-group
-                        label Preview
-                        .appearance-preview(
-                            [style.font-family]='config.store.appearance.font',
-                            [style.font-size]='config.store.appearance.fontSize + "px"',
-                        )
-                            .text john@doe-pc$ ls
-                            .text foo bar
-                .col-sm-6
-                    .form-group
-                        label Font
-                        input.form-control(
-                            type='text',
-                            [ngbTypeahead]='fontAutocomplete',
-                            '[(ngModel)]'='config.store.appearance.font',
-                            '(ngModelChange)'='config.save()',
-                        )
-                        small.form-text.text-muted Font to be used in the terminal
-
-                    .form-group
-                        label Font size
-                        input.form-control(
-                            type='number',
-                            '[(ngModel)]'='config.store.appearance.fontSize',
-                            '(ngModelChange)'='config.save()',
-                        )
-                        small.form-text.text-muted Text size to be used in the terminal
-
-    ngb-tab
-        template(ngbTabTitle)
-            | Terminal
-        template(ngbTabContent)
-            .form-group
-                label Terminal bell
-                br
-                div(
-                    '[(ngModel)]'='config.store.terminal.bell'
-                    '(ngModelChange)'='config.save()'
-                    ngbRadioGroup
-                )
-                    label.btn.btn-secondary
-                        input(
-                            type='radio',
-                            [value]='"off"'
-                        )
-                        | Off
-                    label.btn.btn-secondary
-                        input(
-                            type='radio',
-                            [value]='"sound"'
-                        )
-                        | Sound
-                    label.btn.btn-secondary
-                        input(
-                            type='radio',
-                            [value]='"notification"'
-                        )
-                        | Notification
 
     ngb-tab
         template(ngbTabTitle)

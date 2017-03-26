@@ -8,6 +8,7 @@ import { HotkeyDisplayComponent } from './components/hotkeyDisplay'
 import { HotkeyHintComponent } from './components/hotkeyHint'
 import { HotkeyInputModalComponent } from './components/hotkeyInputModal'
 import { SettingsPaneComponent } from './components/settingsPane'
+import { SettingsTabBodyComponent } from './components/settingsTabBody'
 
 import { ToolbarButtonProvider, TabRecoveryProvider } from 'api'
 
@@ -35,6 +36,7 @@ import { RecoveryProvider } from './recoveryProvider'
         HotkeyInputComponent,
         HotkeyInputModalComponent,
         SettingsPaneComponent,
+        SettingsTabBodyComponent,
     ],
 })
 class SettingsModule {

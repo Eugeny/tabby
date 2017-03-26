@@ -3,7 +3,8 @@ import { BaseTabComponent } from 'components/baseTab'
 
 export declare type ComponentType<T extends Tab> = new (...args: any[]) => BaseTabComponent<T>
 
-export class Tab {
+
+export abstract class Tab {
     id: number
     title: string
     scrollable: boolean
@@ -20,9 +21,7 @@ export class Tab {
         this.hasActivity = true
     }
 
-    getComponentType (): ComponentType<Tab> {
-        return null
-    }
+    abstract getComponentType (): ComponentType<Tab>
 
     getRecoveryToken (): any {
         return null

@@ -30,16 +30,17 @@ export interface IConfigData {
 
 @Injectable()
 export class ConfigService {
+    store: IConfigData
+    change = new EventEmitter()
+    restartRequested: boolean
+    private path: string
+
     constructor (
         electron: ElectronService
     ) {
         this.path = path.join(electron.app.getPath('userData'), 'config.yaml')
         this.load()
     }
-
-    private path: string
-    store: IConfigData
-    change = new EventEmitter()
 
     load () {
         if (fs.existsSync(this.path)) {
@@ -60,5 +61,9 @@ export class ConfigService {
 
     emitChange () {
         this.change.emit()
+    }
+
+    requestRestart () {
+        this.restartRequested = true
     }
 }
