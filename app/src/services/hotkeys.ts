@@ -3,7 +3,6 @@ import { ElectronService } from 'services/electron'
 import { ConfigService } from 'services/config'
 import { NativeKeyEvent, stringifyKeySequence } from './hotkeys.util'
 import { IHotkeyDescription, HotkeyProvider } from 'api/hotkeyProvider'
-const hterm = require('hterm-commonjs')
 
 
 export interface PartialHotkeyMatch {
@@ -34,39 +33,25 @@ export class HotkeysService {
         private config: ConfigService,
         @Inject(HotkeyProvider) hotkeyProviders: HotkeyProvider[],
     ) {
-        let events = [
-            {
-                name: 'keydown',
-                htermHandler: 'onKeyDown_',
-            },
-            {
-                name: 'keyup',
-                htermHandler: 'onKeyUp_',
-            },
-        ]
+        let events = ['keydown', 'keyup']
         events.forEach((event) => {
-            document.addEventListener(event.name, (nativeEvent) => {
+            document.addEventListener(event, (nativeEvent) => {
                 if (document.querySelectorAll(':focus').length == 0) {
-                    this.emitNativeEvent(event.name, nativeEvent)
+                    this.pushKeystroke(event, nativeEvent)
+                    this.processKeystrokes()
+                    this.emitKeyEvent(nativeEvent)
                 }
             })
-
-            let oldHandler = hterm.hterm.Keyboard.prototype[event.htermHandler]
-            const __this = this
-            hterm.hterm.Keyboard.prototype[event.htermHandler] = function (nativeEvent) {
-                __this.emitNativeEvent(event.name, nativeEvent)
-                oldHandler.bind(this)(nativeEvent)
-            }
         })
         this.hotkeyDescriptions = hotkeyProviders.map(x => x.hotkeys).reduce((a, b) => a.concat(b))
     }
 
-    emitNativeEvent (name, nativeEvent) {
+    pushKeystroke (name, nativeEvent) {
         nativeEvent.event = name
-
-        //console.log(nativeEvent)
         this.currentKeystrokes.push({ event: nativeEvent, time: performance.now() })
+    }
 
+    processKeystrokes () {
         this.zone.run(() => {
             if (this.isEnabled()) {
                 let matched = this.getCurrentFullyMatchedHotkey()
@@ -76,6 +61,11 @@ export class HotkeysService {
                     this.clearCurrentKeystrokes()
                 }
             }
+        })
+    }
+
+    emitKeyEvent (nativeEvent) {
+        this.zone.run(() => {
             this.key.emit(nativeEvent)
         })
     }

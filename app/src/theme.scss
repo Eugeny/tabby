@@ -12,6 +12,8 @@ $purple: #613d7c !default;
 
 $body-bg: #1D272D;
 $body-bg2: #131d27;
+$body-bg3: #20333e;
+
 $body-color: #aaa;
 $font-family-sans-serif: "Source Sans Pro";
 $font-size-base: 14rem / 16;
@@ -27,9 +29,9 @@ $nav-tabs-border-color:                       $body-bg2;
 $nav-tabs-border-width:                       1px;
 $nav-tabs-border-radius:                      0;
 $nav-tabs-link-hover-border-color:            $body-bg2;
-$nav-tabs-active-link-hover-color:            $body-color;
-$nav-tabs-active-link-hover-bg:               #424f56;
-$nav-tabs-active-link-hover-border-color:     $body-bg2;
+$nav-tabs-active-link-hover-color:            $white;
+$nav-tabs-active-link-hover-bg:               $blue;
+$nav-tabs-active-link-hover-border-color:     darken($blue, 30%);
 
 $input-bg:                       #111;
 $input-bg-disabled:              #333;
@@ -181,4 +183,58 @@ app-root .content {
 
 tab-body {
     background: $body-bg;
+}
+
+settings-pane > ngb-tabset {
+    border-right: 1px solid $body-bg2;
+
+    & > .nav {
+        background: $body-bg3;
+
+        & > .nav-item > .nav-link {
+            border-left: none;
+            border-right: none;
+            border-top: 1px solid transparent;
+            border-bottom: 1px solid transparent;
+            padding: 10px 50px 10px 20px;
+            font-size: 14px;
+
+            &.active {
+                border-top-color: $nav-tabs-active-link-hover-border-color;
+                border-bottom-color: $nav-tabs-active-link-hover-border-color;
+            }
+        }
+    }
+}
+
+multi-hotkey-input {
+    .item {
+        background: $body-bg3;
+        border: 1px solid $blue;
+        border-radius: 3px;
+        margin-right: 5px;
+
+        .body {
+            padding: 3px 0 2px;
+
+            .stroke {
+                padding: 0 6px;
+                border-right: 1px solid $body-bg;
+            }
+        }
+
+        .remove {
+            padding: 3px 8px 2px;
+        }
+    }
+
+    .add {
+        color: #777;
+        padding: 4px 10px 0;
+    }
+
+    .add, .item .body, .item .remove {
+        &:hover { background: darken($body-bg3, 5%); }
+        &:active { background: darken($body-bg3, 15%); }
+    }
 }

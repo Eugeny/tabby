@@ -3,7 +3,8 @@ import { BrowserModule } from '@angular/platform-browser'
 import { FormsModule } from '@angular/forms'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 
-import { ToolbarButtonProvider, TabRecoveryProvider, ConfigProvider } from 'api'
+import { ToolbarButtonProvider, TabRecoveryProvider, ConfigProvider, HotkeysService } from 'api'
+
 import { SettingsTabProvider } from '../settings/api'
 
 import { TerminalTabComponent } from './components/terminalTab'
@@ -15,6 +16,8 @@ import { RecoveryProvider } from './recoveryProvider'
 import { SessionPersistenceProvider } from './api'
 import { TerminalSettingsProvider } from './settings'
 import { TerminalConfigProvider } from './config'
+import { hterm } from './hterm'
+
 
 @NgModule({
     imports: [
@@ -40,6 +43,32 @@ import { TerminalConfigProvider } from './config'
     ],
 })
 class TerminalModule {
+    constructor (hotkeys: HotkeysService) {
+        let events = [
+            {
+                name: 'keydown',
+                htermHandler: 'onKeyDown_',
+            },
+            {
+                name: 'keyup',
+                htermHandler: 'onKeyUp_',
+            },
+        ]
+        events.forEach((event) => {
+            let oldHandler = hterm.hterm.Keyboard.prototype[event.htermHandler]
+            hterm.hterm.Keyboard.prototype[event.htermHandler] = function (nativeEvent) {
+                hotkeys.pushKeystroke(event.name, nativeEvent)
+                if (hotkeys.getCurrentPartiallyMatchedHotkeys().length == 0) {
+                    oldHandler.bind(this)(nativeEvent)
+                } else {
+                    nativeEvent.stopPropagation()
+                    nativeEvent.preventDefault()
+                }
+                hotkeys.processKeystrokes()
+                hotkeys.emitKeyEvent(nativeEvent)
+            }
+        })
+    }
 }
 
 

@@ -27,34 +27,32 @@ export interface NativeKeyEvent {
 
 export function stringifyKeySequence(events: NativeKeyEvent[]): string[] {
     let items: string[] = []
-    let lastEvent: NativeKeyEvent
     events = events.slice()
 
     while (events.length > 0) {
         let event = events.shift()
-        if (event.event == 'keyup' && (lastEvent && lastEvent.event == 'keydown')) {
+        if (event.event == 'keydown') {
             let itemKeys: string[] = []
-            if (lastEvent.ctrlKey) {
+            if (event.ctrlKey) {
                 itemKeys.push('Ctrl')
             }
-            if (lastEvent.metaKey) {
+            if (event.metaKey) {
                 itemKeys.push(metaKeyName)
             }
-            if (lastEvent.altKey) {
+            if (event.altKey) {
                 itemKeys.push(altKeyName)
             }
-            if (lastEvent.shiftKey) {
+            if (event.shiftKey) {
                 itemKeys.push('Shift')
             }
 
-            if (['Control', 'Shift', 'Alt', 'Command'].includes(lastEvent.key)) {
+            if (['Control', 'Shift', 'Alt', 'Command'].includes(event.key)) {
                 // TODO make this optional?
                 continue
             }
-            itemKeys.push(lastEvent.key)
+            itemKeys.push(event.key)
             items.push(itemKeys.join('-'))
         }
-        lastEvent = event
     }
     return items
 }

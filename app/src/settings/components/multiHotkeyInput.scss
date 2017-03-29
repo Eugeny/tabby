@@ -5,8 +5,6 @@
 .item {
     display: flex;
     flex: none;
-    padding: 3px 0;
-    margin-right: 5px;
 
     .body {
         flex: none;
@@ -14,7 +12,6 @@
 
         .stroke {
             flex: none;
-            padding: 0 3px;
         }
     }
 

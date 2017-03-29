@@ -1,5 +1,12 @@
 :host /deep/ ngb-tabset {
     flex: auto;
+    display: flex;
+}
+
+:host /deep/ ngb-tabset > .nav {
+    display: flex;
+    flex-direction: column;
+    flex: none;
 }
 
 :host /deep/ ngb-tabset > .tab-content {
