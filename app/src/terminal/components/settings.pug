@@ -3,8 +3,8 @@
         .form-group
             label Preview
             .appearance-preview(
-                [style.font-family]='config.full().appearance.font',
-                [style.font-size]='config.full().appearance.fontSize + "px"',
+                [style.font-family]='config.full().terminal.font',
+                [style.font-size]='config.full().terminal.fontSize + "px"',
             )
                 .text john@doe-pc$ ls
                 .text foo bar
@@ -14,7 +14,7 @@
             input.form-control(
                 type='text',
                 [ngbTypeahead]='fontAutocomplete',
-                '[(ngModel)]'='config.store.appearance.font',
+                '[(ngModel)]'='config.store.terminal.font',
                 (ngModelChange)='config.save()',
             )
             small.form-text.text-muted Font to be used in the terminal
@@ -23,7 +23,7 @@
             label Font size
             input.form-control(
                 type='number',
-                '[(ngModel)]'='config.store.appearance.fontSize',
+                '[(ngModel)]'='config.store.terminal.fontSize',
                 (ngModelChange)='config.save()',
             )
             small.form-text.text-muted Text size to be used in the terminal

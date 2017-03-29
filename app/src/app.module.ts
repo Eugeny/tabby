@@ -10,7 +10,7 @@ import { ConfigService } from 'services/config'
 import { ElectronService } from 'services/electron'
 import { HostAppService } from 'services/hostApp'
 import { LogService } from 'services/log'
-import { HotkeysService } from 'services/hotkeys'
+import { HotkeysService, AppHotkeyProvider } from 'services/hotkeys'
 import { ModalService } from 'services/modal'
 import { NotifyService } from 'services/notify'
 import { PluginsService } from 'services/plugins'
@@ -22,6 +22,8 @@ import { CheckboxComponent } from 'components/checkbox'
 import { TabBodyComponent } from 'components/tabBody'
 import { TabHeaderComponent } from 'components/tabHeader'
 import { TitleBarComponent } from 'components/titleBar'
+
+import { HotkeyProvider } from 'api/hotkeyProvider'
 
 
 let plugins = [
@@ -50,6 +52,7 @@ let plugins = [
         NotifyService,
         PluginsService,
         QuitterService,
+        { provide: HotkeyProvider, useClass: AppHotkeyProvider, multi: true },
     ],
     entryComponents: [
     ],
@@ -65,7 +68,4 @@ let plugins = [
     ]
 })
 export class AppModule {
-    constructor () {
-        //pluginDispatcher.register(require('./plugin.hyperlinks').default)
-    }
 }

@@ -1,15 +1,9 @@
 appearance:
-  font: monospace
-  fontSize: 14
   dock: 'off'
   dockScreen: 'current'
   dockFill: 50
   tabsOnTop: true
 hotkeys:
-  new-tab:
-    - ['Ctrl-A', 'C']
-    - ['Ctrl-A', 'Ctrl-C']
-    - 'Ctrl-Shift-T'
   close-tab:
     - 'Ctrl-Shift-W'
     - ['Ctrl-A', 'K']
@@ -52,5 +46,3 @@ hotkeys:
   tab-10:
     - 'Alt-0'
     - ['Ctrl-A', '0']
-terminal:
-  bell: off

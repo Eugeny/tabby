@@ -12,6 +12,7 @@ import { DockingService } from 'services/docking'
 import { AppService, IToolbarButton, ToolbarButtonProvider } from 'api'
 
 import 'angular2-toaster/lib/toaster.css'
+import 'overrides.scss'
 import 'global.less'
 import 'theme.scss'
 
@@ -65,9 +66,6 @@ export class AppRootComponent {
         })
 
         this.hotkeys.matchedHotkey.subscribe((hotkey) => {
-            if (hotkey == 'new-tab') {
-                // TODO this.newTab()
-            }
             if (hotkey.startsWith('tab-')) {
                 let index = parseInt(hotkey.split('-')[1])
                 if (index <= this.app.tabs.length) {

@@ -1,6 +1,6 @@
 button.btn.btn-outline-warning.btn-block(*ngIf='config.restartRequested', '(click)'='restartApp()') Restart the app to apply changes
 
-ngb-tabset(type='tabs')
+ngb-tabset.vertical(type='tabs')
     ngb-tab(*ngFor='let provider of settingsProviders')
         template(ngbTabTitle)
             | {{provider.title}}
@@ -134,10 +134,13 @@ ngb-tabset(type='tabs')
             | Hotkeys
         template(ngbTabContent)
             .form-group
-                table.table
+                table
                     tr
                         th Toggle terminal window
                         td
-                            hotkey-input('[(model)]'='globalHotkey')
-                                
-                                
+                            hotkey-input('[(model)]'='globalHotkey')                    
+                    tr(*ngFor='let hotkey of hotkeyDescriptions')
+                        th {{hotkey.name}}
+                        td
+                            multi-hotkey-input('[(model)]'='config.store.hotkeys[hotkey.id]')
+                    

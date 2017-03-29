@@ -83,8 +83,8 @@ export class TerminalTabComponent extends BaseTabComponent<TerminalTab> {
 
     configure () {
         let config = this.config.full()
-        preferenceManager.set('font-family', config.appearance.font)
-        preferenceManager.set('font-size', config.appearance.fontSize)
+        preferenceManager.set('font-family', config.terminal.font)
+        preferenceManager.set('font-size', config.terminal.fontSize)
         preferenceManager.set('audible-bell-sound', '')
         preferenceManager.set('desktop-notification-bell', config.terminal.bell == 'notification')
         preferenceManager.set('enable-clipboard-notice', false)

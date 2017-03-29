@@ -39,7 +39,6 @@ module.exports = {
                 }
               ]
             },
-            { test: /\.css$/, loader: "style-loader!css-loader" },
             {
               test: /\.less$/,
               loader: "style-loader!css-loader!less-loader",
@@ -58,6 +57,16 @@ module.exports = {
             {
               test: /\.scss$/,
               use: ['to-string-loader', 'css-loader', 'sass-loader'],
+              include: [/app\/.*components\//],
+            },
+            {
+              test: /\.css$/,
+              use: ['style-loader', 'css-loader', 'sass-loader'],
+              exclude: [/app\/.*components\//],
+            },
+            {
+              test: /\.css$/,
+              use: ['to-string-loader', 'css-loader'],
               include: [/app\/.*components\//],
             },
             {

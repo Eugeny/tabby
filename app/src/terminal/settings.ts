@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core'
-import { SettingsProvider, ComponentType } from '../settings/api'
+import { SettingsTabProvider, ComponentType } from '../settings/api'
 import { SettingsComponent } from './components/settings'
 
 
 @Injectable()
-export class TerminalSettingsProvider extends SettingsProvider {
+export class TerminalSettingsProvider extends SettingsTabProvider {
     title = 'Terminal'
 
     getComponentType (): ComponentType {

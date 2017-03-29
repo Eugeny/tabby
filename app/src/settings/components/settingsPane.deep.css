@@ -1,0 +1,10 @@
+:host /deep/ ngb-tabset {
+    flex: auto;
+}
+
+:host /deep/ ngb-tabset > .tab-content {
+    padding: 15px 30px;
+    margin: 0;
+    flex: auto;
+    overflow-y: auto;
+}

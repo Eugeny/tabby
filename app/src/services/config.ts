@@ -1,69 +1,54 @@
 import * as yaml from 'js-yaml'
 import * as path from 'path'
 import * as fs from 'fs'
-import { EventEmitter, Injectable } from '@angular/core'
+import { EventEmitter, Injectable, Inject } from '@angular/core'
 import { ElectronService } from 'services/electron'
+import { ConfigProvider } from 'api/configProvider'
 
 const configMerge = (a, b) => require('deepmerge')(a, b, { arrayMerge: (_d, s) => s })
-const defaultConfigValues : IConfigData = require('../../defaultConfigValues.yaml')
-const defaultConfigStructure : IConfigData = require('../../defaultConfigStructure.yaml')
 
-export interface IAppearanceData {
-    useNativeFrame: boolean
-    font: string
-    fontSize: number
-    dock: string
-    dockScreen: string
-    dockFill: number
-    tabsOnTop: boolean
-}
-
-export interface ITerminalData {
-    bell: string|boolean
-}
-
-export interface IConfigData {
-    appearance?: IAppearanceData
-    hotkeys?: any
-    terminal?: ITerminalData
-}
 
 @Injectable()
 export class ConfigService {
-    store: IConfigData
+    store: any
     change = new EventEmitter()
     restartRequested: boolean
     private path: string
+    private configStructure: any = require('../../defaultConfigStructure.yaml')
+    private defaultConfigValues: any = require('../../defaultConfigValues.yaml')
 
     constructor (
-        electron: ElectronService
+        electron: ElectronService,
+        @Inject(ConfigProvider) configProviders: ConfigProvider[],
     ) {
         this.path = path.join(electron.app.getPath('userData'), 'config.yaml')
+        this.configStructure = configProviders.map(x => x.configStructure).reduce(configMerge, this.configStructure)
+        this.defaultConfigValues = configProviders.map(x => x.defaultConfigValues).reduce(configMerge, this.defaultConfigValues)
         this.load()
     }
 
-    load () {
+    load (): void {
         if (fs.existsSync(this.path)) {
-            this.store = configMerge(defaultConfigStructure, yaml.safeLoad(fs.readFileSync(this.path, 'utf8')))
+            this.store = configMerge(this.configStructure, yaml.safeLoad(fs.readFileSync(this.path, 'utf8')))
         } else {
-            this.store = Object.assign({}, defaultConfigStructure)
+            this.store = Object.assign({}, this.configStructure)
         }
     }
 
-    save () {
+    save (): void {
         fs.writeFileSync(this.path, yaml.safeDump(this.store), 'utf8')
         this.emitChange()
     }
 
-    full () : IConfigData {
-        return configMerge(defaultConfigValues, this.store)
+    full (): any {
+        return configMerge(this.defaultConfigValues, this.store)
     }
 
-    emitChange () {
+    emitChange (): void {
         this.change.emit()
     }
 
-    requestRestart () {
+    requestRestart (): void {
         this.restartRequested = true
     }
 }

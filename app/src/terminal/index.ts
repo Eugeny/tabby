@@ -3,8 +3,8 @@ import { BrowserModule } from '@angular/platform-browser'
 import { FormsModule } from '@angular/forms'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 
-import { ToolbarButtonProvider, TabRecoveryProvider } from 'api'
-import { SettingsProvider } from '../settings/api'
+import { ToolbarButtonProvider, TabRecoveryProvider, ConfigProvider } from 'api'
+import { SettingsTabProvider } from '../settings/api'
 
 import { TerminalTabComponent } from './components/terminalTab'
 import { SettingsComponent } from './components/settings'
@@ -14,6 +14,7 @@ import { ButtonProvider } from './buttonProvider'
 import { RecoveryProvider } from './recoveryProvider'
 import { SessionPersistenceProvider } from './api'
 import { TerminalSettingsProvider } from './settings'
+import { TerminalConfigProvider } from './config'
 
 @NgModule({
     imports: [
@@ -26,7 +27,8 @@ import { TerminalSettingsProvider } from './settings'
         { provide: TabRecoveryProvider, useClass: RecoveryProvider, multi: true },
         SessionsService,
         { provide: SessionPersistenceProvider, useClass: ScreenPersistenceProvider },
-        { provide: SettingsProvider, useClass: TerminalSettingsProvider, multi: true },
+        { provide: SettingsTabProvider, useClass: TerminalSettingsProvider, multi: true },
+        { provide: ConfigProvider, useClass: TerminalConfigProvider, multi: true },
     ],
     entryComponents: [
         TerminalTabComponent,

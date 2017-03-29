@@ -1,13 +1,10 @@
-import { Injectable, NgZone, EventEmitter } from '@angular/core'
+import { Injectable, Inject, NgZone, EventEmitter } from '@angular/core'
 import { ElectronService } from 'services/electron'
 import { ConfigService } from 'services/config'
 import { NativeKeyEvent, stringifyKeySequence } from './hotkeys.util'
+import { IHotkeyDescription, HotkeyProvider } from 'api/hotkeyProvider'
 const hterm = require('hterm-commonjs')
 
-export interface HotkeyDescription {
-    id: string,
-    name: string,
-}
 
 export interface PartialHotkeyMatch {
     id: string,
@@ -16,69 +13,6 @@ export interface PartialHotkeyMatch {
 }
 
 const KEY_TIMEOUT = 2000
-const HOTKEYS: HotkeyDescription[] = [
-    {
-        id: 'new-tab',
-        name: 'New tab',
-    },
-    {
-        id: 'close-tab',
-        name: 'Close tab',
-    },
-    {
-        id: 'toggle-last-tab',
-        name: 'Toggle last tab',
-    },
-    {
-        id: 'next-tab',
-        name: 'Next tab',
-    },
-    {
-        id: 'previous-tab',
-        name: 'Previous tab',
-    },
-    {
-        id: 'tab-1',
-        name: 'Tab 1',
-    },
-    {
-        id: 'tab-2',
-        name: 'Tab 2',
-    },
-    {
-        id: 'tab-3',
-        name: 'Tab 3',
-    },
-    {
-        id: 'tab-4',
-        name: 'Tab 4',
-    },
-    {
-        id: 'tab-5',
-        name: 'Tab 5',
-    },
-    {
-        id: 'tab-6',
-        name: 'Tab 6',
-    },
-    {
-        id: 'tab-7',
-        name: 'Tab 7',
-    },
-    {
-        id: 'tab-8',
-        name: 'Tab 8',
-    },
-    {
-        id: 'tab-9',
-        name: 'Tab 9',
-    },
-    {
-        id: 'tab-10',
-        name: 'Tab 10',
-    },
-]
-
 
 interface EventBufferEntry {
     event: NativeKeyEvent,
@@ -92,11 +26,13 @@ export class HotkeysService {
     globalHotkey = new EventEmitter()
     private currentKeystrokes: EventBufferEntry[] = []
     private disabledLevel = 0
+    private hotkeyDescriptions: IHotkeyDescription[]
 
     constructor(
         private zone: NgZone,
         private electron: ElectronService,
         private config: ConfigService,
+        @Inject(HotkeyProvider) hotkeyProviders: HotkeyProvider[],
     ) {
         let events = [
             {
@@ -122,6 +58,7 @@ export class HotkeysService {
                 oldHandler.bind(this)(nativeEvent)
             }
         })
+        this.hotkeyDescriptions = hotkeyProviders.map(x => x.hotkeys).reduce((a, b) => a.concat(b))
     }
 
     emitNativeEvent (name, nativeEvent) {
@@ -214,8 +151,8 @@ export class HotkeysService {
         return result
     }
 
-    getHotkeyDescription (id: string) : HotkeyDescription {
-        return HOTKEYS.filter((x) => x.id == id)[0]
+    getHotkeyDescription (id: string) : IHotkeyDescription {
+        return this.hotkeyDescriptions.filter((x) => x.id == id)[0]
     }
 
     enable () {
@@ -230,4 +167,71 @@ export class HotkeysService {
         return this.disabledLevel == 0
     }
 
+}
+
+
+@Injectable()
+export class AppHotkeyProvider extends HotkeyProvider {
+    hotkeys: IHotkeyDescription[] = [
+        {
+            id: 'new-tab',
+            name: 'New tab',
+        },
+        {
+            id: 'close-tab',
+            name: 'Close tab',
+        },
+        {
+            id: 'toggle-last-tab',
+            name: 'Toggle last tab',
+        },
+        {
+            id: 'next-tab',
+            name: 'Next tab',
+        },
+        {
+            id: 'previous-tab',
+            name: 'Previous tab',
+        },
+        {
+            id: 'tab-1',
+            name: 'Tab 1',
+        },
+        {
+            id: 'tab-2',
+            name: 'Tab 2',
+        },
+        {
+            id: 'tab-3',
+            name: 'Tab 3',
+        },
+        {
+            id: 'tab-4',
+            name: 'Tab 4',
+        },
+        {
+            id: 'tab-5',
+            name: 'Tab 5',
+        },
+        {
+            id: 'tab-6',
+            name: 'Tab 6',
+        },
+        {
+            id: 'tab-7',
+            name: 'Tab 7',
+        },
+        {
+            id: 'tab-8',
+            name: 'Tab 8',
+        },
+        {
+            id: 'tab-9',
+            name: 'Tab 9',
+        },
+        {
+            id: 'tab-10',
+            name: 'Tab 10',
+        },
+    ]
 }
