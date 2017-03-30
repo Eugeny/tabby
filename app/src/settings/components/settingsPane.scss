@@ -1,9 +1,12 @@
 :host {
     display: flex;
+    flex-direction: column;
     flex: auto;
 
     >.btn-block {
-        margin-bottom: 20px;
+        margin: 20px;
+        width: auto;
+        flex: none;
     }
 
     >.modal-body {

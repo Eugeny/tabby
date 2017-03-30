@@ -1,0 +1,22 @@
+:host {
+    >.modal-body {
+        padding: 0 !important;
+    }
+
+    .input {
+        display: flex;
+
+        .stroke {
+            flex: none;
+        }
+    }
+
+    .timeout {
+        height: 5px;
+        margin: 0 0 15px;
+
+        div {
+            height: 5px;
+        }
+    }
+}

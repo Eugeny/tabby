@@ -1,8 +1,12 @@
-div.modal-body
-    label Press the key now
+.modal-header
+    h5 Press the key now
+
+.modal-body
     .input
-        hotkey-display([model]='value', [animate]='true')
+        .stroke(*ngFor='let stroke of value', [@animateKey]='true') {{stroke}}
 
     .timeout
         div([style.width]='timeoutProgress + "%"')
-    a.btn.btn-default.pull-right((click)='close()') Cancel
+
+.modal-footer
+    button.btn.btn-outline-primary((click)='close()') Cancel

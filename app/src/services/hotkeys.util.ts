@@ -50,7 +50,11 @@ export function stringifyKeySequence(events: NativeKeyEvent[]): string[] {
                 // TODO make this optional?
                 continue
             }
-            itemKeys.push(event.key)
+            if (event.key.length == 1) {
+                itemKeys.push(event.key.toUpperCase())
+            } else {
+                itemKeys.push(event.key)
+            }
             items.push(itemKeys.join('-'))
         }
     }

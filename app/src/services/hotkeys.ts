@@ -36,7 +36,7 @@ export class HotkeysService {
         let events = ['keydown', 'keyup']
         events.forEach((event) => {
             document.addEventListener(event, (nativeEvent) => {
-                if (document.querySelectorAll(':focus').length == 0) {
+                if (document.querySelectorAll('input:focus').length == 0) {
                     this.pushKeystroke(event, nativeEvent)
                     this.processKeystrokes()
                     this.emitKeyEvent(nativeEvent)
@@ -52,16 +52,16 @@ export class HotkeysService {
     }
 
     processKeystrokes () {
-        this.zone.run(() => {
-            if (this.isEnabled()) {
+        if (this.isEnabled()) {
+            this.zone.run(() => {
                 let matched = this.getCurrentFullyMatchedHotkey()
                 if (matched) {
                     console.log('Matched hotkey', matched)
                     this.matchedHotkey.emit(matched)
                     this.clearCurrentKeystrokes()
                 }
-            }
-        })
+            })
+        }
     }
 
     emitKeyEvent (nativeEvent) {
@@ -82,7 +82,7 @@ export class HotkeysService {
     registerHotkeys () {
         this.electron.globalShortcut.unregisterAll()
         // TODO
-        this.electron.globalShortcut.register('PrintScreen', () => {
+        this.electron.globalShortcut.register('Ctrl+Space', () => {
             this.globalHotkey.emit()
         })
     }

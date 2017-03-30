@@ -88,40 +88,43 @@ export class AppRootComponent {
             }
         })
 
-        this.hotkeys.registerHotkeys()
-        this.hotkeys.globalHotkey.subscribe(() => {
-            this.hostApp.toggleWindow()
-        })
-
         this.docking.dock()
         this.hostApp.shown.subscribe(() => {
             this.docking.dock()
         })
 
+        this.hotkeys.registerHotkeys()
         this.hostApp.secondInstance.subscribe(() => {
-            if (this.electron.app.window.isFocused()) {
-                // focused
-                this.electron.app.window.hide()
-            } else {
-                if (!this.electron.app.window.isVisible()) {
-                    // unfocused, invisible
-                    this.electron.app.window.show()
-                } else {
-                    if (this.config.full().appearance.dock == 'off') {
-                        // not docked, visible
-                        setTimeout(() => {
-                            this.electron.app.window.focus()
-                        })
-                    } else {
-                        // docked, visible
-                        this.electron.app.window.hide()
-                    }
-                }
-            }
-            this.docking.dock()
+            this.onGlobalHotkey()
+        })
+        this.hotkeys.globalHotkey.subscribe(() => {
+            this.onGlobalHotkey()
         })
 
         this.app.restoreTabs()
+    }
+
+    onGlobalHotkey () {
+        if (this.electron.app.window.isFocused()) {
+            // focused
+            this.electron.app.window.hide()
+        } else {
+            if (!this.electron.app.window.isVisible()) {
+                // unfocused, invisible
+                this.electron.app.window.show()
+            } else {
+                if (this.config.full().appearance.dock == 'off') {
+                    // not docked, visible
+                    setTimeout(() => {
+                        this.electron.app.window.focus()
+                    })
+                } else {
+                    // docked, visible
+                    this.electron.app.window.hide()
+                }
+            }
+        }
+        this.docking.dock()
     }
 
     getToolbarButtons (aboveZero: boolean): IToolbarButton[] {

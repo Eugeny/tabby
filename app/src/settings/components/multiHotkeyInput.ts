@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core'
-import { ModalService } from 'services/modal'
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { HotkeyInputModalComponent } from './hotkeyInputModal'
 
 
@@ -11,7 +11,7 @@ import { HotkeyInputModalComponent } from './hotkeyInputModal'
 })
 export class MultiHotkeyInputComponent {
     constructor (
-        private modal: ModalService,
+        private ngbModal: NgbModal,
     ) { }
 
     ngOnInit () {
@@ -25,15 +25,16 @@ export class MultiHotkeyInputComponent {
     }
 
     editItem (item) {
-        this.modal.open(HotkeyInputModalComponent).result.then((value: string[]) => {
-            Object.assign(item, value)
+        this.ngbModal.open(HotkeyInputModalComponent).result.then((value: string[]) => {
+            this.model[this.model.findIndex(x => x === item)] = value
+            this.model = this.model.slice()
             this.modelChange.emit(this.model)
         })
     }
 
     addItem () {
-        this.modal.open(HotkeyInputModalComponent).result.then((value: string[]) => {
-            this.model.push(value)
+        this.ngbModal.open(HotkeyInputModalComponent).result.then((value: string[]) => {
+            this.model = this.model.concat([value])
             this.modelChange.emit(this.model)
         })
     }

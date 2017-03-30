@@ -11,7 +11,7 @@ ngb-tabset.vertical(type='tabs')
             | Application
         template(ngbTabContent)
             .row
-                .col.col-sm-6
+                .col.col-lg-6
                     .form-group
                         label Show tabs
                         br
@@ -32,13 +32,13 @@ ngb-tabset.vertical(type='tabs')
                                     [value]='false'
                                 )
                                 | At the bottom
-                .col.col-sm-6
+                .col.col-lg-6
                     .form-group
                         label Window frame
                         br
                         div(
                             '[(ngModel)]'='config.store.appearance.useNativeFrame'
-                            '(ngModelChange)'='config.save(); requestRestart()'
+                            '(ngModelChange)'='config.save(); config.requestRestart()'
                             ngbRadioGroup
                         )
                             label.btn.btn-secondary
