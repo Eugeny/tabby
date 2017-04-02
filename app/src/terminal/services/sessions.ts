@@ -1,4 +1,5 @@
 import * as nodePTY from 'node-pty'
+import * as fs from 'fs-promise'
 
 import { Injectable, EventEmitter } from '@angular/core'
 import { Logger, LogService } from 'services/log'
@@ -12,6 +13,7 @@ export class Session {
     closed = new EventEmitter()
     destroyed = new EventEmitter()
     recoveryId: string
+    truePID: number
     private pty: any
     private initialDataBuffer = ''
     private initialDataBufferReleased = false
@@ -39,6 +41,8 @@ export class Session {
             cwd: options.cwd || process.env.HOME,
             env: env,
         })
+
+        this.truePID = options.recoveredTruePID || (<any>this.pty).pid
 
         this.open = true
 
@@ -105,6 +109,10 @@ export class Session {
         this.destroyed.emit()
         this.pty.destroy()
     }
+
+    async getWorkingDirectory (): Promise<string> {
+        return await fs.readlink(`/proc/${this.truePID}/cwd`)
+    }
 }
 
 
@@ -122,7 +130,8 @@ export class SessionsService {
     }
 
     async createNewSession (options: SessionOptions) : Promise<Session> {
-        options = await this.persistence.createSession(options)
+        let recoveryId = await this.persistence.startSession(options)
+        options = await this.persistence.attachSession(recoveryId)
         let session = this.addSession(options)
         return session
     }
@@ -141,7 +150,7 @@ export class SessionsService {
     }
 
     async recover (recoveryId: string) : Promise<Session> {
-        const options = await this.persistence.recoverSession(recoveryId)
+        const options = await this.persistence.attachSession(recoveryId)
         if (!options) {
             return null
         }

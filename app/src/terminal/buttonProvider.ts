@@ -20,7 +20,11 @@ export class ButtonProvider extends ToolbarButtonProvider {
     }
 
     async getNewTab (): Promise<TerminalTab> {
-        return new TerminalTab(await this.sessions.createNewSession({ command: 'zsh' }))
+        let cwd = null
+        if (this.app.activeTab instanceof TerminalTab) {
+            cwd = await this.app.activeTab.session.getWorkingDirectory()
+        }
+        return new TerminalTab(await this.sessions.createNewSession({ command: 'zsh', cwd }))
     }
 
     provide (): IToolbarButton[] {

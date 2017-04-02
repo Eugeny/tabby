@@ -1,5 +1,5 @@
-import { Subscription } from 'rxjs'
-import { Component, NgZone, Output, Inject, EventEmitter, ElementRef } from '@angular/core'
+import { BehaviorSubject, Subscription } from 'rxjs'
+import { Component, NgZone, Inject, ElementRef } from '@angular/core'
 
 import { ConfigService } from 'services/config'
 
@@ -16,9 +16,8 @@ import { hterm, preferenceManager } from '../hterm'
   styles: [require('./terminalTab.scss')],
 })
 export class TerminalTabComponent extends BaseTabComponent<TerminalTab> {
-    title: string
-    @Output() titleChange = new EventEmitter()
     terminal: any
+    title$ = new BehaviorSubject('')
     configSubscription: Subscription
     focusedSubscription: Subscription
     startupTime: number
@@ -47,8 +46,7 @@ export class TerminalTabComponent extends BaseTabComponent<TerminalTab> {
         })
         this.terminal.setWindowTitle = (title) => {
             this.zone.run(() => {
-                this.title = title
-                this.titleChange.emit(title)
+                this.model.title = title
             })
         }
         this.terminal.onTerminalReady = () => {

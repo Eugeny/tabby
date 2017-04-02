@@ -9,10 +9,11 @@ export interface SessionOptions {
     cwd?: string,
     env?: any,
     recoveryId?: string
+    recoveredTruePID?: number
 }
 
 export abstract class SessionPersistenceProvider {
-    abstract async recoverSession (recoveryId: any): Promise<SessionOptions>
-    abstract async createSession (options: SessionOptions): Promise<SessionOptions>
+    abstract async attachSession (recoveryId: any): Promise<SessionOptions>
+    abstract async startSession (options: SessionOptions): Promise<any>
     abstract async terminateSession (recoveryId: string): Promise<void>
 }

@@ -1,25 +1,12 @@
 import * as fs from 'fs-promise'
 const exec = require('child-process-promise').exec
+const spawn = require('child-process-promise').spawn
 
 import { SessionOptions, SessionPersistenceProvider } from './api'
 
 
-export class NullPersistenceProvider extends SessionPersistenceProvider {
-    async recoverSession (_recoveryId: any): Promise<SessionOptions> {
-        return null
-    }
-
-    async createSession (_options: SessionOptions): Promise<SessionOptions> {
-        return null
-    }
-
-    async terminateSession (_recoveryId: string): Promise<void> {
-        return
-    }
-}
-
-
 export class ScreenPersistenceProvider extends SessionPersistenceProvider {
+    /*
     list(): Promise<any[]> {
         return exec('screen -list').then((result) => {
             return result.stdout.split('\n')
@@ -29,17 +16,30 @@ export class ScreenPersistenceProvider extends SessionPersistenceProvider {
             return []
         })
     }
+    */
 
-    async recoverSession (recoveryId: any): Promise<SessionOptions> {
-        // TODO check
+    async attachSession (recoveryId: any): Promise<SessionOptions> {
+        let lines = (await exec('screen -list')).stdout.split('\n')
+        let screenPID = lines
+            .filter(line => line.indexOf('.' + recoveryId) !== -1)
+            .map(line => parseInt(line.trim().split('.')[0]))[0]
+
+        if (!screenPID) {
+            return null
+        }
+
+        lines = (await exec(`ps -o pid --ppid ${screenPID}`)).stdout.split('\n')
+        let recoveredTruePID = parseInt(lines[1].split(/\s/).filter(x => !!x)[0])
+
         return {
             recoveryId,
+            recoveredTruePID,
             command: 'screen',
             args: ['-r', recoveryId],
         }
     }
 
-    async createSession (options: SessionOptions): Promise<SessionOptions> {
+    async startSession (options: SessionOptions): Promise<any> {
         let configPath = '/tmp/.termScreenConfig'
         await fs.writeFile(configPath, `
             escape ^^^
@@ -52,10 +52,12 @@ export class ScreenPersistenceProvider extends SessionPersistenceProvider {
             hardstatus off
         `, 'utf-8')
         let recoveryId = `term-tab-${Date.now()}`
-        options.args = ['-c', configPath, '-U', '-S', recoveryId, '--', options.command].concat(options.args || [])
-        options.command = 'screen'
-        options.recoveryId = recoveryId
-        return options
+        let args = ['-d', '-m', '-c', configPath, '-U', '-S', recoveryId, '--', options.command].concat(options.args || [])
+        await spawn('screen', args, {
+            cwd: options.cwd,
+            env: options.env || process.env,
+        })
+        return recoveryId
     }
 
     async terminateSession (recoveryId: string): Promise<void> {
