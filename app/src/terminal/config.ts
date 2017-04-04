@@ -7,6 +7,7 @@ export class TerminalConfigProvider extends ConfigProvider {
             font: 'monospace',
             fontSize: 14,
             bell: 'off',
+            bracketedPaste: true,
         },
         hotkeys: {
             'new-tab': [

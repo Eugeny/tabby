@@ -120,11 +120,13 @@ app-root .content {
             }
 
             &.has-activity:not(.active) {
+                /*
                 .content-wrapper .index {
                     background: $blue;
                     color: white;
                     text-shadow: 0 1px 1px rgba(0,0,0,.95);
                 }
+                */
             }
         }
     }
@@ -150,9 +152,13 @@ app-root .content {
             }
 
             &.active .content-wrapper {
-                border-top: 1px solid $blue;
+                border-top: 1px solid $teal;
                 border-top-left-radius: $tab-border-radius;
                 border-top-right-radius: $tab-border-radius;
+            }
+
+            &.has-activity:not(.active) .content-wrapper {
+                border-top: 1px solid $green;
             }
         }
     }
@@ -178,9 +184,13 @@ app-root .content {
             }
 
             &.active .content-wrapper {
-                border-bottom: 1px solid $blue;
+                border-bottom: 1px solid $teal;
                 border-bottom-left-radius: $tab-border-radius;
                 border-bottom-right-radius: $tab-border-radius;
+            }
+
+            &.has-activity:not(.active) .content-wrapper {
+                border-bottom: 1px solid $green;
             }
         }
     }

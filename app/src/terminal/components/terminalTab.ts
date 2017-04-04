@@ -1,11 +1,11 @@
-import { BehaviorSubject, Subscription } from 'rxjs'
+import { BehaviorSubject, ReplaySubject, Subject, Subscription } from 'rxjs'
 import { Component, NgZone, Inject, ElementRef } from '@angular/core'
 
 import { ConfigService } from 'services/config'
 
 import { BaseTabComponent } from 'components/baseTab'
 import { TerminalTab } from '../tab'
-import { TerminalDecorator } from '../api'
+import { TerminalDecorator, ResizeEvent } from '../api'
 
 import { hterm, preferenceManager } from '../hterm'
 
@@ -16,11 +16,15 @@ import { hterm, preferenceManager } from '../hterm'
   styles: [require('./terminalTab.scss')],
 })
 export class TerminalTabComponent extends BaseTabComponent<TerminalTab> {
-    terminal: any
-    title$ = new BehaviorSubject('')
+    hterm: any
     configSubscription: Subscription
     focusedSubscription: Subscription
     startupTime: number
+    title$ = new BehaviorSubject('')
+    size$ = new ReplaySubject<ResizeEvent>(1)
+    input$ = new Subject<string>()
+    output$ = new Subject<string>()
+    contentUpdated$ = new Subject<void>()
 
     constructor(
         private zone: NgZone,
@@ -37,27 +41,29 @@ export class TerminalTabComponent extends BaseTabComponent<TerminalTab> {
 
     initTab () {
         this.focusedSubscription = this.model.focused.subscribe(() => {
-            this.terminal.scrollPort_.focus()
+            this.hterm.scrollPort_.focus()
         })
 
-        this.terminal = new hterm.hterm.Terminal()
+        this.hterm = new hterm.hterm.Terminal()
         this.decorators.forEach((decorator) => {
-            decorator.decorate(this.terminal)
+            decorator.attach(this)
         })
-        this.terminal.setWindowTitle = (title) => {
-            this.zone.run(() => {
-                this.model.title = title
-            })
-        }
-        this.terminal.onTerminalReady = () => {
-            this.terminal.installKeyboard()
-            let io = this.terminal.io.push()
+
+        this.attachHTermHandlers(this.hterm)
+
+        this.hterm.onTerminalReady = () => {
+            this.hterm.installKeyboard()
+            let io = this.hterm.io.push()
+            this.attachIOHandlers(io)
             const dataSubscription = this.model.session.dataAvailable.subscribe((data) => {
                 if (performance.now() - this.startupTime > 500)  {
                     this.zone.run(() => {
                         this.model.displayActivity()
                     })
                 }
+                this.zone.run(() => {
+                    this.output$.next(data)
+                })
                 io.writeUTF8(data)
             })
             const closedSubscription = this.model.session.closed.subscribe(() => {
@@ -65,18 +71,48 @@ export class TerminalTabComponent extends BaseTabComponent<TerminalTab> {
                 closedSubscription.unsubscribe()
             })
 
-            io.onVTKeystroke = io.sendString = (str) => {
-                this.model.session.write(str)
-            }
-            io.onTerminalResize = (columns, rows) => {
-                console.log(`Resizing to ${columns}x${rows}`)
-                this.model.session.resize(columns, rows)
-            }
-
             this.model.session.releaseInitialDataBuffer()
         }
-        this.terminal.decorate(this.elementRef.nativeElement)
+        this.hterm.decorate(this.elementRef.nativeElement)
         this.configure()
+    }
+
+    attachHTermHandlers (hterm: any) {
+        hterm.setWindowTitle = (title) => {
+            this.zone.run(() => {
+                this.model.title = title
+                this.title$.next(title)
+            })
+        }
+
+        const oldInsertString = hterm.screen_.insertString.bind(hterm.screen_)
+        hterm.screen_.insertString = (data) => {
+            oldInsertString(data)
+            this.contentUpdated$.next()
+        }
+
+        const oldDeleteChars = hterm.screen_.deleteChars.bind(hterm.screen_)
+        hterm.screen_.deleteChars = (count) => {
+            let ret = oldDeleteChars(count)
+            this.contentUpdated$.next()
+            return ret
+        }
+    }
+
+    attachIOHandlers (io: any) {
+        io.onVTKeystroke = io.sendString = (data) => {
+            this.model.session.write(data)
+            this.zone.run(() => {
+                this.input$.next(data)
+            })
+        }
+        io.onTerminalResize = (columns, rows) => {
+            // console.log(`Resizing to ${columns}x${rows}`)
+            this.zone.run(() => {
+                this.model.session.resize(columns, rows)
+                this.size$.next({ width: columns, height: rows })
+            })
+        }
     }
 
     configure () {
@@ -88,9 +124,13 @@ export class TerminalTabComponent extends BaseTabComponent<TerminalTab> {
         preferenceManager.set('enable-clipboard-notice', false)
         preferenceManager.set('receive-encoding', 'raw')
         preferenceManager.set('send-encoding', 'raw')
+        this.hterm.setBracketedPaste(config.terminal.bracketedPaste)
     }
 
     ngOnDestroy () {
+        this.decorators.forEach((decorator) => {
+            decorator.detach(this)
+        })
         this.focusedSubscription.unsubscribe()
         this.configSubscription.unsubscribe()
     }

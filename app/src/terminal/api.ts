@@ -1,13 +1,22 @@
+import { TerminalTabComponent } from './components/terminalTab'
+export { TerminalTabComponent } from './components/terminalTab'
+
 export abstract class TerminalDecorator {
-    abstract decorate (terminal): void
+    attach (_terminal: TerminalTabComponent): void { }
+    detach (_terminal: TerminalTabComponent): void { }
+}
+
+export interface ResizeEvent {
+    width: number
+    height: number
 }
 
 export interface SessionOptions {
-    name?: string,
-    command?: string,
-    args?: string[],
-    cwd?: string,
-    env?: any,
+    name?: string
+    command?: string
+    args?: string[]
+    cwd?: string
+    env?: any
     recoveryId?: string
     recoveredTruePID?: number
 }

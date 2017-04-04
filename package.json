@@ -29,6 +29,7 @@
     "tslint": "4.5.0",
     "tslint-eslint-rules": "^3.5.1",
     "typescript": "2.2.1",
+    "untildify": "^3.0.2",
     "url-loader": "^0.5.7",
     "val-loader": "^0.5.0",
     "vrsource-tslint-rules": "^4.0.1",

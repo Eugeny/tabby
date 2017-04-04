@@ -1,4 +1,5 @@
 import * as fs from 'fs'
+const untildify = require('untildify')
 
 import { Injectable } from '@angular/core'
 import { LinkHandler } from './api'
@@ -20,10 +21,14 @@ export class URLHandler extends LinkHandler {
 
 @Injectable()
 export class FileHandler extends LinkHandler {
-    regex = '/[^\\s.,;\'"]+'
+    regex = '[~/][^\\s.,;\'"]+'
 
     constructor (private electron: ElectronService) {
         super()
+    }
+
+    convert (uri: string): string {
+        return untildify(uri)
     }
 
     verify (uri: string) {
