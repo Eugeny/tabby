@@ -27,16 +27,4 @@ preferenceManager.set('color-palette-overrides', {
     0: '#1D272D',
 })
 
-const oldDecorate = hterm.hterm.ScrollPort.prototype.decorate
-hterm.hterm.ScrollPort.prototype.decorate = function (...args) {
-    oldDecorate.bind(this)(...args)
-    this.screen_.style.cssText += `; padding-right: ${this.screen_.offsetWidth - this.screen_.clientWidth}px;`
-}
-
-const oldPaste = hterm.hterm.Terminal.prototype.onPaste_
-hterm.hterm.Terminal.prototype.onPaste_ = function (e) {
-    e.text = e.text.trim()
-    oldPaste.bind(this)(e)
-}
-
 hterm.hterm.Terminal.prototype.showOverlay = () => null

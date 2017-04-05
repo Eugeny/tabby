@@ -30,6 +30,7 @@ import { hterm } from './hterm'
         { provide: TabRecoveryProvider, useClass: RecoveryProvider, multi: true },
         SessionsService,
         { provide: SessionPersistenceProvider, useClass: ScreenPersistenceProvider },
+        // { provide: SessionPersistenceProvider, useValue: null },
         { provide: SettingsTabProvider, useClass: TerminalSettingsProvider, multi: true },
         { provide: ConfigProvider, useClass: TerminalConfigProvider, multi: true },
     ],

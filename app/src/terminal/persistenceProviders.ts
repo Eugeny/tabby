@@ -47,9 +47,12 @@ export class ScreenPersistenceProvider extends SessionPersistenceProvider {
             term xterm-color
             bindkey "^[OH" beginning-of-line
             bindkey "^[OF" end-of-line
+            bindkey "\\027[?1049h" stuff ----alternate enter-----
+            bindkey "\\027[?1049l" stuff ----alternate leave-----
             termcapinfo xterm* 'hs:ts=\\E]0;:fs=\\007:ds=\\E]0;\\007'
             defhstatus "^Et"
             hardstatus off
+            altscreen on
         `, 'utf-8')
         let recoveryId = `term-tab-${Date.now()}`
         let args = ['-d', '-m', '-c', configPath, '-U', '-S', recoveryId, '--', options.command].concat(options.args || [])

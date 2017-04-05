@@ -130,8 +130,10 @@ export class SessionsService {
     }
 
     async createNewSession (options: SessionOptions) : Promise<Session> {
-        let recoveryId = await this.persistence.startSession(options)
-        options = await this.persistence.attachSession(recoveryId)
+        if (this.persistence) {
+            let recoveryId = await this.persistence.startSession(options)
+            options = await this.persistence.attachSession(recoveryId)
+        }
         let session = this.addSession(options)
         return session
     }
@@ -142,7 +144,9 @@ export class SessionsService {
         let session = new Session(options)
         const destroySubscription = session.destroyed.subscribe(() => {
             delete this.sessions[session.name]
-            this.persistence.terminateSession(session.recoveryId)
+            if (this.persistence) {
+                this.persistence.terminateSession(session.recoveryId)
+            }
             destroySubscription.unsubscribe()
         })
         this.sessions[session.name] = session
@@ -150,6 +154,9 @@ export class SessionsService {
     }
 
     async recover (recoveryId: string) : Promise<Session> {
+        if (!this.persistence) {
+            return null
+        }
         const options = await this.persistence.attachSession(recoveryId)
         if (!options) {
             return null

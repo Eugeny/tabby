@@ -19,12 +19,14 @@ export class TerminalTabComponent extends BaseTabComponent<TerminalTab> {
     hterm: any
     configSubscription: Subscription
     focusedSubscription: Subscription
-    startupTime: number
     title$ = new BehaviorSubject('')
     size$ = new ReplaySubject<ResizeEvent>(1)
     input$ = new Subject<string>()
     output$ = new Subject<string>()
     contentUpdated$ = new Subject<void>()
+    alternateScreenActive$ = new BehaviorSubject(false)
+    mouseEvent$ = new Subject<Event>()
+    private io: any
 
     constructor(
         private zone: NgZone,
@@ -33,7 +35,6 @@ export class TerminalTabComponent extends BaseTabComponent<TerminalTab> {
         @Inject(TerminalDecorator) private decorators: TerminalDecorator[],
     ) {
         super()
-        this.startupTime = performance.now()
         this.configSubscription = config.change.subscribe(() => {
             this.configure()
         })
@@ -53,18 +54,13 @@ export class TerminalTabComponent extends BaseTabComponent<TerminalTab> {
 
         this.hterm.onTerminalReady = () => {
             this.hterm.installKeyboard()
-            let io = this.hterm.io.push()
-            this.attachIOHandlers(io)
+            this.io = this.hterm.io.push()
+            this.attachIOHandlers(this.io)
             const dataSubscription = this.model.session.dataAvailable.subscribe((data) => {
-                if (performance.now() - this.startupTime > 500)  {
-                    this.zone.run(() => {
-                        this.model.displayActivity()
-                    })
-                }
                 this.zone.run(() => {
                     this.output$.next(data)
                 })
-                io.writeUTF8(data)
+                this.write(data)
             })
             const closedSubscription = this.model.session.closed.subscribe(() => {
                 dataSubscription.unsubscribe()
@@ -75,6 +71,12 @@ export class TerminalTabComponent extends BaseTabComponent<TerminalTab> {
         }
         this.hterm.decorate(this.elementRef.nativeElement)
         this.configure()
+
+        setTimeout(() => {
+            this.output$.subscribe(() => {
+                this.model.displayActivity()
+            })
+        }, 1000)
     }
 
     attachHTermHandlers (hterm: any) {
@@ -85,23 +87,54 @@ export class TerminalTabComponent extends BaseTabComponent<TerminalTab> {
             })
         }
 
-        const oldInsertString = hterm.screen_.insertString.bind(hterm.screen_)
-        hterm.screen_.insertString = (data) => {
-            oldInsertString(data)
-            this.contentUpdated$.next()
+        const _decorate = hterm.scrollPort_.decorate.bind(hterm.scrollPort_)
+        hterm.scrollPort_.decorate = (...args) => {
+            _decorate(...args)
+            hterm.scrollPort_.screen_.style.cssText += `; padding-right: ${hterm.scrollPort_.screen_.offsetWidth - hterm.scrollPort_.screen_.clientWidth}px;`
         }
 
-        const oldDeleteChars = hterm.screen_.deleteChars.bind(hterm.screen_)
-        hterm.screen_.deleteChars = (count) => {
-            let ret = oldDeleteChars(count)
-            this.contentUpdated$.next()
-            return ret
+        const _setAlternateMode = hterm.setAlternateMode.bind(hterm)
+        hterm.setAlternateMode = (state) => {
+            _setAlternateMode(state)
+            this.alternateScreenActive$.next(state)
+        }
+
+        const _onPaste_ = hterm.onPaste_.bind(hterm)
+        hterm.onPaste_ = (event) => {
+            event.text = event.text.trim()
+            _onPaste_(event)
+        }
+
+        const _onMouse_ = hterm.onMouse_.bind(hterm)
+        hterm.onMouse_ = (event) => {
+            this.mouseEvent$.next(event)
+            if ((event.ctrlKey || event.metaKey) && event.type === 'mousewheel') {
+                event.preventDefault()
+                let delta = Math.round(event.wheelDeltaY / 50)
+                this.sendInput(((delta > 0) ? '\u001bOA' : '\u001bOB').repeat(Math.abs(delta)))
+            }
+            _onMouse_(event)
+        }
+
+        for (let screen of [hterm.primaryScreen_, hterm.alternateScreen_]) {
+            const _insertString = screen.insertString.bind(screen)
+            screen.insertString = (data) => {
+                _insertString(data)
+                this.contentUpdated$.next()
+            }
+
+            const _deleteChars = screen.deleteChars.bind(screen)
+            screen.deleteChars = (count) => {
+                let ret = _deleteChars(count)
+                this.contentUpdated$.next()
+                return ret
+            }
         }
     }
 
     attachIOHandlers (io: any) {
         io.onVTKeystroke = io.sendString = (data) => {
-            this.model.session.write(data)
+            this.sendInput(data)
             this.zone.run(() => {
                 this.input$.next(data)
             })
@@ -113,6 +146,14 @@ export class TerminalTabComponent extends BaseTabComponent<TerminalTab> {
                 this.size$.next({ width: columns, height: rows })
             })
         }
+    }
+
+    sendInput (data: string) {
+        this.model.session.write(data)
+    }
+
+    write (data: string) {
+        this.io.writeUTF8(data)
     }
 
     configure () {
@@ -133,5 +174,12 @@ export class TerminalTabComponent extends BaseTabComponent<TerminalTab> {
         })
         this.focusedSubscription.unsubscribe()
         this.configSubscription.unsubscribe()
+        this.title$.complete()
+        this.size$.complete()
+        this.input$.complete()
+        this.output$.complete()
+        this.contentUpdated$.complete()
+        this.alternateScreenActive$.complete()
+        this.mouseEvent$.complete()
     }
 }

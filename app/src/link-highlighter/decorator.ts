@@ -7,8 +7,6 @@ import { Inject, Injectable } from '@angular/core'
 import { LinkHandler } from './api'
 import { TerminalDecorator, TerminalTabComponent } from '../terminal/api'
 
-const debounceDelay = 500
-
 
 @Injectable()
 export class LinkHighlighterDecorator extends TerminalDecorator {
@@ -17,40 +15,11 @@ export class LinkHighlighterDecorator extends TerminalDecorator {
     }
 
     attach (terminal: TerminalTabComponent): void {
-        const Screen = terminal.hterm.screen_.constructor
-        if (Screen._linkHighlighterInstalled) {
-            return
-        }
-        Screen._linkHighlighterInstalled = true
-
-        const oldInsertString = Screen.prototype.insertString
-        const oldDeleteChars = Screen.prototype.deleteChars
-        let self = this
-        Screen.prototype.insertString = function (content) {
-            let ret = oldInsertString.bind(this)(content)
-            self.debounceInsertLinks(this)
-            return ret
-        }
-        Screen.prototype.deleteChars = function (count) {
-            let ret = oldDeleteChars.bind(this)(count)
-            self.debounceInsertLinks(this)
-            return ret
-        }
-    }
-
-    debounceInsertLinks (screen) {
-        if (screen.__insertLinksTimeout) {
-            screen.__insertLinksRebounce = true
-        } else {
-            screen.__insertLinksTimeout = window.setTimeout(() => {
-                this.insertLinks(screen)
-                screen.__insertLinksTimeout = null
-                if (screen.__insertLinksRebounce) {
-                    screen.__insertLinksRebounce = false
-                    this.debounceInsertLinks(screen)
-                }
-            }, debounceDelay)
-        }
+        terminal.contentUpdated$
+            .debounceTime(1000)
+            .subscribe(() => {
+                this.insertLinks(terminal.hterm.screen_)
+            })
     }
 
     insertLinks (screen) {
