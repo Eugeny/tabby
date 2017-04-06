@@ -127,15 +127,9 @@ export class AppRootComponent {
         this.docking.dock()
     }
 
-    getToolbarButtons (aboveZero: boolean): IToolbarButton[] {
-        let buttons: IToolbarButton[] = []
-        this.toolbarButtonProviders.forEach((provider) => {
-            buttons = buttons.concat(provider.provide())
-        })
-        return buttons
-            .filter((button) => (button.weight > 0) === aboveZero)
-            .sort((a: IToolbarButton, b: IToolbarButton) => (a.weight || 0) - (b.weight || 0))
-    }
+    getLeftToolbarButtons (): IToolbarButton[] { return this.getToolbarButtons(false); }
+
+    getRightToolbarButtons (): IToolbarButton[] { return this.getToolbarButtons(true); }
 
     ngOnInit () {
         /*
@@ -151,4 +145,15 @@ export class AppRootComponent {
         })
         */
     }
+
+    private getToolbarButtons (aboveZero: boolean): IToolbarButton[] {
+        let buttons: IToolbarButton[] = []
+        this.toolbarButtonProviders.forEach((provider) => {
+            buttons = buttons.concat(provider.provide())
+        })
+        return buttons
+            .filter((button) => (button.weight > 0) === aboveZero)
+            .sort((a: IToolbarButton, b: IToolbarButton) => (a.weight || 0) - (b.weight || 0))
+    }
+
 }

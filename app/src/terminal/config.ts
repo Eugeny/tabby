@@ -8,6 +8,11 @@ export class TerminalConfigProvider extends ConfigProvider {
             fontSize: 14,
             bell: 'off',
             bracketedPaste: true,
+            colorScheme: {
+                foreground: null,
+                background: null,
+                colors: null,
+            },
         },
         hotkeys: {
             'new-tab': [
@@ -19,7 +24,9 @@ export class TerminalConfigProvider extends ConfigProvider {
     }
 
     configStructure: any = {
-        terminal: {},
+        terminal: {
+            colorScheme: {},
+        },
         hotkeys: {},
     }
 }

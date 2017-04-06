@@ -26,3 +26,14 @@ export abstract class SessionPersistenceProvider {
     abstract async startSession (options: SessionOptions): Promise<any>
     abstract async terminateSession (recoveryId: string): Promise<void>
 }
+
+export interface ITerminalColorScheme {
+    name: string
+    foreground: string
+    background: string
+    colors: string[]
+}
+
+export abstract class TerminalColorSchemeProvider {
+    abstract async getSchemes (): Promise<ITerminalColorScheme[]>
+}

@@ -1,7 +1,8 @@
 import * as nodePTY from 'node-pty'
 import * as fs from 'fs-promise'
 
-import { Injectable, EventEmitter } from '@angular/core'
+import { Subject } from 'rxjs'
+import { Injectable } from '@angular/core'
 import { Logger, LogService } from 'services/log'
 import { SessionOptions, SessionPersistenceProvider } from '../api'
 
@@ -9,9 +10,9 @@ import { SessionOptions, SessionPersistenceProvider } from '../api'
 export class Session {
     open: boolean
     name: string
-    dataAvailable = new EventEmitter()
-    closed = new EventEmitter()
-    destroyed = new EventEmitter()
+    output$ = new Subject<string>()
+    closed$ = new Subject<void>()
+    destroyed$ = new Subject<void>()
     recoveryId: string
     truePID: number
     private pty: any
@@ -50,19 +51,18 @@ export class Session {
             if (!this.initialDataBufferReleased) {
                 this.initialDataBuffer += data
             } else {
-                this.dataAvailable.emit(data)
+                this.output$.next(data)
             }
         })
 
         this.pty.on('close', () => {
-            this.open = false
-            this.closed.emit()
+            this.close()
         })
     }
 
     releaseInitialDataBuffer () {
         this.initialDataBufferReleased = true
-        this.dataAvailable.emit(this.initialDataBuffer)
+        this.output$.next(this.initialDataBuffer)
         this.initialDataBuffer = null
     }
 
@@ -80,7 +80,7 @@ export class Session {
 
     close () {
         this.open = false
-        this.closed.emit()
+        this.closed$.next()
         this.pty.end()
     }
 
@@ -106,8 +106,9 @@ export class Session {
         if (open) {
             this.close()
         }
-        this.destroyed.emit()
+        this.destroyed$.next()
         this.pty.destroy()
+        this.output$.complete()
     }
 
     async getWorkingDirectory (): Promise<string> {
@@ -142,12 +143,11 @@ export class SessionsService {
         this.lastID++
         options.name = `session-${this.lastID}`
         let session = new Session(options)
-        const destroySubscription = session.destroyed.subscribe(() => {
+        session.destroyed$.first().subscribe(() => {
             delete this.sessions[session.name]
             if (this.persistence) {
                 this.persistence.terminateSession(session.recoveryId)
             }
-            destroySubscription.unsubscribe()
         })
         this.sessions[session.name] = session
         return session

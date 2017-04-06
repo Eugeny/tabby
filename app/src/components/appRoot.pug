@@ -3,27 +3,30 @@ title-bar(*ngIf='!config.full().appearance.useNativeFrame && config.store.appear
 .content(
     [class.tabs-on-top]='config.full().appearance.tabsOnTop'    
 )
-    .tabs(
-        [class.active-tab-0]='app.tabs[0] == app.activeTab',
-    )
+    .tabs
         button.btn.btn-secondary(
-            *ngFor='let button of getToolbarButtons(false)',
+            *ngFor='let button of getLeftToolbarButtons()',
             [title]='button.title',
             (click)='button.click()',
         )
             i.fa([class]='"fa fa-" + button.icon')
-        tab-header(
-            *ngFor='let tab of app.tabs; let idx = index; trackBy: tab?.id',
-            [index]='idx',
-            [model]='tab',
-            [active]='tab == app.activeTab',
-            [hasActivity]='tab.hasActivity',
-            @animateTab,
-            (click)='app.selectTab(tab)',
-            (closeClicked)='app.closeTab(tab)',
-        )
+                
+        .tabs-container
+            tab-header(
+                *ngFor='let tab of app.tabs; let idx = index; trackBy: tab?.id',
+                [class.pre-selected]='idx == app.tabs.indexOf(app.activeTab) - 1',
+                [class.post-selected]='idx == app.tabs.indexOf(app.activeTab) + 1',
+                [index]='idx',
+                [model]='tab',
+                [active]='tab == app.activeTab',
+                [hasActivity]='tab.hasActivity',
+                @animateTab,
+                (click)='app.selectTab(tab)',
+                (closeClicked)='app.closeTab(tab)',
+            )
+
         button.btn.btn-secondary(
-            *ngFor='let button of getToolbarButtons(true)',
+            *ngFor='let button of getRightToolbarButtons()',
             [title]='button.title',
             (click)='button.click()',
         )

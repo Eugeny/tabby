@@ -49,7 +49,6 @@
     height: @tabs-height;
     background: @body-bg;
     display: flex;
-    flex-direction: row;
 
     &>button {
         line-height: @tabs-height - 2px;
@@ -63,7 +62,7 @@
 
         text-transform: uppercase;
         font-weight: bold;
-        color: #888;
+        color: #aaa;
         border: none;
         border-radius: 0;
 
@@ -72,12 +71,9 @@
         }
     }
 
-    &.active-tab-0 .btn-new-tab {
-        border-bottom-right-radius: @tab-border-radius;
-    }
-
-    tab-header.active + button {
-        border-bottom-left-radius: @tab-border-radius;
+    &>.tabs-container {
+        flex: auto;
+        display: flex;
     }
 }
 

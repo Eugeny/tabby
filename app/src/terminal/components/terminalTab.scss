@@ -1,12 +1,18 @@
 :host {
     flex: auto;
-    position: relative;
-    display: block;
+    display: flex;
     overflow: hidden;
-    margin: 15px;
+    
+    &> .content {
+        flex: auto;
+        position: relative;
+        display: block;
+        overflow: hidden;
+        margin: 15px;
 
-    div[style]:last-child {
-        background: black !important;
-        color: white !important;
+        div[style]:last-child {
+            background: black !important;
+            color: white !important;
+        }
     }
 }

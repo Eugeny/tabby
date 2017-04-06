@@ -5,6 +5,7 @@ export { ConfigProvider } from './configProvider'
 export { HotkeyProvider, IHotkeyDescription } from './hotkeyProvider'
 
 export { AppService } from 'services/app'
+export { ConfigService } from 'services/config'
 export { PluginsService } from 'services/plugins'
 export { ElectronService } from 'services/electron'
 export { HotkeysService } from 'services/hotkeys'

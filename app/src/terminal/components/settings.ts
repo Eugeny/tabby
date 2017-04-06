@@ -2,9 +2,11 @@ import { Observable } from 'rxjs/Observable'
 import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/debounceTime'
 import 'rxjs/add/operator/distinctUntilChanged'
-import { Component } from '@angular/core'
-const childProcessPromise = nodeRequire('child-process-promise')
+const childProcessPromise = require('child-process-promise')
+const equal = require('deep-equal')
 
+import { Component, Inject } from '@angular/core'
+import { TerminalColorSchemeProvider, ITerminalColorScheme } from '../api'
 import { ConfigService } from 'services/config'
 
 
@@ -14,12 +16,15 @@ import { ConfigService } from 'services/config'
 })
 export class SettingsComponent {
     fonts: string[] = []
+    colorSchemes: ITerminalColorScheme[] = []
+    equalComparator = equal
 
     constructor(
         public config: ConfigService,
+        @Inject(TerminalColorSchemeProvider) private colorSchemeProviders: TerminalColorSchemeProvider[],
     ) { }
 
-    ngOnInit () {
+    async ngOnInit () {
         childProcessPromise.exec('fc-list :spacing=mono').then((result) => {
             this.fonts = result.stdout
                 .split('\n')
@@ -28,6 +33,8 @@ export class SettingsComponent {
                 .map((x) => x.split(',')[0].trim())
             this.fonts.sort()
         })
+
+        this.colorSchemes = (await Promise.all(this.colorSchemeProviders.map(x => x.getSchemes()))).reduce((a, b) => a.concat(b))
     }
 
     fontAutocomplete = (text$: Observable<string>) => {

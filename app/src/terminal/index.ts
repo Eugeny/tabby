@@ -13,9 +13,10 @@ import { SessionsService } from './services/sessions'
 import { ScreenPersistenceProvider } from './persistenceProviders'
 import { ButtonProvider } from './buttonProvider'
 import { RecoveryProvider } from './recoveryProvider'
-import { SessionPersistenceProvider } from './api'
+import { SessionPersistenceProvider, TerminalColorSchemeProvider } from './api'
 import { TerminalSettingsProvider } from './settings'
 import { TerminalConfigProvider } from './config'
+import { HyperColorSchemes } from './colorSchemes'
 import { hterm } from './hterm'
 
 
@@ -26,13 +27,14 @@ import { hterm } from './hterm'
         NgbModule,
     ],
     providers: [
+        SessionsService,
         { provide: ToolbarButtonProvider, useClass: ButtonProvider, multi: true },
         { provide: TabRecoveryProvider, useClass: RecoveryProvider, multi: true },
-        SessionsService,
         { provide: SessionPersistenceProvider, useClass: ScreenPersistenceProvider },
         // { provide: SessionPersistenceProvider, useValue: null },
         { provide: SettingsTabProvider, useClass: TerminalSettingsProvider, multi: true },
         { provide: ConfigProvider, useClass: TerminalConfigProvider, multi: true },
+        { provide: TerminalColorSchemeProvider, useClass: HyperColorSchemes, multi: true }
     ],
     entryComponents: [
         TerminalTabComponent,

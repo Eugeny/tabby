@@ -1,18 +1,17 @@
 import { BehaviorSubject, ReplaySubject, Subject, Subscription } from 'rxjs'
-import { Component, NgZone, Inject, ElementRef } from '@angular/core'
-
-import { ConfigService } from 'services/config'
+import { Component, NgZone, Inject, ViewChild, HostBinding } from '@angular/core'
 
 import { BaseTabComponent } from 'components/baseTab'
 import { TerminalTab } from '../tab'
 import { TerminalDecorator, ResizeEvent } from '../api'
+import { AppService, ConfigService } from 'api'
 
 import { hterm, preferenceManager } from '../hterm'
 
 
 @Component({
   selector: 'terminalTab',
-  template: '',
+  template: '<div #content class="content"></div>',
   styles: [require('./terminalTab.scss')],
 })
 export class TerminalTabComponent extends BaseTabComponent<TerminalTab> {
@@ -26,11 +25,13 @@ export class TerminalTabComponent extends BaseTabComponent<TerminalTab> {
     contentUpdated$ = new Subject<void>()
     alternateScreenActive$ = new BehaviorSubject(false)
     mouseEvent$ = new Subject<Event>()
+    @ViewChild('content') content
+    @HostBinding('style.background-color') backgroundColor: string
     private io: any
 
     constructor(
         private zone: NgZone,
-        private elementRef: ElementRef,
+        private app: AppService,
         public config: ConfigService,
         @Inject(TerminalDecorator) private decorators: TerminalDecorator[],
     ) {
@@ -56,20 +57,19 @@ export class TerminalTabComponent extends BaseTabComponent<TerminalTab> {
             this.hterm.installKeyboard()
             this.io = this.hterm.io.push()
             this.attachIOHandlers(this.io)
-            const dataSubscription = this.model.session.dataAvailable.subscribe((data) => {
+            this.model.session.output$.subscribe((data) => {
                 this.zone.run(() => {
                     this.output$.next(data)
                 })
                 this.write(data)
             })
-            const closedSubscription = this.model.session.closed.subscribe(() => {
-                dataSubscription.unsubscribe()
-                closedSubscription.unsubscribe()
+            this.model.session.closed$.first().subscribe(() => {
+                this.app.closeTab(this.model)
             })
 
             this.model.session.releaseInitialDataBuffer()
         }
-        this.hterm.decorate(this.elementRef.nativeElement)
+        this.hterm.decorate(this.content.nativeElement)
         this.configure()
 
         setTimeout(() => {
@@ -156,7 +156,7 @@ export class TerminalTabComponent extends BaseTabComponent<TerminalTab> {
         this.io.writeUTF8(data)
     }
 
-    configure () {
+    async configure (): Promise<void> {
         let config = this.config.full()
         preferenceManager.set('font-family', config.terminal.font)
         preferenceManager.set('font-size', config.terminal.fontSize)
@@ -165,6 +165,18 @@ export class TerminalTabComponent extends BaseTabComponent<TerminalTab> {
         preferenceManager.set('enable-clipboard-notice', false)
         preferenceManager.set('receive-encoding', 'raw')
         preferenceManager.set('send-encoding', 'raw')
+
+        if (config.terminal.colorScheme.foreground) {
+            preferenceManager.set('foreground-color', config.terminal.colorScheme.foreground)
+        }
+        if (config.terminal.colorScheme.background) {
+            preferenceManager.set('background-color', config.terminal.colorScheme.background)
+            this.backgroundColor = config.terminal.colorScheme.background
+        }
+        if (config.terminal.colorScheme.colors) {
+            preferenceManager.set('color-palette-overrides', config.terminal.colorScheme.colors)
+        }
+
         this.hterm.setBracketedPaste(config.terminal.bracketedPaste)
     }
 

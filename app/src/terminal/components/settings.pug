@@ -5,9 +5,46 @@
             .appearance-preview(
                 [style.font-family]='config.full().terminal.font',
                 [style.font-size]='config.full().terminal.fontSize + "px"',
+                [style.background-color]='config.full().terminal.colorScheme.background',
+                [style.color]='config.full().terminal.colorScheme.foreground',
             )
-                .text john@doe-pc$ ls
-                .text foo bar
+                div 
+                    span john@doe-pc
+                    span([style.color]='config.full().terminal.colorScheme.colors[1]') $
+                    span  webpack
+                div 
+                    span   Asset        Size
+                div 
+                    span([style.color]='config.full().terminal.colorScheme.colors[2]') main.js      
+                    span   234 kB
+                    span([style.color]='config.full().terminal.colorScheme.colors[2]')    [emitted]
+                div 
+                    span([style.color]='config.full().terminal.colorScheme.colors[3]')  big.js      
+                    span([style.color]='config.full().terminal.colorScheme.colors[3]')   1.2 MB
+                    span([style.color]='config.full().terminal.colorScheme.colors[2]')    [emitted]
+                    span([style.color]='config.full().terminal.colorScheme.colors[3]')  [big]
+                div
+                    span 
+                div 
+                    span john@doe-pc
+                    span([style.color]='config.full().terminal.colorScheme.colors[1]') $
+                    span  ls -l
+                div 
+                    span drwxr-xr-x  1 root root 
+                    span([style.color]='config.full().terminal.colorScheme.colors[4]') directory
+                div 
+                    span -rw-r--r--  1 root root file
+                div 
+                    span -rwxr-xr-x  1 root root
+                    span([style.color]='config.full().terminal.colorScheme.colors[2]')  executable
+                div 
+                    span -rwxr-xr-x  1 root root
+                    span([style.color]='config.full().terminal.colorScheme.colors[6]')  sym
+                    span  ->
+                    span([style.color]='config.full().terminal.colorScheme.colors[1]')  link
+                div
+                    
+                    
     .col-lg-6
         .form-group
             label Font
@@ -27,6 +64,15 @@
                 (ngModelChange)='config.save()',
             )
             small.form-text.text-muted Text size to be used in the terminal
+            
+        .form-group
+            label Color scheme
+            select.form-control(
+                [compareWith]='equalComparator',
+                '[(ngModel)]'='config.store.terminal.colorScheme',
+                (ngModelChange)='config.save()',
+            )
+                option(*ngFor='let scheme of colorSchemes', [ngValue]='scheme') {{scheme.name}}
 
         .form-group
             label Terminal bell

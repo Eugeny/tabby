@@ -7,6 +7,7 @@
     "awesome-typescript-loader": "3.0.8",
     "css-loader": "0.26.1",
     "dataurl": "^0.1.0",
+    "deep-equal": "^1.0.1",
     "electron": "1.6.2",
     "electron-builder": "10.6.1",
     "electron-osx-sign": "electron-userland/electron-osx-sign#f092181a1bffa2b3248a23ee28447a47e14a8f04",
