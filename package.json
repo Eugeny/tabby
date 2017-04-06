@@ -61,16 +61,16 @@
     "dist": "build"
   },
   "dependencies": {
-    "@angular/animations": "4.0.0-rc.2",
-    "@angular/common": "4.0.0-rc.2",
-    "@angular/compiler": "4.0.0-rc.2",
-    "@angular/core": "4.0.0-rc.2",
-    "@angular/forms": "4.0.0-rc.2",
-    "@angular/http": "4.0.0-rc.2",
-    "@angular/platform-browser": "4.0.0-rc.2",
-    "@angular/platform-browser-dynamic": "4.0.0-rc.2",
-    "@angular/platform-server": "4.0.0-rc.2",
-    "@angular/router": "4.0.0-rc.2",
+    "@angular/animations": "4.0.1",
+    "@angular/common": "4.0.1",
+    "@angular/compiler": "4.0.1",
+    "@angular/core": "4.0.1",
+    "@angular/forms": "4.0.1",
+    "@angular/http": "4.0.1",
+    "@angular/platform-browser": "4.0.1",
+    "@angular/platform-browser-dynamic": "4.0.1",
+    "@angular/platform-server": "4.0.1",
+    "@angular/router": "4.0.1",
     "@ng-bootstrap/ng-bootstrap": "1.0.0-alpha.22",
     "@types/fs-promise": "^1.0.1",
     "@types/core-js": "^0.9.35",
@@ -86,6 +86,6 @@
     "jquery": "^3.1.1",
     "rxjs": "5.3.0",
     "source-sans-pro": "^2.0.10",
-    "zone.js": "0.8.5"
+    "zone.js": "0.8.4"
   }
 }

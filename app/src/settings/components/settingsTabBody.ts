@@ -3,7 +3,7 @@ import { SettingsTabProvider } from '../api'
 
 @Component({
   selector: 'settings-tab-body',
-  template: '<template #placeholder></template>',
+  template: '<ng-template #placeholder></ng-template>',
 })
 export class SettingsTabBodyComponent {
     @Input() provider: SettingsTabProvider

@@ -4,7 +4,7 @@ import { BaseTabComponent } from 'components/baseTab'
 
 @Component({
   selector: 'tab-body',
-  template: '<template #placeholder></template>',
+  template: '<ng-template #placeholder></ng-template>',
   styles: [require('./tabBody.scss')],
 })
 export class TabBodyComponent {

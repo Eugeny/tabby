@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { HttpModule } from '@angular/http'
 import { FormsModule } from '@angular/forms'
 import { ToasterModule } from 'angular2-toaster'
@@ -35,6 +36,7 @@ let plugins = [
 @NgModule({
     imports: [
         BrowserModule,
+        BrowserAnimationsModule,
         HttpModule,
         FormsModule,
         ToasterModule,
