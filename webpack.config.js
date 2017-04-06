@@ -10,7 +10,7 @@ module.exports = {
     },
     devtool: 'source-map',
     output: {
-        path: 'app/assets/webpack',
+        path: path.join(__dirname, 'app', 'assets', 'webpack'),
         pathinfo: true,
         //publicPath: 'assets/webpack/',
         filename: '[name].js'

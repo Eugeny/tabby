@@ -17,6 +17,7 @@
         "lib": [
            "dom",
            "es2015",
+           "es2015.iterable.ts",
            "es7"
         ]
     },

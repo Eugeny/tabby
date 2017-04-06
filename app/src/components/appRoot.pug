@@ -13,7 +13,7 @@ title-bar(*ngIf='!config.full().appearance.useNativeFrame && config.store.appear
                 
         .tabs-container
             tab-header(
-                *ngFor='let tab of app.tabs; let idx = index; trackBy: tab?.id',
+                *ngFor='let tab of app.tabs; let idx = index',
                 [class.pre-selected]='idx == app.tabs.indexOf(app.activeTab) - 1',
                 [class.post-selected]='idx == app.tabs.indexOf(app.activeTab) + 1',
                 [index]='idx',

@@ -1,4 +1,5 @@
-import { Component, Inject, trigger, style, animate, transition, state } from '@angular/core'
+import { Component, Inject } from '@angular/core'
+import { trigger, style, animate, transition, state } from '@angular/animations'
 import { ToasterConfig } from 'angular2-toaster'
 
 import { ElectronService } from 'services/electron'
@@ -11,7 +12,7 @@ import { DockingService } from 'services/docking'
 
 import { AppService, IToolbarButton, ToolbarButtonProvider } from 'api'
 
-import 'angular2-toaster/lib/toaster.css'
+import 'angular2-toaster/toaster.css'
 import 'overrides.scss'
 import 'global.less'
 import 'theme.scss'
@@ -127,9 +128,9 @@ export class AppRootComponent {
         this.docking.dock()
     }
 
-    getLeftToolbarButtons (): IToolbarButton[] { return this.getToolbarButtons(false); }
+    getLeftToolbarButtons (): IToolbarButton[] { return this.getToolbarButtons(false) }
 
-    getRightToolbarButtons (): IToolbarButton[] { return this.getToolbarButtons(true); }
+    getRightToolbarButtons (): IToolbarButton[] { return this.getToolbarButtons(true) }
 
     ngOnInit () {
         /*
