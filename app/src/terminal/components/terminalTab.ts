@@ -17,6 +17,7 @@ export class TerminalTabComponent extends BaseTabComponent {
     hterm: any
     configSubscription: Subscription
     focusedSubscription: Subscription
+    bell$ = new Subject()
     size$ = new ReplaySubject<ResizeEvent>(1)
     input$ = new Subject<string>()
     output$ = new Subject<string>()
@@ -83,6 +84,17 @@ export class TerminalTabComponent extends BaseTabComponent {
                 this.displayActivity()
             })
         }, 1000)
+
+        this.bell$.subscribe(() => {
+            if (this.config.full().terminal.bell != 'off') {
+                let bg = preferenceManager.get('background-color')
+                preferenceManager.set('background-color', 'rgba(128,128,128,.25)')
+                setTimeout(() => {
+                    preferenceManager.set('background-color', bg)
+                }, 125)
+            }
+            // TODO audible
+        })
     }
 
     attachHTermHandlers (hterm: any) {
@@ -119,6 +131,10 @@ export class TerminalTabComponent extends BaseTabComponent {
                 this.sendInput(((delta > 0) ? '\u001bOA' : '\u001bOB').repeat(Math.abs(delta)))
             }
             _onMouse_(event)
+        }
+
+        hterm.ringBell = () => {
+            this.bell$.next()
         }
 
         for (let screen of [hterm.primaryScreen_, hterm.alternateScreen_]) {
@@ -203,6 +219,7 @@ export class TerminalTabComponent extends BaseTabComponent {
         this.contentUpdated$.complete()
         this.alternateScreenActive$.complete()
         this.mouseEvent$.complete()
+        this.bell$.complete()
 
         this.session.gracefullyDestroy()
     }
