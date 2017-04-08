@@ -17,6 +17,7 @@ import { NotifyService } from 'services/notify'
 import { PluginsService } from 'services/plugins'
 import { QuitterService } from 'services/quitter'
 import { DockingService } from 'services/docking'
+import { TabRecoveryService } from 'services/tabRecovery'
 
 import { AppRootComponent } from 'components/appRoot'
 import { CheckboxComponent } from 'components/checkbox'
@@ -53,6 +54,7 @@ let plugins = [
         ModalService,
         NotifyService,
         PluginsService,
+        TabRecoveryService,
         QuitterService,
         { provide: HotkeyProvider, useClass: AppHotkeyProvider, multi: true },
     ],

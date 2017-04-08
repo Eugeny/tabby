@@ -1,3 +1,3 @@
 export abstract class DefaultTabProvider {
-    abstract open (): void
+    abstract async openNewTab (): Promise<void>
 }

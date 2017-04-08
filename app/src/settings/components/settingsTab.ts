@@ -2,22 +2,20 @@ import { Component, Inject } from '@angular/core'
 import { ElectronService } from 'services/electron'
 import { ConfigService } from 'services/config'
 import { DockingService } from 'services/docking'
-import { IHotkeyDescription, HotkeyProvider } from 'api/hotkeyProvider'
+import { IHotkeyDescription, HotkeyProvider, BaseTabComponent } from 'api'
 
-import { BaseTabComponent } from 'components/baseTab'
-import { SettingsTab } from '../tab'
 import { SettingsTabProvider } from '../api'
 
 
 @Component({
-  selector: 'settings-pane',
-  template: require('./settingsPane.pug'),
+  selector: 'settings-tab',
+  template: require('./settingsTab.pug'),
   styles: [
-    require('./settingsPane.scss'),
-    require('./settingsPane.deep.css'),
+    require('./settingsTab.scss'),
+    require('./settingsTab.deep.css'),
   ],
 })
-export class SettingsPaneComponent extends BaseTabComponent<SettingsTab> {
+export class SettingsTabComponent extends BaseTabComponent {
     globalHotkey = ['Ctrl+Shift+G']
     private hotkeyDescriptions: IHotkeyDescription[]
 
@@ -30,6 +28,12 @@ export class SettingsPaneComponent extends BaseTabComponent<SettingsTab> {
     ) {
         super()
         this.hotkeyDescriptions = hotkeyProviders.map(x => x.hotkeys).reduce((a, b) => a.concat(b))
+        this.title$.next('Settings')
+        this.scrollable = true
+    }
+
+    getRecoveryToken (): any {
+        return { type: 'app:settings' }
     }
 
     ngOnDestroy () {

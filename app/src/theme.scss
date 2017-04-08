@@ -135,7 +135,7 @@ app-root > .content {
         margin-top: 3px;
 
         tab-header {
-            &.pre-selected, &:nth-last-child(1) {
+            &.pre-selected {
                 .content-wrapper {
                     border-bottom-right-radius: $tab-border-radius;
                 }
@@ -167,7 +167,7 @@ app-root > .content {
         margin-bottom: 3px;
 
         tab-header {
-            &.pre-selected, &:nth-last-child(1) {
+            &.pre-selected {
                 .content-wrapper {
                     border-top-right-radius: $tab-border-radius;
                 }
@@ -200,7 +200,7 @@ tab-body {
     background: $body-bg;
 }
 
-settings-pane > ngb-tabset {
+settings-tab > ngb-tabset {
     border-right: 1px solid $body-bg2;
 
     & > .nav {

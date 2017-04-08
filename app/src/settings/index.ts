@@ -7,7 +7,7 @@ import { HotkeyInputComponent } from './components/hotkeyInput'
 import { HotkeyDisplayComponent } from './components/hotkeyDisplay'
 import { HotkeyInputModalComponent } from './components/hotkeyInputModal'
 import { MultiHotkeyInputComponent } from './components/multiHotkeyInput'
-import { SettingsPaneComponent } from './components/settingsPane'
+import { SettingsTabComponent } from './components/settingsTab'
 import { SettingsTabBodyComponent } from './components/settingsTabBody'
 
 import { ToolbarButtonProvider, TabRecoveryProvider } from 'api'
@@ -28,14 +28,14 @@ import { RecoveryProvider } from './recoveryProvider'
     ],
     entryComponents: [
         HotkeyInputModalComponent,
-        SettingsPaneComponent,
+        SettingsTabComponent,
     ],
     declarations: [
         HotkeyDisplayComponent,
         HotkeyInputComponent,
         HotkeyInputModalComponent,
         MultiHotkeyInputComponent,
-        SettingsPaneComponent,
+        SettingsTabComponent,
         SettingsTabBodyComponent,
     ],
 })

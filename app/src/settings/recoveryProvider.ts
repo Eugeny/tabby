@@ -1,14 +1,19 @@
 import { Injectable } from '@angular/core'
-import { Tab, TabRecoveryProvider } from 'api'
-import { SettingsTab } from './tab'
+import { TabRecoveryProvider, AppService } from 'api'
+import { SettingsTabComponent } from './components/settingsTab'
 
 
 @Injectable()
 export class RecoveryProvider extends TabRecoveryProvider {
-    async recover (recoveryToken: any): Promise<Tab> {
+    constructor(
+        private app: AppService
+    ) {
+        super()
+    }
+
+    async recover (recoveryToken: any): Promise<void> {
         if (recoveryToken.type == 'app:settings') {
-            return new SettingsTab()
+            this.app.openNewTab(SettingsTabComponent)
         }
-        return null
     }
 }

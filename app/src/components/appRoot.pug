@@ -17,7 +17,7 @@ title-bar(*ngIf='!config.full().appearance.useNativeFrame && config.store.appear
                 [class.pre-selected]='idx == app.tabs.indexOf(app.activeTab) - 1',
                 [class.post-selected]='idx == app.tabs.indexOf(app.activeTab) + 1',
                 [index]='idx',
-                [model]='tab',
+                [tab]='tab',
                 [active]='tab == app.activeTab',
                 [hasActivity]='tab.hasActivity',
                 @animateTab,
@@ -36,7 +36,7 @@ title-bar(*ngIf='!config.full().appearance.useNativeFrame && config.store.appear
         tab-body(
             *ngFor='let tab of app.tabs; trackBy: tab?.id', 
             [active]='tab == app.activeTab',
-            [model]='tab',
+            [tab]='tab',
             [class.scrollable]='tab.scrollable',
         )
 

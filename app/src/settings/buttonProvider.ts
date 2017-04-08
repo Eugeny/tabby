@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 import { ToolbarButtonProvider, IToolbarButton, AppService } from 'api'
-import { SettingsTab } from './tab'
+import { SettingsTabComponent } from './components/settingsTab'
 
 
 @Injectable()
@@ -17,11 +17,11 @@ export class ButtonProvider extends ToolbarButtonProvider {
             title: 'Settings',
             weight: 10,
             click: () => {
-                let settingsTab = this.app.tabs.find((tab) => tab instanceof SettingsTab)
+                let settingsTab = this.app.tabs.find((tab) => tab instanceof SettingsTabComponent)
                 if (settingsTab) {
                     this.app.selectTab(settingsTab)
                 } else {
-                    this.app.openTab(new SettingsTab())
+                    this.app.openNewTab(SettingsTabComponent)
                 }
             }
         }]

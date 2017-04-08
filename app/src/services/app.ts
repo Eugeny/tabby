@@ -1,36 +1,49 @@
-import { Inject, Injectable } from '@angular/core'
+import { Subject } from 'rxjs'
+import { Injectable, ComponentFactoryResolver, Injector, Optional } from '@angular/core'
 import { Logger, LogService } from 'services/log'
-import { Tab } from 'api/tab'
-import { TabRecoveryProvider } from 'api/tabRecovery'
 import { DefaultTabProvider } from 'api/defaultTabProvider'
+import { BaseTabComponent } from 'components/baseTab'
+
+export declare type TabComponentType = new (...args: any[]) => BaseTabComponent
 
 
 @Injectable()
 export class AppService {
-    tabs: Tab[] = []
-    activeTab: Tab
+    tabs: BaseTabComponent[] = []
+    activeTab: BaseTabComponent
     lastTabIndex = 0
     logger: Logger
+    tabsChanged$ = new Subject()
 
     constructor (
-        @Inject(TabRecoveryProvider) private tabRecoveryProviders: TabRecoveryProvider[],
-        private defaultTabProvider: DefaultTabProvider,
+        private componentFactoryResolver: ComponentFactoryResolver,
+        @Optional() private defaultTabProvider: DefaultTabProvider,
+        private injector: Injector,
         log: LogService,
     ) {
         this.logger = log.create('app')
     }
 
-    openTab (tab: Tab): void {
-        this.tabs.push(tab)
-        this.selectTab(tab)
-        this.saveTabs()
+    openNewTab (type: TabComponentType, inputs?: any): BaseTabComponent {
+        let componentFactory = this.componentFactoryResolver.resolveComponentFactory(type)
+        let componentRef = componentFactory.create(this.injector)
+        componentRef.instance.hostView = componentRef.hostView
+        Object.assign(componentRef.instance, inputs || {})
+
+        this.tabs.push(componentRef.instance)
+        this.selectTab(componentRef.instance)
+        this.tabsChanged$.next()
+
+        return componentRef.instance
     }
 
     openDefaultTab (): void {
-
+        if (this.defaultTabProvider) {
+            this.defaultTabProvider.openNewTab()
+        }
     }
 
-    selectTab (tab) {
+    selectTab (tab: BaseTabComponent) {
         if (this.tabs.includes(this.activeTab)) {
             this.lastTabIndex = this.tabs.indexOf(this.activeTab)
         } else {
@@ -41,7 +54,9 @@ export class AppService {
             this.activeTab.blurred.emit()
         }
         this.activeTab = tab
-        this.activeTab.focused.emit()
+        if (this.activeTab) {
+            this.activeTab.focused.emit()
+        }
     }
 
     toggleLastTab () {
@@ -65,7 +80,7 @@ export class AppService {
         }
     }
 
-    closeTab (tab) {
+    closeTab (tab: BaseTabComponent) {
         tab.destroy()
         /* if (tab.session) {
             this.sessions.destroySession(tab.session)
@@ -75,38 +90,6 @@ export class AppService {
         if (tab == this.activeTab) {
             this.selectTab(this.tabs[newIndex])
         }
-        this.saveTabs()
-    }
-
-    saveTabs () {
-        window.localStorage.tabsRecovery = JSON.stringify(
-            this.tabs
-                .map((tab) => tab.getRecoveryToken())
-                .filter((token) => !!token)
-        )
-    }
-
-    async restoreTabs (): Promise<void> {
-        if (window.localStorage.tabsRecovery) {
-            for (let token of JSON.parse(window.localStorage.tabsRecovery)) {
-                let tab: Tab
-                for (let provider of this.tabRecoveryProviders) {
-                    try {
-                        tab = await provider.recover(token)
-                        if (tab) {
-                            break
-                        }
-                    } catch (error) {
-                        this.logger.warn('Tab recovery crashed:', token, provider, error)
-                    }
-                }
-                if (tab) {
-                    this.openTab(tab)
-                } else {
-                    this.logger.warn('Cannot restore tab from the token:', token)
-                }
-            }
-            this.saveTabs()
-        }
+        this.tabsChanged$.next()
     }
 }

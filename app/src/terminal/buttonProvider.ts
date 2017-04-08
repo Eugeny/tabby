@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core'
 import { HotkeysService, ToolbarButtonProvider, IToolbarButton, AppService } from 'api'
 import { SessionsService } from './services/sessions'
-import { TerminalTab } from './tab'
+import { TerminalTabComponent } from './components/terminalTab'
 
 
 @Injectable()
@@ -14,17 +14,20 @@ export class ButtonProvider extends ToolbarButtonProvider {
         super()
         hotkeys.matchedHotkey.subscribe(async (hotkey) => {
             if (hotkey == 'new-tab') {
-                this.app.openTab(await this.getNewTab())
+                this.openNewTab()
             }
         })
     }
 
-    async getNewTab (): Promise<TerminalTab> {
+    async openNewTab (): Promise<void> {
         let cwd = null
-        if (this.app.activeTab instanceof TerminalTab) {
+        if (this.app.activeTab instanceof TerminalTabComponent) {
             cwd = await this.app.activeTab.session.getWorkingDirectory()
         }
-        return new TerminalTab(await this.sessions.createNewSession({ command: 'zsh', cwd }))
+        this.app.openNewTab(
+            TerminalTabComponent,
+            { session: await this.sessions.createNewSession({ command: 'zsh', cwd }) }
+        )
     }
 
     provide (): IToolbarButton[] {
@@ -32,7 +35,7 @@ export class ButtonProvider extends ToolbarButtonProvider {
             icon: 'plus',
             title: 'New terminal',
             click: async () => {
-                this.app.openTab(await this.getNewTab())
+                this.openNewTab()
             }
         }]
     }

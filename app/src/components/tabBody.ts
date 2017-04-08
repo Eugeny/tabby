@@ -1,5 +1,4 @@
-import { Component, Input, ViewContainerRef, ViewChild, HostBinding, ComponentFactoryResolver, ComponentRef } from '@angular/core'
-import { Tab } from 'api/tab'
+import { Component, Input, ViewChild, HostBinding, ViewContainerRef } from '@angular/core'
 import { BaseTabComponent } from 'components/baseTab'
 
 @Component({
@@ -9,21 +8,12 @@ import { BaseTabComponent } from 'components/baseTab'
 })
 export class TabBodyComponent {
     @Input() @HostBinding('class.active') active: boolean
-    @Input() model: Tab
+    @Input() tab: BaseTabComponent
     @ViewChild('placeholder', {read: ViewContainerRef}) placeholder: ViewContainerRef
-    private component: ComponentRef<BaseTabComponent<Tab>>
-
-    constructor (private componentFactoryResolver: ComponentFactoryResolver) {
-    }
 
     ngAfterViewInit () {
-        // run after the change detection finishes
         setImmediate(() => {
-            let componentFactory = this.componentFactoryResolver.resolveComponentFactory(this.model.getComponentType())
-            this.component = this.placeholder.createComponent(componentFactory)
-            setImmediate(() => {
-                this.component.instance.initModel(this.model)
-            })
+            this.placeholder.insert(this.tab.hostView)
         })
     }
 }

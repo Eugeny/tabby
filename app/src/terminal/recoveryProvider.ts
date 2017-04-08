@@ -1,23 +1,25 @@
 import { Injectable } from '@angular/core'
-import { Tab, TabRecoveryProvider } from 'api'
-import { TerminalTab } from './tab'
+import { TabRecoveryProvider, AppService } from 'api'
 import { SessionsService } from './services/sessions'
+import { TerminalTabComponent } from './components/terminalTab'
 
 
 @Injectable()
 export class RecoveryProvider extends TabRecoveryProvider {
-    constructor (private sessions: SessionsService) {
+    constructor (
+        private sessions: SessionsService,
+        private app: AppService,
+    ) {
         super()
     }
 
-    async recover (recoveryToken: any): Promise<Tab> {
+    async recover (recoveryToken: any): Promise<void> {
         if (recoveryToken.type == 'app:terminal') {
             let session = await this.sessions.recover(recoveryToken.recoveryId)
             if (!session) {
-                return null
+                return
             }
-            return new TerminalTab(session)
+            this.app.openNewTab(TerminalTabComponent, { session })
         }
-        return null
     }
 }

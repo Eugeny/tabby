@@ -5,10 +5,11 @@ import { ToasterConfig } from 'angular2-toaster'
 import { ElectronService } from 'services/electron'
 import { HostAppService } from 'services/hostApp'
 import { HotkeysService } from 'services/hotkeys'
-import { LogService } from 'services/log'
+import { Logger, LogService } from 'services/log'
 import { QuitterService } from 'services/quitter'
 import { ConfigService } from 'services/config'
 import { DockingService } from 'services/docking'
+import { TabRecoveryService } from 'services/tabRecovery'
 
 import { AppService, IToolbarButton, ToolbarButtonProvider } from 'api'
 
@@ -43,10 +44,12 @@ import 'theme.scss'
 })
 export class AppRootComponent {
     toasterConfig: ToasterConfig
+    logger: Logger
 
     constructor(
         private docking: DockingService,
         private electron: ElectronService,
+        private tabRecovery: TabRecoveryService,
         public hostApp: HostAppService,
         public hotkeys: HotkeysService,
         public config: ConfigService,
@@ -57,8 +60,8 @@ export class AppRootComponent {
     ) {
         console.timeStamp('AppComponent ctor')
 
-        let logger = log.create('main')
-        logger.info('v', electron.app.getVersion())
+        this.logger = log.create('main')
+        this.logger.info('v', electron.app.getVersion())
 
         this.toasterConfig = new ToasterConfig({
             mouseoverTimerStop: true,
@@ -131,7 +134,9 @@ export class AppRootComponent {
     getRightToolbarButtons (): IToolbarButton[] { return this.getToolbarButtons(true) }
 
     async ngOnInit () {
-        await this.app.restoreTabs()
+        await this.tabRecovery.recoverTabs()
+        this.tabRecovery.saveTabs(this.app.tabs)
+
         if (this.app.tabs.length == 0) {
             this.app.openDefaultTab()
         }

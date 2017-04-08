@@ -48,22 +48,21 @@
     .col-lg-6
         .form-group
             label Font
-            input.form-control(
-                type='text',
-                [ngbTypeahead]='fontAutocomplete',
-                '[(ngModel)]'='config.store.terminal.font',
-                (ngModelChange)='config.save()',
-            )
+            .row
+                .col-8
+                    input.form-control(
+                        type='text',
+                        [ngbTypeahead]='fontAutocomplete',
+                        '[(ngModel)]'='config.store.terminal.font',
+                        (ngModelChange)='config.save()',
+                    )
+                .col-4
+                    input.form-control(
+                        type='number',
+                        '[(ngModel)]'='config.store.terminal.fontSize',
+                        (ngModelChange)='config.save()',
+                    )
             small.form-text.text-muted Font to be used in the terminal
-
-        .form-group
-            label Font size
-            input.form-control(
-                type='number',
-                '[(ngModel)]'='config.store.terminal.fontSize',
-                (ngModelChange)='config.save()',
-            )
-            small.form-text.text-muted Text size to be used in the terminal
             
         .form-group
             label Color scheme

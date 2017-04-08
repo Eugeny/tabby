@@ -1,4 +1,4 @@
-export { Tab } from './tab'
+export { BaseTabComponent } from '../components/baseTab'
 export { TabRecoveryProvider } from './tabRecovery'
 export { ToolbarButtonProvider, IToolbarButton } from './toolbarButtonProvider'
 export { ConfigProvider } from './configProvider'
