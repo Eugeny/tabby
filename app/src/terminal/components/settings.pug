@@ -5,7 +5,7 @@
             .appearance-preview(
                 [style.font-family]='config.full().terminal.font',
                 [style.font-size]='config.full().terminal.fontSize + "px"',
-                [style.background-color]='config.full().terminal.colorScheme.background',
+                [style.background-color]='(config.full().terminal.background == "theme") ? null : config.full().terminal.colorScheme.background',
                 [style.color]='config.full().terminal.colorScheme.foreground',
             )
                 div 
@@ -73,6 +73,26 @@
                 (ngModelChange)='config.save()',
             )
                 option(*ngFor='let scheme of colorSchemes', [ngValue]='scheme') {{scheme.name}}
+
+        .form-group
+            label Terminal background
+            div(
+                '[(ngModel)]'='config.store.terminal.background',
+                (ngModelChange)='config.save()',
+                ngbRadioGroup
+            )
+                label.btn.btn-secondary
+                    input(
+                        type='radio',
+                        [value]='"theme"'
+                    )
+                    | From the app theme
+                label.btn.btn-secondary
+                    input(
+                        type='radio',
+                        [value]='"colorScheme"'
+                    )
+                    | From the terminal colors
 
         .form-group
             label Terminal bell

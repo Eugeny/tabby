@@ -101,8 +101,6 @@ export class AppRootComponent {
         this.hotkeys.globalHotkey.subscribe(() => {
             this.onGlobalHotkey()
         })
-
-        this.app.restoreTabs()
     }
 
     onGlobalHotkey () {
@@ -132,19 +130,11 @@ export class AppRootComponent {
 
     getRightToolbarButtons (): IToolbarButton[] { return this.getToolbarButtons(true) }
 
-    ngOnInit () {
-        /*
-        this.sessions.recoverAll().then((recoveredSessions) => {
-            if (recoveredSessions.length > 0) {
-                recoveredSessions.forEach((session) => {
-                    this.addTerminalTab(session)
-                })
-            } else {
-                // this.newTab()
-                this.showSettings();
-            }
-        })
-        */
+    async ngOnInit () {
+        await this.app.restoreTabs()
+        if (this.app.tabs.length == 0) {
+            this.app.openDefaultTab()
+        }
     }
 
     private getToolbarButtons (aboveZero: boolean): IToolbarButton[] {

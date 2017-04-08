@@ -2,6 +2,7 @@ import { Inject, Injectable } from '@angular/core'
 import { Logger, LogService } from 'services/log'
 import { Tab } from 'api/tab'
 import { TabRecoveryProvider } from 'api/tabRecovery'
+import { DefaultTabProvider } from 'api/defaultTabProvider'
 
 
 @Injectable()
@@ -13,6 +14,7 @@ export class AppService {
 
     constructor (
         @Inject(TabRecoveryProvider) private tabRecoveryProviders: TabRecoveryProvider[],
+        private defaultTabProvider: DefaultTabProvider,
         log: LogService,
     ) {
         this.logger = log.create('app')
@@ -22,6 +24,10 @@ export class AppService {
         this.tabs.push(tab)
         this.selectTab(tab)
         this.saveTabs()
+    }
+
+    openDefaultTab (): void {
+
     }
 
     selectTab (tab) {

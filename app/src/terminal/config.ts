@@ -8,6 +8,7 @@ export class TerminalConfigProvider extends ConfigProvider {
             fontSize: 14,
             bell: 'off',
             bracketedPaste: true,
+            background: 'theme',
             colorScheme: {
                 foreground: null,
                 background: null,

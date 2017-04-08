@@ -85,7 +85,7 @@ title-bar {
 }
 
 
-app-root .content {
+app-root > .content {
     background: $body-bg2;
 
     .tabs {

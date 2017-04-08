@@ -169,9 +169,14 @@ export class TerminalTabComponent extends BaseTabComponent<TerminalTab> {
         if (config.terminal.colorScheme.foreground) {
             preferenceManager.set('foreground-color', config.terminal.colorScheme.foreground)
         }
-        if (config.terminal.colorScheme.background) {
-            preferenceManager.set('background-color', config.terminal.colorScheme.background)
-            this.backgroundColor = config.terminal.colorScheme.background
+        if (config.terminal.background == 'colorScheme') {
+            if (config.terminal.colorScheme.background) {
+                this.backgroundColor = config.terminal.colorScheme.background
+                preferenceManager.set('background-color', config.terminal.colorScheme.background)
+            }
+        } else {
+            this.backgroundColor = null
+            preferenceManager.set('background-color', 'transparent')
         }
         if (config.terminal.colorScheme.colors) {
             preferenceManager.set('color-palette-overrides', config.terminal.colorScheme.colors)

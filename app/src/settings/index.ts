@@ -5,7 +5,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 
 import { HotkeyInputComponent } from './components/hotkeyInput'
 import { HotkeyDisplayComponent } from './components/hotkeyDisplay'
-import { HotkeyHintComponent } from './components/hotkeyHint'
 import { HotkeyInputModalComponent } from './components/hotkeyInputModal'
 import { MultiHotkeyInputComponent } from './components/multiHotkeyInput'
 import { SettingsPaneComponent } from './components/settingsPane'
@@ -33,7 +32,6 @@ import { RecoveryProvider } from './recoveryProvider'
     ],
     declarations: [
         HotkeyDisplayComponent,
-        HotkeyHintComponent,
         HotkeyInputComponent,
         HotkeyInputModalComponent,
         MultiHotkeyInputComponent,
