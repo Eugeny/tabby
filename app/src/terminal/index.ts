@@ -9,6 +9,7 @@ import { SettingsTabProvider } from '../settings/api'
 
 import { TerminalTabComponent } from './components/terminalTab'
 import { SettingsComponent } from './components/settings'
+import { ColorPickerComponent } from './components/colorPicker'
 import { SessionsService } from './services/sessions'
 import { ScreenPersistenceProvider } from './persistenceProviders'
 import { ButtonProvider } from './buttonProvider'
@@ -34,13 +35,14 @@ import { hterm } from './hterm'
         // { provide: SessionPersistenceProvider, useValue: null },
         { provide: SettingsTabProvider, useClass: TerminalSettingsProvider, multi: true },
         { provide: ConfigProvider, useClass: TerminalConfigProvider, multi: true },
-        { provide: TerminalColorSchemeProvider, useClass: HyperColorSchemes, multi: true }
+        { provide: TerminalColorSchemeProvider, useClass: HyperColorSchemes, multi: true },
     ],
     entryComponents: [
         TerminalTabComponent,
         SettingsComponent,
     ],
     declarations: [
+        ColorPickerComponent,
         TerminalTabComponent,
         SettingsComponent,
     ],

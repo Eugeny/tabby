@@ -72,9 +72,28 @@
                 (ngModelChange)='config.save()',
             )
                 option(*ngFor='let scheme of colorSchemes', [ngValue]='scheme') {{scheme.name}}
+                
+            div(*ngIf='config.store.terminal.colorScheme.colors')
+                color-picker(
+                    '[(model)]'='config.store.terminal.colorScheme.foreground',
+                    (modelChange)='config.save()',
+                    title='FG',
+                )
+                color-picker(
+                    '[(model)]'='config.store.terminal.colorScheme.background',
+                    (modelChange)='config.save()',
+                    title='BG',
+                )
+                color-picker(
+                    *ngFor='let _ of config.store.terminal.colorScheme.colors; let idx = index',
+                    '[(model)]'='config.store.terminal.colorScheme.colors[idx]',
+                    (modelChange)='config.save()',
+                    [title]='idx',
+                )
 
         .form-group
             label Terminal background
+            br
             div(
                 '[(ngModel)]'='config.store.terminal.background',
                 (ngModelChange)='config.save()',
