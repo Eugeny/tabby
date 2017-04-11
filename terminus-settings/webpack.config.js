@@ -5,8 +5,8 @@ module.exports = {
   output: {
     filename: './dist/index.js',
     pathinfo: true,
-    libraryTarget: 'umd',
-    devtoolModuleFilenameTemplate: 'webpack-terminus-terminal:///[resource-path]',
+    libraryTarget: 'commonjs',
+    devtoolModuleFilenameTemplate: 'webpack-terminus-settings:///[resource-path]',
   },
   resolve: {
     modules: ['.', 'node_modules', '../app/node_modules'],
@@ -14,7 +14,7 @@ module.exports = {
   },
   module: {
     loaders: [
-      { test: /\.ts$/, use: 'awesome-typescript-loader' },
+      { test: /\.ts$/, use: 'awesome-typescript-loader', exclude: [/node_modules/] },
       { test: /schemes\/.*$/, use: "raw-loader" },
       { test: /\.pug$/, use: ['apply-loader', 'pug-loader'] },
       { test: /\.scss$/, use: ['to-string-loader', 'css-loader', 'sass-loader'] },
@@ -24,10 +24,10 @@ module.exports = {
   externals: [
     'fs',
     'fs-promise',
-    'font-manager',
     'path',
     'node-pty',
     'child-process-promise',
+    'fs-promise',
     /^rxjs/,
     /^@angular/,
     /^@ng-bootstrap/,

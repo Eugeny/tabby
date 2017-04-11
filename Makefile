@@ -6,16 +6,28 @@ SHORT_VERSION=$(shell python -c 'import subprocess; v = subprocess.check_output(
 all: run
 
 run:
-	DEV=1 ./node_modules/.bin/electron ./app --debug
+	DEV=1 NODE_PATH=./app/node_modules ./node_modules/.bin/electron ./app --debug
 
 lint:
 	tslint -c tslint.json app/src/*.ts app/src/**/*.ts
 
 build:
-	DEV=1 ./node_modules/.bin/webpack --progress
+	DEV=1 ./node_modules/.bin/webpack --progress --display-modules
+
+build-plugins:
+	cd terminus-core; npm run build
+	cd terminus-settings; npm run build
+	cd terminus-terminal; npm run build
+	cd terminus-community-color-schemes; npm run build
+	cd terminus-clickable-links; npm run build
 
 watch:
 	DEV=1 ./node_modules/.bin/webpack --progress -w
+
+
+build-native:
+	./node_modules/.bin/electron-rebuild -f -w terminus-terminal/node_modules/node-pty -m terminus-terminal
+	./node_modules/.bin/electron-rebuild -f -w terminus-terminal/node_modules/font-manager -m terminus-terminal
 
 build-native-windows:
 	echo :: Building native extensions

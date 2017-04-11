@@ -143,7 +143,7 @@ start = () => {
     Object.assign(options, windowConfig.get('windowBoundaries'))
 
     if (platform == 'darwin') {
-        options.titleBarStyle = 'hidden'
+        options.titleBarStyle = 'hidden-inset'
     }
 
     if ((configData.appearance || {}).useNativeFrame) {

@@ -15,10 +15,12 @@
     "typescript": "^2.2.2",
     "webpack": "^2.3.3"
   },
-  "dependencies": {
+  "peerDependencies": {
     "@angular/core": "^4.0.1",
     "terminus-core": "*",
-    "terminus-terminal": "*",
+    "terminus-terminal": "*"
+  },
+  "dependencies": {
     "untildify": "^3.0.2"
   }
 }

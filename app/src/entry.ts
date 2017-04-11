@@ -1,4 +1,4 @@
-console.timeStamp('entry point')
+(<any>console).timeStamp('entry point')
 
 import 'core-js'
 import 'zone.js/dist/zone.js'
@@ -18,7 +18,7 @@ if ((<any>global).require('electron-is-dev')) {
     enableProdMode()
 }
 
-console.timeStamp('angular bootstrap started')
+(<any>console).timeStamp('angular bootstrap started')
 platformBrowserDynamic().bootstrapModule(RootModule);
 
 

@@ -5,8 +5,8 @@
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "scripts": {
-    "build": "webpack --progress --color",
-    "watch": "webpack --progress --color --watch"
+    "build": "rm -r dist; webpack --progress --color --display-modules",
+    "watch": "rm -r dist; webpack --progress --color --watch"
   },
   "author": "Eugene Pankov",
   "license": "MIT",
@@ -19,20 +19,22 @@
     "webpack": "^2.3.3",
     "bootstrap": "4.0.0-alpha.6",
     "core-js": "^2.4.1",
+    "style-loader": "^0.13.1",
+    "to-string-loader": "^1.1.5",
+    "json-loader": "^0.5.4",
+    "yaml-loader": "^0.4.0"
+  },
+  "peerDependencies": {
     "@angular/animations": "4.0.1",
     "@angular/common": "4.0.1",
     "@angular/core": "4.0.1",
-    "json-loader": "^0.5.4",
     "@angular/forms": "4.0.1",
     "@angular/platform-browser": "4.0.1",
     "@angular/platform-browser-dynamic": "4.0.1",
-    "source-sans-pro": "^2.0.10",
     "rxjs": "5.3.0",
-    "yaml-loader": "^0.4.0",
     "zone.js": "0.8.4"
   },
   "dependencies": {
-    "@angular/core": "^4.0.1",
     "deepmerge": "^1.3.2",
     "js-yaml": "^3.8.3"
   }

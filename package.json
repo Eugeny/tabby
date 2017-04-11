@@ -1,6 +1,12 @@
 {
   "name": "term",
   "devDependencies": {
+    "angular2-perfect-scrollbar": "2.0.0",
+    "jquery": "^3.1.1",
+    "@types/fs-promise": "^1.0.1",
+    "@types/core-js": "^0.9.35",
+    "@types/electron": "1.4.34",
+    "@types/node": "^7.0.5",
     "@types/webpack-env": "^1.13.0",
     "apply-loader": "^0.1.0",
     "awesome-typescript-loader": "3.1.2",
@@ -12,6 +18,7 @@
     "file-loader": "^0.9.0",
     "font-awesome": "4.7.0",
     "html-loader": "^0.4.4",
+    "source-sans-pro": "^2.0.10",
     "less": "^2.7.1",
     "less-loader": "^2.2.3",
     "node-gyp": "^3.4.0",
@@ -25,7 +32,7 @@
     "to-string-loader": "^1.1.5",
     "tslint": "5.0.0",
     "tslint-eslint-rules": "4.0.0",
-    "typescript": "2.2.2",
+    "typescript": "~2.1.0",
     "url-loader": "^0.5.7",
     "val-loader": "^0.5.0",
     "vrsource-tslint-rules": "^4.0.1",
@@ -54,15 +61,5 @@
     "pack": "build --dir",
     "postinstall": "install-app-deps",
     "dist": "build"
-  },
-  "dependencies": {
-    "@angular/platform-server": "4.0.1",
-    "@angular/router": "4.0.1",
-    "@types/fs-promise": "^1.0.1",
-    "@types/core-js": "^0.9.35",
-    "@types/electron": "1.4.34",
-    "@types/node": "^7.0.5",
-    "angular2-perfect-scrollbar": "2.0.0",
-    "jquery": "^3.1.1"
   }
 }

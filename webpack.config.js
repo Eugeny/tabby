@@ -22,52 +22,17 @@ module.exports = {
     module: {
         loaders: [
             {
-                test: /\.ts$/,
-                loader: 'awesome-typescript-loader',
-            },
-            {
-              test: /\.pug$/,
-              exclude: [
-                /index.pug/
-              ],
-              loaders: [
-                {
-                  loader: 'apply-loader'
-                },
-                {
-                  loader: 'pug-loader'
-                }
-              ]
-            },
-            {
-              test: /\.less$/,
-              loader: "style-loader!css-loader!less-loader",
-              exclude: [/app\/.*components\//],
-            },
-            {
-              test: /\.less$/,
-              loader: "to-string-loader!css-loader!less-loader",
-              include: [/app\/.*components\//],
+              test: /\.ts$/,
+              use: 'awesome-typescript-loader',
+              exclude: [/node_modules/]
             },
             {
               test: /\.scss$/,
               use: ['style-loader', 'css-loader', 'sass-loader'],
-              exclude: [/app\/.*components\//],
-            },
-            {
-              test: /\.scss$/,
-              use: ['to-string-loader', 'css-loader', 'sass-loader'],
-              include: [/app\/.*components\//],
             },
             {
               test: /\.css$/,
               use: ['style-loader', 'css-loader', 'sass-loader'],
-              exclude: [/app\/.*components\//],
-            },
-            {
-              test: /\.css$/,
-              use: ['to-string-loader', 'css-loader'],
-              include: [/app\/.*components\//],
             },
             {
               test: /\.(png|svg)$/,
@@ -77,44 +42,28 @@ module.exports = {
               }
             },
             {
-                test: /\.(ttf|eot|otf|woff|woff2)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-                loader: "file-loader",
-                options: {
-                  name: 'fonts/[name].[hash:8].[ext]'
-                }
+              test: /\.(ttf|eot|otf|woff|woff2)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+              loader: "file-loader",
+              options: {
+                name: 'fonts/[name].[hash:8].[ext]'
+              }
             }
         ]
     },
     externals: {
-        'fs': 'require("fs")',
-        'buffer': 'require("buffer")',
-        'system': '{}',
-        'file': '{}',
-
-        'net': 'require("net")',
-        'electron': 'require("electron")',
-        'remote': 'require("remote")',
-        'shell': 'require("shell")',
-        'ipc': 'require("ipc")',
-        'crypto': 'require("crypto")',
-        'node-pty': 'require("node-pty")',
-        'child-process-promise': 'require("child-process-promise")',
+      '@angular/core': 'commonjs @angular/core',
+      '@angular/compiler': 'commonjs @angular/compiler',
+      '@angular/platform-browser': 'commonjs @angular/platform-browser',
+      '@angular/platform-browser-dynamic': 'commonjs @angular/platform-browser-dynamic',
+      '@angular/forms': 'commonjs @angular/forms',
+      '@angular/common': 'commonjs @angular/common',
+      '@ng-bootstrap/ng-bootstrap': 'commonjs @ng-bootstrap/ng-bootstrap',
+      'rxjs': 'commonjs rxjs',
+      'zone.js': 'commonjs zone.js',
     },
     plugins: [
-        new webpack.ProvidePlugin({
-            "window.jQuery": "jquery",
-        }),
+      new webpack.ProvidePlugin({
+        "window.jQuery": "jquery",
+      }),
     ]
-}
-
-
-if (!process.env.DEV) {
-    module.exports.plugins.push(new webpack.LoaderOptionsPlugin({
-        minimize: true,
-    }))
-    module.exports.plugins.push(new webpack.optimize.UglifyJsPlugin({
-        sourceMap: true,
-        mangle: false,
-    }))
-    module.exports.devtool = 'source-map'
 }

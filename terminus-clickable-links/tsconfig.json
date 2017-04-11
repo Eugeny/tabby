@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
+    "baseUrl": "src",
     "module": "commonjs",
     "target": "es5",
     "declaration": false,
@@ -22,8 +22,9 @@
       "es7"
     ],
     "paths": {
-      "terminus-*": ["../terminus-*"]
-    }    
+      "*": ["../../app/node_modules/*"],
+      "terminus-*": ["../../terminus-*"]
+    }
   },
   "compileOnSave": false,
   "exclude": [

@@ -1,15 +1,15 @@
 module.exports = {
   target: 'node',
-  entry: 'index.ts',
+  entry: 'src/index.ts',
   devtool: 'source-map',
   output: {
     filename: './dist/index.js',
     pathinfo: true,
-    library: 'terminusCommunityColorSchemes',
     libraryTarget: 'umd',
+    devtoolModuleFilenameTemplate: 'webpack-terminus-community-color-schemes:///[resource-path]',
   },
   resolve: {
-    modules: ['.', 'node_modules', '..'],
+    modules: ['.', 'node_modules', '../app/node_modules'],
     extensions: ['.ts', '.js'],
   },
   module: {
@@ -18,9 +18,10 @@ module.exports = {
       { test: /\/schemes\//, loader: "raw-loader" },
     ]
   },
-  externals: {
-    'fs': true,
-    '@angular/core': true,
-    'terminus-terminal': true,
-  }
+  externals: [
+    /^rxjs/,
+    /^@angular/,
+    /^@ng-bootstrap/,
+    /^terminus-/,
+  ]
 }

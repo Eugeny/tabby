@@ -19,17 +19,23 @@
            "es2015",
            "es2015.iterable.ts",
            "es7"
-        ]
+        ],
+        "paths": {
+          "terminus-*": ["../../terminus-*"]
+        }
     },
     "compileOnSave": false,
     "exclude": [
         "node_modules",
+        "*/node_modules",
+        "terminus*",
         "platforms"
     ],
     "filesGlob" : [
         "app/src/*.ts",
         "app/src/**/*.ts",
         "!node_modules/**",
-        "!app/node_modules/**"
+        "!app/node_modules/**",
+        "!*/node_modules/**"
     ]
 }

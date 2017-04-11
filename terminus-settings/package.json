@@ -1,7 +1,7 @@
 {
-  "name": "terminus-terminal",
+  "name": "terminus-settings",
   "version": "0.0.1",
-  "description": "Terminus' terminal emulation core",
+  "description": "Terminus terminal settings page",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "scripts": {
@@ -16,9 +16,8 @@
     "@types/webpack-env": "1.13.0",
     "awesome-typescript-loader": "3.1.2",
     "css-loader": "^0.28.0",
-    "dataurl": "0.1.0",
-    "deep-equal": "1.0.1",
-    "pug": "^2.0.0-beta11",
+    "node-sass": "^4.5.2",
+    "pug": "^2.0.0-beta3",
     "pug-loader": "^2.3.0",
     "raw-loader": "^0.5.1",
     "sass-loader": "^6.0.3",
@@ -32,14 +31,6 @@
     "@angular/platform-browser": "4.0.1",
     "@ng-bootstrap/ng-bootstrap": "1.0.0-alpha.22",
     "terminus-core": "*",
-    "terminus-settings": "*",
     "rxjs": "5.3.0"
-  },
-  "dependencies": {
-    "child-process-promise": "2.2.1",
-    "fs-promise": "2.0.2",
-    "font-manager": "0.2.2",
-    "hterm-commonjs": "1.0.0",
-    "node-pty": "0.6.2"
   }
 }

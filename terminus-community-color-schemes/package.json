@@ -10,8 +10,9 @@
   },
   "author": "Eugene Pankov",
   "license": "MIT",
-  "dependencies": {
+  "peerDependencies": {
     "@angular/core": "4.0.1",
+    "terminus-core": "*",
     "terminus-terminal": "*"
   },
   "devDependencies": {

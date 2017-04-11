@@ -1,18 +1,23 @@
 {
-  "name": "term",
-  "version": "1.0.0",
+  "name": "terminus",
+  "version": "0.0.1",
   "main": "main.js",
   "dependencies": {
-    "child-process-promise": "2.2.0",
+    "@angular/animations": "4.0.1",
+    "@angular/common": "4.0.1",
+    "@angular/compiler": "4.0.1",
+    "@angular/core": "4.0.1",
+    "@angular/forms": "4.0.1",
+    "@angular/platform-browser": "4.0.1",
+    "@angular/platform-browser-dynamic": "4.0.1",
+    "@ng-bootstrap/ng-bootstrap": "1.0.0-alpha.22",
     "devtron": "1.4.0",
     "electron-config": "0.2.1",
     "electron-debug": "1.0.1",
     "electron-is-dev": "0.1.2",
-    "fs-promise": "^2.0.1",
-    "node-pty": "0.6.3",
-    "path": "0.12.7"
-  },
-  "devDependencies": {
-    "js-yaml": "3.8.2"
+    "js-yaml": "3.8.2",
+    "path": "0.12.7",
+    "rxjs": "5.3.0",
+    "zone.js": "0.8.4"
   }
 }

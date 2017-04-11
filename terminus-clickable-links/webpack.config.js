@@ -1,15 +1,15 @@
 module.exports = {
   target: 'node',
-  entry: './index.ts',
+  entry: 'src/index.ts',
   devtool: 'source-map',
   output: {
     filename: './dist/index.js',
     pathinfo: true,
-    library: 'terminusClickableLinks',
     libraryTarget: 'umd',
+    devtoolModuleFilenameTemplate: 'webpack-terminus-clickable-links:///[resource-path]',
   },
   resolve: {
-    modules: ['.', 'node_modules', '..'],
+    modules: ['.', 'node_modules', '../app/node_modules'],
     extensions: ['.ts', '.js'],
   },
   module: {
@@ -20,11 +20,12 @@ module.exports = {
       },
     ]
   },
-  externals: [{
-    'fs': true,
-    'untildify': true,
-    '@angular/core': true,
-    'terminus-core': true,
-    'terminus-terminal': true,
-  }]
+  externals: [
+    'fs',
+    'untildify',
+    /^rxjs/,
+    /^@angular/,
+    /^@ng-bootstrap/,
+    /^terminus-/,
+  ]
 }
