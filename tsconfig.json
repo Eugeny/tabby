@@ -30,7 +30,6 @@
         "app/src/*.ts",
         "app/src/**/*.ts",
         "!node_modules/**",
-        "!app/node_modules/**",
-        "node_modules/rxjs/Rx.d.ts"
+        "!app/node_modules/**"
     ]
 }

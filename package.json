@@ -1,12 +1,10 @@
 {
   "name": "term",
   "devDependencies": {
+    "@types/webpack-env": "^1.13.0",
     "apply-loader": "^0.1.0",
-    "autoprefixer": "^6.7.7",
     "awesome-typescript-loader": "3.1.2",
     "css-loader": "0.26.1",
-    "dataurl": "^0.1.0",
-    "deep-equal": "^1.0.1",
     "electron": "1.6.2",
     "electron-builder": "10.6.1",
     "electron-osx-sign": "electron-userland/electron-osx-sign#f092181a1bffa2b3248a23ee28447a47e14a8f04",
@@ -14,7 +12,6 @@
     "file-loader": "^0.9.0",
     "font-awesome": "4.7.0",
     "html-loader": "^0.4.4",
-    "json-loader": "^0.5.4",
     "less": "^2.7.1",
     "less-loader": "^2.2.3",
     "node-gyp": "^3.4.0",
@@ -29,12 +26,10 @@
     "tslint": "5.0.0",
     "tslint-eslint-rules": "4.0.0",
     "typescript": "2.2.2",
-    "untildify": "^3.0.2",
     "url-loader": "^0.5.7",
     "val-loader": "^0.5.0",
     "vrsource-tslint-rules": "^4.0.1",
-    "webpack": "2.3.3",
-    "yaml-loader": "^0.4.0"
+    "webpack": "2.3.3"
   },
   "build": {
     "appId": "com.elements.benchmark",
@@ -61,31 +56,13 @@
     "dist": "build"
   },
   "dependencies": {
-    "@angular/animations": "4.0.1",
-    "@angular/common": "4.0.1",
-    "@angular/compiler": "4.0.1",
-    "@angular/core": "4.0.1",
-    "@angular/forms": "4.0.1",
-    "@angular/http": "4.0.1",
-    "@angular/platform-browser": "4.0.1",
-    "@angular/platform-browser-dynamic": "4.0.1",
     "@angular/platform-server": "4.0.1",
     "@angular/router": "4.0.1",
-    "@ng-bootstrap/ng-bootstrap": "1.0.0-alpha.22",
     "@types/fs-promise": "^1.0.1",
     "@types/core-js": "^0.9.35",
     "@types/electron": "1.4.34",
-    "@types/js-yaml": "^3.5.29",
     "@types/node": "^7.0.5",
     "angular2-perfect-scrollbar": "2.0.0",
-    "angular2-toaster": "3.0.1",
-    "bootstrap": "4.0.0-alpha.6",
-    "core-js": "^2.4.1",
-    "deepmerge": "^1.3.2",
-    "hterm-commonjs": "^1.0.0",
-    "jquery": "^3.1.1",
-    "rxjs": "5.3.0",
-    "source-sans-pro": "^2.0.10",
-    "zone.js": "0.8.4"
+    "jquery": "^3.1.1"
   }
 }

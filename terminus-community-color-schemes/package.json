@@ -1,0 +1,24 @@
+{
+  "name": "terminus-community-color-schemes",
+  "version": "0.0.1",
+  "description": "Community color schemes for Terminus",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "scripts": {
+    "build": "webpack --progress --color",
+    "watch": "webpack --progress --color --watch"
+  },
+  "author": "Eugene Pankov",
+  "license": "MIT",
+  "dependencies": {
+    "@angular/core": "4.0.1",
+    "terminus-terminal": "*"
+  },
+  "devDependencies": {
+    "@types/node": "7.0.12",
+    "@types/webpack-env": "1.13.0",
+    "awesome-typescript-loader": "3.1.2",
+    "raw-loader": "0.5.1",
+    "webpack": "2.3.3"
+  }
+}

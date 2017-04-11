@@ -1,0 +1,64 @@
+:host {
+    display: flex;
+    width: calc(100vw - 2px);
+    height: calc(100vh - 2px);
+    flex-direction: column;
+    overflow: hidden;
+    -webkit-user-select: none;
+    -webkit-font-smoothing: antialiased;
+    cursor: default;
+}
+
+$tabs-height: 40px;
+$tab-border-radius: 4px;
+
+
+.content {
+    flex: auto;
+    display: flex;
+    flex-direction: column-reverse;
+
+    &.tabs-on-top {
+        flex-direction: column;
+    }
+}
+
+.tabs {
+    flex: none;
+    height: $tabs-height;
+    display: flex;
+
+    &>button {
+        line-height: $tabs-height - 2px;
+        cursor: pointer;
+
+        padding: 0 15px;
+        flex: 0 0 auto;
+        border-bottom: 2px solid transparent;
+        transition: 0.25s all;
+        font-size: 12px;
+
+        text-transform: uppercase;
+        font-weight: bold;
+        color: #aaa;
+        border: none;
+        border-radius: 0;
+    }
+
+    &>.tabs-container {
+        flex: auto;
+        display: flex;
+    }
+}
+
+.tabs-content {
+    flex: auto;
+    display: flex;
+}
+
+hotkey-hint {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    max-width: 300px;
+}

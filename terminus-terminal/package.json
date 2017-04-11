@@ -1,0 +1,40 @@
+{
+  "name": "terminus-terminal",
+  "version": "0.0.1",
+  "description": "Terminus' terminal emulation core",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "scripts": {
+    "build": "webpack --progress --color",
+    "watch": "webpack --progress --color --watch"
+  },
+  "author": "Eugene Pankov",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/deep-equal": "1.0.0",
+    "@types/node": "7.0.12",
+    "@types/webpack-env": "1.13.0",
+    "awesome-typescript-loader": "3.1.2",
+    "css-loader": "^0.28.0",
+    "pug": "^2.0.0-beta11",
+    "pug-loader": "^2.3.0",
+    "raw-loader": "^0.5.1",
+    "sass-loader": "^6.0.3",
+    "style-loader": "^0.16.1",
+    "webpack": "2.3.3"
+  },
+  "dependencies": {
+    "@angular/common": "4.0.1",
+    "@angular/core": "4.0.1",
+    "@angular/forms": "4.0.1",
+    "@angular/platform-browser": "4.0.1",
+    "@ng-bootstrap/ng-bootstrap": "1.0.0-alpha.22",
+    "child-process-promise": "2.2.1",
+    "dataurl": "0.1.0",
+    "deep-equal": "1.0.1",
+    "fs-promise": "2.0.2",
+    "hterm-commonjs": "1.0.0",
+    "node-pty": "0.6.2",
+    "rxjs": "5.3.0"
+  }
+}

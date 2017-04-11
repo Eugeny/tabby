@@ -8,18 +8,18 @@ import 'jquery'
 // Always land on the start view
 location.hash = ''
 
-import { AppModule } from 'app.module'
+import { RootModule } from 'app.module'
 import { enableProdMode } from '@angular/core'
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic'
 
-if (nodeRequire('electron-is-dev')) {
+if ((<any>global).require('electron-is-dev')) {
     console.warn('Running in debug mode')
 } else {
     enableProdMode()
 }
 
 console.timeStamp('angular bootstrap started')
-platformBrowserDynamic().bootstrapModule(AppModule);
+platformBrowserDynamic().bootstrapModule(RootModule);
 
 
 (<any>process).emitWarning = function () { console.log(arguments) }
