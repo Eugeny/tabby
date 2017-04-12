@@ -21,3 +21,4 @@ driver/obj
 
 coverage
 .nyc_output
+npm-debug.log

@@ -58,6 +58,8 @@
     }
   },
   "scripts": {
+    "build": "webpack --progress --color",
+    "watch": "webpack --progress --color --watch",
     "pack": "build --dir",
     "postinstall": "install-app-deps",
     "dist": "build"

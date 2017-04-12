@@ -19,10 +19,7 @@
            "es2015",
            "es2015.iterable.ts",
            "es7"
-        ],
-        "paths": {
-          "terminus-*": ["../../terminus-*"]
-        }
+        ]
     },
     "compileOnSave": false,
     "exclude": [

@@ -8,7 +8,7 @@ import 'jquery'
 // Always land on the start view
 location.hash = ''
 
-import { RootModule } from 'app.module'
+import { RootModule } from './app.module'
 import { enableProdMode } from '@angular/core'
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic'
 
