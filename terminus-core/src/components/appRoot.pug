@@ -3,7 +3,7 @@ title-bar(*ngIf='!config.full().appearance.useNativeFrame && config.full().appea
 .content(
     [class.tabs-on-top]='config.full().appearance.tabsOnTop'    
 )
-    .tabs
+    .tab-bar
         button.btn.btn-secondary(
             *ngFor='let button of getLeftToolbarButtons()',
             [title]='button.title',
@@ -11,7 +11,7 @@ title-bar(*ngIf='!config.full().appearance.useNativeFrame && config.full().appea
         )
             i.fa([class]='"fa fa-" + button.icon')
                 
-        .tabs-container
+        .tabs
             tab-header(
                 *ngFor='let tab of app.tabs; let idx = index',
                 [class.pre-selected]='idx == app.tabs.indexOf(app.activeTab) - 1',
@@ -32,15 +32,12 @@ title-bar(*ngIf='!config.full().appearance.useNativeFrame && config.full().appea
         )
             i.fa([class]='"fa fa-" + button.icon')
 
-    .tabs-content
-        tab-body(
-            *ngFor='let tab of app.tabs; trackBy: tab?.id', 
-            [active]='tab == app.activeTab',
-            [tab]='tab',
-            [class.scrollable]='tab.scrollable',
-        )
+    tab-body(
+        *ngFor='let tab of app.tabs; trackBy: tab?.id', 
+        [active]='tab == app.activeTab',
+        [tab]='tab',
+        [class.scrollable]='tab.scrollable',
+    )
 
 toaster-container([toasterconfig]="toasterconfig")
 ng-template(ngbModalContainer)
-
-div.window-resizer.window-resizer-tl

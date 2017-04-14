@@ -9,11 +9,11 @@ ngb-tabset.vertical(type='tabs')
                 .col.col-lg-6
                     .form-group
                         label Theme
-                            select.form-control(
-                                '[(ngModel)]'='config.store.appearance.theme',
-                                (ngModelChange)='config.save()',
-                            )
-                                option(*ngFor='let theme of themes', [ngValue]='theme.name') {{theme.name}}
+                        select.form-control(
+                            '[(ngModel)]'='config.store.appearance.theme',
+                            (ngModelChange)='config.save()',
+                        )
+                            option(*ngFor='let theme of themes', [ngValue]='theme.name') {{theme.name}}
 
                     .form-group
                         label Show tabs

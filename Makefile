@@ -14,13 +14,6 @@ lint:
 build:
 	DEV=1 ./node_modules/.bin/webpack --progress --display-modules
 
-build-plugins:
-	cd terminus-core; npm run build
-	cd terminus-settings; npm run build
-	cd terminus-terminal; npm run build
-	cd terminus-community-color-schemes; npm run build
-	cd terminus-clickable-links; npm run build
-
 watch:
 	DEV=1 ./node_modules/.bin/webpack --progress -w
 

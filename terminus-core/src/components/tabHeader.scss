@@ -13,9 +13,8 @@ $tabs-height: 40px;
 
     min-width: 0;
     transition: 0.25s all;
-    //.button-states();
 
-    .content-wrapper {
+    .wrapper {
         display: flex;
         flex-direction: row;
         flex: auto;
@@ -47,11 +46,9 @@ $tabs-height: 40px;
         }
 
         button {
-            flex: none;
-
-            background: transparent;
-
             display: block;
+            flex: none;
+            background: transparent;
             opacity: 0;
 
             $button-size: $tabs-height * 0.6;
@@ -64,8 +61,6 @@ $tabs-height: 40px;
 
             text-align: center;
             font-size: 20px;
-
-            //.button-states();
         }
 
         &:hover button {
@@ -74,7 +69,4 @@ $tabs-height: 40px;
             opacity: 1;
         }
     }
-
-    //border-bottom: 2px solid transparent;
-    transition: 0.25s all;
 }

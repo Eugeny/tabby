@@ -1,7 +1,7 @@
 :host {
     display: flex;
-    width: calc(100vw - 2px);
-    height: calc(100vh - 2px);
+    width: 100vw;
+    height: 100vh;
     flex-direction: column;
     overflow: hidden;
     -webkit-user-select: none;
@@ -23,7 +23,7 @@ $tab-border-radius: 4px;
     }
 }
 
-.tabs {
+.tab-bar {
     flex: none;
     height: $tabs-height;
     display: flex;
@@ -45,7 +45,7 @@ $tab-border-radius: 4px;
         border-radius: 0;
     }
 
-    &>.tabs-container {
+    &>.tabs {
         flex: auto;
         display: flex;
     }

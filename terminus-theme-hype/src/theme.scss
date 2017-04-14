@@ -1,6 +1,12 @@
-$tab-border-radius: 5px;
-$button-hover-bg: rgba(0, 0, 0, .25);
-$button-active-bg: rgba(0, 0, 0, .5);
+$window-border: #313131;
+$body-bg: #010101;
+$body-bg2: #010101;
+$body-bg3: #111;
+
+
+$tab-border-radius: 3px;
+$button-hover-bg: rgba(255, 255, 255, .05);
+$button-active-bg: rgba(255, 255, 255, .1);
 
 
 $white:  #fff !default;
@@ -14,10 +20,6 @@ $teal:   #5bc0de !default;
 $pink:   #ff5b77 !default;
 $purple: #613d7c !default;
 
-
-$body-bg: #1D272D;
-$body-bg2: #131d27;
-$body-bg3: #20333e;
 
 $body-color: #aaa;
 $font-family-sans-serif: "Source Sans Pro";
@@ -90,60 +92,35 @@ title-bar {
 
 app-root  {
     background: $body-bg;
+    border: 1px solid $window-border;
 
     &> .content {
-        background: $body-bg2;
-
         .tab-bar {
-            background: $body-bg;
-
             &>button {
+                &:hover { background: $button-hover-bg !important; }
+                &:active { background: $button-active-bg !important; }
+
                 &:not(:hover):not(:active) {
                     background: $body-bg2;
                 }
             }
 
             &>.tabs {
-                &:empty {
-                    background: $body-bg2;
-                }
-
                 tab-header {
-                    background: $body-bg;
-
                     .wrapper {
-                        background: $body-bg2;
-
                         .index {
                             color: #555;
+                        }
+
+                        .name {
+                            text-align: center;
                         }
 
                         button {
                             color: $body-color;
                             border: none;
                             transition: 0.25s all;
-
-                            &:hover { background: $button-hover-bg !important; }
-                            &:active { background: $button-active-bg !important; }
                         }
-                    }
-
-                    &.active {
-                        background: $body-bg2;
-
-                        .wrapper {
-                            background: $body-bg;
-                        }
-                    }
-
-                    &.has-activity:not(.active) {
-                        /*
-                        .wrapper .index {
-                            background: $blue;
-                            color: white;
-                            text-shadow: 0 1px 1px rgba(0,0,0,.95);
-                        }
-                        */
                     }
                 }
             }
@@ -152,23 +129,21 @@ app-root  {
         &.tabs-on-top .tab-bar {
             margin-top: 3px;
 
+            &>button {
+                border-bottom: 1px solid $window-border;
+            }
+
             tab-header {
                 .wrapper {
-                    border-top: 1px solid transparent;
+                    border: 1px solid transparent;
+                    border-bottom: 1px solid $window-border;
                     border-top-left-radius: $tab-border-radius;
                     border-top-right-radius: $tab-border-radius;
                 }
 
-                &.pre-selected .wrapper {
-                    border-bottom-right-radius: $tab-border-radius;
-                }
-
-                &.post-selected .wrapper {
-                    border-bottom-left-radius: $tab-border-radius;
-                }
-
                 &.active .wrapper {
-                    border-top: 1px solid $teal;
+                    border: 1px solid $window-border;
+                    border-bottom: 1px solid transparent;
                 }
 
                 &.has-activity:not(.active) .wrapper {
@@ -180,23 +155,21 @@ app-root  {
         &:not(.tabs-on-top) .tab-bar {
             margin-bottom: 3px;
 
+            &>button {
+                border-top: 1px solid $window-border;
+            }
+
             tab-header {
                 .wrapper {
-                    border-bottom: 1px solid transparent;
+                    border: 1px solid transparent;
+                    border-top: 1px solid $window-border;
                     border-bottom-left-radius: $tab-border-radius;
                     border-bottom-right-radius: $tab-border-radius;
                 }
 
-                &.pre-selected .wrapper {
-                    border-top-right-radius: $tab-border-radius;
-                }
-
-                &.post-selected .wrapper {
-                    border-top-left-radius: $tab-border-radius;
-                }
-
                 &.active .wrapper {
-                    border-bottom: 1px solid $teal;
+                    border: 1px solid $window-border;
+                    border-top: 1px solid transparent;
                 }
 
                 &.has-activity:not(.active) .wrapper {

@@ -12,6 +12,7 @@ let plugins = [
     (<any>global).require(projectRoot + 'terminus-terminal').default,
     (<any>global).require(projectRoot + 'terminus-clickable-links').default,
     (<any>global).require(projectRoot + 'terminus-community-color-schemes').default,
+    (<any>global).require(projectRoot + 'terminus-theme-hype').default,
 ]
 
 const core = (<any>global).require(projectRoot + 'terminus-core')

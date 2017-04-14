@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "baseUrl": "src",
+    "module": "commonjs",
+    "target": "es5",
+    "declaration": false,
+    "noImplicitAny": false,
+    "removeComments": false,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "lib": [
+      "dom",
+      "es2015",
+      "es7"
+    ],
+    "paths": {
+      "*": ["../../app/node_modules/*"],
+      "terminus-*": ["../../terminus-*"]
+    }
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}
