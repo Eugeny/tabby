@@ -1,17 +1,20 @@
 button.btn.btn-outline-warning.btn-block(*ngIf='config.restartRequested', '(click)'='restartApp()') Restart the app to apply changes
 
 ngb-tabset.vertical(type='tabs')
-    ngb-tab(*ngFor='let provider of settingsProviders')
-        template(ngbTabTitle)
-            | {{provider.title}}
-        template(ngbTabContent)
-            settings-tab-body([provider]='provider')
     ngb-tab
         template(ngbTabTitle)
             | Application
         template(ngbTabContent)
             .row
                 .col.col-lg-6
+                    .form-group
+                        label Theme
+                            select.form-control(
+                                '[(ngModel)]'='config.store.appearance.theme',
+                                (ngModelChange)='config.save()',
+                            )
+                                option(*ngFor='let theme of themes', [ngValue]='theme.name') {{theme.name}}
+
                     .form-group
                         label Show tabs
                         br
@@ -144,3 +147,8 @@ ngb-tabset.vertical(type='tabs')
                         td
                             multi-hotkey-input('[(model)]'='config.store.hotkeys[hotkey.id]')
                     
+    ngb-tab(*ngFor='let provider of settingsProviders')
+        template(ngbTabTitle)
+            | {{provider.title}}
+        template(ngbTabContent)
+            settings-tab-body([provider]='provider')

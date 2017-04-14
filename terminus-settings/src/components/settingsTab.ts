@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core'
-import { ElectronService, DockingService, ConfigService, IHotkeyDescription, HotkeyProvider, BaseTabComponent } from 'terminus-core'
+import { ElectronService, DockingService, ConfigService, IHotkeyDescription, HotkeyProvider, BaseTabComponent, Theme } from 'terminus-core'
 
 import { SettingsTabProvider } from '../api'
 
@@ -21,7 +21,8 @@ export class SettingsTabComponent extends BaseTabComponent {
         private electron: ElectronService,
         public docking: DockingService,
         @Inject(HotkeyProvider) hotkeyProviders: HotkeyProvider[],
-        @Inject(SettingsTabProvider) public settingsProviders: SettingsTabProvider[]
+        @Inject(SettingsTabProvider) public settingsProviders: SettingsTabProvider[],
+        @Inject(Theme) public themes: Theme[],
     ) {
         super()
         this.hotkeyDescriptions = hotkeyProviders.map(x => x.hotkeys).reduce((a, b) => a.concat(b))

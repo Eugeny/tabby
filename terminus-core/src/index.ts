@@ -17,6 +17,7 @@ import { PluginsService } from './services/plugins'
 import { QuitterService } from './services/quitter'
 import { DockingService } from './services/docking'
 import { TabRecoveryService } from './services/tabRecovery'
+import { ThemesService } from './services/themes'
 
 import { AppRootComponent } from './components/appRoot'
 import { TabBodyComponent } from './components/tabBody'
@@ -24,6 +25,9 @@ import { TabHeaderComponent } from './components/tabHeader'
 import { TitleBarComponent } from './components/titleBar'
 
 import { HotkeyProvider } from './api/hotkeyProvider'
+import { Theme } from './api/theme'
+
+import { StandardTheme } from './theme'
 
 
 const PROVIDERS = [
@@ -37,8 +41,10 @@ const PROVIDERS = [
     NotifyService,
     PluginsService,
     TabRecoveryService,
+    ThemesService,
     QuitterService,
     { provide: HotkeyProvider, useClass: AppHotkeyProvider, multi: true },
+    { provide: Theme, useClass: StandardTheme, multi: true },
 ]
 
 
@@ -50,7 +56,6 @@ const PROVIDERS = [
         ToasterModule,
         NgbModule,
     ],
-    providers: PROVIDERS,
     declarations: [
         AppRootComponent,
         TabBodyComponent,

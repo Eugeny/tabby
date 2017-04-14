@@ -29,9 +29,7 @@ module.exports = {
         }
       },
       { test: /\.pug$/, use: ['apply-loader', 'pug-loader'] },
-      { test: /\.scss$/, use: ['style-loader', 'css-loader', 'sass-loader'], exclude: /components\// },
-      { test: /\.scss$/, use: ['to-string-loader', 'css-loader', 'sass-loader'], include: /components\// },
-      { test: /\.css$/, use: ['to-string-loader', 'css-loader', 'sass-loader'] },
+      { test: /\.scss$/, use: ['to-string-loader', 'css-loader', 'sass-loader'] },
       { test: /\.yaml$/, use: ['json-loader', 'yaml-loader'] },
     ]
   },

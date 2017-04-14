@@ -1,3 +1,8 @@
+$tab-border-radius: 5px;
+$button-hover-bg: rgba(0, 0, 0, .25);
+$button-active-bg: rgba(0, 0, 0, .5);
+
+
 $white:  #fff !default;
 $black:  #000 !default;
 $red:    #d9534f !default;
@@ -72,10 +77,6 @@ ngb-tabset .tab-content {
 [ngbradiogroup] > label.active {
     background: $blue;
 }
-
-$tab-border-radius: 5px;
-$button-hover-bg: rgba(0, 0, 0, .25);
-$button-active-bg: rgba(0, 0, 0, .5);
 
 title-bar {
     background: $body-bg2;
@@ -290,4 +291,8 @@ hotkey-input-modal {
             background: $blue;
         }
     }
+}
+
+.form-group label {
+    margin-bottom: 2px;
 }

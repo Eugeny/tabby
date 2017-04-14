@@ -10,12 +10,9 @@ import { QuitterService } from '../services/quitter'
 import { ConfigService } from '../services/config'
 import { DockingService } from '../services/docking'
 import { TabRecoveryService } from '../services/tabRecovery'
+import { ThemesService } from '../services/themes'
 
 import { AppService, IToolbarButton, ToolbarButtonProvider } from '../api'
-
-import 'angular2-toaster/toaster.css'
-import 'overrides.scss'
-import 'theme.scss'
 
 
 @Component({
@@ -55,6 +52,7 @@ export class AppRootComponent {
         public app: AppService,
         @Inject(ToolbarButtonProvider) private toolbarButtonProviders: ToolbarButtonProvider[],
         log: LogService,
+        _themes: ThemesService,
         _quitter: QuitterService,
     ) {
         (<any>console).timeStamp('AppComponent ctor')

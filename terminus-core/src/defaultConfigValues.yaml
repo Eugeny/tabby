@@ -3,6 +3,7 @@ appearance:
   dockScreen: 'current'
   dockFill: 50
   tabsOnTop: true
+  theme: 'Standard'
   useNativeFrame: false
 hotkeys:
   close-tab:
