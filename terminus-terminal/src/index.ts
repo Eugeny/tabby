@@ -7,14 +7,14 @@ import { HostAppService, Platform, ToolbarButtonProvider, TabRecoveryProvider, C
 import { SettingsTabProvider } from 'terminus-settings'
 
 import { TerminalTabComponent } from './components/terminalTab'
-import { SettingsComponent } from './components/settings'
+import { TerminalSettingsTabComponent } from './components/terminalSettingsTab'
 import { ColorPickerComponent } from './components/colorPicker'
 import { SessionsService } from './services/sessions'
 import { ScreenPersistenceProvider } from './persistenceProviders'
 import { ButtonProvider } from './buttonProvider'
 import { RecoveryProvider } from './recoveryProvider'
 import { SessionPersistenceProvider, TerminalColorSchemeProvider } from './api'
-import { TerminalSettingsProvider } from './settings'
+import { TerminalSettingsTabProvider } from './settings'
 import { TerminalConfigProvider } from './config'
 import { HyperColorSchemes } from './colorSchemes'
 import { hterm } from './hterm'
@@ -42,18 +42,18 @@ import { hterm } from './hterm'
             },
             deps: [HostAppService, ScreenPersistenceProvider],
         },
-        { provide: SettingsTabProvider, useClass: TerminalSettingsProvider, multi: true },
+        { provide: SettingsTabProvider, useClass: TerminalSettingsTabProvider, multi: true },
         { provide: ConfigProvider, useClass: TerminalConfigProvider, multi: true },
         { provide: TerminalColorSchemeProvider, useClass: HyperColorSchemes, multi: true },
     ],
     entryComponents: [
         TerminalTabComponent,
-        SettingsComponent,
+        TerminalSettingsTabComponent,
     ],
     declarations: [
         ColorPickerComponent,
         TerminalTabComponent,
-        SettingsComponent,
+        TerminalSettingsTabComponent,
     ],
 })
 export default class TerminalModule {

@@ -47,7 +47,7 @@ export class ScreenPersistenceProvider extends SessionPersistenceProvider {
             altscreen on
         `, 'utf-8')
         let recoveryId = `term-tab-${Date.now()}`
-        let args = ['-d', '-m', '-c', configPath, '-U', '-S', recoveryId, '--', options.command].concat(options.args || [])
+        let args = ['-d', '-m', '-c', configPath, '-U', '-S', recoveryId, '-T', 'xterm-256color', '--', options.command].concat(options.args || [])
         await spawn('screen', args, {
             cwd: options.cwd,
             env: options.env || process.env,

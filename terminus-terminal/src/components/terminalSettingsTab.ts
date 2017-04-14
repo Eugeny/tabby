@@ -2,24 +2,25 @@ import { Observable } from 'rxjs/Observable'
 import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/debounceTime'
 import 'rxjs/add/operator/distinctUntilChanged'
-const equal = require('deep-equal')
 const fontManager = require('font-manager')
+const equal = require('deep-equal')
 
 import { Component, Inject } from '@angular/core'
 import { ConfigService, HostAppService, Platform } from 'terminus-core'
-const { exec } = require('child-process-promise')
-
 import { TerminalColorSchemeProvider, ITerminalColorScheme } from '../api'
+const { exec } = require('child-process-promise')
 
 
 @Component({
-    template: require('./settings.pug'),
-    styles: [require('./settings.scss')],
+    template: require('./terminalSettingsTab.pug'),
+    styles: [require('./terminalSettingsTab.scss')],
 })
-export class SettingsComponent {
+export class TerminalSettingsTabComponent {
     fonts: string[] = []
     colorSchemes: ITerminalColorScheme[] = []
     equalComparator = equal
+    editingColorScheme: ITerminalColorScheme
+    schemeChanged = false
 
     constructor(
         public config: ConfigService,
@@ -54,5 +55,38 @@ export class SettingsComponent {
           .map(list => Array.from(new Set(list)))
     }
 
+    editScheme (scheme: ITerminalColorScheme) {
+        this.editingColorScheme = scheme
+        this.schemeChanged = false
+    }
 
+    saveScheme () {
+        let schemes = this.config.full().terminal.customColorSchemes
+        schemes = schemes.filter(x => x !== this.editingColorScheme && x.name !== this.editingColorScheme.name)
+        schemes.push(this.editingColorScheme)
+        this.config.store.terminal.customColorSchemes = schemes
+        this.config.save()
+        this.cancelEditing()
+    }
+
+    cancelEditing () {
+        this.editingColorScheme = null
+    }
+
+    deleteScheme (scheme: ITerminalColorScheme) {
+        if (confirm(`Delete "${scheme.name}"?`)) {
+            let schemes = this.config.full().terminal.customColorSchemes
+            schemes = schemes.filter(x => x !== scheme)
+            this.config.store.terminal.customColorSchemes = schemes
+            this.config.save()
+        }
+    }
+
+    isCustomScheme (scheme: ITerminalColorScheme) {
+        return this.config.full().terminal.customColorSchemes.some(x => equal(x, scheme))
+    }
+
+    colorsTrackBy (index) {
+        return index
+    }
 }

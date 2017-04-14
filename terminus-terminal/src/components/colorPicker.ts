@@ -13,17 +13,22 @@ export class ColorPickerComponent {
     @Output() modelChange = new EventEmitter<string>()
     @ViewChild('popover') popover: NgbPopover
     @ViewChild('input') input
+    isOpen: boolean
 
     open () {
         setImmediate(() => {
             this.popover.open()
             setImmediate(() => {
                 this.input.nativeElement.focus()
+                this.isOpen = true
             })
         })
     }
 
     @HostListener('document:click', ['$event']) onOutsideClick ($event) {
+        if (!this.isOpen) {
+            return
+        }
         let windowRef = (<any>this.popover)._windowRef
         if (!windowRef) {
             return
@@ -31,6 +36,7 @@ export class ColorPickerComponent {
         if ($event.target !== windowRef.location.nativeElement &&
             !windowRef.location.nativeElement.contains($event.target)) {
             this.popover.close()
+            this.isOpen = false
         }
     }
 

@@ -15,6 +15,7 @@ export class TerminalConfigProvider extends ConfigProvider {
                 cursor: null,
                 colors: [],
             },
+            customColorSchemes: []
         },
         hotkeys: {
             'new-tab': [

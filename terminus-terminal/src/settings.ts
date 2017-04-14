@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core'
 import { SettingsTabProvider, ComponentType } from 'terminus-settings'
 
-import { SettingsComponent } from './components/settings'
+import { TerminalSettingsTabComponent } from './components/terminalSettingsTab'
 
 
 @Injectable()
-export class TerminalSettingsProvider extends SettingsTabProvider {
+export class TerminalSettingsTabProvider extends SettingsTabProvider {
     title = 'Terminal'
 
     getComponentType (): ComponentType {
-        return SettingsComponent
+        return TerminalSettingsTabComponent
     }
 }
