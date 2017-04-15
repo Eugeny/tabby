@@ -85,7 +85,7 @@ export class TerminalTabComponent extends BaseTabComponent {
         }, 1000)
 
         this.bell$.subscribe(() => {
-            if (this.config.full().terminal.bell != 'off') {
+            if (this.config.store.terminal.bell != 'off') {
                 let bg = preferenceManager.get('background-color')
                 preferenceManager.set('background-color', 'rgba(128,128,128,.25)')
                 setTimeout(() => {
@@ -178,7 +178,7 @@ export class TerminalTabComponent extends BaseTabComponent {
     }
 
     async configure (): Promise<void> {
-        let config = this.config.full()
+        let config = this.config.store
         preferenceManager.set('font-family', config.terminal.font)
         preferenceManager.set('font-size', config.terminal.fontSize)
         preferenceManager.set('enable-bold', true)

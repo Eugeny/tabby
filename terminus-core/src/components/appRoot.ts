@@ -110,7 +110,7 @@ export class AppRootComponent {
                 // unfocused, invisible
                 this.electron.app.window.show()
             } else {
-                if (this.config.full().appearance.dock == 'off') {
+                if (this.config.store.appearance.dock == 'off') {
                     // not docked, visible
                     setTimeout(() => {
                         this.electron.app.window.focus()

@@ -1,7 +1,7 @@
-title-bar(*ngIf='!config.full().appearance.useNativeFrame && config.full().appearance.dock == "off"')
+title-bar(*ngIf='!config.store.appearance.useNativeFrame && config.store.appearance.dock == "off"')
 
 .content(
-    [class.tabs-on-top]='config.full().appearance.tabsOnTop'    
+    [class.tabs-on-top]='config.store.appearance.tabsOnTop'    
 )
     .tab-bar
         button.btn.btn-secondary(

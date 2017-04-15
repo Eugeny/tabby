@@ -89,8 +89,8 @@ export class HotkeysService {
 
     getHotkeysConfig () {
         let keys = {}
-        for (let key in this.config.full().hotkeys) {
-            let value = this.config.full().hotkeys[key]
+        for (let key in this.config.store.hotkeys) {
+            let value = this.config.store.hotkeys[key]
             if (typeof value == 'string') {
                 value = [value]
             }

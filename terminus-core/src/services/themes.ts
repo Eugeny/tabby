@@ -31,7 +31,7 @@ export class ThemesService {
     }
 
     applyCurrentTheme (): void {
-        let theme = this.findTheme(this.config.full().appearance.theme)
+        let theme = this.findTheme(this.config.store.appearance.theme)
         if (!theme) {
             theme = this.findTheme('Standard')
         }

@@ -61,7 +61,7 @@ export class TerminalSettingsTabComponent {
     }
 
     saveScheme () {
-        let schemes = this.config.full().terminal.customColorSchemes
+        let schemes = this.config.store.terminal.customColorSchemes
         schemes = schemes.filter(x => x !== this.editingColorScheme && x.name !== this.editingColorScheme.name)
         schemes.push(this.editingColorScheme)
         this.config.store.terminal.customColorSchemes = schemes
@@ -75,7 +75,7 @@ export class TerminalSettingsTabComponent {
 
     deleteScheme (scheme: ITerminalColorScheme) {
         if (confirm(`Delete "${scheme.name}"?`)) {
-            let schemes = this.config.full().terminal.customColorSchemes
+            let schemes = this.config.store.terminal.customColorSchemes
             schemes = schemes.filter(x => x !== scheme)
             this.config.store.terminal.customColorSchemes = schemes
             this.config.save()
@@ -83,7 +83,7 @@ export class TerminalSettingsTabComponent {
     }
 
     isCustomScheme (scheme: ITerminalColorScheme) {
-        return this.config.full().terminal.customColorSchemes.some(x => equal(x, scheme))
+        return this.config.store.terminal.customColorSchemes.some(x => equal(x, scheme))
     }
 
     colorsTrackBy (index) {

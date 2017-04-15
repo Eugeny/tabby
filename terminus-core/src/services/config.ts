@@ -7,42 +7,36 @@ import { ConfigProvider } from '../api/configProvider'
 
 
 export class ConfigProxy {
-    constructor (real: any, defaults: any, structure: any) {
-        for (let key in structure) {
-            if (!real[key]) {
-                real[key] = {}
-            }
-            let proxy = new ConfigProxy(real[key], defaults[key], structure[key])
-            Object.defineProperty(
-                this,
-                key,
-                {
-                    enumerable: true,
-                    configurable: false,
-                    get: () => {
-                        return proxy
-                    },
-                }
-            )
-        }
+    constructor (real: any, defaults: any) {
         for (let key in defaults) {
-            if (structure[key]) {
-                continue
-            }
-            Object.defineProperty(
-                this,
-                key,
-                {
-                    enumerable: true,
-                    configurable: false,
-                    get: () => {
-                        return real[key] || defaults[key]
-                    },
-                    set: (value) => {
-                        real[key] = value
-                    }
+            if (defaults[key] instanceof Object && Object.keys(defaults[key]).length > 0) {
+                if (!real[key]) {
+                    real[key] = {}
                 }
-            )
+                let proxy = new ConfigProxy(real[key], defaults[key])
+                Object.defineProperty(
+                    this,
+                    key,
+                    {
+                        enumerable: true,
+                        configurable: false,
+                        get: () => proxy,
+                    }
+                )
+            } else {
+                Object.defineProperty(
+                    this,
+                    key,
+                    {
+                        enumerable: true,
+                        configurable: false,
+                        get: () => real[key] || defaults[key],
+                        set: (value) => {
+                            real[key] = value
+                        }
+                    }
+                )
+            }
         }
     }
 }
@@ -58,7 +52,6 @@ export class ConfigService {
     restartRequested: boolean
     private _store: any
     private path: string
-    private configStructure: any = require('../defaultConfigStructure.yaml')
     private defaultConfigValues: any = require('../defaultConfigValues.yaml')
 
     constructor (
@@ -66,7 +59,6 @@ export class ConfigService {
         @Inject(ConfigProvider) configProviders: ConfigProvider[],
     ) {
         this.path = path.join(electron.app.getPath('userData'), 'config.yaml')
-        this.configStructure = configProviders.map(x => x.configStructure).reduce(configMerge, this.configStructure)
         this.defaultConfigValues = configProviders.map(x => x.defaultConfigValues).reduce(configMerge, this.defaultConfigValues)
         this.load()
     }
@@ -77,7 +69,7 @@ export class ConfigService {
         } else {
             this._store = {}
         }
-        this.store = new ConfigProxy(this._store, this.defaultConfigValues, this.configStructure)
+        this.store = new ConfigProxy(this._store, this.defaultConfigValues)
     }
 
     save (): void {

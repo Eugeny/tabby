@@ -19,14 +19,14 @@ export class DockingService {
 
     dock () {
         let display = this.electron.screen.getAllDisplays()
-            .filter((x) => x.id == this.config.full().appearance.dockScreen)[0]
+            .filter((x) => x.id == this.config.store.appearance.dockScreen)[0]
         if (!display) {
             display = this.getCurrentScreen()
         }
 
-        let dockSide = this.config.full().appearance.dock
+        let dockSide = this.config.store.appearance.dock
         let newBounds: Electron.Rectangle = { x: 0, y: 0, width: 0, height: 0 }
-        let fill = this.config.full().appearance.dockFill
+        let fill = this.config.store.appearance.dockFill
 
         if (dockSide == 'off') {
             this.hostApp.setAlwaysOnTop(false)
