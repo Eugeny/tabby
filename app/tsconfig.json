@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "baseUrl": "./app/src",
+        "baseUrl": "./src",
         "module": "commonjs",
         "target": "es5",
         "declaration": false,

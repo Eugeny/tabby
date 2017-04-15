@@ -53,7 +53,7 @@ const configMerge = (a, b) => require('deepmerge')(a, b, { arrayMerge: (_d, s) =
 
 @Injectable()
 export class ConfigService {
-    store: ConfigProxy
+    store: any
     change = new EventEmitter()
     restartRequested: boolean
     private _store: any

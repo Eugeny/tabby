@@ -23,7 +23,6 @@ export class Session {
     constructor (options: SessionOptions) {
         this.name = options.name
         this.recoveryId = options.recoveryId
-        console.log('Spawning', options.command)
 
         let env = {
             ...process.env,

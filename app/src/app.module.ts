@@ -1,28 +1,23 @@
 import { NgModule } from '@angular/core'
+import { BrowserModule } from '@angular/platform-browser'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
+import { loadPlugins } from './plugins'
 
-const projectRoot = '/home/eugene/Work/term/'
-if (process.env.DEV) {
-    (<any>global).require('module').globalPaths.push(projectRoot);
-    (<any>global).require('module').globalPaths.push(projectRoot + 'app/node_modules')
-}
-
-let plugins = [
-    (<any>global).require(projectRoot + 'terminus-settings').default,
-    (<any>global).require(projectRoot + 'terminus-terminal').default,
-    (<any>global).require(projectRoot + 'terminus-clickable-links').default,
-    (<any>global).require(projectRoot + 'terminus-community-color-schemes').default,
-    (<any>global).require(projectRoot + 'terminus-theme-hype').default,
-]
-
-const core = (<any>global).require(projectRoot + 'terminus-core')
-
-@NgModule({
-    imports: [
-        core.AppRootModule.forRoot(),
-        ...plugins,
+export async function getRootModule(): Promise<any> {
+    let plugins = await loadPlugins()
+    let imports = [
+        BrowserModule,
+        ...(plugins.map(x => x.default.forRoot ? x.default.forRoot() : x.default)),
         NgbModule.forRoot(),
-    ],
-    bootstrap: [core.AppRootComponent]
-})
-export class RootModule { }
+    ]
+    let bootstrap = [
+        ...(plugins.filter(x => x.bootstrap).map(x => x.bootstrap)),
+    ]
+
+    @NgModule({
+        imports,
+        bootstrap,
+    }) class RootModule { }
+
+    return RootModule
+}

@@ -2,6 +2,10 @@
   "name": "terminus",
   "version": "0.0.1",
   "main": "main.js",
+  "scripts": {
+    "build": "../node_modules/.bin/webpack --progress --color --display-modules",
+    "watch": "../node_modules/.bin/webpack --progress --color --watch"
+  },
   "dependencies": {
     "@angular/animations": "4.0.1",
     "@angular/common": "4.0.1",
@@ -15,6 +19,7 @@
     "electron-config": "0.2.1",
     "electron-debug": "1.0.1",
     "electron-is-dev": "0.1.2",
+    "fs-promise": "^2.0.2",
     "js-yaml": "3.8.2",
     "path": "0.12.7",
     "rxjs": "5.3.0",

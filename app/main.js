@@ -131,7 +131,7 @@ start = () => {
         width: 800,
         height: 400,
         //icon: `${app.getAppPath()}/assets/img/icon.png`,
-        title: 'Term',
+        title: 'Terminus',
         minWidth: 300,
         minHeight: 100,
         'web-preferences': {'web-security': false},

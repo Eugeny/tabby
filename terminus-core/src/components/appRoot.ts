@@ -55,8 +55,6 @@ export class AppRootComponent {
         _themes: ThemesService,
         _quitter: QuitterService,
     ) {
-        (<any>console).timeStamp('AppComponent ctor')
-
         this.logger = log.create('main')
         this.logger.info('v', electron.app.getVersion())
 

@@ -2,7 +2,6 @@
   "name": "term",
   "devDependencies": {
     "angular2-perfect-scrollbar": "2.0.0",
-    "jquery": "^3.1.1",
     "@types/fs-promise": "^1.0.1",
     "@types/core-js": "^0.9.35",
     "@types/electron": "1.4.34",
@@ -36,7 +35,7 @@
     "url-loader": "^0.5.7",
     "val-loader": "^0.5.0",
     "vrsource-tslint-rules": "^4.0.1",
-    "webpack": "2.3.3"
+    "webpack": "2.4.1"
   },
   "build": {
     "appId": "com.elements.benchmark",
@@ -58,8 +57,8 @@
     }
   },
   "scripts": {
-    "build": "webpack --progress --color",
-    "watch": "webpack --progress --color --watch",
+    "build": "node --max-old-space-size=4096 ./node_modules/.bin/webpack --progress --color",
+    "watch": "node --max-old-space-size=4096 ./node_modules/.bin/webpack --progress --color --watch",
     "pack": "build --dir",
     "postinstall": "install-app-deps",
     "dist": "build"

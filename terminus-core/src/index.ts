@@ -1,5 +1,4 @@
 import { NgModule, ModuleWithProviders } from '@angular/core'
-console.info((<any>global).require.resolve('@angular/core'))
 import { BrowserModule } from '@angular/platform-browser'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { FormsModule } from '@angular/forms'
@@ -64,9 +63,6 @@ const PROVIDERS = [
     ],
 })
 export default class AppModule {
-}
-
-export class AppRootModule {
     static forRoot(): ModuleWithProviders {
         return {
             ngModule: AppModule,
@@ -75,5 +71,5 @@ export class AppRootModule {
     }
 }
 
-export { AppRootComponent }
+export { AppRootComponent as bootstrap }
 export * from './api'

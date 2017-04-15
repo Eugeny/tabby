@@ -22,6 +22,7 @@ module.exports = {
         test: /\.ts$/,
         loader: 'awesome-typescript-loader',
         options: {
+          configFileName: path.resolve(__dirname, 'tsconfig.json'),
           paths: {
             "terminus-*": [path.resolve(__dirname, '../terminus-*')],
             "*": [path.resolve(__dirname, '../app/node_modules/*')],

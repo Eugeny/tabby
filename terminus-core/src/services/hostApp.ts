@@ -28,7 +28,7 @@ export class HostAppService {
         electron.ipcRenderer.on('host:quit-request', () => this.zone.run(() => this.quitRequested.emit()))
 
         electron.ipcRenderer.on('uncaughtException', function(err) {
-            console.error('Unhandled exception:', err)
+            this.logger.error('Unhandled exception:', err)
         })
 
         electron.ipcRenderer.on('host:window-shown', () => {

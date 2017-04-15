@@ -25,8 +25,10 @@ module.exports = {
     loaders: [
       {
         test: /\.ts$/,
-        use: 'awesome-typescript-loader',
-        exclude: [/node_modules/]
+        loader: 'awesome-typescript-loader',
+        options: {
+          configFileName: path.resolve(__dirname, 'tsconfig.json'),
+        }
       },
       {
         test: /\.scss$/,
@@ -40,14 +42,14 @@ module.exports = {
         test: /\.(png|svg)$/,
         loader: "file-loader",
         options: {
-          name: 'images/[name].[hash:8].[ext]'
+          name: 'images/[name].[ext]'
         }
       },
       {
         test: /\.(ttf|eot|otf|woff|woff2)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
         loader: "file-loader",
         options: {
-          name: 'fonts/[name].[hash:8].[ext]'
+          name: 'fonts/[name].[ext]'
         }
       }
     ]
@@ -60,6 +62,9 @@ module.exports = {
     '@angular/forms': 'commonjs @angular/forms',
     '@angular/common': 'commonjs @angular/common',
     '@ng-bootstrap/ng-bootstrap': 'commonjs @ng-bootstrap/ng-bootstrap',
+    'fs-promise': 'commonjs fs-promise',
+    'module': 'commonjs module',
+    'path': 'commonjs path',
     'rxjs': 'commonjs rxjs',
     'zone.js': 'commonjs zone.js',
   },

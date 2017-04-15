@@ -20,11 +20,7 @@
       "dom",
       "es2015",
       "es7"
-    ],
-    "paths": {
-      "*": ["../../app/node_modules/*"],
-      "terminus-*": ["../../terminus-*"]
-    }
+    ]
   },
   "compileOnSave": false,
   "exclude": [
