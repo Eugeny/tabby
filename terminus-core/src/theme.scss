@@ -62,22 +62,6 @@ $popover-bg:                     $body-bg2;
 
 @import '~bootstrap/scss/bootstrap.scss';
 
-.nav-tabs {
-    background: $btn-secondary-bg;
-    .nav-link {
-        transition: 0.25s all;
-        border-bottom-color: $nav-tabs-border-color;
-    }
-}
-
-ngb-tabset .tab-content {
-    padding-top: 20px;
-}
-
-[ngbradiogroup] > label.active {
-    background: $blue;
-}
-
 title-bar {
     background: $body-bg2;
 
@@ -293,4 +277,26 @@ hotkey-input-modal {
 
 .form-group label {
     margin-bottom: 2px;
+}
+
+.nav-tabs {
+    background: $btn-secondary-bg;
+    .nav-link {
+        transition: 0.25s all;
+        border-bottom-color: $nav-tabs-border-color;
+    }
+}
+
+ngb-tabset .tab-content {
+    padding-top: 20px;
+}
+
+[ngbradiogroup] > label.active {
+    background: $blue;
+}
+
+.btn {
+    i + * {
+        margin-left: 5px;
+    }
 }

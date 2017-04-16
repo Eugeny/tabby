@@ -9,7 +9,11 @@ import { ConfigProvider } from '../api/configProvider'
 export class ConfigProxy {
     constructor (real: any, defaults: any) {
         for (let key in defaults) {
-            if (defaults[key] instanceof Object && Object.keys(defaults[key]).length > 0) {
+            if (
+                defaults[key] instanceof Object &&
+                !(defaults[key] instanceof Array) &&
+                Object.keys(defaults[key]).length > 0
+            ) {
                 if (!real[key]) {
                     real[key] = {}
                 }

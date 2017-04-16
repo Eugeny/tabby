@@ -17,7 +17,7 @@
     "@ng-bootstrap/ng-bootstrap": "1.0.0-alpha.22",
     "devtron": "1.4.0",
     "electron-config": "0.2.1",
-    "electron-debug": "1.0.1",
+    "electron-debug": "^1.0.1",
     "electron-is-dev": "0.1.2",
     "fs-promise": "^2.0.2",
     "js-yaml": "3.8.2",

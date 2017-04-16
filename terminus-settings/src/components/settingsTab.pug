@@ -132,6 +132,13 @@ ngb-tabset.vertical(type='tabs')
                                     step='0.01'
                                 )
 
+                    .form-group
+                        label Debugging
+                        div
+                            button.btn.btn-secondary((click)='hostApp.openDevTools()')
+                                i.fa.fa-bug
+                                span Open DevTools
+
     ngb-tab
         template(ngbTabTitle)
             | Hotkeys

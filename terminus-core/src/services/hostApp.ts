@@ -51,15 +51,15 @@ export class HostAppService {
 
     private logger: Logger;
 
-    getWindow() {
+    getWindow () {
         return this.electron.app.window
     }
 
-    getShell() {
+    getShell () {
         return this.electron.shell
     }
 
-    getAppPath() {
+    getAppPath () {
         return this.electron.app.getAppPath()
     }
 
@@ -68,7 +68,7 @@ export class HostAppService {
     }
 
     openDevTools() {
-        this.electron.app.webContents.openDevTools()
+        this.getWindow().webContents.openDevTools()
     }
 
     setCloseable(flag: boolean) {

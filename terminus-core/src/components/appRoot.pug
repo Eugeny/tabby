@@ -3,7 +3,7 @@ title-bar(*ngIf='!config.store.appearance.useNativeFrame && config.store.appeara
 .content(
     [class.tabs-on-top]='config.store.appearance.tabsOnTop'    
 )
-    .tab-bar
+    .tab-bar(*ngIf='app.tabs.length > 0')
         button.btn.btn-secondary(
             *ngFor='let button of getLeftToolbarButtons()',
             [title]='button.title',
@@ -31,6 +31,8 @@ title-bar(*ngIf='!config.store.appearance.useNativeFrame && config.store.appeara
             (click)='button.click()',
         )
             i.fa([class]='"fa fa-" + button.icon')
+
+    start-page(*ngIf='app.tabs.length == 0')
 
     tab-body(
         *ngFor='let tab of app.tabs; trackBy: tab?.id', 

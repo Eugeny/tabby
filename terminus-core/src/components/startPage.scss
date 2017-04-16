@@ -1,0 +1,13 @@
+:host {
+    display: flex;
+    flex: auto;
+}
+
+:host div {
+    flex: none;
+    margin: auto;
+    width: 400px;
+    max-width: 100vw;
+    display: flex;
+    flex-direction: column;
+}

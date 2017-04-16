@@ -1,4 +1,6 @@
 const electron = require('electron')
+require('electron-debug')({enabled: true, showDevTools: (process.argv.indexOf('--debug') != -1) ? 'undocked' : false})
+
 
 let app = electron.app
 

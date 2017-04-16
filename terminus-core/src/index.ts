@@ -20,6 +20,7 @@ import { ThemesService } from './services/themes'
 
 import { AppRootComponent } from './components/appRoot'
 import { TabBodyComponent } from './components/tabBody'
+import { StartPageComponent } from './components/startPage'
 import { TabHeaderComponent } from './components/tabHeader'
 import { TitleBarComponent } from './components/titleBar'
 
@@ -57,6 +58,7 @@ const PROVIDERS = [
     ],
     declarations: [
         AppRootComponent,
+        StartPageComponent,
         TabBodyComponent,
         TabHeaderComponent,
         TitleBarComponent,

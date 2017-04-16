@@ -1,0 +1,7 @@
+div
+    button.btn.btn-outline-info.btn-lg.btn-block(
+        *ngFor='let button of getButtons()',
+        (click)='button.click()',
+    )
+        i.fa([class]='"fa fa-" + button.icon')
+        span {{button.title}}
