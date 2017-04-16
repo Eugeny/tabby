@@ -29,7 +29,7 @@ export class TerminalSettingsTabComponent {
     ) { }
 
     async ngOnInit () {
-        if (this.hostApp.platform == Platform.Windows) {
+        if (this.hostApp.platform == Platform.Windows || this.hostApp.platform == Platform.macOS) {
             let fonts = await new Promise<any[]>((resolve) => fontManager.findFonts({ monospace: true }, resolve))
             this.fonts = fonts.map(x => x.family)
             this.fonts.sort()
