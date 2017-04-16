@@ -1,5 +1,5 @@
 import { Component, Input, ViewChild, HostBinding, ViewContainerRef } from '@angular/core'
-import { BaseTabComponent } from '../components/baseTab'
+import { BaseTabComponent } from '../components/baseTab.component'
 
 @Component({
     selector: 'tab-body',

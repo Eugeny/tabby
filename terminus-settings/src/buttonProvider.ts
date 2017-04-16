@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core'
 import { ToolbarButtonProvider, IToolbarButton, AppService } from 'terminus-core'
 
-import { SettingsTabComponent } from './components/settingsTab'
+import { SettingsTabComponent } from './components/settingsTab.component'
 
 
 @Injectable()

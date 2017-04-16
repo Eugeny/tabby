@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { HostAppService } from '../services/hostApp'
+import { HostAppService } from '../services/hostApp.service'
 
 
 @Injectable()

@@ -13,8 +13,8 @@ import { TerminalColorSchemeProvider, ITerminalColorScheme } from '../api'
 
 
 @Component({
-    template: require('./terminalSettingsTab.pug'),
-    styles: [require('./terminalSettingsTab.scss')],
+    template: require('./terminalSettingsTab.component.pug'),
+    styles: [require('./terminalSettingsTab.component.scss')],
 })
 export class TerminalSettingsTabComponent {
     fonts: string[] = []

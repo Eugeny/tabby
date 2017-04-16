@@ -1,6 +1,6 @@
 import { Injectable, NgZone, EventEmitter } from '@angular/core'
-import { ElectronService } from '../services/electron'
-import { Logger, LogService } from '../services/log'
+import { ElectronService } from '../services/electron.service'
+import { Logger, LogService } from '../services/log.service'
 
 export enum Platform {
     Linux, macOS, Windows,

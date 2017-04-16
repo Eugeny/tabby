@@ -1,8 +1,8 @@
 import { Injectable, Inject, NgZone, EventEmitter } from '@angular/core'
-import { ElectronService } from '../services/electron'
-import { ConfigService } from '../services/config'
-import { NativeKeyEvent, stringifyKeySequence } from './hotkeys.util'
 import { IHotkeyDescription, HotkeyProvider } from '../api/hotkeyProvider'
+import { NativeKeyEvent, stringifyKeySequence } from './hotkeys.util'
+import { ConfigService } from '../services/config.service'
+import { ElectronService } from '../services/electron.service'
 
 
 export interface PartialHotkeyMatch {

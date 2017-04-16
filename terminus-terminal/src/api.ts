@@ -1,4 +1,4 @@
-import { TerminalTabComponent } from './components/terminalTab'
+import { TerminalTabComponent } from './components/terminalTab.component'
 export { TerminalTabComponent }
 
 export abstract class TerminalDecorator {

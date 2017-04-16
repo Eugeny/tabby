@@ -1,10 +1,10 @@
 import { Component, HostBinding } from '@angular/core'
-import { HostAppService, Platform } from '../services/hostApp'
+import { HostAppService, Platform } from '../services/hostApp.service'
 
 @Component({
   selector: 'title-bar',
-  template: require('./titleBar.pug'),
-  styles: [require('./titleBar.scss')],
+  template: require('./titleBar.component.pug'),
+  styles: [require('./titleBar.component.scss')],
 })
 export class TitleBarComponent {
     @HostBinding('class.inset-titlebar') insetTitlebar = false

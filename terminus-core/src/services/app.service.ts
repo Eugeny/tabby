@@ -1,8 +1,8 @@
 import { Subject } from 'rxjs'
 import { Injectable, ComponentFactoryResolver, Injector, Optional } from '@angular/core'
-import { Logger, LogService } from '../services/log'
 import { DefaultTabProvider } from '../api/defaultTabProvider'
-import { BaseTabComponent } from '../components/baseTab'
+import { BaseTabComponent } from '../components/baseTab.component'
+import { Logger, LogService } from '../services/log.service'
 
 export declare type TabComponentType = new (...args: any[]) => BaseTabComponent
 

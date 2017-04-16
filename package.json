@@ -1,7 +1,6 @@
 {
   "name": "term",
   "devDependencies": {
-    "angular2-perfect-scrollbar": "2.0.0",
     "@types/fs-promise": "^1.0.1",
     "@types/core-js": "^0.9.35",
     "@types/electron": "1.4.34",

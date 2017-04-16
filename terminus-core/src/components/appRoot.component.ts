@@ -2,23 +2,23 @@ import { Component, Inject } from '@angular/core'
 import { trigger, style, animate, transition, state } from '@angular/animations'
 import { ToasterConfig } from 'angular2-toaster'
 
-import { ElectronService } from '../services/electron'
-import { HostAppService } from '../services/hostApp'
-import { HotkeysService } from '../services/hotkeys'
-import { Logger, LogService } from '../services/log'
-import { QuitterService } from '../services/quitter'
-import { ConfigService } from '../services/config'
-import { DockingService } from '../services/docking'
-import { TabRecoveryService } from '../services/tabRecovery'
-import { ThemesService } from '../services/themes'
+import { ElectronService } from '../services/electron.service'
+import { HostAppService } from '../services/hostApp.service'
+import { HotkeysService } from '../services/hotkeys.service'
+import { Logger, LogService } from '../services/log.service'
+import { QuitterService } from '../services/quitter.service'
+import { ConfigService } from '../services/config.service'
+import { DockingService } from '../services/docking.service'
+import { TabRecoveryService } from '../services/tabRecovery.service'
+import { ThemesService } from '../services/themes.service'
 
 import { AppService, IToolbarButton, ToolbarButtonProvider } from '../api'
 
 
 @Component({
     selector: 'app-root',
-    template: require('./appRoot.pug'),
-    styles: [require('./appRoot.scss')],
+    template: require('./appRoot.component.pug'),
+    styles: [require('./appRoot.component.scss')],
     animations: [
         trigger('animateTab', [
             state('in', style({

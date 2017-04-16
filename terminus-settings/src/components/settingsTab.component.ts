@@ -6,10 +6,10 @@ import { SettingsTabProvider } from '../api'
 
 @Component({
   selector: 'settings-tab',
-  template: require('./settingsTab.pug'),
+  template: require('./settingsTab.component.pug'),
   styles: [
-    require('./settingsTab.scss'),
-    require('./settingsTab.deep.css'),
+    require('./settingsTab.component.scss'),
+    require('./settingsTab.deep.component.css'),
   ],
 })
 export class SettingsTabComponent extends BaseTabComponent {

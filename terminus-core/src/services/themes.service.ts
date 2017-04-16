@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@angular/core'
-import { ConfigService } from '../services/config'
+import { ConfigService } from '../services/config.service'
 import { Theme } from '../api/theme'
 
 

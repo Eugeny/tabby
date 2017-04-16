@@ -2,15 +2,16 @@ import { BehaviorSubject, ReplaySubject, Subject, Subscription } from 'rxjs'
 import { Component, NgZone, Inject, ViewChild, HostBinding, Input } from '@angular/core'
 import { AppService, ConfigService, BaseTabComponent } from 'terminus-core'
 
+import { Session } from '../services/sessions.service'
+
 import { TerminalDecorator, ResizeEvent } from '../api'
-import { Session } from '../services/sessions'
 import { hterm, preferenceManager } from '../hterm'
 
 
 @Component({
   selector: 'terminalTab',
   template: '<div #content class="content"></div>',
-  styles: [require('./terminalTab.scss')],
+  styles: [require('./terminalTab.component.scss')],
 })
 export class TerminalTabComponent extends BaseTabComponent {
     hterm: any

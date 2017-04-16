@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core'
-import { HostAppService } from '../services/hostApp'
-import { ConfigService } from '../services/config'
-import { ElectronService } from '../services/electron'
+import { ConfigService } from '../services/config.service'
+import { ElectronService } from '../services/electron.service'
+import { HostAppService } from '../services/hostApp.service'
 
 
 export interface IScreen {

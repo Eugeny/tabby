@@ -6,10 +6,12 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { HostAppService, Platform, ToolbarButtonProvider, TabRecoveryProvider, ConfigProvider, HotkeysService } from 'terminus-core'
 import { SettingsTabProvider } from 'terminus-settings'
 
-import { TerminalTabComponent } from './components/terminalTab'
-import { TerminalSettingsTabComponent } from './components/terminalSettingsTab'
-import { ColorPickerComponent } from './components/colorPicker'
-import { SessionsService } from './services/sessions'
+import { TerminalTabComponent } from './components/terminalTab.component'
+import { TerminalSettingsTabComponent } from './components/terminalSettingsTab.component'
+import { ColorPickerComponent } from './components/colorPicker.component'
+
+import { SessionsService } from './services/sessions.service'
+
 import { ScreenPersistenceProvider } from './persistenceProviders'
 import { ButtonProvider } from './buttonProvider'
 import { RecoveryProvider } from './recoveryProvider'

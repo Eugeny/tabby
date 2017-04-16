@@ -2,8 +2,8 @@ import * as yaml from 'js-yaml'
 import * as path from 'path'
 import * as fs from 'fs'
 import { EventEmitter, Injectable, Inject } from '@angular/core'
-import { ElectronService } from '../services/electron'
 import { ConfigProvider } from '../api/configProvider'
+import { ElectronService } from '../services/electron.service'
 
 
 export class ConfigProxy {

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core'
 import { TabRecoveryProvider, AppService } from 'terminus-core'
 
-import { SessionsService } from './services/sessions'
-import { TerminalTabComponent } from './components/terminalTab'
+import { TerminalTabComponent } from './components/terminalTab.component'
+import { SessionsService } from './services/sessions.service'
 
 
 @Injectable()

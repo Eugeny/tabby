@@ -1,8 +1,8 @@
 import { Injectable, Inject } from '@angular/core'
-import { Logger, LogService } from '../services/log'
-import { BaseTabComponent } from '../components/baseTab'
 import { TabRecoveryProvider } from '../api/tabRecovery'
-import { AppService } from '../services/app'
+import { BaseTabComponent } from '../components/baseTab.component'
+import { Logger, LogService } from '../services/log.service'
+import { AppService } from '../services/app.service'
 
 
 @Injectable()

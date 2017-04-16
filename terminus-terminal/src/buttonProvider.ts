@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core'
 import { HotkeysService, ToolbarButtonProvider, IToolbarButton, AppService, ConfigService } from 'terminus-core'
 
-import { SessionsService } from './services/sessions'
-import { TerminalTabComponent } from './components/terminalTab'
+import { SessionsService } from './services/sessions.service'
+import { TerminalTabComponent } from './components/terminalTab.component'
 
 
 @Injectable()

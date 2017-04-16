@@ -1,12 +1,12 @@
 import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
-import { HotkeyInputModalComponent } from './hotkeyInputModal'
+import { HotkeyInputModalComponent } from './hotkeyInputModal.component'
 
 
 @Component({
   selector: 'multi-hotkey-input',
-  template: require('./multiHotkeyInput.pug'),
-  styles: [require('./multiHotkeyInput.scss')],
+  template: require('./multiHotkeyInput.component.pug'),
+  styles: [require('./multiHotkeyInput.component.scss')],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MultiHotkeyInputComponent {

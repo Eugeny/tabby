@@ -4,8 +4,8 @@ import { NgbPopover } from '@ng-bootstrap/ng-bootstrap'
 
 @Component({
     selector: 'color-picker',
-    template: require('./colorPicker.pug'),
-    styles: [require('./colorPicker.scss')],
+    template: require('./colorPicker.component.pug'),
+    styles: [require('./colorPicker.component.scss')],
 })
 export class ColorPickerComponent {
     @Input() model: string

@@ -18,7 +18,7 @@ hterm.hterm.VT.ESC['k'] = function(parseState) {
 }
 
 preferenceManager.set('user-css', dataurl.convert({
-    data: require('./components/terminal.userCSS.scss'),
+    data: require('./hterm.userCSS.scss'),
     mimetype: 'text/css',
     charset: 'utf8',
 }))

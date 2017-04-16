@@ -3,8 +3,8 @@ import { IToolbarButton, ToolbarButtonProvider } from '../api'
 
 @Component({
   selector: 'start-page',
-  template: require('./startPage.pug'),
-  styles: [require('./startPage.scss')],
+  template: require('./startPage.component.pug'),
+  styles: [require('./startPage.component.scss')],
 })
 export class StartPageComponent {
     constructor(

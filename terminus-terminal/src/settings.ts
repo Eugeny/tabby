@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core'
 import { SettingsTabProvider, ComponentType } from 'terminus-settings'
 
-import { TerminalSettingsTabComponent } from './components/terminalSettingsTab'
+import { TerminalSettingsTabComponent } from './components/terminalSettingsTab.component'
 
 
 @Injectable()

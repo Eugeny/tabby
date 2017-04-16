@@ -6,12 +6,10 @@ import { Ng2FilterPipeModule } from 'ng2-filter-pipe'
 
 import { ToolbarButtonProvider, TabRecoveryProvider } from 'terminus-core'
 
-import { HotkeyInputComponent } from './components/hotkeyInput'
-import { HotkeyDisplayComponent } from './components/hotkeyDisplay'
-import { HotkeyInputModalComponent } from './components/hotkeyInputModal'
-import { MultiHotkeyInputComponent } from './components/multiHotkeyInput'
-import { SettingsTabComponent } from './components/settingsTab'
-import { SettingsTabBodyComponent } from './components/settingsTabBody'
+import { HotkeyInputModalComponent } from './components/hotkeyInputModal.component'
+import { MultiHotkeyInputComponent } from './components/multiHotkeyInput.component'
+import { SettingsTabComponent } from './components/settingsTab.component'
+import { SettingsTabBodyComponent } from './components/settingsTabBody.component'
 
 import { ButtonProvider } from './buttonProvider'
 import { RecoveryProvider } from './recoveryProvider'
@@ -33,8 +31,6 @@ import { RecoveryProvider } from './recoveryProvider'
         SettingsTabComponent,
     ],
     declarations: [
-        HotkeyDisplayComponent,
-        HotkeyInputComponent,
         HotkeyInputModalComponent,
         MultiHotkeyInputComponent,
         SettingsTabComponent,
