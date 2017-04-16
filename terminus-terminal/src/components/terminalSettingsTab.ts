@@ -2,13 +2,14 @@ import { Observable } from 'rxjs/Observable'
 import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/debounceTime'
 import 'rxjs/add/operator/distinctUntilChanged'
+import * as fs from 'fs-promise'
 const fontManager = require('font-manager')
 const equal = require('deep-equal')
+const { exec } = require('child-process-promise')
 
 import { Component, Inject } from '@angular/core'
 import { ConfigService, HostAppService, Platform } from 'terminus-core'
 import { TerminalColorSchemeProvider, ITerminalColorScheme } from '../api'
-const { exec } = require('child-process-promise')
 
 
 @Component({
@@ -17,6 +18,7 @@ const { exec } = require('child-process-promise')
 })
 export class TerminalSettingsTabComponent {
     fonts: string[] = []
+    shells: string[] = []
     colorSchemes: ITerminalColorScheme[] = []
     equalComparator = equal
     editingColorScheme: ITerminalColorScheme
@@ -43,6 +45,11 @@ export class TerminalSettingsTabComponent {
                     .map(x => x.split(',')[0].trim())
                 this.fonts.sort()
             })
+
+            this.shells = (await fs.readFile('/etc/shells', 'utf-8'))
+                .split('\n')
+                .map(x => x.trim())
+                .filter(x => x && !x.startsWith('#'))
         }
         this.colorSchemes = (await Promise.all(this.colorSchemeProviders.map(x => x.getSchemes()))).reduce((a, b) => a.concat(b))
     }
@@ -53,6 +60,10 @@ export class TerminalSettingsTabComponent {
           .distinctUntilChanged()
           .map(query => this.fonts.filter(v => new RegExp(query, 'gi').test(v)))
           .map(list => Array.from(new Set(list)))
+    }
+
+    shellAutocomplete = (text$: Observable<string>) => {
+        return text$.map(_ => ['auto'].concat(this.shells))
     }
 
     editScheme (scheme: ITerminalColorScheme) {

@@ -31,6 +31,8 @@ module.exports = {
       },
       { test: /\.pug$/, use: ['apply-loader', 'pug-loader'] },
       { test: /\.scss$/, use: ['to-string-loader', 'css-loader', 'sass-loader'] },
+      { test: /\.css$/, use: ['to-string-loader', 'css-loader'], include: /component\.css/ },
+      { test: /\.css$/, use: ['style-loader', 'css-loader'], exclude: /component\.css/ },
       { test: /\.yaml$/, use: ['json-loader', 'yaml-loader'] },
     ]
   },

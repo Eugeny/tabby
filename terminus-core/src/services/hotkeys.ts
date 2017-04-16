@@ -44,6 +44,10 @@ export class HotkeysService {
             })
         })
         this.hotkeyDescriptions = hotkeyProviders.map(x => x.hotkeys).reduce((a, b) => a.concat(b))
+        this.config.change.subscribe(() => {
+            this.registerGlobalHotkey()
+        })
+        this.registerGlobalHotkey()
     }
 
     pushKeystroke (name, nativeEvent) {
@@ -79,11 +83,18 @@ export class HotkeysService {
         return stringifyKeySequence(this.currentKeystrokes.map((x) => x.event))
     }
 
-    registerHotkeys () {
+    registerGlobalHotkey () {
         this.electron.globalShortcut.unregisterAll()
-        // TODO
-        this.electron.globalShortcut.register('Ctrl+Space', () => {
-            this.globalHotkey.emit()
+        let value = this.config.store.hotkeys['toggle-window']
+        if (typeof value == 'string') {
+            value = [value]
+        }
+        value.forEach(item => {
+            item = (typeof item == 'string') ? [item] : item
+
+            this.electron.globalShortcut.register(item[0].replace(/-/g, '+'), () => {
+                this.globalHotkey.emit()
+            })
         })
     }
 
@@ -163,6 +174,10 @@ export class HotkeysService {
 @Injectable()
 export class AppHotkeyProvider extends HotkeyProvider {
     hotkeys: IHotkeyDescription[] = [
+        {
+            id: 'toggle-window',
+            name: 'Toggle terminal window',
+        },
         {
             id: 'new-tab',
             name: 'New tab',

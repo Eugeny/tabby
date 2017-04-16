@@ -143,16 +143,21 @@ ngb-tabset.vertical(type='tabs')
         template(ngbTabTitle)
             | Hotkeys
         template(ngbTabContent)
+            input.form-control(type='search', placeholder='Search hotkeys', [(ngModel)]='hotkeyFilter.name')
             .form-group
-                table
+                table.hotkeys-table
                     tr
-                        th Toggle terminal window
+                        th Name
+                        th ID
+                        th Hotkey 
+                    tr(*ngFor='let hotkey of hotkeyDescriptions|filterBy:hotkeyFilter')
+                        td {{hotkey.name}}
+                        td {{hotkey.id}}
                         td
-                            hotkey-input('[(model)]'='globalHotkey')                    
-                    tr(*ngFor='let hotkey of hotkeyDescriptions')
-                        th {{hotkey.name}}
-                        td
-                            multi-hotkey-input('[(model)]'='config.store.hotkeys[hotkey.id]')
+                            multi-hotkey-input(
+                                '[(model)]'='config.store.hotkeys[hotkey.id]'
+                                '(modelChange)'='config.save(); docking.dock()'
+                            )
                     
     ngb-tab(*ngFor='let provider of settingsProviders')
         template(ngbTabTitle)

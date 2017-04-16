@@ -13,7 +13,7 @@ import { SettingsTabProvider } from '../api'
   ],
 })
 export class SettingsTabComponent extends BaseTabComponent {
-    globalHotkey = ['Ctrl+Shift+G']
+    hotkeyFilter = { name: null }
     private hotkeyDescriptions: IHotkeyDescription[]
 
     constructor(

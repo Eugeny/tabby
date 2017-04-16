@@ -1,0 +1,4 @@
+:host /deep/ .ps-content {
+    flex: auto;
+    display: flex;
+}

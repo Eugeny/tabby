@@ -42,22 +42,33 @@ $input-bg:                       #111;
 $input-bg-disabled:              #333;
 
 $input-color:                    $body-color;
-//$input-border-color:             rgba($black,.15);
+$input-color-placeholder:        #333;
+$input-border-color:             #344;
 //$input-box-shadow:               inset 0 1px 1px rgba($black,.075);
-
 $input-border-radius:            0;
-
 $input-bg-focus:                 $input-bg;
 //$input-border-focus:             lighten($brand-primary, 25%);
 //$input-box-shadow-focus:         $input-box-shadow, rgba($input-border-focus, .6);
 $input-color-focus:              $input-color;
+$input-group-addon-bg:           $input-bg;
+$input-group-addon-border-color: $input-border-color;
 
 $modal-content-bg:               $body-bg;
 $modal-content-border-color:     $body-bg2;
-$modal-header-border-color:      $body-bg2;
-$modal-footer-border-color:      $body-bg2;
+$modal-header-border-color:      transparent;
+$modal-footer-border-color:      transparent;
 
 $popover-bg:                     $body-bg2;
+
+$dropdown-bg:                    $body-bg2;
+$dropdown-link-color:            $body-color;
+$dropdown-link-hover-color:      #333;
+$dropdown-link-hover-bg:         $body-bg3;
+//$dropdown-link-active-color:     $component-active-color;
+//$dropdown-link-active-bg:        $component-active-bg;
+$dropdown-link-disabled-color:   #333;
+$dropdown-header-color:          #333;
+
 
 
 @import '~bootstrap/scss/bootstrap.scss';
@@ -299,4 +310,8 @@ ngb-tabset .tab-content {
     i + * {
         margin-left: 5px;
     }
+}
+
+.input-group-addon + .form-control {
+    border-left: none;
 }

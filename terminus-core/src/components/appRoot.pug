@@ -38,7 +38,7 @@ title-bar(*ngIf='!config.store.appearance.useNativeFrame && config.store.appeara
         *ngFor='let tab of app.tabs; trackBy: tab?.id', 
         [active]='tab == app.activeTab',
         [tab]='tab',
-        [class.scrollable]='tab.scrollable',
+        [scrollable]='tab.scrollable',
     )
 
 toaster-container([toasterconfig]="toasterconfig")

@@ -9,7 +9,9 @@ export class TerminalConfigProvider extends ConfigProvider {
             bell: 'off',
             bracketedPaste: true,
             background: 'theme',
+            shell: 'auto',
             colorScheme: {
+                __nonStructural: true,
                 foreground: null,
                 background: null,
                 cursor: null,

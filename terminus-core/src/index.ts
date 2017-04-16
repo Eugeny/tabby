@@ -4,6 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { FormsModule } from '@angular/forms'
 import { ToasterModule } from 'angular2-toaster'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
+import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar'
 
 import { AppService } from './services/app'
 import { ConfigService } from './services/config'
@@ -19,7 +20,7 @@ import { TabRecoveryService } from './services/tabRecovery'
 import { ThemesService } from './services/themes'
 
 import { AppRootComponent } from './components/appRoot'
-import { TabBodyComponent } from './components/tabBody'
+import { TabBodyComponent } from './components/tabBody.component'
 import { StartPageComponent } from './components/startPage'
 import { TabHeaderComponent } from './components/tabHeader'
 import { TitleBarComponent } from './components/titleBar'
@@ -29,6 +30,7 @@ import { Theme } from './api/theme'
 
 import { StandardTheme } from './theme'
 
+import 'perfect-scrollbar/dist/css/perfect-scrollbar.css'
 
 const PROVIDERS = [
     AppService,
@@ -55,6 +57,9 @@ const PROVIDERS = [
         FormsModule,
         ToasterModule,
         NgbModule,
+        PerfectScrollbarModule.forRoot({
+            suppressScrollX: true,
+        }),
     ],
     declarations: [
         AppRootComponent,

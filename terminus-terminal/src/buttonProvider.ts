@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { HotkeysService, ToolbarButtonProvider, IToolbarButton, AppService, HostAppService, Platform } from 'terminus-core'
+import { HotkeysService, ToolbarButtonProvider, IToolbarButton, AppService, ConfigService } from 'terminus-core'
 
 import { SessionsService } from './services/sessions'
 import { TerminalTabComponent } from './components/terminalTab'
@@ -10,7 +10,7 @@ export class ButtonProvider extends ToolbarButtonProvider {
     constructor (
         private app: AppService,
         private sessions: SessionsService,
-        private hostApp: HostAppService,
+        private config: ConfigService,
         hotkeys: HotkeysService,
     ) {
         super()
@@ -26,11 +26,7 @@ export class ButtonProvider extends ToolbarButtonProvider {
         if (this.app.activeTab instanceof TerminalTabComponent) {
             cwd = await this.app.activeTab.session.getWorkingDirectory()
         }
-        let command = {
-            [Platform.macOS]: 'zsh',
-            [Platform.Linux]: 'zsh',
-            [Platform.Windows]: 'cmd.exe',
-        }[this.hostApp.platform]
+        let command = this.config.store.terminal.shell
         this.app.openNewTab(
             TerminalTabComponent,
             { session: await this.sessions.createNewSession({ command, cwd }) }

@@ -194,6 +194,15 @@
                         [value]='"colorScheme"'
                     )
                     | From the terminal colors
+
+        .form-group
+            label Shell
+            input.form-control(
+                type='text',
+                [ngbTypeahead]='shellAutocomplete',
+                '[(ngModel)]'='config.store.terminal.shell',
+                (ngModelChange)='config.save()',
+            )
             
         .form-group
             label Terminal bell

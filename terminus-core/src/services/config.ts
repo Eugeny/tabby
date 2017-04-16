@@ -12,7 +12,8 @@ export class ConfigProxy {
             if (
                 defaults[key] instanceof Object &&
                 !(defaults[key] instanceof Array) &&
-                Object.keys(defaults[key]).length > 0
+                Object.keys(defaults[key]).length > 0 &&
+                !defaults[key].__nonStructural
             ) {
                 if (!real[key]) {
                     real[key] = {}

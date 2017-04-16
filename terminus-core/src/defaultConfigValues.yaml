@@ -6,6 +6,8 @@ appearance:
   theme: 'Standard'
   useNativeFrame: false
 hotkeys:
+  toggle-window:
+    - 'Ctrl+Space'
   close-tab:
     - 'Ctrl-Shift-W'
     - ['Ctrl-A', 'K']

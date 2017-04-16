@@ -2,13 +2,21 @@ import { Component, Input, ViewChild, HostBinding, ViewContainerRef } from '@ang
 import { BaseTabComponent } from '../components/baseTab'
 
 @Component({
-  selector: 'tab-body',
-  template: '<ng-template #placeholder></ng-template>',
-  styles: [require('./tabBody.scss')],
+    selector: 'tab-body',
+    template: `
+        <perfect-scrollbar [config]="{ suppressScrollX: true, suppressScrollY: !scrollable}">
+            <ng-template #placeholder></ng-template>
+        </perfect-scrollbar>
+    `,
+    styles: [
+        require('./tabBody.component.scss'),
+        require('./tabBody.deep.component.css'),
+    ],
 })
 export class TabBodyComponent {
     @Input() @HostBinding('class.active') active: boolean
     @Input() tab: BaseTabComponent
+    @Input() scrollable: boolean
     @ViewChild('placeholder', {read: ViewContainerRef}) placeholder: ViewContainerRef
 
     ngAfterViewInit () {
