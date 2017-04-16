@@ -4,9 +4,10 @@ import { BaseTabComponent } from '../components/baseTab.component'
 @Component({
     selector: 'tab-body',
     template: `
-        <perfect-scrollbar [config]="{ suppressScrollX: true, suppressScrollY: !scrollable}">
-            <ng-template #placeholder></ng-template>
+        <perfect-scrollbar [config]="{ suppressScrollX: true }" *ngIf="scrollable">
+            <ng-template #scrollablePlaceholder></ng-template>
         </perfect-scrollbar>
+        <template #nonScrollablePlaceholder [ngIf]="!scrollable"></template>
     `,
     styles: [
         require('./tabBody.component.scss'),
@@ -17,11 +18,12 @@ export class TabBodyComponent {
     @Input() @HostBinding('class.active') active: boolean
     @Input() tab: BaseTabComponent
     @Input() scrollable: boolean
-    @ViewChild('placeholder', {read: ViewContainerRef}) placeholder: ViewContainerRef
+    @ViewChild('scrollablePlaceholder', {read: ViewContainerRef}) scrollablePlaceholder: ViewContainerRef
+    @ViewChild('nonScrollablePlaceholder', {read: ViewContainerRef}) nonScrollablePlaceholder: ViewContainerRef
 
     ngAfterViewInit () {
         setImmediate(() => {
-            this.placeholder.insert(this.tab.hostView)
+            (this.scrollable ? this.scrollablePlaceholder : this.nonScrollablePlaceholder).insert(this.tab.hostView)
         })
     }
 }

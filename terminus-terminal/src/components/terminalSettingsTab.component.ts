@@ -1,7 +1,5 @@
-import { Observable } from 'rxjs/Observable'
-import 'rxjs/add/operator/map'
-import 'rxjs/add/operator/debounceTime'
-import 'rxjs/add/operator/distinctUntilChanged'
+import 'rxjs'
+import { Observable } from 'rxjs'
 import * as fs from 'fs-promise'
 const fontManager = require('font-manager')
 const equal = require('deep-equal')
@@ -45,7 +43,8 @@ export class TerminalSettingsTabComponent {
                     .map(x => x.split(',')[0].trim())
                 this.fonts.sort()
             })
-
+        }
+        if (this.hostApp.platform == Platform.Linux || this.hostApp.platform == Platform.macOS) {
             this.shells = (await fs.readFile('/etc/shells', 'utf-8'))
                 .split('\n')
                 .map(x => x.trim())

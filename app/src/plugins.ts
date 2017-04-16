@@ -5,7 +5,7 @@ let nodeRequire = (<any>global).require
 let module = nodeRequire('module')
 nodeRequire.main.paths.map(x => module.globalPaths.push(x))
 if (process.env.TERMINUS_PLUGINS) {
-    process.env.TERMINUS_PLUGINS.split(':').map(x => module.globalPaths.push(x))
+    process.env.TERMINUS_PLUGINS.split(':').map(x => module.globalPaths.unshift(x))
 }
 
 export async function loadPlugins (): Promise<any[]> {

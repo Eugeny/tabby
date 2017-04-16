@@ -113,8 +113,8 @@ export class Session {
 
     async getWorkingDirectory (): Promise<string> {
         if (process.platform == 'darwin') {
-            let lines = (await exec(`lsof -p ${this.truePID} -Fn`)).split('\n')
-            return lines[2]
+            let lines = (await exec(`lsof -p ${this.truePID} -Fn`)).stdout.split('\n')
+            return lines[2].substring(1)
         }
         if (process.platform == 'linux') {
             return await fs.readlink(`/proc/${this.truePID}/cwd`)

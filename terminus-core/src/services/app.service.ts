@@ -51,11 +51,11 @@ export class AppService {
         }
         if (this.activeTab) {
             this.activeTab.hasActivity = false
-            this.activeTab.blurred.emit()
+            this.activeTab.blurred$.next()
         }
         this.activeTab = tab
         if (this.activeTab) {
-            this.activeTab.focused.emit()
+            this.activeTab.focused$.next()
         }
     }
 

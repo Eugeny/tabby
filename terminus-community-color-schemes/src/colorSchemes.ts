@@ -21,7 +21,7 @@ export class ColorSchemes extends TerminalColorSchemeProvider {
                 })
 
             schemes.push({
-                name: schemeFile.split('/')[1],
+                name: schemeFile.split('/')[1].trim(),
                 foreground: values.foreground,
                 background: values.background,
                 cursor: values.cursorColor,

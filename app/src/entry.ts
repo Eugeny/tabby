@@ -3,6 +3,7 @@
 import 'core-js'
 import 'zone.js/dist/zone.js'
 import 'core-js/es7/reflect'
+import 'rxjs'
 
 // Always land on the start view
 location.hash = ''

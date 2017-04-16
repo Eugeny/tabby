@@ -40,7 +40,7 @@ import { AppService, IToolbarButton, ToolbarButtonProvider } from '../api'
 })
 export class AppRootComponent {
     toasterConfig: ToasterConfig
-    logger: Logger
+    private logger: Logger
 
     constructor(
         private docking: DockingService,

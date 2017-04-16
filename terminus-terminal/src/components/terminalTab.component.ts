@@ -16,7 +16,6 @@ import { hterm, preferenceManager } from '../hterm'
 export class TerminalTabComponent extends BaseTabComponent {
     hterm: any
     configSubscription: Subscription
-    focusedSubscription: Subscription
     bell$ = new Subject()
     size$ = new ReplaySubject<ResizeEvent>(1)
     input$ = new Subject<string>()
@@ -49,8 +48,9 @@ export class TerminalTabComponent extends BaseTabComponent {
     }
 
     ngOnInit () {
-        this.focusedSubscription = this.focused.subscribe(() => {
+        this.focused$.subscribe(() => {
             this.hterm.scrollPort_.focus()
+            this.hterm.scrollPort_.resize()
         })
 
         this.hterm = new hterm.hterm.Terminal()
@@ -121,6 +121,14 @@ export class TerminalTabComponent extends BaseTabComponent {
             hterm.scrollPort_.pasteTarget_.value = event.clipboardData.getData('text/plain').trim()
             _onPaste_()
             event.preventDefault()
+        }
+
+        const _resize = hterm.scrollPort_.resize.bind(hterm.scrollPort_)
+        hterm.scrollPort_.resize = () => {
+            if (!this.hasFocus) {
+                return
+            }
+            _resize()
         }
 
         const _onMouse_ = hterm.onMouse_.bind(hterm)
@@ -216,9 +224,7 @@ export class TerminalTabComponent extends BaseTabComponent {
         this.decorators.forEach((decorator) => {
             decorator.detach(this)
         })
-        this.focusedSubscription.unsubscribe()
         this.configSubscription.unsubscribe()
-        this.title$.complete()
         this.size$.complete()
         this.input$.complete()
         this.output$.complete()

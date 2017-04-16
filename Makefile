@@ -6,7 +6,7 @@ SHORT_VERSION=$(shell python -c 'import subprocess; v = subprocess.check_output(
 all: run
 
 run:
-	DEV=1 TERMINUS_PLUGINS=`realpath .` ./node_modules/.bin/electron ./app --debug
+	DEV=1 TERMINUS_PLUGINS=$$PWD ./node_modules/.bin/electron ./app --debug
 
 lint:
 	tslint -c tslint.json app/src/*.ts app/src/**/*.ts

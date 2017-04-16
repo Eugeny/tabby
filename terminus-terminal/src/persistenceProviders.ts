@@ -1,10 +1,40 @@
 import * as fs from 'fs-promise'
 const { exec, spawn } = require('child-process-promise')
 
+import { Injectable } from '@angular/core'
+import { Logger, LogService } from 'terminus-core'
 import { SessionOptions, SessionPersistenceProvider } from './api'
 
 
+interface IChildProcess {
+    pid: number
+    ppid: number
+    command: string
+}
+
+async function listProcesses (): Promise<IChildProcess[]> {
+    return (await exec(`ps -A -o pid,ppid,command`)).stdout
+        .split('\n')
+        .slice(1)
+        .map(line => line.split(' ').filter(x => x).slice(0, 3))
+        .map(([pid, ppid, command]) => {
+            return {
+                pid: parseInt(pid), ppid: parseInt(ppid), command
+            }
+        })
+}
+
+@Injectable()
 export class ScreenPersistenceProvider extends SessionPersistenceProvider {
+    private logger: Logger
+
+    constructor (
+        log: LogService,
+    ) {
+        super()
+        this.logger = log.create('main')
+    }
+
     async attachSession (recoveryId: any): Promise<SessionOptions> {
         let lines: string[]
         try {
@@ -20,8 +50,16 @@ export class ScreenPersistenceProvider extends SessionPersistenceProvider {
             return null
         }
 
-        lines = (await exec(`pgrep -P ${screenPID}`)).stdout.split('\n')
-        let recoveredTruePID = parseInt(lines[0])
+        let child = (await listProcesses()).find(x => x.ppid === screenPID)
+
+        if (!child) {
+            this.logger.error(`Could not find any children of the screen process (PID ${screenPID})!`)
+        }
+        if (child.command == 'login') {
+            child = (await listProcesses()).find(x => x.ppid === child.pid)
+        }
+
+        let recoveredTruePID = child.pid
 
         return {
             recoveryId,
@@ -36,6 +74,7 @@ export class ScreenPersistenceProvider extends SessionPersistenceProvider {
         await fs.writeFile(configPath, `
             escape ^^^
             vbell on
+            deflogin off
             term xterm-color
             bindkey "^[OH" beginning-of-line
             bindkey "^[OF" end-of-line
@@ -48,6 +87,7 @@ export class ScreenPersistenceProvider extends SessionPersistenceProvider {
         `, 'utf-8')
         let recoveryId = `term-tab-${Date.now()}`
         let args = ['-d', '-m', '-c', configPath, '-U', '-S', recoveryId, '-T', 'xterm-256color', '--', options.command].concat(options.args || [])
+        this.logger.debug('Spawning screen with', args.join(' '))
         await spawn('screen', args, {
             cwd: options.cwd,
             env: options.env || process.env,
