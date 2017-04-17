@@ -11,9 +11,10 @@
   "author": "Eugene Pankov",
   "license": "MIT",
   "devDependencies": {
-    "@types/deep-equal": "1.0.0",
+    "@types/deep-equal": "^1.0.0",
     "@types/node": "7.0.12",
     "@types/webpack-env": "1.13.0",
+    "@types/winreg": "^1.2.30",
     "awesome-typescript-loader": "3.1.2",
     "css-loader": "^0.28.0",
     "dataurl": "0.1.0",
@@ -38,9 +39,10 @@
   },
   "dependencies": {
     "child-process-promise": "2.2.1",
-    "fs-promise": "2.0.2",
     "font-manager": "0.2.2",
+    "fs-promise": "2.0.2",
     "hterm-commonjs": "1.0.0",
-    "node-pty": "0.6.2"
+    "node-pty": "0.6.2",
+    "winreg": "^1.2.3"
   }
 }

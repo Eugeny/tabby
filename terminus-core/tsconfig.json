@@ -2,7 +2,7 @@
   "compilerOptions": {
     "baseUrl": "src",
     "module": "commonjs",
-    "target": "es2015",
+    "target": "es2016",
     "declaration": false,
     "noImplicitAny": false,
     "removeComments": false,
@@ -22,5 +22,5 @@
       "es7"
     ]
   },
-  "include": ["src"]
+  "exclude": ["node_modules", "dist"]
 }

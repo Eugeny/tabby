@@ -41,6 +41,7 @@ module.exports = {
     'path',
     'node-pty',
     'child-process-promise',
+    'winreg',
     /^rxjs/,
     /^@angular/,
     /^@ng-bootstrap/,

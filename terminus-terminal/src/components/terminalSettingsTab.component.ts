@@ -1,14 +1,18 @@
-import 'rxjs'
 import { Observable } from 'rxjs'
 import * as fs from 'fs-promise'
-const fontManager = require('font-manager')
+import * as path from 'path'
 const equal = require('deep-equal')
+const fontManager = require('font-manager')
 const { exec } = require('child-process-promise')
 
 import { Component, Inject } from '@angular/core'
 import { ConfigService, HostAppService, Platform } from 'terminus-core'
 import { TerminalColorSchemeProvider, ITerminalColorScheme } from '../api'
 
+let Registry = null
+try {
+    Registry = require('winreg')
+} catch (_) { }
 
 interface IShell {
     name: string
@@ -57,6 +61,19 @@ export class TerminalSettingsTabComponent {
             const wslPath =`${process.env.windir}\\system32\\bash.exe`
             if (await fs.exists(wslPath)) {
                 this.shells.push({ name: 'Bash on Windows', command: wslPath })
+            }
+
+            let cygwinPath = await new Promise<string>(resolve => {
+                let reg = new Registry({ hive: Registry.HKLM, key: "\\Software\\Cygwin\\setup" })
+                reg.get('rootdir', (err, item) => {
+                    if (err) {
+                        resolve(null)
+                    }
+                    resolve(item.value)
+                })
+            })
+            if (cygwinPath) {
+                this.shells.push({ name: 'Cygwin', command: path.join(cygwinPath, 'bin', 'bash.exe') })
             }
         }
         if (this.hostApp.platform == Platform.Linux || this.hostApp.platform == Platform.macOS) {

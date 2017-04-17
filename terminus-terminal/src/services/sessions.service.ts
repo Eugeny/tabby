@@ -56,7 +56,9 @@ export class Session {
         })
 
         this.pty.on('close', () => {
-            this.close()
+            if (this.open) {
+                this.destroy()
+            }
         })
     }
 
@@ -74,41 +76,40 @@ export class Session {
         this.pty.write(data)
     }
 
-    sendSignal (signal) {
+    kill (signal?: string) {
         this.pty.kill(signal)
     }
 
-    close () {
-        this.open = false
-        this.closed$.next()
-        this.pty.end()
-    }
-
-    gracefullyDestroy () {
-        return new Promise((resolve) => {
-            this.sendSignal('SIGTERM')
-            if (!this.open) {
-                resolve()
-                this.destroy()
-            } else {
-                setTimeout(() => {
-                    if (this.open) {
-                        this.sendSignal('SIGKILL')
-                        this.destroy()
+    async gracefullyKillProcess (): Promise<void> {
+        if (process.platform == 'win32') {
+            this.kill()
+        } else {
+            await new Promise((resolve) => {
+                this.kill('SIGTERM') 
+                setImmediate(() => {
+                    if (!this.open) {
+                        resolve()
+                    } else {
+                        setTimeout(() => {
+                            if (this.open) {
+                                this.kill('SIGKILL')
+                            }
+                            resolve()
+                        }, 1000)
                     }
-                    resolve()
-                }, 1000)
-            }
-        })
+                })
+            })
+        }
     }
 
-    destroy () {
-        if (open) {
-            this.close()
+    async destroy (): Promise<void> {
+        if (this.open) {
+            this.open = false
+            this.closed$.next()
+            this.destroyed$.next()
+            this.output$.complete()
+            await this.gracefullyKillProcess()
         }
-        this.destroyed$.next()
-        this.pty.destroy()
-        this.output$.complete()
     }
 
     async getWorkingDirectory (): Promise<string> {

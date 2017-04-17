@@ -16,6 +16,7 @@ import { hterm, preferenceManager } from '../hterm'
 export class TerminalTabComponent extends BaseTabComponent {
     hterm: any
     configSubscription: Subscription
+    sessionCloseSubscription: Subscription
     bell$ = new Subject()
     size$ = new ReplaySubject<ResizeEvent>(1)
     input$ = new Subject<string>()
@@ -70,7 +71,7 @@ export class TerminalTabComponent extends BaseTabComponent {
                 })
                 this.write(data)
             })
-            this.session.closed$.first().subscribe(() => {
+            this.sessionCloseSubscription = this.session.closed$.subscribe(() => {
                 this.app.closeTab(this)
             })
 
@@ -225,6 +226,7 @@ export class TerminalTabComponent extends BaseTabComponent {
             decorator.detach(this)
         })
         this.configSubscription.unsubscribe()
+        this.sessionCloseSubscription.unsubscribe()
         this.size$.complete()
         this.input$.complete()
         this.output$.complete()
@@ -232,7 +234,10 @@ export class TerminalTabComponent extends BaseTabComponent {
         this.alternateScreenActive$.complete()
         this.mouseEvent$.complete()
         this.bell$.complete()
+    }
 
-        this.session.gracefullyDestroy()
+    async destroy () {
+        super.destroy()
+        await this.session.destroy()
     }
 }
