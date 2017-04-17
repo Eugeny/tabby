@@ -220,6 +220,14 @@ settings-tab > ngb-tabset {
             padding: 10px 50px 10px 20px;
             font-size: 14px;
 
+            &:not(.active) {
+              color: $body-color;
+
+              &:hover {
+                  color: $white;
+              }
+            }
+
             &.active {
                 border-top-color: $nav-tabs-active-link-hover-border-color;
                 border-bottom-color: $nav-tabs-active-link-hover-border-color;

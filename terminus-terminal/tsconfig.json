@@ -22,8 +22,5 @@
       "es7"
     ]
   },
-  "compileOnSave": false,
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["src"]
 }

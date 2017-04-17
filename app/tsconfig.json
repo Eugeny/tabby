@@ -2,7 +2,7 @@
     "compilerOptions": {
         "baseUrl": "./src",
         "module": "commonjs",
-        "target": "es5",
+        "target": "es2015",
         "declaration": false,
         "noImplicitAny": false,
         "removeComments": false,

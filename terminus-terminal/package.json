@@ -23,6 +23,7 @@
     "raw-loader": "^0.5.1",
     "sass-loader": "^6.0.3",
     "to-string-loader": "^1.1.5",
+    "typescript": "^2.2.2",
     "webpack": "2.3.3"
   },
   "peerDependencies": {

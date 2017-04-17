@@ -8,7 +8,7 @@
                 [style.background-color]='(config.store.terminal.background == "theme") ? null : config.store.terminal.colorScheme.background',
                 [style.color]='config.store.terminal.colorScheme.foreground',
             )
-                div 
+                div
                     span([style.background-color]='config.store.terminal.colorScheme.colors[0]') &nbsp;
                     span([style.background-color]='config.store.terminal.colorScheme.colors[1]') &nbsp;
                     span([style.background-color]='config.store.terminal.colorScheme.colors[2]') &nbsp;
@@ -33,7 +33,7 @@
                     span([style.color]='config.store.terminal.colorScheme.colors[6]') T
                     span &nbsp;
                     span([style.color]='config.store.terminal.colorScheme.colors[7]') W
-                div 
+                div
                     span([style.background-color]='config.store.terminal.colorScheme.colors[8]') &nbsp;
                     span([style.background-color]='config.store.terminal.colorScheme.colors[9]') &nbsp;
                     span([style.background-color]='config.store.terminal.colorScheme.colors[10]') &nbsp;
@@ -58,51 +58,51 @@
                     span([style.color]='config.store.terminal.colorScheme.colors[14]') T
                     span &nbsp;
                     span([style.color]='config.store.terminal.colorScheme.colors[15]') W
-                div 
-                    span 
-                div 
+                div
+                    span &nbsp;
+                div
                     span john@doe-pc
                     span([style.color]='config.store.terminal.colorScheme.colors[1]') $
                     span  webpack
-                div 
+                div
                     span   Asset     Size
-                div 
-                    span([style.color]='config.store.terminal.colorScheme.colors[2]') main.js   
+                div
+                    span([style.color]='config.store.terminal.colorScheme.colors[2]') main.js
                     span   234 kB
                     span([style.color]='config.store.terminal.colorScheme.colors[2]')  [emitted]
-                div 
-                    span([style.color]='config.store.terminal.colorScheme.colors[3]')  big.js   
+                div
+                    span([style.color]='config.store.terminal.colorScheme.colors[3]')  big.js
                     span([style.color]='config.store.terminal.colorScheme.colors[3]')   1.2 MB
                     span([style.color]='config.store.terminal.colorScheme.colors[2]')  [emitted]
                     span([style.color]='config.store.terminal.colorScheme.colors[3]')  [big]
                 div
-                    span 
-                div 
+                    span &nbsp;
+                div
                     span john@doe-pc
                     span([style.color]='config.store.terminal.colorScheme.colors[1]') $
                     span  ls -l
-                div 
+                div
                     span drwxr-xr-x  1 root 
                     span([style.color]='config.store.terminal.colorScheme.colors[4]') directory
-                div 
+                div
                     span -rw-r--r--  1 root file
-                div 
+                div
                     span -rwxr-xr-x  1 root
                     span([style.color]='config.store.terminal.colorScheme.colors[2]')  executable
-                div 
+                div
                     span -rwxr-xr-x  1 root
                     span([style.color]='config.store.terminal.colorScheme.colors[6]')  sym
                     span  ->
                     span([style.color]='config.store.terminal.colorScheme.colors[1]')  link
                 div
-                    span 
-                div 
+                    span &nbsp;
+                div
                     span john@doe-pc
                     span([style.color]='config.store.terminal.colorScheme.colors[1]') $
                     span  rm -rf /
                     span([style.background-color]='config.store.terminal.colorScheme.cursor') &nbsp;
-                    
-                    
+
+
     .col-md-6
         .form-group
             label Font
@@ -136,11 +136,11 @@
                     button.btn.btn-secondary((click)='editScheme(config.store.terminal.colorScheme)') Edit
                 .input-group-btn
                     button.btn.btn-outline-danger(
-                        (click)='deleteScheme(config.store.terminal.colorScheme)', 
+                        (click)='deleteScheme(config.store.terminal.colorScheme)',
                         *ngIf='isCustomScheme(config.store.terminal.colorScheme)'
                     )
                         i.fa.fa-trash-o
-                
+
         .form-group(*ngIf='editingColorScheme')
             label Editing
             .input-group
@@ -149,7 +149,7 @@
                     button.btn.btn-secondary((click)='saveScheme()') Save
                 .input-group-btn
                     button.btn.btn-secondary((click)='cancelEditing()') Cancel
-                
+
 
         .form-group(*ngIf='editingColorScheme')
             color-picker(
@@ -187,23 +187,25 @@
                         type='radio',
                         [value]='"theme"'
                     )
-                    | From the app theme
+                    | From theme
                 label.btn.btn-secondary
                     input(
                         type='radio',
                         [value]='"colorScheme"'
                     )
-                    | From the terminal colors
+                    | From colors
 
         .form-group
             label Shell
-            input.form-control(
-                type='text',
-                [ngbTypeahead]='shellAutocomplete',
+            select.form-control(
                 '[(ngModel)]'='config.store.terminal.shell',
                 (ngModelChange)='config.save()',
             )
-            
+                option(
+                    *ngFor='let shell of shells',
+                    [ngValue]='shell.command'
+                ) {{shell.name}}
+
         .form-group
             label Terminal bell
             br

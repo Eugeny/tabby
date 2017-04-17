@@ -56,8 +56,8 @@
     }
   },
   "scripts": {
-    "build": "node --max-old-space-size=4096 ./node_modules/.bin/webpack --progress --color",
-    "watch": "node --max-old-space-size=4096 ./node_modules/.bin/webpack --progress --color --watch",
+    "build": "webpack --progress --color",
+    "watch": "webpack --progress --color --watch",
     "pack": "build --dir",
     "postinstall": "install-app-deps",
     "dist": "build"

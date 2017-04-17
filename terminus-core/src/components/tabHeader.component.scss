@@ -12,7 +12,7 @@ $tabs-height: 40px;
     overflow: hidden;
 
     min-width: 0;
-    transition: 0.25s all;
+    transition: 0.25s ease-out all;
 
     .wrapper {
         display: flex;

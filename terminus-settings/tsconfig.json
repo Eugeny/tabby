@@ -22,7 +22,5 @@
       "es7"
     ]
   },
-  "include": [
-    "src"
-  ]
+  "include": ["src"]
 }

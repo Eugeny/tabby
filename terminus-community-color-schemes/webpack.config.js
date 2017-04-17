@@ -23,13 +23,14 @@ module.exports = {
         loader: 'awesome-typescript-loader',
         options: {
           configFileName: path.resolve(__dirname, 'tsconfig.json'),
+          typeRoots: [path.resolve(__dirname, 'node_modules/@types')],
           paths: {
             "terminus-*": [path.resolve(__dirname, '../terminus-*')],
             "*": [path.resolve(__dirname, '../app/node_modules/*')],
           }
         }
       },
-      { test: /\/schemes\//, loader: "raw-loader" },
+      { test: /[\\\/]schemes[\\\/]/, loader: "raw-loader" },
     ]
   },
   externals: [

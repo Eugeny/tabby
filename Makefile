@@ -21,9 +21,9 @@ install-deps:
 	npm install
 	npm prune
 	for dir in app terminus-* ; do \
-    	cd $$dir; \
-		npm --color always install 2>&1 | grep -v 'requires a peer'; \
-		npm --color always prune 2>&1 | grep -v 'requires a peer'; \
+    cd $$dir; \
+		npm install; \
+		npm prune; \
 		cd ..; \
 	done
 	make build-native

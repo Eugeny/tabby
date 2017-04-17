@@ -5,24 +5,27 @@
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "scripts": {
-    "build": "rm -r dist; webpack --progress --color --display-modules",
-    "watch": "rm -r dist; webpack --progress --color --watch"
+    "build": "rm -rf dist && webpack --progress --color --display-modules",
+    "watch": "rm -rf dist && webpack --progress --color --watch"
   },
   "author": "Eugene Pankov",
   "license": "MIT",
   "devDependencies": {
-    "awesome-typescript-loader": "^3.1.2",
-    "angular2-toaster": "3.0.1",
     "@ng-bootstrap/ng-bootstrap": "1.0.0-alpha.22",
-    "typescript": "^2.2.2",
+    "@types/electron": "^1.4.35",
     "@types/js-yaml": "^3.5.29",
-    "webpack": "^2.3.3",
+    "@types/node": "^7.0.12",
+    "@types/webpack-env": "^1.13.0",
+    "angular2-toaster": "3.0.1",
+    "awesome-typescript-loader": "^3.1.2",
     "bootstrap": "4.0.0-alpha.6",
     "core-js": "^2.4.1",
+    "json-loader": "^0.5.4",
     "ngx-perfect-scrollbar": "^4.0.0",
     "style-loader": "^0.13.1",
     "to-string-loader": "^1.1.5",
-    "json-loader": "^0.5.4",
+    "typescript": "^2.2.2",
+    "webpack": "^2.3.3",
     "yaml-loader": "^0.4.0"
   },
   "peerDependencies": {

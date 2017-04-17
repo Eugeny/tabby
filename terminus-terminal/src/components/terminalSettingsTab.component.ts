@@ -10,13 +10,18 @@ import { ConfigService, HostAppService, Platform } from 'terminus-core'
 import { TerminalColorSchemeProvider, ITerminalColorScheme } from '../api'
 
 
+interface IShell {
+    name: string
+    command: string
+}
+
 @Component({
     template: require('./terminalSettingsTab.component.pug'),
     styles: [require('./terminalSettingsTab.component.scss')],
 })
 export class TerminalSettingsTabComponent {
     fonts: string[] = []
-    shells: string[] = []
+    shells: IShell[] = []
     colorSchemes: ITerminalColorScheme[] = []
     equalComparator = equal
     editingColorScheme: ITerminalColorScheme
@@ -44,11 +49,22 @@ export class TerminalSettingsTabComponent {
                 this.fonts.sort()
             })
         }
+        if (this.hostApp.platform == Platform.Windows) {
+            this.shells = [
+                { name: 'CMD', command: 'cmd.exe' },
+                { name: 'PowerShell', command: 'powershell.exe' },
+            ]
+            const wslPath =`${process.env.windir}\\system32\\bash.exe`
+            if (await fs.exists(wslPath)) {
+                this.shells.push({ name: 'Bash on Windows', command: wslPath })
+            }
+        }
         if (this.hostApp.platform == Platform.Linux || this.hostApp.platform == Platform.macOS) {
             this.shells = (await fs.readFile('/etc/shells', 'utf-8'))
                 .split('\n')
                 .map(x => x.trim())
                 .filter(x => x && !x.startsWith('#'))
+                .map(x => ({ name: x, command: x }))
         }
         this.colorSchemes = (await Promise.all(this.colorSchemeProviders.map(x => x.getSchemes()))).reduce((a, b) => a.concat(b))
     }
@@ -59,10 +75,6 @@ export class TerminalSettingsTabComponent {
           .distinctUntilChanged()
           .map(query => this.fonts.filter(v => new RegExp(query, 'gi').test(v)))
           .map(list => Array.from(new Set(list)))
-    }
-
-    shellAutocomplete = (text$: Observable<string>) => {
-        return text$.map(_ => ['auto'].concat(this.shells))
     }
 
     editScheme (scheme: ITerminalColorScheme) {

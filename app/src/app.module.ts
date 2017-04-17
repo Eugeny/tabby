@@ -14,6 +14,10 @@ export async function getRootModule(): Promise<any> {
         ...(plugins.filter(x => x.bootstrap).map(x => x.bootstrap)),
     ]
 
+    if (bootstrap.length == 0) {
+        throw new Error('Did not find any bootstrap components. Are there any plugins installed?')
+    }
+
     @NgModule({
         imports,
         bootstrap,

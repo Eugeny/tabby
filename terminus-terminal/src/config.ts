@@ -23,7 +23,7 @@ export class TerminalConfigProvider extends ConfigProvider {
         [Platform.macOS]: {
             terminal: {
                 font: 'Menlo',
-                shell: 'zsh',
+                shell: '/bin/zsh',
             },
             hotkeys: {
                 'new-tab': [
@@ -49,7 +49,7 @@ export class TerminalConfigProvider extends ConfigProvider {
         [Platform.Linux]: {
             terminal: {
                 font: 'Liberation Mono',
-                shell: 'auto',
+                shell: '/bin/bash',
             },
             hotkeys: {
                 'new-tab': [

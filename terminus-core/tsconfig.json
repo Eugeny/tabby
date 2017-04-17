@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "baseUrl": "./src",
+    "baseUrl": "src",
     "module": "commonjs",
     "target": "es2015",
     "declaration": false,
@@ -22,7 +22,5 @@
       "es7"
     ]
   },
-  "include": [
-    "src"
-  ]
+  "include": ["src"]
 }
