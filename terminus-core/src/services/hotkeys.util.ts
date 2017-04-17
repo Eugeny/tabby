@@ -46,7 +46,7 @@ export function stringifyKeySequence(events: NativeKeyEvent[]): string[] {
                 itemKeys.push('Shift')
             }
 
-            if (['Control', 'Shift', 'Alt', 'Command'].includes(event.key)) {
+            if (['Control', 'Shift', 'Alt', 'Meta'].includes(event.key)) {
                 // TODO make this optional?
                 continue
             }

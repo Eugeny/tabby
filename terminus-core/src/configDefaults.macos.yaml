@@ -2,44 +2,44 @@ hotkeys:
   toggle-window:
     - 'Ctrl+Space'
   close-tab:
-    - 'Cmd-W'
+    - '⌘-W'
     - ['Ctrl-A', 'K']
   toggle-last-tab:
     - ['Ctrl-A', 'A']
     - ['Ctrl-A', 'Ctrl-A']
   next-tab:
-    - 'Cmd-ArrowRight'
+    - '⌘-ArrowRight'
     - ['Ctrl-A', 'N']
   previous-tab:
-    - 'Cmd-ArrowLeft'
+    - '⌘-ArrowLeft'
     - ['Ctrl-A', 'P']
   tab-1:
-    - 'Cmd-1'
+    - '⌘-1'
     - ['Ctrl-A', '1']
   tab-2:
-    - 'Cmd-2'
+    - '⌘-2'
     - ['Ctrl-A', '2']
   tab-3:
-    - 'Cmd-3'
+    - '⌘-3'
     - ['Ctrl-A', '3']
   tab-4:
-    - 'Cmd-4'
+    - '⌘-4'
     - ['Ctrl-A', '4']
   tab-5:
-    - 'Cmd-5'
+    - '⌘-5'
     - ['Ctrl-A', '5']
   tab-6:
-    - 'Cmd-6'
+    - '⌘-6'
     - ['Ctrl-A', '6']
   tab-7:
-    - 'Cmd-7'
+    - '⌘-7'
     - ['Ctrl-A', '7']
   tab-8:
-    - 'Cmd-8'
+    - '⌘-8'
     - ['Ctrl-A', '8']
   tab-9:
-    - 'Cmd-9'
+    - '⌘-9'
     - ['Ctrl-A', '9']
   tab-10:
-    - 'Cmd-0'
+    - '⌘-0'
     - ['Ctrl-A', '0']

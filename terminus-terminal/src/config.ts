@@ -29,7 +29,8 @@ export class TerminalConfigProvider extends ConfigProvider {
                 'new-tab': [
                     ['Ctrl-A', 'C'],
                     ['Ctrl-A', 'Ctrl-C'],
-                    'Cmd-T',
+                    '⌘-T',
+                    '⌘-N',
                 ]
             },
         },

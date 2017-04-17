@@ -323,3 +323,7 @@ ngb-tabset .tab-content {
 .input-group-addon + .form-control {
     border-left: none;
 }
+
+.input-group > select.form-control {
+    flex-direction: row;
+}

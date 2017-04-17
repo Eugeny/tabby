@@ -29,7 +29,7 @@ $tab-border-radius: 4px;
     display: flex;
 
     &>button {
-        line-height: $tabs-height - 2px;
+        line-height: $tabs-height + 2px;
         cursor: pointer;
 
         padding: 0 15px;

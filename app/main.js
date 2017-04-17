@@ -144,12 +144,12 @@ start = () => {
     }
     Object.assign(options, windowConfig.get('windowBoundaries'))
 
-    if (platform == 'darwin') {
-        options.titleBarStyle = 'hidden-inset'
-    }
-
     if ((configData.appearance || {}).useNativeFrame) {
         options.frame = true
+    } else {
+        if (platform == 'darwin') {
+            options.titleBarStyle = 'hidden-inset'
+        }
     }
 
     app.commandLine.appendSwitch('disable-http-cache')
