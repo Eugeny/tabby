@@ -1,52 +1,45 @@
-appearance:
-  dock: 'off'
-  dockScreen: 'current'
-  dockFill: 50
-  tabsOnTop: true
-  theme: 'Standard'
-  useNativeFrame: false
 hotkeys:
   toggle-window:
     - 'Ctrl+Space'
   close-tab:
-    - 'Ctrl-Shift-W'
+    - 'Cmd-W'
     - ['Ctrl-A', 'K']
   toggle-last-tab:
     - ['Ctrl-A', 'A']
     - ['Ctrl-A', 'Ctrl-A']
   next-tab:
-    - 'Ctrl-Shift-ArrowRight'
+    - 'Cmd-ArrowRight'
     - ['Ctrl-A', 'N']
   previous-tab:
-    - 'Ctrl-Shift-ArrowLeft'
+    - 'Cmd-ArrowLeft'
     - ['Ctrl-A', 'P']
   tab-1:
-    - 'Alt-1'
+    - 'Cmd-1'
     - ['Ctrl-A', '1']
   tab-2:
-    - 'Alt-2'
+    - 'Cmd-2'
     - ['Ctrl-A', '2']
   tab-3:
-    - 'Alt-3'
+    - 'Cmd-3'
     - ['Ctrl-A', '3']
   tab-4:
-    - 'Alt-4'
+    - 'Cmd-4'
     - ['Ctrl-A', '4']
   tab-5:
-    - 'Alt-5'
+    - 'Cmd-5'
     - ['Ctrl-A', '5']
   tab-6:
-    - 'Alt-6'
+    - 'Cmd-6'
     - ['Ctrl-A', '6']
   tab-7:
-    - 'Alt-7'
+    - 'Cmd-7'
     - ['Ctrl-A', '7']
   tab-8:
-    - 'Alt-8'
+    - 'Cmd-8'
     - ['Ctrl-A', '8']
   tab-9:
-    - 'Alt-9'
+    - 'Cmd-9'
     - ['Ctrl-A', '9']
   tab-10:
-    - 'Alt-0'
+    - 'Cmd-0'
     - ['Ctrl-A', '0']

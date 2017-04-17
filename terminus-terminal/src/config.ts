@@ -1,15 +1,13 @@
-import { ConfigProvider } from 'terminus-core'
+import { ConfigProvider, Platform } from 'terminus-core'
 
 
 export class TerminalConfigProvider extends ConfigProvider {
-    defaultConfigValues: any = {
+    defaults = {
         terminal: {
-            font: 'monospace',
             fontSize: 14,
             bell: 'off',
             bracketedPaste: true,
             background: 'theme',
-            shell: 'auto',
             colorScheme: {
                 __nonStructural: true,
                 foreground: null,
@@ -19,19 +17,47 @@ export class TerminalConfigProvider extends ConfigProvider {
             },
             customColorSchemes: []
         },
-        hotkeys: {
-            'new-tab': [
-                ['Ctrl-A', 'C'],
-                ['Ctrl-A', 'Ctrl-C'],
-                'Ctrl-Shift-T',
-            ]
-        },
     }
 
-    configStructure: any = {
-        terminal: {
-            colorScheme: {},
+    platformDefaults = {
+        [Platform.macOS]: {
+            terminal: {
+                font: 'Menlo',
+                shell: 'zsh',
+            },
+            hotkeys: {
+                'new-tab': [
+                    ['Ctrl-A', 'C'],
+                    ['Ctrl-A', 'Ctrl-C'],
+                    'Cmd-T',
+                ]
+            },
         },
-        hotkeys: {},
+        [Platform.Windows]: {
+            terminal: {
+                font: 'Consolas',
+                shell: 'cmd.exe',
+            },
+            hotkeys: {
+                'new-tab': [
+                    ['Ctrl-A', 'C'],
+                    ['Ctrl-A', 'Ctrl-C'],
+                    'Ctrl-Shift-T',
+                ]
+            },
+        },
+        [Platform.Linux]: {
+            terminal: {
+                font: 'Liberation Mono',
+                shell: 'auto',
+            },
+            hotkeys: {
+                'new-tab': [
+                    ['Ctrl-A', 'C'],
+                    ['Ctrl-A', 'Ctrl-C'],
+                    'Ctrl-Shift-T',
+                ]
+            },
+        },
     }
 }

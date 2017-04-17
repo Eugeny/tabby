@@ -3,7 +3,8 @@ import * as path from 'path'
 import * as fs from 'fs'
 import { EventEmitter, Injectable, Inject } from '@angular/core'
 import { ConfigProvider } from '../api/configProvider'
-import { ElectronService } from '../services/electron.service'
+import { ElectronService } from './electron.service'
+import { HostAppService } from './hostApp.service'
 
 
 export class ConfigProxy {
@@ -57,14 +58,24 @@ export class ConfigService {
     restartRequested: boolean
     private _store: any
     private path: string
-    private defaultConfigValues: any = require('../defaultConfigValues.yaml')
+    private defaults: any
 
     constructor (
         electron: ElectronService,
+        hostApp: HostAppService,
         @Inject(ConfigProvider) configProviders: ConfigProvider[],
     ) {
         this.path = path.join(electron.app.getPath('userData'), 'config.yaml')
-        this.defaultConfigValues = configProviders.map(x => x.defaultConfigValues).reduce(configMerge, this.defaultConfigValues)
+        this.defaults = configProviders.map(provider => {
+            let defaults = {}
+            if (provider.platformDefaults) {
+                defaults = configMerge(defaults, provider.platformDefaults[hostApp.platform])
+            }
+            if (provider.defaults) {
+                defaults = configMerge(defaults, provider.defaults)
+            }
+            return defaults
+        }).reduce(configMerge)
         this.load()
     }
 
@@ -74,16 +85,12 @@ export class ConfigService {
         } else {
             this._store = {}
         }
-        this.store = new ConfigProxy(this._store, this.defaultConfigValues)
+        this.store = new ConfigProxy(this._store, this.defaults)
     }
 
     save (): void {
         fs.writeFileSync(this.path, yaml.safeDump(this._store), 'utf8')
         this.emitChange()
-    }
-
-    full (): any {
-        return configMerge(this.defaultConfigValues, this._store)
     }
 
     emitChange (): void {

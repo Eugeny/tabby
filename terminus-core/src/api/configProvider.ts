@@ -1,4 +1,4 @@
 export abstract class ConfigProvider {
-    configStructure: any = {}
-    defaultConfigValues: any = {}
+    defaults: any = {}
+    platformDefaults: any = {}
 }

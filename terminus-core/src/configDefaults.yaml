@@ -1,0 +1,7 @@
+appearance:
+  dock: 'off'
+  dockScreen: 'current'
+  dockFill: 50
+  tabsOnTop: true
+  theme: 'Standard'
+  useNativeFrame: false

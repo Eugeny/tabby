@@ -26,9 +26,11 @@ import { TabHeaderComponent } from './components/tabHeader.component'
 import { TitleBarComponent } from './components/titleBar.component'
 
 import { HotkeyProvider } from './api/hotkeyProvider'
+import { ConfigProvider } from './api/configProvider'
 import { Theme } from './api/theme'
 
 import { StandardTheme } from './theme'
+import { CoreConfigProvider } from './config'
 
 import 'perfect-scrollbar/dist/css/perfect-scrollbar.css'
 
@@ -47,6 +49,7 @@ const PROVIDERS = [
     QuitterService,
     { provide: HotkeyProvider, useClass: AppHotkeyProvider, multi: true },
     { provide: Theme, useClass: StandardTheme, multi: true },
+    { provide: ConfigProvider, useClass: CoreConfigProvider, multi: true },
 ]
 
 
