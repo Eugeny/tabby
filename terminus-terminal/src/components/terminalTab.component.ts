@@ -1,6 +1,6 @@
 import { BehaviorSubject, ReplaySubject, Subject, Subscription } from 'rxjs'
 import { Component, NgZone, Inject, ViewChild, HostBinding, Input } from '@angular/core'
-import { AppService, ConfigService, BaseTabComponent } from 'terminus-core'
+import { AppService, ConfigService, BaseTabComponent, ThemesService } from 'terminus-core'
 
 import { Session } from '../services/sessions.service'
 
@@ -32,6 +32,7 @@ export class TerminalTabComponent extends BaseTabComponent {
     constructor(
         private zone: NgZone,
         private app: AppService,
+        private themes: ThemesService,
         public config: ConfigService,
         @Inject(TerminalDecorator) private decorators: TerminalDecorator[],
     ) {
@@ -209,7 +210,7 @@ export class TerminalTabComponent extends BaseTabComponent {
         } else {
             this.backgroundColor = null
             // hterm can't parse "transparent"
-            preferenceManager.set('background-color', 'rgba(0,0,0,0)')
+            preferenceManager.set('background-color', themes.findCurrentTheme().terminalBackground)
         }
         if (config.terminal.colorScheme.colors) {
             preferenceManager.set('color-palette-overrides', config.terminal.colorScheme.colors)

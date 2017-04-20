@@ -21,6 +21,10 @@ export class ThemesService {
         return this.themes.find(x => x.name === name)
     }
 
+    findCurrentTheme (): Theme {
+        return this.findTheme(this.config.store.appearance.theme) || this.findTheme('Standard')
+    }
+
     applyTheme (theme: Theme): void {
         if (!this.styleElement) {
             this.styleElement = document.createElement('style')
@@ -31,10 +35,6 @@ export class ThemesService {
     }
 
     applyCurrentTheme (): void {
-        let theme = this.findTheme(this.config.store.appearance.theme)
-        if (!theme) {
-            theme = this.findTheme('Standard')
-        }
-        this.applyTheme(theme)
+        this.applyTheme(this.findCurrentTheme())
     }
 }
