@@ -44,6 +44,9 @@ export class AppService {
     }
 
     selectTab (tab: BaseTabComponent) {
+        if (this.activeTab == tab) {
+            return
+        }
         if (this.tabs.includes(this.activeTab)) {
             this.lastTabIndex = this.tabs.indexOf(this.activeTab)
         } else {

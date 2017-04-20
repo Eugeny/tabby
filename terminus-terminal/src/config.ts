@@ -6,7 +6,7 @@ export class TerminalConfigProvider extends ConfigProvider {
         terminal: {
             fontSize: 14,
             bell: 'off',
-            bracketedPaste: true,
+            bracketedPaste: false,
             background: 'theme',
             colorScheme: {
                 __nonStructural: true,

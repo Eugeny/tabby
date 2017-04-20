@@ -1,6 +1,6 @@
 import { BehaviorSubject, ReplaySubject, Subject, Subscription } from 'rxjs'
 import { Component, NgZone, Inject, ViewChild, HostBinding, Input } from '@angular/core'
-import { AppService, ConfigService, BaseTabComponent, ThemesService } from 'terminus-core'
+import { AppService, ConfigService, BaseTabComponent, ThemesService, HostAppService, Platform } from 'terminus-core'
 
 import { Session } from '../services/sessions.service'
 
@@ -10,7 +10,7 @@ import { hterm, preferenceManager } from '../hterm'
 
 @Component({
   selector: 'terminalTab',
-  template: '<div #content class="content"></div>',
+  template: '<div #content class="content" [style.opacity]="htermVisible ? 1 : 0"></div>',
   styles: [require('./terminalTab.component.scss')],
 })
 export class TerminalTabComponent extends BaseTabComponent {
@@ -24,6 +24,7 @@ export class TerminalTabComponent extends BaseTabComponent {
     contentUpdated$ = new Subject<void>()
     alternateScreenActive$ = new BehaviorSubject(false)
     mouseEvent$ = new Subject<Event>()
+    htermVisible = false
     @Input() session: Session
     @ViewChild('content') content
     @HostBinding('style.background-color') backgroundColor: string
@@ -33,6 +34,7 @@ export class TerminalTabComponent extends BaseTabComponent {
         private zone: NgZone,
         private app: AppService,
         private themes: ThemesService,
+        private hostApp: HostAppService,
         public config: ConfigService,
         @Inject(TerminalDecorator) private decorators: TerminalDecorator[],
     ) {
@@ -63,6 +65,7 @@ export class TerminalTabComponent extends BaseTabComponent {
         this.attachHTermHandlers(this.hterm)
 
         this.hterm.onTerminalReady = () => {
+            this.htermVisible = true
             this.hterm.installKeyboard()
             this.io = this.hterm.io.push()
             this.attachIOHandlers(this.io)
@@ -104,12 +107,6 @@ export class TerminalTabComponent extends BaseTabComponent {
             this.zone.run(() => {
                 this.title$.next(title)
             })
-        }
-
-        const _decorate = hterm.scrollPort_.decorate.bind(hterm.scrollPort_)
-        hterm.scrollPort_.decorate = (...args) => {
-            _decorate(...args)
-            hterm.scrollPort_.screen_.style.cssText += `; padding-right: ${hterm.scrollPort_.screen_.offsetWidth - hterm.scrollPort_.screen_.clientWidth}px;`
         }
 
         const _setAlternateMode = hterm.setAlternateMode.bind(hterm)
@@ -198,6 +195,8 @@ export class TerminalTabComponent extends BaseTabComponent {
         preferenceManager.set('enable-clipboard-notice', false)
         preferenceManager.set('receive-encoding', 'raw')
         preferenceManager.set('send-encoding', 'raw')
+        preferenceManager.set('ctrl-plus-minus-zero-zoom', false)
+        preferenceManager.set('scrollbar-visible', this.hostApp.platform == Platform.macOS)
 
         if (config.terminal.colorScheme.foreground) {
             preferenceManager.set('foreground-color', config.terminal.colorScheme.foreground)
@@ -210,7 +209,7 @@ export class TerminalTabComponent extends BaseTabComponent {
         } else {
             this.backgroundColor = null
             // hterm can't parse "transparent"
-            preferenceManager.set('background-color', themes.findCurrentTheme().terminalBackground)
+            preferenceManager.set('background-color', this.themes.findCurrentTheme().terminalBackground)
         }
         if (config.terminal.colorScheme.colors) {
             preferenceManager.set('color-palette-overrides', config.terminal.colorScheme.colors)
