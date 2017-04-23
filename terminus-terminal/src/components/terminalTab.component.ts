@@ -197,6 +197,7 @@ export class TerminalTabComponent extends BaseTabComponent {
         preferenceManager.set('send-encoding', 'raw')
         preferenceManager.set('ctrl-plus-minus-zero-zoom', false)
         preferenceManager.set('scrollbar-visible', this.hostApp.platform == Platform.macOS)
+        preferenceManager.set('copy-on-select', false)
 
         if (config.terminal.colorScheme.foreground) {
             preferenceManager.set('foreground-color', config.terminal.colorScheme.foreground)

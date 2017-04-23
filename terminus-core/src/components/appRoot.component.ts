@@ -120,7 +120,9 @@ export class AppRootComponent {
                 }
             }
         }
-        this.docking.dock()
+        setImmediate(() => {
+            this.docking.dock()
+        })
     }
 
     getLeftToolbarButtons (): IToolbarButton[] { return this.getToolbarButtons(false) }
