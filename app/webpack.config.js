@@ -12,9 +12,8 @@ module.exports = {
   context: __dirname,
   devtool: 'source-map',
   output: {
-    path: path.join(__dirname, 'assets', 'webpack'),
+    path: path.join(__dirname, 'dist'),
     pathinfo: true,
-    //publicPath: 'assets/webpack/',
     filename: '[name].js'
   },
   resolve: {

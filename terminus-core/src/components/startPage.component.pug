@@ -1,5 +1,22 @@
 div
-    button.btn.btn-outline-info.btn-lg.btn-block(
+    .terminus-logo
+        .part(style='transform: rotateZ(0deg)')
+            div
+        .part(style='transform: rotateZ(51deg)')
+            div
+        .part(style='transform: rotateZ(102deg)')
+            div
+        .part(style='transform: rotateZ(154deg)')
+            div
+        .part(style='transform: rotateZ(205deg)')
+            div
+        .part(style='transform: rotateZ(257deg)')
+            div
+        .part(style='transform: rotateZ(308deg)')
+            div
+    h1.terminus-title Terminus
+
+    button.btn.btn-outline-primary.btn-lg.btn-block(
         *ngFor='let button of getButtons()',
         (click)='button.click()',
     )

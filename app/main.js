@@ -23,6 +23,12 @@ require('electron-debug')({enabled: true, showDevTools: process.argv.indexOf('--
 let windowConfig = new Config({name: 'window'})
 
 
+if (!process.env.TERMINUS_PLUGINS) {
+  process.env.TERMINUS_PLUGINS = ''
+}
+
+process.env.TERMINUS_PLUGINS += `:${path.resolve(__dirname, '..')}`
+
 setupWindowManagement = () => {
     let windowCloseable
 
@@ -144,7 +150,7 @@ start = () => {
         minHeight: 100,
         'web-preferences': {'web-security': false},
         //- background to avoid the flash of unstyled window
-        backgroundColor: '#1D272D',
+        backgroundColor: '#131d27',
         frame: false,
         //type: 'toolbar',
     }
@@ -161,7 +167,7 @@ start = () => {
     app.commandLine.appendSwitch('disable-http-cache')
 
     app.window = new electron.BrowserWindow(options)
-    app.window.loadURL(`file://${app.getAppPath()}/assets/webpack/index.html`, {extraHeaders: "pragma: no-cache\n"})
+    app.window.loadURL(`file://${app.getAppPath()}/dist/index.html`, {extraHeaders: "pragma: no-cache\n"})
 
     if (platform != 'darwin') {
         app.window.setMenu(null)

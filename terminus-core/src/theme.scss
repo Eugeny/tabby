@@ -145,7 +145,7 @@ app-root  {
         }
 
         &.tabs-on-top .tab-bar {
-            margin-top: 3px;
+            margin-top: 5px;
 
             tab-header {
                 .wrapper {
@@ -317,6 +317,10 @@ ngb-tabset .tab-content {
 .btn {
     i + * {
         margin-left: 5px;
+    }
+
+    &.btn-lg i + * {
+        margin-left: 10px;
     }
 }
 

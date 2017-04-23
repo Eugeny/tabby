@@ -1,13 +1,14 @@
 {
   "name": "term",
   "devDependencies": {
-    "@types/fs-promise": "^1.0.1",
     "@types/core-js": "^0.9.35",
     "@types/electron": "1.4.34",
+    "@types/fs-promise": "^1.0.1",
     "@types/node": "^7.0.5",
     "@types/webpack-env": "^1.13.0",
     "apply-loader": "^0.1.0",
     "awesome-typescript-loader": "3.1.2",
+    "cross-env": "^4.0.0",
     "css-loader": "0.26.1",
     "electron": "1.6.2",
     "electron-builder": "10.6.1",
@@ -16,7 +17,6 @@
     "file-loader": "^0.9.0",
     "font-awesome": "4.7.0",
     "html-loader": "^0.4.4",
-    "source-sans-pro": "^2.0.10",
     "less": "^2.7.1",
     "less-loader": "^2.2.3",
     "node-gyp": "^3.4.0",
@@ -26,6 +26,7 @@
     "pug-static-loader": "0.0.1",
     "raw-loader": "^0.5.1",
     "sass-loader": "^6.0.3",
+    "source-sans-pro": "^2.0.10",
     "style-loader": "^0.13.1",
     "to-string-loader": "^1.1.5",
     "tslint": "5.0.0",
@@ -58,6 +59,7 @@
   "scripts": {
     "build": "webpack --progress --color",
     "watch": "webpack --progress --color --watch",
+    "start": "cross-env DEV=1 electron app --debug",
     "pack": "build --dir",
     "postinstall": "install-app-deps",
     "dist": "build"

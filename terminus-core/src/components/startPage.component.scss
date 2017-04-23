@@ -3,11 +3,15 @@
     flex: auto;
 }
 
-:host div {
+:host > div {
     flex: none;
     margin: auto;
-    width: 400px;
+    width: 300px;
     max-width: 100vw;
     display: flex;
     flex-direction: column;
+}
+
+.terminus-title {
+  margin: 0 0 60px;
 }

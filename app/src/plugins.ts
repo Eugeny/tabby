@@ -17,26 +17,40 @@ if (process.env.TERMINUS_PLUGINS) {
     process.env.TERMINUS_PLUGINS.split(':').map(x => nodeModule.globalPaths.unshift(normalizePath(x)))
 }
 
-export async function loadPlugins (): Promise<any[]> {
+export declare type ProgressCallback = (current, total) => void
+
+interface IFoundPlugin {
+    name: string
+    path: string
+}
+
+export async function loadPlugins (progress: ProgressCallback): Promise<any[]> {
     let paths = nodeModule.globalPaths
     let plugins: any[] = []
+    let foundPlugins: IFoundPlugin[] = []
+
+    progress(0, 1)
     for (let pluginDir of paths) {
         pluginDir = normalizePath(pluginDir)
         if (!await fs.exists(pluginDir)) {
             continue
         }
-        for (let pluginName of await fs.readdir(pluginDir)) {
-            if (/^terminus-/.exec(pluginName)) {
-                let pluginPath = path.join(pluginDir, pluginName)
-                console.info(`Loading ${pluginName}: ${(<any>global).require.resolve(pluginPath)}`)
-                try {
-                    let pluginModule = (<any>global).require(pluginPath)
-                    plugins.push(pluginModule)
-                } catch (error) {
-                    console.error(`Could not load ${pluginName}:`, error)
-                }
-            }
-        }
+        let pluginNames = await fs.readdir(pluginDir)
+        pluginNames.filter(pluginName => /^terminus-/.exec(pluginName)).forEach(name => {
+            foundPlugins.push({ name, path: path.join(pluginDir, name) })
+        })
     }
+    foundPlugins.forEach((foundPlugin, index) => {
+        console.info(`Loading ${foundPlugin.name}: ${(<any>global).require.resolve(foundPlugin.path)}`)
+        progress(index, foundPlugins.length)
+        try {
+            let pluginModule = (<any>global).require(foundPlugin.path)
+            plugins.push(pluginModule)
+        } catch (error) {
+            console.error(`Could not load ${foundPlugin.name}:`, error)
+        }
+    })
+
+    progress(1, 1)
     return plugins
 }

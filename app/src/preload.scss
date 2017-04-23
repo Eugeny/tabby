@@ -1,0 +1,102 @@
+$color: rgba(0, 0, 0, 0.5);
+
+
+.preload-logo {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  animation: 0.5s ease-out fadeIn;
+
+  &>div {
+    width: 200px;
+    height: 200px;
+    margin: auto;
+    flex: none;
+
+    .progress {
+      background: rgba(0,0,0,.25);
+      height: 3px;
+      margin: 10px 50px;
+
+      .bar {
+        transition: 1s ease-out width;
+        background: $color;
+        height: 3px;
+      }
+    }
+  }
+}
+
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+
+
+.terminus-logo {
+  width: 160px;
+  height: 160px;
+  margin: auto;
+  position: relative;
+
+  .part {
+    position: absolute;
+    width: 160px;
+    height: 160px;
+
+    div {
+      position: absolute;
+      top: 33px;
+      left: 24px;
+      width: 44px;
+      height: 44px;
+      background: rgba(0,0,0, .75);
+      transform: rotateX(52deg) rotateY(-42deg);
+      animation: terminusLogoPartOnce ease-out 1s;
+    }
+  }
+
+  &.animated .part div {
+    animation: terminusLogoPart infinite ease-out 2s;
+  }
+}
+
+
+.terminus-title {
+  color: $color;
+  font-family: 'Source Sans Pro';
+  text-align: center;
+  font-weight: normal;
+  font-size: 42px;
+  margin: 0;
+}
+
+
+@keyframes terminusLogoPart {
+  0% {
+    transform: rotateX(90deg) rotateY(-90deg);
+  }
+  25% {
+    transform: rotateX(52deg) rotateY(-42deg);
+  }
+  75% {
+    transform: rotateX(52deg) rotateY(-42deg);
+  }
+  100% {
+    transform: rotateX(-90deg) rotateY(-90deg);
+  }
+}
+
+@keyframes terminusLogoPartOnce {
+  0% {
+    transform: rotateX(90deg) rotateY(-90deg);
+  }
+  100% {
+    transform: rotateX(52deg) rotateY(-42deg);
+  }
+}
