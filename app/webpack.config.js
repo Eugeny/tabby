@@ -29,14 +29,8 @@ module.exports = {
           configFileName: path.resolve(__dirname, 'tsconfig.json'),
         }
       },
-      {
-        test: /\.scss$/,
-        use: ['style-loader', 'css-loader', 'sass-loader'],
-      },
-      {
-        test: /\.css$/,
-        use: ['style-loader', 'css-loader', 'sass-loader'],
-      },
+      { test: /\.scss$/, use: ['style-loader', 'css-loader', 'sass-loader'] },
+      { test: /\.css$/, use: ['style-loader', 'css-loader', 'sass-loader'] },
       {
         test: /\.(png|svg)$/,
         loader: "file-loader",
@@ -66,10 +60,5 @@ module.exports = {
     'path': 'commonjs path',
     'rxjs': 'commonjs rxjs',
     'zone.js': 'commonjs zone.js',
-  },
-  plugins: [
-    new webpack.ProvidePlugin({
-      "window.jQuery": "jquery",
-    }),
-  ]
+  }
 }

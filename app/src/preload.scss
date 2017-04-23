@@ -2,6 +2,7 @@ $color: rgba(0, 0, 0, 0.5);
 
 
 .preload-logo {
+  -webkit-app-region: drag;
   position: fixed;
   left: 0;
   top: 0;

@@ -21,7 +21,7 @@ if ((<any>global).require('electron-is-dev')) {
 }
 
 loadPlugins((current, total) => {
-    document.querySelector('.progress .bar').style.width = 100 * current / total + '%'
+    (<HTMLElement>document.querySelector('.progress .bar')).style.width = 100 * current / total + '%'
 }).then(async plugins => {
     let module = await getRootModule(plugins)
     platformBrowserDynamic().bootstrapModule(module)

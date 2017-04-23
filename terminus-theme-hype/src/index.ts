@@ -6,7 +6,7 @@ import { Theme } from 'terminus-core'
 class HypeTheme extends Theme {
     name = 'Hype'
     css = require('./theme.scss')
-    terminalBackground = '#1D272D'
+    terminalBackground = '#010101'
 }
 
 
