@@ -12,7 +12,7 @@ import { enableProdMode } from '@angular/core'
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic'
 
 import { getRootModule } from './app.module'
-import { loadPlugins } from './plugins'
+import { findPlugins, loadPlugins } from './plugins'
 
 if ((<any>global).require('electron-is-dev')) {
     console.warn('Running in debug mode')
@@ -20,9 +20,10 @@ if ((<any>global).require('electron-is-dev')) {
     enableProdMode()
 }
 
-loadPlugins((current, total) => {
-    (<HTMLElement>document.querySelector('.progress .bar')).style.width = 100 * current / total + '%'
-}).then(async plugins => {
-    let module = await getRootModule(plugins)
+findPlugins().then(async plugins => {
+    let pluginsModules = loadPlugins(plugins, (current, total) => {
+        (<HTMLElement>document.querySelector('.progress .bar')).style.width = 100 * current / total + '%'
+    })
+    let module = await getRootModule(pluginsModules)
     platformBrowserDynamic().bootstrapModule(module)
 })

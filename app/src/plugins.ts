@@ -19,27 +19,46 @@ if (process.env.TERMINUS_PLUGINS) {
 
 export declare type ProgressCallback = (current, total) => void
 
-interface IFoundPlugin {
+interface IPluginEntry {
     name: string
     path: string
+    info: any
 }
 
-export async function loadPlugins (progress: ProgressCallback): Promise<any[]> {
+export async function findPlugins (): Promise<IPluginEntry[]> {
     let paths = nodeModule.globalPaths
-    let plugins: any[] = []
-    let foundPlugins: IFoundPlugin[] = []
+    let foundPlugins: IPluginEntry[] = []
 
-    progress(0, 1)
     for (let pluginDir of paths) {
         pluginDir = normalizePath(pluginDir)
         if (!await fs.exists(pluginDir)) {
             continue
         }
         let pluginNames = await fs.readdir(pluginDir)
-        pluginNames.filter(pluginName => /^terminus-/.exec(pluginName)).forEach(name => {
-            foundPlugins.push({ name, path: path.join(pluginDir, name) })
-        })
+        for (let pluginName of pluginNames.filter(x => /^terminus-/.exec(x))) {
+            let pluginPath = path.join(pluginDir, pluginName)
+            let infoPath = path.join(pluginPath, 'package.json')
+            if (!await fs.exists(infoPath)) {
+                continue
+            }
+            try {
+                foundPlugins.push({
+                    name: pluginName,
+                    path: pluginPath,
+                    info: await fs.readJson(infoPath),
+                })
+            } catch (error) {
+                console.error('Cannot load package info for', pluginName)
+            }
+        }
     }
+
+    return foundPlugins
+}
+
+export function loadPlugins (foundPlugins: IPluginEntry[], progress: ProgressCallback): any[] {
+    let plugins: any[] = []
+    progress(0, 1)
     foundPlugins.forEach((foundPlugin, index) => {
         console.info(`Loading ${foundPlugin.name}: ${(<any>global).require.resolve(foundPlugin.path)}`)
         progress(index, foundPlugins.length)
@@ -50,7 +69,6 @@ export async function loadPlugins (progress: ProgressCallback): Promise<any[]> {
             console.error(`Could not load ${foundPlugin.name}:`, error)
         }
     })
-
     progress(1, 1)
     return plugins
 }

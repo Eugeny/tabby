@@ -3,7 +3,7 @@ import * as fs from 'fs-promise'
 import { Subject } from 'rxjs'
 import { Injectable } from '@angular/core'
 import { Logger, LogService } from 'terminus-core'
-const { exec } = require('child-process-promise')
+import { exec } from 'mz/child_process'
 
 import { SessionOptions, SessionPersistenceProvider } from '../api'
 
@@ -85,7 +85,7 @@ export class Session {
             this.kill()
         } else {
             await new Promise((resolve) => {
-                this.kill('SIGTERM') 
+                this.kill('SIGTERM')
                 setImmediate(() => {
                     if (!this.open) {
                         resolve()
@@ -114,7 +114,7 @@ export class Session {
 
     async getWorkingDirectory (): Promise<string> {
         if (process.platform == 'darwin') {
-            let lines = (await exec(`lsof -p ${this.truePID} -Fn`)).stdout.split('\n')
+            let lines = (await exec(`lsof -p ${this.truePID} -Fn`))[0].toString().split('\n')
             return lines[2].substring(1)
         }
         if (process.platform == 'linux') {

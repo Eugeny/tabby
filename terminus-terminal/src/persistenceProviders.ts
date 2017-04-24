@@ -1,5 +1,5 @@
 import * as fs from 'fs-promise'
-const { exec, spawn } = require('child-process-promise')
+import { exec, spawn } from 'mz/child_process'
 
 import { Injectable } from '@angular/core'
 import { Logger, LogService } from 'terminus-core'
@@ -13,7 +13,7 @@ interface IChildProcess {
 }
 
 async function listProcesses (): Promise<IChildProcess[]> {
-    return (await exec(`ps -A -o pid,ppid,command`)).stdout
+    return (await exec(`ps -A -o pid,ppid,command`))[0].toString()
         .split('\n')
         .slice(1)
         .map(line => line.split(' ').filter(x => x).slice(0, 3))
@@ -38,7 +38,7 @@ export class ScreenPersistenceProvider extends SessionPersistenceProvider {
     async attachSession (recoveryId: any): Promise<SessionOptions> {
         let lines: string[]
         try {
-            lines = (await exec('screen -list')).stdout.split('\n')
+            lines = (await exec('screen -list'))[0].toString().split('\n')
         } catch (result) {
             lines = result.stdout.split('\n')
         }

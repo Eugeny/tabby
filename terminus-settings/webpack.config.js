@@ -40,7 +40,6 @@ module.exports = {
     'fs-promise',
     'path',
     'node-pty',
-    'child-process-promise',
     'fs-promise',
     /^rxjs/,
     /^@angular/,

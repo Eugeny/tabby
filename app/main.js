@@ -27,7 +27,9 @@ if (!process.env.TERMINUS_PLUGINS) {
   process.env.TERMINUS_PLUGINS = ''
 }
 
-process.env.TERMINUS_PLUGINS += `:${path.resolve(__dirname, '..')}`
+if (process.env.DEV) {
+  process.env.TERMINUS_PLUGINS += `:${path.resolve(__dirname, '..')}`
+}
 
 setupWindowManagement = () => {
     let windowCloseable

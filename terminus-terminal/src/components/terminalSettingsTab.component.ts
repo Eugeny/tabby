@@ -1,9 +1,9 @@
 import { Observable } from 'rxjs'
 import * as fs from 'fs-promise'
 import * as path from 'path'
+import { exec } from 'mz/child_process'
 const equal = require('deep-equal')
 const fontManager = require('font-manager')
-const { exec } = require('child-process-promise')
 
 import { Component, Inject } from '@angular/core'
 import { ConfigService, HostAppService, Platform } from 'terminus-core'
@@ -44,8 +44,8 @@ export class TerminalSettingsTabComponent {
             this.fonts.sort()
         }
         if (this.hostApp.platform == Platform.Linux) {
-            exec('fc-list :spacing=mono').then((result) => {
-                this.fonts = result.stdout
+            exec('fc-list :spacing=mono').then(([stdout, _]) => {
+                this.fonts = stdout
                     .split('\n')
                     .filter(x => !!x)
                     .map(x => x.split(':')[1].trim())

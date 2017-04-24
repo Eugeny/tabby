@@ -40,7 +40,7 @@ module.exports = {
     'font-manager',
     'path',
     'node-pty',
-    'child-process-promise',
+    'mz/child_process',
     'winreg',
     /^rxjs/,
     /^@angular/,
