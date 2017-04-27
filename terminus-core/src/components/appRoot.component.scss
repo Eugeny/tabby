@@ -47,8 +47,15 @@ $tab-border-radius: 4px;
     }
 
     &>.tabs {
-        flex: auto;
+        flex: 0 1 auto;
         display: flex;
+        min-width: 0;
+    }
+
+    &>.drag-space {
+        min-width: 100px;
+        flex: 1 0 25%;
+        -webkit-app-region: drag;
     }
 }
 

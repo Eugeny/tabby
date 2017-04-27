@@ -4,67 +4,61 @@ $tabs-height: 40px;
     line-height: $tabs-height - 2px;
     cursor: pointer;
 
-    flex: auto;
-    flex-basis: 0;
-    flex-grow: 1000;
+    flex: 1000 1 200px;
+    width: 200px;
 
     display: flex;
+    flex-direction: row;
+    min-width: 0;
+
     overflow: hidden;
 
-    min-width: 0;
     transition: 0.25s ease-out all;
 
-    .wrapper {
-        display: flex;
-        flex-direction: row;
-        flex: auto;
-        min-width: 0;
+    border-top: 1px solid transparent;
+
+    .index {
+        flex: none;
+        font-weight: bold;
+
+        margin-left: 10px;
+        width: 20px;
+        border-radius: 10px;
+        line-height: 38px;
+        text-align: center;
         transition: 0.25s all;
-        border-top: 1px solid transparent;
+    }
 
-        .index {
-            flex: none;
-            font-weight: bold;
+    .name {
+        flex: auto;
+        margin: 0 1px 0 10px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        min-width: 0;
+    }
 
-            margin-left: 10px;
-            width: 20px;
-            border-radius: 10px;
-            line-height: 38px;
-            text-align: center;
-            transition: 0.25s all;
-        }
+    button {
+        display: block;
+        flex: none;
+        background: transparent;
+        opacity: 0;
 
-        .name {
-            flex: auto;
-            margin: 0 1px 0 10px;
-            overflow: hidden;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-            min-width: 0;
-        }
+        $button-size: $tabs-height * 0.6;
+        width: $button-size;
+        height: $button-size;
+        border-radius: $button-size / 2;
+        line-height: $button-size * 0.8;
+        margin-top: ($tabs-height - $button-size) * 0.4;
+        margin-right: 10px;
 
-        button {
-            display: block;
-            flex: none;
-            background: transparent;
-            opacity: 0;
+        text-align: center;
+        font-size: 20px;
+    }
 
-            $button-size: $tabs-height * 0.6;
-            width: $button-size;
-            height: $button-size;
-            border-radius: $button-size / 2;
-            line-height: $button-size * 0.8;
-            margin-top: ($tabs-height - $button-size) * 0.4;
-            margin-right: 10px;
-
-            text-align: center;
-            font-size: 20px;
-        }
-
-        &:hover button {
-            transition: 0.25s opacity;
-            display: block;
-            opacity: 1;
-        }
+    &:hover button {
+        transition: 0.25s opacity;
+        display: block;
+        opacity: 1;
     }
 }

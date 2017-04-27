@@ -1,21 +1,12 @@
-title-bar(*ngIf='!config.store.appearance.useNativeFrame && config.store.appearance.dock == "off"')
+//title-bar(*ngIf='!config.store.appearance.useNativeFrame && config.store.appearance.dock == "off"')
 
 .content(
     [class.tabs-on-top]='config.store.appearance.tabsOnTop'    
 )
     .tab-bar(*ngIf='app.tabs.length > 0')
-        button.btn.btn-secondary(
-            *ngFor='let button of getLeftToolbarButtons()',
-            [title]='button.title',
-            (click)='button.click()',
-        )
-            i.fa([class]='"fa fa-" + button.icon')
-                
         .tabs
             tab-header(
                 *ngFor='let tab of app.tabs; let idx = index',
-                [class.pre-selected]='idx == app.tabs.indexOf(app.activeTab) - 1',
-                [class.post-selected]='idx == app.tabs.indexOf(app.activeTab) + 1',
                 [index]='idx',
                 [tab]='tab',
                 [active]='tab == app.activeTab',
@@ -24,6 +15,15 @@ title-bar(*ngIf='!config.store.appearance.useNativeFrame && config.store.appeara
                 (click)='app.selectTab(tab)',
                 (closeClicked)='app.closeTab(tab)',
             )
+        
+        button.btn.btn-secondary(
+            *ngFor='let button of getLeftToolbarButtons()',
+            [title]='button.title',
+            (click)='button.click()',
+        )
+            i.fa([class]='"fa fa-" + button.icon')
+                
+        .drag-space
 
         button.btn.btn-secondary(
             *ngFor='let button of getRightToolbarButtons()',

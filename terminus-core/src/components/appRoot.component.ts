@@ -23,16 +23,19 @@ import { AppService, IToolbarButton, ToolbarButtonProvider } from '../api'
         trigger('animateTab', [
             state('in', style({
                 'flex-grow': '1000',
+                'flex-basis': '200px',
             })),
             transition(':enter', [
                 style({
                     'flex-grow': '1',
+                    'flex-basis': '1px',
                 }),
                 animate('250ms ease-in-out')
             ]),
             transition(':leave', [
                 animate('250ms ease-in-out', style({
                     'flex-grow': '1',
+                    'flex-basis': '1px',
                 }))
             ])
         ])

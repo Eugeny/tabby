@@ -98,75 +98,47 @@ app-root  {
                 }
             }
 
+            .drag-space {
+                background: $body-bg2;
+            }
+
             &>.tabs {
                 &:empty {
                     background: $body-bg2;
                 }
 
                 tab-header {
-                    background: $body-bg;
+                    background: $body-bg2;
 
-                    .wrapper {
-                        background: $body-bg2;
+                    .index {
+                        color: #555;
+                    }
 
-                        .index {
-                            color: #555;
-                        }
+                    button {
+                        color: $body-color;
+                        border: none;
+                        transition: 0.25s all;
 
-                        button {
-                            color: $body-color;
-                            border: none;
-                            transition: 0.25s all;
-
-                            &:hover { background: $button-hover-bg !important; }
-                            &:active { background: $button-active-bg !important; }
-                        }
+                        &:hover { background: $button-hover-bg !important; }
+                        &:active { background: $button-active-bg !important; }
                     }
 
                     &.active {
-                        background: $body-bg2;
-
-                        .wrapper {
-                            background: $body-bg;
-                        }
-                    }
-
-                    &.has-activity:not(.active) {
-                        /*
-                        .wrapper .index {
-                            background: $blue;
-                            color: white;
-                            text-shadow: 0 1px 1px rgba(0,0,0,.95);
-                        }
-                        */
+                        background: $body-bg;
                     }
                 }
             }
         }
 
         &.tabs-on-top .tab-bar {
-            margin-top: 5px;
-
             tab-header {
-                .wrapper {
-                    border-top: 1px solid transparent;
-                    border-top-left-radius: $tab-border-radius;
-                    border-top-right-radius: $tab-border-radius;
-                }
+                border-top: 1px solid transparent;
 
-                &.pre-selected .wrapper {
-                    border-bottom-right-radius: $tab-border-radius;
-                }
-
-                &.post-selected .wrapper {
-                    border-bottom-left-radius: $tab-border-radius;
-                }
-
-                &.active .wrapper {
+                &.active {
                     border-top: 1px solid $teal;
                 }
 
-                &.has-activity:not(.active) .wrapper {
+                &.has-activity:not(.active) {
                     border-top: 1px solid $green;
                 }
             }
@@ -176,25 +148,13 @@ app-root  {
             margin-bottom: 3px;
 
             tab-header {
-                .wrapper {
-                    border-bottom: 1px solid transparent;
-                    border-bottom-left-radius: $tab-border-radius;
-                    border-bottom-right-radius: $tab-border-radius;
-                }
+                border-bottom: 1px solid transparent;
 
-                &.pre-selected .wrapper {
-                    border-top-right-radius: $tab-border-radius;
-                }
-
-                &.post-selected .wrapper {
-                    border-top-left-radius: $tab-border-radius;
-                }
-
-                &.active .wrapper {
+                &.active {
                     border-bottom: 1px solid $teal;
                 }
 
-                &.has-activity:not(.active) .wrapper {
+                &.has-activity:not(.active) {
                     border-bottom: 1px solid $green;
                 }
             }

@@ -45,7 +45,7 @@ export class TerminalSettingsTabComponent {
         }
         if (this.hostApp.platform == Platform.Linux) {
             exec('fc-list :spacing=mono').then(([stdout, _]) => {
-                this.fonts = stdout
+                this.fonts = stdout.toString()
                     .split('\n')
                     .filter(x => !!x)
                     .map(x => x.split(':')[1].trim())
