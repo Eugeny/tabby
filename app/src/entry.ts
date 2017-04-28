@@ -21,7 +21,7 @@ if ((<any>global).require('electron-is-dev')) {
 }
 
 findPlugins().then(async plugins => {
-    let pluginsModules = loadPlugins(plugins, (current, total) => {
+    let pluginsModules = await loadPlugins(plugins, (current, total) => {
         (<HTMLElement>document.querySelector('.progress .bar')).style.width = 100 * current / total + '%'
     })
     let module = await getRootModule(pluginsModules)

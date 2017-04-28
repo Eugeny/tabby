@@ -71,8 +71,12 @@ $tab-border-radius: 4px;
         -webkit-app-region: drag;
     }
 
-    &.window-controls {
+    .window-controls {
         flex: 0 0 none;
+    }
+
+    &.inset {
+        padding-left: 85px;
     }
 }
 

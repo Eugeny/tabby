@@ -61,4 +61,8 @@ $tabs-height: 40px;
         display: block;
         opacity: 1;
     }
+
+    &.drag-region {
+        -webkit-app-region: drag;
+    }
 }

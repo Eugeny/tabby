@@ -1,9 +1,14 @@
-title-bar(*ngIf='config.store.appearance.frame == "full" && config.store.appearance.dock == "off"')
+title-bar(
+  *ngIf='config.store.appearance.frame == "full" && config.store.appearance.dock == "off"',
+  [class.inset]='hostApp.platform == Platform.macOS'
+)
 
 .content(
-    [class.tabs-on-top]='config.store.appearance.tabsOnTop'    
+    [class.tabs-on-top]='config.store.appearance.tabsLocation == "top"'    
 )
-    .tab-bar
+    .tab-bar(
+        [class.inset]='hostApp.platform == Platform.macOS && config.store.appearance.frame == "thin" && config.store.appearance.tabsLocation == "top"'
+    )
         .tabs
             tab-header(
                 *ngFor='let tab of app.tabs; let idx = index',
@@ -11,6 +16,7 @@ title-bar(*ngIf='config.store.appearance.frame == "full" && config.store.appeara
                 [tab]='tab',
                 [active]='tab == app.activeTab',
                 [hasActivity]='tab.hasActivity',
+                [class.drag-region]='hostApp.platform == Platform.macOS',
                 @animateTab,
                 (click)='app.selectTab(tab)',
                 (closeClicked)='app.closeTab(tab)',
@@ -35,7 +41,7 @@ title-bar(*ngIf='config.store.appearance.frame == "full" && config.store.appeara
                 i.fa([class]='"fa fa-" + button.icon')
 
         .btn-group.window-controls(
-            *ngIf='config.store.appearance.frame == "thin"',
+            *ngIf='config.store.appearance.frame == "thin" && (hostApp.platform == Platform.Windows || hostApp.platform == Platform.Linux)',
         )
             button.btn.btn-secondary.btn-minimize.btn-tab-bar(
                 (click)='hostApp.minimize()',

@@ -1,6 +1,8 @@
 import * as fs from 'fs-promise'
 import { exec, spawn } from 'mz/child_process'
+import { exec as execCallback } from 'child_process'
 
+import { AsyncSubject } from 'rxjs'
 import { Injectable } from '@angular/core'
 import { Logger, LogService } from 'terminus-core'
 import { SessionOptions, SessionPersistenceProvider } from './api'
@@ -36,12 +38,12 @@ export class ScreenPersistenceProvider extends SessionPersistenceProvider {
     }
 
     async attachSession (recoveryId: any): Promise<SessionOptions> {
-        let lines: string[]
-        try {
-            lines = (await exec('screen -list'))[0].toString().split('\n')
-        } catch (result) {
-            lines = result.stdout.split('\n')
-        }
+        let lines = await new Promise<string[]>(resolve => {
+            execCallback('screen -list', (_err, stdout) => {
+                // returns an error code on macOS
+                resolve(stdout.split('\n'))
+            })
+        })
         let screenPID = lines
             .filter(line => line.indexOf('.' + recoveryId) !== -1)
             .map(line => parseInt(line.trim().split('.')[0]))[0]
@@ -50,23 +52,34 @@ export class ScreenPersistenceProvider extends SessionPersistenceProvider {
             return null
         }
 
-        let child = (await listProcesses()).find(x => x.ppid === screenPID)
+        let truePID_ = new AsyncSubject<number>()
 
-        if (!child) {
-            this.logger.error(`Could not find any children of the screen process (PID ${screenPID})!`)
-        }
-        if (child.command == 'login') {
-            child = (await listProcesses()).find(x => x.ppid === child.pid)
-        }
-
-        let recoveredTruePID = child.pid
+        this.extractShellPID(screenPID).then(pid => {
+            truePID_.next(pid)
+            truePID_.complete()
+        })
 
         return {
             recoveryId,
-            recoveredTruePID,
+            recoveredTruePID$: truePID_.asObservable(),
             command: 'screen',
             args: ['-r', recoveryId],
         }
+    }
+
+    async extractShellPID (screenPID: number): Promise<number> {
+        let child = (await listProcesses()).find(x => x.ppid === screenPID)
+
+        if (!child) {
+            throw new Error(`Could not find any children of the screen process (PID ${screenPID})!`)
+        }
+
+        if (child.command == 'login') {
+            await delay(1000)
+            child = (await listProcesses()).find(x => x.ppid === child.pid)
+        }
+
+        return child.pid
     }
 
     async startSession (options: SessionOptions): Promise<any> {

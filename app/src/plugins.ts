@@ -56,10 +56,11 @@ export async function findPlugins (): Promise<IPluginEntry[]> {
     return foundPlugins
 }
 
-export function loadPlugins (foundPlugins: IPluginEntry[], progress: ProgressCallback): any[] {
+export async function loadPlugins (foundPlugins: IPluginEntry[], progress: ProgressCallback): Promise<any[]> {
     let plugins: any[] = []
     progress(0, 1)
-    foundPlugins.forEach((foundPlugin, index) => {
+    let index = 0
+    for (let foundPlugin of foundPlugins) {
         console.info(`Loading ${foundPlugin.name}: ${(<any>global).require.resolve(foundPlugin.path)}`)
         progress(index, foundPlugins.length)
         try {
@@ -68,7 +69,9 @@ export function loadPlugins (foundPlugins: IPluginEntry[], progress: ProgressCal
         } catch (error) {
             console.error(`Could not load ${foundPlugin.name}:`, error)
         }
-    })
+        await delay(1)
+        index++
+    }
     progress(1, 1)
     return plugins
 }
