@@ -16,37 +16,39 @@ title-bar(*ngIf='config.store.appearance.frame == "full" && config.store.appeara
                 (closeClicked)='app.closeTab(tab)',
             )
         
-        button.btn.btn-secondary(
-            *ngFor='let button of getLeftToolbarButtons()',
-            [title]='button.title',
-            (click)='button.click()',
-        )
-            i.fa([class]='"fa fa-" + button.icon')
+        .btn-group
+            button.btn.btn-secondary.btn-tab-bar(
+                *ngFor='let button of getLeftToolbarButtons()',
+                [title]='button.title',
+                (click)='button.click()',
+            )
+                i.fa([class]='"fa fa-" + button.icon')
                 
         .drag-space
+            
+        .btn-group
+            button.btn.btn-secondary.btn-tab-bar(
+                *ngFor='let button of getRightToolbarButtons()',
+                [title]='button.title',
+                (click)='button.click()',
+            )
+                i.fa([class]='"fa fa-" + button.icon')
 
-        button.btn.btn-secondary(
-            *ngFor='let button of getRightToolbarButtons()',
-            [title]='button.title',
-            (click)='button.click()',
-        )
-            i.fa([class]='"fa fa-" + button.icon')
-
-        button.btn.btn-secondary.btn-minimize(
+        .btn-group.window-controls(
             *ngIf='config.store.appearance.frame == "thin"',
-            (click)='hostApp.minimize()',
         )
-            i.fa.fa-window-minimize
-        button.btn.btn-secondary.btn-maximize(
-            *ngIf='config.store.appearance.frame == "thin"',
-            (click)='hostApp.toggleMaximize()',
-        )
-            i.fa.fa-window-maximize
-        button.btn.btn-secondary.btn-close(
-            *ngIf='config.store.appearance.frame == "thin"',
-            (click)='hostApp.quit()',
-        )
-            i.fa.fa-close
+            button.btn.btn-secondary.btn-minimize.btn-tab-bar(
+                (click)='hostApp.minimize()',
+            )
+                i.fa.fa-window-minimize
+            button.btn.btn-secondary.btn-maximize.btn-tab-bar(
+                (click)='hostApp.toggleMaximize()',
+            )
+                i.fa.fa-window-maximize
+            button.btn.btn-secondary.btn-close.btn-tab-bar(
+                (click)='hostApp.quit()',
+            )
+                i.fa.fa-close
 
     start-page(*ngIf='app.tabs.length == 0')
 

@@ -82,13 +82,14 @@ title-bar {
     }
 }
 
+$border-color: #141414;
 
 app-root  {
     &> .content {
         background: $body-bg2;
 
         .tab-bar {
-            &>button {
+            .btn-tab-bar {
                 &:not(:hover):not(:active) {
                     background: $body-bg2;
                 }
@@ -105,6 +106,9 @@ app-root  {
 
                 tab-header {
                     background: $body-bg2;
+                    border-left: 1px solid transparent;
+                    border-right: 1px solid transparent;
+                    margin-bottom: -1px;
 
                     .index {
                         color: #555;
@@ -121,6 +125,8 @@ app-root  {
 
                     &.active {
                         background: $body-bg;
+                        border-left: 1px solid $border-color;
+                        border-right: 1px solid $border-color;
                     }
                 }
             }
@@ -129,14 +135,20 @@ app-root  {
         &.tabs-on-top .tab-bar {
             tab-header {
                 border-top: 1px solid transparent;
+                border-bottom: 1px solid $border-color;
 
                 &.active {
                     border-top: 1px solid $teal;
+                    border-bottom: 1px solid transparent;
                 }
 
                 &.has-activity:not(.active) {
                     border-top: 1px solid $green;
                 }
+            }
+
+            &>.btn-group, .drag-space {
+                border-bottom: 1px solid $border-color;
             }
         }
 
@@ -145,14 +157,20 @@ app-root  {
 
             tab-header {
                 border-bottom: 1px solid transparent;
+                border-top: 1px solid $border-color;
 
                 &.active {
                     border-bottom: 1px solid $teal;
+                    border-top: 1px solid transparent;
                 }
 
                 &.has-activity:not(.active) {
                     border-bottom: 1px solid $green;
                 }
+            }
+
+            &>.btn-group, .drag-space {
+                border-top: 1px solid $border-color;
             }
         }
     }
