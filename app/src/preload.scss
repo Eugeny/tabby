@@ -1,4 +1,4 @@
-$color: rgba(0, 0, 0, 0.5);
+$color: rgba(66, 142, 173, 0.75);
 
 
 .preload-logo {
@@ -44,6 +44,7 @@ $color: rgba(0, 0, 0, 0.5);
   height: 160px;
   margin: auto;
   position: relative;
+  transform: rotateZ(-14.5deg);
 
   .part {
     position: absolute;
@@ -56,7 +57,7 @@ $color: rgba(0, 0, 0, 0.5);
       left: 24px;
       width: 44px;
       height: 44px;
-      background: rgba(0,0,0, .75);
+      background: $color;
       transform: rotateX(52deg) rotateY(-42deg);
       animation: terminusLogoPartOnce ease-out 1s;
     }

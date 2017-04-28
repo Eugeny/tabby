@@ -16,9 +16,18 @@ div
             div
     h1.terminus-title Terminus
 
-    button.btn.btn-outline-primary.btn-lg.btn-block(
+    button.btn.btn-primary.btn-lg.btn-block(
         *ngFor='let button of getButtons()',
         (click)='button.click()',
     )
         i.fa([class]='"fa fa-" + button.icon')
         span {{button.title}}
+
+footer
+    .btn-group
+        button.btn.btn-secondary((click)='openGitHub()')
+            i.fa.fa-github
+            span GitHub
+        button.btn.btn-secondary((click)='reportBug()')
+            i.fa.fa-bug
+            span Report a problem

@@ -1,6 +1,8 @@
 :host {
     display: flex;
+    flex-direction: column;
     flex: auto;
+    -webkit-app-region: drag;
 }
 
 :host > div {
@@ -13,5 +15,15 @@
 }
 
 .terminus-title {
-  margin: 0 0 60px;
+    margin: 0 0 60px;
+}
+
+footer {
+    flex: none;
+    padding: 20px 30px;
+    background: rgba(0,0,0,.5);
+}
+
+button {
+    -webkit-app-region: no-drag;
 }
