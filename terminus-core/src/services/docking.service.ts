@@ -52,8 +52,10 @@ export class DockingService {
         }
 
         this.hostApp.setAlwaysOnTop(true)
-        this.hostApp.unmaximize()
-        this.hostApp.setBounds(newBounds)
+        //this.hostApp.unmaximize()
+        setImmediate(() => {
+            this.hostApp.setBounds(newBounds)
+        })
     }
 
     getCurrentScreen () {

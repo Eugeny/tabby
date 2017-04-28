@@ -4,4 +4,4 @@ appearance:
   dockFill: 50
   tabsOnTop: true
   theme: 'Standard'
-  useNativeFrame: false
+  frame: 'thin'

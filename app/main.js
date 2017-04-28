@@ -88,13 +88,18 @@ setupWindowManagement = () => {
     })
 
     electron.ipcMain.on('window-set-bounds', (event, bounds) => {
-        app.window.setBounds(bounds)
+        let actualBounds = app.window.getBounds()
+        actualBounds.x = bounds.x
+        actualBounds.y = bounds.y
+        app.window.setBounds(actualBounds)
         setTimeout(() => {
-          let actualBounds = app.window.getBounds()
+          actualBounds = app.window.getBounds()
           bounds.width += bounds.x - actualBounds.x
           bounds.height += bounds.y - actualBounds.y
+          bounds.x = actualBounds.x
+          bounds.y = actualBounds.y
           app.window.setBounds(bounds)
-        }, 500)
+        }, 100)
     })
 
     electron.ipcMain.on('window-set-always-on-top', (event, flag) => {
@@ -148,8 +153,8 @@ start = () => {
         height: 400,
         //icon: `${app.getAppPath()}/assets/img/icon.png`,
         title: 'Terminus',
-        minWidth: 300,
-        minHeight: 100,
+        minWidth: 400,
+        minHeight: 300,
         'web-preferences': {'web-security': false},
         //- background to avoid the flash of unstyled window
         backgroundColor: '#131d27',
@@ -158,7 +163,7 @@ start = () => {
     }
     Object.assign(options, windowConfig.get('windowBoundaries'))
 
-    if ((configData.appearance || {}).useNativeFrame) {
+    if ((configData.appearance || {}).frame == 'native') {
         options.frame = true
     } else {
         if (platform == 'darwin') {

@@ -44,6 +44,18 @@ $tab-border-radius: 4px;
         color: #aaa;
         border: none;
         border-radius: 0;
+
+        &.btn-minimize {
+            margin-left: 10px;
+        }
+        
+        &.btn-minimize, &.btn-maximize {
+            font-size: 8px;
+        }
+
+        &.btn-close {
+            font-size: 12px;
+        }
     }
 
     &>.tabs {

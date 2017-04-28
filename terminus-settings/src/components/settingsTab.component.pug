@@ -19,8 +19,8 @@ ngb-tabset.vertical(type='tabs')
                         label Show tabs
                         br
                         div(
-                            '[(ngModel)]'='config.store.appearance.tabsOnTop'
-                            '(ngModelChange)'='config.save()'
+                            '[(ngModel)]'='config.store.appearance.tabsOnTop',
+                            (ngModelChange)='config.save()',
                             ngbRadioGroup
                         )
                             label.btn.btn-secondary
@@ -40,22 +40,28 @@ ngb-tabset.vertical(type='tabs')
                         label Window frame
                         br
                         div(
-                            '[(ngModel)]'='config.store.appearance.useNativeFrame'
+                            '[(ngModel)]'='config.store.appearance.frame'
                             '(ngModelChange)'='config.save(); config.requestRestart()'
                             ngbRadioGroup
                         )
                             label.btn.btn-secondary
                                 input(
                                     type='radio',
-                                    [value]='true'
+                                    [value]='"native"'
                                 )
                                 | Native
                             label.btn.btn-secondary
                                 input(
                                     type='radio',
-                                    [value]='false'
+                                    [value]='"thin"'
                                 )
-                                | Custom
+                                | Thin
+                            label.btn.btn-secondary
+                                input(
+                                    type='radio',
+                                    [value]='"full"'
+                                )
+                                | Full
                         small.form-text.text-muted Whether a custom window or an OS native window should be used
 
                     .row

@@ -84,14 +84,10 @@ title-bar {
 
 
 app-root  {
-    background: $body-bg;
-
     &> .content {
         background: $body-bg2;
 
         .tab-bar {
-            background: $body-bg;
-
             &>button {
                 &:not(:hover):not(:active) {
                     background: $body-bg2;
