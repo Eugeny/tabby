@@ -1,6 +1,7 @@
 {
   "name": "terminus",
-  "version": "0.0.1",
+  "description": "A terminal for a modern age",
+  "author": "Eugene Pankov",
   "main": "main.js",
   "scripts": {
     "build": "../node_modules/.bin/webpack --progress --color --display-modules",

@@ -56,6 +56,7 @@ module.exports = {
     '@angular/common': 'commonjs @angular/common',
     '@ng-bootstrap/ng-bootstrap': 'commonjs @ng-bootstrap/ng-bootstrap',
     'fs-promise': 'commonjs fs-promise',
+    'electron': 'commonjs electron',
     'module': 'commonjs module',
     'path': 'commonjs path',
     'rxjs': 'commonjs rxjs',

@@ -3,6 +3,8 @@ MAC_OUTPUT="./dist/Elements-Electron.pkg"
 FULL_VERSION=$(shell python -c 'import subprocess; v = subprocess.check_output("git describe --tags --long", shell=True).strip()[1:]; print(v.split("-0-g")[0])')
 SHORT_VERSION=$(shell python -c 'import subprocess; v = subprocess.check_output("git describe --tags --long", shell=True).strip()[1:].split("-")[0]; print(v)')
 
+builtin_plugins = terminus-core terminus-settings terminus-terminal
+
 all: run
 
 run:
@@ -20,7 +22,7 @@ watch:
 install-deps:
 	npm install
 	npm prune
-	for dir in app terminus-* ; do \
+	for dir in app $(builtin_plugins) ; do \
     cd $$dir; \
 		npm install; \
 		npm prune; \
@@ -32,39 +34,29 @@ build-native:
 	./node_modules/.bin/electron-rebuild -f -w terminus-terminal/node_modules/node-pty -m terminus-terminal
 	./node_modules/.bin/electron-rebuild -f -w terminus-terminal/node_modules/font-manager -m terminus-terminal
 
-build-native-windows:
-	echo :: Building native extensions
-	rm -r ./native/windows/build || true
-	cd native/windows && node-gyp rebuild --target=1.4.12 --arch=x64 --dist-url=https://atom.io/download/atom-shell
-	mkdir native/build || true
-	cp ./native/windows/build/Release/elements-native.node ./app/
-
-build-native-mac:
-	echo :: Building native extensions
-	rm -r ./native/mac/build || true
-	cd native/mac && node-gyp rebuild --target=1.4.12 --arch=x64 --dist-url=https://atom.io/download/atom-shell
-	mkdir native/build || true
-	cp ./native/mac/build/Release/elements-native.node ./app/
-
-build-native-linux:
-	echo :: Building native extensions
-	rm -r ./native/linux/build || true
-	cd native/linux && node-gyp rebuild --target=1.4.12 --arch=x64 --dist-url=https://atom.io/download/atom-shell
-	mkdir native/build || true
-	cp ./native/linux/build/Release/elements-native.node ./app/
-
-build-windows: build-native-windows
+build-windows:
 	echo :: Building application
 	./node_modules/.bin/build --dir --win --em.version=$(FULL_VERSION)
 	cp ./app/assets/img/disk.ico dist/win-unpacked/
 
-build-mac: build-native-mac
+build-mac:
 	echo :: Building application
 	./node_modules/.bin/build --dir --mac --em.version=$(FULL_VERSION)
 
-build-linux: build-native-linux
+build-linux:
 	echo :: Building application
+	mkdir builtin-plugins || true
+	echo '{}' > builtin-plugins/package.json
+
+	cd builtin-plugins && for dir in $(builtin_plugins) ; do \
+		npm install ../$$dir; \
+	done
+
+	cd builtin-plugins && npm dedupe
+	./node_modules/.bin/electron-rebuild -f -m builtin-plugins -w node-pty,font-manager
+
 	./node_modules/.bin/build --linux --em.version=$(FULL_VERSION)
+	rm -r builtin-plugins || true
 
 package-windows-app:
 	echo :: Building app MSI $(SHORT_VERSION)

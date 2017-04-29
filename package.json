@@ -11,7 +11,7 @@
     "cross-env": "^4.0.0",
     "css-loader": "0.26.1",
     "electron": "1.6.2",
-    "electron-builder": "10.6.1",
+    "electron-builder": "^17.1.1",
     "electron-osx-sign": "electron-userland/electron-osx-sign#f092181a1bffa2b3248a23ee28447a47e14a8f04",
     "electron-rebuild": "1.5.7",
     "file-loader": "^0.9.0",
@@ -41,6 +41,9 @@
     "appId": "com.elements.benchmark",
     "productName": "ELEMENTS Benchmark",
     "compression": "normal",
+    "extraResources": [
+      "builtin-plugins"
+    ],
     "win": {
       "target": "zip",
       "icon": "./app/assets/img/shortcut.ico"

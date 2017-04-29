@@ -1,19 +1,10 @@
 app/node_modules
-app/src/daemonInstaller.generated.js
 app/assets/webpack
-app/elements-native.node
 
 node_modules
-typings
 
 build/files.wxs
-native/windows/build
-native/mac/build
-native/linux/build
-native/build
 dist
-driver/build
-driver/obj
 
 *.xcworkspacedata
 *.xcuserstate
@@ -22,3 +13,5 @@ driver/obj
 coverage
 .nyc_output
 npm-debug.log
+
+builtin-plugins

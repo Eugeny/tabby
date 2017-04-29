@@ -8,6 +8,7 @@
     "build": "rm -rf dist && webpack --progress --color --display-modules",
     "watch": "rm -rf dist && webpack --progress --color --watch"
   },
+  "files": ["dist"],
   "author": "Eugene Pankov",
   "license": "MIT",
   "devDependencies": {

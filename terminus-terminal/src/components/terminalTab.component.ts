@@ -1,5 +1,5 @@
 import { BehaviorSubject, ReplaySubject, Subject, Subscription } from 'rxjs'
-import { Component, NgZone, Inject, ViewChild, HostBinding, Input } from '@angular/core'
+import { Component, NgZone, Inject, Optional, ViewChild, HostBinding, Input } from '@angular/core'
 import { AppService, ConfigService, BaseTabComponent, ThemesService, HostAppService, Platform } from 'terminus-core'
 
 import { Session } from '../services/sessions.service'
@@ -36,9 +36,10 @@ export class TerminalTabComponent extends BaseTabComponent {
         private themes: ThemesService,
         private hostApp: HostAppService,
         public config: ConfigService,
-        @Inject(TerminalDecorator) private decorators: TerminalDecorator[],
+        @Optional() @Inject(TerminalDecorator) private decorators: TerminalDecorator[],
     ) {
         super()
+        this.decorators = this.decorators || []
         this.configSubscription = config.change.subscribe(() => {
             this.configure()
         })
