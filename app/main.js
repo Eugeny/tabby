@@ -1,3 +1,5 @@
+if (process.platform == 'win32' && require('electron-squirrel-startup')) process.exit(0)
+
 const electron = require('electron')
 require('electron-debug')({enabled: true, showDevTools: (process.argv.indexOf('--debug') != -1) ? 'undocked' : false})
 
@@ -18,7 +20,6 @@ const yaml = require('js-yaml')
 const path = require('path')
 const fs = require('fs')
 const Config = require('electron-config')
-const platform = require('os').platform()
 require('electron-debug')({enabled: true, showDevTools: process.argv.indexOf('--debug') != -1})
 let windowConfig = new Config({name: 'window'})
 
@@ -162,7 +163,7 @@ start = () => {
     if ((configData.appearance || {}).frame == 'native') {
         options.frame = true
     } else {
-        if (platform == 'darwin') {
+        if (process.platform == 'darwin') {
             options.titleBarStyle = 'hidden-inset'
         }
     }
@@ -172,7 +173,7 @@ start = () => {
     app.window = new electron.BrowserWindow(options)
     app.window.loadURL(`file://${app.getAppPath()}/dist/index.html`, {extraHeaders: "pragma: no-cache\n"})
 
-    if (platform != 'darwin') {
+    if (process.platform != 'darwin') {
         app.window.setMenu(null)
     }
 
@@ -181,7 +182,7 @@ start = () => {
 
     setupWindowManagement()
 
-    if (platform == 'darwin') {
+    if (process.platform == 'darwin') {
       setupMenu()
     } else {
       app.window.setMenu(null)

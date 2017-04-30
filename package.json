@@ -12,6 +12,7 @@
     "css-loader": "0.26.1",
     "electron": "1.6.2",
     "electron-builder": "^17.1.1",
+    "electron-builder-squirrel-windows": "^17.0.1",
     "electron-osx-sign": "electron-userland/electron-osx-sign#f092181a1bffa2b3248a23ee28447a47e14a8f04",
     "electron-rebuild": "1.5.7",
     "file-loader": "^0.9.0",
@@ -26,6 +27,7 @@
     "pug-static-loader": "0.0.1",
     "raw-loader": "^0.5.1",
     "sass-loader": "^6.0.3",
+    "shelljs": "^0.7.7",
     "source-sans-pro": "^2.0.10",
     "style-loader": "^0.13.1",
     "to-string-loader": "^1.1.5",
@@ -38,8 +40,8 @@
     "webpack": "2.4.1"
   },
   "build": {
-    "appId": "com.elements.benchmark",
-    "productName": "ELEMENTS Benchmark",
+    "appId": "org.terminus",
+    "productName": "Terminus",
     "compression": "normal",
     "extraResources": [
       "builtin-plugins"

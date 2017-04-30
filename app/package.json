@@ -20,6 +20,7 @@
     "electron-config": "0.2.1",
     "electron-debug": "^1.0.1",
     "electron-is-dev": "0.1.2",
+    "electron-squirrel-startup": "^1.0.0",
     "fs-promise": "^2.0.2",
     "js-yaml": "3.8.2",
     "path": "0.12.7",

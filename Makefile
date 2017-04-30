@@ -19,20 +19,6 @@ build:
 watch:
 	DEV=1 ./node_modules/.bin/webpack --progress -w
 
-install-deps:
-	npm install
-	npm prune
-	for dir in app $(builtin_plugins) ; do \
-    cd $$dir; \
-		npm install; \
-		npm prune; \
-		cd ..; \
-	done
-	make build-native
-
-build-native:
-	./node_modules/.bin/electron-rebuild -f -w terminus-terminal/node_modules/node-pty -m terminus-terminal
-	./node_modules/.bin/electron-rebuild -f -w terminus-terminal/node_modules/font-manager -m terminus-terminal
 
 build-windows:
 	echo :: Building application
