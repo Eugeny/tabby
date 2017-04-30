@@ -82,13 +82,14 @@ title-bar {
     }
 }
 
+$border-color: #141414;
 
 app-root  {
     &> .content {
         background: $body-bg2;
 
         .tab-bar {
-            &>button {
+            .btn-tab-bar {
                 &:not(:hover):not(:active) {
                     background: $body-bg2;
                 }
@@ -105,6 +106,8 @@ app-root  {
 
                 tab-header {
                     background: $body-bg2;
+                    border-left: 1px solid transparent;
+                    border-right: 1px solid transparent;
 
                     .index {
                         color: #555;
@@ -121,17 +124,22 @@ app-root  {
 
                     &.active {
                         background: $body-bg;
+                        border-left: 1px solid $border-color;
+                        border-right: 1px solid $border-color;
                     }
                 }
             }
         }
 
         &.tabs-on-top .tab-bar {
+            border-bottom: 1px solid $border-color;
+
             tab-header {
                 border-top: 1px solid transparent;
 
                 &.active {
                     border-top: 1px solid $teal;
+                    margin-bottom: -1px;
                 }
 
                 &.has-activity:not(.active) {
@@ -141,13 +149,14 @@ app-root  {
         }
 
         &:not(.tabs-on-top) .tab-bar {
-            margin-bottom: 3px;
+            border-top: 1px solid $border-color;
 
             tab-header {
                 border-bottom: 1px solid transparent;
 
                 &.active {
                     border-bottom: 1px solid $teal;
+                    margin-top: -1px;
                 }
 
                 &.has-activity:not(.active) {

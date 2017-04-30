@@ -19,20 +19,20 @@ ngb-tabset.vertical(type='tabs')
                         label Show tabs
                         br
                         div(
-                            '[(ngModel)]'='config.store.appearance.tabsOnTop',
+                            '[(ngModel)]'='config.store.appearance.tabsLocation',
                             (ngModelChange)='config.save()',
                             ngbRadioGroup
                         )
                             label.btn.btn-secondary
                                 input(
                                     type='radio',
-                                    [value]='true'
+                                    [value]='"top"'
                                 )
                                 | On the top
                             label.btn.btn-secondary
                                 input(
                                     type='radio',
-                                    [value]='false'
+                                    [value]='"bottom"'
                                 )
                                 | At the bottom
                 .col.col-lg-6

@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs'
 import { TerminalTabComponent } from './components/terminalTab.component'
 export { TerminalTabComponent }
 
@@ -18,7 +19,7 @@ export interface SessionOptions {
     cwd?: string
     env?: any
     recoveryId?: string
-    recoveredTruePID?: number
+    recoveredTruePID$?: Observable<number>
 }
 
 export abstract class SessionPersistenceProvider {

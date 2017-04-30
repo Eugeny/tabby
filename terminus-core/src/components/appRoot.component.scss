@@ -5,6 +5,7 @@
     flex-direction: column;
     overflow: hidden;
     -webkit-user-select: none;
+    -webkit-user-drag: none;
     -webkit-font-smoothing: antialiased;
     cursor: default;
     animation: 0.5s ease-out fadeIn;
@@ -29,7 +30,7 @@ $tab-border-radius: 4px;
     height: $tabs-height;
     display: flex;
 
-    &>button {
+    .btn-tab-bar {
         line-height: $tabs-height + 2px;
         cursor: pointer;
 
@@ -48,7 +49,7 @@ $tab-border-radius: 4px;
         &.btn-minimize {
             margin-left: 10px;
         }
-        
+
         &.btn-minimize, &.btn-maximize {
             font-size: 8px;
         }
@@ -68,6 +69,14 @@ $tab-border-radius: 4px;
         min-width: 100px;
         flex: 1 0 25%;
         -webkit-app-region: drag;
+    }
+
+    .window-controls {
+        flex: 0 0 none;
+    }
+
+    &.inset {
+        padding-left: 85px;
     }
 }
 

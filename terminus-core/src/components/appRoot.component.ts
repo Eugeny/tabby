@@ -3,7 +3,7 @@ import { trigger, style, animate, transition, state } from '@angular/animations'
 import { ToasterConfig } from 'angular2-toaster'
 
 import { ElectronService } from '../services/electron.service'
-import { HostAppService } from '../services/hostApp.service'
+import { HostAppService, Platform } from '../services/hostApp.service'
 import { HotkeysService } from '../services/hotkeys.service'
 import { Logger, LogService } from '../services/log.service'
 import { QuitterService } from '../services/quitter.service'
@@ -43,6 +43,7 @@ import { AppService, IToolbarButton, ToolbarButtonProvider } from '../api'
 })
 export class AppRootComponent {
     toasterConfig: ToasterConfig
+    Platform = Platform
     private logger: Logger
 
     constructor(
