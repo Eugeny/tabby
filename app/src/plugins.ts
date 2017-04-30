@@ -12,12 +12,20 @@ function normalizePath (path: string): string {
 };
 
 (<any>global).require.main.paths.map(x => nodeModule.globalPaths.push(normalizePath(x)))
-nodeModule.globalPaths.unshift(
-    path.join(
-        path.dirname(require('electron').remote.app.getPath('exe')),
-        'resources/builtin-plugins/node_modules',
-    )
-)
+
+if (process.env.DEV) {
+    nodeModule.globalPaths.unshift(path.dirname(require('electron').remote.app.getAppPath()))
+}
+
+nodeModule.globalPaths.unshift(path.join(
+    path.dirname(require('electron').remote.app.getPath('exe')),
+    'resources/builtin-plugins/node_modules',
+))
+nodeModule.globalPaths.unshift(path.join(
+    require('electron').remote.app.getPath('appData'),
+    'terminus',
+    'plugins',
+))
 
 if (process.env.TERMINUS_PLUGINS) {
     process.env.TERMINUS_PLUGINS.split(':').map(x => nodeModule.globalPaths.unshift(normalizePath(x)))
@@ -47,6 +55,11 @@ export async function findPlugins (): Promise<IPluginEntry[]> {
             if (!await fs.exists(infoPath)) {
                 continue
             }
+
+            if (foundPlugins.some(x => x.name === pluginName)) {
+                console.info(`Plugin ${pluginName} already exists`)
+            }
+
             try {
                 foundPlugins.push({
                     name: pluginName,
