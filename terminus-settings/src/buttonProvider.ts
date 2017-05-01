@@ -3,7 +3,6 @@ import { ToolbarButtonProvider, IToolbarButton, AppService } from 'terminus-core
 
 import { SettingsTabComponent } from './components/settingsTab.component'
 
-
 @Injectable()
 export class ButtonProvider extends ToolbarButtonProvider {
     constructor (

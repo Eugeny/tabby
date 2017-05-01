@@ -2,14 +2,16 @@ import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { HotkeyInputModalComponent } from './hotkeyInputModal.component'
 
-
 @Component({
-  selector: 'multi-hotkey-input',
-  template: require('./multiHotkeyInput.component.pug'),
-  styles: [require('./multiHotkeyInput.component.scss')],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'multi-hotkey-input',
+    template: require('./multiHotkeyInput.component.pug'),
+    styles: [require('./multiHotkeyInput.component.scss')],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MultiHotkeyInputComponent {
+    @Input() model: string[][]
+    @Output() modelChange = new EventEmitter()
+
     constructor (
         private ngbModal: NgbModal,
     ) { }
@@ -18,10 +20,10 @@ export class MultiHotkeyInputComponent {
         if (!this.model) {
             this.model = []
         }
-        if (typeof this.model == 'string') {
+        if (typeof this.model === 'string') {
             this.model = [this.model]
         }
-        this.model = this.model.map(item => (typeof item == 'string') ? [item] : item)
+        this.model = this.model.map(item => (typeof item === 'string') ? [item] : item)
     }
 
     editItem (item) {
@@ -43,7 +45,4 @@ export class MultiHotkeyInputComponent {
         this.model = this.model.filter(x => x !== item)
         this.modelChange.emit(this.model)
     }
-
-    @Input() model: string[][]
-    @Output() modelChange = new EventEmitter()
 }

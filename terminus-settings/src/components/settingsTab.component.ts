@@ -3,20 +3,19 @@ import { ElectronService, DockingService, ConfigService, IHotkeyDescription, Hot
 
 import { SettingsTabProvider } from '../api'
 
-
 @Component({
-  selector: 'settings-tab',
-  template: require('./settingsTab.component.pug'),
-  styles: [
-    require('./settingsTab.component.scss'),
-    require('./settingsTab.deep.component.css'),
-  ],
+    selector: 'settings-tab',
+    template: require('./settingsTab.component.pug'),
+    styles: [
+        require('./settingsTab.component.scss'),
+        require('./settingsTab.deep.component.css'),
+    ],
 })
 export class SettingsTabComponent extends BaseTabComponent {
     hotkeyFilter = { name: null }
     private hotkeyDescriptions: IHotkeyDescription[]
 
-    constructor(
+    constructor (
         public config: ConfigService,
         private electron: ElectronService,
         public docking: DockingService,

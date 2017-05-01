@@ -7,13 +7,15 @@ import { Session } from '../services/sessions.service'
 import { TerminalDecorator, ResizeEvent } from '../api'
 import { hterm, preferenceManager } from '../hterm'
 
-
 @Component({
-  selector: 'terminalTab',
-  template: '<div #content class="content" [style.opacity]="htermVisible ? 1 : 0"></div>',
-  styles: [require('./terminalTab.component.scss')],
+    selector: 'terminalTab',
+    template: '<div #content class="content" [style.opacity]="htermVisible ? 1 : 0"></div>',
+    styles: [require('./terminalTab.component.scss')],
 })
 export class TerminalTabComponent extends BaseTabComponent {
+    @Input() session: Session
+    @ViewChild('content') content
+    @HostBinding('style.background-color') backgroundColor: string
     hterm: any
     configSubscription: Subscription
     sessionCloseSubscription: Subscription
@@ -25,12 +27,9 @@ export class TerminalTabComponent extends BaseTabComponent {
     alternateScreenActive$ = new BehaviorSubject(false)
     mouseEvent$ = new Subject<Event>()
     htermVisible = false
-    @Input() session: Session
-    @ViewChild('content') content
-    @HostBinding('style.background-color') backgroundColor: string
     private io: any
 
-    constructor(
+    constructor (
         private zone: NgZone,
         private app: AppService,
         private themes: ThemesService,
@@ -92,7 +91,7 @@ export class TerminalTabComponent extends BaseTabComponent {
         }, 1000)
 
         this.bell$.subscribe(() => {
-            if (this.config.store.terminal.bell != 'off') {
+            if (this.config.store.terminal.bell !== 'off') {
                 let bg = preferenceManager.get('background-color')
                 preferenceManager.set('background-color', 'rgba(128,128,128,.25)')
                 setTimeout(() => {
@@ -116,10 +115,10 @@ export class TerminalTabComponent extends BaseTabComponent {
             this.alternateScreenActive$.next(state)
         }
 
-        const _onPaste_ = hterm.scrollPort_.onPaste_.bind(hterm.scrollPort_)
+        const _onPaste = hterm.scrollPort_.onPaste_.bind(hterm.scrollPort_)
         hterm.scrollPort_.onPaste_ = (event) => {
             hterm.scrollPort_.pasteTarget_.value = event.clipboardData.getData('text/plain').trim()
-            _onPaste_()
+            _onPaste()
             event.preventDefault()
         }
 
@@ -131,7 +130,7 @@ export class TerminalTabComponent extends BaseTabComponent {
             _resize()
         }
 
-        const _onMouse_ = hterm.onMouse_.bind(hterm)
+        const _onMouse = hterm.onMouse_.bind(hterm)
         hterm.onMouse_ = (event) => {
             this.mouseEvent$.next(event)
             if ((event.ctrlKey || event.metaKey) && event.type === 'mousewheel') {
@@ -139,7 +138,7 @@ export class TerminalTabComponent extends BaseTabComponent {
                 let delta = Math.round(event.wheelDeltaY / 50)
                 this.sendInput(((delta > 0) ? '\u001bOA' : '\u001bOB').repeat(Math.abs(delta)))
             }
-            _onMouse_(event)
+            _onMouse(event)
         }
 
         hterm.ringBell = () => {
@@ -192,18 +191,18 @@ export class TerminalTabComponent extends BaseTabComponent {
         preferenceManager.set('font-size', config.terminal.fontSize)
         preferenceManager.set('enable-bold', true)
         preferenceManager.set('audible-bell-sound', '')
-        preferenceManager.set('desktop-notification-bell', config.terminal.bell == 'notification')
+        preferenceManager.set('desktop-notification-bell', config.terminal.bell === 'notification')
         preferenceManager.set('enable-clipboard-notice', false)
         preferenceManager.set('receive-encoding', 'raw')
         preferenceManager.set('send-encoding', 'raw')
         preferenceManager.set('ctrl-plus-minus-zero-zoom', false)
-        preferenceManager.set('scrollbar-visible', this.hostApp.platform == Platform.macOS)
+        preferenceManager.set('scrollbar-visible', this.hostApp.platform === Platform.macOS)
         preferenceManager.set('copy-on-select', false)
 
         if (config.terminal.colorScheme.foreground) {
             preferenceManager.set('foreground-color', config.terminal.colorScheme.foreground)
         }
-        if (config.terminal.background == 'colorScheme') {
+        if (config.terminal.background === 'colorScheme') {
             if (config.terminal.colorScheme.background) {
                 this.backgroundColor = config.terminal.colorScheme.background
                 preferenceManager.set('background-color', config.terminal.colorScheme.background)

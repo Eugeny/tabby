@@ -7,7 +7,6 @@ import { Injectable } from '@angular/core'
 import { Logger, LogService } from 'terminus-core'
 import { SessionOptions, SessionPersistenceProvider } from './api'
 
-
 interface IChildProcess {
     pid: number
     ppid: number
@@ -52,16 +51,16 @@ export class ScreenPersistenceProvider extends SessionPersistenceProvider {
             return null
         }
 
-        let truePID_ = new AsyncSubject<number>()
+        let truePID$ = new AsyncSubject<number>()
 
         this.extractShellPID(screenPID).then(pid => {
-            truePID_.next(pid)
-            truePID_.complete()
+            truePID$.next(pid)
+            truePID$.complete()
         })
 
         return {
             recoveryId,
-            recoveredTruePID$: truePID_.asObservable(),
+            recoveredTruePID$: truePID$.asObservable(),
             command: 'screen',
             args: ['-r', recoveryId],
         }
@@ -74,7 +73,7 @@ export class ScreenPersistenceProvider extends SessionPersistenceProvider {
             throw new Error(`Could not find any children of the screen process (PID ${screenPID})!`)
         }
 
-        if (child.command == 'login') {
+        if (child.command === 'login') {
             await delay(1000)
             child = (await listProcesses()).find(x => x.ppid === child.pid)
         }

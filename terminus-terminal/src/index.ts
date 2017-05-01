@@ -21,7 +21,6 @@ import { TerminalConfigProvider } from './config'
 import { HyperColorSchemes } from './colorSchemes'
 import { hterm } from './hterm'
 
-
 @NgModule({
     imports: [
         BrowserModule,
@@ -36,10 +35,10 @@ import { hterm } from './hterm'
         {
             provide: SessionPersistenceProvider,
             useFactory: (hostApp: HostAppService, screen: ScreenPersistenceProvider) => {
-                if (hostApp.platform == Platform.Windows) {
-                  return null
+                if (hostApp.platform === Platform.Windows) {
+                    return null
                 } else {
-                  return screen
+                    return screen
                 }
             },
             deps: [HostAppService, ScreenPersistenceProvider],
@@ -74,7 +73,7 @@ export default class TerminalModule {
             let oldHandler = hterm.hterm.Keyboard.prototype[event.htermHandler]
             hterm.hterm.Keyboard.prototype[event.htermHandler] = function (nativeEvent) {
                 hotkeys.pushKeystroke(event.name, nativeEvent)
-                if (hotkeys.getCurrentPartiallyMatchedHotkeys().length == 0) {
+                if (hotkeys.getCurrentPartiallyMatchedHotkeys().length === 0) {
                     oldHandler.bind(this)(nativeEvent)
                 } else {
                     nativeEvent.stopPropagation()

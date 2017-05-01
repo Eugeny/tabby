@@ -4,12 +4,11 @@ import { BaseTabComponent } from '../components/baseTab.component'
 import { Logger, LogService } from '../services/log.service'
 import { AppService } from '../services/app.service'
 
-
 @Injectable()
 export class TabRecoveryService {
     logger: Logger
 
-    constructor(
+    constructor (
         @Inject(TabRecoveryProvider) private tabRecoveryProviders: TabRecoveryProvider[],
         app: AppService,
         log: LogService

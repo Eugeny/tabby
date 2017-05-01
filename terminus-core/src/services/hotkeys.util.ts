@@ -1,18 +1,14 @@
-import * as os from 'os'
-
-
 export const metaKeyName = {
     darwin: '⌘',
     win32: 'Win',
     linux: 'Super',
-}[os.platform()]
+}[process.platform]
 
 export const altKeyName = {
     darwin: 'Option',
     win32: 'Alt',
     linux: 'Alt',
-}[os.platform()]
-
+}[process.platform]
 
 export interface NativeKeyEvent {
     event?: string,
@@ -24,14 +20,13 @@ export interface NativeKeyEvent {
     keyCode: string,
 }
 
-
-export function stringifyKeySequence(events: NativeKeyEvent[]): string[] {
+export function stringifyKeySequence (events: NativeKeyEvent[]): string[] {
     let items: string[] = []
     events = events.slice()
 
     while (events.length > 0) {
         let event = events.shift()
-        if (event.event == 'keydown') {
+        if (event.event === 'keydown') {
             let itemKeys: string[] = []
             if (event.ctrlKey) {
                 itemKeys.push('Ctrl')
@@ -50,7 +45,7 @@ export function stringifyKeySequence(events: NativeKeyEvent[]): string[] {
                 // TODO make this optional?
                 continue
             }
-            if (event.key.length == 1) {
+            if (event.key.length === 1) {
                 itemKeys.push(event.key.toUpperCase())
             } else {
                 itemKeys.push(event.key)

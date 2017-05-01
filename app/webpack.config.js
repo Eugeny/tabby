@@ -57,6 +57,7 @@ module.exports = {
     '@ng-bootstrap/ng-bootstrap': 'commonjs @ng-bootstrap/ng-bootstrap',
     'fs-promise': 'commonjs fs-promise',
     'electron': 'commonjs electron',
+    'electron-is-dev': 'commonjs electron-is-dev',
     'module': 'commonjs module',
     'path': 'commonjs path',
     'rxjs': 'commonjs rxjs',

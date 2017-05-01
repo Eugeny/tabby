@@ -3,12 +3,11 @@ export const hterm = require('hterm-commonjs')
 hterm.hterm.defaultStorage = new hterm.lib.Storage.Memory()
 export const preferenceManager = new hterm.hterm.PreferenceManager('default')
 
+hterm.hterm.VT.ESC['k'] = function (parseState) {
+    parseState.resetArguments()
 
-hterm.hterm.VT.ESC['k'] = function(parseState) {
-    parseState.resetArguments();
-
-    function parseOSC(ps) {
-        if (!this.parseUntilStringTerminator_(ps) || ps.func == parseOSC) {
+    function parseOSC (ps) {
+        if (!this.parseUntilStringTerminator_(ps) || ps.func === parseOSC) {
             return
         }
 

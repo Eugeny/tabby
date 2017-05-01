@@ -29,39 +29,6 @@ build-mac:
 	echo :: Building application
 	./node_modules/.bin/build --dir --mac --em.version=$(FULL_VERSION)
 
-build-linux:
-	echo :: Building application
-	mkdir builtin-plugins || true
-	echo '{}' > builtin-plugins/package.json
-
-	cd builtin-plugins && for dir in $(builtin_plugins) ; do \
-		npm install ../$$dir; \
-	done
-
-	cd builtin-plugins && npm dedupe
-	./node_modules/.bin/electron-rebuild -f -m builtin-plugins -w node-pty,font-manager
-
-	./node_modules/.bin/build --linux --em.version=$(FULL_VERSION)
-	rm -r builtin-plugins || true
-
-package-windows-app:
-	echo :: Building app MSI $(SHORT_VERSION)
-	heat dir dist/win-unpacked/ -cg Files -gg -scom -sreg -sfrag -srd -dr INSTALLDIR -var var.SourceDir -out build/files.wxs
-	candle -dSourceDir=dist\\win-unpacked -dProductVersion=$(SHORT_VERSION) -arch x64 -o dist/ build/files.wxs build/windows/elements.wxs
-	light -o dist/elements-app.msi dist/files.wixobj dist/elements.wixobj
-	build/windows/signtool.exe sign /f "build\\certificates\\Code Signing.p12" dist/elements-app.msi
-
-package-windows-bundle:
-	echo :: Building installer
-	candle -dVersion=$(SHORT_VERSION) -ext WixBalExtension -arch x64 -o dist/build.wixobj build/windows/build.wxs
-	light -ext WixBalExtension -o bundle.exe dist/build.wixobj
-	insignia -ib bundle.exe -o engine.exe
-	build/windows/signtool.exe sign /f "build\\certificates\\Code Signing.p12" engine.exe
-	insignia -ab engine.exe bundle.exe -o dist/Elements-Electron.exe
-	build/windows/signtool.exe sign /f "build\\certificates\\Code Signing.p12" dist/Elements-Electron.exe
-	rm engine.exe bundle.exe || true
-
-package-windows: build-windows package-windows-app package-windows-bundle
 
 package-mac: driver-mac build-mac
 	rm -rf $(MAC_WS) || true

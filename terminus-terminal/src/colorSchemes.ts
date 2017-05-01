@@ -3,7 +3,6 @@ import * as path from 'path'
 import { Injectable } from '@angular/core'
 import { TerminalColorSchemeProvider, ITerminalColorScheme } from './api'
 
-
 @Injectable()
 export class HyperColorSchemes extends TerminalColorSchemeProvider {
     async getSchemes (): Promise<ITerminalColorScheme[]> {
@@ -14,7 +13,7 @@ export class HyperColorSchemes extends TerminalColorSchemeProvider {
         let themes: ITerminalColorScheme[] = []
 
         plugins.forEach(plugin => {
-            let module = (<any>global).require(path.join(pluginsPath, plugin))
+            let module = (global as any).require(path.join(pluginsPath, plugin))
             if (module.decorateConfig) {
                 let config = module.decorateConfig({})
                 if (config.colors) {

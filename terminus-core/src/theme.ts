@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core'
 import { Theme } from './api'
 
-
 @Injectable()
 export class StandardTheme extends Theme {
     name = 'Standard'

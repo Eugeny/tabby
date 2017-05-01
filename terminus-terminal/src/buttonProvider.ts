@@ -4,7 +4,6 @@ import { HotkeysService, ToolbarButtonProvider, IToolbarButton, AppService, Conf
 import { SessionsService } from './services/sessions.service'
 import { TerminalTabComponent } from './components/terminalTab.component'
 
-
 @Injectable()
 export class ButtonProvider extends ToolbarButtonProvider {
     constructor (
@@ -15,7 +14,7 @@ export class ButtonProvider extends ToolbarButtonProvider {
     ) {
         super()
         hotkeys.matchedHotkey.subscribe(async (hotkey) => {
-            if (hotkey == 'new-tab') {
+            if (hotkey === 'new-tab') {
                 this.openNewTab()
             }
         })

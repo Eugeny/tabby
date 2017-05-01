@@ -1,8 +1,8 @@
 import { Subject, BehaviorSubject } from 'rxjs'
 import { ViewRef } from '@angular/core'
 
-
 export abstract class BaseTabComponent {
+    private static lastTabID = 0
     id: number
     title$ = new BehaviorSubject<string>(null)
     scrollable: boolean
@@ -11,7 +11,6 @@ export abstract class BaseTabComponent {
     blurred$ = new Subject<void>()
     hasFocus = false
     hostView: ViewRef
-    private static lastTabID = 0
 
     constructor () {
         this.id = BaseTabComponent.lastTabID++

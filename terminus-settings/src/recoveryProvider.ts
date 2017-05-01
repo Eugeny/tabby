@@ -3,17 +3,16 @@ import { TabRecoveryProvider, AppService } from 'terminus-core'
 
 import { SettingsTabComponent } from './components/settingsTab.component'
 
-
 @Injectable()
 export class RecoveryProvider extends TabRecoveryProvider {
-    constructor(
+    constructor (
         private app: AppService
     ) {
         super()
     }
 
     async recover (recoveryToken: any): Promise<void> {
-        if (recoveryToken.type == 'app:settings') {
+        if (recoveryToken.type === 'app:settings') {
             this.app.openNewTab(SettingsTabComponent)
         }
     }

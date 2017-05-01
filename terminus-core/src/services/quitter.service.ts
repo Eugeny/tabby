@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core'
 import { HostAppService } from '../services/hostApp.service'
 
-
 @Injectable()
 export class QuitterService {
-    constructor(
+    constructor (
         private hostApp: HostAppService,
     ) {
         hostApp.quitRequested.subscribe(() => {
@@ -12,7 +11,7 @@ export class QuitterService {
         })
     }
 
-    quit() {
+    quit () {
         this.hostApp.setCloseable(true)
         this.hostApp.quit()
     }

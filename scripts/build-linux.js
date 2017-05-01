@@ -4,7 +4,7 @@ const vars = require('./vars')
 
 builder({
   dir: true,
-  win: ['squirrel'],
+  linux: ['appimage'],
   extraMetadata: {
     version: vars.version,
   },

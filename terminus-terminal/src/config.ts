@@ -1,6 +1,5 @@
 import { ConfigProvider, Platform } from 'terminus-core'
 
-
 export class TerminalConfigProvider extends ConfigProvider {
     defaults = {
         terminal: {

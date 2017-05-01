@@ -13,7 +13,6 @@ import { HostAppService } from './services/hostApp.service'
 import { LogService } from './services/log.service'
 import { HotkeysService, AppHotkeyProvider } from './services/hotkeys.service'
 import { NotifyService } from './services/notify.service'
-import { PluginsService } from './services/plugins.service'
 import { QuitterService } from './services/quitter.service'
 import { DockingService } from './services/docking.service'
 import { TabRecoveryService } from './services/tabRecovery.service'
@@ -43,7 +42,6 @@ const PROVIDERS = [
     HotkeysService,
     LogService,
     NotifyService,
-    PluginsService,
     TabRecoveryService,
     ThemesService,
     QuitterService,
@@ -51,7 +49,6 @@ const PROVIDERS = [
     { provide: Theme, useClass: StandardTheme, multi: true },
     { provide: ConfigProvider, useClass: CoreConfigProvider, multi: true },
 ]
-
 
 @NgModule({
     imports: [
@@ -73,7 +70,7 @@ const PROVIDERS = [
     ],
 })
 export default class AppModule {
-    static forRoot(): ModuleWithProviders {
+    static forRoot (): ModuleWithProviders {
         return {
             ngModule: AppModule,
             providers: PROVIDERS,

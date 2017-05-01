@@ -5,45 +5,44 @@ import { HotkeysService } from 'terminus-core'
 
 const INPUT_TIMEOUT = 1000
 
-
 @Component({
-  selector: 'hotkey-input-modal',
-  template: require('./hotkeyInputModal.component.pug'),
-  styles: [require('./hotkeyInputModal.component.scss')],
-  animations: [
-      trigger('animateKey', [
-          transition(':enter', [
-              style({
-                  transform: 'translateX(25px)',
-                  opacity: '0',
-              }),
-              animate('250ms ease-out', style({
-                  transform: 'translateX(0)',
-                  opacity: '1',
-              }))
-          ]),
-          transition(':leave', [
-              style({
-                  transform: 'translateX(0)',
-                  opacity: '1',
-              }),
-              animate('250ms ease-in', style({
-                  transform: 'translateX(25px)',
-                  opacity: '0',
-              }))
-          ])
-      ])
-  ]
+    selector: 'hotkey-input-modal',
+    template: require('./hotkeyInputModal.component.pug'),
+    styles: [require('./hotkeyInputModal.component.scss')],
+    animations: [
+        trigger('animateKey', [
+            transition(':enter', [
+                style({
+                    transform: 'translateX(25px)',
+                    opacity: '0',
+                }),
+                animate('250ms ease-out', style({
+                    transform: 'translateX(0)',
+                    opacity: '1',
+                }))
+            ]),
+            transition(':leave', [
+                style({
+                    transform: 'translateX(0)',
+                    opacity: '1',
+                }),
+                animate('250ms ease-in', style({
+                    transform: 'translateX(25px)',
+                    opacity: '0',
+                }))
+            ])
+        ])
+    ]
 })
 export class HotkeyInputModalComponent {
+    @Input() value: string[] = []
+    @Input() timeoutProgress = 0
+
     private keySubscription: Subscription
     private lastKeyEvent: number
     private keyTimeoutInterval: number = null
 
-    @Input() value: string[] = []
-    @Input() timeoutProgress = 0
-
-    constructor(
+    constructor (
         private modalInstance: NgbActiveModal,
         public hotkeys: HotkeysService,
     ) {
@@ -66,7 +65,7 @@ export class HotkeyInputModalComponent {
                 return
             }
             this.timeoutProgress = Math.min(100, (performance.now() - this.lastKeyEvent) * 100 / INPUT_TIMEOUT)
-            if (this.timeoutProgress == 100) {
+            if (this.timeoutProgress === 100) {
                 this.modalInstance.close(this.value)
             }
         }, 25)
@@ -78,7 +77,7 @@ export class HotkeyInputModalComponent {
         clearInterval(this.keyTimeoutInterval)
     }
 
-    close() {
+    close () {
         this.modalInstance.dismiss()
     }
 }

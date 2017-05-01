@@ -12,7 +12,7 @@ import { TerminalColorSchemeProvider, ITerminalColorScheme } from '../api'
 let Registry = null
 try {
     Registry = require('winreg')
-} catch (_) { }
+} catch (_) { } // tslint:disable-line no-empty
 
 interface IShell {
     name: string
@@ -31,19 +31,19 @@ export class TerminalSettingsTabComponent {
     editingColorScheme: ITerminalColorScheme
     schemeChanged = false
 
-    constructor(
+    constructor (
         public config: ConfigService,
         private hostApp: HostAppService,
         @Inject(TerminalColorSchemeProvider) private colorSchemeProviders: TerminalColorSchemeProvider[],
     ) { }
 
     async ngOnInit () {
-        if (this.hostApp.platform == Platform.Windows || this.hostApp.platform == Platform.macOS) {
+        if (this.hostApp.platform === Platform.Windows || this.hostApp.platform === Platform.macOS) {
             let fonts = await new Promise<any[]>((resolve) => fontManager.findFonts({ monospace: true }, resolve))
             this.fonts = fonts.map(x => x.family)
             this.fonts.sort()
         }
-        if (this.hostApp.platform == Platform.Linux) {
+        if (this.hostApp.platform === Platform.Linux) {
             exec('fc-list :spacing=mono').then(([stdout, _]) => {
                 this.fonts = stdout.toString()
                     .split('\n')
@@ -53,18 +53,18 @@ export class TerminalSettingsTabComponent {
                 this.fonts.sort()
             })
         }
-        if (this.hostApp.platform == Platform.Windows) {
+        if (this.hostApp.platform === Platform.Windows) {
             this.shells = [
                 { name: 'CMD', command: 'cmd.exe' },
                 { name: 'PowerShell', command: 'powershell.exe' },
             ]
-            const wslPath =`${process.env.windir}\\system32\\bash.exe`
+            const wslPath = `${process.env.windir}\\system32\\bash.exe`
             if (await fs.exists(wslPath)) {
                 this.shells.push({ name: 'Bash on Windows', command: wslPath })
             }
 
             let cygwinPath = await new Promise<string>(resolve => {
-                let reg = new Registry({ hive: Registry.HKLM, key: "\\Software\\Cygwin\\setup" })
+                let reg = new Registry({ hive: Registry.HKLM, key: '\\Software\\Cygwin\\setup' })
                 reg.get('rootdir', (err, item) => {
                     if (err) {
                         resolve(null)
@@ -76,7 +76,7 @@ export class TerminalSettingsTabComponent {
                 this.shells.push({ name: 'Cygwin', command: path.join(cygwinPath, 'bin', 'bash.exe') })
             }
         }
-        if (this.hostApp.platform == Platform.Linux || this.hostApp.platform == Platform.macOS) {
+        if (this.hostApp.platform === Platform.Linux || this.hostApp.platform === Platform.macOS) {
             this.shells = (await fs.readFile('/etc/shells', 'utf-8'))
                 .split('\n')
                 .map(x => x.trim())

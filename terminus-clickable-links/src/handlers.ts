@@ -5,7 +5,6 @@ import { ElectronService } from 'terminus-core'
 
 import { LinkHandler } from './api'
 
-
 @Injectable()
 export class URLHandler extends LinkHandler {
     regex = 'http(s)?://[^\\s;\'"]+[^,;\\s]'

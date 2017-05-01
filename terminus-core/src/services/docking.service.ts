@@ -3,7 +3,6 @@ import { ConfigService } from '../services/config.service'
 import { ElectronService } from '../services/electron.service'
 import { HostAppService } from '../services/hostApp.service'
 
-
 export interface IScreen {
     id: string
     name: string
@@ -11,7 +10,7 @@ export interface IScreen {
 
 @Injectable()
 export class DockingService {
-    constructor(
+    constructor (
         private electron: ElectronService,
         private config: ConfigService,
         private hostApp: HostAppService,
@@ -19,7 +18,7 @@ export class DockingService {
 
     dock () {
         let display = this.electron.screen.getAllDisplays()
-            .filter((x) => x.id == this.config.store.appearance.dockScreen)[0]
+            .filter((x) => x.id === this.config.store.appearance.dockScreen)[0]
         if (!display) {
             display = this.getCurrentScreen()
         }
@@ -28,31 +27,30 @@ export class DockingService {
         let newBounds: Electron.Rectangle = { x: 0, y: 0, width: 0, height: 0 }
         let fill = this.config.store.appearance.dockFill
 
-        if (dockSide == 'off') {
+        if (dockSide === 'off') {
             this.hostApp.setAlwaysOnTop(false)
             return
         }
-        if (dockSide == 'left' || dockSide == 'right') {
+        if (dockSide === 'left' || dockSide === 'right') {
             newBounds.width = Math.round(fill * display.bounds.width)
             newBounds.height = display.bounds.height
         }
-        if (dockSide == 'top' || dockSide == 'bottom') {
+        if (dockSide === 'top' || dockSide === 'bottom') {
             newBounds.width = display.bounds.width
             newBounds.height = Math.round(fill * display.bounds.height)
         }
-        if (dockSide == 'right') {
+        if (dockSide === 'right') {
             newBounds.x = display.bounds.x + display.bounds.width * (1.0 - fill)
         } else {
             newBounds.x = display.bounds.x
         }
-        if (dockSide == 'bottom') {
+        if (dockSide === 'bottom') {
             newBounds.y = display.bounds.y + display.bounds.height * (1.0 - fill)
         } else {
             newBounds.y = display.bounds.y
         }
 
         this.hostApp.setAlwaysOnTop(true)
-        //this.hostApp.unmaximize()
         setImmediate(() => {
             this.hostApp.setBounds(newBounds)
         })

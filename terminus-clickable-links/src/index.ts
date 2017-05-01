@@ -10,7 +10,6 @@ import { LinkHandler } from './api'
 import { FileHandler, URLHandler } from './handlers'
 import { LinkHighlighterDecorator } from './decorator'
 
-
 @NgModule({
     providers: [
         { provide: LinkHandler, useClass: FileHandler, multi: true },

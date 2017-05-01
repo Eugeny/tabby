@@ -3,14 +3,13 @@ import { TerminalColorSchemeProvider, ITerminalColorScheme } from 'terminus-term
 
 const schemeContents = require.context('../schemes/', true, /.*/)
 
-
 @Injectable()
 export class ColorSchemes extends TerminalColorSchemeProvider {
     async getSchemes (): Promise<ITerminalColorScheme[]> {
         let schemes: ITerminalColorScheme[] = []
 
         schemeContents.keys().forEach(schemeFile => {
-            let lines = (<string>schemeContents(schemeFile)).split('\n')
+            let lines = (schemeContents(schemeFile) as string).split('\n')
             let values: any = {}
             lines
                 .filter(x => x.startsWith('*.'))

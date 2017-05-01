@@ -6,6 +6,7 @@ import { ConfigProvider } from '../api/configProvider'
 import { ElectronService } from './electron.service'
 import { HostAppService } from './hostApp.service'
 
+const configMerge = (a, b) => require('deepmerge')(a, b, { arrayMerge: (_d, s) => s })
 
 export class ConfigProxy {
     constructor (real: any, defaults: any) {
@@ -46,10 +47,6 @@ export class ConfigProxy {
         }
     }
 }
-
-
-const configMerge = (a, b) => require('deepmerge')(a, b, { arrayMerge: (_d, s) => s })
-
 
 @Injectable()
 export class ConfigService {

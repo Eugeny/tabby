@@ -31,12 +31,12 @@
     "source-sans-pro": "^2.0.10",
     "style-loader": "^0.13.1",
     "to-string-loader": "^1.1.5",
-    "tslint": "5.0.0",
-    "tslint-eslint-rules": "4.0.0",
+    "tslint": "^5.1.0",
+    "tslint-config-standard": "^5.0.2",
+    "tslint-eslint-rules": "^4.0.0",
     "typescript": "~2.1.0",
     "url-loader": "^0.5.7",
     "val-loader": "^0.5.0",
-    "vrsource-tslint-rules": "^4.0.1",
     "webpack": "2.4.1"
   },
   "build": {
@@ -47,7 +47,6 @@
       "builtin-plugins"
     ],
     "win": {
-      "target": "zip",
       "icon": "./app/assets/img/shortcut.ico"
     },
     "mac": {
@@ -56,17 +55,15 @@
       "identity": "Syslink GmbH"
     },
     "linux": {
-      "category": "Network",
-      "target": "AppImage",
-      "icon": "./app/assets/img/icon.png"
+      "category": "Utilities",
+      "icon": "./build/icons"
     }
   },
   "scripts": {
     "build": "webpack --progress --color",
     "watch": "webpack --progress --color --watch",
     "start": "cross-env DEV=1 electron app --debug",
-    "pack": "build --dir",
-    "postinstall": "install-app-deps",
-    "dist": "build"
+    "lint": "tslint -c tslint.json -t stylish terminus-*/src/**/*.ts terminus-*/src/*.ts app/src/*.ts",
+    "postinstall": "install-app-deps"
   }
 }

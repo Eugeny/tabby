@@ -14,7 +14,6 @@ import { SettingsTabBodyComponent } from './components/settingsTabBody.component
 import { ButtonProvider } from './buttonProvider'
 import { RecoveryProvider } from './recoveryProvider'
 
-
 @NgModule({
     imports: [
         BrowserModule,

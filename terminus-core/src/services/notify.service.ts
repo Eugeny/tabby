@@ -1,18 +1,17 @@
 import { Injectable } from '@angular/core'
 import { ToasterService } from 'angular2-toaster'
 
-
 @Injectable()
 export class NotifyService {
-    constructor(
+    constructor (
         private toaster: ToasterService,
     ) {}
 
-    pop(options) {
+    pop (options) {
         this.toaster.pop(options)
     }
 
-    info(title: string, body: string = null) {
+    info (title: string, body: string = null) {
         return this.pop({
             type: 'info',
             title, body,
@@ -20,7 +19,7 @@ export class NotifyService {
         })
     }
 
-    success(title: string, body: string = null) {
+    success (title: string, body: string = null) {
         return this.pop({
             type: 'success',
             title, body,
@@ -28,7 +27,7 @@ export class NotifyService {
         })
     }
 
-    warning(title: string, body: string = null) {
+    warning (title: string, body: string = null) {
         return this.pop({
             type: 'warning',
             title, body,
@@ -36,7 +35,7 @@ export class NotifyService {
         })
     }
 
-    error(title: string, body: string = null) {
+    error (title: string, body: string = null) {
         return this.pop({
             type: 'error',
             title, body,

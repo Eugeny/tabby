@@ -2,15 +2,17 @@ import { Injectable } from '@angular/core'
 
 @Injectable()
 export class ElectronService {
-    constructor() {
-        if (process.env.TEST_ENV) {
-            this.initTest()
-        } else {
-            this.init()
-        }
-    }
+    app: any
+    ipcRenderer: any
+    shell: any
+    dialog: any
+    clipboard: any
+    globalShortcut: any
+    screen: any
+    private electron: any
+    private remoteElectron: any
 
-    init() {
+    constructor () {
         this.electron = require('electron')
         this.remoteElectron = this.remoteRequire('electron')
         this.app = this.remoteElectron.app
@@ -22,21 +24,7 @@ export class ElectronService {
         this.globalShortcut = this.remoteElectron.globalShortcut
     }
 
-    initTest() {
-        ;
-    }
-
-    remoteRequire(name: string): any {
+    remoteRequire (name: string): any {
         return this.electron.remote.require(name)
     }
-
-    app: any
-    ipcRenderer: any
-    shell: any
-    dialog: any
-    clipboard: any
-    globalShortcut: any
-    screen: any
-    private electron: any
-    private remoteElectron: any
 }

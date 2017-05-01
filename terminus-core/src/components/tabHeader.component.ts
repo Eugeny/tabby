@@ -2,9 +2,9 @@ import { Component, Input, Output, EventEmitter, HostBinding } from '@angular/co
 import { BaseTabComponent } from '../components/baseTab.component'
 
 @Component({
-  selector: 'tab-header',
-  template: require('./tabHeader.component.pug'),
-  styles: [require('./tabHeader.component.scss')],
+    selector: 'tab-header',
+    template: require('./tabHeader.component.pug'),
+    styles: [require('./tabHeader.component.scss')],
 })
 export class TabHeaderComponent {
     @Input() index: number

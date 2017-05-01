@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core'
 
-
 export class Logger {
-    constructor(
+    constructor (
         private name: string,
     ) {}
 
@@ -10,10 +9,10 @@ export class Logger {
         console[level](`%c[${this.name}]`, 'color: #aaa', ...args)
     }
 
-    debug(...args: any[]) { this.log('debug', ...args) }
-    info(...args: any[]) { this.log('info', ...args) }
-    warn(...args: any[]) { this.log('warn', ...args) }
-    error(...args: any[]) { this.log('error', ...args) }
+    debug (...args: any[]) { this.log('debug', ...args) }
+    info (...args: any[]) { this.log('info', ...args) }
+    warn (...args: any[]) { this.log('warn', ...args) }
+    error (...args: any[]) { this.log('error', ...args) }
 }
 
 @Injectable()

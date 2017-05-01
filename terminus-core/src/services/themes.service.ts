@@ -2,7 +2,6 @@ import { Inject, Injectable } from '@angular/core'
 import { ConfigService } from '../services/config.service'
 import { Theme } from '../api/theme'
 
-
 @Injectable()
 export class ThemesService {
     private styleElement: HTMLElement = null

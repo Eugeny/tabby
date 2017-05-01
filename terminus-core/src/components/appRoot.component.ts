@@ -14,7 +14,6 @@ import { ThemesService } from '../services/themes.service'
 
 import { AppService, IToolbarButton, ToolbarButtonProvider } from '../api'
 
-
 @Component({
     selector: 'app-root',
     template: require('./appRoot.component.pug'),
@@ -46,7 +45,7 @@ export class AppRootComponent {
     Platform = Platform
     private logger: Logger
 
-    constructor(
+    constructor (
         private docking: DockingService,
         private electron: ElectronService,
         private tabRecovery: TabRecoveryService,
@@ -76,16 +75,16 @@ export class AppRootComponent {
                 }
             }
             if (this.app.activeTab) {
-                if (hotkey == 'close-tab') {
+                if (hotkey === 'close-tab') {
                     this.app.closeTab(this.app.activeTab)
                 }
-                if (hotkey == 'toggle-last-tab') {
+                if (hotkey === 'toggle-last-tab') {
                     this.app.toggleLastTab()
                 }
-                if (hotkey == 'next-tab') {
+                if (hotkey === 'next-tab') {
                     this.app.nextTab()
                 }
-                if (hotkey == 'previous-tab') {
+                if (hotkey === 'previous-tab') {
                     this.app.previousTab()
                 }
             }
@@ -113,7 +112,7 @@ export class AppRootComponent {
                 // unfocused, invisible
                 this.electron.app.window.show()
             } else {
-                if (this.config.store.appearance.dock == 'off') {
+                if (this.config.store.appearance.dock === 'off') {
                     // not docked, visible
                     setTimeout(() => {
                         this.electron.app.window.focus()
@@ -134,7 +133,7 @@ export class AppRootComponent {
         await this.tabRecovery.recoverTabs()
         this.tabRecovery.saveTabs(this.app.tabs)
 
-        if (this.app.tabs.length == 0) {
+        if (this.app.tabs.length === 0) {
             this.app.openDefaultTab()
         }
     }

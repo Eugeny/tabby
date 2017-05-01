@@ -6,13 +6,18 @@ export enum Platform {
     Linux, macOS, Windows,
 }
 
-
 @Injectable()
 export class HostAppService {
     platform: Platform
     nodePlatform: string
+    quitRequested = new EventEmitter<any>()
+    ready = new EventEmitter<any>()
+    shown = new EventEmitter<any>()
+    secondInstance = new EventEmitter<any>()
 
-    constructor(
+    private logger: Logger
+
+    constructor (
         private zone: NgZone,
         private electron: ElectronService,
         log: LogService,
@@ -27,7 +32,7 @@ export class HostAppService {
 
         electron.ipcRenderer.on('host:quit-request', () => this.zone.run(() => this.quitRequested.emit()))
 
-        electron.ipcRenderer.on('uncaughtException', function(err) {
+        electron.ipcRenderer.on('uncaughtException', (err) => {
             this.logger.error('Unhandled exception:', err)
         })
 
@@ -44,13 +49,6 @@ export class HostAppService {
         })
     }
 
-    quitRequested = new EventEmitter<any>()
-    ready = new EventEmitter<any>()
-    shown = new EventEmitter<any>()
-    secondInstance = new EventEmitter<any>()
-
-    private logger: Logger;
-
     getWindow () {
         return this.electron.app.window
     }
@@ -63,23 +61,23 @@ export class HostAppService {
         return this.electron.app.getAppPath()
     }
 
-    getPath(type: string) {
+    getPath (type: string) {
         return this.electron.app.getPath(type)
     }
 
-    openDevTools() {
+    openDevTools () {
         this.getWindow().webContents.openDevTools()
     }
 
-    setCloseable(flag: boolean) {
+    setCloseable (flag: boolean) {
         this.electron.ipcRenderer.send('window-set-closeable', flag)
     }
 
-    focusWindow() {
+    focusWindow () {
         this.electron.ipcRenderer.send('window-focus')
     }
 
-    toggleWindow() {
+    toggleWindow () {
         this.electron.ipcRenderer.send('window-toggle-focus')
     }
 

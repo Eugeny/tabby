@@ -3,7 +3,6 @@ import { TerminalDecorator, TerminalTabComponent } from 'terminus-terminal'
 
 import { LinkHandler } from './api'
 
-
 @Injectable()
 export class LinkHighlighterDecorator extends TerminalDecorator {
     constructor (@Inject(LinkHandler) private handlers: LinkHandler[]) {
@@ -21,17 +20,17 @@ export class LinkHighlighterDecorator extends TerminalDecorator {
     insertLinks (screen) {
         if ('#text' === screen.cursorNode_.nodeName) {
             // replace text node to element
-            const cursorNode = document.createElement('span');
-            cursorNode.textContent = screen.cursorNode_.textContent;
-            screen.cursorRowNode_.replaceChild(cursorNode, screen.cursorNode_);
-            screen.cursorNode_ = cursorNode;
+            const cursorNode = document.createElement('span')
+            cursorNode.textContent = screen.cursorNode_.textContent
+            screen.cursorRowNode_.replaceChild(cursorNode, screen.cursorNode_)
+            screen.cursorNode_ = cursorNode
         }
 
         const traverse = (parentNode: Node) => {
             Array.from(parentNode.childNodes).forEach((node) => {
-                if (node.nodeName == '#text') {
+                if (node.nodeName === '#text') {
                     parentNode.replaceChild(this.urlizeNode(node), node)
-                } else if (node.nodeName != 'A') {
+                } else if (node.nodeName !== 'A') {
                     traverse(node)
                 }
             })
@@ -44,11 +43,14 @@ export class LinkHighlighterDecorator extends TerminalDecorator {
         let matches = []
         this.handlers.forEach((handler) => {
             let regex = new RegExp(handler.regex, 'gi')
-            let match
-            while (match = regex.exec(node.textContent)) {
+            while (true) {
+                let match = regex.exec(node.textContent)
+                if (!match) {
+                    break
+                }
                 let uri = handler.convert(match[0])
                 if (!handler.verify(uri)) {
-                    continue;
+                    continue
                 }
                 matches.push({
                     start: regex.lastIndex - match[0].length,
@@ -60,7 +62,7 @@ export class LinkHighlighterDecorator extends TerminalDecorator {
             }
         })
 
-        if (matches.length == 0) {
+        if (matches.length === 0) {
             return node
         }
 

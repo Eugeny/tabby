@@ -7,7 +7,6 @@ import { exec } from 'mz/child_process'
 
 import { SessionOptions, SessionPersistenceProvider } from '../api'
 
-
 export class Session {
     open: boolean
     name: string
@@ -34,9 +33,7 @@ export class Session {
             options.command = 'sh'
         }
         this.pty = nodePTY.spawn(options.command, options.args || [], {
-            //name: 'screen-256color',
             name: 'xterm-256color',
-            //name: 'xterm-color',
             cols: 80,
             rows: 30,
             cwd: options.cwd || process.env.HOME,
@@ -48,7 +45,7 @@ export class Session {
                 this.truePID = pid
             })
         } else {
-            this.truePID = (<any>this.pty).pid
+            this.truePID = (this.pty as any).pid
         }
 
         this.open = true
@@ -87,7 +84,7 @@ export class Session {
     }
 
     async gracefullyKillProcess (): Promise<void> {
-        if (process.platform == 'win32') {
+        if (process.platform === 'win32') {
             this.kill()
         } else {
             await new Promise((resolve) => {
@@ -119,17 +116,16 @@ export class Session {
     }
 
     async getWorkingDirectory (): Promise<string> {
-        if (process.platform == 'darwin') {
+        if (process.platform === 'darwin') {
             let lines = (await exec(`lsof -p ${this.truePID} -Fn`))[0].toString().split('\n')
             return lines[2].substring(1)
         }
-        if (process.platform == 'linux') {
+        if (process.platform === 'linux') {
             return await fs.readlink(`/proc/${this.truePID}/cwd`)
         }
         return null
     }
 }
-
 
 @Injectable()
 export class SessionsService {
@@ -137,14 +133,14 @@ export class SessionsService {
     logger: Logger
     private lastID = 0
 
-    constructor(
+    constructor (
         private persistence: SessionPersistenceProvider,
         log: LogService,
     ) {
         this.logger = log.create('sessions')
     }
 
-    async createNewSession (options: SessionOptions) : Promise<Session> {
+    async createNewSession (options: SessionOptions): Promise<Session> {
         if (this.persistence) {
             let recoveryId = await this.persistence.startSession(options)
             options = await this.persistence.attachSession(recoveryId)
@@ -153,7 +149,7 @@ export class SessionsService {
         return session
     }
 
-    addSession (options: SessionOptions) : Session {
+    addSession (options: SessionOptions): Session {
         this.lastID++
         options.name = `session-${this.lastID}`
         let session = new Session(options)
@@ -167,7 +163,7 @@ export class SessionsService {
         return session
     }
 
-    async recover (recoveryId: string) : Promise<Session> {
+    async recover (recoveryId: string): Promise<Session> {
         if (!this.persistence) {
             return null
         }

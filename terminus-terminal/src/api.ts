@@ -3,7 +3,9 @@ import { TerminalTabComponent } from './components/terminalTab.component'
 export { TerminalTabComponent }
 
 export abstract class TerminalDecorator {
+    // tslint:disable-next-line no-empty
     attach (_terminal: TerminalTabComponent): void { }
+    // tslint:disable-next-line no-empty
     detach (_terminal: TerminalTabComponent): void { }
 }
 

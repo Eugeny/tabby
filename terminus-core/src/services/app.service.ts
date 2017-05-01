@@ -6,7 +6,6 @@ import { Logger, LogService } from '../services/log.service'
 
 export declare type TabComponentType = new (...args: any[]) => BaseTabComponent
 
-
 @Injectable()
 export class AppService {
     tabs: BaseTabComponent[] = []
@@ -44,7 +43,7 @@ export class AppService {
     }
 
     selectTab (tab: BaseTabComponent) {
-        if (this.activeTab == tab) {
+        if (this.activeTab === tab) {
             return
         }
         if (this.tabs.includes(this.activeTab)) {
@@ -85,12 +84,9 @@ export class AppService {
 
     closeTab (tab: BaseTabComponent) {
         tab.destroy()
-        /* if (tab.session) {
-            this.sessions.destroySession(tab.session)
-        } */
         let newIndex = Math.max(0, this.tabs.indexOf(tab) - 1)
-        this.tabs = this.tabs.filter((x) => x != tab)
-        if (tab == this.activeTab) {
+        this.tabs = this.tabs.filter((x) => x !== tab)
+        if (tab === this.activeTab) {
             this.selectTab(this.tabs[newIndex])
         }
         this.tabsChanged$.next()

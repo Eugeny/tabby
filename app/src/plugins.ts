@@ -1,6 +1,7 @@
 import * as fs from 'fs-promise'
 import * as path from 'path'
-const nodeModule = (<any>global).require('module')
+const nodeModule = require('module')
+const nodeRequire = (global as any).require
 
 function normalizePath (path: string): string {
     const cygwinPrefix = '/cygdrive/'
@@ -9,9 +10,9 @@ function normalizePath (path: string): string {
         path = path[0] + ':' + path.substring(1)
     }
     return path
-};
+}
 
-(<any>global).require.main.paths.map(x => nodeModule.globalPaths.push(normalizePath(x)))
+nodeRequire.main.paths.map(x => nodeModule.globalPaths.push(normalizePath(x)))
 
 if (process.env.DEV) {
     nodeModule.globalPaths.unshift(path.dirname(require('electron').remote.app.getAppPath()))
@@ -80,10 +81,10 @@ export async function loadPlugins (foundPlugins: IPluginEntry[], progress: Progr
     progress(0, 1)
     let index = 0
     for (let foundPlugin of foundPlugins) {
-        console.info(`Loading ${foundPlugin.name}: ${(<any>global).require.resolve(foundPlugin.path)}`)
+        console.info(`Loading ${foundPlugin.name}: ${nodeRequire.resolve(foundPlugin.path)}`)
         progress(index, foundPlugins.length)
         try {
-            let pluginModule = (<any>global).require(foundPlugin.path)
+            let pluginModule = nodeRequire(foundPlugin.path)
             plugins.push(pluginModule)
         } catch (error) {
             console.error(`Could not load ${foundPlugin.name}:`, error)

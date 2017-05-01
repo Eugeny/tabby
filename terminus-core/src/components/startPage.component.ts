@@ -3,12 +3,12 @@ import { ElectronService } from '../services/electron.service'
 import { IToolbarButton, ToolbarButtonProvider } from '../api'
 
 @Component({
-  selector: 'start-page',
-  template: require('./startPage.component.pug'),
-  styles: [require('./startPage.component.scss')],
+    selector: 'start-page',
+    template: require('./startPage.component.pug'),
+    styles: [require('./startPage.component.scss')],
 })
 export class StartPageComponent {
-    constructor(
+    constructor (
         private electron: ElectronService,
         @Inject(ToolbarButtonProvider) private toolbarButtonProviders: ToolbarButtonProvider[],
     ) { }
