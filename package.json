@@ -49,6 +49,9 @@
     "win": {
       "icon": "./build/windows/icon.ico"
     },
+    "squirrelWindows": {
+      "iconUrl": "https://github.com/Eugeny/terminus/raw/master/build/windows/icon.ico"
+    },
     "mac": {
       "category": "public.app-category.video",
       "icon": "./build/mac/icon.icns",
