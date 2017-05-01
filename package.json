@@ -52,7 +52,7 @@
     "mac": {
       "category": "public.app-category.video",
       "icon": "./build/mac/icon.icns",
-      "identity": "Syslink GmbH"
+      "identity": null
     },
     "linux": {
       "category": "Utilities",

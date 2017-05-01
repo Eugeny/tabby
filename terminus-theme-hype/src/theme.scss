@@ -96,83 +96,72 @@ app-root  {
 
     &> .content {
         .tab-bar {
-            &>button {
+            .btn-tab-bar {
+                background: transparent;
                 &:hover { background: $button-hover-bg !important; }
                 &:active { background: $button-active-bg !important; }
-
-                &:not(:hover):not(:active) {
-                    background: $body-bg2;
-                }
             }
 
             &>.tabs {
                 tab-header {
-                    .wrapper {
-                        .index {
-                            color: #555;
-                        }
+                    background: $body-bg;
 
-                        .name {
-                            text-align: center;
-                        }
+                    .index {
+                        color: #555;
+                    }
 
-                        button {
-                            color: $body-color;
-                            border: none;
-                            transition: 0.25s all;
-                        }
+                    .name {
+                        text-align: center;
+                    }
+
+                    button {
+                        color: $body-color;
+                        border: none;
+                        transition: 0.25s all;
                     }
                 }
             }
         }
 
         &.tabs-on-top .tab-bar {
-            margin-top: 3px;
-
-            &>button {
-                border-bottom: 1px solid $window-border;
-            }
+            margin-top: -1px;
+            border-bottom: 1px solid $window-border;
 
             tab-header {
-                .wrapper {
-                    border: 1px solid transparent;
-                    border-bottom: 1px solid $window-border;
-                    border-top-left-radius: $tab-border-radius;
-                    border-top-right-radius: $tab-border-radius;
-                }
+                margin-bottom: -1px;
+                border: 1px solid transparent;
+                border-bottom: 1px solid $window-border;
+                border-top-left-radius: $tab-border-radius;
+                border-top-right-radius: $tab-border-radius;
 
-                &.active .wrapper {
+                &.active {
                     border: 1px solid $window-border;
                     border-bottom: 1px solid transparent;
                 }
 
-                &.has-activity:not(.active) .wrapper {
+                &.has-activity:not(.active) {
                     border-top: 1px solid $green;
                 }
             }
         }
 
         &:not(.tabs-on-top) .tab-bar {
-            margin-bottom: 3px;
-
-            &>button {
-                border-top: 1px solid $window-border;
-            }
+            margin-bottom: -1px;
+            border-top: 1px solid $window-border;
 
             tab-header {
-                .wrapper {
-                    border: 1px solid transparent;
-                    border-top: 1px solid $window-border;
-                    border-bottom-left-radius: $tab-border-radius;
-                    border-bottom-right-radius: $tab-border-radius;
-                }
+                margin-top: -1px;
+                border: 1px solid transparent;
+                border-top: 1px solid $window-border;
+                border-bottom-left-radius: $tab-border-radius;
+                border-bottom-right-radius: $tab-border-radius;
 
-                &.active .wrapper {
+                &.active {
                     border: 1px solid $window-border;
                     border-top: 1px solid transparent;
                 }
 
-                &.has-activity:not(.active) .wrapper {
+                &.has-activity:not(.active) {
                     border-bottom: 1px solid $green;
                 }
             }

@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core'
+import { Component, Inject, Input } from '@angular/core'
 import { trigger, style, animate, transition, state } from '@angular/animations'
 import { ToasterConfig } from 'angular2-toaster'
 
@@ -21,20 +21,20 @@ import { AppService, IToolbarButton, ToolbarButtonProvider } from '../api'
     animations: [
         trigger('animateTab', [
             state('in', style({
-                'flex-grow': '1000',
                 'flex-basis': '200px',
+                'width': '200px',
             })),
             transition(':enter', [
                 style({
-                    'flex-grow': '1',
                     'flex-basis': '1px',
+                    'width': '1px',
                 }),
                 animate('250ms ease-in-out')
             ]),
             transition(':leave', [
                 animate('250ms ease-in-out', style({
-                    'flex-grow': '1',
                     'flex-basis': '1px',
+                    'width': '1px',
                 }))
             ])
         ])
@@ -43,6 +43,7 @@ import { AppService, IToolbarButton, ToolbarButtonProvider } from '../api'
 export class AppRootComponent {
     toasterConfig: ToasterConfig
     Platform = Platform
+    @Input() ready = false
     private logger: Logger
 
     constructor (
@@ -131,6 +132,7 @@ export class AppRootComponent {
 
     async ngOnInit () {
         await this.tabRecovery.recoverTabs()
+        this.ready = true
         this.tabRecovery.saveTabs(this.app.tabs)
 
         if (this.app.tabs.length === 0) {

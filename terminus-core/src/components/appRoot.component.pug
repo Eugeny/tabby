@@ -56,7 +56,7 @@ title-bar(
             )
                 i.fa.fa-close
 
-    start-page(*ngIf='app.tabs.length == 0')
+    start-page(*ngIf='ready && app.tabs.length == 0')
 
     tab-body(
         *ngFor='let tab of app.tabs; trackBy: tab?.id', 

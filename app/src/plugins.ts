@@ -20,7 +20,8 @@ if (process.env.DEV) {
 
 nodeModule.globalPaths.unshift(path.join(
     path.dirname(require('electron').remote.app.getPath('exe')),
-    'resources/builtin-plugins/node_modules',
+    (process.platform == 'darwin') ? '../Resources' : 'resources',
+    'builtin-plugins/node_modules',
 ))
 nodeModule.globalPaths.unshift(path.join(
     require('electron').remote.app.getPath('appData'),
