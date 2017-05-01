@@ -47,7 +47,7 @@
       "builtin-plugins"
     ],
     "win": {
-      "icon": "./app/assets/img/shortcut.ico"
+      "icon": "./build/windows/icon.ico"
     },
     "mac": {
       "category": "public.app-category.video",

@@ -39,6 +39,7 @@ export class TerminalTabComponent extends BaseTabComponent {
     ) {
         super()
         this.decorators = this.decorators || []
+        this.title$.next('Terminal')
         this.configSubscription = config.change.subscribe(() => {
             this.configure()
         })
