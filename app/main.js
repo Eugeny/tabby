@@ -32,7 +32,6 @@ setupWindowManagement = () => {
     let windowCloseable
 
     app.window.on('show', () => {
-      app.window.focus()
       app.window.webContents.send('host:window-shown')
     })
 
