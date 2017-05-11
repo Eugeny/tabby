@@ -44,7 +44,8 @@
     "productName": "Terminus",
     "compression": "normal",
     "extraResources": [
-      "builtin-plugins"
+      "builtin-plugins",
+      "clink"
     ],
     "win": {
       "icon": "./build/windows/icon.ico"

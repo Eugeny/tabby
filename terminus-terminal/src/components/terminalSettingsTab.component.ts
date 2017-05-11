@@ -55,7 +55,8 @@ export class TerminalSettingsTabComponent {
         }
         if (this.hostApp.platform === Platform.Windows) {
             this.shells = [
-                { name: 'CMD', command: 'cmd.exe' },
+                { name: 'CMD (clink)', command: '~clink~' },
+                { name: 'CMD (stock)', command: 'cmd.exe' },
                 { name: 'PowerShell', command: 'powershell.exe' },
             ]
             const wslPath = `${process.env.windir}\\system32\\bash.exe`

@@ -1,0 +1,915 @@
+<html>
+<meta charset="utf-8"/>
+
+<!-- ----------------------------------------------------- -->
+<head>
+<style>
+body {
+    padding-top: 3em;
+    width: 640px;
+    margin: 0 auto;
+}
+
+h3 {
+    width: 100%;
+    border-bottom: 1px black solid;
+}
+
+h3 { font-size: 1.21em; }
+h4 { font-size: 1.14em; }
+h5 { font-size: 1.07em; }
+h6 { font-size: 1.00em; }
+
+.section {
+    margin-top: 2em;
+    margin-bottom: 4em;
+}
+
+#header {
+    float: right;
+    text-align: right;
+}
+
+#header #title {
+    font-size: 2em;
+    font-weight: bold;
+    margin-bottom: 0.4em;
+}
+
+#content {
+    clear: both;
+}
+
+#content p {
+    text-align: justify;
+}
+
+#content table {
+    margin: 0 auto;
+    width: 90%;
+}
+
+#content pre {
+    padding: 0.2em;
+    background-color: #eee;
+}
+
+#content td, #content th {
+    vertical-align: top;
+    padding: 0.2em;
+}
+
+#content th {
+    background-color: #eee;
+}
+
+#content tr:nth-child(odd) {
+    background-color: #f8f8f8;
+}
+
+#content tr:nth-child(even) {
+    background-color: #fff;
+}
+
+#content #api p {
+    margin-left: 2em;
+}
+
+#content #api h5 {
+    border-top: gray dashed 1px;
+    padding-top: 0.3em;
+    margin-bottom: 0em;
+    font-size: 1.0em;
+    color: darkgreen;
+    font-family: courier, monospace;
+}
+</style>
+<script type="text/javascript">
+/**
+ * marked - a markdown parser
+ * Copyright (c) 2011-2014, Christopher Jeffrey. (MIT Licensed)
+ * https://github.com/chjj/marked
+ */
+(function(){function e(e){this.tokens=[],this.tokens.links={},this.options=e||a.defaults,this.rules=p.normal,this.options.gfm&&(this.rules=this.options.tables?p.tables:p.gfm)}function t(e,t){if(this.options=t||a.defaults,this.links=e,this.rules=u.normal,this.renderer=this.options.renderer||new n,this.renderer.options=this.options,!this.links)throw new Error("Tokens array requires a `links` property.");this.options.gfm?this.rules=this.options.breaks?u.breaks:u.gfm:this.options.pedantic&&(this.rules=u.pedantic)}function n(e){this.options=e||{}}function r(e){this.tokens=[],this.token=null,this.options=e||a.defaults,this.options.renderer=this.options.renderer||new n,this.renderer=this.options.renderer,this.renderer.options=this.options}function s(e,t){return e.replace(t?/&/g:/&(?!#?\w+;)/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;")}function i(e){return e.replace(/&([#\w]+);/g,function(e,t){return t=t.toLowerCase(),"colon"===t?":":"#"===t.charAt(0)?String.fromCharCode("x"===t.charAt(1)?parseInt(t.substring(2),16):+t.substring(1)):""})}function l(e,t){return e=e.source,t=t||"",function n(r,s){return r?(s=s.source||s,s=s.replace(/(^|[^\[])\^/g,"$1"),e=e.replace(r,s),n):new RegExp(e,t)}}function o(){}function h(e){for(var t,n,r=1;r<arguments.length;r++){t=arguments[r];for(n in t)Object.prototype.hasOwnProperty.call(t,n)&&(e[n]=t[n])}return e}function a(t,n,i){if(i||"function"==typeof n){i||(i=n,n=null),n=h({},a.defaults,n||{});var l,o,p=n.highlight,u=0;try{l=e.lex(t,n)}catch(c){return i(c)}o=l.length;var g=function(e){if(e)return n.highlight=p,i(e);var t;try{t=r.parse(l,n)}catch(s){e=s}return n.highlight=p,e?i(e):i(null,t)};if(!p||p.length<3)return g();if(delete n.highlight,!o)return g();for(;u<l.length;u++)!function(e){return"code"!==e.type?--o||g():p(e.text,e.lang,function(t,n){return t?g(t):null==n||n===e.text?--o||g():(e.text=n,e.escaped=!0,void(--o||g()))})}(l[u])}else try{return n&&(n=h({},a.defaults,n)),r.parse(e.lex(t,n),n)}catch(c){if(c.message+="\nPlease report this to https://github.com/chjj/marked.",(n||a.defaults).silent)return"<p>An error occured:</p><pre>"+s(c.message+"",!0)+"</pre>";throw c}}var p={newline:/^\n+/,code:/^( {4}[^\n]+\n*)+/,fences:o,hr:/^( *[-*_]){3,} *(?:\n+|$)/,heading:/^ *(#{1,6}) *([^\n]+?) *#* *(?:\n+|$)/,nptable:o,lheading:/^([^\n]+)\n *(=|-){2,} *(?:\n+|$)/,blockquote:/^( *>[^\n]+(\n(?!def)[^\n]+)*\n*)+/,list:/^( *)(bull) [\s\S]+?(?:hr|def|\n{2,}(?! )(?!\1bull )\n*|\s*$)/,html:/^ *(?:comment *(?:\n|\s*$)|closed *(?:\n{2,}|\s*$)|closing *(?:\n{2,}|\s*$))/,def:/^ *\[([^\]]+)\]: *<?([^\s>]+)>?(?: +["(]([^\n]+)[")])? *(?:\n+|$)/,table:o,paragraph:/^((?:[^\n]+\n?(?!hr|heading|lheading|blockquote|tag|def))+)\n*/,text:/^[^\n]+/};p.bullet=/(?:[*+-]|\d+\.)/,p.item=/^( *)(bull) [^\n]*(?:\n(?!\1bull )[^\n]*)*/,p.item=l(p.item,"gm")(/bull/g,p.bullet)(),p.list=l(p.list)(/bull/g,p.bullet)("hr","\\n+(?=\\1?(?:[-*_] *){3,}(?:\\n+|$))")("def","\\n+(?="+p.def.source+")")(),p.blockquote=l(p.blockquote)("def",p.def)(),p._tag="(?!(?:a|em|strong|small|s|cite|q|dfn|abbr|data|time|code|var|samp|kbd|sub|sup|i|b|u|mark|ruby|rt|rp|bdi|bdo|span|br|wbr|ins|del|img)\\b)\\w+(?!:/|[^\\w\\s@]*@)\\b",p.html=l(p.html)("comment",/<!--[\s\S]*?-->/)("closed",/<(tag)[\s\S]+?<\/\1>/)("closing",/<tag(?:"[^"]*"|'[^']*'|[^'">])*?>/)(/tag/g,p._tag)(),p.paragraph=l(p.paragraph)("hr",p.hr)("heading",p.heading)("lheading",p.lheading)("blockquote",p.blockquote)("tag","<"+p._tag)("def",p.def)(),p.normal=h({},p),p.gfm=h({},p.normal,{fences:/^ *(`{3,}|~{3,}) *(\S+)? *\n([\s\S]+?)\s*\1 *(?:\n+|$)/,paragraph:/^/}),p.gfm.paragraph=l(p.paragraph)("(?!","(?!"+p.gfm.fences.source.replace("\\1","\\2")+"|"+p.list.source.replace("\\1","\\3")+"|")(),p.tables=h({},p.gfm,{nptable:/^ *(\S.*\|.*)\n *([-:]+ *\|[-| :]*)\n((?:.*\|.*(?:\n|$))*)\n*/,table:/^ *\|(.+)\n *\|( *[-:]+[-| :]*)\n((?: *\|.*(?:\n|$))*)\n*/}),e.rules=p,e.lex=function(t,n){var r=new e(n);return r.lex(t)},e.prototype.lex=function(e){return e=e.replace(/\r\n|\r/g,"\n").replace(/\t/g,"    ").replace(/\u00a0/g," ").replace(/\u2424/g,"\n"),this.token(e,!0)},e.prototype.token=function(e,t,n){for(var r,s,i,l,o,h,a,u,c,e=e.replace(/^ +$/gm,"");e;)if((i=this.rules.newline.exec(e))&&(e=e.substring(i[0].length),i[0].length>1&&this.tokens.push({type:"space"})),i=this.rules.code.exec(e))e=e.substring(i[0].length),i=i[0].replace(/^ {4}/gm,""),this.tokens.push({type:"code",text:this.options.pedantic?i:i.replace(/\n+$/,"")});else if(i=this.rules.fences.exec(e))e=e.substring(i[0].length),this.tokens.push({type:"code",lang:i[2],text:i[3]});else if(i=this.rules.heading.exec(e))e=e.substring(i[0].length),this.tokens.push({type:"heading",depth:i[1].length,text:i[2]});else if(t&&(i=this.rules.nptable.exec(e))){for(e=e.substring(i[0].length),h={type:"table",header:i[1].replace(/^ *| *\| *$/g,"").split(/ *\| */),align:i[2].replace(/^ *|\| *$/g,"").split(/ *\| */),cells:i[3].replace(/\n$/,"").split("\n")},u=0;u<h.align.length;u++)h.align[u]=/^ *-+: *$/.test(h.align[u])?"right":/^ *:-+: *$/.test(h.align[u])?"center":/^ *:-+ *$/.test(h.align[u])?"left":null;for(u=0;u<h.cells.length;u++)h.cells[u]=h.cells[u].split(/ *\| */);this.tokens.push(h)}else if(i=this.rules.lheading.exec(e))e=e.substring(i[0].length),this.tokens.push({type:"heading",depth:"="===i[2]?1:2,text:i[1]});else if(i=this.rules.hr.exec(e))e=e.substring(i[0].length),this.tokens.push({type:"hr"});else if(i=this.rules.blockquote.exec(e))e=e.substring(i[0].length),this.tokens.push({type:"blockquote_start"}),i=i[0].replace(/^ *> ?/gm,""),this.token(i,t,!0),this.tokens.push({type:"blockquote_end"});else if(i=this.rules.list.exec(e)){for(e=e.substring(i[0].length),l=i[2],this.tokens.push({type:"list_start",ordered:l.length>1}),i=i[0].match(this.rules.item),r=!1,c=i.length,u=0;c>u;u++)h=i[u],a=h.length,h=h.replace(/^ *([*+-]|\d+\.) +/,""),~h.indexOf("\n ")&&(a-=h.length,h=this.options.pedantic?h.replace(/^ {1,4}/gm,""):h.replace(new RegExp("^ {1,"+a+"}","gm"),"")),this.options.smartLists&&u!==c-1&&(o=p.bullet.exec(i[u+1])[0],l===o||l.length>1&&o.length>1||(e=i.slice(u+1).join("\n")+e,u=c-1)),s=r||/\n\n(?!\s*$)/.test(h),u!==c-1&&(r="\n"===h.charAt(h.length-1),s||(s=r)),this.tokens.push({type:s?"loose_item_start":"list_item_start"}),this.token(h,!1,n),this.tokens.push({type:"list_item_end"});this.tokens.push({type:"list_end"})}else if(i=this.rules.html.exec(e))e=e.substring(i[0].length),this.tokens.push({type:this.options.sanitize?"paragraph":"html",pre:"pre"===i[1]||"script"===i[1]||"style"===i[1],text:i[0]});else if(!n&&t&&(i=this.rules.def.exec(e)))e=e.substring(i[0].length),this.tokens.links[i[1].toLowerCase()]={href:i[2],title:i[3]};else if(t&&(i=this.rules.table.exec(e))){for(e=e.substring(i[0].length),h={type:"table",header:i[1].replace(/^ *| *\| *$/g,"").split(/ *\| */),align:i[2].replace(/^ *|\| *$/g,"").split(/ *\| */),cells:i[3].replace(/(?: *\| *)?\n$/,"").split("\n")},u=0;u<h.align.length;u++)h.align[u]=/^ *-+: *$/.test(h.align[u])?"right":/^ *:-+: *$/.test(h.align[u])?"center":/^ *:-+ *$/.test(h.align[u])?"left":null;for(u=0;u<h.cells.length;u++)h.cells[u]=h.cells[u].replace(/^ *\| *| *\| *$/g,"").split(/ *\| */);this.tokens.push(h)}else if(t&&(i=this.rules.paragraph.exec(e)))e=e.substring(i[0].length),this.tokens.push({type:"paragraph",text:"\n"===i[1].charAt(i[1].length-1)?i[1].slice(0,-1):i[1]});else if(i=this.rules.text.exec(e))e=e.substring(i[0].length),this.tokens.push({type:"text",text:i[0]});else if(e)throw new Error("Infinite loop on byte: "+e.charCodeAt(0));return this.tokens};var u={escape:/^\\([\\`*{}\[\]()#+\-.!_>])/,autolink:/^<([^ >]+(@|:\/)[^ >]+)>/,url:o,tag:/^<!--[\s\S]*?-->|^<\/?\w+(?:"[^"]*"|'[^']*'|[^'">])*?>/,link:/^!?\[(inside)\]\(href\)/,reflink:/^!?\[(inside)\]\s*\[([^\]]*)\]/,nolink:/^!?\[((?:\[[^\]]*\]|[^\[\]])*)\]/,strong:/^__([\s\S]+?)__(?!_)|^\*\*([\s\S]+?)\*\*(?!\*)/,em:/^\b_((?:__|[\s\S])+?)_\b|^\*((?:\*\*|[\s\S])+?)\*(?!\*)/,code:/^(`+)\s*([\s\S]*?[^`])\s*\1(?!`)/,br:/^ {2,}\n(?!\s*$)/,del:o,text:/^[\s\S]+?(?=[\\<!\[_*`]| {2,}\n|$)/};u._inside=/(?:\[[^\]]*\]|[^\[\]]|\](?=[^\[]*\]))*/,u._href=/\s*<?([\s\S]*?)>?(?:\s+['"]([\s\S]*?)['"])?\s*/,u.link=l(u.link)("inside",u._inside)("href",u._href)(),u.reflink=l(u.reflink)("inside",u._inside)(),u.normal=h({},u),u.pedantic=h({},u.normal,{strong:/^__(?=\S)([\s\S]*?\S)__(?!_)|^\*\*(?=\S)([\s\S]*?\S)\*\*(?!\*)/,em:/^_(?=\S)([\s\S]*?\S)_(?!_)|^\*(?=\S)([\s\S]*?\S)\*(?!\*)/}),u.gfm=h({},u.normal,{escape:l(u.escape)("])","~|])")(),url:/^(https?:\/\/[^\s<]+[^<.,:;"')\]\s])/,del:/^~~(?=\S)([\s\S]*?\S)~~/,text:l(u.text)("]|","~]|")("|","|https?://|")()}),u.breaks=h({},u.gfm,{br:l(u.br)("{2,}","*")(),text:l(u.gfm.text)("{2,}","*")()}),t.rules=u,t.output=function(e,n,r){var s=new t(n,r);return s.output(e)},t.prototype.output=function(e){for(var t,n,r,i,l="";e;)if(i=this.rules.escape.exec(e))e=e.substring(i[0].length),l+=i[1];else if(i=this.rules.autolink.exec(e))e=e.substring(i[0].length),"@"===i[2]?(n=this.mangle(":"===i[1].charAt(6)?i[1].substring(7):i[1]),r=this.mangle("mailto:")+n):(n=s(i[1]),r=n),l+=this.renderer.link(r,null,n);else if(this.inLink||!(i=this.rules.url.exec(e))){if(i=this.rules.tag.exec(e))!this.inLink&&/^<a /i.test(i[0])?this.inLink=!0:this.inLink&&/^<\/a>/i.test(i[0])&&(this.inLink=!1),e=e.substring(i[0].length),l+=this.options.sanitize?s(i[0]):i[0];else if(i=this.rules.link.exec(e))e=e.substring(i[0].length),this.inLink=!0,l+=this.outputLink(i,{href:i[2],title:i[3]}),this.inLink=!1;else if((i=this.rules.reflink.exec(e))||(i=this.rules.nolink.exec(e))){if(e=e.substring(i[0].length),t=(i[2]||i[1]).replace(/\s+/g," "),t=this.links[t.toLowerCase()],!t||!t.href){l+=i[0].charAt(0),e=i[0].substring(1)+e;continue}this.inLink=!0,l+=this.outputLink(i,t),this.inLink=!1}else if(i=this.rules.strong.exec(e))e=e.substring(i[0].length),l+=this.renderer.strong(this.output(i[2]||i[1]));else if(i=this.rules.em.exec(e))e=e.substring(i[0].length),l+=this.renderer.em(this.output(i[2]||i[1]));else if(i=this.rules.code.exec(e))e=e.substring(i[0].length),l+=this.renderer.codespan(s(i[2],!0));else if(i=this.rules.br.exec(e))e=e.substring(i[0].length),l+=this.renderer.br();else if(i=this.rules.del.exec(e))e=e.substring(i[0].length),l+=this.renderer.del(this.output(i[1]));else if(i=this.rules.text.exec(e))e=e.substring(i[0].length),l+=s(this.smartypants(i[0]));else if(e)throw new Error("Infinite loop on byte: "+e.charCodeAt(0))}else e=e.substring(i[0].length),n=s(i[1]),r=n,l+=this.renderer.link(r,null,n);return l},t.prototype.outputLink=function(e,t){var n=s(t.href),r=t.title?s(t.title):null;return"!"!==e[0].charAt(0)?this.renderer.link(n,r,this.output(e[1])):this.renderer.image(n,r,s(e[1]))},t.prototype.smartypants=function(e){return this.options.smartypants?e.replace(/--/g,"—").replace(/(^|[-\u2014/(\[{"\s])'/g,"$1‘").replace(/'/g,"’").replace(/(^|[-\u2014/(\[{\u2018\s])"/g,"$1“").replace(/"/g,"”").replace(/\.{3}/g,"…"):e},t.prototype.mangle=function(e){for(var t,n="",r=e.length,s=0;r>s;s++)t=e.charCodeAt(s),Math.random()>.5&&(t="x"+t.toString(16)),n+="&#"+t+";";return n},n.prototype.code=function(e,t,n){if(this.options.highlight){var r=this.options.highlight(e,t);null!=r&&r!==e&&(n=!0,e=r)}return t?'<pre><code class="'+this.options.langPrefix+s(t,!0)+'">'+(n?e:s(e,!0))+"\n</code></pre>\n":"<pre><code>"+(n?e:s(e,!0))+"\n</code></pre>"},n.prototype.blockquote=function(e){return"<blockquote>\n"+e+"</blockquote>\n"},n.prototype.html=function(e){return e},n.prototype.heading=function(e,t,n){return"<h"+t+' id="'+this.options.headerPrefix+n.toLowerCase().replace(/[^\w]+/g,"-")+'">'+e+"</h"+t+">\n"},n.prototype.hr=function(){return this.options.xhtml?"<hr/>\n":"<hr>\n"},n.prototype.list=function(e,t){var n=t?"ol":"ul";return"<"+n+">\n"+e+"</"+n+">\n"},n.prototype.listitem=function(e){return"<li>"+e+"</li>\n"},n.prototype.paragraph=function(e){return"<p>"+e+"</p>\n"},n.prototype.table=function(e,t){return"<table>\n<thead>\n"+e+"</thead>\n<tbody>\n"+t+"</tbody>\n</table>\n"},n.prototype.tablerow=function(e){return"<tr>\n"+e+"</tr>\n"},n.prototype.tablecell=function(e,t){var n=t.header?"th":"td",r=t.align?"<"+n+' style="text-align:'+t.align+'">':"<"+n+">";return r+e+"</"+n+">\n"},n.prototype.strong=function(e){return"<strong>"+e+"</strong>"},n.prototype.em=function(e){return"<em>"+e+"</em>"},n.prototype.codespan=function(e){return"<code>"+e+"</code>"},n.prototype.br=function(){return this.options.xhtml?"<br/>":"<br>"},n.prototype.del=function(e){return"<del>"+e+"</del>"},n.prototype.link=function(e,t,n){if(this.options.sanitize){try{var r=decodeURIComponent(i(e)).replace(/[^\w:]/g,"").toLowerCase()}catch(s){return""}if(0===r.indexOf("javascript:")||0===r.indexOf("vbscript:"))return""}var l='<a href="'+e+'"';return t&&(l+=' title="'+t+'"'),l+=">"+n+"</a>"},n.prototype.image=function(e,t,n){var r='<img src="'+e+'" alt="'+n+'"';return t&&(r+=' title="'+t+'"'),r+=this.options.xhtml?"/>":">"},r.parse=function(e,t,n){var s=new r(t,n);return s.parse(e)},r.prototype.parse=function(e){this.inline=new t(e.links,this.options,this.renderer),this.tokens=e.reverse();for(var n="";this.next();)n+=this.tok();return n},r.prototype.next=function(){return this.token=this.tokens.pop()},r.prototype.peek=function(){return this.tokens[this.tokens.length-1]||0},r.prototype.parseText=function(){for(var e=this.token.text;"text"===this.peek().type;)e+="\n"+this.next().text;return this.inline.output(e)},r.prototype.tok=function(){switch(this.token.type){case"space":return"";case"hr":return this.renderer.hr();case"heading":return this.renderer.heading(this.inline.output(this.token.text),this.token.depth,this.token.text);case"code":return this.renderer.code(this.token.text,this.token.lang,this.token.escaped);case"table":var e,t,n,r,s,i="",l="";for(n="",e=0;e<this.token.header.length;e++)r={header:!0,align:this.token.align[e]},n+=this.renderer.tablecell(this.inline.output(this.token.header[e]),{header:!0,align:this.token.align[e]});for(i+=this.renderer.tablerow(n),e=0;e<this.token.cells.length;e++){for(t=this.token.cells[e],n="",s=0;s<t.length;s++)n+=this.renderer.tablecell(this.inline.output(t[s]),{header:!1,align:this.token.align[s]});l+=this.renderer.tablerow(n)}return this.renderer.table(i,l);case"blockquote_start":for(var l="";"blockquote_end"!==this.next().type;)l+=this.tok();return this.renderer.blockquote(l);case"list_start":for(var l="",o=this.token.ordered;"list_end"!==this.next().type;)l+=this.tok();return this.renderer.list(l,o);case"list_item_start":for(var l="";"list_item_end"!==this.next().type;)l+="text"===this.token.type?this.parseText():this.tok();return this.renderer.listitem(l);case"loose_item_start":for(var l="";"list_item_end"!==this.next().type;)l+=this.tok();return this.renderer.listitem(l);case"html":var h=this.token.pre||this.options.pedantic?this.token.text:this.inline.output(this.token.text);return this.renderer.html(h);case"paragraph":return this.renderer.paragraph(this.inline.output(this.token.text));case"text":return this.renderer.paragraph(this.parseText())}},o.exec=o,a.options=a.setOptions=function(e){return h(a.defaults,e),a},a.defaults={gfm:!0,tables:!0,breaks:!1,pedantic:!1,sanitize:!1,smartLists:!1,silent:!1,highlight:null,langPrefix:"lang-",smartypants:!1,headerPrefix:"",renderer:new n,xhtml:!1},a.Parser=r,a.parser=r.parse,a.Renderer=n,a.Lexer=e,a.lexer=e.lex,a.InlineLexer=t,a.inlineLexer=t.output,a.parse=a,"undefined"!=typeof module&&"object"==typeof exports?module.exports=a:"function"==typeof define&&define.amd?define(function(){return a}):this.marked=a}).call(function(){return this||("undefined"!=typeof window?window:global)}());
+
+    function go()
+    {
+        // Convert markdown to HTML.
+        var content = document.getElementById("content");
+        var mds = document.getElementsByTagName("md");
+        for (var i = 0; i < mds.length; ++i)
+        {
+            var md = mds[i];
+            var div = document.createElement("div");
+            div.innerHTML = marked(md.innerHTML);
+            div.id = md.getAttribute("_id");
+            div.className = md.getAttribute("_class");
+            content.appendChild(div);
+        }
+
+        // Generate a table of contents from h* tags.
+        var toc = document.getElementById("toc");
+        var headings = document.querySelectorAll("h3");//,h4");
+        for (var i = 0; i < headings.length; ++i)
+        {
+            var h = headings[i];
+
+            var anchor = document.createElement("a");
+            anchor.name = h.id;
+            h.parentNode.insertBefore(anchor, h);
+
+            var a = document.createElement("a");
+            a.href = "#" + h.id;
+            a.innerHTML = h.innerHTML;
+
+            var div = document.createElement("div");
+            div.appendChild(a);
+            div.className = h.tagName;
+
+            toc.appendChild(div);
+        }
+    }
+    -->
+</script>
+</head>
+
+<!-- ----------------------------------------------------- -->
+<body onload="go();">
+    <div id="header">
+        <div id="title">Clink v0.4.8</div>
+        <div id="url">
+            <a href="http://github.com/mridgers/clink">
+                http://github.com/mridgers/clink
+            </a>
+        </div>
+        <div id="author">
+            <a href="http://twitter.com/choddlander">Martin Ridgers</a>
+        </div>
+    </div>
+    <div id="toc"></div>
+    <div id="content"></div>
+    <md _class="section" _id="documentation" style="display: none;">
+### What is Clink?
+
+Clink combines the native Windows shell cmd.exe with the powerful command line editing features of the GNU Readline library, which provides rich completion, history, and line-editing capabilities. Readline is best known for its use in the famous Unix shell Bash, the standard shell for Mac OS X and many Linux distributions.
+
+### Features
+
+- The same line editing as Bash (from GNU's Readline library).
+- History persistence between sessions.
+- Context sensitive completion;
+ - Executables (and aliases).
+ - Directory commands.
+ - Environment variables
+ - Thirdparty tools; Git, Mercurial, SVN, Go, and P4.
+- New keyboard shortcuts;
+ - Paste from clipboard (**Ctrl-V**).
+ - Incremental history search (**Ctrl-R/Ctrl-S**).
+ - Powerful completion (**TAB**).
+ - Undo (**Ctrl-Z**).
+ - Automatic "cd .." (**Ctrl-Alt-U**).
+ - Environment variable expansion (**Ctrl-Alt-E**).
+ - (press **Alt-H** for many more...)
+- Scriptable completion with Lua.
+- Coloured and scriptable prompt.
+- Auto-answering of the "Terminate batch job?" prompt.
+
+By default Clink binds **Alt-H** to display the current key bindings. More features can also be found in GNU's [Readline](http://tinyurl.com/oum26rp) and [History](http://tinyurl.com/p92oq5d) libraries' manuals.
+
+### Usage
+
+There are three ways to use Clink the first of which is to add Clink to cmd.exe's autorun registry entry. This can be selected when installing Clink using the installer and Clink also provides the ability to manage this autorun entry from the command line. Running **clink autorun --help** has more information.
+
+The second alternative is to manually run Clink using the command **clink inject** from within a command prompt session to run Clink in that session.
+
+The last option is to use the Clink shortcut that the installer adds to Windows' start menu. This is in essence a shortcut to the command **cmd.exe /k clink inject**.
+
+### How Clink Works
+
+When running Clink via the methods above, Clink checks the parent process is supported and injects a DLL into it. The DLL then hooks the WriteConsole() and ReadConsole() Windows functions. The former is so that Clink can capture the current prompt, and the latter hook allows Clink to provide it's own Readline-powered command line editing.
+
+### Configuring Clink
+
+The easiest way to configure Clink is to use Clink's **set** command line option.  This can list, query, and set Clink's settings. Run **clink set --help** from a Clink-installed cmd.exe process to learn more both about how to use it and to get descriptions for Clink's various options.
+
+Settings that are loaded when Clink starts can be overridden by setting environment variables matching the setting name and prefixed with "clink.". For example, the command **set clink.prompt_colour=10** will turn the prompt green regardless of what is in the settings file. Overrides are not saved to disk.
+
+The following table describes the available settings;
+
+Name                         | Description
+:--:                         | -----------
+**ansi_code_support**        | When printing the prompt, Clink has basic built-in support for SGR ANSI escape codes to control the text colours. This is automatically disabled if a third party tool is detected that also provides this facility. It can also be disabled by setting this to 0.
+**ctrld_exits**              | Ctrl-D exits the process when it is pressed on an empty line.
+**esc_clears_line**          | Clink clears the current line when Esc is pressed (unless Readline's Vi mode is enabled).
+**exec_match_style**         | Changes how Clink will match executables when there is no path separator on the line. 0 = PATH only, 1 = PATH and CWD, 2 = PATH, CWD, and directories. In all cases both executables and directories are matched when there is a path separator present.
+**history_dupe_mode**        | If a line is a duplicate of an existing history entry Clink will erase the duplicate when this is set 2. A value of 1 will not add duplicates to the history and a value of 0 will always add lines.
+**history_expand_mode**      | The '!' character in an entered line can be interpreted to introduce words from the history. This can be enabled and disable by setting this value to 1 or 0. Values or 2, 3 or 4 will skip any ! character quoted in single, double, or both quotes respectively.
+**history_file_lines**       | When set to a positive integer this is the number of lines of history that will persist when Clink saves the command history to disk. Use 0 for infinite lines and &lt;0 to disable history persistence.
+**history_ignore_space**     | Ignore lines that begin with whitespace when adding lines in to the history.
+**history_io**               | Use this setting to control when the history is written to disk and when it is read back. A value of 1 will read the history before editing of a new line commences, 2 will write the history, and 3 will do both. The default (0) is to write the history when the process exits.",
+**match_colour**             | Colour to use when displaying matches. A value less than 0 will be the opposite brightness of the default colour.
+**prompt_colour**            | Surrounds the prompt in ANSI escape codes to set the prompt's colour (0..15). Disabled when the value is less than 0.
+**space_prefix_match_files** | If the line begins with whitespace then Clink bypasses executable matching and will match all files and directories instead.
+**terminate_autoanswer**     | Automatically answers cmd.exe's **Terminate batch job (Y/N)?** prompts. 0 = disabled, 1 = answer Y, 2 = answer N.
+**use_altgr_substitute**     | Windows provides Ctrl-Alt as a substitute for AltGr, historically to support keyboards with no AltGr key. This may collide with some of Readline's bindings.
+
+#### File Locations
+
+Settings and history are persisted to disk from session to session. The location of these files depends on which distribution of Clink was used. If you installed Clink using the .exe installer then Clink uses the current user's non-roaming application data directory. This user directory is usually found in one of the following locations;
+
+- c:\Documents and Settings\\&lt;username&gt;\Local Settings\Application Data *(XP)*
+- c:\Users\\&lt;username&gt;\AppData\Local *(Vista onwards)*
+
+The .zip distribution of Clink creates and uses a directory called **profile** which is located in the same directory where Clink's core files are found.
+
+All of the above locations can be overridden using the **--profile &lt;path&gt;** command line option which is specified when injecting Clink into cmd.exe using **clink inject**.
+
+### Configuring Readline
+
+Readline itself can also be configured to add custom keybindings and macros by creating a Readline init file. There is excellent documentation for all the options available to configure Readline in Readline's [manual](http://tinyurl.com/oum26rp).
+
+Clink will search in the directory as specified by the HOME environment variable for one or all of the following files; `clink_inputrc`, `_inputrc`, and `.inputrc`. If HOME is unset then Clink will use either of the standard Windows environment variables `%homedrive%\%homepath%` or `%userprofile%`.
+
+Other software that also uses Readline will also look for the `.inputrc` file (and possibly the `_inputrc` file too). To set macros and keybindings intended only for Clink one can use the Readline init file conditional construct like this; `$if cmd.exe [...] $endif`.
+
+Editing the `clink_inputrc_base` is discouraged as this will change from version to version and may not be present in the future.
+
+### Extending Clink
+
+The Readline library allows clients to offer an alternative path for creating completion matches. Clink uses this to hook Lua into the completion process making it possible to script the generation of matches with Lua scripts. The following sections describe this in more detail and shows some examples.
+
+#### The Location of Lua Scripts
+
+Clink looks for Lua scripts in the folders as described in the **Configuring Clink** section. By default **Ctrl-Q** is mapped to reload all Lua scripts which can be useful when developing and iterating on your own scripts.
+
+#### Match Generators
+
+These are Lua functions that are registered with Clink and are called as part of Readline's completion process. Match generator functions take the following form;
+
+```
+function my_match_generator(text, first, last)
+    -- Use text/rl_state.line_buffer to create matches,
+    -- Submit matches to Clink using clink.add_match()
+    -- Return true/false.
+end
+```
+
+**Text** is the word that is being completed, **first** and **last** and the indices into the complete line buffer for **text** (the full line buffer can be accessed using the variable **rl_state.line_buffer**). If no further match generators need to be called then the function should return true.
+
+Registering the match generation function is done as follows;
+
+```
+clink.register_match_generator(my_match_generator, sort_id)
+```
+
+The **sort_id** argument is used to sort the match generators such that generators with a lower sort ids are called first.
+
+Here is an simple example script that checks if **text** begins with a **%** character and then uses the remained of **text** to match the names of environment variables.
+
+```
+function env_vars_match_generator(text, first, last)
+    if not text:find("^%%") then
+        return false
+    end
+
+    text = clink.lower(text:sub(2))
+    local text_len = #text
+    for _, name in ipairs(clink.get_env_var_names()) do
+        if clink.lower(name:sub(1, text_len)) == text then
+            clink.add_match('%'..name..'%')
+        end
+    end
+
+    return true
+end
+
+clink.register_match_generator(env_vars_match_generator, 10)
+```
+
+#### Argument Completion
+
+Clink provides a framework for writing complex argument match generators in Lua.  It works by creating a parser object that describes a command's arguments and flags and then registering the parser with Clink. When Clink detects the command is being entered on the current command line being edited, it uses the parser to generate matches.
+
+Here is an example of a simple parser for the command **foobar**;
+
+```
+my_parser = clink.arg.new_parser()
+my_parser:set_flags("-foo", "-bar")
+my_parser:set_arguments(
+    { "hello", "hi" },
+    { "world", "wombles" }
+)
+
+clink.arg.register_parser("foobar", my_parser)
+```
+
+This parser describes a command that has two positional arguments each with two potential options. It also has two flags which the parser considers to be position independent meaning that provided the word being completed starts with a certain prefix the parser with attempt to match the from the set of flags.
+
+On the command line completion would look something like this;
+
+```
+C:\>foobar hello -foo wo
+world   wombles
+C:\>foobar hello -foo wo_
+```
+
+As an alternative to calling **clink.arg.set_arguments()** and **clink.arg.set_flags()** you can instead provide the parser's flags and positional arguments as arguments to **clink.arg.new_parser()** as follows;
+
+```
+some_parser = clink.arg.new_parser(
+    { "arg1-1", "arg1-2" },
+    { "arg2-1", "arg2-2" },
+    "-flag1", "-flag2"
+)
+```
+
+##### More Advanced Stuff
+
+###### Linking Parsers
+
+There are often situations where the parsing of a command's arguments is dependent on the previous words (**git merge ...** compared to **git log ...** for example). For these scenarios Clink allows you to link parsers to arguments' words using Lua's concatenation operator. Parsers can also be concatenated with flags too.
+
+```
+a_parser = clink.arg.new_parser():set_arguments({"foo", "bar" })
+b_parser = clink.arg.new_parser():set_arguments({ "abc", "123" })
+c_parser = clink.arg.new_parser()
+c_parser:set_arguments(
+    { "foobar" .. b_parser },
+    { c_parser }
+)
+```
+
+With syntax from preceding section this converts into:
+
+```
+parser = clink.arg.new_parser
+a_parser = parser({"foo", "bar" })
+c_parser = parser(
+    { "foobar" .. parser({ "abc", "123" }) },
+    { c_parser }
+)
+```
+
+As the example above shows, it is also possible to use a parser without concatenating it to a word. When Clink follows a link to a parser it is permanent and it will not return to the previous parser.
+
+###### Functions As Argument Options
+
+Argument options are not limited solely to strings. Clink also accepts functions too so more context aware argument options can be used.
+
+```
+function rainbow_function(word)
+    return { "red", "white", "blue" }
+end
+
+the_parser = clink.arg.new_parser()
+the_parser:set_arguments(
+    { "zippy", "bungle", "george" },
+    { rainbow_function, "yellow", "green" }
+)
+```
+
+The functions take a single argument which is a word from the command line being edited (or partial word if it is the one under the cursor). Functions should return a table of potential matches (or an empty table if it calls clink.add_match() directly itself).
+
+#### Filtering The Match Display
+
+In some instances it may be preferable to display potential matches in an alternative form than the generated matches passed to and used internally by Readline. This happens for example with Readline's standard file name matches, where the matches are the whole word being completed but only the last part of the path is shown (e.g. the match **foo/bar** is displayed as **bar**).
+
+To facilitate custom match generators that may wish to do this there is the **clink.match_display_filter** variable. This can be set to a function that will then be called before matches are to be displayed.
+
+```
+function my_display_filter(matches)
+    new_matches = {}
+
+    for _, m in ipairs(matches) do
+        local _, _, n = m:find("\\([^\\]+)$")
+        table.insert(new_matches, n)
+    end
+
+    return new_matches
+end
+
+function my_match_generator(text, first, last)
+    ...
+
+    clink.match_display_filter = my_display_filter
+    return true
+end
+```
+
+The function's single argument **matches** is a table containing what Clink is going to display. The return value is a table with the input matches filtered as required by the match generator. The value of **clink.match_display_filter** is reset every time match generation is invoked.
+
+#### Customising The Prompt
+
+Before Clink displays the prompt it filters the prompt through Lua so that the prompt can be customised. This happens each and every time that the prompt is shown which allows for context sensitive customisations (such as showing the current branch of a git repository for example).
+
+Writing a prompt filter is straight forward and best illustrated with an example that displays the current git branch when the current directory is a git repository.
+
+```
+function git_prompt_filter()
+    for line in io.popen("git branch 2>nul"):lines() do
+        local m = line:match("%* (.+)$")
+        if m then
+            clink.prompt.value = "["..m.."] "..clink.prompt.value
+            break
+        end
+    end
+
+    return false
+end
+
+clink.prompt.register_filter(git_prompt_filter, 50)
+```
+
+The filter function takes no arguments instead receiving and modifying the prompt through the **clink.prompt.value** variable. It returns true if the prompt filtering is finished, and false if it should continue on to the next registered filter.
+
+A filter function is registered into the filter chain by passing the function to **clink.prompt.register_filter()** along with a sort id which dictates the order in which filters are called. Lower sort ids are called first.
+
+### Miscellaneous
+
+#### Binding special keys
+
+Due to differences between Windows and Linux, escape codes for keys like PageUp/Down and the arrow keys are different in Clink. Escape codes take the format **\\e`?** where '?' is one of the characters from the following table;
+
+Key      | Normal | Shift | Ctrl  | Ctrl-Shift
+:-:      | :-:    | :-:   | :-:   | :-:
+Home     | G      | a     | w     | !
+Up       | H      | b     | T     | "
+PageUp   | I      | c     | U     | #
+Left     | K      | d     | s     | $
+Right    | M      | e     | t     | %
+End      | O      | f     | u     | &
+Down     | P      | g     | V     | '
+PageDown | Q      | h     | v     | (
+Insert   | R      | i     | W     | )
+Delete   | S      | j     | X     | \*
+Tab      | (n/a)  | Z     | (n/a) | (n/a)
+
+Here is an example line from a clink_inputrc file that binds Shift-End to the Readline function **transpose-word** function;
+
+```
+"\e`f": transpose-word
+```
+
+#### Readline's menu-complete
+
+Clink supports Readline's menu-complete command (which is similar to vanilla cmd.exe completion that cycles through matches rather than displaying available ones). To use this menu-style completion Clink provides the alternative command **clink-menu-completion-shim**. Using this ensures that appropriate path separator translation takes place.
+
+#### Powershell
+
+Clink has basic support for Powershell. In order to show completion correctly Clink needs to parse Powershell's prompt to extract the current directory. If the prompt has been customized Clink is unlikely to work as expected.
+
+<!-- vim: wrap nolist ft=markdown
+-->
+    </md>
+    <md _class="section" _id="api" style="display: none;">
+### The Clink Lua API
+
+#### Matches
+
+##### clink.add_match(text)
+
+Outputs **text** as a match for the active completion.
+
+##### clink.compute_lcd(text, matches)
+
+Returns the least-common-denominator of **matches**. It is assumed that **text** was the input to generate **matches**. As such it is expected that each match starts with **text**.
+
+##### clink.get_match(index)
+
+Returns a match by **index** from the matches output by clink.add_match().
+
+##### clink.is_match(needle, candidate)
+
+Given a **needle** (such as the section of the current line buffer being completed), this function returns true or false if **candidate** begins with **needle**. Readline's -/_ case-mapping is respected if it is enabled.
+
+##### clink.is_single_match(matches)
+
+Checks each match in the table **matches** and checks to see if they are all duplicates of each other.
+
+##### clink.match_count()
+
+Returns the number of matches output by calls to clink.add_match().
+
+##### clink.match_display_filter
+
+This variable can be set to a function so that matches can be filtered before they are displayed. See **Display Filtering** section for more info.
+
+##### clink.matches_are_files()
+
+Tells Readline that the matches we are passing back to it are files. This will cause Readline to append the path separator character to the line if there's only one match, and mark directories when displaying multiple matches.
+
+##### clink.register_match_generator(generator, sort_id)
+
+Registers a match **generator** function that is called to generate matches when the complete keys is press (TAB by default).
+
+The generator function takes the form **generator_function(text, first, last)** where **text** is the portion of the line buffer that is to be completed, **first** and **last** are the start and end indices into the line buffer for **text**.
+
+##### clink.set_match(index, value)
+
+Explicitly sets match at **index** to **value**.
+
+#### Argument Framework
+
+##### parser:add_arguments(table1, table2, ...)
+
+Adds more positional arguments to the parser. See **parser:set_arguments()**.
+
+##### parser:add_flags(flag1, flag2, ...)
+
+Adds more flags to the parser. See **parser:set_flags()**.
+
+##### parser:be_precise()
+
+Ordinarily Clink only loosely matches word as it traverses a parser. Calling this will make Clink only accept an exact matching word to consider moving onto the next one.
+
+##### parser:disable_file_matching()
+
+If this is called then Clink will not default to matching the file system if parsing comes to an end or can not be completed.
+
+##### parser:dump()
+
+Prints the parser to stdout.
+
+##### parser:go(parts)
+
+This runs the parser for the table of words **parts**. It returns a table of argument options. It is this method that Clink uses internally.
+
+##### parser:is_flag(word)
+
+Returns true of **word** is a valid flag.
+
+##### parser:loop(index)
+
+By default parsers do not loop and parsing comes to an end when there are no more arguments to traverse through. If loop() is called Clink will loop back to argument at **index** rather than terminating the parse.
+
+##### parser:set_arguments(table1, table2, ...)
+
+This method sets the parser's positional arguments. Each of the variable number of arguments to the method is a table of potential options for the argument at that position. Note that calling this method replaces any existing positional arguments the parser may already have. Use **parser:add_arguments()** to append more positional arguments.
+
+##### parser:set_flags(flag1, flag2, ...)
+
+Sets the parser's flags (which can be thought of as position independent arguments). Each argument is a string and must start with the expected flag prefix ("-" by default). Be aware that calling **set_flags()** will replace the parser's existing flags. To add more use **parser:add_flags()**.
+
+#### Prompt Filtering
+
+##### clink.prompt.register_filter(filter, sort_id)
+
+Used to register a **filter** function to pre-process the prompt before use by Readline. Filters are called by **sort_id** where lower sort ids get called first. Filter functions will receive no arguments and return true if filtering is finished. Getting and setting the prompt value is done through the **clink.prompt.value** variable.
+
+##### clink.prompt.value
+
+User-provided prompt filter functions can get and set the prompt value using this variable.
+
+#### Miscellaneous
+
+##### clink.chdir(path)
+
+Changes the current working directory to **path**. Clink caches and restores the working directory between calls to the match generation so that it does not interfere with the processes normal operation.
+
+##### clink.find_dirs(mask, case_map)
+
+Returns a table (array) of directories that match the supplied **mask**. If **case_map** is **true** then Clink will adjust the last part of the mask's path so that returned matches respect Readline's case-mapping feature (if it is enabled). For example; **.\foo_foo\bar_bar*** becomes **.\foo_foo\bar?bar***.
+
+There is no support for recursively traversing the path in **mask**.
+
+##### clink.find_files(mask, case_map)
+
+Returns a table (array) of files that match the supplied **mask**. See **find_dirs** for details on the **case_map** argument.
+
+There is no support for recursively traversing the path in **mask**.
+
+##### clink.get_cwd()
+
+Returns the current working directory.
+
+##### clink.get_console_aliases()
+
+Returns a table of all the registered console aliases. Windows' console alias API is exposed via **doskey** or progromatically via the AddConsoleAlias() function.
+
+##### clink.get_env(env_var_name)
+
+Returns the value of the environment variable **env_var_name**. This is preferable to the built-in Lua function os.getenv() as the latter uses a cached version of the current process' environment which can result in incorrect results.
+
+##### clink.get_env_var_names()
+
+Returns a table of the names of the current process' environment variables.
+
+##### clink.get_host_process()
+
+Returns the name of the host process (the rl_readline_name variable).
+
+##### clink.get_screen_info()
+
+Returns a table describing the current console buffer's state with the following
+contents;
+
+```
+{
+    -- Dimensions of the console's buffer.
+    buffer_width
+    buffer_height
+
+    -- Dimensions of the visible area of the console buffer.
+    window_width
+    window_height
+}
+```
+
+##### clink.get_setting_str(name)
+
+Retrieves the Clink setting **name**, returning it as a string.  See **Settings** for more information on the available settings.
+
+##### clink.get_setting_int(name)
+
+As **clink.get_setting_str** but returning a number instead.
+
+##### clink.is_dir(path)
+
+Returns true if **path** resolves to a directory.
+
+##### clink.is_rl_variable_true(readline_var_name)
+
+Returns the boolean value of a Readline variable. These can be set with the clink_inputrc file, more details of which can be found in the [Readline manual](http://tinyurl.com/oum26rp).
+
+##### clink.lower(text)
+
+Same as os.lower() but respects Readline's case-mapping feature which will consider - and _ as case insensitive.
+
+Care should be taken when using this to generate masks for file/dir find operations due to the -/_ giving different results (unless of course Readline's extended case-mapping is disabled).
+
+##### clink.match_files(pattern, full_path, find_func)
+
+Globs files using **pattern** and adds results as matches. If **full_path** is **true** then the path from **pattern** is prefixed to the results (otherwise only the file names are included). The last argument **find_func** is the function to use to do the globbing. If it's unspecified (or nil) Clink falls back to **clink.find_files**.
+
+##### clink.match_words(text, words)
+
+Calls clink.is_match() on each word in the table **words** and adds matches to Clink that match the needle **text**.
+
+##### clink.quote_split(str, ql, qr)
+
+This function takes the string **str** which is quoted by **ql** (the opening quote character) and **qr** (the closing character) and splits it into parts as per the quotes. A table of these parts is returned.
+
+```
+clink.quote_split("pre(middle)post", "(", ")") = {
+    "pre", "middle", "post"
+}
+```
+
+##### clink.slash_translation(type)
+
+Controls how Clink will translate the path separating slashes for the current path being completed. Values for **type** are;
+
+- -1 - no translation
+- 0 - to backslashes
+- 1 - to forward slashes.
+
+
+##### clink.split(str, sep)
+
+Splits the string **str** into pieces separated by **sep**, returning a table of the pieces.
+
+##### clink.suppress_char_append()
+
+This stops Readline from adding a trailing character when completion is finished (usually when a single match is returned). The suffixing of a character is enabled before completion functions are called so a call to this will only apply for the current completion.
+
+By default Readline appends a space character (' ') when the is only a single match unless it is completing files where it will use the path separator instead.
+
+##### clink.suppress_quoting()
+
+Suppress the prefixing and suffixing of quotes even if there is a character in the current word being completed that would ordinarily need surrounding in quotes.
+
+#### Readline Constants
+
+Clink exposes a small amount of state from Readline in the global **rl_state** table. Readline's nomenclature is maintained (minus the *rl* prefix) so Readline's manual can also be used as reference. This table should be considered read-only - changes to the table's members are not fed back to Readline.
+
+##### rl_state.line_buffer
+
+This variable contains the current state of the whole line being edited.
+
+##### rl_state.point
+
+The current cursor position within the line buffer.
+
+<!-- vim: wrap nolist ft=markdown
+-->
+    </md>
+    <md _class="section" _id="changes" style="display: none;">
+
+### Changes
+
+##### v0.4.8
+
+- Environment variable 'clink_profile' overrides Clink's profile path (#390).
+- Load a clink_inputrc file from Clink's profile directory (fixes #406).
+- Bug fixes;
+    - Redraw issues when prompts end in OSC ANSI codes (#387, #384).
+    - Fixed 'clink autorun --help' crash.
+
+##### v0.4.7
+
+- Bug fixes;
+    - Sometimes autorun tries to run clink.exe (#374).
+    - Autorun would cause cmd.exe to return an error if it wasn't interactive (#373).
+
+##### v0.4.6
+
+- HOME is only set if it is currently unset.
+- Readline can be initialised with .inputrc and _inputrc files too (#258).
+- Bug fixes;
+    - Executable completion;
+        - Paths from PATH were checked twice.
+        - Incorrect results were returned for words ending in '.' or '-'.
+        - Directories . and .. were incorrectly displayed.
+    - Fixed a crash if .bat script's stdout is redirected (#366).
+    - Occasional crash when injecting Clink (#351).
+    - Display errors;
+        - When editing near the window's right-hand edge (#347).
+        - Double display of multi-line prompts when resizing the terminal (#352).
+        - Very rare wrap artefacts when making the terminal window larger.
+    - Doskey emulation (#344).
+    - Improved 'clink autorun' help (#348).
+    - Fixed launching Clink when clink.bat is renamed (#357).
+
+##### v0.4.5
+
+- Improved 'clink autorun'. It now defaults to the Current User registry hive.
+- 'clink set' gives more details for enumeration-type settings.
+- Tab completion for p4vc.
+- New settings 'history_expand_mode' to control history expansion in quotes (#317).
+- Bug fixes;
+    - Use full width of the terminal (#337).
+    - Fixed MinGW compile error (#335).
+    - Autorun now defaults to the current user's hive (#332).
+    - Creating clink.html no longer needs Pandoc, plus it looks a bit better (#331).
+    - Added settings to control history expansion (#326).
+    - Correct fallback when 'use_altgr_substitute' is off (#325).
+    - Load history prior to saving it on shutdown (#318).
+    - Added Shift-Tab documentation and menu completion example (#190).
+    - Added shim for backwards menu completion (#190).
+    - Input handling now outputs '\e`Z' for Shift-Tab (#190).
+    - Updated Readme with current Premake info (#310).
+    - Guard against there being no buffer to read from (#304).
+    - Fixed artefacts when resizing conhost's buffer (#139).
+    - Clear remaining characters if scroll window was too small (#301)
+    - Escape % characters when expanding aliases (#280).
+    - Fixed leaking exception filters.
+    - Clearing the screen doesn't leave artefacts behind.
+
+##### v0.4.4
+
+- Completing .. behaves more like Bash (#277).
+- Escape from yes/no question when Ctrl+C is pressed.
+- Valid XP executables (#278, #289).
+- Fixed n-th argument yank not working as expected (#254).
+- Fixed prompt colours sometimes not working (#279, #286).
+- Fixed '!0' causing Clink to crash.
+- Save/restore cursor position in case Readline moves it.
+
+##### v0.4.3
+
+- Localised Y/N when auto-answering 'terminate?' prompt.
+- $* would early out if there was no arguments.
+- Disable ANSI code support if third party provides it.
+- Installer can now set %CLINK_DIR% to install location.
+- Improved output from 'clink set'.
+- Support for Windows 10 Technical Preview.
+- Ctrl-L now scrolls last line to the top of the window rather than clearing.
+- New option to control how newline characters are pasted to the line.
+- New options to control history;
+    - 'history_file_lines' - maximum lines saved to disk.
+    - 'history_ignore_space' - ignore lines prefixed with whitespace.
+    - 'history_dupe_mode' - how duplicate entries are handled.
+    - 'history_io' - load/save history from disk every line.
+- Fixed nonfunctional numpad keys.
+- Fixed missing WINCH signals if other processes resize the buffer.
+- Support Alt codes sent from Conhost.
+
+##### v0.4.2
+
+- Prompt colouring no longer requires third party ANSI code utility.
+- Override settings with environment variables prefixed with 'clink'.
+- Ctrl-PgUp goes up a directory.
+- Updated Go completions (by matrixik).
+- Arguments to clink.arg.new_parser() now initialise parser's flags/args (from vladimir-kotikov).
+- New clink.arg.add_flags() and clink.arg.add_arguments() functions.
+- Removed footer and Alt-H tip for more succinct stdout output.
+- Bug fixes;
+    - Windows XP works again.
+    - Fixed race condition in lua_execute().
+
+##### v0.4.1
+
+- Bug fixes;
+    - Various Unicode fixes causing corrupt environment variables.
+    - Fixed thread resume/suspend causing rare system-wide deadlock.
+    - Fixed incorrect translation of suffixed slash when completing flags.
+- Add --nolog argument to disable file logging. Fix #187 Fix #154
+- Added missing escape sequences from doskey emulation.
+- Reinstated unix-kill-line key binding.
+- Mapped PgUp/Down to search history using line typed so far.
+- Added documentation covering escape codes for special keys.
+- Added support for Windows' AltGr substitute Ctrl-Alt.
+- Support for Readline's 'menu' style completion (see docs).
+
+##### v0.4
+
+- New features;
+    - Better 'clink.arg' API. Easier, more intuitive, and more powerful.
+    - Whitespace prefix skips exec matching.
+    - Added a 'set' verb to easily change settings from the command line.
+    - Basic support for a shells other than cmd.exe.
+    - Completion for Go (contributed by Dobroslaw Zybort).
+    - Setting 'exec_match_style' to -1 disables it entirely.
+    - Make history persistence optional.
+    - Alias/doskey completion.
+    - Very basic support for Powershell.
+    - View cmd.exe's autorun entry without needing admin rights.
+- New key bindings;
+    - Ctrl-Alt-C : Copy command line to the clipboard.
+    - Ctrl-Alt-E : Expand environment variable under cursor.
+    - Ctrl-Alt-U : 'up directory' (formerly Shift-Up).
+    - Ctrl-U : Adds '..\' to the command line.
+    - Alt-H : Shows active keymap's key bindings.
+- New Lua functions;
+    - clink.execute().
+    - clink.get_host_process().
+    - clink.match_files().
+    - clink.match_words().
+    - clink.get_console_aliases().
+- Lots of bug fixes, including;
+    - Better command extraction.
+    - Fixed cmd.exe command paging and Ctrl-C/Ctrl-Break handling.
+    - Multiple locale fixes.
+    - Use localised text for 'Terminate batch job?' prompt.
+
+##### v0.3
+
+- Automatic answering of cmd.exe's 'Terminate batch script?' prompt.
+- Coloured prompts (requires ANSICON or ConEmu).
+- Added Shift-Up keyboard shortcut to automatically execute 'cd ..'
+- Mapped Ctrl-Z to undo, Microsoft style.
+- Improved integration of Readline;
+    - New input handling code (Ctrl-Alt combos now work).
+    - An implementation of the Termcap library.
+    - Fully functional Vi-mode support.
+    - Support for resizable consoles.
+    - Line wrapping now works correctly (issue 50).
+- Adjustable executable match style (issue 65).
+- Improved environment variable completion.
+- Added settings file to customise Clink.
+- New Lua features and functions;
+    - Matches can now be filtered in Lua before they are display.
+    - clink.quote_split().
+    - clink.arg.node_merge().
+    - clink.get_screen_info() (issue 71).
+    - clink.split() (for splitting strings).
+    - clink.chdir().
+    - clink.get_cwd().
+    - Functions to query Clink's settings.
+- New command line options;
+    - '--profile <dir>' to override default profile directory.
+    - '--nohostcheck' disables verification that host is cmd.exe.
+    - '--pid' specifies the process to inject into.
+- Update Mercurial completion (issue 73).
+- Start menu shortcut starts in USERPROFILE, like cmd.exe
+- Zip distribution is now portable.
+
+##### v0.2.1
+
+- The .history file now merges multiple sessions together.
+- Fixed missing y/n, pause, and other prompts.
+- Fixed segfault in loader executable.
+- Better ConEmu compatibility.
+
+##### v0.2
+
+- Basic argument completion for 'git', 'hg', 'svn', and 'p4'.
+- Traditional Bash clear screen ('Ctrl-L') and exit shortcuts ('Ctrl-D').
+- Scrollable command window using 'PgUp'/'PgDown' keys.
+- Doskey support.
+- Automatic quoting of file names with spaces.
+- Scriptable custom prompts.
+- New argument framework to ease writing context-sensitive match generators.
+- History and log file is now saved per-user rather than globally.
+- Improved Clink's command line interface ('clink --help').
+- More reliable handling of cmd.exe's autorun entry.
+- General improvements to executable and directory-command completion.
+- Symbolic link support.
+- Documentation.
+- Windows 8 support.
+- Improved hooking so Clink can be shared with other thirdparty utilities that
+  also hook cmd.exe (ConEmu, ANSICon, etc.).
+
+##### v0.1.1
+
+- Fixed AltGr+<key> on international keyboards.
+- Fixed broken completion when directories have a '-' in their name (Mark Hammond)
+- The check for single match scenarios now correctly handles case-insensitivity.
+
+##### v0.1
+
+- Initial release.
+    </md>
+</body>
+
+</html>

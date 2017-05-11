@@ -36,7 +36,7 @@ export class TerminalConfigProvider extends ConfigProvider {
         [Platform.Windows]: {
             terminal: {
                 font: 'Consolas',
-                shell: 'cmd.exe',
+                shell: '~clink~',
             },
             hotkeys: {
                 'new-tab': [

@@ -1,0 +1,215 @@
+
+### Changes
+
+##### v0.4.8
+
+- Environment variable 'clink_profile' overrides Clink's profile path (#390).
+- Load a clink_inputrc file from Clink's profile directory (fixes #406).
+- Bug fixes;
+    - Redraw issues when prompts end in OSC ANSI codes (#387, #384).
+    - Fixed 'clink autorun --help' crash.
+
+##### v0.4.7
+
+- Bug fixes;
+    - Sometimes autorun tries to run clink.exe (#374).
+    - Autorun would cause cmd.exe to return an error if it wasn't interactive (#373).
+
+##### v0.4.6
+
+- HOME is only set if it is currently unset.
+- Readline can be initialised with .inputrc and _inputrc files too (#258).
+- Bug fixes;
+    - Executable completion;
+        - Paths from PATH were checked twice.
+        - Incorrect results were returned for words ending in '.' or '-'.
+        - Directories . and .. were incorrectly displayed.
+    - Fixed a crash if .bat script's stdout is redirected (#366).
+    - Occasional crash when injecting Clink (#351).
+    - Display errors;
+        - When editing near the window's right-hand edge (#347).
+        - Double display of multi-line prompts when resizing the terminal (#352).
+        - Very rare wrap artefacts when making the terminal window larger.
+    - Doskey emulation (#344).
+    - Improved 'clink autorun' help (#348).
+    - Fixed launching Clink when clink.bat is renamed (#357).
+
+##### v0.4.5
+
+- Improved 'clink autorun'. It now defaults to the Current User registry hive.
+- 'clink set' gives more details for enumeration-type settings.
+- Tab completion for p4vc.
+- New settings 'history_expand_mode' to control history expansion in quotes (#317).
+- Bug fixes;
+    - Use full width of the terminal (#337).
+    - Fixed MinGW compile error (#335).
+    - Autorun now defaults to the current user's hive (#332).
+    - Creating clink.html no longer needs Pandoc, plus it looks a bit better (#331).
+    - Added settings to control history expansion (#326).
+    - Correct fallback when 'use_altgr_substitute' is off (#325).
+    - Load history prior to saving it on shutdown (#318).
+    - Added Shift-Tab documentation and menu completion example (#190).
+    - Added shim for backwards menu completion (#190).
+    - Input handling now outputs '\e`Z' for Shift-Tab (#190).
+    - Updated Readme with current Premake info (#310).
+    - Guard against there being no buffer to read from (#304).
+    - Fixed artefacts when resizing conhost's buffer (#139).
+    - Clear remaining characters if scroll window was too small (#301)
+    - Escape % characters when expanding aliases (#280).
+    - Fixed leaking exception filters.
+    - Clearing the screen doesn't leave artefacts behind.
+
+##### v0.4.4
+
+- Completing .. behaves more like Bash (#277).
+- Escape from yes/no question when Ctrl+C is pressed.
+- Valid XP executables (#278, #289).
+- Fixed n-th argument yank not working as expected (#254).
+- Fixed prompt colours sometimes not working (#279, #286).
+- Fixed '!0' causing Clink to crash.
+- Save/restore cursor position in case Readline moves it.
+
+##### v0.4.3
+
+- Localised Y/N when auto-answering 'terminate?' prompt.
+- $* would early out if there was no arguments.
+- Disable ANSI code support if third party provides it.
+- Installer can now set %CLINK_DIR% to install location.
+- Improved output from 'clink set'.
+- Support for Windows 10 Technical Preview.
+- Ctrl-L now scrolls last line to the top of the window rather than clearing.
+- New option to control how newline characters are pasted to the line.
+- New options to control history;
+    - 'history_file_lines' - maximum lines saved to disk.
+    - 'history_ignore_space' - ignore lines prefixed with whitespace.
+    - 'history_dupe_mode' - how duplicate entries are handled.
+    - 'history_io' - load/save history from disk every line.
+- Fixed nonfunctional numpad keys.
+- Fixed missing WINCH signals if other processes resize the buffer.
+- Support Alt codes sent from Conhost.
+
+##### v0.4.2
+
+- Prompt colouring no longer requires third party ANSI code utility.
+- Override settings with environment variables prefixed with 'clink'.
+- Ctrl-PgUp goes up a directory.
+- Updated Go completions (by matrixik).
+- Arguments to clink.arg.new_parser() now initialise parser's flags/args (from vladimir-kotikov).
+- New clink.arg.add_flags() and clink.arg.add_arguments() functions.
+- Removed footer and Alt-H tip for more succinct stdout output.
+- Bug fixes;
+    - Windows XP works again.
+    - Fixed race condition in lua_execute().
+
+##### v0.4.1
+
+- Bug fixes;
+    - Various Unicode fixes causing corrupt environment variables.
+    - Fixed thread resume/suspend causing rare system-wide deadlock.
+    - Fixed incorrect translation of suffixed slash when completing flags.
+- Add --nolog argument to disable file logging. Fix #187 Fix #154
+- Added missing escape sequences from doskey emulation.
+- Reinstated unix-kill-line key binding.
+- Mapped PgUp/Down to search history using line typed so far.
+- Added documentation covering escape codes for special keys.
+- Added support for Windows' AltGr substitute Ctrl-Alt.
+- Support for Readline's 'menu' style completion (see docs).
+
+##### v0.4
+
+- New features;
+    - Better 'clink.arg' API. Easier, more intuitive, and more powerful.
+    - Whitespace prefix skips exec matching.
+    - Added a 'set' verb to easily change settings from the command line.
+    - Basic support for a shells other than cmd.exe.
+    - Completion for Go (contributed by Dobroslaw Zybort).
+    - Setting 'exec_match_style' to -1 disables it entirely.
+    - Make history persistence optional.
+    - Alias/doskey completion.
+    - Very basic support for Powershell.
+    - View cmd.exe's autorun entry without needing admin rights.
+- New key bindings;
+    - Ctrl-Alt-C : Copy command line to the clipboard.
+    - Ctrl-Alt-E : Expand environment variable under cursor.
+    - Ctrl-Alt-U : 'up directory' (formerly Shift-Up).
+    - Ctrl-U : Adds '..\' to the command line.
+    - Alt-H : Shows active keymap's key bindings.
+- New Lua functions;
+    - clink.execute().
+    - clink.get_host_process().
+    - clink.match_files().
+    - clink.match_words().
+    - clink.get_console_aliases().
+- Lots of bug fixes, including;
+    - Better command extraction.
+    - Fixed cmd.exe command paging and Ctrl-C/Ctrl-Break handling.
+    - Multiple locale fixes.
+    - Use localised text for 'Terminate batch job?' prompt.
+
+##### v0.3
+
+- Automatic answering of cmd.exe's 'Terminate batch script?' prompt.
+- Coloured prompts (requires ANSICON or ConEmu).
+- Added Shift-Up keyboard shortcut to automatically execute 'cd ..'
+- Mapped Ctrl-Z to undo, Microsoft style.
+- Improved integration of Readline;
+    - New input handling code (Ctrl-Alt combos now work).
+    - An implementation of the Termcap library.
+    - Fully functional Vi-mode support.
+    - Support for resizable consoles.
+    - Line wrapping now works correctly (issue 50).
+- Adjustable executable match style (issue 65).
+- Improved environment variable completion.
+- Added settings file to customise Clink.
+- New Lua features and functions;
+    - Matches can now be filtered in Lua before they are display.
+    - clink.quote_split().
+    - clink.arg.node_merge().
+    - clink.get_screen_info() (issue 71).
+    - clink.split() (for splitting strings).
+    - clink.chdir().
+    - clink.get_cwd().
+    - Functions to query Clink's settings.
+- New command line options;
+    - '--profile <dir>' to override default profile directory.
+    - '--nohostcheck' disables verification that host is cmd.exe.
+    - '--pid' specifies the process to inject into.
+- Update Mercurial completion (issue 73).
+- Start menu shortcut starts in USERPROFILE, like cmd.exe
+- Zip distribution is now portable.
+
+##### v0.2.1
+
+- The .history file now merges multiple sessions together.
+- Fixed missing y/n, pause, and other prompts.
+- Fixed segfault in loader executable.
+- Better ConEmu compatibility.
+
+##### v0.2
+
+- Basic argument completion for 'git', 'hg', 'svn', and 'p4'.
+- Traditional Bash clear screen ('Ctrl-L') and exit shortcuts ('Ctrl-D').
+- Scrollable command window using 'PgUp'/'PgDown' keys.
+- Doskey support.
+- Automatic quoting of file names with spaces.
+- Scriptable custom prompts.
+- New argument framework to ease writing context-sensitive match generators.
+- History and log file is now saved per-user rather than globally.
+- Improved Clink's command line interface ('clink --help').
+- More reliable handling of cmd.exe's autorun entry.
+- General improvements to executable and directory-command completion.
+- Symbolic link support.
+- Documentation.
+- Windows 8 support.
+- Improved hooking so Clink can be shared with other thirdparty utilities that
+  also hook cmd.exe (ConEmu, ANSICon, etc.).
+
+##### v0.1.1
+
+- Fixed AltGr+<key> on international keyboards.
+- Fixed broken completion when directories have a '-' in their name (Mark Hammond)
+- The check for single match scenarios now correctly handles case-insensitivity.
+
+##### v0.1
+
+- Initial release.
