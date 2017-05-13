@@ -20,7 +20,7 @@ export class URLHandler extends LinkHandler {
 
 @Injectable()
 export class FileHandler extends LinkHandler {
-    regex = '[~/][^\\s.,;\'"]+'
+    regex = '[~/][^\\s,;\'"]+'
 
     constructor (private electron: ElectronService) {
         super()
