@@ -24,7 +24,7 @@ title-bar(
         
         .btn-group
             button.btn.btn-secondary.btn-tab-bar(
-                *ngFor='let button of getLeftToolbarButtons()',
+                *ngFor='let button of leftToolbarButtons',
                 [title]='button.title',
                 (click)='button.click()',
             )
@@ -34,7 +34,7 @@ title-bar(
             
         .btn-group
             button.btn.btn-secondary.btn-tab-bar(
-                *ngFor='let button of getRightToolbarButtons()',
+                *ngFor='let button of rightToolbarButtons',
                 [title]='button.title',
                 (click)='button.click()',
             )

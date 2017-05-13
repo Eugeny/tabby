@@ -44,6 +44,8 @@ export class AppRootComponent {
     toasterConfig: ToasterConfig
     Platform = Platform
     @Input() ready = false
+    @Input() leftToolbarButtons: IToolbarButton[]
+    @Input() rightToolbarButtons: IToolbarButton[]
     private logger: Logger
 
     constructor (
@@ -67,6 +69,9 @@ export class AppRootComponent {
             preventDuplicates: true,
             timeout: 4000,
         })
+
+        this.leftToolbarButtons = this.getToolbarButtons(false)
+        this.rightToolbarButtons = this.getToolbarButtons(true)
 
         this.hotkeys.matchedHotkey.subscribe((hotkey) => {
             if (hotkey.startsWith('tab-')) {
@@ -125,10 +130,6 @@ export class AppRootComponent {
             }
         }
     }
-
-    getLeftToolbarButtons (): IToolbarButton[] { return this.getToolbarButtons(false) }
-
-    getRightToolbarButtons (): IToolbarButton[] { return this.getToolbarButtons(true) }
 
     async ngOnInit () {
         await this.tabRecovery.recoverTabs()

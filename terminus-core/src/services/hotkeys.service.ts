@@ -115,7 +115,7 @@ export class HotkeysService {
             for (let sequence of this.getHotkeysConfig()[id]) {
                 let currentStrokes = this.getCurrentKeystrokes()
                 if (currentStrokes.length < sequence.length) {
-                    break
+                    continue
                 }
                 if (sequence.every((x, index) => {
                     return x.toLowerCase() === currentStrokes[currentStrokes.length - sequence.length + index].toLowerCase()
