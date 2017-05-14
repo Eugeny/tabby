@@ -20,6 +20,8 @@ export interface SessionOptions {
     args?: string[]
     cwd?: string
     env?: any
+    width?: number
+    height?: number
     recoveryId?: string
     recoveredTruePID$?: Observable<number>
 }

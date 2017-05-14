@@ -15,11 +15,11 @@ export class RecoveryProvider extends TabRecoveryProvider {
 
     async recover (recoveryToken: any): Promise<void> {
         if (recoveryToken.type === 'app:terminal') {
-            let session = await this.sessions.recover(recoveryToken.recoveryId)
-            if (!session) {
+            let sessionOptions = await this.sessions.recover(recoveryToken.recoveryId)
+            if (!sessionOptions) {
                 return
             }
-            this.app.openNewTab(TerminalTabComponent, { session })
+            this.app.openNewTab(TerminalTabComponent, { sessionOptions })
         }
     }
 }

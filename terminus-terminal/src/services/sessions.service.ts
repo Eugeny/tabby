@@ -34,8 +34,8 @@ export class Session {
         }
         this.pty = nodePTY.spawn(options.command, options.args || [], {
             name: 'xterm-256color',
-            cols: 80,
-            rows: 30,
+            cols: options.width || 80,
+            rows: options.height || 30,
             cwd: options.cwd || process.env.HOME,
             env: env,
         })
@@ -140,13 +140,12 @@ export class SessionsService {
         this.logger = log.create('sessions')
     }
 
-    async createNewSession (options: SessionOptions): Promise<Session> {
+    async prepareNewSession (options: SessionOptions): Promise<SessionOptions> {
         if (this.persistence) {
             let recoveryId = await this.persistence.startSession(options)
             options = await this.persistence.attachSession(recoveryId)
         }
-        let session = this.addSession(options)
-        return session
+        return options
     }
 
     addSession (options: SessionOptions): Session {
@@ -163,14 +162,10 @@ export class SessionsService {
         return session
     }
 
-    async recover (recoveryId: string): Promise<Session> {
+    async recover (recoveryId: string): Promise<SessionOptions> {
         if (!this.persistence) {
             return null
         }
-        const options = await this.persistence.attachSession(recoveryId)
-        if (!options) {
-            return null
-        }
-        return this.addSession(options)
+        return await this.persistence.attachSession(recoveryId)
     }
 }

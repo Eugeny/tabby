@@ -1,10 +1,11 @@
-import { BehaviorSubject, ReplaySubject, Subject, Subscription } from 'rxjs'
+import { Observable, BehaviorSubject, ReplaySubject, Subject, Subscription } from 'rxjs'
+import 'rxjs/add/operator/bufferTime'
 import { Component, NgZone, Inject, Optional, ViewChild, HostBinding, Input } from '@angular/core'
 import { AppService, ConfigService, BaseTabComponent, ThemesService, HostAppService, Platform } from 'terminus-core'
 
-import { Session } from '../services/sessions.service'
+import { Session, SessionsService } from '../services/sessions.service'
 
-import { TerminalDecorator, ResizeEvent } from '../api'
+import { TerminalDecorator, ResizeEvent, SessionOptions } from '../api'
 import { hterm, preferenceManager } from '../hterm'
 
 @Component({
@@ -13,7 +14,8 @@ import { hterm, preferenceManager } from '../hterm'
     styles: [require('./terminalTab.component.scss')],
 })
 export class TerminalTabComponent extends BaseTabComponent {
-    @Input() session: Session
+    session: Session
+    @Input() sessionOptions: SessionOptions
     @ViewChild('content') content
     @HostBinding('style.background-color') backgroundColor: string
     hterm: any
@@ -21,6 +23,7 @@ export class TerminalTabComponent extends BaseTabComponent {
     sessionCloseSubscription: Subscription
     bell$ = new Subject()
     size$ = new ReplaySubject<ResizeEvent>(1)
+    resize$ = new Subject<ResizeEvent>()
     input$ = new Subject<string>()
     output$ = new Subject<string>()
     contentUpdated$ = new Subject<void>()
@@ -34,6 +37,7 @@ export class TerminalTabComponent extends BaseTabComponent {
         private app: AppService,
         private themes: ThemesService,
         private hostApp: HostAppService,
+        private sessions: SessionsService,
         public config: ConfigService,
         @Optional() @Inject(TerminalDecorator) private decorators: TerminalDecorator[],
     ) {
@@ -43,12 +47,28 @@ export class TerminalTabComponent extends BaseTabComponent {
         this.configSubscription = config.change.subscribe(() => {
             this.configure()
         })
+        this.resize$.first().subscribe(async (resizeEvent) => {
+            this.session = this.sessions.addSession(
+                Object.assign({}, this.sessionOptions, resizeEvent)
+            )
+            this.session.output$.bufferTime(10).subscribe((datas) => {
+                let data = datas.join('')
+                this.zone.run(() => {
+                    this.output$.next(data)
+                })
+                this.write(data)
+            })
+            this.sessionCloseSubscription = this.session.closed$.subscribe(() => {
+                this.app.closeTab(this)
+            })
+            this.session.releaseInitialDataBuffer()
+        })
     }
 
     getRecoveryToken (): any {
         return {
             type: 'app:terminal',
-            recoveryId: this.session.recoveryId,
+            recoveryId: this.sessionOptions.recoveryId,
         }
     }
 
@@ -70,17 +90,6 @@ export class TerminalTabComponent extends BaseTabComponent {
             this.hterm.installKeyboard()
             this.io = this.hterm.io.push()
             this.attachIOHandlers(this.io)
-            this.session.output$.subscribe((data) => {
-                this.zone.run(() => {
-                    this.output$.next(data)
-                })
-                this.write(data)
-            })
-            this.sessionCloseSubscription = this.session.closed$.subscribe(() => {
-                this.app.closeTab(this)
-            })
-
-            this.session.releaseInitialDataBuffer()
         }
         this.hterm.decorate(this.content.nativeElement)
         this.configure()
@@ -115,6 +124,9 @@ export class TerminalTabComponent extends BaseTabComponent {
             _setAlternateMode(state)
             this.alternateScreenActive$.next(state)
         }
+
+        hterm.primaryScreen_.syncSelectionCaret = () => null
+        hterm.alternateScreen_.syncSelectionCaret = () => null
 
         const _onPaste = hterm.scrollPort_.onPaste_.bind(hterm.scrollPort_)
         hterm.scrollPort_.onPaste_ = (event) => {
@@ -172,8 +184,11 @@ export class TerminalTabComponent extends BaseTabComponent {
         io.onTerminalResize = (columns, rows) => {
             // console.log(`Resizing to ${columns}x${rows}`)
             this.zone.run(() => {
-                this.session.resize(columns, rows)
                 this.size$.next({ width: columns, height: rows })
+                this.resize$.next({ width: columns, height: rows })
+                if (this.session) {
+                    this.session.resize(columns, rows)
+                }
             })
         }
     }
@@ -230,6 +245,7 @@ export class TerminalTabComponent extends BaseTabComponent {
         this.configSubscription.unsubscribe()
         this.sessionCloseSubscription.unsubscribe()
         this.size$.complete()
+        this.resize$.complete()
         this.input$.complete()
         this.output$.complete()
         this.contentUpdated$.complete()

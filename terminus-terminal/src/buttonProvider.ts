@@ -36,16 +36,17 @@ export class ButtonProvider extends ToolbarButtonProvider {
                 '/k',
                 path.join(
                     path.dirname(this.electron.app.getPath('exe')),
-                    (process.platform == 'darwin') ? '../Resources' : 'resources',
+                    (process.platform === 'darwin') ? '../Resources' : 'resources',
                     'clink',
                     `clink_${process.arch}.exe`,
                 ),
                 'inject',
             ]
         }
+        let sessionOptions = await this.sessions.prepareNewSession({ command, args, cwd })
         this.app.openNewTab(
             TerminalTabComponent,
-            { session: await this.sessions.createNewSession({ command, args, cwd }) }
+            { sessionOptions }
         )
     }
 

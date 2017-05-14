@@ -10,7 +10,7 @@
     "awesome-typescript-loader": "3.1.2",
     "cross-env": "^4.0.0",
     "css-loader": "0.26.1",
-    "electron": "1.6.2",
+    "electron": "1.6.7",
     "electron-builder": "^17.1.1",
     "electron-builder-squirrel-windows": "^17.0.1",
     "electron-osx-sign": "electron-userland/electron-osx-sign#f092181a1bffa2b3248a23ee28447a47e14a8f04",
@@ -66,7 +66,7 @@
   "scripts": {
     "build": "webpack --progress --color",
     "watch": "webpack --progress --color --watch",
-    "start": "cross-env DEV=1 electron app --debug",
+    "start": "cross-env DEV=1 electron --js-flags='--ignition' app --debug",
     "lint": "tslint -c tslint.json -t stylish terminus-*/src/**/*.ts terminus-*/src/*.ts app/src/*.ts",
     "postinstall": "install-app-deps"
   }

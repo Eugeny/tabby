@@ -1,5 +1,5 @@
 const dataurl = require('dataurl')
-export const hterm = require('hterm-commonjs')
+export const hterm = require('hterm-umdjs')
 hterm.hterm.defaultStorage = new hterm.lib.Storage.Memory()
 export const preferenceManager = new hterm.hterm.PreferenceManager('default')
 
