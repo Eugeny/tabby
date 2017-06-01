@@ -50,7 +50,7 @@ $input-bg-focus:                 $input-bg;
 //$input-border-focus:             lighten($brand-primary, 25%);
 //$input-box-shadow-focus:         $input-box-shadow, rgba($input-border-focus, .6);
 $input-color-focus:              $input-color;
-$input-group-addon-bg:           $input-bg;
+$input-group-addon-bg:           $body-bg2;
 $input-group-addon-border-color: $input-border-color;
 
 $modal-content-bg:               $body-bg;
@@ -69,7 +69,8 @@ $dropdown-link-hover-bg:         $body-bg3;
 $dropdown-link-disabled-color:   #333;
 $dropdown-header-color:          #333;
 
-
+$list-group-color: $body-color;
+$list-group-bg: $body-bg2;
 
 @import '~bootstrap/scss/bootstrap.scss';
 

@@ -18,16 +18,21 @@ if (process.env.DEV) {
     nodeModule.globalPaths.unshift(path.dirname(require('electron').remote.app.getAppPath()))
 }
 
-nodeModule.globalPaths.unshift(path.join(
+const builtinPluginsPath = path.join(
     path.dirname(require('electron').remote.app.getPath('exe')),
     (process.platform === 'darwin') ? '../Resources' : 'resources',
     'builtin-plugins/node_modules',
-))
-nodeModule.globalPaths.unshift(path.join(
+)
+
+const userPluginsPath = path.join(
     require('electron').remote.app.getPath('appData'),
     'terminus',
     'plugins',
-))
+)
+
+Object.assign(window, { builtinPluginsPath, userPluginsPath })
+nodeModule.globalPaths.unshift(builtinPluginsPath)
+nodeModule.globalPaths.unshift(userPluginsPath)
 
 if (process.env.TERMINUS_PLUGINS) {
     process.env.TERMINUS_PLUGINS.split(':').map(x => nodeModule.globalPaths.unshift(normalizePath(x)))
@@ -35,15 +40,20 @@ if (process.env.TERMINUS_PLUGINS) {
 
 export declare type ProgressCallback = (current, total) => void
 
-interface IPluginEntry {
+export interface IPluginInfo {
     name: string
-    path: string
-    info: any
+    description: string
+    packageName: string
+    isBuiltin: boolean
+    version: string
+    homepage?: string
+    path?: string
+    info?: any
 }
 
-export async function findPlugins (): Promise<IPluginEntry[]> {
+export async function findPlugins (): Promise<IPluginInfo[]> {
     let paths = nodeModule.globalPaths
-    let foundPlugins: IPluginEntry[] = []
+    let foundPlugins: IPluginInfo[] = []
 
     for (let pluginDir of paths) {
         pluginDir = normalizePath(pluginDir)
@@ -63,10 +73,16 @@ export async function findPlugins (): Promise<IPluginEntry[]> {
             }
 
             try {
+                let info = await fs.readJson(infoPath)
+                console.log(pluginDir, builtinPluginsPath)
                 foundPlugins.push({
-                    name: pluginName,
+                    name: pluginName.substring('terminus-'.length),
+                    packageName: pluginName,
+                    isBuiltin: pluginDir === builtinPluginsPath,
+                    version: info.version,
+                    description: info.description,
                     path: pluginPath,
-                    info: await fs.readJson(infoPath),
+                    info,
                 })
             } catch (error) {
                 console.error('Cannot load package info for', pluginName)
@@ -74,10 +90,11 @@ export async function findPlugins (): Promise<IPluginEntry[]> {
         }
     }
 
+    (window as any).installedPlugins = foundPlugins
     return foundPlugins
 }
 
-export async function loadPlugins (foundPlugins: IPluginEntry[], progress: ProgressCallback): Promise<any[]> {
+export async function loadPlugins (foundPlugins: IPluginInfo[], progress: ProgressCallback): Promise<any[]> {
     let plugins: any[] = []
     progress(0, 1)
     let index = 0

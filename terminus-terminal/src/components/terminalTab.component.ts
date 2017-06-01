@@ -74,8 +74,10 @@ export class TerminalTabComponent extends BaseTabComponent {
 
     ngOnInit () {
         this.focused$.subscribe(() => {
-            this.hterm.scrollPort_.focus()
-            this.hterm.scrollPort_.resize()
+            setTimeout(() => {
+                this.hterm.scrollPort_.resize()
+                this.hterm.scrollPort_.focus()
+            }, 100)
         })
 
         this.hterm = new hterm.hterm.Terminal()
@@ -88,6 +90,7 @@ export class TerminalTabComponent extends BaseTabComponent {
         this.hterm.onTerminalReady = () => {
             this.htermVisible = true
             this.hterm.installKeyboard()
+            this.hterm.scrollPort_.setCtrlVPaste(true)
             this.io = this.hterm.io.push()
             this.attachIOHandlers(this.io)
         }

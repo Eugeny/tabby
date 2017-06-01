@@ -2,7 +2,6 @@ import { NgModule, ModuleWithProviders } from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { FormsModule } from '@angular/forms'
-import { ToasterModule } from 'angular2-toaster'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar'
 
@@ -55,7 +54,6 @@ const PROVIDERS = [
         BrowserModule,
         BrowserAnimationsModule,
         FormsModule,
-        ToasterModule,
         NgbModule,
         PerfectScrollbarModule.forRoot({
             suppressScrollX: true,

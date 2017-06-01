@@ -1,6 +1,5 @@
 import { Component, Inject, Input } from '@angular/core'
 import { trigger, style, animate, transition, state } from '@angular/animations'
-import { ToasterConfig } from 'angular2-toaster'
 
 import { ElectronService } from '../services/electron.service'
 import { HostAppService, Platform } from '../services/hostApp.service'
@@ -41,7 +40,6 @@ import { AppService, IToolbarButton, ToolbarButtonProvider } from '../api'
     ]
 })
 export class AppRootComponent {
-    toasterConfig: ToasterConfig
     Platform = Platform
     @Input() ready = false
     @Input() leftToolbarButtons: IToolbarButton[]
@@ -63,12 +61,6 @@ export class AppRootComponent {
     ) {
         this.logger = log.create('main')
         this.logger.info('v', electron.app.getVersion())
-
-        this.toasterConfig = new ToasterConfig({
-            mouseoverTimerStop: true,
-            preventDuplicates: true,
-            timeout: 4000,
-        })
 
         this.leftToolbarButtons = this.getToolbarButtons(false)
         this.rightToolbarButtons = this.getToolbarButtons(true)

@@ -17,7 +17,6 @@
     "@types/js-yaml": "^3.5.29",
     "@types/node": "^7.0.12",
     "@types/webpack-env": "^1.13.0",
-    "angular2-toaster": "3.0.1",
     "awesome-typescript-loader": "^3.1.2",
     "bootstrap": "4.0.0-alpha.6",
     "core-js": "^2.4.1",

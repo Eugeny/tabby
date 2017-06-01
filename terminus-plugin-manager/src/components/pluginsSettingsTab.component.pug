@@ -1,0 +1,46 @@
+h3 Installed
+
+.list-group
+    ng-container(*ngFor='let plugin of pluginManager.installedPlugins')
+        .list-group-item.flex-column.align-items-start(*ngIf='knownUpgrades[plugin.name]')
+            .d-flex.w-100
+                h6.mr-auto.mb-0 {{plugin.name}}
+                p.mb-0.mr-3 {{plugin.version}}
+                button.btn.btn-outline-primary((click)='upgradePlugin(plugin)')
+                    i.fa.fa-arrow-up
+                    span Upgrade ({{knownUpgrades[plugin.name].version}})
+            small.mb-0 {{plugin.description}}
+
+    ng-container(*ngFor='let plugin of pluginManager.installedPlugins')
+        .list-group-item.flex-column.align-items-start(*ngIf='!knownUpgrades[plugin.name]')
+            .d-flex.w-100
+                h6.mr-auto.mb-0 {{plugin.name}}
+                p.mb-0.mr-3 {{plugin.version}}
+                button.btn.btn-outline-danger((click)='uninstallPlugin(plugin)', *ngIf='!plugin.isBuiltin')
+                    i.fa.fa-trash-o
+            small.mb-0 {{plugin.description}}
+
+
+h3.mt-4 Available
+
+.input-group.mb-4
+    .input-group-addon
+        i.fa.fa-fw.fa-circle-o-notch.fa-spin(*ngIf='!availablePluginsReady')
+        i.fa.fa-fw.fa-search(*ngIf='availablePluginsReady')
+    input.form-control(
+        type='text',
+        '[(ngModel)]'='_1',
+        (ngModelChange)='availablePluginsQuery$.next(_1)',
+        placeholder='Search plugins'
+    )
+
+.list-group(*ngIf='availablePlugins$')
+    ng-container(*ngFor='let plugin of (availablePlugins$|async)')
+        .list-group-item.flex-column.align-items-start(*ngIf='!isAlreadyInstalled(plugin)')
+            .d-flex.w-100
+                h6.mr-auto.mb-0 {{plugin.name}}
+                p.mb-0.mr-3 {{plugin.version}}
+                button.btn.btn-outline-primary((click)='installPlugin(plugin)')
+                    i.fa.fa-download
+                    span Install
+            small.mb-0 {{plugin.description}}

@@ -8,9 +8,7 @@ exports.builtinPlugins = [
   'terminus-core',
   'terminus-settings',
   'terminus-terminal',
-  'terminus-clickable-links',
   'terminus-community-color-schemes',
-  'terminus-theme-hype',
 ]
 exports.version = appInfo.version
 exports.electronVersion = pkgInfo.devDependencies.electron

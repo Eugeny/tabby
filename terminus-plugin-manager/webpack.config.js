@@ -10,6 +10,7 @@ module.exports = {
     filename: 'index.js',
     pathinfo: true,
     libraryTarget: 'umd',
+    devtoolModuleFilenameTemplate: 'webpack-terminus-plugin-manager:///[resource-path]',
   },
   resolve: {
     modules: ['.', 'src', 'node_modules', '../app/node_modules'].map(x => path.join(__dirname, x)),
@@ -20,7 +21,7 @@ module.exports = {
       {
         test: /\.ts$/,
         loader: 'awesome-typescript-loader',
-        options: {
+        query: {
           configFileName: path.resolve(__dirname, 'tsconfig.json'),
           paths: {
             "terminus-*": [path.resolve(__dirname, '../terminus-*')],
@@ -28,10 +29,19 @@ module.exports = {
           }
         }
       },
+      { test: /\.pug$/, use: ['apply-loader', 'pug-loader'] },
       { test: /\.scss$/, use: ['to-string-loader', 'css-loader', 'sass-loader'] },
     ]
   },
   externals: [
+    'fs',
+    'fs-promise',
+    'font-manager',
+    'path',
+    'node-pty',
+    'mz/child_process',
+    'winreg',
+    /^rxjs/,
     /^@angular/,
     /^@ng-bootstrap/,
     /^terminus-/,
