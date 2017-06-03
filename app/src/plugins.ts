@@ -32,7 +32,7 @@ const userPluginsPath = path.join(
 
 Object.assign(window, { builtinPluginsPath, userPluginsPath })
 nodeModule.globalPaths.unshift(builtinPluginsPath)
-nodeModule.globalPaths.unshift(userPluginsPath)
+nodeModule.globalPaths.unshift(path.join(userPluginsPath, 'node_modules'))
 
 if (process.env.TERMINUS_PLUGINS) {
     process.env.TERMINUS_PLUGINS.split(':').map(x => nodeModule.globalPaths.unshift(normalizePath(x)))

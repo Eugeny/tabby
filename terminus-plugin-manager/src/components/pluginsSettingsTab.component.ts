@@ -1,25 +1,28 @@
 import { BehaviorSubject, Observable } from 'rxjs'
-import * as fs from 'fs-promise'
-import * as path from 'path'
 import * as semver from 'semver'
-import { exec } from 'mz/child_process'
 
-import { Component, Inject, ChangeDetectionStrategy } from '@angular/core'
+import { Component, Input } from '@angular/core'
+import { ConfigService } from 'terminus-core'
 import { IPluginInfo, PluginManagerService } from '../services/pluginManager.service'
+
+enum BusyState { Installing, Uninstalling }
 
 @Component({
     template: require('./pluginsSettingsTab.component.pug'),
     styles: [require('./pluginsSettingsTab.component.scss')],
-    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PluginsSettingsTabComponent {
-    availablePlugins$: Observable<IPluginInfo[]>
-    availablePluginsQuery$ = new BehaviorSubject<string>('')
-    availablePluginsReady = false
-    knownUpgrades: {[id: string]: IPluginInfo} = {}
-    busy: boolean
+    BusyState = BusyState
+    @Input() availablePlugins$: Observable<IPluginInfo[]>
+    @Input() availablePluginsQuery$ = new BehaviorSubject<string>('')
+    @Input() availablePluginsReady = false
+    @Input() knownUpgrades: {[id: string]: IPluginInfo} = {}
+    @Input() busy: {[id: string]: BusyState} = {}
+    @Input() erroredPlugin: string
+    @Input() errorMessage: string
 
     constructor (
+        private config: ConfigService,
         public pluginManager: PluginManagerService
     ) {
     }
@@ -41,12 +44,40 @@ export class PluginsSettingsTabComponent {
         })
     }
 
+    searchAvailable (query: string) {
+        this.availablePluginsQuery$.next(query)
+    }
+
     isAlreadyInstalled (plugin: IPluginInfo): boolean {
         return this.pluginManager.installedPlugins.some(x => x.name === plugin.name)
     }
 
     async installPlugin (plugin: IPluginInfo): Promise<void> {
-        this.busy = true
+        this.busy[plugin.name] = BusyState.Installing
+        try {
+            await this.pluginManager.installPlugin(plugin)
+            delete this.busy[plugin.name]
+            this.config.requestRestart()
+        } catch (err) {
+            this.erroredPlugin = plugin.name
+            this.errorMessage = err
+            delete this.busy[plugin.name]
+            throw err
+        }
+    }
+
+    async uninstallPlugin (plugin: IPluginInfo): Promise<void> {
+        this.busy[plugin.name] = BusyState.Uninstalling
+        try {
+            await this.pluginManager.uninstallPlugin(plugin)
+            delete this.busy[plugin.name]
+            this.config.requestRestart()
+        } catch (err) {
+            this.erroredPlugin = plugin.name
+            this.errorMessage = err
+            delete this.busy[plugin.name]
+            throw err
+        }
     }
 
     async upgradePlugin (plugin: IPluginInfo): Promise<void> {

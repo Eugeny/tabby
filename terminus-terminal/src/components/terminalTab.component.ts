@@ -1,4 +1,4 @@
-import { Observable, BehaviorSubject, ReplaySubject, Subject, Subscription } from 'rxjs'
+import { BehaviorSubject, ReplaySubject, Subject, Subscription } from 'rxjs'
 import 'rxjs/add/operator/bufferTime'
 import { Component, NgZone, Inject, Optional, ViewChild, HostBinding, Input } from '@angular/core'
 import { AppService, ConfigService, BaseTabComponent, ThemesService, HostAppService, Platform } from 'terminus-core'
@@ -51,8 +51,9 @@ export class TerminalTabComponent extends BaseTabComponent {
             this.session = this.sessions.addSession(
                 Object.assign({}, this.sessionOptions, resizeEvent)
             )
-            this.session.output$.bufferTime(10).subscribe((datas) => {
-                let data = datas.join('')
+            // this.session.output$.bufferTime(10).subscribe((datas) => {
+            this.session.output$.subscribe(data => {
+                // let data = datas.join('')
                 this.zone.run(() => {
                     this.output$.next(data)
                 })
