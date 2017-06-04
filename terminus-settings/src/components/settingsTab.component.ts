@@ -12,7 +12,7 @@ import { SettingsTabProvider } from '../api'
     ],
 })
 export class SettingsTabComponent extends BaseTabComponent {
-    hotkeyFilter = { name: null }
+    hotkeyFilter = ''
     private hotkeyDescriptions: IHotkeyDescription[]
 
     constructor (

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
 import { FormsModule } from '@angular/forms'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
-import { Ng2FilterPipeModule } from 'ng2-filter-pipe'
+import { NgPipesModule } from 'ngx-pipes'
 
 import { ToolbarButtonProvider, TabRecoveryProvider } from 'terminus-core'
 
@@ -19,7 +19,7 @@ import { RecoveryProvider } from './recoveryProvider'
         BrowserModule,
         FormsModule,
         NgbModule,
-        Ng2FilterPipeModule,
+        NgPipesModule,
     ],
     providers: [
         { provide: ToolbarButtonProvider, useClass: ButtonProvider, multi: true },

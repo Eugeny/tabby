@@ -91,9 +91,13 @@ export class HotkeysService {
         value.forEach(item => {
             item = (typeof item === 'string') ? [item] : item
 
-            this.electron.globalShortcut.register(item[0].replace(/-/g, '+'), () => {
-                this.globalHotkey.emit()
-            })
+            try {
+                this.electron.globalShortcut.register(item[0].replace(/-/g, '+'), () => {
+                    this.globalHotkey.emit()
+                })
+            } catch (err) {
+                console.error('Could not register the global hotkey:', err)
+            }
         })
     }
 

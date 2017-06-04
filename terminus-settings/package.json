@@ -8,7 +8,9 @@
     "build": "webpack --progress --color --display-modules",
     "watch": "webpack --progress --color --watch"
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "author": "Eugene Pankov",
   "license": "MIT",
   "devDependencies": {
@@ -17,7 +19,7 @@
     "@types/webpack-env": "1.13.0",
     "awesome-typescript-loader": "3.1.2",
     "css-loader": "^0.28.0",
-    "ng2-filter-pipe": "^0.1.7",
+    "ngx-pipes": "^1.6.1",
     "node-sass": "^4.5.2",
     "pug": "^2.0.0-beta3",
     "pug-loader": "^2.3.0",

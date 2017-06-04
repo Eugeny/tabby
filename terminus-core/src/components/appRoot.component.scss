@@ -46,17 +46,6 @@ $tab-border-radius: 4px;
         border: none;
         border-radius: 0;
 
-        &.btn-minimize {
-            margin-left: 10px;
-        }
-
-        &.btn-minimize, &.btn-maximize {
-            font-size: 8px;
-        }
-
-        &.btn-close {
-            font-size: 12px;
-        }
     }
 
     &>.tabs {
@@ -71,12 +60,12 @@ $tab-border-radius: 4px;
         -webkit-app-region: drag;
     }
 
-    .window-controls {
-        flex: 0 0 none;
-    }
-
     &.inset {
         padding-left: 85px;
+    }
+    
+    window-controls {
+      margin-left: 10px;
     }
 }
 

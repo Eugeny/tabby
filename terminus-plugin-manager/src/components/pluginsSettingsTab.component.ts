@@ -2,7 +2,7 @@ import { BehaviorSubject, Observable } from 'rxjs'
 import * as semver from 'semver'
 
 import { Component, Input } from '@angular/core'
-import { ConfigService } from 'terminus-core'
+import { ConfigService, HostAppService } from 'terminus-core'
 import { IPluginInfo, PluginManagerService } from '../services/pluginManager.service'
 
 enum BusyState { Installing, Uninstalling }
@@ -20,9 +20,12 @@ export class PluginsSettingsTabComponent {
     @Input() busy: {[id: string]: BusyState} = {}
     @Input() erroredPlugin: string
     @Input() errorMessage: string
+    @Input() npmInstalled = false
+    @Input() npmMissing = false
 
     constructor (
         private config: ConfigService,
+        private hostApp: HostAppService,
         public pluginManager: PluginManagerService
     ) {
     }
@@ -42,6 +45,20 @@ export class PluginsSettingsTabComponent {
                 this.knownUpgrades[plugin.name] = available.find(x => x.name === plugin.name && semver.gt(x.version, plugin.version))
             }
         })
+        this.checkNPM()
+    }
+
+    openPluginsFolder (): void {
+        this.hostApp.getShell().openItem(this.pluginManager.userPluginsPath)
+    }
+
+    downloadNPM (): void {
+        this.hostApp.getShell().openExternal('https://nodejs.org/en/download/current/')
+    }
+
+    async checkNPM () {
+        this.npmInstalled = await this.pluginManager.isNPMInstalled()
+        this.npmMissing = !this.npmInstalled
     }
 
     searchAvailable (query: string) {

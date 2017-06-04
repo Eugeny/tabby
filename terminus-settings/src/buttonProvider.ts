@@ -13,7 +13,7 @@ export class ButtonProvider extends ToolbarButtonProvider {
 
     provide (): IToolbarButton[] {
         return [{
-            icon: 'cog',
+            icon: 'sliders',
             title: 'Settings',
             weight: 10,
             click: () => {

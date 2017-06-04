@@ -11,26 +11,6 @@ $titlebar-height: 30px;
         -webkit-app-region: drag;
     }
 
-    button {
-        flex: none;
-        border: none;
-        box-shadow: none;
-        border-radius: 0;
-        font-size: 8px;
-        width: 40px;
-        padding: 0;
-        line-height: $titlebar-height;
-        text-align: center;
-
-        &:not(:hover):not(:active) {
-            background: transparent;
-        }
-    }
-
-    .btn-close {
-        font-size: 12px;
-    }
-
     &.inset {
         flex-basis: 36px;
 
@@ -39,7 +19,7 @@ $titlebar-height: 30px;
             line-height: 36px;
         }
 
-        button {
+        window-controls {
             display: none;
         }
     }

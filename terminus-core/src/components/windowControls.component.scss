@@ -1,0 +1,23 @@
+:host {
+    display: flex;
+}
+
+button {
+    flex: none;
+    border: none;
+    box-shadow: none;
+    border-radius: 0;
+    font-size: 8px;
+    width: 40px;
+    padding: 0;
+    line-height: 0;
+    text-align: center;
+
+    &:not(:hover):not(:active) {
+        background: transparent;
+    }
+
+    &:focus {
+        box-shadow: none;
+    }
+}

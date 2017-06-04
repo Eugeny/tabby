@@ -40,21 +40,9 @@ title-bar(
             )
                 i.fa([class]='"fa fa-" + button.icon')
 
-        .btn-group.window-controls(
+        window-controls(
             *ngIf='config.store.appearance.frame == "thin" && (hostApp.platform == Platform.Windows || hostApp.platform == Platform.Linux)',
         )
-            button.btn.btn-secondary.btn-minimize.btn-tab-bar(
-                (click)='hostApp.minimize()',
-            )
-                i.fa.fa-window-minimize
-            button.btn.btn-secondary.btn-maximize.btn-tab-bar(
-                (click)='hostApp.toggleMaximize()',
-            )
-                i.fa.fa-window-maximize
-            button.btn.btn-secondary.btn-close.btn-tab-bar(
-                (click)='hostApp.quit()',
-            )
-                i.fa.fa-close
 
     start-page(*ngIf='ready && app.tabs.length == 0')
 

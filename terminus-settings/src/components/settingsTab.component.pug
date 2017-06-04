@@ -149,14 +149,14 @@ ngb-tabset.vertical(type='tabs')
         template(ngbTabTitle)
             | Hotkeys
         template(ngbTabContent)
-            input.form-control(type='search', placeholder='Search hotkeys', [(ngModel)]='hotkeyFilter.name')
+            input.form-control(type='search', placeholder='Search hotkeys', [(ngModel)]='hotkeyFilter')
             .form-group
                 table.hotkeys-table
                     tr
                         th Name
                         th ID
                         th Hotkey 
-                    tr(*ngFor='let hotkey of hotkeyDescriptions|filterBy:hotkeyFilter')
+                    tr(*ngFor='let hotkey of hotkeyDescriptions|filterBy:["name"]:hotkeyFilter')
                         td {{hotkey.name}}
                         td {{hotkey.id}}
                         td

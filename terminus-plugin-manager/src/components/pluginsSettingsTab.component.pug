@@ -2,63 +2,81 @@
     strong Error in {{erroredPlugin}}:
     pre {{errorMessage}}
 
+button.btn.btn-outline-info.btn-sm.pull-right((click)='openPluginsFolder()')
+    i.fa.fa-folder
+    span Plugins folder
+    
 h3 Installed
 
 .list-group
-    ng-container(*ngFor='let plugin of pluginManager.installedPlugins')
+    ng-container(*ngFor='let plugin of pluginManager.installedPlugins|orderBy:"name"')
         .list-group-item.flex-column.align-items-start(*ngIf='knownUpgrades[plugin.name]')
             .d-flex.w-100
-                h5.mr-auto.mb-0 {{plugin.name}}
+                .mr-auto.d-flex.flex-column
+                    strong {{plugin.name}}
+                    small.text-muted.mb-0 {{plugin.description}}
                 p.mb-0.mr-3 {{plugin.version}}
                 button.btn.btn-outline-primary(
+                    *ngIf='npmInstalled',
                     (click)='upgradePlugin(plugin)',
                     [disabled]='busy[plugin.name] != undefined'
                 )
                     i.fa.fa-fw.fa-arrow-up(*ngIf='busy[plugin.name] != BusyState.Installing')
                     i.fa.fa-fw.fa-circle-o-notch.fa-spin(*ngIf='busy[plugin.name] == BusyState.Installing')
                     span Upgrade ({{knownUpgrades[plugin.name].version}})
-            small.text-muted.mb-0 {{plugin.description}}
 
-    ng-container(*ngFor='let plugin of pluginManager.installedPlugins')
+    ng-container(*ngFor='let plugin of pluginManager.installedPlugins|orderBy:"name"')
         .list-group-item.flex-column.align-items-start(*ngIf='!knownUpgrades[plugin.name]')
             .d-flex.w-100
-                h5.mr-auto.mb-0 {{plugin.name}}
+                .mr-auto.d-flex.flex-column
+                    strong {{plugin.name}}
+                    small.text-muted.mb-0 {{plugin.description}}
                 p.mb-0.mr-3 {{plugin.version}}
                 button.btn.btn-outline-danger(
                     (click)='uninstallPlugin(plugin)', 
-                    *ngIf='!plugin.isBuiltin',
+                    *ngIf='!plugin.isBuiltin && npmInstalled',
                     [disabled]='busy[plugin.name] != undefined'
                 )
                     i.fa.fa-fw.fa-trash-o(*ngIf='busy[plugin.name] != BusyState.Uninstalling')
                     i.fa.fa-fw.fa-circle-o-notch.fa-spin(*ngIf='busy[plugin.name] == BusyState.Uninstalling')
-            small.text-muted.mb-0 {{plugin.description}}
+
+.text-center.mt-5(*ngIf='npmMissing')
+    h4 NPM not installed
+    p.mb-2 The Node Package Manager is required to install Terminus plugins.
+    .btn-group
+        button.btn.btn-outline-primary((click)='downloadNPM()')
+            i.fa.fa-download
+            span Download NPM
+        button.btn.btn-outline-info((click)='checkNPM()')
+            i.fa.fa-refresh
+            span Try again
+
+div(*ngIf='npmInstalled')
+    h3.mt-4 Available
+
+    .input-group.mb-4
+        .input-group-addon
+            i.fa.fa-fw.fa-circle-o-notch.fa-spin(*ngIf='!availablePluginsReady')
+            i.fa.fa-fw.fa-search(*ngIf='availablePluginsReady')
+        input.form-control(
+            type='text',
+            '[(ngModel)]'='_1',
+            (ngModelChange)='searchAvailable(_1)',
+            placeholder='Search plugins'
+        )
 
 
-h3.mt-4 Available
-
-.input-group.mb-4
-    .input-group-addon
-        i.fa.fa-fw.fa-circle-o-notch.fa-spin(*ngIf='!availablePluginsReady')
-        i.fa.fa-fw.fa-search(*ngIf='availablePluginsReady')
-    input.form-control(
-        type='text',
-        '[(ngModel)]'='_1',
-        (ngModelChange)='searchAvailable(_1)',
-        placeholder='Search plugins'
-    )
-
-
-.list-group(*ngIf='availablePlugins$')
-    ng-container(*ngFor='let plugin of (availablePlugins$|async)')
-        .list-group-item.flex-column.align-items-start(*ngIf='!isAlreadyInstalled(plugin)')
-            .d-flex.w-100
-                h5.mr-auto.mb-0 {{plugin.name}}
-                p.mb-0.mr-3 {{plugin.version}}
-                button.btn.btn-outline-primary(
-                    (click)='installPlugin(plugin)',
-                    [disabled]='busy[plugin.name] != undefined'
-                )
-                    i.fa.fa-fw.fa-download(*ngIf='busy[plugin.name] != BusyState.Installing')
-                    i.fa.fa-fw.fa-circle-o-notch.fa-spin(*ngIf='busy[plugin.name] == BusyState.Installing')
-                    span Install 
-            small.text-muted.mb-0 {{plugin.description}}
+    .list-group(*ngIf='availablePlugins$')
+        ng-container(*ngFor='let plugin of (availablePlugins$|async|orderBy:"name")')
+            .list-group-item.flex-column.align-items-start(*ngIf='!isAlreadyInstalled(plugin)')
+                .d-flex.w-100
+                    .mr-auto.d-flex.flex-column
+                        strong {{plugin.name}}
+                        small.text-muted.mb-0 {{plugin.description}}
+                    p.mb-0.mr-3 {{plugin.version}}
+                    button.btn.btn-outline-primary(
+                        (click)='installPlugin(plugin)',
+                        [disabled]='busy[plugin.name] != undefined'
+                    )
+                        i.fa.fa-fw.fa-download(*ngIf='busy[plugin.name] != BusyState.Installing')
+                        i.fa.fa-fw.fa-circle-o-notch.fa-spin(*ngIf='busy[plugin.name] == BusyState.Installing')

@@ -76,10 +76,20 @@ $list-group-bg: $body-bg2;
 
 title-bar {
     background: $body-bg2;
+}
 
-    button {
-        &:hover { background: $button-hover-bg !important; }
-        &:active { background: $button-active-bg !important; }
+window-controls {
+    svg {
+        transition: 0.25s fill;
+        fill: #aaa;
+    }
+
+    button:hover svg {
+        fill: white;
+    }
+
+    .btn-close:hover {
+        background: #8a2828;
     }
 }
 
