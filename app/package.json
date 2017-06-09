@@ -1,7 +1,10 @@
 {
   "name": "terminus",
   "description": "A terminal for a modern age",
-  "author": "Eugene Pankov",
+  "author": {
+    "name": "Eugene Pankov",
+    "email": "e@ajenti.org"
+  },
   "main": "main.js",
   "version": "0.0.2",
   "scripts": {

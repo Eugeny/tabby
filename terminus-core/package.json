@@ -8,7 +8,9 @@
     "build": "rm -rf dist && webpack --progress --color --display-modules",
     "watch": "rm -rf dist && webpack --progress --color --watch"
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "author": "Eugene Pankov",
   "license": "MIT",
   "devDependencies": {
@@ -41,5 +43,6 @@
   "dependencies": {
     "deepmerge": "^1.3.2",
     "js-yaml": "^3.8.3"
-  }
+  },
+  "false": {}
 }

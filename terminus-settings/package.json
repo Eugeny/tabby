@@ -36,5 +36,6 @@
     "@ng-bootstrap/ng-bootstrap": "1.0.0-alpha.22",
     "terminus-core": "*",
     "rxjs": "5.3.0"
-  }
+  },
+  "false": {}
 }

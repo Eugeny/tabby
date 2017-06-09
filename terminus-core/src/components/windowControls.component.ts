@@ -7,5 +7,5 @@ import { HostAppService } from '../services/hostApp.service'
     styles: [require('./windowControls.component.scss')],
 })
 export class WindowControlsComponent {
-    constructor (private hostApp: HostAppService) { }
+    constructor (public hostApp: HostAppService) { }
 }

@@ -21,7 +21,7 @@ if (process.env.DEV) {
 const builtinPluginsPath = path.join(
     path.dirname(require('electron').remote.app.getPath('exe')),
     (process.platform === 'darwin') ? '../Resources' : 'resources',
-    'builtin-plugins/node_modules',
+    'builtin-plugins',
 )
 
 const userPluginsPath = path.join(

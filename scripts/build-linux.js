@@ -4,7 +4,7 @@ const vars = require('./vars')
 
 builder({
   dir: true,
-  linux: ['appimage'],
+  linux: ['deb'],
   extraMetadata: {
     version: vars.version,
   },

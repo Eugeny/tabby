@@ -1,19 +1,24 @@
 #!/usr/bin/env node
 const rebuild = require('electron-rebuild').default
-const builder = require('electron-builder').default
 const sh = require('shelljs')
 const path = require('path')
 const fs = require('fs')
 const vars = require('./vars')
+const log = require('npmlog')
 
 let target = path.resolve(__dirname, '../builtin-plugins')
-
 sh.mkdir('-p', target)
 fs.writeFileSync(path.join(target, 'package.json'), '{}')
 sh.cd(target)
 vars.builtinPlugins.forEach(plugin => {
-  sh.exec(`npm install ${path.join('..', plugin)}`)
+  log.info('install', plugin)
+  sh.cp('-r', path.join('..', plugin), '.')
+  sh.rm('-rf', path.join(plugin, 'node_modules'))
+  sh.cd(plugin)
+  sh.exec(`npm install --only=prod`)
+  log.info('rebuild', 'native')
+  if (fs.existsSync('node_modules')) {
+    rebuild(path.resolve('.'), vars.electronVersion, process.arch, vars.nativeModules, true)
+  }
+  sh.cd('..')
 })
-sh.exec('npm dedupe')
-sh.cd('..')
-rebuild(target, vars.electronVersion, process.arch, ['node-pty', 'font-manager'], true)
