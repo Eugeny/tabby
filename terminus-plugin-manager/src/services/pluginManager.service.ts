@@ -5,6 +5,7 @@ import { exec } from 'mz/child_process'
 import axios from 'axios'
 
 const NAME_PREFIX = 'terminus-'
+const KEYWORD = 'terminus-plugin'
 
 export interface IPluginInfo {
     name: string
@@ -42,7 +43,7 @@ export class PluginManagerService {
     listAvailable (query?: string): Observable<IPluginInfo[]> {
         return Observable
             .fromPromise(
-                axios.get(`https://www.npmjs.com/-/search?text=${NAME_PREFIX}+${encodeURIComponent(query || '')}&from=0&size=1000`)
+                axios.get(`https://www.npmjs.com/-/search?text=keywords:${KEYWORD}+${encodeURIComponent(query || '')}&from=0&size=1000`)
             )
             .map(response => response.data.objects.map(item => ({
                 name: item.package.name.substring(NAME_PREFIX.length),

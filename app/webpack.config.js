@@ -5,7 +5,7 @@ module.exports = {
   name: 'terminus',
   target: 'node',
   entry: {
-    'index.ignore': 'file-loader?name=index.html!pug-html-loader!' + path.resolve(__dirname, './index.pug'),
+    'index.ignore': 'file-loader?name=index.html!val-loader!pug-html-loader!' + path.resolve(__dirname, './index.pug'),
     'preload': path.resolve(__dirname, 'src/entry.preload.ts'),
     'bundle': path.resolve(__dirname, 'src/entry.ts'),
   },
