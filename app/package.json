@@ -6,7 +6,7 @@
     "email": "e@ajenti.org"
   },
   "main": "main.js",
-  "version": "0.0.2",
+  "version": "1.0.0-alpha.1",
   "scripts": {
     "build": "../node_modules/.bin/webpack --progress --color --display-modules",
     "watch": "../node_modules/.bin/webpack --progress --color --watch"

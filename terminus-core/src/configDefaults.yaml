@@ -5,3 +5,4 @@ appearance:
   tabsLocation: top
   theme: Standard
   frame: thin
+  css: '/* * { color: blue !important; } */'

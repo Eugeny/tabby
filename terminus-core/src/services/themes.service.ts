@@ -11,8 +11,9 @@ export class ThemesService {
         @Inject(Theme) private themes: Theme[],
     ) {
         this.applyCurrentTheme()
-        config.change.subscribe(() => {
+        config.changed$.subscribe(() => {
             this.applyCurrentTheme()
+            document.querySelector('style#custom-css').innerHTML = config.store.appearance.css
         })
     }
 

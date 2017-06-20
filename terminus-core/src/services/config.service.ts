@@ -1,7 +1,8 @@
+import { Subject } from 'rxjs'
 import * as yaml from 'js-yaml'
 import * as path from 'path'
 import * as fs from 'fs'
-import { EventEmitter, Injectable, Inject } from '@angular/core'
+import { Injectable, Inject } from '@angular/core'
 import { ConfigProvider } from '../api/configProvider'
 import { ElectronService } from './electron.service'
 import { HostAppService } from './hostApp.service'
@@ -51,7 +52,7 @@ export class ConfigProxy {
 @Injectable()
 export class ConfigService {
     store: any
-    change = new EventEmitter()
+    changed$ = new Subject<void>()
     restartRequested: boolean
     private _store: any
     private path: string
@@ -91,7 +92,7 @@ export class ConfigService {
     }
 
     emitChange (): void {
-        this.change.emit()
+        this.changed$.next()
     }
 
     requestRestart (): void {

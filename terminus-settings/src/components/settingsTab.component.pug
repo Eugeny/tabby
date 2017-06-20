@@ -145,6 +145,13 @@ ngb-tabset.vertical(type='tabs')
                                 i.fa.fa-bug
                                 span Open DevTools
 
+            .form-group
+                label Custom CSS
+                textarea.form-control(
+                    [(ngModel)]='config.store.appearance.css',
+                    '(ngModelChange)'='config.save()',
+                )
+                    
     ngb-tab
         template(ngbTabTitle)
             | Hotkeys

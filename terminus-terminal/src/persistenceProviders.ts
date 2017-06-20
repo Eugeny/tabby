@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core'
 import { Logger, LogService } from 'terminus-core'
 import { SessionOptions, SessionPersistenceProvider } from './api'
 
-declare function delay(ms: number): Promise<void>
+declare function delay (ms: number): Promise<void>
 
 interface IChildProcess {
     pid: number

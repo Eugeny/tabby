@@ -8,12 +8,17 @@
         width: auto;
         flex: none;
     }
+}
 
-    .hotkeys-table {
-        margin-top: 30px;
+.hotkeys-table {
+    margin-top: 30px;
 
-        td, th {
-            padding: 5px 10px;
-        }
+    td, th {
+        padding: 5px 10px;
     }
+}
+
+textarea {
+    font-family: 'Source Sans Mono', monospace;
+    height: 120px;
 }

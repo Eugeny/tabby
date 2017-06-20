@@ -15,13 +15,13 @@ export class ElectronService {
     constructor () {
         this.electron = require('electron')
         this.remoteElectron = this.remoteRequire('electron')
-        this.app = this.remoteElectron.app
-        this.screen = this.remoteElectron.screen
-        this.dialog = this.remoteElectron.dialog
+        this.app = this.electron.remote.app
+        this.screen = this.electron.remote.screen
+        this.dialog = this.electron.remote.dialog
         this.shell = this.electron.shell
         this.clipboard = this.electron.clipboard
         this.ipcRenderer = this.electron.ipcRenderer
-        this.globalShortcut = this.remoteElectron.globalShortcut
+        this.globalShortcut = this.electron.remote.globalShortcut
     }
 
     remoteRequire (name: string): any {
