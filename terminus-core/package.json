@@ -19,16 +19,10 @@
     "@types/js-yaml": "^3.5.29",
     "@types/node": "^7.0.12",
     "@types/webpack-env": "^1.13.0",
-    "awesome-typescript-loader": "^3.1.2",
     "bootstrap": "4.0.0-alpha.6",
     "core-js": "^2.4.1",
-    "json-loader": "^0.5.4",
-    "ngx-perfect-scrollbar": "^4.0.0",
-    "style-loader": "^0.13.1",
-    "to-string-loader": "^1.1.5",
-    "typescript": "^2.2.2",
-    "webpack": "^2.3.3",
-    "yaml-loader": "^0.4.0"
+    "ngx-perfect-scrollbar": "4.0.0",
+    "typescript": "^2.2.2"
   },
   "peerDependencies": {
     "@angular/animations": "4.0.1",

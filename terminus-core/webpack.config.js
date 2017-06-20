@@ -1,4 +1,5 @@
 const path = require('path')
+const webpack = require('webpack')
 
 module.exports = {
   target: 'node',
@@ -48,5 +49,8 @@ module.exports = {
     /^rxjs/,
     /^@angular/,
     /^@ng-bootstrap/,
-  ]
+  ],
+  plugins: [
+    new webpack.optimize.ModuleConcatenationPlugin(),
+  ],
 }

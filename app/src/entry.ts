@@ -1,6 +1,6 @@
-import 'core-js'
 import 'zone.js/dist/zone.js'
 import 'core-js/es7/reflect'
+import 'core-js/core/delay'
 import 'rxjs'
 
 // Always land on the start view

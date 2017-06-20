@@ -19,17 +19,8 @@
     "@types/node": "7.0.12",
     "@types/webpack-env": "1.13.0",
     "@types/winreg": "^1.2.30",
-    "awesome-typescript-loader": "3.1.2",
-    "css-loader": "^0.28.0",
     "dataurl": "0.1.0",
-    "deep-equal": "1.0.1",
-    "pug": "^2.0.0-beta11",
-    "pug-loader": "^2.3.0",
-    "raw-loader": "^0.5.1",
-    "sass-loader": "^6.0.3",
-    "to-string-loader": "^1.1.5",
-    "typescript": "^2.2.2",
-    "webpack": "2.3.3"
+    "deep-equal": "1.0.1"
   },
   "peerDependencies": {
     "@angular/common": "4.0.1",

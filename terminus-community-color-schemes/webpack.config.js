@@ -1,4 +1,5 @@
 const path = require('path')
+const webpack = require('webpack')
 
 module.exports = {
   target: 'node',
@@ -38,5 +39,8 @@ module.exports = {
     /^@angular/,
     /^@ng-bootstrap/,
     /^terminus-/,
-  ]
+  ],
+  plugins: [
+    new webpack.optimize.ModuleConcatenationPlugin(),
+  ],
 }

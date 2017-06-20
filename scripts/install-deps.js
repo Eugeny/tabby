@@ -8,6 +8,11 @@ log.info('deps', 'app')
 sh.exec('npm prune')
 sh.exec('npm install')
 
+sh.cd('app')
+sh.exec('npm prune')
+sh.exec('npm install')
+sh.cd('..')
+
 vars.builtinPlugins.forEach(plugin => {
   log.info('deps', plugin)
   sh.cd(plugin)
