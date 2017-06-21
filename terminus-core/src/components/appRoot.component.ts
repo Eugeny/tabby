@@ -1,4 +1,4 @@
-import { Component, Inject, Input } from '@angular/core'
+import { Component, Inject, Input, HostListener } from '@angular/core'
 import { trigger, style, animate, transition, state } from '@angular/animations'
 
 import { ElectronService } from '../services/electron.service'
@@ -143,4 +143,13 @@ export class AppRootComponent {
             .sort((a: IToolbarButton, b: IToolbarButton) => (a.weight || 0) - (b.weight || 0))
     }
 
+    @HostListener('dragover')
+    onDragOver () {
+        return false
+    }
+
+    @HostListener('drop')
+    onDrop () {
+        return false
+    }
 }

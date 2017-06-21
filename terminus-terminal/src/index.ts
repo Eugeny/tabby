@@ -15,8 +15,9 @@ import { SessionsService } from './services/sessions.service'
 import { ScreenPersistenceProvider } from './persistenceProviders'
 import { ButtonProvider } from './buttonProvider'
 import { RecoveryProvider } from './recoveryProvider'
-import { SessionPersistenceProvider, TerminalColorSchemeProvider } from './api'
+import { SessionPersistenceProvider, TerminalColorSchemeProvider, TerminalDecorator } from './api'
 import { TerminalSettingsTabProvider } from './settings'
+import { PathDropDecorator } from './pathDrop'
 import { TerminalConfigProvider } from './config'
 import { HyperColorSchemes } from './colorSchemes'
 import { hterm } from './hterm'
@@ -46,6 +47,7 @@ import { hterm } from './hterm'
         { provide: SettingsTabProvider, useClass: TerminalSettingsTabProvider, multi: true },
         { provide: ConfigProvider, useClass: TerminalConfigProvider, multi: true },
         { provide: TerminalColorSchemeProvider, useClass: HyperColorSchemes, multi: true },
+        { provide: TerminalDecorator, useClass: PathDropDecorator, multi: true },
     ],
     entryComponents: [
         TerminalTabComponent,
