@@ -18,11 +18,13 @@
            "dom",
            "es2015",
            "es2015.iterable.ts",
+           "es2017",
            "es7"
         ]
     },
     "compileOnSave": false,
     "exclude": [
+        "dist",
         "node_modules",
         "*/node_modules",
         "terminus*",

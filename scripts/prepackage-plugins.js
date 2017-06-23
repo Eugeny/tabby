@@ -18,7 +18,7 @@ vars.builtinPlugins.forEach(plugin => {
   sh.exec(`npm install --only=prod`)
   log.info('rebuild', 'native')
   if (fs.existsSync('node_modules')) {
-    rebuild(path.resolve('.'), vars.electronVersion, process.arch, vars.nativeModules, true)
+    rebuild(path.resolve('.'), vars.electronVersion, process.arch, [], true)
   }
   sh.cd('..')
 })
