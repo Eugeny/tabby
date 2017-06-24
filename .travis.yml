@@ -5,7 +5,7 @@ node_js:
 cache:
   directories:
     - node_modules
-    - */node_modules
+    - app/node_modules
 
 before_install:
     - npm i
