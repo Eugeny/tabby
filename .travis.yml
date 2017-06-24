@@ -25,6 +25,7 @@ script:
     - scripts/prepackage-plugins.js
     - scripts/build-$BUILD_FOR.js
 
+dist: trusty
 sudo: false
 
 addons:
