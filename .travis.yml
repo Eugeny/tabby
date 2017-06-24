@@ -1,3 +1,7 @@
+os:
+  - linux
+  - osx
+
 language: node_js
 node_js:
     - 7
@@ -15,7 +19,8 @@ script:
     - scripts/build-native.js
     - npm run build
     - scripts/prepackage-plugins.js
-    - scripts/build-linux.js
+    - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then scripts/build-linux.js; fi
+    - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then scripts/build-macos.js; fi
 
 sudo: false
 
@@ -23,7 +28,7 @@ addons:
   apt:
     packages:
     - rpm
-    
+
 deploy:
   provider: releases
   api_key: $GITHUB_TOKEN
@@ -31,6 +36,8 @@ deploy:
   file:
     - dist/*.deb
     - dist/*.rpm
+    - dist/*.tar.gz
+    - dist/*.dmg
   skip_cleanup: true
   on:
     tags: true
