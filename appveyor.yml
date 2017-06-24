@@ -1,4 +1,4 @@
-os: Visual Studio 2015
+os: Visual Studio 2017
 
 platform:
   - x64
@@ -7,8 +7,6 @@ environment:
   nodejs_version: "7"
 
 cache:
-  - app/node_modules
-  - node_modules
   - '%USERPROFILE%\.electron'
 
 branches:
