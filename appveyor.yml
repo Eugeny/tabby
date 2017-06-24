@@ -26,7 +26,7 @@ deploy:
   provider: GitHub
   auth_token:
     secure: wvxHVlprvhfdOHgmVEDIwjCHYlmuDykteIEHpAfpi807+1lJD3ld2/OS6+0fgU4e
-  artifact: /.*\.exe/
+  artifact: dist\win\*.exe
   draft: false
   prerelease: false
   on:
