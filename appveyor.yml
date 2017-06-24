@@ -9,8 +9,6 @@ environment:
 cache:
   - '%USERPROFILE%\.electron'
 
-skip_tags: true
-
 version: "{build}"
 
 install:
