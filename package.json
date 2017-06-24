@@ -21,7 +21,7 @@
     "less-loader": "2.2.3",
     "node-abi": "2.0.3",
     "node-gyp": "3.4.0",
-    "node-sass": "4.5.2",
+    "node-sass": "4.5.3",
     "npmlog": "4.1.0",
     "pug": "2.0.0-beta11",
     "pug-html-loader": "1.0.9",
