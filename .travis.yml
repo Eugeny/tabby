@@ -17,7 +17,8 @@ before_install:
 
 script:
     - scripts/build-native.js
-    - npm run build
+    - npm run build --prefix app
+    - node scripts/build-plugins.js
     - scripts/prepackage-plugins.js
     - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then scripts/build-linux.js; fi
     - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then scripts/build-macos.js; fi
