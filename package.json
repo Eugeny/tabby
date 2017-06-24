@@ -1,7 +1,6 @@
 {
   "name": "term",
   "devDependencies": {
-    "@types/electron": "1.4.34",
     "@types/fs-promise": "1.0.1",
     "@types/node": "7.0.5",
     "@types/webpack-env": "1.13.0",

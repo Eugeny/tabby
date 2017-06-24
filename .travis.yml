@@ -1,0 +1,28 @@
+language: node_js
+node_js:
+    - 7
+
+cache:
+  directories:
+    - node_modules
+    - */node_modules
+
+before_install:
+    - npm i
+    - scripts/install-deps.js
+
+script:
+    - scripts/build-native.js
+    - npm run build
+    - scripts/prepackage-plugins.js
+    - scripts/build-linux.js
+
+sudo: false
+
+deploy:
+  provider: releases
+  api_key: $GITHUB_TOKEN
+  file: dist/*.AppImage
+  skip_cleanup: true
+  on:
+    tags: true
