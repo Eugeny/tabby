@@ -33,11 +33,7 @@ deploy:
   provider: releases
   api_key: $GITHUB_TOKEN
   file_glob: true
-  file:
-    - dist/*.deb
-    - dist/*.rpm
-    - dist/*.tar.gz
-    - dist/*.dmg
+  file: 'dist/terminus*'
   skip_cleanup: true
   on:
     tags: true
