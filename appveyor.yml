@@ -22,11 +22,13 @@ build_script:
   - node scripts/prepackage-plugins.js
   - node scripts/build-windows.js
 
+artifacts:
+  - path: 'dist\win\*.exe'
 deploy:
   provider: GitHub
   auth_token:
     secure: wvxHVlprvhfdOHgmVEDIwjCHYlmuDykteIEHpAfpi807+1lJD3ld2/OS6+0fgU4e
-  artifact: dist\win\*.exe
+  artifact: 'dist\win\*.exe'
   draft: false
   prerelease: false
   force_update: true
