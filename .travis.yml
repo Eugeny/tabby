@@ -31,12 +31,14 @@ addons:
   apt:
     packages:
     - rpm
+    - wine
+    - mono-runtime
 
 deploy:
   provider: releases
   api_key: $GITHUB_TOKEN
   file_glob: true
-  file: 'dist/terminus*'
+  file: $ARTIFACT
   skip_cleanup: true
   on:
     tags: true
