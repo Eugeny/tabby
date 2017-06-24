@@ -1,11 +1,11 @@
 matrix:
   include:
   - os: linux
-    env: BUILD_FOR=windows
+    env: BUILD_FOR=windows ARTIFACT="dist/win/*.exe"
   - os: linux
-    env: BUILD_FOR=linux
+    env: BUILD_FOR=linux ARTIFACT="dist/terminus*"
   - os: osx
-    env: BUILD_FOR=macos
+    env: BUILD_FOR=macos ARTIFACT="dist/terminus*"
 
 language: node_js
 node_js: 7
