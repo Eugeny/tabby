@@ -6,6 +6,13 @@ export enum Platform {
     Linux, macOS, Windows,
 }
 
+export interface Bounds {
+    x: number
+    y: number
+    width: number
+    height: number
+}
+
 @Injectable()
 export class HostAppService {
     platform: Platform
@@ -97,7 +104,7 @@ export class HostAppService {
         this.electron.ipcRenderer.send('window-toggle-maximize')
     }
 
-    setBounds (bounds: Electron.Rectangle) {
+    setBounds (bounds: Bounds) {
         this.electron.ipcRenderer.send('window-set-bounds', bounds)
     }
 

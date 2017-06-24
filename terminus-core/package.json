@@ -15,14 +15,13 @@
   "license": "MIT",
   "devDependencies": {
     "@ng-bootstrap/ng-bootstrap": "1.0.0-alpha.22",
-    "@types/electron": "^1.4.35",
     "@types/js-yaml": "^3.5.29",
     "@types/node": "^7.0.12",
     "@types/webpack-env": "^1.13.0",
     "bootstrap": "4.0.0-alpha.6",
     "core-js": "^2.4.1",
     "ngx-perfect-scrollbar": "4.0.0",
-    "typescript": "^2.2.2"
+    "typescript": "^2.4.0"
   },
   "peerDependencies": {
     "@angular/animations": "4.0.1",
@@ -35,8 +34,8 @@
     "zone.js": "0.8.4"
   },
   "dependencies": {
-    "deepmerge": "^1.3.2",
-    "js-yaml": "^3.8.3"
+    "deepmerge": "^1.4.4",
+    "js-yaml": "^3.8.4"
   },
   "false": {}
 }

@@ -22,7 +22,10 @@ sudo: false
 deploy:
   provider: releases
   api_key: $GITHUB_TOKEN
-  file: dist/*.AppImage
+  file_glob: true
+  file:
+    - dist/*.deb
+    - dist/*.rpm
   skip_cleanup: true
   on:
     tags: true

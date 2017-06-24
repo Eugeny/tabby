@@ -33,7 +33,7 @@
     "rxjs": "5.3.0"
   },
   "dependencies": {
-    "axios": "^0.16.1"
+    "axios": "^0.16.2"
   },
   "false": {}
 }

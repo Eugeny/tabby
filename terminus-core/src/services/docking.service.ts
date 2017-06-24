@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core'
 import { ConfigService } from '../services/config.service'
 import { ElectronService } from '../services/electron.service'
-import { HostAppService } from '../services/hostApp.service'
+import { HostAppService, Bounds } from '../services/hostApp.service'
 
 export interface IScreen {
     id: string
@@ -24,7 +24,7 @@ export class DockingService {
         }
 
         let dockSide = this.config.store.appearance.dock
-        let newBounds: Electron.Rectangle = { x: 0, y: 0, width: 0, height: 0 }
+        let newBounds: Bounds = { x: 0, y: 0, width: 0, height: 0 }
         let fill = this.config.store.appearance.dockFill
 
         if (dockSide === 'off') {
