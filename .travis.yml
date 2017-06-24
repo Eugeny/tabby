@@ -2,9 +2,17 @@ os:
   - linux
   - osx
 
+matrix:
+  include:
+  - os: linux
+    env: BUILD_FOR=windows
+  - os: linux
+    env: BUILD_FOR=linux
+  - os: osx
+    env: BUILD_FOR=macos
+
 language: node_js
-node_js:
-    - 7
+node_js: 7
 
 cache:
   directories:
@@ -19,8 +27,7 @@ script:
     - scripts/build-native.js
     - npm run build
     - scripts/prepackage-plugins.js
-    - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then scripts/build-linux.js; fi
-    - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then scripts/build-macos.js; fi
+    - scripts/build-$BUILD_FOR.js
 
 sudo: false
 
