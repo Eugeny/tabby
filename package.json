@@ -68,7 +68,7 @@
     }
   },
   "scripts": {
-    "build": "webpack --progress --color",
+    "build": "webpack --config app/webpack.config.js && webpack --config terminus-core/webpack.config.js && webpack --config terminus-settings/webpack.config.js && webpack --config terminus-terminal/webpack.config.js && webpack --config terminus-settings/webpack.config.js && webpack --config terminus-plugin-manager/webpack.config.js && webpack --config terminus-community-color-schemes/webpack.config.js",
     "watch": "webpack --progress --color --watch",
     "start": "cross-env DEV=1 electron --js-flags='--ignition' app --debug",
     "lint": "tslint -c tslint.json -t stylish terminus-*/src/**/*.ts terminus-*/src/*.ts app/src/*.ts",

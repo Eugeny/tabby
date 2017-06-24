@@ -24,8 +24,7 @@ install:
   - node scripts/build-native.js
 
 build_script:
-  - npm run build --prefix app
-  - node scripts/build-plugins.js
+  - npm run build
   - node scripts/prepackage-plugins.js
   - node scripts/build-windows.js
 
