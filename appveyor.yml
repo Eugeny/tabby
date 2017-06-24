@@ -4,14 +4,10 @@ platform:
   - x64
 
 environment:
-  nodejs_version: "8"
+  nodejs_version: "7"
 
 cache:
   - '%USERPROFILE%\.electron'
-
-branches:
-  only:
-    - master
 
 skip_tags: true
 
