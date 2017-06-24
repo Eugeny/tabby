@@ -1,0 +1,35 @@
+os: Visual Studio 2015
+
+platform:
+  - x64
+
+environment:
+  nodejs_version: "7"
+
+cache:
+  - app/node_modules
+  - node_modules
+  - '%USERPROFILE%\.electron'
+
+branches:
+  only:
+    - master
+
+skip_tags: true
+
+version: "{build}"
+
+install:
+  - ps: Install-Product node $env:nodejs_version $env:platform
+  - npm install -g npm@5
+  - npm install
+  - node scripts/install-deps.js
+  - node scripts/build-native.js
+
+build_script:
+  - npm run build
+  - node scripts/prepackage-plugins.js
+  - node scripts/build-windows.js
+
+artifacts:
+  - path: 'dist\*.exe'
