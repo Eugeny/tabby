@@ -19,6 +19,11 @@ script:
 
 sudo: false
 
+addons:
+  apt:
+    packages:
+    - rpm
+    
 deploy:
   provider: releases
   api_key: $GITHUB_TOKEN
