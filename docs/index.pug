@@ -4,7 +4,7 @@ html
         link(href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400", rel="stylesheet")
         link(href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css", rel="stylesheet")
         link(href="https://cdn.jsdelivr.net/g/bootstrap@4.0.0-alpha.6(css/bootstrap.min.css)", rel="stylesheet")
-        script(src="https://cdn.jsdelivr.net/g/jquery@3.2.1,tether@1.4.0,bootstrap@4.0.0-alpha.6")
+        script(src="https://cdn.jsdelivr.net/g/jquery@3.2.1,tether@1.4.0,bootstrap@4.0.0-alpha.6,modernizr@3.3.1,detectizr@2.2.0")
         title Terminus
         style.
             body {
@@ -19,7 +19,7 @@ html
                 font-size: 64px;
             }
             
-            h1, h3, h5 {
+            h1, h2, h3, h5 {
                 font-weight: 300;
                 color: white;
             }
@@ -37,16 +37,31 @@ html
                 font-size: 22px;
             }
             
-            video {
+            video, img {
                 max-width: 100%;
                 box-shadow: 0 0 50px black;
             }
-            
+        
+        script(defer).
+            setTimeout(function () {
+                /*
+                if (Detectizr.os.name == 'windows') {
+                    $('[href="#windows"]').tab('show')
+                }
+                if (Detectizr.os.name == 'mac os') {
+                    $('[href="#macos"]').tab('show')
+                }
+                if (Detectizr.os.name == 'linux') {
+                    $('[href="#linux"]').tab('show')
+                }
+                */
+            })
     body
         .container.mt-5.mb-5
             .text-center
                 h1 Terminus
                 h5 A terminal for a more modern age
+                h2.text-muted alpha
                 
             .d-flex.flex-row.mt-5.mb-5
                 ul.nav.nav-pills.flex-column.mr-5(style='min-width: 200px')
@@ -78,34 +93,26 @@ html
                                         li Classic CMD
                                         li PowerShell 
                                         li Bash on Windows 
+
                     #macos.tab-pane(role='tabpanel')
                         .row
                             .col-6
                                 //video(src='videos/windows.mp4', autoplay, loop)
                             .col-6
-                                h3 
-                                p 
-                                    b Clink 
-                                    | provides tab completion, readline-style editing and persistent command history on Windows.
-                                p Also supported:
-                                    ul 
-                                        li Classic CMD
-                                        li PowerShell 
-                                        li Bash on Windows 
+                                h3 Well...
+                                p Not much to say here, it just works.
+
                     #linux.tab-pane(role='tabpanel')
                         .row
                             .col-6
-                                //video(src='videos/windows.mp4', autoplay, loop)
+                                img(src='linux.png')
                             .col-6
-                                h3 A proper Windows experience
-                                p 
-                                    b Clink 
-                                    | provides tab completion, readline-style editing and persistent command history on Windows.
-                                p Also supported:
+                                p
                                     ul 
-                                        li Classic CMD
-                                        li PowerShell 
-                                        li Bash on Windows 
+                                        li Spawn with a global hotkey
+                                        li Tabs persist after restart
+                                        li Auto-dock to any side of any screen
+                                        li Full Unicode and double-width character support
 
                     
             .text-center
