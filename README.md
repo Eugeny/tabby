@@ -5,6 +5,8 @@
 
 ----
 
+![](https://github.com/Eugeny/terminus/raw/master/docs/linux.png)
+
 **Terminus** is a web technology based terminal heavily inspired by Hyper. It is, however, designed for people who need to get things done.
 
   * Runs on Windows, macOS and Linux
