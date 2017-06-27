@@ -1,4 +1,4 @@
-import * as fs from 'fs-promise'
+import * as fs from 'mz/fs'
 import * as path from 'path'
 const nodeModule = require('module')
 const nodeRequire = (global as any).require
@@ -75,7 +75,7 @@ export async function findPlugins (): Promise<IPluginInfo[]> {
             }
 
             try {
-                let info = await fs.readJson(infoPath)
+                let info = JSON.parse(await fs.readFile(infoPath, {encoding: 'utf-8'}))
                 console.log(pluginDir, builtinPluginsPath)
                 foundPlugins.push({
                     name: pluginName.substring('terminus-'.length),

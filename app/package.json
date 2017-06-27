@@ -25,10 +25,13 @@
     "electron-debug": "^1.0.1",
     "electron-is-dev": "0.1.2",
     "electron-squirrel-startup": "^1.0.0",
-    "fs-promise": "^2.0.2",
     "js-yaml": "3.8.2",
+    "mz": "^2.6.0",
     "path": "0.12.7",
     "rxjs": "5.3.0",
     "zone.js": "0.8.4"
+  },
+  "devDependencies": {
+    "@types/mz": "0.0.31"
   }
 }
