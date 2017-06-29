@@ -1,7 +1,9 @@
 if (process.platform == 'win32' && require('electron-squirrel-startup')) process.exit(0)
 
 const electron = require('electron')
-require('electron-debug')({enabled: true, showDevTools: (process.argv.indexOf('--debug') != -1) ? 'undocked' : false})
+if (process.argv.indexOf('--debug') !== -1) {
+    require('electron-debug')({enabled: true, showDevTools: 'undocked'})
+}
 
 
 let app = electron.app
