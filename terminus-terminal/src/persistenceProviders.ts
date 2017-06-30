@@ -100,7 +100,7 @@ export class ScreenPersistenceProvider extends SessionPersistenceProvider {
             altscreen on
         `, 'utf-8')
         let recoveryId = `term-tab-${Date.now()}`
-        let args = ['-d', '-m', '-c', configPath, '-U', '-S', recoveryId, '-T', 'xterm-256color', '--', options.command].concat(options.args || [])
+        let args = ['-d', '-m', '-c', configPath, '-U', '-S', recoveryId, '-T', 'xterm-256color', '--', '-' + options.command].concat(options.args || [])
         this.logger.debug('Spawning screen with', args.join(' '))
         await spawn('screen', args, {
             cwd: options.cwd,
