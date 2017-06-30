@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs'
-import * as fs from 'fs-promise'
+import * as fs from 'mz/fs'
 import * as path from 'path'
 import { exec } from 'mz/child_process'
 const equal = require('deep-equal')
@@ -97,11 +97,12 @@ export class TerminalSettingsTabComponent {
             }
         }
         if (this.hostApp.platform === Platform.Linux || this.hostApp.platform === Platform.macOS) {
-            this.shells = (await fs.readFile('/etc/shells', 'utf-8'))
+            this.shells = [{ name: 'Default shell', command: '~default-shell~' }]
+            this.shells = this.shells.concat((await fs.readFile('/etc/shells', { encoding: 'utf-8' }))
                 .split('\n')
                 .map(x => x.trim())
                 .filter(x => x && !x.startsWith('#'))
-                .map(x => ({ name: x, command: x }))
+                .map(x => ({ name: x, command: x })))
         }
         this.colorSchemes = (await Promise.all(this.colorSchemeProviders.map(x => x.getSchemes()))).reduce((a, b) => a.concat(b))
     }
