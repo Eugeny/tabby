@@ -61,7 +61,7 @@ module.exports = {
     'mz': 'commonjs mz',
     'path': 'commonjs path',
     'rxjs': 'commonjs rxjs',
-    'zone.js': 'commonjs zone.js',
+    'zone.js': 'commonjs zone.js/dist/zone.js',
   },
   plugins: [
     new webpack.optimize.ModuleConcatenationPlugin(),

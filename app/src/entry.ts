@@ -1,4 +1,4 @@
-import 'zone.js/dist/zone.js'
+import 'zone.js'
 import 'core-js/es7/reflect'
 import 'core-js/core/delay'
 import 'rxjs'
