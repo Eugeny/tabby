@@ -65,6 +65,19 @@ const builtinModules = [
     'zone.js/dist/zone.js',
 ]
 
+const cachedBuiltinModules = {}
+builtinModules.forEach(m => {
+    cachedBuiltinModules[m] = nodeRequire(m)
+})
+
+const originalRequire = nodeRequire('module').prototype.require
+nodeRequire('module').prototype.require = function (query) {
+    if (cachedBuiltinModules[query]) {
+        return cachedBuiltinModules[query]
+    }
+    return originalRequire.apply(this, arguments)
+}
+
 export async function findPlugins (): Promise<IPluginInfo[]> {
     let paths = nodeModule.globalPaths
     let foundPlugins: IPluginInfo[] = []
@@ -128,16 +141,6 @@ export async function loadPlugins (foundPlugins: IPluginInfo[], progress: Progre
     for (let foundPlugin of foundPlugins) {
         console.info(`Loading ${foundPlugin.name}: ${nodeRequire.resolve(foundPlugin.path)}`)
         progress(index, foundPlugins.length)
-        // pre-inject builtin modules
-        builtinModules.forEach(moduleName => {
-            let mod = nodeRequire(moduleName)
-            let modPath = nodeRequire.resolve(moduleName)
-            let modSubpath = modPath.substring(modPath.indexOf(moduleName))
-            console.log('injecting', moduleName, modPath)
-            let targetPath = path.join(foundPlugin.path, 'node_modules', modSubpath)
-            console.log(targetPath, modPath)
-            nodeRequire.cache[targetPath] = mod
-        })
         try {
             let pluginModule = nodeRequire(foundPlugin.path)
             plugins.push(pluginModule)
