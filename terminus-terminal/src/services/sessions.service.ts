@@ -28,10 +28,6 @@ export class Session {
             ...options.env,
             TERM: 'xterm-256color',
         }
-        if (options.command.includes(' ')) {
-            options.args = ['-c', options.command]
-            options.command = 'sh'
-        }
         this.pty = nodePTY.spawn(options.command, options.args || [], {
             name: 'xterm-256color',
             cols: options.width || 80,

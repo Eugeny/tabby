@@ -16,7 +16,7 @@ export interface ResizeEvent {
 
 export interface SessionOptions {
     name?: string
-    command?: string
+    command?: string|string[]
     args?: string[]
     cwd?: string
     env?: any
