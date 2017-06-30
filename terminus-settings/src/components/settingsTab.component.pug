@@ -109,17 +109,17 @@ ngb-tabset.vertical(type='tabs')
                                 label Display on
                                 br
                                 div(
-                                    '[(ngModel)]'='config.store.appearance.dockScreen'
-                                    '(ngModelChange)'='config.save(); docking.dock()'
+                                    [(ngModel)]='config.store.appearance.dockScreen',
+                                    (ngModelChange)='config.save(); docking.dock()',
                                     ngbRadioGroup
                                 )
                                     label.btn.btn-secondary
                                         input(
                                             type='radio',
-                                            [value]='"current"'
+                                            value='current'
                                         )
                                         | Current
-                                    label.btn.btn-secondary(*ngFor='let screen of docking.getScreens()')
+                                    label.btn.btn-secondary(*ngFor='let screen of screens')
                                         input(
                                             type='radio',
                                             [value]='screen.id'

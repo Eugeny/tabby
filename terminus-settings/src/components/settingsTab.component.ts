@@ -14,6 +14,7 @@ import { SettingsTabProvider } from '../api'
 export class SettingsTabComponent extends BaseTabComponent {
     hotkeyFilter = ''
     private hotkeyDescriptions: IHotkeyDescription[]
+    private screens
 
     constructor (
         public config: ConfigService,
@@ -28,6 +29,7 @@ export class SettingsTabComponent extends BaseTabComponent {
         this.hotkeyDescriptions = hotkeyProviders.map(x => x.hotkeys).reduce((a, b) => a.concat(b))
         this.title$.next('Settings')
         this.scrollable = true
+        this.screens = this.docking.getScreens()
     }
 
     getRecoveryToken (): any {
