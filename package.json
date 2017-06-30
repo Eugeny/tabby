@@ -65,6 +65,12 @@
     "linux": {
       "category": "Utilities",
       "icon": "./build/icons"
+    },
+    "deb": {
+      "depends": ["screen", "gconf2", "gconf-service", "libnotify4", "libappindicator1", "libxtst6", "libnss3"]
+    },
+    "rpm": {
+      "depends": ["screen"]
     }
   },
   "scripts": {
