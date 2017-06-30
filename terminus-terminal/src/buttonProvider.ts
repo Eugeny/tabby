@@ -54,7 +54,7 @@ export class ButtonProvider extends ToolbarButtonProvider {
                     console.warn('Could not detect user shell')
                     command = '/bin/sh'
                 } else {
-                    command = line.split(':')[5]
+                    command = line.split(':')[6]
                 }
             }
             if (this.hostApp.platform === Platform.macOS) {
