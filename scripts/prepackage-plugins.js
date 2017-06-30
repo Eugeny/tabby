@@ -22,3 +22,4 @@ vars.builtinPlugins.forEach(plugin => {
   }
   sh.cd('..')
 })
+fs.unlinkSync(path.join(target, 'package.json'), '{}')

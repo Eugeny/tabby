@@ -80,5 +80,5 @@
     "lint": "tslint -c tslint.json -t stylish terminus-*/src/**/*.ts terminus-*/src/*.ts app/src/*.ts",
     "postinstall": "install-app-deps"
   },
-  "false": {}
+  "repository": "eugeny/terminus"
 }
