@@ -22,7 +22,6 @@ const yaml = require('js-yaml')
 const path = require('path')
 const fs = require('fs')
 const Config = require('electron-config')
-require('electron-debug')({enabled: true, showDevTools: process.argv.indexOf('--debug') != -1})
 let windowConfig = new Config({name: 'window'})
 
 
