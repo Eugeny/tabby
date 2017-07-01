@@ -1,3 +1,4 @@
+import * as os from 'os'
 import { Component, Inject } from '@angular/core'
 import { ElectronService } from '../services/electron.service'
 import { IToolbarButton, ToolbarButtonProvider } from '../api'
@@ -8,10 +9,14 @@ import { IToolbarButton, ToolbarButtonProvider } from '../api'
     styles: [require('./startPage.component.scss')],
 })
 export class StartPageComponent {
+    version: string
+
     constructor (
         private electron: ElectronService,
         @Inject(ToolbarButtonProvider) private toolbarButtonProviders: ToolbarButtonProvider[],
-    ) { }
+    ) {
+        this.version = electron.app.getVersion()
+    }
 
     getButtons (): IToolbarButton[] {
         return this.toolbarButtonProviders
@@ -25,6 +30,13 @@ export class StartPageComponent {
     }
 
     reportBug () {
-        this.electron.shell.openExternal('https://github.com/eugeny/terminus/issues/new')
+        let body = `Version: ${this.version}\n`
+        body += `Platform: ${os.platform()} ${os.release()}\n\n`
+        let label = {
+            darwin: 'macOS',
+            windows: 'Windows',
+            linux: 'Linux',
+        }[os.platform()]
+        this.electron.shell.openExternal(`https://github.com/eugeny/terminus/issues/new?body=${encodeURIComponent(body)}&labels=${label}`)
     }
 }
