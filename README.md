@@ -25,4 +25,4 @@
 
 Pull requests and plugins are welcome! Publish your plugin on NPM with a `terminus-plugin` keyword to make them appear in the Plugin Manager.
 
-See [HACKING.md](https://github.com/Eugeny/terminus/blob/master/HACKING.md) for a very plugin development tutorial!
+See [HACKING.md](https://github.com/Eugeny/terminus/blob/master/HACKING.md) for a very brief plugin development tutorial!
