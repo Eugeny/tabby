@@ -69,6 +69,10 @@ terminus-pluginname
 
 The app will load all plugins from the source checkout in the dev mode, from the user's plugins directory at all times (click `Open Plugins Directory` under `Settings` > `Plugins`) and from the directory specified by the `TERMINUS_PLUGINS` environment var.
 
+Only modules whose `package.json` file contains a `terminus-plugin` keyword will be loaded.
+
+If you're currently in your plugin's directory, start Terminus as `TERMINUS_PLUGINS=$(pwd) terminus --debug`
+
 A plugin should only provide a default export, which should be a `NgModule` class (or a `NgModuleWithDependencies` where applicable). This module will be injected as a dependency to the app's root module.
 
 ```javascript

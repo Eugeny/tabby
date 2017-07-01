@@ -21,6 +21,15 @@
 
 ---
 
+# Plugins
+
+Plugins can be installed directly from the Settings view inside Terminus.
+
+  * [clickable-links](https://github.com/Eugeny/terminus-clickable-links) - makes paths and URLs in the terminal clickable
+  * [theme-hype](https://github.com/Eugeny/terminus-theme-hype) - a Hyper inspired theme
+
+---
+
 # Contributing
 
 Pull requests and plugins are welcome! Publish your plugin on NPM with a `terminus-plugin` keyword to make them appear in the Plugin Manager.
