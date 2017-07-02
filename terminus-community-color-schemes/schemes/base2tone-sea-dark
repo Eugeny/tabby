@@ -1,0 +1,44 @@
+!
+! Generated with :
+! XRDB2Xrecources.py
+!
+*.foreground:  #a1aab5
+*.background:  #1d262f
+*.cursorColor: #067953
+!
+! Black
+*.color0:      #1d262f
+*.color8:      #4a5f78
+!
+! Red
+*.color1:      #34659d
+*.color9:      #14e19d
+!
+! Green
+*.color2:      #0fc78a
+*.color10:     #27323f
+!
+! Yellow
+*.color3:      #47ebb4
+*.color11:     #405368
+!
+! Blue
+*.color4:      #57718e
+*.color12:     #738191
+!
+! Magenta
+*.color5:      #0fc78a
+*.color13:     #afd4fe
+!
+! Cyan
+*.color6:      #6e9bcf
+*.color14:     #0db57d
+!
+! White
+*.color7:      #a1aab5
+*.color15:     #ebf4ff
+!
+! Bold, Italic, Underline
+*.colorBD:     #a1aab5
+!*.colorIT:
+!*.colorUL:
