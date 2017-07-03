@@ -13,6 +13,7 @@
   * Theming and color schemes
   * Configurable hotkey schemes
   * **GNU Screen** style hotkeys available by default
+  * Default Linux style hotkeys for Copy(`Ctrl`+`Shift`+`C`), and Paste(`Ctrl`+`Shift`+`V`)
   * Full Unicode support including double-width characters
   * Doesn't choke on fast-flowing outputs
   * Tab persistence on macOS and Linux
