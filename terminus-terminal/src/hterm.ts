@@ -27,3 +27,12 @@ preferenceManager.set('color-palette-overrides', {
 })
 
 hterm.hterm.Terminal.prototype.showOverlay = () => null
+
+const oldCharWidthDisregardAmbiguous = hterm.lib.wc.charWidthDisregardAmbiguous
+hterm.lib.wc.charWidthDisregardAmbiguous = codepoint => {
+    if ((codepoint >= 0x1f300 && codepoint <= 0x1f64f) ||
+        (codepoint >= 0x1f680 && codepoint <= 0x1f6ff)) {
+        return 2
+    }
+    return oldCharWidthDisregardAmbiguous(codepoint)
+}

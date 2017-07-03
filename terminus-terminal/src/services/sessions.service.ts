@@ -72,7 +72,7 @@ export class Session {
     }
 
     write (data) {
-        this.pty.write(data)
+        this.pty.write(Buffer.from(data, 'utf-8'))
     }
 
     kill (signal?: string) {
