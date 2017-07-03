@@ -9,7 +9,7 @@
     "core-js": "2.4.1",
     "cross-env": "4.0.0",
     "css-loader": "0.28.0",
-    "electron": "1.7.2",
+    "electron": "1.6.11",
     "electron-builder": "17.1.1",
     "electron-builder-squirrel-windows": "17.0.1",
     "electron-rebuild": "1.5.11",
@@ -67,10 +67,20 @@
       "icon": "./build/icons"
     },
     "deb": {
-      "depends": ["screen", "gconf2", "gconf-service", "libnotify4", "libappindicator1", "libxtst6", "libnss3"]
+      "depends": [
+        "screen",
+        "gconf2",
+        "gconf-service",
+        "libnotify4",
+        "libappindicator1",
+        "libxtst6",
+        "libnss3"
+      ]
     },
     "rpm": {
-      "depends": ["screen"]
+      "depends": [
+        "screen"
+      ]
     }
   },
   "scripts": {
