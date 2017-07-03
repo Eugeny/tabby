@@ -1,4 +1,4 @@
-import { BehaviorSubject, ReplaySubject, Subject, Subscription } from 'rxjs'
+import { BehaviorSubject, Subject, Subscription } from 'rxjs'
 import 'rxjs/add/operator/bufferTime'
 import { Component, NgZone, Inject, Optional, ViewChild, HostBinding, Input } from '@angular/core'
 import { AppService, ConfigService, BaseTabComponent, ThemesService, HostAppService, Platform } from 'terminus-core'
@@ -22,7 +22,7 @@ export class TerminalTabComponent extends BaseTabComponent {
     configSubscription: Subscription
     sessionCloseSubscription: Subscription
     bell$ = new Subject()
-    size$ = new ReplaySubject<ResizeEvent>(1)
+    size: ResizeEvent
     resize$ = new Subject<ResizeEvent>()
     input$ = new Subject<string>()
     output$ = new Subject<string>()
@@ -188,11 +188,11 @@ export class TerminalTabComponent extends BaseTabComponent {
         io.onTerminalResize = (columns, rows) => {
             // console.log(`Resizing to ${columns}x${rows}`)
             this.zone.run(() => {
-                this.size$.next({ width: columns, height: rows })
-                this.resize$.next({ width: columns, height: rows })
+                this.size = { width: columns, height: rows }
                 if (this.session) {
                     this.session.resize(columns, rows)
                 }
+                this.resize$.next(this.size)
             })
         }
     }
@@ -248,7 +248,6 @@ export class TerminalTabComponent extends BaseTabComponent {
         })
         this.configSubscription.unsubscribe()
         this.sessionCloseSubscription.unsubscribe()
-        this.size$.complete()
         this.resize$.complete()
         this.input$.complete()
         this.output$.complete()
