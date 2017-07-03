@@ -1,6 +1,6 @@
 {
   "name": "terminus-community-color-schemes",
-  "version": "1.0.0-alpha.14",
+  "version": "1.0.0-alpha.14.2",
   "description": "Community color schemes for Terminus",
   "keywords": ["terminus-plugin"],
   "main": "dist/index.js",
