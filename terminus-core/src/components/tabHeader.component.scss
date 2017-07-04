@@ -54,6 +54,10 @@ $tabs-height: 36px;
 
         text-align: center;
         font-size: 20px;
+
+        &:focus {
+          outline: 0;
+        }
     }
 
     &:hover button {
