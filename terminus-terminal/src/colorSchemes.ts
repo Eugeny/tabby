@@ -6,7 +6,7 @@ import { TerminalColorSchemeProvider, ITerminalColorScheme } from './api'
 @Injectable()
 export class HyperColorSchemes extends TerminalColorSchemeProvider {
     async getSchemes (): Promise<ITerminalColorScheme[]> {
-        let pluginsPath = path.join(process.env.HOME || (process.env.HOMEDRIVE + process.env.HOMEPATH), '.hyper_plugins', 'node_modules')
+        let pluginsPath = path.join(process.env.HOME, '.hyper_plugins', 'node_modules')
         if (!(await fs.exists(pluginsPath))) return []
         let plugins = await fs.readdir(pluginsPath)
 
