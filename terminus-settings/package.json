@@ -2,7 +2,9 @@
   "name": "terminus-settings",
   "version": "1.0.0-alpha.14",
   "description": "Terminus terminal settings page",
-  "keywords": ["terminus-plugin"],
+  "keywords": [
+    "terminus-plugin"
+  ],
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "scripts": {
