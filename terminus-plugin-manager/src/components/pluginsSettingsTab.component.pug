@@ -41,8 +41,8 @@ h3 Installed
                     i.fa.fa-fw.fa-circle-o-notch.fa-spin(*ngIf='busy[plugin.name] == BusyState.Uninstalling')
 
 .text-center.mt-5(*ngIf='npmMissing')
-    h4 NPM not installed
-    p.mb-2 The Node Package Manager is required to install Terminus plugins.
+    h4 npm not installed
+    p.mb-2 a(href='https://www.npmjs.com/')npm is required to install Terminus plugins.
     .btn-group
         button.btn.btn-outline-primary((click)='downloadNPM()')
             i.fa.fa-download
