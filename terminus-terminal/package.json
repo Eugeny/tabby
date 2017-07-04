@@ -2,7 +2,9 @@
   "name": "terminus-terminal",
   "version": "1.0.0-alpha.14",
   "description": "Terminus' terminal emulation core",
-  "keywords": ["terminus-plugin"],
+  "keywords": [
+    "terminus-plugin"
+  ],
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "scripts": {
