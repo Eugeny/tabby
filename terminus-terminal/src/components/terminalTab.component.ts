@@ -307,8 +307,10 @@ export class TerminalTabComponent extends BaseTabComponent {
             decorator.detach(this)
         })
         this.configSubscription.unsubscribe()
-        this.sessionCloseSubscription.unsubscribe()
         this.hotkeysSubscription.unsubscribe()
+        if (this.sessionCloseSubscription) {
+            this.sessionCloseSubscription.unsubscribe()
+        }
         this.resize$.complete()
         this.input$.complete()
         this.output$.complete()
@@ -320,7 +322,9 @@ export class TerminalTabComponent extends BaseTabComponent {
 
     async destroy () {
         super.destroy()
-        await this.session.destroy()
+        if (this.session) {
+            await this.session.destroy()
+        }
     }
 
     private setFontSize () {
