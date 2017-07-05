@@ -1,4 +1,4 @@
-import * as fs from 'fs-promise'
+import * as fs from 'mz/fs'
 import * as path from 'path'
 import { Injectable } from '@angular/core'
 import { TerminalColorSchemeProvider, ITerminalColorScheme } from './api'

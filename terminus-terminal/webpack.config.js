@@ -38,10 +38,10 @@ module.exports = {
   },
   externals: [
     'fs',
-    'fs-promise',
     'font-manager',
     'path',
     'node-pty',
+    'mz/fs',
     'mz/child_process',
     'winreg',
     /^rxjs/,

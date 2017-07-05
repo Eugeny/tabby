@@ -1,5 +1,5 @@
 import * as nodePTY from 'node-pty'
-import * as fs from 'fs-promise'
+import * as fs from 'mz/fs'
 import { Subject } from 'rxjs'
 import { Injectable } from '@angular/core'
 import { Logger, LogService } from 'terminus-core'

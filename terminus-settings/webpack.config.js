@@ -38,10 +38,8 @@ module.exports = {
   },
   externals: [
     'fs',
-    'fs-promise',
     'path',
     'node-pty',
-    'fs-promise',
     /^rxjs/,
     /^@angular/,
     /^@ng-bootstrap/,

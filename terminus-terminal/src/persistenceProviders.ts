@@ -1,4 +1,4 @@
-import * as fs from 'fs-promise'
+import * as fs from 'mz/fs'
 import { exec, spawn } from 'mz/child_process'
 import { exec as execCallback } from 'child_process'
 
