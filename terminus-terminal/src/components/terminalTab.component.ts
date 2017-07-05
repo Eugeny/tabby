@@ -322,7 +322,7 @@ export class TerminalTabComponent extends BaseTabComponent {
 
     async destroy () {
         super.destroy()
-        if (this.session) {
+        if (this.session && this.session.open) {
             await this.session.destroy()
         }
     }

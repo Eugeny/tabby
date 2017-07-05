@@ -110,6 +110,10 @@ export class ScreenPersistenceProvider extends SessionPersistenceProvider {
     }
 
     async terminateSession (recoveryId: string): Promise<void> {
-        await exec(`screen -S ${recoveryId} -X quit`)
+        try {
+            await exec(`screen -S ${recoveryId} -X quit`)
+        } catch (_) {
+            // screen has already quit
+        }
     }
 }
