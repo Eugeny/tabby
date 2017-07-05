@@ -93,7 +93,7 @@ export class AppRootComponent {
             this.docking.dock()
         })
 
-        this.hostApp.secondInstance.subscribe(() => {
+        this.hostApp.secondInstance$.subscribe(() => {
             this.onGlobalHotkey()
         })
         this.hotkeys.globalHotkey.subscribe(() => {

@@ -1,5 +1,7 @@
+import * as fs from 'mz/fs'
+import * as path from 'path'
 import { Injectable } from '@angular/core'
-import { HotkeysService, ToolbarButtonProvider, IToolbarButton, AppService, ConfigService } from 'terminus-core'
+import { HotkeysService, ToolbarButtonProvider, IToolbarButton, AppService, ConfigService, HostAppService } from 'terminus-core'
 
 import { SessionsService } from './services/sessions.service'
 import { ShellsService } from './services/shells.service'
@@ -12,6 +14,7 @@ export class ButtonProvider extends ToolbarButtonProvider {
         private sessions: SessionsService,
         private config: ConfigService,
         private shells: ShellsService,
+        hostApp: HostAppService,
         hotkeys: HotkeysService,
     ) {
         super()
@@ -20,11 +23,18 @@ export class ButtonProvider extends ToolbarButtonProvider {
                 this.openNewTab()
             }
         })
+        hostApp.secondInstance$.subscribe(async ({argv, cwd}) => {
+            if (argv.length === 2) {
+                let arg = path.resolve(cwd, argv[1])
+                if (await fs.exists(arg)) {
+                    this.openNewTab(arg)
+                }
+            }
+        })
     }
 
-    async openNewTab (): Promise<void> {
-        let cwd = null
-        if (this.app.activeTab instanceof TerminalTabComponent) {
+    async openNewTab (cwd?: string): Promise<void> {
+        if (!cwd && this.app.activeTab instanceof TerminalTabComponent) {
             cwd = await this.app.activeTab.session.getWorkingDirectory()
         }
         let command = this.config.store.terminal.shell

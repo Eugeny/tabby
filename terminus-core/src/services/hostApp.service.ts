@@ -1,3 +1,4 @@
+import { Subject } from 'rxjs'
 import { Injectable, NgZone, EventEmitter } from '@angular/core'
 import { ElectronService } from '../services/electron.service'
 import { Logger, LogService } from '../services/log.service'
@@ -20,7 +21,7 @@ export class HostAppService {
     quitRequested = new EventEmitter<any>()
     ready = new EventEmitter<any>()
     shown = new EventEmitter<any>()
-    secondInstance = new EventEmitter<any>()
+    secondInstance$ = new Subject<{ argv: string[], cwd: string }>()
 
     private logger: Logger
 
@@ -39,16 +40,16 @@ export class HostAppService {
 
         electron.ipcRenderer.on('host:quit-request', () => this.zone.run(() => this.quitRequested.emit()))
 
-        electron.ipcRenderer.on('uncaughtException', (err) => {
+        electron.ipcRenderer.on('uncaughtException', ($event, err) => {
             this.logger.error('Unhandled exception:', err)
         })
 
         electron.ipcRenderer.on('host:window-shown', () => {
-            this.shown.emit()
+            this.zone.run(() => this.shown.emit())
         })
 
-        electron.ipcRenderer.on('host:second-instance', () => {
-            this.secondInstance.emit()
+        electron.ipcRenderer.on('host:second-instance', ($event, argv: string[], cwd: string) => {
+            this.zone.run(() => this.secondInstance$.next({ argv, cwd }))
         })
 
         this.ready.subscribe(() => {

@@ -8,8 +8,8 @@ if (process.argv.indexOf('--debug') !== -1) {
 
 let app = electron.app
 
-let secondInstance = app.makeSingleInstance((argv) => {
-  app.window.webContents.send('host:second-instance')
+let secondInstance = app.makeSingleInstance((argv, cwd) => {
+  app.window.webContents.send('host:second-instance', argv, cwd)
 })
 
 if (secondInstance) {
