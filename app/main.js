@@ -108,25 +108,79 @@ setupWindowManagement = () => {
 
 
 setupMenu = () => {
-    var template = [{
+    let template = [{
         label: "Application",
         submenu: [
-            { type: "separator" },
-            { label: "Quit", accelerator: "CmdOrCtrl+Q", click: () => {
-                app.window.webContents.send('host:quit-request')
-            }}
+            { role: 'about', label: 'About Terminus' },
+            { type: 'separator' },
+            {
+                label: 'Preferences',
+                accelerator: 'Cmd+,',
+                click () {
+                    app.window.webContents.send('host:preferences-menu')
+                }
+            },
+            { type: 'separator' },
+            { role: 'services', submenu: [] },
+            { type: 'separator' },
+            { role: 'hide' },
+            { role: 'hideothers' },
+            { role: 'unhide' },
+            { type: 'separator' },
+            {
+                label: 'Quit',
+                accelerator: 'Cmd+Q',
+                click () {
+                    app.window.webContents.send('host:quit-request')
+                }
+            }
         ]
-      },
-      {
+    },
+    {
         label: "Edit",
         submenu: [
-            { label: "Undo", accelerator: "CmdOrCtrl+Z", selector: "undo:" },
-            { label: "Redo", accelerator: "Shift+CmdOrCtrl+Z", selector: "redo:" },
-            { type: "separator" },
-            { label: "Cut", accelerator: "CmdOrCtrl+X", selector: "cut:" },
-            { label: "Copy", accelerator: "CmdOrCtrl+C", selector: "copy:" },
-            { label: "Paste", accelerator: "CmdOrCtrl+V", selector: "paste:" },
-            { label: "Select All", accelerator: "CmdOrCtrl+A", selector: "selectAll:" }
+            {role: 'undo'},
+            {role: 'redo'},
+            {type: 'separator'},
+            {role: 'cut'},
+            {role: 'copy'},
+            {role: 'paste'},
+            {role: 'pasteandmatchstyle'},
+            {role: 'delete'},
+            {role: 'selectall'}
+        ]
+    },
+    {
+        label: 'View',
+        submenu: [
+            {role: 'reload'},
+            {role: 'forcereload'},
+            {role: 'toggledevtools'},
+            {type: 'separator'},
+            {role: 'resetzoom'},
+            {role: 'zoomin'},
+            {role: 'zoomout'},
+            {type: 'separator'},
+            {role: 'togglefullscreen'}
+        ]
+    },
+    {
+        role: 'window',
+        submenu: [
+            {role: 'close'},
+            {role: 'minimize'},
+            {role: 'zoom'},
+            {type: 'separator'},
+            {role: 'front'}
+        ]
+    },
+    {
+        role: 'help',
+        submenu: [
+            {
+                label: 'Website',
+                click () { electron.shell.openExternal('https://eugeny.github.io/terminus') }
+            }
         ]
     }]
 

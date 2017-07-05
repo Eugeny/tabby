@@ -19,6 +19,7 @@ export class HostAppService {
     platform: Platform
     nodePlatform: string
     quitRequested = new EventEmitter<any>()
+    preferencesMenu$ = new Subject<void>()
     ready = new EventEmitter<any>()
     shown = new EventEmitter<any>()
     secondInstance$ = new Subject<{ argv: string[], cwd: string }>()
@@ -39,6 +40,7 @@ export class HostAppService {
         }[this.nodePlatform]
 
         electron.ipcRenderer.on('host:quit-request', () => this.zone.run(() => this.quitRequested.emit()))
+        electron.ipcRenderer.on('host:preferences-menu', () => this.zone.run(() => this.preferencesMenu$.next()))
 
         electron.ipcRenderer.on('uncaughtException', ($event, err) => {
             this.logger.error('Unhandled exception:', err)
