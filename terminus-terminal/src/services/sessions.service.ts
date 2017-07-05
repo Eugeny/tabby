@@ -68,11 +68,15 @@ export class Session {
     }
 
     resize (columns, rows) {
-        this.pty.resize(columns, rows)
+        if (this.pty.writable) {
+            this.pty.resize(columns, rows)
+        }
     }
 
     write (data) {
-        this.pty.write(Buffer.from(data, 'utf-8'))
+        if (this.pty.writable) {
+            this.pty.write(Buffer.from(data, 'utf-8'))
+        }
     }
 
     kill (signal?: string) {
