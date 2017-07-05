@@ -1,8 +1,10 @@
-import { Observable } from 'rxjs'
-import { Injectable } from '@angular/core'
-import { Logger, LogService, ConfigService } from 'terminus-core'
+import * as path from 'path'
+import * as fs from 'mz/fs'
 import { exec } from 'mz/child_process'
 import axios from 'axios'
+import { Observable } from 'rxjs'
+import { Injectable } from '@angular/core'
+import { Logger, LogService, ConfigService, HostAppService, Platform } from 'terminus-core'
 
 const NAME_PREFIX = 'terminus-'
 const KEYWORD = 'terminus-plugin'
@@ -23,17 +25,35 @@ export class PluginManagerService {
     builtinPluginsPath: string = (window as any).builtinPluginsPath
     userPluginsPath: string = (window as any).userPluginsPath
     installedPlugins: IPluginInfo[] = (window as any).installedPlugins
+    npmPath: string
 
     constructor (
         log: LogService,
         private config: ConfigService,
+        private hostApp: HostAppService,
     ) {
         this.logger = log.create('pluginManager')
+        this.detectPath()
+    }
+
+    async detectPath () {
+        this.npmPath = this.config.store.npm
+        if (this.hostApp.platform !== Platform.Windows) {
+            let searchPaths = (await exec('bash -c -l "echo $PATH"'))[0].toString().trim().split(':')
+            for (let searchPath of searchPaths) {
+                if (await fs.exists(path.join(searchPath, 'npm'))) {
+                    this.logger.debug('Found npm in', searchPath)
+                    this.npmPath = path.join(searchPath, 'npm')
+                    return
+                }
+            }
+        }
     }
 
     async isNPMInstalled (): Promise<boolean> {
+        await this.detectPath()
         try {
-            await exec(`${this.config.store.npm} -v`)
+            await exec(`${this.npmPath} -v`)
             return true
         } catch (_) {
             return false
@@ -56,14 +76,14 @@ export class PluginManagerService {
     }
 
     async installPlugin (plugin: IPluginInfo) {
-        let result = await exec(`${this.config.store.npm} --prefix "${this.userPluginsPath}" install ${plugin.packageName}@${plugin.version}`)
+        let result = await exec(`${this.npmPath} --prefix "${this.userPluginsPath}" install ${plugin.packageName}@${plugin.version}`)
         console.log(result)
         this.installedPlugins = this.installedPlugins.filter(x => x.packageName !== plugin.packageName)
         this.installedPlugins.push(plugin)
     }
 
     async uninstallPlugin (plugin: IPluginInfo) {
-        await exec(`${this.config.store.npm} --prefix "${this.userPluginsPath}" remove ${plugin.packageName}`)
+        await exec(`${this.npmPath} --prefix "${this.userPluginsPath}" remove ${plugin.packageName}`)
         this.installedPlugins = this.installedPlugins.filter(x => x.packageName !== plugin.packageName)
     }
 }
