@@ -1,53 +1,90 @@
-<!DOCTYPE html><html><head><link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400" rel="stylesheet"><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"><link href="https://cdn.jsdelivr.net/g/bootstrap@4.0.0-alpha.6(css/bootstrap.min.css)" rel="stylesheet"><script src="https://cdn.jsdelivr.net/g/jquery@3.2.1,tether@1.4.0,bootstrap@4.0.0-alpha.6,modernizr@3.3.1,detectizr@2.2.0"></script><title>Terminus</title><style>body {
-    font-family: 'Source Sans Pro', sans-serif;
-    background: #111;
-    color: #ccc;
-    min-height: 100vh;
-    background-image: radial-gradient(#111, #000);
-}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Terminus - A terminal for a more modern age</title>
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./css/main.css">
+  </head>
+  <body>
+    <nav>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-11">
+            <h1 class="nav-title">Terminus</h1>
+          </div>
+          <div class="col-lg-1">
+            <a href="https://github.com/Eugeny/terminus" class="nav-link">Github</a>
+          </div>
+        </div>
+      </div>
+    </nav>
 
-h1 {
-    font-size: 64px;
-}
+    <header>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6 col-xs-12">
+            <div class="main">
+              <h1>Terminus</h1>
+              <p>A terminal for a more modern age</p>
+              <a href="https://github.com/Eugeny/terminus/releases/latest" class="download-btn">Download Now</a>
+            </div>
+          </div>
+          <div class="col-lg-6 col-xs-12">
+            <div class="video">
+              <video src="./assets/video.mp4" class="img-responsive" autoplay loop>
 
-h1, h2, h3, h5 {
-    font-weight: 300;
-    color: white;
-}
+              </video>
+              <p>Available for Windows, Mac and Linux</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
 
-.btn i + span,
-.nav-link i + span {
-    margin-left: 10px;
-}
+    <section class="features">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-4">
+            <h1>A proper windows experience</h1>
+            <p>
+              Clink provides tab completion,
+              readline-style editing and persistent
+              command history on Windows.
+              Also supports: Classic CMD, PowerShell,
+              Bash on Windows
+            </p>
+          </div>
+          <div class="col-lg-4">
+            <h1>User Experience</h1>
+            <ul>
+              <li>Spawn and hide with a global hotkey</li>
+              <li>Fully customizable hotkey schema</li>
+              <li>Drag in a file to paste the path</li>
+              <li>Click paths and URLs to open in browser/file manager</li>
+              <li>Kepps the current directory in new tabs</li>
+            </ul>
+          </div>
+          <div class="col-lg-4">
+            <h1>Customizable & Infinitely extensible</h1>
+            <p>
+              Multiple app themes and a myriad of
+              community color schemes for the terminal.
+              Color scheme editor included. You cal also
+              Install plugins from the NPM repository, or
+              create your own with Typescript and the
+              Angular framework.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-.btn-outline-primary {
-    color: #b6e7ff !important;
-}
-
-.nav-link {
-    font-size: 22px;
-}
-
-video, img {
-    max-width: 100%;
-    box-shadow: 0 0 50px black;
-}
-</style><script defer>setTimeout(function () {
-    /*
-    if (Detectizr.os.name == 'windows') {
-        $('[href="#windows"]').tab('show')
-    }
-    if (Detectizr.os.name == 'mac os') {
-        $('[href="#macos"]').tab('show')
-    }
-    if (Detectizr.os.name == 'linux') {
-        $('[href="#linux"]').tab('show')
-    }
-    */
-})</script></head><body><div class="container mt-5 mb-5"><div class="text-center"><h1>Terminus</h1><h5>A terminal for a more modern age</h5><h2 class="text-muted">alpha</h2></div><div class="d-flex flex-row mt-5 mb-5"><ul class="nav nav-pills flex-column mr-5" style="min-width: 200px;"><li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#windows" role="tab"><i class="fa fa-windows"></i><span>Windows</span></a></li><li class="nav-item"><a class="nav-link" data-toggle="tab" href="#macos" role="tab"><i class="fa fa-apple"></i><span>macOS</span></a></li><li class="nav-item"><a class="nav-link" data-toggle="tab" href="#linux" role="tab"><i class="fa fa-linux"></i><span>Linux</span></a></li></ul><div class="tab-content"><div class="tab-pane active" id="windows" role="tabpanel"><div class="row"><div class="col-6"><video src="videos/windows.mp4" autoplay loop></video></div><div class="col-6"><h3>A proper Windows experience</h3><p> <b>Clink </b>provides tab completion, readline-style editing and persistent command history on Windows.</p><p>Also supported:<ul> <li>Classic CMD</li><li>PowerShell </li><li>Bash on Windows </li></ul></p></div></div></div><div class="tab-pane" id="macos" role="tabpanel"><div class="row"><div class="col-6"><!--video(src='videos/windows.mp4', autoplay, loop)--></div><div class="col-6"><h3>Well...</h3><p>Not much to say here, it just works.</p></div></div></div><div class="tab-pane" id="linux" role="tabpanel"><div class="row"><div class="col-6"><img src="linux.png"></div><div class="col-6"><p><ul> <li>Spawn with a global hotkey</li><li>Tabs persist after restart</li><li>Auto-dock to any side of any screen</li><li>Full Unicode and double-width character support</li></ul></p></div></div></div></div></div><div class="text-center"><div class="mt-3 mb-3"><h2></h2><div><div class="btn-group mt-3 mb-1"><a class="btn btn-lg btn-outline-success" href="https://github.com/Eugeny/terminus/releases/latest" target="_blank"><i class="fa fa-download"></i><span>Downloads</span></a><a class="btn btn-lg btn-outline-secondary" href="https://github.com/Eugeny/terminus" target="_blank"><i class="fa fa-github"></i><span>GitHub</span></a></div></div><small class="text-muted">EXE, DMG, DEB, RPM, TGZ</small></div></div><div class="row mt-5"><div class="col-6"><h3>User experience</h3><ul><li>Spawn and hide with a global hotkey</li><li>Fully customizable hotkey schema</li><li>Restores tabs </li><li>Drag in a file to paste the path</li><li>Click paths and URLs to open in browser/file manager</li><li>Keeps the current directory in new tabs</li></ul></div><div class="col-6"><div class="mb-5"><h3>Customizable</h3><p>Multiple app themes and a myriad of community color schemes for the terminal. Color scheme editor included.</p></div><div>       <h3>Infinitely extensible</h3><p>Install plugins from the NPM repository, or create your own with Typescript and Angular framework.</p></div></div></div></div><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-ga('create', 'UA-3278102-18', 'auto');
-ga('send', 'pageview');</script></body></html>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="./js/bootstrap.min.js"></script>
+  </body>
+</html>
