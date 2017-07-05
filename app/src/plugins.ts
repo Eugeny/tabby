@@ -44,6 +44,7 @@ export interface IPluginInfo {
     packageName: string
     isBuiltin: boolean
     version: string
+    author: string
     homepage?: string
     path?: string
     info?: any
@@ -116,12 +117,15 @@ export async function findPlugins (): Promise<IPluginInfo[]> {
             if (!info.keywords || info.keywords.indexOf('terminus-plugin') === -1) {
                 continue
             }
+            let author = info.author
+            author = author.name || author
             foundPlugins.push({
                 name: pluginName.substring('terminus-'.length),
                 packageName: pluginName,
                 isBuiltin: pluginDir === builtinPluginsPath,
                 version: info.version,
                 description: info.description,
+                author,
                 path: pluginPath,
                 info,
             })

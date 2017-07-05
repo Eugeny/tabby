@@ -15,7 +15,9 @@ h3 Installed
                 .mr-auto.d-flex.flex-column
                     strong {{plugin.name}}
                     small.text-muted.mb-0 {{plugin.description}}
-                p.mb-0.mr-3 {{plugin.version}}
+                .d-flex.flex-column.align-items-end.mr-3
+                    div {{plugin.version}}
+                    small.text-muted {{plugin.author}}
                 button.btn.btn-outline-primary(
                     *ngIf='npmInstalled',
                     (click)='upgradePlugin(plugin)',
@@ -31,7 +33,10 @@ h3 Installed
                 .mr-auto.d-flex.flex-column
                     strong {{plugin.name}}
                     small.text-muted.mb-0 {{plugin.description}}
-                p.mb-0.mr-3 {{plugin.version}}
+                .d-flex.flex-column.align-items-end.mr-3 
+                    div {{plugin.version}}
+                    small.text-muted {{plugin.author}}
+                        i.fa.fa-check.text-success.ml-1(*ngIf='plugin.isOfficial', title='Official')
                 button.btn.btn-outline-danger(
                     (click)='uninstallPlugin(plugin)', 
                     *ngIf='!plugin.isBuiltin && npmInstalled',
@@ -73,7 +78,10 @@ div(*ngIf='npmInstalled')
                     .mr-auto.d-flex.flex-column
                         strong {{plugin.name}}
                         small.text-muted.mb-0 {{plugin.description}}
-                    p.mb-0.mr-3 {{plugin.version}}
+                    .d-flex.flex-column.align-items-end.mr-3 
+                        div {{plugin.version}}
+                        small.text-muted {{plugin.author}}
+                            i.fa.fa-check.text-success.ml-1(*ngIf='plugin.isOfficial', title='Official')
                     button.btn.btn-outline-primary(
                         (click)='installPlugin(plugin)',
                         [disabled]='busy[plugin.name] != undefined'

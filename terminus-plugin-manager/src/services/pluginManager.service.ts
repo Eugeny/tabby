@@ -8,14 +8,17 @@ import { Logger, LogService, ConfigService, HostAppService, Platform } from 'ter
 
 const NAME_PREFIX = 'terminus-'
 const KEYWORD = 'terminus-plugin'
+const OFFICIAL_NPM_ACCOUNT = 'eugenepankov'
 
 export interface IPluginInfo {
     name: string
     description: string
     packageName: string
     isBuiltin: boolean
+    isOfficial: boolean
     version: string
     homepage?: string
+    author: string
     path?: string
 }
 
@@ -65,12 +68,15 @@ export class PluginManagerService {
             .fromPromise(
                 axios.get(`https://www.npmjs.com/-/search?text=keywords:${KEYWORD}+${encodeURIComponent(query || '')}&from=0&size=1000`)
             )
+            .do(response => console.log(response.data.objects))
             .map(response => response.data.objects.map(item => ({
                 name: item.package.name.substring(NAME_PREFIX.length),
                 packageName: item.package.name,
                 description: item.package.description,
                 version: item.package.version,
                 homepage: item.package.links.homepage,
+                author: (item.package.author || {}).name,
+                isOfficial: item.package.publisher.username === OFFICIAL_NPM_ACCOUNT,
             })))
             .map(plugins => plugins.filter(x => x.packageName.startsWith(NAME_PREFIX)))
     }
