@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs'
 import { Injectable } from '@angular/core'
-import { Logger, LogService } from 'terminus-core'
+import { Logger, LogService, ConfigService } from 'terminus-core'
 import { exec } from 'mz/child_process'
 import axios from 'axios'
 
@@ -23,17 +23,17 @@ export class PluginManagerService {
     builtinPluginsPath: string = (window as any).builtinPluginsPath
     userPluginsPath: string = (window as any).userPluginsPath
     installedPlugins: IPluginInfo[] = (window as any).installedPlugins
-    npmBinary = 'npm'
 
     constructor (
         log: LogService,
+        private config: ConfigService,
     ) {
         this.logger = log.create('pluginManager')
     }
 
     async isNPMInstalled (): Promise<boolean> {
         try {
-            await exec(`${this.npmBinary} -v`)
+            await exec(`${this.config.store.npm} -v`)
             return true
         } catch (_) {
             return false
@@ -56,14 +56,14 @@ export class PluginManagerService {
     }
 
     async installPlugin (plugin: IPluginInfo) {
-        let result = await exec(`${this.npmBinary} --prefix "${this.userPluginsPath}" install ${plugin.packageName}@${plugin.version}`)
+        let result = await exec(`${this.config.store.npm} --prefix "${this.userPluginsPath}" install ${plugin.packageName}@${plugin.version}`)
         console.log(result)
         this.installedPlugins = this.installedPlugins.filter(x => x.packageName !== plugin.packageName)
         this.installedPlugins.push(plugin)
     }
 
     async uninstallPlugin (plugin: IPluginInfo) {
-        await exec(`${this.npmBinary} --prefix "${this.userPluginsPath}" remove ${plugin.packageName}`)
+        await exec(`${this.config.store.npm} --prefix "${this.userPluginsPath}" remove ${plugin.packageName}`)
         this.installedPlugins = this.installedPlugins.filter(x => x.packageName !== plugin.packageName)
     }
 }

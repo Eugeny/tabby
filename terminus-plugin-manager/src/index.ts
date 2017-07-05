@@ -4,10 +4,12 @@ import { FormsModule } from '@angular/forms'
 import { NgPipesModule } from 'ngx-pipes'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 
+import { ConfigProvider } from 'terminus-core'
 import { SettingsTabProvider } from 'terminus-settings'
 
 import { PluginsSettingsTabComponent } from './components/pluginsSettingsTab.component'
 import { PluginManagerService } from './services/pluginManager.service'
+import { PluginsConfigProvider } from './config'
 import { PluginsSettingsTabProvider } from './settings'
 
 @NgModule({
@@ -19,6 +21,7 @@ import { PluginsSettingsTabProvider } from './settings'
     ],
     providers: [
         { provide: SettingsTabProvider, useClass: PluginsSettingsTabProvider, multi: true },
+        { provide: ConfigProvider, useClass: PluginsConfigProvider, multi: true },
         PluginManagerService,
     ],
     entryComponents: [

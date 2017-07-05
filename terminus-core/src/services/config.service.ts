@@ -67,7 +67,7 @@ export class ConfigService {
         this.defaults = configProviders.map(provider => {
             let defaults = {}
             if (provider.platformDefaults) {
-                defaults = configMerge(defaults, provider.platformDefaults[hostApp.platform])
+                defaults = configMerge(defaults, provider.platformDefaults[hostApp.platform] || {})
             }
             if (provider.defaults) {
                 defaults = configMerge(defaults, provider.defaults)
