@@ -47,6 +47,9 @@ export class TerminalConfigProvider extends ConfigProvider {
                 'copy': [
                     '⌘-C',
                 ],
+                'clear': [
+                    '⌘-K',
+                ],
                 'zoom-in': [
                     '⌘-=',
                     '⌘-Shift-+',
@@ -75,6 +78,9 @@ export class TerminalConfigProvider extends ConfigProvider {
                 'copy': [
                     'Ctrl-Shift-C',
                 ],
+                'clear': [
+                    'Ctrl-L',
+                ],
                 'zoom-in': [
                     'Ctrl-=',
                     'Ctrl-Shift-+',
@@ -101,6 +107,9 @@ export class TerminalConfigProvider extends ConfigProvider {
             hotkeys: {
                 'copy': [
                     'Ctrl-Shift-C',
+                ],
+                'clear': [
+                    'Ctrl-L',
                 ],
                 'zoom-in': [
                     'Ctrl-=',

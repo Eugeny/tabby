@@ -9,6 +9,10 @@ export class TerminalHotkeyProvider extends HotkeyProvider {
             name: 'Copy to clipboard',
         },
         {
+            id: 'clear',
+            name: 'Clear terminal',
+        },
+        {
             id: 'zoom-in',
             name: 'Zoom in',
         },

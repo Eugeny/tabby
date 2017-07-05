@@ -75,6 +75,9 @@ export class TerminalTabComponent extends BaseTabComponent {
             if (hotkey === 'copy') {
                 this.hterm.copySelectionToClipboard()
             }
+            if (hotkey === 'clear') {
+                this.clear()
+            }
             if (hotkey === 'zoom-in') {
                 this.zoomIn()
             }
@@ -232,6 +235,11 @@ export class TerminalTabComponent extends BaseTabComponent {
 
     write (data: string) {
         this.io.writeUTF8(data)
+    }
+
+    clear () {
+        this.hterm.wipeContents()
+        this.hterm.onVTKeystroke('\f')
     }
 
     async configure (): Promise<void> {
