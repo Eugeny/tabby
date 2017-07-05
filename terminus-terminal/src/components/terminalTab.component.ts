@@ -69,6 +69,12 @@ export class TerminalTabComponent extends BaseTabComponent {
             this.session.releaseInitialDataBuffer()
         })
         this.hotkeysSubscription = this.hotkeys.matchedHotkey.subscribe(hotkey => {
+            if (!this.hasFocus) {
+                return
+            }
+            if (hotkey === 'copy') {
+                this.hterm.copySelectionToClipboard()
+            }
             if (hotkey === 'zoom-in') {
                 this.zoomIn()
             }

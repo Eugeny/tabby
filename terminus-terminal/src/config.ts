@@ -44,6 +44,9 @@ export class TerminalConfigProvider extends ConfigProvider {
                 shell: '~default-shell~',
             },
             hotkeys: {
+                'copy': [
+                    '⌘-C',
+                ],
                 'zoom-in': [
                     '⌘-=',
                     '⌘-Shift-+',
@@ -69,6 +72,9 @@ export class TerminalConfigProvider extends ConfigProvider {
                 shell: '~clink~',
             },
             hotkeys: {
+                'copy': [
+                    'Ctrl-Shift-C',
+                ],
                 'zoom-in': [
                     'Ctrl-=',
                     'Ctrl-Shift-+',
@@ -93,6 +99,9 @@ export class TerminalConfigProvider extends ConfigProvider {
                 shell: '~default-shell~',
             },
             hotkeys: {
+                'copy': [
+                    'Ctrl-Shift-C',
+                ],
                 'zoom-in': [
                     'Ctrl-=',
                     'Ctrl-Shift-+',
