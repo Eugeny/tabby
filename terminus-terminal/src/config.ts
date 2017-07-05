@@ -51,6 +51,9 @@ export class TerminalConfigProvider extends ConfigProvider {
                     '⌘--',
                     '⌘-Shift-_',
                 ],
+                'reset-zoom': [
+                    '⌘-0',
+                ],
                 'new-tab': [
                     ['Ctrl-A', 'C'],
                     ['Ctrl-A', 'Ctrl-C'],
@@ -73,6 +76,9 @@ export class TerminalConfigProvider extends ConfigProvider {
                     'Ctrl--',
                     'Ctrl-Shift-_',
                 ],
+                'reset-zoom': [
+                    'Ctrl-0',
+                ],
                 'new-tab': [
                     ['Ctrl-A', 'C'],
                     ['Ctrl-A', 'Ctrl-C'],
@@ -93,6 +99,9 @@ export class TerminalConfigProvider extends ConfigProvider {
                 'zoom-out': [
                     'Ctrl--',
                     'Ctrl-Shift-_',
+                ],
+                'reset-zoom': [
+                    'Ctrl-0',
                 ],
                 'new-tab': [
                     ['Ctrl-A', 'C'],
