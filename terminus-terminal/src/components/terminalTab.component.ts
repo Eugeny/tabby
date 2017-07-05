@@ -1,3 +1,4 @@
+const dataurl = require('dataurl')
 import { BehaviorSubject, Subject, Subscription } from 'rxjs'
 import 'rxjs/add/operator/bufferTime'
 import { Component, NgZone, Inject, Optional, ViewChild, HostBinding, Input } from '@angular/core'
@@ -260,6 +261,28 @@ export class TerminalTabComponent extends BaseTabComponent {
         if (config.terminal.colorScheme.cursor) {
             preferenceManager.set('cursor-color', config.terminal.colorScheme.cursor)
         }
+
+        let css = require('../hterm.userCSS.scss')
+        if (!config.terminal.ligatures) {
+            css += `
+                * {
+                    font-feature-settings: "liga" 0;
+                    font-variant-ligatures: none;
+                }
+            `
+        } else {
+            css += `
+                * {
+                    font-feature-settings: "liga" 1;
+                    font-variant-ligatures: initial;
+                }
+            `
+        }
+        preferenceManager.set('user-css', dataurl.convert({
+            data: css,
+            mimetype: 'text/css',
+            charset: 'utf8',
+        }))
 
         this.hterm.setBracketedPaste(config.terminal.bracketedPaste)
     }
