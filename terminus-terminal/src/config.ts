@@ -43,6 +43,14 @@ export class TerminalConfigProvider extends ConfigProvider {
                 shell: '~default-shell~',
             },
             hotkeys: {
+                'zoom-in': [
+                    '⌘-=',
+                    '⌘-Shift-+',
+                ],
+                'zoom-out': [
+                    '⌘--',
+                    '⌘-Shift-_',
+                ],
                 'new-tab': [
                     ['Ctrl-A', 'C'],
                     ['Ctrl-A', 'Ctrl-C'],
@@ -57,6 +65,14 @@ export class TerminalConfigProvider extends ConfigProvider {
                 shell: '~clink~',
             },
             hotkeys: {
+                'zoom-in': [
+                    'Ctrl-=',
+                    'Ctrl-Shift-+',
+                ],
+                'zoom-out': [
+                    'Ctrl--',
+                    'Ctrl-Shift-_',
+                ],
                 'new-tab': [
                     ['Ctrl-A', 'C'],
                     ['Ctrl-A', 'Ctrl-C'],
@@ -70,6 +86,14 @@ export class TerminalConfigProvider extends ConfigProvider {
                 shell: '~default-shell~',
             },
             hotkeys: {
+                'zoom-in': [
+                    'Ctrl-=',
+                    'Ctrl-Shift-+',
+                ],
+                'zoom-out': [
+                    'Ctrl--',
+                    'Ctrl-Shift-_',
+                ],
                 'new-tab': [
                     ['Ctrl-A', 'C'],
                     ['Ctrl-A', 'Ctrl-C'],

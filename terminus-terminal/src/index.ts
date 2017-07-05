@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser'
 import { FormsModule } from '@angular/forms'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 
-import { HostAppService, Platform, ToolbarButtonProvider, TabRecoveryProvider, ConfigProvider, HotkeysService } from 'terminus-core'
+import { HostAppService, Platform, ToolbarButtonProvider, TabRecoveryProvider, ConfigProvider, HotkeysService, HotkeyProvider } from 'terminus-core'
 import { SettingsTabProvider } from 'terminus-settings'
 
 import { TerminalTabComponent } from './components/terminalTab.component'
@@ -19,6 +19,7 @@ import { SessionPersistenceProvider, TerminalColorSchemeProvider, TerminalDecora
 import { TerminalSettingsTabProvider } from './settings'
 import { PathDropDecorator } from './pathDrop'
 import { TerminalConfigProvider } from './config'
+import { TerminalHotkeyProvider } from './hotkeys'
 import { HyperColorSchemes } from './colorSchemes'
 import { hterm } from './hterm'
 
@@ -46,6 +47,7 @@ import { hterm } from './hterm'
         },
         { provide: SettingsTabProvider, useClass: TerminalSettingsTabProvider, multi: true },
         { provide: ConfigProvider, useClass: TerminalConfigProvider, multi: true },
+        { provide: HotkeyProvider, useClass: TerminalHotkeyProvider, multi: true },
         { provide: TerminalColorSchemeProvider, useClass: HyperColorSchemes, multi: true },
         { provide: TerminalDecorator, useClass: PathDropDecorator, multi: true },
     ],

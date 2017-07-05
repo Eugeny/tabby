@@ -179,10 +179,6 @@ export class AppHotkeyProvider extends HotkeyProvider {
             name: 'Toggle terminal window',
         },
         {
-            id: 'new-tab',
-            name: 'New tab',
-        },
-        {
             id: 'close-tab',
             name: 'Close tab',
         },

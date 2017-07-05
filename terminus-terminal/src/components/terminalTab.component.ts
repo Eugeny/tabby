@@ -1,7 +1,7 @@
 import { BehaviorSubject, Subject, Subscription } from 'rxjs'
 import 'rxjs/add/operator/bufferTime'
 import { Component, NgZone, Inject, Optional, ViewChild, HostBinding, Input } from '@angular/core'
-import { AppService, ConfigService, BaseTabComponent, ThemesService, HostAppService, Platform } from 'terminus-core'
+import { AppService, ConfigService, BaseTabComponent, ThemesService, HostAppService, HotkeysService, Platform } from 'terminus-core'
 
 import { Session, SessionsService } from '../services/sessions.service'
 
@@ -16,11 +16,13 @@ import { hterm, preferenceManager } from '../hterm'
 export class TerminalTabComponent extends BaseTabComponent {
     session: Session
     @Input() sessionOptions: SessionOptions
+    @Input() zoom = 0
     @ViewChild('content') content
     @HostBinding('style.background-color') backgroundColor: string
     hterm: any
     configSubscription: Subscription
     sessionCloseSubscription: Subscription
+    hotkeysSubscription: Subscription
     bell$ = new Subject()
     size: ResizeEvent
     resize$ = new Subject<ResizeEvent>()
@@ -37,6 +39,7 @@ export class TerminalTabComponent extends BaseTabComponent {
         private app: AppService,
         private themes: ThemesService,
         private hostApp: HostAppService,
+        private hotkeys: HotkeysService,
         private sessions: SessionsService,
         public config: ConfigService,
         @Optional() @Inject(TerminalDecorator) private decorators: TerminalDecorator[],
@@ -63,6 +66,17 @@ export class TerminalTabComponent extends BaseTabComponent {
                 this.app.closeTab(this)
             })
             this.session.releaseInitialDataBuffer()
+        })
+        this.hotkeysSubscription = this.hotkeys.matchedHotkey.subscribe(hotkey => {
+            if (hotkey === 'zoom-in') {
+                this.zoomIn()
+            }
+            if (hotkey === 'zoom-out') {
+                this.zoomOut()
+            }
+            if (hotkey === 'reset-zoom') {
+                this.resetZoom()
+            }
         })
     }
 
@@ -150,10 +164,18 @@ export class TerminalTabComponent extends BaseTabComponent {
         const _onMouse = hterm.onMouse_.bind(hterm)
         hterm.onMouse_ = (event) => {
             this.mouseEvent$.next(event)
-            if ((event.ctrlKey || event.metaKey) && event.type === 'mousewheel') {
-                event.preventDefault()
-                let delta = Math.round(event.wheelDeltaY / 50)
-                this.sendInput(((delta > 0) ? '\u001bOA' : '\u001bOB').repeat(Math.abs(delta)))
+            if (event.type === 'mousewheel') {
+                if (event.ctrlKey || event.metaKey) {
+                    if (event.wheelDeltaY < 0) {
+                        this.zoomIn()
+                    } else {
+                        this.zoomOut()
+                    }
+                } else if (event.altKey) {
+                    event.preventDefault()
+                    let delta = Math.round(event.wheelDeltaY / 50)
+                    this.sendInput(((delta > 0) ? '\u001bOA' : '\u001bOB').repeat(Math.abs(delta)))
+                }
             }
             _onMouse(event)
         }
@@ -208,7 +230,7 @@ export class TerminalTabComponent extends BaseTabComponent {
     async configure (): Promise<void> {
         let config = this.config.store
         preferenceManager.set('font-family', config.terminal.font)
-        preferenceManager.set('font-size', config.terminal.fontSize)
+        this.setFontSize()
         preferenceManager.set('enable-bold', true)
         preferenceManager.set('audible-bell-sound', '')
         preferenceManager.set('desktop-notification-bell', config.terminal.bell === 'notification')
@@ -242,12 +264,28 @@ export class TerminalTabComponent extends BaseTabComponent {
         this.hterm.setBracketedPaste(config.terminal.bracketedPaste)
     }
 
+    zoomIn () {
+        this.zoom++
+        this.setFontSize()
+    }
+
+    zoomOut () {
+        this.zoom--
+        this.setFontSize()
+    }
+
+    resetZoom () {
+        this.zoom = 0
+        this.setFontSize()
+    }
+
     ngOnDestroy () {
-        this.decorators.forEach((decorator) => {
+        this.decorators.forEach(decorator => {
             decorator.detach(this)
         })
         this.configSubscription.unsubscribe()
         this.sessionCloseSubscription.unsubscribe()
+        this.hotkeysSubscription.unsubscribe()
         this.resize$.complete()
         this.input$.complete()
         this.output$.complete()
@@ -260,5 +298,9 @@ export class TerminalTabComponent extends BaseTabComponent {
     async destroy () {
         super.destroy()
         await this.session.destroy()
+    }
+
+    private setFontSize () {
+        preferenceManager.set('font-size', this.config.store.terminal.fontSize * Math.pow(1.1, this.zoom))
     }
 }
