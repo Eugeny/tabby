@@ -1,10 +1,8 @@
-import * as path from 'path'
-import { exec } from 'mz/child_process'
-import * as fs from 'mz/fs'
 import { Injectable } from '@angular/core'
-import { HotkeysService, ToolbarButtonProvider, IToolbarButton, AppService, ConfigService, ElectronService, HostAppService, Platform } from 'terminus-core'
+import { HotkeysService, ToolbarButtonProvider, IToolbarButton, AppService, ConfigService } from 'terminus-core'
 
 import { SessionsService } from './services/sessions.service'
+import { ShellsService } from './services/shells.service'
 import { TerminalTabComponent } from './components/terminalTab.component'
 
 @Injectable()
@@ -13,8 +11,7 @@ export class ButtonProvider extends ToolbarButtonProvider {
         private app: AppService,
         private sessions: SessionsService,
         private config: ConfigService,
-        private electron: ElectronService,
-        private hostApp: HostAppService,
+        private shells: ShellsService,
         hotkeys: HotkeysService,
     ) {
         super()
@@ -32,35 +29,11 @@ export class ButtonProvider extends ToolbarButtonProvider {
         }
         let command = this.config.store.terminal.shell
         let args = []
-        // TODO move this?
         if (command === '~clink~') {
-            command = 'cmd.exe'
-            args = [
-                '/k',
-                path.join(
-                    path.dirname(this.electron.app.getPath('exe')),
-                    (process.platform === 'darwin') ? '../Resources' : 'resources',
-                    'clink',
-                    `clink_${process.arch}.exe`,
-                ),
-                'inject',
-            ]
+            ({ command, args } = this.shells.getClinkOptions())
         }
         if (command === '~default-shell~') {
-            if (this.hostApp.platform === Platform.Linux) {
-                let line = (await fs.readFile('/etc/passwd', { encoding: 'utf-8' }))
-                    .split('\n').find(x => x.startsWith(process.env.LOGNAME + ':'))
-                if (!line) {
-                    console.warn('Could not detect user shell')
-                    command = '/bin/sh'
-                } else {
-                    command = line.split(':')[6]
-                }
-            }
-            if (this.hostApp.platform === Platform.macOS) {
-                let shellEntry = (await exec(`dscl . -read /Users/${process.env.LOGNAME} UserShell`))[0].toString()
-                command = shellEntry.split(':')[1].trim()
-            }
+            command = await this.shells.getDefaultShell()
         }
         let sessionOptions = await this.sessions.prepareNewSession({ command, args, cwd })
         this.app.openNewTab(

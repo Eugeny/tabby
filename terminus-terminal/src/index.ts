@@ -11,6 +11,7 @@ import { TerminalSettingsTabComponent } from './components/terminalSettingsTab.c
 import { ColorPickerComponent } from './components/colorPicker.component'
 
 import { SessionsService } from './services/sessions.service'
+import { ShellsService } from './services/shells.service'
 
 import { ScreenPersistenceProvider } from './persistenceProviders'
 import { ButtonProvider } from './buttonProvider'
@@ -31,6 +32,7 @@ import { hterm } from './hterm'
     ],
     providers: [
         SessionsService,
+        ShellsService,
         ScreenPersistenceProvider,
         { provide: ToolbarButtonProvider, useClass: ButtonProvider, multi: true },
         { provide: TabRecoveryProvider, useClass: RecoveryProvider, multi: true },
