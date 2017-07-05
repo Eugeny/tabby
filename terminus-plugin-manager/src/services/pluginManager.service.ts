@@ -41,6 +41,9 @@ export class PluginManagerService {
 
     async detectPath () {
         this.npmPath = this.config.store.npm
+        if (await fs.exists(this.npmPath)) {
+            return
+        }
         if (this.hostApp.platform !== Platform.Windows) {
             let searchPaths = (await exec('bash -c -l "echo $PATH"'))[0].toString().trim().split(':')
             for (let searchPath of searchPaths) {
