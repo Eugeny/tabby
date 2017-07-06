@@ -5,6 +5,14 @@ import { IHotkeyDescription, HotkeyProvider } from 'terminus-core'
 export class TerminalHotkeyProvider extends HotkeyProvider {
     hotkeys: IHotkeyDescription[] = [
         {
+            id: 'copy',
+            name: 'Copy to clipboard',
+        },
+        {
+            id: 'clear',
+            name: 'Clear terminal',
+        },
+        {
             id: 'zoom-in',
             name: 'Zoom in',
         },
