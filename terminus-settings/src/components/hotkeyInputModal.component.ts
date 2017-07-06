@@ -73,6 +73,7 @@ export class HotkeyInputModalComponent {
     }
 
     ngOnDestroy () {
+        this.hotkeys.clearCurrentKeystrokes()
         this.hotkeys.enable()
         clearInterval(this.keyTimeoutInterval)
     }

@@ -45,7 +45,9 @@ export function stringifyKeySequence (events: NativeKeyEvent[]): string[] {
                 // TODO make this optional?
                 continue
             }
-            if (event.key.length === 1) {
+            if (event.key === ' ') {
+                itemKeys.push('Space')
+            } else if (event.key.length === 1) {
                 itemKeys.push(event.key.toUpperCase())
             } else {
                 itemKeys.push(event.key)
