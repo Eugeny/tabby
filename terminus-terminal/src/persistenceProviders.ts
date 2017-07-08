@@ -88,7 +88,7 @@ export class ScreenPersistenceProvider extends SessionPersistenceProvider {
         await fs.writeFile(configPath, `
             escape ^^^
             vbell on
-            deflogin off
+            deflogin on
             term xterm-color
             bindkey "^[OH" beginning-of-line
             bindkey "^[OF" end-of-line
@@ -98,6 +98,8 @@ export class ScreenPersistenceProvider extends SessionPersistenceProvider {
             defhstatus "^Et"
             hardstatus off
             altscreen on
+            defutf8 on
+            defencoding utf8
         `, 'utf-8')
         let recoveryId = `term-tab-${Date.now()}`
         let args = ['-d', '-m', '-c', configPath, '-U', '-S', recoveryId, '-T', 'xterm-256color', '--', '-' + options.command].concat(options.args || [])
