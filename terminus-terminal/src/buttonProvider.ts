@@ -1,7 +1,7 @@
 import * as fs from 'mz/fs'
 import * as path from 'path'
 import { Injectable } from '@angular/core'
-import { HotkeysService, ToolbarButtonProvider, IToolbarButton, AppService, ConfigService, HostAppService } from 'terminus-core'
+import { HotkeysService, ToolbarButtonProvider, IToolbarButton, AppService, ConfigService, HostAppService, ElectronService } from 'terminus-core'
 
 import { SessionsService } from './services/sessions.service'
 import { ShellsService } from './services/shells.service'
@@ -14,6 +14,7 @@ export class ButtonProvider extends ToolbarButtonProvider {
         private sessions: SessionsService,
         private config: ConfigService,
         private shells: ShellsService,
+        electron: ElectronService,
         hostApp: HostAppService,
         hotkeys: HotkeysService,
     ) {
@@ -31,6 +32,18 @@ export class ButtonProvider extends ToolbarButtonProvider {
                 }
             }
         })
+        if (!electron.remote.process.env.DEV) {
+            setImmediate(async () => {
+                let argv: string[] = electron.remote.process.argv
+                for (let arg of argv.slice(1)) {
+                    if (await fs.exists(arg)) {
+                        if ((await fs.stat(arg)).isDirectory()) {
+                            this.openNewTab(arg)
+                        }
+                    }
+                }
+            })
+        }
     }
 
     async openNewTab (cwd?: string): Promise<void> {

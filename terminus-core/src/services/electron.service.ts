@@ -9,12 +9,12 @@ export class ElectronService {
     clipboard: any
     globalShortcut: any
     screen: any
+    remote: any
     private electron: any
-    private remoteElectron: any
 
     constructor () {
         this.electron = require('electron')
-        this.remoteElectron = this.remoteRequire('electron')
+        this.remote = this.electron.remote
         this.app = this.electron.remote.app
         this.screen = this.electron.remote.screen
         this.dialog = this.electron.remote.dialog
@@ -25,6 +25,6 @@ export class ElectronService {
     }
 
     remoteRequire (name: string): any {
-        return this.electron.remote.require(name)
+        return this.remote.require(name)
     }
 }
