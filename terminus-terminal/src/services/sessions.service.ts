@@ -25,8 +25,8 @@ export class Session {
 
         let env = {
             ...process.env,
-            ...options.env,
             TERM: 'xterm-256color',
+            ...options.env,
         }
 
         if (process.platform === 'darwin' && !process.env.LC_ALL) {

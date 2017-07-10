@@ -1,7 +1,7 @@
 import * as fs from 'mz/fs'
 import * as path from 'path'
 import { Injectable } from '@angular/core'
-import { HotkeysService, ToolbarButtonProvider, IToolbarButton, AppService, ConfigService, HostAppService, ElectronService } from 'terminus-core'
+import { HotkeysService, ToolbarButtonProvider, IToolbarButton, AppService, ConfigService, HostAppService, Platform, ElectronService } from 'terminus-core'
 
 import { SessionsService } from './services/sessions.service'
 import { ShellsService } from './services/shells.service'
@@ -14,8 +14,8 @@ export class ButtonProvider extends ToolbarButtonProvider {
         private sessions: SessionsService,
         private config: ConfigService,
         private shells: ShellsService,
+        private hostApp: HostAppService,
         electron: ElectronService,
-        hostApp: HostAppService,
         hotkeys: HotkeysService,
     ) {
         super()
@@ -51,14 +51,23 @@ export class ButtonProvider extends ToolbarButtonProvider {
             cwd = await this.app.activeTab.session.getWorkingDirectory()
         }
         let command = this.config.store.terminal.shell
-        let args = []
+        let env: any = {}
+        let args: string[] = []
         if (command === '~clink~') {
             ({ command, args } = this.shells.getClinkOptions())
         }
         if (command === '~default-shell~') {
             command = await this.shells.getDefaultShell()
         }
-        let sessionOptions = await this.sessions.prepareNewSession({ command, args, cwd })
+        if (this.hostApp.platform === Platform.Windows) {
+            env.TERM = 'cygwin'
+        }
+        let sessionOptions = await this.sessions.prepareNewSession({
+            command,
+            args,
+            cwd,
+            env,
+        })
         this.app.openNewTab(
             TerminalTabComponent,
             { sessionOptions }
