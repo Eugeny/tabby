@@ -68,17 +68,30 @@ export class TerminalSettingsTabComponent {
 
             // Detect Cygwin
             let cygwinPath = await new Promise<string>(resolve => {
-                let reg = new Registry({ hive: Registry.HKLM, key: '\\Software\\Cygwin\\setup' })
+                let reg = new Registry({ hive: Registry.HKLM, key: '\\Software\\Cygwin\\setup', arch: 'x64' })
                 reg.get('rootdir', (err, item) => {
                     if (err) {
-                        resolve(null)
-                        return
+                        return resolve(null)
                     }
                     resolve(item.value)
                 })
             })
             if (cygwinPath) {
                 this.shells.push({ name: 'Cygwin', command: path.join(cygwinPath, 'bin', 'bash.exe') })
+            }
+
+            // Detect 32-bit Cygwin
+            let cygwin32Path = await new Promise<string>(resolve => {
+                let reg = new Registry({ hive: Registry.HKLM, key: '\\Software\\Cygwin\\setup', arch: 'x86' })
+                reg.get('rootdir', (err, item) => {
+                    if (err) {
+                        return resolve(null)
+                    }
+                    resolve(item.value)
+                })
+            })
+            if (cygwin32Path) {
+                this.shells.push({ name: 'Cygwin (32 bit)', command: path.join(cygwin32Path, 'bin', 'bash.exe') })
             }
 
             // Detect Git-Bash
