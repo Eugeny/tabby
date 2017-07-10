@@ -28,6 +28,18 @@ export class Session {
             ...options.env,
             TERM: 'xterm-256color',
         }
+
+        if (process.platform === 'darwin' && !process.env.LC_ALL) {
+            let locale = process.env.LC_CTYPE || 'en_US.UTF-8'
+            Object.assign(env, {
+                LANG: locale,
+                LC_ALL: locale,
+                LC_MESSAGES: locale,
+                LC_NUMERIC: locale,
+                LC_COLLATE: locale,
+                LC_MONETARY: locale,
+            })
+        }
         this.pty = nodePTY.spawn(options.command, options.args || [], {
             name: 'xterm-256color',
             cols: options.width || 80,
