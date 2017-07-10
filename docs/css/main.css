@@ -1,0 +1,115 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700');
+body {
+  height: 100vh;
+  font-family: 'Open Sans', sans-serif;
+  background: #1d976c; /* Old browsers */
+  background: -moz-linear-gradient(top, #1d976c 0%, #68d691 93%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, #1d976c 0%,#68d691 93%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #1d976c 0%,#68d691 93%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1d976c', endColorstr='#68d691',GradientType=0 ); /* IE6-9 */
+  background-size: cover;
+}
+
+/*Top Bar Styles*/
+.nav-title {
+  font-size: 30px;
+  font-weight: 400;
+  color: #fff;
+}
+
+.nav-link {
+  display: block;
+  margin-top: 25px;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 600;
+  transition: color 0.3s ease-in-out;
+}
+
+.nav-link:hover {
+  text-decoration: none;
+  color: #6e5494;
+}
+
+/*Main Section*/
+.main {
+  margin-top: 150px;
+  color: #fff;
+  text-align: center;
+}
+.main > h1 {
+  margin: 0;
+  font-size: 75px;
+  font-weight: 700;
+}
+
+.main > p {
+  font-size: 20px;
+  padding-left: 5px;
+  padding-bottom: 30px;
+}
+
+.download-btn {
+  padding: 8px 35px 8px 35px;
+  border: 1px solid #fff;
+  border-radius: 35px;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 600;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.download-btn:hover {
+  text-decoration: none;
+  border: 1px solid #1f272d;
+  color: #fff;
+  background-color: #1f272d;
+}
+
+.video {
+  margin-top: 50px;
+}
+
+.video p {
+  text-align: center;
+  color: #fff;
+  font-size: 12px;
+}
+
+/*Features*/
+.features {
+  padding-top: 30px;
+  color: #fff;
+}
+.features h1 {
+  font-size: 30px;
+  font-weight: 600;
+  padding-bottom: 20px;
+}
+
+.features ul {
+  padding-left: 12px;
+  padding-top: 35px;
+}
+
+.features p, li {
+  font-size: 15px;
+}
+
+@media (max-width: 768px) {
+  body {
+    height: 100%;
+  }
+
+  .nav-title {
+    text-align: center;
+  }
+
+  .nav-link {
+    text-align: center;
+  }
+
+  .features h1 {
+    padding-top: 40px;
+  }
+}
