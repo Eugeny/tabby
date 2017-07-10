@@ -39,7 +39,7 @@
     "font-manager": "0.2.2",
     "hterm-umdjs": "1.2.0",
     "mz": "^2.6.0",
-    "node-pty": "0.6.2",
+    "node-pty": "0.6.8",
     "winreg": "^1.2.3"
   },
   "false": {}

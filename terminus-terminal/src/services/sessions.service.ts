@@ -66,6 +66,12 @@ export class Session {
             }
         })
 
+        this.pty.on('exit', () => {
+            if (this.open) {
+                this.destroy()
+            }
+        })
+
         this.pty.on('close', () => {
             if (this.open) {
                 this.destroy()
