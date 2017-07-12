@@ -11,7 +11,6 @@ import { ElectronService } from './services/electron.service'
 import { HostAppService } from './services/hostApp.service'
 import { LogService } from './services/log.service'
 import { HotkeysService, AppHotkeyProvider } from './services/hotkeys.service'
-import { QuitterService } from './services/quitter.service'
 import { DockingService } from './services/docking.service'
 import { TabRecoveryService } from './services/tabRecovery.service'
 import { ThemesService } from './services/themes.service'
@@ -42,7 +41,6 @@ const PROVIDERS = [
     LogService,
     TabRecoveryService,
     ThemesService,
-    QuitterService,
     { provide: HotkeyProvider, useClass: AppHotkeyProvider, multi: true },
     { provide: Theme, useClass: StandardTheme, multi: true },
     { provide: ConfigProvider, useClass: CoreConfigProvider, multi: true },

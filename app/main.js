@@ -30,26 +30,16 @@ if (!process.env.TERMINUS_PLUGINS) {
 }
 
 setupWindowManagement = () => {
-    let windowCloseable
-
     app.window.on('show', () => {
       app.window.webContents.send('host:window-shown')
     })
 
     app.window.on('close', (e) => {
         windowConfig.set('windowBoundaries', app.window.getBounds())
-        if (!windowCloseable) {
-            app.window.minimize()
-            e.preventDefault()
-        }
     })
 
     app.window.on('closed', () => {
         app.window = null
-    })
-
-    electron.ipcMain.on('window-closeable', (event, flag) => {
-        windowCloseable = flag
     })
 
     electron.ipcMain.on('window-focus', () => {
@@ -102,8 +92,6 @@ setupWindowManagement = () => {
     electron.ipcMain.on('window-set-always-on-top', (event, flag) => {
         app.window.setAlwaysOnTop(flag)
     })
-
-    app.on('before-quit', () => windowCloseable = true)
 }
 
 
@@ -131,7 +119,7 @@ setupMenu = () => {
                 label: 'Quit',
                 accelerator: 'Cmd+Q',
                 click () {
-                    app.window.webContents.send('host:quit-request')
+                    app.quit()
                 }
             }
         ]

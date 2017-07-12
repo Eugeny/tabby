@@ -5,7 +5,6 @@ import { ElectronService } from '../services/electron.service'
 import { HostAppService, Platform } from '../services/hostApp.service'
 import { HotkeysService } from '../services/hotkeys.service'
 import { Logger, LogService } from '../services/log.service'
-import { QuitterService } from '../services/quitter.service'
 import { ConfigService } from '../services/config.service'
 import { DockingService } from '../services/docking.service'
 import { TabRecoveryService } from '../services/tabRecovery.service'
@@ -57,7 +56,6 @@ export class AppRootComponent {
         @Inject(ToolbarButtonProvider) private toolbarButtonProviders: ToolbarButtonProvider[],
         log: LogService,
         _themes: ThemesService,
-        _quitter: QuitterService,
     ) {
         this.logger = log.create('main')
         this.logger.info('v', electron.app.getVersion())
