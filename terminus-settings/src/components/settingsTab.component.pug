@@ -2,9 +2,9 @@ button.btn.btn-outline-warning.btn-block(*ngIf='config.restartRequested', '(clic
 
 ngb-tabset.vertical(type='tabs')
     ngb-tab
-        template(ngbTabTitle)
+        ng-template(ngbTabTitle)
             | Application
-        template(ngbTabContent)
+        ng-template(ngbTabContent)
             .row
                 .col.col-lg-6
                     .form-group
@@ -153,9 +153,9 @@ ngb-tabset.vertical(type='tabs')
                 )
                     
     ngb-tab
-        template(ngbTabTitle)
+        ng-template(ngbTabTitle)
             | Hotkeys
-        template(ngbTabContent)
+        ng-template(ngbTabContent)
             input.form-control(type='search', placeholder='Search hotkeys', [(ngModel)]='hotkeyFilter')
             .form-group
                 table.hotkeys-table
@@ -173,7 +173,7 @@ ngb-tabset.vertical(type='tabs')
                             )
                     
     ngb-tab(*ngFor='let provider of settingsProviders')
-        template(ngbTabTitle)
+        ng-template(ngbTabTitle)
             | {{provider.title}}
-        template(ngbTabContent)
+        ng-template(ngbTabContent)
             settings-tab-body([provider]='provider')
