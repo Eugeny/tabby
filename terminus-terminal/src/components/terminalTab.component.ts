@@ -47,7 +47,7 @@ export class TerminalTabComponent extends BaseTabComponent {
     ) {
         super()
         this.decorators = this.decorators || []
-        this.title$.next('Terminal')
+        this.title = 'Terminal'
         this.configSubscription = config.changed$.subscribe(() => {
             this.configure()
         })
@@ -143,7 +143,7 @@ export class TerminalTabComponent extends BaseTabComponent {
     attachHTermHandlers (hterm: any) {
         hterm.setWindowTitle = (title) => {
             this.zone.run(() => {
-                this.title$.next(title)
+                this.title = title
             })
         }
 

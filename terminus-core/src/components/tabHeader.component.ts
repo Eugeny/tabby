@@ -1,5 +1,7 @@
 import { Component, Input, Output, EventEmitter, HostBinding, HostListener } from '@angular/core'
-import { BaseTabComponent } from '../components/baseTab.component'
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
+import { BaseTabComponent } from './baseTab.component'
+import { RenameTabModalComponent } from './renameTabModal.component'
 
 @Component({
     selector: 'tab-header',
@@ -13,8 +15,17 @@ export class TabHeaderComponent {
     @Input() tab: BaseTabComponent
     @Output() closeClicked = new EventEmitter()
 
-    @HostListener('auxclick', ['$event']) onClick ($event: MouseEvent): void {
-        if ($event.which == 2) {
+    constructor (
+        private ngbModal: NgbModal,
+    ) { }
+
+    @HostListener('dblclick') onDoubleClick (): void {
+        let modal = this.ngbModal.open(RenameTabModalComponent)
+        modal.componentInstance.value = this.tab.customTitle || this.tab.title
+    }
+
+    @HostListener('auxclick', ['$event']) onAuxClick ($event: MouseEvent): void {
+        if ($event.which === 2) {
             this.closeClicked.emit()
         }
     }

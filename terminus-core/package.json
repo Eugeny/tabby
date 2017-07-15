@@ -17,7 +17,6 @@
   "author": "Eugene Pankov",
   "license": "MIT",
   "devDependencies": {
-    "@ng-bootstrap/ng-bootstrap": "1.0.0-alpha.22",
     "@types/js-yaml": "^3.9.0",
     "@types/node": "^7.0.37",
     "@types/webpack-env": "^1.13.0",

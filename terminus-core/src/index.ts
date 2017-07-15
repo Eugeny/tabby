@@ -21,6 +21,7 @@ import { StartPageComponent } from './components/startPage.component'
 import { TabHeaderComponent } from './components/tabHeader.component'
 import { TitleBarComponent } from './components/titleBar.component'
 import { WindowControlsComponent } from './components/windowControls.component'
+import { RenameTabModalComponent } from './components/renameTabModal.component'
 
 import { HotkeyProvider } from './api/hotkeyProvider'
 import { ConfigProvider } from './api/configProvider'
@@ -63,7 +64,11 @@ const PROVIDERS = [
         TabHeaderComponent,
         TitleBarComponent,
         WindowControlsComponent,
+        RenameTabModalComponent,
     ],
+    entryComponents: [
+        RenameTabModalComponent,
+    ]
 })
 export default class AppModule {
     static forRoot (): ModuleWithProviders {

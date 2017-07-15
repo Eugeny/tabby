@@ -12,7 +12,7 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic'
 import { getRootModule } from './app.module'
 import { findPlugins, loadPlugins } from './plugins'
 
-if (process.platform == 'win32') {
+if (process.platform === 'win32') {
     process.env.HOME = process.env.HOMEDRIVE + process.env.HOMEPATH
 }
 

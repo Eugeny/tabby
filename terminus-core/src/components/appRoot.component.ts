@@ -27,9 +27,16 @@ import { AppService, IToolbarButton, ToolbarButtonProvider } from '../api'
                     'flex-basis': '1px',
                     'width': '1px',
                 }),
-                animate('250ms ease-in-out')
+                animate('250ms ease-in-out', style({
+                    'flex-basis': '200px',
+                    'width': '200px',
+                }))
             ]),
             transition(':leave', [
+                style({
+                    'flex-basis': '200px',
+                    'width': '200px',
+                }),
                 animate('250ms ease-in-out', style({
                     'flex-basis': '1px',
                     'width': '1px',
