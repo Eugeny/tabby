@@ -89,6 +89,7 @@ export class ScreenPersistenceProvider extends SessionPersistenceProvider {
             escape ^^^
             vbell on
             deflogin on
+            defflow off
             term xterm-color
             bindkey "^[OH" beginning-of-line
             bindkey "^[OF" end-of-line
