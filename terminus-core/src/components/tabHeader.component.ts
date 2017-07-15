@@ -22,6 +22,9 @@ export class TabHeaderComponent {
     @HostListener('dblclick') onDoubleClick (): void {
         let modal = this.ngbModal.open(RenameTabModalComponent)
         modal.componentInstance.value = this.tab.customTitle || this.tab.title
+        modal.result.then(result => {
+            this.tab.customTitle = result
+        }).catch(() => null)
     }
 
     @HostListener('auxclick', ['$event']) onAuxClick ($event: MouseEvent): void {
