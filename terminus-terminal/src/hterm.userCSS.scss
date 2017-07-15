@@ -9,3 +9,9 @@ a:hover {
 x-screen {
     transition: 0.125s ease background;
 }
+
+@font-face {
+    font-family: "monospace-fallback";
+    src: url(fonts/Meslo.otf) format("opentype"),
+         url(fonts/UbuntuMono.woff2) format("woff2");
+}

@@ -155,6 +155,8 @@ export class TerminalTabComponent extends BaseTabComponent {
 
         hterm.primaryScreen_.syncSelectionCaret = () => null
         hterm.alternateScreen_.syncSelectionCaret = () => null
+        hterm.primaryScreen_.terminal = hterm
+        hterm.alternateScreen_.terminal = hterm
 
         const _onPaste = hterm.scrollPort_.onPaste_.bind(hterm.scrollPort_)
         hterm.scrollPort_.onPaste_ = (event) => {
@@ -244,7 +246,7 @@ export class TerminalTabComponent extends BaseTabComponent {
 
     async configure (): Promise<void> {
         let config = this.config.store
-        preferenceManager.set('font-family', config.terminal.font)
+        preferenceManager.set('font-family', `"${config.terminal.font}", "monospace-fallback", monospace`)
         this.setFontSize()
         preferenceManager.set('enable-bold', true)
         preferenceManager.set('audible-bell-sound', '')
