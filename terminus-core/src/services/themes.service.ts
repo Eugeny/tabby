@@ -13,7 +13,6 @@ export class ThemesService {
         this.applyCurrentTheme()
         config.changed$.subscribe(() => {
             this.applyCurrentTheme()
-            document.querySelector('style#custom-css').innerHTML = config.store.appearance.css
         })
     }
 
@@ -32,6 +31,7 @@ export class ThemesService {
             document.querySelector('head').appendChild(this.styleElement)
         }
         this.styleElement.textContent = theme.css
+        document.querySelector('style#custom-css').innerHTML = this.config.store.appearance.css
     }
 
     applyCurrentTheme (): void {

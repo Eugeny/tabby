@@ -21,7 +21,6 @@ export class TerminalTabComponent extends BaseTabComponent {
     @ViewChild('content') content
     @HostBinding('style.background-color') backgroundColor: string
     hterm: any
-    configSubscription: Subscription
     sessionCloseSubscription: Subscription
     hotkeysSubscription: Subscription
     bell$ = new Subject()
@@ -48,9 +47,6 @@ export class TerminalTabComponent extends BaseTabComponent {
         super()
         this.decorators = this.decorators || []
         this.title = 'Terminal'
-        this.configSubscription = config.changed$.subscribe(() => {
-            this.configure()
-        })
         this.resize$.first().subscribe(async (resizeEvent) => {
             this.session = this.sessions.addSession(
                 Object.assign({}, this.sessionOptions, resizeEvent)
@@ -99,6 +95,7 @@ export class TerminalTabComponent extends BaseTabComponent {
 
     ngOnInit () {
         this.focused$.subscribe(() => {
+            this.configure()
             setTimeout(() => {
                 this.hterm.scrollPort_.resize()
                 this.hterm.scrollPort_.focus()
@@ -294,6 +291,7 @@ export class TerminalTabComponent extends BaseTabComponent {
                 }
             `
         }
+        css += config.appearance.css
         preferenceManager.set('user-css', dataurl.convert({
             data: css,
             mimetype: 'text/css',
@@ -322,7 +320,6 @@ export class TerminalTabComponent extends BaseTabComponent {
         this.decorators.forEach(decorator => {
             decorator.detach(this)
         })
-        this.configSubscription.unsubscribe()
         this.hotkeysSubscription.unsubscribe()
         if (this.sessionCloseSubscription) {
             this.sessionCloseSubscription.unsubscribe()
