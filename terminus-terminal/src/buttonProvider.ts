@@ -51,7 +51,7 @@ export class ButtonProvider extends ToolbarButtonProvider {
             cwd = await this.app.activeTab.session.getWorkingDirectory()
         }
         let command = this.config.store.terminal.shell
-        let env: any = {}
+        let env: any = process.env
         let args: string[] = []
         if (command === '~clink~') {
             ({ command, args } = this.shells.getClinkOptions())
