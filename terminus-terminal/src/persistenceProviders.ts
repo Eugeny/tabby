@@ -87,7 +87,7 @@ export class ScreenPersistenceProvider extends SessionPersistenceProvider {
         let configPath = '/tmp/.termScreenConfig'
         await fs.writeFile(configPath, `
             escape ^^^
-            vbell on
+            vbell off
             deflogin on
             defflow off
             term xterm-color

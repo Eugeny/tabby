@@ -32,6 +32,7 @@ export class TerminalTabComponent extends BaseTabComponent {
     alternateScreenActive$ = new BehaviorSubject(false)
     mouseEvent$ = new Subject<Event>()
     htermVisible = false
+    private bellPlayer: HTMLAudioElement
     private io: any
 
     constructor (
@@ -84,6 +85,8 @@ export class TerminalTabComponent extends BaseTabComponent {
                 this.resetZoom()
             }
         })
+        this.bellPlayer = document.createElement('audio')
+        this.bellPlayer.src = require<string>('../bell.ogg')
     }
 
     getRecoveryToken (): any {
@@ -126,12 +129,14 @@ export class TerminalTabComponent extends BaseTabComponent {
         }, 1000)
 
         this.bell$.subscribe(() => {
-            if (this.config.store.terminal.bell !== 'off') {
-                let bg = preferenceManager.get('background-color')
+            if (this.config.store.terminal.bell === 'visual') {
                 preferenceManager.set('background-color', 'rgba(128,128,128,.25)')
                 setTimeout(() => {
-                    preferenceManager.set('background-color', bg)
+                    this.configure()
                 }, 125)
+            }
+            if (this.config.store.terminal.bell === 'audible') {
+                this.bellPlayer.play()
             }
             // TODO audible
         })
@@ -246,7 +251,7 @@ export class TerminalTabComponent extends BaseTabComponent {
         preferenceManager.set('font-family', `"${config.terminal.font}", "monospace-fallback", monospace`)
         this.setFontSize()
         preferenceManager.set('enable-bold', true)
-        preferenceManager.set('audible-bell-sound', '')
+        // preferenceManager.set('audible-bell-sound', '')
         preferenceManager.set('desktop-notification-bell', config.terminal.bell === 'notification')
         preferenceManager.set('enable-clipboard-notice', false)
         preferenceManager.set('receive-encoding', 'raw')
