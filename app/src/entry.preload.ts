@@ -31,3 +31,7 @@ process.on('uncaughtException', (err) => {
     Raven.captureException(err)
     console.error(err)
 })
+
+const childProcess = require('child_process')
+childProcess.spawn = require('electron').remote.require('child_process').spawn
+childProcess.exec = require('electron').remote.require('child_process').exec

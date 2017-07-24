@@ -22,6 +22,16 @@ preferenceManager.set('color-palette-overrides', {
 
 hterm.hterm.Terminal.prototype.showOverlay = () => null
 
+hterm.hterm.Terminal.prototype.setCSS = function (css) {
+    const doc = this.scrollPort_.document_
+    if (!doc.querySelector('#user-css')) {
+        const node = doc.createElement('style')
+        node.id = 'user-css'
+        doc.head.appendChild(node)
+    }
+    doc.querySelector('#user-css').innerText = css
+}
+
 const oldCharWidthDisregardAmbiguous = hterm.lib.wc.charWidthDisregardAmbiguous
 hterm.lib.wc.charWidthDisregardAmbiguous = codepoint => {
     if ((codepoint >= 0x1f300 && codepoint <= 0x1f64f) ||

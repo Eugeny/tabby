@@ -31,6 +31,10 @@ export abstract class BaseTabComponent {
         return null
     }
 
+    async canClose (): Promise<boolean> {
+        return true
+    }
+
     destroy (): void {
         this.focused$.complete()
         this.blurred$.complete()

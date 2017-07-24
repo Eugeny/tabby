@@ -44,6 +44,7 @@ module.exports = {
     ]
   },
   externals: [
+    'electron',
     'fs',
     'font-manager',
     'path',

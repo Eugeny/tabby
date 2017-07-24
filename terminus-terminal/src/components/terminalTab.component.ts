@@ -1,4 +1,3 @@
-const dataurl = require('dataurl')
 import { BehaviorSubject, Subject, Subscription } from 'rxjs'
 import 'rxjs/add/operator/bufferTime'
 import { Component, NgZone, Inject, Optional, ViewChild, HostBinding, Input } from '@angular/core'
@@ -297,12 +296,7 @@ export class TerminalTabComponent extends BaseTabComponent {
             `
         }
         css += config.appearance.css
-        preferenceManager.set('user-css', dataurl.convert({
-            data: css,
-            mimetype: 'text/css',
-            charset: 'utf8',
-        }))
-
+        this.hterm.setCSS(css)
         this.hterm.setBracketedPaste(config.terminal.bracketedPaste)
     }
 
@@ -343,6 +337,14 @@ export class TerminalTabComponent extends BaseTabComponent {
         if (this.session && this.session.open) {
             await this.session.destroy()
         }
+    }
+
+    async canClose (): Promise<boolean> {
+        let children = await this.session.getChildProcesses()
+        if (children.length === 0) {
+            return true
+        }
+        return confirm(`"${children[0].command}" is still running. Close?`)
     }
 
     private setFontSize () {

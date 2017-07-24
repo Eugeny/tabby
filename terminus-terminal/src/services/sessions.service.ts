@@ -1,11 +1,19 @@
-import * as nodePTY from 'node-pty'
+const psNode = require('ps-node')
+// import * as nodePTY from 'node-pty'
+let nodePTY
 import * as fs from 'mz/fs'
 import { Subject } from 'rxjs'
 import { Injectable } from '@angular/core'
-import { Logger, LogService } from 'terminus-core'
+import { Logger, LogService, ElectronService } from 'terminus-core'
 import { exec } from 'mz/child_process'
 
 import { SessionOptions, SessionPersistenceProvider } from '../api'
+
+export interface IChildProcess {
+    pid: number
+    ppid: number
+    command: string
+}
 
 export class Session {
     open: boolean
@@ -101,6 +109,20 @@ export class Session {
         this.pty.kill(signal)
     }
 
+    async getChildProcesses (): Promise<IChildProcess[]> {
+        if (!this.truePID) {
+            return []
+        }
+        return new Promise<IChildProcess[]>((resolve, reject) => {
+            psNode.lookup({ ppid: this.truePID }, (err, processes) => {
+                if (err) {
+                    return reject(err)
+                }
+                resolve(processes as IChildProcess[])
+            })
+        })
+    }
+
     async gracefullyKillProcess (): Promise<void> {
         if (process.platform === 'win32') {
             this.kill()
@@ -157,8 +179,10 @@ export class SessionsService {
 
     constructor (
         private persistence: SessionPersistenceProvider,
+        electron: ElectronService,
         log: LogService,
     ) {
+        nodePTY = electron.remoteRequirePluginModule('terminus-terminal', 'node-pty', global as any)
         this.logger = log.create('sessions')
     }
 

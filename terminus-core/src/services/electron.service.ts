@@ -27,4 +27,8 @@ export class ElectronService {
     remoteRequire (name: string): any {
         return this.remote.require(name)
     }
+
+    remoteRequirePluginModule (plugin: string, module: string, globals: any): any {
+        return this.remoteRequire(globals.require.resolve(`${plugin}/node_modules/${module}`))
+    }
 }

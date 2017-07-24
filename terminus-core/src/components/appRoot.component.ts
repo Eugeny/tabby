@@ -79,7 +79,7 @@ export class AppRootComponent {
             }
             if (this.app.activeTab) {
                 if (hotkey === 'close-tab') {
-                    this.app.closeTab(this.app.activeTab)
+                    this.app.closeTab(this.app.activeTab, true)
                 }
                 if (hotkey === 'toggle-last-tab') {
                     this.app.toggleLastTab()
@@ -138,16 +138,6 @@ export class AppRootComponent {
         }
     }
 
-    private getToolbarButtons (aboveZero: boolean): IToolbarButton[] {
-        let buttons: IToolbarButton[] = []
-        this.toolbarButtonProviders.forEach((provider) => {
-            buttons = buttons.concat(provider.provide())
-        })
-        return buttons
-            .filter((button) => (button.weight > 0) === aboveZero)
-            .sort((a: IToolbarButton, b: IToolbarButton) => (a.weight || 0) - (b.weight || 0))
-    }
-
     @HostListener('dragover')
     onDragOver () {
         return false
@@ -156,5 +146,15 @@ export class AppRootComponent {
     @HostListener('drop')
     onDrop () {
         return false
+    }
+
+    private getToolbarButtons (aboveZero: boolean): IToolbarButton[] {
+        let buttons: IToolbarButton[] = []
+        this.toolbarButtonProviders.forEach((provider) => {
+            buttons = buttons.concat(provider.provide())
+        })
+        return buttons
+            .filter((button) => (button.weight > 0) === aboveZero)
+            .sort((a: IToolbarButton, b: IToolbarButton) => (a.weight || 0) - (b.weight || 0))
     }
 }

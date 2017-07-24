@@ -64,12 +64,13 @@ export class ScreenPersistenceProvider extends SessionPersistenceProvider {
             recoveryId,
             recoveredTruePID$: truePID$.asObservable(),
             command: 'screen',
-            args: ['-r', recoveryId],
+            args: ['-d', '-r', recoveryId],
         }
     }
 
     async extractShellPID (screenPID: number): Promise<number> {
-        let child = (await listProcesses()).find(x => x.ppid === screenPID)
+        let processes = await listProcesses()
+        let child = processes.find(x => x.ppid === screenPID)
 
         if (!child) {
             throw new Error(`Could not find any children of the screen process (PID ${screenPID})!`)
@@ -77,7 +78,7 @@ export class ScreenPersistenceProvider extends SessionPersistenceProvider {
 
         if (child.command === 'login') {
             await delay(1000)
-            child = (await listProcesses()).find(x => x.ppid === child.pid)
+            child = processes.find(x => x.ppid === child.pid)
         }
 
         return child.pid
