@@ -64,7 +64,7 @@ export class ScreenPersistenceProvider extends SessionPersistenceProvider {
             recoveryId,
             recoveredTruePID$: truePID$.asObservable(),
             command: 'screen',
-            args: ['-d', '-r', recoveryId],
+            args: ['-d', '-r', recoveryId, '-c', await this.prepareConfig()],
         }
     }
 
@@ -85,26 +85,8 @@ export class ScreenPersistenceProvider extends SessionPersistenceProvider {
     }
 
     async startSession (options: SessionOptions): Promise<any> {
-        let configPath = '/tmp/.termScreenConfig'
-        await fs.writeFile(configPath, `
-            escape ^^^
-            vbell off
-            deflogin on
-            defflow off
-            term xterm-color
-            bindkey "^[OH" beginning-of-line
-            bindkey "^[OF" end-of-line
-            bindkey "\\027[?1049h" stuff ----alternate enter-----
-            bindkey "\\027[?1049l" stuff ----alternate leave-----
-            termcapinfo xterm* 'hs:ts=\\E]0;:fs=\\007:ds=\\E]0;\\007'
-            defhstatus "^Et"
-            hardstatus off
-            altscreen on
-            defutf8 on
-            defencoding utf8
-        `, 'utf-8')
         let recoveryId = `term-tab-${Date.now()}`
-        let args = ['-d', '-m', '-c', configPath, '-U', '-S', recoveryId, '-T', 'xterm-256color', '--', '-' + options.command].concat(options.args || [])
+        let args = ['-d', '-m', '-c', await this.prepareConfig(), '-U', '-S', recoveryId, '-T', 'xterm-256color', '--', '-' + options.command].concat(options.args || [])
         this.logger.debug('Spawning screen with', args.join(' '))
         await spawn('screen', args, {
             cwd: options.cwd,
@@ -119,5 +101,29 @@ export class ScreenPersistenceProvider extends SessionPersistenceProvider {
         } catch (_) {
             // screen has already quit
         }
+    }
+
+    private async prepareConfig (): Promise<string> {
+        let configPath = '/tmp/.termScreenConfig'
+        await fs.writeFile(configPath, `
+            escape ^^^
+            vbell off
+            deflogin on
+            defflow off
+            term xterm-color
+            bindkey "^[OH" beginning-of-line
+            bindkey "^[OF" end-of-line
+            bindkey "^[[H" beginning-of-line
+            bindkey "^[[F" end-of-line
+            bindkey "\\027[?1049h" stuff ----alternate enter-----
+            bindkey "\\027[?1049l" stuff ----alternate leave-----
+            termcapinfo xterm* 'hs:ts=\\E]0;:fs=\\007:ds=\\E]0;\\007'
+            defhstatus "^Et"
+            hardstatus off
+            altscreen on
+            defutf8 on
+            defencoding utf8
+        `, 'utf-8')
+        return configPath
     }
 }
