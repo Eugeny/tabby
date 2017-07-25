@@ -299,6 +299,12 @@ export class TerminalTabComponent extends BaseTabComponent {
         css += config.appearance.css
         this.hterm.setCSS(css)
         this.hterm.setBracketedPaste(config.terminal.bracketedPaste)
+        this.hterm.defaultCursorShape = {
+            block: hterm.hterm.Terminal.cursorShape.BLOCK,
+            underline: hterm.hterm.Terminal.cursorShape.UNDERLINE,
+            beam: hterm.hterm.Terminal.cursorShape.BEAM,
+        }[config.terminal.cursor]
+        this.hterm.applyCursorShape()
     }
 
     zoomIn () {

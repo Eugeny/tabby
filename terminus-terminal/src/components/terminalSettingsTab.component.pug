@@ -174,26 +174,53 @@
                 [title]='idx',
             )
 
-        .form-group
-            label Terminal background
-            br
-            div(
-                '[(ngModel)]'='config.store.terminal.background',
-                (ngModelChange)='config.save()',
-                ngbRadioGroup
-            )
-                label.btn.btn-secondary
-                    input(
-                        type='radio',
-                        [value]='"theme"'
-                    )
-                    | From theme
-                label.btn.btn-secondary
-                    input(
-                        type='radio',
-                        [value]='"colorScheme"'
-                    )
-                    | From colors
+        .d-flex
+            .form-group.mr-3
+                label Terminal background
+                br
+                div(
+                    '[(ngModel)]'='config.store.terminal.background',
+                    (ngModelChange)='config.save()',
+                    ngbRadioGroup
+                )
+                    label.btn.btn-secondary
+                        input(
+                            type='radio',
+                            [value]='"theme"'
+                        )
+                        | From theme
+                    label.btn.btn-secondary
+                        input(
+                            type='radio',
+                            [value]='"colorScheme"'
+                        )
+                        | From colors
+            .form-group
+                label Cursor shape
+                br
+                div(
+                    [(ngModel)]='config.store.terminal.cursor',
+                    (ngModelChange)='config.save()',
+                    ngbRadioGroup
+                )
+                    label.btn.btn-secondary
+                        input(
+                            type='radio',
+                            [value]='"block"'
+                        )
+                        | Block
+                    label.btn.btn-secondary
+                        input(
+                            type='radio',
+                            [value]='"underline"'
+                        )
+                        | Underline
+                    label.btn.btn-secondary
+                        input(
+                            type='radio',
+                            [value]='"beam"'
+                        )
+                        | Beam
 
         .form-group
             label Shell

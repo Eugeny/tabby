@@ -8,6 +8,7 @@ export class TerminalConfigProvider extends ConfigProvider {
             bracketedPaste: false,
             background: 'theme',
             ligatures: false,
+            cursor: 'block',
             colorScheme: {
                 __nonStructural: true,
                 name: 'Material',

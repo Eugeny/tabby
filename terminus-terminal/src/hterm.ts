@@ -40,3 +40,29 @@ hterm.lib.wc.charWidthDisregardAmbiguous = codepoint => {
     }
     return oldCharWidthDisregardAmbiguous(codepoint)
 }
+
+hterm.hterm.Terminal.prototype.applyCursorShape = function () {
+    let modes = [
+        [hterm.hterm.Terminal.cursorShape.BLOCK, true],
+        [this.defaultCursorShape || hterm.hterm.Terminal.cursorShape.BLOCK, false],
+        [hterm.hterm.Terminal.cursorShape.BLOCK, false],
+        [hterm.hterm.Terminal.cursorShape.UNDERLINE, true],
+        [hterm.hterm.Terminal.cursorShape.UNDERLINE, false],
+        [hterm.hterm.Terminal.cursorShape.BEAM, true],
+        [hterm.hterm.Terminal.cursorShape.BEAM, false],
+    ]
+    let modeNumber = this.cursorMode || 1
+    console.log('mode', modeNumber)
+    if (modeNumber >= modes.length) {
+        console.warn('Unknown cursor style: ' + modeNumber)
+        return
+    }
+    this.setCursorShape(modes[modeNumber][0])
+    this.setCursorBlink(modes[modeNumber][1])
+}
+
+hterm.hterm.VT.CSI[' q'] = function (parseState) {
+    const arg = parseState.args[0]
+    this.terminal.cursorMode = arg
+    this.terminal.applyCursorShape()
+}
