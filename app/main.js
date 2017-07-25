@@ -76,6 +76,8 @@ setupWindowManagement = () => {
 
     electron.ipcMain.on('window-set-bounds', (event, bounds) => {
         let actualBounds = app.window.getBounds()
+        actualBounds.width -= bounds.x - actualBounds.x
+        actualBounds.height -= bounds.y - actualBounds.y
         actualBounds.x = bounds.x
         actualBounds.y = bounds.y
         app.window.setBounds(actualBounds)

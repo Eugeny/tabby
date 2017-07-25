@@ -40,12 +40,12 @@ export class DockingService {
             newBounds.height = Math.round(fill * display.bounds.height)
         }
         if (dockSide === 'right') {
-            newBounds.x = display.bounds.x + Math.round(display.bounds.width * (1.0 - fill))
+            newBounds.x = display.bounds.x + display.bounds.width - newBounds.width
         } else {
             newBounds.x = display.bounds.x
         }
         if (dockSide === 'bottom') {
-            newBounds.y = display.bounds.y + Math.round(display.bounds.height * (1.0 - fill))
+            newBounds.y = display.bounds.y + display.bounds.height - newBounds.height
         } else {
             newBounds.y = display.bounds.y
         }
