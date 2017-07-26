@@ -1,3 +1,3 @@
 .index {{index + 1}}
-.name {{tab.customTitle || tab.title}}
+.name([title]='tab.customTitle || tab.title') {{tab.customTitle || tab.title}}
 button((click)='closeClicked.emit()') &times;

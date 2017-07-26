@@ -51,7 +51,9 @@ export class TerminalTabComponent extends BaseTabComponent {
             this.session = this.sessions.addSession(
                 Object.assign({}, this.sessionOptions, resizeEvent)
             )
-            this.session.resize(resizeEvent.width, resizeEvent.height)
+            setTimeout(() => {
+                this.session.resize(resizeEvent.width, resizeEvent.height)
+            }, 1000)
             // this.session.output$.bufferTime(10).subscribe((datas) => {
             this.session.output$.subscribe(data => {
                 // let data = datas.join('')

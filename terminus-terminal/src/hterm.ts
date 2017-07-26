@@ -67,8 +67,9 @@ hterm.hterm.VT.CSI[' q'] = function (parseState) {
     this.terminal.applyCursorShape()
 }
 
+const _collapseToEnd = Selection.prototype.collapseToEnd
 Selection.prototype.collapseToEnd = function () {
     try {
-        this.collapseToEnd()
+        _collapseToEnd.apply(this)
     } catch (err) { ; }
 }

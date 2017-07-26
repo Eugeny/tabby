@@ -6,6 +6,15 @@ import { SessionOptions, SessionPersistenceProvider } from './api'
 
 const TMUX_CONFIG = `
     set -g status off
+    set -g focus-events on
+    set -g bell-action any
+    set -g bell-on-alert on
+    set -g visual-bell off
+    set -g set-titles on
+    set -g set-titles-string "#W"
+    set -g window-status-format '#I:#(pwd="#{pane_current_path}"; echo \${pwd####*/})#F'
+    set -g window-status-current-format '#I:#(pwd="#{pane_current_path}"; echo \${pwd####*/})#F'
+    set-option -g status-interval 1
 `
 
 export class TMuxBlock {
@@ -44,7 +53,7 @@ export class TMuxCommandProcess {
         this.process = childProcess.spawn('tmux', ['-C', '-L', 'terminus', 'new-session', '-A', '-D', '-s', 'control'])
         console.log('[tmux] started')
         this.process.stdout.on('data', data => {
-            console.debug('tmux says:', data.toString())
+            // console.debug('tmux says:', data.toString())
             this.rawOutput$.next(data.toString())
         })
 
