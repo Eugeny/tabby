@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 import * as AsyncLock from 'async-lock'
-import { Observable, Subject } from 'rxjs'
+import { ConnectableObservable, Subject } from 'rxjs'
 import * as childProcess from 'child_process'
 import { SessionOptions, SessionPersistenceProvider } from './api'
 
@@ -37,7 +37,7 @@ export class TMuxCommandProcess {
     private line$ = new Subject<string>()
     private message$ = new Subject<string>()
     private block$ = new Subject<TMuxBlock>()
-    private response$: Observable<TMuxBlock>
+    private response$: ConnectableObservable<TMuxBlock>
     private lock = new AsyncLock({ timeout: 1000 })
 
     constructor () {
@@ -86,14 +86,11 @@ export class TMuxCommandProcess {
             }
         })
 
-        this.response$ = this.block$.skip(1).share()
+        this.response$ = this.block$.skip(1).publish()
+        this.response$.connect()
 
         this.block$.subscribe(block => {
             console.debug('[tmux] block:', block)
-        })
-
-        this.response$.subscribe(response => {
-            console.debug('[tmux] response:', response)
         })
 
         this.message$.subscribe(message => {
@@ -106,8 +103,6 @@ export class TMuxCommandProcess {
             let p = this.response$.take(1).toPromise()
             console.debug('[tmux] command:', command)
             this.process.stdin.write(command + '\n')
-            p.then(x => console.log('promise then', x))
-            p.catch(x => console.log('promise catch', x))
             return p
         }).then(response => {
             if (response.error) {
