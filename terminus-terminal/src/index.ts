@@ -14,6 +14,7 @@ import { SessionsService } from './services/sessions.service'
 import { ShellsService } from './services/shells.service'
 
 import { ScreenPersistenceProvider } from './persistenceProviders'
+import { TMuxPersistenceProvider } from './tmux'
 import { ButtonProvider } from './buttonProvider'
 import { RecoveryProvider } from './recoveryProvider'
 import { SessionPersistenceProvider, TerminalColorSchemeProvider, TerminalDecorator } from './api'
@@ -34,18 +35,23 @@ import { hterm } from './hterm'
         SessionsService,
         ShellsService,
         ScreenPersistenceProvider,
+        TMuxPersistenceProvider,
         { provide: ToolbarButtonProvider, useClass: ButtonProvider, multi: true },
         { provide: TabRecoveryProvider, useClass: RecoveryProvider, multi: true },
         {
             provide: SessionPersistenceProvider,
-            useFactory: (hostApp: HostAppService, screen: ScreenPersistenceProvider) => {
+            useFactory: (
+                hostApp: HostAppService,
+                screen: ScreenPersistenceProvider,
+                tmux: TMuxPersistenceProvider,
+            ) => {
                 if (hostApp.platform === Platform.Windows) {
                     return null
                 } else {
-                    return screen
+                    return tmux
                 }
             },
-            deps: [HostAppService, ScreenPersistenceProvider],
+            deps: [HostAppService, ScreenPersistenceProvider, TMuxPersistenceProvider],
         },
         { provide: SettingsTabProvider, useClass: TerminalSettingsTabProvider, multi: true },
         { provide: ConfigProvider, useClass: TerminalConfigProvider, multi: true },

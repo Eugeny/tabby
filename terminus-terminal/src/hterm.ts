@@ -66,3 +66,9 @@ hterm.hterm.VT.CSI[' q'] = function (parseState) {
     this.terminal.cursorMode = arg
     this.terminal.applyCursorShape()
 }
+
+Selection.prototype.collapseToEnd = function () {
+    try {
+        this.collapseToEnd()
+    } catch (err) { ; }
+}

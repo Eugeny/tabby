@@ -37,6 +37,8 @@
     "terminus-settings": "*"
   },
   "dependencies": {
+    "@types/async-lock": "0.0.19",
+    "async-lock": "^1.0.0",
     "font-manager": "0.2.2",
     "hterm-umdjs": "1.1.3",
     "mz": "^2.6.0",
