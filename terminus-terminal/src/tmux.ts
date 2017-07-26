@@ -50,7 +50,7 @@ export class TMuxCommandProcess {
     private lock = new AsyncLock({ timeout: 1000 })
 
     constructor () {
-        this.process = childProcess.spawn('tmux', ['-C', '-L', 'terminus', 'new-session', '-A', '-D', '-s', 'control'])
+        this.process = childProcess.spawn('tmux', ['-C', '-f', '/dev/null', '-L', 'terminus', 'new-session', '-A', '-D', '-s', 'control'])
         console.log('[tmux] started')
         this.process.stdout.on('data', data => {
             // console.debug('tmux says:', data.toString())

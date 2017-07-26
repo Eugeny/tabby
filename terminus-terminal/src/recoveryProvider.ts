@@ -16,7 +16,7 @@ export class RecoveryProvider extends TabRecoveryProvider {
         if (recoveryToken.type === 'app:terminal') {
             let sessionOptions = await this.sessions.recover(recoveryToken.recoveryId)
             if (!sessionOptions) {
-                return
+                return null
             }
             return {
                 type: TerminalTabComponent,
