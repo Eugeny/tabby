@@ -48,7 +48,12 @@ import { hterm } from './hterm'
                 if (hostApp.platform === Platform.Windows) {
                     return null
                 } else {
-                    return tmux
+                    if (tmux.isAvailable()) {
+                        tmux.init()
+                        return tmux
+                    } else {
+                        return screen
+                    }
                 }
             },
             deps: [HostAppService, ScreenPersistenceProvider, TMuxPersistenceProvider],

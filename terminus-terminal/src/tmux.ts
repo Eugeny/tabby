@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core'
+import { execFileSync } from 'child_process'
 import * as AsyncLock from 'async-lock'
 import { ConnectableObservable, Subject } from 'rxjs'
 import * as childProcess from 'child_process'
@@ -166,6 +167,18 @@ export class TMuxPersistenceProvider extends SessionPersistenceProvider {
 
     constructor () {
         super()
+    }
+
+    isAvailable (): boolean {
+        try {
+            execFileSync('tmux', ['-V'])
+            return true
+        } catch (_) {
+            return false
+        }
+    }
+
+    init () {
         this.tmux = new TMux()
     }
 
