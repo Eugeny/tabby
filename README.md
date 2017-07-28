@@ -13,12 +13,12 @@
   * Theming and color schemes
   * Configurable hotkey schemes
   * **GNU Screen** style hotkeys available by default
-  * Default Linux style hotkeys for Copy(`Ctrl`+`Shift`+`C`), and Paste(`Ctrl`+`Shift`+`V`)
   * Full Unicode support including double-width characters
   * Doesn't choke on fast-flowing outputs
   * Tab persistence on macOS and Linux
   * Proper shell-like experience on Windows including tab completion (thanks, Clink!)
   * CMD, PowerShell, Cygwin, Git-Bash and Bash on Windows support
+  * Default Linux style hotkeys for copy (`Ctrl`+`Shift`+`C`) and paste (`Ctrl`+`Shift`+`V`)
 
 ---
 
