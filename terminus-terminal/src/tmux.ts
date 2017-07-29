@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core'
 import { execFileSync } from 'child_process'
 import * as AsyncLock from 'async-lock'
-import { ConnectableObservable, Subject } from 'rxjs'
+import { ConnectableObservable, AsyncSubject, Subject } from 'rxjs'
 import * as childProcess from 'child_process'
 import { SessionOptions, SessionPersistenceProvider } from './api'
 
@@ -156,8 +156,17 @@ export class TMux {
         return block.lines
     }
 
+    async getPID (id: string): Promise<number|null> {
+        let response = await this.process.command(`list-panes -t ${id} -F "#{pane_pid}"`)
+        if (response.lines.length === 0) {
+            return null
+        } else {
+            return parseInt(response.lines[0])
+        }
+    }
+
     async terminate (id: string): Promise<void> {
-        await this.process.command(`kill-session -t ${id}`)
+        this.process.command(`kill-session -t ${id}`)
     }
 }
 
@@ -187,9 +196,15 @@ export class TMuxPersistenceProvider extends SessionPersistenceProvider {
         if (!sessions.includes(recoveryId)) {
             return null
         }
+        let truePID$ = new AsyncSubject<number>()
+        this.tmux.getPID(recoveryId).then(pid => {
+            truePID$.next(pid)
+            truePID$.complete()
+        })
         return {
             command: 'tmux',
             args: ['-L', 'terminus', 'attach-session', '-d', '-t', recoveryId],
+            recoveredTruePID$: truePID$.asObservable(),
             recoveryId,
         }
     }
