@@ -166,7 +166,9 @@ export class TMux {
     }
 
     async terminate (id: string): Promise<void> {
-        this.process.command(`kill-session -t ${id}`)
+        this.process.command(`kill-session -t ${id}`).catch(() => {
+            console.debug('Session already killed')
+        })
     }
 }
 
@@ -203,7 +205,7 @@ export class TMuxPersistenceProvider extends SessionPersistenceProvider {
         })
         return {
             command: 'tmux',
-            args: ['-L', 'terminus', 'attach-session', '-d', '-t', recoveryId],
+            args: ['-L', 'terminus', 'attach-session', '-d', '-t', recoveryId, ';', 'refresh-client'],
             recoveredTruePID$: truePID$.asObservable(),
             recoveryId,
         }
