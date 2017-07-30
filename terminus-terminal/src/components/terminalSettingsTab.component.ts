@@ -1,23 +1,11 @@
 import { Observable } from 'rxjs'
-import * as fs from 'mz/fs'
-import * as path from 'path'
 import { exec } from 'mz/child_process'
 const equal = require('deep-equal')
 const fontManager = require('font-manager')
 
 import { Component, Inject } from '@angular/core'
 import { ConfigService, HostAppService, Platform } from 'terminus-core'
-import { TerminalColorSchemeProvider, ITerminalColorScheme } from '../api'
-
-let Registry = null
-try {
-    Registry = require('winreg')
-} catch (_) { } // tslint:disable-line no-empty
-
-interface IShell {
-    name: string
-    command: string
-}
+import { TerminalColorSchemeProvider, ITerminalColorScheme, IShell, ShellProvider } from '../api'
 
 @Component({
     template: require('./terminalSettingsTab.component.pug'),
@@ -34,6 +22,7 @@ export class TerminalSettingsTabComponent {
     constructor (
         public config: ConfigService,
         private hostApp: HostAppService,
+        @Inject(ShellProvider) private shellProviders: ShellProvider[],
         @Inject(TerminalColorSchemeProvider) private colorSchemeProviders: TerminalColorSchemeProvider[],
     ) { }
 
@@ -53,71 +42,8 @@ export class TerminalSettingsTabComponent {
                 this.fonts.sort()
             })
         }
-        if (this.hostApp.platform === Platform.Windows) {
-            this.shells = [
-                { name: 'CMD (clink)', command: '~clink~' },
-                { name: 'CMD (stock)', command: 'cmd.exe' },
-                { name: 'PowerShell', command: 'powershell.exe' },
-            ]
-
-            // Detect whether BoW is installed
-            const wslPath = `${process.env.windir}\\system32\\bash.exe`
-            if (await fs.exists(wslPath)) {
-                this.shells.push({ name: 'Bash on Windows', command: wslPath })
-            }
-
-            // Detect Cygwin
-            let cygwinPath = await new Promise<string>(resolve => {
-                let reg = new Registry({ hive: Registry.HKLM, key: '\\Software\\Cygwin\\setup', arch: 'x64' })
-                reg.get('rootdir', (err, item) => {
-                    if (err) {
-                        return resolve(null)
-                    }
-                    resolve(item.value)
-                })
-            })
-            if (cygwinPath) {
-                this.shells.push({ name: 'Cygwin', command: path.join(cygwinPath, 'bin', 'bash.exe') })
-            }
-
-            // Detect 32-bit Cygwin
-            let cygwin32Path = await new Promise<string>(resolve => {
-                let reg = new Registry({ hive: Registry.HKLM, key: '\\Software\\Cygwin\\setup', arch: 'x86' })
-                reg.get('rootdir', (err, item) => {
-                    if (err) {
-                        return resolve(null)
-                    }
-                    resolve(item.value)
-                })
-            })
-            if (cygwin32Path) {
-                this.shells.push({ name: 'Cygwin (32 bit)', command: path.join(cygwin32Path, 'bin', 'bash.exe') })
-            }
-
-            // Detect Git-Bash
-            let gitBashPath = await new Promise<string>(resolve => {
-                let reg = new Registry({ hive: Registry.HKLM, key: '\\Software\\GitForWindows' })
-                reg.get('InstallPath', (err, item) => {
-                    if (err) {
-                        resolve(null)
-                        return
-                    }
-                    resolve(item.value)
-                })
-            })
-            if (gitBashPath) {
-                this.shells.push({ name: 'Git-Bash', command: path.join(gitBashPath, 'bin', 'bash.exe') })
-            }
-        }
-        if (this.hostApp.platform === Platform.Linux || this.hostApp.platform === Platform.macOS) {
-            this.shells = [{ name: 'Default shell', command: '~default-shell~' }]
-            this.shells = this.shells.concat((await fs.readFile('/etc/shells', { encoding: 'utf-8' }))
-                .split('\n')
-                .map(x => x.trim())
-                .filter(x => x && !x.startsWith('#'))
-                .map(x => ({ name: x, command: x })))
-        }
         this.colorSchemes = (await Promise.all(this.colorSchemeProviders.map(x => x.getSchemes()))).reduce((a, b) => a.concat(b))
+        this.shells = (await Promise.all(this.shellProviders.map(x => x.provide()))).reduce((a, b) => a.concat(b))
     }
 
     fontAutocomplete = (text$: Observable<string>) => {

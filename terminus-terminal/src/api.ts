@@ -44,3 +44,15 @@ export interface ITerminalColorScheme {
 export abstract class TerminalColorSchemeProvider {
     abstract async getSchemes (): Promise<ITerminalColorScheme[]>
 }
+
+export interface IShell {
+    id: string
+    name: string
+    command: string
+    args?: string[]
+    env?: any
+}
+
+export abstract class ShellProvider {
+    abstract async provide (): Promise<IShell[]>
+}

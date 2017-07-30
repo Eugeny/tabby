@@ -5,14 +5,15 @@ export class Logger {
         private name: string,
     ) {}
 
-    log (level: string, ...args: any[]) {
+    doLog (level: string, ...args: any[]) {
         console[level](`%c[${this.name}]`, 'color: #aaa', ...args)
     }
 
-    debug (...args: any[]) { this.log('debug', ...args) }
-    info (...args: any[]) { this.log('info', ...args) }
-    warn (...args: any[]) { this.log('warn', ...args) }
-    error (...args: any[]) { this.log('error', ...args) }
+    debug (...args: any[]) { this.doLog('debug', ...args) }
+    info (...args: any[]) { this.doLog('info', ...args) }
+    warn (...args: any[]) { this.doLog('warn', ...args) }
+    error (...args: any[]) { this.doLog('error', ...args) }
+    log (...args: any[]) { this.doLog('log', ...args) }
 }
 
 @Injectable()

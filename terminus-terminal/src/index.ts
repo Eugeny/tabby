@@ -11,18 +11,27 @@ import { TerminalSettingsTabComponent } from './components/terminalSettingsTab.c
 import { ColorPickerComponent } from './components/colorPicker.component'
 
 import { SessionsService } from './services/sessions.service'
-import { ShellsService } from './services/shells.service'
 
 import { ScreenPersistenceProvider } from './persistenceProviders'
 import { TMuxPersistenceProvider } from './tmux'
 import { ButtonProvider } from './buttonProvider'
 import { RecoveryProvider } from './recoveryProvider'
-import { SessionPersistenceProvider, TerminalColorSchemeProvider, TerminalDecorator } from './api'
+import { SessionPersistenceProvider, TerminalColorSchemeProvider, TerminalDecorator, ShellProvider } from './api'
 import { TerminalSettingsTabProvider } from './settings'
 import { PathDropDecorator } from './pathDrop'
 import { TerminalConfigProvider } from './config'
 import { TerminalHotkeyProvider } from './hotkeys'
 import { HyperColorSchemes } from './colorSchemes'
+
+import { Cygwin32ShellProvider } from './shells/cygwin32'
+import { Cygwin64ShellProvider } from './shells/cygwin64'
+import { GitBashShellProvider } from './shells/gitBash'
+import { LinuxDefaultShellProvider } from './shells/linuxDefault'
+import { MacOSDefaultShellProvider } from './shells/macDefault'
+import { POSIXShellsProvider } from './shells/posix'
+import { WindowsStockShellsProvider } from './shells/windowsStock'
+import { WSLShellProvider } from './shells/wsl'
+
 import { hterm } from './hterm'
 
 @NgModule({
@@ -33,7 +42,6 @@ import { hterm } from './hterm'
     ],
     providers: [
         SessionsService,
-        ShellsService,
         ScreenPersistenceProvider,
         TMuxPersistenceProvider,
         { provide: ToolbarButtonProvider, useClass: ButtonProvider, multi: true },
@@ -63,6 +71,15 @@ import { hterm } from './hterm'
         { provide: HotkeyProvider, useClass: TerminalHotkeyProvider, multi: true },
         { provide: TerminalColorSchemeProvider, useClass: HyperColorSchemes, multi: true },
         { provide: TerminalDecorator, useClass: PathDropDecorator, multi: true },
+
+        { provide: ShellProvider, useClass: WindowsStockShellsProvider, multi: true },
+        { provide: ShellProvider, useClass: MacOSDefaultShellProvider, multi: true },
+        { provide: ShellProvider, useClass: LinuxDefaultShellProvider, multi: true },
+        { provide: ShellProvider, useClass: Cygwin32ShellProvider, multi: true },
+        { provide: ShellProvider, useClass: Cygwin64ShellProvider, multi: true },
+        { provide: ShellProvider, useClass: GitBashShellProvider, multi: true },
+        { provide: ShellProvider, useClass: POSIXShellsProvider, multi: true },
+        { provide: ShellProvider, useClass: WSLShellProvider, multi: true },
     ],
     entryComponents: [
         TerminalTabComponent,

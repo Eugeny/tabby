@@ -1,24 +1,34 @@
+import { AsyncSubject } from 'rxjs'
 import * as fs from 'mz/fs'
 import * as path from 'path'
-import { Injectable } from '@angular/core'
-import { HotkeysService, ToolbarButtonProvider, IToolbarButton, AppService, ConfigService, HostAppService, Platform, ElectronService } from 'terminus-core'
+import { Injectable, Inject } from '@angular/core'
+import { HotkeysService, ToolbarButtonProvider, IToolbarButton, AppService, ConfigService, HostAppService, ElectronService, Logger, LogService } from 'terminus-core'
 
+import { IShell, ShellProvider } from './api'
 import { SessionsService } from './services/sessions.service'
-import { ShellsService } from './services/shells.service'
 import { TerminalTabComponent } from './components/terminalTab.component'
 
 @Injectable()
 export class ButtonProvider extends ToolbarButtonProvider {
+    private shells$ = new AsyncSubject<IShell[]>()
+    private logger: Logger
+
     constructor (
         private app: AppService,
         private sessions: SessionsService,
         private config: ConfigService,
-        private shells: ShellsService,
-        private hostApp: HostAppService,
+        log: LogService,
+        hostApp: HostAppService,
+        @Inject(ShellProvider) shellProviders: ShellProvider[],
         electron: ElectronService,
         hotkeys: HotkeysService,
     ) {
         super()
+        this.logger = log.create('newTerminalButton')
+        Promise.all(shellProviders.map(x => x.provide())).then(shellLists => {
+            this.shells$.next(shellLists.reduce((a, b) => a.concat(b)))
+            this.shells$.complete()
+        })
         hotkeys.matchedHotkey.subscribe(async (hotkey) => {
             if (hotkey === 'new-tab') {
                 this.openNewTab()
@@ -50,24 +60,20 @@ export class ButtonProvider extends ToolbarButtonProvider {
         if (!cwd && this.app.activeTab instanceof TerminalTabComponent) {
             cwd = await this.app.activeTab.session.getWorkingDirectory()
         }
-        let command = this.config.store.terminal.shell
-        let env: any = process.env
-        let args: string[] = []
-        if (command === '~clink~') {
-            ({ command, args } = this.shells.getClinkOptions())
-        }
-        if (command === '~default-shell~') {
-            command = await this.shells.getDefaultShell()
-        }
-        if (this.hostApp.platform === Platform.Windows) {
-            env.TERM = 'cygwin'
-        }
+        let shells = await this.shells$.first().toPromise()
+        let shell = shells.find(x => x.id === this.config.store.terminal.shell) || shells[0]
+        let env: any = Object.assign({}, process.env, shell.env || {})
+
+        this.logger.log(`Starting shell ${shell.name}`, shell)
         let sessionOptions = await this.sessions.prepareNewSession({
-            command,
-            args,
+            command: shell.command,
+            args: shell.args || [],
             cwd,
             env,
         })
+
+        this.logger.log('Using session options:', sessionOptions)
+
         this.app.openNewTab(
             TerminalTabComponent,
             { sessionOptions }
