@@ -3,7 +3,7 @@ import { execFileSync } from 'child_process'
 import * as AsyncLock from 'async-lock'
 import { ConnectableObservable, AsyncSubject, Subject } from 'rxjs'
 import * as childProcess from 'child_process'
-import { SessionOptions, SessionPersistenceProvider } from './api'
+import { SessionOptions, SessionPersistenceProvider } from '../api'
 
 const TMUX_CONFIG = `
     set -g status off
@@ -174,10 +174,15 @@ export class TMux {
 
 @Injectable()
 export class TMuxPersistenceProvider extends SessionPersistenceProvider {
+    id = 'tmux'
+    displayName = 'Tmux'
     private tmux: TMux
 
     constructor () {
         super()
+        if (this.isAvailable()) {
+            this.tmux = new TMux()
+        }
     }
 
     isAvailable (): boolean {
@@ -187,10 +192,6 @@ export class TMuxPersistenceProvider extends SessionPersistenceProvider {
         } catch (_) {
             return false
         }
-    }
-
-    init () {
-        this.tmux = new TMux()
     }
 
     async attachSession (recoveryId: any): Promise<SessionOptions> {

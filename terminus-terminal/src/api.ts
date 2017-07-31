@@ -28,6 +28,10 @@ export interface SessionOptions {
 }
 
 export abstract class SessionPersistenceProvider {
+    abstract id: string
+    abstract displayName: string
+
+    abstract isAvailable (): boolean
     abstract async attachSession (recoveryId: any): Promise<SessionOptions>
     abstract async startSession (options: SessionOptions): Promise<any>
     abstract async terminateSession (recoveryId: string): Promise<void>

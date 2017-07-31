@@ -1,11 +1,11 @@
 import * as fs from 'mz/fs'
 import { exec, spawn } from 'mz/child_process'
-import { exec as execCallback } from 'child_process'
+import { exec as execAsync, execFileSync } from 'child_process'
 
 import { AsyncSubject } from 'rxjs'
 import { Injectable } from '@angular/core'
 import { Logger, LogService } from 'terminus-core'
-import { SessionOptions, SessionPersistenceProvider } from './api'
+import { SessionOptions, SessionPersistenceProvider } from '../api'
 
 declare function delay (ms: number): Promise<void>
 
@@ -29,6 +29,8 @@ async function listProcesses (): Promise<IChildProcess[]> {
 
 @Injectable()
 export class ScreenPersistenceProvider extends SessionPersistenceProvider {
+    id = 'screen'
+    displayName = 'GNU Screen'
     private logger: Logger
 
     constructor (
@@ -38,9 +40,18 @@ export class ScreenPersistenceProvider extends SessionPersistenceProvider {
         this.logger = log.create('main')
     }
 
+    isAvailable () {
+        try {
+            execFileSync('sh', ['-c', 'which screen'])
+            return true
+        } catch (_) {
+            return false
+        }
+    }
+
     async attachSession (recoveryId: any): Promise<SessionOptions> {
         let lines = await new Promise<string[]>(resolve => {
-            execCallback('screen -list', (_err, stdout) => {
+            execAsync('screen -list', (_err, stdout) => {
                 // returns an error code on macOS
                 resolve(stdout.split('\n'))
             })

@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser'
 import { FormsModule } from '@angular/forms'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 
-import { HostAppService, Platform, ToolbarButtonProvider, TabRecoveryProvider, ConfigProvider, HotkeysService, HotkeyProvider } from 'terminus-core'
+import { ToolbarButtonProvider, TabRecoveryProvider, ConfigProvider, HotkeysService, HotkeyProvider } from 'terminus-core'
 import { SettingsTabProvider } from 'terminus-settings'
 
 import { TerminalTabComponent } from './components/terminalTab.component'
@@ -12,8 +12,8 @@ import { ColorPickerComponent } from './components/colorPicker.component'
 
 import { SessionsService } from './services/sessions.service'
 
-import { ScreenPersistenceProvider } from './persistenceProviders'
-import { TMuxPersistenceProvider } from './tmux'
+import { ScreenPersistenceProvider } from './persistence/screen'
+import { TMuxPersistenceProvider } from './persistence/tmux'
 import { ButtonProvider } from './buttonProvider'
 import { RecoveryProvider } from './recoveryProvider'
 import { SessionPersistenceProvider, TerminalColorSchemeProvider, TerminalDecorator, ShellProvider } from './api'
@@ -42,35 +42,16 @@ import { hterm } from './hterm'
     ],
     providers: [
         SessionsService,
-        ScreenPersistenceProvider,
-        TMuxPersistenceProvider,
         { provide: ToolbarButtonProvider, useClass: ButtonProvider, multi: true },
         { provide: TabRecoveryProvider, useClass: RecoveryProvider, multi: true },
-        {
-            provide: SessionPersistenceProvider,
-            useFactory: (
-                hostApp: HostAppService,
-                screen: ScreenPersistenceProvider,
-                tmux: TMuxPersistenceProvider,
-            ) => {
-                if (hostApp.platform === Platform.Windows) {
-                    return null
-                } else {
-                    if (tmux.isAvailable()) {
-                        tmux.init()
-                        return tmux
-                    } else {
-                        return screen
-                    }
-                }
-            },
-            deps: [HostAppService, ScreenPersistenceProvider, TMuxPersistenceProvider],
-        },
         { provide: SettingsTabProvider, useClass: TerminalSettingsTabProvider, multi: true },
         { provide: ConfigProvider, useClass: TerminalConfigProvider, multi: true },
         { provide: HotkeyProvider, useClass: TerminalHotkeyProvider, multi: true },
         { provide: TerminalColorSchemeProvider, useClass: HyperColorSchemes, multi: true },
         { provide: TerminalDecorator, useClass: PathDropDecorator, multi: true },
+
+        { provide: SessionPersistenceProvider, useClass: ScreenPersistenceProvider, multi: true },
+        { provide: SessionPersistenceProvider, useClass: TMuxPersistenceProvider, multi: true },
 
         { provide: ShellProvider, useClass: WindowsStockShellsProvider, multi: true },
         { provide: ShellProvider, useClass: MacOSDefaultShellProvider, multi: true },

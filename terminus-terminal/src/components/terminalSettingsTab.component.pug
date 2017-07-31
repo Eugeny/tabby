@@ -259,3 +259,15 @@
                         [value]='"audible"'
                     )
                     | Audible
+
+        .form-group
+            label Session persistence
+            select.form-control(
+                '[(ngModel)]'='config.store.terminal.persistence',
+                (ngModelChange)='config.save()',
+            )
+                option([ngValue]='null') Off
+                option(
+                    *ngFor='let provider of persistenceProviders',
+                    [ngValue]='provider.id'
+                ) {{provider.displayName}}

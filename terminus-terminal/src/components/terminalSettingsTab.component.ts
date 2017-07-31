@@ -5,7 +5,7 @@ const fontManager = require('font-manager')
 
 import { Component, Inject } from '@angular/core'
 import { ConfigService, HostAppService, Platform } from 'terminus-core'
-import { TerminalColorSchemeProvider, ITerminalColorScheme, IShell, ShellProvider } from '../api'
+import { TerminalColorSchemeProvider, ITerminalColorScheme, IShell, ShellProvider, SessionPersistenceProvider } from '../api'
 
 @Component({
     template: require('./terminalSettingsTab.component.pug'),
@@ -14,6 +14,7 @@ import { TerminalColorSchemeProvider, ITerminalColorScheme, IShell, ShellProvide
 export class TerminalSettingsTabComponent {
     fonts: string[] = []
     shells: IShell[] = []
+    persistenceProviders: SessionPersistenceProvider[]
     colorSchemes: ITerminalColorScheme[] = []
     equalComparator = equal
     editingColorScheme: ITerminalColorScheme
@@ -24,7 +25,10 @@ export class TerminalSettingsTabComponent {
         private hostApp: HostAppService,
         @Inject(ShellProvider) private shellProviders: ShellProvider[],
         @Inject(TerminalColorSchemeProvider) private colorSchemeProviders: TerminalColorSchemeProvider[],
-    ) { }
+        @Inject(SessionPersistenceProvider) persistenceProviders: SessionPersistenceProvider[],
+    ) {
+        this.persistenceProviders = persistenceProviders.filter(x => x.isAvailable())
+    }
 
     async ngOnInit () {
         if (this.hostApp.platform === Platform.Windows || this.hostApp.platform === Platform.macOS) {

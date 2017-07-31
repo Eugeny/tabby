@@ -43,6 +43,7 @@ export class TerminalConfigProvider extends ConfigProvider {
             terminal: {
                 font: 'Menlo',
                 shell: '~default-shell~',
+                persistence: 'screen',
             },
             hotkeys: {
                 'copy': [
@@ -74,6 +75,7 @@ export class TerminalConfigProvider extends ConfigProvider {
             terminal: {
                 font: 'Consolas',
                 shell: '~clink~',
+                persistence: null,
             },
             hotkeys: {
                 'copy': [
@@ -104,6 +106,7 @@ export class TerminalConfigProvider extends ConfigProvider {
             terminal: {
                 font: 'Liberation Mono',
                 shell: '~default-shell~',
+                persistence: 'screen',
             },
             hotkeys: {
                 'copy': [
