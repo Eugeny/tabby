@@ -2,7 +2,6 @@ import { Observable } from 'rxjs'
 import { TerminalTabComponent } from './components/terminalTab.component'
 export { TerminalTabComponent }
 export { IChildProcess } from './services/sessions.service'
-export { TerminalService } from './services/terminal.service'
 
 export abstract class TerminalDecorator {
     // tslint:disable-next-line no-empty

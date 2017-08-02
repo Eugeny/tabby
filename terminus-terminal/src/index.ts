@@ -105,3 +105,4 @@ export default class TerminalModule {
 }
 
 export * from './api'
+export { TerminalService }
