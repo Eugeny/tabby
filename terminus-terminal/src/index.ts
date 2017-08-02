@@ -11,6 +11,7 @@ import { TerminalSettingsTabComponent } from './components/terminalSettingsTab.c
 import { ColorPickerComponent } from './components/colorPicker.component'
 
 import { SessionsService } from './services/sessions.service'
+import { TerminalService } from './services/terminal.service'
 
 import { ScreenPersistenceProvider } from './persistence/screen'
 import { TMuxPersistenceProvider } from './persistence/tmux'
@@ -42,6 +43,8 @@ import { hterm } from './hterm'
     ],
     providers: [
         SessionsService,
+        TerminalService,
+
         { provide: ToolbarButtonProvider, useClass: ButtonProvider, multi: true },
         { provide: TabRecoveryProvider, useClass: RecoveryProvider, multi: true },
         { provide: SettingsTabProvider, useClass: TerminalSettingsTabProvider, multi: true },

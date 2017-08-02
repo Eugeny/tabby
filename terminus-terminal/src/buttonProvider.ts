@@ -2,11 +2,10 @@ import { AsyncSubject } from 'rxjs'
 import * as fs from 'mz/fs'
 import * as path from 'path'
 import { Injectable, Inject } from '@angular/core'
-import { HotkeysService, ToolbarButtonProvider, IToolbarButton, AppService, ConfigService, HostAppService, ElectronService, Logger, LogService } from 'terminus-core'
+import { HotkeysService, ToolbarButtonProvider, IToolbarButton, ConfigService, HostAppService, ElectronService, Logger, LogService } from 'terminus-core'
 
 import { IShell, ShellProvider } from './api'
-import { SessionsService } from './services/sessions.service'
-import { TerminalTabComponent } from './components/terminalTab.component'
+import { TerminalService } from './services/terminal.service'
 
 @Injectable()
 export class ButtonProvider extends ToolbarButtonProvider {
@@ -14,8 +13,7 @@ export class ButtonProvider extends ToolbarButtonProvider {
     private logger: Logger
 
     constructor (
-        private app: AppService,
-        private sessions: SessionsService,
+        private terminal: TerminalService,
         private config: ConfigService,
         log: LogService,
         hostApp: HostAppService,
@@ -57,27 +55,9 @@ export class ButtonProvider extends ToolbarButtonProvider {
     }
 
     async openNewTab (cwd?: string): Promise<void> {
-        if (!cwd && this.app.activeTab instanceof TerminalTabComponent) {
-            cwd = await this.app.activeTab.session.getWorkingDirectory()
-        }
         let shells = await this.shells$.first().toPromise()
         let shell = shells.find(x => x.id === this.config.store.terminal.shell) || shells[0]
-        let env: any = Object.assign({}, process.env, shell.env || {})
-
-        this.logger.log(`Starting shell ${shell.name}`, shell)
-        let sessionOptions = await this.sessions.prepareNewSession({
-            command: shell.command,
-            args: shell.args || [],
-            cwd,
-            env,
-        })
-
-        this.logger.log('Using session options:', sessionOptions)
-
-        this.app.openNewTab(
-            TerminalTabComponent,
-            { sessionOptions }
-        )
+        this.terminal.openTab(shell, cwd)
     }
 
     provide (): IToolbarButton[] {

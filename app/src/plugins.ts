@@ -108,8 +108,9 @@ export async function findPlugins (): Promise<IPluginInfo[]> {
             continue
         }
 
-        if (foundPlugins.some(x => x.name === pluginName)) {
-            console.info(`Plugin ${pluginName} already exists`)
+        if (foundPlugins.some(x => x.name === pluginName.substring('terminus-'.length))) {
+            console.info(`Plugin ${pluginName} already exists, overriding`)
+            foundPlugins = foundPlugins.filter(x => x.name !== pluginName.substring('terminus-'.length))
         }
 
         try {

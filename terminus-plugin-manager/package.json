@@ -1,6 +1,6 @@
 {
   "name": "terminus-plugin-manager",
-  "version": "1.0.0-alpha.16-8-gfc060ac",
+  "version": "1.0.0-alpha.23-6-g1c62f30",
   "description": "Terminus' plugin manager",
   "keywords": [
     "terminus-plugin"

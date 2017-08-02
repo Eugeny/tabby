@@ -71,5 +71,7 @@ const _collapseToEnd = Selection.prototype.collapseToEnd
 Selection.prototype.collapseToEnd = function () {
     try {
         _collapseToEnd.apply(this)
-    } catch (err) { ; }
+    } catch (err) {
+        // tslint-disable-line
+    }
 }
