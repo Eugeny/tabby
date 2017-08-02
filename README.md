@@ -1,7 +1,7 @@
 # Terminus α
 *A terminal for a more modern age*
-
 [![Build Status](https://travis-ci.org/Eugeny/terminus.svg?branch=master)](https://travis-ci.org/Eugeny/terminus) [![Build status](https://ci.appveyor.com/api/projects/status/wnnq4hm5mbd9rgoy?svg=true)](https://ci.appveyor.com/project/Eugeny/terminus) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/Eugeny/terminus/master/LICENSE) [![Downloads](https://img.shields.io/badge/downloads-latest_release-brightgreen.svg)](https://github.com/Eugeny/terminus/releases/latest)
+
 
 ----
 
@@ -28,6 +28,7 @@ Plugins can be installed directly from the Settings view inside Terminus.
 
   * [clickable-links](https://github.com/Eugeny/terminus-clickable-links) - makes paths and URLs in the terminal clickable
   * [theme-hype](https://github.com/Eugeny/terminus-theme-hype) - a Hyper inspired theme
+  * [shell-selector](https://github.com/Eugeny/terminus-shell-selector) - a quick shell selector pane
 
 ---
 
