@@ -106,7 +106,7 @@ export class TerminalConfigProvider extends ConfigProvider {
             terminal: {
                 font: 'Liberation Mono',
                 shell: '~default-shell~',
-                persistence: 'screen',
+                persistence: 'tmux',
             },
             hotkeys: {
                 'copy': [
