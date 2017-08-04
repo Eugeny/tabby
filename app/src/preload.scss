@@ -1,6 +1,3 @@
-$color: rgba(66, 142, 173, 0.75);
-
-
 .preload-logo {
   -webkit-app-region: drag;
   position: fixed;
@@ -24,7 +21,7 @@ $color: rgba(66, 142, 173, 0.75);
 
       .bar {
         transition: 1s ease-out width;
-        background: $color;
+        background: #a1c5e4;
         height: 3px;
       }
     }
@@ -42,63 +39,22 @@ $color: rgba(66, 142, 173, 0.75);
 .terminus-logo {
   width: 160px;
   height: 160px;
+  background: url('./logo.svg');
+  background-repeat: none;
+  background-size: contain;
   margin: auto;
-  position: relative;
-  transform: rotateZ(-14.5deg);
-
-  .part {
-    position: absolute;
-    width: 160px;
-    height: 160px;
-
-    div {
-      position: absolute;
-      top: 33px;
-      left: 24px;
-      width: 44px;
-      height: 44px;
-      background: $color;
-      transform: rotateX(52deg) rotateY(-42deg);
-      animation: terminusLogoPartOnce ease-out 1s;
-    }
-  }
-
-  &.animated .part div {
-    animation: terminusLogoPart infinite ease-out 2s;
-  }
 }
 
 
 .terminus-title {
-  color: $color;
+  color: #a1c5e4;
   font-family: 'Source Sans Pro';
   text-align: center;
   font-weight: normal;
   font-size: 42px;
   margin: 0;
-}
 
-
-@keyframes terminusLogoPart {
-  0% {
-    transform: rotateX(90deg) rotateY(-90deg);
-  }
-  25% {
-    transform: rotateX(52deg) rotateY(-42deg);
-  }
-  75% {
-    transform: rotateX(52deg) rotateY(-42deg);
-  }
-  100% {
-    transform: rotateX(-90deg) rotateY(-90deg);
-  }
-}
-
-@keyframes terminusLogoPartOnce {
-  0% {
-    transform: rotateX(90deg) rotateY(-90deg);
-  }
-  100% {
-    transform: rotateX(52deg) rotateY(-42deg);
+  sup {
+      color: #842fe0;
   }
 }

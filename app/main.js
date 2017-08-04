@@ -192,7 +192,6 @@ start = () => {
     let options = {
         width: 800,
         height: 600,
-        //icon: `${app.getAppPath()}/assets/img/icon.png`,
         title: 'Terminus',
         minWidth: 400,
         minHeight: 300,

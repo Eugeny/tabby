@@ -71,7 +71,11 @@ $dropdown-link-disabled-color:   #333;
 $dropdown-header-color:          #333;
 
 $list-group-color: $body-color;
-$list-group-bg: $body-bg2;
+$list-group-bg: rgba(255,255,255,.05);
+$list-group-border-color:  rgba(255,255,255,.1);
+$list-group-hover-bg: rgba(255,255,255,.1);
+$list-group-link-active-bg: rgba(255,255,255,.2);
+
 
 @import '~bootstrap/scss/bootstrap.scss';
 
@@ -271,12 +275,6 @@ hotkey-input-modal {
     }
 }
 
-start-page {
-    .terminus-title {
-        color: $blue;
-    }
-}
-
 .form-group label {
     margin-bottom: 2px;
 }
@@ -313,4 +311,12 @@ ngb-tabset .tab-content {
 
 .input-group > select.form-control {
     flex-direction: row;
+}
+
+.list-group-item {
+    transition: 0.25s background;
+
+    i + * {
+        margin-left: 10px;
+    }
 }
