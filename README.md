@@ -1,12 +1,10 @@
-<div style="text-align:center">
-![](https://github.com/Eugeny/terminus/raw/master/app/src/logo.svg)
-
-# Terminus α
-*A terminal for a more modern age*
+<p align="center">
+    <img src="https://github.com/Eugeny/terminus/raw/master/app/src/logo.svg" />
+    <h1># Terminus α</h1>
+    <i>A terminal for a more modern age</i>
+</p>
 
 [![Build Status](https://travis-ci.org/Eugeny/terminus.svg?branch=master)](https://travis-ci.org/Eugeny/terminus) [![Build status](https://ci.appveyor.com/api/projects/status/wnnq4hm5mbd9rgoy?svg=true)](https://ci.appveyor.com/project/Eugeny/terminus) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/Eugeny/terminus/master/LICENSE) [![Downloads](https://img.shields.io/badge/downloads-latest_release-brightgreen.svg)](https://github.com/Eugeny/terminus/releases/latest)
-
-</div>
 
 ----
 
