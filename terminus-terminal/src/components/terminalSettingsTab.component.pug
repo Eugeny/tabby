@@ -230,7 +230,7 @@
             )
                 option(
                     *ngFor='let shell of shells',
-                    [ngValue]='shell.command'
+                    [ngValue]='shell.id'
                 ) {{shell.name}}
 
         .form-group

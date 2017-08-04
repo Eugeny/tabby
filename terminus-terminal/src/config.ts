@@ -42,7 +42,7 @@ export class TerminalConfigProvider extends ConfigProvider {
         [Platform.macOS]: {
             terminal: {
                 font: 'Menlo',
-                shell: '~default-shell~',
+                shell: 'default',
                 persistence: 'screen',
             },
             hotkeys: {
@@ -74,7 +74,7 @@ export class TerminalConfigProvider extends ConfigProvider {
         [Platform.Windows]: {
             terminal: {
                 font: 'Consolas',
-                shell: '~clink~',
+                shell: 'clink',
                 persistence: null,
             },
             hotkeys: {
@@ -105,7 +105,7 @@ export class TerminalConfigProvider extends ConfigProvider {
         [Platform.Linux]: {
             terminal: {
                 font: 'Liberation Mono',
-                shell: '~default-shell~',
+                shell: 'default',
                 persistence: 'tmux',
             },
             hotkeys: {
