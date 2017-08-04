@@ -10,6 +10,7 @@
 </div>
 
 [![Build Status](https://travis-ci.org/Eugeny/terminus.svg?branch=master)](https://travis-ci.org/Eugeny/terminus) [![Build status](https://ci.appveyor.com/api/projects/status/wnnq4hm5mbd9rgoy?svg=true)](https://ci.appveyor.com/project/Eugeny/terminus) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/Eugeny/terminus/master/LICENSE) [![Downloads](https://img.shields.io/badge/downloads-latest_release-brightgreen.svg)](https://github.com/Eugeny/terminus/releases/latest)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bhttps%3A%2F%2Fgithub.com%2FEugeny%2Fterminus.svg?type=shield)](https://app.fossa.io/projects/git%2Bhttps%3A%2F%2Fgithub.com%2FEugeny%2Fterminus?ref=badge_shield)
 
 ----
 
@@ -45,3 +46,7 @@ Plugins can be installed directly from the Settings view inside Terminus.
 Pull requests and plugins are welcome! Publish your plugin on NPM with a `terminus-plugin` keyword to make them appear in the Plugin Manager.
 
 See [HACKING.md](https://github.com/Eugeny/terminus/blob/master/HACKING.md) for a very brief plugin development tutorial!
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bhttps%3A%2F%2Fgithub.com%2FEugeny%2Fterminus.svg?type=large)](https://app.fossa.io/projects/git%2Bhttps%3A%2F%2Fgithub.com%2FEugeny%2Fterminus?ref=badge_large)
