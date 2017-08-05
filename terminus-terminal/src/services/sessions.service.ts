@@ -185,6 +185,7 @@ export class SessionsService {
     ) {
         nodePTY = electron.remoteRequirePluginModule('terminus-terminal', 'node-pty', global as any)
         this.logger = log.create('sessions')
+        this.persistenceProviders = this.persistenceProviders.filter(x => x.isAvailable())
     }
 
     async prepareNewSession (options: SessionOptions): Promise<SessionOptions> {
