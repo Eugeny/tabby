@@ -4,6 +4,7 @@ export class TerminalConfigProvider extends ConfigProvider {
     defaults = {
         terminal: {
             fontSize: 14,
+            linePadding: 0,
             bell: 'off',
             bracketedPaste: false,
             background: 'theme',

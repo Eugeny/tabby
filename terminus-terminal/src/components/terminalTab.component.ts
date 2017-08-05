@@ -214,6 +214,13 @@ export class TerminalTabComponent extends BaseTabComponent {
                 return ret
             }
         }
+
+        const _measureCharacterSize = hterm.scrollPort_.measureCharacterSize.bind(hterm.scrollPort_)
+        hterm.scrollPort_.measureCharacterSize = () => {
+            let size = _measureCharacterSize()
+            size.height += this.config.store.terminal.linePadding
+            return size
+        }
     }
 
     attachIOHandlers (io: any) {
