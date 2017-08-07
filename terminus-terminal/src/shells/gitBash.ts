@@ -41,6 +41,7 @@ export class GitBashShellProvider extends ShellProvider {
             id: 'git-bash',
             name: 'Git-Bash',
             command: path.join(gitBashPath, 'bin', 'bash.exe'),
+            args: [ '--login', '-i' ],
             env: {
                 TERM: 'cygwin',
             }
