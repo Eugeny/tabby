@@ -1,10 +1,11 @@
 import * as fs from 'mz/fs'
+import * as path from 'path'
 import { exec, spawn } from 'mz/child_process'
 import { exec as execAsync, execFileSync } from 'child_process'
 
 import { AsyncSubject } from 'rxjs'
 import { Injectable } from '@angular/core'
-import { Logger, LogService } from 'terminus-core'
+import { Logger, LogService, ElectronService } from 'terminus-core'
 import { SessionOptions, SessionPersistenceProvider } from '../api'
 
 declare function delay (ms: number): Promise<void>
@@ -35,6 +36,7 @@ export class ScreenPersistenceProvider extends SessionPersistenceProvider {
 
     constructor (
         log: LogService,
+        private electron: ElectronService,
     ) {
         super()
         this.logger = log.create('main')
@@ -115,7 +117,7 @@ export class ScreenPersistenceProvider extends SessionPersistenceProvider {
     }
 
     private async prepareConfig (): Promise<string> {
-        let configPath = '/tmp/.termScreenConfig'
+        let configPath = path.join(this.electron.app.getPath('userData'), 'screen-config.tmp')
         await fs.writeFile(configPath, `
             escape ^^^
             vbell off
