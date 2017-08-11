@@ -221,6 +221,9 @@ export class SessionsService {
     }
 
     private getPersistence (): SessionPersistenceProvider {
+        if (!this.config.store.terminal.persistence) {
+            return null
+        }
         return this.persistenceProviders.find(x => x.id === this.config.store.terminal.persistence) || null
     }
 }

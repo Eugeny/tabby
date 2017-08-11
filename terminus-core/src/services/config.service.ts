@@ -38,7 +38,7 @@ export class ConfigProxy {
                     {
                         enumerable: true,
                         configurable: false,
-                        get: () => real[key] || defaults[key],
+                        get: () => (real[key] !== undefined) ? real[key] : defaults[key],
                         set: (value) => {
                             real[key] = value
                         }
