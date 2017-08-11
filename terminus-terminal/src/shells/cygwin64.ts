@@ -25,7 +25,7 @@ export class Cygwin64ShellProvider extends ShellProvider {
         let cygwinPath = await new Promise<string>(resolve => {
             let reg = new Registry({ hive: Registry.HKLM, key: '\\Software\\Cygwin\\setup', arch: 'x64' })
             reg.get('rootdir', (err, item) => {
-                if (err) {
+                if (err || !item) {
                     return resolve(null)
                 }
                 resolve(item.value)
