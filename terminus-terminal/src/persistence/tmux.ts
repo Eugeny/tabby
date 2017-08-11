@@ -15,6 +15,7 @@ const TMUX_CONFIG = `
     set -g set-titles-string "#W"
     set -g window-status-format '#I:#(pwd="#{pane_current_path}"; echo \${pwd####*/})#F'
     set -g window-status-current-format '#I:#(pwd="#{pane_current_path}"; echo \${pwd####*/})#F'
+    set-option -g prefix C-^
     set-option -g status-interval 1
 `
 
