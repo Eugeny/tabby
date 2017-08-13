@@ -1,5 +1,6 @@
 import { Component, Inject, Input, HostListener } from '@angular/core'
 import { trigger, style, animate, transition, state } from '@angular/animations'
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 
 import { ElectronService } from '../services/electron.service'
 import { HostAppService, Platform } from '../services/hostApp.service'
@@ -10,6 +11,7 @@ import { DockingService } from '../services/docking.service'
 import { TabRecoveryService } from '../services/tabRecovery.service'
 import { ThemesService } from '../services/themes.service'
 
+import { SafeModeModalComponent } from './safeModeModal.component'
 import { AppService, IToolbarButton, ToolbarButtonProvider } from '../api'
 
 @Component({
@@ -62,6 +64,7 @@ export class AppRootComponent {
         public app: AppService,
         @Inject(ToolbarButtonProvider) private toolbarButtonProviders: ToolbarButtonProvider[],
         log: LogService,
+        ngbModal: NgbModal,
         _themes: ThemesService,
     ) {
         this.logger = log.create('main')
@@ -104,6 +107,10 @@ export class AppRootComponent {
         this.hotkeys.globalHotkey.subscribe(() => {
             this.onGlobalHotkey()
         })
+
+        if (window['safeModeReason']) {
+            ngbModal.open(SafeModeModalComponent)
+        }
     }
 
     onGlobalHotkey () {

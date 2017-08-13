@@ -17,6 +17,7 @@ import { ThemesService } from './services/themes.service'
 
 import { AppRootComponent } from './components/appRoot.component'
 import { TabBodyComponent } from './components/tabBody.component'
+import { SafeModeModalComponent } from './components/safeModeModal.component'
 import { StartPageComponent } from './components/startPage.component'
 import { TabHeaderComponent } from './components/tabHeader.component'
 import { TitleBarComponent } from './components/titleBar.component'
@@ -65,9 +66,11 @@ const PROVIDERS = [
         TitleBarComponent,
         WindowControlsComponent,
         RenameTabModalComponent,
+        SafeModeModalComponent,
     ],
     entryComponents: [
         RenameTabModalComponent,
+        SafeModeModalComponent,
     ]
 })
 export default class AppModule {
