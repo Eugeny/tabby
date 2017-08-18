@@ -34,6 +34,19 @@ export class GitBashShellProvider extends ShellProvider {
         })
 
         if (!gitBashPath) {
+            gitBashPath = await new Promise<string>(resolve => {
+                let reg = new Registry({ hive: Registry.HKCU, key: '\\Software\\GitForWindows' })
+                reg.get('InstallPath', (err, item) => {
+                    if (err || !item) {
+                        resolve(null)
+                        return
+                    }
+                    resolve(item.value)
+                })
+            })
+        }
+
+        if (!gitBashPath) {
             return []
         }
 
