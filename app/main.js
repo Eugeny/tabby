@@ -30,26 +30,16 @@ if (!process.env.TERMINUS_PLUGINS) {
 }
 
 setupWindowManagement = () => {
-    let windowCloseable
-
     app.window.on('show', () => {
       app.window.webContents.send('host:window-shown')
     })
 
     app.window.on('close', (e) => {
         windowConfig.set('windowBoundaries', app.window.getBounds())
-        if (!windowCloseable) {
-            app.window.minimize()
-            e.preventDefault()
-        }
     })
 
     app.window.on('closed', () => {
         app.window = null
-    })
-
-    electron.ipcMain.on('window-closeable', (event, flag) => {
-        windowCloseable = flag
     })
 
     electron.ipcMain.on('window-focus', () => {
@@ -86,6 +76,8 @@ setupWindowManagement = () => {
 
     electron.ipcMain.on('window-set-bounds', (event, bounds) => {
         let actualBounds = app.window.getBounds()
+        actualBounds.width -= bounds.x - actualBounds.x
+        actualBounds.height -= bounds.y - actualBounds.y
         actualBounds.x = bounds.x
         actualBounds.y = bounds.y
         app.window.setBounds(actualBounds)
@@ -102,8 +94,6 @@ setupWindowManagement = () => {
     electron.ipcMain.on('window-set-always-on-top', (event, flag) => {
         app.window.setAlwaysOnTop(flag)
     })
-
-    app.on('before-quit', () => windowCloseable = true)
 }
 
 
@@ -131,7 +121,7 @@ setupMenu = () => {
                 label: 'Quit',
                 accelerator: 'Cmd+Q',
                 click () {
-                    app.window.webContents.send('host:quit-request')
+                    app.quit()
                 }
             }
         ]
@@ -202,7 +192,6 @@ start = () => {
     let options = {
         width: 800,
         height: 600,
-        //icon: `${app.getAppPath()}/assets/img/icon.png`,
         title: 'Terminus',
         minWidth: 400,
         minHeight: 300,

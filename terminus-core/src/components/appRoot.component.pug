@@ -19,7 +19,7 @@ title-bar(
                 [class.drag-region]='hostApp.platform == Platform.macOS',
                 @animateTab,
                 (click)='app.selectTab(tab)',
-                (closeClicked)='app.closeTab(tab)',
+                (closeClicked)='app.closeTab(tab, true)',
             )
         
         .btn-group

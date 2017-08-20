@@ -9,3 +9,13 @@ a:hover {
 x-screen {
     transition: 0.125s ease background;
 }
+
+x-row > span {
+    display: inline-block;
+    height: inherit;
+}
+
+@font-face {
+    font-family: "monospace-fallback";
+    src: url(fonts/Meslo.otf) format("opentype");
+}

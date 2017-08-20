@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core'
 import { TerminalDecorator } from './api'
 import { TerminalTabComponent } from './components/terminalTab.component'
 
-
 @Injectable()
 export class PathDropDecorator extends TerminalDecorator {
     attach (terminal: TerminalTabComponent): void {

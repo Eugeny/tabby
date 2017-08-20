@@ -1,5 +1,5 @@
 import { Injectable, Inject } from '@angular/core'
-import { TabRecoveryProvider } from '../api/tabRecovery'
+import { TabRecoveryProvider, RecoveredTab } from '../api/tabRecovery'
 import { BaseTabComponent } from '../components/baseTab.component'
 import { Logger, LogService } from '../services/log.service'
 import { AppService } from '../services/app.service'
@@ -10,7 +10,7 @@ export class TabRecoveryService {
 
     constructor (
         @Inject(TabRecoveryProvider) private tabRecoveryProviders: TabRecoveryProvider[],
-        app: AppService,
+        private app: AppService,
         log: LogService
     ) {
         this.logger = log.create('tabRecovery')
@@ -29,15 +29,22 @@ export class TabRecoveryService {
 
     async recoverTabs (): Promise<void> {
         if (window.localStorage.tabsRecovery) {
+            let tabs: RecoveredTab[] = []
             for (let token of JSON.parse(window.localStorage.tabsRecovery)) {
                 for (let provider of this.tabRecoveryProviders) {
                     try {
-                        await provider.recover(token)
+                        let tab = await provider.recover(token)
+                        if (tab) {
+                            tabs.push(tab)
+                        }
                     } catch (error) {
                         this.logger.warn('Tab recovery crashed:', token, provider, error)
                     }
                 }
             }
+            tabs.forEach(tab => {
+                this.app.openNewTab(tab.type, tab.options)
+            })
         }
     }
 

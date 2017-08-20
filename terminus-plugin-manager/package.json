@@ -1,6 +1,6 @@
 {
   "name": "terminus-plugin-manager",
-  "version": "1.0.0-alpha.16-8-gfc060ac",
+  "version": "1.0.0-alpha.24",
   "description": "Terminus' plugin manager",
   "keywords": [
     "terminus-plugin"
@@ -19,10 +19,10 @@
   "devDependencies": {
     "@types/mz": "0.0.31",
     "@types/node": "7.0.12",
-    "@types/semver": "^5.3.31",
+    "@types/semver": "^5.3.32",
     "@types/webpack-env": "1.13.0",
-    "ngx-pipes": "^1.6.1",
     "css-loader": "^0.28.0",
+    "ngx-pipes": "^1.6.1",
     "semver": "^5.3.0"
   },
   "peerDependencies": {

@@ -74,7 +74,8 @@
         "libnotify4",
         "libappindicator1",
         "libxtst6",
-        "libnss3"
+        "libnss3",
+        "tmux"
       ]
     },
     "rpm": {

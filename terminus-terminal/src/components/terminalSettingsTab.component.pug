@@ -174,26 +174,53 @@
                 [title]='idx',
             )
 
-        .form-group
-            label Terminal background
-            br
-            div(
-                '[(ngModel)]'='config.store.terminal.background',
-                (ngModelChange)='config.save()',
-                ngbRadioGroup
-            )
-                label.btn.btn-secondary
-                    input(
-                        type='radio',
-                        [value]='"theme"'
-                    )
-                    | From theme
-                label.btn.btn-secondary
-                    input(
-                        type='radio',
-                        [value]='"colorScheme"'
-                    )
-                    | From colors
+        .d-flex
+            .form-group.mr-3
+                label Terminal background
+                br
+                div(
+                    '[(ngModel)]'='config.store.terminal.background',
+                    (ngModelChange)='config.save()',
+                    ngbRadioGroup
+                )
+                    label.btn.btn-secondary
+                        input(
+                            type='radio',
+                            [value]='"theme"'
+                        )
+                        | From theme
+                    label.btn.btn-secondary
+                        input(
+                            type='radio',
+                            [value]='"colorScheme"'
+                        )
+                        | From colors
+            .form-group
+                label Cursor shape
+                br
+                div(
+                    [(ngModel)]='config.store.terminal.cursor',
+                    (ngModelChange)='config.save()',
+                    ngbRadioGroup
+                )
+                    label.btn.btn-secondary
+                        input(
+                            type='radio',
+                            [value]='"block"'
+                        )
+                        | █
+                    label.btn.btn-secondary
+                        input(
+                            type='radio',
+                            [value]='"beam"'
+                        )
+                        | |
+                    label.btn.btn-secondary
+                        input(
+                            type='radio',
+                            [value]='"underline"'
+                        )
+                        | ▁
 
         .form-group
             label Shell
@@ -203,7 +230,7 @@
             )
                 option(
                     *ngFor='let shell of shells',
-                    [ngValue]='shell.command'
+                    [ngValue]='shell.id'
                 ) {{shell.name}}
 
         .form-group
@@ -232,3 +259,15 @@
                         [value]='"audible"'
                     )
                     | Audible
+
+        .form-group
+            label Session persistence
+            select.form-control(
+                '[(ngModel)]'='config.store.terminal.persistence',
+                (ngModelChange)='config.save()',
+            )
+                option([ngValue]='null') Off
+                option(
+                    *ngFor='let provider of persistenceProviders',
+                    [ngValue]='provider.id'
+                ) {{provider.displayName}}

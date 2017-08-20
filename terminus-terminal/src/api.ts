@@ -1,6 +1,7 @@
 import { Observable } from 'rxjs'
 import { TerminalTabComponent } from './components/terminalTab.component'
 export { TerminalTabComponent }
+export { IChildProcess } from './services/sessions.service'
 
 export abstract class TerminalDecorator {
     // tslint:disable-next-line no-empty
@@ -27,6 +28,10 @@ export interface SessionOptions {
 }
 
 export abstract class SessionPersistenceProvider {
+    abstract id: string
+    abstract displayName: string
+
+    abstract isAvailable (): boolean
     abstract async attachSession (recoveryId: any): Promise<SessionOptions>
     abstract async startSession (options: SessionOptions): Promise<any>
     abstract async terminateSession (recoveryId: string): Promise<void>
@@ -42,4 +47,16 @@ export interface ITerminalColorScheme {
 
 export abstract class TerminalColorSchemeProvider {
     abstract async getSchemes (): Promise<ITerminalColorScheme[]>
+}
+
+export interface IShell {
+    id: string
+    name: string
+    command: string
+    args?: string[]
+    env?: any
+}
+
+export abstract class ShellProvider {
+    abstract async provide (): Promise<IShell[]>
 }

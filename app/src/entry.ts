@@ -6,13 +6,13 @@ import 'rxjs'
 // Always land on the start view
 location.hash = ''
 
-import { enableProdMode } from '@angular/core'
+import { enableProdMode, NgModuleRef } from '@angular/core'
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic'
 
 import { getRootModule } from './app.module'
-import { findPlugins, loadPlugins } from './plugins'
+import { findPlugins, loadPlugins, IPluginInfo } from './plugins'
 
-if (process.platform == 'win32') {
+if (process.platform === 'win32') {
     process.env.HOME = process.env.HOMEDRIVE + process.env.HOMEPATH
 }
 
@@ -22,10 +22,29 @@ if (require('electron-is-dev')) {
     enableProdMode()
 }
 
-findPlugins().then(async plugins => {
+async function bootstrap (plugins: IPluginInfo[], safeMode = false): Promise<NgModuleRef<any>> {
+    if (safeMode) {
+        plugins = plugins.filter(x => x.isBuiltin)
+    }
     let pluginsModules = await loadPlugins(plugins, (current, total) => {
         (document.querySelector('.progress .bar') as HTMLElement).style.width = 100 * current / total + '%'
     })
-    let module = await getRootModule(pluginsModules)
-    platformBrowserDynamic().bootstrapModule(module)
+    let module = getRootModule(pluginsModules)
+    return await platformBrowserDynamic().bootstrapModule(module)
+}
+
+findPlugins().then(async plugins => {
+    console.log('Starting with plugins:', plugins)
+    try {
+        await bootstrap(plugins)
+    } catch (error) {
+        console.error('Angular bootstrapping error:', error)
+        console.warn('Trying safe mode')
+        window['safeModeReason'] = error
+        try {
+            await bootstrap(plugins, true)
+        } catch (error) {
+            console.error('Bootstrap failed:', error)
+        }
+    }
 })

@@ -1,28 +1,15 @@
 div
     .terminus-logo
-        .part(style='transform: rotateZ(0deg)')
-            div
-        .part(style='transform: rotateZ(51deg)')
-            div
-        .part(style='transform: rotateZ(102deg)')
-            div
-        .part(style='transform: rotateZ(154deg)')
-            div
-        .part(style='transform: rotateZ(205deg)')
-            div
-        .part(style='transform: rotateZ(257deg)')
-            div
-        .part(style='transform: rotateZ(308deg)')
-            div
     h1.terminus-title Terminus
-        span.text-muted α 
+        sup α 
 
-    button.btn.btn-primary.btn-lg.btn-block(
-        *ngFor='let button of getButtons()',
-        (click)='button.click()',
-    )
-        i.fa([class]='"fa fa-" + button.icon')
-        span {{button.title}}
+    .list-group
+        a.list-group-item.list-group-item-action(
+            *ngFor='let button of getButtons()',
+            (click)='button.click()',
+        )
+            i([class]='"fa fa-fw fa-" + button.icon')
+            span {{button.title}}
 
 footer
     .pull-right

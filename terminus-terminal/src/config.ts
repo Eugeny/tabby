@@ -4,10 +4,12 @@ export class TerminalConfigProvider extends ConfigProvider {
     defaults = {
         terminal: {
             fontSize: 14,
+            linePadding: 0,
             bell: 'off',
             bracketedPaste: false,
             background: 'theme',
             ligatures: false,
+            cursor: 'block',
             colorScheme: {
                 __nonStructural: true,
                 name: 'Material',
@@ -41,7 +43,8 @@ export class TerminalConfigProvider extends ConfigProvider {
         [Platform.macOS]: {
             terminal: {
                 font: 'Menlo',
-                shell: '~default-shell~',
+                shell: 'default',
+                persistence: 'screen',
             },
             hotkeys: {
                 'copy': [
@@ -72,7 +75,8 @@ export class TerminalConfigProvider extends ConfigProvider {
         [Platform.Windows]: {
             terminal: {
                 font: 'Consolas',
-                shell: '~clink~',
+                shell: 'clink',
+                persistence: null,
             },
             hotkeys: {
                 'copy': [
@@ -102,7 +106,8 @@ export class TerminalConfigProvider extends ConfigProvider {
         [Platform.Linux]: {
             terminal: {
                 font: 'Liberation Mono',
-                shell: '~default-shell~',
+                shell: 'default',
+                persistence: 'tmux',
             },
             hotkeys: {
                 'copy': [

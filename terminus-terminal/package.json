@@ -1,6 +1,6 @@
 {
   "name": "terminus-terminal",
-  "version": "1.0.0-alpha.16-8-gfc060ac",
+  "version": "1.0.0-alpha.24",
   "description": "Terminus' terminal emulation core",
   "keywords": [
     "terminus-plugin"
@@ -23,7 +23,8 @@
     "@types/webpack-env": "1.13.0",
     "@types/winreg": "^1.2.30",
     "dataurl": "0.1.0",
-    "deep-equal": "1.0.1"
+    "deep-equal": "1.0.1",
+    "file-loader": "^0.11.2"
   },
   "peerDependencies": {
     "@angular/common": "4.0.1",
@@ -31,15 +32,19 @@
     "@angular/forms": "4.0.1",
     "@angular/platform-browser": "4.0.1",
     "@ng-bootstrap/ng-bootstrap": "1.0.0-alpha.22",
+    "rxjs": "5.3.0",
     "terminus-core": "*",
-    "terminus-settings": "*",
-    "rxjs": "5.3.0"
+    "terminus-settings": "*"
   },
   "dependencies": {
+    "@types/async-lock": "0.0.19",
+    "async-lock": "^1.0.0",
     "font-manager": "0.2.2",
-    "hterm-umdjs": "1.2.0",
+    "hterm-umdjs": "1.1.3",
     "mz": "^2.6.0",
     "node-pty": "0.6.8",
+    "ps-node": "^0.1.6",
+    "runes": "^0.4.2",
     "winreg": "^1.2.3"
   },
   "false": {}

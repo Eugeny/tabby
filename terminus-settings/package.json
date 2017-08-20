@@ -1,6 +1,6 @@
 {
   "name": "terminus-settings",
-  "version": "1.0.0-alpha.16-8-gfc060ac",
+  "version": "1.0.0-alpha.24",
   "description": "Terminus terminal settings page",
   "keywords": [
     "terminus-plugin"

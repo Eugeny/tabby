@@ -1,5 +1,5 @@
 export { BaseTabComponent } from '../components/baseTab.component'
-export { TabRecoveryProvider } from './tabRecovery'
+export { TabRecoveryProvider, RecoveredTab } from './tabRecovery'
 export { ToolbarButtonProvider, IToolbarButton } from './toolbarButtonProvider'
 export { ConfigProvider } from './configProvider'
 export { HotkeyProvider, IHotkeyDescription } from './hotkeyProvider'

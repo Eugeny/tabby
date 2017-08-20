@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser'
 import { FormsModule } from '@angular/forms'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 
-import { HostAppService, Platform, ToolbarButtonProvider, TabRecoveryProvider, ConfigProvider, HotkeysService, HotkeyProvider } from 'terminus-core'
+import { ToolbarButtonProvider, TabRecoveryProvider, ConfigProvider, HotkeysService, HotkeyProvider } from 'terminus-core'
 import { SettingsTabProvider } from 'terminus-settings'
 
 import { TerminalTabComponent } from './components/terminalTab.component'
@@ -11,17 +11,28 @@ import { TerminalSettingsTabComponent } from './components/terminalSettingsTab.c
 import { ColorPickerComponent } from './components/colorPicker.component'
 
 import { SessionsService } from './services/sessions.service'
-import { ShellsService } from './services/shells.service'
+import { TerminalService } from './services/terminal.service'
 
-import { ScreenPersistenceProvider } from './persistenceProviders'
+import { ScreenPersistenceProvider } from './persistence/screen'
+import { TMuxPersistenceProvider } from './persistence/tmux'
 import { ButtonProvider } from './buttonProvider'
 import { RecoveryProvider } from './recoveryProvider'
-import { SessionPersistenceProvider, TerminalColorSchemeProvider, TerminalDecorator } from './api'
+import { SessionPersistenceProvider, TerminalColorSchemeProvider, TerminalDecorator, ShellProvider } from './api'
 import { TerminalSettingsTabProvider } from './settings'
 import { PathDropDecorator } from './pathDrop'
 import { TerminalConfigProvider } from './config'
 import { TerminalHotkeyProvider } from './hotkeys'
 import { HyperColorSchemes } from './colorSchemes'
+
+import { Cygwin32ShellProvider } from './shells/cygwin32'
+import { Cygwin64ShellProvider } from './shells/cygwin64'
+import { GitBashShellProvider } from './shells/gitBash'
+import { LinuxDefaultShellProvider } from './shells/linuxDefault'
+import { MacOSDefaultShellProvider } from './shells/macDefault'
+import { POSIXShellsProvider } from './shells/posix'
+import { WindowsStockShellsProvider } from './shells/windowsStock'
+import { WSLShellProvider } from './shells/wsl'
+
 import { hterm } from './hterm'
 
 @NgModule({
@@ -32,26 +43,27 @@ import { hterm } from './hterm'
     ],
     providers: [
         SessionsService,
-        ShellsService,
-        ScreenPersistenceProvider,
+        TerminalService,
+
         { provide: ToolbarButtonProvider, useClass: ButtonProvider, multi: true },
         { provide: TabRecoveryProvider, useClass: RecoveryProvider, multi: true },
-        {
-            provide: SessionPersistenceProvider,
-            useFactory: (hostApp: HostAppService, screen: ScreenPersistenceProvider) => {
-                if (hostApp.platform === Platform.Windows) {
-                    return null
-                } else {
-                    return screen
-                }
-            },
-            deps: [HostAppService, ScreenPersistenceProvider],
-        },
         { provide: SettingsTabProvider, useClass: TerminalSettingsTabProvider, multi: true },
         { provide: ConfigProvider, useClass: TerminalConfigProvider, multi: true },
         { provide: HotkeyProvider, useClass: TerminalHotkeyProvider, multi: true },
         { provide: TerminalColorSchemeProvider, useClass: HyperColorSchemes, multi: true },
         { provide: TerminalDecorator, useClass: PathDropDecorator, multi: true },
+
+        { provide: SessionPersistenceProvider, useClass: ScreenPersistenceProvider, multi: true },
+        { provide: SessionPersistenceProvider, useClass: TMuxPersistenceProvider, multi: true },
+
+        { provide: ShellProvider, useClass: WindowsStockShellsProvider, multi: true },
+        { provide: ShellProvider, useClass: MacOSDefaultShellProvider, multi: true },
+        { provide: ShellProvider, useClass: LinuxDefaultShellProvider, multi: true },
+        { provide: ShellProvider, useClass: Cygwin32ShellProvider, multi: true },
+        { provide: ShellProvider, useClass: Cygwin64ShellProvider, multi: true },
+        { provide: ShellProvider, useClass: GitBashShellProvider, multi: true },
+        { provide: ShellProvider, useClass: POSIXShellsProvider, multi: true },
+        { provide: ShellProvider, useClass: WSLShellProvider, multi: true },
     ],
     entryComponents: [
         TerminalTabComponent,
@@ -93,3 +105,4 @@ export default class TerminalModule {
 }
 
 export * from './api'
+export { TerminalService }

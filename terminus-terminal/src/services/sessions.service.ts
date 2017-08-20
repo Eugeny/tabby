@@ -1,11 +1,19 @@
-import * as nodePTY from 'node-pty'
+const psNode = require('ps-node')
+// import * as nodePTY from 'node-pty'
+let nodePTY
 import * as fs from 'mz/fs'
 import { Subject } from 'rxjs'
-import { Injectable } from '@angular/core'
-import { Logger, LogService } from 'terminus-core'
+import { Injectable, Inject } from '@angular/core'
+import { Logger, LogService, ElectronService, ConfigService } from 'terminus-core'
 import { exec } from 'mz/child_process'
 
 import { SessionOptions, SessionPersistenceProvider } from '../api'
+
+export interface IChildProcess {
+    pid: number
+    ppid: number
+    command: string
+}
 
 export class Session {
     open: boolean
@@ -101,6 +109,20 @@ export class Session {
         this.pty.kill(signal)
     }
 
+    async getChildProcesses (): Promise<IChildProcess[]> {
+        if (!this.truePID) {
+            return []
+        }
+        return new Promise<IChildProcess[]>((resolve, reject) => {
+            psNode.lookup({ ppid: this.truePID }, (err, processes) => {
+                if (err) {
+                    return reject(err)
+                }
+                resolve(processes as IChildProcess[])
+            })
+        })
+    }
+
     async gracefullyKillProcess (): Promise<void> {
         if (process.platform === 'win32') {
             this.kill()
@@ -156,16 +178,21 @@ export class SessionsService {
     private lastID = 0
 
     constructor (
-        private persistence: SessionPersistenceProvider,
+        @Inject(SessionPersistenceProvider) private persistenceProviders: SessionPersistenceProvider[],
+        private config: ConfigService,
+        electron: ElectronService,
         log: LogService,
     ) {
+        nodePTY = electron.remoteRequirePluginModule('terminus-terminal', 'node-pty', global as any)
         this.logger = log.create('sessions')
+        this.persistenceProviders = this.persistenceProviders.filter(x => x.isAvailable())
     }
 
     async prepareNewSession (options: SessionOptions): Promise<SessionOptions> {
-        if (this.persistence) {
-            let recoveryId = await this.persistence.startSession(options)
-            options = await this.persistence.attachSession(recoveryId)
+        let persistence = this.getPersistence()
+        if (persistence) {
+            let recoveryId = await persistence.startSession(options)
+            options = await persistence.attachSession(recoveryId)
         }
         return options
     }
@@ -174,10 +201,11 @@ export class SessionsService {
         this.lastID++
         options.name = `session-${this.lastID}`
         let session = new Session(options)
+        let persistence = this.getPersistence()
         session.destroyed$.first().subscribe(() => {
             delete this.sessions[session.name]
-            if (this.persistence) {
-                this.persistence.terminateSession(session.recoveryId)
+            if (persistence) {
+                persistence.terminateSession(session.recoveryId)
             }
         })
         this.sessions[session.name] = session
@@ -185,9 +213,17 @@ export class SessionsService {
     }
 
     async recover (recoveryId: string): Promise<SessionOptions> {
-        if (!this.persistence) {
+        let persistence = this.getPersistence()
+        if (persistence) {
+            return await persistence.attachSession(recoveryId)
+        }
+        return null
+    }
+
+    private getPersistence (): SessionPersistenceProvider {
+        if (!this.config.store.terminal.persistence) {
             return null
         }
-        return await this.persistence.attachSession(recoveryId)
+        return this.persistenceProviders.find(x => x.id === this.config.store.terminal.persistence) || null
     }
 }

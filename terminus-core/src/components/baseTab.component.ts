@@ -1,10 +1,11 @@
-import { Subject, BehaviorSubject } from 'rxjs'
+import { Subject } from 'rxjs'
 import { ViewRef } from '@angular/core'
 
 export abstract class BaseTabComponent {
     private static lastTabID = 0
     id: number
-    title$ = new BehaviorSubject<string>(null)
+    title: string
+    customTitle: string
     scrollable: boolean
     hasActivity = false
     focused$ = new Subject<void>()
@@ -30,9 +31,12 @@ export abstract class BaseTabComponent {
         return null
     }
 
+    async canClose (): Promise<boolean> {
+        return true
+    }
+
     destroy (): void {
         this.focused$.complete()
         this.blurred$.complete()
-        this.title$.complete()
     }
 }

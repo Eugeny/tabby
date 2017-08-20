@@ -1,7 +1,16 @@
-# Terminus α
-*A terminal for a more modern age*
+<div align="center">
+    <img src="https://raw.githubusercontent.com/Eugeny/terminus/master/build/icons/128x128.png">
+    <h1>Terminus α</h1>
+    <p>
+        <i>A terminal for a more modern age</i>
+    </p>
+    <br/>
+    <br/>
+    <br/>
+</div>
 
 [![Build Status](https://travis-ci.org/Eugeny/terminus.svg?branch=master)](https://travis-ci.org/Eugeny/terminus) [![Build status](https://ci.appveyor.com/api/projects/status/wnnq4hm5mbd9rgoy?svg=true)](https://ci.appveyor.com/project/Eugeny/terminus) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/Eugeny/terminus/master/LICENSE) [![Downloads](https://img.shields.io/badge/downloads-latest_release-brightgreen.svg)](https://github.com/Eugeny/terminus/releases/latest)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bhttps%3A%2F%2Fgithub.com%2FEugeny%2Fterminus.svg?type=shield)](https://app.fossa.io/projects/git%2Bhttps%3A%2F%2Fgithub.com%2FEugeny%2Fterminus?ref=badge_shield)
 
 ----
 
@@ -13,12 +22,12 @@
   * Theming and color schemes
   * Configurable hotkey schemes
   * **GNU Screen** style hotkeys available by default
-  * Default Linux style hotkeys for Copy(`Ctrl`+`Shift`+`C`), and Paste(`Ctrl`+`Shift`+`V`)
   * Full Unicode support including double-width characters
   * Doesn't choke on fast-flowing outputs
   * Tab persistence on macOS and Linux
   * Proper shell-like experience on Windows including tab completion (thanks, Clink!)
   * CMD, PowerShell, Cygwin, Git-Bash and Bash on Windows support
+  * Default Linux style hotkeys for copy (`Ctrl`+`Shift`+`C`) and paste (`Ctrl`+`Shift`+`V`)
 
 ---
 
@@ -28,6 +37,7 @@ Plugins can be installed directly from the Settings view inside Terminus.
 
   * [clickable-links](https://github.com/Eugeny/terminus-clickable-links) - makes paths and URLs in the terminal clickable
   * [theme-hype](https://github.com/Eugeny/terminus-theme-hype) - a Hyper inspired theme
+  * [shell-selector](https://github.com/Eugeny/terminus-shell-selector) - a quick shell selector pane
 
 ---
 
@@ -36,3 +46,7 @@ Plugins can be installed directly from the Settings view inside Terminus.
 Pull requests and plugins are welcome! Publish your plugin on NPM with a `terminus-plugin` keyword to make them appear in the Plugin Manager.
 
 See [HACKING.md](https://github.com/Eugeny/terminus/blob/master/HACKING.md) for a very brief plugin development tutorial!
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bhttps%3A%2F%2Fgithub.com%2FEugeny%2Fterminus.svg?type=large)](https://app.fossa.io/projects/git%2Bhttps%3A%2F%2Fgithub.com%2FEugeny%2Fterminus?ref=badge_large)
