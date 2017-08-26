@@ -182,7 +182,7 @@ export class TerminalTabComponent extends BaseTabComponent {
             this.mouseEvent$.next(event)
             if (event.type === 'mousewheel') {
                 if (event.ctrlKey || event.metaKey) {
-                    if (event.wheelDeltaY < 0) {
+                    if (event.wheelDeltaY > 0) {
                         this.zoomIn()
                     } else {
                         this.zoomOut()
