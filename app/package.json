@@ -19,7 +19,7 @@
     "@angular/forms": "4.3.0",
     "@angular/platform-browser": "4.3.0",
     "@angular/platform-browser-dynamic": "4.3.0",
-    "@ng-bootstrap/ng-bootstrap": "^1.0.0-alpha.28",
+    "@ng-bootstrap/ng-bootstrap": "^1.0.0-beta.2",
     "devtron": "1.4.0",
     "electron-config": "0.2.1",
     "electron-debug": "^1.0.1",

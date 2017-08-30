@@ -53,7 +53,7 @@ const PROVIDERS = [
         BrowserModule,
         BrowserAnimationsModule,
         FormsModule,
-        NgbModule,
+        NgbModule.forRoot(),
         PerfectScrollbarModule.forRoot({
             suppressScrollX: true,
         }),

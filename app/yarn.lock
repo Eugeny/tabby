@@ -44,9 +44,9 @@
   dependencies:
     tslib "^1.7.1"
 
-"@ng-bootstrap/ng-bootstrap@^1.0.0-alpha.28":
-  version "1.0.0-alpha.28"
-  resolved "https://registry.yarnpkg.com/@ng-bootstrap/ng-bootstrap/-/ng-bootstrap-1.0.0-alpha.28.tgz#30a6503bf7f94f9d3187591fb3267b59cc0cdaad"
+"@ng-bootstrap/ng-bootstrap@^1.0.0-beta.2":
+  version "1.0.0-beta.2"
+  resolved "https://registry.yarnpkg.com/@ng-bootstrap/ng-bootstrap/-/ng-bootstrap-1.0.0-beta.2.tgz#3d4b567b0334a9ee631b73c72156cd3a9d3cd29f"
 
 "@types/mz@0.0.31":
   version "0.0.31"
