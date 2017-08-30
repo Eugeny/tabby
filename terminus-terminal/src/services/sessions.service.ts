@@ -156,6 +156,9 @@ export class Session {
     }
 
     async getWorkingDirectory (): Promise<string> {
+        if (!this.truePID) {
+            return null
+        }
         if (process.platform === 'darwin') {
             let lines = (await exec(`lsof -p ${this.truePID} -Fn`))[0].toString().split('\n')
             if (lines[1] === 'fcwd') {
