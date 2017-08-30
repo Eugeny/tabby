@@ -13,35 +13,39 @@ export class HyperColorSchemes extends TerminalColorSchemeProvider {
         let themes: ITerminalColorScheme[] = []
 
         plugins.forEach(plugin => {
-            let module = (global as any).require(path.join(pluginsPath, plugin))
-            if (module.decorateConfig) {
-                let config = module.decorateConfig({})
-                if (config.colors) {
-                    themes.push({
-                        name: plugin,
-                        foreground: config.foregroundColor,
-                        background: config.backgroundColor,
-                        cursor: config.cursorColor,
-                        colors: config.colors.black ? [
-                            config.colors.black,
-                            config.colors.red,
-                            config.colors.green,
-                            config.colors.yellow,
-                            config.colors.blue,
-                            config.colors.magenta,
-                            config.colors.cyan,
-                            config.colors.white,
-                            config.colors.lightBlack,
-                            config.colors.lightRed,
-                            config.colors.lightGreen,
-                            config.colors.lightYellow,
-                            config.colors.lightBlue,
-                            config.colors.lightMagenta,
-                            config.colors.lightCyan,
-                            config.colors.lightWhite,
-                        ] : config.colors,
-                    })
+            try {
+                let module = (global as any).require(path.join(pluginsPath, plugin))
+                if (module.decorateConfig) {
+                    let config = module.decorateConfig({})
+                    if (config.colors) {
+                        themes.push({
+                            name: plugin,
+                            foreground: config.foregroundColor,
+                            background: config.backgroundColor,
+                            cursor: config.cursorColor,
+                            colors: config.colors.black ? [
+                                config.colors.black,
+                                config.colors.red,
+                                config.colors.green,
+                                config.colors.yellow,
+                                config.colors.blue,
+                                config.colors.magenta,
+                                config.colors.cyan,
+                                config.colors.white,
+                                config.colors.lightBlack,
+                                config.colors.lightRed,
+                                config.colors.lightGreen,
+                                config.colors.lightYellow,
+                                config.colors.lightBlue,
+                                config.colors.lightMagenta,
+                                config.colors.lightCyan,
+                                config.colors.lightWhite,
+                            ] : config.colors,
+                        })
+                    }
                 }
+            } catch (err) {
+                console.debug('Skipping Hyper plugin', plugin, err)
             }
         })
 
