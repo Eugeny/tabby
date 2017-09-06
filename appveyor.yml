@@ -33,5 +33,4 @@ deploy:
   prerelease: false
   force_update: true
   on:
-    branch: master
     appveyor_repo_tag: true
