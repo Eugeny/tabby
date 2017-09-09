@@ -52,7 +52,8 @@
       "clink"
     ],
     "win": {
-      "icon": "./build/windows/icon.ico"
+      "icon": "./build/windows/icon.ico",
+      "publish": ["github"]
     },
     "squirrelWindows": {
       "iconUrl": "https://github.com/Eugeny/terminus/raw/master/build/windows/icon.ico",
@@ -61,7 +62,8 @@
     "mac": {
       "category": "public.app-category.video",
       "icon": "./build/mac/icon.icns",
-      "identity": null
+      "identity": null,
+      "publish": ["github"]
     },
     "dmg": {
       "artifactName": "terminus-${buildVersion}-${os}-${arch}.dmg"
