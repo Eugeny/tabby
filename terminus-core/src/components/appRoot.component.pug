@@ -39,6 +39,13 @@ title-bar(
                 (click)='button.click()',
             )
                 i.fa([class]='"fa fa-" + button.icon')
+            button.btn.btn-secondary.btn-tab-bar(
+                *ngIf='appUpdate',
+                title='Update available',
+                (click)='updateApp()',
+            )
+                i.fa.fa-arrow-up.text-info
+                span.text-info Update
 
         window-controls(
             *ngIf='config.store.appearance.frame == "thin" && (hostApp.platform == Platform.Windows || hostApp.platform == Platform.Linux)',

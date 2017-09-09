@@ -14,6 +14,7 @@ import { HotkeysService, AppHotkeyProvider } from './services/hotkeys.service'
 import { DockingService } from './services/docking.service'
 import { TabRecoveryService } from './services/tabRecovery.service'
 import { ThemesService } from './services/themes.service'
+import { UpdaterService } from './services/updater.service'
 
 import { AppRootComponent } from './components/appRoot.component'
 import { TabBodyComponent } from './components/tabBody.component'
@@ -43,6 +44,7 @@ const PROVIDERS = [
     LogService,
     TabRecoveryService,
     ThemesService,
+    UpdaterService,
     { provide: HotkeyProvider, useClass: AppHotkeyProvider, multi: true },
     { provide: Theme, useClass: StandardTheme, multi: true },
     { provide: ConfigProvider, useClass: CoreConfigProvider, multi: true },

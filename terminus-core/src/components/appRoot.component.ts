@@ -10,6 +10,7 @@ import { ConfigService } from '../services/config.service'
 import { DockingService } from '../services/docking.service'
 import { TabRecoveryService } from '../services/tabRecovery.service'
 import { ThemesService } from '../services/themes.service'
+import { UpdaterService, Update } from '../services/updater.service'
 
 import { SafeModeModalComponent } from './safeModeModal.component'
 import { AppService, IToolbarButton, ToolbarButtonProvider } from '../api'
@@ -53,12 +54,14 @@ export class AppRootComponent {
     @Input() leftToolbarButtons: IToolbarButton[]
     @Input() rightToolbarButtons: IToolbarButton[]
     private logger: Logger
+    private appUpdate: Update
 
     constructor (
         private docking: DockingService,
         private electron: ElectronService,
         private tabRecovery: TabRecoveryService,
         private hotkeys: HotkeysService,
+        private updater: UpdaterService,
         public hostApp: HostAppService,
         public config: ConfigService,
         public app: AppService,
@@ -111,6 +114,10 @@ export class AppRootComponent {
         if (window['safeModeReason']) {
             ngbModal.open(SafeModeModalComponent)
         }
+
+        this.updater.check().then(update => {
+            this.appUpdate = update
+        })
     }
 
     onGlobalHotkey () {
@@ -153,6 +160,10 @@ export class AppRootComponent {
     @HostListener('drop')
     onDrop () {
         return false
+    }
+
+    updateApp () {
+        this.electron.shell.openExternal(this.appUpdate.url)
     }
 
     private getToolbarButtons (aboveZero: boolean): IToolbarButton[] {
