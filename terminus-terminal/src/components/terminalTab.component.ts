@@ -1,16 +1,24 @@
 import { BehaviorSubject, Subject, Subscription } from 'rxjs'
 import 'rxjs/add/operator/bufferTime'
 import { Component, NgZone, Inject, Optional, ViewChild, HostBinding, Input } from '@angular/core'
-import { AppService, ConfigService, BaseTabComponent, ThemesService, HostAppService, HotkeysService, Platform } from 'terminus-core'
+import { AppService, ConfigService, BaseTabComponent, ElectronService, ThemesService, HostAppService, HotkeysService, Platform } from 'terminus-core'
 
+import { IShell } from '../api'
 import { Session, SessionsService } from '../services/sessions.service'
+import { TerminalService } from '../services/terminal.service'
 
 import { TerminalDecorator, ResizeEvent, SessionOptions } from '../api'
 import { hterm, preferenceManager } from '../hterm'
 
 @Component({
     selector: 'terminalTab',
-    template: '<div #content class="content" [style.opacity]="htermVisible ? 1 : 0"></div>',
+    template: `
+        <div
+            #content
+            class="content"
+            [style.opacity]="htermVisible ? 1 : 0"
+        ></div>
+    `,
     styles: [require('./terminalTab.component.scss')],
 })
 export class TerminalTabComponent extends BaseTabComponent {
@@ -31,8 +39,10 @@ export class TerminalTabComponent extends BaseTabComponent {
     alternateScreenActive$ = new BehaviorSubject(false)
     mouseEvent$ = new Subject<Event>()
     htermVisible = false
+    shell: IShell
     private bellPlayer: HTMLAudioElement
     private io: any
+    private contextMenu: any
 
     constructor (
         private zone: NgZone,
@@ -41,6 +51,8 @@ export class TerminalTabComponent extends BaseTabComponent {
         private hostApp: HostAppService,
         private hotkeys: HotkeysService,
         private sessions: SessionsService,
+        private electron: ElectronService,
+        private terminalService: TerminalService,
         public config: ConfigService,
         @Optional() @Inject(TerminalDecorator) private decorators: TerminalDecorator[],
     ) {
@@ -142,6 +154,35 @@ export class TerminalTabComponent extends BaseTabComponent {
             }
             // TODO audible
         })
+
+        this.contextMenu = this.electron.remote.Menu.buildFromTemplate([
+            {
+                label: 'New terminal',
+                click: () => {
+                    this.zone.run(() => {
+                        this.terminalService.openTab(this.shell)
+                    })
+                }
+            },
+            {
+                label: 'Copy',
+                click: () => {
+                    this.zone.run(() => {
+                        setTimeout(() => {
+                            this.hterm.copySelectionToClipboard()
+                        })
+                    })
+                }
+            },
+            {
+                label: 'Paste',
+                click: () => {
+                    this.zone.run(() => {
+                        this.sendInput(this.electron.clipboard.readText())
+                    })
+                }
+            },
+        ])
     }
 
     attachHTermHandlers (hterm: any) {
@@ -180,6 +221,17 @@ export class TerminalTabComponent extends BaseTabComponent {
         const _onMouse = hterm.onMouse_.bind(hterm)
         hterm.onMouse_ = (event) => {
             this.mouseEvent$.next(event)
+            if (event.type === 'mousedown') {
+                if (event.which === 3) {
+                    this.contextMenu.popup({
+                        x: event.pageX,
+                        y: event.pageY,
+                        async: true,
+                    })
+                    event.preventDefault()
+                    return
+                }
+            }
             if (event.type === 'mousewheel') {
                 if (event.ctrlKey || event.metaKey) {
                     if (event.wheelDeltaY > 0) {
