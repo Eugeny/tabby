@@ -5,6 +5,8 @@ import { ConnectableObservable, AsyncSubject, Subject } from 'rxjs'
 import * as childProcess from 'child_process'
 import { SessionOptions, SessionPersistenceProvider } from '../api'
 
+declare function delay (ms: number): Promise<void>
+
 const TMUX_CONFIG = `
     set -g status off
     set -g focus-events on
@@ -97,7 +99,7 @@ export class TMuxCommandProcess {
             }
         })
 
-        this.response$ = this.block$.skip(1).publish()
+        this.response$ = this.block$.publish()
         this.response$.connect()
 
         this.block$.subscribe(block => {
@@ -134,15 +136,23 @@ export class TMuxCommandProcess {
 
 export class TMux {
     private process: TMuxCommandProcess
+    private ready: Promise<void>
 
     constructor () {
         this.process = new TMuxCommandProcess()
-        TMUX_CONFIG.split('\n').filter(x => x).forEach(async (line) => {
-            await this.process.command(line)
-        })
+        this.ready = (async () => {
+            for (let line of TMUX_CONFIG.split('\n')) {
+                if (line) {
+                    await this.process.command(line)
+                }
+            }
+            // Tmux sometimes sends a stray response block at start
+            await delay(500)
+        })()
     }
 
     async create (id: string, options: SessionOptions): Promise<void> {
+        await this.ready
         let args = [options.command].concat(options.args)
         let cmd = args.map(x => `"${x.replace('"', '\\"')}"`)
         await this.process.command(
@@ -153,11 +163,13 @@ export class TMux {
     }
 
     async list (): Promise<string[]> {
+        await this.ready
         let block = await this.process.command('list-sessions -F "#{session_name}"')
         return block.lines
     }
 
     async getPID (id: string): Promise<number|null> {
+        await this.ready
         let response = await this.process.command(`list-panes -t ${id} -F "#{pane_pid}"`)
         if (response.lines.length === 0) {
             return null
@@ -167,6 +179,7 @@ export class TMux {
     }
 
     async terminate (id: string): Promise<void> {
+        await this.ready
         this.process.command(`kill-session -t ${id}`).catch(() => {
             console.debug('Session already killed')
         })
