@@ -2,7 +2,6 @@ os: Visual Studio 2017
 
 platform:
   - x64
-  - x86
 
 environment:
   nodejs_version: "7"
