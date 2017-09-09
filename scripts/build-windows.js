@@ -8,4 +8,5 @@ builder({
   extraMetadata: {
     version: vars.version,
   },
+  publish: 'onTagOrDraft',
 })
