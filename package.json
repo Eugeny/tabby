@@ -57,7 +57,7 @@
     },
     "squirrelWindows": {
       "iconUrl": "https://github.com/Eugeny/terminus/raw/master/build/windows/icon.ico",
-      "artifactName": "terminus-${buildVersion}-${os}-${arch}.exe"
+      "artifactName": "terminus-${version}-${os}-${arch}.exe"
     },
     "mac": {
       "category": "public.app-category.video",
@@ -66,7 +66,7 @@
       "publish": ["github"]
     },
     "dmg": {
-      "artifactName": "terminus-${buildVersion}-${os}-${arch}.dmg"
+      "artifactName": "terminus-${version}-${os}-${arch}.dmg"
     },
     "linux": {
       "category": "Utilities",
@@ -84,13 +84,13 @@
         "libnss3",
         "tmux"
       ],
-      "artifactName": "terminus-${buildVersion}-${os}-${arch}.deb"
+      "artifactName": "terminus-${version}-${os}-${arch}.deb"
     },
     "rpm": {
       "depends": [
         "screen"
       ],
-      "artifactName": "terminus-${buildVersion}-${os}-${arch}.rpm"
+      "artifactName": "terminus-${version}-${os}-${arch}.rpm"
     }
   },
   "scripts": {
