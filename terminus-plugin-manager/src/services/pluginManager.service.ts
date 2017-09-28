@@ -71,7 +71,6 @@ export class PluginManagerService {
             .fromPromise(
                 axios.get(`https://www.npmjs.com/-/search?text=keywords:${KEYWORD}+${encodeURIComponent(query || '')}&from=0&size=1000`)
             )
-            .do(response => console.log(response.data.objects))
             .map(response => response.data.objects.map(item => ({
                 name: item.package.name.substring(NAME_PREFIX.length),
                 packageName: item.package.name,
@@ -85,8 +84,7 @@ export class PluginManagerService {
     }
 
     async installPlugin (plugin: IPluginInfo) {
-        let result = await exec(`${this.npmPath} --prefix "${this.userPluginsPath}" install ${plugin.packageName}@${plugin.version}`)
-        console.log(result)
+        await exec(`${this.npmPath} --prefix "${this.userPluginsPath}" install ${plugin.packageName}@${plugin.version}`)
         this.installedPlugins = this.installedPlugins.filter(x => x.packageName !== plugin.packageName)
         this.installedPlugins.push(plugin)
     }

@@ -2,7 +2,7 @@ import { BehaviorSubject, Observable } from 'rxjs'
 import * as semver from 'semver'
 
 import { Component, Input } from '@angular/core'
-import { ConfigService, HostAppService } from 'terminus-core'
+import { ConfigService, HostAppService, ElectronService } from 'terminus-core'
 import { IPluginInfo, PluginManagerService } from '../services/pluginManager.service'
 
 enum BusyState { Installing, Uninstalling }
@@ -24,6 +24,7 @@ export class PluginsSettingsTabComponent {
     @Input() npmMissing = false
 
     constructor (
+        private electron: ElectronService,
         private config: ConfigService,
         private hostApp: HostAppService,
         public pluginManager: PluginManagerService
@@ -99,5 +100,9 @@ export class PluginsSettingsTabComponent {
 
     async upgradePlugin (plugin: IPluginInfo): Promise<void> {
         return this.installPlugin(this.knownUpgrades[plugin.name])
+    }
+
+    showPluginInfo (plugin: IPluginInfo) {
+        this.electron.shell.openExternal('https://www.npmjs.com/package/' + plugin.packageName)
     }
 }
