@@ -48,7 +48,7 @@ module.exports = {
     'fs',
     'font-manager',
     'path',
-    'node-pty',
+    'node-pty-tmp',
     'mz/fs',
     'mz/child_process',
     'winreg',

@@ -42,7 +42,7 @@
     "font-manager": "0.2.2",
     "hterm-umdjs": "1.1.3",
     "mz": "^2.6.0",
-    "node-pty": "0.6.8",
+    "node-pty-tmp": "0.7.1",
     "ps-node": "^0.1.6",
     "runes": "^0.4.2",
     "winreg": "^1.2.3"

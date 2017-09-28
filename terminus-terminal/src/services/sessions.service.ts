@@ -1,5 +1,4 @@
 const psNode = require('ps-node')
-// import * as nodePTY from 'node-pty'
 let nodePTY
 import * as fs from 'mz/fs'
 import { Subject } from 'rxjs'
@@ -94,13 +93,13 @@ export class Session {
     }
 
     resize (columns, rows) {
-        if (this.pty.writable) {
+        if (this.pty._writable) {
             this.pty.resize(columns, rows)
         }
     }
 
     write (data) {
-        if (this.pty.writable) {
+        if (this.pty._writable) {
             this.pty.write(Buffer.from(data, 'utf-8'))
         }
     }
@@ -186,7 +185,7 @@ export class SessionsService {
         electron: ElectronService,
         log: LogService,
     ) {
-        nodePTY = electron.remoteRequirePluginModule('terminus-terminal', 'node-pty', global as any)
+        nodePTY = electron.remoteRequirePluginModule('terminus-terminal', 'node-pty-tmp', global as any)
         this.logger = log.create('sessions')
         this.persistenceProviders = this.persistenceProviders.filter(x => x.isAvailable())
     }

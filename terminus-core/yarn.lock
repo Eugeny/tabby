@@ -20,7 +20,7 @@ argparse@^1.0.7:
   dependencies:
     sprintf-js "~1.0.2"
 
-axios@^0.16.2:
+axios@0.16.2:
   version "0.16.2"
   resolved "https://registry.yarnpkg.com/axios/-/axios-0.16.2.tgz#ba4f92f17167dfbab40983785454b9ac149c3c6d"
   dependencies:
