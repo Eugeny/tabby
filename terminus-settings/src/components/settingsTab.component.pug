@@ -23,15 +23,17 @@ ngb-tabset.vertical(type='tabs')
                             (ngModelChange)='config.save()',
                             ngbRadioGroup
                         )
-                            label.btn.btn-secondary
+                            label.btn.btn-secondary(ngbButtonLabel)
                                 input(
                                     type='radio',
+                                    ngbButton,
                                     [value]='"top"'
                                 )
                                 | On the top
-                            label.btn.btn-secondary
+                            label.btn.btn-secondary(ngbButtonLabel)
                                 input(
                                     type='radio',
+                                    ngbButton,
                                     [value]='"bottom"'
                                 )
                                 | At the bottom
@@ -44,21 +46,24 @@ ngb-tabset.vertical(type='tabs')
                             '(ngModelChange)'='config.save(); config.requestRestart()'
                             ngbRadioGroup
                         )
-                            label.btn.btn-secondary
+                            label.btn.btn-secondary(ngbButtonLabel)
                                 input(
                                     type='radio',
+                                    ngbButton,
                                     [value]='"native"'
                                 )
                                 | Native
-                            label.btn.btn-secondary
+                            label.btn.btn-secondary(ngbButtonLabel)
                                 input(
                                     type='radio',
+                                    ngbButton,
                                     [value]='"thin"'
                                 )
                                 | Thin
-                            label.btn.btn-secondary
+                            label.btn.btn-secondary(ngbButtonLabel)
                                 input(
                                     type='radio',
+                                    ngbButton,
                                     [value]='"full"'
                                 )
                                 | Full
@@ -74,33 +79,38 @@ ngb-tabset.vertical(type='tabs')
                                     '(ngModelChange)'='config.save(); docking.dock()'
                                     ngbRadioGroup
                                 )
-                                    label.btn.btn-secondary
+                                    label.btn.btn-secondary(ngbButtonLabel)
                                         input(
                                             type='radio',
+                                            ngbButton,
                                             [value]='"off"'
                                         )
                                         | Off
-                                    label.btn.btn-secondary
+                                    label.btn.btn-secondary(ngbButtonLabel)
                                         input(
                                             type='radio',
+                                            ngbButton,
                                             [value]='"top"'
                                         )
                                         | Top
-                                    label.btn.btn-secondary
+                                    label.btn.btn-secondary(ngbButtonLabel)
                                         input(
                                             type='radio',
+                                            ngbButton,
                                             [value]='"left"'
                                         )
                                         | Left
-                                    label.btn.btn-secondary
+                                    label.btn.btn-secondary(ngbButtonLabel)
                                         input(
                                             type='radio',
+                                            ngbButton,
                                             [value]='"right"'
                                         )
                                         | Right
-                                    label.btn.btn-secondary
+                                    label.btn.btn-secondary(ngbButtonLabel)
                                         input(
                                             type='radio',
+                                            ngbButton,
                                             [value]='"bottom"'
                                         )
                                         | Bottom
@@ -113,15 +123,17 @@ ngb-tabset.vertical(type='tabs')
                                     (ngModelChange)='config.save(); docking.dock()',
                                     ngbRadioGroup
                                 )
-                                    label.btn.btn-secondary
+                                    label.btn.btn-secondary(ngbButtonLabel)
                                         input(
                                             type='radio',
+                                            ngbButton,
                                             value='current'
                                         )
                                         | Current
-                                    label.btn.btn-secondary(*ngFor='let screen of screens')
+                                    label.btn.btn-secondary(*ngFor='let screen of screens', ngbButtonLabel)
                                         input(
                                             type='radio',
+                                            ngbButton,
                                             [value]='screen.id'
                                         )
                                         | {{screen.name}}

@@ -183,15 +183,17 @@
                     (ngModelChange)='config.save()',
                     ngbRadioGroup
                 )
-                    label.btn.btn-secondary
+                    label.btn.btn-secondary(ngbButtonLabel)
                         input(
                             type='radio',
+                            ngbButton,
                             [value]='"theme"'
                         )
                         | From theme
-                    label.btn.btn-secondary
+                    label.btn.btn-secondary(ngbButtonLabel)
                         input(
                             type='radio',
+                            ngbButton,
                             [value]='"colorScheme"'
                         )
                         | From colors
@@ -203,21 +205,24 @@
                     (ngModelChange)='config.save()',
                     ngbRadioGroup
                 )
-                    label.btn.btn-secondary
+                    label.btn.btn-secondary(ngbButtonLabel)
                         input(
                             type='radio',
+                            ngbButton,
                             [value]='"block"'
                         )
                         | █
-                    label.btn.btn-secondary
+                    label.btn.btn-secondary(ngbButtonLabel)
                         input(
                             type='radio',
+                            ngbButton,
                             [value]='"beam"'
                         )
                         | |
-                    label.btn.btn-secondary
+                    label.btn.btn-secondary(ngbButtonLabel)
                         input(
                             type='radio',
+                            ngbButton,
                             [value]='"underline"'
                         )
                         | ▁
@@ -241,21 +246,24 @@
                 (ngModelChange)='config.save()',
                 ngbRadioGroup
             )
-                label.btn.btn-secondary
+                label.btn.btn-secondary(ngbButtonLabel)
                     input(
                         type='radio',
+                        ngbButton,
                         [value]='"off"'
                     )
                     | Off
-                label.btn.btn-secondary
+                label.btn.btn-secondary(ngbButtonLabel)
                     input(
                         type='radio',
+                        ngbButton,
                         [value]='"visual"'
                     )
                     | Visual
-                label.btn.btn-secondary
+                label.btn.btn-secondary(ngbButtonLabel)
                     input(
                         type='radio',
+                        ngbButton,
                         [value]='"audible"'
                     )
                     | Audible
