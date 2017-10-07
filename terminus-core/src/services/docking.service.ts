@@ -14,7 +14,10 @@ export class DockingService {
         private electron: ElectronService,
         private config: ConfigService,
         private hostApp: HostAppService,
-    ) {}
+    ) {
+        electron.screen.on('display-removed', () => this.repositionWindow())
+        electron.screen.on('display-metrics-changed', () => this.repositionWindow())
+    }
 
     dock () {
         let display = this.electron.screen.getAllDisplays()
@@ -70,5 +73,21 @@ export class DockingService {
                 }[index] || `Display ${index + 1}`
             }
         })
+    }
+
+    getWindow () {
+        return this.electron.app.window
+    }
+
+    repositionWindow () {
+        let [x, y] = this.getWindow().getPosition()
+        for (let screen of this.electron.screen.getAllDisplays()) {
+            let bounds = screen.bounds
+            if (x >= bounds.x && x <= bounds.x + bounds.width && y >= bounds.y && y <= bounds.y + bounds.height) {
+                return
+            }
+        }
+        let screen = this.electron.screen.getPrimaryDisplay()
+        this.getWindow().setPosition(screen.bounds.x, screen.bounds.y)
     }
 }
