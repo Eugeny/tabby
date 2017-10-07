@@ -322,6 +322,7 @@ export class TerminalTabComponent extends BaseTabComponent {
         preferenceManager.set('copy-on-select', false)
         preferenceManager.set('alt-sends-what', 'browser-key')
         preferenceManager.set('alt-gr-mode', 'ctrl-alt')
+        preferenceManager.set('cursor-blink', config.terminal.cursorBlink)
 
         if (config.terminal.colorScheme.foreground) {
             preferenceManager.set('foreground-color', config.terminal.colorScheme.foreground)
@@ -368,6 +369,10 @@ export class TerminalTabComponent extends BaseTabComponent {
             beam: hterm.hterm.Terminal.cursorShape.BEAM,
         }[config.terminal.cursor]
         this.hterm.applyCursorShape()
+        this.hterm.setCursorBlink(config.terminal.cursorBlink)
+        if (config.terminal.cursorBlink) {
+            this.hterm.onCursorBlink_()
+        }
     }
 
     zoomIn () {

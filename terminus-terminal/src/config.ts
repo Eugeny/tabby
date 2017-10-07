@@ -11,6 +11,7 @@ export class TerminalConfigProvider extends ConfigProvider {
             background: 'theme',
             ligatures: false,
             cursor: 'block',
+            cursorBlink: true,
             customShell: '',
             colorScheme: {
                 __nonStructural: true,

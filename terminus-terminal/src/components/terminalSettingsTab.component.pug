@@ -247,34 +247,59 @@
             )
 
         .form-group
-            label Terminal bell
-            br
-            div(
-                '[(ngModel)]'='config.store.terminal.bell',
-                (ngModelChange)='config.save()',
-                ngbRadioGroup
-            )
-                label.btn.btn-secondary(ngbButtonLabel)
-                    input(
-                        type='radio',
-                        ngbButton,
-                        [value]='"off"'
+            .d-flex
+                .mr-3
+                    label Terminal bell
+                    br
+                    div(
+                        '[(ngModel)]'='config.store.terminal.bell',
+                        (ngModelChange)='config.save()',
+                        ngbRadioGroup
                     )
-                    | Off
-                label.btn.btn-secondary(ngbButtonLabel)
-                    input(
-                        type='radio',
-                        ngbButton,
-                        [value]='"visual"'
+                        label.btn.btn-secondary(ngbButtonLabel)
+                            input(
+                                type='radio',
+                                ngbButton,
+                                [value]='"off"'
+                            )
+                            | Off
+                        label.btn.btn-secondary(ngbButtonLabel)
+                            input(
+                                type='radio',
+                                ngbButton,
+                                [value]='"visual"'
+                            )
+                            | Visual
+                        label.btn.btn-secondary(ngbButtonLabel)
+                            input(
+                                type='radio',
+                                ngbButton,
+                                [value]='"audible"'
+                            )
+                            | Audible
+
+                div
+                    label Blink cursor
+                    br
+                    div(
+                        '[(ngModel)]'='config.store.terminal.cursorBlink',
+                        (ngModelChange)='config.save()',
+                        ngbRadioGroup
                     )
-                    | Visual
-                label.btn.btn-secondary(ngbButtonLabel)
-                    input(
-                        type='radio',
-                        ngbButton,
-                        [value]='"audible"'
-                    )
-                    | Audible
+                        label.btn.btn-secondary(ngbButtonLabel)
+                            input(
+                                type='radio',
+                                ngbButton,
+                                [value]='false'
+                            )
+                            | Off
+                        label.btn.btn-secondary(ngbButtonLabel)
+                            input(
+                                type='radio',
+                                ngbButton,
+                                [value]='true'
+                            )
+                            | On
 
         .form-group
             label Session persistence
