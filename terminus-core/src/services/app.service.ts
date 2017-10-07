@@ -1,4 +1,4 @@
-import { Subject } from 'rxjs'
+import { Subject, AsyncSubject } from 'rxjs'
 import { Injectable, ComponentFactoryResolver, Injector, Optional } from '@angular/core'
 import { DefaultTabProvider } from '../api/defaultTabProvider'
 import { BaseTabComponent } from '../components/baseTab.component'
@@ -12,7 +12,8 @@ export class AppService {
     activeTab: BaseTabComponent
     lastTabIndex = 0
     logger: Logger
-    tabsChanged$ = new Subject()
+    tabsChanged$ = new Subject<void>()
+    ready$ = new AsyncSubject<void>()
 
     constructor (
         private componentFactoryResolver: ComponentFactoryResolver,
@@ -96,5 +97,10 @@ export class AppService {
             this.selectTab(this.tabs[newIndex])
         }
         this.tabsChanged$.next()
+    }
+
+    emitReady () {
+        this.ready$.next(null)
+        this.ready$.complete()
     }
 }

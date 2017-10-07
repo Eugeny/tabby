@@ -287,3 +287,26 @@
                     *ngFor='let provider of persistenceProviders',
                     [ngValue]='provider.id'
                 ) {{provider.displayName}}
+
+        .form-group
+            label Auto-open a terminal on app start
+            br
+            div(
+                '[(ngModel)]'='config.store.terminal.autoOpen',
+                (ngModelChange)='config.save()',
+                ngbRadioGroup
+            )
+                label.btn.btn-secondary(ngbButtonLabel)
+                    input(
+                        type='radio',
+                        ngbButton,
+                        [value]='false'
+                    )
+                    | Off
+                label.btn.btn-secondary(ngbButtonLabel)
+                    input(
+                        type='radio',
+                        ngbButton,
+                        [value]='true'
+                    )
+                    | On

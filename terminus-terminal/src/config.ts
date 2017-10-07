@@ -3,6 +3,7 @@ import { ConfigProvider, Platform } from 'terminus-core'
 export class TerminalConfigProvider extends ConfigProvider {
     defaults = {
         terminal: {
+            autoOpen: false,
             fontSize: 14,
             linePadding: 0,
             bell: 'off',

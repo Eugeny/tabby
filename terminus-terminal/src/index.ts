@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser'
 import { FormsModule } from '@angular/forms'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 
-import { ToolbarButtonProvider, TabRecoveryProvider, ConfigProvider, HotkeysService, HotkeyProvider } from 'terminus-core'
+import { ToolbarButtonProvider, TabRecoveryProvider, ConfigProvider, HotkeysService, HotkeyProvider, AppService, ConfigService } from 'terminus-core'
 import { SettingsTabProvider } from 'terminus-settings'
 
 import { TerminalTabComponent } from './components/terminalTab.component'
@@ -78,7 +78,12 @@ import { hterm } from './hterm'
     ],
 })
 export default class TerminalModule {
-    constructor (hotkeys: HotkeysService) {
+    constructor (
+        app: AppService,
+        config: ConfigService,
+        hotkeys: HotkeysService,
+        terminal: TerminalService,
+    ) {
         let events = [
             {
                 name: 'keydown',
@@ -103,6 +108,11 @@ export default class TerminalModule {
                 hotkeys.emitKeyEvent(nativeEvent)
             }
         })
+        if (config.store.terminal.autoOpen) {
+            app.ready$.subscribe(() => {
+                terminal.openTab()
+            })
+        }
     }
 }
 

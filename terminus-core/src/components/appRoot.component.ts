@@ -150,6 +150,8 @@ export class AppRootComponent {
         if (this.app.tabs.length === 0) {
             this.app.openDefaultTab()
         }
+
+        this.app.emitReady()
     }
 
     @HostListener('dragover')
