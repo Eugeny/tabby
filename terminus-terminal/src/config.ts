@@ -10,6 +10,7 @@ export class TerminalConfigProvider extends ConfigProvider {
             background: 'theme',
             ligatures: false,
             cursor: 'block',
+            customShell: '',
             colorScheme: {
                 __nonStructural: true,
                 name: 'Material',

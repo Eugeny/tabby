@@ -238,6 +238,14 @@
                     [ngValue]='shell.id'
                 ) {{shell.name}}
 
+        .form-group(*ngIf='config.store.terminal.shell == "custom"')
+            label Custom shell
+            input.form-control(
+                type='text',
+                '[(ngModel)]'='config.store.terminal.customShell',
+                (ngModelChange)='config.save()',
+            )
+
         .form-group
             label Terminal bell
             br

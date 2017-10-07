@@ -24,6 +24,7 @@ import { TerminalConfigProvider } from './config'
 import { TerminalHotkeyProvider } from './hotkeys'
 import { HyperColorSchemes } from './colorSchemes'
 
+import { CustomShellProvider } from './shells/custom'
 import { Cygwin32ShellProvider } from './shells/cygwin32'
 import { Cygwin64ShellProvider } from './shells/cygwin64'
 import { GitBashShellProvider } from './shells/gitBash'
@@ -59,6 +60,7 @@ import { hterm } from './hterm'
         { provide: ShellProvider, useClass: WindowsStockShellsProvider, multi: true },
         { provide: ShellProvider, useClass: MacOSDefaultShellProvider, multi: true },
         { provide: ShellProvider, useClass: LinuxDefaultShellProvider, multi: true },
+        { provide: ShellProvider, useClass: CustomShellProvider, multi: true },
         { provide: ShellProvider, useClass: Cygwin32ShellProvider, multi: true },
         { provide: ShellProvider, useClass: Cygwin64ShellProvider, multi: true },
         { provide: ShellProvider, useClass: GitBashShellProvider, multi: true },

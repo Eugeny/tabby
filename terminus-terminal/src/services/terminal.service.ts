@@ -14,14 +14,22 @@ export class TerminalService {
         private app: AppService,
         private sessions: SessionsService,
         private config: ConfigService,
-        @Inject(ShellProvider) shellProviders: ShellProvider[],
+        @Inject(ShellProvider) private shellProviders: ShellProvider[],
         log: LogService,
     ) {
         this.logger = log.create('terminal')
-        Promise.all(shellProviders.map(x => x.provide())).then(shellLists => {
-            this.shells$.next(shellLists.reduce((a, b) => a.concat(b)))
-            this.shells$.complete()
+        this.reloadShells()
+
+        config.changed$.subscribe(() => {
+            this.reloadShells()
         })
+    }
+
+    async reloadShells () {
+        this.shells$ = new AsyncSubject<IShell[]>()
+        let shellLists = await Promise.all(this.shellProviders.map(x => x.provide()))
+        this.shells$.next(shellLists.reduce((a, b) => a.concat(b)))
+        this.shells$.complete()
     }
 
     async openTab (shell?: IShell, cwd?: string): Promise<TerminalTabComponent> {
