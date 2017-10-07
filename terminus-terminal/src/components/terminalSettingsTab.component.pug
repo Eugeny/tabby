@@ -197,6 +197,7 @@
                             [value]='"colorScheme"'
                         )
                         | From colors
+
             .form-group
                 label Cursor shape
                 br
@@ -246,60 +247,59 @@
                 (ngModelChange)='config.save()',
             )
 
-        .form-group
-            .d-flex
-                .mr-3
-                    label Terminal bell
-                    br
-                    div(
-                        '[(ngModel)]'='config.store.terminal.bell',
-                        (ngModelChange)='config.save()',
-                        ngbRadioGroup
-                    )
-                        label.btn.btn-secondary(ngbButtonLabel)
-                            input(
-                                type='radio',
-                                ngbButton,
-                                [value]='"off"'
-                            )
-                            | Off
-                        label.btn.btn-secondary(ngbButtonLabel)
-                            input(
-                                type='radio',
-                                ngbButton,
-                                [value]='"visual"'
-                            )
-                            | Visual
-                        label.btn.btn-secondary(ngbButtonLabel)
-                            input(
-                                type='radio',
-                                ngbButton,
-                                [value]='"audible"'
-                            )
-                            | Audible
+        .d-flex
+            .form-group.mr-3
+                label Terminal bell
+                br
+                div(
+                    '[(ngModel)]'='config.store.terminal.bell',
+                    (ngModelChange)='config.save()',
+                    ngbRadioGroup
+                )
+                    label.btn.btn-secondary(ngbButtonLabel)
+                        input(
+                            type='radio',
+                            ngbButton,
+                            [value]='"off"'
+                        )
+                        | Off
+                    label.btn.btn-secondary(ngbButtonLabel)
+                        input(
+                            type='radio',
+                            ngbButton,
+                            [value]='"visual"'
+                        )
+                        | Visual
+                    label.btn.btn-secondary(ngbButtonLabel)
+                        input(
+                            type='radio',
+                            ngbButton,
+                            [value]='"audible"'
+                        )
+                        | Audible
 
-                div
-                    label Blink cursor
-                    br
-                    div(
-                        '[(ngModel)]'='config.store.terminal.cursorBlink',
-                        (ngModelChange)='config.save()',
-                        ngbRadioGroup
-                    )
-                        label.btn.btn-secondary(ngbButtonLabel)
-                            input(
-                                type='radio',
-                                ngbButton,
-                                [value]='false'
-                            )
-                            | Off
-                        label.btn.btn-secondary(ngbButtonLabel)
-                            input(
-                                type='radio',
-                                ngbButton,
-                                [value]='true'
-                            )
-                            | On
+            .form-group
+                label Blink cursor
+                br
+                div(
+                    '[(ngModel)]'='config.store.terminal.cursorBlink',
+                    (ngModelChange)='config.save()',
+                    ngbRadioGroup
+                )
+                    label.btn.btn-secondary(ngbButtonLabel)
+                        input(
+                            type='radio',
+                            ngbButton,
+                            [value]='false'
+                        )
+                        | Off
+                    label.btn.btn-secondary(ngbButtonLabel)
+                        input(
+                            type='radio',
+                            ngbButton,
+                            [value]='true'
+                        )
+                        | On
 
         .form-group
             label Session persistence
