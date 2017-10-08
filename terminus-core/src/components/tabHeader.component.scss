@@ -1,7 +1,6 @@
 $tabs-height: 36px;
 
 :host {
-    line-height: $tabs-height - 2px;
     cursor: pointer;
 
     flex: 1000 1 200px;
@@ -24,9 +23,9 @@ $tabs-height: 36px;
         margin-left: 10px;
         width: 20px;
         border-radius: 10px;
-        line-height: 35px;
         text-align: center;
         transition: 0.25s all;
+        align-self: center;
     }
 
     .name {
@@ -36,6 +35,7 @@ $tabs-height: 36px;
         white-space: nowrap;
         text-overflow: ellipsis;
         min-width: 0;
+        align-self: center;
     }
 
     button {
@@ -49,7 +49,7 @@ $tabs-height: 36px;
         height: $button-size;
         border-radius: $button-size / 2;
         line-height: $button-size * 0.87;
-        margin-top: ($tabs-height - $button-size) * 0.5;
+        align-self: center;
         margin-right: 10px;
 
         text-align: center;

@@ -78,7 +78,8 @@ div(*ngIf='npmInstalled')
                 .d-flex.w-100
                     .mr-auto.d-flex.flex-column
                         strong {{plugin.name}}
-                        small.text-muted.mb-0 {{plugin.description}}
+                        a.text-muted.mb-0((click)='showPluginInfo(plugin)')
+                            small {{plugin.description}}
                     .d-flex.flex-column.align-items-end.mr-3 
                         div {{plugin.version}}
                         small.text-muted {{plugin.author}}

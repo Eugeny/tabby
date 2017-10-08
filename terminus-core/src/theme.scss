@@ -131,6 +131,7 @@ app-root  {
                     background: $body-bg2;
                     border-left: 1px solid transparent;
                     border-right: 1px solid transparent;
+                    border-top: 1px solid transparent;
 
                     .index {
                         color: #555;
@@ -162,7 +163,6 @@ app-root  {
 
                 &.active {
                     border-top: 1px solid $teal;
-                    margin-bottom: -1px;
                 }
 
                 &.has-activity:not(.active) {
@@ -179,7 +179,6 @@ app-root  {
 
                 &.active {
                     border-bottom: 1px solid $teal;
-                    margin-top: -1px;
                 }
 
                 &.has-activity:not(.active) {

@@ -7,3 +7,10 @@ export class StandardTheme extends Theme {
     css = require('./theme.scss')
     terminalBackground = '#1D272D'
 }
+
+@Injectable()
+export class StandardCompactTheme extends Theme {
+    name = 'Compact'
+    css = require('./theme.compact.scss')
+    terminalBackground = '#1D272D'
+}

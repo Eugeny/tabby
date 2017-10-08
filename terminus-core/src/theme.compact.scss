@@ -1,0 +1,15 @@
+@import './theme.scss';
+
+app-root {
+    .tab-bar {
+        height: 27px !important;
+
+        .btn-tab-bar {
+            line-height: 29px !important;
+        }
+    }
+
+    terminaltab .content {
+        margin: 5px !important;
+    }
+}

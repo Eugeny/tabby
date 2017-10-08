@@ -29,7 +29,7 @@ import { HotkeyProvider } from './api/hotkeyProvider'
 import { ConfigProvider } from './api/configProvider'
 import { Theme } from './api/theme'
 
-import { StandardTheme } from './theme'
+import { StandardTheme, StandardCompactTheme } from './theme'
 import { CoreConfigProvider } from './config'
 
 import 'perfect-scrollbar/dist/css/perfect-scrollbar.css'
@@ -47,6 +47,7 @@ const PROVIDERS = [
     UpdaterService,
     { provide: HotkeyProvider, useClass: AppHotkeyProvider, multi: true },
     { provide: Theme, useClass: StandardTheme, multi: true },
+    { provide: Theme, useClass: StandardCompactTheme, multi: true },
     { provide: ConfigProvider, useClass: CoreConfigProvider, multi: true },
 ]
 
