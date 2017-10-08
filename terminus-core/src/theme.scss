@@ -160,9 +160,12 @@ app-root  {
 
             tab-header {
                 border-top: 1px solid transparent;
+                border-bottom: 1px solid $border-color;
+                margin-bottom: -1px;
 
                 &.active {
                     border-top: 1px solid $teal;
+                    border-bottom-color: transparent;
                 }
 
                 &.has-activity:not(.active) {
@@ -176,9 +179,12 @@ app-root  {
 
             tab-header {
                 border-bottom: 1px solid transparent;
+                border-top: 1px solid $border-color;
+                margin-top: -1px;
 
                 &.active {
                     border-bottom: 1px solid $teal;
+                    margin-top: -1px;
                 }
 
                 &.has-activity:not(.active) {
