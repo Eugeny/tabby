@@ -18,7 +18,7 @@ ngb-tabset.vertical(type='tabs')
                     .form-group
                         label Show tabs
                         br
-                        div(
+                        .btn-group(
                             '[(ngModel)]'='config.store.appearance.tabsLocation',
                             (ngModelChange)='config.save()',
                             ngbRadioGroup
@@ -41,7 +41,7 @@ ngb-tabset.vertical(type='tabs')
                     .form-group
                         label Window frame
                         br
-                        div(
+                        .btn-group(
                             '[(ngModel)]'='config.store.appearance.frame'
                             '(ngModelChange)'='config.save(); config.requestRestart()'
                             ngbRadioGroup
@@ -74,7 +74,7 @@ ngb-tabset.vertical(type='tabs')
                             .form-group
                                 label Dock the terminal
                                 br
-                                div(
+                                .btn-group(
                                     '[(ngModel)]'='config.store.appearance.dock'
                                     '(ngModelChange)'='config.save(); docking.dock()'
                                     ngbRadioGroup

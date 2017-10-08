@@ -178,7 +178,7 @@
             .form-group.mr-3
                 label Terminal background
                 br
-                div(
+                .btn-group(
                     '[(ngModel)]'='config.store.terminal.background',
                     (ngModelChange)='config.save()',
                     ngbRadioGroup
@@ -201,7 +201,7 @@
             .form-group
                 label Cursor shape
                 br
-                div(
+                .btn-group(
                     [(ngModel)]='config.store.terminal.cursor',
                     (ngModelChange)='config.save()',
                     ngbRadioGroup
@@ -251,7 +251,7 @@
             .form-group.mr-3
                 label Terminal bell
                 br
-                div(
+                .btn-group(
                     '[(ngModel)]'='config.store.terminal.bell',
                     (ngModelChange)='config.save()',
                     ngbRadioGroup
@@ -281,7 +281,7 @@
             .form-group
                 label Blink cursor
                 br
-                div(
+                .btn-group(
                     '[(ngModel)]'='config.store.terminal.cursorBlink',
                     (ngModelChange)='config.save()',
                     ngbRadioGroup
@@ -316,7 +316,7 @@
         .form-group
             label Auto-open a terminal on app start
             br
-            div(
+            .btn-group(
                 '[(ngModel)]'='config.store.terminal.autoOpen',
                 (ngModelChange)='config.save()',
                 ngbRadioGroup
