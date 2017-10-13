@@ -224,8 +224,8 @@ export class TerminalTabComponent extends BaseTabComponent {
             if (event.type === 'mousedown') {
                 if (event.which === 3) {
                     this.contextMenu.popup({
-                        x: event.pageX,
-                        y: event.pageY,
+                        x: event.pageX + this.content.nativeElement.getBoundingClientRect().left,
+                        y: event.pageY + this.content.nativeElement.getBoundingClientRect().top,
                         async: true,
                     })
                     event.preventDefault()
