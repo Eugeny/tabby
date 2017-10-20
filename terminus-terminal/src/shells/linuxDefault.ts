@@ -33,7 +33,8 @@ export class LinuxDefaultShellProvider extends ShellProvider {
             return [{
                 id: 'default',
                 name: 'User default',
-                command: line.split(':')[6]
+                command: line.split(':')[6],
+                args: ['--login'],
             }]
         }
     }

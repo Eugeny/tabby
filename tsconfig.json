@@ -15,8 +15,10 @@
     "skipLibCheck": true,
     "lib": [
       "dom",
-      "es2015",
-      "es7"
+      "es5",
+      "es6",
+      "es7",
+      "es2015"
     ]
   }
 }

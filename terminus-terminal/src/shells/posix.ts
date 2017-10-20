@@ -24,6 +24,7 @@ export class POSIXShellsProvider extends ShellProvider {
                 id: x,
                 name: x,
                 command: x,
+                args: ['--login'],
             }))
     }
 }
