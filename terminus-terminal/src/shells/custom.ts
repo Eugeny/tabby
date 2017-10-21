@@ -12,10 +12,12 @@ export class CustomShellProvider extends ShellProvider {
     }
 
     async provide (): Promise<IShell[]> {
+        let args = this.config.store.terminal.customShell.split(' ')
         return [{
             id: 'custom',
             name: 'Custom',
-            command: this.config.store.terminal.customShell
+            command: args[0],
+            args: args.slice(1),
         }]
     }
 }
