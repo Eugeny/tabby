@@ -27,7 +27,7 @@ export class TabHeaderComponent {
             {
                 label: 'Close',
                 click: () => {
-                    this.zone.run(() => {
+                    zone.run(() => {
                         app.closeTab(this.tab, true)
                     })
                 }
