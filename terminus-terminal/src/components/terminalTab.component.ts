@@ -322,6 +322,7 @@ export class TerminalTabComponent extends BaseTabComponent {
         preferenceManager.set('copy-on-select', false)
         preferenceManager.set('alt-sends-what', 'browser-key')
         preferenceManager.set('alt-gr-mode', 'ctrl-alt')
+        preferenceManager.set('pass-alt-number', true)
         preferenceManager.set('cursor-blink', config.terminal.cursorBlink)
 
         if (config.terminal.colorScheme.foreground) {
