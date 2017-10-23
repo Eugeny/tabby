@@ -247,6 +247,15 @@
                 (ngModelChange)='config.save()',
             )
 
+        .form-group
+            label Working directory
+            input.form-control(
+                type='text',
+                placeholder='Home directory',
+                '[(ngModel)]'='config.store.terminal.workingDirectory',
+                (ngModelChange)='config.save()',
+            )
+
         .d-flex
             .form-group.mr-3
                 label Terminal bell
@@ -301,37 +310,38 @@
                         )
                         | On
 
-        .form-group
-            label Session persistence
-            select.form-control(
-                '[(ngModel)]'='config.store.terminal.persistence',
-                (ngModelChange)='config.save()',
-            )
-                option([ngValue]='null') Off
-                option(
-                    *ngFor='let provider of persistenceProviders',
-                    [ngValue]='provider.id'
-                ) {{provider.displayName}}
+        .d-flex
+            .form-group.mr-3(*ngIf='persistenceProviders.length > 0')
+                label Session persistence
+                select.form-control(
+                    '[(ngModel)]'='config.store.terminal.persistence',
+                    (ngModelChange)='config.save()',
+                )
+                    option([ngValue]='null') Off
+                    option(
+                        *ngFor='let provider of persistenceProviders',
+                        [ngValue]='provider.id'
+                    ) {{provider.displayName}}
 
-        .form-group
-            label Auto-open a terminal on app start
-            br
-            .btn-group(
-                '[(ngModel)]'='config.store.terminal.autoOpen',
-                (ngModelChange)='config.save()',
-                ngbRadioGroup
-            )
-                label.btn.btn-secondary(ngbButtonLabel)
-                    input(
-                        type='radio',
-                        ngbButton,
-                        [value]='false'
-                    )
-                    | Off
-                label.btn.btn-secondary(ngbButtonLabel)
-                    input(
-                        type='radio',
-                        ngbButton,
-                        [value]='true'
-                    )
-                    | On
+            .form-group
+                label Auto-open a terminal on app start
+                br
+                .btn-group(
+                    '[(ngModel)]'='config.store.terminal.autoOpen',
+                    (ngModelChange)='config.save()',
+                    ngbRadioGroup
+                )
+                    label.btn.btn-secondary(ngbButtonLabel)
+                        input(
+                            type='radio',
+                            ngbButton,
+                            [value]='false'
+                        )
+                        | Off
+                    label.btn.btn-secondary(ngbButtonLabel)
+                        input(
+                            type='radio',
+                            ngbButton,
+                            [value]='true'
+                        )
+                        | On
