@@ -20,6 +20,7 @@
     "@types/js-yaml": "^3.9.0",
     "@types/node": "^7.0.37",
     "@types/webpack-env": "^1.13.0",
+    "@types/winston": "^2.3.6",
     "axios": "0.16.2",
     "bootstrap": "4.0.0-alpha.6",
     "core-js": "^2.4.1",
@@ -39,7 +40,8 @@
   },
   "dependencies": {
     "deepmerge": "^1.5.0",
-    "js-yaml": "^3.9.0"
+    "js-yaml": "^3.9.0",
+    "winston": "^2.4.0"
   },
   "false": {}
 }

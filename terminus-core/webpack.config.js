@@ -45,6 +45,7 @@ module.exports = {
     'path',
     'deepmerge',
     'untildify',
+    'winston',
     'js-yaml',
     /^rxjs/,
     /^@angular/,
