@@ -5,6 +5,7 @@ import { PluginsSettingsTabComponent } from './components/pluginsSettingsTab.com
 
 @Injectable()
 export class PluginsSettingsTabProvider extends SettingsTabProvider {
+    id = 'plugins'
     title = 'Plugins'
 
     getComponentType (): ComponentType {

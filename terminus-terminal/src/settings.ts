@@ -5,6 +5,7 @@ import { TerminalSettingsTabComponent } from './components/terminalSettingsTab.c
 
 @Injectable()
 export class TerminalSettingsTabProvider extends SettingsTabProvider {
+    id = 'terminal'
     title = 'Terminal'
 
     getComponentType (): ComponentType {

@@ -1,7 +1,7 @@
 button.btn.btn-outline-warning.btn-block(*ngIf='config.restartRequested', '(click)'='restartApp()') Restart the app to apply changes
 
-ngb-tabset.vertical(type='tabs')
-    ngb-tab
+ngb-tabset.vertical(type='tabs', [activeId]='activeTab')
+    ngb-tab(id='application')
         ng-template(ngbTabTitle)
             | Application
         ng-template(ngbTabContent)
@@ -164,7 +164,7 @@ ngb-tabset.vertical(type='tabs')
                     '(ngModelChange)'='config.save()',
                 )
                     
-    ngb-tab
+    ngb-tab(id='hotkeys')
         ng-template(ngbTabTitle)
             | Hotkeys
         ng-template(ngbTabContent)
@@ -184,7 +184,7 @@ ngb-tabset.vertical(type='tabs')
                                 '(modelChange)'='config.save(); docking.dock()'
                             )
                     
-    ngb-tab(*ngFor='let provider of settingsProviders')
+    ngb-tab(*ngFor='let provider of settingsProviders', [id]='provider.id')
         ng-template(ngbTabTitle)
             | {{provider.title}}
         ng-template(ngbTabContent)

@@ -40,3 +40,4 @@ export default class SettingsModule {
 }
 
 export * from './api'
+export { SettingsTabComponent }

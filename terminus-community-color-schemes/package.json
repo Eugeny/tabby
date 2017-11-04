@@ -3,7 +3,7 @@
   "version": "1.0.0-alpha.35",
   "description": "Community color schemes for Terminus",
   "keywords": [
-    "terminus-plugin"
+    "terminus-builtin-plugin"
   ],
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",

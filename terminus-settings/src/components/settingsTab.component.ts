@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core'
+import { Component, Inject, Input } from '@angular/core'
 import { ElectronService, DockingService, ConfigService, IHotkeyDescription, HotkeyProvider, BaseTabComponent, Theme, HostAppService } from 'terminus-core'
 
 import { SettingsTabProvider } from '../api'
@@ -12,6 +12,7 @@ import { SettingsTabProvider } from '../api'
     ],
 })
 export class SettingsTabComponent extends BaseTabComponent {
+    @Input() activeTab: string
     hotkeyFilter = ''
     private hotkeyDescriptions: IHotkeyDescription[]
     private screens

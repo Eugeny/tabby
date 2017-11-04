@@ -1,9 +1,9 @@
 {
   "name": "terminus-settings",
-  "version": "1.0.0-alpha.35",
+  "version": "1.0.0-alpha.35.3",
   "description": "Terminus terminal settings page",
   "keywords": [
-    "terminus-plugin"
+    "terminus-builtin-plugin"
   ],
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",

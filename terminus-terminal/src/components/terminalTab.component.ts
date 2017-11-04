@@ -60,23 +60,28 @@ export class TerminalTabComponent extends BaseTabComponent {
         this.decorators = this.decorators || []
         this.title = 'Terminal'
         this.resize$.first().subscribe(async (resizeEvent) => {
-            this.session = this.sessions.addSession(
-                Object.assign({}, this.sessionOptions, resizeEvent)
-            )
+            if (!this.session) {
+                this.session = this.sessions.addSession(
+                    Object.assign({}, this.sessionOptions, resizeEvent)
+                )
+            }
+
             setTimeout(() => {
                 this.session.resize(resizeEvent.width, resizeEvent.height)
             }, 1000)
+
             // this.session.output$.bufferTime(10).subscribe((datas) => {
             this.session.output$.subscribe(data => {
-                // let data = datas.join('')
                 this.zone.run(() => {
                     this.output$.next(data)
+                    this.write(data)
                 })
-                this.write(data)
             })
+
             this.sessionCloseSubscription = this.session.closed$.subscribe(() => {
                 this.app.closeTab(this)
             })
+
             this.session.releaseInitialDataBuffer()
         })
         this.hotkeysSubscription = this.hotkeys.matchedHotkey.subscribe(hotkey => {

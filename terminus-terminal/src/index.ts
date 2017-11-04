@@ -10,7 +10,7 @@ import { TerminalTabComponent } from './components/terminalTab.component'
 import { TerminalSettingsTabComponent } from './components/terminalSettingsTab.component'
 import { ColorPickerComponent } from './components/colorPicker.component'
 
-import { SessionsService } from './services/sessions.service'
+import { SessionsService, BaseSession } from './services/sessions.service'
 import { TerminalService } from './services/terminal.service'
 
 import { ScreenPersistenceProvider } from './persistence/screen'
@@ -117,4 +117,4 @@ export default class TerminalModule {
 }
 
 export * from './api'
-export { TerminalService }
+export { TerminalService, BaseSession, TerminalTabComponent }

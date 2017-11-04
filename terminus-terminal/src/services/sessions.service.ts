@@ -14,7 +14,7 @@ export interface IChildProcess {
     command: string
 }
 
-export class Session {
+export abstract class BaseSession {
     open: boolean
     name: string
     output$ = new Subject<string>()
@@ -22,11 +22,46 @@ export class Session {
     destroyed$ = new Subject<void>()
     recoveryId: string
     truePID: number
-    private pty: any
     private initialDataBuffer = ''
     private initialDataBufferReleased = false
 
+    emitOutput (data: string) {
+        if (!this.initialDataBufferReleased) {
+            this.initialDataBuffer += data
+        } else {
+            this.output$.next(data)
+        }
+    }
+
+    releaseInitialDataBuffer () {
+        this.initialDataBufferReleased = true
+        this.output$.next(this.initialDataBuffer)
+        this.initialDataBuffer = null
+    }
+
+    abstract resize (columns, rows)
+    abstract write (data)
+    abstract kill (signal?: string)
+    abstract async getChildProcesses (): Promise<IChildProcess[]>
+    abstract async gracefullyKillProcess (): Promise<void>
+    abstract async getWorkingDirectory (): Promise<string>
+
+    async destroy (): Promise<void> {
+        if (this.open) {
+            this.open = false
+            this.closed$.next()
+            this.destroyed$.next()
+            this.output$.complete()
+            await this.gracefullyKillProcess()
+        }
+    }
+}
+
+export class Session extends BaseSession {
+    private pty: any
+
     constructor (options: SessionOptions) {
+        super()
         this.name = options.name
         this.recoveryId = options.recoveryId
 
@@ -65,12 +100,8 @@ export class Session {
 
         this.open = true
 
-        this.pty.on('data', (data) => {
-            if (!this.initialDataBufferReleased) {
-                this.initialDataBuffer += data
-            } else {
-                this.output$.next(data)
-            }
+        this.pty.on('data', data => {
+            this.emitOutput(data)
         })
 
         this.pty.on('exit', () => {
@@ -84,12 +115,6 @@ export class Session {
                 this.destroy()
             }
         })
-    }
-
-    releaseInitialDataBuffer () {
-        this.initialDataBufferReleased = true
-        this.output$.next(this.initialDataBuffer)
-        this.initialDataBuffer = null
     }
 
     resize (columns, rows) {
@@ -141,16 +166,6 @@ export class Session {
                     }
                 })
             })
-        }
-    }
-
-    async destroy (): Promise<void> {
-        if (this.open) {
-            this.open = false
-            this.closed$.next()
-            this.destroyed$.next()
-            this.output$.complete()
-            await this.gracefullyKillProcess()
         }
     }
 

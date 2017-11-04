@@ -1,9 +1,9 @@
 {
   "name": "terminus-plugin-manager",
-  "version": "1.0.0-alpha.35",
+  "version": "1.0.0-alpha.35.1",
   "description": "Terminus' plugin manager",
   "keywords": [
-    "terminus-plugin"
+    "terminus-builtin-plugin"
   ],
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
