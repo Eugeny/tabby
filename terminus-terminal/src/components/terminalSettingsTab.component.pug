@@ -1,7 +1,7 @@
+h3.mb-2 Appearance
 .row
     .col-md-6
         .form-group
-            label Preview
             .appearance-preview(
                 [style.font-family]='config.store.terminal.font',
                 [style.font-size]='config.store.terminal.fontSize + "px"',
@@ -58,23 +58,6 @@
                     span([style.color]='config.store.terminal.colorScheme.colors[14]') T
                     span &nbsp;
                     span([style.color]='config.store.terminal.colorScheme.colors[15]') W
-                div
-                    span &nbsp;
-                div
-                    span john@doe-pc
-                    span([style.color]='config.store.terminal.colorScheme.colors[1]') $
-                    span  webpack
-                div
-                    span   Asset     Size
-                div
-                    span([style.color]='config.store.terminal.colorScheme.colors[2]') main.js
-                    span   234 kB
-                    span([style.color]='config.store.terminal.colorScheme.colors[2]')  [emitted]
-                div
-                    span([style.color]='config.store.terminal.colorScheme.colors[3]')  big.js
-                    span([style.color]='config.store.terminal.colorScheme.colors[3]')   1.2 MB
-                    span([style.color]='config.store.terminal.colorScheme.colors[2]')  [emitted]
-                    span([style.color]='config.store.terminal.colorScheme.colors[3]')  [big]
                 div
                     span &nbsp;
                 div
@@ -228,6 +211,10 @@
                         )
                         | ▁
 
+h3.mt-2.mb-2 Behaviour
+
+.row
+    .col-md-6
         .d-flex
             .form-group.mr-3
                 label Shell
@@ -260,6 +247,30 @@
                 (ngModelChange)='config.save()',
             )
 
+        .form-group
+            label Auto-open a terminal on app start
+            br
+            .btn-group(
+                '[(ngModel)]'='config.store.terminal.autoOpen',
+                (ngModelChange)='config.save()',
+                ngbRadioGroup
+            )
+                label.btn.btn-secondary(ngbButtonLabel)
+                    input(
+                        type='radio',
+                        ngbButton,
+                        [value]='false'
+                    )
+                    | Off
+                label.btn.btn-secondary(ngbButtonLabel)
+                    input(
+                        type='radio',
+                        ngbButton,
+                        [value]='true'
+                    )
+                    | On
+                    
+    .col-md-6
         .d-flex
             .form-group.mr-3
                 label Terminal bell
@@ -314,29 +325,6 @@
                         )
                         | On
 
-        .form-group
-            label Auto-open a terminal on app start
-            br
-            .btn-group(
-                '[(ngModel)]'='config.store.terminal.autoOpen',
-                (ngModelChange)='config.save()',
-                ngbRadioGroup
-            )
-                label.btn.btn-secondary(ngbButtonLabel)
-                    input(
-                        type='radio',
-                        ngbButton,
-                        [value]='false'
-                    )
-                    | Off
-                label.btn.btn-secondary(ngbButtonLabel)
-                    input(
-                        type='radio',
-                        ngbButton,
-                        [value]='true'
-                    )
-                    | On
-                    
         .d-flex
             .form-group.mr-3
                 label Copy on select
