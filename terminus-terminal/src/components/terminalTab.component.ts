@@ -183,7 +183,7 @@ export class TerminalTabComponent extends BaseTabComponent {
                 label: 'Paste',
                 click: () => {
                     this.zone.run(() => {
-                        this.sendInput(this.electron.clipboard.readText())
+                        this.paste()
                     })
                 }
             },
@@ -228,12 +228,17 @@ export class TerminalTabComponent extends BaseTabComponent {
             this.mouseEvent$.next(event)
             if (event.type === 'mousedown') {
                 if (event.which === 3) {
-                    this.contextMenu.popup({
-                        x: event.pageX + this.content.nativeElement.getBoundingClientRect().left,
-                        y: event.pageY + this.content.nativeElement.getBoundingClientRect().top,
-                        async: true,
-                    })
+                    if (this.config.store.terminal.rightClick === 'menu') {
+                        this.contextMenu.popup({
+                            x: event.pageX + this.content.nativeElement.getBoundingClientRect().left,
+                            y: event.pageY + this.content.nativeElement.getBoundingClientRect().top,
+                            async: true,
+                        })
+                    } else if (this.config.store.terminal.rightClick === 'paste') {
+                        this.paste()
+                    }
                     event.preventDefault()
+                    event.stopPropagation()
                     return
                 }
             }
@@ -307,6 +312,10 @@ export class TerminalTabComponent extends BaseTabComponent {
         this.io.writeUTF8(data)
     }
 
+    paste () {
+        this.sendInput(this.electron.clipboard.readText())
+    }
+
     clear () {
         this.hterm.wipeContents()
         this.hterm.onVTKeystroke('\f')
@@ -324,7 +333,7 @@ export class TerminalTabComponent extends BaseTabComponent {
         preferenceManager.set('send-encoding', 'raw')
         preferenceManager.set('ctrl-plus-minus-zero-zoom', false)
         preferenceManager.set('scrollbar-visible', this.hostApp.platform === Platform.macOS)
-        preferenceManager.set('copy-on-select', false)
+        preferenceManager.set('copy-on-select', config.terminal.copyOnSelect)
         preferenceManager.set('alt-sends-what', 'browser-key')
         preferenceManager.set('alt-gr-mode', 'ctrl-alt')
         preferenceManager.set('pass-alt-number', true)

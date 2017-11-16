@@ -13,6 +13,8 @@ export class TerminalConfigProvider extends ConfigProvider {
             cursor: 'block',
             cursorBlink: true,
             customShell: '',
+            rightClick: 'menu',
+            copyOnSelect: false,
             colorScheme: {
                 __nonStructural: true,
                 name: 'Material',
@@ -80,6 +82,8 @@ export class TerminalConfigProvider extends ConfigProvider {
                 font: 'Consolas',
                 shell: 'clink',
                 persistence: null,
+                rightClick: 'paste',
+                copyOnSelect: true,
             },
             hotkeys: {
                 'copy': [

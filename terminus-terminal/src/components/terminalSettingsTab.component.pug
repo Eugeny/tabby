@@ -228,16 +228,29 @@
                         )
                         | ▁
 
-        .form-group
-            label Shell
-            select.form-control(
-                '[(ngModel)]'='config.store.terminal.shell',
-                (ngModelChange)='config.save()',
-            )
-                option(
-                    *ngFor='let shell of shells',
-                    [ngValue]='shell.id'
-                ) {{shell.name}}
+        .d-flex
+            .form-group.mr-3
+                label Shell
+                select.form-control(
+                    '[(ngModel)]'='config.store.terminal.shell',
+                    (ngModelChange)='config.save()',
+                )
+                    option(
+                        *ngFor='let shell of shells',
+                        [ngValue]='shell.id'
+                    ) {{shell.name}}
+
+            .form-group
+                label Session persistence
+                select.form-control(
+                    '[(ngModel)]'='config.store.terminal.persistence',
+                    (ngModelChange)='config.save()',
+                )
+                    option([ngValue]='null') Off
+                    option(
+                        *ngFor='let provider of persistenceProviders',
+                        [ngValue]='provider.id'
+                    ) {{provider.displayName}}
 
         .form-group(*ngIf='config.store.terminal.shell == "custom"')
             label Custom shell
@@ -302,18 +315,6 @@
                         | On
 
         .form-group
-            label Session persistence
-            select.form-control(
-                '[(ngModel)]'='config.store.terminal.persistence',
-                (ngModelChange)='config.save()',
-            )
-                option([ngValue]='null') Off
-                option(
-                    *ngFor='let provider of persistenceProviders',
-                    [ngValue]='provider.id'
-                ) {{provider.displayName}}
-
-        .form-group
             label Auto-open a terminal on app start
             br
             .btn-group(
@@ -335,3 +336,50 @@
                         [value]='true'
                     )
                     | On
+                    
+        .d-flex
+            .form-group.mr-3
+                label Copy on select
+                br
+                .btn-group(
+                    '[(ngModel)]'='config.store.terminal.copyOnSelect',
+                    (ngModelChange)='config.save()',
+                    ngbRadioGroup
+                )
+                    label.btn.btn-secondary(ngbButtonLabel)
+                        input(
+                            type='radio',
+                            ngbButton,
+                            [value]='false'
+                        )
+                        | Off
+                    label.btn.btn-secondary(ngbButtonLabel)
+                        input(
+                            type='radio',
+                            ngbButton,
+                            [value]='true'
+                        )
+                        | On
+
+            .form-group
+                label Right click behaviour
+                br
+                .btn-group(
+                    '[(ngModel)]'='config.store.terminal.rightClick',
+                    (ngModelChange)='config.save()',
+                    ngbRadioGroup
+                )
+                    label.btn.btn-secondary(ngbButtonLabel)
+                        input(
+                            type='radio',
+                            ngbButton,
+                            value='menu'
+                        )
+                        | Menu
+                    label.btn.btn-secondary(ngbButtonLabel)
+                        input(
+                            type='radio',
+                            ngbButton,
+                            value='paste'
+                        )
+                        | Paste
