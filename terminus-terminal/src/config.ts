@@ -15,6 +15,7 @@ export class TerminalConfigProvider extends ConfigProvider {
             customShell: '',
             rightClick: 'menu',
             copyOnSelect: false,
+            workingDirectory: '',
             colorScheme: {
                 __nonStructural: true,
                 name: 'Material',

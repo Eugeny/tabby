@@ -248,6 +248,15 @@ h3.mt-2.mb-2 Behaviour
             )
 
         .form-group
+            label Working directory
+            input.form-control(
+                type='text',
+                placeholder='Home directory',
+                '[(ngModel)]'='config.store.terminal.workingDirectory',
+                (ngModelChange)='config.save()',
+            )
+
+        .form-group
             label Auto-open a terminal on app start
             br
             .btn-group(
@@ -270,7 +279,6 @@ h3.mt-2.mb-2 Behaviour
                     )
                     | On
                     
-    .col-md-6
         .d-flex
             .form-group.mr-3
                 label Terminal bell
