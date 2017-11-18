@@ -82,6 +82,7 @@
         "libappindicator1",
         "libxtst6",
         "libnss3",
+        "python-gnomekeyring",
         "tmux"
       ],
       "artifactName": "terminus-${version}-${os}-${arch}.deb"

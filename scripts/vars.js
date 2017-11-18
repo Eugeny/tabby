@@ -15,5 +15,5 @@ exports.builtinPlugins = [
   'terminus-community-color-schemes',
   'terminus-plugin-manager',
 ]
-exports.nativeModules = ['node-pty-tmp', 'font-manager']
+exports.nativeModules = ['node-pty-tmp', 'font-manager', 'xkeychain']
 exports.electronVersion = pkgInfo.devDependencies.electron

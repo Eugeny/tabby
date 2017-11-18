@@ -1,6 +1,6 @@
 import { Component } from '@angular/core'
 
-export declare type ComponentType = new (...args: any[]) => Component
+export declare type ComponentType = new (...args: any[]) => any
 
 export abstract class SettingsTabProvider {
     id: string
