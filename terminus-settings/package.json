@@ -1,6 +1,6 @@
 {
   "name": "terminus-settings",
-  "version": "1.0.0-alpha.35.3",
+  "version": "1.0.0-alpha.36",
   "description": "Terminus terminal settings page",
   "keywords": [
     "terminus-builtin-plugin"
