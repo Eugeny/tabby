@@ -268,6 +268,14 @@ util@^0.10.3:
   dependencies:
     inherits "2.0.1"
 
+wincredmgr@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/wincredmgr/-/wincredmgr-2.0.0.tgz#cab8e3c6d98f0ea255d7638e82fd9f393ca7f515"
+
+xkeychain@^0.0.6:
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/xkeychain/-/xkeychain-0.0.6.tgz#1c58b3dd2f80481f8f67949c3511aa14027c2b9b"
+
 zone.js@0.8.12:
   version "0.8.12"
   resolved "https://registry.yarnpkg.com/zone.js/-/zone.js-0.8.12.tgz#86ff5053c98aec291a0bf4bbac501d694a05cfbb"

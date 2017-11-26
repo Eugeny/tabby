@@ -15,6 +15,7 @@
     "electron-rebuild": "1.5.11",
     "file-loader": "0.9.0",
     "font-awesome": "4.7.0",
+    "graceful-fs": "^4.1.11",
     "html-loader": "0.4.4",
     "json-loader": "0.5.4",
     "less": "2.7.1",
@@ -53,7 +54,9 @@
     ],
     "win": {
       "icon": "./build/windows/icon.ico",
-      "publish": ["github"]
+      "publish": [
+        "github"
+      ]
     },
     "squirrelWindows": {
       "iconUrl": "https://github.com/Eugeny/terminus/raw/master/build/windows/icon.ico",
@@ -63,7 +66,9 @@
       "category": "public.app-category.video",
       "icon": "./build/mac/icon.icns",
       "identity": null,
-      "publish": ["github"]
+      "publish": [
+        "github"
+      ]
     },
     "dmg": {
       "artifactName": "terminus-${version}-${os}-${arch}.dmg"
@@ -71,7 +76,9 @@
     "linux": {
       "category": "Utilities",
       "icon": "./build/icons",
-      "publish": ["github"]
+      "publish": [
+        "github"
+      ]
     },
     "deb": {
       "depends": [
