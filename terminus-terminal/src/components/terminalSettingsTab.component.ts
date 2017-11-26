@@ -27,7 +27,7 @@ export class TerminalSettingsTabComponent {
         @Inject(TerminalColorSchemeProvider) private colorSchemeProviders: TerminalColorSchemeProvider[],
         @Inject(SessionPersistenceProvider) persistenceProviders: SessionPersistenceProvider[],
     ) {
-        this.persistenceProviders = persistenceProviders.filter(x => x.isAvailable())
+        this.persistenceProviders = this.config.enabledServices(persistenceProviders).filter(x => x.isAvailable())
     }
 
     async ngOnInit () {
@@ -46,8 +46,8 @@ export class TerminalSettingsTabComponent {
                 this.fonts.sort()
             })
         }
-        this.colorSchemes = (await Promise.all(this.colorSchemeProviders.map(x => x.getSchemes()))).reduce((a, b) => a.concat(b))
-        this.shells = (await Promise.all(this.shellProviders.map(x => x.provide()))).reduce((a, b) => a.concat(b))
+        this.colorSchemes = (await Promise.all(this.config.enabledServices(this.colorSchemeProviders).map(x => x.getSchemes()))).reduce((a, b) => a.concat(b))
+        this.shells = (await Promise.all(this.config.enabledServices(this.shellProviders).map(x => x.provide()))).reduce((a, b) => a.concat(b))
     }
 
     fontAutocomplete = (text$: Observable<string>) => {

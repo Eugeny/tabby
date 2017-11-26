@@ -3,6 +3,7 @@ import { TabRecoveryProvider, RecoveredTab } from '../api/tabRecovery'
 import { BaseTabComponent } from '../components/baseTab.component'
 import { Logger, LogService } from '../services/log.service'
 import { AppService } from '../services/app.service'
+import { ConfigService } from '../services/config.service'
 
 @Injectable()
 export class TabRecoveryService {
@@ -11,6 +12,7 @@ export class TabRecoveryService {
     constructor (
         @Inject(TabRecoveryProvider) private tabRecoveryProviders: TabRecoveryProvider[],
         private app: AppService,
+        private config: ConfigService,
         log: LogService
     ) {
         this.logger = log.create('tabRecovery')
@@ -31,7 +33,7 @@ export class TabRecoveryService {
         if (window.localStorage.tabsRecovery) {
             let tabs: RecoveredTab[] = []
             for (let token of JSON.parse(window.localStorage.tabsRecovery)) {
-                for (let provider of this.tabRecoveryProviders) {
+                for (let provider of this.config.enabledServices(this.tabRecoveryProviders)) {
                     try {
                         let tab = await provider.recover(token)
                         if (tab) {

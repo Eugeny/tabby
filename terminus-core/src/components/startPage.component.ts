@@ -1,6 +1,7 @@
 import * as os from 'os'
 import { Component, Inject } from '@angular/core'
 import { ElectronService } from '../services/electron.service'
+import { ConfigService } from '../services/config.service'
 import { IToolbarButton, ToolbarButtonProvider } from '../api'
 
 @Component({
@@ -13,13 +14,14 @@ export class StartPageComponent {
 
     constructor (
         private electron: ElectronService,
+        private config: ConfigService,
         @Inject(ToolbarButtonProvider) private toolbarButtonProviders: ToolbarButtonProvider[],
     ) {
         this.version = electron.app.getVersion()
     }
 
     getButtons (): IToolbarButton[] {
-        return this.toolbarButtonProviders
+        return this.config.enabledServices(this.toolbarButtonProviders)
             .map(provider => provider.provide())
             .reduce((a, b) => a.concat(b))
             .sort((a: IToolbarButton, b: IToolbarButton) => (a.weight || 0) - (b.weight || 0))

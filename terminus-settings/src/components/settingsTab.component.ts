@@ -27,10 +27,12 @@ export class SettingsTabComponent extends BaseTabComponent {
         @Inject(Theme) public themes: Theme[],
     ) {
         super()
-        this.hotkeyDescriptions = hotkeyProviders.map(x => x.hotkeys).reduce((a, b) => a.concat(b))
+        this.hotkeyDescriptions = config.enabledServices(hotkeyProviders).map(x => x.hotkeys).reduce((a, b) => a.concat(b))
         this.title = 'Settings'
         this.scrollable = true
         this.screens = this.docking.getScreens()
+        this.settingsProviders = config.enabledServices(this.settingsProviders)
+        this.themes = config.enabledServices(this.themes)
     }
 
     getRecoveryToken (): any {

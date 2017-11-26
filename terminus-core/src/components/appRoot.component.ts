@@ -170,7 +170,7 @@ export class AppRootComponent {
 
     private getToolbarButtons (aboveZero: boolean): IToolbarButton[] {
         let buttons: IToolbarButton[] = []
-        this.toolbarButtonProviders.forEach((provider) => {
+        this.config.enabledServices(this.toolbarButtonProviders).forEach(provider => {
             buttons = buttons.concat(provider.provide())
         })
         return buttons

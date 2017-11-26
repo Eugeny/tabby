@@ -30,6 +30,7 @@ async function bootstrap (plugins: IPluginInfo[], safeMode = false): Promise<NgM
         (document.querySelector('.progress .bar') as HTMLElement).style.width = 100 * current / total + '%'
     })
     let module = getRootModule(pluginsModules)
+    window['rootModule'] = module
     return await platformBrowserDynamic().bootstrapModule(module)
 }
 

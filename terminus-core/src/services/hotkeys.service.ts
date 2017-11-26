@@ -42,7 +42,7 @@ export class HotkeysService {
                 }
             })
         })
-        this.hotkeyDescriptions = hotkeyProviders.map(x => x.hotkeys).reduce((a, b) => a.concat(b))
+        this.hotkeyDescriptions = this.config.enabledServices(hotkeyProviders).map(x => x.hotkeys).reduce((a, b) => a.concat(b))
         this.config.changed$.subscribe(() => {
             this.registerGlobalHotkey()
         })

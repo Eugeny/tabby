@@ -17,7 +17,7 @@ export class ThemesService {
     }
 
     findTheme (name: string): Theme {
-        return this.themes.find(x => x.name === name)
+        return this.config.enabledServices(this.themes).find(x => x.name === name)
     }
 
     findCurrentTheme (): Theme {

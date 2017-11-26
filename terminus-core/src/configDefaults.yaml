@@ -6,3 +6,4 @@ appearance:
   theme: Standard
   frame: thin
   css: '/* * { color: blue !important; } */'
+pluginBlacklist: []

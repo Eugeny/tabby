@@ -10,34 +10,23 @@ h3 Installed
 
 .list-group
     ng-container(*ngFor='let plugin of pluginManager.installedPlugins|orderBy:"name"')
-        .list-group-item.flex-column.align-items-start(*ngIf='knownUpgrades[plugin.name]')
+        .list-group-item.flex-column.align-items-start
             .d-flex.w-100
                 .mr-auto.d-flex.flex-column
                     strong {{plugin.name}}
-                    small.text-muted.mb-0((click)='showPluginInfo(plugin)') {{plugin.description}}
+                    a.text-muted.mb-0((click)='showPluginInfo(plugin)')
+                        small {{plugin.description}}
                 .d-flex.flex-column.align-items-end.mr-3
                     div {{plugin.version}}
                     small.text-muted {{plugin.author}}
                 button.btn.btn-outline-primary(
-                    *ngIf='npmInstalled',
+                    *ngIf='npmInstalled && knownUpgrades[plugin.name]',
                     (click)='upgradePlugin(plugin)',
                     [disabled]='busy[plugin.name] != undefined'
                 )
                     i.fa.fa-fw.fa-arrow-up(*ngIf='busy[plugin.name] != BusyState.Installing')
                     i.fa.fa-fw.fa-circle-o-notch.fa-spin(*ngIf='busy[plugin.name] == BusyState.Installing')
                     span Upgrade ({{knownUpgrades[plugin.name].version}})
-
-    ng-container(*ngFor='let plugin of pluginManager.installedPlugins|orderBy:"name"')
-        .list-group-item.flex-column.align-items-start(*ngIf='!knownUpgrades[plugin.name]')
-            .d-flex.w-100
-                .mr-auto.d-flex.flex-column
-                    strong {{plugin.name}}
-                    a.text-muted.mb-0((click)='showPluginInfo(plugin)')
-                        small {{plugin.description}}
-                .d-flex.flex-column.align-items-end.mr-3 
-                    div {{plugin.version}}
-                    small.text-muted {{plugin.author}}
-                        i.fa.fa-check.text-success.ml-1(*ngIf='plugin.isOfficial', title='Official')
                 button.btn.btn-outline-danger(
                     (click)='uninstallPlugin(plugin)', 
                     *ngIf='!plugin.isBuiltin && npmInstalled',
@@ -45,6 +34,16 @@ h3 Installed
                 )
                     i.fa.fa-fw.fa-trash-o(*ngIf='busy[plugin.name] != BusyState.Uninstalling')
                     i.fa.fa-fw.fa-circle-o-notch.fa-spin(*ngIf='busy[plugin.name] == BusyState.Uninstalling')
+                button.btn.btn-outline-danger(
+                    *ngIf='config.store.pluginBlacklist.includes(plugin.name)',
+                    (click)='enablePlugin(plugin)'
+                )
+                    i.fa.fa-fw.fa-play
+                button.btn.btn-outline-primary(
+                    *ngIf='!config.store.pluginBlacklist.includes(plugin.name)',
+                    (click)='disablePlugin(plugin)'
+                )
+                    i.fa.fa-fw.fa-pause
 
 .text-center.mt-5(*ngIf='npmMissing')
     h4 npm not installed

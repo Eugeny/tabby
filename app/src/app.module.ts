@@ -5,7 +5,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 export function getRootModule (plugins: any[]) {
     let imports = [
         BrowserModule,
-        ...(plugins.map(x => x.default.forRoot ? x.default.forRoot() : x.default)),
+        ...plugins,
         NgbModule.forRoot(),
     ]
     let bootstrap = [

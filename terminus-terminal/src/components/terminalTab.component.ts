@@ -125,7 +125,7 @@ export class TerminalTabComponent extends BaseTabComponent {
         })
 
         this.hterm = new hterm.hterm.Terminal()
-        this.decorators.forEach((decorator) => {
+        this.config.enabledServices(this.decorators).forEach((decorator) => {
             decorator.attach(this)
         })
 
@@ -406,7 +406,7 @@ export class TerminalTabComponent extends BaseTabComponent {
     }
 
     ngOnDestroy () {
-        this.decorators.forEach(decorator => {
+        this.config.enabledServices(this.decorators).forEach(decorator => {
             decorator.detach(this)
         })
         this.hotkeysSubscription.unsubscribe()

@@ -6,6 +6,7 @@ import { Injectable, Inject } from '@angular/core'
 import { ConfigProvider } from '../api/configProvider'
 import { ElectronService } from './electron.service'
 import { HostAppService } from './hostApp.service'
+import * as Reflect from 'core-js/es7/reflect'
 
 const configMerge = (a, b) => require('deepmerge')(a, b, { arrayMerge: (_d, s) => s })
 
@@ -57,6 +58,7 @@ export class ConfigService {
     private _store: any
     private path: string
     private defaults: any
+    private servicesCache: { [id: string]: Function[] } = null
 
     constructor (
         electron: ElectronService,
@@ -97,5 +99,29 @@ export class ConfigService {
 
     requestRestart (): void {
         this.restartRequested = true
+    }
+
+    enabledServices<T> (services: T[]): T[] {
+        if (!this.servicesCache) {
+            this.servicesCache = {}
+            let ngModule = Reflect.getMetadata('annotations', window['rootModule'])[0]
+            for (let imp of ngModule.imports) {
+                let module = imp['module'] || imp
+                let annotations = Reflect.getMetadata('annotations', module)
+                if (annotations) {
+                    this.servicesCache[module['pluginName']] = annotations[0].providers.map(provider => {
+                        return provider['useClass'] || provider
+                    })
+                }
+            }
+        }
+        return services.filter(service => {
+            for (let pluginName in this.servicesCache) {
+                if (this.servicesCache[pluginName].includes(service.constructor)) {
+                    return !this.store.pluginBlacklist.includes(pluginName)
+                }
+            }
+            return true
+        })
     }
 }

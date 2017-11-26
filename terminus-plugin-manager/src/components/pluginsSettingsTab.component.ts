@@ -105,4 +105,16 @@ export class PluginsSettingsTabComponent {
     showPluginInfo (plugin: IPluginInfo) {
         this.electron.shell.openExternal('https://www.npmjs.com/package/' + plugin.packageName)
     }
+
+    enablePlugin (plugin: IPluginInfo) {
+        this.config.store.pluginBlacklist = this.config.store.pluginBlacklist.filter(x => x !== plugin.name)
+        this.config.save()
+        this.config.requestRestart()
+    }
+
+    disablePlugin (plugin: IPluginInfo) {
+        this.config.store.pluginBlacklist.push(plugin.name)
+        this.config.save()
+        this.config.requestRestart()
+    }
 }
