@@ -8,7 +8,19 @@ import { SSHConnection, SSHSession } from '../api'
 import { PromptModalComponent } from '../components/promptModal.component'
 
 const { SSH2Stream } = require('ssh2-streams')
-const keychain = require('xkeychain')
+
+let xkeychain
+let wincredmgr
+try {
+    console.log(1)
+    xkeychain = require('xkeychain')
+} catch (error) {
+    try {
+        wincredmgr = require('wincredmgr')
+    } catch (error2) {
+        console.warn('No keychain manager available')
+    }
+}
 
 @Injectable()
 export class SSHService {
@@ -19,23 +31,71 @@ export class SSHService {
     ) {
     }
 
+    savePassword (connection: SSHConnection, password: string) {
+        if (xkeychain) {
+            xkeychain.setPassword({
+                account: connection.user,
+                service: `ssh@${connection.host}`,
+                password
+            }, () => null)
+        } else {
+            wincredmgr.WriteCredentials(
+                'user',
+                password,
+                `ssh:${connection.user}@${connection.host}`,
+            )
+        }
+    }
+
+    deletePassword (connection: SSHConnection) {
+        if (xkeychain) {
+            xkeychain.deletePassword({
+                account: connection.user,
+                service: `ssh@${connection.host}`,
+            }, () => null)
+        } else {
+            wincredmgr.DeleteCredentials(
+                `ssh:${connection.user}@${connection.host}`,
+            )
+        }
+    }
+
+    loadPassword (connection: SSHConnection): Promise<string> {
+        return new Promise(resolve => {
+            if (xkeychain) {
+                xkeychain.getPassword({
+                    account: connection.user,
+                    service: `ssh@${connection.host}`,
+                }, (_, result) => resolve(result))
+            } else {
+                try {
+                    resolve(wincredmgr.ReadCredentials(`ssh:${connection.user}@${connection.host}`).password)
+                } catch (error) {
+                    resolve(null)
+                }
+            }
+        })
+    }
+
     async connect (connection: SSHConnection): Promise<TerminalTabComponent> {
         let privateKey: string = null
         if (connection.privateKey) {
             try {
                 privateKey = (await fs.readFile(connection.privateKey)).toString()
-            } catch (error) {
-            }
+            } catch (error) { }
         }
 
         let ssh = new Client()
         let connected = false
+        let savedPassword: string = null
         await new Promise((resolve, reject) => {
             ssh.on('ready', () => {
                 connected = true
+                this.savePassword(connection, savedPassword)
                 this.zone.run(resolve)
             })
             ssh.on('error', error => {
+                this.deletePassword(connection)
                 this.zone.run(() => {
                     if (connected) {
                         alert(`SSH error: ${error}`)
@@ -70,13 +130,8 @@ export class SSHService {
                     return connection.password
                 }
 
-                if (!keychainPasswordUsed && keychain.isSupported()) {
-                    let password = await new Promise(resolve => {
-                        keychain.getPassword({
-                            account: connection.user,
-                            service: `ssh@${connection.host}`,
-                        }, (_, result) => resolve(result))
-                    })
+                if (!keychainPasswordUsed && (wincredmgr || xkeychain.isSupported())) {
+                    let password = await this.loadPassword(connection)
                     if (password) {
                         keychainPasswordUsed = true
                         return password
@@ -86,15 +141,8 @@ export class SSHService {
                 let modal = this.ngbModal.open(PromptModalComponent)
                 modal.componentInstance.prompt = `Password for ${connection.user}@${connection.host}`
                 modal.componentInstance.password = true
-                let password =  await modal.result
-
-                keychain.setPassword({
-                    account: connection.user,
-                    service: `ssh@${connection.host}`,
-                    password
-                }, () => null)
-
-                return password
+                savedPassword = await modal.result
+                return savedPassword
             })
         })
 

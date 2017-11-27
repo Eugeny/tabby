@@ -17,9 +17,6 @@ export class SSHSettingsTabComponent {
         this.connections = this.config.store.ssh.connections
     }
 
-    async ngOnInit () {
-    }
-
     createConnection () {
         let connection: SSHConnection = {
             name: '',
@@ -31,6 +28,7 @@ export class SSHSettingsTabComponent {
         modal.result.then(result => {
             this.connections.push(result)
             this.config.store.ssh.connections = this.connections
+            this.config.save()
         })
     }
 
@@ -47,6 +45,7 @@ export class SSHSettingsTabComponent {
         if (confirm(`Delete "${connection.name}"?`)) {
             this.connections = this.connections.filter(x => x !== connection)
             this.config.store.ssh.connections = this.connections
+            this.config.save()
         }
     }
 }
