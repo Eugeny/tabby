@@ -1,0 +1,37 @@
+.modal-body
+    .form-group
+        label Name
+        input.form-control(
+            type='text', 
+            [(ngModel)]='connection.name', 
+        )
+
+    .form-group
+        label Host
+        input.form-control(
+            type='text', 
+            [(ngModel)]='connection.host', 
+        )
+
+    .form-group
+        label Username
+        input.form-control(
+            type='text', 
+            [(ngModel)]='connection.user', 
+        )
+
+    .form-group
+        label Private key 
+        .input-group
+            input.form-control(
+                type='text', 
+                placeholder='Key file path', 
+                [(ngModel)]='connection.privateKey'
+            )
+            .input-group-btn
+                button.btn.btn-secondary((click)='selectPrivateKey()')
+                    i.fa.fa-folder-open
+
+.modal-footer
+    button.btn.btn-outline-primary((click)='save()') Save
+    button.btn.btn-outline-danger((click)='cancel()') Cancel

@@ -43,3 +43,4 @@ hotkeys:
   tab-10:
     - '⌘-0'
     - ['Ctrl-A', '0']
+pluginBlacklist: ['ssh']

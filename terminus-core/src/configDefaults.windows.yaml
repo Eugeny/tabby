@@ -43,3 +43,4 @@ hotkeys:
   tab-10:
     - 'Alt-0'
     - ['Ctrl-A', '0']
+pluginBlacklist: []

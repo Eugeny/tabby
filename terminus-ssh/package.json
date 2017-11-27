@@ -1,0 +1,48 @@
+{
+  "name": "terminus-ssh",
+  "version": "0.0.1",
+  "description": "SSH connection manager for Terminus",
+  "keywords": [
+    "terminus-builtin-plugin"
+  ],
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "scripts": {
+    "build": "webpack --progress --color",
+    "watch": "webpack --progress --color --watch"
+  },
+  "files": [
+    "dist"
+  ],
+  "author": "Eugene Pankov",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/ssh2": "^0.5.35",
+    "@types/webpack-env": "^1.13.0",
+    "apply-loader": "^2.0.0",
+    "awesome-typescript-loader": "^3.1.2",
+    "electron": "^1.6.11",
+    "pug": "^2.0.0-rc.3",
+    "pug-loader": "^2.3.0",
+    "rxjs": "^5.4.0",
+    "typescript": "^2.2.2",
+    "webpack": "^2.3.3"
+  },
+  "peerDependencies": {
+    "@angular/common": "^4.1.3",
+    "@angular/core": "^4.1.3",
+    "@angular/forms": "^4.1.3",
+    "@ng-bootstrap/ng-bootstrap": "^1.0.0-alpha.29",
+    "terminus-core": "*",
+    "terminus-settings": "*",
+    "terminus-terminal": "*"
+  },
+  "optionalDependencies": {
+    "wincredmgr": "^2.0.0",
+    "xkeychain": "^0.0.6"
+  },
+  "repository": "eugeny/terminus-ssh",
+  "dependencies": {
+    "ssh2": "^0.5.5"
+  }
+}

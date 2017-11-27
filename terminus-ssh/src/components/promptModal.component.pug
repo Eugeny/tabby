@@ -1,0 +1,9 @@
+.modal-body
+    input.form-control(
+        [type]='password ? "password" : "text"', 
+        [(ngModel)]='value', 
+        #input, 
+        [placeholder]='prompt', 
+        (keyup.enter)='ok()',
+        (keyup.esc)='cancel()',
+    )

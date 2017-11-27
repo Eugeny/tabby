@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { SettingsTabProvider, ComponentType } from 'terminus-settings'
+import { SettingsTabProvider } from 'terminus-settings'
 
 import { PluginsSettingsTabComponent } from './components/pluginsSettingsTab.component'
 
@@ -8,7 +8,7 @@ export class PluginsSettingsTabProvider extends SettingsTabProvider {
     id = 'plugins'
     title = 'Plugins'
 
-    getComponentType (): ComponentType {
+    getComponentType (): any {
         return PluginsSettingsTabComponent
     }
 }

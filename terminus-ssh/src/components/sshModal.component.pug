@@ -1,0 +1,24 @@
+.modal-body
+    input.form-control(
+        type='text', 
+        [(ngModel)]='quickTarget', 
+        autofocus, 
+        placeholder='Quick connect: [user@]host', 
+        (keyup.enter)='quickConnect()'
+    )
+    
+    .list-group.mt-3(*ngIf='lastConnection')
+        a.list-group-item.list-group-item-action((click)='connect(lastConnection)') 
+            i.fa.fa-fw.fa-history
+            span {{lastConnection.name}}
+    
+    .list-group.mt-3
+        a.list-group-item.list-group-item-action(*ngFor='let connection of connections', (click)='connect(connection)') 
+            i.fa.fa-fw.fa-globe
+            span {{connection.name}}
+        a.list-group-item.list-group-item-action((click)='manageConnections()') 
+            i.fa.fa-fw.fa-wrench 
+            span Manage connections
+
+//.modal-footer
+    button.btn.btn-outline-primary((click)='close()') Cancel

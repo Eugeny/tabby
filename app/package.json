@@ -31,10 +31,6 @@
     "rxjs": "5.3.0",
     "zone.js": "0.8.12"
   },
-  "optionalDependencies": {
-    "wincredmgr": "^2.0.0",
-    "xkeychain": "^0.0.6"
-  },
   "devDependencies": {
     "@types/mz": "0.0.31"
   }
