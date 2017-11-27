@@ -19,29 +19,19 @@ export class ColorSchemes extends TerminalColorSchemeProvider {
                     values[key] = value
                 })
 
+            let colors: string[] = []
+            let colorIndex = 0
+            while (values[`color${colorIndex}`]) {
+                colors.push(values[`color${colorIndex}`])
+                colorIndex++
+            }
+
             schemes.push({
                 name: schemeFile.split('/')[1].trim(),
                 foreground: values.foreground,
                 background: values.background,
                 cursor: values.cursorColor,
-                colors: [
-                    values.color0,
-                    values.color1,
-                    values.color2,
-                    values.color3,
-                    values.color4,
-                    values.color5,
-                    values.color6,
-                    values.color7,
-                    values.color8,
-                    values.color9,
-                    values.color10,
-                    values.color11,
-                    values.color12,
-                    values.color13,
-                    values.color14,
-                    values.color15,
-                ],
+                colors,
             })
         })
 
