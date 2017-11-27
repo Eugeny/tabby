@@ -14,7 +14,7 @@ const initializeWinston = (electron: ElectronService) => {
     return new winston.Logger({
         transports: [
             new winston.transports.File({
-                level: 'info',
+                level: 'debug',
                 filename: path.join(logDirectory, 'log.txt'),
                 handleExceptions: false,
                 json: false,
