@@ -3,6 +3,10 @@
   "exclude": ["node_modules", "dist"],
   "compilerOptions": {
     "baseUrl": "src",
-    "declarationDir": "dist"
+    "declarationDir": "dist",
+    "paths": {
+      "terminus-*": ["terminus-*"],
+      "*": ["app/node_modules/*"]
+    }
   }
 }

@@ -102,7 +102,7 @@
     }
   },
   "scripts": {
-    "build": "webpack --color --config app/webpack.config.js && webpack --color --config terminus-core/webpack.config.js && webpack --color --config terminus-settings/webpack.config.js && webpack --color --config terminus-terminal/webpack.config.js && webpack --color --config terminus-settings/webpack.config.js && webpack --color --config terminus-plugin-manager/webpack.config.js && webpack --color --config terminus-community-color-schemes/webpack.config.js",
+    "build": "webpack --color --config app/webpack.config.js && webpack --color --config terminus-core/webpack.config.js && webpack --color --config terminus-settings/webpack.config.js && webpack --color --config terminus-terminal/webpack.config.js && webpack --color --config terminus-settings/webpack.config.js && webpack --color --config terminus-plugin-manager/webpack.config.js && webpack --color --config terminus-community-color-schemes/webpack.config.js && webpack --color --config terminus-ssh/webpack.config.js",
     "watch": "webpack --progress --color --watch",
     "start": "cross-env DEV=1 electron --js-flags='--ignition' app --debug",
     "prod": "cross-env DEV=1 electron --js-flags='--ignition' app",

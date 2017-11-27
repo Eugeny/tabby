@@ -41,7 +41,6 @@
     "wincredmgr": "^2.0.0",
     "xkeychain": "^0.0.6"
   },
-  "repository": "eugeny/terminus-ssh",
   "dependencies": {
     "ssh2": "^0.5.5"
   }
