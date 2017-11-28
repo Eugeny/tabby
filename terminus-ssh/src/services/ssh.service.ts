@@ -91,7 +91,9 @@ export class SSHService {
         await new Promise((resolve, reject) => {
             ssh.on('ready', () => {
                 connected = true
-                this.savePassword(connection, savedPassword)
+                if (savedPassword) {
+                    this.savePassword(connection, savedPassword)
+                }
                 this.zone.run(resolve)
             })
             ssh.on('error', error => {
