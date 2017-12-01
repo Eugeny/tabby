@@ -10,14 +10,13 @@ First, install the dependencies:
 
 ```
 # macOS/Linux:
-sudo npm -g install yarn node-gyp
-yarn install
+npm install
 ./scripts/install-deps.js
 ./scripts/build-native.js
 
 # Windows:
-npm -g install yarn node-gyp windows-build-tools
-yarn install
+npm -g install windows-build-tools
+npm install
 node scripts\install-deps.js
 node scripts\build-native.js
 ```
