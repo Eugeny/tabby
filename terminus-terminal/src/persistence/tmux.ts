@@ -153,8 +153,8 @@ export class TMux {
 
     async create (id: string, options: SessionOptions): Promise<void> {
         await this.ready
-        let args = [options.command].concat(options.args)
-        let cmd = args.map(x => `"${x.replace('"', '\\"')}"`)
+        let args = [options.command].concat(options.args.slice(1))
+        let cmd = args.map(x => `"${x.replace('"', '\\"')}"`).join(' ')
         await this.process.command(
             `new-session -s "${id}" -d`
             + (options.cwd ? ` -c '${options.cwd.replace("'", "\\'")}'` : '')
