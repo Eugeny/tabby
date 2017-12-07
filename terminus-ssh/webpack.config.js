@@ -39,6 +39,7 @@ module.exports = {
     'node-ssh',
     'xkeychain',
     'wincredmgr',
+    'path',
     /^rxjs/,
     /^@angular/,
     /^@ng-bootstrap/,
