@@ -10,9 +10,11 @@ hotkeys:
   next-tab:
     - '⌘-ArrowRight'
     - ['Ctrl-A', 'N']
+    - 'Ctrl-Tab'
   previous-tab:
     - '⌘-ArrowLeft'
     - ['Ctrl-A', 'P']
+    - 'Ctrl-Shift-Tab'
   tab-1:
     - '⌘-1'
     - ['Ctrl-A', '1']
