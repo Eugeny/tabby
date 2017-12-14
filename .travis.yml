@@ -14,12 +14,12 @@ cache:
     - app/node_modules
 
 before_install:
-    - npm i
+    - yarn install
     - scripts/install-deps.js
 
 script:
     - scripts/build-native.js
-    - npm run build
+    - yarn run build
     - scripts/prepackage-plugins.js
     - scripts/build-$BUILD_FOR.js
 
@@ -32,3 +32,7 @@ addons:
     - rpm
     - wine
     - mono-runtime
+    - yarn
+    sources:
+    - sourceline: 'deb https://dl.yarnpkg.com/debian/ stable main'
+      key_url: 'https://dl.yarnpkg.com/debian/pubkey.gpg'
