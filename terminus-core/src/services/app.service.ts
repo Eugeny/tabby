@@ -3,6 +3,7 @@ import { Injectable, ComponentFactoryResolver, Injector, Optional } from '@angul
 import { DefaultTabProvider } from '../api/defaultTabProvider'
 import { BaseTabComponent } from '../components/baseTab.component'
 import { Logger, LogService } from '../services/log.service'
+import { ConfigService } from '../services/config.service'
 
 export declare type TabComponentType = new (...args: any[]) => BaseTabComponent
 
@@ -18,6 +19,7 @@ export class AppService {
     constructor (
         private componentFactoryResolver: ComponentFactoryResolver,
         @Optional() private defaultTabProvider: DefaultTabProvider,
+        private config: ConfigService,
         private injector: Injector,
         log: LogService,
     ) {
@@ -70,16 +72,24 @@ export class AppService {
     }
 
     nextTab () {
-        let tabIndex = this.tabs.indexOf(this.activeTab)
-        if (tabIndex < this.tabs.length - 1) {
-            this.selectTab(this.tabs[tabIndex + 1])
+        if (this.tabs.length > 1) {
+            let tabIndex = this.tabs.indexOf(this.activeTab)
+            if (tabIndex < this.tabs.length - 1) {
+                this.selectTab(this.tabs[tabIndex + 1])
+            } else if (this.config.store.appearance.cycleTabs) {
+                this.selectTab(this.tabs[0])
+            }
         }
     }
 
     previousTab () {
-        let tabIndex = this.tabs.indexOf(this.activeTab)
-        if (tabIndex > 0) {
-            this.selectTab(this.tabs[tabIndex - 1])
+        if (this.tabs.length > 1) {
+            let tabIndex = this.tabs.indexOf(this.activeTab)
+            if (tabIndex > 0) {
+                this.selectTab(this.tabs[tabIndex - 1])
+            } else if (this.config.store.appearance.cycleTabs) {
+                this.selectTab(this.tabs[this.tabs.length - 1])
+            }
         }
     }
 

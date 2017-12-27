@@ -3,6 +3,7 @@ appearance:
   dockScreen: current
   dockFill: 50
   tabsLocation: top
+  cycleTabs: true
   theme: Standard
   frame: thin
   css: '/* * { color: blue !important; } */'
