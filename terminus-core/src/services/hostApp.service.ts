@@ -74,7 +74,7 @@ export class HostAppService {
     }
 
     openDevTools () {
-        this.getWindow().webContents.openDevTools()
+        this.getWindow().webContents.openDevTools({ mode: 'undocked' })
     }
 
     focusWindow () {
