@@ -100,6 +100,7 @@ export class SSHService {
 
             ssh.connect({
                 host: connection.host,
+                port: connection.port || 22,
                 username: connection.user,
                 password: privateKey ? undefined : '',
                 privateKey,

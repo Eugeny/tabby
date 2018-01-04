@@ -3,6 +3,7 @@ import { BaseSession } from 'terminus-terminal'
 export interface SSHConnection {
     name?: string
     host: string
+    port: number
     user: string
     password?: string
     privateKey?: string

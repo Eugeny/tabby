@@ -31,12 +31,18 @@ export class SSHModalComponent {
     quickConnect () {
         let user = 'root'
         let host = this.quickTarget
+        let port = 22
         if (host.includes('@')) {
             [user, host] = host.split('@')
         }
+        if (host.includes(':')) {
+            port = parseInt(host.split(':')[1])
+            host = host.split(':')[0]
+        }
+
         let connection: SSHConnection = {
             name: this.quickTarget,
-            host, user,
+            host, user, port
         }
         window.localStorage.lastConnection = JSON.stringify(connection)
         this.connect(connection)
