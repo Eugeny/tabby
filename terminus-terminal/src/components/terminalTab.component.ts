@@ -321,7 +321,7 @@ export class TerminalTabComponent extends BaseTabComponent {
         this.hterm.onVTKeystroke('\f')
     }
 
-    async configure (): Promise<void> {
+    configure (): void {
         let config = this.config.store
         preferenceManager.set('font-family', `"${config.terminal.font}", "monospace-fallback", monospace`)
         this.setFontSize()
