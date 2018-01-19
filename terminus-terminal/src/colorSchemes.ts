@@ -16,7 +16,13 @@ export class HyperColorSchemes extends TerminalColorSchemeProvider {
             try {
                 let module = (global as any).require(path.join(pluginsPath, plugin))
                 if (module.decorateConfig) {
-                    let config = module.decorateConfig({})
+                    let config: any
+                    try {
+                        config = module.decorateConfig({})
+                    } catch (error) {
+                        console.warn('Could not load Hyper theme:', plugin)
+                        return
+                    }
                     if (config.colors) {
                         themes.push({
                             name: plugin,
