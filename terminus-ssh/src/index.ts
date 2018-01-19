@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { FormsModule } from '@angular/forms'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
+import { ToastrModule } from 'ngx-toastr'
 import { ToolbarButtonProvider, ConfigProvider } from 'terminus-core'
 import { SettingsTabProvider } from 'terminus-settings'
 
@@ -21,6 +22,7 @@ import { SSHSettingsTabProvider } from './settings'
         NgbModule,
         CommonModule,
         FormsModule,
+        ToastrModule,
     ],
     providers: [
         PasswordStorageService,

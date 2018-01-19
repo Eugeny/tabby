@@ -191,6 +191,10 @@ ngx-perfect-scrollbar@4.0.0:
   dependencies:
     perfect-scrollbar "~0.6.0"
 
+ngx-toastr@^8.0.0:
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/ngx-toastr/-/ngx-toastr-8.0.0.tgz#f3bc53146b2f7da3eabf3daa1b1bbdf65cb49697"
+
 perfect-scrollbar@~0.6.0:
   version "0.6.16"
   resolved "https://registry.yarnpkg.com/perfect-scrollbar/-/perfect-scrollbar-0.6.16.tgz#b1d61a5245cf3962bb9a8407a3fc669d923212fc"

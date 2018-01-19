@@ -1,5 +1,6 @@
 import { Component } from '@angular/core'
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
+import { ToastrService } from 'ngx-toastr'
 import { ConfigService, AppService } from 'terminus-core'
 import { SettingsTabComponent } from 'terminus-settings'
 import { SSHService } from '../services/ssh.service'
@@ -19,6 +20,7 @@ export class SSHModalComponent {
         private config: ConfigService,
         private ssh: SSHService,
         private app: AppService,
+        private toastr: ToastrService,
     ) { }
 
     ngOnInit () {
@@ -45,7 +47,7 @@ export class SSHModalComponent {
     connect (connection: SSHConnection) {
         this.close()
         this.ssh.connect(connection).catch(error => {
-            alert(`Could not connect: ${error}`)
+            this.toastr.error(`Could not connect: ${error}`)
         })
     }
 

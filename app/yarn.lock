@@ -195,6 +195,10 @@ mz@^2.6.0:
     object-assign "^4.0.1"
     thenify-all "^1.0.0"
 
+ngx-toastr@^8.0.0:
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/ngx-toastr/-/ngx-toastr-8.0.0.tgz#f3bc53146b2f7da3eabf3daa1b1bbdf65cb49697"
+
 object-assign@^4.0.1:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/object-assign/-/object-assign-4.1.1.tgz#2109adc7965887cfc05cbbd442cac8bfbb360863"

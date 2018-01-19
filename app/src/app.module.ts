@@ -1,12 +1,18 @@
 import { NgModule } from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
+import { ToastrModule } from 'ngx-toastr'
 
 export function getRootModule (plugins: any[]) {
     let imports = [
         BrowserModule,
         ...plugins,
         NgbModule.forRoot(),
+        ToastrModule.forRoot({
+            positionClass: 'toast-bottom-center',
+            preventDuplicates: true,
+            extendedTimeOut: 5000,
+        }),
     ]
     let bootstrap = [
         ...(plugins.filter(x => x.bootstrap).map(x => x.bootstrap)),

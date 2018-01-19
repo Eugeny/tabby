@@ -40,6 +40,7 @@ module.exports = {
     'xkeychain',
     'wincredmgr',
     'path',
+    'ngx-toastr',
     /^rxjs/,
     /^@angular/,
     /^@ng-bootstrap/,

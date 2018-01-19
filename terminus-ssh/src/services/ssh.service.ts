@@ -3,6 +3,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { Client } from 'ssh2'
 import * as fs from 'mz/fs'
 import * as path from 'path'
+import { ToastrService } from 'ngx-toastr'
 import { AppService, HostAppService, Platform, Logger, LogService } from 'terminus-core'
 import { TerminalTabComponent } from 'terminus-terminal'
 import { SSHConnection, SSHSession } from '../api'
@@ -21,6 +22,7 @@ export class SSHService {
         private ngbModal: NgbModal,
         private hostApp: HostAppService,
         private passwordStorage: PasswordStorageService,
+        private toastr: ToastrService,
     ) {
         this.logger = log.create('ssh')
     }
@@ -41,7 +43,7 @@ export class SSHService {
             try {
                 privateKey = (await fs.readFile(privateKeyPath)).toString()
             } catch (error) {
-                // notify: couldn't read key
+                this.toastr.warning('Could not read the private key file')
             }
 
             if (privateKey) {
@@ -73,7 +75,7 @@ export class SSHService {
                 this.passwordStorage.deletePassword(connection)
                 this.zone.run(() => {
                     if (connected) {
-                        alert(`SSH error: ${error}`)
+                        this.toastr.error(error.toString())
                     } else {
                         reject(error)
                     }
@@ -101,7 +103,7 @@ export class SSHService {
             ssh.connect({
                 host: connection.host,
                 username: connection.user,
-                password: privateKey ? undefined : '',
+                password: connection.privateKey ? undefined : '',
                 privateKey,
                 passphrase: privateKeyPassphrase,
                 tryKeyboard: true,
@@ -113,12 +115,14 @@ export class SSHService {
 
             ;(ssh as any).config.password = () => this.zone.run(async () => {
                 if (connection.password) {
+                    this.logger.info('Using preset password')
                     return connection.password
                 }
 
                 if (!keychainPasswordUsed) {
                     let password = await this.passwordStorage.loadPassword(connection)
                     if (password) {
+                        this.logger.info('Using saved password')
                         keychainPasswordUsed = true
                         return password
                     }

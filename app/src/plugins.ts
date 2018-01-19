@@ -59,6 +59,7 @@ const builtinModules = [
     '@angular/platform-browser',
     '@angular/platform-browser-dynamic',
     '@ng-bootstrap/ng-bootstrap',
+    'ngx-toastr',
     'rxjs',
     'terminus-core',
     'terminus-settings',

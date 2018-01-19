@@ -22,6 +22,7 @@
     "apply-loader": "^2.0.0",
     "awesome-typescript-loader": "^3.1.2",
     "electron": "^1.6.11",
+    "ngx-toastr": "^8.0.0",
     "pug": "^2.0.0-rc.3",
     "pug-loader": "^2.3.0",
     "rxjs": "^5.4.0",
