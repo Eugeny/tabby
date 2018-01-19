@@ -21,6 +21,7 @@ export class SSHSettingsTabComponent {
         let connection: SSHConnection = {
             name: '',
             host: '',
+            port: 22,
             user: 'root',
         }
         let modal = this.ngbModal.open(EditConnectionModalComponent)

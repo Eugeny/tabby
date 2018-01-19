@@ -56,15 +56,20 @@ $tab-border-radius: 4px;
     }
 
     &>.drag-space {
-        min-width: 100px;
-        flex: 1 0 25%;
+        min-width: 1px;
+        flex: 1 0 1%;
         -webkit-app-region: drag;
+
+        &.persistent {
+          min-width: 100px;
+          flex: 1 0 25%;
+        }
     }
 
     &.inset {
         padding-left: 85px;
     }
-    
+
     window-controls {
       margin-left: 10px;
     }

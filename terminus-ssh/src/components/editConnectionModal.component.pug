@@ -14,6 +14,14 @@
         )
 
     .form-group
+        label Port
+        input.form-control(
+            type='number',
+            placeholder='22', 
+            [(ngModel)]='connection.post', 
+        )
+
+    .form-group
         label Username
         input.form-control(
             type='text', 

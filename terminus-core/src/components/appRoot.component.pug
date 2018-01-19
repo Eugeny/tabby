@@ -29,7 +29,7 @@ title-bar(
             )
                 i.fa([class]='"fa fa-" + button.icon')
                 
-        .drag-space(*ngIf='config.store.appearance.frame == "thin" && hostApp.platform != Platform.macOS')
+        .drag-space([class.persistent]='config.store.appearance.frame == "thin" && hostApp.platform != Platform.macOS')
             
         .btn-group
             button.btn.btn-secondary.btn-tab-bar(
