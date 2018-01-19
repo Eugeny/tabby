@@ -7,6 +7,7 @@
     -webkit-user-select: none;
     -webkit-user-drag: none;
     -webkit-font-smoothing: antialiased;
+    will-change: transform;
     cursor: default;
     animation: 0.5s ease-out fadeIn;
 }
