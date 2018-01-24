@@ -9,6 +9,30 @@ export class TerminalHotkeyProvider extends HotkeyProvider {
             name: 'Copy to clipboard',
         },
         {
+            id: 'home',
+            name: 'Beginning of the line',
+        },
+        {
+            id: 'end',
+            name: 'End of the line',
+        },
+        {
+            id: 'previous-word',
+            name: 'Jump to previous word',
+        },
+        {
+            id: 'next-word',
+            name: 'Jump to next word',
+        },
+        {
+            id: 'delete-previous-word',
+            name: 'Delete previous word',
+        },
+        {
+            id: 'delete-next-word',
+            name: 'Delete next word',
+        },
+        {
             id: 'clear',
             name: 'Clear terminal',
         },

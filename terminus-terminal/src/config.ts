@@ -75,7 +75,13 @@ export class TerminalConfigProvider extends ConfigProvider {
                     ['Ctrl-A', 'Ctrl-C'],
                     '⌘-T',
                     '⌘-N',
-                ]
+                ],
+                'home': ['⌘-ArrowLeft', 'Home'],
+                'end': ['⌘-ArrowRight', 'End'],
+                'previous-word': ['⌥-ArrowLeft'],
+                'next-word': ['⌥-ArrowRight'],
+                'delete-previous-word': ['⌥-Backspace'],
+                'delete-next-word': ['⌥-Delete'],
             },
         },
         [Platform.Windows]: {
@@ -108,7 +114,13 @@ export class TerminalConfigProvider extends ConfigProvider {
                     ['Ctrl-A', 'C'],
                     ['Ctrl-A', 'Ctrl-C'],
                     'Ctrl-Shift-T',
-                ]
+                ],
+                'home': ['Home'],
+                'end': ['End'],
+                'previous-word': ['Ctrl-ArrowLeft'],
+                'next-word': ['Ctrl-ArrowRight'],
+                'delete-previous-word': ['Ctrl-Backspace'],
+                'delete-next-word': ['Ctrl-Delete'],
             },
         },
         [Platform.Linux]: {
@@ -139,7 +151,13 @@ export class TerminalConfigProvider extends ConfigProvider {
                     ['Ctrl-A', 'C'],
                     ['Ctrl-A', 'Ctrl-C'],
                     'Ctrl-Shift-T',
-                ]
+                ],
+                'home': ['Home'],
+                'end': ['End'],
+                'previous-word': ['Ctrl-ArrowLeft'],
+                'next-word': ['Ctrl-ArrowRight'],
+                'delete-previous-word': ['Ctrl-Backspace'],
+                'delete-next-word': ['Ctrl-Delete'],
             },
         },
     }

@@ -88,20 +88,40 @@ export class TerminalTabComponent extends BaseTabComponent {
             if (!this.hasFocus) {
                 return
             }
-            if (hotkey === 'copy') {
-                this.hterm.copySelectionToClipboard()
-            }
-            if (hotkey === 'clear') {
-                this.clear()
-            }
-            if (hotkey === 'zoom-in') {
-                this.zoomIn()
-            }
-            if (hotkey === 'zoom-out') {
-                this.zoomOut()
-            }
-            if (hotkey === 'reset-zoom') {
-                this.resetZoom()
+            switch (hotkey) {
+                case 'copy':
+                    this.hterm.copySelectionToClipboard()
+                    break
+                case 'clear':
+                    this.clear()
+                    break
+                case 'zoom-in':
+                    this.zoomIn()
+                    break
+                case 'zoom-out':
+                    this.zoomOut()
+                    break
+                case 'reset-zoom':
+                    this.resetZoom()
+                    break
+                case 'home':
+                    this.sendInput('\x1bOH')
+                    break
+                case 'end':
+                    this.sendInput('\x1bOF')
+                    break
+                case 'previous-word':
+                    this.sendInput('\x1bb')
+                    break
+                case 'next-word':
+                    this.sendInput('\x1bf')
+                    break
+                case 'delete-previous-word':
+                    this.sendInput('\x1b\x7f')
+                    break
+                case 'delete-next-word':
+                    this.sendInput('\x1bd')
+                    break
             }
         })
         this.bellPlayer = document.createElement('audio')

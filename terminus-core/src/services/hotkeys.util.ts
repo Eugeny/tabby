@@ -5,7 +5,7 @@ export const metaKeyName = {
 }[process.platform]
 
 export const altKeyName = {
-    darwin: 'Option',
+    darwin: '⌥',
     win32: 'Alt',
     linux: 'Alt',
 }[process.platform]
