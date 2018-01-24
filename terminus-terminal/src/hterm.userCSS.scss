@@ -8,6 +8,15 @@ a:hover {
 
 x-screen {
     transition: 0.125s ease background;
+
+    &::-webkit-scrollbar {
+      width: 3px;  
+      background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.2);
+    }
 }
 
 x-row > span {
