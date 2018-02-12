@@ -1,6 +1,8 @@
 hotkeys:
   toggle-window:
     - 'Ctrl+Space'
+  toggle-fullscreen:
+    - 'F11'
   close-tab:
     - 'Ctrl-Shift-W'
     - ['Ctrl-A', 'K']

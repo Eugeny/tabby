@@ -73,6 +73,11 @@ export class HostAppService {
         return this.electron.app.getPath(type)
     }
 
+    toggleFullscreen () {
+        let window = this.getWindow()
+        window.setFullScreen(!window.isFullScreen())
+    }
+
     openDevTools () {
         this.getWindow().webContents.openDevTools({ mode: 'undocked' })
     }

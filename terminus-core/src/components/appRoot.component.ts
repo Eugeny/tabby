@@ -97,6 +97,9 @@ export class AppRootComponent {
                     this.app.previousTab()
                 }
             }
+            if (hotkey === 'toggle-fullscreen') {
+                this.hostApp.toggleFullscreen()
+            }
         })
 
         this.docking.dock()

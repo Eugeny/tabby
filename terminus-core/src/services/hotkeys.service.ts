@@ -179,6 +179,10 @@ export class AppHotkeyProvider extends HotkeyProvider {
             name: 'Toggle terminal window',
         },
         {
+            id: 'toggle-fullscreen',
+            name: 'Toggle fullscreen mode',
+        },
+        {
             id: 'close-tab',
             name: 'Close tab',
         },

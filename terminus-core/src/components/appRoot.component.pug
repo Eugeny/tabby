@@ -1,12 +1,13 @@
 title-bar(
-  *ngIf='config.store.appearance.frame == "full" && config.store.appearance.dock == "off"',
+  *ngIf='!hostApp.getWindow().isFullScreen() && config.store.appearance.frame == "full" && config.store.appearance.dock == "off"',
   [class.inset]='hostApp.platform == Platform.macOS'
 )
 
 .content(
-    [class.tabs-on-top]='config.store.appearance.tabsLocation == "top"'    
+    [class.tabs-on-top]='config.store.appearance.tabsLocation == "top"'
 )
     .tab-bar(
+        *ngIf='!hostApp.getWindow().isFullScreen()',
         [class.inset]='hostApp.platform == Platform.macOS && config.store.appearance.frame == "thin" && config.store.appearance.tabsLocation == "top"'
     )
         .tabs
@@ -20,7 +21,7 @@ title-bar(
                 @animateTab,
                 (click)='app.selectTab(tab)',
             )
-        
+
         .btn-group
             button.btn.btn-secondary.btn-tab-bar(
                 *ngFor='let button of leftToolbarButtons',
@@ -28,9 +29,9 @@ title-bar(
                 (click)='button.click()',
             )
                 i.fa([class]='"fa fa-" + button.icon')
-                
+
         .drag-space([class.persistent]='config.store.appearance.frame == "thin" && hostApp.platform != Platform.macOS')
-            
+
         .btn-group
             button.btn.btn-secondary.btn-tab-bar(
                 *ngFor='let button of rightToolbarButtons',
@@ -53,7 +54,7 @@ title-bar(
     start-page(*ngIf='ready && app.tabs.length == 0')
 
     tab-body(
-        *ngFor='let tab of app.tabs; trackBy: tab?.id', 
+        *ngFor='let tab of app.tabs; trackBy: tab?.id',
         [active]='tab == app.activeTab',
         [tab]='tab',
         [scrollable]='tab.scrollable',
