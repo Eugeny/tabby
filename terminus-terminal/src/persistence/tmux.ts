@@ -3,6 +3,8 @@ import { execFileSync } from 'child_process'
 import * as AsyncLock from 'async-lock'
 import { ConnectableObservable, AsyncSubject, Subject } from 'rxjs'
 import * as childProcess from 'child_process'
+
+import { Logger } from 'terminus-core'
 import { SessionOptions, SessionPersistenceProvider } from '../api'
 
 declare function delay (ms: number): Promise<void>
@@ -52,10 +54,11 @@ export class TMuxCommandProcess {
     private block$ = new Subject<TMuxBlock>()
     private response$: ConnectableObservable<TMuxBlock>
     private lock = new AsyncLock({ timeout: 1000 })
+    private logger = new Logger(null, 'tmuxProcess')
 
     constructor () {
         this.process = childProcess.spawn('tmux', ['-C', '-f', '/dev/null', '-L', 'terminus', 'new-session', '-A', '-D', '-s', 'control'])
-        console.log('[tmux] started')
+        this.logger.log('started')
         this.process.stdout.on('data', data => {
             // console.debug('tmux says:', data.toString())
             this.rawOutput$.next(data.toString())
@@ -103,18 +106,18 @@ export class TMuxCommandProcess {
         this.response$.connect()
 
         this.block$.subscribe(block => {
-            console.debug('[tmux] block:', block)
+            this.logger.debug('block:', block)
         })
 
         this.message$.subscribe(message => {
-            console.debug('[tmux] message:', message)
+            this.logger.debug('message:', message)
         })
     }
 
     command (command: string): Promise<TMuxBlock> {
         return this.lock.acquire('key', () => {
             let p = this.response$.take(1).toPromise()
-            console.debug('[tmux] command:', command)
+            this.logger.debug('command:', command)
             this.process.stdin.write(command + '\n')
             return p
         }).then(response => {
@@ -137,13 +140,18 @@ export class TMuxCommandProcess {
 export class TMux {
     private process: TMuxCommandProcess
     private ready: Promise<void>
+    private logger = new Logger(null, 'tmux')
 
     constructor () {
         this.process = new TMuxCommandProcess()
         this.ready = (async () => {
             for (let line of TMUX_CONFIG.split('\n')) {
                 if (line) {
-                    await this.process.command(line)
+                    try {
+                        await this.process.command(line)
+                    } catch (e) {
+                        this.logger.warn('Skipping failing config line:', line)
+                    }
                 }
             }
             // Tmux sometimes sends a stray response block at start
