@@ -32,6 +32,16 @@ if (!process.env.TERMINUS_PLUGINS) {
 setupWindowManagement = () => {
     app.window.on('show', () => {
       app.window.webContents.send('host:window-shown')
+      if (app.tray) {
+        app.tray.destroy()
+        app.tray = null
+      }
+    })
+
+    app.window.on('hide', (e) => {
+      if (!app.tray) {
+        setupTray()
+      }
     })
 
     app.window.on('close', (e) => {
@@ -81,6 +91,35 @@ setupWindowManagement = () => {
     electron.ipcMain.on('window-set-always-on-top', (event, flag) => {
         app.window.setAlwaysOnTop(flag)
     })
+}
+
+
+setupTray = () => {
+  if (process.platform == 'darwin') {
+    app.tray = new electron.Tray(`${app.getAppPath()}/assets/tray-darwinTemplate.png`)
+    app.tray.setPressedImage(`${app.getAppPath()}/assets/tray-darwinHighlightTemplate.png`)
+  } else {
+    app.tray = new electron.Tray(`${app.getAppPath()}/assets/tray.png`)
+  }
+
+  app.tray.on('click', () => {
+    app.window.show()
+    app.window.focus()
+  })
+
+  const contextMenu = electron.Menu.buildFromTemplate([{
+    label: 'Show',
+    click () {
+      app.window.show()
+      app.window.focus()
+    }
+  }])
+
+  if (process.platform != 'darwin') {
+    app.tray.setContextMenu(contextMenu)
+  }
+
+  app.tray.setToolTip(`Terminus ${app.getVersion()}`)
 }
 
 
