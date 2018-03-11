@@ -75,20 +75,7 @@ setupWindowManagement = () => {
     })
 
     electron.ipcMain.on('window-set-bounds', (event, bounds) => {
-        let actualBounds = app.window.getBounds()
-        actualBounds.width -= bounds.x - actualBounds.x
-        actualBounds.height -= bounds.y - actualBounds.y
-        actualBounds.x = bounds.x
-        actualBounds.y = bounds.y
-        app.window.setBounds(actualBounds)
-        setTimeout(() => {
-          actualBounds = app.window.getBounds()
-          bounds.width += bounds.x - actualBounds.x
-          bounds.height += bounds.y - actualBounds.y
-          bounds.x = actualBounds.x
-          bounds.y = actualBounds.y
-          app.window.setBounds(bounds)
-        }, 100)
+        app.window.setBounds(bounds)
     })
 
     electron.ipcMain.on('window-set-always-on-top', (event, flag) => {
