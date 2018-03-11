@@ -36,8 +36,16 @@ export class WindowsStockShellsProvider extends ShellProvider {
             { id: 'cmd', name: 'CMD (stock)', command: 'cmd.exe' },
             {
                 id: 'powershell',
-                name: 'PowerShell',
+                name: 'Windows PowerShell',
                 command: 'powershell.exe',
+                env: {
+                    TERM: 'cygwin',
+                }
+            },
+            {
+                id: 'powershell-core',
+                name: 'PowerShell Core',
+                command: 'pwsh.exe',
                 env: {
                     TERM: 'cygwin',
                 }
