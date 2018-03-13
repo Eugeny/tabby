@@ -98,7 +98,8 @@
     },
     "rpm": {
       "depends": [
-        "screen"
+        "screen",
+        "gnome-python2-gnomekeyring"
       ],
       "artifactName": "terminus-${version}-${os}-${arch}.rpm"
     }
