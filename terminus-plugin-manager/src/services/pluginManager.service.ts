@@ -45,7 +45,7 @@ export class PluginManagerService {
             return
         }
         if (this.hostApp.platform !== Platform.Windows) {
-            let searchPaths = (await exec('bash -c -l "echo $PATH"'))[0].toString().trim().split(':')
+            let searchPaths = (await exec('$SHELL -c -i \'echo $PATH\''))[0].toString().trim().split(':')
             for (let searchPath of searchPaths) {
                 if (await fs.exists(path.join(searchPath, 'npm'))) {
                     this.logger.debug('Found npm in', searchPath)
