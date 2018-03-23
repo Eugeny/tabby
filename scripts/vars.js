@@ -16,5 +16,9 @@ exports.builtinPlugins = [
   'terminus-plugin-manager',
   'terminus-ssh',
 ]
+exports.bundledModules = [
+  '@angular',
+  '@ng-bootstrap',
+]
 exports.nativeModules = ['node-pty-tmp', 'font-manager', 'xkeychain']
 exports.electronVersion = pkgInfo.devDependencies.electron

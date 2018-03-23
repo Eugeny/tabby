@@ -20,3 +20,14 @@ vars.builtinPlugins.forEach(plugin => {
   sh.exec(`${npx} yarn install`)
   sh.cd('..')
 })
+
+if (['darwin', 'linux'].includes(process.platform)) {
+  sh.cd('node_modules')
+  for (let x of vars.builtinPlugins) {
+    sh.ln('-fs', '../' + x, x)
+  }
+  for (let x of vars.bundledModules) {
+    sh.ln('-fs', '../app/node_modules/' + x, x)
+  }
+  sh.cd('..')
+}
