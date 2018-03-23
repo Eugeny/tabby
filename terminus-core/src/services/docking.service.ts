@@ -29,18 +29,19 @@ export class DockingService {
         let dockSide = this.config.store.appearance.dock
         let newBounds: Bounds = { x: 0, y: 0, width: 0, height: 0 }
         let fill = this.config.store.appearance.dockFill
+        let [minWidth, minHeight] = this.hostApp.getWindow().getMinimumSize()
 
         if (dockSide === 'off') {
             this.hostApp.setAlwaysOnTop(false)
             return
         }
         if (dockSide === 'left' || dockSide === 'right') {
-            newBounds.width = Math.round(fill * display.bounds.width)
+            newBounds.width = Math.max(minWidth, Math.round(fill * display.bounds.width))
             newBounds.height = display.bounds.height
         }
         if (dockSide === 'top' || dockSide === 'bottom') {
             newBounds.width = display.bounds.width
-            newBounds.height = Math.round(fill * display.bounds.height)
+            newBounds.height = Math.max(minHeight, Math.round(fill * display.bounds.height))
         }
         if (dockSide === 'right') {
             newBounds.x = display.bounds.x + display.bounds.width - newBounds.width
