@@ -105,7 +105,7 @@ window-controls {
     }
 }
 
-$border-color: #141414;
+$border-color: #111;
 
 app-root  {
     &> .content {
@@ -131,7 +131,7 @@ app-root  {
                     background: $body-bg2;
                     border-left: 1px solid transparent;
                     border-right: 1px solid transparent;
-                    border-top: 1px solid transparent;
+                    transition: 0.25s all;
 
                     .index {
                         color: #555;
@@ -159,17 +159,15 @@ app-root  {
             border-bottom: 1px solid $border-color;
 
             tab-header {
-                border-top: 1px solid transparent;
                 border-bottom: 1px solid $border-color;
                 margin-bottom: -1px;
 
                 &.active {
-                    border-top: 1px solid $teal;
                     border-bottom-color: transparent;
                 }
 
                 &.has-activity:not(.active) {
-                    border-top: 1px solid $green;
+                    background: linear-gradient(to bottom, rgba(208, 0, 0, 0) 95%, #1aa99c 100%);
                 }
             }
         }
@@ -178,17 +176,15 @@ app-root  {
             border-top: 1px solid $border-color;
 
             tab-header {
-                border-bottom: 1px solid transparent;
                 border-top: 1px solid $border-color;
                 margin-top: -1px;
 
                 &.active {
-                    border-bottom: 1px solid $teal;
                     margin-top: -1px;
                 }
 
                 &.has-activity:not(.active) {
-                    border-bottom: 1px solid $green;
+                    background: linear-gradient(to top, rgba(208, 0, 0, 0) 95%, #1aa99c 100%);
                 }
             }
         }
