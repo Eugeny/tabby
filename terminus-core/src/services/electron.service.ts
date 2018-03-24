@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core'
+import { TouchBar } from 'electron'
 
 @Injectable()
 export class ElectronService {
@@ -10,7 +11,7 @@ export class ElectronService {
     globalShortcut: any
     screen: any
     remote: any
-    TouchBar: typeof Electron.TouchBar
+    TouchBar: typeof TouchBar
     private electron: any
 
     constructor () {

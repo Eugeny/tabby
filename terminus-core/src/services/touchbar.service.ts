@@ -1,4 +1,5 @@
 import { Injectable, Inject, NgZone } from '@angular/core'
+import { TouchBarSegmentedControl, SegmentedControlSegment } from 'electron'
 import { Subject, Subscription } from 'rxjs'
 import { AppService } from './app.service'
 import { ConfigService } from './config.service'
@@ -10,8 +11,8 @@ import { IToolbarButton, ToolbarButtonProvider } from '../api'
 export class TouchbarService {
     tabSelected$ = new Subject<number>()
     private titleSubscriptions = new Map<BaseTabComponent, Subscription>()
-    private tabsSegmentedControl: Electron.TouchBarSegmentedControl
-    private tabSegments: Electron.SegmentedControlSegment[] = []
+    private tabsSegmentedControl: TouchBarSegmentedControl
+    private tabSegments: SegmentedControlSegment[] = []
 
     constructor (
         private app: AppService,

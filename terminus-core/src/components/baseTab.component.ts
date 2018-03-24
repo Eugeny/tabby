@@ -25,7 +25,7 @@ export abstract class BaseTabComponent {
     }
 
     setTitle (title: string) {
-        this.title = title]
+        this.title = title
         if (!this.customTitle) {
             this.titleChange$.next(title)
         }
