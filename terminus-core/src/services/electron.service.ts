@@ -33,4 +33,10 @@ export class ElectronService {
     remoteRequirePluginModule (plugin: string, module: string, globals: any): any {
         return this.remoteRequire(globals.require.resolve(`${plugin}/node_modules/${module}`))
     }
+
+    loseFocus () {
+        if (process.platform === 'darwin') {
+            this.remote.Menu.sendActionToFirstResponder('hide:')
+        }
+    }
 }

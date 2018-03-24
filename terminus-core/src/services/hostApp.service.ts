@@ -86,10 +86,6 @@ export class HostAppService {
         this.electron.ipcRenderer.send('window-focus')
     }
 
-    toggleWindow () {
-        this.electron.ipcRenderer.send('window-toggle-focus')
-    }
-
     minimize () {
         this.electron.ipcRenderer.send('window-minimize')
     }

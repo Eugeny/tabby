@@ -56,14 +56,6 @@ setupWindowManagement = () => {
         app.window.focus()
     })
 
-    electron.ipcMain.on('window-toggle-focus', () => {
-        if (app.window.isFocused()) {
-            app.window.minimize()
-        } else {
-            app.window.focus()
-        }
-    })
-
     electron.ipcMain.on('window-maximize', () => {
         app.window.maximize()
     })

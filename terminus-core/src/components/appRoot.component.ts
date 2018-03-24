@@ -130,11 +130,13 @@ export class AppRootComponent {
     onGlobalHotkey () {
         if (this.electron.app.window.isFocused()) {
             // focused
+            this.electron.loseFocus()
             this.electron.app.window.hide()
         } else {
             if (!this.electron.app.window.isVisible()) {
                 // unfocused, invisible
                 this.electron.app.window.show()
+                this.electron.app.window.focus()
             } else {
                 if (this.config.store.appearance.dock === 'off') {
                     // not docked, visible
