@@ -58,7 +58,7 @@ export class TerminalTabComponent extends BaseTabComponent {
     ) {
         super()
         this.decorators = this.decorators || []
-        this.title = 'Terminal'
+        this.setTitle('Terminal')
         this.resize$.first().subscribe(async (resizeEvent) => {
             if (!this.session) {
                 this.session = this.sessions.addSession(
@@ -211,11 +211,7 @@ export class TerminalTabComponent extends BaseTabComponent {
     }
 
     attachHTermHandlers (hterm: any) {
-        hterm.setWindowTitle = (title) => {
-            this.zone.run(() => {
-                this.title = title
-            })
-        }
+        hterm.setWindowTitle = title => this.zone.run(() => this.setTitle(title))
 
         const _setAlternateMode = hterm.setAlternateMode.bind(hterm)
         hterm.setAlternateMode = (state) => {

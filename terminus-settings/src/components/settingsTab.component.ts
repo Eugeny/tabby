@@ -28,7 +28,7 @@ export class SettingsTabComponent extends BaseTabComponent {
     ) {
         super()
         this.hotkeyDescriptions = config.enabledServices(hotkeyProviders).map(x => x.hotkeys).reduce((a, b) => a.concat(b))
-        this.title = 'Settings'
+        this.setTitle('Settings')
         this.scrollable = true
         this.screens = this.docking.getScreens()
         this.settingsProviders = config.enabledServices(this.settingsProviders)

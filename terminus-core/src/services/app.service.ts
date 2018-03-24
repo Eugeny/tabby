@@ -2,8 +2,8 @@ import { Subject, AsyncSubject } from 'rxjs'
 import { Injectable, ComponentFactoryResolver, Injector, Optional } from '@angular/core'
 import { DefaultTabProvider } from '../api/defaultTabProvider'
 import { BaseTabComponent } from '../components/baseTab.component'
-import { Logger, LogService } from '../services/log.service'
-import { ConfigService } from '../services/config.service'
+import { Logger, LogService } from './log.service'
+import { ConfigService } from './config.service'
 
 export declare type TabComponentType = new (...args: any[]) => BaseTabComponent
 
@@ -11,9 +11,12 @@ export declare type TabComponentType = new (...args: any[]) => BaseTabComponent
 export class AppService {
     tabs: BaseTabComponent[] = []
     activeTab: BaseTabComponent
+    activeTabChange$ = new Subject<BaseTabComponent>()
     lastTabIndex = 0
     logger: Logger
     tabsChanged$ = new Subject<void>()
+    tabOpened$ = new Subject<BaseTabComponent>()
+    tabClosed$ = new Subject<BaseTabComponent>()
     ready$ = new AsyncSubject<void>()
 
     constructor (
@@ -35,6 +38,7 @@ export class AppService {
         this.tabs.push(componentRef.instance)
         this.selectTab(componentRef.instance)
         this.tabsChanged$.next()
+        this.tabOpened$.next(componentRef.instance)
 
         return componentRef.instance
     }
@@ -59,6 +63,7 @@ export class AppService {
             this.activeTab.blurred$.next()
         }
         this.activeTab = tab
+        this.activeTabChange$.next(tab)
         if (this.activeTab) {
             this.activeTab.focused$.next()
         }
@@ -107,6 +112,7 @@ export class AppService {
             this.selectTab(this.tabs[newIndex])
         }
         this.tabsChanged$.next()
+        this.tabClosed$.next(tab)
     }
 
     emitReady () {

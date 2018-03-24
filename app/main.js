@@ -183,7 +183,6 @@ setupMenu = () => {
     {
         role: 'window',
         submenu: [
-            {role: 'close'},
             {role: 'minimize'},
             {role: 'zoom'},
             {type: 'separator'},

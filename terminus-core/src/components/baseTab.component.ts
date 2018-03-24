@@ -5,6 +5,7 @@ export abstract class BaseTabComponent {
     private static lastTabID = 0
     id: number
     title: string
+    titleChange$ = new Subject<string>()
     customTitle: string
     scrollable: boolean
     hasActivity = false
@@ -21,6 +22,13 @@ export abstract class BaseTabComponent {
         this.blurred$.subscribe(() => {
             this.hasFocus = false
         })
+    }
+
+    setTitle (title: string) {
+        this.title = title]
+        if (!this.customTitle) {
+            this.titleChange$.next(title)
+        }
     }
 
     displayActivity (): void {

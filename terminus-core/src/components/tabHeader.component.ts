@@ -69,6 +69,7 @@ export class TabHeaderComponent {
         let modal = this.ngbModal.open(RenameTabModalComponent)
         modal.componentInstance.value = this.tab.customTitle || this.tab.title
         modal.result.then(result => {
+            this.tab.setTitle(result)
             this.tab.customTitle = result
         }).catch(() => null)
     }

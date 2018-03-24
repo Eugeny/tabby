@@ -11,6 +11,7 @@ import { DockingService } from '../services/docking.service'
 import { TabRecoveryService } from '../services/tabRecovery.service'
 import { ThemesService } from '../services/themes.service'
 import { UpdaterService, Update } from '../services/updater.service'
+import { TouchbarService } from '../services/touchbar.service'
 
 import { SafeModeModalComponent } from './safeModeModal.component'
 import { AppService, IToolbarButton, ToolbarButtonProvider } from '../api'
@@ -62,6 +63,7 @@ export class AppRootComponent {
         private tabRecovery: TabRecoveryService,
         private hotkeys: HotkeysService,
         private updater: UpdaterService,
+        private touchbar: TouchbarService,
         public hostApp: HostAppService,
         public config: ConfigService,
         public app: AppService,
@@ -121,6 +123,8 @@ export class AppRootComponent {
         this.updater.check().then(update => {
             this.appUpdate = update
         })
+
+        this.touchbar.update()
     }
 
     onGlobalHotkey () {

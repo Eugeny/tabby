@@ -18,17 +18,14 @@ export class ButtonProvider extends ToolbarButtonProvider {
     }
 
     activate () {
-        let modal = this.ngbModal.open(SSHModalComponent)
-        modal.result.then(() => {
-            //this.terminal.openTab(shell)
-        })
+        this.ngbModal.open(SSHModalComponent)
     }
 
     provide (): IToolbarButton[] {
         return [{
             icon: 'globe',
             weight: 5,
-            title: 'SSH connections',
+            title: 'SSH',
             click: async () => {
                 this.activate()
             }

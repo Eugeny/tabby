@@ -10,6 +10,7 @@ export class ElectronService {
     globalShortcut: any
     screen: any
     remote: any
+    TouchBar: typeof Electron.TouchBar
     private electron: any
 
     constructor () {
@@ -22,6 +23,7 @@ export class ElectronService {
         this.clipboard = this.electron.clipboard
         this.ipcRenderer = this.electron.ipcRenderer
         this.globalShortcut = this.remote.globalShortcut
+        this.TouchBar = this.remote.TouchBar
     }
 
     remoteRequire (name: string): any {
