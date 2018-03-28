@@ -1,10 +1,8 @@
 if (process.platform == 'win32' && require('electron-squirrel-startup')) process.exit(0)
-
 const electron = require('electron')
 if (process.argv.indexOf('--debug') !== -1) {
     require('electron-debug')({enabled: true, showDevTools: 'undocked'})
 }
-
 
 let app = electron.app
 
@@ -43,6 +41,9 @@ setupWindowManagement = () => {
         setupTray()
       }
     })
+
+    app.window.on('enter-full-screen', () => app.window.webContents.send('host:window-enter-full-screen'))
+    app.window.on('leave-full-screen', () => app.window.webContents.send('host:window-leave-full-screen'))
 
     app.window.on('close', (e) => {
         windowConfig.set('windowBoundaries', app.window.getBounds())

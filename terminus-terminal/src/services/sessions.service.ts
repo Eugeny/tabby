@@ -100,7 +100,7 @@ export class Session extends BaseSession {
 
         this.open = true
 
-        this.pty.on('data', data => {
+        this.pty.on('data-buffered', data => {
             this.emitOutput(data)
         })
 
@@ -200,7 +200,8 @@ export class SessionsService {
         electron: ElectronService,
         log: LogService,
     ) {
-        nodePTY = electron.remoteRequirePluginModule('terminus-terminal', 'node-pty-tmp', global as any)
+        const nodePTYPath = electron.remoteResolvePluginModule('terminus-terminal', 'node-pty-tmp', global as any)
+        nodePTY = electron.remoteRequire('./bufferizedPTY')(nodePTYPath)
         this.logger = log.create('sessions')
         this.persistenceProviders = this.config.enabledServices(this.persistenceProviders).filter(x => x.isAvailable())
     }

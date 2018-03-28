@@ -22,7 +22,7 @@ export class HostAppService {
     ready = new EventEmitter<any>()
     shown = new EventEmitter<any>()
     secondInstance$ = new Subject<{ argv: string[], cwd: string }>()
-
+    isFullScreen = false
     private logger: Logger
 
     constructor (
@@ -43,6 +43,14 @@ export class HostAppService {
         electron.ipcRenderer.on('uncaughtException', ($event, err) => {
             this.logger.error('Unhandled exception:', err)
         })
+
+        electron.ipcRenderer.on('host:window-enter-full-screen', () => this.zone.run(() => {
+            this.isFullScreen = true
+        }))
+
+        electron.ipcRenderer.on('host:window-leave-full-screen', () => this.zone.run(() => {
+            this.isFullScreen = false
+        }))
 
         electron.ipcRenderer.on('host:window-shown', () => {
             this.zone.run(() => this.shown.emit())

@@ -32,7 +32,11 @@ export class ElectronService {
     }
 
     remoteRequirePluginModule (plugin: string, module: string, globals: any): any {
-        return this.remoteRequire(globals.require.resolve(`${plugin}/node_modules/${module}`))
+        return this.remoteRequire(this.remoteResolvePluginModule(plugin, module, globals))
+    }
+
+    remoteResolvePluginModule (plugin: string, module: string, globals: any): any {
+        return globals.require.resolve(`${plugin}/node_modules/${module}`)
     }
 
     loseFocus () {
