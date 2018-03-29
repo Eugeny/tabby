@@ -1,6 +1,10 @@
 module.exports = function patchPTYModule (path) {
   const mod = require(path)
   const oldSpawn = mod.spawn
+  if (mod.patched) {
+    return mod
+  }
+  mod.patched = true
   mod.spawn = (file, args, opt) => {
     let terminal = oldSpawn(file, args, opt)
     let timeout = null
