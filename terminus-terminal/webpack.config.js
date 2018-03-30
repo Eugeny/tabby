@@ -55,6 +55,7 @@ module.exports = {
     /^rxjs/,
     /^@angular/,
     /^@ng-bootstrap/,
+    'ngx-toastr',
     /^terminus-/,
   ],
   plugins: [

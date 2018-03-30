@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
 import { FormsModule } from '@angular/forms'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
+import { ToastrModule } from 'ngx-toastr'
 
 import { ToolbarButtonProvider, TabRecoveryProvider, ConfigProvider, HotkeysService, HotkeyProvider, AppService, ConfigService } from 'terminus-core'
 import { SettingsTabProvider } from 'terminus-settings'
@@ -41,6 +42,7 @@ import { hterm } from './hterm'
         BrowserModule,
         FormsModule,
         NgbModule,
+        ToastrModule,
     ],
     providers: [
         SessionsService,

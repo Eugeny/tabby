@@ -2,6 +2,7 @@ import 'zone.js'
 import 'core-js/es7/reflect'
 import 'core-js/core/delay'
 import 'rxjs'
+import './toastr.scss'
 
 // Always land on the start view
 location.hash = ''

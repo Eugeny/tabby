@@ -1,5 +1,5 @@
 import { BehaviorSubject, Subject, Subscription } from 'rxjs'
-import 'rxjs/add/operator/bufferTime'
+import { ToastrService } from 'ngx-toastr'
 import { Component, NgZone, Inject, Optional, ViewChild, HostBinding, Input } from '@angular/core'
 import { AppService, ConfigService, BaseTabComponent, ElectronService, ThemesService, HostAppService, HotkeysService, Platform } from 'terminus-core'
 
@@ -54,6 +54,7 @@ export class TerminalTabComponent extends BaseTabComponent {
         private electron: ElectronService,
         private terminalService: TerminalService,
         public config: ConfigService,
+        private toastr: ToastrService,
         @Optional() @Inject(TerminalDecorator) private decorators: TerminalDecorator[],
     ) {
         super()
@@ -217,6 +218,12 @@ export class TerminalTabComponent extends BaseTabComponent {
         hterm.setAlternateMode = (state) => {
             _setAlternateMode(state)
             this.alternateScreenActive$.next(state)
+        }
+
+        const _copySelectionToClipboard = hterm.copySelectionToClipboard.bind(hterm)
+        hterm.copySelectionToClipboard = () => {
+            _copySelectionToClipboard()
+            this.toastr.info('Copied')
         }
 
         hterm.primaryScreen_.syncSelectionCaret = () => null
