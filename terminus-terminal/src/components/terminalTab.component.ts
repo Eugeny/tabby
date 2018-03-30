@@ -93,6 +93,9 @@ export class TerminalTabComponent extends BaseTabComponent {
             case 'copy':
                 this.hterm.copySelectionToClipboard()
                 break
+            case 'paste':
+                this.paste()
+                break
             case 'clear':
                 this.clear()
                 break
@@ -231,10 +234,7 @@ export class TerminalTabComponent extends BaseTabComponent {
         hterm.primaryScreen_.terminal = hterm
         hterm.alternateScreen_.terminal = hterm
 
-        const _onPaste = hterm.scrollPort_.onPaste_.bind(hterm.scrollPort_)
         hterm.scrollPort_.onPaste_ = (event) => {
-            hterm.scrollPort_.pasteTarget_.value = event.clipboardData.getData('text/plain').trim()
-            _onPaste()
             event.preventDefault()
         }
 
@@ -336,7 +336,12 @@ export class TerminalTabComponent extends BaseTabComponent {
     }
 
     paste () {
-        this.sendInput(this.electron.clipboard.readText())
+        let data = this.electron.clipboard.readText()
+        data = this.hterm.keyboard.encode(data)
+        if (this.hterm.options_.bracketedPaste) {
+            data = '\x1b[200~' + data + '\x1b[201~'
+        }
+        this.sendInput(data)
     }
 
     clear () {

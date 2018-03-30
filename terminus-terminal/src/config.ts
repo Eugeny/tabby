@@ -56,6 +56,9 @@ export class TerminalConfigProvider extends ConfigProvider {
                 'copy': [
                     '⌘-C',
                 ],
+                'paste': [
+                    '⌘-V',
+                ],
                 'clear': [
                     '⌘-K',
                 ],
@@ -96,6 +99,9 @@ export class TerminalConfigProvider extends ConfigProvider {
                 'copy': [
                     'Ctrl-Shift-C',
                 ],
+                'paste': [
+                    'Ctrl-Shift-V',
+                ],
                 'clear': [
                     'Ctrl-L',
                 ],
@@ -132,6 +138,9 @@ export class TerminalConfigProvider extends ConfigProvider {
             hotkeys: {
                 'copy': [
                     'Ctrl-Shift-C',
+                ],
+                'paste': [
+                    'Ctrl-Shift-V',
                 ],
                 'clear': [
                     'Ctrl-L',

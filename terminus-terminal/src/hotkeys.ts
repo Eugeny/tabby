@@ -9,6 +9,10 @@ export class TerminalHotkeyProvider extends HotkeyProvider {
             name: 'Copy to clipboard',
         },
         {
+            id: 'paste',
+            name: 'Paste from clipboard',
+        },
+        {
             id: 'home',
             name: 'Beginning of the line',
         },
