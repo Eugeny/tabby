@@ -53,6 +53,7 @@ export class TerminalConfigProvider extends ConfigProvider {
                 persistence: 'screen',
             },
             hotkeys: {
+                'ctrl-c': ['Ctrl-C'],
                 'copy': [
                     '⌘-C',
                 ],
@@ -96,6 +97,7 @@ export class TerminalConfigProvider extends ConfigProvider {
                 copyOnSelect: true,
             },
             hotkeys: {
+                'ctrl-c': ['Ctrl-C'],
                 'copy': [
                     'Ctrl-Shift-C',
                 ],
@@ -136,6 +138,7 @@ export class TerminalConfigProvider extends ConfigProvider {
                 persistence: 'tmux',
             },
             hotkeys: {
+                'ctrl-c': ['Ctrl-C'],
                 'copy': [
                     'Ctrl-Shift-C',
                 ],
