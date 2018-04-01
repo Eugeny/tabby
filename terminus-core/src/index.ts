@@ -18,6 +18,7 @@ import { TouchbarService } from './services/touchbar.service'
 import { UpdaterService } from './services/updater.service'
 
 import { AppRootComponent } from './components/appRoot.component'
+import { CheckboxComponent } from './components/checkbox.component'
 import { TabBodyComponent } from './components/tabBody.component'
 import { SafeModeModalComponent } from './components/safeModeModal.component'
 import { StartPageComponent } from './components/startPage.component'
@@ -65,6 +66,7 @@ const PROVIDERS = [
     ],
     declarations: [
         AppRootComponent,
+        CheckboxComponent,
         StartPageComponent,
         TabBodyComponent,
         TabHeaderComponent,
@@ -76,6 +78,9 @@ const PROVIDERS = [
     entryComponents: [
         RenameTabModalComponent,
         SafeModeModalComponent,
+    ],
+    exports: [
+        CheckboxComponent
     ]
 })
 export default class AppModule {

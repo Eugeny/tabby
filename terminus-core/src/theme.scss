@@ -47,6 +47,7 @@ $input-color-placeholder:        #333;
 $input-border-color:             #344;
 //$input-box-shadow:               inset 0 1px 1px rgba($black,.075);
 $input-border-radius:            0;
+$custom-select-border-radius: 0;
 $input-bg-focus:                 $input-bg;
 //$input-border-focus:             lighten($brand-primary, 25%);
 //$input-box-shadow-focus:         $input-box-shadow, rgba($input-border-focus, .6);
@@ -83,6 +84,8 @@ $alert-danger-bg: $body-bg2;
 $alert-danger-text: $red;
 $alert-danger-border: $red;
 
+$headings-font-weight: lighter;
+$headings-color: #eee;
 
 @import '~bootstrap/scss/bootstrap.scss';
 
@@ -147,6 +150,7 @@ app-root  {
                     }
 
                     &.active {
+                        color: white;
                         background: $body-bg;
                         border-left: 1px solid $border-color;
                         border-right: 1px solid $border-color;
@@ -327,4 +331,16 @@ ngb-tabset .tab-content {
     i + * {
         margin-left: 10px;
     }
+}
+
+select.form-control {
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='24' height='24' viewBox='0 0 24 24'><path fill='#444' d='M7.406 7.828l4.594 4.594 4.594-4.594 1.406 1.406-6 6-6-6z'></path></svg>");
+  background-position: 100% 50%;
+  background-repeat: no-repeat;
+  padding-right: 30px;
+}
+
+checkbox i.on {
+  color: $blue;
 }

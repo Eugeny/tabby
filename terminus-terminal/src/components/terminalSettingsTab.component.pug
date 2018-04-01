@@ -1,5 +1,158 @@
-h3.mb-2 Appearance
+h3.mb-3 Appearance
 .row
+    .col-md-6
+        .form-group
+            label Font
+            .row
+                .col-8
+                    input.form-control(
+                        type='text',
+                        [ngbTypeahead]='fontAutocomplete',
+                        [(ngModel)]='config.store.terminal.font',
+                        (ngModelChange)='config.save()',
+                    )
+                .col-4
+                    input.form-control(
+                        type='number',
+                        [(ngModel)]='config.store.terminal.fontSize',
+                        (ngModelChange)='config.save()',
+                    )
+
+            div
+                checkbox(
+                    text='Enable font ligatures',
+                    [(ngModel)]='config.store.terminal.ligatures', 
+                    (ngModelChange)='config.save()',
+                )
+
+        .form-group(*ngIf='!editingColorScheme')
+            label Color scheme
+            .input-group
+                select.form-control(
+                    [compareWith]='equalComparator',
+                    [(ngModel)]='config.store.terminal.colorScheme',
+                    (ngModelChange)='config.save()',
+                )
+                    option(*ngFor='let scheme of config.store.terminal.customColorSchemes', [ngValue]='scheme') Custom: {{scheme.name}}
+                    option(*ngFor='let scheme of colorSchemes', [ngValue]='scheme') {{scheme.name}}
+                .input-group-btn
+                    button.btn.btn-secondary((click)='editScheme(config.store.terminal.colorScheme)') Edit
+                .input-group-btn
+                    button.btn.btn-outline-danger(
+                        (click)='deleteScheme(config.store.terminal.colorScheme)',
+                        *ngIf='isCustomScheme(config.store.terminal.colorScheme)'
+                    )
+                        i.fa.fa-trash-o
+
+        .form-group(*ngIf='editingColorScheme')
+            label Editing
+            .input-group
+                input.form-control(type='text', [(ngModel)]='editingColorScheme.name')
+                .input-group-btn
+                    button.btn.btn-secondary((click)='saveScheme()') Save
+                .input-group-btn
+                    button.btn.btn-secondary((click)='cancelEditing()') Cancel
+
+
+        .form-group(*ngIf='editingColorScheme')
+            color-picker(
+                '[(model)]'='editingColorScheme.foreground',
+                (modelChange)='config.save(); schemeChanged = true',
+                title='FG',
+            )
+            color-picker(
+                '[(model)]'='editingColorScheme.background',
+                (modelChange)='config.save(); schemeChanged = true',
+                title='BG',
+            )
+            color-picker(
+                '[(model)]'='editingColorScheme.cursor',
+                (modelChange)='config.save(); schemeChanged = true',
+                title='CU',
+            )
+            color-picker(
+                *ngFor='let _ of editingColorScheme.colors; let idx = index; trackBy: colorsTrackBy',
+                '[(model)]'='editingColorScheme.colors[idx]',
+                (modelChange)='config.save(); schemeChanged = true',
+                [title]='idx',
+            )
+
+        .form-group
+            label Terminal background
+            br
+            .btn-group(
+                [(ngModel)]='config.store.terminal.background',
+                (ngModelChange)='config.save()',
+                ngbRadioGroup
+            )
+                label.btn.btn-secondary(ngbButtonLabel)
+                    input(
+                        type='radio',
+                        ngbButton,
+                        [value]='"theme"'
+                    )
+                    | From theme
+                label.btn.btn-secondary(ngbButtonLabel)
+                    input(
+                        type='radio',
+                        ngbButton,
+                        [value]='"colorScheme"'
+                    )
+                    | From colors
+
+        .d-flex
+            .form-group.mr-3
+                label Cursor shape
+                br
+                .btn-group(
+                    [(ngModel)]='config.store.terminal.cursor',
+                    (ngModelChange)='config.save()',
+                    ngbRadioGroup
+                )
+                    label.btn.btn-secondary(ngbButtonLabel)
+                        input(
+                            type='radio',
+                            ngbButton,
+                            [value]='"block"'
+                        )
+                        | █
+                    label.btn.btn-secondary(ngbButtonLabel)
+                        input(
+                            type='radio',
+                            ngbButton,
+                            [value]='"beam"'
+                        )
+                        | |
+                    label.btn.btn-secondary(ngbButtonLabel)
+                        input(
+                            type='radio',
+                            ngbButton,
+                            [value]='"underline"'
+                        )
+                        | ▁
+                    
+            .form-group
+                label Blink cursor
+                br
+                .btn-group(
+                    [(ngModel)]='config.store.terminal.cursorBlink',
+                    (ngModelChange)='config.save()',
+                    ngbRadioGroup
+                )
+                    label.btn.btn-secondary(ngbButtonLabel)
+                        input(
+                            type='radio',
+                            ngbButton,
+                            [value]='false'
+                        )
+                        | Off
+                    label.btn.btn-secondary(ngbButtonLabel)
+                        input(
+                            type='radio',
+                            ngbButton,
+                            [value]='true'
+                        )
+                        | On    
     .col-md-6
         .form-group
             .appearance-preview(
@@ -7,6 +160,8 @@ h3.mb-2 Appearance
                 [style.font-size]='config.store.terminal.fontSize + "px"',
                 [style.background-color]='(config.store.terminal.background == "theme") ? null : config.store.terminal.colorScheme.background',
                 [style.color]='config.store.terminal.colorScheme.foreground',
+                [style.font-feature-settings]='\'"liga" \' + config.store.terminal.ligatures ? 1 : 0',
+                [style.font-variant-ligatures]='config.store.terminal.ligatures ? "initial" : "none"',
             )
                 div
                     span([style.background-color]='config.store.terminal.colorScheme.colors[0]') &nbsp;
@@ -85,133 +240,7 @@ h3.mb-2 Appearance
                     span  rm -rf /
                     span([style.background-color]='config.store.terminal.colorScheme.cursor') &nbsp;
 
-
-    .col-md-6
-        .form-group
-            label Font
-            .row
-                .col-8
-                    input.form-control(
-                        type='text',
-                        [ngbTypeahead]='fontAutocomplete',
-                        '[(ngModel)]'='config.store.terminal.font',
-                        (ngModelChange)='config.save()',
-                    )
-                .col-4
-                    input.form-control(
-                        type='number',
-                        '[(ngModel)]'='config.store.terminal.fontSize',
-                        (ngModelChange)='config.save()',
-                    )
-            small.form-text.text-muted Font to be used in the terminal
-
-        .form-group(*ngIf='!editingColorScheme')
-            label Color scheme
-            .input-group
-                select.form-control(
-                    [compareWith]='equalComparator',
-                    '[(ngModel)]'='config.store.terminal.colorScheme',
-                    (ngModelChange)='config.save()',
-                )
-                    option(*ngFor='let scheme of config.store.terminal.customColorSchemes', [ngValue]='scheme') Custom: {{scheme.name}}
-                    option(*ngFor='let scheme of colorSchemes', [ngValue]='scheme') {{scheme.name}}
-                .input-group-btn
-                    button.btn.btn-secondary((click)='editScheme(config.store.terminal.colorScheme)') Edit
-                .input-group-btn
-                    button.btn.btn-outline-danger(
-                        (click)='deleteScheme(config.store.terminal.colorScheme)',
-                        *ngIf='isCustomScheme(config.store.terminal.colorScheme)'
-                    )
-                        i.fa.fa-trash-o
-
-        .form-group(*ngIf='editingColorScheme')
-            label Editing
-            .input-group
-                input.form-control(type='text', '[(ngModel)]'='editingColorScheme.name')
-                .input-group-btn
-                    button.btn.btn-secondary((click)='saveScheme()') Save
-                .input-group-btn
-                    button.btn.btn-secondary((click)='cancelEditing()') Cancel
-
-
-        .form-group(*ngIf='editingColorScheme')
-            color-picker(
-                '[(model)]'='editingColorScheme.foreground',
-                (modelChange)='config.save(); schemeChanged = true',
-                title='FG',
-            )
-            color-picker(
-                '[(model)]'='editingColorScheme.background',
-                (modelChange)='config.save(); schemeChanged = true',
-                title='BG',
-            )
-            color-picker(
-                '[(model)]'='editingColorScheme.cursor',
-                (modelChange)='config.save(); schemeChanged = true',
-                title='CU',
-            )
-            color-picker(
-                *ngFor='let _ of editingColorScheme.colors; let idx = index; trackBy: colorsTrackBy',
-                '[(model)]'='editingColorScheme.colors[idx]',
-                (modelChange)='config.save(); schemeChanged = true',
-                [title]='idx',
-            )
-
-        .d-flex
-            .form-group.mr-3
-                label Terminal background
-                br
-                .btn-group(
-                    '[(ngModel)]'='config.store.terminal.background',
-                    (ngModelChange)='config.save()',
-                    ngbRadioGroup
-                )
-                    label.btn.btn-secondary(ngbButtonLabel)
-                        input(
-                            type='radio',
-                            ngbButton,
-                            [value]='"theme"'
-                        )
-                        | From theme
-                    label.btn.btn-secondary(ngbButtonLabel)
-                        input(
-                            type='radio',
-                            ngbButton,
-                            [value]='"colorScheme"'
-                        )
-                        | From colors
-
-            .form-group
-                label Cursor shape
-                br
-                .btn-group(
-                    [(ngModel)]='config.store.terminal.cursor',
-                    (ngModelChange)='config.save()',
-                    ngbRadioGroup
-                )
-                    label.btn.btn-secondary(ngbButtonLabel)
-                        input(
-                            type='radio',
-                            ngbButton,
-                            [value]='"block"'
-                        )
-                        | █
-                    label.btn.btn-secondary(ngbButtonLabel)
-                        input(
-                            type='radio',
-                            ngbButton,
-                            [value]='"beam"'
-                        )
-                        | |
-                    label.btn.btn-secondary(ngbButtonLabel)
-                        input(
-                            type='radio',
-                            ngbButton,
-                            [value]='"underline"'
-                        )
-                        | ▁
-
-h3.mt-2.mb-2 Behaviour
+h3.mt-3.mb-3 Shell
 
 .row
     .col-md-6
@@ -219,7 +248,7 @@ h3.mt-2.mb-2 Behaviour
             .form-group.mr-3
                 label Shell
                 select.form-control(
-                    '[(ngModel)]'='config.store.terminal.shell',
+                    [(ngModel)]='config.store.terminal.shell',
                     (ngModelChange)='config.save()',
                 )
                     option(
@@ -227,10 +256,10 @@ h3.mt-2.mb-2 Behaviour
                         [ngValue]='shell.id'
                     ) {{shell.name}}
 
-            .form-group
+            .form-group(*ngIf='persistenceProviders.length > 0')
                 label Session persistence
                 select.form-control(
-                    '[(ngModel)]'='config.store.terminal.persistence',
+                    [(ngModel)]='config.store.terminal.persistence',
                     (ngModelChange)='config.save()',
                 )
                     option([ngValue]='null') Off
@@ -243,140 +272,93 @@ h3.mt-2.mb-2 Behaviour
             label Custom shell
             input.form-control(
                 type='text',
-                '[(ngModel)]'='config.store.terminal.customShell',
+                [(ngModel)]='config.store.terminal.customShell',
                 (ngModelChange)='config.save()',
             )
-
+                    
+    .col-md-6
         .form-group
             label Working directory
             input.form-control(
                 type='text',
                 placeholder='Home directory',
-                '[(ngModel)]'='config.store.terminal.workingDirectory',
+                [(ngModel)]='config.store.terminal.workingDirectory',
                 (ngModelChange)='config.save()',
             )
+            
+            
 
-        .form-group
-            label Auto-open a terminal on app start
-            br
-            .btn-group(
-                '[(ngModel)]'='config.store.terminal.autoOpen',
-                (ngModelChange)='config.save()',
-                ngbRadioGroup
+h3.mt-3.mb-3 Behaviour
+
+.form-group
+    label Terminal bell
+    br
+    .btn-group(
+        [(ngModel)]='config.store.terminal.bell',
+        (ngModelChange)='config.save()',
+        ngbRadioGroup
+    )
+        label.btn.btn-secondary(ngbButtonLabel)
+            input(
+                type='radio',
+                ngbButton,
+                [value]='"off"'
             )
-                label.btn.btn-secondary(ngbButtonLabel)
-                    input(
-                        type='radio',
-                        ngbButton,
-                        [value]='false'
-                    )
-                    | Off
-                label.btn.btn-secondary(ngbButtonLabel)
-                    input(
-                        type='radio',
-                        ngbButton,
-                        [value]='true'
-                    )
-                    | On
-                    
-    .col-md-6
-        .d-flex
-            .form-group.mr-3
-                label Terminal bell
-                br
-                .btn-group(
-                    '[(ngModel)]'='config.store.terminal.bell',
-                    (ngModelChange)='config.save()',
-                    ngbRadioGroup
-                )
-                    label.btn.btn-secondary(ngbButtonLabel)
-                        input(
-                            type='radio',
-                            ngbButton,
-                            [value]='"off"'
-                        )
-                        | Off
-                    label.btn.btn-secondary(ngbButtonLabel)
-                        input(
-                            type='radio',
-                            ngbButton,
-                            [value]='"visual"'
-                        )
-                        | Visual
-                    label.btn.btn-secondary(ngbButtonLabel)
-                        input(
-                            type='radio',
-                            ngbButton,
-                            [value]='"audible"'
-                        )
-                        | Audible
-
-            .form-group
-                label Blink cursor
-                br
-                .btn-group(
-                    '[(ngModel)]'='config.store.terminal.cursorBlink',
-                    (ngModelChange)='config.save()',
-                    ngbRadioGroup
-                )
-                    label.btn.btn-secondary(ngbButtonLabel)
-                        input(
-                            type='radio',
-                            ngbButton,
-                            [value]='false'
-                        )
-                        | Off
-                    label.btn.btn-secondary(ngbButtonLabel)
-                        input(
-                            type='radio',
-                            ngbButton,
-                            [value]='true'
-                        )
-                        | On
-
-        .d-flex
-            .form-group.mr-3
-                label Copy on select
-                br
-                .btn-group(
-                    '[(ngModel)]'='config.store.terminal.copyOnSelect',
-                    (ngModelChange)='config.save()',
-                    ngbRadioGroup
-                )
-                    label.btn.btn-secondary(ngbButtonLabel)
-                        input(
-                            type='radio',
-                            ngbButton,
-                            [value]='false'
-                        )
-                        | Off
-                    label.btn.btn-secondary(ngbButtonLabel)
-                        input(
-                            type='radio',
-                            ngbButton,
-                            [value]='true'
-                        )
-                        | On
-
-            .form-group
-                label Right click behaviour
-                br
-                .btn-group(
-                    '[(ngModel)]'='config.store.terminal.rightClick',
-                    (ngModelChange)='config.save()',
-                    ngbRadioGroup
-                )
-                    label.btn.btn-secondary(ngbButtonLabel)
-                        input(
-                            type='radio',
-                            ngbButton,
-                            value='menu'
-                        )
-                        | Menu
-                    label.btn.btn-secondary(ngbButtonLabel)
-                        input(
-                            type='radio',
-                            ngbButton,
-                            value='paste'
-                        )
-                        | Paste
+            | Off
+        label.btn.btn-secondary(ngbButtonLabel)
+            input(
+                type='radio',
+                ngbButton,
+                [value]='"visual"'
+            )
+            | Visual
+        label.btn.btn-secondary(ngbButtonLabel)
+            input(
+                type='radio',
+                ngbButton,
+                [value]='"audible"'
+            )
+            | Audible
+    
+.form-group
+    label Right click behaviour
+    br
+    .btn-group(
+        [(ngModel)]='config.store.terminal.rightClick',
+        (ngModelChange)='config.save()',
+        ngbRadioGroup
+    )
+        label.btn.btn-secondary(ngbButtonLabel)
+            input(
+                type='radio',
+                ngbButton,
+                value='menu'
+            )
+            | Context menu
+        label.btn.btn-secondary(ngbButtonLabel)
+            input(
+                type='radio',
+                ngbButton,
+                value='paste'
+            )
+            | Paste
+            
+            
+.form-group
+    checkbox(
+        [(ngModel)]='config.store.terminal.autoOpen',
+        (ngModelChange)='config.save()',
+        text='Auto-open a terminal on app start',
+    )
+    
+    checkbox(
+        [(ngModel)]='config.store.terminal.bracketedPaste',
+        (ngModelChange)='config.save()',
+        text='Bracketed paste (requires shell support)',
+    )
+    
+    checkbox(
+        [(ngModel)]='config.store.terminal.copyOnSelect',
+        (ngModelChange)='config.save()',
+        text='Copy on select',
+    )

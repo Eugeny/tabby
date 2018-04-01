@@ -56,5 +56,9 @@ export class TerminalHotkeyProvider extends HotkeyProvider {
             id: 'new-tab',
             name: 'New tab',
         },
+        {
+            id: 'ctrl-c',
+            name: 'Intelligent Ctrl-C (copy/abort)',
+        },
     ]
 }

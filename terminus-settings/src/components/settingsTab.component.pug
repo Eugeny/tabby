@@ -5,6 +5,7 @@ ngb-tabset.vertical(type='tabs', [activeId]='activeTab')
         ng-template(ngbTabTitle)
             | Application
         ng-template(ngbTabContent)
+            h3.mb-3 Application
             .row
                 .col.col-lg-6
                     .form-group
@@ -168,6 +169,7 @@ ngb-tabset.vertical(type='tabs', [activeId]='activeTab')
         ng-template(ngbTabTitle)
             | Hotkeys
         ng-template(ngbTabContent)
+            h3.mb-3 Hotkeys
             input.form-control(type='search', placeholder='Search hotkeys', [(ngModel)]='hotkeyFilter')
             .form-group
                 table.hotkeys-table
