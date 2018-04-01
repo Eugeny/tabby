@@ -17,6 +17,7 @@ export class ButtonProvider extends ToolbarButtonProvider {
         return [{
             icon: 'sliders',
             title: 'Settings',
+            touchBarTitle: '⚙️',
             weight: 10,
             click: () => this.open(),
         }]

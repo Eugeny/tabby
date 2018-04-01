@@ -25,7 +25,8 @@ export class ButtonProvider extends ToolbarButtonProvider {
         return [{
             icon: 'globe',
             weight: 5,
-            title: 'SSH',
+            title: 'SSH connections',
+            touchBarTitle: 'SSH',
             click: async () => {
                 this.activate()
             }

@@ -56,6 +56,7 @@ export class ButtonProvider extends ToolbarButtonProvider {
         return [{
             icon: 'plus',
             title: 'New terminal',
+            touchBarTitle: 'New',
             click: async () => {
                 this.openNewTab()
             }

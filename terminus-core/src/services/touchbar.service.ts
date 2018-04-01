@@ -25,7 +25,7 @@ export class TouchbarService {
         app.activeTabChange$.subscribe(() => this.update())
         app.tabOpened$.subscribe(tab => {
             let sub = tab.titleChange$.subscribe(title => {
-                this.tabSegments[app.tabs.indexOf(tab)].label = title
+                this.tabSegments[app.tabs.indexOf(tab)].label = this.shortenTitle(title)
                 this.tabsSegmentedControl.segments = this.tabSegments
             })
             this.titleSubscriptions.set(tab, sub)
@@ -43,7 +43,7 @@ export class TouchbarService {
         })
         buttons.sort((a, b) => (a.weight || 0) - (b.weight || 0))
         this.tabSegments = this.app.tabs.map(tab => ({
-            label: tab.title,
+            label: this.shortenTitle(tab.title),
         }))
         this.tabsSegmentedControl = new this.electron.TouchBar.TouchBarSegmentedControl({
             segments: this.tabSegments,
@@ -58,7 +58,7 @@ export class TouchbarService {
                 new this.electron.TouchBar.TouchBarSpacer({size: 'flexible'}),
                 new this.electron.TouchBar.TouchBarSpacer({size: 'small'}),
                 ...buttons.map(button => new this.electron.TouchBar.TouchBarButton({
-                    label: button.title,
+                    label: this.shortenTitle(button.touchBarTitle || button.title),
                         // backgroundColor: '#0022cc',
                     click: () => this.zone.run(() => button.click()),
                 }))
@@ -67,4 +67,10 @@ export class TouchbarService {
         this.electron.app.window.setTouchBar(touchBar)
     }
 
+    private shortenTitle (title: string): string {
+        if (title.length > 15) {
+            title = title.substring(0, 15) + '...'
+        }
+        return title
+    }
 }
