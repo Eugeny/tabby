@@ -348,6 +348,7 @@ export class TerminalTabComponent extends BaseTabComponent {
         if (this.hterm.options_.bracketedPaste) {
             data = '\x1b[200~' + data + '\x1b[201~'
         }
+        data = data.replace(/\r\n/g, '\n')
         this.sendInput(data)
     }
 
