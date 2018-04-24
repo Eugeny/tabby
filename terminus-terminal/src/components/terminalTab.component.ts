@@ -93,6 +93,7 @@ export class TerminalTabComponent extends BaseTabComponent {
             case 'ctrl-c':
                 if (this.hterm.getSelectionText()) {
                     this.hterm.copySelectionToClipboard()
+                    this.hterm.getDocument().getSelection().removeAllRanges()
                 } else {
                     this.sendInput('\x03')
                 }
