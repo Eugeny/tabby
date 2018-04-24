@@ -131,7 +131,9 @@ export class AppRootComponent {
         if (this.electron.app.window.isFocused()) {
             // focused
             this.electron.loseFocus()
-            this.electron.app.window.hide()
+            if (this.hostApp.platform !== Platform.macOS) {
+                this.electron.app.window.hide()
+            }
         } else {
             if (!this.electron.app.window.isVisible()) {
                 // unfocused, invisible
