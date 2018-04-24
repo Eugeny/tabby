@@ -358,3 +358,9 @@ h3.mt-3.mb-3 Behaviour
         (ngModelChange)='config.save()',
         text='Copy on select',
     )
+    
+    checkbox(
+        [(ngModel)]='config.store.terminal.altIsMeta',
+        (ngModelChange)='config.save()',
+        text='Use Alt key as the Meta key',
+    )

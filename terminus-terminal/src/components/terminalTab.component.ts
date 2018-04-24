@@ -371,6 +371,7 @@ export class TerminalTabComponent extends BaseTabComponent {
         preferenceManager.set('ctrl-plus-minus-zero-zoom', false)
         preferenceManager.set('scrollbar-visible', this.hostApp.platform === Platform.macOS)
         preferenceManager.set('copy-on-select', config.terminal.copyOnSelect)
+        preferenceManager.set('alt-is-meta', config.terminal.altIsMeta)
         preferenceManager.set('alt-sends-what', 'browser-key')
         preferenceManager.set('alt-gr-mode', 'ctrl-alt')
         preferenceManager.set('pass-alt-number', true)
