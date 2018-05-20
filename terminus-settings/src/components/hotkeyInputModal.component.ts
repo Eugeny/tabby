@@ -1,4 +1,5 @@
-import { Component, Input, trigger, transition, style, animate } from '@angular/core'
+import { Component, Input } from '@angular/core'
+import { trigger, transition, style, animate } from '@angular/animations'
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
 import { Subscription } from 'rxjs'
 import { HotkeysService } from 'terminus-core'

@@ -62,3 +62,7 @@
 .modal-dialog {
   -webkit-app-region: no-drag;
 }
+
+[ngbradiogroup] input[type="radio"] {
+    display: none;
+}

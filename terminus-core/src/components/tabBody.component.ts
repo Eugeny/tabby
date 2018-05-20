@@ -7,7 +7,7 @@ import { BaseTabComponent } from '../components/baseTab.component'
         <perfect-scrollbar [config]="{ suppressScrollX: true }" *ngIf="scrollable">
             <ng-template #scrollablePlaceholder></ng-template>
         </perfect-scrollbar>
-        <template #nonScrollablePlaceholder [ngIf]="!scrollable"></template>
+        <ng-template #nonScrollablePlaceholder *ngIf="!scrollable"></ng-template>
     `,
     styles: [
         require('./tabBody.component.scss'),

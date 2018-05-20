@@ -6,7 +6,6 @@ import { Injectable, Inject } from '@angular/core'
 import { ConfigProvider } from '../api/configProvider'
 import { ElectronService } from './electron.service'
 import { HostAppService } from './hostApp.service'
-import * as Reflect from 'core-js/es7/reflect'
 
 const configMerge = (a, b) => require('deepmerge')(a, b, { arrayMerge: (_d, s) => s })
 
@@ -104,12 +103,11 @@ export class ConfigService {
     enabledServices<T> (services: T[]): T[] {
         if (!this.servicesCache) {
             this.servicesCache = {}
-            let ngModule = Reflect.getMetadata('annotations', window['rootModule'])[0]
+            let ngModule = window['rootModule'].ngInjectorDef
             for (let imp of ngModule.imports) {
-                let module = imp['module'] || imp
-                let annotations = Reflect.getMetadata('annotations', module)
-                if (annotations) {
-                    this.servicesCache[module['pluginName']] = annotations[0].providers.map(provider => {
+                let module = (imp['ngModule'] || imp)
+                if (module.ngInjectorDef && module.ngInjectorDef.providers) {
+                    this.servicesCache[module['pluginName']] = module.ngInjectorDef.providers.map(provider => {
                         return provider['useClass'] || provider
                     })
                 }

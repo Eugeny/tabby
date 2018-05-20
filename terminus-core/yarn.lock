@@ -185,15 +185,20 @@ ms@2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.0.0.tgz#5608aeadfc00be6c2901df5f9861788de0d597c8"
 
-ngx-perfect-scrollbar@4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/ngx-perfect-scrollbar/-/ngx-perfect-scrollbar-4.0.0.tgz#f1e19449fa97d7f16e1ceb1fe1739e4bb646bebe"
+ngx-perfect-scrollbar@^6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/ngx-perfect-scrollbar/-/ngx-perfect-scrollbar-6.0.0.tgz#92b51957c04ed6a6d416beca2707bab005667b68"
   dependencies:
-    perfect-scrollbar "~0.6.0"
+    perfect-scrollbar "^1.3.0"
+    resize-observer-polyfill "^1.4.0"
 
-perfect-scrollbar@~0.6.0:
-  version "0.6.16"
-  resolved "https://registry.yarnpkg.com/perfect-scrollbar/-/perfect-scrollbar-0.6.16.tgz#b1d61a5245cf3962bb9a8407a3fc669d923212fc"
+perfect-scrollbar@^1.3.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/perfect-scrollbar/-/perfect-scrollbar-1.3.0.tgz#61da56f94b58870d8e0a617bce649cee17d1e3b2"
+
+resize-observer-polyfill@^1.4.0:
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/resize-observer-polyfill/-/resize-observer-polyfill-1.5.0.tgz#660ff1d9712a2382baa2cad450a4716209f9ca69"
 
 sax@^1.2.1:
   version "1.2.4"

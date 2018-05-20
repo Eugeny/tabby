@@ -1,7 +1,8 @@
 const psNode = require('ps-node')
 let nodePTY
 import * as fs from 'mz/fs'
-import { Subject } from 'rxjs'
+import { Observable, Subject } from 'rxjs'
+import { first } from 'rxjs/operators'
 import { Injectable, Inject } from '@angular/core'
 import { Logger, LogService, ElectronService, ConfigService } from 'terminus-core'
 import { exec } from 'mz/child_process'
@@ -17,25 +18,34 @@ export interface IChildProcess {
 export abstract class BaseSession {
     open: boolean
     name: string
-    output$ = new Subject<string>()
-    closed$ = new Subject<void>()
-    destroyed$ = new Subject<void>()
     recoveryId: string
     truePID: number
+    output$: Observable<string>
+    closed$: Observable<void>
+    destroyed$: Observable<void>
+    protected output_ = new Subject<string>()
+    protected closed_ = new Subject<void>()
+    protected destroyed_ = new Subject<void>()
     private initialDataBuffer = ''
     private initialDataBufferReleased = false
+
+    constructor () {
+        this.output$ = this.output_.asObservable()
+        this.closed$ = this.closed_.asObservable()
+        this.destroyed$ = this.destroyed_.asObservable()
+    }
 
     emitOutput (data: string) {
         if (!this.initialDataBufferReleased) {
             this.initialDataBuffer += data
         } else {
-            this.output$.next(data)
+            this.output_.next(data)
         }
     }
 
     releaseInitialDataBuffer () {
         this.initialDataBufferReleased = true
-        this.output$.next(this.initialDataBuffer)
+        this.output_.next(this.initialDataBuffer)
         this.initialDataBuffer = null
     }
 
@@ -49,9 +59,9 @@ export abstract class BaseSession {
     async destroy (): Promise<void> {
         if (this.open) {
             this.open = false
-            this.closed$.next()
-            this.destroyed$.next()
-            this.output$.complete()
+            this.closed_.next()
+            this.destroyed_.next()
+            this.output_.complete()
             await this.gracefullyKillProcess()
         }
     }
@@ -220,7 +230,7 @@ export class SessionsService {
         options.name = `session-${this.lastID}`
         let session = new Session(options)
         let persistence = this.getPersistence()
-        session.destroyed$.first().subscribe(() => {
+        session.destroyed$.pipe(first()).subscribe(() => {
             delete this.sessions[session.name]
             if (persistence) {
                 persistence.terminateSession(session.recoveryId)

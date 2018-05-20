@@ -14,8 +14,8 @@ import { SettingsTabProvider } from '../api'
 export class SettingsTabComponent extends BaseTabComponent {
     @Input() activeTab: string
     hotkeyFilter = ''
-    private hotkeyDescriptions: IHotkeyDescription[]
-    private screens
+    hotkeyDescriptions: IHotkeyDescription[]
+    screens: any[]
 
     constructor (
         public config: ConfigService,

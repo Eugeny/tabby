@@ -12,14 +12,14 @@
     "watch": "webpack --progress --color --watch"
   },
   "dependencies": {
-    "@angular/animations": "4.3.0",
-    "@angular/common": "4.3.0",
-    "@angular/compiler": "4.3.0",
-    "@angular/core": "4.3.0",
-    "@angular/forms": "4.3.0",
-    "@angular/platform-browser": "4.3.0",
-    "@angular/platform-browser-dynamic": "4.3.0",
-    "@ng-bootstrap/ng-bootstrap": "^1.0.0-beta.2",
+    "@angular/animations": "6.0.2",
+    "@angular/common": "6.0.2",
+    "@angular/compiler": "6.0.2",
+    "@angular/core": "6.0.2",
+    "@angular/forms": "6.0.2",
+    "@angular/platform-browser": "6.0.2",
+    "@angular/platform-browser-dynamic": "6.0.2",
+    "@ng-bootstrap/ng-bootstrap": "^2.0.0",
     "devtron": "1.4.0",
     "electron-config": "0.2.1",
     "electron-debug": "^1.0.1",
@@ -27,10 +27,10 @@
     "electron-squirrel-startup": "^1.0.0",
     "js-yaml": "3.8.2",
     "mz": "^2.6.0",
-    "ngx-toastr": "^8.0.0",
+    "ngx-toastr": "^8.7.3",
     "path": "0.12.7",
-    "rxjs": "5.3.0",
-    "zone.js": "0.8.12"
+    "rxjs": "^6.1.0",
+    "zone.js": "~0.8.26"
   },
   "devDependencies": {
     "@types/mz": "0.0.31"

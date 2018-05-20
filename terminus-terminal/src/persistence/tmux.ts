@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core'
 import { execFileSync } from 'child_process'
 import * as AsyncLock from 'async-lock'
 import { ConnectableObservable, AsyncSubject, Subject } from 'rxjs'
+import { first, publish } from 'rxjs/operators'
 import * as childProcess from 'child_process'
 
 import { Logger } from 'terminus-core'
@@ -102,7 +103,7 @@ export class TMuxCommandProcess {
             }
         })
 
-        this.response$ = this.block$.publish()
+        this.response$ = this.block$.asObservable().pipe(publish()) as ConnectableObservable<TMuxBlock>
         this.response$.connect()
 
         this.block$.subscribe(block => {
@@ -116,7 +117,7 @@ export class TMuxCommandProcess {
 
     command (command: string): Promise<TMuxBlock> {
         return this.lock.acquire('key', () => {
-            let p = this.response$.take(1).toPromise()
+            let p = this.response$.pipe(first()).toPromise()
             this.logger.debug('command:', command)
             this.process.stdin.write(command + '\n')
             return p

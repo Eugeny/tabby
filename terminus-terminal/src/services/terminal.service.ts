@@ -1,4 +1,4 @@
-import { AsyncSubject } from 'rxjs'
+import { Observable, AsyncSubject } from 'rxjs'
 import { Injectable, Inject } from '@angular/core'
 import { AppService, Logger, LogService, ConfigService } from 'terminus-core'
 import { IShell, ShellProvider } from '../api'
@@ -7,7 +7,8 @@ import { TerminalTabComponent } from '../components/terminalTab.component'
 
 @Injectable()
 export class TerminalService {
-    shells$ = new AsyncSubject<IShell[]>()
+    shells$: Observable<IShell[]>
+    private shells_ = new AsyncSubject<IShell[]>()
     private logger: Logger
 
     constructor (
@@ -26,10 +27,11 @@ export class TerminalService {
     }
 
     async reloadShells () {
-        this.shells$ = new AsyncSubject<IShell[]>()
+        this.shells_ = new AsyncSubject<IShell[]>()
+        this.shells$ = this.shells_.asObservable()
         let shellLists = await Promise.all(this.config.enabledServices(this.shellProviders).map(x => x.provide()))
-        this.shells$.next(shellLists.reduce((a, b) => a.concat(b)))
-        this.shells$.complete()
+        this.shells_.next(shellLists.reduce((a, b) => a.concat(b)))
+        this.shells_.complete()
     }
 
     async openTab (shell?: IShell, cwd?: string): Promise<TerminalTabComponent> {

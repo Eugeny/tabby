@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { FormsModule } from '@angular/forms'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
-import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar'
+import { PerfectScrollbarModule, PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar'
 
 import { AppService } from './services/app.service'
 import { ConfigService } from './services/config.service'
@@ -34,7 +34,7 @@ import { Theme } from './api/theme'
 import { StandardTheme, StandardCompactTheme } from './theme'
 import { CoreConfigProvider } from './config'
 
-import 'perfect-scrollbar/dist/css/perfect-scrollbar.css'
+import 'perfect-scrollbar/css/perfect-scrollbar.css'
 
 const PROVIDERS = [
     AppService,
@@ -52,6 +52,7 @@ const PROVIDERS = [
     { provide: Theme, useClass: StandardTheme, multi: true },
     { provide: Theme, useClass: StandardCompactTheme, multi: true },
     { provide: ConfigProvider, useClass: CoreConfigProvider, multi: true },
+    { provide: PERFECT_SCROLLBAR_CONFIG, useValue: { suppressScrollX: true }}
 ]
 
 @NgModule({
@@ -60,9 +61,7 @@ const PROVIDERS = [
         BrowserAnimationsModule,
         FormsModule,
         NgbModule.forRoot(),
-        PerfectScrollbarModule.forRoot({
-            suppressScrollX: true,
-        }),
+        PerfectScrollbarModule,
     ],
     declarations: [
         AppRootComponent,
@@ -91,6 +90,12 @@ export default class AppModule {
         }
     }
 }
+
+// PerfectScrollbar fix
+import { fromEvent } from 'rxjs/internal/observable/fromEvent'
+import { merge } from 'rxjs/internal/observable/merge'
+require('rxjs').fromEvent = fromEvent
+require('rxjs').merge = merge
 
 export { AppRootComponent as bootstrap }
 export * from './api'

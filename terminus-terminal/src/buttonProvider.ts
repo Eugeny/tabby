@@ -1,24 +1,21 @@
 import * as fs from 'mz/fs'
 import * as path from 'path'
+import { first } from 'rxjs/operators'
 import { Injectable } from '@angular/core'
-import { HotkeysService, ToolbarButtonProvider, IToolbarButton, ConfigService, HostAppService, ElectronService, Logger, LogService } from 'terminus-core'
+import { HotkeysService, ToolbarButtonProvider, IToolbarButton, ConfigService, HostAppService, ElectronService } from 'terminus-core'
 
 import { TerminalService } from './services/terminal.service'
 
 @Injectable()
 export class ButtonProvider extends ToolbarButtonProvider {
-    private logger: Logger
-
     constructor (
         private terminal: TerminalService,
         private config: ConfigService,
-        log: LogService,
         hostApp: HostAppService,
         electron: ElectronService,
         hotkeys: HotkeysService,
     ) {
         super()
-        this.logger = log.create('newTerminalButton')
         hotkeys.matchedHotkey.subscribe(async (hotkey) => {
             if (hotkey === 'new-tab') {
                 this.openNewTab()
@@ -47,7 +44,7 @@ export class ButtonProvider extends ToolbarButtonProvider {
     }
 
     async openNewTab (cwd?: string): Promise<void> {
-        let shells = await this.terminal.shells$.first().toPromise()
+        let shells = await this.terminal.shells$.pipe(first()).toPromise()
         let shell = shells.find(x => x.id === this.config.store.terminal.shell)
         this.terminal.openTab(shell, cwd)
     }

@@ -8,7 +8,7 @@ import { SettingsTabProvider } from '../api'
 export class SettingsTabBodyComponent {
     @Input() provider: SettingsTabProvider
     @ViewChild('placeholder', {read: ViewContainerRef}) placeholder: ViewContainerRef
-    private component: ComponentRef<Component>
+    component: ComponentRef<Component>
 
     constructor (private componentFactoryResolver: ComponentFactoryResolver) { }
 

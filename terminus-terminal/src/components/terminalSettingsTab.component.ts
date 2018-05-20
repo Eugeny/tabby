@@ -1,4 +1,5 @@
 import { Observable } from 'rxjs'
+import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators'
 import { exec } from 'mz/child_process'
 const equal = require('deep-equal')
 const fontManager = require('font-manager')
@@ -51,11 +52,12 @@ export class TerminalSettingsTabComponent {
     }
 
     fontAutocomplete = (text$: Observable<string>) => {
-        return text$
-          .debounceTime(200)
-          .distinctUntilChanged()
-          .map(query => this.fonts.filter(v => new RegExp(query, 'gi').test(v)))
-          .map(list => Array.from(new Set(list)))
+        return text$.pipe(
+          debounceTime(200),
+          distinctUntilChanged(),
+          map(query => this.fonts.filter(v => new RegExp(query, 'gi').test(v))),
+          map(list => Array.from(new Set(list))),
+      )
     }
 
     editScheme (scheme: ITerminalColorScheme) {

@@ -21,28 +21,34 @@ module.exports = {
     extensions: ['.ts', '.js'],
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.ts$/,
-        loader: 'awesome-typescript-loader',
-        options: {
-          configFileName: path.resolve(__dirname, 'tsconfig.json'),
+        use: {
+          loader: 'awesome-typescript-loader',
+          options: {
+            configFileName: path.resolve(__dirname, 'tsconfig.json'),
+          }
         }
       },
       { test: /\.scss$/, use: ['style-loader', 'css-loader', 'sass-loader'] },
       { test: /\.css$/, use: ['style-loader', 'css-loader', 'sass-loader'] },
       {
         test: /\.(png|svg)$/,
-        loader: "file-loader",
-        options: {
-          name: 'images/[name].[ext]'
+        use: {
+          loader: 'file-loader',
+          options: {
+            name: 'images/[name].[ext]'
+          }
         }
       },
       {
         test: /\.(ttf|eot|otf|woff|woff2)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loader: "file-loader",
-        options: {
-          name: 'fonts/[name].[ext]'
+        use: {
+          loader: 'file-loader',
+          options: {
+            name: 'fonts/[name].[ext]'
+          }
         }
       }
     ]

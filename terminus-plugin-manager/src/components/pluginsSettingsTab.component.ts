@@ -1,4 +1,5 @@
 import { BehaviorSubject, Observable } from 'rxjs'
+import { debounceTime, distinctUntilChanged, first, tap, flatMap } from 'rxjs/operators'
 import * as semver from 'semver'
 
 import { Component, Input } from '@angular/core'
@@ -33,15 +34,18 @@ export class PluginsSettingsTabComponent {
 
     ngOnInit () {
         this.availablePlugins$ = this.availablePluginsQuery$
-            .debounceTime(200)
-            .distinctUntilChanged()
-            .flatMap(query => {
-                this.availablePluginsReady = false
-                return this.pluginManager.listAvailable(query).do(() => {
-                    this.availablePluginsReady = true
+            .asObservable()
+            .pipe(
+                debounceTime(200),
+                distinctUntilChanged(),
+                flatMap(query => {
+                    this.availablePluginsReady = false
+                    return this.pluginManager.listAvailable(query).pipe(tap(() => {
+                        this.availablePluginsReady = true
+                    }))
                 })
-            })
-        this.availablePlugins$.first().subscribe(available => {
+            )
+        this.availablePlugins$.pipe(first()).subscribe(available => {
             for (let plugin of this.pluginManager.installedPlugins) {
                 this.knownUpgrades[plugin.name] = available.find(x => x.name === plugin.name && semver.gt(x.version, plugin.version))
             }

@@ -1,4 +1,5 @@
-import { BehaviorSubject, Subject, Subscription } from 'rxjs'
+import { Observable, BehaviorSubject, Subject, Subscription } from 'rxjs'
+import { first } from 'rxjs/operators'
 import { ToastrService } from 'ngx-toastr'
 import { Component, NgZone, Inject, Optional, ViewChild, HostBinding, Input } from '@angular/core'
 import { AppService, ConfigService, BaseTabComponent, ElectronService, ThemesService, HostAppService, HotkeysService, Platform } from 'terminus-core'
@@ -32,7 +33,8 @@ export class TerminalTabComponent extends BaseTabComponent {
     hotkeysSubscription: Subscription
     bell$ = new Subject()
     size: ResizeEvent
-    resize$ = new Subject<ResizeEvent>()
+    resize$: Observable<ResizeEvent>
+    private resize_ = new Subject<ResizeEvent>()
     input$ = new Subject<string>()
     output$ = new Subject<string>()
     contentUpdated$ = new Subject<void>()
@@ -58,9 +60,10 @@ export class TerminalTabComponent extends BaseTabComponent {
         @Optional() @Inject(TerminalDecorator) private decorators: TerminalDecorator[],
     ) {
         super()
+        this.resize$ = this.resize_.asObservable()
         this.decorators = this.decorators || []
         this.setTitle('Terminal')
-        this.resize$.first().subscribe(async (resizeEvent) => {
+        this.resize$.pipe(first()).subscribe(async resizeEvent => {
             if (!this.session) {
                 this.session = this.sessions.addSession(
                     Object.assign({}, this.sessionOptions, resizeEvent)
@@ -330,7 +333,7 @@ export class TerminalTabComponent extends BaseTabComponent {
                 if (this.session) {
                     this.session.resize(columns, rows)
                 }
-                this.resize$.next(this.size)
+                this.resize_.next(this.size)
             })
         }
     }
@@ -452,7 +455,7 @@ export class TerminalTabComponent extends BaseTabComponent {
         if (this.sessionCloseSubscription) {
             this.sessionCloseSubscription.unsubscribe()
         }
-        this.resize$.complete()
+        this.resize_.complete()
         this.input$.complete()
         this.output$.complete()
         this.contentUpdated$.complete()

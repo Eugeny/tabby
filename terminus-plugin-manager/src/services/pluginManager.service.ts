@@ -2,7 +2,8 @@ import * as path from 'path'
 import * as fs from 'mz/fs'
 import { exec } from 'mz/child_process'
 import axios from 'axios'
-import { Observable } from 'rxjs'
+import { Observable, from } from 'rxjs'
+import { map } from 'rxjs/operators'
 import { Injectable } from '@angular/core'
 import { Logger, LogService, ConfigService, HostAppService, Platform } from 'terminus-core'
 
@@ -70,15 +71,14 @@ export class PluginManagerService {
     }
 
     listAvailable (query?: string): Observable<IPluginInfo[]> {
-        return Observable
-            .fromPromise(
-                axios.get(`https://www.npmjs.com/search?q=keywords%3A${KEYWORD}+${encodeURIComponent(query || '')}&from=0&size=1000`, {
-                    headers: {
-                        'x-spiferack': '1',
-                    }
-                })
-            )
-            .map(response => response.data.objects.map(item => ({
+        return from(
+            axios.get(`https://www.npmjs.com/search?q=keywords%3A${KEYWORD}+${encodeURIComponent(query || '')}&from=0&size=1000`, {
+                headers: {
+                    'x-spiferack': '1',
+                }
+            })
+        ).pipe(
+            map(response => response.data.objects.map(item => ({
                 name: item.package.name.substring(NAME_PREFIX.length),
                 packageName: item.package.name,
                 description: item.package.description,
@@ -86,8 +86,9 @@ export class PluginManagerService {
                 homepage: item.package.links.homepage,
                 author: (item.package.author || {}).name,
                 isOfficial: item.package.publisher.username === OFFICIAL_NPM_ACCOUNT,
-            })))
-            .map(plugins => plugins.filter(x => x.packageName.startsWith(NAME_PREFIX)))
+            }))),
+            map(plugins => plugins.filter(x => x.packageName.startsWith(NAME_PREFIX))),
+        )
     }
 
     async installPlugin (plugin: IPluginInfo) {
