@@ -134,6 +134,7 @@ app-root  {
                     background: $body-bg2;
                     border-left: 1px solid transparent;
                     border-right: 1px solid transparent;
+
                     transition: 0.25s all;
 
                     .index {
@@ -191,6 +192,13 @@ app-root  {
                     background: linear-gradient(to top, rgba(208, 0, 0, 0) 95%, #1aa99c 100%);
                 }
             }
+        }
+    }
+
+    &.platform-win32, &.platform-linux {
+        border: 1px solid #111;
+        &>.content .tab-bar .tabs tab-header:first-child {
+            border-left: none;
         }
     }
 }

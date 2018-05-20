@@ -1,4 +1,4 @@
-import { Component, Inject, Input, HostListener } from '@angular/core'
+import { Component, Inject, Input, HostListener, HostBinding } from '@angular/core'
 import { trigger, style, animate, transition, state } from '@angular/animations'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 
@@ -54,6 +54,7 @@ export class AppRootComponent {
     @Input() ready = false
     @Input() leftToolbarButtons: IToolbarButton[]
     @Input() rightToolbarButtons: IToolbarButton[]
+    @HostBinding('class') hostClass = `platform-${process.platform}`
     private logger: Logger
     private appUpdate: Update
 
