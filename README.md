@@ -16,18 +16,16 @@
 
 ![](https://github.com/Eugeny/terminus/raw/master/docs/linux.png)
 
-**Terminus** is a web technology based terminal heavily inspired by Hyper. It is, however, designed for people who need to get things done.
+**Terminus** is a terminal heavily inspired by Hyper. It is, however, designed for people who need to get things done.
 
   * Runs on Windows, macOS and Linux
   * Theming and color schemes
-  * Configurable hotkey schemes
-  * **GNU Screen** style hotkeys available by default
+  * Fully configurable shortcuts
   * Full Unicode support including double-width characters
   * Doesn't choke on fast-flowing outputs
-  * Tab persistence on macOS and Linux
-  * Proper shell-like experience on Windows including tab completion (thanks, Clink!)
+  * Proper shell-like experience on Windows including tab completion (via Clink)
   * CMD, PowerShell, PowerShell Core, Cygwin, Cmder, Git-Bash and WSL (Bash on Windows) support
-  * Default Linux style hotkeys for copy (`Ctrl`+`Shift`+`C`) and paste (`Ctrl`+`Shift`+`V`)
+  * Tab persistence on macOS and Linux
 
 ---
 
@@ -43,7 +41,7 @@ Plugins can be installed directly from the Settings view inside Terminus.
 
 # Contributing
 
-Pull requests and plugins are welcome! Publish your plugin on NPM with a `terminus-plugin` keyword to make them appear in the Plugin Manager.
+Pull requests and plugins are welcome! Publish your plugin on NPM with a `terminus-plugin` keyword to make it appear in the Plugin Manager.
 
 See [HACKING.md](https://github.com/Eugeny/terminus/blob/master/HACKING.md) for a very brief plugin development tutorial!
 
