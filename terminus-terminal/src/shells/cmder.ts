@@ -29,7 +29,7 @@ export class CmderShellProvider extends ShellProvider {
             args: [
                 '/k',
                 path.join(process.env.CMDER_ROOT, 'vendor', 'init.bat'),
-            ]
+            ],
             env: {
                 TERM: 'cygwin',
             }
