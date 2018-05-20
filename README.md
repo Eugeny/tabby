@@ -26,7 +26,7 @@
   * Doesn't choke on fast-flowing outputs
   * Tab persistence on macOS and Linux
   * Proper shell-like experience on Windows including tab completion (thanks, Clink!)
-  * CMD, PowerShell, Cygwin, Git-Bash and Bash on Windows support
+  * CMD, PowerShell, PowerShell Core, Cygwin, Cmder, Git-Bash and WSL (Bash on Windows) support
   * Default Linux style hotkeys for copy (`Ctrl`+`Shift`+`C`) and paste (`Ctrl`+`Shift`+`V`)
 
 ---
