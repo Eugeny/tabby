@@ -62,14 +62,14 @@ file-loader@^0.11.2:
   dependencies:
     loader-utils "^1.0.2"
 
-font-manager@0.2.2:
+font-manager-nan-fix@0.2.2:
   version "0.2.2"
-  resolved "https://registry.yarnpkg.com/font-manager/-/font-manager-0.2.2.tgz#18a1c5b6ec7f91e22a17c71cbbaa0ea4e68e3a44"
+  resolved "https://registry.yarnpkg.com/font-manager-nan-fix/-/font-manager-nan-fix-0.2.2.tgz#387eb95799317ab4da2fb660a8b3e8b1ad58f59b"
   dependencies:
     nan "~2.2.0"
 
 hterm-umdjs@1.1.3:
-  version "1.1.3+1.58.sha.15ed490"
+  version "1.1.3"
   resolved "https://registry.yarnpkg.com/hterm-umdjs/-/hterm-umdjs-1.1.3.tgz#8b57bcaded5ba9541d6c8e32a82b34abb93e885e"
 
 json5@^0.5.0:
