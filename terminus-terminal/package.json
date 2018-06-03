@@ -39,7 +39,7 @@
   "dependencies": {
     "@types/async-lock": "0.0.19",
     "async-lock": "^1.0.0",
-    "font-manager-nan-fix": "0.2.2",
+    "font-manager": "0.3.0",
     "hterm-umdjs": "1.1.3",
     "mz": "^2.6.0",
     "node-pty-tmp": "0.7.1",
