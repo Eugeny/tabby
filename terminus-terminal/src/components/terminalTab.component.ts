@@ -479,7 +479,7 @@ export class TerminalTabComponent extends BaseTabComponent {
         if (children.length === 0) {
             return true
         }
-        return confirm(`"${children[0].command}" is still running. Close?`)
+        return confirm(`Tab has an active process. Close?`)
     }
 
     private setFontSize () {
