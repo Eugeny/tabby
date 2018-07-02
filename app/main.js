@@ -225,7 +225,7 @@ start = () => {
         options.frame = true
     } else {
         if (process.platform == 'darwin') {
-            options.titleBarStyle = 'hidden-inset'
+            options.titleBarStyle = 'hiddenInset'
         }
     }
 

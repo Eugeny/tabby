@@ -61,6 +61,7 @@ const builtinModules = [
     '@ng-bootstrap/ng-bootstrap',
     'ngx-toastr',
     'rxjs',
+    'rxjs/operators',
     'terminus-core',
     'terminus-settings',
     'terminus-terminal',
