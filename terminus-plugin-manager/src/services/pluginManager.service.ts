@@ -72,13 +72,9 @@ export class PluginManagerService {
 
     listAvailable (query?: string): Observable<IPluginInfo[]> {
         return from(
-            axios.get(`https://www.npmjs.com/search?q=keywords%3A${KEYWORD}+${encodeURIComponent(query || '')}&from=0&size=1000`, {
-                headers: {
-                    'x-spiferack': '1',
-                }
-            })
+            axios.get(`https://api.npms.io/v2/search?q=keywords%3A${KEYWORD}+${encodeURIComponent(query || '')}&from=0&size=250`, {})
         ).pipe(
-            map(response => response.data.objects.map(item => ({
+            map(response => response.data.results.map(item => ({
                 name: item.package.name.substring(NAME_PREFIX.length),
                 packageName: item.package.name,
                 description: item.package.description,
