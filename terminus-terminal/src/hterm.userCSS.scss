@@ -8,9 +8,10 @@ a:hover {
 
 x-screen {
     transition: 0.125s ease background;
+    overflow: visible !important;
 
     &::-webkit-scrollbar {
-      width: 3px;  
+      width: 3px;
       background: transparent;
     }
 
