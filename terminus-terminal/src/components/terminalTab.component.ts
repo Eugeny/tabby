@@ -34,14 +34,15 @@ export class TerminalTabComponent extends BaseTabComponent {
     bell$ = new Subject()
     size: ResizeEvent
     resize$: Observable<ResizeEvent>
-    private resize_ = new Subject<ResizeEvent>()
     input$ = new Subject<string>()
     output$ = new Subject<string>()
-    contentUpdated$ = new Subject<void>()
+    contentUpdated$: Observable<void>
     alternateScreenActive$ = new BehaviorSubject(false)
     mouseEvent$ = new Subject<Event>()
     htermVisible = false
     shell: IShell
+    private resize_ = new Subject<ResizeEvent>()
+    private contentUpdated_ = new Subject<void>()
     private bellPlayer: HTMLAudioElement
     private io: any
     private contextMenu: any
@@ -300,13 +301,13 @@ export class TerminalTabComponent extends BaseTabComponent {
             const _insertString = screen.insertString.bind(screen)
             screen.insertString = (data) => {
                 _insertString(data)
-                this.contentUpdated$.next()
+                this.contentUpdated_.next()
             }
 
             const _deleteChars = screen.deleteChars.bind(screen)
             screen.deleteChars = (count) => {
                 let ret = _deleteChars(count)
-                this.contentUpdated$.next()
+                this.contentUpdated_.next()
                 return ret
             }
         }
@@ -458,7 +459,7 @@ export class TerminalTabComponent extends BaseTabComponent {
         this.resize_.complete()
         this.input$.complete()
         this.output$.complete()
-        this.contentUpdated$.complete()
+        this.contentUpdated_.complete()
         this.alternateScreenActive$.complete()
         this.mouseEvent$.complete()
         this.bell$.complete()
