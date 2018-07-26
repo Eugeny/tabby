@@ -8,8 +8,8 @@ title-bar(
 )
     .tab-bar(
         *ngIf='!hostApp.isFullScreen',
-        [class.inset]='hostApp.platform == Platform.macOS && config.store.appearance.frame == "thin" && config.store.appearance.tabsLocation == "top"'
     )
+        .inset.background(*ngIf='hostApp.platform == Platform.macOS && config.store.appearance.frame == "thin" && config.store.appearance.tabsLocation == "top"')
         .tabs
             tab-header(
                 *ngFor='let tab of app.tabs; let idx = index',
@@ -22,7 +22,7 @@ title-bar(
                 (click)='app.selectTab(tab)',
             )
 
-        .btn-group
+        .btn-group.background
             button.btn.btn-secondary.btn-tab-bar(
                 *ngFor='let button of leftToolbarButtons',
                 [title]='button.title',
@@ -30,9 +30,9 @@ title-bar(
             )
                 i.fa([class]='"fa fa-" + button.icon')
 
-        .drag-space([class.persistent]='config.store.appearance.frame == "thin" && hostApp.platform != Platform.macOS')
+        .drag-space.background([class.persistent]='config.store.appearance.frame == "thin" && hostApp.platform != Platform.macOS')
 
-        .btn-group
+        .btn-group.background
             button.btn.btn-secondary.btn-tab-bar(
                 *ngFor='let button of rightToolbarButtons',
                 [title]='button.title',
@@ -47,7 +47,7 @@ title-bar(
                 i.fa.fa-arrow-up.text-info
                 span.text-info Update
 
-        window-controls(
+        window-controls.background(
             *ngIf='config.store.appearance.frame == "thin" && (hostApp.platform == Platform.Windows || hostApp.platform == Platform.Linux)',
         )
 

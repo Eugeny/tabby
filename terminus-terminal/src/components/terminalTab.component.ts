@@ -2,7 +2,7 @@ import { Observable, BehaviorSubject, Subject, Subscription } from 'rxjs'
 import { first } from 'rxjs/operators'
 import { ToastrService } from 'ngx-toastr'
 import { Component, NgZone, Inject, Optional, ViewChild, HostBinding, Input } from '@angular/core'
-import { AppService, ConfigService, BaseTabComponent, ElectronService, ThemesService, HostAppService, HotkeysService, Platform } from 'terminus-core'
+import { AppService, ConfigService, BaseTabComponent, ElectronService, HostAppService, HotkeysService, Platform } from 'terminus-core'
 
 import { IShell } from '../api'
 import { Session, SessionsService } from '../services/sessions.service'
@@ -50,7 +50,6 @@ export class TerminalTabComponent extends BaseTabComponent {
     constructor (
         private zone: NgZone,
         private app: AppService,
-        private themes: ThemesService,
         private hostApp: HostAppService,
         private hotkeys: HotkeysService,
         private sessions: SessionsService,
@@ -393,7 +392,7 @@ export class TerminalTabComponent extends BaseTabComponent {
         } else {
             this.backgroundColor = null
             // hterm can't parse "transparent"
-            preferenceManager.set('background-color', this.themes.findCurrentTheme().terminalBackground)
+            preferenceManager.set('background-color', 'transparent')
         }
         if (config.terminal.colorScheme.colors) {
             preferenceManager.set('color-palette-overrides', config.terminal.colorScheme.colors)

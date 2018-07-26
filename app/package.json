@@ -25,6 +25,7 @@
     "electron-debug": "^1.0.1",
     "electron-is-dev": "0.1.2",
     "electron-squirrel-startup": "^1.0.0",
+    "electron-vibrancy": "^0.1.3",
     "js-yaml": "3.8.2",
     "mz": "^2.6.0",
     "ngx-toastr": "^8.7.3",

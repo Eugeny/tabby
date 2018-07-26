@@ -1,5 +1,8 @@
 if (process.platform == 'win32' && require('electron-squirrel-startup')) process.exit(0)
+
 const electron = require('electron')
+const electronVibrancy = require('electron-vibrancy')
+
 if (process.argv.indexOf('--debug') !== -1) {
     require('electron-debug')({enabled: true, showDevTools: 'undocked'})
 }
@@ -217,6 +220,7 @@ start = () => {
         //- background to avoid the flash of unstyled window
         backgroundColor: '#131d27',
         frame: false,
+        show: false,
         //type: 'toolbar',
     }
     Object.assign(options, windowConfig.get('windowBoundaries'))
@@ -229,17 +233,27 @@ start = () => {
         }
     }
 
+    if (['darwin', 'win32'].includes(process.platform)) {
+      options.transparent = true
+      delete options.backgroundColor
+    }
+
     app.commandLine.appendSwitch('disable-http-cache')
 
     app.window = new electron.BrowserWindow(options)
+    app.window.once('ready-to-show', () => {
+      console.log('---vib---')
+      if (['darwin', 'win32'].includes(process.platform)) {
+        electronVibrancy.SetVibrancy(app.window, 2)
+      }
+      app.window.show()
+      app.window.focus()
+    })
     app.window.loadURL(`file://${app.getAppPath()}/dist/index.html`, {extraHeaders: "pragma: no-cache\n"})
 
     if (process.platform != 'darwin') {
         app.window.setMenu(null)
     }
-
-    app.window.show()
-    app.window.focus()
 
     setupWindowManagement()
 

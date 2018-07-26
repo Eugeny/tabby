@@ -66,8 +66,9 @@ $tab-border-radius: 4px;
         }
     }
 
-    &.inset {
-        padding-left: 85px;
+    & > .inset {
+        width: 85px;
+        flex: none;
     }
 
     window-controls {
