@@ -10,7 +10,7 @@ x-screen {
     transition: 0.125s ease background;
 
     &::-webkit-scrollbar {
-      width: 3px;  
+      width: 3px;
       background: transparent;
     }
 
@@ -22,6 +22,10 @@ x-screen {
 x-row > span {
     display: inline-block;
     height: inherit;
+
+    &.wc-node {
+        vertical-align: top;
+    }
 }
 
 @font-face {
