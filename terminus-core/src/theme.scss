@@ -132,7 +132,7 @@ app-root  {
                     transition: 0.25s all;
 
                     .index {
-                        color: #555;
+                        color: #888;
                     }
 
                     button {
@@ -143,8 +143,6 @@ app-root  {
                         &:hover { background: $button-hover-bg !important; }
                         &:active { background: $button-active-bg !important; }
                     }
-
-                    background: rgba($body-bg, 0.65);
 
                     &.active {
                         color: white;
@@ -163,7 +161,6 @@ app-root  {
 
             tab-header {
                 border-bottom: 1px solid $border-color;
-                margin-bottom: -1px;
 
                 &.active {
                     border-bottom-color: transparent;
@@ -182,7 +179,6 @@ app-root  {
 
             tab-header {
                 border-top: 1px solid $border-color;
-                margin-top: -1px;
 
                 &.active {
                     margin-top: -1px;
