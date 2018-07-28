@@ -90,10 +90,6 @@ $headings-color: #eee;
 
 @import '~bootstrap/scss/bootstrap.scss';
 
-title-bar {
-    background: $body-bg;
-}
-
 window-controls {
     svg {
         transition: 0.25s fill;
@@ -112,7 +108,11 @@ window-controls {
 $border-color: #111;
 
 body {
-    background: rgba($body-bg, 0.65);
+    background: $body-bg;
+
+    &.vibrant {
+        background: rgba($body-bg, 0.65);
+    }
 }
 
 app-root  {

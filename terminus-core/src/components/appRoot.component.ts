@@ -126,6 +126,9 @@ export class AppRootComponent {
         })
 
         this.touchbar.update()
+
+        config.changed$.subscribe(() => this.updateVibrancy())
+        this.updateVibrancy()
     }
 
     onGlobalHotkey () {
@@ -188,5 +191,11 @@ export class AppRootComponent {
         return buttons
             .filter((button) => (button.weight > 0) === aboveZero)
             .sort((a: IToolbarButton, b: IToolbarButton) => (a.weight || 0) - (b.weight || 0))
+    }
+
+    private updateVibrancy () {
+        document.body.classList.toggle('vibrant', this.config.store.appearance.vibrancy)
+        this.hostApp.getWindow().setVibrancy(this.config.store.appearance.vibrancy ? 'dark' : null)
+        this.hostApp.getWindow().setOpacity(this.config.store.appearance.opacity)
     }
 }

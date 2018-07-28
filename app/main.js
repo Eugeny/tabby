@@ -221,7 +221,6 @@ start = () => {
         backgroundColor: '#131d27',
         frame: false,
         show: false,
-        //type: 'toolbar',
     }
     Object.assign(options, windowConfig.get('windowBoundaries'))
 
@@ -242,8 +241,7 @@ start = () => {
 
     app.window = new electron.BrowserWindow(options)
     app.window.once('ready-to-show', () => {
-      console.log('---vib---')
-      if (['darwin', 'win32'].includes(process.platform)) {
+      if (process.platform == 'win32') {
         electronVibrancy.SetVibrancy(app.window, 2)
       }
       app.window.show()
