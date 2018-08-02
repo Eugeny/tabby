@@ -38,6 +38,42 @@ ngb-tabset.vertical(type='tabs', [activeId]='activeTab')
                                     [value]='"bottom"'
                                 )
                                 | At the bottom
+
+                    .form-group(*ngIf='hostApp.platform === Platform.macOS')
+                        label Vibrancy
+                        br
+                        .btn-group(
+                            '[(ngModel)]'='config.store.appearance.vibrancy'
+                            '(ngModelChange)'='config.save()'
+                            ngbRadioGroup
+                        )
+                            label.btn.btn-secondary(ngbButtonLabel)
+                                input(
+                                    type='radio',
+                                    ngbButton,
+                                    [value]='true'
+                                )
+                                | Enable
+                            label.btn.btn-secondary(ngbButtonLabel)
+                                input(
+                                    type='radio',
+                                    ngbButton,
+                                    [value]='false'
+                                )
+                                | Disable
+
+                    .form-group(*ngIf='hostApp.platform !== Platform.Linux')
+                        label Opacity
+                        br
+                        input(
+                            type='range',
+                            '[(ngModel)]'='config.store.appearance.opacity',
+                            '(ngModelChange)'='config.save()',
+                            min='0.05',
+                            max='1',
+                            step='0.01'
+                        )                
+
                 .col.col-lg-6
                     .form-group
                         label Window frame

@@ -1,5 +1,5 @@
 import { Component, Inject, Input } from '@angular/core'
-import { ElectronService, DockingService, ConfigService, IHotkeyDescription, HotkeyProvider, BaseTabComponent, Theme, HostAppService } from 'terminus-core'
+import { ElectronService, DockingService, ConfigService, IHotkeyDescription, HotkeyProvider, BaseTabComponent, Theme, HostAppService, Platform } from 'terminus-core'
 
 import { SettingsTabProvider } from '../api'
 
@@ -16,6 +16,7 @@ export class SettingsTabComponent extends BaseTabComponent {
     hotkeyFilter = ''
     hotkeyDescriptions: IHotkeyDescription[]
     screens: any[]
+    Platform = Platform
 
     constructor (
         public config: ConfigService,

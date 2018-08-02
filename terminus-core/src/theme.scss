@@ -15,9 +15,10 @@ $pink:   #ff5b77 !default;
 $purple: #613d7c !default;
 
 
-$body-bg: #1D272D;
-$body-bg2: #131d27;
-$body-bg3: #20333e;
+$content-bg: rgba(39, 49, 60, 0.65); //#1D272D;
+$content-bg-solid: #1D272D;
+$body-bg: #131d27;
+$body-bg2: #20333e;
 
 $body-color: #aaa;
 $font-family-sans-serif: "Source Sans Pro";
@@ -31,10 +32,10 @@ $btn-secondary-border:           #444;
 //$btn-warning-bg:                 rgba($orange, .5);
 
 
-$nav-tabs-border-color:                       $body-bg2;
+$nav-tabs-border-color:                       $body-bg;
 $nav-tabs-border-width:                       1px;
 $nav-tabs-border-radius:                      0;
-$nav-tabs-link-hover-border-color:            $body-bg2;
+$nav-tabs-link-hover-border-color:            $body-bg;
 $nav-tabs-active-link-hover-color:            $white;
 $nav-tabs-active-link-hover-bg:               $blue;
 $nav-tabs-active-link-hover-border-color:     darken($blue, 30%);
@@ -52,20 +53,20 @@ $input-bg-focus:                 $input-bg;
 //$input-border-focus:             lighten($brand-primary, 25%);
 //$input-box-shadow-focus:         $input-box-shadow, rgba($input-border-focus, .6);
 $input-color-focus:              $input-color;
-$input-group-addon-bg:           $body-bg2;
+$input-group-addon-bg:           $body-bg;
 $input-group-addon-border-color: $input-border-color;
 
-$modal-content-bg:               $body-bg;
-$modal-content-border-color:     $body-bg2;
+$modal-content-bg:               $content-bg-solid;
+$modal-content-border-color:     $body-bg;
 $modal-header-border-color:      transparent;
 $modal-footer-border-color:      transparent;
 
-$popover-bg:                     $body-bg2;
+$popover-bg:                     $body-bg;
 
-$dropdown-bg:                    $body-bg2;
+$dropdown-bg:                    $body-bg;
 $dropdown-link-color:            $body-color;
 $dropdown-link-hover-color:      #333;
-$dropdown-link-hover-bg:         $body-bg3;
+$dropdown-link-hover-bg:         $body-bg2;
 //$dropdown-link-active-color:     $component-active-color;
 //$dropdown-link-active-bg:        $component-active-bg;
 $dropdown-link-disabled-color:   #333;
@@ -80,7 +81,7 @@ $list-group-link-active-bg: rgba(255,255,255,.2);
 $pre-bg: $dropdown-bg;
 $pre-color: $dropdown-link-color;
 
-$alert-danger-bg: $body-bg2;
+$alert-danger-bg: $body-bg;
 $alert-danger-text: $red;
 $alert-danger-border: $red;
 
@@ -88,10 +89,6 @@ $headings-font-weight: lighter;
 $headings-color: #eee;
 
 @import '~bootstrap/scss/bootstrap.scss';
-
-title-bar {
-    background: $body-bg2;
-}
 
 window-controls {
     svg {
@@ -110,35 +107,32 @@ window-controls {
 
 $border-color: #111;
 
+body {
+    background: $body-bg;
+
+    &.vibrant {
+        background: rgba($body-bg, 0.65);
+    }
+}
+
 app-root  {
     &> .content {
-        background: $body-bg2;
-
         .tab-bar {
             .btn-tab-bar {
                 &:not(:hover):not(:active) {
-                    background: $body-bg2;
+                    background: transparent;
                 }
-            }
-
-            .drag-space {
-                background: $body-bg2;
             }
 
             &>.tabs {
-                &:empty {
-                    background: $body-bg2;
-                }
-
                 tab-header {
-                    background: $body-bg2;
                     border-left: 1px solid transparent;
                     border-right: 1px solid transparent;
 
                     transition: 0.25s all;
 
                     .index {
-                        color: #555;
+                        color: #888;
                     }
 
                     button {
@@ -152,7 +146,7 @@ app-root  {
 
                     &.active {
                         color: white;
-                        background: $body-bg;
+                        background: $content-bg;
                         border-left: 1px solid $border-color;
                         border-right: 1px solid $border-color;
                     }
@@ -161,11 +155,12 @@ app-root  {
         }
 
         &.tabs-on-top .tab-bar {
-            border-bottom: 1px solid $border-color;
+            &>.background {
+                border-bottom: 1px solid $border-color;
+            }
 
             tab-header {
                 border-bottom: 1px solid $border-color;
-                margin-bottom: -1px;
 
                 &.active {
                     border-bottom-color: transparent;
@@ -178,11 +173,12 @@ app-root  {
         }
 
         &:not(.tabs-on-top) .tab-bar {
-            border-top: 1px solid $border-color;
+            &>.background {
+                border-top: 1px solid $border-color;
+            }
 
             tab-header {
                 border-top: 1px solid $border-color;
-                margin-top: -1px;
 
                 &.active {
                     margin-top: -1px;
@@ -204,14 +200,14 @@ app-root  {
 }
 
 tab-body {
-    background: $body-bg;
+    background: $content-bg;
 }
 
 settings-tab > ngb-tabset {
-    border-right: 1px solid $body-bg2;
+    border-right: 1px solid $body-bg;
 
     & > .nav {
-        background: $body-bg3;
+        background: $body-bg2;
 
         & > .nav-item > .nav-link {
             border-left: none;
@@ -239,7 +235,7 @@ settings-tab > ngb-tabset {
 
 multi-hotkey-input {
     .item {
-        background: $body-bg3;
+        background: $body-bg2;
         border: 1px solid $blue;
         border-radius: 3px;
         margin-right: 5px;
@@ -249,7 +245,7 @@ multi-hotkey-input {
 
             .stroke {
                 padding: 0 6px;
-                border-right: 1px solid $body-bg;
+                border-right: 1px solid $content-bg;
             }
         }
 
@@ -264,8 +260,8 @@ multi-hotkey-input {
     }
 
     .add, .item .body, .item .remove {
-        &:hover { background: darken($body-bg3, 5%); }
-        &:active { background: darken($body-bg3, 15%); }
+        &:hover { background: darken($body-bg2, 5%); }
+        &:active { background: darken($body-bg2, 15%); }
     }
 }
 
@@ -278,7 +274,7 @@ hotkey-input-modal {
         height: 55px;
 
         .stroke {
-            background: $body-bg3;
+            background: $body-bg2;
             border: 1px solid $blue;
             border-radius: 3px;
             margin-right: 10px;
