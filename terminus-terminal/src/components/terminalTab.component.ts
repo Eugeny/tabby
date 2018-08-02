@@ -1,4 +1,4 @@
-import { Observable, BehaviorSubject, Subject, Subscription } from 'rxjs'
+import { Subject, Subscription } from 'rxjs'
 import { first } from 'rxjs/operators'
 import { ToastrService } from 'ngx-toastr'
 import { Component, NgZone, Inject, Optional, ViewChild, HostBinding, Input } from '@angular/core'
@@ -7,9 +7,11 @@ import { AppService, ConfigService, BaseTabComponent, ElectronService, HostAppSe
 import { IShell } from '../api'
 import { Session, SessionsService } from '../services/sessions.service'
 import { TerminalService } from '../services/terminal.service'
+import { TerminalContainersService } from '../services/terminalContainers.service'
 
 import { TerminalDecorator, ResizeEvent, SessionOptions } from '../api'
-import { hterm, preferenceManager } from '../hterm'
+import { TermContainer } from '../terminalContainers/termContainer'
+import { hterm } from '../hterm'
 
 @Component({
     selector: 'terminalTab',
@@ -28,24 +30,16 @@ export class TerminalTabComponent extends BaseTabComponent {
     @Input() zoom = 0
     @ViewChild('content') content
     @HostBinding('style.background-color') backgroundColor: string
-    hterm: any
+    termContainer: TermContainer
     sessionCloseSubscription: Subscription
     hotkeysSubscription: Subscription
-    bell$ = new Subject()
     size: ResizeEvent
-    resize$: Observable<ResizeEvent>
-    input$ = new Subject<string>()
     output$ = new Subject<string>()
-    contentUpdated$: Observable<void>
-    alternateScreenActive$ = new BehaviorSubject(false)
-    mouseEvent$ = new Subject<Event>()
     htermVisible = false
     shell: IShell
-    private resize_ = new Subject<ResizeEvent>()
-    private contentUpdated_ = new Subject<void>()
     private bellPlayer: HTMLAudioElement
-    private io: any
     private contextMenu: any
+    private termContainerSubscriptions: Subscription[] = []
 
     constructor (
         private zone: NgZone,
@@ -55,60 +49,40 @@ export class TerminalTabComponent extends BaseTabComponent {
         private sessions: SessionsService,
         private electron: ElectronService,
         private terminalService: TerminalService,
+        private terminalContainersService: TerminalContainersService,
         public config: ConfigService,
         private toastr: ToastrService,
         @Optional() @Inject(TerminalDecorator) private decorators: TerminalDecorator[],
     ) {
         super()
-        this.resize$ = this.resize_.asObservable()
         this.decorators = this.decorators || []
         this.setTitle('Terminal')
-        this.resize$.pipe(first()).subscribe(async resizeEvent => {
-            if (!this.session) {
-                this.session = this.sessions.addSession(
-                    Object.assign({}, this.sessionOptions, resizeEvent)
-                )
-            }
 
-            setTimeout(() => {
-                this.session.resize(resizeEvent.width, resizeEvent.height)
-            }, 1000)
+        this.session = new Session()
 
-            // this.session.output$.bufferTime(10).subscribe((datas) => {
-            this.session.output$.subscribe(data => {
-                this.zone.run(() => {
-                    this.output$.next(data)
-                    this.write(data)
-                })
-            })
-
-            this.sessionCloseSubscription = this.session.closed$.subscribe(() => {
-                this.app.closeTab(this)
-            })
-
-            this.session.releaseInitialDataBuffer()
-        })
         this.hotkeysSubscription = this.hotkeys.matchedHotkey.subscribe(hotkey => {
             if (!this.hasFocus) {
                 return
             }
             switch (hotkey) {
             case 'ctrl-c':
-                if (this.hterm.getSelectionText()) {
-                    this.hterm.copySelectionToClipboard()
-                    this.hterm.getDocument().getSelection().removeAllRanges()
+                if (this.termContainer.getSelection()) {
+                    this.termContainer.copySelection()
+                    this.termContainer.clearSelection()
+                    this.toastr.info('Copied')
                 } else {
                     this.sendInput('\x03')
                 }
                 break
             case 'copy':
-                this.hterm.copySelectionToClipboard()
+                this.termContainer.copySelection()
+                this.toastr.info('Copied')
                 break
             case 'paste':
                 this.paste()
                 break
             case 'clear':
-                this.clear()
+                this.termContainer.clear()
                 break
             case 'zoom-in':
                 this.zoomIn()
@@ -143,6 +117,29 @@ export class TerminalTabComponent extends BaseTabComponent {
         this.bellPlayer.src = require<string>('../bell.ogg')
     }
 
+    initializeSession (columns: number, rows: number) {
+        this.sessions.addSession(
+            this.session,
+            Object.assign({}, this.sessionOptions, {
+                width: columns,
+                height: rows,
+            })
+        )
+
+        // this.session.output$.bufferTime(10).subscribe((datas) => {
+        this.session.output$.subscribe(data => {
+            this.zone.run(() => {
+                this.output$.next(data)
+                this.write(data)
+            })
+        })
+
+        this.sessionCloseSubscription = this.session.closed$.subscribe(() => {
+            this.termContainer.destroy()
+            this.app.closeTab(this)
+        })
+    }
+
     getRecoveryToken (): any {
         return {
             type: 'app:terminal',
@@ -153,28 +150,35 @@ export class TerminalTabComponent extends BaseTabComponent {
     ngOnInit () {
         this.focused$.subscribe(() => {
             this.configure()
-            setTimeout(() => {
-                this.hterm.scrollPort_.resize()
-                this.hterm.scrollPort_.focus()
-            }, 100)
+            this.termContainer.focus()
         })
 
-        this.hterm = new hterm.hterm.Terminal()
+        this.termContainer = this.terminalContainersService.getContainer(this.session)
+
+        this.termContainer.ready$.subscribe(() => {
+            this.htermVisible = true
+        })
+
+        this.termContainer.resize$.pipe(first()).subscribe(async ({columns, rows}) => {
+            if (!this.session.open) {
+                this.initializeSession(columns, rows)
+            }
+
+            setTimeout(() => {
+                this.session.resize(columns, rows)
+            }, 1000)
+
+            this.session.releaseInitialDataBuffer()
+        })
+
+        this.termContainer.attach(this.content.nativeElement)
+        this.attachTermContainerHandlers()
+
+        this.configure()
+
         this.config.enabledServices(this.decorators).forEach((decorator) => {
             decorator.attach(this)
         })
-
-        this.attachHTermHandlers(this.hterm)
-
-        this.hterm.onTerminalReady = () => {
-            this.htermVisible = true
-            this.hterm.installKeyboard()
-            this.hterm.scrollPort_.setCtrlVPaste(true)
-            this.io = this.hterm.io.push()
-            this.attachIOHandlers(this.io)
-        }
-        this.hterm.decorate(this.content.nativeElement)
-        this.configure()
 
         setTimeout(() => {
             this.output$.subscribe(() => {
@@ -182,17 +186,13 @@ export class TerminalTabComponent extends BaseTabComponent {
             })
         }, 1000)
 
-        this.bell$.subscribe(() => {
+        this.termContainer.bell$.subscribe(() => {
             if (this.config.store.terminal.bell === 'visual') {
-                preferenceManager.set('background-color', 'rgba(128,128,128,.25)')
-                setTimeout(() => {
-                    this.configure()
-                }, 125)
+                this.termContainer.visualBell()
             }
             if (this.config.store.terminal.bell === 'audible') {
                 this.bellPlayer.play()
             }
-            // TODO audible
         })
 
         this.contextMenu = this.electron.remote.Menu.buildFromTemplate([
@@ -209,7 +209,8 @@ export class TerminalTabComponent extends BaseTabComponent {
                 click: () => {
                     this.zone.run(() => {
                         setTimeout(() => {
-                            this.hterm.copySelectionToClipboard()
+                            this.termContainer.copySelection()
+                            this.toastr.info('Copied')
                         })
                     })
                 }
@@ -225,117 +226,65 @@ export class TerminalTabComponent extends BaseTabComponent {
         ])
     }
 
-    attachHTermHandlers (hterm: any) {
-        hterm.setWindowTitle = title => this.zone.run(() => this.setTitle(title))
-
-        const _setAlternateMode = hterm.setAlternateMode.bind(hterm)
-        hterm.setAlternateMode = (state) => {
-            _setAlternateMode(state)
-            this.alternateScreenActive$.next(state)
+    detachTermContainerHandlers () {
+        for (let subscription of this.termContainerSubscriptions) {
+            subscription.unsubscribe()
         }
-
-        const _copySelectionToClipboard = hterm.copySelectionToClipboard.bind(hterm)
-        hterm.copySelectionToClipboard = () => {
-            _copySelectionToClipboard()
-            this.toastr.info('Copied')
-        }
-
-        hterm.primaryScreen_.syncSelectionCaret = () => null
-        hterm.alternateScreen_.syncSelectionCaret = () => null
-        hterm.primaryScreen_.terminal = hterm
-        hterm.alternateScreen_.terminal = hterm
-
-        hterm.scrollPort_.onPaste_ = (event) => {
-            event.preventDefault()
-        }
-
-        const _resize = hterm.scrollPort_.resize.bind(hterm.scrollPort_)
-        hterm.scrollPort_.resize = () => {
-            if (!this.hasFocus) {
-                return
-            }
-            _resize()
-        }
-
-        const _onMouse = hterm.onMouse_.bind(hterm)
-        hterm.onMouse_ = (event) => {
-            this.mouseEvent$.next(event)
-            if (event.type === 'mousedown') {
-                if (event.which === 3) {
-                    if (this.config.store.terminal.rightClick === 'menu') {
-                        this.contextMenu.popup({
-                            x: event.pageX + this.content.nativeElement.getBoundingClientRect().left,
-                            y: event.pageY + this.content.nativeElement.getBoundingClientRect().top,
-                            async: true,
-                        })
-                    } else if (this.config.store.terminal.rightClick === 'paste') {
-                        this.paste()
-                    }
-                    event.preventDefault()
-                    event.stopPropagation()
-                    return
-                }
-            }
-            if (event.type === 'mousewheel') {
-                if (event.ctrlKey || event.metaKey) {
-                    if (event.wheelDeltaY > 0) {
-                        this.zoomIn()
-                    } else {
-                        this.zoomOut()
-                    }
-                } else if (event.altKey) {
-                    event.preventDefault()
-                    let delta = Math.round(event.wheelDeltaY / 50)
-                    this.sendInput(((delta > 0) ? '\u001bOA' : '\u001bOB').repeat(Math.abs(delta)))
-                }
-            }
-            _onMouse(event)
-        }
-
-        hterm.ringBell = () => {
-            this.bell$.next()
-        }
-
-        for (let screen of [hterm.primaryScreen_, hterm.alternateScreen_]) {
-            const _insertString = screen.insertString.bind(screen)
-            screen.insertString = (data) => {
-                _insertString(data)
-                this.contentUpdated_.next()
-            }
-
-            const _deleteChars = screen.deleteChars.bind(screen)
-            screen.deleteChars = (count) => {
-                let ret = _deleteChars(count)
-                this.contentUpdated_.next()
-                return ret
-            }
-        }
-
-        const _measureCharacterSize = hterm.scrollPort_.measureCharacterSize.bind(hterm.scrollPort_)
-        hterm.scrollPort_.measureCharacterSize = () => {
-            let size = _measureCharacterSize()
-            size.height += this.config.store.terminal.linePadding
-            return size
-        }
+        this.termContainerSubscriptions = []
     }
 
-    attachIOHandlers (io: any) {
-        io.onVTKeystroke = io.sendString = (data) => {
-            this.sendInput(data)
-            this.zone.run(() => {
-                this.input$.next(data)
-            })
-        }
-        io.onTerminalResize = (columns, rows) => {
-            // console.log(`Resizing to ${columns}x${rows}`)
-            this.zone.run(() => {
-                this.size = { width: columns, height: rows }
-                if (this.session) {
-                    this.session.resize(columns, rows)
+    attachTermContainerHandlers () {
+        this.detachTermContainerHandlers()
+        this.termContainerSubscriptions = [
+            this.termContainer.title$.subscribe(title => this.zone.run(() => this.setTitle(title))),
+
+            this.focused$.subscribe(() => this.termContainer.enableResizing = true),
+            this.blurred$.subscribe(() => this.termContainer.enableResizing = false),
+
+            this.termContainer.mouseEvent$.subscribe(event => {
+                if (event.type === 'mousedown') {
+                    if (event.which === 3) {
+                        if (this.config.store.terminal.rightClick === 'menu') {
+                            this.contextMenu.popup({
+                                async: true,
+                            })
+                        } else if (this.config.store.terminal.rightClick === 'paste') {
+                            this.paste()
+                        }
+                        event.preventDefault()
+                        event.stopPropagation()
+                        return
+                    }
                 }
-                this.resize_.next(this.size)
+                if (event.type === 'mousewheel') {
+                    if (event.ctrlKey || event.metaKey) {
+                        if ((event as MouseWheelEvent).wheelDeltaY > 0) {
+                            this.zoomIn()
+                        } else {
+                            this.zoomOut()
+                        }
+                    } else if (event.altKey) {
+                        event.preventDefault()
+                        let delta = Math.round((event as MouseWheelEvent).wheelDeltaY / 50)
+                        this.sendInput(((delta > 0) ? '\u001bOA' : '\u001bOB').repeat(Math.abs(delta)))
+                    }
+                }
+            }),
+
+            this.termContainer.input$.subscribe(data => {
+                this.sendInput(data)
+            }),
+
+            this.termContainer.resize$.subscribe(({columns, rows}) => {
+                console.log(`Resizing to ${columns}x${rows}`)
+                this.zone.run(() => {
+                    this.size = { width: columns, height: rows }
+                    if (this.session.open) {
+                        this.session.resize(columns, rows)
+                    }
+                })
             })
-        }
+        ]
     }
 
     sendInput (data: string) {
@@ -343,111 +292,48 @@ export class TerminalTabComponent extends BaseTabComponent {
     }
 
     write (data: string) {
-        this.io.writeUTF8(data)
+        this.termContainer.write(data)
     }
 
     paste () {
         let data = this.electron.clipboard.readText()
-        data = this.hterm.keyboard.encode(data)
-        if (this.hterm.options_.bracketedPaste) {
+        data = hterm.lib.encodeUTF8(data)
+        if (this.config.store.terminal.bracketedPaste) {
             data = '\x1b[200~' + data + '\x1b[201~'
         }
-        data = data.replace(/\r\n/g, '\n')
+        data = data.replace(/\n/g, '\r')
         this.sendInput(data)
     }
 
-    clear () {
-        this.hterm.wipeContents()
-        this.hterm.onVTKeystroke('\f')
-    }
-
     configure (): void {
-        let config = this.config.store
-        preferenceManager.set('font-family', `"${config.terminal.font}", "monospace-fallback", monospace`)
-        this.setFontSize()
-        preferenceManager.set('enable-bold', true)
-        // preferenceManager.set('audible-bell-sound', '')
-        preferenceManager.set('desktop-notification-bell', config.terminal.bell === 'notification')
-        preferenceManager.set('enable-clipboard-notice', false)
-        preferenceManager.set('receive-encoding', 'raw')
-        preferenceManager.set('send-encoding', 'raw')
-        preferenceManager.set('ctrl-plus-minus-zero-zoom', false)
-        preferenceManager.set('scrollbar-visible', this.hostApp.platform === Platform.macOS)
-        preferenceManager.set('copy-on-select', config.terminal.copyOnSelect)
-        preferenceManager.set('alt-is-meta', config.terminal.altIsMeta)
-        preferenceManager.set('alt-sends-what', 'browser-key')
-        preferenceManager.set('alt-gr-mode', 'ctrl-alt')
-        preferenceManager.set('pass-alt-number', true)
-        preferenceManager.set('cursor-blink', config.terminal.cursorBlink)
-        preferenceManager.set('clear-selection-after-copy', true)
+        this.termContainer.configure(this.config.store)
 
-        if (config.terminal.colorScheme.foreground) {
-            preferenceManager.set('foreground-color', config.terminal.colorScheme.foreground)
-        }
-        if (config.terminal.background === 'colorScheme') {
-            if (config.terminal.colorScheme.background) {
-                this.backgroundColor = config.terminal.colorScheme.background
-                preferenceManager.set('background-color', config.terminal.colorScheme.background)
+        if (this.config.store.terminal.background === 'colorScheme') {
+            if (this.config.store.terminal.colorScheme.background) {
+                this.backgroundColor = this.config.store.terminal.colorScheme.background
             }
         } else {
             this.backgroundColor = null
-            // hterm can't parse "transparent"
-            preferenceManager.set('background-color', 'transparent')
-        }
-        if (config.terminal.colorScheme.colors) {
-            preferenceManager.set('color-palette-overrides', config.terminal.colorScheme.colors)
-        }
-        if (config.terminal.colorScheme.cursor) {
-            preferenceManager.set('cursor-color', config.terminal.colorScheme.cursor)
-        }
-
-        let css = require('../hterm.userCSS.scss')
-        if (!config.terminal.ligatures) {
-            css += `
-                * {
-                    font-feature-settings: "liga" 0;
-                    font-variant-ligatures: none;
-                }
-            `
-        } else {
-            css += `
-                * {
-                    font-feature-settings: "liga" 1;
-                    font-variant-ligatures: initial;
-                }
-            `
-        }
-        css += config.appearance.css
-        this.hterm.setCSS(css)
-        this.hterm.setBracketedPaste(config.terminal.bracketedPaste)
-        this.hterm.defaultCursorShape = {
-            block: hterm.hterm.Terminal.cursorShape.BLOCK,
-            underline: hterm.hterm.Terminal.cursorShape.UNDERLINE,
-            beam: hterm.hterm.Terminal.cursorShape.BEAM,
-        }[config.terminal.cursor]
-        this.hterm.applyCursorShape()
-        this.hterm.setCursorBlink(config.terminal.cursorBlink)
-        if (config.terminal.cursorBlink) {
-            this.hterm.onCursorBlink_()
         }
     }
 
     zoomIn () {
         this.zoom++
-        this.setFontSize()
+        this.termContainer.setZoom(this.zoom)
     }
 
     zoomOut () {
         this.zoom--
-        this.setFontSize()
+        this.termContainer.setZoom(this.zoom)
     }
 
     resetZoom () {
         this.zoom = 0
-        this.setFontSize()
+        this.termContainer.setZoom(this.zoom)
     }
 
     ngOnDestroy () {
+        this.detachTermContainerHandlers()
         this.config.enabledServices(this.decorators).forEach(decorator => {
             decorator.detach(this)
         })
@@ -455,13 +341,7 @@ export class TerminalTabComponent extends BaseTabComponent {
         if (this.sessionCloseSubscription) {
             this.sessionCloseSubscription.unsubscribe()
         }
-        this.resize_.complete()
-        this.input$.complete()
         this.output$.complete()
-        this.contentUpdated_.complete()
-        this.alternateScreenActive$.complete()
-        this.mouseEvent$.complete()
-        this.bell$.complete()
     }
 
     async destroy () {
@@ -480,9 +360,5 @@ export class TerminalTabComponent extends BaseTabComponent {
             return true
         }
         return confirm(`"${children[0].command}" is still running. Close?`)
-    }
-
-    private setFontSize () {
-        preferenceManager.set('font-size', this.config.store.terminal.fontSize * Math.pow(1.1, this.zoom))
     }
 }

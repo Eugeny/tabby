@@ -14,6 +14,7 @@ import { ColorPickerComponent } from './components/colorPicker.component'
 
 import { SessionsService, BaseSession } from './services/sessions.service'
 import { TerminalService } from './services/terminal.service'
+import { TerminalContainersService } from './services/terminalContainers.service'
 
 import { ScreenPersistenceProvider } from './persistence/screen'
 import { TMuxPersistenceProvider } from './persistence/tmux'
@@ -50,6 +51,7 @@ import { hterm } from './hterm'
     providers: [
         SessionsService,
         TerminalService,
+        TerminalContainersService,
 
         { provide: ToolbarButtonProvider, useClass: ButtonProvider, multi: true },
         { provide: TabRecoveryProvider, useClass: RecoveryProvider, multi: true },
@@ -123,4 +125,4 @@ export default class TerminalModule {
 }
 
 export * from './api'
-export { TerminalService, BaseSession, TerminalTabComponent }
+export { TerminalService, BaseSession, TerminalTabComponent, TerminalContainersService }

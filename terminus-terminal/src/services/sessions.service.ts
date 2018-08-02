@@ -49,6 +49,7 @@ export abstract class BaseSession {
         this.initialDataBuffer = null
     }
 
+    abstract start (options: SessionOptions)
     abstract resize (columns, rows)
     abstract write (data)
     abstract kill (signal?: string)
@@ -70,8 +71,7 @@ export abstract class BaseSession {
 export class Session extends BaseSession {
     private pty: any
 
-    constructor (options: SessionOptions) {
-        super()
+    start (options: SessionOptions) {
         this.name = options.name
         this.recoveryId = options.recoveryId
 
@@ -200,7 +200,7 @@ export class Session extends BaseSession {
 
 @Injectable()
 export class SessionsService {
-    sessions: {[id: string]: Session} = {}
+    sessions: {[id: string]: BaseSession} = {}
     logger: Logger
     private lastID = 0
 
@@ -225,10 +225,10 @@ export class SessionsService {
         return options
     }
 
-    addSession (options: SessionOptions): Session {
+    addSession (session: BaseSession, options: SessionOptions) {
         this.lastID++
         options.name = `session-${this.lastID}`
-        let session = new Session(options)
+        session.start(options)
         let persistence = this.getPersistence()
         session.destroyed$.pipe(first()).subscribe(() => {
             delete this.sessions[session.name]

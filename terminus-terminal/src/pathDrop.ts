@@ -1,20 +1,25 @@
+import { Subscription } from 'rxjs'
 import { Injectable } from '@angular/core'
 import { TerminalDecorator } from './api'
 import { TerminalTabComponent } from './components/terminalTab.component'
 
 @Injectable()
 export class PathDropDecorator extends TerminalDecorator {
+    private subscriptions: Subscription[] = []
+
     attach (terminal: TerminalTabComponent): void {
         setTimeout(() => {
-            terminal.hterm.scrollPort_.document_.addEventListener('dragover', (event) => {
-                event.preventDefault()
-            })
-            terminal.hterm.scrollPort_.document_.addEventListener('drop', (event) => {
-                for (let file of event.dataTransfer.files) {
-                    this.injectPath(terminal, file.path)
-                }
-                event.preventDefault()
-            })
+            this.subscriptions = [
+                terminal.termContainer.dragOver$.subscribe(event => {
+                    event.preventDefault()
+                }),
+                terminal.termContainer.drop$.subscribe(event => {
+                    for (let file of event.dataTransfer.files as any) {
+                        this.injectPath(terminal, file.path)
+                    }
+                    event.preventDefault()
+                }),
+            ]
         })
     }
 
@@ -25,6 +30,9 @@ export class PathDropDecorator extends TerminalDecorator {
         terminal.sendInput(path + ' ')
     }
 
-    // tslint:disable-next-line no-empty
-    detach (terminal: TerminalTabComponent): void { }
+    detach (terminal: TerminalTabComponent): void {
+        for (let s of this.subscriptions) {
+            s.unsubscribe()
+        }
+    }
 }

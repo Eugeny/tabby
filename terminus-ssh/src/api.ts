@@ -12,7 +12,9 @@ export interface SSHConnection {
 export class SSHSession extends BaseSession {
     constructor (private shell: any) {
         super()
+    }
 
+    start () {
         this.open = true
 
         this.shell.on('data', data => {
