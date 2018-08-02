@@ -1,7 +1,6 @@
 if (process.platform == 'win32' && require('electron-squirrel-startup')) process.exit(0)
 
 const electron = require('electron')
-const electronVibrancy = require('electron-vibrancy')
 
 if (process.argv.indexOf('--debug') !== -1) {
     require('electron-debug')({enabled: true, showDevTools: 'undocked'})
@@ -241,9 +240,6 @@ start = () => {
 
     app.window = new electron.BrowserWindow(options)
     app.window.once('ready-to-show', () => {
-      if (process.platform == 'win32') {
-        electronVibrancy.SetVibrancy(app.window, 2)
-      }
       app.window.show()
       app.window.focus()
     })

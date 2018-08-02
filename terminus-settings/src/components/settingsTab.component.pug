@@ -39,7 +39,7 @@ ngb-tabset.vertical(type='tabs', [activeId]='activeTab')
                                 )
                                 | At the bottom
 
-                    .form-group(*ngIf='hostApp.platform !== Platform.Linux')
+                    .form-group(*ngIf='hostApp.platform === Platform.macOS')
                         label Vibrancy
                         br
                         .btn-group(
