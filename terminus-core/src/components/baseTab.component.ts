@@ -7,7 +7,6 @@ export abstract class BaseTabComponent {
     title: string
     titleChange$ = new Subject<string>()
     customTitle: string
-    scrollable: boolean
     hasActivity = false
     focused$ = new Subject<void>()
     blurred$ = new Subject<void>()

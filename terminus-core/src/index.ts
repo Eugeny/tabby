@@ -4,6 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { FormsModule } from '@angular/forms'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { PerfectScrollbarModule, PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar'
+import { DndModule } from 'ng2-dnd'
 
 import { AppService } from './services/app.service'
 import { ConfigService } from './services/config.service'
@@ -35,6 +36,7 @@ import { StandardTheme, StandardCompactTheme } from './theme'
 import { CoreConfigProvider } from './config'
 
 import 'perfect-scrollbar/css/perfect-scrollbar.css'
+import 'ng2-dnd/bundles/style.css'
 
 const PROVIDERS = [
     AppService,
@@ -62,6 +64,7 @@ const PROVIDERS = [
         FormsModule,
         NgbModule.forRoot(),
         PerfectScrollbarModule,
+        DndModule.forRoot(),
     ],
     declarations: [
         AppRootComponent,

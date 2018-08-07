@@ -13,6 +13,7 @@ import { ThemesService } from '../services/themes.service'
 import { UpdaterService, Update } from '../services/updater.service'
 import { TouchbarService } from '../services/touchbar.service'
 
+import { BaseTabComponent } from './baseTab.component'
 import { SafeModeModalComponent } from './safeModeModal.component'
 import { AppService, IToolbarButton, ToolbarButtonProvider } from '../api'
 
@@ -55,6 +56,8 @@ export class AppRootComponent {
     @Input() leftToolbarButtons: IToolbarButton[]
     @Input() rightToolbarButtons: IToolbarButton[]
     @HostBinding('class') hostClass = `platform-${process.platform}`
+    tabsDragging = false
+    unsortedTabs: BaseTabComponent[] = []
     private logger: Logger
     private appUpdate: Update
 
@@ -129,6 +132,11 @@ export class AppRootComponent {
 
         config.changed$.subscribe(() => this.updateVibrancy())
         this.updateVibrancy()
+
+        this.app.tabOpened$.subscribe(tab => this.unsortedTabs.push(tab))
+        this.app.tabClosed$.subscribe(tab => {
+            this.unsortedTabs = this.unsortedTabs.filter(x => x !== tab)
+        })
     }
 
     onGlobalHotkey () {
@@ -181,6 +189,17 @@ export class AppRootComponent {
 
     updateApp () {
         this.electron.shell.openExternal(this.appUpdate.url)
+    }
+
+    onTabDragStart () {
+        this.tabsDragging = true
+    }
+
+    onTabDragEnd () {
+        setTimeout(() => {
+            this.tabsDragging = false
+            this.app.emitTabsChanged()
+        })
     }
 
     private getToolbarButtons (aboveZero: boolean): IToolbarButton[] {

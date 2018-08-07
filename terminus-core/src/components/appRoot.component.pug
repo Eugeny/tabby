@@ -10,16 +10,25 @@ title-bar(
         *ngIf='!hostApp.isFullScreen',
     )
         .inset.background(*ngIf='hostApp.platform == Platform.macOS && config.store.appearance.frame == "thin" && config.store.appearance.tabsLocation == "top"')
-        .tabs
+        .tabs(
+            dnd-sortable-container,
+            [sortableData]='app.tabs',
+        )
             tab-header(
                 *ngFor='let tab of app.tabs; let idx = index',
+                dnd-sortable,
+                [sortableIndex]='idx',
+                (onDragStart)='onTabDragStart()',
+                (onDragEnd)='onTabDragEnd()',
+
                 [index]='idx',
                 [tab]='tab',
                 [active]='tab == app.activeTab',
                 [hasActivity]='tab.hasActivity',
-                [class.drag-region]='hostApp.platform == Platform.macOS',
                 @animateTab,
                 (click)='app.selectTab(tab)',
+                [class.fully-draggable]='hostApp.platform != Platform.macOS',
+                [class.drag-region]='hostApp.platform == Platform.macOS && !tabsDragging',
             )
 
         .btn-group.background
@@ -54,10 +63,9 @@ title-bar(
     start-page(*ngIf='ready && app.tabs.length == 0')
 
     tab-body(
-        *ngFor='let tab of app.tabs; trackBy: tab?.id',
+        *ngFor='let tab of unsortedTabs',
         [active]='tab == app.activeTab',
         [tab]='tab',
-        [scrollable]='tab.scrollable',
     )
 
 ng-template(ngbModalContainer)

@@ -17,6 +17,8 @@ $tabs-height: 36px;
     .index {
         flex: none;
         font-weight: bold;
+        -webkit-app-region: no-drag;
+        cursor: grab;
 
         margin-left: 10px;
         width: 20px;
@@ -66,5 +68,9 @@ $tabs-height: 36px;
 
     &.drag-region {
         -webkit-app-region: drag;
+    }
+
+    &.fully-draggable {
+        cursor: grab;
     }
 }

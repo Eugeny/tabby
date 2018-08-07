@@ -9,6 +9,8 @@ html
         script(src='./preload.js')
         script(src='./bundle.js', defer)
         style#custom-css
+        style.
+            body { transition: 0.5s background; }
     body(style='min-height: 100vh; overflow: hidden')
         app-root
             .preload-logo

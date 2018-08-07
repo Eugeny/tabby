@@ -1,29 +1,36 @@
-import { Component, Input, ViewChild, HostBinding, ViewContainerRef } from '@angular/core'
+import { Component, Input, ViewChild, HostBinding, ViewContainerRef, OnChanges } from '@angular/core'
 import { BaseTabComponent } from '../components/baseTab.component'
 
 @Component({
     selector: 'tab-body',
     template: `
-        <perfect-scrollbar [config]="{ suppressScrollX: true }" *ngIf="scrollable">
+        <!--perfect-scrollbar [config]="{ suppressScrollX: true }" *ngIf="scrollable">
             <ng-template #scrollablePlaceholder></ng-template>
-        </perfect-scrollbar>
-        <ng-template #nonScrollablePlaceholder *ngIf="!scrollable"></ng-template>
+        </perfect-scrollbar-->
+        <ng-template #placeholder></ng-template>
     `,
     styles: [
         require('./tabBody.component.scss'),
         require('./tabBody.deep.component.css'),
     ],
 })
-export class TabBodyComponent {
+export class TabBodyComponent implements OnChanges {
     @Input() @HostBinding('class.active') active: boolean
     @Input() tab: BaseTabComponent
-    @Input() scrollable: boolean
-    @ViewChild('scrollablePlaceholder', {read: ViewContainerRef}) scrollablePlaceholder: ViewContainerRef
-    @ViewChild('nonScrollablePlaceholder', {read: ViewContainerRef}) nonScrollablePlaceholder: ViewContainerRef
+    @ViewChild('placeholder', {read: ViewContainerRef}) placeholder: ViewContainerRef
 
-    ngAfterViewInit () {
-        setImmediate(() => {
-            (this.scrollable ? this.scrollablePlaceholder : this.nonScrollablePlaceholder).insert(this.tab.hostView)
-        })
+    ngOnChanges (changes) {
+        if (changes.tab) {
+            if (this.placeholder) {
+                this.placeholder.detach()
+            }
+            setImmediate(() => {
+                this.placeholder.insert(this.tab.hostView)
+            })
+        }
+    }
+
+    ngOnDestroy () {
+        this.placeholder.detach()
     }
 }

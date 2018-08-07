@@ -4,10 +4,6 @@
     position: relative;
     overflow: hidden;
 
-    &.scrollable {
-        overflow-y: auto;
-    }
-
     &.active {
         display: flex;
 

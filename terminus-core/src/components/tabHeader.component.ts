@@ -1,9 +1,11 @@
-import { Component, Input, HostBinding, HostListener, NgZone } from '@angular/core'
+import { Component, Input, HostBinding, HostListener, NgZone, ViewChild, ElementRef } from '@angular/core'
+import { SortableComponent } from 'ng2-dnd'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { BaseTabComponent } from './baseTab.component'
 import { RenameTabModalComponent } from './renameTabModal.component'
 import { ElectronService } from '../services/electron.service'
 import { AppService } from '../services/app.service'
+import { HostAppService, Platform } from '../services/hostApp.service'
 
 @Component({
     selector: 'tab-header',
@@ -15,13 +17,16 @@ export class TabHeaderComponent {
     @Input() @HostBinding('class.active') active: boolean
     @Input() @HostBinding('class.has-activity') hasActivity: boolean
     @Input() tab: BaseTabComponent
+    @ViewChild('handle') handle: ElementRef
     private contextMenu: any
 
     constructor (
         zone: NgZone,
         electron: ElectronService,
         public app: AppService,
+        private hostApp: HostAppService,
         private ngbModal: NgbModal,
+        private parentDraggable: SortableComponent,
     ) {
         this.contextMenu = electron.remote.Menu.buildFromTemplate([
             {
@@ -63,6 +68,12 @@ export class TabHeaderComponent {
                 }
             },
         ])
+    }
+
+    ngOnInit () {
+        if (this.hostApp.platform !== Platform.macOS) {
+            this.parentDraggable.setDragHandle(this.handle.nativeElement)
+        }
     }
 
     @HostListener('dblclick') onDoubleClick (): void {
