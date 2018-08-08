@@ -207,7 +207,7 @@ settings-tab > ngb-tabset {
     border-right: 1px solid $body-bg;
 
     & > .nav {
-        background: $body-bg2;
+        background: rgba(0, 0, 0, 0.25);
 
         & > .nav-item > .nav-link {
             border-left: none;
