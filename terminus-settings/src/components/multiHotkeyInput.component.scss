@@ -28,4 +28,8 @@
 .add {
     flex: auto;
     display: none;
+
+    &:first-child {
+        display: block;
+    }
 }
