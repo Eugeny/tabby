@@ -71,7 +71,10 @@
       "identity": null,
       "publish": [
         "github"
-      ]
+      ],
+      "extendInfo": {
+        "NSRequiresAquaSystemAppearance": false
+      }
     },
     "dmg": {
       "artifactName": "terminus-${version}-${os}-${arch}.dmg"
