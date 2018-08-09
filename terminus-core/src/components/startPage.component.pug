@@ -8,7 +8,7 @@ div
             *ngFor='let button of getButtons()',
             (click)='button.click()',
         )
-            i([class]='"fa fa-fw fa-" + button.icon')
+            .d-flex.align-self-center([innerHTML]='button.icon')
             span {{button.title}}
 
 footer

@@ -27,3 +27,11 @@ footer {
 a, button {
     -webkit-app-region: no-drag;
 }
+
+.list-group-item ::ng-deep svg {
+    width: 16px;
+    height: 16px;
+    margin-right: 10px;
+    fill: white;
+    fill-opacity: 0.75;
+}
