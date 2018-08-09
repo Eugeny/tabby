@@ -35,6 +35,7 @@ $tab-border-radius: 4px;
         line-height: $tabs-height + 2px;
         cursor: pointer;
 
+        display: flex;
         padding: 0 15px;
         flex: 0 0 auto;
         border-bottom: 2px solid transparent;
@@ -46,7 +47,6 @@ $tab-border-radius: 4px;
         color: #aaa;
         border: none;
         border-radius: 0;
-
     }
 
     &>.tabs {
@@ -86,4 +86,14 @@ hotkey-hint {
     bottom: 0;
     right: 0;
     max-width: 300px;
+}
+
+::ng-deep .btn-tab-bar svg {
+    height: 16px;
+    fill: white;
+    fill-opacity: 0.75;
+}
+
+::ng-deep .btn-update svg {
+    fill: cyan;
 }

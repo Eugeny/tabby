@@ -36,8 +36,8 @@ title-bar(
                 *ngFor='let button of leftToolbarButtons',
                 [title]='button.title',
                 (click)='button.click()',
+                [innerHTML]='button.icon',
             )
-                i.fa([class]='"fa fa-" + button.icon')
 
         .drag-space.background([class.persistent]='config.store.appearance.frame == "thin" && hostApp.platform != Platform.macOS')
 
@@ -46,15 +46,15 @@ title-bar(
                 *ngFor='let button of rightToolbarButtons',
                 [title]='button.title',
                 (click)='button.click()',
+                [innerHTML]='button.icon',
             )
-                i.fa([class]='"fa fa-" + button.icon')
-            button.btn.btn-secondary.btn-tab-bar(
+
+            button.btn.btn-secondary.btn-tab-bar.btn-update(
                 *ngIf='appUpdate',
                 title='Update available',
                 (click)='updateApp()',
+                [innerHTML]='updateIcon'
             )
-                i.fa.fa-arrow-up.text-info
-                span.text-info Update
 
         window-controls.background(
             *ngIf='config.store.appearance.frame == "thin" && (hostApp.platform == Platform.Windows || hostApp.platform == Platform.Linux)',

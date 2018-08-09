@@ -1,5 +1,6 @@
 import { Component, Inject, Input, HostListener, HostBinding } from '@angular/core'
 import { trigger, style, animate, transition, state } from '@angular/animations'
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 
 import { ElectronService } from '../services/electron.service'
@@ -58,6 +59,7 @@ export class AppRootComponent {
     @HostBinding('class') hostClass = `platform-${process.platform}`
     tabsDragging = false
     unsortedTabs: BaseTabComponent[] = []
+    updateIcon: SafeHtml
     private logger: Logger
     private appUpdate: Update
 
@@ -74,6 +76,7 @@ export class AppRootComponent {
         @Inject(ToolbarButtonProvider) private toolbarButtonProviders: ToolbarButtonProvider[],
         log: LogService,
         ngbModal: NgbModal,
+        domSanitizer: DomSanitizer,
         _themes: ThemesService,
     ) {
         this.logger = log.create('main')
@@ -81,6 +84,8 @@ export class AppRootComponent {
 
         this.leftToolbarButtons = this.getToolbarButtons(false)
         this.rightToolbarButtons = this.getToolbarButtons(true)
+
+        this.updateIcon = domSanitizer.bypassSecurityTrustHtml(require('../icons/gift.svg')),
 
         this.hotkeys.matchedHotkey.subscribe((hotkey) => {
             if (hotkey.startsWith('tab-')) {

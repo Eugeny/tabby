@@ -2,6 +2,7 @@ import * as fs from 'mz/fs'
 import * as path from 'path'
 import { first } from 'rxjs/operators'
 import { Injectable } from '@angular/core'
+import { DomSanitizer } from '@angular/platform-browser'
 import { HotkeysService, ToolbarButtonProvider, IToolbarButton, ConfigService, HostAppService, ElectronService } from 'terminus-core'
 
 import { TerminalService } from './services/terminal.service'
@@ -10,6 +11,7 @@ import { TerminalService } from './services/terminal.service'
 export class ButtonProvider extends ToolbarButtonProvider {
     constructor (
         private terminal: TerminalService,
+        private domSanitizer: DomSanitizer,
         private config: ConfigService,
         hostApp: HostAppService,
         electron: ElectronService,
@@ -51,7 +53,7 @@ export class ButtonProvider extends ToolbarButtonProvider {
 
     provide (): IToolbarButton[] {
         return [{
-            icon: 'plus',
+            icon: this.domSanitizer.bypassSecurityTrustHtml(require('./icons/plus.svg')),
             title: 'New terminal',
             touchBarTitle: 'New',
             click: async () => {

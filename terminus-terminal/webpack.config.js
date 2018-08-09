@@ -36,6 +36,7 @@ module.exports = {
       { test: /\.pug$/, use: ['apply-loader', 'pug-loader'] },
       { test: /\.scss$/, use: ['to-string-loader', 'css-loader', 'sass-loader'] },
       { test: /\.css$/, use: ['to-string-loader', 'css-loader'] },
+      { test: /\.svg/, use: ['svg-inline-loader'] },
       {
         test: /\.(ttf|eot|otf|woff|woff2|ogg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
         use: {

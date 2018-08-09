@@ -185,6 +185,10 @@ ms@2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.0.0.tgz#5608aeadfc00be6c2901df5f9861788de0d597c8"
 
+ng2-dnd@^5.0.2:
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/ng2-dnd/-/ng2-dnd-5.0.2.tgz#862278ac7dedfa14f5783bbf34014d5d73dfefb4"
+
 ngx-perfect-scrollbar@^6.0.0:
   version "6.0.0"
   resolved "https://registry.yarnpkg.com/ngx-perfect-scrollbar/-/ngx-perfect-scrollbar-6.0.0.tgz#92b51957c04ed6a6d416beca2707bab005667b68"

@@ -1,5 +1,7 @@
+import { SafeHtml } from '@angular/platform-browser'
+
 export interface IToolbarButton {
-    icon: string
+    icon: SafeHtml
     title: string
     touchBarTitle?: string
     weight?: number

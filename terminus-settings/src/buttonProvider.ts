@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core'
+import { DomSanitizer } from '@angular/platform-browser'
 import { ToolbarButtonProvider, IToolbarButton, AppService, HostAppService } from 'terminus-core'
 
 import { SettingsTabComponent } from './components/settingsTab.component'
@@ -8,6 +9,7 @@ export class ButtonProvider extends ToolbarButtonProvider {
     constructor (
         hostApp: HostAppService,
         private app: AppService,
+        private domSanitizer: DomSanitizer,
     ) {
         super()
         hostApp.preferencesMenu$.subscribe(() => this.open())
@@ -15,7 +17,7 @@ export class ButtonProvider extends ToolbarButtonProvider {
 
     provide (): IToolbarButton[] {
         return [{
-            icon: 'sliders',
+            icon: this.domSanitizer.bypassSecurityTrustHtml(require('./icons/cog.svg')),
             title: 'Settings',
             touchBarTitle: '⚙️',
             weight: 10,

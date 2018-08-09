@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core'
+import { DomSanitizer } from '@angular/platform-browser'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { HotkeysService, ToolbarButtonProvider, IToolbarButton } from 'terminus-core'
 import { SSHModalComponent } from './components/sshModal.component'
@@ -7,6 +8,7 @@ import { SSHModalComponent } from './components/sshModal.component'
 export class ButtonProvider extends ToolbarButtonProvider {
     constructor (
         private ngbModal: NgbModal,
+        private domSanitizer: DomSanitizer,
         hotkeys: HotkeysService,
     ) {
         super()
@@ -23,7 +25,7 @@ export class ButtonProvider extends ToolbarButtonProvider {
 
     provide (): IToolbarButton[] {
         return [{
-            icon: 'globe',
+            icon: this.domSanitizer.bypassSecurityTrustHtml(require('./icons/globe.svg')),
             weight: 5,
             title: 'SSH connections',
             touchBarTitle: 'SSH',
