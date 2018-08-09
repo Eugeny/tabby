@@ -30,12 +30,6 @@ export abstract class BaseSession {
     get closed$ (): Observable<void> { return this.closed }
     get destroyed$ (): Observable<void> { return this.destroyed }
 
-    constructor () {
-        this.output$ = this.output.asObservable()
-        this.closed$ = this.closed.asObservable()
-        this.destroyed$ = this.destroyed.asObservable()
-    }
-
     emitOutput (data: string) {
         if (!this.initialDataBufferReleased) {
             this.initialDataBuffer += data
