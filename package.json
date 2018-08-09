@@ -74,7 +74,6 @@
       "publish": [
         "github"
       ],
-      "extraMetadata": {},
       "extendInfo": {
         "NSRequiresAquaSystemAppearance": false
       }

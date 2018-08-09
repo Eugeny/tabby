@@ -5,9 +5,10 @@ const vars = require('./vars')
 builder({
   dir: true,
   linux: ['deb', 'rpm', 'tar.gz'],
-  extraMetadata: {
-    version: vars.version,
+  config: {
+    extraMetadata: {
+      version: vars.version,
+    },
   },
   publish: 'onTag',
-  draft: false
 })
