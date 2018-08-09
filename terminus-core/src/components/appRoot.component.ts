@@ -218,8 +218,7 @@ export class AppRootComponent {
     }
 
     private updateVibrancy () {
-        document.body.classList.toggle('vibrant', this.config.store.appearance.vibrancy)
-        this.hostApp.getWindow().setVibrancy(this.config.store.appearance.vibrancy ? 'dark' : null)
-        this.hostApp.getWindow().setOpacity(this.config.store.appearance.opacity)
+      this.hostApp.setVibrancy(this.config.store.appearance.vibrancy)
+      this.hostApp.getWindow().setOpacity(this.config.store.appearance.opacity)
     }
 }

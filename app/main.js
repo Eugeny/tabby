@@ -1,6 +1,7 @@
 if (process.platform == 'win32' && require('electron-squirrel-startup')) process.exit(0)
 
 const electron = require('electron')
+const electronVibrancy = require('electron-vibrancy')
 
 if (process.argv.indexOf('--debug') !== -1) {
     require('electron-debug')({enabled: true, showDevTools: 'undocked'})
@@ -85,6 +86,15 @@ setupWindowManagement = () => {
 
     electron.ipcMain.on('window-set-always-on-top', (event, flag) => {
         app.window.setAlwaysOnTop(flag)
+    })
+
+    electron.ipcMain.on('window-set-vibrancy', (event, enabled) => {
+      if (enabled && !app.window.vibrancyViewID) {
+        app.window.vibrancyViewID = electronVibrancy.SetVibrancy(app.window, 0)
+      } else if (!enabled && app.window.vibrancyViewID) {
+        electronVibrancy.RemoveView(app.window, app.window.vibrancyViewID)
+        app.window.vibrancyViewID = null
+      }
     })
 }
 

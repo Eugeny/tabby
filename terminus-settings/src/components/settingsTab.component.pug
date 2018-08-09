@@ -39,7 +39,7 @@ ngb-tabset.vertical(type='tabs', [activeId]='activeTab')
                                 )
                                 | At the bottom
 
-                    .form-group(*ngIf='hostApp.platform === Platform.macOS')
+                    .form-group(*ngIf='hostApp.platform !== Platform.Linux')
                         label Vibrancy
                         br
                         .btn-group(
@@ -72,7 +72,7 @@ ngb-tabset.vertical(type='tabs', [activeId]='activeTab')
                             min='0.05',
                             max='1',
                             step='0.01'
-                        )                
+                        )
 
                 .col.col-lg-6
                     .form-group
@@ -200,7 +200,7 @@ ngb-tabset.vertical(type='tabs', [activeId]='activeTab')
                     [(ngModel)]='config.store.appearance.css',
                     '(ngModelChange)'='config.save()',
                 )
-                    
+
     ngb-tab(id='hotkeys')
         ng-template(ngbTabTitle)
             | Hotkeys
@@ -212,7 +212,7 @@ ngb-tabset.vertical(type='tabs', [activeId]='activeTab')
                     tr
                         th Name
                         th ID
-                        th Hotkey 
+                        th Hotkey
                     tr(*ngFor='let hotkey of hotkeyDescriptions|filterBy:["name"]:hotkeyFilter')
                         td {{hotkey.name}}
                         td {{hotkey.id}}
@@ -221,7 +221,7 @@ ngb-tabset.vertical(type='tabs', [activeId]='activeTab')
                                 '[(model)]'='config.store.hotkeys[hotkey.id]'
                                 '(modelChange)'='config.save(); docking.dock()'
                             )
-                    
+
     ngb-tab(*ngFor='let provider of settingsProviders', [id]='provider.id')
         ng-template(ngbTabTitle)
             | {{provider.title}}
