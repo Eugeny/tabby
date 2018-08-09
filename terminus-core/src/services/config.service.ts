@@ -1,4 +1,4 @@
-import { Subject } from 'rxjs'
+import { Observable, Subject } from 'rxjs'
 import * as yaml from 'js-yaml'
 import * as path from 'path'
 import * as fs from 'fs'
@@ -52,12 +52,14 @@ export class ConfigProxy {
 @Injectable()
 export class ConfigService {
     store: any
-    changed$ = new Subject<void>()
     restartRequested: boolean
+    private changed = new Subject<void>()
     private _store: any
     private path: string
     private defaults: any
     private servicesCache: { [id: string]: Function[] } = null
+
+    get changed$ (): Observable<void> { return this.changed }
 
     constructor (
         electron: ElectronService,
@@ -93,7 +95,7 @@ export class ConfigService {
     }
 
     emitChange (): void {
-        this.changed$.next()
+        this.changed.next()
     }
 
     requestRestart (): void {

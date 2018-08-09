@@ -11,8 +11,8 @@ export abstract class TerminalDecorator {
 }
 
 export interface ResizeEvent {
-    width: number
-    height: number
+    columns: number
+    rows: number
 }
 
 export interface SessionOptions {

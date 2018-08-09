@@ -7,9 +7,10 @@ import { TerminalTabComponent } from '../components/terminalTab.component'
 
 @Injectable()
 export class TerminalService {
-    shells$: Observable<IShell[]>
-    private shells_ = new AsyncSubject<IShell[]>()
+    private shells = new AsyncSubject<IShell[]>()
     private logger: Logger
+
+    get shells$ (): Observable<IShell[]> { return this.shells }
 
     constructor (
         private app: AppService,
@@ -27,11 +28,11 @@ export class TerminalService {
     }
 
     async reloadShells () {
-        this.shells_ = new AsyncSubject<IShell[]>()
-        this.shells$ = this.shells_.asObservable()
+        this.shells = new AsyncSubject<IShell[]>()
+        this.shells$ = this.shells.asObservable()
         let shellLists = await Promise.all(this.config.enabledServices(this.shellProviders).map(x => x.provide()))
-        this.shells_.next(shellLists.reduce((a, b) => a.concat(b)))
-        this.shells_.complete()
+        this.shells.next(shellLists.reduce((a, b) => a.concat(b)))
+        this.shells.complete()
     }
 
     async openTab (shell?: IShell, cwd?: string): Promise<TerminalTabComponent> {

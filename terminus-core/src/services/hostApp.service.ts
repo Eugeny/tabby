@@ -14,16 +14,24 @@ export interface Bounds {
     height: number
 }
 
+export interface SecondInstanceArgs {
+    argv: string[],
+    cwd: string
+}
+
 @Injectable()
 export class HostAppService {
     platform: Platform
     nodePlatform: string
-    preferencesMenu$ = new Subject<void>()
     ready = new EventEmitter<any>()
     shown = new EventEmitter<any>()
-    secondInstance$ = new Subject<{ argv: string[], cwd: string }>()
     isFullScreen = false
+    private preferencesMenu = new Subject<void>()
+    private secondInstance = new Subject<SecondInstanceArgs>()
     private logger: Logger
+
+    get preferencesMenu$ (): Observable<void> { return this.preferencesMenu }
+    get secondInstance$ (): Observable<SecondInstanceArgs> { return this.secondInstance }
 
     constructor (
         private zone: NgZone,
@@ -38,7 +46,7 @@ export class HostAppService {
             linux: Platform.Linux
         }[this.nodePlatform]
 
-        electron.ipcRenderer.on('host:preferences-menu', () => this.zone.run(() => this.preferencesMenu$.next()))
+        electron.ipcRenderer.on('host:preferences-menu', () => this.zone.run(() => this.preferencesMenu.next()))
 
         electron.ipcRenderer.on('uncaughtException', ($event, err) => {
             this.logger.error('Unhandled exception:', err)
@@ -57,7 +65,7 @@ export class HostAppService {
         })
 
         electron.ipcRenderer.on('host:second-instance', ($event, argv: string[], cwd: string) => {
-            this.zone.run(() => this.secondInstance$.next({ argv, cwd }))
+            this.zone.run(() => this.secondInstance.next({ argv, cwd }))
         })
 
         this.ready.subscribe(() => {
@@ -119,13 +127,13 @@ export class HostAppService {
     }
 
     setVibrancy (enable: boolean) {
-      document.body.classList.toggle('vibrant', enable)
-      if (this.platform === Platform.macOS) {
-        this.hostApp.getWindow().setVibrancy(enable ? 'dark' : null)
-      }
-      if (this.platform === Platform.Windows) {
-        this.electron.ipcRenderer.send('window-set-vibrancy', enable)
-      }
+        document.body.classList.toggle('vibrant', enable)
+        if (this.platform === Platform.macOS) {
+            this.getWindow().setVibrancy(enable ? 'dark' : null)
+        }
+        if (this.platform === Platform.Windows) {
+            this.electron.ipcRenderer.send('window-set-vibrancy', enable)
+        }
     }
 
     quit () {

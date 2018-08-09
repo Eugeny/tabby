@@ -1,4 +1,4 @@
-import { Subject, AsyncSubject } from 'rxjs'
+import { Observable, Subject, AsyncSubject } from 'rxjs'
 import { Injectable, ComponentFactoryResolver, Injector, Optional } from '@angular/core'
 import { DefaultTabProvider } from '../api/defaultTabProvider'
 import { BaseTabComponent } from '../components/baseTab.component'
@@ -11,13 +11,20 @@ export declare type TabComponentType = new (...args: any[]) => BaseTabComponent
 export class AppService {
     tabs: BaseTabComponent[] = []
     activeTab: BaseTabComponent
-    activeTabChange$ = new Subject<BaseTabComponent>()
     lastTabIndex = 0
     logger: Logger
-    tabsChanged$ = new Subject<void>()
-    tabOpened$ = new Subject<BaseTabComponent>()
-    tabClosed$ = new Subject<BaseTabComponent>()
-    ready$ = new AsyncSubject<void>()
+
+    private activeTabChange = new Subject<BaseTabComponent>()
+    private tabsChanged = new Subject<void>()
+    private tabOpened = new Subject<BaseTabComponent>()
+    private tabClosed = new Subject<BaseTabComponent>()
+    private ready = new AsyncSubject<void>()
+
+    get activeTabChange$ (): Observable<BaseTabComponent> { return this.activeTabChange }
+    get tabOpened$ (): Observable<BaseTabComponent> { return this.tabOpened }
+    get tabsChanged$ (): Observable<void> { return this.tabsChanged }
+    get tabClosed$ (): Observable<BaseTabComponent> { return this.tabClosed }
+    get ready$ (): Observable<void> { return this.ready }
 
     constructor (
         private componentFactoryResolver: ComponentFactoryResolver,
@@ -37,8 +44,8 @@ export class AppService {
 
         this.tabs.push(componentRef.instance)
         this.selectTab(componentRef.instance)
-        this.tabsChanged$.next()
-        this.tabOpened$.next(componentRef.instance)
+        this.tabsChanged.next()
+        this.tabOpened.next(componentRef.instance)
 
         return componentRef.instance
     }
@@ -60,12 +67,12 @@ export class AppService {
         }
         if (this.activeTab) {
             this.activeTab.hasActivity = false
-            this.activeTab.blurred$.next()
+            this.activeTab.emitBlurred()
         }
         this.activeTab = tab
-        this.activeTabChange$.next(tab)
+        this.activeTabChange.next(tab)
         if (this.activeTab) {
-            this.activeTab.focused$.next()
+            this.activeTab.emitFocused()
         }
     }
 
@@ -99,7 +106,7 @@ export class AppService {
     }
 
     emitTabsChanged () {
-        this.tabsChanged$.next()
+        this.tabsChanged.next()
     }
 
     async closeTab (tab: BaseTabComponent, checkCanClose?: boolean): Promise<void> {
@@ -115,12 +122,12 @@ export class AppService {
         if (tab === this.activeTab) {
             this.selectTab(this.tabs[newIndex])
         }
-        this.tabsChanged$.next()
-        this.tabClosed$.next(tab)
+        this.tabsChanged.next()
+        this.tabClosed.next(tab)
     }
 
     emitReady () {
-        this.ready$.next(null)
-        this.ready$.complete()
+        this.ready.next(null)
+        this.ready.complete()
     }
 }

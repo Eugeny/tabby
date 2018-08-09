@@ -1,17 +1,21 @@
-import { Subject } from 'rxjs'
+import { Observable, Subject } from 'rxjs'
 import { ViewRef } from '@angular/core'
 
 export abstract class BaseTabComponent {
     private static lastTabID = 0
     id: number
     title: string
-    titleChange$ = new Subject<string>()
     customTitle: string
     hasActivity = false
-    focused$ = new Subject<void>()
-    blurred$ = new Subject<void>()
     hasFocus = false
     hostView: ViewRef
+    protected titleChange = new Subject<string>()
+    protected focused = new Subject<void>()
+    protected blurred = new Subject<void>()
+
+    get focused$ (): Observable<void> { return this.focused }
+    get blurred$ (): Observable<void> { return this.blurred }
+    get titleChange$ (): Observable<string> { return this.titleChange }
 
     constructor () {
         this.id = BaseTabComponent.lastTabID++
@@ -26,7 +30,7 @@ export abstract class BaseTabComponent {
     setTitle (title: string) {
         this.title = title
         if (!this.customTitle) {
-            this.titleChange$.next(title)
+            this.titleChange.next(title)
         }
     }
 
@@ -42,8 +46,17 @@ export abstract class BaseTabComponent {
         return true
     }
 
+    emitFocused () {
+        this.focused.next()
+    }
+
+    emitBlurred () {
+        this.blurred.next()
+    }
+
     destroy (): void {
-        this.focused$.complete()
-        this.blurred$.complete()
+        this.focused.complete()
+        this.blurred.complete()
+        this.titleChange.complete()
     }
 }

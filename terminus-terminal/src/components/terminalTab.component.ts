@@ -1,4 +1,4 @@
-import { Subject, Subscription } from 'rxjs'
+import { Observable, Subject, Subscription } from 'rxjs'
 import { first } from 'rxjs/operators'
 import { ToastrService } from 'ngx-toastr'
 import { Component, NgZone, Inject, Optional, ViewChild, HostBinding, Input } from '@angular/core'
@@ -33,13 +33,17 @@ export class TerminalTabComponent extends BaseTabComponent {
     termContainer: TermContainer
     sessionCloseSubscription: Subscription
     hotkeysSubscription: Subscription
-    size: ResizeEvent
-    output$ = new Subject<string>()
     htermVisible = false
     shell: IShell
+    private output = new Subject<string>()
     private bellPlayer: HTMLAudioElement
     private contextMenu: any
     private termContainerSubscriptions: Subscription[] = []
+
+    get input$ (): Observable<string> { return this.termContainer.input$ }
+    get output$ (): Observable<string> { return this.output }
+    get resize$ (): Observable<ResizeEvent> { return this.termContainer.resize$ }
+    get alternateScreenActive$ (): Observable<boolean> { return this.termContainer.alternateScreenActive$ }
 
     constructor (
         private zone: NgZone,
@@ -129,7 +133,7 @@ export class TerminalTabComponent extends BaseTabComponent {
         // this.session.output$.bufferTime(10).subscribe((datas) => {
         this.session.output$.subscribe(data => {
             this.zone.run(() => {
-                this.output$.next(data)
+                this.output.next(data)
                 this.write(data)
             })
         })
@@ -181,7 +185,7 @@ export class TerminalTabComponent extends BaseTabComponent {
         })
 
         setTimeout(() => {
-            this.output$.subscribe(() => {
+            this.output.subscribe(() => {
                 this.displayActivity()
             })
         }, 1000)
@@ -278,7 +282,6 @@ export class TerminalTabComponent extends BaseTabComponent {
             this.termContainer.resize$.subscribe(({columns, rows}) => {
                 console.log(`Resizing to ${columns}x${rows}`)
                 this.zone.run(() => {
-                    this.size = { width: columns, height: rows }
                     if (this.session.open) {
                         this.session.resize(columns, rows)
                     }
@@ -341,7 +344,7 @@ export class TerminalTabComponent extends BaseTabComponent {
         if (this.sessionCloseSubscription) {
             this.sessionCloseSubscription.unsubscribe()
         }
-        this.output$.complete()
+        this.output.complete()
     }
 
     async destroy () {

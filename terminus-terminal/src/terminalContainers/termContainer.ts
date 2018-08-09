@@ -1,4 +1,5 @@
 import { Observable, Subject, AsyncSubject, ReplaySubject, BehaviorSubject } from 'rxjs'
+import { ResizeEvent } from '../api'
 
 export abstract class TermContainer {
     enableResizing = true
@@ -9,7 +10,7 @@ export abstract class TermContainer {
     protected bell = new Subject<void>()
     protected contentUpdated = new Subject<void>()
     protected input = new Subject<string>()
-    protected resize = new ReplaySubject<{columns: number, rows: number}>(1)
+    protected resize = new ReplaySubject<ResizeEvent>(1)
     protected dragOver = new Subject<DragEvent>()
     protected drop = new Subject<DragEvent>()
 
@@ -20,7 +21,7 @@ export abstract class TermContainer {
     get bell$ (): Observable<void> { return this.bell }
     get contentUpdated$ (): Observable<void> { return this.contentUpdated }
     get input$ (): Observable<string> { return this.input }
-    get resize$ (): Observable<{columns: number, rows: number}> { return this.resize }
+    get resize$ (): Observable<ResizeEvent> { return this.resize }
     get dragOver$ (): Observable<DragEvent> { return this.dragOver }
     get drop$ (): Observable<DragEvent> { return this.drop }
 
