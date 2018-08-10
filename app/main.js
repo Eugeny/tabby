@@ -30,6 +30,15 @@ if (!process.env.TERMINUS_PLUGINS) {
   process.env.TERMINUS_PLUGINS = ''
 }
 
+setWindowVibrancy = (enabled) => {
+  if (enabled && !app.window.vibrancyViewID) {
+    app.window.vibrancyViewID = electronVibrancy.SetVibrancy(app.window, 0)
+  } else if (!enabled && app.window.vibrancyViewID) {
+    electronVibrancy.RemoveView(app.window, app.window.vibrancyViewID)
+    app.window.vibrancyViewID = null
+  }
+}
+
 setupWindowManagement = () => {
     app.window.on('show', () => {
       app.window.webContents.send('host:window-shown')
@@ -89,12 +98,7 @@ setupWindowManagement = () => {
     })
 
     electron.ipcMain.on('window-set-vibrancy', (event, enabled) => {
-      if (enabled && !app.window.vibrancyViewID) {
-        app.window.vibrancyViewID = electronVibrancy.SetVibrancy(app.window, 0)
-      } else if (!enabled && app.window.vibrancyViewID) {
-        electronVibrancy.RemoveView(app.window, app.window.vibrancyViewID)
-        app.window.vibrancyViewID = null
-      }
+      setWindowVibrancy(enabled)
     })
 }
 
@@ -225,7 +229,7 @@ start = () => {
         title: 'Terminus',
         minWidth: 400,
         minHeight: 300,
-        'web-preferences': {'web-security': false},
+        webPreferences: {webSecurity: false},
         //- background to avoid the flash of unstyled window
         backgroundColor: '#131d27',
         frame: false,
@@ -250,6 +254,11 @@ start = () => {
 
     app.window = new electron.BrowserWindow(options)
     app.window.once('ready-to-show', () => {
+      if (process.platform == 'darwin') {
+        app.window.setVibrancy('dark')
+      } else if (process.platform == 'windows') {
+        setWindowVibrancy(true)
+      }
       app.window.show()
       app.window.focus()
     })

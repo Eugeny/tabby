@@ -66,3 +66,9 @@
 [ngbradiogroup] input[type="radio"] {
     display: none;
 }
+
+body {
+    min-height: 100vh;
+    overflow: hidden;
+    background: rgba(0,0,0,.4);
+}
