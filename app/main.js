@@ -1,7 +1,10 @@
 if (process.platform == 'win32' && require('electron-squirrel-startup')) process.exit(0)
 
 const electron = require('electron')
-const electronVibrancy = require('electron-vibrancy')
+let electronVibrancy
+if (process.platform != 'linux') {
+  electronVibrancy = require('electron-vibrancy')
+}
 
 if (process.argv.indexOf('--debug') !== -1) {
     require('electron-debug')({enabled: true, showDevTools: 'undocked'})
