@@ -1,155 +1,64 @@
 doctype html
 html
     head
+        meta(name='viewport', content='initial-scale=1, minimal-ui, shrink-to-fit=no')
         link(href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400", rel="stylesheet")
         link(href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css", rel="stylesheet")
-        link(href="https://cdn.jsdelivr.net/g/bootstrap@4.0.0-alpha.6(css/bootstrap.min.css)", rel="stylesheet")
-        script(src="https://cdn.jsdelivr.net/g/jquery@3.2.1,tether@1.4.0,bootstrap@4.0.0-alpha.6,modernizr@3.3.1,detectizr@2.2.0")
+        script(src='bundle.js')
         title Terminus
-        style.
-            body {
-                font-family: 'Source Sans Pro', sans-serif;
-                background: #111;
-                color: #ccc;
-                min-height: 100vh;
-                background-image: radial-gradient(#111, #000);
-            }
-            
-            h1 {
-                font-size: 64px;
-            }
-            
-            h1, h2, h3, h5 {
-                font-weight: 300;
-                color: white;
-            }
-            
-            .btn i + span,
-            .nav-link i + span {
-                margin-left: 10px;
-            }
-            
-            .btn-outline-primary {
-                color: #b6e7ff !important;
-            }
-            
-            .nav-link {
-                font-size: 22px;
-            }
-            
-            video, img {
-                max-width: 100%;
-                box-shadow: 0 0 50px black;
-            }
-        
-        script(defer).
-            setTimeout(function () {
-                /*
-                if (Detectizr.os.name == 'windows') {
-                    $('[href="#windows"]').tab('show')
-                }
-                if (Detectizr.os.name == 'mac os') {
-                    $('[href="#macos"]').tab('show')
-                }
-                if (Detectizr.os.name == 'linux') {
-                    $('[href="#linux"]').tab('show')
-                }
-                */
-            })
     body
-        .container.mt-5.mb-5
+        .container.mt-5.mb-5#header
             .text-center
                 h1 Terminus
-                h5 A terminal for a more modern age
-                h2.text-muted alpha
+                .subtitle A terminal for a more modern age
                 
-            .d-flex.flex-row.mt-5.mb-5
-                ul.nav.nav-pills.flex-column.mr-5(style='min-width: 200px')
-                    li.nav-item
-                        a.nav-link.active(data-toggle='tab', href='#windows', role='tab')
-                            i.fa.fa-windows
-                            span Windows
-                    li.nav-item
-                        a.nav-link(data-toggle='tab', href='#macos', role='tab')
-                            i.fa.fa-apple
-                            span macOS
-                    li.nav-item
-                        a.nav-link(data-toggle='tab', href='#linux', role='tab')
-                            i.fa.fa-linux
-                            span Linux
+                a.btn.btn-lg.btn-outline-dark.mt-4(href='https://github.com/Eugeny/terminus/releases/latest', target='_blank')
+                    strong DOWNLOAD
 
-                .tab-content
-                    #windows.tab-pane.active(role='tabpanel')
-                        .row
-                            .col-6
-                                video(src='videos/windows.mp4', autoplay, loop)
-                            .col-6
-                                h3 A proper Windows experience
-                                p 
-                                    b Clink 
-                                    | provides tab completion, readline-style editing and persistent command history on Windows.
-                                p Also supported:
-                                    ul 
-                                        li Classic CMD
-                                        li PowerShell 
-                                        li Bash on Windows 
-
-                    #macos.tab-pane(role='tabpanel')
-                        .row
-                            .col-6
-                                //video(src='videos/windows.mp4', autoplay, loop)
-                            .col-6
-                                h3 Well...
-                                p Not much to say here, it just works.
-
-                    #linux.tab-pane(role='tabpanel')
-                        .row
-                            .col-6
-                                img(src='linux.png')
-                            .col-6
-                                p
-                                    ul 
-                                        li Spawn with a global hotkey
-                                        li Tabs persist after restart
-                                        li Auto-dock to any side of any screen
-                                        li Full Unicode and double-width character support
-
+                a.btn.btn-lg.btn-outline-secondary.mt-4.ml-3(href='https://github.com/Eugeny/terminus', target='_blank')
+                    strong GITHUB
                     
+                
+        .background-stripe
+            .overlay.overlay1
+            .overlay.overlay2
+            .terminal
+
+        .container.mt-5.mb-5
+            .d-flex.flex-wrap.flex-md-nowrap
+                .w-100
+                    .feature windows
+                    .feature linux
+                    .feature macos
+                    br
+                    .feature powershell
+                    .feature wsl
+                    .feature cygwin
+                    .feature git-bash
+                    .feature cmder
+                    .feature clink
+                    
+                .w-100
+                    .feature full unicode
+                    .feature global hotkey
+                    .feature plugins
+                    .feature tab recovery
+                    .feature custom css
+                    .feature themes
+                    .feature font ligatures
+                    .feature clickable paths
+                    .feature tabs on top/bottom
+                    .feature vibrancy
+                    .feature bracketed paste
+                    
+        .container.mt-5.mb-5
             .text-center
-                .mt-3.mb-3
-                    h2
+                a.btn.btn-lg.btn-outline-secondary.mt-5(href='#header')
+                    strong BEAM ME UP
 
-                    div
-                        .btn-group.mt-3.mb-1
-                            a.btn.btn-lg.btn-outline-success(href='https://github.com/Eugeny/terminus/releases/latest', target='_blank')
-                                i.fa.fa-download
-                                span Downloads
-                            a.btn.btn-lg.btn-outline-secondary(href='https://github.com/Eugeny/terminus', target='_blank')
-                                i.fa.fa-github
-                                span GitHub
-                    small.text-muted EXE, DMG, DEB, RPM, TGZ
-
-                        
-            .row.mt-5
-                .col-6
-                    h3 User experience
-                    ul
-                        li Spawn and hide with a global hotkey
-                        li Fully customizable hotkey schema
-                        li Restores tabs 
-                        li Drag in a file to paste the path
-                        li Click paths and URLs to open in browser/file manager
-                        li Keeps the current directory in new tabs
-
-                .col-6
-                    .mb-5
-                        h3 Customizable
-                        p Multiple app themes and a myriad of community color schemes for the terminal. Color scheme editor included.
-                        
-                    div        
-                        h3 Infinitely extensible
-                        p Install plugins from the NPM repository, or create your own with Typescript and Angular framework.
-                        
+        .background-stripe2
+            .overlay.overlay1
+                                        
         script.
           (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
           (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
