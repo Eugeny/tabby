@@ -2,7 +2,7 @@ const path = require('path')
 
 module.exports = {
   entry: {
-    'index.ignore': 'file-loader?name=index.html!pug-html-loader!' + path.resolve(__dirname, './index.pug'),
+    'index.ignore': 'file-loader?name=../index.html!pug-html-loader!' + path.resolve(__dirname, './index.pug'),
     'bundle': path.resolve(__dirname, 'index.js'),
   },
   context: __dirname,
