@@ -92,19 +92,15 @@ mz@^2.6.0:
     object-assign "^4.0.1"
     thenify-all "^1.0.0"
 
-nan@>=2.10.0:
+nan@>=2.10.0, nan@^2.10.0:
   version "2.10.0"
   resolved "https://registry.yarnpkg.com/nan/-/nan-2.10.0.tgz#96d0cd610ebd58d4b4de9cc0c6828cda99c7548f"
 
-nan@^2.6.2:
-  version "2.7.0"
-  resolved "https://registry.yarnpkg.com/nan/-/nan-2.7.0.tgz#d95bf721ec877e08db276ed3fc6eb78f9083ad46"
-
-node-pty-tmp@0.7.1:
-  version "0.7.1"
-  resolved "https://registry.yarnpkg.com/node-pty-tmp/-/node-pty-tmp-0.7.1.tgz#0a81179f9087b21f968206c886e543db20650d7a"
+node-pty-tmp@0.7.2:
+  version "0.7.2"
+  resolved "https://registry.yarnpkg.com/node-pty-tmp/-/node-pty-tmp-0.7.2.tgz#d1528245a46ab193c54e34792ee0b89d0f557417"
   dependencies:
-    nan "^2.6.2"
+    nan "^2.10.0"
 
 object-assign@^4.0.1:
   version "4.1.1"
