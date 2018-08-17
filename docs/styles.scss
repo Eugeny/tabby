@@ -11,6 +11,10 @@ h1 {
     margin: 0;
 }
 
+body {
+    overflow-x: hidden;
+}
+
 .subtitle {
     font-style: italic;
     color: #999;
@@ -56,7 +60,7 @@ h1 {
         width: 1304px;
         margin-left: -652px;
         height: 972px;
-        border-radius: 5px;
+        border-radius: 9px;
 
         box-shadow: 0 0 100px black;
         background: url('./terminal.png');
@@ -75,6 +79,7 @@ h1 {
             top: -100px;
             margin-left: -326px;
             height: 486px;
+            border-radius: 5px;
         }
     }
 
@@ -87,6 +92,7 @@ h1 {
             top: -50px;
             margin-left: -163px;
             height: 243px;
+            border-radius: 3px;
         }
     }
 

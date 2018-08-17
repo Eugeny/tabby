@@ -4,14 +4,13 @@ html
         base(href='dist/')
         meta(name='viewport', content='initial-scale=1, minimal-ui, shrink-to-fit=no')
         link(href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400", rel="stylesheet")
-        link(href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css", rel="stylesheet")
         script(src='bundle.js')
         title Terminus
     body
-        .container.mt-5.mb-5#header
+        .mt-5.mb-5#header
             .text-center
                 h1 Terminus
-                .subtitle A terminal for a more modern age
+                .subtitle.mb-3 A terminal for a more modern age
                 
                 a.btn.btn-lg.btn-outline-dark.mt-4(href='https://github.com/Eugeny/terminus/releases/latest', target='_blank')
                     strong DOWNLOAD
@@ -54,7 +53,7 @@ html
                     
         .container.mt-5.mb-5
             .text-center
-                a.btn.btn-lg.btn-outline-secondary.mt-5(href='#header')
+                a.btn.btn-lg.btn-outline-secondary.mt-5(href='/terminus/#header')
                     strong BEAM ME UP
 
         .background-stripe2
