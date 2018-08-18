@@ -1,27 +1,35 @@
-matrix:
-  include:
-  - os: linux
-    env: BUILD_FOR=linux
-  - os: osx
-    env: BUILD_FOR=macos
-
 language: node_js
 node_js: 7
+
+services:
+- docker
 
 cache:
   directories:
     - node_modules
     - app/node_modules
 
-before_install:
-    - yarn install
-    - scripts/install-deps.js
+stages:
+  - build
+  - name: deploy
+    if: branch = master
 
-script:
-    - scripts/build-native.js
-    - yarn run build
-    - scripts/prepackage-plugins.js
-    - scripts/build-$BUILD_FOR.js
+jobs:
+  include:
+    - stage: build
+      os: linux
+      env: BUILD_FOR=linux
+      script: ./travis.sh
+
+    - stage: build
+      os: osx
+      env: BUILD_FOR=macos
+      script: ./travis.sh
+
+    - stage: deploy
+      os: linux
+      env: BUILD_FOR=linux STAGE=deploy
+      script: ./travis.sh
 
 dist: trusty
 sudo: false

@@ -93,6 +93,9 @@
         "github"
       ]
     },
+    "snap": {
+      "confinement": "classic"
+    },
     "deb": {
       "depends": [
         "screen",
