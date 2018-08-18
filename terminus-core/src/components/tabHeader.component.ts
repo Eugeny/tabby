@@ -71,7 +71,7 @@ export class TabHeaderComponent {
     }
 
     ngOnInit () {
-        if (this.hostApp.platform !== Platform.macOS) {
+        if (this.hostApp.platform === Platform.macOS) {
             this.parentDraggable.setDragHandle(this.handle.nativeElement)
         }
     }
