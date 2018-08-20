@@ -6,20 +6,7 @@ if (process.platform != 'linux') {
   electronVibrancy = require('electron-vibrancy')
 }
 
-if (process.argv.indexOf('--debug') !== -1) {
-    require('electron-debug')({enabled: true, showDevTools: 'undocked'})
-}
-
 let app = electron.app
-
-let secondInstance = app.makeSingleInstance((argv, cwd) => {
-  app.window.webContents.send('host:second-instance', argv, cwd)
-})
-
-if (secondInstance) {
-  app.quit()
-  return
-}
 
 
 const yaml = require('js-yaml')
@@ -286,8 +273,6 @@ start = () => {
     })
 }
 
-app.on('ready', start)
-
 app.on('activate', () => {
     if (!app.window)
         start()
@@ -301,3 +286,30 @@ process.on('uncaughtException', function(err) {
     console.log(err)
     app.window.webContents.send('uncaughtException', err)
 })
+
+
+
+const argv = require('yargs')
+  .usage('terminus [command] [arguments]')
+  .version('v', 'Show version and exit', app.getVersion())
+  .alias('d', 'debug')
+  .describe('d', 'Show DevTools on start')
+  .alias('h', 'help')
+  .help('h')
+  .strict()
+  .argv
+
+app.on('second-instance', (argv, cwd) => {
+  app.window.webContents.send('host:second-instance', argv, cwd)
+})
+
+if (!app.requestSingleInstanceLock()) {
+  app.quit()
+  process.exit(0)
+}
+
+if (argv.d) {
+  require('electron-debug')({enabled: true, showDevTools: 'undocked'})
+}
+
+app.on('ready', start)

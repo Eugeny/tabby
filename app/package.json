@@ -31,6 +31,7 @@
     "ngx-toastr": "^8.7.3",
     "path": "0.12.7",
     "rxjs": "^6.1.0",
+    "yargs": "^12.0.1",
     "zone.js": "~0.8.26"
   },
   "devDependencies": {
