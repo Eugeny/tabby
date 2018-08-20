@@ -205,8 +205,8 @@ export class SessionsService {
         electron: ElectronService,
         log: LogService,
     ) {
-        const nodePTYPath = electron.remoteResolvePluginModule('terminus-terminal', 'node-pty-tmp', global as any)
-        nodePTY = electron.remoteRequire('./bufferizedPTY')(nodePTYPath)
+        nodePTY = require('node-pty-tmp')
+        nodePTY = require('../bufferizedPTY')(nodePTY)
         this.logger = log.create('sessions')
         this.persistenceProviders = this.config.enabledServices(this.persistenceProviders).filter(x => x.isAvailable())
     }

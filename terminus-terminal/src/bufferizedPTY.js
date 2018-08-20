@@ -1,5 +1,4 @@
-module.exports = function patchPTYModule (path) {
-  const mod = require(path)
+module.exports = function patchPTYModule (mod) {
   const oldSpawn = mod.spawn
   if (mod.patched) {
     return mod
