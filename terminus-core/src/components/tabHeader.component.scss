@@ -18,7 +18,7 @@ $tabs-height: 36px;
         flex: none;
         font-weight: bold;
         -webkit-app-region: no-drag;
-        cursor: grab;
+        cursor: -webkit-grab;
 
         margin-left: 10px;
         width: 20px;
@@ -71,6 +71,6 @@ $tabs-height: 36px;
     }
 
     &.fully-draggable {
-        cursor: grab;
+        cursor: -webkit-grab;
     }
 }
