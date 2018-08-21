@@ -30,8 +30,6 @@ addons:
   apt:
     packages:
     - rpm
-    - wine
-    - mono-runtime
     - yarn
     sources:
     - sourceline: 'deb https://dl.yarnpkg.com/debian/ stable main'
