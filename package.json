@@ -75,7 +75,6 @@
     "mac": {
       "category": "public.app-category.video",
       "icon": "./build/mac/icon.icns",
-      "identity": null,
       "publish": [
         "github"
       ],
