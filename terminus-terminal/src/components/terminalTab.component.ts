@@ -11,7 +11,6 @@ import { TerminalContainersService } from '../services/terminalContainers.servic
 
 import { TerminalDecorator, ResizeEvent, SessionOptions } from '../api'
 import { TermContainer } from '../terminalContainers/termContainer'
-import { hterm } from '../hterm'
 
 @Component({
     selector: 'terminalTab',
@@ -300,7 +299,6 @@ export class TerminalTabComponent extends BaseTabComponent {
 
     paste () {
         let data = this.electron.clipboard.readText()
-        data = hterm.lib.encodeUTF8(data)
         if (this.config.store.terminal.bracketedPaste) {
             data = '\x1b[200~' + data + '\x1b[201~'
         }
