@@ -1,6 +1,7 @@
 $tabs-height: 36px;
 
 :host {
+    position: relative;
     cursor: pointer;
 
     flex: 1000 1 200px;
@@ -72,5 +73,13 @@ $tabs-height: 36px;
 
     &.fully-draggable {
         cursor: -webkit-grab;
+    }
+
+    .progressbar {
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        z-index: -1;
     }
 }

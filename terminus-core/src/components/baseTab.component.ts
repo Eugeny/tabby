@@ -12,10 +12,12 @@ export abstract class BaseTabComponent {
     protected titleChange = new Subject<string>()
     protected focused = new Subject<void>()
     protected blurred = new Subject<void>()
+    protected progress = new Subject<number>()
 
     get focused$ (): Observable<void> { return this.focused }
     get blurred$ (): Observable<void> { return this.blurred }
     get titleChange$ (): Observable<string> { return this.titleChange }
+    get progress$ (): Observable<number> { return this.progress }
 
     constructor () {
         this.id = BaseTabComponent.lastTabID++
@@ -32,6 +34,10 @@ export abstract class BaseTabComponent {
         if (!this.customTitle) {
             this.titleChange.next(title)
         }
+    }
+
+    setProgress (progress: number) {
+        this.progress.next(progress)
     }
 
     displayActivity (): void {
@@ -58,5 +64,6 @@ export abstract class BaseTabComponent {
         this.focused.complete()
         this.blurred.complete()
         this.titleChange.complete()
+        this.progress.complete()
     }
 }

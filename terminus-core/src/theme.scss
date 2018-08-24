@@ -144,6 +144,10 @@ app-root  {
                         &:active { background: $button-active-bg !important; }
                     }
 
+                    .progressbar {
+                        background: $green;
+                    }
+
                     &.active {
                         color: white;
                         background: $content-bg;

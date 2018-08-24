@@ -138,7 +138,16 @@ export class AppRootComponent {
         config.changed$.subscribe(() => this.updateVibrancy())
         this.updateVibrancy()
 
-        this.app.tabOpened$.subscribe(tab => this.unsortedTabs.push(tab))
+        this.app.tabOpened$.subscribe(tab => {
+            this.unsortedTabs.push(tab)
+            tab.progress$.subscribe(progress => {
+                if (progress !== null) {
+                    this.hostApp.getWindow().setProgressBar(progress / 100.0, 'normal')
+                } else {
+                    this.hostApp.getWindow().setProgressBar(0, 'none')
+                }
+            })
+        })
         this.app.tabClosed$.subscribe(tab => {
             this.unsortedTabs = this.unsortedTabs.filter(x => x !== tab)
         })

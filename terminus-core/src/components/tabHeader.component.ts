@@ -17,7 +17,9 @@ export class TabHeaderComponent {
     @Input() @HostBinding('class.active') active: boolean
     @Input() @HostBinding('class.has-activity') hasActivity: boolean
     @Input() tab: BaseTabComponent
+    @Input() progress: number
     @ViewChild('handle') handle: ElementRef
+
     private contextMenu: any
 
     constructor (
@@ -74,6 +76,9 @@ export class TabHeaderComponent {
         if (this.hostApp.platform === Platform.macOS) {
             this.parentDraggable.setDragHandle(this.handle.nativeElement)
         }
+        this.tab.progress$.subscribe(progress => {
+            this.progress = progress
+        })
     }
 
     @HostListener('dblclick') onDoubleClick (): void {

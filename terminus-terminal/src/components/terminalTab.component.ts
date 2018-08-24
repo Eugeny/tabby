@@ -294,6 +294,14 @@ export class TerminalTabComponent extends BaseTabComponent {
     }
 
     write (data: string) {
+        let percentageMatch = /(\d+(\.\d+)?)%/.exec(data)
+        if (percentageMatch) {
+            let percentage = percentageMatch[2] ? parseFloat(percentageMatch[1]) : parseInt(percentageMatch[1])
+            this.setProgress(percentage)
+            console.log('Detected progress:', percentage)
+        } else {
+            this.setProgress(null)
+        }
         this.termContainer.write(data)
     }
 
