@@ -44,7 +44,7 @@ ngb-tabset.vertical(type='tabs', [activeId]='activeTab')
                         br
                         .btn-group(
                             '[(ngModel)]'='config.store.appearance.vibrancy'
-                            '(ngModelChange)'='config.save()'
+                            '(ngModelChange)'='config.save(); (hostApp.platform === Platform.Windows && config.requestRestart())'
                             ngbRadioGroup
                         )
                             label.btn.btn-secondary(ngbButtonLabel)

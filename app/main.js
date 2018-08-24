@@ -233,6 +233,10 @@ start = () => {
         }
     }
 
+    if (process.platform == 'win32' && (configData.appearance || {}).vibrancy) {
+      options.transparent = true
+    }
+
     if (process.platform == 'linux') {
       options.backgroundColor = '#131d27'
     }
@@ -243,7 +247,7 @@ start = () => {
     app.window.once('ready-to-show', () => {
       if (process.platform == 'darwin') {
         app.window.setVibrancy('dark')
-      } else if (process.platform == 'windows') {
+      } else if (process.platform == 'win32' && (configData.appearance || {}).vibrancy) {
         setWindowVibrancy(true)
       }
       app.window.show()
