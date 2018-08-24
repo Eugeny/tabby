@@ -1,3 +1,4 @@
+require('./lru.js')
 if (process.platform == 'win32' && require('electron-squirrel-startup')) process.exit(0)
 
 const electron = require('electron')

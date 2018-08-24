@@ -1,3 +1,4 @@
+import '../lru.js'
 import 'source-sans-pro'
 import 'font-awesome/css/font-awesome.css'
 import 'ngx-toastr/toastr.css'
