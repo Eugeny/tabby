@@ -302,7 +302,11 @@ export class TerminalTabComponent extends BaseTabComponent {
         if (this.config.store.terminal.bracketedPaste) {
             data = '\x1b[200~' + data + '\x1b[201~'
         }
-        data = data.replace(/\n/g, '\r')
+        if (this.hostApp.platform === Platform.Windows) {
+            data = data.replace(/\r\n/g, '\r')
+        } else {
+            data = data.replace(/\n/g, '\r')
+        }
         this.sendInput(data)
     }
 
