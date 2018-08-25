@@ -1,4 +1,4 @@
-import { NgZone, Component, Input } from '@angular/core'
+import { NgZone, Component, Input, HostBinding, HostListener } from '@angular/core'
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms'
 
 @Component({
@@ -10,12 +10,12 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms'
     ]
 })
 export class CheckboxComponent implements ControlValueAccessor {
-    @Input() model: boolean
+    @HostBinding('class.active') @Input() model: boolean
     @Input() disabled: boolean
     @Input() text: string
     private changed = new Array<(val: boolean) => void>()
 
-    click () {
+    @HostListener('click') click () {
         NgZone.assertInAngularZone()
         if (this.disabled) {
             return

@@ -350,5 +350,9 @@ select.form-control {
 }
 
 checkbox i.on {
-  color: $blue;
+    color: $blue;
+}
+
+toggle.active .body .toggle {
+    background: $blue;
 }

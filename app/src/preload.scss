@@ -58,17 +58,3 @@
       color: #842fe0;
   }
 }
-
-.modal-dialog, .modal-backdrop {
-  -webkit-app-region: no-drag;
-}
-
-[ngbradiogroup] input[type="radio"] {
-    display: none;
-}
-
-body {
-    min-height: 100vh;
-    overflow: hidden;
-    background: #1D272D;
-}

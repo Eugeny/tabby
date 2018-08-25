@@ -25,6 +25,7 @@ import { SafeModeModalComponent } from './components/safeModeModal.component'
 import { StartPageComponent } from './components/startPage.component'
 import { TabHeaderComponent } from './components/tabHeader.component'
 import { TitleBarComponent } from './components/titleBar.component'
+import { ToggleComponent } from './components/toggle.component'
 import { WindowControlsComponent } from './components/windowControls.component'
 import { RenameTabModalComponent } from './components/renameTabModal.component'
 
@@ -73,6 +74,7 @@ const PROVIDERS = [
         TabBodyComponent,
         TabHeaderComponent,
         TitleBarComponent,
+        ToggleComponent,
         WindowControlsComponent,
         RenameTabModalComponent,
         SafeModeModalComponent,
@@ -82,7 +84,8 @@ const PROVIDERS = [
         SafeModeModalComponent,
     ],
     exports: [
-        CheckboxComponent
+        CheckboxComponent,
+        ToggleComponent,
     ]
 })
 export default class AppModule {

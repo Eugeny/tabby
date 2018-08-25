@@ -1,33 +1,36 @@
 h3.mb-3 Appearance
 .row
     .col-md-6
-        .form-group
-            label Font
-            .row
-                .col-8
-                    input.form-control(
-                        type='text',
-                        [ngbTypeahead]='fontAutocomplete',
-                        [(ngModel)]='config.store.terminal.font',
-                        (ngModelChange)='config.save()',
-                    )
-                .col-4
-                    input.form-control(
-                        type='number',
-                        [(ngModel)]='config.store.terminal.fontSize',
-                        (ngModelChange)='config.save()',
-                    )
+        .form-line
+            .header
+                .title Font
 
-            div
-                checkbox(
-                    text='Enable font ligatures',
-                    [(ngModel)]='config.store.terminal.ligatures', 
+            .d-flex.w-50
+                input.form-control(
+                    type='text',
+                    [ngbTypeahead]='fontAutocomplete',
+                    [(ngModel)]='config.store.terminal.font',
+                    (ngModelChange)='config.save()',
+                )
+                input.form-control(
+                    type='number',
+                    [(ngModel)]='config.store.terminal.fontSize',
                     (ngModelChange)='config.save()',
                 )
 
-        .form-group(*ngIf='!editingColorScheme')
-            label Color scheme
-            .input-group
+        .form-line
+            .header
+                .title Enable font ligatures
+            toggle(
+                [(ngModel)]='config.store.terminal.ligatures', 
+                (ngModelChange)='config.save()',
+            )
+
+        .form-line(*ngIf='!editingColorScheme')
+            .header
+                .title Color scheme
+
+            .input-group.w-50
                 select.form-control(
                     [compareWith]='equalComparator',
                     [(ngModel)]='config.store.terminal.colorScheme',
@@ -53,7 +56,6 @@ h3.mb-3 Appearance
                 .input-group-btn
                     button.btn.btn-secondary((click)='cancelEditing()') Cancel
 
-
         .form-group(*ngIf='editingColorScheme')
             color-picker(
                 '[(model)]'='editingColorScheme.foreground',
@@ -77,9 +79,10 @@ h3.mb-3 Appearance
                 [title]='idx',
             )
 
-        .form-group
-            label Terminal background
-            br
+        .form-line
+            .header
+                .title Terminal background
+
             .btn-group(
                 [(ngModel)]='config.store.terminal.background',
                 (ngModelChange)='config.save()',
@@ -100,59 +103,6 @@ h3.mb-3 Appearance
                     )
                     | From colors
 
-        .d-flex
-            .form-group.mr-3
-                label Cursor shape
-                br
-                .btn-group(
-                    [(ngModel)]='config.store.terminal.cursor',
-                    (ngModelChange)='config.save()',
-                    ngbRadioGroup
-                )
-                    label.btn.btn-secondary(ngbButtonLabel)
-                        input(
-                            type='radio',
-                            ngbButton,
-                            [value]='"block"'
-                        )
-                        | █
-                    label.btn.btn-secondary(ngbButtonLabel)
-                        input(
-                            type='radio',
-                            ngbButton,
-                            [value]='"beam"'
-                        )
-                        | |
-                    label.btn.btn-secondary(ngbButtonLabel)
-                        input(
-                            type='radio',
-                            ngbButton,
-                            [value]='"underline"'
-                        )
-                        | ▁
-                    
-            .form-group
-                label Blink cursor
-                br
-                .btn-group(
-                    [(ngModel)]='config.store.terminal.cursorBlink',
-                    (ngModelChange)='config.save()',
-                    ngbRadioGroup
-                )
-                    label.btn.btn-secondary(ngbButtonLabel)
-                        input(
-                            type='radio',
-                            ngbButton,
-                            [value]='false'
-                        )
-                        | Off
-                    label.btn.btn-secondary(ngbButtonLabel)
-                        input(
-                            type='radio',
-                            ngbButton,
-                            [value]='true'
-                        )
-                        | On    
     .col-md-6
         .form-group
             .appearance-preview(
@@ -240,55 +190,101 @@ h3.mb-3 Appearance
                     span  rm -rf /
                     span([style.background-color]='config.store.terminal.colorScheme.cursor') &nbsp;
 
+.form-line
+    .header
+        .title Cursor shape
+
+    .btn-group(
+        [(ngModel)]='config.store.terminal.cursor',
+        (ngModelChange)='config.save()',
+        ngbRadioGroup
+    )
+        label.btn.btn-secondary(ngbButtonLabel)
+            input(
+                type='radio',
+                ngbButton,
+                [value]='"block"'
+            )
+            | █
+        label.btn.btn-secondary(ngbButtonLabel)
+            input(
+                type='radio',
+                ngbButton,
+                [value]='"beam"'
+            )
+            | |
+        label.btn.btn-secondary(ngbButtonLabel)
+            input(
+                type='radio',
+                ngbButton,
+                [value]='"underline"'
+            )
+            | ▁
+    
+.form-line
+    .header
+        .title Blink cursor
+
+    toggle(
+        [(ngModel)]='config.store.terminal.cursorBlink',
+        (ngModelChange)='config.save()',
+    )
+
 h3.mt-3.mb-3 Shell
 
-.d-flex
-    .form-group.mr-3
-        label Shell
-        select.form-control(
-            [(ngModel)]='config.store.terminal.shell',
-            (ngModelChange)='config.save()',
-        )
-            option(
-                *ngFor='let shell of shells',
-                [ngValue]='shell.id'
-            ) {{shell.name}}
+.form-line
+    .header
+        .title Shell
+        .description Default shell for new tabs
 
-    .form-group.mr-3(*ngIf='persistenceProviders.length > 0')
-        label Session persistence
-        select.form-control(
-            [(ngModel)]='config.store.terminal.persistence',
-            (ngModelChange)='config.save()',
-        )
-            option([ngValue]='null') Off
-            option(
-                *ngFor='let provider of persistenceProviders',
-                [ngValue]='provider.id'
-            ) {{provider.displayName}}
-                    
-    .form-group
-        label Working directory
-        input.form-control(
-            type='text',
-            placeholder='Home directory',
-            [(ngModel)]='config.store.terminal.workingDirectory',
-            (ngModelChange)='config.save()',
-        )
-            
-.form-group(*ngIf='config.store.terminal.shell == "custom"')
-    label Custom shell
+    select.form-control(
+        [(ngModel)]='config.store.terminal.shell',
+        (ngModelChange)='config.save()',
+    )
+        option(
+            *ngFor='let shell of shells',
+            [ngValue]='shell.id'
+        ) {{shell.name}}
+
+.form-line(*ngIf='config.store.terminal.shell == "custom"')
+    .header
+        .title Custom shell
+
     input.form-control(
         type='text',
         [(ngModel)]='config.store.terminal.customShell',
         (ngModelChange)='config.save()',
     )
-            
+
+.form-line(*ngIf='persistenceProviders.length > 0')
+    .header
+        .title Session persistence
+        .description Restores tabs when Terminus is restarted
+    select.form-control(
+        [(ngModel)]='config.store.terminal.persistence',
+        (ngModelChange)='config.save()',
+    )
+        option([ngValue]='null') Off
+        option(
+            *ngFor='let provider of persistenceProviders',
+            [ngValue]='provider.id'
+        ) {{provider.displayName}}
+
+.form-line
+    .header
+        .title Working directory
+    input.form-control(
+        type='text',
+        placeholder='Home directory',
+        [(ngModel)]='config.store.terminal.workingDirectory',
+        (ngModelChange)='config.save()',
+    )            
 
 h3.mt-3.mb-3 Behaviour
 
-.form-group
-    label Terminal bell
-    br
+.form-line
+    .header
+        .title Terminal bell
     .btn-group(
         [(ngModel)]='config.store.terminal.bell',
         (ngModelChange)='config.save()',
@@ -315,10 +311,10 @@ h3.mt-3.mb-3 Behaviour
                 [value]='"audible"'
             )
             | Audible
-    
-.form-group
-    label Right click
-    br
+
+.form-line
+    .header
+        .title Right click
     .btn-group(
         [(ngModel)]='config.store.terminal.rightClick',
         (ngModelChange)='config.save()',
@@ -339,28 +335,37 @@ h3.mt-3.mb-3 Behaviour
             )
             | Paste
             
+.form-line
+    .header
+        .title Auto-open a terminal on app start
             
-.form-group
-    checkbox(
+    toggle(
         [(ngModel)]='config.store.terminal.autoOpen',
         (ngModelChange)='config.save()',
-        text='Auto-open a terminal on app start',
     )
-    
-    checkbox(
+
+.form-line
+    .header
+        .title Bracketed paste (requires shell support)
+        .description Prevents accidental execution of pasted commands
+    toggle(
         [(ngModel)]='config.store.terminal.bracketedPaste',
         (ngModelChange)='config.save()',
-        text='Bracketed paste (requires shell support)',
     )
-    
-    checkbox(
+
+.form-line
+    .header
+        .title Copy on select
+    toggle(
         [(ngModel)]='config.store.terminal.copyOnSelect',
         (ngModelChange)='config.save()',
-        text='Copy on select',
     )
     
-    checkbox(
+.form-line
+    .header
+        .title Use Alt key as the Meta key
+        .description Lets the shell handle Meta key instead of OS
+    toggle(
         [(ngModel)]='config.store.terminal.altIsMeta',
         (ngModelChange)='config.save()',
-        text='Use Alt key as the Meta key',
     )
