@@ -67,6 +67,41 @@ hterm.hterm.VT.CSI[' q'] = function (parseState) {
     this.terminal.applyCursorShape()
 }
 
+hterm.hterm.VT.OSC['4'] = function (parseState) {
+    let args = parseState.args[0].split(';')
+
+    let pairCount = args.length / 2
+    let colorPalette = this.terminal.getTextAttributes().colorPalette
+    let responseArray = []
+
+    for (let pairNumber = 0; pairNumber < pairCount; ++pairNumber) {
+        let colorIndex = parseInt(args[pairNumber * 2])
+        let colorValue = args[pairNumber * 2 + 1]
+
+        if (colorIndex >= colorPalette.length) {
+            continue
+        }
+
+        if (colorValue === '?') {
+            colorValue = hterm.lib.colors.rgbToX11(colorPalette[colorIndex])
+            if (colorValue) {
+                responseArray.push(colorIndex + ';' + colorValue)
+            }
+            continue
+        }
+
+        colorValue = hterm.lib.colors.x11ToCSS(colorValue)
+        if (colorValue) {
+            this.terminal.colorPaletteOverrides[colorIndex] = colorValue
+            colorPalette[colorIndex] = colorValue
+        }
+    }
+
+    if (responseArray.length) {
+        this.terminal.io.sendString('\x1b]4;' + responseArray.join(';') + '\x07')
+    }
+}
+
 const _collapseToEnd = Selection.prototype.collapseToEnd
 Selection.prototype.collapseToEnd = function () {
     try {

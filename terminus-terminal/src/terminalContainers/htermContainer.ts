@@ -85,7 +85,10 @@ export class HTermContainer extends TermContainer {
         }
 
         if (config.terminal.colorScheme.colors) {
-            preferenceManager.set('color-palette-overrides', config.terminal.colorScheme.colors)
+            preferenceManager.set(
+                'color-palette-overrides',
+                Object.assign([], config.terminal.colorScheme.colors, this.term.colorPaletteOverrides)
+            )
         }
         if (config.terminal.colorScheme.cursor) {
             preferenceManager.set('cursor-color', config.terminal.colorScheme.cursor)
@@ -222,5 +225,7 @@ export class HTermContainer extends TermContainer {
             size.height += this.configuredLinePadding
             return size
         }
+
+        this.term.colorPaletteOverrides = []
     }
 }
