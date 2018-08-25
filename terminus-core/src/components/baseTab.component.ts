@@ -6,18 +6,20 @@ export abstract class BaseTabComponent {
     id: number
     title: string
     customTitle: string
-    hasActivity = false
     hasFocus = false
+    hasActivity = false
     hostView: ViewRef
     protected titleChange = new Subject<string>()
     protected focused = new Subject<void>()
     protected blurred = new Subject<void>()
     protected progress = new Subject<number>()
+    protected activity = new Subject<boolean>()
 
     get focused$ (): Observable<void> { return this.focused }
     get blurred$ (): Observable<void> { return this.blurred }
     get titleChange$ (): Observable<string> { return this.titleChange }
     get progress$ (): Observable<number> { return this.progress }
+    get activity$ (): Observable<boolean> { return this.activity }
 
     constructor () {
         this.id = BaseTabComponent.lastTabID++
@@ -42,6 +44,12 @@ export abstract class BaseTabComponent {
 
     displayActivity (): void {
         this.hasActivity = true
+        this.activity.next(true)
+    }
+
+    clearActivity (): void {
+        this.hasActivity = false
+        this.activity.next(false)
     }
 
     getRecoveryToken (): any {

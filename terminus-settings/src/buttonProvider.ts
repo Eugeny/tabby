@@ -19,7 +19,7 @@ export class ButtonProvider extends ToolbarButtonProvider {
         return [{
             icon: this.domSanitizer.bypassSecurityTrustHtml(require('./icons/cog.svg')),
             title: 'Settings',
-            touchBarTitle: '⚙️',
+            touchBarNSImage: 'NSTouchBarComposeTemplate',
             weight: 10,
             click: () => this.open(),
         }]

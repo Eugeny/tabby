@@ -9,6 +9,7 @@ export class ElectronService {
     dialog: any
     clipboard: any
     globalShortcut: any
+    nativeImage: any
     screen: any
     remote: any
     TouchBar: typeof TouchBar
@@ -24,6 +25,7 @@ export class ElectronService {
         this.clipboard = this.electron.clipboard
         this.ipcRenderer = this.electron.ipcRenderer
         this.globalShortcut = this.remote.globalShortcut
+        this.nativeImage = this.remote.nativeImage
         this.TouchBar = this.remote.TouchBar
     }
 

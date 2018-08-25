@@ -55,7 +55,7 @@ export class ButtonProvider extends ToolbarButtonProvider {
         return [{
             icon: this.domSanitizer.bypassSecurityTrustHtml(require('./icons/plus.svg')),
             title: 'New terminal',
-            touchBarTitle: 'New',
+            touchBarNSImage: 'NSTouchBarAddDetailTemplate',
             click: async () => {
                 this.openNewTab()
             }

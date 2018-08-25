@@ -1,15 +1,12 @@
 import { Injectable, Inject, NgZone } from '@angular/core'
 import { TouchBarSegmentedControl, SegmentedControlSegment } from 'electron'
-import { Subscription } from 'rxjs'
 import { AppService } from './app.service'
 import { ConfigService } from './config.service'
 import { ElectronService } from './electron.service'
-import { BaseTabComponent } from '../components/baseTab.component'
 import { IToolbarButton, ToolbarButtonProvider } from '../api'
 
 @Injectable()
 export class TouchbarService {
-    private titleSubscriptions = new Map<BaseTabComponent, Subscription>()
     private tabsSegmentedControl: TouchBarSegmentedControl
     private tabSegments: SegmentedControlSegment[] = []
 
@@ -23,15 +20,10 @@ export class TouchbarService {
         app.tabsChanged$.subscribe(() => this.update())
         app.activeTabChange$.subscribe(() => this.update())
         app.tabOpened$.subscribe(tab => {
-            let sub = tab.titleChange$.subscribe(title => {
+            tab.titleChange$.subscribe(title => {
                 this.tabSegments[app.tabs.indexOf(tab)].label = this.shortenTitle(title)
                 this.tabsSegmentedControl.segments = this.tabSegments
             })
-            this.titleSubscriptions.set(tab, sub)
-        })
-        app.tabClosed$.subscribe(tab => {
-            this.titleSubscriptions.get(tab).unsubscribe()
-            this.titleSubscriptions.delete(tab)
         })
     }
 
@@ -56,14 +48,19 @@ export class TouchbarService {
                 this.tabsSegmentedControl,
                 new this.electron.TouchBar.TouchBarSpacer({size: 'flexible'}),
                 new this.electron.TouchBar.TouchBarSpacer({size: 'small'}),
-                ...buttons.map(button => new this.electron.TouchBar.TouchBarButton({
-                    label: this.shortenTitle(button.touchBarTitle || button.title),
-                        // backgroundColor: '#0022cc',
-                    click: () => this.zone.run(() => button.click()),
-                }))
+                ...buttons.map(button => this.getButton(button))
             ]
         })
         this.electron.app.window.setTouchBar(touchBar)
+    }
+
+    private getButton (button: IToolbarButton): Electron.TouchBarButton {
+        return new this.electron.TouchBar.TouchBarButton({
+            label: button.touchBarNSImage ? null : this.shortenTitle(button.touchBarTitle || button.title),
+            icon: button.touchBarNSImage ?
+                this.electron.nativeImage.createFromNamedImage(button.touchBarNSImage, [0, 0, 1]) : null,
+            click: () => this.zone.run(() => button.click()),
+        })
     }
 
     private shortenTitle (title: string): string {

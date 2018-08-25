@@ -66,7 +66,7 @@ export class AppService {
             this.lastTabIndex = null
         }
         if (this.activeTab) {
-            this.activeTab.hasActivity = false
+            this.activeTab.clearActivity()
             this.activeTab.emitBlurred()
         }
         this.activeTab = tab

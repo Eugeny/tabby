@@ -24,7 +24,7 @@ title-bar(
                 [index]='idx',
                 [tab]='tab',
                 [active]='tab == app.activeTab',
-                [hasActivity]='tab.hasActivity',
+                [hasActivity]='tab.activity$|async',
                 @animateTab,
                 (click)='app.selectTab(tab)',
                 [class.fully-draggable]='hostApp.platform != Platform.macOS',

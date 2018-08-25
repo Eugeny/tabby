@@ -144,7 +144,7 @@ export class AppRootComponent {
                 if (progress !== null) {
                     this.hostApp.getWindow().setProgressBar(progress / 100.0, 'normal')
                 } else {
-                    this.hostApp.getWindow().setProgressBar(0, 'none')
+                    this.hostApp.getWindow().setProgressBar(-1, 'none')
                 }
             })
         })

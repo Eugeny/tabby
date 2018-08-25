@@ -28,7 +28,7 @@ export class ButtonProvider extends ToolbarButtonProvider {
             icon: this.domSanitizer.bypassSecurityTrustHtml(require('./icons/globe.svg')),
             weight: 5,
             title: 'SSH connections',
-            touchBarTitle: 'SSH',
+            touchBarNSImage: 'NSTouchBarOpenInBrowserTemplate',
             click: async () => {
                 this.activate()
             }
