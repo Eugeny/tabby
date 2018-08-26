@@ -11,6 +11,7 @@ import { ConfigService } from './services/config.service'
 import { ElectronService } from './services/electron.service'
 import { HostAppService } from './services/hostApp.service'
 import { LogService } from './services/log.service'
+import { HomeBaseService } from './services/homeBase.service'
 import { HotkeysService, AppHotkeyProvider } from './services/hotkeys.service'
 import { DockingService } from './services/docking.service'
 import { TabRecoveryService } from './services/tabRecovery.service'
@@ -44,6 +45,7 @@ const PROVIDERS = [
     ConfigService,
     DockingService,
     ElectronService,
+    HomeBaseService,
     HostAppService,
     HotkeysService,
     LogService,

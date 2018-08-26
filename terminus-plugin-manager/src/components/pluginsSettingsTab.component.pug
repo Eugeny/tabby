@@ -19,7 +19,7 @@ h3 Installed
                 .d-flex.flex-column.align-items-end.mr-3
                     div {{plugin.version}}
                     small.text-muted {{plugin.author}}
-                button.btn.btn-outline-primary(
+                button.btn.btn-secondary.ml-2(
                     *ngIf='npmInstalled && knownUpgrades[plugin.name]',
                     (click)='upgradePlugin(plugin)',
                     [disabled]='busy[plugin.name] != undefined'
@@ -27,19 +27,19 @@ h3 Installed
                     i.fa.fa-fw.fa-arrow-up(*ngIf='busy[plugin.name] != BusyState.Installing')
                     i.fa.fa-fw.fa-circle-o-notch.fa-spin(*ngIf='busy[plugin.name] == BusyState.Installing')
                     span Upgrade ({{knownUpgrades[plugin.name].version}})
-                button.btn.btn-outline-danger(
+                button.btn.btn-secondary.ml-2(
                     (click)='uninstallPlugin(plugin)', 
                     *ngIf='!plugin.isBuiltin && npmInstalled',
                     [disabled]='busy[plugin.name] != undefined'
                 )
                     i.fa.fa-fw.fa-trash-o(*ngIf='busy[plugin.name] != BusyState.Uninstalling')
                     i.fa.fa-fw.fa-circle-o-notch.fa-spin(*ngIf='busy[plugin.name] == BusyState.Uninstalling')
-                button.btn.btn-outline-danger(
+                button.btn.btn-secondary.ml-2(
                     *ngIf='config.store.pluginBlacklist.includes(plugin.name)',
                     (click)='enablePlugin(plugin)'
                 )
                     i.fa.fa-fw.fa-play
-                button.btn.btn-outline-primary(
+                button.btn.btn-secondary.ml-2(
                     *ngIf='!config.store.pluginBlacklist.includes(plugin.name)',
                     (click)='disablePlugin(plugin)'
                 )
@@ -60,9 +60,10 @@ div(*ngIf='npmInstalled')
     h3.mt-4 Available
 
     .input-group.mb-4
-        .input-group-addon
-            i.fa.fa-fw.fa-circle-o-notch.fa-spin(*ngIf='!availablePluginsReady')
-            i.fa.fa-fw.fa-search(*ngIf='availablePluginsReady')
+        .input-group-prepend
+            .input-group-text
+                i.fa.fa-fw.fa-circle-o-notch.fa-spin(*ngIf='!availablePluginsReady')
+                i.fa.fa-fw.fa-search(*ngIf='availablePluginsReady')
         input.form-control(
             type='text',
             '[(ngModel)]'='_1',
@@ -83,7 +84,7 @@ div(*ngIf='npmInstalled')
                         div {{plugin.version}}
                         small.text-muted {{plugin.author}}
                             i.fa.fa-check.text-success.ml-1(*ngIf='plugin.isOfficial', title='Official')
-                    button.btn.btn-outline-primary(
+                    button.btn.btn-primary(
                         (click)='installPlugin(plugin)',
                         [disabled]='busy[plugin.name] != undefined'
                     )

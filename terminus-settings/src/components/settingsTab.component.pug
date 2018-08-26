@@ -1,11 +1,26 @@
 button.btn.btn-outline-warning.btn-block(*ngIf='config.restartRequested', '(click)'='restartApp()') Restart the app to apply changes
 
-ngb-tabset.vertical(type='tabs', [activeId]='activeTab')
+ngb-tabset.vertical(type='pills', [activeId]='activeTab')
     ngb-tab(id='application')
         ng-template(ngbTabTitle)
             | Application
         ng-template(ngbTabContent)
-            h3.mb-3 Application
+            .d-flex.align-items-center.mb-4
+                h1.terminus-title.mb-2.mr-2 Terminus
+                    sup α 
+                
+                .text-muted.mr-auto {{homeBase.appVersion}}
+                            
+                button.btn.btn-secondary.mr-3((click)='homeBase.openGitHub()')
+                    i.fa.fa-github
+                    span GitHub
+                    
+                button.btn.btn-secondary((click)='homeBase.reportBug()')
+                    i.fa.fa-bug
+                    span Report a problem
+
+
+
             .form-line
                 .header
                     .title Theme
@@ -211,7 +226,13 @@ ngb-tabset.vertical(type='tabs', [activeId]='activeTab')
             | Hotkeys
         ng-template(ngbTabContent)
             h3.mb-3 Hotkeys
-            input.form-control(type='search', placeholder='Search hotkeys', [(ngModel)]='hotkeyFilter')
+            
+            .input-group.mb-4
+                .input-group-prepend
+                    .input-group-text
+                        i.fa.fa-fw.fa-search
+                input.form-control(type='search', placeholder='Search hotkeys', [(ngModel)]='hotkeyFilter')
+                            
             .form-group
                 table.hotkeys-table
                     tr

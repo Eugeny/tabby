@@ -3,6 +3,7 @@
     flex-direction: column;
     flex: auto;
     -webkit-app-region: drag;
+    overflow-y: auto;
 }
 
 :host > div {

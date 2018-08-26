@@ -4,21 +4,20 @@ div
         sup α 
 
     .list-group
-        a.list-group-item.list-group-item-action(
+        a.list-group-item.list-group-item-action.d-flex(
             *ngFor='let button of getButtons()',
             (click)='button.click()',
         )
             .d-flex.align-self-center([innerHTML]='button.icon')
             span {{button.title}}
 
-footer
-    .pull-right
-        .form-control-static Version: {{version}}
-            
-    .btn-group
-        button.btn.btn-secondary((click)='openGitHub()')
+footer.d-flex.align-items-center
+    .btn-group.mr-auto
+        button.btn.btn-secondary((click)='homeBase.openGitHub()')
             i.fa.fa-github
             span GitHub
-        button.btn.btn-secondary((click)='reportBug()')
+        button.btn.btn-secondary((click)='homeBase.reportBug()')
             i.fa.fa-bug
             span Report a problem
+
+    .form-control-static Version: {{homeBase.appVersion}}

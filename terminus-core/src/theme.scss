@@ -14,13 +14,17 @@ $teal:   #5bc0de !default;
 $pink:   #ff5b77 !default;
 $purple: #613d7c !default;
 
+$theme-colors: (
+    "primary":    $blue,
+    "secondary": #394b5d
+);
 
 $content-bg: rgba(39, 49, 60, 0.65); //#1D272D;
 $content-bg-solid: #1D272D;
 $body-bg: #131d27;
 $body-bg2: #20333e;
 
-$body-color: #aaa;
+$body-color: #ccc;
 $font-family-sans-serif: "Source Sans Pro";
 $font-size-base: 14rem / 16;
 
@@ -39,6 +43,7 @@ $nav-tabs-link-hover-border-color:            $body-bg;
 $nav-tabs-active-link-hover-color:            $white;
 $nav-tabs-active-link-hover-bg:               $blue;
 $nav-tabs-active-link-hover-border-color:     darken($blue, 30%);
+$nav-pills-border-radius:  0;
 
 $input-bg:                       #111;
 $input-bg-disabled:              #333;

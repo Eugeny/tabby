@@ -17,14 +17,14 @@ h3.mb-3 Appearance
             .header
                 .title Font
 
-            .d-flex.w-50
-                input.form-control(
+            .d-flex.w-75
+                input.form-control.w-75(
                     type='text',
                     [ngbTypeahead]='fontAutocomplete',
                     [(ngModel)]='config.store.terminal.font',
                     (ngModelChange)='config.save()',
                 )
-                input.form-control(
+                input.form-control.w-25(
                     type='number',
                     [(ngModel)]='config.store.terminal.fontSize',
                     (ngModelChange)='config.save()',
