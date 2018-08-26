@@ -24,7 +24,8 @@
     "@types/winreg": "^1.2.30",
     "dataurl": "0.1.0",
     "deep-equal": "1.0.1",
-    "file-loader": "^0.11.2"
+    "file-loader": "^0.11.2",
+    "xterm": "^3.6.0"
   },
   "peerDependencies": {
     "@angular/common": "4.0.1",

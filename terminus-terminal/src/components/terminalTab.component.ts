@@ -174,6 +174,7 @@ export class TerminalTabComponent extends BaseTabComponent {
             this.session.releaseInitialDataBuffer()
         })
 
+        this.termContainer.configure(this.config.store)
         this.termContainer.attach(this.content.nativeElement)
         this.attachTermContainerHandlers()
 
@@ -346,6 +347,7 @@ export class TerminalTabComponent extends BaseTabComponent {
     }
 
     ngOnDestroy () {
+        this.termContainer.detach(this.content.nativeElement)
         this.detachTermContainerHandlers()
         this.config.enabledServices(this.decorators).forEach(decorator => {
             decorator.detach(this)

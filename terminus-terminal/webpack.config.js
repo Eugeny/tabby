@@ -13,6 +13,7 @@ module.exports = {
     libraryTarget: 'umd',
     devtoolModuleFilenameTemplate: 'webpack-terminus-terminal:///[resource-path]',
   },
+  mode: process.env.DEV ? 'development' : 'production',
   resolve: {
     modules: ['.', 'src', 'node_modules', '../app/node_modules'].map(x => path.join(__dirname, x)),
     extensions: ['.ts', '.js'],
@@ -35,7 +36,7 @@ module.exports = {
       },
       { test: /\.pug$/, use: ['apply-loader', 'pug-loader'] },
       { test: /\.scss$/, use: ['to-string-loader', 'css-loader', 'sass-loader'] },
-      { test: /\.css$/, use: ['to-string-loader', 'css-loader'] },
+      { test: /\.css$/, use: ['style-loader', 'css-loader'] },
       { test: /\.svg/, use: ['svg-inline-loader'] },
       {
         test: /\.(ttf|eot|otf|woff|woff2|ogg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,

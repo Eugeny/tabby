@@ -50,6 +50,9 @@ export class HTermContainer extends TermContainer {
     }
 
     configure (config: any): void {
+        if (!this.term) {
+            return
+        }
         this.configuredFontSize = config.terminal.fontSize
         this.configuredLinePadding = config.terminal.linePadding
         this.setFontSize()
@@ -144,6 +147,7 @@ export class HTermContainer extends TermContainer {
 
     private init () {
         this.term = new hterm.hterm.Terminal()
+        this.term.colorPaletteOverrides = []
         this.term.onTerminalReady = () => {
             this.term.installKeyboard()
             this.term.scrollPort_.setCtrlVPaste(true)
@@ -225,7 +229,5 @@ export class HTermContainer extends TermContainer {
             size.height += this.configuredLinePadding
             return size
         }
-
-        this.term.colorPaletteOverrides = []
     }
 }

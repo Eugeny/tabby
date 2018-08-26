@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 import { execFileSync } from 'child_process'
-import * as AsyncLock from 'async-lock'
+import AsyncLock = require('async-lock')
 import { ConnectableObservable, AsyncSubject, Subject } from 'rxjs'
 import { first, publish } from 'rxjs/operators'
 import * as childProcess from 'child_process'

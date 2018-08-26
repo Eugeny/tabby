@@ -26,6 +26,7 @@ export abstract class TermContainer {
     get drop$ (): Observable<DragEvent> { return this.drop }
 
     abstract attach (host: HTMLElement): void
+    detach (host: HTMLElement): void { } // tslint:disable-line
 
     destroy (): void {
         for (let o of [
