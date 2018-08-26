@@ -1,23 +1,23 @@
 import { Injectable } from '@angular/core'
 import { ConfigService } from 'terminus-core'
-import { TermContainer } from '../terminalContainers/termContainer'
-import { HTermContainer } from '../terminalContainers/htermContainer'
-import { XTermContainer } from '../terminalContainers/xtermContainer'
+import { Frontend } from '../frontends/frontend'
+import { HTermFrontend } from '../frontends/htermFrontend'
+import { XTermFrontend } from '../frontends/xtermFrontend'
 import { BaseSession } from '../services/sessions.service'
 
 @Injectable()
-export class TerminalContainersService {
-    private containers = new WeakMap<BaseSession, TermContainer>()
+export class TerminalFrontendService {
+    private containers = new WeakMap<BaseSession, Frontend>()
 
     constructor (private config: ConfigService) { }
 
-    getContainer (session: BaseSession): TermContainer {
+    getFrontend (session: BaseSession): Frontend {
         if (!this.containers.has(session)) {
             this.containers.set(
                 session,
                 (this.config.store.terminal.frontend === 'xterm')
-                    ? new XTermContainer()
-                    : new HTermContainer()
+                    ? new XTermFrontend()
+                    : new HTermFrontend()
             )
         }
         return this.containers.get(session)

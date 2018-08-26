@@ -10,10 +10,10 @@ export class PathDropDecorator extends TerminalDecorator {
     attach (terminal: TerminalTabComponent): void {
         setTimeout(() => {
             this.subscriptions = [
-                terminal.termContainer.dragOver$.subscribe(event => {
+                terminal.frontend.dragOver$.subscribe(event => {
                     event.preventDefault()
                 }),
-                terminal.termContainer.drop$.subscribe(event => {
+                terminal.frontend.drop$.subscribe(event => {
                     for (let file of event.dataTransfer.files as any) {
                         this.injectPath(terminal, file.path)
                     }

@@ -1,4 +1,4 @@
-import { TermContainer } from './termContainer'
+import { Frontend } from './frontend'
 import { Terminal, ITheme } from 'xterm'
 import * as fit from 'xterm/lib/addons/fit/fit'
 import 'xterm/dist/xterm.css'
@@ -6,7 +6,7 @@ import deepEqual = require('deep-equal')
 
 Terminal.applyAddon(fit)
 
-export class XTermContainer extends TermContainer {
+export class XTermFrontend extends Frontend {
     enableResizing = true
     xterm: Terminal
     private configuredFontSize = 0

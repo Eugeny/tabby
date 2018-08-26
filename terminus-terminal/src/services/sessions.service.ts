@@ -1,10 +1,10 @@
-const psNode = require('ps-node')
+import psNode = require('ps-node')
 let nodePTY
 import * as fs from 'mz/fs'
 import { Observable, Subject } from 'rxjs'
 import { first } from 'rxjs/operators'
 import { Injectable, Inject } from '@angular/core'
-import { Logger, LogService, ElectronService, ConfigService } from 'terminus-core'
+import { Logger, LogService, ConfigService } from 'terminus-core'
 import { exec } from 'mz/child_process'
 
 import { SessionOptions, SessionPersistenceProvider } from '../api'
@@ -202,7 +202,6 @@ export class SessionsService {
     constructor (
         @Inject(SessionPersistenceProvider) private persistenceProviders: SessionPersistenceProvider[],
         private config: ConfigService,
-        electron: ElectronService,
         log: LogService,
     ) {
         nodePTY = require('node-pty-tmp')

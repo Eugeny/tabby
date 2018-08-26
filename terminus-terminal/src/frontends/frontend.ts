@@ -1,7 +1,7 @@
 import { Observable, Subject, AsyncSubject, ReplaySubject, BehaviorSubject } from 'rxjs'
 import { ResizeEvent } from '../api'
 
-export abstract class TermContainer {
+export abstract class Frontend {
     enableResizing = true
     protected ready = new AsyncSubject<void>()
     protected title = new ReplaySubject<string>(1)

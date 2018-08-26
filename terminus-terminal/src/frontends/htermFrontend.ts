@@ -1,7 +1,7 @@
-import { TermContainer } from './termContainer'
+import { Frontend } from './frontend'
 import { hterm, preferenceManager } from '../hterm'
 
-export class HTermContainer extends TermContainer {
+export class HTermFrontend extends Frontend {
     term: any
     io: any
     private htermIframe: HTMLElement

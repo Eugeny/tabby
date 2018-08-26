@@ -7,10 +7,10 @@ import { AppService, ConfigService, BaseTabComponent, ElectronService, HostAppSe
 import { IShell } from '../api'
 import { Session, SessionsService } from '../services/sessions.service'
 import { TerminalService } from '../services/terminal.service'
-import { TerminalContainersService } from '../services/terminalContainers.service'
+import { TerminalFrontendService } from '../services/terminalFrontend.service'
 
 import { TerminalDecorator, ResizeEvent, SessionOptions } from '../api'
-import { TermContainer } from '../terminalContainers/termContainer'
+import { Frontend } from '../frontends/frontend'
 
 @Component({
     selector: 'terminalTab',
@@ -29,7 +29,7 @@ export class TerminalTabComponent extends BaseTabComponent {
     @Input() zoom = 0
     @ViewChild('content') content
     @HostBinding('style.background-color') backgroundColor: string
-    termContainer: TermContainer
+    frontend: Frontend
     sessionCloseSubscription: Subscription
     hotkeysSubscription: Subscription
     htermVisible = false
@@ -39,10 +39,10 @@ export class TerminalTabComponent extends BaseTabComponent {
     private contextMenu: any
     private termContainerSubscriptions: Subscription[] = []
 
-    get input$ (): Observable<string> { return this.termContainer.input$ }
+    get input$ (): Observable<string> { return this.frontend.input$ }
     get output$ (): Observable<string> { return this.output }
-    get resize$ (): Observable<ResizeEvent> { return this.termContainer.resize$ }
-    get alternateScreenActive$ (): Observable<boolean> { return this.termContainer.alternateScreenActive$ }
+    get resize$ (): Observable<ResizeEvent> { return this.frontend.resize$ }
+    get alternateScreenActive$ (): Observable<boolean> { return this.frontend.alternateScreenActive$ }
 
     constructor (
         private zone: NgZone,
@@ -52,7 +52,7 @@ export class TerminalTabComponent extends BaseTabComponent {
         private sessions: SessionsService,
         private electron: ElectronService,
         private terminalService: TerminalService,
-        private terminalContainersService: TerminalContainersService,
+        private terminalContainersService: TerminalFrontendService,
         public config: ConfigService,
         private toastr: ToastrService,
         @Optional() @Inject(TerminalDecorator) private decorators: TerminalDecorator[],
@@ -69,23 +69,23 @@ export class TerminalTabComponent extends BaseTabComponent {
             }
             switch (hotkey) {
             case 'ctrl-c':
-                if (this.termContainer.getSelection()) {
-                    this.termContainer.copySelection()
-                    this.termContainer.clearSelection()
+                if (this.frontend.getSelection()) {
+                    this.frontend.copySelection()
+                    this.frontend.clearSelection()
                     this.toastr.info('Copied')
                 } else {
                     this.sendInput('\x03')
                 }
                 break
             case 'copy':
-                this.termContainer.copySelection()
+                this.frontend.copySelection()
                 this.toastr.info('Copied')
                 break
             case 'paste':
                 this.paste()
                 break
             case 'clear':
-                this.termContainer.clear()
+                this.frontend.clear()
                 break
             case 'zoom-in':
                 this.zoomIn()
@@ -138,7 +138,7 @@ export class TerminalTabComponent extends BaseTabComponent {
         })
 
         this.sessionCloseSubscription = this.session.closed$.subscribe(() => {
-            this.termContainer.destroy()
+            this.frontend.destroy()
             this.app.closeTab(this)
         })
     }
@@ -153,16 +153,16 @@ export class TerminalTabComponent extends BaseTabComponent {
     ngOnInit () {
         this.focused$.subscribe(() => {
             this.configure()
-            this.termContainer.focus()
+            this.frontend.focus()
         })
 
-        this.termContainer = this.terminalContainersService.getContainer(this.session)
+        this.frontend = this.terminalContainersService.getFrontend(this.session)
 
-        this.termContainer.ready$.subscribe(() => {
+        this.frontend.ready$.subscribe(() => {
             this.htermVisible = true
         })
 
-        this.termContainer.resize$.pipe(first()).subscribe(async ({columns, rows}) => {
+        this.frontend.resize$.pipe(first()).subscribe(async ({columns, rows}) => {
             if (!this.session.open) {
                 this.initializeSession(columns, rows)
             }
@@ -174,8 +174,8 @@ export class TerminalTabComponent extends BaseTabComponent {
             this.session.releaseInitialDataBuffer()
         })
 
-        this.termContainer.configure(this.config.store)
-        this.termContainer.attach(this.content.nativeElement)
+        this.frontend.configure(this.config.store)
+        this.frontend.attach(this.content.nativeElement)
         this.attachTermContainerHandlers()
 
         this.configure()
@@ -190,9 +190,9 @@ export class TerminalTabComponent extends BaseTabComponent {
             })
         }, 1000)
 
-        this.termContainer.bell$.subscribe(() => {
+        this.frontend.bell$.subscribe(() => {
             if (this.config.store.terminal.bell === 'visual') {
-                this.termContainer.visualBell()
+                this.frontend.visualBell()
             }
             if (this.config.store.terminal.bell === 'audible') {
                 this.bellPlayer.play()
@@ -213,7 +213,7 @@ export class TerminalTabComponent extends BaseTabComponent {
                 click: () => {
                     this.zone.run(() => {
                         setTimeout(() => {
-                            this.termContainer.copySelection()
+                            this.frontend.copySelection()
                             this.toastr.info('Copied')
                         })
                     })
@@ -240,12 +240,12 @@ export class TerminalTabComponent extends BaseTabComponent {
     attachTermContainerHandlers () {
         this.detachTermContainerHandlers()
         this.termContainerSubscriptions = [
-            this.termContainer.title$.subscribe(title => this.zone.run(() => this.setTitle(title))),
+            this.frontend.title$.subscribe(title => this.zone.run(() => this.setTitle(title))),
 
-            this.focused$.subscribe(() => this.termContainer.enableResizing = true),
-            this.blurred$.subscribe(() => this.termContainer.enableResizing = false),
+            this.focused$.subscribe(() => this.frontend.enableResizing = true),
+            this.blurred$.subscribe(() => this.frontend.enableResizing = false),
 
-            this.termContainer.mouseEvent$.subscribe(event => {
+            this.frontend.mouseEvent$.subscribe(event => {
                 if (event.type === 'mousedown') {
                     if (event.which === 3) {
                         if (this.config.store.terminal.rightClick === 'menu') {
@@ -275,11 +275,11 @@ export class TerminalTabComponent extends BaseTabComponent {
                 }
             }),
 
-            this.termContainer.input$.subscribe(data => {
+            this.frontend.input$.subscribe(data => {
                 this.sendInput(data)
             }),
 
-            this.termContainer.resize$.subscribe(({columns, rows}) => {
+            this.frontend.resize$.subscribe(({columns, rows}) => {
                 console.log(`Resizing to ${columns}x${rows}`)
                 this.zone.run(() => {
                     if (this.session.open) {
@@ -303,7 +303,7 @@ export class TerminalTabComponent extends BaseTabComponent {
         } else {
             this.setProgress(null)
         }
-        this.termContainer.write(data)
+        this.frontend.write(data)
     }
 
     paste () {
@@ -320,7 +320,7 @@ export class TerminalTabComponent extends BaseTabComponent {
     }
 
     configure (): void {
-        this.termContainer.configure(this.config.store)
+        this.frontend.configure(this.config.store)
 
         if (this.config.store.terminal.background === 'colorScheme') {
             if (this.config.store.terminal.colorScheme.background) {
@@ -333,21 +333,21 @@ export class TerminalTabComponent extends BaseTabComponent {
 
     zoomIn () {
         this.zoom++
-        this.termContainer.setZoom(this.zoom)
+        this.frontend.setZoom(this.zoom)
     }
 
     zoomOut () {
         this.zoom--
-        this.termContainer.setZoom(this.zoom)
+        this.frontend.setZoom(this.zoom)
     }
 
     resetZoom () {
         this.zoom = 0
-        this.termContainer.setZoom(this.zoom)
+        this.frontend.setZoom(this.zoom)
     }
 
     ngOnDestroy () {
-        this.termContainer.detach(this.content.nativeElement)
+        this.frontend.detach(this.content.nativeElement)
         this.detachTermContainerHandlers()
         this.config.enabledServices(this.decorators).forEach(decorator => {
             decorator.detach(this)
