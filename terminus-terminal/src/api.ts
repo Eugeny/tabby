@@ -25,6 +25,7 @@ export interface SessionOptions {
     height?: number
     recoveryId?: string
     recoveredTruePID$?: Observable<number>
+    pauseAfterExit?: boolean
 }
 
 export abstract class SessionPersistenceProvider {
@@ -51,7 +52,7 @@ export abstract class TerminalColorSchemeProvider {
 
 export interface IShell {
     id: string
-    name: string
+    name?: string
     command: string
     args?: string[]
     env?: any

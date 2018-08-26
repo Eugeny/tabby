@@ -3,7 +3,6 @@ export { TabRecoveryProvider, RecoveredTab } from './tabRecovery'
 export { ToolbarButtonProvider, IToolbarButton } from './toolbarButtonProvider'
 export { ConfigProvider } from './configProvider'
 export { HotkeyProvider, IHotkeyDescription } from './hotkeyProvider'
-export { DefaultTabProvider } from './defaultTabProvider'
 export { Theme } from './theme'
 
 export { AppService } from '../services/app.service'

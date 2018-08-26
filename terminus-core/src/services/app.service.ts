@@ -1,6 +1,5 @@
 import { Observable, Subject, AsyncSubject } from 'rxjs'
-import { Injectable, ComponentFactoryResolver, Injector, Optional } from '@angular/core'
-import { DefaultTabProvider } from '../api/defaultTabProvider'
+import { Injectable, ComponentFactoryResolver, Injector } from '@angular/core'
 import { BaseTabComponent } from '../components/baseTab.component'
 import { Logger, LogService } from './log.service'
 import { ConfigService } from './config.service'
@@ -28,7 +27,6 @@ export class AppService {
 
     constructor (
         private componentFactoryResolver: ComponentFactoryResolver,
-        @Optional() private defaultTabProvider: DefaultTabProvider,
         private config: ConfigService,
         private injector: Injector,
         log: LogService,
@@ -50,14 +48,9 @@ export class AppService {
         return componentRef.instance
     }
 
-    openDefaultTab (): void {
-        if (this.defaultTabProvider) {
-            this.defaultTabProvider.openNewTab()
-        }
-    }
-
     selectTab (tab: BaseTabComponent) {
         if (this.activeTab === tab) {
+            this.activeTab.emitFocused()
             return
         }
         if (this.tabs.includes(this.activeTab)) {

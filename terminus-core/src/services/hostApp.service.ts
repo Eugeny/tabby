@@ -1,3 +1,4 @@
+import * as path from 'path'
 import { Observable, Subject } from 'rxjs'
 import { Injectable, NgZone, EventEmitter } from '@angular/core'
 import { ElectronService } from '../services/electron.service'
@@ -14,11 +15,6 @@ export interface Bounds {
     height: number
 }
 
-export interface SecondInstanceArgs {
-    argv: string[],
-    cwd: string
-}
-
 @Injectable()
 export class HostAppService {
     platform: Platform
@@ -27,11 +23,15 @@ export class HostAppService {
     shown = new EventEmitter<any>()
     isFullScreen = false
     private preferencesMenu = new Subject<void>()
-    private secondInstance = new Subject<SecondInstanceArgs>()
+    private secondInstance = new Subject<void>()
+    private cliOpenDirectory = new Subject<string>()
+    private cliRunCommand = new Subject<string[]>()
     private logger: Logger
 
     get preferencesMenu$ (): Observable<void> { return this.preferencesMenu }
-    get secondInstance$ (): Observable<SecondInstanceArgs> { return this.secondInstance }
+    get secondInstance$ (): Observable<void> { return this.secondInstance }
+    get cliOpenDirectory$ (): Observable<string> { return this.cliOpenDirectory }
+    get cliRunCommand$ (): Observable<string[]> { return this.cliRunCommand }
 
     constructor (
         private zone: NgZone,
@@ -64,9 +64,15 @@ export class HostAppService {
             this.zone.run(() => this.shown.emit())
         })
 
-        electron.ipcRenderer.on('host:second-instance', ($event, argv: string[], cwd: string) => {
-            this.zone.run(() => this.secondInstance.next({ argv, cwd }))
-        })
+        electron.ipcRenderer.on('host:second-instance', ($event, argv: any, cwd: string) => this.zone.run(() => {
+            this.logger.info('Second instance', argv)
+            const op = argv._[0]
+            if (op === 'open') {
+                this.cliOpenDirectory.next(path.resolve(cwd, argv.directory))
+            } else if (op === 'run') {
+                this.cliRunCommand.next(argv.command)
+            }
+        }))
 
         this.ready.subscribe(() => {
             electron.ipcRenderer.send('app:ready')

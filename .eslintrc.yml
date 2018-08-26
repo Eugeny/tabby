@@ -1,0 +1,55 @@
+parser: babel-eslint
+extends: standard
+env:
+  node: true
+  commonjs: true
+rules:
+  no-duplicate-imports: error
+  import/no-duplicates: 0
+  array-bracket-spacing:
+  - error
+  - never
+  block-scoped-var: error
+  brace-style:
+  - error
+  - 1tbs
+  computed-property-spacing:
+  - error
+  - never
+  comma-dangle:
+  - error
+  - always-multiline
+  curly: error
+  eol-last: error
+  eqeqeq:
+  - error
+  - smart
+  max-depth:
+  - 1
+  - 5
+  max-statements:
+  - 1
+  - 80
+  no-multiple-empty-lines: error
+  no-mixed-spaces-and-tabs: error
+  no-trailing-spaces: error
+  no-unused-vars:
+    - error
+    - vars: all
+      args: after-used
+      argsIgnorePattern: ^_
+  no-undef: error
+  no-use-before-define:
+  - error
+  - nofunc
+  no-var: error
+  object-curly-spacing:
+  - error
+  - always
+  quote-props:
+  - warn
+  - as-needed
+  - keywords: true
+    numbers: true
+  strict:
+  - error

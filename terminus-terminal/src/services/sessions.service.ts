@@ -65,6 +65,7 @@ export abstract class BaseSession {
 
 export class Session extends BaseSession {
     private pty: any
+    private pauseAfterExit = false
 
     start (options: SessionOptions) {
         this.name = options.name
@@ -110,16 +111,24 @@ export class Session extends BaseSession {
         })
 
         this.pty.on('exit', () => {
-            if (this.open) {
+            console.log('session exit')
+            if (this.pauseAfterExit) {
+                return
+            } else if (this.open) {
                 this.destroy()
             }
         })
 
         this.pty.on('close', () => {
-            if (this.open) {
+            console.log('session close')
+            if (this.pauseAfterExit) {
+                this.emitOutput('\r\nPress any key to close\r\n')
+            } else if (this.open) {
                 this.destroy()
             }
         })
+
+        this.pauseAfterExit = options.pauseAfterExit
     }
 
     resize (columns, rows) {
@@ -129,8 +138,12 @@ export class Session extends BaseSession {
     }
 
     write (data) {
-        if (this.pty._writable) {
-            this.pty.write(Buffer.from(data, 'utf-8'))
+        if (this.open) {
+            if (this.pty._writable) {
+                this.pty.write(Buffer.from(data, 'utf-8'))
+            } else {
+                this.destroy()
+            }
         }
     }
 

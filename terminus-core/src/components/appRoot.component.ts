@@ -184,10 +184,6 @@ export class AppRootComponent {
         this.ready = true
         this.tabRecovery.saveTabs(this.app.tabs)
 
-        if (this.app.tabs.length === 0) {
-            this.app.openDefaultTab()
-        }
-
         this.app.emitReady()
     }
 

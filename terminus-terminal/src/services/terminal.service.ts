@@ -34,7 +34,7 @@ export class TerminalService {
         this.shells.complete()
     }
 
-    async openTab (shell?: IShell, cwd?: string): Promise<TerminalTabComponent> {
+    async openTab (shell?: IShell, cwd?: string, pause?: boolean): Promise<TerminalTabComponent> {
         if (!cwd) {
             if (this.app.activeTab instanceof TerminalTabComponent && this.app.activeTab.session) {
                 cwd = await this.app.activeTab.session.getWorkingDirectory()
@@ -54,6 +54,7 @@ export class TerminalService {
             args: shell.args || [],
             cwd,
             env,
+            pauseAfterExit: pause,
         })
 
         this.logger.log('Using session options:', sessionOptions)

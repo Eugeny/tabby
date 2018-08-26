@@ -1,9 +1,7 @@
 import * as fs from 'mz/fs'
-import * as path from 'path'
-import { first } from 'rxjs/operators'
 import { Injectable } from '@angular/core'
 import { DomSanitizer } from '@angular/platform-browser'
-import { HotkeysService, ToolbarButtonProvider, IToolbarButton, ConfigService, HostAppService, ElectronService } from 'terminus-core'
+import { HotkeysService, ToolbarButtonProvider, IToolbarButton, HostAppService, ElectronService } from 'terminus-core'
 
 import { TerminalService } from './services/terminal.service'
 
@@ -12,7 +10,6 @@ export class ButtonProvider extends ToolbarButtonProvider {
     constructor (
         private terminal: TerminalService,
         private domSanitizer: DomSanitizer,
-        private config: ConfigService,
         hostApp: HostAppService,
         electron: ElectronService,
         hotkeys: HotkeysService,
@@ -20,16 +17,22 @@ export class ButtonProvider extends ToolbarButtonProvider {
         super()
         hotkeys.matchedHotkey.subscribe(async (hotkey) => {
             if (hotkey === 'new-tab') {
-                this.openNewTab()
+                this.terminal.openTab()
             }
         })
-        hostApp.secondInstance$.subscribe(async ({argv, cwd}) => {
-            if (argv.length === 2) {
-                let arg = path.resolve(cwd, argv[1])
-                if (await fs.exists(arg)) {
-                    this.openNewTab(arg)
+        hostApp.cliOpenDirectory$.subscribe(async directory => {
+            if (await fs.exists(directory)) {
+                if ((await fs.stat(directory)).isDirectory()) {
+                    this.terminal.openTab(null, directory)
                 }
             }
+        })
+        hostApp.cliRunCommand$.subscribe(async command => {
+            this.terminal.openTab({
+                id: '',
+                command: command[0],
+                args: command.slice(1),
+            }, null, true)
         })
         if (!electron.remote.process.env.DEV) {
             setImmediate(async () => {
@@ -37,18 +40,12 @@ export class ButtonProvider extends ToolbarButtonProvider {
                 for (let arg of argv.slice(1).concat([electron.remote.process.argv0])) {
                     if (await fs.exists(arg)) {
                         if ((await fs.stat(arg)).isDirectory()) {
-                            this.openNewTab(arg)
+                            this.terminal.openTab(null, arg)
                         }
                     }
                 }
             })
         }
-    }
-
-    async openNewTab (cwd?: string): Promise<void> {
-        let shells = await this.terminal.shells$.pipe(first()).toPromise()
-        let shell = shells.find(x => x.id === this.config.store.terminal.shell)
-        this.terminal.openTab(shell, cwd)
     }
 
     provide (): IToolbarButton[] {
@@ -57,7 +54,7 @@ export class ButtonProvider extends ToolbarButtonProvider {
             title: 'New terminal',
             touchBarNSImage: 'NSTouchBarAddDetailTemplate',
             click: async () => {
-                this.openNewTab()
+                this.terminal.openTab()
             }
         }]
     }
