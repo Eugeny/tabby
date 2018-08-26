@@ -19,8 +19,6 @@ ngb-tabset.vertical(type='pills', [activeId]='activeTab')
                     i.fa.fa-bug
                     span Report a problem
 
-
-
             .form-line
                 .header
                     .title Theme
@@ -215,6 +213,15 @@ ngb-tabset.vertical(type='pills', [activeId]='activeTab')
 
             .form-line
                 .header
+                    .title Enable analytics
+                    .description We use Google Analytics
+                toggle(
+                    [(ngModel)]='config.store.enableAnalytics',
+                    (ngModelChange)='config.save(); config.requestRestart()',
+                )
+
+            .form-line
+                .header
                     .title Custom CSS
                 textarea.form-control(
                     [(ngModel)]='config.store.appearance.css',
@@ -253,3 +260,29 @@ ngb-tabset.vertical(type='pills', [activeId]='activeTab')
             | {{provider.title}}
         ng-template(ngbTabContent)
             settings-tab-body([provider]='provider')
+
+                
+    ngb-tab(id='config-file')
+        ng-template(ngbTabTitle)
+            | Config file
+        ng-template.test(ngbTabContent)
+            .d-flex.flex-column.w-100.h-100
+                .h-100.d-flex
+                    .w-100.d-flex.flex-column
+                        h3 Config file
+                        textarea.form-control.h-100(
+                            [(ngModel)]='configFile'
+                        )
+                    .w-100.d-flex.flex-column
+                        h3 Defaults
+                        textarea.form-control.h-100(
+                            [(ngModel)]='configDefaults',
+                            readonly
+                        )   
+                .mt-3
+                    button.btn.btn-primary((click)='saveConfigFile()', *ngIf='isConfigFileValid()')
+                        i.fa.fa-check.mr-2
+                        | Save and apply
+                    button.btn.btn-primary(disabled, *ngIf='!isConfigFileValid()')
+                        i.fa.fa-warning.mr-2
+                        | Invalid syntax

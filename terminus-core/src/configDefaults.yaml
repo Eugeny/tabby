@@ -9,3 +9,4 @@ appearance:
   css: '/* * { color: blue !important; } */'
   opacity: 1.0
   vibrancy: false
+enableAnalytics: true

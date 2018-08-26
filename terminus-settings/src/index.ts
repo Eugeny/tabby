@@ -5,6 +5,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { NgPipesModule } from 'ngx-pipes'
 
 import { ToolbarButtonProvider, TabRecoveryProvider } from 'terminus-core'
+import TerminusCorePlugin from 'terminus-core'
 
 import { HotkeyInputModalComponent } from './components/hotkeyInputModal.component'
 import { MultiHotkeyInputComponent } from './components/multiHotkeyInput.component'
@@ -20,6 +21,7 @@ import { RecoveryProvider } from './recoveryProvider'
         FormsModule,
         NgbModule,
         NgPipesModule,
+        TerminusCorePlugin,
     ],
     providers: [
         { provide: ToolbarButtonProvider, useClass: ButtonProvider, multi: true },

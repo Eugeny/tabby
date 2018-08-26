@@ -1,6 +1,8 @@
 import * as os from 'os'
-import { Inject, Injectable } from '@angular/core'
+import { Injectable } from '@angular/core'
 import { ElectronService } from './electron.service'
+import { ConfigService } from './config.service'
+import ua = require('universal-analytics')
 
 @Injectable()
 export class HomeBaseService {
@@ -8,8 +10,13 @@ export class HomeBaseService {
 
     constructor (
         private electron: ElectronService,
+        private config: ConfigService,
     ) {
         this.appVersion = electron.app.getVersion()
+
+        if (this.config.store.enableAnalytics) {
+            this.enableAnalytics()
+        }
     }
 
     openGitHub () {
@@ -25,5 +32,12 @@ export class HomeBaseService {
             linux: 'Linux',
         }[os.platform()]
         this.electron.shell.openExternal(`https://github.com/eugeny/terminus/issues/new?body=${encodeURIComponent(body)}&labels=${label}`)
+    }
+
+    enableAnalytics () {
+        const session = ua('UA-3278102-20')
+        session.set('cd1', this.appVersion)
+        session.set('cd2', process.platform)
+        session.pageview('/').send()
     }
 }

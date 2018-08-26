@@ -13,7 +13,7 @@ export class StartPageComponent {
 
     constructor (
         private config: ConfigService,
-        private homeBase: HomeBaseService,
+        public homeBase: HomeBaseService,
         @Inject(ToolbarButtonProvider) private toolbarButtonProviders: ToolbarButtonProvider[],
     ) {
     }

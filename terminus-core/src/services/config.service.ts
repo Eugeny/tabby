@@ -80,6 +80,10 @@ export class ConfigService {
         this.load()
     }
 
+    getDefaults () {
+        return this.defaults
+    }
+
     load (): void {
         if (fs.existsSync(this.path)) {
             this._store = yaml.safeLoad(fs.readFileSync(this.path, 'utf8'))
@@ -91,6 +95,17 @@ export class ConfigService {
 
     save (): void {
         fs.writeFileSync(this.path, yaml.safeDump(this._store), 'utf8')
+        this.emitChange()
+    }
+
+    readRaw (): string {
+        return yaml.safeDump(this._store)
+    }
+
+    writeRaw (data: string): void {
+        this._store = yaml.safeLoad(data)
+        this.save()
+        this.load()
         this.emitChange()
     }
 

@@ -1,3 +1,5 @@
+import * as yaml from 'js-yaml'
+import { Subscription } from 'rxjs'
 import { Component, Inject, Input } from '@angular/core'
 import { ElectronService, DockingService, ConfigService, IHotkeyDescription, HotkeyProvider, BaseTabComponent, Theme, HostAppService, Platform, HomeBaseService } from 'terminus-core'
 
@@ -17,6 +19,9 @@ export class SettingsTabComponent extends BaseTabComponent {
     hotkeyDescriptions: IHotkeyDescription[]
     screens: any[]
     Platform = Platform
+    configDefaults: any
+    configFile: string
+    private configSubscription: Subscription
 
     constructor (
         public config: ConfigService,
@@ -34,6 +39,12 @@ export class SettingsTabComponent extends BaseTabComponent {
         this.screens = this.docking.getScreens()
         this.settingsProviders = config.enabledServices(this.settingsProviders)
         this.themes = config.enabledServices(this.themes)
+
+        this.configDefaults = yaml.safeDump(config.getDefaults())
+        this.configFile = config.readRaw()
+        this.configSubscription = config.changed$.subscribe(() => {
+            this.configFile = config.readRaw()
+        })
     }
 
     getRecoveryToken (): any {
@@ -41,11 +52,27 @@ export class SettingsTabComponent extends BaseTabComponent {
     }
 
     ngOnDestroy () {
+        this.configSubscription.unsubscribe()
         this.config.save()
     }
 
     restartApp () {
         this.electron.app.relaunch()
         this.electron.app.exit()
+    }
+
+    saveConfigFile () {
+        if (this.isConfigFileValid()) {
+            this.config.writeRaw(this.configFile)
+        }
+    }
+
+    isConfigFileValid () {
+        try {
+            yaml.safeLoad(this.configFile)
+            return true
+        } catch (_) {
+            return false
+        }
     }
 }

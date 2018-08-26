@@ -12,6 +12,12 @@
 :host /deep/ ngb-tabset > .tab-content {
     padding: 15px 30px;
     margin: 0;
-    flex: auto;
     overflow-y: auto;
+    flex: auto;
+    display: flex;
+    position: relative;
+}
+
+:host /deep/ ngb-tabset > .tab-content > .tab-pane {
+    width: 100%;
 }
