@@ -1,7 +1,7 @@
 import { Observable, Subject, AsyncSubject, ReplaySubject, BehaviorSubject } from 'rxjs'
 import { ResizeEvent } from '../api'
 
-export abstract class TermContainer {
+export abstract class Frontend {
     enableResizing = true
     protected ready = new AsyncSubject<void>()
     protected title = new ReplaySubject<string>(1)
@@ -26,6 +26,7 @@ export abstract class TermContainer {
     get drop$ (): Observable<DragEvent> { return this.drop }
 
     abstract attach (host: HTMLElement): void
+    detach (host: HTMLElement): void { } // tslint:disable-line
 
     destroy (): void {
         for (let o of [

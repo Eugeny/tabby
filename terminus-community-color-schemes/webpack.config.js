@@ -13,6 +13,7 @@ module.exports = {
     libraryTarget: 'umd',
     devtoolModuleFilenameTemplate: 'webpack-terminus-community-color-schemes:///[resource-path]',
   },
+  mode: process.env.DEV ? 'development' : 'production',
   resolve: {
     modules: ['.', 'src', 'node_modules', '../app/node_modules'].map(x => path.join(__dirname, x)),
     extensions: ['.ts', '.js'],

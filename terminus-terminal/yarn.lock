@@ -137,3 +137,7 @@ thenify-all@^1.0.0:
 winreg@^1.2.3:
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/winreg/-/winreg-1.2.4.tgz#ba065629b7a925130e15779108cf540990e98d1b"
+
+xterm@^3.6.0:
+  version "3.6.0"
+  resolved "https://registry.yarnpkg.com/xterm/-/xterm-3.6.0.tgz#9b95cd23a338e5842343aec1a104f094c5153e7c"

@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs'
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators'
 import { exec } from 'mz/child_process'
-const equal = require('deep-equal')
+import deepEqual = require('deep-equal')
 const fontManager = require('font-manager')
 
 import { Component, Inject } from '@angular/core'
@@ -17,7 +17,7 @@ export class TerminalSettingsTabComponent {
     shells: IShell[] = []
     persistenceProviders: SessionPersistenceProvider[]
     colorSchemes: ITerminalColorScheme[] = []
-    equalComparator = equal
+    equalComparator = deepEqual
     editingColorScheme: ITerminalColorScheme
     schemeChanged = false
 
@@ -88,7 +88,7 @@ export class TerminalSettingsTabComponent {
     }
 
     isCustomScheme (scheme: ITerminalColorScheme) {
-        return this.config.store.terminal.customColorSchemes.some(x => equal(x, scheme))
+        return this.config.store.terminal.customColorSchemes.some(x => deepEqual(x, scheme))
     }
 
     colorsTrackBy (index) {

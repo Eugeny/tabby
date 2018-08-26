@@ -3,6 +3,18 @@ h3.mb-3 Appearance
     .col-md-6
         .form-line
             .header
+                .title Frontend
+                .description Switches terminal frontend implementation (experimental)
+
+            select.form-control(
+                [(ngModel)]='config.store.terminal.frontend',
+                (ngModelChange)='config.save()',
+            )
+                option(value='hterm') hterm
+                option(value='xterm') xterm
+                        
+        .form-line
+            .header
                 .title Font
 
             .d-flex.w-50

@@ -9,6 +9,7 @@ module.exports = {
     'preload': path.resolve(__dirname, 'src/entry.preload.ts'),
     'bundle': path.resolve(__dirname, 'src/entry.ts'),
   },
+  mode: process.env.DEV ? 'development' : 'production',
   context: __dirname,
   devtool: 'source-map',
   output: {

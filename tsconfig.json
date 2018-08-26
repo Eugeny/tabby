@@ -13,6 +13,8 @@
     "noUnusedLocals": true,
     "declaration": true,
     "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "lib": [
       "dom",
       "es5",
