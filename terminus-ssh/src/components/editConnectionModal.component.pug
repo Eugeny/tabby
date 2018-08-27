@@ -1,45 +1,101 @@
 .modal-body
-    .form-group
-        label Name
-        input.form-control(
-            type='text', 
-            [(ngModel)]='connection.name', 
-        )
+    ngb-tabset(type='tabs', [activeId]='basic')
+        ngb-tab(id='basic')
+            ng-template(ngbTabTitle)
+                | Basic Setting
+            ng-template(ngbTabContent)
+                h4 Basic Setting
+                .form-group
+                    label Name
+                    input.form-control(
+                        type='text', 
+                        [(ngModel)]='connection.name', 
+                    )
 
-    .form-group
-        label Host
-        input.form-control(
-            type='text', 
-            [(ngModel)]='connection.host', 
-        )
+                .form-group
+                    label Host
+                    input.form-control(
+                        type='text', 
+                        [(ngModel)]='connection.host', 
+                    )
 
-    .form-group
-        label Port
-        input.form-control(
-            type='number',
-            placeholder='22', 
-            [(ngModel)]='connection.port', 
-        )
+                .form-group
+                    label Port
+                    input.form-control(
+                        type='number',
+                        placeholder='22', 
+                        [(ngModel)]='connection.port', 
+                    )
 
-    .form-group
-        label Username
-        input.form-control(
-            type='text', 
-            [(ngModel)]='connection.user', 
-        )
+                .form-group
+                    label Username
+                    input.form-control(
+                        type='text', 
+                        [(ngModel)]='connection.user', 
+                    )
 
-    .form-group
-        label Private key 
-        .input-group
-            input.form-control(
-                type='text', 
-                placeholder='Key file path', 
-                [(ngModel)]='connection.privateKey'
-            )
-            .input-group-btn
-                button.btn.btn-secondary((click)='selectPrivateKey()')
-                    i.fa.fa-folder-open
+                .form-group
+                    label Private key 
+                    .input-group
+                        input.form-control(
+                            type='text', 
+                            placeholder='Key file path', 
+                            [(ngModel)]='connection.privateKey'
+                        )
+                        .input-group-btn
+                            button.btn.btn-secondary((click)='selectPrivateKey()')
+                                i.fa.fa-folder-open
 
+        ngb-tab(id='scripts')
+            ng-template(ngbTabTitle)
+                | Login Scripts
+            ng-template(ngbTabContent)
+                h4 Login Scripts
+                .list-group
+                    table
+                        tr
+                            th String to wait
+                            th String to be sent
+                            th Actions
+                        tr(*ngFor='let script of connection.scripts')
+                            td
+                                input.form-control(
+                                        type='text', 
+                                        value='{{script.expect}}',
+                                    )
+                            td
+                                input.form-control(
+                                        type='text', 
+                                        value='{{script.send}}',
+                                    )
+                            td
+                                .input-group
+                                        button.btn.btn-outline-info.ml-0((click)='up(script)')
+                                            i.fa.fa-arrow-up
+                                        button.btn.btn-outline-info.ml-0((click)='down(script)')
+                                            i.fa.fa-arrow-down
+                                        button.btn.btn-outline-danger.ml-0((click)='delete(script)')
+                                            i.fa.fa-trash-o
+                        tr
+                            td
+                                input.form-control(
+                                    type='text', 
+                                    placeholder='Enter a string to wait', 
+                                    [(ngModel)]='newScript.expect'
+                                )
+                            td
+                                input.form-control(
+                                    type='text', 
+                                    placeholder='Enter a string to be sent', 
+                                    [(ngModel)]='newScript.send'
+                                )
+                            td
+                                .input-group
+                                    button.btn.btn-outline-info.ml-0((click)='add()')
+                                        i.fa.fa-save
+                                    button.btn.btn-outline-danger.ml-0((click)='clear()')
+                                        i.fa.fa-trash-o
+                        
 .modal-footer
     button.btn.btn-outline-primary((click)='save()') Save
     button.btn.btn-outline-danger((click)='cancel()') Cancel

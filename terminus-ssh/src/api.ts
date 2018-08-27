@@ -1,5 +1,10 @@
 import { BaseSession } from 'terminus-terminal'
 
+export interface LoginScript {
+    expect?: string
+    send: string
+}
+
 export interface SSHConnection {
     name?: string
     host: string
@@ -7,18 +12,48 @@ export interface SSHConnection {
     user: string
     password?: string
     privateKey?: string
+    scripts?: LoginScript[]
 }
 
 export class SSHSession extends BaseSession {
-    constructor (private shell: any) {
+    scripts?: LoginScript[]
+
+    constructor (private shell: any, conn: SSHConnection) {
         super()
+        this.scripts = conn.scripts.slice(0);
     }
 
     start () {
         this.open = true
 
         this.shell.on('data', data => {
-            this.emitOutput(data.toString())
+            let dataString = data.toString()
+            this.emitOutput(dataString)
+
+            if (this.scripts && this.scripts.length > 0)
+            {
+                let found = false
+                for (let i = 0; i < this.scripts.length; i++)
+                {
+                    if (dataString.indexOf(this.scripts[i].expect) >= 0)
+                    {
+                        console.log("Executing: " + this.scripts[i].send)
+                        this.shell.write(this.scripts[i].send + "\n")
+                        this.scripts.splice(i, 1)
+                        i--
+                        found = true
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+
+                if (found)
+                {
+                    this.executeScripts()
+                }
+            }
         })
 
         this.shell.on('end', () => {
@@ -26,6 +61,28 @@ export class SSHSession extends BaseSession {
                 this.destroy()
             }
         })
+
+        this.executeScripts()
+    }
+
+    executeScripts () {
+        if (this.scripts && this.scripts.length > 0)
+        {
+            for (let i = 0; i < this.scripts.length; i++)
+            {
+                if (!this.scripts[i].expect)
+                {
+                    console.log("Executing: " + this.scripts[i].send)
+                    this.shell.write(this.scripts[i].send + "\n")
+                    this.scripts.splice(i, 1)
+                    i--
+                }
+                else
+                {
+                    break;
+                }
+            }
+        }
     }
 
     resize (columns, rows) {

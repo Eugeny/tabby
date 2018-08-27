@@ -148,7 +148,7 @@ export class SSHService {
                 })
             })
 
-            let session = new SSHSession(shell)
+            let session = new SSHSession(shell, connection)
 
             return this.zone.run(() => this.app.openNewTab(
                 TerminalTabComponent,
