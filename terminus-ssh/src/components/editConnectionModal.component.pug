@@ -1,5 +1,5 @@
 .modal-body
-    ngb-tabset(type='tabs', [activeId]='basic')
+    ngb-tabset(type='pills', [activeId]='basic')
         ngb-tab(id='basic')
             ng-template(ngbTabTitle)
                 | Basic Setting
@@ -69,7 +69,7 @@
                                         value='{{script.send}}',
                                     )
                             td
-                                .input-group
+                                .input-group.flex-nowrap
                                         button.btn.btn-outline-info.ml-0((click)='up(script)')
                                             i.fa.fa-arrow-up
                                         button.btn.btn-outline-info.ml-0((click)='down(script)')
@@ -90,7 +90,7 @@
                                     [(ngModel)]='newScript.send'
                                 )
                             td
-                                .input-group
+                                .input-group.flex-nowrap
                                     button.btn.btn-outline-info.ml-0((click)='add()')
                                         i.fa.fa-save
                                     button.btn.btn-outline-danger.ml-0((click)='clear()')
