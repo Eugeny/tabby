@@ -40,8 +40,7 @@ export class EditConnectionModalComponent {
 
     up (script: LoginScript) {
         let index = this.connection.scripts.indexOf(script)
-        if (index > 0)
-        {
+        if (index > 0) {
             this.connection.scripts.splice(index, 1);
             this.connection.scripts.splice(index - 1, 0, script);
         }
@@ -49,8 +48,7 @@ export class EditConnectionModalComponent {
 
     down (script: LoginScript) {
         let index = this.connection.scripts.indexOf(script)
-        if (index >= 0 && index < this.connection.scripts.length - 1)
-        {
+        if (index >= 0 && index < this.connection.scripts.length - 1) {
             this.connection.scripts.splice(index, 1);
             this.connection.scripts.splice(index + 1, 0, script);
         }

@@ -30,27 +30,22 @@ export class SSHSession extends BaseSession {
             let dataString = data.toString()
             this.emitOutput(dataString)
 
-            if (this.scripts && this.scripts.length > 0)
-            {
+            if (this.scripts && this.scripts.length > 0) {
                 let found = false
-                for (let i = 0; i < this.scripts.length; i++)
-                {
-                    if (dataString.indexOf(this.scripts[i].expect) >= 0)
-                    {
+                for (let i = 0; i < this.scripts.length; i++) {
+                    if (dataString.indexOf(this.scripts[i].expect) >= 0) {
                         console.log("Executing: " + this.scripts[i].send)
                         this.shell.write(this.scripts[i].send + "\n")
                         this.scripts.splice(i, 1)
                         i--
                         found = true
                     }
-                    else
-                    {
+                    else {
                         break;
                     }
                 }
 
-                if (found)
-                {
+                if (found) {
                     this.executeScripts()
                 }
             }
@@ -66,19 +61,15 @@ export class SSHSession extends BaseSession {
     }
 
     executeScripts () {
-        if (this.scripts && this.scripts.length > 0)
-        {
-            for (let i = 0; i < this.scripts.length; i++)
-            {
-                if (!this.scripts[i].expect)
-                {
+        if (this.scripts && this.scripts.length > 0) {
+            for (let i = 0; i < this.scripts.length; i++) {
+                if (!this.scripts[i].expect) {
                     console.log("Executing: " + this.scripts[i].send)
                     this.shell.write(this.scripts[i].send + "\n")
                     this.scripts.splice(i, 1)
                     i--
                 }
-                else
-                {
+                else {
                     break;
                 }
             }
