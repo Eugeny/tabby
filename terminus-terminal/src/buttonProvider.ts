@@ -17,7 +17,12 @@ export class ButtonProvider extends ToolbarButtonProvider {
         super()
         hotkeys.matchedHotkey.subscribe(async (hotkey) => {
             if (hotkey === 'new-tab') {
-                this.terminal.openTab()
+                terminal.openTab()
+            }
+        })
+        hotkeys.matchedHotkey.subscribe(async (hotkey) => {
+            if (hotkey === 'new-window') {
+                hostApp.newWindow()
             }
         })
         hostApp.cliOpenDirectory$.subscribe(async directory => {

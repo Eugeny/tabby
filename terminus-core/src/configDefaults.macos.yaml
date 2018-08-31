@@ -1,4 +1,6 @@
 hotkeys:
+  new-window:
+    - '⌘-N'
   toggle-window:
     - 'Ctrl+Space'
   toggle-fullscreen:

@@ -3,6 +3,7 @@ import { TouchBarSegmentedControl, SegmentedControlSegment } from 'electron'
 import { AppService } from './app.service'
 import { ConfigService } from './config.service'
 import { ElectronService } from './electron.service'
+import { HostAppService } from './hostApp.service'
 import { IToolbarButton, ToolbarButtonProvider } from '../api'
 
 @Injectable()
@@ -12,6 +13,7 @@ export class TouchbarService {
 
     constructor (
         private app: AppService,
+        private hostApp: HostAppService,
         @Inject(ToolbarButtonProvider) private toolbarButtonProviders: ToolbarButtonProvider[],
         private config: ConfigService,
         private electron: ElectronService,
@@ -51,7 +53,7 @@ export class TouchbarService {
                 ...buttons.map(button => this.getButton(button))
             ]
         })
-        this.electron.app.window.setTouchBar(touchBar)
+        this.hostApp.getWindow().setTouchBar(touchBar)
     }
 
     private getButton (button: IToolbarButton): Electron.TouchBarButton {

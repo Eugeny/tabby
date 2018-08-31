@@ -1,4 +1,4 @@
-import '../lib/lru.js'
+import '../lib/lru'
 import 'source-sans-pro'
 import 'font-awesome/css/font-awesome.css'
 import 'ngx-toastr/toastr.css'
@@ -29,7 +29,7 @@ Raven.config(
     }
 )
 
-process.on('uncaughtException', (err) => {
+process.on('uncaughtException' as any, (err) => {
     Raven.captureException(err)
     console.error(err)
 })

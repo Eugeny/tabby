@@ -6,8 +6,8 @@ module.exports = {
   target: 'node',
   entry: {
     'index.ignore': 'file-loader?name=index.html!val-loader!pug-html-loader!' + path.resolve(__dirname, './index.pug'),
-    'preload': path.resolve(__dirname, 'src/entry.preload.ts'),
-    'bundle': path.resolve(__dirname, 'src/entry.ts'),
+    preload: path.resolve(__dirname, 'src/entry.preload.ts'),
+    bundle: path.resolve(__dirname, 'src/entry.ts'),
   },
   mode: process.env.DEV ? 'development' : 'production',
   context: __dirname,
@@ -15,7 +15,7 @@ module.exports = {
   output: {
     path: path.join(__dirname, 'dist'),
     pathinfo: true,
-    filename: '[name].js'
+    filename: '[name].js',
   },
   resolve: {
     modules: ['src/', 'node_modules', '../node_modules', 'assets/'].map(x => path.join(__dirname, x)),
@@ -29,8 +29,8 @@ module.exports = {
           loader: 'awesome-typescript-loader',
           options: {
             configFileName: path.resolve(__dirname, 'tsconfig.json'),
-          }
-        }
+          },
+        },
       },
       { test: /\.scss$/, use: ['style-loader', 'css-loader', 'sass-loader'] },
       { test: /\.css$/, use: ['style-loader', 'css-loader', 'sass-loader'] },
@@ -39,20 +39,20 @@ module.exports = {
         use: {
           loader: 'file-loader',
           options: {
-            name: 'images/[name].[ext]'
-          }
-        }
+            name: 'images/[name].[ext]',
+          },
+        },
       },
       {
         test: /\.(ttf|eot|otf|woff|woff2)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
         use: {
           loader: 'file-loader',
           options: {
-            name: 'fonts/[name].[ext]'
-          }
-        }
-      }
-    ]
+            name: 'fonts/[name].[ext]',
+          },
+        },
+      },
+    ],
   },
   externals: {
     '@angular/core': 'commonjs @angular/core',
@@ -62,15 +62,15 @@ module.exports = {
     '@angular/forms': 'commonjs @angular/forms',
     '@angular/common': 'commonjs @angular/common',
     '@ng-bootstrap/ng-bootstrap': 'commonjs @ng-bootstrap/ng-bootstrap',
-    'child_process': 'commonjs child_process',
-    'electron': 'commonjs electron',
+    child_process: 'commonjs child_process',
+    electron: 'commonjs electron',
     'electron-is-dev': 'commonjs electron-is-dev',
-    'fs': 'commonjs fs',
+    fs: 'commonjs fs',
     'ngx-toastr': 'commonjs ngx-toastr',
-    'module': 'commonjs module',
-    'mz': 'commonjs mz',
-    'path': 'commonjs path',
-    'rxjs': 'commonjs rxjs',
+    module: 'commonjs module',
+    mz: 'commonjs mz',
+    path: 'commonjs path',
+    rxjs: 'commonjs rxjs',
     'zone.js': 'commonjs zone.js/dist/zone.js',
   },
   plugins: [

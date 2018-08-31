@@ -175,6 +175,10 @@ export class HotkeysService {
 export class AppHotkeyProvider extends HotkeyProvider {
     hotkeys: IHotkeyDescription[] = [
         {
+            id: 'new-window',
+            name: 'New window',
+        },
+        {
             id: 'toggle-window',
             name: 'Toggle terminal window',
         },
