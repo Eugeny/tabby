@@ -15,6 +15,8 @@ export abstract class BaseTabComponent {
     protected progress = new Subject<number>()
     protected activity = new Subject<boolean>()
 
+    private progressClearTimeout: number
+
     get focused$ (): Observable<void> { return this.focused }
     get blurred$ (): Observable<void> { return this.blurred }
     get titleChange$ (): Observable<string> { return this.titleChange }
@@ -40,6 +42,14 @@ export abstract class BaseTabComponent {
 
     setProgress (progress: number) {
         this.progress.next(progress)
+        if (progress) {
+            if (this.progressClearTimeout) {
+                clearTimeout(this.progressClearTimeout)
+            }
+            this.progressClearTimeout = setTimeout(() => {
+                this.setProgress(null)
+            }, 5000)
+        }
     }
 
     displayActivity (): void {
