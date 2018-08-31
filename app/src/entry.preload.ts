@@ -30,7 +30,7 @@ Raven.config(
 )
 
 process.on('uncaughtException' as any, (err) => {
-    Raven.captureException(err)
+    Raven.captureException(err as any)
     console.error(err)
 })
 
