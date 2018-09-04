@@ -41,7 +41,11 @@
                         type='text', 
                         [(ngModel)]='connection.user', 
                     )
-
+                    
+                .alert.alert-info.d-flex.bg-transparent.text-white.align-items-center(*ngIf='hasSavedPassword')
+                    .mr-auto There is a saved password for this connection
+                    button.btn.btn-danger.ml-4((click)='clearSavedPassword()') Forget
+                    
                 .form-group
                     label Private key 
                     .input-group

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core'
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
 import { ElectronService, HostAppService } from 'terminus-core'
+import { PasswordStorageService } from '../services/passwordStorage.service'
 import { SSHConnection, LoginScript } from '../api'
 
 @Component({
@@ -9,13 +10,24 @@ import { SSHConnection, LoginScript } from '../api'
 export class EditConnectionModalComponent {
     connection: SSHConnection
     newScript: LoginScript
+    hasSavedPassword: boolean
 
     constructor (
         private modalInstance: NgbActiveModal,
         private electron: ElectronService,
         private hostApp: HostAppService,
+        private passwordStorage: PasswordStorageService,
     ) {
         this.newScript = { expect: '', send: '' }
+    }
+
+    async ngOnInit () {
+        this.hasSavedPassword = !!(await this.passwordStorage.loadPassword(this.connection))
+    }
+
+    clearSavedPassword () {
+        this.hasSavedPassword = false
+        this.passwordStorage.deletePassword(this.connection)
     }
 
     selectPrivateKey () {
