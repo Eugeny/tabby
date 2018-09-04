@@ -15,7 +15,7 @@ export class EditConnectionModalComponent {
         private electron: ElectronService,
         private hostApp: HostAppService,
     ) {
-        this.newScript = { expect: "", send: ""}
+        this.newScript = { expect: '', send: '' }
     }
 
     selectPrivateKey () {
@@ -38,37 +38,38 @@ export class EditConnectionModalComponent {
         this.modalInstance.dismiss()
     }
 
-    up (script: LoginScript) {
+    moveScriptUp (script: LoginScript) {
         let index = this.connection.scripts.indexOf(script)
         if (index > 0) {
-            this.connection.scripts.splice(index, 1);
-            this.connection.scripts.splice(index - 1, 0, script);
+            this.connection.scripts.splice(index, 1)
+            this.connection.scripts.splice(index - 1, 0, script)
         }
     }
 
-    down (script: LoginScript) {
+    moveScriptDown (script: LoginScript) {
         let index = this.connection.scripts.indexOf(script)
         if (index >= 0 && index < this.connection.scripts.length - 1) {
-            this.connection.scripts.splice(index, 1);
-            this.connection.scripts.splice(index + 1, 0, script);
+            this.connection.scripts.splice(index, 1)
+            this.connection.scripts.splice(index + 1, 0, script)
         }
     }
 
-    delete (script: LoginScript) {
+    deleteScript (script: LoginScript) {
         if (confirm(`Delete?`)) {
             this.connection.scripts = this.connection.scripts.filter(x => x !== script)
         }
     }
 
-    add () {
-        if (!this.connection.scripts)
+    addScript () {
+        if (!this.connection.scripts) {
             this.connection.scripts = []
-        this.connection.scripts.push(Object.assign({}, this.newScript))
-        this.clear();
+        }
+        this.connection.scripts.push({...this.newScript})
+        this.clearScript()
     }
 
-    clear () {
-        this.newScript.expect = ""
-        this.newScript.send = ""
+    clearScript () {
+        this.newScript.expect = ''
+        this.newScript.send = ''
     }
 }

@@ -61,7 +61,7 @@ export class SSHSettingsTabComponent {
     editGroup (group: ISSHConnectionGroup) {
         let modal = this.ngbModal.open(PromptModalComponent)
         modal.componentInstance.prompt = 'New group name'
-        modal.componentInstance.value = group
+        modal.componentInstance.value = group.name
         modal.result.then(result => {
             if (result) {
                 for (let connection of this.connections.filter(x => x.group === group.name)) {

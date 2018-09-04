@@ -21,7 +21,7 @@ export class SSHSession extends BaseSession {
 
     constructor (private shell: any, conn: SSHConnection) {
         super()
-        this.scripts = conn.scripts ? [...conn.scripts] : []
+        this.scripts = conn.scripts || []
     }
 
     start () {
@@ -31,23 +31,21 @@ export class SSHSession extends BaseSession {
             let dataString = data.toString()
             this.emitOutput(dataString)
 
-            if (this.scripts && this.scripts.length > 0) {
+            if (this.scripts) {
                 let found = false
-                for (let i = 0; i < this.scripts.length; i++) {
-                    if (dataString.indexOf(this.scripts[i].expect) >= 0) {
-                        console.log("Executing: " + this.scripts[i].send)
-                        this.shell.write(this.scripts[i].send + "\n")
-                        this.scripts.splice(i, 1)
-                        i--
+                for (let script of this.scripts) {
+                    if (dataString.includes(script.expect)) {
+                        console.log('Executing script:', script.send)
+                        this.shell.write(script.send + '\n')
+                        this.scripts = this.scripts.filter(x => x !== script)
                         found = true
-                    }
-                    else {
-                        break;
+                    } else {
+                        break
                     }
                 }
 
                 if (found) {
-                    this.executeScripts()
+                    this.executeUnconditionalScripts()
                 }
             }
         })
@@ -58,23 +56,7 @@ export class SSHSession extends BaseSession {
             }
         })
 
-        this.executeScripts()
-    }
-
-    executeScripts () {
-        if (this.scripts && this.scripts.length > 0) {
-            for (let i = 0; i < this.scripts.length; i++) {
-                if (!this.scripts[i].expect) {
-                    console.log("Executing: " + this.scripts[i].send)
-                    this.shell.write(this.scripts[i].send + "\n")
-                    this.scripts.splice(i, 1)
-                    i--
-                }
-                else {
-                    break;
-                }
-            }
-        }
+        this.executeUnconditionalScripts()
     }
 
     resize (columns, rows) {
@@ -99,6 +81,20 @@ export class SSHSession extends BaseSession {
 
     async getWorkingDirectory (): Promise<string> {
         return null
+    }
+
+    private executeUnconditionalScripts () {
+        if (this.scripts) {
+            for (let script of this.scripts) {
+                if (!script.expect) {
+                    console.log('Executing script:', script.send)
+                    this.shell.write(script.send + '\n')
+                    this.scripts = this.scripts.filter(x => x !== script)
+                } else {
+                    break
+                }
+            }
+        }
     }
 }
 

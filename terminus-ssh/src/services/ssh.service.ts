@@ -55,7 +55,7 @@ export class SSHService {
                     modal.componentInstance.password = true
                     try {
                         privateKeyPassphrase = await modal.result
-                    } catch (_err) { }
+                    } catch (_err) { } // tslint:disable-line
                 }
             }
         }

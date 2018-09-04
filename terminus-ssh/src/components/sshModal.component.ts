@@ -74,7 +74,7 @@ export class SSHModalComponent {
 
         let connections = this.connections
         if (this.quickTarget) {
-            connections = connections.filter(connection => (connection.name + connection.group).toLowerCase().indexOf(this.quickTarget) >= 0)
+            connections = connections.filter(connection => (connection.name + connection.group).toLowerCase().includes(this.quickTarget))
         }
 
         for (let connection of connections) {
