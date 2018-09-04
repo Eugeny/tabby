@@ -14,6 +14,9 @@ export class SSHModalComponent {
     connections: SSHConnection[]
     quickTarget: string
     lastConnection: SSHConnection
+    currentPath: string
+    childFolders: string[]
+    childConnections: SSHConnection[]
 
     constructor (
         public modalInstance: NgbActiveModal,
@@ -27,6 +30,19 @@ export class SSHModalComponent {
         this.connections = this.config.store.ssh.connections
         if (window.localStorage.lastConnection) {
             this.lastConnection = JSON.parse(window.localStorage.lastConnection)
+        }
+        this.currentPath = "/"
+        this.findChildren()
+    }
+
+    filter () {
+        if (!this.quickTarget) {
+            this.findChildren()
+        }
+        else
+        {
+            this.childFolders = [];
+            this.childConnections = this.connections.filter(connection => connection.name.toLowerCase().indexOf(this.quickTarget) >= 0)
         }
     }
 
@@ -64,5 +80,39 @@ export class SSHModalComponent {
 
     close () {
         this.modalInstance.close()
+    }
+
+    findChildren () {
+        this.childFolders = []
+        this.childConnections = []
+
+        if (this.currentPath != "/")
+            this.childFolders.push("..")
+
+        for (let connection of this.connections) {
+            if (!connection.path)
+                connection.path = "/"
+            if (connection.path.startsWith(this.currentPath)) {
+                let folder = connection.path.substr(this.currentPath.length, connection.path.indexOf("/", this.currentPath.length) - this.currentPath.length)
+                if (folder.length == 0) {
+                    this.childConnections.push(connection)
+                }
+                else if (this.childFolders.indexOf(folder) < 0) {
+                    this.childFolders.push(folder)
+                }
+            }
+        }
+    }
+
+    cd (path: string) {
+        if (path == "..") {
+            path = this.currentPath.substr(0, this.currentPath.lastIndexOf("/", this.currentPath.length - 2) + 1)
+        }
+        else {
+            path = this.currentPath + path + '/'
+        }
+
+        this.currentPath = path
+        this.findChildren()
     }
 }

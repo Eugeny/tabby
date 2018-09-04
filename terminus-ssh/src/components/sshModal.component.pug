@@ -4,6 +4,7 @@
         [(ngModel)]='quickTarget', 
         autofocus, 
         placeholder='Quick connect: [user@]host[:port]', 
+        (ngModelChange)='filter()',
         (keyup.enter)='quickConnect()'
     )
     
@@ -13,7 +14,10 @@
             span {{lastConnection.name}}
     
     .list-group.mt-3
-        a.list-group-item.list-group-item-action(*ngFor='let connection of connections', (click)='connect(connection)') 
+        a.list-group-item.list-group-item-action(*ngFor='let folder of childFolders', (click)='cd(folder)') 
+            i.fa.fa-fw.fa-folder
+            span {{folder}}
+        a.list-group-item.list-group-item-action(*ngFor='let connection of childConnections', (click)='connect(connection)') 
             i.fa.fa-fw.fa-globe
             span {{connection.name}}
         a.list-group-item.list-group-item-action((click)='manageConnections()') 

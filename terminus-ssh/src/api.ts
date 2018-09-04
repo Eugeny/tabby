@@ -12,6 +12,7 @@ export interface SSHConnection {
     user: string
     password?: string
     privateKey?: string
+    path?: string
     scripts?: LoginScript[]
 }
 

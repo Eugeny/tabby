@@ -1,15 +1,33 @@
-h3 Connections
+h3 Connections ({{currentPath}})
 
 .list-group.mt-3.mb-3
-    .list-group-item(*ngFor='let connection of connections') 
+    .list-group-item(*ngFor='let folder of childFolders') 
+        .d-flex.w-100
+            a.mr-auto.list-group-item-action((click)='cd(folder)')
+                div.fa.fa-fw.fa-folder
+                    span.ml-2 {{folder}}
+            button.btn.btn-outline-info.ml-2(*ngIf='folder != ".."', (click)='editFolder(folder)')
+                i.fa.fa-pencil
+            button.btn.btn-outline-info.disabled.ml-2(*ngIf='folder == ".."')
+                i.fa.fa-pencil
+            button.btn.btn-outline-danger.ml-1(*ngIf='folder != ".."', (click)='deleteFolder(folder)')
+                i.fa.fa-trash-o
+            button.btn.btn-outline-danger.disabled.ml-1(*ngIf='folder == ".."')
+                i.fa.fa-trash-o
+    .list-group-item(*ngFor='let connection of childConnections') 
         .d-flex.w-100
             .mr-auto
-                div
-                    span {{connection.name}}
+                div.fa.fa-fw.fa-globe
+                    span.ml-2 {{connection.name}}
                 .text-muted {{connection.host}}
             button.btn.btn-outline-info.ml-2((click)='editConnection(connection)')
                 i.fa.fa-pencil
             button.btn.btn-outline-danger.ml-1((click)='deleteConnection(connection)')
                 i.fa.fa-trash-o
                     
-button.btn.btn-outline-primary((click)='createConnection()') Add connection
+button.btn.btn-outline-primary((click)='createFolder()')
+    div.fa.fa-fw.fa-folder
+    span.ml-2 Add Folder
+button.btn.btn-outline-primary.ml-2((click)='createConnection()')
+    div.fa.fa-fw.fa-globe
+    span.ml-2 Add connection
