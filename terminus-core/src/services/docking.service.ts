@@ -76,12 +76,8 @@ export class DockingService {
         })
     }
 
-    getWindow () {
-        return this.electron.app.window
-    }
-
     repositionWindow () {
-        let [x, y] = this.getWindow().getPosition()
+        let [x, y] = this.hostApp.getWindow().getPosition()
         for (let screen of this.electron.screen.getAllDisplays()) {
             let bounds = screen.bounds
             if (x >= bounds.x && x <= bounds.x + bounds.width && y >= bounds.y && y <= bounds.y + bounds.height) {
@@ -89,6 +85,6 @@ export class DockingService {
             }
         }
         let screen = this.electron.screen.getPrimaryDisplay()
-        this.getWindow().setPosition(screen.bounds.x, screen.bounds.y)
+        this.hostApp.getWindow().setPosition(screen.bounds.x, screen.bounds.y)
     }
 }

@@ -142,9 +142,9 @@ export class AppRootComponent {
             this.unsortedTabs.push(tab)
             tab.progress$.subscribe(progress => {
                 if (progress !== null) {
-                    this.hostApp.getWindow().setProgressBar(progress / 100.0, 'normal')
+                    this.hostApp.getWindow().setProgressBar(progress / 100.0, { mode: 'normal' })
                 } else {
-                    this.hostApp.getWindow().setProgressBar(-1, 'none')
+                    this.hostApp.getWindow().setProgressBar(-1, { mode: 'none' })
                 }
             })
         })
@@ -154,26 +154,26 @@ export class AppRootComponent {
     }
 
     onGlobalHotkey () {
-        if (this.electron.app.window.isFocused()) {
+        if (this.hostApp.getWindow().isFocused()) {
             // focused
             this.electron.loseFocus()
             if (this.hostApp.platform !== Platform.macOS) {
-                this.electron.app.window.hide()
+                this.hostApp.getWindow().hide()
             }
         } else {
-            if (!this.electron.app.window.isVisible()) {
+            if (!this.hostApp.getWindow().isVisible()) {
                 // unfocused, invisible
-                this.electron.app.window.show()
-                this.electron.app.window.focus()
+                this.hostApp.getWindow().show()
+                this.hostApp.getWindow().focus()
             } else {
                 if (this.config.store.appearance.dock === 'off') {
                     // not docked, visible
                     setTimeout(() => {
-                        this.electron.app.window.focus()
+                        this.hostApp.getWindow().focus()
                     })
                 } else {
                     // docked, visible
-                    this.electron.app.window.hide()
+                    this.hostApp.getWindow().hide()
                 }
             }
         }
@@ -223,7 +223,7 @@ export class AppRootComponent {
     }
 
     private updateVibrancy () {
-      this.hostApp.setVibrancy(this.config.store.appearance.vibrancy)
-      this.hostApp.getWindow().setOpacity(this.config.store.appearance.opacity)
+        this.hostApp.setVibrancy(this.config.store.appearance.vibrancy)
+        this.hostApp.getWindow().setOpacity(this.config.store.appearance.opacity)
     }
 }

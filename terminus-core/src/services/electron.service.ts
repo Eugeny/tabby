@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { TouchBar } from 'electron'
+import { TouchBar, BrowserWindow } from 'electron'
 
 @Injectable()
 export class ElectronService {
@@ -13,6 +13,7 @@ export class ElectronService {
     screen: any
     remote: any
     TouchBar: typeof TouchBar
+    BrowserWindow: typeof BrowserWindow
     private electron: any
 
     constructor () {
@@ -27,6 +28,7 @@ export class ElectronService {
         this.globalShortcut = this.remote.globalShortcut
         this.nativeImage = this.remote.nativeImage
         this.TouchBar = this.remote.TouchBar
+        this.BrowserWindow = this.remote.BrowserWindow
     }
 
     remoteRequire (name: string): any {

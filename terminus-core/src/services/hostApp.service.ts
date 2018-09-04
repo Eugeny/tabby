@@ -1,8 +1,8 @@
 import * as path from 'path'
 import { Observable, Subject } from 'rxjs'
 import { Injectable, NgZone, EventEmitter } from '@angular/core'
-import { ElectronService } from '../services/electron.service'
-import { Logger, LogService } from '../services/log.service'
+import { ElectronService } from './electron.service'
+import { Logger, LogService } from './log.service'
 
 export enum Platform {
     Linux, macOS, Windows,
@@ -19,19 +19,21 @@ export interface Bounds {
 export class HostAppService {
     platform: Platform
     nodePlatform: string
-    ready = new EventEmitter<any>()
     shown = new EventEmitter<any>()
     isFullScreen = false
     private preferencesMenu = new Subject<void>()
     private secondInstance = new Subject<void>()
     private cliOpenDirectory = new Subject<string>()
     private cliRunCommand = new Subject<string[]>()
+    private configChangeBroadcast = new Subject<void>()
     private logger: Logger
+    private windowId: number
 
     get preferencesMenu$ (): Observable<void> { return this.preferencesMenu }
     get secondInstance$ (): Observable<void> { return this.secondInstance }
     get cliOpenDirectory$ (): Observable<string> { return this.cliOpenDirectory }
     get cliRunCommand$ (): Observable<string[]> { return this.cliRunCommand }
+    get configChangeBroadcast$ (): Observable<void> { return this.configChangeBroadcast }
 
     constructor (
         private zone: NgZone,
@@ -46,9 +48,12 @@ export class HostAppService {
             linux: Platform.Linux
         }[this.nodePlatform]
 
+        this.windowId = parseInt(location.search.substring(1))
+        this.logger.info('Window ID:', this.windowId)
+
         electron.ipcRenderer.on('host:preferences-menu', () => this.zone.run(() => this.preferencesMenu.next()))
 
-        electron.ipcRenderer.on('uncaughtException', ($event, err) => {
+        electron.ipcRenderer.on('uncaughtException', (_$event, err) => {
             this.logger.error('Unhandled exception:', err)
         })
 
@@ -64,7 +69,7 @@ export class HostAppService {
             this.zone.run(() => this.shown.emit())
         })
 
-        electron.ipcRenderer.on('host:second-instance', ($event, argv: any, cwd: string) => this.zone.run(() => {
+        electron.ipcRenderer.on('host:second-instance', (_$event, argv: any, cwd: string) => this.zone.run(() => {
             this.logger.info('Second instance', argv)
             const op = argv._[0]
             if (op === 'open') {
@@ -74,13 +79,17 @@ export class HostAppService {
             }
         }))
 
-        this.ready.subscribe(() => {
-            electron.ipcRenderer.send('app:ready')
-        })
+        electron.ipcRenderer.on('host:config-change', () => this.zone.run(() => {
+            this.configChangeBroadcast.next()
+        }))
     }
 
     getWindow () {
-        return this.electron.app.window
+        return this.electron.BrowserWindow.fromId(this.windowId)
+    }
+
+    newWindow () {
+        this.electron.ipcRenderer.send('app:new-window')
     }
 
     getShell () {
@@ -140,6 +149,14 @@ export class HostAppService {
         if (this.platform === Platform.Windows) {
             this.electron.ipcRenderer.send('window-set-vibrancy', enable)
         }
+    }
+
+    broadcastConfigChange () {
+        this.electron.ipcRenderer.send('app:config-change')
+    }
+
+    emitReady () {
+        this.electron.ipcRenderer.send('app:ready')
     }
 
     quit () {

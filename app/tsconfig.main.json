@@ -1,0 +1,31 @@
+{
+    "compilerOptions": {
+        "baseUrl": "./lib",
+        "module": "commonjs",
+        "target": "es2017",
+        "declaration": false,
+        "noImplicitAny": false,
+        "removeComments": false,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "sourceMap": true,
+        "noUnusedParameters": true,
+        "noImplicitReturns": true,
+        "noFallthroughCasesInSwitch": true,
+        "noUnusedParameters": true,
+        "noUnusedLocals": true,
+        "lib": [
+           "dom",
+           "es2015",
+           "es2015.iterable",
+           "es2017",
+           "es7"
+        ]
+    },
+    "compileOnSave": false,
+    "exclude": [
+        "dist",
+        "node_modules",
+        "*/node_modules"
+    ]
+}

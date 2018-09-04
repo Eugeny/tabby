@@ -3,6 +3,7 @@ import { Injectable, ComponentFactoryResolver, Injector } from '@angular/core'
 import { BaseTabComponent } from '../components/baseTab.component'
 import { Logger, LogService } from './log.service'
 import { ConfigService } from './config.service'
+import { HostAppService } from './hostApp.service'
 
 export declare type TabComponentType = new (...args: any[]) => BaseTabComponent
 
@@ -28,6 +29,7 @@ export class AppService {
     constructor (
         private componentFactoryResolver: ComponentFactoryResolver,
         private config: ConfigService,
+        private hostApp: HostAppService,
         private injector: Injector,
         log: LogService,
     ) {
@@ -37,15 +39,21 @@ export class AppService {
     openNewTab (type: TabComponentType, inputs?: any): BaseTabComponent {
         let componentFactory = this.componentFactoryResolver.resolveComponentFactory(type)
         let componentRef = componentFactory.create(this.injector)
-        componentRef.instance.hostView = componentRef.hostView
-        Object.assign(componentRef.instance, inputs || {})
+        let tab = componentRef.instance
+        tab.hostView = componentRef.hostView
+        Object.assign(tab, inputs || {})
 
-        this.tabs.push(componentRef.instance)
-        this.selectTab(componentRef.instance)
+        this.tabs.push(tab)
+        this.selectTab(tab)
         this.tabsChanged.next()
-        this.tabOpened.next(componentRef.instance)
+        this.tabOpened.next(tab)
 
-        return componentRef.instance
+        tab.titleChange$.subscribe(title => {
+            if (tab === this.activeTab) {
+                this.hostApp.getWindow().setTitle(title)
+            }
+        })
+        return tab
     }
 
     selectTab (tab: BaseTabComponent) {
@@ -67,6 +75,7 @@ export class AppService {
         if (this.activeTab) {
             this.activeTab.emitFocused()
         }
+        this.hostApp.getWindow().setTitle(this.activeTab.title)
     }
 
     toggleLastTab () {
@@ -122,5 +131,6 @@ export class AppService {
     emitReady () {
         this.ready.next(null)
         this.ready.complete()
+        this.hostApp.emitReady()
     }
 }

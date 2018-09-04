@@ -63,7 +63,7 @@ export class ConfigService {
 
     constructor (
         electron: ElectronService,
-        hostApp: HostAppService,
+        private hostApp: HostAppService,
         @Inject(ConfigProvider) configProviders: ConfigProvider[],
     ) {
         this.path = path.join(electron.app.getPath('userData'), 'config.yaml')
@@ -78,6 +78,11 @@ export class ConfigService {
             return defaults
         }).reduce(configMerge)
         this.load()
+
+        hostApp.configChangeBroadcast$.subscribe(() => {
+            this.load()
+            this.emitChange()
+        })
     }
 
     getDefaults () {
@@ -96,6 +101,7 @@ export class ConfigService {
     save (): void {
         fs.writeFileSync(this.path, yaml.safeDump(this._store), 'utf8')
         this.emitChange()
+        this.hostApp.broadcastConfigChange()
     }
 
     readRaw (): string {

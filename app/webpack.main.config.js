@@ -5,7 +5,7 @@ module.exports = {
   name: 'terminus-main',
   target: 'node',
   entry: {
-    main: path.resolve(__dirname, 'lib/index.js'),
+    main: path.resolve(__dirname, 'lib/index.ts'),
   },
   mode: process.env.DEV ? 'development' : 'production',
   context: __dirname,
@@ -22,12 +22,11 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /lib[\\/].*\.js$/,
-        exclude: /node_modules/,
+        test: /\.ts$/,
         use: {
-          loader: 'babel-loader',
+          loader: 'awesome-typescript-loader',
           options: {
-            presets: ['babel-preset-es2015'],
+            configFileName: path.resolve(__dirname, 'tsconfig.main.json'),
           },
         },
       },
