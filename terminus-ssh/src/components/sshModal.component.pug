@@ -4,7 +4,7 @@
         [(ngModel)]='quickTarget', 
         autofocus, 
         placeholder='Quick connect: [user@]host[:port]', 
-        (ngModelChange)='filter()',
+        (ngModelChange)='refresh()',
         (keyup.enter)='quickConnect()'
     )
     
@@ -14,15 +14,15 @@
             span {{lastConnection.name}}
     
     .list-group.mt-3
-        a.list-group-item.list-group-item-action(*ngFor='let folder of childFolders', (click)='cd(folder)') 
-            i.fa.fa-fw.fa-folder
-            span {{folder}}
-        a.list-group-item.list-group-item-action(*ngFor='let connection of childConnections', (click)='connect(connection)') 
-            i.fa.fa-fw.fa-globe
-            span {{connection.name}}
-        a.list-group-item.list-group-item-action((click)='manageConnections()') 
-            i.fa.fa-fw.fa-wrench 
-            span Manage connections
-
-//.modal-footer
-    button.btn.btn-outline-primary((click)='close()') Cancel
+        ng-container(*ngFor='let group of childGroups') 
+            .list-group-item.list-group-item-action.d-flex.align-items-center(
+                (click)='groupCollapsed[group.name] = !groupCollapsed[group.name]'
+            )
+                .fa.fa-fw.fa-chevron-right(*ngIf='groupCollapsed[group.name]')
+                .fa.fa-fw.fa-chevron-down(*ngIf='!groupCollapsed[group.name]')
+                .ml-2 {{group.name || "Ungrouped"}}
+            ng-container(*ngIf='!groupCollapsed[group.name]')
+                .list-group-item.list-group-item-action.pl-5.d-flex.align-items-center(
+                    *ngFor='let connection of group.connections', 
+                    (click)='connect(connection)'
+                ) {{connection.name}}

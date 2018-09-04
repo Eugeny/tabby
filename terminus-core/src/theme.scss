@@ -83,6 +83,10 @@ $list-group-border-color:  rgba(255,255,255,.1);
 $list-group-hover-bg: rgba(255,255,255,.1);
 $list-group-link-active-bg: rgba(255,255,255,.2);
 
+$list-group-action-color: $body-color;
+$list-group-action-bg: rgba(255,255,255,.05);
+$list-group-action-active-bg: $list-group-link-active-bg;
+
 $pre-bg: $dropdown-bg;
 $pre-color: $dropdown-link-color;
 

@@ -12,7 +12,7 @@ export interface SSHConnection {
     user: string
     password?: string
     privateKey?: string
-    path?: string
+    group?: string
     scripts?: LoginScript[]
 }
 
@@ -21,7 +21,7 @@ export class SSHSession extends BaseSession {
 
     constructor (private shell: any, conn: SSHConnection) {
         super()
-        this.scripts = conn.scripts.slice(0);
+        this.scripts = conn.scripts ? [...conn.scripts] : []
     }
 
     start () {
@@ -100,4 +100,9 @@ export class SSHSession extends BaseSession {
     async getWorkingDirectory (): Promise<string> {
         return null
     }
+}
+
+export interface ISSHConnectionGroup {
+    name: string
+    connections: SSHConnection[]
 }

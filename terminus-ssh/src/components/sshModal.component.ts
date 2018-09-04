@@ -4,19 +4,18 @@ import { ToastrService } from 'ngx-toastr'
 import { ConfigService, AppService } from 'terminus-core'
 import { SettingsTabComponent } from 'terminus-settings'
 import { SSHService } from '../services/ssh.service'
-import { SSHConnection } from '../api'
+import { SSHConnection, ISSHConnectionGroup } from '../api'
 
 @Component({
     template: require('./sshModal.component.pug'),
-    //styles: [require('./sshModal.component.scss')],
 })
 export class SSHModalComponent {
     connections: SSHConnection[]
+    childFolders: ISSHConnectionGroup[]
     quickTarget: string
     lastConnection: SSHConnection
-    currentPath: string
-    childFolders: string[]
-    childConnections: SSHConnection[]
+    childGroups: ISSHConnectionGroup[]
+    groupCollapsed: {[id: string]: boolean} = {}
 
     constructor (
         public modalInstance: NgbActiveModal,
@@ -31,18 +30,7 @@ export class SSHModalComponent {
         if (window.localStorage.lastConnection) {
             this.lastConnection = JSON.parse(window.localStorage.lastConnection)
         }
-        this.currentPath = "/"
-        this.findChildren()
-    }
-
-    filter () {
-        if (!this.quickTarget) {
-            this.findChildren()
-        }
-        else {
-            this.childFolders = [];
-            this.childConnections = this.connections.filter(connection => connection.name.toLowerCase().indexOf(this.quickTarget) >= 0)
-        }
+        this.refresh()
     }
 
     quickConnect () {
@@ -81,37 +69,25 @@ export class SSHModalComponent {
         this.modalInstance.close()
     }
 
-    findChildren () {
-        this.childFolders = []
-        this.childConnections = []
+    refresh () {
+        this.childGroups = []
 
-        if (this.currentPath != "/")
-            this.childFolders.push("..")
+        let connections = this.connections
+        if (this.quickTarget) {
+            connections = connections.filter(connection => (connection.name + connection.group).toLowerCase().indexOf(this.quickTarget) >= 0)
+        }
 
-        for (let connection of this.connections) {
-            if (!connection.path)
-                connection.path = "/"
-            if (connection.path.startsWith(this.currentPath)) {
-                let folder = connection.path.substr(this.currentPath.length, connection.path.indexOf("/", this.currentPath.length) - this.currentPath.length)
-                if (folder.length == 0) {
-                    this.childConnections.push(connection)
+        for (let connection of connections) {
+            connection.group = connection.group || null
+            let group = this.childGroups.find(x => x.name === connection.group)
+            if (!group) {
+                group = {
+                    name: connection.group,
+                    connections: [],
                 }
-                else if (this.childFolders.indexOf(folder) < 0) {
-                    this.childFolders.push(folder)
-                }
+                this.childGroups.push(group)
             }
+            group.connections.push(connection)
         }
-    }
-
-    cd (path: string) {
-        if (path == "..") {
-            path = this.currentPath.substr(0, this.currentPath.lastIndexOf("/", this.currentPath.length - 2) + 1)
-        }
-        else {
-            path = this.currentPath + path + '/'
-        }
-
-        this.currentPath = path
-        this.findChildren()
     }
 }

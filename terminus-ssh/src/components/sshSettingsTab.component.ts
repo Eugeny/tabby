@@ -1,7 +1,7 @@
 import { Component } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { ConfigService } from 'terminus-core'
-import { SSHConnection } from '../api'
+import { SSHConnection, ISSHConnectionGroup } from '../api'
 import { EditConnectionModalComponent } from './editConnectionModal.component'
 import { PromptModalComponent } from './promptModal.component'
 
@@ -10,17 +10,15 @@ import { PromptModalComponent } from './promptModal.component'
 })
 export class SSHSettingsTabComponent {
     connections: SSHConnection[]
-    currentPath: string
-    childFolders: string[]
-    childConnections: SSHConnection[]
+    childGroups: ISSHConnectionGroup[]
+    groupCollapsed: {[id: string]: boolean} = {}
 
     constructor (
         public config: ConfigService,
         private ngbModal: NgbModal,
     ) {
         this.connections = this.config.store.ssh.connections
-        this.currentPath = "/"
-        this.findChildren()
+        this.refresh()
     }
 
     createConnection () {
@@ -29,7 +27,6 @@ export class SSHSettingsTabComponent {
             host: '',
             port: 22,
             user: 'root',
-            path: this.currentPath
         }
 
         let modal = this.ngbModal.open(EditConnectionModalComponent)
@@ -38,7 +35,7 @@ export class SSHSettingsTabComponent {
             this.connections.push(result)
             this.config.store.ssh.connections = this.connections
             this.config.save()
-            this.childConnections.push(result)
+            this.refresh()
         })
     }
 
@@ -48,6 +45,7 @@ export class SSHSettingsTabComponent {
         modal.result.then(result => {
             Object.assign(connection, result)
             this.config.save()
+            this.refresh()
         })
     }
 
@@ -56,89 +54,49 @@ export class SSHSettingsTabComponent {
             this.connections = this.connections.filter(x => x !== connection)
             this.config.store.ssh.connections = this.connections
             this.config.save()
-            this.childConnections = this.connections.filter(x => x !== connection)
+            this.refresh()
         }
     }
-    
-    createFolder () {
+
+    editGroup (group: ISSHConnectionGroup) {
         let modal = this.ngbModal.open(PromptModalComponent)
-        modal.componentInstance.prompt = 'folder name'
-        modal.componentInstance.password = false
+        modal.componentInstance.prompt = 'New group name'
+        modal.componentInstance.value = group
         modal.result.then(result => {
             if (result) {
-                if (!this.childFolders.includes(result)) {
-                    this.childFolders.push(result)
+                for (let connection of this.connections.filter(x => x.group === group.name)) {
+                    connection.group = result
                 }
+                this.config.save()
+                this.refresh()
             }
         })
     }
 
-    editFolder (folder: string) {
-        let modal = this.ngbModal.open(PromptModalComponent)
-        modal.componentInstance.prompt = 'folder name'
-        modal.componentInstance.password = false
-        modal.componentInstance.value = folder
-        modal.result.then(result => {
-            if (result) {
-                let oldPath = this.currentPath + folder + "/"
-                let newPath = this.currentPath + result + "/"
-                for (let connection of this.connections) {
-                    connection.path = connection.path.replace(oldPath, newPath)
-                }
-                let i = this.childFolders.indexOf(folder)
-                if (this.childFolders.includes(result)) {
-                    this.childFolders.splice(i, 1)
-                }
-                else {
-                    this.childFolders.splice(i, 1, result)
-                }
-                this.config.save()
-            }
-        }) 
-    }
-
-    deleteFolder (folder: string) {
-        if (confirm(`Delete "${folder}"?`)) {
-            let oldPath = this.currentPath + folder + "/"
-            for (let connection of this.connections) {
-                connection.path = connection.path.replace(oldPath, this.currentPath)
+    deleteGroup (group: ISSHConnectionGroup) {
+        if (confirm(`Delete "${group}"?`)) {
+            for (let connection of this.connections.filter(x => x.group === group.name)) {
+                connection.group = null
             }
             this.config.save()
-            this.findChildren()
+            this.refresh()
         }
     }
 
-    findChildren () {
-        this.childFolders = []
-        this.childConnections = []
-
-        if (this.currentPath != "/")
-            this.childFolders.push("..")
+    refresh () {
+        this.childGroups = []
 
         for (let connection of this.connections) {
-            if (!connection.path)
-                connection.path = "/"
-            if (connection.path.startsWith(this.currentPath)) {
-                let folder = connection.path.substr(this.currentPath.length, connection.path.indexOf("/", this.currentPath.length) - this.currentPath.length)
-                if (folder.length == 0) {
-                    this.childConnections.push(connection)
+            connection.group = connection.group || null
+            let group = this.childGroups.find(x => x.name === connection.group)
+            if (!group) {
+                group = {
+                    name: connection.group,
+                    connections: [],
                 }
-                else if (this.childFolders.indexOf(folder) < 0) {
-                    this.childFolders.push(folder)
-                }
+                this.childGroups.push(group)
             }
+            group.connections.push(connection)
         }
-    }
-
-    cd (path: string) {
-        if (path == "..") {
-            path = this.currentPath.substr(0, this.currentPath.lastIndexOf("/", this.currentPath.length - 2) + 1)
-        }
-        else {
-            path = this.currentPath + path + '/'
-        }
-
-        this.currentPath = path
-        this.findChildren()
     }
 }
