@@ -39,8 +39,7 @@ export class SSHModalComponent {
         if (!this.quickTarget) {
             this.findChildren()
         }
-        else
-        {
+        else {
             this.childFolders = [];
             this.childConnections = this.connections.filter(connection => connection.name.toLowerCase().indexOf(this.quickTarget) >= 0)
         }
