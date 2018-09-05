@@ -47,13 +47,15 @@ if (argv.d) {
 }
 
 app.on('ready', () => {
-    app.dock.setMenu(Menu.buildFromTemplate([
-        {
-            label: 'New window',
-            click () {
-                this.app.newWindow()
+    if (process.platform === 'darwin') {
+        app.dock.setMenu(Menu.buildFromTemplate([
+            {
+                label: 'New window',
+                click () {
+                    this.app.newWindow()
+                }
             }
-        }
-    ]))
+        ]))
+    }
     application.newWindow()
 })
