@@ -16,7 +16,7 @@
     "core-js": "2.4.1",
     "cross-env": "4.0.0",
     "css-loader": "0.28.0",
-    "electron": "3.0.0-beta.5",
+    "electron": "3.0.0-beta.9",
     "electron-builder": "^20.27.1",
     "electron-builder-squirrel-windows": "17.0.1",
     "electron-installer-snap": "^3.0.0",
