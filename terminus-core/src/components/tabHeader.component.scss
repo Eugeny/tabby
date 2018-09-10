@@ -81,5 +81,6 @@ $tabs-height: 36px;
         top: 0;
         height: 5px;
         z-index: -1;
+        transition: 0.25s width;
     }
 }

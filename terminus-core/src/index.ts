@@ -30,6 +30,8 @@ import { ToggleComponent } from './components/toggle.component'
 import { WindowControlsComponent } from './components/windowControls.component'
 import { RenameTabModalComponent } from './components/renameTabModal.component'
 
+import { AutofocusDirective } from './directives/autofocus.directive'
+
 import { HotkeyProvider } from './api/hotkeyProvider'
 import { ConfigProvider } from './api/configProvider'
 import { Theme } from './api/theme'
@@ -80,6 +82,7 @@ const PROVIDERS = [
         WindowControlsComponent,
         RenameTabModalComponent,
         SafeModeModalComponent,
+        AutofocusDirective,
     ],
     entryComponents: [
         RenameTabModalComponent,
@@ -88,6 +91,7 @@ const PROVIDERS = [
     exports: [
         CheckboxComponent,
         ToggleComponent,
+        AutofocusDirective,
     ]
 })
 export default class AppModule {
