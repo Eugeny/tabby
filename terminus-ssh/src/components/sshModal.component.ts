@@ -8,6 +8,7 @@ import { SSHConnection, ISSHConnectionGroup } from '../api'
 
 @Component({
     template: require('./sshModal.component.pug'),
+    styles: [require('./sshModal.component.scss')],
 })
 export class SSHModalComponent {
     connections: SSHConnection[]
