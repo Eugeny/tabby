@@ -128,9 +128,9 @@ app-root  {
     &> .content {
         .tab-bar {
             .btn-tab-bar {
-                &:not(:hover):not(:active) {
-                    background: transparent;
-                }
+                background: transparent;
+                &:hover { background: rgba(0, 0, 0, .25) !important; }
+                &:active { background: rgba(0, 0, 0, .5) !important; }
             }
 
             &>.tabs {
