@@ -35,6 +35,7 @@ import { GitBashShellProvider } from './shells/gitBash'
 import { LinuxDefaultShellProvider } from './shells/linuxDefault'
 import { MacOSDefaultShellProvider } from './shells/macDefault'
 import { POSIXShellsProvider } from './shells/posix'
+import { PowerShellCoreShellProvider } from './shells/powershellCore'
 import { WindowsStockShellsProvider } from './shells/windowsStock'
 import { WSLShellProvider } from './shells/wsl'
 
@@ -73,6 +74,7 @@ import { hterm } from './hterm'
         { provide: ShellProvider, useClass: Cygwin64ShellProvider, multi: true },
         { provide: ShellProvider, useClass: GitBashShellProvider, multi: true },
         { provide: ShellProvider, useClass: POSIXShellsProvider, multi: true },
+        { provide: ShellProvider, useClass: PowerShellCoreShellProvider, multi: true },
         { provide: ShellProvider, useClass: WSLShellProvider, multi: true },
     ],
     entryComponents: [
