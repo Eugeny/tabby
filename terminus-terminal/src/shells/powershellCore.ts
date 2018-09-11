@@ -1,4 +1,3 @@
-import * as path from 'path'
 import { Injectable } from '@angular/core'
 import { HostAppService, Platform } from 'terminus-core'
 

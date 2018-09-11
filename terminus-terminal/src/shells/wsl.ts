@@ -28,6 +28,7 @@ export class WSLShellProvider extends ShellProvider {
             command: wslPath,
             env: {
                 TERM: 'xterm-color',
+                COLORTERM: 'truecolor',
             }
         }]
     }
