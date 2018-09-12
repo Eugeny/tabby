@@ -1,5 +1,5 @@
 import { Subject, Observable } from 'rxjs'
-import { BrowserWindow, app, ipcMain } from 'electron'
+import { BrowserWindow, app, ipcMain, Rectangle } from 'electron'
 import ElectronConfig = require('electron-config')
 import * as yaml from 'js-yaml'
 import * as fs from 'fs'
@@ -16,6 +16,7 @@ export class Window {
     private window: BrowserWindow
     private vibrancyViewID: number
     private windowConfig: ElectronConfig
+    private windowBounds: Rectangle
 
     get visible$ (): Observable<boolean> { return this.visible }
 
@@ -29,7 +30,9 @@ export class Window {
         }
 
         this.windowConfig = new ElectronConfig({ name: 'window' })
+        this.windowBounds = this.windowConfig.get('windowBoundaries')
 
+        let maximized = this.windowConfig.get('maximized')
         let options: Electron.BrowserWindowConstructorOptions = {
             width: 800,
             height: 600,
@@ -40,7 +43,7 @@ export class Window {
             frame: false,
             show: false,
         }
-        Object.assign(options, this.windowConfig.get('windowBoundaries'))
+        Object.assign(options, this.windowBounds)
 
         if ((configData.appearance || {}).frame === 'native') {
             options.frame = true
@@ -65,7 +68,11 @@ export class Window {
             } else if (process.platform === 'win32' && (configData.appearance || {}).vibrancy) {
                 this.setVibrancy(true)
             }
-            this.window.show()
+            if (maximized) {
+                this.window.maximize()
+            } else {
+                this.window.show()
+            }
             this.window.focus()
         })
         this.window.loadURL(`file://${app.getAppPath()}/dist/index.html?${this.window.id}`, { extraHeaders: 'pragma: no-cache\n' })
@@ -122,11 +129,22 @@ export class Window {
         this.window.on('leave-full-screen', () => this.window.webContents.send('host:window-leave-full-screen'))
 
         this.window.on('close', () => {
-            this.windowConfig.set('windowBoundaries', this.window.getBounds())
+            this.windowConfig.set('windowBoundaries', this.windowBounds)
+            this.windowConfig.set('maximized', this.window.isMaximized())
         })
 
         this.window.on('closed', () => {
             this.destroy()
+        })
+
+        this.window.on('resize', () => {
+            if (!this.window.isMaximized())
+                this.windowBounds = this.window.getBounds()
+        })
+
+        this.window.on('move', () => {
+            if (!this.window.isMaximized())
+                this.windowBounds = this.window.getBounds()
         })
 
         ipcMain.on('window-focus', () => {
