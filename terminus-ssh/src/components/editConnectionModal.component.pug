@@ -58,6 +58,34 @@
                             button.btn.btn-secondary((click)='selectPrivateKey()')
                                 i.fa.fa-folder-open
 
+        ngb-tab(id='advanced')
+            ng-template(ngbTabTitle)
+                | Advanced Setting
+            ng-template(ngbTabContent)
+                .form-group
+                    label Keep Alive Interval (Milliseconds)
+                    input.form-control(
+                        type='number', 
+                        placeholder='0', 
+                        [(ngModel)]='connection.keepaliveInterval', 
+                    )
+
+                .form-group
+                    label Max Keep Alive Count
+                    input.form-control(
+                        type='number', 
+                        placeholder='3', 
+                        [(ngModel)]='connection.keepaliveCountMax', 
+                    )
+
+                .form-group
+                    label Ready Timeout (Milliseconds)
+                    input.form-control(
+                        type='number', 
+                        placeholder='20000', 
+                        [(ngModel)]='connection.readyTimeout', 
+                    )
+
         ngb-tab(id='scripts')
             ng-template(ngbTabTitle)
                 | Login Scripts

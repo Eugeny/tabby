@@ -110,6 +110,9 @@ export class SSHService {
                 tryKeyboard: true,
                 agent,
                 agentForward: !!agent,
+                keepaliveInterval: connection.keepaliveInterval,
+                keepaliveCountMax: connection.keepaliveCountMax,
+                readyTimeout: connection.readyTimeout,
             })
 
             let keychainPasswordUsed = false
