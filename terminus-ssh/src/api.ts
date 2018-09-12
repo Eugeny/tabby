@@ -14,6 +14,9 @@ export interface SSHConnection {
     privateKey?: string
     group?: string
     scripts?: LoginScript[]
+    keepaliveInterval?: number
+    keepaliveCountMax?: number
+    readyTimeout?: number
 }
 
 export class SSHSession extends BaseSession {
