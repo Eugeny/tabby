@@ -99,12 +99,12 @@
                         td
                             input.form-control(
                                     type='text', 
-                                    value='{{script.expect}}',
+                                     [(ngModel)]='script.expect'
                                 )
                         td
                             input.form-control(
                                     type='text', 
-                                    value='{{script.send}}',
+                                     [(ngModel)]='script.send'
                                 )
                         td
                             .input-group.flex-nowrap
