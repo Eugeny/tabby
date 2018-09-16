@@ -1,6 +1,10 @@
 
 ### Changes
 
+##### v0.4.9
+
+- Fixed broken Doskey on Win10 (#438, #451)
+
 ##### v0.4.8
 
 - Environment variable 'clink_profile' overrides Clink's profile path (#390).
