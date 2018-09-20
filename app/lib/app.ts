@@ -21,7 +21,9 @@ export class Application {
                 this.enableTray()
             }
         })
-        this.setupMenu()
+        if (process.platform === 'darwin') {
+            this.setupMenu()
+        }
         await window.ready
         return window
     }
