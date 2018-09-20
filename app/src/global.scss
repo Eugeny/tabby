@@ -4,8 +4,12 @@ body {
     background: #1D272D;
 }
 
-.modal-dialog, .modal-backdrop {
-  -webkit-app-region: no-drag;
+.modal-dialog, .modal-backdrop, .no-drag {
+    -webkit-app-region: no-drag;
+}
+
+.selectable {
+    user-select: text;
 }
 
 [ngbradiogroup] input[type="radio"] {

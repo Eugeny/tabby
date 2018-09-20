@@ -4,7 +4,7 @@
     height: 100vh;
     flex-direction: column;
     overflow: hidden;
-    -webkit-user-select: none;
+    user-select: none;
     -webkit-user-drag: none;
     -webkit-font-smoothing: antialiased;
     will-change: transform;
