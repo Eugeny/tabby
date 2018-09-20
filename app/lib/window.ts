@@ -138,13 +138,15 @@ export class Window {
         })
 
         this.window.on('resize', () => {
-            if (!this.window.isMaximized())
+            if (!this.window.isMaximized()) {
                 this.windowBounds = this.window.getBounds()
+            }
         })
 
         this.window.on('move', () => {
-            if (!this.window.isMaximized())
+            if (!this.window.isMaximized()) {
                 this.windowBounds = this.window.getBounds()
+            }
         })
 
         ipcMain.on('window-focus', () => {
