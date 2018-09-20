@@ -8,6 +8,7 @@ export class HTermFrontend extends Frontend {
     private initialized = false
     private configuredFontSize = 0
     private configuredLinePadding = 0
+    private configuredBackgroundColor = 'transparent'
     private zoom = 0
 
     attach (host: HTMLElement) {
@@ -87,6 +88,8 @@ export class HTermFrontend extends Frontend {
             preferenceManager.set('background-color', 'transparent')
         }
 
+        this.configuredBackgroundColor = preferenceManager.get('background-color')
+
         if (config.terminal.colorScheme.colors) {
             preferenceManager.set(
                 'color-palette-overrides',
@@ -134,10 +137,9 @@ export class HTermFrontend extends Frontend {
     }
 
     visualBell (): void {
-        const color = preferenceManager.get('background-color')
         preferenceManager.set('background-color', 'rgba(128,128,128,.25)')
         setTimeout(() => {
-            preferenceManager.set('background-color', color)
+            preferenceManager.set('background-color', this.configuredBackgroundColor)
         }, 125)
     }
 
