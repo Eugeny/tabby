@@ -155,6 +155,14 @@ export class HostAppService {
         this.electron.ipcRenderer.send('window-set-title', title)
     }
 
+    setTouchBar (touchBar: Electron.TouchBar) {
+        this.getWindow().setTouchBar(touchBar)
+    }
+
+    popupContextMenu (menuDefinition: Electron.MenuItemConstructorOptions[]) {
+        this.electron.ipcRenderer.send('window-popup-context-menu', menuDefinition)
+    }
+
     broadcastConfigChange () {
         this.electron.ipcRenderer.send('app:config-change')
     }

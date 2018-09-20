@@ -1,5 +1,5 @@
 import { Subject, Observable } from 'rxjs'
-import { BrowserWindow, app, ipcMain, Rectangle } from 'electron'
+import { BrowserWindow, app, ipcMain, Rectangle, Menu } from 'electron'
 import ElectronConfig = require('electron-config')
 import * as yaml from 'js-yaml'
 import * as fs from 'fs'
@@ -187,6 +187,10 @@ export class Window {
 
         ipcMain.on('window-set-title', (_event, title) => {
             this.window.setTitle(title)
+        })
+
+        ipcMain.on('window-popup-context-menu', (_event, menuDefinition) => {
+            Menu.buildFromTemplate(menuDefinition).popup({ window: this.window })
         })
     }
 

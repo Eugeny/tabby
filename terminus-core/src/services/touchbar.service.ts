@@ -54,7 +54,7 @@ export class TouchbarService {
                 ...buttons.map(button => this.getButton(button))
             ]
         })
-        this.hostApp.getWindow().setTouchBar(touchBar)
+        this.hostApp.setTouchBar(touchBar)
     }
 
     private getButton (button: IToolbarButton): Electron.TouchBarButton {

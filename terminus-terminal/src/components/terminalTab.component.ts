@@ -199,7 +199,7 @@ export class TerminalTabComponent extends BaseTabComponent {
             }
         })
 
-        this.contextMenu = this.electron.remote.Menu.buildFromTemplate([
+        this.contextMenu = [
             {
                 label: 'New terminal',
                 click: () => {
@@ -227,7 +227,7 @@ export class TerminalTabComponent extends BaseTabComponent {
                     })
                 }
             },
-        ])
+        ]
     }
 
     detachTermContainerHandlers () {
@@ -249,9 +249,7 @@ export class TerminalTabComponent extends BaseTabComponent {
                 if (event.type === 'mousedown') {
                     if (event.which === 3) {
                         if (this.config.store.terminal.rightClick === 'menu') {
-                            this.contextMenu.popup({
-                                async: true,
-                            })
+                            this.hostApp.popupContextMenu(this.contextMenu)
                         } else if (this.config.store.terminal.rightClick === 'paste') {
                             this.paste()
                         }
