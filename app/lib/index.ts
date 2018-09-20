@@ -32,7 +32,7 @@ process.on('uncaughtException' as any, err => {
 })
 
 app.on('second-instance', (_event, argv, cwd) => {
-    application.send('host:second-instance', parseArgs(argv, cwd))
+    application.send('host:second-instance', parseArgs(argv, cwd), cwd)
 })
 
 const argv = parseArgs(process.argv, process.cwd())
