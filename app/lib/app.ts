@@ -147,7 +147,6 @@ export class Application {
                 role: 'window',
                 submenu: [
                     { role: 'minimize' },
-                    { role: 'close' },
                     { role: 'zoom' },
                     { type: 'separator' },
                     { role: 'front' },
