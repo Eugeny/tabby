@@ -36,8 +36,7 @@ $btn-secondary-border:           #444;
 //$btn-warning-bg:                 rgba($orange, .5);
 
 
-$nav-tabs-border-color:                       $body-bg;
-$nav-tabs-border-width:                       1px;
+$nav-tabs-border-width:                       0;
 $nav-tabs-border-radius:                      0;
 $nav-tabs-link-hover-border-color:            $body-bg;
 $nav-tabs-active-link-hover-color:            $white;
@@ -138,7 +137,7 @@ app-root  {
                     border-left: 1px solid transparent;
                     border-right: 1px solid transparent;
 
-                    transition: 0.25s all;
+                    transition: 0.125s ease-out width;
 
                     .index {
                         color: #888;
@@ -223,10 +222,7 @@ settings-tab > ngb-tabset {
         background: rgba(0, 0, 0, 0.25);
 
         & > .nav-item > .nav-link {
-            border-left: none;
-            border-right: none;
-            border-top: 1px solid transparent;
-            border-bottom: 1px solid transparent;
+            border: none;
             padding: 10px 50px 10px 20px;
             font-size: 14px;
 
@@ -236,11 +232,6 @@ settings-tab > ngb-tabset {
               &:hover {
                   color: $white;
               }
-            }
-
-            &.active {
-                border-top-color: $nav-tabs-active-link-hover-border-color;
-                border-bottom-color: $nav-tabs-active-link-hover-border-color;
             }
         }
     }

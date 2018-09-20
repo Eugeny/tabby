@@ -42,12 +42,13 @@ $tabs-height: 36px;
         flex: none;
         background: transparent;
         opacity: 0;
+        -webkit-app-region: no-drag;
 
         $button-size: 26px;
         width: $button-size;
         height: $button-size;
         border-radius: $button-size / 2;
-        line-height: $button-size;
+        line-height: $button-size * 0.9;
         align-self: center;
         margin-right: 10px;
 
