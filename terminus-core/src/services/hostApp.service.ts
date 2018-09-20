@@ -151,6 +151,10 @@ export class HostAppService {
         }
     }
 
+    setTitle (title: string) {
+        this.electron.ipcRenderer.send('window-set-title', title)
+    }
+
     broadcastConfigChange () {
         this.electron.ipcRenderer.send('app:config-change')
     }

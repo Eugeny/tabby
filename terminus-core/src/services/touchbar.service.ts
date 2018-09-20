@@ -10,6 +10,7 @@ import { IToolbarButton, ToolbarButtonProvider } from '../api'
 export class TouchbarService {
     private tabsSegmentedControl: TouchBarSegmentedControl
     private tabSegments: SegmentedControlSegment[] = []
+    private nsImageCache: {[id: string]: Electron.NativeImage} = {}
 
     constructor (
         private app: AppService,
@@ -59,10 +60,16 @@ export class TouchbarService {
     private getButton (button: IToolbarButton): Electron.TouchBarButton {
         return new this.electron.TouchBar.TouchBarButton({
             label: button.touchBarNSImage ? null : this.shortenTitle(button.touchBarTitle || button.title),
-            icon: button.touchBarNSImage ?
-                this.electron.nativeImage.createFromNamedImage(button.touchBarNSImage, [0, 0, 1]) : null,
+            icon: button.touchBarNSImage ? this.getCachedNSImage(button.touchBarNSImage) : null,
             click: () => this.zone.run(() => button.click()),
         })
+    }
+
+    private getCachedNSImage (name: string) {
+        if (!this.nsImageCache[name]) {
+            this.nsImageCache[name] = this.electron.nativeImage.createFromNamedImage(name, [0, 0, 1])
+        }
+        return this.nsImageCache[name]
     }
 
     private shortenTitle (title: string): string {

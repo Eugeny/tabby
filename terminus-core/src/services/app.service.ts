@@ -50,7 +50,7 @@ export class AppService {
 
         tab.titleChange$.subscribe(title => {
             if (tab === this.activeTab) {
-                this.hostApp.getWindow().setTitle(title)
+                this.hostApp.setTitle(title)
             }
         })
         return tab
@@ -75,7 +75,7 @@ export class AppService {
         if (this.activeTab) {
             this.activeTab.emitFocused()
         }
-        this.hostApp.getWindow().setTitle(this.activeTab.title)
+        this.hostApp.setTitle(this.activeTab.title)
     }
 
     toggleLastTab () {

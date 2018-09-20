@@ -182,6 +182,10 @@ export class Window {
         ipcMain.on('window-set-vibrancy', (_event, enabled) => {
             this.setVibrancy(enabled)
         })
+
+        ipcMain.on('window-set-title', (_event, title) => {
+            this.window.setTitle(title)
+        })
     }
 
     private destroy () {
