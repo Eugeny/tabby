@@ -77,6 +77,10 @@ export class XTermFrontend extends Frontend {
         (this.xterm as any).bell()
     }
 
+    scrollToBottom (): void {
+        this.xterm.scrollToBottom()
+    }
+
     configure (config: any): void {
         this.xterm.setOption('fontFamily', `"${config.terminal.font}", "monospace-fallback", monospace`)
         this.xterm.setOption('bellStyle', config.terminal.bell)

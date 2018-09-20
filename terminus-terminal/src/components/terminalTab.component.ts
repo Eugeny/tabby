@@ -292,6 +292,7 @@ export class TerminalTabComponent extends BaseTabComponent {
 
     sendInput (data: string) {
         this.session.write(data)
+        this.frontend.scrollToBottom()
     }
 
     write (data: string) {

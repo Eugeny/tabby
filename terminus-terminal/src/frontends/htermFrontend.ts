@@ -141,6 +141,10 @@ export class HTermFrontend extends Frontend {
         }, 125)
     }
 
+    scrollToBottom (): void {
+        this.term.scrollEnd()
+    }
+
     private setFontSize () {
         preferenceManager.set('font-size', this.configuredFontSize * Math.pow(1.1, this.zoom))
     }

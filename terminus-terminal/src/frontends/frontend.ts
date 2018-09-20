@@ -52,6 +52,7 @@ export abstract class Frontend {
     abstract write (data: string): void
     abstract clear (): void
     abstract visualBell (): void
+    abstract scrollToBottom (): void
 
     abstract configure (configStore: any): void
     abstract setZoom (zoom: number): void
