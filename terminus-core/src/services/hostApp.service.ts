@@ -106,7 +106,7 @@ export class HostAppService {
 
     toggleFullscreen () {
         let window = this.getWindow()
-        window.setFullScreen(!window.isFullScreen())
+        window.setFullScreen(!this.isFullScreen)
     }
 
     openDevTools () {
