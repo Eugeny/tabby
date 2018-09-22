@@ -1,4 +1,3 @@
-import { exec } from 'mz/child_process'
 import { Injectable } from '@angular/core'
 import { HostAppService, Platform } from 'terminus-core'
 
@@ -21,7 +20,7 @@ export class WindowsDefaultShellProvider extends ShellProvider {
     ) {
         super()
         this.providers = [
-            psc
+            psc,
             wsl,
             stock,
         ]
