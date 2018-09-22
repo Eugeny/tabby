@@ -1,4 +1,5 @@
 import * as fs from 'mz/fs'
+import { exec } from 'mz/child_process'
 import { Injectable } from '@angular/core'
 import { HostAppService, Platform } from 'terminus-core'
 
@@ -17,19 +18,43 @@ export class WSLShellProvider extends ShellProvider {
             return []
         }
 
-        const wslPath = `${process.env.windir}\\system32\\bash.exe`
+        const wslPath = `${process.env.windir}\\system32\\wsl.exe`
+        const wslConfigPath = `${process.env.windir}\\system32\\wslconfig.exe`
         if (!await fs.exists(wslPath)) {
             return []
         }
 
-        return [{
+        let lines = (await exec(`${wslConfigPath} /l`, { encoding: 'ucs2' }))[0].toString().split('\n').splice(1)
+        let shells: IShell[] = [{
             id: 'wsl',
-            name: 'WSL / Bash on Windows',
+            name: 'WSL / Default distro',
             command: wslPath,
             env: {
                 TERM: 'xterm-color',
                 COLORTERM: 'truecolor',
             }
         }]
+
+        for (let line of lines) {
+            line = line.trim()
+            if (!line) {
+                continue
+            }
+            if (line.endsWith('(Default)')) {
+                line = line.substring(0, line.length - ' (Default)'.length)
+            }
+            shells.push({
+                id: `wsl-${line}`,
+                name: `WSL / ${line}`,
+                command: wslPath,
+                args: ['-d', line],
+                env: {
+                    TERM: 'xterm-color',
+                    COLORTERM: 'truecolor',
+                }
+            })
+        }
+
+        return shells
     }
 }
