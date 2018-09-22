@@ -157,6 +157,7 @@ export class AppRootComponent {
         if (this.hostApp.getWindow().isFocused()) {
             // focused
             this.electron.loseFocus()
+            this.hostApp.getWindow().blur()
             if (this.hostApp.platform !== Platform.macOS) {
                 this.hostApp.getWindow().hide()
             }
