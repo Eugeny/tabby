@@ -79,11 +79,15 @@
       "icon": "./build/windows/icon.ico",
       "publish": [
         "github"
-      ]
+      ],
+      "artifactName": "terminus-${version}-setup.exe"
     },
     "squirrelWindows": {
       "iconUrl": "https://github.com/Eugeny/terminus/raw/master/build/windows/icon.ico",
-      "artifactName": "terminus-${version}-${os}-${arch}.exe"
+      "artifactName": "terminus-${version}-setup.exe"
+    },
+    "portable": {
+      "artifactName": "terminus-${version}-portable.exe"
     },
     "mac": {
       "category": "public.app-category.video",
@@ -96,11 +100,12 @@
       }
     },
     "dmg": {
-      "artifactName": "terminus-${version}-${os}-${arch}.dmg"
+      "artifactName": "terminus-${version}-macos.dmg"
     },
     "linux": {
       "category": "Utilities",
       "icon": "./build/icons",
+      "artifactName": "terminus-${version}-linux.${ext}",
       "publish": [
         "github"
       ]
@@ -115,15 +120,13 @@
         "libxtst6",
         "libnss3",
         "tmux"
-      ],
-      "artifactName": "terminus-${version}-${os}-${arch}.deb"
+      ]
     },
     "rpm": {
       "depends": [
         "screen",
         "gnome-python2-gnomekeyring"
-      ],
-      "artifactName": "terminus-${version}-${os}-${arch}.rpm"
+      ]
     }
   },
   "scripts": {

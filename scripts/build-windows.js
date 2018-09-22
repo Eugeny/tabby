@@ -4,7 +4,7 @@ const vars = require('./vars')
 
 builder({
   dir: true,
-  win: ['squirrel'],
+  win: ['squirrel', 'portable'],
   config: {
     extraMetadata: {
       version: vars.version,
