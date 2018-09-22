@@ -36,6 +36,7 @@ import { LinuxDefaultShellProvider } from './shells/linuxDefault'
 import { MacOSDefaultShellProvider } from './shells/macDefault'
 import { POSIXShellsProvider } from './shells/posix'
 import { PowerShellCoreShellProvider } from './shells/powershellCore'
+import { WindowsDefaultShellProvider } from './shells/winDefault'
 import { WindowsStockShellsProvider } from './shells/windowsStock'
 import { WSLShellProvider } from './shells/wsl'
 
@@ -65,10 +66,11 @@ import { hterm } from './hterm'
         { provide: SessionPersistenceProvider, useClass: ScreenPersistenceProvider, multi: true },
         { provide: SessionPersistenceProvider, useClass: TMuxPersistenceProvider, multi: true },
 
-        { provide: ShellProvider, useClass: CmderShellProvider, multi: true },
-        { provide: ShellProvider, useClass: WindowsStockShellsProvider, multi: true },
+        { provide: ShellProvider, useClass: WindowsDefaultShellProvider, multi: true },
         { provide: ShellProvider, useClass: MacOSDefaultShellProvider, multi: true },
         { provide: ShellProvider, useClass: LinuxDefaultShellProvider, multi: true },
+        { provide: ShellProvider, useClass: WindowsStockShellsProvider, multi: true },
+        { provide: ShellProvider, useClass: CmderShellProvider, multi: true },
         { provide: ShellProvider, useClass: CustomShellProvider, multi: true },
         { provide: ShellProvider, useClass: Cygwin32ShellProvider, multi: true },
         { provide: ShellProvider, useClass: Cygwin64ShellProvider, multi: true },
@@ -76,6 +78,11 @@ import { hterm } from './hterm'
         { provide: ShellProvider, useClass: POSIXShellsProvider, multi: true },
         { provide: ShellProvider, useClass: PowerShellCoreShellProvider, multi: true },
         { provide: ShellProvider, useClass: WSLShellProvider, multi: true },
+
+        // For WindowsDefaultShellProvider
+        PowerShellCoreShellProvider,
+        WSLShellProvider,
+        WindowsStockShellsProvider
     ],
     entryComponents: [
         TerminalTabComponent,
