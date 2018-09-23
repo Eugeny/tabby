@@ -1,9 +1,12 @@
+import * as fs from 'mz/fs'
+
 import { NgModule } from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
 import { FormsModule } from '@angular/forms'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { ToastrModule } from 'ngx-toastr'
 import TerminusCorePlugin from 'terminus-core'
+import { HostAppService } from 'terminus-core'
 
 import { ToolbarButtonProvider, TabRecoveryProvider, ConfigProvider, HotkeysService, HotkeyProvider, AppService, ConfigService } from 'terminus-core'
 import { SettingsTabProvider } from 'terminus-settings'
@@ -100,6 +103,7 @@ export default class TerminalModule {
         config: ConfigService,
         hotkeys: HotkeysService,
         terminal: TerminalService,
+        hostApp: HostAppService,
     ) {
         let events = [
             {
@@ -130,6 +134,36 @@ export default class TerminalModule {
                 terminal.openTab()
             })
         }
+
+        hotkeys.matchedHotkey.subscribe(async (hotkey) => {
+            if (hotkey === 'new-tab') {
+                terminal.openTab()
+            }
+        })
+        hotkeys.matchedHotkey.subscribe(async (hotkey) => {
+            if (hotkey === 'new-window') {
+                hostApp.newWindow()
+            }
+        })
+        hostApp.cliOpenDirectory$.subscribe(async directory => {
+            if (await fs.exists(directory)) {
+                if ((await fs.stat(directory)).isDirectory()) {
+                    terminal.openTab(null, directory)
+                }
+            }
+        })
+        hostApp.cliRunCommand$.subscribe(async command => {
+            terminal.openTab({
+                id: '',
+                command: command[0],
+                args: command.slice(1),
+            }, null, true)
+        })
+        hostApp.cliPaste$.subscribe(text => {
+            if (app.activeTab instanceof TerminalTabComponent && app.activeTab.session) {
+                (app.activeTab as TerminalTabComponent).sendInput(text)
+            }
+        })
     }
 }
 

@@ -1,3 +1,4 @@
+import * as fs from 'fs'
 import { app } from 'electron'
 
 export function parseArgs (argv, cwd) {
@@ -13,11 +14,27 @@ export function parseArgs (argv, cwd) {
         .command('run [command...]', 'run a command in the terminal', {
             command: { type: 'string' },
         })
-        .version('v', 'Show version and exit', app.getVersion())
-        .alias('d', 'debug')
-        .describe('d', 'Show DevTools on start')
-        .alias('h', 'help')
-        .help('h')
+        .command('paste [text]', 'paste stdin into the active tab', yargs => {
+            return yargs.option('escape', {
+                alias: 'e',
+                type: 'boolean',
+                describe: 'Perform shell escaping'
+            }).positional('text', {
+                type: 'string'
+            })
+        })
+        .version('version', '', app.getVersion())
+        .option('debug', {
+            alias: 'd',
+            describe: 'Show DevTools on start',
+            type: 'boolean'
+        })
+        .option('version', {
+            alias: 'v',
+            describe: 'Show version and exit',
+            type: 'boolean'
+        })
+        .help('help')
         .strict()
         .parse(argv.slice(1))
 }

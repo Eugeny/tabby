@@ -59,7 +59,7 @@
 				<key>ActionParameters</key>
 				<dict>
 					<key>COMMAND_STRING</key>
-					<string>echo -n $1 | /Applications/Terminus.app/Contents/MacOS/terminus paste --escape</string>
+					<string>/Applications/Terminus.app/Contents/MacOS/terminus paste --escape "$1"</string>
 					<key>CheckedForUserDefaultShell</key>
 					<true/>
 					<key>inputMethod</key>

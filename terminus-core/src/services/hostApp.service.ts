@@ -1,4 +1,5 @@
 import * as path from 'path'
+import shellEscape = require('shell-escape')
 import { Observable, Subject } from 'rxjs'
 import { Injectable, NgZone, EventEmitter } from '@angular/core'
 import { ElectronService } from './electron.service'
@@ -25,6 +26,7 @@ export class HostAppService {
     private secondInstance = new Subject<void>()
     private cliOpenDirectory = new Subject<string>()
     private cliRunCommand = new Subject<string[]>()
+    private cliPaste = new Subject<string>()
     private configChangeBroadcast = new Subject<void>()
     private logger: Logger
     private windowId: number
@@ -33,6 +35,7 @@ export class HostAppService {
     get secondInstance$ (): Observable<void> { return this.secondInstance }
     get cliOpenDirectory$ (): Observable<string> { return this.cliOpenDirectory }
     get cliRunCommand$ (): Observable<string[]> { return this.cliRunCommand }
+    get cliPaste$ (): Observable<string> { return this.cliPaste }
     get configChangeBroadcast$ (): Observable<void> { return this.configChangeBroadcast }
 
     constructor (
@@ -76,6 +79,12 @@ export class HostAppService {
                 this.cliOpenDirectory.next(path.resolve(cwd, argv.directory))
             } else if (op === 'run') {
                 this.cliRunCommand.next(argv.command)
+            } else if (op === 'paste') {
+                let text = argv.text
+                if (argv.escape) {
+                    text = shellEscape([text])
+                }
+                this.cliPaste.next(text)
             }
         }))
 

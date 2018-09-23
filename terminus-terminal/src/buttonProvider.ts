@@ -15,30 +15,6 @@ export class ButtonProvider extends ToolbarButtonProvider {
         hotkeys: HotkeysService,
     ) {
         super()
-        hotkeys.matchedHotkey.subscribe(async (hotkey) => {
-            if (hotkey === 'new-tab') {
-                terminal.openTab()
-            }
-        })
-        hotkeys.matchedHotkey.subscribe(async (hotkey) => {
-            if (hotkey === 'new-window') {
-                hostApp.newWindow()
-            }
-        })
-        hostApp.cliOpenDirectory$.subscribe(async directory => {
-            if (await fs.exists(directory)) {
-                if ((await fs.stat(directory)).isDirectory()) {
-                    this.terminal.openTab(null, directory)
-                }
-            }
-        })
-        hostApp.cliRunCommand$.subscribe(async command => {
-            this.terminal.openTab({
-                id: '',
-                command: command[0],
-                args: command.slice(1),
-            }, null, true)
-        })
         if (!electron.remote.process.env.DEV) {
             setImmediate(async () => {
                 let argv: string[] = electron.remote.process.argv

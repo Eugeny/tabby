@@ -74,8 +74,8 @@ export class AppService {
         this.activeTabChange.next(tab)
         if (this.activeTab) {
             this.activeTab.emitFocused()
+            this.hostApp.setTitle(this.activeTab.title)
         }
-        this.hostApp.setTitle(this.activeTab.title)
     }
 
     toggleLastTab () {
