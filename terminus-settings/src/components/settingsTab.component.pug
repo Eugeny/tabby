@@ -19,11 +19,11 @@ ngb-tabset.vertical(type='pills', [activeId]='activeTab')
                     i.fa.fa-bug
                     span Report a problem
 
-            .form-line(*ngIf='!automatorWorkflowsInstalled')
+            .form-line(*ngIf='!isShellIntegrationInstalled')
                 .header
-                    .title Finder context menu items
+                    .title Shell integration
                     .description Allows quickly opening a terminal in the selected folder
-                button.btn.btn-primary((click)='installAutomatorWorkflows()')
+                button.btn.btn-primary((click)='installShellIntegration()')
                     i.fa.fa-check 
                     span Install
 
