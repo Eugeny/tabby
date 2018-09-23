@@ -27,6 +27,7 @@ export class WindowsStockShellsProvider extends ShellProvider {
                     path.join(
                         path.dirname(this.electron.app.getPath('exe')),
                         'resources',
+                        'extras',
                         'clink',
                         `clink_${process.arch}.exe`,
                     ),

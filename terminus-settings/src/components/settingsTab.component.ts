@@ -1,4 +1,7 @@
 import * as yaml from 'js-yaml'
+import * as path from 'path'
+import * as fs from 'mz/fs'
+import { exec } from 'mz/child_process'
 import { Subscription } from 'rxjs'
 import { Component, Inject, Input } from '@angular/core'
 import { ElectronService, DockingService, ConfigService, IHotkeyDescription, HotkeyProvider, BaseTabComponent, Theme, HostAppService, Platform, HomeBaseService } from 'terminus-core'
@@ -21,7 +24,11 @@ export class SettingsTabComponent extends BaseTabComponent {
     Platform = Platform
     configDefaults: any
     configFile: string
+    automatorWorkflowsInstalled = false
     private configSubscription: Subscription
+    private automatorWorkflows = ['Open Terminus here.workflow', 'Paste path into Terminus.workflow']
+    private automatorWorkflowsLocation: string
+    private automatorWorkflowsDestination: string
 
     constructor (
         public config: ConfigService,
@@ -45,6 +52,19 @@ export class SettingsTabComponent extends BaseTabComponent {
         this.configSubscription = config.changed$.subscribe(() => {
             this.configFile = config.readRaw()
         })
+
+        this.automatorWorkflowsLocation = path.join(
+            path.dirname(path.dirname(this.electron.app.getPath('exe'))),
+            'Resources',
+            'extras',
+            'automator-workflows',
+        )
+
+        this.automatorWorkflowsDestination = path.join(process.env.HOME, 'Library', 'Services')
+    }
+
+    async ngOnInit () {
+        this.automatorWorkflowsInstalled = await fs.exists(path.join(this.automatorWorkflowsDestination, this.automatorWorkflows[0]))
     }
 
     getRecoveryToken (): any {
@@ -74,5 +94,12 @@ export class SettingsTabComponent extends BaseTabComponent {
         } catch (_) {
             return false
         }
+    }
+
+    async installAutomatorWorkflows () {
+        for (let wf of this.automatorWorkflows) {
+            await exec(`cp -r "${this.automatorWorkflowsLocation}/${wf}" "${this.automatorWorkflowsDestination}"`)
+        }
+        this.automatorWorkflowsInstalled = true
     }
 }

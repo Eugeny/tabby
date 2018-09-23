@@ -73,7 +73,7 @@
     ],
     "extraResources": [
       "builtin-plugins",
-      "clink"
+      "extras"
     ],
     "win": {
       "icon": "./build/windows/icon.ico",
