@@ -1,4 +1,3 @@
-import * as fs from 'fs'
 import { app } from 'electron'
 
 export function parseArgs (argv, cwd) {
