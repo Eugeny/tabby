@@ -1,40 +1,39 @@
+$black:     #002b36;
+$base02:    #073642;
+$base01:    #586e75;
+$base00:    #657b83;
+$base0:     #839496;
+$base1:     #93a1a1;
+$base2:     #eee8d5;
+$white:     #fdf6e3;
+$yellow:    #b58900;
+$orange:    #cb4b16;
+$red:       #dc322f;
+$pink:      #d33682;
+$purple:    #6c71c4;
+$blue:      #268bd2;
+$teal:      #2aa198;
+$green:     #859900;
+
 $tab-border-radius: 5px;
-$button-hover-bg: rgba(0, 0, 0, .25);
-$button-active-bg: rgba(0, 0, 0, .5);
-
-
-$white:  #fff !default;
-$black:  #000 !default;
-$red:    #d9534f !default;
-$orange: #f0ad4e !default;
-$yellow: #ffd500 !default;
-$green:  #5cb85c !default;
-$blue:   #0275d8 !default;
-$teal:   #5bc0de !default;
-$pink:   #ff5b77 !default;
-$purple: #613d7c !default;
+$button-hover-bg: rgba(0, 0, 0, .125);
+$button-active-bg: rgba(0, 0, 0, .25);
 
 $theme-colors: (
-    "primary":    $blue,
-    "secondary": #394b5d
+    "primary":    $orange,
+    "secondary":  $base0
 );
 
-$content-bg: rgba(39, 49, 60, 0.65); //#1D272D;
-$content-bg-solid: #1D272D;
-$body-bg: #131d27;
-$body-bg2: #20333e;
+$content-bg: rgba($white, 0.65);
+$content-bg-solid: $white;
+$body-bg: $base2;
+$body-bg2: $base1;
 
-$body-color: #ccc;
+$body-color: $black;
 $font-family-sans-serif: "Source Sans Pro";
 $font-size-base: 14rem / 16;
 
 $btn-border-radius: 0;
-$btn-secondary-color:            #ccc;
-$btn-secondary-bg:               #222;
-$btn-secondary-border:           #444;
-
-//$btn-warning-bg:                 rgba($orange, .5);
-
 
 $nav-tabs-border-width:                       0;
 $nav-tabs-border-radius:                      0;
@@ -44,12 +43,12 @@ $nav-tabs-active-link-hover-bg:               $blue;
 $nav-tabs-active-link-hover-border-color:     darken($blue, 30%);
 $nav-pills-border-radius:  0;
 
-$input-bg:                       #111;
-$input-disabled-bg:              #333;
+$input-bg:                       $base2;
+$input-disabled-bg:              $base1;
 
 $input-color:                    $body-color;
-$input-color-placeholder:        #333;
-$input-border-color:             #344;
+$input-color-placeholder:        $base1;
+$input-border-color:             $base1;
 //$input-box-shadow:               inset 0 1px 1px rgba($black,.075);
 $input-border-radius:            0;
 $custom-select-border-radius: 0;
@@ -77,14 +76,16 @@ $dropdown-link-disabled-color:   #333;
 $dropdown-header-color:          #333;
 
 $list-group-color: $body-color;
-$list-group-bg: rgba(255,255,255,.05);
-$list-group-border-color:  rgba(255,255,255,.1);
-$list-group-hover-bg: rgba(255,255,255,.1);
-$list-group-link-active-bg: rgba(255,255,255,.2);
+$list-group-bg: rgba($black,.05);
+$list-group-border-color:  rgba($black,.1);
+$list-group-hover-bg: rgba($black,.1);
+$list-group-link-active-bg: rgba($black,.2);
 
 $list-group-action-color: $body-color;
-$list-group-action-bg: rgba(255,255,255,.05);
+$list-group-action-bg: rgba($black,.05);
 $list-group-action-active-bg: $list-group-link-active-bg;
+
+$list-group-border-radius: 0;
 
 $pre-bg: $dropdown-bg;
 $pre-color: $dropdown-link-color;
@@ -94,18 +95,19 @@ $alert-danger-text: $red;
 $alert-danger-border: $red;
 
 $headings-font-weight: lighter;
-$headings-color: #eee;
+$headings-color: $base0;
 
 @import '~bootstrap/scss/bootstrap.scss';
+
 
 window-controls {
     svg {
         transition: 0.25s fill;
-        fill: #aaa;
+        fill: $base01;
     }
 
     button:hover svg {
-        fill: white;
+        fill: $black;
     }
 
     .btn-close:hover {
@@ -113,34 +115,43 @@ window-controls {
     }
 }
 
-$border-color: #111;
+$border-color: $base1;
 
 body {
     background: $body-bg;
 
     &.vibrant {
-        background: rgba(0,0,0,.4);
+        background: rgba(255, 255, 255,.4) !important;
     }
 }
 
 app-root  {
     &> .content {
         .tab-bar {
+            height: 40px;
+
             .btn-tab-bar {
                 background: transparent;
-                &:hover { background: rgba(0, 0, 0, .25) !important; }
-                &:active { background: rgba(0, 0, 0, .5) !important; }
+                line-height: 42px;
+
+                svg {
+                    fill: $black;
+                    fill-opacity: 0.75;
+                }
+
+                &:hover { background: rgba(0, 0, 0, .125) !important; }
+                &:active { background: rgba(0, 0, 0, .25) !important; }
             }
 
             &>.tabs {
                 tab-header {
                     border-left: 1px solid transparent;
                     border-right: 1px solid transparent;
-
+                    color: $base01;
                     transition: 0.125s ease-out width;
 
                     .index {
-                        color: rgba(255, 255, 255, 0.4);
+                        color: rgba($black, 0.4);
                     }
 
                     button {
@@ -153,11 +164,11 @@ app-root  {
                     }
 
                     .progressbar {
-                        background: $green;
+                        background: $blue;
                     }
 
                     &.active {
-                        color: white;
+                        color: $black;
                         background: $content-bg;
                         border-left: 1px solid $border-color;
                         border-right: 1px solid $border-color;
@@ -179,7 +190,7 @@ app-root  {
                 }
 
                 &.has-activity:not(.active) {
-                    background: linear-gradient(to bottom, rgba(208, 0, 0, 0) 95%, #1aa99c 100%);
+                    background: linear-gradient(to bottom, rgba(208, 0, 0, 0) 95%, #36beff 96%);
                 }
             }
         }
@@ -197,7 +208,7 @@ app-root  {
                 }
 
                 &.has-activity:not(.active) {
-                    background: linear-gradient(to top, rgba(208, 0, 0, 0) 95%, #1aa99c 100%);
+                    background: linear-gradient(to top, rgba(208, 0, 0, 0) 95%, #36beff 96%);
                 }
             }
         }
@@ -227,11 +238,7 @@ settings-tab > ngb-tabset {
             font-size: 14px;
 
             &:not(.active) {
-              color: $body-color;
-
-              &:hover {
-                  color: $white;
-              }
+                color: $body-color;
             }
         }
     }
@@ -300,7 +307,6 @@ hotkey-input-modal {
 }
 
 .nav-tabs {
-    background: $btn-secondary-bg;
     .nav-link {
         transition: 0.25s all;
         border-bottom-color: $nav-tabs-border-color;
@@ -336,6 +342,10 @@ ngb-tabset .tab-content {
 .list-group-item {
     transition: 0.25s background;
 
+    &:not(:first-child) {
+        border-top: none;
+    }
+
     i + * {
         margin-left: 10px;
     }
@@ -353,11 +363,32 @@ checkbox i.on {
     color: $blue;
 }
 
-toggle.active .body .toggle {
-    background: $blue;
+toggle {
+    .body {
+        border-color: $base0 !important;
+
+        .toggle {
+            background: $base0 !important;
+        }
+    }
+
+    &.active .body .toggle {
+        background: theme-colors(primary) !important;
+    }
 }
 
 .list-group-item svg {
-    fill: white;
-    fill-opacity: 0.75;
+    fill: $black;
+}
+
+.terminus-title {
+    color: $base01;
+}
+
+.terminus-logo {
+    filter: saturate(0);
+}
+
+start-page footer {
+    background: $white !important;
 }

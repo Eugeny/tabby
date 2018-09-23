@@ -72,7 +72,7 @@ div(*ngIf='npmInstalled')
         )
 
 
-    .list-group(*ngIf='availablePlugins$')
+    .list-group.mb-4(*ngIf='availablePlugins$')
         ng-container(*ngFor='let plugin of (availablePlugins$|async|orderBy:"name")')
             .list-group-item.flex-column.align-items-start(*ngIf='!isAlreadyInstalled(plugin)')
                 .d-flex.w-100
