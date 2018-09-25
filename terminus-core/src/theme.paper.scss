@@ -106,8 +106,12 @@ window-controls {
         fill: $base01;
     }
 
-    button:hover svg {
-        fill: $black;
+    button:hover {
+        background: rgba($black, 0.125);
+        
+        svg {
+            fill: $black;
+        }
     }
 
     .btn-close:hover {

@@ -38,9 +38,9 @@ export class TerminalService {
         if (!cwd) {
             if (this.app.activeTab instanceof TerminalTabComponent && this.app.activeTab.session) {
                 cwd = await this.app.activeTab.session.getWorkingDirectory()
-            } else {
-                cwd = this.config.store.terminal.workingDirectory || null
             }
+            cwd = cwd || this.config.store.terminal.workingDirectory
+            cwd = cwd || null
         }
         if (!shell) {
             let shells = await this.shells$.toPromise()
