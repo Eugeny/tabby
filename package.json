@@ -120,7 +120,8 @@
         "libxtst6",
         "libnss3",
         "tmux"
-      ]
+      ],
+      "afterInstall": "build/linux/after-install.tpl"
     },
     "rpm": {
       "depends": [
