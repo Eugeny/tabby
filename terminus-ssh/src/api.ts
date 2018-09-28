@@ -3,6 +3,7 @@ import { BaseSession } from 'terminus-terminal'
 export interface LoginScript {
     expect?: string
     send: string
+    isRegex?: boolean
 }
 
 export interface SSHConnection {
@@ -37,13 +38,28 @@ export class SSHSession extends BaseSession {
             if (this.scripts) {
                 let found = false
                 for (let script of this.scripts) {
-                    if (dataString.includes(script.expect)) {
-                        console.log('Executing script:', script.send)
-                        this.shell.write(script.send + '\n')
-                        this.scripts = this.scripts.filter(x => x !== script)
-                        found = true
-                    } else {
-                        break
+                    if (script.isRegex) {
+                        let re = new RegExp(script.expect, "g");
+
+                        if (dataString.match(re)) {
+                            let cmd = dataString.replace(re, script.send);
+                            console.log('Executing script:', cmd)
+                            this.shell.write(cmd + '\n')
+                            this.scripts = this.scripts.filter(x => x !== script)
+                            found = true
+                        } else {
+                            break;
+                        }
+                    }
+                    else {
+                        if (dataString.includes(script.expect)) {
+                            console.log('Executing script:', script.send)
+                            this.shell.write(script.send + '\n')
+                            this.scripts = this.scripts.filter(x => x !== script)
+                            found = true
+                        } else {
+                            break
+                        }
                     }
                 }
 

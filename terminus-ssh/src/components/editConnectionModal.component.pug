@@ -94,18 +94,23 @@
                     tr
                         th String to expect
                         th String to be sent
+                        th Regex
                         th Actions
                     tr(*ngFor='let script of connection.scripts')
                         td
                             input.form-control(
-                                    type='text', 
-                                     [(ngModel)]='script.expect'
-                                )
+                                type='text', 
+                                [(ngModel)]='script.expect'
+                            )
                         td
                             input.form-control(
-                                    type='text', 
-                                     [(ngModel)]='script.send'
-                                )
+                                type='text', 
+                                [(ngModel)]='script.send'
+                            )
+                        td
+                            toggle(
+                                [(ngModel)]='script.isRegex',
+                            )
                         td
                             .input-group.flex-nowrap
                                 button.btn.btn-outline-info.ml-0((click)='moveScriptUp(script)')
@@ -126,6 +131,10 @@
                                 type='text', 
                                 placeholder='Enter a string to be sent', 
                                 [(ngModel)]='newScript.send'
+                            )
+                        td
+                            toggle(
+                                [(ngModel)]='newScript.isRegex',
                             )
                         td
                             .input-group.flex-nowrap
