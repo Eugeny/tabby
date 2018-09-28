@@ -83,5 +83,7 @@ export class EditConnectionModalComponent {
     clearScript () {
         this.newScript.expect = ''
         this.newScript.send = ''
+        this.newScript.isRegex = false
+        this.newScript.optional = false
     }
 }

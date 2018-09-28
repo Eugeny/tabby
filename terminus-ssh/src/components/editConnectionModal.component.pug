@@ -95,6 +95,7 @@
                         th String to expect
                         th String to be sent
                         th Regex
+                        th Optional
                         th Actions
                     tr(*ngFor='let script of connection.scripts')
                         td
@@ -110,6 +111,10 @@
                         td
                             toggle(
                                 [(ngModel)]='script.isRegex',
+                            )
+                        td
+                            toggle(
+                                [(ngModel)]='script.optional',
                             )
                         td
                             .input-group.flex-nowrap
@@ -135,6 +140,10 @@
                         td
                             toggle(
                                 [(ngModel)]='newScript.isRegex',
+                            )
+                        td
+                            toggle(
+                                [(ngModel)]='newScript.optional',
                             )
                         td
                             .input-group.flex-nowrap
