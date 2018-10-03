@@ -18,10 +18,24 @@ export class WSLShellProvider extends ShellProvider {
             return []
         }
 
+        const bashPath = `${process.env.windir}\\system32\\bash.exe`
         const wslPath = `${process.env.windir}\\system32\\wsl.exe`
         const wslConfigPath = `${process.env.windir}\\system32\\wslconfig.exe`
+
         if (!await fs.exists(wslPath)) {
-            return []
+            if (await fs.exists(bashPath)) {
+                return [{
+                    id: 'wsl',
+                    name: 'WSL / Bash on Windows',
+                    command: bashPath,
+                    env: {
+                        TERM: 'xterm-color',
+                        COLORTERM: 'truecolor',
+                    }
+                }]
+            } else {
+                return []
+            }
         }
 
         let lines = (await exec(`${wslConfigPath} /l`, { encoding: 'ucs2' }))[0].toString().split('\n').splice(1)
