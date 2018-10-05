@@ -59,6 +59,7 @@ hterm.hterm.Terminal.prototype.applyCursorShape = function () {
     }
     this.setCursorShape(modes[modeNumber][0])
     this.setCursorBlink(modes[modeNumber][1])
+    this.setCursorVisible(true)
 }
 
 hterm.hterm.VT.CSI[' q'] = function (parseState) {
