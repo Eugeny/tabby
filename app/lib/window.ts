@@ -6,13 +6,9 @@ import * as fs from 'fs'
 import * as os from 'os'
 import * as path from 'path'
 
-let electronVibrancy: any
 let SetWindowCompositionAttribute: any
 let AccentState: any
 let DwmEnableBlurBehindWindow: any
-if (process.platform === 'darwin') {
-    electronVibrancy = require('electron-vibrancy')
-}
 if (process.platform === 'win32') {
     SetWindowCompositionAttribute = require('windows-swca').SetWindowCompositionAttribute
     AccentState = require('windows-swca').AccentState
@@ -116,13 +112,6 @@ export class Window {
                 SetWindowCompositionAttribute(this.window, attribValue, color)
             } else {
                 DwmEnableBlurBehindWindow(this.window, enabled)
-            }
-        } else if (process.platform === 'darwin') {
-            if (enabled && !this.vibrancyViewID) {
-                this.vibrancyViewID = electronVibrancy.SetVibrancy(this.window, 0)
-            } else if (!enabled && this.vibrancyViewID) {
-                electronVibrancy.RemoveView(this.window, this.vibrancyViewID)
-                this.vibrancyViewID = null
             }
         }
     }

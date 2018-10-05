@@ -80,10 +80,6 @@ argparse@^1.0.7:
   dependencies:
     sprintf-js "~1.0.2"
 
-bindings@^1.2.1:
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/bindings/-/bindings-1.3.0.tgz#b346f6ecf6a95f5a815c5839fc7cdb22502f1ed7"
-
 camelcase@^4.1.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/camelcase/-/camelcase-4.1.0.tgz#d545635be1e33c542649c69173e5de6acfae34dd"
@@ -182,13 +178,6 @@ electron-squirrel-startup@^1.0.0:
   resolved "https://registry.yarnpkg.com/electron-squirrel-startup/-/electron-squirrel-startup-1.0.0.tgz#19b4e55933fa0ef8f556784b9c660f772546a0b8"
   dependencies:
     debug "^2.2.0"
-
-electron-vibrancy@^0.1.3:
-  version "0.1.3"
-  resolved "https://registry.yarnpkg.com/electron-vibrancy/-/electron-vibrancy-0.1.3.tgz#04382dd6e030e5ca5e60f8e024033738cb8479e3"
-  dependencies:
-    bindings "^1.2.1"
-    nan "^2.0.5"
 
 env-paths@^0.3.0:
   version "0.3.1"
@@ -335,10 +324,6 @@ mz@^2.6.0:
     any-promise "^1.0.0"
     object-assign "^4.0.1"
     thenify-all "^1.0.0"
-
-nan@^2.0.5:
-  version "2.10.0"
-  resolved "https://registry.yarnpkg.com/nan/-/nan-2.10.0.tgz#96d0cd610ebd58d4b4de9cc0c6828cda99c7548f"
 
 ngx-toastr@^8.7.3:
   version "8.7.3"
