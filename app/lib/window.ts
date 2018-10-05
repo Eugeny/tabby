@@ -3,11 +3,20 @@ import { BrowserWindow, app, ipcMain, Rectangle } from 'electron'
 import ElectronConfig = require('electron-config')
 import * as yaml from 'js-yaml'
 import * as fs from 'fs'
+import * as os from 'os'
 import * as path from 'path'
 
 let electronVibrancy: any
-if (process.platform !== 'linux') {
+let SetWindowCompositionAttribute: any
+let AccentState: any
+let DwmEnableBlurBehindWindow: any
+if (process.platform === 'darwin') {
     electronVibrancy = require('electron-vibrancy')
+}
+if (process.platform === 'win32') {
+    SetWindowCompositionAttribute = require('windows-swca').SetWindowCompositionAttribute
+    AccentState = require('windows-swca').AccentState
+    DwmEnableBlurBehindWindow = require('windows-blurbehind').DwmEnableBlurBehindWindow
 }
 
 export class Window {
@@ -42,6 +51,7 @@ export class Window {
             webPreferences: { webSecurity: false },
             frame: false,
             show: false,
+            backgroundColor: '#00000000'
         }
         Object.assign(options, this.windowBounds)
 
@@ -51,10 +61,6 @@ export class Window {
             if (process.platform === 'darwin') {
                 options.titleBarStyle = 'hiddenInset'
             }
-        }
-
-        if (process.platform === 'win32' && (configData.appearance || {}).vibrancy) {
-            options.transparent = true
         }
 
         if (process.platform === 'linux') {
@@ -95,11 +101,29 @@ export class Window {
     }
 
     setVibrancy (enabled: boolean) {
-        if (enabled && !this.vibrancyViewID) {
-            this.vibrancyViewID = electronVibrancy.SetVibrancy(this.window, 0)
-        } else if (!enabled && this.vibrancyViewID) {
-            electronVibrancy.RemoveView(this.window, this.vibrancyViewID)
-            this.vibrancyViewID = null
+        if (process.platform === 'win32') {
+            if (parseFloat(os.release()) >= 10) {
+                let attribValue = AccentState.ACCENT_DISABLED
+                let color = 0x00000000
+                if (enabled) {
+                    if (parseInt(os.release().split('.')[2]) >= 17063) {
+                        attribValue = AccentState.ACCENT_ENABLE_FLUENT
+                        color = 0x01000000 // using a small alpha because acrylic bugs out at full transparency.
+                    } else {
+                        attribValue = AccentState.ACCENT_ENABLE_BLURBEHIND
+                    }
+                }
+                SetWindowCompositionAttribute(this.window, attribValue, color)
+            } else {
+                DwmEnableBlurBehindWindow(this.window, enabled)
+            }
+        } else if (process.platform === 'darwin') {
+            if (enabled && !this.vibrancyViewID) {
+                this.vibrancyViewID = electronVibrancy.SetVibrancy(this.window, 0)
+            } else if (!enabled && this.vibrancyViewID) {
+                electronVibrancy.RemoveView(this.window, this.vibrancyViewID)
+                this.vibrancyViewID = null
+            }
         }
     }
 

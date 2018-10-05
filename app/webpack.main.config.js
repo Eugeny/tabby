@@ -41,6 +41,8 @@ module.exports = {
     mz: 'commonjs mz',
     path: 'commonjs path',
     yargs: 'commonjs yargs',
+    'windows-swca': 'commonjs windows-swca',
+    'windows-blurbehind': 'commonjs windows-blurbehind',
   },
   plugins: [
     new webpack.optimize.ModuleConcatenationPlugin(),
