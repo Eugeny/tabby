@@ -66,7 +66,7 @@ div(*ngIf='npmInstalled')
                 i.fa.fa-fw.fa-search(*ngIf='availablePluginsReady')
         input.form-control(
             type='text',
-            '[(ngModel)]'='_1',
+            [(ngModel)]='_1',
             (ngModelChange)='searchAvailable(_1)',
             placeholder='Search plugins'
         )

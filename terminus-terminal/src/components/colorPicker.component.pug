@@ -3,7 +3,7 @@ ng-template(#content)
         [style.width]='"100%"',
         [style.background]='model',
     )
-    input.form-control(type='text', '[(ngModel)]'='model', (ngModelChange)='onChange()', #input)
+    input.form-control(type='text', [(ngModel)]='model', (ngModelChange)='onChange()', #input)
 
 div(
     [ngbPopover]='content',

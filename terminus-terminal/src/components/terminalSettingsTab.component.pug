@@ -70,23 +70,23 @@ h3.mb-3 Appearance
 
         .form-group(*ngIf='editingColorScheme')
             color-picker(
-                '[(model)]'='editingColorScheme.foreground',
+                [(model)]='editingColorScheme.foreground',
                 (modelChange)='config.save(); schemeChanged = true',
                 title='FG',
             )
             color-picker(
-                '[(model)]'='editingColorScheme.background',
+                [(model)]='editingColorScheme.background',
                 (modelChange)='config.save(); schemeChanged = true',
                 title='BG',
             )
             color-picker(
-                '[(model)]'='editingColorScheme.cursor',
+                [(model)]='editingColorScheme.cursor',
                 (modelChange)='config.save(); schemeChanged = true',
                 title='CU',
             )
             color-picker(
                 *ngFor='let _ of editingColorScheme.colors; let idx = index; trackBy: colorsTrackBy',
-                '[(model)]'='editingColorScheme.colors[idx]',
+                [(model)]='editingColorScheme.colors[idx]',
                 (modelChange)='config.save(); schemeChanged = true',
                 [title]='idx',
             )
