@@ -169,7 +169,7 @@ export class HostAppService {
     }
 
     popupContextMenu (menuDefinition: Electron.MenuItemConstructorOptions[]) {
-        this.electron.ipcRenderer.send('window-popup-context-menu', menuDefinition)
+        this.electron.Menu.buildFromTemplate(menuDefinition).popup({})
     }
 
     broadcastConfigChange () {

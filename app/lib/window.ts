@@ -188,10 +188,6 @@ export class Window {
         ipcMain.on('window-set-title', (_event, title) => {
             this.window.setTitle(title)
         })
-
-        ipcMain.on('window-popup-context-menu', (_event, menuDefinition) => {
-            Menu.buildFromTemplate(menuDefinition).popup({ window: this.window })
-        })
     }
 
     private destroy () {
