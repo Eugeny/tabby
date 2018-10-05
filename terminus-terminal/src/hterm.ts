@@ -57,9 +57,13 @@ hterm.hterm.Terminal.prototype.applyCursorShape = function () {
         console.warn('Unknown cursor style: ' + modeNumber)
         return
     }
-    this.setCursorShape(modes[modeNumber][0])
-    this.setCursorBlink(modes[modeNumber][1])
-    this.setCursorVisible(true)
+    setTimeout(() => {
+        this.setCursorShape(modes[modeNumber][0])
+        this.setCursorBlink(modes[modeNumber][1])
+    })
+    setTimeout(() => {
+        this.setCursorVisible(true)
+    })
 }
 
 hterm.hterm.VT.CSI[' q'] = function (parseState) {
