@@ -63,26 +63,11 @@ ngb-tabset.vertical(type='pills', [activeId]='activeTab')
                 .header
                     .title Vibrancy
                     .description Gives the window a blurred transparent background
-
-                .btn-group(
+                    
+                toggle(
                     [(ngModel)]='config.store.appearance.vibrancy',
-                    (ngModelChange)='config.save(); (hostApp.platform === Platform.Windows && config.requestRestart())',
-                    ngbRadioGroup
+                    (ngModelChange)='config.save(); (hostApp.platform === Platform.Windows && config.requestRestart())'
                 )
-                    label.btn.btn-secondary(ngbButtonLabel)
-                        input(
-                            type='radio',
-                            ngbButton,
-                            [value]='true'
-                        )
-                        | Enable
-                    label.btn.btn-secondary(ngbButtonLabel)
-                        input(
-                            type='radio',
-                            ngbButton,
-                            [value]='false'
-                        )
-                        | Disable
 
             .form-line(*ngIf='hostApp.platform !== Platform.Linux')
                 .header
