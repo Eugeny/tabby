@@ -38,6 +38,16 @@ export class ShellIntegrationService {
             )
             this.automatorWorkflowsDestination = path.join(process.env.HOME, 'Library', 'Services')
         }
+        this.updatePaths()
+    }
+
+    async updatePaths (): Promise<void> {
+        // Update paths in case of an update
+        if (this.hostApp.platform === Platform.Windows) {
+            if (await this.isInstalled()) {
+                await this.install()
+            }
+        }
     }
 
     async isInstalled (): Promise<boolean> {
