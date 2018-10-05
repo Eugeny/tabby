@@ -7,7 +7,6 @@ import { WSLShellProvider } from './wsl'
 import { PowerShellCoreShellProvider } from './powershellCore'
 import { WindowsStockShellsProvider } from './windowsStock'
 
-
 @Injectable()
 export class WindowsDefaultShellProvider extends ShellProvider {
     private providers: ShellProvider[]
