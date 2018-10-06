@@ -19,7 +19,6 @@ export class Window {
     ready: Promise<void>
     private visible = new Subject<boolean>()
     private window: BrowserWindow
-    private vibrancyViewID: number
     private windowConfig: ElectronConfig
     private windowBounds: Rectangle
 
