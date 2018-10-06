@@ -11,8 +11,6 @@ if (!process.env.TERMINUS_PLUGINS) {
 
 const application = new Application()
 
-app.commandLine.appendSwitch('disable-http-cache')
-
 ipcMain.on('app:new-window', () => {
     console.log('new-window')
     application.newWindow()

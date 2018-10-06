@@ -66,16 +66,16 @@ ngb-tabset.vertical(type='pills', [activeId]='activeTab')
                     
                 toggle(
                     [(ngModel)]='config.store.appearance.vibrancy',
-                    (ngModelChange)='config.save(); (hostApp.platform === Platform.Windows && config.requestRestart())'
+                    (ngModelChange)='config.save()'
                 )
 
-            .form-line(*ngIf='hostApp.platform !== Platform.Linux')
+            .form-line
                 .header
                     .title Window opacity
                 input(
                     type='range',
                     [(ngModel)]='config.store.appearance.opacity',
-                    (ngModelChange)='config.save()',
+                    (ngModelChange)='config.save(); (hostApp.platform === Platform.Linux && config.requestRestart())',
                     min='0.05',
                     max='1',
                     step='0.01'

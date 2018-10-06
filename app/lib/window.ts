@@ -1,10 +1,9 @@
 import { Subject, Observable } from 'rxjs'
 import { BrowserWindow, app, ipcMain, Rectangle } from 'electron'
 import ElectronConfig = require('electron-config')
-import * as yaml from 'js-yaml'
-import * as fs from 'fs'
 import * as os from 'os'
-import * as path from 'path'
+
+import { loadConfig } from './config'
 
 let SetWindowCompositionAttribute: any
 let AccentState: any
@@ -25,13 +24,7 @@ export class Window {
     get visible$ (): Observable<boolean> { return this.visible }
 
     constructor () {
-        let configPath = path.join(app.getPath('userData'), 'config.yaml')
-        let configData
-        if (fs.existsSync(configPath)) {
-            configData = yaml.safeLoad(fs.readFileSync(configPath, 'utf8'))
-        } else {
-            configData = {}
-        }
+        let configData = loadConfig()
 
         this.windowConfig = new ElectronConfig({ name: 'window' })
         this.windowBounds = this.windowConfig.get('windowBoundaries')

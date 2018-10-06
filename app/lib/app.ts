@@ -1,4 +1,5 @@
 import { app, ipcMain, Menu, Tray, shell } from 'electron'
+import { loadConfig } from './config'
 import { Window } from './window'
 
 export class Application {
@@ -9,6 +10,14 @@ export class Application {
         ipcMain.on('app:config-change', () => {
             this.broadcast('host:config-change')
         })
+
+        const configData = loadConfig()
+        if (process.platform === 'linux' && ((configData.appearance || {}).opacity || 1) !== 1) {
+            app.commandLine.appendSwitch('enable-transparent-visuals')
+            app.disableHardwareAcceleration()
+        }
+
+        app.commandLine.appendSwitch('disable-http-cache')
     }
 
     async newWindow (): Promise<Window> {
