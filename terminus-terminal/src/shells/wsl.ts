@@ -1,5 +1,5 @@
 import * as fs from 'mz/fs'
-import { exec } from 'mz/child_process'
+import { Registry } from 'rage-edit'
 import { Injectable } from '@angular/core'
 import { HostAppService, Platform } from 'terminus-core'
 
@@ -20,9 +20,19 @@ export class WSLShellProvider extends ShellProvider {
 
         const bashPath = `${process.env.windir}\\system32\\bash.exe`
         const wslPath = `${process.env.windir}\\system32\\wsl.exe`
-        const wslConfigPath = `${process.env.windir}\\system32\\wslconfig.exe`
 
-        if (!await fs.exists(wslPath)) {
+        let shells: IShell[] = [{
+            id: 'wsl',
+            name: 'WSL / Default distro',
+            command: wslPath,
+            env: {
+                TERM: 'xterm-color',
+                COLORTERM: 'truecolor',
+            }
+        }]
+
+        let lxss = await Registry.get('HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Lxss', true)
+        if (!lxss || !lxss.$values.defaultdistribution) {
             if (await fs.exists(bashPath)) {
                 return [{
                     id: 'wsl',
@@ -37,31 +47,17 @@ export class WSLShellProvider extends ShellProvider {
                 return []
             }
         }
-
-        let lines = (await exec(`${wslConfigPath} /l`, { encoding: 'ucs2' }))[0].toString().split('\n').splice(1)
-        let shells: IShell[] = [{
-            id: 'wsl',
-            name: 'WSL / Default distro',
-            command: wslPath,
-            env: {
-                TERM: 'xterm-color',
-                COLORTERM: 'truecolor',
-            }
-        }]
-
-        for (let line of lines) {
-            line = line.trim()
-            if (!line) {
+        for (let child of Object.values(lxss)) {
+            if (!child.$values) {
                 continue
             }
-            if (line.endsWith('(Default)')) {
-                line = line.substring(0, line.length - ' (Default)'.length)
-            }
+            let name = child.$values.distributionname
             shells.push({
-                id: `wsl-${line}`,
-                name: `WSL / ${line}`,
+                id: `wsl-${name}`,
+                name: `WSL / ${name}`,
                 command: wslPath,
-                args: ['-d', line],
+                args: ['-d', name],
+                fsBase: child.$values.basepath,
                 env: {
                     TERM: 'xterm-color',
                     COLORTERM: 'truecolor',

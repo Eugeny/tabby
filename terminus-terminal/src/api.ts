@@ -56,6 +56,7 @@ export interface IShell {
     command: string
     args?: string[]
     env?: any
+    fsBase?: string
 }
 
 export abstract class ShellProvider {
