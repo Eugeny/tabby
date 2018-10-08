@@ -40,16 +40,15 @@ export class SSHSession extends BaseSession {
                 let found = false
                 for (let script of this.scripts) {
                     let match = false
-                    let cmd = ""
+                    let cmd = ''
                     if (script.isRegex) {
-                        let re = new RegExp(script.expect, "g")
+                        let re = new RegExp(script.expect, 'g')
                         if (dataString.match(re)) {
                             cmd = dataString.replace(re, script.send)
                             match = true
                             found = true
                         }
-                    }
-                    else {
+                    } else {
                         if (dataString.includes(script.expect)) {
                             cmd = script.send
                             match = true
@@ -61,14 +60,12 @@ export class SSHSession extends BaseSession {
                         console.log('Executing script: "' + cmd + '"')
                         this.shell.write(cmd + '\n')
                         this.scripts = this.scripts.filter(x => x !== script)
-                    }
-                    else {
+                    } else {
                         if (script.optional) {
-                            console.log("Skip optional script: " + script.expect)
+                            console.log('Skip optional script: ' + script.expect)
                             found = true
                             this.scripts = this.scripts.filter(x => x !== script)
-                        }
-                        else {
+                        } else {
                             break
                         }
                     }
