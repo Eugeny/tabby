@@ -57,7 +57,6 @@ module.exports = {
     'node-pty-tmp',
     'mz/fs',
     'mz/child_process',
-    'winreg',
     /^rxjs/,
     /^@angular/,
     /^@ng-bootstrap/,

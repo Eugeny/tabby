@@ -24,10 +24,6 @@
   version "1.13.0"
   resolved "https://registry.yarnpkg.com/@types/webpack-env/-/webpack-env-1.13.0.tgz#3044381647e11ee973c5af2e925323930f691d80"
 
-"@types/winreg@^1.2.30":
-  version "1.2.30"
-  resolved "https://registry.yarnpkg.com/@types/winreg/-/winreg-1.2.30.tgz#91d6710e536d345b9c9b017c574cf6a8da64c518"
-
 any-promise@^1.0.0:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/any-promise/-/any-promise-1.3.0.tgz#abc6afeedcea52e809cdc0376aed3ce39635d17f"
@@ -112,6 +108,10 @@ ps-node@^0.1.6:
   dependencies:
     table-parser "^0.1.3"
 
+rage-edit@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/rage-edit/-/rage-edit-1.1.0.tgz#8a5f0bf5c5ff4ab31ad086fa27a55be20fcd0357"
+
 runes@^0.4.2:
   version "0.4.2"
   resolved "https://registry.yarnpkg.com/runes/-/runes-0.4.2.tgz#1ddc1ea41de769cb32fc068a64fbbc45cd21052e"
@@ -133,10 +133,6 @@ thenify-all@^1.0.0:
   resolved "https://registry.yarnpkg.com/thenify/-/thenify-3.3.0.tgz#e69e38a1babe969b0108207978b9f62b88604839"
   dependencies:
     any-promise "^1.0.0"
-
-winreg@^1.2.3:
-  version "1.2.4"
-  resolved "https://registry.yarnpkg.com/winreg/-/winreg-1.2.4.tgz#ba065629b7a925130e15779108cf540990e98d1b"
 
 xterm@^3.6.0:
   version "3.6.0"

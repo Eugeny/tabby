@@ -1,14 +1,10 @@
 import * as path from 'path'
 import * as fs from 'mz/fs'
+import { Registry } from 'rage-edit'
 import { exec } from 'mz/child_process'
 import { Injectable } from '@angular/core'
 import { ElectronService } from './electron.service'
 import { HostAppService, Platform } from './hostApp.service'
-
-let Registry = null
-try {
-    Registry = require('winreg')
-} catch (_) { } // tslint:disable-line no-empty
 
 @Injectable()
 export class ShellIntegrationService {
@@ -17,11 +13,11 @@ export class ShellIntegrationService {
     private automatorWorkflowsDestination: string
     private registryKeys = [
         {
-            path: '\\Software\\Classes\\Directory\\Background\\shell\\Open Terminus here',
+            path: 'HKCU\\Software\\Classes\\Directory\\Background\\shell\\Open Terminus here',
             command: 'open "%V"'
         },
         {
-            path: '\\Software\\Classes\\*\\shell\\Paste path into Terminus',
+            path: 'HKCU\\Software\\Classes\\*\\shell\\Paste path into Terminus',
             command: 'paste "%V"'
         },
     ]
@@ -54,10 +50,7 @@ export class ShellIntegrationService {
         if (this.hostApp.platform === Platform.macOS) {
             return await fs.exists(path.join(this.automatorWorkflowsDestination, this.automatorWorkflows[0]))
         } else if (this.hostApp.platform === Platform.Windows) {
-            return await new Promise<boolean>(resolve => {
-                let reg = new Registry({ hive: Registry.HKCU, key: this.registryKeys[0].path, arch: 'x64' })
-                reg.keyExists((err, exists) => resolve(!err && exists))
-            })
+            return await Registry.has(this.registryKeys[0].path)
         }
         return true
     }
@@ -69,26 +62,8 @@ export class ShellIntegrationService {
             }
         } else if (this.hostApp.platform === Platform.Windows) {
             for (let registryKey of this.registryKeys) {
-                let reg = new Registry({ hive: Registry.HKCU, key: registryKey.path, arch: 'x64' })
-                await new Promise(resolve => {
-                    reg.set('Icon', Registry.REG_SZ, this.electron.app.getPath('exe'), () => {
-                        reg.create(() => {
-                            let cmd = new Registry({
-                                hive: Registry.HKCU,
-                                key: registryKey.path + '\\command',
-                                arch: 'x64'
-                            })
-                            cmd.create(() => {
-                                cmd.set(
-                                    '',
-                                    Registry.REG_SZ,
-                                    this.electron.app.getPath('exe') + ' ' + registryKey.command,
-                                    () => resolve()
-                                )
-                            })
-                        })
-                    })
-                })
+                await Registry.set(registryKey.path, 'Icon', this.electron.app.getPath('exe'))
+                await Registry.set(registryKey.path + '\\command', '', this.electron.app.getPath('exe') + ' ' + registryKey.command)
             }
         }
     }

@@ -1,13 +1,9 @@
 import * as path from 'path'
 import { Injectable } from '@angular/core'
+import { Registry } from 'rage-edit'
 import { HostAppService, Platform } from 'terminus-core'
 
 import { ShellProvider, IShell } from '../api'
-
-let Registry = null
-try {
-    Registry = require('winreg')
-} catch (_) { } // tslint:disable-line no-empty
 
 @Injectable()
 export class Cygwin64ShellProvider extends ShellProvider {
@@ -22,15 +18,7 @@ export class Cygwin64ShellProvider extends ShellProvider {
             return []
         }
 
-        let cygwinPath = await new Promise<string>(resolve => {
-            let reg = new Registry({ hive: Registry.HKLM, key: '\\Software\\Cygwin\\setup', arch: 'x64' })
-            reg.get('rootdir', (err, item) => {
-                if (err || !item) {
-                    return resolve(null)
-                }
-                resolve(item.value)
-            })
-        })
+        let cygwinPath = await Registry.get('HKLM\\Software\\Cygwin\\setup', 'rootdir')
 
         if (!cygwinPath) {
             return []

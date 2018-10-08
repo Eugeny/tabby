@@ -1,12 +1,7 @@
 import { Injectable } from '@angular/core'
+import { Registry } from 'rage-edit'
 import { HostAppService, Platform } from 'terminus-core'
-
 import { ShellProvider, IShell } from '../api'
-
-let Registry = null
-try {
-    Registry = require('winreg')
-} catch (_) { } // tslint:disable-line no-empty
 
 @Injectable()
 export class PowerShellCoreShellProvider extends ShellProvider {
@@ -21,15 +16,7 @@ export class PowerShellCoreShellProvider extends ShellProvider {
             return []
         }
 
-        let pwshPath = await new Promise<string>(resolve => {
-            let reg = new Registry({ hive: Registry.HKLM, key: '\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\App Paths\\pwsh.exe', arch: 'x64' })
-            reg.get('', (err, item) => {
-                if (err || !item) {
-                    return resolve(null)
-                }
-                resolve(item.value)
-            })
-        })
+        let pwshPath = await Registry.get('HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\App Paths\\pwsh.exe', '')
 
         if (!pwshPath) {
             return []

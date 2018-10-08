@@ -21,10 +21,10 @@
     "@types/mz": "0.0.31",
     "@types/node": "7.0.12",
     "@types/webpack-env": "1.13.0",
-    "@types/winreg": "^1.2.30",
     "dataurl": "0.1.0",
     "deep-equal": "1.0.1",
     "file-loader": "^0.11.2",
+    "rage-edit": "^1.1.0",
     "xterm": "^3.6.0"
   },
   "peerDependencies": {
@@ -45,8 +45,7 @@
     "mz": "^2.6.0",
     "node-pty-tmp": "0.7.2",
     "ps-node": "^0.1.6",
-    "runes": "^0.4.2",
-    "winreg": "^1.2.3"
+    "runes": "^0.4.2"
   },
   "false": {}
 }

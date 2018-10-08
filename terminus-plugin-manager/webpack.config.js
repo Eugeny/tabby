@@ -44,7 +44,6 @@ module.exports = {
     'path',
     'mz/fs',
     'mz/child_process',
-    'winreg',
     /^rxjs/,
     /^@angular/,
     /^@ng-bootstrap/,
