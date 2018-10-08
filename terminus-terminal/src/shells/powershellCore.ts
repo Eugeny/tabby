@@ -39,6 +39,7 @@ export class PowerShellCoreShellProvider extends ShellProvider {
             id: 'powershell-core',
             name: 'PowerShell Core',
             command: pwshPath,
+            args: ['-nologo'],
             env: {
                 TERM: 'cygwin',
             }

@@ -39,6 +39,7 @@ export class WindowsStockShellsProvider extends ShellProvider {
                 id: 'powershell',
                 name: 'PowerShell',
                 command: 'powershell.exe',
+                args: ['-nologo'],
                 env: {
                     TERM: 'cygwin',
                 }
