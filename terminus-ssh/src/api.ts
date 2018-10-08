@@ -3,6 +3,8 @@ import { BaseSession } from 'terminus-terminal'
 export interface LoginScript {
     expect?: string
     send: string
+    isRegex?: boolean
+    optional?: boolean
 }
 
 export interface SSHConnection {
@@ -37,13 +39,35 @@ export class SSHSession extends BaseSession {
             if (this.scripts) {
                 let found = false
                 for (let script of this.scripts) {
-                    if (dataString.includes(script.expect)) {
-                        console.log('Executing script:', script.send)
-                        this.shell.write(script.send + '\n')
-                        this.scripts = this.scripts.filter(x => x !== script)
-                        found = true
+                    let match = false
+                    let cmd = ''
+                    if (script.isRegex) {
+                        let re = new RegExp(script.expect, 'g')
+                        if (dataString.match(re)) {
+                            cmd = dataString.replace(re, script.send)
+                            match = true
+                            found = true
+                        }
                     } else {
-                        break
+                        if (dataString.includes(script.expect)) {
+                            cmd = script.send
+                            match = true
+                            found = true
+                        }
+                    }
+
+                    if (match) {
+                        console.log('Executing script: "' + cmd + '"')
+                        this.shell.write(cmd + '\n')
+                        this.scripts = this.scripts.filter(x => x !== script)
+                    } else {
+                        if (script.optional) {
+                            console.log('Skip optional script: ' + script.expect)
+                            found = true
+                            this.scripts = this.scripts.filter(x => x !== script)
+                        } else {
+                            break
+                        }
                     }
                 }
 
