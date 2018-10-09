@@ -48,16 +48,16 @@ export class WSLShellProvider extends ShellProvider {
             }
         }
         for (let child of Object.values(lxss)) {
-            if (!child.$values) {
+            if (!(child as any).$values) {
                 continue
             }
-            let name = child.$values.distributionname
+            let name = (child as any).$values.distributionname
             shells.push({
                 id: `wsl-${name}`,
                 name: `WSL / ${name}`,
                 command: wslPath,
                 args: ['-d', name],
-                fsBase: child.$values.basepath,
+                fsBase: (child as any).$values.basepath,
                 env: {
                     TERM: 'xterm-color',
                     COLORTERM: 'truecolor',
