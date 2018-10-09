@@ -58,6 +58,10 @@ export class SSHModalComponent {
         this.close()
         this.ssh.connect(connection).catch(error => {
             this.toastr.error(`Could not connect: ${error}`)
+        }).then(() => {
+            setTimeout(() => {
+                this.app.activeTab.emitFocused()
+            })
         })
     }
 
