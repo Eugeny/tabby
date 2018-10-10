@@ -61,8 +61,7 @@ $tab-border-radius: 4px;
         -webkit-app-region: drag;
 
         &.persistent {
-          min-width: 100px;
-          flex: 1 0 25%;
+          min-width: 72px; // 2 x 36 px height, ie 2 squares
         }
     }
 
