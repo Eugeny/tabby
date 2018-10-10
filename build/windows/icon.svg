@@ -1,92 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Created with Inkscape (http://www.inkscape.org/) -->
-
-<svg
-   xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="1024"
-   height="1024"
-   viewBox="0 0 270.93332 270.93333"
-   version="1.1"
-   id="svg8"
-   inkscape:version="0.92.3 (2405546, 2018-03-11)"
-   sodipodi:docname="icon.svg"
-   inkscape:export-filename="D:\Users\Ich\Downloads\64x64.png"
-   inkscape:export-xdpi="6"
-   inkscape:export-ydpi="6">
-  <defs
-     id="defs2" />
-  <sodipodi:namedview
-     id="base"
-     pagecolor="#ffffff"
-     bordercolor="#666666"
-     borderopacity="1.0"
-     inkscape:pageopacity="0.0"
-     inkscape:pageshadow="2"
-     inkscape:zoom="0.35355339"
-     inkscape:cx="-57.249603"
-     inkscape:cy="781.4887"
-     inkscape:document-units="px"
-     inkscape:current-layer="layer1"
-     showgrid="false"
-     inkscape:snap-bbox="true"
-     inkscape:window-width="1858"
-     inkscape:window-height="1050"
-     inkscape:window-x="54"
-     inkscape:window-y="1079"
-     inkscape:window-maximized="1"
-     fit-margin-top="0"
-     fit-margin-left="0"
-     fit-margin-right="0"
-     fit-margin-bottom="0"
-     inkscape:snap-intersection-paths="true"
-     inkscape:object-paths="true"
-     units="px" />
-  <metadata
-     id="metadata5">
-    <rdf:RDF>
-      <cc:Work
-         rdf:about="">
-        <dc:format>image/svg+xml</dc:format>
-        <dc:type
-           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
-      </cc:Work>
-    </rdf:RDF>
-  </metadata>
-  <g
-     inkscape:label="Layer 1"
-     inkscape:groupmode="layer"
-     id="layer1"
-     transform="translate(-47.511065,70.941737)">
-    <path
-       inkscape:connector-curvature="0"
-       id="path138"
-       style="opacity:0.9;fill:#bfd9f1;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:2.43524027px;stroke-linecap:butt;stroke-linejoin:round;stroke-opacity:1"
-       d="M 64.949149,-45.402272 213.30911,40.153203 168.74736,65.880709 64.949181,2.5692907 Z"
-       sodipodi:nodetypes="ccccc" />
-    <path
-       inkscape:connector-curvature="0"
-       id="path116"
-       style="opacity:0.9;fill:#6666af;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:2.43524027px;stroke-linecap:butt;stroke-linejoin:round;stroke-opacity:1"
-       d="m 301.0092,42.179959 -0.003,50.177506 -190.42255,107.635545 -0.003,-48.17143 z"
-       sodipodi:nodetypes="ccccc" />
-    <path
-       inkscape:connector-curvature="0"
-       id="path118"
-       style="opacity:0.9;fill:#bfd9f1;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:2.43524027px;stroke-linecap:butt;stroke-linejoin:round;stroke-opacity:1"
-       d="m 64.948697,125.47711 45.629963,26.34447 0.005,48.17143 -45.637407,-26.50135 z"
-       sodipodi:nodetypes="ccccc" />
-    <path
-       style="opacity:0.9;fill:#9dbef0;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:2.44854069px;stroke-linecap:butt;stroke-linejoin:round;stroke-opacity:1"
-       d="M 105.39355,-70.939125 64.949149,-45.402272 213.30911,40.153203 64.948697,125.47711 110.57866,151.82158 260.4947,65.557719 301.0092,42.179959 Z"
-       id="path134"
-       inkscape:connector-curvature="0"
-       sodipodi:nodetypes="cccccccc" />
-  </g>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 426 426" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:1.41421;">
+    <g id="Layer-1" serif:id="Layer 1" transform="matrix(1,0,0,1,-29.3571,-233.318)">
+        <g>
+            <path id="path138" d="M93.68,293.848L287.16,405.423L229.046,438.975L93.68,356.409L93.68,293.848Z" style="fill:url(#_Linear1);"/>
+            <path id="path118" d="M94.204,516.708L153.711,551.064L153.721,613.886L94.204,579.325L94.204,516.708Z" style="fill:url(#_Linear2);"/>
+        </g>
+        <path id="path116" d="M401.384,408.07L401.529,473.724L153.721,613.83L153.712,551.008L401.384,408.07Z" style="fill:rgb(0,94,167);fill-opacity:0.9;"/>
+        <path id="path134" d="M148.072,261.343L92.84,293.232L287.16,405.423L93.366,517.309L153.198,551.853L346.992,439.967L402.224,408.078L148.072,261.343Z" style="fill:rgb(7,147,255);fill-opacity:0.9;"/>
+    </g>
+    <defs>
+        <linearGradient id="_Linear1" x1="0" y1="0" x2="1" y2="0" gradientUnits="userSpaceOnUse" gradientTransform="matrix(193.48,0,0,320.038,93.6796,453.867)"><stop offset="0" style="stop-color:rgb(0,121,215);stop-opacity:0.9"/><stop offset="1" style="stop-color:rgb(40,97,156);stop-opacity:0.9"/></linearGradient>
+        <linearGradient id="_Linear2" x1="0" y1="0" x2="1" y2="0" gradientUnits="userSpaceOnUse" gradientTransform="matrix(193.48,0,0,320.038,93.6796,453.867)"><stop offset="0" style="stop-color:rgb(0,121,215);stop-opacity:0.9"/><stop offset="1" style="stop-color:rgb(40,97,156);stop-opacity:0.9"/></linearGradient>
+    </defs>
 </svg>
