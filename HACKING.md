@@ -118,3 +118,5 @@ export default class MyModule { }
 
 
 See `terminus-core/src/api.ts`, `terminus-settings/src/api.ts` and `terminus-terminal/src/api.ts` for the available extension points.
+
+Publish your plugin on NPM with a `terminus-plugin` keyword to make it appear in the Plugin Manager.
