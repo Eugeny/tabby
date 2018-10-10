@@ -14,7 +14,7 @@
   * Full Unicode support including double-width characters
   * Doesn't choke on fast-flowing outputs
   * Proper shell-like experience on Windows including tab completion (via Clink)
-  * CMD, PowerShell, PowerShell Core, Cygwin, Cmder, Git-Bash and WSL (Bash on Windows) support
+  * PowerShell Core, WSL (Bash on Windows), PowerShell, Git-Bash, Cygwin, Cmder and CMD support
   * Tab persistence on macOS and Linux
 
 ---
@@ -34,9 +34,9 @@ Plugins can be installed directly from the Settings view inside Terminus.
 
 # Contributing
 
-Pull requests and plugins are welcome! Publish your plugin on NPM with a `terminus-plugin` keyword to make it appear in the Plugin Manager.
+Pull requests and plugins are welcome! 
 
-See [HACKING.md](https://github.com/Eugeny/terminus/blob/master/HACKING.md) for a very brief plugin development tutorial!
+See [HACKING.md](https://github.com/Eugeny/terminus/blob/master/HACKING.md) information of how the project is laid out, and a very brief plugin development tutorial. 
 
 
 ## License
