@@ -1,5 +1,5 @@
 import * as fs from 'mz/fs'
-import { Registry } from 'rage-edit'
+import { Registry } from 'rage-edit-tmp'
 import { Injectable } from '@angular/core'
 import { HostAppService, Platform } from 'terminus-core'
 

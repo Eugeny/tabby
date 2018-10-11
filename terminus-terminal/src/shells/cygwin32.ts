@@ -1,6 +1,6 @@
 import * as path from 'path'
 import { Injectable } from '@angular/core'
-import { Registry } from 'rage-edit'
+import { Registry } from 'rage-edit-tmp'
 import { HostAppService, Platform } from 'terminus-core'
 
 import { ShellProvider, IShell } from '../api'

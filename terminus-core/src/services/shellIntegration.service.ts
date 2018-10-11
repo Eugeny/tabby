@@ -1,6 +1,6 @@
 import * as path from 'path'
 import * as fs from 'mz/fs'
-import { Registry } from 'rage-edit'
+import { Registry } from 'rage-edit-tmp'
 import { exec } from 'mz/child_process'
 import { Injectable } from '@angular/core'
 import { ElectronService } from './electron.service'
