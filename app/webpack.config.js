@@ -10,6 +10,9 @@ module.exports = {
     bundle: path.resolve(__dirname, 'src/entry.ts'),
   },
   mode: process.env.DEV ? 'development' : 'production',
+  optimization:{
+     minimize: false,
+  },
   context: __dirname,
   devtool: 'source-map',
   output: {
