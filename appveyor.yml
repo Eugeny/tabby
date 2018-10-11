@@ -24,4 +24,5 @@ build_script:
 
 artifacts:
   - path: 'dist\win\*.exe'
+  - path: 'dist\squirrel-windows\*.exe'
   - path: 'dist\*.exe'
