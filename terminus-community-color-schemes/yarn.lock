@@ -5,7 +5,9 @@
 "@types/node@7.0.12":
   version "7.0.12"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-7.0.12.tgz#ae5f67a19c15f752148004db07cbbb372e69efc9"
+  integrity sha1-rl9noZwV91IUgATbB8u7Ny5p78k=
 
 "@types/webpack-env@^1.13.0":
   version "1.13.1"
   resolved "https://registry.yarnpkg.com/@types/webpack-env/-/webpack-env-1.13.1.tgz#b45c222e24301bd006e3edfc762cc6b51bda236a"
+  integrity sha512-oHyg0NssP2RCpCvE35hhbSqMJRsc5lSW+GFe+Vc65JL+kHII1VMYM+0KeV/z4utFuUqPoQRmq8KMMp7ba0dj6Q==
