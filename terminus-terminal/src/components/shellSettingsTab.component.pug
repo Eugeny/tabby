@@ -1,0 +1,49 @@
+h3.mb-3 Shell
+
+.form-line
+    .header
+        .title Shell
+        .description Default shell for new tabs
+
+    select.form-control(
+        [(ngModel)]='config.store.terminal.shell',
+        (ngModelChange)='config.save()',
+    )
+        option(
+            *ngFor='let shell of shells',
+            [ngValue]='shell.id'
+        ) {{shell.name}}
+
+.form-line(*ngIf='config.store.terminal.shell == "custom"')
+    .header
+        .title Custom shell
+
+    input.form-control(
+        type='text',
+        [(ngModel)]='config.store.terminal.customShell',
+        (ngModelChange)='config.save()',
+    )
+
+.form-line(*ngIf='persistenceProviders.length > 0')
+    .header
+        .title Session persistence
+        .description Restores tabs when Terminus is restarted
+    select.form-control(
+        [(ngModel)]='config.store.terminal.persistence',
+        (ngModelChange)='config.save()',
+    )
+        option([ngValue]='null') Off
+        option(
+            *ngFor='let provider of persistenceProviders',
+            [ngValue]='provider.id'
+        ) {{provider.displayName}}
+
+.form-line
+    .header
+        .title Working directory
+    input.form-control(
+        type='text',
+        placeholder='Home directory',
+        [(ngModel)]='config.store.terminal.workingDirectory',
+        (ngModelChange)='config.save()',
+    )            

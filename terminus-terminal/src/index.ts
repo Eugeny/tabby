@@ -11,6 +11,8 @@ import { HostAppService } from 'terminus-core'
 import { ToolbarButtonProvider, TabRecoveryProvider, ConfigProvider, HotkeysService, HotkeyProvider, AppService, ConfigService } from 'terminus-core'
 import { SettingsTabProvider } from 'terminus-settings'
 
+import { AppearanceSettingsTabComponent } from './components/appearanceSettingsTab.component'
+import { ShellSettingsTabComponent } from './components/shellSettingsTab.component'
 import { TerminalTabComponent } from './components/terminalTab.component'
 import { TerminalSettingsTabComponent } from './components/terminalSettingsTab.component'
 import { ColorPickerComponent } from './components/colorPicker.component'
@@ -24,7 +26,7 @@ import { TMuxPersistenceProvider } from './persistence/tmux'
 import { ButtonProvider } from './buttonProvider'
 import { RecoveryProvider } from './recoveryProvider'
 import { SessionPersistenceProvider, TerminalColorSchemeProvider, TerminalDecorator, ShellProvider } from './api'
-import { TerminalSettingsTabProvider } from './settings'
+import { TerminalSettingsTabProvider, AppearanceSettingsTabProvider, ShellSettingsTabProvider } from './settings'
 import { PathDropDecorator } from './pathDrop'
 import { TerminalConfigProvider } from './config'
 import { TerminalHotkeyProvider } from './hotkeys'
@@ -58,9 +60,12 @@ import { hterm } from './hterm'
         TerminalFrontendService,
         TerminalService,
 
+        { provide: SettingsTabProvider, useClass: AppearanceSettingsTabProvider, multi: true },
+        { provide: SettingsTabProvider, useClass: ShellSettingsTabProvider, multi: true },
+        { provide: SettingsTabProvider, useClass: TerminalSettingsTabProvider, multi: true },
+
         { provide: ToolbarButtonProvider, useClass: ButtonProvider, multi: true },
         { provide: TabRecoveryProvider, useClass: RecoveryProvider, multi: true },
-        { provide: SettingsTabProvider, useClass: TerminalSettingsTabProvider, multi: true },
         { provide: ConfigProvider, useClass: TerminalConfigProvider, multi: true },
         { provide: HotkeyProvider, useClass: TerminalHotkeyProvider, multi: true },
         { provide: TerminalColorSchemeProvider, useClass: HyperColorSchemes, multi: true },
@@ -89,11 +94,15 @@ import { hterm } from './hterm'
     ],
     entryComponents: [
         TerminalTabComponent,
+        AppearanceSettingsTabComponent,
+        ShellSettingsTabComponent,
         TerminalSettingsTabComponent,
     ],
     declarations: [
         ColorPickerComponent,
         TerminalTabComponent,
+        AppearanceSettingsTabComponent,
+        ShellSettingsTabComponent,
         TerminalSettingsTabComponent,
     ],
 })
