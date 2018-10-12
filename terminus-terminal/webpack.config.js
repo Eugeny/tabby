@@ -14,8 +14,8 @@ module.exports = {
     devtoolModuleFilenameTemplate: 'webpack-terminus-terminal:///[resource-path]',
   },
   mode: process.env.DEV ? 'development' : 'production',
-  optimization:{
-     minimize: false,
+  optimization: {
+    minimize: false,
   },
   resolve: {
     modules: ['.', 'src', 'node_modules', '../app/node_modules'].map(x => path.join(__dirname, x)),
