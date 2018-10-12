@@ -9,15 +9,19 @@ import { HostAppService } from './hostApp.service'
 
 const configMerge = (a, b) => require('deepmerge')(a, b, { arrayMerge: (_d, s) => s })
 
+function isStructuralMember (v) {
+    return v instanceof Object && !(v instanceof Array) &&
+        Object.keys(v).length > 0 && !v.__nonStructural
+}
+
+function isNonStructuralObjectMember (v) {
+    return v instanceof Object && !(v instanceof Array) && v.__nonStructural
+}
+
 export class ConfigProxy {
     constructor (real: any, defaults: any) {
         for (let key in defaults) {
-            if (
-                defaults[key] instanceof Object &&
-                !(defaults[key] instanceof Array) &&
-                Object.keys(defaults[key]).length > 0 &&
-                !defaults[key].__nonStructural
-            ) {
+            if (isStructuralMember(defaults[key])) {
                 if (!real[key]) {
                     real[key] = {}
                 }
@@ -38,15 +42,36 @@ export class ConfigProxy {
                     {
                         enumerable: true,
                         configurable: false,
-                        get: () => (real[key] !== undefined) ? real[key] : defaults[key],
+                        get: () => this.getValue(key),
                         set: (value) => {
-                            real[key] = value
+                            this.setValue(key, value)
                         }
                     }
                 )
             }
         }
+
+        this.getValue = (key: string) => {
+            if (real[key] !== undefined) {
+                return real[key]
+            } else {
+                if (isNonStructuralObjectMember(defaults[key])) {
+                    real[key] = {...defaults[key]}
+                    delete real[key].__nonStructural
+                    return real[key]
+                } else {
+                    return defaults[key]
+                }
+            }
+        }
+
+        this.setValue = (key: string, value: any) => {
+            real[key] = value
+        }
     }
+
+    getValue (key: string): any { } // tslint:disable-line
+    setValue (key: string, value: any) { } // tslint:disable-line
 }
 
 @Injectable()

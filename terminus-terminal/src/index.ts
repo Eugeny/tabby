@@ -148,10 +148,15 @@ export default class TerminalModule {
             if (hotkey === 'new-tab') {
                 terminal.openTab()
             }
-        })
-        hotkeys.matchedHotkey.subscribe(async (hotkey) => {
             if (hotkey === 'new-window') {
                 hostApp.newWindow()
+            }
+            if (hotkey.startsWith('shell.')) {
+                let shells = await terminal.shells$
+                let shell = shells.find(x => x.id === hotkey.split('.')[1])
+                if (shell) {
+                    terminal.openTab(shell)
+                }
             }
         })
         hostApp.cliOpenDirectory$.subscribe(async directory => {

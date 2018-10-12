@@ -244,8 +244,8 @@ ngb-tabset.vertical(type='pills', [activeId]='activeTab')
                         td {{hotkey.id}}
                         td
                             multi-hotkey-input(
-                                [(model)]='config.store.hotkeys[hotkey.id]',
-                                (modelChange)='config.save(); docking.dock()'
+                                [model]='getHotkey(hotkey.id)',
+                                (modelChange)='setHotkey(hotkey.id, $event); config.save(); docking.dock()'
                             )
 
     ngb-tab(*ngFor='let provider of settingsProviders', [id]='provider.id')

@@ -24,13 +24,13 @@ export class HotkeysService {
     globalHotkey = new EventEmitter()
     private currentKeystrokes: EventBufferEntry[] = []
     private disabledLevel = 0
-    private hotkeyDescriptions: IHotkeyDescription[]
+    private hotkeyDescriptions: IHotkeyDescription[] = []
 
     constructor (
         private zone: NgZone,
         private electron: ElectronService,
         private config: ConfigService,
-        @Inject(HotkeyProvider) hotkeyProviders: HotkeyProvider[],
+        @Inject(HotkeyProvider) private hotkeyProviders: HotkeyProvider[],
     ) {
         let events = ['keydown', 'keyup']
         events.forEach((event) => {
@@ -42,11 +42,13 @@ export class HotkeysService {
                 }
             })
         })
-        this.hotkeyDescriptions = this.config.enabledServices(hotkeyProviders).map(x => x.hotkeys).reduce((a, b) => a.concat(b))
         this.config.changed$.subscribe(() => {
             this.registerGlobalHotkey()
         })
         this.registerGlobalHotkey()
+        this.getHotkeyDescriptions().then(hotkeys => {
+            this.hotkeyDescriptions = hotkeys
+        })
     }
 
     pushKeystroke (name, nativeEvent) {
@@ -102,14 +104,25 @@ export class HotkeysService {
     }
 
     getHotkeysConfig () {
+        return this.getHotkeysConfigRecursive(this.config.store.hotkeys)
+    }
+
+    getHotkeysConfigRecursive (branch) {
         let keys = {}
-        for (let key in this.config.store.hotkeys) {
-            let value = this.config.store.hotkeys[key]
-            if (typeof value === 'string') {
-                value = [value]
+        for (let key in branch) {
+            let value = branch[key]
+            if (value instanceof Object && !(value instanceof Array)) {
+                let subkeys = this.getHotkeysConfigRecursive(value)
+                for (let subkey in subkeys) {
+                    keys[key + '.' + subkey] = subkeys[subkey]
+                }
+            } else {
+                if (typeof value === 'string') {
+                    value = [value]
+                }
+                value = value.map((item) => (typeof item === 'string') ? [item] : item)
+                keys[key] = value
             }
-            value = value.map((item) => (typeof item === 'string') ? [item] : item)
-            keys[key] = value
         }
         return keys
     }
@@ -168,6 +181,15 @@ export class HotkeysService {
 
     isEnabled () {
         return this.disabledLevel === 0
+    }
+
+    async getHotkeyDescriptions (): Promise<IHotkeyDescription[]> {
+        return (
+            await Promise.all(
+                this.config.enabledServices(this.hotkeyProviders)
+                    .map(async x => x.provide ? x.provide() : x.hotkeys)
+            )
+        ).reduce((a, b) => a.concat(b))
     }
 }
 
@@ -243,4 +265,8 @@ export class AppHotkeyProvider extends HotkeyProvider {
             name: 'Tab 10',
         },
     ]
+
+    async provide (): Promise<IHotkeyDescription[]> {
+        return this.hotkeys
+    }
 }

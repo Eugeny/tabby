@@ -1,6 +1,7 @@
 import * as yaml from 'js-yaml'
 import { Subscription } from 'rxjs'
 import { Component, Inject, Input } from '@angular/core'
+import { HotkeysService } from 'terminus-core'
 import {
     ElectronService,
     DockingService,
@@ -43,12 +44,12 @@ export class SettingsTabComponent extends BaseTabComponent {
         public hostApp: HostAppService,
         public homeBase: HomeBaseService,
         public shellIntegration: ShellIntegrationService,
+        hotkeys: HotkeysService,
         @Inject(HotkeyProvider) hotkeyProviders: HotkeyProvider[],
         @Inject(SettingsTabProvider) public settingsProviders: SettingsTabProvider[],
         @Inject(Theme) public themes: Theme[],
     ) {
         super()
-        this.hotkeyDescriptions = config.enabledServices(hotkeyProviders).map(x => x.hotkeys).reduce((a, b) => a.concat(b))
         this.setTitle('Settings')
         this.screens = this.docking.getScreens()
         this.settingsProviders = config.enabledServices(this.settingsProviders)
@@ -58,6 +59,10 @@ export class SettingsTabComponent extends BaseTabComponent {
         this.configFile = config.readRaw()
         this.configSubscription = config.changed$.subscribe(() => {
             this.configFile = config.readRaw()
+        })
+
+        hotkeys.getHotkeyDescriptions().then(descriptions => {
+            this.hotkeyDescriptions = descriptions
         })
     }
 
@@ -97,5 +102,23 @@ export class SettingsTabComponent extends BaseTabComponent {
     async installShellIntegration () {
         await this.shellIntegration.install()
         this.isShellIntegrationInstalled = true
+    }
+
+    getHotkey (id: string) {
+        let ptr = this.config.store.hotkeys
+        for (let token of id.split(/\./g)) {
+            ptr = ptr[token]
+        }
+        return ptr
+    }
+
+    setHotkey (id: string, value) {
+        let ptr = this.config.store
+        let prop = 'hotkeys'
+        for (let token of id.split(/\./g)) {
+            ptr = ptr[prop]
+            prop = token
+        }
+        ptr[prop] = value
     }
 }

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core'
 import { IHotkeyDescription, HotkeyProvider } from 'terminus-core'
+import { TerminalService } from './services/terminal.service'
 
 @Injectable()
 export class TerminalHotkeyProvider extends HotkeyProvider {
@@ -61,4 +62,16 @@ export class TerminalHotkeyProvider extends HotkeyProvider {
             name: 'Intelligent Ctrl-C (copy/abort)',
         },
     ]
+
+    constructor (
+        private terminal: TerminalService,
+    ) { super() }
+
+    async provide (): Promise<IHotkeyDescription[]> {
+        let shells = await this.terminal.shells$.toPromise()
+        return this.hotkeys.concat(shells.map(shell => ({
+            id: `shell.${shell.id}`,
+            name: `New tab: ${shell.name}`
+        })))
+    }
 }

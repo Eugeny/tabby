@@ -15,7 +15,7 @@ export class CustomShellProvider extends ShellProvider {
         let args = this.config.store.terminal.customShell.split(' ')
         return [{
             id: 'custom',
-            name: 'Custom',
+            name: 'Custom shell',
             command: args[0],
             args: args.slice(1),
         }]

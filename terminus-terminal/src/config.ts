@@ -2,6 +2,11 @@ import { ConfigProvider, Platform } from 'terminus-core'
 
 export class TerminalConfigProvider extends ConfigProvider {
     defaults = {
+        hotkeys: {
+            shell: {
+                __nonStructural: true,
+            },
+        },
         terminal: {
             frontend: 'hterm',
             autoOpen: false,

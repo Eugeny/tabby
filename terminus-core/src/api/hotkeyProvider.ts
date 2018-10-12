@@ -5,4 +5,6 @@ export interface IHotkeyDescription {
 
 export abstract class HotkeyProvider {
     hotkeys: IHotkeyDescription[] = []
+
+    abstract provide (): Promise<IHotkeyDescription[]>
 }

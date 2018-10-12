@@ -27,10 +27,14 @@ export class TerminalService {
         })
     }
 
+    async getShells (): Promise<IShell[]> {
+        let shellLists = await Promise.all(this.config.enabledServices(this.shellProviders).map(x => x.provide()))
+        return shellLists.reduce((a, b) => a.concat(b))
+    }
+
     async reloadShells () {
         this.shells = new AsyncSubject<IShell[]>()
-        let shellLists = await Promise.all(this.config.enabledServices(this.shellProviders).map(x => x.provide()))
-        this.shells.next(shellLists.reduce((a, b) => a.concat(b)))
+        this.shells.next(await this.getShells())
         this.shells.complete()
     }
 
