@@ -152,7 +152,7 @@ export default class TerminalModule {
                 hostApp.newWindow()
             }
             if (hotkey.startsWith('shell.')) {
-                let shells = await terminal.shells$
+                let shells = await terminal.shells$.toPromise()
                 let shell = shells.find(x => x.id === hotkey.split('.')[1])
                 if (shell) {
                     terminal.openTab(shell)
