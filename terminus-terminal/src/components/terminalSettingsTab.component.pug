@@ -29,7 +29,11 @@ h3.mt-3.mb-3 Terminal
                 [value]='"audible"'
             )
             | Audible
-
+            
+.alert.alert-info.d-flex.align-items-center(*ngIf='config.store.terminal.bell != "audible" && config.store.terminal.shell.startsWith("wsl")')
+    .mr-auto WSL terminal bell can only be muted via Volume Mixer
+    button.btn.btn-secondary((click)='openWSLVolumeMixer()') Show Mixer
+                
 .form-line
     .header
         .title Right click
