@@ -193,6 +193,8 @@ export class Window {
         ipcMain.on('window-set-title', (_event, title) => {
             this.window.setTitle(title)
         })
+
+        this.window.webContents.on('new-window', event => event.preventDefault())
     }
 
     private destroy () {
