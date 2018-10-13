@@ -57,7 +57,7 @@ export class WSLShellProvider extends ShellProvider {
                 name: `WSL / ${name}`,
                 command: wslPath,
                 args: ['-d', name],
-                fsBase: (child as any).$values.basepath,
+                fsBase: (child as any).$values.basepath + '\\rootfs',
                 env: {
                     TERM: 'xterm-color',
                     COLORTERM: 'truecolor',

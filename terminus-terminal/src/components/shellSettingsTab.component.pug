@@ -41,9 +41,13 @@ h3.mb-3 Shell
 .form-line
     .header
         .title Working directory
-    input.form-control(
-        type='text',
-        placeholder='Home directory',
-        [(ngModel)]='config.store.terminal.workingDirectory',
-        (ngModelChange)='config.save()',
-    )            
+    .input-group
+        input.form-control(
+            type='text',
+            placeholder='Home directory',
+            [(ngModel)]='config.store.terminal.workingDirectory',
+            (ngModelChange)='config.save()',
+        )            
+        .input-group-btn
+            button.btn.btn-secondary((click)='pickWorkingDirectory()')
+                i.fa.fa-folder-open
