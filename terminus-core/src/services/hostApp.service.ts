@@ -150,13 +150,13 @@ export class HostAppService {
         this.electron.ipcRenderer.send('window-set-always-on-top', flag)
     }
 
-    setVibrancy (enable: boolean) {
+    setVibrancy (enable: boolean, type: string) {
         document.body.classList.toggle('vibrant', enable)
         if (this.platform === Platform.macOS) {
             this.getWindow().setVibrancy(enable ? 'dark' : null)
         }
         if (this.platform === Platform.Windows) {
-            this.electron.ipcRenderer.send('window-set-vibrancy', enable)
+            this.electron.ipcRenderer.send('window-set-vibrancy', enable, type)
         }
     }
 

@@ -69,6 +69,29 @@ ngb-tabset.vertical(type='pills', [activeId]='activeTab')
                     (ngModelChange)='config.save()'
                 )
 
+            .form-line(*ngIf='config.store.appearance.vibrancy && isFluentVibrancySupported')
+                .header
+                    .title Vibrancy type
+                .btn-group(
+                    [(ngModel)]='config.store.appearance.vibrancyType',
+                    (ngModelChange)='config.save()',
+                    ngbRadioGroup
+                )
+                    label.btn.btn-secondary(ngbButtonLabel)
+                        input(
+                            type='radio',
+                            ngbButton,
+                            [value]='"blur"'
+                        )
+                        | Blur
+                    label.btn.btn-secondary(ngbButtonLabel)
+                        input(
+                            type='radio',
+                            ngbButton,
+                            [value]='"fluent"'
+                        )
+                        | Fluent
+                    
             .form-line
                 .header
                     .title Window opacity

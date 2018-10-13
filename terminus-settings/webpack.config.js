@@ -46,6 +46,7 @@ module.exports = {
   externals: [
     'fs',
     'path',
+    'os',
     /^rxjs/,
     /^@angular/,
     /^@ng-bootstrap/,

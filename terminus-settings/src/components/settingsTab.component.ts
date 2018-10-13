@@ -1,4 +1,5 @@
 import * as yaml from 'js-yaml'
+import * as os from 'os'
 import { Subscription } from 'rxjs'
 import { Component, Inject, Input } from '@angular/core'
 import { HotkeysService } from 'terminus-core'
@@ -35,6 +36,7 @@ export class SettingsTabComponent extends BaseTabComponent {
     configDefaults: any
     configFile: string
     isShellIntegrationInstalled = false
+    isFluentVibrancySupported = false
     private configSubscription: Subscription
 
     constructor (
@@ -64,6 +66,10 @@ export class SettingsTabComponent extends BaseTabComponent {
         hotkeys.getHotkeyDescriptions().then(descriptions => {
             this.hotkeyDescriptions = descriptions
         })
+
+        this.isFluentVibrancySupported = process.platform === 'win32'
+            && parseFloat(os.release()) >= 10
+            && parseInt(os.release().split('.')[2]) >= 17063
     }
 
     async ngOnInit () {

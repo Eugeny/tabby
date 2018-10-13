@@ -88,13 +88,13 @@ export class Window {
         })
     }
 
-    setVibrancy (enabled: boolean) {
+    setVibrancy (enabled: boolean, type?: string) {
         if (process.platform === 'win32') {
             if (parseFloat(os.release()) >= 10) {
                 let attribValue = AccentState.ACCENT_DISABLED
                 let color = 0x00000000
                 if (enabled) {
-                    if (parseInt(os.release().split('.')[2]) >= 17063) {
+                    if (parseInt(os.release().split('.')[2]) >= 17063 && type === 'fluent') {
                         attribValue = AccentState.ACCENT_ENABLE_FLUENT
                         color = 0x01000000 // using a small alpha because acrylic bugs out at full transparency.
                     } else {
@@ -186,8 +186,8 @@ export class Window {
             this.window.setAlwaysOnTop(flag)
         })
 
-        ipcMain.on('window-set-vibrancy', (_event, enabled) => {
-            this.setVibrancy(enabled)
+        ipcMain.on('window-set-vibrancy', (_event, enabled, type) => {
+            this.setVibrancy(enabled, type)
         })
 
         ipcMain.on('window-set-title', (_event, title) => {
