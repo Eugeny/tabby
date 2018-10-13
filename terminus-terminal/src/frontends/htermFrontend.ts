@@ -235,5 +235,12 @@ export class HTermFrontend extends Frontend {
             size.height += this.configuredLinePadding
             return size
         }
+
+        const onCursorBlink_ = this.term.onCursorBlink_.bind(this.term)
+
+        this.term.onCursorBlink_ = () => {
+            this.term.cursorNode_.style.opacity = '0'
+            onCursorBlink_()
+        }
     }
 }
