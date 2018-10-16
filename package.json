@@ -81,6 +81,7 @@
       "publish": [
         "github"
       ],
+      "menuCategory": false,
       "artifactName": "terminus-${version}-setup.exe"
     },
     "squirrelWindows": {
