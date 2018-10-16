@@ -52,8 +52,14 @@ html
                     .feature bracketed paste
                     
         .container.mt-5.mb-5
-            .text-center
-                a.btn.btn-lg.btn-outline-secondary.mt-5(href='/terminus/#header')
+            .text-center.mt-5
+                .mb-4.mt-5
+                    script(type='text/javascript', src='https://ko-fi.com/widgets/widget_2.js')
+                    script(type='text/javascript').
+                        kofiwidget2.init('Buy me a coffee', '#46b798', 'J3J8KWTF')
+                        kofiwidget2.draw()
+                
+                a.btn.btn-lg.btn-outline-secondary.mt-3(href='/terminus/#header')
                     strong BEAM ME UP
 
         .background-stripe2
