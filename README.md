@@ -4,6 +4,9 @@
 [![Build Status](https://travis-ci.org/Eugeny/terminus.svg?branch=master)](https://travis-ci.org/Eugeny/terminus) [![Build status](https://ci.appveyor.com/api/projects/status/wnnq4hm5mbd9rgoy?svg=true)](https://ci.appveyor.com/project/Eugeny/terminus) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/Eugeny/terminus/master/LICENSE) [![Downloads](https://img.shields.io/badge/downloads-latest_release-brightgreen.svg)](https://github.com/Eugeny/terminus/releases/latest)
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bhttps%3A%2F%2Fgithub.com%2FEugeny%2Fterminus.svg?type=shield)](https://app.fossa.io/projects/git%2Bhttps%3A%2F%2Fgithub.com%2FEugeny%2Fterminus?ref=badge_shield)
 
+
+[Latest Windows nightly](https://ci.appveyor.com/project/Eugeny/terminus/build/artifacts)
+
 ----
 
 **Terminus** is a terminal heavily inspired by Hyper. It is, however, designed for people who need to get things done.
