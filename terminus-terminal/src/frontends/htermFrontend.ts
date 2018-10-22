@@ -15,6 +15,7 @@ export class HTermFrontend extends Frontend {
         if (!this.initialized) {
             this.init()
             this.initialized = true
+            preferenceManager.set('background-color', 'transparent')
             this.term.decorate(host)
             this.htermIframe = this.term.scrollPort_.iframe_
         } else {

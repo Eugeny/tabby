@@ -56,7 +56,10 @@ export class AppRootComponent {
     @Input() ready = false
     @Input() leftToolbarButtons: IToolbarButton[]
     @Input() rightToolbarButtons: IToolbarButton[]
-    @HostBinding('class') hostClass = `platform-${process.platform}`
+    @HostBinding('class.platform-win32') platformClassWindows = process.platform === 'win32'
+    @HostBinding('class.platform-darwin') platformClassMacOS = process.platform === 'darwin'
+    @HostBinding('class.platform-linux') platformClassLinux = process.platform === 'linux'
+    @HostBinding('class.no-tabs') noTabs = true
     tabsDragging = false
     unsortedTabs: BaseTabComponent[] = []
     updateIcon: SafeHtml
@@ -147,9 +150,12 @@ export class AppRootComponent {
                     this.hostApp.getWindow().setProgressBar(-1, { mode: 'none' })
                 }
             })
+            this.noTabs = false
         })
+
         this.app.tabClosed$.subscribe(tab => {
             this.unsortedTabs = this.unsortedTabs.filter(x => x !== tab)
+            this.noTabs = app.tabs.length === 0
         })
     }
 
