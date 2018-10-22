@@ -44,9 +44,9 @@ export class XTermFrontend extends Frontend {
         host.addEventListener('dragOver', (event: any) => this.dragOver.next(event))
         host.addEventListener('drop', event => this.drop.next(event))
 
-        host.addEventListener('mousedown', event => this.mouseEvent.next(event))
-        host.addEventListener('mouseup', event => this.mouseEvent.next(event))
-        host.addEventListener('mousewheel', event => this.mouseEvent.next(event))
+        host.addEventListener('mousedown', event => this.mouseEvent.next(event as MouseEvent))
+        host.addEventListener('mouseup', event => this.mouseEvent.next(event as MouseEvent))
+        host.addEventListener('mousewheel', event => this.mouseEvent.next(event as MouseEvent))
     }
 
     detach (host: HTMLElement): void {
