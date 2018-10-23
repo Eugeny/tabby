@@ -65,7 +65,6 @@ export class TerminalConfigProvider extends ConfigProvider {
                     '⌘-C',
                 ],
                 'paste': [
-                    '⌘-V',
                 ],
                 'clear': [
                     '⌘-K',
