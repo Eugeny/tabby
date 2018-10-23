@@ -52,9 +52,6 @@ export class HTermFrontend extends Frontend {
     }
 
     configure (config: any): void {
-        if (!this.term) {
-            return
-        }
         this.configuredFontSize = config.terminal.fontSize
         this.configuredLinePadding = config.terminal.linePadding
         this.setFontSize()
@@ -91,14 +88,8 @@ export class HTermFrontend extends Frontend {
 
         this.configuredBackgroundColor = preferenceManager.get('background-color')
 
-        if (config.terminal.colorScheme.colors) {
-            preferenceManager.set(
-                'color-palette-overrides',
-                Object.assign([], config.terminal.colorScheme.colors, this.term.colorPaletteOverrides)
-            )
-        }
-        if (config.terminal.colorScheme.cursor) {
-            preferenceManager.set('cursor-color', config.terminal.colorScheme.cursor)
+        if (!this.term) {
+            return
         }
 
         let css = require('../hterm.userCSS.scss')
@@ -119,6 +110,17 @@ export class HTermFrontend extends Frontend {
         }
         css += config.appearance.css
         this.term.setCSS(css)
+
+        if (config.terminal.colorScheme.colors) {
+            preferenceManager.set(
+                'color-palette-overrides',
+                Object.assign([], config.terminal.colorScheme.colors, this.term.colorPaletteOverrides)
+            )
+        }
+        if (config.terminal.colorScheme.cursor) {
+            preferenceManager.set('cursor-color', config.terminal.colorScheme.cursor)
+        }
+
         this.term.setBracketedPaste(config.terminal.bracketedPaste)
         this.term.defaultCursorShape = {
             block: hterm.hterm.Terminal.cursorShape.BLOCK,
