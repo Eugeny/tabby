@@ -7,6 +7,7 @@
     "@types/js-yaml": "^3.11.2",
     "@types/node": "^10.11.5",
     "@types/webpack-env": "1.13.0",
+    "app-builder-lib": "^20.28.4",
     "apply-loader": "0.1.0",
     "awesome-typescript-loader": "^5.0.0",
     "core-js": "2.4.1",
@@ -51,7 +52,8 @@
     "val-loader": "0.5.0",
     "webpack": "^4.22.0",
     "webpack-cli": "^3.1.2",
-    "yaml-loader": "0.4.0"
+    "yaml-loader": "0.4.0",
+    "yarn": "^1.10.1"
   },
   "build": {
     "appId": "org.terminus",
