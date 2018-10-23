@@ -42,6 +42,7 @@
     "async-lock": "^1.0.0",
     "font-manager": "0.3.0",
     "hterm-umdjs": "1.4.1",
+    "macos-native-processlist": "^1.0.0",
     "mz": "^2.6.0",
     "node-pty-tmp": "0.7.2",
     "ps-node": "^0.1.6",

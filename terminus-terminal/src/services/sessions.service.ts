@@ -155,6 +155,14 @@ export class Session extends BaseSession {
         if (!this.truePID) {
             return []
         }
+        if (process.platform === 'darwin') {
+            let processes = await require('macos-native-processlist').getProcessList()
+            return processes.filter(x => x.ppid === this.truePID).map(p => ({
+                pid: p.pid,
+                ppid: p.ppid,
+                command: p.name,
+            }))
+        }
         return new Promise<IChildProcess[]>((resolve, reject) => {
             psNode.lookup({ ppid: this.truePID }, (err, processes) => {
                 if (err) {

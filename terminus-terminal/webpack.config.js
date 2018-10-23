@@ -58,6 +58,7 @@ module.exports = {
     'font-manager',
     'path',
     'node-pty-tmp',
+    'macos-native-processlist',
     'mz/fs',
     'mz/child_process',
     /^rxjs/,

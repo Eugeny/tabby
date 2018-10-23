@@ -97,6 +97,13 @@ loader-utils@^1.0.2:
     emojis-list "^2.0.0"
     json5 "^0.5.0"
 
+macos-native-processlist@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/macos-native-processlist/-/macos-native-processlist-1.0.0.tgz#1dcf1fac554e057f90c6451c39420e065d186a68"
+  integrity sha512-FYA5DzCBvt+1wcCR8iFoCW2zZ8GZXtR6Ee/kpC9gVlqvEcM2ooma71KV8EIP2VaM+v2HOQAVvNoKSmFBd4z8dQ==
+  dependencies:
+    nan "^2.10.0"
+
 mz@^2.6.0:
   version "2.6.0"
   resolved "https://registry.yarnpkg.com/mz/-/mz-2.6.0.tgz#c8b8521d958df0a4f2768025db69c719ee4ef1ce"
