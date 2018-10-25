@@ -48,7 +48,8 @@ export class TerminalConfigProvider extends ConfigProvider {
                     '#ffffff',
                 ]
             },
-            customColorSchemes: []
+            customColorSchemes: [],
+            environment: {},
         },
     }
 

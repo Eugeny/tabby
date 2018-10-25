@@ -52,7 +52,7 @@ export class TerminalService {
             let shells = await this.shells$.toPromise()
             shell = shells.find(x => x.id === this.config.store.terminal.shell) || shells[0]
         }
-        let env: any = Object.assign({}, process.env, shell.env || {})
+        let env: any = Object.assign({}, process.env, shell.env || {}, this.config.store.terminal.environment || {})
 
         this.logger.log(`Starting shell ${shell.name}`, shell)
         let sessionOptions = await this.sessions.prepareNewSession({

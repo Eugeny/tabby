@@ -51,3 +51,19 @@ h3.mb-3 Shell
         .input-group-btn
             button.btn.btn-secondary((click)='pickWorkingDirectory()')
                 i.fa.fa-folder-open
+
+.form-line
+    .header
+        .title Environment
+        .description Inject additional environment variables
+        
+    div
+        .mb-2.d-flex.align-items-center(*ngFor='let pair of environmentVars')
+            input.form-control.w-50([(ngModel)]='pair.key', (blur)='saveEnvironment()', placeholder='Variable name')
+            input.form-control.w-50.mr-1([(ngModel)]='pair.value', (blur)='saveEnvironment()', placeholder='Value')
+            button.btn.btn-secondary((click)='removeEnvironmentVar(pair.key)')
+                i.fa.fa-trash-o
+                
+        button.btn.btn-secondary((click)='addEnvironmentVar()')
+            i.fa.fa-plus.mr-2
+            span Add
