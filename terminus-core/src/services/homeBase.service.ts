@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core'
 import { ElectronService } from './electron.service'
 import { ConfigService } from './config.service'
 import ua = require('universal-analytics')
+import uuidv4 = require('uuid/v4')
 
 @Injectable()
 export class HomeBaseService {
@@ -37,7 +38,10 @@ export class HomeBaseService {
     }
 
     enableAnalytics () {
-        const session = ua('UA-3278102-20')
+        if (!window.localStorage.analyticsUserID) {
+            window.localStorage.analyticsUserID = uuidv4()
+        }
+        const session = ua('UA-3278102-20', window.localStorage.analyticsUserID)
         session.set('cd1', this.appVersion)
         session.set('cd2', process.platform)
         session.pageview('/').send()
