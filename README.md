@@ -1,9 +1,7 @@
 ![](https://github.com/Eugeny/terminus/raw/master/docs/readme.png)
 
 <p align="center">
-  <a href="https://raw.githubusercontent.com/Eugeny/terminus/master/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg"/></a>
-
-  <a href="https://travis-ci.org/Eugeny/terminus"><img src="https://travis-ci.org/Eugeny/terminus.svg?branch=master"/></a>
+  <a href="https://raw.githubusercontent.com/Eugeny/terminus/master/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg"/></a> <a href="https://travis-ci.org/Eugeny/terminus"><img src="https://travis-ci.org/Eugeny/terminus.svg?branch=master"/></a>
   <a href="https://ci.appveyor.com/project/Eugeny/terminus"><img src="https://ci.appveyor.com/api/projects/status/wnnq4hm5mbd9rgoy?svg=true"/></a>
 </p>
 
