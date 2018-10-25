@@ -6,44 +6,43 @@ button.btn.btn-outline-info.btn-sm.pull-right((click)='openPluginsFolder()')
     i.fa.fa-folder
     span Plugins folder
     
-h3 Installed
+h3.mb-1 Installed
 
-.list-group
-    ng-container(*ngFor='let plugin of pluginManager.installedPlugins|orderBy:"name"')
-        .list-group-item.flex-column.align-items-start
-            .d-flex.w-100
-                .mr-auto.d-flex.flex-column
-                    strong {{plugin.name}}
-                    a.text-muted.mb-0((click)='showPluginInfo(plugin)')
-                        small {{plugin.description}}
-                .d-flex.flex-column.align-items-end.mr-3
-                    div {{plugin.version}}
-                    small.text-muted {{plugin.author}}
-                button.btn.btn-secondary.ml-2(
-                    *ngIf='npmInstalled && knownUpgrades[plugin.name]',
-                    (click)='upgradePlugin(plugin)',
-                    [disabled]='busy[plugin.name] != undefined'
-                )
-                    i.fa.fa-fw.fa-arrow-up(*ngIf='busy[plugin.name] != BusyState.Installing')
-                    i.fa.fa-fw.fa-circle-o-notch.fa-spin(*ngIf='busy[plugin.name] == BusyState.Installing')
-                    span Upgrade ({{knownUpgrades[plugin.name].version}})
-                button.btn.btn-secondary.ml-2(
-                    (click)='uninstallPlugin(plugin)', 
-                    *ngIf='!plugin.isBuiltin && npmInstalled',
-                    [disabled]='busy[plugin.name] != undefined'
-                )
-                    i.fa.fa-fw.fa-trash-o(*ngIf='busy[plugin.name] != BusyState.Uninstalling')
-                    i.fa.fa-fw.fa-circle-o-notch.fa-spin(*ngIf='busy[plugin.name] == BusyState.Uninstalling')
-                button.btn.btn-secondary.ml-2(
-                    *ngIf='config.store.pluginBlacklist.includes(plugin.name)',
-                    (click)='enablePlugin(plugin)'
-                )
-                    i.fa.fa-fw.fa-play
-                button.btn.btn-secondary.ml-2(
-                    *ngIf='!config.store.pluginBlacklist.includes(plugin.name)',
-                    (click)='disablePlugin(plugin)'
-                )
-                    i.fa.fa-fw.fa-pause
+.mb-3.d-flex.w-100.align-items-center(*ngFor='let plugin of pluginManager.installedPlugins|orderBy:"name"')
+    button.btn.btn-outline-danger.active.mr-2(
+        *ngIf='config.store.pluginBlacklist.includes(plugin.name)',
+        (click)='enablePlugin(plugin)'
+    )
+        i.fa.fa-fw.fa-pause
+    button.btn.btn-outline-secondary.mr-2(
+        *ngIf='!config.store.pluginBlacklist.includes(plugin.name)',
+        (click)='disablePlugin(plugin)'
+    )
+        i.fa.fa-fw.fa-check
+
+    .mr-auto.d-flex.flex-column
+        div
+            strong {{plugin.name}}
+            small.text-muted.ml-1 {{plugin.version}} / {{plugin.author}}
+        a.text-muted.mb-0((click)='showPluginInfo(plugin)')
+            small {{plugin.description}}
+
+    button.btn.btn-primary.ml-2(
+        *ngIf='npmInstalled && knownUpgrades[plugin.name]',
+        (click)='upgradePlugin(plugin)',
+        [disabled]='busy[plugin.name] != undefined'
+    )
+        i.fa.fa-fw.fa-arrow-up(*ngIf='busy[plugin.name] != BusyState.Installing')
+        i.fa.fa-fw.fa-circle-o-notch.fa-spin(*ngIf='busy[plugin.name] == BusyState.Installing')
+        span Upgrade ({{knownUpgrades[plugin.name].version}})
+        
+    button.btn.btn-outline-danger.ml-2(
+        (click)='uninstallPlugin(plugin)', 
+        *ngIf='!plugin.isBuiltin && npmInstalled',
+        [disabled]='busy[plugin.name] != undefined'
+    )
+        i.fa.fa-fw.fa-trash-o(*ngIf='busy[plugin.name] != BusyState.Uninstalling')
+        i.fa.fa-fw.fa-circle-o-notch.fa-spin(*ngIf='busy[plugin.name] == BusyState.Uninstalling')
 
 .text-center.mt-5(*ngIf='npmMissing')
     h4 npm not installed
@@ -59,7 +58,7 @@ h3 Installed
 div(*ngIf='npmInstalled')
     h3.mt-4 Available
 
-    .input-group.mb-4
+    .input-group.mb-3
         .input-group-prepend
             .input-group-text
                 i.fa.fa-fw.fa-circle-o-notch.fa-spin(*ngIf='!availablePluginsReady')
@@ -72,21 +71,19 @@ div(*ngIf='npmInstalled')
         )
 
 
-    .list-group.mb-4(*ngIf='availablePlugins$')
+    .mb-4(*ngIf='availablePlugins$')
         ng-container(*ngFor='let plugin of (availablePlugins$|async|orderBy:"name")')
-            .list-group-item.flex-column.align-items-start(*ngIf='!isAlreadyInstalled(plugin)')
-                .d-flex.w-100
-                    .mr-auto.d-flex.flex-column
+            .d-flex.w-100.align-items-center.mb-3(*ngIf='!isAlreadyInstalled(plugin)')
+                button.btn.btn-primary.mr-2(
+                    (click)='installPlugin(plugin)',
+                    [disabled]='busy[plugin.name] != undefined'
+                )
+                    i.fa.fa-fw.fa-download(*ngIf='busy[plugin.name] != BusyState.Installing')
+                    i.fa.fa-fw.fa-circle-o-notch.fa-spin(*ngIf='busy[plugin.name] == BusyState.Installing')
+                
+                div((click)='showPluginInfo(plugin)')
+                    div
                         strong {{plugin.name}}
-                        a.text-muted.mb-0((click)='showPluginInfo(plugin)')
-                            small {{plugin.description}}
-                    .d-flex.flex-column.align-items-end.mr-3 
-                        div {{plugin.version}}
-                        small.text-muted {{plugin.author}}
-                            i.fa.fa-check.text-success.ml-1(*ngIf='plugin.isOfficial', title='Official')
-                    button.btn.btn-primary(
-                        (click)='installPlugin(plugin)',
-                        [disabled]='busy[plugin.name] != undefined'
-                    )
-                        i.fa.fa-fw.fa-download(*ngIf='busy[plugin.name] != BusyState.Installing')
-                        i.fa.fa-fw.fa-circle-o-notch.fa-spin(*ngIf='busy[plugin.name] == BusyState.Installing')
+                        small.text-muted.ml-1 {{plugin.version}} / {{plugin.author}}
+                        i.fa.fa-check.text-success.ml-1(*ngIf='plugin.isOfficial', title='Official')
+                    small.text-muted {{plugin.description}}
