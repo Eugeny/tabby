@@ -1,11 +1,15 @@
 ![](https://github.com/Eugeny/terminus/raw/master/docs/readme.png)
 
+<p align="center">
+  <a href="https://raw.githubusercontent.com/Eugeny/terminus/master/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg"/></a>
 
-[![Build Status](https://travis-ci.org/Eugeny/terminus.svg?branch=master)](https://travis-ci.org/Eugeny/terminus) [![Build status](https://ci.appveyor.com/api/projects/status/wnnq4hm5mbd9rgoy?svg=true)](https://ci.appveyor.com/project/Eugeny/terminus) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/Eugeny/terminus/master/LICENSE) [![Downloads](https://img.shields.io/badge/downloads-latest_release-brightgreen.svg)](https://github.com/Eugeny/terminus/releases/latest)
-[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bhttps%3A%2F%2Fgithub.com%2FEugeny%2Fterminus.svg?type=shield)](https://app.fossa.io/projects/git%2Bhttps%3A%2F%2Fgithub.com%2FEugeny%2Fterminus?ref=badge_shield)
+  <a href="https://travis-ci.org/Eugeny/terminus"><img src="https://travis-ci.org/Eugeny/terminus.svg?branch=master"/></a>
+  <a href="https://ci.appveyor.com/project/Eugeny/terminus"><img src="https://ci.appveyor.com/api/projects/status/wnnq4hm5mbd9rgoy?svg=true"/></a>
+</p>
 
-
-[Latest Windows nightly](https://ci.appveyor.com/project/Eugeny/terminus/build/artifacts)
+<p align="center">
+  <a href="https://github.com/Eugeny/terminus/releases/latest">Downloads</a> | <a href="https://t.me/joinchat/AAAAAEZuCv2WKKYcfyQ3QA">Community</a>  | <a href="https://ci.appveyor.com/project/Eugeny/terminus/build/artifacts">Latest Windows nightly</a>
+</p>
 
 ----
 
