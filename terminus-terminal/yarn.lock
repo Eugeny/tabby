@@ -173,7 +173,7 @@ uuid@^3.3.2:
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.3.2.tgz#1b4af4955eb3077c501c23872fc6513811587131"
   integrity sha512-yXJmeNaw3DnnKAOKJE51sL/ZaYfWJRl1pK9dr19YFCu0ObS231AB1/LbqTKRAQ5kw8A90rA6fr4riOUpTZvQZA==
 
-xterm@^3.6.0:
-  version "3.6.0"
-  resolved "https://registry.yarnpkg.com/xterm/-/xterm-3.6.0.tgz#9b95cd23a338e5842343aec1a104f094c5153e7c"
-  integrity sha512-D/7/fm7oGzZksLFQdpn1TD63V+T4Ad3LZR2JfZ1QrPZ1yDjKedIKWAZXgzeHQw8S/5HYD08GdkLnjeLm/e6Yog==
+xterm@^3.8.0:
+  version "3.8.0"
+  resolved "https://registry.yarnpkg.com/xterm/-/xterm-3.8.0.tgz#55d1de518bdc9c9793823f5e4e97d6898972938d"
+  integrity sha512-rS3HLryuMWbLsv98+jVVSUXCxmoyXPwqwJNC0ad0VSMdXgl65LefPztQVwfurkaF7kM7ZSgM8eJjnJ9kkdoR1w==

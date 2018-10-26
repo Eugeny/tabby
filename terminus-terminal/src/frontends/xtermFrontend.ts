@@ -20,6 +20,18 @@ export class XTermFrontend extends Frontend {
             allowTransparency: true,
             enableBold: true,
         })
+
+        const initGlobal = (this.xterm as any)._core._initGlobal.bind((this.xterm as any)._core);
+        (this.xterm as any)._core._initGlobal = () => {
+            this.xterm.textarea.addEventListener('paste', e => {
+                e.clipboardData = null
+            })
+            this.xterm.element.addEventListener('paste', e => {
+                e.clipboardData = null
+            })
+            initGlobal()
+        }
+
         this.xterm.on('data', data => {
             this.input.next(data)
         })
@@ -34,7 +46,7 @@ export class XTermFrontend extends Frontend {
     attach (host: HTMLElement): void {
         this.xterm.open(host)
         this.ready.next(null)
-        this.ready.complete()
+        this.ready.complete();
 
         this.resizeHandler = () => (this.xterm as any).fit()
         window.addEventListener('resize', this.resizeHandler)

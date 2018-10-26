@@ -26,7 +26,7 @@
     "file-loader": "^0.11.2",
     "rage-edit-tmp": "^1.1.0",
     "uuid": "^3.3.2",
-    "xterm": "^3.6.0"
+    "xterm": "^3.8.0"
   },
   "peerDependencies": {
     "@angular/common": "4.0.1",
