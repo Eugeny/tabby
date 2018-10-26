@@ -181,5 +181,5 @@ export default class TerminalModule {
     }
 }
 
-export * from './api'
 export { TerminalService, BaseSession, TerminalTabComponent, TerminalFrontendService }
+export * from './api'

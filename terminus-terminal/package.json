@@ -27,7 +27,7 @@
     "rage-edit-tmp": "^1.1.0",
     "uuid": "^3.3.2",
     "xterm": "^3.8.0",
-    "xterm-addon-ligatures": "^0.1.0-beta-1"
+    "xterm-addon-ligatures-tmp": "^0.1.0-beta-1"
   },
   "peerDependencies": {
     "@angular/common": "4.0.1",
