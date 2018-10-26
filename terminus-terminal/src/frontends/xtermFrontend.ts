@@ -1,10 +1,12 @@
 import { Frontend } from './frontend'
 import { Terminal, ITheme } from 'xterm'
 import * as fit from 'xterm/lib/addons/fit/fit'
+import * as ligatures from 'xterm-addon-ligatures/src'
 import 'xterm/dist/xterm.css'
 import deepEqual = require('deep-equal')
 
 Terminal.applyAddon(fit)
+Terminal.applyAddon(ligatures)
 
 export class XTermFrontend extends Frontend {
     enableResizing = true
@@ -21,17 +23,6 @@ export class XTermFrontend extends Frontend {
             enableBold: true,
         })
 
-        const initGlobal = (this.xterm as any)._core._initGlobal.bind((this.xterm as any)._core);
-        (this.xterm as any)._core._initGlobal = () => {
-            this.xterm.textarea.addEventListener('paste', e => {
-                e.clipboardData = null
-            })
-            this.xterm.element.addEventListener('paste', e => {
-                e.clipboardData = null
-            })
-            initGlobal()
-        }
-
         this.xterm.on('data', data => {
             this.input.next(data)
         })
@@ -46,7 +37,7 @@ export class XTermFrontend extends Frontend {
     attach (host: HTMLElement): void {
         this.xterm.open(host)
         this.ready.next(null)
-        this.ready.complete();
+        this.ready.complete()
 
         this.resizeHandler = () => (this.xterm as any).fit()
         window.addEventListener('resize', this.resizeHandler)
@@ -127,6 +118,10 @@ export class XTermFrontend extends Frontend {
         if (!deepEqual(this.configuredTheme, theme)) {
             this.xterm.setOption('theme', theme)
             this.configuredTheme = theme
+        }
+
+        if (config.terminal.ligatures && this.xterm.element) {
+            (this.xterm as any).enableLigatures()
         }
     }
 
