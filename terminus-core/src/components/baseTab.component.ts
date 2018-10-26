@@ -1,6 +1,10 @@
 import { Observable, Subject } from 'rxjs'
 import { ViewRef } from '@angular/core'
 
+export interface BaseTabProcess {
+    name: string
+}
+
 export abstract class BaseTabComponent {
     private static lastTabID = 0
     id: number
@@ -14,6 +18,7 @@ export abstract class BaseTabComponent {
     protected blurred = new Subject<void>()
     protected progress = new Subject<number>()
     protected activity = new Subject<boolean>()
+    protected destroyed = new Subject<void>()
 
     private progressClearTimeout: number
 
@@ -22,6 +27,7 @@ export abstract class BaseTabComponent {
     get titleChange$ (): Observable<string> { return this.titleChange }
     get progress$ (): Observable<number> { return this.progress }
     get activity$ (): Observable<boolean> { return this.activity }
+    get destroyed$ (): Observable<void> { return this.destroyed }
 
     constructor () {
         this.id = BaseTabComponent.lastTabID++
@@ -66,6 +72,10 @@ export abstract class BaseTabComponent {
         return null
     }
 
+    async getCurrentProcess (): Promise<BaseTabProcess> {
+        return null
+    }
+
     async canClose (): Promise<boolean> {
         return true
     }
@@ -83,5 +93,7 @@ export abstract class BaseTabComponent {
         this.blurred.complete()
         this.titleChange.complete()
         this.progress.complete()
+        this.destroyed.next()
+        this.destroyed.complete()
     }
 }

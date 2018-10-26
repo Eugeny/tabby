@@ -2,7 +2,7 @@ import { Observable, Subject, Subscription } from 'rxjs'
 import { first } from 'rxjs/operators'
 import { ToastrService } from 'ngx-toastr'
 import { Component, NgZone, Inject, Optional, ViewChild, HostBinding, Input } from '@angular/core'
-import { AppService, ConfigService, BaseTabComponent, ElectronService, HostAppService, HotkeysService, Platform } from 'terminus-core'
+import { AppService, ConfigService, BaseTabComponent, BaseTabProcess, ElectronService, HostAppService, HotkeysService, Platform } from 'terminus-core'
 
 import { IShell } from '../api'
 import { Session, SessionsService } from '../services/sessions.service'
@@ -345,6 +345,16 @@ export class TerminalTabComponent extends BaseTabComponent {
     resetZoom () {
         this.zoom = 0
         this.frontend.setZoom(this.zoom)
+    }
+
+    async getCurrentProcess (): Promise<BaseTabProcess> {
+        let children = await this.session.getChildProcesses()
+        if (!children.length) {
+            return null
+        }
+        return {
+            name: children[0].command
+        }
     }
 
     ngOnDestroy () {

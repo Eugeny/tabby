@@ -20,57 +20,16 @@ export class TabHeaderComponent {
     @Input() progress: number
     @ViewChild('handle') handle: ElementRef
 
-    private contextMenu: any
+    private completionNotificationEnabled = false
 
     constructor (
-        zone: NgZone,
-        electron: ElectronService,
         public app: AppService,
+        private electron: ElectronService,
+        private zone: NgZone,
         private hostApp: HostAppService,
         private ngbModal: NgbModal,
         private parentDraggable: SortableComponent,
-    ) {
-        this.contextMenu = electron.remote.Menu.buildFromTemplate([
-            {
-                label: 'Close',
-                click: () => {
-                    zone.run(() => {
-                        app.closeTab(this.tab, true)
-                    })
-                }
-            },
-            {
-                label: 'Close other tabs',
-                click: () => {
-                    zone.run(() => {
-                        for (let tab of app.tabs.filter(x => x !== this.tab)) {
-                            app.closeTab(tab, true)
-                        }
-                    })
-                }
-            },
-            {
-                label: 'Close tabs to the right',
-                click: () => {
-                    zone.run(() => {
-                        for (let tab of app.tabs.slice(app.tabs.indexOf(this.tab) + 1)) {
-                            app.closeTab(tab, true)
-                        }
-                    })
-                }
-            },
-            {
-                label: 'Close tabs to the left',
-                click: () => {
-                    zone.run(() => {
-                        for (let tab of app.tabs.slice(0, app.tabs.indexOf(this.tab))) {
-                            app.closeTab(tab, true)
-                        }
-                    })
-                }
-            },
-        ])
-    }
+    ) { }
 
     ngOnInit () {
         if (this.hostApp.platform === Platform.macOS) {
@@ -90,17 +49,86 @@ export class TabHeaderComponent {
         }).catch(() => null)
     }
 
-    @HostListener('auxclick', ['$event']) onAuxClick ($event: MouseEvent): void {
+    @HostListener('auxclick', ['$event']) async onAuxClick ($event: MouseEvent) {
         if ($event.which === 2) {
             this.app.closeTab(this.tab, true)
         }
         if ($event.which === 3) {
-            this.contextMenu.popup({
+            event.preventDefault()
+
+            let contextMenu = this.electron.remote.Menu.buildFromTemplate([
+                {
+                    label: 'Close',
+                    click: () => this.zone.run(() => {
+                        this.app.closeTab(this.tab, true)
+                    })
+                },
+                {
+                    label: 'Close other tabs',
+                    click: () => this.zone.run(() => {
+                        for (let tab of this.app.tabs.filter(x => x !== this.tab)) {
+                            this.app.closeTab(tab, true)
+                        }
+                    })
+                },
+                {
+                    label: 'Close tabs to the right',
+                    click: () => this.zone.run(() => {
+                        for (let tab of this.app.tabs.slice(this.app.tabs.indexOf(this.tab) + 1)) {
+                            this.app.closeTab(tab, true)
+                        }
+                    })
+                },
+                {
+                    label: 'Close tabs to the left',
+                    click: () => this.zone.run(() => {
+                        for (let tab of this.app.tabs.slice(0, this.app.tabs.indexOf(this.tab))) {
+                            this.app.closeTab(tab, true)
+                        }
+                    })
+                },
+            ])
+
+            let process = await this.tab.getCurrentProcess()
+            if (process) {
+                contextMenu.append(new this.electron.MenuItem({
+                    id: 'sep',
+                    type: 'separator',
+                }))
+                contextMenu.append(new this.electron.MenuItem({
+                    id: 'process-name',
+                    enabled: false,
+                    label: 'Current process: ' + process.name,
+                }))
+                contextMenu.append(new this.electron.MenuItem({
+                    id: 'completion',
+                    label: 'Notify when done',
+                    type: 'checkbox',
+                    checked: this.completionNotificationEnabled,
+                    click: () => this.zone.run(() => {
+                        this.completionNotificationEnabled = !this.completionNotificationEnabled
+
+                        if (this.completionNotificationEnabled) {
+                            this.app.observeTabCompletion(this.tab).subscribe(() => {
+                                new Notification('Process completed', {
+                                    body: process.name,
+                                }).addEventListener('click', () => {
+                                    this.app.selectTab(this.tab)
+                                })
+                                this.completionNotificationEnabled = false
+                            })
+                        } else {
+                            this.app.stopObservingTabCompletion(this.tab)
+                        }
+                    })
+                }))
+            }
+
+            contextMenu.popup({
                 x: $event.pageX,
                 y: $event.pageY,
                 async: true,
             })
-            event.preventDefault()
         }
     }
 }

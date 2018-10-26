@@ -1,4 +1,5 @@
 import { Observable, Subject, AsyncSubject } from 'rxjs'
+import { takeUntil } from 'rxjs/operators'
 import { Injectable, ComponentFactoryResolver, Injector } from '@angular/core'
 import { BaseTabComponent } from '../components/baseTab.component'
 import { Logger, LogService } from './log.service'
@@ -6,6 +7,33 @@ import { ConfigService } from './config.service'
 import { HostAppService } from './hostApp.service'
 
 export declare type TabComponentType = new (...args: any[]) => BaseTabComponent
+
+class CompletionObserver {
+    get done$ (): Observable<void> { return this.done }
+    get destroyed$ (): Observable<void> { return this.destroyed }
+    private done = new AsyncSubject<void>()
+    private destroyed = new AsyncSubject<void>()
+    private interval: number
+
+    constructor (private tab: BaseTabComponent) {
+        this.interval = setInterval(() => this.tick(), 1000)
+        this.tab.destroyed$.pipe(takeUntil(this.destroyed$)).subscribe(() => this.stop())
+    }
+
+    async tick () {
+        if (!(await this.tab.getCurrentProcess())) {
+            this.done.next(null)
+            this.stop()
+        }
+    }
+
+    stop () {
+        clearInterval(this.interval)
+        this.destroyed.next(null)
+        this.destroyed.complete()
+        this.done.complete()
+    }
+}
 
 @Injectable()
 export class AppService {
@@ -19,6 +47,8 @@ export class AppService {
     private tabOpened = new Subject<BaseTabComponent>()
     private tabClosed = new Subject<BaseTabComponent>()
     private ready = new AsyncSubject<void>()
+
+    private completionObservers = new Map<BaseTabComponent, CompletionObserver>()
 
     get activeTabChange$ (): Observable<BaseTabComponent> { return this.activeTabChange }
     get tabOpened$ (): Observable<BaseTabComponent> { return this.tabOpened }
@@ -132,5 +162,20 @@ export class AppService {
         this.ready.next(null)
         this.ready.complete()
         this.hostApp.emitReady()
+    }
+
+    observeTabCompletion (tab: BaseTabComponent): Observable<void> {
+        if (!this.completionObservers.has(tab)) {
+            let observer = new CompletionObserver(tab)
+            observer.destroyed$.subscribe(() => {
+                this.stopObservingTabCompletion(tab)
+            })
+            this.completionObservers.set(tab, observer)
+        }
+        return this.completionObservers.get(tab).done$
+    }
+
+    stopObservingTabCompletion (tab: BaseTabComponent) {
+        this.completionObservers.delete(tab)
     }
 }
