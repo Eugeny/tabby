@@ -9,6 +9,19 @@ import { exec } from 'mz/child_process'
 
 import { SessionOptions, SessionPersistenceProvider } from '../api'
 
+let macOSNativeProcessList
+try {
+    macOSNativeProcessList = require('macos-native-processlist')
+} catch (e) { } // tslint:disable-line
+
+let windowsProcessTree
+try {
+    windowsProcessTree = require('windows-process-tree')
+} catch (e) {
+console.error(e)
+} // tslint:disable-line
+console.error(windowsProcessTree)
+
 export interface IChildProcess {
     pid: number
     ppid: number
@@ -104,6 +117,15 @@ export class Session extends BaseSession {
             this.truePID = (this.pty as any).pid
         }
 
+        setTimeout(async () => {
+            // Retrieve any possible single children now that shell has fully started
+            let processes = await this.getChildProcesses()
+            while (processes.length === 1) {
+                this.truePID = processes[0].pid
+                processes = await this.getChildProcesses()
+            }
+        }, 2000)
+
         this.open = true
 
         this.pty.on('data-buffered', data => {
@@ -156,12 +178,23 @@ export class Session extends BaseSession {
             return []
         }
         if (process.platform === 'darwin') {
-            let processes = await require('macos-native-processlist').getProcessList()
+            let processes = await macOSNativeProcessList.getProcessList()
             return processes.filter(x => x.ppid === this.truePID).map(p => ({
                 pid: p.pid,
                 ppid: p.ppid,
                 command: p.name,
             }))
+        }
+        if (process.platform === 'win32') {
+            return await new Promise<IChildProcess[]>(resolve => {
+                windowsProcessTree.getProcessTree(this.truePID, tree => {
+                    resolve(tree ? tree.children.map(child => ({
+                        pid: child.pid,
+                        ppid: tree.pid,
+                        command: child.name,
+                    })) : [])
+                })
+            })
         }
         return new Promise<IChildProcess[]>((resolve, reject) => {
             psNode.lookup({ ppid: this.truePID }, (err, processes) => {
