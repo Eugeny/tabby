@@ -61,7 +61,8 @@ ngb-tabset.vertical(type='pills', [activeId]='activeTab')
 
             .form-line(*ngIf='hostApp.platform !== Platform.Linux')
                 .header
-                    .title Vibrancy
+                    .title(*ngIf='hostApp.platform === Platform.Windows') Acrylic background
+                    .title(*ngIf='hostApp.platform === Platform.macOS') Vibrancy
                     .description Gives the window a blurred transparent background
                     
                 toggle(
