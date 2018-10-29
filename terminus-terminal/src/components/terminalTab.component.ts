@@ -378,9 +378,6 @@ export class TerminalTabComponent extends BaseTabComponent {
     }
 
     async canClose (): Promise<boolean> {
-        if (this.hostApp.platform === Platform.Windows) {
-            return true
-        }
         let children = await this.session.getChildProcesses()
         if (children.length === 0) {
             return true

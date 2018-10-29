@@ -230,6 +230,18 @@ export class HTermFrontend extends Frontend {
                 this.contentUpdated.next()
                 return ret
             }
+
+            const _expandSelection = screen.expandSelection.bind(screen)
+            screen.expandSelection = (selection) => {
+                // Drop whitespace at the end of selection
+                let range = selection.getRangeAt(0)
+                if (range.endOffset > 0 && range.endContainer.nodeType === 3 && range.endContainer.textContent !== '') {
+                    while (/[\s\S]+\s$/.test(range.endContainer.textContent.substr(0,range.endOffset))) {
+                        range.setEnd(range.endContainer, range.endOffset - 1)
+                    }
+                }
+                _expandSelection(selection)
+            }
         }
 
         const _measureCharacterSize = this.term.scrollPort_.measureCharacterSize.bind(this.term.scrollPort_)
