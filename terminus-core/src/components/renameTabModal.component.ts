@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core'
+import { Component, Input, ElementRef } from '@angular/core'
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
 
 @Component({
@@ -7,10 +7,17 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
 })
 export class RenameTabModalComponent {
     @Input() value: string
+    @ViewChild('input') input: ElementRef
 
     constructor (
         private modalInstance: NgbActiveModal
     ) { }
+
+    ngOnInit () {
+        setTimeout(() => {
+            this.input.nativeElement.focus()
+        })
+    }
 
     save () {
         this.modalInstance.close(this.value)

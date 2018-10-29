@@ -1,5 +1,5 @@
 .modal-body
-    input.form-control(type='text', [(ngModel)]='value', (keyup.enter)='save()', autofocus)
+    input.form-control(type='text', #input, [(ngModel)]='value', (keyup.enter)='save()', autofocus)
 
 .modal-footer
     button.btn.btn-outline-primary((click)='save()') Save
