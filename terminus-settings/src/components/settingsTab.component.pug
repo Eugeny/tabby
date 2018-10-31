@@ -72,7 +72,7 @@ ngb-tabset.vertical(type='pills', [activeId]='activeTab')
 
             .form-line(*ngIf='config.store.appearance.vibrancy && isFluentVibrancySupported')
                 .header
-                    .title Vibrancy type
+                    .title Background type
                 .btn-group(
                     [(ngModel)]='config.store.appearance.vibrancyType',
                     (ngModelChange)='config.save()',
@@ -95,7 +95,7 @@ ngb-tabset.vertical(type='pills', [activeId]='activeTab')
                     
             .form-line
                 .header
-                    .title Window opacity
+                    .title Transparency
                 input(
                     type='range',
                     [(ngModel)]='config.store.appearance.opacity',
