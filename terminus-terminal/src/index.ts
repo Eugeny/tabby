@@ -163,6 +163,7 @@ export default class TerminalModule {
             if (await fs.exists(directory)) {
                 if ((await fs.stat(directory)).isDirectory()) {
                     terminal.openTab(null, directory)
+                    hostApp.bringToFront()
                 }
             }
         })
@@ -172,10 +173,12 @@ export default class TerminalModule {
                 command: command[0],
                 args: command.slice(1),
             }, null, true)
+            hostApp.bringToFront()
         })
         hostApp.cliPaste$.subscribe(text => {
             if (app.activeTab instanceof TerminalTabComponent && app.activeTab.session) {
                 (app.activeTab as TerminalTabComponent).sendInput(text)
+                hostApp.bringToFront()
             }
         })
     }

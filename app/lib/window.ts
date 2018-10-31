@@ -224,6 +224,17 @@ export class Window {
             this.window.setTitle(title)
         })
 
+        ipcMain.on('window-bring-to-front', event => {
+            if (event.sender !== this.window.webContents) {
+                return
+            }
+            if (this.window.isMinimized()) {
+                this.window.restore()
+            }
+            this.window.show()
+            this.window.moveTop()
+        })
+
         this.window.webContents.on('new-window', event => event.preventDefault())
     }
 

@@ -180,6 +180,10 @@ export class HostAppService {
         this.electron.ipcRenderer.send('app:ready')
     }
 
+    bringToFront () {
+        this.electron.ipcRenderer.send('window-bring-to-front')
+    }
+
     quit () {
         this.logger.info('Quitting')
         this.electron.app.quit()
