@@ -100,7 +100,7 @@ ngb-tabset.vertical(type='pills', [activeId]='activeTab')
                     type='range',
                     [(ngModel)]='config.store.appearance.opacity',
                     (ngModelChange)='config.save(); (hostApp.platform === Platform.Linux && config.requestRestart())',
-                    min='0.05',
+                    min='0.4',
                     max='1',
                     step='0.01'
                 )
