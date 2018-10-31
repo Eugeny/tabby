@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 import { DomSanitizer } from '@angular/platform-browser'
-import { ToolbarButtonProvider, IToolbarButton, AppService, HostAppService } from 'terminus-core'
+import { ToolbarButtonProvider, IToolbarButton, AppService, HostAppService, HotkeysService } from 'terminus-core'
 
 import { SettingsTabComponent } from './components/settingsTab.component'
 
@@ -8,11 +8,18 @@ import { SettingsTabComponent } from './components/settingsTab.component'
 export class ButtonProvider extends ToolbarButtonProvider {
     constructor (
         hostApp: HostAppService,
+        hotkeys: HotkeysService,
         private app: AppService,
         private domSanitizer: DomSanitizer,
     ) {
         super()
         hostApp.preferencesMenu$.subscribe(() => this.open())
+
+        hotkeys.matchedHotkey.subscribe(async (hotkey) => {
+            if (hotkey === 'settings') {
+                this.open()
+            }
+        })
     }
 
     provide (): IToolbarButton[] {
