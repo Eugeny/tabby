@@ -128,15 +128,18 @@ export class HotkeysService {
     }
 
     getCurrentFullyMatchedHotkey (): string {
-        for (let id in this.getHotkeysConfig()) {
-            for (let sequence of this.getHotkeysConfig()[id]) {
-                let currentStrokes = this.getCurrentKeystrokes()
+        let currentStrokes = this.getCurrentKeystrokes()
+        let config = this.getHotkeysConfig()
+        for (let id in config) {
+            for (let sequence of config[id]) {
                 if (currentStrokes.length < sequence.length) {
                     continue
                 }
-                if (sequence.every((x, index) => {
-                    return x.toLowerCase() === currentStrokes[currentStrokes.length - sequence.length + index].toLowerCase()
-                })) {
+                if (sequence.every(
+                    (x, index) =>
+                        x.toLowerCase() ===
+                            currentStrokes[currentStrokes.length - sequence.length + index].toLowerCase()
+                )) {
                     return id
                 }
             }
@@ -145,15 +148,17 @@ export class HotkeysService {
     }
 
     getCurrentPartiallyMatchedHotkeys (): PartialHotkeyMatch[] {
+        let currentStrokes = this.getCurrentKeystrokes()
+        let config = this.getHotkeysConfig()
         let result = []
-        for (let id in this.getHotkeysConfig()) {
-            for (let sequence of this.getHotkeysConfig()[id]) {
-                let currentStrokes = this.getCurrentKeystrokes()
-
+        for (let id in config) {
+            for (let sequence of config[id]) {
                 for (let matchLength = Math.min(currentStrokes.length, sequence.length); matchLength > 0; matchLength--) {
-                    if (sequence.slice(0, matchLength).every((x, index) => {
-                        return x.toLowerCase() === currentStrokes[currentStrokes.length - matchLength + index].toLowerCase()
-                    })) {
+                    if (sequence.slice(0, matchLength).every(
+                        (x, index) =>
+                            x.toLowerCase() ===
+                                currentStrokes[currentStrokes.length - matchLength + index].toLowerCase()
+                    )) {
                         result.push({
                             matchedLength: matchLength,
                             id,
