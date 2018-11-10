@@ -141,14 +141,19 @@ export class AppRootComponent {
         config.changed$.subscribe(() => this.updateVibrancy())
         this.updateVibrancy()
 
+        let lastProgress = null
         this.app.tabOpened$.subscribe(tab => {
             this.unsortedTabs.push(tab)
             tab.progress$.subscribe(progress => {
+                if (lastProgress === progress) {
+                    return
+                }
                 if (progress !== null) {
                     this.hostApp.getWindow().setProgressBar(progress / 100.0, { mode: 'normal' })
                 } else {
                     this.hostApp.getWindow().setProgressBar(-1, { mode: 'none' })
                 }
+                lastProgress = progress
             })
             this.noTabs = false
         })
