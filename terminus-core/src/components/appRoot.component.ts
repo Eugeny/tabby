@@ -122,7 +122,7 @@ export class AppRootComponent {
         })
 
         this.hostApp.secondInstance$.subscribe(() => {
-            this.onGlobalHotkey()
+            this.presentWindow()
         })
         this.hotkeys.globalHotkey.subscribe(() => {
             this.onGlobalHotkey()
@@ -166,28 +166,35 @@ export class AppRootComponent {
 
     onGlobalHotkey () {
         if (this.hostApp.getWindow().isFocused()) {
-            // focused
-            this.electron.loseFocus()
-            this.hostApp.getWindow().blur()
-            if (this.hostApp.platform !== Platform.macOS) {
+            this.hideWindow()
+        } else {
+            this.presentWindow()
+        }
+    }
+
+    presentWindow () {
+        if (!this.hostApp.getWindow().isVisible()) {
+            // unfocused, invisible
+            this.hostApp.getWindow().show()
+            this.hostApp.getWindow().focus()
+        } else {
+            if (this.config.store.appearance.dock === 'off') {
+                // not docked, visible
+                setTimeout(() => {
+                    this.hostApp.getWindow().focus()
+                })
+            } else {
+                // docked, visible
                 this.hostApp.getWindow().hide()
             }
-        } else {
-            if (!this.hostApp.getWindow().isVisible()) {
-                // unfocused, invisible
-                this.hostApp.getWindow().show()
-                this.hostApp.getWindow().focus()
-            } else {
-                if (this.config.store.appearance.dock === 'off') {
-                    // not docked, visible
-                    setTimeout(() => {
-                        this.hostApp.getWindow().focus()
-                    })
-                } else {
-                    // docked, visible
-                    this.hostApp.getWindow().hide()
-                }
-            }
+        }
+    }
+
+    hideWindow () {
+        this.electron.loseFocus()
+        this.hostApp.getWindow().blur()
+        if (this.hostApp.platform !== Platform.macOS) {
+            this.hostApp.getWindow().hide()
         }
     }
 

@@ -28,6 +28,10 @@ export function parseArgs (argv, cwd) {
             describe: 'Show DevTools on start',
             type: 'boolean'
         })
+        .option('hidden', {
+            describe: 'Start minimized',
+            type: 'boolean'
+        })
         .option('version', {
             alias: 'v',
             describe: 'Show version and exit',
