@@ -20,5 +20,4 @@ exports.bundledModules = [
   '@angular',
   '@ng-bootstrap',
 ]
-exports.nativeModules = ['node-pty-tmp', 'font-manager', 'xkeychain', 'electron-vibrancy']
 exports.electronVersion = pkgInfo.devDependencies.electron
