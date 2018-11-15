@@ -233,7 +233,12 @@ export class Session extends BaseSession {
             return null
         }
         if (process.platform === 'darwin') {
-            let lines = (await exec(`lsof -p ${this.truePID} -Fn`))[0].toString().split('\n')
+            let lines: string[]
+            try {
+                lines = (await exec(`lsof -p ${this.truePID} -Fn`))[0].toString().split('\n')
+            } catch (e) {
+                return null
+            }
             if (lines[1] === 'fcwd') {
                 return lines[2].substring(1)
             } else {
