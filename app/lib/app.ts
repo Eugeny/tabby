@@ -1,6 +1,6 @@
 import { app, ipcMain, Menu, Tray, shell } from 'electron'
 import { loadConfig } from './config'
-import { Window } from './window'
+import { Window, WindowOptions } from './window'
 
 export class Application {
     private tray: Tray
@@ -20,8 +20,8 @@ export class Application {
         app.commandLine.appendSwitch('disable-http-cache')
     }
 
-    async newWindow (): Promise<Window> {
-        let window = new Window()
+    async newWindow (options?: WindowOptions): Promise<Window> {
+        let window = new Window(options)
         this.windows.push(window)
         window.visible$.subscribe(visible => {
             if (visible) {

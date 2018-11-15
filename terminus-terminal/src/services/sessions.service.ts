@@ -18,9 +18,7 @@ let windowsProcessTree
 try {
     windowsProcessTree = require('windows-process-tree')
 } catch (e) {
-console.error(e)
 } // tslint:disable-line
-console.error(windowsProcessTree)
 
 export interface IChildProcess {
     pid: number

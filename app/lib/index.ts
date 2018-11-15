@@ -59,5 +59,5 @@ app.on('ready', () => {
             }
         ]))
     }
-    application.newWindow()
+    application.newWindow({ hidden: argv.hidden })
 })

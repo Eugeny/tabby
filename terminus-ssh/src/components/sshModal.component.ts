@@ -54,6 +54,11 @@ export class SSHModalComponent {
         this.connect(connection)
     }
 
+    clearLastConnection () {
+        window.localStorage.lastConnection = null
+        this.lastConnection = null
+    }
+
     connect (connection: SSHConnection) {
         this.close()
         this.ssh.connect(connection).catch(error => {
