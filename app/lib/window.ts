@@ -24,6 +24,7 @@ export class Window {
     private window: BrowserWindow
     private windowConfig: ElectronConfig
     private windowBounds: Rectangle
+    private closing = false
 
     get visible$ (): Observable<boolean> { return this.visible }
 
@@ -145,7 +146,12 @@ export class Window {
         this.window.on('enter-full-screen', () => this.window.webContents.send('host:window-enter-full-screen'))
         this.window.on('leave-full-screen', () => this.window.webContents.send('host:window-leave-full-screen'))
 
-        this.window.on('close', () => {
+        this.window.on('close', event => {
+            if (!this.closing) {
+                event.preventDefault()
+                this.window.webContents.send('host:window-close-request')
+                return
+            }
             this.windowConfig.set('windowBoundaries', this.windowBounds)
             this.windowConfig.set('maximized', this.window.isMaximized())
         })
@@ -242,6 +248,11 @@ export class Window {
             }
             this.window.show()
             this.window.moveTop()
+        })
+
+        ipcMain.on('window-close', () => {
+            this.closing = true
+            this.window.close()
         })
 
         this.window.webContents.on('new-window', event => event.preventDefault())

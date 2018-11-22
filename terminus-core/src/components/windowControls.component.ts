@@ -1,5 +1,6 @@
 import { Component } from '@angular/core'
 import { HostAppService } from '../services/hostApp.service'
+import { AppService } from '../services/app.service'
 
 @Component({
     selector: 'window-controls',
@@ -7,5 +8,5 @@ import { HostAppService } from '../services/hostApp.service'
     styles: [require('./windowControls.component.scss')],
 })
 export class WindowControlsComponent {
-    constructor (public hostApp: HostAppService) { }
+    constructor (public hostApp: HostAppService, public app: AppService) { }
 }

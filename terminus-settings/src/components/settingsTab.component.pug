@@ -266,7 +266,7 @@ ngb-tabset.vertical(type='pills', [activeId]='activeTab')
                     tr(*ngFor='let hotkey of hotkeyDescriptions|filterBy:["name"]:hotkeyFilter')
                         td {{hotkey.name}}
                         td {{hotkey.id}}
-                        td
+                        td.pr-5
                             multi-hotkey-input(
                                 [model]='getHotkey(hotkey.id)',
                                 (modelChange)='setHotkey(hotkey.id, $event); config.save(); docking.dock()'

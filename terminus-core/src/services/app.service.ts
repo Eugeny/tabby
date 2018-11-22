@@ -64,6 +64,8 @@ export class AppService {
         log: LogService,
     ) {
         this.logger = log.create('app')
+
+        this.hostApp.windowCloseRequest$.subscribe(() => this.closeWindow())
     }
 
     openNewTab (type: TabComponentType, inputs?: any): BaseTabComponent {
@@ -156,6 +158,18 @@ export class AppService {
         }
         this.tabsChanged.next()
         this.tabClosed.next(tab)
+    }
+
+    async closeWindow () {
+        for (let tab of this.tabs) {
+            if (!await tab.canClose()) {
+                return
+            }
+        }
+        for (let tab of this.tabs) {
+            tab.destroy()
+        }
+        this.hostApp.closeWindow()
     }
 
     emitReady () {
