@@ -50,7 +50,7 @@ title-bar(
             )
 
             button.btn.btn-secondary.btn-tab-bar.btn-update(
-                *ngIf='appUpdate',
+                *ngIf='updatesAvailable',
                 title='Update available',
                 (click)='updateApp()',
                 [innerHTML]='updateIcon'

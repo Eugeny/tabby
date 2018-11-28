@@ -12,6 +12,7 @@ export class ElectronService {
     nativeImage: any
     screen: any
     remote: any
+    autoUpdater: any
     TouchBar: typeof TouchBar
     BrowserWindow: typeof BrowserWindow
     Menu: typeof Menu
@@ -29,6 +30,7 @@ export class ElectronService {
         this.ipcRenderer = this.electron.ipcRenderer
         this.globalShortcut = this.remote.globalShortcut
         this.nativeImage = this.remote.nativeImage
+        this.autoUpdater = this.remote.autoUpdater
         this.TouchBar = this.remote.TouchBar
         this.BrowserWindow = this.remote.BrowserWindow
         this.Menu = this.remote.Menu

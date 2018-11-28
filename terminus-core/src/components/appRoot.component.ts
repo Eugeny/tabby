@@ -11,7 +11,7 @@ import { ConfigService } from '../services/config.service'
 import { DockingService } from '../services/docking.service'
 import { TabRecoveryService } from '../services/tabRecovery.service'
 import { ThemesService } from '../services/themes.service'
-import { UpdaterService, Update } from '../services/updater.service'
+import { UpdaterService } from '../services/updater.service'
 import { TouchbarService } from '../services/touchbar.service'
 
 import { BaseTabComponent } from './baseTab.component'
@@ -63,8 +63,8 @@ export class AppRootComponent {
     tabsDragging = false
     unsortedTabs: BaseTabComponent[] = []
     updateIcon: SafeHtml
+    updatesAvailable = false
     private logger: Logger
-    private appUpdate: Update
 
     constructor (
         private docking: DockingService,
@@ -132,8 +132,8 @@ export class AppRootComponent {
             ngbModal.open(SafeModeModalComponent)
         }
 
-        this.updater.check().then(update => {
-            this.appUpdate = update
+        this.updater.check().then(() => {
+            this.updatesAvailable = true
         })
 
         this.touchbar.update()
@@ -217,7 +217,7 @@ export class AppRootComponent {
     }
 
     updateApp () {
-        this.electron.shell.openExternal(this.appUpdate.url)
+        this.updater.update()
     }
 
     onTabDragStart () {

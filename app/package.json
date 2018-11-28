@@ -1,6 +1,7 @@
 {
   "name": "terminus",
   "description": "A terminal for a modern age",
+  "repository": "https://github.com/eugeny/terminus",
   "author": {
     "name": "Eugene Pankov",
     "email": "e@ajenti.org"

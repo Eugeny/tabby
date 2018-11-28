@@ -73,14 +73,6 @@ aws4@^1.6.0:
   resolved "https://registry.yarnpkg.com/aws4/-/aws4-1.8.0.tgz#f0e003d9ca9e7f59c7a508945d7b2ef9a04a542f"
   integrity sha512-ReZxvNHIOv88FlT7rxcXIIC0fPt4KZqZbOlivyWtXLt8ESx84zd3kMC6iK5jVeS2qt+g7ftS7ye4fi06X5rtRQ==
 
-axios@0.16.2:
-  version "0.16.2"
-  resolved "https://registry.yarnpkg.com/axios/-/axios-0.16.2.tgz#ba4f92f17167dfbab40983785454b9ac149c3c6d"
-  integrity sha1-uk+S8XFn37q0CYN4VFS5rBScPG0=
-  dependencies:
-    follow-redirects "^1.2.3"
-    is-buffer "^1.1.5"
-
 bcrypt-pbkdf@^1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/bcrypt-pbkdf/-/bcrypt-pbkdf-1.0.2.tgz#a4301d389b6a43f9b67ff3ca11a3f6637e360e9e"
@@ -169,13 +161,6 @@ dashdash@^1.12.0:
   integrity sha1-hTz6D3y+L+1d4gMmuN1YEDX24vA=
   dependencies:
     assert-plus "^1.0.0"
-
-debug@^2.4.5:
-  version "2.6.8"
-  resolved "https://registry.yarnpkg.com/debug/-/debug-2.6.8.tgz#e731531ca2ede27d188222427da17821d68ff4fc"
-  integrity sha1-5zFTHKLt4n0YgiJCfaF4IdaP9Pw=
-  dependencies:
-    ms "2.0.0"
 
 debug@^3.0.0:
   version "3.1.0"
@@ -276,13 +261,6 @@ fast-json-stable-stringify@^2.0.0:
   resolved "https://registry.yarnpkg.com/fast-json-stable-stringify/-/fast-json-stable-stringify-2.0.0.tgz#d5142c0caee6b1189f87d3a76111064f86c8bbf2"
   integrity sha1-1RQsDK7msRifh9OnYREGT4bIu/I=
 
-follow-redirects@^1.2.3:
-  version "1.2.4"
-  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.2.4.tgz#355e8f4d16876b43f577b0d5ce2668b9723214ea"
-  integrity sha512-Suw6KewLV2hReSyEOeql+UUkBVyiBm3ok1VPrVFRZnQInWpdoZbbiG5i8aJVSjTr0yQ4Ava0Sh6/joCg1Brdqw==
-  dependencies:
-    debug "^2.4.5"
-
 forever-agent@~0.6.1:
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/forever-agent/-/forever-agent-0.6.1.tgz#fbc71f0c41adeb37f96c577ad1ed42d8fdacca91"
@@ -362,11 +340,6 @@ http-signature@~1.2.0:
     assert-plus "^1.0.0"
     jsprim "^1.2.2"
     sshpk "^1.7.0"
-
-is-buffer@^1.1.5:
-  version "1.1.5"
-  resolved "https://registry.yarnpkg.com/is-buffer/-/is-buffer-1.1.5.tgz#1f3b26ef613b214b88cbca23cc6c01d87961eecc"
-  integrity sha1-Hzsm72E7IUuIy8ojzGwB2Hlh7sw=
 
 is-typedarray@~1.0.0:
   version "1.0.0"

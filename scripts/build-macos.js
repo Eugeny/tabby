@@ -4,7 +4,7 @@ const vars = require('./vars')
 
 builder({
   dir: true,
-  mac: ['dmg'],
+  mac: ['dmg', 'zip'],
   config: {
     extraMetadata: {
       version: vars.version,
