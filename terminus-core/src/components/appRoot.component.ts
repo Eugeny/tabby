@@ -132,8 +132,8 @@ export class AppRootComponent {
             ngbModal.open(SafeModeModalComponent)
         }
 
-        this.updater.check().then(() => {
-            this.updatesAvailable = true
+        this.updater.check().then(available => {
+            this.updatesAvailable = available
         })
 
         this.touchbar.update()
