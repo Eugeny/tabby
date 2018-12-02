@@ -7,6 +7,16 @@ import { ElectronService } from '../services/electron.service'
 import { AppService } from '../services/app.service'
 import { HostAppService, Platform } from '../services/hostApp.service'
 
+const COLORS = [
+    { name: 'No color', value: null },
+    { name: 'Blue', value: '#0275d8' },
+    { name: 'Green', value: '#5cb85c' },
+    { name: 'Orange', value: '#f0ad4e' },
+    { name: 'Purple', value: '#613d7c' },
+    { name: 'Red', value: '#d9534f' },
+    { name: 'Yellow', value: '#ffd500' },
+]
+
 @Component({
     selector: 'tab-header',
     template: require('./tabHeader.component.pug'),
@@ -87,6 +97,18 @@ export class TabHeaderComponent {
                         }
                     })
                 },
+                {
+                    label: 'Color',
+                    sublabel: COLORS.find(x => x.value === this.tab.color).name,
+                    submenu: COLORS.map(color => ({
+                        label: color.name,
+                        type: 'radio',
+                        checked: this.tab.color === color.value,
+                        click: () => this.zone.run(() => {
+                            this.tab.color = color.value
+                        }),
+                    })),
+                }
             ])
 
             let process = await this.tab.getCurrentProcess()

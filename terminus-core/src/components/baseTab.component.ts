@@ -13,6 +13,7 @@ export abstract class BaseTabComponent {
     hasFocus = false
     hasActivity = false
     hostView: ViewRef
+    color: string = null
     protected titleChange = new Subject<string>()
     protected focused = new Subject<void>()
     protected blurred = new Subject<void>()
