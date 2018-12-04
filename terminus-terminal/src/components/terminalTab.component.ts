@@ -228,6 +228,8 @@ export class TerminalTabComponent extends BaseTabComponent {
                 }
             },
         ]
+
+        this.frontend.focus()
     }
 
     detachTermContainerHandlers () {
