@@ -261,15 +261,23 @@ export class TerminalTabComponent extends BaseTabComponent {
                     }
                 }
                 if (event.type === 'mousewheel') {
+                    let wheelDeltaY = 0
+
+                    if ('wheelDeltaY' in event) {
+                        wheelDeltaY = (event as MouseWheelEvent)["wheelDeltaY"]
+                    } else {
+                        wheelDeltaY = (event as MouseWheelEvent)["deltaY"]
+                    }
                     if (event.ctrlKey || event.metaKey) {
-                        if ((event as MouseWheelEvent).wheelDeltaY > 0) {
+
+                        if (wheelDeltaY > 0) {
                             this.zoomIn()
                         } else {
                             this.zoomOut()
                         }
                     } else if (event.altKey) {
                         event.preventDefault()
-                        let delta = Math.round((event as MouseWheelEvent).wheelDeltaY / 50)
+                        let delta = Math.round(wheelDeltaY / 50)
                         this.sendInput(((delta > 0) ? '\u001bOA' : '\u001bOB').repeat(Math.abs(delta)))
                     }
                 }
