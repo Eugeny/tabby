@@ -38,7 +38,12 @@ export class UpdaterService {
         })
 
         this.logger.debug('Checking for updates')
-        this.electron.autoUpdater.checkForUpdates()
+
+        try {
+            this.electron.autoUpdater.checkForUpdates()
+        } catch (e) {
+            this.logger.info('Squirrel updater unavailable, falling back')
+        }
     }
 
     async check (): Promise<boolean> {
