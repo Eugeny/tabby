@@ -10,7 +10,7 @@ const UPDATES_URL = 'https://api.github.com/repos/eugeny/terminus/releases/lates
 export class UpdaterService {
     private logger: Logger
     private downloaded: Promise<boolean>
-    private isSquirrel = false
+    private isSquirrel = true
     private updateURL: string
 
     constructor (
@@ -21,8 +21,8 @@ export class UpdaterService {
 
         try {
             electron.autoUpdater.setFeedURL(`https://terminus-updates.herokuapp.com/update/${os.platform()}/${electron.app.getVersion()}`)
-            this.isSquirrel = true
         } catch (e) {
+            this.isSquirrel = false
             this.logger.info('Squirrel updater unavailable, falling back')
         }
 
@@ -39,10 +39,13 @@ export class UpdaterService {
 
         this.logger.debug('Checking for updates')
 
-        try {
-            this.electron.autoUpdater.checkForUpdates()
-        } catch (e) {
-            this.logger.info('Squirrel updater unavailable, falling back')
+        if (this.isSquirrel) {
+            try {
+                this.electron.autoUpdater.checkForUpdates()
+            } catch (e) {
+                this.isSquirrel = false
+                this.logger.info('Squirrel updater unavailable, falling back')
+            }
         }
     }
 
