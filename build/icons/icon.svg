@@ -1,124 +1,57 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Created with Inkscape (http://www.inkscape.org/) -->
-
-<svg
-   xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:xlink="http://www.w3.org/1999/xlink"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="150mm"
-   height="150mm"
-   viewBox="0 0 150 150"
-   version="1.1"
-   id="svg8"
-   inkscape:version="0.92.2 (5c3e80d, 2017-08-06)"
-   sodipodi:docname="icon.svg"
-   inkscape:export-filename="/home/eugene/Work/term/build/icons/512x512.png"
-   inkscape:export-xdpi="86.699997"
-   inkscape:export-ydpi="86.699997">
-  <defs
-     id="defs2">
-    <linearGradient
-       inkscape:collect="always"
-       id="linearGradient4649">
-      <stop
-         style="stop-color:#000316;stop-opacity:1"
-         offset="0"
-         id="stop4645" />
-      <stop
-         style="stop-color:#190065;stop-opacity:1"
-         offset="1"
-         id="stop4647" />
-    </linearGradient>
-    <linearGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient4649"
-       id="linearGradient4651"
-       x1="89.26284"
-       y1="85.146751"
-       x2="89.26284"
-       y2="229.47229"
-       gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(0.82182032,0,0,0.82182032,15.208802,28.029361)" />
-  </defs>
-  <sodipodi:namedview
-     id="base"
-     pagecolor="#ffffff"
-     bordercolor="#666666"
-     borderopacity="1.0"
-     inkscape:pageopacity="0.0"
-     inkscape:pageshadow="2"
-     inkscape:zoom="0.49497475"
-     inkscape:cx="85.897128"
-     inkscape:cy="375.72042"
-     inkscape:document-units="mm"
-     inkscape:current-layer="layer1"
-     showgrid="false"
-     inkscape:snap-bbox="true"
-     inkscape:window-width="1366"
-     inkscape:window-height="692"
-     inkscape:window-x="0"
-     inkscape:window-y="0"
-     inkscape:window-maximized="1"
-     fit-margin-top="0"
-     fit-margin-left="0"
-     fit-margin-right="0"
-     fit-margin-bottom="0"
-     inkscape:snap-intersection-paths="true"
-     inkscape:object-paths="true" />
-  <metadata
-     id="metadata5">
-    <rdf:RDF>
-      <cc:Work
-         rdf:about="">
-        <dc:format>image/svg+xml</dc:format>
-        <dc:type
-           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
-      </cc:Work>
-    </rdf:RDF>
-  </metadata>
-  <g
-     inkscape:label="Layer 1"
-     inkscape:groupmode="layer"
-     id="layer1"
-     transform="translate(-10.356544,-82.309525)">
-    <rect
-       id="rect168"
-       width="123.27305"
-       height="123.27305"
-       x="23.72002"
-       y="95.673004"
-       style="fill:url(#linearGradient4651);fill-opacity:1;stroke-width:0.21743995"
-       rx="8.2182035"
-       ry="8.2182035" />
-    <path
-       inkscape:connector-curvature="0"
-       id="path138"
-       style="opacity:0.9;fill:#bfd9f1;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.82182032px;stroke-linecap:butt;stroke-linejoin:round;stroke-opacity:1"
-       d="m 47.511243,117.17807 50.067023,28.8724 -15.038249,8.68226 -35.028768,-21.3657 z"
-       sodipodi:nodetypes="ccccc" />
-    <path
-       inkscape:connector-curvature="0"
-       id="path116"
-       style="opacity:0.9;fill:#6666af;fill-rule:evenodd;stroke:none;stroke-width:0.82182032px;stroke-linecap:butt;stroke-linejoin:round;stroke-opacity:1;fill-opacity:1"
-       d="m 127.13617,146.73547 0.0374,16.98921 -64.125308,36.25552 -0.0025,-16.25659 z"
-       sodipodi:nodetypes="ccccc" />
-    <path
-       inkscape:connector-curvature="0"
-       id="path118"
-       style="opacity:0.9;fill:#bfd9f1;fill-rule:evenodd;stroke:none;stroke-width:0.82182032px;stroke-linecap:butt;stroke-linejoin:round;stroke-opacity:1;fill-opacity:1"
-       d="m 47.647019,174.84764 15.398727,8.89046 0.0025,16.25641 -15.401249,-8.94341 z"
-       sodipodi:nodetypes="ccccc" />
-    <path
-       style="opacity:0.9;fill:#9dbef0;fill-rule:evenodd;stroke:none;stroke-width:0.82630885px;stroke-linecap:butt;stroke-linejoin:round;stroke-opacity:1;fill-opacity:1"
-       d="m 61.586284,108.76679 -14.292349,8.25191 50.284331,29.03177 -50.148115,28.95277 15.482843,8.93896 50.148116,-28.95277 14.29235,-8.25191 z"
-       id="path134"
-       inkscape:connector-curvature="0"
-       sodipodi:nodetypes="cccccccc" />
-  </g>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 23.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 1024 1024" style="enable-background:new 0 0 1024 1024;" xml:space="preserve">
+<style type="text/css">
+	.st0{opacity:0.8;fill:#00232E;}
+	.st1{fill:url(#SVGID_1_);}
+	.st2{opacity:0.16;fill:url(#SVGID_2_);}
+	.st3{fill:url(#SVGID_3_);}
+	.st4{opacity:0.16;fill:url(#SVGID_4_);}
+	.st5{fill:url(#SVGID_5_);}
+	.st6{opacity:0.15;fill:url(#SVGID_6_);}
+	.st7{fill:url(#SVGID_7_);}
+</style>
+<polygon class="st0" points="449.5,645.47 407.51,621.23 533.47,548.5 407.51,475.77 449.5,451.53 617.45,548.5 "/>
+<g>
+	<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="439.0065" y1="603.0394" x2="627.9464" y2="493.9549">
+		<stop  offset="0" style="stop-color:#669ABD"/>
+		<stop  offset="1" style="stop-color:#77DBDB"/>
+	</linearGradient>
+	<polygon class="st1" points="449.5,621.22 617.45,524.25 617.45,475.77 449.5,572.75 	"/>
+	<linearGradient id="SVGID_2_" gradientUnits="userSpaceOnUse" x1="522.9788" y1="530.3148" x2="543.9741" y2="566.6795">
+		<stop  offset="0.5588" style="stop-color:#000000;stop-opacity:0"/>
+		<stop  offset="1" style="stop-color:#000000"/>
+	</linearGradient>
+	<polygon class="st2" points="449.5,621.22 617.45,524.25 617.45,475.77 449.5,572.75 	"/>
+</g>
+<g>
+	<linearGradient id="SVGID_3_" gradientUnits="userSpaceOnUse" x1="397.0101" y1="566.6837" x2="459.9963" y2="603.0487">
+		<stop  offset="0" style="stop-color:#6A8FAD"/>
+		<stop  offset="1" style="stop-color:#669ABD"/>
+	</linearGradient>
+	<polygon class="st3" points="407.51,548.5 407.5,596.99 449.5,621.22 449.5,572.75 	"/>
+	<linearGradient id="SVGID_4_" gradientUnits="userSpaceOnUse" x1="439.0009" y1="566.6838" x2="418.0056" y2="603.0486">
+		<stop  offset="0.5588" style="stop-color:#000000;stop-opacity:0"/>
+		<stop  offset="1" style="stop-color:#000000"/>
+	</linearGradient>
+	<polygon class="st4" points="407.51,548.5 407.5,596.99 449.5,621.22 449.5,572.75 	"/>
+</g>
+<g>
+	<linearGradient id="SVGID_5_" gradientUnits="userSpaceOnUse" x1="397.0101" y1="421.2265" x2="522.9781" y2="493.9542">
+		<stop  offset="0" style="stop-color:#6A8FAD"/>
+		<stop  offset="1" style="stop-color:#669ABD"/>
+	</linearGradient>
+	<polygon class="st5" points="407.51,403.04 407.5,451.53 491.49,500.01 533.48,475.77 	"/>
+	<linearGradient id="SVGID_6_" gradientUnits="userSpaceOnUse" x1="470.4924" y1="439.4067" x2="449.4958" y2="475.774">
+		<stop  offset="0.5588" style="stop-color:#000000;stop-opacity:0"/>
+		<stop  offset="1" style="stop-color:#000000"/>
+	</linearGradient>
+	<polygon class="st6" points="407.51,403.04 407.5,451.53 491.49,500.01 533.48,475.77 	"/>
+</g>
+<linearGradient id="SVGID_7_" gradientUnits="userSpaceOnUse" x1="386.5123" y1="512.136" x2="575.4605" y2="403.0467">
+	<stop  offset="0" style="stop-color:#CCECFF"/>
+	<stop  offset="1" style="stop-color:#9FECED"/>
+</linearGradient>
+<polygon class="st7" points="449.5,572.74 407.51,548.5 533.48,475.77 407.51,403.04 449.49,378.8 617.45,475.77 "/>
 </svg>
