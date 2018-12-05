@@ -30,6 +30,10 @@ export class ShellSettingsTabComponent {
         this.shells = (await Promise.all(this.config.enabledServices(this.shellProviders).map(x => x.provide()))).reduce((a, b) => a.concat(b))
     }
 
+    openConPtyInfo() {
+        this.electron.shell.openExternal('https://github.com/Microsoft/node-pty/issues/216')
+    }
+
     ngOnDestroy () {
         this.configSubscription.unsubscribe()
     }
