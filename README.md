@@ -37,7 +37,7 @@ Plugins can be installed directly from the Settings view inside Terminus.
   * [shell-selector](https://github.com/Eugeny/terminus-shell-selector) - a quick shell selector pane
   * [title-control](https://github.com/kbjr/terminus-title-control) - allows modifying the title of the terminal tabs by providing a prefix, suffix, and/or strings to be removed
   * [scrollbar](https://github.com/kbjr/terminus-scrollbar) - adds a scrollbar to terminal tabs
-  * [quick-cmds](https://github.com/Domain/terminus-quick-cmds) - quicklky send commands to one or all terminal tabs
+  * [quick-cmds](https://github.com/Domain/terminus-quick-cmds) - quickly send commands to one or all terminal tabs
 
 ---
 
