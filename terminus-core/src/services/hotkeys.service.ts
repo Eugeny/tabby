@@ -120,8 +120,10 @@ export class HotkeysService {
                 if (typeof value === 'string') {
                     value = [value]
                 }
-                value = value.map((item) => (typeof item === 'string') ? [item] : item)
-                keys[key] = value
+                if (value) {
+                    value = value.map((item) => (typeof item === 'string') ? [item] : item)
+                    keys[key] = value
+                }
             }
         }
         return keys
