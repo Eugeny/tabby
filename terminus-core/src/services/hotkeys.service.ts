@@ -86,7 +86,7 @@ export class HotkeysService {
 
     registerGlobalHotkey () {
         this.electron.globalShortcut.unregisterAll()
-        let value = this.config.store.hotkeys['toggle-window']
+        let value = this.config.store.hotkeys['toggle-window'] || []
         if (typeof value === 'string') {
             value = [value]
         }
