@@ -33,7 +33,7 @@ export class HomeBaseService {
             linux: 'OS: Linux',
         }[os.platform()]
         let plugins = (window as any).installedPlugins.filter(x => !x.isBuiltin).map(x => x.name)
-        body += `Plugins: ${plugins.join(', ')}\n\n`
+        body += `Plugins: ${plugins.join(', ') || 'none'}\n\n`
         this.electron.shell.openExternal(`https://github.com/eugeny/terminus/issues/new?body=${encodeURIComponent(body)}&labels=${label}`)
     }
 
