@@ -126,7 +126,7 @@ body {
 
 app-root  {
     &.no-tabs {
-        background: rgba(0,0,0,.5);    
+        background: rgba(0,0,0,.5);
     }
 
     &> .content {
@@ -365,4 +365,19 @@ toggle.active .body .toggle {
 .list-group-item svg {
     fill: white;
     fill-opacity: 0.75;
+}
+
+*::-webkit-scrollbar {
+    background: rgba(0, 0, 0, .125);
+    width: 10px;
+    margin: 5px;
+}
+
+*::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, .25);
+}
+
+*::-webkit-scrollbar-corner,
+*::-webkit-resizer {
+    opacity: 0;
 }
