@@ -6,7 +6,7 @@
     "terminus-builtin-plugin"
   ],
   "main": "dist/index.js",
-  "typings": "dist/index.d.ts",
+  "typings": "dist/src/index.d.ts",
   "scripts": {
     "build": "webpack --progress --color --display-modules",
     "watch": "webpack --progress --color --watch"
@@ -30,6 +30,5 @@
     "@ng-bootstrap/ng-bootstrap": "1.0.0-alpha.22",
     "terminus-core": "*",
     "rxjs": "5.3.0"
-  },
-  "false": {}
+  }
 }

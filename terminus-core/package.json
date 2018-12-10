@@ -8,8 +8,8 @@
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "scripts": {
-    "build": "rm -rf dist && webpack --progress --color --display-modules",
-    "watch": "rm -rf dist && webpack --progress --color --watch"
+    "build": "webpack --progress --color --display-modules",
+    "watch": "webpack --progress --color --watch"
   },
   "files": [
     "dist"
@@ -45,6 +45,5 @@
     "deepmerge": "^1.5.0",
     "js-yaml": "^3.9.0",
     "winston": "^2.4.0"
-  },
-  "false": {}
+  }
 }
