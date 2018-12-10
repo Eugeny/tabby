@@ -1,8 +1,8 @@
 import { Frontend } from './frontend'
-import { Terminal, ITheme } from 'xterm'
-import * as fit from 'xterm/lib/addons/fit/fit'
+import { Terminal, ITheme } from '@terminus-term/xterm'
+import * as fit from '@terminus-term/xterm/lib/addons/fit/fit'
 import * as ligatures from 'xterm-addon-ligatures-tmp'
-import 'xterm/dist/xterm.css'
+import '@terminus-term/xterm/lib/xterm.css'
 import './xterm.css'
 import deepEqual = require('deep-equal')
 
