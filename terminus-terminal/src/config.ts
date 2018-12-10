@@ -21,6 +21,7 @@ export class TerminalConfigProvider extends ConfigProvider {
             customShell: '',
             rightClick: 'menu',
             copyOnSelect: false,
+            scrollOnInput: true,
             workingDirectory: '',
             altIsMeta: false,
             colorScheme: {

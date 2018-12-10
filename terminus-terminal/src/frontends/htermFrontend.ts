@@ -72,6 +72,8 @@ export class HTermFrontend extends Frontend {
         preferenceManager.set('pass-alt-number', true)
         preferenceManager.set('cursor-blink', config.terminal.cursorBlink)
         preferenceManager.set('clear-selection-after-copy', true)
+        preferenceManager.set('scroll-on-output', false)
+        preferenceManager.set('scroll-on-keystroke', config.terminal.scrollOnInput)
 
         if (config.terminal.colorScheme.foreground) {
             preferenceManager.set('foreground-color', config.terminal.colorScheme.foreground)
