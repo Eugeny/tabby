@@ -1,6 +1,6 @@
 import { Frontend } from './frontend'
 import { Terminal, ITheme } from '@terminus-term/xterm'
-import * as fit from '@terminus-term/xterm/lib/addons/fit/fit'
+import * as fit from '@terminus-term/xterm/src/addons/fit/fit'
 import * as ligatures from 'xterm-addon-ligatures-tmp'
 import '@terminus-term/xterm/lib/xterm.css'
 import './xterm.css'
