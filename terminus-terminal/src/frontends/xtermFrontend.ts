@@ -16,6 +16,7 @@ export class XTermFrontend extends Frontend {
     private zoom = 0
     private resizeHandler: any
     private configuredTheme: ITheme = {}
+    private copyOnSelect = false
 
     constructor () {
         super()
@@ -32,6 +33,11 @@ export class XTermFrontend extends Frontend {
         })
         this.xterm.on('title', title => {
             this.title.next(title)
+        })
+        this.xterm.on('selection', () => {
+            if (this.copyOnSelect) {
+                this.copySelection()
+            }
         })
     }
 
@@ -100,6 +106,8 @@ export class XTermFrontend extends Frontend {
         // this.xterm.setOption('colors', )
         this.configuredFontSize = config.terminal.fontSize
         this.setFontSize()
+
+        this.copyOnSelect = config.terminal.copyOnSelect
 
         let theme: ITheme = {
             foreground: config.terminal.colorScheme.foreground,
