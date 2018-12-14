@@ -264,9 +264,9 @@ export class TerminalTabComponent extends BaseTabComponent {
                     let wheelDeltaY = 0
 
                     if ('wheelDeltaY' in event) {
-                        wheelDeltaY = (event as MouseWheelEvent).wheelDeltaY
+                        wheelDeltaY = (event as MouseWheelEvent)['wheelDeltaY']
                     } else {
-                        wheelDeltaY = (event as MouseWheelEvent).deltaY
+                        wheelDeltaY = (event as MouseWheelEvent)['deltaY']
                     }
                     if (event.ctrlKey || event.metaKey) {
 
