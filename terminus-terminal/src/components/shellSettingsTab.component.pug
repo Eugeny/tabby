@@ -14,9 +14,8 @@ h3.mb-3 Shell
             [ngValue]='shell.id'
         ) {{shell.name}}
 
-.alert.alert-info.d-flex.align-items-center(*ngIf='config.store.terminal.shell.startsWith("wsl")')
-    .mr-auto WSL terminal only supports 16 colors until ConPTY is implemented in node-pty
-    button.btn.btn-secondary((click)='openConPtyInfo()') More Information
+.alert.alert-info.d-flex.align-items-center(*ngIf='config.store.terminal.shell.startsWith("wsl") && config.store.terminal.frontend != "xterm"')
+    .mr-auto WSL terminal only supports TrueColor with the xterm frontend
 
 .form-line(*ngIf='config.store.terminal.shell == "custom"')
     .header
