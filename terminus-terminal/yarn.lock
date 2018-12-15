@@ -2,6 +2,13 @@
 # yarn lockfile v1
 
 
+"@terminus-term/node-pty@0.7.8":
+  version "0.7.8"
+  resolved "https://registry.yarnpkg.com/@terminus-term/node-pty/-/node-pty-0.7.8.tgz#32cf62c3dcd8937997b3ec137d4907ed015c7295"
+  integrity sha512-jqo0wcF/f3wiNd1fseEDgmSR5T83t/vhVzAqmuhNSkcG0tRGRD/o68JEGcqUQukvE9SkmJc4nDDfh6FmgSVi5g==
+  dependencies:
+    nan "2.10.0"
+
 "@terminus-term/xterm@3.8.4":
   version "3.8.4"
   resolved "https://registry.yarnpkg.com/@terminus-term/xterm/-/xterm-3.8.4.tgz#c9a9d9e0d46dbd8a94e06384e2d7268d36f5b0c6"
@@ -128,15 +135,14 @@ mz@^2.6.0:
     object-assign "^4.0.1"
     thenify-all "^1.0.0"
 
+nan@2.10.0:
+  version "2.10.0"
+  resolved "https://registry.yarnpkg.com/nan/-/nan-2.10.0.tgz#96d0cd610ebd58d4b4de9cc0c6828cda99c7548f"
+  integrity sha512-bAdJv7fBLhWC+/Bls0Oza+mvTaNQtP+1RyhhhvD95pgUJz6XM5IzgmxOkItJ9tkoCiplvAnXI1tNmmUD/eScyA==
+
 nan@>=2.10.0, nan@^2.10.0:
   version "2.11.1"
   resolved "https://registry.yarnpkg.com/nan/-/nan-2.11.1.tgz#90e22bccb8ca57ea4cd37cc83d3819b52eea6766"
-
-node-pty-tmp@0.7.2:
-  version "0.7.2"
-  resolved "https://registry.yarnpkg.com/node-pty-tmp/-/node-pty-tmp-0.7.2.tgz#d1528245a46ab193c54e34792ee0b89d0f557417"
-  dependencies:
-    nan "^2.10.0"
 
 object-assign@^4.0.1:
   version "4.1.1"

@@ -40,12 +40,12 @@
     "terminus-settings": "*"
   },
   "dependencies": {
+    "@terminus-term/node-pty": "0.7.8",
     "@types/async-lock": "0.0.19",
     "async-lock": "^1.0.0",
     "font-manager": "0.3.0",
     "hterm-umdjs": "1.4.1",
     "mz": "^2.6.0",
-    "node-pty-tmp": "0.7.2",
     "ps-node": "^0.1.6",
     "runes": "^0.4.2"
   },

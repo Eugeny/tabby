@@ -261,7 +261,7 @@ export class SessionsService {
         private config: ConfigService,
         log: LogService,
     ) {
-        nodePTY = require('node-pty-tmp')
+        nodePTY = require('@terminus-term/node-pty')
         nodePTY = require('../bufferizedPTY')(nodePTY)
         this.logger = log.create('sessions')
         this.persistenceProviders = this.config.enabledServices(this.persistenceProviders).filter(x => x.isAvailable())
