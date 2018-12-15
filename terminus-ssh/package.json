@@ -36,7 +36,8 @@
   },
   "optionalDependencies": {
     "wincredmgr": "^2.0.0",
-    "xkeychain": "^0.0.6"
+    "xkeychain": "^0.0.6",
+    "windows-process-tree": "^0.2.3"
   },
   "dependencies": {
     "ssh2": "^0.5.5"

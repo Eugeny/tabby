@@ -11,6 +11,12 @@ import { PromptModalComponent } from '../components/promptModal.component'
 import { PasswordStorageService } from './passwordStorage.service'
 const { SSH2Stream } = require('ssh2-streams')
 
+let windowsProcessTree
+try {
+    windowsProcessTree = require('windows-process-tree/build/Release/windows_process_tree.node')
+} catch (e) {
+} // tslint:disable-line
+
 @Injectable()
 export class SSHService {
     private logger: Logger
@@ -67,7 +73,7 @@ export class SSHService {
         let ssh = new Client()
         let connected = false
         let savedPassword: string = null
-        await new Promise((resolve, reject) => {
+        await new Promise(async (resolve, reject) => {
             ssh.on('ready', () => {
                 connected = true
                 if (savedPassword) {
@@ -99,7 +105,14 @@ export class SSHService {
 
             let agent: string = null
             if (this.hostApp.platform === Platform.Windows) {
-                agent = 'pageant'
+                let pageantRunning = new Promise<boolean>(resolve => {
+                    windowsProcessTree.getProcessList(list => {
+                        resolve(list.some(x => x.name === 'pageant.exe'))
+                    }, 0)
+                })
+                if (await pageantRunning) {
+                    agent = 'pageant'
+                }
             } else {
                 agent = process.env.SSH_AUTH_SOCK
             }
