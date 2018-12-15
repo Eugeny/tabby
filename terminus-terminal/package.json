@@ -25,7 +25,7 @@
     "dataurl": "0.1.0",
     "deep-equal": "1.0.1",
     "file-loader": "^0.11.2",
-    "rage-edit-tmp": "^1.1.0",
+    "rage-edit": "1.2.0",
     "uuid": "^3.3.2",
     "xterm-addon-ligatures-tmp": "^0.1.0-beta-1"
   },

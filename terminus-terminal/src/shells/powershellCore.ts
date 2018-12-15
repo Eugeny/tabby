@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { Registry } from 'rage-edit-tmp'
+import { Registry } from 'rage-edit'
 import { HostAppService, Platform } from 'terminus-core'
 import { ShellProvider, IShell } from '../api'
 

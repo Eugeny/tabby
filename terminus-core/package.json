@@ -27,7 +27,7 @@
     "electron-updater": "^2.8.9",
     "ng2-dnd": "^5.0.2",
     "ngx-perfect-scrollbar": "^6.0.0",
-    "rage-edit-tmp": "^1.1.0",
+    "rage-edit": "^1.2.0",
     "shell-escape": "^0.2.0",
     "universal-analytics": "^0.4.17"
   },
