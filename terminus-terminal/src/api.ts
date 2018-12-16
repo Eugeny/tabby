@@ -1,4 +1,3 @@
-import { Observable } from 'rxjs'
 import { TerminalTabComponent } from './components/terminalTab.component'
 
 export abstract class TerminalDecorator {
