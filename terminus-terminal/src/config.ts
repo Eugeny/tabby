@@ -59,7 +59,6 @@ export class TerminalConfigProvider extends ConfigProvider {
             terminal: {
                 font: 'Menlo',
                 shell: 'default',
-                persistence: 'screen',
             },
             hotkeys: {
                 'ctrl-c': ['Ctrl-C'],
@@ -100,7 +99,6 @@ export class TerminalConfigProvider extends ConfigProvider {
             terminal: {
                 font: 'Consolas',
                 shell: 'clink',
-                persistence: null,
                 rightClick: 'paste',
                 copyOnSelect: true,
             },
@@ -143,7 +141,6 @@ export class TerminalConfigProvider extends ConfigProvider {
             terminal: {
                 font: 'Liberation Mono',
                 shell: 'default',
-                persistence: 'tmux',
             },
             hotkeys: {
                 'ctrl-c': ['Ctrl-C'],

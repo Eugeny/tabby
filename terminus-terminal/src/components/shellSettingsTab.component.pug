@@ -27,20 +27,6 @@ h3.mb-3 Shell
         (ngModelChange)='config.save()',
     )
 
-.form-line(*ngIf='persistenceProviders.length > 0')
-    .header
-        .title Session persistence
-        .description Restores tabs when Terminus is restarted
-    select.form-control(
-        [(ngModel)]='config.store.terminal.persistence',
-        (ngModelChange)='config.save()',
-    )
-        option([ngValue]='null') Off
-        option(
-            *ngFor='let provider of persistenceProviders',
-            [ngValue]='provider.id'
-        ) {{provider.displayName}}
-
 .form-line
     .header
         .title Working directory

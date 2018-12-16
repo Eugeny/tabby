@@ -1,14 +1,13 @@
 import { Component, Inject } from '@angular/core'
 import { Subscription } from 'rxjs'
 import { ConfigService, ElectronService } from 'terminus-core'
-import { IShell, ShellProvider, SessionPersistenceProvider } from '../api'
+import { IShell, ShellProvider } from '../api'
 
 @Component({
     template: require('./shellSettingsTab.component.pug'),
 })
 export class ShellSettingsTabComponent {
     shells: IShell[] = []
-    persistenceProviders: SessionPersistenceProvider[]
 
     environmentVars: {key: string, value: string}[] = []
     private configSubscription: Subscription
@@ -17,10 +16,7 @@ export class ShellSettingsTabComponent {
         public config: ConfigService,
         private electron: ElectronService,
         @Inject(ShellProvider) private shellProviders: ShellProvider[],
-        @Inject(SessionPersistenceProvider) persistenceProviders: SessionPersistenceProvider[],
     ) {
-        this.persistenceProviders = this.config.enabledServices(persistenceProviders).filter(x => x.isAvailable())
-
         config.store.terminal.environment = config.store.terminal.environment || {}
         this.reloadEnvironment()
         this.configSubscription = config.changed$.subscribe(() => this.reloadEnvironment())

@@ -19,13 +19,18 @@ export class TabRecoveryService {
         app.tabsChanged$.subscribe(() => {
             this.saveTabs(app.tabs)
         })
+        setInterval(() => {
+            this.saveTabs(app.tabs)
+        }, 30000)
     }
 
-    saveTabs (tabs: BaseTabComponent[]) {
+    async saveTabs (tabs: BaseTabComponent[]) {
         window.localStorage.tabsRecovery = JSON.stringify(
-            tabs
-                .map((tab) => tab.getRecoveryToken())
-                .filter((token) => !!token)
+            await Promise.all(
+                tabs
+                    .map(tab => tab.getRecoveryToken())
+                    .filter(token => !!token)
+            )
         )
     }
 

@@ -80,7 +80,7 @@ export class SettingsTabComponent extends BaseTabComponent {
         this.isShellIntegrationInstalled = await this.shellIntegration.isInstalled()
     }
 
-    getRecoveryToken (): any {
+    async getRecoveryToken (): Promise<any> {
         return { type: 'app:settings' }
     }
 

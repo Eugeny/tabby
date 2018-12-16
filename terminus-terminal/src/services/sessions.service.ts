@@ -3,11 +3,11 @@ let nodePTY
 import * as fs from 'mz/fs'
 import { Observable, Subject } from 'rxjs'
 import { first } from 'rxjs/operators'
-import { Injectable, Inject } from '@angular/core'
+import { Injectable } from '@angular/core'
 import { Logger, LogService, ConfigService } from 'terminus-core'
 import { exec } from 'mz/child_process'
 
-import { SessionOptions, SessionPersistenceProvider } from '../api'
+import { SessionOptions } from '../api'
 
 let macOSNativeProcessList
 try {
@@ -29,7 +29,6 @@ export interface IChildProcess {
 export abstract class BaseSession {
     open: boolean
     name: string
-    recoveryId: string
     truePID: number
     protected output = new Subject<string>()
     protected closed = new Subject<void>()
@@ -78,14 +77,18 @@ export class Session extends BaseSession {
     private pty: any
     private pauseAfterExit = false
 
+    constructor (private config: ConfigService) {
+        super()
+    }
+
     start (options: SessionOptions) {
         this.name = options.name
-        this.recoveryId = options.recoveryId
 
         let env = {
             ...process.env,
             TERM: 'xterm-256color',
             ...options.env,
+            ...this.config.store.terminal.environment || {},
         }
 
         if (process.platform === 'darwin' && !process.env.LC_ALL) {
@@ -107,13 +110,7 @@ export class Session extends BaseSession {
             env: env,
         })
 
-        if (options.recoveredTruePID$) {
-            options.recoveredTruePID$.subscribe(pid => {
-                this.truePID = pid
-            })
-        } else {
-            this.truePID = (this.pty as any).pid
-        }
+        this.truePID = (this.pty as any).pid
 
         setTimeout(async () => {
             // Retrieve any possible single children now that shell has fully started
@@ -257,52 +254,21 @@ export class SessionsService {
     private lastID = 0
 
     constructor (
-        @Inject(SessionPersistenceProvider) private persistenceProviders: SessionPersistenceProvider[],
-        private config: ConfigService,
         log: LogService,
     ) {
         nodePTY = require('@terminus-term/node-pty')
         nodePTY = require('../bufferizedPTY')(nodePTY)
         this.logger = log.create('sessions')
-        this.persistenceProviders = this.config.enabledServices(this.persistenceProviders).filter(x => x.isAvailable())
-    }
-
-    async prepareNewSession (options: SessionOptions): Promise<SessionOptions> {
-        let persistence = this.getPersistence()
-        if (persistence) {
-            let recoveryId = await persistence.startSession(options)
-            options = await persistence.attachSession(recoveryId)
-        }
-        return options
     }
 
     addSession (session: BaseSession, options: SessionOptions) {
         this.lastID++
         options.name = `session-${this.lastID}`
         session.start(options)
-        let persistence = this.getPersistence()
         session.destroyed$.pipe(first()).subscribe(() => {
             delete this.sessions[session.name]
-            if (persistence) {
-                persistence.terminateSession(session.recoveryId)
-            }
         })
         this.sessions[session.name] = session
         return session
-    }
-
-    async recover (recoveryId: string): Promise<SessionOptions> {
-        let persistence = this.getPersistence()
-        if (persistence) {
-            return await persistence.attachSession(recoveryId)
-        }
-        return null
-    }
-
-    private getPersistence (): SessionPersistenceProvider {
-        if (!this.config.store.terminal.persistence) {
-            return null
-        }
-        return this.persistenceProviders.find(x => x.id === this.config.store.terminal.persistence) || null
     }
 }

@@ -21,11 +21,9 @@ import { SessionsService, BaseSession } from './services/sessions.service'
 import { TerminalFrontendService } from './services/terminalFrontend.service'
 import { TerminalService } from './services/terminal.service'
 
-import { ScreenPersistenceProvider } from './persistence/screen'
-import { TMuxPersistenceProvider } from './persistence/tmux'
 import { ButtonProvider } from './buttonProvider'
 import { RecoveryProvider } from './recoveryProvider'
-import { SessionPersistenceProvider, TerminalColorSchemeProvider, TerminalDecorator, ShellProvider } from './api'
+import { TerminalColorSchemeProvider, TerminalDecorator, ShellProvider } from './api'
 import { TerminalSettingsTabProvider, AppearanceSettingsTabProvider, ShellSettingsTabProvider } from './settings'
 import { PathDropDecorator } from './pathDrop'
 import { TerminalConfigProvider } from './config'
@@ -70,9 +68,6 @@ import { hterm } from './hterm'
         { provide: HotkeyProvider, useClass: TerminalHotkeyProvider, multi: true },
         { provide: TerminalColorSchemeProvider, useClass: HyperColorSchemes, multi: true },
         { provide: TerminalDecorator, useClass: PathDropDecorator, multi: true },
-
-        { provide: SessionPersistenceProvider, useClass: ScreenPersistenceProvider, multi: true },
-        { provide: SessionPersistenceProvider, useClass: TMuxPersistenceProvider, multi: true },
 
         { provide: ShellProvider, useClass: WindowsDefaultShellProvider, multi: true },
         { provide: ShellProvider, useClass: MacOSDefaultShellProvider, multi: true },

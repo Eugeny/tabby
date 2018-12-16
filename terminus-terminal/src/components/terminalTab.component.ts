@@ -61,7 +61,7 @@ export class TerminalTabComponent extends BaseTabComponent {
         this.decorators = this.decorators || []
         this.setTitle('Terminal')
 
-        this.session = new Session()
+        this.session = new Session(this.config)
 
         this.hotkeysSubscription = this.hotkeys.matchedHotkey.subscribe(hotkey => {
             if (!this.hasFocus) {
@@ -143,10 +143,14 @@ export class TerminalTabComponent extends BaseTabComponent {
         })
     }
 
-    getRecoveryToken (): any {
+    async getRecoveryToken (): Promise<any> {
+        let cwd = this.session ? await this.session.getWorkingDirectory() : null
         return {
-            type: 'app:terminal',
-            recoveryId: this.sessionOptions.recoveryId,
+            type: 'app:terminal-tab',
+            sessionOptions: {
+                ...this.sessionOptions,
+                cwd: cwd || this.sessionOptions.cwd,
+            },
         }
     }
 
