@@ -22,6 +22,7 @@ import { EditProfileModalComponent } from './components/editProfileModal.compone
 import { SessionsService, BaseSession } from './services/sessions.service'
 import { TerminalFrontendService } from './services/terminalFrontend.service'
 import { TerminalService } from './services/terminal.service'
+import { DockMenuService } from './services/dockMenu.service'
 
 import { ButtonProvider } from './buttonProvider'
 import { RecoveryProvider } from './recoveryProvider'
@@ -59,6 +60,7 @@ import { hterm } from './hterm'
         SessionsService,
         TerminalFrontendService,
         TerminalService,
+        DockMenuService,
 
         { provide: SettingsTabProvider, useClass: AppearanceSettingsTabProvider, multi: true },
         { provide: SettingsTabProvider, useClass: ShellSettingsTabProvider, multi: true },
@@ -115,6 +117,7 @@ export default class TerminalModule {
         hotkeys: HotkeysService,
         terminal: TerminalService,
         hostApp: HostAppService,
+        dockMenu: DockMenuService,
     ) {
         let events = [
             {
@@ -183,6 +186,8 @@ export default class TerminalModule {
                 hostApp.bringToFront()
             }
         })
+
+        dockMenu.update()
     }
 }
 
