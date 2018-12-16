@@ -164,6 +164,7 @@ export default class TerminalModule {
                 }
             }
         })
+
         hostApp.cliOpenDirectory$.subscribe(async directory => {
             if (await fs.exists(directory)) {
                 if ((await fs.stat(directory)).isDirectory()) {
@@ -172,6 +173,7 @@ export default class TerminalModule {
                 }
             }
         })
+
         hostApp.cliRunCommand$.subscribe(async command => {
             terminal.openTab({
                 id: '',
@@ -180,11 +182,22 @@ export default class TerminalModule {
             }, null, true)
             hostApp.bringToFront()
         })
+
         hostApp.cliPaste$.subscribe(text => {
             if (app.activeTab instanceof TerminalTabComponent && app.activeTab.session) {
                 (app.activeTab as TerminalTabComponent).sendInput(text)
                 hostApp.bringToFront()
             }
+        })
+
+        hostApp.cliOpenProfile$.subscribe(async profileName => {
+            let profile = config.store.terminal.profiles.find(x => x.name === profileName)
+            if (!profile) {
+                console.error('Requested profile', profileName, 'not found')
+                return
+            }
+            terminal.openTabWithOptions(profile.sessionOptions)
+            hostApp.bringToFront()
         })
 
         dockMenu.update()

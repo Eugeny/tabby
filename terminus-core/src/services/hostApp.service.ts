@@ -27,6 +27,7 @@ export class HostAppService {
     private cliOpenDirectory = new Subject<string>()
     private cliRunCommand = new Subject<string[]>()
     private cliPaste = new Subject<string>()
+    private cliOpenProfile = new Subject<string>()
     private configChangeBroadcast = new Subject<void>()
     private windowCloseRequest = new Subject<void>()
     private logger: Logger
@@ -37,6 +38,7 @@ export class HostAppService {
     get cliOpenDirectory$ (): Observable<string> { return this.cliOpenDirectory }
     get cliRunCommand$ (): Observable<string[]> { return this.cliRunCommand }
     get cliPaste$ (): Observable<string> { return this.cliPaste }
+    get cliOpenProfile$ (): Observable<string> { return this.cliOpenProfile }
     get configChangeBroadcast$ (): Observable<void> { return this.configChangeBroadcast }
     get windowCloseRequest$ (): Observable<void> { return this.windowCloseRequest }
 
@@ -91,6 +93,8 @@ export class HostAppService {
                     text = shellEscape([text])
                 }
                 this.cliPaste.next(text)
+            } else if (op === 'profile') {
+                this.cliOpenProfile.next(argv.profileName)
             } else {
                 this.secondInstance.next()
             }

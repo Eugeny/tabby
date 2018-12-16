@@ -13,6 +13,9 @@ export function parseArgs (argv, cwd) {
         .command('run [command...]', 'run a command in the terminal', {
             command: { type: 'string' },
         })
+        .command('profile [profileName]', 'open a tab with specified profile', {
+            profileName: { type: 'string' },
+        })
         .command('paste [text]', 'paste stdin into the active tab', yargs => {
             return yargs.option('escape', {
                 alias: 'e',
