@@ -1,0 +1,26 @@
+.modal-body
+    .form-group
+        label Name
+        input.form-control(
+            type='text', 
+            autofocus, 
+            [(ngModel)]='profile.name', 
+        )
+
+    .form-group
+        label Command
+        input.form-control(
+            type='text', 
+            [(ngModel)]='profile.sessionOptions.command', 
+        )
+
+    .form-group
+        label Working directory
+        input.form-control(
+            type='text', 
+            [(ngModel)]='profile.sessionOptions.cwd', 
+        )
+
+.modal-footer
+    button.btn.btn-outline-primary((click)='save()') Save
+    button.btn.btn-outline-danger((click)='cancel()') Cancel

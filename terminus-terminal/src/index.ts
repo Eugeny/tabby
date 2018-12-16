@@ -17,6 +17,7 @@ import { ProfilesSettingsTabComponent } from './components/profilesSettingsTab.c
 import { TerminalTabComponent } from './components/terminalTab.component'
 import { TerminalSettingsTabComponent } from './components/terminalSettingsTab.component'
 import { ColorPickerComponent } from './components/colorPicker.component'
+import { EditProfileModalComponent } from './components/editProfileModal.component'
 
 import { SessionsService, BaseSession } from './services/sessions.service'
 import { TerminalFrontendService } from './services/terminalFrontend.service'
@@ -95,6 +96,7 @@ import { hterm } from './hterm'
         ShellSettingsTabComponent,
         ProfilesSettingsTabComponent,
         TerminalSettingsTabComponent,
+        EditProfileModalComponent,
     ],
     declarations: [
         ColorPickerComponent,
@@ -103,6 +105,7 @@ import { hterm } from './hterm'
         ShellSettingsTabComponent,
         ProfilesSettingsTabComponent,
         TerminalSettingsTabComponent,
+        EditProfileModalComponent,
     ],
 })
 export default class TerminalModule {
