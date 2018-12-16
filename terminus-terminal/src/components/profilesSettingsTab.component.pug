@@ -1,0 +1,14 @@
+h3 Saved Profiles
+
+.list-group.mt-3.mb-3
+    .list-group-item.list-item-group-action.d-flex.align-items-center(
+        *ngFor='let profile of profiles',
+        (click)='editProfile(profile)',
+    ) 
+        .mr-auto
+            div {{profile.name}}
+            .text-muted {{profile.description}}
+        button.btn.btn-outline-danger.ml-1((click)='$event.stopPropagation(); deleteProfile(profile)')
+            i.fa.fa-trash-o
+                    
+.text-muted To add a new profile, right-click a tab and select "Save as a profile"

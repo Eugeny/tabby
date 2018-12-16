@@ -4,6 +4,7 @@ import { SettingsTabProvider } from 'terminus-settings'
 import { AppearanceSettingsTabComponent } from './components/appearanceSettingsTab.component'
 import { ShellSettingsTabComponent } from './components/shellSettingsTab.component'
 import { TerminalSettingsTabComponent } from './components/terminalSettingsTab.component'
+import { ProfilesSettingsTabComponent } from './components/profilesSettingsTab.component'
 
 @Injectable()
 export class AppearanceSettingsTabProvider extends SettingsTabProvider {
@@ -32,5 +33,15 @@ export class TerminalSettingsTabProvider extends SettingsTabProvider {
 
     getComponentType (): any {
         return TerminalSettingsTabComponent
+    }
+}
+
+@Injectable()
+export class ProfilesSettingsTabProvider extends SettingsTabProvider {
+    id = 'profiles'
+    title = 'Profiles'
+
+    getComponentType (): any {
+        return ProfilesSettingsTabComponent
     }
 }

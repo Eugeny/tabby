@@ -4,7 +4,6 @@ import { ToastrService } from 'ngx-toastr'
 import { Component, NgZone, Inject, Optional, ViewChild, HostBinding, Input } from '@angular/core'
 import { AppService, ConfigService, BaseTabComponent, BaseTabProcess, ElectronService, HostAppService, HotkeysService, Platform } from 'terminus-core'
 
-import { IShell } from '../api'
 import { Session, SessionsService } from '../services/sessions.service'
 import { TerminalService } from '../services/terminal.service'
 import { TerminalFrontendService } from '../services/terminalFrontend.service'
@@ -33,10 +32,8 @@ export class TerminalTabComponent extends BaseTabComponent {
     sessionCloseSubscription: Subscription
     hotkeysSubscription: Subscription
     htermVisible = false
-    shell: IShell
     private output = new Subject<string>()
     private bellPlayer: HTMLAudioElement
-    private contextMenu: any
     private termContainerSubscriptions: Subscription[] = []
 
     get input$ (): Observable<string> { return this.frontend.input$ }
@@ -203,14 +200,28 @@ export class TerminalTabComponent extends BaseTabComponent {
             }
         })
 
-        this.contextMenu = [
+        this.frontend.focus()
+    }
+
+    buildContextMenu (): Electron.MenuItemConstructorOptions[] {
+        return [
             {
                 label: 'New terminal',
-                click: () => {
-                    this.zone.run(() => {
-                        this.terminalService.openTab(this.shell)
-                    })
-                }
+                click: () => this.zone.run(() => {
+                    this.terminalService.openTabWithOptions(this.sessionOptions)
+                })
+            },
+            {
+                label: 'New from profile',
+                submenu: this.config.store.terminal.profiles.length ? this.config.store.terminal.profiles.map(profile => ({
+                    label: profile.name,
+                    click: () => this.zone.run(() => {
+                        this.terminalService.openTabWithOptions(profile.sessionOptions)
+                    }),
+                })) : [{
+                    label: 'No profiles saved',
+                    enabled: false,
+                }],
             },
             {
                 label: 'Copy',
@@ -232,8 +243,6 @@ export class TerminalTabComponent extends BaseTabComponent {
                 }
             },
         ]
-
-        this.frontend.focus()
     }
 
     detachTermContainerHandlers () {
@@ -255,7 +264,7 @@ export class TerminalTabComponent extends BaseTabComponent {
                 if (event.type === 'mousedown') {
                     if (event.which === 3) {
                         if (this.config.store.terminal.rightClick === 'menu') {
-                            this.hostApp.popupContextMenu(this.contextMenu)
+                            this.hostApp.popupContextMenu(this.buildContextMenu())
                         } else if (this.config.store.terminal.rightClick === 'paste') {
                             this.paste()
                         }
@@ -399,5 +408,21 @@ export class TerminalTabComponent extends BaseTabComponent {
             return true
         }
         return confirm(`"${children[0].command}" is still running. Close?`)
+    }
+
+    async saveAsProfile () {
+        let profile = {
+            sessionOptions: {
+                ...this.sessionOptions,
+                cwd: (await this.session.getWorkingDirectory()) || this.sessionOptions.cwd,
+            },
+            name: this.sessionOptions.command,
+        }
+        this.config.store.terminal.profiles = [
+            ...this.config.store.terminal.profiles,
+            profile,
+        ]
+        this.config.save()
+        this.toastr.info('Saved')
     }
 }

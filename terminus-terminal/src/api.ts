@@ -23,6 +23,11 @@ export interface SessionOptions {
     pauseAfterExit?: boolean
 }
 
+export interface Profile {
+    name: string,
+    sessionOptions: SessionOptions,
+}
+
 export interface ITerminalColorScheme {
     name: string
     foreground: string

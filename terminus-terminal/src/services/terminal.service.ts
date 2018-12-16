@@ -1,7 +1,7 @@
 import { Observable, AsyncSubject } from 'rxjs'
 import { Injectable, Inject } from '@angular/core'
 import { AppService, Logger, LogService, ConfigService } from 'terminus-core'
-import { IShell, ShellProvider } from '../api'
+import { IShell, ShellProvider, SessionOptions } from '../api'
 import { TerminalTabComponent } from '../components/terminalTab.component'
 
 @Injectable()
@@ -60,11 +60,15 @@ export class TerminalService {
             pauseAfterExit: pause,
         }
 
+        return this.openTabWithOptions(sessionOptions)
+    }
+
+    openTabWithOptions (sessionOptions: SessionOptions): TerminalTabComponent {
         this.logger.log('Using session options:', sessionOptions)
 
         return this.app.openNewTab(
             TerminalTabComponent,
-            { sessionOptions, shell }
+            { sessionOptions }
         ) as TerminalTabComponent
     }
 }

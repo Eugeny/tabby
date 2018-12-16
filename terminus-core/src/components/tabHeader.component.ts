@@ -111,6 +111,13 @@ export class TabHeaderComponent {
                 }
             ])
 
+            if ((this.tab as any).saveAsProfile) {
+                contextMenu.append(new this.electron.MenuItem({
+                    label: 'Save as a profile',
+                    click: () => this.zone.run(() => (this.tab as any).saveAsProfile())
+                }))
+            }
+
             let process = await this.tab.getCurrentProcess()
             if (process) {
                 contextMenu.append(new this.electron.MenuItem({
