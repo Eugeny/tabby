@@ -12,12 +12,12 @@ import { ToolbarButtonProvider, TabRecoveryProvider, ConfigProvider, HotkeysServ
 import { SettingsTabProvider } from 'terminus-settings'
 
 import { AppearanceSettingsTabComponent } from './components/appearanceSettingsTab.component'
-import { ShellSettingsTabComponent } from './components/shellSettingsTab.component'
-import { ProfilesSettingsTabComponent } from './components/profilesSettingsTab.component'
 import { TerminalTabComponent } from './components/terminalTab.component'
+import { ShellSettingsTabComponent } from './components/shellSettingsTab.component'
 import { TerminalSettingsTabComponent } from './components/terminalSettingsTab.component'
 import { ColorPickerComponent } from './components/colorPicker.component'
 import { EditProfileModalComponent } from './components/editProfileModal.component'
+import { EnvironmentEditorComponent } from './components/environmentEditor.component'
 
 import { SessionsService, BaseSession } from './services/sessions.service'
 import { TerminalFrontendService } from './services/terminalFrontend.service'
@@ -27,7 +27,7 @@ import { DockMenuService } from './services/dockMenu.service'
 import { ButtonProvider } from './buttonProvider'
 import { RecoveryProvider } from './recoveryProvider'
 import { TerminalColorSchemeProvider, TerminalDecorator, ShellProvider } from './api'
-import { TerminalSettingsTabProvider, AppearanceSettingsTabProvider, ShellSettingsTabProvider, ProfilesSettingsTabProvider } from './settings'
+import { TerminalSettingsTabProvider, AppearanceSettingsTabProvider, ShellSettingsTabProvider } from './settings'
 import { PathDropDecorator } from './pathDrop'
 import { TerminalConfigProvider } from './config'
 import { TerminalHotkeyProvider } from './hotkeys'
@@ -64,7 +64,6 @@ import { hterm } from './hterm'
 
         { provide: SettingsTabProvider, useClass: AppearanceSettingsTabProvider, multi: true },
         { provide: SettingsTabProvider, useClass: ShellSettingsTabProvider, multi: true },
-        { provide: SettingsTabProvider, useClass: ProfilesSettingsTabProvider, multi: true },
         { provide: SettingsTabProvider, useClass: TerminalSettingsTabProvider, multi: true },
 
         { provide: ToolbarButtonProvider, useClass: ButtonProvider, multi: true },
@@ -96,7 +95,6 @@ import { hterm } from './hterm'
         TerminalTabComponent,
         AppearanceSettingsTabComponent,
         ShellSettingsTabComponent,
-        ProfilesSettingsTabComponent,
         TerminalSettingsTabComponent,
         EditProfileModalComponent,
     ],
@@ -105,9 +103,13 @@ import { hterm } from './hterm'
         TerminalTabComponent,
         AppearanceSettingsTabComponent,
         ShellSettingsTabComponent,
-        ProfilesSettingsTabComponent,
         TerminalSettingsTabComponent,
         EditProfileModalComponent,
+        EnvironmentEditorComponent,
+    ],
+    exports: [
+        ColorPickerComponent,
+        EnvironmentEditorComponent,
     ],
 })
 export default class TerminalModule {

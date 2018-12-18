@@ -21,6 +21,13 @@
             [(ngModel)]='profile.sessionOptions.cwd', 
         )
 
+    .form-group
+        label Environment
+        environment-editor(
+            type='text', 
+            [(model)]='profile.sessionOptions.env', 
+        )
+
 .modal-footer
     button.btn.btn-outline-primary((click)='save()') Save
     button.btn.btn-outline-danger((click)='cancel()') Cancel

@@ -13,6 +13,10 @@ export class EditProfileModalComponent {
     ) {
     }
 
+    ngOnInit () {
+        this.profile.sessionOptions.env = this.profile.sessionOptions.env || {}
+    }
+
     save () {
         this.modalInstance.close(this.profile)
     }

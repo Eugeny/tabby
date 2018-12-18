@@ -53,14 +53,20 @@ export class TerminalService {
 
         this.logger.log(`Starting shell ${shell.name}`, shell)
         let sessionOptions = {
-            command: shell.command,
-            args: shell.args || [],
-            cwd,
-            env: shell.env,
+            ...this.optionsFromShell(shell),
             pauseAfterExit: pause,
+            cwd,
         }
 
         return this.openTabWithOptions(sessionOptions)
+    }
+
+    optionsFromShell (shell: IShell) {
+        return {
+            command: shell.command,
+            args: shell.args || [],
+            env: shell.env,
+        }
     }
 
     openTabWithOptions (sessionOptions: SessionOptions): TerminalTabComponent {

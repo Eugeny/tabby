@@ -27,4 +27,6 @@
                 .list-group-item.list-group-item-action.pl-5.d-flex.align-items-center(
                     *ngFor='let connection of group.connections', 
                     (click)='connect(connection)'
-                ) {{connection.name}}
+                ) 
+                    .mr-2 {{connection.name}}
+                    .text-muted {{connection.host}}
