@@ -11,6 +11,8 @@ hotkeys:
   toggle-last-tab:
     - ['Ctrl-A', 'A']
     - ['Ctrl-A', 'Ctrl-A']
+  rename-tab:
+    - 'Ctrl-Shift-R'
   next-tab:
     - 'Ctrl-Shift-ArrowRight'
     - ['Ctrl-A', 'N']

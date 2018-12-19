@@ -16,6 +16,7 @@ export class RenameTabModalComponent {
     ngOnInit () {
         setTimeout(() => {
             this.input.nativeElement.focus()
+            this.input.nativeElement.select()
         }, 250)
     }
 
