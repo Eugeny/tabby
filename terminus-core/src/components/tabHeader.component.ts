@@ -63,10 +63,6 @@ export class TabHeaderComponent {
     showRenameTabModal (): void {
         let modal = this.ngbModal.open(RenameTabModalComponent)
         modal.componentInstance.value = this.tab.customTitle || this.tab.title
-        setTimeout(() => {
-            const inputElement = modal.componentInstance.input.nativeElement as HTMLInputElement
-            inputElement.select()
-        }, 250)
         modal.result.then(result => {
             this.tab.setTitle(result)
             this.tab.customTitle = result
