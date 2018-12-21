@@ -14,8 +14,19 @@ h3.mb-3 Shell
             [ngValue]='shell.id'
         ) {{shell.name}}
 
-.alert.alert-info.d-flex.align-items-center(*ngIf='config.store.terminal.shell.startsWith("wsl") && config.store.terminal.frontend != "xterm"')
-    .mr-auto WSL terminal only supports TrueColor with the xterm frontend
+        
+.form-line(*ngIf='hostApp.platform === Platform.Windows')
+    .header
+        .title Use ConPTY
+        .description Enables the experimental Windows ConPTY API
+        
+    toggle(
+        [(ngModel)]='config.store.terminal.useConPTY',
+        (ngModelChange)='config.save()'
+    )
+    
+.alert.alert-info.d-flex.align-items-center(*ngIf='config.store.terminal.shell.startsWith("wsl") && (config.store.terminal.frontend != "hterm" || !config.store.terminal.useConPTY)')
+    .mr-auto WSL terminal only supports TrueColor with ConPTY and the xterm frontend
 
 .form-line(*ngIf='config.store.terminal.shell == "custom"')
     .header

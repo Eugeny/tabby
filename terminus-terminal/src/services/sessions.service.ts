@@ -108,6 +108,7 @@ export class Session extends BaseSession {
             rows: options.height || 30,
             cwd: options.cwd || process.env.HOME,
             env: env,
+            experimentalUseConpty: this.config.store.terminal.useConPTY,
         })
 
         this.truePID = (this.pty as any).pid

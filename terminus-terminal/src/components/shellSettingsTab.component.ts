@@ -1,6 +1,6 @@
 import { Component } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
-import { ConfigService, ElectronService } from 'terminus-core'
+import { ConfigService, ElectronService, HostAppService, Platform } from 'terminus-core'
 import { EditProfileModalComponent } from './editProfileModal.component'
 import { IShell, Profile } from '../api'
 import { TerminalService } from '../services/terminal.service'
@@ -11,9 +11,11 @@ import { TerminalService } from '../services/terminal.service'
 export class ShellSettingsTabComponent {
     shells: IShell[] = []
     profiles: Profile[] = []
+    Platform = Platform
 
     constructor (
         public config: ConfigService,
+        public hostApp: HostAppService,
         private electron: ElectronService,
         private terminalService: TerminalService,
         private ngbModal: NgbModal,

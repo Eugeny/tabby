@@ -52,6 +52,7 @@ export class TerminalConfigProvider extends ConfigProvider {
             customColorSchemes: [],
             environment: {},
             profiles: [],
+            useConPTY: true,
         },
     }
 
