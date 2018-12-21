@@ -5,7 +5,7 @@ import { HTermFrontend } from '../frontends/htermFrontend'
 import { XTermFrontend } from '../frontends/xtermFrontend'
 import { BaseSession } from '../services/sessions.service'
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class TerminalFrontendService {
     private containers = new WeakMap<BaseSession, Frontend>()
 

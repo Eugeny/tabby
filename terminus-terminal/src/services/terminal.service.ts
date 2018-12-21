@@ -4,7 +4,7 @@ import { AppService, Logger, LogService, ConfigService } from 'terminus-core'
 import { IShell, ShellProvider, SessionOptions } from '../api'
 import { TerminalTabComponent } from '../components/terminalTab.component'
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class TerminalService {
     private shells = new AsyncSubject<IShell[]>()
     private logger: Logger

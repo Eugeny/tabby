@@ -53,7 +53,7 @@ export class Logger {
     log (...args: any[]) { this.doLog('log', ...args) }
 }
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class LogService {
     private log: any
 

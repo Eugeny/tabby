@@ -19,7 +19,7 @@ import { ColorPickerComponent } from './components/colorPicker.component'
 import { EditProfileModalComponent } from './components/editProfileModal.component'
 import { EnvironmentEditorComponent } from './components/environmentEditor.component'
 
-import { SessionsService, BaseSession } from './services/sessions.service'
+import { BaseSession } from './services/sessions.service'
 import { TerminalFrontendService } from './services/terminalFrontend.service'
 import { TerminalService } from './services/terminal.service'
 import { DockMenuService } from './services/dockMenu.service'
@@ -57,11 +57,6 @@ import { hterm } from './hterm'
         TerminusCorePlugin,
     ],
     providers: [
-        SessionsService,
-        TerminalFrontendService,
-        TerminalService,
-        DockMenuService,
-
         { provide: SettingsTabProvider, useClass: AppearanceSettingsTabProvider, multi: true },
         { provide: SettingsTabProvider, useClass: ShellSettingsTabProvider, multi: true },
         { provide: SettingsTabProvider, useClass: TerminalSettingsTabProvider, multi: true },

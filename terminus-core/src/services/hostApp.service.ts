@@ -16,7 +16,7 @@ export interface Bounds {
     height: number
 }
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class HostAppService {
     platform: Platform
     nodePlatform: string

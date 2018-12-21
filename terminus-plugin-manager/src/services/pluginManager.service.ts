@@ -23,7 +23,7 @@ export interface IPluginInfo {
     path?: string
 }
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class PluginManagerService {
     logger: Logger
     builtinPluginsPath: string = (window as any).builtinPluginsPath

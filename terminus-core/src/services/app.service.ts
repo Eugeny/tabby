@@ -35,7 +35,7 @@ class CompletionObserver {
     }
 }
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class AppService {
     tabs: BaseTabComponent[] = []
     activeTab: BaseTabComponent

@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core'
 import { ElectronService } from './electron.service'
 import { HostAppService, Platform } from './hostApp.service'
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ShellIntegrationService {
     private automatorWorkflows = ['Open Terminus here.workflow', 'Paste path into Terminus.workflow']
     private automatorWorkflowsLocation: string

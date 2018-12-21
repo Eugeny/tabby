@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core'
 import { TouchBar, BrowserWindow, Menu, MenuItem } from 'electron'
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ElectronService {
     app: any
     ipcRenderer: any

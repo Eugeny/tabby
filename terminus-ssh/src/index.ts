@@ -11,8 +11,6 @@ import { EditConnectionModalComponent } from './components/editConnectionModal.c
 import { SSHModalComponent } from './components/sshModal.component'
 import { PromptModalComponent } from './components/promptModal.component'
 import { SSHSettingsTabComponent } from './components/sshSettingsTab.component'
-import { SSHService } from './services/ssh.service'
-import { PasswordStorageService } from './services/passwordStorage.service'
 
 import { ButtonProvider } from './buttonProvider'
 import { SSHConfigProvider } from './config'
@@ -27,8 +25,6 @@ import { SSHSettingsTabProvider } from './settings'
         TerminusCoreModule,
     ],
     providers: [
-        PasswordStorageService,
-        SSHService,
         { provide: ToolbarButtonProvider, useClass: ButtonProvider, multi: true },
         { provide: ConfigProvider, useClass: SSHConfigProvider, multi: true },
         { provide: SettingsTabProvider, useClass: SSHSettingsTabProvider, multi: true },

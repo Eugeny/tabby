@@ -6,19 +6,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { PerfectScrollbarModule, PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar'
 import { DndModule } from 'ng2-dnd'
 
-import { AppService } from './services/app.service'
-import { ConfigService } from './services/config.service'
-import { ElectronService } from './services/electron.service'
-import { HostAppService } from './services/hostApp.service'
-import { LogService } from './services/log.service'
-import { HomeBaseService } from './services/homeBase.service'
-import { HotkeysService, AppHotkeyProvider } from './services/hotkeys.service'
-import { DockingService } from './services/docking.service'
-import { ShellIntegrationService } from './services/shellIntegration.service'
-import { TabRecoveryService } from './services/tabRecovery.service'
-import { ThemesService } from './services/themes.service'
-import { TouchbarService } from './services/touchbar.service'
-import { UpdaterService } from './services/updater.service'
+import { AppHotkeyProvider } from './services/hotkeys.service'
 
 import { AppRootComponent } from './components/appRoot.component'
 import { CheckboxComponent } from './components/checkbox.component'
@@ -44,19 +32,6 @@ import 'perfect-scrollbar/css/perfect-scrollbar.css'
 import 'ng2-dnd/bundles/style.css'
 
 const PROVIDERS = [
-    AppService,
-    ConfigService,
-    DockingService,
-    ElectronService,
-    HomeBaseService,
-    HostAppService,
-    HotkeysService,
-    LogService,
-    ShellIntegrationService,
-    TabRecoveryService,
-    ThemesService,
-    TouchbarService,
-    UpdaterService,
     { provide: HotkeyProvider, useClass: AppHotkeyProvider, multi: true },
     { provide: Theme, useClass: StandardTheme, multi: true },
     { provide: Theme, useClass: StandardCompactTheme, multi: true },

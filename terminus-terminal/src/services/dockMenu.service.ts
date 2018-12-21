@@ -2,7 +2,7 @@ import { NgZone, Injectable } from '@angular/core'
 import { ElectronService, ConfigService, HostAppService, Platform } from 'terminus-core'
 import { TerminalService } from './terminal.service'
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class DockMenuService {
     appVersion: string
 

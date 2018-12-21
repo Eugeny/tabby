@@ -17,7 +17,7 @@ interface EventBufferEntry {
     time: number,
 }
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class HotkeysService {
     key = new EventEmitter<NativeKeyEvent>()
     matchedHotkey = new EventEmitter<string>()

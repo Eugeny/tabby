@@ -8,7 +8,7 @@ export interface IScreen {
     name: string
 }
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class DockingService {
     constructor (
         private electron: ElectronService,

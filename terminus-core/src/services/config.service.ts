@@ -74,7 +74,7 @@ export class ConfigProxy {
     setValue (key: string, value: any) { } // tslint:disable-line
 }
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ConfigService {
     store: any
     restartRequested: boolean

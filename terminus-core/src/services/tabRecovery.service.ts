@@ -5,7 +5,7 @@ import { Logger, LogService } from '../services/log.service'
 import { AppService } from '../services/app.service'
 import { ConfigService } from '../services/config.service'
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class TabRecoveryService {
     logger: Logger
 

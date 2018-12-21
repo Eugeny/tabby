@@ -22,7 +22,6 @@ import { PluginsSettingsTabProvider } from './settings'
     providers: [
         { provide: SettingsTabProvider, useClass: PluginsSettingsTabProvider, multi: true },
         { provide: ConfigProvider, useClass: PluginsConfigProvider, multi: true },
-        PluginManagerService,
     ],
     entryComponents: [
         PluginsSettingsTabComponent,
