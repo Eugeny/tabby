@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@terminus-term/node-pty@0.7.8":
-  version "0.7.8"
-  resolved "https://registry.yarnpkg.com/@terminus-term/node-pty/-/node-pty-0.7.8.tgz#32cf62c3dcd8937997b3ec137d4907ed015c7295"
-  integrity sha512-jqo0wcF/f3wiNd1fseEDgmSR5T83t/vhVzAqmuhNSkcG0tRGRD/o68JEGcqUQukvE9SkmJc4nDDfh6FmgSVi5g==
+"@terminus-term/node-pty@0.8.0-1":
+  version "0.8.0-1"
+  resolved "https://registry.yarnpkg.com/@terminus-term/node-pty/-/node-pty-0.8.0-1.tgz#3cb682f2351179842d195c074acf7d5b54e96ffe"
+  integrity sha512-mEP5zQC/yHtvCbYjdGmwzFkkdTqCe0Jfd1o35yzM9jfGrVpW9qlvo/ZrzyOLSH2tJlYRB5SqfdWlo/LVXrAEYA==
   dependencies:
     nan "2.10.0"
 
