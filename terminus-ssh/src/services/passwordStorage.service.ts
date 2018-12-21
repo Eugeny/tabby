@@ -1,6 +1,5 @@
 import { Injectable, NgZone } from '@angular/core'
 import { SSHConnection } from '../api'
-import SSHModule from '..'
 
 let xkeychain
 let wincredmgr
@@ -14,7 +13,7 @@ try {
     }
 }
 
-@Injectable({ providedIn: SSHModule })
+@Injectable({ providedIn: 'root' })
 export class PasswordStorageService {
     constructor (
         private zone: NgZone,

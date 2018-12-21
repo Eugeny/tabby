@@ -56,7 +56,7 @@
                         )
                         .input-group-btn
                             button.btn.btn-secondary((click)='selectPrivateKey()')
-                                i.fa.fa-folder-open
+                                i.fas.fa-folder-open
 
         ngb-tab(id='advanced')
             ng-template(ngbTabTitle)
@@ -119,11 +119,11 @@
                         td
                             .input-group.flex-nowrap
                                 button.btn.btn-outline-info.ml-0((click)='moveScriptUp(script)')
-                                    i.fa.fa-arrow-up
+                                    i.fas.fa-arrow-up
                                 button.btn.btn-outline-info.ml-0((click)='moveScriptDown(script)')
-                                    i.fa.fa-arrow-down
+                                    i.fas.fa-arrow-down
                                 button.btn.btn-outline-danger.ml-0((click)='deleteScript(script)')
-                                    i.fa.fa-trash-o
+                                    i.fas.fa-trash
                     tr
                         td
                             input.form-control(
@@ -148,9 +148,9 @@
                         td
                             .input-group.flex-nowrap
                                 button.btn.btn-outline-info.ml-0((click)='addScript()')
-                                    i.fa.fa-check
+                                    i.fas.fa-check
                                 button.btn.btn-outline-danger.ml-0((click)='clearScript()')
-                                    i.fa.fa-trash-o
+                                    i.fas.fa-trash
                     
 .modal-footer
     button.btn.btn-outline-primary((click)='save()') Save

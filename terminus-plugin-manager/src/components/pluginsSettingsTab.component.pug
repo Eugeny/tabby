@@ -2,12 +2,13 @@
     strong Error in {{erroredPlugin}}:
     pre {{errorMessage}}
 
-button.btn.btn-outline-info.btn-sm.pull-right((click)='openPluginsFolder()')
-    i.fa.fa-folder
-    span Plugins folder
-    
-h3.mb-1 Installed
 
+.d-flex
+    h3.mb-1 Installed
+    button.btn.btn-outline-info.btn-sm.ml-auto((click)='openPluginsFolder()')
+        i.fas.fa-folder
+        span Plugins folder
+    
 .list-group.list-group-flush.mt-2
     .list-group-item.d-flex.align-items-center(*ngFor='let plugin of pluginManager.installedPlugins|orderBy:"name"')
         .mr-auto.d-flex.flex-column
@@ -23,39 +24,39 @@ h3.mb-1 Installed
             (click)='upgradePlugin(plugin)',
             [disabled]='busy[plugin.name] != undefined'
         )
-            i.fa.fa-fw.fa-arrow-up(*ngIf='busy[plugin.name] != BusyState.Installing')
-            i.fa.fa-fw.fa-circle-o-notch.fa-spin(*ngIf='busy[plugin.name] == BusyState.Installing')
+            i.fas.fa-fw.fa-arrow-up(*ngIf='busy[plugin.name] != BusyState.Installing')
+            i.fas.fa-fw.fa-circle-notch.fa-spin(*ngIf='busy[plugin.name] == BusyState.Installing')
             span Upgrade ({{knownUpgrades[plugin.name].version}})
 
         button.btn.btn-primary.ml-2(
             *ngIf='config.store.pluginBlacklist.includes(plugin.name)',
             (click)='enablePlugin(plugin)'
         )
-            i.fa.fa-fw.fa-play
+            i.fas.fa-fw.fa-play
                 
         button.btn.btn-secondary.ml-2(
             *ngIf='!config.store.pluginBlacklist.includes(plugin.name)',
             (click)='disablePlugin(plugin)'
         )
-            i.fa.fa-fw.fa-pause
+            i.fas.fa-fw.fa-pause
             
         button.btn.btn-danger.ml-2(
             (click)='uninstallPlugin(plugin)', 
             *ngIf='!plugin.isBuiltin && npmInstalled',
             [disabled]='busy[plugin.name] != undefined'
         )
-            i.fa.fa-fw.fa-trash-o(*ngIf='busy[plugin.name] != BusyState.Uninstalling')
-            i.fa.fa-fw.fa-circle-o-notch.fa-spin(*ngIf='busy[plugin.name] == BusyState.Uninstalling')
+            i.fas.fa-fw.fa-trash(*ngIf='busy[plugin.name] != BusyState.Uninstalling')
+            i.fas.fa-fw.fa-circle-notch.fa-spin(*ngIf='busy[plugin.name] == BusyState.Uninstalling')
 
 .text-center.mt-5(*ngIf='npmMissing')
     h4 npm not installed
     p.mb-2 npm is required to install Terminus plugins.
     .btn-group
         button.btn.btn-outline-primary((click)='downloadNPM()')
-            i.fa.fa-download
+            i.fas.fa-download
             span Get npm
         button.btn.btn-outline-info((click)='checkNPM()')
-            i.fa.fa-refresh
+            i.fas.fa-refresh
             span Try again
 
 div(*ngIf='npmInstalled')
@@ -64,8 +65,8 @@ div(*ngIf='npmInstalled')
     .input-group.mb-3
         .input-group-prepend
             .input-group-text
-                i.fa.fa-fw.fa-circle-o-notch.fa-spin(*ngIf='!availablePluginsReady')
-                i.fa.fa-fw.fa-search(*ngIf='availablePluginsReady')
+                i.fas.fa-fw.fa-circle-o-notch.fa-spin(*ngIf='!availablePluginsReady')
+                i.fas.fa-fw.fa-search(*ngIf='availablePluginsReady')
         input.form-control(
             type='text',
             [(ngModel)]='_1',
@@ -81,12 +82,12 @@ div(*ngIf='npmInstalled')
                     (click)='installPlugin(plugin)',
                     [disabled]='busy[plugin.name] != undefined'
                 )
-                    i.fa.fa-fw.fa-download(*ngIf='busy[plugin.name] != BusyState.Installing')
-                    i.fa.fa-fw.fa-circle-o-notch.fa-spin(*ngIf='busy[plugin.name] == BusyState.Installing')
+                    i.fas.fa-fw.fa-download(*ngIf='busy[plugin.name] != BusyState.Installing')
+                    i.fas.fa-fw.fa-circle-notch.fa-spin(*ngIf='busy[plugin.name] == BusyState.Installing')
                 
                 div((click)='showPluginInfo(plugin)')
                     div
                         strong {{plugin.name}}
                         small.text-muted.ml-1 {{plugin.version}} / {{plugin.author}}
-                        i.fa.fa-check.text-success.ml-1(*ngIf='plugin.isOfficial', title='Official')
+                        i.fas.fa-check.text-success.ml-1(*ngIf='plugin.isOfficial', title='Official')
                     small.text-muted {{plugin.description}}

@@ -12,11 +12,11 @@ ngb-tabset.vertical(type='pills', [activeId]='activeTab')
                 .text-muted.mr-auto {{homeBase.appVersion}}
                             
                 button.btn.btn-secondary.mr-3((click)='homeBase.openGitHub()')
-                    i.fa.fa-github
+                    i.fab.fa-github
                     span GitHub
                     
                 button.btn.btn-secondary((click)='homeBase.reportBug()')
-                    i.fa.fa-bug
+                    i.fas.fa-bug
                     span Report a problem
 
             .form-line(*ngIf='!isShellIntegrationInstalled')
@@ -24,7 +24,7 @@ ngb-tabset.vertical(type='pills', [activeId]='activeTab')
                     .title Shell integration
                     .description Allows quickly opening a terminal in the selected folder
                 button.btn.btn-primary((click)='installShellIntegration()')
-                    i.fa.fa-check 
+                    i.fas.fa-check 
                     span Install
 
             .form-line
@@ -225,7 +225,7 @@ ngb-tabset.vertical(type='pills', [activeId]='activeTab')
                     .title Debugging
 
                 button.btn.btn-secondary((click)='hostApp.openDevTools()')
-                    i.fa.fa-bug
+                    i.fas.fa-bug
                     span Open DevTools
 
             .form-line
@@ -254,7 +254,7 @@ ngb-tabset.vertical(type='pills', [activeId]='activeTab')
             .input-group.mb-4
                 .input-group-prepend
                     .input-group-text
-                        i.fa.fa-fw.fa-search
+                        i.fas.fa-fw.fa-search
                 input.form-control(type='search', placeholder='Search hotkeys', [(ngModel)]='hotkeyFilter')
                             
             .form-group
@@ -298,8 +298,8 @@ ngb-tabset.vertical(type='pills', [activeId]='activeTab')
                         )   
                 .mt-3
                     button.btn.btn-primary((click)='saveConfigFile()', *ngIf='isConfigFileValid()')
-                        i.fa.fa-check.mr-2
+                        i.fas.fa-check.mr-2
                         | Save and apply
                     button.btn.btn-primary(disabled, *ngIf='!isConfigFileValid()')
-                        i.fa.fa-warning.mr-2
+                        i.fas.fa-exclamation-triangle.mr-2
                         | Invalid syntax

@@ -5,8 +5,8 @@
             .input-group-text =
     input.form-control.w-50.mr-1([(ngModel)]='pair.value', (blur)='emitUpdate()', placeholder='Value')
     button.btn.btn-secondary((click)='removeEnvironmentVar(pair.key)')
-        i.fa.fa-trash-o
+        i.fas.fa-trash
         
 button.btn.btn-secondary((click)='addEnvironmentVar()')
-    i.fa.fa-plus.mr-2
+    i.fas.fa-plus.mr-2
     span Add

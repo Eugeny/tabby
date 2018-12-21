@@ -9,7 +9,6 @@ import { TerminalTabComponent } from 'terminus-terminal'
 import { SSHConnection, SSHSession } from '../api'
 import { PromptModalComponent } from '../components/promptModal.component'
 import { PasswordStorageService } from './passwordStorage.service'
-import SSHModule from '..'
 const { SSH2Stream } = require('ssh2-streams')
 
 let windowsProcessTree
@@ -18,7 +17,7 @@ try {
 } catch (e) {
 } // tslint:disable-line
 
-@Injectable({ providedIn: SSHModule })
+@Injectable({ providedIn: 'root' })
 export class SSHService {
     private logger: Logger
 

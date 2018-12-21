@@ -9,9 +9,9 @@ h3 Connections
             .fa.fa-fw.fa-chevron-down(*ngIf='!groupCollapsed[group.name]')
             span.ml-3.mr-auto {{group.name || "Ungrouped"}}
             button.btn.btn-outline-info.ml-2((click)='editGroup(group)')
-                i.fa.fa-pencil
+                i.fas.fa-edit
             button.btn.btn-outline-danger.ml-1((click)='deleteGroup(group)')
-                i.fa.fa-trash-o
+                i.fas.fa-trash
         ng-container(*ngIf='!groupCollapsed[group.name]')
             .list-group-item.list-group-item-action.pl-5.d-flex.align-items-center(
                 *ngFor='let connection of group.connections',
@@ -21,8 +21,8 @@ h3 Connections
                     div {{connection.name}}
                     .text-muted {{connection.host}}
                 button.btn.btn-outline-danger.ml-1((click)='$event.stopPropagation(); deleteConnection(connection)')
-                    i.fa.fa-trash-o
+                    i.fas.fa-trash
                     
 button.btn.btn-primary((click)='createConnection()')
-    i.fa.fa-fw.fa-plus
+    i.fas.fa-fw.fa-plus
     span.ml-2 Add connection

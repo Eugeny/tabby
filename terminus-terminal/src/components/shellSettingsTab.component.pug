@@ -50,7 +50,7 @@ h3.mb-3 Shell
         )            
         .input-group-btn
             button.btn.btn-secondary((click)='pickWorkingDirectory()')
-                i.fa.fa-folder-open
+                i.fas.fa-folder-open
 
 .form-line.align-items-start
     .header
@@ -70,11 +70,11 @@ h3.mt-3 Saved Profiles
             div {{profile.name}}
             .text-muted {{profile.sessionOptions.command}}
         button.btn.btn-outline-danger.ml-1((click)='$event.stopPropagation(); deleteProfile(profile)')
-            i.fa.fa-trash-o
+            i.fas.fa-trash
                     
 div(ngbDropdown, placement='top-left')
     button.btn.btn-primary(ngbDropdownToggle) 
-        i.fa.fa-fw.fa-plus
+        i.fas.fa-fw.fa-plus
         | New profile        
     div(ngbDropdownMenu)
         button.dropdown-item(*ngFor='let shell of shells', (click)='newProfile(shell)') {{shell.name}}
