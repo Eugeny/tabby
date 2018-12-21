@@ -62,6 +62,8 @@ h3.mt-3 Saved Profiles
             i.fa.fa-trash-o
                     
 div(ngbDropdown, placement='top-left')
-    button.btn.btn-outline-primary(ngbDropdownToggle) New profile        
+    button.btn.btn-primary(ngbDropdownToggle) 
+        i.fa.fa-fw.fa-plus
+        | New profile        
     div(ngbDropdownMenu)
         button.dropdown-item(*ngFor='let shell of shells', (click)='newProfile(shell)') {{shell.name}}

@@ -51,6 +51,7 @@ $input-disabled-bg:              #333;
 $input-color:                    $body-color;
 $input-color-placeholder:        #333;
 $input-border-color:             #344;
+$input-border-width: 0;
 //$input-box-shadow:               inset 0 1px 1px rgba($black,.075);
 $input-border-radius:            0;
 $custom-select-border-radius: 0;
@@ -343,6 +344,15 @@ ngb-tabset .tab-content {
 
     i + * {
         margin-left: 10px;
+    }
+}
+
+.list-group.list-group-flush .list-group-item:not(.list-group-item-action) {
+    background: transparent;
+    border-color: rgba(0, 0, 0, 0.2);
+
+    &:not(:last-child) {
+        border-bottom: none;
     }
 }
 
