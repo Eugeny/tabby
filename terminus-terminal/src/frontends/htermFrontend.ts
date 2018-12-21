@@ -66,6 +66,7 @@ export class HTermFrontend extends Frontend {
         preferenceManager.set('ctrl-plus-minus-zero-zoom', false)
         preferenceManager.set('scrollbar-visible', process.platform === 'darwin')
         preferenceManager.set('copy-on-select', config.terminal.copyOnSelect)
+        preferenceManager.set('pass-meta-v', false)
         preferenceManager.set('alt-is-meta', config.terminal.altIsMeta)
         preferenceManager.set('alt-sends-what', 'browser-key')
         preferenceManager.set('alt-gr-mode', 'ctrl-alt')
