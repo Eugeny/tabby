@@ -13,7 +13,25 @@
             type='text', 
             [(ngModel)]='profile.sessionOptions.command', 
         )
-
+    
+    .form-group
+        label Arguments
+        .input-group(
+            *ngFor='let arg of profile.sessionOptions.args; index as i',
+        )
+            input.form-control(
+                type='text', 
+                [(ngModel)]='profile.sessionOptions.args[i]', 
+            )
+            .input-group-btn
+                button.btn.btn-secondary((click)='profile.sessionOptions.args.splice(i, 1)')
+                    i.fa.fa-trash-o
+        
+        .mt-2
+            button.btn.btn-secondary((click)='profile.sessionOptions.args.push("")')
+                i.fa.fa-plus.mr-2
+                | Add
+        
     .form-group
         label Working directory
         input.form-control(

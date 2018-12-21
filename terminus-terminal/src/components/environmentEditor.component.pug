@@ -1,5 +1,8 @@
 .mb-2.d-flex.align-items-center(*ngFor='let pair of vars')
-    input.form-control.w-50([(ngModel)]='pair.key', (blur)='emitUpdate()', placeholder='Variable name')
+    .input-group.w-50
+        input.form-control([(ngModel)]='pair.key', (blur)='emitUpdate()', placeholder='Variable name')
+        .input-group-append 
+            .input-group-text =
     input.form-control.w-50.mr-1([(ngModel)]='pair.value', (blur)='emitUpdate()', placeholder='Value')
     button.btn.btn-secondary((click)='removeEnvironmentVar(pair.key)')
         i.fa.fa-trash-o
