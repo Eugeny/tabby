@@ -6,7 +6,6 @@ import { first } from 'rxjs/operators'
 import { Injectable } from '@angular/core'
 import { Logger, LogService, ConfigService } from 'terminus-core'
 import { exec } from 'mz/child_process'
-import TerminalModule from '..'
 import { SessionOptions } from '../api'
 
 let macOSNativeProcessList
@@ -248,7 +247,7 @@ export class Session extends BaseSession {
     }
 }
 
-@Injectable({ providedIn: TerminalModule })
+@Injectable({ providedIn: 'root' })
 export class SessionsService {
     sessions: {[id: string]: BaseSession} = {}
     logger: Logger
