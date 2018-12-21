@@ -6,7 +6,8 @@ const appInfo = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../app/packa
 const electronInfo = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../node_modules/electron/package.json')))
 
 exports.version = childProcess.execSync('git describe --tags', {encoding:'utf-8'})
-exports.version = exports.version.substring(1, exports.version.length - 1)
+exports.version = exports.version.substring(1)
+exports.version = exports.version.replace('-g', 'g')
 
 exports.builtinPlugins = [
   'terminus-core',
