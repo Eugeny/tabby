@@ -4,8 +4,7 @@ import { FormsModule } from '@angular/forms'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { NgPipesModule } from 'ngx-pipes'
 
-import { ToolbarButtonProvider, TabRecoveryProvider, HotkeyProvider, ConfigProvider } from 'terminus-core'
-import TerminusCorePlugin from 'terminus-core'
+import TerminusCorePlugin, { ToolbarButtonProvider, TabRecoveryProvider, HotkeyProvider, ConfigProvider } from 'terminus-core'
 
 import { HotkeyInputModalComponent } from './components/hotkeyInputModal.component'
 import { MultiHotkeyInputComponent } from './components/multiHotkeyInput.component'

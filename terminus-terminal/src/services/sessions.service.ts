@@ -181,7 +181,7 @@ export class Session extends BaseSession {
             }))
         }
         if (process.platform === 'win32') {
-            return await new Promise<IChildProcess[]>(resolve => {
+            return new Promise<IChildProcess[]>(resolve => {
                 windowsProcessTree.getProcessTree(this.truePID, tree => {
                     resolve(tree ? tree.children.map(child => ({
                         pid: child.pid,
@@ -241,7 +241,7 @@ export class Session extends BaseSession {
             }
         }
         if (process.platform === 'linux') {
-            return await fs.readlink(`/proc/${this.truePID}/cwd`)
+            return fs.readlink(`/proc/${this.truePID}/cwd`)
         }
         return null
     }

@@ -113,7 +113,7 @@ export class TabHeaderComponent {
                 },
                 {
                     label: 'Rename',
-                    click: () => this.zone.run( () => this.showRenameTabModal() )
+                    click: () => this.zone.run(() => this.showRenameTabModal())
                 },
                 {
                     label: 'Color',

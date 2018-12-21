@@ -80,8 +80,8 @@ export class HotkeysService {
     }
 
     getCurrentKeystrokes (): string[] {
-        this.currentKeystrokes = this.currentKeystrokes.filter((x) => performance.now() - x.time < KEY_TIMEOUT )
-        return stringifyKeySequence(this.currentKeystrokes.map((x) => x.event))
+        this.currentKeystrokes = this.currentKeystrokes.filter(x => performance.now() - x.time < KEY_TIMEOUT)
+        return stringifyKeySequence(this.currentKeystrokes.map(x => x.event))
     }
 
     registerGlobalHotkey () {

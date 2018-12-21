@@ -56,7 +56,7 @@ export class ConfigProxy {
                 return real[key]
             } else {
                 if (isNonStructuralObjectMember(defaults[key])) {
-                    real[key] = {...defaults[key]}
+                    real[key] = { ...defaults[key] }
                     delete real[key].__nonStructural
                     return real[key]
                 } else {

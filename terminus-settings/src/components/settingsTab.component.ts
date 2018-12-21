@@ -2,12 +2,12 @@ import * as yaml from 'js-yaml'
 import * as os from 'os'
 import { Subscription } from 'rxjs'
 import { Component, Inject, Input, HostBinding } from '@angular/core'
-import { HotkeysService } from 'terminus-core'
 import {
     ElectronService,
     DockingService,
     ConfigService,
     IHotkeyDescription,
+    HotkeysService,
     BaseTabComponent,
     Theme,
     HostAppService,

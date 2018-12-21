@@ -118,7 +118,7 @@ export async function findPlugins (): Promise<IPluginInfo[]> {
         }
 
         try {
-            let info = JSON.parse(await fs.readFile(infoPath, {encoding: 'utf-8'}))
+            let info = JSON.parse(await fs.readFile(infoPath, { encoding: 'utf-8' }))
             if (!info.keywords || !(info.keywords.includes('terminus-plugin') || info.keywords.includes('terminus-builtin-plugin'))) {
                 continue
             }

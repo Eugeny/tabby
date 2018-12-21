@@ -34,7 +34,7 @@ async function bootstrap (plugins: IPluginInfo[], safeMode = false): Promise<NgM
     })
     let module = getRootModule(pluginsModules)
     window['rootModule'] = module
-    return await platformBrowserDynamic().bootstrapModule(module)
+    return platformBrowserDynamic().bootstrapModule(module)
 }
 
 findPlugins().then(async plugins => {

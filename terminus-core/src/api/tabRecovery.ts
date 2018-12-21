@@ -6,5 +6,5 @@ export interface RecoveredTab {
 }
 
 export abstract class TabRecoveryProvider {
-    abstract async recover (recoveryToken: any): Promise<RecoveredTab|null>
+    abstract async recover (recoveryToken: any): Promise<RecoveredTab | null>
 }

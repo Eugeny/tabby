@@ -48,9 +48,9 @@ export class ShellIntegrationService {
 
     async isInstalled (): Promise<boolean> {
         if (this.hostApp.platform === Platform.macOS) {
-            return await fs.exists(path.join(this.automatorWorkflowsDestination, this.automatorWorkflows[0]))
+            return fs.exists(path.join(this.automatorWorkflowsDestination, this.automatorWorkflows[0]))
         } else if (this.hostApp.platform === Platform.Windows) {
-            return await Registry.has(this.registryKeys[0].path)
+            return Registry.has(this.registryKeys[0].path)
         }
         return true
     }

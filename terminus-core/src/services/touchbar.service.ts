@@ -49,8 +49,8 @@ export class TouchbarService {
         let touchBar = new this.electron.TouchBar({
             items: [
                 this.tabsSegmentedControl,
-                new this.electron.TouchBar.TouchBarSpacer({size: 'flexible'}),
-                new this.electron.TouchBar.TouchBarSpacer({size: 'small'}),
+                new this.electron.TouchBar.TouchBarSpacer({ size: 'flexible' }),
+                new this.electron.TouchBar.TouchBarSpacer({ size: 'small' }),
                 ...buttons.map(button => this.getButton(button))
             ]
         })

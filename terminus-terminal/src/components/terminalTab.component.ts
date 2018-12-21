@@ -164,7 +164,7 @@ export class TerminalTabComponent extends BaseTabComponent {
             this.htermVisible = true
         })
 
-        this.frontend.resize$.pipe(first()).subscribe(async ({columns, rows}) => {
+        this.frontend.resize$.pipe(first()).subscribe(async ({ columns, rows }) => {
             if (!this.session.open) {
                 this.initializeSession(columns, rows)
             }
@@ -301,7 +301,7 @@ export class TerminalTabComponent extends BaseTabComponent {
                 this.sendInput(data)
             }),
 
-            this.frontend.resize$.subscribe(({columns, rows}) => {
+            this.frontend.resize$.subscribe(({ columns, rows }) => {
                 console.log(`Resizing to ${columns}x${rows}`)
                 this.zone.run(() => {
                     if (this.session.open) {

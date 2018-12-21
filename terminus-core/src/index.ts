@@ -37,7 +37,7 @@ const PROVIDERS = [
     { provide: Theme, useClass: StandardCompactTheme, multi: true },
     { provide: Theme, useClass: PaperTheme, multi: true },
     { provide: ConfigProvider, useClass: CoreConfigProvider, multi: true },
-    { provide: PERFECT_SCROLLBAR_CONFIG, useValue: { suppressScrollX: true }}
+    { provide: PERFECT_SCROLLBAR_CONFIG, useValue: { suppressScrollX: true } }
 ]
 
 @NgModule({

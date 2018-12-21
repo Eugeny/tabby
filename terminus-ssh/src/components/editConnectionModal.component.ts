@@ -76,7 +76,7 @@ export class EditConnectionModalComponent {
         if (!this.connection.scripts) {
             this.connection.scripts = []
         }
-        this.connection.scripts.push({...this.newScript})
+        this.connection.scripts.push({ ...this.newScript })
         this.clearScript()
     }
 
