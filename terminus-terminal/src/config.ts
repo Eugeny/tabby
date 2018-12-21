@@ -84,8 +84,6 @@ export class TerminalConfigProvider extends ConfigProvider {
                     '⌘-0',
                 ],
                 'new-tab': [
-                    ['Ctrl-A', 'C'],
-                    ['Ctrl-A', 'Ctrl-C'],
                     '⌘-T',
                     '⌘-N',
                 ],
@@ -127,8 +125,6 @@ export class TerminalConfigProvider extends ConfigProvider {
                     'Ctrl-0',
                 ],
                 'new-tab': [
-                    ['Ctrl-A', 'C'],
-                    ['Ctrl-A', 'Ctrl-C'],
                     'Ctrl-Shift-T',
                 ],
                 'home': ['Home'],
@@ -167,8 +163,6 @@ export class TerminalConfigProvider extends ConfigProvider {
                     'Ctrl-0',
                 ],
                 'new-tab': [
-                    ['Ctrl-A', 'C'],
-                    ['Ctrl-A', 'Ctrl-C'],
                     'Ctrl-Shift-T',
                 ],
                 'home': ['Home'],
