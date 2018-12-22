@@ -17,7 +17,7 @@
     .form-group
         label Arguments
         .input-group(
-            *ngFor='let arg of profile.sessionOptions.args; index as i',
+            *ngFor='let arg of profile.sessionOptions.args; index as i; trackBy: trackByIndex',
         )
             input.form-control(
                 type='text', 

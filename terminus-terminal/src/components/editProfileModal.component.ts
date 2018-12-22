@@ -25,4 +25,8 @@ export class EditProfileModalComponent {
     cancel () {
         this.modalInstance.dismiss()
     }
+
+    trackByIndex (index) {
+        return index
+    }
 }
