@@ -25,6 +25,8 @@ export interface IChildProcess {
     command: string
 }
 
+const windowsDirectoryRegex = /([a-zA-Z]:[^\:\[\]\?\"\<\>\|]+)/mi // tslint:disable-line
+
 export abstract class BaseSession {
     open: boolean
     name: string
@@ -75,6 +77,7 @@ export abstract class BaseSession {
 export class Session extends BaseSession {
     private pty: any
     private pauseAfterExit = false
+    private guessedCWD: string
 
     constructor (private config: ConfigService) {
         super()
@@ -110,6 +113,8 @@ export class Session extends BaseSession {
             experimentalUseConpty: this.config.store.terminal.useConPTY,
         })
 
+        this.guessedCWD = options.cwd || process.env.HOME
+
         this.truePID = (this.pty as any).pid
 
         setTimeout(async () => {
@@ -125,6 +130,9 @@ export class Session extends BaseSession {
 
         this.pty.on('data-buffered', data => {
             this.emitOutput(data)
+            if (process.platform === 'win32') {
+                this.guessWindowsCWD(data)
+            }
         })
 
         this.pty.on('exit', () => {
@@ -243,7 +251,17 @@ export class Session extends BaseSession {
         if (process.platform === 'linux') {
             return fs.readlink(`/proc/${this.truePID}/cwd`)
         }
+        if (process.platform === 'win32') {
+            return this.guessedCWD
+        }
         return null
+    }
+
+    private guessWindowsCWD (data: string) {
+        let match = windowsDirectoryRegex.exec(data)
+        if (match) {
+            this.guessedCWD = match[0]
+        }
     }
 }
 
