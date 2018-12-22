@@ -52,7 +52,6 @@ hterm.hterm.Terminal.prototype.applyCursorShape = function () {
         [hterm.hterm.Terminal.cursorShape.BEAM, false],
     ]
     let modeNumber = this.cursorMode || 1
-    console.log('mode', modeNumber)
     if (modeNumber >= modes.length) {
         console.warn('Unknown cursor style: ' + modeNumber)
         return

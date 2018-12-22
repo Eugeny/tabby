@@ -100,7 +100,7 @@ export class XTermFrontend extends Frontend {
         this.xterm.setOption('bellStyle', config.terminal.bell)
         this.xterm.setOption('cursorStyle', {
             beam: 'bar'
-        }[config.terminal.cuxrsor] || config.terminal.cursor)
+        }[config.terminal.cursor] || config.terminal.cursor)
         this.xterm.setOption('cursorBlink', config.terminal.cursorBlink)
         this.xterm.setOption('macOptionIsMeta', config.terminal.altIsMeta)
         // this.xterm.setOption('colors', )
