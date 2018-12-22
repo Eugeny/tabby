@@ -10,7 +10,6 @@ import { TerminalFrontendService } from '../services/terminalFrontend.service'
 
 import { TerminalDecorator, ResizeEvent, SessionOptions } from '../api'
 import { Frontend } from '../frontends/frontend'
-console.warn(TerminalService)
 
 @Component({
     selector: 'terminalTab',
