@@ -203,7 +203,8 @@ export class TerminalTabComponent extends BaseTabComponent {
         this.frontend.focus()
     }
 
-    buildContextMenu (): Electron.MenuItemConstructorOptions[] {
+    async buildContextMenu (): Promise<Electron.MenuItemConstructorOptions[]> {
+        let shells = await this.terminalService.shells$.toPromise()
         return [
             {
                 label: 'New terminal',
@@ -212,7 +213,16 @@ export class TerminalTabComponent extends BaseTabComponent {
                 })
             },
             {
-                label: 'New from profile',
+                label: 'New with shell',
+                submenu: shells.map(shell => ({
+                    label: shell.name,
+                    click: () => this.zone.run(async () => {
+                        this.terminalService.openTab(shell, await this.session.getWorkingDirectory())
+                    }),
+                })),
+            },
+            {
+                label: 'New with profile',
                 submenu: this.config.store.terminal.profiles.length ? this.config.store.terminal.profiles.map(profile => ({
                     label: profile.name,
                     click: () => this.zone.run(() => {
@@ -222,6 +232,9 @@ export class TerminalTabComponent extends BaseTabComponent {
                     label: 'No profiles saved',
                     enabled: false,
                 }],
+            },
+            {
+                type: 'separator',
             },
             {
                 label: 'Copy',
@@ -260,11 +273,11 @@ export class TerminalTabComponent extends BaseTabComponent {
             this.focused$.subscribe(() => this.frontend.enableResizing = true),
             this.blurred$.subscribe(() => this.frontend.enableResizing = false),
 
-            this.frontend.mouseEvent$.subscribe(event => {
+            this.frontend.mouseEvent$.subscribe(async event => {
                 if (event.type === 'mousedown') {
                     if (event.which === 3) {
                         if (this.config.store.terminal.rightClick === 'menu') {
-                            this.hostApp.popupContextMenu(this.buildContextMenu())
+                            this.hostApp.popupContextMenu(await this.buildContextMenu())
                         } else if (this.config.store.terminal.rightClick === 'paste') {
                             this.paste()
                         }
