@@ -18,7 +18,7 @@ export class DockMenuService {
 
     update () {
         if (this.hostApp.platform === Platform.Windows) {
-            this.electron.app.setJumpList([{
+            this.electron.app.setJumpList(this.config.store.terminal.profiles.length ? [{
                 type: 'custom',
                 name: 'Profiles',
                 items: this.config.store.terminal.profiles.map(profile => ({
@@ -29,7 +29,7 @@ export class DockMenuService {
                     iconPath: process.execPath,
                     iconIndex: 0,
                 }))
-            }])
+            }] : null)
         }
         if (this.hostApp.platform === Platform.macOS) {
             this.electron.app.dock.setMenu(this.electron.Menu.buildFromTemplate(
