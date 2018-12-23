@@ -7,18 +7,18 @@ environment:
   nodejs_version: "10"
 
 cache:
-  - '%USERPROFILE%\.electron'
+  - "%USERPROFILE%\\.electron"
+  - "%LOCALAPPDATA%\\Yarn"
 
 version: "{build}"
 
 install:
   - ps: Install-Product node $env:nodejs_version $env:platform
-  - npm install
-  - node scripts/install-deps.js
+  - yarn
   - node scripts/build-native.js
 
 build_script:
-  - npm run build
+  - yarn run build
   - node scripts/prepackage-plugins.js
   - node scripts/build-windows.js
 

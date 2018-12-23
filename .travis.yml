@@ -14,8 +14,7 @@ cache:
     - app/node_modules
 
 before_install:
-    - yarn install
-    - scripts/install-deps.js
+    - yarn
 
 script:
     - scripts/build-native.js

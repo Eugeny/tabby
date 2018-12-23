@@ -126,7 +126,7 @@
     "start": "cross-env DEV=1 electron app --debug",
     "prod": "cross-env DEV=1 electron app",
     "lint": "tslint -c tslint.json -t stylish terminus-*/src/**/*.ts terminus-*/src/*.ts app/src/*.ts",
-    "postinstall": "install-app-deps"
+    "postinstall": "node ./scripts/install-deps.js"
   },
   "repository": "eugeny/terminus"
 }
