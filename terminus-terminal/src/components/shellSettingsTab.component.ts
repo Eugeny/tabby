@@ -45,10 +45,8 @@ export class ShellSettingsTabComponent {
             name: shell.name,
             sessionOptions: this.terminalService.optionsFromShell(shell),
         }
-        this.profiles.push(profile)
         this.config.store.terminal.profiles.push(profile)
         this.config.save()
-        this.editProfile(profile)
     }
 
     editProfile (profile: Profile) {
