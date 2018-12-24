@@ -24,12 +24,13 @@ import { DockMenuService } from './services/dockMenu.service'
 
 import { ButtonProvider } from './buttonProvider'
 import { RecoveryProvider } from './recoveryProvider'
-import { TerminalColorSchemeProvider, TerminalDecorator, ShellProvider } from './api'
+import { TerminalColorSchemeProvider, TerminalDecorator, ShellProvider, TerminalContextMenuItemProvider } from './api'
 import { TerminalSettingsTabProvider, AppearanceSettingsTabProvider, ShellSettingsTabProvider } from './settings'
 import { PathDropDecorator } from './pathDrop'
 import { TerminalConfigProvider } from './config'
 import { TerminalHotkeyProvider } from './hotkeys'
 import { HyperColorSchemes } from './colorSchemes'
+import { NewTabContextMenu, CopyPasteContextMenu } from './contextMenu'
 
 import { CmderShellProvider } from './shells/cmder'
 import { CustomShellProvider } from './shells/custom'
@@ -78,6 +79,9 @@ import { hterm } from './hterm'
         { provide: ShellProvider, useClass: POSIXShellsProvider, multi: true },
         { provide: ShellProvider, useClass: PowerShellCoreShellProvider, multi: true },
         { provide: ShellProvider, useClass: WSLShellProvider, multi: true },
+
+        { provide: TerminalContextMenuItemProvider, useClass: NewTabContextMenu, multi: true },
+        { provide: TerminalContextMenuItemProvider, useClass: CopyPasteContextMenu, multi: true },
 
         // For WindowsDefaultShellProvider
         PowerShellCoreShellProvider,

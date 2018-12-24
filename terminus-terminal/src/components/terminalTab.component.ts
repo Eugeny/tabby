@@ -5,11 +5,9 @@ import { Component, NgZone, Inject, Optional, ViewChild, HostBinding, Input } fr
 import { AppService, ConfigService, BaseTabComponent, BaseTabProcess, ElectronService, HostAppService, HotkeysService, Platform } from 'terminus-core'
 
 import { Session, SessionsService } from '../services/sessions.service'
-import { TerminalService } from '../services/terminal.service'
 import { TerminalFrontendService } from '../services/terminalFrontend.service'
-import { UACService } from '../services/uac.service'
 
-import { TerminalDecorator, ResizeEvent, SessionOptions } from '../api'
+import { TerminalDecorator, ResizeEvent, SessionOptions, TerminalContextMenuItemProvider } from '../api'
 import { Frontend } from '../frontends/frontend'
 
 @Component({
@@ -49,12 +47,11 @@ export class TerminalTabComponent extends BaseTabComponent {
         private hotkeys: HotkeysService,
         private sessions: SessionsService,
         private electron: ElectronService,
-        private terminalService: TerminalService,
         private terminalContainersService: TerminalFrontendService,
         public config: ConfigService,
         private toastr: ToastrService,
-        private uac: UACService,
         @Optional() @Inject(TerminalDecorator) private decorators: TerminalDecorator[],
+        @Optional() @Inject(TerminalContextMenuItemProvider) private contextMenuProviders: TerminalContextMenuItemProvider[],
     ) {
         super()
         this.decorators = this.decorators || []
@@ -117,6 +114,8 @@ export class TerminalTabComponent extends BaseTabComponent {
         })
         this.bellPlayer = document.createElement('audio')
         this.bellPlayer.src = require<string>('../bell.ogg')
+
+        this.contextMenuProviders.sort((a, b) => a.weight - b.weight)
     }
 
     initializeSession (columns: number, rows: number) {
@@ -206,76 +205,12 @@ export class TerminalTabComponent extends BaseTabComponent {
     }
 
     async buildContextMenu (): Promise<Electron.MenuItemConstructorOptions[]> {
-        let shells = await this.terminalService.shells$.toPromise()
-        let items: Electron.MenuItemConstructorOptions[] = [
-            {
-                label: 'New terminal',
-                click: () => this.zone.run(() => {
-                    this.terminalService.openTabWithOptions(this.sessionOptions)
-                })
-            },
-            {
-                label: 'New with shell',
-                submenu: shells.map(shell => ({
-                    label: shell.name,
-                    click: () => this.zone.run(async () => {
-                        this.terminalService.openTab(shell, await this.session.getWorkingDirectory())
-                    }),
-                })),
-            },
-        ]
-
-        if (this.uac.isAvailable) {
-            items.push({
-                label: 'New as admin',
-                submenu: shells.map(shell => ({
-                    label: shell.name,
-                    click: () => this.zone.run(async () => {
-                        let options = this.terminalService.optionsFromShell(shell)
-                        options.runAsAdministrator = true
-                        this.terminalService.openTabWithOptions(options)
-                    }),
-                })),
-            })
+        let items: Electron.MenuItemConstructorOptions[] = []
+        for (let section of await Promise.all(this.contextMenuProviders.map(x => x.getItems(this)))) {
+            items = items.concat(section)
+            items.push({ type: 'separator' })
         }
-
-        items = items.concat([
-            {
-                label: 'New with profile',
-                submenu: this.config.store.terminal.profiles.length ? this.config.store.terminal.profiles.map(profile => ({
-                    label: profile.name,
-                    click: () => this.zone.run(() => {
-                        this.terminalService.openTabWithOptions(profile.sessionOptions)
-                    }),
-                })) : [{
-                    label: 'No profiles saved',
-                    enabled: false,
-                }],
-            },
-            {
-                type: 'separator',
-            },
-            {
-                label: 'Copy',
-                click: () => {
-                    this.zone.run(() => {
-                        setTimeout(() => {
-                            this.frontend.copySelection()
-                            this.toastr.info('Copied')
-                        })
-                    })
-                }
-            },
-            {
-                label: 'Paste',
-                click: () => {
-                    this.zone.run(() => {
-                        this.paste()
-                    })
-                }
-            },
-        ])
-
+        items.splice(items.length - 1, 1)
         return items
     }
 

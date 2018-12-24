@@ -41,6 +41,12 @@ export abstract class TerminalColorSchemeProvider {
     abstract async getSchemes (): Promise<ITerminalColorScheme[]>
 }
 
+export abstract class TerminalContextMenuItemProvider {
+    weight: number
+
+    abstract async getItems (tab: TerminalTabComponent): Promise<Electron.MenuItemConstructorOptions[]>
+}
+
 export interface IShell {
     id: string
     name?: string
