@@ -7,6 +7,7 @@ import { AppService, ConfigService, BaseTabComponent, BaseTabProcess, ElectronSe
 import { Session, SessionsService } from '../services/sessions.service'
 import { TerminalService } from '../services/terminal.service'
 import { TerminalFrontendService } from '../services/terminalFrontend.service'
+import { UACService } from '../services/uac.service'
 
 import { TerminalDecorator, ResizeEvent, SessionOptions } from '../api'
 import { Frontend } from '../frontends/frontend'
@@ -52,6 +53,7 @@ export class TerminalTabComponent extends BaseTabComponent {
         private terminalContainersService: TerminalFrontendService,
         public config: ConfigService,
         private toastr: ToastrService,
+        private uac: UACService,
         @Optional() @Inject(TerminalDecorator) private decorators: TerminalDecorator[],
     ) {
         super()
@@ -205,7 +207,7 @@ export class TerminalTabComponent extends BaseTabComponent {
 
     async buildContextMenu (): Promise<Electron.MenuItemConstructorOptions[]> {
         let shells = await this.terminalService.shells$.toPromise()
-        return [
+        let items: Electron.MenuItemConstructorOptions[] = [
             {
                 label: 'New terminal',
                 click: () => this.zone.run(() => {
@@ -221,6 +223,23 @@ export class TerminalTabComponent extends BaseTabComponent {
                     }),
                 })),
             },
+        ]
+
+        if (this.uac.isAvailable) {
+            items.push({
+                label: 'New as admin',
+                submenu: shells.map(shell => ({
+                    label: shell.name,
+                    click: () => this.zone.run(async () => {
+                        let options = this.terminalService.optionsFromShell(shell)
+                        options.runAsAdministrator = true
+                        this.terminalService.openTabWithOptions(options)
+                    }),
+                })),
+            })
+        }
+
+        items = items.concat([
             {
                 label: 'New with profile',
                 submenu: this.config.store.terminal.profiles.length ? this.config.store.terminal.profiles.map(profile => ({
@@ -255,7 +274,9 @@ export class TerminalTabComponent extends BaseTabComponent {
                     })
                 }
             },
-        ]
+        ])
+
+        return items
     }
 
     detachTermContainerHandlers () {

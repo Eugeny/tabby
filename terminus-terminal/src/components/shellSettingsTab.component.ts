@@ -5,6 +5,7 @@ import { ConfigService, ElectronService, HostAppService, Platform } from 'termin
 import { EditProfileModalComponent } from './editProfileModal.component'
 import { IShell, Profile } from '../api'
 import { TerminalService } from '../services/terminal.service'
+import { UACService } from '../services/uac.service'
 
 @Component({
     template: require('./shellSettingsTab.component.pug'),
@@ -13,9 +14,11 @@ export class ShellSettingsTabComponent {
     shells: IShell[] = []
     profiles: Profile[] = []
     Platform = Platform
+    isConPTYAvailable: boolean
     private configSubscription: Subscription
 
     constructor (
+        uac: UACService,
         public config: ConfigService,
         public hostApp: HostAppService,
         private electron: ElectronService,
@@ -27,6 +30,7 @@ export class ShellSettingsTabComponent {
             this.reload()
         })
         this.reload()
+        this.isConPTYAvailable = uac.isAvailable
     }
 
     async ngOnInit () {

@@ -32,6 +32,13 @@
                 i.fas.fa-plus.mr-2
                 | Add
         
+    .form-line(*ngIf='uac.isAvailable')
+        .header
+            .title Run as administrator
+        toggle(
+            [(ngModel)]='profile.sessionOptions.runAsAdministrator',
+        )
+        
     .form-group
         label Working directory
         input.form-control(

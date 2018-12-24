@@ -21,6 +21,7 @@ export interface SessionOptions {
     width?: number
     height?: number
     pauseAfterExit?: boolean
+    runAsAdministrator?: boolean
 }
 
 export interface Profile {

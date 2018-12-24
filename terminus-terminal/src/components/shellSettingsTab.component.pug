@@ -15,7 +15,7 @@ h3.mb-3 Shell
         ) {{shell.name}}
 
         
-.form-line(*ngIf='hostApp.platform === Platform.Windows')
+.form-line(*ngIf='isConPTYAvailable')
     .header
         .title Use ConPTY
         .description Enables the experimental Windows ConPTY API

@@ -3,6 +3,7 @@ import { Injectable, Inject } from '@angular/core'
 import { AppService, Logger, LogService, ConfigService } from 'terminus-core'
 import { IShell, ShellProvider, SessionOptions } from '../api'
 import { TerminalTabComponent } from '../components/terminalTab.component'
+import { UACService } from './uac.service'
 
 @Injectable({ providedIn: 'root' })
 export class TerminalService {
@@ -14,6 +15,7 @@ export class TerminalService {
     constructor (
         private app: AppService,
         private config: ConfigService,
+        private uac: UACService,
         @Inject(ShellProvider) private shellProviders: ShellProvider[],
         log: LogService,
     ) {
@@ -61,7 +63,7 @@ export class TerminalService {
         return this.openTabWithOptions(sessionOptions)
     }
 
-    optionsFromShell (shell: IShell) {
+    optionsFromShell (shell: IShell): SessionOptions {
         return {
             command: shell.command,
             args: shell.args || [],
@@ -70,6 +72,9 @@ export class TerminalService {
     }
 
     openTabWithOptions (sessionOptions: SessionOptions): TerminalTabComponent {
+        if (sessionOptions.runAsAdministrator && this.uac.isAvailable) {
+            sessionOptions = this.uac.patchSessionOptionsForUAC(sessionOptions)
+        }
         this.logger.log('Using session options:', sessionOptions)
 
         return this.app.openNewTab(
