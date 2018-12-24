@@ -1,5 +1,6 @@
 import { Component } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
+import { Subscription } from 'rxjs'
 import { ConfigService, ElectronService, HostAppService, Platform } from 'terminus-core'
 import { EditProfileModalComponent } from './editProfileModal.component'
 import { IShell, Profile } from '../api'
@@ -12,6 +13,7 @@ export class ShellSettingsTabComponent {
     shells: IShell[] = []
     profiles: Profile[] = []
     Platform = Platform
+    private configSubscription: Subscription
 
     constructor (
         public config: ConfigService,
@@ -21,11 +23,22 @@ export class ShellSettingsTabComponent {
         private ngbModal: NgbModal,
     ) {
         config.store.terminal.environment = config.store.terminal.environment || {}
-        this.profiles = config.store.terminal.profiles
+        this.configSubscription = this.config.changed$.subscribe(() => {
+            this.reload()
+        })
+        this.reload()
     }
 
     async ngOnInit () {
         this.shells = await this.terminalService.shells$.toPromise()
+    }
+
+    ngOnDestroy () {
+        this.configSubscription.unsubscribe()
+    }
+
+    reload () {
+        this.profiles = this.config.store.terminal.profiles
     }
 
     pickWorkingDirectory () {
@@ -45,7 +58,8 @@ export class ShellSettingsTabComponent {
             name: shell.name,
             sessionOptions: this.terminalService.optionsFromShell(shell),
         }
-        this.config.store.terminal.profiles.push(profile)
+        this.profiles.push(profile)
+        this.config.store.terminal.profiles = this.profiles
         this.config.save()
     }
 
