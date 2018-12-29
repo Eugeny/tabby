@@ -117,7 +117,7 @@ export class PluginsSettingsTabComponent {
     }
 
     disablePlugin (plugin: IPluginInfo) {
-        this.config.store.pluginBlacklist.push(plugin.name)
+        this.config.store.pluginBlacklist = [...this.config.store.pluginBlacklist, plugin.name]
         this.config.save()
         this.config.requestRestart()
     }
