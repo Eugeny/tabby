@@ -1,4 +1,5 @@
 import { Subject, Observable } from 'rxjs'
+import { debounceTime } from 'rxjs/operators'
 import { BrowserWindow, app, ipcMain, Rectangle } from 'electron'
 import ElectronConfig = require('electron-config')
 import * as os from 'os'
@@ -141,6 +142,16 @@ export class Window {
 
         this.window.on('hide', () => {
             this.visible.next(false)
+        })
+
+        let moveSubscription = new Observable<void>(observer => {
+            this.window.on('move', () => observer.next())
+        }).pipe(debounceTime(250)).subscribe(() => {
+            this.window.webContents.send('host:window-moved')
+        })
+
+        this.window.on('closed', () => {
+            moveSubscription.unsubscribe()
         })
 
         this.window.on('enter-full-screen', () => this.window.webContents.send('host:window-enter-full-screen'))

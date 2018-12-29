@@ -30,6 +30,7 @@ export class HostAppService {
     private cliOpenProfile = new Subject<string>()
     private configChangeBroadcast = new Subject<void>()
     private windowCloseRequest = new Subject<void>()
+    private windowMoved = new Subject<void>()
     private logger: Logger
     private windowId: number
 
@@ -41,6 +42,7 @@ export class HostAppService {
     get cliOpenProfile$ (): Observable<string> { return this.cliOpenProfile }
     get configChangeBroadcast$ (): Observable<void> { return this.configChangeBroadcast }
     get windowCloseRequest$ (): Observable<void> { return this.windowCloseRequest }
+    get windowMoved$ (): Observable<void> { return this.windowMoved }
 
     constructor (
         private zone: NgZone,
@@ -78,6 +80,10 @@ export class HostAppService {
 
         electron.ipcRenderer.on('host:window-close-request', () => {
             this.zone.run(() => this.windowCloseRequest.next())
+        })
+
+        electron.ipcRenderer.on('host:window-moved', () => {
+            this.zone.run(() => this.windowMoved.next())
         })
 
         electron.ipcRenderer.on('host:second-instance', (_$event, argv: any, cwd: string) => this.zone.run(() => {

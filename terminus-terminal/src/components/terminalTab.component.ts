@@ -276,7 +276,11 @@ export class TerminalTabComponent extends BaseTabComponent {
                         this.session.resize(columns, rows)
                     }
                 })
-            })
+            }),
+
+            this.hostApp.windowMoved$.subscribe(() => setTimeout(() => {
+                this.configure()
+            }, 250)),
         ]
     }
 
