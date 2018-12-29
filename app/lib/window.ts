@@ -250,7 +250,10 @@ export class Window {
             this.window.moveTop()
         })
 
-        ipcMain.on('window-close', () => {
+        ipcMain.on('window-close', event => {
+            if (event.sender !== this.window.webContents) {
+                return
+            }
             this.closing = true
             this.window.close()
         })
