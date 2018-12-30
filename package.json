@@ -24,7 +24,7 @@
     "html-loader": "0.4.4",
     "json-loader": "0.5.4",
     "node-abi": "^2.4.4",
-    "node-gyp": "^3.6.2",
+    "node-gyp": "^3.8.0",
     "node-sass": "^4.5.3",
     "npmlog": "4.1.0",
     "npx": "^10.2.0",
