@@ -15,7 +15,7 @@
     "cross-env": "4.0.0",
     "css-loader": "0.28.0",
     "electron": "4.0.0",
-    "electron-builder": "^20.38.2",
+    "electron-builder": "^20.38.4",
     "electron-builder-squirrel-windows": "^20.28.3",
     "electron-installer-snap": "^3.0.0",
     "electron-rebuild": "^1.8.2",
@@ -54,7 +54,7 @@
     "yarn": "^1.10.1"
   },
   "resolutions": {
-      "*/node-abi": "^2.5.0"
+    "*/node-abi": "^2.5.0"
   },
   "build": {
     "appId": "org.terminus",
