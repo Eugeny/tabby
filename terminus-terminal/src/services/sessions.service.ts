@@ -104,16 +104,24 @@ export class Session extends BaseSession {
                 LC_MONETARY: locale,
             })
         }
+
+        let cwd = options.cwd || process.env.HOME
+
+        if (!fs.existsSync(cwd)) {
+            console.warn('Ignoring non-existent CWD:', cwd)
+            cwd = null
+        }
+
         this.pty = nodePTY.spawn(options.command, options.args || [], {
             name: 'xterm-256color',
             cols: options.width || 80,
             rows: options.height || 30,
-            cwd: options.cwd || process.env.HOME,
+            cwd,
             env: env,
             experimentalUseConpty: this.config.store.terminal.useConPTY,
         })
 
-        this.guessedCWD = options.cwd || process.env.HOME
+        this.guessedCWD = cwd
 
         this.truePID = (this.pty as any).pid
 
@@ -252,6 +260,14 @@ export class Session extends BaseSession {
             return fs.readlink(`/proc/${this.truePID}/cwd`)
         }
         if (process.platform === 'win32') {
+            if (!this.guessedCWD) {
+                return null
+            }
+            try {
+                fs.access(this.guessedCWD)
+            } catch (e) {
+                return null
+            }
             return this.guessedCWD
         }
         return null
