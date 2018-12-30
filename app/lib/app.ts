@@ -103,7 +103,7 @@ export class Application {
                     {
                         label: 'Preferences',
                         accelerator: 'Cmd+,',
-                        async click () {
+                        click: async () => {
                             if (!this.hasWindows()) {
                                 await this.newWindow()
                             }
