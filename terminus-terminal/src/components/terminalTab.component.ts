@@ -380,7 +380,15 @@ export class TerminalTabComponent extends BaseTabComponent {
         if (children.length === 0) {
             return true
         }
-        return confirm(`"${children[0].command}" is still running. Close?`)
+        return (await this.electron.showMessageBox(
+            this.hostApp.getWindow(),
+            {
+                type: 'warning',
+                message: `"${children[0].command}" is still running. Close?`,
+                buttons: ['Cancel', 'Kill'],
+                defaultId: 1,
+            }
+        )).response === 1
     }
 
     async saveAsProfile () {

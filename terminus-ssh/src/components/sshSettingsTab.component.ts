@@ -1,6 +1,6 @@
 import { Component } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
-import { ConfigService } from 'terminus-core'
+import { ConfigService, ElectronService, HostAppService } from 'terminus-core'
 import { SSHConnection, ISSHConnectionGroup } from '../api'
 import { EditConnectionModalComponent } from './editConnectionModal.component'
 import { PromptModalComponent } from './promptModal.component'
@@ -15,6 +15,8 @@ export class SSHSettingsTabComponent {
 
     constructor (
         public config: ConfigService,
+        private electron: ElectronService,
+        private hostApp: HostAppService,
         private ngbModal: NgbModal,
     ) {
         this.connections = this.config.store.ssh.connections
@@ -49,8 +51,16 @@ export class SSHSettingsTabComponent {
         })
     }
 
-    deleteConnection (connection: SSHConnection) {
-        if (confirm(`Delete "${connection.name}"?`)) {
+    async deleteConnection (connection: SSHConnection) {
+        if ((await this.electron.showMessageBox(
+            this.hostApp.getWindow(),
+            {
+                type: 'warning',
+                message: `Delete "${connection.name}"?`,
+                buttons: ['Keep', 'Delete'],
+                defaultId: 1,
+            }
+        )).response === 1) {
             this.connections = this.connections.filter(x => x !== connection)
             this.config.store.ssh.connections = this.connections
             this.config.save()
@@ -73,8 +83,16 @@ export class SSHSettingsTabComponent {
         })
     }
 
-    deleteGroup (group: ISSHConnectionGroup) {
-        if (confirm(`Delete "${group}"?`)) {
+    async deleteGroup (group: ISSHConnectionGroup) {
+        if ((await this.electron.showMessageBox(
+            this.hostApp.getWindow(),
+            {
+                type: 'warning',
+                message: `Delete "${group}"?`,
+                buttons: ['Keep', 'Delete'],
+                defaultId: 1,
+            }
+        )).response === 1) {
             for (let connection of this.connections.filter(x => x.group === group.name)) {
                 connection.group = null
             }

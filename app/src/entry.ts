@@ -15,6 +15,8 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic'
 import { getRootModule } from './app.module'
 import { findPlugins, loadPlugins, IPluginInfo } from './plugins'
 
+;(process as any).enablePromiseAPI = true
+
 if (process.platform === 'win32') {
     process.env.HOME = process.env.HOMEDRIVE + process.env.HOMEPATH
 }

@@ -66,8 +66,17 @@ export class EditConnectionModalComponent {
         }
     }
 
-    deleteScript (script: LoginScript) {
-        if (confirm(`Delete?`)) {
+    async deleteScript (script: LoginScript) {
+        if ((await this.electron.showMessageBox(
+            this.hostApp.getWindow(),
+            {
+                type: 'warning',
+                message: 'Delete this script?',
+                detail: script.expect,
+                buttons: ['Keep', 'Delete'],
+                defaultId: 1,
+            }
+        )).response === 1) {
             this.connection.scripts = this.connection.scripts.filter(x => x !== script)
         }
     }

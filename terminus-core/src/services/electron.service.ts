@@ -1,6 +1,11 @@
 import { Injectable } from '@angular/core'
 import { TouchBar, BrowserWindow, Menu, MenuItem } from 'electron'
 
+export interface MessageBoxResponse {
+    response: number
+    checkboxChecked?: boolean
+}
+
 @Injectable({ providedIn: 'root' })
 export class ElectronService {
     app: any
@@ -53,5 +58,16 @@ export class ElectronService {
         if (process.platform === 'darwin') {
             this.remote.Menu.sendActionToFirstResponder('hide:')
         }
+    }
+
+    showMessageBox (
+        browserWindow: Electron.BrowserWindow,
+        options: Electron.MessageBoxOptions
+    ): Promise<MessageBoxResponse> {
+        return new Promise(resolve => {
+            this.dialog.showMessageBox(browserWindow, options, (response, checkboxChecked) => {
+                resolve({ response, checkboxChecked })
+            })
+        })
     }
 }

@@ -3,6 +3,7 @@ button.btn.btn-outline-warning.btn-block(*ngIf='config.restartRequested', '(clic
 ngb-tabset.vertical(type='pills', [activeId]='activeTab')
     ngb-tab(id='application')
         ng-template(ngbTabTitle)
+            i.fas.fa-fw.fa-window-maximize.mr-2
             | Application
         ng-template(ngbTabContent)
             .d-flex.align-items-center.mb-4
@@ -247,6 +248,7 @@ ngb-tabset.vertical(type='pills', [activeId]='activeTab')
 
     ngb-tab(id='hotkeys')
         ng-template(ngbTabTitle)
+            i.fas.fa-fw.fa-keyboard.mr-2
             | Hotkeys
         ng-template(ngbTabContent)
             h3.mb-3 Hotkeys
@@ -274,6 +276,7 @@ ngb-tabset.vertical(type='pills', [activeId]='activeTab')
 
     ngb-tab(*ngFor='let provider of settingsProviders', [id]='provider.id')
         ng-template(ngbTabTitle)
+            i(class='fas fa-fw mr-2 fa-{{provider.icon || "puzzle-piece"}}')
             | {{provider.title}}
         ng-template(ngbTabContent)
             settings-tab-body([provider]='provider')
@@ -281,6 +284,7 @@ ngb-tabset.vertical(type='pills', [activeId]='activeTab')
                 
     ngb-tab(id='config-file')
         ng-template(ngbTabTitle)
+            i.fas.fa-fw.fa-code.mr-2
             | Config file
         ng-template.test(ngbTabContent)
             .d-flex.flex-column.w-100.h-100

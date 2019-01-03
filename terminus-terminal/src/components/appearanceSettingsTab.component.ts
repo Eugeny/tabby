@@ -5,7 +5,7 @@ import deepEqual = require('deep-equal')
 const fontManager = require('font-manager')
 
 import { Component, Inject } from '@angular/core'
-import { ConfigService, HostAppService, Platform } from 'terminus-core'
+import { ConfigService, HostAppService, Platform, ElectronService } from 'terminus-core'
 import { TerminalColorSchemeProvider, ITerminalColorScheme } from '../api'
 
 @Component({
@@ -22,6 +22,7 @@ export class AppearanceSettingsTabComponent {
     constructor (
         @Inject(TerminalColorSchemeProvider) private colorSchemeProviders: TerminalColorSchemeProvider[],
         private hostApp: HostAppService,
+        private electron: ElectronService,
         public config: ConfigService,
     ) { }
 
@@ -71,8 +72,16 @@ export class AppearanceSettingsTabComponent {
         this.editingColorScheme = null
     }
 
-    deleteScheme (scheme: ITerminalColorScheme) {
-        if (confirm(`Delete "${scheme.name}"?`)) {
+    async deleteScheme (scheme: ITerminalColorScheme) {
+        if ((await this.electron.showMessageBox(
+            this.hostApp.getWindow(),
+            {
+                type: 'warning',
+                message: `Delete "${scheme.name}"?`,
+                buttons: ['Keep', 'Delete'],
+                defaultId: 1,
+            }
+        )).response === 1) {
             let schemes = this.config.store.terminal.customColorSchemes
             schemes = schemes.filter(x => x !== scheme)
             this.config.store.terminal.customColorSchemes = schemes

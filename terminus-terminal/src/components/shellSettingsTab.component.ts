@@ -48,10 +48,13 @@ export class ShellSettingsTabComponent {
     pickWorkingDirectory () {
         let shell = this.shells.find(x => x.id === this.config.store.terminal.shell)
         console.log(shell)
-        let paths = this.electron.dialog.showOpenDialog({
-            defaultPath: shell.fsBase,
-            properties: ['openDirectory', 'showHiddenFiles'],
-        })
+        let paths = this.electron.dialog.showOpenDialog(
+            this.hostApp.getWindow(),
+            {
+                defaultPath: shell.fsBase,
+                properties: ['openDirectory', 'showHiddenFiles'],
+            }
+        )
         if (paths) {
             this.config.store.terminal.workingDirectory = paths[0]
         }
