@@ -103,7 +103,7 @@ export class XTermFrontend extends Frontend {
         }[config.terminal.cursor] || config.terminal.cursor)
         this.xterm.setOption('cursorBlink', config.terminal.cursorBlink)
         this.xterm.setOption('macOptionIsMeta', config.terminal.altIsMeta)
-        // this.xterm.setOption('colors', )
+        this.xterm.setOption('scrollbar', 100000)
         this.configuredFontSize = config.terminal.fontSize
         this.setFontSize()
 
