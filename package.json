@@ -85,6 +85,7 @@
     "mac": {
       "category": "public.app-category.video",
       "icon": "./build/mac/icon.icns",
+      "artifactName": "terminus-${version}-macos.${ext}",
       "publish": [
         "github"
       ],
