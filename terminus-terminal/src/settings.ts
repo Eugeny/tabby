@@ -8,6 +8,7 @@ import { TerminalSettingsTabComponent } from './components/terminalSettingsTab.c
 @Injectable()
 export class AppearanceSettingsTabProvider extends SettingsTabProvider {
     id = 'terminal-appearance'
+    icon = 'palette'
     title = 'Appearance'
 
     getComponentType (): any {
@@ -18,6 +19,7 @@ export class AppearanceSettingsTabProvider extends SettingsTabProvider {
 @Injectable()
 export class ShellSettingsTabProvider extends SettingsTabProvider {
     id = 'terminal-shell'
+    icon = 'list-ul'
     title = 'Shell'
 
     getComponentType (): any {
@@ -28,6 +30,7 @@ export class ShellSettingsTabProvider extends SettingsTabProvider {
 @Injectable()
 export class TerminalSettingsTabProvider extends SettingsTabProvider {
     id = 'terminal'
+    icon = 'terminal'
     title = 'Terminal'
 
     getComponentType (): any {

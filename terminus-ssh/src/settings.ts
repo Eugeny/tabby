@@ -6,6 +6,7 @@ import { SSHSettingsTabComponent } from './components/sshSettingsTab.component'
 @Injectable()
 export class SSHSettingsTabProvider extends SettingsTabProvider {
     id = 'ssh'
+    icon = 'globe'
     title = 'SSH'
 
     getComponentType (): any {
