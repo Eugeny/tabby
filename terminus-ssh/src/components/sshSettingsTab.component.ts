@@ -46,6 +46,7 @@ export class SSHSettingsTabComponent {
         modal.componentInstance.connection = Object.assign({}, connection)
         modal.result.then(result => {
             Object.assign(connection, result)
+            this.config.store.ssh.connections = this.connections
             this.config.save()
             this.refresh()
         })
@@ -77,6 +78,7 @@ export class SSHSettingsTabComponent {
                 for (let connection of this.connections.filter(x => x.group === group.name)) {
                     connection.group = result
                 }
+                this.config.store.ssh.connections = this.connections
                 this.config.save()
                 this.refresh()
             }
@@ -102,6 +104,7 @@ export class SSHSettingsTabComponent {
     }
 
     refresh () {
+        this.connections = this.config.store.ssh.connections
         this.childGroups = []
 
         for (let connection of this.connections) {
