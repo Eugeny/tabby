@@ -117,20 +117,24 @@ export class SSHService {
                 agent = process.env.SSH_AUTH_SOCK
             }
 
-            ssh.connect({
-                host: connection.host,
-                port: connection.port || 22,
-                username: connection.user,
-                password: connection.privateKey ? undefined : '',
-                privateKey,
-                passphrase: privateKeyPassphrase,
-                tryKeyboard: true,
-                agent,
-                agentForward: !!agent,
-                keepaliveInterval: connection.keepaliveInterval,
-                keepaliveCountMax: connection.keepaliveCountMax,
-                readyTimeout: connection.readyTimeout,
-            })
+            try {
+                ssh.connect({
+                    host: connection.host,
+                    port: connection.port || 22,
+                    username: connection.user,
+                    password: connection.privateKey ? undefined : '',
+                    privateKey,
+                    passphrase: privateKeyPassphrase,
+                    tryKeyboard: true,
+                    agent,
+                    agentForward: !!agent,
+                    keepaliveInterval: connection.keepaliveInterval,
+                    keepaliveCountMax: connection.keepaliveCountMax,
+                    readyTimeout: connection.readyTimeout,
+                })
+            } catch (e) {
+                this.toastr.error(e.message)
+            }
 
             let keychainPasswordUsed = false
 
