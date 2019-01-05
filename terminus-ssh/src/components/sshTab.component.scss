@@ -1,0 +1,13 @@
+:host {
+    flex: auto;
+    display: flex;
+    overflow: hidden;
+
+    &> .content {
+        flex: auto;
+        position: relative;
+        display: block;
+        overflow: hidden;
+        margin: 15px;
+    }
+}

@@ -10,6 +10,7 @@ import { EditConnectionModalComponent } from './components/editConnectionModal.c
 import { SSHModalComponent } from './components/sshModal.component'
 import { PromptModalComponent } from './components/promptModal.component'
 import { SSHSettingsTabComponent } from './components/sshSettingsTab.component'
+import { SSHTabComponent } from './components/sshTab.component'
 
 import { ButtonProvider } from './buttonProvider'
 import { SSHConfigProvider } from './config'
@@ -33,12 +34,14 @@ import { SSHSettingsTabProvider } from './settings'
         PromptModalComponent,
         SSHModalComponent,
         SSHSettingsTabComponent,
+        SSHTabComponent,
     ],
     declarations: [
         EditConnectionModalComponent,
         PromptModalComponent,
         SSHModalComponent,
         SSHSettingsTabComponent,
+        SSHTabComponent,
     ],
 })
 export default class SSHModule { }

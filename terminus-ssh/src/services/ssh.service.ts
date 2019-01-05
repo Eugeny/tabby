@@ -5,9 +5,9 @@ import * as fs from 'mz/fs'
 import * as path from 'path'
 import { ToastrService } from 'ngx-toastr'
 import { AppService, HostAppService, Platform, Logger, LogService } from 'terminus-core'
-import { TerminalTabComponent } from 'terminus-terminal'
 import { SSHConnection, SSHSession } from '../api'
 import { PromptModalComponent } from '../components/promptModal.component'
+import { SSHTabComponent } from '../components/sshTab.component'
 import { PasswordStorageService } from './passwordStorage.service'
 const { SSH2Stream } = require('ssh2-streams')
 
@@ -33,7 +33,7 @@ export class SSHService {
         this.logger = log.create('ssh')
     }
 
-    async connect (connection: SSHConnection): Promise<TerminalTabComponent> {
+    async connect (connection: SSHConnection): Promise<SSHTabComponent> {
         let privateKey: string = null
         let privateKeyPassphrase: string = null
         let privateKeyPath = connection.privateKey
@@ -171,9 +171,9 @@ export class SSHService {
             let session = new SSHSession(shell, connection)
 
             return this.zone.run(() => this.app.openNewTab(
-                TerminalTabComponent,
+                SSHTabComponent,
                 { session, sessionOptions: {} }
-            ) as TerminalTabComponent)
+            ) as SSHTabComponent)
         } catch (error) {
             console.log(error)
             throw error
