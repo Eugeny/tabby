@@ -48,7 +48,7 @@ export class PluginManagerService {
             return
         }
         if (this.hostApp.platform !== Platform.Windows) {
-            this.envPath = (await exec('$SHELL -c -i \'echo $PATH\''))[0].toString().trim()
+            this.envPath = (await exec('$SHELL -i -c \'echo $PATH\''))[0].toString().trim()
             let searchPaths = this.envPath.split(':')
             for (let searchPath of searchPaths) {
                 if (await fs.exists(path.join(searchPath, 'npm'))) {
