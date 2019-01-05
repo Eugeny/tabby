@@ -264,7 +264,7 @@ export class Session extends BaseSession {
                 return null
             }
             try {
-                fs.access(this.guessedCWD)
+                await fs.access(this.guessedCWD)
             } catch (e) {
                 return null
             }

@@ -1,3 +1,4 @@
+import * as fs from 'mz/fs'
 import { Observable, AsyncSubject } from 'rxjs'
 import { Injectable, Inject } from '@angular/core'
 import { AppService, Logger, LogService, ConfigService } from 'terminus-core'
@@ -41,6 +42,10 @@ export class TerminalService {
     }
 
     async openTab (shell?: IShell, cwd?: string, pause?: boolean): Promise<TerminalTabComponent> {
+        if (cwd && !fs.existsSync(cwd)) {
+            console.warn('Ignoring non-existent CWD:', cwd)
+            cwd = null
+        }
         if (!cwd) {
             if (this.app.activeTab instanceof TerminalTabComponent && this.app.activeTab.session) {
                 cwd = await this.app.activeTab.session.getWorkingDirectory()
