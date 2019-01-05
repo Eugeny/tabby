@@ -16,6 +16,7 @@ import { TerminalSettingsTabComponent } from './components/terminalSettingsTab.c
 import { ColorPickerComponent } from './components/colorPicker.component'
 import { EditProfileModalComponent } from './components/editProfileModal.component'
 import { EnvironmentEditorComponent } from './components/environmentEditor.component'
+import { BaseTerminalTabComponent } from './components/baseTerminalTab.component'
 
 import { BaseSession } from './services/sessions.service'
 import { TerminalFrontendService } from './services/terminalFrontend.service'
@@ -203,5 +204,5 @@ export default class TerminalModule {
     }
 }
 
-export { TerminalService, BaseSession, TerminalTabComponent, TerminalFrontendService }
+export { TerminalService, BaseSession, TerminalTabComponent, TerminalFrontendService, BaseTerminalTabComponent }
 export * from './api'

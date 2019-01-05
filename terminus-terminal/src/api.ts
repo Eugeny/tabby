@@ -1,10 +1,10 @@
-import { TerminalTabComponent } from './components/terminalTab.component'
+import { BaseTerminalTabComponent } from './components/baseTerminalTab.component'
 
 export abstract class TerminalDecorator {
     // tslint:disable-next-line no-empty
-    attach (_terminal: TerminalTabComponent): void { }
+    attach (_terminal: BaseTerminalTabComponent): void { }
     // tslint:disable-next-line no-empty
-    detach (_terminal: TerminalTabComponent): void { }
+    detach (_terminal: BaseTerminalTabComponent): void { }
 }
 
 export interface ResizeEvent {
@@ -44,7 +44,7 @@ export abstract class TerminalColorSchemeProvider {
 export abstract class TerminalContextMenuItemProvider {
     weight: number
 
-    abstract async getItems (tab: TerminalTabComponent): Promise<Electron.MenuItemConstructorOptions[]>
+    abstract async getItems (tab: BaseTerminalTabComponent): Promise<Electron.MenuItemConstructorOptions[]>
 }
 
 export interface IShell {
