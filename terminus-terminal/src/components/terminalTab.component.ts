@@ -3,6 +3,7 @@ import { first } from 'rxjs/operators'
 import { BaseTabProcess } from 'terminus-core'
 import { BaseTerminalTabComponent } from './baseTerminalTab.component'
 import { SessionOptions } from '../api'
+import { Session } from '../services/sessions.service'
 
 @Component({
     selector: 'terminalTab',
@@ -14,6 +15,7 @@ export class TerminalTabComponent extends BaseTerminalTabComponent {
 
     ngOnInit () {
         this.logger = this.log.create('terminalTab')
+        this.session = new Session(this.config)
 
         this.frontendReady$.pipe(first()).subscribe(() => {
             this.initializeSession(this.size.columns, this.size.rows)
@@ -31,18 +33,7 @@ export class TerminalTabComponent extends BaseTerminalTabComponent {
             })
         )
 
-        // this.session.output$.bufferTime(10).subscribe((datas) => {
-        this.session.output$.subscribe(data => {
-            this.zone.run(() => {
-                this.output.next(data)
-                this.write(data)
-            })
-        })
-
-        this.sessionCloseSubscription = this.session.closed$.subscribe(() => {
-            this.frontend.destroy()
-            this.app.closeTab(this)
-        })
+        this.attachSessionHandlers()
     }
 
     async getRecoveryToken (): Promise<any> {

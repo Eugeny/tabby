@@ -1,10 +1,10 @@
 import { Observable, Subject, Subscription } from 'rxjs'
 import { first } from 'rxjs/operators'
 import { ToastrService } from 'ngx-toastr'
-import { NgZone, OnInit, OnDestroy, Inject, Optional, ViewChild, HostBinding, Input } from '@angular/core'
+import { NgZone, OnInit, OnDestroy, Inject, Injector, Optional, ViewChild, HostBinding, Input } from '@angular/core'
 import { AppService, ConfigService, BaseTabComponent, ElectronService, HostAppService, HotkeysService, Platform, LogService, Logger } from 'terminus-core'
 
-import { Session, SessionsService } from '../services/sessions.service'
+import { BaseSession, SessionsService } from '../services/sessions.service'
 import { TerminalFrontendService } from '../services/terminalFrontend.service'
 
 import { TerminalDecorator, ResizeEvent, TerminalContextMenuItemProvider } from '../api'
@@ -20,7 +20,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
     `
     static styles = [require('./terminalTab.component.scss')]
 
-    session: Session
+    session: BaseSession
     @Input() zoom = 0
     @ViewChild('content') content
     @HostBinding('style.background-color') backgroundColor: string
@@ -43,6 +43,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
 
     constructor (
         public config: ConfigService,
+        protected injector: Injector,
         protected zone: NgZone,
         protected app: AppService,
         protected hostApp: HostAppService,
@@ -59,8 +60,6 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
         this.logger = log.create('baseTerminalTab')
         this.decorators = this.decorators || []
         this.setTitle('Terminal')
-
-        this.session = new Session(this.config)
 
         this.hotkeysSubscription = this.hotkeys.matchedHotkey.subscribe(hotkey => {
             if (!this.hasFocus) {
@@ -241,7 +240,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
                 this.logger.info(`Resizing to ${columns}x${rows}`)
                 this.size = { columns, rows }
                 this.zone.run(() => {
-                    if (this.session.open) {
+                    if (this.session && this.session.open) {
                         this.session.resize(columns, rows)
                     }
                 })
@@ -332,5 +331,20 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
         if (this.session && this.session.open) {
             await this.session.destroy()
         }
+    }
+
+    protected attachSessionHandlers () {
+        // this.session.output$.bufferTime(10).subscribe((datas) => {
+        this.session.output$.subscribe(data => {
+            this.zone.run(() => {
+                this.output.next(data)
+                this.write(data)
+            })
+        })
+
+        this.sessionCloseSubscription = this.session.closed$.subscribe(() => {
+            this.frontend.destroy()
+            this.app.closeTab(this)
+        })
     }
 }

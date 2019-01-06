@@ -23,10 +23,11 @@ export interface SSHConnection {
 
 export class SSHSession extends BaseSession {
     scripts?: LoginScript[]
+    shell: any
 
-    constructor (private shell: any, conn: SSHConnection) {
+    constructor (public connection: SSHConnection) {
         super()
-        this.scripts = conn.scripts || []
+        this.scripts = connection.scripts || []
     }
 
     start () {
@@ -87,15 +88,21 @@ export class SSHSession extends BaseSession {
     }
 
     resize (columns, rows) {
-        this.shell.setWindow(rows, columns)
+        if (this.shell) {
+            this.shell.setWindow(rows, columns)
+        }
     }
 
     write (data) {
-        this.shell.write(data)
+        if (this.shell) {
+            this.shell.write(data)
+        }
     }
 
     kill (signal?: string) {
-        this.shell.signal(signal || 'TERM')
+        if (this.shell) {
+            this.shell.signal(signal || 'TERM')
+        }
     }
 
     async getChildProcesses (): Promise<any[]> {

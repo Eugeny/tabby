@@ -11,13 +11,16 @@ export class TerminalFrontendService {
 
     constructor (private config: ConfigService) { }
 
-    getFrontend (session: BaseSession): Frontend {
+    getFrontend (session?: BaseSession): Frontend {
+        if (!session) {
+            return (this.config.store.terminal.frontend === 'xterm')
+                ? new XTermFrontend()
+                : new HTermFrontend()
+        }
         if (!this.containers.has(session)) {
             this.containers.set(
                 session,
-                (this.config.store.terminal.frontend === 'xterm')
-                    ? new XTermFrontend()
-                    : new HTermFrontend()
+                this.getFrontend(),
             )
         }
         return this.containers.get(session)

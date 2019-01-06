@@ -61,7 +61,7 @@ export class SSHModalComponent {
 
     connect (connection: SSHConnection) {
         this.close()
-        this.ssh.connect(connection).catch(error => {
+        this.ssh.openTab(connection).catch(error => {
             this.toastr.error(`Could not connect: ${error}`)
         }).then(() => {
             setTimeout(() => {
