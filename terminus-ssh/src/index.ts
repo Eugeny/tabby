@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common'
 import { FormsModule } from '@angular/forms'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { ToastrModule } from 'ngx-toastr'
-import TerminusCoreModule, { ToolbarButtonProvider, ConfigProvider } from 'terminus-core'
+import TerminusCoreModule, { ToolbarButtonProvider, ConfigProvider, TabRecoveryProvider } from 'terminus-core'
 import { SettingsTabProvider } from 'terminus-settings'
 
 import { EditConnectionModalComponent } from './components/editConnectionModal.component'
@@ -15,6 +15,7 @@ import { SSHTabComponent } from './components/sshTab.component'
 import { ButtonProvider } from './buttonProvider'
 import { SSHConfigProvider } from './config'
 import { SSHSettingsTabProvider } from './settings'
+import { RecoveryProvider } from './recoveryProvider'
 
 @NgModule({
     imports: [
@@ -28,6 +29,7 @@ import { SSHSettingsTabProvider } from './settings'
         { provide: ToolbarButtonProvider, useClass: ButtonProvider, multi: true },
         { provide: ConfigProvider, useClass: SSHConfigProvider, multi: true },
         { provide: SettingsTabProvider, useClass: SSHSettingsTabProvider, multi: true },
+        { provide: TabRecoveryProvider, useClass: RecoveryProvider, multi: true },
     ],
     entryComponents: [
         EditConnectionModalComponent,

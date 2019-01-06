@@ -159,7 +159,6 @@ export class SSHService {
                     keepaliveInterval: session.connection.keepaliveInterval,
                     keepaliveCountMax: session.connection.keepaliveCountMax,
                     readyTimeout: session.connection.readyTimeout,
-                    debug: (...x) => console.log(...x),
                     hostVerifier: digest => {
                         log('SHA256 fingerprint: ' + digest)
                         return true

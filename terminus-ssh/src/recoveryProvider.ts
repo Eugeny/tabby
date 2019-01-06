@@ -1,13 +1,16 @@
 import { Injectable } from '@angular/core'
 import { TabRecoveryProvider, RecoveredTab } from 'terminus-core'
 
-import { SettingsTabComponent } from './components/settingsTab.component'
+import { SSHTabComponent } from './components/sshTab.component'
 
 @Injectable()
 export class RecoveryProvider extends TabRecoveryProvider {
     async recover (recoveryToken: any): Promise<RecoveredTab> {
-        if (recoveryToken && recoveryToken.type === 'app:settings') {
-            return { type: SettingsTabComponent }
+        if (recoveryToken && recoveryToken.type === 'app:ssh-tab') {
+            return {
+                type: SSHTabComponent,
+                options: { connection: recoveryToken.connection },
+            }
         }
         return null
     }

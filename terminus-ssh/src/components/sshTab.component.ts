@@ -53,4 +53,11 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
         this.session.resize(this.size.columns, this.size.rows)
         this.session.start()
     }
+
+    async getRecoveryToken (): Promise<any> {
+        return {
+            type: 'app:ssh-tab',
+            connection: this.connection,
+        }
+    }
 }
