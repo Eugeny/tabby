@@ -24,9 +24,11 @@ import { AutofocusDirective } from './directives/autofocus.directive'
 import { HotkeyProvider } from './api/hotkeyProvider'
 import { ConfigProvider } from './api/configProvider'
 import { Theme } from './api/theme'
+import { TabContextMenuItemProvider } from './api/tabContextMenuProvider'
 
 import { StandardTheme, StandardCompactTheme, PaperTheme } from './theme'
 import { CoreConfigProvider } from './config'
+import { TaskCompletionContextMenu, CommonOptionsContextMenu, CloseContextMenu } from './tabContextMenu'
 
 import 'perfect-scrollbar/css/perfect-scrollbar.css'
 import 'ng2-dnd/bundles/style.css'
@@ -37,6 +39,9 @@ const PROVIDERS = [
     { provide: Theme, useClass: StandardCompactTheme, multi: true },
     { provide: Theme, useClass: PaperTheme, multi: true },
     { provide: ConfigProvider, useClass: CoreConfigProvider, multi: true },
+    { provide: TabContextMenuItemProvider, useClass: CommonOptionsContextMenu, multi: true },
+    { provide: TabContextMenuItemProvider, useClass: CloseContextMenu, multi: true },
+    { provide: TabContextMenuItemProvider, useClass: TaskCompletionContextMenu, multi: true },
     { provide: PERFECT_SCROLLBAR_CONFIG, useValue: { suppressScrollX: true } }
 ]
 

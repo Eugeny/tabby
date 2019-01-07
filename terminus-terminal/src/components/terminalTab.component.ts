@@ -72,20 +72,4 @@ export class TerminalTabComponent extends BaseTerminalTabComponent {
             }
         )).response === 1
     }
-
-    async saveAsProfile () {
-        let profile = {
-            sessionOptions: {
-                ...this.sessionOptions,
-                cwd: (await this.session.getWorkingDirectory()) || this.sessionOptions.cwd,
-            },
-            name: this.sessionOptions.command,
-        }
-        this.config.store.terminal.profiles = [
-            ...this.config.store.terminal.profiles,
-            profile,
-        ]
-        this.config.save()
-        this.toastr.info('Saved')
-    }
 }

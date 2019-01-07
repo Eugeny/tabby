@@ -6,7 +6,7 @@ import { FormsModule } from '@angular/forms'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { ToastrModule } from 'ngx-toastr'
 
-import TerminusCorePlugin, { HostAppService, ToolbarButtonProvider, TabRecoveryProvider, ConfigProvider, HotkeysService, HotkeyProvider, AppService, ConfigService } from 'terminus-core'
+import TerminusCorePlugin, { HostAppService, ToolbarButtonProvider, TabRecoveryProvider, ConfigProvider, HotkeysService, HotkeyProvider, AppService, ConfigService, TabContextMenuItemProvider } from 'terminus-core'
 import { SettingsTabProvider } from 'terminus-settings'
 
 import { AppearanceSettingsTabComponent } from './components/appearanceSettingsTab.component'
@@ -32,6 +32,7 @@ import { TerminalConfigProvider } from './config'
 import { TerminalHotkeyProvider } from './hotkeys'
 import { HyperColorSchemes } from './colorSchemes'
 import { NewTabContextMenu, CopyPasteContextMenu } from './contextMenu'
+import { SaveAsProfileContextMenu } from './tabContextMenu'
 
 import { CmderShellProvider } from './shells/cmder'
 import { CustomShellProvider } from './shells/custom'
@@ -83,6 +84,8 @@ import { hterm } from './hterm'
 
         { provide: TerminalContextMenuItemProvider, useClass: NewTabContextMenu, multi: true },
         { provide: TerminalContextMenuItemProvider, useClass: CopyPasteContextMenu, multi: true },
+
+        { provide: TabContextMenuItemProvider, useClass: SaveAsProfileContextMenu, multi: true },
 
         // For WindowsDefaultShellProvider
         PowerShellCoreShellProvider,

@@ -4,6 +4,7 @@ export { ToolbarButtonProvider, IToolbarButton } from './toolbarButtonProvider'
 export { ConfigProvider } from './configProvider'
 export { HotkeyProvider, IHotkeyDescription } from './hotkeyProvider'
 export { Theme } from './theme'
+export { TabContextMenuItemProvider } from './tabContextMenuProvider'
 
 export { AppService } from '../services/app.service'
 export { ConfigService } from '../services/config.service'
