@@ -77,6 +77,7 @@
     },
     "squirrelWindows": {
       "iconUrl": "https://github.com/Eugeny/terminus/raw/master/build/windows/icon.ico",
+      "loadingGif": "./build/windows/squirrel.gif",
       "artifactName": "terminus-${version}-setup.exe"
     },
     "portable": {
