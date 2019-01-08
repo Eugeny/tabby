@@ -1,7 +1,7 @@
 import { Observable, Subject, Subscription } from 'rxjs'
 import { first } from 'rxjs/operators'
 import { ToastrService } from 'ngx-toastr'
-import { NgZone, OnInit, OnDestroy, Inject, Injector, Optional, ViewChild, HostBinding, Input } from '@angular/core'
+import { NgZone, OnInit, OnDestroy, Inject, Injector, Optional, ViewChild, HostBinding, Input, ElementRef } from '@angular/core'
 import { AppService, ConfigService, BaseTabComponent, ElectronService, HostAppService, HotkeysService, Platform, LogService, Logger } from 'terminus-core'
 
 import { BaseSession, SessionsService } from '../services/sessions.service'
@@ -43,6 +43,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
 
     constructor (
         public config: ConfigService,
+        public element: ElementRef,
         protected injector: Injector,
         protected zone: NgZone,
         protected app: AppService,
