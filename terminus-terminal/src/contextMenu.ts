@@ -3,7 +3,7 @@ import { ToastrService } from 'ngx-toastr'
 import { ConfigService } from 'terminus-core'
 import { UACService } from './services/uac.service'
 import { TerminalService } from './services/terminal.service'
-import { TerminalTabComponent } from './components/terminalTab.component'
+import { BaseTerminalTabComponent } from './components/baseTerminalTab.component'
 import { TerminalContextMenuItemProvider } from './api'
 
 @Injectable()
@@ -19,14 +19,14 @@ export class NewTabContextMenu extends TerminalContextMenuItemProvider {
         super()
     }
 
-    async getItems (tab: TerminalTabComponent): Promise<Electron.MenuItemConstructorOptions[]> {
+    async getItems (tab: BaseTerminalTabComponent): Promise<Electron.MenuItemConstructorOptions[]> {
         let shells = await this.terminalService.shells$.toPromise()
 
         let items: Electron.MenuItemConstructorOptions[] = [
             {
                 label: 'New terminal',
                 click: () => this.zone.run(() => {
-                    this.terminalService.openTabWithOptions(tab.sessionOptions)
+                    this.terminalService.openTabWithOptions((tab as any).sessionOptions)
                 })
             },
             {
@@ -84,7 +84,7 @@ export class CopyPasteContextMenu extends TerminalContextMenuItemProvider {
         super()
     }
 
-    async getItems (tab: TerminalTabComponent): Promise<Electron.MenuItemConstructorOptions[]> {
+    async getItems (tab: BaseTerminalTabComponent): Promise<Electron.MenuItemConstructorOptions[]> {
         return [
             {
                 label: 'Copy',
