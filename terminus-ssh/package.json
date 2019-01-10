@@ -1,6 +1,6 @@
 {
   "name": "terminus-ssh",
-  "version": "1.0.68-c2-g5142d12",
+  "version": "1.0.68-c17-g8b64a81",
   "description": "SSH connection manager for Terminus",
   "keywords": [
     "terminus-builtin-plugin"
