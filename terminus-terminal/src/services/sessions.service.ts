@@ -290,7 +290,7 @@ export class SessionsService {
     constructor (
         log: LogService,
     ) {
-        nodePTY = require('@terminus-term/node-pty')
+        nodePTY = require('node-pty')
         nodePTY = require('../bufferizedPTY')(nodePTY)
         this.logger = log.create('sessions')
     }

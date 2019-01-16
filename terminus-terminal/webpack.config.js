@@ -61,7 +61,7 @@ module.exports = {
     'windows-process-tree',
     'mz/fs',
     'mz/child_process',
-    '@terminus-term/node-pty',
+    'node-pty',
     /^rxjs/,
     /^@angular/,
     /^@ng-bootstrap/,
