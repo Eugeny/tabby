@@ -14,7 +14,7 @@ export class XTermFrontend extends Frontend {
     xterm: Terminal
     private configuredFontSize = 0
     private zoom = 0
-    private resizeHandler: any
+    private resizeHandler: () => void
     private configuredTheme: ITheme = {}
     private copyOnSelect = false
 
@@ -96,6 +96,15 @@ export class XTermFrontend extends Frontend {
     }
 
     configure (config: any): void {
+        if (this.resizeHandler) {
+            setTimeout(() => {
+                try {
+                    this.resizeHandler()
+                } catch (e) {
+                    // fit() might throw if xterm isn't fully attached yet
+                }
+            })
+        }
         this.xterm.setOption('fontFamily', `"${config.terminal.font}", "monospace-fallback", monospace`)
         this.xterm.setOption('bellStyle', config.terminal.bell)
         this.xterm.setOption('cursorStyle', {
