@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { ConfigService } from 'terminus-core'
+import { ConfigService, ThemesService } from 'terminus-core'
 import { Frontend } from '../frontends/frontend'
 import { HTermFrontend } from '../frontends/htermFrontend'
 import { XTermFrontend } from '../frontends/xtermFrontend'
@@ -9,13 +9,16 @@ import { BaseSession } from '../services/sessions.service'
 export class TerminalFrontendService {
     private containers = new WeakMap<BaseSession, Frontend>()
 
-    constructor (private config: ConfigService) { }
+    constructor (private config: ConfigService, private themes: ThemesService) { }
 
     getFrontend (session?: BaseSession): Frontend {
         if (!session) {
-            return (this.config.store.terminal.frontend === 'xterm')
+            let frontend: Frontend = (this.config.store.terminal.frontend === 'xterm')
                 ? new XTermFrontend()
                 : new HTermFrontend()
+            frontend.configService = this.config
+            frontend.themesService = this.themes
+            return frontend
         }
         if (!this.containers.has(session)) {
             this.containers.set(

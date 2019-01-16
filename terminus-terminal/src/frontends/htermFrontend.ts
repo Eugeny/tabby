@@ -51,7 +51,9 @@ export class HTermFrontend extends Frontend {
         this.term.onVTKeystroke('\f')
     }
 
-    configure (config: any): void {
+    configure (): void {
+        let config = this.configService.store
+
         this.configuredFontSize = config.terminal.fontSize
         this.configuredLinePadding = config.terminal.linePadding
         this.setFontSize()
@@ -85,8 +87,7 @@ export class HTermFrontend extends Frontend {
                 preferenceManager.set('background-color', config.terminal.colorScheme.background)
             }
         } else {
-            // hterm can't parse "transparent"
-            preferenceManager.set('background-color', 'transparent')
+            preferenceManager.set('background-color', config.appearance.vibrancy ? 'transparent' : this.themesService.findCurrentTheme().terminalBackground)
         }
 
         this.configuredBackgroundColor = preferenceManager.get('background-color')

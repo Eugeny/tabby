@@ -1,7 +1,11 @@
 import { Observable, Subject, AsyncSubject, ReplaySubject, BehaviorSubject } from 'rxjs'
 import { ResizeEvent } from '../api'
+import { ConfigService, ThemesService } from 'terminus-core'
 
 export abstract class Frontend {
+    configService: ConfigService
+    themesService: ThemesService
+
     enableResizing = true
     protected ready = new AsyncSubject<void>()
     protected title = new ReplaySubject<string>(1)
@@ -54,6 +58,6 @@ export abstract class Frontend {
     abstract visualBell (): void
     abstract scrollToBottom (): void
 
-    abstract configure (configStore: any): void
+    abstract configure (): void
     abstract setZoom (zoom: number): void
 }

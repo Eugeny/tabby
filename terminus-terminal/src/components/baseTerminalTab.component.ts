@@ -144,7 +144,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
             this.session.releaseInitialDataBuffer()
         })
 
-        this.frontend.configure(this.config.store)
+        this.frontend.configure()
         this.frontend.attach(this.content.nativeElement)
         this.attachTermContainerHandlers()
 
@@ -294,7 +294,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
     }
 
     configure (): void {
-        this.frontend.configure(this.config.store)
+        this.frontend.configure()
 
         if (this.config.store.terminal.background === 'colorScheme') {
             if (this.config.store.terminal.colorScheme.background) {

@@ -110,7 +110,9 @@ export class XTermFrontend extends Frontend {
         this.xtermCore._scrollToBottom()
     }
 
-    configure (config: any): void {
+    configure (): void {
+        let config = this.configService.store
+
         setTimeout(() => {
             if (this.xterm.cols && this.xterm.rows) {
                 this.resizeHandler()
@@ -131,7 +133,7 @@ export class XTermFrontend extends Frontend {
 
         let theme: ITheme = {
             foreground: config.terminal.colorScheme.foreground,
-            background: (config.terminal.background === 'colorScheme') ? config.terminal.colorScheme.background : 'transparent',
+            background: (config.terminal.background === 'colorScheme') ? config.terminal.colorScheme.background : (config.appearance.vibrancy ? 'transparent' : this.themesService.findCurrentTheme().terminalBackground),
             cursor: config.terminal.colorScheme.cursor,
         }
 
