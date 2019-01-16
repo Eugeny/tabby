@@ -17,7 +17,6 @@
   "author": "Eugene Pankov",
   "license": "MIT",
   "devDependencies": {
-    "@terminus-term/xterm": "3.8.4",
     "@types/deep-equal": "^1.0.0",
     "@types/mz": "0.0.31",
     "@types/node": "7.0.12",
@@ -27,6 +26,7 @@
     "file-loader": "^0.11.2",
     "rage-edit": "1.2.0",
     "uuid": "^3.3.2",
+    "xterm": "3.10.1",
     "xterm-addon-ligatures-tmp": "^0.1.0-beta-1"
   },
   "peerDependencies": {
