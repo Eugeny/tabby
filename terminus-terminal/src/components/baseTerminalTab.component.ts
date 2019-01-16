@@ -199,6 +199,12 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
 
             this.frontend.mouseEvent$.subscribe(async event => {
                 if (event.type === 'mousedown') {
+                    if (event.which === 2) {
+                        this.paste()
+                        event.preventDefault()
+                        event.stopPropagation()
+                        return
+                    }
                     if (event.which === 3) {
                         if (this.config.store.terminal.rightClick === 'menu') {
                             this.hostApp.popupContextMenu(await this.buildContextMenu())
