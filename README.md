@@ -6,7 +6,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/Eugeny/terminus/releases/latest">Downloads</a> | <a href="https://t.me/joinchat/AAAAAEZuCv2WKKYcfyQ3QA">Community</a>  | <a href="https://ci.appveyor.com/project/Eugeny/terminus/build/artifacts">Latest Windows nightly</a>
+  <a href="https://github.com/Eugeny/terminus/releases/latest">Downloads</a> | <a href="https://t.me/joinchat/HgLqPhRg9Inhmm7WD3H1BQ">Community</a>  | <a href="https://ci.appveyor.com/project/Eugeny/terminus/build/artifacts">Latest Windows nightly</a>
 </p>
 
 ----
