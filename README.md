@@ -19,8 +19,9 @@
   * Full Unicode support including double-width characters
   * Doesn't choke on fast-flowing outputs
   * Proper shell-like experience on Windows including tab completion (via Clink)
-  * PowerShell Core, WSL (Bash on Windows), PowerShell, Git-Bash, Cygwin, Cmder and CMD support
-  * Tab persistence on macOS and Linux
+  * PowerShell (+Core), WSL (Bash on Windows), Git-Bash, Cygwin, Cmder and CMD support
+  * Remembers your tabs
+  * Integrated SSH client and connection manager
 
 
 [![Buy me a coffee](https://github.com/Eugeny/terminus/raw/master/docs/kofi.png)](https://ko-fi.com/eugeny)
