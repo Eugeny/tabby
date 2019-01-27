@@ -3,6 +3,10 @@
     display: flex;
     overflow: hidden;
 
+    &.top-padded {
+        padding-top: 20px;
+    }
+
     &> .content {
         flex: auto;
         position: relative;

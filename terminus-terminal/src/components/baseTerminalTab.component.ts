@@ -24,6 +24,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
     @Input() zoom = 0
     @ViewChild('content') content
     @HostBinding('style.background-color') backgroundColor: string
+    @HostBinding('class.top-padded') topPadded: boolean
     frontend: Frontend
     sessionCloseSubscription: Subscription
     hotkeysSubscription: Subscription
@@ -303,6 +304,10 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
 
     configure (): void {
         this.frontend.configure()
+
+        this.topPadded = this.hostApp.platform === Platform.macOS
+            && this.config.store.appearance.frame === 'thin'
+            && this.config.store.appearance.tabsLocation === 'bottom'
 
         if (this.config.store.terminal.background === 'colorScheme') {
             if (this.config.store.terminal.colorScheme.background) {
