@@ -26,6 +26,7 @@ h3.mb-3 Appearance
                 )
                 input.form-control.w-25(
                     type='number',
+                    max='48',
                     [(ngModel)]='config.store.terminal.fontSize',
                     (ngModelChange)='config.save()',
                 )
