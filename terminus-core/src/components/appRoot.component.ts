@@ -9,7 +9,6 @@ import { HotkeysService } from '../services/hotkeys.service'
 import { Logger, LogService } from '../services/log.service'
 import { ConfigService } from '../services/config.service'
 import { DockingService } from '../services/docking.service'
-import { TabRecoveryService } from '../services/tabRecovery.service'
 import { ThemesService } from '../services/themes.service'
 import { UpdaterService } from '../services/updater.service'
 import { TouchbarService } from '../services/touchbar.service'
@@ -69,7 +68,6 @@ export class AppRootComponent {
     constructor (
         private docking: DockingService,
         private electron: ElectronService,
-        private tabRecovery: TabRecoveryService,
         private hotkeys: HotkeysService,
         private updater: UpdaterService,
         private touchbar: TouchbarService,
@@ -199,9 +197,7 @@ export class AppRootComponent {
     }
 
     async ngOnInit () {
-        await this.tabRecovery.recoverTabs()
         this.ready = true
-        this.tabRecovery.saveTabs(this.app.tabs)
 
         this.app.emitReady()
     }

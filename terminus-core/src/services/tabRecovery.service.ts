@@ -2,7 +2,6 @@ import { Injectable, Inject } from '@angular/core'
 import { TabRecoveryProvider, RecoveredTab } from '../api/tabRecovery'
 import { BaseTabComponent } from '../components/baseTab.component'
 import { Logger, LogService } from '../services/log.service'
-import { AppService } from '../services/app.service'
 import { ConfigService } from '../services/config.service'
 
 @Injectable({ providedIn: 'root' })
@@ -11,17 +10,10 @@ export class TabRecoveryService {
 
     constructor (
         @Inject(TabRecoveryProvider) private tabRecoveryProviders: TabRecoveryProvider[],
-        private app: AppService,
         private config: ConfigService,
         log: LogService
     ) {
         this.logger = log.create('tabRecovery')
-        app.tabsChanged$.subscribe(() => {
-            this.saveTabs(app.tabs)
-        })
-        setInterval(() => {
-            this.saveTabs(app.tabs)
-        }, 30000)
     }
 
     async saveTabs (tabs: BaseTabComponent[]) {
@@ -34,25 +26,32 @@ export class TabRecoveryService {
         )
     }
 
-    async recoverTabs (): Promise<void> {
+    async recoverTab (token: any): Promise<RecoveredTab> {
+        for (let provider of this.config.enabledServices(this.tabRecoveryProviders)) {
+            try {
+                let tab = await provider.recover(token)
+                if (tab) {
+                    return tab
+                }
+            } catch (error) {
+                this.logger.warn('Tab recovery crashed:', token, provider, error)
+            }
+        }
+        return null
+    }
+
+    async recoverTabs (): Promise<RecoveredTab[]> {
         if (window.localStorage.tabsRecovery) {
             let tabs: RecoveredTab[] = []
             for (let token of JSON.parse(window.localStorage.tabsRecovery)) {
-                for (let provider of this.config.enabledServices(this.tabRecoveryProviders)) {
-                    try {
-                        let tab = await provider.recover(token)
-                        if (tab) {
-                            tabs.push(tab)
-                        }
-                    } catch (error) {
-                        this.logger.warn('Tab recovery crashed:', token, provider, error)
-                    }
+                let tab = await this.recoverTab(token)
+                if (tab) {
+                    tabs.push(tab)
                 }
             }
-            tabs.forEach(tab => {
-                this.app.openNewTab(tab.type, tab.options)
-            })
+            return tabs
         }
+        return []
     }
 
 }
