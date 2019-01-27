@@ -54,6 +54,14 @@ export class XTermFrontend extends Frontend {
 
         this.xtermCore._scrollToBottom = this.xtermCore.scrollToBottom.bind(this.xtermCore)
         this.xtermCore.scrollToBottom = () => null
+
+        this.resizeHandler = () => {
+            try {
+                (this.xterm as any).fit()
+            } catch {
+                // tends to throw when element wasn't shown yet
+            }
+        }
     }
 
     attach (host: HTMLElement): void {
@@ -61,7 +69,6 @@ export class XTermFrontend extends Frontend {
         this.ready.next(null)
         this.ready.complete()
 
-        this.resizeHandler = () => (this.xterm as any).fit()
         window.addEventListener('resize', this.resizeHandler)
 
         this.resizeHandler()

@@ -105,7 +105,9 @@ export class AppService {
         this.activeTab = tab
         this.activeTabChange.next(tab)
         if (this.activeTab) {
-            this.activeTab.emitFocused()
+            setImmediate(() => {
+                this.activeTab.emitFocused()
+            })
             this.hostApp.setTitle(this.activeTab.title)
         }
     }

@@ -145,7 +145,15 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
         })
 
         this.frontend.configure()
-        this.frontend.attach(this.content.nativeElement)
+
+        if (this.hasFocus) {
+            this.frontend.attach(this.content.nativeElement)
+        } else {
+            this.focused$.pipe(first()).subscribe(() => {
+                this.frontend.attach(this.content.nativeElement)
+            })
+        }
+
         this.attachTermContainerHandlers()
 
         this.configure()
