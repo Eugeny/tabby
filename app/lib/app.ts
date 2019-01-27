@@ -18,7 +18,7 @@ export class Application {
         }
 
         app.commandLine.appendSwitch('disable-http-cache')
-        app.commandLine.appendSwitch('lang', 'en-US')
+        app.commandLine.appendSwitch('lang', 'EN')
     }
 
     async newWindow (options?: WindowOptions): Promise<Window> {
