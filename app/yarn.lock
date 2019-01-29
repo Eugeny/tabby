@@ -70,6 +70,11 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-8.0.13.tgz#530f0f9254209b0335bf5cc6387822594ef47093"
   integrity sha512-Y3EAG7VA7NVNbZek/fjJtILnmTk/ZfpJuWZGDBqDZ1dVIxgJJJ82fXPW7pKnqyV9CD/9bcPOCi7eErUqGMHOrA==
 
+"@types/node@^10.12.18":
+  version "10.12.18"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-10.12.18.tgz#1d3ca764718915584fcd9f6344621b7672665c67"
+  integrity sha512-fh+pAqt4xRzPfqA6eh3Z2y6fyZavRIumvjhaCL753+TVkGKGhpPeyrJG2JftD0T9q4GF00KjefsQ+PQNDdWQaQ==
+
 accessibility-developer-tools@^2.11.0:
   version "2.12.0"
   resolved "https://registry.yarnpkg.com/accessibility-developer-tools/-/accessibility-developer-tools-2.12.0.tgz#3da0cce9d6ec6373964b84f35db7cfc3df7ab514"
@@ -620,10 +625,12 @@ windows-blurbehind@^1.0.0:
   resolved "https://registry.yarnpkg.com/windows-blurbehind/-/windows-blurbehind-1.0.0.tgz#050efb988704c44335bdc3efefd757f6e463b8ac"
   integrity sha512-lO+A7fhTHO7oy9zJM3o1AdzfSQrmtPkdwvleeuww840ghijjEA1f1Zp8bKA3mJu2DFNtVT40fwmqtgsCGat4UA==
 
-windows-swca@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/windows-swca/-/windows-swca-1.1.1.tgz#0b3530278c67d408baac71c3a6aeb16d55318bf8"
-  integrity sha512-hKmHrNYJD72Kg0u35fjkiFIuMKuC+Tztmf3Obnf4aTkNjstEpbSEspEeSo3ZNixaVCETA1dLbDkVUQVF1QxtWA==
+windows-swca@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/windows-swca/-/windows-swca-2.0.0.tgz#31be33cd1801a9acda914671dfccc8ae0f367bb3"
+  integrity sha512-M2yydXZPq9zmWhg9mzPPrb0Fa772OjPZZpfFKGK5MPZPoFXGka3I1uUJWWXNMEcnGjX9qu0WFc3GXBoUekVSPQ==
+  dependencies:
+    "@types/node" "^10.12.18"
 
 wrap-ansi@^2.0.0:
   version "2.1.0"
