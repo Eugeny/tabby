@@ -625,10 +625,10 @@ windows-blurbehind@^1.0.0:
   resolved "https://registry.yarnpkg.com/windows-blurbehind/-/windows-blurbehind-1.0.0.tgz#050efb988704c44335bdc3efefd757f6e463b8ac"
   integrity sha512-lO+A7fhTHO7oy9zJM3o1AdzfSQrmtPkdwvleeuww840ghijjEA1f1Zp8bKA3mJu2DFNtVT40fwmqtgsCGat4UA==
 
-windows-swca@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/windows-swca/-/windows-swca-2.0.0.tgz#31be33cd1801a9acda914671dfccc8ae0f367bb3"
-  integrity sha512-M2yydXZPq9zmWhg9mzPPrb0Fa772OjPZZpfFKGK5MPZPoFXGka3I1uUJWWXNMEcnGjX9qu0WFc3GXBoUekVSPQ==
+windows-swca@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/windows-swca/-/windows-swca-2.0.1.tgz#25d78ce25251292061494a0ad07c02282b28b4e3"
+  integrity sha512-flj+HD6RUemZUvKKguLLnMUOYkQSgDu9qrhUIO4cydvtb/x+sxU8XmpZUtugYuydcdikB9zsCOMgKnAqIQ+7nw==
   dependencies:
     "@types/node" "^10.12.18"
 
