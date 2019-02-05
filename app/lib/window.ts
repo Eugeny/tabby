@@ -156,6 +156,11 @@ export class Window {
         this.window.on('leave-full-screen', () => this.window.webContents.send('host:window-leave-full-screen'))
 
         this.window.on('close', event => {
+            if (process.platform === 'darwin') {
+                event.preventDefault()
+                this.window.hide()
+                return
+            }
             if (!this.closing) {
                 event.preventDefault()
                 this.window.webContents.send('host:window-close-request')
