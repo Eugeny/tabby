@@ -1,4 +1,5 @@
 import { app, ipcMain, Menu, Tray, shell } from 'electron'
+import * as electron from 'electron'
 import { loadConfig } from './config'
 import { Window, WindowOptions } from './window'
 
@@ -19,6 +20,10 @@ export class Application {
 
         app.commandLine.appendSwitch('disable-http-cache')
         app.commandLine.appendSwitch('lang', 'EN')
+    }
+
+    init () {
+        electron.screen.on('display-metrics-changed', () => this.broadcast('host:display-metrics-changed'))        
     }
 
     async newWindow (options?: WindowOptions): Promise<Window> {

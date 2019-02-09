@@ -265,6 +265,10 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
             this.hostApp.windowMoved$.subscribe(() => setTimeout(() => {
                 this.configure()
             }, 250)),
+
+            this.hostApp.displayMetricsChanged$.subscribe(() => setTimeout(() => {
+                this.configure()
+            }, 250)),
         ]
     }
 

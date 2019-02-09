@@ -58,5 +58,6 @@ app.on('ready', () => {
             }
         ]))
     }
+    application.init()
     application.newWindow({ hidden: argv.hidden })
 })

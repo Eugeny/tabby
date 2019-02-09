@@ -31,6 +31,7 @@ export class HostAppService {
     private configChangeBroadcast = new Subject<void>()
     private windowCloseRequest = new Subject<void>()
     private windowMoved = new Subject<void>()
+    private displayMetricsChanged = new Subject<void>()
     private logger: Logger
     private windowId: number
 
@@ -43,6 +44,7 @@ export class HostAppService {
     get configChangeBroadcast$ (): Observable<void> { return this.configChangeBroadcast }
     get windowCloseRequest$ (): Observable<void> { return this.windowCloseRequest }
     get windowMoved$ (): Observable<void> { return this.windowMoved }
+    get displayMetricsChanged$ (): Observable<void> { return this.displayMetricsChanged }
 
     constructor (
         private zone: NgZone,
@@ -84,6 +86,10 @@ export class HostAppService {
 
         electron.ipcRenderer.on('host:window-moved', () => {
             this.zone.run(() => this.windowMoved.next())
+        })
+
+        electron.ipcRenderer.on('host:display-metrics-changed', () => {
+            this.zone.run(() => this.displayMetricsChanged.next())
         })
 
         electron.ipcRenderer.on('host:second-instance', (_$event, argv: any, cwd: string) => this.zone.run(() => {
