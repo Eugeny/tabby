@@ -25,6 +25,9 @@ h3.mb-3 Shell
         (ngModelChange)='config.save()'
     )
     
+.alert.alert-info.d-flex.align-items-center(*ngIf='config.store.terminal.useConPTY && isConPTYAvailable && !isConPTYStable')
+    .mr-auto Windows 10 build 18309 or above is recommended for ConPTY
+    
 .alert.alert-info.d-flex.align-items-center(*ngIf='config.store.terminal.shell.startsWith("wsl") && (config.store.terminal.frontend != "hterm" || !config.store.terminal.useConPTY)')
     .mr-auto WSL terminal only supports TrueColor with ConPTY and the hterm frontend
 

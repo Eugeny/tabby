@@ -118,7 +118,7 @@ export class Session extends BaseSession {
             rows: options.height || 30,
             cwd,
             env: env,
-            experimentalUseConpty: this.config.store.terminal.useConPTY,
+            experimentalUseConpty: this.config.store.terminal.useConPTY && 1,
         })
 
         this.guessedCWD = cwd

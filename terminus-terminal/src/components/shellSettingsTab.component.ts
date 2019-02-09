@@ -1,3 +1,4 @@
+import * as os from 'os'
 import { Component } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { Subscription } from 'rxjs'
@@ -15,6 +16,7 @@ export class ShellSettingsTabComponent {
     profiles: Profile[] = []
     Platform = Platform
     isConPTYAvailable: boolean
+    isConPTYStable: boolean
     private configSubscription: Subscription
 
     constructor (
@@ -31,6 +33,9 @@ export class ShellSettingsTabComponent {
         })
         this.reload()
         this.isConPTYAvailable = uac.isAvailable
+        this.isConPTYStable = hostApp.platform === Platform.Windows
+            && parseFloat(os.release()) >= 10
+            && parseInt(os.release().split('.')[2]) >= 18309
     }
 
     async ngOnInit () {
