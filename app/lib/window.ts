@@ -182,28 +182,28 @@ export class Window {
         })
 
         ipcMain.on('window-focus', event => {
-            if (event.sender !== this.window.webContents) {
+            if (!this.window || event.sender !== this.window.webContents) {
                 return
             }
             this.window.focus()
         })
 
         ipcMain.on('window-maximize', event => {
-            if (event.sender !== this.window.webContents) {
+            if (!this.window || event.sender !== this.window.webContents) {
                 return
             }
             this.window.maximize()
         })
 
         ipcMain.on('window-unmaximize', event => {
-            if (event.sender !== this.window.webContents) {
+            if (!this.window || event.sender !== this.window.webContents) {
                 return
             }
             this.window.unmaximize()
         })
 
         ipcMain.on('window-toggle-maximize', event => {
-            if (event.sender !== this.window.webContents) {
+            if (!this.window || event.sender !== this.window.webContents) {
                 return
             }
             if (this.window.isMaximized()) {
@@ -214,42 +214,42 @@ export class Window {
         })
 
         ipcMain.on('window-minimize', event => {
-            if (event.sender !== this.window.webContents) {
+            if (!this.window || event.sender !== this.window.webContents) {
                 return
             }
             this.window.minimize()
         })
 
         ipcMain.on('window-set-bounds', (event, bounds) => {
-            if (event.sender !== this.window.webContents) {
+            if (!this.window || event.sender !== this.window.webContents) {
                 return
             }
             this.window.setBounds(bounds)
         })
 
         ipcMain.on('window-set-always-on-top', (event, flag) => {
-            if (event.sender !== this.window.webContents) {
+            if (!this.window || event.sender !== this.window.webContents) {
                 return
             }
             this.window.setAlwaysOnTop(flag)
         })
 
         ipcMain.on('window-set-vibrancy', (event, enabled, type) => {
-            if (event.sender !== this.window.webContents) {
+            if (!this.window || event.sender !== this.window.webContents) {
                 return
             }
             this.setVibrancy(enabled, type)
         })
 
         ipcMain.on('window-set-title', (event, title) => {
-            if (event.sender !== this.window.webContents) {
+            if (!this.window || event.sender !== this.window.webContents) {
                 return
             }
             this.window.setTitle(title)
         })
 
         ipcMain.on('window-bring-to-front', event => {
-            if (event.sender !== this.window.webContents) {
+            if (!this.window || event.sender !== this.window.webContents) {
                 return
             }
             if (this.window.isMinimized()) {
@@ -260,7 +260,7 @@ export class Window {
         })
 
         ipcMain.on('window-close', event => {
-            if (event.sender !== this.window.webContents) {
+            if (!this.window || event.sender !== this.window.webContents) {
                 return
             }
             this.closing = true
