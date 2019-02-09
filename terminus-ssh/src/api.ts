@@ -7,6 +7,13 @@ export interface LoginScript {
     optional?: boolean
 }
 
+export enum SSHAlgorithmType {
+    HMAC = 'hmac',
+    KEX = 'kex',
+    CIPHER = 'cipher',
+    HOSTKEY = 'serverHostKey'
+}
+
 export interface SSHConnection {
     name?: string
     host: string
@@ -19,6 +26,8 @@ export interface SSHConnection {
     keepaliveInterval?: number
     keepaliveCountMax?: number
     readyTimeout?: number
+
+    algorithms?: {[t: string]: string[]}
 }
 
 export class SSHSession extends BaseSession {

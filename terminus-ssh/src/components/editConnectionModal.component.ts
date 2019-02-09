@@ -2,7 +2,8 @@ import { Component } from '@angular/core'
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
 import { ElectronService, HostAppService } from 'terminus-core'
 import { PasswordStorageService } from '../services/passwordStorage.service'
-import { SSHConnection, LoginScript } from '../api'
+import { SSHConnection, LoginScript, SSHAlgorithmType } from '../api'
+import { ALGORITHMS } from 'ssh2-streams/lib/constants'
 
 @Component({
     template: require('./editConnectionModal.component.pug'),
@@ -12,6 +13,10 @@ export class EditConnectionModalComponent {
     newScript: LoginScript
     hasSavedPassword: boolean
 
+    supportedAlgorithms: {[id: string]: string[]} = {}
+    defaultAlgorithms: {[id: string]: string[]} = {}
+    algorithms: {[id: string]: {[a: string]: boolean}} = {}
+
     constructor (
         private modalInstance: NgbActiveModal,
         private electron: ElectronService,
@@ -19,10 +24,41 @@ export class EditConnectionModalComponent {
         private passwordStorage: PasswordStorageService,
     ) {
         this.newScript = { expect: '', send: '' }
+
+        for (let k of Object.values(SSHAlgorithmType)) {
+            this.supportedAlgorithms[k] = ALGORITHMS[
+                {
+                    [SSHAlgorithmType.KEX]: 'SUPPORTED_KEX',
+                    [SSHAlgorithmType.HOSTKEY]: 'SUPPORTED_SERVER_HOST_KEY',
+                    [SSHAlgorithmType.CIPHER]: 'SUPPORTED_CIPHER',
+                    [SSHAlgorithmType.HMAC]: 'SUPPORTED_HMAC',
+                }[k]
+            ]
+            this.defaultAlgorithms[k] = ALGORITHMS[
+                {
+                    [SSHAlgorithmType.KEX]: 'KEX',
+                    [SSHAlgorithmType.HOSTKEY]: 'SERVER_HOST_KEY',
+                    [SSHAlgorithmType.CIPHER]: 'CIPHER',
+                    [SSHAlgorithmType.HMAC]: 'HMAC',
+                }[k]
+            ]
+        }
+        console.log(this)
     }
 
     async ngOnInit () {
         this.hasSavedPassword = !!(await this.passwordStorage.loadPassword(this.connection))
+        this.connection.algorithms = this.connection.algorithms || {}
+        for (let k of Object.values(SSHAlgorithmType)) {
+            if (!this.connection.algorithms[k]) {
+                this.connection.algorithms[k] = this.defaultAlgorithms[k]
+            }
+
+            this.algorithms[k] = {}
+            for (let alg of this.connection.algorithms[k]) {
+                this.algorithms[k][alg] = true
+            }
+        }
     }
 
     clearSavedPassword () {
@@ -43,6 +79,11 @@ export class EditConnectionModalComponent {
     }
 
     save () {
+        for (let k of Object.values(SSHAlgorithmType)) {
+            this.connection.algorithms[k] = Object.entries(this.algorithms[k])
+                .filter(([k, v]) => !!v)
+                .map(([k, v]) => k)
+        }
         this.modalInstance.close(this.connection)
     }
 

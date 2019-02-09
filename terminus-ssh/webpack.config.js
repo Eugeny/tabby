@@ -44,6 +44,7 @@ module.exports = {
   externals: [
     'fs',
     'node-ssh',
+    'ssh2-streams',
     'xkeychain',
     'wincredmgr',
     'path',

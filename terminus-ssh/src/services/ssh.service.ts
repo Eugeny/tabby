@@ -164,6 +164,7 @@ export class SSHService {
                         return true
                     },
                     hostHash: 'sha256' as any,
+                    algorithms: session.connection.algorithms,
                 })
             } catch (e) {
                 this.toastr.error(e.message)

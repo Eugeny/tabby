@@ -85,6 +85,27 @@
                         placeholder='20000', 
                         [(ngModel)]='connection.readyTimeout', 
                     )
+                    
+                .form-group
+                    label Ciphers
+                    div(*ngFor='let alg of supportedAlgorithms.cipher')
+                        checkbox([text]='alg', [(ngModel)]='algorithms.cipher[alg]')
+
+                .form-group
+                    label Key exchange
+                    div(*ngFor='let alg of supportedAlgorithms.kex')
+                        checkbox([text]='alg', [(ngModel)]='algorithms.kex[alg]')
+
+                .form-group
+                    label HMAC
+                    div(*ngFor='let alg of supportedAlgorithms.hmac')
+                        checkbox([text]='alg', [(ngModel)]='algorithms.hmac[alg]')
+
+                .form-group
+                    label Host key
+                    div(*ngFor='let alg of supportedAlgorithms.serverHostKey')
+                        checkbox([text]='alg', [(ngModel)]='algorithms.serverHostKey[alg]')
+
 
         ngb-tab(id='scripts')
             ng-template(ngbTabTitle)
