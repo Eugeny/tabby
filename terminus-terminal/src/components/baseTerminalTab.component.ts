@@ -253,7 +253,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
             }),
 
             this.frontend.resize$.subscribe(({ columns, rows }) => {
-                this.logger.info(`Resizing to ${columns}x${rows}`)
+                this.logger.debug(`Resizing to ${columns}x${rows}`)
                 this.size = { columns, rows }
                 this.zone.run(() => {
                     if (this.session && this.session.open) {

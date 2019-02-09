@@ -23,7 +23,7 @@ const initializeWinston = (electron: ElectronService) => {
                 colorize: false
             }),
             new winston.transports.Console({
-                level: 'info',
+                level: 'debug',
                 handleExceptions: false,
                 json: false,
                 colorize: true
