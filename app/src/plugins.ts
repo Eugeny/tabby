@@ -16,11 +16,11 @@ function normalizePath (path: string): string {
 
 nodeRequire.main.paths.map(x => nodeModule.globalPaths.push(normalizePath(x)))
 
-if (process.env.DEV) {
+if (process.env.TERMINUS_DEV) {
     nodeModule.globalPaths.unshift(path.dirname(require('electron').remote.app.getAppPath()))
 }
 
-const builtinPluginsPath = process.env.DEV ? path.dirname(require('electron').remote.app.getAppPath()) : path.join((process as any).resourcesPath, 'builtin-plugins')
+const builtinPluginsPath = process.env.TERMINUS_DEV ? path.dirname(require('electron').remote.app.getAppPath()) : path.join((process as any).resourcesPath, 'builtin-plugins')
 
 const userPluginsPath = path.join(
     require('electron').remote.app.getPath('appData'),

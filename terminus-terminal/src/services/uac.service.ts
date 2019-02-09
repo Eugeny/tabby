@@ -25,7 +25,7 @@ export class UACService {
             'UAC.exe',
         )
 
-        if (process.env.DEV) {
+        if (process.env.TERMINUS_DEV) {
             helperPath = path.join(
                 path.dirname(this.electron.app.getPath('exe')),
                 '..', '..', '..',

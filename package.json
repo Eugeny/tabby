@@ -127,9 +127,9 @@
   },
   "scripts": {
     "build": "webpack --color --config app/webpack.main.config.js && webpack --color --config app/webpack.config.js && webpack --color --config terminus-core/webpack.config.js && webpack --color --config terminus-settings/webpack.config.js && webpack --color --config terminus-terminal/webpack.config.js && webpack --color --config terminus-settings/webpack.config.js && webpack --color --config terminus-plugin-manager/webpack.config.js && webpack --color --config terminus-community-color-schemes/webpack.config.js && webpack --color --config terminus-ssh/webpack.config.js",
-    "watch": "cross-env DEV=1 webpack --progress --color --watch",
-    "start": "cross-env DEV=1 electron app --debug",
-    "prod": "cross-env DEV=1 electron app",
+    "watch": "cross-env TERMINUS_DEV=1 webpack --progress --color --watch",
+    "start": "cross-env TERMINUS_DEV=1 electron app --debug",
+    "prod": "cross-env TERMINUS_DEV=1 electron app",
     "lint": "tslint -c tslint.json -t stylish terminus-*/src/**/*.ts terminus-*/src/*.ts app/src/*.ts",
     "postinstall": "node ./scripts/install-deps.js"
   },
