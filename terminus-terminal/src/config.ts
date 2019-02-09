@@ -8,7 +8,7 @@ export class TerminalConfigProvider extends ConfigProvider {
             },
         },
         terminal: {
-            frontend: 'hterm',
+            frontend: 'xterm',
             autoOpen: false,
             fontSize: 14,
             linePadding: 0,
