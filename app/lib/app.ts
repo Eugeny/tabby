@@ -19,6 +19,7 @@ export class Application {
         }
 
         app.commandLine.appendSwitch('disable-http-cache')
+        app.commandLine.appendSwitch('force_discrete_gpu', '0')
         app.commandLine.appendSwitch('lang', 'EN')
     }
 
