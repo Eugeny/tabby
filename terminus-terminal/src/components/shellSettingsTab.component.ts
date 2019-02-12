@@ -1,4 +1,3 @@
-import * as os from 'os'
 import { Component } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { Subscription } from 'rxjs'
@@ -6,7 +5,7 @@ import { ConfigService, ElectronService, HostAppService, Platform } from 'termin
 import { EditProfileModalComponent } from './editProfileModal.component'
 import { IShell, Profile } from '../api'
 import { TerminalService } from '../services/terminal.service'
-import { UACService } from '../services/uac.service'
+import { WIN_BUILD_CONPTY_SUPPORTED, WIN_BUILD_CONPTY_STABLE, isWindowsBuild } from '../utils'
 
 @Component({
     template: require('./shellSettingsTab.component.pug'),
@@ -20,7 +19,6 @@ export class ShellSettingsTabComponent {
     private configSubscription: Subscription
 
     constructor (
-        uac: UACService,
         public config: ConfigService,
         public hostApp: HostAppService,
         private electron: ElectronService,
@@ -32,10 +30,9 @@ export class ShellSettingsTabComponent {
             this.reload()
         })
         this.reload()
-        this.isConPTYAvailable = uac.isAvailable
-        this.isConPTYStable = hostApp.platform === Platform.Windows
-            && parseFloat(os.release()) >= 10
-            && parseInt(os.release().split('.')[2]) >= 18309
+
+        this.isConPTYAvailable = isWindowsBuild(WIN_BUILD_CONPTY_SUPPORTED)
+        this.isConPTYStable = isWindowsBuild(WIN_BUILD_CONPTY_STABLE)
     }
 
     async ngOnInit () {

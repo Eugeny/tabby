@@ -1,20 +1,18 @@
 import * as path from 'path'
-import * as os from 'os'
 import { Injectable } from '@angular/core'
-import { ElectronService, HostAppService, Platform } from 'terminus-core'
+import { ElectronService } from 'terminus-core'
 import { SessionOptions } from '../api'
+
+import { WIN_BUILD_CONPTY_SUPPORTED, isWindowsBuild } from '../utils'
 
 @Injectable({ providedIn: 'root' })
 export class UACService {
     isAvailable = false
 
     constructor (
-        hostApp: HostAppService,
         private electron: ElectronService,
     ) {
-        this.isAvailable = hostApp.platform === Platform.Windows
-            && parseFloat(os.release()) >= 10
-            && parseInt(os.release().split('.')[2]) >= 17692
+        this.isAvailable = isWindowsBuild(WIN_BUILD_CONPTY_SUPPORTED)
     }
 
     patchSessionOptionsForUAC (sessionOptions: SessionOptions): SessionOptions {

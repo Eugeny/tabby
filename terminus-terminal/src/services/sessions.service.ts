@@ -7,6 +7,7 @@ import { Injectable } from '@angular/core'
 import { Logger, LogService, ConfigService } from 'terminus-core'
 import { exec } from 'mz/child_process'
 import { SessionOptions } from '../api'
+import { WIN_BUILD_CONPTY_SUPPORTED, isWindowsBuild } from '../utils'
 
 let macOSNativeProcessList
 try {
@@ -118,7 +119,8 @@ export class Session extends BaseSession {
             rows: options.height || 30,
             cwd,
             env: env,
-            experimentalUseConpty: this.config.store.terminal.useConPTY && 1,
+            // `1` instead of `true` forces ConPTY even if unstable
+            experimentalUseConpty: (isWindowsBuild(WIN_BUILD_CONPTY_SUPPORTED) && this.config.store.terminal.useConPTY) ? 1 : false,
         })
 
         this.guessedCWD = cwd
