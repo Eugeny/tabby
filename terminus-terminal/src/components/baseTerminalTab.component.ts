@@ -1,4 +1,4 @@
-import { Observable, Subject, Subscription, merge } from 'rxjs'
+import { Observable, Subject, Subscription } from 'rxjs'
 import { first } from 'rxjs/operators'
 import { ToastrService } from 'ngx-toastr'
 import { NgZone, OnInit, OnDestroy, Inject, Injector, Optional, ViewChild, HostBinding, Input, ElementRef } from '@angular/core'
