@@ -1,4 +1,4 @@
-import { Observable, Subject, Subscription } from 'rxjs'
+import { Observable, Subject, Subscription, merge } from 'rxjs'
 import { first } from 'rxjs/operators'
 import { ToastrService } from 'ngx-toastr'
 import { NgZone, OnInit, OnDestroy, Inject, Injector, Optional, ViewChild, HostBinding, Input, ElementRef } from '@angular/core'
@@ -200,6 +200,13 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
 
     attachTermContainerHandlers () {
         this.detachTermContainerHandlers()
+
+        const maybeConfigure = () => {
+            if (this.hasFocus) {
+                setTimeout(() => this.configure(), 250)
+            }
+        }
+
         this.termContainerSubscriptions = [
             this.frontend.title$.subscribe(title => this.zone.run(() => this.setTitle(title))),
 
@@ -262,13 +269,8 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
                 })
             }),
 
-            this.hostApp.windowMoved$.subscribe(() => setTimeout(() => {
-                this.configure()
-            }, 250)),
-
-            this.hostApp.displayMetricsChanged$.subscribe(() => setTimeout(() => {
-                this.configure()
-            }, 250)),
+            this.hostApp.displayMetricsChanged$.subscribe(maybeConfigure),
+            this.hostApp.windowMoved$.subscribe(maybeConfigure),
         ]
     }
 
