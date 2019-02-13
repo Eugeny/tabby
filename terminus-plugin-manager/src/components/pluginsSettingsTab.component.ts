@@ -21,8 +21,6 @@ export class PluginsSettingsTabComponent {
     @Input() busy: {[id: string]: BusyState} = {}
     @Input() erroredPlugin: string
     @Input() errorMessage: string
-    @Input() npmInstalled = false
-    @Input() npmMissing = false
 
     constructor (
         private electron: ElectronService,
@@ -50,20 +48,10 @@ export class PluginsSettingsTabComponent {
                 this.knownUpgrades[plugin.name] = available.find(x => x.name === plugin.name && semver.gt(x.version, plugin.version))
             }
         })
-        this.checkNPM()
     }
 
     openPluginsFolder (): void {
         this.hostApp.getShell().openItem(this.pluginManager.userPluginsPath)
-    }
-
-    downloadNPM (): void {
-        this.hostApp.getShell().openExternal('https://nodejs.org/en/download/current/')
-    }
-
-    async checkNPM () {
-        this.npmInstalled = await this.pluginManager.isNPMInstalled()
-        this.npmMissing = !this.npmInstalled
     }
 
     searchAvailable (query: string) {

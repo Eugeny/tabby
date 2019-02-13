@@ -20,7 +20,7 @@
                 small {{plugin.description}}
 
         button.btn.btn-primary.ml-2(
-            *ngIf='npmInstalled && knownUpgrades[plugin.name]',
+            *ngIf='knownUpgrades[plugin.name]',
             (click)='upgradePlugin(plugin)',
             [disabled]='busy[plugin.name] != undefined'
         )
@@ -42,24 +42,13 @@
             
         button.btn.btn-danger.ml-2(
             (click)='uninstallPlugin(plugin)', 
-            *ngIf='!plugin.isBuiltin && npmInstalled',
+            *ngIf='!plugin.isBuiltin',
             [disabled]='busy[plugin.name] != undefined'
         )
             i.fas.fa-fw.fa-trash(*ngIf='busy[plugin.name] != BusyState.Uninstalling')
             i.fas.fa-fw.fa-circle-notch.fa-spin(*ngIf='busy[plugin.name] == BusyState.Uninstalling')
 
-.text-center.mt-5(*ngIf='npmMissing')
-    h4 npm not installed
-    p.mb-2 npm is required to install Terminus plugins.
-    .btn-group
-        button.btn.btn-outline-primary((click)='downloadNPM()')
-            i.fas.fa-download
-            span Get npm
-        button.btn.btn-outline-info((click)='checkNPM()')
-            i.fas.fa-refresh
-            span Try again
-
-div(*ngIf='npmInstalled')
+div
     h3.mt-4 Available
 
     .input-group.mb-3

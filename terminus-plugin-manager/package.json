@@ -31,13 +31,14 @@
     "@angular/forms": "4.0.1",
     "@angular/platform-browser": "4.0.1",
     "@ng-bootstrap/ng-bootstrap": "1.0.0-alpha.22",
+    "rxjs": "5.3.0",
     "terminus-core": "*",
-    "terminus-settings": "*",
-    "rxjs": "5.3.0"
+    "terminus-settings": "*"
   },
   "dependencies": {
     "axios": "^0.16.2",
-    "mz": "^2.6.0"
+    "mz": "^2.6.0",
+    "npm": "^6.7.0"
   },
   "false": {}
 }
