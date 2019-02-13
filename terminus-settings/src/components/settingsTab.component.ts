@@ -100,6 +100,10 @@ export class SettingsTabComponent extends BaseTabComponent {
         }
     }
 
+    showConfigFile () {
+        this.electron.shell.showItemInFolder(this.config.path)
+    }
+
     isConfigFileValid () {
         try {
             yaml.safeLoad(this.configFile)

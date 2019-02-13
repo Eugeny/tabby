@@ -300,10 +300,13 @@ ngb-tabset.vertical(type='pills', [activeId]='activeTab')
                             [(ngModel)]='configDefaults',
                             readonly
                         )   
-                .mt-3
+                .mt-2.mb-2.d-flex
                     button.btn.btn-primary((click)='saveConfigFile()', *ngIf='isConfigFileValid()')
                         i.fas.fa-check.mr-2
                         | Save and apply
                     button.btn.btn-primary(disabled, *ngIf='!isConfigFileValid()')
                         i.fas.fa-exclamation-triangle.mr-2
                         | Invalid syntax
+                    button.btn.btn-secondary.ml-auto((click)='showConfigFile()')
+                        i.fas.fa-external-link-square-alt.mr-2
+                        | Show config file

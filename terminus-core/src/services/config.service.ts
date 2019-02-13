@@ -78,9 +78,9 @@ export class ConfigProxy {
 export class ConfigService {
     store: any
     restartRequested: boolean
+    path: string
     private changed = new Subject<void>()
     private _store: any
-    private path: string
     private defaults: any
     private servicesCache: { [id: string]: Function[] } = null
 
