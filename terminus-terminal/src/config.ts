@@ -6,6 +6,9 @@ export class TerminalConfigProvider extends ConfigProvider {
             shell: {
                 __nonStructural: true,
             },
+            profile: {
+                __nonStructural: true,
+            },
         },
         terminal: {
             frontend: 'xterm',

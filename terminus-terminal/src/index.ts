@@ -1,4 +1,5 @@
 import * as fs from 'mz/fs'
+import slug from 'slug'
 
 import { NgModule } from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
@@ -164,6 +165,13 @@ export default class TerminalModule {
                 let shell = shells.find(x => x.id === hotkey.split('.')[1])
                 if (shell) {
                     terminal.openTab(shell)
+                }
+            }
+            if (hotkey.startsWith('profile.')) {
+                let profiles = config.store.terminal.profiles
+                let profile = profiles.find(x => slug(x.name) === hotkey.split('.')[1])
+                if (profile) {
+                    terminal.openTabWithOptions(profile.sessionOptions)
                 }
             }
         })
