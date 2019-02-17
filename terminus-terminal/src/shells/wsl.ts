@@ -1,4 +1,6 @@
 import * as fs from 'mz/fs'
+import slug from 'slug'
+
 import { Registry } from 'rage-edit'
 import { Injectable } from '@angular/core'
 import { HostAppService, Platform } from 'terminus-core'
@@ -53,7 +55,7 @@ export class WSLShellProvider extends ShellProvider {
             }
             let name = (child as any).$values.distributionname
             shells.push({
-                id: `wsl-${name}`,
+                id: `wsl-${slug(name)}`,
                 name: `WSL / ${name}`,
                 command: wslPath,
                 args: ['-d', name],
