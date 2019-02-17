@@ -1,4 +1,3 @@
-import npm from 'npm'
 import axios from 'axios'
 import { Observable, from } from 'rxjs'
 import { map } from 'rxjs/operators'
@@ -29,21 +28,33 @@ export class PluginManagerService {
     installedPlugins: IPluginInfo[] = (window as any).installedPlugins
 
     private npmReady: Promise<void>
+    private npm: any
 
     constructor (
         log: LogService,
     ) {
         this.logger = log.create('pluginManager')
-        this.npmReady = new Promise(resolve => {
-            npm.load({
-                prefix: this.userPluginsPath,
-            }, err => {
-                if (err) {
-                    this.logger.error(err)
-                }
-                resolve()
-            })
-        })
+    }
+
+    async getNPM () {
+        if (!this.npm) {
+            if (!this.npmReady) {
+                this.npmReady = new Promise(resolve => {
+                    const npm = (window as any).nodeRequire('npm')
+                    npm.load({
+                        prefix: this.userPluginsPath,
+                    }, err => {
+                        if (err) {
+                            this.logger.error(err)
+                        }
+                        this.npm = npm
+                        resolve()
+                    })
+                })
+            }
+            await this.npmReady
+        }
+        return this.npm
     }
 
     listAvailable (query?: string): Observable<IPluginInfo[]> {
@@ -68,8 +79,7 @@ export class PluginManagerService {
     }
 
     async installPlugin (plugin: IPluginInfo) {
-        await this.npmReady
-        npm.commands.install([`${plugin.packageName}@${plugin.version}`], err => {
+        (await this.getNPM()).commands.install([`${plugin.packageName}@${plugin.version}`], err => {
             if (err) {
                 this.logger.error(err)
             }
@@ -79,8 +89,7 @@ export class PluginManagerService {
     }
 
     async uninstallPlugin (plugin: IPluginInfo) {
-        await this.npmReady
-        npm.commands.remove([plugin.packageName], err => {
+        (await this.getNPM()).commands.remove([plugin.packageName], err => {
             if (err) {
                 this.logger.error(err)
             }
