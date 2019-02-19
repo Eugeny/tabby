@@ -6,6 +6,7 @@ import { Injectable } from '@angular/core'
 import { HostAppService, Platform } from 'terminus-core'
 
 import { ShellProvider, IShell } from '../api'
+import { isWindowsBuild, WIN_BUILD_WSL_EXE_DISTRO_FLAG } from '../utils'
 
 @Injectable()
 export class WSLShellProvider extends ShellProvider {
@@ -34,7 +35,7 @@ export class WSLShellProvider extends ShellProvider {
         }]
 
         let lxss = await Registry.get('HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Lxss', true)
-        if (!lxss || !lxss.$values.defaultdistribution) {
+        if (!lxss || !lxss.$values.defaultdistribution || !isWindowsBuild(WIN_BUILD_WSL_EXE_DISTRO_FLAG)) {
             if (await fs.exists(bashPath)) {
                 return [{
                     id: 'wsl',
