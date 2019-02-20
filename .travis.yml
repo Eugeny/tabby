@@ -14,6 +14,7 @@ cache:
     - app/node_modules
 
 before_install:
+    - rm app/node_modules/.yarn-integrity || true
     - yarn
 
 script:
