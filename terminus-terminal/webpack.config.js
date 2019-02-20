@@ -62,6 +62,7 @@ module.exports = {
     'mz/fs',
     'mz/child_process',
     'node-pty',
+    'os',
     /^rxjs/,
     /^@angular/,
     /^@ng-bootstrap/,

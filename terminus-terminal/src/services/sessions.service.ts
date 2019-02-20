@@ -1,6 +1,7 @@
 import psNode = require('ps-node')
 let nodePTY
 import * as fs from 'mz/fs'
+import * as os from 'os'
 import { Observable, Subject } from 'rxjs'
 import { first } from 'rxjs/operators'
 import { Injectable } from '@angular/core'
@@ -27,6 +28,8 @@ export interface IChildProcess {
 }
 
 const windowsDirectoryRegex = /([a-zA-Z]:[^\:\[\]\?\"\<\>\|]+)/mi // tslint:disable-line
+const OSC1337Prefix = '\x1b]1337;'
+const OSC1337Suffix = '\x07'
 
 export abstract class BaseSession {
     open: boolean
@@ -79,6 +82,7 @@ export class Session extends BaseSession {
     private pty: any
     private pauseAfterExit = false
     private guessedCWD: string
+    private reportedCWD: string
 
     constructor (private config: ConfigService) {
         super()
@@ -90,6 +94,7 @@ export class Session extends BaseSession {
         let env = {
             ...process.env,
             TERM: 'xterm-256color',
+            TERMINUS: '1',
             ...options.env,
             ...this.config.store.terminal.environment || {},
         }
@@ -139,6 +144,7 @@ export class Session extends BaseSession {
         this.open = true
 
         this.pty.on('data-buffered', data => {
+            data = this.processOSC1337(data)
             this.emitOutput(data)
             if (process.platform === 'win32') {
                 this.guessWindowsCWD(data)
@@ -164,6 +170,24 @@ export class Session extends BaseSession {
         })
 
         this.pauseAfterExit = options.pauseAfterExit
+    }
+
+    processOSC1337 (data) {
+        if (data.includes(OSC1337Prefix)) {
+            let preData = data.substring(0, data.indexOf(OSC1337Prefix))
+            let params = data.substring(data.indexOf(OSC1337Prefix) + OSC1337Prefix.length)
+            let postData = params.substring(params.indexOf(OSC1337Suffix) + OSC1337Suffix.length)
+            params = params.substring(0, params.indexOf(OSC1337Suffix))
+
+            if (params.startsWith('CurrentDir=')) {
+                this.reportedCWD = params.split('=')[1]
+                if (this.reportedCWD.startsWith('~')) {
+                    this.reportedCWD = os.homedir + this.reportedCWD.substring(1)
+                }
+                data = preData + postData
+            }
+        }
+        return data
     }
 
     resize (columns, rows) {
@@ -242,6 +266,9 @@ export class Session extends BaseSession {
     }
 
     async getWorkingDirectory (): Promise<string> {
+        if (this.reportedCWD) {
+            return this.reportedCWD
+        }
         if (!this.truePID) {
             return null
         }
