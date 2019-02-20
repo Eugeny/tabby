@@ -44,7 +44,9 @@ export class Window {
             title: 'Terminus',
             minWidth: 400,
             minHeight: 300,
-            webPreferences: { webSecurity: false },
+            webPreferences: {
+                nodeIntegration: true,
+            },
             frame: false,
             show: false,
             backgroundColor: '#00000000'
