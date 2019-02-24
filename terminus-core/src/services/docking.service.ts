@@ -20,21 +20,23 @@ export class DockingService {
     }
 
     dock () {
+        let dockSide = this.config.store.appearance.dock
+
+        if (dockSide === 'off') {
+            this.hostApp.setAlwaysOnTop(false)
+            return
+        }
+
         let display = this.electron.screen.getAllDisplays()
             .filter((x) => x.id === this.config.store.appearance.dockScreen)[0]
         if (!display) {
             display = this.getCurrentScreen()
         }
 
-        let dockSide = this.config.store.appearance.dock
         let newBounds: Bounds = { x: 0, y: 0, width: 0, height: 0 }
         let fill = this.config.store.appearance.dockFill
         let [minWidth, minHeight] = this.hostApp.getWindow().getMinimumSize()
 
-        if (dockSide === 'off') {
-            this.hostApp.setAlwaysOnTop(false)
-            return
-        }
         if (dockSide === 'left' || dockSide === 'right') {
             newBounds.width = Math.max(minWidth, Math.round(fill * display.bounds.width))
             newBounds.height = display.bounds.height

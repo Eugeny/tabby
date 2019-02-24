@@ -3,7 +3,7 @@ import { TouchBarSegmentedControl, SegmentedControlSegment } from 'electron'
 import { AppService } from './app.service'
 import { ConfigService } from './config.service'
 import { ElectronService } from './electron.service'
-import { HostAppService } from './hostApp.service'
+import { HostAppService, Platform } from './hostApp.service'
 import { IToolbarButton, ToolbarButtonProvider } from '../api'
 
 @Injectable({ providedIn: 'root' })
@@ -31,6 +31,10 @@ export class TouchbarService {
     }
 
     update () {
+        if (this.hostApp.platform !== Platform.macOS) {
+            return
+        }
+
         let buttons: IToolbarButton[] = []
         this.config.enabledServices(this.toolbarButtonProviders).forEach(provider => {
             buttons = buttons.concat(provider.provide())
