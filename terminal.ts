@@ -171,6 +171,7 @@ async function start () {
                 BrowserWindow: {
                     fromId: () => ({
                         setOpacity: () => null,
+                        setProgressBar: () => null,
                     }),
                 },
             },
