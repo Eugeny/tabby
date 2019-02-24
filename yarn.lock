@@ -3673,6 +3673,11 @@ snapdragon@^0.8.1:
     source-map-resolve "^0.5.0"
     use "^3.1.0"
 
+source-code-pro@^2.30.1:
+  version "2.30.1"
+  resolved "https://registry.yarnpkg.com/source-code-pro/-/source-code-pro-2.30.1.tgz#18410cf9ed8c76cbcf71bb99347531b9588573a2"
+  integrity sha512-nuXnTwI2qKk8b8qaEohX8VaOG7XaElctlWAIGTC9PxkO3xkPJxhJO4EbfdaUgVWnbcsK8qr4un9aq9EhxKUBxQ==
+
 source-list-map@^2.0.0:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/source-list-map/-/source-list-map-2.0.1.tgz#3993bd873bfc48479cca9ea3a547835c7c154b34"
