@@ -8,6 +8,7 @@
   },
   "private": true,
   "devDependencies": {
+    "@fortawesome/fontawesome-free": "^5.7.2",
     "@types/node": "^11.9.5",
     "awesome-typescript-loader": "^5.2.1",
     "bootstrap": "^4.3.1",
