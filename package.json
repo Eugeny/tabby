@@ -1,0 +1,29 @@
+{
+  "name": "docs",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --progress",
+    "watch": "webpack --progress --watch"
+  },
+  "private": true,
+  "devDependencies": {
+    "@types/node": "^11.9.5",
+    "awesome-typescript-loader": "^5.2.1",
+    "bootstrap": "^4.3.1",
+    "css-loader": "^2.1.0",
+    "file-loader": "^1.1.11",
+    "node-sass": "^4.11.0",
+    "pug": "^2.0.3",
+    "pug-cli": "^1.0.0-alpha6",
+    "pug-html-loader": "^1.1.5",
+    "raw-loader": "^1.0.0",
+    "sass-loader": "^7.1.0",
+    "script-loader": "^0.7.2",
+    "style-loader": "^0.23.1",
+    "typescript": "^3.3.3333",
+    "val-loader": "^1.1.1",
+    "webpack": "^4.16.5",
+    "webpack-cli": "^3.1.0"
+  }
+}

@@ -1,0 +1,19 @@
+doctype html
+html
+    head
+        meta(charset='UTF-8')
+        script(src='./terminal.js')
+        style#custom-css
+        style.
+            body { transition: 0.5s background; }
+    body
+        app-root(style='display: none')
+            .preload-logo
+                div
+                    .terminus-logo
+                    h1.terminus-title Terminus
+                        sup α 
+                    .progress
+                        .bar(style='width: 0%')
+
+        span#start_emulation

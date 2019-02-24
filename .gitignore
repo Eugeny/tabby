@@ -1,0 +1,4 @@
+node_modules
+index.d.ts
+*.ignore.js
+*.ignore.js.map
