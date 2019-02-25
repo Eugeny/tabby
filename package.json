@@ -22,6 +22,7 @@
     "sass-loader": "^7.1.0",
     "script-loader": "^0.7.2",
     "source-code-pro": "^2.30.1",
+    "source-sans-pro": "^2.45.0",
     "style-loader": "^0.23.1",
     "typescript": "^3.3.3333",
     "val-loader": "^1.1.1",
