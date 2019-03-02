@@ -20,6 +20,9 @@ export class TouchbarService {
         private electron: ElectronService,
         private zone: NgZone,
     ) {
+        if (this.hostApp.platform !== Platform.macOS) {
+            return
+        }
         app.tabsChanged$.subscribe(() => this.update())
         app.activeTabChange$.subscribe(() => this.update())
         app.tabOpened$.subscribe(tab => {
