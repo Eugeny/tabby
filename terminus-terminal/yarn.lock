@@ -239,10 +239,10 @@ uuid@^3.3.2:
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.3.2.tgz#1b4af4955eb3077c501c23872fc6513811587131"
   integrity sha512-yXJmeNaw3DnnKAOKJE51sL/ZaYfWJRl1pK9dr19YFCu0ObS231AB1/LbqTKRAQ5kw8A90rA6fr4riOUpTZvQZA==
 
-windows-native-registry@^1.0.4:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/windows-native-registry/-/windows-native-registry-1.0.4.tgz#95cf1b9eb4d7a00fc7fe8299ac530d9d87c40b06"
-  integrity sha512-RVjg0af8EXYypw452jQzrhkvg0Lh3IXTrE7NZjAuLq+j1Hwey43AZigWb5eecOoXUIs0rGVMqC8wea7khWwKbw==
+windows-native-registry@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/windows-native-registry/-/windows-native-registry-1.0.6.tgz#6271cef068ffb432337751fc1f971a25187cd8d5"
+  integrity sha512-GTu4yRg4FOThNbBkuP/OeTOt8kZm+nTNCoZjmIol0HFefXoYCkzBZX0METJYZLL0nbgis+QzqRhJAKkMfy/VDA==
   dependencies:
     nan "^2.12.1"
 

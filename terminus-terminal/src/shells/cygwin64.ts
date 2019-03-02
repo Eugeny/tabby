@@ -1,6 +1,6 @@
 import * as path from 'path'
 import { Injectable } from '@angular/core'
-import { getRegistryValue } from 'windows-native-registry'
+import { getRegistryValue, HK } from 'windows-native-registry'
 import { HostAppService, Platform } from 'terminus-core'
 
 import { ShellProvider, IShell } from '../api'
@@ -18,7 +18,7 @@ export class Cygwin64ShellProvider extends ShellProvider {
             return []
         }
 
-        let cygwinPath = getRegistryValue('HKLM', 'Software\\Cygwin\\setup', 'rootdir')
+        let cygwinPath = getRegistryValue(HK.LM, 'Software\\Cygwin\\setup', 'rootdir')
 
         if (!cygwinPath) {
             return []
