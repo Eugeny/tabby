@@ -1,6 +1,6 @@
 import * as path from 'path'
 import { Injectable } from '@angular/core'
-import { Registry } from 'rage-edit'
+import { getRegistryValue } from 'windows-native-registry'
 import { HostAppService, Platform } from 'terminus-core'
 
 import { ShellProvider, IShell } from '../api'
@@ -18,10 +18,10 @@ export class GitBashShellProvider extends ShellProvider {
             return []
         }
 
-        let gitBashPath = await Registry.get('HKLM\\Software\\GitForWindows', 'InstallPath')
+        let gitBashPath = getRegistryValue('HKLM', 'Software\\GitForWindows', 'InstallPath')
 
         if (!gitBashPath) {
-            gitBashPath = await Registry.get('HKCU\\Software\\GitForWindows', 'InstallPath')
+            gitBashPath = getRegistryValue('HKCU', 'Software\\GitForWindows', 'InstallPath')
         }
 
         if (!gitBashPath) {

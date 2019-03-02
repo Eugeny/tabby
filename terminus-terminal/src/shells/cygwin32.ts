@@ -1,6 +1,6 @@
 import * as path from 'path'
 import { Injectable } from '@angular/core'
-import { Registry } from 'rage-edit'
+import { getRegistryValue } from 'windows-native-registry'
 import { HostAppService, Platform } from 'terminus-core'
 
 import { ShellProvider, IShell } from '../api'
@@ -18,7 +18,7 @@ export class Cygwin32ShellProvider extends ShellProvider {
             return []
         }
 
-        let cygwinPath = await Registry.get('HKLM\\Software\\WOW6432Node\\Cygwin\\setup', 'rootdir')
+        let cygwinPath = getRegistryValue('HKLM', 'Software\\WOW6432Node\\Cygwin\\setup', 'rootdir')
 
         if (!cygwinPath) {
             return []

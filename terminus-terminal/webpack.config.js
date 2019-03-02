@@ -59,6 +59,7 @@ module.exports = {
     'path',
     'macos-native-processlist',
     'windows-process-tree',
+    'windows-native-registry',
     'mz/fs',
     'mz/child_process',
     'node-pty',

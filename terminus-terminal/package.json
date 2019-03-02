@@ -25,7 +25,6 @@
     "dataurl": "0.1.0",
     "deep-equal": "1.0.1",
     "file-loader": "^0.11.2",
-    "rage-edit": "1.2.0",
     "slug": "^0.9.3",
     "uuid": "^3.3.2",
     "xterm": "3.10.1",
@@ -47,7 +46,8 @@
     "mz": "^2.6.0",
     "node-pty": "^0.8.0",
     "ps-node": "^0.1.6",
-    "runes": "^0.4.2"
+    "runes": "^0.4.2",
+    "windows-native-registry": "^1.0.4"
   },
   "optionalDependencies": {
     "macos-native-processlist": "^1.0.0",

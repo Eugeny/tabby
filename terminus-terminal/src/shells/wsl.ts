@@ -1,7 +1,8 @@
 import * as fs from 'mz/fs'
 import slug from 'slug'
 
-import { Registry } from 'rage-edit'
+import { getRegistryKey, listRegistrySubkeys } from 'windows-native-registry'
+
 import { Injectable } from '@angular/core'
 import { HostAppService, Platform } from 'terminus-core'
 
@@ -34,8 +35,9 @@ export class WSLShellProvider extends ShellProvider {
             }
         }]
 
-        let lxss = await Registry.get('HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Lxss', true)
-        if (!lxss || !lxss.$values.defaultdistribution || !isWindowsBuild(WIN_BUILD_WSL_EXE_DISTRO_FLAG)) {
+        const lxssPath = 'Software\\Microsoft\\Windows\\CurrentVersion\\Lxss'
+        let lxss = getRegistryKey('HKCU', lxssPath)
+        if (!lxss || !lxss.DefaultDistribution || !isWindowsBuild(WIN_BUILD_WSL_EXE_DISTRO_FLAG)) {
             if (await fs.exists(bashPath)) {
                 return [{
                     id: 'wsl',
@@ -50,17 +52,18 @@ export class WSLShellProvider extends ShellProvider {
                 return []
             }
         }
-        for (let child of Object.values(lxss)) {
-            if (!(child as any).$values) {
+        for (let child of listRegistrySubkeys('HKCU', lxssPath)) {
+            let childKey = getRegistryKey('HKCU', lxssPath + '\\' + child)
+            if (!childKey.DistributionName) {
                 continue
             }
-            let name = (child as any).$values.distributionname
+            let name = childKey.DistributionName.value
             shells.push({
                 id: `wsl-${slug(name)}`,
                 name: `WSL / ${name}`,
                 command: wslPath,
                 args: ['-d', name],
-                fsBase: (child as any).$values.basepath + '\\rootfs',
+                fsBase: childKey.BasePath.value + '\\rootfs',
                 env: {
                     TERM: 'xterm-color',
                     COLORTERM: 'truecolor',

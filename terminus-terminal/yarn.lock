@@ -150,7 +150,7 @@ mz@^2.6.0:
     object-assign "^4.0.1"
     thenify-all "^1.0.0"
 
-nan@2.12.1, nan@>=2.10.0, nan@^2.10.0:
+nan@2.12.1, nan@>=2.10.0, nan@^2.10.0, nan@^2.12.1:
   version "2.12.1"
   resolved "https://registry.yarnpkg.com/nan/-/nan-2.12.1.tgz#7b1aa193e9aa86057e3c7bbd0ac448e770925552"
   integrity sha512-JY7V6lRkStKcKTvHO5NVSQRv+RV+FIL5pvDoLiAtSL9pKlC5x9PKQcZDsq7m4FO4d57mkhC6Z+QhAh3Jdk5JFw==
@@ -190,11 +190,6 @@ pseudomap@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/pseudomap/-/pseudomap-1.0.2.tgz#f052a28da70e618917ef0a8ac34c1ae5a68286b3"
   integrity sha1-8FKijacOYYkX7wqKw0wa5aaChrM=
-
-rage-edit@1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/rage-edit/-/rage-edit-1.2.0.tgz#991860a60fef934d8a6d0f057e55786b02f94a2b"
-  integrity sha512-0RspBRc2s6We4g7hRCvT5mu7YPEnfjvQK8Tt354a2uUNJCMC7MKLvo/1mLvHUCQ/zbP6siQyp5VRZN7UCpMFZg==
 
 runes@^0.4.2:
   version "0.4.3"
@@ -243,6 +238,13 @@ uuid@^3.3.2:
   version "3.3.2"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.3.2.tgz#1b4af4955eb3077c501c23872fc6513811587131"
   integrity sha512-yXJmeNaw3DnnKAOKJE51sL/ZaYfWJRl1pK9dr19YFCu0ObS231AB1/LbqTKRAQ5kw8A90rA6fr4riOUpTZvQZA==
+
+windows-native-registry@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/windows-native-registry/-/windows-native-registry-1.0.4.tgz#95cf1b9eb4d7a00fc7fe8299ac530d9d87c40b06"
+  integrity sha512-RVjg0af8EXYypw452jQzrhkvg0Lh3IXTrE7NZjAuLq+j1Hwey43AZigWb5eecOoXUIs0rGVMqC8wea7khWwKbw==
+  dependencies:
+    nan "^2.12.1"
 
 windows-process-tree@^0.2.3:
   version "0.2.3"

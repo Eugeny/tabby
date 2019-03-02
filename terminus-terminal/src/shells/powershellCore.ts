@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { Registry } from 'rage-edit'
+import { getRegistryValue } from 'windows-native-registry'
 import { HostAppService, Platform } from 'terminus-core'
 import { ShellProvider, IShell } from '../api'
 
@@ -16,7 +16,7 @@ export class PowerShellCoreShellProvider extends ShellProvider {
             return []
         }
 
-        let pwshPath = await Registry.get('HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\App Paths\\pwsh.exe', '')
+        const pwshPath = getRegistryValue('HKLM', 'SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\App Paths\\pwsh.exe', '')
 
         if (!pwshPath) {
             return []
