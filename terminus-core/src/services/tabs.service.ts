@@ -10,9 +10,7 @@ export class TabsService {
         private componentFactoryResolver: ComponentFactoryResolver,
         private injector: Injector,
         private tabRecovery: TabRecoveryService,
-    ) {
-
-    }
+    ) { }
 
     create (type: TabComponentType, inputs?: any): BaseTabComponent {
         let componentFactory = this.componentFactoryResolver.resolveComponentFactory(type)

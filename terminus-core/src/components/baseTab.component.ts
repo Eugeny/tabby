@@ -18,6 +18,7 @@ export abstract class BaseTabComponent {
     protected progress = new Subject<number>()
     protected activity = new Subject<boolean>()
     protected destroyed = new Subject<void>()
+    protected recoveryStateChangedHint = new Subject<void>()
 
     private progressClearTimeout: number
 
@@ -27,6 +28,7 @@ export abstract class BaseTabComponent {
     get progress$ (): Observable<number> { return this.progress }
     get activity$ (): Observable<boolean> { return this.activity }
     get destroyed$ (): Observable<void> { return this.destroyed }
+    get recoveryStateChangedHint$ (): Observable<void> { return this.recoveryStateChangedHint }
 
     constructor () {
         this.focused$.subscribe(() => {
@@ -91,6 +93,7 @@ export abstract class BaseTabComponent {
         this.blurred.complete()
         this.titleChange.complete()
         this.progress.complete()
+        this.recoveryStateChangedHint.complete()
         this.destroyed.next()
         this.destroyed.complete()
     }

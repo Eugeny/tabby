@@ -68,11 +68,9 @@ export class AppService {
 
         this.hostApp.windowCloseRequest$.subscribe(() => this.closeWindow())
 
-        /*this.tabRecovery.recoverTabs().then(tabs => {
-            for (let
-            this.openNewTab(tab.type, tab.options)
-            tab of tabs) {
-                this.openNewTab(tab.type, tab.options)
+        this.tabRecovery.recoverTabs().then(tabs => {
+            for (let tab of tabs) {
+                this.openNewTabRaw(tab.type, tab.options)
             }
 
             this.tabsChanged$.subscribe(() => {
@@ -81,7 +79,7 @@ export class AppService {
             setInterval(() => {
                 tabRecovery.saveTabs(this.tabs)
             }, 30000)
-        })*/
+        })
     }
 
     addTabRaw (tab: BaseTabComponent) {
@@ -89,6 +87,10 @@ export class AppService {
         this.selectTab(tab)
         this.tabsChanged.next()
         this.tabOpened.next(tab)
+
+        tab.recoveryStateChangedHint$.subscribe(() => {
+            this.tabRecovery.saveTabs(this.tabs)
+        })
 
         tab.titleChange$.subscribe(title => {
             if (tab === this.activeTab) {

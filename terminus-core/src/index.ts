@@ -18,7 +18,7 @@ import { TitleBarComponent } from './components/titleBar.component'
 import { ToggleComponent } from './components/toggle.component'
 import { WindowControlsComponent } from './components/windowControls.component'
 import { RenameTabModalComponent } from './components/renameTabModal.component'
-import { SplitTabComponent } from './components/splitTab.component'
+import { SplitTabComponent, SplitTabRecoveryProvider } from './components/splitTab.component'
 
 import { AutofocusDirective } from './directives/autofocus.directive'
 
@@ -26,6 +26,7 @@ import { HotkeyProvider } from './api/hotkeyProvider'
 import { ConfigProvider } from './api/configProvider'
 import { Theme } from './api/theme'
 import { TabContextMenuItemProvider } from './api/tabContextMenuProvider'
+import { TabRecoveryProvider } from './api/tabRecovery'
 
 import { StandardTheme, StandardCompactTheme, PaperTheme } from './theme'
 import { CoreConfigProvider } from './config'
@@ -43,6 +44,7 @@ const PROVIDERS = [
     { provide: TabContextMenuItemProvider, useClass: CommonOptionsContextMenu, multi: true },
     { provide: TabContextMenuItemProvider, useClass: CloseContextMenu, multi: true },
     { provide: TabContextMenuItemProvider, useClass: TaskCompletionContextMenu, multi: true },
+    { provide: TabRecoveryProvider, useClass: SplitTabRecoveryProvider, multi: true },
     { provide: PERFECT_SCROLLBAR_CONFIG, useValue: { suppressScrollX: true } }
 ]
 

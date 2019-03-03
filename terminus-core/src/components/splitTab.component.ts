@@ -1,8 +1,10 @@
 import { Subscription } from 'rxjs'
-import { Component, ViewChild, ViewContainerRef, EmbeddedViewRef } from '@angular/core'
-import { BaseTabComponent } from './baseTab.component'
+import { Component, Injectable, ViewChild, ViewContainerRef, EmbeddedViewRef } from '@angular/core'
+import { BaseTabComponent, BaseTabProcess } from './baseTab.component'
+import { TabRecoveryProvider, RecoveredTab } from '../api/tabRecovery'
 import { TabsService } from '../services/tabs.service'
 import { HotkeysService } from '../services/hotkeys.service'
+import { TabRecoveryService } from '../services/tabRecovery.service'
 
 export declare type SplitOrientation = 'v' | 'h'
 export declare type SplitDirection = 'r' | 't' | 'b' | 'l'
@@ -57,6 +59,23 @@ export class SplitContainer {
         }
         this.ratios = this.ratios.map(x => x / s)
     }
+
+    async serialize () {
+        let children = []
+        for (let child of this.children) {
+            if (child instanceof SplitContainer) {
+                children.push(await child.serialize())
+            } else {
+                children.push(await child.getRecoveryToken())
+            }
+        }
+        return {
+            type: 'app:split-tab',
+            ratios: this.ratios,
+            orientation: this.orientation,
+            children,
+        }
+    }
 }
 
 @Component({
@@ -72,10 +91,12 @@ export class SplitTabComponent extends BaseTabComponent {
     @ViewChild('vc', { read: ViewContainerRef }) viewContainer: ViewContainerRef
     hotkeysSubscription: Subscription
     focusedTab: BaseTabComponent
+    recoveredState: any
 
     constructor (
-        protected hotkeys: HotkeysService,
+        private hotkeys: HotkeysService,
         private tabsService: TabsService,
+        private tabRecovery: TabRecoveryService,
     ) {
         super()
         this.root = new SplitContainer()
@@ -118,6 +139,17 @@ export class SplitTabComponent extends BaseTabComponent {
                 break
             }
         })
+    }
+
+    async ngOnInit () {
+        if (this.recoveredState) {
+            await this.recoverContainer(this.root, this.recoveredState)
+            this.layout()
+            setImmediate(() => {
+                this.allTabs().forEach(x => x.emitFocused())
+                this.focusAnyIn(this.root)
+            })
+        }
     }
 
     ngOnDestroy () {
@@ -181,15 +213,20 @@ export class SplitTabComponent extends BaseTabComponent {
         target.ratios.splice(insertIndex, 0, 1 / (target.children.length + 1))
         target.children.splice(insertIndex, 0, tab)
 
-        let ref = this.viewContainer.insert(tab.hostView) as EmbeddedViewRef<any>
-        this.viewRefs.set(tab, ref)
-
-        ref.rootNodes[0].addEventListener('click', () => this.focus(tab))
+        this.recoveryStateChangedHint.next()
+        this.addTab(tab)
 
         setImmediate(() => {
             this.layout()
             this.focus(tab)
         })
+    }
+
+    addTab (tab: BaseTabComponent) {
+        let ref = this.viewContainer.insert(tab.hostView) as EmbeddedViewRef<any>
+        this.viewRefs.set(tab, ref)
+
+        ref.rootNodes[0].addEventListener('click', () => this.focus(tab))
 
         tab.titleChange$.subscribe(t => this.setTitle(t))
         tab.activity$.subscribe(a => a ? this.displayActivity() : this.clearActivity())
@@ -250,6 +287,14 @@ export class SplitTabComponent extends BaseTabComponent {
         return !(await Promise.all(this.allTabs().map(x => x.canClose()))).some(x => !x)
     }
 
+    async getRecoveryToken (): Promise<any> {
+        return this.root.serialize()
+    }
+
+    async getCurrentProcess (): Promise<BaseTabProcess> {
+        return (await Promise.all(this.allTabs().map(x => x.getCurrentProcess()))).find(x => !!x)
+    }
+
     private layout () {
         this.root.normalize()
         this.layoutInternal(this.root, 0, 0, 100, 100)
@@ -279,5 +324,41 @@ export class SplitTabComponent extends BaseTabComponent {
             }
             offset += sizes[i]
         })
+    }
+
+    private async recoverContainer (root: SplitContainer, state: any) {
+        let children: (SplitContainer | BaseTabComponent)[] = []
+        root.orientation = state.orientation
+        root.ratios = state.ratios
+        root.children = children
+        for (let childState of state.children) {
+            if (childState.type === 'app:split-tab') {
+                let child = new SplitContainer()
+                await this.recoverContainer(child, childState)
+                children.push(child)
+            } else {
+                let recovered = await this.tabRecovery.recoverTab(childState)
+                if (recovered) {
+                    let tab = this.tabsService.create(recovered.type, recovered.options)
+                    children.push(tab)
+                    this.addTab(tab)
+                } else {
+                    state.ratios.splice(state.children.indexOf(childState), 0)
+                }
+            }
+        }
+    }
+}
+
+@Injectable()
+export class SplitTabRecoveryProvider extends TabRecoveryProvider {
+    async recover (recoveryToken: any): Promise<RecoveredTab> {
+        if (recoveryToken && recoveryToken.type === 'app:split-tab') {
+            return {
+                type: SplitTabComponent,
+                options: { recoveredState: recoveryToken },
+            }
+        }
+        return null
     }
 }
