@@ -6,8 +6,6 @@ export interface BaseTabProcess {
 }
 
 export abstract class BaseTabComponent {
-    private static lastTabID = 0
-    id: number
     title: string
     customTitle: string
     hasFocus = false
@@ -31,7 +29,6 @@ export abstract class BaseTabComponent {
     get destroyed$ (): Observable<void> { return this.destroyed }
 
     constructor () {
-        this.id = BaseTabComponent.lastTabID++
         this.focused$.subscribe(() => {
             this.hasFocus = true
         })

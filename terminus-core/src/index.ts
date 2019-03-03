@@ -18,6 +18,7 @@ import { TitleBarComponent } from './components/titleBar.component'
 import { ToggleComponent } from './components/toggle.component'
 import { WindowControlsComponent } from './components/windowControls.component'
 import { RenameTabModalComponent } from './components/renameTabModal.component'
+import { SplitTabComponent } from './components/splitTab.component'
 
 import { AutofocusDirective } from './directives/autofocus.directive'
 
@@ -66,10 +67,12 @@ const PROVIDERS = [
         RenameTabModalComponent,
         SafeModeModalComponent,
         AutofocusDirective,
+        SplitTabComponent,
     ],
     entryComponents: [
         RenameTabModalComponent,
         SafeModeModalComponent,
+        SplitTabComponent,
     ],
     exports: [
         CheckboxComponent,

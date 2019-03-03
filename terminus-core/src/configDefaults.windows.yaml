@@ -36,4 +36,18 @@ hotkeys:
     - 'Alt-9'
   tab-10:
     - 'Alt-0'
+  split-right:
+    - 'Ctrl-Shift-E'
+  split-bottom:
+    - 'Ctrl-Shift-D'
+  split-left: []
+  split-top: []
+  split-nav-right:
+    - 'Ctrl-Alt-ArrowRight'
+  split-nav-down:
+    - 'Ctrl-Alt-ArrowDown'
+  split-nav-up:
+    - 'Ctrl-Alt-ArrowUp'
+  split-nav-left:
+    - 'Ctrl-Alt-ArrowLeft'
 pluginBlacklist: []

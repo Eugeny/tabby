@@ -1,13 +1,13 @@
 import { Observable, Subject, AsyncSubject } from 'rxjs'
 import { takeUntil } from 'rxjs/operators'
-import { Injectable, ComponentFactoryResolver, Injector } from '@angular/core'
+import { Injectable } from '@angular/core'
 import { BaseTabComponent } from '../components/baseTab.component'
+import { SplitTabComponent } from '../components/splitTab.component'
 import { Logger, LogService } from './log.service'
 import { ConfigService } from './config.service'
 import { HostAppService } from './hostApp.service'
 import { TabRecoveryService } from './tabRecovery.service'
-
-export declare type TabComponentType = new (...args: any[]) => BaseTabComponent
+import { TabsService, TabComponentType } from './tabs.service'
 
 class CompletionObserver {
     get done$ (): Observable<void> { return this.done }
@@ -58,19 +58,20 @@ export class AppService {
     get ready$ (): Observable<void> { return this.ready }
 
     constructor (
-        private componentFactoryResolver: ComponentFactoryResolver,
         private config: ConfigService,
         private hostApp: HostAppService,
-        private injector: Injector,
         private tabRecovery: TabRecoveryService,
+        private tabsService: TabsService,
         log: LogService,
     ) {
         this.logger = log.create('app')
 
         this.hostApp.windowCloseRequest$.subscribe(() => this.closeWindow())
 
-        this.tabRecovery.recoverTabs().then(tabs => {
-            for (let tab of tabs) {
+        /*this.tabRecovery.recoverTabs().then(tabs => {
+            for (let
+            this.openNewTab(tab.type, tab.options)
+            tab of tabs) {
                 this.openNewTab(tab.type, tab.options)
             }
 
@@ -80,16 +81,10 @@ export class AppService {
             setInterval(() => {
                 tabRecovery.saveTabs(this.tabs)
             }, 30000)
-        })
+        })*/
     }
 
-    openNewTab (type: TabComponentType, inputs?: any): BaseTabComponent {
-        let componentFactory = this.componentFactoryResolver.resolveComponentFactory(type)
-        let componentRef = componentFactory.create(this.injector)
-        let tab = componentRef.instance
-        tab.hostView = componentRef.hostView
-        Object.assign(tab, inputs || {})
-
+    addTabRaw (tab: BaseTabComponent) {
         this.tabs.push(tab)
         this.selectTab(tab)
         this.tabsChanged.next()
@@ -100,6 +95,19 @@ export class AppService {
                 this.hostApp.setTitle(title)
             }
         })
+    }
+
+    openNewTabRaw (type: TabComponentType, inputs?: any): BaseTabComponent {
+        let tab = this.tabsService.create(type, inputs)
+        this.addTabRaw(tab)
+        return tab
+    }
+
+    openNewTab (type: TabComponentType, inputs?: any): BaseTabComponent {
+        let splitTab = this.tabsService.create(SplitTabComponent) as SplitTabComponent
+        let tab = this.tabsService.create(type, inputs)
+        splitTab.insert(tab, null, 'r')
+        this.addTabRaw(splitTab)
         return tab
     }
 
@@ -178,13 +186,9 @@ export class AppService {
     }
 
     async duplicateTab (tab: BaseTabComponent) {
-        let token = await tab.getRecoveryToken()
-        if (!token) {
-            return
-        }
-        let recoveredTab = await this.tabRecovery.recoverTab(token)
-        if (recoveredTab) {
-            this.openNewTab(recoveredTab.type, recoveredTab.options)
+        let dup = await this.tabsService.duplicate(tab)
+        if (dup) {
+            this.addTabRaw(dup)
         }
     }
 

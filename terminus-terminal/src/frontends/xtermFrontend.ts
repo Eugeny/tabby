@@ -79,6 +79,9 @@ export class XTermFrontend extends Frontend {
         host.addEventListener('mousedown', event => this.mouseEvent.next(event as MouseEvent))
         host.addEventListener('mouseup', event => this.mouseEvent.next(event as MouseEvent))
         host.addEventListener('mousewheel', event => this.mouseEvent.next(event as MouseEvent))
+
+        let ro = new window['ResizeObserver'](() => this.resizeHandler())
+        ro.observe(host)
     }
 
     detach (host: HTMLElement): void {

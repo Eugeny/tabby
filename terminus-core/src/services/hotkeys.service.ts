@@ -275,6 +275,38 @@ export class AppHotkeyProvider extends HotkeyProvider {
             id: 'tab-10',
             name: 'Tab 10',
         },
+        {
+            id: 'split-right',
+            name: 'Split to the right',
+        },
+        {
+            id: 'split-bottom',
+            name: 'Split to the bottom',
+        },
+        {
+            id: 'split-left',
+            name: 'Split to the left',
+        },
+        {
+            id: 'split-top',
+            name: 'Split to the top',
+        },
+        {
+            id: 'split-nav-up',
+            name: 'Focus the pane above',
+        },
+        {
+            id: 'split-nav-down',
+            name: 'Focus the pane below',
+        },
+        {
+            id: 'split-nav-left',
+            name: 'Focus the pane on the left',
+        },
+        {
+            id: 'split-nav-right',
+            name: 'Focus the pane on the right',
+        },
     ]
 
     async provide (): Promise<IHotkeyDescription[]> {

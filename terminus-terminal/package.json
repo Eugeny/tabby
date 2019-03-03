@@ -46,11 +46,11 @@
     "mz": "^2.6.0",
     "node-pty": "^0.8.0",
     "ps-node": "^0.1.6",
-    "runes": "^0.4.2",
-    "windows-native-registry": "^1.0.6"
+    "runes": "^0.4.2"
   },
   "optionalDependencies": {
     "macos-native-processlist": "^1.0.0",
+    "windows-native-registry": "^1.0.6",
     "windows-process-tree": "^0.2.3"
   },
   "false": {}

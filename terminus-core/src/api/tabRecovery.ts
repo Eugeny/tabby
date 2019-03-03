@@ -1,4 +1,4 @@
-import { TabComponentType } from '../services/app.service'
+import { TabComponentType } from '../services/tabs.service'
 
 export interface RecoveredTab {
     type: TabComponentType,
