@@ -1,13 +1,15 @@
 import * as fs from 'mz/fs'
 import slug from 'slug'
 
-import { getRegistryKey, listRegistrySubkeys, HK } from 'windows-native-registry'
-
 import { Injectable } from '@angular/core'
 import { HostAppService, Platform } from 'terminus-core'
 
 import { ShellProvider, IShell } from '../api'
 import { isWindowsBuild, WIN_BUILD_WSL_EXE_DISTRO_FLAG } from '../utils'
+
+try {
+    var wnr = require('windows-native-registry') // tslint:disable-line
+} catch { } // tslint:disable-line
 
 @Injectable()
 export class WSLShellProvider extends ShellProvider {
@@ -36,7 +38,7 @@ export class WSLShellProvider extends ShellProvider {
         }]
 
         const lxssPath = 'Software\\Microsoft\\Windows\\CurrentVersion\\Lxss'
-        let lxss = getRegistryKey(HK.CU, lxssPath)
+        let lxss = wnr.getRegistryKey(wnr.HK.CU, lxssPath)
         if (!lxss || !lxss.DefaultDistribution || !isWindowsBuild(WIN_BUILD_WSL_EXE_DISTRO_FLAG)) {
             if (await fs.exists(bashPath)) {
                 return [{
@@ -52,8 +54,8 @@ export class WSLShellProvider extends ShellProvider {
                 return []
             }
         }
-        for (let child of listRegistrySubkeys(HK.CU, lxssPath)) {
-            let childKey = getRegistryKey(HK.CU, lxssPath + '\\' + child)
+        for (let child of wnr.listRegistrySubkeys(wnr.HK.CU, lxssPath)) {
+            let childKey = wnr.getRegistryKey(wnr.HK.CU, lxssPath + '\\' + child)
             if (!childKey.DistributionName) {
                 continue
             }

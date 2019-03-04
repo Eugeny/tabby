@@ -1,9 +1,12 @@
 import * as path from 'path'
 import { Injectable } from '@angular/core'
-import { getRegistryValue, HK } from 'windows-native-registry'
 import { HostAppService, Platform } from 'terminus-core'
 
 import { ShellProvider, IShell } from '../api'
+
+try {
+    var wnr = require('windows-native-registry') // tslint:disable-line
+} catch { } // tslint:disable-line
 
 @Injectable()
 export class Cygwin32ShellProvider extends ShellProvider {
@@ -18,7 +21,7 @@ export class Cygwin32ShellProvider extends ShellProvider {
             return []
         }
 
-        let cygwinPath = getRegistryValue(HK.LM, 'Software\\WOW6432Node\\Cygwin\\setup', 'rootdir')
+        let cygwinPath = wnr.getRegistryValue(wnr.HK.LM, 'Software\\WOW6432Node\\Cygwin\\setup', 'rootdir')
 
         if (!cygwinPath) {
             return []

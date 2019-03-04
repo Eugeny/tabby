@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core'
-import { getRegistryValue, HK } from 'windows-native-registry'
 import { HostAppService, Platform } from 'terminus-core'
 import { ShellProvider, IShell } from '../api'
+
+try {
+    var wnr = require('windows-native-registry') // tslint:disable-line
+} catch { } // tslint:disable-line
 
 @Injectable()
 export class PowerShellCoreShellProvider extends ShellProvider {
@@ -16,7 +19,7 @@ export class PowerShellCoreShellProvider extends ShellProvider {
             return []
         }
 
-        const pwshPath = getRegistryValue(HK.LM, 'SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\App Paths\\pwsh.exe', '')
+        const pwshPath = wnr.getRegistryValue(wnr.HK.LM, 'SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\App Paths\\pwsh.exe', '')
 
         if (!pwshPath) {
             return []
