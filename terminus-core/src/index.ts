@@ -19,6 +19,7 @@ import { ToggleComponent } from './components/toggle.component'
 import { WindowControlsComponent } from './components/windowControls.component'
 import { RenameTabModalComponent } from './components/renameTabModal.component'
 import { SplitTabComponent, SplitTabRecoveryProvider } from './components/splitTab.component'
+import { SplitTabSpannerComponent } from './components/splitTabSpanner.component'
 
 import { AutofocusDirective } from './directives/autofocus.directive'
 
@@ -70,6 +71,7 @@ const PROVIDERS = [
         SafeModeModalComponent,
         AutofocusDirective,
         SplitTabComponent,
+        SplitTabSpannerComponent,
     ],
     entryComponents: [
         RenameTabModalComponent,

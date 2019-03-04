@@ -13,6 +13,10 @@ export class SplitContainer {
     orientation: SplitOrientation = 'h'
     children: (BaseTabComponent | SplitContainer)[] = []
     ratios: number[] = []
+    x: number
+    y: number
+    w: number
+    h: number
 
     allTabs () {
         let r = []
@@ -60,6 +64,14 @@ export class SplitContainer {
         this.ratios = this.ratios.map(x => x / s)
     }
 
+    getOffsetRatio (index: number): number {
+        let s = 0
+        for (let i = 0; i < index; i++) {
+            s += this.ratios[i]
+        }
+        return s
+    }
+
     async serialize () {
         let children = []
         for (let child of this.children) {
@@ -78,12 +90,23 @@ export class SplitContainer {
     }
 }
 
+interface SpannerInfo {
+    container: SplitContainer
+    index: number
+}
+
 @Component({
-    selector: 'splitTab',
-    template: '<ng-container #vc></ng-container>',
-    styles: [
-        ':host { position: relative; flex: auto; display: block; }'
-    ]
+    selector: 'split-tab',
+    template: `
+        <ng-container #vc></ng-container>
+        <split-tab-spanner
+            *ngFor='let spanner of spanners'
+            [container]='spanner.container'
+            [index]='spanner.index'
+            (change)='layout()'
+        ></split-tab-spanner>
+    `,
+    styles: [require('./splitTab.component.scss')],
 })
 export class SplitTabComponent extends BaseTabComponent {
     root: SplitContainer
@@ -92,6 +115,7 @@ export class SplitTabComponent extends BaseTabComponent {
     hotkeysSubscription: Subscription
     focusedTab: BaseTabComponent
     recoveredState: any
+    spanners: SpannerInfo[] = []
 
     constructor (
         private hotkeys: HotkeysService,
@@ -297,12 +321,18 @@ export class SplitTabComponent extends BaseTabComponent {
 
     private layout () {
         this.root.normalize()
+        this.spanners = []
         this.layoutInternal(this.root, 0, 0, 100, 100)
     }
 
     private layoutInternal (root: SplitContainer, x: number, y: number, w: number, h: number) {
         let size = (root.orientation === 'v') ? h : w
         let sizes = root.ratios.map(x => x * size)
+
+        root.x = x
+        root.y = y
+        root.w = w
+        root.h = h
 
         let offset = 0
         root.children.forEach((child, i) => {
@@ -323,6 +353,13 @@ export class SplitTabComponent extends BaseTabComponent {
                 element.style.opacity = (child === this.focusedTab) ? 1 : 0.75
             }
             offset += sizes[i]
+
+            if (i !== 0) {
+                this.spanners.push({
+                    container: root,
+                    index: i,
+                })
+            }
         })
     }
 

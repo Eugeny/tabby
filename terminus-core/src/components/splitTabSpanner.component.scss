@@ -1,0 +1,22 @@
+:host {
+    display: block;
+    position: absolute;
+    z-index: 5;
+    transition: 0.125s background;
+
+    &.v {
+        cursor: ns-resize;
+        height: 10px;
+        margin-top: -5px;
+    }
+
+    &.h {
+        cursor: ew-resize;
+        width: 10px;
+        margin-left: -5px;
+    }
+
+    &:hover, &.active {
+        background: rgba(255, 255, 255, .125);
+    }
+}
