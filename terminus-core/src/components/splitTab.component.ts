@@ -246,6 +246,23 @@ export class SplitTabComponent extends BaseTabComponent {
         })
     }
 
+    remove (tab: BaseTabComponent) {
+        let parent = this.getParent(tab)
+        let index = parent.children.indexOf(tab)
+        parent.ratios.splice(index, 1)
+        parent.children.splice(index, 1)
+
+        let ref = this.viewRefs.get(tab)
+        this.viewRefs.delete(tab)
+        this.viewContainer.remove(this.viewContainer.indexOf(ref))
+
+        this.layout()
+
+        if (this.root.children.length === 0) {
+            this.destroy()
+        }
+    }
+
     addTab (tab: BaseTabComponent) {
         let ref = this.viewContainer.insert(tab.hostView) as EmbeddedViewRef<any>
         this.viewRefs.set(tab, ref)
@@ -258,6 +275,9 @@ export class SplitTabComponent extends BaseTabComponent {
         if (tab.title) {
             this.setTitle(tab.title)
         }
+        tab.destroyed$.subscribe(() => {
+            this.remove(tab)
+        })
     }
 
     navigate (dir: SplitDirection) {

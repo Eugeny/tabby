@@ -370,7 +370,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
 
         this.sessionCloseSubscription = this.session.closed$.subscribe(() => {
             this.frontend.destroy()
-            this.app.closeTab(this)
+            this.destroy()
         })
     }
 }

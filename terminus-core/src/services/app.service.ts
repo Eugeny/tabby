@@ -97,6 +97,16 @@ export class AppService {
                 this.hostApp.setTitle(title)
             }
         })
+
+        tab.destroyed$.subscribe(() => {
+            let newIndex = Math.max(0, this.tabs.indexOf(tab) - 1)
+            this.tabs = this.tabs.filter((x) => x !== tab)
+            if (tab === this.activeTab) {
+                this.selectTab(this.tabs[newIndex])
+            }
+            this.tabsChanged.next()
+            this.tabClosed.next(tab)
+        })
     }
 
     openNewTabRaw (type: TabComponentType, inputs?: any): BaseTabComponent {
@@ -177,14 +187,7 @@ export class AppService {
         if (checkCanClose && !await tab.canClose()) {
             return
         }
-        let newIndex = Math.max(0, this.tabs.indexOf(tab) - 1)
-        this.tabs = this.tabs.filter((x) => x !== tab)
         tab.destroy()
-        if (tab === this.activeTab) {
-            this.selectTab(this.tabs[newIndex])
-        }
-        this.tabsChanged.next()
-        this.tabClosed.next(tab)
     }
 
     async duplicateTab (tab: BaseTabComponent) {
