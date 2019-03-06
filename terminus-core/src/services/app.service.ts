@@ -118,7 +118,7 @@ export class AppService {
     openNewTab (type: TabComponentType, inputs?: any): BaseTabComponent {
         let splitTab = this.tabsService.create(SplitTabComponent) as SplitTabComponent
         let tab = this.tabsService.create(type, inputs)
-        splitTab.insert(tab, null, 'r')
+        splitTab.addTab(tab, null, 'r')
         this.addTabRaw(splitTab)
         return tab
     }

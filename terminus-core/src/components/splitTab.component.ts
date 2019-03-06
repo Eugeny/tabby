@@ -1,5 +1,5 @@
-import { Subscription } from 'rxjs'
-import { Component, Injectable, ViewChild, ViewContainerRef, EmbeddedViewRef } from '@angular/core'
+import { Observable, Subject, Subscription } from 'rxjs'
+import { Component, Injectable, ViewChild, ViewContainerRef, EmbeddedViewRef, OnInit, OnDestroy } from '@angular/core'
 import { BaseTabComponent, BaseTabProcess } from './baseTab.component'
 import { TabRecoveryProvider, RecoveredTab } from '../api/tabRecovery'
 import { TabsService } from '../services/tabs.service'
@@ -18,11 +18,11 @@ export class SplitContainer {
     w: number
     h: number
 
-    allTabs () {
+    getAllTabs () {
         let r = []
         for (let child of this.children) {
             if (child instanceof SplitContainer) {
-                r = r.concat(child.allTabs())
+                r = r.concat(child.getAllTabs())
             } else {
                 r.push(child)
             }
@@ -90,7 +90,7 @@ export class SplitContainer {
     }
 }
 
-interface SpannerInfo {
+export interface SplitSpannerInfo {
     container: SplitContainer
     index: number
 }
@@ -100,22 +100,31 @@ interface SpannerInfo {
     template: `
         <ng-container #vc></ng-container>
         <split-tab-spanner
-            *ngFor='let spanner of spanners'
+            *ngFor='let spanner of _spanners'
             [container]='spanner.container'
             [index]='spanner.index'
-            (change)='layout()'
+            (change)='onSpannerAdjusted(spanner)'
         ></split-tab-spanner>
     `,
     styles: [require('./splitTab.component.scss')],
 })
-export class SplitTabComponent extends BaseTabComponent {
-    root: SplitContainer
-    viewRefs: Map<BaseTabComponent, EmbeddedViewRef<any>> = new Map()
+export class SplitTabComponent extends BaseTabComponent implements OnInit, OnDestroy {
     @ViewChild('vc', { read: ViewContainerRef }) viewContainer: ViewContainerRef
-    hotkeysSubscription: Subscription
-    focusedTab: BaseTabComponent
-    recoveredState: any
-    spanners: SpannerInfo[] = []
+    root: SplitContainer
+    _recoveredState: any
+    _spanners: SplitSpannerInfo[] = []
+    private focusedTab: BaseTabComponent
+    private hotkeysSubscription: Subscription
+    private viewRefs: Map<BaseTabComponent, EmbeddedViewRef<any>> = new Map()
+
+    protected tabAdded = new Subject<BaseTabComponent>()
+    protected tabRemoved = new Subject<BaseTabComponent>()
+    protected splitAdjusted = new Subject<SplitSpannerInfo>()
+    protected focusChanged = new Subject<BaseTabComponent>()
+    get tabAdded$ (): Observable<BaseTabComponent> { return this.tabAdded }
+    get tabRemoved$ (): Observable<BaseTabComponent> { return this.tabRemoved }
+    get splitAdjusted$ (): Observable<SplitSpannerInfo> { return this.splitAdjusted }
+    get focusChanged$ (): Observable<BaseTabComponent> { return this.focusChanged }
 
     constructor (
         private hotkeys: HotkeysService,
@@ -127,10 +136,10 @@ export class SplitTabComponent extends BaseTabComponent {
         this.setTitle('')
 
         this.focused$.subscribe(() => {
-            this.allTabs().forEach(x => x.emitFocused())
+            this.getAllTabs().forEach(x => x.emitFocused())
             this.focus(this.focusedTab)
         })
-        this.blurred$.subscribe(() => this.allTabs().forEach(x => x.emitBlurred()))
+        this.blurred$.subscribe(() => this.getAllTabs().forEach(x => x.emitBlurred()))
 
         this.hotkeysSubscription = this.hotkeys.matchedHotkey.subscribe(hotkey => {
             if (!this.hasFocus) {
@@ -166,11 +175,11 @@ export class SplitTabComponent extends BaseTabComponent {
     }
 
     async ngOnInit () {
-        if (this.recoveredState) {
-            await this.recoverContainer(this.root, this.recoveredState)
+        if (this._recoveredState) {
+            await this.recoverContainer(this.root, this._recoveredState)
             this.layout()
             setImmediate(() => {
-                this.allTabs().forEach(x => x.emitFocused())
+                this.getAllTabs().forEach(x => x.emitFocused())
                 this.focusAnyIn(this.root)
             })
         }
@@ -180,19 +189,24 @@ export class SplitTabComponent extends BaseTabComponent {
         this.hotkeysSubscription.unsubscribe()
     }
 
-    allTabs () {
-        return [...this.root.allTabs()]
+    getAllTabs () {
+        return this.root.getAllTabs()
+    }
+
+    getFocusedTab (): BaseTabComponent {
+        return this.focusedTab
     }
 
     focus (tab: BaseTabComponent) {
         this.focusedTab = tab
-        for (let x of this.allTabs()) {
+        for (let x of this.getAllTabs()) {
             if (x !== tab) {
                 x.emitBlurred()
             }
         }
         if (tab) {
             tab.emitFocused()
+            this.focusChanged.next(tab)
         }
         this.layout()
     }
@@ -208,8 +222,8 @@ export class SplitTabComponent extends BaseTabComponent {
         }
     }
 
-    insert (tab: BaseTabComponent, relative: BaseTabComponent, dir: SplitDirection) {
-        let target = this.getParent(relative) || this.root
+    addTab (tab: BaseTabComponent, relative: BaseTabComponent, dir: SplitDirection) {
+        let target = this.getParentOf(relative) || this.root
         let insertIndex = target.children.indexOf(relative)
 
         if (
@@ -238,56 +252,40 @@ export class SplitTabComponent extends BaseTabComponent {
         target.children.splice(insertIndex, 0, tab)
 
         this.recoveryStateChangedHint.next()
-        this.addTab(tab)
+        this.attachTabView(tab)
 
         setImmediate(() => {
             this.layout()
+            this.tabAdded.next(tab)
             this.focus(tab)
         })
     }
 
-    remove (tab: BaseTabComponent) {
-        let parent = this.getParent(tab)
+    removeTab (tab: BaseTabComponent) {
+        let parent = this.getParentOf(tab)
         let index = parent.children.indexOf(tab)
         parent.ratios.splice(index, 1)
         parent.children.splice(index, 1)
 
-        let ref = this.viewRefs.get(tab)
-        this.viewRefs.delete(tab)
-        this.viewContainer.remove(this.viewContainer.indexOf(ref))
+        this.detachTabView(tab)
 
         this.layout()
+
+        this.tabRemoved.next(tab)
 
         if (this.root.children.length === 0) {
             this.destroy()
         }
     }
 
-    addTab (tab: BaseTabComponent) {
-        let ref = this.viewContainer.insert(tab.hostView) as EmbeddedViewRef<any>
-        this.viewRefs.set(tab, ref)
-
-        ref.rootNodes[0].addEventListener('click', () => this.focus(tab))
-
-        tab.titleChange$.subscribe(t => this.setTitle(t))
-        tab.activity$.subscribe(a => a ? this.displayActivity() : this.clearActivity())
-        tab.progress$.subscribe(p => this.setProgress(p))
-        if (tab.title) {
-            this.setTitle(tab.title)
-        }
-        tab.destroyed$.subscribe(() => {
-            this.remove(tab)
-        })
-    }
-
     navigate (dir: SplitDirection) {
         let rel: BaseTabComponent | SplitContainer = this.focusedTab
-        let parent = this.getParent(rel)
+        let parent = this.getParentOf(rel)
         let orientation = ['l', 'r'].includes(dir) ? 'h' : 'v'
 
         while (parent !== this.root && parent.orientation !== orientation) {
             rel = parent
-            parent = this.getParent(rel)
+            parent = this.getParentOf(rel)
         }
 
         if (parent.orientation !== orientation) {
@@ -308,14 +306,14 @@ export class SplitTabComponent extends BaseTabComponent {
 
     async splitTab (tab: BaseTabComponent, dir: SplitDirection) {
         let newTab = await this.tabsService.duplicate(tab)
-        this.insert(newTab, tab, dir)
+        this.addTab(newTab, tab, dir)
     }
 
-    getParent (tab: BaseTabComponent | SplitContainer, root?: SplitContainer): SplitContainer {
+    getParentOf (tab: BaseTabComponent | SplitContainer, root?: SplitContainer): SplitContainer {
         root = root || this.root
         for (let child of root.children) {
             if (child instanceof SplitContainer) {
-                let r = this.getParent(tab, child)
+                let r = this.getParentOf(tab, child)
                 if (r) {
                     return r
                 }
@@ -328,7 +326,7 @@ export class SplitTabComponent extends BaseTabComponent {
     }
 
     async canClose (): Promise<boolean> {
-        return !(await Promise.all(this.allTabs().map(x => x.canClose()))).some(x => !x)
+        return !(await Promise.all(this.getAllTabs().map(x => x.canClose()))).some(x => !x)
     }
 
     async getRecoveryToken (): Promise<any> {
@@ -336,12 +334,40 @@ export class SplitTabComponent extends BaseTabComponent {
     }
 
     async getCurrentProcess (): Promise<BaseTabProcess> {
-        return (await Promise.all(this.allTabs().map(x => x.getCurrentProcess()))).find(x => !!x)
+        return (await Promise.all(this.getAllTabs().map(x => x.getCurrentProcess()))).find(x => !!x)
+    }
+
+    onSpannerAdjusted (spanner: SplitSpannerInfo) {
+        this.layout()
+        this.splitAdjusted.next(spanner)
+    }
+
+    private attachTabView (tab: BaseTabComponent) {
+        let ref = this.viewContainer.insert(tab.hostView) as EmbeddedViewRef<any>
+        this.viewRefs.set(tab, ref)
+
+        ref.rootNodes[0].addEventListener('click', () => this.focus(tab))
+
+        tab.titleChange$.subscribe(t => this.setTitle(t))
+        tab.activity$.subscribe(a => a ? this.displayActivity() : this.clearActivity())
+        tab.progress$.subscribe(p => this.setProgress(p))
+        if (tab.title) {
+            this.setTitle(tab.title)
+        }
+        tab.destroyed$.subscribe(() => {
+            this.removeTab(tab)
+        })
+    }
+
+    private detachTabView (tab: BaseTabComponent) {
+        let ref = this.viewRefs.get(tab)
+        this.viewRefs.delete(tab)
+        this.viewContainer.remove(this.viewContainer.indexOf(ref))
     }
 
     private layout () {
         this.root.normalize()
-        this.spanners = []
+        this._spanners = []
         this.layoutInternal(this.root, 0, 0, 100, 100)
     }
 
@@ -375,7 +401,7 @@ export class SplitTabComponent extends BaseTabComponent {
             offset += sizes[i]
 
             if (i !== 0) {
-                this.spanners.push({
+                this._spanners.push({
                     container: root,
                     index: i,
                 })
@@ -398,7 +424,7 @@ export class SplitTabComponent extends BaseTabComponent {
                 if (recovered) {
                     let tab = this.tabsService.create(recovered.type, recovered.options)
                     children.push(tab)
-                    this.addTab(tab)
+                    this.attachTabView(tab)
                 } else {
                     state.ratios.splice(state.children.indexOf(childState), 0)
                 }
@@ -413,7 +439,7 @@ export class SplitTabRecoveryProvider extends TabRecoveryProvider {
         if (recoveryToken && recoveryToken.type === 'app:split-tab') {
             return {
                 type: SplitTabComponent,
-                options: { recoveredState: recoveryToken },
+                options: { _recoveredState: recoveryToken },
             }
         }
         return null
