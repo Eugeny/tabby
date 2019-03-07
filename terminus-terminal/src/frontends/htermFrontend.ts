@@ -1,6 +1,7 @@
 import { Frontend } from './frontend'
-import { hterm, preferenceManager } from '../hterm'
+import { hterm, preferenceManager } from './hterm'
 
+/** @hidden */
 export class HTermFrontend extends Frontend {
     term: any
     io: any
@@ -96,7 +97,7 @@ export class HTermFrontend extends Frontend {
             return
         }
 
-        let css = require('../hterm.userCSS.scss')
+        let css = require('./hterm.userCSS.scss')
         if (!config.terminal.ligatures) {
             css += `
                 * {

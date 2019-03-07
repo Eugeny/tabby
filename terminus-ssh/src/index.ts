@@ -17,6 +17,7 @@ import { SSHConfigProvider } from './config'
 import { SSHSettingsTabProvider } from './settings'
 import { RecoveryProvider } from './recoveryProvider'
 
+/** @hidden */
 @NgModule({
     imports: [
         NgbModule,

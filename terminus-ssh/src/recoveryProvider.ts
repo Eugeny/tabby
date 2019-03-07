@@ -3,6 +3,7 @@ import { TabRecoveryProvider, RecoveredTab } from 'terminus-core'
 
 import { SSHTabComponent } from './components/sshTab.component'
 
+/** @hidden */
 @Injectable()
 export class RecoveryProvider extends TabRecoveryProvider {
     async recover (recoveryToken: any): Promise<RecoveredTab> {

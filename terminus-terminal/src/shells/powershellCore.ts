@@ -6,6 +6,7 @@ try {
     var wnr = require('windows-native-registry') // tslint:disable-line
 } catch { } // tslint:disable-line
 
+/** @hidden */
 @Injectable()
 export class PowerShellCoreShellProvider extends ShellProvider {
     constructor (

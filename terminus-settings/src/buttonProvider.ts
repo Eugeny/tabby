@@ -4,6 +4,7 @@ import { ToolbarButtonProvider, IToolbarButton, AppService, HostAppService, Hotk
 
 import { SettingsTabComponent } from './components/settingsTab.component'
 
+/** @hidden */
 @Injectable()
 export class ButtonProvider extends ToolbarButtonProvider {
     constructor (

@@ -1,6 +1,7 @@
 import { Component, Input, ViewChild, ElementRef } from '@angular/core'
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
 
+/** @hidden */
 @Component({
     template: require('./promptModal.component.pug'),
 })

@@ -5,6 +5,7 @@ import { HostAppService, Platform } from 'terminus-core'
 
 import { ShellProvider, IShell } from '../api'
 
+/** @hidden */
 @Injectable()
 export class POSIXShellsProvider extends ShellProvider {
     constructor (

@@ -4,6 +4,7 @@ import { BaseTerminalTabComponent } from 'terminus-terminal'
 import { SSHService } from '../services/ssh.service'
 import { SSHConnection, SSHSession } from '../api'
 
+/** @hidden */
 @Component({
     template: `
         <div

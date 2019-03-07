@@ -5,6 +5,7 @@ import { SessionOptions } from '../api'
 
 import { WIN_BUILD_CONPTY_SUPPORTED, isWindowsBuild } from '../utils'
 
+/** @hidden */
 @Injectable({ providedIn: 'root' })
 export class UACService {
     isAvailable = false

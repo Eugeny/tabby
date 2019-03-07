@@ -8,6 +8,7 @@ import { IPluginInfo, PluginManagerService } from '../services/pluginManager.ser
 
 enum BusyState { Installing, Uninstalling }
 
+/** @hidden */
 @Component({
     template: require('./pluginsSettingsTab.component.pug'),
     styles: [require('./pluginsSettingsTab.component.scss')],

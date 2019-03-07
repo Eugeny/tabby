@@ -11,6 +11,7 @@ try {
     var wnr = require('windows-native-registry') // tslint:disable-line
 } catch { } // tslint:disable-line
 
+/** @hidden */
 @Injectable()
 export class WSLShellProvider extends ShellProvider {
     constructor (

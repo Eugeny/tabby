@@ -3,6 +3,7 @@ import * as path from 'path'
 import { Injectable } from '@angular/core'
 import { TerminalColorSchemeProvider, ITerminalColorScheme } from './api'
 
+/** @hidden */
 @Injectable()
 export class HyperColorSchemes extends TerminalColorSchemeProvider {
     async getSchemes (): Promise<ITerminalColorScheme[]> {

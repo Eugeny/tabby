@@ -1,6 +1,7 @@
 import { Component, Input, ViewContainerRef, ViewChild, ComponentFactoryResolver, ComponentRef } from '@angular/core'
 import { SettingsTabProvider } from '../api'
 
+/** @hidden */
 @Component({
     selector: 'settings-tab-body',
     template: '<ng-template #placeholder></ng-template>',

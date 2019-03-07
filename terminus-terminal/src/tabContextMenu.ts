@@ -3,6 +3,7 @@ import { ToastrService } from 'ngx-toastr'
 import { ConfigService, BaseTabComponent, TabContextMenuItemProvider } from 'terminus-core'
 import { TerminalTabComponent } from './components/terminalTab.component'
 
+/** @hidden */
 @Injectable()
 export class SaveAsProfileContextMenu extends TabContextMenuItemProvider {
     constructor (

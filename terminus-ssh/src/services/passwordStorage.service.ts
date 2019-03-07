@@ -13,6 +13,7 @@ try {
     }
 }
 
+/** @hidden */
 @Injectable({ providedIn: 'root' })
 export class PasswordStorageService {
     constructor (

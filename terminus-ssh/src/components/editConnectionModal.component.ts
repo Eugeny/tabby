@@ -5,6 +5,7 @@ import { PasswordStorageService } from '../services/passwordStorage.service'
 import { SSHConnection, LoginScript, SSHAlgorithmType } from '../api'
 import { ALGORITHMS } from 'ssh2-streams/lib/constants'
 
+/** @hidden */
 @Component({
     template: require('./editConnectionModal.component.pug'),
 })

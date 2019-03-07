@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter, HostListener, ViewChild } from '@angular/core'
 import { NgbPopover } from '@ng-bootstrap/ng-bootstrap'
 
+/** @hidden */
 @Component({
     selector: 'color-picker',
     template: require('./colorPicker.component.pug'),

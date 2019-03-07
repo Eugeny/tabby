@@ -5,6 +5,7 @@ import { SSHConnection, ISSHConnectionGroup } from '../api'
 import { EditConnectionModalComponent } from './editConnectionModal.component'
 import { PromptModalComponent } from './promptModal.component'
 
+/** @hidden */
 @Component({
     template: require('./sshSettingsTab.component.pug'),
 })

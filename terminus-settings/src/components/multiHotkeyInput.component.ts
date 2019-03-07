@@ -2,6 +2,7 @@ import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { HotkeyInputModalComponent } from './hotkeyInputModal.component'
 
+/** @hidden */
 @Component({
     selector: 'multi-hotkey-input',
     template: require('./multiHotkeyInput.component.pug'),

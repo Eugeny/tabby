@@ -78,6 +78,7 @@ export abstract class BaseSession {
     }
 }
 
+/** @hidden */
 export class Session extends BaseSession {
     private pty: any
     private pauseAfterExit = false
@@ -310,6 +311,7 @@ export class Session extends BaseSession {
     }
 }
 
+/** @hidden */
 @Injectable({ providedIn: 'root' })
 export class SessionsService {
     sessions: {[id: string]: BaseSession} = {}

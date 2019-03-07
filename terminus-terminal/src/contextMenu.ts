@@ -6,6 +6,7 @@ import { TerminalService } from './services/terminal.service'
 import { BaseTerminalTabComponent } from './components/baseTerminalTab.component'
 import { TerminalContextMenuItemProvider } from './api'
 
+/** @hidden */
 @Injectable()
 export class NewTabContextMenu extends TerminalContextMenuItemProvider {
     weight = 0
@@ -73,6 +74,7 @@ export class NewTabContextMenu extends TerminalContextMenuItemProvider {
     }
 }
 
+/** @hidden */
 @Injectable()
 export class CopyPasteContextMenu extends TerminalContextMenuItemProvider {
     weight = 1

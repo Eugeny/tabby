@@ -48,8 +48,9 @@ import { WindowsDefaultShellProvider } from './shells/winDefault'
 import { WindowsStockShellsProvider } from './shells/windowsStock'
 import { WSLShellProvider } from './shells/wsl'
 
-import { hterm } from './hterm'
+import { hterm } from './frontends/hterm'
 
+/** @hidden */
 @NgModule({
     imports: [
         BrowserModule,

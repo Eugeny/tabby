@@ -1,6 +1,7 @@
 import { Component, Output, Input } from '@angular/core'
 import { Subject } from 'rxjs'
 
+/** @hidden */
 @Component({
     selector: 'environment-editor',
     template: require('./environmentEditor.component.pug'),

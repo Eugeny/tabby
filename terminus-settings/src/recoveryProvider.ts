@@ -3,6 +3,7 @@ import { TabRecoveryProvider, RecoveredTab } from 'terminus-core'
 
 import { SettingsTabComponent } from './components/settingsTab.component'
 
+/** @hidden */
 @Injectable()
 export class RecoveryProvider extends TabRecoveryProvider {
     async recover (recoveryToken: any): Promise<RecoveredTab> {

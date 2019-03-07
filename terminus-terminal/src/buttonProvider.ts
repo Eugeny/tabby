@@ -5,6 +5,7 @@ import { HotkeysService, ToolbarButtonProvider, IToolbarButton, HostAppService, 
 
 import { TerminalService } from './services/terminal.service'
 
+/** @hidden */
 @Injectable()
 export class ButtonProvider extends ToolbarButtonProvider {
     constructor (

@@ -7,6 +7,7 @@ import { IShell, Profile } from '../api'
 import { TerminalService } from '../services/terminal.service'
 import { WIN_BUILD_CONPTY_SUPPORTED, WIN_BUILD_CONPTY_STABLE, isWindowsBuild } from '../utils'
 
+/** @hidden */
 @Component({
     template: require('./shellSettingsTab.component.pug'),
 })

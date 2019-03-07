@@ -3,6 +3,7 @@ import { ConfigService } from 'terminus-core'
 
 import { ShellProvider, IShell } from '../api'
 
+/** @hidden */
 @Injectable()
 export class CustomShellProvider extends ShellProvider {
     constructor (

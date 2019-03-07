@@ -9,6 +9,7 @@ import deepEqual = require('deep-equal')
 Terminal.applyAddon(fit)
 Terminal.applyAddon(ligatures)
 
+/** @hidden */
 export class XTermFrontend extends Frontend {
     enableResizing = true
     xterm: Terminal

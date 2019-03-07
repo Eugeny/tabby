@@ -8,6 +8,7 @@ try {
     var wnr = require('windows-native-registry') // tslint:disable-line
 } catch { } // tslint:disable-line
 
+/** @hidden */
 @Injectable()
 export class Cygwin64ShellProvider extends ShellProvider {
     constructor (

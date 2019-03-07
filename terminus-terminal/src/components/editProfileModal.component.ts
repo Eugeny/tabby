@@ -3,6 +3,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
 import { UACService } from '../services/uac.service'
 import { Profile } from '../api'
 
+/** @hidden */
 @Component({
     template: require('./editProfileModal.component.pug'),
 })

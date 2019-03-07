@@ -18,6 +18,7 @@ import {
 
 import { SettingsTabProvider } from '../api'
 
+/** @hidden */
 @Component({
     selector: 'settings-tab',
     template: require('./settingsTab.component.pug'),

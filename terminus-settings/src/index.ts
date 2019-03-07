@@ -16,6 +16,7 @@ import { RecoveryProvider } from './recoveryProvider'
 import { SettingsHotkeyProvider } from './hotkeys'
 import { SettingsConfigProvider } from './config'
 
+/** @hidden */
 @NgModule({
     imports: [
         BrowserModule,

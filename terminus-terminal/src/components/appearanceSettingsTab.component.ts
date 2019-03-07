@@ -8,6 +8,7 @@ import { Component, Inject } from '@angular/core'
 import { ConfigService, HostAppService, Platform, ElectronService } from 'terminus-core'
 import { TerminalColorSchemeProvider, ITerminalColorScheme } from '../api'
 
+/** @hidden */
 @Component({
     template: require('./appearanceSettingsTab.component.pug'),
     styles: [require('./appearanceSettingsTab.component.scss')],

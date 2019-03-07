@@ -6,6 +6,7 @@ import { SettingsTabComponent } from 'terminus-settings'
 import { SSHService } from '../services/ssh.service'
 import { SSHConnection, ISSHConnectionGroup } from '../api'
 
+/** @hidden */
 @Component({
     template: require('./sshModal.component.pug'),
     styles: [require('./sshModal.component.scss')],

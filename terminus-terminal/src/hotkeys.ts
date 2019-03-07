@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core'
 import { IHotkeyDescription, HotkeyProvider, ConfigService } from 'terminus-core'
 import { TerminalService } from './services/terminal.service'
 
+/** @hidden */
 @Injectable()
 export class TerminalHotkeyProvider extends HotkeyProvider {
     hotkeys: IHotkeyDescription[] = [

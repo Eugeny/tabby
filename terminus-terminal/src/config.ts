@@ -1,5 +1,6 @@
 import { ConfigProvider, Platform } from 'terminus-core'
 
+/** @hidden */
 export class TerminalConfigProvider extends ConfigProvider {
     defaults = {
         hotkeys: {
