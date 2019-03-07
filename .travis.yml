@@ -35,6 +35,7 @@ jobs:
       os: linux
       script:
         - openssl aes-256-cbc -K $encrypted_4e2fb4889ef8_key -iv $encrypted_4e2fb4889ef8_iv -in .travis.ssh.key.enc -out .travis.ssh.key -d
+        - eval "$(ssh-agent -s)"
         - ssh-add .travis.ssh.key
         - yarn
         - yarn run docs
