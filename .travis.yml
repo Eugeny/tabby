@@ -11,8 +11,9 @@ jobs:
     - stage: 'Build'
       os: linux
       before_install:
-        - rm app/node_modules/.yarn-integrity || true
         - yarn
+        - rm app/node_modules/.yarn-integrity || true
+        - scripts/install-deps.js
       script:
         - scripts/build-native.js
         - yarn run build
@@ -37,7 +38,7 @@ jobs:
         - ssh-add .travis.ssh.key
         - yarn
         - yarn run docs
-        - rsync -r docs/api/ root@ajenti.org:/srv/terminus-docs/
+        - rsync -e "ssh -o StrictHostKeyChecking=no" -arv docs/api/ root@ajenti.org:/srv/terminus-docs/
 
 dist: trusty
 sudo: false
