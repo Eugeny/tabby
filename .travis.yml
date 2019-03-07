@@ -1,5 +1,5 @@
 language: node_js
-node_js: 10
+node_js: 11
 
 stages:
   - Build
@@ -40,7 +40,7 @@ jobs:
         - yarn run docs
         - rsync -e "ssh -o StrictHostKeyChecking=no" -arv docs/api/ root@ajenti.org:/srv/terminus-docs/
 
-dist: trusty
+dist: xenial
 sudo: false
 
 addons:
