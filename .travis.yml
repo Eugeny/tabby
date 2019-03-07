@@ -13,15 +13,31 @@ cache:
     - node_modules
     - app/node_modules
 
-before_install:
-    - rm app/node_modules/.yarn-integrity || true
-    - yarn
+stages:
+  - Build
+  - name: Docs
+    if: branch = master
 
-script:
-    - scripts/build-native.js
-    - yarn run build
-    - scripts/prepackage-plugins.js
-    - scripts/build-$BUILD_FOR.js
+jobs:
+  include:
+    - stage: 'Build'
+      before_install:
+        - rm app/node_modules/.yarn-integrity || true
+        - yarn
+      script:
+        - scripts/build-native.js
+        - yarn run build
+        - scripts/prepackage-plugins.js
+        - scripts/build-$BUILD_FOR.js
+
+    - stage: 'Docs'
+      os: linux
+      script:
+        - openssl aes-256-cbc -K $encrypted_4e2fb4889ef8_key -iv $encrypted_4e2fb4889ef8_iv -in .travis.ssh.key.enc -out .travis.ssh.key -d
+        - ssh-add .travis.ssh.key
+        - yarn
+        - yarn run docs
+        - rsync -r docs/api/ root@ajenti.org:/srv/terminus-docs/
 
 dist: trusty
 sudo: false

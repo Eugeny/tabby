@@ -10,29 +10,43 @@ import { TerminalFrontendService } from '../services/terminalFrontend.service'
 import { TerminalDecorator, ResizeEvent, TerminalContextMenuItemProvider } from '../api'
 import { Frontend } from '../frontends/frontend'
 
+/**
+ * A class to base your custom terminal tabs on
+ */
 export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit, OnDestroy {
     static template = `
         <div
             #content
             class="content"
-            [style.opacity]="htermVisible ? 1 : 0"
+            [style.opacity]="frontendIsReady ? 1 : 0"
         ></div>
     `
     static styles = [require('./terminalTab.component.scss')]
 
     session: BaseSession
     @Input() zoom = 0
+
+    /** @hidden */
     @ViewChild('content') content
+
+    /** @hidden */
     @HostBinding('style.background-color') backgroundColor: string
+
+    /** @hidden */
     @HostBinding('class.top-padded') topPadded: boolean
+
     frontend: Frontend
-    sessionCloseSubscription: Subscription
-    hotkeysSubscription: Subscription
-    htermVisible = false
+
+    /** @hidden */
+    frontendIsReady = false
+
     frontendReady = new Subject<void>()
     size: ResizeEvent
+
     protected logger: Logger
     protected output = new Subject<string>()
+    private sessionCloseSubscription: Subscription
+    private hotkeysSubscription: Subscription
     private bellPlayer: HTMLAudioElement
     private termContainerSubscriptions: Subscription[] = []
 
@@ -122,6 +136,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
         this.contextMenuProviders.sort((a, b) => a.weight - b.weight)
     }
 
+    /** @hidden */
     ngOnInit () {
         this.focused$.subscribe(() => {
             this.configure()
@@ -131,7 +146,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
         this.frontend = this.terminalContainersService.getFrontend(this.session)
 
         this.frontend.ready$.subscribe(() => {
-            this.htermVisible = true
+            this.frontendIsReady = true
         })
 
         this.frontend.resize$.pipe(first()).subscribe(async ({ columns, rows }) => {
@@ -191,14 +206,14 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
         return items
     }
 
-    detachTermContainerHandlers () {
+    protected detachTermContainerHandlers () {
         for (let subscription of this.termContainerSubscriptions) {
             subscription.unsubscribe()
         }
         this.termContainerSubscriptions = []
     }
 
-    attachTermContainerHandlers () {
+    protected attachTermContainerHandlers () {
         this.detachTermContainerHandlers()
 
         const maybeConfigure = () => {
@@ -274,6 +289,9 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
         ]
     }
 
+    /**
+     * Feeds input into the active session
+     */
     sendInput (data: string) {
         this.session.write(data)
         if (this.config.store.terminal.scrollOnInput) {
@@ -281,6 +299,9 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
         }
     }
 
+    /**
+     * Feeds input into the terminal frontend
+     */
     write (data: string) {
         let percentageMatch = /(^|[^\d])(\d+(\.\d+)?)%([^\d]|$)/.exec(data)
         if (percentageMatch) {
@@ -308,6 +329,9 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
         this.sendInput(data)
     }
 
+    /**
+     * Applies the user settings to the terminal
+     */
     configure (): void {
         this.frontend.configure()
 
@@ -339,6 +363,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
         this.frontend.setZoom(this.zoom)
     }
 
+    /** @hidden */
     ngOnDestroy () {
         this.frontend.detach(this.content.nativeElement)
         this.detachTermContainerHandlers()

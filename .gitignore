@@ -20,3 +20,4 @@ package-lock.json
 yarn-error.log
 
 docs/api
+.travis.ssh.key

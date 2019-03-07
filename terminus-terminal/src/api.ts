@@ -1,10 +1,18 @@
 import { BaseTerminalTabComponent } from './components/baseTerminalTab.component'
 
+/**
+ * Extend to automatically run actions on new terminals
+ */
 export abstract class TerminalDecorator {
-    // tslint:disable-next-line no-empty
-    attach (_terminal: BaseTerminalTabComponent): void { }
-    // tslint:disable-next-line no-empty
-    detach (_terminal: BaseTerminalTabComponent): void { }
+    /**
+     * Called when a new terminal tab starts
+     */
+    attach (terminal: BaseTerminalTabComponent): void { } // tslint:disable-line no-empty
+
+    /**
+     * Called before a terminal tab is destroyed
+     */
+    detach (terminal: BaseTerminalTabComponent): void { } // tslint:disable-line no-empty
 }
 
 export interface ResizeEvent {
@@ -17,7 +25,7 @@ export interface SessionOptions {
     command: string
     args: string[]
     cwd?: string
-    env?: any
+    env?: {[id: string]: string}
     width?: number
     height?: number
     pauseAfterExit?: boolean
@@ -37,10 +45,16 @@ export interface ITerminalColorScheme {
     colors: string[]
 }
 
+/**
+ * Extend to add more terminal color schemes
+ */
 export abstract class TerminalColorSchemeProvider {
     abstract async getSchemes (): Promise<ITerminalColorScheme[]>
 }
 
+/**
+ * Extend to add more terminal context menu items
+ */
 export abstract class TerminalContextMenuItemProvider {
     weight: number
 
@@ -52,10 +66,18 @@ export interface IShell {
     name?: string
     command: string
     args?: string[]
-    env?: any
+    env?: {[id: string]: string}
+
+    /**
+     * Base path to which shell's internal FS is relative
+     * Currently used for WSL only
+     */
     fsBase?: string
 }
 
+/**
+ * Extend to add support for more shells
+ */
 export abstract class ShellProvider {
     abstract async provide (): Promise<IShell[]>
 }

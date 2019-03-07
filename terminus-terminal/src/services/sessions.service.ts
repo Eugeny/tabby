@@ -10,16 +10,13 @@ import { exec } from 'mz/child_process'
 import { SessionOptions } from '../api'
 import { WIN_BUILD_CONPTY_SUPPORTED, isWindowsBuild } from '../utils'
 
-let macOSNativeProcessList
 try {
-    macOSNativeProcessList = require('macos-native-processlist')
-} catch (e) { } // tslint:disable-line
+    var macOSNativeProcessList = require('macos-native-processlist') // tslint:disable-line
+} catch { } // tslint:disable-line
 
-let windowsProcessTree
 try {
-    windowsProcessTree = require('windows-process-tree')
-} catch (e) {
-} // tslint:disable-line
+    var windowsProcessTree = require('windows-process-tree') // tslint:disable-line
+} catch { } // tslint:disable-line
 
 export interface IChildProcess {
     pid: number
@@ -31,6 +28,10 @@ const windowsDirectoryRegex = /([a-zA-Z]:[^\:\[\]\?\"\<\>\|]+)/mi // tslint:dis
 const OSC1337Prefix = '\x1b]1337;'
 const OSC1337Suffix = '\x07'
 
+/**
+ * A session object for a [[BaseTerminalTabComponent]]
+ * Extend this to implement custom I/O and process management for your terminal tab
+ */
 export abstract class BaseSession {
     open: boolean
     name: string
@@ -59,10 +60,10 @@ export abstract class BaseSession {
         this.initialDataBuffer = null
     }
 
-    abstract start (options: SessionOptions)
-    abstract resize (columns, rows)
-    abstract write (data)
-    abstract kill (signal?: string)
+    abstract start (options: SessionOptions): void
+    abstract resize (columns: number, rows: number): void
+    abstract write (data: string): void
+    abstract kill (signal?: string): void
     abstract async getChildProcesses (): Promise<IChildProcess[]>
     abstract async gracefullyKillProcess (): Promise<void>
     abstract async getWorkingDirectory (): Promise<string>

@@ -2,6 +2,9 @@ import { Observable, Subject, AsyncSubject, ReplaySubject, BehaviorSubject } fro
 import { ResizeEvent } from '../api'
 import { ConfigService, ThemesService } from 'terminus-core'
 
+/**
+ * Extend to add support for a different VT frontend implementation
+ */
 export abstract class Frontend {
     configService: ConfigService
     themesService: ThemesService

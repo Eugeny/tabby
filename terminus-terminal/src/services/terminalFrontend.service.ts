@@ -9,6 +9,7 @@ import { BaseSession } from '../services/sessions.service'
 export class TerminalFrontendService {
     private containers = new WeakMap<BaseSession, Frontend>()
 
+    /** @hidden */
     constructor (private config: ConfigService, private themes: ThemesService) { }
 
     getFrontend (session?: BaseSession): Frontend {

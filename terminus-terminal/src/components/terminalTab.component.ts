@@ -5,6 +5,7 @@ import { BaseTerminalTabComponent } from './baseTerminalTab.component'
 import { SessionOptions } from '../api'
 import { Session } from '../services/sessions.service'
 
+/** @hidden */
 @Component({
     selector: 'terminalTab',
     template: BaseTerminalTabComponent.template,

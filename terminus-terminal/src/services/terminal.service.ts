@@ -11,8 +11,12 @@ export class TerminalService {
     private shells = new AsyncSubject<IShell[]>()
     private logger: Logger
 
+    /**
+     * A fresh list of all available shells
+     */
     get shells$ (): Observable<IShell[]> { return this.shells }
 
+    /** @hidden */
     constructor (
         private app: AppService,
         private config: ConfigService,
@@ -28,12 +32,12 @@ export class TerminalService {
         })
     }
 
-    async getShells (): Promise<IShell[]> {
+    private async getShells (): Promise<IShell[]> {
         let shellLists = await Promise.all(this.config.enabledServices(this.shellProviders).map(x => x.provide()))
         return shellLists.reduce((a, b) => a.concat(b), [])
     }
 
-    async reloadShells () {
+    private async reloadShells () {
         this.shells = new AsyncSubject<IShell[]>()
         let shells = await this.getShells()
         this.logger.debug('Shells list:', shells)
@@ -41,6 +45,10 @@ export class TerminalService {
         this.shells.complete()
     }
 
+    /**
+     * Launches a new terminal with a specific shell and CWD
+     * @param pause Wait for a keypress when the shell exits
+     */
     async openTab (shell?: IShell, cwd?: string, pause?: boolean): Promise<TerminalTabComponent> {
         if (cwd && !fs.existsSync(cwd)) {
             console.warn('Ignoring non-existent CWD:', cwd)
@@ -76,6 +84,9 @@ export class TerminalService {
         }
     }
 
+    /**
+     * Open a terminal with custom session options
+     */
     openTabWithOptions (sessionOptions: SessionOptions): TerminalTabComponent {
         if (sessionOptions.runAsAdministrator && this.uac.isAvailable) {
             sessionOptions = this.uac.patchSessionOptionsForUAC(sessionOptions)
