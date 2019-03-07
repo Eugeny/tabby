@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core'
 import { Theme } from './api'
 
+/** @hidden */
 @Injectable()
 export class StandardTheme extends Theme {
     name = 'Standard'
@@ -8,6 +9,7 @@ export class StandardTheme extends Theme {
     terminalBackground = '#222a33'
 }
 
+/** @hidden */
 @Injectable()
 export class StandardCompactTheme extends Theme {
     name = 'Compact'
@@ -15,6 +17,7 @@ export class StandardCompactTheme extends Theme {
     terminalBackground = '#222a33'
 }
 
+/** @hidden */
 @Injectable()
 export class PaperTheme extends Theme {
     name = 'Paper'

@@ -6,6 +6,7 @@ import { Theme } from '../api/theme'
 export class ThemesService {
     private styleElement: HTMLElement = null
 
+    /** @hidden */
     constructor (
         private config: ConfigService,
         @Inject(Theme) private themes: Theme[],
@@ -34,7 +35,7 @@ export class ThemesService {
         document.querySelector('style#custom-css').innerHTML = this.config.store.appearance.css
     }
 
-    applyCurrentTheme (): void {
+    private applyCurrentTheme (): void {
         this.applyTheme(this.findCurrentTheme())
     }
 }

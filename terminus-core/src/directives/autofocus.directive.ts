@@ -1,5 +1,6 @@
 import { Directive, AfterViewInit, ElementRef } from '@angular/core'
 
+/** @hidden */
 @Directive({
     selector: '[autofocus]'
 })

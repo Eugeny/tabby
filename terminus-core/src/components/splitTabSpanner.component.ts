@@ -1,6 +1,7 @@
 import { Component, Input, HostBinding, ElementRef, Output, EventEmitter } from '@angular/core'
 import { SplitContainer } from './splitTab.component'
 
+/** @hidden */
 @Component({
     selector: 'split-tab-spanner',
     template: '',

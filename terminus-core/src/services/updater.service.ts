@@ -6,6 +6,7 @@ import { ElectronService } from './electron.service'
 
 const UPDATES_URL = 'https://api.github.com/repos/eugeny/terminus/releases/latest'
 
+/** @hidden */
 @Injectable({ providedIn: 'root' })
 export class UpdaterService {
     private logger: Logger

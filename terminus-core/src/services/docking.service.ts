@@ -10,6 +10,7 @@ export interface IScreen {
 
 @Injectable({ providedIn: 'root' })
 export class DockingService {
+    /** @hidden */
     constructor (
         private electron: ElectronService,
         private config: ConfigService,
@@ -78,7 +79,7 @@ export class DockingService {
         })
     }
 
-    repositionWindow () {
+    private repositionWindow () {
         let [x, y] = this.hostApp.getWindow().getPosition()
         for (let screen of this.electron.screen.getAllDisplays()) {
             let bounds = screen.bounds

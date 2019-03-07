@@ -4,6 +4,7 @@ import { BaseTabComponent } from './components/baseTab.component'
 import { TabHeaderComponent } from './components/tabHeader.component'
 import { TabContextMenuItemProvider } from './api/tabContextMenuProvider'
 
+/** @hidden */
 @Injectable()
 export class CloseContextMenu extends TabContextMenuItemProvider {
     weight = -5
@@ -61,6 +62,7 @@ const COLORS = [
     { name: 'Yellow', value: '#ffd500' },
 ]
 
+/** @hidden */
 @Injectable()
 export class CommonOptionsContextMenu extends TabContextMenuItemProvider {
     weight = -1
@@ -98,6 +100,7 @@ export class CommonOptionsContextMenu extends TabContextMenuItemProvider {
     }
 }
 
+/** @hidden */
 @Injectable()
 export class TaskCompletionContextMenu extends TabContextMenuItemProvider {
     constructor (
@@ -121,7 +124,7 @@ export class TaskCompletionContextMenu extends TabContextMenuItemProvider {
                     type: 'checkbox',
                     checked: (tab as any).__completionNotificationEnabled,
                     click: () => this.zone.run(() => {
-                        ;(tab as any).__completionNotificationEnabled = !(tab as any).__completionNotificationEnabled
+                        (tab as any).__completionNotificationEnabled = !(tab as any).__completionNotificationEnabled
 
                         if ((tab as any).__completionNotificationEnabled) {
                             this.app.observeTabCompletion(tab).subscribe(() => {

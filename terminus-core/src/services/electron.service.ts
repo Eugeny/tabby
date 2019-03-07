@@ -24,6 +24,7 @@ export class ElectronService {
     MenuItem: typeof MenuItem
     private electron: any
 
+    /** @hidden */
     constructor () {
         this.electron = require('electron')
         this.remote = this.electron.remote
@@ -42,18 +43,9 @@ export class ElectronService {
         this.MenuItem = this.remote.MenuItem
     }
 
-    remoteRequire (name: string): any {
-        return this.remote.require(name)
-    }
-
-    remoteRequirePluginModule (plugin: string, module: string, globals: any): any {
-        return this.remoteRequire(this.remoteResolvePluginModule(plugin, module, globals))
-    }
-
-    remoteResolvePluginModule (plugin: string, module: string, globals: any): any {
-        return globals.require.resolve(`${plugin}/node_modules/${module}`)
-    }
-
+    /**
+     * Removes OS focus from Terminus' window
+     */
     loseFocus () {
         if (process.platform === 'darwin') {
             this.remote.Menu.sendActionToFirstResponder('hide:')

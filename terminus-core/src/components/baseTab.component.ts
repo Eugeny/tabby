@@ -1,26 +1,58 @@
 import { Observable, Subject } from 'rxjs'
 import { ViewRef } from '@angular/core'
 
+/**
+ * Represents an active "process" inside a tab,
+ * for example, a user process running inside a terminal tab
+ */
 export interface BaseTabProcess {
     name: string
 }
 
+/**
+ * Abstract base class for custom tab components
+ */
 export abstract class BaseTabComponent {
+    /**
+     * Current tab title
+     */
     title: string
+
+    /**
+     * User-defined title override
+     */
     customTitle: string
-    hasFocus = false
+
+    /**
+     * Last tab activity state
+     */
     hasActivity = false
+
+    /**
+     * ViewRef to the tab DOM element
+     */
     hostView: ViewRef
+
+    /**
+     * CSS color override for the tab's header
+     */
     color: string = null
-    protected titleChange = new Subject<string>()
-    protected focused = new Subject<void>()
-    protected blurred = new Subject<void>()
-    protected progress = new Subject<number>()
-    protected activity = new Subject<boolean>()
-    protected destroyed = new Subject<void>()
+
+    protected hasFocus = false
+
+    /**
+     * Ping this if your recovery state has been changed and you want
+     * your tab state to be saved sooner
+     */
     protected recoveryStateChangedHint = new Subject<void>()
 
     private progressClearTimeout: number
+    private titleChange = new Subject<string>()
+    private focused = new Subject<void>()
+    private blurred = new Subject<void>()
+    private progress = new Subject<number>()
+    private activity = new Subject<boolean>()
+    private destroyed = new Subject<void>()
 
     get focused$ (): Observable<void> { return this.focused }
     get blurred$ (): Observable<void> { return this.blurred }
@@ -46,6 +78,11 @@ export abstract class BaseTabComponent {
         }
     }
 
+    /**
+     * Sets visual progressbar on the tab
+     *
+     * @param  {type} progress: value between 0 and 1, or `null` to remove
+     */
     setProgress (progress: number) {
         this.progress.next(progress)
         if (progress) {
@@ -58,24 +95,43 @@ export abstract class BaseTabComponent {
         }
     }
 
+    /**
+     * Shows the acticity marker on the tab header
+     */
     displayActivity (): void {
         this.hasActivity = true
         this.activity.next(true)
     }
 
+    /**
+     * Removes the acticity marker from the tab header
+     */
     clearActivity (): void {
         this.hasActivity = false
         this.activity.next(false)
     }
 
+    /**
+     * Override this and implement a [[TabRecoveryProvider]] to enable recovery
+     * for your custom tab
+     *
+     * @return JSON serializable tab state representation
+     *         for your [[TabRecoveryProvider]] to parse
+     */
     async getRecoveryToken (): Promise<any> {
         return null
     }
 
+    /**
+     * Override this to enable task completion notifications for the tab
+     */
     async getCurrentProcess (): Promise<BaseTabProcess> {
         return null
     }
 
+    /**
+     * Return false to prevent the tab from being closed
+     */
     async canClose (): Promise<boolean> {
         return true
     }
@@ -88,6 +144,9 @@ export abstract class BaseTabComponent {
         this.blurred.next()
     }
 
+    /**
+     * Called before the tab is closed
+     */
     destroy (): void {
         this.focused.complete()
         this.blurred.complete()

@@ -1,6 +1,7 @@
 import { Component, Input, ElementRef, ViewChild } from '@angular/core'
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
 
+/** @hidden */
 @Component({
     selector: 'rename-tab-modal',
     template: require('./renameTabModal.component.pug'),

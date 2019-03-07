@@ -17,6 +17,7 @@ import { BaseTabComponent } from './baseTab.component'
 import { SafeModeModalComponent } from './safeModeModal.component'
 import { AppService, IToolbarButton, ToolbarButtonProvider } from '../api'
 
+/** @hidden */
 @Component({
     selector: 'app-root',
     template: require('./appRoot.component.pug'),
@@ -124,6 +125,11 @@ export class AppRootComponent {
         })
         this.hotkeys.globalHotkey.subscribe(() => {
             this.onGlobalHotkey()
+        })
+
+        this.hostApp.windowCloseRequest$.subscribe(async () => {
+            await this.app.closeAllTabs()
+            this.hostApp.closeWindow()
         })
 
         if (window['safeModeReason']) {

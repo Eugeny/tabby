@@ -4,6 +4,7 @@ import { BaseTabComponent } from '../components/baseTab.component'
 import { Logger, LogService } from '../services/log.service'
 import { ConfigService } from '../services/config.service'
 
+/** @hidden */
 @Injectable({ providedIn: 'root' })
 export class TabRecoveryService {
     logger: Logger

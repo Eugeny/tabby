@@ -3,7 +3,7 @@ import { debounceTime, distinctUntilChanged, first, tap, flatMap } from 'rxjs/op
 import * as semver from 'semver'
 
 import { Component, Input } from '@angular/core'
-import { ConfigService, HostAppService, ElectronService } from 'terminus-core'
+import { ConfigService, ElectronService } from 'terminus-core'
 import { IPluginInfo, PluginManagerService } from '../services/pluginManager.service'
 
 enum BusyState { Installing, Uninstalling }
@@ -25,7 +25,6 @@ export class PluginsSettingsTabComponent {
     constructor (
         private electron: ElectronService,
         private config: ConfigService,
-        private hostApp: HostAppService,
         public pluginManager: PluginManagerService
     ) {
     }
@@ -51,7 +50,7 @@ export class PluginsSettingsTabComponent {
     }
 
     openPluginsFolder (): void {
-        this.hostApp.getShell().openItem(this.pluginManager.userPluginsPath)
+        this.electron.shell.openItem(this.pluginManager.userPluginsPath)
     }
 
     searchAvailable (query: string) {

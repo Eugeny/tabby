@@ -16,12 +16,19 @@ export interface Bounds {
     height: number
 }
 
+/**
+ * Provides interaction with the main process
+ */
 @Injectable({ providedIn: 'root' })
 export class HostAppService {
     platform: Platform
-    nodePlatform: string
+
+    /**
+     * Fired once the window is visible
+     */
     shown = new EventEmitter<any>()
     isFullScreen = false
+
     private preferencesMenu = new Subject<void>()
     private secondInstance = new Subject<void>()
     private cliOpenDirectory = new Subject<string>()
@@ -35,29 +42,62 @@ export class HostAppService {
     private logger: Logger
     private windowId: number
 
+    /**
+     * Fired when Preferences is selected in the macOS menu
+     */
     get preferencesMenu$ (): Observable<void> { return this.preferencesMenu }
+
+    /**
+     * Fired when a second instance of Terminus is launched
+     */
     get secondInstance$ (): Observable<void> { return this.secondInstance }
+
+    /**
+     * Fired for the `terminus open` CLI command
+     */
     get cliOpenDirectory$ (): Observable<string> { return this.cliOpenDirectory }
+
+    /**
+     * Fired for the `terminus run` CLI command
+     */
     get cliRunCommand$ (): Observable<string[]> { return this.cliRunCommand }
+
+    /**
+     * Fired for the `terminus paste` CLI command
+     */
     get cliPaste$ (): Observable<string> { return this.cliPaste }
+
+    /**
+     * Fired for the `terminus profile` CLI command
+     */
     get cliOpenProfile$ (): Observable<string> { return this.cliOpenProfile }
+
+    /**
+     * Fired when another window modified the config file
+     */
     get configChangeBroadcast$ (): Observable<void> { return this.configChangeBroadcast }
+
+    /**
+     * Fired when the window close button is pressed
+     */
     get windowCloseRequest$ (): Observable<void> { return this.windowCloseRequest }
+
     get windowMoved$ (): Observable<void> { return this.windowMoved }
+
     get displayMetricsChanged$ (): Observable<void> { return this.displayMetricsChanged }
 
+    /** @hidden */
     constructor (
         private zone: NgZone,
         private electron: ElectronService,
         log: LogService,
     ) {
         this.logger = log.create('hostApp')
-        this.nodePlatform = require('os').platform()
         this.platform = {
             win32: Platform.Windows,
             darwin: Platform.macOS,
             linux: Platform.Linux
-        }[this.nodePlatform]
+        }[process.platform]
 
         this.windowId = parseInt(location.search.substring(1))
         this.logger.info('Window ID:', this.windowId)
@@ -117,24 +157,15 @@ export class HostAppService {
         }))
     }
 
+    /**
+     * Returns the current remote [[BrowserWindow]]
+     */
     getWindow () {
         return this.electron.BrowserWindow.fromId(this.windowId)
     }
 
     newWindow () {
         this.electron.ipcRenderer.send('app:new-window')
-    }
-
-    getShell () {
-        return this.electron.shell
-    }
-
-    getAppPath () {
-        return this.electron.app.getAppPath()
-    }
-
-    getPath (type: string) {
-        return this.electron.app.getPath(type)
     }
 
     toggleFullscreen () {
@@ -174,6 +205,11 @@ export class HostAppService {
         this.electron.ipcRenderer.send('window-set-always-on-top', flag)
     }
 
+    /**
+     * Sets window vibrancy mode (Windows, macOS)
+     *
+     * @param type `null`, or `fluent` when supported (Windowd only)
+     */
     setVibrancy (enable: boolean, type: string) {
         document.body.classList.toggle('vibrant', enable)
         if (this.platform === Platform.macOS) {
@@ -196,6 +232,9 @@ export class HostAppService {
         this.electron.Menu.buildFromTemplate(menuDefinition).popup({})
     }
 
+    /**
+     * Notifies other windows of config file changes
+     */
     broadcastConfigChange () {
         this.electron.ipcRenderer.send('app:config-change')
     }

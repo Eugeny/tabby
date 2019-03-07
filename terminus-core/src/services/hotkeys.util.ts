@@ -11,13 +11,13 @@ export const altKeyName = {
 }[process.platform]
 
 export interface NativeKeyEvent {
-    event?: string,
-    altKey: boolean,
-    ctrlKey: boolean,
-    metaKey: boolean,
-    shiftKey: boolean,
-    key: string,
-    keyCode: string,
+    event?: string
+    altKey: boolean
+    ctrlKey: boolean
+    metaKey: boolean
+    shiftKey: boolean
+    key: string
+    keyCode: string
 }
 
 export function stringifyKeySequence (events: NativeKeyEvent[]): string[] {

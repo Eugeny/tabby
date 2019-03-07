@@ -6,8 +6,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { PerfectScrollbarModule, PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar'
 import { DndModule } from 'ng2-dnd'
 
-import { AppHotkeyProvider } from './services/hotkeys.service'
-
 import { AppRootComponent } from './components/appRoot.component'
 import { CheckboxComponent } from './components/checkbox.component'
 import { TabBodyComponent } from './components/tabBody.component'
@@ -31,6 +29,7 @@ import { TabRecoveryProvider } from './api/tabRecovery'
 
 import { StandardTheme, StandardCompactTheme, PaperTheme } from './theme'
 import { CoreConfigProvider } from './config'
+import { AppHotkeyProvider } from './hotkeys'
 import { TaskCompletionContextMenu, CommonOptionsContextMenu, CloseContextMenu } from './tabContextMenu'
 
 import 'perfect-scrollbar/css/perfect-scrollbar.css'
@@ -49,6 +48,7 @@ const PROVIDERS = [
     { provide: PERFECT_SCROLLBAR_CONFIG, useValue: { suppressScrollX: true } }
 ]
 
+/** @hidden */
 @NgModule({
     imports: [
         BrowserModule,

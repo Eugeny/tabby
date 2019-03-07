@@ -1,6 +1,7 @@
 import { Component, Input, ViewChild, HostBinding, ViewContainerRef, OnChanges } from '@angular/core'
 import { BaseTabComponent } from '../components/baseTab.component'
 
+/** @hidden */
 @Component({
     selector: 'tab-body',
     template: `

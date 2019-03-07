@@ -18,3 +18,5 @@ npm-debug.log
 builtin-plugins
 package-lock.json
 yarn-error.log
+
+docs/api

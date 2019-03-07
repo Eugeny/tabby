@@ -6,6 +6,7 @@ import { ElectronService } from './electron.service'
 import { HostAppService, Platform } from './hostApp.service'
 import { IToolbarButton, ToolbarButtonProvider } from '../api'
 
+/** @hidden */
 @Injectable({ providedIn: 'root' })
 export class TouchbarService {
     private tabsSegmentedControl: TouchBarSegmentedControl

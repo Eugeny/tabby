@@ -9,6 +9,7 @@ import { ElectronService } from '../services/electron.service'
 import { AppService } from '../services/app.service'
 import { HostAppService, Platform } from '../services/hostApp.service'
 
+/** @hidden */
 @Component({
     selector: 'tab-header',
     template: require('./tabHeader.component.pug'),

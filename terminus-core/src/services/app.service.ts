@@ -3,7 +3,6 @@ import { takeUntil } from 'rxjs/operators'
 import { Injectable } from '@angular/core'
 import { BaseTabComponent } from '../components/baseTab.component'
 import { SplitTabComponent } from '../components/splitTab.component'
-import { Logger, LogService } from './log.service'
 import { ConfigService } from './config.service'
 import { HostAppService } from './hostApp.service'
 import { TabRecoveryService } from './tabRecovery.service'
@@ -39,9 +38,11 @@ class CompletionObserver {
 @Injectable({ providedIn: 'root' })
 export class AppService {
     tabs: BaseTabComponent[] = []
-    activeTab: BaseTabComponent
-    lastTabIndex = 0
-    logger: Logger
+
+    get activeTab (): BaseTabComponent { return this._activeTab }
+
+    private lastTabIndex = 0
+    private _activeTab: BaseTabComponent
 
     private activeTabChange = new Subject<BaseTabComponent>()
     private tabsChanged = new Subject<void>()
@@ -55,19 +56,17 @@ export class AppService {
     get tabOpened$ (): Observable<BaseTabComponent> { return this.tabOpened }
     get tabsChanged$ (): Observable<void> { return this.tabsChanged }
     get tabClosed$ (): Observable<BaseTabComponent> { return this.tabClosed }
+
+    /** Fires once when the app is ready */
     get ready$ (): Observable<void> { return this.ready }
 
+    /** @hidden */
     constructor (
         private config: ConfigService,
         private hostApp: HostAppService,
         private tabRecovery: TabRecoveryService,
         private tabsService: TabsService,
-        log: LogService,
     ) {
-        this.logger = log.create('app')
-
-        this.hostApp.windowCloseRequest$.subscribe(() => this.closeWindow())
-
         this.tabRecovery.recoverTabs().then(tabs => {
             for (let tab of tabs) {
                 this.openNewTabRaw(tab.type, tab.options)
@@ -82,7 +81,7 @@ export class AppService {
         })
     }
 
-    addTabRaw (tab: BaseTabComponent) {
+    private addTabRaw (tab: BaseTabComponent) {
         this.tabs.push(tab)
         this.selectTab(tab)
         this.tabsChanged.next()
@@ -93,7 +92,7 @@ export class AppService {
         })
 
         tab.titleChange$.subscribe(title => {
-            if (tab === this.activeTab) {
+            if (tab === this._activeTab) {
                 this.hostApp.setTitle(title)
             }
         })
@@ -101,7 +100,7 @@ export class AppService {
         tab.destroyed$.subscribe(() => {
             let newIndex = Math.max(0, this.tabs.indexOf(tab) - 1)
             this.tabs = this.tabs.filter((x) => x !== tab)
-            if (tab === this.activeTab) {
+            if (tab === this._activeTab) {
                 this.selectTab(this.tabs[newIndex])
             }
             this.tabsChanged.next()
@@ -109,12 +108,20 @@ export class AppService {
         })
     }
 
+    /**
+     * Adds a new tab **without** wrapping it in a SplitTabComponent
+     * @param inputs  Properties to be assigned on the new tab component instance
+     */
     openNewTabRaw (type: TabComponentType, inputs?: any): BaseTabComponent {
         let tab = this.tabsService.create(type, inputs)
         this.addTabRaw(tab)
         return tab
     }
 
+    /**
+     * Adds a new tab while wrapping it in a SplitTabComponent
+     * @param inputs  Properties to be assigned on the new tab component instance
+     */
     openNewTab (type: TabComponentType, inputs?: any): BaseTabComponent {
         let splitTab = this.tabsService.create(SplitTabComponent) as SplitTabComponent
         let tab = this.tabsService.create(type, inputs)
@@ -124,29 +131,30 @@ export class AppService {
     }
 
     selectTab (tab: BaseTabComponent) {
-        if (this.activeTab === tab) {
-            this.activeTab.emitFocused()
+        if (this._activeTab === tab) {
+            this._activeTab.emitFocused()
             return
         }
-        if (this.tabs.includes(this.activeTab)) {
-            this.lastTabIndex = this.tabs.indexOf(this.activeTab)
+        if (this.tabs.includes(this._activeTab)) {
+            this.lastTabIndex = this.tabs.indexOf(this._activeTab)
         } else {
             this.lastTabIndex = null
         }
-        if (this.activeTab) {
-            this.activeTab.clearActivity()
-            this.activeTab.emitBlurred()
+        if (this._activeTab) {
+            this._activeTab.clearActivity()
+            this._activeTab.emitBlurred()
         }
-        this.activeTab = tab
+        this._activeTab = tab
         this.activeTabChange.next(tab)
-        if (this.activeTab) {
+        if (this._activeTab) {
             setImmediate(() => {
-                this.activeTab.emitFocused()
+                this._activeTab.emitFocused()
             })
-            this.hostApp.setTitle(this.activeTab.title)
+            this.hostApp.setTitle(this._activeTab.title)
         }
     }
 
+    /** Switches between the current tab and the previously active one */
     toggleLastTab () {
         if (!this.lastTabIndex || this.lastTabIndex >= this.tabs.length) {
             this.lastTabIndex = 0
@@ -156,7 +164,7 @@ export class AppService {
 
     nextTab () {
         if (this.tabs.length > 1) {
-            let tabIndex = this.tabs.indexOf(this.activeTab)
+            let tabIndex = this.tabs.indexOf(this._activeTab)
             if (tabIndex < this.tabs.length - 1) {
                 this.selectTab(this.tabs[tabIndex + 1])
             } else if (this.config.store.appearance.cycleTabs) {
@@ -167,7 +175,7 @@ export class AppService {
 
     previousTab () {
         if (this.tabs.length > 1) {
-            let tabIndex = this.tabs.indexOf(this.activeTab)
+            let tabIndex = this.tabs.indexOf(this._activeTab)
             if (tabIndex > 0) {
                 this.selectTab(this.tabs[tabIndex - 1])
             } else if (this.config.store.appearance.cycleTabs) {
@@ -176,6 +184,7 @@ export class AppService {
         }
     }
 
+    /** @hidden */
     emitTabsChanged () {
         this.tabsChanged.next()
     }
@@ -197,7 +206,7 @@ export class AppService {
         }
     }
 
-    async closeWindow () {
+    async closeAllTabs () {
         for (let tab of this.tabs) {
             if (!await tab.canClose()) {
                 return
@@ -206,15 +215,19 @@ export class AppService {
         for (let tab of this.tabs) {
             tab.destroy()
         }
-        this.hostApp.closeWindow()
     }
 
+    /** @hidden */
     emitReady () {
         this.ready.next(null)
         this.ready.complete()
         this.hostApp.emitReady()
     }
 
+    /**
+     * Returns an observable that fires once
+     * the tab's internal "process" (see [[BaseTabProcess]]) completes
+     */
     observeTabCompletion (tab: BaseTabComponent): Observable<void> {
         if (!this.completionObservers.has(tab)) {
             let observer = new CompletionObserver(tab)

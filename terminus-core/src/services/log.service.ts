@@ -39,7 +39,7 @@ export class Logger {
         private name: string,
     ) {}
 
-    doLog (level: string, ...args: any[]) {
+    private doLog (level: string, ...args: any[]) {
         console[level](`%c[${this.name}]`, 'color: #aaa', ...args)
         if (this.winstonLogger) {
             this.winstonLogger[level](...args)
@@ -57,6 +57,7 @@ export class Logger {
 export class LogService {
     private log: any
 
+    /** @hidden */
     constructor (electron: ElectronService) {
         this.log = initializeWinston(electron)
     }

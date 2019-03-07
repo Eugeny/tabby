@@ -37,7 +37,7 @@ export class ShellIntegrationService {
         this.updatePaths()
     }
 
-    async updatePaths (): Promise<void> {
+    private async updatePaths (): Promise<void> {
         // Update paths in case of an update
         if (this.hostApp.platform === Platform.Windows) {
             if (await this.isInstalled()) {

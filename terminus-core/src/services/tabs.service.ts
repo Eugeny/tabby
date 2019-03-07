@@ -6,12 +6,16 @@ export declare type TabComponentType = new (...args: any[]) => BaseTabComponent
 
 @Injectable({ providedIn: 'root' })
 export class TabsService {
+    /** @hidden */
     constructor (
         private componentFactoryResolver: ComponentFactoryResolver,
         private injector: Injector,
         private tabRecovery: TabRecoveryService,
     ) { }
 
+    /**
+     * Instantiates a tab component and assigns given inputs
+     */
     create (type: TabComponentType, inputs?: any): BaseTabComponent {
         let componentFactory = this.componentFactoryResolver.resolveComponentFactory(type)
         let componentRef = componentFactory.create(this.injector)
@@ -21,6 +25,9 @@ export class TabsService {
         return tab
     }
 
+    /**
+     * Duplicates an existing tab instance (using the tab recovery system)
+     */
     async duplicate (tab: BaseTabComponent): Promise<BaseTabComponent> {
         let token = await tab.getRecoveryToken()
         if (!token) {
@@ -32,5 +39,4 @@ export class TabsService {
         }
         return null
     }
-
 }

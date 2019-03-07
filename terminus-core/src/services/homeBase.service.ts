@@ -9,6 +9,7 @@ import uuidv4 = require('uuid/v4')
 export class HomeBaseService {
     appVersion: string
 
+    /** @hidden */
     constructor (
         private electron: ElectronService,
         private config: ConfigService,
