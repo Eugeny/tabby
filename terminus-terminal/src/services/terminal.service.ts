@@ -1,7 +1,7 @@
 import * as fs from 'mz/fs'
 import { Observable, AsyncSubject } from 'rxjs'
 import { Injectable, Inject } from '@angular/core'
-import { AppService, Logger, LogService, ConfigService } from 'terminus-core'
+import { AppService, Logger, LogService, ConfigService, SplitTabComponent } from 'terminus-core'
 import { IShell, ShellProvider, SessionOptions } from '../api'
 import { TerminalTabComponent } from '../components/terminalTab.component'
 import { UACService } from './uac.service'
@@ -57,6 +57,13 @@ export class TerminalService {
         if (!cwd) {
             if (this.app.activeTab instanceof TerminalTabComponent && this.app.activeTab.session) {
                 cwd = await this.app.activeTab.session.getWorkingDirectory()
+            }
+            if (this.app.activeTab instanceof SplitTabComponent) {
+                let focusedTab = this.app.activeTab.getFocusedTab()
+
+                if (focusedTab instanceof TerminalTabComponent && focusedTab.session) {
+                    cwd = await focusedTab.session.getWorkingDirectory()
+                }
             }
             cwd = cwd || this.config.store.terminal.workingDirectory
             cwd = cwd || null
