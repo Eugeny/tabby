@@ -1,6 +1,6 @@
 import { Observable, Subject, AsyncSubject, ReplaySubject, BehaviorSubject } from 'rxjs'
 import { ResizeEvent } from '../api'
-import { ConfigService, ThemesService } from 'terminus-core'
+import { ConfigService, ThemesService, HotkeysService } from 'terminus-core'
 
 /**
  * Extend to add support for a different VT frontend implementation
@@ -8,6 +8,7 @@ import { ConfigService, ThemesService } from 'terminus-core'
 export abstract class Frontend {
     configService: ConfigService
     themesService: ThemesService
+    hotkeysService: HotkeysService
 
     enableResizing = true
     protected ready = new AsyncSubject<void>()

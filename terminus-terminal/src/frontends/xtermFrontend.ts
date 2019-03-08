@@ -42,6 +42,21 @@ export class XTermFrontend extends Frontend {
                 this.copySelection()
             }
         })
+
+        const keyboardEventHandler = (name: string, event: KeyboardEvent) => {
+            this.hotkeysService.pushKeystroke(name, event)
+            let ret = true
+            if (this.hotkeysService.getCurrentPartiallyMatchedHotkeys().length !== 0) {
+                event.stopPropagation()
+                event.preventDefault()
+                ret = false
+            }
+            this.hotkeysService.processKeystrokes()
+            this.hotkeysService.emitKeyEvent(event)
+
+            return ret
+        }
+
         this.xterm.attachCustomKeyEventHandler((event: KeyboardEvent) => {
             if ((event.getModifierState('Control') || event.getModifierState('Meta')) && event.key.toLowerCase() === 'v') {
                 event.preventDefault()
@@ -50,7 +65,8 @@ export class XTermFrontend extends Frontend {
             if (event.getModifierState('Meta') && event.key.startsWith('Arrow')) {
                 return false
             }
-            return true
+
+            return keyboardEventHandler('keydown', event)
         })
 
         this.xtermCore._scrollToBottom = this.xtermCore.scrollToBottom.bind(this.xtermCore)
@@ -62,6 +78,11 @@ export class XTermFrontend extends Frontend {
             } catch {
                 // tends to throw when element wasn't shown yet
             }
+        }
+
+        this.xtermCore._keyUp = (e: KeyboardEvent) => {
+            this.xtermCore.updateCursorStyle(e)
+            keyboardEventHandler('keyup', e)
         }
     }
 
