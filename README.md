@@ -47,8 +47,7 @@ Plugins can be installed directly from the Settings view inside Terminus.
 
 Pull requests and plugins are welcome!
 
-See [HACKING.md](https://github.com/Eugeny/terminus/blob/master/HACKING.md) for information of how the project is laid out, and a very brief plugin development tutorial.
-
+See [HACKING.md](https://github.com/Eugeny/terminus/blob/master/HACKING.md) and [API docs](http://ajenti.org/terminus-docs/) for information of how the project is laid out, and a very brief plugin development tutorial.
 
 ## License
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bhttps%3A%2F%2Fgithub.com%2FEugeny%2Fterminus.svg?type=large)](https://app.fossa.io/projects/git%2Bhttps%3A%2F%2Fgithub.com%2FEugeny%2Fterminus?ref=badge_large)
