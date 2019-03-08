@@ -96,7 +96,7 @@ export class Session extends BaseSession {
         let env = {
             ...process.env,
             TERM: 'xterm-256color',
-            TERMINUS: '1',
+            TERM_PROGRAM: 'Terminus',
             ...options.env,
             ...this.config.store.terminal.environment || {},
         }
