@@ -41,10 +41,10 @@
     "terminus-settings": "*"
   },
   "dependencies": {
+    "@terminus-term/node-pty": "^0.8.1",
     "font-manager": "0.3.0",
     "hterm-umdjs": "1.4.1",
     "mz": "^2.6.0",
-    "node-pty": "^0.8.0",
     "ps-node": "^0.1.6",
     "runes": "^0.4.2"
   },

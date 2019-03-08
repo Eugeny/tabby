@@ -2,6 +2,13 @@
 # yarn lockfile v1
 
 
+"@terminus-term/node-pty@^0.8.1":
+  version "0.8.1"
+  resolved "https://registry.yarnpkg.com/@terminus-term/node-pty/-/node-pty-0.8.1.tgz#49edd0fe85c21fa2b00c7216a2c0c6ca4839b979"
+  integrity sha512-YbAiE1m+q8VC3BPPFuRzU5WsjG/giCMKYDmdyScfJmtAACA0TntiupQ2Zg8ZgOHn+aoAO2++ShaM4Gv8IakJtg==
+  dependencies:
+    nan "2.12.1"
+
 "@types/deep-equal@^1.0.0":
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@types/deep-equal/-/deep-equal-1.0.1.tgz#71cfabb247c22bcc16d536111f50c0ed12476b03"
@@ -154,13 +161,6 @@ nan@2.12.1, nan@>=2.10.0, nan@^2.10.0, nan@^2.12.1:
   version "2.12.1"
   resolved "https://registry.yarnpkg.com/nan/-/nan-2.12.1.tgz#7b1aa193e9aa86057e3c7bbd0ac448e770925552"
   integrity sha512-JY7V6lRkStKcKTvHO5NVSQRv+RV+FIL5pvDoLiAtSL9pKlC5x9PKQcZDsq7m4FO4d57mkhC6Z+QhAh3Jdk5JFw==
-
-node-pty@^0.8.0:
-  version "0.8.1"
-  resolved "https://registry.yarnpkg.com/node-pty/-/node-pty-0.8.1.tgz#94b457bec013e7a09b8d9141f63b0787fa25c23f"
-  integrity sha512-j+/g0Q5dR+vkELclpJpz32HcS3O/3EdPSGPvDXJZVJQLCvgG0toEbfmymxAEyQyZEpaoKHAcoL+PvKM+4N9nlw==
-  dependencies:
-    nan "2.12.1"
 
 object-assign@^4.0.1:
   version "4.1.1"

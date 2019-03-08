@@ -62,7 +62,7 @@ module.exports = {
     'windows-native-registry',
     'mz/fs',
     'mz/child_process',
-    'node-pty',
+    '@terminus-term/node-pty',
     'os',
     /^rxjs/,
     /^@angular/,
