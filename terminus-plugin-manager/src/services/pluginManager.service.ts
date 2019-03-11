@@ -40,7 +40,7 @@ export class PluginManagerService {
         if (!this.npm) {
             if (!this.npmReady) {
                 this.npmReady = new Promise(resolve => {
-                    const npm = (window as any).nodeRequire('npm')
+                    const npm = require('npm')
                     npm.load({
                         prefix: this.userPluginsPath,
                     }, err => {
