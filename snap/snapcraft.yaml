@@ -13,13 +13,11 @@ apps:
     
 parts:
   app:
-    plugin: dump
+    plugin: nodejs
     source: .
     build-packages: 
       - libfontconfig-dev
-      - npm
     override-build: |
-      npm i -g yarn
       yarn
       ./scripts/build-native.js
       yarn run build
