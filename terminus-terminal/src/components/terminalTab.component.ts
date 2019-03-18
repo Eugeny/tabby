@@ -1,9 +1,11 @@
 import { Component, Input } from '@angular/core'
+import { Subscription } from 'rxjs'
 import { first } from 'rxjs/operators'
 import { BaseTabProcess } from 'terminus-core'
 import { BaseTerminalTabComponent } from './baseTerminalTab.component'
 import { SessionOptions } from '../api'
 import { Session } from '../services/sessions.service'
+import { WIN_BUILD_CONPTY_SUPPORTED, isWindowsBuild } from '../utils'
 
 /** @hidden */
 @Component({
@@ -13,10 +15,27 @@ import { Session } from '../services/sessions.service'
 })
 export class TerminalTabComponent extends BaseTerminalTabComponent {
     @Input() sessionOptions: SessionOptions
+    private homeEndSubscription: Subscription
 
     ngOnInit () {
         this.logger = this.log.create('terminalTab')
         this.session = new Session(this.config)
+
+        let isConPTY = isWindowsBuild(WIN_BUILD_CONPTY_SUPPORTED) && this.config.store.terminal.useConPTY
+
+        this.homeEndSubscription = this.hotkeys.matchedHotkey.subscribe(hotkey => {
+            if (!this.hasFocus) {
+                return
+            }
+            switch (hotkey) {
+            case 'home':
+                this.sendInput(isConPTY ? '\x1b[H' : '\x1bOH')
+                break
+            case 'end':
+                this.sendInput(isConPTY ? '\x1b[F' : '\x1bOF')
+                break
+            }
+        })
 
         this.frontendReady$.pipe(first()).subscribe(() => {
             this.initializeSession(this.size.columns, this.size.rows)
@@ -72,5 +91,10 @@ export class TerminalTabComponent extends BaseTerminalTabComponent {
                 defaultId: 1,
             }
         )).response === 1
+    }
+
+    ngOnDestroy () {
+        this.homeEndSubscription.unsubscribe()
+        super.ngOnDestroy()
     }
 }

@@ -110,12 +110,6 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
             case 'reset-zoom':
                 this.resetZoom()
                 break
-            case 'home':
-                this.sendInput('\x1bOH')
-                break
-            case 'end':
-                this.sendInput('\x1bOF')
-                break
             case 'previous-word':
                 this.sendInput('\x1bb')
                 break
