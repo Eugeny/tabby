@@ -25,6 +25,7 @@ export class XTermFrontend extends Frontend {
         this.xterm = new Terminal({
             allowTransparency: true,
             enableBold: true,
+            experimentalCharAtlas: 'dynamic',
         })
         this.xtermCore = (this.xterm as any)._core
 
