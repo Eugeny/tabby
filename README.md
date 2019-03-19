@@ -11,21 +11,26 @@
 
 ----
 
-**Terminus** is a terminal heavily inspired by Hyper. It is, however, designed for people who need to get things done.
+**Terminus** is a highly configurable terminal emulator for Windows, macOS and Linux
 
-  * Runs on Windows, macOS and Linux
   * Theming and color schemes
   * Fully configurable shortcuts
+  * Split panes
+  * Remembers your tabs
+  * PowerShell (and PS Core), WSL, Git-Bash, Cygwin, Cmder and CMD support
+  * Integrated SSH client and connection manager
   * Full Unicode support including double-width characters
   * Doesn't choke on fast-flowing outputs
-  * Proper shell-like experience on Windows including tab completion (via Clink)
-  * PowerShell (+Core), WSL (Bash on Windows), Git-Bash, Cygwin, Cmder and CMD support
-  * Remembers your tabs
-  * Integrated SSH client and connection manager
+  * Proper shell experience on Windows including tab completion (via Clink)
 
 
 [![Buy me a coffee](https://github.com/Eugeny/terminus/raw/master/docs/kofi.png)](https://ko-fi.com/eugeny)
 
+---
+
+* **Terminus is** an alternative to Windows' standard terminal (conhost), PowerShell ISE, PuTTY or iTerm
+
+* **Terminus is not** a new shell or a MinGW or Cygwin replacement. Neither is it lightweight - if RAM usage is of importance, consider [Conemu](https://conemu.github.io) or [Alacritty](https://github.com/jwilm/alacritty) 
 
 ---
 
