@@ -1,14 +1,13 @@
 import * as yaml from 'js-yaml'
 import * as os from 'os'
 import { Subscription } from 'rxjs'
-import { Component, Inject, Input } from '@angular/core'
-import { HotkeysService } from 'terminus-core'
+import { Component, Inject, Input, HostBinding } from '@angular/core'
 import {
     ElectronService,
     DockingService,
     ConfigService,
     IHotkeyDescription,
-    HotkeyProvider,
+    HotkeysService,
     BaseTabComponent,
     Theme,
     HostAppService,
@@ -19,6 +18,7 @@ import {
 
 import { SettingsTabProvider } from '../api'
 
+/** @hidden */
 @Component({
     selector: 'settings-tab',
     template: require('./settingsTab.component.pug'),
@@ -37,6 +37,7 @@ export class SettingsTabComponent extends BaseTabComponent {
     configFile: string
     isShellIntegrationInstalled = false
     isFluentVibrancySupported = false
+    @HostBinding('class.pad-window-controls') padWindowControls = false
     private configSubscription: Subscription
 
     constructor (
@@ -47,7 +48,6 @@ export class SettingsTabComponent extends BaseTabComponent {
         public homeBase: HomeBaseService,
         public shellIntegration: ShellIntegrationService,
         hotkeys: HotkeysService,
-        @Inject(HotkeyProvider) hotkeyProviders: HotkeyProvider[],
         @Inject(SettingsTabProvider) public settingsProviders: SettingsTabProvider[],
         @Inject(Theme) public themes: Theme[],
     ) {
@@ -58,16 +58,21 @@ export class SettingsTabComponent extends BaseTabComponent {
         this.themes = config.enabledServices(this.themes)
 
         this.configDefaults = yaml.safeDump(config.getDefaults())
-        this.configFile = config.readRaw()
-        this.configSubscription = config.changed$.subscribe(() => {
+
+        const onConfigChange = () => {
             this.configFile = config.readRaw()
-        })
+            this.padWindowControls = hostApp.platform === Platform.macOS
+                && config.store.appearance.tabsLocation === 'bottom'
+        }
+
+        this.configSubscription = config.changed$.subscribe(onConfigChange)
+        onConfigChange()
 
         hotkeys.getHotkeyDescriptions().then(descriptions => {
             this.hotkeyDescriptions = descriptions
         })
 
-        this.isFluentVibrancySupported = process.platform === 'win32'
+        this.isFluentVibrancySupported = hostApp.platform === Platform.Windows
             && parseFloat(os.release()) >= 10
             && parseInt(os.release().split('.')[2]) >= 17063
     }
@@ -76,7 +81,7 @@ export class SettingsTabComponent extends BaseTabComponent {
         this.isShellIntegrationInstalled = await this.shellIntegration.isInstalled()
     }
 
-    getRecoveryToken (): any {
+    async getRecoveryToken (): Promise<any> {
         return { type: 'app:settings' }
     }
 
@@ -94,6 +99,10 @@ export class SettingsTabComponent extends BaseTabComponent {
         if (this.isConfigFileValid()) {
             this.config.writeRaw(this.configFile)
         }
+    }
+
+    showConfigFile () {
+        this.electron.shell.showItemInFolder(this.config.path)
     }
 
     isConfigFileValid () {

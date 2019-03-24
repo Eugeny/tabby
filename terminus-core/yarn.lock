@@ -486,10 +486,10 @@ qs@~6.5.1:
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.5.2.tgz#cb3ae806e8740444584ef154ce8ee98d403f3e36"
   integrity sha512-N5ZAX4/LxJmF+7wN74pUD6qAh9/wnvdQcjq9TZjevvXzSUo7bfmw91saqMjzGS2xq91/odN2dW/WOl7qQHNDGA==
 
-rage-edit-tmp@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/rage-edit-tmp/-/rage-edit-tmp-1.1.0.tgz#fc5d76716d2fe2cf97dcafbf3e26753e3a08e3b2"
-  integrity sha512-lR97QHY5WSf9orInMJhPqUbenkdiy7QbXUoRMI+wBZGyAPkxNwgo7h6ojq634QrBf/kQo3mVXYjuD3ZYraNaZQ==
+rage-edit@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/rage-edit/-/rage-edit-1.2.0.tgz#991860a60fef934d8a6d0f057e55786b02f94a2b"
+  integrity sha512-0RspBRc2s6We4g7hRCvT5mu7YPEnfjvQK8Tt354a2uUNJCMC7MKLvo/1mLvHUCQ/zbP6siQyp5VRZN7UCpMFZg==
 
 request@2.86.0:
   version "2.86.0"

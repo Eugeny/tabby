@@ -1,5 +1,9 @@
+/** @hidden */
 export const hterm = require('hterm-umdjs')
+
 hterm.hterm.defaultStorage = new hterm.lib.Storage.Memory()
+
+/** @hidden */
 export const preferenceManager = new hterm.hterm.PreferenceManager('default')
 
 hterm.hterm.VT.ESC['k'] = function (parseState) {
@@ -52,7 +56,6 @@ hterm.hterm.Terminal.prototype.applyCursorShape = function () {
         [hterm.hterm.Terminal.cursorShape.BEAM, false],
     ]
     let modeNumber = this.cursorMode || 1
-    console.log('mode', modeNumber)
     if (modeNumber >= modes.length) {
         console.warn('Unknown cursor style: ' + modeNumber)
         return

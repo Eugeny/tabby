@@ -6,6 +6,7 @@ module.exports = {
   entry: 'src/index.ts',
   devtool: 'source-map',
   context: __dirname,
+  mode: 'development',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'index.js',
@@ -13,7 +14,7 @@ module.exports = {
     libraryTarget: 'umd',
     devtoolModuleFilenameTemplate: 'webpack-terminus-settings:///[resource-path]',
   },
-  mode: process.env.DEV ? 'development' : 'production',
+  mode: process.env.TERMINUS_DEV ? 'development' : 'production',
   optimization:{
      minimize: false,
   },

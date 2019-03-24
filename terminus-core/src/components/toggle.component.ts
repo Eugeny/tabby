@@ -2,6 +2,7 @@ import { Component } from '@angular/core'
 import { NG_VALUE_ACCESSOR } from '@angular/forms'
 import { CheckboxComponent } from './checkbox.component'
 
+/** @hidden */
 @Component({
     selector: 'toggle',
     template: `

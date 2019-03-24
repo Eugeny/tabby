@@ -1,6 +1,6 @@
 {
   "name": "terminus-ssh",
-  "version": "1.0.0-alpha.55",
+  "version": "1.0.73-c4-ga7d62b0",
   "description": "SSH connection manager for Terminus",
   "keywords": [
     "terminus-builtin-plugin"
@@ -36,9 +36,11 @@
   },
   "optionalDependencies": {
     "wincredmgr": "^2.0.0",
+    "windows-process-tree": "^0.2.3",
     "xkeychain": "^0.0.6"
   },
   "dependencies": {
-    "ssh2": "^0.5.5"
+    "ssh2": "^0.8.2",
+    "ssh2-streams": "^0.4.2"
   }
 }

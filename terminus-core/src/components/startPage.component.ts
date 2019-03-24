@@ -3,6 +3,7 @@ import { ConfigService } from '../services/config.service'
 import { HomeBaseService } from '../services/homeBase.service'
 import { IToolbarButton, ToolbarButtonProvider } from '../api'
 
+/** @hidden */
 @Component({
     selector: 'start-page',
     template: require('./startPage.component.pug'),

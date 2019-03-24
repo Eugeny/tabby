@@ -1,11 +1,8 @@
-import * as path from 'path'
-import * as fs from 'mz/fs'
-import { exec } from 'mz/child_process'
 import axios from 'axios'
 import { Observable, from } from 'rxjs'
 import { map } from 'rxjs/operators'
 import { Injectable } from '@angular/core'
-import { Logger, LogService, ConfigService, HostAppService, Platform } from 'terminus-core'
+import { Logger, LogService } from 'terminus-core'
 
 const NAME_PREFIX = 'terminus-'
 const KEYWORD = 'terminus-plugin'
@@ -23,51 +20,41 @@ export interface IPluginInfo {
     path?: string
 }
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class PluginManagerService {
     logger: Logger
     builtinPluginsPath: string = (window as any).builtinPluginsPath
     userPluginsPath: string = (window as any).userPluginsPath
     installedPlugins: IPluginInfo[] = (window as any).installedPlugins
-    npmPath: string
-    private envPath: string
+
+    private npmReady: Promise<void>
+    private npm: any
 
     constructor (
         log: LogService,
-        private config: ConfigService,
-        private hostApp: HostAppService,
     ) {
         this.logger = log.create('pluginManager')
-        this.detectPath()
     }
 
-    async detectPath () {
-        this.npmPath = this.config.store.npm
-        this.envPath = process.env.PATH
-        if (await fs.exists(this.npmPath)) {
-            return
-        }
-        if (this.hostApp.platform !== Platform.Windows) {
-            this.envPath = (await exec('$SHELL -c -i \'echo $PATH\''))[0].toString().trim()
-            let searchPaths = this.envPath.split(':')
-            for (let searchPath of searchPaths) {
-                if (await fs.exists(path.join(searchPath, 'npm'))) {
-                    this.logger.debug('Found npm in', searchPath)
-                    this.npmPath = path.join(searchPath, 'npm')
-                    return
-                }
+    async getNPM () {
+        if (!this.npm) {
+            if (!this.npmReady) {
+                this.npmReady = new Promise(resolve => {
+                    const npm = require('npm')
+                    npm.load({
+                        prefix: this.userPluginsPath,
+                    }, err => {
+                        if (err) {
+                            this.logger.error(err)
+                        }
+                        this.npm = npm
+                        resolve()
+                    })
+                })
             }
+            await this.npmReady
         }
-    }
-
-    async isNPMInstalled (): Promise<boolean> {
-        await this.detectPath()
-        try {
-            await exec(`${this.npmPath} -v`, { env: this.getEnv() })
-            return true
-        } catch (_) {
-            return false
-        }
+        return this.npm
     }
 
     listAvailable (query?: string): Observable<IPluginInfo[]> {
@@ -92,17 +79,21 @@ export class PluginManagerService {
     }
 
     async installPlugin (plugin: IPluginInfo) {
-        await exec(`${this.npmPath} --prefix "${this.userPluginsPath}" install ${plugin.packageName}@${plugin.version}`, { env: this.getEnv() })
-        this.installedPlugins = this.installedPlugins.filter(x => x.packageName !== plugin.packageName)
-        this.installedPlugins.push(plugin)
+        (await this.getNPM()).commands.install([`${plugin.packageName}@${plugin.version}`], err => {
+            if (err) {
+                this.logger.error(err)
+            }
+            this.installedPlugins = this.installedPlugins.filter(x => x.packageName !== plugin.packageName)
+            this.installedPlugins.push(plugin)
+        })
     }
 
     async uninstallPlugin (plugin: IPluginInfo) {
-        await exec(`${this.npmPath} --prefix "${this.userPluginsPath}" remove ${plugin.packageName}`, { env: this.getEnv() })
-        this.installedPlugins = this.installedPlugins.filter(x => x.packageName !== plugin.packageName)
-    }
-
-    private getEnv (): any {
-        return Object.assign(process.env, { PATH: this.envPath })
+        (await this.getNPM()).commands.remove([plugin.packageName], err => {
+            if (err) {
+                this.logger.error(err)
+            }
+            this.installedPlugins = this.installedPlugins.filter(x => x.packageName !== plugin.packageName)
+        })
     }
 }

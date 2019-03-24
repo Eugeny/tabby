@@ -1,12 +1,12 @@
 {
   "name": "terminus-terminal",
-  "version": "1.0.0-alpha.55",
+  "version": "1.0.73-c4-ga7d62b0",
   "description": "Terminus' terminal emulation core",
   "keywords": [
     "terminus-builtin-plugin"
   ],
   "main": "dist/index.js",
-  "typings": "dist/index.d.ts",
+  "typings": "dist/src/index.d.ts",
   "scripts": {
     "build": "webpack --progress --color --display-modules",
     "watch": "webpack --progress --color --watch"
@@ -20,13 +20,14 @@
     "@types/deep-equal": "^1.0.0",
     "@types/mz": "0.0.31",
     "@types/node": "7.0.12",
+    "@types/slug": "^0.9.1",
     "@types/webpack-env": "1.13.0",
     "dataurl": "0.1.0",
     "deep-equal": "1.0.1",
     "file-loader": "^0.11.2",
-    "rage-edit-tmp": "^1.1.0",
+    "slug": "^0.9.3",
     "uuid": "^3.3.2",
-    "xterm": "^3.8.0",
+    "xterm": "3.10.1",
     "xterm-addon-ligatures-tmp": "^0.1.0-beta-1"
   },
   "peerDependencies": {
@@ -40,17 +41,16 @@
     "terminus-settings": "*"
   },
   "dependencies": {
-    "@types/async-lock": "0.0.19",
-    "async-lock": "^1.0.0",
+    "@terminus-term/node-pty": "^0.8.1",
     "font-manager": "0.3.0",
     "hterm-umdjs": "1.4.1",
     "mz": "^2.6.0",
-    "node-pty-tmp": "0.7.2",
     "ps-node": "^0.1.6",
     "runes": "^0.4.2"
   },
   "optionalDependencies": {
     "macos-native-processlist": "^1.0.0",
+    "windows-native-registry": "^1.0.6",
     "windows-process-tree": "^0.2.3"
   },
   "false": {}

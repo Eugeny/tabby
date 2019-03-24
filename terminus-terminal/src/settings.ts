@@ -5,9 +5,11 @@ import { AppearanceSettingsTabComponent } from './components/appearanceSettingsT
 import { ShellSettingsTabComponent } from './components/shellSettingsTab.component'
 import { TerminalSettingsTabComponent } from './components/terminalSettingsTab.component'
 
+/** @hidden */
 @Injectable()
 export class AppearanceSettingsTabProvider extends SettingsTabProvider {
     id = 'terminal-appearance'
+    icon = 'palette'
     title = 'Appearance'
 
     getComponentType (): any {
@@ -15,9 +17,11 @@ export class AppearanceSettingsTabProvider extends SettingsTabProvider {
     }
 }
 
+/** @hidden */
 @Injectable()
 export class ShellSettingsTabProvider extends SettingsTabProvider {
     id = 'terminal-shell'
+    icon = 'list-ul'
     title = 'Shell'
 
     getComponentType (): any {
@@ -25,9 +29,11 @@ export class ShellSettingsTabProvider extends SettingsTabProvider {
     }
 }
 
+/** @hidden */
 @Injectable()
 export class TerminalSettingsTabProvider extends SettingsTabProvider {
     id = 'terminal'
+    icon = 'terminal'
     title = 'Terminal'
 
     getComponentType (): any {

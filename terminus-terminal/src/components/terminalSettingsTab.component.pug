@@ -82,6 +82,15 @@ h3.mb-3 Terminal
         [(ngModel)]='config.store.terminal.copyOnSelect',
         (ngModelChange)='config.save()',
     )
+
+.form-line
+    .header
+        .title Scroll on input
+        .description Scrolls the terminal to the bottom on user input
+    toggle(
+        [(ngModel)]='config.store.terminal.scrollOnInput',
+        (ngModelChange)='config.save()',
+    )
     
 .form-line
     .header

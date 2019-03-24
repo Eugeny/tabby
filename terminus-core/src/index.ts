@@ -6,20 +6,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { PerfectScrollbarModule, PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar'
 import { DndModule } from 'ng2-dnd'
 
-import { AppService } from './services/app.service'
-import { ConfigService } from './services/config.service'
-import { ElectronService } from './services/electron.service'
-import { HostAppService } from './services/hostApp.service'
-import { LogService } from './services/log.service'
-import { HomeBaseService } from './services/homeBase.service'
-import { HotkeysService, AppHotkeyProvider } from './services/hotkeys.service'
-import { DockingService } from './services/docking.service'
-import { ShellIntegrationService } from './services/shellIntegration.service'
-import { TabRecoveryService } from './services/tabRecovery.service'
-import { ThemesService } from './services/themes.service'
-import { TouchbarService } from './services/touchbar.service'
-import { UpdaterService } from './services/updater.service'
-
 import { AppRootComponent } from './components/appRoot.component'
 import { CheckboxComponent } from './components/checkbox.component'
 import { TabBodyComponent } from './components/tabBody.component'
@@ -30,41 +16,39 @@ import { TitleBarComponent } from './components/titleBar.component'
 import { ToggleComponent } from './components/toggle.component'
 import { WindowControlsComponent } from './components/windowControls.component'
 import { RenameTabModalComponent } from './components/renameTabModal.component'
+import { SplitTabComponent, SplitTabRecoveryProvider } from './components/splitTab.component'
+import { SplitTabSpannerComponent } from './components/splitTabSpanner.component'
 
 import { AutofocusDirective } from './directives/autofocus.directive'
 
 import { HotkeyProvider } from './api/hotkeyProvider'
 import { ConfigProvider } from './api/configProvider'
 import { Theme } from './api/theme'
+import { TabContextMenuItemProvider } from './api/tabContextMenuProvider'
+import { TabRecoveryProvider } from './api/tabRecovery'
 
 import { StandardTheme, StandardCompactTheme, PaperTheme } from './theme'
 import { CoreConfigProvider } from './config'
+import { AppHotkeyProvider } from './hotkeys'
+import { TaskCompletionContextMenu, CommonOptionsContextMenu, CloseContextMenu } from './tabContextMenu'
 
 import 'perfect-scrollbar/css/perfect-scrollbar.css'
 import 'ng2-dnd/bundles/style.css'
 
 const PROVIDERS = [
-    AppService,
-    ConfigService,
-    DockingService,
-    ElectronService,
-    HomeBaseService,
-    HostAppService,
-    HotkeysService,
-    LogService,
-    ShellIntegrationService,
-    TabRecoveryService,
-    ThemesService,
-    TouchbarService,
-    UpdaterService,
     { provide: HotkeyProvider, useClass: AppHotkeyProvider, multi: true },
     { provide: Theme, useClass: StandardTheme, multi: true },
     { provide: Theme, useClass: StandardCompactTheme, multi: true },
     { provide: Theme, useClass: PaperTheme, multi: true },
     { provide: ConfigProvider, useClass: CoreConfigProvider, multi: true },
-    { provide: PERFECT_SCROLLBAR_CONFIG, useValue: { suppressScrollX: true }}
+    { provide: TabContextMenuItemProvider, useClass: CommonOptionsContextMenu, multi: true },
+    { provide: TabContextMenuItemProvider, useClass: CloseContextMenu, multi: true },
+    { provide: TabContextMenuItemProvider, useClass: TaskCompletionContextMenu, multi: true },
+    { provide: TabRecoveryProvider, useClass: SplitTabRecoveryProvider, multi: true },
+    { provide: PERFECT_SCROLLBAR_CONFIG, useValue: { suppressScrollX: true } }
 ]
 
+/** @hidden */
 @NgModule({
     imports: [
         BrowserModule,
@@ -86,10 +70,13 @@ const PROVIDERS = [
         RenameTabModalComponent,
         SafeModeModalComponent,
         AutofocusDirective,
+        SplitTabComponent,
+        SplitTabSpannerComponent,
     ],
     entryComponents: [
         RenameTabModalComponent,
         SafeModeModalComponent,
+        SplitTabComponent,
     ],
     exports: [
         CheckboxComponent,

@@ -3,10 +3,11 @@ import { TouchBarSegmentedControl, SegmentedControlSegment } from 'electron'
 import { AppService } from './app.service'
 import { ConfigService } from './config.service'
 import { ElectronService } from './electron.service'
-import { HostAppService } from './hostApp.service'
+import { HostAppService, Platform } from './hostApp.service'
 import { IToolbarButton, ToolbarButtonProvider } from '../api'
 
-@Injectable()
+/** @hidden */
+@Injectable({ providedIn: 'root' })
 export class TouchbarService {
     private tabsSegmentedControl: TouchBarSegmentedControl
     private tabSegments: SegmentedControlSegment[] = []
@@ -20,6 +21,9 @@ export class TouchbarService {
         private electron: ElectronService,
         private zone: NgZone,
     ) {
+        if (this.hostApp.platform !== Platform.macOS) {
+            return
+        }
         app.tabsChanged$.subscribe(() => this.update())
         app.activeTabChange$.subscribe(() => this.update())
         app.tabOpened$.subscribe(tab => {
@@ -31,6 +35,10 @@ export class TouchbarService {
     }
 
     update () {
+        if (this.hostApp.platform !== Platform.macOS) {
+            return
+        }
+
         let buttons: IToolbarButton[] = []
         this.config.enabledServices(this.toolbarButtonProviders).forEach(provider => {
             buttons = buttons.concat(provider.provide())
@@ -49,8 +57,8 @@ export class TouchbarService {
         let touchBar = new this.electron.TouchBar({
             items: [
                 this.tabsSegmentedControl,
-                new this.electron.TouchBar.TouchBarSpacer({size: 'flexible'}),
-                new this.electron.TouchBar.TouchBarSpacer({size: 'small'}),
+                new this.electron.TouchBar.TouchBarSpacer({ size: 'flexible' }),
+                new this.electron.TouchBar.TouchBarSpacer({ size: 'small' }),
                 ...buttons.map(button => this.getButton(button))
             ]
         })

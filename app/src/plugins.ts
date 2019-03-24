@@ -16,11 +16,11 @@ function normalizePath (path: string): string {
 
 nodeRequire.main.paths.map(x => nodeModule.globalPaths.push(normalizePath(x)))
 
-if (process.env.DEV) {
+if (process.env.TERMINUS_DEV) {
     nodeModule.globalPaths.unshift(path.dirname(require('electron').remote.app.getAppPath()))
 }
 
-const builtinPluginsPath = process.env.DEV ? path.dirname(require('electron').remote.app.getAppPath()) : path.join((process as any).resourcesPath, 'builtin-plugins')
+const builtinPluginsPath = process.env.TERMINUS_DEV ? path.dirname(require('electron').remote.app.getAppPath()) : path.join((process as any).resourcesPath, 'builtin-plugins')
 
 const userPluginsPath = path.join(
     require('electron').remote.app.getPath('appData'),
@@ -118,7 +118,7 @@ export async function findPlugins (): Promise<IPluginInfo[]> {
         }
 
         try {
-            let info = JSON.parse(await fs.readFile(infoPath, {encoding: 'utf-8'}))
+            let info = JSON.parse(await fs.readFile(infoPath, { encoding: 'utf-8' }))
             if (!info.keywords || !(info.keywords.includes('terminus-plugin') || info.keywords.includes('terminus-builtin-plugin'))) {
                 continue
             }

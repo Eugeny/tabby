@@ -3,6 +3,7 @@ import { SettingsTabProvider } from 'terminus-settings'
 
 import { PluginsSettingsTabComponent } from './components/pluginsSettingsTab.component'
 
+/** @hidden */
 @Injectable()
 export class PluginsSettingsTabProvider extends SettingsTabProvider {
     id = 'plugins'

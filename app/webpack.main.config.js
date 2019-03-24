@@ -7,7 +7,7 @@ module.exports = {
   entry: {
     main: path.resolve(__dirname, 'lib/index.ts'),
   },
-  mode: process.env.DEV ? 'development' : 'production',
+  mode: process.env.TERMINUS_DEV ? 'development' : 'production',
   context: __dirname,
   devtool: 'source-map',
   output: {

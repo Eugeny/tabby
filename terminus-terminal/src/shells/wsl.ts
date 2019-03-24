@@ -1,10 +1,17 @@
 import * as fs from 'mz/fs'
-import { Registry } from 'rage-edit-tmp'
+import slug from 'slug'
+
 import { Injectable } from '@angular/core'
 import { HostAppService, Platform } from 'terminus-core'
 
 import { ShellProvider, IShell } from '../api'
+import { isWindowsBuild, WIN_BUILD_WSL_EXE_DISTRO_FLAG } from '../utils'
 
+try {
+    var wnr = require('windows-native-registry') // tslint:disable-line
+} catch { } // tslint:disable-line
+
+/** @hidden */
 @Injectable()
 export class WSLShellProvider extends ShellProvider {
     constructor (
@@ -31,8 +38,9 @@ export class WSLShellProvider extends ShellProvider {
             }
         }]
 
-        let lxss = await Registry.get('HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Lxss', true)
-        if (!lxss || !lxss.$values.defaultdistribution) {
+        const lxssPath = 'Software\\Microsoft\\Windows\\CurrentVersion\\Lxss'
+        let lxss = wnr.getRegistryKey(wnr.HK.CU, lxssPath)
+        if (!lxss || !lxss.DefaultDistribution || !isWindowsBuild(WIN_BUILD_WSL_EXE_DISTRO_FLAG)) {
             if (await fs.exists(bashPath)) {
                 return [{
                     id: 'wsl',
@@ -47,17 +55,18 @@ export class WSLShellProvider extends ShellProvider {
                 return []
             }
         }
-        for (let child of Object.values(lxss)) {
-            if (!(child as any).$values) {
+        for (let child of wnr.listRegistrySubkeys(wnr.HK.CU, lxssPath)) {
+            let childKey = wnr.getRegistryKey(wnr.HK.CU, lxssPath + '\\' + child)
+            if (!childKey.DistributionName) {
                 continue
             }
-            let name = (child as any).$values.distributionname
+            let name = childKey.DistributionName.value
             shells.push({
-                id: `wsl-${name}`,
+                id: `wsl-${slug(name)}`,
                 name: `WSL / ${name}`,
                 command: wslPath,
                 args: ['-d', name],
-                fsBase: (child as any).$values.basepath + '\\rootfs',
+                fsBase: childKey.BasePath.value + '\\rootfs',
                 env: {
                     TERM: 'xterm-color',
                     COLORTERM: 'truecolor',

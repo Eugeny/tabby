@@ -1,10 +1,14 @@
 import * as path from 'path'
 import { Injectable } from '@angular/core'
-import { Registry } from 'rage-edit-tmp'
 import { HostAppService, Platform } from 'terminus-core'
 
 import { ShellProvider, IShell } from '../api'
 
+try {
+    var wnr = require('windows-native-registry') // tslint:disable-line
+} catch { } // tslint:disable-line
+
+/** @hidden */
 @Injectable()
 export class Cygwin64ShellProvider extends ShellProvider {
     constructor (
@@ -18,7 +22,7 @@ export class Cygwin64ShellProvider extends ShellProvider {
             return []
         }
 
-        let cygwinPath = await Registry.get('HKLM\\Software\\Cygwin\\setup', 'rootdir')
+        let cygwinPath = wnr.getRegistryValue(wnr.HK.LM, 'Software\\Cygwin\\setup', 'rootdir')
 
         if (!cygwinPath) {
             return []

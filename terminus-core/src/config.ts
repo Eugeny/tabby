@@ -1,6 +1,7 @@
 import { ConfigProvider } from './api/configProvider'
 import { Platform } from './services/hostApp.service'
 
+/** @hidden */
 export class CoreConfigProvider extends ConfigProvider {
     platformDefaults = {
         [Platform.macOS]: require('./configDefaults.macos.yaml'),

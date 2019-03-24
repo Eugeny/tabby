@@ -23,7 +23,7 @@ const initializeWinston = (electron: ElectronService) => {
                 colorize: false
             }),
             new winston.transports.Console({
-                level: 'info',
+                level: 'debug',
                 handleExceptions: false,
                 json: false,
                 colorize: true
@@ -39,7 +39,7 @@ export class Logger {
         private name: string,
     ) {}
 
-    doLog (level: string, ...args: any[]) {
+    private doLog (level: string, ...args: any[]) {
         console[level](`%c[${this.name}]`, 'color: #aaa', ...args)
         if (this.winstonLogger) {
             this.winstonLogger[level](...args)
@@ -53,10 +53,11 @@ export class Logger {
     log (...args: any[]) { this.doLog('log', ...args) }
 }
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class LogService {
     private log: any
 
+    /** @hidden */
     constructor (electron: ElectronService) {
         this.log = initializeWinston(electron)
     }

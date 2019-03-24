@@ -12,7 +12,6 @@ if (!process.env.TERMINUS_PLUGINS) {
 const application = new Application()
 
 ipcMain.on('app:new-window', () => {
-    console.log('new-window')
     application.newWindow()
 })
 
@@ -59,5 +58,6 @@ app.on('ready', () => {
             }
         ]))
     }
+    application.init()
     application.newWindow({ hidden: argv.hidden })
 })

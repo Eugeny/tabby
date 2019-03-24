@@ -1,5 +1,6 @@
 import { Component } from '@angular/core'
 
+/** @hidden */
 @Component({
     selector: 'title-bar',
     template: require('./titleBar.component.pug'),

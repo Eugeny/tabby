@@ -1,10 +1,14 @@
 import * as path from 'path'
 import { Injectable } from '@angular/core'
-import { Registry } from 'rage-edit-tmp'
 import { HostAppService, Platform } from 'terminus-core'
 
 import { ShellProvider, IShell } from '../api'
 
+try {
+    var wnr = require('windows-native-registry') // tslint:disable-line
+} catch { } // tslint:disable-line
+
+/** @hidden */
 @Injectable()
 export class GitBashShellProvider extends ShellProvider {
     constructor (
@@ -18,10 +22,10 @@ export class GitBashShellProvider extends ShellProvider {
             return []
         }
 
-        let gitBashPath = await Registry.get('HKLM\\Software\\GitForWindows', 'InstallPath')
+        let gitBashPath = wnr.getRegistryValue(wnr.HK.LM, 'Software\\GitForWindows', 'InstallPath')
 
         if (!gitBashPath) {
-            gitBashPath = await Registry.get('HKCU\\Software\\GitForWindows', 'InstallPath')
+            gitBashPath = wnr.getRegistryValue(wnr.HK.CU, 'Software\\GitForWindows', 'InstallPath')
         }
 
         if (!gitBashPath) {

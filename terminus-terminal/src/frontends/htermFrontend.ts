@@ -1,6 +1,7 @@
 import { Frontend } from './frontend'
-import { hterm, preferenceManager } from '../hterm'
+import { hterm, preferenceManager } from './hterm'
 
+/** @hidden */
 export class HTermFrontend extends Frontend {
     term: any
     io: any
@@ -51,7 +52,9 @@ export class HTermFrontend extends Frontend {
         this.term.onVTKeystroke('\f')
     }
 
-    configure (config: any): void {
+    configure (): void {
+        let config = this.configService.store
+
         this.configuredFontSize = config.terminal.fontSize
         this.configuredLinePadding = config.terminal.linePadding
         this.setFontSize()
@@ -66,12 +69,15 @@ export class HTermFrontend extends Frontend {
         preferenceManager.set('ctrl-plus-minus-zero-zoom', false)
         preferenceManager.set('scrollbar-visible', process.platform === 'darwin')
         preferenceManager.set('copy-on-select', config.terminal.copyOnSelect)
+        preferenceManager.set('pass-meta-v', false)
         preferenceManager.set('alt-is-meta', config.terminal.altIsMeta)
         preferenceManager.set('alt-sends-what', 'browser-key')
         preferenceManager.set('alt-gr-mode', 'ctrl-alt')
         preferenceManager.set('pass-alt-number', true)
         preferenceManager.set('cursor-blink', config.terminal.cursorBlink)
         preferenceManager.set('clear-selection-after-copy', true)
+        preferenceManager.set('scroll-on-output', false)
+        preferenceManager.set('scroll-on-keystroke', config.terminal.scrollOnInput)
 
         if (config.terminal.colorScheme.foreground) {
             preferenceManager.set('foreground-color', config.terminal.colorScheme.foreground)
@@ -82,8 +88,7 @@ export class HTermFrontend extends Frontend {
                 preferenceManager.set('background-color', config.terminal.colorScheme.background)
             }
         } else {
-            // hterm can't parse "transparent"
-            preferenceManager.set('background-color', 'transparent')
+            preferenceManager.set('background-color', config.appearance.vibrancy ? 'transparent' : this.themesService.findCurrentTheme().terminalBackground)
         }
 
         this.configuredBackgroundColor = preferenceManager.get('background-color')
@@ -92,7 +97,7 @@ export class HTermFrontend extends Frontend {
             return
         }
 
-        let css = require('../hterm.userCSS.scss')
+        let css = require('./hterm.userCSS.scss')
         if (!config.terminal.ligatures) {
             css += `
                 * {
@@ -151,7 +156,14 @@ export class HTermFrontend extends Frontend {
     }
 
     private setFontSize () {
-        preferenceManager.set('font-size', this.configuredFontSize * Math.pow(1.1, this.zoom))
+        let size = this.configuredFontSize * Math.pow(1.1, this.zoom)
+        preferenceManager.set('font-size', size)
+        if (this.term) {
+            setTimeout(() => {
+                this.term.scrollPort_.characterSize = this.term.scrollPort_.measureCharacterSize()
+                this.term.setFontSize(size)
+            })
+        }
     }
 
     private init () {

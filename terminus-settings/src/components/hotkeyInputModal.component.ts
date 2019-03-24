@@ -6,6 +6,7 @@ import { HotkeysService } from 'terminus-core'
 
 const INPUT_TIMEOUT = 1000
 
+/** @hidden */
 @Component({
     selector: 'hotkey-input-modal',
     template: require('./hotkeyInputModal.component.pug'),

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core'
 import { IHotkeyDescription, HotkeyProvider } from 'terminus-core'
 
+/** @hidden */
 @Injectable()
 export class SettingsHotkeyProvider extends HotkeyProvider {
     hotkeys: IHotkeyDescription[] = [

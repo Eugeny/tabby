@@ -2,6 +2,7 @@ import { Component } from '@angular/core'
 import { ConfigService, ElectronService } from 'terminus-core'
 import { TerminalService } from '../services/terminal.service'
 
+/** @hidden */
 @Component({
     template: require('./terminalSettingsTab.component.pug'),
 })

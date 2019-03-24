@@ -9,7 +9,7 @@ module.exports = {
     preload: path.resolve(__dirname, 'src/entry.preload.ts'),
     bundle: path.resolve(__dirname, 'src/entry.ts'),
   },
-  mode: process.env.DEV ? 'development' : 'production',
+  mode: process.env.TERMINUS_DEV ? 'development' : 'production',
   optimization:{
      minimize: false,
   },

@@ -14,7 +14,7 @@ module.exports = {
     libraryTarget: 'umd',
     devtoolModuleFilenameTemplate: 'webpack-terminus-core:///[resource-path]',
   },
-  mode: process.env.DEV ? 'development' : 'production',
+  mode: process.env.TERMINUS_DEV ? 'development' : 'production',
   optimization:{
      minimize: false,
   },

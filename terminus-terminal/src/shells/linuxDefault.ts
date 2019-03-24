@@ -4,6 +4,7 @@ import { HostAppService, Platform, LogService, Logger } from 'terminus-core'
 
 import { ShellProvider, IShell } from '../api'
 
+/** @hidden */
 @Injectable()
 export class LinuxDefaultShellProvider extends ShellProvider {
     private logger: Logger

@@ -5,10 +5,11 @@ import { ConfigService } from './config.service'
 import ua = require('universal-analytics')
 import uuidv4 = require('uuid/v4')
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class HomeBaseService {
     appVersion: string
 
+    /** @hidden */
     constructor (
         private electron: ElectronService,
         private config: ConfigService,

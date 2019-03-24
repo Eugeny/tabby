@@ -1,3 +1,4 @@
+/** @hidden */
 module.exports = function patchPTYModule (mod) {
   const oldSpawn = mod.spawn
   if (mod.patched) {

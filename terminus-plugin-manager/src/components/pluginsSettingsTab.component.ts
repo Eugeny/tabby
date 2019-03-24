@@ -3,11 +3,12 @@ import { debounceTime, distinctUntilChanged, first, tap, flatMap } from 'rxjs/op
 import * as semver from 'semver'
 
 import { Component, Input } from '@angular/core'
-import { ConfigService, HostAppService, ElectronService } from 'terminus-core'
+import { ConfigService, ElectronService } from 'terminus-core'
 import { IPluginInfo, PluginManagerService } from '../services/pluginManager.service'
 
 enum BusyState { Installing, Uninstalling }
 
+/** @hidden */
 @Component({
     template: require('./pluginsSettingsTab.component.pug'),
     styles: [require('./pluginsSettingsTab.component.scss')],
@@ -21,13 +22,10 @@ export class PluginsSettingsTabComponent {
     @Input() busy: {[id: string]: BusyState} = {}
     @Input() erroredPlugin: string
     @Input() errorMessage: string
-    @Input() npmInstalled = false
-    @Input() npmMissing = false
 
     constructor (
         private electron: ElectronService,
         private config: ConfigService,
-        private hostApp: HostAppService,
         public pluginManager: PluginManagerService
     ) {
     }
@@ -50,20 +48,10 @@ export class PluginsSettingsTabComponent {
                 this.knownUpgrades[plugin.name] = available.find(x => x.name === plugin.name && semver.gt(x.version, plugin.version))
             }
         })
-        this.checkNPM()
     }
 
     openPluginsFolder (): void {
-        this.hostApp.getShell().openItem(this.pluginManager.userPluginsPath)
-    }
-
-    downloadNPM (): void {
-        this.hostApp.getShell().openExternal('https://nodejs.org/en/download/current/')
-    }
-
-    async checkNPM () {
-        this.npmInstalled = await this.pluginManager.isNPMInstalled()
-        this.npmMissing = !this.npmInstalled
+        this.electron.shell.openItem(this.pluginManager.userPluginsPath)
     }
 
     searchAvailable (query: string) {
@@ -117,7 +105,7 @@ export class PluginsSettingsTabComponent {
     }
 
     disablePlugin (plugin: IPluginInfo) {
-        this.config.store.pluginBlacklist.push(plugin.name)
+        this.config.store.pluginBlacklist = [...this.config.store.pluginBlacklist, plugin.name]
         this.config.save()
         this.config.requestRestart()
     }

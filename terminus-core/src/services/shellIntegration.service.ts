@@ -1,12 +1,12 @@
 import * as path from 'path'
 import * as fs from 'mz/fs'
-import { Registry } from 'rage-edit-tmp'
+import { Registry } from 'rage-edit'
 import { exec } from 'mz/child_process'
 import { Injectable } from '@angular/core'
 import { ElectronService } from './electron.service'
 import { HostAppService, Platform } from './hostApp.service'
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ShellIntegrationService {
     private automatorWorkflows = ['Open Terminus here.workflow', 'Paste path into Terminus.workflow']
     private automatorWorkflowsLocation: string
@@ -37,7 +37,7 @@ export class ShellIntegrationService {
         this.updatePaths()
     }
 
-    async updatePaths (): Promise<void> {
+    private async updatePaths (): Promise<void> {
         // Update paths in case of an update
         if (this.hostApp.platform === Platform.Windows) {
             if (await this.isInstalled()) {
@@ -48,9 +48,9 @@ export class ShellIntegrationService {
 
     async isInstalled (): Promise<boolean> {
         if (this.hostApp.platform === Platform.macOS) {
-            return await fs.exists(path.join(this.automatorWorkflowsDestination, this.automatorWorkflows[0]))
+            return fs.exists(path.join(this.automatorWorkflowsDestination, this.automatorWorkflows[0]))
         } else if (this.hostApp.platform === Platform.Windows) {
-            return await Registry.has(this.registryKeys[0].path)
+            return Registry.has(this.registryKeys[0].path)
         }
         return true
     }

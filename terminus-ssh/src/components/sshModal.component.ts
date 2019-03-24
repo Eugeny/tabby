@@ -6,6 +6,7 @@ import { SettingsTabComponent } from 'terminus-settings'
 import { SSHService } from '../services/ssh.service'
 import { SSHConnection, ISSHConnectionGroup } from '../api'
 
+/** @hidden */
 @Component({
     template: require('./sshModal.component.pug'),
     styles: [require('./sshModal.component.scss')],
@@ -61,7 +62,7 @@ export class SSHModalComponent {
 
     connect (connection: SSHConnection) {
         this.close()
-        this.ssh.connect(connection).catch(error => {
+        this.ssh.openTab(connection).catch(error => {
             this.toastr.error(`Could not connect: ${error}`)
         }).then(() => {
             setTimeout(() => {

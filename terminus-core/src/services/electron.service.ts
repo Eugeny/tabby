@@ -1,7 +1,12 @@
 import { Injectable } from '@angular/core'
 import { TouchBar, BrowserWindow, Menu, MenuItem } from 'electron'
 
-@Injectable()
+export interface MessageBoxResponse {
+    response: number
+    checkboxChecked?: boolean
+}
+
+@Injectable({ providedIn: 'root' })
 export class ElectronService {
     app: any
     ipcRenderer: any
@@ -19,6 +24,7 @@ export class ElectronService {
     MenuItem: typeof MenuItem
     private electron: any
 
+    /** @hidden */
     constructor () {
         this.electron = require('electron')
         this.remote = this.electron.remote
@@ -37,21 +43,23 @@ export class ElectronService {
         this.MenuItem = this.remote.MenuItem
     }
 
-    remoteRequire (name: string): any {
-        return this.remote.require(name)
-    }
-
-    remoteRequirePluginModule (plugin: string, module: string, globals: any): any {
-        return this.remoteRequire(this.remoteResolvePluginModule(plugin, module, globals))
-    }
-
-    remoteResolvePluginModule (plugin: string, module: string, globals: any): any {
-        return globals.require.resolve(`${plugin}/node_modules/${module}`)
-    }
-
+    /**
+     * Removes OS focus from Terminus' window
+     */
     loseFocus () {
         if (process.platform === 'darwin') {
             this.remote.Menu.sendActionToFirstResponder('hide:')
         }
+    }
+
+    showMessageBox (
+        browserWindow: Electron.BrowserWindow,
+        options: Electron.MessageBoxOptions
+    ): Promise<MessageBoxResponse> {
+        return new Promise(resolve => {
+            this.dialog.showMessageBox(browserWindow, options, (response, checkboxChecked) => {
+                resolve({ response, checkboxChecked })
+            })
+        })
     }
 }

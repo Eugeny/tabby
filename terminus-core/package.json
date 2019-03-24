@@ -1,6 +1,6 @@
 {
   "name": "terminus-core",
-  "version": "1.0.0-alpha.55",
+  "version": "1.0.73-c4-ga7d62b0",
   "description": "Terminus core",
   "keywords": [
     "terminus-builtin-plugin"
@@ -8,8 +8,8 @@
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "scripts": {
-    "build": "rm -rf dist && webpack --progress --color --display-modules",
-    "watch": "rm -rf dist && webpack --progress --color --watch"
+    "build": "webpack --progress --color --display-modules",
+    "watch": "webpack --progress --color --watch"
   },
   "files": [
     "dist"
@@ -27,7 +27,7 @@
     "electron-updater": "^2.8.9",
     "ng2-dnd": "^5.0.2",
     "ngx-perfect-scrollbar": "^6.0.0",
-    "rage-edit-tmp": "^1.1.0",
+    "rage-edit": "^1.2.0",
     "shell-escape": "^0.2.0",
     "universal-analytics": "^0.4.17"
   },
@@ -45,6 +45,5 @@
     "deepmerge": "^1.5.0",
     "js-yaml": "^3.9.0",
     "winston": "^2.4.0"
-  },
-  "false": {}
+  }
 }

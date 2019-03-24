@@ -1,14 +1,18 @@
 import { ConfigProvider, Platform } from 'terminus-core'
 
+/** @hidden */
 export class TerminalConfigProvider extends ConfigProvider {
     defaults = {
         hotkeys: {
             shell: {
                 __nonStructural: true,
             },
+            profile: {
+                __nonStructural: true,
+            },
         },
         terminal: {
-            frontend: 'hterm',
+            frontend: 'xterm',
             autoOpen: false,
             fontSize: 14,
             linePadding: 0,
@@ -21,6 +25,7 @@ export class TerminalConfigProvider extends ConfigProvider {
             customShell: '',
             rightClick: 'menu',
             copyOnSelect: false,
+            scrollOnInput: true,
             workingDirectory: '',
             altIsMeta: false,
             colorScheme: {
@@ -50,6 +55,8 @@ export class TerminalConfigProvider extends ConfigProvider {
             },
             customColorSchemes: [],
             environment: {},
+            profiles: [],
+            useConPTY: true,
         },
     }
 
@@ -58,7 +65,6 @@ export class TerminalConfigProvider extends ConfigProvider {
             terminal: {
                 font: 'Menlo',
                 shell: 'default',
-                persistence: 'screen',
             },
             hotkeys: {
                 'ctrl-c': ['Ctrl-C'],
@@ -82,8 +88,6 @@ export class TerminalConfigProvider extends ConfigProvider {
                     '⌘-0',
                 ],
                 'new-tab': [
-                    ['Ctrl-A', 'C'],
-                    ['Ctrl-A', 'Ctrl-C'],
                     '⌘-T',
                     '⌘-N',
                 ],
@@ -99,7 +103,6 @@ export class TerminalConfigProvider extends ConfigProvider {
             terminal: {
                 font: 'Consolas',
                 shell: 'clink',
-                persistence: null,
                 rightClick: 'paste',
                 copyOnSelect: true,
             },
@@ -126,8 +129,6 @@ export class TerminalConfigProvider extends ConfigProvider {
                     'Ctrl-0',
                 ],
                 'new-tab': [
-                    ['Ctrl-A', 'C'],
-                    ['Ctrl-A', 'Ctrl-C'],
                     'Ctrl-Shift-T',
                 ],
                 'home': ['Home'],
@@ -142,7 +143,6 @@ export class TerminalConfigProvider extends ConfigProvider {
             terminal: {
                 font: 'Liberation Mono',
                 shell: 'default',
-                persistence: 'tmux',
             },
             hotkeys: {
                 'ctrl-c': ['Ctrl-C'],
@@ -167,8 +167,6 @@ export class TerminalConfigProvider extends ConfigProvider {
                     'Ctrl-0',
                 ],
                 'new-tab': [
-                    ['Ctrl-A', 'C'],
-                    ['Ctrl-A', 'Ctrl-C'],
                     'Ctrl-Shift-T',
                 ],
                 'home': ['Home'],

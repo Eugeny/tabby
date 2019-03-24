@@ -5,19 +5,19 @@ import { ConfigService } from '../services/config.service'
 import { ElectronService } from '../services/electron.service'
 
 export interface PartialHotkeyMatch {
-    id: string,
-    strokes: string[],
-    matchedLength: number,
+    id: string
+    strokes: string[]
+    matchedLength: number
 }
 
 const KEY_TIMEOUT = 2000
 
 interface EventBufferEntry {
-    event: NativeKeyEvent,
-    time: number,
+    event: NativeKeyEvent
+    time: number
 }
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class HotkeysService {
     key = new EventEmitter<NativeKeyEvent>()
     matchedHotkey = new EventEmitter<string>()
@@ -26,6 +26,7 @@ export class HotkeysService {
     private disabledLevel = 0
     private hotkeyDescriptions: IHotkeyDescription[] = []
 
+    /** @hidden */
     constructor (
         private zone: NgZone,
         private electron: ElectronService,
@@ -51,11 +52,20 @@ export class HotkeysService {
         })
     }
 
+    /**
+     * Adds a new key event to the buffer
+     *
+     * @param name DOM event name
+     * @param nativeEvent event object
+     */
     pushKeystroke (name, nativeEvent) {
         nativeEvent.event = name
         this.currentKeystrokes.push({ event: nativeEvent, time: performance.now() })
     }
 
+    /**
+     * Check the buffer for new complete keystrokes
+     */
     processKeystrokes () {
         if (this.isEnabled()) {
             this.zone.run(() => {
@@ -80,11 +90,11 @@ export class HotkeysService {
     }
 
     getCurrentKeystrokes (): string[] {
-        this.currentKeystrokes = this.currentKeystrokes.filter((x) => performance.now() - x.time < KEY_TIMEOUT )
-        return stringifyKeySequence(this.currentKeystrokes.map((x) => x.event))
+        this.currentKeystrokes = this.currentKeystrokes.filter(x => performance.now() - x.time < KEY_TIMEOUT)
+        return stringifyKeySequence(this.currentKeystrokes.map(x => x.event))
     }
 
-    registerGlobalHotkey () {
+    private registerGlobalHotkey () {
         this.electron.globalShortcut.unregisterAll()
         let value = this.config.store.hotkeys['toggle-window'] || []
         if (typeof value === 'string') {
@@ -103,11 +113,11 @@ export class HotkeysService {
         })
     }
 
-    getHotkeysConfig () {
+    private getHotkeysConfig () {
         return this.getHotkeysConfigRecursive(this.config.store.hotkeys)
     }
 
-    getHotkeysConfigRecursive (branch) {
+    private getHotkeysConfigRecursive (branch) {
         let keys = {}
         for (let key in branch) {
             let value = branch[key]
@@ -129,7 +139,7 @@ export class HotkeysService {
         return keys
     }
 
-    getCurrentFullyMatchedHotkey (): string {
+    private getCurrentFullyMatchedHotkey (): string {
         let currentStrokes = this.getCurrentKeystrokes()
         let config = this.getHotkeysConfig()
         for (let id in config) {
@@ -197,83 +207,5 @@ export class HotkeysService {
                     .map(async x => x.provide ? x.provide() : x.hotkeys)
             )
         ).reduce((a, b) => a.concat(b))
-    }
-}
-
-@Injectable()
-export class AppHotkeyProvider extends HotkeyProvider {
-    hotkeys: IHotkeyDescription[] = [
-        {
-            id: 'new-window',
-            name: 'New window',
-        },
-        {
-            id: 'toggle-window',
-            name: 'Toggle terminal window',
-        },
-        {
-            id: 'toggle-fullscreen',
-            name: 'Toggle fullscreen mode',
-        },
-        {
-            id: 'close-tab',
-            name: 'Close tab',
-        },
-        {
-            id: 'toggle-last-tab',
-            name: 'Toggle last tab',
-        },
-        {
-            id: 'next-tab',
-            name: 'Next tab',
-        },
-        {
-            id: 'previous-tab',
-            name: 'Previous tab',
-        },
-        {
-            id: 'tab-1',
-            name: 'Tab 1',
-        },
-        {
-            id: 'tab-2',
-            name: 'Tab 2',
-        },
-        {
-            id: 'tab-3',
-            name: 'Tab 3',
-        },
-        {
-            id: 'tab-4',
-            name: 'Tab 4',
-        },
-        {
-            id: 'tab-5',
-            name: 'Tab 5',
-        },
-        {
-            id: 'tab-6',
-            name: 'Tab 6',
-        },
-        {
-            id: 'tab-7',
-            name: 'Tab 7',
-        },
-        {
-            id: 'tab-8',
-            name: 'Tab 8',
-        },
-        {
-            id: 'tab-9',
-            name: 'Tab 9',
-        },
-        {
-            id: 'tab-10',
-            name: 'Tab 10',
-        },
-    ]
-
-    async provide (): Promise<IHotkeyDescription[]> {
-        return this.hotkeys
     }
 }

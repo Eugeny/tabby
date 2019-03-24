@@ -4,6 +4,7 @@ import { ToolbarButtonProvider, IToolbarButton, AppService, HostAppService, Hotk
 
 import { SettingsTabComponent } from './components/settingsTab.component'
 
+/** @hidden */
 @Injectable()
 export class ButtonProvider extends ToolbarButtonProvider {
     constructor (
@@ -37,7 +38,7 @@ export class ButtonProvider extends ToolbarButtonProvider {
         if (settingsTab) {
             this.app.selectTab(settingsTab)
         } else {
-            this.app.openNewTab(SettingsTabComponent)
+            this.app.openNewTabRaw(SettingsTabComponent)
         }
     }
 }

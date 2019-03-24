@@ -5,6 +5,7 @@ import { HotkeysService, ToolbarButtonProvider, IToolbarButton, HostAppService, 
 
 import { TerminalService } from './services/terminal.service'
 
+/** @hidden */
 @Injectable()
 export class ButtonProvider extends ToolbarButtonProvider {
     constructor (
@@ -15,7 +16,7 @@ export class ButtonProvider extends ToolbarButtonProvider {
         hotkeys: HotkeysService,
     ) {
         super()
-        if (!electron.remote.process.env.DEV) {
+        if (!electron.remote.process.env.TERMINUS_DEV) {
             setImmediate(async () => {
                 let argv: string[] = electron.remote.process.argv
                 for (let arg of argv.slice(1).concat([electron.remote.process.argv0])) {

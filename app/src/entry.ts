@@ -15,6 +15,8 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic'
 import { getRootModule } from './app.module'
 import { findPlugins, loadPlugins, IPluginInfo } from './plugins'
 
+;(process as any).enablePromiseAPI = true
+
 if (process.platform === 'win32') {
     process.env.HOME = process.env.HOMEDRIVE + process.env.HOMEPATH
 }
@@ -34,7 +36,7 @@ async function bootstrap (plugins: IPluginInfo[], safeMode = false): Promise<NgM
     })
     let module = getRootModule(pluginsModules)
     window['rootModule'] = module
-    return await platformBrowserDynamic().bootstrapModule(module)
+    return platformBrowserDynamic().bootstrapModule(module)
 }
 
 findPlugins().then(async plugins => {

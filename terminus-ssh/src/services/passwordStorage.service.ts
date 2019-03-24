@@ -13,7 +13,8 @@ try {
     }
 }
 
-@Injectable()
+/** @hidden */
+@Injectable({ providedIn: 'root' })
 export class PasswordStorageService {
     constructor (
         private zone: NgZone,

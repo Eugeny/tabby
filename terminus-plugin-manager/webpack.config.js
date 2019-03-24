@@ -13,7 +13,7 @@ module.exports = {
     libraryTarget: 'umd',
     devtoolModuleFilenameTemplate: 'webpack-terminus-plugin-manager:///[resource-path]',
   },
-  mode: process.env.DEV ? 'development' : 'production',
+  mode: process.env.TERMINUS_DEV ? 'development' : 'production',
   optimization:{
      minimize: false,
   },
@@ -44,6 +44,7 @@ module.exports = {
   externals: [
     'fs',
     'font-manager',
+    'npm',
     'path',
     'mz/fs',
     'mz/child_process',

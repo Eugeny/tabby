@@ -1,29 +1,48 @@
-matrix:
-  include:
-  - os: linux
-    env: BUILD_FOR=linux
-  - os: osx
-    env: BUILD_FOR=macos
-
 language: node_js
-node_js: 8
+node_js: 11
 
-cache:
-  directories:
-    - node_modules
-    - app/node_modules
+stages:
+  - Build
+  - name: Docs
+    if: branch = master
 
-before_install:
-    - yarn install
-    - scripts/install-deps.js
+jobs:
+  include:
+    - stage: 'Build'
+      os: linux
+      before_install:
+        - yarn
+        - rm app/node_modules/.yarn-integrity || true
+        - scripts/install-deps.js
+      script:
+        - scripts/build-native.js
+        - yarn run build
+        - scripts/prepackage-plugins.js
+        - scripts/build-linux.js
 
-script:
-    - scripts/build-native.js
-    - yarn run build
-    - scripts/prepackage-plugins.js
-    - scripts/build-$BUILD_FOR.js
+    - stage: 'Build'
+      os: osx
+      before_install:
+        - rm app/node_modules/.yarn-integrity || true
+        - yarn
+      script:
+        - scripts/build-native.js
+        - yarn run build
+        - scripts/prepackage-plugins.js
+        - scripts/build-macos.js
 
-dist: trusty
+    - stage: 'Docs'
+      os: linux
+      script:
+        - openssl aes-256-cbc -K $encrypted_4e2fb4889ef8_key -iv $encrypted_4e2fb4889ef8_iv -in .travis.ssh.key.enc -out .travis.ssh.key -d
+        - eval "$(ssh-agent -s)"
+        - chmod 600 .travis.ssh.key
+        - ssh-add .travis.ssh.key
+        - yarn
+        - yarn run docs
+        - rsync -e "ssh -o StrictHostKeyChecking=no" -arv docs/api/ root@ajenti.org:/srv/terminus-docs/
+
+dist: xenial
 sudo: false
 
 addons:

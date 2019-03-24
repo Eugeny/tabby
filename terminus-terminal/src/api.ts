@@ -1,11 +1,18 @@
-import { Observable } from 'rxjs'
-import { TerminalTabComponent } from './components/terminalTab.component'
+import { BaseTerminalTabComponent } from './components/baseTerminalTab.component'
 
+/**
+ * Extend to automatically run actions on new terminals
+ */
 export abstract class TerminalDecorator {
-    // tslint:disable-next-line no-empty
-    attach (_terminal: TerminalTabComponent): void { }
-    // tslint:disable-next-line no-empty
-    detach (_terminal: TerminalTabComponent): void { }
+    /**
+     * Called when a new terminal tab starts
+     */
+    attach (terminal: BaseTerminalTabComponent): void { } // tslint:disable-line no-empty
+
+    /**
+     * Called before a terminal tab is destroyed
+     */
+    detach (terminal: BaseTerminalTabComponent): void { } // tslint:disable-line no-empty
 }
 
 export interface ResizeEvent {
@@ -15,25 +22,19 @@ export interface ResizeEvent {
 
 export interface SessionOptions {
     name?: string
-    command?: string
-    args?: string[]
+    command: string
+    args: string[]
     cwd?: string
-    env?: any
+    env?: {[id: string]: string}
     width?: number
     height?: number
-    recoveryId?: string
-    recoveredTruePID$?: Observable<number>
     pauseAfterExit?: boolean
+    runAsAdministrator?: boolean
 }
 
-export abstract class SessionPersistenceProvider {
-    abstract id: string
-    abstract displayName: string
-
-    abstract isAvailable (): boolean
-    abstract async attachSession (recoveryId: any): Promise<SessionOptions>
-    abstract async startSession (options: SessionOptions): Promise<any>
-    abstract async terminateSession (recoveryId: string): Promise<void>
+export interface Profile {
+    name: string,
+    sessionOptions: SessionOptions,
 }
 
 export interface ITerminalColorScheme {
@@ -44,8 +45,20 @@ export interface ITerminalColorScheme {
     colors: string[]
 }
 
+/**
+ * Extend to add more terminal color schemes
+ */
 export abstract class TerminalColorSchemeProvider {
     abstract async getSchemes (): Promise<ITerminalColorScheme[]>
+}
+
+/**
+ * Extend to add more terminal context menu items
+ */
+export abstract class TerminalContextMenuItemProvider {
+    weight: number
+
+    abstract async getItems (tab: BaseTerminalTabComponent): Promise<Electron.MenuItemConstructorOptions[]>
 }
 
 export interface IShell {
@@ -53,10 +66,18 @@ export interface IShell {
     name?: string
     command: string
     args?: string[]
-    env?: any
+    env?: {[id: string]: string}
+
+    /**
+     * Base path to which shell's internal FS is relative
+     * Currently used for WSL only
+     */
     fsBase?: string
 }
 
+/**
+ * Extend to add support for more shells
+ */
 export abstract class ShellProvider {
     abstract async provide (): Promise<IShell[]>
 }

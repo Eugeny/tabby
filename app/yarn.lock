@@ -2,52 +2,52 @@
 # yarn lockfile v1
 
 
-"@angular/animations@7.0.0":
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/@angular/animations/-/animations-7.0.0.tgz#5c9e1683063c29df10253b7dc5bb9b13694ee396"
-  integrity sha512-IYdryQXdYfPvhJpExLSAr0o9rlUeyVS++a6h/sjqN1dkUt/yJBHLRreuHx8Udvlj2nH70raHJgevk8FwhAkTdA==
+"@angular/animations@7.2.8":
+  version "7.2.8"
+  resolved "https://registry.yarnpkg.com/@angular/animations/-/animations-7.2.8.tgz#0285364c839c660a934ab0f753ec21424bfb292e"
+  integrity sha512-dJn9koYukyz15TouBc+z5z9fdThDk+bKgdlij25eYSu5Mpmtk04gB4eIMQA97K0UDh1d4YukgSJ5w3ZIk0m8DQ==
   dependencies:
     tslib "^1.9.0"
 
-"@angular/common@7.0.0":
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/@angular/common/-/common-7.0.0.tgz#29206614d2b8dc79e5207b7dc6f9fc559e9a24f2"
-  integrity sha512-jp6MA6EOq/a1m+F0c1aZC345pAYYYFpN1m7GMM91JlqkjzJMhyYVk+Bod9xQOEWadcpY+RFudG+jRsPCMO8bvQ==
+"@angular/common@7.2.8":
+  version "7.2.8"
+  resolved "https://registry.yarnpkg.com/@angular/common/-/common-7.2.8.tgz#660c816b6f08cd2919a6efb7465397e4ff14d265"
+  integrity sha512-LgOhf68+LPndGZhtnUlGFd2goReXYmHzaFZW8gCEi9aC+H+Io8bjYh0gkH3xDreevEOe3f0z6coXNFLIxSmTuA==
   dependencies:
     tslib "^1.9.0"
 
-"@angular/compiler@7.0.0":
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/@angular/compiler/-/compiler-7.0.0.tgz#f953a213a01e4736e94fe1a370b07e13e2393b71"
-  integrity sha512-4fkohfGyG1BEpeYenOartuJmduyZ/R3XQx46hDDiR/9A8/Go4qLGkgr9Bd/JL/gPIR1XAHH9D5ii2sh+28ZEmA==
+"@angular/compiler@7.2.8":
+  version "7.2.8"
+  resolved "https://registry.yarnpkg.com/@angular/compiler/-/compiler-7.2.8.tgz#9d9c1515e99914399e6915c1c90484b1d255560b"
+  integrity sha512-PrU97cTsOdofpaDkxK0rWUA/CGd0u6ESOI6XvFVm5xH9zJInsdY8ShSHklnr1JJnss70e1dGKZbZq32OChxWMw==
   dependencies:
     tslib "^1.9.0"
 
-"@angular/core@7.0.0":
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/@angular/core/-/core-7.0.0.tgz#01e9db9074a1db1c47a32f745b787d1c86f5d61a"
-  integrity sha512-DjVyWNGBWKEeBvxeXy8FGBNlnr/W/tNygOZEd6/uCktcXTG4DNyNQrWuNZUKEpr7RuIT3YVMj+UNwgTq0jB/9g==
+"@angular/core@7.2.8":
+  version "7.2.8"
+  resolved "https://registry.yarnpkg.com/@angular/core/-/core-7.2.8.tgz#6586d9b6c6321c80119b3f3e2bd0edbb32d0b649"
+  integrity sha512-QKwug2kWJC00zm2rvmD9mCJzsOkMVhSu8vqPWf83poWTh8+F9aIVWcy29W0VoGpBkSchOnK8hf9DnKVv28j9nw==
   dependencies:
     tslib "^1.9.0"
 
-"@angular/forms@7.0.0":
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/@angular/forms/-/forms-7.0.0.tgz#672c306b13e94a20b72c096214642a326c43699a"
-  integrity sha512-rTg1UHq9gHR6zY3Kkip1KCm/YTck/rlR8CvVFIMwF0bdQxUCT51SXVn58nXts9yDaieABcGaQHNkQn1mARslgw==
+"@angular/forms@7.2.8":
+  version "7.2.8"
+  resolved "https://registry.yarnpkg.com/@angular/forms/-/forms-7.2.8.tgz#adf194088495822d55dcf3e5bf69196dcf19465d"
+  integrity sha512-lbSX4IHFHz/c4e2RHiPpL8MJlzDkCuQEHnqsujDaV2X9o9fApS6+C1X4x7Z2XDKqonmeX+aHQwv9+SLejX6OyQ==
   dependencies:
     tslib "^1.9.0"
 
-"@angular/platform-browser-dynamic@7.0.0":
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/@angular/platform-browser-dynamic/-/platform-browser-dynamic-7.0.0.tgz#2b2a50b5a8176bee257f90ee47b1d873502f7182"
-  integrity sha512-lH2KuH+Em1y/mTOE6yTJmsOxYkMbYKzKLP9gYzc9vZu3er1df6Jx6jxefeBmAr9v+kNCLnpnHWHz2y4GzAesJA==
+"@angular/platform-browser-dynamic@7.2.8":
+  version "7.2.8"
+  resolved "https://registry.yarnpkg.com/@angular/platform-browser-dynamic/-/platform-browser-dynamic-7.2.8.tgz#e82768900cedfa75bf453263f931a9f90f7aaab2"
+  integrity sha512-nOJt28A5pRn4mdL8y98V7bA6OOdMRjsQAcWCr/isGYF0l1yDC0ijUGWkHuRtj3z1/9tmERN0BLXx+xs1h4JhCQ==
   dependencies:
     tslib "^1.9.0"
 
-"@angular/platform-browser@7.0.0":
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/@angular/platform-browser/-/platform-browser-7.0.0.tgz#8c13a6380cf465b3628e5b576a1313e9b4976093"
-  integrity sha512-XyvL30d6meJ+SXlOmdR+sxoLdSvkQdmVNvpdvUzAHC/EqwA/byg4V3bTe5lpZmypclgFCjkGoTsz6uOnnwlQhw==
+"@angular/platform-browser@7.2.8":
+  version "7.2.8"
+  resolved "https://registry.yarnpkg.com/@angular/platform-browser/-/platform-browser-7.2.8.tgz#11096727b99bf3d7fd82a00a3a468b933c9713bd"
+  integrity sha512-SizCRMc7Or27g2CugcqWnaAikRPfgLgRvb9GFFGpcgoq8CRfOVwkyR5dFZuqN39H+uwtwuTMP5OUYhZcrFNKug==
   dependencies:
     tslib "^1.9.0"
 
@@ -69,6 +69,11 @@
   version "8.0.13"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-8.0.13.tgz#530f0f9254209b0335bf5cc6387822594ef47093"
   integrity sha512-Y3EAG7VA7NVNbZek/fjJtILnmTk/ZfpJuWZGDBqDZ1dVIxgJJJ82fXPW7pKnqyV9CD/9bcPOCi7eErUqGMHOrA==
+
+"@types/node@^10.12.18":
+  version "10.12.18"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-10.12.18.tgz#1d3ca764718915584fcd9f6344621b7672665c67"
+  integrity sha512-fh+pAqt4xRzPfqA6eh3Z2y6fyZavRIumvjhaCL753+TVkGKGhpPeyrJG2JftD0T9q4GF00KjefsQ+PQNDdWQaQ==
 
 accessibility-developer-tools@^2.11.0:
   version "2.12.0"
@@ -620,10 +625,12 @@ windows-blurbehind@^1.0.0:
   resolved "https://registry.yarnpkg.com/windows-blurbehind/-/windows-blurbehind-1.0.0.tgz#050efb988704c44335bdc3efefd757f6e463b8ac"
   integrity sha512-lO+A7fhTHO7oy9zJM3o1AdzfSQrmtPkdwvleeuww840ghijjEA1f1Zp8bKA3mJu2DFNtVT40fwmqtgsCGat4UA==
 
-windows-swca@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/windows-swca/-/windows-swca-1.1.1.tgz#0b3530278c67d408baac71c3a6aeb16d55318bf8"
-  integrity sha512-hKmHrNYJD72Kg0u35fjkiFIuMKuC+Tztmf3Obnf4aTkNjstEpbSEspEeSo3ZNixaVCETA1dLbDkVUQVF1QxtWA==
+windows-swca@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/windows-swca/-/windows-swca-2.0.1.tgz#25d78ce25251292061494a0ad07c02282b28b4e3"
+  integrity sha512-flj+HD6RUemZUvKKguLLnMUOYkQSgDu9qrhUIO4cydvtb/x+sxU8XmpZUtugYuydcdikB9zsCOMgKnAqIQ+7nw==
+  dependencies:
+    "@types/node" "^10.12.18"
 
 wrap-ansi@^2.0.0:
   version "2.1.0"

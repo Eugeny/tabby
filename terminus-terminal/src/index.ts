@@ -1,36 +1,39 @@
 import * as fs from 'mz/fs'
+import slug from 'slug'
 
 import { NgModule } from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
 import { FormsModule } from '@angular/forms'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { ToastrModule } from 'ngx-toastr'
-import TerminusCorePlugin from 'terminus-core'
-import { HostAppService } from 'terminus-core'
 
-import { ToolbarButtonProvider, TabRecoveryProvider, ConfigProvider, HotkeysService, HotkeyProvider, AppService, ConfigService } from 'terminus-core'
+import TerminusCorePlugin, { HostAppService, ToolbarButtonProvider, TabRecoveryProvider, ConfigProvider, HotkeysService, HotkeyProvider, AppService, ConfigService, TabContextMenuItemProvider } from 'terminus-core'
 import { SettingsTabProvider } from 'terminus-settings'
 
 import { AppearanceSettingsTabComponent } from './components/appearanceSettingsTab.component'
-import { ShellSettingsTabComponent } from './components/shellSettingsTab.component'
 import { TerminalTabComponent } from './components/terminalTab.component'
+import { ShellSettingsTabComponent } from './components/shellSettingsTab.component'
 import { TerminalSettingsTabComponent } from './components/terminalSettingsTab.component'
 import { ColorPickerComponent } from './components/colorPicker.component'
+import { EditProfileModalComponent } from './components/editProfileModal.component'
+import { EnvironmentEditorComponent } from './components/environmentEditor.component'
+import { BaseTerminalTabComponent } from './components/baseTerminalTab.component'
 
-import { SessionsService, BaseSession } from './services/sessions.service'
+import { BaseSession } from './services/sessions.service'
 import { TerminalFrontendService } from './services/terminalFrontend.service'
 import { TerminalService } from './services/terminal.service'
+import { DockMenuService } from './services/dockMenu.service'
 
-import { ScreenPersistenceProvider } from './persistence/screen'
-import { TMuxPersistenceProvider } from './persistence/tmux'
 import { ButtonProvider } from './buttonProvider'
 import { RecoveryProvider } from './recoveryProvider'
-import { SessionPersistenceProvider, TerminalColorSchemeProvider, TerminalDecorator, ShellProvider } from './api'
+import { TerminalColorSchemeProvider, TerminalDecorator, ShellProvider, TerminalContextMenuItemProvider } from './api'
 import { TerminalSettingsTabProvider, AppearanceSettingsTabProvider, ShellSettingsTabProvider } from './settings'
 import { PathDropDecorator } from './pathDrop'
 import { TerminalConfigProvider } from './config'
 import { TerminalHotkeyProvider } from './hotkeys'
 import { HyperColorSchemes } from './colorSchemes'
+import { NewTabContextMenu, CopyPasteContextMenu } from './contextMenu'
+import { SaveAsProfileContextMenu } from './tabContextMenu'
 
 import { CmderShellProvider } from './shells/cmder'
 import { CustomShellProvider } from './shells/custom'
@@ -45,8 +48,9 @@ import { WindowsDefaultShellProvider } from './shells/winDefault'
 import { WindowsStockShellsProvider } from './shells/windowsStock'
 import { WSLShellProvider } from './shells/wsl'
 
-import { hterm } from './hterm'
+import { hterm } from './frontends/hterm'
 
+/** @hidden */
 @NgModule({
     imports: [
         BrowserModule,
@@ -56,10 +60,6 @@ import { hterm } from './hterm'
         TerminusCorePlugin,
     ],
     providers: [
-        SessionsService,
-        TerminalFrontendService,
-        TerminalService,
-
         { provide: SettingsTabProvider, useClass: AppearanceSettingsTabProvider, multi: true },
         { provide: SettingsTabProvider, useClass: ShellSettingsTabProvider, multi: true },
         { provide: SettingsTabProvider, useClass: TerminalSettingsTabProvider, multi: true },
@@ -70,9 +70,6 @@ import { hterm } from './hterm'
         { provide: HotkeyProvider, useClass: TerminalHotkeyProvider, multi: true },
         { provide: TerminalColorSchemeProvider, useClass: HyperColorSchemes, multi: true },
         { provide: TerminalDecorator, useClass: PathDropDecorator, multi: true },
-
-        { provide: SessionPersistenceProvider, useClass: ScreenPersistenceProvider, multi: true },
-        { provide: SessionPersistenceProvider, useClass: TMuxPersistenceProvider, multi: true },
 
         { provide: ShellProvider, useClass: WindowsDefaultShellProvider, multi: true },
         { provide: ShellProvider, useClass: MacOSDefaultShellProvider, multi: true },
@@ -87,6 +84,11 @@ import { hterm } from './hterm'
         { provide: ShellProvider, useClass: PowerShellCoreShellProvider, multi: true },
         { provide: ShellProvider, useClass: WSLShellProvider, multi: true },
 
+        { provide: TerminalContextMenuItemProvider, useClass: NewTabContextMenu, multi: true },
+        { provide: TerminalContextMenuItemProvider, useClass: CopyPasteContextMenu, multi: true },
+
+        { provide: TabContextMenuItemProvider, useClass: SaveAsProfileContextMenu, multi: true },
+
         // For WindowsDefaultShellProvider
         PowerShellCoreShellProvider,
         WSLShellProvider,
@@ -97,6 +99,7 @@ import { hterm } from './hterm'
         AppearanceSettingsTabComponent,
         ShellSettingsTabComponent,
         TerminalSettingsTabComponent,
+        EditProfileModalComponent,
     ],
     declarations: [
         ColorPickerComponent,
@@ -104,6 +107,12 @@ import { hterm } from './hterm'
         AppearanceSettingsTabComponent,
         ShellSettingsTabComponent,
         TerminalSettingsTabComponent,
+        EditProfileModalComponent,
+        EnvironmentEditorComponent,
+    ],
+    exports: [
+        ColorPickerComponent,
+        EnvironmentEditorComponent,
     ],
 })
 export default class TerminalModule {
@@ -113,6 +122,7 @@ export default class TerminalModule {
         hotkeys: HotkeysService,
         terminal: TerminalService,
         hostApp: HostAppService,
+        dockMenu: DockMenuService,
     ) {
         let events = [
             {
@@ -158,7 +168,15 @@ export default class TerminalModule {
                     terminal.openTab(shell)
                 }
             }
+            if (hotkey.startsWith('profile.')) {
+                let profiles = config.store.terminal.profiles
+                let profile = profiles.find(x => slug(x.name) === hotkey.split('.')[1])
+                if (profile) {
+                    terminal.openTabWithOptions(profile.sessionOptions)
+                }
+            }
         })
+
         hostApp.cliOpenDirectory$.subscribe(async directory => {
             if (await fs.exists(directory)) {
                 if ((await fs.stat(directory)).isDirectory()) {
@@ -167,6 +185,7 @@ export default class TerminalModule {
                 }
             }
         })
+
         hostApp.cliRunCommand$.subscribe(async command => {
             terminal.openTab({
                 id: '',
@@ -175,14 +194,27 @@ export default class TerminalModule {
             }, null, true)
             hostApp.bringToFront()
         })
+
         hostApp.cliPaste$.subscribe(text => {
             if (app.activeTab instanceof TerminalTabComponent && app.activeTab.session) {
                 (app.activeTab as TerminalTabComponent).sendInput(text)
                 hostApp.bringToFront()
             }
         })
+
+        hostApp.cliOpenProfile$.subscribe(async profileName => {
+            let profile = config.store.terminal.profiles.find(x => x.name === profileName)
+            if (!profile) {
+                console.error('Requested profile', profileName, 'not found')
+                return
+            }
+            terminal.openTabWithOptions(profile.sessionOptions)
+            hostApp.bringToFront()
+        })
+
+        dockMenu.update()
     }
 }
 
-export { TerminalService, BaseSession, TerminalTabComponent, TerminalFrontendService }
+export { TerminalService, BaseSession, TerminalTabComponent, TerminalFrontendService, BaseTerminalTabComponent }
 export * from './api'

@@ -4,6 +4,7 @@ import { HostAppService, Platform, ElectronService } from 'terminus-core'
 
 import { ShellProvider, IShell } from '../api'
 
+/** @hidden */
 @Injectable()
 export class WindowsStockShellsProvider extends ShellProvider {
     constructor (
