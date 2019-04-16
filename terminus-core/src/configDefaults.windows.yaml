@@ -42,13 +42,13 @@ hotkeys:
     - 'Ctrl-Shift-D'
   split-left: []
   split-top: []
-  split-nav-right:
+  pane-nav-right:
     - 'Ctrl-Alt-ArrowRight'
-  split-nav-down:
+  pane-nav-down:
     - 'Ctrl-Alt-ArrowDown'
-  split-nav-up:
+  pane-nav-up:
     - 'Ctrl-Alt-ArrowUp'
-  split-nav-left:
+  pane-nav-left:
     - 'Ctrl-Alt-ArrowLeft'
-  close-focus-pane: []
+  close-pane: []
 pluginBlacklist: []

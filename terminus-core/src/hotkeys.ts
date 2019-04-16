@@ -94,23 +94,23 @@ export class AppHotkeyProvider extends HotkeyProvider {
             name: 'Split to the top',
         },
         {
-            id: 'split-nav-up',
+            id: 'pane-nav-up',
             name: 'Focus the pane above',
         },
         {
-            id: 'split-nav-down',
+            id: 'pane-nav-down',
             name: 'Focus the pane below',
         },
         {
-            id: 'split-nav-left',
+            id: 'pane-nav-left',
             name: 'Focus the pane on the left',
         },
         {
-            id: 'split-nav-right',
+            id: 'pane-nav-right',
             name: 'Focus the pane on the right',
         },
         {
-            id: 'close-focus-pane',
+            id: 'close-pane',
             name: 'Close focused pane',
         },
     ]
