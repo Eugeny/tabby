@@ -109,6 +109,10 @@ export class AppHotkeyProvider extends HotkeyProvider {
             id: 'split-nav-right',
             name: 'Focus the pane on the right',
         },
+        {
+            id: 'close-focus-pane',
+            name: 'Close focused pane',
+        },
     ]
 
     async provide (): Promise<IHotkeyDescription[]> {

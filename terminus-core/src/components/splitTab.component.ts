@@ -222,6 +222,9 @@ export class SplitTabComponent extends BaseTabComponent implements OnInit, OnDes
             case 'split-nav-down':
                 this.navigate('b')
                 break
+            case 'close-focus-pane':
+                this.removeTab(this.focusedTab)
+                break
             }
         })
     }
@@ -336,6 +339,8 @@ export class SplitTabComponent extends BaseTabComponent implements OnInit, OnDes
 
         if (this.root.children.length === 0) {
             this.destroy()
+        } else {
+            this.focusAnyIn(parent)
         }
     }
 
