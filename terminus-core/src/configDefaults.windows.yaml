@@ -50,4 +50,5 @@ hotkeys:
     - 'Ctrl-Alt-ArrowUp'
   split-nav-left:
     - 'Ctrl-Alt-ArrowLeft'
+  close-focus-pane: []
 pluginBlacklist: []

@@ -48,4 +48,6 @@ hotkeys:
     - '⌘-⌥-ArrowUp'
   split-nav-left:
     - '⌘-⌥-ArrowLeft'
+  close-focus-pane:
+    - '⌘-Shift-W'
 pluginBlacklist: ['ssh']
