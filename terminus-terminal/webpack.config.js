@@ -4,7 +4,7 @@ const webpack = require('webpack')
 module.exports = {
   target: 'node',
   entry: 'src/index.ts',
-  devtool: 'source-map',
+  devtool: 'eval-source-map',
   context: __dirname,
   output: {
     path: path.resolve(__dirname, 'dist'),
