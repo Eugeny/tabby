@@ -28,7 +28,7 @@
     "slug": "^0.9.3",
     "uuid": "^3.3.2",
     "xterm": "3.10.1",
-    "xterm-addon-ligatures-tmp": "^0.1.0-beta-1"
+    "xterm-addon-ligatures": "^0.1.0-beta-2"
   },
   "peerDependencies": {
     "@angular/common": "4.0.1",
