@@ -40,8 +40,5 @@
   },
   "devDependencies": {
     "@types/mz": "0.0.31"
-  },
-  "resolutions": {
-    "electron-rebuild/node-abi": "2.8.0"
   }
 }
