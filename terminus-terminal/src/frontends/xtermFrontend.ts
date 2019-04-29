@@ -26,16 +26,16 @@ export class XTermFrontend extends Frontend {
         })
         this.xtermCore = (this.xterm as any)._core
 
-        this.xterm.onData(data => {
+        this.xterm.on('data', data => {
             this.input.next(data)
         })
-        this.xterm.onResize(({ cols, rows }) => {
+        this.xterm.on('resize', ({ cols, rows }) => {
             this.resize.next({ rows, columns: cols })
         })
-        this.xterm.onTitleChange(title => {
+        this.xterm.on('title', title => {
             this.title.next(title)
         })
-        this.xterm.onSelectionChange(() => {
+        this.xterm.on('selection', () => {
             if (this.copyOnSelect) {
                 this.copySelection()
             }
