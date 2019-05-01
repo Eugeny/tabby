@@ -22,17 +22,33 @@ export class CmderShellProvider extends ShellProvider {
             return []
         }
 
-        return [{
-            id: 'cmder',
-            name: 'Cmder',
-            command: 'cmd.exe',
-            args: [
-                '/k',
-                path.join(process.env.CMDER_ROOT, 'vendor', 'init.bat'),
-            ],
-            env: {
-                TERM: 'cygwin',
-            }
-        }]
+        return [
+            {
+                id: 'cmder',
+                name: 'Cmder',
+                command: 'cmd.exe',
+                args: [
+                    '/k',
+                    path.join(process.env.CMDER_ROOT, 'vendor', 'init.bat'),
+                ],
+                env: {
+                    TERM: 'cygwin',
+                }
+            },
+            {
+                id: 'cmderps',
+                name: 'CmderPowerShell',
+                command: 'powershell.exe',
+                args: [
+                    '-ExecutionPolicy',
+                    'Bypass',
+                    '-nologo',
+                    '-noprofile',
+                    '-noexit',
+                    '-command',
+                    `Invoke-Expression '. ''${path.join(process.env.CMDER_ROOT, 'vendor', 'profile.ps1')}'''`
+                ]
+            },
+        ]
     }
 }
