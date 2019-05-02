@@ -32,12 +32,18 @@ export class TouchbarService {
         let activityIcon = this.electron.nativeImage.createFromPath(activityIconPath)
         app.tabOpened$.subscribe(tab => {
             tab.titleChange$.subscribe(title => {
-                this.tabSegments[app.tabs.indexOf(tab)].label = this.shortenTitle(title)
-                this.tabsSegmentedControl.segments = this.tabSegments
+                let segment = this.tabSegments[app.tabs.indexOf(tab)]
+                if (segment) {
+                    segment.label = this.shortenTitle(title)
+                    this.tabsSegmentedControl.segments = this.tabSegments
+                }
             })
             tab.activity$.subscribe(hasActivity => {
                 let showIcon = this.app.activeTab !== tab && hasActivity
-                this.tabSegments[app.tabs.indexOf(tab)].icon = showIcon ? activityIcon : null
+                let segment = this.tabSegments[app.tabs.indexOf(tab)]
+                if (segment) {
+                    segment.icon = showIcon ? activityIcon : null
+                }
             })
         })
     }
