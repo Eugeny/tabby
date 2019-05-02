@@ -37,7 +37,7 @@ export class CmderShellProvider extends ShellProvider {
             },
             {
                 id: 'cmderps',
-                name: 'CmderPowerShell',
+                name: 'Cmder PowerShell',
                 command: 'powershell.exe',
                 args: [
                     '-ExecutionPolicy',
