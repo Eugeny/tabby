@@ -39,13 +39,18 @@
 Plugins can be installed directly from the Settings view inside Terminus.
 
   * [clickable-links](https://github.com/Eugeny/terminus-clickable-links) - makes paths and URLs in the terminal clickable
-  * [theme-hype](https://github.com/Eugeny/terminus-theme-hype) - a Hyper inspired theme
   * [shell-selector](https://github.com/Eugeny/terminus-shell-selector) - a quick shell selector pane
   * [title-control](https://github.com/kbjr/terminus-title-control) - allows modifying the title of the terminal tabs by providing a prefix, suffix, and/or strings to be removed
-  * [scrollbar](https://github.com/kbjr/terminus-scrollbar) - adds a scrollbar to terminal tabs
   * [quick-cmds](https://github.com/Domain/terminus-quick-cmds) - quickly send commands to one or all terminal tabs
   * [save-output](https://github.com/Eugeny/terminus-save-output) - record terminal output into a file
+  * [scrollbar](https://github.com/kbjr/terminus-scrollbar) - adds a scrollbar to hterm tabs
 
+  * [hype](https://github.com/Eugeny/terminus-theme-hype) - a Hyper inspired theme
+  * [relaxed](https://github.com/Relaxed-Theme/relaxed-terminal-themes#terminus) - the Relaxed theme for Terminus
+  * [gruvbox](https://github.com/porkloin/terminus-theme-gruvbox)
+  * [windows10](https://www.npmjs.com/package/terminus-theme-windows10)
+  * [altair](https://github.com/yxuko/terminus-altair)
+  
 ---
 
 # Contributing
