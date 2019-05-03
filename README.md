@@ -36,7 +36,7 @@
 
 # Plugins
 
-Plugins can be installed directly from the Settings view inside Terminus.
+Plugins and themes can be installed directly from the Settings view inside Terminus.
 
   * [clickable-links](https://github.com/Eugeny/terminus-clickable-links) - makes paths and URLs in the terminal clickable
   * [shell-selector](https://github.com/Eugeny/terminus-shell-selector) - a quick shell selector pane
@@ -44,6 +44,8 @@ Plugins can be installed directly from the Settings view inside Terminus.
   * [quick-cmds](https://github.com/Domain/terminus-quick-cmds) - quickly send commands to one or all terminal tabs
   * [save-output](https://github.com/Eugeny/terminus-save-output) - record terminal output into a file
   * [scrollbar](https://github.com/kbjr/terminus-scrollbar) - adds a scrollbar to hterm tabs
+
+# Themes
 
   * [hype](https://github.com/Eugeny/terminus-theme-hype) - a Hyper inspired theme
   * [relaxed](https://github.com/Relaxed-Theme/relaxed-terminal-themes#terminus) - the Relaxed theme for Terminus
