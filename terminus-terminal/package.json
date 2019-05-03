@@ -27,7 +27,7 @@
     "file-loader": "^0.11.2",
     "slug": "^0.9.3",
     "uuid": "^3.3.2",
-    "xterm": "3.10.1",
+    "xterm": "3.12.2",
     "xterm-addon-ligatures": "^0.1.0-beta-2"
   },
   "peerDependencies": {
@@ -42,14 +42,14 @@
   },
   "dependencies": {
     "@terminus-term/node-pty": "^0.8.1",
-    "font-manager": "0.3.0",
+    "fontmanager-redux": "0.3.2",
     "hterm-umdjs": "1.4.1",
     "mz": "^2.6.0",
     "ps-node": "^0.1.6",
     "runes": "^0.4.2"
   },
   "optionalDependencies": {
-    "macos-native-processlist": "^1.0.0",
+    "macos-native-processlist": "^1.0.1",
     "windows-native-registry": "^1.0.6",
     "windows-process-tree": "^0.2.3"
   },
