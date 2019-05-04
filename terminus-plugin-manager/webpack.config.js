@@ -43,7 +43,6 @@ module.exports = {
   },
   externals: [
     'fs',
-    'font-manager',
     'npm',
     'path',
     'mz/fs',
