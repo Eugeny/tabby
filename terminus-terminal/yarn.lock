@@ -2,12 +2,19 @@
 # yarn lockfile v1
 
 
-"@terminus-term/node-pty@^0.8.1":
-  version "0.8.1"
-  resolved "https://registry.yarnpkg.com/@terminus-term/node-pty/-/node-pty-0.8.1.tgz#49edd0fe85c21fa2b00c7216a2c0c6ca4839b979"
-  integrity sha512-YbAiE1m+q8VC3BPPFuRzU5WsjG/giCMKYDmdyScfJmtAACA0TntiupQ2Zg8ZgOHn+aoAO2++ShaM4Gv8IakJtg==
+"@terminus-term/node-pty@^0.8.2":
+  version "0.8.2"
+  resolved "https://registry.yarnpkg.com/@terminus-term/node-pty/-/node-pty-0.8.2.tgz#e2c2e1d8e25ec35da0df1598c930d37499fceb30"
+  integrity sha512-vN3W34iB/bzBl1JaOZFhKq/9HYfrniYrXJcvCFTA0HQ8lfp/238Rs2vF2yhP8YoAJBhFovSRzm5ojKwtdQsFaA==
   dependencies:
-    nan "2.12.1"
+    nan "^2.13.2"
+
+"@terminus-term/windows-process-tree@^0.2.4":
+  version "0.2.4"
+  resolved "https://registry.yarnpkg.com/@terminus-term/windows-process-tree/-/windows-process-tree-0.2.4.tgz#558f33d5afd934b070aec78da2529fc4042cf90d"
+  integrity sha512-FbquNhrFoe9EBwVITV9bqd/wukJLJSVI2pAzvM8dBvPP3/ErTiavZWU0W/J5av61SavJFDMkSiYVYL5NJe30zg==
+  dependencies:
+    nan "^2.13.2"
 
 "@types/deep-equal@^1.0.0":
   version "1.0.1"
@@ -95,12 +102,10 @@ font-ligatures@^1.3.1:
     lru-cache "^4.1.3"
     opentype.js "^0.8.0"
 
-font-manager@0.3.0:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/font-manager/-/font-manager-0.3.0.tgz#9efdc13e521a3d8752e7ab56c3938818043a311f"
-  integrity sha512-6N3pzO+9kxE3yD9c4VN7reg5fqgFvjcUdxZmwauRzsExaeKRu0APfEi3DOISFakokybgKlZcLFQHawwc2TMpQQ==
-  dependencies:
-    nan ">=2.10.0"
+fontmanager-redux@0.3.2:
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/fontmanager-redux/-/fontmanager-redux-0.3.2.tgz#e5c8d8dc8fda98629eaef4201a27df9e56a122f4"
+  integrity sha512-NWmTbYfDijrx8qLJ2+O2VgYKhdfsMy/ec+Qf2DGxoLJDZHaRhBKd2Eufh4fFmfJUAwhzrkIgbKJsNT/IYJDbaA==
 
 get-system-fonts@^2.0.0:
   version "2.0.0"
@@ -136,12 +141,12 @@ lru-cache@^4.1.3:
     pseudomap "^1.0.2"
     yallist "^2.1.2"
 
-macos-native-processlist@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/macos-native-processlist/-/macos-native-processlist-1.0.0.tgz#1dcf1fac554e057f90c6451c39420e065d186a68"
-  integrity sha512-FYA5DzCBvt+1wcCR8iFoCW2zZ8GZXtR6Ee/kpC9gVlqvEcM2ooma71KV8EIP2VaM+v2HOQAVvNoKSmFBd4z8dQ==
+macos-native-processlist@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/macos-native-processlist/-/macos-native-processlist-1.0.1.tgz#df48bbd114554bd69e7c2c76f976836ef8270ca8"
+  integrity sha512-Kn8EUW8xOM+06GFMp8I2fxIK8iSaR/fraAU5ddfnKVRn6/+dmQ5VGBSG4k6ce3u/EOQxd/7paBCAz17nXqH0cg==
   dependencies:
-    nan "^2.10.0"
+    nan "^2.13.2"
 
 minimist@^1.2.0:
   version "1.2.0"
@@ -157,10 +162,10 @@ mz@^2.6.0:
     object-assign "^4.0.1"
     thenify-all "^1.0.0"
 
-nan@2.12.1, nan@>=2.10.0, nan@^2.10.0, nan@^2.12.1:
-  version "2.12.1"
-  resolved "https://registry.yarnpkg.com/nan/-/nan-2.12.1.tgz#7b1aa193e9aa86057e3c7bbd0ac448e770925552"
-  integrity sha512-JY7V6lRkStKcKTvHO5NVSQRv+RV+FIL5pvDoLiAtSL9pKlC5x9PKQcZDsq7m4FO4d57mkhC6Z+QhAh3Jdk5JFw==
+nan@^2.13.2:
+  version "2.13.2"
+  resolved "https://registry.yarnpkg.com/nan/-/nan-2.13.2.tgz#f51dc7ae66ba7d5d55e1e6d4d8092e802c9aefe7"
+  integrity sha512-TghvYc72wlMGMVMluVo9WRJc0mB8KxxF/gZ4YYFy7V2ZQX9l7rgbPg7vjS9mt6U5HXODVFVI2bOduCzwOMv/lw==
 
 object-assign@^4.0.1:
   version "4.1.1"
@@ -239,19 +244,12 @@ uuid@^3.3.2:
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.3.2.tgz#1b4af4955eb3077c501c23872fc6513811587131"
   integrity sha512-yXJmeNaw3DnnKAOKJE51sL/ZaYfWJRl1pK9dr19YFCu0ObS231AB1/LbqTKRAQ5kw8A90rA6fr4riOUpTZvQZA==
 
-windows-native-registry@^1.0.6:
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/windows-native-registry/-/windows-native-registry-1.0.6.tgz#6271cef068ffb432337751fc1f971a25187cd8d5"
-  integrity sha512-GTu4yRg4FOThNbBkuP/OeTOt8kZm+nTNCoZjmIol0HFefXoYCkzBZX0METJYZLL0nbgis+QzqRhJAKkMfy/VDA==
+windows-native-registry@^1.0.14:
+  version "1.0.14"
+  resolved "https://registry.yarnpkg.com/windows-native-registry/-/windows-native-registry-1.0.14.tgz#35c742b1278473127cbfb3b76e0db3d1ef626872"
+  integrity sha512-C2UgyZYJYcPFjkhfNuy09CUa6wXAti4x/tLPgzudDDrqpTyczcgnBEpiablmE6j7E7ownouWTqgVcHW8HJyqhw==
   dependencies:
-    nan "^2.12.1"
-
-windows-process-tree@^0.2.3:
-  version "0.2.3"
-  resolved "https://registry.yarnpkg.com/windows-process-tree/-/windows-process-tree-0.2.3.tgz#6b781f0a320e8a0d6434c9399add4389c709cf6e"
-  integrity sha512-SzPJSubVVsToz1g5lr2P+4mQT70gvJ9u/nlnpfkOeQcAhOuhKz5DiO1TARgR0OnVsv21LPzxbA2m/4JQkGh1wA==
-  dependencies:
-    nan "^2.10.0"
+    nan "^2.13.2"
 
 xterm-addon-ligatures@^0.1.0-beta-2:
   version "0.1.0-beta-2"

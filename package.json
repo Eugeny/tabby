@@ -18,14 +18,14 @@
     "electron-builder": "^20.38.4",
     "electron-builder-squirrel-windows": "^20.28.3",
     "electron-installer-snap": "^3.0.0",
-    "electron-rebuild": "^1.8.2",
+    "electron-rebuild": "^1.8.4",
     "file-loader": "^1.1.11",
     "graceful-fs": "^4.1.11",
     "html-loader": "0.4.4",
     "json-loader": "0.5.4",
-    "node-abi": "^2.4.4",
+    "node-abi": "^2.8.0",
     "node-gyp": "^3.8.0",
-    "node-sass": "^4.5.3",
+    "node-sass": "^4.12.0",
     "npmlog": "4.1.0",
     "npx": "^10.2.0",
     "pug": "^2.0.3",
@@ -55,7 +55,7 @@
     "yarn": "^1.10.1"
   },
   "resolutions": {
-    "*/node-abi": "^2.5.0"
+    "*/node-abi": "^2.8.0"
   },
   "build": {
     "appId": "org.terminus",

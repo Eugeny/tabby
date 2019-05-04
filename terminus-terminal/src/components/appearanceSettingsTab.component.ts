@@ -2,7 +2,7 @@ import { Observable } from 'rxjs'
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators'
 import { exec } from 'mz/child_process'
 import deepEqual = require('deep-equal')
-const fontManager = require('font-manager')
+const fontManager = require('fontmanager-redux')
 
 import { Component, Inject } from '@angular/core'
 import { ConfigService, HostAppService, Platform, ElectronService } from 'terminus-core'

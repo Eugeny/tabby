@@ -12,7 +12,7 @@ let DwmEnableBlurBehindWindow: any
 if (process.platform === 'win32') {
     SetWindowCompositionAttribute = require('windows-swca').SetWindowCompositionAttribute
     AccentState = require('windows-swca').ACCENT_STATE
-    DwmEnableBlurBehindWindow = require('windows-blurbehind').DwmEnableBlurBehindWindow
+    DwmEnableBlurBehindWindow = require('@terminus-term/windows-blurbehind').DwmEnableBlurBehindWindow
 }
 
 export interface WindowOptions {
