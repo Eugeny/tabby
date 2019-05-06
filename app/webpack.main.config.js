@@ -42,7 +42,7 @@ module.exports = {
     path: 'commonjs path',
     yargs: 'commonjs yargs',
     'windows-swca': 'commonjs windows-swca',
-    '@terminus-term/windows-blurbehind': 'commonjs @terminus-term/windows-blurbehind',
+    'windows-blurbehind': 'commonjs windows-blurbehind',
   },
   plugins: [
     new webpack.optimize.ModuleConcatenationPlugin(),

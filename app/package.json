@@ -35,7 +35,7 @@
     "zone.js": "^0.8.26"
   },
   "optionalDependencies": {
-    "@terminus-term/windows-blurbehind": "^1.0.0",
+    "windows-blurbehind": "^1.0.1",
     "windows-swca": "^2.0.1"
   },
   "devDependencies": {

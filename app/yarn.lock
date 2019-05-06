@@ -58,13 +58,6 @@
   dependencies:
     tslib "^1.9.0"
 
-"@terminus-term/windows-blurbehind@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@terminus-term/windows-blurbehind/-/windows-blurbehind-1.0.0.tgz#6621da2939180151f8ba0759a3e18246cfab8c05"
-  integrity sha512-ZRyCIrq6Nmoj+M9MGyECoTGJmIqHa3DBu1z+lpS7lGOfVk3dBSqlh5Pk+0q5lMq8MxvQikHXrF1TOxymi/cicg==
-  dependencies:
-    nan "^2.13.2"
-
 "@types/mz@0.0.31":
   version "0.0.31"
   resolved "https://registry.yarnpkg.com/@types/mz/-/mz-0.0.31.tgz#a4d80c082fefe71e40a7c0f07d1e6555bbbc7b52"
@@ -398,11 +391,6 @@ mz@^2.6.0:
     object-assign "^4.0.1"
     thenify-all "^1.0.0"
 
-nan@^2.13.2:
-  version "2.13.2"
-  resolved "https://registry.yarnpkg.com/nan/-/nan-2.13.2.tgz#f51dc7ae66ba7d5d55e1e6d4d8092e802c9aefe7"
-  integrity sha512-TghvYc72wlMGMVMluVo9WRJc0mB8KxxF/gZ4YYFy7V2ZQX9l7rgbPg7vjS9mt6U5HXODVFVI2bOduCzwOMv/lw==
-
 ngx-toastr@^9.1.1:
   version "9.1.1"
   resolved "https://registry.yarnpkg.com/ngx-toastr/-/ngx-toastr-9.1.1.tgz#c7ec0284d13951422ccf47439a387372ddccc768"
@@ -631,6 +619,11 @@ which@^1.2.9:
   integrity sha512-HxJdYWq1MTIQbJ3nw0cqssHoTNU267KlrDuGZ1WYlxDStUtKUhOaJmh112/TZmHxxUfuJqPXSOm7tDyas0OSIQ==
   dependencies:
     isexe "^2.0.0"
+
+windows-blurbehind@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/windows-blurbehind/-/windows-blurbehind-1.0.1.tgz#ff098713873304e38330b2c54cc41bb369b587b9"
+  integrity sha512-1HzHfCiM1ayrbACJu5qE9zELV24uX/tINT6kxaZwLY3rtQAoeav6x9z7LFHWoLaGDN/sYbnK+9Vk0cz7fsk5HQ==
 
 windows-swca@^2.0.1:
   version "2.0.1"
