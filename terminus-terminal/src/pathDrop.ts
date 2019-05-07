@@ -28,6 +28,7 @@ export class PathDropDecorator extends TerminalDecorator {
         if (path.indexOf(' ') >= 0) {
             path = `"${path}"`
         }
+        path = path.replace(/\\/g, '\\\\')
         terminal.sendInput(path + ' ')
     }
 
