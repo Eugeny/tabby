@@ -41,7 +41,7 @@
     "terminus-settings": "*"
   },
   "dependencies": {
-    "@terminus-term/node-pty": "^0.8.2",
+    "@terminus-term/node-pty": "^0.9.0-beta.1",
     "fontmanager-redux": "0.3.2",
     "hterm-umdjs": "1.4.1",
     "mz": "^2.6.0",
