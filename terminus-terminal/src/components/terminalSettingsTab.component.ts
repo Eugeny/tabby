@@ -16,9 +16,11 @@ export class TerminalSettingsTabComponent {
     openWSLVolumeMixer () {
         this.electron.shell.openItem('sndvol.exe')
         this.terminal.openTab({
-            id: '',
-            command: 'wsl.exe',
-            args: ['tput', 'bel'],
+            name: null,
+            sessionOptions: {
+                command: 'wsl.exe',
+                args: ['tput', 'bel'],
+            },
         }, null, true)
     }
 }

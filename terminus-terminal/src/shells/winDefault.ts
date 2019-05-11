@@ -40,6 +40,7 @@ export class WindowsDefaultShellProvider extends ShellProvider {
                     ...shell,
                     id: 'default',
                     name: 'User default',
+                    env: {},
                 }]
             }
         }

@@ -47,7 +47,8 @@ export class CmderShellProvider extends ShellProvider {
                     '-noexit',
                     '-command',
                     `Invoke-Expression '. ''${path.join(process.env.CMDER_ROOT, 'vendor', 'profile.ps1')}'''`
-                ]
+                ],
+                env: {},
             },
         ]
     }

@@ -1,3 +1,4 @@
+import slug from 'slug'
 import { Component } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { Subscription } from 'rxjs'
@@ -17,6 +18,7 @@ export class ShellSettingsTabComponent {
     Platform = Platform
     isConPTYAvailable: boolean
     isConPTYStable: boolean
+    slug = slug
     private configSubscription: Subscription
 
     constructor (
@@ -44,13 +46,12 @@ export class ShellSettingsTabComponent {
         this.configSubscription.unsubscribe()
     }
 
-    reload () {
-        this.profiles = this.config.store.terminal.profiles
+    async reload () {
+        this.profiles = await this.terminalService.getProfiles()
     }
 
     pickWorkingDirectory () {
         let shell = this.shells.find(x => x.id === this.config.store.terminal.shell)
-        console.log(shell)
         let paths = this.electron.dialog.showOpenDialog(
             this.hostApp.getWindow(),
             {
@@ -68,9 +69,9 @@ export class ShellSettingsTabComponent {
             name: shell.name,
             sessionOptions: this.terminalService.optionsFromShell(shell),
         }
-        this.profiles.push(profile)
-        this.config.store.terminal.profiles = this.profiles
+        this.config.store.terminal.profiles = [profile, ...this.config.store.terminal.profiles]
         this.config.save()
+        this.reload()
     }
 
     editProfile (profile: Profile) {
@@ -83,8 +84,8 @@ export class ShellSettingsTabComponent {
     }
 
     deleteProfile (profile: Profile) {
-        this.profiles = this.profiles.filter(x => x !== profile)
-        this.config.store.terminal.profiles = this.profiles
+        this.config.store.terminal.profiles = this.config.store.terminal.profiles.filter(x => x !== profile)
         this.config.save()
+        this.reload()
     }
 }

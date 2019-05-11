@@ -161,15 +161,8 @@ export default class TerminalModule {
             if (hotkey === 'new-window') {
                 hostApp.newWindow()
             }
-            if (hotkey.startsWith('shell.')) {
-                let shells = await terminal.shells$.toPromise()
-                let shell = shells.find(x => x.id === hotkey.split('.')[1])
-                if (shell) {
-                    terminal.openTab(shell)
-                }
-            }
             if (hotkey.startsWith('profile.')) {
-                let profiles = config.store.terminal.profiles
+                let profiles = await config.store.terminal.getProfiles()
                 let profile = profiles.find(x => slug(x.name) === hotkey.split('.')[1])
                 if (profile) {
                     terminal.openTabWithOptions(profile.sessionOptions)
@@ -188,9 +181,11 @@ export default class TerminalModule {
 
         hostApp.cliRunCommand$.subscribe(async command => {
             terminal.openTab({
-                id: '',
-                command: command[0],
-                args: command.slice(1),
+                name: '',
+                sessionOptions: {
+                    command: command[0],
+                    args: command.slice(1),
+                },
             }, null, true)
             hostApp.bringToFront()
         })

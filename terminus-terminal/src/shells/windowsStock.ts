@@ -33,9 +33,10 @@ export class WindowsStockShellsProvider extends ShellProvider {
                         `clink_${process.arch}.exe`,
                     ),
                     'inject',
-                ]
+                ],
+                env: {},
             },
-            { id: 'cmd', name: 'CMD (stock)', command: 'cmd.exe' },
+            { id: 'cmd', name: 'CMD (stock)', command: 'cmd.exe', env: {} },
             {
                 id: 'powershell',
                 name: 'PowerShell',

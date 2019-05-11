@@ -65,6 +65,7 @@ export class TouchbarService {
         this.config.enabledServices(this.toolbarButtonProviders).forEach(provider => {
             buttons = buttons.concat(provider.provide())
         })
+        buttons = buttons.filter(x => !!x.touchBarNSImage)
         buttons.sort((a, b) => (a.weight || 0) - (b.weight || 0))
         this.tabSegments = this.app.tabs.map(tab => ({
             label: this.shortenTitle(tab.title),

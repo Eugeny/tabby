@@ -52,6 +52,5 @@
     "macos-native-processlist": "^1.0.1",
     "windows-native-registry": "^1.0.14",
     "@terminus-term/windows-process-tree": "^0.2.4"
-  },
-  "false": {}
+  }
 }

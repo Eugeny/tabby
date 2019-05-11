@@ -21,7 +21,7 @@ export class NewTabContextMenu extends TerminalContextMenuItemProvider {
     }
 
     async getItems (tab: BaseTerminalTabComponent): Promise<Electron.MenuItemConstructorOptions[]> {
-        let shells = await this.terminalService.shells$.toPromise()
+        let profiles = await this.terminalService.getProfiles()
 
         let items: Electron.MenuItemConstructorOptions[] = [
             {
@@ -31,44 +31,30 @@ export class NewTabContextMenu extends TerminalContextMenuItemProvider {
                 })
             },
             {
-                label: 'New with shell',
-                submenu: shells.map(shell => ({
-                    label: shell.name,
+                label: 'New with profile',
+                submenu: profiles.map(profile => ({
+                    label: profile.name,
                     click: () => this.zone.run(async () => {
-                        this.terminalService.openTab(shell, await tab.session.getWorkingDirectory())
+                        this.terminalService.openTab(profile, await tab.session.getWorkingDirectory())
                     }),
-                })),
+                }))
             },
         ]
 
         if (this.uac.isAvailable) {
             items.push({
-                label: 'New as admin',
-                submenu: shells.map(shell => ({
-                    label: shell.name,
+                label: 'New admin tab',
+                submenu: profiles.map(profile => ({
+                    label: profile.name,
                     click: () => this.zone.run(async () => {
-                        let options = this.terminalService.optionsFromShell(shell)
-                        options.runAsAdministrator = true
-                        this.terminalService.openTabWithOptions(options)
+                        this.terminalService.openTabWithOptions({
+                            ...profile.sessionOptions,
+                            runAsAdministrator: true
+                        })
                     }),
                 })),
             })
         }
-
-        items = items.concat([
-            {
-                label: 'New with profile',
-                submenu: this.config.store.terminal.profiles.length ? this.config.store.terminal.profiles.map(profile => ({
-                    label: profile.name,
-                    click: () => this.zone.run(() => {
-                        this.terminalService.openTabWithOptions(profile.sessionOptions)
-                    }),
-                })) : [{
-                    label: 'No profiles saved',
-                    enabled: false,
-                }],
-            },
-        ])
 
         return items
     }
