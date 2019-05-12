@@ -23,6 +23,7 @@ export class StartPageComponent {
         return this.config.enabledServices(this.toolbarButtonProviders)
             .map(provider => provider.provide())
             .reduce((a, b) => a.concat(b))
+            .filter(x => !!x.click)
             .sort((a: IToolbarButton, b: IToolbarButton) => (a.weight || 0) - (b.weight || 0))
     }
 }

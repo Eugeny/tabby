@@ -620,10 +620,10 @@ which@^1.2.9:
   dependencies:
     isexe "^2.0.0"
 
-windows-blurbehind@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/windows-blurbehind/-/windows-blurbehind-1.0.0.tgz#050efb988704c44335bdc3efefd757f6e463b8ac"
-  integrity sha512-lO+A7fhTHO7oy9zJM3o1AdzfSQrmtPkdwvleeuww840ghijjEA1f1Zp8bKA3mJu2DFNtVT40fwmqtgsCGat4UA==
+windows-blurbehind@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/windows-blurbehind/-/windows-blurbehind-1.0.1.tgz#ff098713873304e38330b2c54cc41bb369b587b9"
+  integrity sha512-1HzHfCiM1ayrbACJu5qE9zELV24uX/tINT6kxaZwLY3rtQAoeav6x9z7LFHWoLaGDN/sYbnK+9Vk0cz7fsk5HQ==
 
 windows-swca@^2.0.1:
   version "2.0.1"

@@ -23,7 +23,12 @@ export interface IToolbarButton {
 
     weight?: number
 
-    click: () => void
+    click?: () => void
+
+    submenu?: () => Promise<IToolbarButton[]>
+
+    /** @hidden */
+    submenuItems?: IToolbarButton[]
 }
 
 /**

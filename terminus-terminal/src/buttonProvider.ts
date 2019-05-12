@@ -31,13 +31,27 @@ export class ButtonProvider extends ToolbarButtonProvider {
     }
 
     provide (): IToolbarButton[] {
-        return [{
-            icon: this.domSanitizer.bypassSecurityTrustHtml(require('./icons/plus.svg')),
-            title: 'New terminal',
-            touchBarNSImage: 'NSTouchBarAddDetailTemplate',
-            click: async () => {
-                this.terminal.openTab()
-            }
-        }]
+        return [
+            {
+                icon: this.domSanitizer.bypassSecurityTrustHtml(require('./icons/plus.svg')),
+                title: 'New terminal',
+                touchBarNSImage: 'NSTouchBarAddDetailTemplate',
+                click: async () => {
+                    this.terminal.openTab()
+                }
+            },
+            {
+                icon: this.domSanitizer.bypassSecurityTrustHtml(require('./icons/profiles.svg')),
+                title: 'New terminal with profile',
+                submenu: async () => {
+                    let profiles = await this.terminal.getProfiles()
+                    return profiles.map(profile => ({
+                        icon: null,
+                        title: profile.name,
+                        click: () => this.terminal.openTab(profile),
+                    }))
+                }
+            },
+        ]
     }
 }

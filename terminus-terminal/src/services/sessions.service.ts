@@ -15,7 +15,7 @@ try {
 } catch { } // tslint:disable-line
 
 try {
-    var windowsProcessTree = require('windows-process-tree') // tslint:disable-line
+    var windowsProcessTree = require('@terminus-term/windows-process-tree') // tslint:disable-line
 } catch { } // tslint:disable-line
 
 export interface IChildProcess {

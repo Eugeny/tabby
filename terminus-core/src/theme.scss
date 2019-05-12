@@ -136,6 +136,10 @@ app-root  {
                 background: transparent;
                 &:hover { background: rgba(0, 0, 0, .25) !important; }
                 &:active { background: rgba(0, 0, 0, .5) !important; }
+
+                &::after {
+                    display: none;
+                }
             }
 
             &>.tabs {

@@ -233,6 +233,12 @@ export class AppRootComponent {
         })
     }
 
+    async generateButtonSubmenu (button: IToolbarButton) {
+        if (button.submenu) {
+            button.submenuItems = await button.submenu()
+        }
+    }
+
     private getToolbarButtons (aboveZero: boolean): IToolbarButton[] {
         let buttons: IToolbarButton[] = []
         this.config.enabledServices(this.toolbarButtonProviders).forEach(provider => {

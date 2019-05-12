@@ -32,22 +32,44 @@ title-bar(
             )
 
         .btn-group.background
-            button.btn.btn-secondary.btn-tab-bar(
-                *ngFor='let button of leftToolbarButtons',
-                [title]='button.title',
-                (click)='button.click()',
-                [innerHTML]='button.icon',
+            .d-flex(
+                *ngFor='let button of leftToolbarButtons', 
+                ngbDropdown,
+                (openChange)='generateButtonSubmenu(button)',
             )
+                button.btn.btn-secondary.btn-tab-bar(
+                    [title]='button.title',
+                    (click)='button.click && button.click()',
+                    [innerHTML]='button.icon',
+                    ngbDropdownToggle,
+                )
+                div(*ngIf='button.submenu', ngbDropdownMenu)
+                    button.dropdown-item(
+                        *ngFor='let item of button.submenuItems', 
+                        (click)='item.click()',
+                        ngbDropdownItem,
+                    ) {{item.title}}
 
         .drag-space.background([class.persistent]='config.store.appearance.frame == "thin" && hostApp.platform != Platform.macOS')
 
         .btn-group.background
-            button.btn.btn-secondary.btn-tab-bar(
-                *ngFor='let button of rightToolbarButtons',
-                [title]='button.title',
-                (click)='button.click()',
-                [innerHTML]='button.icon',
+            .d-flex(
+                *ngFor='let button of rightToolbarButtons', 
+                ngbDropdown,
+                (openChange)='generateButtonSubmenu(button)',
             )
+                button.btn.btn-secondary.btn-tab-bar(
+                    [title]='button.title',
+                    (click)='button.click && button.click()',
+                    [innerHTML]='button.icon',
+                    ngbDropdownToggle,
+                )
+                div(*ngIf='button.submenu', ngbDropdownMenu)
+                    button.dropdown-item(
+                        *ngFor='let item of button.submenuItems', 
+                        (click)='item.click()',
+                        ngbDropdownItem,
+                    ) {{item.title}}
 
             button.btn.btn-secondary.btn-tab-bar.btn-update(
                 *ngIf='updatesAvailable',

@@ -19,6 +19,7 @@ export class CustomShellProvider extends ShellProvider {
             name: 'Custom shell',
             command: args[0],
             args: args.slice(1),
+            env: {},
         }]
     }
 }

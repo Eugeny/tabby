@@ -65,6 +65,7 @@ export class TerminalConfigProvider extends ConfigProvider {
             terminal: {
                 font: 'Menlo',
                 shell: 'default',
+                profile: 'user-default',
             },
             hotkeys: {
                 'ctrl-c': ['Ctrl-C'],
@@ -103,6 +104,7 @@ export class TerminalConfigProvider extends ConfigProvider {
             terminal: {
                 font: 'Consolas',
                 shell: 'clink',
+                profile: 'cmd-clink',
                 rightClick: 'paste',
                 copyOnSelect: true,
             },
@@ -143,6 +145,7 @@ export class TerminalConfigProvider extends ConfigProvider {
             terminal: {
                 font: 'Liberation Mono',
                 shell: 'default',
+                profile: 'user-default',
             },
             hotkeys: {
                 'ctrl-c': ['Ctrl-C'],

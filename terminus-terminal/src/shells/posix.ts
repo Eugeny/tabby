@@ -24,9 +24,10 @@ export class POSIXShellsProvider extends ShellProvider {
             .filter(x => x && !x.startsWith('#'))
             .map(x => ({
                 id: slug(x),
-                name: x,
+                name: x.split('/')[2],
                 command: x,
                 args: ['-l'],
+                env: {},
             }))
     }
 }
