@@ -63,15 +63,18 @@ export class TerminalService {
      * @param pause Wait for a keypress when the shell exits
      */
     async openTab (profile?: Profile, cwd?: string, pause?: boolean): Promise<TerminalTabComponent> {
-        cwd = cwd || profile.sessionOptions.cwd
-        if (cwd && !fs.existsSync(cwd)) {
-            console.warn('Ignoring non-existent CWD:', cwd)
-            cwd = null
-        }
         if (!profile) {
             let profiles = await this.getProfiles()
             profile = profiles.find(x => slug(x.name) === this.config.store.terminal.profile) || profiles[0]
         }
+
+        cwd = cwd || profile.sessionOptions.cwd
+
+        if (cwd && !fs.existsSync(cwd)) {
+            console.warn('Ignoring non-existent CWD:', cwd)
+            cwd = null
+        }
+
         if (!cwd) {
             if (this.app.activeTab instanceof TerminalTabComponent && this.app.activeTab.session) {
                 cwd = await this.app.activeTab.session.getWorkingDirectory()
