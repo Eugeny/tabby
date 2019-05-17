@@ -1,6 +1,5 @@
 import './lru'
 import { app, ipcMain, Menu } from 'electron'
-import electronDebug = require('electron-debug')
 import { parseArgs } from './cli'
 import { Application } from './app'
 if (process.platform === 'win32' && require('electron-squirrel-startup')) process.exit(0)
@@ -44,7 +43,7 @@ if (!app.requestSingleInstanceLock()) {
 }
 
 if (argv.d) {
-    electronDebug({ enabled: true, showDevTools: 'undocked' })
+    require('electron-debug')({ enabled: true, showDevTools: 'undocked' })
 }
 
 app.on('ready', () => {
