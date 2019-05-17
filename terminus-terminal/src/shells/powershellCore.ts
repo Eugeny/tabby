@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core'
+import { DomSanitizer } from '@angular/platform-browser'
 import { HostAppService, Platform } from 'terminus-core'
 import { ShellProvider, IShell } from '../api'
 
@@ -10,6 +11,7 @@ try {
 @Injectable()
 export class PowerShellCoreShellProvider extends ShellProvider {
     constructor (
+        private domSanitizer: DomSanitizer,
         private hostApp: HostAppService,
     ) {
         super()
@@ -31,6 +33,7 @@ export class PowerShellCoreShellProvider extends ShellProvider {
             name: 'PowerShell Core',
             command: pwshPath,
             args: ['-nologo'],
+            icon: this.domSanitizer.bypassSecurityTrustHtml(require('../icons/powershell-core.svg')),
             env: {
                 TERM: 'cygwin',
             }

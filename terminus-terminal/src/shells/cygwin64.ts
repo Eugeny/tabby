@@ -1,5 +1,6 @@
 import * as path from 'path'
 import { Injectable } from '@angular/core'
+import { DomSanitizer } from '@angular/platform-browser'
 import { HostAppService, Platform } from 'terminus-core'
 
 import { ShellProvider, IShell } from '../api'
@@ -12,6 +13,7 @@ try {
 @Injectable()
 export class Cygwin64ShellProvider extends ShellProvider {
     constructor (
+        private domSanitizer: DomSanitizer,
         private hostApp: HostAppService,
     ) {
         super()
@@ -32,6 +34,7 @@ export class Cygwin64ShellProvider extends ShellProvider {
             id: 'cygwin64',
             name: 'Cygwin',
             command: path.join(cygwinPath, 'bin', 'bash.exe'),
+            icon: this.domSanitizer.bypassSecurityTrustHtml(require('../icons/cygwin.svg')),
             env: {
                 TERM: 'cygwin',
             }

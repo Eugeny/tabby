@@ -88,10 +88,18 @@ hotkey-hint {
     max-width: 300px;
 }
 
-::ng-deep .btn-tab-bar svg {
+::ng-deep .btn-tab-bar svg,
+::ng-deep .btn-tab-bar + .dropdown-menu svg {
+    width: 16px;
     height: 16px;
     fill: white;
     fill-opacity: 0.75;
+}
+
+.icon-wrapper {
+    display: flex;
+    width: 16px;
+    height: 17px;
 }
 
 ::ng-deep .btn-update svg {
