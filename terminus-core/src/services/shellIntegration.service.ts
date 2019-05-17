@@ -1,10 +1,13 @@
 import * as path from 'path'
 import * as fs from 'mz/fs'
-import { Registry } from 'rage-edit'
 import { exec } from 'mz/child_process'
 import { Injectable } from '@angular/core'
 import { ElectronService } from './electron.service'
 import { HostAppService, Platform } from './hostApp.service'
+
+try {
+    var wnr = require('windows-native-registry') // tslint:disable-line
+} catch (_) { } // tslint:disable-line
 
 @Injectable({ providedIn: 'root' })
 export class ShellIntegrationService {
@@ -13,11 +16,11 @@ export class ShellIntegrationService {
     private automatorWorkflowsDestination: string
     private registryKeys = [
         {
-            path: 'HKCU\\Software\\Classes\\Directory\\Background\\shell\\Open Terminus here',
+            path: 'Software\\Classes\\Directory\\Background\\shell\\Open Terminus here',
             command: 'open "%V"'
         },
         {
-            path: 'HKCU\\Software\\Classes\\*\\shell\\Paste path into Terminus',
+            path: 'Software\\Classes\\*\\shell\\Paste path into Terminus',
             command: 'paste "%V"'
         },
     ]
@@ -50,7 +53,7 @@ export class ShellIntegrationService {
         if (this.hostApp.platform === Platform.macOS) {
             return fs.exists(path.join(this.automatorWorkflowsDestination, this.automatorWorkflows[0]))
         } else if (this.hostApp.platform === Platform.Windows) {
-            return Registry.has(this.registryKeys[0].path)
+            return !!wnr.getRegistryKey(wnr.HK.CU, this.registryKeys[0].path)
         }
         return true
     }
@@ -62,8 +65,22 @@ export class ShellIntegrationService {
             }
         } else if (this.hostApp.platform === Platform.Windows) {
             for (let registryKey of this.registryKeys) {
-                await Registry.set(registryKey.path, 'Icon', this.electron.app.getPath('exe'))
-                await Registry.set(registryKey.path + '\\command', '', this.electron.app.getPath('exe') + ' ' + registryKey.command)
+                wnr.createRegistryKey(wnr.HK.CU, registryKey.path)
+                wnr.createRegistryKey(wnr.HK.CU, registryKey.path + '\\command')
+                wnr.setRegistryValue(wnr.HK.CU, registryKey.path, 'Icon', wnr.REG.SZ, this.electron.app.getPath('exe'))
+                wnr.setRegistryValue(wnr.HK.CU, registryKey.path + '\\command', '', wnr.REG.SZ, this.electron.app.getPath('exe') + ' ' + registryKey.command)
+            }
+        }
+    }
+
+    async remove () {
+        if (this.hostApp.platform === Platform.macOS) {
+            for (let wf of this.automatorWorkflows) {
+                await exec(`rm -rf "${this.automatorWorkflowsDestination}/${wf}"`)
+            }
+        } else if (this.hostApp.platform === Platform.Windows) {
+            for (let registryKey of this.registryKeys) {
+                wnr.deleteRegistryKey(wnr.HK.CU, registryKey.path)
             }
         }
     }
