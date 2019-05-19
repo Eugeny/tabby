@@ -59,6 +59,7 @@ export class ShellIntegrationService {
     }
 
     async install () {
+        const exe = process.env.PORTABLE_EXECUTABLE_FILE || this.electron.app.getPath('exe')
         if (this.hostApp.platform === Platform.macOS) {
             for (let wf of this.automatorWorkflows) {
                 await exec(`cp -r "${this.automatorWorkflowsLocation}/${wf}" "${this.automatorWorkflowsDestination}"`)
@@ -67,8 +68,8 @@ export class ShellIntegrationService {
             for (let registryKey of this.registryKeys) {
                 wnr.createRegistryKey(wnr.HK.CU, registryKey.path)
                 wnr.createRegistryKey(wnr.HK.CU, registryKey.path + '\\command')
-                wnr.setRegistryValue(wnr.HK.CU, registryKey.path, 'Icon', wnr.REG.SZ, this.electron.app.getPath('exe'))
-                wnr.setRegistryValue(wnr.HK.CU, registryKey.path + '\\command', '', wnr.REG.SZ, this.electron.app.getPath('exe') + ' ' + registryKey.command)
+                wnr.setRegistryValue(wnr.HK.CU, registryKey.path, 'Icon', wnr.REG.SZ, exe)
+                wnr.setRegistryValue(wnr.HK.CU, registryKey.path + '\\command', '', wnr.REG.SZ, exe + ' ' + registryKey.command)
             }
         }
     }

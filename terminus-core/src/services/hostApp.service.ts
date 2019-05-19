@@ -28,6 +28,7 @@ export class HostAppService {
      */
     shown = new EventEmitter<any>()
     isFullScreen = false
+    isPortable = !!process.env.PORTABLE_EXECUTABLE_FILE
 
     private preferencesMenu = new Subject<void>()
     private secondInstance = new Subject<void>()
@@ -249,6 +250,15 @@ export class HostAppService {
 
     closeWindow () {
         this.electron.ipcRenderer.send('window-close')
+    }
+
+    relaunch () {
+        if (this.isPortable) {
+            this.electron.app.relaunch({ execPath: process.env.PORTABLE_EXECUTABLE_FILE })
+        } else {
+            this.electron.app.relaunch()
+        }
+        this.electron.app.exit()
     }
 
     quit () {

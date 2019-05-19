@@ -100,8 +100,7 @@ export class SettingsTabComponent extends BaseTabComponent {
     }
 
     restartApp () {
-        this.electron.app.relaunch()
-        this.electron.app.exit()
+        this.hostApp.relaunch()
     }
 
     saveConfigFile () {
