@@ -23,6 +23,4 @@ build_script:
   - node scripts/build-windows.js
 
 artifacts:
-  - path: 'dist\win\*.exe'
-  - path: 'dist\squirrel-windows\*.exe'
   - path: 'dist\*.exe'

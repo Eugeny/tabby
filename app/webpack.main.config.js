@@ -36,7 +36,6 @@ module.exports = {
     electron: 'commonjs electron',
     'electron-config': 'commonjs electron-config',
     'electron-vibrancy': 'commonjs electron-vibrancy',
-    'electron-squirrel-startup': 'commonjs electron-squirrel-startup',
     fs: 'commonjs fs',
     mz: 'commonjs mz',
     path: 'commonjs path',

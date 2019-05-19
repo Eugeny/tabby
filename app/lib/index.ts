@@ -2,7 +2,6 @@ import './lru'
 import { app, ipcMain, Menu } from 'electron'
 import { parseArgs } from './cli'
 import { Application } from './app'
-if (process.platform === 'win32' && require('electron-squirrel-startup')) process.exit(0)
 
 if (!process.env.TERMINUS_PLUGINS) {
     process.env.TERMINUS_PLUGINS = ''

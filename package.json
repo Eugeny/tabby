@@ -15,8 +15,7 @@
     "cross-env": "4.0.0",
     "css-loader": "0.28.0",
     "electron": "^5.0.1",
-    "electron-builder": "^20.38.4",
-    "electron-builder-squirrel-windows": "^20.28.3",
+    "electron-builder": "^20.40.2",
     "electron-installer-snap": "^3.0.0",
     "electron-rebuild": "^1.8.4",
     "file-loader": "^1.1.11",
@@ -71,16 +70,22 @@
     ],
     "win": {
       "icon": "./build/windows/icon.ico",
-      "publish": [
-        "github"
-      ],
       "artifactName": "terminus-${version}-setup.exe"
     },
-    "squirrelWindows": {
-      "iconUrl": "https://github.com/Eugeny/terminus/raw/master/build/windows/icon.ico",
-      "loadingGif": "./build/windows/squirrel.gif",
-      "artifactName": "terminus-${version}-setup.exe"
+    "nsis": {
+      "oneClick": false,
+      "artifactName": "terminus-${version}-setup.${ext}",
+      "installerIcon": "./build/windows/icon.ico"
     },
+    "publish": [
+      {
+        "provider": "bintray",
+        "token": "d993c4faa708a4cba84fa3a8e822457e7298d75c"
+      },
+      {
+        "provider": "github",
+      }
+    ],
     "portable": {
       "artifactName": "terminus-${version}-portable.exe"
     },
@@ -88,9 +93,6 @@
       "category": "public.app-category.video",
       "icon": "./build/mac/icon.icns",
       "artifactName": "terminus-${version}-macos.${ext}",
-      "publish": [
-        "github"
-      ],
       "extendInfo": {
         "NSRequiresAquaSystemAppearance": false
       }
@@ -101,10 +103,7 @@
     "linux": {
       "category": "Utilities",
       "icon": "./build/icons",
-      "artifactName": "terminus-${version}-linux.${ext}",
-      "publish": [
-        "github"
-      ]
+      "artifactName": "terminus-${version}-linux.${ext}"
     },
     "deb": {
       "depends": [
