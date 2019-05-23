@@ -35,11 +35,10 @@
     "terminus-terminal": "*"
   },
   "optionalDependencies": {
-    "wincredmgr": "^2.0.0",
-    "windows-process-tree": "^0.2.3",
-    "xkeychain": "^0.0.6"
+    "windows-process-tree": "^0.2.3"
   },
   "dependencies": {
+    "keytar": "^4.7.0",
     "ssh2": "^0.8.2",
     "ssh2-streams": "^0.4.2"
   }
