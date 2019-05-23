@@ -38,12 +38,13 @@ export class TerminalService {
         return shellLists.reduce((a, b) => a.concat(b), [])
     }
 
-    async getProfiles (): Promise<Profile[]> {
+    async getProfiles (includeHidden?: boolean): Promise<Profile[]> {
         let shells = await this.shells$.toPromise()
         return [
             ...this.config.store.terminal.profiles,
-            ...shells.map(shell => ({
+            ...shells.filter(x => includeHidden || !x.hidden).map(shell => ({
                 name: shell.name,
+                icon: shell.icon,
                 sessionOptions: this.optionsFromShell(shell),
                 isBuiltin: true
             }))
@@ -65,7 +66,7 @@ export class TerminalService {
     async openTab (profile?: Profile, cwd?: string, pause?: boolean): Promise<TerminalTabComponent> {
         if (!profile) {
             let profiles = await this.getProfiles()
-            profile = profiles.find(x => slug(x.name) === this.config.store.terminal.profile) || profiles[0]
+            profile = profiles.find(x => slug(x.name).toLowerCase() === this.config.store.terminal.profile) || profiles[0]
         }
 
         cwd = cwd || profile.sessionOptions.cwd

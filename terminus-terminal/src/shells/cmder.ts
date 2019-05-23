@@ -1,5 +1,6 @@
 import * as path from 'path'
 import { Injectable } from '@angular/core'
+import { DomSanitizer } from '@angular/platform-browser'
 import { HostAppService, Platform } from 'terminus-core'
 
 import { ShellProvider, IShell } from '../api'
@@ -8,6 +9,7 @@ import { ShellProvider, IShell } from '../api'
 @Injectable()
 export class CmderShellProvider extends ShellProvider {
     constructor (
+        private domSanitizer: DomSanitizer,
         private hostApp: HostAppService,
     ) {
         super()
@@ -31,6 +33,7 @@ export class CmderShellProvider extends ShellProvider {
                     '/k',
                     path.join(process.env.CMDER_ROOT, 'vendor', 'init.bat'),
                 ],
+                icon: this.domSanitizer.bypassSecurityTrustHtml(require('../icons/cmder.svg')),
                 env: {
                     TERM: 'cygwin',
                 }
@@ -48,6 +51,7 @@ export class CmderShellProvider extends ShellProvider {
                     '-command',
                     `Invoke-Expression '. ''${path.join(process.env.CMDER_ROOT, 'vendor', 'profile.ps1')}'''`
                 ],
+                icon: this.domSanitizer.bypassSecurityTrustHtml(require('../icons/cmder-powershell.svg')),
                 env: {},
             },
         ]

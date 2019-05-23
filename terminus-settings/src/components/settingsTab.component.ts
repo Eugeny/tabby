@@ -81,6 +81,15 @@ export class SettingsTabComponent extends BaseTabComponent {
         this.isShellIntegrationInstalled = await this.shellIntegration.isInstalled()
     }
 
+    async toggleShellIntegration () {
+        if (!this.isShellIntegrationInstalled) {
+            await this.shellIntegration.install()
+        } else {
+            await this.shellIntegration.remove()
+        }
+        this.isShellIntegrationInstalled = await this.shellIntegration.isInstalled()
+    }
+
     async getRecoveryToken (): Promise<any> {
         return { type: 'app:settings' }
     }
@@ -91,8 +100,7 @@ export class SettingsTabComponent extends BaseTabComponent {
     }
 
     restartApp () {
-        this.electron.app.relaunch()
-        this.electron.app.exit()
+        this.hostApp.relaunch()
     }
 
     saveConfigFile () {
@@ -112,11 +120,6 @@ export class SettingsTabComponent extends BaseTabComponent {
         } catch (_) {
             return false
         }
-    }
-
-    async installShellIntegration () {
-        await this.shellIntegration.install()
-        this.isShellIntegrationInstalled = true
     }
 
     getHotkey (id: string) {

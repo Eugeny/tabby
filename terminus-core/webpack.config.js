@@ -55,6 +55,7 @@ module.exports = {
     'untildify',
     'winston',
     'js-yaml',
+    'windows-native-registry',
     /^rxjs/,
     /^@angular/,
     /^@ng-bootstrap/,

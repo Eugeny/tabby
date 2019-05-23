@@ -28,6 +28,10 @@ const userPluginsPath = path.join(
     'plugins',
 )
 
+if (!fs.existsSync(userPluginsPath)) {
+    fs.mkdir(userPluginsPath)
+}
+
 Object.assign(window, { builtinPluginsPath, userPluginsPath })
 nodeModule.globalPaths.unshift(builtinPluginsPath)
 nodeModule.globalPaths.unshift(path.join(userPluginsPath, 'node_modules'))

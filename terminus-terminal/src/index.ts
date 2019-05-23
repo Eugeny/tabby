@@ -75,13 +75,13 @@ import { hterm } from './frontends/hterm'
         { provide: ShellProvider, useClass: MacOSDefaultShellProvider, multi: true },
         { provide: ShellProvider, useClass: LinuxDefaultShellProvider, multi: true },
         { provide: ShellProvider, useClass: WindowsStockShellsProvider, multi: true },
+        { provide: ShellProvider, useClass: PowerShellCoreShellProvider, multi: true },
         { provide: ShellProvider, useClass: CmderShellProvider, multi: true },
         { provide: ShellProvider, useClass: CustomShellProvider, multi: true },
         { provide: ShellProvider, useClass: Cygwin32ShellProvider, multi: true },
         { provide: ShellProvider, useClass: Cygwin64ShellProvider, multi: true },
         { provide: ShellProvider, useClass: GitBashShellProvider, multi: true },
         { provide: ShellProvider, useClass: POSIXShellsProvider, multi: true },
-        { provide: ShellProvider, useClass: PowerShellCoreShellProvider, multi: true },
         { provide: ShellProvider, useClass: WSLShellProvider, multi: true },
 
         { provide: TerminalContextMenuItemProvider, useClass: NewTabContextMenu, multi: true },
@@ -163,7 +163,7 @@ export default class TerminalModule {
             }
             if (hotkey.startsWith('profile.')) {
                 let profiles = await config.store.terminal.getProfiles()
-                let profile = profiles.find(x => slug(x.name) === hotkey.split('.')[1])
+                let profile = profiles.find(x => slug(x.name).toLowerCase() === hotkey.split('.')[1])
                 if (profile) {
                     terminal.openTabWithOptions(profile.sessionOptions)
                 }
