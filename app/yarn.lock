@@ -65,12 +65,7 @@
   dependencies:
     "@types/node" "*"
 
-"@types/node@*":
-  version "8.0.13"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-8.0.13.tgz#530f0f9254209b0335bf5cc6387822594ef47093"
-  integrity sha512-Y3EAG7VA7NVNbZek/fjJtILnmTk/ZfpJuWZGDBqDZ1dVIxgJJJ82fXPW7pKnqyV9CD/9bcPOCi7eErUqGMHOrA==
-
-"@types/node@^10.12.18":
+"@types/node@*", "@types/node@^10.12.18":
   version "10.12.18"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-10.12.18.tgz#1d3ca764718915584fcd9f6344621b7672665c67"
   integrity sha512-fh+pAqt4xRzPfqA6eh3Z2y6fyZavRIumvjhaCL753+TVkGKGhpPeyrJG2JftD0T9q4GF00KjefsQ+PQNDdWQaQ==
@@ -744,10 +739,10 @@ windows-blurbehind@^1.0.1:
   resolved "https://registry.yarnpkg.com/windows-blurbehind/-/windows-blurbehind-1.0.1.tgz#ff098713873304e38330b2c54cc41bb369b587b9"
   integrity sha512-1HzHfCiM1ayrbACJu5qE9zELV24uX/tINT6kxaZwLY3rtQAoeav6x9z7LFHWoLaGDN/sYbnK+9Vk0cz7fsk5HQ==
 
-windows-swca@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/windows-swca/-/windows-swca-2.0.1.tgz#25d78ce25251292061494a0ad07c02282b28b4e3"
-  integrity sha512-flj+HD6RUemZUvKKguLLnMUOYkQSgDu9qrhUIO4cydvtb/x+sxU8XmpZUtugYuydcdikB9zsCOMgKnAqIQ+7nw==
+windows-swca@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/windows-swca/-/windows-swca-2.0.2.tgz#66807012f73f5d3c0f0cb49bfa61be297aaabb50"
+  integrity sha512-9935KGV1gH3EBy7re9UEfDrxY3fbXBcwrUgEZk1exxe6swcGKFhO82ECh4QXVBjIhq+ROIVW3SBF/OUnZFSNGw==
   dependencies:
     "@types/node" "^10.12.18"
 
