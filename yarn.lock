@@ -58,9 +58,10 @@
   dependencies:
     "@types/node" "*"
 
-"@types/fs-promise@1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@types/fs-promise/-/fs-promise-1.0.1.tgz#a77e18c055d7757d44a34c1ed7e8bb505992f783"
+"@types/fs-promise@1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@types/fs-promise/-/fs-promise-1.0.3.tgz#1ee71e7a1edd3503a905cdec26240f485dcdcbaf"
+  integrity sha1-Huceeh7dNQOpBc3sJiQPSF3Ny68=
   dependencies:
     "@types/mz" "*"
     "@types/node" "*"
