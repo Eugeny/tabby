@@ -20,7 +20,7 @@
     "@angular/forms": "7.2.8",
     "@angular/platform-browser": "7.2.8",
     "@angular/platform-browser-dynamic": "7.2.8",
-    "@ng-bootstrap/ng-bootstrap": "^3.3.1",
+    "@ng-bootstrap/ng-bootstrap": "^4.1.3",
     "devtron": "1.4.0",
     "electron-config": "0.2.1",
     "electron-debug": "^3.0.0",
@@ -30,7 +30,7 @@
     "mz": "^2.7.0",
     "ngx-toastr": "^9.1.1",
     "path": "0.12.7",
-    "rxjs": "^6.3.3",
+    "rxjs": "^6.5.2",
     "yargs": "^13.2.4",
     "zone.js": "^0.8.29"
   },
