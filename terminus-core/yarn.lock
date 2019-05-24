@@ -170,17 +170,10 @@ dashdash@^1.12.0:
   dependencies:
     assert-plus "^1.0.0"
 
-debug@=3.1.0, debug@^3.0.0:
+debug@=3.1.0, debug@^3.0.0, debug@^3.0.1:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/debug/-/debug-3.1.0.tgz#5bb5a0672628b64149566ba16819e61518c67261"
   integrity sha512-OX8XqP7/1a9cqkxYw2yXss15f26NKWBpDXQd0/uK/KPqdQhxbPa994hnzjcE2VqQpDslf55723cKPUOGSmMY3g==
-  dependencies:
-    ms "2.0.0"
-
-debug@^3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/debug/-/debug-3.0.1.tgz#0564c612b521dc92d9f2988f0549e34f9c98db64"
-  integrity sha512-6nVc6S36qbt/mutyt+UGMnawAMrPDZUPQjRZI3FS9tCtDRhvxJbK79unYBLPi+z5SLXQ3ftoVBFCblQtNSls8w==
   dependencies:
     ms "2.0.0"
 
