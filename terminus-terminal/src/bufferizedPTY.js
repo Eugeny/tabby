@@ -2,7 +2,7 @@
 module.exports = function patchPTYModule (mod) {
   const oldSpawn = mod.spawn
   if (mod.patched) {
-    return mod
+    return
   }
   mod.patched = true
   mod.spawn = (file, args, opt) => {
@@ -51,5 +51,4 @@ module.exports = function patchPTYModule (mod) {
     })
     return terminal
   }
-  return mod
 }

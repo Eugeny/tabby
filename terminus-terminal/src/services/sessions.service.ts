@@ -1,7 +1,8 @@
 import psNode = require('ps-node')
-let nodePTY
 import * as fs from 'mz/fs'
 import * as os from 'os'
+import * as nodePTY from 'node-pty'
+
 import { Observable, Subject } from 'rxjs'
 import { first } from 'rxjs/operators'
 import { Injectable } from '@angular/core'
@@ -322,8 +323,7 @@ export class SessionsService {
     constructor (
         log: LogService,
     ) {
-        nodePTY = require('node-pty')
-        nodePTY = require('../bufferizedPTY')(nodePTY)
+        require('../bufferizedPTY')(nodePTY)
         this.logger = log.create('sessions')
     }
 
