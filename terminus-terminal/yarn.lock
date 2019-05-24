@@ -201,10 +201,10 @@ runes@^0.4.2:
   resolved "https://registry.yarnpkg.com/runes/-/runes-0.4.3.tgz#32f7738844bc767b65cc68171528e3373c7bb355"
   integrity sha512-K6p9y4ZyL9wPzA+PMDloNQPfoDGTiFYDvdlXznyGKgD10BJpcAosvATKrExRKOrNLgD8E7Um7WGW0lxsnOuNLg==
 
-slug@^0.9.3:
-  version "0.9.3"
-  resolved "https://registry.yarnpkg.com/slug/-/slug-0.9.3.tgz#8c9c773d79367c0188733316cf49fd2b8db40f6a"
-  integrity sha512-DddSQQnUdAofjFOKRT+zsMNrdzdte04G5DUA+NeaUJlPAqR1bWQ22qVfayRxHFiRGR3bUV0wt5VSj4849pGKSw==
+slug@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/slug/-/slug-1.1.0.tgz#73eef5710416f515077bdf70c683bde4915913c9"
+  integrity sha512-NuIOjDQeTMPm+/AUIHJ5636mF3jOsYLFnoEErl9Tdpt4kpt4fOrAJxscH9mUgX1LtPaEqgPCawBg7A4yhoSWRg==
   dependencies:
     unicode ">= 0.3.1"
 
