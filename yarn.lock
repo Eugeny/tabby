@@ -37,9 +37,12 @@
   dependencies:
     "@types/babel-types" "*"
 
-"@types/electron-config@^0.2.1":
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/@types/electron-config/-/electron-config-0.2.1.tgz#dceb3edb856e404138fb869cd4ed539ef88b882c"
+"@types/electron-config@^3.2.2":
+  version "3.2.2"
+  resolved "https://registry.yarnpkg.com/@types/electron-config/-/electron-config-3.2.2.tgz#0b115ad81fd5c7e76996bfd535c4902f75db5807"
+  integrity sha512-getHaJQH1PB0h8yruyqqoPQOYmOzns0VLcZ8LnGqGpLHq8WBXsvFgCbdwRH1yBqxnzW9dqm5v3OXy1LNoL9e3Q==
+  dependencies:
+    electron-config "*"
 
 "@types/electron-debug@^2.1.0":
   version "2.1.0"
@@ -1366,6 +1369,17 @@ concat-stream@1.6.2, concat-stream@^1.5.0, concat-stream@^1.5.2:
     readable-stream "^2.2.2"
     typedarray "^0.0.6"
 
+conf@^1.0.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/conf/-/conf-1.4.0.tgz#1ea66c9d7a9b601674a5bb9d2b8dc3c726625e67"
+  integrity sha512-bzlVWS2THbMetHqXKB8ypsXN4DQ/1qopGwNJi1eYbpwesJcd86FBjFciCQX/YwAhp9bM7NVnPFqZ5LpV7gP0Dg==
+  dependencies:
+    dot-prop "^4.1.0"
+    env-paths "^1.0.0"
+    make-dir "^1.0.0"
+    pkg-up "^2.0.0"
+    write-file-atomic "^2.3.0"
+
 config-chain@~1.1.11:
   version "1.1.11"
   resolved "https://registry.yarnpkg.com/config-chain/-/config-chain-1.1.11.tgz#aba09747dfbe4c3e70e766a6e41586e1859fc6f2"
@@ -1868,6 +1882,13 @@ electron-builder@^20.40.2:
     sanitize-filename "^1.6.1"
     update-notifier "^2.5.0"
     yargs "^13.2.2"
+
+electron-config@*:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/electron-config/-/electron-config-2.0.0.tgz#b00a7d55556d9c1aa59f5eec3bdf446c773425ff"
+  integrity sha512-5mGwRK4lsAo6tiy4KNF/zUInYpUGr7JJzLA8FHOoqBWV3kkKJWSrDXo4Uk2Ffm5aeQ1o73XuorfkYhaWFV2O4g==
+  dependencies:
+    conf "^1.0.0"
 
 electron-debug@*:
   version "3.0.0"
@@ -4654,6 +4675,13 @@ pkg-dir@^3.0.0:
   dependencies:
     find-up "^3.0.0"
 
+pkg-up@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/pkg-up/-/pkg-up-2.0.0.tgz#c819ac728059a461cab1c3889a2be3c49a004d7f"
+  integrity sha1-yBmscoBZpGHKscOImivjxJoATX8=
+  dependencies:
+    find-up "^2.1.0"
+
 plist@^3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/plist/-/plist-3.0.1.tgz#a9b931d17c304e8912ef0ba3bdd6182baf2e1f8c"
@@ -6890,6 +6918,15 @@ write-file-atomic@^2.0.0, write-file-atomic@~2.1.0:
     graceful-fs "^4.1.11"
     imurmurhash "^0.1.4"
     slide "^1.1.5"
+
+write-file-atomic@^2.3.0:
+  version "2.4.3"
+  resolved "https://registry.yarnpkg.com/write-file-atomic/-/write-file-atomic-2.4.3.tgz#1fd2e9ae1df3e75b8d8c367443c692d4ca81f481"
+  integrity sha512-GaETH5wwsX+GcnzhPgKcKjJ6M2Cq3/iZp1WyY/X1CSqrW+jVNM9Y7D8EC2sM4ZG/V8wZlSniJnCKWPmBYAucRQ==
+  dependencies:
+    graceful-fs "^4.1.11"
+    imurmurhash "^0.1.4"
+    signal-exit "^3.0.2"
 
 xdg-basedir@^3.0.0:
   version "3.0.0"
