@@ -19,7 +19,7 @@
     "electron-installer-snap": "^3.0.0",
     "electron-rebuild": "^1.8.4",
     "file-loader": "^1.1.11",
-    "graceful-fs": "^4.1.11",
+    "graceful-fs": "^4.1.15",
     "html-loader": "0.4.4",
     "json-loader": "0.5.7",
     "node-abi": "^2.8.0",
