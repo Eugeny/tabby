@@ -22,7 +22,7 @@
     "electron": "^1.6.11",
     "ngx-toastr": "^8.0.0",
     "rxjs": "^5.4.0",
-    "typescript": "^2.2.2",
+    "typescript": "^3.4.5",
     "webpack": "^2.3.3"
   },
   "peerDependencies": {
