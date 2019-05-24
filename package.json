@@ -20,7 +20,7 @@
     "electron-rebuild": "^1.8.4",
     "file-loader": "^3.0.1",
     "graceful-fs": "^4.1.15",
-    "html-loader": "0.4.4",
+    "html-loader": "0.5.5",
     "json-loader": "0.5.7",
     "node-abi": "^2.8.0",
     "node-gyp": "^3.8.0",
