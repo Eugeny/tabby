@@ -23,7 +23,7 @@
     "@types/winston": "^2.3.6",
     "axios": "^0.18.0",
     "bootstrap": "^4.1.3",
-    "core-js": "^2.4.1",
+    "core-js": "^3.1.2",
     "electron-updater": "^2.8.9",
     "ng2-dnd": "^5.0.2",
     "ngx-perfect-scrollbar": "^6.0.0",
