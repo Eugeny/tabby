@@ -23,7 +23,7 @@
     "@ng-bootstrap/ng-bootstrap": "^3.3.1",
     "devtron": "1.4.0",
     "electron-config": "0.2.1",
-    "electron-debug": "^2.0.0",
+    "electron-debug": "^3.0.0",
     "electron-is-dev": "1.1.0",
     "electron-updater": "^4.0.6",
     "js-yaml": "3.13.1",
