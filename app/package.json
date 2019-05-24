@@ -39,6 +39,6 @@
     "windows-swca": "^2.0.2"
   },
   "devDependencies": {
-    "@types/mz": "0.0.31"
+    "@types/mz": "0.0.32"
   }
 }
