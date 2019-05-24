@@ -21,13 +21,13 @@
     "@types/mz": "0.0.31",
     "@types/node": "7.0.12",
     "@types/slug": "^0.9.1",
-    "@types/webpack-env": "1.13.0",
+    "@types/webpack-env": "1.13.9",
     "dataurl": "0.1.0",
     "deep-equal": "1.0.1",
     "file-loader": "^0.11.2",
     "slug": "^0.9.3",
     "uuid": "^3.3.2",
-    "xterm": "3.12.2",
+    "xterm": "3.13.2",
     "xterm-addon-ligatures": "^0.1.0-beta-2"
   },
   "peerDependencies": {

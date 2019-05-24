@@ -2,22 +2,22 @@
 # yarn lockfile v1
 
 
-"@types/deep-equal@1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@types/deep-equal/-/deep-equal-1.0.0.tgz#9ebeaa73d1fc4791f038a5f1440e0449ea968495"
-  integrity sha1-nr6qc9H8R5HwOKXxRA4ESeqWhJU=
+"@types/deep-equal@1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@types/deep-equal/-/deep-equal-1.0.1.tgz#71cfabb247c22bcc16d536111f50c0ed12476b03"
+  integrity sha512-mMUu4nWHLBlHtxXY17Fg6+ucS/MnndyOWyOe7MmwkoMYxvfQU2ajtRaEvqSUv+aVkMqH/C0NCI8UoVfRNQ10yg==
 
 "@types/node@7.0.12":
   version "7.0.12"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-7.0.12.tgz#ae5f67a19c15f752148004db07cbbb372e69efc9"
   integrity sha1-rl9noZwV91IUgATbB8u7Ny5p78k=
 
-"@types/webpack-env@1.13.0":
-  version "1.13.0"
-  resolved "https://registry.yarnpkg.com/@types/webpack-env/-/webpack-env-1.13.0.tgz#3044381647e11ee973c5af2e925323930f691d80"
-  integrity sha1-MEQ4FkfhHulzxa8uklMjkw9pHYA=
+"@types/webpack-env@1.13.9":
+  version "1.13.9"
+  resolved "https://registry.yarnpkg.com/@types/webpack-env/-/webpack-env-1.13.9.tgz#a67287861c928ebf4159a908d1fb1a2a34d4097a"
+  integrity sha512-p8zp5xqkly3g4cCmo2mKOHI9+Z/kObmDj0BmjbDDJQlgDTiEGTbm17MEwTAusV6XceCy+bNw9q/ZHXHyKo3zkg==
 
 ngx-pipes@^1.6.1:
-  version "1.6.5"
-  resolved "https://registry.yarnpkg.com/ngx-pipes/-/ngx-pipes-1.6.5.tgz#7dfe7bf1425b2e661ecde0e8a419e82be575dfa1"
-  integrity sha512-CtiDGlQITKUszBrHo6JoBOiS8iAuqoEm7ptHMEfD3iJvzRK9tNK4ZEmmBxqUPwzAPyjeGW8ALlul1QdqFrOoSg==
+  version "1.6.6"
+  resolved "https://registry.yarnpkg.com/ngx-pipes/-/ngx-pipes-1.6.6.tgz#32bb80906c220f1e84d5cce7d6dae002cffead4b"
+  integrity sha512-mRV0xOZDd6/Jlvti4W0pDepZRIHLHd3kZ6ZzdqyGCU0dxbKVWWLTR1jlNlxN1ruMk8eO0Y8lNh6a1bEW7dJP1w==

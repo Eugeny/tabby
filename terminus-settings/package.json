@@ -17,9 +17,9 @@
   "author": "Eugene Pankov",
   "license": "MIT",
   "devDependencies": {
-    "@types/deep-equal": "1.0.0",
+    "@types/deep-equal": "1.0.1",
     "@types/node": "7.0.12",
-    "@types/webpack-env": "1.13.0",
+    "@types/webpack-env": "1.13.9",
     "ngx-pipes": "^1.6.1"
   },
   "peerDependencies": {
