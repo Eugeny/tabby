@@ -23,7 +23,7 @@
     "ngx-toastr": "^8.0.0",
     "rxjs": "^5.4.0",
     "typescript": "^2.2.2",
-    "webpack": "^2.3.3"
+    "webpack": "^4.32.2"
   },
   "peerDependencies": {
     "@angular/common": "^4.1.3",
