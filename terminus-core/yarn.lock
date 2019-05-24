@@ -3,9 +3,9 @@
 
 
 "@types/js-yaml@^3.9.0":
-  version "3.9.1"
-  resolved "https://registry.yarnpkg.com/@types/js-yaml/-/js-yaml-3.9.1.tgz#2f3c142771bb345829ce690c5838760b6b9ba553"
-  integrity sha512-6ejot8/A47YhEGg8K/Gi+/Nu4vohMgxEG383aBaHKjrGjJUQE7umk+vg5I7TaPe4C99nUZrCDw+weK3M7gg/oA==
+  version "3.12.1"
+  resolved "https://registry.yarnpkg.com/@types/js-yaml/-/js-yaml-3.12.1.tgz#5c6f4a1eabca84792fbd916f0cb40847f123c656"
+  integrity sha512-SGGAhXLHDx+PK4YLNcNGa6goPf9XRWQNAUUbffkwVGGXIxmDKWyGGL4inzq2sPmExu431Ekb9aEMn9BkPqEYFA==
 
 "@types/node@*", "@types/node@^7.0.37":
   version "7.0.43"
