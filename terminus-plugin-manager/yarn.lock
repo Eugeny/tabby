@@ -1955,9 +1955,9 @@ mz@^2.6.0:
     thenify-all "^1.0.0"
 
 ngx-pipes@^1.6.1:
-  version "1.6.5"
-  resolved "https://registry.yarnpkg.com/ngx-pipes/-/ngx-pipes-1.6.5.tgz#7dfe7bf1425b2e661ecde0e8a419e82be575dfa1"
-  integrity sha512-CtiDGlQITKUszBrHo6JoBOiS8iAuqoEm7ptHMEfD3iJvzRK9tNK4ZEmmBxqUPwzAPyjeGW8ALlul1QdqFrOoSg==
+  version "1.6.6"
+  resolved "https://registry.yarnpkg.com/ngx-pipes/-/ngx-pipes-1.6.6.tgz#32bb80906c220f1e84d5cce7d6dae002cffead4b"
+  integrity sha512-mRV0xOZDd6/Jlvti4W0pDepZRIHLHd3kZ6ZzdqyGCU0dxbKVWWLTR1jlNlxN1ruMk8eO0Y8lNh6a1bEW7dJP1w==
 
 node-fetch-npm@^2.0.2:
   version "2.0.2"
