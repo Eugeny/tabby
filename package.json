@@ -28,7 +28,7 @@
     "npmlog": "4.1.0",
     "npx": "^10.2.0",
     "pug": "^2.0.3",
-    "pug-html-loader": "1.0.9",
+    "pug-html-loader": "1.1.5",
     "pug-lint": "^2.5.0",
     "pug-loader": "^2.4.0",
     "pug-static-loader": "0.0.1",
