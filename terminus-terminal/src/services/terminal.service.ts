@@ -65,7 +65,7 @@ export class TerminalService {
      */
     async openTab (profile?: Profile, cwd?: string, pause?: boolean): Promise<TerminalTabComponent> {
         if (!profile) {
-            let profiles = await this.getProfiles()
+            let profiles = await this.getProfiles(true)
             profile = profiles.find(x => slug(x.name).toLowerCase() === this.config.store.terminal.profile) || profiles[0]
         }
 
