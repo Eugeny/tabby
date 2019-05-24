@@ -27,7 +27,7 @@
     "electron-is-dev": "0.1.2",
     "electron-updater": "^4.0.6",
     "js-yaml": "3.13.1",
-    "mz": "^2.6.0",
+    "mz": "^2.7.0",
     "ngx-toastr": "^9.1.1",
     "path": "0.12.7",
     "rxjs": "^6.3.3",
