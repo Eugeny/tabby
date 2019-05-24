@@ -2363,21 +2363,21 @@ speedometer@~0.1.2:
   resolved "https://registry.yarnpkg.com/speedometer/-/speedometer-0.1.4.tgz#9876dbd2a169d3115402d48e6ea6329c8816a50d"
   integrity sha1-mHbb0qFp0xFUAtSObqYynIgWpQ0=
 
-ssh2-streams@^0.4.2, ssh2-streams@~0.4.2:
-  version "0.4.2"
-  resolved "https://registry.yarnpkg.com/ssh2-streams/-/ssh2-streams-0.4.2.tgz#bac0d18727396d16049f5f0c8517a46516b45719"
-  integrity sha512-2rSj3oTIJnbAIzR3+XwIYef9wCOVrPQZNLL+fFPPjnPxf09tKkAbgrlYgh/1qynBTz65AUOS+s1zuko4M/GKCw==
+ssh2-streams@^0.4.2, ssh2-streams@~0.4.4:
+  version "0.4.4"
+  resolved "https://registry.yarnpkg.com/ssh2-streams/-/ssh2-streams-0.4.4.tgz#7f07464c4b19ee93324995ec7164f110c5a13658"
+  integrity sha512-yNfPZgJO/N69TvYkpDHZBkXAXQzTpfzRkOphQu3PeUpZnrjp9VNa8RKDZkZDpjsWItay+I4NMAbZZ7DqHRt0AQ==
   dependencies:
     asn1 "~0.2.0"
     bcrypt-pbkdf "^1.0.2"
     streamsearch "~0.1.2"
 
 ssh2@^0.8.2:
-  version "0.8.2"
-  resolved "https://registry.yarnpkg.com/ssh2/-/ssh2-0.8.2.tgz#f7a172458d3a7a13d520438264f90de8a3ee72af"
-  integrity sha512-oaXu7faddvPFGavnLBkk0RFwLXvIzCPq6KqAC3ExlnFPAVIE1uo7pWHe9xmhNHXm+nIe7yg9qsssOm+ip2jijw==
+  version "0.8.4"
+  resolved "https://registry.yarnpkg.com/ssh2/-/ssh2-0.8.4.tgz#0a657d9371c1fe9f9e349bcff6144febee256aa6"
+  integrity sha512-qztb9t4b34wJSiWVpeTMVVN/5KCuBoyctBc2BcSe/Uq4NRnF0gB16Iu5p72ILhdYATcMNwB5WppzPIEs/3wB8Q==
   dependencies:
-    ssh2-streams "~0.4.2"
+    ssh2-streams "~0.4.4"
 
 sshpk@^1.7.0:
   version "1.13.1"
