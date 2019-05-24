@@ -5,7 +5,7 @@ daysUntilClose: 14
 # Issues with these labels will never be considered stale
 exemptLabels:
   - "T: Enhancement"
-  - "S: Triaged"
+  - "S: Confirmed"
 # Label to use when marking an issue as stale
 staleLabel: "S: Stale"
 # Comment to post when marking an issue as stale. Set to `false` to disable
