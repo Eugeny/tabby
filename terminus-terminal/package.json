@@ -41,16 +41,16 @@
     "terminus-settings": "*"
   },
   "dependencies": {
-    "@terminus-term/node-pty": "^0.9.0-beta.1",
     "fontmanager-redux": "0.3.2",
     "hterm-umdjs": "1.4.1",
     "mz": "^2.6.0",
+    "node-pty": "^0.9.0-beta9",
     "ps-node": "^0.1.6",
     "runes": "^0.4.2"
   },
   "optionalDependencies": {
+    "@terminus-term/windows-process-tree": "^0.2.4",
     "macos-native-processlist": "^1.0.1",
-    "windows-native-registry": "^1.0.14",
-    "@terminus-term/windows-process-tree": "^0.2.4"
+    "windows-native-registry": "^1.0.14"
   }
 }

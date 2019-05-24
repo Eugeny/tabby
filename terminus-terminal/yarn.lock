@@ -2,13 +2,6 @@
 # yarn lockfile v1
 
 
-"@terminus-term/node-pty@^0.9.0-beta.1":
-  version "0.9.0-beta.1"
-  resolved "https://registry.yarnpkg.com/@terminus-term/node-pty/-/node-pty-0.9.0-beta.1.tgz#cea7766d61cfd89fce97f0c8bfee6ee8c628a325"
-  integrity sha512-yE2K7DWgggoneZRLvlkJQq/fbz7FTmxydK/p8LSFdKgclEzfI+Nwaa5TizI5ZsgyeephV7eYptFbmfdouZfxrA==
-  dependencies:
-    nan "^2.13.2"
-
 "@terminus-term/windows-process-tree@^0.2.4":
   version "0.2.4"
   resolved "https://registry.yarnpkg.com/@terminus-term/windows-process-tree/-/windows-process-tree-0.2.4.tgz#558f33d5afd934b070aec78da2529fc4042cf90d"
@@ -161,6 +154,13 @@ nan@^2.13.2:
   version "2.13.2"
   resolved "https://registry.yarnpkg.com/nan/-/nan-2.13.2.tgz#f51dc7ae66ba7d5d55e1e6d4d8092e802c9aefe7"
   integrity sha512-TghvYc72wlMGMVMluVo9WRJc0mB8KxxF/gZ4YYFy7V2ZQX9l7rgbPg7vjS9mt6U5HXODVFVI2bOduCzwOMv/lw==
+
+node-pty@^0.9.0-beta9:
+  version "0.9.0-beta9"
+  resolved "https://registry.yarnpkg.com/node-pty/-/node-pty-0.9.0-beta9.tgz#75cffcf4026f543475c115f017ca7fe66cf6e7fe"
+  integrity sha512-h6e8jUikGSZwqt1JHmzT5Zi0fdUCultX/BWrS35suTaZNJm/YSJA2QDG9HTVoSA6dhRvtFoaGiBtgbX9uZKe6w==
+  dependencies:
+    nan "^2.13.2"
 
 object-assign@^4.0.1:
   version "4.1.1"
