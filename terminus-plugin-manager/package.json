@@ -23,7 +23,7 @@
     "@types/webpack-env": "1.13.0",
     "css-loader": "^0.28.0",
     "ngx-pipes": "^1.6.1",
-    "semver": "^5.3.0"
+    "semver": "^6.1.0"
   },
   "peerDependencies": {
     "@angular/common": "4.0.1",
