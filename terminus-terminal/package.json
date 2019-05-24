@@ -27,7 +27,7 @@
     "file-loader": "^0.11.2",
     "slug": "^0.9.3",
     "uuid": "^3.3.2",
-    "xterm": "3.12.2",
+    "xterm": "3.13.2",
     "xterm-addon-ligatures": "^0.1.0-beta-2"
   },
   "peerDependencies": {
