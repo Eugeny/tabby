@@ -155,7 +155,6 @@ export class Session extends BaseSession {
         })
 
         this.pty.on('exit', () => {
-            console.log('session exit')
             if (this.pauseAfterExit) {
                 return
             } else if (this.open) {
@@ -164,7 +163,6 @@ export class Session extends BaseSession {
         })
 
         this.pty.on('close', () => {
-            console.log('session close')
             if (this.pauseAfterExit) {
                 this.emitOutput('\r\nPress any key to close\r\n')
             } else if (this.open) {

@@ -175,7 +175,6 @@ export class HTermFrontend extends Frontend {
             this.io = this.term.io.push()
             this.io.onVTKeystroke = this.io.sendString = data => this.input.next(data)
             this.io.onTerminalResize = (columns, rows) => {
-                console.log('hterm resize')
                 this.resize.next({ columns, rows })
             }
             this.ready.next(null)

@@ -44,7 +44,6 @@ export class EditConnectionModalComponent {
                 }[k]
             ]
         }
-        console.log(this)
     }
 
     async ngOnInit () {
