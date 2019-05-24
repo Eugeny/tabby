@@ -1,9 +1,8 @@
 import 'zone.js'
-import 'core-js/es7/reflect'
-import 'core-js/core/delay'
+import 'core-js/proposals/reflect-metadata'
 import 'rxjs'
 
-import isDev = require('electorn-is-dev')
+import isDev = require('electron-is-dev')
 
 import './global.scss'
 import './toastr.scss'

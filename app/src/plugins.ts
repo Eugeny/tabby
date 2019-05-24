@@ -3,8 +3,6 @@ import * as path from 'path'
 const nodeModule = require('module')
 const nodeRequire = (global as any).require
 
-declare function delay (ms: number): Promise<void>
-
 function normalizePath (path: string): string {
     const cygwinPrefix = '/cygdrive/'
     if (path.startsWith(cygwinPrefix)) {
@@ -163,7 +161,6 @@ export async function loadPlugins (foundPlugins: IPluginInfo[], progress: Progre
         } catch (error) {
             console.error(`Could not load ${foundPlugin.name}:`, error)
         }
-        await delay(1)
         index++
     }
     progress(1, 1)

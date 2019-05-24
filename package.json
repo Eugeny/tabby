@@ -11,7 +11,7 @@
     "app-builder-lib": "^20.41.0",
     "apply-loader": "0.1.0",
     "awesome-typescript-loader": "^5.0.0",
-    "core-js": "2.4.1",
+    "core-js": "^3.1.2",
     "cross-env": "5.2.0",
     "css-loader": "0.28.0",
     "electron": "^5.0.1",
