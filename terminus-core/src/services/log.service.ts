@@ -11,22 +11,20 @@ const initializeWinston = (electron: ElectronService) => {
         fs.mkdirSync(logDirectory)
     }
 
-    return new winston.Logger({
+    return winston.createLogger({
         transports: [
             new winston.transports.File({
                 level: 'debug',
                 filename: path.join(logDirectory, 'log.txt'),
+                format: winston.format.simple(),
                 handleExceptions: false,
-                json: false,
                 maxsize: 5242880,
                 maxFiles: 5,
-                colorize: false
             }),
             new winston.transports.Console({
                 level: 'debug',
                 handleExceptions: false,
-                json: false,
-                colorize: true
+                format: winston.format.colorize(),
             })
         ],
         exitOnError: false

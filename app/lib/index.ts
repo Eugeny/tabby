@@ -43,7 +43,11 @@ if (!app.requestSingleInstanceLock()) {
 }
 
 if (argv.d) {
-    electronDebug({ isEnabled: true, showDevTools: 'undocked' })
+    electronDebug({
+        isEnabled: true,
+        showDevTools: true,
+        devToolsMode: 'undocked'
+    })
 }
 
 app.on('ready', () => {
