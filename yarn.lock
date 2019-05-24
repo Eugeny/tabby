@@ -451,11 +451,12 @@ app-builder-lib@^20.41.0:
     semver "^6.0.0"
     temp-file "^3.3.2"
 
-apply-loader@0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/apply-loader/-/apply-loader-0.1.0.tgz#df7c390fdc5cb1b9283687e0632e6a9d2f120248"
+apply-loader@2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/apply-loader/-/apply-loader-2.0.0.tgz#9cedf84f12ad89399dc9e7b91f4bb183ecea05b9"
+  integrity sha1-nO34TxKtiTmdyee5H0uxg+zqBbk=
   dependencies:
-    loader-utils "~0.2.6"
+    loader-utils "^1.1.0"
 
 aproba@^1.0.3:
   version "1.2.0"
@@ -3413,7 +3414,7 @@ loader-runner@^2.3.0:
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/loader-runner/-/loader-runner-2.3.1.tgz#026f12fe7c3115992896ac02ba022ba92971b979"
 
-loader-utils@0.2.x, loader-utils@^0.2.11, loader-utils@^0.2.16, loader-utils@^0.2.17, loader-utils@~0.2.6:
+loader-utils@0.2.x, loader-utils@^0.2.11, loader-utils@^0.2.16, loader-utils@^0.2.17:
   version "0.2.17"
   resolved "https://registry.yarnpkg.com/loader-utils/-/loader-utils-0.2.17.tgz#f86e6374d43205a6e6c60e9196f17c0299bfb348"
   dependencies:
