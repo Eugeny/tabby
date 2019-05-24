@@ -3370,7 +3370,7 @@ loader-runner@^2.3.0:
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/loader-runner/-/loader-runner-2.3.1.tgz#026f12fe7c3115992896ac02ba022ba92971b979"
 
-loader-utils@0.2.x, loader-utils@^0.2.11, loader-utils@^0.2.14, loader-utils@^0.2.16, loader-utils@~0.2.6:
+loader-utils@0.2.x, loader-utils@^0.2.11, loader-utils@^0.2.16, loader-utils@^0.2.17, loader-utils@~0.2.6:
   version "0.2.17"
   resolved "https://registry.yarnpkg.com/loader-utils/-/loader-utils-0.2.17.tgz#f86e6374d43205a6e6c60e9196f17c0299bfb348"
   dependencies:
@@ -5006,12 +5006,13 @@ pug-filters@^3.1.0:
     resolve "^1.1.6"
     uglify-js "^2.6.1"
 
-pug-html-loader@1.0.9:
-  version "1.0.9"
-  resolved "https://registry.yarnpkg.com/pug-html-loader/-/pug-html-loader-1.0.9.tgz#571d91f54445b62246b4028a8a930d6a434ef1ee"
+pug-html-loader@1.1.5:
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/pug-html-loader/-/pug-html-loader-1.1.5.tgz#b46855a7790a306e43ec5db297dbdbb7995f4b5a"
+  integrity sha512-EOcLK0z0vJ1fSXsDypqL8SsPXVaevS9Oy8JA1RpYYkgAOV9qJXCSedvMYw499hSXxmoXAXIV1qEF2fNFBTwyEQ==
   dependencies:
-    loader-utils "^0.2.14"
-    pug "^2.0.0-beta6"
+    loader-utils "^0.2.17"
+    pug "^2.0.0-rc.2"
 
 pug-lexer@^2.0.1:
   version "2.3.2"
@@ -5097,7 +5098,7 @@ pug-walk@^1.0.0, pug-walk@^1.1.7:
   version "1.1.7"
   resolved "https://registry.yarnpkg.com/pug-walk/-/pug-walk-1.1.7.tgz#c00d5c5128bac5806bec15d2b7e7cdabe42531f3"
 
-pug@^2.0.0-alpha8, pug@^2.0.0-beta6, pug@^2.0.3:
+pug@^2.0.0-alpha8, pug@^2.0.0-rc.2, pug@^2.0.3:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/pug/-/pug-2.0.3.tgz#71cba82537c95a5eab7ed04696e4221f53aa878e"
   dependencies:
