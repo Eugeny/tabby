@@ -6,7 +6,7 @@
     "@types/electron-debug": "^1.1.0",
     "@types/fs-promise": "1.0.1",
     "@types/js-yaml": "^3.11.2",
-    "@types/node": "^10.11.5",
+    "@types/node": "^12.0.2",
     "@types/webpack-env": "1.13.0",
     "app-builder-lib": "^20.41.0",
     "apply-loader": "0.1.0",
