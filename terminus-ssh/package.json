@@ -19,17 +19,14 @@
   "devDependencies": {
     "@types/ssh2": "^0.5.35",
     "@types/webpack-env": "^1.13.0",
-    "electron": "^1.6.11",
-    "ngx-toastr": "^8.0.0",
-    "rxjs": "^5.4.0",
-    "typescript": "^2.2.2",
-    "webpack": "^2.3.3"
+    "ngx-toastr": "^8.0.0"
   },
   "peerDependencies": {
     "@angular/common": "^4.1.3",
     "@angular/core": "^4.1.3",
     "@angular/forms": "^4.1.3",
     "@ng-bootstrap/ng-bootstrap": "^1.0.0-alpha.29",
+    "rxjs": "^5.4.0",
     "terminus-core": "*",
     "terminus-settings": "*",
     "terminus-terminal": "*"
