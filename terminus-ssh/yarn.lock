@@ -191,11 +191,11 @@ isarray@~1.0.0:
   integrity sha1-u5NdSFgsuhaMBoNJV6VKPgcSTxE=
 
 keytar@^4.7.0:
-  version "4.7.0"
-  resolved "https://registry.yarnpkg.com/keytar/-/keytar-4.7.0.tgz#992f646ace0862ee72a513a9f6cf7c21ef97078f"
-  integrity sha512-0hLlRRkhdR0068fVQo21hnIndGvacsh9PtAHGAPMPzxFjJwP8idAkVAcbdb1P5B+gterCBa3+4hxL0NPMDlZtw==
+  version "4.8.0"
+  resolved "https://registry.yarnpkg.com/keytar/-/keytar-4.8.0.tgz#78cdd88aeae63293802720871efa46453f94a352"
+  integrity sha512-uHAB0vNOmI0+HiwIpkU0gqIzqAbDdlAU2wlZbQzh/N/gENEledEl1ckV5APiy+Ri0g39cERSTSBk83EnPqsuAA==
   dependencies:
-    nan "2.13.2"
+    nan "2.14.0"
     prebuild-install "5.3.0"
 
 mimic-response@^1.0.0:
@@ -220,15 +220,10 @@ mkdirp@^0.5.1:
   dependencies:
     minimist "0.0.8"
 
-nan@2.13.2:
-  version "2.13.2"
-  resolved "https://registry.yarnpkg.com/nan/-/nan-2.13.2.tgz#f51dc7ae66ba7d5d55e1e6d4d8092e802c9aefe7"
-  integrity sha512-TghvYc72wlMGMVMluVo9WRJc0mB8KxxF/gZ4YYFy7V2ZQX9l7rgbPg7vjS9mt6U5HXODVFVI2bOduCzwOMv/lw==
-
-nan@^2.10.0:
-  version "2.11.1"
-  resolved "https://registry.yarnpkg.com/nan/-/nan-2.11.1.tgz#90e22bccb8ca57ea4cd37cc83d3819b52eea6766"
-  integrity sha512-iji6k87OSXa0CcrLl9z+ZiYSuR2o+c0bGuNmXdrhTQTakxytAFsC56SArGYoiHlJlFoHSnvmhpceZJaXkVuOtA==
+nan@2.14.0, nan@^2.10.0:
+  version "2.14.0"
+  resolved "https://registry.yarnpkg.com/nan/-/nan-2.14.0.tgz#7818f722027b2459a86f0295d434d1fc2336c52c"
+  integrity sha512-INOFj37C7k3AfaNTtX8RhsTw7qRy7eLET14cROi9+5HAVbbHuIWUHEauBv5qT4Av2tWasiTY1Jw6puUNqRJXQg==
 
 napi-build-utils@^1.0.1:
   version "1.0.1"
