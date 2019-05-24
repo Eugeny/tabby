@@ -17,7 +17,7 @@
   "author": "Eugene Pankov",
   "license": "MIT",
   "devDependencies": {
-    "@types/mz": "0.0.31",
+    "@types/mz": "0.0.32",
     "@types/node": "7.0.12",
     "@types/semver": "^5.3.32",
     "@types/webpack-env": "1.13.0",
