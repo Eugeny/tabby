@@ -216,10 +216,10 @@ debug@^4.1.1:
   dependencies:
     ms "^2.1.1"
 
-deepmerge@^1.5.0:
-  version "1.5.1"
-  resolved "https://registry.yarnpkg.com/deepmerge/-/deepmerge-1.5.1.tgz#c053bf06fd7276f1994f70c09a0760cb61a56237"
-  integrity sha512-Ndl8eeOHB9dQkmT1HWCgY3t0odl4bmWKFzjQZBYAxVTNs2B3nn5b6orimRYHKZ4FI8psvZkA1INRCW6l7vc9lQ==
+deepmerge@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/deepmerge/-/deepmerge-3.2.0.tgz#58ef463a57c08d376547f8869fdc5bcee957f44e"
+  integrity sha512-6+LuZGU7QCNUnAJyX8cIrlzoEgggTM6B7mm+znKOX4t5ltluT9KLjN6g61ECMS0LTsLW7yDpNoxhix5FZcrIow==
 
 delayed-stream@~1.0.0:
   version "1.0.0"
