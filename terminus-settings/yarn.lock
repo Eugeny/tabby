@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@types/deep-equal@1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@types/deep-equal/-/deep-equal-1.0.0.tgz#9ebeaa73d1fc4791f038a5f1440e0449ea968495"
-  integrity sha1-nr6qc9H8R5HwOKXxRA4ESeqWhJU=
+"@types/deep-equal@1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@types/deep-equal/-/deep-equal-1.0.1.tgz#71cfabb247c22bcc16d536111f50c0ed12476b03"
+  integrity sha512-mMUu4nWHLBlHtxXY17Fg6+ucS/MnndyOWyOe7MmwkoMYxvfQU2ajtRaEvqSUv+aVkMqH/C0NCI8UoVfRNQ10yg==
 
 "@types/node@7.0.12":
   version "7.0.12"
