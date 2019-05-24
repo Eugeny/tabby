@@ -24,9 +24,12 @@
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/@types/electron-config/-/electron-config-0.2.1.tgz#dceb3edb856e404138fb869cd4ed539ef88b882c"
 
-"@types/electron-debug@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@types/electron-debug/-/electron-debug-1.1.0.tgz#b9203bad33dccc5a4ea180a89a9dbcf1961f4c3c"
+"@types/electron-debug@^2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@types/electron-debug/-/electron-debug-2.1.0.tgz#184f46b10ec823b396328177980af38a3b0ec6f6"
+  integrity sha512-/bvdTUd2OF0LZuVp/qPZYhyraBkFBkULhk665ine71zIi2QywzirS+5rxt/n9Bj5RWqO6TYZKslFc+Vy+chggQ==
+  dependencies:
+    electron-debug "*"
 
 "@types/events@*":
   version "3.0.0"
@@ -1876,6 +1879,14 @@ electron-builder@^20.40.2:
     update-notifier "^2.5.0"
     yargs "^13.2.2"
 
+electron-debug@*:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/electron-debug/-/electron-debug-3.0.0.tgz#55b7895df7f371558d0595d14dc2f8a738a41c81"
+  integrity sha512-rLrnn7L2soeIqwB6FIzn4+pj6RwT66XhUxadcrS3okjB3ezAv8LsolqrFrO2UrTrvchZgTCcEapV4J0UxlYWIw==
+  dependencies:
+    electron-is-dev "^1.1.0"
+    electron-localshortcut "^3.1.0"
+
 electron-download@^4.1.0:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/electron-download/-/electron-download-4.1.1.tgz#02e69556705cc456e520f9e035556ed5a015ebe8"
@@ -1909,6 +1920,26 @@ electron-installer-snap@^3.0.0:
     tmp-promise "^1.0.3"
     which "^1.3.0"
     yargs "^11.0.0"
+
+electron-is-accelerator@^0.1.0:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/electron-is-accelerator/-/electron-is-accelerator-0.1.2.tgz#509e510c26a56b55e17f863a4b04e111846ab27b"
+  integrity sha1-UJ5RDCala1Xhf4Y6SwThEYRqsns=
+
+electron-is-dev@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/electron-is-dev/-/electron-is-dev-1.1.0.tgz#b15a2a600bdc48a51a857d460e05f15b19a2522c"
+  integrity sha512-Z1qA/1oHNowGtSBIcWk0pcLEqYT/j+13xUw/MYOrBUOL4X7VN0i0KCTf5SqyvMPmW5pSPKbo28wkxMxzZ20YnQ==
+
+electron-localshortcut@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/electron-localshortcut/-/electron-localshortcut-3.1.0.tgz#10c1ffd537b8d39170aaf6e1551341f7780dd2ce"
+  integrity sha512-MgL/j5jdjW7iA0R6cI7S045B0GlKXWM1FjjujVPjlrmyXRa6yH0bGSaIAfxXAF9tpJm3pLEiQzerYHkRh9JG/A==
+  dependencies:
+    debug "^2.6.8"
+    electron-is-accelerator "^0.1.0"
+    keyboardevent-from-electron-accelerator "^1.1.0"
+    keyboardevents-areequal "^0.2.1"
 
 electron-osx-sign@0.4.11:
   version "0.4.11"
@@ -3303,6 +3334,16 @@ jstransformer@1.0.0:
   dependencies:
     is-promise "^2.0.0"
     promise "^7.0.1"
+
+keyboardevent-from-electron-accelerator@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/keyboardevent-from-electron-accelerator/-/keyboardevent-from-electron-accelerator-1.1.0.tgz#324614f6e33490c37ffc5be5876b3e85fe223c84"
+  integrity sha512-VDC4vKWGrR3VgIKCE4CsXnvObGgP8C2idnTKEMUkuEuvDGE1GEBX9FtNdJzrD00iQlhI3xFxRaeItsUmlERVng==
+
+keyboardevents-areequal@^0.2.1:
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/keyboardevents-areequal/-/keyboardevents-areequal-0.2.2.tgz#88191ec738ce9f7591c25e9056de928b40277194"
+  integrity sha512-Nv+Kr33T0mEjxR500q+I6IWisOQ0lK1GGOncV0kWE6n4KFmpcu7RUX5/2B0EUtX51Cb0HjZ9VJsSY3u4cBa0kw==
 
 kind-of@^3.0.2, kind-of@^3.0.3, kind-of@^3.2.0:
   version "3.2.2"
