@@ -185,7 +185,7 @@ export class XTermFrontend extends Frontend {
         }
 
         if (config.terminal.ligatures && this.xterm.element) {
-             enableLigatures(this.xterm)
+            enableLigatures(this.xterm)
         }
     }
 

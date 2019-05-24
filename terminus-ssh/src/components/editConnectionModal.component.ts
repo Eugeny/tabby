@@ -27,22 +27,18 @@ export class EditConnectionModalComponent {
         this.newScript = { expect: '', send: '' }
 
         for (let k of Object.values(SSHAlgorithmType)) {
-            this.supportedAlgorithms[k] = ALGORITHMS[
-                {
-                    [SSHAlgorithmType.KEX]: 'SUPPORTED_KEX',
-                    [SSHAlgorithmType.HOSTKEY]: 'SUPPORTED_SERVER_HOST_KEY',
-                    [SSHAlgorithmType.CIPHER]: 'SUPPORTED_CIPHER',
-                    [SSHAlgorithmType.HMAC]: 'SUPPORTED_HMAC',
-                }[k]
-            ]
-            this.defaultAlgorithms[k] = ALGORITHMS[
-                {
-                    [SSHAlgorithmType.KEX]: 'KEX',
-                    [SSHAlgorithmType.HOSTKEY]: 'SERVER_HOST_KEY',
-                    [SSHAlgorithmType.CIPHER]: 'CIPHER',
-                    [SSHAlgorithmType.HMAC]: 'HMAC',
-                }[k]
-            ]
+            this.supportedAlgorithms[k] = ALGORITHMS[{
+                [SSHAlgorithmType.KEX]: 'SUPPORTED_KEX',
+                [SSHAlgorithmType.HOSTKEY]: 'SUPPORTED_SERVER_HOST_KEY',
+                [SSHAlgorithmType.CIPHER]: 'SUPPORTED_CIPHER',
+                [SSHAlgorithmType.HMAC]: 'SUPPORTED_HMAC',
+            }[k]]
+            this.defaultAlgorithms[k] = ALGORITHMS[{
+                [SSHAlgorithmType.KEX]: 'KEX',
+                [SSHAlgorithmType.HOSTKEY]: 'SERVER_HOST_KEY',
+                [SSHAlgorithmType.CIPHER]: 'CIPHER',
+                [SSHAlgorithmType.HMAC]: 'HMAC',
+            }[k]]
         }
     }
 
