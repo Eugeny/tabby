@@ -18,7 +18,7 @@
   "license": "MIT",
   "devDependencies": {
     "@types/deep-equal": "^1.0.0",
-    "@types/mz": "0.0.31",
+    "@types/mz": "0.0.32",
     "@types/node": "7.0.12",
     "@types/slug": "^0.9.1",
     "@types/webpack-env": "1.13.9",
