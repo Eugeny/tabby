@@ -18,7 +18,7 @@
     "electron-builder": "^20.40.2",
     "electron-installer-snap": "^3.0.0",
     "electron-rebuild": "^1.8.4",
-    "file-loader": "^1.1.11",
+    "file-loader": "^3.0.1",
     "graceful-fs": "^4.1.15",
     "html-loader": "0.4.4",
     "json-loader": "0.5.7",
