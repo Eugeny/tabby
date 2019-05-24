@@ -3205,13 +3205,19 @@ isstream@~0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/isstream/-/isstream-0.1.2.tgz#47e63f7af55afa6f92e1500e690eb8b8529c099a"
 
-joi@^8.0.5:
-  version "8.4.2"
-  resolved "https://registry.yarnpkg.com/joi/-/joi-8.4.2.tgz#bd7774658fe99058d8994ed1d4b9962484ebb859"
+items@2.x.x:
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/items/-/items-2.1.2.tgz#0849354595805d586dac98e7e6e85556ea838558"
+  integrity sha512-kezcEqgB97BGeZZYtX/MA8AG410ptURstvnz5RAgyFZ8wQFPMxHY8GpTq+/ZHKT3frSlIthUq7EvLt9xn3TvXg==
+
+joi@^10.6.0:
+  version "10.6.0"
+  resolved "https://registry.yarnpkg.com/joi/-/joi-10.6.0.tgz#52587f02d52b8b75cdb0c74f0b164a191a0e1fc2"
+  integrity sha512-hBF3LcqyAid+9X/pwg+eXjD2QBZI5eXnBFJYaAkH4SK3mp9QSRiiQnDYlmlz5pccMvnLcJRS4whhDOTCkmsAdQ==
   dependencies:
     hoek "4.x.x"
     isemail "2.x.x"
-    moment "2.x.x"
+    items "2.x.x"
     topo "2.x.x"
 
 js-base64@^2.1.8, js-base64@^2.1.9:
@@ -3854,10 +3860,6 @@ mksnapshot@^0.3.0:
     decompress-zip "0.3.0"
     fs-extra "0.26.7"
     request "^2.79.0"
-
-moment@2.x.x:
-  version "2.22.2"
-  resolved "https://registry.yarnpkg.com/moment/-/moment-2.22.2.tgz#3c257f9839fc0e93ff53149632239eb90783ff66"
 
 move-concurrently@^1.0.1, move-concurrently@~1.0.1:
   version "1.0.1"
@@ -5120,12 +5122,13 @@ pug-runtime@^2.0.4:
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/pug-runtime/-/pug-runtime-2.0.4.tgz#e178e1bda68ab2e8c0acfc9bced2c54fd88ceb58"
 
-pug-static-loader@0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/pug-static-loader/-/pug-static-loader-0.0.1.tgz#d7771732d88e8ccbb111018d6040787373b6cbcb"
+pug-static-loader@2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/pug-static-loader/-/pug-static-loader-2.0.0.tgz#7f377f33a6dcc0e0e84b3b132b42373cc759b51b"
+  integrity sha512-Av/HduRA53wnVueNVfn+XUYVVb2e0MKrxNEdPU223jtb62b4st8fPi4wsSpvUy15ReHUOnfbfkCjkQT9RUos8Q==
   dependencies:
-    joi "^8.0.5"
-    pug "^2.0.0-alpha8"
+    joi "^10.6.0"
+    pug "^2.0.0-rc.2"
 
 pug-strip-comments@^1.0.3:
   version "1.0.3"
@@ -5137,7 +5140,7 @@ pug-walk@^1.0.0, pug-walk@^1.1.7:
   version "1.1.7"
   resolved "https://registry.yarnpkg.com/pug-walk/-/pug-walk-1.1.7.tgz#c00d5c5128bac5806bec15d2b7e7cdabe42531f3"
 
-pug@^2.0.0-alpha8, pug@^2.0.0-rc.2, pug@^2.0.3:
+pug@^2.0.0-rc.2, pug@^2.0.3:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/pug/-/pug-2.0.3.tgz#71cba82537c95a5eab7ed04696e4221f53aa878e"
   dependencies:
