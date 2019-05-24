@@ -46,6 +46,6 @@
   "dependencies": {
     "deepmerge": "^1.5.0",
     "js-yaml": "^3.9.0",
-    "winston": "^2.4.0"
+    "winston": "^3.2.1"
   }
 }
