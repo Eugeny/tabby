@@ -36,7 +36,7 @@
   },
   "optionalDependencies": {
     "windows-blurbehind": "^1.0.1",
-    "windows-swca": "^2.0.1"
+    "windows-swca": "^2.0.2"
   },
   "devDependencies": {
     "@types/mz": "0.0.31"
