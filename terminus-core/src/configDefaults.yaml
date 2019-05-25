@@ -11,3 +11,4 @@ appearance:
   vibrancy: false
   vibrancyType: 'blur'
 enableAnalytics: true
+enableWelcomeTab: true

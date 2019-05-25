@@ -16,7 +16,7 @@ export class HomeBaseService {
     ) {
         this.appVersion = electron.app.getVersion()
 
-        if (this.config.store.enableAnalytics) {
+        if (this.config.store.enableAnalytics && !this.config.store.enableWelcomeTab) {
             this.enableAnalytics()
         }
     }

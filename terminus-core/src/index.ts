@@ -18,6 +18,7 @@ import { WindowControlsComponent } from './components/windowControls.component'
 import { RenameTabModalComponent } from './components/renameTabModal.component'
 import { SplitTabComponent, SplitTabRecoveryProvider } from './components/splitTab.component'
 import { SplitTabSpannerComponent } from './components/splitTabSpanner.component'
+import { WelcomeTabComponent } from './components/welcomeTab.component'
 
 import { AutofocusDirective } from './directives/autofocus.directive'
 
@@ -26,6 +27,9 @@ import { ConfigProvider } from './api/configProvider'
 import { Theme } from './api/theme'
 import { TabContextMenuItemProvider } from './api/tabContextMenuProvider'
 import { TabRecoveryProvider } from './api/tabRecovery'
+
+import { AppService } from './services/app.service'
+import { ConfigService } from './services/config.service'
 
 import { StandardTheme, StandardCompactTheme, PaperTheme } from './theme'
 import { CoreConfigProvider } from './config'
@@ -72,11 +76,13 @@ const PROVIDERS = [
         AutofocusDirective,
         SplitTabComponent,
         SplitTabSpannerComponent,
+        WelcomeTabComponent,
     ],
     entryComponents: [
         RenameTabModalComponent,
         SafeModeModalComponent,
         SplitTabComponent,
+        WelcomeTabComponent,
     ],
     exports: [
         CheckboxComponent,
@@ -85,6 +91,14 @@ const PROVIDERS = [
     ]
 })
 export default class AppModule {
+    constructor (app: AppService, config: ConfigService) {
+        app.ready$.subscribe(() => {
+            if (config.store.enableWelcomeTab) {
+                app.openNewTabRaw(WelcomeTabComponent)
+            }
+        })
+    }
+
     static forRoot (): ModuleWithProviders {
         return {
             ngModule: AppModule,
