@@ -191,9 +191,9 @@ isarray@~1.0.0:
   integrity sha1-u5NdSFgsuhaMBoNJV6VKPgcSTxE=
 
 keytar@^4.7.0:
-  version "4.8.0"
-  resolved "https://registry.yarnpkg.com/keytar/-/keytar-4.8.0.tgz#78cdd88aeae63293802720871efa46453f94a352"
-  integrity sha512-uHAB0vNOmI0+HiwIpkU0gqIzqAbDdlAU2wlZbQzh/N/gENEledEl1ckV5APiy+Ri0g39cERSTSBk83EnPqsuAA==
+  version "4.9.0"
+  resolved "https://registry.yarnpkg.com/keytar/-/keytar-4.9.0.tgz#c7c91b11ef9e7a66886b8bc0dc3a9fc481696d4f"
+  integrity sha512-5aKEpnxRWUIhSlRXckqTxomqokV1/tOBe3EdbCDyMjDaoa5AkVHVa1yK+fa2CgJR5MadbJndFWmcDMCq812F4A==
   dependencies:
     nan "2.14.0"
     prebuild-install "5.3.0"
