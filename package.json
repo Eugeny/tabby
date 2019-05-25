@@ -8,7 +8,7 @@
     "@types/js-yaml": "^3.12.1",
     "@types/node": "^12.0.2",
     "@types/webpack-env": "1.13.9",
-    "app-builder-lib": "^20.41.0",
+    "app-builder-lib": "^20.42.0",
     "apply-loader": "2.0.0",
     "awesome-typescript-loader": "^5.0.0",
     "core-js": "^3.1.2",
