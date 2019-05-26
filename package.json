@@ -110,6 +110,7 @@
         "gconf2",
         "gconf-service",
         "libnotify4",
+        "libsecret-1-0",
         "libappindicator1",
         "libxtst6",
         "libnss3",

@@ -50,6 +50,7 @@ addons:
     packages:
     - rpm
     - yarn
+    - libsecret-1-dev
     sources:
     - sourceline: 'deb https://dl.yarnpkg.com/debian/ stable main'
       key_url: 'https://dl.yarnpkg.com/debian/pubkey.gpg'
