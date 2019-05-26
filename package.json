@@ -79,7 +79,8 @@
     "publish": [
       {
         "provider": "bintray",
-        "token": "d993c4faa708a4cba84fa3a8e822457e7298d75c"
+        "token": "d993c4faa708a4cba84fa3a8e822457e7298d75c",
+        "component": "main"
       },
       {
         "provider": "github"
