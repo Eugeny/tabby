@@ -30,7 +30,7 @@ export class AppearanceSettingsTabComponent {
     async ngOnInit () {
         if (this.hostApp.platform === Platform.Windows || this.hostApp.platform === Platform.macOS) {
             let fonts = await new Promise<any[]>((resolve) => fontManager.findFonts({ monospace: true }, resolve))
-            this.fonts = fonts.map(x => x.family)
+            this.fonts = fonts.map(x => (x.family + ' ' + x.style).trim())
             this.fonts.sort()
         }
         if (this.hostApp.platform === Platform.Linux) {
