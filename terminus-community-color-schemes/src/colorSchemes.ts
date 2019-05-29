@@ -9,7 +9,7 @@ export class ColorSchemes extends TerminalColorSchemeProvider {
         let schemes: ITerminalColorScheme[] = []
 
         schemeContents.keys().forEach(schemeFile => {
-            let lines = (schemeContents(schemeFile) as string).split('\n')
+            let lines = (schemeContents(schemeFile).default as string).split('\n')
 
             // process #define variables
             let variables: any = {}
