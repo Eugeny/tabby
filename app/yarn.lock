@@ -51,10 +51,10 @@
   dependencies:
     tslib "^1.9.0"
 
-"@ng-bootstrap/ng-bootstrap@^4.1.3":
-  version "4.1.3"
-  resolved "https://registry.yarnpkg.com/@ng-bootstrap/ng-bootstrap/-/ng-bootstrap-4.1.3.tgz#9e054b3d7c5fb14d7ca102dd6bf1233a4bcb24bd"
-  integrity sha512-aW6qhBUfKQ0qnqwkZAZT5SmJsT5Bh/mKKO3kZH3MWcIN9gxQ/8/Bva6O+w8IYrbm3Os0+XlRdBXbu/mybYn7yw==
+"@ng-bootstrap/ng-bootstrap@^4.2.0":
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/@ng-bootstrap/ng-bootstrap/-/ng-bootstrap-4.2.0.tgz#17152252834f3b5dc50742f3aafeaa9eb27a05f8"
+  integrity sha512-41Sg9RKgFGfnkWJhzPJIumYbib+GCTZ8N17q3PGfLORqtIN25KUFHGuO8EYOYd+zrDVYe8g4JYZoxQZvxaxm6w==
   dependencies:
     tslib "^1.9.0"
 
