@@ -41,7 +41,7 @@
     "style-loader": "^0.23.1",
     "svg-inline-loader": "^0.8.0",
     "to-string-loader": "1.1.5",
-    "tslint": "^5.16.0",
+    "tslint": "^5.17.0",
     "tslint-config-standard": "^8.0.1",
     "tslint-eslint-rules": "^5.4.0",
     "typedoc": "^0.14.2",
