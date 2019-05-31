@@ -25,10 +25,11 @@
     "bootstrap": "^4.1.3",
     "core-js": "^3.1.2",
     "electron-updater": "^4.0.6",
+    "mixpanel": "^0.10.2",
     "ng2-dnd": "^5.0.2",
     "ngx-perfect-scrollbar": "^6.0.0",
     "shell-escape": "^0.2.0",
-    "universal-analytics": "^0.4.17"
+    "uuid": "^3.3.2"
   },
   "optionalDependencies": {
     "windows-native-registry": "^1.0.14"

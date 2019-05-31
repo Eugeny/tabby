@@ -230,7 +230,7 @@ ngb-tabset.vertical(type='pills', [activeId]='activeTab')
             .form-line
                 .header
                     .title Enable analytics
-                    .description We use Google Analytics
+                    .description We're only tracking your Terminus and OS versions.
                 toggle(
                     [(ngModel)]='config.store.enableAnalytics',
                     (ngModelChange)='config.save(); config.requestRestart()',

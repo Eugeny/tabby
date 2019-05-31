@@ -2,12 +2,13 @@ import * as os from 'os'
 import { Injectable } from '@angular/core'
 import { ElectronService } from './electron.service'
 import { ConfigService } from './config.service'
-import ua = require('universal-analytics')
+import mixpanel = require('mixpanel')
 import uuidv4 = require('uuid/v4')
 
 @Injectable({ providedIn: 'root' })
 export class HomeBaseService {
     appVersion: string
+    mixpanel: any
 
     /** @hidden */
     constructor (
@@ -42,9 +43,20 @@ export class HomeBaseService {
         if (!window.localStorage.analyticsUserID) {
             window.localStorage.analyticsUserID = uuidv4()
         }
-        const session = ua('UA-3278102-20', window.localStorage.analyticsUserID)
-        session.set('cd1', this.appVersion)
-        session.set('cd2', process.platform)
-        session.pageview('/').send()
+        this.mixpanel = mixpanel.init('bb4638b0860eef14c04d4fbc5eb365fa')
+        if (!window.localStorage.installEventSent) {
+            this.mixpanel.track('freshInstall', this.getAnalyticsProperties())
+            window.localStorage.installEventSent = true
+        }
+        this.mixpanel.track('launch', this.getAnalyticsProperties())
+    }
+
+    getAnalyticsProperties () {
+        return {
+            distinct_id: window.localStorage.analyticsUserID,
+            platform: process.platform,
+            os: os.release(),
+            version: this.appVersion,
+        }
     }
 }
