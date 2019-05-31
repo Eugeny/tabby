@@ -64,6 +64,7 @@ const builtinModules = [
     'ngx-toastr',
     'rxjs',
     'rxjs/operators',
+    'rxjs-compat/Subject',
     'terminus-core',
     'terminus-settings',
     'terminus-terminal',
@@ -72,11 +73,14 @@ const builtinModules = [
 
 const cachedBuiltinModules = {}
 builtinModules.forEach(m => {
+    const label = 'Caching ' + m
+    console.time(label)
     cachedBuiltinModules[m] = nodeRequire(m)
+    console.timeEnd(label)
 })
 
-const originalRequire = nodeRequire('module').prototype.require
-nodeRequire('module').prototype.require = function (query) {
+const originalRequire = (global as any).require
+;(global as any).require = function (query) {
     if (cachedBuiltinModules[query]) {
         return cachedBuiltinModules[query]
     }
@@ -156,14 +160,14 @@ export async function loadPlugins (foundPlugins: IPluginInfo[], progress: Progre
         console.info(`Loading ${foundPlugin.name}: ${nodeRequire.resolve(foundPlugin.path)}`)
         progress(index, foundPlugins.length)
         try {
-            console.timeStamp('Loading ' + foundPlugin.name)
-            console.time('Loading ' + foundPlugin.name)
+            const label = 'Loading ' + foundPlugin.name
+            console.time(label)
             let packageModule = nodeRequire(foundPlugin.path)
             let pluginModule = packageModule.default.forRoot ? packageModule.default.forRoot() : packageModule.default
             pluginModule['pluginName'] = foundPlugin.name
             pluginModule['bootstrap'] = packageModule.bootstrap
             plugins.push(pluginModule)
-            console.timeEnd('Loading ' + foundPlugin.name)
+            console.timeEnd(label)
         } catch (error) {
             console.error(`Could not load ${foundPlugin.name}:`, error)
         }
