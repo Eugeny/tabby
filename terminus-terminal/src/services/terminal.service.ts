@@ -91,7 +91,7 @@ export class TerminalService {
             cwd = cwd || null
         }
 
-        this.logger.log(`Starting profile ${profile.name}`, profile)
+        this.logger.info(`Starting profile ${profile.name}`, profile)
         let sessionOptions = {
             ...profile.sessionOptions,
             pauseAfterExit: pause,
@@ -116,7 +116,7 @@ export class TerminalService {
         if (sessionOptions.runAsAdministrator && this.uac.isAvailable) {
             sessionOptions = this.uac.patchSessionOptionsForUAC(sessionOptions)
         }
-        this.logger.log('Using session options:', sessionOptions)
+        this.logger.info('Using session options:', sessionOptions)
 
         return this.app.openNewTab(
             TerminalTabComponent,
