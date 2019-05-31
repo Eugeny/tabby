@@ -144,9 +144,13 @@ export class XTermFrontend extends Frontend {
         let config = this.configService.store
 
         setImmediate(() => {
-            if (this.xterm.cols && this.xterm.rows) {
-                this.xtermCore.charMeasure.measure(this.xtermCore.options)
-                this.xtermCore.renderer._updateDimensions()
+            if (this.xterm.cols && this.xterm.rows && this.xtermCore.charMeasure) {
+                if (this.xtermCore.charMeasure) {
+                    this.xtermCore.charMeasure.measure(this.xtermCore.options)
+                }
+                if (this.xtermCore.renderer) {
+                    this.xtermCore.renderer._updateDimensions()
+                }
                 this.resizeHandler()
             }
         })
@@ -179,7 +183,7 @@ export class XTermFrontend extends Frontend {
             theme[colorNames[i]] = config.terminal.colorScheme.colors[i]
         }
 
-        if (!deepEqual(this.configuredTheme, theme)) {
+        if (this.xtermCore._colorManager && !deepEqual(this.configuredTheme, theme)) {
             this.xterm.setOption('theme', theme)
             this.configuredTheme = theme
         }
