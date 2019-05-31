@@ -87,6 +87,7 @@ export async function findPlugins (): Promise<IPluginInfo[]> {
     let paths = nodeModule.globalPaths
     let foundPlugins: IPluginInfo[] = []
     let candidateLocations: { pluginDir: string, packageName: string }[] = []
+    const PREFIX = 'terminus-'
 
     for (let pluginDir of paths) {
         pluginDir = normalizePath(pluginDir)
@@ -101,7 +102,9 @@ export async function findPlugins (): Promise<IPluginInfo[]> {
             })
         }
         for (let packageName of pluginNames) {
-            candidateLocations.push({ pluginDir, packageName })
+            if (packageName.startsWith(PREFIX)) {
+                candidateLocations.push({ pluginDir, packageName })
+            }
         }
     }
 
@@ -112,7 +115,7 @@ export async function findPlugins (): Promise<IPluginInfo[]> {
             continue
         }
 
-        let name = packageName.substring('terminus-'.length)
+        let name = packageName.substring(PREFIX.length)
 
         if (foundPlugins.some(x => x.name === name)) {
             console.info(`Plugin ${packageName} already exists, overriding`)
@@ -153,11 +156,14 @@ export async function loadPlugins (foundPlugins: IPluginInfo[], progress: Progre
         console.info(`Loading ${foundPlugin.name}: ${nodeRequire.resolve(foundPlugin.path)}`)
         progress(index, foundPlugins.length)
         try {
+            console.timeStamp('Loading ' + foundPlugin.name)
+            console.time('Loading ' + foundPlugin.name)
             let packageModule = nodeRequire(foundPlugin.path)
             let pluginModule = packageModule.default.forRoot ? packageModule.default.forRoot() : packageModule.default
             pluginModule['pluginName'] = foundPlugin.name
             pluginModule['bootstrap'] = packageModule.bootstrap
             plugins.push(pluginModule)
+            console.timeEnd('Loading ' + foundPlugin.name)
         } catch (error) {
             console.error(`Could not load ${foundPlugin.name}:`, error)
         }
