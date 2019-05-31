@@ -254,10 +254,10 @@ xterm-addon-ligatures@^0.1.0-beta-2:
     font-finder "^1.0.2"
     font-ligatures "^1.3.1"
 
-xterm@3.13.2:
-  version "3.13.2"
-  resolved "https://registry.yarnpkg.com/xterm/-/xterm-3.13.2.tgz#987c3a7fe3d23d6c03ce0eaf06c0554c38935570"
-  integrity sha512-4utKoF16/pzH6+EkFaaay+qPCozf5RP2P0JuH6rvIGHY0CRwgU2LwbQ/24DY+TvaZ5m+kwvIUvPqIBoMZYfgOg==
+xterm@3.14.0:
+  version "3.14.0"
+  resolved "https://registry.yarnpkg.com/xterm/-/xterm-3.14.0.tgz#cee4c64aa3068955a42a15aad867ef40a20c8f5a"
+  integrity sha512-a5qL7iDLuzAzul6BHADoluO8yN3e8tEVMTACBXyi84WLExiz5Sc+hRrV4XL9gg3J3I3Gnh+C9FlsNuPtiRP7Wg==
 
 yallist@^2.1.2:
   version "2.1.2"
