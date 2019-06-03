@@ -36,7 +36,7 @@ export class UpdaterService {
 
         this.logger.debug('Checking for updates')
 
-        if (this.electronUpdaterAvailable) {
+        if (this.electronUpdaterAvailable && !process.env.TERMINUS_DEV) {
             try {
                 this.autoUpdater.checkForUpdates()
             } catch (e) {
