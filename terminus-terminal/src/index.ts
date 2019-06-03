@@ -165,7 +165,7 @@ export default class TerminalModule {
                 hostApp.newWindow()
             }
             if (hotkey.startsWith('profile.')) {
-                let profiles = await config.store.terminal.getProfiles()
+                let profiles = await terminal.getProfiles()
                 let profile = profiles.find(x => slug(x.name).toLowerCase() === hotkey.split('.')[1])
                 if (profile) {
                     terminal.openTabWithOptions(profile.sessionOptions)
