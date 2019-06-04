@@ -20,11 +20,6 @@ const initializeWinston = (electron: ElectronService) => {
                 handleExceptions: false,
                 maxsize: 5242880,
                 maxFiles: 5,
-            }),
-            new winston.transports.Console({
-                level: 'debug',
-                handleExceptions: false,
-                format: winston.format.colorize(),
             })
         ],
         exitOnError: false
