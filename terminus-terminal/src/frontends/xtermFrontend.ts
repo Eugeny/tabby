@@ -1,9 +1,8 @@
 import { Frontend } from './frontend'
 import { Terminal, ITheme } from 'xterm'
-import { fit } from 'xterm/src/addons/fit/fit'
+import { FitAddon } from './xtermAddonFit'
 import { enableLigatures } from 'xterm-addon-ligatures'
 import { SearchAddon, ISearchOptions } from './xtermSearchAddon'
-import 'xterm/lib/xterm.css'
 import './xterm.css'
 import deepEqual = require('deep-equal')
 
@@ -18,13 +17,13 @@ export class XTermFrontend extends Frontend {
     private configuredTheme: ITheme = {}
     private copyOnSelect = false
     private search = new SearchAddon()
+    private fitAddon = new FitAddon()
+    private opened = false
 
     constructor () {
         super()
         this.xterm = new Terminal({
             allowTransparency: true,
-            enableBold: true,
-            experimentalCharAtlas: 'dynamic',
         })
         this.xtermCore = (this.xterm as any)._core
 
@@ -42,6 +41,7 @@ export class XTermFrontend extends Frontend {
                 this.copySelection()
             }
         })
+        this.xterm.loadAddon(this.fitAddon)
 
         const keyboardEventHandler = (name: string, event: KeyboardEvent) => {
             this.hotkeysService.pushKeystroke(name, event)
@@ -74,7 +74,7 @@ export class XTermFrontend extends Frontend {
 
         this.resizeHandler = () => {
             try {
-                fit(this.xterm)
+                this.fitAddon.fit()
             } catch {
                 // tends to throw when element wasn't shown yet
             }
@@ -88,6 +88,12 @@ export class XTermFrontend extends Frontend {
 
     attach (host: HTMLElement): void {
         this.xterm.open(host)
+        this.opened = true
+        ;(this.xterm as any).loadWebgl(false)
+        if (this.configService.store.terminal.ligatures) {
+            enableLigatures(this.xterm)
+        }
+
         this.ready.next(null)
         this.ready.complete()
 
@@ -192,7 +198,7 @@ export class XTermFrontend extends Frontend {
             this.configuredTheme = theme
         }
 
-        if (config.terminal.ligatures && this.xterm.element) {
+        if (this.opened && config.terminal.ligatures) {
             enableLigatures(this.xterm)
         }
     }

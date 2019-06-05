@@ -146,7 +146,7 @@ export class Session extends BaseSession {
 
         this.open = true
 
-        this.pty.on('data-buffered', data => {
+        this.pty.onData(data => {
             data = this.processOSC1337(data)
             this.emitOutput(data)
             if (process.platform === 'win32') {
@@ -321,7 +321,7 @@ export class SessionsService {
     constructor (
         log: LogService,
     ) {
-        require('../bufferizedPTY')(nodePTY)
+        //require('../bufferizedPTY')(nodePTY)
         this.logger = log.create('sessions')
     }
 
