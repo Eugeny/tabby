@@ -32,7 +32,7 @@
     "pug-lint": "^2.5.0",
     "pug-loader": "^2.4.0",
     "pug-static-loader": "2.0.0",
-    "raven-js": "3.27.1",
+    "raven-js": "3.27.2",
     "raw-loader": "2.0.0",
     "sass-loader": "^7.0.1",
     "shelljs": "0.8.3",
