@@ -52,7 +52,7 @@ import { WSLShellProvider } from './shells/wsl'
 import { hterm } from './frontends/hterm'
 import { Frontend } from './frontends/frontend'
 import { HTermFrontend } from './frontends/htermFrontend'
-import { XTermFrontend } from './frontends/xtermFrontend'
+import { XTermFrontend, XTermWebGLFrontend } from './frontends/xtermFrontend'
 
 /** @hidden */
 @NgModule({
@@ -217,5 +217,5 @@ export default class TerminalModule {
 }
 
 export { TerminalService, BaseSession, TerminalTabComponent, TerminalFrontendService, BaseTerminalTabComponent }
-export { Frontend, XTermFrontend, HTermFrontend }
+export { Frontend, XTermFrontend, XTermWebGLFrontend, HTermFrontend }
 export * from './api'

@@ -11,6 +11,7 @@ export class XTermFrontend extends Frontend {
     enableResizing = true
     xterm: Terminal
     xtermCore: any
+    enableWebGL = false
     private configuredFontSize = 0
     private zoom = 0
     private resizeHandler: () => void
@@ -89,7 +90,11 @@ export class XTermFrontend extends Frontend {
     attach (host: HTMLElement): void {
         this.xterm.open(host)
         this.opened = true
-        ;(this.xterm as any).loadWebgl(false)
+
+        if (this.enableWebGL) {
+            (this.xterm as any).loadWebgl(false)
+        }
+
         if (this.configService.store.terminal.ligatures) {
             enableLigatures(this.xterm)
         }
@@ -219,4 +224,9 @@ export class XTermFrontend extends Frontend {
     private setFontSize () {
         this.xterm.setOption('fontSize', this.configuredFontSize * Math.pow(1.1, this.zoom))
     }
+}
+
+/** @hidden */
+export class XTermWebGLFrontend extends XTermFrontend {
+    enableWebGL = true
 }

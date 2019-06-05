@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core'
 import { ConfigService, ThemesService, HotkeysService } from 'terminus-core'
 import { Frontend } from '../frontends/frontend'
 import { HTermFrontend } from '../frontends/htermFrontend'
-import { XTermFrontend } from '../frontends/xtermFrontend'
+import { XTermFrontend, XTermWebGLFrontend } from '../frontends/xtermFrontend'
 import { BaseSession } from '../services/sessions.service'
 
 @Injectable({ providedIn: 'root' })
@@ -18,9 +18,11 @@ export class TerminalFrontendService {
 
     getFrontend (session?: BaseSession): Frontend {
         if (!session) {
-            let frontend: Frontend = (this.config.store.terminal.frontend === 'xterm')
-                ? new XTermFrontend()
-                : new HTermFrontend()
+            let frontend: Frontend = new ({
+                'xterm': XTermFrontend,
+                'xterm-webgl': XTermWebGLFrontend,
+                'hterm': HTermFrontend,
+            }[this.config.store.terminal.frontend])()
             frontend.configService = this.config
             frontend.themesService = this.themes
             frontend.hotkeysService = this.hotkeys

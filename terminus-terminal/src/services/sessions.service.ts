@@ -321,7 +321,7 @@ export class SessionsService {
     constructor (
         log: LogService,
     ) {
-        //require('../bufferizedPTY')(nodePTY)
+        require('../bufferizedPTY')(nodePTY)
         this.logger = log.create('sessions')
     }
 
