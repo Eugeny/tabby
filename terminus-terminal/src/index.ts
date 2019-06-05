@@ -18,6 +18,7 @@ import { ColorPickerComponent } from './components/colorPicker.component'
 import { EditProfileModalComponent } from './components/editProfileModal.component'
 import { EnvironmentEditorComponent } from './components/environmentEditor.component'
 import { BaseTerminalTabComponent } from './components/baseTerminalTab.component'
+import { SearchPanelComponent } from './components/searchPanel.component'
 
 import { BaseSession } from './services/sessions.service'
 import { TerminalFrontendService } from './services/terminalFrontend.service'
@@ -112,6 +113,7 @@ import { XTermFrontend } from './frontends/xtermFrontend'
         TerminalSettingsTabComponent,
         EditProfileModalComponent,
         EnvironmentEditorComponent,
+        SearchPanelComponent,
     ],
     exports: [
         ColorPickerComponent,

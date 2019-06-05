@@ -98,6 +98,9 @@ export class TerminalConfigProvider extends ConfigProvider {
                 'next-word': ['⌥-ArrowRight'],
                 'delete-previous-word': ['⌥-Backspace'],
                 'delete-next-word': ['⌥-Delete'],
+                'search': [
+                    '⌘-F',
+                ],
             },
         },
         [Platform.Windows]: {
@@ -139,6 +142,9 @@ export class TerminalConfigProvider extends ConfigProvider {
                 'next-word': ['Ctrl-ArrowRight'],
                 'delete-previous-word': ['Ctrl-Backspace'],
                 'delete-next-word': ['Ctrl-Delete'],
+                'search': [
+                    'Ctrl-Shift-F',
+                ],
             },
         },
         [Platform.Linux]: {
@@ -178,6 +184,9 @@ export class TerminalConfigProvider extends ConfigProvider {
                 'next-word': ['Ctrl-ArrowRight'],
                 'delete-previous-word': ['Ctrl-Backspace'],
                 'delete-next-word': ['Ctrl-Delete'],
+                'search': [
+                    'Ctrl-Shift-F',
+                ],
             },
         },
     }

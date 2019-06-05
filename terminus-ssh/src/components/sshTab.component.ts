@@ -13,6 +13,7 @@ import { SSHConnection, SSHSession } from '../api'
         ></div>
     `,
     styles: [require('./sshTab.component.scss')],
+    animations: BaseTerminalTabComponent.animations,
 })
 export class SSHTabComponent extends BaseTerminalTabComponent {
     connection: SSHConnection

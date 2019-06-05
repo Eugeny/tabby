@@ -2,6 +2,12 @@ import { Observable, Subject, AsyncSubject, ReplaySubject, BehaviorSubject } fro
 import { ResizeEvent } from '../api'
 import { ConfigService, ThemesService, HotkeysService } from 'terminus-core'
 
+export interface ISearchOptions {
+    regex?: boolean
+    wholeWord?: boolean
+    caseSensitive?: boolean
+}
+
 /**
  * Extend to add support for a different VT frontend implementation
  */
@@ -64,4 +70,7 @@ export abstract class Frontend {
 
     abstract configure (): void
     abstract setZoom (zoom: number): void
+
+    abstract findNext (term: string, searchOptions?: ISearchOptions): boolean
+    abstract findPrevious (term: string, searchOptions?: ISearchOptions): boolean
 }

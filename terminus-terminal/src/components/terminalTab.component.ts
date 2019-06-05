@@ -12,6 +12,7 @@ import { WIN_BUILD_CONPTY_SUPPORTED, isWindowsBuild } from '../utils'
     selector: 'terminalTab',
     template: BaseTerminalTabComponent.template,
     styles: BaseTerminalTabComponent.styles,
+    animations: BaseTerminalTabComponent.animations,
 })
 export class TerminalTabComponent extends BaseTerminalTabComponent {
     @Input() sessionOptions: SessionOptions

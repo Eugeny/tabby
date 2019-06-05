@@ -2,6 +2,7 @@ import { Frontend } from './frontend'
 import { Terminal, ITheme } from 'xterm'
 import { fit } from 'xterm/src/addons/fit/fit'
 import { enableLigatures } from 'xterm-addon-ligatures'
+import { SearchAddon, ISearchOptions } from './xtermSearchAddon'
 import 'xterm/lib/xterm.css'
 import './xterm.css'
 import deepEqual = require('deep-equal')
@@ -16,6 +17,7 @@ export class XTermFrontend extends Frontend {
     private resizeHandler: () => void
     private configuredTheme: ITheme = {}
     private copyOnSelect = false
+    private search = new SearchAddon()
 
     constructor () {
         super()
@@ -88,6 +90,8 @@ export class XTermFrontend extends Frontend {
         this.xterm.open(host)
         this.ready.next(null)
         this.ready.complete()
+
+        this.xterm.loadAddon(this.search)
 
         window.addEventListener('resize', this.resizeHandler)
 
@@ -196,6 +200,14 @@ export class XTermFrontend extends Frontend {
     setZoom (zoom: number): void {
         this.zoom = zoom
         this.setFontSize()
+    }
+
+    findNext (term: string, searchOptions?: ISearchOptions): boolean {
+        return this.search.findNext(term, searchOptions)
+    }
+
+    findPrevious (term: string, searchOptions?: ISearchOptions): boolean {
+        return this.search.findPrevious(term, searchOptions)
     }
 
     private setFontSize () {

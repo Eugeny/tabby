@@ -63,6 +63,10 @@ export class TerminalHotkeyProvider extends HotkeyProvider {
             id: 'ctrl-c',
             name: 'Intelligent Ctrl-C (copy/abort)',
         },
+        {
+            id: 'search',
+            name: 'Search',
+        },
     ]
 
     constructor (

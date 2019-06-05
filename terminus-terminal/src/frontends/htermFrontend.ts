@@ -1,4 +1,4 @@
-import { Frontend } from './frontend'
+import { Frontend, ISearchOptions } from './frontend'
 import { hterm, preferenceManager } from './hterm'
 
 /** @hidden */
@@ -267,5 +267,13 @@ export class HTermFrontend extends Frontend {
             this.term.cursorNode_.style.opacity = '0'
             _onCursorBlink()
         }
+    }
+
+    findNext (term: string, searchOptions?: ISearchOptions): boolean {
+        return false
+    }
+
+    findPrevious (term: string, searchOptions?: ISearchOptions): boolean {
+        return false
     }
 }

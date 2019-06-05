@@ -1,6 +1,7 @@
 :host {
     flex: auto;
     display: flex;
+    flex-direction: column;
     overflow: hidden;
 
     &.top-padded {

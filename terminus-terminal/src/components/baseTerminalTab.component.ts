@@ -2,6 +2,7 @@ import { Observable, Subject, Subscription } from 'rxjs'
 import { first } from 'rxjs/operators'
 import { ToastrService } from 'ngx-toastr'
 import { NgZone, OnInit, OnDestroy, Inject, Injector, Optional, ViewChild, HostBinding, Input, ElementRef } from '@angular/core'
+import { trigger, transition, style, animate } from '@angular/animations'
 import { AppService, ConfigService, BaseTabComponent, ElectronService, HostAppService, HotkeysService, Platform, LogService, Logger } from 'terminus-core'
 
 import { BaseSession, SessionsService } from '../services/sessions.service'
@@ -14,17 +15,24 @@ import { Frontend } from '../frontends/frontend'
  * A class to base your custom terminal tabs on
  */
 export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit, OnDestroy {
-    static template = `
-        <div
-            #content
-            class="content"
-            [style.opacity]="frontendIsReady ? 1 : 0"
-        ></div>
-    `
+    static template = require('./baseTerminalTab.component.pug')
     static styles = [require('./terminalTab.component.scss')]
+    static animations = [
+        trigger('slideInOut', [
+            transition(':enter', [
+                style({ transform: 'translateY(-25%)' }),
+                animate('100ms ease-in-out', style({ transform: 'translateY(0%)' }))
+            ]),
+            transition(':leave', [
+                animate('100ms ease-in-out', style({ transform: 'translateY(-25%)' }))
+            ])
+        ])
+    ]
 
     session: BaseSession
     @Input() zoom = 0
+
+    @Input() showSearchPanel = false
 
     /** @hidden */
     @ViewChild('content') content
@@ -121,6 +129,12 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
                 break
             case 'delete-next-word':
                 this.sendInput('\x1bd')
+                break
+            case 'search':
+                this.showSearchPanel = true
+                setImmediate(() => {
+                    this.element.nativeElement.querySelector('.search-input').focus()
+                })
                 break
             }
         })
