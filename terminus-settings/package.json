@@ -18,6 +18,8 @@
   "license": "MIT",
   "devDependencies": {
     "@types/deep-equal": "1.0.1",
+    "@types/node": "12.0.4",
+    "@types/webpack-env": "1.13.9",
     "ngx-pipes": "^1.6.1"
   },
   "peerDependencies": {

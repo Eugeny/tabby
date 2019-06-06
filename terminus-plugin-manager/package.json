@@ -18,7 +18,9 @@
   "license": "MIT",
   "devDependencies": {
     "@types/mz": "0.0.32",
+    "@types/node": "12.0.4",
     "@types/semver": "^6.0.0",
+    "@types/webpack-env": "1.13.9",
     "css-loader": "^0.28.0",
     "ngx-pipes": "^1.6.1",
     "semver": "^6.1.0"
