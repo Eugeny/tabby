@@ -19,9 +19,7 @@
   "devDependencies": {
     "@types/deep-equal": "^1.0.0",
     "@types/mz": "0.0.32",
-    "@types/node": "12.0.4",
     "@types/slug": "^0.9.1",
-    "@types/webpack-env": "1.13.9",
     "dataurl": "0.1.0",
     "deep-equal": "1.0.1",
     "file-loader": "^0.11.2",
