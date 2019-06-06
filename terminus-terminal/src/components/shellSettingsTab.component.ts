@@ -4,7 +4,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { Subscription } from 'rxjs'
 import { ConfigService, ElectronService, HostAppService, Platform } from 'terminus-core'
 import { EditProfileModalComponent } from './editProfileModal.component'
-import { IShell, Profile } from '../api'
+import { IShell, Profile } from '../api/interfaces'
 import { TerminalService } from '../services/terminal.service'
 import { WIN_BUILD_CONPTY_SUPPORTED, WIN_BUILD_CONPTY_STABLE, isWindowsBuild } from '../utils'
 

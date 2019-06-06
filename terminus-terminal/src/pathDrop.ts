@@ -1,6 +1,6 @@
 import { Subscription } from 'rxjs'
 import { Injectable } from '@angular/core'
-import { TerminalDecorator } from './api'
+import { TerminalDecorator } from './api/decorator'
 import { TerminalTabComponent } from './components/terminalTab.component'
 
 /** @hidden */

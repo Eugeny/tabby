@@ -6,6 +6,8 @@ node_modules
 build/files.wxs
 dist
 */dist
+*/typings
+*.tsbuildinfo
 
 *.xcworkspacedata
 *.xcuserstate

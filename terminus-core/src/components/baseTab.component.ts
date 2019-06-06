@@ -91,7 +91,7 @@ export abstract class BaseTabComponent {
             }
             this.progressClearTimeout = setTimeout(() => {
                 this.setProgress(null)
-            }, 5000)
+            }, 5000) as any
         }
     }
 

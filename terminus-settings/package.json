@@ -6,7 +6,7 @@
     "terminus-builtin-plugin"
   ],
   "main": "dist/index.js",
-  "typings": "dist/src/index.d.ts",
+  "typings": "typings/index.d.ts",
   "scripts": {
     "build": "webpack --progress --color --display-modules",
     "watch": "webpack --progress --color --watch"

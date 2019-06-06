@@ -3,7 +3,8 @@ import { Injectable } from '@angular/core'
 import { DomSanitizer } from '@angular/platform-browser'
 import { HostAppService, Platform } from 'terminus-core'
 
-import { ShellProvider, IShell } from '../api'
+import { ShellProvider } from '../api/shellProvider'
+import { IShell } from '../api/interfaces'
 
 try {
     var wnr = require('windows-native-registry') // tslint:disable-line

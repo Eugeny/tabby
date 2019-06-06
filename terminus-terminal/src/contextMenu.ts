@@ -3,8 +3,8 @@ import { ToastrService } from 'ngx-toastr'
 import { ConfigService } from 'terminus-core'
 import { UACService } from './services/uac.service'
 import { TerminalService } from './services/terminal.service'
-import { BaseTerminalTabComponent } from './components/baseTerminalTab.component'
-import { TerminalContextMenuItemProvider } from './api'
+import { TerminalContextMenuItemProvider } from './api/contextMenuProvider'
+import { BaseTerminalTabComponent } from './api/baseTerminalTab.component'
 
 /** @hidden */
 @Injectable()

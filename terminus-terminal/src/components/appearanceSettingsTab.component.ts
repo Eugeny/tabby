@@ -6,7 +6,8 @@ const fontManager = require('fontmanager-redux')
 
 import { Component, Inject } from '@angular/core'
 import { ConfigService, HostAppService, Platform, ElectronService } from 'terminus-core'
-import { TerminalColorSchemeProvider, ITerminalColorScheme } from '../api'
+import { TerminalColorSchemeProvider } from '../api/colorSchemeProvider'
+import { ITerminalColorScheme } from '../api/interfaces'
 
 /** @hidden */
 @Component({

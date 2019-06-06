@@ -12,7 +12,7 @@ import { SSHConnection, SSHSession } from '../api'
             class="content"
         ></div>
     `,
-    styles: [require('./sshTab.component.scss')],
+    styles: [require('./sshTab.component.scss'), ...BaseTerminalTabComponent.styles],
     animations: BaseTerminalTabComponent.animations,
 })
 export class SSHTabComponent extends BaseTerminalTabComponent {

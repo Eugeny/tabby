@@ -16,7 +16,7 @@ class CompletionObserver {
     private interval: number
 
     constructor (private tab: BaseTabComponent) {
-        this.interval = setInterval(() => this.tick(), 1000)
+        this.interval = setInterval(() => this.tick(), 1000) as any
         this.tab.destroyed$.pipe(takeUntil(this.destroyed$)).subscribe(() => this.stop())
     }
 

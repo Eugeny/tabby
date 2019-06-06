@@ -2,7 +2,8 @@ import * as fs from 'mz/fs'
 import { Injectable } from '@angular/core'
 import { HostAppService, Platform, LogService, Logger } from 'terminus-core'
 
-import { ShellProvider, IShell } from '../api'
+import { ShellProvider } from '../api/shellProvider'
+import { IShell } from '../api/interfaces'
 
 /** @hidden */
 @Injectable()

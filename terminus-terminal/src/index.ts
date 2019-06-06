@@ -17,7 +17,6 @@ import { TerminalSettingsTabComponent } from './components/terminalSettingsTab.c
 import { ColorPickerComponent } from './components/colorPicker.component'
 import { EditProfileModalComponent } from './components/editProfileModal.component'
 import { EnvironmentEditorComponent } from './components/environmentEditor.component'
-import { BaseTerminalTabComponent } from './components/baseTerminalTab.component'
 import { SearchPanelComponent } from './components/searchPanel.component'
 
 import { BaseSession } from './services/sessions.service'
@@ -27,7 +26,10 @@ import { DockMenuService } from './services/dockMenu.service'
 
 import { ButtonProvider } from './buttonProvider'
 import { RecoveryProvider } from './recoveryProvider'
-import { TerminalColorSchemeProvider, TerminalDecorator, ShellProvider, TerminalContextMenuItemProvider } from './api'
+import { TerminalDecorator } from './api/decorator'
+import { TerminalContextMenuItemProvider } from './api/contextMenuProvider'
+import { TerminalColorSchemeProvider } from './api/colorSchemeProvider'
+import { ShellProvider } from './api/shellProvider'
 import { TerminalSettingsTabProvider, AppearanceSettingsTabProvider, ShellSettingsTabProvider } from './settings'
 import { PathDropDecorator } from './pathDrop'
 import { TerminalConfigProvider } from './config'
@@ -216,6 +218,7 @@ export default class TerminalModule {
     }
 }
 
-export { TerminalService, BaseSession, TerminalTabComponent, TerminalFrontendService, BaseTerminalTabComponent }
+export { TerminalService, BaseSession, TerminalTabComponent, TerminalFrontendService, TerminalDecorator, TerminalContextMenuItemProvider, TerminalColorSchemeProvider }
 export { Frontend, XTermFrontend, XTermWebGLFrontend, HTermFrontend }
-export * from './api'
+export { BaseTerminalTabComponent } from './api/baseTerminalTab.component'
+export * from './api/interfaces'

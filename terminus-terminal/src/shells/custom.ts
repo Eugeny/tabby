@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core'
 import { ConfigService } from 'terminus-core'
 
-import { ShellProvider, IShell } from '../api'
+import { ShellProvider } from '../api/shellProvider'
+import { IShell } from '../api/interfaces'
 
 /** @hidden */
 @Injectable()

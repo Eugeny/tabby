@@ -2,32 +2,32 @@ import { Observable, Subject, Subscription } from 'rxjs'
 import { first } from 'rxjs/operators'
 import { ToastrService } from 'ngx-toastr'
 import { NgZone, OnInit, OnDestroy, Inject, Injector, Optional, ViewChild, HostBinding, Input, ElementRef } from '@angular/core'
-import { trigger, transition, style, animate } from '@angular/animations'
+import { trigger, transition, style, animate, AnimationTriggerMetadata } from '@angular/animations'
 import { AppService, ConfigService, BaseTabComponent, ElectronService, HostAppService, HotkeysService, Platform, LogService, Logger } from 'terminus-core'
 
 import { BaseSession, SessionsService } from '../services/sessions.service'
 import { TerminalFrontendService } from '../services/terminalFrontend.service'
 
-import { TerminalDecorator, ResizeEvent, TerminalContextMenuItemProvider } from '../api'
 import { Frontend } from '../frontends/frontend'
+import { ResizeEvent } from './interfaces'
+import { TerminalDecorator } from './decorator'
+import { TerminalContextMenuItemProvider } from './contextMenuProvider'
 
 /**
  * A class to base your custom terminal tabs on
  */
 export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit, OnDestroy {
-    static template = require('./baseTerminalTab.component.pug')
-    static styles = [require('./terminalTab.component.scss')]
-    static animations = [
-        trigger('slideInOut', [
-            transition(':enter', [
-                style({ transform: 'translateY(-25%)' }),
-                animate('100ms ease-in-out', style({ transform: 'translateY(0%)' }))
-            ]),
-            transition(':leave', [
-                animate('100ms ease-in-out', style({ transform: 'translateY(-25%)' }))
-            ])
+    static template = require('../components/baseTerminalTab.component.pug')
+    static styles = [require('../components/terminalTab.component.scss')]
+    static animations: AnimationTriggerMetadata[] = [trigger('slideInOut', [
+        transition(':enter', [
+            style({ transform: 'translateY(-25%)' }),
+            animate('100ms ease-in-out', style({ transform: 'translateY(0%)' }))
+        ]),
+        transition(':leave', [
+            animate('100ms ease-in-out', style({ transform: 'translateY(-25%)' }))
         ])
-    ]
+    ])]
 
     session: BaseSession
     @Input() zoom = 0

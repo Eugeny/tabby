@@ -18,6 +18,7 @@ install:
   - node scripts/build-native.js
 
 build_script:
+  - yarn run build:typings
   - yarn run build
   - node scripts/prepackage-plugins.js
   - node scripts/build-windows.js

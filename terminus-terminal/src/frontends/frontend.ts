@@ -1,5 +1,5 @@
 import { Observable, Subject, AsyncSubject, ReplaySubject, BehaviorSubject } from 'rxjs'
-import { ResizeEvent } from '../api'
+import { ResizeEvent } from '../api/interfaces'
 import { ConfigService, ThemesService, HotkeysService } from 'terminus-core'
 
 export interface ISearchOptions {
