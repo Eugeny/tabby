@@ -1,0 +1,23 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "mezner",
+      "name": "Russell Myers",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/184085?v=4",
+      "profile": "http://www.russellmyers.com",
+      "contributions": [
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "terminus",
+  "projectOwner": "Eugeny",
+  "repoType": "github",
+  "repoHost": "https://github.com"
+}
