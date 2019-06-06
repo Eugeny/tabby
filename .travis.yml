@@ -28,6 +28,7 @@ jobs:
         - yarn
       script:
         - scripts/build-native.js
+        - yarn run build:typings
         - yarn run build
         - scripts/prepackage-plugins.js
         - scripts/build-macos.js
