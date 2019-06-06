@@ -116,6 +116,25 @@
         "plugin",
         "test"
       ]
+    },
+    {
+      "login": "baflo",
+      "name": "Florian Bachmann",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/834350?v=4",
+      "profile": "https://github.com/baflo",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "mischah",
+      "name": "Michael Kühnel",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/441011?v=4",
+      "profile": "http://michael-kuehnel.de",
+      "contributions": [
+        "code",
+        "design"
+      ]
     }
   ],
   "contributorsPerLine": 7,
