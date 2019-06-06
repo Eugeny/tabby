@@ -146,7 +146,7 @@ export class Session extends BaseSession {
 
         this.open = true
 
-        this.pty.onData(data => {
+        this.pty.on('data-buffered', data => {
             data = this.processOSC1337(data)
             this.emitOutput(data)
             if (process.platform === 'win32') {
