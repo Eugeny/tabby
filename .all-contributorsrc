@@ -13,6 +13,16 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "mischah",
+      "name": "Michael Kühnel",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/441011?v=4",
+      "profile": "http://michael-kuehnel.de",
+      "contributions": [
+        "code",
+        "design"
+      ]
     }
   ],
   "contributorsPerLine": 7,
