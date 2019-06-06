@@ -8,7 +8,10 @@
     "declarationDir": "./typings",
     "paths": {
       "terminus-*": ["../../terminus-*"],
-      "*": ["../../app/node_modules/*"]
+      "*": [
+        "../../app/node_modules/*",
+        "../node_modules/xterm/src/*"
+      ]
     }
   }
 }

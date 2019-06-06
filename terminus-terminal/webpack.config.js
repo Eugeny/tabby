@@ -18,7 +18,7 @@ module.exports = {
     minimize: false,
   },
   resolve: {
-    modules: ['.', 'src', 'node_modules', '../app/node_modules'].map(x => path.join(__dirname, x)),
+    modules: ['.', 'src', 'node_modules', '../app/node_modules', 'node_modules/xterm/src'].map(x => path.join(__dirname, x)),
     extensions: ['.ts', '.js'],
   },
   module: {
@@ -32,7 +32,10 @@ module.exports = {
             typeRoots: [path.resolve(__dirname, 'node_modules/@types')],
             paths: {
               "terminus-*": [path.resolve(__dirname, '../terminus-*')],
-              "*": [path.resolve(__dirname, '../app/node_modules/*')],
+              "*": [
+                path.resolve(__dirname, '../app/node_modules/*'),
+                path.resolve(__dirname, './node_modules/xterm/src/*')
+              ],
             }
           },
         },

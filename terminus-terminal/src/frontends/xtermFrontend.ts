@@ -5,6 +5,12 @@ import { enableLigatures } from 'xterm-addon-ligatures'
 import { SearchAddon, ISearchOptions } from './xtermSearchAddon'
 import './xterm.css'
 import deepEqual = require('deep-equal')
+import { Attributes, AttributeData, CellData } from 'xterm/src/core/buffer/BufferLine'
+
+const COLOR_NAMES = [
+    'black', 'red', 'green', 'yellow', 'blue', 'magenta', 'cyan', 'white',
+    'brightBlack', 'brightRed', 'brightGreen', 'brightYellow', 'brightBlue', 'brightMagenta', 'brightCyan', 'brightWhite'
+]
 
 /** @hidden */
 export class XTermFrontend extends Frontend {
@@ -128,7 +134,10 @@ export class XTermFrontend extends Frontend {
     }
 
     copySelection (): void {
-        (navigator as any).clipboard.writeText(this.getSelection())
+        require('electron').remote.clipboard.write({
+            text: this.getSelection(),
+            html: this.getSelectionAsHTML()
+        })
     }
 
     clearSelection (): void {
@@ -189,13 +198,8 @@ export class XTermFrontend extends Frontend {
             cursor: config.terminal.colorScheme.cursor,
         }
 
-        const colorNames = [
-            'black', 'red', 'green', 'yellow', 'blue', 'magenta', 'cyan', 'white',
-            'brightBlack', 'brightRed', 'brightGreen', 'brightYellow', 'brightBlue', 'brightMagenta', 'brightCyan', 'brightWhite'
-        ]
-
-        for (let i = 0; i < colorNames.length; i++) {
-            theme[colorNames[i]] = config.terminal.colorScheme.colors[i]
+        for (let i = 0; i < COLOR_NAMES.length; i++) {
+            theme[COLOR_NAMES[i]] = config.terminal.colorScheme.colors[i]
         }
 
         if (this.xtermCore._colorManager && !deepEqual(this.configuredTheme, theme)) {
@@ -223,6 +227,59 @@ export class XTermFrontend extends Frontend {
 
     private setFontSize () {
         this.xterm.setOption('fontSize', this.configuredFontSize * Math.pow(1.1, this.zoom))
+    }
+
+    private getSelectionAsHTML (): string {
+        let html = `<div style="font-family: '${this.configService.store.terminal.font}', monospace; white-space: pre">`
+        const selection = this.xterm.getSelectionPosition()
+        if (!selection) {
+            return null
+        }
+        if (selection.startRow === selection.endRow) {
+            html += this.getLineAsHTML(selection.startRow, selection.startColumn, selection.endColumn)
+        } else {
+            html += this.getLineAsHTML(selection.startRow, selection.startColumn, this.xterm.cols)
+            for (let y = selection.startRow + 1; y < selection.endRow; y++) {
+                html += this.getLineAsHTML(y, 0, this.xterm.cols)
+            }
+            html += this.getLineAsHTML(selection.endRow, 0, selection.endColumn)
+        }
+        html += '</div>'
+        return html
+    }
+
+    private getHexColor (mode: number, color: number): string {
+        if (mode === Attributes.CM_RGB) {
+            let rgb = AttributeData.toColorRGB(color)
+            return rgb.map(x => x.toString(16).padStart(2, '0')).join('')
+        }
+        if (mode === Attributes.CM_P16 || mode === Attributes.CM_P256) {
+            return this.configService.store.terminal.colorScheme.colors[color]
+        }
+        return 'transparent'
+    }
+
+    private getLineAsHTML (y: number, start: number, end: number): string {
+        let html = '<div>'
+        let lastStyle = null
+        const line = (this.xterm.buffer.getLine(y) as any)._line
+        let cell = new CellData()
+        for (let i = start; i < end; i++) {
+            line.loadCell(i, cell)
+            const fg = this.getHexColor(cell.getFgColorMode(), cell.getFgColor())
+            const bg = this.getHexColor(cell.getBgColorMode(), cell.getBgColor())
+            const style = `color: ${fg}; background: ${bg}; font-weight: ${cell.isBold() ? 'bold' : 'normal'}; font-style: ${cell.isItalic() ? 'italic' : 'normal'}; text-decoration: ${cell.isUnderline() ? 'underline' : 'none'}`
+            if (style !== lastStyle) {
+                if (lastStyle !== null) {
+                    html += '</span>'
+                }
+                html += `<span style="${style}">`
+                lastStyle = style
+            }
+            html += line.getString(i) || ' '
+        }
+        html += '</span></div>'
+        return html
     }
 }
 
