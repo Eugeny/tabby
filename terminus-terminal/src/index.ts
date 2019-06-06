@@ -218,7 +218,7 @@ export default class TerminalModule {
     }
 }
 
-export { TerminalService, BaseSession, TerminalTabComponent, TerminalFrontendService, TerminalDecorator, TerminalContextMenuItemProvider, TerminalColorSchemeProvider }
+export { TerminalService, BaseSession, TerminalTabComponent, TerminalFrontendService, TerminalDecorator, TerminalContextMenuItemProvider, TerminalColorSchemeProvider, ShellProvider }
 export { Frontend, XTermFrontend, XTermWebGLFrontend, HTermFrontend }
 export { BaseTerminalTabComponent } from './api/baseTerminalTab.component'
 export * from './api/interfaces'
