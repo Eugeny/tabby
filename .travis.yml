@@ -63,3 +63,12 @@ addons:
     sources:
     - sourceline: 'deb https://dl.yarnpkg.com/debian/ stable main'
       key_url: 'https://dl.yarnpkg.com/debian/pubkey.gpg'
+
+
+cache:
+  directories:
+    - node_modules
+    - */node_modules
+    - $HOME/.cache/yarn
+    - $HOME/.cache/electron
+    - $HOME/.cache/electron-builder

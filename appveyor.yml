@@ -25,3 +25,9 @@ build_script:
 
 artifacts:
   - path: 'dist\*.exe'
+
+cache:
+  - node_modules
+  - *\node_modules
+  - '%LOCALAPPDATA%/Yarn'
+  - '%USERPROFILE%\.electron'
