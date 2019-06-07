@@ -67,8 +67,8 @@ addons:
 
 cache:
   directories:
-    - node_modules
-    - */node_modules
-    - $HOME/.cache/yarn
-    - $HOME/.cache/electron
-    - $HOME/.cache/electron-builder
+  - node_modules
+  - */node_modules
+  - $HOME/.cache/yarn
+  - $HOME/.cache/electron
+  - $HOME/.cache/electron-builder
