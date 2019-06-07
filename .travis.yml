@@ -21,7 +21,7 @@ jobs:
         - yarn run build:typings
         - yarn run build
         - scripts/prepackage-plugins.js
-        - scripts/build-linux.js
+        - DEBUG=electron-builder scripts/build-linux.js
 
     - stage: 'Build'
       os: osx
@@ -35,7 +35,7 @@ jobs:
         - yarn run build:typings
         - yarn run build
         - scripts/prepackage-plugins.js
-        - scripts/build-macos.js
+        - DEBUG=electron-builder scripts/build-macos.js
 
     - stage: 'Docs'
       os: linux
