@@ -43,10 +43,9 @@ module.exports = {
   },
   externals: [
     'fs',
+    'net',
     'npm',
     'path',
-    'mz/fs',
-    'mz/child_process',
     /^rxjs/,
     /^@angular/,
     /^@ng-bootstrap/,

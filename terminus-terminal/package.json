@@ -25,6 +25,10 @@
     "dataurl": "0.1.0",
     "deep-equal": "1.0.1",
     "file-loader": "^0.11.2",
+    "hterm-umdjs": "1.4.1",
+    "mz": "^2.6.0",
+    "ps-node": "^0.1.6",
+    "runes": "^0.4.2",
     "slug": "^1.1.0",
     "uuid": "^3.3.2",
     "xterm": "https://registry.npmjs.org/@terminus-term/xterm/-/xterm-3.14.1.tgz",
@@ -42,11 +46,7 @@
   },
   "dependencies": {
     "fontmanager-redux": "0.3.2",
-    "hterm-umdjs": "1.4.1",
-    "mz": "^2.6.0",
-    "node-pty": "^0.9.0-beta9",
-    "ps-node": "^0.1.6",
-    "runes": "^0.4.2"
+    "node-pty": "^0.9.0-beta9"
   },
   "optionalDependencies": {
     "@terminus-term/windows-process-tree": "^0.2.4",

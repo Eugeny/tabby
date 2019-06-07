@@ -56,14 +56,13 @@ module.exports = {
     ]
   },
   externals: [
+    'child_process',
     'electron',
     'fontmanager-redux',
     'fs',
     'path',
     'macos-native-processlist',
     'windows-native-registry',
-    'mz/fs',
-    'mz/child_process',
     'node-pty',
     '@terminus-term/windows-process-tree',
     'os',

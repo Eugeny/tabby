@@ -24,6 +24,5 @@
   "devDependencies": {
     "@types/node": "12.0.7",
     "@types/webpack-env": "^1.13.0"
-  },
-  "false": {}
+  }
 }

@@ -19,7 +19,9 @@
   "devDependencies": {
     "@types/ssh2": "^0.5.35",
     "@types/webpack-env": "^1.13.0",
-    "ngx-toastr": "^8.0.0"
+    "ngx-toastr": "^8.0.0",
+    "ssh2": "^0.8.2",
+    "ssh2-streams": "^0.4.2"
   },
   "peerDependencies": {
     "@angular/common": "^4.1.3",
@@ -35,8 +37,6 @@
     "windows-process-tree": "^0.2.3"
   },
   "dependencies": {
-    "keytar": "^4.7.0",
-    "ssh2": "^0.8.2",
-    "ssh2-streams": "^0.4.2"
+    "keytar": "^4.7.0"
   }
 }
