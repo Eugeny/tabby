@@ -69,7 +69,8 @@
     ],
     "win": {
       "icon": "./build/windows/icon.ico",
-      "artifactName": "terminus-${version}-setup.exe"
+      "artifactName": "terminus-${version}-setup.exe",
+      "rfc3161TimeStampServer": "http://sha256timestamp.ws.symantec.com/sha256/timestamp"
     },
     "nsis": {
       "oneClick": false,
