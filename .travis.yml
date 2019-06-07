@@ -21,6 +21,7 @@ jobs:
         - yarn run build:typings
         - yarn run build
         - scripts/prepackage-plugins.js
+      after_success:
         - scripts/build-linux.js
 
     - stage: 'Build'
@@ -35,6 +36,7 @@ jobs:
         - yarn run build:typings
         - yarn run build
         - scripts/prepackage-plugins.js
+      after_success:
         - scripts/build-macos.js
 
     - stage: 'Docs'
