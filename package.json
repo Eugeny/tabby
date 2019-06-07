@@ -130,7 +130,7 @@
     "watch": "cross-env TERMINUS_DEV=1 webpack --progress --color --watch",
     "start": "cross-env TERMINUS_DEV=1 electron app --debug",
     "prod": "cross-env TERMINUS_DEV=1 electron app",
-    "docs": "typedoc --out docs/api terminus-core/src && typedoc --out docs/api/terminal terminus-terminal/src && typedoc --out docs/api/settings terminus-settings/src",
+    "docs": "typedoc --out docs/api terminus-core/src && typedoc --out docs/api/terminal --tsconfig terminus-terminal/tsconfig.typings.json terminus-terminal/src && typedoc --out docs/api/settings --tsconfig terminus-settings/tsconfig.typings.json terminus-settings/src",
     "lint": "tslint -c tslint.json -t stylish terminus-*/src/**/*.ts terminus-*/src/*.ts app/src/*.ts",
     "postinstall": "node ./scripts/install-deps.js"
   },
