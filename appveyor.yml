@@ -28,6 +28,6 @@ artifacts:
 
 cache:
   - node_modules
-  - *\node_modules
-  - '%LOCALAPPDATA%/Yarn'
+  - '*\node_modules'
+  - '%LOCALAPPDATA%\Yarn'
   - '%USERPROFILE%\.electron'
