@@ -135,6 +135,15 @@
         "code",
         "design"
       ]
+    },
+    {
+      "login": "NieLeben",
+      "name": "Tilmann Meyer",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/47182955?v=4",
+      "profile": "https://github.com/NieLeben",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
