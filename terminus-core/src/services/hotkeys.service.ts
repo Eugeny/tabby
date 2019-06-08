@@ -104,7 +104,11 @@ export class HotkeysService {
             item = (typeof item === 'string') ? [item] : item
 
             try {
-                this.electron.globalShortcut.register(item[0].replace(/-/g, '+'), () => {
+                let electronKeySpec = item[0]
+                electronKeySpec = electronKeySpec.replace('⌘', 'Command')
+                electronKeySpec = electronKeySpec.replace('⌥', 'Alt')
+                electronKeySpec = electronKeySpec.replace(/-/g, '+')
+                this.electron.globalShortcut.register(electronKeySpec, () => {
                     this.globalHotkey.emit()
                 })
             } catch (err) {
@@ -131,7 +135,7 @@ export class HotkeysService {
                     value = [value]
                 }
                 if (value) {
-                    value = value.map((item) => (typeof item === 'string') ? [item] : item)
+                    value = value.map(item => (typeof item === 'string') ? [item] : item)
                     keys[key] = value
                 }
             }

@@ -45,13 +45,12 @@ export function stringifyKeySequence (events: NativeKeyEvent[]): string[] {
                 // TODO make this optional?
                 continue
             }
-            if (event.key === ' ') {
-                itemKeys.push('Space')
-            } else if (event.key.length === 1) {
-                itemKeys.push(event.key.toUpperCase())
-            } else {
-                itemKeys.push(event.key)
-            }
+
+            let key = (event as any).code
+            key = key.replace('Key', '')
+            key = key.replace('Arrow', '')
+            key = key.replace('Digit', '')
+            itemKeys.push(key)
             items.push(itemKeys.join('-'))
         }
     }
