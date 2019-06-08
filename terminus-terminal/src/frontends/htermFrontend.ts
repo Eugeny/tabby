@@ -1,5 +1,6 @@
 import { Frontend, ISearchOptions } from './frontend'
 import { hterm, preferenceManager } from './hterm'
+import { getCSSFontFamily } from '../utils'
 
 /** @hidden */
 export class HTermFrontend extends Frontend {
@@ -59,7 +60,7 @@ export class HTermFrontend extends Frontend {
         this.configuredLinePadding = config.terminal.linePadding
         this.setFontSize()
 
-        preferenceManager.set('font-family', `"${config.terminal.font}", "monospace-fallback", monospace`)
+        preferenceManager.set('font-family', getCSSFontFamily(config.terminal.font))
         preferenceManager.set('enable-bold', true)
         // preferenceManager.set('audible-bell-sound', '')
         preferenceManager.set('desktop-notification-bell', config.terminal.bell === 'notification')

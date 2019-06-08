@@ -172,6 +172,11 @@
 
 /*----*/
 
+@font-face {
+    font-family: "monospace-fallback";
+    src: url(../fonts/Meslo.otf) format("opentype");
+}
+
 .xterm-viewport::-webkit-scrollbar {
     background: rgba(0, 0, 0, .125);
 }

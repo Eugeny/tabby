@@ -1,5 +1,6 @@
 import { Frontend } from './frontend'
 import { Terminal, ITheme } from 'xterm'
+import { getCSSFontFamily } from '../utils'
 import { FitAddon } from './xtermAddonFit'
 import { enableLigatures } from 'xterm-addon-ligatures'
 import { SearchAddon, ISearchOptions } from './xtermSearchAddon'
@@ -179,7 +180,7 @@ export class XTermFrontend extends Frontend {
             }
         })
 
-        this.xterm.setOption('fontFamily', `"${config.terminal.font}", "monospace-fallback", monospace`)
+        this.xterm.setOption('fontFamily', getCSSFontFamily(config.terminal.font))
         this.xterm.setOption('bellStyle', config.terminal.bell)
         this.xterm.setOption('cursorStyle', {
             beam: 'bar'

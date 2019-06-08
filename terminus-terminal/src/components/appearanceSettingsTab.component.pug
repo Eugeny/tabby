@@ -96,7 +96,7 @@ h3.mb-3 Appearance
     div
         .form-group
             .appearance-preview(
-                [style.font-family]='config.store.terminal.font',
+                [style.font-family]='getPreviewFontFamily()',
                 [style.font-size]='config.store.terminal.fontSize + "px"',
                 [style.background-color]='(config.store.terminal.background == "theme") ? null : config.store.terminal.colorScheme.background',
                 [style.color]='config.store.terminal.colorScheme.foreground',

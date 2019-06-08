@@ -8,6 +8,7 @@ import { Component, Inject } from '@angular/core'
 import { ConfigService, HostAppService, Platform, ElectronService } from 'terminus-core'
 import { TerminalColorSchemeProvider } from '../api/colorSchemeProvider'
 import { ITerminalColorScheme } from '../api/interfaces'
+import { getCSSFontFamily } from '../utils'
 
 /** @hidden */
 @Component({
@@ -97,5 +98,9 @@ export class AppearanceSettingsTabComponent {
 
     colorsTrackBy (index) {
         return index
+    }
+
+    getPreviewFontFamily () {
+        return getCSSFontFamily(this.config.store.terminal.font)
     }
 }
