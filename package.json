@@ -1,5 +1,4 @@
 {
-  "name": "term",
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^5.9.0",
     "@types/electron-config": "^3.2.2",
