@@ -144,6 +144,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "PMExtra",
+      "name": "PM Extra",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/11289158?v=4",
+      "profile": "http://www.jubeat.net",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "contributorsPerLine": 7,
