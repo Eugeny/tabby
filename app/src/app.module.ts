@@ -10,6 +10,7 @@ export function getRootModule (plugins: any[]) {
         NgbModule.forRoot(),
         ToastrModule.forRoot({
             positionClass: 'toast-bottom-center',
+            toastClass: 'toast',
             preventDuplicates: true,
             extendedTimeOut: 5000,
         }),

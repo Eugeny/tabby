@@ -28,7 +28,7 @@
     "electron-updater": "^4.0.6",
     "js-yaml": "3.13.1",
     "mz": "^2.7.0",
-    "ngx-toastr": "^9.1.1",
+    "ngx-toastr": "^10.0.4",
     "npm": "~6.9.0",
     "path": "0.12.7",
     "rxjs": "^6.5.2",
