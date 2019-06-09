@@ -19,7 +19,6 @@
   "devDependencies": {
     "@types/ssh2": "^0.5.35",
     "@types/webpack-env": "^1.13.0",
-    "ngx-toastr": "^8.0.0",
     "ssh2": "^0.8.2",
     "ssh2-streams": "^0.4.2"
   },

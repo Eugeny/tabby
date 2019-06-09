@@ -230,11 +230,6 @@ napi-build-utils@^1.0.1:
   resolved "https://registry.yarnpkg.com/napi-build-utils/-/napi-build-utils-1.0.1.tgz#1381a0f92c39d66bf19852e7873432fc2123e508"
   integrity sha512-boQj1WFgQH3v4clhu3mTNfP+vOBxorDlE8EKiMjUlLG3C4qAESnn9AxIOkFgTR2c9LtzNjPrjS60cT27ZKBhaA==
 
-ngx-toastr@^8.0.0:
-  version "8.1.0"
-  resolved "https://registry.yarnpkg.com/ngx-toastr/-/ngx-toastr-8.1.0.tgz#3a0742e62895f88e232607843d61373d6f0d44d3"
-  integrity sha512-asgeQsjm0nf6B9COL7v5Dm4p9GbIjce8eMpvMzalxAJMaWiuryngaG+72TnrmeM48D/vwOUEasvJgYVRZ6JPMg==
-
 node-abi@^2.7.0:
   version "2.8.0"
   resolved "https://registry.yarnpkg.com/node-abi/-/node-abi-2.8.0.tgz#bd2e88dbe6a6871e6dd08553e0605779325737ec"
