@@ -2,14 +2,17 @@
     display: flex;
     flex-direction: column;
     flex: auto;
-    overflow: auto;
-    height: 100%;
 
     >.btn-block {
         margin: 20px;
         width: auto;
         flex: none;
     }
+}
+
+.tab-content {
+    overflow: auto;
+    height: 100%;
 }
 
 .hotkeys-table {
