@@ -45,7 +45,7 @@
     "tslint-eslint-rules": "^5.4.0",
     "typedoc": "^0.14.2",
     "typescript": "^3.5.1",
-    "url-loader": "^1.1.1",
+    "url-loader": "^2.0.0",
     "val-loader": "1.1.1",
     "webpack": "^4.33.0",
     "webpack-cli": "^3.3.3",
