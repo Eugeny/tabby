@@ -153,6 +153,15 @@
       "contributions": [
         "bug"
       ]
+    },
+    {
+      "login": "IgnusG",
+      "name": "Jonathan",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/6438760?v=4",
+      "profile": "https://jjuhas.keybase.pub//",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
