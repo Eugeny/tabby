@@ -13,6 +13,7 @@
     padding: 15px 30px;
     margin: 0;
     overflow-y: auto;
+    height: 100%;
     flex: auto;
     display: flex;
     position: relative;
