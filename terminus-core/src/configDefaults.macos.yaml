@@ -41,13 +41,13 @@ hotkeys:
   split-left: []
   split-top: []
   pane-nav-right:
-    - '⌘-⌥-ArrowRight'
+    - '⌘-⌥-Right'
   pane-nav-down:
-    - '⌘-⌥-ArrowDown'
+    - '⌘-⌥-Down'
   pane-nav-up:
-    - '⌘-⌥-ArrowUp'
+    - '⌘-⌥-Up'
   pane-nav-left:
-    - '⌘-⌥-ArrowLeft'
+    - '⌘-⌥-Left'
   close-pane:
     - '⌘-Shift-W'
 pluginBlacklist: ['ssh']

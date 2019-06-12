@@ -50,6 +50,20 @@ export function stringifyKeySequence (events: NativeKeyEvent[]): string[] {
             key = key.replace('Key', '')
             key = key.replace('Arrow', '')
             key = key.replace('Digit', '')
+            key = {
+                Comma: ',',
+                Period: '.',
+                Slash: '/',
+                Backslash: '\\',
+                IntlBackslash: '\\',
+                Backquote: '`',
+                Minus: '-',
+                Equal: '=',
+                Semicolon: ';',
+                Quote: '\'',
+                BracketLeft: '[',
+                BracketRight: ']',
+            }[key] || key
             itemKeys.push(key)
             items.push(itemKeys.join('-'))
         }

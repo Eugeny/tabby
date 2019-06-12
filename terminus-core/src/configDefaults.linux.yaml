@@ -11,10 +11,10 @@ hotkeys:
   rename-tab:
     - 'Ctrl-Shift-R'
   next-tab:
-    - 'Ctrl-Shift-ArrowRight'
+    - 'Ctrl-Shift-Right'
     - 'Ctrl-Tab'
   previous-tab:
-    - 'Ctrl-Shift-ArrowLeft'
+    - 'Ctrl-Shift-Left'
     - 'Ctrl-Shift-Tab'
   tab-1:
     - 'Alt-1'
@@ -43,12 +43,12 @@ hotkeys:
   split-left: []
   split-top: []
   pane-nav-right:
-    - 'Ctrl-Alt-ArrowRight'
+    - 'Ctrl-Alt-Right'
   pane-nav-down:
-    - 'Ctrl-Alt-ArrowDown'
+    - 'Ctrl-Alt-Down'
   pane-nav-up:
-    - 'Ctrl-Alt-ArrowUp'
+    - 'Ctrl-Alt-Up'
   pane-nav-left:
-    - 'Ctrl-Alt-ArrowLeft'
+    - 'Ctrl-Alt-Left'
   close-pane: []
 pluginBlacklist: ['ssh']

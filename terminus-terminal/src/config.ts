@@ -79,11 +79,11 @@ export class TerminalConfigProvider extends ConfigProvider {
                 ],
                 'zoom-in': [
                     '⌘-=',
-                    '⌘-Shift-+',
+                    '⌘-Shift-=',
                 ],
                 'zoom-out': [
                     '⌘--',
-                    '⌘-Shift-_',
+                    '⌘-Shift--',
                 ],
                 'reset-zoom': [
                     '⌘-0',
@@ -92,10 +92,10 @@ export class TerminalConfigProvider extends ConfigProvider {
                     '⌘-T',
                     '⌘-N',
                 ],
-                'home': ['⌘-ArrowLeft', 'Home'],
-                'end': ['⌘-ArrowRight', 'End'],
-                'previous-word': ['⌥-ArrowLeft'],
-                'next-word': ['⌥-ArrowRight'],
+                'home': ['⌘-Left', 'Home'],
+                'end': ['⌘-Right', 'End'],
+                'previous-word': ['⌥-Left'],
+                'next-word': ['⌥-Right'],
                 'delete-previous-word': ['⌥-Backspace'],
                 'delete-next-word': ['⌥-Delete'],
                 'search': [
@@ -124,11 +124,11 @@ export class TerminalConfigProvider extends ConfigProvider {
                 ],
                 'zoom-in': [
                     'Ctrl-=',
-                    'Ctrl-Shift-+',
+                    'Ctrl-Shift-=',
                 ],
                 'zoom-out': [
                     'Ctrl--',
-                    'Ctrl-Shift-_',
+                    'Ctrl-Shift--',
                 ],
                 'reset-zoom': [
                     'Ctrl-0',
@@ -138,8 +138,8 @@ export class TerminalConfigProvider extends ConfigProvider {
                 ],
                 'home': ['Home'],
                 'end': ['End'],
-                'previous-word': ['Ctrl-ArrowLeft'],
-                'next-word': ['Ctrl-ArrowRight'],
+                'previous-word': ['Ctrl-Left'],
+                'next-word': ['Ctrl-Right'],
                 'delete-previous-word': ['Ctrl-Backspace'],
                 'delete-next-word': ['Ctrl-Delete'],
                 'search': [
@@ -166,11 +166,11 @@ export class TerminalConfigProvider extends ConfigProvider {
                 ],
                 'zoom-in': [
                     'Ctrl-=',
-                    'Ctrl-Shift-+',
+                    'Ctrl-Shift-=',
                 ],
                 'zoom-out': [
                     'Ctrl--',
-                    'Ctrl-Shift-_',
+                    'Ctrl-Shift--',
                 ],
                 'reset-zoom': [
                     'Ctrl-0',
@@ -180,8 +180,8 @@ export class TerminalConfigProvider extends ConfigProvider {
                 ],
                 'home': ['Home'],
                 'end': ['End'],
-                'previous-word': ['Ctrl-ArrowLeft'],
-                'next-word': ['Ctrl-ArrowRight'],
+                'previous-word': ['Ctrl-Left'],
+                'next-word': ['Ctrl-Right'],
                 'delete-previous-word': ['Ctrl-Backspace'],
                 'delete-next-word': ['Ctrl-Delete'],
                 'search': [
