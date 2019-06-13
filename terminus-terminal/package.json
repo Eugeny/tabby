@@ -31,8 +31,10 @@
     "runes": "^0.4.2",
     "slug": "^1.1.0",
     "uuid": "^3.3.2",
-    "xterm": "https://registry.npmjs.org/@terminus-term/xterm/-/xterm-3.14.1.tgz",
-    "xterm-addon-ligatures": "^0.1.0-beta-2"
+    "xterm": "https://registry.npmjs.org/@terminus-term/xterm/-/xterm-3.14.2.tgz",
+    "xterm-addon-fit": "^0.1.0-beta3",
+    "xterm-addon-ligatures": "^0.1.0-beta-2",
+    "xterm-addon-search": "^0.1.0-beta6"
   },
   "peerDependencies": {
     "@angular/common": "4.0.1",

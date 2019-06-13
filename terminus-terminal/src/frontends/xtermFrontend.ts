@@ -1,12 +1,12 @@
 import { Frontend } from './frontend'
 import { Terminal, ITheme } from 'xterm'
 import { getCSSFontFamily } from '../utils'
-import { FitAddon } from './xtermAddonFit'
+import { FitAddon } from 'xterm-addon-fit'
 import { enableLigatures } from 'xterm-addon-ligatures'
-import { SearchAddon, ISearchOptions } from './xtermSearchAddon'
+import { SearchAddon, ISearchOptions } from 'xterm-addon-search'
 import './xterm.css'
 import deepEqual = require('deep-equal')
-import { Attributes, AttributeData, CellData } from 'xterm/src/core/buffer/BufferLine'
+import { Attributes, AttributeData, CellData } from 'xterm/src/common/buffer/BufferLine'
 
 const COLOR_NAMES = [
     'black', 'red', 'green', 'yellow', 'blue', 'magenta', 'cyan', 'white',
@@ -83,8 +83,9 @@ export class XTermFrontend extends Frontend {
         this.resizeHandler = () => {
             try {
                 this.fitAddon.fit()
-            } catch {
+            } catch (e) {
                 // tends to throw when element wasn't shown yet
+                console.warn('Could not resize xterm', e)
             }
         }
 
