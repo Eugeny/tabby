@@ -66,7 +66,7 @@ export class XTermFrontend extends Frontend {
         }
 
         this.xterm.attachCustomKeyEventHandler((event: KeyboardEvent) => {
-            if ((event.getModifierState('Control') || event.getModifierState('Meta')) && event.key.toLowerCase() === 'v') {
+            if (event.getModifierState('Meta') && event.key.toLowerCase() === 'v') {
                 event.preventDefault()
                 return false
             }
