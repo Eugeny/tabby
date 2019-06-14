@@ -22,11 +22,11 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
     static animations: AnimationTriggerMetadata[] = [trigger('slideInOut', [
         transition(':enter', [
             style({ transform: 'translateY(-25%)' }),
-            animate('100ms ease-in-out', style({ transform: 'translateY(0%)' }))
+            animate('100ms ease-in-out', style({ transform: 'translateY(0%)' })),
         ]),
         transition(':leave', [
-            animate('100ms ease-in-out', style({ transform: 'translateY(-25%)' }))
-        ])
+            animate('100ms ease-in-out', style({ transform: 'translateY(-25%)' })),
+        ]),
     ])]
 
     session: BaseSession
@@ -90,53 +90,53 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
                 return
             }
             switch (hotkey) {
-            case 'ctrl-c':
-                if (this.frontend.getSelection()) {
+                case 'ctrl-c':
+                    if (this.frontend.getSelection()) {
+                        this.frontend.copySelection()
+                        this.frontend.clearSelection()
+                        this.toastr.info('Copied')
+                    } else {
+                        this.sendInput('\x03')
+                    }
+                    break
+                case 'copy':
                     this.frontend.copySelection()
                     this.frontend.clearSelection()
                     this.toastr.info('Copied')
-                } else {
-                    this.sendInput('\x03')
-                }
-                break
-            case 'copy':
-                this.frontend.copySelection()
-                this.frontend.clearSelection()
-                this.toastr.info('Copied')
-                break
-            case 'paste':
-                this.paste()
-                break
-            case 'clear':
-                this.frontend.clear()
-                break
-            case 'zoom-in':
-                this.zoomIn()
-                break
-            case 'zoom-out':
-                this.zoomOut()
-                break
-            case 'reset-zoom':
-                this.resetZoom()
-                break
-            case 'previous-word':
-                this.sendInput('\x1bb')
-                break
-            case 'next-word':
-                this.sendInput('\x1bf')
-                break
-            case 'delete-previous-word':
-                this.sendInput('\x1b\x7f')
-                break
-            case 'delete-next-word':
-                this.sendInput('\x1bd')
-                break
-            case 'search':
-                this.showSearchPanel = true
-                setImmediate(() => {
-                    this.element.nativeElement.querySelector('.search-input').focus()
-                })
-                break
+                    break
+                case 'paste':
+                    this.paste()
+                    break
+                case 'clear':
+                    this.frontend.clear()
+                    break
+                case 'zoom-in':
+                    this.zoomIn()
+                    break
+                case 'zoom-out':
+                    this.zoomOut()
+                    break
+                case 'reset-zoom':
+                    this.resetZoom()
+                    break
+                case 'previous-word':
+                    this.sendInput('\x1bb')
+                    break
+                case 'next-word':
+                    this.sendInput('\x1bf')
+                    break
+                case 'delete-previous-word':
+                    this.sendInput('\x1b\x7f')
+                    break
+                case 'delete-next-word':
+                    this.sendInput('\x1bd')
+                    break
+                case 'search':
+                    this.showSearchPanel = true
+                    setImmediate(() => {
+                        this.element.nativeElement.querySelector('.search-input').focus()
+                    })
+                    break
             }
         })
         this.bellPlayer = document.createElement('audio')
@@ -219,89 +219,6 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
         return items
     }
 
-    protected detachTermContainerHandlers () {
-        for (const subscription of this.termContainerSubscriptions) {
-            subscription.unsubscribe()
-        }
-        this.termContainerSubscriptions = []
-    }
-
-    protected attachTermContainerHandlers () {
-        this.detachTermContainerHandlers()
-
-        const maybeConfigure = () => {
-            if (this.hasFocus) {
-                setTimeout(() => this.configure(), 250)
-            }
-        }
-
-        this.termContainerSubscriptions = [
-            this.frontend.title$.subscribe(title => this.zone.run(() => this.setTitle(title))),
-
-            this.focused$.subscribe(() => this.frontend.enableResizing = true),
-            this.blurred$.subscribe(() => this.frontend.enableResizing = false),
-
-            this.frontend.mouseEvent$.subscribe(async event => {
-                if (event.type === 'mousedown') {
-                    if (event.which === 2) {
-                        this.paste()
-                        event.preventDefault()
-                        event.stopPropagation()
-                        return
-                    }
-                    if (event.which === 3) {
-                        if (this.config.store.terminal.rightClick === 'menu') {
-                            this.hostApp.popupContextMenu(await this.buildContextMenu())
-                        } else if (this.config.store.terminal.rightClick === 'paste') {
-                            this.paste()
-                        }
-                        event.preventDefault()
-                        event.stopPropagation()
-                        return
-                    }
-                }
-                if (event.type === 'mousewheel') {
-                    let wheelDeltaY = 0
-
-                    if ('wheelDeltaY' in event) {
-                        wheelDeltaY = (event as MouseWheelEvent)['wheelDeltaY']
-                    } else {
-                        wheelDeltaY = (event as MouseWheelEvent)['deltaY']
-                    }
-                    if (event.ctrlKey || event.metaKey) {
-
-                        if (wheelDeltaY > 0) {
-                            this.zoomIn()
-                        } else {
-                            this.zoomOut()
-                        }
-                    } else if (event.altKey) {
-                        event.preventDefault()
-                        const delta = Math.round(wheelDeltaY / 50)
-                        this.sendInput(((delta > 0) ? '\u001bOA' : '\u001bOB').repeat(Math.abs(delta)))
-                    }
-                }
-            }),
-
-            this.frontend.input$.subscribe(data => {
-                this.sendInput(data)
-            }),
-
-            this.frontend.resize$.subscribe(({ columns, rows }) => {
-                this.logger.debug(`Resizing to ${columns}x${rows}`)
-                this.size = { columns, rows }
-                this.zone.run(() => {
-                    if (this.session && this.session.open) {
-                        this.session.resize(columns, rows)
-                    }
-                })
-            }),
-
-            this.hostApp.displayMetricsChanged$.subscribe(maybeConfigure),
-            this.hostApp.windowMoved$.subscribe(maybeConfigure),
-        ]
-    }
-
     /**
      * Feeds input into the active session
      */
@@ -330,7 +247,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
     }
 
     paste () {
-        let data = this.electron.clipboard.readText()
+        let data = this.electron.clipboard.readText() as string
         if (this.config.store.terminal.bracketedPaste) {
             data = '\x1b[200~' + data + '\x1b[201~'
         }
@@ -399,6 +316,89 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
         if (this.session && this.session.open) {
             await this.session.destroy()
         }
+    }
+
+    protected detachTermContainerHandlers () {
+        for (const subscription of this.termContainerSubscriptions) {
+            subscription.unsubscribe()
+        }
+        this.termContainerSubscriptions = []
+    }
+
+    protected attachTermContainerHandlers () {
+        this.detachTermContainerHandlers()
+
+        const maybeConfigure = () => {
+            if (this.hasFocus) {
+                setTimeout(() => this.configure(), 250)
+            }
+        }
+
+        this.termContainerSubscriptions = [
+            this.frontend.title$.subscribe(title => this.zone.run(() => this.setTitle(title))),
+
+            this.focused$.subscribe(() => this.frontend.enableResizing = true),
+            this.blurred$.subscribe(() => this.frontend.enableResizing = false),
+
+            this.frontend.mouseEvent$.subscribe(async event => {
+                if (event.type === 'mousedown') {
+                    if (event.which === 2) {
+                        this.paste()
+                        event.preventDefault()
+                        event.stopPropagation()
+                        return
+                    }
+                    if (event.which === 3) {
+                        if (this.config.store.terminal.rightClick === 'menu') {
+                            this.hostApp.popupContextMenu(await this.buildContextMenu())
+                        } else if (this.config.store.terminal.rightClick === 'paste') {
+                            this.paste()
+                        }
+                        event.preventDefault()
+                        event.stopPropagation()
+                        return
+                    }
+                }
+                if (event.type === 'mousewheel') {
+                    let wheelDeltaY = 0
+
+                    if ('wheelDeltaY' in event) {
+                        wheelDeltaY = (event as MouseWheelEvent)['wheelDeltaY']
+                    } else {
+                        wheelDeltaY = (event as MouseWheelEvent)['deltaY']
+                    }
+                    if (event.ctrlKey || event.metaKey) {
+
+                        if (wheelDeltaY > 0) {
+                            this.zoomIn()
+                        } else {
+                            this.zoomOut()
+                        }
+                    } else if (event.altKey) {
+                        event.preventDefault()
+                        const delta = Math.round(wheelDeltaY / 50)
+                        this.sendInput((delta > 0 ? '\u001bOA' : '\u001bOB').repeat(Math.abs(delta)))
+                    }
+                }
+            }),
+
+            this.frontend.input$.subscribe(data => {
+                this.sendInput(data)
+            }),
+
+            this.frontend.resize$.subscribe(({ columns, rows }) => {
+                this.logger.debug(`Resizing to ${columns}x${rows}`)
+                this.size = { columns, rows }
+                this.zone.run(() => {
+                    if (this.session && this.session.open) {
+                        this.session.resize(columns, rows)
+                    }
+                })
+            }),
+
+            this.hostApp.displayMetricsChanged$.subscribe(maybeConfigure),
+            this.hostApp.windowMoved$.subscribe(maybeConfigure),
+        ]
     }
 
     protected attachSessionHandlers () {

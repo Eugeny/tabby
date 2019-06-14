@@ -1,16 +1,16 @@
-import { Frontend } from './frontend'
+import { Frontend, SearchOptions } from './frontend'
 import { Terminal, ITheme } from 'xterm'
 import { getCSSFontFamily } from '../utils'
 import { FitAddon } from 'xterm-addon-fit'
 import { enableLigatures } from 'xterm-addon-ligatures'
-import { SearchAddon, ISearchOptions } from 'xterm-addon-search'
+import { SearchAddon } from 'xterm-addon-search'
 import './xterm.css'
-import deepEqual = require('deep-equal')
+import deepEqual from 'deep-equal'
 import { Attributes, AttributeData, CellData } from 'xterm/src/common/buffer/BufferLine'
 
 const COLOR_NAMES = [
     'black', 'red', 'green', 'yellow', 'blue', 'magenta', 'cyan', 'white',
-    'brightBlack', 'brightRed', 'brightGreen', 'brightYellow', 'brightBlue', 'brightMagenta', 'brightCyan', 'brightWhite'
+    'brightBlack', 'brightRed', 'brightGreen', 'brightYellow', 'brightBlue', 'brightMagenta', 'brightCyan', 'brightWhite',
 ]
 
 /** @hidden */
@@ -127,7 +127,7 @@ export class XTermFrontend extends Frontend {
         ro.observe(host)
     }
 
-    detach (host: HTMLElement): void {
+    detach (_host: HTMLElement): void {
         window.removeEventListener('resize', this.resizeHandler)
     }
 
@@ -138,7 +138,7 @@ export class XTermFrontend extends Frontend {
     copySelection (): void {
         require('electron').remote.clipboard.write({
             text: this.getSelection(),
-            html: this.getSelectionAsHTML()
+            html: this.getSelectionAsHTML(),
         })
     }
 
@@ -184,7 +184,7 @@ export class XTermFrontend extends Frontend {
         this.xterm.setOption('fontFamily', getCSSFontFamily(config.terminal.font))
         this.xterm.setOption('bellStyle', config.terminal.bell)
         this.xterm.setOption('cursorStyle', {
-            beam: 'bar'
+            beam: 'bar',
         }[config.terminal.cursor] || config.terminal.cursor)
         this.xterm.setOption('cursorBlink', config.terminal.cursorBlink)
         this.xterm.setOption('macOptionIsMeta', config.terminal.altIsMeta)
@@ -196,7 +196,7 @@ export class XTermFrontend extends Frontend {
 
         const theme: ITheme = {
             foreground: config.terminal.colorScheme.foreground,
-            background: (config.terminal.background === 'colorScheme') ? config.terminal.colorScheme.background : (config.appearance.vibrancy ? 'transparent' : this.themesService.findCurrentTheme().terminalBackground),
+            background: config.terminal.background === 'colorScheme' ? config.terminal.colorScheme.background : config.appearance.vibrancy ? 'transparent' : this.themesService.findCurrentTheme().terminalBackground,
             cursor: config.terminal.colorScheme.cursor,
         }
 
@@ -219,11 +219,11 @@ export class XTermFrontend extends Frontend {
         this.setFontSize()
     }
 
-    findNext (term: string, searchOptions?: ISearchOptions): boolean {
+    findNext (term: string, searchOptions?: SearchOptions): boolean {
         return this.search.findNext(term, searchOptions)
     }
 
-    findPrevious (term: string, searchOptions?: ISearchOptions): boolean {
+    findPrevious (term: string, searchOptions?: SearchOptions): boolean {
         return this.search.findPrevious(term, searchOptions)
     }
 

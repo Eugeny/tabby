@@ -16,7 +16,7 @@ export function getRootModule (plugins: any[]) {
         }),
     ]
     const bootstrap = [
-        ...(plugins.filter(x => x.bootstrap).map(x => x.bootstrap)),
+        ...plugins.filter(x => x.bootstrap).map(x => x.bootstrap),
     ]
 
     if (bootstrap.length === 0) {
@@ -26,7 +26,7 @@ export function getRootModule (plugins: any[]) {
     @NgModule({
         imports,
         bootstrap,
-    }) class RootModule { }
+    }) class RootModule { } // eslint-disable-line @typescript-eslint/no-extraneous-class
 
     return RootModule
 }

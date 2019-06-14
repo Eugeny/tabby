@@ -7,17 +7,17 @@ export class SettingsConfigProvider extends ConfigProvider {
         [Platform.macOS]: {
             hotkeys: {
                 settings: ['⌘-,'],
-            }
+            },
         },
         [Platform.Windows]: {
             hotkeys: {
-                settings: ['Ctrl-,']
-            }
+                settings: ['Ctrl-,'],
+            },
         },
         [Platform.Linux]: {
             hotkeys: {
-                settings: ['Ctrl-,']
-            }
+                settings: ['Ctrl-,'],
+            },
         },
     }
 }

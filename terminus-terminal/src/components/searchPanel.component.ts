@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core'
 import { ToastrService } from 'ngx-toastr'
-import { Frontend, ISearchOptions } from '../frontends/frontend'
+import { Frontend, SearchOptions } from '../frontends/frontend'
 
 @Component({
     selector: 'search-panel',
@@ -8,11 +8,11 @@ import { Frontend, ISearchOptions } from '../frontends/frontend'
     styles: [require('./searchPanel.component.scss')],
 })
 export class SearchPanelComponent {
+    static globalOptions: SearchOptions = {}
     @Input() query: string
     @Input() frontend: Frontend
     notFound = false
-    static globalOptions: ISearchOptions = {}
-    options: ISearchOptions = SearchPanelComponent.globalOptions
+    options: SearchOptions = SearchPanelComponent.globalOptions
 
     @Output() close = new EventEmitter()
 

@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core'
 import { HostAppService, Platform } from 'terminus-core'
 
 import { ShellProvider } from '../api/shellProvider'
-import { IShell } from '../api/interfaces'
+import { Shell } from '../api/interfaces'
 
 /** @hidden */
 @Injectable()
@@ -14,7 +14,7 @@ export class MacOSDefaultShellProvider extends ShellProvider {
         super()
     }
 
-    async provide (): Promise<IShell[]> {
+    async provide (): Promise<Shell[]> {
         if (this.hostApp.platform !== Platform.macOS) {
             return []
         }

@@ -7,10 +7,10 @@ export abstract class TerminalDecorator {
     /**
      * Called when a new terminal tab starts
      */
-    attach (terminal: BaseTerminalTabComponent): void { } // tslint:disable-line no-empty
+    attach (terminal: BaseTerminalTabComponent): void { } // eslint-disable-line
 
     /**
      * Called before a terminal tab is destroyed
      */
-    detach (terminal: BaseTerminalTabComponent): void { } // tslint:disable-line no-empty
+    detach (terminal: BaseTerminalTabComponent): void { } // eslint-disable-line
 }

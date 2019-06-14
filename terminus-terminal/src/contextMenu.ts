@@ -28,7 +28,7 @@ export class NewTabContextMenu extends TerminalContextMenuItemProvider {
                 label: 'New terminal',
                 click: () => this.zone.run(() => {
                     this.terminalService.openTabWithOptions((tab as any).sessionOptions)
-                })
+                }),
             },
             {
                 label: 'New with profile',
@@ -37,7 +37,7 @@ export class NewTabContextMenu extends TerminalContextMenuItemProvider {
                     click: () => this.zone.run(async () => {
                         this.terminalService.openTab(profile, await tab.session.getWorkingDirectory())
                     }),
-                }))
+                })),
             },
         ]
 
@@ -49,7 +49,7 @@ export class NewTabContextMenu extends TerminalContextMenuItemProvider {
                     click: () => this.zone.run(async () => {
                         this.terminalService.openTabWithOptions({
                             ...profile.sessionOptions,
-                            runAsAdministrator: true
+                            runAsAdministrator: true,
                         })
                     }),
                 })),
@@ -83,13 +83,13 @@ export class CopyPasteContextMenu extends TerminalContextMenuItemProvider {
                             this.toastr.info('Copied')
                         })
                     })
-                }
+                },
             },
             {
                 label: 'Paste',
                 click: () => {
                     this.zone.run(() => tab.paste())
-                }
+                },
             },
         ]
     }

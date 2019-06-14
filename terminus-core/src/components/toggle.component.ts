@@ -17,7 +17,7 @@ import { CheckboxComponent } from './checkbox.component'
     styles: [require('./toggle.component.scss')],
     providers: [
         { provide: NG_VALUE_ACCESSOR, useExisting: ToggleComponent, multi: true },
-    ]
+    ],
 })
 export class ToggleComponent extends CheckboxComponent {
 }

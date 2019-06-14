@@ -1,7 +1,7 @@
 import { Component } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { ConfigService, ElectronService, HostAppService } from 'terminus-core'
-import { SSHConnection, ISSHConnectionGroup } from '../api'
+import { SSHConnection, SSHConnectionGroup } from '../api'
 import { EditConnectionModalComponent } from './editConnectionModal.component'
 import { PromptModalComponent } from './promptModal.component'
 
@@ -11,7 +11,7 @@ import { PromptModalComponent } from './promptModal.component'
 })
 export class SSHSettingsTabComponent {
     connections: SSHConnection[]
-    childGroups: ISSHConnectionGroup[]
+    childGroups: SSHConnectionGroup[]
     groupCollapsed: {[id: string]: boolean} = {}
 
     constructor (
@@ -70,7 +70,7 @@ export class SSHSettingsTabComponent {
         }
     }
 
-    editGroup (group: ISSHConnectionGroup) {
+    editGroup (group: SSHConnectionGroup) {
         const modal = this.ngbModal.open(PromptModalComponent)
         modal.componentInstance.prompt = 'New group name'
         modal.componentInstance.value = group.name
@@ -86,7 +86,7 @@ export class SSHSettingsTabComponent {
         })
     }
 
-    async deleteGroup (group: ISSHConnectionGroup) {
+    async deleteGroup (group: SSHConnectionGroup) {
         if ((await this.electron.showMessageBox(
             this.hostApp.getWindow(),
             {

@@ -6,8 +6,8 @@ import { TabsService } from '../services/tabs.service'
 import { HotkeysService } from '../services/hotkeys.service'
 import { TabRecoveryService } from '../services/tabRecovery.service'
 
-export declare type SplitOrientation = 'v' | 'h'
-export declare type SplitDirection = 'r' | 't' | 'b' | 'l'
+export type SplitOrientation = 'v' | 'h' // eslint-disable-line @typescript-eslint/no-type-alias
+export type SplitDirection = 'r' | 't' | 'b' | 'l' // eslint-disable-line @typescript-eslint/no-type-alias
 
 /**
  * Describes a horizontal or vertical split row or column
@@ -198,33 +198,33 @@ export class SplitTabComponent extends BaseTabComponent implements OnInit, OnDes
                 return
             }
             switch (hotkey) {
-            case 'split-right':
-                this.splitTab(this.focusedTab, 'r')
-                break
-            case 'split-bottom':
-                this.splitTab(this.focusedTab, 'b')
-                break
-            case 'split-top':
-                this.splitTab(this.focusedTab, 't')
-                break
-            case 'split-left':
-                this.splitTab(this.focusedTab, 'l')
-                break
-            case 'pane-nav-left':
-                this.navigate('l')
-                break
-            case 'pane-nav-right':
-                this.navigate('r')
-                break
-            case 'pane-nav-up':
-                this.navigate('t')
-                break
-            case 'pane-nav-down':
-                this.navigate('b')
-                break
-            case 'close-pane':
-                this.removeTab(this.focusedTab)
-                break
+                case 'split-right':
+                    this.splitTab(this.focusedTab, 'r')
+                    break
+                case 'split-bottom':
+                    this.splitTab(this.focusedTab, 'b')
+                    break
+                case 'split-top':
+                    this.splitTab(this.focusedTab, 't')
+                    break
+                case 'split-left':
+                    this.splitTab(this.focusedTab, 'l')
+                    break
+                case 'pane-nav-left':
+                    this.navigate('l')
+                    break
+                case 'pane-nav-right':
+                    this.navigate('r')
+                    break
+                case 'pane-nav-up':
+                    this.navigate('t')
+                    break
+                case 'pane-nav-down':
+                    this.navigate('b')
+                    break
+                case 'close-pane':
+                    this.removeTab(this.focusedTab)
+                    break
             }
         })
     }
@@ -291,11 +291,11 @@ export class SplitTabComponent extends BaseTabComponent implements OnInit, OnDes
         let insertIndex = target.children.indexOf(relative)
 
         if (
-            (target.orientation === 'v' && ['l', 'r'].includes(side)) ||
-            (target.orientation === 'h' && ['t', 'b'].includes(side))
+            target.orientation === 'v' && ['l', 'r'].includes(side) ||
+            target.orientation === 'h' && ['t', 'b'].includes(side)
         ) {
             const newContainer = new SplitContainer()
-            newContainer.orientation = (target.orientation === 'v') ? 'h' : 'v'
+            newContainer.orientation = target.orientation === 'v' ? 'h' : 'v'
             newContainer.children = [relative]
             newContainer.ratios = [1]
             target.children[insertIndex] = newContainer
@@ -306,7 +306,7 @@ export class SplitTabComponent extends BaseTabComponent implements OnInit, OnDes
         if (insertIndex === -1) {
             insertIndex = 0
         } else {
-            insertIndex += (side === 'l' || side === 't') ? 0 : 1
+            insertIndex += side === 'l' || side === 't' ? 0 : 1
         }
 
         for (let i = 0; i < target.children.length; i++) {
@@ -419,7 +419,7 @@ export class SplitTabComponent extends BaseTabComponent implements OnInit, OnDes
     }
 
     private attachTabView (tab: BaseTabComponent) {
-        const ref = this.viewContainer.insert(tab.hostView) as EmbeddedViewRef<any>
+        const ref = this.viewContainer.insert(tab.hostView) as EmbeddedViewRef<any> // eslint-disable-line @typescript-eslint/no-unnecessary-type-assertion
         this.viewRefs.set(tab, ref)
 
         ref.rootNodes[0].addEventListener('click', () => this.focus(tab))
@@ -448,7 +448,7 @@ export class SplitTabComponent extends BaseTabComponent implements OnInit, OnDes
     }
 
     private layoutInternal (root: SplitContainer, x: number, y: number, w: number, h: number) {
-        const size = (root.orientation === 'v') ? h : w
+        const size = root.orientation === 'v' ? h : w
         const sizes = root.ratios.map(x => x * size)
 
         root.x = x
@@ -458,10 +458,10 @@ export class SplitTabComponent extends BaseTabComponent implements OnInit, OnDes
 
         let offset = 0
         root.children.forEach((child, i) => {
-            const childX = (root.orientation === 'v') ? x : (x + offset)
-            const childY = (root.orientation === 'v') ? (y + offset) : y
-            const childW = (root.orientation === 'v') ? w : sizes[i]
-            const childH = (root.orientation === 'v') ? sizes[i] : h
+            const childX = root.orientation === 'v' ? x : x + offset
+            const childY = root.orientation === 'v' ? y + offset : y
+            const childW = root.orientation === 'v' ? w : sizes[i]
+            const childH = root.orientation === 'v' ? sizes[i] : h
             if (child instanceof SplitContainer) {
                 this.layoutInternal(child, childX, childY, childW, childH)
             } else {
@@ -472,7 +472,7 @@ export class SplitTabComponent extends BaseTabComponent implements OnInit, OnDes
                 element.style.width = `${childW}%`
                 element.style.height = `${childH}%`
 
-                element.style.opacity = (child === this.focusedTab) ? 1 : 0.75
+                element.style.opacity = child === this.focusedTab ? 1 : 0.75
             }
             offset += sizes[i]
 

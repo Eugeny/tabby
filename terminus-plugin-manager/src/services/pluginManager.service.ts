@@ -8,7 +8,7 @@ const NAME_PREFIX = 'terminus-'
 const KEYWORD = 'terminus-plugin'
 const OFFICIAL_NPM_ACCOUNT = 'eugenepankov'
 
-export interface IPluginInfo {
+export interface PluginInfo {
     name: string
     description: string
     packageName: string
@@ -25,7 +25,7 @@ export class PluginManagerService {
     logger: Logger
     builtinPluginsPath: string = (window as any).builtinPluginsPath
     userPluginsPath: string = (window as any).userPluginsPath
-    installedPlugins: IPluginInfo[] = (window as any).installedPlugins
+    installedPlugins: PluginInfo[] = (window as any).installedPlugins
 
     private npmReady: Promise<void>
     private npm: any
@@ -57,12 +57,12 @@ export class PluginManagerService {
         return this.npm
     }
 
-    listAvailable (query?: string): Observable<IPluginInfo[]> {
+    listAvailable (query?: string): Observable<PluginInfo[]> {
         return from(
             axios.get(`https://www.npmjs.com/search?q=keywords%3A${KEYWORD}+${encodeURIComponent(query || '')}&from=0&size=1000`, {
                 headers: {
                     'x-spiferack': '1',
-                }
+                },
             })
         ).pipe(
             map(response => response.data.objects.map(item => ({
@@ -78,7 +78,7 @@ export class PluginManagerService {
         )
     }
 
-    async installPlugin (plugin: IPluginInfo) {
+    async installPlugin (plugin: PluginInfo) {
         (await this.getNPM()).commands.install([`${plugin.packageName}@${plugin.version}`], err => {
             if (err) {
                 this.logger.error(err)
@@ -88,7 +88,7 @@ export class PluginManagerService {
         })
     }
 
-    async uninstallPlugin (plugin: IPluginInfo) {
+    async uninstallPlugin (plugin: PluginInfo) {
         (await this.getNPM()).commands.remove([plugin.packageName], err => {
             if (err) {
                 this.logger.error(err)

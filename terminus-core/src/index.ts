@@ -39,6 +39,12 @@ import { TaskCompletionContextMenu, CommonOptionsContextMenu, CloseContextMenu }
 import 'perfect-scrollbar/css/perfect-scrollbar.css'
 import 'ng2-dnd/bundles/style.css'
 
+// PerfectScrollbar fix
+import { fromEvent } from 'rxjs/internal/observable/fromEvent'
+import { merge } from 'rxjs/internal/observable/merge'
+require('rxjs').fromEvent = fromEvent
+require('rxjs').merge = merge
+
 const PROVIDERS = [
     { provide: HotkeyProvider, useClass: AppHotkeyProvider, multi: true },
     { provide: Theme, useClass: StandardTheme, multi: true },
@@ -49,7 +55,7 @@ const PROVIDERS = [
     { provide: TabContextMenuItemProvider, useClass: CloseContextMenu, multi: true },
     { provide: TabContextMenuItemProvider, useClass: TaskCompletionContextMenu, multi: true },
     { provide: TabRecoveryProvider, useClass: SplitTabRecoveryProvider, multi: true },
-    { provide: PERFECT_SCROLLBAR_CONFIG, useValue: { suppressScrollX: true } }
+    { provide: PERFECT_SCROLLBAR_CONFIG, useValue: { suppressScrollX: true } },
 ]
 
 /** @hidden */
@@ -88,9 +94,9 @@ const PROVIDERS = [
         CheckboxComponent,
         ToggleComponent,
         AutofocusDirective,
-    ]
+    ],
 })
-export default class AppModule {
+export default class AppModule { // eslint-disable-line @typescript-eslint/no-extraneous-class
     constructor (app: AppService, config: ConfigService) {
         app.ready$.subscribe(() => {
             if (config.store.enableWelcomeTab) {
@@ -107,11 +113,9 @@ export default class AppModule {
     }
 }
 
-// PerfectScrollbar fix
-import { fromEvent } from 'rxjs/internal/observable/fromEvent'
-import { merge } from 'rxjs/internal/observable/merge'
-require('rxjs').fromEvent = fromEvent
-require('rxjs').merge = merge
-
 export { AppRootComponent as bootstrap }
 export * from './api'
+
+// Deprecations
+export { ToolbarButton as IToolbarButton } from './api'
+export { HotkeyDescription as IHotkeyDescription } from './api'

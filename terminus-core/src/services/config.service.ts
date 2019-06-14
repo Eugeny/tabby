@@ -14,7 +14,7 @@ function isStructuralMember (v) {
         Object.keys(v).length > 0 && !v.__nonStructural
 }
 
-function isNonStructuralObjectMember (v) {
+function isNonStructuralObjectMember (v): boolean {
     return v instanceof Object && !(v instanceof Array) && v.__nonStructural
 }
 
@@ -46,13 +46,13 @@ export class ConfigProxy {
                         get: () => this.getValue(key),
                         set: (value) => {
                             this.setValue(key, value)
-                        }
+                        },
                     }
                 )
             }
         }
 
-        this.getValue = (key: string) => {
+        this.getValue = (key: string) => { // eslint-disable-line @typescript-eslint/unbound-method
             if (real[key] !== undefined) {
                 return real[key]
             } else {
@@ -66,13 +66,13 @@ export class ConfigProxy {
             }
         }
 
-        this.setValue = (key: string, value: any) => {
+        this.setValue = (key: string, value: any) => { // eslint-disable-line @typescript-eslint/unbound-method
             real[key] = value
         }
     }
 
-    getValue (key: string): any { } // tslint:disable-line
-    setValue (key: string, value: any) { } // tslint:disable-line
+    getValue (_key: string): any { }
+    setValue (_key: string, _value: any) { }
 }
 
 @Injectable({ providedIn: 'root' })
@@ -160,10 +160,6 @@ export class ConfigService {
         this.emitChange()
     }
 
-    private emitChange (): void {
-        this.changed.next()
-    }
-
     requestRestart (): void {
         this.restartRequested = true
     }
@@ -179,7 +175,7 @@ export class ConfigService {
             this.servicesCache = {}
             const ngModule = window['rootModule'].ngInjectorDef
             for (const imp of ngModule.imports) {
-                const module = (imp['ngModule'] || imp)
+                const module = imp['ngModule'] || imp
                 if (module.ngInjectorDef && module.ngInjectorDef.providers) {
                     this.servicesCache[module['pluginName']] = module.ngInjectorDef.providers.map(provider => {
                         return provider['useClass'] || provider
@@ -195,5 +191,9 @@ export class ConfigService {
             }
             return true
         })
+    }
+
+    private emitChange (): void {
+        this.changed.next()
     }
 }

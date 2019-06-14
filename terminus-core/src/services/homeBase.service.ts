@@ -2,8 +2,8 @@ import * as os from 'os'
 import { Injectable } from '@angular/core'
 import { ElectronService } from './electron.service'
 import { ConfigService } from './config.service'
-import mixpanel = require('mixpanel')
-import uuidv4 = require('uuid/v4')
+import * as mixpanel from 'mixpanel'
+import * as uuidv4 from 'uuid/v4'
 
 @Injectable({ providedIn: 'root' })
 export class HomeBaseService {
@@ -53,7 +53,7 @@ export class HomeBaseService {
 
     getAnalyticsProperties () {
         return {
-            distinct_id: window.localStorage.analyticsUserID,
+            distinct_id: window.localStorage.analyticsUserID, // eslint-disable-line @typescript-eslint/camelcase
             platform: process.platform,
             os: os.release(),
             version: this.appVersion,

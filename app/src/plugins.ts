@@ -1,6 +1,6 @@
 import * as fs from 'mz/fs'
 import * as path from 'path'
-const nodeModule = require('module')
+const nodeModule = require('module') // eslint-disable-line @typescript-eslint/no-var-requires
 const nodeRequire = (global as any).require
 
 function normalizePath (path: string): string {
@@ -38,9 +38,9 @@ if (process.env.TERMINUS_PLUGINS) {
     process.env.TERMINUS_PLUGINS.split(':').map(x => nodeModule.globalPaths.push(normalizePath(x)))
 }
 
-export declare type ProgressCallback = (current: number, total: number) => void
+export type ProgressCallback = (current: number, total: number) => void // eslint-disable-line @typescript-eslint/no-type-alias
 
-export interface IPluginInfo {
+export interface PluginInfo {
     name: string
     description: string
     packageName: string
@@ -87,9 +87,9 @@ const originalRequire = (global as any).require
     return originalRequire.apply(this, arguments)
 }
 
-export async function findPlugins (): Promise<IPluginInfo[]> {
+export async function findPlugins (): Promise<PluginInfo[]> {
     const paths = nodeModule.globalPaths
-    let foundPlugins: IPluginInfo[] = []
+    let foundPlugins: PluginInfo[] = []
     const candidateLocations: { pluginDir: string, packageName: string }[] = []
     const PREFIX = 'terminus-'
 
@@ -102,7 +102,7 @@ export async function findPlugins (): Promise<IPluginInfo[]> {
         if (await fs.exists(path.join(pluginDir, 'package.json'))) {
             candidateLocations.push({
                 pluginDir: path.dirname(pluginDir),
-                packageName: path.basename(pluginDir)
+                packageName: path.basename(pluginDir),
             })
         }
         for (const packageName of pluginNames) {
@@ -152,7 +152,7 @@ export async function findPlugins (): Promise<IPluginInfo[]> {
     return foundPlugins
 }
 
-export async function loadPlugins (foundPlugins: IPluginInfo[], progress: ProgressCallback): Promise<any[]> {
+export async function loadPlugins (foundPlugins: PluginInfo[], progress: ProgressCallback): Promise<any[]> {
     const plugins: any[] = []
     progress(0, 1)
     let index = 0

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core'
 import { ConfigService } from 'terminus-core'
 
 import { ShellProvider } from '../api/shellProvider'
-import { IShell } from '../api/interfaces'
+import { Shell } from '../api/interfaces'
 
 /** @hidden */
 @Injectable()
@@ -13,7 +13,7 @@ export class CustomShellProvider extends ShellProvider {
         super()
     }
 
-    async provide (): Promise<IShell[]> {
+    async provide (): Promise<Shell[]> {
         const args = this.config.store.terminal.customShell.split(' ')
         return [{
             id: 'custom',

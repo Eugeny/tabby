@@ -27,23 +27,25 @@ export class EditConnectionModalComponent {
         this.newScript = { expect: '', send: '' }
 
         for (const k of Object.values(SSHAlgorithmType)) {
-            this.supportedAlgorithms[k] = ALGORITHMS[{
+            const supportedAlg = {
                 [SSHAlgorithmType.KEX]: 'SUPPORTED_KEX',
                 [SSHAlgorithmType.HOSTKEY]: 'SUPPORTED_SERVER_HOST_KEY',
                 [SSHAlgorithmType.CIPHER]: 'SUPPORTED_CIPHER',
                 [SSHAlgorithmType.HMAC]: 'SUPPORTED_HMAC',
-            }[k]]
-            this.defaultAlgorithms[k] = ALGORITHMS[{
+            }[k]
+            const defaultAlg = {
                 [SSHAlgorithmType.KEX]: 'KEX',
                 [SSHAlgorithmType.HOSTKEY]: 'SERVER_HOST_KEY',
                 [SSHAlgorithmType.CIPHER]: 'CIPHER',
                 [SSHAlgorithmType.HMAC]: 'HMAC',
-            }[k]]
+            }[k]
+            this.supportedAlgorithms[k] = ALGORITHMS[supportedAlg]
+            this.defaultAlgorithms[k] = ALGORITHMS[defaultAlg]
         }
     }
 
     async ngOnInit () {
-        this.hasSavedPassword = !!(await this.passwordStorage.loadPassword(this.connection))
+        this.hasSavedPassword = !!await this.passwordStorage.loadPassword(this.connection)
         this.connection.algorithms = this.connection.algorithms || {}
         for (const k of Object.values(SSHAlgorithmType)) {
             if (!this.connection.algorithms[k]) {
@@ -77,8 +79,8 @@ export class EditConnectionModalComponent {
     save () {
         for (const k of Object.values(SSHAlgorithmType)) {
             this.connection.algorithms[k] = Object.entries(this.algorithms[k])
-                .filter(([k, v]) => !!v)
-                .map(([k, v]) => k)
+                .filter(([_k, v]) => !!v)
+                .map(([k, _v]) => k)
         }
         this.modalInstance.close(this.connection)
     }

@@ -98,7 +98,7 @@ import { XTermFrontend, XTermWebGLFrontend } from './frontends/xtermFrontend'
         // For WindowsDefaultShellProvider
         PowerShellCoreShellProvider,
         WSLShellProvider,
-        WindowsStockShellsProvider
+        WindowsStockShellsProvider,
     ],
     entryComponents: [
         TerminalTabComponent,
@@ -122,7 +122,7 @@ import { XTermFrontend, XTermWebGLFrontend } from './frontends/xtermFrontend'
         EnvironmentEditorComponent,
     ],
 })
-export default class TerminalModule {
+export default class TerminalModule { // eslint-disable-line @typescript-eslint/no-extraneous-class
     constructor (
         app: AppService,
         config: ConfigService,
@@ -199,7 +199,7 @@ export default class TerminalModule {
 
         hostApp.cliPaste$.subscribe(text => {
             if (app.activeTab instanceof TerminalTabComponent && app.activeTab.session) {
-                (app.activeTab as TerminalTabComponent).sendInput(text)
+                app.activeTab.sendInput(text)
                 hostApp.bringToFront()
             }
         })
@@ -222,3 +222,6 @@ export { TerminalService, BaseSession, TerminalTabComponent, TerminalFrontendSer
 export { Frontend, XTermFrontend, XTermWebGLFrontend, HTermFrontend }
 export { BaseTerminalTabComponent } from './api/baseTerminalTab.component'
 export * from './api/interfaces'
+
+// Deprecations
+export { TerminalColorScheme as ITerminalColorScheme, Shell as IShell } from './api/interfaces'

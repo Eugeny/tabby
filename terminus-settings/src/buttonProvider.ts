@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 import { DomSanitizer } from '@angular/platform-browser'
-import { ToolbarButtonProvider, IToolbarButton, AppService, HostAppService, HotkeysService } from 'terminus-core'
+import { ToolbarButtonProvider, ToolbarButton, AppService, HostAppService, HotkeysService } from 'terminus-core'
 
 import { SettingsTabComponent } from './components/settingsTab.component'
 
@@ -23,7 +23,7 @@ export class ButtonProvider extends ToolbarButtonProvider {
         })
     }
 
-    provide (): IToolbarButton[] {
+    provide (): ToolbarButton[] {
         return [{
             icon: this.domSanitizer.bypassSecurityTrustHtml(require('./icons/cog.svg')),
             title: 'Settings',

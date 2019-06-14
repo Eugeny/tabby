@@ -4,7 +4,7 @@ import { DomSanitizer } from '@angular/platform-browser'
 import { HostAppService, Platform, ElectronService } from 'terminus-core'
 
 import { ShellProvider } from '../api/shellProvider'
-import { IShell } from '../api/interfaces'
+import { Shell } from '../api/interfaces'
 
 /** @hidden */
 @Injectable()
@@ -17,7 +17,7 @@ export class WindowsStockShellsProvider extends ShellProvider {
         super()
     }
 
-    async provide (): Promise<IShell[]> {
+    async provide (): Promise<Shell[]> {
         if (this.hostApp.platform !== Platform.Windows) {
             return []
         }
@@ -55,7 +55,7 @@ export class WindowsStockShellsProvider extends ShellProvider {
                 icon: this.domSanitizer.bypassSecurityTrustHtml(require('../icons/powershell.svg')),
                 env: {
                     TERM: 'cygwin',
-                }
+                },
             },
         ]
     }

@@ -1,12 +1,12 @@
 import slug from 'slug'
 import { Injectable } from '@angular/core'
-import { IHotkeyDescription, HotkeyProvider } from 'terminus-core'
+import { HotkeyDescription, HotkeyProvider } from 'terminus-core'
 import { TerminalService } from './services/terminal.service'
 
 /** @hidden */
 @Injectable()
 export class TerminalHotkeyProvider extends HotkeyProvider {
-    hotkeys: IHotkeyDescription[] = [
+    hotkeys: HotkeyDescription[] = [
         {
             id: 'copy',
             name: 'Copy to clipboard',
@@ -73,13 +73,13 @@ export class TerminalHotkeyProvider extends HotkeyProvider {
         private terminal: TerminalService,
     ) { super() }
 
-    async provide (): Promise<IHotkeyDescription[]> {
+    async provide (): Promise<HotkeyDescription[]> {
         const profiles = await this.terminal.getProfiles()
         return [
             ...this.hotkeys,
             ...profiles.map(profile => ({
                 id: `profile.${slug(profile.name).toLowerCase()}`,
-                name: `New tab: ${profile.name}`
+                name: `New tab: ${profile.name}`,
             })),
         ]
     }

@@ -27,6 +27,6 @@ import { PluginsSettingsTabProvider } from './settings'
         PluginsSettingsTabComponent,
     ],
 })
-export default class PluginManagerModule { }
+export default class PluginManagerModule { } // eslint-disable-line @typescript-eslint/no-extraneous-class
 
 export { PluginManagerService }

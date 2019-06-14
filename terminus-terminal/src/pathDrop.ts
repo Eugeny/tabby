@@ -25,7 +25,7 @@ export class PathDropDecorator extends TerminalDecorator {
     }
 
     injectPath (terminal: TerminalTabComponent, path: string) {
-        if (path.indexOf(' ') >= 0) {
+        if (path.includes(' ')) {
             path = `"${path}"`
         }
         path = path.replace(/\\/g, '\\\\')

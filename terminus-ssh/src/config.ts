@@ -6,10 +6,10 @@ export class SSHConfigProvider extends ConfigProvider {
         ssh: {
             connections: [],
             options: {
-            }
+            },
         },
         hotkeys: {
-            'ssh': [
+            ssh: [
                 'Alt-S',
             ],
         },

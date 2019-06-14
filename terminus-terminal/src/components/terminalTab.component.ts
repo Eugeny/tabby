@@ -29,12 +29,12 @@ export class TerminalTabComponent extends BaseTerminalTabComponent {
                 return
             }
             switch (hotkey) {
-            case 'home':
-                this.sendInput(isConPTY ? '\x1b[H' : '\x1bOH')
-                break
-            case 'end':
-                this.sendInput(isConPTY ? '\x1b[F' : '\x1bOF')
-                break
+                case 'home':
+                    this.sendInput(isConPTY ? '\x1b[H' : '\x1bOH')
+                    break
+                case 'end':
+                    this.sendInput(isConPTY ? '\x1b[F' : '\x1bOF')
+                    break
             }
         })
 
@@ -74,7 +74,7 @@ export class TerminalTabComponent extends BaseTerminalTabComponent {
             return null
         }
         return {
-            name: children[0].command
+            name: children[0].command,
         }
     }
 

@@ -3,11 +3,6 @@ import { ConfigService } from '../services/config.service'
 import { ElectronService } from '../services/electron.service'
 import { HostAppService, Bounds } from '../services/hostApp.service'
 
-export interface IScreen {
-    id: string
-    name: string
-}
-
 @Injectable({ providedIn: 'root' })
 export class DockingService {
     /** @hidden */
@@ -29,7 +24,7 @@ export class DockingService {
         }
 
         let display = this.electron.screen.getAllDisplays()
-            .filter((x) => x.id === this.config.store.appearance.dockScreen)[0]
+            .filter(x => x.id === this.config.store.appearance.dockScreen)[0]
         if (!display) {
             display = this.getCurrentScreen()
         }
@@ -71,10 +66,10 @@ export class DockingService {
         return this.electron.screen.getAllDisplays().map((display, index) => {
             return {
                 id: display.id,
-                name: {
-                    0: 'Primary display',
-                    1: 'Secondary display',
-                }[index] || `Display ${index + 1}`
+                name: [
+                    'Primary display',
+                    'Secondary display',
+                ][index] || `Display ${index + 1}`,
             }
         })
     }

@@ -47,4 +47,4 @@ import { RecoveryProvider } from './recoveryProvider'
         SSHTabComponent,
     ],
 })
-export default class SSHModule { }
+export default class SSHModule { } // eslint-disable-line @typescript-eslint/no-extraneous-class

@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core'
-import { IHotkeyDescription, HotkeyProvider } from './api/hotkeyProvider'
+import { HotkeyDescription, HotkeyProvider } from './api/hotkeyProvider'
 
 /** @hidden */
 @Injectable()
 export class AppHotkeyProvider extends HotkeyProvider {
-    hotkeys: IHotkeyDescription[] = [
+    hotkeys: HotkeyDescription[] = [
         {
             id: 'new-window',
             name: 'New window',
@@ -115,7 +115,7 @@ export class AppHotkeyProvider extends HotkeyProvider {
         },
     ]
 
-    async provide (): Promise<IHotkeyDescription[]> {
+    async provide (): Promise<HotkeyDescription[]> {
         return this.hotkeys
     }
 }

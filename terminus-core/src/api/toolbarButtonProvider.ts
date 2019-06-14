@@ -3,7 +3,7 @@ import { SafeHtml } from '@angular/platform-browser'
 /**
  * See [[ToolbarButtonProvider]]
  */
-export interface IToolbarButton {
+export interface ToolbarButton {
     /**
      * Raw SVG icon code
      */
@@ -25,15 +25,15 @@ export interface IToolbarButton {
 
     click?: () => void
 
-    submenu?: () => Promise<IToolbarButton[]>
+    submenu?: () => Promise<ToolbarButton[]>
 
     /** @hidden */
-    submenuItems?: IToolbarButton[]
+    submenuItems?: ToolbarButton[]
 }
 
 /**
  * Extend to add buttons to the toolbar
  */
 export abstract class ToolbarButtonProvider {
-    abstract provide (): IToolbarButton[]
+    abstract provide (): ToolbarButton[]
 }

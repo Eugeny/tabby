@@ -1,9 +1,9 @@
 export { BaseTabComponent, BaseTabProcess } from '../components/baseTab.component'
 export { SplitTabComponent, SplitContainer } from '../components/splitTab.component'
 export { TabRecoveryProvider, RecoveredTab } from './tabRecovery'
-export { ToolbarButtonProvider, IToolbarButton } from './toolbarButtonProvider'
+export { ToolbarButtonProvider, ToolbarButton } from './toolbarButtonProvider'
 export { ConfigProvider } from './configProvider'
-export { HotkeyProvider, IHotkeyDescription } from './hotkeyProvider'
+export { HotkeyProvider, HotkeyDescription } from './hotkeyProvider'
 export { Theme } from './theme'
 export { TabContextMenuItemProvider } from './tabContextMenuProvider'
 

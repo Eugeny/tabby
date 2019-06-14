@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core'
-import { IHotkeyDescription, HotkeyProvider } from 'terminus-core'
+import { HotkeyDescription, HotkeyProvider } from 'terminus-core'
 
 /** @hidden */
 @Injectable()
 export class SettingsHotkeyProvider extends HotkeyProvider {
-    hotkeys: IHotkeyDescription[] = [
+    hotkeys: HotkeyDescription[] = [
         {
             id: 'settings',
             name: 'Open Settings',
         },
     ]
 
-    async provide (): Promise<IHotkeyDescription[]> {
+    async provide (): Promise<HotkeyDescription[]> {
         return this.hotkeys
     }
 }

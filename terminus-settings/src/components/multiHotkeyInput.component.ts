@@ -24,7 +24,7 @@ export class MultiHotkeyInputComponent {
         if (typeof this.model === 'string') {
             this.model = [this.model]
         }
-        this.model = this.model.map(item => (typeof item === 'string') ? [item] : item)
+        this.model = this.model.map(item => typeof item === 'string' ? [item] : item)
     }
 
     editItem (item) {

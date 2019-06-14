@@ -15,7 +15,7 @@ import { TouchbarService } from '../services/touchbar.service'
 
 import { BaseTabComponent } from './baseTab.component'
 import { SafeModeModalComponent } from './safeModeModal.component'
-import { AppService, IToolbarButton, ToolbarButtonProvider } from '../api'
+import { AppService, ToolbarButton, ToolbarButtonProvider } from '../api'
 
 /** @hidden */
 @Component({
@@ -26,36 +26,36 @@ import { AppService, IToolbarButton, ToolbarButtonProvider } from '../api'
         trigger('animateTab', [
             state('in', style({
                 'flex-basis': '200px',
-                'width': '200px',
+                width: '200px',
             })),
             transition(':enter', [
                 style({
                     'flex-basis': '1px',
-                    'width': '1px',
+                    width: '1px',
                 }),
                 animate('250ms ease-in-out', style({
                     'flex-basis': '200px',
-                    'width': '200px',
-                }))
+                    width: '200px',
+                })),
             ]),
             transition(':leave', [
                 style({
                     'flex-basis': '200px',
-                    'width': '200px',
+                    width: '200px',
                 }),
                 animate('250ms ease-in-out', style({
                     'flex-basis': '1px',
-                    'width': '1px',
-                }))
-            ])
-        ])
-    ]
+                    width: '1px',
+                })),
+            ]),
+        ]),
+    ],
 })
 export class AppRootComponent {
     Platform = Platform
     @Input() ready = false
-    @Input() leftToolbarButtons: IToolbarButton[]
-    @Input() rightToolbarButtons: IToolbarButton[]
+    @Input() leftToolbarButtons: ToolbarButton[]
+    @Input() rightToolbarButtons: ToolbarButton[]
     @HostBinding('class.platform-win32') platformClassWindows = process.platform === 'win32'
     @HostBinding('class.platform-darwin') platformClassMacOS = process.platform === 'darwin'
     @HostBinding('class.platform-linux') platformClassLinux = process.platform === 'linux'
@@ -89,7 +89,7 @@ export class AppRootComponent {
 
         this.updateIcon = domSanitizer.bypassSecurityTrustHtml(require('../icons/gift.svg')),
 
-        this.hotkeys.matchedHotkey.subscribe((hotkey) => {
+        this.hotkeys.matchedHotkey.subscribe((hotkey: string) => {
             if (hotkey.startsWith('tab-')) {
                 const index = parseInt(hotkey.split('-')[1])
                 if (index <= this.app.tabs.length) {
@@ -233,20 +233,20 @@ export class AppRootComponent {
         })
     }
 
-    async generateButtonSubmenu (button: IToolbarButton) {
+    async generateButtonSubmenu (button: ToolbarButton) {
         if (button.submenu) {
             button.submenuItems = await button.submenu()
         }
     }
 
-    private getToolbarButtons (aboveZero: boolean): IToolbarButton[] {
-        let buttons: IToolbarButton[] = []
+    private getToolbarButtons (aboveZero: boolean): ToolbarButton[] {
+        let buttons: ToolbarButton[] = []
         this.config.enabledServices(this.toolbarButtonProviders).forEach(provider => {
             buttons = buttons.concat(provider.provide())
         })
         return buttons
-            .filter((button) => (button.weight > 0) === aboveZero)
-            .sort((a: IToolbarButton, b: IToolbarButton) => (a.weight || 0) - (b.weight || 0))
+            .filter(button => button.weight > 0 === aboveZero)
+            .sort((a: ToolbarButton, b: ToolbarButton) => (a.weight || 0) - (b.weight || 0))
     }
 
     private updateVibrancy () {

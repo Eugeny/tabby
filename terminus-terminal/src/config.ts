@@ -51,7 +51,7 @@ export class TerminalConfigProvider extends ConfigProvider {
                     '#C792EA',
                     '#89DDFF',
                     '#ffffff',
-                ]
+                ],
             },
             customColorSchemes: [],
             environment: {},
@@ -69,12 +69,12 @@ export class TerminalConfigProvider extends ConfigProvider {
             },
             hotkeys: {
                 'ctrl-c': ['Ctrl-C'],
-                'copy': [
+                copy: [
                     '⌘-C',
                 ],
-                'paste': [
+                paste: [
                 ],
-                'clear': [
+                clear: [
                     '⌘-K',
                 ],
                 'zoom-in': [
@@ -92,13 +92,13 @@ export class TerminalConfigProvider extends ConfigProvider {
                     '⌘-T',
                     '⌘-N',
                 ],
-                'home': ['⌘-Left', 'Home'],
-                'end': ['⌘-Right', 'End'],
+                home: ['⌘-Left', 'Home'],
+                end: ['⌘-Right', 'End'],
                 'previous-word': ['⌥-Left'],
                 'next-word': ['⌥-Right'],
                 'delete-previous-word': ['⌥-Backspace'],
                 'delete-next-word': ['⌥-Delete'],
-                'search': [
+                search: [
                     '⌘-F',
                 ],
             },
@@ -113,13 +113,13 @@ export class TerminalConfigProvider extends ConfigProvider {
             },
             hotkeys: {
                 'ctrl-c': ['Ctrl-C'],
-                'copy': [
+                copy: [
                     'Ctrl-Shift-C',
                 ],
-                'paste': [
+                paste: [
                     'Ctrl-Shift-V',
                 ],
-                'clear': [
+                clear: [
                     'Ctrl-L',
                 ],
                 'zoom-in': [
@@ -136,13 +136,13 @@ export class TerminalConfigProvider extends ConfigProvider {
                 'new-tab': [
                     'Ctrl-Shift-T',
                 ],
-                'home': ['Home'],
-                'end': ['End'],
+                home: ['Home'],
+                end: ['End'],
                 'previous-word': ['Ctrl-Left'],
                 'next-word': ['Ctrl-Right'],
                 'delete-previous-word': ['Ctrl-Backspace'],
                 'delete-next-word': ['Ctrl-Delete'],
-                'search': [
+                search: [
                     'Ctrl-Shift-F',
                 ],
             },
@@ -155,13 +155,13 @@ export class TerminalConfigProvider extends ConfigProvider {
             },
             hotkeys: {
                 'ctrl-c': ['Ctrl-C'],
-                'copy': [
+                copy: [
                     'Ctrl-Shift-C',
                 ],
-                'paste': [
+                paste: [
                     'Ctrl-Shift-V',
                 ],
-                'clear': [
+                clear: [
                     'Ctrl-L',
                 ],
                 'zoom-in': [
@@ -178,13 +178,13 @@ export class TerminalConfigProvider extends ConfigProvider {
                 'new-tab': [
                     'Ctrl-Shift-T',
                 ],
-                'home': ['Home'],
-                'end': ['End'],
+                home: ['Home'],
+                end: ['End'],
                 'previous-word': ['Ctrl-Left'],
                 'next-word': ['Ctrl-Right'],
                 'delete-previous-word': ['Ctrl-Backspace'],
                 'delete-next-word': ['Ctrl-Delete'],
-                'search': [
+                search: [
                     'Ctrl-Shift-F',
                 ],
             },

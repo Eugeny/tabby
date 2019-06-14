@@ -1,4 +1,4 @@
-import psNode = require('ps-node')
+import * as psNode from 'ps-node'
 import * as fs from 'mz/fs'
 import * as os from 'os'
 import * as nodePTY from 'node-pty'
@@ -11,21 +11,23 @@ import { exec } from 'mz/child_process'
 import { SessionOptions } from '../api/interfaces'
 import { WIN_BUILD_CONPTY_SUPPORTED, isWindowsBuild } from '../utils'
 
-try {
-    var macOSNativeProcessList = require('macos-native-processlist') // tslint:disable-line
-} catch { } // tslint:disable-line
+/* eslint-disable block-scoped-var */
 
 try {
-    var windowsProcessTree = require('@terminus-term/windows-process-tree') // tslint:disable-line
-} catch { } // tslint:disable-line
+    var macOSNativeProcessList = require('macos-native-processlist')  // eslint-disable-line @typescript-eslint/no-var-requires
+} catch { }
 
-export interface IChildProcess {
+try {
+    var windowsProcessTree = require('@terminus-term/windows-process-tree')  // eslint-disable-line @typescript-eslint/no-var-requires
+} catch { }
+
+export interface ChildProcess {
     pid: number
     ppid: number
     command: string
 }
 
-const windowsDirectoryRegex = /([a-zA-Z]:[^\:\[\]\?\"\<\>\|]+)/mi // tslint:disable-line
+const windowsDirectoryRegex = /([a-zA-Z]:[^\:\[\]\?\"\<\>\|]+)/mi
 const OSC1337Prefix = '\x1b]1337;'
 const OSC1337Suffix = '\x07'
 
@@ -61,14 +63,6 @@ export abstract class BaseSession {
         this.initialDataBuffer = null
     }
 
-    abstract start (options: SessionOptions): void
-    abstract resize (columns: number, rows: number): void
-    abstract write (data: string): void
-    abstract kill (signal?: string): void
-    abstract async getChildProcesses (): Promise<IChildProcess[]>
-    abstract async gracefullyKillProcess (): Promise<void>
-    abstract async getWorkingDirectory (): Promise<string>
-
     async destroy (): Promise<void> {
         if (this.open) {
             this.open = false
@@ -78,6 +72,14 @@ export abstract class BaseSession {
             await this.gracefullyKillProcess()
         }
     }
+
+    abstract start (options: SessionOptions): void
+    abstract resize (columns: number, rows: number): void
+    abstract write (data: string): void
+    abstract kill (signal?: string): void
+    abstract async getChildProcesses (): Promise<ChildProcess[]>
+    abstract async gracefullyKillProcess (): Promise<void>
+    abstract async getWorkingDirectory (): Promise<string>
 }
 
 /** @hidden */
@@ -128,12 +130,12 @@ export class Session extends BaseSession {
             cwd,
             env: env,
             // `1` instead of `true` forces ConPTY even if unstable
-            experimentalUseConpty: ((isWindowsBuild(WIN_BUILD_CONPTY_SUPPORTED) && this.config.store.terminal.useConPTY) ? 1 : false) as any,
+            experimentalUseConpty: (isWindowsBuild(WIN_BUILD_CONPTY_SUPPORTED) && this.config.store.terminal.useConPTY ? 1 : false) as any,
         })
 
         this.guessedCWD = cwd
 
-        this.truePID = (this.pty as any).pid
+        this.truePID = this.pty['pid']
 
         setTimeout(async () => {
             // Retrieve any possible single children now that shell has fully started
@@ -173,7 +175,7 @@ export class Session extends BaseSession {
         this.pauseAfterExit = options.pauseAfterExit
     }
 
-    processOSC1337 (data) {
+    processOSC1337 (data: string) {
         if (data.includes(OSC1337Prefix)) {
             const preData = data.substring(0, data.indexOf(OSC1337Prefix))
             let params = data.substring(data.indexOf(OSC1337Prefix) + OSC1337Prefix.length)
@@ -183,7 +185,7 @@ export class Session extends BaseSession {
             if (params.startsWith('CurrentDir=')) {
                 this.reportedCWD = params.split('=')[1]
                 if (this.reportedCWD.startsWith('~')) {
-                    this.reportedCWD = os.homedir + this.reportedCWD.substring(1)
+                    this.reportedCWD = os.homedir() + this.reportedCWD.substring(1)
                 }
                 data = preData + postData
             }
@@ -211,7 +213,7 @@ export class Session extends BaseSession {
         this.pty.kill(signal)
     }
 
-    async getChildProcesses (): Promise<IChildProcess[]> {
+    async getChildProcesses (): Promise<ChildProcess[]> {
         if (!this.truePID) {
             return []
         }
@@ -224,7 +226,7 @@ export class Session extends BaseSession {
             }))
         }
         if (process.platform === 'win32') {
-            return new Promise<IChildProcess[]>(resolve => {
+            return new Promise<ChildProcess[]>(resolve => {
                 windowsProcessTree.getProcessTree(this.truePID, tree => {
                     resolve(tree ? tree.children.map(child => ({
                         pid: child.pid,
@@ -234,12 +236,12 @@ export class Session extends BaseSession {
                 })
             })
         }
-        return new Promise<IChildProcess[]>((resolve, reject) => {
+        return new Promise<ChildProcess[]>((resolve, reject) => {
             psNode.lookup({ ppid: this.truePID }, (err, processes) => {
                 if (err) {
                     return reject(err)
                 }
-                resolve(processes as IChildProcess[])
+                resolve(processes as ChildProcess[])
             })
         })
     }

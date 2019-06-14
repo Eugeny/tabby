@@ -141,7 +141,7 @@ export class SSHSession extends BaseSession {
     }
 }
 
-export interface ISSHConnectionGroup {
+export interface SSHConnectionGroup {
     name: string
     connections: SSHConnection[]
 }

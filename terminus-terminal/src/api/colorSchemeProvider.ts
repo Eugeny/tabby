@@ -1,8 +1,8 @@
-import { ITerminalColorScheme } from './interfaces'
+import { TerminalColorScheme } from './interfaces'
 
 /**
  * Extend to add more terminal color schemes
  */
 export abstract class TerminalColorSchemeProvider {
-    abstract async getSchemes (): Promise<ITerminalColorScheme[]>
+    abstract async getSchemes (): Promise<TerminalColorScheme[]>
 }

@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 /** @hidden */
 export const hterm = require('hterm-umdjs')
 
@@ -114,7 +116,5 @@ const _collapseToEnd = Selection.prototype.collapseToEnd
 Selection.prototype.collapseToEnd = function () {
     try {
         _collapseToEnd.apply(this)
-    } catch (err) {
-        // tslint-disable-line
-    }
+    } catch (e) { }
 }

@@ -21,7 +21,7 @@ class CompletionObserver {
     }
 
     async tick () {
-        if (!(await this.tab.getCurrentProcess())) {
+        if (!await this.tab.getCurrentProcess()) {
             this.done.next(null)
             this.stop()
         }
@@ -81,7 +81,7 @@ export class AppService {
         })
     }
 
-    private addTabRaw (tab: BaseTabComponent) {
+    addTabRaw (tab: BaseTabComponent) {
         this.tabs.push(tab)
         this.selectTab(tab)
         this.tabsChanged.next()

@@ -85,7 +85,6 @@ export class TabHeaderComponent {
             contextMenu.popup({
                 x: $event.pageX,
                 y: $event.pageY,
-                async: true,
             })
         }
     }

@@ -4,7 +4,7 @@ import { DomSanitizer } from '@angular/platform-browser'
 import { HostAppService, Platform } from 'terminus-core'
 
 import { ShellProvider } from '../api/shellProvider'
-import { IShell } from '../api/interfaces'
+import { Shell } from '../api/interfaces'
 
 /** @hidden */
 @Injectable()
@@ -16,7 +16,7 @@ export class CmderShellProvider extends ShellProvider {
         super()
     }
 
-    async provide (): Promise<IShell[]> {
+    async provide (): Promise<Shell[]> {
         if (this.hostApp.platform !== Platform.Windows) {
             return []
         }
@@ -37,7 +37,7 @@ export class CmderShellProvider extends ShellProvider {
                 icon: this.domSanitizer.bypassSecurityTrustHtml(require('../icons/cmder.svg')),
                 env: {
                     TERM: 'cygwin',
-                }
+                },
             },
             {
                 id: 'cmderps',
@@ -50,7 +50,7 @@ export class CmderShellProvider extends ShellProvider {
                     '-noprofile',
                     '-noexit',
                     '-command',
-                    `Invoke-Expression '. ''${path.join(process.env.CMDER_ROOT, 'vendor', 'profile.ps1')}'''`
+                    `Invoke-Expression '. ''${path.join(process.env.CMDER_ROOT, 'vendor', 'profile.ps1')}'''`,
                 ],
                 icon: this.domSanitizer.bypassSecurityTrustHtml(require('../icons/cmder-powershell.svg')),
                 env: {},

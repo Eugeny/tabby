@@ -9,13 +9,12 @@ import { SSHConnection, SSHSession } from '../api'
 import { PromptModalComponent } from '../components/promptModal.component'
 import { SSHTabComponent } from '../components/sshTab.component'
 import { PasswordStorageService } from './passwordStorage.service'
-const { SSH2Stream } = require('ssh2-streams')
+import { SSH2Stream } from 'ssh2-streams'
 
-let windowsProcessTree
+/* eslint-disable block-scoped-var */
 try {
-    windowsProcessTree = require('windows-process-tree/build/Release/windows_process_tree.node')
-} catch (e) {
-} // tslint:disable-line
+    var windowsProcessTree = require('windows-process-tree/build/Release/windows_process_tree.node') // eslint-disable-line @typescript-eslint/no-var-requires
+} catch (_) { }
 
 @Injectable({ providedIn: 'root' })
 export class SSHService {
@@ -46,10 +45,10 @@ export class SSHService {
         let privateKeyPath = session.connection.privateKey
 
         if (!logCallback) {
-            logCallback = (s) => null
+            logCallback = () => null
         }
 
-        const log = s => {
+        const log = (s: any) => {
             logCallback(s)
             this.logger.info(s)
         }
@@ -84,7 +83,7 @@ export class SSHService {
                     modal.componentInstance.password = true
                     try {
                         privateKeyPassphrase = await modal.result
-                    } catch (_err) { } // tslint:disable-line
+                    } catch (e) { }
                 }
             }
         }
@@ -214,11 +213,11 @@ export class SSHService {
             session.shell = shell
 
             shell.on('greeting', greeting => {
-                log('Shell Greeting: ' + greeting)
+                log(`Shell Greeting: ${greeting}`)
             })
 
             shell.on('banner', banner => {
-                log('Shell Banner: ' + banner)
+                log(`Shell Banner: ${banner}`)
             })
         } catch (error) {
             this.toastr.error(error.message)
@@ -227,7 +226,8 @@ export class SSHService {
     }
 }
 
+/* eslint-disable */
 const _authPassword = SSH2Stream.prototype.authPassword
-SSH2Stream.prototype.authPassword = async function (username, passwordFn) {
+SSH2Stream.prototype.authPassword = async function (username, passwordFn: any) {
     _authPassword.bind(this)(username, await passwordFn())
-}
+} as any

@@ -1,4 +1,4 @@
-import { Frontend, ISearchOptions } from './frontend'
+import { Frontend, SearchOptions } from './frontend'
 import { hterm, preferenceManager } from './hterm'
 import { getCSSFontFamily } from '../utils'
 
@@ -98,7 +98,7 @@ export class HTermFrontend extends Frontend {
             return
         }
 
-        let css = require('./hterm.userCSS.scss')
+        let css = require('./hterm.userCSS.scss') // eslint-disable-line
         if (!config.terminal.ligatures) {
             css += `
                 * {
@@ -154,6 +154,14 @@ export class HTermFrontend extends Frontend {
 
     scrollToBottom (): void {
         this.term.scrollEnd()
+    }
+
+    findNext (_term: string, _searchOptions?: SearchOptions): boolean {
+        return false
+    }
+
+    findPrevious (_term: string, _searchOptions?: SearchOptions): boolean {
+        return false
     }
 
     private setFontSize () {
@@ -268,13 +276,5 @@ export class HTermFrontend extends Frontend {
             this.term.cursorNode_.style.opacity = '0'
             _onCursorBlink()
         }
-    }
-
-    findNext (term: string, searchOptions?: ISearchOptions): boolean {
-        return false
-    }
-
-    findPrevious (term: string, searchOptions?: ISearchOptions): boolean {
-        return false
     }
 }

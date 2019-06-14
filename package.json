@@ -7,6 +7,8 @@
     "@types/js-yaml": "^3.12.1",
     "@types/node": "^12.0.8",
     "@types/webpack-env": "1.13.9",
+    "@typescript-eslint/eslint-plugin": "^1.10.2",
+    "@typescript-eslint/parser": "^1.10.2",
     "app-builder-lib": "^20.43.0",
     "apply-loader": "2.0.0",
     "awesome-typescript-loader": "^5.0.0",
@@ -17,6 +19,7 @@
     "electron-builder": "^20.43.0",
     "electron-installer-snap": "^3.2.0",
     "electron-rebuild": "^1.8.5",
+    "eslint": "^5.16.0",
     "file-loader": "^4.0.0",
     "graceful-fs": "^4.1.15",
     "html-loader": "0.5.5",
@@ -40,9 +43,6 @@
     "style-loader": "^0.23.1",
     "svg-inline-loader": "^0.8.0",
     "to-string-loader": "1.1.5",
-    "tslint": "^5.17.0",
-    "tslint-config-standard": "^8.0.1",
-    "tslint-eslint-rules": "^5.4.0",
     "typedoc": "^0.14.2",
     "typescript": "^3.5.2",
     "url-loader": "^2.0.0",
@@ -131,8 +131,11 @@
     "start": "cross-env TERMINUS_DEV=1 electron app --debug",
     "prod": "cross-env TERMINUS_DEV=1 electron app",
     "docs": "typedoc --out docs/api terminus-core/src && typedoc --out docs/api/terminal --tsconfig terminus-terminal/tsconfig.typings.json terminus-terminal/src && typedoc --out docs/api/settings --tsconfig terminus-settings/tsconfig.typings.json terminus-settings/src",
-    "lint": "tslint -c tslint.json -t stylish terminus-*/src/**/*.ts terminus-*/src/*.ts app/src/*.ts",
+    "lint": "eslint --ext ts */src",
     "postinstall": "node ./scripts/install-deps.js"
   },
-  "repository": "eugeny/terminus"
+  "repository": "eugeny/terminus",
+  "dependencies": {
+    "eslint-plugin-import": "^2.17.3"
+  }
 }

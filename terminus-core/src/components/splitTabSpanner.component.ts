@@ -23,13 +23,13 @@ export class SplitTabSpannerComponent {
     constructor (private element: ElementRef) { }
 
     ngAfterViewInit () {
-        this.element.nativeElement.addEventListener('mousedown', e => {
+        this.element.nativeElement.addEventListener('mousedown', (e: MouseEvent) => {
             this.isActive = true
             const start = this.isVertical ? e.pageY : e.pageX
             let current = start
-            const oldPosition = this.isVertical ? this.element.nativeElement.offsetTop : this.element.nativeElement.offsetLeft
+            const oldPosition: number = this.isVertical ? this.element.nativeElement.offsetTop : this.element.nativeElement.offsetLeft
 
-            const dragHandler = e => {
+            const dragHandler = (e: MouseEvent) => {
                 current = this.isVertical ? e.pageY : e.pageX
                 const newPosition = oldPosition + (current - start)
                 if (this.isVertical) {

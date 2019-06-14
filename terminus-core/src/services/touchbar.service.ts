@@ -4,7 +4,7 @@ import { AppService } from './app.service'
 import { ConfigService } from './config.service'
 import { ElectronService } from './electron.service'
 import { HostAppService, Platform } from './hostApp.service'
-import { IToolbarButton, ToolbarButtonProvider } from '../api'
+import { ToolbarButton, ToolbarButtonProvider } from '../api'
 
 /** @hidden */
 @Injectable({ providedIn: 'root' })
@@ -61,7 +61,7 @@ export class TouchbarService {
             return
         }
 
-        let buttons: IToolbarButton[] = []
+        let buttons: ToolbarButton[] = []
         this.config.enabledServices(this.toolbarButtonProviders).forEach(provider => {
             buttons = buttons.concat(provider.provide())
         })
@@ -76,7 +76,7 @@ export class TouchbarService {
             selectedIndex: this.app.tabs.indexOf(this.app.activeTab),
             change: (selectedIndex) => this.zone.run(() => {
                 this.app.selectTab(this.app.tabs[selectedIndex])
-            })
+            }),
         })
 
         this.buttonsSegmentedControl = new this.electron.TouchBar.TouchBarSegmentedControl({
@@ -84,7 +84,7 @@ export class TouchbarService {
             mode: 'buttons',
             change: (selectedIndex) => this.zone.run(() => {
                 buttons[selectedIndex].click()
-            })
+            }),
         })
 
         const touchBar = new this.electron.TouchBar({
@@ -93,12 +93,12 @@ export class TouchbarService {
                 new this.electron.TouchBar.TouchBarSpacer({ size: 'flexible' }),
                 new this.electron.TouchBar.TouchBarSpacer({ size: 'small' }),
                 this.buttonsSegmentedControl,
-            ]
+            ],
         })
         this.hostApp.setTouchBar(touchBar)
     }
 
-    private getButton (button: IToolbarButton): Electron.SegmentedControlSegment {
+    private getButton (button: ToolbarButton): Electron.SegmentedControlSegment {
         return {
             label: button.touchBarNSImage ? null : this.shortenTitle(button.touchBarTitle || button.title),
             icon: button.touchBarNSImage ? this.getCachedNSImage(button.touchBarNSImage) : null,

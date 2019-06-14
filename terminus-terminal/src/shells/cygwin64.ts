@@ -4,11 +4,13 @@ import { DomSanitizer } from '@angular/platform-browser'
 import { HostAppService, Platform } from 'terminus-core'
 
 import { ShellProvider } from '../api/shellProvider'
-import { IShell } from '../api/interfaces'
+import { Shell } from '../api/interfaces'
+
+/* eslint-disable block-scoped-var */
 
 try {
-    var wnr = require('windows-native-registry') // tslint:disable-line
-} catch { } // tslint:disable-line
+    var wnr = require('windows-native-registry') // eslint-disable-line @typescript-eslint/no-var-requires
+} catch { }
 
 /** @hidden */
 @Injectable()
@@ -20,7 +22,7 @@ export class Cygwin64ShellProvider extends ShellProvider {
         super()
     }
 
-    async provide (): Promise<IShell[]> {
+    async provide (): Promise<Shell[]> {
         if (this.hostApp.platform !== Platform.Windows) {
             return []
         }
@@ -38,7 +40,7 @@ export class Cygwin64ShellProvider extends ShellProvider {
             icon: this.domSanitizer.bypassSecurityTrustHtml(require('../icons/cygwin.svg')),
             env: {
                 TERM: 'cygwin',
-            }
+            },
         }]
     }
 }

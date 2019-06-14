@@ -24,7 +24,7 @@ export interface Profile {
     icon?: SafeHtml
 }
 
-export interface ITerminalColorScheme {
+export interface TerminalColorScheme {
     name: string
     foreground: string
     background: string
@@ -32,7 +32,7 @@ export interface ITerminalColorScheme {
     colors: string[]
 }
 
-export interface IShell {
+export interface Shell {
     id: string
     name?: string
     command: string

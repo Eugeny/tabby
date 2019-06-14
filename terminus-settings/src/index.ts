@@ -42,7 +42,7 @@ import { SettingsConfigProvider } from './config'
         SettingsTabBodyComponent,
     ],
 })
-export default class SettingsModule { }
+export default class SettingsModule { } // eslint-disable-line @typescript-eslint/no-extraneous-class
 
 export * from './api'
 export { SettingsTabComponent }

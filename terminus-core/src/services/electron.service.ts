@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { TouchBar, BrowserWindow, Menu, MenuItem } from 'electron'
+import { TouchBar, BrowserWindow, Menu, MenuItem, NativeImage } from 'electron'
 
 export interface MessageBoxResponse {
     response: number
@@ -8,16 +8,16 @@ export interface MessageBoxResponse {
 
 @Injectable({ providedIn: 'root' })
 export class ElectronService {
-    app: any
-    ipcRenderer: any
-    shell: any
-    dialog: any
-    clipboard: any
-    globalShortcut: any
-    nativeImage: any
-    screen: any
-    remote: any
-    autoUpdater: any
+    app: Electron.App
+    ipcRenderer: Electron.IpcRenderer
+    shell: Electron.Shell
+    dialog: Electron.Dialog
+    clipboard: Electron.Clipboard
+    globalShortcut: Electron.GlobalShortcut
+    nativeImage: typeof NativeImage
+    screen: Electron.Screen
+    remote: Electron.Remote
+    autoUpdater: Electron.AutoUpdater
     TouchBar: typeof TouchBar
     BrowserWindow: typeof BrowserWindow
     Menu: typeof Menu
@@ -52,7 +52,7 @@ export class ElectronService {
         }
     }
 
-    showMessageBox (
+    async showMessageBox (
         browserWindow: Electron.BrowserWindow,
         options: Electron.MessageBoxOptions
     ): Promise<MessageBoxResponse> {

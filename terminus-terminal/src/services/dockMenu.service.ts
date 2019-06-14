@@ -29,7 +29,7 @@ export class DockMenuService {
                     title: profile.name,
                     iconPath: process.execPath,
                     iconIndex: 0,
-                }))
+                })),
             }] : null)
         }
         if (this.hostApp.platform === Platform.macOS) {

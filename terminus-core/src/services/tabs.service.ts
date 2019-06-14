@@ -2,7 +2,8 @@ import { Injectable, ComponentFactoryResolver, Injector } from '@angular/core'
 import { BaseTabComponent } from '../components/baseTab.component'
 import { TabRecoveryService } from './tabRecovery.service'
 
-export declare type TabComponentType = new (...args: any[]) => BaseTabComponent
+// eslint-disable-next-line @typescript-eslint/no-type-alias
+export type TabComponentType = new (...args: any[]) => BaseTabComponent
 
 @Injectable({ providedIn: 'root' })
 export class TabsService {

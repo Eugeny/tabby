@@ -6,14 +6,14 @@ import {
     ElectronService,
     DockingService,
     ConfigService,
-    IHotkeyDescription,
+    HotkeyDescription,
     HotkeysService,
     BaseTabComponent,
     Theme,
     HostAppService,
     Platform,
     HomeBaseService,
-    ShellIntegrationService
+    ShellIntegrationService,
 } from 'terminus-core'
 
 import { SettingsTabProvider } from '../api'
@@ -30,7 +30,7 @@ import { SettingsTabProvider } from '../api'
 export class SettingsTabComponent extends BaseTabComponent {
     @Input() activeTab: string
     hotkeyFilter = ''
-    hotkeyDescriptions: IHotkeyDescription[]
+    hotkeyDescriptions: HotkeyDescription[]
     screens: any[]
     Platform = Platform
     configDefaults: any

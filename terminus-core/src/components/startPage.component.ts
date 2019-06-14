@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core'
 import { ConfigService } from '../services/config.service'
 import { HomeBaseService } from '../services/homeBase.service'
-import { IToolbarButton, ToolbarButtonProvider } from '../api'
+import { ToolbarButton, ToolbarButtonProvider } from '../api'
 
 /** @hidden */
 @Component({
@@ -19,11 +19,11 @@ export class StartPageComponent {
     ) {
     }
 
-    getButtons (): IToolbarButton[] {
+    getButtons (): ToolbarButton[] {
         return this.config.enabledServices(this.toolbarButtonProviders)
             .map(provider => provider.provide())
             .reduce((a, b) => a.concat(b))
             .filter(x => !!x.click)
-            .sort((a: IToolbarButton, b: IToolbarButton) => (a.weight || 0) - (b.weight || 0))
+            .sort((a: ToolbarButton, b: ToolbarButton) => (a.weight || 0) - (b.weight || 0))
     }
 }

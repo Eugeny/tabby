@@ -1,5 +1,5 @@
 import * as path from 'path'
-import shellEscape = require('shell-escape')
+import * as shellEscape from 'shell-escape'
 import { Observable, Subject } from 'rxjs'
 import { Injectable, NgZone, EventEmitter } from '@angular/core'
 import { ElectronService } from './electron.service'
@@ -97,7 +97,7 @@ export class HostAppService {
         this.platform = {
             win32: Platform.Windows,
             darwin: Platform.macOS,
-            linux: Platform.Linux
+            linux: Platform.Linux,
         }[process.platform]
 
         this.windowId = parseInt(location.search.substring(1))

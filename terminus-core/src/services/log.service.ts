@@ -20,9 +20,9 @@ const initializeWinston = (electron: ElectronService) => {
                 handleExceptions: false,
                 maxsize: 5242880,
                 maxFiles: 5,
-            })
+            }),
         ],
-        exitOnError: false
+        exitOnError: false,
     })
 }
 
@@ -32,18 +32,32 @@ export class Logger {
         private name: string,
     ) {}
 
+    debug (...args: any[]) {
+        this.doLog('debug', ...args)
+    }
+
+    info (...args: any[]) {
+        this.doLog('info', ...args)
+    }
+
+    warn (...args: any[]) {
+        this.doLog('warn', ...args)
+    }
+
+    error (...args: any[]) {
+        this.doLog('error', ...args)
+    }
+
+    log (...args: any[]) {
+        this.doLog('log', ...args)
+    }
+
     private doLog (level: string, ...args: any[]) {
         console[level](`%c[${this.name}]`, 'color: #aaa', ...args)
         if (this.winstonLogger) {
             this.winstonLogger[level](...args)
         }
     }
-
-    debug (...args: any[]) { this.doLog('debug', ...args) }
-    info (...args: any[]) { this.doLog('info', ...args) }
-    warn (...args: any[]) { this.doLog('warn', ...args) }
-    error (...args: any[]) { this.doLog('error', ...args) }
-    log (...args: any[]) { this.doLog('log', ...args) }
 }
 
 @Injectable({ providedIn: 'root' })

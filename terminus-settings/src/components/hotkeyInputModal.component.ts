@@ -21,7 +21,7 @@ const INPUT_TIMEOUT = 1000
                 animate('250ms ease-out', style({
                     transform: 'translateX(0)',
                     opacity: '1',
-                }))
+                })),
             ]),
             transition(':leave', [
                 style({
@@ -31,10 +31,10 @@ const INPUT_TIMEOUT = 1000
                 animate('250ms ease-in', style({
                     transform: 'translateX(25px)',
                     opacity: '0',
-                }))
-            ])
-        ])
-    ]
+                })),
+            ]),
+        ]),
+    ],
 })
 export class HotkeyInputModalComponent {
     @Input() value: string[] = []

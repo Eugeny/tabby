@@ -2,7 +2,7 @@ import { Observable, Subject, AsyncSubject, ReplaySubject, BehaviorSubject } fro
 import { ResizeEvent } from '../api/interfaces'
 import { ConfigService, ThemesService, HotkeysService } from 'terminus-core'
 
-export interface ISearchOptions {
+export interface SearchOptions {
     regex?: boolean
     wholeWord?: boolean
     caseSensitive?: boolean
@@ -39,9 +39,6 @@ export abstract class Frontend {
     get dragOver$ (): Observable<DragEvent> { return this.dragOver }
     get drop$ (): Observable<DragEvent> { return this.drop }
 
-    abstract attach (host: HTMLElement): void
-    detach (host: HTMLElement): void { } // tslint:disable-line
-
     destroy (): void {
         for (const o of [
             this.ready,
@@ -59,6 +56,9 @@ export abstract class Frontend {
         }
     }
 
+    abstract attach (host: HTMLElement): void
+    detach (host: HTMLElement): void { } // eslint-disable-line
+
     abstract getSelection (): string
     abstract copySelection (): void
     abstract clearSelection (): void
@@ -71,6 +71,6 @@ export abstract class Frontend {
     abstract configure (): void
     abstract setZoom (zoom: number): void
 
-    abstract findNext (term: string, searchOptions?: ISearchOptions): boolean
-    abstract findPrevious (term: string, searchOptions?: ISearchOptions): boolean
+    abstract findNext (term: string, searchOptions?: SearchOptions): boolean
+    abstract findPrevious (term: string, searchOptions?: SearchOptions): boolean
 }
