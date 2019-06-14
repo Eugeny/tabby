@@ -184,7 +184,11 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
         this.configure()
 
         this.config.enabledServices(this.decorators).forEach((decorator) => {
-            decorator.attach(this)
+            try {
+                decorator.attach(this)
+            } catch (e) {
+                this.logger.warn('Decorator attach() throws', e)
+            }
         })
 
         setTimeout(() => {
@@ -377,7 +381,11 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
         this.frontend.detach(this.content.nativeElement)
         this.detachTermContainerHandlers()
         this.config.enabledServices(this.decorators).forEach(decorator => {
-            decorator.detach(this)
+            try {
+                decorator.detach(this)
+            } catch (e) {
+                this.logger.warn('Decorator attach() throws', e)
+            }
         })
         this.hotkeysSubscription.unsubscribe()
         if (this.sessionCloseSubscription) {
