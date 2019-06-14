@@ -52,7 +52,7 @@ export class TabHeaderComponent {
     }
 
     showRenameTabModal (): void {
-        let modal = this.ngbModal.open(RenameTabModalComponent)
+        const modal = this.ngbModal.open(RenameTabModalComponent)
         modal.componentInstance.value = this.tab.customTitle || this.tab.title
         modal.result.then(result => {
             this.tab.setTitle(result)
@@ -62,7 +62,7 @@ export class TabHeaderComponent {
 
     async buildContextMenu (): Promise<Electron.MenuItemConstructorOptions[]> {
         let items: Electron.MenuItemConstructorOptions[] = []
-        for (let section of await Promise.all(this.contextMenuProviders.map(x => x.getItems(this.tab, this)))) {
+        for (const section of await Promise.all(this.contextMenuProviders.map(x => x.getItems(this.tab, this)))) {
             items.push({ type: 'separator' })
             items = items.concat(section)
         }

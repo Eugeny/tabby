@@ -124,7 +124,7 @@ export class SettingsTabComponent extends BaseTabComponent {
 
     getHotkey (id: string) {
         let ptr = this.config.store.hotkeys
-        for (let token of id.split(/\./g)) {
+        for (const token of id.split(/\./g)) {
             ptr = ptr[token]
         }
         return ptr
@@ -133,7 +133,7 @@ export class SettingsTabComponent extends BaseTabComponent {
     setHotkey (id: string, value) {
         let ptr = this.config.store
         let prop = 'hotkeys'
-        for (let token of id.split(/\./g)) {
+        for (const token of id.split(/\./g)) {
             ptr = ptr[prop]
             prop = token
         }

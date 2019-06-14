@@ -22,7 +22,7 @@ export class TerminalTabComponent extends BaseTerminalTabComponent {
         this.logger = this.log.create('terminalTab')
         this.session = new Session(this.config)
 
-        let isConPTY = isWindowsBuild(WIN_BUILD_CONPTY_SUPPORTED) && this.config.store.terminal.useConPTY
+        const isConPTY = isWindowsBuild(WIN_BUILD_CONPTY_SUPPORTED) && this.config.store.terminal.useConPTY
 
         this.homeEndSubscription = this.hotkeys.matchedHotkey.subscribe(hotkey => {
             if (!this.hasFocus) {
@@ -58,7 +58,7 @@ export class TerminalTabComponent extends BaseTerminalTabComponent {
     }
 
     async getRecoveryToken (): Promise<any> {
-        let cwd = this.session ? await this.session.getWorkingDirectory() : null
+        const cwd = this.session ? await this.session.getWorkingDirectory() : null
         return {
             type: 'app:terminal-tab',
             sessionOptions: {
@@ -69,7 +69,7 @@ export class TerminalTabComponent extends BaseTerminalTabComponent {
     }
 
     async getCurrentProcess (): Promise<BaseTabProcess> {
-        let children = await this.session.getChildProcesses()
+        const children = await this.session.getChildProcesses()
         if (!children.length) {
             return null
         }
@@ -79,7 +79,7 @@ export class TerminalTabComponent extends BaseTerminalTabComponent {
     }
 
     async canClose (): Promise<boolean> {
-        let children = await this.session.getChildProcesses()
+        const children = await this.session.getChildProcesses()
         if (children.length === 0) {
             return true
         }

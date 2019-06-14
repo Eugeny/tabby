@@ -15,7 +15,7 @@ export class PathDropDecorator extends TerminalDecorator {
                     event.preventDefault()
                 }),
                 terminal.frontend.drop$.subscribe(event => {
-                    for (let file of event.dataTransfer.files as any) {
+                    for (const file of event.dataTransfer.files as any) {
                         this.injectPath(terminal, file.path)
                     }
                     event.preventDefault()
@@ -32,8 +32,8 @@ export class PathDropDecorator extends TerminalDecorator {
         terminal.sendInput(path + ' ')
     }
 
-    detach (terminal: TerminalTabComponent): void {
-        for (let s of this.subscriptions) {
+    detach (_terminal: TerminalTabComponent): void {
+        for (const s of this.subscriptions) {
             s.unsubscribe()
         }
     }

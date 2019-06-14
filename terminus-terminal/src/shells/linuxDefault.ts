@@ -22,7 +22,7 @@ export class LinuxDefaultShellProvider extends ShellProvider {
         if (this.hostApp.platform !== Platform.Linux) {
             return []
         }
-        let line = (await fs.readFile('/etc/passwd', { encoding: 'utf-8' }))
+        const line = (await fs.readFile('/etc/passwd', { encoding: 'utf-8' }))
             .split('\n').find(x => x.startsWith(process.env.LOGNAME + ':'))
         if (!line) {
             this.logger.warn('Could not detect user shell')

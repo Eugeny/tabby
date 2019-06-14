@@ -22,8 +22,8 @@ export class EnvironmentEditorComponent {
     }
 
     getModel () {
-        let model = {}
-        for (let pair of this.vars) {
+        const model = {}
+        for (const pair of this.vars) {
             model[pair.key] = pair.value
         }
         return model

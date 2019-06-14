@@ -49,9 +49,9 @@ export class UpdaterService {
     async check (): Promise<boolean> {
         if (!this.electronUpdaterAvailable) {
             this.logger.debug('Checking for updates')
-            let response = await axios.get(UPDATES_URL)
-            let data = response.data
-            let version = data.tag_name.substring(1)
+            const response = await axios.get(UPDATES_URL)
+            const data = response.data
+            const version = data.tag_name.substring(1)
             if (this.electron.app.getVersion() !== version) {
                 this.logger.info('Update available')
                 this.updateURL = data.html_url

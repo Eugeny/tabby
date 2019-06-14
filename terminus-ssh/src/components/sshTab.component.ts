@@ -44,7 +44,7 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
         this.session = new SSHSession(this.connection)
         this.attachSessionHandlers()
         this.write(`Connecting to ${this.connection.host}`)
-        let interval = setInterval(() => this.write('.'), 500)
+        const interval = setInterval(() => this.write('.'), 500)
         try {
             await this.ssh.connectSession(this.session, message => {
                 this.write('\r\n' + message)

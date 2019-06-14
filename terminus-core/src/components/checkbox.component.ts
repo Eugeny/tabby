@@ -23,7 +23,7 @@ export class CheckboxComponent implements ControlValueAccessor {
         }
 
         this.model = !this.model
-        for (let fx of this.changed) {
+        for (const fx of this.changed) {
             fx(this.model)
         }
     }

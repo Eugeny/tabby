@@ -46,7 +46,7 @@ hterm.lib.wc.charWidthDisregardAmbiguous = codepoint => {
 }
 
 hterm.hterm.Terminal.prototype.applyCursorShape = function () {
-    let modes = [
+    const modes = [
         [hterm.hterm.Terminal.cursorShape.BLOCK, true],
         [this.defaultCursorShape || hterm.hterm.Terminal.cursorShape.BLOCK, false],
         [hterm.hterm.Terminal.cursorShape.BLOCK, false],
@@ -55,7 +55,7 @@ hterm.hterm.Terminal.prototype.applyCursorShape = function () {
         [hterm.hterm.Terminal.cursorShape.BEAM, true],
         [hterm.hterm.Terminal.cursorShape.BEAM, false],
     ]
-    let modeNumber = this.cursorMode || 1
+    const modeNumber = this.cursorMode || 1
     if (modeNumber >= modes.length) {
         console.warn('Unknown cursor style: ' + modeNumber)
         return
@@ -76,14 +76,14 @@ hterm.hterm.VT.CSI[' q'] = function (parseState) {
 }
 
 hterm.hterm.VT.OSC['4'] = function (parseState) {
-    let args = parseState.args[0].split(';')
+    const args = parseState.args[0].split(';')
 
-    let pairCount = args.length / 2
-    let colorPalette = this.terminal.getTextAttributes().colorPalette
-    let responseArray = []
+    const pairCount = args.length / 2
+    const colorPalette = this.terminal.getTextAttributes().colorPalette
+    const responseArray = []
 
     for (let pairNumber = 0; pairNumber < pairCount; ++pairNumber) {
-        let colorIndex = parseInt(args[pairNumber * 2])
+        const colorIndex = parseInt(args[pairNumber * 2])
         let colorValue = args[pairNumber * 2 + 1]
 
         if (colorIndex >= colorPalette.length) {

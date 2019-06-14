@@ -25,13 +25,13 @@ export class SplitTabSpannerComponent {
     ngAfterViewInit () {
         this.element.nativeElement.addEventListener('mousedown', e => {
             this.isActive = true
-            let start = this.isVertical ? e.pageY : e.pageX
+            const start = this.isVertical ? e.pageY : e.pageX
             let current = start
-            let oldPosition = this.isVertical ? this.element.nativeElement.offsetTop : this.element.nativeElement.offsetLeft
+            const oldPosition = this.isVertical ? this.element.nativeElement.offsetTop : this.element.nativeElement.offsetLeft
 
             const dragHandler = e => {
                 current = this.isVertical ? e.pageY : e.pageX
-                let newPosition = oldPosition + (current - start)
+                const newPosition = oldPosition + (current - start)
                 if (this.isVertical) {
                     this.element.nativeElement.style.top = `${newPosition - this.marginOffset}px`
                 } else {

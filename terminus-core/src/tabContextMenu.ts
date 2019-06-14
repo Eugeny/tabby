@@ -27,7 +27,7 @@ export class CloseContextMenu extends TabContextMenuItemProvider {
             {
                 label: 'Close other tabs',
                 click: () => this.zone.run(() => {
-                    for (let t of this.app.tabs.filter(x => x !== tab)) {
+                    for (const t of this.app.tabs.filter(x => x !== tab)) {
                         this.app.closeTab(t, true)
                     }
                 })
@@ -35,7 +35,7 @@ export class CloseContextMenu extends TabContextMenuItemProvider {
             {
                 label: 'Close tabs to the right',
                 click: () => this.zone.run(() => {
-                    for (let t of this.app.tabs.slice(this.app.tabs.indexOf(tab) + 1)) {
+                    for (const t of this.app.tabs.slice(this.app.tabs.indexOf(tab) + 1)) {
                         this.app.closeTab(t, true)
                     }
                 })
@@ -43,7 +43,7 @@ export class CloseContextMenu extends TabContextMenuItemProvider {
             {
                 label: 'Close tabs to the left',
                 click: () => this.zone.run(() => {
-                    for (let t of this.app.tabs.slice(0, this.app.tabs.indexOf(tab))) {
+                    for (const t of this.app.tabs.slice(0, this.app.tabs.indexOf(tab))) {
                         this.app.closeTab(t, true)
                     }
                 })
@@ -111,7 +111,7 @@ export class TaskCompletionContextMenu extends TabContextMenuItemProvider {
     }
 
     async getItems (tab: BaseTabComponent): Promise<Electron.MenuItemConstructorOptions[]> {
-        let process = await tab.getCurrentProcess()
+        const process = await tab.getCurrentProcess()
         if (process) {
             return [
                 {

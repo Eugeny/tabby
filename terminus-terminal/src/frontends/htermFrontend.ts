@@ -54,7 +54,7 @@ export class HTermFrontend extends Frontend {
     }
 
     configure (): void {
-        let config = this.configService.store
+        const config = this.configService.store
 
         this.configuredFontSize = config.terminal.fontSize
         this.configuredLinePadding = config.terminal.linePadding
@@ -157,7 +157,7 @@ export class HTermFrontend extends Frontend {
     }
 
     private setFontSize () {
-        let size = this.configuredFontSize * Math.pow(1.1, this.zoom)
+        const size = this.configuredFontSize * Math.pow(1.1, this.zoom)
         preferenceManager.set('font-size', size)
         if (this.term) {
             setTimeout(() => {
@@ -229,7 +229,7 @@ export class HTermFrontend extends Frontend {
 
         this.term.ringBell = () => this.bell.next()
 
-        for (let screen of [this.term.primaryScreen_, this.term.alternateScreen_]) {
+        for (const screen of [this.term.primaryScreen_, this.term.alternateScreen_]) {
             const _insertString = screen.insertString.bind(screen)
             screen.insertString = (data) => {
                 _insertString(data)
@@ -238,7 +238,7 @@ export class HTermFrontend extends Frontend {
 
             const _deleteChars = screen.deleteChars.bind(screen)
             screen.deleteChars = (count) => {
-                let ret = _deleteChars(count)
+                const ret = _deleteChars(count)
                 this.contentUpdated.next()
                 return ret
             }
@@ -246,7 +246,7 @@ export class HTermFrontend extends Frontend {
             const _expandSelection = screen.expandSelection.bind(screen)
             screen.expandSelection = (selection) => {
                 // Drop whitespace at the end of selection
-                let range = selection.getRangeAt(0)
+                const range = selection.getRangeAt(0)
                 if (range.endOffset > 0 && range.endContainer.nodeType === 3 && range.endContainer.textContent !== '') {
                     while (/[\s\S]+\s$/.test(range.endContainer.textContent.substr(0,range.endOffset))) {
                         range.setEnd(range.endContainer, range.endOffset - 1)
@@ -258,7 +258,7 @@ export class HTermFrontend extends Frontend {
 
         const _measureCharacterSize = this.term.scrollPort_.measureCharacterSize.bind(this.term.scrollPort_)
         this.term.scrollPort_.measureCharacterSize = () => {
-            let size = _measureCharacterSize()
+            const size = _measureCharacterSize()
             size.height += this.configuredLinePadding
             return size
         }

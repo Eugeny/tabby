@@ -22,7 +22,7 @@ export class SaveAsProfileContextMenu extends TabContextMenuItemProvider {
             {
                 label: 'Save as profile',
                 click: () => this.zone.run(async () => {
-                    let profile = {
+                    const profile = {
                         sessionOptions: {
                             ...tab.sessionOptions,
                             cwd: (await tab.session.getWorkingDirectory()) || tab.sessionOptions.cwd,

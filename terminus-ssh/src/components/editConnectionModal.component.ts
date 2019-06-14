@@ -26,7 +26,7 @@ export class EditConnectionModalComponent {
     ) {
         this.newScript = { expect: '', send: '' }
 
-        for (let k of Object.values(SSHAlgorithmType)) {
+        for (const k of Object.values(SSHAlgorithmType)) {
             this.supportedAlgorithms[k] = ALGORITHMS[{
                 [SSHAlgorithmType.KEX]: 'SUPPORTED_KEX',
                 [SSHAlgorithmType.HOSTKEY]: 'SUPPORTED_SERVER_HOST_KEY',
@@ -45,13 +45,13 @@ export class EditConnectionModalComponent {
     async ngOnInit () {
         this.hasSavedPassword = !!(await this.passwordStorage.loadPassword(this.connection))
         this.connection.algorithms = this.connection.algorithms || {}
-        for (let k of Object.values(SSHAlgorithmType)) {
+        for (const k of Object.values(SSHAlgorithmType)) {
             if (!this.connection.algorithms[k]) {
                 this.connection.algorithms[k] = this.defaultAlgorithms[k]
             }
 
             this.algorithms[k] = {}
-            for (let alg of this.connection.algorithms[k]) {
+            for (const alg of this.connection.algorithms[k]) {
                 this.algorithms[k][alg] = true
             }
         }
@@ -63,7 +63,7 @@ export class EditConnectionModalComponent {
     }
 
     selectPrivateKey () {
-        let path = this.electron.dialog.showOpenDialog(
+        const path = this.electron.dialog.showOpenDialog(
             this.hostApp.getWindow(),
             {
                 title: 'Select private key',
@@ -75,7 +75,7 @@ export class EditConnectionModalComponent {
     }
 
     save () {
-        for (let k of Object.values(SSHAlgorithmType)) {
+        for (const k of Object.values(SSHAlgorithmType)) {
             this.connection.algorithms[k] = Object.entries(this.algorithms[k])
                 .filter(([k, v]) => !!v)
                 .map(([k, v]) => k)
@@ -88,7 +88,7 @@ export class EditConnectionModalComponent {
     }
 
     moveScriptUp (script: LoginScript) {
-        let index = this.connection.scripts.indexOf(script)
+        const index = this.connection.scripts.indexOf(script)
         if (index > 0) {
             this.connection.scripts.splice(index, 1)
             this.connection.scripts.splice(index - 1, 0, script)
@@ -96,7 +96,7 @@ export class EditConnectionModalComponent {
     }
 
     moveScriptDown (script: LoginScript) {
-        let index = this.connection.scripts.indexOf(script)
+        const index = this.connection.scripts.indexOf(script)
         if (index >= 0 && index < this.connection.scripts.length - 1) {
             this.connection.scripts.splice(index, 1)
             this.connection.scripts.splice(index + 1, 0, script)

@@ -94,7 +94,7 @@ export class Session extends BaseSession {
     start (options: SessionOptions) {
         this.name = options.name
 
-        let env = {
+        const env = {
             ...process.env,
             TERM: 'xterm-256color',
             TERM_PROGRAM: 'Terminus',
@@ -103,7 +103,7 @@ export class Session extends BaseSession {
         }
 
         if (process.platform === 'darwin' && !process.env.LC_ALL) {
-            let locale = process.env.LC_CTYPE || 'en_US.UTF-8'
+            const locale = process.env.LC_CTYPE || 'en_US.UTF-8'
             Object.assign(env, {
                 LANG: locale,
                 LC_ALL: locale,
@@ -175,9 +175,9 @@ export class Session extends BaseSession {
 
     processOSC1337 (data) {
         if (data.includes(OSC1337Prefix)) {
-            let preData = data.substring(0, data.indexOf(OSC1337Prefix))
+            const preData = data.substring(0, data.indexOf(OSC1337Prefix))
             let params = data.substring(data.indexOf(OSC1337Prefix) + OSC1337Prefix.length)
-            let postData = params.substring(params.indexOf(OSC1337Suffix) + OSC1337Suffix.length)
+            const postData = params.substring(params.indexOf(OSC1337Suffix) + OSC1337Suffix.length)
             params = params.substring(0, params.indexOf(OSC1337Suffix))
 
             if (params.startsWith('CurrentDir=')) {
@@ -216,7 +216,7 @@ export class Session extends BaseSession {
             return []
         }
         if (process.platform === 'darwin') {
-            let processes = await macOSNativeProcessList.getProcessList()
+            const processes = await macOSNativeProcessList.getProcessList()
             return processes.filter(x => x.ppid === this.truePID).map(p => ({
                 pid: p.pid,
                 ppid: p.ppid,
@@ -304,7 +304,7 @@ export class Session extends BaseSession {
     }
 
     private guessWindowsCWD (data: string) {
-        let match = windowsDirectoryRegex.exec(data)
+        const match = windowsDirectoryRegex.exec(data)
         if (match) {
             this.guessedCWD = match[0]
         }

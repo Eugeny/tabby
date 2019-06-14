@@ -4,7 +4,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { ToastrModule } from 'ngx-toastr'
 
 export function getRootModule (plugins: any[]) {
-    let imports = [
+    const imports = [
         BrowserModule,
         ...plugins,
         NgbModule.forRoot(),
@@ -15,7 +15,7 @@ export function getRootModule (plugins: any[]) {
             extendedTimeOut: 5000,
         }),
     ]
-    let bootstrap = [
+    const bootstrap = [
         ...(plugins.filter(x => x.bootstrap).map(x => x.bootstrap)),
     ]
 

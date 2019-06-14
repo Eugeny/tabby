@@ -10,6 +10,7 @@
       "spaces"
     ],
     "ter-indent": [true, 4],
+    "prefer-const": true,
     "trailing-comma": [
       true,
       {

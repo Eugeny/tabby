@@ -21,9 +21,9 @@ export class NewTabContextMenu extends TerminalContextMenuItemProvider {
     }
 
     async getItems (tab: BaseTerminalTabComponent): Promise<Electron.MenuItemConstructorOptions[]> {
-        let profiles = await this.terminalService.getProfiles()
+        const profiles = await this.terminalService.getProfiles()
 
-        let items: Electron.MenuItemConstructorOptions[] = [
+        const items: Electron.MenuItemConstructorOptions[] = [
             {
                 label: 'New terminal',
                 click: () => this.zone.run(() => {

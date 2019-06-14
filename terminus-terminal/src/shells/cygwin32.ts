@@ -25,7 +25,7 @@ export class Cygwin32ShellProvider extends ShellProvider {
             return []
         }
 
-        let cygwinPath = wnr.getRegistryValue(wnr.HK.LM, 'Software\\WOW6432Node\\Cygwin\\setup', 'rootdir')
+        const cygwinPath = wnr.getRegistryValue(wnr.HK.LM, 'Software\\WOW6432Node\\Cygwin\\setup', 'rootdir')
 
         if (!cygwinPath) {
             return []

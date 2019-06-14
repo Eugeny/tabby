@@ -43,7 +43,7 @@ export abstract class Frontend {
     detach (host: HTMLElement): void { } // tslint:disable-line
 
     destroy (): void {
-        for (let o of [
+        for (const o of [
             this.ready,
             this.title,
             this.alternateScreenActive,

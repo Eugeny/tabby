@@ -28,9 +28,9 @@ export class TabRecoveryService {
     }
 
     async recoverTab (token: any): Promise<RecoveredTab> {
-        for (let provider of this.config.enabledServices(this.tabRecoveryProviders)) {
+        for (const provider of this.config.enabledServices(this.tabRecoveryProviders)) {
             try {
-                let tab = await provider.recover(token)
+                const tab = await provider.recover(token)
                 if (tab) {
                     return tab
                 }
@@ -43,9 +43,9 @@ export class TabRecoveryService {
 
     async recoverTabs (): Promise<RecoveredTab[]> {
         if (window.localStorage.tabsRecovery) {
-            let tabs: RecoveredTab[] = []
-            for (let token of JSON.parse(window.localStorage.tabsRecovery)) {
-                let tab = await this.recoverTab(token)
+            const tabs: RecoveredTab[] = []
+            for (const token of JSON.parse(window.localStorage.tabsRecovery)) {
+                const tab = await this.recoverTab(token)
                 if (tab) {
                     tabs.push(tab)
                 }

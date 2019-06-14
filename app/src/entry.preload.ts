@@ -16,8 +16,8 @@ Raven.config(
     {
         release: require('electron').remote.app.getVersion(),
         dataCallback: (data: any) => {
-            const normalize = (filename) => {
-                let splitArray = filename.split('/')
+            const normalize = (filename: string) => {
+                const splitArray = filename.split('/')
                 return splitArray[splitArray.length - 1]
             }
 

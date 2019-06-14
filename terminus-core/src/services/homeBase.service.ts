@@ -29,12 +29,12 @@ export class HomeBaseService {
     reportBug () {
         let body = `Version: ${this.appVersion}\n`
         body += `Platform: ${os.platform()} ${os.release()}\n`
-        let label = {
+        const label = {
             darwin: 'OS: macOS',
             windows: 'OS: Windows',
             linux: 'OS: Linux',
         }[os.platform()]
-        let plugins = (window as any).installedPlugins.filter(x => !x.isBuiltin).map(x => x.name)
+        const plugins = (window as any).installedPlugins.filter(x => !x.isBuiltin).map(x => x.name)
         body += `Plugins: ${plugins.join(', ') || 'none'}\n\n`
         this.electron.shell.openExternal(`https://github.com/eugeny/terminus/issues/new?body=${encodeURIComponent(body)}&labels=${label}`)
     }

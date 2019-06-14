@@ -32,10 +32,10 @@ async function bootstrap (plugins: IPluginInfo[], safeMode = false): Promise<NgM
     if (safeMode) {
         plugins = plugins.filter(x => x.isBuiltin)
     }
-    let pluginsModules = await loadPlugins(plugins, (current, total) => {
+    const pluginsModules = await loadPlugins(plugins, (current, total) => {
         (document.querySelector('.progress .bar') as HTMLElement).style.width = 100 * current / total + '%'
     })
-    let module = getRootModule(pluginsModules)
+    const module = getRootModule(pluginsModules)
     window['rootModule'] = module
     return platformBrowserDynamic().bootstrapModule(module)
 }

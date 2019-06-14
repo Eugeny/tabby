@@ -44,7 +44,7 @@ export class PluginsSettingsTabComponent {
                 })
             )
         this.availablePlugins$.pipe(first()).subscribe(available => {
-            for (let plugin of this.pluginManager.installedPlugins) {
+            for (const plugin of this.pluginManager.installedPlugins) {
                 this.knownUpgrades[plugin.name] = available.find(x => x.name === plugin.name && semver.gt(x.version, plugin.version))
             }
         })

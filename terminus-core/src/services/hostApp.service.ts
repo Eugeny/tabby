@@ -170,7 +170,7 @@ export class HostAppService {
     }
 
     toggleFullscreen () {
-        let window = this.getWindow()
+        const window = this.getWindow()
         window.setFullScreen(!this.isFullScreen)
     }
 

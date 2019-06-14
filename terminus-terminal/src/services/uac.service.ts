@@ -33,7 +33,7 @@ export class UACService {
             )
         }
 
-        let options = { ...sessionOptions }
+        const options = { ...sessionOptions }
         options.args = [options.command, ...options.args]
         options.command = helperPath
         return options

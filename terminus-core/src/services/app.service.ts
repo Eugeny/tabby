@@ -68,7 +68,7 @@ export class AppService {
         private tabsService: TabsService,
     ) {
         this.tabRecovery.recoverTabs().then(tabs => {
-            for (let tab of tabs) {
+            for (const tab of tabs) {
                 this.openNewTabRaw(tab.type, tab.options)
             }
 
@@ -98,7 +98,7 @@ export class AppService {
         })
 
         tab.destroyed$.subscribe(() => {
-            let newIndex = Math.max(0, this.tabs.indexOf(tab) - 1)
+            const newIndex = Math.max(0, this.tabs.indexOf(tab) - 1)
             this.tabs = this.tabs.filter((x) => x !== tab)
             if (tab === this._activeTab) {
                 this.selectTab(this.tabs[newIndex])
@@ -113,7 +113,7 @@ export class AppService {
      * @param inputs  Properties to be assigned on the new tab component instance
      */
     openNewTabRaw (type: TabComponentType, inputs?: any): BaseTabComponent {
-        let tab = this.tabsService.create(type, inputs)
+        const tab = this.tabsService.create(type, inputs)
         this.addTabRaw(tab)
         return tab
     }
@@ -123,8 +123,8 @@ export class AppService {
      * @param inputs  Properties to be assigned on the new tab component instance
      */
     openNewTab (type: TabComponentType, inputs?: any): BaseTabComponent {
-        let splitTab = this.tabsService.create(SplitTabComponent) as SplitTabComponent
-        let tab = this.tabsService.create(type, inputs)
+        const splitTab = this.tabsService.create(SplitTabComponent) as SplitTabComponent
+        const tab = this.tabsService.create(type, inputs)
         splitTab.addTab(tab, null, 'r')
         this.addTabRaw(splitTab)
         return tab
@@ -164,7 +164,7 @@ export class AppService {
 
     nextTab () {
         if (this.tabs.length > 1) {
-            let tabIndex = this.tabs.indexOf(this._activeTab)
+            const tabIndex = this.tabs.indexOf(this._activeTab)
             if (tabIndex < this.tabs.length - 1) {
                 this.selectTab(this.tabs[tabIndex + 1])
             } else if (this.config.store.appearance.cycleTabs) {
@@ -175,7 +175,7 @@ export class AppService {
 
     previousTab () {
         if (this.tabs.length > 1) {
-            let tabIndex = this.tabs.indexOf(this._activeTab)
+            const tabIndex = this.tabs.indexOf(this._activeTab)
             if (tabIndex > 0) {
                 this.selectTab(this.tabs[tabIndex - 1])
             } else if (this.config.store.appearance.cycleTabs) {
@@ -200,19 +200,19 @@ export class AppService {
     }
 
     async duplicateTab (tab: BaseTabComponent) {
-        let dup = await this.tabsService.duplicate(tab)
+        const dup = await this.tabsService.duplicate(tab)
         if (dup) {
             this.addTabRaw(dup)
         }
     }
 
     async closeAllTabs () {
-        for (let tab of this.tabs) {
+        for (const tab of this.tabs) {
             if (!await tab.canClose()) {
                 return
             }
         }
-        for (let tab of this.tabs) {
+        for (const tab of this.tabs) {
             tab.destroy()
         }
     }
@@ -230,7 +230,7 @@ export class AppService {
      */
     observeTabCompletion (tab: BaseTabComponent): Observable<void> {
         if (!this.completionObservers.has(tab)) {
-            let observer = new CompletionObserver(tab)
+            const observer = new CompletionObserver(tab)
             observer.destroyed$.subscribe(() => {
                 this.stopObservingTabCompletion(tab)
             })

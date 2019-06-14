@@ -61,11 +61,11 @@ export class ShellIntegrationService {
     async install () {
         const exe = process.env.PORTABLE_EXECUTABLE_FILE || this.electron.app.getPath('exe')
         if (this.hostApp.platform === Platform.macOS) {
-            for (let wf of this.automatorWorkflows) {
+            for (const wf of this.automatorWorkflows) {
                 await exec(`cp -r "${this.automatorWorkflowsLocation}/${wf}" "${this.automatorWorkflowsDestination}"`)
             }
         } else if (this.hostApp.platform === Platform.Windows) {
-            for (let registryKey of this.registryKeys) {
+            for (const registryKey of this.registryKeys) {
                 wnr.createRegistryKey(wnr.HK.CU, registryKey.path)
                 wnr.createRegistryKey(wnr.HK.CU, registryKey.path + '\\command')
                 wnr.setRegistryValue(wnr.HK.CU, registryKey.path, 'Icon', wnr.REG.SZ, exe)
@@ -76,11 +76,11 @@ export class ShellIntegrationService {
 
     async remove () {
         if (this.hostApp.platform === Platform.macOS) {
-            for (let wf of this.automatorWorkflows) {
+            for (const wf of this.automatorWorkflows) {
                 await exec(`rm -rf "${this.automatorWorkflowsDestination}/${wf}"`)
             }
         } else if (this.hostApp.platform === Platform.Windows) {
-            for (let registryKey of this.registryKeys) {
+            for (const registryKey of this.registryKeys) {
                 wnr.deleteRegistryKey(wnr.HK.CU, registryKey.path)
             }
         }

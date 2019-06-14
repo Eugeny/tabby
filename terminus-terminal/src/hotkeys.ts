@@ -74,7 +74,7 @@ export class TerminalHotkeyProvider extends HotkeyProvider {
     ) { super() }
 
     async provide (): Promise<IHotkeyDescription[]> {
-        let profiles = await this.terminal.getProfiles()
+        const profiles = await this.terminal.getProfiles()
         return [
             ...this.hotkeys,
             ...profiles.map(profile => ({

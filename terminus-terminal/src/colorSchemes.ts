@@ -8,15 +8,15 @@ import { ITerminalColorScheme } from './api/interfaces'
 @Injectable()
 export class HyperColorSchemes extends TerminalColorSchemeProvider {
     async getSchemes (): Promise<ITerminalColorScheme[]> {
-        let pluginsPath = path.join(process.env.HOME, '.hyper_plugins', 'node_modules')
+        const pluginsPath = path.join(process.env.HOME, '.hyper_plugins', 'node_modules')
         if (!(await fs.exists(pluginsPath))) return []
-        let plugins = await fs.readdir(pluginsPath)
+        const plugins = await fs.readdir(pluginsPath)
 
-        let themes: ITerminalColorScheme[] = []
+        const themes: ITerminalColorScheme[] = []
 
         plugins.forEach(plugin => {
             try {
-                let module = (global as any).require(path.join(pluginsPath, plugin))
+                const module = (global as any).require(path.join(pluginsPath, plugin))
                 if (module.decorateConfig) {
                     let config: any
                     try {

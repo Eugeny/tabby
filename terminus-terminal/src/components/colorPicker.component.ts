@@ -29,7 +29,7 @@ export class ColorPickerComponent {
         if (!this.isOpen) {
             return
         }
-        let windowRef = (this.popover as any)._windowRef
+        const windowRef = (this.popover as any)._windowRef
         if (!windowRef) {
             return
         }

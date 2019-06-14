@@ -35,7 +35,7 @@ export class SplitContainer {
      */
     getAllTabs () {
         let r = []
-        for (let child of this.children) {
+        for (const child of this.children) {
             if (child instanceof SplitContainer) {
                 r = r.concat(child.getAllTabs())
             } else {
@@ -50,7 +50,7 @@ export class SplitContainer {
      */
     normalize () {
         for (let i = 0; i < this.children.length; i++) {
-            let child = this.children[i]
+            const child = this.children[i]
 
             if (child instanceof SplitContainer) {
                 child.normalize()
@@ -63,7 +63,7 @@ export class SplitContainer {
                 } else if (child.children.length === 1) {
                     this.children[i] = child.children[0]
                 } else if (child.orientation === this.orientation) {
-                    let ratio = this.ratios[i]
+                    const ratio = this.ratios[i]
                     this.children.splice(i, 1)
                     this.ratios.splice(i, 1)
                     for (let j = 0; j < child.children.length; j++) {
@@ -76,7 +76,7 @@ export class SplitContainer {
         }
 
         let s = 0
-        for (let x of this.ratios) {
+        for (const x of this.ratios) {
             s += x
         }
         this.ratios = this.ratios.map(x => x / s)
@@ -94,8 +94,8 @@ export class SplitContainer {
     }
 
     async serialize () {
-        let children = []
-        for (let child of this.children) {
+        const children = []
+        for (const child of this.children) {
             if (child instanceof SplitContainer) {
                 children.push(await child.serialize())
             } else {
@@ -257,7 +257,7 @@ export class SplitTabComponent extends BaseTabComponent implements OnInit, OnDes
 
     focus (tab: BaseTabComponent) {
         this.focusedTab = tab
-        for (let x of this.getAllTabs()) {
+        for (const x of this.getAllTabs()) {
             if (x !== tab) {
                 x.emitBlurred()
             }
@@ -294,7 +294,7 @@ export class SplitTabComponent extends BaseTabComponent implements OnInit, OnDes
             (target.orientation === 'v' && ['l', 'r'].includes(side)) ||
             (target.orientation === 'h' && ['t', 'b'].includes(side))
         ) {
-            let newContainer = new SplitContainer()
+            const newContainer = new SplitContainer()
             newContainer.orientation = (target.orientation === 'v') ? 'h' : 'v'
             newContainer.children = [relative]
             newContainer.ratios = [1]
@@ -326,8 +326,8 @@ export class SplitTabComponent extends BaseTabComponent implements OnInit, OnDes
     }
 
     removeTab (tab: BaseTabComponent) {
-        let parent = this.getParentOf(tab)
-        let index = parent.children.indexOf(tab)
+        const parent = this.getParentOf(tab)
+        const index = parent.children.indexOf(tab)
         parent.ratios.splice(index, 1)
         parent.children.splice(index, 1)
 
@@ -350,7 +350,7 @@ export class SplitTabComponent extends BaseTabComponent implements OnInit, OnDes
     navigate (dir: SplitDirection) {
         let rel: BaseTabComponent | SplitContainer = this.focusedTab
         let parent = this.getParentOf(rel)
-        let orientation = ['l', 'r'].includes(dir) ? 'h' : 'v'
+        const orientation = ['l', 'r'].includes(dir) ? 'h' : 'v'
 
         while (parent !== this.root && parent.orientation !== orientation) {
             rel = parent
@@ -361,7 +361,7 @@ export class SplitTabComponent extends BaseTabComponent implements OnInit, OnDes
             return
         }
 
-        let index = parent.children.indexOf(rel)
+        const index = parent.children.indexOf(rel)
         if (['l', 't'].includes(dir)) {
             if (index > 0) {
                 this.focusAnyIn(parent.children[index - 1])
@@ -374,7 +374,7 @@ export class SplitTabComponent extends BaseTabComponent implements OnInit, OnDes
     }
 
     async splitTab (tab: BaseTabComponent, dir: SplitDirection) {
-        let newTab = await this.tabsService.duplicate(tab)
+        const newTab = await this.tabsService.duplicate(tab)
         this.addTab(newTab, tab, dir)
     }
 
@@ -383,9 +383,9 @@ export class SplitTabComponent extends BaseTabComponent implements OnInit, OnDes
      */
     getParentOf (tab: BaseTabComponent | SplitContainer, root?: SplitContainer): SplitContainer {
         root = root || this.root
-        for (let child of root.children) {
+        for (const child of root.children) {
             if (child instanceof SplitContainer) {
-                let r = this.getParentOf(tab, child)
+                const r = this.getParentOf(tab, child)
                 if (r) {
                     return r
                 }
@@ -419,7 +419,7 @@ export class SplitTabComponent extends BaseTabComponent implements OnInit, OnDes
     }
 
     private attachTabView (tab: BaseTabComponent) {
-        let ref = this.viewContainer.insert(tab.hostView) as EmbeddedViewRef<any>
+        const ref = this.viewContainer.insert(tab.hostView) as EmbeddedViewRef<any>
         this.viewRefs.set(tab, ref)
 
         ref.rootNodes[0].addEventListener('click', () => this.focus(tab))
@@ -436,7 +436,7 @@ export class SplitTabComponent extends BaseTabComponent implements OnInit, OnDes
     }
 
     private detachTabView (tab: BaseTabComponent) {
-        let ref = this.viewRefs.get(tab)
+        const ref = this.viewRefs.get(tab)
         this.viewRefs.delete(tab)
         this.viewContainer.remove(this.viewContainer.indexOf(ref))
     }
@@ -448,8 +448,8 @@ export class SplitTabComponent extends BaseTabComponent implements OnInit, OnDes
     }
 
     private layoutInternal (root: SplitContainer, x: number, y: number, w: number, h: number) {
-        let size = (root.orientation === 'v') ? h : w
-        let sizes = root.ratios.map(x => x * size)
+        const size = (root.orientation === 'v') ? h : w
+        const sizes = root.ratios.map(x => x * size)
 
         root.x = x
         root.y = y
@@ -458,14 +458,14 @@ export class SplitTabComponent extends BaseTabComponent implements OnInit, OnDes
 
         let offset = 0
         root.children.forEach((child, i) => {
-            let childX = (root.orientation === 'v') ? x : (x + offset)
-            let childY = (root.orientation === 'v') ? (y + offset) : y
-            let childW = (root.orientation === 'v') ? w : sizes[i]
-            let childH = (root.orientation === 'v') ? sizes[i] : h
+            const childX = (root.orientation === 'v') ? x : (x + offset)
+            const childY = (root.orientation === 'v') ? (y + offset) : y
+            const childW = (root.orientation === 'v') ? w : sizes[i]
+            const childH = (root.orientation === 'v') ? sizes[i] : h
             if (child instanceof SplitContainer) {
                 this.layoutInternal(child, childX, childY, childW, childH)
             } else {
-                let element = this.viewRefs.get(child).rootNodes[0]
+                const element = this.viewRefs.get(child).rootNodes[0]
                 element.style.position = 'absolute'
                 element.style.left = `${childX}%`
                 element.style.top = `${childY}%`
@@ -486,19 +486,19 @@ export class SplitTabComponent extends BaseTabComponent implements OnInit, OnDes
     }
 
     private async recoverContainer (root: SplitContainer, state: any) {
-        let children: (SplitContainer | BaseTabComponent)[] = []
+        const children: (SplitContainer | BaseTabComponent)[] = []
         root.orientation = state.orientation
         root.ratios = state.ratios
         root.children = children
-        for (let childState of state.children) {
+        for (const childState of state.children) {
             if (childState.type === 'app:split-tab') {
-                let child = new SplitContainer()
+                const child = new SplitContainer()
                 await this.recoverContainer(child, childState)
                 children.push(child)
             } else {
-                let recovered = await this.tabRecovery.recoverTab(childState)
+                const recovered = await this.tabRecovery.recoverTab(childState)
                 if (recovered) {
-                    let tab = this.tabsService.create(recovered.type, recovered.options)
+                    const tab = this.tabsService.create(recovered.type, recovered.options)
                     children.push(tab)
                     this.attachTabView(tab)
                 } else {

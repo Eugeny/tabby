@@ -91,7 +91,7 @@ export class AppRootComponent {
 
         this.hotkeys.matchedHotkey.subscribe((hotkey) => {
             if (hotkey.startsWith('tab-')) {
-                let index = parseInt(hotkey.split('-')[1])
+                const index = parseInt(hotkey.split('-')[1])
                 if (index <= this.app.tabs.length) {
                     this.app.selectTab(this.app.tabs[index - 1])
                 }

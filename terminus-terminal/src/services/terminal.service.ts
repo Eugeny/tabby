@@ -35,12 +35,12 @@ export class TerminalService {
     }
 
     private async getShells (): Promise<IShell[]> {
-        let shellLists = await Promise.all(this.config.enabledServices(this.shellProviders).map(x => x.provide()))
+        const shellLists = await Promise.all(this.config.enabledServices(this.shellProviders).map(x => x.provide()))
         return shellLists.reduce((a, b) => a.concat(b), [])
     }
 
     async getProfiles (includeHidden?: boolean): Promise<Profile[]> {
-        let shells = await this.shells$.toPromise()
+        const shells = await this.shells$.toPromise()
         return [
             ...this.config.store.terminal.profiles,
             ...shells.filter(x => includeHidden || !x.hidden).map(shell => ({
@@ -54,7 +54,7 @@ export class TerminalService {
 
     private async reloadShells () {
         this.shells = new AsyncSubject<IShell[]>()
-        let shells = await this.getShells()
+        const shells = await this.getShells()
         this.logger.debug('Shells list:', shells)
         this.shells.next(shells)
         this.shells.complete()
@@ -66,7 +66,7 @@ export class TerminalService {
      */
     async openTab (profile?: Profile, cwd?: string, pause?: boolean): Promise<TerminalTabComponent> {
         if (!profile) {
-            let profiles = await this.getProfiles(true)
+            const profiles = await this.getProfiles(true)
             profile = profiles.find(x => slug(x.name).toLowerCase() === this.config.store.terminal.profile) || profiles[0]
         }
 
@@ -82,7 +82,7 @@ export class TerminalService {
                 cwd = await this.app.activeTab.session.getWorkingDirectory()
             }
             if (this.app.activeTab instanceof SplitTabComponent) {
-                let focusedTab = this.app.activeTab.getFocusedTab()
+                const focusedTab = this.app.activeTab.getFocusedTab()
 
                 if (focusedTab instanceof TerminalTabComponent && focusedTab.session) {
                     cwd = await focusedTab.session.getWorkingDirectory()
@@ -93,7 +93,7 @@ export class TerminalService {
         }
 
         this.logger.info(`Starting profile ${profile.name}`, profile)
-        let sessionOptions = {
+        const sessionOptions = {
             ...profile.sessionOptions,
             pauseAfterExit: pause,
             cwd,

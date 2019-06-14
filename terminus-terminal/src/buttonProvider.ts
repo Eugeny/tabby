@@ -18,8 +18,8 @@ export class ButtonProvider extends ToolbarButtonProvider {
         super()
         if (!electron.remote.process.env.TERMINUS_DEV) {
             setImmediate(async () => {
-                let argv: string[] = electron.remote.process.argv
-                for (let arg of argv.slice(1).concat([electron.remote.process.argv0])) {
+                const argv: string[] = electron.remote.process.argv
+                for (const arg of argv.slice(1).concat([electron.remote.process.argv0])) {
                     if (await fs.exists(arg)) {
                         if ((await fs.stat(arg)).isDirectory()) {
                             this.terminal.openTab(null, arg)
@@ -44,7 +44,7 @@ export class ButtonProvider extends ToolbarButtonProvider {
                 icon: this.domSanitizer.bypassSecurityTrustHtml(require('./icons/profiles.svg')),
                 title: 'New terminal with profile',
                 submenu: async () => {
-                    let profiles = await this.terminal.getProfiles()
+                    const profiles = await this.terminal.getProfiles()
                     return profiles.map(profile => ({
                         icon: profile.icon,
                         title: profile.name,

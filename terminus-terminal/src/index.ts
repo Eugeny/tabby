@@ -131,7 +131,7 @@ export default class TerminalModule {
         hostApp: HostAppService,
         dockMenu: DockMenuService,
     ) {
-        let events = [
+        const events = [
             {
                 name: 'keydown',
                 htermHandler: 'onKeyDown_',
@@ -142,7 +142,7 @@ export default class TerminalModule {
             },
         ]
         events.forEach((event) => {
-            let oldHandler = hterm.hterm.Keyboard.prototype[event.htermHandler]
+            const oldHandler = hterm.hterm.Keyboard.prototype[event.htermHandler]
             hterm.hterm.Keyboard.prototype[event.htermHandler] = function (nativeEvent) {
                 hotkeys.pushKeystroke(event.name, nativeEvent)
                 if (hotkeys.getCurrentPartiallyMatchedHotkeys().length === 0) {
@@ -169,8 +169,8 @@ export default class TerminalModule {
                 hostApp.newWindow()
             }
             if (hotkey.startsWith('profile.')) {
-                let profiles = await terminal.getProfiles()
-                let profile = profiles.find(x => slug(x.name).toLowerCase() === hotkey.split('.')[1])
+                const profiles = await terminal.getProfiles()
+                const profile = profiles.find(x => slug(x.name).toLowerCase() === hotkey.split('.')[1])
                 if (profile) {
                     terminal.openTabWithOptions(profile.sessionOptions)
                 }
@@ -205,7 +205,7 @@ export default class TerminalModule {
         })
 
         hostApp.cliOpenProfile$.subscribe(async profileName => {
-            let profile = config.store.terminal.profiles.find(x => x.name === profileName)
+            const profile = config.store.terminal.profiles.find(x => x.name === profileName)
             if (!profile) {
                 console.error('Requested profile', profileName, 'not found')
                 return

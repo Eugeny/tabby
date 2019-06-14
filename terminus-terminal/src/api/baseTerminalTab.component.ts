@@ -211,7 +211,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
 
     async buildContextMenu (): Promise<Electron.MenuItemConstructorOptions[]> {
         let items: Electron.MenuItemConstructorOptions[] = []
-        for (let section of await Promise.all(this.contextMenuProviders.map(x => x.getItems(this)))) {
+        for (const section of await Promise.all(this.contextMenuProviders.map(x => x.getItems(this)))) {
             items = items.concat(section)
             items.push({ type: 'separator' })
         }
@@ -220,7 +220,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
     }
 
     protected detachTermContainerHandlers () {
-        for (let subscription of this.termContainerSubscriptions) {
+        for (const subscription of this.termContainerSubscriptions) {
             subscription.unsubscribe()
         }
         this.termContainerSubscriptions = []
@@ -277,7 +277,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
                         }
                     } else if (event.altKey) {
                         event.preventDefault()
-                        let delta = Math.round(wheelDeltaY / 50)
+                        const delta = Math.round(wheelDeltaY / 50)
                         this.sendInput(((delta > 0) ? '\u001bOA' : '\u001bOB').repeat(Math.abs(delta)))
                     }
                 }
@@ -316,9 +316,9 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
      * Feeds input into the terminal frontend
      */
     write (data: string) {
-        let percentageMatch = /(^|[^\d])(\d+(\.\d+)?)%([^\d]|$)/.exec(data)
+        const percentageMatch = /(^|[^\d])(\d+(\.\d+)?)%([^\d]|$)/.exec(data)
         if (percentageMatch) {
-            let percentage = percentageMatch[3] ? parseFloat(percentageMatch[2]) : parseInt(percentageMatch[2])
+            const percentage = percentageMatch[3] ? parseFloat(percentageMatch[2]) : parseInt(percentageMatch[2])
             if (percentage > 0 && percentage <= 100) {
                 this.setProgress(percentage)
                 this.logger.debug('Detected progress:', percentage)

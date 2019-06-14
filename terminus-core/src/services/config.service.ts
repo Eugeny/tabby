@@ -21,12 +21,12 @@ function isNonStructuralObjectMember (v) {
 /** @hidden */
 export class ConfigProxy {
     constructor (real: any, defaults: any) {
-        for (let key in defaults) {
+        for (const key in defaults) {
             if (isStructuralMember(defaults[key])) {
                 if (!real[key]) {
                     real[key] = {}
                 }
-                let proxy = new ConfigProxy(real[key], defaults[key])
+                const proxy = new ConfigProxy(real[key], defaults[key])
                 Object.defineProperty(
                     this,
                     key,
@@ -177,9 +177,9 @@ export class ConfigService {
     enabledServices<T> (services: T[]): T[] {
         if (!this.servicesCache) {
             this.servicesCache = {}
-            let ngModule = window['rootModule'].ngInjectorDef
-            for (let imp of ngModule.imports) {
-                let module = (imp['ngModule'] || imp)
+            const ngModule = window['rootModule'].ngInjectorDef
+            for (const imp of ngModule.imports) {
+                const module = (imp['ngModule'] || imp)
                 if (module.ngInjectorDef && module.ngInjectorDef.providers) {
                     this.servicesCache[module['pluginName']] = module.ngInjectorDef.providers.map(provider => {
                         return provider['useClass'] || provider
@@ -188,7 +188,7 @@ export class ConfigService {
             }
         }
         return services.filter(service => {
-            for (let pluginName in this.servicesCache) {
+            for (const pluginName in this.servicesCache) {
                 if (this.servicesCache[pluginName].includes(service.constructor)) {
                     return !this.store.pluginBlacklist.includes(pluginName)
                 }

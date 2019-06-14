@@ -123,7 +123,7 @@ export class XTermFrontend extends Frontend {
         host.addEventListener('mouseup', event => this.mouseEvent.next(event as MouseEvent))
         host.addEventListener('mousewheel', event => this.mouseEvent.next(event as MouseEvent))
 
-        let ro = new window['ResizeObserver'](() => this.resizeHandler())
+        const ro = new window['ResizeObserver'](() => this.resizeHandler())
         ro.observe(host)
     }
 
@@ -167,7 +167,7 @@ export class XTermFrontend extends Frontend {
     }
 
     configure (): void {
-        let config = this.configService.store
+        const config = this.configService.store
 
         setImmediate(() => {
             if (this.xterm.cols && this.xterm.rows && this.xtermCore.charMeasure) {
@@ -194,7 +194,7 @@ export class XTermFrontend extends Frontend {
 
         this.copyOnSelect = config.terminal.copyOnSelect
 
-        let theme: ITheme = {
+        const theme: ITheme = {
             foreground: config.terminal.colorScheme.foreground,
             background: (config.terminal.background === 'colorScheme') ? config.terminal.colorScheme.background : (config.appearance.vibrancy ? 'transparent' : this.themesService.findCurrentTheme().terminalBackground),
             cursor: config.terminal.colorScheme.cursor,
@@ -252,7 +252,7 @@ export class XTermFrontend extends Frontend {
 
     private getHexColor (mode: number, color: number): string {
         if (mode === Attributes.CM_RGB) {
-            let rgb = AttributeData.toColorRGB(color)
+            const rgb = AttributeData.toColorRGB(color)
             return rgb.map(x => x.toString(16).padStart(2, '0')).join('')
         }
         if (mode === Attributes.CM_P16 || mode === Attributes.CM_P256) {
@@ -265,7 +265,7 @@ export class XTermFrontend extends Frontend {
         let html = '<div>'
         let lastStyle = null
         const line = (this.xterm.buffer.getLine(y) as any)._line
-        let cell = new CellData()
+        const cell = new CellData()
         for (let i = start; i < end; i++) {
             line.loadCell(i, cell)
             const fg = this.getHexColor(cell.getFgColorMode(), cell.getFgColor())

@@ -34,7 +34,7 @@ export class ButtonProvider extends ToolbarButtonProvider {
     }
 
     open (): void {
-        let settingsTab = this.app.tabs.find(tab => tab instanceof SettingsTabComponent)
+        const settingsTab = this.app.tabs.find(tab => tab instanceof SettingsTabComponent)
         if (settingsTab) {
             this.app.selectTab(settingsTab)
         } else {

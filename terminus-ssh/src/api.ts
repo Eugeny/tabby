@@ -43,16 +43,16 @@ export class SSHSession extends BaseSession {
         this.open = true
 
         this.shell.on('data', data => {
-            let dataString = data.toString()
+            const dataString = data.toString()
             this.emitOutput(dataString)
 
             if (this.scripts) {
                 let found = false
-                for (let script of this.scripts) {
+                for (const script of this.scripts) {
                     let match = false
                     let cmd = ''
                     if (script.isRegex) {
-                        let re = new RegExp(script.expect, 'g')
+                        const re = new RegExp(script.expect, 'g')
                         if (dataString.match(re)) {
                             cmd = dataString.replace(re, script.send)
                             match = true
@@ -128,7 +128,7 @@ export class SSHSession extends BaseSession {
 
     private executeUnconditionalScripts () {
         if (this.scripts) {
-            for (let script of this.scripts) {
+            for (const script of this.scripts) {
                 if (!script.expect) {
                     console.log('Executing script:', script.send)
                     this.shell.write(script.send + '\n')

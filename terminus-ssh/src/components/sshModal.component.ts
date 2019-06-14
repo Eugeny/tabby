@@ -47,7 +47,7 @@ export class SSHModalComponent {
             host = host.split(':')[0]
         }
 
-        let connection: SSHConnection = {
+        const connection: SSHConnection = {
             name: this.quickTarget,
             host, user, port
         }
@@ -88,7 +88,7 @@ export class SSHModalComponent {
             connections = connections.filter(connection => (connection.name + connection.group).toLowerCase().includes(this.quickTarget))
         }
 
-        for (let connection of connections) {
+        for (const connection of connections) {
             connection.group = connection.group || null
             let group = this.childGroups.find(x => x.name === connection.group)
             if (!group) {

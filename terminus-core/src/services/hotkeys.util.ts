@@ -10,24 +10,14 @@ export const altKeyName = {
     linux: 'Alt',
 }[process.platform]
 
-export interface NativeKeyEvent {
-    event?: string
-    altKey: boolean
-    ctrlKey: boolean
-    metaKey: boolean
-    shiftKey: boolean
-    key: string
-    keyCode: string
-}
-
-export function stringifyKeySequence (events: NativeKeyEvent[]): string[] {
-    let items: string[] = []
+export function stringifyKeySequence (events: KeyboardEvent[]): string[] {
+    const items: string[] = []
     events = events.slice()
 
     while (events.length > 0) {
-        let event = events.shift()
-        if (event.event === 'keydown') {
-            let itemKeys: string[] = []
+        const event = events.shift()
+        if ((event as any).event === 'keydown') {
+            const itemKeys: string[] = []
             if (event.ctrlKey) {
                 itemKeys.push('Ctrl')
             }
@@ -46,7 +36,7 @@ export function stringifyKeySequence (events: NativeKeyEvent[]): string[] {
                 continue
             }
 
-            let key = (event as any).code
+            let key = event.code
             key = key.replace('Key', '')
             key = key.replace('Arrow', '')
             key = key.replace('Digit', '')

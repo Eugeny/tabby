@@ -18,7 +18,7 @@ export class MacOSDefaultShellProvider extends ShellProvider {
         if (this.hostApp.platform !== Platform.macOS) {
             return []
         }
-        let shellEntry = (await exec(`/usr/bin/dscl . -read /Users/${process.env.LOGNAME} UserShell`))[0].toString()
+        const shellEntry = (await exec(`/usr/bin/dscl . -read /Users/${process.env.LOGNAME} UserShell`))[0].toString()
         return [{
             id: 'default',
             name: 'User default',

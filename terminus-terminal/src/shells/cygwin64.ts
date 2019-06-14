@@ -25,7 +25,7 @@ export class Cygwin64ShellProvider extends ShellProvider {
             return []
         }
 
-        let cygwinPath = wnr.getRegistryValue(wnr.HK.LM, 'Software\\Cygwin\\setup', 'rootdir')
+        const cygwinPath = wnr.getRegistryValue(wnr.HK.LM, 'Software\\Cygwin\\setup', 'rootdir')
 
         if (!cygwinPath) {
             return []

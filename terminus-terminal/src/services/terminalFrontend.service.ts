@@ -18,7 +18,7 @@ export class TerminalFrontendService {
 
     getFrontend (session?: BaseSession): Frontend {
         if (!session) {
-            let frontend: Frontend = new ({
+            const frontend: Frontend = new ({
                 'xterm': XTermFrontend,
                 'xterm-webgl': XTermWebGLFrontend,
                 'hterm': HTermFrontend,

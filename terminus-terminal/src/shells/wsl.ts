@@ -29,7 +29,7 @@ export class WSLShellProvider extends ShellProvider {
         const bashPath = `${process.env.windir}\\system32\\bash.exe`
         const wslPath = `${process.env.windir}\\system32\\wsl.exe`
 
-        let shells: IShell[] = [{
+        const shells: IShell[] = [{
             id: 'wsl',
             name: 'WSL / Default distro',
             command: wslPath,
@@ -40,7 +40,7 @@ export class WSLShellProvider extends ShellProvider {
         }]
 
         const lxssPath = 'Software\\Microsoft\\Windows\\CurrentVersion\\Lxss'
-        let lxss = wnr.getRegistryKey(wnr.HK.CU, lxssPath)
+        const lxss = wnr.getRegistryKey(wnr.HK.CU, lxssPath)
         if (!lxss || !lxss.DefaultDistribution || !isWindowsBuild(WIN_BUILD_WSL_EXE_DISTRO_FLAG)) {
             if (await fs.exists(bashPath)) {
                 return [{
@@ -56,12 +56,12 @@ export class WSLShellProvider extends ShellProvider {
                 return []
             }
         }
-        for (let child of wnr.listRegistrySubkeys(wnr.HK.CU, lxssPath)) {
-            let childKey = wnr.getRegistryKey(wnr.HK.CU, lxssPath + '\\' + child)
+        for (const child of wnr.listRegistrySubkeys(wnr.HK.CU, lxssPath)) {
+            const childKey = wnr.getRegistryKey(wnr.HK.CU, lxssPath + '\\' + child)
             if (!childKey.DistributionName) {
                 continue
             }
-            let name = childKey.DistributionName.value
+            const name = childKey.DistributionName.value
             shells.push({
                 id: `wsl-${slug(name)}`,
                 name: `WSL / ${name}`,
