@@ -101,6 +101,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
                 break
             case 'copy':
                 this.frontend.copySelection()
+                this.frontend.clearSelection()
                 this.toastr.info('Copied')
                 break
             case 'paste':
