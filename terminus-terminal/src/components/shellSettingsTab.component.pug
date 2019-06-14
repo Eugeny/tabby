@@ -31,7 +31,7 @@ h3.mb-3 Shell
 .alert.alert-info.d-flex.align-items-center(*ngIf='config.store.terminal.profile.startsWith("WSL") && (config.store.terminal.frontend != "hterm" || !config.store.terminal.useConPTY)')
     .mr-auto WSL terminal only supports TrueColor with ConPTY and the hterm frontend
 
-.form-line(*ngIf='config.store.terminal.profile == "Custom shell"')
+.form-line(*ngIf='config.store.terminal.profile == "custom-shell"')
     .header
         .title Custom shell
 
