@@ -12,3 +12,7 @@ appearance:
   vibrancyType: 'blur'
 enableAnalytics: true
 enableWelcomeTab: true
+electronFlags:
+  - ['disable-http-cache']
+  - ['force_discrete_gpu', '0']
+  - ['lang', 'EN']
