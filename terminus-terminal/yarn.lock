@@ -260,9 +260,9 @@ xterm-addon-ligatures@^0.1.0-beta-2:
     font-ligatures "^1.3.1"
 
 xterm-addon-search@^0.1.0-beta6:
-  version "0.1.0-beta6"
-  resolved "https://registry.yarnpkg.com/xterm-addon-search/-/xterm-addon-search-0.1.0-beta6.tgz#e2a2b441f8f7b0245c63731d0b2af32c7d4e6747"
-  integrity sha512-XKxdfO48HkCJW2m1wXW0PK/BOk00WEaN+W2LgDQqCBwwUjyBzWc9HaV8gzLXhSCDAYesWvtQa3RfqHfSp9qsbQ==
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/xterm-addon-search/-/xterm-addon-search-0.1.0.tgz#83e1a21b5a99a9adcde969cb19a561c576a8181a"
+  integrity sha512-jqedtYgTHSz4FSf4JLimH7dxWoPamI9msScRO9B7oUsrbaKFsieAhRw5ZibdD7Swf8/G8DEC6ArmujxNSRNKXQ==
 
 "xterm@https://registry.npmjs.org/@terminus-term/xterm/-/xterm-3.14.2.tgz":
   version "3.14.2"
