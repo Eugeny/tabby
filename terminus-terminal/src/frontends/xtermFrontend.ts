@@ -4,6 +4,7 @@ import { getCSSFontFamily } from '../utils'
 import { FitAddon } from 'xterm-addon-fit'
 import { enableLigatures } from 'xterm-addon-ligatures'
 import { SearchAddon } from 'xterm-addon-search'
+import { WebglAddon } from 'xterm-addon-webgl'
 import './xterm.css'
 import deepEqual from 'deep-equal'
 import { Attributes, AttributeData, CellData } from 'xterm/src/common/buffer/BufferLine'
@@ -100,7 +101,7 @@ export class XTermFrontend extends Frontend {
         this.opened = true
 
         if (this.enableWebGL) {
-            (this.xterm as any).loadWebgl(false)
+            this.xterm.loadAddon(new WebglAddon())
         }
 
         if (this.configService.store.terminal.ligatures) {
