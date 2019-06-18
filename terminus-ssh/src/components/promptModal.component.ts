@@ -23,10 +23,13 @@ export class PromptModalComponent {
     }
 
     ok () {
-        this.modalInstance.close(this.value)
+        this.modalInstance.close({
+            value: this.value,
+            remember: this.remember,
+        })
     }
 
     cancel () {
-        this.modalInstance.close('')
+        this.modalInstance.close(null)
     }
 }

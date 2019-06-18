@@ -43,7 +43,7 @@ export class SSHSettingsTabComponent {
     }
 
     editConnection (connection: SSHConnection) {
-        const modal = this.ngbModal.open(EditConnectionModalComponent)
+        const modal = this.ngbModal.open(EditConnectionModalComponent, { size: 'lg' })
         modal.componentInstance.connection = Object.assign({}, connection)
         modal.result.then(result => {
             Object.assign(connection, result)
@@ -77,7 +77,7 @@ export class SSHSettingsTabComponent {
         modal.result.then(result => {
             if (result) {
                 for (const connection of this.connections.filter(x => x.group === group.name)) {
-                    connection.group = result
+                    connection.group = result.value
                 }
                 this.config.store.ssh.connections = this.connections
                 this.config.save()

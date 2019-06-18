@@ -1,8 +1,9 @@
 import { Component } from '@angular/core'
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
+import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
 import { ElectronService, HostAppService } from 'terminus-core'
 import { PasswordStorageService } from '../services/passwordStorage.service'
 import { SSHConnection, LoginScript, SSHAlgorithmType } from '../api'
+import { PromptModalComponent } from './promptModal.component'
 import { ALGORITHMS } from 'ssh2-streams/lib/constants'
 
 /** @hidden */
@@ -23,6 +24,7 @@ export class EditConnectionModalComponent {
         private electron: ElectronService,
         private hostApp: HostAppService,
         private passwordStorage: PasswordStorageService,
+        private ngbModal: NgbModal,
     ) {
         this.newScript = { expect: '', send: '' }
 
@@ -57,6 +59,19 @@ export class EditConnectionModalComponent {
                 this.algorithms[k][alg] = true
             }
         }
+    }
+
+    async setPassword () {
+        const modal = this.ngbModal.open(PromptModalComponent)
+        modal.componentInstance.prompt = `Password for ${this.connection.user}@${this.connection.host}`
+        modal.componentInstance.password = true
+        try {
+            const result = await modal.result
+            if (result && result.value) {
+                this.passwordStorage.savePassword(this.connection, result.value)
+                this.hasSavedPassword = true
+            }
+        } catch { }
     }
 
     clearSavedPassword () {

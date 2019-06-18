@@ -11,7 +11,7 @@
     .d-flex.align-items-start.mt-2
         checkbox(
             *ngIf='showRememberCheckbox',
-            [(model)]='remember', 
+            [(ngModel)]='remember', 
             text='Remember'
         )
         button.btn.btn-primary.ml-auto(

@@ -82,7 +82,10 @@ export class SSHService {
                     modal.componentInstance.prompt = 'Private key passphrase'
                     modal.componentInstance.password = true
                     try {
-                        privateKeyPassphrase = await modal.result
+                        const result  = await modal.result
+                        if (result) {
+                            privateKeyPassphrase = result.value
+                        }
                     } catch (e) { }
                 }
             }
@@ -119,7 +122,8 @@ export class SSHService {
                     const modal = this.ngbModal.open(PromptModalComponent)
                     modal.componentInstance.prompt = prompt.prompt
                     modal.componentInstance.password = !prompt.echo
-                    results.push(await modal.result)
+                    const result = await modal.result
+                    results.push(result ? result.value : '')
                 }
                 finish(results)
             }))
@@ -194,11 +198,14 @@ export class SSHService {
                 modal.componentInstance.password = true
                 modal.componentInstance.showRememberCheckbox = true
                 try {
-                    let password = await modal.result
-                    if (modal.componentInstance.remember) {
-                        savedPassword = password
+                    const result = await modal.result
+                    if (result) {
+                        if (result.remember) {
+                            savedPassword = result.value
+                        }
+                        return result.value
                     }
-                    return password
+                    return ''
                 } catch (_) {
                     return ''
                 }
