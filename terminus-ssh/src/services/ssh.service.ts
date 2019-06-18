@@ -66,7 +66,7 @@ export class SSHService {
                 privateKey = (await fs.readFile(privateKeyPath)).toString()
             } catch (error) {
                 log('Could not read the private key file')
-                this.toastr.warning('Could not read the private key file')
+                this.toastr.error('Could not read the private key file')
             }
 
             if (privateKey) {
@@ -100,7 +100,9 @@ export class SSHService {
                 this.zone.run(resolve)
             })
             ssh.on('error', error => {
-                this.passwordStorage.deletePassword(session.connection)
+                if (error.message === 'All configured authentication methods failed') {
+                    this.passwordStorage.deletePassword(session.connection)
+                }
                 this.zone.run(() => {
                     if (connected) {
                         this.toastr.error(error.toString())
