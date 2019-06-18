@@ -192,12 +192,16 @@ export class SSHService {
                 const modal = this.ngbModal.open(PromptModalComponent)
                 modal.componentInstance.prompt = `Password for ${session.connection.user}@${session.connection.host}`
                 modal.componentInstance.password = true
+                modal.componentInstance.showRememberCheckbox = true
                 try {
-                    savedPassword = await modal.result
+                    let password = await modal.result
+                    if (modal.componentInstance.remember) {
+                        savedPassword = password
+                    }
+                    return password
                 } catch (_) {
                     return ''
                 }
-                return savedPassword
             })
         })
 

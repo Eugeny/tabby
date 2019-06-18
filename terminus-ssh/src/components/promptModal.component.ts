@@ -8,6 +8,8 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
 export class PromptModalComponent {
     @Input() value: string
     @Input() password: boolean
+    @Input() remember: boolean
+    @Input() showRememberCheckbox: boolean
     @ViewChild('input') input: ElementRef
 
     constructor (
