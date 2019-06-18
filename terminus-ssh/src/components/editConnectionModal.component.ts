@@ -12,7 +12,6 @@ import { ALGORITHMS } from 'ssh2-streams/lib/constants'
 })
 export class EditConnectionModalComponent {
     connection: SSHConnection
-    newScript: LoginScript
     hasSavedPassword: boolean
 
     supportedAlgorithms: {[id: string]: string[]} = {}
@@ -26,8 +25,6 @@ export class EditConnectionModalComponent {
         private passwordStorage: PasswordStorageService,
         private ngbModal: NgbModal,
     ) {
-        this.newScript = { expect: '', send: '' }
-
         for (const k of Object.values(SSHAlgorithmType)) {
             const supportedAlg = {
                 [SSHAlgorithmType.KEX]: 'SUPPORTED_KEX',
@@ -49,6 +46,8 @@ export class EditConnectionModalComponent {
     async ngOnInit () {
         this.hasSavedPassword = !!await this.passwordStorage.loadPassword(this.connection)
         this.connection.algorithms = this.connection.algorithms || {}
+        this.connection.scripts = this.connection.scripts || []
+
         for (const k of Object.values(SSHAlgorithmType)) {
             if (!this.connection.algorithms[k]) {
                 this.connection.algorithms[k] = this.defaultAlgorithms[k]
@@ -136,17 +135,6 @@ export class EditConnectionModalComponent {
     }
 
     addScript () {
-        if (!this.connection.scripts) {
-            this.connection.scripts = []
-        }
-        this.connection.scripts.push({ ...this.newScript })
-        this.clearScript()
-    }
-
-    clearScript () {
-        this.newScript.expect = ''
-        this.newScript.send = ''
-        this.newScript.isRegex = false
-        this.newScript.optional = false
+        this.connection.scripts.push({ expect: '', send: '' })
     }
 }

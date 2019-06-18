@@ -118,15 +118,15 @@
         ngb-tab(id='scripts')
             ng-template(ngbTabTitle) Login scripts
             ng-template(ngbTabContent)
-                table
+                table(*ngIf='connection.scripts.length > 0')
                     tr
                         th String to expect
                         th String to be sent
-                        th Regex
-                        th Optional
-                        th Actions
+                        th.pl-2 Regex
+                        th.pl-2 Optional
+                        th.pl-2 Actions
                     tr(*ngFor='let script of connection.scripts')
-                        td
+                        td.pr-2
                             input.form-control(
                                 type='text', 
                                 [(ngModel)]='script.expect'
@@ -136,15 +136,15 @@
                                 type='text', 
                                 [(ngModel)]='script.send'
                             )
-                        td
+                        td.pl-2
                             checkbox(
                                 [(ngModel)]='script.isRegex',
                             )
-                        td
+                        td.pl-2
                             checkbox(
                                 [(ngModel)]='script.optional',
                             )
-                        td
+                        td.pl-2
                             .input-group.flex-nowrap
                                 button.btn.btn-outline-info.ml-0((click)='moveScriptUp(script)')
                                     i.fas.fa-arrow-up
@@ -152,32 +152,11 @@
                                     i.fas.fa-arrow-down
                                 button.btn.btn-outline-danger.ml-0((click)='deleteScript(script)')
                                     i.fas.fa-trash
-                    tr
-                        td
-                            input.form-control(
-                                type='text', 
-                                placeholder='Enter a string to expect', 
-                                [(ngModel)]='newScript.expect'
-                            )
-                        td
-                            input.form-control(
-                                type='text', 
-                                placeholder='Enter a string to be sent', 
-                                [(ngModel)]='newScript.send'
-                            )
-                        td
-                            checkbox(
-                                [(ngModel)]='newScript.isRegex',
-                            )
-                        td
-                            checkbox(
-                                [(ngModel)]='newScript.optional',
-                            )
-                        td
-                            .input-group.flex-nowrap
-                                button.btn.btn-outline-info.ml-0((click)='addScript()')
-                                    i.fas.fa-check
-                    
+                
+                button.btn.btn-outline-info.mt-2((click)='addScript()')
+                    i.fas.fa-plus
+                    span New item
+    
 .modal-footer
     button.btn.btn-outline-primary((click)='save()') Save
     button.btn.btn-outline-danger((click)='cancel()') Cancel
