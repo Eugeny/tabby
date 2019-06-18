@@ -1,5 +1,5 @@
 import * as path from 'path'
-import * as shellEscape from 'shell-escape'
+import shellEscape from 'shell-escape'
 import { Observable, Subject } from 'rxjs'
 import { Injectable, NgZone, EventEmitter } from '@angular/core'
 import { ElectronService } from './electron.service'
