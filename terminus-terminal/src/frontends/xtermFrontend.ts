@@ -7,7 +7,9 @@ import { SearchAddon } from 'xterm-addon-search'
 import { WebglAddon } from 'xterm-addon-webgl'
 import './xterm.css'
 import deepEqual from 'deep-equal'
-import { Attributes, AttributeData, CellData } from 'xterm/src/common/buffer/BufferLine'
+import { Attributes } from 'xterm/src/common/buffer/Constants'
+import { AttributeData } from 'xterm/src/common/buffer/AttributeData'
+import { CellData } from 'xterm/src/common/buffer/CellData'
 
 const COLOR_NAMES = [
     'black', 'red', 'green', 'yellow', 'blue', 'magenta', 'cyan', 'white',
