@@ -232,6 +232,7 @@ export class XTermFrontend extends Frontend {
 
     private setFontSize () {
         this.xterm.setOption('fontSize', this.configuredFontSize * Math.pow(1.1, this.zoom))
+        this.resizeHandler()
     }
 
     private getSelectionAsHTML (): string {
