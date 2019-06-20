@@ -41,6 +41,5 @@ export function parseArgs (argv, cwd) {
             type: 'boolean'
         })
         .help('help')
-        .strict()
         .parse(argv.slice(1))
 }
