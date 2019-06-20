@@ -12,7 +12,6 @@ jobs:
       os: linux
       before_install:
         - set -e
-        - sudo npm i -g yarn@latest
         - rm app/node_modules/.yarn-integrity || true
         - yarn
       script:
@@ -27,7 +26,6 @@ jobs:
       os: osx
       before_install:
         - set -e
-        - sudo npm i -g yarn@latest
         - rm app/node_modules/.yarn-integrity || true
         - yarn
       script:
@@ -67,7 +65,6 @@ addons:
 
 cache:
   directories:
-  - node_modules
   - 'terminus-*/node_modules'
   - $HOME/.cache/yarn
   - $HOME/.cache/electron
