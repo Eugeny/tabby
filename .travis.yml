@@ -12,9 +12,9 @@ jobs:
       os: linux
       before_install:
         - set -e
-        - yarn
+        - sudo npm i -g yarn@latest
         - rm app/node_modules/.yarn-integrity || true
-        - scripts/install-deps.js
+        - yarn
       script:
         - set -e
         - scripts/build-native.js
@@ -27,6 +27,7 @@ jobs:
       os: osx
       before_install:
         - set -e
+        - sudo npm i -g yarn@latest
         - rm app/node_modules/.yarn-integrity || true
         - yarn
       script:
