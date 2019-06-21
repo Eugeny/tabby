@@ -9,7 +9,7 @@
     "@types/webpack-env": "1.13.9",
     "@typescript-eslint/eslint-plugin": "^1.10.2",
     "@typescript-eslint/parser": "^1.10.2",
-    "app-builder-lib": "^20.44.1",
+    "app-builder-lib": "^20.44.3",
     "apply-loader": "2.0.0",
     "awesome-typescript-loader": "^5.0.0",
     "core-js": "^3.1.4",
