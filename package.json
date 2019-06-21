@@ -17,7 +17,7 @@
     "css-loader": "3.0.0",
     "electron": "^5.0.3",
     "electron-builder": "^20.44.2",
-    "electron-installer-snap": "^3.2.0",
+    "electron-installer-snap": "^4.0.0",
     "electron-rebuild": "^1.8.5",
     "eslint": "^5.16.0",
     "file-loader": "^4.0.0",
