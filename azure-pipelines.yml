@@ -1,6 +1,9 @@
 trigger:
 - master
 
+variables:
+- group: Vars
+
 pool:
   vmImage: 'windows-2019'
 
