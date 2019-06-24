@@ -3,7 +3,7 @@ const path = require('path')
 module.exports = {
   target: 'node',
   entry: 'src/index.ts',
-  devtool: 'eval-source-map',
+  devtool: 'source-map',
   context: __dirname,
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -18,7 +18,7 @@ module.exports = {
   },
   resolve: {
     modules: ['.', 'src', 'node_modules', '../app/node_modules'].map(x => path.join(__dirname, x)),
-    extensions: ['.ts', '.js'],
+    extensions: ['.ts', '.js']
   },
   module: {
     rules: [

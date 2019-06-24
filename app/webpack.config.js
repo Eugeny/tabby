@@ -14,7 +14,7 @@ module.exports = {
      minimize: false,
   },
   context: __dirname,
-  devtool: 'eval-source-map',
+  devtool: 'source-map',
   output: {
     path: path.join(__dirname, 'dist'),
     pathinfo: true,

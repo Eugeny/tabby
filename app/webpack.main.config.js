@@ -9,7 +9,7 @@ module.exports = {
   },
   mode: process.env.TERMINUS_DEV ? 'development' : 'production',
   context: __dirname,
-  devtool: 'eval-source-map',
+  devtool: 'source-map',
   output: {
     path: path.join(__dirname, 'dist'),
     pathinfo: true,

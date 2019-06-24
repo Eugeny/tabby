@@ -1,7 +1,8 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
+    "module": "es2015",
     "target": "es2016",
+    "moduleResolution": "node",
     "noImplicitAny": false,
     "removeComments": false,
     "emitDeclarationOnly": false,
