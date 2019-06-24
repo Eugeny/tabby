@@ -265,9 +265,9 @@ xterm-addon-search@^0.1.0-beta6:
   integrity sha512-XKxdfO48HkCJW2m1wXW0PK/BOk00WEaN+W2LgDQqCBwwUjyBzWc9HaV8gzLXhSCDAYesWvtQa3RfqHfSp9qsbQ==
 
 xterm-addon-webgl@^0.1.0-beta2:
-  version "0.1.0-beta2"
-  resolved "https://registry.yarnpkg.com/xterm-addon-webgl/-/xterm-addon-webgl-0.1.0-beta2.tgz#aa14aa5650a47cf4d39a2029428a561e6d966313"
-  integrity sha512-MtbbAR4oS3+6djFAjXrEUJt8bGlUiSfRNrugNL6Pm3hePzUUF2npmBLmVIr+RSY89PwwO6Bz6HQSb8aqgfZiSw==
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/xterm-addon-webgl/-/xterm-addon-webgl-0.1.0.tgz#885450d5bedc65708a15ff39dce9c24db7fff19e"
+  integrity sha512-/F6jia0Cwg3TIe0+5ARqtX46VmwHshwfwhrF2QLl31dh1Z/DrukQAQhaHb+g9khAaJ+NQiNLkPR5GWK7tL1ujQ==
 
 "xterm@https://registry.npmjs.org/@terminus-term/xterm/-/xterm-3.14.3.tgz":
   version "3.14.3"
