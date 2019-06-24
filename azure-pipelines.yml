@@ -1,0 +1,25 @@
+trigger:
+- master
+
+pool:
+  vmImage: 'windows-2019'
+
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '12.x'
+  displayName: 'Install Node.js'
+
+- script: |
+    yarn
+    node scripts/build-native.js
+    yarn run build:typings
+    yarn run build
+    node scripts/prepackage-plugins.js
+    node scripts/build-windows.js
+  displayName: 'npm install and build'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    pathtoPublish: 'dist\\*.exe'
+    artifactName: build
