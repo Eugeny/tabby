@@ -13,14 +13,23 @@ steps:
     versionSpec: '10.x'
   displayName: 'Install Node.js'
 
-- script: |
-    yarn
-    node scripts/build-native.js
-    yarn run build:typings
-    yarn run build
-    node scripts/prepackage-plugins.js
-    node scripts/build-windows.js
-  displayName: 'npm install and build'
+- script: yarn
+  displayName: 'Install dependencies'
+
+- script: node scripts/build-native.js
+  displayName: 'Rebuild native dependencies'
+
+- script: yarn run build:typings
+  displayName: 'Build typings'
+
+- script: yarn run build
+  displayName: 'Build'
+
+- script: node scripts/prepackage-plugins.js
+  displayName: 'Prepackage plugins'
+
+- script: node scripts/build-windows.js
+  displayName: 'Package'
 
 - task: PublishBuildArtifacts@1
   inputs:
