@@ -31,7 +31,7 @@
     "npx": "^10.2.0",
     "pug": "^2.0.4",
     "pug-html-loader": "1.1.5",
-    "pug-lint": "^2.5.0",
+    "pug-lint": "^2.6.0",
     "pug-loader": "^2.4.0",
     "pug-static-loader": "2.0.0",
     "raven-js": "3.27.2",
