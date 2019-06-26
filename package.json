@@ -9,7 +9,7 @@
     "@types/webpack-env": "1.13.9",
     "@typescript-eslint/eslint-plugin": "^1.11.0",
     "@typescript-eslint/parser": "^1.11.0",
-    "app-builder-lib": "^20.44.3",
+    "app-builder-lib": "^21.0.2",
     "apply-loader": "2.0.0",
     "awesome-typescript-loader": "^5.0.0",
     "core-js": "^3.1.4",
@@ -31,7 +31,7 @@
     "npx": "^10.2.0",
     "pug": "^2.0.4",
     "pug-html-loader": "1.1.5",
-    "pug-lint": "^2.5.0",
+    "pug-lint": "^2.6.0",
     "pug-loader": "^2.4.0",
     "pug-static-loader": "2.0.0",
     "raven-js": "3.27.2",
@@ -136,6 +136,6 @@
   },
   "repository": "eugeny/terminus",
   "dependencies": {
-    "eslint-plugin-import": "^2.17.3"
+    "eslint-plugin-import": "^2.18.0"
   }
 }
