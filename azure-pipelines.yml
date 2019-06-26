@@ -30,13 +30,32 @@ steps:
 
 - script: node scripts/build-windows.js
   displayName: 'Package'
+  env:
+    CSC_LINK: $(CSC_LINK)
+    CSC_KEY_PASSWORD: $(CSC_KEY_PASSWORD)
+    BT_TOKEN: $(BT_TOKEN)
+    GH_TOKEN: $(GH_TOKEN)
 
 - task: CopyFiles@2
   inputs:
-    contents: 'dist\\*.exe'
+    contents: 'dist\\*-setup.exe'
     targetFolder: $(Build.ArtifactStagingDirectory)
+    flattenFolders: true
+    cleanTargetFolder: true
 
 - task: PublishBuildArtifacts@1
   inputs:
     pathtoPublish: $(Build.ArtifactStagingDirectory)
-    artifactName: Build
+    artifactName: Windows - Installer
+
+- task: CopyFiles@2
+  inputs:
+    contents: 'dist\\*-portable.exe'
+    targetFolder: $(Build.ArtifactStagingDirectory)
+    flattenFolders: true
+    cleanTargetFolder: true
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    pathtoPublish: $(Build.ArtifactStagingDirectory)
+    artifactName: Windows - Portable build
