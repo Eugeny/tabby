@@ -31,7 +31,12 @@ steps:
 - script: node scripts/build-windows.js
   displayName: 'Package'
 
+- task: CopyFiles@2
+  inputs:
+    contents: 'dist\\*.exe'
+    targetFolder: $(Build.ArtifactStagingDirectory)
+
 - task: PublishBuildArtifacts@1
   inputs:
-    pathtoPublish: 'dist\\*.exe'
-    artifactName: build
+    pathtoPublish: $(Build.ArtifactStagingDirectory)
+    artifactName: Build

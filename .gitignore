@@ -23,3 +23,4 @@ yarn-error.log
 
 docs/api
 .travis.ssh.key
+*.code-workspace
