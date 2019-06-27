@@ -2,40 +2,10 @@ language: node_js
 node_js: 11
 
 stages:
-  - Build
-  - name: Docs
-    if: branch = master
+  - Docs
 
 jobs:
   include:
-    - stage: 'Build'
-      os: linux
-      before_install:
-        - set -e
-        - rm app/node_modules/.yarn-integrity || true
-        - yarn
-      script:
-        - set -e
-        - scripts/build-native.js
-        - yarn run build:typings
-        - yarn run build
-        - scripts/prepackage-plugins.js
-        - travis_wait scripts/build-linux.js
-
-    - stage: 'Build'
-      os: osx
-      before_install:
-        - set -e
-        - rm app/node_modules/.yarn-integrity || true
-        - yarn
-      script:
-        - set -e
-        - scripts/build-native.js
-        - yarn run build:typings
-        - yarn run build
-        - scripts/prepackage-plugins.js
-        - travis_wait scripts/build-macos.js
-
     - stage: 'Docs'
       os: linux
       if: branch = master
@@ -61,7 +31,6 @@ addons:
     sources:
     - sourceline: 'deb https://dl.yarnpkg.com/debian/ stable main'
       key_url: 'https://dl.yarnpkg.com/debian/pubkey.gpg'
-
 
 cache:
   directories:

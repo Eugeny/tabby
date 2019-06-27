@@ -18,6 +18,7 @@
     "electron": "^5.0.5",
     "electron-builder": "^20.44.4",
     "electron-installer-snap": "^4.0.0",
+    "electron-notarize": "^0.1.1",
     "electron-rebuild": "^1.8.5",
     "eslint": "^5.16.0",
     "file-loader": "^4.0.0",
@@ -58,6 +59,7 @@
     "appId": "org.terminus",
     "productName": "Terminus",
     "compression": "normal",
+    "afterSign": "./build/mac/afterSignHook.js",
     "files": [
       "**/*",
       "dist"
@@ -93,6 +95,8 @@
       "category": "public.app-category.video",
       "icon": "./build/mac/icon.icns",
       "artifactName": "terminus-${version}-macos.${ext}",
+      "hardenedRuntime": true,
+      "entitlements": "./build/mac/entitlements.plist",
       "extendInfo": {
         "NSRequiresAquaSystemAppearance": false
       }

@@ -179,6 +179,9 @@ jobs:
       CSC_KEY_PASSWORD: $(CSC_KEY_PASSWORD)
       BT_TOKEN: $(BT_TOKEN)
       GH_TOKEN: $(GH_TOKEN)
+      APPSTORE_USERNAME: $(APPSTORE_USERNAME)
+      APPSTORE_PASSWORD: $(APPSTORE_PASSWORD)
+      BRANCH: $[ variables['Build.SourceBranch'] ]
 
   - task: CopyFiles@2
     inputs:
