@@ -97,7 +97,7 @@ jobs:
 
   - task: CopyFiles@2
     inputs:
-      contents: 'dist\\*.deb'
+      contents: 'dist/*.deb'
       targetFolder: $(Build.ArtifactStagingDirectory)
       flattenFolders: true
       cleanTargetFolder: true
@@ -110,7 +110,7 @@ jobs:
 
   - task: CopyFiles@2
     inputs:
-      contents: 'dist\\*.rpm'
+      contents: 'dist/*.rpm'
       targetFolder: $(Build.ArtifactStagingDirectory)
       flattenFolders: true
       cleanTargetFolder: true
@@ -123,7 +123,7 @@ jobs:
 
   - task: CopyFiles@2
     inputs:
-      contents: 'dist\\*.snap'
+      contents: 'dist/*.snap'
       targetFolder: $(Build.ArtifactStagingDirectory)
       flattenFolders: true
       cleanTargetFolder: true
@@ -136,7 +136,7 @@ jobs:
 
   - task: CopyFiles@2
     inputs:
-      contents: 'dist\\*.tar.gz'
+      contents: 'dist/*.tar.gz'
       targetFolder: $(Build.ArtifactStagingDirectory)
       flattenFolders: true
       cleanTargetFolder: true
@@ -182,7 +182,7 @@ jobs:
 
   - task: CopyFiles@2
     inputs:
-      contents: 'dist\\*.dmg'
+      contents: 'dist/*.dmg'
       targetFolder: $(Build.ArtifactStagingDirectory)
       flattenFolders: true
       cleanTargetFolder: true
@@ -195,7 +195,7 @@ jobs:
 
   - task: CopyFiles@2
     inputs:
-      contents: 'dist\\*.zip'
+      contents: 'dist/*.zip'
       targetFolder: $(Build.ArtifactStagingDirectory)
       flattenFolders: true
       cleanTargetFolder: true
