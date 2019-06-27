@@ -11,4 +11,4 @@ builder({
     },
   },
   publish: 'onTag',
-})
+}).catch(() => process.exit(1))

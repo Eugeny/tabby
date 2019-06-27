@@ -5,11 +5,13 @@ const vars = require('./vars')
 
 lifecycles = []
 for (let dir of ['app', 'terminus-core', 'terminus-ssh', 'terminus-terminal']) {
-  lifecycles.push([rebuild({
+  build = rebuild({
     buildPath: path.resolve(__dirname, '../' + dir),
     electronVersion: vars.electronVersion,
     force: true,
-  }).lifecycle, dir])
+  })
+  build.catch(() => process.exit(1))
+  lifecycles.push([build.lifecycle, dir])
 }
 
 console.info('Building against Electron', vars.electronVersion)

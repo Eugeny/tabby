@@ -7,7 +7,7 @@ const notarizer = require('electron-notarize')
 module.exports = async function (params) {
     console.log('env: ', process.env)
     // notarize the app on Mac OS only.
-    if (process.platform !== 'darwin'){// || process.env.BRANCH !== 'refs/heads/master') {
+    if (process.platform !== 'darwin' || process.env.BUILD_SOURCEBRANCH !== 'refs/heads/master') {
         return
     }
     console.log('afterSign hook triggered', params)
