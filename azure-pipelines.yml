@@ -181,7 +181,7 @@ jobs:
       GH_TOKEN: $(GH_TOKEN)
       APPSTORE_USERNAME: $(APPSTORE_USERNAME)
       APPSTORE_PASSWORD: $(APPSTORE_PASSWORD)
-      BRANCH: $[ variables['Build.SourceBranch'] ]
+      BRANCH: $(BUILD_SOURCEBRANCH)
 
   - task: CopyFiles@2
     inputs:
