@@ -1,10 +1,20 @@
 import * as fs from 'mz/fs'
-import { Registry } from 'rage-edit-tmp'
+import slug from 'slug'
+
 import { Injectable } from '@angular/core'
 import { HostAppService, Platform } from 'terminus-core'
 
-import { ShellProvider, IShell } from '../api'
+import { ShellProvider } from '../api/shellProvider'
+import { Shell } from '../api/interfaces'
+import { isWindowsBuild, WIN_BUILD_WSL_EXE_DISTRO_FLAG } from '../utils'
 
+/* eslint-disable block-scoped-var */
+
+try {
+    var wnr = require('windows-native-registry') // eslint-disable-line @typescript-eslint/no-var-requires
+} catch { }
+
+/** @hidden */
 @Injectable()
 export class WSLShellProvider extends ShellProvider {
     constructor (
@@ -13,7 +23,7 @@ export class WSLShellProvider extends ShellProvider {
         super()
     }
 
-    async provide (): Promise<IShell[]> {
+    async provide (): Promise<Shell[]> {
         if (this.hostApp.platform !== Platform.Windows) {
             return []
         }
@@ -21,18 +31,19 @@ export class WSLShellProvider extends ShellProvider {
         const bashPath = `${process.env.windir}\\system32\\bash.exe`
         const wslPath = `${process.env.windir}\\system32\\wsl.exe`
 
-        let shells: IShell[] = [{
+        const shells: Shell[] = [{
             id: 'wsl',
             name: 'WSL / Default distro',
             command: wslPath,
             env: {
                 TERM: 'xterm-color',
                 COLORTERM: 'truecolor',
-            }
+            },
         }]
 
-        let lxss = await Registry.get('HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Lxss', true)
-        if (!lxss || !lxss.$values.defaultdistribution) {
+        const lxssPath = 'Software\\Microsoft\\Windows\\CurrentVersion\\Lxss'
+        const lxss = wnr.getRegistryKey(wnr.HK.CU, lxssPath)
+        if (!lxss || !lxss.DefaultDistribution || !isWindowsBuild(WIN_BUILD_WSL_EXE_DISTRO_FLAG)) {
             if (await fs.exists(bashPath)) {
                 return [{
                     id: 'wsl',
@@ -41,27 +52,28 @@ export class WSLShellProvider extends ShellProvider {
                     env: {
                         TERM: 'xterm-color',
                         COLORTERM: 'truecolor',
-                    }
+                    },
                 }]
             } else {
                 return []
             }
         }
-        for (let child of Object.values(lxss)) {
-            if (!(child as any).$values) {
+        for (const child of wnr.listRegistrySubkeys(wnr.HK.CU, lxssPath) as string[]) {
+            const childKey = wnr.getRegistryKey(wnr.HK.CU, lxssPath + '\\' + child)
+            if (!childKey.DistributionName) {
                 continue
             }
-            let name = (child as any).$values.distributionname
+            const name = childKey.DistributionName.value
             shells.push({
-                id: `wsl-${name}`,
+                id: `wsl-${slug(name)}`,
                 name: `WSL / ${name}`,
                 command: wslPath,
                 args: ['-d', name],
-                fsBase: (child as any).$values.basepath + '\\rootfs',
+                fsBase: childKey.BasePath.value as string + '\\rootfs',
                 env: {
                     TERM: 'xterm-color',
                     COLORTERM: 'truecolor',
-                }
+                },
             })
         }
 

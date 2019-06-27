@@ -1,4 +1,5 @@
 import { Subject, Observable } from 'rxjs'
+import { debounceTime } from 'rxjs/operators'
 import { BrowserWindow, app, ipcMain, Rectangle } from 'electron'
 import ElectronConfig = require('electron-config')
 import * as os from 'os'
@@ -10,7 +11,7 @@ let AccentState: any
 let DwmEnableBlurBehindWindow: any
 if (process.platform === 'win32') {
     SetWindowCompositionAttribute = require('windows-swca').SetWindowCompositionAttribute
-    AccentState = require('windows-swca').AccentState
+    AccentState = require('windows-swca').ACCENT_STATE
     DwmEnableBlurBehindWindow = require('windows-blurbehind').DwmEnableBlurBehindWindow
 }
 
@@ -43,7 +44,9 @@ export class Window {
             title: 'Terminus',
             minWidth: 400,
             minHeight: 300,
-            webPreferences: { webSecurity: false },
+            webPreferences: {
+                nodeIntegration: true,
+            },
             frame: false,
             show: false,
             backgroundColor: '#00000000'
@@ -102,16 +105,14 @@ export class Window {
         if (process.platform === 'win32') {
             if (parseFloat(os.release()) >= 10) {
                 let attribValue = AccentState.ACCENT_DISABLED
-                let color = 0x00000000
                 if (enabled) {
                     if (parseInt(os.release().split('.')[2]) >= 17063 && type === 'fluent') {
-                        attribValue = AccentState.ACCENT_ENABLE_FLUENT
-                        color = 0x01000000 // using a small alpha because acrylic bugs out at full transparency.
+                        attribValue = AccentState.ACCENT_ENABLE_ACRYLICBLURBEHIND
                     } else {
                         attribValue = AccentState.ACCENT_ENABLE_BLURBEHIND
                     }
                 }
-                SetWindowCompositionAttribute(this.window, attribValue, color)
+                SetWindowCompositionAttribute(this.window.getNativeWindowHandle(), attribValue, 0x00000000)
             } else {
                 DwmEnableBlurBehindWindow(this.window, enabled)
             }
@@ -141,6 +142,16 @@ export class Window {
 
         this.window.on('hide', () => {
             this.visible.next(false)
+        })
+
+        let moveSubscription = new Observable<void>(observer => {
+            this.window.on('move', () => observer.next())
+        }).pipe(debounceTime(250)).subscribe(() => {
+            this.window.webContents.send('host:window-moved')
+        })
+
+        this.window.on('closed', () => {
+            moveSubscription.unsubscribe()
         })
 
         this.window.on('enter-full-screen', () => this.window.webContents.send('host:window-enter-full-screen'))
@@ -173,28 +184,28 @@ export class Window {
         })
 
         ipcMain.on('window-focus', event => {
-            if (event.sender !== this.window.webContents) {
+            if (!this.window || event.sender !== this.window.webContents) {
                 return
             }
             this.window.focus()
         })
 
         ipcMain.on('window-maximize', event => {
-            if (event.sender !== this.window.webContents) {
+            if (!this.window || event.sender !== this.window.webContents) {
                 return
             }
             this.window.maximize()
         })
 
         ipcMain.on('window-unmaximize', event => {
-            if (event.sender !== this.window.webContents) {
+            if (!this.window || event.sender !== this.window.webContents) {
                 return
             }
             this.window.unmaximize()
         })
 
         ipcMain.on('window-toggle-maximize', event => {
-            if (event.sender !== this.window.webContents) {
+            if (!this.window || event.sender !== this.window.webContents) {
                 return
             }
             if (this.window.isMaximized()) {
@@ -205,42 +216,42 @@ export class Window {
         })
 
         ipcMain.on('window-minimize', event => {
-            if (event.sender !== this.window.webContents) {
+            if (!this.window || event.sender !== this.window.webContents) {
                 return
             }
             this.window.minimize()
         })
 
         ipcMain.on('window-set-bounds', (event, bounds) => {
-            if (event.sender !== this.window.webContents) {
+            if (!this.window || event.sender !== this.window.webContents) {
                 return
             }
             this.window.setBounds(bounds)
         })
 
         ipcMain.on('window-set-always-on-top', (event, flag) => {
-            if (event.sender !== this.window.webContents) {
+            if (!this.window || event.sender !== this.window.webContents) {
                 return
             }
             this.window.setAlwaysOnTop(flag)
         })
 
         ipcMain.on('window-set-vibrancy', (event, enabled, type) => {
-            if (event.sender !== this.window.webContents) {
+            if (!this.window || event.sender !== this.window.webContents) {
                 return
             }
             this.setVibrancy(enabled, type)
         })
 
         ipcMain.on('window-set-title', (event, title) => {
-            if (event.sender !== this.window.webContents) {
+            if (!this.window || event.sender !== this.window.webContents) {
                 return
             }
             this.window.setTitle(title)
         })
 
         ipcMain.on('window-bring-to-front', event => {
-            if (event.sender !== this.window.webContents) {
+            if (!this.window || event.sender !== this.window.webContents) {
                 return
             }
             if (this.window.isMinimized()) {
@@ -250,7 +261,10 @@ export class Window {
             this.window.moveTop()
         })
 
-        ipcMain.on('window-close', () => {
+        ipcMain.on('window-close', event => {
+            if (!this.window || event.sender !== this.window.webContents) {
+                return
+            }
             this.closing = true
             this.window.close()
         })

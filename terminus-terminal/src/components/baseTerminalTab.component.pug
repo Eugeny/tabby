@@ -1,0 +1,7 @@
+.content(#content, [style.opacity]='frontendIsReady ? 1 : 0')
+search-panel(
+    *ngIf='showSearchPanel', 
+    @slideInOut,
+    [frontend]='frontend',
+    (close)='showSearchPanel = false'
+)

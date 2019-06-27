@@ -12,13 +12,13 @@ module.exports = {
     libraryTarget: 'umd',
     devtoolModuleFilenameTemplate: 'webpack-terminus-ssh:///[resource-path]',
   },
-  mode: process.env.DEV ? 'development' : 'production',
+  mode: process.env.TERMINUS_DEV ? 'development' : 'production',
   optimization:{
      minimize: false,
   },
   resolve: {
     modules: ['.', 'src', 'node_modules', '../app/node_modules'].map(x => path.join(__dirname, x)),
-    extensions: ['.ts', '.js'],
+    extensions: ['.ts', '.js']
   },
   module: {
     rules: [
@@ -43,11 +43,10 @@ module.exports = {
   },
   externals: [
     'fs',
-    'node-ssh',
-    'xkeychain',
-    'wincredmgr',
+    'keytar',
     'path',
     'ngx-toastr',
+    'windows-process-tree/build/Release/windows_process_tree.node',
     /^rxjs/,
     /^@angular/,
     /^@ng-bootstrap/,

@@ -2,6 +2,7 @@ import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { HotkeyInputModalComponent } from './hotkeyInputModal.component'
 
+/** @hidden */
 @Component({
     selector: 'multi-hotkey-input',
     template: require('./multiHotkeyInput.component.pug'),
@@ -23,7 +24,7 @@ export class MultiHotkeyInputComponent {
         if (typeof this.model === 'string') {
             this.model = [this.model]
         }
-        this.model = this.model.map(item => (typeof item === 'string') ? [item] : item)
+        this.model = this.model.map(item => typeof item === 'string' ? [item] : item)
     }
 
     editItem (item) {

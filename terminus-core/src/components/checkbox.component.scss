@@ -20,6 +20,10 @@
     flex-direction: row;
     align-items: center;
 
+    .off {
+        color: rgba(0, 0, 0, .5);
+    }
+
     .icon {
         position: relative;
         flex: none;

@@ -92,11 +92,11 @@ Plugins provide functionality by exporting singular or multi providers:
 
 ```javascript
 import { NgModule, Injectable } from '@angular/core'
-import { ToolbarButtonProvider, IToolbarButton } from 'terminus-core'
+import { ToolbarButtonProvider, ToolbarButton } from 'terminus-core'
 
 @Injectable()
 export class MyButtonProvider extends ToolbarButtonProvider {
-    provide (): IToolbarButton[] {
+    provide (): ToolbarButton[] {
         return [{
             icon: 'star',
             title: 'Foobar',

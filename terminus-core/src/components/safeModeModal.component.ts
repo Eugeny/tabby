@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core'
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
 
+/** @hidden */
 @Component({
     template: require('./safeModeModal.component.pug'),
 })

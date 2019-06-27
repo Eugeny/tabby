@@ -2,7 +2,6 @@
     display: flex;
     flex-direction: column;
     flex: auto;
-    -webkit-app-region: drag;
     overflow-y: auto;
 }
 
@@ -23,10 +22,6 @@ footer {
     flex: none;
     padding: 20px 30px;
     background: rgba(0,0,0,.5);
-}
-
-a, button {
-    -webkit-app-region: no-drag;
 }
 
 .list-group-item ::ng-deep svg {

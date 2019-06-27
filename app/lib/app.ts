@@ -1,4 +1,5 @@
 import { app, ipcMain, Menu, Tray, shell } from 'electron'
+import * as electron from 'electron'
 import { loadConfig } from './config'
 import { Window, WindowOptions } from './window'
 
@@ -18,6 +19,16 @@ export class Application {
         }
 
         app.commandLine.appendSwitch('disable-http-cache')
+        app.commandLine.appendSwitch('lang', 'EN')
+
+        for (const flag of configData.flags || [['force_discrete_gpu', '0']]) {
+            console.log('Setting Electron flag:', flag.join('='))
+            app.commandLine.appendSwitch(flag[0], flag[1])
+        }
+    }
+
+    init () {
+        electron.screen.on('display-metrics-changed', () => this.broadcast('host:display-metrics-changed'))
     }
 
     async newWindow (options?: WindowOptions): Promise<Window> {
@@ -103,7 +114,7 @@ export class Application {
                     {
                         label: 'Preferences',
                         accelerator: 'Cmd+,',
-                        async click () {
+                        click: async () => {
                             if (!this.hasWindows()) {
                                 await this.newWindow()
                             }

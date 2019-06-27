@@ -3,12 +3,14 @@ import { TouchBarSegmentedControl, SegmentedControlSegment } from 'electron'
 import { AppService } from './app.service'
 import { ConfigService } from './config.service'
 import { ElectronService } from './electron.service'
-import { HostAppService } from './hostApp.service'
-import { IToolbarButton, ToolbarButtonProvider } from '../api'
+import { HostAppService, Platform } from './hostApp.service'
+import { ToolbarButton, ToolbarButtonProvider } from '../api'
 
-@Injectable()
+/** @hidden */
+@Injectable({ providedIn: 'root' })
 export class TouchbarService {
     private tabsSegmentedControl: TouchBarSegmentedControl
+    private buttonsSegmentedControl: TouchBarSegmentedControl
     private tabSegments: SegmentedControlSegment[] = []
     private nsImageCache: {[id: string]: Electron.NativeImage} = {}
 
@@ -20,49 +22,88 @@ export class TouchbarService {
         private electron: ElectronService,
         private zone: NgZone,
     ) {
-        app.tabsChanged$.subscribe(() => this.update())
-        app.activeTabChange$.subscribe(() => this.update())
+        if (this.hostApp.platform !== Platform.macOS) {
+            return
+        }
+        app.tabsChanged$.subscribe(() => this.updateTabs())
+        app.activeTabChange$.subscribe(() => this.updateTabs())
+
+        const activityIconPath = `${electron.app.getAppPath()}/assets/activity.png`
+        const activityIcon = this.electron.nativeImage.createFromPath(activityIconPath)
         app.tabOpened$.subscribe(tab => {
             tab.titleChange$.subscribe(title => {
-                this.tabSegments[app.tabs.indexOf(tab)].label = this.shortenTitle(title)
-                this.tabsSegmentedControl.segments = this.tabSegments
+                const segment = this.tabSegments[app.tabs.indexOf(tab)]
+                if (segment) {
+                    segment.label = this.shortenTitle(title)
+                    this.tabsSegmentedControl.segments = this.tabSegments
+                }
+            })
+            tab.activity$.subscribe(hasActivity => {
+                const showIcon = this.app.activeTab !== tab && hasActivity
+                const segment = this.tabSegments[app.tabs.indexOf(tab)]
+                if (segment) {
+                    segment.icon = showIcon ? activityIcon : null
+                }
             })
         })
     }
 
+    updateTabs () {
+        this.tabSegments = this.app.tabs.map(tab => ({
+            label: this.shortenTitle(tab.title),
+        }))
+        this.tabsSegmentedControl.segments = this.tabSegments
+        this.tabsSegmentedControl.selectedIndex = this.app.tabs.indexOf(this.app.activeTab)
+    }
+
     update () {
-        let buttons: IToolbarButton[] = []
+        if (this.hostApp.platform !== Platform.macOS) {
+            return
+        }
+
+        let buttons: ToolbarButton[] = []
         this.config.enabledServices(this.toolbarButtonProviders).forEach(provider => {
             buttons = buttons.concat(provider.provide())
         })
+        buttons = buttons.filter(x => !!x.touchBarNSImage)
         buttons.sort((a, b) => (a.weight || 0) - (b.weight || 0))
         this.tabSegments = this.app.tabs.map(tab => ({
             label: this.shortenTitle(tab.title),
         }))
+
         this.tabsSegmentedControl = new this.electron.TouchBar.TouchBarSegmentedControl({
             segments: this.tabSegments,
             selectedIndex: this.app.tabs.indexOf(this.app.activeTab),
             change: (selectedIndex) => this.zone.run(() => {
                 this.app.selectTab(this.app.tabs[selectedIndex])
-            })
+            }),
         })
-        let touchBar = new this.electron.TouchBar({
+
+        this.buttonsSegmentedControl = new this.electron.TouchBar.TouchBarSegmentedControl({
+            segments: buttons.map(button => this.getButton(button)),
+            mode: 'buttons',
+            change: (selectedIndex) => this.zone.run(() => {
+                buttons[selectedIndex].click()
+            }),
+        })
+
+        const touchBar = new this.electron.TouchBar({
             items: [
                 this.tabsSegmentedControl,
-                new this.electron.TouchBar.TouchBarSpacer({size: 'flexible'}),
-                new this.electron.TouchBar.TouchBarSpacer({size: 'small'}),
-                ...buttons.map(button => this.getButton(button))
-            ]
+                new this.electron.TouchBar.TouchBarSpacer({ size: 'flexible' }),
+                new this.electron.TouchBar.TouchBarSpacer({ size: 'small' }),
+                this.buttonsSegmentedControl,
+            ],
         })
         this.hostApp.setTouchBar(touchBar)
     }
 
-    private getButton (button: IToolbarButton): Electron.TouchBarButton {
-        return new this.electron.TouchBar.TouchBarButton({
+    private getButton (button: ToolbarButton): Electron.SegmentedControlSegment {
+        return {
             label: button.touchBarNSImage ? null : this.shortenTitle(button.touchBarTitle || button.title),
             icon: button.touchBarNSImage ? this.getCachedNSImage(button.touchBarNSImage) : null,
-            click: () => this.zone.run(() => button.click()),
-        })
+            // click: () => this.zone.run(() => button.click()),
+        }
     }
 
     private getCachedNSImage (name: string) {

@@ -1,5 +1,5 @@
 import * as path from 'path'
-import shellEscape = require('shell-escape')
+import shellEscape from 'shell-escape'
 import { Observable, Subject } from 'rxjs'
 import { Injectable, NgZone, EventEmitter } from '@angular/core'
 import { ElectronService } from './electron.service'
@@ -16,42 +16,89 @@ export interface Bounds {
     height: number
 }
 
-@Injectable()
+/**
+ * Provides interaction with the main process
+ */
+@Injectable({ providedIn: 'root' })
 export class HostAppService {
     platform: Platform
-    nodePlatform: string
+
+    /**
+     * Fired once the window is visible
+     */
     shown = new EventEmitter<any>()
     isFullScreen = false
+    isPortable = !!process.env.PORTABLE_EXECUTABLE_FILE
+
     private preferencesMenu = new Subject<void>()
     private secondInstance = new Subject<void>()
     private cliOpenDirectory = new Subject<string>()
     private cliRunCommand = new Subject<string[]>()
     private cliPaste = new Subject<string>()
+    private cliOpenProfile = new Subject<string>()
     private configChangeBroadcast = new Subject<void>()
     private windowCloseRequest = new Subject<void>()
+    private windowMoved = new Subject<void>()
+    private displayMetricsChanged = new Subject<void>()
     private logger: Logger
     private windowId: number
 
+    /**
+     * Fired when Preferences is selected in the macOS menu
+     */
     get preferencesMenu$ (): Observable<void> { return this.preferencesMenu }
+
+    /**
+     * Fired when a second instance of Terminus is launched
+     */
     get secondInstance$ (): Observable<void> { return this.secondInstance }
+
+    /**
+     * Fired for the `terminus open` CLI command
+     */
     get cliOpenDirectory$ (): Observable<string> { return this.cliOpenDirectory }
+
+    /**
+     * Fired for the `terminus run` CLI command
+     */
     get cliRunCommand$ (): Observable<string[]> { return this.cliRunCommand }
+
+    /**
+     * Fired for the `terminus paste` CLI command
+     */
     get cliPaste$ (): Observable<string> { return this.cliPaste }
+
+    /**
+     * Fired for the `terminus profile` CLI command
+     */
+    get cliOpenProfile$ (): Observable<string> { return this.cliOpenProfile }
+
+    /**
+     * Fired when another window modified the config file
+     */
     get configChangeBroadcast$ (): Observable<void> { return this.configChangeBroadcast }
+
+    /**
+     * Fired when the window close button is pressed
+     */
     get windowCloseRequest$ (): Observable<void> { return this.windowCloseRequest }
 
+    get windowMoved$ (): Observable<void> { return this.windowMoved }
+
+    get displayMetricsChanged$ (): Observable<void> { return this.displayMetricsChanged }
+
+    /** @hidden */
     constructor (
         private zone: NgZone,
         private electron: ElectronService,
         log: LogService,
     ) {
         this.logger = log.create('hostApp')
-        this.nodePlatform = require('os').platform()
         this.platform = {
             win32: Platform.Windows,
             darwin: Platform.macOS,
-            linux: Platform.Linux
-        }[this.nodePlatform]
+            linux: Platform.Linux,
+        }[process.platform]
 
         this.windowId = parseInt(location.search.substring(1))
         this.logger.info('Window ID:', this.windowId)
@@ -78,6 +125,14 @@ export class HostAppService {
             this.zone.run(() => this.windowCloseRequest.next())
         })
 
+        electron.ipcRenderer.on('host:window-moved', () => {
+            this.zone.run(() => this.windowMoved.next())
+        })
+
+        electron.ipcRenderer.on('host:display-metrics-changed', () => {
+            this.zone.run(() => this.displayMetricsChanged.next())
+        })
+
         electron.ipcRenderer.on('host:second-instance', (_$event, argv: any, cwd: string) => this.zone.run(() => {
             this.logger.info('Second instance', argv)
             const op = argv._[0]
@@ -91,6 +146,8 @@ export class HostAppService {
                     text = shellEscape([text])
                 }
                 this.cliPaste.next(text)
+            } else if (op === 'profile') {
+                this.cliOpenProfile.next(argv.profileName)
             } else {
                 this.secondInstance.next()
             }
@@ -101,6 +158,9 @@ export class HostAppService {
         }))
     }
 
+    /**
+     * Returns the current remote [[BrowserWindow]]
+     */
     getWindow () {
         return this.electron.BrowserWindow.fromId(this.windowId)
     }
@@ -109,20 +169,8 @@ export class HostAppService {
         this.electron.ipcRenderer.send('app:new-window')
     }
 
-    getShell () {
-        return this.electron.shell
-    }
-
-    getAppPath () {
-        return this.electron.app.getAppPath()
-    }
-
-    getPath (type: string) {
-        return this.electron.app.getPath(type)
-    }
-
     toggleFullscreen () {
-        let window = this.getWindow()
+        const window = this.getWindow()
         window.setFullScreen(!this.isFullScreen)
     }
 
@@ -158,6 +206,11 @@ export class HostAppService {
         this.electron.ipcRenderer.send('window-set-always-on-top', flag)
     }
 
+    /**
+     * Sets window vibrancy mode (Windows, macOS)
+     *
+     * @param type `null`, or `fluent` when supported (Windowd only)
+     */
     setVibrancy (enable: boolean, type: string) {
         document.body.classList.toggle('vibrant', enable)
         if (this.platform === Platform.macOS) {
@@ -180,6 +233,9 @@ export class HostAppService {
         this.electron.Menu.buildFromTemplate(menuDefinition).popup({})
     }
 
+    /**
+     * Notifies other windows of config file changes
+     */
     broadcastConfigChange () {
         this.electron.ipcRenderer.send('app:config-change')
     }
@@ -194,6 +250,15 @@ export class HostAppService {
 
     closeWindow () {
         this.electron.ipcRenderer.send('window-close')
+    }
+
+    relaunch () {
+        if (this.isPortable) {
+            this.electron.app.relaunch({ execPath: process.env.PORTABLE_EXECUTABLE_FILE })
+        } else {
+            this.electron.app.relaunch()
+        }
+        this.electron.app.exit()
     }
 
     quit () {

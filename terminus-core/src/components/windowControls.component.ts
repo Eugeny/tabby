@@ -2,6 +2,7 @@ import { Component } from '@angular/core'
 import { HostAppService } from '../services/hostApp.service'
 import { AppService } from '../services/app.service'
 
+/** @hidden */
 @Component({
     selector: 'window-controls',
     template: require('./windowControls.component.pug'),
@@ -9,4 +10,9 @@ import { AppService } from '../services/app.service'
 })
 export class WindowControlsComponent {
     constructor (public hostApp: HostAppService, public app: AppService) { }
+
+    async closeWindow () {
+        await this.app.closeAllTabs()
+        this.hostApp.closeWindow()
+    }
 }

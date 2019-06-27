@@ -11,25 +11,18 @@ const initializeWinston = (electron: ElectronService) => {
         fs.mkdirSync(logDirectory)
     }
 
-    return new winston.Logger({
+    return winston.createLogger({
         transports: [
             new winston.transports.File({
                 level: 'debug',
                 filename: path.join(logDirectory, 'log.txt'),
+                format: winston.format.simple(),
                 handleExceptions: false,
-                json: false,
                 maxsize: 5242880,
                 maxFiles: 5,
-                colorize: false
             }),
-            new winston.transports.Console({
-                level: 'info',
-                handleExceptions: false,
-                json: false,
-                colorize: true
-            })
         ],
-        exitOnError: false
+        exitOnError: false,
     })
 }
 
@@ -39,24 +32,39 @@ export class Logger {
         private name: string,
     ) {}
 
-    doLog (level: string, ...args: any[]) {
+    debug (...args: any[]) {
+        this.doLog('debug', ...args)
+    }
+
+    info (...args: any[]) {
+        this.doLog('info', ...args)
+    }
+
+    warn (...args: any[]) {
+        this.doLog('warn', ...args)
+    }
+
+    error (...args: any[]) {
+        this.doLog('error', ...args)
+    }
+
+    log (...args: any[]) {
+        this.doLog('log', ...args)
+    }
+
+    private doLog (level: string, ...args: any[]) {
         console[level](`%c[${this.name}]`, 'color: #aaa', ...args)
         if (this.winstonLogger) {
             this.winstonLogger[level](...args)
         }
     }
-
-    debug (...args: any[]) { this.doLog('debug', ...args) }
-    info (...args: any[]) { this.doLog('info', ...args) }
-    warn (...args: any[]) { this.doLog('warn', ...args) }
-    error (...args: any[]) { this.doLog('error', ...args) }
-    log (...args: any[]) { this.doLog('log', ...args) }
 }
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class LogService {
     private log: any
 
+    /** @hidden */
     constructor (electron: ElectronService) {
         this.log = initializeWinston(electron)
     }

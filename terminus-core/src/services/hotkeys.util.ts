@@ -10,24 +10,14 @@ export const altKeyName = {
     linux: 'Alt',
 }[process.platform]
 
-export interface NativeKeyEvent {
-    event?: string,
-    altKey: boolean,
-    ctrlKey: boolean,
-    metaKey: boolean,
-    shiftKey: boolean,
-    key: string,
-    keyCode: string,
-}
-
-export function stringifyKeySequence (events: NativeKeyEvent[]): string[] {
-    let items: string[] = []
+export function stringifyKeySequence (events: KeyboardEvent[]): string[] {
+    const items: string[] = []
     events = events.slice()
 
     while (events.length > 0) {
-        let event = events.shift()
-        if (event.event === 'keydown') {
-            let itemKeys: string[] = []
+        const event = events.shift()
+        if ((event as any).event === 'keydown') {
+            const itemKeys: string[] = []
             if (event.ctrlKey) {
                 itemKeys.push('Ctrl')
             }
@@ -45,13 +35,26 @@ export function stringifyKeySequence (events: NativeKeyEvent[]): string[] {
                 // TODO make this optional?
                 continue
             }
-            if (event.key === ' ') {
-                itemKeys.push('Space')
-            } else if (event.key.length === 1) {
-                itemKeys.push(event.key.toUpperCase())
-            } else {
-                itemKeys.push(event.key)
-            }
+
+            let key = event.code
+            key = key.replace('Key', '')
+            key = key.replace('Arrow', '')
+            key = key.replace('Digit', '')
+            key = {
+                Comma: ',',
+                Period: '.',
+                Slash: '/',
+                Backslash: '\\',
+                IntlBackslash: '\\',
+                Backquote: '`',
+                Minus: '-',
+                Equal: '=',
+                Semicolon: ';',
+                Quote: '\'',
+                BracketLeft: '[',
+                BracketRight: ']',
+            }[key] || key
+            itemKeys.push(key)
             items.push(itemKeys.join('-'))
         }
     }

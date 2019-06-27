@@ -1,9 +1,7 @@
 import * as fs from 'mz/fs'
 import * as path from 'path'
-const nodeModule = require('module')
+const nodeModule = require('module') // eslint-disable-line @typescript-eslint/no-var-requires
 const nodeRequire = (global as any).require
-
-declare function delay (ms: number): Promise<void>
 
 function normalizePath (path: string): string {
     const cygwinPrefix = '/cygdrive/'
@@ -14,19 +12,23 @@ function normalizePath (path: string): string {
     return path
 }
 
-nodeRequire.main.paths.map(x => nodeModule.globalPaths.push(normalizePath(x)))
+nodeRequire.main.paths.map((x: string) => nodeModule.globalPaths.push(normalizePath(x)))
 
-if (process.env.DEV) {
+if (process.env.TERMINUS_DEV) {
     nodeModule.globalPaths.unshift(path.dirname(require('electron').remote.app.getAppPath()))
 }
 
-const builtinPluginsPath = process.env.DEV ? path.dirname(require('electron').remote.app.getAppPath()) : path.join((process as any).resourcesPath, 'builtin-plugins')
+const builtinPluginsPath = process.env.TERMINUS_DEV ? path.dirname(require('electron').remote.app.getAppPath()) : path.join((process as any).resourcesPath, 'builtin-plugins')
 
 const userPluginsPath = path.join(
     require('electron').remote.app.getPath('appData'),
     'terminus',
     'plugins',
 )
+
+if (!fs.existsSync(userPluginsPath)) {
+    fs.mkdir(userPluginsPath)
+}
 
 Object.assign(window, { builtinPluginsPath, userPluginsPath })
 nodeModule.globalPaths.unshift(builtinPluginsPath)
@@ -36,9 +38,9 @@ if (process.env.TERMINUS_PLUGINS) {
     process.env.TERMINUS_PLUGINS.split(':').map(x => nodeModule.globalPaths.push(normalizePath(x)))
 }
 
-export declare type ProgressCallback = (current, total) => void
+export type ProgressCallback = (current: number, total: number) => void // eslint-disable-line @typescript-eslint/no-type-alias
 
-export interface IPluginInfo {
+export interface PluginInfo {
     name: string
     description: string
     packageName: string
@@ -62,6 +64,7 @@ const builtinModules = [
     'ngx-toastr',
     'rxjs',
     'rxjs/operators',
+    'rxjs-compat/Subject',
     'terminus-core',
     'terminus-settings',
     'terminus-terminal',
@@ -70,47 +73,53 @@ const builtinModules = [
 
 const cachedBuiltinModules = {}
 builtinModules.forEach(m => {
+    const label = 'Caching ' + m
+    console.time(label)
     cachedBuiltinModules[m] = nodeRequire(m)
+    console.timeEnd(label)
 })
 
-const originalRequire = nodeRequire('module').prototype.require
-nodeRequire('module').prototype.require = function (query) {
+const originalRequire = (global as any).require
+;(global as any).require = function (query: string) {
     if (cachedBuiltinModules[query]) {
         return cachedBuiltinModules[query]
     }
     return originalRequire.apply(this, arguments)
 }
 
-export async function findPlugins (): Promise<IPluginInfo[]> {
-    let paths = nodeModule.globalPaths
-    let foundPlugins: IPluginInfo[] = []
-    let candidateLocations: { pluginDir: string, packageName: string }[] = []
+export async function findPlugins (): Promise<PluginInfo[]> {
+    const paths = nodeModule.globalPaths
+    let foundPlugins: PluginInfo[] = []
+    const candidateLocations: { pluginDir: string, packageName: string }[] = []
+    const PREFIX = 'terminus-'
 
     for (let pluginDir of paths) {
         pluginDir = normalizePath(pluginDir)
         if (!await fs.exists(pluginDir)) {
             continue
         }
-        let pluginNames = await fs.readdir(pluginDir)
+        const pluginNames = await fs.readdir(pluginDir)
         if (await fs.exists(path.join(pluginDir, 'package.json'))) {
             candidateLocations.push({
                 pluginDir: path.dirname(pluginDir),
-                packageName: path.basename(pluginDir)
+                packageName: path.basename(pluginDir),
             })
         }
-        for (let packageName of pluginNames) {
-            candidateLocations.push({ pluginDir, packageName })
+        for (const packageName of pluginNames) {
+            if (packageName.startsWith(PREFIX)) {
+                candidateLocations.push({ pluginDir, packageName })
+            }
         }
     }
 
-    for (let { pluginDir, packageName } of candidateLocations) {
-        let pluginPath = path.join(pluginDir, packageName)
-        let infoPath = path.join(pluginPath, 'package.json')
+    for (const { pluginDir, packageName } of candidateLocations) {
+        const pluginPath = path.join(pluginDir, packageName)
+        const infoPath = path.join(pluginPath, 'package.json')
         if (!await fs.exists(infoPath)) {
             continue
         }
 
-        let name = packageName.substring('terminus-'.length)
+        const name = packageName.substring(PREFIX.length)
 
         if (foundPlugins.some(x => x.name === name)) {
             console.info(`Plugin ${packageName} already exists, overriding`)
@@ -118,7 +127,7 @@ export async function findPlugins (): Promise<IPluginInfo[]> {
         }
 
         try {
-            let info = JSON.parse(await fs.readFile(infoPath, {encoding: 'utf-8'}))
+            const info = JSON.parse(await fs.readFile(infoPath, { encoding: 'utf-8' }))
             if (!info.keywords || !(info.keywords.includes('terminus-plugin') || info.keywords.includes('terminus-builtin-plugin'))) {
                 continue
             }
@@ -143,23 +152,25 @@ export async function findPlugins (): Promise<IPluginInfo[]> {
     return foundPlugins
 }
 
-export async function loadPlugins (foundPlugins: IPluginInfo[], progress: ProgressCallback): Promise<any[]> {
-    let plugins: any[] = []
+export async function loadPlugins (foundPlugins: PluginInfo[], progress: ProgressCallback): Promise<any[]> {
+    const plugins: any[] = []
     progress(0, 1)
     let index = 0
-    for (let foundPlugin of foundPlugins) {
+    for (const foundPlugin of foundPlugins) {
         console.info(`Loading ${foundPlugin.name}: ${nodeRequire.resolve(foundPlugin.path)}`)
         progress(index, foundPlugins.length)
         try {
-            let packageModule = nodeRequire(foundPlugin.path)
-            let pluginModule = packageModule.default.forRoot ? packageModule.default.forRoot() : packageModule.default
+            const label = 'Loading ' + foundPlugin.name
+            console.time(label)
+            const packageModule = nodeRequire(foundPlugin.path)
+            const pluginModule = packageModule.default.forRoot ? packageModule.default.forRoot() : packageModule.default
             pluginModule['pluginName'] = foundPlugin.name
             pluginModule['bootstrap'] = packageModule.bootstrap
             plugins.push(pluginModule)
+            console.timeEnd(label)
         } catch (error) {
             console.error(`Could not load ${foundPlugin.name}:`, error)
         }
-        await delay(1)
         index++
     }
     progress(1, 1)

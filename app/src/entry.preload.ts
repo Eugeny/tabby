@@ -1,7 +1,9 @@
 import '../lib/lru'
-import 'source-sans-pro'
+import 'source-sans-pro/source-sans-pro.css'
 import 'source-code-pro/source-code-pro.css'
-import 'font-awesome/css/font-awesome.css'
+import '@fortawesome/fontawesome-free/css/solid.css'
+import '@fortawesome/fontawesome-free/css/brands.css'
+import '@fortawesome/fontawesome-free/css/fontawesome.css'
 import 'ngx-toastr/toastr.css'
 import './preload.scss'
 
@@ -14,20 +16,20 @@ Raven.config(
     {
         release: require('electron').remote.app.getVersion(),
         dataCallback: (data: any) => {
-            const normalize = (filename) => {
-                let splitArray = filename.split('/')
+            const normalize = (filename: string) => {
+                const splitArray = filename.split('/')
                 return splitArray[splitArray.length - 1]
             }
 
-            data.exception.values[0].stacktrace.frames.forEach(frame => {
+            data.exception.values[0].stacktrace.frames.forEach((frame: any) => {
                 frame.filename = normalize(frame.filename)
             })
 
             data.culprit = data.exception.values[0].stacktrace.frames[0].filename
 
             return data
-        }
-    }
+        },
+    },
 )
 
 process.on('uncaughtException' as any, (err) => {

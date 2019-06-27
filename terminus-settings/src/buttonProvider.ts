@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core'
 import { DomSanitizer } from '@angular/platform-browser'
-import { ToolbarButtonProvider, IToolbarButton, AppService, HostAppService, HotkeysService } from 'terminus-core'
+import { ToolbarButtonProvider, ToolbarButton, AppService, HostAppService, HotkeysService } from 'terminus-core'
 
 import { SettingsTabComponent } from './components/settingsTab.component'
 
+/** @hidden */
 @Injectable()
 export class ButtonProvider extends ToolbarButtonProvider {
     constructor (
@@ -22,7 +23,7 @@ export class ButtonProvider extends ToolbarButtonProvider {
         })
     }
 
-    provide (): IToolbarButton[] {
+    provide (): ToolbarButton[] {
         return [{
             icon: this.domSanitizer.bypassSecurityTrustHtml(require('./icons/cog.svg')),
             title: 'Settings',
@@ -33,11 +34,11 @@ export class ButtonProvider extends ToolbarButtonProvider {
     }
 
     open (): void {
-        let settingsTab = this.app.tabs.find((tab) => tab instanceof SettingsTabComponent)
+        const settingsTab = this.app.tabs.find(tab => tab instanceof SettingsTabComponent)
         if (settingsTab) {
             this.app.selectTab(settingsTab)
         } else {
-            this.app.openNewTab(SettingsTabComponent)
+            this.app.openNewTabRaw(SettingsTabComponent)
         }
     }
 }

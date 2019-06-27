@@ -1,64 +1,65 @@
 {
-  "name": "term",
   "devDependencies": {
-    "@types/electron-config": "^0.2.1",
-    "@types/electron-debug": "^1.1.0",
-    "@types/fs-promise": "1.0.1",
-    "@types/js-yaml": "^3.11.2",
-    "@types/node": "^10.11.5",
-    "@types/webpack-env": "1.13.0",
-    "app-builder-lib": "^20.28.4",
-    "apply-loader": "0.1.0",
+    "@fortawesome/fontawesome-free": "^5.9.0",
+    "@types/electron-config": "^3.2.2",
+    "@types/electron-debug": "^2.1.0",
+    "@types/fs-promise": "1.0.3",
+    "@types/js-yaml": "^3.12.1",
+    "@types/node": "^12.0.10",
+    "@types/webpack-env": "1.13.9",
+    "@typescript-eslint/eslint-plugin": "^1.11.0",
+    "@typescript-eslint/parser": "^1.11.0",
+    "app-builder-lib": "^21.0.3",
+    "apply-loader": "2.0.0",
     "awesome-typescript-loader": "^5.0.0",
-    "core-js": "2.4.1",
-    "cross-env": "4.0.0",
-    "css-loader": "0.28.0",
-    "electron": "4.0.0-beta.8",
-    "electron-builder": "^20.38.2",
-    "electron-builder-squirrel-windows": "^20.28.3",
-    "electron-installer-snap": "^3.0.0",
-    "electron-rebuild": "^1.8.2",
-    "file-loader": "^1.1.11",
-    "font-awesome": "4.7.0",
-    "graceful-fs": "^4.1.11",
-    "html-loader": "0.4.4",
-    "json-loader": "0.5.4",
-    "less": "2.7.1",
-    "less-loader": "2.2.3",
-    "node-abi": "^2.4.4",
-    "node-gyp": "^3.6.2",
-    "node-sass": "^4.5.3",
-    "npmlog": "4.1.0",
+    "core-js": "^3.1.4",
+    "cross-env": "5.2.0",
+    "css-loader": "3.0.0",
+    "electron": "^5.0.5",
+    "electron-builder": "^20.44.4",
+    "electron-installer-snap": "^4.0.0",
+    "electron-notarize": "^0.1.1",
+    "electron-rebuild": "^1.8.5",
+    "eslint": "^5.16.0",
+    "file-loader": "^4.0.0",
+    "graceful-fs": "^4.1.15",
+    "html-loader": "0.5.5",
+    "json-loader": "0.5.7",
+    "node-abi": "^2.9.0",
+    "node-gyp": "^5.0.0",
+    "node-sass": "^4.12.0",
+    "npmlog": "4.1.2",
     "npx": "^10.2.0",
-    "pug": "^2.0.3",
-    "pug-html-loader": "1.0.9",
-    "pug-lint": "^2.5.0",
+    "pug": "^2.0.4",
+    "pug-html-loader": "1.1.5",
+    "pug-lint": "^2.6.0",
     "pug-loader": "^2.4.0",
-    "pug-static-loader": "0.0.1",
-    "raven-js": "3.16.0",
-    "raw-loader": "0.5.1",
+    "pug-static-loader": "2.0.0",
+    "raven-js": "3.27.2",
+    "raw-loader": "3.0.0",
     "sass-loader": "^7.0.1",
-    "shelljs": "0.7.7",
+    "shelljs": "0.8.3",
     "source-code-pro": "^2.30.1",
-    "source-sans-pro": "2.0.10",
-    "style-loader": "0.13.1",
+    "source-sans-pro": "2.45.0",
+    "style-loader": "^0.23.1",
     "svg-inline-loader": "^0.8.0",
     "to-string-loader": "1.1.5",
-    "tslint": "5.1.0",
-    "tslint-config-standard": "5.0.2",
-    "tslint-eslint-rules": "4.0.0",
-    "typescript": "^3.1.3",
-    "url-loader": "^1.1.1",
-    "val-loader": "0.5.0",
-    "webpack": "^4.22.0",
-    "webpack-cli": "^3.1.2",
-    "yaml-loader": "0.4.0",
-    "yarn": "^1.10.1"
+    "typedoc": "^0.14.2",
+    "typescript": "^3.5.2",
+    "url-loader": "^2.0.0",
+    "val-loader": "1.1.1",
+    "webpack": "^4.35.0",
+    "webpack-cli": "^3.3.5",
+    "yaml-loader": "0.5.0"
+  },
+  "resolutions": {
+    "*/node-abi": "^2.8.0"
   },
   "build": {
     "appId": "org.terminus",
     "productName": "Terminus",
     "compression": "normal",
+    "afterSign": "./build/mac/afterSignHook.js",
     "files": [
       "**/*",
       "dist"
@@ -69,24 +70,33 @@
     ],
     "win": {
       "icon": "./build/windows/icon.ico",
-      "publish": [
-        "github"
-      ],
-      "artifactName": "terminus-${version}-setup.exe"
+      "artifactName": "terminus-${version}-setup.exe",
+      "rfc3161TimeStampServer": "http://sha256timestamp.ws.symantec.com/sha256/timestamp"
     },
-    "squirrelWindows": {
-      "iconUrl": "https://github.com/Eugeny/terminus/raw/master/build/windows/icon.ico",
-      "artifactName": "terminus-${version}-setup.exe"
+    "nsis": {
+      "oneClick": false,
+      "artifactName": "terminus-${version}-setup.${ext}",
+      "installerIcon": "./build/windows/icon.ico"
     },
+    "publish": [
+      {
+        "provider": "bintray",
+        "token": "d993c4faa708a4cba84fa3a8e822457e7298d75c",
+        "component": "main"
+      },
+      {
+        "provider": "github"
+      }
+    ],
     "portable": {
       "artifactName": "terminus-${version}-portable.exe"
     },
     "mac": {
       "category": "public.app-category.video",
       "icon": "./build/mac/icon.icns",
-      "publish": [
-        "github"
-      ],
+      "artifactName": "terminus-${version}-macos.${ext}",
+      "hardenedRuntime": true,
+      "entitlements": "./build/mac/entitlements.plist",
       "extendInfo": {
         "NSRequiresAquaSystemAppearance": false
       }
@@ -97,21 +107,17 @@
     "linux": {
       "category": "Utilities",
       "icon": "./build/icons",
-      "artifactName": "terminus-${version}-linux.${ext}",
-      "publish": [
-        "github"
-      ]
+      "artifactName": "terminus-${version}-linux.${ext}"
     },
     "deb": {
       "depends": [
-        "screen",
         "gconf2",
         "gconf-service",
         "libnotify4",
+        "libsecret-1-0",
         "libappindicator1",
         "libxtst6",
-        "libnss3",
-        "tmux"
+        "libnss3"
       ],
       "afterInstall": "build/linux/after-install.tpl"
     },
@@ -123,12 +129,17 @@
     }
   },
   "scripts": {
-    "build": "webpack --color --config app/webpack.main.config.js && webpack --color --config app/webpack.config.js && webpack --color --config terminus-core/webpack.config.js && webpack --color --config terminus-settings/webpack.config.js && webpack --color --config terminus-terminal/webpack.config.js && webpack --color --config terminus-settings/webpack.config.js && webpack --color --config terminus-plugin-manager/webpack.config.js && webpack --color --config terminus-community-color-schemes/webpack.config.js && webpack --color --config terminus-ssh/webpack.config.js",
-    "watch": "cross-env DEV=1 webpack --progress --color --watch",
-    "start": "cross-env DEV=1 electron app --debug",
-    "prod": "cross-env DEV=1 electron app",
-    "lint": "tslint -c tslint.json -t stylish terminus-*/src/**/*.ts terminus-*/src/*.ts app/src/*.ts",
-    "postinstall": "install-app-deps"
+    "build": "webpack --color --config app/webpack.main.config.js && webpack --color --config app/webpack.config.js && webpack --color --config terminus-core/webpack.config.js && webpack --color --config terminus-settings/webpack.config.js && webpack --color --config terminus-terminal/webpack.config.js && webpack --color --config terminus-plugin-manager/webpack.config.js && webpack --color --config terminus-community-color-schemes/webpack.config.js && webpack --color --config terminus-ssh/webpack.config.js",
+    "build:typings": "tsc --project terminus-core/tsconfig.typings.json && tsc --project terminus-settings/tsconfig.typings.json && tsc --project terminus-terminal/tsconfig.typings.json && tsc --project terminus-plugin-manager/tsconfig.typings.json && tsc --project terminus-ssh/tsconfig.typings.json",
+    "watch": "cross-env TERMINUS_DEV=1 webpack --progress --color --watch",
+    "start": "cross-env TERMINUS_DEV=1 electron app --debug",
+    "prod": "cross-env TERMINUS_DEV=1 electron app",
+    "docs": "typedoc --out docs/api terminus-core/src && typedoc --out docs/api/terminal --tsconfig terminus-terminal/tsconfig.typings.json terminus-terminal/src && typedoc --out docs/api/settings --tsconfig terminus-settings/tsconfig.typings.json terminus-settings/src",
+    "lint": "eslint --ext ts */src",
+    "postinstall": "node ./scripts/install-deps.js"
   },
-  "repository": "eugeny/terminus"
+  "repository": "eugeny/terminus",
+  "dependencies": {
+    "eslint-plugin-import": "^2.18.0"
+  }
 }

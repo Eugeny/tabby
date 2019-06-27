@@ -1,12 +1,12 @@
 {
   "name": "terminus-settings",
-  "version": "1.0.0-alpha.55",
+  "version": "1.0.73-c4-ga7d62b0",
   "description": "Terminus terminal settings page",
   "keywords": [
     "terminus-builtin-plugin"
   ],
   "main": "dist/index.js",
-  "typings": "dist/src/index.d.ts",
+  "typings": "typings/index.d.ts",
   "scripts": {
     "build": "webpack --progress --color --display-modules",
     "watch": "webpack --progress --color --watch"
@@ -17,9 +17,9 @@
   "author": "Eugene Pankov",
   "license": "MIT",
   "devDependencies": {
-    "@types/deep-equal": "1.0.0",
-    "@types/node": "7.0.12",
-    "@types/webpack-env": "1.13.0",
+    "@types/deep-equal": "1.0.1",
+    "@types/node": "12.0.10",
+    "@types/webpack-env": "1.13.9",
     "ngx-pipes": "^1.6.1"
   },
   "peerDependencies": {

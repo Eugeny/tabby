@@ -7,7 +7,7 @@ module.exports = {
   entry: {
     main: path.resolve(__dirname, 'lib/index.ts'),
   },
-  mode: process.env.DEV ? 'development' : 'production',
+  mode: process.env.TERMINUS_DEV ? 'development' : 'production',
   context: __dirname,
   devtool: 'source-map',
   output: {
@@ -36,7 +36,6 @@ module.exports = {
     electron: 'commonjs electron',
     'electron-config': 'commonjs electron-config',
     'electron-vibrancy': 'commonjs electron-vibrancy',
-    'electron-squirrel-startup': 'commonjs electron-squirrel-startup',
     fs: 'commonjs fs',
     mz: 'commonjs mz',
     path: 'commonjs path',

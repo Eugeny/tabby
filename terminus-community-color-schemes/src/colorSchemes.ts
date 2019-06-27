@@ -1,26 +1,26 @@
 import { Injectable } from '@angular/core'
-import { TerminalColorSchemeProvider, ITerminalColorScheme } from 'terminus-terminal'
+import { TerminalColorSchemeProvider, TerminalColorScheme } from 'terminus-terminal'
 
 const schemeContents = require.context('../schemes/', true, /.*/)
 
 @Injectable()
 export class ColorSchemes extends TerminalColorSchemeProvider {
-    async getSchemes (): Promise<ITerminalColorScheme[]> {
-        let schemes: ITerminalColorScheme[] = []
+    async getSchemes (): Promise<TerminalColorScheme[]> {
+        const schemes: TerminalColorScheme[] = []
 
         schemeContents.keys().forEach(schemeFile => {
-            let lines = (schemeContents(schemeFile) as string).split('\n')
+            const lines = (schemeContents(schemeFile).default as string).split('\n')
 
             // process #define variables
-            let variables: any = {}
+            const variables: any = {}
             lines
                 .filter(x => x.startsWith('#define'))
                 .map(x => x.split(' ').map(v => v.trim()))
-                .forEach(([ignore, variableName, variableValue]) => {
+                .forEach(([_, variableName, variableValue]) => {
                     variables[variableName] = variableValue
                 })
 
-            let values: any = {}
+            const values: any = {}
             lines
                 .filter(x => x.startsWith('*.'))
                 .map(x => x.substring(2))
@@ -29,7 +29,7 @@ export class ColorSchemes extends TerminalColorSchemeProvider {
                     values[key] = variables[value] ? variables[value] : value
                 })
 
-            let colors: string[] = []
+            const colors: string[] = []
             let colorIndex = 0
             while (values[`color${colorIndex}`]) {
                 colors.push(values[`color${colorIndex}`])

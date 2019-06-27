@@ -4,18 +4,19 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { ToastrModule } from 'ngx-toastr'
 
 export function getRootModule (plugins: any[]) {
-    let imports = [
+    const imports = [
         BrowserModule,
         ...plugins,
         NgbModule.forRoot(),
         ToastrModule.forRoot({
             positionClass: 'toast-bottom-center',
+            toastClass: 'toast',
             preventDuplicates: true,
             extendedTimeOut: 5000,
         }),
     ]
-    let bootstrap = [
-        ...(plugins.filter(x => x.bootstrap).map(x => x.bootstrap)),
+    const bootstrap = [
+        ...plugins.filter(x => x.bootstrap).map(x => x.bootstrap),
     ]
 
     if (bootstrap.length === 0) {
@@ -25,7 +26,7 @@ export function getRootModule (plugins: any[]) {
     @NgModule({
         imports,
         bootstrap,
-    }) class RootModule { }
+    }) class RootModule { } // eslint-disable-line @typescript-eslint/no-extraneous-class
 
     return RootModule
 }

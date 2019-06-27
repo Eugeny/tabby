@@ -1,6 +1,6 @@
 h3.mb-3 Appearance
-.row
-    .col-md-6
+.d-flex
+    .mr-5
         .form-line
             .header
                 .title Frontend
@@ -12,6 +12,7 @@ h3.mb-3 Appearance
             )
                 option(value='hterm') hterm
                 option(value='xterm') xterm
+                option(value='xterm-webgl') xterm (WebGL)
                         
         .form-line
             .header
@@ -26,6 +27,7 @@ h3.mb-3 Appearance
                 )
                 input.form-control.w-25(
                     type='number',
+                    max='48',
                     [(ngModel)]='config.store.terminal.fontSize',
                     (ngModelChange)='config.save()',
                 )
@@ -57,7 +59,7 @@ h3.mb-3 Appearance
                         (click)='deleteScheme(config.store.terminal.colorScheme)',
                         *ngIf='isCustomScheme(config.store.terminal.colorScheme)'
                     )
-                        i.fa.fa-trash-o
+                        i.fas.fa-trash
 
         .form-group(*ngIf='editingColorScheme')
             label Editing
@@ -91,10 +93,10 @@ h3.mb-3 Appearance
                 [title]='idx',
             )
 
-    .col-md-6
+    div
         .form-group
             .appearance-preview(
-                [style.font-family]='config.store.terminal.font',
+                [style.font-family]='getPreviewFontFamily()',
                 [style.font-size]='config.store.terminal.fontSize + "px"',
                 [style.background-color]='(config.store.terminal.background == "theme") ? null : config.store.terminal.colorScheme.background',
                 [style.color]='config.store.terminal.colorScheme.foreground',

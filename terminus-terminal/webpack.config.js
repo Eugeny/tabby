@@ -13,12 +13,12 @@ module.exports = {
     libraryTarget: 'umd',
     devtoolModuleFilenameTemplate: 'webpack-terminus-terminal:///[resource-path]',
   },
-  mode: process.env.DEV ? 'development' : 'production',
+  mode: process.env.TERMINUS_DEV ? 'development' : 'production',
   optimization: {
     minimize: false,
   },
   resolve: {
-    modules: ['.', 'src', 'node_modules', '../app/node_modules'].map(x => path.join(__dirname, x)),
+    modules: ['.', 'src', 'node_modules', '../app/node_modules', 'node_modules/xterm/src'].map(x => path.join(__dirname, x)),
     extensions: ['.ts', '.js'],
   },
   module: {
@@ -32,7 +32,10 @@ module.exports = {
             typeRoots: [path.resolve(__dirname, 'node_modules/@types')],
             paths: {
               "terminus-*": [path.resolve(__dirname, '../terminus-*')],
-              "*": [path.resolve(__dirname, '../app/node_modules/*')],
+              "*": [
+                path.resolve(__dirname, '../app/node_modules/*'),
+                path.resolve(__dirname, './node_modules/xterm/src/*')
+              ],
             }
           },
         },
@@ -53,15 +56,16 @@ module.exports = {
     ]
   },
   externals: [
+    'child_process',
     'electron',
+    'fontmanager-redux',
     'fs',
-    'font-manager',
     'path',
-    'node-pty-tmp',
     'macos-native-processlist',
-    'windows-process-tree',
-    'mz/fs',
-    'mz/child_process',
+    'windows-native-registry',
+    'node-pty',
+    '@terminus-term/windows-process-tree',
+    'os',
     /^rxjs/,
     /^@angular/,
     /^@ng-bootstrap/,

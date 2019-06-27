@@ -1,0 +1,58 @@
+.modal-body
+    .form-group
+        label Name
+        input.form-control(
+            type='text', 
+            autofocus, 
+            [(ngModel)]='profile.name', 
+        )
+
+    .form-group
+        label Command
+        input.form-control(
+            type='text', 
+            [(ngModel)]='profile.sessionOptions.command', 
+        )
+    
+    .form-group
+        label Arguments
+        .input-group(
+            *ngFor='let arg of profile.sessionOptions.args; index as i; trackBy: trackByIndex',
+        )
+            input.form-control(
+                type='text', 
+                [(ngModel)]='profile.sessionOptions.args[i]', 
+            )
+            .input-group-btn
+                button.btn.btn-secondary((click)='profile.sessionOptions.args.splice(i, 1)')
+                    i.fas.fa-trash
+        
+        .mt-2
+            button.btn.btn-secondary((click)='profile.sessionOptions.args.push("")')
+                i.fas.fa-plus.mr-2
+                | Add
+        
+    .form-line(*ngIf='uac.isAvailable')
+        .header
+            .title Run as administrator
+        toggle(
+            [(ngModel)]='profile.sessionOptions.runAsAdministrator',
+        )
+        
+    .form-group
+        label Working directory
+        input.form-control(
+            type='text', 
+            [(ngModel)]='profile.sessionOptions.cwd', 
+        )
+
+    .form-group
+        label Environment
+        environment-editor(
+            type='text', 
+            [(model)]='profile.sessionOptions.env', 
+        )
+
+.modal-footer
+    button.btn.btn-outline-primary((click)='save()') Save
+    button.btn.btn-outline-danger((click)='cancel()') Cancel

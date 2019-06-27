@@ -1,0 +1,82 @@
+parser: '@typescript-eslint/parser'
+parserOptions:
+  project: tsconfig.json
+extends:
+  - 'plugin:@typescript-eslint/all'
+plugins:
+  - '@typescript-eslint'
+env:
+  browser: true
+  es6: true
+  node: true
+  commonjs: true
+rules:
+  '@typescript-eslint/semi':
+  - error
+  - never
+  '@typescript-eslint/indent':
+  - error
+  - 4
+  '@typescript-eslint/explicit-member-accessibility':
+  - error
+  - accessibility: no-public
+    overrides:
+      parameterProperties: explicit
+  '@typescript-eslint/no-require-imports': off
+  '@typescript-eslint/no-parameter-properties': off
+  '@typescript-eslint/explicit-function-return-type': off
+  '@typescript-eslint/no-explicit-any': off
+  '@typescript-eslint/no-magic-numbers': off
+  '@typescript-eslint/member-delimiter-style': off
+  '@typescript-eslint/promise-function-async': off
+  '@typescript-eslint/no-unnecessary-type-assertion': off
+  '@typescript-eslint/require-array-sort-compare': off
+  '@typescript-eslint/no-use-before-define':
+  - error
+  - classes: false
+  no-duplicate-imports: error
+  array-bracket-spacing:
+  - error
+  - never
+  block-scoped-var: error
+  brace-style:
+  - error
+  - 1tbs
+  - allowSingleLine: true
+  computed-property-spacing:
+  - error
+  - never
+  comma-dangle:
+  - error
+  - always-multiline
+  curly: error
+  eol-last: error
+  eqeqeq:
+  - error
+  - smart
+  linebreak-style:
+  - error
+  - unix
+  max-depth:
+  - 1
+  - 5
+  max-statements:
+  - 1
+  - 80
+  no-multiple-empty-lines: error
+  no-mixed-spaces-and-tabs: error
+  no-trailing-spaces: error
+  '@typescript-eslint/no-unused-vars':
+    - error
+    - vars: all
+      args: after-used
+      argsIgnorePattern: ^_
+  no-undef: error
+  object-curly-spacing:
+  - error
+  - always
+  quote-props:
+  - warn
+  - as-needed
+  - keywords: true
+    numbers: true

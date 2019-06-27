@@ -1,0 +1,19 @@
+.mb-4
+    .terminus-logo
+    h1.terminus-title Terminus
+        sup α 
+
+.container
+    .text-center.mb-5 Thank you for downloading Terminus!
+
+    .form-line
+        .header
+            .title Enable analytics
+            .description Help us track the number of Terminus installs across the world!
+        toggle(
+            [(ngModel)]='config.store.enableAnalytics',
+            (ngModelChange)='config.save(); config.requestRestart()',
+        )
+
+    .text-center.mt-5
+        button.btn.btn-primary((click)='closeAndDisable()') Close and never show again

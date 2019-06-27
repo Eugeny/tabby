@@ -1,8 +1,7 @@
 .modal-body
     ngb-tabset(type='pills', [activeId]='basic')
         ngb-tab(id='basic')
-            ng-template(ngbTabTitle)
-                | Basic Setting
+            ng-template(ngbTabTitle) General
             ng-template(ngbTabContent)
                 .form-group
                     label Name
@@ -42,12 +41,22 @@
                         [(ngModel)]='connection.user', 
                     )
                     
-                .alert.alert-info.d-flex.bg-transparent.text-white.align-items-center(*ngIf='hasSavedPassword')
-                    .mr-auto There is a saved password for this connection
-                    button.btn.btn-danger.ml-4((click)='clearSavedPassword()') Forget
+                .form-line
+                    .header
+                        .title Password
+                        .description(*ngIf='!hasSavedPassword') Save a password in the keychain
+                        .description(*ngIf='hasSavedPassword') There is a saved password for this connection
+                    button.btn.btn-outline-success.ml-4(*ngIf='!hasSavedPassword', (click)='setPassword()') 
+                        i.fas.fa-key 
+                        span Set password
+                    button.btn.btn-danger.ml-4(*ngIf='hasSavedPassword', (click)='clearSavedPassword()') 
+                        i.fas.fa-trash-alt
+                        span Forget
                     
-                .form-group
-                    label Private key 
+                .form-line
+                    .header
+                        .title Private key 
+                        .description Path to the private key file
                     .input-group
                         input.form-control(
                             type='text', 
@@ -56,11 +65,10 @@
                         )
                         .input-group-btn
                             button.btn.btn-secondary((click)='selectPrivateKey()')
-                                i.fa.fa-folder-open
+                                i.fas.fa-folder-open
 
         ngb-tab(id='advanced')
-            ng-template(ngbTabTitle)
-                | Advanced Setting
+            ng-template(ngbTabTitle) Advanced
             ng-template(ngbTabContent)
                 .form-group
                     label Keep Alive Interval (Milliseconds)
@@ -85,20 +93,40 @@
                         placeholder='20000', 
                         [(ngModel)]='connection.readyTimeout', 
                     )
+                    
+                .form-group
+                    label Ciphers
+                    div(*ngFor='let alg of supportedAlgorithms.cipher')
+                        checkbox([text]='alg', [(ngModel)]='algorithms.cipher[alg]')
+
+                .form-group
+                    label Key exchange
+                    div(*ngFor='let alg of supportedAlgorithms.kex')
+                        checkbox([text]='alg', [(ngModel)]='algorithms.kex[alg]')
+
+                .form-group
+                    label HMAC
+                    div(*ngFor='let alg of supportedAlgorithms.hmac')
+                        checkbox([text]='alg', [(ngModel)]='algorithms.hmac[alg]')
+
+                .form-group
+                    label Host key
+                    div(*ngFor='let alg of supportedAlgorithms.serverHostKey')
+                        checkbox([text]='alg', [(ngModel)]='algorithms.serverHostKey[alg]')
+
 
         ngb-tab(id='scripts')
-            ng-template(ngbTabTitle)
-                | Login Scripts
+            ng-template(ngbTabTitle) Login scripts
             ng-template(ngbTabContent)
-                table
+                table(*ngIf='connection.scripts.length > 0')
                     tr
                         th String to expect
                         th String to be sent
-                        th Regex
-                        th Optional
-                        th Actions
+                        th.pl-2 Regex
+                        th.pl-2 Optional
+                        th.pl-2 Actions
                     tr(*ngFor='let script of connection.scripts')
-                        td
+                        td.pr-2
                             input.form-control(
                                 type='text', 
                                 [(ngModel)]='script.expect'
@@ -108,50 +136,27 @@
                                 type='text', 
                                 [(ngModel)]='script.send'
                             )
-                        td
-                            toggle(
+                        td.pl-2
+                            checkbox(
                                 [(ngModel)]='script.isRegex',
                             )
-                        td
-                            toggle(
+                        td.pl-2
+                            checkbox(
                                 [(ngModel)]='script.optional',
                             )
-                        td
+                        td.pl-2
                             .input-group.flex-nowrap
                                 button.btn.btn-outline-info.ml-0((click)='moveScriptUp(script)')
-                                    i.fa.fa-arrow-up
+                                    i.fas.fa-arrow-up
                                 button.btn.btn-outline-info.ml-0((click)='moveScriptDown(script)')
-                                    i.fa.fa-arrow-down
+                                    i.fas.fa-arrow-down
                                 button.btn.btn-outline-danger.ml-0((click)='deleteScript(script)')
-                                    i.fa.fa-trash-o
-                    tr
-                        td
-                            input.form-control(
-                                type='text', 
-                                placeholder='Enter a string to expect', 
-                                [(ngModel)]='newScript.expect'
-                            )
-                        td
-                            input.form-control(
-                                type='text', 
-                                placeholder='Enter a string to be sent', 
-                                [(ngModel)]='newScript.send'
-                            )
-                        td
-                            toggle(
-                                [(ngModel)]='newScript.isRegex',
-                            )
-                        td
-                            toggle(
-                                [(ngModel)]='newScript.optional',
-                            )
-                        td
-                            .input-group.flex-nowrap
-                                button.btn.btn-outline-info.ml-0((click)='addScript()')
-                                    i.fa.fa-check
-                                button.btn.btn-outline-danger.ml-0((click)='clearScript()')
-                                    i.fa.fa-trash-o
-                    
+                                    i.fas.fa-trash
+                
+                button.btn.btn-outline-info.mt-2((click)='addScript()')
+                    i.fas.fa-plus
+                    span New item
+    
 .modal-footer
     button.btn.btn-outline-primary((click)='save()') Save
     button.btn.btn-outline-danger((click)='cancel()') Cancel

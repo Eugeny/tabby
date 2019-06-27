@@ -1,14 +1,39 @@
 import { SafeHtml } from '@angular/platform-browser'
 
-export interface IToolbarButton {
+/**
+ * See [[ToolbarButtonProvider]]
+ */
+export interface ToolbarButton {
+    /**
+     * Raw SVG icon code
+     */
     icon: SafeHtml
-    touchBarNSImage?: string
+
     title: string
+
+    /**
+     * Optional Touch Bar icon ID
+     */
+    touchBarNSImage?: string
+
+    /**
+     * Optional Touch Bar button label
+     */
     touchBarTitle?: string
+
     weight?: number
-    click: () => void
+
+    click?: () => void
+
+    submenu?: () => Promise<ToolbarButton[]>
+
+    /** @hidden */
+    submenuItems?: ToolbarButton[]
 }
 
+/**
+ * Extend to add buttons to the toolbar
+ */
 export abstract class ToolbarButtonProvider {
-    abstract provide (): IToolbarButton[]
+    abstract provide (): ToolbarButton[]
 }

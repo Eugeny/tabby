@@ -5,6 +5,9 @@ node_modules
 
 build/files.wxs
 dist
+*/dist
+*/typings
+*.tsbuildinfo
 
 *.xcworkspacedata
 *.xcuserstate
@@ -17,3 +20,7 @@ npm-debug.log
 builtin-plugins
 package-lock.json
 yarn-error.log
+
+docs/api
+.travis.ssh.key
+*.code-workspace

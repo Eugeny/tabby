@@ -1,12 +1,12 @@
 {
   "name": "terminus-community-color-schemes",
-  "version": "1.0.0-alpha.55",
+  "version": "1.0.73-c4-ga7d62b0",
   "description": "Community color schemes for Terminus",
   "keywords": [
     "terminus-builtin-plugin"
   ],
   "main": "dist/index.js",
-  "typings": "dist/index.d.ts",
+  "typings": "typings/index.d.ts",
   "scripts": {
     "build": "webpack --progress --color",
     "watch": "webpack --progress --color --watch"
@@ -22,8 +22,7 @@
     "terminus-terminal": "*"
   },
   "devDependencies": {
-    "@types/node": "7.0.12",
+    "@types/node": "12.0.10",
     "@types/webpack-env": "^1.13.0"
-  },
-  "false": {}
+  }
 }

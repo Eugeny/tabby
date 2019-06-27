@@ -7,46 +7,48 @@ hotkeys:
     - 'F11'
   close-tab:
     - 'Ctrl-Shift-W'
-    - ['Ctrl-A', 'K']
-  toggle-last-tab:
-    - ['Ctrl-A', 'A']
-    - ['Ctrl-A', 'Ctrl-A']
+  toggle-last-tab: []
+  rename-tab:
+    - 'Ctrl-Shift-R'
   next-tab:
-    - 'Ctrl-Shift-ArrowRight'
-    - ['Ctrl-A', 'N']
+    - 'Ctrl-Shift-Right'
     - 'Ctrl-Tab'
   previous-tab:
-    - 'Ctrl-Shift-ArrowLeft'
-    - ['Ctrl-A', 'P']
+    - 'Ctrl-Shift-Left'
     - 'Ctrl-Shift-Tab'
   tab-1:
     - 'Alt-1'
-    - ['Ctrl-A', '1']
   tab-2:
     - 'Alt-2'
-    - ['Ctrl-A', '2']
   tab-3:
     - 'Alt-3'
-    - ['Ctrl-A', '3']
   tab-4:
     - 'Alt-4'
-    - ['Ctrl-A', '4']
   tab-5:
     - 'Alt-5'
-    - ['Ctrl-A', '5']
   tab-6:
     - 'Alt-6'
-    - ['Ctrl-A', '6']
   tab-7:
     - 'Alt-7'
-    - ['Ctrl-A', '7']
   tab-8:
     - 'Alt-8'
-    - ['Ctrl-A', '8']
   tab-9:
     - 'Alt-9'
-    - ['Ctrl-A', '9']
   tab-10:
     - 'Alt-0'
-    - ['Ctrl-A', '0']
+  split-right:
+    - 'Ctrl-Shift-E'
+  split-bottom:
+    - 'Ctrl-Shift-D'
+  split-left: []
+  split-top: []
+  pane-nav-right:
+    - 'Ctrl-Alt-Right'
+  pane-nav-down:
+    - 'Ctrl-Alt-Down'
+  pane-nav-up:
+    - 'Ctrl-Alt-Up'
+  pane-nav-left:
+    - 'Ctrl-Alt-Left'
+  close-pane: []
 pluginBlacklist: ['ssh']

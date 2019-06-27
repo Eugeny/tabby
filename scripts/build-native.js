@@ -4,24 +4,20 @@ const path = require('path')
 const vars = require('./vars')
 
 lifecycles = []
-lifecycles.push(rebuild({
-  buildPath: path.resolve(__dirname, '../app'),
-  electronVersion: vars.electronVersion,
-  force: true,
-}).lifecycle)
-lifecycles.push(rebuild({
-  buildPath: path.resolve(__dirname, '../terminus-ssh'),
-  electronVersion: vars.electronVersion,
-  force: true,
-}).lifecycle)
-lifecycles.push(rebuild({
-  buildPath: path.resolve(__dirname, '../terminus-terminal'),
-  electronVersion: vars.electronVersion,
-  force: true,
-}).lifecycle)
+for (let dir of ['app', 'terminus-core', 'terminus-ssh', 'terminus-terminal']) {
+  build = rebuild({
+    buildPath: path.resolve(__dirname, '../' + dir),
+    electronVersion: vars.electronVersion,
+    force: true,
+  })
+  build.catch(() => process.exit(1))
+  lifecycles.push([build.lifecycle, dir])
+}
 
-for (let lc of lifecycles) {
+console.info('Building against Electron', vars.electronVersion)
+
+for (let [lc, dir] of lifecycles) {
   lc.on('module-found', name => {
-    console.info('Rebuilding', name)
+    console.info('Rebuilding', dir + '/' + name)
   })
 }

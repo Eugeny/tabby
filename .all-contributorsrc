@@ -1,0 +1,173 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "mezner",
+      "name": "Russell Myers",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/184085?v=4",
+      "profile": "http://www.russellmyers.com",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "ehwarren",
+      "name": "Austin Warren",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/3991658?v=4",
+      "profile": "http://www.morwire.com",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "Drachenkaetzchen",
+      "name": "Felicia Hummel",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/162974?v=4",
+      "profile": "https://github.com/Drachenkaetzchen",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "mikemaccana",
+      "name": "Mike MacCana",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/172594?v=4",
+      "profile": "https://github.com/mikemaccana",
+      "contributions": [
+        "test",
+        "design"
+      ]
+    },
+    {
+      "login": "yxuko",
+      "name": "Yacine Kanzari",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/1786317?v=4",
+      "profile": "https://github.com/yxuko",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "BBJip",
+      "name": "BBJip",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/32908927?v=4",
+      "profile": "https://github.com/BBJip",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "Futagirl",
+      "name": "Futagirl",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/33533958?v=4",
+      "profile": "https://github.com/Futagirl",
+      "contributions": [
+        "design"
+      ]
+    },
+    {
+      "login": "levrik",
+      "name": "Levin Rickert",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/9491603?v=4",
+      "profile": "https://www.levrik.io",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "kwonoj",
+      "name": "OJ Kwon",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/1210596?v=4",
+      "profile": "https://kwonoj.github.io",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "Domain",
+      "name": "domain",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/903197?v=4",
+      "profile": "https://github.com/Domain",
+      "contributions": [
+        "plugin",
+        "code"
+      ]
+    },
+    {
+      "login": "kbjr",
+      "name": "James Brumond",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/195127?v=4",
+      "profile": "http://www.jbrumond.me",
+      "contributions": [
+        "plugin"
+      ]
+    },
+    {
+      "login": "Tyriar",
+      "name": "Daniel Imms",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/2193314?v=4",
+      "profile": "http://www.growingwiththeweb.com",
+      "contributions": [
+        "code",
+        "plugin",
+        "test"
+      ]
+    },
+    {
+      "login": "baflo",
+      "name": "Florian Bachmann",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/834350?v=4",
+      "profile": "https://github.com/baflo",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "mischah",
+      "name": "Michael Kühnel",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/441011?v=4",
+      "profile": "http://michael-kuehnel.de",
+      "contributions": [
+        "code",
+        "design"
+      ]
+    },
+    {
+      "login": "NieLeben",
+      "name": "Tilmann Meyer",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/47182955?v=4",
+      "profile": "https://github.com/NieLeben",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "PMExtra",
+      "name": "PM Extra",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/11289158?v=4",
+      "profile": "http://www.jubeat.net",
+      "contributions": [
+        "bug"
+      ]
+    },
+    {
+      "login": "IgnusG",
+      "name": "Jonathan",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/6438760?v=4",
+      "profile": "https://jjuhas.keybase.pub//",
+      "contributions": [
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "terminus",
+  "projectOwner": "Eugeny",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "commitConvention": "none"
+}

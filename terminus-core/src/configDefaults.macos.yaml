@@ -8,6 +8,8 @@ hotkeys:
   close-tab:
     - '⌘-W'
   toggle-last-tab: []
+  rename-tab:
+    - '⌘-R'
   next-tab:
     - 'Ctrl-Tab'
   previous-tab:
@@ -32,4 +34,20 @@ hotkeys:
     - '⌘-9'
   tab-10:
     - '⌘-0'
+  split-right:
+    - '⌘-Shift-D'
+  split-bottom:
+    - '⌘-D'
+  split-left: []
+  split-top: []
+  pane-nav-right:
+    - '⌘-⌥-Right'
+  pane-nav-down:
+    - '⌘-⌥-Down'
+  pane-nav-up:
+    - '⌘-⌥-Up'
+  pane-nav-left:
+    - '⌘-⌥-Left'
+  close-pane:
+    - '⌘-Shift-W'
 pluginBlacklist: ['ssh']

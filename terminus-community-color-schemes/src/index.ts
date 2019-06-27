@@ -8,4 +8,4 @@ import { ColorSchemes } from './colorSchemes'
         { provide: TerminalColorSchemeProvider, useClass: ColorSchemes, multi: true },
     ],
 })
-export default class PopularThemesModule { }
+export default class PopularThemesModule { } // eslint-disable-line @typescript-eslint/no-extraneous-class

@@ -8,3 +8,12 @@
         (keyup.enter)='ok()',
         (keyup.esc)='cancel()',
     )
+    .d-flex.align-items-start.mt-2
+        checkbox(
+            *ngIf='showRememberCheckbox',
+            [(ngModel)]='remember', 
+            text='Remember'
+        )
+        button.btn.btn-primary.ml-auto(
+            (click)='ok()',
+        ) Enter

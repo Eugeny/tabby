@@ -4,11 +4,11 @@ const vars = require('./vars')
 
 builder({
   dir: true,
-  win: ['squirrel', 'portable'],
+  win: ['nsis', 'portable'],
   config: {
     extraMetadata: {
       version: vars.version,
     },
   },
   publish: 'onTag',
-})
+}).catch(() => process.exit(1))

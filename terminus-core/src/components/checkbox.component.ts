@@ -1,13 +1,14 @@
 import { NgZone, Component, Input, HostBinding, HostListener } from '@angular/core'
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms'
 
+/** @hidden */
 @Component({
     selector: 'checkbox',
     template: require('./checkbox.component.pug'),
     styles: [require('./checkbox.component.scss')],
     providers: [
         { provide: NG_VALUE_ACCESSOR, useExisting: CheckboxComponent, multi: true },
-    ]
+    ],
 })
 export class CheckboxComponent implements ControlValueAccessor {
     @HostBinding('class.active') @Input() model: boolean
@@ -22,7 +23,7 @@ export class CheckboxComponent implements ControlValueAccessor {
         }
 
         this.model = !this.model
-        for (let fx of this.changed) {
+        for (const fx of this.changed) {
             fx(this.model)
         }
     }

@@ -3,6 +3,5 @@
   "exclude": ["node_modules", "dist"],
   "compilerOptions": {
     "baseUrl": "src",
-    "declarationDir": "dist"
   }
 }

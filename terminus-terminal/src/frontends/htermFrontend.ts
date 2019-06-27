@@ -1,6 +1,8 @@
-import { Frontend } from './frontend'
-import { hterm, preferenceManager } from '../hterm'
+import { Frontend, SearchOptions } from './frontend'
+import { hterm, preferenceManager } from './hterm'
+import { getCSSFontFamily } from '../utils'
 
+/** @hidden */
 export class HTermFrontend extends Frontend {
     term: any
     io: any
@@ -51,12 +53,14 @@ export class HTermFrontend extends Frontend {
         this.term.onVTKeystroke('\f')
     }
 
-    configure (config: any): void {
+    configure (): void {
+        const config = this.configService.store
+
         this.configuredFontSize = config.terminal.fontSize
         this.configuredLinePadding = config.terminal.linePadding
         this.setFontSize()
 
-        preferenceManager.set('font-family', `"${config.terminal.font}", "monospace-fallback", monospace`)
+        preferenceManager.set('font-family', getCSSFontFamily(config.terminal.font))
         preferenceManager.set('enable-bold', true)
         // preferenceManager.set('audible-bell-sound', '')
         preferenceManager.set('desktop-notification-bell', config.terminal.bell === 'notification')
@@ -66,6 +70,7 @@ export class HTermFrontend extends Frontend {
         preferenceManager.set('ctrl-plus-minus-zero-zoom', false)
         preferenceManager.set('scrollbar-visible', process.platform === 'darwin')
         preferenceManager.set('copy-on-select', config.terminal.copyOnSelect)
+        preferenceManager.set('pass-meta-v', false)
         preferenceManager.set('alt-is-meta', config.terminal.altIsMeta)
         preferenceManager.set('alt-sends-what', 'browser-key')
         preferenceManager.set('alt-gr-mode', 'ctrl-alt')
@@ -84,8 +89,7 @@ export class HTermFrontend extends Frontend {
                 preferenceManager.set('background-color', config.terminal.colorScheme.background)
             }
         } else {
-            // hterm can't parse "transparent"
-            preferenceManager.set('background-color', 'transparent')
+            preferenceManager.set('background-color', config.appearance.vibrancy ? 'transparent' : this.themesService.findCurrentTheme().terminalBackground)
         }
 
         this.configuredBackgroundColor = preferenceManager.get('background-color')
@@ -94,7 +98,7 @@ export class HTermFrontend extends Frontend {
             return
         }
 
-        let css = require('../hterm.userCSS.scss')
+        let css = require('./hterm.userCSS.scss') // eslint-disable-line
         if (!config.terminal.ligatures) {
             css += `
                 * {
@@ -152,8 +156,23 @@ export class HTermFrontend extends Frontend {
         this.term.scrollEnd()
     }
 
+    findNext (_term: string, _searchOptions?: SearchOptions): boolean {
+        return false
+    }
+
+    findPrevious (_term: string, _searchOptions?: SearchOptions): boolean {
+        return false
+    }
+
     private setFontSize () {
-        preferenceManager.set('font-size', this.configuredFontSize * Math.pow(1.1, this.zoom))
+        const size = this.configuredFontSize * Math.pow(1.1, this.zoom)
+        preferenceManager.set('font-size', size)
+        if (this.term) {
+            setTimeout(() => {
+                this.term.scrollPort_.characterSize = this.term.scrollPort_.measureCharacterSize()
+                this.term.setFontSize(size)
+            })
+        }
     }
 
     private init () {
@@ -165,7 +184,6 @@ export class HTermFrontend extends Frontend {
             this.io = this.term.io.push()
             this.io.onVTKeystroke = this.io.sendString = data => this.input.next(data)
             this.io.onTerminalResize = (columns, rows) => {
-                console.log('hterm resize')
                 this.resize.next({ columns, rows })
             }
             this.ready.next(null)
@@ -219,7 +237,7 @@ export class HTermFrontend extends Frontend {
 
         this.term.ringBell = () => this.bell.next()
 
-        for (let screen of [this.term.primaryScreen_, this.term.alternateScreen_]) {
+        for (const screen of [this.term.primaryScreen_, this.term.alternateScreen_]) {
             const _insertString = screen.insertString.bind(screen)
             screen.insertString = (data) => {
                 _insertString(data)
@@ -228,7 +246,7 @@ export class HTermFrontend extends Frontend {
 
             const _deleteChars = screen.deleteChars.bind(screen)
             screen.deleteChars = (count) => {
-                let ret = _deleteChars(count)
+                const ret = _deleteChars(count)
                 this.contentUpdated.next()
                 return ret
             }
@@ -236,7 +254,7 @@ export class HTermFrontend extends Frontend {
             const _expandSelection = screen.expandSelection.bind(screen)
             screen.expandSelection = (selection) => {
                 // Drop whitespace at the end of selection
-                let range = selection.getRangeAt(0)
+                const range = selection.getRangeAt(0)
                 if (range.endOffset > 0 && range.endContainer.nodeType === 3 && range.endContainer.textContent !== '') {
                     while (/[\s\S]+\s$/.test(range.endContainer.textContent.substr(0,range.endOffset))) {
                         range.setEnd(range.endContainer, range.endOffset - 1)
@@ -248,7 +266,7 @@ export class HTermFrontend extends Frontend {
 
         const _measureCharacterSize = this.term.scrollPort_.measureCharacterSize.bind(this.term.scrollPort_)
         this.term.scrollPort_.measureCharacterSize = () => {
-            let size = _measureCharacterSize()
+            const size = _measureCharacterSize()
             size.height += this.configuredLinePadding
             return size
         }

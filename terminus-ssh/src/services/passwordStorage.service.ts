@@ -1,73 +1,18 @@
-import { Injectable, NgZone } from '@angular/core'
+import { Injectable } from '@angular/core'
 import { SSHConnection } from '../api'
+import * as keytar from 'keytar'
 
-let xkeychain
-let wincredmgr
-try {
-    xkeychain = require('xkeychain')
-} catch (error) {
-    try {
-        wincredmgr = require('wincredmgr')
-    } catch (error2) {
-        console.warn('No keychain manager available')
-    }
-}
-
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class PasswordStorageService {
-    constructor (
-        private zone: NgZone,
-    ) { }
-
-    savePassword (connection: SSHConnection, password: string) {
-        if (xkeychain) {
-            xkeychain.setPassword({
-                account: connection.user,
-                service: `ssh@${connection.host}`,
-                password
-            }, () => null)
-        } else {
-            wincredmgr.WriteCredentials(
-                'user',
-                password,
-                `ssh:${connection.user}@${connection.host}`,
-            )
-        }
+    async savePassword (connection: SSHConnection, password: string): Promise<void> {
+        return keytar.setPassword(`ssh@${connection.host}`, connection.user, password)
     }
 
-    deletePassword (connection: SSHConnection) {
-        if (xkeychain) {
-            xkeychain.deletePassword({
-                account: connection.user,
-                service: `ssh@${connection.host}`,
-            }, () => null)
-        } else {
-            wincredmgr.DeleteCredentials(
-                `ssh:${connection.user}@${connection.host}`,
-            )
-        }
+    async deletePassword (connection: SSHConnection): Promise<void> {
+        await keytar.deletePassword(`ssh@${connection.host}`, connection.user)
     }
 
-    loadPassword (connection: SSHConnection): Promise<string> {
-        return new Promise(resolve => {
-            if (!wincredmgr && !xkeychain.isSupported()) {
-                return resolve(null)
-            }
-            if (xkeychain) {
-                xkeychain.getPassword(
-                    {
-                        account: connection.user,
-                        service: `ssh@${connection.host}`,
-                    },
-                    (_, result) => this.zone.run(() => resolve(result))
-                )
-            } else {
-                try {
-                    resolve(wincredmgr.ReadCredentials(`ssh:${connection.user}@${connection.host}`).password)
-                } catch (error) {
-                    resolve(null)
-                }
-            }
-        })
+    async loadPassword (connection: SSHConnection): Promise<string> {
+        return keytar.getPassword(`ssh@${connection.host}`, connection.user)
     }
 }

@@ -1,20 +1,24 @@
 import * as fs from 'mz/fs'
 import * as path from 'path'
 import { Injectable } from '@angular/core'
-import { TerminalColorSchemeProvider, ITerminalColorScheme } from './api'
+import { TerminalColorSchemeProvider } from './api/colorSchemeProvider'
+import { TerminalColorScheme } from './api/interfaces'
 
+/** @hidden */
 @Injectable()
 export class HyperColorSchemes extends TerminalColorSchemeProvider {
-    async getSchemes (): Promise<ITerminalColorScheme[]> {
-        let pluginsPath = path.join(process.env.HOME, '.hyper_plugins', 'node_modules')
-        if (!(await fs.exists(pluginsPath))) return []
-        let plugins = await fs.readdir(pluginsPath)
+    async getSchemes (): Promise<TerminalColorScheme[]> {
+        const pluginsPath = path.join(process.env.HOME, '.hyper_plugins', 'node_modules')
+        if (!await fs.exists(pluginsPath)) {
+            return []
+        }
+        const plugins = await fs.readdir(pluginsPath)
 
-        let themes: ITerminalColorScheme[] = []
+        const themes: TerminalColorScheme[] = []
 
         plugins.forEach(plugin => {
             try {
-                let module = (global as any).require(path.join(pluginsPath, plugin))
+                const module = (global as any).require(path.join(pluginsPath, plugin))
                 if (module.decorateConfig) {
                     let config: any
                     try {

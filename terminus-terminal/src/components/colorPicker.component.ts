@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter, HostListener, ViewChild } from '@angular/core'
 import { NgbPopover } from '@ng-bootstrap/ng-bootstrap'
 
+/** @hidden */
 @Component({
     selector: 'color-picker',
     template: require('./colorPicker.component.pug'),
@@ -28,7 +29,7 @@ export class ColorPickerComponent {
         if (!this.isOpen) {
             return
         }
-        let windowRef = (this.popover as any)._windowRef
+        const windowRef = (this.popover as any)._windowRef
         if (!windowRef) {
             return
         }

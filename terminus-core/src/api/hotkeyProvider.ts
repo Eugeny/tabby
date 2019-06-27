@@ -1,10 +1,14 @@
-export interface IHotkeyDescription {
-    id: string,
-    name: string,
+export interface HotkeyDescription {
+    id: string
+    name: string
 }
 
+/**
+ * Extend to provide your own hotkeys. A corresponding [[ConfigProvider]]
+ * must also provide the `hotkeys.foo` config options with the default values
+ */
 export abstract class HotkeyProvider {
-    hotkeys: IHotkeyDescription[] = []
+    hotkeys: HotkeyDescription[] = []
 
-    abstract provide (): Promise<IHotkeyDescription[]>
+    abstract provide (): Promise<HotkeyDescription[]>
 }
