@@ -1,6 +1,6 @@
 import { Subject, Observable } from 'rxjs'
 import { debounceTime } from 'rxjs/operators'
-import { BrowserWindow, app, ipcMain, Rectangle } from 'electron'
+import { BrowserWindow, app, ipcMain, Rectangle, screen } from 'electron'
 import ElectronConfig = require('electron-config')
 import * as os from 'os'
 
@@ -53,6 +53,16 @@ export class Window {
         }
         Object.assign(bwOptions, this.windowBounds)
 
+        const closestDisplay = screen.getDisplayNearestPoint( {x: this.windowBounds.x, y: this.windowBounds.y} )
+
+        const [left1, top1, right1, bottom1] = [this.windowBounds.x, this.windowBounds.y, this.windowBounds.x + this.windowBounds.width, this.windowBounds.y + this.windowBounds.height];
+        const [left2, top2, right2, bottom2] = [closestDisplay.bounds.x, closestDisplay.bounds.y, closestDisplay.bounds.x + closestDisplay.bounds.width, closestDisplay.bounds.y + closestDisplay.bounds.height];
+
+        if ((left2 > right1 || right2 < left1 || top2 > bottom1 || bottom2 < top1) && !maximized) {
+            bwOptions.x = closestDisplay.bounds.width / 2 - bwOptions.width / 2;
+            bwOptions.y = closestDisplay.bounds.height / 2 - bwOptions.height / 2;
+        }
+
         if ((configData.appearance || {}).frame === 'native') {
             bwOptions.frame = true
         } else {
@@ -82,6 +92,7 @@ export class Window {
                 this.window.focus()
             }
         })
+
         this.window.loadURL(`file://${app.getAppPath()}/dist/index.html?${this.window.id}`, { extraHeaders: 'pragma: no-cache\n' })
 
         if (process.platform !== 'darwin') {
