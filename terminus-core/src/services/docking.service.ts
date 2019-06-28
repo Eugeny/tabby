@@ -30,7 +30,8 @@ export class DockingService {
         }
 
         const newBounds: Bounds = { x: 0, y: 0, width: 0, height: 0 }
-        const fill = this.config.store.appearance.dockFill
+        
+        const fill = this.config.store.appearance.dockFill <= 1 ? this.config.store.appearance.dockFill : 1;
         const [minWidth, minHeight] = this.hostApp.getWindow().getMinimumSize()
 
         if (dockSide === 'left' || dockSide === 'right') {
