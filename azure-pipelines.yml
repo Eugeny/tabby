@@ -7,7 +7,7 @@ variables:
 jobs:
 - job: Windows
   pool:
-    vmImage: 'vs2017-win2016'
+    vmImage: 'vs2015-win2012r2'
 
   steps:
   - task: NodeTool@0
@@ -144,7 +144,7 @@ jobs:
 
 - job: macOS
   pool:
-    vmImage: 'macOS-10.14'
+    vmImage: 'macOS-10.13'
 
   steps:
   - task: NodeTool@0
