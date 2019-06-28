@@ -21,9 +21,6 @@ jobs:
   - script: node scripts/build-native.js
     displayName: 'Rebuild native dependencies'
 
-  - script: yarn run build:typings
-    displayName: 'Build typings'
-
   - script: yarn run build
     displayName: 'Build'
 
@@ -80,9 +77,6 @@ jobs:
 
   - script: node scripts/build-native.js
     displayName: 'Rebuild native dependencies'
-
-  - script: yarn run build:typings
-    displayName: 'Build typings'
 
   - script: yarn run build
     displayName: 'Build'
@@ -163,9 +157,6 @@ jobs:
 
   - script: node scripts/build-native.js
     displayName: 'Rebuild native dependencies'
-
-  - script: yarn run build:typings
-    displayName: 'Build typings'
 
   - script: yarn run build
     displayName: 'Build'
