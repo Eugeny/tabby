@@ -63,15 +63,15 @@ export class DockingService {
     }
 
     getScreens () {
-        return this.electron.screen.getAllDisplays().map((display, index) => {
+        const primaryDisplayID = this.electron.screen.getPrimaryDisplay().id;
+        return this.electron.screen.getAllDisplays().sort((a,b) => (
+            a.bounds.x === b.bounds.x ? a.bounds.y - b.bounds.y : a.bounds.x - b.bounds.x
+        )).map((display,index) => {
             return {
                 id: display.id,
-                name: [
-                    'Primary display',
-                    'Secondary display',
-                ][index] || `Display ${index + 1}`,
+                name: display.id === primaryDisplayID ? 'Primary Display' : `Display ${index +1}`,
             }
-        })
+        });
     }
 
     private repositionWindow () {
