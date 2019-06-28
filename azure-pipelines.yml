@@ -167,8 +167,8 @@ jobs:
   - script: node scripts/build-macos.js
     displayName: 'Package'
     env:
-      _CSC_LINK: $(CSC_LINK)
-      _CSC_KEY_PASSWORD: $(CSC_KEY_PASSWORD)
+      CSC_LINK: $(CSC_LINK)
+      CSC_KEY_PASSWORD: $(CSC_KEY_PASSWORD)
       BT_TOKEN: $(BT_TOKEN)
       GH_TOKEN: $(GH_TOKEN)
       APPSTORE_USERNAME: $(APPSTORE_USERNAME)
