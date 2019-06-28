@@ -28,6 +28,7 @@ export interface ChildProcess {
 }
 
 const windowsDirectoryRegex = /([a-zA-Z]:[^\:\[\]\?\"\<\>\|]+)/mi
+const catalinaDataVolumePrefix = '/System/Volumes/Data'
 const OSC1337Prefix = '\x1b]1337;'
 const OSC1337Suffix = '\x07'
 
@@ -282,11 +283,11 @@ export class Session extends BaseSession {
             } catch (e) {
                 return null
             }
-            if (lines[1] === 'fcwd') {
-                return lines[2].substring(1)
-            } else {
-                return lines[1].substring(1)
+            let cwd = lines[(lines[1] === 'fcwd') ? 2 : 1].substring(1)
+            if (cwd.startsWith(catalinaDataVolumePrefix)) {
+                cwd = cwd.substring(catalinaDataVolumePrefix.length)
             }
+            return cwd
         }
         if (process.platform === 'linux') {
             return fs.readlink(`/proc/${this.truePID}/cwd`)
