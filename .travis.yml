@@ -4,6 +4,8 @@ node_js: 11
 stages:
   - Docs
 
+if: branch = master
+
 jobs:
   include:
     - stage: 'Docs'
