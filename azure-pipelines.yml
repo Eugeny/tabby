@@ -37,6 +37,7 @@ jobs:
       WIN_CSC_KEY_PASSWORD: $(WIN_CSC_KEY_PASSWORD)
       BT_TOKEN: $(BT_TOKEN)
       GH_TOKEN: $(GH_TOKEN)
+      DEBUG: electron-builder
 
   - task: CopyFiles@2
     inputs:
@@ -181,6 +182,7 @@ jobs:
       GH_TOKEN: $(GH_TOKEN)
       APPSTORE_USERNAME: $(APPSTORE_USERNAME)
       APPSTORE_PASSWORD: $(APPSTORE_PASSWORD)
+      DEBUG: electron-builder
 
   - task: CopyFiles@2
     inputs:
