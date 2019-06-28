@@ -15,7 +15,7 @@ jobs:
       versionSpec: '10.x'
     displayName: 'Install Node.js'
 
-  - script: yarn
+  - script: yarn --network-timeout 100000
     displayName: 'Install dependencies'
 
   - script: node scripts/build-native.js
