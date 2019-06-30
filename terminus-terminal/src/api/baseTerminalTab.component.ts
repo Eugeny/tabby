@@ -372,14 +372,8 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
                     } else {
                         wheelDeltaY = (event as MouseWheelEvent)['deltaY']
                     }
-                    if (event.ctrlKey || event.metaKey) {
 
-                        if (wheelDeltaY > 0) {
-                            this.zoomIn()
-                        } else {
-                            this.zoomOut()
-                        }
-                    } else if (event.altKey) {
+                    if (event.altKey) {
                         event.preventDefault()
                         const delta = Math.round(wheelDeltaY / 50)
                         this.sendInput((delta > 0 ? '\u001bOA' : '\u001bOB').repeat(Math.abs(delta)))
