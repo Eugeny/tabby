@@ -1,14 +1,14 @@
 div
     .terminus-logo
     h1.terminus-title Terminus
-        sup α 
+        sup α
 
     .list-group
         a.list-group-item.list-group-item-action.d-flex(
             *ngFor='let button of getButtons()',
             (click)='button.click()',
         )
-            .d-flex.align-self-center([innerHTML]='button.icon')
+            .d-flex.align-self-center([innerHTML]='sanitizeIcon(button.icon)')
             span {{button.title}}
 
 footer.d-flex.align-items-center
