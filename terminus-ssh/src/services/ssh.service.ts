@@ -11,16 +11,15 @@ import { SSHTabComponent } from '../components/sshTab.component'
 import { PasswordStorageService } from './passwordStorage.service'
 import { SSH2Stream } from 'ssh2-streams'
 
-/* eslint-disable block-scoped-var */
 try {
-    var windowsProcessTree = require('windows-process-tree/build/Release/windows_process_tree.node') // eslint-disable-line @typescript-eslint/no-var-requires
-} catch (_) { }
+    var windowsProcessTree = require('@terminus-term/windows-process-tree')  // eslint-disable-line @typescript-eslint/no-var-requires
+} catch { }
 
 @Injectable({ providedIn: 'root' })
 export class SSHService {
     private logger: Logger
 
-    constructor (
+    private constructor (
         log: LogService,
         private app: AppService,
         private zone: NgZone,

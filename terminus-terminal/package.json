@@ -1,6 +1,6 @@
 {
   "name": "terminus-terminal",
-  "version": "1.0.73-c4-ga7d62b0",
+  "version": "1.0.83-nightly.4",
   "description": "Terminus' terminal emulation core",
   "keywords": [
     "terminus-builtin-plugin"
@@ -12,7 +12,7 @@
     "watch": "webpack --progress --color --watch"
   },
   "files": [
-    "dist"
+    "typings"
   ],
   "author": "Eugene Pankov",
   "license": "MIT",
@@ -46,14 +46,5 @@
     "rxjs": "5.3.0",
     "terminus-core": "*",
     "terminus-settings": "*"
-  },
-  "dependencies": {
-    "fontmanager-redux": "0.3.2",
-    "node-pty": "^0.9.0-beta9"
-  },
-  "optionalDependencies": {
-    "@terminus-term/windows-process-tree": "^0.2.4",
-    "macos-native-processlist": "^1.0.1",
-    "windows-native-registry": "^1.0.14"
   }
 }

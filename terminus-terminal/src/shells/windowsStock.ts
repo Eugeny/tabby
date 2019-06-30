@@ -1,6 +1,5 @@
 import * as path from 'path'
 import { Injectable } from '@angular/core'
-import { DomSanitizer } from '@angular/platform-browser'
 import { HostAppService, Platform, ElectronService } from 'terminus-core'
 
 import { ShellProvider } from '../api/shellProvider'
@@ -10,7 +9,6 @@ import { Shell } from '../api/interfaces'
 @Injectable()
 export class WindowsStockShellsProvider extends ShellProvider {
     constructor (
-        private domSanitizer: DomSanitizer,
         private hostApp: HostAppService,
         private electron: ElectronService,
     ) {
@@ -38,21 +36,21 @@ export class WindowsStockShellsProvider extends ShellProvider {
                     'inject',
                 ],
                 env: {},
-                icon: this.domSanitizer.bypassSecurityTrustHtml(require('../icons/clink.svg')),
+                icon: require('../icons/clink.svg'),
             },
             {
                 id: 'cmd',
                 name: 'CMD (stock)',
                 command: 'cmd.exe',
                 env: {},
-                icon: this.domSanitizer.bypassSecurityTrustHtml(require('../icons/cmd.svg')),
+                icon: require('../icons/cmd.svg'),
             },
             {
                 id: 'powershell',
                 name: 'PowerShell',
                 command: 'powershell.exe',
                 args: ['-nologo'],
-                icon: this.domSanitizer.bypassSecurityTrustHtml(require('../icons/powershell.svg')),
+                icon: require('../icons/powershell.svg'),
                 env: {
                     TERM: 'cygwin',
                 },

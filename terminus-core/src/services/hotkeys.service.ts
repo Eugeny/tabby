@@ -21,13 +21,12 @@ interface EventBufferEntry {
 export class HotkeysService {
     key = new EventEmitter<KeyboardEvent>()
     matchedHotkey = new EventEmitter<string>()
-    globalHotkey = new EventEmitter()
+    globalHotkey = new EventEmitter<void>()
     private currentKeystrokes: EventBufferEntry[] = []
     private disabledLevel = 0
     private hotkeyDescriptions: HotkeyDescription[] = []
 
-    /** @hidden */
-    constructor (
+    private constructor (
         private zone: NgZone,
         private electron: ElectronService,
         private config: ConfigService,

@@ -1,6 +1,6 @@
 {
   "name": "terminus-settings",
-  "version": "1.0.73-c4-ga7d62b0",
+  "version": "1.0.83-nightly.4",
   "description": "Terminus terminal settings page",
   "keywords": [
     "terminus-builtin-plugin"
@@ -12,7 +12,7 @@
     "watch": "webpack --progress --color --watch"
   },
   "files": [
-    "dist"
+    "typings"
   ],
   "author": "Eugene Pankov",
   "license": "MIT",

@@ -1,6 +1,6 @@
 {
   "name": "terminus-ssh",
-  "version": "1.0.73-c4-ga7d62b0",
+  "version": "1.0.83-nightly.0",
   "description": "SSH connection manager for Terminus",
   "keywords": [
     "terminus-builtin-plugin"
@@ -31,11 +31,5 @@
     "terminus-core": "*",
     "terminus-settings": "*",
     "terminus-terminal": "*"
-  },
-  "optionalDependencies": {
-    "windows-process-tree": "^0.2.3"
-  },
-  "dependencies": {
-    "keytar": "^4.7.0"
   }
 }

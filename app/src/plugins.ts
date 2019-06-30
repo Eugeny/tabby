@@ -81,10 +81,20 @@ builtinModules.forEach(m => {
 
 const originalRequire = (global as any).require
 ;(global as any).require = function (query: string) {
+    console.log('grq', query)
     if (cachedBuiltinModules[query]) {
         return cachedBuiltinModules[query]
     }
     return originalRequire.apply(this, arguments)
+}
+
+const originalModuleRequire = nodeModule.prototype.require
+nodeModule.prototype.require = function (query: string) {
+    console.log('mrq', query)
+    if (cachedBuiltinModules[query]) {
+        return cachedBuiltinModules[query]
+    }
+    return originalModuleRequire.call(this, query)
 }
 
 export async function findPlugins (): Promise<PluginInfo[]> {
@@ -168,6 +178,7 @@ export async function loadPlugins (foundPlugins: PluginInfo[], progress: Progres
             pluginModule['bootstrap'] = packageModule.bootstrap
             plugins.push(pluginModule)
             console.timeEnd(label)
+            await (new Promise(x => setTimeout(x, 50)))
         } catch (error) {
             console.error(`Could not load ${foundPlugin.name}:`, error)
         }

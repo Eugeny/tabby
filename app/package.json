@@ -22,13 +22,16 @@
     "@angular/platform-browser-dynamic": "7.2.8",
     "@ng-bootstrap/ng-bootstrap": "^4.2.0",
     "devtron": "1.4.0",
+    "fontmanager-redux": "0.3.2",
     "electron-config": "2.0.0",
     "electron-debug": "^3.0.0",
     "electron-is-dev": "1.1.0",
     "electron-updater": "^4.0.6",
     "js-yaml": "3.13.1",
+    "keytar": "^4.7.0",
     "mz": "^2.7.0",
     "ngx-toastr": "^10.0.4",
+    "node-pty": "^0.9.0-beta9",
     "npm": "~6.9.0",
     "path": "0.12.7",
     "rxjs": "^6.5.2",
@@ -37,7 +40,10 @@
     "zone.js": "^0.8.29"
   },
   "optionalDependencies": {
+    "@terminus-term/windows-process-tree": "^0.2.4",
+    "macos-native-processlist": "^1.0.1",
     "windows-blurbehind": "^1.0.1",
+    "windows-native-registry": "^1.0.14",
     "windows-swca": "^2.0.2"
   },
   "devDependencies": {

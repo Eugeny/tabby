@@ -19,9 +19,9 @@ const COLOR_NAMES = [
 /** @hidden */
 export class XTermFrontend extends Frontend {
     enableResizing = true
-    xterm: Terminal
-    xtermCore: any
-    enableWebGL = false
+    protected xtermCore: any
+    protected enableWebGL = false
+    private xterm: Terminal
     private configuredFontSize = 0
     private zoom = 0
     private resizeHandler: () => void
@@ -291,5 +291,5 @@ export class XTermFrontend extends Frontend {
 
 /** @hidden */
 export class XTermWebGLFrontend extends XTermFrontend {
-    enableWebGL = true
+    protected enableWebGL = true
 }

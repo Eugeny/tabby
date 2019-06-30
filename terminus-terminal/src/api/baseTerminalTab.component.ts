@@ -13,6 +13,11 @@ import { ResizeEvent } from './interfaces'
 import { TerminalDecorator } from './decorator'
 import { TerminalContextMenuItemProvider } from './contextMenuProvider'
 
+
+/** @hidden */
+export interface IToastrService {
+    info (_: string)
+}
 /**
  * A class to base your custom terminal tabs on
  */
@@ -75,7 +80,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
         protected sessions: SessionsService,
         protected electron: ElectronService,
         protected terminalContainersService: TerminalFrontendService,
-        protected toastr: ToastrService,
+        @Inject(ToastrService) protected toastr: IToastrService,
         protected log: LogService,
         @Optional() @Inject(TerminalDecorator) protected decorators: TerminalDecorator[],
         @Optional() @Inject(TerminalContextMenuItemProvider) protected contextMenuProviders: TerminalContextMenuItemProvider[],
