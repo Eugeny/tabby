@@ -1,7 +1,7 @@
 Terminus Core Plugin
 --------------------
 
-See also: [Settings plugin API](./settings/), [Terminal plugin API](./settings/)
+See also: [Settings plugin API](./settings/), [Terminal plugin API](./terminal/)
 
 * tabbed interface services
 * toolbar UI
