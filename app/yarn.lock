@@ -2025,10 +2025,10 @@ node-gyp@^4.0.0:
     tar "^4.4.8"
     which "1"
 
-node-pty@^0.9.0-beta9:
-  version "0.9.0-beta9"
-  resolved "https://registry.yarnpkg.com/node-pty/-/node-pty-0.9.0-beta9.tgz#75cffcf4026f543475c115f017ca7fe66cf6e7fe"
-  integrity sha512-h6e8jUikGSZwqt1JHmzT5Zi0fdUCultX/BWrS35suTaZNJm/YSJA2QDG9HTVoSA6dhRvtFoaGiBtgbX9uZKe6w==
+node-pty@^0.9.0-beta18:
+  version "0.9.0-beta18"
+  resolved "https://registry.yarnpkg.com/node-pty/-/node-pty-0.9.0-beta18.tgz#d81c1ed96ee2727043abd5ac6666250149c1b606"
+  integrity sha512-j4E8RYda9cqm+2cGxaAxDlpEmPpuS0dfCuZII8VPRTw6p5gRJRwPJo9oL//YKdtaasRFfRy0/mUaNj8ft3FQVg==
   dependencies:
     nan "^2.13.2"
 
