@@ -81,7 +81,6 @@ builtinModules.forEach(m => {
 
 const originalRequire = (global as any).require
 ;(global as any).require = function (query: string) {
-    console.log('grq', query)
     if (cachedBuiltinModules[query]) {
         return cachedBuiltinModules[query]
     }
@@ -90,7 +89,6 @@ const originalRequire = (global as any).require
 
 const originalModuleRequire = nodeModule.prototype.require
 nodeModule.prototype.require = function (query: string) {
-    console.log('mrq', query)
     if (cachedBuiltinModules[query]) {
         return cachedBuiltinModules[query]
     }
