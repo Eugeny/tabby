@@ -48,7 +48,7 @@
     "typescript": "^3.5.2",
     "url-loader": "^2.0.0",
     "val-loader": "1.1.1",
-    "webpack": "^4.35.0",
+    "webpack": "^4.35.2",
     "webpack-cli": "^3.3.5",
     "yaml-loader": "0.5.0"
   },
