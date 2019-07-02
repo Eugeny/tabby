@@ -189,7 +189,11 @@ export class SplitTabComponent extends BaseTabComponent implements OnInit, OnDes
 
         this.focused$.subscribe(() => {
             this.getAllTabs().forEach(x => x.emitFocused())
-            this.focus(this.focusedTab)
+            if (this.focusedTab) {
+                this.focus(this.focusedTab)
+            } else {
+                this.focusAnyIn(this.root)
+            }
         })
         this.blurred$.subscribe(() => this.getAllTabs().forEach(x => x.emitBlurred()))
 
@@ -235,8 +239,10 @@ export class SplitTabComponent extends BaseTabComponent implements OnInit, OnDes
             await this.recoverContainer(this.root, this._recoveredState)
             this.layout()
             setImmediate(() => {
-                this.getAllTabs().forEach(x => x.emitFocused())
-                this.focusAnyIn(this.root)
+                if (this.hasFocus) {
+                    this.getAllTabs().forEach(x => x.emitFocused())
+                    this.focusAnyIn(this.root)
+                }
             })
         }
     }

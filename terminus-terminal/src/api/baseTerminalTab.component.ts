@@ -174,15 +174,17 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
             this.session.releaseInitialDataBuffer()
         })
 
-        this.frontend.configure()
-
-        if (this.hasFocus) {
-            this.frontend.attach(this.content.nativeElement)
-        } else {
-            this.focused$.pipe(first()).subscribe(() => {
+        setImmediate(() => {
+            if (this.hasFocus) {
                 this.frontend.attach(this.content.nativeElement)
-            })
-        }
+                this.frontend.configure()
+            } else {
+                this.focused$.pipe(first()).subscribe(() => {
+                    this.frontend.attach(this.content.nativeElement)
+                    this.frontend.configure()
+                })
+            }
+        })
 
         this.attachTermContainerHandlers()
 
