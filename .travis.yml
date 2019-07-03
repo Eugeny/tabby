@@ -16,6 +16,7 @@ jobs:
         - yarn
       script:
         - set -e
+        - python -c "import fcntl; fcntl.fcntl(1, fcntl.F_SETFL, 0)" # https://github.com/travis-ci/travis-ci/issues/8920
         - scripts/build-native.js
         - yarn run build:typings
         - yarn run build
