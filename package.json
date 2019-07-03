@@ -16,7 +16,7 @@
     "cross-env": "5.2.0",
     "css-loader": "3.0.0",
     "electron": "^5.0.5",
-    "electron-builder": "^20.44.4",
+    "electron-builder": "^21.0.7",
     "electron-installer-snap": "^4.0.0",
     "electron-notarize": "^0.1.1",
     "electron-rebuild": "^1.8.5",
@@ -102,8 +102,8 @@
         "NSRequiresAquaSystemAppearance": false
       }
     },
-    "dmg": {
-      "artifactName": "terminus-${version}-macos.dmg"
+    "pkg": {
+      "artifactName": "terminus-${version}-macos.pkg"
     },
     "linux": {
       "category": "Utilities",
