@@ -221,10 +221,10 @@ xterm-addon-ligatures@^0.1.0-beta-2:
     font-finder "^1.0.2"
     font-ligatures "^1.3.1"
 
-xterm-addon-search@^0.1.0-beta6:
-  version "0.1.0-beta6"
-  resolved "https://registry.yarnpkg.com/xterm-addon-search/-/xterm-addon-search-0.1.0-beta6.tgz#e2a2b441f8f7b0245c63731d0b2af32c7d4e6747"
-  integrity sha512-XKxdfO48HkCJW2m1wXW0PK/BOk00WEaN+W2LgDQqCBwwUjyBzWc9HaV8gzLXhSCDAYesWvtQa3RfqHfSp9qsbQ==
+xterm-addon-search@^0.2.0-beta1:
+  version "0.2.0-beta1"
+  resolved "https://registry.yarnpkg.com/xterm-addon-search/-/xterm-addon-search-0.2.0-beta1.tgz#98f0a0bc52c17021d40da9613f914615bb3f4014"
+  integrity sha512-yBhLMkTWRQm3kcG37uCRo4RrL42F9zookm0Jis7c+HMkkCYpAsEP/p76XVe5hMqyxEHKJUFX7K636RMNWwgJhg==
 
 xterm-addon-webgl@^0.2.0-beta1:
   version "0.2.0-beta1"
