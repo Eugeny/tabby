@@ -15,6 +15,7 @@
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
+    "importHelpers": true,
     "lib": [
       "dom",
       "es5",
