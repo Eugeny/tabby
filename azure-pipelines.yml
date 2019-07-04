@@ -1,6 +1,3 @@
-trigger:
-- master
-
 variables:
 - group: Vars
 
