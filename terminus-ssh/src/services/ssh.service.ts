@@ -12,7 +12,7 @@ import { PasswordStorageService } from './passwordStorage.service'
 import { SSH2Stream } from 'ssh2-streams'
 
 try {
-    var windowsProcessTree = require('@terminus-term/windows-process-tree')  // eslint-disable-line @typescript-eslint/no-var-requires
+    var windowsProcessTreeNative = require('windows-process-tree/build/Release/windows_process_tree.node') // eslint-disable-line @typescript-eslint/no-var-requires
 } catch { }
 
 @Injectable({ providedIn: 'root' })
@@ -138,7 +138,7 @@ export class SSHService {
             let agent: string = null
             if (this.hostApp.platform === Platform.Windows) {
                 const pageantRunning = new Promise<boolean>(resolve => {
-                    windowsProcessTree.getProcessList(list => {
+                    windowsProcessTreeNative.getProcessList(list => {
                         resolve(list.some(x => x.name === 'pageant.exe'))
                     }, 0)
                 })
