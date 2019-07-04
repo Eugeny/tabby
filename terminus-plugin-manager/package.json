@@ -18,22 +18,19 @@
   "license": "MIT",
   "devDependencies": {
     "@types/mz": "0.0.32",
-    "@types/node": "12.0.10",
     "@types/semver": "^6.0.0",
-    "@types/webpack-env": "1.13.9",
     "axios": "^0.19.0",
-    "css-loader": "^0.28.0",
     "mz": "^2.6.0",
     "ngx-pipes": "^1.6.1",
     "semver": "^6.1.0"
   },
   "peerDependencies": {
-    "@angular/common": "4.0.1",
-    "@angular/core": "4.0.1",
-    "@angular/forms": "4.0.1",
-    "@angular/platform-browser": "4.0.1",
-    "@ng-bootstrap/ng-bootstrap": "1.0.0-alpha.22",
-    "rxjs": "5.3.0",
+    "@angular/common": "^7",
+    "@angular/core": "^7",
+    "@angular/forms": "^7",
+    "@angular/platform-browser": "^7",
+    "@ng-bootstrap/ng-bootstrap": "^1",
+    "rxjs": "^5",
     "terminus-core": "*",
     "terminus-settings": "*"
   }
