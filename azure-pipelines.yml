@@ -1,3 +1,11 @@
+trigger:
+  tags:
+    include:
+    - v*
+  branches:
+    include:
+    - master
+
 variables:
 - group: Vars
 
