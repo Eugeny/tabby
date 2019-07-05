@@ -472,36 +472,7 @@ app-builder-bin@3.1.5:
   resolved "https://registry.yarnpkg.com/app-builder-bin/-/app-builder-bin-3.1.5.tgz#235c42dddee88045c8b6efec8ba7a7abdcaa81e9"
   integrity sha512-WShO6mkz3Syvxzylg8JftHyILnWWPL/vrEwZSGy366QFvD3X1lvMuyKeIffmpFEXemveziamFOl/3rBLMaNfPg==
 
-app-builder-lib@21.0.7:
-  version "21.0.7"
-  resolved "https://registry.yarnpkg.com/app-builder-lib/-/app-builder-lib-21.0.7.tgz#4dfa3b7d7877915aca52411a36b33065797f29cc"
-  integrity sha512-2+1dUrZsLRmizFod9PEuA4ZpjJPV0IrGQdTQ5pFKZsR4ue0JxvTT2A2+DgCGwKLMfe9Fk0y0pLTeMeD0HmF47g==
-  dependencies:
-    "7zip-bin" "~4.1.0"
-    async-exit-hook "^2.0.1"
-    bluebird-lst "^1.0.9"
-    builder-util "10.3.2"
-    builder-util-runtime "8.3.0"
-    chromium-pickle-js "^0.2.0"
-    debug "^4.1.1"
-    ejs "^2.6.2"
-    electron-osx-sign "0.4.11"
-    electron-publish "21.0.7"
-    fs-extra "^8.1.0"
-    fs-extra-p "^8.1.0"
-    hosted-git-info "^2.7.1"
-    is-ci "^2.0.0"
-    isbinaryfile "^4.0.1"
-    js-yaml "^3.13.1"
-    lazy-val "^1.0.4"
-    minimatch "^3.0.4"
-    normalize-package-data "^2.5.0"
-    read-config-file "4.0.0"
-    sanitize-filename "^1.6.1"
-    semver "^6.2.0"
-    temp-file "^3.3.3"
-
-app-builder-lib@^21.0.8, app-builder-lib@~21.0.7:
+app-builder-lib@21.0.8, app-builder-lib@^21.0.8, app-builder-lib@~21.0.7:
   version "21.0.8"
   resolved "https://registry.yarnpkg.com/app-builder-lib/-/app-builder-lib-21.0.8.tgz#f9c0f69ae2684a6b73f6fe37cddb8287fad07112"
   integrity sha512-CgmXKgywl4+/6q4z9K+kFczDWiT+qaZyZGi6ov06/SSRwFb1CdVzFk8gQNzMu99+CMvnPdRBfVuO3BiOtMnTgg==
@@ -1869,12 +1840,12 @@ ejs@^2.6.2:
   resolved "https://registry.yarnpkg.com/ejs/-/ejs-2.6.2.tgz#3a32c63d1cd16d11266cd4703b14fec4e74ab4f6"
   integrity sha512-PcW2a0tyTuPHz3tWyYqtK6r1fZ3gp+3Sop8Ph+ZYN81Ob5rwmbHEzaqs10N3BEsaGTkh/ooniXK+WwszGlc2+Q==
 
-electron-builder@^21.0.7:
-  version "21.0.7"
-  resolved "https://registry.yarnpkg.com/electron-builder/-/electron-builder-21.0.7.tgz#7f9d47e79320ed7e395608f14b9343108ae7e314"
-  integrity sha512-mNpGwZQ/kIEsevZ8FIUmP/mO/QlGf6iFPTL/xYkqozT5jgJkJSb5/a0mkA4oD8P3LYyuhKJ993oBOKx0oMDUwg==
+electron-builder@^21.0.8:
+  version "21.0.8"
+  resolved "https://registry.yarnpkg.com/electron-builder/-/electron-builder-21.0.8.tgz#3311695c5c2c12db2a70eefcaabee90da2f122f4"
+  integrity sha512-4B4AyDwjY0sBYa3YWvH06+RL+ucnrR1w865QuAzRsnYxyBokQ0NphIuP/nTNuDp/8u/tF+lGIYxIKFrmMMza0w==
   dependencies:
-    app-builder-lib "21.0.7"
+    app-builder-lib "21.0.8"
     bluebird-lst "^1.0.9"
     builder-util "10.3.2"
     builder-util-runtime "8.3.0"
