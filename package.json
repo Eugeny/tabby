@@ -137,10 +137,15 @@
     "prod": "cross-env TERMINUS_DEV=1 electron app",
     "docs": "typedoc --out docs/api terminus-core/src && typedoc --out docs/api/terminal --tsconfig terminus-terminal/tsconfig.typings.json terminus-terminal/src && typedoc --out docs/api/settings --tsconfig terminus-settings/tsconfig.typings.json terminus-settings/src",
     "lint": "eslint --ext ts */src",
-    "postinstall": "node ./scripts/install-deps.js"
+    "postinstall": "node ./scripts/install-deps.js && opencollective-postinstall"
   },
   "repository": "eugeny/terminus",
   "dependencies": {
-    "eslint-plugin-import": "^2.18.0"
+    "eslint-plugin-import": "^2.18.0",
+    "opencollective-postinstall": "^2.0.2"
+  },
+  "collective": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/terminus"
   }
 }
