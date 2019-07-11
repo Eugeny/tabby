@@ -6,7 +6,7 @@
     "@types/fs-promise": "1.0.3",
     "@types/js-yaml": "^3.12.1",
     "@types/node": "^12.6.2",
-    "@types/webpack-env": "1.13.9",
+    "@types/webpack-env": "1.14.0",
     "@typescript-eslint/eslint-plugin": "^1.11.0",
     "@typescript-eslint/parser": "^1.11.0",
     "app-builder-lib": "^21.0.8",
