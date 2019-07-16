@@ -4,7 +4,6 @@ const webpack = require('webpack')
 module.exports = {
     target: 'node',
     entry: 'src/index.ts',
-    devtool: 'source-map',
     context: __dirname,
     output: {
         path: path.resolve(__dirname, 'dist'),
@@ -77,5 +76,9 @@ module.exports = {
     ],
     plugins: [
         new webpack.optimize.ModuleConcatenationPlugin(),
+        new webpack.SourceMapDevToolPlugin({
+            exclude: [/node_modules/, /vendor/],
+            filename: '[file].map',
+        }),
     ],
 }
