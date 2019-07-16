@@ -1,6 +1,6 @@
 import { Component, Inject, Input, HostListener, HostBinding } from '@angular/core'
 import { trigger, style, animate, transition, state } from '@angular/animations'
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser'
+import { DomSanitizer } from '@angular/platform-browser'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 
 import { ElectronService } from '../services/electron.service'
@@ -62,11 +62,11 @@ export class AppRootComponent {
     @HostBinding('class.no-tabs') noTabs = true
     tabsDragging = false
     unsortedTabs: BaseTabComponent[] = []
-    updateIcon: SafeHtml
+    updateIcon: string
     updatesAvailable = false
     private logger: Logger
 
-    constructor (
+    private constructor (
         private docking: DockingService,
         private electron: ElectronService,
         private hotkeys: HotkeysService,
@@ -75,10 +75,10 @@ export class AppRootComponent {
         public hostApp: HostAppService,
         public config: ConfigService,
         public app: AppService,
+        private domSanitizer: DomSanitizer,
         @Inject(ToolbarButtonProvider) private toolbarButtonProviders: ToolbarButtonProvider[],
         log: LogService,
         ngbModal: NgbModal,
-        domSanitizer: DomSanitizer,
         _themes: ThemesService,
     ) {
         this.logger = log.create('main')
@@ -87,7 +87,7 @@ export class AppRootComponent {
         this.leftToolbarButtons = this.getToolbarButtons(false)
         this.rightToolbarButtons = this.getToolbarButtons(true)
 
-        this.updateIcon = domSanitizer.bypassSecurityTrustHtml(require('../icons/gift.svg')),
+        this.updateIcon = require('../icons/gift.svg')
 
         this.hotkeys.matchedHotkey.subscribe((hotkey: string) => {
             if (hotkey.startsWith('tab-')) {
@@ -237,6 +237,10 @@ export class AppRootComponent {
         if (button.submenu) {
             button.submenuItems = await button.submenu()
         }
+    }
+
+    sanitizeIcon (icon: string): any {
+        return this.domSanitizer.bypassSecurityTrustHtml(icon || '')
     }
 
     private getToolbarButtons (aboveZero: boolean): ToolbarButton[] {

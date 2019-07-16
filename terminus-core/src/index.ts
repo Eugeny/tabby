@@ -69,7 +69,7 @@ const PROVIDERS = [
         DndModule.forRoot(),
     ],
     declarations: [
-        AppRootComponent,
+        AppRootComponent as any,
         CheckboxComponent,
         StartPageComponent,
         TabBodyComponent,

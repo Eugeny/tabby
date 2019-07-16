@@ -1,5 +1,6 @@
 language: node_js
 node_js: 11
+osx_image: xcode11
 
 stages:
   - Build
@@ -9,6 +10,7 @@ stages:
 jobs:
   include:
     - stage: 'Build'
+      if: branch = xxx
       os: linux
       before_install:
         - set -e
@@ -16,6 +18,7 @@ jobs:
         - yarn
       script:
         - set -e
+        - python -c "import fcntl; fcntl.fcntl(1, fcntl.F_SETFL, 0)" # https://github.com/travis-ci/travis-ci/issues/8920
         - scripts/build-native.js
         - yarn run build:typings
         - yarn run build

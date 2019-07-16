@@ -13,6 +13,11 @@ import { ResizeEvent } from './interfaces'
 import { TerminalDecorator } from './decorator'
 import { TerminalContextMenuItemProvider } from './contextMenuProvider'
 
+
+/** @hidden */
+export interface IToastrService {
+    info (_: string)
+}
 /**
  * A class to base your custom terminal tabs on
  */
@@ -75,7 +80,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
         protected sessions: SessionsService,
         protected electron: ElectronService,
         protected terminalContainersService: TerminalFrontendService,
-        protected toastr: ToastrService,
+        @Inject(ToastrService) protected toastr: IToastrService,
         protected log: LogService,
         @Optional() @Inject(TerminalDecorator) protected decorators: TerminalDecorator[],
         @Optional() @Inject(TerminalContextMenuItemProvider) protected contextMenuProviders: TerminalContextMenuItemProvider[],
@@ -169,15 +174,17 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
             this.session.releaseInitialDataBuffer()
         })
 
-        this.frontend.configure()
-
-        if (this.hasFocus) {
-            this.frontend.attach(this.content.nativeElement)
-        } else {
-            this.focused$.pipe(first()).subscribe(() => {
+        setImmediate(() => {
+            if (this.hasFocus) {
                 this.frontend.attach(this.content.nativeElement)
-            })
-        }
+                this.frontend.configure()
+            } else {
+                this.focused$.pipe(first()).subscribe(() => {
+                    this.frontend.attach(this.content.nativeElement)
+                    this.frontend.configure()
+                })
+            }
+        })
 
         this.attachTermContainerHandlers()
 
@@ -367,14 +374,8 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
                     } else {
                         wheelDeltaY = (event as MouseWheelEvent)['deltaY']
                     }
-                    if (event.ctrlKey || event.metaKey) {
 
-                        if (wheelDeltaY > 0) {
-                            this.zoomIn()
-                        } else {
-                            this.zoomOut()
-                        }
-                    } else if (event.altKey) {
+                    if (event.altKey) {
                         event.preventDefault()
                         const delta = Math.round(wheelDeltaY / 50)
                         this.sendInput((delta > 0 ? '\u001bOA' : '\u001bOB').repeat(Math.abs(delta)))

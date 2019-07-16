@@ -1,4 +1,5 @@
 import { Component, Inject } from '@angular/core'
+import { DomSanitizer } from '@angular/platform-browser'
 import { ConfigService } from '../services/config.service'
 import { HomeBaseService } from '../services/homeBase.service'
 import { ToolbarButton, ToolbarButtonProvider } from '../api'
@@ -14,6 +15,7 @@ export class StartPageComponent {
 
     constructor (
         private config: ConfigService,
+        private domSanitizer: DomSanitizer,
         public homeBase: HomeBaseService,
         @Inject(ToolbarButtonProvider) private toolbarButtonProviders: ToolbarButtonProvider[],
     ) {
@@ -25,5 +27,9 @@ export class StartPageComponent {
             .reduce((a, b) => a.concat(b))
             .filter(x => !!x.click)
             .sort((a: ToolbarButton, b: ToolbarButton) => (a.weight || 0) - (b.weight || 0))
+    }
+
+    sanitizeIcon (icon: string): any {
+        return this.domSanitizer.bypassSecurityTrustHtml(icon || '')
     }
 }

@@ -1,66 +1,71 @@
 trigger:
-- master
+  tags:
+    include:
+    - v*
+  branches:
+    include:
+    - master
 
 variables:
 - group: Vars
 
 jobs:
-- job: Windows
-  pool:
-    vmImage: 'vs2017-win2016'
+# - job: Windows
+#   pool:
+#     vmImage: 'vs2017-win2016'
 
-  steps:
-  - task: NodeTool@0
-    inputs:
-      versionSpec: '10.x'
-    displayName: 'Install Node.js'
+#   steps:
+#   - task: NodeTool@0
+#     inputs:
+#       versionSpec: '10.x'
+#     displayName: 'Install Node.js'
 
-  - script: yarn --network-timeout 100000
-    displayName: 'Install dependencies'
+#   - script: yarn --network-timeout 100000
+#     displayName: 'Install dependencies'
 
-  - script: node scripts/build-native.js
-    displayName: 'Rebuild native dependencies'
+#   - script: node scripts/build-native.js
+#     displayName: 'Rebuild native dependencies'
 
-  - script: yarn run build
-    displayName: 'Build'
+#   - script: yarn run build
+#     displayName: 'Build'
 
-  - script: node scripts/prepackage-plugins.js
-    displayName: 'Prepackage plugins'
+#   - script: node scripts/prepackage-plugins.js
+#     displayName: 'Prepackage plugins'
 
-  - script: node scripts/build-windows.js
-    displayName: 'Package'
-    env:
-      WIN_CSC_LINK: $(WIN_CSC_LINK)
-      WIN_CSC_KEY_PASSWORD: $(WIN_CSC_KEY_PASSWORD)
-      BT_TOKEN: $(BT_TOKEN)
-      GH_TOKEN: $(GH_TOKEN)
-      DEBUG: electron-builder
+#   - script: node scripts/build-windows.js
+#     displayName: 'Package'
+#     env:
+#       WIN_CSC_LINK: $(WIN_CSC_LINK)
+#       WIN_CSC_KEY_PASSWORD: $(WIN_CSC_KEY_PASSWORD)
+#       BT_TOKEN: $(BT_TOKEN)
+#       GH_TOKEN: $(GH_TOKEN)
+#       DEBUG: electron-builder
 
-  - task: CopyFiles@2
-    inputs:
-      contents: 'dist\\*-setup.exe'
-      targetFolder: $(Build.ArtifactStagingDirectory)
-      flattenFolders: true
-      cleanTargetFolder: true
+#   - task: CopyFiles@2
+#     inputs:
+#       contents: 'dist\\*-setup.exe'
+#       targetFolder: $(Build.ArtifactStagingDirectory)
+#       flattenFolders: true
+#       cleanTargetFolder: true
 
-  - task: PublishBuildArtifacts@1
-    inputs:
-      pathtoPublish: $(Build.ArtifactStagingDirectory)
-      artifactName: Windows - Installer
-      condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
+#   - task: PublishBuildArtifacts@1
+#     inputs:
+#       pathtoPublish: $(Build.ArtifactStagingDirectory)
+#       artifactName: Windows - Installer
+#       condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
 
-  - task: CopyFiles@2
-    inputs:
-      contents: 'dist\\*-portable.exe'
-      targetFolder: $(Build.ArtifactStagingDirectory)
-      flattenFolders: true
-      cleanTargetFolder: true
+#   - task: CopyFiles@2
+#     inputs:
+#       contents: 'dist\\*-portable.exe'
+#       targetFolder: $(Build.ArtifactStagingDirectory)
+#       flattenFolders: true
+#       cleanTargetFolder: true
 
-  - task: PublishBuildArtifacts@1
-    inputs:
-      pathtoPublish: $(Build.ArtifactStagingDirectory)
-      artifactName: Windows - Portable build
-      condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
+#   - task: PublishBuildArtifacts@1
+#     inputs:
+#       pathtoPublish: $(Build.ArtifactStagingDirectory)
+#       artifactName: Windows - Portable build
+#       condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
 
 - job: Linux
   pool:
@@ -142,61 +147,61 @@ jobs:
       artifactName: Linux - tar.gz
       condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
 
-- job: macOS
-  pool:
-    vmImage: 'macOS-10.14'
+# - job: macOS
+#   pool:
+#     vmImage: 'macOS-10.14'
 
-  steps:
-  - task: NodeTool@0
-    inputs:
-      versionSpec: '10.x'
-    displayName: 'Install Node.js'
+#   steps:
+#   - task: NodeTool@0
+#     inputs:
+#       versionSpec: '10.x'
+#     displayName: 'Install Node.js'
 
-  - script: yarn
-    displayName: 'Install dependencies'
+#   - script: yarn
+#     displayName: 'Install dependencies'
 
-  - script: node scripts/build-native.js
-    displayName: 'Rebuild native dependencies'
+#   - script: node scripts/build-native.js
+#     displayName: 'Rebuild native dependencies'
 
-  - script: yarn run build
-    displayName: 'Build'
+#   - script: yarn run build
+#     displayName: 'Build'
 
-  - script: node scripts/prepackage-plugins.js
-    displayName: 'Prepackage plugins'
+#   - script: node scripts/prepackage-plugins.js
+#     displayName: 'Prepackage plugins'
 
-  - script: node scripts/build-macos.js
-    displayName: 'Package'
-    env:
-      CSC_LINK: $(CSC_LINK)
-      CSC_KEY_PASSWORD: $(CSC_KEY_PASSWORD)
-      BT_TOKEN: $(BT_TOKEN)
-      GH_TOKEN: $(GH_TOKEN)
-      APPSTORE_USERNAME: $(APPSTORE_USERNAME)
-      APPSTORE_PASSWORD: $(APPSTORE_PASSWORD)
-      DEBUG: electron-builder
+#   - script: node scripts/build-macos.js
+#     displayName: 'Package'
+#     env:
+#       CSC_LINK: $(CSC_LINK)
+#       CSC_KEY_PASSWORD: $(CSC_KEY_PASSWORD)
+#       BT_TOKEN: $(BT_TOKEN)
+#       GH_TOKEN: $(GH_TOKEN)
+#       APPSTORE_USERNAME: $(APPSTORE_USERNAME)
+#       APPSTORE_PASSWORD: $(APPSTORE_PASSWORD)
+#       DEBUG: electron-builder
 
-  - task: CopyFiles@2
-    inputs:
-      contents: 'dist/*.dmg'
-      targetFolder: $(Build.ArtifactStagingDirectory)
-      flattenFolders: true
-      cleanTargetFolder: true
+#   - task: CopyFiles@2
+#     inputs:
+#       contents: 'dist/*.dmg'
+#       targetFolder: $(Build.ArtifactStagingDirectory)
+#       flattenFolders: true
+#       cleanTargetFolder: true
 
-  - task: PublishBuildArtifacts@1
-    inputs:
-      pathtoPublish: $(Build.ArtifactStagingDirectory)
-      artifactName: macOS - DMG
-      condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
+#   - task: PublishBuildArtifacts@1
+#     inputs:
+#       pathtoPublish: $(Build.ArtifactStagingDirectory)
+#       artifactName: macOS - DMG
+#       condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
 
-  - task: CopyFiles@2
-    inputs:
-      contents: 'dist/*.zip'
-      targetFolder: $(Build.ArtifactStagingDirectory)
-      flattenFolders: true
-      cleanTargetFolder: true
+#   - task: CopyFiles@2
+#     inputs:
+#       contents: 'dist/*.zip'
+#       targetFolder: $(Build.ArtifactStagingDirectory)
+#       flattenFolders: true
+#       cleanTargetFolder: true
 
-  - task: PublishBuildArtifacts@1
-    inputs:
-      pathtoPublish: $(Build.ArtifactStagingDirectory)
-      artifactName: macOS - app.zip
-      condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
+#   - task: PublishBuildArtifacts@1
+#     inputs:
+#       pathtoPublish: $(Build.ArtifactStagingDirectory)
+#       artifactName: macOS - app.zip
+#       condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')

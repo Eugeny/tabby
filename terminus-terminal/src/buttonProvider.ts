@@ -1,6 +1,5 @@
 import * as fs from 'mz/fs'
 import { Injectable } from '@angular/core'
-import { DomSanitizer } from '@angular/platform-browser'
 import { ToolbarButtonProvider, ToolbarButton, ElectronService } from 'terminus-core'
 
 import { TerminalService } from './services/terminal.service'
@@ -11,7 +10,6 @@ export class ButtonProvider extends ToolbarButtonProvider {
     constructor (
         electron: ElectronService,
         private terminal: TerminalService,
-        private domSanitizer: DomSanitizer,
     ) {
         super()
         if (!electron.remote.process.env.TERMINUS_DEV) {
@@ -31,7 +29,7 @@ export class ButtonProvider extends ToolbarButtonProvider {
     provide (): ToolbarButton[] {
         return [
             {
-                icon: this.domSanitizer.bypassSecurityTrustHtml(require('./icons/plus.svg')),
+                icon: require('./icons/plus.svg'),
                 title: 'New terminal',
                 touchBarNSImage: 'NSTouchBarAddDetailTemplate',
                 click: async () => {
@@ -39,7 +37,7 @@ export class ButtonProvider extends ToolbarButtonProvider {
                 },
             },
             {
-                icon: this.domSanitizer.bypassSecurityTrustHtml(require('./icons/profiles.svg')),
+                icon: require('./icons/profiles.svg'),
                 title: 'New terminal with profile',
                 submenu: async () => {
                     const profiles = await this.terminal.getProfiles()

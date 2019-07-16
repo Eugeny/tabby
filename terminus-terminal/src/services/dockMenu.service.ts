@@ -7,7 +7,7 @@ import { TerminalService } from './terminal.service'
 export class DockMenuService {
     appVersion: string
 
-    constructor (
+    private constructor (
         private electron: ElectronService,
         private config: ConfigService,
         private hostApp: HostAppService,

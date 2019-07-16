@@ -1,6 +1,5 @@
 import * as path from 'path'
 import { Injectable } from '@angular/core'
-import { DomSanitizer } from '@angular/platform-browser'
 import { HostAppService, Platform } from 'terminus-core'
 
 import { ShellProvider } from '../api/shellProvider'
@@ -16,7 +15,6 @@ try {
 @Injectable()
 export class GitBashShellProvider extends ShellProvider {
     constructor (
-        private domSanitizer: DomSanitizer,
         private hostApp: HostAppService,
     ) {
         super()
@@ -42,7 +40,7 @@ export class GitBashShellProvider extends ShellProvider {
             name: 'Git-Bash',
             command: path.join(gitBashPath, 'bin', 'bash.exe'),
             args: ['--login', '-i'],
-            icon: this.domSanitizer.bypassSecurityTrustHtml(require('../icons/git-bash.svg')),
+            icon: require('../icons/git-bash.svg'),
             env: {
                 TERM: 'cygwin',
             },

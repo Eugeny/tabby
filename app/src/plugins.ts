@@ -87,6 +87,14 @@ const originalRequire = (global as any).require
     return originalRequire.apply(this, arguments)
 }
 
+const originalModuleRequire = nodeModule.prototype.require
+nodeModule.prototype.require = function (query: string) {
+    if (cachedBuiltinModules[query]) {
+        return cachedBuiltinModules[query]
+    }
+    return originalModuleRequire.call(this, query)
+}
+
 export async function findPlugins (): Promise<PluginInfo[]> {
     const paths = nodeModule.globalPaths
     let foundPlugins: PluginInfo[] = []
@@ -168,6 +176,7 @@ export async function loadPlugins (foundPlugins: PluginInfo[], progress: Progres
             pluginModule['bootstrap'] = packageModule.bootstrap
             plugins.push(pluginModule)
             console.timeEnd(label)
+            await (new Promise(x => setTimeout(x, 50)))
         } catch (error) {
             console.error(`Could not load ${foundPlugin.name}:`, error)
         }

@@ -1,6 +1,6 @@
 {
   "name": "terminus-core",
-  "version": "1.0.73-c4-ga7d62b0",
+  "version": "1.0.83-nightly.4",
   "description": "Terminus core",
   "keywords": [
     "terminus-builtin-plugin"
@@ -12,15 +12,13 @@
     "watch": "webpack --progress --color --watch"
   },
   "files": [
-    "dist"
+    "typings"
   ],
   "author": "Eugene Pankov",
   "license": "MIT",
   "devDependencies": {
     "@types/js-yaml": "^3.9.0",
-    "@types/node": "^12.0.2",
     "@types/shell-escape": "^0.2.0",
-    "@types/webpack-env": "^1.13.0",
     "@types/winston": "^2.3.6",
     "axios": "^0.19.0",
     "bootstrap": "^4.1.3",
@@ -35,17 +33,13 @@
     "uuid": "^3.3.2",
     "winston": "^3.2.1"
   },
-  "optionalDependencies": {
-    "windows-native-registry": "^1.0.14"
-  },
   "peerDependencies": {
-    "@angular/animations": "4.0.1",
-    "@angular/common": "4.0.1",
-    "@angular/core": "4.0.1",
-    "@angular/forms": "4.0.1",
-    "@angular/platform-browser": "4.0.1",
-    "@angular/platform-browser-dynamic": "4.0.1",
-    "rxjs": "5.3.0",
-    "zone.js": "0.8.4"
+    "@angular/animations": "^7",
+    "@angular/common": "^7",
+    "@angular/core": "^7",
+    "@angular/forms": "^7",
+    "@angular/platform-browser": "^7",
+    "@angular/platform-browser-dynamic": "^7",
+    "rxjs": "^5"
   }
 }

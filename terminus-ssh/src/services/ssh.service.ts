@@ -11,16 +11,15 @@ import { SSHTabComponent } from '../components/sshTab.component'
 import { PasswordStorageService } from './passwordStorage.service'
 import { SSH2Stream } from 'ssh2-streams'
 
-/* eslint-disable block-scoped-var */
 try {
-    var windowsProcessTree = require('windows-process-tree/build/Release/windows_process_tree.node') // eslint-disable-line @typescript-eslint/no-var-requires
-} catch (_) { }
+    var windowsProcessTreeNative = require('@terminus-term/windows-process-tree/build/Release/windows_process_tree.node') // eslint-disable-line @typescript-eslint/no-var-requires
+} catch { }
 
 @Injectable({ providedIn: 'root' })
 export class SSHService {
     private logger: Logger
 
-    constructor (
+    private constructor (
         log: LogService,
         private app: AppService,
         private zone: NgZone,
@@ -139,7 +138,7 @@ export class SSHService {
             let agent: string = null
             if (this.hostApp.platform === Platform.Windows) {
                 const pageantRunning = new Promise<boolean>(resolve => {
-                    windowsProcessTree.getProcessList(list => {
+                    windowsProcessTreeNative.getProcessList(list => {
                         resolve(list.some(x => x.name === 'pageant.exe'))
                     }, 0)
                 })

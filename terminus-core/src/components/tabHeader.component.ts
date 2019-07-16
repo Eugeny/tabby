@@ -10,6 +10,11 @@ import { AppService } from '../services/app.service'
 import { HostAppService, Platform } from '../services/hostApp.service'
 
 /** @hidden */
+export interface ISortableComponent {
+    setDragHandle (_: HTMLElement)
+}
+
+/** @hidden */
 @Component({
     selector: 'tab-header',
     template: require('./tabHeader.component.pug'),
@@ -23,13 +28,13 @@ export class TabHeaderComponent {
     @Input() progress: number
     @ViewChild('handle') handle: ElementRef
 
-    constructor (
+    private constructor (
         public app: AppService,
         private electron: ElectronService,
         private hostApp: HostAppService,
         private ngbModal: NgbModal,
         private hotkeys: HotkeysService,
-        private parentDraggable: SortableComponent,
+        @Inject(SortableComponent) private parentDraggable: ISortableComponent,
         @Optional() @Inject(TabContextMenuItemProvider) protected contextMenuProviders: TabContextMenuItemProvider[],
     ) {
         this.hotkeys.matchedHotkey.subscribe((hotkey) => {

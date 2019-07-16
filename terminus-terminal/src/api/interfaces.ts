@@ -1,5 +1,3 @@
-import { SafeHtml } from '@angular/platform-browser'
-
 export interface ResizeEvent {
     columns: number
     rows: number
@@ -21,7 +19,7 @@ export interface Profile {
     name: string,
     sessionOptions: SessionOptions,
     isBuiltin?: boolean
-    icon?: SafeHtml
+    icon?: string
 }
 
 export interface TerminalColorScheme {
@@ -48,7 +46,7 @@ export interface Shell {
     /**
      * SVG icon
      */
-    icon?: SafeHtml
+    icon?: string
 
     hidden?: boolean
 }

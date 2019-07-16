@@ -1,5 +1,3 @@
-import { SafeHtml } from '@angular/platform-browser'
-
 /**
  * See [[ToolbarButtonProvider]]
  */
@@ -7,7 +5,7 @@ export interface ToolbarButton {
     /**
      * Raw SVG icon code
      */
-    icon: SafeHtml
+    icon: string
 
     title: string
 

@@ -33,53 +33,53 @@ title-bar(
 
         .btn-group.background
             .d-flex(
-                *ngFor='let button of leftToolbarButtons', 
+                *ngFor='let button of leftToolbarButtons',
                 ngbDropdown,
                 (openChange)='generateButtonSubmenu(button)',
             )
                 button.btn.btn-secondary.btn-tab-bar(
                     [title]='button.title',
                     (click)='button.click && button.click()',
-                    [innerHTML]='button.icon',
+                    [innerHTML]='sanitizeIcon(button.icon)',
                     ngbDropdownToggle,
                 )
                 div(*ngIf='button.submenu', ngbDropdownMenu)
                     button.dropdown-item.d-flex.align-items-center(
-                        *ngFor='let item of button.submenuItems', 
+                        *ngFor='let item of button.submenuItems',
                         (click)='item.click()',
                         ngbDropdownItem,
-                    ) 
-                        .icon-wrapper([innerHTML]='item.icon')
+                    )
+                        .icon-wrapper([innerHTML]='sanitizeIcon(item.icon)')
                         .ml-3 {{item.title}}
 
         .drag-space.background([class.persistent]='config.store.appearance.frame == "thin" && hostApp.platform != Platform.macOS')
 
         .btn-group.background
             .d-flex(
-                *ngFor='let button of rightToolbarButtons', 
+                *ngFor='let button of rightToolbarButtons',
                 ngbDropdown,
                 (openChange)='generateButtonSubmenu(button)',
             )
                 button.btn.btn-secondary.btn-tab-bar(
                     [title]='button.title',
                     (click)='button.click && button.click()',
-                    [innerHTML]='button.icon',
+                    [innerHTML]='sanitizeIcon(button.icon)',
                     ngbDropdownToggle,
                 )
                 div(*ngIf='button.submenu', ngbDropdownMenu)
                     button.dropdown-item.d-flex.align-items-center(
-                        *ngFor='let item of button.submenuItems', 
+                        *ngFor='let item of button.submenuItems',
                         (click)='item.click()',
                         ngbDropdownItem,
-                    ) 
-                        .icon-wrapper([innerHTML]='item.icon')
+                    )
+                        .icon-wrapper([innerHTML]='sanitizeIcon(item.icon)')
                         .ml-3 {{item.title}}
 
             button.btn.btn-secondary.btn-tab-bar.btn-update(
                 *ngIf='updatesAvailable',
                 title='Update available',
                 (click)='updateApp()',
-                [innerHTML]='updateIcon'
+                [innerHTML]='sanitizeIcon(updateIcon)'
             )
 
         window-controls.background(

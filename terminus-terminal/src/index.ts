@@ -106,7 +106,7 @@ import { XTermFrontend, XTermWebGLFrontend } from './frontends/xtermFrontend'
         ShellSettingsTabComponent,
         TerminalSettingsTabComponent,
         EditProfileModalComponent,
-    ],
+    ] as any[],
     declarations: [
         ColorPickerComponent,
         TerminalTabComponent,
@@ -116,7 +116,7 @@ import { XTermFrontend, XTermWebGLFrontend } from './frontends/xtermFrontend'
         EditProfileModalComponent,
         EnvironmentEditorComponent,
         SearchPanelComponent,
-    ],
+    ] as any[],
     exports: [
         ColorPickerComponent,
         EnvironmentEditorComponent,

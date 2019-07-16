@@ -1,7 +1,7 @@
 appearance:
   dock: off
   dockScreen: current
-  dockFill: 50
+  dockFill: 0.5
   tabsLocation: top
   cycleTabs: true
   theme: Standard

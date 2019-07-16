@@ -1,6 +1,6 @@
 .input-group.w-100
     input.search-input.form-control(
-        type='search', 
+        type='search',
         [(ngModel)]='query',
         (ngModelChange)='notFound = false',
         [class.text-danger]='notFound',
@@ -15,20 +15,20 @@
                 (click)='options.caseSensitive = !options.caseSensitive',
                 [class.active]='options.caseSensitive',
                 ngbTooltip='Case sensitivity',
-                placement='bottom' 
+                placement='bottom'
             )
                 i.fa.fa-fw.fa-font
             button.btn.btn-outline-primary(
                 (click)='options.regex = !options.regex',
                 [class.active]='options.regex',
                 ngbTooltip='Regular expression',
-                placement='bottom' 
+                placement='bottom'
             )
                 i.fa.fa-fw.fa-asterisk
             button.btn.btn-outline-primary(
                 (click)='options.wholeWord = !options.wholeWord',
                 [class.active]='options.wholeWord',
                 ngbTooltip='Whole word',
-                placement='bottom' 
+                placement='bottom'
             )
-                i.fa.fa-fw.fa-square
+                i.fa.fa-fw.fa-text-width

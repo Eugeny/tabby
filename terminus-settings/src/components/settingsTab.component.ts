@@ -1,7 +1,7 @@
 import * as yaml from 'js-yaml'
 import * as os from 'os'
 import { Subscription } from 'rxjs'
-import { Component, Inject, Input, HostBinding } from '@angular/core'
+import { Component, Inject, Input, HostBinding, NgZone } from '@angular/core'
 import {
     ElectronService,
     DockingService,
@@ -47,6 +47,7 @@ export class SettingsTabComponent extends BaseTabComponent {
         public hostApp: HostAppService,
         public homeBase: HomeBaseService,
         public shellIntegration: ShellIntegrationService,
+        public zone: NgZone,
         hotkeys: HotkeysService,
         @Inject(SettingsTabProvider) public settingsProviders: SettingsTabProvider[],
         @Inject(Theme) public themes: Theme[],
@@ -67,6 +68,14 @@ export class SettingsTabComponent extends BaseTabComponent {
 
         this.configSubscription = config.changed$.subscribe(onConfigChange)
         onConfigChange()
+
+        const onScreenChange = () => {
+            this.zone.run(() => this.screens = this.docking.getScreens());
+        }
+
+        electron.screen.on('display-added', onScreenChange);
+        electron.screen.on('display-removed', onScreenChange);
+        electron.screen.on('display-metrics-changed', onScreenChange);
 
         hotkeys.getHotkeyDescriptions().then(descriptions => {
             this.hotkeyDescriptions = descriptions

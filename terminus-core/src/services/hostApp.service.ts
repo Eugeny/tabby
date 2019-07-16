@@ -87,8 +87,7 @@ export class HostAppService {
 
     get displayMetricsChanged$ (): Observable<void> { return this.displayMetricsChanged }
 
-    /** @hidden */
-    constructor (
+    private constructor (
         private zone: NgZone,
         private electron: ElectronService,
         log: LogService,
