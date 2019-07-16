@@ -85,7 +85,9 @@ export class XTermFrontend extends Frontend {
 
         this.resizeHandler = () => {
             try {
-                this.fitAddon.fit()
+                if (getComputedStyle(this.xtermCore.element).getPropertyValue('height') !== 'auto') {
+                    this.fitAddon.fit()
+                }
             } catch (e) {
                 // tends to throw when element wasn't shown yet
                 console.warn('Could not resize xterm', e)
