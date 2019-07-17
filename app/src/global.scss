@@ -16,6 +16,12 @@ body {
     display: none;
 }
 
+.btn {
+    & > svg {
+        pointer-events: none;
+    }
+}
+
 .form-line {
     display: flex;
     border-top: 1px solid rgba(0, 0, 0, 0.2);
