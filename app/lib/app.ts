@@ -58,7 +58,7 @@ export class Application {
         if (!this.hasWindows()) {
             await this.newWindow()
         }
-        this.windows[0].send(event, ...args)
+        this.windows.filter(w => !w.isDestroyed())[0].send(event, ...args)
     }
 
     enableTray () {
