@@ -47,7 +47,7 @@
     "tslib": "^1.10.0",
     "typedoc": "^0.14.2",
     "typescript": "^3.5.3",
-    "url-loader": "^2.0.0",
+    "url-loader": "^2.1.0",
     "val-loader": "1.1.1",
     "webpack": "^4.35.2",
     "webpack-cli": "^3.3.6",
