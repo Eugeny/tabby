@@ -10,22 +10,6 @@ stages:
 jobs:
   include:
     - stage: 'Build'
-      if: branch = xxx
-      os: linux
-      before_install:
-        - set -e
-        - rm app/node_modules/.yarn-integrity || true
-        - yarn
-      script:
-        - set -e
-        - python -c "import fcntl; fcntl.fcntl(1, fcntl.F_SETFL, 0)" # https://github.com/travis-ci/travis-ci/issues/8920
-        - scripts/build-native.js
-        - yarn run build:typings
-        - yarn run build
-        - scripts/prepackage-plugins.js
-        - travis_wait scripts/build-linux.js
-
-    - stage: 'Build'
       os: osx
       before_install:
         - set -e
@@ -69,7 +53,5 @@ addons:
 
 cache:
   directories:
-  - 'terminus-*/node_modules'
-  - $HOME/.cache/yarn
   - $HOME/.cache/electron
   - $HOME/.cache/electron-builder
