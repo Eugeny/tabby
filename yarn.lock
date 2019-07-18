@@ -4237,10 +4237,10 @@ node-gyp@^4.0.0:
     tar "^4.4.8"
     which "1"
 
-node-gyp@^5.0.2:
-  version "5.0.2"
-  resolved "https://registry.yarnpkg.com/node-gyp/-/node-gyp-5.0.2.tgz#422f7b7550d2c37952ac184e2a5a2d9fe49a8b77"
-  integrity sha512-sNcb5O7eJ9XiNAhWZ/UE2bWsBJn3Jb7rayMqMP4wjenlr1DwzZxUmbtmIrl04EU0p5fN2rU9WIDV+u0EbsI8oQ==
+node-gyp@^5.0.3:
+  version "5.0.3"
+  resolved "https://registry.yarnpkg.com/node-gyp/-/node-gyp-5.0.3.tgz#80d64c23790244991b6d44532f0a351bedd3dd45"
+  integrity sha512-z/JdtkFGUm0QaQUusvloyYuGDub3nUbOo5de1Fz57cM++osBTvQatBUSTlF1k/w8vFHPxxXW6zxGvkxXSpaBkQ==
   dependencies:
     env-paths "^1.0.0"
     glob "^7.0.3"
