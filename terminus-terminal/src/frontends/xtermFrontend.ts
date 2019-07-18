@@ -86,7 +86,6 @@ export class XTermFrontend extends Frontend {
         this.resizeHandler = () => {
             try {
                 if (this.xtermCore.element && getComputedStyle(this.xtermCore.element).getPropertyValue('height') !== 'auto') {
-
                     let t = window.getComputedStyle(this.xtermCore.element.parentElement)
                     let r = parseInt(t.getPropertyValue("height"))
                     let n = Math.max(0, parseInt(t.getPropertyValue("width")))
