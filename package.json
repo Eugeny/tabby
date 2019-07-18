@@ -98,6 +98,7 @@
       "artifactName": "terminus-${version}-macos.${ext}",
       "hardenedRuntime": true,
       "entitlements": "./build/mac/entitlements.plist",
+      "entitlementsInherit": "./build/mac/entitlements.plist",
       "extendInfo": {
         "NSRequiresAquaSystemAppearance": false
       }
