@@ -97,7 +97,6 @@ export class XTermFrontend extends Frontend {
                     let cols = Math.floor(l / actualCellWidth)
                     let rows = Math.floor(i / actualCellHeight);
 
-                    console.log("resizing to: ", cols, rows);
                     this.xterm.resize(cols, rows);
                 }
             } catch (e) {
