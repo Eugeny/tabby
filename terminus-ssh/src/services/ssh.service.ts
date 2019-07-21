@@ -132,7 +132,7 @@ export class SSHService {
             })
 
             ssh.on('banner', banner => {
-                log('Banner: ' + banner)
+                log('Banner: \n' + banner)
             })
 
             let agent: string = null
