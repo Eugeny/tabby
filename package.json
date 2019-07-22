@@ -142,6 +142,6 @@
   },
   "repository": "eugeny/terminus",
   "dependencies": {
-    "eslint-plugin-import": "^2.18.0"
+    "eslint-plugin-import": "^2.18.2"
   }
 }
