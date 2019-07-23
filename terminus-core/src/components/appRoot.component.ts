@@ -128,9 +128,8 @@ export class AppRootComponent {
         })
 
         this.hostApp.windowCloseRequest$.subscribe(async () => {
-            await this.app.closeAllTabs()
-            this.hostApp.closeWindow()
-        })
+            await this.app.closeAllTabs() && this.hostApp.closeWindow();
+        });
 
         if (window['safeModeReason']) {
             ngbModal.open(SafeModeModalComponent)
