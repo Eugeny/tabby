@@ -238,6 +238,12 @@ ngb-tabset.vertical(type='pills', [activeId]='activeTab')
 
             .form-line
                 .header
+                    .title Automatic Updates
+                    .description Enable automatic installation of updates when they become available.
+                toggle([(ngModel)]='config.store.enableAutomaticUpdates', (ngModelChange)='config.save()')
+
+            .form-line
+                .header
                     .title Custom CSS
                 textarea.form-control(
                     [(ngModel)]='config.store.appearance.css',
