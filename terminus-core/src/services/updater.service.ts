@@ -28,7 +28,6 @@ export class UpdaterService {
 
         this.autoUpdater = electron.remote.require('electron-updater').autoUpdater
 
-        this.autoUpdater.autoDownload = !!config.store.enableAutomaticUpdates;
         this.autoUpdater.autoInstallOnAppQuit = !!config.store.enableAutomaticUpdates;
 
         this.autoUpdater.on('update-available', () => {
