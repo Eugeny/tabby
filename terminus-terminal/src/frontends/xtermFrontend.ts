@@ -85,7 +85,7 @@ export class XTermFrontend extends Frontend {
 
         this.resizeHandler = () => {
             try {
-                if (getComputedStyle(this.xtermCore.element).getPropertyValue('height') !== 'auto') {
+                if (this.xtermCore.element && getComputedStyle(this.xtermCore.element).getPropertyValue('height') !== 'auto') {
                     this.fitAddon.fit()
                 }
             } catch (e) {

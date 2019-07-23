@@ -162,6 +162,24 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "hammster",
+      "name": "Hans Koch",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/1093709?v=4",
+      "profile": "https://hans-koch.me",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "ThePuzzlemaker",
+      "name": "Dak Smyth",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/12666617?v=4",
+      "profile": "http://thepuzzlemaker.info",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,

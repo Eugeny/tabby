@@ -72,7 +72,7 @@ export class Application {
             this.tray = new Tray(`${app.getAppPath()}/assets/tray.png`)
         }
 
-        this.tray.on('click', () => this.focus())
+        this.tray.on('click', () => setTimeout(() => this.focus()));
 
         const contextMenu = Menu.buildFromTemplate([{
             label: 'Show',
@@ -100,7 +100,6 @@ export class Application {
     focus () {
         for (let window of this.windows) {
             window.show()
-            window.focus()
         }
     }
 
