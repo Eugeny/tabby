@@ -2,11 +2,12 @@ import axios from 'axios'
 import * as fs from 'fs'
 import os from 'os'
 
+import { spawn } from 'mz/child_process'
+
 import { Injectable } from '@angular/core'
 import { Logger, LogService } from './log.service'
 import { ElectronService } from './electron.service'
 import { ConfigService } from './config.service'
-import { child_process } from 'mz';
 
 const UPDATES_URL = 'https://api.github.com/repos/eugeny/terminus/releases/latest'
 
@@ -80,7 +81,7 @@ export class UpdaterService {
                     if (exists) {
                         fs.copyFile(downloadpath[0], os.tmpdir() + 'terminus-installer-temp.exe', (err) => {
                             if (!err) {
-                                child_process.spawn(os.tmpdir() + 'terminus-installer-temp.exe', ['--force-run'], {detached: true, stdio: 'ignore'});
+                                spawn(os.tmpdir() + 'terminus-installer-temp.exe', ['--force-run'], {detached: true, stdio: 'ignore'});
                             }
                         });
 
