@@ -32,6 +32,10 @@ rules:
   '@typescript-eslint/no-unnecessary-type-assertion': off
   '@typescript-eslint/require-array-sort-compare': off
   '@typescript-eslint/no-floating-promises': off
+  '@typescript-eslint/prefer-readonly': off
+  '@typescript-eslint/require-await': off
+  '@typescript-eslint/strict-boolean-expressions': off
+  '@typescript-eslint/no-misused-promises': off
   '@typescript-eslint/no-use-before-define':
   - error
   - classes: false
