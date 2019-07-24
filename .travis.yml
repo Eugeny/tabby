@@ -15,7 +15,9 @@ jobs:
         - set -e
         - yarn
         - rm app/node_modules/.yarn-integrity
-        - cd app && yarn && cd ..
+        - cd app
+        - yarn
+        - cd ..
       script:
         - set -e
         - scripts/build-native.js
