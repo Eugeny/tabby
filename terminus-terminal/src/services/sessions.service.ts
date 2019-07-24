@@ -18,7 +18,7 @@ try {
 } catch { }
 
 try {
-    var windowsProcessTree = require('@terminus-term/windows-process-tree')  // eslint-disable-line @typescript-eslint/no-var-requires
+    var windowsProcessTree = require('windows-process-tree')  // eslint-disable-line @typescript-eslint/no-var-requires
 } catch { }
 
 

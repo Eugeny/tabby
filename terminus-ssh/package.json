@@ -32,6 +32,6 @@
     "terminus-terminal": "*"
   },
   "optionalDependencies": {
-    "@terminus-term/windows-process-tree": "^0.2.4"
+    "windows-process-tree": "^0.2.4"
   }
 }

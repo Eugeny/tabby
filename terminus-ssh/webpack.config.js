@@ -49,7 +49,7 @@ module.exports = {
         'keytar',
         'path',
         'ngx-toastr',
-        '@terminus-term/windows-process-tree/build/Release/windows_process_tree.node',
+        'windows-process-tree/build/Release/windows_process_tree.node',
         /^rxjs/,
         /^@angular/,
         /^@ng-bootstrap/,
