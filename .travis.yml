@@ -14,7 +14,7 @@ jobs:
       before_install:
         - set -e
         - yarn
-        - rm app/node_modules/.yarn-integrity
+        - rm app/node_modules/.yarn-integrity || true
         - cd app
         - yarn
         - cd ..
