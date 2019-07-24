@@ -13,8 +13,9 @@ jobs:
       os: osx
       before_install:
         - set -e
-        - rm app/node_modules/.yarn-integrity || true
         - yarn
+        - rm app/node_modules/.yarn-integrity
+        - cd app && yarn && cd ..
       script:
         - set -e
         - scripts/build-native.js
