@@ -15,7 +15,7 @@ import { TerminalContextMenuItemProvider } from './contextMenuProvider'
 
 
 /** @hidden */
-export interface IToastrService {
+export interface ToastrServiceProxy {
     info (_: string)
 }
 /**
@@ -80,7 +80,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
         protected sessions: SessionsService,
         protected electron: ElectronService,
         protected terminalContainersService: TerminalFrontendService,
-        @Inject(ToastrService) protected toastr: IToastrService,
+        @Inject(ToastrService) protected toastr: ToastrServiceProxy,
         protected log: LogService,
         @Optional() @Inject(TerminalDecorator) protected decorators: TerminalDecorator[],
         @Optional() @Inject(TerminalContextMenuItemProvider) protected contextMenuProviders: TerminalContextMenuItemProvider[],

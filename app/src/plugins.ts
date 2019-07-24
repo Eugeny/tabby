@@ -176,7 +176,7 @@ export async function loadPlugins (foundPlugins: PluginInfo[], progress: Progres
             pluginModule['bootstrap'] = packageModule.bootstrap
             plugins.push(pluginModule)
             console.timeEnd(label)
-            await (new Promise(x => setTimeout(x, 50)))
+            await new Promise(x => setTimeout(x, 50))
         } catch (error) {
             console.error(`Could not load ${foundPlugin.name}:`, error)
         }

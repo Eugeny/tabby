@@ -71,8 +71,8 @@ export class ConfigProxy {
         }
     }
 
-    getValue (_key: string): any { }
-    setValue (_key: string, _value: any) { }
+    getValue (_key: string): any { } // eslint-disable-line @typescript-eslint/no-empty-function
+    setValue (_key: string, _value: any) { } // eslint-disable-line @typescript-eslint/no-empty-function
 }
 
 @Injectable({ providedIn: 'root' })

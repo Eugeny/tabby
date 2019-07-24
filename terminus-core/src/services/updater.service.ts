@@ -29,7 +29,7 @@ export class UpdaterService {
 
         this.autoUpdater = electron.remote.require('electron-updater').autoUpdater
 
-        this.autoUpdater.autoInstallOnAppQuit = !!config.store.enableAutomaticUpdates;
+        this.autoUpdater.autoInstallOnAppQuit = !!config.store.enableAutomaticUpdates
 
         this.autoUpdater.on('update-available', () => {
             this.logger.info('Update available')
@@ -76,20 +76,19 @@ export class UpdaterService {
             this.electron.shell.openExternal(this.updateURL)
         } else {
             if (process.platform === 'win32') {
-                let downloadpath = await this.autoUpdater.downloadUpdate();
+                let downloadpath = await this.autoUpdater.downloadUpdate()
                 fs.exists(downloadpath[0], (exists) => {
                     if (exists) {
                         fs.copyFile(downloadpath[0], os.tmpdir() + 'terminus-installer-temp.exe', (err) => {
                             if (!err) {
-                                spawn(os.tmpdir() + 'terminus-installer-temp.exe', ['--force-run'], {detached: true, stdio: 'ignore'});
+                                spawn(os.tmpdir() + 'terminus-installer-temp.exe', ['--force-run'], { detached: true, stdio: 'ignore' })
                             }
-                        });
-
+                        })
                     }
                 })
             } else {
-                await this.downloaded;
-                this.autoUpdater.quitAndInstall(false, true);
+                await this.downloaded
+                this.autoUpdater.quitAndInstall(false, true)
             }
         }
     }

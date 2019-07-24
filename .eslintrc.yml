@@ -31,6 +31,7 @@ rules:
   '@typescript-eslint/promise-function-async': off
   '@typescript-eslint/no-unnecessary-type-assertion': off
   '@typescript-eslint/require-array-sort-compare': off
+  '@typescript-eslint/no-floating-promises': off
   '@typescript-eslint/no-use-before-define':
   - error
   - classes: false
