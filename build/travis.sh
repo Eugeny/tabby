@@ -9,4 +9,4 @@ scripts/build-native.js
 yarn run build:typings
 yarn run build
 scripts/prepackage-plugins.js
-travis_wait scripts/build-macos.js
+scripts/build-macos.js
