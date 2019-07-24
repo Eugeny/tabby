@@ -11,7 +11,7 @@ jobs:
   include:
     - stage: 'Build'
       os: osx
-      script: ./build/travis.sh
+      script: travis_wait ./build/travis.sh
 
     - stage: 'Docs'
       os: linux
