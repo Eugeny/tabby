@@ -55,6 +55,16 @@ h3.mb-3 Shell
             button.btn.btn-secondary((click)='pickWorkingDirectory()')
                 i.fas.fa-folder-open
 
+.form-line
+    .header
+        .title Always Use Working Directory
+        .description By default, new terminals will open where the previous terminal was working. Enabling this option will always launch new terminals in the working directory specified above.
+
+    toggle(
+        [(ngModel)]='config.store.terminal.alwaysUseWorkingDirectory',
+        (ngModelChange)='config.save()'
+    )
+
 .form-line.align-items-start
     .header
         .title Environment
