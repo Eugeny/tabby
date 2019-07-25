@@ -35,9 +35,9 @@ export class NewTabContextMenu extends TerminalContextMenuItemProvider {
                 submenu: profiles.map(profile => ({
                     label: profile.name,
                     click: () => this.zone.run(async () => {
-                        const workingDirectory = this.config.store.terminal.alwaysUseWorkingDirectory ?
-                            this.config.store.terminal.workingDirectory : await tab.session.getWorkingDirectory();
-                        this.terminalService.openTab(profile, workingDirectory);
+                        const workingDirectory = this.config.store.terminal.alwaysUseWorkingDirectory === true ?
+                            this.config.store.terminal.workingDirectory : await tab.session.getWorkingDirectory()
+                        await this.terminalService.openTab(profile, workingDirectory)
                     }),
                 })),
             },
