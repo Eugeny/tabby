@@ -65,14 +65,16 @@ export class TerminalService {
         }
 
         if (!cwd) {
-            if (this.app.activeTab instanceof TerminalTabComponent && this.app.activeTab.session) {
-                cwd = await this.app.activeTab.session.getWorkingDirectory()
-            }
-            if (this.app.activeTab instanceof SplitTabComponent) {
-                const focusedTab = this.app.activeTab.getFocusedTab()
+            if (!this.config.store.terminal.alwaysUseWorkingDirectory) {
+                if (this.app.activeTab instanceof TerminalTabComponent && this.app.activeTab.session) {
+                    cwd = await this.app.activeTab.session.getWorkingDirectory()
+                }
+                if (this.app.activeTab instanceof SplitTabComponent) {
+                    const focusedTab = this.app.activeTab.getFocusedTab()
 
-                if (focusedTab instanceof TerminalTabComponent && focusedTab.session) {
-                    cwd = await focusedTab.session.getWorkingDirectory()
+                    if (focusedTab instanceof TerminalTabComponent && focusedTab.session) {
+                        cwd = await focusedTab.session.getWorkingDirectory()
+                    }
                 }
             }
             cwd = cwd || this.config.store.terminal.workingDirectory
