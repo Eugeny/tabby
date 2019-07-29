@@ -45,7 +45,7 @@
     "svg-inline-loader": "^0.8.0",
     "to-string-loader": "1.1.5",
     "tslib": "^1.10.0",
-    "typedoc": "^0.14.2",
+    "typedoc": "^0.15.0",
     "typescript": "^3.5.3",
     "url-loader": "^2.1.0",
     "val-loader": "1.1.1",
