@@ -15,7 +15,7 @@
     "core-js": "^3.1.4",
     "cross-env": "5.2.0",
     "css-loader": "3.1.0",
-    "electron": "^5.0.7",
+    "electron": "^6.0.0",
     "electron-builder": "^21.0.8",
     "electron-installer-snap": "^4.0.0",
     "electron-notarize": "^0.1.1",
