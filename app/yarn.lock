@@ -1467,10 +1467,10 @@ keyboardevents-areequal@^0.2.1:
   resolved "https://registry.yarnpkg.com/keyboardevents-areequal/-/keyboardevents-areequal-0.2.2.tgz#88191ec738ce9f7591c25e9056de928b40277194"
   integrity sha512-Nv+Kr33T0mEjxR500q+I6IWisOQ0lK1GGOncV0kWE6n4KFmpcu7RUX5/2B0EUtX51Cb0HjZ9VJsSY3u4cBa0kw==
 
-keytar@^4.12.0:
-  version "4.12.0"
-  resolved "https://registry.yarnpkg.com/keytar/-/keytar-4.12.0.tgz#ea12f56b47fb2f719940385a4e7ea2ddfcb82191"
-  integrity sha512-V+MY1cD/QheiAY+FZcnEzp1f6vVjOZAZ5kqosZYfe5upROlmY0iDXtTMsLrYiGo1CD8KMujoivai7eB+pK2wew==
+keytar@^4.13.0:
+  version "4.13.0"
+  resolved "https://registry.yarnpkg.com/keytar/-/keytar-4.13.0.tgz#f3484988e87e692958ce901a36c850422093def0"
+  integrity sha512-qdyZ3XDuv11ANDXJ+shsmc+j/h5BHPDSn33MwkUMDg2EA++xEBleNkghr3Jg95cqVx5WgDYD8V/m3Q0y7kwQ2w==
   dependencies:
     nan "2.14.0"
     prebuild-install "5.3.0"
