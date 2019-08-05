@@ -49,7 +49,7 @@
     "typescript": "^3.5.3",
     "url-loader": "^2.1.0",
     "val-loader": "1.1.1",
-    "webpack": "^4.35.2",
+    "webpack": "^4.39.1",
     "webpack-cli": "^3.3.6",
     "yaml-loader": "0.5.0"
   },
