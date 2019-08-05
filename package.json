@@ -22,7 +22,7 @@
     "electron-rebuild": "^1.8.5",
     "eslint": "^5.16.0",
     "file-loader": "^4.1.0",
-    "graceful-fs": "^4.1.15",
+    "graceful-fs": "^4.2.1",
     "html-loader": "0.5.5",
     "json-loader": "0.5.7",
     "node-abi": "^2.10.0",
