@@ -48,7 +48,7 @@ export class XTermFrontend extends Frontend {
             this.title.next(title)
         })
         this.xterm.onSelectionChange(() => {
-            if (this.copyOnSelect) {
+            if (this.copyOnSelect && this.getSelection()) {
                 this.copySelection()
             }
         })
