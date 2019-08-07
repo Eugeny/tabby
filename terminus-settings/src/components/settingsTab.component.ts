@@ -100,7 +100,7 @@ export class SettingsTabComponent extends BaseTabComponent {
     }
 
     async getRecoveryToken (): Promise<any> {
-        return { type: 'app:settings' }
+        return false;
     }
 
     ngOnDestroy () {
