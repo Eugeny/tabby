@@ -1572,10 +1572,10 @@ crypto-random-string@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/crypto-random-string/-/crypto-random-string-1.0.0.tgz#a230f64f568310e1498009940790ec99545bca7e"
 
-css-loader@3.1.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/css-loader/-/css-loader-3.1.0.tgz#6f008b993b8ce812e6bab57f3cbfdc7a7cf28685"
-  integrity sha512-MuL8WsF/KSrHCBCYaozBKlx+r7vIfUaDTEreo7wR7Vv3J6N0z6fqWjRk3e/6wjneitXN1r/Y9FTK1psYNOBdJQ==
+css-loader@3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/css-loader/-/css-loader-3.2.0.tgz#bb570d89c194f763627fcf1f80059c6832d009b2"
+  integrity sha512-QTF3Ud5H7DaZotgdcJjGMvyDj5F3Pn1j/sC6VBEOVp94cbwqyIBdcs/quzj4MC1BKQSrTpQznegH/5giYbhnCQ==
   dependencies:
     camelcase "^5.3.1"
     cssesc "^3.0.0"
