@@ -6,9 +6,7 @@ title-bar(
 .content(
     [class.tabs-on-top]='config.store.appearance.tabsLocation == "top"'
 )
-    .tab-bar(
-        *ngIf='!hostApp.isFullScreen',
-    )
+    .tab-bar
         .inset.background(*ngIf='hostApp.platform == Platform.macOS && config.store.appearance.frame == "thin" && config.store.appearance.tabsLocation == "top"')
         .tabs(
             dnd-sortable-container,
