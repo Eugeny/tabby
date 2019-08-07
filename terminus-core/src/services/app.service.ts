@@ -222,7 +222,7 @@ export class AppService {
             }
         }
         for (const tab of this.tabs) {
-            tab.destroy(true);
+            tab.destroy(true)
         }
         return true
     }

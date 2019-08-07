@@ -148,7 +148,7 @@ export class HostAppService {
             } else if (op === 'profile') {
                 this.cliOpenProfile.next(argv.profileName)
             } else if (op === undefined) {
-                this.newWindow();
+                this.newWindow()
             } else {
                 this.secondInstance.next()
             }

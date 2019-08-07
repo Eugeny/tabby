@@ -92,12 +92,12 @@ export class XTermFrontend extends Frontend {
                     let o = window.getComputedStyle(this.xtermCore.element)
                     let i = r - (parseInt(o.getPropertyValue("padding-top")) + parseInt(o.getPropertyValue("padding-bottom")))
                     let l = n - (parseInt(o.getPropertyValue("padding-right")) + parseInt(o.getPropertyValue("padding-left"))) - this.xtermCore.viewport.scrollBarWidth
-                    let actualCellWidth = this.xtermCore._renderService.dimensions.actualCellWidth || 9;
-                    let actualCellHeight = this.xtermCore._renderService.dimensions.actualCellHeight || 17;
+                    let actualCellWidth = this.xtermCore._renderService.dimensions.actualCellWidth || 9
+                    let actualCellHeight = this.xtermCore._renderService.dimensions.actualCellHeight || 17
                     let cols = Math.floor(l / actualCellWidth)
-                    let rows = Math.floor(i / actualCellHeight);
+                    let rows = Math.floor(i / actualCellHeight)
 
-                    this.xterm.resize(cols, rows);
+                    this.xterm.resize(cols, rows)
                 }
             } catch (e) {
                 // tends to throw when element wasn't shown yet
