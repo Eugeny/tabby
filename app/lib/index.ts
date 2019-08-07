@@ -39,6 +39,7 @@ const argv = parseArgs(process.argv, process.cwd())
 
 if (!app.requestSingleInstanceLock()) {
     app.quit()
+    app.exit(0)
 }
 
 if (argv.d) {
