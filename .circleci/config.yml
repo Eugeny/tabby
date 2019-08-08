@@ -1,0 +1,20 @@
+version: 2
+jobs:
+  build:
+    macos:
+      xcode: "11.0.0"
+
+    steps:
+      - checkout
+
+      - run:
+          name: Build
+          command: ./build/travis.sh
+
+      - store_artifacts:
+          path: dist/*.dmg
+          destination: DMG
+
+      - store_artifacts:
+          path: dist/*.pkg
+          destination: PKG
