@@ -1,10 +1,10 @@
 #!/bin/bash
 set -e
-yarn
-rm app/node_modules/.yarn-integrity
 cd app
 yarn
 cd ..
+rm app/node_modules/.yarn-integrity
+yarn
 scripts/build-native.js
 yarn run build:typings
 yarn run build
