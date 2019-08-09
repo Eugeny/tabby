@@ -1,10 +1,10 @@
 const path = require('path')
-const webpack = require('webpack')
 
 module.exports = {
     target: 'node',
     entry: 'src/index.ts',
     context: __dirname,
+    devtool: 'cheap-module-eval-source-map',
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'index.js',
@@ -73,12 +73,5 @@ module.exports = {
         /^@ng-bootstrap/,
         'ngx-toastr',
         /^terminus-/,
-    ],
-    plugins: [
-        new webpack.optimize.ModuleConcatenationPlugin(),
-        new webpack.SourceMapDevToolPlugin({
-            exclude: [/node_modules/, /vendor/],
-            filename: '[file].map',
-        }),
     ],
 }
