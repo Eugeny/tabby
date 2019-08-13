@@ -11,6 +11,8 @@
 </p>
 
 ----
+***Notice: `sudo` does not work on Terminus >=1.0.78(Alpha 78), if you are a Linux user you may use Terminus <=1.0.77(Alpha 77) for better experience***
+----
 
 **Terminus** is a highly configurable terminal emulator for Windows, macOS and Linux
 
