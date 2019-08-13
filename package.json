@@ -25,7 +25,7 @@
     "graceful-fs": "^4.2.1",
     "html-loader": "0.5.5",
     "json-loader": "0.5.7",
-    "node-abi": "^2.10.0",
+    "node-abi": "^2.11.0",
     "node-gyp": "^5.0.3",
     "node-sass": "^4.12.0",
     "npmlog": "4.1.2",
