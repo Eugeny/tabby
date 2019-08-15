@@ -2,7 +2,6 @@ name: macOS Build
 on: [push, pull_request]
 jobs:
   build:
-    name: Test on node ${{ matrix.node_version }}
     runs-on: macOS-latest
 
     steps:
