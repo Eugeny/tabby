@@ -23,10 +23,17 @@ jobs:
 
     - name: Package artifacts
       run: |
-        mkdir artifact
-        mv dist/*.pkg dist/*.zip artifact/
+        mkdir artifact-pkg
+        mv dist/*.pkg artifact-pkg/
+        mkdir artifact-zip
+        mv dist/*.zip artifact-zip/
 
     - uses: actions/upload-artifact@master
       with:
-        name: macOS build
-        path: artifact
+        name: macOS .pkg
+        path: artifact-pkg
+
+    - uses: actions/upload-artifact@master
+      with:
+        name: macOS .zip
+        path: artifact-zip
