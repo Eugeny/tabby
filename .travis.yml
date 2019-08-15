@@ -1,6 +1,5 @@
 language: node_js
 node_js: 11
-osx_image: xcode11
 
 stages:
   - Build
@@ -9,10 +8,6 @@ stages:
 
 jobs:
   include:
-    - stage: 'Build'
-      os: osx
-      script: travis_wait ./build/travis.sh
-
     - stage: 'Docs'
       os: linux
       if: branch = master
@@ -39,9 +34,3 @@ addons:
     sources:
     - sourceline: 'deb https://dl.yarnpkg.com/debian/ stable main'
       key_url: 'https://dl.yarnpkg.com/debian/pubkey.gpg'
-
-
-cache:
-  directories:
-  - $HOME/.cache/electron
-  - $HOME/.cache/electron-builder
