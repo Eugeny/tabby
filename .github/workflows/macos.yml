@@ -20,4 +20,13 @@ jobs:
         BT_TOKEN: ${{ secrets.BT_TOKEN }}
         CSC_LINK: ${{ secrets.CSC_LINK }}
         CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
-        
+
+    - name: Package artifacts
+      run: |
+        mkdir artifact
+        mv dist/*.pkg dist/*.zip artifact/
+
+    - uses: actions/upload-artifact@master
+      with:
+        name: macOS build
+        path: artifact
