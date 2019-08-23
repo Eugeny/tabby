@@ -1,6 +1,6 @@
 {
   "devDependencies": {
-    "@fortawesome/fontawesome-free": "^5.10.1",
+    "@fortawesome/fontawesome-free": "^5.10.2",
     "@types/electron-config": "^3.2.2",
     "@types/electron-debug": "^2.1.0",
     "@types/fs-promise": "1.0.3",
