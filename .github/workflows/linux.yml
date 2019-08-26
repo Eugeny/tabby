@@ -1,0 +1,66 @@
+name: Linux Build
+on: [push, pull_request]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v1
+
+    - name: Installing Node
+      uses: actions/setup-node@v1
+      with:
+        version: 10
+
+    - name: Build
+      run: |
+        cd app
+        yarn
+        cd ..
+        rm app/node_modules/.yarn-integrity
+        yarn
+        yarn run lint
+        scripts/build-native.js
+        yarn run build:typings
+        yarn run build
+        scripts/prepackage-plugins.js
+        scripts/build-linux.js
+      env:
+        GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        BT_TOKEN: ${{ secrets.BT_TOKEN }}
+
+    - name: Package artifacts
+      run: |
+        mkdir artifact-deb
+        mv dist/*.pkg artifact-deb/
+        mkdir artifact-rpm
+        mv dist/*.zip artifact-rpm/
+        mkdir artifact-snap
+        mv dist/*.zip artifact-snap/
+        mkdir artifact-tar.gz
+        mv dist/*.zip artifact-tar.gz/
+
+    - uses: actions/upload-artifact@master
+      name: Upload DEB
+      with:
+        name: Linux .deb
+        path: artifact-deb
+
+    - uses: actions/upload-artifact@master
+      name: Upload RPM
+      with:
+        name: Linux .rpm
+        path: artifact-rpm
+
+    - uses: actions/upload-artifact@master
+      name: Upload Snap
+      with:
+        name: Linux .snap
+        path: artifact-snap
+
+    - uses: actions/upload-artifact@master
+      name: Upload tarball
+      with:
+        name: Linux tarball
+        path: artifact-tar.gz

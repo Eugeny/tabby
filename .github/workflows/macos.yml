@@ -20,6 +20,7 @@ jobs:
         cd ..
         rm app/node_modules/.yarn-integrity
         yarn
+        yarn run lint
         scripts/build-native.js
         yarn run build:typings
         yarn run build
