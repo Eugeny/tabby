@@ -2,7 +2,7 @@ name: Windows Build
 on: [push, pull_request]
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: windows-2016
 
     steps:
     - name: Checkout
