@@ -1,0 +1,51 @@
+name: Windows Build
+on: [push, pull_request]
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v1
+
+    - name: Installing Node
+      uses: actions/setup-node@v1
+      with:
+        version: 10
+
+    - name: Build
+      run: |
+        cd app
+        yarn
+        cd ..
+        rm app/node_modules/.yarn-integrity
+        yarn
+        yarn run lint
+        scripts/build-native.js
+        yarn run build:typings
+        yarn run build
+        scripts/prepackage-plugins.js
+        scripts/build-windows.js
+      env:
+        GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        BT_TOKEN: ${{ secrets.BT_TOKEN }}
+        WIN_CSC_LINK: ${{ secrets.WIN_CSC_LINK }}
+
+    - name: Package artifacts
+      run: |
+        mkdir artifact-setup
+        mv dist/*-setup.exe artifact-setup/
+        mkdir artifact-portable
+        mv dist/*-portable.exe artifact-portable/
+
+    - uses: actions/upload-artifact@master
+      name: Upload installer
+      with:
+        name: Installer
+        path: artifact-setup
+
+    - uses: actions/upload-artifact@master
+      name: Upload portable build
+      with:
+        name: Portable build
+        path: artifact-portable
