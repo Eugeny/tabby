@@ -1,0 +1,26 @@
+name: Docs
+on: push
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v1
+
+    - name: Installing Node
+      uses: actions/setup-node@v1
+      with:
+        version: 10
+
+    - name: Build
+      run: |
+        apt-get install openssh-client
+        npm i -g yarn
+        ssh-add <(echo "$DOCS_PRIVATE_KEY")
+        yarn
+        yarn run docs
+        rsync -e "ssh -o StrictHostKeyChecking=no" -arv docs/api/ root@ajenti.org:/srv/terminus-docs/
+
+      env:
+        DOCS_PRIVATE_KEY: ${{ secrets.DOCS_PRIVATE_KEY }}
