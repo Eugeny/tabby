@@ -10,10 +10,10 @@ builder({
     linux: ['snap', 'deb', 'rpm', 'tar.gz'],
     config: {
         publish: isTag ? [
-            { provider: 'bintray', component: 'main' },
+            { provider: 'bintray', 'package': 'terminus' },
             { provider: 'github' },
         ] : [
-            { provider: 'bintray', component: 'nightly' },
+            { provider: 'bintray', 'package': 'terminus-nightly' },
         ],
         extraMetadata: {
             version: vars.version,
