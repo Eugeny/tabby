@@ -15,6 +15,7 @@ jobs:
 
     - name: Build
       run: |
+        eval $(ssh-agent -s)
         ssh-add <(echo "$DOCS_PRIVATE_KEY")
         yarn
         yarn run docs
