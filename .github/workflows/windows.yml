@@ -14,18 +14,19 @@ jobs:
         version: 10
 
     - name: Build
+      shell: powershell
       run: |
         cd app
         yarn
         cd ..
-        rm app/node_modules/.yarn-integrity
+        del app/node_modules/.yarn-integrity
         yarn
         yarn run lint
-        scripts/build-native.js
+        node scripts/build-native.js
         yarn run build:typings
         yarn run build
-        scripts/prepackage-plugins.js
-        scripts/build-windows.js
+        node scripts/prepackage-plugins.js
+        node scripts/build-windows.js
       env:
         GH_TOKEN: ${{ secrets.GH_TOKEN }}
         BT_TOKEN: ${{ secrets.BT_TOKEN }}
