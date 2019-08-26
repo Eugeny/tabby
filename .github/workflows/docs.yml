@@ -15,8 +15,6 @@ jobs:
 
     - name: Build
       run: |
-        apt-get install openssh-client
-        npm i -g yarn
         ssh-add <(echo "$DOCS_PRIVATE_KEY")
         yarn
         yarn run docs
