@@ -21,7 +21,6 @@ jobs:
         cd ..
         del app/node_modules/.yarn-integrity
         yarn
-        yarn run lint
         node scripts/build-native.js
         yarn run build:typings
         yarn run build
