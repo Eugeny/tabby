@@ -9,15 +9,9 @@ builder({
     dir: true,
     mac: ['pkg', 'zip'],
     config: {
-        publish: isTag ? [
-            { provider: 'bintray', 'package': 'terminus' },
-            { provider: 'github' },
-        ] : [
-            { provider: 'bintray', 'package': 'terminus-nightly' },
-        ],
         extraMetadata: {
             version: vars.version,
         },
     },
-    publish: isCI ? 'always' : 'onTag',
+    publish: isTag ? 'always' : 'onTag',
 }).catch(() => process.exit(1))

@@ -2,22 +2,16 @@
 const builder = require('electron-builder').build
 const vars = require('./vars')
 
-const isTag = (process.env.GITHUB_REF || '').startsWith('refs/tags/')
+const isTag = (process.env.GITHUB_REF || process.env.BUILD_SOURCEBRANCH || '').startsWith('refs/tags/')
 const isCI = !!process.env.GITHUB_REF
 
 builder({
     dir: true,
     win: ['nsis', 'portable'],
     config: {
-        publish: isTag ? [
-            { provider: 'bintray', 'package': 'terminus' },
-            { provider: 'github' },
-        ] : [
-            { provider: 'bintray', 'package': 'terminus-nightly' },
-        ],
         extraMetadata: {
             version: vars.version,
         },
     },
-    publish: isCI ? 'always' : 'onTag',
+    publish: isTag ? 'always' : 'onTag',
 }).catch(() => process.exit(1))
