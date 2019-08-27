@@ -944,10 +944,10 @@ flush-write-stream@^1.0.0:
     inherits "^2.0.3"
     readable-stream "^2.3.6"
 
-fontmanager-redux@0.3.2:
-  version "0.3.2"
-  resolved "https://registry.yarnpkg.com/fontmanager-redux/-/fontmanager-redux-0.3.2.tgz#e5c8d8dc8fda98629eaef4201a27df9e56a122f4"
-  integrity sha512-NWmTbYfDijrx8qLJ2+O2VgYKhdfsMy/ec+Qf2DGxoLJDZHaRhBKd2Eufh4fFmfJUAwhzrkIgbKJsNT/IYJDbaA==
+fontmanager-redux@0.3.3:
+  version "0.3.3"
+  resolved "https://registry.yarnpkg.com/fontmanager-redux/-/fontmanager-redux-0.3.3.tgz#39f3493332d1694ef3bd1652ee11d66ae3e4f495"
+  integrity sha512-n7bz3J+8gHn1+bEsIwdNlZ+wYsof3JPijHW/HQ+0oYA/zVTAuryXYgBrIKboNymJmYnabACoLB0p4tv/vMPGMA==
 
 forever-agent@~0.6.1:
   version "0.6.1"
