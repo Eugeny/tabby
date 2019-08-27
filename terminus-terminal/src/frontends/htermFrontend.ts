@@ -60,7 +60,7 @@ export class HTermFrontend extends Frontend {
         this.configuredLinePadding = config.terminal.linePadding
         this.setFontSize()
 
-        preferenceManager.set('font-family', getCSSFontFamily(config.terminal.font))
+        preferenceManager.set('font-family', getCSSFontFamily(config))
         preferenceManager.set('enable-bold', true)
         // preferenceManager.set('audible-bell-sound', '')
         preferenceManager.set('desktop-notification-bell', config.terminal.bell === 'notification')

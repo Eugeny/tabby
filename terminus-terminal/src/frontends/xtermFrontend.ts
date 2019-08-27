@@ -197,7 +197,7 @@ export class XTermFrontend extends Frontend {
             }
         })
 
-        this.xterm.setOption('fontFamily', getCSSFontFamily(config.terminal.font))
+        this.xterm.setOption('fontFamily', getCSSFontFamily(config))
         this.xterm.setOption('bellStyle', config.terminal.bell)
         this.xterm.setOption('cursorStyle', {
             beam: 'bar',

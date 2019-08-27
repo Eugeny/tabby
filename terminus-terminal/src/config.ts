@@ -15,6 +15,7 @@ export class TerminalConfigProvider extends ConfigProvider {
             frontend: 'xterm',
             autoOpen: false,
             fontSize: 14,
+            fallbackFont: null,
             linePadding: 0,
             bell: 'off',
             bracketedPaste: false,

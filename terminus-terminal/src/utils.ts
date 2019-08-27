@@ -8,8 +8,11 @@ export function isWindowsBuild (build: number): boolean {
     return process.platform === 'win32' && parseFloat(os.release()) >= 10 && parseInt(os.release().split('.')[2]) >= build
 }
 
-export function getCSSFontFamily (fontList: string): string {
-    let fonts = fontList.split(',').map(x => x.trim().replace(/"/g, ''))
+export function getCSSFontFamily (config: any): string {
+    let fonts = config.terminal.font.split(',').map(x => x.trim().replace(/"/g, ''))
+    if (config.terminal.fallbackFont) {
+        fonts.push(config.terminal.fallbackFont)
+    }
     fonts.push('monospace-fallback')
     fonts.push('monospace')
     fonts = fonts.map(x => `"${x}"`)
