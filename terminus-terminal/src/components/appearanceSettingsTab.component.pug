@@ -13,7 +13,7 @@ h3.mb-3 Appearance
                 option(value='hterm') hterm
                 option(value='xterm') xterm
                 option(value='xterm-webgl') xterm (WebGL)
-                        
+
         .form-line
             .header
                 .title Font
@@ -36,7 +36,7 @@ h3.mb-3 Appearance
             .header
                 .title Enable font ligatures
             toggle(
-                [(ngModel)]='config.store.terminal.ligatures', 
+                [(ngModel)]='config.store.terminal.ligatures',
                 (ngModelChange)='config.save()',
             )
 
@@ -160,13 +160,13 @@ h3.mb-3 Appearance
                     span([style.color]='config.store.terminal.colorScheme.colors[1]') $
                     span  ls -l
                 div
-                    span drwxr-xr-x  1 root 
-                    span([style.color]='config.store.terminal.colorScheme.colors[4]') directory
+                    span drwxr-xr-x  1 root
+                    span([style.color]='config.store.terminal.colorScheme.colors[4]')  directory 📁
                 div
-                    span -rw-r--r--  1 root file
+                    span -rw-r--r--  1 root файл
                 div
                     span -rwxr-xr-x  1 root
-                    span([style.color]='config.store.terminal.colorScheme.colors[2]')  executable
+                    span([style.color]='config.store.terminal.colorScheme.colors[2]')  実行可能ファイル
                 div
                     span -rwxr-xr-x  1 root
                     span([style.color]='config.store.terminal.colorScheme.colors[6]')  sym
@@ -203,7 +203,7 @@ h3.mb-3 Appearance
                 [value]='"colorScheme"'
             )
             | From color scheme
-            
+
 .form-line
     .header
         .title Cursor shape
@@ -234,7 +234,7 @@ h3.mb-3 Appearance
                 [value]='"underline"'
             )
             | ▁
-    
+
 .form-line
     .header
         .title Blink cursor
@@ -242,4 +242,16 @@ h3.mb-3 Appearance
     toggle(
         [(ngModel)]='config.store.terminal.cursorBlink',
         (ngModelChange)='config.save()',
+    )
+
+.form-line
+    .header
+        .title Fallback font
+        .description A second font family used to display characters missing in the main font
+
+    input.form-control(
+        type='text',
+        [ngbTypeahead]='fontAutocomplete',
+        [(ngModel)]='config.store.terminal.fallbackFont',
+        (ngModelChange)='config.save()'
     )
