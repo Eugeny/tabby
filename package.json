@@ -1,6 +1,6 @@
 {
   "devDependencies": {
-    "@fortawesome/fontawesome-free": "^5.10.1",
+    "@fortawesome/fontawesome-free": "^5.10.2",
     "@types/electron-config": "^3.2.2",
     "@types/electron-debug": "^2.1.0",
     "@types/fs-promise": "1.0.3",
@@ -36,7 +36,7 @@
     "pug-static-loader": "2.0.0",
     "raven-js": "3.27.2",
     "raw-loader": "3.1.0",
-    "sass-loader": "^7.2.0",
+    "sass-loader": "^7.3.1",
     "shelljs": "0.8.3",
     "source-code-pro": "^2.30.1",
     "source-sans-pro": "2.45.0",
