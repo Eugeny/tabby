@@ -944,10 +944,10 @@ flush-write-stream@^1.0.0:
     inherits "^2.0.3"
     readable-stream "^2.3.6"
 
-fontmanager-redux@0.3.2:
-  version "0.3.2"
-  resolved "https://registry.yarnpkg.com/fontmanager-redux/-/fontmanager-redux-0.3.2.tgz#e5c8d8dc8fda98629eaef4201a27df9e56a122f4"
-  integrity sha512-NWmTbYfDijrx8qLJ2+O2VgYKhdfsMy/ec+Qf2DGxoLJDZHaRhBKd2Eufh4fFmfJUAwhzrkIgbKJsNT/IYJDbaA==
+fontmanager-redux@0.3.3:
+  version "0.3.3"
+  resolved "https://registry.yarnpkg.com/fontmanager-redux/-/fontmanager-redux-0.3.3.tgz#39f3493332d1694ef3bd1652ee11d66ae3e4f495"
+  integrity sha512-n7bz3J+8gHn1+bEsIwdNlZ+wYsof3JPijHW/HQ+0oYA/zVTAuryXYgBrIKboNymJmYnabACoLB0p4tv/vMPGMA==
 
 forever-agent@~0.6.1:
   version "0.6.1"
@@ -1467,10 +1467,10 @@ keyboardevents-areequal@^0.2.1:
   resolved "https://registry.yarnpkg.com/keyboardevents-areequal/-/keyboardevents-areequal-0.2.2.tgz#88191ec738ce9f7591c25e9056de928b40277194"
   integrity sha512-Nv+Kr33T0mEjxR500q+I6IWisOQ0lK1GGOncV0kWE6n4KFmpcu7RUX5/2B0EUtX51Cb0HjZ9VJsSY3u4cBa0kw==
 
-keytar@^4.13.0:
-  version "4.13.0"
-  resolved "https://registry.yarnpkg.com/keytar/-/keytar-4.13.0.tgz#f3484988e87e692958ce901a36c850422093def0"
-  integrity sha512-qdyZ3XDuv11ANDXJ+shsmc+j/h5BHPDSn33MwkUMDg2EA++xEBleNkghr3Jg95cqVx5WgDYD8V/m3Q0y7kwQ2w==
+keytar@^5.0.0-beta.0:
+  version "5.0.0-beta.0"
+  resolved "https://registry.yarnpkg.com/keytar/-/keytar-5.0.0-beta.0.tgz#a9537f953c288bbda13d497563fc012f14709f90"
+  integrity sha512-X4OhyPF0Ca6W3JgJ+v+Wq+W/LTW+luD8Nvxoo0sUPST3Cnm+LOyo172iWQFezhtDN9uOUjwXZpAyyAztseezHg==
   dependencies:
     nan "2.14.0"
     prebuild-install "5.3.0"
@@ -1905,10 +1905,10 @@ ngx-toastr@^10.1.0:
   dependencies:
     tslib "^1.9.0"
 
-node-abi@^2.7.0:
-  version "2.9.0"
-  resolved "https://registry.yarnpkg.com/node-abi/-/node-abi-2.9.0.tgz#ae4075b298dab2d92dd1e22c48ccc7ffd7f06200"
-  integrity sha512-jmEOvv0eanWjhX8dX1pmjb7oJl1U1oR4FOh0b2GnvALwSYoOdU7sj+kLDSAyjo4pfC9aj/IxkloxdLJQhSSQBA==
+node-abi@^2.11.0:
+  version "2.11.0"
+  resolved "https://registry.yarnpkg.com/node-abi/-/node-abi-2.11.0.tgz#b7dce18815057544a049be5ae75cd1fdc2e9ea59"
+  integrity sha512-kuy/aEg75u40v378WRllQ4ZexaXJiCvB68D2scDXclp/I4cRq6togpbOoKhmN07tns9Zldu51NNERo0wehfX9g==
   dependencies:
     semver "^5.4.1"
 
@@ -2436,7 +2436,7 @@ prebuild-install@5.3.0:
     minimist "^1.2.0"
     mkdirp "^0.5.1"
     napi-build-utils "^1.0.1"
-    node-abi "^2.7.0"
+    node-abi "^2.11.0"
     noop-logger "^0.1.1"
     npmlog "^4.0.1"
     os-homedir "^1.0.1"
