@@ -267,7 +267,7 @@ export class XTermFrontend extends Frontend {
         return html
     }
 
-    private getHexColor (mode: number, color: number): string {
+    private getHexColor (mode: number, color: number, def: string): string {
         if (mode === Attributes.CM_RGB) {
             const rgb = AttributeData.toColorRGB(color)
             return rgb.map(x => x.toString(16).padStart(2, '0')).join('')
@@ -275,7 +275,7 @@ export class XTermFrontend extends Frontend {
         if (mode === Attributes.CM_P16 || mode === Attributes.CM_P256) {
             return this.configService.store.terminal.colorScheme.colors[color]
         }
-        return 'transparent'
+        return def
     }
 
     private getLineAsHTML (y: number, start: number, end: number): string {
@@ -285,8 +285,8 @@ export class XTermFrontend extends Frontend {
         const cell = new CellData()
         for (let i = start; i < end; i++) {
             line.loadCell(i, cell)
-            const fg = this.getHexColor(cell.getFgColorMode(), cell.getFgColor())
-            const bg = this.getHexColor(cell.getBgColorMode(), cell.getBgColor())
+            const fg = this.getHexColor(cell.getFgColorMode(), cell.getFgColor(), this.configService.store.terminal.colorScheme.foreground)
+            const bg = this.getHexColor(cell.getBgColorMode(), cell.getBgColor(), this.configService.store.terminal.colorScheme.background)
             const style = `color: ${fg}; background: ${bg}; font-weight: ${cell.isBold() ? 'bold' : 'normal'}; font-style: ${cell.isItalic() ? 'italic' : 'normal'}; text-decoration: ${cell.isUnderline() ? 'underline' : 'none'}`
             if (style !== lastStyle) {
                 if (lastStyle !== null) {
