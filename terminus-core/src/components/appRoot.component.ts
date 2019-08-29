@@ -217,8 +217,18 @@ export class AppRootComponent {
         return false
     }
 
-    updateApp () {
-        this.updater.update()
+    async updateApp () {
+        if ((await this.electron.showMessageBox(
+            this.hostApp.getWindow(),
+            {
+                type: 'warning',
+                message: 'Installing the update will close all tabs and restart Terminus.',
+                buttons: ['Cancel', 'Update'],
+                defaultId: 1,
+            }
+        )).response === 1) {
+            this.updater.update()
+        }
     }
 
     onTabDragStart () {
