@@ -18,7 +18,7 @@ location.hash = ''
 
 ;(process as any).enablePromiseAPI = true
 
-if (process.platform === 'win32') {
+if (process.platform === 'win32' && !('HOME' in process.env)) {
     process.env.HOME = process.env.HOMEDRIVE + process.env.HOMEPATH
 }
 
