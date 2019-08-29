@@ -92,6 +92,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://jjuhas.keybase.pub//"><img src="https://avatars1.githubusercontent.com/u/6438760?v=4" width="100px;" alt="Jonathan"/><br /><sub><b>Jonathan</b></sub></a><br /><a href="https://github.com/Eugeny/terminus/commits?author=IgnusG" title="Code">💻</a></td>
     <td align="center"><a href="https://hans-koch.me"><img src="https://avatars0.githubusercontent.com/u/1093709?v=4" width="100px;" alt="Hans Koch"/><br /><sub><b>Hans Koch</b></sub></a><br /><a href="https://github.com/Eugeny/terminus/commits?author=hammster" title="Code">💻</a></td>
     <td align="center"><a href="http://thepuzzlemaker.info"><img src="https://avatars3.githubusercontent.com/u/12666617?v=4" width="100px;" alt="Dak Smyth"/><br /><sub><b>Dak Smyth</b></sub></a><br /><a href="https://github.com/Eugeny/terminus/commits?author=ThePuzzlemaker" title="Code">💻</a></td>
+    <td align="center"><a href="http://yfwz100.github.io"><img src="https://avatars2.githubusercontent.com/u/983211?v=4" width="100px;" alt="Wang Zhi"/><br /><sub><b>Wang Zhi</b></sub></a><br /><a href="https://github.com/Eugeny/terminus/commits?author=yfwz100" title="Code">💻</a></td>
   </tr>
 </table>
 
