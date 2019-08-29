@@ -138,7 +138,7 @@ app-root  {
                 background: transparent;
                 line-height: 42px;
 
-                svg {
+                svg, path {
                     fill: $black;
                     fill-opacity: 0.75;
                 }
