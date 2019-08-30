@@ -8,7 +8,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v1
 
-    - name: Installing Node
+    - name: Install Node
       uses: actions/setup-node@v1
       with:
         version: 10
@@ -27,15 +27,17 @@ jobs:
     - name: Build native deps
       run: scripts/build-native.js
 
-    - name: Build
-      run: |
-        yarn run build:typings
-        yarn run build
+    - name: Build typings
+      run: yarn run build:typings
+
+    - name: Webpack
+      run: yarn run build
+
+    - name: Prepackage plugins
+      run: scripts/prepackage-plugins.js
 
     - name: Build packages
-      run: |
-        scripts/prepackage-plugins.js
-        DEBUG=electron-builder scripts/build-linux.js
+      run: DEBUG=electron-builder scripts/build-linux.js
       env:
         GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
