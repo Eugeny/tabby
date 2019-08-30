@@ -37,8 +37,9 @@ jobs:
       run: scripts/prepackage-plugins.js
 
     - name: Build packages
-      run: DEBUG=electron-builder scripts/build-linux.js
+      run: scripts/build-linux.js
       env:
+        DEBUG: electron-builder,electron-builder:*
         GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
     - name: Package artifacts
