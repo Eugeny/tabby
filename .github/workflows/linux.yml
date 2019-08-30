@@ -13,17 +13,27 @@ jobs:
       with:
         version: 10
 
-    - name: Build
+    - name: Install deps
       run: |
         cd app
         yarn
         cd ..
         rm app/node_modules/.yarn-integrity
         yarn
-        yarn run lint
-        scripts/build-native.js
+
+    - name: Lint
+      run: yarn run lint
+
+    - name: Build native deps
+      run: scripts/build-native.js
+
+    - name: Build
+      run: |
         yarn run build:typings
         yarn run build
+
+    - name: Build packages
+      run: |
         scripts/prepackage-plugins.js
         DEBUG=electron-builder scripts/build-linux.js
       env:
