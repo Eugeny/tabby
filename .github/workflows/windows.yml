@@ -28,7 +28,6 @@ jobs:
         node scripts/build-windows.js
       env:
         GH_TOKEN: ${{ secrets.GH_TOKEN }}
-        BT_TOKEN: ${{ secrets.BT_TOKEN }}
         WIN_CSC_LINK: ${{ secrets.WIN_CSC_LINK }}
         WIN_CSC_KEY_PASSWORD: ${{ secrets.WIN_CSC_KEY_PASSWORD }}
 

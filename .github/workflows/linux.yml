@@ -25,10 +25,9 @@ jobs:
         yarn run build:typings
         yarn run build
         scripts/prepackage-plugins.js
-        scripts/build-linux.js
+        DEBUG=electron-builder scripts/build-linux.js
       env:
         GH_TOKEN: ${{ secrets.GH_TOKEN }}
-        BT_TOKEN: ${{ secrets.BT_TOKEN }}
 
     - name: Package artifacts
       run: |
