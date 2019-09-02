@@ -1903,10 +1903,10 @@ napi-build-utils@^1.0.1:
   resolved "https://registry.yarnpkg.com/napi-build-utils/-/napi-build-utils-1.0.1.tgz#1381a0f92c39d66bf19852e7873432fc2123e508"
   integrity sha512-boQj1WFgQH3v4clhu3mTNfP+vOBxorDlE8EKiMjUlLG3C4qAESnn9AxIOkFgTR2c9LtzNjPrjS60cT27ZKBhaA==
 
-ngx-toastr@^10.1.0:
-  version "10.1.0"
-  resolved "https://registry.yarnpkg.com/ngx-toastr/-/ngx-toastr-10.1.0.tgz#df6e578ebac1348e68d24b11d243653a401d17e6"
-  integrity sha512-LXGL8jKIm0SGklkXytNKbR6VrF94all35SaUfgd1gOUzgllTW2ldqORDZlgIaiMB3Dcybaald8p3boEHvfjEIQ==
+ngx-toastr@^10.2.0:
+  version "10.2.0"
+  resolved "https://registry.yarnpkg.com/ngx-toastr/-/ngx-toastr-10.2.0.tgz#8a79008de0b1c013f90120a53e0355af5762e969"
+  integrity sha512-6ASr5bcvQmtNKb4D2VEsQjCXyROq6GwberBWO0bVt+xcBYPUea4aRTgX8in9apX9buaTafzG+h3HlnIraspoPg==
   dependencies:
     tslib "^1.9.0"
 
