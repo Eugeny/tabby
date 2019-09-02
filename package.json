@@ -5,7 +5,7 @@
     "@types/electron-debug": "^2.1.0",
     "@types/fs-promise": "1.0.3",
     "@types/js-yaml": "^3.12.1",
-    "@types/node": "12.7.2",
+    "@types/node": "12.7.3",
     "@types/webpack-env": "1.13.9",
     "@typescript-eslint/eslint-plugin": "^1.13.0",
     "@typescript-eslint/parser": "^1.13.0",
