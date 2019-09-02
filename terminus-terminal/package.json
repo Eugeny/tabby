@@ -18,7 +18,6 @@
   "license": "MIT",
   "devDependencies": {
     "@types/deep-equal": "^1.0.0",
-    "@types/mz": "0.0.32",
     "@types/slug": "^0.9.1",
     "dataurl": "0.1.0",
     "deep-equal": "1.1.0",

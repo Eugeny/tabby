@@ -7,6 +7,11 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-9.3.0.tgz#3a129cda7c4e5df2409702626892cb4b96546dd5"
   integrity sha512-wNBfvNjzsJl4tswIZKXCFQY0lss9nKUyJnG6T94X/eqjRgI2jHZ4evdjhQYBSan/vGtF6XVXPApOmNH2rf0KKw==
 
+"@types/node@^12.7.3":
+  version "12.7.3"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-12.7.3.tgz#27b3f40addaf2f580459fdb405222685542f907a"
+  integrity sha512-3SiLAIBkDWDg6vFo0+5YJyHPWU9uwu40Qe+v+0MH8wRKYBimHvvAOyk3EzMrD/TrIlLYfXrqDqrg913PynrMJQ==
+
 "@types/ssh2-streams@*":
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/@types/ssh2-streams/-/ssh2-streams-0.1.2.tgz#7aa18b8c2450f17699e9ea18a76efc838188d58d"
@@ -35,11 +40,6 @@ bcrypt-pbkdf@^1.0.2:
   integrity sha1-pDAdOJtqQ/m2f/PKEaP2Y342Dp4=
   dependencies:
     tweetnacl "^0.14.3"
-
-nan@^2.13.2:
-  version "2.14.0"
-  resolved "https://registry.yarnpkg.com/nan/-/nan-2.14.0.tgz#7818f722027b2459a86f0295d434d1fc2336c52c"
-  integrity sha512-INOFj37C7k3AfaNTtX8RhsTw7qRy7eLET14cROi9+5HAVbbHuIWUHEauBv5qT4Av2tWasiTY1Jw6puUNqRJXQg==
 
 safer-buffer@~2.1.0:
   version "2.1.2"
@@ -71,10 +71,3 @@ tweetnacl@^0.14.3:
   version "0.14.5"
   resolved "https://registry.yarnpkg.com/tweetnacl/-/tweetnacl-0.14.5.tgz#5ae68177f192d4456269d108afa93ff8743f4f64"
   integrity sha1-WuaBd/GS1EViadEIr6k/+HQ/T2Q=
-
-windows-process-tree@^0.2.4:
-  version "0.2.4"
-  resolved "https://registry.yarnpkg.com/windows-process-tree/-/windows-process-tree-0.2.4.tgz#747af587b54cc6c996f2be0836cc8a8fd0dc038f"
-  integrity sha512-9gag9AHm3Iin/4YC1EwoIfZlqW/rG2eV7rJZ4Fy5NnAMGdewmnwsie5Rz+CJo2vSolqzzfw7hPeu3oOdniNejg==
-  dependencies:
-    nan "^2.13.2"

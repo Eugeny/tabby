@@ -17,6 +17,7 @@
   "author": "Eugene Pankov",
   "license": "MIT",
   "devDependencies": {
+    "@types/node": "^12.7.3",
     "@types/ssh2": "^0.5.35",
     "ssh2": "^0.8.2",
     "ssh2-streams": "^0.4.2"
