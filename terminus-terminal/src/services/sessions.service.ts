@@ -325,7 +325,7 @@ export class SessionsService {
     constructor (
         log: LogService,
     ) {
-        require('../bufferizedPTY')(nodePTY)
+        require('../bufferizedPTY')(nodePTY) // eslint-disable-line @typescript-eslint/no-var-requires
         this.logger = log.create('sessions')
     }
 

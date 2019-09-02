@@ -7,7 +7,7 @@ import { ConfigProvider } from '../api/configProvider'
 import { ElectronService } from './electron.service'
 import { HostAppService } from './hostApp.service'
 
-const configMerge = (a, b) => require('deepmerge')(a, b, { arrayMerge: (_d, s) => s })
+const configMerge = (a, b) => require('deepmerge')(a, b, { arrayMerge: (_d, s) => s }) // eslint-disable-line @typescript-eslint/no-var-requires
 
 function isStructuralMember (v) {
     return v instanceof Object && !(v instanceof Array) &&

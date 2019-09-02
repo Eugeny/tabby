@@ -36,6 +36,7 @@ rules:
   '@typescript-eslint/require-await': off
   '@typescript-eslint/strict-boolean-expressions': off
   '@typescript-eslint/no-misused-promises': off
+  '@typescript-eslint/typedef': off
   '@typescript-eslint/no-use-before-define':
   - error
   - classes: false
