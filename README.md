@@ -95,6 +95,9 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="http://yfwz100.github.io"><img src="https://avatars2.githubusercontent.com/u/983211?v=4" width="100px;" alt="Wang Zhi"/><br /><sub><b>Wang Zhi</b></sub></a><br /><a href="https://github.com/Eugeny/terminus/commits?author=yfwz100" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/jack1142"><img src="https://avatars0.githubusercontent.com/u/6032823?v=4" width="100px;" alt="jack1142"/><br /><sub><b>jack1142</b></sub></a><br /><a href="https://github.com/Eugeny/terminus/commits?author=jack1142" title="Code">💻</a></td>
   </tr>
+  <tr>
+    <td align="center"><a href="https://github.com/hdougie"><img src="https://avatars1.githubusercontent.com/u/450799?v=4" width="100px;" alt="Howie Douglas"/><br /><sub><b>Howie Douglas</b></sub></a><br /><a href="https://github.com/Eugeny/terminus/commits?author=hdougie" title="Code">💻</a></td>
+  </tr>
 </table>
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
