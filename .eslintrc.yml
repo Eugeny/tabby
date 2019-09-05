@@ -86,3 +86,8 @@ rules:
   - as-needed
   - keywords: true
     numbers: true
+  quotes: off
+  '@typescript-eslint/quotes':
+  - error
+  - single
+  - allowTemplateLiterals: true
