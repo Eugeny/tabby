@@ -2781,10 +2781,10 @@ rxjs-compat@^6.5.2:
   resolved "https://registry.yarnpkg.com/rxjs-compat/-/rxjs-compat-6.5.2.tgz#e469070adf6260bdad195e9d4a39f444ae28b458"
   integrity sha512-TRMkTp4FgSxE2HtGvxmgRukh3JqdFM7ejAj1Ti/VdodbPGfWvZR5+KdLKRV9jVDFyu2SknM8RD+PR54KGnoLjg==
 
-rxjs@^6.5.2:
-  version "6.5.2"
-  resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-6.5.2.tgz#2e35ce815cd46d84d02a209fb4e5921e051dbec7"
-  integrity sha512-HUb7j3kvb7p7eCUHE3FqjoDsC1xfZQ4AHFWfTKSpZ+sAhhz5X1WX0ZuUqWbzB2QhSLp3DoLUG+hMdEDKqWo2Zg==
+rxjs@^6.5.3:
+  version "6.5.3"
+  resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-6.5.3.tgz#510e26317f4db91a7eb1de77d9dd9ba0a4899a3a"
+  integrity sha512-wuYsAYYFdWTAnAaPoKGNhfpWwKZbJW+HgAJ+mImp+Epl7BG8oNWBCTyRM8gba9k4lk8BgWdoYm21Mo/RYhhbgA==
   dependencies:
     tslib "^1.9.0"
 
