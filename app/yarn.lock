@@ -1961,10 +1961,10 @@ node-gyp@^4.0.0:
     tar "^4.4.8"
     which "1"
 
-node-pty@^0.9.0-beta22:
-  version "0.9.0-beta22"
-  resolved "https://registry.yarnpkg.com/node-pty/-/node-pty-0.9.0-beta22.tgz#5c26bbad8ccebaf887309f9511b40c8e22465459"
-  integrity sha512-ASvZMaSXVT0ntpAw+nEXjjWplgBKwddjkJ4X0+aDNbTsqSjrNxWvArVdrlk8c7dC5D5tKCBzWtxJuM1a2q8baw==
+node-pty@^0.9.0-beta25:
+  version "0.9.0-beta25"
+  resolved "https://registry.yarnpkg.com/node-pty/-/node-pty-0.9.0-beta25.tgz#9a6f28f9f32e74c73ee8153e6a929d071d984ea3"
+  integrity sha512-oEs1BmGm6erVSqwZRLCl5u46SA23pB7yUpL1H197Yunz5IzDFFLa0C53mxrkI2O/ORIbwMZZwa0LMKaN1u4THw==
   dependencies:
     nan "^2.14.0"
 
