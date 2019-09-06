@@ -38,7 +38,7 @@
     "sass-loader": "^8.0.0",
     "shelljs": "0.8.3",
     "source-code-pro": "^2.30.2",
-    "source-sans-pro": "2.45.0",
+    "source-sans-pro": "3.6.0",
     "style-loader": "^1.0.0",
     "svg-inline-loader": "^0.8.0",
     "to-string-loader": "1.1.5",
