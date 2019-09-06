@@ -6009,9 +6009,10 @@ sorted-union-stream@~2.1.3:
     from2 "^1.3.0"
     stream-iterate "^1.1.0"
 
-source-code-pro@^2.30.1:
-  version "2.30.1"
-  resolved "https://registry.yarnpkg.com/source-code-pro/-/source-code-pro-2.30.1.tgz#18410cf9ed8c76cbcf71bb99347531b9588573a2"
+source-code-pro@^2.30.2:
+  version "2.30.2"
+  resolved "https://registry.yarnpkg.com/source-code-pro/-/source-code-pro-2.30.2.tgz#1577e4bc93d2399d271d00f8426a8cd1b7f86da2"
+  integrity sha512-KctdxE5xBzf9wjYjTO9JWEQ1F2tdAR+yloz1rUmP5n0p6wEXB33B0myGTz49K6I3/EQpnJ9zot10r9ThQ+GARg==
 
 source-list-map@^2.0.0:
   version "2.0.0"
