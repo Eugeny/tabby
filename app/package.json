@@ -20,7 +20,7 @@
     "@angular/forms": "7.2.8",
     "@angular/platform-browser": "7.2.8",
     "@angular/platform-browser-dynamic": "7.2.8",
-    "@ng-bootstrap/ng-bootstrap": "^4.2.0",
+    "@ng-bootstrap/ng-bootstrap": "^4.2.2",
     "devtron": "1.4.0",
     "electron-config": "2.0.0",
     "electron-debug": "^3.0.1",
@@ -34,8 +34,8 @@
     "node-pty": "^0.9.0-beta25",
     "npm": "6.9.0",
     "path": "0.12.7",
-    "rxjs": "^6.5.2",
-    "rxjs-compat": "^6.5.2",
+    "rxjs": "^6.5.3",
+    "rxjs-compat": "^6.5.3",
     "yargs": "^14.0.0",
     "zone.js": "^0.8.29"
   },
@@ -48,7 +48,7 @@
   },
   "devDependencies": {
     "@types/mz": "0.0.32",
-    "@types/node": "^12.7.3",
+    "@types/node": "^12.7.4",
     "node-abi": "^2.11.0"
   }
 }
