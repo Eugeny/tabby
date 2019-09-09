@@ -13,20 +13,33 @@ jobs:
       with:
         version: 10
 
-    - name: Build
+    - name: Install deps
       run: |
         cd app
         yarn
         cd ..
         rm app/node_modules/.yarn-integrity
         yarn
-        yarn run lint
-        scripts/build-native.js
-        yarn run build:typings
-        yarn run build
-        scripts/prepackage-plugins.js
-        scripts/build-macos.js
+
+    - name: Lint
+      run: yarn run lint
+
+    - name: Build native deps
+      run: scripts/build-native.js
+
+    - name: Build typings
+      run: yarn run build:typings
+
+    - name: Webpack
+      run: yarn run build
+
+    - name: Prepackage plugins
+      run: scripts/prepackage-plugins.js
+
+    - name: Build packages
+      run: scripts/build-macos.js
       env:
+        DEBUG: electron-builder,electron-builder:*
         GH_TOKEN: ${{ secrets.GH_TOKEN }}
         CSC_LINK: ${{ secrets.CSC_LINK }}
         CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
