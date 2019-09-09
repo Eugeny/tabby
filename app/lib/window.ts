@@ -106,7 +106,7 @@ export class Window {
         this.ready = new Promise(resolve => {
             const listener = event => {
                 if (event.sender === this.window.webContents) {
-                    ipcMain.removeListener('app:ready', listener)
+                    ipcMain.removeListener('app:ready', listener as any)
                     resolve()
                 }
             }
