@@ -79,15 +79,16 @@ export class EditConnectionModalComponent {
     }
 
     selectPrivateKey () {
-        const path = this.electron.dialog.showOpenDialog(
+        this.electron.dialog.showOpenDialog(
             this.hostApp.getWindow(),
             {
                 title: 'Select private key',
             }
-        )
-        if (path) {
-            this.connection.privateKey = path[0]
-        }
+        ).then(result => {
+            if (!result.filePaths) {
+                this.connection.privateKey = result.filePaths[0]
+            }
+        })
     }
 
     save () {
