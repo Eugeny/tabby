@@ -7,7 +7,7 @@
     "@types/node": "^12.7.4",
     "@types/webpack-env": "1.13.9",
     "@typescript-eslint/eslint-plugin": "^2.1.0",
-    "@typescript-eslint/parser": "^2.1.0",
+    "@typescript-eslint/parser": "^2.2.0",
     "apply-loader": "2.0.0",
     "awesome-typescript-loader": "^5.0.0",
     "core-js": "^3.2.0",
