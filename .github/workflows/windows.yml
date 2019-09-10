@@ -16,13 +16,9 @@ jobs:
     - name: Build
       shell: powershell
       run: |
-        cd app
-        yarn
-        cd ..
-        del app/node_modules/.yarn-integrity
+        yarn add -D electron@6.0.7
         yarn
         node scripts/build-native.js
-        yarn run build:typings
         yarn run build
         node scripts/prepackage-plugins.js
         node scripts/build-windows.js
