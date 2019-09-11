@@ -45,7 +45,8 @@ rules:
   - error
   - never
   block-scoped-var: error
-  brace-style:
+  brace-style: off
+  '@typescript-eslint/brace-style':
   - error
   - 1tbs
   - allowSingleLine: true
