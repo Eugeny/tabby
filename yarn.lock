@@ -7008,10 +7008,10 @@ webpack-sources@^1.4.0, webpack-sources@^1.4.1:
     source-list-map "^2.0.0"
     source-map "~0.6.1"
 
-webpack@^4.39.3:
-  version "4.39.3"
-  resolved "https://registry.yarnpkg.com/webpack/-/webpack-4.39.3.tgz#a02179d1032156b713b6ec2da7e0df9d037def50"
-  integrity sha512-BXSI9M211JyCVc3JxHWDpze85CvjC842EvpRsVTc/d15YJGlox7GIDd38kJgWrb3ZluyvIjgenbLDMBQPDcxYQ==
+webpack@^4.40.0:
+  version "4.40.0"
+  resolved "https://registry.yarnpkg.com/webpack/-/webpack-4.40.0.tgz#b76f5fc2b76de5a58a7be61cb1dc3244e4a58572"
+  integrity sha512-qwDJehWHAbnSHwQT5S50OBx5nN2DD+bFhRf5IBs1unsEXAG+XG4r8Myt17j/fQBVfWIeSWRyEeTHUaPKaiFUNQ==
   dependencies:
     "@webassemblyjs/ast" "1.8.5"
     "@webassemblyjs/helper-module-context" "1.8.5"
