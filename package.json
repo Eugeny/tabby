@@ -4,7 +4,7 @@
     "@types/electron-config": "^3.2.2",
     "@types/electron-debug": "^2.1.0",
     "@types/js-yaml": "^3.12.1",
-    "@types/node": "^12.7.4",
+    "@types/node": "^12.7.5",
     "@types/webpack-env": "1.13.9",
     "@typescript-eslint/eslint-plugin": "^2.1.0",
     "@typescript-eslint/parser": "^2.2.0",
