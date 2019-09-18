@@ -42,9 +42,9 @@ safer-buffer@~2.1.0:
   integrity sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==
 
 ssh2-streams@^0.4.2, ssh2-streams@~0.4.4:
-  version "0.4.4"
-  resolved "https://registry.yarnpkg.com/ssh2-streams/-/ssh2-streams-0.4.4.tgz#7f07464c4b19ee93324995ec7164f110c5a13658"
-  integrity sha512-yNfPZgJO/N69TvYkpDHZBkXAXQzTpfzRkOphQu3PeUpZnrjp9VNa8RKDZkZDpjsWItay+I4NMAbZZ7DqHRt0AQ==
+  version "0.4.5"
+  resolved "https://registry.yarnpkg.com/ssh2-streams/-/ssh2-streams-0.4.5.tgz#420f7666f3930c836688091e09c2283c088a931f"
+  integrity sha512-4al7eZrWREhxbkPhDKS2Lv9gmxKaRElBG9KhxjczVk5/CRSJYw4RC7gStoGerY3JTasNJS3xo4jj7J8i3l8ccg==
   dependencies:
     asn1 "~0.2.0"
     bcrypt-pbkdf "^1.0.2"
