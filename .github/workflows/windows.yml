@@ -16,7 +16,6 @@ jobs:
     - name: Build
       shell: powershell
       run: |
-        yarn add -D electron@6.0.7
         yarn
         node scripts/build-native.js
         yarn run build

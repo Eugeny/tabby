@@ -10,7 +10,6 @@ version: "{build}"
 
 install:
   - ps: Install-Product node $env:nodejs_version $env:platform
-  - yarn add -D electron@6.0.7
   - yarn
   - node scripts/build-native.js
 
