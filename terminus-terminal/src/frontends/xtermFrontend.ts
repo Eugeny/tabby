@@ -2,7 +2,7 @@ import { Frontend, SearchOptions } from './frontend'
 import { Terminal, ITheme } from 'xterm'
 import { getCSSFontFamily } from '../utils'
 import { FitAddon } from 'xterm-addon-fit'
-import { enableLigatures } from 'xterm-addon-ligatures'
+import { LigaturesAddon } from 'xterm-addon-ligatures'
 import { SearchAddon } from 'xterm-addon-search'
 import { WebglAddon } from 'xterm-addon-webgl'
 import './xterm.css'
@@ -29,6 +29,7 @@ export class XTermFrontend extends Frontend {
     private copyOnSelect = false
     private search = new SearchAddon()
     private fitAddon = new FitAddon()
+    private ligaturesAddon: LigaturesAddon
     private opened = false
 
     constructor () {
@@ -117,10 +118,6 @@ export class XTermFrontend extends Frontend {
 
         if (this.enableWebGL) {
             this.xterm.loadAddon(new WebglAddon())
-        }
-
-        if (this.configService.store.terminal.ligatures) {
-            enableLigatures(this.xterm)
         }
 
         this.ready.next(null)
@@ -225,8 +222,9 @@ export class XTermFrontend extends Frontend {
             this.configuredTheme = theme
         }
 
-        if (this.opened && config.terminal.ligatures) {
-            enableLigatures(this.xterm)
+        if (this.opened && config.terminal.ligatures && !this.ligaturesAddon) {
+            this.ligaturesAddon = new LigaturesAddon()
+            this.xterm.loadAddon(this.ligaturesAddon)
         }
     }
 
