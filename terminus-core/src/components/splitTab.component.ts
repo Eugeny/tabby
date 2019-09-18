@@ -33,8 +33,8 @@ export class SplitContainer {
     /**
      * @return Flat list of all tabs inside this container
      */
-    getAllTabs () {
-        let r = []
+    getAllTabs (): BaseTabComponent[] {
+        let r: BaseTabComponent[] = []
         for (const child of this.children) {
             if (child instanceof SplitContainer) {
                 r = r.concat(child.getAllTabs())
@@ -94,7 +94,7 @@ export class SplitContainer {
     }
 
     async serialize () {
-        const children = []
+        const children: any[] = []
         for (const child of this.children) {
             if (child instanceof SplitContainer) {
                 children.push(await child.serialize())
@@ -292,9 +292,9 @@ export class SplitTabComponent extends BaseTabComponent implements OnInit, OnDes
     /**
      * Inserts a new `tab` to the `side` of the `relative` tab
      */
-    addTab (tab: BaseTabComponent, relative: BaseTabComponent, side: SplitDirection) {
-        let target = this.getParentOf(relative) || this.root
-        let insertIndex = target.children.indexOf(relative)
+    addTab (tab: BaseTabComponent, relative: BaseTabComponent|null, side: SplitDirection) {
+        let target = (relative ? this.getParentOf(relative) : null) || this.root
+        let insertIndex = relative ? target.children.indexOf(relative) : -1
 
         if (
             target.orientation === 'v' && ['l', 'r'].includes(side) ||
@@ -302,7 +302,7 @@ export class SplitTabComponent extends BaseTabComponent implements OnInit, OnDes
         ) {
             const newContainer = new SplitContainer()
             newContainer.orientation = target.orientation === 'v' ? 'h' : 'v'
-            newContainer.children = [relative]
+            newContainer.children = relative ? [relative] : []
             newContainer.ratios = [1]
             target.children[insertIndex] = newContainer
             target = newContainer
@@ -333,6 +333,9 @@ export class SplitTabComponent extends BaseTabComponent implements OnInit, OnDes
 
     removeTab (tab: BaseTabComponent) {
         const parent = this.getParentOf(tab)
+        if (!parent) {
+            return
+        }
         const index = parent.children.indexOf(tab)
         parent.ratios.splice(index, 1)
         parent.children.splice(index, 1)
@@ -356,11 +359,18 @@ export class SplitTabComponent extends BaseTabComponent implements OnInit, OnDes
     navigate (dir: SplitDirection) {
         let rel: BaseTabComponent | SplitContainer = this.focusedTab
         let parent = this.getParentOf(rel)
+        if (!parent) {
+            return
+        }
+
         const orientation = ['l', 'r'].includes(dir) ? 'h' : 'v'
 
         while (parent !== this.root && parent.orientation !== orientation) {
             rel = parent
             parent = this.getParentOf(rel)
+            if (!parent) {
+                return
+            }
         }
 
         if (parent.orientation !== orientation) {
@@ -381,13 +391,15 @@ export class SplitTabComponent extends BaseTabComponent implements OnInit, OnDes
 
     async splitTab (tab: BaseTabComponent, dir: SplitDirection) {
         const newTab = await this.tabsService.duplicate(tab)
-        this.addTab(newTab, tab, dir)
+        if (newTab) {
+            this.addTab(newTab, tab, dir)
+        }
     }
 
     /**
      * @returns the immediate parent of `tab`
      */
-    getParentOf (tab: BaseTabComponent | SplitContainer, root?: SplitContainer): SplitContainer {
+    getParentOf (tab: BaseTabComponent | SplitContainer, root?: SplitContainer): SplitContainer|null {
         root = root || this.root
         for (const child of root.children) {
             if (child instanceof SplitContainer) {
@@ -414,8 +426,8 @@ export class SplitTabComponent extends BaseTabComponent implements OnInit, OnDes
     }
 
     /** @hidden */
-    async getCurrentProcess (): Promise<BaseTabProcess> {
-        return (await Promise.all(this.getAllTabs().map(x => x.getCurrentProcess()))).find(x => !!x)
+    async getCurrentProcess (): Promise<BaseTabProcess|null> {
+        return (await Promise.all(this.getAllTabs().map(x => x.getCurrentProcess()))).find(x => !!x) || null
     }
 
     /** @hidden */
@@ -443,8 +455,10 @@ export class SplitTabComponent extends BaseTabComponent implements OnInit, OnDes
 
     private detachTabView (tab: BaseTabComponent) {
         const ref = this.viewRefs.get(tab)
-        this.viewRefs.delete(tab)
-        this.viewContainer.remove(this.viewContainer.indexOf(ref))
+        if (ref) {
+            this.viewRefs.delete(tab)
+            this.viewContainer.remove(this.viewContainer.indexOf(ref))
+        }
     }
 
     private layout () {
@@ -471,7 +485,7 @@ export class SplitTabComponent extends BaseTabComponent implements OnInit, OnDes
             if (child instanceof SplitContainer) {
                 this.layoutInternal(child, childX, childY, childW, childH)
             } else {
-                const element = this.viewRefs.get(child).rootNodes[0]
+                const element = this.viewRefs.get(child)!.rootNodes[0]
                 element.style.position = 'absolute'
                 element.style.left = `${childX}%`
                 element.style.top = `${childY}%`
@@ -518,7 +532,7 @@ export class SplitTabComponent extends BaseTabComponent implements OnInit, OnDes
 /** @hidden */
 @Injectable()
 export class SplitTabRecoveryProvider extends TabRecoveryProvider {
-    async recover (recoveryToken: any): Promise<RecoveredTab> {
+    async recover (recoveryToken: any): Promise<RecoveredTab|null> {
         if (recoveryToken && recoveryToken.type === 'app:split-tab') {
             return {
                 type: SplitTabComponent,

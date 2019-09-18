@@ -25,14 +25,14 @@ class CompletionObserver {
 
     async tick () {
         if (!await this.tab.getCurrentProcess()) {
-            this.done.next(null)
+            this.done.next()
             this.stop()
         }
     }
 
     stop () {
         clearInterval(this.interval)
-        this.destroyed.next(null)
+        this.destroyed.next()
         this.destroyed.complete()
         this.done.complete()
     }
@@ -144,7 +144,7 @@ export class AppService {
         if (this.tabs.includes(this._activeTab)) {
             this.lastTabIndex = this.tabs.indexOf(this._activeTab)
         } else {
-            this.lastTabIndex = null
+            this.lastTabIndex = 0
         }
         if (this._activeTab) {
             this._activeTab.clearActivity()
@@ -229,7 +229,7 @@ export class AppService {
 
     /** @hidden */
     emitReady () {
-        this.ready.next(null)
+        this.ready.next()
         this.ready.complete()
         this.hostApp.emitReady()
     }
@@ -246,7 +246,7 @@ export class AppService {
             })
             this.completionObservers.set(tab, observer)
         }
-        return this.completionObservers.get(tab).done$
+        return this.completionObservers.get(tab)!.done$
     }
 
     stopObservingTabCompletion (tab: BaseTabComponent) {

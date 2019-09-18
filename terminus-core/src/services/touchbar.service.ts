@@ -42,7 +42,7 @@ export class TouchbarService {
                 const showIcon = this.app.activeTab !== tab && hasActivity
                 const segment = this.tabSegments[app.tabs.indexOf(tab)]
                 if (segment) {
-                    segment.icon = showIcon ? activityIcon : null
+                    segment.icon = showIcon ? activityIcon : undefined
                 }
             })
         })
@@ -83,7 +83,9 @@ export class TouchbarService {
             segments: buttons.map(button => this.getButton(button)),
             mode: 'buttons',
             change: (selectedIndex) => this.zone.run(() => {
-                buttons[selectedIndex].click()
+                if (buttons[selectedIndex].click) {
+                    buttons[selectedIndex].click!()
+                }
             }),
         })
 
@@ -100,8 +102,8 @@ export class TouchbarService {
 
     private getButton (button: ToolbarButton): Electron.SegmentedControlSegment {
         return {
-            label: button.touchBarNSImage ? null : this.shortenTitle(button.touchBarTitle || button.title),
-            icon: button.touchBarNSImage ? this.getCachedNSImage(button.touchBarNSImage) : null,
+            label: button.touchBarNSImage ? undefined : this.shortenTitle(button.touchBarTitle || button.title),
+            icon: button.touchBarNSImage ? this.getCachedNSImage(button.touchBarNSImage) : undefined,
             // click: () => this.zone.run(() => button.click()),
         }
     }

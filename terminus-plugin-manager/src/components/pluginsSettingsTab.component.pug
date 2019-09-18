@@ -8,9 +8,9 @@
     button.btn.btn-outline-info.btn-sm.ml-auto((click)='openPluginsFolder()')
         i.fas.fa-folder
         span Plugins folder
-    
+
 .list-group.list-group-flush.mt-2
-    .list-group-item.d-flex.align-items-center(*ngFor='let plugin of pluginManager.installedPlugins|orderBy:"name"')
+    .list-group-item.d-flex.align-items-center(*ngFor='let plugin of pluginManager.installedPlugins')
         .mr-auto.d-flex.flex-column
             div
                 strong {{plugin.name}}
@@ -33,15 +33,15 @@
             (click)='enablePlugin(plugin)'
         )
             i.fas.fa-fw.fa-play
-                
+
         button.btn.btn-secondary.ml-2(
             *ngIf='!config.store.pluginBlacklist.includes(plugin.name)',
             (click)='disablePlugin(plugin)'
         )
             i.fas.fa-fw.fa-pause
-            
+
         button.btn.btn-danger.ml-2(
-            (click)='uninstallPlugin(plugin)', 
+            (click)='uninstallPlugin(plugin)',
             *ngIf='!plugin.isBuiltin',
             [disabled]='busy[plugin.name] != undefined'
         )
@@ -65,7 +65,7 @@ div
 
 
     .list-group.list-group-flush.mb-4(*ngIf='availablePlugins$')
-        ng-container(*ngFor='let plugin of (availablePlugins$|async|orderBy:"name")')
+        ng-container(*ngFor='let plugin of (availablePlugins$|async)')
             .list-group-item.d-flex.align-items-center(*ngIf='!isAlreadyInstalled(plugin)')
                 button.btn.btn-primary.mr-3(
                     (click)='installPlugin(plugin)',
@@ -73,7 +73,7 @@ div
                 )
                     i.fas.fa-fw.fa-download(*ngIf='busy[plugin.name] != BusyState.Installing')
                     i.fas.fa-fw.fa-circle-notch.fa-spin(*ngIf='busy[plugin.name] == BusyState.Installing')
-                
+
                 div((click)='showPluginInfo(plugin)')
                     div
                         strong {{plugin.name}}

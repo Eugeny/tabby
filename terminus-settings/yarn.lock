@@ -8,6 +8,6 @@
   integrity sha512-mMUu4nWHLBlHtxXY17Fg6+ucS/MnndyOWyOe7MmwkoMYxvfQU2ajtRaEvqSUv+aVkMqH/C0NCI8UoVfRNQ10yg==
 
 ngx-pipes@^1.6.1:
-  version "1.6.6"
-  resolved "https://registry.yarnpkg.com/ngx-pipes/-/ngx-pipes-1.6.6.tgz#32bb80906c220f1e84d5cce7d6dae002cffead4b"
-  integrity sha512-mRV0xOZDd6/Jlvti4W0pDepZRIHLHd3kZ6ZzdqyGCU0dxbKVWWLTR1jlNlxN1ruMk8eO0Y8lNh6a1bEW7dJP1w==
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/ngx-pipes/-/ngx-pipes-1.7.0.tgz#70e166dc2f59a8b96f69dfbf75b58186c189037b"
+  integrity sha512-ZTJc0/a+e+8v7pP+tb301So5UlxVOoUEZZtJHMjuvHO/CADqfgF+sOAdq1dZMf2RnJ2QTuxbZ8wf34w3T/f8AA==

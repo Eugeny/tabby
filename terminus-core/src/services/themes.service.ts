@@ -4,7 +4,7 @@ import { Theme } from '../api/theme'
 
 @Injectable({ providedIn: 'root' })
 export class ThemesService {
-    private styleElement: HTMLElement = null
+    private styleElement: HTMLElement|null = null
 
     /** @hidden */
     constructor (
@@ -17,22 +17,22 @@ export class ThemesService {
         })
     }
 
-    findTheme (name: string): Theme {
-        return this.config.enabledServices(this.themes).find(x => x.name === name)
+    findTheme (name: string): Theme|null {
+        return this.config.enabledServices(this.themes).find(x => x.name === name) || null
     }
 
     findCurrentTheme (): Theme {
-        return this.findTheme(this.config.store.appearance.theme) || this.findTheme('Standard')
+        return this.findTheme(this.config.store.appearance.theme) || this.findTheme('Standard')!
     }
 
     applyTheme (theme: Theme): void {
         if (!this.styleElement) {
             this.styleElement = document.createElement('style')
             this.styleElement.setAttribute('id', 'theme')
-            document.querySelector('head').appendChild(this.styleElement)
+            document.querySelector('head')!.appendChild(this.styleElement)
         }
         this.styleElement.textContent = theme.css
-        document.querySelector('style#custom-css').innerHTML = this.config.store.appearance.css
+        document.querySelector('style#custom-css')!.innerHTML = this.config.store.appearance.css
     }
 
     private applyCurrentTheme (): void {

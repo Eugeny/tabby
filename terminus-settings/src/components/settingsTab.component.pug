@@ -8,14 +8,14 @@ ngb-tabset.vertical(type='pills', [activeId]='activeTab')
         ng-template(ngbTabContent)
             .d-flex.align-items-center.mb-4
                 h1.terminus-title.mb-2.mr-2 Terminus
-                    sup α 
-                
+                    sup α
+
                 .text-muted.mr-auto {{homeBase.appVersion}}
-                            
+
                 button.btn.btn-secondary.mr-3((click)='homeBase.openGitHub()')
                     i.fab.fa-github
                     span GitHub
-                    
+
                 button.btn.btn-secondary((click)='homeBase.reportBug()')
                     i.fas.fa-bug
                     span Report a problem
@@ -57,7 +57,7 @@ ngb-tabset.vertical(type='pills', [activeId]='activeTab')
                     .title(*ngIf='hostApp.platform === Platform.Windows') Acrylic background
                     .title(*ngIf='hostApp.platform === Platform.macOS') Vibrancy
                     .description Gives the window a blurred transparent background
-                    
+
                 toggle(
                     [(ngModel)]='config.store.appearance.vibrancy',
                     (ngModelChange)='config.save()'
@@ -85,7 +85,7 @@ ngb-tabset.vertical(type='pills', [activeId]='activeTab')
                             [value]='"fluent"'
                         )
                         | Fluent
-                    
+
             .form-line
                 .header
                     .title Transparency
@@ -256,27 +256,28 @@ ngb-tabset.vertical(type='pills', [activeId]='activeTab')
             | Hotkeys
         ng-template(ngbTabContent)
             h3.mb-3 Hotkeys
-            
+
             .input-group.mb-4
                 .input-group-prepend
                     .input-group-text
                         i.fas.fa-fw.fa-search
                 input.form-control(type='search', placeholder='Search hotkeys', [(ngModel)]='hotkeyFilter')
-                            
+
             .form-group
                 table.hotkeys-table
                     tr
                         th Name
                         th ID
                         th Hotkey
-                    tr(*ngFor='let hotkey of hotkeyDescriptions|filterBy:["name"]:hotkeyFilter')
-                        td {{hotkey.name}}
-                        td {{hotkey.id}}
-                        td.pr-5
-                            multi-hotkey-input(
-                                [model]='getHotkey(hotkey.id)',
-                                (modelChange)='setHotkey(hotkey.id, $event); config.save(); docking.dock()'
-                            )
+                    ng-container(*ngFor='let hotkey of hotkeyDescriptions')
+                        tr(*ngIf='!hotkeyFilter || hotkey.name.toLowerCase().includes(hotkeyFilter.toLowerCase())')
+                            td {{hotkey.name}}
+                            td {{hotkey.id}}
+                            td.pr-5
+                                multi-hotkey-input(
+                                    [model]='getHotkey(hotkey.id)',
+                                    (modelChange)='setHotkey(hotkey.id, $event); config.save(); docking.dock()'
+                                )
 
     ngb-tab(*ngFor='let provider of settingsProviders', [id]='provider.id')
         ng-template(ngbTabTitle)
@@ -285,7 +286,7 @@ ngb-tabset.vertical(type='pills', [activeId]='activeTab')
         ng-template(ngbTabContent)
             settings-tab-body([provider]='provider')
 
-                
+
     ngb-tab(id='config-file')
         ng-template(ngbTabTitle)
             i.fas.fa-fw.fa-code.mr-2
@@ -303,7 +304,7 @@ ngb-tabset.vertical(type='pills', [activeId]='activeTab')
                         textarea.form-control.h-100(
                             [(ngModel)]='configDefaults',
                             readonly
-                        )   
+                        )
                 .mt-2.mb-2.d-flex
                     button.btn.btn-primary((click)='saveConfigFile()', *ngIf='isConfigFileValid()')
                         i.fas.fa-check.mr-2

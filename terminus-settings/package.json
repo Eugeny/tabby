@@ -1,6 +1,6 @@
 {
   "name": "terminus-settings",
-  "version": "1.0.83-nightly.4",
+  "version": "1.0.92-nightly.0",
   "description": "Terminus terminal settings page",
   "keywords": [
     "terminus-builtin-plugin"
@@ -17,8 +17,7 @@
   "author": "Eugene Pankov",
   "license": "MIT",
   "devDependencies": {
-    "@types/deep-equal": "1.0.1",
-    "ngx-pipes": "^1.6.1"
+    "@types/deep-equal": "1.0.1"
   },
   "peerDependencies": {
     "@angular/common": "^7",
@@ -26,7 +25,7 @@
     "@angular/forms": "^7",
     "@angular/platform-browser": "^7",
     "@ng-bootstrap/ng-bootstrap": "^1",
-    "terminus-core": "*",
-    "rxjs": "^5"
+    "rxjs": "^5",
+    "terminus-core": "*"
   }
 }

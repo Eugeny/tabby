@@ -1,5 +1,5 @@
 import { BehaviorSubject, Observable } from 'rxjs'
-import { debounceTime, distinctUntilChanged, first, tap, flatMap } from 'rxjs/operators'
+import { debounceTime, distinctUntilChanged, first, tap, flatMap, map } from 'rxjs/operators'
 import * as semver from 'semver'
 
 import { Component, Input } from '@angular/core'
@@ -18,7 +18,7 @@ export class PluginsSettingsTabComponent {
     @Input() availablePlugins$: Observable<PluginInfo[]>
     @Input() availablePluginsQuery$ = new BehaviorSubject<string>('')
     @Input() availablePluginsReady = false
-    @Input() knownUpgrades: {[id: string]: PluginInfo} = {}
+    @Input() knownUpgrades: {[id: string]: PluginInfo|null} = {}
     @Input() busy: {[id: string]: BusyState} = {}
     @Input() erroredPlugin: string
     @Input() errorMessage: string
@@ -43,9 +43,12 @@ export class PluginsSettingsTabComponent {
                     }))
                 })
             )
-        this.availablePlugins$.pipe(first()).subscribe(available => {
+        this.availablePlugins$.pipe(first(), map((plugins: PluginInfo[]) => {
+            plugins.sort((a, b) => a.name > b.name ? 1 : -1)
+            return plugins
+        })).subscribe(available => {
             for (const plugin of this.pluginManager.installedPlugins) {
-                this.knownUpgrades[plugin.name] = available.find(x => x.name === plugin.name && semver.gt(x.version, plugin.version))
+                this.knownUpgrades[plugin.name] = available.find(x => x.name === plugin.name && semver.gt(x.version, plugin.version)) || null
             }
         })
     }
@@ -91,7 +94,7 @@ export class PluginsSettingsTabComponent {
     }
 
     async upgradePlugin (plugin: PluginInfo): Promise<void> {
-        return this.installPlugin(this.knownUpgrades[plugin.name])
+        return this.installPlugin(this.knownUpgrades[plugin.name]!)
     }
 
     showPluginInfo (plugin: PluginInfo) {

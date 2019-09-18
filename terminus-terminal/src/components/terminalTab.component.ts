@@ -68,7 +68,7 @@ export class TerminalTabComponent extends BaseTerminalTabComponent {
         }
     }
 
-    async getCurrentProcess (): Promise<BaseTabProcess> {
+    async getCurrentProcess (): Promise<BaseTabProcess|null> {
         const children = await this.session.getChildProcesses()
         if (!children.length) {
             return null

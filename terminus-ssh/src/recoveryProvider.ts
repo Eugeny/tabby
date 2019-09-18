@@ -6,7 +6,7 @@ import { SSHTabComponent } from './components/sshTab.component'
 /** @hidden */
 @Injectable()
 export class RecoveryProvider extends TabRecoveryProvider {
-    async recover (recoveryToken: any): Promise<RecoveredTab> {
+    async recover (recoveryToken: any): Promise<RecoveredTab|null> {
         if (recoveryToken && recoveryToken.type === 'app:ssh-tab') {
             return {
                 type: SSHTabComponent,

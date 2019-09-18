@@ -52,6 +52,9 @@ export class ShellSettingsTabComponent {
 
     pickWorkingDirectory () {
         const shell = this.shells.find(x => x.id === this.config.store.terminal.shell)
+        if (!shell) {
+            return
+        }
         const paths = this.electron.dialog.showOpenDialog(
             this.hostApp.getWindow(),
             {
@@ -66,7 +69,7 @@ export class ShellSettingsTabComponent {
 
     newProfile (shell: Shell) {
         const profile: Profile = {
-            name: shell.name,
+            name: shell.name || '',
             sessionOptions: this.terminalService.optionsFromShell(shell),
         }
         this.config.store.terminal.profiles = [profile, ...this.config.store.terminal.profiles]

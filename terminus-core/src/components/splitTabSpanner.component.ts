@@ -67,13 +67,13 @@ export class SplitTabSpannerComponent {
                 this.container.x,
                 this.container.y + this.container.h * this.container.getOffsetRatio(this.index),
                 this.container.w,
-                null
+                0
             )
         } else {
             this.setDimensions(
                 this.container.x + this.container.w * this.container.getOffsetRatio(this.index),
                 this.container.y,
-                null,
+                0,
                 this.container.h
             )
         }
@@ -82,7 +82,7 @@ export class SplitTabSpannerComponent {
     private setDimensions (x: number, y: number, w: number, h: number) {
         this.cssLeft = `${x}%`
         this.cssTop = `${y}%`
-        this.cssWidth = w ? `${w}%` : null
-        this.cssHeight = h ? `${h}%` : null
+        this.cssWidth = w ? `${w}%` : 'initial'
+        this.cssHeight = h ? `${h}%` : 'initial'
     }
 }

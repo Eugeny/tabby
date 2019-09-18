@@ -16,6 +16,7 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "importHelpers": true,
+    "strictNullChecks": true,
     "lib": [
       "dom",
       "es5",

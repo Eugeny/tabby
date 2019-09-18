@@ -36,7 +36,7 @@ export abstract class BaseTabComponent {
     /**
      * CSS color override for the tab's header
      */
-    color: string = null
+    color: string|null = null
 
     protected hasFocus = false
 
@@ -50,14 +50,14 @@ export abstract class BaseTabComponent {
     private titleChange = new Subject<string>()
     private focused = new Subject<void>()
     private blurred = new Subject<void>()
-    private progress = new Subject<number>()
+    private progress = new Subject<number|null>()
     private activity = new Subject<boolean>()
     private destroyed = new Subject<void>()
 
     get focused$ (): Observable<void> { return this.focused }
     get blurred$ (): Observable<void> { return this.blurred }
     get titleChange$ (): Observable<string> { return this.titleChange }
-    get progress$ (): Observable<number> { return this.progress }
+    get progress$ (): Observable<number|null> { return this.progress }
     get activity$ (): Observable<boolean> { return this.activity }
     get destroyed$ (): Observable<void> { return this.destroyed }
     get recoveryStateChangedHint$ (): Observable<void> { return this.recoveryStateChangedHint }
@@ -83,7 +83,7 @@ export abstract class BaseTabComponent {
      *
      * @param  {type} progress: value between 0 and 1, or `null` to remove
      */
-    setProgress (progress: number) {
+    setProgress (progress: number|null) {
         this.progress.next(progress)
         if (progress) {
             if (this.progressClearTimeout) {
@@ -125,7 +125,7 @@ export abstract class BaseTabComponent {
     /**
      * Override this to enable task completion notifications for the tab
      */
-    async getCurrentProcess (): Promise<BaseTabProcess> {
+    async getCurrentProcess (): Promise<BaseTabProcess|null> {
         return null
     }
 

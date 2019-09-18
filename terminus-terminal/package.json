@@ -1,6 +1,6 @@
 {
   "name": "terminus-terminal",
-  "version": "1.0.83-nightly.4",
+  "version": "1.0.92-nightly.0",
   "description": "Terminus' terminal emulation core",
   "keywords": [
     "terminus-builtin-plugin"

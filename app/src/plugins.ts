@@ -156,7 +156,9 @@ export async function findPlugins (): Promise<PluginInfo[]> {
         }
     }
 
-    (window as any).installedPlugins = foundPlugins
+    foundPlugins.sort((a, b) => a.name > b.name ? 1 : -1)
+
+    ;(window as any).installedPlugins = foundPlugins
     return foundPlugins
 }
 

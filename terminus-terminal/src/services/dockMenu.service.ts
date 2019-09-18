@@ -30,7 +30,7 @@ export class DockMenuService {
                     iconPath: process.execPath,
                     iconIndex: 0,
                 })),
-            }] : null)
+            }] : null as any)
         }
         if (this.hostApp.platform === Platform.macOS) {
             this.electron.app.dock.setMenu(this.electron.Menu.buildFromTemplate(

@@ -144,7 +144,7 @@ export class AppRootComponent {
         config.changed$.subscribe(() => this.updateVibrancy())
         this.updateVibrancy()
 
-        let lastProgress = null
+        let lastProgress: number|null = null
         this.app.tabOpened$.subscribe(tab => {
             this.unsortedTabs.push(tab)
             tab.progress$.subscribe(progress => {
@@ -258,7 +258,7 @@ export class AppRootComponent {
             buttons = buttons.concat(provider.provide())
         })
         return buttons
-            .filter(button => button.weight > 0 === aboveZero)
+            .filter(button => (button.weight || 0) > 0 === aboveZero)
             .sort((a: ToolbarButton, b: ToolbarButton) => (a.weight || 0) - (b.weight || 0))
     }
 

@@ -51,7 +51,7 @@ export class TerminalService {
      * Launches a new terminal with a specific shell and CWD
      * @param pause Wait for a keypress when the shell exits
      */
-    async openTab (profile?: Profile, cwd?: string, pause?: boolean): Promise<TerminalTabComponent> {
+    async openTab (profile?: Profile, cwd?: string|null, pause?: boolean): Promise<TerminalTabComponent> {
         if (!profile) {
             const profiles = await this.getProfiles(true)
             profile = profiles.find(x => slug(x.name).toLowerCase() === this.config.store.terminal.profile) || profiles[0]
@@ -85,7 +85,7 @@ export class TerminalService {
         const sessionOptions = {
             ...profile.sessionOptions,
             pauseAfterExit: pause,
-            cwd,
+            cwd: cwd || undefined,
         }
 
         return this.openTabWithOptions(sessionOptions)

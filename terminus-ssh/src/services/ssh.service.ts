@@ -38,9 +38,9 @@ export class SSHService {
         ) as SSHTabComponent)
     }
 
-    async connectSession (session: SSHSession, logCallback?: (s: string) => void): Promise<void> {
-        let privateKey: string = null
-        let privateKeyPassphrase: string = null
+    async connectSession (session: SSHSession, logCallback?: (s: any) => void): Promise<void> {
+        let privateKey: string|null = null
+        let privateKeyPassphrase: string|null = null
         let privateKeyPath = session.connection.privateKey
 
         if (!logCallback) {
@@ -48,12 +48,12 @@ export class SSHService {
         }
 
         const log = (s: any) => {
-            logCallback(s)
+            logCallback!(s)
             this.logger.info(s)
         }
 
         if (!privateKeyPath) {
-            const userKeyPath = path.join(process.env.HOME, '.ssh', 'id_rsa')
+            const userKeyPath = path.join(process.env.HOME as string, '.ssh', 'id_rsa')
             if (await fs.exists(userKeyPath)) {
                 log(`Using user's default private key: ${userKeyPath}`)
                 privateKeyPath = userKeyPath
@@ -92,7 +92,7 @@ export class SSHService {
 
         const ssh = new Client()
         let connected = false
-        let savedPassword: string = null
+        let savedPassword: string|null = null
         await new Promise(async (resolve, reject) => {
             ssh.on('ready', () => {
                 connected = true
@@ -116,7 +116,7 @@ export class SSHService {
             ssh.on('keyboard-interactive', (name, instructions, instructionsLang, prompts, finish) => this.zone.run(async () => {
                 log(`Keyboard-interactive auth requested: ${name}`)
                 this.logger.info('Keyboard-interactive auth:', name, instructions, instructionsLang)
-                const results = []
+                const results: string[] = []
                 for (const prompt of prompts) {
                     const modal = this.ngbModal.open(PromptModalComponent)
                     modal.componentInstance.prompt = prompt.prompt
@@ -135,7 +135,7 @@ export class SSHService {
                 log('Banner: \n' + banner)
             })
 
-            let agent: string = null
+            let agent: string|null = null
             if (this.hostApp.platform === Platform.Windows) {
                 const pageantRunning = new Promise<boolean>(resolve => {
                     windowsProcessTreeNative.getProcessList(list => { // eslint-disable-line block-scoped-var
@@ -146,7 +146,7 @@ export class SSHService {
                     agent = 'pageant'
                 }
             } else {
-                agent = process.env.SSH_AUTH_SOCK
+                agent = process.env.SSH_AUTH_SOCK as string
             }
 
             try {
@@ -155,10 +155,10 @@ export class SSHService {
                     port: session.connection.port || 22,
                     username: session.connection.user,
                     password: session.connection.privateKey ? undefined : '',
-                    privateKey,
-                    passphrase: privateKeyPassphrase,
+                    privateKey: privateKey || undefined,
+                    passphrase: privateKeyPassphrase || undefined,
                     tryKeyboard: true,
-                    agent,
+                    agent: agent || undefined,
                     agentForward: !!agent,
                     keepaliveInterval: session.connection.keepaliveInterval,
                     keepaliveCountMax: session.connection.keepaliveCountMax,

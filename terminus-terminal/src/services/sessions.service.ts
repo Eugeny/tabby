@@ -62,7 +62,7 @@ export abstract class BaseSession {
     releaseInitialDataBuffer () {
         this.initialDataBufferReleased = true
         this.output.next(this.initialDataBuffer)
-        this.initialDataBuffer = null
+        this.initialDataBuffer = ''
     }
 
     async destroy (): Promise<void> {
@@ -81,14 +81,14 @@ export abstract class BaseSession {
     abstract kill (signal?: string): void
     abstract async getChildProcesses (): Promise<ChildProcess[]>
     abstract async gracefullyKillProcess (): Promise<void>
-    abstract async getWorkingDirectory (): Promise<string>
+    abstract async getWorkingDirectory (): Promise<string|null>
 }
 
 /** @hidden */
 export class Session extends BaseSession {
     private pty: any
     private pauseAfterExit = false
-    private guessedCWD: string
+    private guessedCWD: string|null = null
     private reportedCWD: string
 
     constructor (private config: ConfigService) {
@@ -96,7 +96,7 @@ export class Session extends BaseSession {
     }
 
     start (options: SessionOptions) {
-        this.name = options.name
+        this.name = options.name || ''
 
         const env = {
             ...process.env,
@@ -122,7 +122,7 @@ export class Session extends BaseSession {
 
         if (!fs.existsSync(cwd)) {
             console.warn('Ignoring non-existent CWD:', cwd)
-            cwd = null
+            cwd = undefined
         }
 
         this.pty = nodePTY.spawn(options.command, options.args || [], {
@@ -135,7 +135,7 @@ export class Session extends BaseSession {
             experimentalUseConpty: (isWindowsBuild(WIN_BUILD_CONPTY_SUPPORTED) && this.config.store.terminal.useConPTY ? 1 : false) as any,
         })
 
-        this.guessedCWD = cwd
+        this.guessedCWD = cwd || null
 
         this.truePID = this.pty['pid']
 
@@ -174,7 +174,7 @@ export class Session extends BaseSession {
             }
         })
 
-        this.pauseAfterExit = options.pauseAfterExit
+        this.pauseAfterExit = options.pauseAfterExit || false
     }
 
     processOSC1337 (data: string) {
@@ -270,7 +270,7 @@ export class Session extends BaseSession {
         }
     }
 
-    async getWorkingDirectory (): Promise<string> {
+    async getWorkingDirectory (): Promise<string|null> {
         if (this.reportedCWD) {
             return this.reportedCWD
         }

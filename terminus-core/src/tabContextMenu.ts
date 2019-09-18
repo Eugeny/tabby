@@ -78,7 +78,7 @@ export class CommonOptionsContextMenu extends TabContextMenuItemProvider {
         return [
             {
                 label: 'Rename',
-                click: () => this.zone.run(() => tabHeader.showRenameTabModal()),
+                click: () => this.zone.run(() => tabHeader && tabHeader.showRenameTabModal()),
             },
             {
                 label: 'Duplicate',
@@ -86,7 +86,7 @@ export class CommonOptionsContextMenu extends TabContextMenuItemProvider {
             },
             {
                 label: 'Color',
-                sublabel: COLORS.find(x => x.value === tab.color).name,
+                sublabel: COLORS.find(x => x.value === tab.color)!.name,
                 submenu: COLORS.map(color => ({
                     label: color.name,
                     type: 'radio',

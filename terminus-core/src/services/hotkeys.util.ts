@@ -15,7 +15,7 @@ export function stringifyKeySequence (events: KeyboardEvent[]): string[] {
     events = events.slice()
 
     while (events.length > 0) {
-        const event = events.shift()
+        const event = events.shift()!
         if ((event as any).event === 'keydown') {
             const itemKeys: string[] = []
             if (event.ctrlKey) {

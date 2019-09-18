@@ -25,7 +25,7 @@ export class TabHeaderComponent {
     @Input() @HostBinding('class.active') active: boolean
     @Input() @HostBinding('class.has-activity') hasActivity: boolean
     @Input() tab: BaseTabComponent
-    @Input() progress: number
+    @Input() progress: number|null
     @ViewChild('handle') handle: ElementRef
 
     private constructor (
@@ -83,7 +83,7 @@ export class TabHeaderComponent {
             this.app.closeTab(this.tab, true)
         }
         if ($event.which === 3) {
-            event.preventDefault()
+            $event.preventDefault()
 
             const contextMenu = this.electron.remote.Menu.buildFromTemplate(await this.buildContextMenu())
 

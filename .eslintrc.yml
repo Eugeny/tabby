@@ -92,3 +92,4 @@ rules:
   - error
   - single
   - allowTemplateLiterals: true
+  '@typescript-eslint/no-non-null-assertion': off

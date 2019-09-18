@@ -27,7 +27,7 @@ export class TabRecoveryService {
         )
     }
 
-    async recoverTab (token: any): Promise<RecoveredTab> {
+    async recoverTab (token: any): Promise<RecoveredTab|null> {
         for (const provider of this.config.enabledServices(this.tabRecoveryProviders)) {
             try {
                 const tab = await provider.recover(token)

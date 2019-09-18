@@ -43,7 +43,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
     @ViewChild('content') content
 
     /** @hidden */
-    @HostBinding('style.background-color') backgroundColor: string
+    @HostBinding('style.background-color') backgroundColor: string|null = null
 
     /** @hidden */
     @HostBinding('class.top-padded') topPadded: boolean

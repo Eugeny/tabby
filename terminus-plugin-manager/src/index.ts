@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
 import { FormsModule } from '@angular/forms'
-import { NgPipesModule } from 'ngx-pipes'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 
 import { SettingsTabProvider } from 'terminus-settings'
@@ -15,7 +14,6 @@ import { PluginsSettingsTabProvider } from './settings'
         BrowserModule,
         FormsModule,
         NgbModule,
-        NgPipesModule,
     ],
     providers: [
         { provide: SettingsTabProvider, useClass: PluginsSettingsTabProvider, multi: true },

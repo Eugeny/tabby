@@ -215,7 +215,7 @@ export class HostAppService {
     setVibrancy (enable: boolean, type: string) {
         document.body.classList.toggle('vibrant', enable)
         if (this.platform === Platform.macOS) {
-            this.getWindow().setVibrancy(enable ? 'dark' : null)
+            this.getWindow().setVibrancy(enable ? 'dark' : null as any) // electron issue 20269
         }
         if (this.platform === Platform.Windows) {
             this.electron.ipcRenderer.send('window-set-vibrancy', enable, type)

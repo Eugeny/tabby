@@ -186,7 +186,7 @@ export class HTermFrontend extends Frontend {
             this.io.onTerminalResize = (columns, rows) => {
                 this.resize.next({ columns, rows })
             }
-            this.ready.next(null)
+            this.ready.next()
             this.ready.complete()
 
             this.term.scrollPort_.document_.addEventListener('dragOver', event => {

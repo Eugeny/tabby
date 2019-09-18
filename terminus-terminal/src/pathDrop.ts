@@ -15,7 +15,7 @@ export class PathDropDecorator extends TerminalDecorator {
                     event.preventDefault()
                 }),
                 terminal.frontend.drop$.subscribe(event => {
-                    for (const file of event.dataTransfer.files as any) {
+                    for (const file of event.dataTransfer!.files as any) {
                         this.injectPath(terminal, file.path)
                     }
                     event.preventDefault()

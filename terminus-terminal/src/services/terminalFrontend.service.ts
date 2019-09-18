@@ -34,6 +34,6 @@ export class TerminalFrontendService {
                 this.getFrontend(),
             )
         }
-        return this.containers.get(session)
+        return this.containers.get(session)!
     }
 }

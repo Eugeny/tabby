@@ -1,7 +1,7 @@
 import { BaseSession } from 'terminus-terminal'
 
 export interface LoginScript {
-    expect?: string
+    expect: string
     send: string
     isRegex?: boolean
     optional?: boolean
@@ -15,7 +15,7 @@ export enum SSHAlgorithmType {
 }
 
 export interface SSHConnection {
-    name?: string
+    name: string
     host: string
     port: number
     user: string
@@ -122,7 +122,7 @@ export class SSHSession extends BaseSession {
         this.kill('TERM')
     }
 
-    async getWorkingDirectory (): Promise<string> {
+    async getWorkingDirectory (): Promise<string|null> {
         return null
     }
 

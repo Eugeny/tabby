@@ -93,7 +93,7 @@ export class HotkeysService {
         return stringifyKeySequence(this.currentKeystrokes.map(x => x.event))
     }
 
-    getCurrentFullyMatchedHotkey (): string {
+    getCurrentFullyMatchedHotkey (): string|null {
         const currentStrokes = this.getCurrentKeystrokes()
         const config = this.getHotkeysConfig()
         for (const id in config) {
@@ -116,7 +116,7 @@ export class HotkeysService {
     getCurrentPartiallyMatchedHotkeys (): PartialHotkeyMatch[] {
         const currentStrokes = this.getCurrentKeystrokes()
         const config = this.getHotkeysConfig()
-        const result = []
+        const result: PartialHotkeyMatch[] = []
         for (const id in config) {
             for (const sequence of config[id]) {
                 for (let matchLength = Math.min(currentStrokes.length, sequence.length); matchLength > 0; matchLength--) {

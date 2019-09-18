@@ -188,7 +188,7 @@ export default class TerminalModule { // eslint-disable-line @typescript-eslint/
         hostApp.cliOpenDirectory$.subscribe(async directory => {
             if (await fs.exists(directory)) {
                 if ((await fs.stat(directory)).isDirectory()) {
-                    terminal.openTab(null, directory)
+                    terminal.openTab(undefined, directory)
                     hostApp.bringToFront()
                 }
             }

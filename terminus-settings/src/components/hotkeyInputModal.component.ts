@@ -41,8 +41,8 @@ export class HotkeyInputModalComponent {
     @Input() timeoutProgress = 0
 
     private keySubscription: Subscription
-    private lastKeyEvent: number
-    private keyTimeoutInterval: number = null
+    private lastKeyEvent: number|null = null
+    private keyTimeoutInterval: number|null = null
 
     constructor (
         private modalInstance: NgbActiveModal,
@@ -78,7 +78,7 @@ export class HotkeyInputModalComponent {
         this.keySubscription.unsubscribe()
         this.hotkeys.clearCurrentKeystrokes()
         this.hotkeys.enable()
-        clearInterval(this.keyTimeoutInterval)
+        clearInterval(this.keyTimeoutInterval!)
     }
 
     close () {

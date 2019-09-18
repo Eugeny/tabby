@@ -19,7 +19,7 @@ export class AppearanceSettingsTabComponent {
     fonts: string[] = []
     colorSchemes: TerminalColorScheme[] = []
     equalComparator = deepEqual
-    editingColorScheme: TerminalColorScheme
+    editingColorScheme: TerminalColorScheme|null = null
     schemeChanged = false
 
     constructor (
@@ -68,7 +68,7 @@ export class AppearanceSettingsTabComponent {
 
     saveScheme () {
         let schemes = this.config.store.terminal.customColorSchemes
-        schemes = schemes.filter(x => x !== this.editingColorScheme && x.name !== this.editingColorScheme.name)
+        schemes = schemes.filter(x => x !== this.editingColorScheme && x.name !== this.editingColorScheme!.name)
         schemes.push(this.editingColorScheme)
         this.config.store.terminal.customColorSchemes = schemes
         this.config.save()

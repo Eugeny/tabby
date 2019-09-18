@@ -18,7 +18,7 @@ export class ButtonProvider extends ToolbarButtonProvider {
                 for (const arg of argv.slice(1).concat([electron.remote.process.argv0])) {
                     if (await fs.exists(arg)) {
                         if ((await fs.stat(arg)).isDirectory()) {
-                            this.terminal.openTab(null, arg)
+                            this.terminal.openTab(undefined, arg)
                         }
                     }
                 }

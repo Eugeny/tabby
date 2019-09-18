@@ -78,11 +78,11 @@ hterm.hterm.VT.CSI[' q'] = function (parseState) {
 }
 
 hterm.hterm.VT.OSC['4'] = function (parseState) {
-    const args = parseState.args[0].split(';')
+    const args: string[] = parseState.args[0].split(';')
 
     const pairCount = args.length / 2
     const colorPalette = this.terminal.getTextAttributes().colorPalette
-    const responseArray = []
+    const responseArray: string[] = []
 
     for (let pairNumber = 0; pairNumber < pairCount; ++pairNumber) {
         const colorIndex = parseInt(args[pairNumber * 2])
@@ -95,7 +95,7 @@ hterm.hterm.VT.OSC['4'] = function (parseState) {
         if (colorValue === '?') {
             colorValue = hterm.lib.colors.rgbToX11(colorPalette[colorIndex])
             if (colorValue) {
-                responseArray.push(colorIndex + ';' + colorValue)
+                responseArray.push(colorIndex.toString() + ';' + colorValue)
             }
             continue
         }

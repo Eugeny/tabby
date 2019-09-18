@@ -23,7 +23,7 @@ export class LinuxDefaultShellProvider extends ShellProvider {
             return []
         }
         const line = (await fs.readFile('/etc/passwd', { encoding: 'utf-8' }))
-            .split('\n').find(x => x.startsWith(process.env.LOGNAME + ':'))
+            .split('\n').find(x => x.startsWith(`${process.env.LOGNAME}:`))
         if (!line) {
             this.logger.warn('Could not detect user shell')
             return [{

@@ -120,7 +120,7 @@ export class XTermFrontend extends Frontend {
             this.xterm.loadAddon(new WebglAddon())
         }
 
-        this.ready.next(null)
+        this.ready.next()
         this.ready.complete()
 
         this.xterm.loadAddon(this.search)
@@ -250,7 +250,7 @@ export class XTermFrontend extends Frontend {
         let html = `<div style="font-family: '${this.configService.store.terminal.font}', monospace; white-space: pre">`
         const selection = this.xterm.getSelectionPosition()
         if (!selection) {
-            return null
+            return ''
         }
         if (selection.startRow === selection.endRow) {
             html += this.getLineAsHTML(selection.startRow, selection.startColumn, selection.endColumn)
@@ -278,7 +278,7 @@ export class XTermFrontend extends Frontend {
 
     private getLineAsHTML (y: number, start: number, end: number): string {
         let html = '<div>'
-        let lastStyle = null
+        let lastStyle: string|null = null
         const line = (this.xterm.buffer.getLine(y) as any)._line
         const cell = new CellData()
         for (let i = start; i < end; i++) {

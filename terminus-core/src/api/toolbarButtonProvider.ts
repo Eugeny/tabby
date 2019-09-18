@@ -5,7 +5,7 @@ export interface ToolbarButton {
     /**
      * Raw SVG icon code
      */
-    icon: string
+    icon?: string
 
     title: string
 

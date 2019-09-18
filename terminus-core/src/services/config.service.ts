@@ -95,7 +95,7 @@ export class ConfigService {
     private changed = new Subject<void>()
     private _store: any
     private defaults: any
-    private servicesCache: { [id: string]: Function[] } = null
+    private servicesCache: { [id: string]: Function[] }|null = null
 
     get changed$ (): Observable<void> { return this.changed }
 
@@ -170,7 +170,7 @@ export class ConfigService {
      *
      * @typeparam T Base provider type
      */
-    enabledServices<T> (services: T[]): T[] {
+    enabledServices<T extends object> (services: T[]): T[] {
         if (!this.servicesCache) {
             this.servicesCache = {}
             const ngModule = window['rootModule'].ngInjectorDef

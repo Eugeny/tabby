@@ -34,5 +34,5 @@ export abstract class TabRecoveryProvider {
      * @returns [[RecoveredTab]] descriptor containing tab type and component inputs
      *          or `null` if this token is from a different tab type or is not supported
      */
-    abstract async recover (recoveryToken: any): Promise<RecoveredTab | null>
+    abstract async recover (recoveryToken: any): Promise<RecoveredTab|null>
 }

@@ -12,7 +12,7 @@ export class PasswordStorageService {
         await keytar.deletePassword(`ssh@${connection.host}`, connection.user)
     }
 
-    async loadPassword (connection: SSHConnection): Promise<string> {
+    async loadPassword (connection: SSHConnection): Promise<string|null> {
         return keytar.getPassword(`ssh@${connection.host}`, connection.user)
     }
 }
