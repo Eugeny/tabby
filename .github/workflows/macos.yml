@@ -36,13 +36,20 @@ jobs:
     - name: Prepackage plugins
       run: scripts/prepackage-plugins.js
 
-    - name: Build packages
+    - name: Build and sign packages
       run: scripts/build-macos.js
+      if: github.head_ref
       env:
         DEBUG: electron-builder,electron-builder:*
         GH_TOKEN: ${{ secrets.GH_TOKEN }}
         CSC_LINK: ${{ secrets.CSC_LINK }}
         CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
+
+    - name: Build packages without signing
+      run: scripts/build-macos.js
+      if: "! github.head_ref"
+      env:
+        DEBUG: electron-builder,electron-builder:*
 
     - name: Package artifacts
       run: |

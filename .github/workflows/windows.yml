@@ -20,11 +20,18 @@ jobs:
         node scripts/build-native.js
         yarn run build
         node scripts/prepackage-plugins.js
-        node scripts/build-windows.js
+
+    - name: Build and sign packages
+      run: node scripts/build-windows.js
+      if: github.head_ref
       env:
         GH_TOKEN: ${{ secrets.GH_TOKEN }}
         WIN_CSC_LINK: ${{ secrets.WIN_CSC_LINK }}
         WIN_CSC_KEY_PASSWORD: ${{ secrets.WIN_CSC_KEY_PASSWORD }}
+
+    - name: Build packages without signing
+      run: node scripts/build-windows.js
+      if: "! github.head_ref"
 
     - name: Package artifacts
       run: |
