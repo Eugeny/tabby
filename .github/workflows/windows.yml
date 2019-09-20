@@ -23,7 +23,7 @@ jobs:
 
     - name: Build and sign packages
       run: node scripts/build-windows.js
-      if: github.head_ref
+      if: github.repository == 'Eugeny/terminus' && github.event_name == 'push'
       env:
         GH_TOKEN: ${{ secrets.GH_TOKEN }}
         WIN_CSC_LINK: ${{ secrets.WIN_CSC_LINK }}
@@ -31,7 +31,7 @@ jobs:
 
     - name: Build packages without signing
       run: node scripts/build-windows.js
-      if: "! github.head_ref"
+      if: github.repository != 'Eugeny/terminus' || github.event_name != 'push'
 
     - name: Package artifacts
       run: |

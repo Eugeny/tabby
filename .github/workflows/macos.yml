@@ -38,7 +38,7 @@ jobs:
 
     - name: Build and sign packages
       run: scripts/build-macos.js
-      if: github.head_ref
+      if: github.repository == 'Eugeny/terminus' && github.event_name == 'push'
       env:
         DEBUG: electron-builder,electron-builder:*
         GH_TOKEN: ${{ secrets.GH_TOKEN }}
@@ -47,7 +47,7 @@ jobs:
 
     - name: Build packages without signing
       run: scripts/build-macos.js
-      if: "! github.head_ref"
+      if: github.repository != 'Eugeny/terminus' || github.event_name != 'push'
       env:
         DEBUG: electron-builder,electron-builder:*
 
