@@ -7,7 +7,7 @@
     "@types/node": "^12.7.5",
     "@types/webpack-env": "1.13.9",
     "@typescript-eslint/eslint-plugin": "^2.3.0",
-    "@typescript-eslint/parser": "^2.2.0",
+    "@typescript-eslint/parser": "^2.3.0",
     "apply-loader": "2.0.0",
     "awesome-typescript-loader": "^5.0.0",
     "core-js": "^3.2.0",
@@ -47,7 +47,7 @@
     "typescript": "^3.6.3",
     "url-loader": "^2.1.0",
     "val-loader": "1.1.1",
-    "webpack": "^4.39.3",
+    "webpack": "^4.40.2",
     "webpack-cli": "^3.3.9",
     "yaml-loader": "0.5.0"
   },
