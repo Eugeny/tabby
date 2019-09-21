@@ -231,10 +231,10 @@ xterm-addon-search@^0.3.0-beta2:
   resolved "https://registry.yarnpkg.com/xterm-addon-search/-/xterm-addon-search-0.3.0-beta2.tgz#d674a9f3d34c3bf2706f82040180e7c0c61ab830"
   integrity sha512-2MCa/Tr7sgX7DnKqOxIz5w2I12cgH+r5/meRwCbsUQFpJBLqjUSjptUl4UDW7pIn7/p8MIrTnMp76tCYKCiJzQ==
 
-xterm-addon-webgl@^0.2.0-beta1:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/xterm-addon-webgl/-/xterm-addon-webgl-0.2.0.tgz#52eca6987634bae9b8075262cd11aaf4b240f06f"
-  integrity sha512-2DFpZVJFUcQGz6DbbgEfmxc5gWqPoNc3CuNL8AOQS1Yd/bc5elK3O5SlPPvHxheDXQsZHm/xW9dS2R7E825hkg==
+xterm-addon-webgl@^0.3.0-beta2:
+  version "0.3.0-beta2"
+  resolved "https://registry.yarnpkg.com/xterm-addon-webgl/-/xterm-addon-webgl-0.3.0-beta2.tgz#287aedeb30de9f0a2709a3351c09d769b4a8ebbd"
+  integrity sha512-o1ZLGJquh0/Eoq+DF6VN5EqZM9Lm7Xq+DE3mSiYxsWSW+2G8SlSmBnSE5qWdLpj9RGV1orH0NIUzpvGCoICvSA==
 
 xterm@3.15.0-beta98:
   version "3.15.0-beta98"
