@@ -6,8 +6,3 @@
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@types/deep-equal/-/deep-equal-1.0.1.tgz#71cfabb247c22bcc16d536111f50c0ed12476b03"
   integrity sha512-mMUu4nWHLBlHtxXY17Fg6+ucS/MnndyOWyOe7MmwkoMYxvfQU2ajtRaEvqSUv+aVkMqH/C0NCI8UoVfRNQ10yg==
-
-ngx-pipes@^1.6.1:
-  version "1.7.0"
-  resolved "https://registry.yarnpkg.com/ngx-pipes/-/ngx-pipes-1.7.0.tgz#70e166dc2f59a8b96f69dfbf75b58186c189037b"
-  integrity sha512-ZTJc0/a+e+8v7pP+tb301So5UlxVOoUEZZtJHMjuvHO/CADqfgF+sOAdq1dZMf2RnJ2QTuxbZ8wf34w3T/f8AA==
