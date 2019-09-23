@@ -53,11 +53,6 @@ mz@^2.6.0:
     object-assign "^4.0.1"
     thenify-all "^1.0.0"
 
-ngx-pipes@^1.6.1:
-  version "1.6.6"
-  resolved "https://registry.yarnpkg.com/ngx-pipes/-/ngx-pipes-1.6.6.tgz#32bb80906c220f1e84d5cce7d6dae002cffead4b"
-  integrity sha512-mRV0xOZDd6/Jlvti4W0pDepZRIHLHd3kZ6ZzdqyGCU0dxbKVWWLTR1jlNlxN1ruMk8eO0Y8lNh6a1bEW7dJP1w==
-
 object-assign@^4.0.1:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/object-assign/-/object-assign-4.1.1.tgz#2109adc7965887cfc05cbbd442cac8bfbb360863"
