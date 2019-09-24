@@ -6,7 +6,7 @@
     "@types/js-yaml": "^3.12.1",
     "@types/node": "^12.7.5",
     "@types/webpack-env": "1.13.9",
-    "@typescript-eslint/eslint-plugin": "^2.3.0",
+    "@typescript-eslint/eslint-plugin": "^2.3.1",
     "@typescript-eslint/parser": "^2.3.1",
     "apply-loader": "2.0.0",
     "awesome-typescript-loader": "^5.0.0",
