@@ -131,20 +131,39 @@
     "@typescript-eslint/typescript-estree" "2.3.0"
     eslint-scope "^5.0.0"
 
-"@typescript-eslint/parser@^2.3.0":
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/@typescript-eslint/parser/-/parser-2.3.0.tgz#d2df1d4bb8827e36125fb7c6274df1b4d4e614f0"
-  integrity sha512-Dc+LAtHts0yDuusxG0NVjGvrpPy2kZauxqPbfFs0fmcMB4JhNs+WwIDMFGWeKjbGoPt/SIUC9XJ7E0ZD/f8InQ==
+"@typescript-eslint/experimental-utils@2.3.1":
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/@typescript-eslint/experimental-utils/-/experimental-utils-2.3.1.tgz#92f2531d3e7c22e64a2cc10cfe89935deaf00f7c"
+  integrity sha512-FaZEj73o4h6Wd0Lg+R4pZiJGdR0ZYbJr+O2+RbQ1aZjX8bZcfkVDtD+qm74Dv77rfSKkDKE64UTziLBo9UYHQA==
+  dependencies:
+    "@types/json-schema" "^7.0.3"
+    "@typescript-eslint/typescript-estree" "2.3.1"
+    eslint-scope "^5.0.0"
+
+"@typescript-eslint/parser@^2.3.1":
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/@typescript-eslint/parser/-/parser-2.3.1.tgz#f2b93b614d9b338825c44e75552a433e2ebf8c33"
+  integrity sha512-ZlWdzhCJ2iZnSp/VBAJ/sowFbyHycIux8t0UEH0JsKgQvfSf7949hLYFMwTXdCMeEnpP1zRTHimrR+YHzs8LIw==
   dependencies:
     "@types/eslint-visitor-keys" "^1.0.0"
-    "@typescript-eslint/experimental-utils" "2.3.0"
-    "@typescript-eslint/typescript-estree" "2.3.0"
+    "@typescript-eslint/experimental-utils" "2.3.1"
+    "@typescript-eslint/typescript-estree" "2.3.1"
     eslint-visitor-keys "^1.1.0"
 
 "@typescript-eslint/typescript-estree@2.3.0":
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/typescript-estree/-/typescript-estree-2.3.0.tgz#fd8faff7e4c73795c65e5817c52f9038e33ef29d"
   integrity sha512-WBxfwsTeCOsmQ7cLjow7lgysviBKUW34npShu7dxJYUQCbSG5nfZWZTgmQPKEc+3flpbSM7tjXjQOgETYp+njQ==
+  dependencies:
+    glob "^7.1.4"
+    is-glob "^4.0.1"
+    lodash.unescape "4.0.1"
+    semver "^6.3.0"
+
+"@typescript-eslint/typescript-estree@2.3.1":
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/@typescript-eslint/typescript-estree/-/typescript-estree-2.3.1.tgz#62c64f149948473d06a129dc33b4fc76e6c051f9"
+  integrity sha512-9SFhUgFuePJBB6jlLkOPPhMkZNiDCr+S8Ft7yAkkP2c5x5bxPhG3pe/exMiQaF8IGyVMDW6Ul0q4/cZ+uF3uog==
   dependencies:
     glob "^7.1.4"
     is-glob "^4.0.1"
