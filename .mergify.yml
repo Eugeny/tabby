@@ -1,9 +1,9 @@
 pull_request_rules:
   - name: automatic merge on CI success and review
     conditions:
-    - "status-success=Windows Build / Build (pull_request)"
-    - "status-success=macOS Build / Build (pull_request)"
-    - "status-success=Linux Build / Build (pull_request)"
+    - "status-success=Windows Build / Build"
+    - "status-success=macOS Build / Build"
+    - "status-success=Linux Build / Build"
     - "status-success=continuous-integration/appveyor/pr"
     - "#approved-reviews-by>=1"
     - "#changes-requested-reviews-by=0"
