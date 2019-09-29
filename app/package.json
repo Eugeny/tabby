@@ -26,7 +26,7 @@
     "electron-debug": "^3.0.1",
     "electron-is-dev": "1.1.0",
     "electron-updater": "^4.0.6",
-    "fontmanager-redux": "0.3.3",
+    "fontmanager-redux": "0.4.0",
     "js-yaml": "3.13.1",
     "keytar": "4.13.0",
     "mz": "^2.7.0",

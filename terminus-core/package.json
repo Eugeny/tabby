@@ -28,7 +28,7 @@
     "js-yaml": "^3.9.0",
     "mixpanel": "^0.10.2",
     "ng2-dnd": "^5.0.2",
-    "ngx-perfect-scrollbar": "^6.0.0",
+    "ngx-perfect-scrollbar": "^8.0.0",
     "shell-escape": "^0.2.0",
     "uuid": "^3.3.2",
     "winston": "^3.2.1"
