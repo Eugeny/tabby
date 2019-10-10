@@ -24,10 +24,10 @@
   dependencies:
     winston "*"
 
-agent-base@^4.1.0:
-  version "4.2.1"
-  resolved "https://registry.yarnpkg.com/agent-base/-/agent-base-4.2.1.tgz#d89e5999f797875674c07d87f260fc41e83e8ca9"
-  integrity sha512-JVwXMr9nHYTUXsBFKUqhJwvlcYU/blreOEUkhNR2eXZIvwd+c+o5V4MgDPKWnMS/56awN3TRzIP+KoPn+roQtg==
+agent-base@^4.3.0:
+  version "4.3.0"
+  resolved "https://registry.yarnpkg.com/agent-base/-/agent-base-4.3.0.tgz#8165f01c436009bccad0b1d122f05ed770efc6ee"
+  integrity sha512-salcGninV0nPrwpGNn4VTXBb1SOuXQBiqbrNXoeizJsHrsL6ERFM2Ne3JUSBWRE6aeNJI2ROP/WEEIDUiDe3cg==
   dependencies:
     es6-promisify "^5.0.0"
 
@@ -236,12 +236,12 @@ graceful-fs@^4.1.6, graceful-fs@^4.2.0:
   resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.2.2.tgz#6f0952605d0140c1cfdb138ed005775b92d67b02"
   integrity sha512-IItsdsea19BoLC7ELy13q1iJFNmd7ofZH5+X/pJr90/nRoPEX0DJo1dHDbgtYWOhJhcCgMDTOw84RZ72q6lB+Q==
 
-https-proxy-agent@2.2.1:
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/https-proxy-agent/-/https-proxy-agent-2.2.1.tgz#51552970fa04d723e04c56d04178c3f92592bbc0"
-  integrity sha512-HPCTS1LW51bcyMYbxUIOO4HEOlQ1/1qRaFWcyxvwaqUS9TY88aoEuHUY33kuAh1YhVVaDQhLZsnPd+XNARWZlQ==
+https-proxy-agent@3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/https-proxy-agent/-/https-proxy-agent-3.0.0.tgz#0106efa5d63d6d6f3ab87c999fa4877a3fd1ff97"
+  integrity sha512-y4jAxNEihqvBI5F3SaO2rtsjIOnnNA8sEbuiP+UhJZJHeM2NRm6c09ax2tgqme+SgUUvjao2fJXF4h3D6Cb2HQ==
   dependencies:
-    agent-base "^4.1.0"
+    agent-base "^4.3.0"
     debug "^3.1.0"
 
 inherits@^2.0.3, inherits@~2.0.3:
@@ -318,11 +318,11 @@ logform@^2.1.1:
     triple-beam "^1.3.0"
 
 mixpanel@^0.10.2:
-  version "0.10.2"
-  resolved "https://registry.yarnpkg.com/mixpanel/-/mixpanel-0.10.2.tgz#10ff6cd76034b262d469094ad3d8c99039345376"
-  integrity sha512-+zbBQGd/Q5LLRooqJ2iyEDzKz2/ly4TipH5tE9te0BDMJpROxUMGffPulyHbh4FtMcbJuPmIUSIfy//JhhnlnA==
+  version "0.10.3"
+  resolved "https://registry.yarnpkg.com/mixpanel/-/mixpanel-0.10.3.tgz#2dff3bc0e17b57d6365547d315cbbf3ecfdb8a00"
+  integrity sha512-wIYr5o+1XSzJ80o3QED35K/yfPAKi5FigZXTSfcs4vltfeKbilIjNgwxdno7LrqzhjoSjmIyDWkI7D3lr7TwDw==
   dependencies:
-    https-proxy-agent "2.2.1"
+    https-proxy-agent "3.0.0"
 
 ms@2.0.0:
   version "2.0.0"
