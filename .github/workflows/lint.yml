@@ -1,0 +1,25 @@
+name: Lint
+on: [push, pull_request]
+jobs:
+  build:
+    runs-on: macOS-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v1
+
+    - name: Installing Node
+      uses: actions/setup-node@v1
+      with:
+        version: 10
+
+    - name: Install deps
+      run: |
+        cd app
+        yarn
+        cd ..
+        rm app/node_modules/.yarn-integrity
+        yarn
+
+    - name: Lint
+      run: yarn run lint

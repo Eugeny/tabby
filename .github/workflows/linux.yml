@@ -21,9 +21,6 @@ jobs:
         rm app/node_modules/.yarn-integrity
         yarn
 
-    - name: Lint
-      run: yarn run lint
-
     - name: Build native deps
       run: scripts/build-native.js
 

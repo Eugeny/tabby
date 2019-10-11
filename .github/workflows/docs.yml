@@ -17,6 +17,10 @@ jobs:
       run: |
         eval $(ssh-agent -s)
         ssh-add <(echo "$DOCS_PRIVATE_KEY")
+        cd app
+        yarn
+        cd ..
+        rm app/node_modules/.yarn-integrity
         yarn
         yarn run docs
         rsync -e "ssh -o StrictHostKeyChecking=no" -arv docs/api/ root@ajenti.org:/srv/terminus-docs/
