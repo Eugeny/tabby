@@ -16,6 +16,7 @@ jobs:
     - name: Install deps
       run: |
         cd app
+        yarn cache clean
         yarn
         cd ..
         rm app/node_modules/.yarn-integrity

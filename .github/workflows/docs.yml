@@ -17,6 +17,7 @@ jobs:
       run: |
         eval $(ssh-agent -s)
         ssh-add <(echo "$DOCS_PRIVATE_KEY")
+        yarn cache clean
         cd app
         yarn
         cd ..

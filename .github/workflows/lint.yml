@@ -15,6 +15,7 @@ jobs:
 
     - name: Install deps
       run: |
+        yarn cache clean
         cd app
         yarn
         cd ..
