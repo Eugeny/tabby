@@ -86,11 +86,11 @@ export class XTermFrontend extends Frontend {
 
         this.resizeHandler = () => {
             try {
-                if (this.xtermCore.element && getComputedStyle(this.xtermCore.element).getPropertyValue('height') !== 'auto') {
-                    let t = window.getComputedStyle(this.xtermCore.element.parentElement)
+                if (this.xterm.element && getComputedStyle(this.xterm.element).getPropertyValue('height') !== 'auto') {
+                    let t = window.getComputedStyle(this.xterm.element.parentElement!)
                     let r = parseInt(t.getPropertyValue('height'))
                     let n = Math.max(0, parseInt(t.getPropertyValue('width')))
-                    let o = window.getComputedStyle(this.xtermCore.element)
+                    let o = window.getComputedStyle(this.xterm.element)
                     let i = r - (parseInt(o.getPropertyValue('padding-top')) + parseInt(o.getPropertyValue('padding-bottom')))
                     let l = n - (parseInt(o.getPropertyValue('padding-right')) + parseInt(o.getPropertyValue('padding-left'))) - this.xtermCore.viewport.scrollBarWidth
                     let actualCellWidth = this.xtermCore._renderService.dimensions.actualCellWidth || 9
