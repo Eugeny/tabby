@@ -2,15 +2,10 @@
 # yarn lockfile v1
 
 
-"@types/node@*":
-  version "12.7.7"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-12.7.7.tgz#f9bd8c00fa9e1a8129af910fc829f6139c397d6c"
-  integrity sha512-4jUncNe2tj1nmrO/34PsRpZqYVnRV1svbU78cKhuQKkMntKB/AmdLyGgswcZKjFHEHGpiY8pVD8CuVI55nP54w==
-
-"@types/node@^12.7.3":
-  version "12.7.8"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-12.7.8.tgz#cb1bf6800238898bc2ff6ffa5702c3cadd350708"
-  integrity sha512-FMdVn84tJJdV+xe+53sYiZS4R5yn1mAIxfj+DVoNiQjTYz1+OYmjwEZr1ev9nU0axXwda0QDbYl06QHanRVH3A==
+"@types/node@*", "@types/node@^12.7.3":
+  version "12.7.12"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-12.7.12.tgz#7c6c571cc2f3f3ac4a59a5f2bd48f5bdbc8653cc"
+  integrity sha512-KPYGmfD0/b1eXurQ59fXD1GBzhSQfz6/lKBxkaHX9dKTzjXbK68Zt7yGUxUsCS1jeTy/8aL+d9JEr+S54mpkWQ==
 
 "@types/ssh2-streams@*":
   version "0.1.2"
