@@ -80,7 +80,7 @@ export class TabHeaderComponent {
 
     @HostListener('mousedown', ['$event']) async onMouseDown ($event: MouseEvent) {
         if ($event.which === 2) {
-            $event.preventDefault();
+            $event.preventDefault()
         }
     }
 
