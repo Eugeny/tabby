@@ -207,6 +207,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "ckaczor",
+      "name": "Chris Kaczor",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/180906?v=4",
+      "profile": "https://chriskaczor.com",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
