@@ -68,6 +68,15 @@ h3.mb-3 Terminal
 
 .form-line
     .header
+        .title Restore terminal tabs on app start
+            
+    toggle(
+        [(ngModel)]='config.store.terminal.recoverTabs',
+        (ngModelChange)='config.save()',
+    )
+
+.form-line
+    .header
         .title Bracketed paste (requires shell support)
         .description Prevents accidental execution of pasted commands
     toggle(
