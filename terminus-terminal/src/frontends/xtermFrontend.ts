@@ -256,7 +256,7 @@ export class XTermFrontend extends Frontend {
             html += this.getLineAsHTML(selection.startRow, selection.startColumn, selection.endColumn)
         } else {
             html += this.getLineAsHTML(selection.startRow, selection.startColumn, this.xterm.cols)
-            for (let y = selection.startRow + 1; y < selection.endRow; y++) {
+            for (let y = selection.startRow! + 1; y < selection.endRow; y++) {
                 html += this.getLineAsHTML(y, 0, this.xterm.cols)
             }
             html += this.getLineAsHTML(selection.endRow, 0, selection.endColumn)
