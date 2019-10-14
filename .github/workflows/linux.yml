@@ -15,7 +15,7 @@ jobs:
 
     - name: Install deps
       run: |
-        yarn cache clean
+        sudo npm i -g yarn@1.19.1
         cd app
         yarn
         cd ..

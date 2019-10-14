@@ -16,7 +16,7 @@ jobs:
     - name: Build
       shell: powershell
       run: |
-        yarn cache clean
+        npm i -g yarn@1.19.1
         yarn
         node scripts/build-native.js
         yarn run build

@@ -15,8 +15,8 @@ jobs:
 
     - name: Install deps
       run: |
+        sudo npm i -g yarn@1.19.1
         cd app
-        yarn cache clean
         yarn
         cd ..
         rm app/node_modules/.yarn-integrity
