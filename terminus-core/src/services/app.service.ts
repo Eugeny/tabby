@@ -71,18 +71,27 @@ export class AppService {
         private tabsService: TabsService,
     ) {
         if (hostApp.getWindow().id === 1) {
-            this.tabRecovery.recoverTabs().then(tabs => {
-                for (const tab of tabs) {
-                    this.openNewTabRaw(tab.type, tab.options)
-                }
-                this.tabsChanged$.subscribe(() => {
-                    tabRecovery.saveTabs(this.tabs)
+            if (config.store.terminal.recoverTabs) {
+                this.tabRecovery.recoverTabs().then(tabs => {
+                    for (const tab of tabs) {
+                        this.openNewTabRaw(tab.type, tab.options)
+                    }
+                    this.startTabStorage()
                 })
-                setInterval(() => {
-                    tabRecovery.saveTabs(this.tabs)
-                }, 30000)
-            })
+            } else {
+                /** Continue to store the tabs even if the setting is currently off */
+                this.startTabStorage()
+            }
         }
+    }
+
+    startTabStorage() {
+        this.tabsChanged$.subscribe(() => {
+            this.tabRecovery.saveTabs(this.tabs)
+        })
+        setInterval(() => {
+            this.tabRecovery.saveTabs(this.tabs)
+        }, 30000)
     }
 
     addTabRaw (tab: BaseTabComponent) {
