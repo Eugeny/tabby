@@ -232,9 +232,9 @@ xterm-addon-search@^0.3.0-beta2:
   integrity sha512-3GkGc4hST35/4hzgnQPLLvQ29WH7MkZ0mUrBE/Vm1IQum7TnMvWPTkGemwM+wAl4tdBmynNccHJlFeQzaQtVUg==
 
 xterm-addon-webgl@^0.3.0-beta2:
-  version "0.3.0-beta6"
-  resolved "https://registry.yarnpkg.com/xterm-addon-webgl/-/xterm-addon-webgl-0.3.0-beta6.tgz#0516624f077a674f8acb05a42a76fd7f4c7b292a"
-  integrity sha512-qJmsKKM8lkFzb+KgBsxkZtMdP97Ztrt+ykRXZh2MOchxAnvOla9Xrurhvc9BcqpB8jJ9lWF2hJdyjfiFLsCRLQ==
+  version "0.3.0-beta9"
+  resolved "https://registry.yarnpkg.com/xterm-addon-webgl/-/xterm-addon-webgl-0.3.0-beta9.tgz#98bf95d9ddd24fa9fa12dc4113ff6e8d71df4299"
+  integrity sha512-AC7Hyiv4J7p8KS7t2oFhMLPYTNecY/+IJ4njs8DDN3MPGRJOvM+utLOxOsnDFpFg0hSrTZU9fgH5/NbfYG+4GA==
 
 xterm@3.15.0-beta98:
   version "3.15.0-beta98"
