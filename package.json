@@ -25,7 +25,7 @@
     "json-loader": "0.5.7",
     "node-abi": "^2.11.0",
     "node-gyp": "^6.0.0",
-    "node-sass": "^4.12.0",
+    "node-sass": "^4.13.0",
     "npmlog": "4.1.2",
     "npx": "^10.2.0",
     "pug": "^2.0.4",
