@@ -132,7 +132,7 @@ export class Session extends BaseSession {
             cwd,
             env: env,
             // `1` instead of `true` forces ConPTY even if unstable
-            experimentalUseConpty: (isWindowsBuild(WIN_BUILD_CONPTY_SUPPORTED) && this.config.store.terminal.useConPTY ? 1 : false) as any,
+            useConpty: (isWindowsBuild(WIN_BUILD_CONPTY_SUPPORTED) && this.config.store.terminal.useConPTY ? 1 : false) as any,
         })
 
         this.guessedCWD = cwd || null

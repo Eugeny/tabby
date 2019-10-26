@@ -214,9 +214,9 @@ uuid@^3.3.2:
   integrity sha512-pW0No1RGHgzlpHJO1nsVrHKpOEIxkGg1xB+v0ZmdNH5OAeAwzAVrCnI2/6Mtx+Uys6iaylxa+D3g4j63IKKjSQ==
 
 xterm-addon-fit@^0.3.0-beta2:
-  version "0.3.0-beta3"
-  resolved "https://registry.yarnpkg.com/xterm-addon-fit/-/xterm-addon-fit-0.3.0-beta3.tgz#c091d1fcff49fbb321a5276fe04cbc90d37f03ad"
-  integrity sha512-cTRWGje3/WvWly0xF3E/kl8Clr2l/EUiQpbMrpsBpnASQbEdZ+u+OLSYsouT6+H/mO/MX+VzFZKWD/WrZitx7A==
+  version "0.3.0-beta7"
+  resolved "https://registry.yarnpkg.com/xterm-addon-fit/-/xterm-addon-fit-0.3.0-beta7.tgz#12fb13453bc58974ddf797827ba7b0a7851c0529"
+  integrity sha512-z33ayDakyYfvln7/tZW4w6dNXO7njTUrGRViFj5Bbmnl8UTYcxRS3eyYuXACzm3omwbFmFx7LE2Jf7IOD8n3+w==
 
 xterm-addon-ligatures@^0.2.0:
   version "0.2.0"
@@ -232,9 +232,9 @@ xterm-addon-search@^0.3.0-beta2:
   integrity sha512-L5ifwmrQ31/CmY1OR/8Hg2tPIFJB/lga6p0x+AUaxR+MxeiyJ++aRC/uua9InwVprunKrbV6pVp2pL+xlaEJ1Q==
 
 xterm-addon-webgl@^0.3.0-beta2:
-  version "0.3.0-beta9"
-  resolved "https://registry.yarnpkg.com/xterm-addon-webgl/-/xterm-addon-webgl-0.3.0-beta9.tgz#98bf95d9ddd24fa9fa12dc4113ff6e8d71df4299"
-  integrity sha512-AC7Hyiv4J7p8KS7t2oFhMLPYTNecY/+IJ4njs8DDN3MPGRJOvM+utLOxOsnDFpFg0hSrTZU9fgH5/NbfYG+4GA==
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/xterm-addon-webgl/-/xterm-addon-webgl-0.3.0.tgz#6e3bec9541ab7d04544533cc93741b4b959e730a"
+  integrity sha512-p2SLueOfJkyIqDMOo+e1ViOQjE84cA55qCeJelMz6vLW7htGQz7tX1tXTYWrCHihiggq6LFSGoDf2xpIRDP5Ag==
 
 xterm@3.15.0-beta98:
   version "3.15.0-beta98"
