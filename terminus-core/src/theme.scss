@@ -230,6 +230,7 @@ settings-tab > ngb-tabset {
 
     & > .nav {
         background: rgba(0, 0, 0, 0.25);
+        flex-shrink: 0;
 
         & > .nav-item > .nav-link {
             border: none;
