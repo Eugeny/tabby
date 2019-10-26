@@ -49,7 +49,7 @@ export class Window {
             },
             frame: false,
             show: false,
-            backgroundColor: '#00000000'
+            backgroundColor: '#00000000',
         }
 
         if (this.windowBounds) {
@@ -80,7 +80,7 @@ export class Window {
         this.window = new BrowserWindow(bwOptions)
         this.window.once('ready-to-show', () => {
             if (process.platform === 'darwin') {
-                this.window.setVibrancy('dark')
+                this.window.setVibrancy('window')
             } else if (process.platform === 'win32' && (configData.appearance || {}).vibrancy) {
                 this.setVibrancy(true)
             }
