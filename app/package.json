@@ -31,7 +31,7 @@
     "keytar": "^5.0.0-beta.3",
     "mz": "^2.7.0",
     "ngx-toastr": "^10.2.0",
-    "node-pty": "^0.10.0-beta2",
+    "node-pty": "^0.10.0-beta3",
     "npm": "6.9.0",
     "path": "0.12.7",
     "rxjs": "^6.5.3",
