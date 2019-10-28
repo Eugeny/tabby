@@ -6,13 +6,7 @@ import { SSHConnection, SSHSession } from '../api'
 
 /** @hidden */
 @Component({
-    template: `
-        <div
-            #content
-            class="content"
-            [style.opacity]='frontendIsReady ? 1 : 0'
-        ></div>
-    `,
+    template: BaseTerminalTabComponent.template,
     styles: [require('./sshTab.component.scss'), ...BaseTerminalTabComponent.styles],
     animations: BaseTerminalTabComponent.animations,
 })

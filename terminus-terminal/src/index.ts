@@ -120,6 +120,7 @@ import { XTermFrontend, XTermWebGLFrontend } from './frontends/xtermFrontend'
     exports: [
         ColorPickerComponent,
         EnvironmentEditorComponent,
+        SearchPanelComponent,
     ],
 })
 export default class TerminalModule { // eslint-disable-line @typescript-eslint/no-extraneous-class
