@@ -10,7 +10,7 @@
     "@typescript-eslint/parser": "^2.5.0",
     "apply-loader": "2.0.0",
     "awesome-typescript-loader": "^5.0.0",
-    "core-js": "^3.3.3",
+    "core-js": "^3.3.4",
     "cross-env": "6.0.3",
     "css-loader": "3.2.0",
     "electron": "^7.0.0",
