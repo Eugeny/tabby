@@ -40,9 +40,9 @@
     "zone.js": "^0.8.29"
   },
   "optionalDependencies": {
-    "macos-native-processlist": "^1.0.1",
+    "macos-native-processlist": "^1.0.2",
     "windows-blurbehind": "^1.0.1",
-    "windows-native-registry": "^1.0.14",
+    "windows-native-registry": "^1.0.15",
     "windows-process-tree": "^0.2.4",
     "windows-swca": "^2.0.2"
   },

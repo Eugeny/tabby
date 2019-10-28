@@ -1707,10 +1707,10 @@ lru-cache@^5.1.1:
   dependencies:
     yallist "^3.0.2"
 
-macos-native-processlist@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/macos-native-processlist/-/macos-native-processlist-1.0.1.tgz#df48bbd114554bd69e7c2c76f976836ef8270ca8"
-  integrity sha512-Kn8EUW8xOM+06GFMp8I2fxIK8iSaR/fraAU5ddfnKVRn6/+dmQ5VGBSG4k6ce3u/EOQxd/7paBCAz17nXqH0cg==
+macos-native-processlist@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/macos-native-processlist/-/macos-native-processlist-1.0.2.tgz#78767e4fdea3eea782bbf063dac8c1e2420786dc"
+  integrity sha512-ShX+vFA44eaJ9/JCPTrhL0j4KLVKrYjeTQCFuR0kx7qWxETBDbFX8I3WKKXeALMtWSD+F4TDpza2mwCcE2tWAw==
   dependencies:
     nan "^2.13.2"
 
@@ -3333,12 +3333,12 @@ windows-blurbehind@^1.0.1:
   resolved "https://registry.yarnpkg.com/windows-blurbehind/-/windows-blurbehind-1.0.1.tgz#ff098713873304e38330b2c54cc41bb369b587b9"
   integrity sha512-1HzHfCiM1ayrbACJu5qE9zELV24uX/tINT6kxaZwLY3rtQAoeav6x9z7LFHWoLaGDN/sYbnK+9Vk0cz7fsk5HQ==
 
-windows-native-registry@^1.0.14:
-  version "1.0.14"
-  resolved "https://registry.yarnpkg.com/windows-native-registry/-/windows-native-registry-1.0.14.tgz#35c742b1278473127cbfb3b76e0db3d1ef626872"
-  integrity sha512-C2UgyZYJYcPFjkhfNuy09CUa6wXAti4x/tLPgzudDDrqpTyczcgnBEpiablmE6j7E7ownouWTqgVcHW8HJyqhw==
+windows-native-registry@^1.0.15:
+  version "1.0.15"
+  resolved "https://registry.yarnpkg.com/windows-native-registry/-/windows-native-registry-1.0.15.tgz#02593331fb7dcab99ef3ac9dd71f2c71ae57b189"
+  integrity sha512-uIsz1y3LrKPkphcZsezThz07FW7Vm00Zfa6ZU88rIo2zilOLE6Ui75jh6UkBAMso8xJeyvYbbcxF9kr4Zt8Iuw==
   dependencies:
-    nan "^2.13.2"
+    nan "^2.14.0"
 
 windows-process-tree@^0.2.4:
   version "0.2.4"
