@@ -1,6 +1,6 @@
 {
   "name": "terminus-plugin-manager",
-  "version": "1.0.92-nightly.0",
+  "version": "1.0.93-nightly.0",
   "description": "Terminus' plugin manager",
   "keywords": [
     "terminus-builtin-plugin"
