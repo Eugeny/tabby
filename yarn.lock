@@ -2049,13 +2049,13 @@ electron-localshortcut@^3.1.0:
     keyboardevent-from-electron-accelerator "^1.1.0"
     keyboardevents-areequal "^0.2.1"
 
-electron-notarize@^0.1.1:
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/electron-notarize/-/electron-notarize-0.1.1.tgz#c3563d70c5e7b3315f44e8495b30050a8c408b91"
-  integrity sha512-TpKfJcz4LXl5jiGvZTs5fbEx+wUFXV5u8voeG5WCHWfY/cdgdD8lDZIZRqLVOtR3VO+drgJ9aiSHIO9TYn/fKg==
+electron-notarize@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/electron-notarize/-/electron-notarize-0.2.0.tgz#676c71688ee84149bab27b22426d0a9452e7e262"
+  integrity sha512-u3KdEMOEcGMF9yCML8ej4ZF+O29VmGYIjrs/DoOi23neTWOMiIc5YCeFs4vxq3JG496omcw7Y5pimPm0sH9A7g==
   dependencies:
     debug "^4.1.1"
-    fs-extra "^8.0.1"
+    fs-extra "^8.1.0"
 
 electron-publish@21.2.0:
   version "21.2.0"
