@@ -294,8 +294,8 @@ export class Session extends BaseSession {
             try {
                 return await fs.readlink(`/proc/${this.truePID}/cwd`)
             } catch (exc) {
-              console.error(exc)
-              return null
+                console.error(exc)
+                return null
             }
         }
         if (process.platform === 'win32') {
