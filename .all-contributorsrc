@@ -216,6 +216,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "boxmein",
+      "name": "Johannes Kadak",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/358714?v=4",
+      "profile": "https://www.boxmein.net",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
