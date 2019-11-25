@@ -213,7 +213,7 @@ uuid@^3.3.2:
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.3.3.tgz#4568f0216e78760ee1dbf3a4d2cf53e224112866"
   integrity sha512-pW0No1RGHgzlpHJO1nsVrHKpOEIxkGg1xB+v0ZmdNH5OAeAwzAVrCnI2/6Mtx+Uys6iaylxa+D3g4j63IKKjSQ==
 
-xterm-addon-fit@^0.4.0-beta1:
+xterm-addon-fit@^0.4.0-beta2:
   version "0.4.0-beta2"
   resolved "https://registry.yarnpkg.com/xterm-addon-fit/-/xterm-addon-fit-0.4.0-beta2.tgz#c638ea7d41c55b535825f41b1cdb7358a94dfca4"
   integrity sha512-7EHWk8SPCmKuw9ux1mFek2SfBw1QjJ/ObYA87tubOtJi7mAZ0eIb9IE5ditcma9Nyz/cR/ROQQxoRn4UbDvyfA==
@@ -226,20 +226,20 @@ xterm-addon-ligatures@^0.2.1:
     font-finder "^1.0.4"
     font-ligatures "^1.3.2"
 
-xterm-addon-search@^0.4.0-beta3:
+xterm-addon-search@^0.4.0-beta5:
   version "0.4.0-beta5"
   resolved "https://registry.yarnpkg.com/xterm-addon-search/-/xterm-addon-search-0.4.0-beta5.tgz#d7b7d35502cc5155d35175ab63e0465c1447eebd"
   integrity sha512-aA+WmoM6U8H9V4ofKLaZaTBFoRLdxVujWA2mQxbzXBF8FLLCDSJOK8kEor4BSb8OtGr0Nlfs1Qy9O0HBmXSQWA==
 
-xterm-addon-webgl@^0.4.0-beta1:
-  version "0.4.0-beta9"
-  resolved "https://registry.yarnpkg.com/xterm-addon-webgl/-/xterm-addon-webgl-0.4.0-beta9.tgz#3e004d5cd893ae678e2537b195ae0eed4d689df3"
-  integrity sha512-+lUsUAx4ATyetRuTuEorUpKD5NpDUUc5Z3chtYV8ECiTJYiDr0CfAxW9oa3tT8BVO7fOTdgxgJpQmsU4LGEm5A==
+xterm-addon-webgl@^0.4.0-beta.15:
+  version "0.4.0-beta.15"
+  resolved "https://registry.yarnpkg.com/xterm-addon-webgl/-/xterm-addon-webgl-0.4.0-beta.15.tgz#a85a6f2374e1d3c9227bb3a9741ae1f126bafa47"
+  integrity sha512-zsD6av31hRQh1yeY3XjRZIvPZdrqAPixvKz2Rczi1ZVwGl1IrXdMeAN2gofNej5ao09v/jfnherCmqEpsVIISw==
 
-xterm@4.3.0-beta.29:
-  version "4.3.0-beta.29"
-  resolved "https://registry.yarnpkg.com/xterm/-/xterm-4.3.0-beta.29.tgz#73f38fd1c81340f8c6c40da0d36f3540bc20813d"
-  integrity sha512-diVDwuAT/DzvKJt2TnYTegKx5GNvHRwIh1LMGDQTo5qo4IINL3Yu0+nkl+D9vumrkkgr/goIo2qRp+6119JH4g==
+xterm@4.3.0-beta.30:
+  version "4.3.0-beta.30"
+  resolved "https://registry.yarnpkg.com/xterm/-/xterm-4.3.0-beta.30.tgz#2cdb5e21fece98a5f4fe70d13ccebbb50c639bae"
+  integrity sha512-3ojuqTigSwvfq607O5UAcdAt6Clg0Y5+Fq6u5qEWNjd69G84tOqJVVogqTn0QON87OeiQN3ibQiBdi/+4xZ2KA==
 
 yallist@^2.1.2:
   version "2.1.2"

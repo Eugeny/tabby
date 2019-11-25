@@ -27,11 +27,11 @@
     "runes": "^0.4.2",
     "slug": "^1.1.0",
     "uuid": "^3.3.2",
-    "xterm": "4.3.0-beta.29",
-    "xterm-addon-fit": "^0.4.0-beta1",
+    "xterm": "4.3.0-beta.30",
+    "xterm-addon-fit": "^0.4.0-beta2",
     "xterm-addon-ligatures": "^0.2.1",
-    "xterm-addon-search": "^0.4.0-beta3",
-    "xterm-addon-webgl": "^0.4.0-beta1"
+    "xterm-addon-search": "^0.4.0-beta5",
+    "xterm-addon-webgl": "^0.4.0-beta.15"
   },
   "peerDependencies": {
     "@angular/animations": "^7",
