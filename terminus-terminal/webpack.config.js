@@ -4,7 +4,7 @@ module.exports = {
     target: 'node',
     entry: 'src/index.ts',
     context: __dirname,
-    devtool: 'cheap-module-eval-source-map',
+    devtool: 'eval-cheap-module-source-map',
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'index.js',
@@ -26,7 +26,7 @@ module.exports = {
                 test: /\.ts$/,
                 use: {
                     loader: 'awesome-typescript-loader',
-                    query: {
+                    options: {
                         configFileName: path.resolve(__dirname, 'tsconfig.json'),
                         typeRoots: [
                             path.resolve(__dirname, 'node_modules/@types'),

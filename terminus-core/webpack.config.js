@@ -4,7 +4,7 @@ module.exports = {
     target: 'node',
     entry: 'src/index.ts',
     context: __dirname,
-    devtool: 'cheap-module-eval-source-map',
+    devtool: 'eval-cheap-module-source-map',
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'index.js',
