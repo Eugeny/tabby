@@ -36,7 +36,7 @@
     "path": "0.12.7",
     "rxjs": "^6.5.3",
     "rxjs-compat": "^6.5.3",
-    "yargs": "^14.2.0",
+    "yargs": "^15.0.2",
     "zone.js": "^0.8.29"
   },
   "optionalDependencies": {
