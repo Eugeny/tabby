@@ -9,7 +9,7 @@ export function isWindowsBuild (build: number): boolean {
 }
 
 export function getCSSFontFamily (config: any): string {
-    let fonts = config.terminal.font.split(',').map(x => x.trim().replace(/"/g, ''))
+    let fonts: string[] = config.terminal.font.split(',').map(x => x.trim().replace(/"/g, ''))
     if (config.terminal.fallbackFont) {
         fonts.push(config.terminal.fallbackFont)
     }

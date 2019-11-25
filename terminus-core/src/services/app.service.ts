@@ -85,7 +85,7 @@ export class AppService {
         }
     }
 
-    startTabStorage() {
+    startTabStorage () {
         this.tabsChanged$.subscribe(() => {
             this.tabRecovery.saveTabs(this.tabs)
         })

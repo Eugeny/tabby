@@ -94,3 +94,6 @@ rules:
   - allowTemplateLiterals: true
   '@typescript-eslint/no-non-null-assertion': off
   '@typescript-eslint/no-unnecessary-condition': off
+  '@typescript-eslint/no-untyped-public-signature': off # bugs out on constructors
+  '@typescript-eslint/restrict-template-expressions': off
+  '@typescript-eslint/no-dynamic-delete': off
