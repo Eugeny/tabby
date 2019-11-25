@@ -46,7 +46,7 @@ safer-buffer@~2.1.0:
   resolved "https://registry.yarnpkg.com/safer-buffer/-/safer-buffer-2.1.2.tgz#44fa161b0187b9549dd84bb91802f9bd8385cd6a"
   integrity sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==
 
-ssh2-streams@^0.4.2, ssh2-streams@~0.4.4:
+ssh2-streams@^0.4.2, ssh2-streams@~0.4.7:
   version "0.4.7"
   resolved "https://registry.yarnpkg.com/ssh2-streams/-/ssh2-streams-0.4.7.tgz#093b89069de9cf5f06feff0601a5301471b01611"
   integrity sha512-JhF8BNfeguOqVHOLhXjzLlRKlUP8roAEhiT/y+NcBQCqpRUupLNrRf2M+549OPNVGx21KgKktug4P3MY/IvTig==
@@ -56,11 +56,11 @@ ssh2-streams@^0.4.2, ssh2-streams@~0.4.4:
     streamsearch "~0.1.2"
 
 ssh2@^0.8.2:
-  version "0.8.5"
-  resolved "https://registry.yarnpkg.com/ssh2/-/ssh2-0.8.5.tgz#9144cdd6c104aa81b2b16ce647c109f4bd138b57"
-  integrity sha512-TkvzxSYYUSQ8jb//HbHnJVui4fVEW7yu/zwBxwro/QaK2EGYtwB+8gdEChwHHuj142c5+250poMC74aJiwApPw==
+  version "0.8.6"
+  resolved "https://registry.yarnpkg.com/ssh2/-/ssh2-0.8.6.tgz#dcc62e1d3b9e58a21f711f5186f043e4e792e6da"
+  integrity sha512-T0cPmEtmtC8WxSupicFDjx3vVUdNXO8xu2a/D5bjt8ixOUCe387AgvxU3mJgEHpu7+Sq1ZYx4d3P2pl/yxMH+w==
   dependencies:
-    ssh2-streams "~0.4.4"
+    ssh2-streams "~0.4.7"
 
 streamsearch@~0.1.2:
   version "0.1.2"
