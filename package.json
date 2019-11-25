@@ -44,7 +44,7 @@
     "to-string-loader": "1.1.6",
     "tslib": "^1.10.0",
     "typedoc": "^0.15.0",
-    "typescript": "^3.6.4",
+    "typescript": "^3.7.2",
     "url-loader": "^2.2.0",
     "val-loader": "2.0.1",
     "webpack": "^4.41.2",
