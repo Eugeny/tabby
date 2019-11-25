@@ -218,10 +218,10 @@ xterm-addon-fit@^0.4.0-beta1:
   resolved "https://registry.yarnpkg.com/xterm-addon-fit/-/xterm-addon-fit-0.4.0-beta2.tgz#c638ea7d41c55b535825f41b1cdb7358a94dfca4"
   integrity sha512-7EHWk8SPCmKuw9ux1mFek2SfBw1QjJ/ObYA87tubOtJi7mAZ0eIb9IE5ditcma9Nyz/cR/ROQQxoRn4UbDvyfA==
 
-xterm-addon-ligatures@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/xterm-addon-ligatures/-/xterm-addon-ligatures-0.2.0.tgz#8d65fea968ba5b4306b2ada6f53eed3e1984f69c"
-  integrity sha512-IcRgjq3QCcL6P8W5M86BCnXIGD1LcCVKk7w3S29Yn2+YksMM3c85JjW2OUgsL3VTW/Tb6uyxpSV2rJOsRElVrQ==
+xterm-addon-ligatures@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/xterm-addon-ligatures/-/xterm-addon-ligatures-0.2.1.tgz#487125dbb25818a6f88c3464c9a8a0eb4218bdae"
+  integrity sha512-UGoWTM7MBRRXMyGX6oMdaBhrO6SIJTriPo2U+QyQSs4H5J64ZiMZBsJe7ieOLmsKSAC/T+c39moU6sJGbWnylg==
   dependencies:
     font-finder "^1.0.4"
     font-ligatures "^1.3.2"
@@ -236,10 +236,10 @@ xterm-addon-webgl@^0.4.0-beta1:
   resolved "https://registry.yarnpkg.com/xterm-addon-webgl/-/xterm-addon-webgl-0.4.0-beta9.tgz#3e004d5cd893ae678e2537b195ae0eed4d689df3"
   integrity sha512-+lUsUAx4ATyetRuTuEorUpKD5NpDUUc5Z3chtYV8ECiTJYiDr0CfAxW9oa3tT8BVO7fOTdgxgJpQmsU4LGEm5A==
 
-xterm@3.15.0-beta98:
-  version "3.15.0-beta98"
-  resolved "https://registry.yarnpkg.com/xterm/-/xterm-3.15.0-beta98.tgz#37f37c35577422880e7ef673cc37f9d2a45dd40c"
-  integrity sha512-vZbg2LcRvoiJOgr1MyeLFM9mF4uib3BWUWDHyFc+vZ58CTuK0iczOvFXgk/ySo23ZLqwmHQSigLgmWvZ8J5G0Q==
+xterm@4.3.0-beta.29:
+  version "4.3.0-beta.29"
+  resolved "https://registry.yarnpkg.com/xterm/-/xterm-4.3.0-beta.29.tgz#73f38fd1c81340f8c6c40da0d36f3540bc20813d"
+  integrity sha512-diVDwuAT/DzvKJt2TnYTegKx5GNvHRwIh1LMGDQTo5qo4IINL3Yu0+nkl+D9vumrkkgr/goIo2qRp+6119JH4g==
 
 yallist@^2.1.2:
   version "2.1.2"
