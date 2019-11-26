@@ -21,7 +21,7 @@ export interface SSHConnection {
     user: string
     password?: string
     privateKey?: string
-    group?: string
+    group: string | null
     scripts?: LoginScript[]
     keepaliveInterval?: number
     keepaliveCountMax?: number

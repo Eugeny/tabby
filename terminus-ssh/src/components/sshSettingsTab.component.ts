@@ -27,6 +27,7 @@ export class SSHSettingsTabComponent {
     createConnection () {
         const connection: SSHConnection = {
             name: '',
+            group: null,
             host: '',
             port: 22,
             user: 'root',
@@ -97,7 +98,7 @@ export class SSHSettingsTabComponent {
             }
         )).response === 1) {
             for (const connection of this.connections.filter(x => x.group === group.name)) {
-                connection.group = undefined
+                connection.group = null
             }
             this.config.save()
             this.refresh()
@@ -109,7 +110,7 @@ export class SSHSettingsTabComponent {
         this.childGroups = []
 
         for (const connection of this.connections) {
-            connection.group = connection.group || undefined
+            connection.group = connection.group || null
             let group = this.childGroups.find(x => x.name === connection.group)
             if (!group) {
                 group = {
