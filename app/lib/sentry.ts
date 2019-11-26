@@ -12,4 +12,7 @@ try {
 init({
     dsn: SENTRY_DSN,
     release,
+    integrations (integrations) {
+        return integrations.filter(integration => integration.name !== 'Breadcrumbs')
+    },
 })
