@@ -1,3 +1,4 @@
+import './sentry'
 import './lru'
 import { app, ipcMain, Menu } from 'electron'
 import { parseArgs } from './cli'
@@ -46,7 +47,7 @@ if (argv.d) {
     electronDebug({
         isEnabled: true,
         showDevTools: true,
-        devToolsMode: 'undocked'
+        devToolsMode: 'undocked',
     })
 }
 

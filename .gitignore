@@ -24,3 +24,7 @@ yarn-error.log
 docs/api
 .travis.ssh.key
 *.code-workspace
+
+.electron-symbols
+sentry.properties
+sentry-symbols.js

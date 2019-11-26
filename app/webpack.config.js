@@ -6,6 +6,7 @@ module.exports = {
   target: 'node',
   entry: {
     'index.ignore': 'file-loader?name=index.html!pug-html-loader!' + path.resolve(__dirname, './index.pug'),
+    sentry: path.resolve(__dirname, 'lib/sentry.ts'),
     preload: path.resolve(__dirname, 'src/entry.preload.ts'),
     bundle: path.resolve(__dirname, 'src/entry.ts'),
   },
@@ -78,5 +79,8 @@ module.exports = {
   },
   plugins: [
     new webpack.optimize.ModuleConcatenationPlugin(),
+    new webpack.DefinePlugin({
+      'process.type': '"renderer"'
+    }),
   ],
 }

@@ -22,7 +22,6 @@ export class Application {
         app.commandLine.appendSwitch('lang', 'EN')
 
         for (const flag of configData.flags || [['force_discrete_gpu', '0']]) {
-            console.log('Setting Electron flag:', flag.join('='))
             app.commandLine.appendSwitch(flag[0], flag[1])
         }
     }

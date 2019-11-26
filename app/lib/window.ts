@@ -3,6 +3,7 @@ import { debounceTime } from 'rxjs/operators'
 import { BrowserWindow, app, ipcMain, Rectangle, screen } from 'electron'
 import ElectronConfig = require('electron-config')
 import * as os from 'os'
+import * as path from 'path'
 
 import { loadConfig } from './config'
 
@@ -46,6 +47,7 @@ export class Window {
             minHeight: 300,
             webPreferences: {
                 nodeIntegration: true,
+                preload: path.join(__dirname, 'sentry.js'),
             },
             frame: false,
             show: false,
@@ -147,14 +149,14 @@ export class Window {
         this.window.webContents.send(event, ...args)
     }
 
-    isDestroyed() {
+    isDestroyed () {
         return !this.window || this.window.isDestroyed();
     }
 
     private setupWindowManagement () {
         this.window.on('show', () => {
             this.visible.next(true)
-            this.window.webContents.send('host:window-shown')
+            this.send('host:window-shown')
         })
 
         this.window.on('hide', () => {
@@ -164,20 +166,20 @@ export class Window {
         let moveSubscription = new Observable<void>(observer => {
             this.window.on('move', () => observer.next())
         }).pipe(debounceTime(250)).subscribe(() => {
-            this.window.webContents.send('host:window-moved')
+            this.send('host:window-moved')
         })
 
         this.window.on('closed', () => {
             moveSubscription.unsubscribe()
         })
 
-        this.window.on('enter-full-screen', () => this.window.webContents.send('host:window-enter-full-screen'))
-        this.window.on('leave-full-screen', () => this.window.webContents.send('host:window-leave-full-screen'))
+        this.window.on('enter-full-screen', () => this.send('host:window-enter-full-screen'))
+        this.window.on('leave-full-screen', () => this.send('host:window-leave-full-screen'))
 
         this.window.on('close', event => {
             if (!this.closing) {
                 event.preventDefault()
-                this.window.webContents.send('host:window-close-request')
+                this.send('host:window-close-request')
                 return
             }
             this.windowConfig.set('windowBoundaries', this.windowBounds)

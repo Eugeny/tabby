@@ -1,6 +1,8 @@
 {
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^5.11.2",
+    "@sentry/cli": "^1.49.0",
+    "@sentry/electron": "^1.0.0",
     "@types/electron-config": "^3.2.2",
     "@types/electron-debug": "^2.1.0",
     "@types/js-yaml": "^3.12.1",
@@ -33,7 +35,6 @@
     "pug-lint": "^2.6.0",
     "pug-loader": "^2.4.0",
     "pug-static-loader": "2.0.0",
-    "raven-js": "3.27.2",
     "raw-loader": "3.1.0",
     "sass-loader": "^8.0.0",
     "shelljs": "0.8.3",
@@ -49,6 +50,8 @@
     "val-loader": "2.0.1",
     "webpack": "^5.0.0-beta.7",
     "webpack-cli": "^3.3.10",
+    "electron-download": "^4.1.1",
+    "eslint-plugin-import": "^2.18.2",
     "yaml-loader": "0.5.0"
   },
   "resolutions": {
@@ -133,8 +136,5 @@
     "lint": "eslint --ext ts */src",
     "postinstall": "node ./scripts/install-deps.js"
   },
-  "repository": "eugeny/terminus",
-  "dependencies": {
-    "eslint-plugin-import": "^2.18.2"
-  }
+  "repository": "eugeny/terminus"
 }
