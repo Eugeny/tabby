@@ -54,9 +54,9 @@ axios@^0.19.0:
     is-buffer "^2.0.2"
 
 bootstrap@^4.1.3:
-  version "4.3.1"
-  resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-4.3.1.tgz#280ca8f610504d99d7b6b4bfc4b68cec601704ac"
-  integrity sha512-rXqOmH1VilAt2DyPzluTi2blhk17bO7ef+zLLPlWvG494pDxcM234pJ8wTc/6R40UWizAIIMgxjvxZg5kmsbag==
+  version "4.4.0"
+  resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-4.4.0.tgz#477103fa44d44191971c8ca3e0b51a85ae62ea4d"
+  integrity sha512-dqCYJNs/Fxa3IVQ+v/lC694POCThUjZsA4wwqs8l+yk67B6ww2Ki++WaM6CVGe5+tArBBrknzjjh01/NT5rLjA==
 
 builder-util-runtime@8.4.0:
   version "8.4.0"
