@@ -16,7 +16,7 @@
     "cross-env": "6.0.3",
     "css-loader": "3.2.0",
     "electron": "^7.1.2",
-    "electron-builder": "22.1.0",
+    "electron-builder": "22.2.0",
     "electron-installer-snap": "^4.1.0",
     "electron-notarize": "^0.1.1",
     "electron-rebuild": "^1.8.5",
