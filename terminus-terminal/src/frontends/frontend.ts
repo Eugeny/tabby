@@ -6,6 +6,7 @@ export interface SearchOptions {
     regex?: boolean
     wholeWord?: boolean
     caseSensitive?: boolean
+    incremental?: true
 }
 
 /**

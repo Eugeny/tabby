@@ -2,7 +2,7 @@
     input.search-input.form-control(
         type='search',
         [(ngModel)]='query',
-        (ngModelChange)='notFound = false',
+        (ngModelChange)='onQueryChange()',
         [class.text-danger]='notFound',
         (click)='$event.stopPropagation()',
         (keyup.enter)='findNext()',
@@ -10,31 +10,27 @@
         placeholder='Search...'
     )
     .input-group-append
-        .btn-group
-            button.btn.btn-outline-primary(
+        .input-group-text
+            a(
                 (click)='options.caseSensitive = !options.caseSensitive',
-                [class.active]='options.caseSensitive',
+                [class.text-info]='options.caseSensitive',
                 ngbTooltip='Case sensitivity',
                 placement='bottom'
             )
                 i.fa.fa-fw.fa-font
-            button.btn.btn-outline-primary(
+            a(
                 (click)='options.regex = !options.regex',
-                [class.active]='options.regex',
+                [class.text-info]='options.regex',
                 ngbTooltip='Regular expression',
                 placement='bottom'
             )
                 i.fa.fa-fw.fa-asterisk
-            button.btn.btn-outline-primary(
+            a(
                 (click)='options.wholeWord = !options.wholeWord',
-                [class.active]='options.wholeWord',
+                [class.text-info]='options.wholeWord',
                 ngbTooltip='Whole word',
                 placement='bottom'
             )
                 i.fa.fa-fw.fa-text-width
-            button.btn.btn-outline(
-                (click)='close.emit()',
-                ngbTooltip='Close',
-                placement='bottom'
-            )
-                i.fa.fa-fw.fa-times
+
+button.close.text-light.pl-3.pr-2((click)='close.emit()') &times;
