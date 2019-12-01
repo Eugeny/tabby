@@ -26,8 +26,8 @@ export class SearchPanelComponent {
         this.findNext(true)
     }
 
-    findNext (incremental? = false) {
-        if (!this.frontend.findNext(this.query, { ...this.options, incremental })) {
+    findNext (incremental = false) {
+        if (!this.frontend.findNext(this.query, { ...this.options, incremental: incremental || undefined })) {
             this.notFound = true
             this.toastr.error('Not found')
         }

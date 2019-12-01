@@ -113,6 +113,8 @@ export class XTermFrontend extends Frontend {
     }
 
     attach (host: HTMLElement): void {
+        this.configure()
+
         this.xterm.open(host)
         this.opened = true
 
