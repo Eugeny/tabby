@@ -66,7 +66,7 @@ export class EditConnectionModalComponent {
         modal.componentInstance.password = true
         try {
             const result = await modal.result
-            if (result && result.value) {
+            if (result?.value) {
                 this.passwordStorage.savePassword(this.connection, result.value)
                 this.hasSavedPassword = true
             }

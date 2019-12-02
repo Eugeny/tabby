@@ -1,6 +1,6 @@
 {
   "name": "terminus-ssh",
-  "version": "1.0.93-nightly.0",
+  "version": "1.0.98-nightly.0",
   "description": "SSH connection manager for Terminus",
   "keywords": [
     "terminus-builtin-plugin"
@@ -20,7 +20,8 @@
     "@types/node": "12.7.3",
     "@types/ssh2": "^0.5.35",
     "ssh2": "^0.8.2",
-    "ssh2-streams": "^0.4.2"
+    "ssh2-streams": "^0.4.2",
+    "terminus-terminal": "^1.0.98-nightly.0"
   },
   "peerDependencies": {
     "@angular/common": "^7",

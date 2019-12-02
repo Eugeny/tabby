@@ -22,8 +22,8 @@ export interface ToastrServiceProxy {
  * A class to base your custom terminal tabs on
  */
 export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit, OnDestroy {
-    static template = require('../components/baseTerminalTab.component.pug')
-    static styles = [require('../components/terminalTab.component.scss')]
+    static template = require<string>('../components/baseTerminalTab.component.pug')
+    static styles = [require<string>('../components/terminalTab.component.scss')]
     static animations: AnimationTriggerMetadata[] = [trigger('slideInOut', [
         transition(':enter', [
             style({ transform: 'translateY(-25%)' }),

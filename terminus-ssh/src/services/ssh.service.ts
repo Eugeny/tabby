@@ -209,7 +209,7 @@ export class SSHService {
                         if (result.remember) {
                             savedPassword = result.value
                         }
-                        return result.value
+                        return await result.value
                     }
                     return ''
                 } catch (_) {

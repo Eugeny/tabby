@@ -67,6 +67,11 @@ streamsearch@~0.1.2:
   resolved "https://registry.yarnpkg.com/streamsearch/-/streamsearch-0.1.2.tgz#808b9d0e56fc273d809ba57338e929919a1a9f1a"
   integrity sha1-gIudDlb8Jz2Am6VzOOkpkZoanxo=
 
+terminus-terminal@^1.0.98-nightly.0:
+  version "1.0.98-nightly.0"
+  resolved "https://registry.yarnpkg.com/terminus-terminal/-/terminus-terminal-1.0.98-nightly.0.tgz#10df71b0a81adf76a076fb21a91c859dd2f8bef7"
+  integrity sha512-JLxkeoQkORcfe6cRW6BJF5ZPSbvKA8IWUAb7fzBONVmNfRKj2Mq/uYPy76UXsdmb9F1n+rYIg+DShNp57asMKA==
+
 tweetnacl@^0.14.3:
   version "0.14.5"
   resolved "https://registry.yarnpkg.com/tweetnacl/-/tweetnacl-0.14.5.tgz#5ae68177f192d4456269d108afa93ff8743f4f64"
