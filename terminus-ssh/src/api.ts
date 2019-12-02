@@ -1,4 +1,8 @@
 import { BaseSession } from 'terminus-terminal'
+import { Server, Socket, createServer } from 'net'
+import { Client, ClientChannel } from 'ssh2'
+import { Logger } from 'terminus-core'
+import { Subject, Observable } from 'rxjs'
 
 export interface LoginScript {
     expect: string
@@ -30,17 +34,77 @@ export interface SSHConnection {
     algorithms?: {[t: string]: string[]}
 }
 
+export enum PortForwardType {
+    Local, Remote
+}
+
+export class ForwardedPort {
+    type: PortForwardType
+    host = '127.0.0.1'
+    port: number
+    targetAddress: string
+    targetPort: number
+
+    private listener: Server
+
+    async startLocalListener (callback: (Socket) => void): Promise<void> {
+        this.listener = createServer(callback)
+        return new Promise((resolve, reject) => {
+            this.listener.listen(this.port, '127.0.0.1')
+            this.listener.on('error', reject)
+            this.listener.on('listening', resolve)
+        })
+    }
+
+    stopLocalListener () {
+        this.listener.close()
+    }
+
+    toString () {
+        if (this.type === PortForwardType.Local) {
+            return `(local) ${this.host}:${this.port} → (remote) ${this.targetAddress}:${this.targetPort}`
+        } else {
+            return `(remote) ${this.host}:${this.port} → (local) ${this.targetAddress}:${this.targetPort}`
+        }
+    }
+}
+
 export class SSHSession extends BaseSession {
     scripts?: LoginScript[]
-    shell: any
+    shell: ClientChannel
+    ssh: Client
+    forwardedPorts: ForwardedPort[] = []
+    logger: Logger
+
+    get serviceMessage$ (): Observable<string> { return this.serviceMessage }
+    private serviceMessage = new Subject<string>()
 
     constructor (public connection: SSHConnection) {
         super()
         this.scripts = connection.scripts || []
     }
 
-    start () {
+    async start () {
         this.open = true
+
+        this.shell = await new Promise<ClientChannel>((resolve, reject) => {
+            this.ssh.shell({ term: 'xterm-256color' }, (err, shell) => {
+                if (err) {
+                    this.emitServiceMessage(`Remote rejected opening a shell channel: ${err}`)
+                    reject(err)
+                } else {
+                    resolve(shell)
+                }
+            })
+        })
+
+        this.shell.on('greeting', greeting => {
+            this.emitServiceMessage(`Shell greeting: ${greeting}`)
+        })
+
+        this.shell.on('banner', banner => {
+            this.emitServiceMessage(`Shell banner: ${banner}`)
+        })
 
         this.shell.on('data', data => {
             const dataString = data.toString()
@@ -67,12 +131,12 @@ export class SSHSession extends BaseSession {
                     }
 
                     if (match) {
-                        console.log('Executing script: "' + cmd + '"')
+                        this.logger.info('Executing script: "' + cmd + '"')
                         this.shell.write(cmd + '\n')
                         this.scripts = this.scripts.filter(x => x !== script)
                     } else {
                         if (script.optional) {
-                            console.log('Skip optional script: ' + script.expect)
+                            this.logger.debug('Skip optional script: ' + script.expect)
                             found = true
                             this.scripts = this.scripts.filter(x => x !== script)
                         } else {
@@ -88,17 +152,110 @@ export class SSHSession extends BaseSession {
         })
 
         this.shell.on('end', () => {
+            this.logger.info('Shell session ended')
             if (this.open) {
                 this.destroy()
             }
         })
 
+        this.ssh.on('tcp connection', (details, accept, reject) => {
+            this.logger.info(`Incoming forwarded connection: (remote) ${details.srcIP}:${details.srcPort} -> (local) ${details.destIP}:${details.destPort}`)
+            const forward = this.forwardedPorts.find(x => x.port === details.destPort)
+            if (!forward) {
+                this.emitServiceMessage(`Rejected incoming forwarded connection for unrecognized port ${details.destPort}`)
+                return reject()
+            }
+            const socket = new Socket()
+            socket.connect(forward.targetPort, forward.targetAddress)
+            socket.on('error', e => {
+                this.emitServiceMessage(`Could not forward the remote connection to ${forward.targetAddress}:${forward.targetPort}: ${e}`)
+                reject()
+            })
+            socket.on('connect', () => {
+                this.logger.info('Connection forwarded')
+                const stream = accept()
+                stream.pipe(socket)
+                socket.pipe(stream)
+                stream.on('close', () => {
+                    socket.destroy()
+                })
+                socket.on('close', () => {
+                    stream.close()
+                })
+            })
+        })
+
         this.executeUnconditionalScripts()
+    }
+
+    emitServiceMessage (msg: string) {
+        this.serviceMessage.next(msg)
+        this.logger.info(msg)
+    }
+
+    async addPortForward (fw: ForwardedPort) {
+        if (fw.type === PortForwardType.Local) {
+            await fw.startLocalListener((socket: Socket) => {
+                this.logger.info(`New connection on ${fw}`)
+                this.ssh.forwardOut(
+                    socket.remoteAddress || '127.0.0.1',
+                    socket.remotePort || 0,
+                    fw.targetAddress,
+                    fw.targetPort,
+                    (err, stream) => {
+                        if (err) {
+                            this.emitServiceMessage(`Remote has rejected the forwaded connection via ${fw}: ${err}`)
+                            socket.destroy()
+                            return
+                        }
+                        stream.pipe(socket)
+                        socket.pipe(stream)
+                        stream.on('close', () => {
+                            socket.destroy()
+                        })
+                        socket.on('close', () => {
+                            stream.close()
+                        })
+                    }
+                )
+            }).then(() => {
+                this.emitServiceMessage(`Forwaded ${fw}`)
+                this.forwardedPorts.push(fw)
+            }).catch(e => {
+                this.emitServiceMessage(`Failed to forward port ${fw}: ${e}`)
+                throw e
+            })
+        }
+        if (fw.type === PortForwardType.Remote) {
+            await new Promise((resolve, reject) => {
+                this.ssh.forwardIn(fw.host, fw.port, err => {
+                    if (err) {
+                        this.emitServiceMessage(`Remote rejected port forwarding for ${fw}: ${err}`)
+                        return reject(err)
+                    }
+                    resolve()
+                })
+            })
+            this.emitServiceMessage(`Forwaded ${fw}`)
+            this.forwardedPorts.push(fw)
+        }
+    }
+
+    async removePortForward (fw: ForwardedPort) {
+        if (fw.type === PortForwardType.Local) {
+            fw.stopLocalListener()
+            this.forwardedPorts = this.forwardedPorts.filter(x => x !== fw)
+        }
+        if (fw.type === PortForwardType.Remote) {
+            this.ssh.unforwardIn(fw.host, fw.port)
+            this.forwardedPorts = this.forwardedPorts.filter(x => x !== fw)
+        }
+        this.emitServiceMessage(`Stopped forwarding ${fw}`)
     }
 
     resize (columns, rows) {
         if (this.shell) {
-            this.shell.setWindow(rows, columns)
+            this.shell.setWindow(rows, columns, rows, columns)
         }
     }
 
@@ -112,6 +269,11 @@ export class SSHSession extends BaseSession {
         if (this.shell) {
             this.shell.signal(signal || 'TERM')
         }
+    }
+
+    async destroy (): Promise<void> {
+        this.serviceMessage.complete()
+        await super.destroy()
     }
 
     async getChildProcesses (): Promise<any[]> {

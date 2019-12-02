@@ -20,7 +20,7 @@ export class SSHService {
     private logger: Logger
 
     private constructor (
-        log: LogService,
+        private log: LogService,
         private app: AppService,
         private zone: NgZone,
         private ngbModal: NgbModal,
@@ -36,6 +36,12 @@ export class SSHService {
             SSHTabComponent,
             { connection }
         ) as SSHTabComponent)
+    }
+
+    createSession (connection: SSHConnection): SSHSession {
+        const session = new SSHSession(connection)
+        session.logger = this.log.create(`ssh-${connection.host}-${connection.port}`)
+        return session
     }
 
     async connectSession (session: SSHSession, logCallback?: (s: any) => void): Promise<void> {
@@ -91,6 +97,7 @@ export class SSHService {
         }
 
         const ssh = new Client()
+        session.ssh = ssh
         let connected = false
         let savedPassword: string|null = null
         await new Promise(async (resolve, reject) => {
@@ -210,31 +217,6 @@ export class SSHService {
                 }
             })
         })
-
-        try {
-            const shell: any = await new Promise<any>((resolve, reject) => {
-                ssh.shell({ term: 'xterm-256color' }, (err, shell) => {
-                    if (err) {
-                        reject(err)
-                    } else {
-                        resolve(shell)
-                    }
-                })
-            })
-
-            session.shell = shell
-
-            shell.on('greeting', greeting => {
-                log(`Shell Greeting: ${greeting}`)
-            })
-
-            shell.on('banner', banner => {
-                log(`Shell Banner: ${banner}`)
-            })
-        } catch (error) {
-            this.toastr.error(error.message)
-            throw error
-        }
     }
 }
 

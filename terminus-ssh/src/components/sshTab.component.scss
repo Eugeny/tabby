@@ -3,6 +3,7 @@
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    position: relative;
 
     &> .content {
         flex: auto;
@@ -10,5 +11,12 @@
         display: block;
         overflow: hidden;
         margin: 15px;
+    }
+
+    &> button {
+        position: absolute;
+        bottom: 20px;
+        right: 40px;
+        z-index: 4;
     }
 }

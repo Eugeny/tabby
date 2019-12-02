@@ -9,6 +9,7 @@ import TerminusTerminalModule from 'terminus-terminal'
 
 import { EditConnectionModalComponent } from './components/editConnectionModal.component'
 import { SSHModalComponent } from './components/sshModal.component'
+import { SSHPortForwardingModalComponent } from './components/sshPortForwardingModal.component'
 import { PromptModalComponent } from './components/promptModal.component'
 import { SSHSettingsTabComponent } from './components/sshSettingsTab.component'
 import { SSHTabComponent } from './components/sshTab.component'
@@ -40,6 +41,7 @@ import { SSHHotkeyProvider } from './hotkeys'
         EditConnectionModalComponent,
         PromptModalComponent,
         SSHModalComponent,
+        SSHPortForwardingModalComponent,
         SSHSettingsTabComponent,
         SSHTabComponent,
     ],
@@ -47,6 +49,7 @@ import { SSHHotkeyProvider } from './hotkeys'
         EditConnectionModalComponent,
         PromptModalComponent,
         SSHModalComponent,
+        SSHPortForwardingModalComponent,
         SSHSettingsTabComponent,
         SSHTabComponent,
     ],

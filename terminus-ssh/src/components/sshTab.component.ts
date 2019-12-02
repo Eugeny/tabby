@@ -1,12 +1,14 @@
 import { Component } from '@angular/core'
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { first } from 'rxjs/operators'
 import { BaseTerminalTabComponent } from 'terminus-terminal'
 import { SSHService } from '../services/ssh.service'
 import { SSHConnection, SSHSession } from '../api'
+import { SSHPortForwardingModalComponent } from './sshPortForwardingModal.component'
 
 /** @hidden */
 @Component({
-    template: BaseTerminalTabComponent.template,
+    template: BaseTerminalTabComponent.template + require<string>('./sshTab.component.pug'),
     styles: [require('./sshTab.component.scss'), ...BaseTerminalTabComponent.styles],
     animations: BaseTerminalTabComponent.animations,
 })
@@ -14,8 +16,11 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
     connection: SSHConnection
     ssh: SSHService
     session: SSHSession
+    private ngbModal: NgbModal
 
     ngOnInit () {
+        this.ngbModal = this.injector.get<NgbModal>(NgbModal)
+
         this.logger = this.log.create('terminalTab')
         this.ssh = this.injector.get(SSHService)
         this.frontendReady$.pipe(first()).subscribe(() => {
@@ -35,7 +40,11 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
             return
         }
 
-        this.session = new SSHSession(this.connection)
+        this.session = this.ssh.createSession(this.connection)
+        this.session.serviceMessage$.subscribe(msg => {
+            this.write(`\r\n[SSH] ${msg}\r\n`)
+            this.session.resize(this.size.columns, this.size.rows)
+        })
         this.attachSessionHandlers()
         this.write(`Connecting to ${this.connection.host}`)
         const interval = setInterval(() => this.write('.'), 500)
@@ -51,8 +60,8 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
             clearInterval(interval)
             this.write('\r\n')
         }
+        await this.session.start()
         this.session.resize(this.size.columns, this.size.rows)
-        this.session.start()
     }
 
     async getRecoveryToken (): Promise<any> {
@@ -60,5 +69,10 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
             type: 'app:ssh-tab',
             connection: this.connection,
         }
+    }
+
+    showPortForwarding () {
+        const modal = this.ngbModal.open(SSHPortForwardingModalComponent).componentInstance as SSHPortForwardingModalComponent
+        modal.session = this.session
     }
 }

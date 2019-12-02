@@ -1,0 +1,48 @@
+.modal-header
+    h5.m-0 Port forwarding
+
+.modal-body.pt-0
+    .list-group-light.mb-3
+        .list-group-item.d-flex.align-items-center(*ngFor='let fw of session.forwardedPorts')
+            strong(*ngIf='fw.type === PortForwardType.Local') Local
+            strong(*ngIf='fw.type === PortForwardType.Remote') Remote
+            .ml-3 {{fw.host}}:{{fw.port}} &rarr; {{fw.targetAddress}}:{{fw.targetPort}}
+            button.btn.btn-link.ml-auto((click)='remove(fw)')
+                i.fas.fa-trash-alt.mr-2
+                span Remove
+
+    .input-group.mb-2
+        input.form-control(type='text', [(ngModel)]='newForward.host')
+        .input-group-append
+            .input-group-text :
+        input.form-control(type='number', [(ngModel)]='newForward.port')
+        .input-group-append
+            .input-group-text &rarr;
+        input.form-control(type='text', [(ngModel)]='newForward.targetAddress')
+        .input-group-append
+            .input-group-text :
+        input.form-control(type='number', [(ngModel)]='newForward.targetPort')
+
+    .d-flex
+        .btn-group.mr-auto(
+            [(ngModel)]='newForward.type',
+            ngbRadioGroup
+        )
+            label.btn.btn-secondary.m-0(ngbButtonLabel)
+                input(
+                    type='radio',
+                    ngbButton,
+                    [value]='PortForwardType.Local'
+                )
+                | Local
+            label.btn.btn-secondary.m-0(ngbButtonLabel)
+                input(
+                    type='radio',
+                    ngbButton,
+                    [value]='PortForwardType.Remote'
+                )
+                | Remote
+
+        button.btn.btn-primary((click)='addForward()')
+            i.fas.fa-check.mr-2
+            span Forward port
