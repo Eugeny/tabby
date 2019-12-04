@@ -9,7 +9,7 @@
     "@types/node": "12.7.12",
     "@types/webpack-env": "1.14.1",
     "@typescript-eslint/eslint-plugin": "^2.9.0",
-    "@typescript-eslint/parser": "^2.9.0",
+    "@typescript-eslint/parser": "^2.10.0",
     "apply-loader": "2.0.0",
     "awesome-typescript-loader": "^5.0.0",
     "core-js": "^3.4.2",
