@@ -236,10 +236,10 @@ xterm-addon-webgl@^0.4.0-beta.15:
   resolved "https://registry.yarnpkg.com/xterm-addon-webgl/-/xterm-addon-webgl-0.4.0-beta.15.tgz#a85a6f2374e1d3c9227bb3a9741ae1f126bafa47"
   integrity sha512-zsD6av31hRQh1yeY3XjRZIvPZdrqAPixvKz2Rczi1ZVwGl1IrXdMeAN2gofNej5ao09v/jfnherCmqEpsVIISw==
 
-xterm@4.3.0-beta.30:
-  version "4.3.0-beta.30"
-  resolved "https://registry.yarnpkg.com/xterm/-/xterm-4.3.0-beta.30.tgz#2cdb5e21fece98a5f4fe70d13ccebbb50c639bae"
-  integrity sha512-3ojuqTigSwvfq607O5UAcdAt6Clg0Y5+Fq6u5qEWNjd69G84tOqJVVogqTn0QON87OeiQN3ibQiBdi/+4xZ2KA==
+xterm@4.3.0-beta.31:
+  version "4.3.0-beta.31"
+  resolved "https://registry.yarnpkg.com/xterm/-/xterm-4.3.0-beta.31.tgz#ee50b275398e0e7c828e0cac3a4ab6c3cbaa4183"
+  integrity sha512-a/knfExopXINVv7Ga75WxfXgYOsuDnwTNevQTPl5nOt3/J8tAAsW/UdpqEjlZ6efcgDoJI4mKRHnGnARrEs6lg==
 
 yallist@^2.1.2:
   version "2.1.2"
