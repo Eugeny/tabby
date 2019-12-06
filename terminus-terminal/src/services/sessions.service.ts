@@ -77,7 +77,7 @@ export abstract class BaseSession {
 
     abstract start (options: SessionOptions): void
     abstract resize (columns: number, rows: number): void
-    abstract write (data: string): void
+    abstract write (data: Buffer): void
     abstract kill (signal?: string): void
     abstract async getChildProcesses (): Promise<ChildProcess[]>
     abstract async gracefullyKillProcess (): Promise<void>
@@ -201,10 +201,10 @@ export class Session extends BaseSession {
         }
     }
 
-    write (data) {
+    write (data: Buffer) {
         if (this.open) {
             if (this.pty._writable) {
-                this.pty.write(Buffer.from(data, 'utf-8'))
+                this.pty.write(data)
             } else {
                 this.destroy()
             }

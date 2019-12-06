@@ -182,7 +182,7 @@ export class HTermFrontend extends Frontend {
             this.term.installKeyboard()
             this.term.scrollPort_.setCtrlVPaste(true)
             this.io = this.term.io.push()
-            this.io.onVTKeystroke = this.io.sendString = data => this.input.next(data)
+            this.io.onVTKeystroke = this.io.sendString = data => this.input.next(Buffer.from(data, 'utf-8'))
             this.io.onTerminalResize = (columns, rows) => {
                 this.resize.next({ columns, rows })
             }

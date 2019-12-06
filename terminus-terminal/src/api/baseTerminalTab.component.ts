@@ -63,7 +63,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
     private bellPlayer: HTMLAudioElement
     private termContainerSubscriptions: Subscription[] = []
 
-    get input$ (): Observable<string> { return this.frontend.input$ }
+    get input$ (): Observable<Buffer> { return this.frontend.input$ }
     get output$ (): Observable<string> { return this.output }
     get resize$ (): Observable<ResizeEvent> { return this.frontend.resize$ }
     get alternateScreenActive$ (): Observable<boolean> { return this.frontend.alternateScreenActive$ }
@@ -229,7 +229,10 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
     /**
      * Feeds input into the active session
      */
-    sendInput (data: string) {
+    sendInput (data: string|Buffer) {
+        if (!(data instanceof Buffer)) {
+            data = Buffer.from(data, 'utf-8')
+        }
         this.session.write(data)
         if (this.config.store.terminal.scrollOnInput) {
             this.frontend.scrollToBottom()

@@ -30,8 +30,8 @@
     "xterm": "4.3.0",
     "xterm-addon-fit": "^0.4.0-beta2",
     "xterm-addon-ligatures": "^0.2.1",
-    "xterm-addon-search": "^0.4.0-beta5",
-    "xterm-addon-webgl": "^0.4.0-beta.15"
+    "xterm-addon-search": "^0.4.0",
+    "xterm-addon-webgl": "^0.4.0"
   },
   "peerDependencies": {
     "@angular/animations": "^7",

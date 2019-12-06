@@ -39,8 +39,11 @@ export class XTermFrontend extends Frontend {
         })
         this.xtermCore = (this.xterm as any)._core
 
+        this.xterm.onBinary(data => {
+            this.input.next(Buffer.from(data, 'binary'))
+        })
         this.xterm.onData(data => {
-            this.input.next(data)
+            this.input.next(Buffer.from(data, 'utf-8'))
         })
         this.xterm.onResize(({ cols, rows }) => {
             this.resize.next({ rows, columns: cols })
@@ -211,7 +214,7 @@ export class XTermFrontend extends Frontend {
 
         const theme: ITheme = {
             foreground: config.terminal.colorScheme.foreground,
-            background: config.terminal.background === 'colorScheme' ? config.terminal.colorScheme.background : config.appearance.vibrancy ? 'transparent' : this.themesService.findCurrentTheme().terminalBackground,
+            background: config.terminal.background === 'colorScheme' ? config.terminal.colorScheme.background : config.appearance.vibrancy ? '#00000000' : this.themesService.findCurrentTheme().terminalBackground,
             cursor: config.terminal.colorScheme.cursor,
         }
 
