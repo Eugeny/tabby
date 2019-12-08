@@ -1,5 +1,5 @@
 import { BaseSession } from 'terminus-terminal'
-import { Server, Socket, createServer } from 'net'
+import { Server, Socket, createServer, createConnection } from 'net'
 import { Client, ClientChannel } from 'ssh2'
 import { Logger } from 'terminus-core'
 import { Subject, Observable } from 'rxjs'
@@ -88,7 +88,7 @@ export class SSHSession extends BaseSession {
         this.open = true
 
         this.shell = await new Promise<ClientChannel>((resolve, reject) => {
-            this.ssh.shell({ term: 'xterm-256color' }, (err, shell) => {
+            this.ssh.shell({ term: 'xterm-256color' }, { x11: true }, (err, shell) => {
                 if (err) {
                     this.emitServiceMessage(`Remote rejected opening a shell channel: ${err}`)
                     reject(err)
@@ -169,6 +169,36 @@ export class SSHSession extends BaseSession {
             socket.connect(forward.targetPort, forward.targetAddress)
             socket.on('error', e => {
                 this.emitServiceMessage(`Could not forward the remote connection to ${forward.targetAddress}:${forward.targetPort}: ${e}`)
+                reject()
+            })
+            socket.on('connect', () => {
+                this.logger.info('Connection forwarded')
+                const stream = accept()
+                stream.pipe(socket)
+                socket.pipe(stream)
+                stream.on('close', () => {
+                    socket.destroy()
+                })
+                socket.on('close', () => {
+                    stream.close()
+                })
+            })
+        })
+
+        this.ssh.on('x11', (details, accept, reject) => {
+            this.logger.info(`Incoming X11 connection from ${details.srcIP}:${details.srcPort}`)
+            let displaySpec = process.env.DISPLAY || ':0'
+            this.logger.debug(`Trying display ${displaySpec}`)
+            let xHost = displaySpec.split(':')[0]
+            let xDisplay = parseInt(displaySpec.split(':')[1].split('.')[0] || '0')
+            let xPort = xDisplay < 100 ? xDisplay + 6000 : xDisplay
+
+            const socket = displaySpec.startsWith('/') ? createConnection(displaySpec) : new Socket()
+            if (!displaySpec.startsWith('/')) {
+                socket.connect(xPort, xHost)
+            }
+            socket.on('error', e => {
+                this.emitServiceMessage(`Could not connect to the X server ${xHost}:${xPort}: ${e}`)
                 reject()
             })
             socket.on('connect', () => {
