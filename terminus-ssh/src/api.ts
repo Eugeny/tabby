@@ -84,18 +84,6 @@ export class SSHSession extends BaseSession {
         this.scripts = connection.scripts || []
     }
 
-    private openShellChannel (options): Promise<ClientChannel> {
-        return new Promise<ClientChannel>((resolve, reject) => {
-            this.ssh.shell({ term: 'xterm-256color' }, options, (err, shell) => {
-                if (err) {
-                    reject(err)
-                } else {
-                    resolve(shell)
-                }
-            })
-        })
-    }
-
     async start () {
         this.open = true
 
@@ -332,6 +320,18 @@ export class SSHSession extends BaseSession {
 
     async getWorkingDirectory (): Promise<string|null> {
         return null
+    }
+
+    private openShellChannel (options): Promise<ClientChannel> {
+        return new Promise<ClientChannel>((resolve, reject) => {
+            this.ssh.shell({ term: 'xterm-256color' }, options, (err, shell) => {
+                if (err) {
+                    reject(err)
+                } else {
+                    resolve(shell)
+                }
+            })
+        })
     }
 
     private executeUnconditionalScripts () {
