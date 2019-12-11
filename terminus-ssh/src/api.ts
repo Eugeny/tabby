@@ -1,6 +1,6 @@
 import { BaseSession } from 'terminus-terminal'
 import { Server, Socket, createServer, createConnection } from 'net'
-import { Client, ClientChannel } from 'ssh2'
+import { Client, ClientChannel, Channel } from 'ssh2'
 import { Logger } from 'terminus-core'
 import { Subject, Observable } from 'rxjs'
 
@@ -84,19 +84,35 @@ export class SSHSession extends BaseSession {
         this.scripts = connection.scripts || []
     }
 
-    async start () {
-        this.open = true
-
-        this.shell = await new Promise<ClientChannel>((resolve, reject) => {
-            this.ssh.shell({ term: 'xterm-256color' }, { x11: true }, (err, shell) => {
+    private openShellChannel (options): Promise<ClientChannel> {
+        return new Promise<ClientChannel>((resolve, reject) => {
+            this.ssh.shell({ term: 'xterm-256color' }, options, (err, shell) => {
                 if (err) {
-                    this.emitServiceMessage(`Remote rejected opening a shell channel: ${err}`)
                     reject(err)
                 } else {
                     resolve(shell)
                 }
             })
         })
+    }
+
+    async start () {
+        this.open = true
+
+        try {
+            try {
+                this.shell = await this.openShellChannel({ x11: true })
+            } catch (e) {
+                if (e.toString().includes('Unable to request X11')) {
+                    this.logger.debug('X11 forwarding rejected, trying without')
+                    this.shell = await this.openShellChannel({})
+                } else {
+                    throw e
+                }
+            }
+        } catch (err) {
+            this.emitServiceMessage(`Remote rejected opening a shell channel: ${err}`)
+        }
 
         this.shell.on('greeting', greeting => {
             this.emitServiceMessage(`Shell greeting: ${greeting}`)
