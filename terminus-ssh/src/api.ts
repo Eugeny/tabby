@@ -1,6 +1,6 @@
 import { BaseSession } from 'terminus-terminal'
 import { Server, Socket, createServer, createConnection } from 'net'
-import { Client, ClientChannel, Channel } from 'ssh2'
+import { Client, ClientChannel } from 'ssh2'
 import { Logger } from 'terminus-core'
 import { Subject, Observable } from 'rxjs'
 
