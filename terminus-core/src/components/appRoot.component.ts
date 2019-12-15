@@ -250,6 +250,10 @@ export class AppRootComponent {
         }
     }
 
+    hasIcons (submenuItems: ToolbarButton[]): boolean {
+        return submenuItems.some(x => !!x.icon)
+    }
+
     sanitizeIcon (icon: string): any {
         return this.domSanitizer.bypassSecurityTrustHtml(icon || '')
     }

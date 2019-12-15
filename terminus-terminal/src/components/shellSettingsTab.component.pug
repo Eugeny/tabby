@@ -14,20 +14,20 @@ h3.mb-3 Shell
             [ngValue]='slug(profile.name).toLowerCase()'
         ) {{profile.name}}
 
-        
+
 .form-line(*ngIf='isConPTYAvailable')
     .header
         .title Use ConPTY
         .description Enables the experimental Windows ConPTY API
-        
+
     toggle(
         [(ngModel)]='config.store.terminal.useConPTY',
         (ngModelChange)='config.save()'
     )
-    
+
 .alert.alert-info.d-flex.align-items-center(*ngIf='config.store.terminal.useConPTY && isConPTYAvailable && !isConPTYStable')
     .mr-auto Windows 10 build 18309 or above is recommended for ConPTY
-    
+
 .alert.alert-info.d-flex.align-items-center(*ngIf='config.store.terminal.profile.startsWith("WSL") && (config.store.terminal.frontend != "hterm" || !config.store.terminal.useConPTY)')
     .mr-auto WSL terminal only supports TrueColor with ConPTY and the hterm frontend
 
@@ -50,15 +50,17 @@ h3.mb-3 Shell
             placeholder='Home directory',
             [(ngModel)]='config.store.terminal.workingDirectory',
             (ngModelChange)='config.save()',
-        )            
-        .input-group-btn
+        )
+        .input-group-append
             button.btn.btn-secondary((click)='pickWorkingDirectory()')
                 i.fas.fa-folder-open
 
 .form-line
     .header
         .title Always Use Working Directory
-        .description By default, new terminals will open where the previous terminal was working. Enabling this option will always launch new terminals in the working directory specified above.
+        .description
+            div By default, new terminals will open where the previous terminal was working.
+            div Enabling this option will always launch new terminals in the working directory specified above.
 
     toggle(
         [(ngModel)]='config.store.terminal.alwaysUseWorkingDirectory',
@@ -69,7 +71,7 @@ h3.mb-3 Shell
     .header
         .title Environment
         .description Inject additional environment variables
-        
+
     environment-editor([(model)]='this.config.store.terminal.environment')
 
 h3.mt-3 Saved Profiles
@@ -78,16 +80,16 @@ h3.mt-3 Saved Profiles
     .list-group-item.list-group-item-action.d-flex.align-items-center(
         *ngFor='let profile of config.store.terminal.profiles',
         (click)='editProfile(profile)',
-    ) 
+    )
         .mr-auto
             div {{profile.name}}
             .text-muted {{profile.sessionOptions.command}}
         button.btn.btn-outline-danger.ml-1((click)='$event.stopPropagation(); deleteProfile(profile)')
             i.fas.fa-trash
-                    
+
 div(ngbDropdown, placement='top-left')
-    button.btn.btn-primary(ngbDropdownToggle) 
+    button.btn.btn-primary(ngbDropdownToggle)
         i.fas.fa-fw.fa-plus
-        | New profile        
+        | New profile
     div(ngbDropdownMenu)
         button.dropdown-item(*ngFor='let shell of shells', (click)='newProfile(shell)') {{shell.name}}

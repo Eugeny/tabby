@@ -5,7 +5,7 @@
 
 .d-flex
     h3.mb-1 Installed
-    button.btn.btn-outline-info.btn-sm.ml-auto((click)='openPluginsFolder()')
+    button.btn.btn-outline-secondary.btn-sm.ml-auto((click)='openPluginsFolder()')
         i.fas.fa-folder
         span Plugins folder
 
@@ -28,19 +28,19 @@
             i.fas.fa-fw.fa-circle-notch.fa-spin(*ngIf='busy[plugin.name] == BusyState.Installing')
             span Upgrade ({{knownUpgrades[plugin.name].version}})
 
-        button.btn.btn-primary.ml-2(
+        button.btn.btn-link.text-primary.ml-2(
             *ngIf='config.store.pluginBlacklist.includes(plugin.name)',
             (click)='enablePlugin(plugin)'
         )
             i.fas.fa-fw.fa-play
 
-        button.btn.btn-secondary.ml-2(
+        button.btn.btn-link.ml-2(
             *ngIf='!config.store.pluginBlacklist.includes(plugin.name)',
             (click)='disablePlugin(plugin)'
         )
             i.fas.fa-fw.fa-pause
 
-        button.btn.btn-danger.ml-2(
+        button.btn.btn-link.text-danger.ml-2(
             (click)='uninstallPlugin(plugin)',
             *ngIf='!plugin.isBuiltin',
             [disabled]='busy[plugin.name] != undefined'

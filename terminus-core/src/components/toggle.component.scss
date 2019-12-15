@@ -16,55 +16,8 @@
     padding-left: 10px;
     margin-left: -10px;
 
-    &:focus {
-        background: rgba(255,255,255,.05);
-        border-radius: 5px;
-    }
-
     &[disabled] {
         opacity: 0.5;
     }
 
-    .body {
-        $border-width: 2px;
-        border-radius: 5px;
-        border: $border-width solid rgba(255, 255, 255, .2);
-        padding: $padding;
-        height: $toggle-size + $border-width * 2 + $padding * 2;
-        width: $toggle-size * 2 + $border-width * 2 + $padding * 2;
-
-        position: relative;
-
-        .toggle {
-            position: absolute;
-            border-radius: 2px;
-            width: $toggle-size;
-            height: $toggle-size;
-            background: #475158;
-            top: $padding;
-            left: $padding;
-            transition: 0.25s left;
-            line-height: 19px;
-            text-align: center;
-            font-size: 10px;
-
-            i {
-                opacity: 0;
-                transition: 0.25s opacity;
-            }
-        }
-    }
-
-    &.active .body .toggle {
-        left: $toggle-size + $padding;
-
-        i {
-            color: white;
-            opacity: 1;
-        }
-    }
-
-    &:active {
-        background: rgba(255,255,255,.1);
-    }
 }

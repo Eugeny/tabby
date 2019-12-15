@@ -4,8 +4,12 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms'
 /** @hidden */
 @Component({
     selector: 'checkbox',
-    template: require('./checkbox.component.pug'),
-    styles: [require('./checkbox.component.scss')],
+    template: `
+        <div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" [(ngModel)]='model'>
+            <label class="custom-control-label">{{text}}</label>
+        </div>
+    `,
     providers: [
         { provide: NG_VALUE_ACCESSOR, useExisting: CheckboxComponent, multi: true },
     ],

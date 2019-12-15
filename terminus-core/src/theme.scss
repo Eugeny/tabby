@@ -1,102 +1,10 @@
-$tab-border-radius: 5px;
+@import "./theme.vars";
+
+// ---------
+
+
 $button-hover-bg: rgba(0, 0, 0, .25);
 $button-active-bg: rgba(0, 0, 0, .5);
-
-
-$white:  #fff !default;
-$black:  #000 !default;
-$red:    #d9534f !default;
-$orange: #f0ad4e !default;
-$yellow: #ffd500 !default;
-$green:  #5cb85c !default;
-$blue:   #0275d8 !default;
-$teal:   #5bc0de !default;
-$pink:   #ff5b77 !default;
-$purple: #613d7c !default;
-
-$theme-colors: (
-    "primary":    $blue,
-    "secondary": #394b5d
-);
-
-$content-bg: rgba(39, 49, 60, 0.65); //#1D272D;
-$content-bg-solid: #1D272D;
-$body-bg: #131d27;
-$body-bg2: #20333e;
-
-$body-color: #ccc;
-$font-family-sans-serif: "Source Sans Pro";
-$font-family-monospace: "Source Code Pro";
-$font-size-base: 14rem / 16;
-
-$btn-border-radius: 0;
-$btn-secondary-color:            #ccc;
-$btn-secondary-bg:               #222;
-$btn-secondary-border:           #444;
-
-//$btn-warning-bg:                 rgba($orange, .5);
-
-
-$nav-tabs-border-width:                       0;
-$nav-tabs-border-radius:                      0;
-$nav-tabs-link-hover-border-color:            $body-bg;
-$nav-tabs-active-link-hover-color:            $white;
-$nav-tabs-active-link-hover-bg:               $blue;
-$nav-tabs-active-link-hover-border-color:     darken($blue, 30%);
-$nav-pills-border-radius:  0;
-
-$input-bg:                       #111;
-$input-disabled-bg:              #333;
-
-$input-color:                    $body-color;
-$input-color-placeholder:        #333;
-$input-border-color:             #344;
-$input-border-width: 1px;
-//$input-box-shadow:               inset 0 1px 1px rgba($black,.075);
-$input-border-radius:            0;
-$custom-select-border-radius: 0;
-$input-bg-focus:                 $input-bg;
-$input-border-focus:             lighten($blue, 25%);
-$input-focus-box-shadow:         none;
-$input-color-focus:              $input-color;
-$input-group-addon-bg:           $body-bg;
-$input-group-addon-border-color: $input-border-color;
-
-$modal-content-bg:               $content-bg-solid;
-$modal-content-border-color:     $body-bg;
-$modal-header-border-color:      transparent;
-$modal-footer-border-color:      transparent;
-
-$popover-bg:                     $body-bg;
-
-$dropdown-bg:                    $body-bg;
-$dropdown-link-color:            $body-color;
-$dropdown-link-hover-color:      white;
-$dropdown-link-hover-bg:         $body-bg2;
-//$dropdown-link-active-color:     $component-active-color;
-//$dropdown-link-active-bg:        $component-active-bg;
-$dropdown-link-disabled-color:   #333;
-$dropdown-header-color:          #333;
-
-$list-group-color: $body-color;
-$list-group-bg: rgba(255,255,255,.05);
-$list-group-border-color:  rgba(255,255,255,.1);
-$list-group-hover-bg: rgba(255,255,255,.1);
-$list-group-link-active-bg: rgba(255,255,255,.2);
-
-$list-group-action-color: $body-color;
-$list-group-action-bg: rgba(255,255,255,.05);
-$list-group-action-active-bg: $list-group-link-active-bg;
-
-$pre-bg: $dropdown-bg;
-$pre-color: $dropdown-link-color;
-
-$alert-danger-bg: $body-bg;
-$alert-danger-text: $red;
-$alert-danger-border: $red;
-
-$headings-font-weight: lighter;
-$headings-color: #eee;
 
 @import '~bootstrap/scss/bootstrap.scss';
 
@@ -236,13 +144,14 @@ settings-tab > ngb-tabset {
             border: none;
             padding: 10px 50px 10px 20px;
             font-size: 14px;
+            border-radius: 0;
 
             &:not(.active) {
-              color: $body-color;
+                color: $body-color;
 
-              &:hover {
-                  color: $white;
-              }
+                &:hover {
+                    color: $white;
+                }
             }
         }
     }
@@ -310,14 +219,6 @@ hotkey-input-modal {
     margin-bottom: 2px;
 }
 
-.nav-tabs {
-    background: $btn-secondary-bg;
-    .nav-link {
-        transition: 0.25s all;
-        border-bottom-color: $nav-tabs-border-color;
-    }
-}
-
 ngb-tabset .tab-content {
     padding-top: 20px;
 }
@@ -361,20 +262,8 @@ ngb-tabset .tab-content {
     }
 }
 
-select.form-control {
-  -webkit-appearance: none;
-  background-image: url("data:image/svg+xml;utf8,<svg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='24' height='24' viewBox='0 0 24 24'><path fill='#444' d='M7.406 7.828l4.594 4.594 4.594-4.594 1.406 1.406-6 6-6-6z'></path></svg>");
-  background-position: 100% 50%;
-  background-repeat: no-repeat;
-  padding-right: 30px;
-}
-
 checkbox i.on {
     color: $blue;
-}
-
-toggle.active .body .toggle {
-    background: $blue;
 }
 
 .modal .modal-footer {
@@ -408,4 +297,98 @@ toggle.active .body .toggle {
 
 search-panel {
     background: rgba(39, 49, 60, 0.65) !important;
+}
+
+
+.btn {
+    cursor: pointer;
+    justify-content: flex-start;
+    overflow: hidden;
+
+    &.disabled,
+    &:disabled {
+        cursor: not-allowed;
+    }
+}
+
+.btn.btn-outline-secondary {
+    @include button-outline-variant(#9badb9, #fff);
+    &:hover:not([disabled]), &:active:not([disabled]), &.active:not([disabled]) {
+        background-color: #3f484e;
+        border-color: darken(#9badb9, 25%);
+    }
+
+    border-color: darken(#9badb9, 25%);
+
+    &.disabled,
+    &:disabled {
+        color: #9badb9;
+    }
+}
+
+.btn-warning:not(:disabled):not(.disabled) {
+    &.active, &:active {
+        color: $gray-900;
+    }
+}
+
+.btn-secondary:not(:disabled):not(.disabled) {
+    &.active, &:active {
+        background: #191e23;
+    }
+}
+
+.btn-link {
+    &:hover, &[aria-expanded=true], &:active, &.active {
+        color: $link-hover-color;
+        border-radius: $btn-border-radius;
+    }
+
+    &[aria-expanded=true], &:active, &.active {
+        background: rgba(255, 255, 255, 0.1);
+    }
+}
+
+.btn-group .btn.active {
+    border-color: transparent !important;
+}
+
+.nav-tabs {
+    margin-bottom: 10px;
+
+    &.nav-justified .nav-link {
+        margin-right: 5px;
+    }
+
+    .nav-link {
+        border: none;
+        border-bottom: $nav-tabs-border-width solid transparent;
+        text-transform: uppercase;
+        font-weight: bold;
+        padding: 5px 0;
+        margin-right: 20px;
+
+        uib-tab-heading > i {
+            font-size: 18px;
+        }
+
+        @include hover-focus {
+            color: $nav-tabs-link-active-color;
+        }
+
+        &.disabled {
+            color: $nav-link-disabled-color;
+            border-color: transparent;
+        }
+    }
+
+    .nav-item:last-child .nav-link {
+        margin-right: 0;
+    }
+
+    .nav-link.active,
+    .nav-item.show .nav-link {
+        color: $nav-tabs-link-active-color;
+        border-color: $nav-tabs-link-active-border-color;
+    }
 }

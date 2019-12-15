@@ -3,22 +3,9 @@ h3.mb-3 Appearance
     .mr-5
         .form-line
             .header
-                .title Frontend
-                .description Switches terminal frontend implementation (experimental)
-
-            select.form-control(
-                [(ngModel)]='config.store.terminal.frontend',
-                (ngModelChange)='config.save()',
-            )
-                option(value='hterm') hterm
-                option(value='xterm') xterm
-                option(value='xterm-webgl') xterm (WebGL)
-
-        .form-line
-            .header
                 .title Font
 
-            .d-flex.w-75
+            .input-group.w-75
                 input.form-control.w-75(
                     type='text',
                     [ngbTypeahead]='fontAutocomplete',
@@ -52,9 +39,10 @@ h3.mb-3 Appearance
                 )
                     option(*ngFor='let scheme of config.store.terminal.customColorSchemes', [ngValue]='scheme') Custom: {{scheme.name}}
                     option(*ngFor='let scheme of colorSchemes', [ngValue]='scheme') {{scheme.name}}
-                .input-group-btn
-                    button.btn.btn-secondary((click)='editScheme(config.store.terminal.colorScheme)') Edit
-                .input-group-btn
+                .input-group-append
+                    button.btn.btn-secondary((click)='editScheme(config.store.terminal.colorScheme)')
+                        i.fas.fa-pen
+                .input-group-append
                     button.btn.btn-outline-danger(
                         (click)='deleteScheme(config.store.terminal.colorScheme)',
                         *ngIf='isCustomScheme(config.store.terminal.colorScheme)'
@@ -65,10 +53,12 @@ h3.mb-3 Appearance
             label Editing
             .input-group
                 input.form-control(type='text', [(ngModel)]='editingColorScheme.name')
-                .input-group-btn
-                    button.btn.btn-secondary((click)='saveScheme()') Save
-                .input-group-btn
-                    button.btn.btn-secondary((click)='cancelEditing()') Cancel
+                .input-group-append
+                    button.btn.btn-secondary((click)='saveScheme()')
+                        i.fas.fa-check
+                .input-group-append
+                    button.btn.btn-secondary((click)='cancelEditing()')
+                        i.fas.fa-times
 
         .form-group(*ngIf='editingColorScheme')
             color-picker(
@@ -179,6 +169,19 @@ h3.mb-3 Appearance
                     span([style.color]='config.store.terminal.colorScheme.colors[1]') $
                     span  rm -rf /
                     span([style.background-color]='config.store.terminal.colorScheme.cursor') &nbsp;
+
+.form-line
+    .header
+        .title Frontend
+        .description Switches terminal frontend implementation (experimental)
+
+    select.form-control(
+        [(ngModel)]='config.store.terminal.frontend',
+        (ngModelChange)='config.save()',
+    )
+        option(value='hterm') hterm
+        option(value='xterm') xterm
+        option(value='xterm-webgl') xterm (WebGL)
 
 .form-line
     .header

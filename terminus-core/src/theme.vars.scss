@@ -1,0 +1,187 @@
+$white:    #fff;
+$gray-100: #f8f9fa;
+$gray-200: #e9ecef;
+$gray-300: #dee2e6;
+$gray-400: #ced4da;
+$gray-500: #adb5bd;
+$gray-600: #6c757d;
+$gray-700: #495057;
+$gray-800: #343a40;
+$gray-900: #212529;
+$black:    #000;
+
+
+$red:    #d9534f !default;
+$orange: #f0ad4e !default;
+$yellow: #ffd500 !default;
+$green:  #5cb85c !default;
+$blue:   #0275d8 !default;
+$teal:   #5bc0de !default;
+$pink:   #ff5b77 !default;
+$purple: #613d7c !default;
+
+
+@import "~bootstrap/scss/functions";
+
+$content-bg: rgba(39, 49, 60, 0.65); //#1D272D;
+$content-bg-solid: #1D272D;
+
+$table-bg: rgba(255,255,255,.05);
+$table-bg-hover: rgba(255,255,255,.1);
+$table-border-color: rgba(255,255,255,.1);
+
+$theme-colors: (
+  primary: $blue,
+  secondary: #38434e,
+  success: $green,
+  info: $blue,
+  warning: $orange,
+  danger: $red,
+  light: $gray-300,
+  dark: $gray-800,
+  rare: $purple
+);
+
+$body-color: #ccc;
+$body-bg: #131d27;
+$body-bg2: #20333e;
+
+
+$font-family-sans-serif: "Source Sans Pro";
+$font-family-monospace: "Source Code Pro";
+$font-size-base: 14rem / 16;
+$font-size-lg: 1.28rem;
+$font-size-sm: .85rem;
+
+$line-height-base: 1.6;
+
+$headings-color: #ced9e2;
+$headings-font-weight: lighter;
+
+$input-btn-padding-y: .3rem;
+$input-btn-padding-x: .9rem;
+$input-btn-line-height: 1.6;
+$input-btn-line-height-sm: 1.8;
+$input-btn-line-height-lg: 1.8;
+
+$btn-link-disabled-color: $gray-600;
+$btn-focus-box-shadow: none;
+
+$h4-font-size: 18px;
+
+$link-color: $gray-400;
+$link-hover-color: $white;
+$link-hover-decoration: none;
+
+$component-active-color: $white;
+$component-active-bg: #2f3a42;
+
+$list-group-bg: $table-bg;
+$list-group-border-color: $table-border-color;
+
+$list-group-item-padding-y: 0.8rem;
+$list-group-item-padding-x: 1rem;
+
+$list-group-hover-bg: $table-bg-hover;
+$list-group-active-bg: rgba(255,255,255,.2);
+$list-group-active-color: $component-active-color;
+$list-group-active-border-color: translate;
+
+$list-group-action-color: $body-color;
+$list-group-action-hover-color: white;
+
+$list-group-action-active-color: $component-active-color;
+$list-group-action-active-bg: $list-group-active-bg;
+
+$alert-padding-y: 0.9rem;
+$alert-padding-x: 1.25rem;
+
+$input-box-shadow: none;
+
+$transition-base: all .15s ease-in-out;
+$transition-fade: opacity .1s linear;
+$transition-collapse: height .35s ease;
+$btn-transition: all .15s ease-in-out;
+
+$popover-bg: $body-bg;
+$popover-body-color: $body-color;
+$popover-header-bg: $table-bg-hover;
+$popover-header-color: $headings-color;
+$popover-arrow-color: $popover-bg;
+$popover-max-width: 360px;
+
+$btn-border-width:  2px;
+
+$input-bg:                       #181e23;
+$input-disabled-bg:              #2e3235;
+
+$input-color:                    #ddd;
+$input-border-color:             $input-bg;
+$input-border-width:             2px;
+
+$input-focus-bg:                 $input-bg;
+$input-focus-border-color:       rgba(171, 171, 171, 0.61);
+$input-focus-color:              $input-color;
+
+$input-btn-focus-color: var(--focus-color);
+$input-btn-focus-box-shadow:  0 0 0 2px $input-btn-focus-color;
+
+$input-group-addon-color: $input-color;
+$input-group-addon-bg: $input-bg;
+$input-group-addon-border-color: transparent;
+$input-group-btn-border-color: $input-bg;
+
+$nav-tabs-border-radius: 0;
+$nav-tabs-border-color: transparent;
+$nav-tabs-border-width: 2px;
+$nav-tabs-link-hover-border-color: transparent;
+$nav-tabs-link-active-color: #eee;
+$nav-tabs-link-active-bg: transparent;
+$nav-tabs-link-active-border-color: #eee;
+
+$navbar-padding-y: 0;
+$navbar-padding-x: 0;
+
+$dropdown-bg: $table-bg;
+$dropdown-color: $body-color;
+$dropdown-border-width: 1px;
+$dropdown-box-shadow: 0 .5rem 1rem rgba($black,.175);
+$dropdown-header-color: $gray-500;
+
+$dropdown-link-color: $body-color;
+$dropdown-link-hover-color: #eee;
+$dropdown-link-hover-bg: rgba(255,255,255,.04);
+$dropdown-link-active-color: white;
+$dropdown-link-active-bg: rgba(0, 0, 0, .2);
+$dropdown-item-padding-y: 0.5rem;
+$dropdown-item-padding-x: 1.5rem;
+
+
+$code-color: $orange;
+$code-bg: rgba(0, 0, 0, .25);
+$code-padding-y: 3px;
+$code-padding-x: 5px;
+$pre-bg: $dropdown-bg;
+$pre-color: $dropdown-link-color;
+
+$badge-font-size: 0.75rem;
+$badge-font-weight: bold;
+$badge-padding-y: 4px;
+$badge-padding-x: 6px;
+
+
+$custom-control-indicator-size: 1.2rem;
+$custom-control-indicator-bg: $body-bg;
+$custom-control-indicator-border-color: lighten($body-bg, 25%);
+$custom-control-indicator-checked-bg: theme-color("primary");
+$custom-control-indicator-checked-color: $body-bg;
+$custom-control-indicator-checked-border-color: transparent;
+$custom-control-indicator-active-bg: rgba(255, 255, 0, 0.5);
+
+
+$modal-content-bg:               $content-bg-solid;
+$modal-content-border-color:     $body-bg;
+$modal-header-border-width:         0;
+$modal-footer-border-color:         #222;
+$modal-footer-border-width:         1px;
+$modal-content-border-width:        0;

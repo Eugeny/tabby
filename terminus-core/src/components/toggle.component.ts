@@ -6,13 +6,10 @@ import { CheckboxComponent } from './checkbox.component'
 @Component({
     selector: 'toggle',
     template: `
-      <div class="switch">
-        <div class="body">
-          <div class="toggle" [class.bg-primary]='model'>
-            <i class="fa fa-check"></i>
-          </div>
-        </div>
-      </div>
+    <div class="custom-control custom-switch">
+      <input type="checkbox" class="custom-control-input" [(ngModel)]='model'>
+      <label class="custom-control-label"></label>
+    </div>
     `,
     styles: [require('./toggle.component.scss')],
     providers: [

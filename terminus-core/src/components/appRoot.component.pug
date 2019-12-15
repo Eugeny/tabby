@@ -47,8 +47,11 @@ title-bar(
                         (click)='item.click()',
                         ngbDropdownItem,
                     )
-                        .icon-wrapper([innerHTML]='sanitizeIcon(item.icon)')
-                        .ml-3 {{item.title}}
+                        .icon-wrapper(
+                            *ngIf='hasIcons(button.submenuItems)',
+                            [innerHTML]='sanitizeIcon(item.icon)'
+                        )
+                        div([class.ml-3]='hasIcons(button.submenuItems)') {{item.title}}
 
         .drag-space.background([class.persistent]='config.store.appearance.frame == "thin" && hostApp.platform != Platform.macOS')
 
@@ -70,8 +73,11 @@ title-bar(
                         (click)='item.click()',
                         ngbDropdownItem,
                     )
-                        .icon-wrapper([innerHTML]='sanitizeIcon(item.icon)')
-                        .ml-3 {{item.title}}
+                        .icon-wrapper(
+                            *ngIf='hasIcons(button.submenuItems)',
+                            [innerHTML]='sanitizeIcon(item.icon)'
+                        )
+                        div([class.ml-3]='hasIcons(button.submenuItems)') {{item.title}}
 
             button.btn.btn-secondary.btn-tab-bar.btn-update(
                 *ngIf='updatesAvailable',
