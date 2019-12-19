@@ -7,8 +7,8 @@ import { ToolbarButton, ToolbarButtonProvider } from '../api'
 /** @hidden */
 @Component({
     selector: 'start-page',
-    template: require('./startPage.component.pug'),
-    styles: [require('./startPage.component.scss')],
+    templateUrl: './startPage.component.pug',
+    styleUrls: ['./startPage.component.scss'],
 })
 export class StartPageComponent {
     version: string

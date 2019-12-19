@@ -1,7 +1,8 @@
 {
     "compilerOptions": {
         "baseUrl": "./src",
-        "module": "commonjs",
+        "module": "es2015",
+        "moduleResolution": "node",
         "target": "es2015",
         "declaration": false,
         "noImplicitAny": false,
@@ -19,7 +20,10 @@
            "es2015.iterable",
            "es2017",
            "es7"
-        ]
+        ],
+        "paths": {
+            "*": ["../../app/node_modules/*"]
+        }
     },
     "compileOnSave": false,
     "exclude": [
@@ -28,5 +32,9 @@
         "*/node_modules",
         "terminus*",
         "platforms"
-    ]
+    ],
+    "angularCompilerOptions": {
+        "enableIvy": true,
+        "disableTypeScriptVersionCheck": true
+    }
 }

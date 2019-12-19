@@ -3,7 +3,7 @@ import './lru'
 import { app, ipcMain, Menu } from 'electron'
 import { parseArgs } from './cli'
 import { Application } from './app'
-import electronDebug = require('electron-debug')
+import * as electronDebug from 'electron-debug'
 
 if (!process.env.TERMINUS_PLUGINS) {
     process.env.TERMINUS_PLUGINS = ''

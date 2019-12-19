@@ -10,8 +10,8 @@ title-bar(
         .inset.background(*ngIf='hostApp.platform == Platform.macOS && config.store.appearance.frame == "thin" && config.store.appearance.tabsLocation == "top"')
         .tabs(
             dnd-sortable-container,
-            [sortableData]='app.tabs',
         )
+            //- [sortableData]='app.tabs',
             tab-header(
                 *ngFor='let tab of app.tabs; let idx = index',
                 dnd-sortable,

@@ -22,8 +22,4 @@ exports.builtinPlugins = [
   'terminus-plugin-manager',
   'terminus-ssh',
 ]
-exports.bundledModules = [
-  '@angular',
-  '@ng-bootstrap',
-]
 exports.electronVersion = electronInfo.version

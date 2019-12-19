@@ -13,14 +13,14 @@
     "watch": "webpack --progress --color --watch"
   },
   "dependencies": {
-    "@angular/animations": "7.2.8",
-    "@angular/common": "7.2.8",
-    "@angular/compiler": "7.2.8",
-    "@angular/core": "7.2.8",
-    "@angular/forms": "7.2.8",
-    "@angular/platform-browser": "7.2.8",
-    "@angular/platform-browser-dynamic": "7.2.8",
-    "@ng-bootstrap/ng-bootstrap": "^4.2.2",
+    "@angular/animations": "9.0.0-rc.5",
+    "@angular/common": "9.0.0-rc.5",
+    "@angular/compiler": "9.0.0-rc.5",
+    "@angular/core": "9.0.0-rc.5",
+    "@angular/forms": "9.0.0-rc.5",
+    "@angular/platform-browser": "9.0.0-rc.5",
+    "@angular/platform-browser-dynamic": "9.0.0-rc.5",
+    "@ng-bootstrap/ng-bootstrap": "^5.1.4",
     "devtron": "1.4.0",
     "electron-config": "2.0.0",
     "electron-debug": "^3.0.1",
@@ -30,14 +30,14 @@
     "js-yaml": "3.13.1",
     "keytar": "^5.0.0",
     "mz": "^2.7.0",
-    "ngx-toastr": "^10.2.0",
+    "ngx-toastr": "^11.2.1",
     "node-pty": "^0.10.0-beta2",
     "npm": "6.9.0",
     "path": "0.12.7",
     "rxjs": "^6.5.3",
     "rxjs-compat": "^6.5.3",
     "yargs": "^15.0.2",
-    "zone.js": "^0.8.29"
+    "zone.js": "^0.10.2"
   },
   "optionalDependencies": {
     "macos-native-processlist": "^1.0.2",
@@ -47,6 +47,7 @@
     "windows-swca": "^2.0.2"
   },
   "devDependencies": {
+    "@angular/localize": "^9.0.0-rc.7",
     "@types/mz": "0.0.32",
     "@types/node": "12.7.12",
     "node-abi": "^2.13.0"

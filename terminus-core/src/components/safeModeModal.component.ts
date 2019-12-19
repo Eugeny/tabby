@@ -3,7 +3,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
 
 /** @hidden */
 @Component({
-    template: require('./safeModeModal.component.pug'),
+    templateUrl: './safeModeModal.component.pug',
 })
 export class SafeModeModalComponent {
     @Input() error: Error

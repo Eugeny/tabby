@@ -17,8 +17,8 @@ export interface SortableComponentProxy {
 /** @hidden */
 @Component({
     selector: 'tab-header',
-    template: require('./tabHeader.component.pug'),
-    styles: [require('./tabHeader.component.scss')],
+    templateUrl: './tabHeader.component.pug',
+    styleUrls: ['./tabHeader.component.scss'],
 })
 export class TabHeaderComponent {
     @Input() index: number

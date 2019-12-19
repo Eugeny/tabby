@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "module": "es2015",
-    "target": "es2016",
+    "target": "es5",
     "moduleResolution": "node",
     "noImplicitAny": false,
     "removeComments": false,
@@ -25,5 +25,9 @@
       "es2015",
       "es2017"
     ]
+  },
+  "angularCompilerOptions": {
+    "enableIvy": true,
+    "disableTypeScriptVersionCheck": true
   }
 }

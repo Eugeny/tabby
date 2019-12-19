@@ -1,10 +1,11 @@
 const path = require('path')
+const { AngularCompilerPlugin } = require('@ngtools/webpack')
 
 module.exports = {
     target: 'node',
     entry: 'src/index.ts',
     context: __dirname,
-    devtool: 'eval-cheap-module-source-map',
+    devtool: 'cheap-module-source-map',
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'index.js',
@@ -23,22 +24,26 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.ts$/,
-                use: {
-                    loader: 'awesome-typescript-loader',
-                    options: {
-                        configFileName: path.resolve(__dirname, 'tsconfig.json'),
-                        typeRoots: [
-                            path.resolve(__dirname, 'node_modules/@types'),
-                            path.resolve(__dirname, '../node_modules/@types'),
-                        ],
-                        paths: {
-                            "terminus-*": [path.resolve(__dirname, '../terminus-*')],
-                            "*": [path.resolve(__dirname, '../app/node_modules/*')],
-                        },
-                    },
-                },
+                test: /(?:\.ngfactory\.js|\.ngfactory|\.ngstyle\.js|\.ts)$/,
+                loader: '@ngtools/webpack',
             },
+            // {
+            //     test: /\.ts$/,
+            //     use: {
+            //         loader: 'awesome-typescript-loader',
+            //         options: {
+            //             configFileName: path.resolve(__dirname, 'tsconfig.json'),
+            //             typeRoots: [
+            //                 path.resolve(__dirname, 'node_modules/@types'),
+            //                 path.resolve(__dirname, '../node_modules/@types'),
+            //             ],
+            //             paths: {
+            //                 "terminus-*": [path.resolve(__dirname, '../terminus-*')],
+            //                 "*": [path.resolve(__dirname, '../app/node_modules/*')],
+            //             },
+            //         },
+            //     },
+            // },
             { test: /\.pug$/, use: ['apply-loader', 'pug-loader'] },
             { test: /\.scss$/, use: ['to-string-loader', 'css-loader', 'sass-loader'] },
             { test: /\.css$/, use: ['to-string-loader', 'css-loader'], include: /component\.css/ },
@@ -56,5 +61,13 @@ module.exports = {
         /^rxjs/,
         /^@angular/,
         /^@ng-bootstrap/,
+    ],
+    plugins: [
+        new AngularCompilerPlugin({
+            tsConfigPath: path.resolve(__dirname, 'tsconfig.json'),
+            entryModule: './terminus-core/src/index#AppModule',
+            sourceMap: true,
+            directTemplateLoading: true,
+        }),
     ],
 }

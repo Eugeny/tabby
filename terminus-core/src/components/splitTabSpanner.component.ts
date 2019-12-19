@@ -5,7 +5,7 @@ import { SplitContainer } from './splitTab.component'
 @Component({
     selector: 'split-tab-spanner',
     template: '',
-    styles: [require('./splitTabSpanner.component.scss')],
+    styleUrls: ['./splitTabSpanner.component.scss'],
 })
 export class SplitTabSpannerComponent {
     @Input() container: SplitContainer

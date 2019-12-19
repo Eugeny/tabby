@@ -1,5 +1,6 @@
 const path = require('path')
 const webpack = require('webpack')
+const { AngularCompilerPlugin } = require('@ngtools/webpack')
 
 module.exports = {
   name: 'terminus',
@@ -28,13 +29,8 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.ts$/,
-        use: {
-          loader: 'awesome-typescript-loader',
-          options: {
-            configFileName: path.resolve(__dirname, 'tsconfig.json'),
-          },
-        },
+          test: /(?:\.ngfactory\.js|\.ngfactory|\.ngstyle\.js|\.ts)$/,
+          loader: '@ngtools/webpack',
       },
       { test: /\.scss$/, use: ['style-loader', 'css-loader', 'sass-loader'] },
       { test: /\.css$/, use: ['style-loader', 'css-loader', 'sass-loader'] },
@@ -81,6 +77,11 @@ module.exports = {
     new webpack.optimize.ModuleConcatenationPlugin(),
     new webpack.DefinePlugin({
       'process.type': '"renderer"'
+    }),
+    new AngularCompilerPlugin({
+        tsConfigPath: path.resolve(__dirname, 'tsconfig.json'),
+        entryModule: 'src/index#default',
+        sourceMap: true,
     }),
   ],
 }

@@ -1,7 +1,7 @@
 import { Subject, Observable } from 'rxjs'
 import { debounceTime } from 'rxjs/operators'
 import { BrowserWindow, app, ipcMain, Rectangle, screen } from 'electron'
-import ElectronConfig = require('electron-config')
+import * as ElectronConfig from 'electron-config'
 import * as os from 'os'
 import * as path from 'path'
 

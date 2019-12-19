@@ -5,7 +5,7 @@ import { TabHeaderComponent } from './components/tabHeader.component'
 import { TabContextMenuItemProvider } from './api/tabContextMenuProvider'
 
 /** @hidden */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class CloseContextMenu extends TabContextMenuItemProvider {
     weight = -5
 
@@ -63,7 +63,7 @@ const COLORS = [
 ]
 
 /** @hidden */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class CommonOptionsContextMenu extends TabContextMenuItemProvider {
     weight = -1
 
@@ -101,7 +101,7 @@ export class CommonOptionsContextMenu extends TabContextMenuItemProvider {
 }
 
 /** @hidden */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class TaskCompletionContextMenu extends TabContextMenuItemProvider {
     constructor (
         private app: AppService,

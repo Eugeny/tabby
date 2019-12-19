@@ -2,6 +2,9 @@
   "extends": "../tsconfig.json",
   "exclude": ["node_modules", "dist"],
   "compilerOptions": {
-    "baseUrl": "src"
+    "baseUrl": "src",
+    "paths": {
+      "*": ["../../app/node_modules/*"]
+    }
   }
 }

@@ -14,9 +14,6 @@ function normalizePath (path: string): string {
 
 global['module'].paths.map((x: string) => nodeModule.globalPaths.push(normalizePath(x)))
 
-if (process.env.TERMINUS_DEV) {
-    nodeModule.globalPaths.unshift(path.dirname(require('electron').remote.app.getAppPath()))
-}
 
 const builtinPluginsPath = process.env.TERMINUS_DEV ? path.dirname(require('electron').remote.app.getAppPath()) : path.join((process as any).resourcesPath, 'builtin-plugins')
 
@@ -50,49 +47,6 @@ export interface PluginInfo {
     homepage?: string
     path?: string
     info?: any
-}
-
-const builtinModules = [
-    '@angular/animations',
-    '@angular/common',
-    '@angular/compiler',
-    '@angular/core',
-    '@angular/forms',
-    '@angular/platform-browser',
-    '@angular/platform-browser-dynamic',
-    '@ng-bootstrap/ng-bootstrap',
-    'ngx-toastr',
-    'rxjs',
-    'rxjs/operators',
-    'rxjs-compat/Subject',
-    'terminus-core',
-    'terminus-settings',
-    'terminus-terminal',
-    'zone.js/dist/zone.js',
-]
-
-const cachedBuiltinModules = {}
-builtinModules.forEach(m => {
-    const label = 'Caching ' + m
-    console.time(label)
-    cachedBuiltinModules[m] = nodeRequire(m)
-    console.timeEnd(label)
-})
-
-const originalRequire = (global as any).require
-;(global as any).require = function (query: string) {
-    if (cachedBuiltinModules[query]) {
-        return cachedBuiltinModules[query]
-    }
-    return originalRequire.apply(this, arguments)
-}
-
-const originalModuleRequire = nodeModule.prototype.require
-nodeModule.prototype.require = function (query: string) {
-    if (cachedBuiltinModules[query]) {
-        return cachedBuiltinModules[query]
-    }
-    return originalModuleRequire.call(this, query)
 }
 
 export async function findPlugins (): Promise<PluginInfo[]> {
@@ -167,6 +121,7 @@ export async function loadPlugins (foundPlugins: PluginInfo[], progress: Progres
     progress(0, 1)
     let index = 0
     for (const foundPlugin of foundPlugins) {
+        if (foundPlugin.name !== 'core') continue
         console.info(`Loading ${foundPlugin.name}: ${nodeRequire.resolve(foundPlugin.path)}`)
         progress(index, foundPlugins.length)
         try {

@@ -1,10 +1,11 @@
-import { NgModule, ModuleWithProviders } from '@angular/core'
+import { NgModule } from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic'
 import { FormsModule } from '@angular/forms'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { PerfectScrollbarModule, PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar'
-import { DndModule } from 'ng2-dnd'
+// import { DndModule } from 'ng2-dnd'
 
 import { AppRootComponent } from './components/appRoot.component'
 import { CheckboxComponent } from './components/checkbox.component'
@@ -25,7 +26,7 @@ import { AutofocusDirective } from './directives/autofocus.directive'
 import { HotkeyProvider } from './api/hotkeyProvider'
 import { ConfigProvider } from './api/configProvider'
 import { Theme } from './api/theme'
-import { TabContextMenuItemProvider } from './api/tabContextMenuProvider'
+// import { TabContextMenuItemProvider } from './api/tabContextMenuProvider'
 import { TabRecoveryProvider } from './api/tabRecovery'
 
 import { AppService } from './services/app.service'
@@ -34,7 +35,7 @@ import { ConfigService } from './services/config.service'
 import { StandardTheme, StandardCompactTheme, PaperTheme } from './theme'
 import { CoreConfigProvider } from './config'
 import { AppHotkeyProvider } from './hotkeys'
-import { TaskCompletionContextMenu, CommonOptionsContextMenu, CloseContextMenu } from './tabContextMenu'
+// import { TaskCompletionContextMenu, CommonOptionsContextMenu, CloseContextMenu } from './tabContextMenu'
 
 import 'perfect-scrollbar/css/perfect-scrollbar.css'
 import 'ng2-dnd/bundles/style.css'
@@ -51,9 +52,9 @@ const PROVIDERS = [
     { provide: Theme, useClass: StandardCompactTheme, multi: true },
     { provide: Theme, useClass: PaperTheme, multi: true },
     { provide: ConfigProvider, useClass: CoreConfigProvider, multi: true },
-    { provide: TabContextMenuItemProvider, useClass: CommonOptionsContextMenu, multi: true },
-    { provide: TabContextMenuItemProvider, useClass: CloseContextMenu, multi: true },
-    { provide: TabContextMenuItemProvider, useClass: TaskCompletionContextMenu, multi: true },
+    // { provide: TabContextMenuItemProvider, useClass: CommonOptionsContextMenu, multi: true },
+    // { provide: TabContextMenuItemProvider, useClass: CloseContextMenu, multi: true },
+    // { provide: TabContextMenuItemProvider, useClass: TaskCompletionContextMenu, multi: true },
     { provide: TabRecoveryProvider, useClass: SplitTabRecoveryProvider, multi: true },
     { provide: PERFECT_SCROLLBAR_CONFIG, useValue: { suppressScrollX: true } },
 ]
@@ -64,10 +65,11 @@ const PROVIDERS = [
         BrowserModule,
         BrowserAnimationsModule,
         FormsModule,
-        NgbModule.forRoot(),
+        NgbModule,
         PerfectScrollbarModule,
-        DndModule.forRoot(),
+        // DndModule,
     ],
+    providers: PROVIDERS,
     declarations: [
         AppRootComponent as any,
         CheckboxComponent,
@@ -96,7 +98,7 @@ const PROVIDERS = [
         AutofocusDirective,
     ],
 })
-export default class AppModule { // eslint-disable-line @typescript-eslint/no-extraneous-class
+export class AppModule { // eslint-disable-line @typescript-eslint/no-extraneous-class
     constructor (app: AppService, config: ConfigService) {
         app.ready$.subscribe(() => {
             if (config.store.enableWelcomeTab) {
@@ -104,14 +106,9 @@ export default class AppModule { // eslint-disable-line @typescript-eslint/no-ex
             }
         })
     }
-
-    static forRoot (): ModuleWithProviders {
-        return {
-            ngModule: AppModule,
-            providers: PROVIDERS,
-        }
-    }
 }
+
+export default AppModule
 
 export { AppRootComponent as bootstrap }
 export * from './api'
@@ -119,3 +116,7 @@ export * from './api'
 // Deprecations
 export { ToolbarButton as IToolbarButton } from './api'
 export { HotkeyDescription as IHotkeyDescription } from './api'
+
+export function fakeBootstrap () {
+    return platformBrowserDynamic().bootstrapModule(AppModule)
+}

@@ -138,7 +138,7 @@ export interface SplitSpannerInfo {
             (change)='onSpannerAdjusted(spanner)'
         ></split-tab-spanner>
     `,
-    styles: [require('./splitTab.component.scss')],
+    styleUrls: ['./splitTab.component.scss'],
 })
 export class SplitTabComponent extends BaseTabComponent implements OnInit, OnDestroy {
     /** @hidden */

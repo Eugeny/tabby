@@ -6,8 +6,8 @@ import { AppService } from '../services/app.service'
 /** @hidden */
 @Component({
     selector: 'welcome-page',
-    template: require('./welcomeTab.component.pug'),
-    styles: [require('./welcomeTab.component.scss')],
+    templateUrl: './welcomeTab.component.pug',
+    styleUrls: ['./welcomeTab.component.scss'],
 })
 export class WelcomeTabComponent extends BaseTabComponent {
     constructor (

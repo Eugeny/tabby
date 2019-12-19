@@ -10,9 +10,9 @@ import { BaseTabComponent } from '../components/baseTab.component'
         </perfect-scrollbar-->
         <ng-template #placeholder></ng-template>
     `,
-    styles: [
-        require('./tabBody.component.scss'),
-        require('./tabBody.deep.component.css'),
+    styleUrls: [
+        './tabBody.component.scss',
+        './tabBody.deep.component.css',
     ],
 })
 export class TabBodyComponent implements OnChanges {

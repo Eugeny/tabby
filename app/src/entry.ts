@@ -1,7 +1,3 @@
-import 'zone.js'
-import 'core-js/proposals/reflect-metadata'
-import 'rxjs'
-
 import * as isDev from 'electron-is-dev'
 
 import './global.scss'
@@ -10,7 +6,7 @@ import './toastr.scss'
 import { enableProdMode, NgModuleRef } from '@angular/core'
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic'
 
-import { getRootModule } from './app.module'
+import { setupRootModule, RootModule } from './app.module'
 import { findPlugins, loadPlugins, PluginInfo } from './plugins'
 
 // Always land on the start view
@@ -32,12 +28,14 @@ async function bootstrap (plugins: PluginInfo[], safeMode = false): Promise<NgMo
     if (safeMode) {
         plugins = plugins.filter(x => x.isBuiltin)
     }
-    const pluginsModules = await loadPlugins(plugins, (current, total) => {
+    const pluginModules = await loadPlugins(plugins, (current, total) => {
         (document.querySelector('.progress .bar') as HTMLElement).style.width = `${100 * current / total}%` // eslint-disable-line
     })
-    const module = getRootModule(pluginsModules)
-    window['rootModule'] = module
-    return platformBrowserDynamic().bootstrapModule(module)
+    setupRootModule(pluginModules)
+    window['rootModule'] = RootModule
+    return platformBrowserDynamic([
+        { provide: 'plugins', useValue: pluginModules },
+    ]).bootstrapModule(RootModule)
 }
 
 findPlugins().then(async plugins => {

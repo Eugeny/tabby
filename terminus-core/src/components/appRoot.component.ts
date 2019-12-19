@@ -20,8 +20,8 @@ import { AppService, ToolbarButton, ToolbarButtonProvider } from '../api'
 /** @hidden */
 @Component({
     selector: 'app-root',
-    template: require('./appRoot.component.pug'),
-    styles: [require('./appRoot.component.scss')],
+    templateUrl: './appRoot.component.pug',
+    styleUrls: ['./appRoot.component.scss'],
     animations: [
         trigger('animateTab', [
             state('in', style({
