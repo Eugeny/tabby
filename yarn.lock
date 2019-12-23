@@ -3915,10 +3915,10 @@ load-json-file@^2.0.0:
     pify "^2.0.0"
     strip-bom "^3.0.0"
 
-loader-runner@3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/loader-runner/-/loader-runner-3.0.0.tgz#c86f303af2dacbd27eabd2ea3aaa957291562e23"
-  integrity sha512-BlinBEAJYOUubaKH9hMxshD1FltYLTd3FA4DoxEh/82C0Rc4cmcqI61bEUj0/osbmW9FCTXTpMAO/jHZDZC5Fw==
+loader-runner@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/loader-runner/-/loader-runner-3.1.0.tgz#e9440e5875f2ad2f968489cd2c7b59a4f2847fcb"
+  integrity sha512-wE/bOCdTKMR2rm7Xxh+eirDOmN7Vx7hntWgiTayuFPtF8MgsFDo49SP8kkYz8IVlEBTOtR7P+XI7bE1xjo/IkA==
 
 loader-utils@1.2.3, loader-utils@^1.0.0, loader-utils@^1.1.0, loader-utils@^1.2.3:
   version "1.2.3"
@@ -6634,10 +6634,10 @@ table@^5.2.3:
     slice-ansi "^2.1.0"
     string-width "^3.0.0"
 
-tapable@2.0.0-beta.8, tapable@^2.0.0-beta.8:
-  version "2.0.0-beta.8"
-  resolved "https://registry.yarnpkg.com/tapable/-/tapable-2.0.0-beta.8.tgz#0a8d42f6895d43d5a895de15d9a9e3e425f72a0a"
-  integrity sha512-7qMajFcHb2O+aWufLoAvKhEehIwikXUTH1s8RP4R5gSYMIB0Tmypp+J90EtSNVbIlI7oB0Oz8ZlpJUJlZ5owxQ==
+tapable@2.0.0-beta.9, tapable@^2.0.0-beta.8:
+  version "2.0.0-beta.9"
+  resolved "https://registry.yarnpkg.com/tapable/-/tapable-2.0.0-beta.9.tgz#638496fb27b53e69c21a0e6a4435afbe805845cb"
+  integrity sha512-+VBUuZXh+WIHnKOeo+A27SB/1sHTVWozcKweDIAhB/XOGnr8cy6ULZjU+qpGxO/G4xEyWCCaWTX/HPEkGg3Xrg==
 
 tapable@^1.0.0:
   version "1.1.3"
@@ -7267,10 +7267,10 @@ webpack-sources@^1.4.3:
     source-list-map "^2.0.0"
     source-map "~0.6.1"
 
-webpack@^5.0.0-beta.7:
-  version "5.0.0-beta.7"
-  resolved "https://registry.yarnpkg.com/webpack/-/webpack-5.0.0-beta.7.tgz#e2dc0ed0543c71e97524be0fcb68a80de50aa898"
-  integrity sha512-ghllYmUzrCJi0Z2dohBXkEqvm7zkd2c4BO9oKfw7gTy8O/YaLr7JVFUki09ca77Xdt0JAbozFeXURlkDJTfDUw==
+webpack@^5.0.0-beta.10:
+  version "5.0.0-beta.10"
+  resolved "https://registry.yarnpkg.com/webpack/-/webpack-5.0.0-beta.10.tgz#09d43ac683258f325d1db077b582560f2ae6b9f7"
+  integrity sha512-BA+uvUReM9UlP6Hsmo5V3tSn+sCKYRATBrG7jDQC2biUT1UQvRePJFrZP5kIp6Oi0qP/wkIRtLxyGt/fneZN9w==
   dependencies:
     "@webassemblyjs/ast" "1.8.5"
     "@webassemblyjs/helper-module-context" "1.8.5"
@@ -7284,12 +7284,13 @@ webpack@^5.0.0-beta.7:
     glob-to-regexp "^0.4.1"
     graceful-fs "^4.1.15"
     json-parse-better-errors "^1.0.2"
-    loader-runner "3.0.0"
+    loader-runner "^3.1.0"
     loader-utils "^1.2.3"
+    mime "^2.4.4"
     neo-async "^2.6.1"
     pkg-dir "^4.2.0"
     schema-utils "^2.5.0"
-    tapable "2.0.0-beta.8"
+    tapable "2.0.0-beta.9"
     terser-webpack-plugin "^2.2.1"
     watchpack "2.0.0-beta.10"
     webpack-sources "2.0.0-beta.8"
