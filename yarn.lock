@@ -6098,7 +6098,7 @@ sax@^1.2.4:
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.4.tgz#2816234e2378bddc4e5354fab5caa895df7100d9"
 
-schema-utils@^2.0.1, schema-utils@^2.1.0, schema-utils@^2.5.0, schema-utils@^2.6.0:
+schema-utils@^2.0.1, schema-utils@^2.1.0, schema-utils@^2.5.0, schema-utils@^2.6.0, schema-utils@^2.6.1:
   version "2.6.1"
   resolved "https://registry.yarnpkg.com/schema-utils/-/schema-utils-2.6.1.tgz#eb78f0b945c7bcfa2082b3565e8db3548011dc4f"
   integrity sha512-0WXHDs1VDJyo+Zqs9TKLKyD/h7yDpHUhEFsM2CzkICFdoX1av+GBq/J2xRTFfsQO5kBfhZzANf2VcIm84jqDbg==
@@ -7233,13 +7233,13 @@ v8-compile-cache@^2.0.3:
   resolved "https://registry.yarnpkg.com/v8-compile-cache/-/v8-compile-cache-2.1.0.tgz#e14de37b31a6d194f5690d67efc4e7f6fc6ab30e"
   integrity sha512-usZBT3PW+LOjM25wbqIlZwPeJV+3OSz3M1k1Ws8snlW39dZyYL9lOGC5FgPVHfk0jKmjiDV8Z0mIbVQPiwFs7g==
 
-val-loader@2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/val-loader/-/val-loader-2.0.1.tgz#e50a88c7198e39b67c098ec78ec3e6721b33d0c4"
-  integrity sha512-0bS1mLDnnoL85YM6PkE5082QOQVZAyRh7MkcW5Oqkh7gwqAgvaO58IGBjHdQYNDicN28yGVxtipHJkzO3NTqIw==
+val-loader@2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/val-loader/-/val-loader-2.1.0.tgz#2e5f50b6d78b318a441f17fb680ec1ddc901a934"
+  integrity sha512-eZmzjMSDiRJygGwEqMav043IJ6TjZE7ofMSRi6CDkeN/tSeTqObC/R43NkrkRTE9jlZO8oLPPJ8pONBf9PApPw==
   dependencies:
     loader-utils "^1.2.3"
-    schema-utils "^2.5.0"
+    schema-utils "^2.6.1"
 
 validate-npm-package-license@^3.0.1:
   version "3.0.4"
