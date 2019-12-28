@@ -59,6 +59,15 @@ h3.mb-3 Terminal
             
 .form-line
     .header
+        .title Paste on middle-click
+            
+    toggle(
+        [(ngModel)]='config.store.terminal.pasteOnMiddleClick',
+        (ngModelChange)='config.save()',
+    )
+
+.form-line
+    .header
         .title Auto-open a terminal on app start
             
     toggle(

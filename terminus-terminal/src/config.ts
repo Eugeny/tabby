@@ -25,6 +25,7 @@ export class TerminalConfigProvider extends ConfigProvider {
             cursorBlink: true,
             customShell: '',
             rightClick: 'menu',
+            pasteOnMiddleClick: true,
             copyOnSelect: false,
             scrollOnInput: true,
             workingDirectory: '',
@@ -113,6 +114,7 @@ export class TerminalConfigProvider extends ConfigProvider {
                 shell: 'clink',
                 profile: 'cmd-clink',
                 rightClick: 'paste',
+                pasteOnMiddleClick: false,
                 copyOnSelect: true,
             },
             hotkeys: {
