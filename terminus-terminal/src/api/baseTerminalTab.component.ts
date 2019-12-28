@@ -353,7 +353,9 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
             this.frontend.mouseEvent$.subscribe(async event => {
                 if (event.type === 'mousedown') {
                     if (event.which === 2) {
-                        this.paste()
+                        if (this.config.store.terminal.pasteOnMiddleClick) {
+                            this.paste()
+                        }
                         event.preventDefault()
                         event.stopPropagation()
                         return
