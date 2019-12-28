@@ -49,7 +49,7 @@
     "typedoc": "^0.15.3",
     "typescript": "^3.7.3",
     "url-loader": "^3.0.0",
-    "val-loader": "2.0.1",
+    "val-loader": "2.1.0",
     "webpack": "^5.0.0-beta.11",
     "webpack-cli": "^3.3.10",
     "yaml-loader": "0.5.0"
