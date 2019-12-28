@@ -25,8 +25,5 @@ if (['darwin', 'linux'].includes(process.platform)) {
   for (let x of vars.builtinPlugins) {
     sh.ln('-fs', '../' + x, x)
   }
-  for (let x of vars.bundledModules) {
-    sh.ln('-fs', '../app/node_modules/' + x, x)
-  }
   sh.cd('..')
 }
