@@ -316,10 +316,10 @@ side-channel@^1.0.1:
     es-abstract "^1.16.2"
     object-inspect "^1.7.0"
 
-slug@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/slug/-/slug-1.1.0.tgz#73eef5710416f515077bdf70c683bde4915913c9"
-  integrity sha512-NuIOjDQeTMPm+/AUIHJ5636mF3jOsYLFnoEErl9Tdpt4kpt4fOrAJxscH9mUgX1LtPaEqgPCawBg7A4yhoSWRg==
+slug@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/slug/-/slug-2.0.0.tgz#842b60f9f827aac045fe5894d8426e9624578f6f"
+  integrity sha512-nsPIR74De90eXwy6vgO23P92YtpddZZ/AjCHWx9+65TWsq/174hOSzn2Q1RL9bG2aYuxwyNZbHp/IbUhLUwUtw==
   dependencies:
     unicode ">= 0.3.1"
 
