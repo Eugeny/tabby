@@ -13,9 +13,12 @@ export class Application {
         })
 
         const configData = loadConfig()
-        if (process.platform === 'linux' && ((configData.appearance || {}).opacity || 1) !== 1) {
-            app.commandLine.appendSwitch('enable-transparent-visuals')
-            app.disableHardwareAcceleration()
+        if (process.platform === 'linux') {
+            app.commandLine.appendSwitch('no-sandbox')
+            if (((configData.appearance || {}).opacity || 1) !== 1) {
+                app.commandLine.appendSwitch('enable-transparent-visuals')
+                app.disableHardwareAcceleration()
+            }
         }
 
         app.commandLine.appendSwitch('disable-http-cache')
