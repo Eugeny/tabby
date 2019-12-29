@@ -20,7 +20,7 @@
     "@types/deep-equal": "^1.0.0",
     "@types/slug": "^0.9.1",
     "dataurl": "0.1.0",
-    "deep-equal": "2.0.1",
+    "deep-equal": "1.1.0",
     "hterm-umdjs": "1.4.1",
     "mz": "^2.6.0",
     "ps-node": "^0.1.6",
