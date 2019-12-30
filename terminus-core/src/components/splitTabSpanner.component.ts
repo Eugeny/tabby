@@ -16,8 +16,8 @@ export class SplitTabSpannerComponent {
     @HostBinding('class.v') isVertical = true
     @HostBinding('style.left') cssLeft: string
     @HostBinding('style.top') cssTop: string
-    @HostBinding('style.width') cssWidth: string
-    @HostBinding('style.height') cssHeight: string
+    @HostBinding('style.width') cssWidth: string | null
+    @HostBinding('style.height') cssHeight: string | null
     private marginOffset = -5
 
     constructor (private element: ElementRef) { }
@@ -82,7 +82,7 @@ export class SplitTabSpannerComponent {
     private setDimensions (x: number, y: number, w: number, h: number) {
         this.cssLeft = `${x}%`
         this.cssTop = `${y}%`
-        this.cssWidth = w ? `${w}%` : 'initial'
-        this.cssHeight = h ? `${h}%` : 'initial'
+        this.cssWidth = w ? `${w}%` : null
+        this.cssHeight = h ? `${h}%` : null
     }
 }
