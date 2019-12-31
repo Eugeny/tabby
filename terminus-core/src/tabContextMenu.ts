@@ -1,4 +1,5 @@
 import { Injectable, NgZone } from '@angular/core'
+import { Subscription } from 'rxjs'
 import { AppService } from './services/app.service'
 import { BaseTabComponent } from './components/baseTab.component'
 import { TabHeaderComponent } from './components/tabHeader.component'
@@ -112,36 +113,61 @@ export class TaskCompletionContextMenu extends TabContextMenuItemProvider {
 
     async getItems (tab: BaseTabComponent): Promise<Electron.MenuItemConstructorOptions[]> {
         const process = await tab.getCurrentProcess()
-        if (process) {
-            return [
-                {
-                    id: 'process-name',
-                    enabled: false,
-                    label: 'Current process: ' + process.name,
-                },
-                {
-                    label: 'Notify when done',
-                    type: 'checkbox',
-                    checked: (tab as any).__completionNotificationEnabled,
-                    click: () => this.zone.run(() => {
-                        (tab as any).__completionNotificationEnabled = !(tab as any).__completionNotificationEnabled
+        let items: Electron.MenuItemConstructorOptions[] = []
 
-                        if ((tab as any).__completionNotificationEnabled) {
-                            this.app.observeTabCompletion(tab).subscribe(() => {
-                                new Notification('Process completed', {
-                                    body: process.name,
-                                }).addEventListener('click', () => {
-                                    this.app.selectTab(tab)
-                                })
-                                ;(tab as any).__completionNotificationEnabled = false
+        const extTab: (BaseTabComponent & { __completionNotificationEnabled?: boolean, __outputNotificationSubscription?: Subscription|null }) = tab
+
+        if (process) {
+            items.push({
+                id: 'process-name',
+                enabled: false,
+                label: 'Current process: ' + process.name,
+            })
+            items.push({
+                label: 'Notify when done',
+                type: 'checkbox',
+                checked: extTab.__completionNotificationEnabled,
+                click: () => this.zone.run(() => {
+                    extTab.__completionNotificationEnabled = !extTab.__completionNotificationEnabled
+
+                    if (extTab.__completionNotificationEnabled) {
+                        this.app.observeTabCompletion(tab).subscribe(() => {
+                            new Notification('Process completed', {
+                                body: process.name,
+                            }).addEventListener('click', () => {
+                                this.app.selectTab(tab)
                             })
-                        } else {
-                            this.app.stopObservingTabCompletion(tab)
-                        }
-                    }),
-                },
-            ]
+                            extTab.__completionNotificationEnabled = false
+                        })
+                    } else {
+                        this.app.stopObservingTabCompletion(tab)
+                    }
+                }),
+            })
         }
-        return []
+        items.push({
+            label: 'Notify on activity',
+            type: 'checkbox',
+            checked: !!extTab.__outputNotificationSubscription,
+            click: () => this.zone.run(() => {
+                if (extTab.__outputNotificationSubscription) {
+                    extTab.__outputNotificationSubscription.unsubscribe()
+                    extTab.__outputNotificationSubscription = null
+                } else {
+                    extTab.__outputNotificationSubscription = tab.activity$.subscribe(active => {
+                        if (extTab.__outputNotificationSubscription && active) {
+                            extTab.__outputNotificationSubscription.unsubscribe()
+                            extTab.__outputNotificationSubscription = null
+                            new Notification('Tab activity', {
+                                body: tab.title,
+                            }).addEventListener('click', () => {
+                                this.app.selectTab(tab)
+                            })
+                        }
+                    })
+                }
+            }),
+        })
+        return items
     }
 }
