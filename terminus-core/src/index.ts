@@ -21,6 +21,7 @@ import { SplitTabSpannerComponent } from './components/splitTabSpanner.component
 import { WelcomeTabComponent } from './components/welcomeTab.component'
 
 import { AutofocusDirective } from './directives/autofocus.directive'
+import { FastHtmlBindDirective } from './directives/fastHtmlBind.directive'
 
 import { HotkeyProvider } from './api/hotkeyProvider'
 import { ConfigProvider } from './api/configProvider'
@@ -80,6 +81,7 @@ const PROVIDERS = [
         RenameTabModalComponent,
         SafeModeModalComponent,
         AutofocusDirective,
+        FastHtmlBindDirective,
         SplitTabComponent,
         SplitTabSpannerComponent,
         WelcomeTabComponent,

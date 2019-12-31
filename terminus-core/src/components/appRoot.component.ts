@@ -1,6 +1,5 @@
 import { Component, Inject, Input, HostListener, HostBinding } from '@angular/core'
 import { trigger, style, animate, transition, state } from '@angular/animations'
-import { DomSanitizer } from '@angular/platform-browser'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 
 import { ElectronService } from '../services/electron.service'
@@ -75,7 +74,6 @@ export class AppRootComponent {
         public hostApp: HostAppService,
         public config: ConfigService,
         public app: AppService,
-        private domSanitizer: DomSanitizer,
         @Inject(ToolbarButtonProvider) private toolbarButtonProviders: ToolbarButtonProvider[],
         log: LogService,
         ngbModal: NgbModal,
@@ -252,10 +250,6 @@ export class AppRootComponent {
 
     hasIcons (submenuItems: ToolbarButton[]): boolean {
         return submenuItems.some(x => !!x.icon)
-    }
-
-    sanitizeIcon (icon: string): any {
-        return this.domSanitizer.bypassSecurityTrustHtml(icon || '')
     }
 
     private getToolbarButtons (aboveZero: boolean): ToolbarButton[] {

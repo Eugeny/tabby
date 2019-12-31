@@ -38,7 +38,7 @@ title-bar(
                 button.btn.btn-secondary.btn-tab-bar(
                     [title]='button.title',
                     (click)='button.click && button.click()',
-                    [innerHTML]='sanitizeIcon(button.icon)',
+                    [fastHtmlBind]='button.icon',
                     ngbDropdownToggle,
                 )
                 div(*ngIf='button.submenu', ngbDropdownMenu)
@@ -49,7 +49,7 @@ title-bar(
                     )
                         .icon-wrapper(
                             *ngIf='hasIcons(button.submenuItems)',
-                            [innerHTML]='sanitizeIcon(item.icon)'
+                            [fastHtmlBind]='item.icon'
                         )
                         div([class.ml-3]='hasIcons(button.submenuItems)') {{item.title}}
 
@@ -64,7 +64,7 @@ title-bar(
                 button.btn.btn-secondary.btn-tab-bar(
                     [title]='button.title',
                     (click)='button.click && button.click()',
-                    [innerHTML]='sanitizeIcon(button.icon)',
+                    [fastHtmlBind]='button.icon',
                     ngbDropdownToggle,
                 )
                 div(*ngIf='button.submenu', ngbDropdownMenu)
@@ -75,7 +75,7 @@ title-bar(
                     )
                         .icon-wrapper(
                             *ngIf='hasIcons(button.submenuItems)',
-                            [innerHTML]='sanitizeIcon(item.icon)'
+                            [fastHtmlBind]='item.icon'
                         )
                         div([class.ml-3]='hasIcons(button.submenuItems)') {{item.title}}
 
@@ -83,7 +83,7 @@ title-bar(
                 *ngIf='updatesAvailable',
                 title='Update available - Click to install',
                 (click)='updateApp()',
-                [innerHTML]='sanitizeIcon(updateIcon)'
+                [fastHtmlBind]='updateIcon'
             )
 
         window-controls.background(
