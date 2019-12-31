@@ -37,6 +37,7 @@ import { TerminalHotkeyProvider } from './hotkeys'
 import { HyperColorSchemes } from './colorSchemes'
 import { NewTabContextMenu, CopyPasteContextMenu } from './contextMenu'
 import { SaveAsProfileContextMenu } from './tabContextMenu'
+import { ZModemDecorator } from './zmodem'
 
 import { CmderShellProvider } from './shells/cmder'
 import { CustomShellProvider } from './shells/custom'
@@ -76,6 +77,7 @@ import { XTermFrontend, XTermWebGLFrontend } from './frontends/xtermFrontend'
         { provide: HotkeyProvider, useClass: TerminalHotkeyProvider, multi: true },
         { provide: TerminalColorSchemeProvider, useClass: HyperColorSchemes, multi: true },
         { provide: TerminalDecorator, useClass: PathDropDecorator, multi: true },
+        { provide: TerminalDecorator, useClass: ZModemDecorator, multi: true },
 
         { provide: ShellProvider, useClass: WindowsDefaultShellProvider, multi: true },
         { provide: ShellProvider, useClass: MacOSDefaultShellProvider, multi: true },

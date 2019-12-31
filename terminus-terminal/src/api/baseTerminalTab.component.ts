@@ -56,6 +56,11 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
     frontendReady = new Subject<void>()
     size: ResizeEvent
 
+    /**
+     * Enables normall passthrough from session output to terminal input
+     */
+    enablePassthrough = true
+
     protected logger: Logger
     protected output = new Subject<string>()
     private sessionCloseSubscription: Subscription
@@ -248,7 +253,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
             const percentage = percentageMatch[3] ? parseFloat(percentageMatch[2]) : parseInt(percentageMatch[2])
             if (percentage > 0 && percentage <= 100) {
                 this.setProgress(percentage)
-                this.logger.debug('Detected progress:', percentage)
+                // this.logger.debug('Detected progress:', percentage)
             }
         } else {
             this.setProgress(null)
@@ -410,10 +415,12 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
     protected attachSessionHandlers () {
         // this.session.output$.bufferTime(10).subscribe((datas) => {
         this.session.output$.subscribe(data => {
-            this.zone.run(() => {
-                this.output.next(data)
-                this.write(data)
-            })
+            if (this.enablePassthrough) {
+                this.zone.run(() => {
+                    this.output.next(data)
+                    this.write(data)
+                })
+            }
         })
 
         this.sessionCloseSubscription = this.session.closed$.subscribe(() => {

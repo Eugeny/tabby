@@ -8,7 +8,7 @@ module.exports = function patchPTYModule (mod) {
   mod.spawn = (file, args, opt) => {
     let terminal = oldSpawn(file, args, opt)
     let timeout = null
-    let buffer = ''
+    let buffer = Buffer.from('')
     let lastFlush = 0
     let nextTimeout = 0
 
@@ -19,11 +19,11 @@ module.exports = function patchPTYModule (mod) {
     const maxWindow = 100
 
     function flush () {
-        if (buffer) {
+        if (buffer.length) {
             terminal.emit('data-buffered', buffer)
         }
         lastFlush = Date.now()
-        buffer = ''
+        buffer = Buffer.from('')
     }
 
     function reschedule () {
@@ -38,12 +38,12 @@ module.exports = function patchPTYModule (mod) {
     }
 
     terminal.on('data', data => {
-        buffer += data
+        buffer = Buffer.concat([buffer, data])
         if (Date.now() - lastFlush > maxWindow) {
             // Taking too much time buffering, flush to keep things interactive
             flush()
         } else {
-            if (Date.now() > nextTimeout - (maxWindow / 10)) {
+            if (Date.now() > nextTimeout - maxWindow / 10) {
                 // Extend the window if it's expiring
                 reschedule()
             }

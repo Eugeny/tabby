@@ -112,7 +112,7 @@ export class SSHSession extends BaseSession {
 
         this.shell.on('data', data => {
             const dataString = data.toString()
-            this.emitOutput(dataString)
+            this.emitOutput(data)
 
             if (this.scripts) {
                 let found = false
