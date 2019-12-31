@@ -436,6 +436,13 @@ export class SplitTabComponent extends BaseTabComponent implements OnInit, OnDes
         this.splitAdjusted.next(spanner)
     }
 
+    destroy () {
+        super.destroy()
+        for (const x of this.getAllTabs()) {
+            x.destroy()
+        }
+    }
+
     private attachTabView (tab: BaseTabComponent) {
         const ref = this.viewContainer.insert(tab.hostView) as EmbeddedViewRef<any> // eslint-disable-line @typescript-eslint/no-unnecessary-type-assertion
         this.viewRefs.set(tab, ref)

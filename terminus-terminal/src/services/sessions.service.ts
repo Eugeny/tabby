@@ -255,15 +255,15 @@ export class Session extends BaseSession {
             await new Promise((resolve) => {
                 this.kill('SIGTERM')
                 setImmediate(() => {
-                    if (!this.open) {
-                        resolve()
-                    } else {
+                    try {
+                        process.kill(this.pty.pid, 0)
+                        // still alive
                         setTimeout(() => {
-                            if (this.open) {
-                                this.kill('SIGKILL')
-                            }
+                            this.kill('SIGKILL')
                             resolve()
                         }, 1000)
+                    } catch {
+                        resolve()
                     }
                 })
             })
