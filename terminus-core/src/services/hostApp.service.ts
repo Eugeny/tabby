@@ -39,6 +39,7 @@ export class HostAppService {
     private configChangeBroadcast = new Subject<void>()
     private windowCloseRequest = new Subject<void>()
     private windowMoved = new Subject<void>()
+    private windowFocused = new Subject<void>()
     private displayMetricsChanged = new Subject<void>()
     private logger: Logger
     private windowId: number
@@ -85,6 +86,8 @@ export class HostAppService {
 
     get windowMoved$ (): Observable<void> { return this.windowMoved }
 
+    get windowFocused$ (): Observable<void> { return this.windowFocused }
+
     get displayMetricsChanged$ (): Observable<void> { return this.displayMetricsChanged }
 
     private constructor (
@@ -126,6 +129,10 @@ export class HostAppService {
 
         electron.ipcRenderer.on('host:window-moved', () => {
             this.zone.run(() => this.windowMoved.next())
+        })
+
+        electron.ipcRenderer.on('host:window-focused', () => {
+            this.zone.run(() => this.windowFocused.next())
         })
 
         electron.ipcRenderer.on('host:display-metrics-changed', () => {

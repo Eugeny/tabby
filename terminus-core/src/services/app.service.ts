@@ -83,6 +83,10 @@ export class AppService {
                 this.startTabStorage()
             }
         }
+
+        hostApp.windowFocused$.subscribe(() => {
+            this._activeTab?.emitFocused()
+        })
     }
 
     startTabStorage () {
