@@ -13,12 +13,13 @@
 
 **Terminus** is a highly configurable terminal emulator for Windows, macOS and Linux
 
+  * Integrated SSH client and connection manager
   * Theming and color schemes
   * Fully configurable shortcuts
   * Split panes
   * Remembers your tabs
   * PowerShell (and PS Core), WSL, Git-Bash, Cygwin, Cmder and CMD support
-  * Integrated SSH client and connection manager
+  * Direct file transfer from/to SSH sessions via Zmodem
   * Full Unicode support including double-width characters
   * Doesn't choke on fast-flowing outputs
   * Proper shell experience on Windows including tab completion (via Clink)
