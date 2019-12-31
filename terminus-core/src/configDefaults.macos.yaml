@@ -48,6 +48,8 @@ hotkeys:
     - '⌘-⌥-Up'
   pane-nav-left:
     - '⌘-⌥-Left'
+  pane-maximize:
+    - '⌘-⌥-Enter'
   close-pane:
     - '⌘-Shift-W'
 pluginBlacklist: ['ssh']

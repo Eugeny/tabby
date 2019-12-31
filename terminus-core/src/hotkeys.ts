@@ -94,6 +94,10 @@ export class AppHotkeyProvider extends HotkeyProvider {
             name: 'Split to the top',
         },
         {
+            id: 'pane-maximize',
+            name: 'Maximize the active pane',
+        },
+        {
             id: 'pane-nav-up',
             name: 'Focus the pane above',
         },

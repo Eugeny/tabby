@@ -5,6 +5,7 @@ hotkeys:
     - 'Ctrl+Space'
   toggle-fullscreen:
     - 'F11'
+    - 'Alt-Enter'
   close-tab:
     - 'Ctrl-Shift-W'
   toggle-last-tab: []
@@ -50,5 +51,7 @@ hotkeys:
     - 'Ctrl-Alt-Up'
   pane-nav-left:
     - 'Ctrl-Alt-Left'
+  pane-maximize:
+    - 'Ctrl-Alt-Enter'
   close-pane: []
 pluginBlacklist: []

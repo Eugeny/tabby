@@ -156,6 +156,7 @@ export class SplitTabComponent extends BaseTabComponent implements OnInit, OnDes
     _spanners: SplitSpannerInfo[] = []
 
     private focusedTab: BaseTabComponent
+    private maximizedTab: BaseTabComponent|null = null
     private hotkeysSubscription: Subscription
     private viewRefs: Map<BaseTabComponent, EmbeddedViewRef<any>> = new Map()
 
@@ -226,6 +227,13 @@ export class SplitTabComponent extends BaseTabComponent implements OnInit, OnDes
                 case 'pane-nav-down':
                     this.navigate('b')
                     break
+                case 'pane-maximize':
+                    if (this.maximizedTab) {
+                        this.maximize(null)
+                    } else if (this.getAllTabs().length > 1) {
+                        this.maximize(this.focusedTab)
+                    }
+                    break
                 case 'close-pane':
                     this.removeTab(this.focusedTab)
                     break
@@ -272,6 +280,15 @@ export class SplitTabComponent extends BaseTabComponent implements OnInit, OnDes
             tab.emitFocused()
             this.focusChanged.next(tab)
         }
+
+        if (this.maximizedTab !== tab) {
+            this.maximizedTab = null
+        }
+        this.layout()
+    }
+
+    maximize (tab: BaseTabComponent|null) {
+        this.maximizedTab = tab
         this.layout()
     }
 
@@ -493,13 +510,21 @@ export class SplitTabComponent extends BaseTabComponent implements OnInit, OnDes
                 this.layoutInternal(child, childX, childY, childW, childH)
             } else {
                 const element = this.viewRefs.get(child)!.rootNodes[0]
-                element.style.position = 'absolute'
+                element.classList.toggle('child', true)
+                element.classList.toggle('maximized', child === this.maximizedTab)
+                element.classList.toggle('minimized', this.maximizedTab && child !== this.maximizedTab)
+                element.classList.toggle('focused', child === this.focusedTab)
                 element.style.left = `${childX}%`
                 element.style.top = `${childY}%`
                 element.style.width = `${childW}%`
                 element.style.height = `${childH}%`
 
-                element.style.opacity = child === this.focusedTab ? 1 : 0.75
+                if (child === this.maximizedTab) {
+                    element.style.left = '5%'
+                    element.style.top = '5%'
+                    element.style.width = '90%'
+                    element.style.height = '90%'
+                }
             }
             offset += sizes[i]
 

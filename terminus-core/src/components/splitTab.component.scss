@@ -3,3 +3,24 @@
     position: relative;
     flex: auto;
 }
+
+::ng-deep split-tab > .child {
+    position: absolute;
+    transition: 0.125s all;
+    opacity: .75;
+
+    &.focused {
+        opacity: 1;
+    }
+
+    &.minimized {
+        opacity: .1;
+    }
+
+    &.maximized {
+        z-index: 2;
+        box-shadow: rgba(0, 0, 0, 0.25) 0px 0px 30px;
+        backdrop-filter: blur(10px);
+        border-radius: 10px;
+    }
+}

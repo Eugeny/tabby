@@ -214,7 +214,7 @@ export class XTermFrontend extends Frontend {
 
         const theme: ITheme = {
             foreground: config.terminal.colorScheme.foreground,
-            background: config.terminal.background === 'colorScheme' ? config.terminal.colorScheme.background : config.appearance.vibrancy ? '#00000000' : this.themesService.findCurrentTheme().terminalBackground,
+            background: config.terminal.background === 'colorScheme' ? config.terminal.colorScheme.background : '#00000000',
             cursor: config.terminal.colorScheme.cursor,
         }
 

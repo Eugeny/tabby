@@ -50,5 +50,7 @@ hotkeys:
     - 'Ctrl-Alt-Up'
   pane-nav-left:
     - 'Ctrl-Alt-Left'
+  pane-maximize:
+    - 'Ctrl-Alt-Enter'
   close-pane: []
 pluginBlacklist: ['ssh']
