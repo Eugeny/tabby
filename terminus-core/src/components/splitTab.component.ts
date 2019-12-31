@@ -141,6 +141,8 @@ export interface SplitSpannerInfo {
     styles: [require('./splitTab.component.scss')],
 })
 export class SplitTabComponent extends BaseTabComponent implements OnInit, OnDestroy {
+    static DIRECTIONS: SplitDirection[] = ['t', 'r', 'b', 'l']
+
     /** @hidden */
     @ViewChild('vc', { read: ViewContainerRef }) viewContainer: ViewContainerRef
 
@@ -267,6 +269,10 @@ export class SplitTabComponent extends BaseTabComponent implements OnInit, OnDes
 
     getFocusedTab (): BaseTabComponent {
         return this.focusedTab
+    }
+
+    getMaximizedTab (): BaseTabComponent|null {
+        return this.maximizedTab
     }
 
     focus (tab: BaseTabComponent) {
