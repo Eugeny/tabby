@@ -55,5 +55,15 @@
                 pointer-events: all;
             }
         }
+
+        &.show {
+            .reveal-button {
+                opacity: 0;
+            }
+
+            .toolbar {
+                opacity: 1;
+            }
+        }
     }
 }

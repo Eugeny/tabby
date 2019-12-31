@@ -75,4 +75,8 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
         const modal = this.ngbModal.open(SSHPortForwardingModalComponent).componentInstance as SSHPortForwardingModalComponent
         modal.session = this.session
     }
+
+    reconnect () {
+        this.initializeSession()
+    }
 }
