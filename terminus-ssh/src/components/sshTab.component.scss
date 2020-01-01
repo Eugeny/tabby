@@ -50,6 +50,8 @@
             transition: 0.25s opacity;
             display: flex;
             align-items: center;
+            z-index: 1;
+            will-change: transform;
 
             &>* {
                 pointer-events: all;
