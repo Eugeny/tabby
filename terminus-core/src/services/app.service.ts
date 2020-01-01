@@ -173,6 +173,17 @@ export class AppService {
         }
     }
 
+    getParentTab (tab: BaseTabComponent): SplitTabComponent|null {
+        for (const topLevelTab of this.tabs) {
+            if (topLevelTab instanceof SplitTabComponent) {
+                if (topLevelTab.getAllTabs().includes(tab)) {
+                    return topLevelTab
+                }
+            }
+        }
+        return null
+    }
+
     /** Switches between the current tab and the previously active one */
     toggleLastTab () {
         if (!this.lastTabIndex || this.lastTabIndex >= this.tabs.length) {

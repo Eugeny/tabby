@@ -32,10 +32,14 @@ export class SSHService {
     }
 
     async openTab (connection: SSHConnection): Promise<SSHTabComponent> {
-        return this.zone.run(() => this.app.openNewTab(
+        const tab = this.zone.run(() => this.app.openNewTab(
             SSHTabComponent,
             { connection }
         ) as SSHTabComponent)
+        if (connection.color) {
+            (this.app.getParentTab(tab) || tab).color = connection.color
+        }
+        return tab
     }
 
     createSession (connection: SSHConnection): SSHSession {

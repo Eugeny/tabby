@@ -67,6 +67,17 @@
                             button.btn.btn-secondary((click)='selectPrivateKey()')
                                 i.fas.fa-folder-open
 
+                .form-line
+                    .header
+                        .title Tab color
+                    input.form-control(
+                        type='text',
+                        autofocus,
+                        [(ngModel)]='connection.color',
+                        placeholder='#000000'
+                    )
+
+
         ngb-tab(id='advanced')
             ng-template(ngbTabTitle) Advanced
             ng-template(ngbTabContent)

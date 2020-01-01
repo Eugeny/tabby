@@ -30,6 +30,7 @@ export interface SSHConnection {
     keepaliveInterval?: number
     keepaliveCountMax?: number
     readyTimeout?: number
+    color?: string
 
     algorithms?: {[t: string]: string[]}
 }

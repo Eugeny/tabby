@@ -16,8 +16,9 @@ export interface SessionOptions {
 }
 
 export interface Profile {
-    name: string,
-    sessionOptions: SessionOptions,
+    name: string
+    color?: string
+    sessionOptions: SessionOptions
     isBuiltin?: boolean
     icon?: string
 }

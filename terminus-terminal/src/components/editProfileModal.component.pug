@@ -53,6 +53,15 @@
             [(model)]='profile.sessionOptions.env',
         )
 
+    .form-group
+        label Tab color
+        input.form-control(
+            type='text',
+            autofocus,
+            [(ngModel)]='profile.color',
+            placeholder='#000000'
+        )
+
 .modal-footer
     button.btn.btn-outline-primary((click)='save()') Save
     button.btn.btn-outline-danger((click)='cancel()') Cancel

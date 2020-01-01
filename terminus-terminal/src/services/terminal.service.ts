@@ -88,7 +88,11 @@ export class TerminalService {
             cwd: cwd || undefined,
         }
 
-        return this.openTabWithOptions(sessionOptions)
+        const tab = this.openTabWithOptions(sessionOptions)
+        if (profile?.color) {
+            (this.app.getParentTab(tab) || tab).color = profile.color
+        }
+        return tab
     }
 
     optionsFromShell (shell: Shell): SessionOptions {
