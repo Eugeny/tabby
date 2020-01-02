@@ -27,6 +27,11 @@ export class UpdaterService {
     ) {
         this.logger = log.create('updater')
 
+        if (process.platform === 'linux') {
+            this.electronUpdaterAvailable = false
+            return
+        }
+
         this.autoUpdater = electron.remote.require('electron-updater').autoUpdater
 
         this.autoUpdater.autoInstallOnAppQuit = !!config.store.enableAutomaticUpdates
