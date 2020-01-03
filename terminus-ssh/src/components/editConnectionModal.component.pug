@@ -67,6 +67,14 @@
                             button.btn.btn-secondary((click)='selectPrivateKey()')
                                 i.fas.fa-folder-open
 
+        ngb-tab(id='advanced')
+            ng-template(ngbTabTitle) Advanced
+            ng-template(ngbTabContent)
+                .form-line
+                    .header
+                        .title X11 forwarding
+                    toggle([(ngModel)]='connection.x11')
+
                 .form-line
                     .header
                         .title Tab color
@@ -77,58 +85,63 @@
                         placeholder='#000000'
                     )
 
-
-        ngb-tab(id='advanced')
-            ng-template(ngbTabTitle) Advanced
-            ng-template(ngbTabContent)
                 .form-line
                     .header
-                        .title X11 forwarding
-                    toggle([(ngModel)]='connection.x11')
-
-                .form-group
-                    label Keep Alive Interval (Milliseconds)
+                        .title Keep Alive Interval (Milliseconds)
                     input.form-control(
                         type='number',
                         placeholder='0',
                         [(ngModel)]='connection.keepaliveInterval',
                     )
 
-                .form-group
-                    label Max Keep Alive Count
+                .form-line
+                    .header
+                        .title Max Keep Alive Count
                     input.form-control(
                         type='number',
                         placeholder='3',
                         [(ngModel)]='connection.keepaliveCountMax',
                     )
 
-                .form-group
-                    label Ready Timeout (Milliseconds)
+                .form-line
+                    .header
+                        .title Ready Timeout (Milliseconds)
                     input.form-control(
                         type='number',
                         placeholder='20000',
                         [(ngModel)]='connection.readyTimeout',
                     )
 
-                .form-group
-                    label Ciphers
-                    div(*ngFor='let alg of supportedAlgorithms.cipher')
-                        checkbox([text]='alg', [(ngModel)]='algorithms.cipher[alg]')
+        ngb-tab(id='ciphers')
+            ng-template(ngbTabTitle) Ciphers
+            ng-template(ngbTabContent)
+                .form-line.align-items-start
+                    .header
+                        .title Ciphers
+                    .w-50
+                        div(*ngFor='let alg of supportedAlgorithms.cipher')
+                            checkbox([text]='alg', [(ngModel)]='algorithms.cipher[alg]')
 
-                .form-group
-                    label Key exchange
-                    div(*ngFor='let alg of supportedAlgorithms.kex')
-                        checkbox([text]='alg', [(ngModel)]='algorithms.kex[alg]')
+                .form-line.align-items-start
+                    .header
+                        .title Key exchange
+                    .w-50
+                        div(*ngFor='let alg of supportedAlgorithms.kex')
+                            checkbox([text]='alg', [(ngModel)]='algorithms.kex[alg]')
 
-                .form-group
-                    label HMAC
-                    div(*ngFor='let alg of supportedAlgorithms.hmac')
-                        checkbox([text]='alg', [(ngModel)]='algorithms.hmac[alg]')
+                .form-line.align-items-start
+                    .header
+                        .title HMAC
+                    .w-50
+                        div(*ngFor='let alg of supportedAlgorithms.hmac')
+                            checkbox([text]='alg', [(ngModel)]='algorithms.hmac[alg]')
 
-                .form-group
-                    label Host key
-                    div(*ngFor='let alg of supportedAlgorithms.serverHostKey')
-                        checkbox([text]='alg', [(ngModel)]='algorithms.serverHostKey[alg]')
+                .form-line.align-items-start
+                    .header
+                        .title Host key
+                    .w-50
+                        div(*ngFor='let alg of supportedAlgorithms.serverHostKey')
+                            checkbox([text]='alg', [(ngModel)]='algorithms.serverHostKey[alg]')
 
 
         ngb-tab(id='scripts')
