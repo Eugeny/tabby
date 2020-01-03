@@ -3,6 +3,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { Client } from 'ssh2'
 import * as fs from 'mz/fs'
 import * as path from 'path'
+import * as sshpk from 'sshpk'
 import { ToastrService } from 'ngx-toastr'
 import { AppService, HostAppService, Platform, Logger, LogService } from 'terminus-core'
 import { SSHConnection, SSHSession } from '../api'
@@ -50,7 +51,6 @@ export class SSHService {
 
     async connectSession (session: SSHSession, logCallback?: (s: any) => void): Promise<void> {
         let privateKey: string|null = null
-        let privateKeyPassphrase: string|null = null
         let privateKeyPath = session.connection.privateKey
 
         if (!logCallback) {
@@ -71,6 +71,7 @@ export class SSHService {
         }
 
         if (privateKeyPath) {
+            log(`Loading private key from ${privateKeyPath}`)
             try {
                 privateKey = (await fs.readFile(privateKeyPath)).toString()
             } catch (error) {
@@ -79,24 +80,31 @@ export class SSHService {
             }
 
             if (privateKey) {
-                log(`Loading private key from ${privateKeyPath}`)
+                let parsedKey: any = null
+                try {
+                    parsedKey = sshpk.parsePrivateKey(privateKey, 'auto')
+                } catch (e) {
+                    if (e instanceof sshpk.KeyEncryptedError) {
+                        const modal = this.ngbModal.open(PromptModalComponent)
+                        log('Key requires passphrase')
+                        modal.componentInstance.prompt = 'Private key passphrase'
+                        modal.componentInstance.password = true
+                        let passphrase = ''
+                        try {
+                            const result  = await modal.result
+                            passphrase = result?.value
+                        } catch (e) { }
+                        parsedKey = sshpk.parsePrivateKey(
+                            privateKey,
+                            'auto',
+                            { passphrase: passphrase }
+                        )
+                    } else {
+                        throw e
+                    }
+                }
 
-                let encrypted = privateKey.includes('ENCRYPTED')
-                if (privateKeyPath.toLowerCase().endsWith('.ppk')) {
-                    encrypted = encrypted || privateKey.includes('Encryption:') && !privateKey.includes('Encryption: none')
-                }
-                if (encrypted) {
-                    const modal = this.ngbModal.open(PromptModalComponent)
-                    log('Key requires passphrase')
-                    modal.componentInstance.prompt = 'Private key passphrase'
-                    modal.componentInstance.password = true
-                    try {
-                        const result  = await modal.result
-                        if (result) {
-                            privateKeyPassphrase = result.value
-                        }
-                    } catch (e) { }
-                }
+                privateKey = parsedKey!.toString('ssh')
             }
         }
 
@@ -167,7 +175,6 @@ export class SSHService {
                     username: session.connection.user,
                     password: session.connection.privateKey ? undefined : '',
                     privateKey: privateKey || undefined,
-                    passphrase: privateKeyPassphrase || undefined,
                     tryKeyboard: true,
                     agent: agent || undefined,
                     agentForward: !!agent,
