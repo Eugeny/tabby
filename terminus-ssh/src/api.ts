@@ -31,6 +31,7 @@ export interface SSHConnection {
     keepaliveCountMax?: number
     readyTimeout?: number
     color?: string
+    x11?: boolean
 
     algorithms?: {[t: string]: string[]}
 }
@@ -89,16 +90,7 @@ export class SSHSession extends BaseSession {
         this.open = true
 
         try {
-            try {
-                this.shell = await this.openShellChannel({ x11: true })
-            } catch (e) {
-                if (e.toString().includes('Unable to request X11')) {
-                    this.logger.debug('X11 forwarding rejected, trying without')
-                    this.shell = await this.openShellChannel({})
-                } else {
-                    throw e
-                }
-            }
+            this.shell = await this.openShellChannel({ x11: this.connection.x11 })
         } catch (err) {
             this.emitServiceMessage(`Remote rejected opening a shell channel: ${err}`)
         }

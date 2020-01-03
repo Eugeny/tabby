@@ -81,6 +81,11 @@
         ngb-tab(id='advanced')
             ng-template(ngbTabTitle) Advanced
             ng-template(ngbTabContent)
+                .form-line
+                    .header
+                        .title X11 forwarding
+                    toggle([(ngModel)]='connection.x11')
+
                 .form-group
                     label Keep Alive Interval (Milliseconds)
                     input.form-control(
