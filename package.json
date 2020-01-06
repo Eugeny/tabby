@@ -14,7 +14,7 @@
     "awesome-typescript-loader": "^5.0.0",
     "core-js": "^3.6.1",
     "cross-env": "6.0.3",
-    "css-loader": "3.4.0",
+    "css-loader": "3.4.1",
     "electron": "^7.1.7",
     "electron-builder": "22.1.0",
     "electron-download": "^4.1.1",
