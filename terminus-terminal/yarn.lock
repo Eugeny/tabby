@@ -189,9 +189,9 @@ runes@^0.4.2:
   integrity sha512-K6p9y4ZyL9wPzA+PMDloNQPfoDGTiFYDvdlXznyGKgD10BJpcAosvATKrExRKOrNLgD8E7Um7WGW0lxsnOuNLg==
 
 slug@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/slug/-/slug-2.0.0.tgz#842b60f9f827aac045fe5894d8426e9624578f6f"
-  integrity sha512-nsPIR74De90eXwy6vgO23P92YtpddZZ/AjCHWx9+65TWsq/174hOSzn2Q1RL9bG2aYuxwyNZbHp/IbUhLUwUtw==
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/slug/-/slug-2.1.0.tgz#293f8d53de7e55c15871846fd1bc36114841a8c7"
+  integrity sha512-Q4foEgcE7E8UB/BFg4kEzFUICoppzsbbfRjrdKiOM4Z4EFZF5tdn6amkgeaGur3kI4lMWP2BoMv7XJcKZvLg9Q==
   dependencies:
     unicode ">= 0.3.1"
 
