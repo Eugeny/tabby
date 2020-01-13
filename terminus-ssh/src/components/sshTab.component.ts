@@ -8,6 +8,7 @@ import { SSHPortForwardingModalComponent } from './sshPortForwardingModal.compon
 
 /** @hidden */
 @Component({
+    selector: 'ssh-tab',
     template: BaseTerminalTabComponent.template + require<string>('./sshTab.component.pug'),
     styles: [require('./sshTab.component.scss'), ...BaseTerminalTabComponent.styles],
     animations: BaseTerminalTabComponent.animations,
