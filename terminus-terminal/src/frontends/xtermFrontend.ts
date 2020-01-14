@@ -23,6 +23,7 @@ export class XTermFrontend extends Frontend {
     protected enableWebGL = false
     private xterm: Terminal
     private configuredFontSize = 0
+    private configuredLinePadding = 0
     private zoom = 0
     private resizeHandler: () => void
     private configuredTheme: ITheme = {}
@@ -208,6 +209,7 @@ export class XTermFrontend extends Frontend {
         this.xterm.setOption('macOptionIsMeta', config.terminal.altIsMeta)
         this.xterm.setOption('scrollback', 100000)
         this.configuredFontSize = config.terminal.fontSize
+        this.configuredLinePadding = config.terminal.linePadding
         this.setFontSize()
 
         this.copyOnSelect = config.terminal.copyOnSelect
@@ -247,7 +249,10 @@ export class XTermFrontend extends Frontend {
     }
 
     private setFontSize () {
-        this.xterm.setOption('fontSize', this.configuredFontSize * Math.pow(1.1, this.zoom))
+        const scale = Math.pow(1.1, this.zoom)
+        this.xterm.setOption('fontSize', this.configuredFontSize * scale)
+        // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+        this.xterm.setOption('lineHeight', (this.configuredFontSize + this.configuredLinePadding * 2) / this.configuredFontSize * scale)
         this.resizeHandler()
     }
 
