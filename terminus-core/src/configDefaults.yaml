@@ -8,7 +8,7 @@ appearance:
   frame: thin
   css: '/* * { color: blue !important; } */'
   opacity: 1.0
-  vibrancy: false
+  vibrancy: true
   vibrancyType: 'blur'
 enableAnalytics: true
 enableWelcomeTab: true
