@@ -15,7 +15,6 @@ const SPACER = '            '
 export class ZModemDecorator extends TerminalDecorator {
     private subscriptions: Subscription[] = []
     private logger: Logger
-    private sentry
     private activeSession: any = null
 
     constructor (
@@ -28,8 +27,12 @@ export class ZModemDecorator extends TerminalDecorator {
     }
 
     attach (terminal: TerminalTabComponent): void {
-        this.sentry = new ZModem.Sentry({
-            to_terminal: () => null,
+        const sentry = new ZModem.Sentry({
+            to_terminal: data => {
+                if (!terminal.enablePassthrough) {
+                    terminal.write(data)
+                }
+            },
             sender: data => terminal.session.write(Buffer.from(data)),
             on_detect: async detection => {
                 try {
@@ -49,7 +52,7 @@ export class ZModemDecorator extends TerminalDecorator {
                     const chunkSize = 1024
                     for (let i = 0; i <= Math.floor(data.length / chunkSize); i++) {
                         try {
-                            this.sentry.consume(data.subarray(i * chunkSize, (i + 1) * chunkSize))
+                            sentry.consume(data.subarray(i * chunkSize, (i + 1) * chunkSize))
                         } catch (e) {
                             this.logger.error('protocol error', e)
                             this.activeSession.abort()
@@ -109,7 +112,7 @@ export class ZModemDecorator extends TerminalDecorator {
 
     private async receiveFile (terminal, xfer) {
         const details = xfer.get_details()
-        this.showMessage(terminal, `🟡 Offered ${details.name}`, true)
+        this.showMessage(terminal, `🟡  Offered ${details.name}`, true)
         this.logger.info('offered', xfer)
         const result = await this.electron.dialog.showSaveDialog(
             this.hostApp.getWindow(),
@@ -118,7 +121,7 @@ export class ZModemDecorator extends TerminalDecorator {
             },
         )
         if (!result.filePath) {
-            this.showMessage(terminal, `🔴 Rejected ${details.name}`)
+            this.showMessage(terminal, `🔴  Rejected ${details.name}`)
             xfer.skip()
             return
         }
@@ -128,10 +131,10 @@ export class ZModemDecorator extends TerminalDecorator {
             on_input: chunk => {
                 stream.write(Buffer.from(chunk))
                 bytesSent += chunk.length
-                this.showMessage(terminal, `🟡 Receiving ${details.name}: ${Math.round(100 * bytesSent / details.size)}%`, true)
+                this.showMessage(terminal, `🟡  Receiving ${details.name}: ${Math.round(100 * bytesSent / details.size)}%`, true)
             },
         })
-        this.showMessage(terminal, `✅ Received ${details.name}`)
+        this.showMessage(terminal, `✅  Received ${details.name}`)
         stream.end()
     }
 
@@ -146,7 +149,7 @@ export class ZModemDecorator extends TerminalDecorator {
             bytes_remaining: stat.size,
         }
         this.logger.info('offering', offer)
-        this.showMessage(terminal, `🟡 Offering ${offer.name}`, true)
+        this.showMessage(terminal, `🟡  Offering ${offer.name}`, true)
 
         const xfer = await zsession.send_offer(offer)
         if (xfer) {
@@ -155,14 +158,14 @@ export class ZModemDecorator extends TerminalDecorator {
             stream.on('data', chunk => {
                 xfer.send(chunk)
                 bytesSent += chunk.length
-                this.showMessage(terminal, `🟡 Sending ${offer.name}: ${Math.round(100 * bytesSent / offer.size)}%`, true)
+                this.showMessage(terminal, `🟡  Sending ${offer.name}: ${Math.round(100 * bytesSent / offer.size)}%`, true)
             })
             await new Promise(resolve => stream.on('end', resolve))
             await xfer.end()
             stream.close()
-            this.showMessage(terminal, `✅ Sent ${offer.name}`)
+            this.showMessage(terminal, `✅  Sent ${offer.name}`)
         } else {
-            this.showMessage(terminal, `🔴 Other side rejected ${offer.name}`)
+            this.showMessage(terminal, `🔴  Other side rejected ${offer.name}`)
             this.logger.warn('rejected by the other side')
         }
     }
