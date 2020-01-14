@@ -4,12 +4,25 @@ import { app, ipcMain, Menu } from 'electron'
 import { parseArgs } from './cli'
 import { Application } from './app'
 import electronDebug = require('electron-debug')
+import * as path from 'path'
+import * as fs from 'fs'
 
 if (!process.env.TERMINUS_PLUGINS) {
     process.env.TERMINUS_PLUGINS = ''
 }
 
 const application = new Application()
+
+const portableData = path.join(`${process.env.PORTABLE_EXECUTABLE_DIR}`, 'data')
+if (('PORTABLE_EXECUTABLE_DIR' in process.env) && fs.existsSync(portableData)) {
+    fs.stat(portableData, (err, stats) => {
+        if (stats.isDirectory()) {
+            app.setPath('userData' ,portableData)
+        } else {
+            console.warn(err)
+        }
+    })
+}
 
 ipcMain.on('app:new-window', () => {
     application.newWindow()
