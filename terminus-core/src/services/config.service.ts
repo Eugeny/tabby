@@ -125,7 +125,22 @@ export class ConfigService {
     }
 
     getDefaults () {
-        return this.defaults
+        const cleanup = o => {
+            if (o instanceof Array) {
+                return o.map(cleanup)
+            } else if (o instanceof Object) {
+                const r = {}
+                for (const k of Object.keys(o)) {
+                    if (k !== '__nonStructural') {
+                        r[k] = cleanup(o[k])
+                    }
+                }
+                return r
+            } else {
+                return o
+            }
+        }
+        return cleanup(this.defaults)
     }
 
     load (): void {
