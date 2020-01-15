@@ -64,6 +64,7 @@ $tab-border-radius: 4px;
     &>.drag-space {
         min-width: 1px;
         flex: 1 0 1%;
+        margin-top: 2px; // for window resizing
         -webkit-app-region: drag;
 
         &.persistent {
