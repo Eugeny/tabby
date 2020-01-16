@@ -35,6 +35,7 @@ export class Cygwin32ShellProvider extends ShellProvider {
             id: 'cygwin32',
             name: 'Cygwin (32 bit)',
             command: path.join(cygwinPath, 'bin', 'bash.exe'),
+            args: ['--login', '-i'],
             icon: require('../icons/cygwin.svg'),
             env: {
                 TERM: 'cygwin',
