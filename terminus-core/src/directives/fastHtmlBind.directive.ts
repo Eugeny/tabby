@@ -9,6 +9,6 @@ export class FastHtmlBindDirective implements OnChanges {
     constructor (private el: ElementRef) { }
 
     ngOnChanges () {
-        this.el.nativeElement.innerHTML = this.fastHtmlBind
+        this.el.nativeElement.innerHTML = this.fastHtmlBind || ''
     }
 }
