@@ -8,6 +8,10 @@ const NAME_PREFIX = 'terminus-'
 const KEYWORD = 'terminus-plugin'
 const OFFICIAL_NPM_ACCOUNT = 'eugenepankov'
 
+const BLACKLIST = [
+    'terminus-shell-selector', // superseded by profiles
+]
+
 export interface PluginInfo {
     name: string
     description: string
@@ -75,6 +79,7 @@ export class PluginManagerService {
                 isOfficial: item.package.publisher.username === OFFICIAL_NPM_ACCOUNT,
             }))),
             map(plugins => plugins.filter(x => x.packageName.startsWith(NAME_PREFIX))),
+            map(plugins => plugins.filter(x => !BLACKLIST.includes(x.packageName))),
         )
     }
 
