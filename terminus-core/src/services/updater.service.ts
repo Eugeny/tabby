@@ -38,6 +38,7 @@ export class UpdaterService {
 
         this.autoUpdater.on('update-available', () => {
             this.logger.info('Update available')
+            this.autoUpdater.downloadUpdate()
         })
         this.autoUpdater.once('update-not-available', () => {
             this.logger.info('No updates')
