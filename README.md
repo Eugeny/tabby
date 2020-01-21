@@ -40,7 +40,6 @@
 Plugins and themes can be installed directly from the Settings view inside Terminus.
 
   * [clickable-links](https://github.com/Eugeny/terminus-clickable-links) - makes paths and URLs in the terminal clickable
-  * [shell-selector](https://github.com/Eugeny/terminus-shell-selector) - a quick shell selector pane
   * [title-control](https://github.com/kbjr/terminus-title-control) - allows modifying the title of the terminal tabs by providing a prefix, suffix, and/or strings to be removed
   * [quick-cmds](https://github.com/Domain/terminus-quick-cmds) - quickly send commands to one or all terminal tabs
   * [save-output](https://github.com/Eugeny/terminus-save-output) - record terminal output into a file
