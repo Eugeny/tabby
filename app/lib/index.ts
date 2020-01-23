@@ -13,15 +13,12 @@ if (!process.env.TERMINUS_PLUGINS) {
 
 const application = new Application()
 
-const portableData = path.join(`${process.env.PORTABLE_EXECUTABLE_DIR}`, 'data')
-if (('PORTABLE_EXECUTABLE_DIR' in process.env) && fs.existsSync(portableData)) {
-    fs.stat(portableData, (err, stats) => {
-        if (stats.isDirectory()) {
-            app.setPath('userData' ,portableData)
-        } else {
-            console.warn(err)
-        }
-    })
+if (process.env.PORTABLE_EXECUTABLE_DIR) {
+    const portableData = path.join(process.env.PORTABLE_EXECUTABLE_DIR, 'terminus-data')
+    if (!fs.existsSync(portableData)) {
+        fs.mkdirSync(portableData)
+    }
+    app.setPath('userData', portableData)
 }
 
 ipcMain.on('app:new-window', () => {
