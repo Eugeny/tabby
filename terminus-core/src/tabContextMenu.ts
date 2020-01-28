@@ -17,39 +17,49 @@ export class CloseContextMenu extends TabContextMenuItemProvider {
         super()
     }
 
-    async getItems (tab: BaseTabComponent): Promise<Electron.MenuItemConstructorOptions[]> {
-        return [
+    async getItems (tab: BaseTabComponent, tabHeader?: TabHeaderComponent): Promise<Electron.MenuItemConstructorOptions[]> {
+        let items = [
             {
                 label: 'Close',
                 click: () => this.zone.run(() => {
-                    this.app.closeTab(tab, true)
-                }),
-            },
-            {
-                label: 'Close other tabs',
-                click: () => this.zone.run(() => {
-                    for (const t of this.app.tabs.filter(x => x !== tab)) {
-                        this.app.closeTab(t, true)
-                    }
-                }),
-            },
-            {
-                label: 'Close tabs to the right',
-                click: () => this.zone.run(() => {
-                    for (const t of this.app.tabs.slice(this.app.tabs.indexOf(tab) + 1)) {
-                        this.app.closeTab(t, true)
-                    }
-                }),
-            },
-            {
-                label: 'Close tabs to the left',
-                click: () => this.zone.run(() => {
-                    for (const t of this.app.tabs.slice(0, this.app.tabs.indexOf(tab))) {
-                        this.app.closeTab(t, true)
+                    if (this.app.tabs.includes(tab)) {
+                        this.app.closeTab(tab, true)
+                    } else {
+                        tab.destroy()
                     }
                 }),
             },
         ]
+        if (tabHeader) {
+            items = [
+                ...items,
+                {
+                    label: 'Close other tabs',
+                    click: () => this.zone.run(() => {
+                        for (const t of this.app.tabs.filter(x => x !== tab)) {
+                            this.app.closeTab(t, true)
+                        }
+                    }),
+                },
+                {
+                    label: 'Close tabs to the right',
+                    click: () => this.zone.run(() => {
+                        for (const t of this.app.tabs.slice(this.app.tabs.indexOf(tab) + 1)) {
+                            this.app.closeTab(t, true)
+                        }
+                    }),
+                },
+                {
+                    label: 'Close tabs to the left',
+                    click: () => this.zone.run(() => {
+                        for (const t of this.app.tabs.slice(0, this.app.tabs.indexOf(tab))) {
+                            this.app.closeTab(t, true)
+                        }
+                    }),
+                },
+            ]
+        }
+        return items
     }
 }
 
@@ -76,28 +86,31 @@ export class CommonOptionsContextMenu extends TabContextMenuItemProvider {
     }
 
     async getItems (tab: BaseTabComponent, tabHeader?: TabHeaderComponent): Promise<Electron.MenuItemConstructorOptions[]> {
-        return [
-            {
-                label: 'Rename',
-                click: () => this.zone.run(() => tabHeader?.showRenameTabModal()),
-            },
-            {
-                label: 'Duplicate',
-                click: () => this.zone.run(() => this.app.duplicateTab(tab)),
-            },
-            {
-                label: 'Color',
-                sublabel: COLORS.find(x => x.value === tab.color)!.name,
-                submenu: COLORS.map(color => ({
-                    label: color.name,
-                    type: 'radio',
-                    checked: tab.color === color.value,
-                    click: () => this.zone.run(() => {
-                        tab.color = color.value
-                    }),
-                })) as Electron.MenuItemConstructorOptions[],
-            },
-        ]
+        if (tabHeader) {
+            return [
+                {
+                    label: 'Rename',
+                    click: () => this.zone.run(() => tabHeader?.showRenameTabModal()),
+                },
+                {
+                    label: 'Duplicate',
+                    click: () => this.zone.run(() => this.app.duplicateTab(tab)),
+                },
+                {
+                    label: 'Color',
+                    sublabel: COLORS.find(x => x.value === tab.color)!.name,
+                    submenu: COLORS.map(color => ({
+                        label: color.name,
+                        type: 'radio',
+                        checked: tab.color === color.value,
+                        click: () => this.zone.run(() => {
+                            tab.color = color.value
+                        }),
+                    })) as Electron.MenuItemConstructorOptions[],
+                },
+            ]
+        }
+        return []
     }
 }
 

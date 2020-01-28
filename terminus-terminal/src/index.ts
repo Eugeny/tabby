@@ -35,8 +35,7 @@ import { PathDropDecorator } from './pathDrop'
 import { TerminalConfigProvider } from './config'
 import { TerminalHotkeyProvider } from './hotkeys'
 import { HyperColorSchemes } from './colorSchemes'
-import { NewTabContextMenu, CopyPasteContextMenu } from './contextMenu'
-import { SaveAsProfileContextMenu } from './tabContextMenu'
+import { NewTabContextMenu, CopyPasteContextMenu, SaveAsProfileContextMenu, LegacyContextMenu } from './tabContextMenu'
 import { ZModemDecorator } from './zmodem'
 
 import { CmderShellProvider } from './shells/cmder'
@@ -92,10 +91,10 @@ import { XTermFrontend, XTermWebGLFrontend } from './frontends/xtermFrontend'
         { provide: ShellProvider, useClass: POSIXShellsProvider, multi: true },
         { provide: ShellProvider, useClass: WSLShellProvider, multi: true },
 
-        { provide: TerminalContextMenuItemProvider, useClass: NewTabContextMenu, multi: true },
-        { provide: TerminalContextMenuItemProvider, useClass: CopyPasteContextMenu, multi: true },
-
+        { provide: TabContextMenuItemProvider, useClass: NewTabContextMenu, multi: true },
+        { provide: TabContextMenuItemProvider, useClass: CopyPasteContextMenu, multi: true },
         { provide: TabContextMenuItemProvider, useClass: SaveAsProfileContextMenu, multi: true },
+        { provide: TabContextMenuItemProvider, useClass: LegacyContextMenu, multi: true },
 
         // For WindowsDefaultShellProvider
         PowerShellCoreShellProvider,

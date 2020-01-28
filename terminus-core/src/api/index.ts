@@ -1,4 +1,5 @@
 export { BaseTabComponent, BaseTabProcess } from '../components/baseTab.component'
+export { TabHeaderComponent } from '../components/tabHeader.component'
 export { SplitTabComponent, SplitContainer } from '../components/splitTab.component'
 export { TabRecoveryProvider, RecoveredTab } from './tabRecovery'
 export { ToolbarButtonProvider, ToolbarButton } from './toolbarButtonProvider'

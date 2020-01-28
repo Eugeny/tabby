@@ -3,7 +3,7 @@ import { first } from 'rxjs/operators'
 import { ToastrService } from 'ngx-toastr'
 import { NgZone, OnInit, OnDestroy, Inject, Injector, Optional, ViewChild, HostBinding, Input, ElementRef } from '@angular/core'
 import { trigger, transition, style, animate, AnimationTriggerMetadata } from '@angular/animations'
-import { AppService, ConfigService, BaseTabComponent, ElectronService, HostAppService, HotkeysService, Platform, LogService, Logger } from 'terminus-core'
+import { AppService, ConfigService, BaseTabComponent, ElectronService, HostAppService, HotkeysService, Platform, LogService, Logger, TabContextMenuItemProvider } from 'terminus-core'
 
 import { BaseSession, SessionsService } from '../services/sessions.service'
 import { TerminalFrontendService } from '../services/terminalFrontend.service'
@@ -11,7 +11,6 @@ import { TerminalFrontendService } from '../services/terminalFrontend.service'
 import { Frontend } from '../frontends/frontend'
 import { ResizeEvent } from './interfaces'
 import { TerminalDecorator } from './decorator'
-import { TerminalContextMenuItemProvider } from './contextMenuProvider'
 
 
 /** @hidden */
@@ -88,7 +87,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
         @Inject(ToastrService) protected toastr: ToastrServiceProxy,
         protected log: LogService,
         @Optional() @Inject(TerminalDecorator) protected decorators: TerminalDecorator[],
-        @Optional() @Inject(TerminalContextMenuItemProvider) protected contextMenuProviders: TerminalContextMenuItemProvider[],
+        @Optional() @Inject(TabContextMenuItemProvider) protected contextMenuProviders: TabContextMenuItemProvider[],
     ) {
         super()
         this.logger = log.create('baseTerminalTab')
