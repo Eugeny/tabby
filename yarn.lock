@@ -4755,9 +4755,10 @@ npm@5.1.0:
     gauge "~2.7.3"
     set-blocking "~2.0.0"
 
-npx@^10.2.0:
-  version "10.2.0"
-  resolved "https://registry.yarnpkg.com/npx/-/npx-10.2.0.tgz#f8c9ad30c68f2d13c36a4759cbbecd9c78388044"
+npx@^10.2.1:
+  version "10.2.1"
+  resolved "https://registry.yarnpkg.com/npx/-/npx-10.2.1.tgz#6d46562b38eff68841567b85b8af21caeba16c91"
+  integrity sha512-3drNIp6RLYMD64rym3PBwJM+VXTuM76metmioc8hRoCtMgRPM5CEUX3rzNXfg5LZHExNipumCLFmscP77klNkQ==
   dependencies:
     libnpx "10.2.0"
     npm "5.1.0"
