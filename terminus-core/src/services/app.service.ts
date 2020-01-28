@@ -130,6 +130,11 @@ export class AppService {
             this.tabsChanged.next()
             this.tabClosed.next(tab)
         })
+
+        if (tab instanceof SplitTabComponent) {
+            tab.tabAdded$.subscribe(() => this.emitTabsChanged())
+            tab.tabRemoved$.subscribe(() => this.emitTabsChanged())
+        }
     }
 
     /**
