@@ -98,8 +98,13 @@ export class AppService {
         }, 30000)
     }
 
-    addTabRaw (tab: BaseTabComponent) {
-        this.tabs.push(tab)
+    addTabRaw (tab: BaseTabComponent, index: number|null = null) {
+        if (index !== null) {
+            this.tabs.splice(index, 0, tab)
+        } else {
+            this.tabs.push(tab)
+        }
+
         this.selectTab(tab)
         this.tabsChanged.next()
         this.tabOpened.next(tab)
@@ -232,7 +237,7 @@ export class AppService {
     async duplicateTab (tab: BaseTabComponent) {
         const dup = await this.tabsService.duplicate(tab)
         if (dup) {
-            this.addTabRaw(dup)
+            this.addTabRaw(dup, this.tabs.indexOf(tab) + 1)
         }
     }
 
