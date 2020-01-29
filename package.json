@@ -107,6 +107,9 @@
       "icon": "./build/icons",
       "artifactName": "terminus-${version}-linux.${ext}"
     },
+    "snap": {
+      "plugs": ["default", "system-files", "system-observe"]
+    },
     "deb": {
       "depends": [
         "gconf2",
