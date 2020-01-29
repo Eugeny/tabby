@@ -1,4 +1,7 @@
 #!/bin/bash
+cat > '/usr/bin/${executable}' << END
+#!/bin/sh
+'/opt/${productFilename}/${executable}' --no-sandbox $@
+END
 
-# Link to the binary
-ln -sf '/opt/${productFilename}/${executable}' '/usr/bin/${executable}'
+chmod +x '/usr/bin/${executable}'
