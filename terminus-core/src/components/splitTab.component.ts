@@ -564,6 +564,10 @@ export class SplitTabComponent extends BaseTabComponent implements OnInit, OnDes
                 }
             }
         }
+        while (root.ratios.length < root.children.length) {
+            root.ratios.push(1)
+        }
+        root.normalize()
     }
 }
 
