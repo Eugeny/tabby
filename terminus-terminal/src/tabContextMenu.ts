@@ -170,6 +170,9 @@ export class LegacyContextMenu extends TabContextMenuItemProvider {
     }
 
     async getItems (tab: BaseTabComponent, _tabHeader?: TabHeaderComponent): Promise<Electron.MenuItemConstructorOptions[]> {
+        if (!this.contextMenuProviders) {
+            return []
+        }
         if (tab instanceof BaseTerminalTabComponent) {
             let items: Electron.MenuItemConstructorOptions[] = []
             for (const p of this.contextMenuProviders) {
