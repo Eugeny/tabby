@@ -21,8 +21,7 @@ if (process.env.TERMINUS_DEV) {
 const builtinPluginsPath = process.env.TERMINUS_DEV ? path.dirname(require('electron').remote.app.getAppPath()) : path.join((process as any).resourcesPath, 'builtin-plugins')
 
 const userPluginsPath = path.join(
-    require('electron').remote.app.getPath('appData'),
-    'terminus',
+    require('electron').remote.app.getPath('userData'),
     'plugins',
 )
 
