@@ -21,7 +21,16 @@ export class TabRecoveryService {
         window.localStorage.tabsRecovery = JSON.stringify(
             await Promise.all(
                 tabs
-                    .map(tab => tab.getRecoveryToken())
+                    .map(tab => {
+                        let token = tab.getRecoveryToken()
+                        if (token) {
+                            token = token.then(r => {
+                                r.tabColor = tab.color
+                                return r
+                            })
+                        }
+                        return token
+                    })
                     .filter(token => !!token)
             )
         )
@@ -31,7 +40,9 @@ export class TabRecoveryService {
         for (const provider of this.config.enabledServices(this.tabRecoveryProviders)) {
             try {
                 const tab = await provider.recover(token)
-                if (tab) {
+                if (tab !== null) {
+                    tab.options = tab.options || {}
+                    tab.options.color = token.tabColor || null
                     return tab
                 }
             } catch (error) {
