@@ -15,7 +15,7 @@
     "core-js": "^3.6.4",
     "cross-env": "6.0.3",
     "css-loader": "3.4.2",
-    "electron": "^7.1.10",
+    "electron": "^8.0.0",
     "electron-builder": "22.3.2",
     "electron-download": "^4.1.1",
     "electron-installer-snap": "^5.0.0",
@@ -27,7 +27,7 @@
     "graceful-fs": "^4.2.2",
     "html-loader": "0.5.5",
     "json-loader": "0.5.7",
-    "node-abi": "^2.12.0",
+    "node-abi": "^2.14.0",
     "node-gyp": "^6.1.0",
     "node-sass": "^4.13.0",
     "npmlog": "4.1.2",
@@ -55,7 +55,7 @@
     "yaml-loader": "0.5.0"
   },
   "resolutions": {
-    "*/node-abi": "^2.8.0"
+    "*/node-abi": "^2.14.0"
   },
   "scripts": {
     "build": "npm run build:typings && webpack --color --config app/webpack.main.config.js && webpack --color --config app/webpack.config.js && webpack --color --config terminus-core/webpack.config.js && webpack --color --config terminus-settings/webpack.config.js && webpack --color --config terminus-terminal/webpack.config.js && webpack --color --config terminus-plugin-manager/webpack.config.js && webpack --color --config terminus-community-color-schemes/webpack.config.js && webpack --color --config terminus-ssh/webpack.config.js",
@@ -64,7 +64,7 @@
     "start": "cross-env TERMINUS_DEV=1 electron app --debug",
     "prod": "cross-env TERMINUS_DEV=1 electron app",
     "docs": "typedoc --out docs/api terminus-core/src && typedoc --out docs/api/terminal --tsconfig terminus-terminal/tsconfig.typings.json terminus-terminal/src && typedoc --out docs/api/settings --tsconfig terminus-settings/tsconfig.typings.json terminus-settings/src",
-    "lint": "eslint --ext ts */src",
+    "lint": "eslint --ext ts */src */lib",
     "postinstall": "node ./scripts/install-deps.js"
   },
   "repository": "eugeny/terminus"

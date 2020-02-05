@@ -2103,10 +2103,10 @@ electron-rebuild@^1.9.0:
     spawn-rx "^3.0.0"
     yargs "^13.2.4"
 
-electron@^7.1.10:
-  version "7.1.10"
-  resolved "https://registry.yarnpkg.com/electron/-/electron-7.1.10.tgz#35d5aa41ee3f233613e37ef4245b83c23001628b"
-  integrity sha512-UDpS2CfBN3yufCrbET5Ozw1XrLhuANHn+Zs8Vgl/BcBT/MoNbkY79nRFcyxj6pCFrEde9IoNOf+DgNp6altNxw==
+electron@^8.0.0:
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/electron/-/electron-8.0.0.tgz#b5f105cda6985ca2f2496de15e44b2bbb0c8e4f4"
+  integrity sha512-vBXUKRqTUq0jv1upvISdvScDDH3uCPwXj4eA5BeR3UDbJp2hOhq7eJxwjIQbfLQql98aYz4X6pSlzBnhfyQqHA==
   dependencies:
     "@electron/get" "^1.0.1"
     "@types/node" "^12.0.12"
@@ -4498,10 +4498,10 @@ no-case@^2.2.0:
   dependencies:
     lower-case "^1.1.1"
 
-node-abi@^2.11.0, node-abi@^2.12.0, node-abi@^2.8.0:
-  version "2.12.0"
-  resolved "https://registry.yarnpkg.com/node-abi/-/node-abi-2.12.0.tgz#40e9cfabdda1837863fa825e7dfa0b15686adf6f"
-  integrity sha512-VhPBXCIcvmo/5K8HPmnWJyyhvgKxnHTUMXR/XwGHV68+wrgkzST4UmQrY/XszSWA5dtnXpNp528zkcyJ/pzVcw==
+node-abi@^2.11.0, node-abi@^2.14.0:
+  version "2.14.0"
+  resolved "https://registry.yarnpkg.com/node-abi/-/node-abi-2.14.0.tgz#24650e24e8ffad2b61352519263f0cf4e2ddbfe9"
+  integrity sha512-y54KGgEOHnRHlGQi7E5UiryRkH8bmksmQLj/9iLAjoje743YS+KaKB/sDYXgqtT0J16JT3c3AYJZNI98aU/kYg==
   dependencies:
     semver "^5.4.1"
 
