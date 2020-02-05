@@ -1,6 +1,7 @@
 import { Component } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { ConfigService, ElectronService, HostAppService } from 'terminus-core'
+import { PasswordStorageService } from '../services/passwordStorage.service'
 import { SSHConnection, SSHConnectionGroup } from '../api'
 import { EditConnectionModalComponent } from './editConnectionModal.component'
 import { PromptModalComponent } from './promptModal.component'
@@ -19,6 +20,7 @@ export class SSHSettingsTabComponent {
         private electron: ElectronService,
         private hostApp: HostAppService,
         private ngbModal: NgbModal,
+        private passwordStorage: PasswordStorageService,
     ) {
         this.connections = this.config.store.ssh.connections
         this.refresh()
@@ -65,6 +67,7 @@ export class SSHSettingsTabComponent {
             }
         )).response === 1) {
             this.connections = this.connections.filter(x => x !== connection)
+            this.passwordStorage.deletePassword(connection)
             this.config.store.ssh.connections = this.connections
             this.config.save()
             this.refresh()
