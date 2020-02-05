@@ -105,7 +105,8 @@
     "linux": {
       "category": "Utilities",
       "icon": "./build/icons",
-      "artifactName": "terminus-${version}-linux.${ext}"
+      "artifactName": "terminus-${version}-linux.${ext}",
+      "executableArgs": ["--no-sandbox"]
     },
     "snap": {
       "plugs": ["default", "system-files", "system-observe"]
