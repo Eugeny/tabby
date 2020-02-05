@@ -16,16 +16,19 @@ try {
 
 // WSL Distribution List
 // https://docs.microsoft.com/en-us/windows/wsl/install-win10#install-your-linux-distribution-of-choice
+/* eslint-disable quote-props */
 var wslIconMap: { [key: string]: string } = {
-    'Alpine': 'alpine.svg',
-    'Debian': 'debian.svg',
-    'kali-linux': 'linux.svg',
-    'SLES-12': 'suse.svg',
-    'openSUSE-Leap-15-1': 'suse.svg',
-    'Ubuntu-18.04': 'ubuntu.svg',
-    'Ubuntu': 'ubuntu.svg',
-    'Linux': 'linux.svg',
+    'Alpine': require('../icons/alpine.svg'),
+    'Debian': require('../icons/debian.svg'),
+    'kali-linux': require('../icons/linux.svg'),
+    'SLES-12': require('../icons/suse.svg'),
+    'openSUSE-Leap-15-1': require('../icons/suse.svg'),
+    'Ubuntu-16.04': require('../icons/ubuntu.svg'),
+    'Ubuntu-18.04': require('../icons/ubuntu.svg'),
+    'Ubuntu': require('../icons/ubuntu.svg'),
+    'Linux': require('../icons/linux.svg'),
 }
+/* eslint-enable quote-props */
 
 /** @hidden */
 @Injectable()
@@ -59,9 +62,7 @@ export class WSLShellProvider extends ShellProvider {
                         TERM: 'xterm-color',
                         COLORTERM: 'truecolor',
                     },
-                }
-                if (wslIconMap.hasOwnProperty(defaultDistKey.DistributionName.value)) {
-                    shell['icon'] = require(`../icons/${wslIconMap[defaultDistKey.DistributionName.value]}`)
+                    icon: wslIconMap[defaultDistKey.DistributionName.value],
                 }
                 shells.push(shell)
             }
@@ -72,7 +73,7 @@ export class WSLShellProvider extends ShellProvider {
                 return [{
                     id: 'wsl',
                     name: 'WSL / Bash on Windows',
-                    icon: require(`../icons/${wslIconMap['linux']}`),
+                    icon: wslIconMap['Linux'],
                     command: bashPath,
                     env: {
                         TERM: 'xterm-color',
