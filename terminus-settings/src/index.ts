@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser'
 import { FormsModule } from '@angular/forms'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 
-import TerminusCorePlugin, { ToolbarButtonProvider, TabRecoveryProvider, HotkeyProvider, ConfigProvider } from 'terminus-core'
+import TerminusCorePlugin, { ToolbarButtonProvider, HotkeyProvider, ConfigProvider } from 'terminus-core'
 
 import { HotkeyInputModalComponent } from './components/hotkeyInputModal.component'
 import { MultiHotkeyInputComponent } from './components/multiHotkeyInput.component'
@@ -11,7 +11,6 @@ import { SettingsTabComponent } from './components/settingsTab.component'
 import { SettingsTabBodyComponent } from './components/settingsTabBody.component'
 
 import { ButtonProvider } from './buttonProvider'
-import { RecoveryProvider } from './recoveryProvider'
 import { SettingsHotkeyProvider } from './hotkeys'
 import { SettingsConfigProvider } from './config'
 
@@ -25,7 +24,6 @@ import { SettingsConfigProvider } from './config'
     ],
     providers: [
         { provide: ToolbarButtonProvider, useClass: ButtonProvider, multi: true },
-        { provide: TabRecoveryProvider, useClass: RecoveryProvider, multi: true },
         { provide: ConfigProvider, useClass: SettingsConfigProvider, multi: true },
         { provide: HotkeyProvider, useClass: SettingsHotkeyProvider, multi: true },
     ],

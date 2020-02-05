@@ -99,10 +99,6 @@ export class SettingsTabComponent extends BaseTabComponent {
         this.isShellIntegrationInstalled = await this.shellIntegration.isInstalled()
     }
 
-    async getRecoveryToken (): Promise<any> {
-        return null
-    }
-
     ngOnDestroy () {
         this.configSubscription.unsubscribe()
         this.config.save()

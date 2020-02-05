@@ -25,7 +25,9 @@ export class TabRecoveryService {
                         let token = tab.getRecoveryToken()
                         if (token) {
                             token = token.then(r => {
-                                r.tabColor = tab.color
+                                if (r) {
+                                    r.tabColor = tab.color
+                                }
                                 return r
                             })
                         }
