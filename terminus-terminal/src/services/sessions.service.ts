@@ -6,10 +6,9 @@ import * as nodePTY from 'node-pty'
 import { Observable, Subject } from 'rxjs'
 import { first } from 'rxjs/operators'
 import { Injectable } from '@angular/core'
-import { Logger, LogService, ConfigService } from 'terminus-core'
+import { Logger, LogService, ConfigService, WIN_BUILD_CONPTY_SUPPORTED, isWindowsBuild } from 'terminus-core'
 import { exec } from 'mz/child_process'
 import { SessionOptions } from '../api/interfaces'
-import { WIN_BUILD_CONPTY_SUPPORTED, isWindowsBuild } from '../utils'
 
 /* eslint-disable block-scoped-var */
 

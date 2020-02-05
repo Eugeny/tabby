@@ -1,11 +1,10 @@
 import { Component, Input } from '@angular/core'
 import { Subscription } from 'rxjs'
 import { first } from 'rxjs/operators'
-import { BaseTabProcess } from 'terminus-core'
+import { BaseTabProcess, WIN_BUILD_CONPTY_SUPPORTED, isWindowsBuild } from 'terminus-core'
 import { BaseTerminalTabComponent } from '../api/baseTerminalTab.component'
 import { SessionOptions } from '../api/interfaces'
 import { Session } from '../services/sessions.service'
-import { WIN_BUILD_CONPTY_SUPPORTED, isWindowsBuild } from '../utils'
 
 /** @hidden */
 @Component({

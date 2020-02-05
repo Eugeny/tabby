@@ -5,10 +5,9 @@ import deepEqual from 'deep-equal'
 const fontManager = require('fontmanager-redux') // eslint-disable-line
 
 import { Component, Inject } from '@angular/core'
-import { ConfigService, HostAppService, Platform, ElectronService } from 'terminus-core'
+import { ConfigService, HostAppService, Platform, ElectronService, getCSSFontFamily } from 'terminus-core'
 import { TerminalColorSchemeProvider } from '../api/colorSchemeProvider'
 import { TerminalColorScheme } from '../api/interfaces'
-import { getCSSFontFamily } from '../utils'
 
 /** @hidden */
 @Component({

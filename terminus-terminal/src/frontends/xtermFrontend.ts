@@ -1,6 +1,6 @@
+import { getCSSFontFamily } from 'terminus-core'
 import { Frontend, SearchOptions } from './frontend'
 import { Terminal, ITheme } from 'xterm'
-import { getCSSFontFamily } from '../utils'
 import { FitAddon } from 'xterm-addon-fit'
 import { LigaturesAddon } from 'xterm-addon-ligatures'
 import { SearchAddon } from 'xterm-addon-search'

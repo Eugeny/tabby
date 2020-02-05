@@ -27,6 +27,8 @@ export class Window {
     private windowConfig: ElectronConfig
     private windowBounds: Rectangle
     private closing = false
+    private lastVibrancy: {enabled: boolean, type?: string} | null = null
+    private disableVibrancyWhileDragging = false
 
     get visible$ (): Observable<boolean> { return this.visible }
 
@@ -118,11 +120,12 @@ export class Window {
     }
 
     setVibrancy (enabled: boolean, type?: string) {
+        this.lastVibrancy = { enabled, type }
         if (process.platform === 'win32') {
             if (parseFloat(os.release()) >= 10) {
                 let attribValue = AccentState.ACCENT_DISABLED
                 if (enabled) {
-                    if (parseInt(os.release().split('.')[2]) >= 17063 && type === 'fluent') {
+                    if (type === 'fluent') {
                         attribValue = AccentState.ACCENT_ENABLE_ACRYLICBLURBEHIND
                     } else {
                         attribValue = AccentState.ACCENT_ENABLE_BLURBEHIND
@@ -132,6 +135,8 @@ export class Window {
             } else {
                 DwmEnableBlurBehindWindow(this.window, enabled)
             }
+        } else {
+            this.window.setVibrancy(enabled ? 'dark' : null as any) // electron issue 20269
         }
     }
 
@@ -294,6 +299,29 @@ export class Window {
         })
 
         this.window.webContents.on('new-window', event => event.preventDefault())
+
+        ipcMain.on('window-set-disable-vibrancy-while-dragging', (_event, value) => {
+            this.disableVibrancyWhileDragging = value
+        })
+
+        this.window.on('will-move', () => {
+            if (!this.lastVibrancy?.enabled || !this.disableVibrancyWhileDragging) {
+                return
+            }
+            let timeout: number|null = null
+            const oldVibrancy = this.lastVibrancy
+            this.setVibrancy(false)
+            const onMove = () => {
+                if (timeout) {
+                    clearTimeout(timeout)
+                }
+                timeout = setTimeout(() => {
+                    this.window.off('move', onMove)
+                    this.setVibrancy(oldVibrancy.enabled, oldVibrancy.type)
+                }, 500)
+            }
+            this.window.on('move', onMove)
+        })
     }
 
     private destroy () {

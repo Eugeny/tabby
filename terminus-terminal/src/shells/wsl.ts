@@ -2,11 +2,10 @@ import * as fs from 'mz/fs'
 import slug from 'slug'
 
 import { Injectable } from '@angular/core'
-import { HostAppService, Platform } from 'terminus-core'
+import { HostAppService, Platform, isWindowsBuild, WIN_BUILD_WSL_EXE_DISTRO_FLAG } from 'terminus-core'
 
 import { ShellProvider } from '../api/shellProvider'
 import { Shell } from '../api/interfaces'
-import { isWindowsBuild, WIN_BUILD_WSL_EXE_DISTRO_FLAG } from '../utils'
 
 /* eslint-disable block-scoped-var */
 

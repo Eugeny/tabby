@@ -4,6 +4,7 @@ import { Observable, Subject } from 'rxjs'
 import { Injectable, NgZone, EventEmitter } from '@angular/core'
 import { ElectronService } from './electron.service'
 import { Logger, LogService } from './log.service'
+import { isWindowsBuild, WIN_BUILD_FLUENT_BG_MOVE_BUG_FIXED, WIN_BUILD_FLUENT_BG_SUPPORTED } from '../utils'
 
 export enum Platform {
     Linux, macOS, Windows,
@@ -164,6 +165,14 @@ export class HostAppService {
         electron.ipcRenderer.on('host:config-change', () => this.zone.run(() => {
             this.configChangeBroadcast.next()
         }))
+
+
+        if (
+            isWindowsBuild(WIN_BUILD_FLUENT_BG_SUPPORTED) &&
+            !isWindowsBuild(WIN_BUILD_FLUENT_BG_MOVE_BUG_FIXED)
+        ) {
+            electron.ipcRenderer.send('window-set-disable-vibrancy-while-dragging', true)
+        }
     }
 
     /**
@@ -219,14 +228,12 @@ export class HostAppService {
      *
      * @param type `null`, or `fluent` when supported (Windowd only)
      */
-    setVibrancy (enable: boolean, type: string) {
+    setVibrancy (enable: boolean, type: string|null) {
+        if (!isWindowsBuild(WIN_BUILD_FLUENT_BG_SUPPORTED)) {
+            type = null
+        }
         document.body.classList.toggle('vibrant', enable)
-        if (this.platform === Platform.macOS) {
-            this.getWindow().setVibrancy(enable ? 'dark' : null as any) // electron issue 20269
-        }
-        if (this.platform === Platform.Windows) {
-            this.electron.ipcRenderer.send('window-set-vibrancy', enable, type)
-        }
+        this.electron.ipcRenderer.send('window-set-vibrancy', enable, type)
     }
 
     setTitle (title: string) {

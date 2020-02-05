@@ -1,6 +1,6 @@
 import { Frontend, SearchOptions } from './frontend'
 import { hterm, preferenceManager } from './hterm'
-import { getCSSFontFamily } from '../utils'
+import { getCSSFontFamily } from 'terminus-core'
 
 /** @hidden */
 export class HTermFrontend extends Frontend {

@@ -2,11 +2,10 @@ import slug from 'slug'
 import { Component } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { Subscription } from 'rxjs'
-import { ConfigService, ElectronService, HostAppService, Platform } from 'terminus-core'
+import { ConfigService, ElectronService, HostAppService, Platform, WIN_BUILD_CONPTY_SUPPORTED, WIN_BUILD_CONPTY_STABLE, isWindowsBuild } from 'terminus-core'
 import { EditProfileModalComponent } from './editProfileModal.component'
 import { Shell, Profile } from '../api/interfaces'
 import { TerminalService } from '../services/terminal.service'
-import { WIN_BUILD_CONPTY_SUPPORTED, WIN_BUILD_CONPTY_STABLE, isWindowsBuild } from '../utils'
 
 /** @hidden */
 @Component({
