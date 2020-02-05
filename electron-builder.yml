@@ -1,0 +1,62 @@
+---
+appId: org.terminus
+productName: Terminus
+compression: normal
+afterSign: "./build/mac/afterSignHook.js"
+files:
+- "**/*"
+- dist
+extraResources:
+- builtin-plugins
+- extras
+publish:
+- provider: github
+
+win:
+  icon: "./build/windows/icon.ico"
+  artifactName: terminus-${version}-setup.exe
+  rfc3161TimeStampServer: http://sha256timestamp.ws.symantec.com/sha256/timestamp
+nsis:
+  oneClick: false
+  artifactName: terminus-${version}-setup.${ext}
+  installerIcon: "./build/windows/icon.ico"
+portable:
+  artifactName: terminus-${version}-portable.exe
+
+mac:
+  category: public.app-category.video
+  icon: "./build/mac/icon.icns"
+  artifactName: terminus-${version}-macos.${ext}
+  hardenedRuntime: true
+  entitlements: "./build/mac/entitlements.plist"
+  entitlementsInherit: "./build/mac/entitlements.plist"
+  extendInfo:
+    NSRequiresAquaSystemAppearance: false
+pkg:
+  artifactName: terminus-${version}-macos.pkg
+
+linux:
+  category: Utilities
+  icon: "./build/icons"
+  artifactName: terminus-${version}-linux.${ext}
+  executableArgs:
+  - "--no-sandbox"
+snap:
+  plugs:
+  - default
+  - system-files
+  - system-observe
+deb:
+  depends:
+  - gconf2
+  - gconf-service
+  - libnotify4
+  - libsecret-1-0
+  - libappindicator1
+  - libxtst6
+  - libnss3
+  afterInstall: build/linux/after-install.tpl
+rpm:
+  depends:
+  - screen
+  - gnome-python2-gnomekeyring
