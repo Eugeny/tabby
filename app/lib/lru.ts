@@ -1,4 +1,4 @@
-import createLRU from 'lru-cache'
+import * as createLRU from 'lru-cache'
 import * as fs from 'fs'
 const lru = createLRU({ max: 256, maxAge: 250 })
 const origLstat = fs.realpathSync.bind(fs)
