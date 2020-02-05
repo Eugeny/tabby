@@ -23,7 +23,7 @@ export class UpdaterService {
     constructor (
         log: LogService,
         private electron: ElectronService,
-        config: ConfigService,
+        private config: ConfigService,
     ) {
         this.logger = log.create('updater')
 
@@ -48,9 +48,8 @@ export class UpdaterService {
             this.autoUpdater.once('update-downloaded', () => resolve(true))
         })
 
-        this.logger.debug('Checking for updates')
-
-        if (this.electronUpdaterAvailable && !process.env.TERMINUS_DEV) {
+        if (config.store.enableAutomaticUpdates && this.electronUpdaterAvailable && !process.env.TERMINUS_DEV) {
+            this.logger.debug('Checking for updates')
             try {
                 this.autoUpdater.checkForUpdates()
             } catch (e) {
@@ -61,6 +60,9 @@ export class UpdaterService {
     }
 
     async check (): Promise<boolean> {
+        if (!this.config.store.enableAutomaticUpdates) {
+            return false
+        }
         if (!this.electronUpdaterAvailable) {
             this.logger.debug('Checking for updates through fallback method.')
             const response = await axios.get(UPDATES_URL)
