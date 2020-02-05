@@ -10,7 +10,10 @@ export class RecoveryProvider extends TabRecoveryProvider {
         if (recoveryToken && recoveryToken.type === 'app:terminal-tab') {
             return {
                 type: TerminalTabComponent,
-                options: { sessionOptions: recoveryToken.sessionOptions },
+                options: {
+                    sessionOptions: recoveryToken.sessionOptions,
+                    savedState: recoveryToken.savedState,
+                },
             }
         }
         return null

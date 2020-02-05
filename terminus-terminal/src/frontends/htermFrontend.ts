@@ -164,6 +164,12 @@ export class HTermFrontend extends Frontend {
         return false
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    saveState (): any { }
+
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    restoreState (_state: any): void { }
+
     private setFontSize () {
         const size = this.configuredFontSize * Math.pow(1.1, this.zoom)
         preferenceManager.set('font-size', size)

@@ -1,6 +1,7 @@
 import { Observable, Subject, Subscription } from 'rxjs'
 import { first } from 'rxjs/operators'
 import { ToastrService } from 'ngx-toastr'
+import colors from 'ansi-colors'
 import { NgZone, OnInit, OnDestroy, Inject, Injector, Optional, ViewChild, HostBinding, Input, ElementRef } from '@angular/core'
 import { trigger, transition, style, animate, AnimationTriggerMetadata } from '@angular/animations'
 import { AppService, ConfigService, BaseTabComponent, ElectronService, HostAppService, HotkeysService, Platform, LogService, Logger, TabContextMenuItemProvider } from 'terminus-core'
@@ -34,6 +35,8 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
     ])]
 
     session: BaseSession
+    savedState: any
+
     @Input() zoom = 0
 
     @Input() showSearchPanel = false
@@ -177,6 +180,13 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
 
             this.session.releaseInitialDataBuffer()
         })
+
+        if (this.savedState) {
+            this.frontend.restoreState(this.savedState)
+            this.frontend.write('\r\n\r\n')
+            this.frontend.write(colors.bgWhite.black(' * ') + colors.bgBlackBright.white(' History restored '))
+            this.frontend.write('\r\n\r\n')
+        }
 
         setImmediate(() => {
             if (this.hasFocus) {

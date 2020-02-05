@@ -10,7 +10,10 @@ export class RecoveryProvider extends TabRecoveryProvider {
         if (recoveryToken && recoveryToken.type === 'app:ssh-tab') {
             return {
                 type: SSHTabComponent,
-                options: { connection: recoveryToken.connection },
+                options: {
+                    connection: recoveryToken.connection,
+                    savedState: recoveryToken.savedState,
+                },
             }
         }
         return null

@@ -5,6 +5,8 @@ import { FitAddon } from 'xterm-addon-fit'
 import { LigaturesAddon } from 'xterm-addon-ligatures'
 import { SearchAddon } from 'xterm-addon-search'
 import { WebglAddon } from 'xterm-addon-webgl'
+import { Unicode11Addon } from 'xterm-addon-unicode11'
+import { SerializeAddon } from 'xterm-addon-serialize'
 import './xterm.css'
 import deepEqual from 'deep-equal'
 import { Attributes } from 'xterm/src/common/buffer/Constants'
@@ -30,6 +32,7 @@ export class XTermFrontend extends Frontend {
     private copyOnSelect = false
     private search = new SearchAddon()
     private fitAddon = new FitAddon()
+    private serializeAddon = new SerializeAddon()
     private ligaturesAddon: LigaturesAddon
     private opened = false
 
@@ -57,7 +60,11 @@ export class XTermFrontend extends Frontend {
                 this.copySelection()
             }
         })
+
         this.xterm.loadAddon(this.fitAddon)
+        this.xterm.loadAddon(this.serializeAddon)
+        this.xterm.loadAddon(new Unicode11Addon())
+        this.xterm.unicode.activeVersion = '11'
 
         const keyboardEventHandler = (name: string, event: KeyboardEvent) => {
             this.hotkeysService.pushKeystroke(name, event)
@@ -246,6 +253,14 @@ export class XTermFrontend extends Frontend {
 
     findPrevious (term: string, searchOptions?: SearchOptions): boolean {
         return this.search.findPrevious(term, searchOptions)
+    }
+
+    saveState (): any {
+        return this.serializeAddon.serialize()
+    }
+
+    restoreState (state: any): void {
+        this.xterm.write(state)
     }
 
     private setFontSize () {
