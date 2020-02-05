@@ -48,6 +48,7 @@ export class Window {
             webPreferences: {
                 nodeIntegration: true,
                 preload: path.join(__dirname, 'sentry.js'),
+                backgroundThrottling: false,
             },
             frame: false,
             show: false,
