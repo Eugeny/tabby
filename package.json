@@ -13,7 +13,7 @@
     "apply-loader": "2.0.0",
     "awesome-typescript-loader": "^5.0.0",
     "core-js": "^3.6.4",
-    "cross-env": "6.0.3",
+    "cross-env": "7.0.0",
     "css-loader": "3.4.2",
     "electron": "^8.0.0",
     "electron-builder": "22.3.2",
