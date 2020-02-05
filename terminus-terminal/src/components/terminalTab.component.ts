@@ -65,7 +65,7 @@ export class TerminalTabComponent extends BaseTerminalTabComponent {
                 ...this.sessionOptions,
                 cwd: cwd || this.sessionOptions.cwd,
             },
-            savedState: this.frontend.saveState(),
+            savedState: this.frontend?.saveState(),
         }
     }
 

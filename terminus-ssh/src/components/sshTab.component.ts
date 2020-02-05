@@ -69,7 +69,7 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
         return {
             type: 'app:ssh-tab',
             connection: this.connection,
-            savedState: this.frontend.saveState(),
+            savedState: this.frontend?.saveState(),
         }
     }
 
