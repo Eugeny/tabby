@@ -20,25 +20,25 @@ export function parseArgs (argv, cwd) {
             return yargs.option('escape', {
                 alias: 'e',
                 type: 'boolean',
-                describe: 'Perform shell escaping'
+                describe: 'Perform shell escaping',
             }).positional('text', {
-                type: 'string'
+                type: 'string',
             })
         })
         .version('version', '', app.getVersion())
         .option('debug', {
             alias: 'd',
             describe: 'Show DevTools on start',
-            type: 'boolean'
+            type: 'boolean',
         })
         .option('hidden', {
             describe: 'Start minimized',
-            type: 'boolean'
+            type: 'boolean',
         })
         .option('version', {
             alias: 'v',
             describe: 'Show version and exit',
-            type: 'boolean'
+            type: 'boolean',
         })
         .help('help')
         .parse(argv.slice(1))

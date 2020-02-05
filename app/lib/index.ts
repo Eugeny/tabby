@@ -59,8 +59,8 @@ app.on('ready', () => {
                 label: 'New window',
                 click () {
                     this.app.newWindow()
-                }
-            }
+                },
+            },
         ]))
     }
     application.init()
