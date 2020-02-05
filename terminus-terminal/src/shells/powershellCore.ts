@@ -6,7 +6,7 @@ import { Shell } from '../api/interfaces'
 /* eslint-disable block-scoped-var */
 
 try {
-    var wnr = require('windows-native-registry') // eslint-disable-line @typescript-eslint/no-var-requires
+    var wnr = require('windows-native-registry') // eslint-disable-line @typescript-eslint/no-var-requires, no-var
 } catch { }
 
 /** @hidden */

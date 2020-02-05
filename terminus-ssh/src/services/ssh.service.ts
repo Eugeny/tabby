@@ -13,7 +13,7 @@ import { PasswordStorageService } from './passwordStorage.service'
 import { SSH2Stream } from 'ssh2-streams'
 
 try {
-    var windowsProcessTreeNative = require('windows-process-tree/build/Release/windows_process_tree.node') // eslint-disable-line @typescript-eslint/no-var-requires
+    var windowsProcessTreeNative = require('windows-process-tree/build/Release/windows_process_tree.node') // eslint-disable-line @typescript-eslint/no-var-requires, no-var
 } catch { }
 
 @Injectable({ providedIn: 'root' })

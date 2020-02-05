@@ -11,13 +11,13 @@ import { isWindowsBuild, WIN_BUILD_WSL_EXE_DISTRO_FLAG } from '../utils'
 /* eslint-disable block-scoped-var */
 
 try {
-    var wnr = require('windows-native-registry') // eslint-disable-line @typescript-eslint/no-var-requires
+    var wnr = require('windows-native-registry') // eslint-disable-line @typescript-eslint/no-var-requires, no-var
 } catch { }
 
 // WSL Distribution List
 // https://docs.microsoft.com/en-us/windows/wsl/install-win10#install-your-linux-distribution-of-choice
 /* eslint-disable quote-props */
-var wslIconMap: { [key: string]: string } = {
+const wslIconMap: { [key: string]: string } = {
     'Alpine': require('../icons/alpine.svg'),
     'Debian': require('../icons/debian.svg'),
     'kali-linux': require('../icons/linux.svg'),

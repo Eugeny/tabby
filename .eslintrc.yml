@@ -79,6 +79,7 @@ rules:
       args: after-used
       argsIgnorePattern: ^_
   no-undef: error
+  no-var: error
   object-curly-spacing:
   - error
   - always

@@ -14,11 +14,11 @@ import { WIN_BUILD_CONPTY_SUPPORTED, isWindowsBuild } from '../utils'
 /* eslint-disable block-scoped-var */
 
 try {
-    var macOSNativeProcessList = require('macos-native-processlist')  // eslint-disable-line @typescript-eslint/no-var-requires
+    var macOSNativeProcessList = require('macos-native-processlist')  // eslint-disable-line @typescript-eslint/no-var-requires, no-var
 } catch { }
 
 try {
-    var windowsProcessTree = require('windows-process-tree')  // eslint-disable-line @typescript-eslint/no-var-requires
+    var windowsProcessTree = require('windows-process-tree')  // eslint-disable-line @typescript-eslint/no-var-requires, no-var
 } catch { }
 
 
