@@ -38,6 +38,14 @@ export class AppHotkeyProvider extends HotkeyProvider {
             name: 'Previous tab',
         },
         {
+            id: 'move-tab-left',
+            name: 'Move tab to the left',
+        },
+        {
+            id: 'move-tab-right',
+            name: 'Move tab to the right',
+        },
+        {
             id: 'tab-1',
             name: 'Tab 1',
         },

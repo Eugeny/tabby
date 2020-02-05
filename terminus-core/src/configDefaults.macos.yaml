@@ -14,6 +14,10 @@ hotkeys:
     - 'Ctrl-Tab'
   previous-tab:
     - 'Ctrl-Shift-Tab'
+  move-tab-left:
+    - '⌘-Shift-Left'
+  move-tab-right:
+    - '⌘-Shift-Right'
   tab-1:
     - '⌘-1'
   tab-2:

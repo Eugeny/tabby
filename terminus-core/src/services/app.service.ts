@@ -224,6 +224,35 @@ export class AppService {
         }
     }
 
+    moveSelectedTabLeft () {
+        if (this.tabs.length > 1) {
+            const tabIndex = this.tabs.indexOf(this._activeTab)
+            if (tabIndex > 0) {
+                this.swapTabs(this._activeTab, this.tabs[tabIndex - 1])
+            } else if (this.config.store.appearance.cycleTabs) {
+                this.swapTabs(this._activeTab, this.tabs[this.tabs.length - 1])
+            }
+        }
+    }
+
+    moveSelectedTabRight () {
+        if (this.tabs.length > 1) {
+            const tabIndex = this.tabs.indexOf(this._activeTab)
+            if (tabIndex < this.tabs.length - 1) {
+                this.swapTabs(this._activeTab, this.tabs[tabIndex + 1])
+            } else if (this.config.store.appearance.cycleTabs) {
+                this.swapTabs(this._activeTab, this.tabs[0])
+            }
+        }
+    }
+
+    swapTabs (a: BaseTabComponent, b: BaseTabComponent) {
+        const i1 = this.tabs.indexOf(a)
+        const i2 = this.tabs.indexOf(b)
+        this.tabs[i1] = b
+        this.tabs[i2] = a
+    }
+
     /** @hidden */
     emitTabsChanged () {
         this.tabsChanged.next()

@@ -17,6 +17,10 @@ hotkeys:
   previous-tab:
     - 'Ctrl-Shift-Left'
     - 'Ctrl-Shift-Tab'
+  move-tab-left:
+    - 'Ctrl-Shift-PageUp'
+  move-tab-right:
+    - 'Ctrl-Shift-PageDown'
   tab-1:
     - 'Alt-1'
   tab-2:

@@ -107,6 +107,12 @@ export class AppRootComponent {
                 if (hotkey === 'previous-tab') {
                     this.app.previousTab()
                 }
+                if (hotkey === 'move-tab-left') {
+                    this.app.moveSelectedTabLeft()
+                }
+                if (hotkey === 'move-tab-right') {
+                    this.app.moveSelectedTabRight()
+                }
             }
             if (hotkey === 'toggle-fullscreen') {
                 this.hostApp.toggleFullscreen()
