@@ -24,6 +24,8 @@ portable:
   artifactName: terminus-${version}-portable.exe
 appx:
   artifactName: terminus-${version}.appx
+  publisher: 'CN="Syslink GmbH",O="Syslink GmbH",PostalCode=40477,STREET="Parkstrasse 31", L=Duesseldorf, OID.2.5.4.8=NRW, C=DE'
+  publisherDisplayName: 'Eugene Pankov'
 
 mac:
   category: public.app-category.video
