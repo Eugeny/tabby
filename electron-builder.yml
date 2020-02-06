@@ -22,6 +22,8 @@ nsis:
   installerIcon: "./build/windows/icon.ico"
 portable:
   artifactName: terminus-${version}-portable.exe
+appx:
+  artifactName: terminus-${version}.appx
 
 mac:
   category: public.app-category.video
