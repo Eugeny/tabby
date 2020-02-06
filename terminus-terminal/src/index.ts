@@ -31,6 +31,7 @@ import { TerminalContextMenuItemProvider } from './api/contextMenuProvider'
 import { TerminalColorSchemeProvider } from './api/colorSchemeProvider'
 import { ShellProvider } from './api/shellProvider'
 import { TerminalSettingsTabProvider, AppearanceSettingsTabProvider, ShellSettingsTabProvider } from './settings'
+import { DebugDecorator } from './debug'
 import { PathDropDecorator } from './pathDrop'
 import { TerminalConfigProvider } from './config'
 import { TerminalHotkeyProvider } from './hotkeys'
@@ -77,6 +78,7 @@ import { XTermFrontend, XTermWebGLFrontend } from './frontends/xtermFrontend'
         { provide: TerminalColorSchemeProvider, useClass: HyperColorSchemes, multi: true },
         { provide: TerminalDecorator, useClass: PathDropDecorator, multi: true },
         { provide: TerminalDecorator, useClass: ZModemDecorator, multi: true },
+        { provide: TerminalDecorator, useClass: DebugDecorator, multi: true },
 
         { provide: ShellProvider, useClass: WindowsDefaultShellProvider, multi: true },
         { provide: ShellProvider, useClass: MacOSDefaultShellProvider, multi: true },
