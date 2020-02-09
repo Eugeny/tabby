@@ -99,9 +99,7 @@ export class WSLShellProvider extends ShellProvider {
                     TERM: 'xterm-color',
                     COLORTERM: 'truecolor',
                 },
-            }
-            if (wslIconMap.hasOwnProperty(name)) {
-                shell['icon'] = require(`../icons/${wslIconMap[name]}`)
+                icon: wslIconMap[name],
             }
             shells.push(shell)
         }
