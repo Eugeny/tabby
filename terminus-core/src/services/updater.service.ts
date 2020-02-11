@@ -8,6 +8,7 @@ import { Injectable } from '@angular/core'
 import { Logger, LogService } from './log.service'
 import { ElectronService } from './electron.service'
 import { ConfigService } from './config.service'
+import { AppUpdater } from 'electron-updater'
 
 const UPDATES_URL = 'https://api.github.com/repos/eugeny/terminus/releases/latest'
 
@@ -18,7 +19,7 @@ export class UpdaterService {
     private downloaded: Promise<boolean>
     private electronUpdaterAvailable = true
     private updateURL: string
-    private autoUpdater
+    private autoUpdater: AppUpdater
 
     constructor (
         log: LogService,

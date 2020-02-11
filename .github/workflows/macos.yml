@@ -38,7 +38,7 @@ jobs:
       run: scripts/build-macos.js
       if: github.repository == 'Eugeny/terminus' && github.event_name == 'push'
       env:
-        DEBUG: electron-builder,electron-builder:*
+        #DEBUG: electron-builder,electron-builder:*
         GH_TOKEN: ${{ secrets.GH_TOKEN }}
         CSC_LINK: ${{ secrets.CSC_LINK }}
         CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
