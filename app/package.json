@@ -28,7 +28,7 @@
     "electron-updater": "^4.2.0",
     "fontmanager-redux": "0.4.0",
     "js-yaml": "3.13.1",
-    "keytar": "^5.1.0",
+    "keytar": "^5.2.0",
     "mz": "^2.7.0",
     "ngx-toastr": "^10.2.0",
     "node-pty": "^0.10.0-beta2",
