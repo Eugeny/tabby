@@ -14,14 +14,16 @@ publish:
 
 win:
   icon: "./build/windows/icon.ico"
-  artifactName: terminus-${version}-setup.exe
+  target: [
+    'nsis',
+    'zip'
+  ]
+  artifactName: terminus-${version}.${ext}
   rfc3161TimeStampServer: http://sha256timestamp.ws.symantec.com/sha256/timestamp
 nsis:
   oneClick: false
   artifactName: terminus-${version}-setup.${ext}
   installerIcon: "./build/windows/icon.ico"
-portable:
-  artifactName: terminus-${version}-portable.exe
 
 mac:
   category: public.app-category.video

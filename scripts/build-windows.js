@@ -7,7 +7,7 @@ const isCI = !!process.env.GITHUB_REF
 
 builder({
     dir: true,
-    win: ['nsis', 'portable'],
+    win: ['nsis', 'zip'],
     config: {
         extraMetadata: {
             version: vars.version,

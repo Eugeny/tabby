@@ -35,6 +35,10 @@
 
 ---
 
+# Portable
+
+For portable in windows, user can create folder `data` at the same directory as `Terminal.exe` to save the settings.
+
 # Plugins
 
 Plugins and themes can be installed directly from the Settings view inside Terminus.
