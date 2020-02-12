@@ -44,12 +44,10 @@
   dependencies:
     tslib "^1.9.0"
 
-"@angular/platform-browser@7.2.8":
-  version "7.2.8"
-  resolved "https://registry.yarnpkg.com/@angular/platform-browser/-/platform-browser-7.2.8.tgz#11096727b99bf3d7fd82a00a3a468b933c9713bd"
-  integrity sha512-SizCRMc7Or27g2CugcqWnaAikRPfgLgRvb9GFFGpcgoq8CRfOVwkyR5dFZuqN39H+uwtwuTMP5OUYhZcrFNKug==
-  dependencies:
-    tslib "^1.9.0"
+"@angular/platform-browser@9.0.0":
+  version "9.0.0"
+  resolved "https://registry.yarnpkg.com/@angular/platform-browser/-/platform-browser-9.0.0.tgz#b9454f29d8edaf024668baa9e07083eef73deac2"
+  integrity sha512-2PR/o57HjZvKEnAF8ODeqxmeC90oth9dLTMrJNoI5MET0IeErKeI/9Sl5cLQuXC+lSVN5rOMCvDb74VWSno5yw==
 
 "@ng-bootstrap/ng-bootstrap@^4.2.2":
   version "4.2.2"
