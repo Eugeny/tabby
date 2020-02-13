@@ -1,15 +1,24 @@
 import * as path from 'path'
 import * as fs from 'fs'
 
-if (process.env.PORTABLE_EXECUTABLE_DIR) {
-    const portableData = path.join(process.env.PORTABLE_EXECUTABLE_DIR, 'terminus-data')
-    if (!fs.existsSync(portableData)) {
-        fs.mkdirSync(portableData)
-    }
+let appPath: string | null = null
+try {
+    appPath = path.dirname(require('electron').app.getPath('exe'))
+} catch {
+    appPath = path.dirname(require('electron').remote.app.getPath('exe'))
+}
 
-    try {
-        require('electron').app.setPath('userData', portableData)
-    } catch {
-        require('electron').remote.app.setPath('userData', portableData)
+if (null != appPath) {
+    if(fs.existsSync(path.join(appPath, 'terminus-data'))) {
+        fs.renameSync(path.join(appPath, 'terminus-data'), path.join(appPath, 'data'))
+    }
+    const portableData = path.join(appPath, 'data')
+    if (fs.existsSync(portableData)) {
+        console.log('reset user data to ' + portableData)
+        try {
+            require('electron').app.setPath('userData', portableData)
+        } catch {
+            require('electron').remote.app.setPath('userData', portableData)
+        }
     }
 }
