@@ -190,6 +190,7 @@ export class AppRootComponent {
             if (this.config.store.appearance.dock === 'off') {
                 // not docked, visible
                 setTimeout(() => {
+                    this.hostApp.getWindow().show()
                     this.hostApp.getWindow().focus()
                 })
             } else {
