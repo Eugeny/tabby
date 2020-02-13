@@ -14,11 +14,7 @@ publish:
 
 win:
   icon: "./build/windows/icon.ico"
-  target: [
-    'nsis',
-    'zip'
-  ]
-  artifactName: terminus-${version}.${ext}
+  artifactName: terminus-${version}-portable.${ext}
   rfc3161TimeStampServer: http://sha256timestamp.ws.symantec.com/sha256/timestamp
 nsis:
   oneClick: false
