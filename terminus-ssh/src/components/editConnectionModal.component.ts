@@ -82,10 +82,11 @@ export class EditConnectionModalComponent {
         this.electron.dialog.showOpenDialog(
             this.hostApp.getWindow(),
             {
+                defaultPath: this.connection.privateKey,
                 title: 'Select private key',
             }
         ).then(result => {
-            if (result.filePaths) {
+            if (!result.canceled) {
                 this.connection.privateKey = result.filePaths[0]
             }
         })
