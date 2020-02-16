@@ -104,7 +104,7 @@ export class SSHService {
                     }
                 }
 
-                privateKey = parsedKey!.toString('ssh')
+                privateKey = parsedKey!.toString('pem')
             }
         }
 
