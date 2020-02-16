@@ -1,3 +1,5 @@
+import colors from 'ansi-colors'
+import { Spinner } from 'cli-spinner'
 import { Component } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { first } from 'rxjs/operators'
@@ -43,23 +45,32 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
 
         this.session = this.ssh.createSession(this.connection)
         this.session.serviceMessage$.subscribe(msg => {
-            this.write(`\r\n[SSH] ${msg}\r\n`)
+            this.write('\r\n' + colors.black.bgWhite(' SSH ') + ' ' + msg + '\r\n')
             this.session.resize(this.size.columns, this.size.rows)
         })
         this.attachSessionHandlers()
         this.write(`Connecting to ${this.connection.host}`)
-        const interval = setInterval(() => this.write('.'), 500)
+
+        const spinner = new Spinner({
+            text: 'Connecting',
+            stream: {
+                write: x => this.write(x),
+            },
+        })
+        spinner.setSpinnerString(6)
+        spinner.start()
+
         try {
             await this.ssh.connectSession(this.session, (message: string) => {
-                this.write('\r\n' + message)
+                spinner.stop(true)
+                this.write(message + '\r\n')
+                spinner.start()
             })
+            spinner.stop(true)
         } catch (e) {
-            this.write('\r\n')
-            this.write(e.message)
+            spinner.stop(true)
+            this.write(colors.black.bgRed(' X ') + ' ' + colors.red(e.message) + '\r\n')
             return
-        } finally {
-            clearInterval(interval)
-            this.write('\r\n')
         }
         await this.session.start()
         this.session.resize(this.size.columns, this.size.rows)

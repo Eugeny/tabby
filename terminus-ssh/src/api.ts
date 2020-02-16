@@ -1,3 +1,4 @@
+import colors from 'ansi-colors'
 import { BaseSession } from 'terminus-terminal'
 import { Server, Socket, createServer, createConnection } from 'net'
 import { Client, ClientChannel } from 'ssh2'
@@ -92,7 +93,7 @@ export class SSHSession extends BaseSession {
         try {
             this.shell = await this.openShellChannel({ x11: this.connection.x11 })
         } catch (err) {
-            this.emitServiceMessage(`Remote rejected opening a shell channel: ${err}`)
+            this.emitServiceMessage(colors.bgRed.black(' X ') + ` Remote rejected opening a shell channel: ${err}`)
         }
 
         this.shell.on('greeting', greeting => {
@@ -159,13 +160,13 @@ export class SSHSession extends BaseSession {
             this.logger.info(`Incoming forwarded connection: (remote) ${details.srcIP}:${details.srcPort} -> (local) ${details.destIP}:${details.destPort}`)
             const forward = this.forwardedPorts.find(x => x.port === details.destPort)
             if (!forward) {
-                this.emitServiceMessage(`Rejected incoming forwarded connection for unrecognized port ${details.destPort}`)
+                this.emitServiceMessage(colors.bgRed.black(' X ') + ` Rejected incoming forwarded connection for unrecognized port ${details.destPort}`)
                 return reject()
             }
             const socket = new Socket()
             socket.connect(forward.targetPort, forward.targetAddress)
             socket.on('error', e => {
-                this.emitServiceMessage(`Could not forward the remote connection to ${forward.targetAddress}:${forward.targetPort}: ${e}`)
+                this.emitServiceMessage(colors.bgRed.black(' X ') + ` Could not forward the remote connection to ${forward.targetAddress}:${forward.targetPort}: ${e}`)
                 reject()
             })
             socket.on('connect', () => {
@@ -195,7 +196,7 @@ export class SSHSession extends BaseSession {
                 socket.connect(xPort, xHost)
             }
             socket.on('error', e => {
-                this.emitServiceMessage(`Could not connect to the X server ${xHost}:${xPort}: ${e}`)
+                this.emitServiceMessage(colors.bgRed.black(' X ') + ` Could not connect to the X server ${xHost}:${xPort}: ${e}`)
                 reject()
             })
             socket.on('connect', () => {
@@ -231,7 +232,7 @@ export class SSHSession extends BaseSession {
                     fw.targetPort,
                     (err, stream) => {
                         if (err) {
-                            this.emitServiceMessage(`Remote has rejected the forwaded connection via ${fw}: ${err}`)
+                            this.emitServiceMessage(colors.bgRed.black(' X ') + ` Remote has rejected the forwaded connection via ${fw}: ${err}`)
                             socket.destroy()
                             return
                         }
@@ -246,10 +247,10 @@ export class SSHSession extends BaseSession {
                     }
                 )
             }).then(() => {
-                this.emitServiceMessage(`Forwaded ${fw}`)
+                this.emitServiceMessage(colors.bgGreen.black(' -> ') + ` Forwaded ${fw}`)
                 this.forwardedPorts.push(fw)
             }).catch(e => {
-                this.emitServiceMessage(`Failed to forward port ${fw}: ${e}`)
+                this.emitServiceMessage(colors.bgRed.black(' X ') + ` Failed to forward port ${fw}: ${e}`)
                 throw e
             })
         }
@@ -257,13 +258,13 @@ export class SSHSession extends BaseSession {
             await new Promise((resolve, reject) => {
                 this.ssh.forwardIn(fw.host, fw.port, err => {
                     if (err) {
-                        this.emitServiceMessage(`Remote rejected port forwarding for ${fw}: ${err}`)
+                        this.emitServiceMessage(colors.bgRed.black(' X ') + ` Remote rejected port forwarding for ${fw}: ${err}`)
                         return reject(err)
                     }
                     resolve()
                 })
             })
-            this.emitServiceMessage(`Forwaded ${fw}`)
+            this.emitServiceMessage(colors.bgGreen.black(' <- ') + ` Forwaded ${fw}`)
             this.forwardedPorts.push(fw)
         }
     }

@@ -1,3 +1,4 @@
+import colors from 'ansi-colors'
 import { Injectable, NgZone } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { Client } from 'ssh2'
@@ -65,17 +66,17 @@ export class SSHService {
         if (!privateKeyPath) {
             const userKeyPath = path.join(process.env.HOME as string, '.ssh', 'id_rsa')
             if (await fs.exists(userKeyPath)) {
-                log(`Using user's default private key: ${userKeyPath}`)
+                log('Using user\'s default private key')
                 privateKeyPath = userKeyPath
             }
         }
 
         if (privateKeyPath) {
-            log(`Loading private key from ${privateKeyPath}`)
+            log('Loading private key from ' + colors.bgWhite.blackBright(' ' + privateKeyPath + ' '))
             try {
                 privateKey = (await fs.readFile(privateKeyPath)).toString()
             } catch (error) {
-                log('Could not read the private key file')
+                log(colors.bgRed.black(' X ') + 'Could not read the private key file')
                 this.toastr.error('Could not read the private key file')
             }
 
@@ -86,7 +87,7 @@ export class SSHService {
                 } catch (e) {
                     if (e instanceof sshpk.KeyEncryptedError) {
                         const modal = this.ngbModal.open(PromptModalComponent)
-                        log('Key requires passphrase')
+                        log(colors.bgYellow.yellow.black(' ! ') + ' Key requires passphrase')
                         modal.componentInstance.prompt = 'Private key passphrase'
                         modal.componentInstance.password = true
                         let passphrase = ''
@@ -133,7 +134,7 @@ export class SSHService {
                 })
             })
             ssh.on('keyboard-interactive', (name, instructions, instructionsLang, prompts, finish) => this.zone.run(async () => {
-                log(`Keyboard-interactive auth requested: ${name}`)
+                log(colors.bgBlackBright(' ') + ` Keyboard-interactive auth requested: ${name}`)
                 this.logger.info('Keyboard-interactive auth:', name, instructions, instructionsLang)
                 const results: string[] = []
                 for (const prompt of prompts) {
@@ -182,7 +183,8 @@ export class SSHService {
                     keepaliveCountMax: session.connection.keepaliveCountMax,
                     readyTimeout: session.connection.readyTimeout,
                     hostVerifier: digest => {
-                        log('SHA256 fingerprint: ' + digest)
+                        log(colors.bgWhite(' ') + ' Host key fingerprint:')
+                        log(colors.bgWhite(' ') + ' ' + colors.black.bgWhite(' SHA256 ') + colors.bgBlackBright(' ' + digest + ' '))
                         return true
                     },
                     hostHash: 'sha256' as any,

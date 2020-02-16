@@ -174,6 +174,14 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
             this.size = { columns, rows }
             this.frontendReady.next()
 
+            this.config.enabledServices(this.decorators).forEach(decorator => {
+                try {
+                    decorator.attach(this)
+                } catch (e) {
+                    this.logger.warn('Decorator attach() throws', e)
+                }
+            })
+
             setTimeout(() => {
                 this.session.resize(columns, rows)
             }, 1000)
@@ -203,14 +211,6 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
         this.attachTermContainerHandlers()
 
         this.configure()
-
-        this.config.enabledServices(this.decorators).forEach((decorator) => {
-            try {
-                decorator.attach(this)
-            } catch (e) {
-                this.logger.warn('Decorator attach() throws', e)
-            }
-        })
 
         setTimeout(() => {
             this.output.subscribe(() => {
