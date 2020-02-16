@@ -1,7 +1,7 @@
 import * as fs from 'fs'
 import { Injectable } from '@angular/core'
-import { TerminalDecorator } from './api/decorator'
-import { TerminalTabComponent } from './components/terminalTab.component'
+import { TerminalDecorator } from '../api/decorator'
+import { TerminalTabComponent } from '../components/terminalTab.component'
 import { ElectronService, HostAppService } from 'terminus-core'
 
 /** @hidden */
