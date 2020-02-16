@@ -1,7 +1,7 @@
 {
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^5.12.1",
-    "@sentry/cli": "^1.49.0",
+    "@sentry/cli": "^1.51.0",
     "@sentry/electron": "^1.0.0",
     "@types/electron-config": "^3.2.2",
     "@types/electron-debug": "^2.1.0",
