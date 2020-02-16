@@ -256,7 +256,7 @@ export class XTermFrontend extends Frontend {
     }
 
     saveState (): any {
-        return this.serializeAddon.serialize()
+        return this.serializeAddon.serialize(1000)
     }
 
     restoreState (state: any): void {
