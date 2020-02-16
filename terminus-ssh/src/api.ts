@@ -33,6 +33,7 @@ export interface SSHConnection {
     readyTimeout?: number
     color?: string
     x11?: boolean
+    skipBanner?: boolean
 
     algorithms?: {[t: string]: string[]}
 }

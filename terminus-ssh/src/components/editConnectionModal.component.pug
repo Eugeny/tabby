@@ -87,6 +87,11 @@
 
                 .form-line
                     .header
+                        .title Skip MoTD/banner
+                    toggle([(ngModel)]='connection.skipBanner')
+
+                .form-line
+                    .header
                         .title Keep Alive Interval (Milliseconds)
                     input.form-control(
                         type='number',

@@ -148,11 +148,15 @@ export class SSHService {
             }))
 
             ssh.on('greeting', greeting => {
-                log('Greeting: ' + greeting)
+                if (!session.connection.skipBanner) {
+                    log('Greeting: ' + greeting)
+                }
             })
 
             ssh.on('banner', banner => {
-                log('Banner: \n' + banner)
+                if (!session.connection.skipBanner) {
+                    log(banner)
+                }
             })
 
             let agent: string|null = null
