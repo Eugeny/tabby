@@ -38,7 +38,7 @@ export abstract class BaseTabComponent {
      */
     color: string|null = null
 
-    protected hasFocus = false
+    hasFocus = false
 
     /**
      * Ping this if your recovery state has been changed and you want

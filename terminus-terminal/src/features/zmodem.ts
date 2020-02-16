@@ -1,29 +1,33 @@
 /* eslint-disable @typescript-eslint/camelcase */
+import colors from 'ansi-colors'
 import * as ZModem from 'zmodem.js'
 import * as fs from 'fs'
 import * as path from 'path'
-import { Subscription } from 'rxjs'
+import { Observable } from 'rxjs'
+import { filter } from 'rxjs/operators'
 import { Injectable } from '@angular/core'
 import { TerminalDecorator } from '../api/decorator'
 import { TerminalTabComponent } from '../components/terminalTab.component'
-import { LogService, Logger, ElectronService, HostAppService } from 'terminus-core'
+import { LogService, Logger, ElectronService, HostAppService, HotkeysService } from 'terminus-core'
 
 const SPACER = '            '
 
 /** @hidden */
 @Injectable()
 export class ZModemDecorator extends TerminalDecorator {
-    private subscriptions: Subscription[] = []
     private logger: Logger
     private activeSession: any = null
+    private cancelEvent: Observable<any>
 
     constructor (
         log: LogService,
+        hotkeys: HotkeysService,
         private electron: ElectronService,
         private hostApp: HostAppService,
     ) {
         super()
         this.logger = log.create('zmodem')
+        this.cancelEvent = hotkeys.hotkey$.pipe(filter(x => x === 'ctrl-c'))
     }
 
     attach (terminal: TerminalTabComponent): void {
@@ -47,27 +51,27 @@ export class ZModemDecorator extends TerminalDecorator {
             },
         })
         setTimeout(() => {
-            this.subscriptions = [
-                terminal.session.binaryOutput$.subscribe(data => {
-                    const chunkSize = 1024
-                    for (let i = 0; i <= Math.floor(data.length / chunkSize); i++) {
-                        try {
-                            sentry.consume(data.subarray(i * chunkSize, (i + 1) * chunkSize))
-                        } catch (e) {
-                            this.logger.error('protocol error', e)
-                            this.activeSession.abort()
-                            this.activeSession = null
-                            terminal.enablePassthrough = true
-                            return
-                        }
+            this.subscribeUntilDetached(terminal, terminal.session.binaryOutput$.subscribe(data => {
+                const chunkSize = 1024
+                for (let i = 0; i <= Math.floor(data.length / chunkSize); i++) {
+                    try {
+                        sentry.consume(data.subarray(i * chunkSize, (i + 1) * chunkSize))
+                    } catch (e) {
+                        this.logger.error('protocol error', e)
+                        this.activeSession.abort()
+                        this.activeSession = null
+                        terminal.enablePassthrough = true
+                        return
                     }
-                }),
-            ]
+                }
+            }))
         })
     }
 
     async process (terminal, detection) {
-        this.showMessage(terminal, '[Terminus] ZModem session started')
+        this.showMessage(terminal, colors.bgBlue.black(' ZMODEM ') + ' Session started')
+        this.showMessage(terminal, '------------------------')
+
         const zsession = detection.confirm()
         this.activeSession = zsession
         this.logger.info('new session', zsession)
@@ -94,7 +98,7 @@ export class ZModemDecorator extends TerminalDecorator {
             await zsession.close()
         } else {
             zsession.on('offer', xfer => {
-                this.receiveFile(terminal, xfer)
+                this.receiveFile(terminal, xfer, zsession)
             })
 
             zsession.start()
@@ -104,15 +108,12 @@ export class ZModemDecorator extends TerminalDecorator {
         }
     }
 
-    detach (_terminal: TerminalTabComponent): void {
-        for (const s of this.subscriptions) {
-            s.unsubscribe()
-        }
-    }
-
-    private async receiveFile (terminal, xfer) {
-        const details = xfer.get_details()
-        this.showMessage(terminal, `🟡  Offered ${details.name}`, true)
+    private async receiveFile (terminal, xfer, zsession) {
+        const details: {
+            name: string,
+            size: number,
+        } = xfer.get_details()
+        this.showMessage(terminal, colors.bgYellow.black(' Offered ') + ' ' + details.name, true)
         this.logger.info('offered', xfer)
         const result = await this.electron.dialog.showSaveDialog(
             this.hostApp.getWindow(),
@@ -121,20 +122,48 @@ export class ZModemDecorator extends TerminalDecorator {
             },
         )
         if (!result.filePath) {
-            this.showMessage(terminal, `🔴  Rejected ${details.name}`)
+            this.showMessage(terminal, colors.bgRed.black(' Rejected ') + ' ' + details.name)
             xfer.skip()
             return
         }
+
         const stream = fs.createWriteStream(result.filePath)
         let bytesSent = 0
-        await xfer.accept({
-            on_input: chunk => {
-                stream.write(Buffer.from(chunk))
-                bytesSent += chunk.length
-                this.showMessage(terminal, `🟡  Receiving ${details.name}: ${Math.round(100 * bytesSent / details.size)}%`, true)
-            },
+        let canceled = false
+        const cancelSubscription = this.cancelEvent.subscribe(() => {
+            if (terminal.hasFocus) {
+                try {
+                    zsession._skip()
+                } catch {}
+                canceled = true
+            }
         })
-        this.showMessage(terminal, `✅  Received ${details.name}`)
+
+        try {
+            await Promise.race([
+                xfer.accept({
+                    on_input: chunk => {
+                        if (canceled) {
+                            return
+                        }
+                        stream.write(Buffer.from(chunk))
+                        bytesSent += chunk.length
+                        this.showMessage(terminal, colors.bgYellow.black(' ' + Math.round(100 * bytesSent / details.size).toString().padStart(3, ' ') + '% ') + ' ' + details.name, true)
+                    },
+                }),
+                this.cancelEvent.toPromise(),
+            ])
+
+            if (canceled) {
+                this.showMessage(terminal, colors.bgRed.black(' Canceled ') + ' ' + details.name)
+            } else {
+                this.showMessage(terminal, colors.bgGreen.black(' Received ') + ' ' + details.name)
+            }
+        } catch {
+            this.showMessage(terminal, colors.bgRed.black(' Error ') + ' ' + details.name)
+        }
+
+        cancelSubscription.unsubscribe()
         stream.end()
     }
 
@@ -149,23 +178,46 @@ export class ZModemDecorator extends TerminalDecorator {
             bytes_remaining: stat.size,
         }
         this.logger.info('offering', offer)
-        this.showMessage(terminal, `🟡  Offering ${offer.name}`, true)
+        this.showMessage(terminal, colors.bgYellow.black(' Offered ') + ' ' + offer.name, true)
 
         const xfer = await zsession.send_offer(offer)
         if (xfer) {
             let bytesSent = 0
+            let canceled = false
             const stream = fs.createReadStream(filePath)
+            const cancelSubscription = this.cancelEvent.subscribe(() => {
+                if (terminal.hasFocus) {
+                    canceled = true
+                }
+            })
+
             stream.on('data', chunk => {
+                if (canceled) {
+                    stream.close()
+                    return
+                }
                 xfer.send(chunk)
                 bytesSent += chunk.length
-                this.showMessage(terminal, `🟡  Sending ${offer.name}: ${Math.round(100 * bytesSent / offer.size)}%`, true)
+                this.showMessage(terminal, colors.bgYellow.black(' ' + Math.round(100 * bytesSent / offer.size).toString().padStart(3, ' ') + '% ') + offer.name, true)
             })
-            await new Promise(resolve => stream.on('end', resolve))
+
+            await Promise.race([
+                new Promise(resolve => stream.on('end', resolve)),
+                this.cancelEvent.toPromise(),
+            ])
+
             await xfer.end()
+
+            if (canceled) {
+                this.showMessage(terminal, colors.bgRed.black(' Canceled ') + ' ' + offer.name)
+            } else {
+                this.showMessage(terminal, colors.bgGreen.black(' Sent ') + ' ' + offer.name)
+            }
+
             stream.close()
-            this.showMessage(terminal, `✅  Sent ${offer.name}`)
+            cancelSubscription.unsubscribe()
         } else {
-            this.showMessage(terminal, `🔴  Other side rejected ${offer.name}`)
+            this.showMessage(terminal, colors.bgRed.black(' Rejected ') + ' ' + offer.name)
             this.logger.warn('rejected by the other side')
         }
     }

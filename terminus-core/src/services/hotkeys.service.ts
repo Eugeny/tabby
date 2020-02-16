@@ -1,4 +1,5 @@
 import { Injectable, Inject, NgZone, EventEmitter } from '@angular/core'
+import { Observable, Subject } from 'rxjs'
 import { HotkeyDescription, HotkeyProvider } from '../api/hotkeyProvider'
 import { stringifyKeySequence } from './hotkeys.util'
 import { ConfigService } from '../services/config.service'
@@ -20,8 +21,17 @@ interface EventBufferEntry {
 @Injectable({ providedIn: 'root' })
 export class HotkeysService {
     key = new EventEmitter<KeyboardEvent>()
+
+    /** @hidden */
     matchedHotkey = new EventEmitter<string>()
+
+    /**
+     * Fired for each recognized hotkey
+     */
+    get hotkey$ (): Observable<string> { return this._hotkey }
+
     globalHotkey = new EventEmitter<void>()
+    private _hotkey = new Subject<string>()
     private currentKeystrokes: EventBufferEntry[] = []
     private disabledLevel = 0
     private hotkeyDescriptions: HotkeyDescription[] = []
@@ -49,6 +59,9 @@ export class HotkeysService {
         this.getHotkeyDescriptions().then(hotkeys => {
             this.hotkeyDescriptions = hotkeys
         })
+
+        // deprecated
+        this.hotkey$.subscribe(h => this.matchedHotkey.emit(h))
     }
 
     /**
@@ -71,7 +84,7 @@ export class HotkeysService {
                 const matched = this.getCurrentFullyMatchedHotkey()
                 if (matched) {
                     console.log('Matched hotkey', matched)
-                    this.matchedHotkey.emit(matched)
+                    this._hotkey.next(matched)
                     this.clearCurrentKeystrokes()
                 }
             })
