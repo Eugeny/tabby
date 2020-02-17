@@ -2094,10 +2094,10 @@ electron-rebuild@^1.9.0:
     spawn-rx "^3.0.0"
     yargs "^13.2.4"
 
-electron@^8.0.0:
-  version "8.0.0"
-  resolved "https://registry.yarnpkg.com/electron/-/electron-8.0.0.tgz#b5f105cda6985ca2f2496de15e44b2bbb0c8e4f4"
-  integrity sha512-vBXUKRqTUq0jv1upvISdvScDDH3uCPwXj4eA5BeR3UDbJp2hOhq7eJxwjIQbfLQql98aYz4X6pSlzBnhfyQqHA==
+electron@^8.0.1:
+  version "8.0.1"
+  resolved "https://registry.yarnpkg.com/electron/-/electron-8.0.1.tgz#7f5070a1625f423cddcece25a1eb9e6d2f1339fb"
+  integrity sha512-kLZAQkbrAFNjQVpcHJUnjRYQNafuuWKnsdxzag5do1ewMqN0J4Pi/hPE27+5/1YAFMcbvCrPqhWIpcMsi8mKXQ==
   dependencies:
     "@electron/get" "^1.0.1"
     "@types/node" "^12.0.12"
