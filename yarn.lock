@@ -7367,10 +7367,10 @@ webpack-sources@^1.4.3:
     source-list-map "^2.0.0"
     source-map "~0.6.1"
 
-webpack@^5.0.0-beta.12:
-  version "5.0.0-beta.12"
-  resolved "https://registry.yarnpkg.com/webpack/-/webpack-5.0.0-beta.12.tgz#3651a0fa6b9ad973b9608305601c08b84c24b402"
-  integrity sha512-a6YqL0l1xQ/B2GcIF1jS6AMlCK7VFoy0O+/2uBK6LjrNX8d85snl0nmEWkBzy9Zwm+orrOZs6deBfkSe6UkHnw==
+webpack@^5.0.0-beta.13:
+  version "5.0.0-beta.13"
+  resolved "https://registry.yarnpkg.com/webpack/-/webpack-5.0.0-beta.13.tgz#be352c63ffc9db54c2ab943d0e454842a469d6e6"
+  integrity sha512-KQS3+zFZwnDpEj8QRaPbbXKP6N/eg4VDpwqQsZJfKE4QMy8zPhTBPQwozGWpHf3g7JMSpsLojBrOzm9HJSMBJA==
   dependencies:
     "@webassemblyjs/ast" "1.8.5"
     "@webassemblyjs/helper-module-context" "1.8.5"
