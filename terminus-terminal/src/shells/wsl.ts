@@ -52,7 +52,7 @@ export class WSLShellProvider extends ShellProvider {
 
         if (null != lxss && null != lxss.DefaultDistribution) {
             const defaultDistKey = wnr.getRegistryKey(wnr.HK.CU, lxssPath + '\\' + String(lxss.DefaultDistribution.value))
-            if (defaultDistKey.DistributionName) {
+            if (defaultDistKey?.DistributionName) {
                 const shell: Shell = {
                     id: 'wsl',
                     name: 'WSL / Default distro',
