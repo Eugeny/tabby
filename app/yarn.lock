@@ -16,12 +16,10 @@
   dependencies:
     tslib "^1.9.0"
 
-"@angular/compiler@7.2.8":
-  version "7.2.8"
-  resolved "https://registry.yarnpkg.com/@angular/compiler/-/compiler-7.2.8.tgz#9d9c1515e99914399e6915c1c90484b1d255560b"
-  integrity sha512-PrU97cTsOdofpaDkxK0rWUA/CGd0u6ESOI6XvFVm5xH9zJInsdY8ShSHklnr1JJnss70e1dGKZbZq32OChxWMw==
-  dependencies:
-    tslib "^1.9.0"
+"@angular/compiler@9.0.2":
+  version "9.0.2"
+  resolved "https://registry.yarnpkg.com/@angular/compiler/-/compiler-9.0.2.tgz#be238eb2e575e2945f8e88c4ae09d99b280b797d"
+  integrity sha512-IWlKn5v3y7k1Z2K2wfNNzbn9xgA4fFlWyPe9QpdS8iy6/bPe5GfKhHbMYIza5eIhPXDN93zdEptiAIXGP3kLBQ==
 
 "@angular/core@7.2.8":
   version "7.2.8"

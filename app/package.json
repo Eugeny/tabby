@@ -15,7 +15,7 @@
   "dependencies": {
     "@angular/animations": "7.2.8",
     "@angular/common": "7.2.8",
-    "@angular/compiler": "7.2.8",
+    "@angular/compiler": "9.0.2",
     "@angular/core": "7.2.8",
     "@angular/forms": "7.2.8",
     "@angular/platform-browser": "7.2.8",
