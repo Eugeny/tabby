@@ -1,0 +1,154 @@
+import { BaseSession } from 'terminus-terminal'
+import { SerialPort } from 'serialport'
+import { Logger } from 'terminus-core'
+import { Subject, Observable } from 'rxjs'
+
+export interface LoginScript {
+    expect: string
+    send: string
+    isRegex?: boolean
+    optional?: boolean
+}
+
+export interface SerialConnection {
+    name: string
+    port: string
+    baudrate: number
+    databits: number
+    stopbits: number
+    parity: string
+    rtscts: boolean
+    xon: boolean
+    xoff: boolean
+    xany: boolean
+    group: string | null
+    scripts?: LoginScript[]
+    color?: string
+}
+
+export class SerialSession extends BaseSession {
+    scripts?: LoginScript[]
+    serial: SerialPort
+    logger: Logger
+
+    get serviceMessage$ (): Observable<string> { return this.serviceMessage }
+    private serviceMessage = new Subject<string>()
+
+    constructor (public connection: SerialConnection) {
+        super()
+        this.scripts = connection.scripts || []
+    }
+
+    async start () {
+        this.open = true
+
+        this.serial.on('data', data => {
+            const dataString = data.toString()
+            this.emitOutput(data)
+
+            if (this.scripts) {
+                let found = false
+                for (const script of this.scripts) {
+                    let match = false
+                    let cmd = ''
+                    if (script.isRegex) {
+                        const re = new RegExp(script.expect, 'g')
+                        if (dataString.match(re)) {
+                            cmd = dataString.replace(re, script.send)
+                            match = true
+                            found = true
+                        }
+                    } else {
+                        if (dataString.includes(script.expect)) {
+                            cmd = script.send
+                            match = true
+                            found = true
+                        }
+                    }
+
+                    if (match) {
+                        this.logger.info('Executing script: "' + cmd + '"')
+                        this.serial.write(cmd + '\n')
+                        this.scripts = this.scripts.filter(x => x !== script)
+                    } else {
+                        if (script.optional) {
+                            this.logger.debug('Skip optional script: ' + script.expect)
+                            found = true
+                            this.scripts = this.scripts.filter(x => x !== script)
+                        } else {
+                            break
+                        }
+                    }
+                }
+
+                if (found) {
+                    this.executeUnconditionalScripts()
+                }
+            }
+        })
+
+        this.serial.on('end', () => {
+            this.logger.info('Shell session ended')
+            if (this.open) {
+                this.destroy()
+            }
+        })
+
+        this.executeUnconditionalScripts()
+    }
+
+    emitServiceMessage (msg: string) {
+        this.serviceMessage.next(msg)
+        this.logger.info(msg)
+    }
+
+    write (data) {
+        if (this.serial) {
+            this.serial.write(data)
+        }
+    }
+
+    async destroy (): Promise<void> {
+        this.serviceMessage.complete()
+        await super.destroy()
+    }
+
+    resize (columns, rows) {
+        console.log('resize')
+    }
+
+    kill (signal?: string) {
+        console.log('valar morghulis')
+    }
+
+    async getChildProcesses (): Promise<any[]> {
+        return []
+    }
+
+    async gracefullyKillProcess (): Promise<void> {
+        this.kill('TERM')
+    }
+
+    async getWorkingDirectory (): Promise<string|null> {
+        return null
+    }
+
+    private executeUnconditionalScripts () {
+        if (this.scripts) {
+            for (const script of this.scripts) {
+                if (!script.expect) {
+                    console.log('Executing script:', script.send)
+                    this.serial.write(script.send + '\n')
+                    this.scripts = this.scripts.filter(x => x !== script)
+                } else {
+                    break
+                }
+            }
+        }
+    }
+}
+
+export interface SerialConnectionGroup {
+    name: string
+    connections: SerialConnection[]
+}

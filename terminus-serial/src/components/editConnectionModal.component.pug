@@ -1,0 +1,140 @@
+.modal-body
+    ngb-tabset([activeId]='basic')
+        ngb-tab(id='basic')
+            ng-template(ngbTabTitle) General
+            ng-template(ngbTabContent)
+                .form-group
+                    label Name
+                    input.form-control(
+                        type='text',
+                        autofocus,
+                        [(ngModel)]='connection.name',
+                    )
+
+                .form-group
+                    label Group
+                    input.form-control(
+                        type='text',
+                        placeholder='Ungrouped',
+                        [(ngModel)]='connection.group',
+                    )
+
+                .form-group
+                    label Path
+                    input.form-control(
+                        type='text',
+                        [(ngModel)]='connection.port',
+                    )
+
+                .form-group
+                    label Baud Rate
+                    input.form-control(
+                        type='text',
+                        [(ngModel)]='connection.baudrate',
+                    )
+
+        ngb-tab(id='advanced')
+            ng-template(ngbTabTitle) Advanced
+            ng-template(ngbTabContent)
+                .form-line
+                    .header
+                        .title Tab color
+                    input.form-control(
+                        type='text',
+                        autofocus,
+                        [(ngModel)]='connection.color',
+                        placeholder='#000000'
+                    )
+
+                .form-line
+                    .header
+                        .title DataBits
+                    input.form-control(
+                        type='number',
+                        placeholder='8',
+                        [(ngModel)]='connection.databits',
+                    )
+
+                .form-line
+                    .header
+                        .title StopBits
+                    input.form-control(
+                        type='number',
+                        placeholder='1',
+                        [(ngModel)]='connection.stopbits',
+                    )
+
+                .form-line
+                    .header
+                        .title Parity
+                    input.form-control(
+                        type='text',
+                        [(ngModel)]='connection.parity',
+                        placeholder='none'
+                    )
+
+                .form-line
+                    .header
+                        .title RTSCTS
+                    toggle([(ngModel)]='connection.rtscts')
+
+                .form-line
+                    .header
+                        .title Xon
+                    toggle([(ngModel)]='connection.xon')
+
+                .form-line
+                    .header
+                        .title Xoff
+                    toggle([(ngModel)]='connection.xoff')
+
+                .form-line
+                    .header
+                        .title Xany
+                    toggle([(ngModel)]='connection.xany')
+
+        ngb-tab(id='scripts')
+            ng-template(ngbTabTitle) Login scripts
+            ng-template(ngbTabContent)
+                table(*ngIf='connection.scripts.length > 0')
+                    tr
+                        th String to expect
+                        th String to be sent
+                        th.pl-2 Regex
+                        th.pl-2 Optional
+                        th.pl-2 Actions
+                    tr(*ngFor='let script of connection.scripts')
+                        td.pr-2
+                            input.form-control(
+                                type='text',
+                                [(ngModel)]='script.expect'
+                            )
+                        td
+                            input.form-control(
+                                type='text',
+                                [(ngModel)]='script.send'
+                            )
+                        td.pl-2
+                            checkbox(
+                                [(ngModel)]='script.isRegex',
+                            )
+                        td.pl-2
+                            checkbox(
+                                [(ngModel)]='script.optional',
+                            )
+                        td.pl-2
+                            .input-group.flex-nowrap
+                                button.btn.btn-outline-info.ml-0((click)='moveScriptUp(script)')
+                                    i.fas.fa-arrow-up
+                                button.btn.btn-outline-info.ml-0((click)='moveScriptDown(script)')
+                                    i.fas.fa-arrow-down
+                                button.btn.btn-outline-danger.ml-0((click)='deleteScript(script)')
+                                    i.fas.fa-trash
+
+                button.btn.btn-outline-info.mt-2((click)='addScript()')
+                    i.fas.fa-plus
+                    span New item
+
+.modal-footer
+    button.btn.btn-outline-primary((click)='save()') Save
+    button.btn.btn-outline-danger((click)='cancel()') Cancel

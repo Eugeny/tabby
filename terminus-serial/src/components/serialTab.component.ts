@@ -1,33 +1,32 @@
 import colors from 'ansi-colors'
 import { Spinner } from 'cli-spinner'
 import { Component } from '@angular/core'
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
+// import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { first } from 'rxjs/operators'
 import { BaseTerminalTabComponent } from 'terminus-terminal'
-import { SSHService } from '../services/ssh.service'
-import { SSHConnection, SSHSession } from '../api'
-import { SSHPortForwardingModalComponent } from './sshPortForwardingModal.component'
+import { SerialService } from '../services/serial.service'
+import { SerialConnection, SerialSession } from '../api'
 import { Subscription } from 'rxjs';
 
 /** @hidden */
 @Component({
-    selector: 'ssh-tab',
-    template: BaseTerminalTabComponent.template + require<string>('./sshTab.component.pug'),
-    styles: [require('./sshTab.component.scss'), ...BaseTerminalTabComponent.styles],
+    selector: 'serial-tab',
+    template: BaseTerminalTabComponent.template + require<string>('./serialTab.component.pug'),
+    styles: [require('./serialTab.component.scss'), ...BaseTerminalTabComponent.styles],
     animations: BaseTerminalTabComponent.animations,
 })
-export class SSHTabComponent extends BaseTerminalTabComponent {
-    connection: SSHConnection
-    ssh: SSHService
-    session: SSHSession
-    private ngbModal: NgbModal
+export class SerialTabComponent extends BaseTerminalTabComponent {
+    connection: SerialConnection
+    serial: SerialService
+    session: SerialSession
+    // private ngbModal: NgbModal
     private homeEndSubscription: Subscription
 
     ngOnInit () {
-        this.ngbModal = this.injector.get<NgbModal>(NgbModal)
+        // this.ngbModal = this.injector.get<NgbModal>(NgbModal)
 
         this.logger = this.log.create('terminalTab')
-        this.ssh = this.injector.get(SSHService)
+        this.serial = this.injector.get(SerialService)
 
         this.homeEndSubscription = this.hotkeys.matchedHotkey.subscribe(hotkey => {
             if (!this.hasFocus) {
@@ -56,17 +55,17 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
 
     async initializeSession () {
         if (!this.connection) {
-            this.logger.error('No SSH connection info supplied')
+            this.logger.error('No Serial connection info supplied')
             return
         }
 
-        this.session = this.ssh.createSession(this.connection)
+        this.session = this.serial.createSession(this.connection)
         this.session.serviceMessage$.subscribe(msg => {
-            this.write('\r\n' + colors.black.bgWhite(' SSH ') + ' ' + msg + '\r\n')
+            this.write('\r\n' + colors.black.bgWhite(' serial ') + ' ' + msg + '\r\n')
             this.session.resize(this.size.columns, this.size.rows)
         })
         this.attachSessionHandlers()
-        this.write(`Connecting to ${this.connection.host}`)
+        this.write(`Connecting to `)
 
         const spinner = new Spinner({
             text: 'Connecting',
@@ -78,7 +77,7 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
         spinner.start()
 
         try {
-            await this.ssh.connectSession(this.session, (message: string) => {
+            await this.serial.connectSession(this.session, (message: string) => {
                 spinner.stop(true)
                 this.write(message + '\r\n')
                 spinner.start()
@@ -95,15 +94,10 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
 
     async getRecoveryToken (): Promise<any> {
         return {
-            type: 'app:ssh-tab',
+            type: 'app:serial-tab',
             connection: this.connection,
             savedState: this.frontend?.saveState(),
         }
-    }
-
-    showPortForwarding () {
-        const modal = this.ngbModal.open(SSHPortForwardingModalComponent).componentInstance as SSHPortForwardingModalComponent
-        modal.session = this.session
     }
 
     reconnect () {

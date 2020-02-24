@@ -1,0 +1,14 @@
+.modal-body
+    input.form-control(
+        [type]='"text"',
+        autofocus,
+        [(ngModel)]='value',
+        #input,
+        [placeholder]='prompt',
+        (keyup.enter)='ok()',
+        (keyup.esc)='cancel()',
+    )
+    .d-flex.align-items-start.mt-2
+        button.btn.btn-primary.ml-auto(
+            (click)='ok()',
+        ) Enter
