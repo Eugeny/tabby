@@ -7,6 +7,7 @@ import { BaseTerminalTabComponent } from 'terminus-terminal'
 import { SSHService } from '../services/ssh.service'
 import { SSHConnection, SSHSession } from '../api'
 import { SSHPortForwardingModalComponent } from './sshPortForwardingModal.component'
+import {Subscription} from "rxjs";
 
 /** @hidden */
 @Component({
@@ -20,12 +21,28 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
     ssh: SSHService
     session: SSHSession
     private ngbModal: NgbModal
+    private homeEndSubscription: Subscription
 
     ngOnInit () {
         this.ngbModal = this.injector.get<NgbModal>(NgbModal)
 
         this.logger = this.log.create('terminalTab')
         this.ssh = this.injector.get(SSHService)
+
+        this.homeEndSubscription = this.hotkeys.matchedHotkey.subscribe(hotkey => {
+            if (!this.hasFocus) {
+                return
+            }
+            switch (hotkey) {
+                case 'home':
+                    this.sendInput('\x1b[H' )
+                    break
+                case 'end':
+                    this.sendInput('\x1b[F' )
+                    break
+            }
+        })
+
         this.frontendReady$.pipe(first()).subscribe(() => {
             this.initializeSession()
         })
@@ -91,5 +108,10 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
 
     reconnect () {
         this.initializeSession()
+    }
+
+    ngOnDestroy () {
+        this.homeEndSubscription.unsubscribe()
+        super.ngOnDestroy()
     }
 }
