@@ -113,7 +113,7 @@ export class SerialSession extends BaseSession {
         await super.destroy()
     }
 
-    resize (_, _) {
+    resize (_, _1) {
         console.log('resize')
     }
 
