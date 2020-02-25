@@ -1,5 +1,5 @@
 import { Injectable, NgZone } from '@angular/core'
-const SerialPort = require('serialport')
+import SerialPort from 'serialport'
 import { ToastrService } from 'ngx-toastr'
 import { AppService, LogService } from 'terminus-core'
 import { SerialConnection, SerialSession } from '../api'
@@ -34,11 +34,11 @@ export class SerialService {
         return session
     }
 
-    async connectSession (session: SerialSession, logCallback?: (s: any) => void): Promise<void> {
+    async connectSession (session: SerialSession, _?: (s: any) => void): Promise<void> {
         const serial = new SerialPort(session.connection.port, { autoOpen: false, baudRate: session.connection.baudrate,
-        dataBits: session.connection.databits, stopBits: session.connection.stopbits, parity: session.connection.parity,
-        rtscts: session.connection.rtscts, xon: session.connection.xon, xoff: session.connection.xoff,
-        xany: session.connection.xany })
+            dataBits: session.connection.databits, stopBits: session.connection.stopbits, parity: session.connection.parity,
+            rtscts: session.connection.rtscts, xon: session.connection.xon, xoff: session.connection.xoff,
+            xany: session.connection.xany })
         session.serial = serial
         let connected = false
         await new Promise(async (resolve, reject) => {

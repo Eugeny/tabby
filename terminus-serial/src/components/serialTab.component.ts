@@ -6,7 +6,7 @@ import { first } from 'rxjs/operators'
 import { BaseTerminalTabComponent } from 'terminus-terminal'
 import { SerialService } from '../services/serial.service'
 import { SerialConnection, SerialSession } from '../api'
-import { Subscription } from 'rxjs';
+import { Subscription } from 'rxjs'
 
 /** @hidden */
 @Component({

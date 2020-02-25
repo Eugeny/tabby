@@ -31,7 +31,7 @@ export class SerialSettingsTabComponent {
             port: '',
             baudrate: 115200,
             databits: 8,
-            parity: "none",
+            parity: 'none',
             rtscts: false,
             stopbits: 1,
             xany: false,
