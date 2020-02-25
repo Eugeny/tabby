@@ -7,7 +7,7 @@ import { BaseTerminalTabComponent } from 'terminus-terminal'
 import { SSHService } from '../services/ssh.service'
 import { SSHConnection, SSHSession } from '../api'
 import { SSHPortForwardingModalComponent } from './sshPortForwardingModal.component'
-import { Subscription } from 'rxjs';
+import { Subscription } from 'rxjs'
 
 /** @hidden */
 @Component({

@@ -113,11 +113,11 @@ export class SerialSession extends BaseSession {
         await super.destroy()
     }
 
-    resize (columns, rows) {
+    resize (_, _) {
         console.log('resize')
     }
 
-    kill (signal?: string) {
+    kill (_?: string) {
         this.serial.close()
     }
 

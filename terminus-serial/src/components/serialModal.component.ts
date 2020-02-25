@@ -48,7 +48,7 @@ export class SerialModalComponent {
             port: path,
             baudrate: baudrate,
             databits: 8,
-            parity: "none",
+            parity: 'none',
             rtscts: false,
             stopbits: 1,
             xany: false,
