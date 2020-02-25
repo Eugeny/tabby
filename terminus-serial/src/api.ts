@@ -1,5 +1,5 @@
 import { BaseSession } from 'terminus-terminal'
-import { SerialPort } from 'serialport'
+import { SerialPort } from '@serialport/stream'
 import { Logger } from 'terminus-core'
 import { Subject, Observable } from 'rxjs'
 
@@ -118,7 +118,7 @@ export class SerialSession extends BaseSession {
     }
 
     kill (signal?: string) {
-        console.log('valar morghulis')
+        this.serial.close()
     }
 
     async getChildProcesses (): Promise<any[]> {

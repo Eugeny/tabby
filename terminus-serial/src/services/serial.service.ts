@@ -1,9 +1,14 @@
 import { Injectable, NgZone } from '@angular/core'
-import SerialPort from 'serialport'
+import SerialPort from '@serialport/stream'
 import { ToastrService } from 'ngx-toastr'
 import { AppService, LogService } from 'terminus-core'
 import { SerialConnection, SerialSession } from '../api'
 import { SerialTabComponent } from '../components/serialTab.component'
+
+try {
+    var bindingsNative = require('serialport/bindings/build/Release/bindings.node') // eslint-disable-line @typescript-eslint/no-var-requires, no-var
+    SerialPort.binding = bindingsNative
+} catch { }
 
 @Injectable({ providedIn: 'root' })
 export class SerialService {

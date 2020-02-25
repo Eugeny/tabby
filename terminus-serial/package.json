@@ -22,7 +22,7 @@
     "ansi-colors": "^4.1.1",
     "cli-spinner": "^0.2.10",
     "electron-rebuild": "^1.10.0",
-    "serialport": "^8.0.0",
+    "serialport": "^8.0.7",
     "terminus-terminal": "^1.0.98-nightly.0"
   },
   "peerDependencies": {
