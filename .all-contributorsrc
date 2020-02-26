@@ -243,6 +243,16 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "nstefanou",
+      "name": "nstefanou",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/51129173?v=4",
+      "profile": "https://github.com/nstefanou",
+      "contributions": [
+        "code",
+        "plugin"
+      ]
     }
   ],
   "contributorsPerLine": 7,
