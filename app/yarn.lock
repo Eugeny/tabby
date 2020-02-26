@@ -30,12 +30,10 @@
   dependencies:
     tslib "^1.9.0"
 
-"@angular/forms@7.2.8":
-  version "7.2.8"
-  resolved "https://registry.yarnpkg.com/@angular/forms/-/forms-7.2.8.tgz#adf194088495822d55dcf3e5bf69196dcf19465d"
-  integrity sha512-lbSX4IHFHz/c4e2RHiPpL8MJlzDkCuQEHnqsujDaV2X9o9fApS6+C1X4x7Z2XDKqonmeX+aHQwv9+SLejX6OyQ==
-  dependencies:
-    tslib "^1.9.0"
+"@angular/forms@9.0.2":
+  version "9.0.2"
+  resolved "https://registry.yarnpkg.com/@angular/forms/-/forms-9.0.2.tgz#917e8f85a2f358bbcdf1b1946b7afa6f5460b5ed"
+  integrity sha512-qXEth7yeCd+5i6QyvllXnh/Rkzh16raFX5nfI7mgKHjWMik15Ua8wkVhDX9b5gizWeEyZtZcMGsTbbOQy0Ft3Q==
 
 "@angular/platform-browser-dynamic@7.2.8":
   version "7.2.8"
