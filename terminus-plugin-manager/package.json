@@ -17,7 +17,7 @@
   "author": "Eugene Pankov",
   "license": "MIT",
   "devDependencies": {
-    "@types/semver": "^6.0.0",
+    "@types/semver": "^7.1.0",
     "axios": "^0.19.0",
     "mz": "^2.6.0",
     "semver": "^7.1.1"
