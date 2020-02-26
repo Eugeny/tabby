@@ -88,21 +88,21 @@ safer-buffer@^2.0.2, safer-buffer@^2.1.0, safer-buffer@~2.1.0:
   resolved "https://registry.yarnpkg.com/safer-buffer/-/safer-buffer-2.1.2.tgz#44fa161b0187b9549dd84bb91802f9bd8385cd6a"
   integrity sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==
 
-ssh2-streams@^0.4.2, ssh2-streams@~0.4.8:
-  version "0.4.8"
-  resolved "https://registry.yarnpkg.com/ssh2-streams/-/ssh2-streams-0.4.8.tgz#2ff92df2e0063fef86cf934eaea197967deda715"
-  integrity sha512-auxXfgYySz2vYw7TMU7PK7vFI7EPvhvTH8/tZPgGaWocK4p/vwCMiV3icz9AEkb0R40kOKZtFtqYIxDJyJiytw==
+ssh2-streams@^0.4.2, ssh2-streams@~0.4.9:
+  version "0.4.9"
+  resolved "https://registry.yarnpkg.com/ssh2-streams/-/ssh2-streams-0.4.9.tgz#d3d92155410001437d27119d9c023b303cbe2309"
+  integrity sha512-glMQKeYKuA+rLaH16fJC3nZMV1BWklbxuYCR4C5/LlBSf2yaoNRpPU7Ul702xsi5nvYjIx9XDkKBJwrBjkDynw==
   dependencies:
     asn1 "~0.2.0"
     bcrypt-pbkdf "^1.0.2"
     streamsearch "~0.1.2"
 
 ssh2@^0.8.2:
-  version "0.8.7"
-  resolved "https://registry.yarnpkg.com/ssh2/-/ssh2-0.8.7.tgz#2dc15206f493010b98027201cf399b90bab79c89"
-  integrity sha512-/u1BO12kb0lDVxJXejWB9pxyF3/ncgRqI9vPCZuPzo05pdNDzqUeQRavScwSPsfMGK+5H/VRqp1IierIx0Bcxw==
+  version "0.8.8"
+  resolved "https://registry.yarnpkg.com/ssh2/-/ssh2-0.8.8.tgz#1d9815e287faef623ae2b7db32e674dadbef4664"
+  integrity sha512-egJVQkf3sbjECTY6rCeg8rgV/fab6S/7E5kpYqHT3Fe/YpfJbLYeA1qTcB2d+LRUUAjqKi7rlbfWkaP66YdpAQ==
   dependencies:
-    ssh2-streams "~0.4.8"
+    ssh2-streams "~0.4.9"
 
 sshpk@^1.16.1:
   version "1.16.1"
