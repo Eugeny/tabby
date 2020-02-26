@@ -1,5 +1,5 @@
 import { BaseSession } from 'terminus-terminal'
-import { SerialPort } from '@serialport/stream'
+import { SerialPort } from 'serialport'
 import { Logger } from 'terminus-core'
 import { Subject, Observable } from 'rxjs'
 

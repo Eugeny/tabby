@@ -49,7 +49,7 @@ module.exports = {
         'keytar',
         'path',
         'ngx-toastr',
-        'serialport/bindings/build/Release/bindings.node',
+        'serialport',
         'windows-process-tree/build/Release/windows_process_tree.node',
         /^rxjs/,
         /^@angular/,
