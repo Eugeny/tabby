@@ -37,7 +37,7 @@
     "rxjs": "^6.5.4",
     "rxjs-compat": "^6.5.4",
     "yargs": "^15.1.0",
-    "zone.js": "^0.8.29"
+    "zone.js": "^0.10.2"
   },
   "optionalDependencies": {
     "serialport": "^8.0.7",
