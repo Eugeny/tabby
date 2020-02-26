@@ -23,12 +23,10 @@
   dependencies:
     tslib "^1.9.0"
 
-"@angular/core@7.2.8":
-  version "7.2.8"
-  resolved "https://registry.yarnpkg.com/@angular/core/-/core-7.2.8.tgz#6586d9b6c6321c80119b3f3e2bd0edbb32d0b649"
-  integrity sha512-QKwug2kWJC00zm2rvmD9mCJzsOkMVhSu8vqPWf83poWTh8+F9aIVWcy29W0VoGpBkSchOnK8hf9DnKVv28j9nw==
-  dependencies:
-    tslib "^1.9.0"
+"@angular/core@9.0.2":
+  version "9.0.2"
+  resolved "https://registry.yarnpkg.com/@angular/core/-/core-9.0.2.tgz#250093b6a4d3137e2cc30e73e6cee919f1386165"
+  integrity sha512-ccVPR6RZo2s9O9phO0TJ60QZ0WA7qfUMzo0xnpBW0XGcbTzLEn9upvs+0PX64f9UpnHz/MQo0wsqYvTLuoz7Yw==
 
 "@angular/forms@7.2.8":
   version "7.2.8"
