@@ -113,6 +113,11 @@
 
                 .form-line
                     .header
+                        .title Agent Forwarding
+                    toggle([(ngModel)]='connection.agentForward')
+
+                .form-line
+                    .header
                         .title Tab color
                     input.form-control(
                         type='text',

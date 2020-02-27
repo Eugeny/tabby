@@ -37,6 +37,7 @@ export interface SSHConnection {
     skipBanner?: boolean
     disableDynamicTitle?: boolean
     jumpHost?: string
+    agentForward?: boolean
 
     algorithms?: {[t: string]: string[]}
 }
