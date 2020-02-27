@@ -9,10 +9,12 @@
   "typings": "typings/index.d.ts",
   "scripts": {
     "build": "webpack --progress --color",
-    "watch": "webpack --progress --color --watch"
+    "watch": "webpack --progress --color --watch",
+    "postinstall": "xcopy /i node_modules\\ssh2\\util\\pagent.exe util\\"
   },
   "files": [
-    "dist"
+    "dist",
+    "util/pagent.exe"
   ],
   "author": "Eugene Pankov",
   "license": "MIT",
