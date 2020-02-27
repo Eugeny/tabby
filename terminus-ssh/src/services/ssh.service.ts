@@ -195,7 +195,7 @@ export class SSHService {
                     privateKey: privateKey || undefined,
                     tryKeyboard: true,
                     agent: agent || undefined,
-                    agentForward: !!agent,
+                    agentForward: session.connection.agentForward && !!agent,
                     keepaliveInterval: session.connection.keepaliveInterval,
                     keepaliveCountMax: session.connection.keepaliveCountMax,
                     readyTimeout: session.connection.readyTimeout,
