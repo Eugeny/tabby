@@ -15,40 +15,53 @@ export class DebugDecorator extends TerminalDecorator {
     }
 
     attach (terminal: TerminalTabComponent): void {
+        let sessionOutputBuffer = ''
+        const bufferLength = 8192
+
+        this.subscribeUntilDetached(terminal, terminal.session.output$.subscribe(data => {
+            sessionOutputBuffer += data
+            if (sessionOutputBuffer.length > bufferLength) {
+                sessionOutputBuffer = sessionOutputBuffer.substring(sessionOutputBuffer.length - bufferLength)
+            }
+        }))
+
         terminal.content.nativeElement.addEventListener('keyup', e => {
+            // Ctrl-Shift-Alt-1
             if (e.which === 49 && e.ctrlKey && e.shiftKey && e.altKey) {
-                this.doSaveOutput(terminal)
+                this.doSaveState(terminal)
             }
+            // Ctrl-Shift-Alt-2
             if (e.which === 50 && e.ctrlKey && e.shiftKey && e.altKey) {
-                this.doLoadInput(terminal)
+                this.doLoadState(terminal)
             }
+            // Ctrl-Shift-Alt-3
             if (e.which === 51 && e.ctrlKey && e.shiftKey && e.altKey) {
-                this.doCopyOutput(terminal)
+                this.doCopyState(terminal)
             }
+            // Ctrl-Shift-Alt-4
             if (e.which === 52 && e.ctrlKey && e.shiftKey && e.altKey) {
+                this.doPasteState(terminal)
+            }
+            // Ctrl-Shift-Alt-5
+            if (e.which === 53 && e.ctrlKey && e.shiftKey && e.altKey) {
+                this.doSaveOutput(sessionOutputBuffer)
+            }
+            // Ctrl-Shift-Alt-6
+            if (e.which === 54 && e.ctrlKey && e.shiftKey && e.altKey) {
+                this.doLoadOutput(terminal)
+            }
+            // Ctrl-Shift-Alt-7
+            if (e.which === 55 && e.ctrlKey && e.shiftKey && e.altKey) {
+                this.doCopyOutput(sessionOutputBuffer)
+            }
+            // Ctrl-Shift-Alt-8
+            if (e.which === 56 && e.ctrlKey && e.shiftKey && e.altKey) {
                 this.doPasteOutput(terminal)
             }
         })
     }
 
-    async doSaveOutput (terminal: TerminalTabComponent) {
-        const result = await this.electron.dialog.showSaveDialog(
-            this.hostApp.getWindow(),
-            {
-                defaultPath: 'output.txt',
-            },
-        )
-        if (result.filePath) {
-            fs.writeFileSync(result.filePath, terminal.frontend.saveState())
-        }
-    }
-
-    async doCopyOutput (terminal: TerminalTabComponent) {
-        const data = '```' + JSON.stringify(terminal.frontend.saveState()) + '```'
-        this.electron.clipboard.writeText(data)
-    }
-
-    async doLoadInput (terminal: TerminalTabComponent) {
+    async loadFile (): Promise<string|null> {
         const result = await this.electron.dialog.showOpenDialog(
             this.hostApp.getWindow(),
             {
@@ -57,13 +70,70 @@ export class DebugDecorator extends TerminalDecorator {
             },
         )
         if (result.filePaths.length) {
-            const data = fs.readFileSync(result.filePaths[0])
-            terminal.frontend.restoreState(data)
+            return fs.readFileSync(result.filePaths[0], { encoding: 'utf-8' })
+        }
+        return null
+    }
+
+    async saveFile (content: string, name: string) {
+        const result = await this.electron.dialog.showSaveDialog(
+            this.hostApp.getWindow(),
+            {
+                defaultPath: name,
+            },
+        )
+        if (result.filePath) {
+            fs.writeFileSync(result.filePath, content)
+        }
+    }
+
+    doSaveState (terminal: TerminalTabComponent) {
+        this.saveFile(terminal.frontend.saveState(), 'state.txt')
+    }
+
+    async doCopyState (terminal: TerminalTabComponent) {
+        const data = '```' + JSON.stringify(terminal.frontend.saveState()) + '```'
+        this.electron.clipboard.writeText(data)
+    }
+
+    async doLoadState (terminal: TerminalTabComponent) {
+        const data = await this.loadFile()
+        terminal.frontend.restoreState(data)
+    }
+
+    async doPasteState (terminal: TerminalTabComponent) {
+        let data = this.electron.clipboard.readText()
+        if (data) {
+            if (data.startsWith('`')) {
+                data = data.substring(3, data.length - 3)
+            }
+            terminal.frontend.restoreState(JSON.parse(data))
+        }
+    }
+
+    doSaveOutput (buffer: string) {
+        this.saveFile(buffer, 'output.txt')
+    }
+
+    async doCopyOutput (buffer: string) {
+        const data = '```' + JSON.stringify(buffer) + '```'
+        this.electron.clipboard.writeText(data)
+    }
+
+    async doLoadOutput (terminal: TerminalTabComponent) {
+        const data = await this.loadFile()
+        if (data) {
+            terminal.frontend.write(data)
         }
     }
 
     async doPasteOutput (terminal: TerminalTabComponent) {
-        const data = JSON.parse(this.electron.clipboard.readText())
-        terminal.frontend.restoreState(data)
+        let data = this.electron.clipboard.readText()
+        if (data) {
+            if (data.startsWith('`')) {
+                data = data.substring(3, data.length - 3)
+            }
+            terminal.frontend.write(JSON.parse(data))
+        }
     }
 }
