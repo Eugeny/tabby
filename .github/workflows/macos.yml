@@ -11,7 +11,7 @@ jobs:
     - name: Installing Node
       uses: actions/setup-node@v1
       with:
-        version: 10
+        node-version: 10
 
     - name: Install deps
       run: |
