@@ -98,7 +98,9 @@ export class DebugDecorator extends TerminalDecorator {
 
     private async doLoadState (terminal: TerminalTabComponent) {
         const data = await this.loadFile()
-        terminal.frontend.restoreState(data)
+        if (data) {
+            terminal.frontend.restoreState(data)
+        }
     }
 
     private async doPasteState (terminal: TerminalTabComponent) {

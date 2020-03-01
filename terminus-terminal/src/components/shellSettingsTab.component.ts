@@ -37,7 +37,7 @@ export class ShellSettingsTabComponent {
         this.isConPTYStable = isWindowsBuild(WIN_BUILD_CONPTY_STABLE)
     }
 
-    async ngOnInit (): void {
+    async ngOnInit (): Promise<void> {
         this.shells = await this.terminalService.shells$.toPromise()
     }
 
@@ -45,7 +45,7 @@ export class ShellSettingsTabComponent {
         this.configSubscription.unsubscribe()
     }
 
-    async reload (): void {
+    async reload (): Promise<void> {
         this.profiles = await this.terminalService.getProfiles(true)
     }
 
