@@ -1,0 +1,18 @@
+.modal-body
+    input.form-control(
+        type='text',
+        [(ngModel)]='filter',
+        autofocus,
+        [placeholder]='name',
+        (ngModelChange)='onFilterChange()',
+        (keyup.enter)='onFilterEnter()',
+        (keyup.escape)='close()'
+    )
+
+    .list-group.mt-3(*ngIf='filteredOptions.length')
+        a.list-group-item.list-group-item-action.d-flex.align-items-center(
+            (click)='selectOption(option)',
+            *ngFor='let option of filteredOptions'
+        )
+            .mr-2 {{option.name}}
+            .text-muted {{option.description}}

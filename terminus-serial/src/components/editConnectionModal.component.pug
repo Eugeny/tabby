@@ -24,14 +24,16 @@
                     input.form-control(
                         type='text',
                         [(ngModel)]='connection.port',
+                        [ngbTypeahead]='portsAutocomplete',
+                        [resultFormatter]='portsFormatter',
                     )
 
                 .form-group
                     label Baud Rate
-                    input.form-control(
-                        type='number',
+                    select.form-control(
                         [(ngModel)]='connection.baudrate',
                     )
+                        option([value]='x', *ngFor='let x of baudRates') {{x}}
 
         ngb-tab(id='advanced')
             ng-template(ngbTabTitle) Advanced

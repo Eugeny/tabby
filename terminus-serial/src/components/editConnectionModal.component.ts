@@ -1,7 +1,9 @@
 import { Component } from '@angular/core'
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
+import { map } from 'rxjs/operators'
 import { ElectronService, HostAppService } from 'terminus-core'
-import { SerialConnection, LoginScript } from '../api'
+import { SerialConnection, LoginScript, SerialPortInfo, BAUD_RATES } from '../api'
+import { SerialService } from '../services/serial.service'
 // import { PromptModalComponent } from './promptModal.component'
 
 /** @hidden */
@@ -10,17 +12,32 @@ import { SerialConnection, LoginScript } from '../api'
 })
 export class EditConnectionModalComponent {
     connection: SerialConnection
+    foundPorts: SerialPortInfo[]
+    baudRates = BAUD_RATES
 
     constructor (
         private modalInstance: NgbActiveModal,
         private electron: ElectronService,
         private hostApp: HostAppService,
-        // private ngbModal: NgbModal,
+        private serial: SerialService,
     ) {
+    }
+
+    portsAutocomplete = text$ => text$.pipe(map(() => {
+        return this.foundPorts.map(x => x.name)
+    }))
+
+    portsFormatter = port => {
+        const p = this.foundPorts.find(x => x.name === port)
+        if (p?.description) {
+            return `${port} (${p.description})`
+        }
+        return port
     }
 
     async ngOnInit () {
         this.connection.scripts = this.connection.scripts || []
+        this.foundPorts = await this.serial.listPorts()
     }
 
     save () {

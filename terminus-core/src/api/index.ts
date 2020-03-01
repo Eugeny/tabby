@@ -7,6 +7,7 @@ export { ConfigProvider } from './configProvider'
 export { HotkeyProvider, HotkeyDescription } from './hotkeyProvider'
 export { Theme } from './theme'
 export { TabContextMenuItemProvider } from './tabContextMenuProvider'
+export { SelectorOption } from './selector'
 
 export { AppService } from '../services/app.service'
 export { ConfigService } from '../services/config.service'

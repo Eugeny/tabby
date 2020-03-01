@@ -26,6 +26,15 @@ export interface SerialConnection {
     color?: string
 }
 
+export const BAUD_RATES = [
+    110, 150, 300, 1200, 2400, 4800, 9600, 19200, 38400, 57600, 115200, 230400, 460800, 921600,
+]
+
+export interface SerialPortInfo {
+    name: string
+    description?: string
+}
+
 export class SerialSession extends BaseSession {
     scripts?: LoginScript[]
     serial: SerialPort

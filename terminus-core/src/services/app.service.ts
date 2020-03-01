@@ -2,9 +2,12 @@
 import { Observable, Subject, AsyncSubject } from 'rxjs'
 import { takeUntil } from 'rxjs/operators'
 import { Injectable } from '@angular/core'
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 
 import { BaseTabComponent } from '../components/baseTab.component'
 import { SplitTabComponent } from '../components/splitTab.component'
+import { SelectorModalComponent } from '../components/selectorModal.component'
+import { SelectorOption } from '../api/selector'
 
 import { ConfigService } from './config.service'
 import { HostAppService } from './hostApp.service'
@@ -69,6 +72,7 @@ export class AppService {
         private hostApp: HostAppService,
         private tabRecovery: TabRecoveryService,
         private tabsService: TabsService,
+        private ngbModal: NgbModal,
     ) {
         if (hostApp.getWindow().id === 1) {
             if (config.store.terminal.recoverTabs) {
@@ -314,5 +318,13 @@ export class AppService {
 
     stopObservingTabCompletion (tab: BaseTabComponent) {
         this.completionObservers.delete(tab)
+    }
+
+    showSelector <T> (name: string, options: SelectorOption<T>[]): Promise<T> {
+        const modal = this.ngbModal.open(SelectorModalComponent)
+        const instance: SelectorModalComponent<T> = modal.componentInstance
+        instance.name = name
+        instance.options = options
+        return modal.result as Promise<T>
     }
 }

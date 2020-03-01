@@ -16,6 +16,7 @@ import { TitleBarComponent } from './components/titleBar.component'
 import { ToggleComponent } from './components/toggle.component'
 import { WindowControlsComponent } from './components/windowControls.component'
 import { RenameTabModalComponent } from './components/renameTabModal.component'
+import { SelectorModalComponent } from './components/selectorModal.component'
 import { SplitTabComponent, SplitTabRecoveryProvider } from './components/splitTab.component'
 import { SplitTabSpannerComponent } from './components/splitTabSpanner.component'
 import { WelcomeTabComponent } from './components/welcomeTab.component'
@@ -82,6 +83,7 @@ const PROVIDERS = [
         SafeModeModalComponent,
         AutofocusDirective,
         FastHtmlBindDirective,
+        SelectorModalComponent,
         SplitTabComponent,
         SplitTabSpannerComponent,
         WelcomeTabComponent,
@@ -89,6 +91,7 @@ const PROVIDERS = [
     entryComponents: [
         RenameTabModalComponent,
         SafeModeModalComponent,
+        SelectorModalComponent,
         SplitTabComponent,
         WelcomeTabComponent,
     ],

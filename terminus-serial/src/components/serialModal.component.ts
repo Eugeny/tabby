@@ -4,7 +4,7 @@ import { ToastrService } from 'ngx-toastr'
 import { ConfigService, AppService } from 'terminus-core'
 import { SettingsTabComponent } from 'terminus-settings'
 import { SerialService } from '../services/serial.service'
-import { SerialConnection, SerialConnectionGroup } from '../api'
+import { SerialConnection, SerialConnectionGroup, SerialPortInfo, BAUD_RATES } from '../api'
 
 /** @hidden */
 @Component({
@@ -18,6 +18,7 @@ export class SerialModalComponent {
     lastConnection: SerialConnection|null = null
     childGroups: SerialConnectionGroup[]
     groupCollapsed: {[id: string]: boolean} = {}
+    foundPorts: SerialPortInfo[] = []
 
     constructor (
         public modalInstance: NgbActiveModal,
@@ -27,12 +28,14 @@ export class SerialModalComponent {
         private toastr: ToastrService,
     ) { }
 
-    ngOnInit () {
+    async ngOnInit () {
         this.connections = this.config.store.serial.connections
         if (window.localStorage.lastSerialConnection) {
             this.lastConnection = JSON.parse(window.localStorage.lastSerialConnection)
         }
         this.refresh()
+
+        this.foundPorts = await this.serial.listPorts()
     }
 
     quickConnect () {
@@ -104,5 +107,13 @@ export class SerialModalComponent {
             }
             group.connections.push(connection)
         }
+    }
+
+    async connectFoundPort (port: SerialPortInfo) {
+        const rate = await this.app.showSelector('Baud rate', BAUD_RATES.map(x => ({
+            name: x.toString(), result: x,
+        })))
+        this.quickTarget = `${port.name}@${rate}`
+        this.quickConnect()
     }
 }
