@@ -288,9 +288,9 @@ export class SSHSession extends BaseSession {
         }
     }
 
-    write (data: string): void {
+    write (data: Buffer): void {
         if (this.shell) {
-            this.shell.write(data)
+            this.shell.write(data.toString())
         }
     }
 

@@ -58,7 +58,7 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
         })
     }
 
-    async initializeSession (): void {
+    async initializeSession (): Promise<void> {
         if (!this.connection) {
             this.logger.error('No SSH connection info supplied')
             return

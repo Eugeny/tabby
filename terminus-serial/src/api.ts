@@ -105,9 +105,9 @@ export class SerialSession extends BaseSession {
         this.executeUnconditionalScripts()
     }
 
-    write (data: string): void {
+    write (data: Buffer): void {
         if (this.serial) {
-            this.serial.write(data)
+            this.serial.write(data.toString())
         }
     }
 
