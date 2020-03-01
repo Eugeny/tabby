@@ -1,5 +1,5 @@
 import * as fs from 'mz/fs'
-import slug from 'slug'
+import slugify from 'slugify'
 import { Injectable } from '@angular/core'
 import { HostAppService, Platform } from 'terminus-core'
 
@@ -24,7 +24,7 @@ export class POSIXShellsProvider extends ShellProvider {
             .map(x => x.trim())
             .filter(x => x && !x.startsWith('#'))
             .map(x => ({
-                id: slug(x),
+                id: slugify(x),
                 name: x.split('/')[2],
                 command: x,
                 args: ['-l'],

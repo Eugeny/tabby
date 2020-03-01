@@ -18,7 +18,6 @@
   "license": "MIT",
   "devDependencies": {
     "@types/deep-equal": "^1.0.0",
-    "@types/slug": "^0.9.1",
     "ansi-colors": "^4.1.1",
     "dataurl": "0.1.0",
     "deep-equal": "1.1.0",
@@ -26,7 +25,7 @@
     "mz": "^2.6.0",
     "ps-node": "^0.1.6",
     "runes": "^0.4.2",
-    "slug": "^2.0.0",
+    "slugify": "^1.4.0",
     "uuid": "^7.0.1",
     "xterm": "^4.5.0-beta.9",
     "xterm-addon-fit": "^0.4.0-beta2",

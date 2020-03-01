@@ -1,5 +1,5 @@
 import * as fs from 'mz/fs'
-import slug from 'slug'
+import slugify from 'slugify'
 
 import { Injectable } from '@angular/core'
 import { HostAppService, Platform, isWindowsBuild, WIN_BUILD_WSL_EXE_DISTRO_FLAG } from 'terminus-core'
@@ -90,7 +90,7 @@ export class WSLShellProvider extends ShellProvider {
             }
             const name = childKey.DistributionName.value
             const shell: Shell = {
-                id: `wsl-${slug(name)}`,
+                id: `wsl-${slugify(name)}`,
                 name: `WSL / ${name}`,
                 command: wslPath,
                 args: ['-d', name],

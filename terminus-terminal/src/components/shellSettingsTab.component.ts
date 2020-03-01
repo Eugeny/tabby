@@ -1,4 +1,4 @@
-import slug from 'slug'
+import slugify from 'slugify'
 import { Component } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { Subscription } from 'rxjs'
@@ -17,7 +17,7 @@ export class ShellSettingsTabComponent {
     Platform = Platform
     isConPTYAvailable: boolean
     isConPTYStable: boolean
-    slug = slug
+    slugify = slugify
     private configSubscription: Subscription
 
     constructor (

@@ -1,5 +1,5 @@
 import * as fs from 'mz/fs'
-import slug from 'slug'
+import slugify from 'slugify'
 import { Observable, AsyncSubject } from 'rxjs'
 import { Injectable, Inject } from '@angular/core'
 import { AppService, Logger, LogService, ConfigService, SplitTabComponent } from 'terminus-core'
@@ -54,7 +54,7 @@ export class TerminalService {
     async openTab (profile?: Profile, cwd?: string|null, pause?: boolean): Promise<TerminalTabComponent> {
         if (!profile) {
             const profiles = await this.getProfiles(true)
-            profile = profiles.find(x => slug(x.name).toLowerCase() === this.config.store.terminal.profile) || profiles[0]
+            profile = profiles.find(x => slugify(x.name).toLowerCase() === this.config.store.terminal.profile) || profiles[0]
         }
 
         cwd = cwd || profile.sessionOptions.cwd

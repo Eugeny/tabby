@@ -11,7 +11,7 @@ h3.mb-3 Shell
     )
         option(
             *ngFor='let profile of profiles',
-            [ngValue]='slug(profile.name).toLowerCase()'
+            [ngValue]='slugify(profile.name).toLowerCase()'
         ) {{profile.name}}
 
 
