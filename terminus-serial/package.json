@@ -1,6 +1,6 @@
 {
   "name": "terminus-serial",
-  "version": "1.0.99-nightly.0",
+  "version": "1.0.104-nightly.0",
   "description": "Serial connection manager for Terminus",
   "keywords": [
     "terminus-builtin-plugin"
