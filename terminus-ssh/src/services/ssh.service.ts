@@ -109,7 +109,7 @@ export class SSHService {
                 }
 
                 const sshFormatKey = parsedKey!.toString('openssh')
-                const temp = path.join(this.electron.app.getPath('userData'), path.b)
+                const temp = await openTemp()
                 fs.close(temp.fd)
                 await fs.writeFile(temp.path, sshFormatKey)
 
