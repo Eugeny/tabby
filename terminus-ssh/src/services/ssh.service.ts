@@ -8,7 +8,7 @@ import { execFile } from 'mz/child_process'
 import * as path from 'path'
 import * as sshpk from 'sshpk'
 import { ToastrService } from 'ngx-toastr'
-import { AppService, HostAppService, Platform, Logger, LogService } from 'terminus-core'
+import { AppService, HostAppService, Platform, Logger, LogService, ElectronService } from 'terminus-core'
 import { SSHConnection, SSHSession } from '../api'
 import { PromptModalComponent } from '../components/promptModal.component'
 import { SSHTabComponent } from '../components/sshTab.component'
@@ -26,6 +26,7 @@ export class SSHService {
     private constructor (
         private log: LogService,
         private app: AppService,
+        private electron: ElectronService,
         private zone: NgZone,
         private ngbModal: NgbModal,
         private hostApp: HostAppService,
