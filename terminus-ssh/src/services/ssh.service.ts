@@ -1,12 +1,14 @@
 import colors from 'ansi-colors'
+import { open as openTemp } from 'temp'
 import { Injectable, NgZone } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { Client } from 'ssh2'
 import * as fs from 'mz/fs'
+import { execFile } from 'mz/child_process'
 import * as path from 'path'
 import * as sshpk from 'sshpk'
 import { ToastrService } from 'ngx-toastr'
-import { AppService, HostAppService, Platform, Logger, LogService } from 'terminus-core'
+import { AppService, HostAppService, Platform, Logger, LogService, ElectronService } from 'terminus-core'
 import { SSHConnection, SSHSession } from '../api'
 import { PromptModalComponent } from '../components/promptModal.component'
 import { SSHTabComponent } from '../components/sshTab.component'
@@ -24,6 +26,7 @@ export class SSHService {
     private constructor (
         private log: LogService,
         private app: AppService,
+        private electron: ElectronService,
         private zone: NgZone,
         private ngbModal: NgbModal,
         private hostApp: HostAppService,
@@ -105,7 +108,29 @@ export class SSHService {
                     }
                 }
 
-                privateKey = parsedKey!.toString('pem')
+                const sshFormatKey = parsedKey!.toString('openssh')
+                const temp = await openTemp()
+                fs.close(temp.fd)
+                await fs.writeFile(temp.path, sshFormatKey)
+
+                let sshKeygenPath = 'ssh-keygen'
+                if (this.hostApp.platform === Platform.Windows) {
+                    sshKeygenPath = path.join(
+                        path.dirname(this.electron.app.getPath('exe')),
+                        'resources',
+                        'extras',
+                        'ssh-keygen',
+                        'ssh-keygen.exe',
+                    )
+                }
+
+                await execFile(sshKeygenPath, [
+                    '-p', '-P', '', '-N', '', '-m', 'PEM', '-f',
+                    temp.path,
+                ])
+
+                privateKey = await fs.readFile(temp.path, { encoding: 'utf-8' })
+                fs.unlink(temp.path)
             }
         }
 
