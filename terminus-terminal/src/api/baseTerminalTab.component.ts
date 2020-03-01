@@ -374,7 +374,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
                         event.stopPropagation()
                         return
                     }
-                    if (event.which === 3) {
+                    if (event.which === 3 || event.which === 1 && event.ctrlKey) {
                         if (this.config.store.terminal.rightClick === 'menu') {
                             this.hostApp.popupContextMenu(await this.buildContextMenu())
                         } else if (this.config.store.terminal.rightClick === 'paste') {
