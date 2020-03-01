@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core'
+import { Component, Input, Injector } from '@angular/core'
 import { Subscription } from 'rxjs'
 import { first } from 'rxjs/operators'
 import { BaseTabProcess, WIN_BUILD_CONPTY_SUPPORTED, isWindowsBuild } from 'terminus-core'
@@ -16,6 +16,13 @@ import { Session } from '../services/sessions.service'
 export class TerminalTabComponent extends BaseTerminalTabComponent {
     @Input() sessionOptions: SessionOptions
     private homeEndSubscription: Subscription
+
+    // eslint-disable-next-line @typescript-eslint/no-useless-constructor
+    constructor (
+        injector: Injector,
+    ) {
+        super(injector)
+    }
 
     ngOnInit () {
         this.logger = this.log.create('terminalTab')

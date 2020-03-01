@@ -1,6 +1,6 @@
 import colors from 'ansi-colors'
 import { Spinner } from 'cli-spinner'
-import { Component } from '@angular/core'
+import { Component, Injector } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { first } from 'rxjs/operators'
 import { BaseTerminalTabComponent } from 'terminus-terminal'
@@ -18,16 +18,19 @@ import { Subscription } from 'rxjs'
 })
 export class SSHTabComponent extends BaseTerminalTabComponent {
     connection: SSHConnection
-    ssh: SSHService
     session: SSHSession
-    private ngbModal: NgbModal
     private homeEndSubscription: Subscription
 
-    ngOnInit () {
-        this.ngbModal = this.injector.get<NgbModal>(NgbModal)
+    constructor (
+        injector: Injector,
+        public ssh: SSHService,
+        private ngbModal: NgbModal,
+    ) {
+        super(injector)
+    }
 
+    ngOnInit () {
         this.logger = this.log.create('terminalTab')
-        this.ssh = this.injector.get(SSHService)
 
         this.homeEndSubscription = this.hotkeys.matchedHotkey.subscribe(hotkey => {
             if (!this.hasFocus) {

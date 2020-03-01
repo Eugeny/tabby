@@ -2,7 +2,7 @@ import { Observable, Subject, Subscription } from 'rxjs'
 import { first } from 'rxjs/operators'
 import { ToastrService } from 'ngx-toastr'
 import colors from 'ansi-colors'
-import { NgZone, OnInit, OnDestroy, Inject, Injector, Optional, ViewChild, HostBinding, Input, ElementRef } from '@angular/core'
+import { NgZone, OnInit, OnDestroy, Injector, ViewChild, HostBinding, Input, ElementRef, InjectFlags } from '@angular/core'
 import { trigger, transition, style, animate, AnimationTriggerMetadata } from '@angular/animations'
 import { AppService, ConfigService, BaseTabComponent, ElectronService, HostAppService, HotkeysService, Platform, LogService, Logger, TabContextMenuItemProvider } from 'terminus-core'
 
@@ -63,6 +63,22 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
      */
     enablePassthrough = true
 
+    // Deps start
+    config: ConfigService
+    element: ElementRef
+    protected zone: NgZone
+    protected app: AppService
+    protected hostApp: HostAppService
+    protected hotkeys: HotkeysService
+    protected sessions: SessionsService
+    protected electron: ElectronService
+    protected terminalContainersService: TerminalFrontendService
+    protected toastr: ToastrServiceProxy
+    protected log: LogService
+    protected decorators: TerminalDecorator[]
+    protected contextMenuProviders: TabContextMenuItemProvider[]
+    // Deps end
+
     protected logger: Logger
     protected output = new Subject<string>()
     private sessionCloseSubscription: Subscription
@@ -76,24 +92,24 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
     get alternateScreenActive$ (): Observable<boolean> { return this.frontend.alternateScreenActive$ }
     get frontendReady$ (): Observable<void> { return this.frontendReady }
 
-    constructor (
-        public config: ConfigService,
-        public element: ElementRef,
-        protected injector: Injector,
-        protected zone: NgZone,
-        protected app: AppService,
-        protected hostApp: HostAppService,
-        protected hotkeys: HotkeysService,
-        protected sessions: SessionsService,
-        protected electron: ElectronService,
-        protected terminalContainersService: TerminalFrontendService,
-        @Inject(ToastrService) protected toastr: ToastrServiceProxy,
-        protected log: LogService,
-        @Optional() @Inject(TerminalDecorator) protected decorators: TerminalDecorator[],
-        @Optional() @Inject(TabContextMenuItemProvider) protected contextMenuProviders: TabContextMenuItemProvider[],
-    ) {
+    constructor (protected injector: Injector) {
         super()
-        this.logger = log.create('baseTerminalTab')
+
+        this.config = injector.get(ConfigService)
+        this.element = injector.get(ElementRef)
+        this.zone = injector.get(NgZone)
+        this.app = injector.get(AppService)
+        this.hostApp = injector.get(HostAppService)
+        this.hotkeys = injector.get(HotkeysService)
+        this.sessions = injector.get(SessionsService)
+        this.electron = injector.get(ElectronService)
+        this.terminalContainersService = injector.get(TerminalFrontendService)
+        this.toastr = injector.get(ToastrService)
+        this.log = injector.get(LogService)
+        this.decorators = injector.get<any>(TerminalDecorator, null, InjectFlags.Optional) as TerminalDecorator[]
+        this.contextMenuProviders = injector.get<any>(TabContextMenuItemProvider, null, InjectFlags.Optional) as TabContextMenuItemProvider[]
+
+        this.logger = this.log.create('baseTerminalTab')
         this.decorators = this.decorators || []
         this.setTitle('Terminal')
 

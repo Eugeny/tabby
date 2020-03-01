@@ -1,6 +1,6 @@
 import colors from 'ansi-colors'
 import { Spinner } from 'cli-spinner'
-import { Component } from '@angular/core'
+import { Component, Injector } from '@angular/core'
 import { first } from 'rxjs/operators'
 import { BaseTerminalTabComponent } from 'terminus-terminal'
 import { SerialService } from '../services/serial.service'
@@ -16,14 +16,19 @@ import { Subscription } from 'rxjs'
 })
 export class SerialTabComponent extends BaseTerminalTabComponent {
     connection: SerialConnection
-    serial: SerialService
     session: SerialSession
     serialPort: any
     private homeEndSubscription: Subscription
 
+    constructor (
+        injector: Injector,
+        private serial: SerialService,
+    ) {
+        super(injector)
+    }
+
     ngOnInit () {
         this.logger = this.log.create('terminalTab')
-        this.serial = this.injector.get(SerialService)
 
         this.homeEndSubscription = this.hotkeys.matchedHotkey.subscribe(hotkey => {
             if (!this.hasFocus) {
