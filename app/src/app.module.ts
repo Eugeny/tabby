@@ -7,7 +7,7 @@ export function getRootModule (plugins: any[]) {
     const imports = [
         BrowserModule,
         ...plugins,
-        NgbModule.forRoot(),
+        NgbModule,
         ToastrModule.forRoot({
             positionClass: 'toast-bottom-center',
             toastClass: 'toast',

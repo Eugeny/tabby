@@ -13,14 +13,14 @@
     "watch": "webpack --progress --color --watch"
   },
   "dependencies": {
-    "@angular/animations": "7.2.8",
-    "@angular/common": "7.2.8",
-    "@angular/compiler": "7.2.8",
-    "@angular/core": "7.2.8",
-    "@angular/forms": "7.2.8",
-    "@angular/platform-browser": "7.2.8",
-    "@angular/platform-browser-dynamic": "7.2.8",
-    "@ng-bootstrap/ng-bootstrap": "^4.2.2",
+    "@angular/animations": "9.0.4",
+    "@angular/common": "9.0.4",
+    "@angular/compiler": "9.0.4",
+    "@angular/core": "9.0.4",
+    "@angular/forms": "9.0.4",
+    "@angular/platform-browser": "9.0.4",
+    "@angular/platform-browser-dynamic": "9.0.4",
+    "@ng-bootstrap/ng-bootstrap": "^6.0.0",
     "devtron": "1.4.0",
     "electron-config": "2.0.0",
     "electron-debug": "^3.0.1",
@@ -37,11 +37,11 @@
     "rxjs": "^6.5.4",
     "rxjs-compat": "^6.5.4",
     "yargs": "^15.1.0",
-    "zone.js": "^0.8.29"
+    "zone.js": "^0.10.2"
   },
   "optionalDependencies": {
-    "serialport": "^8.0.7",
     "macos-native-processlist": "^1.0.2",
+    "serialport": "^8.0.7",
     "windows-blurbehind": "^1.0.1",
     "windows-native-registry": "^1.0.17",
     "windows-process-tree": "^0.2.4",

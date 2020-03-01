@@ -1,5 +1,5 @@
 import { Observable, Subject, Subscription } from 'rxjs'
-import { Component, Injectable, ViewChild, ViewContainerRef, EmbeddedViewRef, OnInit, OnDestroy } from '@angular/core'
+import { Component, Injectable, ViewChild, ViewContainerRef, EmbeddedViewRef, AfterViewInit, OnDestroy } from '@angular/core'
 import { BaseTabComponent, BaseTabProcess } from './baseTab.component'
 import { TabRecoveryProvider, RecoveredTab } from '../api/tabRecovery'
 import { TabsService } from '../services/tabs.service'
@@ -140,7 +140,7 @@ export interface SplitSpannerInfo {
     `,
     styles: [require('./splitTab.component.scss')],
 })
-export class SplitTabComponent extends BaseTabComponent implements OnInit, OnDestroy {
+export class SplitTabComponent extends BaseTabComponent implements AfterViewInit, OnDestroy {
     static DIRECTIONS: SplitDirection[] = ['t', 'r', 'b', 'l']
 
     /** @hidden */
@@ -166,6 +166,7 @@ export class SplitTabComponent extends BaseTabComponent implements OnInit, OnDes
     private tabRemoved = new Subject<BaseTabComponent>()
     private splitAdjusted = new Subject<SplitSpannerInfo>()
     private focusChanged = new Subject<BaseTabComponent>()
+    private initialized = new Subject<void>()
 
     get tabAdded$ (): Observable<BaseTabComponent> { return this.tabAdded }
     get tabRemoved$ (): Observable<BaseTabComponent> { return this.tabRemoved }
@@ -179,6 +180,11 @@ export class SplitTabComponent extends BaseTabComponent implements OnInit, OnDes
      * Fired when a different sub-tab gains focus
      */
     get focusChanged$ (): Observable<BaseTabComponent> { return this.focusChanged }
+
+    /**
+     * Fired once tab layout is created and child tabs can be added
+     */
+    get initialized$ (): Observable<void> { return this.initialized }
 
     /** @hidden */
     constructor (
@@ -244,7 +250,7 @@ export class SplitTabComponent extends BaseTabComponent implements OnInit, OnDes
     }
 
     /** @hidden */
-    async ngOnInit () {
+    async ngAfterViewInit () {
         if (this._recoveredState) {
             await this.recoverContainer(this.root, this._recoveredState)
             this.layout()
@@ -255,6 +261,8 @@ export class SplitTabComponent extends BaseTabComponent implements OnInit, OnDes
                 }
             })
         }
+        this.initialized.next()
+        this.initialized.complete()
     }
 
     /** @hidden */
@@ -315,7 +323,9 @@ export class SplitTabComponent extends BaseTabComponent implements OnInit, OnDes
     /**
      * Inserts a new `tab` to the `side` of the `relative` tab
      */
-    addTab (tab: BaseTabComponent, relative: BaseTabComponent|null, side: SplitDirection) {
+    async addTab (tab: BaseTabComponent, relative: BaseTabComponent|null, side: SplitDirection) {
+        await this.initialized$.toPromise()
+
         let target = (relative ? this.getParentOf(relative) : null) || this.root
         let insertIndex = relative ? target.children.indexOf(relative) : -1
 

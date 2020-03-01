@@ -66,7 +66,7 @@ const PROVIDERS = [
         BrowserModule,
         BrowserAnimationsModule,
         FormsModule,
-        NgbModule.forRoot(),
+        NgbModule,
         PerfectScrollbarModule,
         DndModule.forRoot(),
     ],

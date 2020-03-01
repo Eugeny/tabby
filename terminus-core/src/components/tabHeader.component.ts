@@ -48,12 +48,15 @@ export class TabHeaderComponent {
     }
 
     ngOnInit () {
-        if (this.hostApp.platform === Platform.macOS) {
-            this.parentDraggable.setDragHandle(this.handle.nativeElement)
-        }
         this.tab.progress$.subscribe(progress => {
             this.progress = progress
         })
+    }
+
+    ngAfterViewInit () {
+        if (this.hostApp.platform === Platform.macOS) {
+            this.parentDraggable.setDragHandle(this.handle.nativeElement)
+        }
     }
 
     showRenameTabModal (): void {

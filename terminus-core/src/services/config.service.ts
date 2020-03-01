@@ -188,7 +188,7 @@ export class ConfigService {
     enabledServices<T extends object> (services: T[]): T[] {
         if (!this.servicesCache) {
             this.servicesCache = {}
-            const ngModule = window['rootModule'].ngInjectorDef
+            const ngModule = window['rootModule'].ɵinj
             for (const imp of ngModule.imports) {
                 const module = imp['ngModule'] || imp
                 if (module.ngInjectorDef && module.ngInjectorDef.providers) {
