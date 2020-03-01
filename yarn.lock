@@ -95,10 +95,10 @@
     "@sentry/utils" "5.10.2"
     tslib "^1.9.3"
 
-"@sentry/electron@^1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@sentry/electron/-/electron-1.2.0.tgz#4e5498d335d31944a565a3b5ec63c6b9f451a12f"
-  integrity sha512-LnzCzUXI52JcSKc2JbXqQa4BtLGAVZvgN0l1aunR6nJ+DKR3Xg41NpiJ1PgvIlf1pbjz4EPcGhAewV94dMc2VA==
+"@sentry/electron@^1.2.1":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@sentry/electron/-/electron-1.2.1.tgz#edf4de4b2e680ad14aeda7ad6ef2e19f8f2015f1"
+  integrity sha512-8HtBjMvLpKbGRnf/iMWd/EXYatkepf1hsY6myIjH8egyPoRNbyxJhiAFoJeZ5GLbWRCWm7UuHkG4hBeyxUNZhg==
   dependencies:
     "@sentry/browser" "~5.10.2"
     "@sentry/core" "~5.10.2"
