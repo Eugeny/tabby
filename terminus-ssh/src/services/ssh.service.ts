@@ -109,7 +109,8 @@ export class SSHService {
                 }
 
                 const sshFormatKey = parsedKey!.toString('openssh')
-                const temp = await openTemp()
+                const temp = path.join(this.electron.app.getPath('userData'), path.b)
+                fs.close(temp.fd)
                 await fs.writeFile(temp.path, sshFormatKey)
 
                 let sshKeygenPath = 'ssh-keygen'
