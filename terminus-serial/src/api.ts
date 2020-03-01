@@ -21,7 +21,6 @@ export interface SerialConnection {
     xon: boolean
     xoff: boolean
     xany: boolean
-    group: string | null
     scripts?: LoginScript[]
     color?: string
 }

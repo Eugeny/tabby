@@ -38,7 +38,7 @@ export class SerialService {
         return session
     }
 
-    async connectSession (session: SerialSession, _?: (s: any) => void): Promise<void> {
+    async connectSession (session: SerialSession, _?: (s: any) => void): Promise<SerialPort> {
         const serial = new SerialPort(session.connection.port, { autoOpen: false, baudRate: session.connection.baudrate,
             dataBits: session.connection.databits, stopBits: session.connection.stopbits, parity: session.connection.parity,
             rtscts: session.connection.rtscts, xon: session.connection.xon, xoff: session.connection.xoff,
@@ -68,5 +68,6 @@ export class SerialService {
             }
 
         })
+        return serial
     }
 }

@@ -1,71 +1,7 @@
+@import '../../../terminus-ssh/src/components/sshTab.component.scss';
+
 :host {
-    flex: auto;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    position: relative;
-
-    &> .content {
-        flex: auto;
-        position: relative;
-        display: block;
-        overflow: hidden;
-        margin: 15px;
-    }
-
-    .serial-tab-toolbar {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index: 4;
-        pointer-events: none;
-
-        .reveal-button {
-            position: absolute;
-            top: 10px;
-            right: 30px;
-            border-radius: 50%;
-            width: 35px;
-            padding: 0;
-            height: 35px;
-            line-height: 35px;
-            transition: 0.125s opacity;
-            opacity: .5;
-            pointer-events: all;
-        }
-
-        &:hover .reveal-button {
-            opacity: 0;
-        }
-
-        &:hover .toolbar {
-            opacity: 1;
-        }
-
-        .toolbar {
-            opacity: 0;
-            background: rgba(0, 0, 0, .75);
-            padding: 10px 20px;
-            transition: 0.25s opacity;
-            display: flex;
-            align-items: center;
-            z-index: 1;
-            will-change: transform;
-
-            &>* {
-                pointer-events: all;
-            }
-        }
-
-        &.show {
-            .reveal-button {
-                opacity: 0;
-            }
-
-            .toolbar {
-                opacity: 1;
-            }
-        }
+    select {
+        width: auto;
     }
 }

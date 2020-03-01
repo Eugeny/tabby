@@ -4,7 +4,7 @@ import { ToastrService } from 'ngx-toastr'
 import { ConfigService, AppService } from 'terminus-core'
 import { SettingsTabComponent } from 'terminus-settings'
 import { SerialService } from '../services/serial.service'
-import { SerialConnection, SerialConnectionGroup, SerialPortInfo, BAUD_RATES } from '../api'
+import { SerialConnection, SerialPortInfo, BAUD_RATES } from '../api'
 
 /** @hidden */
 @Component({
@@ -13,11 +13,8 @@ import { SerialConnection, SerialConnectionGroup, SerialPortInfo, BAUD_RATES } f
 })
 export class SerialModalComponent {
     connections: SerialConnection[]
-    childFolders: SerialConnectionGroup[]
     quickTarget: string
     lastConnection: SerialConnection|null = null
-    childGroups: SerialConnectionGroup[]
-    groupCollapsed: {[id: string]: boolean} = {}
     foundPorts: SerialPortInfo[] = []
 
     constructor (
@@ -33,8 +30,6 @@ export class SerialModalComponent {
         if (window.localStorage.lastSerialConnection) {
             this.lastConnection = JSON.parse(window.localStorage.lastSerialConnection)
         }
-        this.refresh()
-
         this.foundPorts = await this.serial.listPorts()
     }
 
@@ -47,7 +42,6 @@ export class SerialModalComponent {
         }
         const connection: SerialConnection = {
             name: this.quickTarget,
-            group: null,
             port: path,
             baudrate: baudrate,
             databits: 8,
@@ -85,28 +79,6 @@ export class SerialModalComponent {
 
     close () {
         this.modalInstance.close()
-    }
-
-    refresh () {
-        this.childGroups = []
-
-        let connections = this.connections
-        if (this.quickTarget) {
-            connections = connections.filter((connection: SerialConnection) => (connection.name + connection.group!).toLowerCase().includes(this.quickTarget))
-        }
-
-        for (const connection of connections) {
-            connection.group = connection.group || null
-            let group = this.childGroups.find(x => x.name === connection.group)
-            if (!group) {
-                group = {
-                    name: connection.group!,
-                    connections: [],
-                }
-                this.childGroups.push(group!)
-            }
-            group.connections.push(connection)
-        }
     }
 
     async connectFoundPort (port: SerialPortInfo) {

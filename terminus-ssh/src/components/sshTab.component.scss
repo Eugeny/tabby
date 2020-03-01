@@ -13,7 +13,7 @@
         margin: 15px;
     }
 
-    .ssh-tab-toolbar {
+    > .tab-toolbar {
         position: absolute;
         top: 0;
         left: 0;
@@ -41,6 +41,7 @@
 
         &:hover .toolbar {
             opacity: 1;
+            transform: translate(0, 0);
         }
 
         .toolbar {
@@ -52,10 +53,9 @@
             align-items: center;
             z-index: 1;
             will-change: transform;
-
-            &>* {
-                pointer-events: all;
-            }
+            transform: translate(0, -100px);
+            transition: 0.25s transform ease-out;
+            pointer-events: all;
         }
 
         &.show {
@@ -65,6 +65,7 @@
 
             .toolbar {
                 opacity: 1;
+                transform: translate(0, 0);
             }
         }
     }

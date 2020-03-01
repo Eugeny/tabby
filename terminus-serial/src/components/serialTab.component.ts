@@ -1,11 +1,10 @@
 import colors from 'ansi-colors'
 import { Spinner } from 'cli-spinner'
 import { Component } from '@angular/core'
-// import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { first } from 'rxjs/operators'
 import { BaseTerminalTabComponent } from 'terminus-terminal'
 import { SerialService } from '../services/serial.service'
-import { SerialConnection, SerialSession } from '../api'
+import { SerialConnection, SerialSession, BAUD_RATES } from '../api'
 import { Subscription } from 'rxjs'
 
 /** @hidden */
@@ -19,12 +18,10 @@ export class SerialTabComponent extends BaseTerminalTabComponent {
     connection: SerialConnection
     serial: SerialService
     session: SerialSession
-    // private ngbModal: NgbModal
+    serialPort: any
     private homeEndSubscription: Subscription
 
     ngOnInit () {
-        // this.ngbModal = this.injector.get<NgbModal>(NgbModal)
-
         this.logger = this.log.create('terminalTab')
         this.serial = this.injector.get(SerialService)
 
@@ -77,7 +74,7 @@ export class SerialTabComponent extends BaseTerminalTabComponent {
         spinner.start()
 
         try {
-            await this.serial.connectSession(this.session, (message: string) => {
+            this.serialPort = await this.serial.connectSession(this.session, (message: string) => {
                 spinner.stop(true)
                 this.write(message + '\r\n')
                 spinner.start()
@@ -102,6 +99,14 @@ export class SerialTabComponent extends BaseTerminalTabComponent {
 
     reconnect () {
         this.initializeSession()
+    }
+
+    async changeBaudRate () {
+        const rate = await this.app.showSelector('Baud rate', BAUD_RATES.map(x => ({
+            name: x.toString(), result: x,
+        })))
+        this.serialPort.update({ baudRate: rate })
+        this.connection.baudrate = rate
     }
 
     ngOnDestroy () {
