@@ -1,8 +1,10 @@
 import colors from 'ansi-colors'
+import { open as openTemp } from 'temp'
 import { Injectable, NgZone } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { Client } from 'ssh2'
 import * as fs from 'mz/fs'
+import { execFile } from 'mz/child_process'
 import * as path from 'path'
 import * as sshpk from 'sshpk'
 import { ToastrService } from 'ngx-toastr'
@@ -105,7 +107,28 @@ export class SSHService {
                     }
                 }
 
-                privateKey = parsedKey!.toString('pem')
+                const sshFormatKey = parsedKey!.toString('ssh')
+                const temp = await openTemp()
+                await fs.writeFile(temp.path, sshFormatKey)
+
+                let sshKeygenPath = 'ssh-keygen'
+                if (this.hostApp.platform === Platform.Windows) {
+                    sshKeygenPath = path.join(
+                        path.dirname(this.electron.app.getPath('exe')),
+                        'resources',
+                        'extras',
+                        'ssh-keygen',
+                        'ssh-keygen.exe',
+                    )
+                }
+
+                await execFile(sshKeygenPath, [
+                    '-p', '-P', '', '-N', '', '-m', 'PEM', '-f',
+                    temp.path,
+                ])
+
+                privateKey = await fs.readFile(temp.path, { encoding: 'utf-8' })
+                fs.unlink(temp.path)
             }
         }
 
