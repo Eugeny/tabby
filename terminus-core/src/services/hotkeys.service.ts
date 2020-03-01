@@ -216,6 +216,9 @@ export class HotkeysService {
                 if (typeof value === 'string') {
                     value = [value]
                 }
+                if (!(value instanceof Array)) {
+                    continue
+                }
                 if (value) {
                     value = value.map((item: string | string[]) => typeof item === 'string' ? [item] : item)
                     keys[key] = value
