@@ -108,7 +108,7 @@ export class SSHService {
                     }
                 }
 
-                const sshFormatKey = parsedKey!.toString('ssh')
+                const sshFormatKey = parsedKey!.toString('openssh')
                 const temp = await openTemp()
                 await fs.writeFile(temp.path, sshFormatKey)
 
