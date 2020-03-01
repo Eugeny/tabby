@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import * as yaml from 'js-yaml'
 import { Subscription } from 'rxjs'
 import { Component, Inject, Input, HostBinding, NgZone } from '@angular/core'

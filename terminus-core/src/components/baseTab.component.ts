@@ -1,5 +1,6 @@
 import { Observable, Subject } from 'rxjs'
 import { ViewRef } from '@angular/core'
+import { RecoveryToken } from '../api/tabRecovery'
 
 /**
  * Represents an active "process" inside a tab,
@@ -71,7 +72,7 @@ export abstract class BaseTabComponent {
         })
     }
 
-    setTitle (title: string) {
+    setTitle (title: string): void {
         this.title = title
         if (!this.customTitle) {
             this.titleChange.next(title)
@@ -83,7 +84,7 @@ export abstract class BaseTabComponent {
      *
      * @param  {type} progress: value between 0 and 1, or `null` to remove
      */
-    setProgress (progress: number|null) {
+    setProgress (progress: number|null): void {
         this.progress.next(progress)
         if (progress) {
             if (this.progressClearTimeout) {
@@ -118,7 +119,7 @@ export abstract class BaseTabComponent {
      * @return JSON serializable tab state representation
      *         for your [[TabRecoveryProvider]] to parse
      */
-    async getRecoveryToken (): Promise<any> {
+    async getRecoveryToken (): Promise<RecoveryToken|null> {
         return null
     }
 
@@ -136,11 +137,11 @@ export abstract class BaseTabComponent {
         return true
     }
 
-    emitFocused () {
+    emitFocused (): void {
         this.focused.next()
     }
 
-    emitBlurred () {
+    emitBlurred (): void {
         this.blurred.next()
     }
 

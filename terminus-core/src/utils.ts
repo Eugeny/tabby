@@ -10,6 +10,7 @@ export function isWindowsBuild (build: number): boolean {
     return process.platform === 'win32' && parseFloat(os.release()) >= 10 && parseInt(os.release().split('.')[2]) >= build
 }
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export function getCSSFontFamily (config: any): string {
     let fonts: string[] = config.terminal.font.split(',').map(x => x.trim().replace(/"/g, ''))
     if (config.terminal.fallbackFont) {

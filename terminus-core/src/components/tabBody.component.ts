@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Component, Input, ViewChild, HostBinding, ViewContainerRef, OnChanges } from '@angular/core'
 import { BaseTabComponent } from '../components/baseTab.component'
 

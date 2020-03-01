@@ -137,7 +137,7 @@ export class CopyPasteContextMenu extends TabContextMenuItemProvider {
             return [
                 {
                     label: 'Copy',
-                    click: () => {
+                    click: (): void => {
                         this.zone.run(() => {
                             setTimeout(() => {
                                 (tab as BaseTerminalTabComponent).frontend.copySelection()
@@ -148,7 +148,7 @@ export class CopyPasteContextMenu extends TabContextMenuItemProvider {
                 },
                 {
                     label: 'Paste',
-                    click: () => {
+                    click: (): void => {
                         this.zone.run(() => (tab as BaseTerminalTabComponent).paste())
                     },
                 },

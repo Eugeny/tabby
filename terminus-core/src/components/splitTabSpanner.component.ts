@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Component, Input, HostBinding, ElementRef, Output, EventEmitter } from '@angular/core'
 import { SplitContainer } from './splitTab.component'
 

@@ -17,7 +17,7 @@ export class TabsService {
     /**
      * Instantiates a tab component and assigns given inputs
      */
-    create (type: TabComponentType, inputs?: any): BaseTabComponent {
+    create (type: TabComponentType, inputs?: Record<string, any>): BaseTabComponent {
         const componentFactory = this.componentFactoryResolver.resolveComponentFactory(type)
         const componentRef = componentFactory.create(this.injector)
         const tab = componentRef.instance

@@ -31,7 +31,7 @@ export class Application {
         }
     }
 
-    init () {
+    init (): void {
         electron.screen.on('display-metrics-changed', () => this.broadcast('host:display-metrics-changed'))
     }
 
@@ -52,20 +52,20 @@ export class Application {
         return window
     }
 
-    broadcast (event, ...args) {
-        for (let window of this.windows) {
+    broadcast (event: string, ...args): void {
+        for (const window of this.windows) {
             window.send(event, ...args)
         }
     }
 
-    async send (event, ...args) {
+    async send (event: string, ...args): void {
         if (!this.hasWindows()) {
             await this.newWindow()
         }
         this.windows.filter(w => !w.isDestroyed())[0].send(event, ...args)
     }
 
-    enableTray () {
+    enableTray (): void {
         if (this.tray) {
             return
         }
@@ -90,18 +90,18 @@ export class Application {
         this.tray.setToolTip(`Terminus ${app.getVersion()}`)
     }
 
-    disableTray () {
+    disableTray (): void {
         if (this.tray) {
             this.tray.destroy()
             this.tray = null
         }
     }
 
-    hasWindows () {
+    hasWindows (): bool {
         return !!this.windows.length
     }
 
-    focus () {
+    focus (): void {
         for (let window of this.windows) {
             window.show()
         }

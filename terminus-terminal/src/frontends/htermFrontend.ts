@@ -13,7 +13,7 @@ export class HTermFrontend extends Frontend {
     private configuredBackgroundColor = 'transparent'
     private zoom = 0
 
-    attach (host: HTMLElement) {
+    attach (host: HTMLElement): void {
         if (!this.initialized) {
             this.init()
             this.initialized = true
@@ -29,15 +29,15 @@ export class HTermFrontend extends Frontend {
         return this.term.getSelectionText()
     }
 
-    copySelection () {
+    copySelection (): void {
         this.term.copySelectionToClipboard()
     }
 
-    clearSelection () {
+    clearSelection (): void {
         this.term.getDocument().getSelection().removeAllRanges()
     }
 
-    focus () {
+    focus (): void {
         setTimeout(() => {
             this.term.scrollPort_.resize()
             this.term.scrollPort_.focus()
@@ -168,7 +168,7 @@ export class HTermFrontend extends Frontend {
     saveState (): any { }
 
     // eslint-disable-next-line @typescript-eslint/no-empty-function
-    restoreState (_state: any): void { }
+    restoreState (_state: string): void { }
 
     private setFontSize () {
         const size = this.configuredFontSize * Math.pow(1.1, this.zoom)
@@ -262,7 +262,7 @@ export class HTermFrontend extends Frontend {
                 // Drop whitespace at the end of selection
                 const range = selection.getRangeAt(0)
                 if (range.endOffset > 0 && range.endContainer.nodeType === 3 && range.endContainer.textContent !== '') {
-                    while (/[\s\S]+\s$/.test(range.endContainer.textContent.substr(0,range.endOffset))) {
+                    while (/[\s\S]+\s$/.test(range.endContainer.textContent.substr(0, range.endOffset))) {
                         range.setEnd(range.endContainer, range.endOffset - 1)
                     }
                 }

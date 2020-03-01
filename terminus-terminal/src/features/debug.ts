@@ -61,7 +61,7 @@ export class DebugDecorator extends TerminalDecorator {
         })
     }
 
-    async loadFile (): Promise<string|null> {
+    private async loadFile (): Promise<string|null> {
         const result = await this.electron.dialog.showOpenDialog(
             this.hostApp.getWindow(),
             {
@@ -75,7 +75,7 @@ export class DebugDecorator extends TerminalDecorator {
         return null
     }
 
-    async saveFile (content: string, name: string) {
+    private async saveFile (content: string, name: string) {
         const result = await this.electron.dialog.showSaveDialog(
             this.hostApp.getWindow(),
             {
@@ -87,21 +87,21 @@ export class DebugDecorator extends TerminalDecorator {
         }
     }
 
-    doSaveState (terminal: TerminalTabComponent) {
+    private doSaveState (terminal: TerminalTabComponent) {
         this.saveFile(terminal.frontend.saveState(), 'state.txt')
     }
 
-    async doCopyState (terminal: TerminalTabComponent) {
+    private async doCopyState (terminal: TerminalTabComponent) {
         const data = '```' + JSON.stringify(terminal.frontend.saveState()) + '```'
         this.electron.clipboard.writeText(data)
     }
 
-    async doLoadState (terminal: TerminalTabComponent) {
+    private async doLoadState (terminal: TerminalTabComponent) {
         const data = await this.loadFile()
         terminal.frontend.restoreState(data)
     }
 
-    async doPasteState (terminal: TerminalTabComponent) {
+    private async doPasteState (terminal: TerminalTabComponent) {
         let data = this.electron.clipboard.readText()
         if (data) {
             if (data.startsWith('`')) {
@@ -111,23 +111,23 @@ export class DebugDecorator extends TerminalDecorator {
         }
     }
 
-    doSaveOutput (buffer: string) {
+    private doSaveOutput (buffer: string) {
         this.saveFile(buffer, 'output.txt')
     }
 
-    async doCopyOutput (buffer: string) {
+    private async doCopyOutput (buffer: string) {
         const data = '```' + JSON.stringify(buffer) + '```'
         this.electron.clipboard.writeText(data)
     }
 
-    async doLoadOutput (terminal: TerminalTabComponent) {
+    private async doLoadOutput (terminal: TerminalTabComponent) {
         const data = await this.loadFile()
         if (data) {
             terminal.frontend.write(data)
         }
     }
 
-    async doPasteOutput (terminal: TerminalTabComponent) {
+    private async doPasteOutput (terminal: TerminalTabComponent) {
         let data = this.electron.clipboard.readText()
         if (data) {
             if (data.startsWith('`')) {

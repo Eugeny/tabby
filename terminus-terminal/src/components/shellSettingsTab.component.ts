@@ -37,19 +37,19 @@ export class ShellSettingsTabComponent {
         this.isConPTYStable = isWindowsBuild(WIN_BUILD_CONPTY_STABLE)
     }
 
-    async ngOnInit () {
+    async ngOnInit (): void {
         this.shells = await this.terminalService.shells$.toPromise()
     }
 
-    ngOnDestroy () {
+    ngOnDestroy (): void {
         this.configSubscription.unsubscribe()
     }
 
-    async reload () {
+    async reload (): void {
         this.profiles = await this.terminalService.getProfiles(true)
     }
 
-    pickWorkingDirectory () {
+    pickWorkingDirectory (): void {
         const shell = this.shells.find(x => x.id === this.config.store.terminal.shell)
         if (!shell) {
             return
@@ -66,7 +66,7 @@ export class ShellSettingsTabComponent {
         }
     }
 
-    newProfile (shell: Shell) {
+    newProfile (shell: Shell): void {
         const profile: Profile = {
             name: shell.name || '',
             sessionOptions: this.terminalService.optionsFromShell(shell),
@@ -76,7 +76,7 @@ export class ShellSettingsTabComponent {
         this.reload()
     }
 
-    editProfile (profile: Profile) {
+    editProfile (profile: Profile): void {
         const modal = this.ngbModal.open(EditProfileModalComponent)
         modal.componentInstance.profile = Object.assign({}, profile)
         modal.result.then(result => {
@@ -85,7 +85,7 @@ export class ShellSettingsTabComponent {
         })
     }
 
-    deleteProfile (profile: Profile) {
+    deleteProfile (profile: Profile): void {
         this.config.store.terminal.profiles = this.config.store.terminal.profiles.filter(x => x !== profile)
         this.config.save()
         this.reload()

@@ -3,6 +3,7 @@ import { Spinner } from 'cli-spinner'
 import { Component, Injector } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { first } from 'rxjs/operators'
+import { RecoveryToken } from 'terminus-core'
 import { BaseTerminalTabComponent } from 'terminus-terminal'
 import { SSHService } from '../services/ssh.service'
 import { SSHConnection, SSHSession } from '../api'
@@ -29,7 +30,7 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
         super(injector)
     }
 
-    ngOnInit () {
+    ngOnInit (): void {
         this.logger = this.log.create('terminalTab')
 
         this.homeEndSubscription = this.hotkeys.matchedHotkey.subscribe(hotkey => {
@@ -57,7 +58,7 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
         })
     }
 
-    async initializeSession () {
+    async initializeSession (): void {
         if (!this.connection) {
             this.logger.error('No SSH connection info supplied')
             return
@@ -96,7 +97,7 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
         this.session.resize(this.size.columns, this.size.rows)
     }
 
-    async getRecoveryToken (): Promise<any> {
+    async getRecoveryToken (): Promise<RecoveryToken> {
         return {
             type: 'app:ssh-tab',
             connection: this.connection,
@@ -104,16 +105,16 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
         }
     }
 
-    showPortForwarding () {
+    showPortForwarding (): void {
         const modal = this.ngbModal.open(SSHPortForwardingModalComponent).componentInstance as SSHPortForwardingModalComponent
         modal.session = this.session
     }
 
-    reconnect () {
+    reconnect (): void {
         this.initializeSession()
     }
 
-    ngOnDestroy () {
+    ngOnDestroy (): void {
         this.homeEndSubscription.unsubscribe()
         super.ngOnDestroy()
     }

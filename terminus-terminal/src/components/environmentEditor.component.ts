@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Component, Output, Input } from '@angular/core'
 import { Subject } from 'rxjs'
 

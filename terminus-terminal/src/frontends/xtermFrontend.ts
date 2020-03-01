@@ -259,7 +259,7 @@ export class XTermFrontend extends Frontend {
         return this.serializeAddon.serialize(1000)
     }
 
-    restoreState (state: any): void {
+    restoreState (state: string): void {
         this.xterm.write(state)
     }
 

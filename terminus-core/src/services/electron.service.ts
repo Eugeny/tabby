@@ -46,7 +46,7 @@ export class ElectronService {
     /**
      * Removes OS focus from Terminus' window
      */
-    loseFocus () {
+    loseFocus (): void {
         if (process.platform === 'darwin') {
             this.remote.Menu.sendActionToFirstResponder('hide:')
         }

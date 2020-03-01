@@ -17,7 +17,7 @@ export class DockMenuService {
         config.changed$.subscribe(() => this.update())
     }
 
-    update () {
+    update (): void {
         if (this.hostApp.platform === Platform.Windows) {
             this.electron.app.setJumpList(this.config.store.terminal.profiles.length ? [{
                 type: 'custom',

@@ -13,7 +13,7 @@ export class TerminalSettingsTabComponent {
         private terminal: TerminalService,
     ) { }
 
-    openWSLVolumeMixer () {
+    openWSLVolumeMixer (): void {
         this.electron.shell.openItem('sndvol.exe')
         this.terminal.openTab({
             name: '',

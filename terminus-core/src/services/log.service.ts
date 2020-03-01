@@ -32,27 +32,27 @@ export class Logger {
         private name: string,
     ) {}
 
-    debug (...args: any[]) {
+    debug (...args: any[]): void {
         this.doLog('debug', ...args)
     }
 
-    info (...args: any[]) {
+    info (...args: any[]): void {
         this.doLog('info', ...args)
     }
 
-    warn (...args: any[]) {
+    warn (...args: any[]): void {
         this.doLog('warn', ...args)
     }
 
-    error (...args: any[]) {
+    error (...args: any[]): void {
         this.doLog('error', ...args)
     }
 
-    log (...args: any[]) {
+    log (...args: any[]): void {
         this.doLog('log', ...args)
     }
 
-    private doLog (level: string, ...args: any[]) {
+    private doLog (level: string, ...args: any[]): void {
         console[level](`%c[${this.name}]`, 'color: #aaa', ...args)
         if (this.winstonLogger) {
             this.winstonLogger[level](...args)

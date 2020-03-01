@@ -27,7 +27,7 @@ export class ButtonProvider extends ToolbarButtonProvider {
             title: 'Settings',
             touchBarNSImage: 'NSTouchBarComposeTemplate',
             weight: 10,
-            click: () => this.open(),
+            click: (): void => this.open(),
         }]
     }
 

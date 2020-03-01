@@ -80,7 +80,7 @@ export class UpdaterService {
         return this.downloaded
     }
 
-    async update () {
+    async update (): Promise<void> {
         if (!this.electronUpdaterAvailable) {
             this.electron.shell.openExternal(this.updateURL)
         } else {

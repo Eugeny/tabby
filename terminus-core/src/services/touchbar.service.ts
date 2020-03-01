@@ -48,7 +48,7 @@ export class TouchbarService {
         })
     }
 
-    updateTabs () {
+    updateTabs (): void {
         this.tabSegments = this.app.tabs.map(tab => ({
             label: this.shortenTitle(tab.title),
         }))
@@ -56,7 +56,7 @@ export class TouchbarService {
         this.tabsSegmentedControl.selectedIndex = this.app.tabs.indexOf(this.app.activeTab)
     }
 
-    update () {
+    update (): void {
         if (this.hostApp.platform !== Platform.macOS) {
             return
         }

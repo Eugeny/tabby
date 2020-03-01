@@ -58,7 +58,7 @@ export class ShellIntegrationService {
         return true
     }
 
-    async install () {
+    async install (): Promise<void> {
         const exe: string = process.env.PORTABLE_EXECUTABLE_FILE || this.electron.app.getPath('exe')
         if (this.hostApp.platform === Platform.macOS) {
             for (const wf of this.automatorWorkflows) {
@@ -82,7 +82,7 @@ export class ShellIntegrationService {
         }
     }
 
-    async remove () {
+    async remove (): Promise<void> {
         if (this.hostApp.platform === Platform.macOS) {
             for (const wf of this.automatorWorkflows) {
                 await exec(`rm -rf "${this.automatorWorkflowsDestination}/${wf}"`)

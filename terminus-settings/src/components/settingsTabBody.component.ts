@@ -13,7 +13,7 @@ export class SettingsTabBodyComponent {
 
     constructor (private componentFactoryResolver: ComponentFactoryResolver) { }
 
-    ngAfterViewInit () {
+    ngAfterViewInit (): void {
         // run after the change detection finishes
         setImmediate(() => {
             this.component = this.placeholder.createComponent(

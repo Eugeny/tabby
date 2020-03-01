@@ -19,7 +19,7 @@ export class PathDropDecorator extends TerminalDecorator {
         })
     }
 
-    injectPath (terminal: TerminalTabComponent, path: string) {
+    private injectPath (terminal: TerminalTabComponent, path: string) {
         if (path.includes(' ')) {
             path = `"${path}"`
         }

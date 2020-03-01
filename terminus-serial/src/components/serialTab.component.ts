@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import colors from 'ansi-colors'
 import { Spinner } from 'cli-spinner'
 import { Component, Injector } from '@angular/core'

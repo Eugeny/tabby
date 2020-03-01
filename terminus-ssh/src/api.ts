@@ -60,11 +60,11 @@ export class ForwardedPort {
         })
     }
 
-    stopLocalListener () {
+    stopLocalListener (): void {
         this.listener.close()
     }
 
-    toString () {
+    toString (): string {
         if (this.type === PortForwardType.Local) {
             return `(local) ${this.host}:${this.port} → (remote) ${this.targetAddress}:${this.targetPort}`
         } else {
@@ -88,7 +88,7 @@ export class SSHSession extends BaseSession {
         this.scripts = connection.scripts || []
     }
 
-    async start () {
+    async start (): Promise<void> {
         this.open = true
 
         try {
@@ -217,12 +217,12 @@ export class SSHSession extends BaseSession {
         this.executeUnconditionalScripts()
     }
 
-    emitServiceMessage (msg: string) {
+    emitServiceMessage (msg: string): void {
         this.serviceMessage.next(msg)
         this.logger.info(msg)
     }
 
-    async addPortForward (fw: ForwardedPort) {
+    async addPortForward (fw: ForwardedPort): Promise<void> {
         if (fw.type === PortForwardType.Local) {
             await fw.startLocalListener((socket: Socket) => {
                 this.logger.info(`New connection on ${fw}`)
@@ -270,7 +270,7 @@ export class SSHSession extends BaseSession {
         }
     }
 
-    async removePortForward (fw: ForwardedPort) {
+    async removePortForward (fw: ForwardedPort): Promise<void> {
         if (fw.type === PortForwardType.Local) {
             fw.stopLocalListener()
             this.forwardedPorts = this.forwardedPorts.filter(x => x !== fw)
@@ -282,19 +282,19 @@ export class SSHSession extends BaseSession {
         this.emitServiceMessage(`Stopped forwarding ${fw}`)
     }
 
-    resize (columns, rows) {
+    resize (columns: number, rows: number): void {
         if (this.shell) {
             this.shell.setWindow(rows, columns, rows, columns)
         }
     }
 
-    write (data) {
+    write (data: string): void {
         if (this.shell) {
             this.shell.write(data)
         }
     }
 
-    kill (signal?: string) {
+    kill (signal?: string): void {
         if (this.shell) {
             this.shell.signal(signal || 'TERM')
         }

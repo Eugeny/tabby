@@ -15,7 +15,7 @@ export class ColorPickerComponent {
     @ViewChild('input') input
     isOpen: boolean
 
-    open () {
+    open (): void {
         setImmediate(() => {
             this.popover.open()
             setImmediate(() => {
@@ -25,7 +25,7 @@ export class ColorPickerComponent {
         })
     }
 
-    @HostListener('document:click', ['$event']) onOutsideClick ($event) {
+    @HostListener('document:click', ['$event']) onOutsideClick ($event: MouseEvent): void {
         if (!this.isOpen) {
             return
         }
@@ -40,7 +40,7 @@ export class ColorPickerComponent {
         }
     }
 
-    onChange () {
+    onChange (): void {
         this.modelChange.emit(this.model)
     }
 }

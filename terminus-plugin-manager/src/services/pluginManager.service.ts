@@ -40,7 +40,7 @@ export class PluginManagerService {
         this.logger = log.create('pluginManager')
     }
 
-    async getNPM () {
+    async getNPM (): Promise<any> {
         if (!this.npm) {
             if (!this.npmReady) {
                 this.npmReady = new Promise(resolve => {
@@ -83,7 +83,7 @@ export class PluginManagerService {
         )
     }
 
-    async installPlugin (plugin: PluginInfo) {
+    async installPlugin (plugin: PluginInfo): Promise<void> {
         (await this.getNPM()).commands.install([`${plugin.packageName}@${plugin.version}`], err => {
             if (err) {
                 this.logger.error(err)
@@ -93,7 +93,7 @@ export class PluginManagerService {
         })
     }
 
-    async uninstallPlugin (plugin: PluginInfo) {
+    async uninstallPlugin (plugin: PluginInfo): Promise<void> {
         (await this.getNPM()).commands.remove([plugin.packageName], err => {
             if (err) {
                 this.logger.error(err)

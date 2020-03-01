@@ -61,7 +61,7 @@ export class HotkeyInputModalComponent {
         return keys.split('+').map((x) => x.trim())
     }
 
-    ngOnInit () {
+    ngOnInit (): void {
         this.keyTimeoutInterval = window.setInterval(() => {
             if (!this.lastKeyEvent) {
                 return
@@ -74,14 +74,14 @@ export class HotkeyInputModalComponent {
         this.hotkeys.disable()
     }
 
-    ngOnDestroy () {
+    ngOnDestroy (): void {
         this.keySubscription.unsubscribe()
         this.hotkeys.clearCurrentKeystrokes()
         this.hotkeys.enable()
         clearInterval(this.keyTimeoutInterval!)
     }
 
-    close () {
+    close (): void {
         this.modalInstance.dismiss()
     }
 }

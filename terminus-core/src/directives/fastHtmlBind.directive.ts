@@ -8,7 +8,7 @@ export class FastHtmlBindDirective implements OnChanges {
     @Input() fastHtmlBind: string
     constructor (private el: ElementRef) { }
 
-    ngOnChanges () {
+    ngOnChanges (): void {
         this.el.nativeElement.innerHTML = this.fastHtmlBind || ''
     }
 }

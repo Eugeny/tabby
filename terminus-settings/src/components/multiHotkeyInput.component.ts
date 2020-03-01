@@ -17,7 +17,7 @@ export class MultiHotkeyInputComponent {
         private ngbModal: NgbModal,
     ) { }
 
-    ngOnInit () {
+    ngOnInit (): void {
         if (!this.model) {
             this.model = []
         }
@@ -27,7 +27,7 @@ export class MultiHotkeyInputComponent {
         this.model = this.model.map(item => typeof item === 'string' ? [item] : item)
     }
 
-    editItem (item) {
+    editItem (item: string[]): void {
         this.ngbModal.open(HotkeyInputModalComponent).result.then((value: string[]) => {
             this.model[this.model.findIndex(x => x === item)] = value
             this.model = this.model.slice()
@@ -35,14 +35,14 @@ export class MultiHotkeyInputComponent {
         })
     }
 
-    addItem () {
+    addItem (): void {
         this.ngbModal.open(HotkeyInputModalComponent).result.then((value: string[]) => {
             this.model = this.model.concat([value])
             this.modelChange.emit(this.model)
         })
     }
 
-    removeItem (item) {
+    removeItem (item: string[]): void {
         this.model = this.model.filter(x => x !== item)
         this.modelChange.emit(this.model)
     }

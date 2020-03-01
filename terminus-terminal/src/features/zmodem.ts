@@ -68,7 +68,7 @@ export class ZModemDecorator extends TerminalDecorator {
         })
     }
 
-    async process (terminal, detection) {
+    private async process (terminal, detection): Promise<void> {
         this.showMessage(terminal, colors.bgBlue.black(' ZMODEM ') + ' Session started')
         this.showMessage(terminal, '------------------------')
 

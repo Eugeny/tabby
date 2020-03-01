@@ -1,5 +1,5 @@
 import { Injectable, Inject } from '@angular/core'
-import { TabRecoveryProvider, RecoveredTab } from '../api/tabRecovery'
+import { TabRecoveryProvider, RecoveredTab, RecoveryToken } from '../api/tabRecovery'
 import { BaseTabComponent } from '../components/baseTab.component'
 import { Logger, LogService } from '../services/log.service'
 import { ConfigService } from '../services/config.service'
@@ -17,7 +17,7 @@ export class TabRecoveryService {
         this.logger = log.create('tabRecovery')
     }
 
-    async saveTabs (tabs: BaseTabComponent[]) {
+    async saveTabs (tabs: BaseTabComponent[]): Promise<void> {
         window.localStorage.tabsRecovery = JSON.stringify(
             await Promise.all(
                 tabs
@@ -25,7 +25,7 @@ export class TabRecoveryService {
                         let token = tab.getRecoveryToken()
                         if (token) {
                             token = token.then(r => {
-                                if (r) {
+                                if (r && tab.color) {
                                     r.tabColor = tab.color
                                 }
                                 return r
@@ -38,7 +38,7 @@ export class TabRecoveryService {
         )
     }
 
-    async recoverTab (token: any): Promise<RecoveredTab|null> {
+    async recoverTab (token: RecoveryToken): Promise<RecoveredTab|null> {
         for (const provider of this.config.enabledServices(this.tabRecoveryProviders)) {
             try {
                 const tab = await provider.recover(token)

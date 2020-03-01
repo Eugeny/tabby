@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Injectable, NgZone } from '@angular/core'
 import { Subscription } from 'rxjs'
 import { AppService } from './services/app.service'

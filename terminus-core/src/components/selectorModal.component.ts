@@ -17,11 +17,11 @@ export class SelectorModalComponent<T> {
         public modalInstance: NgbActiveModal,
     ) { }
 
-    ngOnInit () {
+    ngOnInit (): void {
         this.onFilterChange()
     }
 
-    onFilterChange () {
+    onFilterChange (): void {
         const f = this.filter.trim().toLowerCase()
         if (!f) {
             this.filteredOptions = this.options
@@ -31,17 +31,17 @@ export class SelectorModalComponent<T> {
         }
     }
 
-    onFilterEnter () {
+    onFilterEnter (): void {
         if (this.filteredOptions.length === 1) {
             this.selectOption(this.filteredOptions[0])
         }
     }
 
-    selectOption (option: SelectorOption<T>) {
+    selectOption (option: SelectorOption<T>): void {
         this.modalInstance.close(option.result)
     }
 
-    close () {
+    close (): void {
         this.modalInstance.dismiss()
     }
 }

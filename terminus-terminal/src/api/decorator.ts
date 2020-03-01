@@ -26,7 +26,7 @@ export abstract class TerminalDecorator {
     /**
      * Automatically cancel @subscription once detached from @terminal
      */
-    protected subscribeUntilDetached (terminal: BaseTerminalTabComponent, subscription: Subscription) {
+    protected subscribeUntilDetached (terminal: BaseTerminalTabComponent, subscription: Subscription): void {
         if (!this.smartSubscriptions.has(terminal)) {
             this.smartSubscriptions.set(terminal, [])
         }

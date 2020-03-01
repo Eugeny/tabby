@@ -47,7 +47,7 @@ export class SerialSession extends BaseSession {
         this.scripts = connection.scripts || []
     }
 
-    async start () {
+    async start (): Promise<void> {
         this.open = true
 
         this.serial.on('data', data => {
@@ -105,12 +105,7 @@ export class SerialSession extends BaseSession {
         this.executeUnconditionalScripts()
     }
 
-    emitServiceMessage (msg: string) {
-        this.serviceMessage.next(msg)
-        this.logger.info(msg)
-    }
-
-    write (data) {
+    write (data: string): void {
         if (this.serial) {
             this.serial.write(data)
         }
@@ -121,11 +116,10 @@ export class SerialSession extends BaseSession {
         await super.destroy()
     }
 
-    resize (_, _1) {
-        console.log('resize')
-    }
+    // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-empty-function
+    resize (_, __) { }
 
-    kill (_?: string) {
+    kill (_?: string): void {
         this.serial.close()
     }
 

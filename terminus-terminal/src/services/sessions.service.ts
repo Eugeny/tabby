@@ -52,7 +52,7 @@ export abstract class BaseSession {
     get closed$ (): Observable<void> { return this.closed }
     get destroyed$ (): Observable<void> { return this.destroyed }
 
-    emitOutput (data: Buffer) {
+    emitOutput (data: Buffer): void {
         if (!this.initialDataBufferReleased) {
             this.initialDataBuffer = Buffer.concat([this.initialDataBuffer, data])
         } else {
@@ -61,7 +61,7 @@ export abstract class BaseSession {
         }
     }
 
-    releaseInitialDataBuffer () {
+    releaseInitialDataBuffer (): void {
         this.initialDataBufferReleased = true
         this.output.next(this.initialDataBuffer.toString())
         this.binaryOutput.next(this.initialDataBuffer)
@@ -99,7 +99,7 @@ export class Session extends BaseSession {
         super()
     }
 
-    start (options: SessionOptions) {
+    start (options: SessionOptions): void {
         this.name = options.name || ''
 
         const env = {
@@ -182,31 +182,13 @@ export class Session extends BaseSession {
         this.pauseAfterExit = options.pauseAfterExit || false
     }
 
-    processOSC1337 (data: Buffer) {
-        if (data.includes(OSC1337Prefix)) {
-            const preData = data.subarray(0, data.indexOf(OSC1337Prefix))
-            let params = data.subarray(data.indexOf(OSC1337Prefix) + OSC1337Prefix.length)
-            const postData = params.subarray(params.indexOf(OSC1337Suffix) + OSC1337Suffix.length)
-            const paramString = params.subarray(0, params.indexOf(OSC1337Suffix)).toString()
-
-            if (paramString.startsWith('CurrentDir=')) {
-                this.reportedCWD = paramString.split('=')[1]
-                if (this.reportedCWD.startsWith('~')) {
-                    this.reportedCWD = os.homedir() + this.reportedCWD.substring(1)
-                }
-                data = Buffer.concat([preData, postData])
-            }
-        }
-        return data
-    }
-
-    resize (columns, rows) {
+    resize (columns: number, rows: number): void {
         if (this.pty._writable) {
             this.pty.resize(columns, rows)
         }
     }
 
-    write (data: Buffer) {
+    write (data: Buffer): void {
         if (this.open) {
             if (this.pty._writable) {
                 this.pty.write(data)
@@ -216,7 +198,7 @@ export class Session extends BaseSession {
         }
     }
 
-    kill (signal?: string) {
+    kill (signal?: string): void {
         this.pty.kill(signal)
     }
 
@@ -323,6 +305,24 @@ export class Session extends BaseSession {
             this.guessedCWD = match[0]
         }
     }
+
+    private processOSC1337 (data: Buffer) {
+        if (data.includes(OSC1337Prefix)) {
+            const preData = data.subarray(0, data.indexOf(OSC1337Prefix))
+            let params = data.subarray(data.indexOf(OSC1337Prefix) + OSC1337Prefix.length)
+            const postData = params.subarray(params.indexOf(OSC1337Suffix) + OSC1337Suffix.length)
+            const paramString = params.subarray(0, params.indexOf(OSC1337Suffix)).toString()
+
+            if (paramString.startsWith('CurrentDir=')) {
+                this.reportedCWD = paramString.split('=')[1]
+                if (this.reportedCWD.startsWith('~')) {
+                    this.reportedCWD = os.homedir() + this.reportedCWD.substring(1)
+                }
+                data = Buffer.concat([preData, postData])
+            }
+        }
+        return data
+    }
 }
 
 /** @hidden */
@@ -339,7 +339,7 @@ export class SessionsService {
         this.logger = log.create('sessions')
     }
 
-    addSession (session: BaseSession, options: SessionOptions) {
+    addSession (session: BaseSession, options: SessionOptions): BaseSession {
         this.lastID++
         options.name = `session-${this.lastID}`
         session.start(options)

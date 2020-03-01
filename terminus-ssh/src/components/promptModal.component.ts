@@ -16,20 +16,20 @@ export class PromptModalComponent {
         private modalInstance: NgbActiveModal,
     ) { }
 
-    ngOnInit () {
+    ngOnInit (): void {
         setTimeout(() => {
             this.input.nativeElement.focus()
         })
     }
 
-    ok () {
+    ok (): void {
         this.modalInstance.close({
             value: this.value,
             remember: this.remember,
         })
     }
 
-    cancel () {
+    cancel (): void {
         this.modalInstance.close(null)
     }
 }

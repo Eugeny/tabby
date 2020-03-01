@@ -20,7 +20,7 @@ function isNonStructuralObjectMember (v): boolean {
 
 /** @hidden */
 export class ConfigProxy {
-    constructor (real: any, defaults: any) {
+    constructor (real: Record<string, any>, defaults: Record<string, any>) {
         for (const key in defaults) {
             if (isStructuralMember(defaults[key])) {
                 if (!real[key]) {
@@ -71,8 +71,10 @@ export class ConfigProxy {
         }
     }
 
-    getValue (_key: string): any { } // eslint-disable-line @typescript-eslint/no-empty-function
-    setValue (_key: string, _value: any) { } // eslint-disable-line @typescript-eslint/no-empty-function
+    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-empty-function
+    getValue (_key: string): any { }
+    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-empty-function
+    setValue (_key: string, _value: any) { }
 }
 
 @Injectable({ providedIn: 'root' })
@@ -124,7 +126,7 @@ export class ConfigService {
         })
     }
 
-    getDefaults () {
+    getDefaults (): Record<string, any> {
         const cleanup = o => {
             if (o instanceof Array) {
                 return o.map(cleanup)

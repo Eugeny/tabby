@@ -21,19 +21,19 @@ export class SearchPanelComponent {
         private toastr: ToastrService,
     ) { }
 
-    onQueryChange () {
+    onQueryChange (): void {
         this.notFound = false
         this.findNext(true)
     }
 
-    findNext (incremental = false) {
+    findNext (incremental = false): void {
         if (!this.frontend.findNext(this.query, { ...this.options, incremental: incremental || undefined })) {
             this.notFound = true
             this.toastr.error('Not found')
         }
     }
 
-    findPrevious () {
+    findPrevious (): void {
         if (!this.frontend.findPrevious(this.query, this.options)) {
             this.notFound = true
             this.toastr.error('Not found')

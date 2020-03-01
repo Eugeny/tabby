@@ -14,7 +14,7 @@ export class SafeModeModalComponent {
         this.error = window['safeModeReason']
     }
 
-    close () {
+    close (): void {
         this.modalInstance.dismiss()
     }
 }

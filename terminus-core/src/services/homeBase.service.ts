@@ -22,11 +22,11 @@ export class HomeBaseService {
         }
     }
 
-    openGitHub () {
+    openGitHub (): void {
         this.electron.shell.openExternal('https://github.com/eugeny/terminus')
     }
 
-    reportBug () {
+    reportBug (): void {
         let body = `Version: ${this.appVersion}\n`
         body += `Platform: ${os.platform()} ${os.release()}\n`
         const label = {
@@ -44,7 +44,7 @@ export class HomeBaseService {
         this.electron.shell.openExternal(`https://github.com/eugeny/terminus/issues/new?body=${encodeURIComponent(body)}&labels=${label}`)
     }
 
-    enableAnalytics () {
+    enableAnalytics (): void {
         if (!window.localStorage.analyticsUserID) {
             window.localStorage.analyticsUserID = uuidv4()
         }
@@ -56,7 +56,7 @@ export class HomeBaseService {
         this.mixpanel.track('launch', this.getAnalyticsProperties())
     }
 
-    getAnalyticsProperties () {
+    getAnalyticsProperties (): Record<string, string> {
         return {
             distinct_id: window.localStorage.analyticsUserID, // eslint-disable-line @typescript-eslint/camelcase
             platform: process.platform,

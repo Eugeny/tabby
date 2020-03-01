@@ -70,7 +70,7 @@ export class HotkeysService {
      * @param name DOM event name
      * @param nativeEvent event object
      */
-    pushKeystroke (name: string, nativeEvent: KeyboardEvent) {
+    pushKeystroke (name: string, nativeEvent: KeyboardEvent): void {
         (nativeEvent as any).event = name
         this.currentKeystrokes.push({ event: nativeEvent, time: performance.now() })
     }
@@ -78,7 +78,7 @@ export class HotkeysService {
     /**
      * Check the buffer for new complete keystrokes
      */
-    processKeystrokes () {
+    processKeystrokes (): void {
         if (this.isEnabled()) {
             this.zone.run(() => {
                 const matched = this.getCurrentFullyMatchedHotkey()
@@ -91,13 +91,13 @@ export class HotkeysService {
         }
     }
 
-    emitKeyEvent (nativeEvent: KeyboardEvent) {
+    emitKeyEvent (nativeEvent: KeyboardEvent): void {
         this.zone.run(() => {
             this.key.emit(nativeEvent)
         })
     }
 
-    clearCurrentKeystrokes () {
+    clearCurrentKeystrokes (): void {
         this.currentKeystrokes = []
     }
 
@@ -155,15 +155,15 @@ export class HotkeysService {
         return this.hotkeyDescriptions.filter((x) => x.id === id)[0]
     }
 
-    enable () {
+    enable (): void {
         this.disabledLevel--
     }
 
-    disable () {
+    disable (): void {
         this.disabledLevel++
     }
 
-    isEnabled () {
+    isEnabled (): boolean {
         return this.disabledLevel === 0
     }
 

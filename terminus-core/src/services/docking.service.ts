@@ -15,7 +15,7 @@ export class DockingService {
         electron.screen.on('display-metrics-changed', () => this.repositionWindow())
     }
 
-    dock () {
+    dock (): void {
         const dockSide = this.config.store.appearance.dock
 
         if (dockSide === 'off') {
@@ -59,16 +59,17 @@ export class DockingService {
         })
     }
 
-    getCurrentScreen () {
+    getCurrentScreen (): Electron.Display {
         return this.electron.screen.getDisplayNearestPoint(this.electron.screen.getCursorScreenPoint())
     }
 
-    getScreens () {
+    getScreens (): Electron.Display[] {
         const primaryDisplayID = this.electron.screen.getPrimaryDisplay().id
         return this.electron.screen.getAllDisplays().sort((a, b) =>
             a.bounds.x === b.bounds.x ? a.bounds.y - b.bounds.y : a.bounds.x - b.bounds.x
-        ).map((display,index) => {
+        ).map((display, index) => {
             return {
+                ...display,
                 id: display.id,
                 name: display.id === primaryDisplayID ? 'Primary Display' : `Display ${index +1}`,
             }

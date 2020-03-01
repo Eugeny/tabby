@@ -174,7 +174,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
     }
 
     /** @hidden */
-    ngOnInit () {
+    ngOnInit (): void {
         this.focused$.subscribe(() => {
             this.configure()
             this.frontend.focus()
@@ -259,7 +259,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
     /**
      * Feeds input into the active session
      */
-    sendInput (data: string|Buffer) {
+    sendInput (data: string|Buffer): void {
         if (!(data instanceof Buffer)) {
             data = Buffer.from(data, 'utf-8')
         }
@@ -272,7 +272,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
     /**
      * Feeds input into the terminal frontend
      */
-    write (data: string) {
+    write (data: string): void {
         const percentageMatch = /(^|[^\d])(\d+(\.\d+)?)%([^\d]|$)/.exec(data)
         if (percentageMatch) {
             const percentage = percentageMatch[3] ? parseFloat(percentageMatch[2]) : parseInt(percentageMatch[2])
@@ -286,7 +286,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
         this.frontend.write(data)
     }
 
-    paste () {
+    paste (): void {
         let data = this.electron.clipboard.readText() as string
         if (this.config.store.terminal.bracketedPaste) {
             data = '\x1b[200~' + data + '\x1b[201~'
@@ -318,23 +318,23 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
         }
     }
 
-    zoomIn () {
+    zoomIn (): void {
         this.zoom++
         this.frontend.setZoom(this.zoom)
     }
 
-    zoomOut () {
+    zoomOut (): void {
         this.zoom--
         this.frontend.setZoom(this.zoom)
     }
 
-    resetZoom () {
+    resetZoom (): void {
         this.zoom = 0
         this.frontend.setZoom(this.zoom)
     }
 
     /** @hidden */
-    ngOnDestroy () {
+    ngOnDestroy (): void {
         this.frontend.detach(this.content.nativeElement)
         this.detachTermContainerHandlers()
         this.config.enabledServices(this.decorators).forEach(decorator => {
@@ -351,21 +351,21 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
         this.output.complete()
     }
 
-    async destroy () {
+    async destroy (): Promise<void> {
         super.destroy()
         if (this.session && this.session.open) {
             await this.session.destroy()
         }
     }
 
-    protected detachTermContainerHandlers () {
+    protected detachTermContainerHandlers (): void {
         for (const subscription of this.termContainerSubscriptions) {
             subscription.unsubscribe()
         }
         this.termContainerSubscriptions = []
     }
 
-    protected attachTermContainerHandlers () {
+    protected attachTermContainerHandlers (): void {
         this.detachTermContainerHandlers()
 
         const maybeConfigure = () => {
@@ -437,7 +437,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
         ]
     }
 
-    protected attachSessionHandlers () {
+    protected attachSessionHandlers (): void {
         // this.session.output$.bufferTime(10).subscribe((datas) => {
         this.session.output$.subscribe(data => {
             if (this.enablePassthrough) {

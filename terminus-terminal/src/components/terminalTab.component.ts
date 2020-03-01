@@ -24,7 +24,7 @@ export class TerminalTabComponent extends BaseTerminalTabComponent {
         super(injector)
     }
 
-    ngOnInit () {
+    ngOnInit (): void {
         this.logger = this.log.create('terminalTab')
         this.session = new Session(this.config)
 
@@ -51,7 +51,7 @@ export class TerminalTabComponent extends BaseTerminalTabComponent {
         super.ngOnInit()
     }
 
-    initializeSession (columns: number, rows: number) {
+    initializeSession (columns: number, rows: number): void {
         this.sessions.addSession(
             this.session,
             Object.assign({}, this.sessionOptions, {
@@ -101,7 +101,7 @@ export class TerminalTabComponent extends BaseTerminalTabComponent {
         )).response === 1
     }
 
-    ngOnDestroy () {
+    ngOnDestroy (): void {
         this.homeEndSubscription.unsubscribe()
         super.ngOnDestroy()
         this.session.destroy()

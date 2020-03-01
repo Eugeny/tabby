@@ -119,7 +119,7 @@ export class Window {
         })
     }
 
-    setVibrancy (enabled: boolean, type?: string) {
+    setVibrancy (enabled: boolean, type?: string): void {
         this.lastVibrancy = { enabled, type }
         if (process.platform === 'win32') {
             if (parseFloat(os.release()) >= 10) {
@@ -140,22 +140,22 @@ export class Window {
         }
     }
 
-    show () {
+    show (): void {
         this.window.show()
     }
 
-    focus () {
+    focus (): void {
         this.window.focus()
     }
 
-    send (event, ...args) {
+    send (event: string, ...args): void {
         if (!this.window) {
             return
         }
         this.window.webContents.send(event, ...args)
     }
 
-    isDestroyed () {
+    isDestroyed (): void {
         return !this.window || this.window.isDestroyed()
     }
 

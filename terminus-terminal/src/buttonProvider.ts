@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import * as fs from 'mz/fs'
 import { Injectable } from '@angular/core'
 import { ToolbarButtonProvider, ToolbarButton, ElectronService } from 'terminus-core'

@@ -93,7 +93,7 @@ export class AppService {
         })
     }
 
-    startTabStorage () {
+    startTabStorage (): void {
         this.tabsChanged$.subscribe(() => {
             this.tabRecovery.saveTabs(this.tabs)
         })
@@ -102,7 +102,7 @@ export class AppService {
         }, 30000)
     }
 
-    addTabRaw (tab: BaseTabComponent, index: number|null = null) {
+    addTabRaw (tab: BaseTabComponent, index: number|null = null): void {
         if (index !== null) {
             this.tabs.splice(index, 0, tab)
         } else {
@@ -145,7 +145,7 @@ export class AppService {
      * Adds a new tab **without** wrapping it in a SplitTabComponent
      * @param inputs  Properties to be assigned on the new tab component instance
      */
-    openNewTabRaw (type: TabComponentType, inputs?: any): BaseTabComponent {
+    openNewTabRaw (type: TabComponentType, inputs?: Record<string, any>): BaseTabComponent {
         const tab = this.tabsService.create(type, inputs)
         this.addTabRaw(tab)
         return tab
@@ -155,7 +155,7 @@ export class AppService {
      * Adds a new tab while wrapping it in a SplitTabComponent
      * @param inputs  Properties to be assigned on the new tab component instance
      */
-    openNewTab (type: TabComponentType, inputs?: any): BaseTabComponent {
+    openNewTab (type: TabComponentType, inputs?: Record<string, any>): BaseTabComponent {
         const splitTab = this.tabsService.create(SplitTabComponent) as SplitTabComponent
         const tab = this.tabsService.create(type, inputs)
         splitTab.addTab(tab, null, 'r')
@@ -163,7 +163,7 @@ export class AppService {
         return tab
     }
 
-    selectTab (tab: BaseTabComponent) {
+    selectTab (tab: BaseTabComponent): void {
         if (this._activeTab === tab) {
             this._activeTab.emitFocused()
             return
@@ -199,14 +199,14 @@ export class AppService {
     }
 
     /** Switches between the current tab and the previously active one */
-    toggleLastTab () {
+    toggleLastTab (): void {
         if (!this.lastTabIndex || this.lastTabIndex >= this.tabs.length) {
             this.lastTabIndex = 0
         }
         this.selectTab(this.tabs[this.lastTabIndex])
     }
 
-    nextTab () {
+    nextTab (): void {
         if (this.tabs.length > 1) {
             const tabIndex = this.tabs.indexOf(this._activeTab)
             if (tabIndex < this.tabs.length - 1) {
@@ -217,7 +217,7 @@ export class AppService {
         }
     }
 
-    previousTab () {
+    previousTab (): void {
         if (this.tabs.length > 1) {
             const tabIndex = this.tabs.indexOf(this._activeTab)
             if (tabIndex > 0) {
@@ -228,7 +228,7 @@ export class AppService {
         }
     }
 
-    moveSelectedTabLeft () {
+    moveSelectedTabLeft (): void {
         if (this.tabs.length > 1) {
             const tabIndex = this.tabs.indexOf(this._activeTab)
             if (tabIndex > 0) {
@@ -239,7 +239,7 @@ export class AppService {
         }
     }
 
-    moveSelectedTabRight () {
+    moveSelectedTabRight (): void {
         if (this.tabs.length > 1) {
             const tabIndex = this.tabs.indexOf(this._activeTab)
             if (tabIndex < this.tabs.length - 1) {
@@ -250,7 +250,7 @@ export class AppService {
         }
     }
 
-    swapTabs (a: BaseTabComponent, b: BaseTabComponent) {
+    swapTabs (a: BaseTabComponent, b: BaseTabComponent): void {
         const i1 = this.tabs.indexOf(a)
         const i2 = this.tabs.indexOf(b)
         this.tabs[i1] = b
@@ -258,7 +258,7 @@ export class AppService {
     }
 
     /** @hidden */
-    emitTabsChanged () {
+    emitTabsChanged (): void {
         this.tabsChanged.next()
     }
 
@@ -272,11 +272,12 @@ export class AppService {
         tab.destroy()
     }
 
-    async duplicateTab (tab: BaseTabComponent) {
+    async duplicateTab (tab: BaseTabComponent): Promise<BaseTabComponent|null> {
         const dup = await this.tabsService.duplicate(tab)
         if (dup) {
             this.addTabRaw(dup, this.tabs.indexOf(tab) + 1)
         }
+        return dup
     }
 
     /**
@@ -295,7 +296,7 @@ export class AppService {
     }
 
     /** @hidden */
-    emitReady () {
+    emitReady (): void {
         this.ready.next()
         this.ready.complete()
         this.hostApp.emitReady()
@@ -316,7 +317,7 @@ export class AppService {
         return this.completionObservers.get(tab)!.done$
     }
 
-    stopObservingTabCompletion (tab: BaseTabComponent) {
+    stopObservingTabCompletion (tab: BaseTabComponent): void {
         this.completionObservers.delete(tab)
     }
 
