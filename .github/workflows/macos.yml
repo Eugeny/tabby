@@ -25,9 +25,6 @@ jobs:
     - name: Build native deps
       run: scripts/build-native.js
 
-    - name: Build typings
-      run: yarn run build:typings
-
     - name: Webpack
       run: yarn run build
 
