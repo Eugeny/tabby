@@ -8,11 +8,6 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v1
 
-    - name: Install Node
-      uses: actions/setup-node@v1
-      with:
-        node-version: 10
-
     - name: Install deps
       run: |
         npm i -g yarn@1.19.1
