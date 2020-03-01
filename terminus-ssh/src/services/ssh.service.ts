@@ -8,10 +8,9 @@ import { execFile } from 'mz/child_process'
 import * as path from 'path'
 import * as sshpk from 'sshpk'
 import { ToastrService } from 'ngx-toastr'
-import { AppService, HostAppService, Platform, Logger, LogService, ElectronService } from 'terminus-core'
+import { HostAppService, Platform, Logger, LogService, ElectronService } from 'terminus-core'
 import { SSHConnection, SSHSession } from '../api'
 import { PromptModalComponent } from '../components/promptModal.component'
-import { SSHTabComponent } from '../components/sshTab.component'
 import { PasswordStorageService } from './passwordStorage.service'
 import { SSH2Stream } from 'ssh2-streams'
 
@@ -25,7 +24,6 @@ export class SSHService {
 
     private constructor (
         private log: LogService,
-        private app: AppService,
         private electron: ElectronService,
         private zone: NgZone,
         private ngbModal: NgbModal,
@@ -34,17 +32,6 @@ export class SSHService {
         private toastr: ToastrService,
     ) {
         this.logger = log.create('ssh')
-    }
-
-    async openTab (connection: SSHConnection): Promise<SSHTabComponent> {
-        const tab = this.zone.run(() => this.app.openNewTab(
-            SSHTabComponent,
-            { connection }
-        ) as SSHTabComponent)
-        if (connection.color) {
-            (this.app.getParentTab(tab) || tab).color = connection.color
-        }
-        return tab
     }
 
     createSession (connection: SSHConnection): SSHSession {

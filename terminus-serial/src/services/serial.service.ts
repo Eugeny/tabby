@@ -1,15 +1,13 @@
 import { Injectable, NgZone } from '@angular/core'
 import SerialPort from 'serialport'
 import { ToastrService } from 'ngx-toastr'
-import { AppService, LogService } from 'terminus-core'
+import { LogService } from 'terminus-core'
 import { SerialConnection, SerialSession, SerialPortInfo } from '../api'
-import { SerialTabComponent } from '../components/serialTab.component'
 
 @Injectable({ providedIn: 'root' })
 export class SerialService {
     private constructor (
         private log: LogService,
-        private app: AppService,
         private zone: NgZone,
         private toastr: ToastrService,
     ) { }
@@ -19,17 +17,6 @@ export class SerialService {
             name: x.path,
             description: x.manufacturer || x.serialNumber ? `${x.manufacturer || ''} ${x.serialNumber || ''}` : undefined,
         }))
-    }
-
-    async openTab (connection: SerialConnection): Promise<SerialTabComponent> {
-        const tab = this.zone.run(() => this.app.openNewTab(
-            SerialTabComponent,
-            { connection }
-        ) as SerialTabComponent)
-        if (connection.color) {
-            (this.app.getParentTab(tab) || tab).color = connection.color
-        }
-        return tab
     }
 
     createSession (connection: SerialConnection): SerialSession {

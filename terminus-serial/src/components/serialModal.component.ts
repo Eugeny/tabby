@@ -1,10 +1,11 @@
-import { Component } from '@angular/core'
+import { Component, NgZone } from '@angular/core'
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
 import { ToastrService } from 'ngx-toastr'
 import { ConfigService, AppService } from 'terminus-core'
 import { SettingsTabComponent } from 'terminus-settings'
 import { SerialService } from '../services/serial.service'
 import { SerialConnection, SerialPortInfo, BAUD_RATES } from '../api'
+import { SerialTabComponent } from './serialTab.component'
 
 /** @hidden */
 @Component({
@@ -22,6 +23,7 @@ export class SerialModalComponent {
         private config: ConfigService,
         private serial: SerialService,
         private app: AppService,
+        private zone: NgZone,
         private toastr: ToastrService,
     ) { }
 
@@ -61,15 +63,23 @@ export class SerialModalComponent {
         this.lastConnection = null
     }
 
-    connect (connection: SerialConnection) {
+    async connect (connection: SerialConnection) {
         this.close()
-        this.serial.openTab(connection).catch(error => {
-            this.toastr.error(`Could not connect: ${error}`)
-        }).then(() => {
+
+        try {
+            const tab = this.zone.run(() => this.app.openNewTab(
+                SerialTabComponent,
+                { connection }
+            ) as SerialTabComponent)
+            if (connection.color) {
+                (this.app.getParentTab(tab) || tab).color = connection.color
+            }
             setTimeout(() => {
                 this.app.activeTab.emitFocused()
             })
-        })
+        } catch (error) {
+            this.toastr.error(`Could not connect: ${error}`)
+        }
     }
 
     manageConnections () {

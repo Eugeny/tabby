@@ -191,8 +191,8 @@ export class ConfigService {
             const ngModule = window['rootModule'].ɵinj
             for (const imp of ngModule.imports) {
                 const module = imp['ngModule'] || imp
-                if (module.ngInjectorDef && module.ngInjectorDef.providers) {
-                    this.servicesCache[module['pluginName']] = module.ngInjectorDef.providers.map(provider => {
+                if (module.ɵinj?.providers) {
+                    this.servicesCache[module['pluginName']] = module.ɵinj.providers.map(provider => {
                         return provider['useClass'] || provider
                     })
                 }

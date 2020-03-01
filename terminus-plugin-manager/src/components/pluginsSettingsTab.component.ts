@@ -1,6 +1,6 @@
 import { BehaviorSubject, Observable } from 'rxjs'
 import { debounceTime, distinctUntilChanged, first, tap, flatMap, map } from 'rxjs/operators'
-import * as semver from 'semver'
+import semverGt from 'semver/functions/gt'
 
 import { Component, Input } from '@angular/core'
 import { ConfigService, ElectronService } from 'terminus-core'
@@ -48,7 +48,7 @@ export class PluginsSettingsTabComponent {
             return plugins
         })).subscribe(available => {
             for (const plugin of this.pluginManager.installedPlugins) {
-                this.knownUpgrades[plugin.name] = available.find(x => x.name === plugin.name && semver.gt(x.version, plugin.version)) || null
+                this.knownUpgrades[plugin.name] = available.find(x => x.name === plugin.name && semverGt(x.version, plugin.version)) || null
             }
         })
     }

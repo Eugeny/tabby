@@ -1,10 +1,10 @@
-import { Component } from '@angular/core'
+import { Component, NgZone } from '@angular/core'
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
 import { ToastrService } from 'ngx-toastr'
 import { ConfigService, AppService } from 'terminus-core'
 import { SettingsTabComponent } from 'terminus-settings'
-import { SSHService } from '../services/ssh.service'
 import { SSHConnection, SSHConnectionGroup } from '../api'
+import { SSHTabComponent } from './sshTab.component'
 
 /** @hidden */
 @Component({
@@ -22,9 +22,9 @@ export class SSHModalComponent {
     constructor (
         public modalInstance: NgbActiveModal,
         private config: ConfigService,
-        private ssh: SSHService,
         private app: AppService,
         private toastr: ToastrService,
+        private zone: NgZone,
     ) { }
 
     ngOnInit () {
@@ -63,15 +63,24 @@ export class SSHModalComponent {
         this.lastConnection = null
     }
 
-    connect (connection: SSHConnection) {
+    async connect (connection: SSHConnection) {
         this.close()
-        this.ssh.openTab(connection).catch(error => {
-            this.toastr.error(`Could not connect: ${error}`)
-        }).then(() => {
+
+        try {
+            const tab = this.zone.run(() => this.app.openNewTab(
+                SSHTabComponent,
+                { connection }
+            ) as SSHTabComponent)
+            if (connection.color) {
+                (this.app.getParentTab(tab) || tab).color = connection.color
+            }
+
             setTimeout(() => {
-                this.app.activeTab.emitFocused()
+                this.app.activeTab?.emitFocused()
             })
-        })
+        } catch (error) {
+            this.toastr.error(`Could not connect: ${error}`)
+        }
     }
 
     manageConnections () {

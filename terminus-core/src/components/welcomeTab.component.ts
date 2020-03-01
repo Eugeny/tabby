@@ -1,7 +1,7 @@
 import { Component } from '@angular/core'
 import { BaseTabComponent } from './baseTab.component'
 import { ConfigService } from '../services/config.service'
-import { AppService } from '../services/app.service'
+import { HostAppService } from '../services/hostApp.service'
 
 /** @hidden */
 @Component({
@@ -10,17 +10,29 @@ import { AppService } from '../services/app.service'
     styles: [require('./welcomeTab.component.scss')],
 })
 export class WelcomeTabComponent extends BaseTabComponent {
+    enableSSH = false
+    enableSerial = false
+
     constructor (
-        private app: AppService,
+        private hostApp: HostAppService,
         public config: ConfigService,
     ) {
         super()
         this.setTitle('Welcome')
+        this.enableSSH = !config.store.pluginBlacklist.includes('ssh')
+        this.enableSerial = !config.store.pluginBlacklist.includes('serial')
     }
 
     closeAndDisable () {
         this.config.store.enableWelcomeTab = false
+        this.config.store.pluginBlacklist = []
+        if (!this.enableSSH) {
+            this.config.store.pluginBlacklist.push('ssh')
+        }
+        if (!this.enableSerial) {
+            this.config.store.pluginBlacklist.push('serial')
+        }
         this.config.save()
-        this.app.closeTab(this)
+        this.hostApp.getWindow().reload()
     }
 }
