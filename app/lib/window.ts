@@ -155,7 +155,7 @@ export class Window {
         this.window.webContents.send(event, ...args)
     }
 
-    isDestroyed (): void {
+    isDestroyed (): boolean {
         return !this.window || this.window.isDestroyed()
     }
 

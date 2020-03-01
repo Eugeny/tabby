@@ -58,7 +58,7 @@ export class Application {
         }
     }
 
-    async send (event: string, ...args): void {
+    async send (event: string, ...args): Promise<void> {
         if (!this.hasWindows()) {
             await this.newWindow()
         }
@@ -97,7 +97,7 @@ export class Application {
         }
     }
 
-    hasWindows (): bool {
+    hasWindows (): boolean {
         return !!this.windows.length
     }
 
