@@ -375,10 +375,10 @@ buffer-from@^1.0.0:
   resolved "https://registry.yarnpkg.com/buffer-from/-/buffer-from-1.1.1.tgz#32713bc028f75c02fdb710d7c7bcec1f2c6070ef"
   integrity sha512-MQcXEUbCKtEo7bhqEs6560Hyd4XaovZlO/k9V3hjVUF/zwW7KBVdSK4gIt/bzwS9MbR5qob+F5jusZsb0YQK2A==
 
-builder-util-runtime@8.6.0:
-  version "8.6.0"
-  resolved "https://registry.yarnpkg.com/builder-util-runtime/-/builder-util-runtime-8.6.0.tgz#b7007c30126da9a90e99932128d2922c8c178649"
-  integrity sha512-WTDhTUVrm7zkFyd6Qn7AXgmWifjpZ/fYnEdV3XCOIDMNNb/KPddBTbQ8bUlxxVeuOYlhGpcLUypG+4USdGL1ww==
+builder-util-runtime@8.6.1:
+  version "8.6.1"
+  resolved "https://registry.yarnpkg.com/builder-util-runtime/-/builder-util-runtime-8.6.1.tgz#cf9a268fa51704de24f3c085aa8d1d1b3767d9ea"
+  integrity sha512-gwIUtMaICmc+e2EC3u3byXcwCyfhtG40LJRNnGfs8AYqacKl4ZLP50ab+uDttn7QAXe0LfMAuKz9v8bCODV0yg==
   dependencies:
     debug "^4.1.1"
     sax "^1.2.4"
@@ -857,13 +857,13 @@ electron-localshortcut@^3.1.0:
     keyboardevent-from-electron-accelerator "^1.1.0"
     keyboardevents-areequal "^0.2.1"
 
-electron-updater@^4.2.2:
-  version "4.2.2"
-  resolved "https://registry.yarnpkg.com/electron-updater/-/electron-updater-4.2.2.tgz#57e106bffad16f71b1ffa3968a52a1b71c8147e6"
-  integrity sha512-e/OZhr5tLW0GcgmpR5wD0ImxgKMa8pPoNWRcwRyMzTL9pGej7+ORp0t9DtI5ZBHUbObIoEbrk+6EDGUGtJf+aA==
+electron-updater@^4.2.4:
+  version "4.2.4"
+  resolved "https://registry.yarnpkg.com/electron-updater/-/electron-updater-4.2.4.tgz#9015bb8f85b24d6f8a620a90dd0fe128335c902b"
+  integrity sha512-iqN0uoP2+Nkiljp/o4DzZVeSpOOCMtP8+pqL5/qDI+1/ARW99T2TFcpRrPwX4dntowNV7X5T19aKFLK3+9AdkA==
   dependencies:
     "@types/semver" "^7.1.0"
-    builder-util-runtime "8.6.0"
+    builder-util-runtime "8.6.1"
     fs-extra "^8.1.0"
     js-yaml "^3.13.1"
     lazy-val "^1.0.4"
