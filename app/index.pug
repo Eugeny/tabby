@@ -8,17 +8,15 @@ html
             window.nodeRequire = require
         script(src='./preload.js')
         script(src='./bundle.js', defer)
-        style#custom-css
         style.
             body { transition: 0.5s background; }
     body
+        style#custom-css
         app-root
             .preload-logo
                 div
                     .terminus-logo
                     h1.terminus-title Terminus
-                        sup α 
+                        sup α
                     .progress
                         .bar(style='width: 0%')
-
-                    
