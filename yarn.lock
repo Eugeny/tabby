@@ -2044,10 +2044,10 @@ electron-publish@22.3.6:
     lazy-val "^1.0.4"
     mime "^2.4.4"
 
-electron-rebuild@^1.9.0:
-  version "1.9.0"
-  resolved "https://registry.yarnpkg.com/electron-rebuild/-/electron-rebuild-1.9.0.tgz#4ad9d9bc0816b7e52eaffd6520ff62e1d9376d0f"
-  integrity sha512-lnHW+gJIhukqVhME2v+LRDldafWwP0kGOPEpPuj59+F4NHEfu/vOjk8OLBcgDGt72CSWZm7zFUDE07oZxQJbHw==
+electron-rebuild@^1.10.1:
+  version "1.10.1"
+  resolved "https://registry.yarnpkg.com/electron-rebuild/-/electron-rebuild-1.10.1.tgz#f5cb911586e703fe78e2a0e9f644e7a76f137d97"
+  integrity sha512-KSqp0Xiu7CCvKL2aEdPp/vNe2Rr11vaO8eM/wq9gQJTY02UjtAJ3l7WLV7Mf8oR+UJReJO8SWOWs/FozqK8ggA==
   dependencies:
     colors "^1.3.3"
     debug "^4.1.1"
@@ -2057,7 +2057,7 @@ electron-rebuild@^1.9.0:
     node-gyp "^6.0.1"
     ora "^3.4.0"
     spawn-rx "^3.0.0"
-    yargs "^13.2.4"
+    yargs "^14.2.0"
 
 electron@^8.0.2:
   version "8.0.2"
@@ -7573,10 +7573,10 @@ yargs-parser@^13.1.0:
     camelcase "^5.0.0"
     decamelize "^1.2.0"
 
-yargs-parser@^13.1.1:
-  version "13.1.1"
-  resolved "https://registry.yarnpkg.com/yargs-parser/-/yargs-parser-13.1.1.tgz#d26058532aa06d365fe091f6a1fc06b2f7e5eca0"
-  integrity sha512-oVAVsHz6uFrg3XQheFII8ESO2ssAf9luWuAd6Wexsu4F3OtIW0o8IribPXYrD4WC24LWtPrJlGy87y5udK+dxQ==
+yargs-parser@^15.0.0:
+  version "15.0.0"
+  resolved "https://registry.yarnpkg.com/yargs-parser/-/yargs-parser-15.0.0.tgz#cdd7a97490ec836195f59f3f4dbe5ea9e8f75f08"
+  integrity sha512-xLTUnCMc4JhxrPEPUYD5IBR1mWCK/aT6+RJ/K29JY2y1vD+FhtgKK0AXRWvI262q3QSffAQuTouFIKUuHX89wQ==
   dependencies:
     camelcase "^5.0.0"
     decamelize "^1.2.0"
@@ -7634,12 +7634,13 @@ yargs@^11.0.0:
     y18n "^3.2.1"
     yargs-parser "^9.0.2"
 
-yargs@^13.2.4:
-  version "13.3.0"
-  resolved "https://registry.yarnpkg.com/yargs/-/yargs-13.3.0.tgz#4c657a55e07e5f2cf947f8a366567c04a0dedc83"
-  integrity sha512-2eehun/8ALW8TLoIl7MVaRUrg+yCnenu8B4kBlRxj3GJGDKU1Og7sMXPNm1BYyM1DOJmTZ4YeN/Nwxv+8XJsUA==
+yargs@^14.2.0:
+  version "14.2.2"
+  resolved "https://registry.yarnpkg.com/yargs/-/yargs-14.2.2.tgz#2769564379009ff8597cdd38fba09da9b493c4b5"
+  integrity sha512-/4ld+4VV5RnrynMhPZJ/ZpOCGSCeghMykZ3BhdFBDa9Wy/RH6uEGNWDJog+aUlq+9OM1CFTgtYRW5Is1Po9NOA==
   dependencies:
     cliui "^5.0.0"
+    decamelize "^1.2.0"
     find-up "^3.0.0"
     get-caller-file "^2.0.1"
     require-directory "^2.1.1"
@@ -7648,7 +7649,7 @@ yargs@^13.2.4:
     string-width "^3.0.0"
     which-module "^2.0.0"
     y18n "^4.0.0"
-    yargs-parser "^13.1.1"
+    yargs-parser "^15.0.0"
 
 yargs@^15.0.1, yargs@^15.1.0:
   version "15.1.0"
