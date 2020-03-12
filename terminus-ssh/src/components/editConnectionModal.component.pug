@@ -87,7 +87,14 @@
 
                 .form-line
                     .header
+                        .title Disable dynamic tab title
+                        .description Connection name will be used as a title instead
+                    toggle([(ngModel)]='connection.disableDynamicTitle')
+
+                .form-line
+                    .header
                         .title Skip MoTD/banner
+                        .description Will prevent the SSH greeting from showing up
                     toggle([(ngModel)]='connection.skipBanner')
 
                 .form-line

@@ -63,6 +63,11 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
      */
     enablePassthrough = true
 
+    /**
+     * Enables receiving dynamic window/tab title provided by the shell
+     */
+    enableDynamicTitle = true
+
     // Deps start
     config: ConfigService
     element: ElementRef
@@ -375,7 +380,11 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
         }
 
         this.termContainerSubscriptions = [
-            this.frontend.title$.subscribe(title => this.zone.run(() => this.setTitle(title))),
+            this.frontend.title$.subscribe(title => this.zone.run(() => {
+                if (this.enableDynamicTitle) {
+                    this.setTitle(title)
+                }
+            })),
 
             this.focused$.subscribe(() => this.frontend.enableResizing = true),
             this.blurred$.subscribe(() => this.frontend.enableResizing = false),

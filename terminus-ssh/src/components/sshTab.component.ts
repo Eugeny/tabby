@@ -33,6 +33,8 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
     ngOnInit (): void {
         this.logger = this.log.create('terminalTab')
 
+        this.enableDynamicTitle = !this.connection.disableDynamicTitle
+
         this.homeEndSubscription = this.hotkeys.matchedHotkey.subscribe(hotkey => {
             if (!this.hasFocus) {
                 return

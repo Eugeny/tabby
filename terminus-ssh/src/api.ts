@@ -34,6 +34,7 @@ export interface SSHConnection {
     color?: string
     x11?: boolean
     skipBanner?: boolean
+    disableDynamicTitle?: boolean
 
     algorithms?: {[t: string]: string[]}
 }
