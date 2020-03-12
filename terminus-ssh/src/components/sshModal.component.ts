@@ -64,7 +64,7 @@ export class SSHModalComponent {
 
     clearConnection (connection) {
         this.recentConnections = this.recentConnections.filter(function (el) {
-            return el === connection
+            return el !== connection
         })
         this.config.store.ssh.recentConnections = this.recentConnections
         this.config.save()
