@@ -11,7 +11,7 @@ export class HomeBaseService {
     mixpanel: any
 
     /** @hidden */
-    constructor (
+    private constructor (
         private electron: ElectronService,
         private config: ConfigService,
     ) {

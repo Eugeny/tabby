@@ -65,7 +65,7 @@ export class LogService {
     private log: any
 
     /** @hidden */
-    constructor (electron: ElectronService) {
+    private constructor (electron: ElectronService) {
         this.log = initializeWinston(electron)
     }
 

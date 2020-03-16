@@ -19,7 +19,7 @@ export class TerminalService {
     get shells$ (): Observable<Shell[]> { return this.shells }
 
     /** @hidden */
-    constructor (
+    private constructor (
         private app: AppService,
         private config: ConfigService,
         private uac: UACService,

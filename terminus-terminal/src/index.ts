@@ -127,7 +127,7 @@ import { XTermFrontend, XTermWebGLFrontend } from './frontends/xtermFrontend'
     ],
 })
 export default class TerminalModule { // eslint-disable-line @typescript-eslint/no-extraneous-class
-    constructor (
+    private constructor (
         app: AppService,
         config: ConfigService,
         hotkeys: HotkeysService,

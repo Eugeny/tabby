@@ -10,7 +10,7 @@ export class TerminalFrontendService {
     private containers = new WeakMap<BaseSession, Frontend>()
 
     /** @hidden */
-    constructor (
+    private constructor (
         private config: ConfigService,
         private themes: ThemesService,
         private hotkeys: HotkeysService,

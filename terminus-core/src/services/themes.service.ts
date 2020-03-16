@@ -7,7 +7,7 @@ export class ThemesService {
     private styleElement: HTMLElement|null = null
 
     /** @hidden */
-    constructor (
+    private constructor (
         private config: ConfigService,
         @Inject(Theme) private themes: Theme[],
     ) {

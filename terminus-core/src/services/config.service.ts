@@ -102,7 +102,7 @@ export class ConfigService {
     get changed$ (): Observable<void> { return this.changed }
 
     /** @hidden */
-    constructor (
+    private constructor (
         electron: ElectronService,
         private hostApp: HostAppService,
         @Inject(ConfigProvider) configProviders: ConfigProvider[],

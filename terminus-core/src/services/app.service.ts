@@ -67,7 +67,7 @@ export class AppService {
     get ready$ (): Observable<void> { return this.ready }
 
     /** @hidden */
-    constructor (
+    private constructor (
         private config: ConfigService,
         private hostApp: HostAppService,
         private tabRecovery: TabRecoveryService,

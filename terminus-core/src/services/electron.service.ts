@@ -25,7 +25,7 @@ export class ElectronService {
     private electron: any
 
     /** @hidden */
-    constructor () {
+    private constructor () {
         this.electron = require('electron')
         this.remote = this.electron.remote
         this.app = this.remote.app

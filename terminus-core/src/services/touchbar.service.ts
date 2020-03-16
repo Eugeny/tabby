@@ -14,7 +14,7 @@ export class TouchbarService {
     private tabSegments: SegmentedControlSegment[] = []
     private nsImageCache: {[id: string]: Electron.NativeImage} = {}
 
-    constructor (
+    private constructor (
         private app: AppService,
         private hostApp: HostAppService,
         @Inject(ToolbarButtonProvider) private toolbarButtonProviders: ToolbarButtonProvider[],

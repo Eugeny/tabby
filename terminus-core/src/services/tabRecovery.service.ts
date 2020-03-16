@@ -10,7 +10,7 @@ export class TabRecoveryService {
     logger: Logger
     enabled = false
 
-    constructor (
+    private constructor (
         @Inject(TabRecoveryProvider) private tabRecoveryProviders: TabRecoveryProvider[],
         private config: ConfigService,
         log: LogService

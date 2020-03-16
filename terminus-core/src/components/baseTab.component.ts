@@ -63,7 +63,7 @@ export abstract class BaseTabComponent {
     get destroyed$ (): Observable<void> { return this.destroyed }
     get recoveryStateChangedHint$ (): Observable<void> { return this.recoveryStateChangedHint }
 
-    constructor () {
+    protected constructor () {
         this.focused$.subscribe(() => {
             this.hasFocus = true
         })

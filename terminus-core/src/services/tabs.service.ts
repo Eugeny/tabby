@@ -8,7 +8,7 @@ export type TabComponentType = new (...args: any[]) => BaseTabComponent
 @Injectable({ providedIn: 'root' })
 export class TabsService {
     /** @hidden */
-    constructor (
+    private constructor (
         private componentFactoryResolver: ComponentFactoryResolver,
         private injector: Injector,
         private tabRecovery: TabRecoveryService,

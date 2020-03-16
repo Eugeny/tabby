@@ -6,7 +6,7 @@ import { HostAppService, Bounds } from '../services/hostApp.service'
 @Injectable({ providedIn: 'root' })
 export class DockingService {
     /** @hidden */
-    constructor (
+    private constructor (
         private electron: ElectronService,
         private config: ConfigService,
         private hostApp: HostAppService,

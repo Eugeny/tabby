@@ -21,7 +21,7 @@ export class UpdaterService {
     private updateURL: string
     private autoUpdater: AppUpdater
 
-    constructor (
+    private constructor (
         log: LogService,
         private electron: ElectronService,
         private config: ConfigService,

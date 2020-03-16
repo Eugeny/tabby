@@ -10,7 +10,7 @@ import { AppService } from '../services/app.service'
     styles: [require('./windowControls.component.scss')],
 })
 export class WindowControlsComponent {
-    constructor (public hostApp: HostAppService, public app: AppService) { }
+    private constructor (public hostApp: HostAppService, public app: AppService) { }
 
     async closeWindow () {
         this.app.closeWindow()

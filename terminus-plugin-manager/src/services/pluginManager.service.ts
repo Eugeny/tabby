@@ -34,7 +34,7 @@ export class PluginManagerService {
     private npmReady: Promise<void>
     private npm: any
 
-    constructor (
+    private constructor (
         log: LogService,
     ) {
         this.logger = log.create('pluginManager')
