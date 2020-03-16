@@ -99,3 +99,8 @@ rules:
   '@typescript-eslint/restrict-template-expressions': off
   '@typescript-eslint/no-dynamic-delete': off
   '@typescript-eslint/prefer-nullish-coalescing': off
+  '@typescript-eslint/prefer-readonly-parameter-types': off
+  '@typescript-eslint/no-unsafe-member-access': off
+  '@typescript-eslint/no-unsafe-call': off
+  '@typescript-eslint/no-unsafe-return': off
+  '@typescript-eslint/no-base-to-string': off # broken in typescript-eslint

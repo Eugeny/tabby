@@ -96,7 +96,7 @@ export class SSHSettingsTabComponent {
             this.hostApp.getWindow(),
             {
                 type: 'warning',
-                message: `Delete "${group}"?`,
+                message: `Delete "${group.name}"?`,
                 buttons: ['Keep', 'Delete'],
                 defaultId: 1,
             }
