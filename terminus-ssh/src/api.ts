@@ -87,6 +87,13 @@ export class SSHSession extends BaseSession {
     constructor (public connection: SSHConnection) {
         super()
         this.scripts = connection.scripts || []
+        this.destroyed$.subscribe(() => {
+            for (const port of this.forwardedPorts) {
+                if (port.type === PortForwardType.Local) {
+                    port.stopLocalListener()
+                }
+            }
+        })
     }
 
     async start (): Promise<void> {
