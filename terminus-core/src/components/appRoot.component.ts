@@ -133,9 +133,7 @@ export class AppRootComponent {
         })
 
         this.hostApp.windowCloseRequest$.subscribe(async () => {
-            if (await this.app.closeAllTabs()) {
-                this.hostApp.closeWindow()
-            }
+            this.app.closeWindow()
         })
 
         if (window['safeModeReason']) {

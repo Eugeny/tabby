@@ -74,32 +74,30 @@ export class AppService {
         private tabsService: TabsService,
         private ngbModal: NgbModal,
     ) {
-        if (hostApp.getWindow().id === 1) {
-            if (config.store.terminal.recoverTabs) {
-                this.tabRecovery.recoverTabs().then(tabs => {
-                    for (const tab of tabs) {
-                        this.openNewTabRaw(tab.type, tab.options)
-                    }
-                    this.startTabStorage()
-                })
-            } else {
-                /** Continue to store the tabs even if the setting is currently off */
-                this.startTabStorage()
-            }
-        }
-
-        hostApp.windowFocused$.subscribe(() => {
-            this._activeTab?.emitFocused()
-        })
-    }
-
-    startTabStorage (): void {
         this.tabsChanged$.subscribe(() => {
             this.tabRecovery.saveTabs(this.tabs)
         })
         setInterval(() => {
             this.tabRecovery.saveTabs(this.tabs)
         }, 30000)
+
+        if (hostApp.getWindow().id === 1) {
+            if (config.store.terminal.recoverTabs) {
+                this.tabRecovery.recoverTabs().then(tabs => {
+                    for (const tab of tabs) {
+                        this.openNewTabRaw(tab.type, tab.options)
+                    }
+                    this.tabRecovery.enabled = true
+                })
+            } else {
+                /** Continue to store the tabs even if the setting is currently off */
+                this.tabRecovery.enabled = true
+            }
+        }
+
+        hostApp.windowFocused$.subscribe(() => {
+            this._activeTab?.emitFocused()
+        })
     }
 
     addTabRaw (tab: BaseTabComponent, index: number|null = null): void {
@@ -293,6 +291,16 @@ export class AppService {
             tab.destroy(true)
         }
         return true
+    }
+
+    async closeWindow (): Promise<void> {
+        this.tabRecovery.enabled = false
+        await this.tabRecovery.saveTabs(this.tabs)
+        if (await this.closeAllTabs()) {
+            this.hostApp.closeWindow()
+        } else {
+            this.tabRecovery.enabled = true
+        }
     }
 
     /** @hidden */

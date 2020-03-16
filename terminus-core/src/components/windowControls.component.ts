@@ -13,8 +13,6 @@ export class WindowControlsComponent {
     constructor (public hostApp: HostAppService, public app: AppService) { }
 
     async closeWindow () {
-        if (await this.app.closeAllTabs()) {
-            this.hostApp.closeWindow()
-        }
+        this.app.closeWindow()
     }
 }

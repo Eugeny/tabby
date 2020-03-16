@@ -8,6 +8,7 @@ import { ConfigService } from '../services/config.service'
 @Injectable({ providedIn: 'root' })
 export class TabRecoveryService {
     logger: Logger
+    enabled = false
 
     constructor (
         @Inject(TabRecoveryProvider) private tabRecoveryProviders: TabRecoveryProvider[],
@@ -18,6 +19,9 @@ export class TabRecoveryService {
     }
 
     async saveTabs (tabs: BaseTabComponent[]): Promise<void> {
+        if (!this.enabled) {
+            return
+        }
         window.localStorage.tabsRecovery = JSON.stringify(
             await Promise.all(
                 tabs
@@ -25,8 +29,11 @@ export class TabRecoveryService {
                         let token = tab.getRecoveryToken()
                         if (token) {
                             token = token.then(r => {
-                                if (r && tab.color) {
-                                    r.tabColor = tab.color
+                                if (r) {
+                                    r.tabTitle = tab.title
+                                    if (tab.color) {
+                                        r.tabColor = tab.color
+                                    }
                                 }
                                 return r
                             })
@@ -45,6 +52,7 @@ export class TabRecoveryService {
                 if (tab !== null) {
                     tab.options = tab.options || {}
                     tab.options.color = token.tabColor || null
+                    tab.options.title = token.tabTitle || ''
                     return tab
                 }
             } catch (error) {
