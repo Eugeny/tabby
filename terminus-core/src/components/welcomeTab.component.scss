@@ -2,5 +2,7 @@
     display: flex;
     flex-direction: column;
     margin: auto;
-    flex: 0 1 500px;
+    flex: auto;
+    max-height: 100%;
+    overflow-y: auto;
 }
