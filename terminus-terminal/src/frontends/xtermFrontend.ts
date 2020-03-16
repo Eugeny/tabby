@@ -215,6 +215,7 @@ export class XTermFrontend extends Frontend {
         this.xterm.setOption('cursorBlink', config.terminal.cursorBlink)
         this.xterm.setOption('macOptionIsMeta', config.terminal.altIsMeta)
         this.xterm.setOption('scrollback', 100000)
+        this.xterm.setOption('wordSeparator', config.terminal.wordSeparator)
         this.configuredFontSize = config.terminal.fontSize
         this.configuredLinePadding = config.terminal.linePadding
         this.setFontSize()

@@ -29,11 +29,11 @@ h3.mb-3 Terminal
                 [value]='"audible"'
             )
             | Audible
-            
+
 .alert.alert-info.d-flex.align-items-center(*ngIf='config.store.terminal.bell != "audible" && config.store.terminal.shell.startsWith("wsl")')
     .mr-auto WSL terminal bell can only be muted via Volume Mixer
     button.btn.btn-secondary((click)='openWSLVolumeMixer()') Show Mixer
-                
+
 .form-line
     .header
         .title Right click
@@ -63,11 +63,11 @@ h3.mb-3 Terminal
                 value='paste'
             )
             | Paste
-            
+
 .form-line
     .header
         .title Paste on middle-click
-            
+
     toggle(
         [(ngModel)]='config.store.terminal.pasteOnMiddleClick',
         (ngModelChange)='config.save()',
@@ -76,7 +76,7 @@ h3.mb-3 Terminal
 .form-line
     .header
         .title Auto-open a terminal on app start
-            
+
     toggle(
         [(ngModel)]='config.store.terminal.autoOpen',
         (ngModelChange)='config.save()',
@@ -85,7 +85,7 @@ h3.mb-3 Terminal
 .form-line
     .header
         .title Restore terminal tabs on app start
-            
+
     toggle(
         [(ngModel)]='config.store.terminal.recoverTabs',
         (ngModelChange)='config.save()',
@@ -116,12 +116,23 @@ h3.mb-3 Terminal
         [(ngModel)]='config.store.terminal.scrollOnInput',
         (ngModelChange)='config.save()',
     )
-    
+
 .form-line
     .header
         .title Use Alt key as the Meta key
         .description Lets the shell handle Meta key instead of OS
     toggle(
         [(ngModel)]='config.store.terminal.altIsMeta',
+        (ngModelChange)='config.save()',
+    )
+
+.form-line
+    .header
+        .title Word separators
+        .description Double-click selection will stop at these characters
+    input.form-control(
+        type='text',
+        placeholder=' ()[]{}\'"',
+        [(ngModel)]='config.store.terminal.wordSeparator',
         (ngModelChange)='config.save()',
     )

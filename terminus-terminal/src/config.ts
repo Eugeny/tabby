@@ -31,6 +31,7 @@ export class TerminalConfigProvider extends ConfigProvider {
             workingDirectory: '',
             alwaysUseWorkingDirectory: false,
             altIsMeta: false,
+            wordSeparator: ' ()[]{}\'"',
             colorScheme: {
                 __nonStructural: true,
                 name: 'Material',
