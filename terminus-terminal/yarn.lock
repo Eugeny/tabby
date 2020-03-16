@@ -258,9 +258,9 @@ xterm-addon-webgl@^0.6.0-beta.2:
   integrity sha512-2mhW/4Qv4i4KhEbtOAL4bc9FPGXON8XuM3vfKXT0EauXy/7ygtPu8IqrYNvNo0uJUoW6gOf0d5+/6kUMak2YYg==
 
 xterm@^4.5.0-beta.9:
-  version "4.5.0-beta.9"
-  resolved "https://registry.yarnpkg.com/xterm/-/xterm-4.5.0-beta.9.tgz#8e3610031d0114a3b112bfd1aaeebd181e1230fa"
-  integrity sha512-GfsHrQIMjIHVqDdTZoZl/fsMB/73Cltw2aR/gMYz2gZq8fzzxTrgSseiQD1rnIRrcbfmVEF4cFQARQwZj6hGlg==
+  version "4.5.0-beta.13"
+  resolved "https://registry.yarnpkg.com/xterm/-/xterm-4.5.0-beta.13.tgz#02565a8dda2be1ba266bb93f745d848817b09399"
+  integrity sha512-Ly5c2b4fZLfwuCbU2J4yBhE5Sxq1C4jMpulsOCkokxQwcCldiUezZdFGNXUW+0pV6idGDHB89GlOIvU4JF9K+g==
 
 yallist@^2.1.2:
   version "2.1.2"
