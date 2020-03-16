@@ -2,20 +2,20 @@
 # yarn lockfile v1
 
 
-"@angular/animations@9.0.4":
-  version "9.0.4"
-  resolved "https://registry.yarnpkg.com/@angular/animations/-/animations-9.0.4.tgz#c95c601dfb8fc4e96aee577c9c0f6cf18b64e5d7"
-  integrity sha512-zTCgrIAA9FYPMbqqpQnoNltiLR58q0FMfzP2t96q/1tjyVy/Y/IaNgVQ7eL0HeQ0nG6IAzQ1HVx8Xeneg4Yj5Q==
+"@angular/animations@9.0.6":
+  version "9.0.6"
+  resolved "https://registry.yarnpkg.com/@angular/animations/-/animations-9.0.6.tgz#d0c26f9e103948989416f7d8c26b5f5fd298d4a4"
+  integrity sha512-LNtzUrrjqLTlZyhuAEV0sdEV0yi52Ih/p+ozCr/ivhTSSemcPbniTBbJlFZO4NJ2BuS2iEXkXwZs3mm8Fvx5Sg==
 
 "@angular/common@9.0.6":
   version "9.0.6"
   resolved "https://registry.yarnpkg.com/@angular/common/-/common-9.0.6.tgz#d9796d1f52f51852992aca09a1fe4794638cc953"
   integrity sha512-z+c+zmoZTOQ2fT2sFQpHhpUbIYtjerxYmdOVpukprZCuv9WT2SGJfu4QVGSkeqejYnMp6VtXMdQ1CeAQojj0sw==
 
-"@angular/compiler@9.0.4":
-  version "9.0.4"
-  resolved "https://registry.yarnpkg.com/@angular/compiler/-/compiler-9.0.4.tgz#038c9cdbf76f1cce47bd1b355c7d212cc89b18f9"
-  integrity sha512-+Ku8RUU00yHaKVkVw6YIfM3c5Gmvas5gJcEleiagkLbc1f/jKk1cY4gaUP6xn4TLypFM7NQglneWd+E+8wh0hQ==
+"@angular/compiler@9.0.6":
+  version "9.0.6"
+  resolved "https://registry.yarnpkg.com/@angular/compiler/-/compiler-9.0.6.tgz#b5f23c34a0585aa68f88a95b64877775018b0577"
+  integrity sha512-jGTGNs8l3zwTnVEQH2v3HwWVvpz0bQY7B6rPkfHNP2bVwrhz7L6fYyJY1HtWM0S95b09NuSwianhabnEzQeTfQ==
 
 "@angular/core@9.0.6":
   version "9.0.6"
@@ -32,10 +32,10 @@
   resolved "https://registry.yarnpkg.com/@angular/platform-browser-dynamic/-/platform-browser-dynamic-9.0.6.tgz#cf8679210e6931233d5392e515fdb09c947a98a3"
   integrity sha512-Z0/qHciqbR+c2fwGxrkr77tQkEKhZpAPljGva/VNoS3Ms1OikqZB9Ev7xmZOM9656khPBU38m3aLsTXAAnQ4YA==
 
-"@angular/platform-browser@9.0.4":
-  version "9.0.4"
-  resolved "https://registry.yarnpkg.com/@angular/platform-browser/-/platform-browser-9.0.4.tgz#03853b435c3b964660727ac9d7e15912c920cdb8"
-  integrity sha512-mbiqmw0rDGPxEgKVgDuK7yZvtgjJmzpMGBYAMwkQ9YIE0SoA5XP0NvZiFkHZqDXwLgCv2IJ/kvkhfCBwnBKCXQ==
+"@angular/platform-browser@9.0.6":
+  version "9.0.6"
+  resolved "https://registry.yarnpkg.com/@angular/platform-browser/-/platform-browser-9.0.6.tgz#6545454f964f3cbcfc8d854d89c0f2d97f4cd7b7"
+  integrity sha512-CA7dW+j1mVh3OUo3C2vIn05NxNgrDPK4vpfRIwBIn1gErpnIXCa2vgnRzn3H9zKizKt0iuwSIukEnWG280Q0xg==
 
 "@ng-bootstrap/ng-bootstrap@^6.0.0":
   version "6.0.0"
