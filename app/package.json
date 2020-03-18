@@ -37,7 +37,7 @@
     "rxjs": "^6.5.4",
     "rxjs-compat": "^6.5.4",
     "yargs": "^15.3.1",
-    "zone.js": "^0.10.2"
+    "zone.js": "^0.10.3"
   },
   "optionalDependencies": {
     "macos-native-processlist": "^1.0.2",
