@@ -245,14 +245,16 @@ export class SSHSession extends BaseSession {
                             socket.destroy()
                             return
                         }
-                        stream.pipe(socket)
-                        socket.pipe(stream)
-                        stream.on('close', () => {
-                            socket.destroy()
-                        })
-                        socket.on('close', () => {
-                            stream.close()
-                        })
+                        if (stream) {
+                            stream.pipe(socket)
+                            socket.pipe(stream)
+                            stream.on('close', () => {
+                                socket.destroy()
+                            })
+                            socket.on('close', () => {
+                                stream.close()
+                            })
+                        }
                     }
                 )
             }).then(() => {
