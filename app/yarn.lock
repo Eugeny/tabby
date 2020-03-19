@@ -27,10 +27,10 @@
   resolved "https://registry.yarnpkg.com/@angular/forms/-/forms-9.0.6.tgz#02df7adddd679706a8ac1bcc0f2da1fd5d11c348"
   integrity sha512-mxUEqQny3scxQM/21QLKgtq5EcOm1Tn5cU3rStY1L8J6Mg+Rd2Rz4SY0WXQpaRKPj+WNd+PDgdGiRs3cAjfLFQ==
 
-"@angular/platform-browser-dynamic@9.0.6":
-  version "9.0.6"
-  resolved "https://registry.yarnpkg.com/@angular/platform-browser-dynamic/-/platform-browser-dynamic-9.0.6.tgz#cf8679210e6931233d5392e515fdb09c947a98a3"
-  integrity sha512-Z0/qHciqbR+c2fwGxrkr77tQkEKhZpAPljGva/VNoS3Ms1OikqZB9Ev7xmZOM9656khPBU38m3aLsTXAAnQ4YA==
+"@angular/platform-browser-dynamic@9.0.7":
+  version "9.0.7"
+  resolved "https://registry.yarnpkg.com/@angular/platform-browser-dynamic/-/platform-browser-dynamic-9.0.7.tgz#7ca7e728fea0ba81b1009de1aa59a003b73c89af"
+  integrity sha512-jwpyd93ofcRtchbayKD5v4GN4Lc7vbPe6dMUiwfnVnVAql0bOD/3YRI7w5qJ0Xx0sgQT+9Xo6jTXYnyUsZpEww==
 
 "@angular/platform-browser@9.0.6":
   version "9.0.6"
