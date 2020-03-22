@@ -1,12 +1,4 @@
-.appearance-preview {
-    padding: 10px 0;
-    margin-left: 20px;
-    padding: 10px;
-    overflow: hidden;
-    max-width: 400px;
-    max-height: 400px;
-
-    span {
-        white-space: pre;
-    }
+color-scheme-preview {
+    flex-shrink: 0;
+    margin-bottom: 20px;
 }

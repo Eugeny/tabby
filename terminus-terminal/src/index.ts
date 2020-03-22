@@ -11,10 +11,12 @@ import TerminusCorePlugin, { HostAppService, ToolbarButtonProvider, TabRecoveryP
 import { SettingsTabProvider } from 'terminus-settings'
 
 import { AppearanceSettingsTabComponent } from './components/appearanceSettingsTab.component'
+import { ColorSchemeSettingsTabComponent } from './components/colorSchemeSettingsTab.component'
 import { TerminalTabComponent } from './components/terminalTab.component'
 import { ShellSettingsTabComponent } from './components/shellSettingsTab.component'
 import { TerminalSettingsTabComponent } from './components/terminalSettingsTab.component'
 import { ColorPickerComponent } from './components/colorPicker.component'
+import { ColorSchemePreviewComponent } from './components/colorSchemePreview.component'
 import { EditProfileModalComponent } from './components/editProfileModal.component'
 import { EnvironmentEditorComponent } from './components/environmentEditor.component'
 import { SearchPanelComponent } from './components/searchPanel.component'
@@ -30,7 +32,7 @@ import { TerminalDecorator } from './api/decorator'
 import { TerminalContextMenuItemProvider } from './api/contextMenuProvider'
 import { TerminalColorSchemeProvider } from './api/colorSchemeProvider'
 import { ShellProvider } from './api/shellProvider'
-import { TerminalSettingsTabProvider, AppearanceSettingsTabProvider, ShellSettingsTabProvider } from './settings'
+import { TerminalSettingsTabProvider, AppearanceSettingsTabProvider, ColorSchemeSettingsTabProvider, ShellSettingsTabProvider } from './settings'
 import { DebugDecorator } from './features/debug'
 import { PathDropDecorator } from './features/pathDrop'
 import { ZModemDecorator } from './features/zmodem'
@@ -68,6 +70,7 @@ import { XTermFrontend, XTermWebGLFrontend } from './frontends/xtermFrontend'
     ],
     providers: [
         { provide: SettingsTabProvider, useClass: AppearanceSettingsTabProvider, multi: true },
+        { provide: SettingsTabProvider, useClass: ColorSchemeSettingsTabProvider, multi: true },
         { provide: SettingsTabProvider, useClass: ShellSettingsTabProvider, multi: true },
         { provide: SettingsTabProvider, useClass: TerminalSettingsTabProvider, multi: true },
 
@@ -106,14 +109,17 @@ import { XTermFrontend, XTermWebGLFrontend } from './frontends/xtermFrontend'
     entryComponents: [
         TerminalTabComponent,
         AppearanceSettingsTabComponent,
+        ColorSchemeSettingsTabComponent,
         ShellSettingsTabComponent,
         TerminalSettingsTabComponent,
         EditProfileModalComponent,
     ] as any[],
     declarations: [
         ColorPickerComponent,
+        ColorSchemePreviewComponent,
         TerminalTabComponent,
         AppearanceSettingsTabComponent,
+        ColorSchemeSettingsTabComponent,
         ShellSettingsTabComponent,
         TerminalSettingsTabComponent,
         EditProfileModalComponent,

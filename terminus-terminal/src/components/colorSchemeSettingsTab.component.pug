@@ -1,0 +1,96 @@
+.head
+    h3.mb-3 Current color scheme
+
+    .d-flex.align-items-center(*ngIf='!editing')
+        span {{getCurrentSchemeName()}}
+        .mr-auto
+        .btn-toolbar
+            button.btn.btn-secondary((click)='editScheme()')
+                i.fas.fa-pen
+                span Edit
+            .mr-1
+            button.btn.btn-danger(
+                (click)='deleteScheme(config.store.terminal.colorScheme)',
+                *ngIf='currentCustomScheme'
+            )
+                i.fas.fa-trash
+                span Delete
+
+    div(*ngIf='editing')
+        .form-group
+            label Name
+            input.form-control(type='text', [(ngModel)]='config.store.terminal.colorScheme.name')
+
+        .form-group
+            color-picker(
+                [(model)]='config.store.terminal.colorScheme.foreground',
+                (modelChange)='config.save()',
+                title='FG',
+            )
+            color-picker(
+                [(model)]='config.store.terminal.colorScheme.background',
+                (modelChange)='config.save()',
+                title='BG',
+            )
+            color-picker(
+                [(model)]='config.store.terminal.colorScheme.cursor',
+                (modelChange)='config.save()',
+                title='CU',
+            )
+            color-picker(
+                *ngFor='let _ of config.store.terminal.colorScheme.colors; let idx = index; trackBy: colorsTrackBy',
+                [(model)]='config.store.terminal.colorScheme.colors[idx]',
+                (modelChange)='config.save()',
+                [title]='idx',
+            )
+
+    color-scheme-preview([scheme]='config.store.terminal.colorScheme')
+
+    .btn-toolbar.d-flex.mt-2(*ngIf='editing')
+        .mr-auto
+        button.btn.btn-primary((click)='saveScheme()')
+            i.fas.fa-check
+            span Save
+        .mr-1
+        button.btn.btn-secondary((click)='cancelEditing()')
+            i.fas.fa-times
+            span Cancel
+
+    hr.mt-3.mb-4
+
+    .input-group.mb-3
+        .input-group-prepend
+            .input-group-text
+                i.fas.fa-fw.fa-search
+        input.form-control(type='search', placeholder='Search color schemes', [(ngModel)]='filter')
+
+.body
+    .list-group-light.mb-3
+        ng-container(*ngFor='let scheme of allColorSchemes')
+            .list-group-item.list-group-item-action(
+                [hidden]='filter && !scheme.name.toLowerCase().includes(filter.toLowerCase())',
+                (click)='selectScheme(scheme)',
+                [class.active]='(currentCustomScheme || currentStockScheme) === scheme'
+            )
+                .d-flex.w-100.align-items-center
+                    i.fas.fa-fw([class.fa-check]='(currentCustomScheme || currentStockScheme) === scheme')
+
+                    .ml-2
+
+                    .mr-auto
+                        span {{scheme.name}}
+                        .badge.badge-info.ml-2(*ngIf='customColorSchemes.includes(scheme)') Custom
+
+                    div
+                        .d-flex
+                            .swatch(
+                                *ngFor='let index of colorIndexes.slice(0, 8)',
+                                [style.background-color]='scheme.colors[index]'
+                            )
+                        .d-flex
+                            .swatch(
+                                *ngFor='let index of colorIndexes.slice(8, 16)',
+                                [style.background-color]='scheme.colors[index]'
+                            )
+
+                color-scheme-preview([scheme]='scheme')

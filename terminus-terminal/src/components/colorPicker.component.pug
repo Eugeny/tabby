@@ -9,6 +9,7 @@ div(
     [ngbPopover]='content',
     [style.background]='model',
     (click)='open()',
+    autoClose='outside',
     container='body',
     #popover='ngbPopover',
 ) {{ title }}

@@ -1,0 +1,22 @@
+.head {
+    flex: none;
+}
+
+.body {
+    overflow: auto;
+    flex: auto;
+    min-height: 0;
+}
+
+.swatch {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 3px;
+    margin-bottom: 3px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .5);
+}
+
+.list-group-item color-scheme-preview {
+    margin-left: 14px;
+}

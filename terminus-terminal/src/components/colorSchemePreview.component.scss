@@ -1,0 +1,15 @@
+:host {
+    display: block;
+}
+
+.preview {
+    margin-top: 10px;
+    margin-left: 10px;
+    padding: 5px 10px;
+    border-radius: 4px;
+    overflow: hidden;
+
+    span {
+        white-space: pre;
+    }
+}
