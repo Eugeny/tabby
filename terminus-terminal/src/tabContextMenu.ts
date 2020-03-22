@@ -120,7 +120,7 @@ export class NewTabContextMenu extends TabContextMenuItemProvider {
 /** @hidden */
 @Injectable()
 export class CopyPasteContextMenu extends TabContextMenuItemProvider {
-    weight = 1
+    weight = -10
 
     constructor (
         private zone: NgZone,
