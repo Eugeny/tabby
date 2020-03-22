@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core'
+import { Component, Input, HostListener } from '@angular/core'
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
 import { SelectorOption } from '../api/selector'
 
@@ -12,6 +12,7 @@ export class SelectorModalComponent<T> {
     @Input() filteredOptions: SelectorOption<T>[]
     @Input() filter = ''
     @Input() name: string
+    @Input() selectedIndex = 0
 
     constructor (
         public modalInstance: NgbActiveModal,
@@ -21,23 +22,44 @@ export class SelectorModalComponent<T> {
         this.onFilterChange()
     }
 
+    @HostListener('keyup', ['$event']) onKeyUp (event: KeyboardEvent): void {
+        if (event.key === 'ArrowUp') {
+            this.selectedIndex--
+        }
+        if (event.key === 'ArrowDown') {
+            this.selectedIndex++
+        }
+        if (event.key === 'Enter') {
+            this.selectOption(this.filteredOptions[this.selectedIndex])
+        }
+        if (event.key === 'Escape') {
+            this.close()
+        }
+
+        this.selectedIndex = (this.selectedIndex + this.filteredOptions.length) % this.filteredOptions.length
+    }
+
     onFilterChange (): void {
         const f = this.filter.trim().toLowerCase()
         if (!f) {
-            this.filteredOptions = this.options
+            this.filteredOptions = this.options.filter(x => !x.freeInputPattern)
         } else {
             // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
-            this.filteredOptions = this.options.filter(x => (x.name + (x.description || '')).toLowerCase().includes(f))
+            this.filteredOptions = this.options.filter(x => x.freeInputPattern || (x.name + (x.description || '')).toLowerCase().includes(f))
         }
+        this.selectedIndex = Math.max(0, this.selectedIndex)
+        this.selectedIndex = Math.min(this.filteredOptions.length - 1, this.selectedIndex)
     }
 
-    onFilterEnter (): void {
-        if (this.filteredOptions.length === 1) {
-            this.selectOption(this.filteredOptions[0])
+    getOptionText (option: SelectorOption<T>): string {
+        if (option.freeInputPattern) {
+            return option.freeInputPattern.replace('%s', this.filter)
         }
+        return option.name
     }
 
     selectOption (option: SelectorOption<T>): void {
+        option.callback?.(this.filter)
         this.modalInstance.close(option.result)
     }
 

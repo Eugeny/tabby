@@ -1,15 +1,14 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Injectable } from '@angular/core'
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { HotkeysService, ToolbarButtonProvider, ToolbarButton } from 'terminus-core'
-import { SSHModalComponent } from './components/sshModal.component'
+import { SSHService } from './services/ssh.service'
 
 /** @hidden */
 @Injectable()
 export class ButtonProvider extends ToolbarButtonProvider {
     constructor (
-        private ngbModal: NgbModal,
         hotkeys: HotkeysService,
+        private ssh: SSHService,
     ) {
         super()
         hotkeys.matchedHotkey.subscribe(async (hotkey: string) => {
@@ -20,7 +19,7 @@ export class ButtonProvider extends ToolbarButtonProvider {
     }
 
     activate () {
-        this.ngbModal.open(SSHModalComponent)
+        this.ssh.showConnectionSelector()
     }
 
     provide (): ToolbarButton[] {

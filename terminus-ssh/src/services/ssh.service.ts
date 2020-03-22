@@ -3,16 +3,18 @@ import { open as openTemp } from 'temp'
 import { Injectable, NgZone } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { Client } from 'ssh2'
+import { SSH2Stream } from 'ssh2-streams'
 import * as fs from 'mz/fs'
 import { execFile } from 'mz/child_process'
 import * as path from 'path'
 import * as sshpk from 'sshpk'
 import { ToastrService } from 'ngx-toastr'
-import { HostAppService, Platform, Logger, LogService, ElectronService } from 'terminus-core'
+import { HostAppService, Platform, Logger, LogService, ElectronService, AppService, SelectorOption, ConfigService } from 'terminus-core'
+import { SettingsTabComponent } from 'terminus-settings'
 import { SSHConnection, SSHSession } from '../api'
 import { PromptModalComponent } from '../components/promptModal.component'
 import { PasswordStorageService } from './passwordStorage.service'
-import { SSH2Stream } from 'ssh2-streams'
+import { SSHTabComponent } from '../components/sshTab.component'
 
 try {
     var windowsProcessTreeNative = require('windows-process-tree/build/Release/windows_process_tree.node') // eslint-disable-line @typescript-eslint/no-var-requires, no-var
@@ -30,6 +32,8 @@ export class SSHService {
         private hostApp: HostAppService,
         private passwordStorage: PasswordStorageService,
         private toastr: ToastrService,
+        private app: AppService,
+        private config: ConfigService,
     ) {
         this.logger = log.create('ssh')
     }
@@ -248,6 +252,124 @@ export class SSHService {
                 }
             })
         })
+    }
+
+    async showConnectionSelector (): Promise<void> {
+        const options: SelectorOption<void>[] = []
+        const recentConnections = this.config.store.ssh.recentConnections
+
+        for (const connection of recentConnections) {
+            options.push({
+                name: connection.name,
+                description: connection.host,
+                icon: 'history',
+                callback: () => this.connect(connection),
+            })
+        }
+
+        if (recentConnections.length) {
+            options.push({
+                name: 'Clear recent connections',
+                icon: 'eraser',
+                callback: () => {
+                    this.config.store.ssh.recentConnections = []
+                    this.config.save()
+                },
+            })
+        }
+
+        let groups: { name: string, connections: SSHConnection[] }[] = []
+        let connections = this.config.store.ssh.connections
+        for (const connection of connections) {
+            connection.group = connection.group || null
+            let group = groups.find(x => x.name === connection.group)
+            if (!group) {
+                group = {
+                    name: connection.group!,
+                    connections: [],
+                }
+                groups.push(group!)
+            }
+            group.connections.push(connection)
+        }
+
+        for (const group of groups) {
+            for (const connection of group.connections) {
+                options.push({
+                    name: (group.name ? `${group.name} / ` : '') + connection.name,
+                    description: connection.host,
+                    icon: 'desktop',
+                    callback: () => this.connect(connection),
+                })
+            }
+        }
+
+        options.push({
+            name: 'Manage connections',
+            icon: 'cog',
+            callback: () => this.app.openNewTab(SettingsTabComponent, { activeTab: 'ssh' }),
+        })
+
+        options.push({
+            name: 'Quick connect',
+            freeInputPattern: 'Connect to "%s"...',
+            icon: 'arrow-right',
+            callback: query => this.quickConnect(query),
+        })
+
+
+        await this.app.showSelector('Open an SSH connection', options)
+    }
+
+    async connect (connection: SSHConnection): Promise<SSHTabComponent> {
+        try {
+            const tab = this.app.openNewTab(
+                SSHTabComponent,
+                { connection }
+            ) as SSHTabComponent
+            if (connection.color) {
+                (this.app.getParentTab(tab) || tab).color = connection.color
+            }
+
+            setTimeout(() => {
+                this.app.activeTab?.emitFocused()
+            })
+
+            return tab
+        } catch (error) {
+            this.toastr.error(`Could not connect: ${error}`)
+            throw error
+        }
+    }
+
+    quickConnect (query: string): Promise<SSHTabComponent> {
+        let user = 'root'
+        let host = query
+        let port = 22
+        if (host.includes('@')) {
+            [user, host] = host.split('@')
+        }
+        if (host.includes(':')) {
+            port = parseInt(host.split(':')[1])
+            host = host.split(':')[0]
+        }
+
+        const connection: SSHConnection = {
+            name: query,
+            group: null,
+            host,
+            user,
+            port,
+        }
+
+        const recentConnections = this.config.store.ssh.recentConnections
+        recentConnections.unshift(connection)
+        if (recentConnections.length > 5) {
+            recentConnections.pop()
+        }
+        this.config.store.ssh.recentConnections = recentConnections
+        this.config.save()
+        return this.connect(connection)
     }
 }
 
