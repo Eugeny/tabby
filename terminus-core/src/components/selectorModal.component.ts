@@ -23,7 +23,7 @@ export class SelectorModalComponent<T> {
         this.onFilterChange()
     }
 
-    @HostListener('keypress', ['$event']) onKeyUp (event: KeyboardEvent): void {
+    @HostListener('keyup', ['$event']) onKeyUp (event: KeyboardEvent): void {
         if (event.key === 'ArrowUp') {
             this.selectedIndex--
         }
