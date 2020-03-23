@@ -52,7 +52,7 @@
     "val-loader": "2.1.0",
     "webpack": "^5.0.0-beta.14",
     "webpack-cli": "^3.3.10",
-    "yaml-loader": "0.5.0"
+    "yaml-loader": "0.6.0"
   },
   "resolutions": {
     "*/node-abi": "^2.14.0"
