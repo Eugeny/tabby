@@ -8,7 +8,6 @@ import { SettingsTabProvider } from 'terminus-settings'
 import TerminusTerminalModule from 'terminus-terminal'
 
 import { EditConnectionModalComponent } from './components/editConnectionModal.component'
-import { SerialModalComponent } from './components/serialModal.component'
 import { SerialSettingsTabComponent } from './components/serialSettingsTab.component'
 import { SerialTabComponent } from './components/serialTab.component'
 
@@ -37,13 +36,11 @@ import { SerialHotkeyProvider } from './hotkeys'
     ],
     entryComponents: [
         EditConnectionModalComponent,
-        SerialModalComponent,
         SerialSettingsTabComponent,
         SerialTabComponent,
     ],
     declarations: [
         EditConnectionModalComponent,
-        SerialModalComponent,
         SerialSettingsTabComponent,
         SerialTabComponent,
     ],

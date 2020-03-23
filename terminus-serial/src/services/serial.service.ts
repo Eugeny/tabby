@@ -1,8 +1,10 @@
 import { Injectable, NgZone } from '@angular/core'
 import SerialPort from 'serialport'
 import { ToastrService } from 'ngx-toastr'
-import { LogService } from 'terminus-core'
-import { SerialConnection, SerialSession, SerialPortInfo } from '../api'
+import { LogService, AppService, SelectorOption, ConfigService } from 'terminus-core'
+import { SettingsTabComponent } from 'terminus-settings'
+import { SerialConnection, SerialSession, SerialPortInfo, BAUD_RATES } from '../api'
+import { SerialTabComponent } from '../components/serialTab.component'
 
 @Injectable({ providedIn: 'root' })
 export class SerialService {
@@ -10,6 +12,8 @@ export class SerialService {
         private log: LogService,
         private zone: NgZone,
         private toastr: ToastrService,
+        private app: AppService,
+        private config: ConfigService,
     ) { }
 
     async listPorts (): Promise<SerialPortInfo[]> {
@@ -25,7 +29,7 @@ export class SerialService {
         return session
     }
 
-    async connectSession (session: SerialSession, _?: (s: any) => void): Promise<SerialPort> {
+    async connectSession (session: SerialSession): Promise<SerialPort> {
         const serial = new SerialPort(session.connection.port, { autoOpen: false, baudRate: session.connection.baudrate,
             dataBits: session.connection.databits, stopBits: session.connection.stopbits, parity: session.connection.parity,
             rtscts: session.connection.rtscts, xon: session.connection.xon, xoff: session.connection.xoff,
@@ -56,5 +60,108 @@ export class SerialService {
 
         })
         return serial
+    }
+
+    async showConnectionSelector (): Promise<void> {
+        const options: SelectorOption<void>[] = []
+        const lastConnection = JSON.parse(window.localStorage.lastSerialConnection)
+        const foundPorts = await this.listPorts()
+
+        if (lastConnection) {
+            options.push({
+                name: lastConnection.name,
+                icon: 'history',
+                callback: () => this.connect(lastConnection),
+            })
+            options.push({
+                name: 'Clear last connection',
+                icon: 'eraser',
+                callback: () => {
+                    window.localStorage.lastSerialConnection = null
+                },
+            })
+        }
+
+        for (const port of foundPorts) {
+            options.push({
+                name: port.name,
+                description: port.description,
+                icon: 'arrow-right',
+                callback: () => this.connectFoundPort(port),
+            })
+        }
+
+        for (const connection of this.config.store.serial.connections) {
+            options.push({
+                name: connection.name,
+                description: connection.port,
+                callback: () => this.connect(connection),
+            })
+        }
+
+        options.push({
+            name: 'Manage connections',
+            icon: 'cog',
+            callback: () => this.app.openNewTab(SettingsTabComponent, { activeTab: 'serial' }),
+        })
+
+        options.push({
+            name: 'Quick connect',
+            freeInputPattern: 'Open device: %s...',
+            icon: 'arrow-right',
+            callback: query => this.quickConnect(query),
+        })
+
+
+        await this.app.showSelector('Open a serial port', options)
+    }
+
+    async connect (connection: SerialConnection): Promise<SerialTabComponent> {
+        try {
+            const tab = this.app.openNewTab(
+                SerialTabComponent,
+                { connection }
+            ) as SerialTabComponent
+            if (connection.color) {
+                (this.app.getParentTab(tab) || tab).color = connection.color
+            }
+            setTimeout(() => {
+                this.app.activeTab.emitFocused()
+            })
+            return tab
+        } catch (error) {
+            this.toastr.error(`Could not connect: ${error}`)
+            throw error
+        }
+    }
+
+    quickConnect (query: string): Promise<SerialTabComponent> {
+        let path = query
+        let baudrate = 115200
+        if (query.includes('@')) {
+            baudrate = parseInt(path.split('@')[1])
+            path = path.split('@')[0]
+        }
+        const connection: SerialConnection = {
+            name: query,
+            port: path,
+            baudrate: baudrate,
+            databits: 8,
+            parity: 'none',
+            rtscts: false,
+            stopbits: 1,
+            xany: false,
+            xoff: false,
+            xon: false,
+        }
+        window.localStorage.lastSerialConnection = JSON.stringify(connection)
+        return this.connect(connection)
+    }
+
+    async connectFoundPort (port: SerialPortInfo): Promise<SerialTabComponent> {
+        const rate = await this.app.showSelector('Baud rate', BAUD_RATES.map(x => ({
+            name: x.toString(), result: x,
+        })))
+        return this.quickConnect(`${port.name}@${rate}`)
     }
 }

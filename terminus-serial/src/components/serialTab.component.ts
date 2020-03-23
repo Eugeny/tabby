@@ -21,9 +21,9 @@ export class SerialTabComponent extends BaseTerminalTabComponent {
     serialPort: any
     private homeEndSubscription: Subscription
 
+    // eslint-disable-next-line @typescript-eslint/no-useless-constructor
     constructor (
         injector: Injector,
-        private serial: SerialService,
     ) {
         super(injector)
     }
@@ -62,7 +62,7 @@ export class SerialTabComponent extends BaseTerminalTabComponent {
             return
         }
 
-        this.session = this.serial.createSession(this.connection)
+        this.session = this.injector.get(SerialService).createSession(this.connection)
         this.session.serviceMessage$.subscribe(msg => {
             this.write('\r\n' + colors.black.bgWhite(' serial ') + ' ' + msg + '\r\n')
             this.session.resize(this.size.columns, this.size.rows)
@@ -80,11 +80,7 @@ export class SerialTabComponent extends BaseTerminalTabComponent {
         spinner.start()
 
         try {
-            this.serialPort = await this.serial.connectSession(this.session, (message: string) => {
-                spinner.stop(true)
-                this.write(message + '\r\n')
-                spinner.start()
-            })
+            this.serialPort = await this.injector.get(SerialService).connectSession(this.session)
             spinner.stop(true)
         } catch (e) {
             spinner.stop(true)

@@ -1,14 +1,13 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { Injectable } from '@angular/core'
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
+import { Injectable, Injector } from '@angular/core'
 import { HotkeysService, ToolbarButtonProvider, ToolbarButton } from 'terminus-core'
-import { SerialModalComponent } from './components/serialModal.component'
+import { SerialService } from './services/serial.service'
 
 /** @hidden */
 @Injectable()
 export class ButtonProvider extends ToolbarButtonProvider {
     constructor (
-        private ngbModal: NgbModal,
+        private injector: Injector,
         hotkeys: HotkeysService,
     ) {
         super()
@@ -20,7 +19,7 @@ export class ButtonProvider extends ToolbarButtonProvider {
     }
 
     activate () {
-        this.ngbModal.open(SerialModalComponent)
+        this.injector.get(SerialService).showConnectionSelector()
     }
 
     provide (): ToolbarButton[] {

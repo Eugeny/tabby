@@ -1,11 +1,11 @@
-import { Component, Input, HostListener } from '@angular/core'
+import { Component, Input, HostListener, ViewChildren, QueryList, ElementRef } from '@angular/core'
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
 import { SelectorOption } from '../api/selector'
 
 /** @hidden */
 @Component({
     template: require('./selectorModal.component.pug'),
-    // styles: [require('./selectorModal.component.scss')],
+    styles: [require('./selectorModal.component.scss')],
 })
 export class SelectorModalComponent<T> {
     @Input() options: SelectorOption<T>[]
@@ -13,6 +13,7 @@ export class SelectorModalComponent<T> {
     @Input() filter = ''
     @Input() name: string
     @Input() selectedIndex = 0
+    @ViewChildren('item') itemChildren: QueryList<ElementRef>
 
     constructor (
         public modalInstance: NgbActiveModal,
@@ -22,7 +23,7 @@ export class SelectorModalComponent<T> {
         this.onFilterChange()
     }
 
-    @HostListener('keyup', ['$event']) onKeyUp (event: KeyboardEvent): void {
+    @HostListener('keypress', ['$event']) onKeyUp (event: KeyboardEvent): void {
         if (event.key === 'ArrowUp') {
             this.selectedIndex--
         }
@@ -37,6 +38,10 @@ export class SelectorModalComponent<T> {
         }
 
         this.selectedIndex = (this.selectedIndex + this.filteredOptions.length) % this.filteredOptions.length
+        Array.from(this.itemChildren)[this.selectedIndex]?.nativeElement.scrollIntoView({
+            behavior: 'smooth',
+            block: 'nearest',
+        })
     }
 
     onFilterChange (): void {
