@@ -37,6 +37,7 @@ export class TerminalConfigProvider extends ConfigProvider {
                 name: 'Material',
                 foreground: '#eceff1',
                 background: 'rgba(38, 50, 56, 1)',
+                selection: null,
                 cursor: '#FFCC00',
                 colors: [
                     '#000000',
