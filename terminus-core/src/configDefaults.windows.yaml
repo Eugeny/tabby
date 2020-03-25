@@ -8,6 +8,8 @@ hotkeys:
     - 'Alt-Enter'
   close-tab:
     - 'Ctrl-Shift-W'
+  reopen-tab:
+    - 'Ctrl-Shift-T'
   toggle-last-tab: []
   rename-tab:
     - 'Ctrl-Shift-R'

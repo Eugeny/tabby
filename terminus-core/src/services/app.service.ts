@@ -8,6 +8,7 @@ import { BaseTabComponent } from '../components/baseTab.component'
 import { SplitTabComponent } from '../components/splitTab.component'
 import { SelectorModalComponent } from '../components/selectorModal.component'
 import { SelectorOption } from '../api/selector'
+import { RecoveryToken } from '../api/tabRecovery'
 
 import { ConfigService } from './config.service'
 import { HostAppService } from './hostApp.service'
@@ -49,6 +50,7 @@ export class AppService {
 
     private lastTabIndex = 0
     private _activeTab: BaseTabComponent
+    private closedTabsStack: RecoveryToken[] = []
 
     private activeTabChange = new Subject<BaseTabComponent>()
     private tabsChanged = new Subject<void>()
@@ -97,6 +99,13 @@ export class AppService {
 
         hostApp.windowFocused$.subscribe(() => {
             this._activeTab?.emitFocused()
+        })
+
+        this.tabClosed$.subscribe(async tab => {
+            const token = await tab.getRecoveryToken()
+            if (token) {
+                this.closedTabsStack.push(token)
+            }
         })
     }
 
@@ -159,6 +168,23 @@ export class AppService {
         splitTab.addTab(tab, null, 'r')
         this.addTabRaw(splitTab)
         return tab
+    }
+
+    async reopenLastTab (): Promise<BaseTabComponent|null> {
+        const token = this.closedTabsStack.pop()
+        if (token) {
+            const recoveredTab = await this.tabRecovery.recoverTab(token)
+            if (recoveredTab) {
+                const tab = this.tabsService.create(recoveredTab.type, recoveredTab.options)
+                if (this.activeTab) {
+                    this.addTabRaw(tab, this.tabs.indexOf(this.activeTab) + 1)
+                } else {
+                    this.addTabRaw(tab)
+                }
+                return tab
+            }
+        }
+        return null
     }
 
     selectTab (tab: BaseTabComponent): void {

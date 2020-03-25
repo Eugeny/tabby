@@ -26,6 +26,10 @@ export class AppHotkeyProvider extends HotkeyProvider {
             name: 'Close tab',
         },
         {
+            id: 'reopen-tab',
+            name: 'Reopen last tab',
+        },
+        {
             id: 'toggle-last-tab',
             name: 'Toggle last tab',
         },

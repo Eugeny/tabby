@@ -7,6 +7,8 @@ hotkeys:
     - 'Ctrl+⌘+F'
   close-tab:
     - '⌘-W'
+  reopen-tab:
+    - '⌘-Shift-T'
   toggle-last-tab: []
   rename-tab:
     - '⌘-R'
