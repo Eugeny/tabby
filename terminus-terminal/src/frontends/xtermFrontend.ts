@@ -121,6 +121,11 @@ export class XTermFrontend extends Frontend {
             this.xtermCore.updateCursorStyle(e)
             keyboardEventHandler('keyup', e)
         }
+
+        this.xtermCore._bufferService.buffers.onBufferActivate(e => {
+            const altBufferActive = e.activeBuffer === this.xtermCore._bufferService.buffers.alt
+            this.alternateScreenActive.next(altBufferActive)
+        })
     }
 
     attach (host: HTMLElement): void {

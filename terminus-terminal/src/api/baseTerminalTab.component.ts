@@ -68,6 +68,8 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
      */
     enableDynamicTitle = true
 
+    alternateScreenActive = false
+
     // Deps start
     config: ConfigService
     element: ElementRef
@@ -210,6 +212,10 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
             this.session.releaseInitialDataBuffer()
         })
 
+        this.alternateScreenActive$.subscribe(x => {
+            this.alternateScreenActive = x
+        })
+
         if (this.savedState) {
             this.frontend.restoreState(this.savedState)
             this.frontend.write('\r\n\r\n')
@@ -279,7 +285,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
      */
     write (data: string): void {
         const percentageMatch = /(^|[^\d])(\d+(\.\d+)?)%([^\d]|$)/.exec(data)
-        if (percentageMatch) {
+        if (!this.alternateScreenActive && percentageMatch) {
             const percentage = percentageMatch[3] ? parseFloat(percentageMatch[2]) : parseInt(percentageMatch[2])
             if (percentage > 0 && percentage <= 100) {
                 this.setProgress(percentage)
@@ -302,7 +308,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
             data = data.replace(/\n/g, '\r')
         }
 
-        if (data.includes('\r')) {
+        if (!this.alternateScreenActive && data.includes('\r')) {
             const canTrim = !data.trim().includes('\r')
             const buttons = canTrim ? ['Paste', 'Trim whitespace and paste', 'Cancel'] : ['Paste', 'Cancel']
             const result = (await this.electron.showMessageBox(
