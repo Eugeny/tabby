@@ -291,7 +291,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
         this.frontend.write(data)
     }
 
-    paste (): void {
+    async paste (): Promise<void> {
         let data = this.electron.clipboard.readText() as string
         if (this.config.store.terminal.bracketedPaste) {
             data = '\x1b[200~' + data + '\x1b[201~'
@@ -300,6 +300,28 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
             data = data.replace(/\r\n/g, '\r')
         } else {
             data = data.replace(/\n/g, '\r')
+        }
+
+        if (data.includes('\r')) {
+            const canTrim = !data.trim().includes('\r')
+            const buttons = canTrim ? ['Paste', 'Trim whitespace and paste', 'Cancel'] : ['Paste', 'Cancel']
+            const result = (await this.electron.showMessageBox(
+                this.hostApp.getWindow(),
+                {
+                    type: 'warning',
+                    detail: data,
+                    message: `Paste multiple lines?`,
+                    buttons,
+                    defaultId: 0,
+                    cancelId: buttons.length - 1,
+                }
+            )).response
+            if (result === buttons.length - 1) {
+                return
+            }
+            if (result === 1) {
+                data = data.trim()
+            }
         }
         this.sendInput(data)
     }
