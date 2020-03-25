@@ -1,36 +1,51 @@
-.input-group.w-100
-    input.search-input.form-control(
-        type='search',
-        [(ngModel)]='query',
-        (ngModelChange)='onQueryChange()',
-        [class.text-danger]='notFound',
-        (click)='$event.stopPropagation()',
-        (keyup.enter)='findNext()',
-        (keyup.esc)='close.emit()',
-        placeholder='Search...'
-    )
-    .input-group-append
-        .input-group-text
-            a(
-                (click)='options.caseSensitive = !options.caseSensitive',
-                [class.text-info]='options.caseSensitive',
-                ngbTooltip='Case sensitivity',
-                placement='bottom'
-            )
-                i.fa.fa-fw.fa-font
-            a(
-                (click)='options.regex = !options.regex',
-                [class.text-info]='options.regex',
-                ngbTooltip='Regular expression',
-                placement='bottom'
-            )
-                i.fa.fa-fw.fa-asterisk
-            a(
-                (click)='options.wholeWord = !options.wholeWord',
-                [class.text-info]='options.wholeWord',
-                ngbTooltip='Whole word',
-                placement='bottom'
-            )
-                i.fa.fa-fw.fa-text-width
+input.search-input.form-control(
+    type='search',
+    [(ngModel)]='query',
+    (ngModelChange)='onQueryChange()',
+    [class.text-danger]='notFound',
+    (click)='$event.stopPropagation()',
+    (keyup.enter)='findPrevious()',
+    (keyup.esc)='close.emit()',
+    placeholder='Search...'
+)
+
+button.btn.btn-link(
+    (click)='findPrevious()',
+    ngbTooltip='Next',
+    placement='bottom'
+)
+    i.fa.fa-fw.fa-arrow-up
+
+button.btn.btn-link(
+    (click)='findNext()',
+    ngbTooltip='Next',
+    placement='bottom'
+)
+    i.fa.fa-fw.fa-arrow-down
+
+.mr-2
+
+button.btn.btn-link(
+    (click)='options.caseSensitive = !options.caseSensitive',
+    [class.active]='options.caseSensitive',
+    ngbTooltip='Case sensitivity',
+    placement='bottom'
+)
+    i.fa.fa-fw.fa-font
+
+button.btn.btn-link(
+    (click)='options.regex = !options.regex',
+    [class.active]='options.regex',
+    ngbTooltip='Regular expression',
+    placement='bottom'
+)
+    i.fa.fa-fw.fa-asterisk
+button.btn.btn-link(
+    (click)='options.wholeWord = !options.wholeWord',
+    [class.active]='options.wholeWord',
+    ngbTooltip='Whole word',
+    placement='bottom'
+)
+    i.fa.fa-fw.fa-text-width
 
 button.close.text-light.pl-3.pr-2((click)='close.emit()') &times;

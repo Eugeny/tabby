@@ -23,18 +23,24 @@ export class SearchPanelComponent {
 
     onQueryChange (): void {
         this.notFound = false
-        this.findNext(true)
+        this.findPrevious(true)
     }
 
     findNext (incremental = false): void {
+        if (!this.query) {
+            return
+        }
         if (!this.frontend.findNext(this.query, { ...this.options, incremental: incremental || undefined })) {
             this.notFound = true
             this.toastr.error('Not found')
         }
     }
 
-    findPrevious (): void {
-        if (!this.frontend.findPrevious(this.query, this.options)) {
+    findPrevious (incremental = false): void {
+        if (!this.query) {
+            return
+        }
+        if (!this.frontend.findPrevious(this.query, { ...this.options, incremental: incremental || undefined })) {
             this.notFound = true
             this.toastr.error('Not found')
         }

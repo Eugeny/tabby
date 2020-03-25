@@ -5,16 +5,13 @@
     z-index: 5;
     padding: 10px;
     border-radius: 0 0 3px 3px;
-    background: rgba(0, 0, 0, .75);
+    background: rgba(0, 0, 0, .95);
     border: 1px solid rgba(0, 0, 0, .5);
     border-top: 0;
     display: flex;
 
-    a {
-        padding-left: 10px;
-
-        &:first-child {
-            padding-left: 0;
-        }
+    button {
+        padding: 0 6px;
+        flex-shrink: 0;
     }
 }
