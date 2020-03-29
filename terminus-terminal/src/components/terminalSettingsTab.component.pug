@@ -136,3 +136,12 @@ h3.mb-3 Terminal
         [(ngModel)]='config.store.terminal.wordSeparator',
         (ngModelChange)='config.save()',
     )
+
+.form-line
+    .header
+        .title Warn on multi-line paste
+        .description Show a confirmation box when pasting multiple lines
+    toggle(
+        [(ngModel)]='config.store.terminal.warnOnMultilinePaste',
+        (ngModelChange)='config.save()',
+    )

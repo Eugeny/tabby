@@ -308,7 +308,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
             data = data.replace(/\n/g, '\r')
         }
 
-        if (!this.alternateScreenActive && data.includes('\r')) {
+        if (!this.alternateScreenActive && data.includes('\r') && this.config.store.terminal.warnOnMultilinePaste) {
             const canTrim = !data.trim().includes('\r')
             const buttons = canTrim ? ['Paste', 'Trim whitespace and paste', 'Cancel'] : ['Paste', 'Cancel']
             const result = (await this.electron.showMessageBox(

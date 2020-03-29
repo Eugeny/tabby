@@ -63,6 +63,7 @@ export class TerminalConfigProvider extends ConfigProvider {
             profiles: [],
             useConPTY: true,
             recoverTabs: true,
+            warnOnMultilinePaste: true,
         },
     }
 
