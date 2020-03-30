@@ -64,7 +64,7 @@ export class SerialService {
 
     async showConnectionSelector (): Promise<void> {
         const options: SelectorOption<void>[] = []
-        const lastConnection = JSON.parse(window.localStorage.lastSerialConnection)
+        const lastConnection = window.localStorage.lastSerialConnection?JSON.parse(window.localStorage.lastSerialConnection):null
         const foundPorts = await this.listPorts()
 
         if (lastConnection) {
