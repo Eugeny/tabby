@@ -64,23 +64,25 @@ export class SerialService {
 
     async showConnectionSelector (): Promise<void> {
         const options: SelectorOption<void>[] = []
-        const lastConnection = JSON.parse(window.localStorage.lastSerialConnection)
         const foundPorts = await this.listPorts()
 
-        if (lastConnection) {
-            options.push({
-                name: lastConnection.name,
-                icon: 'history',
-                callback: () => this.connect(lastConnection),
-            })
-            options.push({
-                name: 'Clear last connection',
-                icon: 'eraser',
-                callback: () => {
-                    window.localStorage.lastSerialConnection = null
-                },
-            })
-        }
+        try {
+            const lastConnection = JSON.parse(window.localStorage.lastSerialConnection)
+            if (lastConnection) {
+                options.push({
+                    name: lastConnection.name,
+                    icon: 'history',
+                    callback: () => this.connect(lastConnection),
+                })
+                options.push({
+                    name: 'Clear last connection',
+                    icon: 'eraser',
+                    callback: () => {
+                        window.localStorage.lastSerialConnection = null
+                    },
+                })
+            }
+        } catch { }
 
         for (const port of foundPorts) {
             options.push({
