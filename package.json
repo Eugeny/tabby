@@ -68,5 +68,6 @@
     "postinstall": "node ./scripts/install-deps.js"
   },
   "repository": "eugeny/terminus",
+  "author": "Eugene Pankov",
   "license": "MIT"
 }
