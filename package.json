@@ -67,5 +67,7 @@
     "lint": "eslint --ext ts */src */lib",
     "postinstall": "node ./scripts/install-deps.js"
   },
-  "repository": "eugeny/terminus"
+  "repository": "eugeny/terminus",
+  "author": "Eugene Pankov",
+  "license": "MIT"
 }
