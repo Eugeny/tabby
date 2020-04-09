@@ -17,7 +17,7 @@
     "@angular/common": "9.1.0",
     "@angular/compiler": "9.1.0",
     "@angular/core": "9.1.0",
-    "@angular/forms": "9.1.0",
+    "@angular/forms": "9.1.1",
     "@angular/platform-browser": "9.1.0",
     "@angular/platform-browser-dynamic": "9.1.0",
     "@ng-bootstrap/ng-bootstrap": "^6.0.2",
