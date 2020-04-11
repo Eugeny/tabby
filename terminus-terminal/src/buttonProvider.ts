@@ -37,7 +37,6 @@ export class ButtonProvider extends ToolbarButtonProvider {
             options.push({
                 icon: profile.icon,
                 name: profile.name,
-                description: '',//TODO
                 callback: () => this.terminal.openTab(profile),
             })
         }
