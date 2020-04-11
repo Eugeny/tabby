@@ -14,6 +14,13 @@
             [class.active]='selectedIndex == i',
             *ngFor='let option of filteredOptions; let i = index'
         )
-            i(class='fa-fw fas mr-1 fa-{{option.icon}}')
-            .mr-2 {{getOptionText(option)}}
+            i.icon(
+                class='fa-fw fas fa-{{option.icon}}',
+                *ngIf='!iconIsSVG(option.icon)'
+            )
+            .icon(
+                [fastHtmlBind]='option.icon',
+                *ngIf='iconIsSVG(option.icon)'
+            )
+            .mr-2.title {{getOptionText(option)}}
             .text-muted {{option.description}}

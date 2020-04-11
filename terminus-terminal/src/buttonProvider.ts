@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import * as fs from 'mz/fs'
 import { Injectable } from '@angular/core'
-import { ToolbarButtonProvider, ToolbarButton, ElectronService, ConfigService } from 'terminus-core'
+import { ToolbarButtonProvider, ToolbarButton, ElectronService, ConfigService, SelectorOption, AppService } from 'terminus-core'
 
 import { TerminalService } from './services/terminal.service'
 
@@ -10,6 +10,7 @@ import { TerminalService } from './services/terminal.service'
 export class ButtonProvider extends ToolbarButtonProvider {
     constructor (
         electron: ElectronService,
+        private app: AppService,
         private config: ConfigService,
         private terminal: TerminalService,
     ) {
@@ -28,27 +29,36 @@ export class ButtonProvider extends ToolbarButtonProvider {
         }
     }
 
+    async activate () {
+        const options: SelectorOption<void>[] = []
+        const profiles = await this.terminal.getProfiles({ skipDefault: !this.config.store.terminal.showDefaultProfiles })
+
+        for (const profile of profiles) {
+            options.push({
+                icon: profile.icon,
+                name: profile.name,
+                description: '',//TODO
+                callback: () => this.terminal.openTab(profile),
+            })
+        }
+
+        await this.app.showSelector('Select profile', options)
+    }
+
     provide (): ToolbarButton[] {
         return [
             {
                 icon: require('./icons/plus.svg'),
                 title: 'New terminal',
                 touchBarNSImage: 'NSTouchBarAddDetailTemplate',
-                click: async () => {
+                click: () => {
                     this.terminal.openTab()
                 },
             },
             {
                 icon: require('./icons/profiles.svg'),
                 title: 'New terminal with profile',
-                submenu: async () => {
-                    const profiles = await this.terminal.getProfiles({ skipDefault: !this.config.store.terminal.showDefaultProfiles })
-                    return profiles.map(profile => ({
-                        icon: profile.icon,
-                        title: profile.name,
-                        click: () => this.terminal.openTab(profile),
-                    }))
-                },
+                click: () => this.activate(),
             },
         ]
     }
