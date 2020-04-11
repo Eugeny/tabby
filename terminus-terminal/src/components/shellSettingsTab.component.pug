@@ -74,6 +74,16 @@ h3.mb-3 Shell
 
     environment-editor([(model)]='this.config.store.terminal.environment')
 
+.form-line(*ngIf='config.store.terminal.profiles.length > 0')
+    .header
+        .title Show default profiles in the selector
+        .description If disabled, only custom profiles will show up in the profile selector
+
+    toggle(
+        [(ngModel)]='config.store.terminal.showDefaultProfiles',
+        (ngModelChange)='config.save()'
+    )
+
 h3.mt-3 Saved Profiles
 
 .list-group.list-group-flush.mt-3.mb-3

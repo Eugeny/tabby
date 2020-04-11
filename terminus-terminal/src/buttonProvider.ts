@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import * as fs from 'mz/fs'
 import { Injectable } from '@angular/core'
-import { ToolbarButtonProvider, ToolbarButton, ElectronService } from 'terminus-core'
+import { ToolbarButtonProvider, ToolbarButton, ElectronService, ConfigService } from 'terminus-core'
 
 import { TerminalService } from './services/terminal.service'
 
@@ -10,6 +10,7 @@ import { TerminalService } from './services/terminal.service'
 export class ButtonProvider extends ToolbarButtonProvider {
     constructor (
         electron: ElectronService,
+        private config: ConfigService,
         private terminal: TerminalService,
     ) {
         super()
@@ -41,7 +42,7 @@ export class ButtonProvider extends ToolbarButtonProvider {
                 icon: require('./icons/profiles.svg'),
                 title: 'New terminal with profile',
                 submenu: async () => {
-                    const profiles = await this.terminal.getProfiles()
+                    const profiles = await this.terminal.getProfiles({ skipDefault: !this.config.store.terminal.showDefaultProfiles })
                     return profiles.map(profile => ({
                         icon: profile.icon,
                         title: profile.name,

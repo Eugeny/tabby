@@ -34,11 +34,11 @@ export class TerminalService {
         })
     }
 
-    async getProfiles (includeHidden?: boolean): Promise<Profile[]> {
+    async getProfiles ({ includeHidden, skipDefault }: { includeHidden?: boolean, skipDefault?: boolean } = {}): Promise<Profile[]> {
         const shells = await this.shells$.toPromise()
         return [
             ...this.config.store.terminal.profiles,
-            ...shells.filter(x => includeHidden || !x.hidden).map(shell => ({
+            ...skipDefault ? [] : shells.filter(x => includeHidden || !x.hidden).map(shell => ({
                 name: shell.name,
                 icon: shell.icon,
                 sessionOptions: this.optionsFromShell(shell),
@@ -53,7 +53,7 @@ export class TerminalService {
      */
     async openTab (profile?: Profile, cwd?: string|null, pause?: boolean): Promise<TerminalTabComponent> {
         if (!profile) {
-            const profiles = await this.getProfiles(true)
+            const profiles = await this.getProfiles({ includeHidden: true })
             profile = profiles.find(x => slugify(x.name).toLowerCase() === this.config.store.terminal.profile) || profiles[0]
         }
 
