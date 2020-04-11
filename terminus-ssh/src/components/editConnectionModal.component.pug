@@ -72,6 +72,12 @@
             ng-template(ngbTabContent)
                 .form-line
                     .header
+                        .title Jump host
+                    select.form-control([(ngModel)]='connection.jumpHost')
+                        option([value]='x.name', *ngFor='let x of config.store.ssh.connections') {{x.name}}
+
+                .form-line
+                    .header
                         .title X11 forwarding
                     toggle([(ngModel)]='connection.x11')
 

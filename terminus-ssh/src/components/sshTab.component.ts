@@ -10,6 +10,7 @@ import { SSHConnection, SSHSession } from '../api'
 import { SSHPortForwardingModalComponent } from './sshPortForwardingModal.component'
 import { Subscription } from 'rxjs'
 
+
 /** @hidden */
 @Component({
     selector: 'ssh-tab',
@@ -20,6 +21,7 @@ import { Subscription } from 'rxjs'
 export class SSHTabComponent extends BaseTerminalTabComponent {
     connection: SSHConnection
     session: SSHSession
+    private sessionStack: SSHSession[] = []
     private homeEndSubscription: Subscription
 
     constructor (
@@ -60,19 +62,40 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
         })
     }
 
-    async initializeSession (): Promise<void> {
-        if (!this.connection) {
-            this.logger.error('No SSH connection info supplied')
-            return
+    async setupOneSession (session: SSHSession): Promise<void> {
+        if (session.connection.jumpHost) {
+            const jumpConnection = this.config.store.ssh.connections.find(x => x.name === session.connection.jumpHost)
+            const jumpSession = this.ssh.createSession(jumpConnection)
+
+            await this.setupOneSession(jumpSession)
+
+            jumpSession.destroyed$.subscribe(() => session.destroy())
+
+            session.jumpStream = await new Promise((resolve, reject) => jumpSession.ssh.forwardOut(
+                '127.0.0.1', 0, session.connection.host, session.connection.port,
+                (err, stream) => {
+                    if (err) {
+                        jumpSession.emitServiceMessage(colors.bgRed.black(' X ') + ` Could not set up port forward on ${jumpConnection.name}`)
+                        return reject(err)
+                    }
+                    resolve(stream)
+                }
+            ))
+
+            session.jumpStream.on('close', () => {
+                jumpSession.destroy()
+            })
+
+            this.sessionStack.push(session)
         }
 
-        this.session = this.ssh.createSession(this.connection)
-        this.session.serviceMessage$.subscribe(msg => {
+
+        session.serviceMessage$.subscribe(msg => {
             this.write('\r\n' + colors.black.bgWhite(' SSH ') + ' ' + msg + '\r\n')
-            this.session.resize(this.size.columns, this.size.rows)
+            session.resize(this.size.columns, this.size.rows)
         })
-        this.attachSessionHandlers()
-        this.write(`Connecting to ${this.connection.host}`)
+
+        this.write('\r\n' + colors.black.bgCyan(' SSH ') + ` Connecting to ${session.connection.host}\r\n`)
 
         const spinner = new Spinner({
             text: 'Connecting',
@@ -84,7 +107,7 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
         spinner.start()
 
         try {
-            await this.ssh.connectSession(this.session, (message: string) => {
+            await this.ssh.connectSession(session, (message: string) => {
                 spinner.stop(true)
                 this.write(message + '\r\n')
                 spinner.start()
@@ -95,6 +118,20 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
             this.write(colors.black.bgRed(' X ') + ' ' + colors.red(e.message) + '\r\n')
             return
         }
+    }
+
+    async initializeSession (): Promise<void> {
+        if (!this.connection) {
+            this.logger.error('No SSH connection info supplied')
+            return
+        }
+
+        this.session = this.ssh.createSession(this.connection)
+
+        await this.setupOneSession(this.session)
+
+        this.attachSessionHandlers()
+
         await this.session.start()
         this.session.resize(this.size.columns, this.size.rows)
     }

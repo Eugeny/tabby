@@ -151,6 +151,12 @@ export class SSHService {
                     }
                 })
             })
+            ssh.on('close', () => {
+                if (session.open) {
+                    session.destroy()
+                }
+            })
+
             ssh.on('keyboard-interactive', (name, instructions, instructionsLang, prompts, finish) => this.zone.run(async () => {
                 log(colors.bgBlackBright(' ') + ` Keyboard-interactive auth requested: ${name}`)
                 this.logger.info('Keyboard-interactive auth:', name, instructions, instructionsLang)
@@ -211,6 +217,7 @@ export class SSHService {
                     },
                     hostHash: 'sha256' as any,
                     algorithms: session.connection.algorithms,
+                    sock: session.jumpStream,
                 })
             } catch (e) {
                 this.toastr.error(e.message)

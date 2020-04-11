@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Component } from '@angular/core'
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
-import { ElectronService, HostAppService } from 'terminus-core'
+import { ElectronService, HostAppService, ConfigService } from 'terminus-core'
 import { PasswordStorageService } from '../services/passwordStorage.service'
 import { SSHConnection, LoginScript, SSHAlgorithmType } from '../api'
 import { PromptModalComponent } from './promptModal.component'
@@ -20,6 +20,7 @@ export class EditConnectionModalComponent {
     algorithms: {[id: string]: {[a: string]: boolean}} = {}
 
     constructor (
+        public config: ConfigService,
         private modalInstance: NgbActiveModal,
         private electron: ElectronService,
         private hostApp: HostAppService,

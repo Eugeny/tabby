@@ -35,6 +35,7 @@ export interface SSHConnection {
     x11?: boolean
     skipBanner?: boolean
     disableDynamicTitle?: boolean
+    jumpHost?: string
 
     algorithms?: {[t: string]: string[]}
 }
@@ -80,6 +81,7 @@ export class SSHSession extends BaseSession {
     ssh: Client
     forwardedPorts: ForwardedPort[] = []
     logger: Logger
+    jumpStream: any
 
     get serviceMessage$ (): Observable<string> { return this.serviceMessage }
     private serviceMessage = new Subject<string>()
