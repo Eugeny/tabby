@@ -37,10 +37,10 @@
   resolved "https://registry.yarnpkg.com/@angular/platform-browser/-/platform-browser-9.1.1.tgz#bb5a98a3a33a307436684c4c7e2c448c786ae466"
   integrity sha512-tjALKhdAWPErj0euIIdvx/31AHEZ7is7ADsMu+nYn2NY2gcPUuiqq3RCUJVxBYJ2Cclq1nlF0i2rEDKh7TrBKg==
 
-"@ng-bootstrap/ng-bootstrap@^6.0.2":
-  version "6.0.2"
-  resolved "https://registry.yarnpkg.com/@ng-bootstrap/ng-bootstrap/-/ng-bootstrap-6.0.2.tgz#ed8d4e04f21885fb18dc2523c4f2111f50ee99b2"
-  integrity sha512-8+Dz8GN15zneIA4+mQ7b1j5O+oHsFdhTYQVDGk6eAazHeqrFD0+o8N+pLZL2PZlf98WcHFmXIOqKXrBD8iLl1g==
+"@ng-bootstrap/ng-bootstrap@^6.0.3":
+  version "6.0.3"
+  resolved "https://registry.yarnpkg.com/@ng-bootstrap/ng-bootstrap/-/ng-bootstrap-6.0.3.tgz#cac484944434b9171dd90e49bb5175a2d9939dcf"
+  integrity sha512-l3uD8Zxee5ezrlQUo5+OUibBXM/29WinQR/55Ec09neymjurnjzLdfjKKK3QHsZpgleUIRZ5eR6ENTOtPXn36g==
 
 "@serialport/binding-abstract@^8.0.6":
   version "8.0.6"
