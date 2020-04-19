@@ -167,15 +167,28 @@ export class XTermFrontend extends Frontend {
     }
 
     copySelection (): void {
-        const text = this.getSelection()
+        let text = this.getSelection()
+        let lines = text.split('\n')
+        if (lines.some(x => x.length === this.xterm.cols)) {
+            text = ''
+            let lastLineWraps = false
+            for (let line of lines) {
+                if (!lastLineWraps) {
+                    text += '\n'
+                }
+                text += line
+                lastLineWraps = line.length === this.xterm.cols
+            }
+        }
+
         if (text.length < 1024 * 32) {
             require('electron').remote.clipboard.write({
-                text: this.getSelection(),
+                text: text,
                 html: this.getSelectionAsHTML(),
             })
         } else {
             require('electron').remote.clipboard.write({
-                text: this.getSelection(),
+                text: text,
             })
         }
     }
