@@ -122,8 +122,8 @@ export class XTermFrontend extends Frontend {
             keyboardEventHandler('keyup', e)
         }
 
-        this.xtermCore._bufferService.buffers.onBufferActivate(e => {
-            const altBufferActive = e.activeBuffer === this.xtermCore._bufferService.buffers.alt
+        this.xterm.buffer.onBufferChange(() => {
+            const altBufferActive = this.xterm.buffer.active === this.xterm.buffer.alternate
             this.alternateScreenActive.next(altBufferActive)
         })
     }
@@ -311,7 +311,7 @@ export class XTermFrontend extends Frontend {
     private getLineAsHTML (y: number, start: number, end: number): string {
         let html = '<div>'
         let lastStyle: string|null = null
-        const line = (this.xterm.buffer.getLine(y) as any)._line
+        const line = (this.xterm.buffer.active.getLine(y) as any)._line
         const cell = new CellData()
         for (let i = start; i < end; i++) {
             line.loadCell(i, cell)
