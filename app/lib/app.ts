@@ -1,4 +1,4 @@
-import { app, ipcMain, Menu, Tray, shell } from 'electron'
+import { app, ipcMain, Menu, Tray, shell, globalShortcut } from 'electron'
 // eslint-disable-next-line no-duplicate-imports
 import * as electron from 'electron'
 import { loadConfig } from './config'
@@ -9,8 +9,17 @@ export class Application {
     private windows: Window[] = []
 
     constructor () {
-        ipcMain.on('app:config-change', () => {
-            this.broadcast('host:config-change')
+        ipcMain.on('app:config-change', (_event, config) => {
+            this.broadcast('host:config-change', config)
+        })
+        
+        ipcMain.on('app:register-global-hotkey', (_event, specs) => {
+            globalShortcut.unregisterAll()
+            for (let spec of specs) {
+                globalShortcut.register(spec, () => {
+                    this.onGlobalHotkey()
+                })
+            }
         })
 
         const configData = loadConfig()
@@ -45,11 +54,32 @@ export class Application {
                 this.enableTray()
             }
         })
+        window.closed$.subscribe(() => {
+            this.windows = this.windows.filter(x => x !== window)
+        })
         if (process.platform === 'darwin') {
             this.setupMenu()
         }
         await window.ready
         return window
+    }
+
+    onGlobalHotkey () {
+        if (this.windows.some(x => x.isFocused())) {
+            for (let window of this.windows) {
+                window.hide()
+            }
+        } else {
+            for (let window of this.windows) {
+                window.present()
+            }
+        }
+    }
+
+    presentAllWindows() {
+        for (let window of this.windows) {
+            window.present()
+        }
     }
 
     broadcast (event: string, ...args): void {

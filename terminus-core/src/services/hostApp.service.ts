@@ -166,7 +166,6 @@ export class HostAppService {
             this.configChangeBroadcast.next()
         }))
 
-
         if (
             isWindowsBuild(WIN_BUILD_FLUENT_BG_SUPPORTED) &&
             !isWindowsBuild(WIN_BUILD_FLUENT_BG_MOVE_BUG_FIXED)
@@ -251,8 +250,8 @@ export class HostAppService {
     /**
      * Notifies other windows of config file changes
      */
-    broadcastConfigChange (): void {
-        this.electron.ipcRenderer.send('app:config-change')
+    broadcastConfigChange (configStore: any): void {
+        this.electron.ipcRenderer.send('app:config-change', configStore)
     }
 
     emitReady (): void {
@@ -265,6 +264,10 @@ export class HostAppService {
 
     closeWindow (): void {
         this.electron.ipcRenderer.send('window-close')
+    }
+
+    registerGlobalHotkey (specs: string[]): void {
+        this.electron.ipcRenderer.send('app:register-global-hotkey', specs)
     }
 
     relaunch (): void {

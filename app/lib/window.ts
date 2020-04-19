@@ -1,6 +1,6 @@
 import { Subject, Observable } from 'rxjs'
 import { debounceTime } from 'rxjs/operators'
-import { BrowserWindow, app, ipcMain, Rectangle, screen } from 'electron'
+import { BrowserWindow, app, ipcMain, Rectangle, Menu, screen } from 'electron'
 import ElectronConfig = require('electron-config')
 import * as os from 'os'
 import * as path from 'path'
@@ -23,17 +23,20 @@ export interface WindowOptions {
 export class Window {
     ready: Promise<void>
     private visible = new Subject<boolean>()
+    private closed = new Subject<void>()
     private window: BrowserWindow
     private windowConfig: ElectronConfig
     private windowBounds: Rectangle
     private closing = false
     private lastVibrancy: {enabled: boolean, type?: string} | null = null
     private disableVibrancyWhileDragging = false
+    private configStore: any
 
     get visible$ (): Observable<boolean> { return this.visible }
+    get closed$ (): Observable<void> { return this.closed }
 
     constructor (options?: WindowOptions) {
-        let configData = loadConfig()
+        this.configStore = loadConfig()
 
         options = options || {}
 
@@ -70,7 +73,7 @@ export class Window {
             }
         }
 
-        if ((configData.appearance || {}).frame === 'native') {
+        if ((this.configStore.appearance || {}).frame === 'native') {
             bwOptions.frame = true
         } else {
             if (process.platform === 'darwin') {
@@ -86,7 +89,7 @@ export class Window {
         this.window.once('ready-to-show', () => {
             if (process.platform === 'darwin') {
                 this.window.setVibrancy('window')
-            } else if (process.platform === 'win32' && (configData.appearance || {}).vibrancy) {
+            } else if (process.platform === 'win32' && (this.configStore.appearance || {}).vibrancy) {
                 this.setVibrancy(true)
             }
 
@@ -153,10 +156,47 @@ export class Window {
             return
         }
         this.window.webContents.send(event, ...args)
+        if (event === 'host:config-change') {
+            this.configStore = args[0]
+        }
     }
 
     isDestroyed (): boolean {
         return !this.window || this.window.isDestroyed()
+    }
+
+    isFocused (): boolean {
+        return this.window.isFocused()
+    }
+
+    hide () {
+        if (process.platform === 'darwin') {
+            // Lose focus
+            Menu.sendActionToFirstResponder('hide:')
+        }
+        this.window.blur()
+        if (process.platform !== 'darwin') {
+            this.window.hide()
+        }
+    }
+
+    present () {
+        if (!this.window.isVisible()) {
+            // unfocused, invisible
+            this.window.show()
+            this.window.focus()
+        } else {
+            if (!this.configStore.appearance?.dock || this.configStore.appearance?.dock === 'off') {
+                // not docked, visible
+                setTimeout(() => {
+                    this.window.show()
+                    this.window.focus()
+                })
+            } else {
+                // docked, visible
+                this.window.hide()
+            }
+        }
     }
 
     private setupWindowManagement () {
@@ -326,6 +366,8 @@ export class Window {
 
     private destroy () {
         this.window = null
+        this.closed.next()
         this.visible.complete()
+        this.closed.complete()
     }
 }

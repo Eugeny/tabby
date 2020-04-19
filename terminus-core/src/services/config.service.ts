@@ -157,7 +157,7 @@ export class ConfigService {
     save (): void {
         fs.writeFileSync(this.path, yaml.safeDump(this._store), 'utf8')
         this.emitChange()
-        this.hostApp.broadcastConfigChange()
+        this.hostApp.broadcastConfigChange(this.store)
     }
 
     /**

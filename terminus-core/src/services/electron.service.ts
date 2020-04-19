@@ -43,15 +43,6 @@ export class ElectronService {
         this.MenuItem = this.remote.MenuItem
     }
 
-    /**
-     * Removes OS focus from Terminus' window
-     */
-    loseFocus (): void {
-        if (process.platform === 'darwin') {
-            this.remote.Menu.sendActionToFirstResponder('hide:')
-        }
-    }
-
     async showMessageBox (
         browserWindow: Electron.BrowserWindow,
         options: Electron.MessageBoxOptions
