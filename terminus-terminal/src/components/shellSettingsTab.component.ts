@@ -1,4 +1,3 @@
-import slugify from 'slugify'
 import { Component } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { Subscription } from 'rxjs'
@@ -17,14 +16,13 @@ export class ShellSettingsTabComponent {
     Platform = Platform
     isConPTYAvailable: boolean
     isConPTYStable: boolean
-    slugify = slugify
     private configSubscription: Subscription
 
     constructor (
         public config: ConfigService,
         public hostApp: HostAppService,
+        public terminal: TerminalService,
         private electron: ElectronService,
-        private terminalService: TerminalService,
         private ngbModal: NgbModal,
     ) {
         config.store.terminal.environment = config.store.terminal.environment || {}
@@ -38,7 +36,7 @@ export class ShellSettingsTabComponent {
     }
 
     async ngOnInit (): Promise<void> {
-        this.shells = await this.terminalService.shells$.toPromise()
+        this.shells = await this.terminal.shells$.toPromise()
     }
 
     ngOnDestroy (): void {
@@ -46,21 +44,22 @@ export class ShellSettingsTabComponent {
     }
 
     async reload (): Promise<void> {
-        this.profiles = await this.terminalService.getProfiles({ includeHidden: true })
+        this.profiles = await this.terminal.getProfiles({ includeHidden: true })
     }
 
-    pickWorkingDirectory (): void {
-        const shell = this.shells.find(x => x.id === this.config.store.terminal.shell)
+    async pickWorkingDirectory (): Promise<void> {
+        const profile = await this.terminal.getProfileByID(this.config.store.terminal.profile)
+        const shell = this.shells.find(x => x.id === profile?.shell)
         if (!shell) {
             return
         }
-        const paths = this.electron.dialog.showOpenDialog(
+        const paths = (await this.electron.dialog.showOpenDialog(
             this.hostApp.getWindow(),
             {
                 defaultPath: shell.fsBase,
                 properties: ['openDirectory', 'showHiddenFiles'],
             }
-        )
+        )).filePaths
         if (paths) {
             this.config.store.terminal.workingDirectory = paths[0]
         }
@@ -69,7 +68,8 @@ export class ShellSettingsTabComponent {
     newProfile (shell: Shell): void {
         const profile: Profile = {
             name: shell.name || '',
-            sessionOptions: this.terminalService.optionsFromShell(shell),
+            shell: shell.id,
+            sessionOptions: this.terminal.optionsFromShell(shell),
         }
         this.config.store.terminal.profiles = [profile, ...this.config.store.terminal.profiles]
         this.config.save()

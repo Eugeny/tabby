@@ -1,4 +1,3 @@
-import slugify from 'slugify'
 import { Injectable } from '@angular/core'
 import { HotkeyDescription, HotkeyProvider } from 'terminus-core'
 import { TerminalService } from './services/terminal.service'
@@ -78,7 +77,7 @@ export class TerminalHotkeyProvider extends HotkeyProvider {
         return [
             ...this.hotkeys,
             ...profiles.map(profile => ({
-                id: `profile.${slugify(profile.name).toLowerCase()}`,
+                id: `profile.${this.terminal.getProfileID(profile)}`,
                 name: `New tab: ${profile.name}`,
             })),
         ]

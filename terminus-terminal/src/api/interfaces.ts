@@ -19,6 +19,7 @@ export interface Profile {
     name: string
     color?: string
     sessionOptions: SessionOptions
+    shell?: string
     isBuiltin?: boolean
     icon?: string
 }

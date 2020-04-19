@@ -1,5 +1,4 @@
 import * as fs from 'mz/fs'
-import slugify from 'slugify'
 
 import { NgModule } from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
@@ -187,8 +186,7 @@ export default class TerminalModule { // eslint-disable-line @typescript-eslint/
                 hostApp.newWindow()
             }
             if (hotkey.startsWith('profile.')) {
-                const profiles = await terminal.getProfiles()
-                const profile = profiles.find(x => slugify(x.name).toLowerCase() === hotkey.split('.')[1])
+                const profile = await terminal.getProfileByID(hotkey.split('.')[1])
                 if (profile) {
                     terminal.openTabWithOptions(profile.sessionOptions)
                 }
