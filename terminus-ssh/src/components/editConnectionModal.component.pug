@@ -74,6 +74,7 @@
                     .header
                         .title Jump host
                     select.form-control([(ngModel)]='connection.jumpHost')
+                        option([value]='null') None
                         option([value]='x.name', *ngFor='let x of config.store.ssh.connections') {{x.name}}
 
                 .form-line
