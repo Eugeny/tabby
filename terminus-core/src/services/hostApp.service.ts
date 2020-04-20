@@ -250,7 +250,7 @@ export class HostAppService {
     /**
      * Notifies other windows of config file changes
      */
-    broadcastConfigChange (configStore: any): void {
+    broadcastConfigChange (configStore: {[k: string]: any}): void {
         this.electron.ipcRenderer.send('app:config-change', configStore)
     }
 

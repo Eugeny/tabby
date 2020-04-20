@@ -197,7 +197,7 @@ export class HotkeysService {
                 console.error('Could not register the global hotkey:', err)
             }
         })
-        
+
         this.hostApp.registerGlobalHotkey(specs)
     }
 

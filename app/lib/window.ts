@@ -169,7 +169,7 @@ export class Window {
         return this.window.isFocused()
     }
 
-    hide () {
+    hide (): void {
         if (process.platform === 'darwin') {
             // Lose focus
             Menu.sendActionToFirstResponder('hide:')
@@ -180,7 +180,7 @@ export class Window {
         }
     }
 
-    present () {
+    present (): void {
         if (!this.window.isVisible()) {
             // unfocused, invisible
             this.window.show()

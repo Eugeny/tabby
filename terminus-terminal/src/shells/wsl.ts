@@ -88,9 +88,9 @@ export class WSLShellProvider extends ShellProvider {
             if (!childKey.DistributionName) {
                 continue
             }
-            const wslVersion = (childKey.Flags.value & 8) ? 2 : 1
+            const wslVersion = childKey.Flags.value & 8 ? 2 : 1
             const name = childKey.DistributionName.value
-            const fsBase = (wslVersion === 2) ? `\\\\wsl$\\${name}` : (childKey.BasePath.value as string + '\\rootfs')
+            const fsBase = wslVersion === 2 ? `\\\\wsl$\\${name}` : childKey.BasePath.value as string + '\\rootfs'
             const shell: Shell = {
                 id: `wsl-${slugify(name)}`,
                 name: `WSL / ${name}`,

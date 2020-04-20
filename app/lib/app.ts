@@ -12,7 +12,7 @@ export class Application {
         ipcMain.on('app:config-change', (_event, config) => {
             this.broadcast('host:config-change', config)
         })
-        
+
         ipcMain.on('app:register-global-hotkey', (_event, specs) => {
             globalShortcut.unregisterAll()
             for (let spec of specs) {
@@ -64,7 +64,7 @@ export class Application {
         return window
     }
 
-    onGlobalHotkey () {
+    onGlobalHotkey (): void {
         if (this.windows.some(x => x.isFocused())) {
             for (let window of this.windows) {
                 window.hide()
@@ -76,7 +76,7 @@ export class Application {
         }
     }
 
-    presentAllWindows() {
+    presentAllWindows (): void {
         for (let window of this.windows) {
             window.present()
         }
