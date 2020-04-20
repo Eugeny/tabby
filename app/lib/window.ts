@@ -103,6 +103,12 @@ export class Window {
             }
         })
 
+        this.window.on('blur',() => {
+            if (this.configStore.appearance?.dockHideOnBlur) {
+                this.hide()
+            }
+        })
+
         this.window.loadURL(`file://${app.getAppPath()}/dist/index.html?${this.window.id}`, { extraHeaders: 'pragma: no-cache\n' })
 
         if (process.platform !== 'darwin') {
