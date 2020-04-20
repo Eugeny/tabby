@@ -193,7 +193,7 @@ export class Window {
                     this.window.focus()
                 })
             } else {
-                if (this.configStore.appearance?.dockAlwaysOnTop) {           
+                if (this.configStore.appearance?.dockAlwaysOnTop) {
                     // docked, visible, on top
                     this.window.hide()
                 } else {
