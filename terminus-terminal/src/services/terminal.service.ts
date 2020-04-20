@@ -49,7 +49,7 @@ export class TerminalService {
     }
 
     getProfileID (profile: Profile): string {
-        return slugify(profile.name).toLowerCase()
+        return slugify(profile.name, { remove: /[:.]/g }).toLowerCase()
     }
 
     async getProfileByID (id: string): Promise<Profile> {
