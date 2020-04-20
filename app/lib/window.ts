@@ -103,7 +103,7 @@ export class Window {
             }
         })
 
-        this.window.on('blur',() => {
+        this.window.on('blur', () => {
             if (this.configStore.appearance?.dockHideOnBlur) {
                 this.hide()
             }
