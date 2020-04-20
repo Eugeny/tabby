@@ -302,7 +302,7 @@ export class SSHSession extends BaseSession {
 
     write (data: Buffer): void {
         if (this.shell) {
-            this.shell.write(data.toString())
+            this.shell.write(data)
         }
     }
 
