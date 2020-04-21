@@ -228,6 +228,15 @@ ngb-tabset.vertical(type='pills', [activeId]='activeTab')
                     step='0.01'
                 )
 
+            .form-line(*ngIf='config.store.appearance.dock != "off"')
+                .header
+                    .title Hide dock on blur
+                    .description Hides the docked terminal when you click away.
+                toggle(
+                    [(ngModel)]='config.store.appearance.dockHideOnBlur',
+                    (ngModelChange)='config.save(); ',
+                )
+
             .form-line
                 .header
                     .title Debugging
