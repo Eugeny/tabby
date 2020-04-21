@@ -2,6 +2,8 @@ appearance:
   dock: off
   dockScreen: current
   dockFill: 0.5
+  dockHideOnBlur: false
+  dockAlwaysOnTop: true
   tabsLocation: top
   cycleTabs: true
   theme: Standard

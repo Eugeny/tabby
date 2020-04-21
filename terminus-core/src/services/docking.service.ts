@@ -53,7 +53,9 @@ export class DockingService {
             newBounds.y = display.bounds.y
         }
 
-        this.hostApp.setAlwaysOnTop(true)
+        const alwaysOnTop = this.config.store.appearance.dockAlwaysOnTop
+
+        this.hostApp.setAlwaysOnTop(alwaysOnTop)
         setImmediate(() => {
             this.hostApp.setBounds(newBounds)
         })
