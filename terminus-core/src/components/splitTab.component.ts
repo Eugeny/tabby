@@ -358,6 +358,7 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
         this.attachTabView(tab)
 
         setImmediate(() => {
+            tab.parent = this
             this.layout()
             this.tabAdded.next(tab)
             this.focus(tab)
@@ -374,11 +375,11 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
         parent.children.splice(index, 1)
 
         this.detachTabView(tab)
+        tab.parent = null
 
         this.layout()
 
         this.tabRemoved.next(tab)
-
         if (this.root.children.length === 0) {
             this.destroy()
         } else {
@@ -569,6 +570,7 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
                 if (recovered) {
                     const tab = this.tabsService.create(recovered.type, recovered.options)
                     children.push(tab)
+                    tab.parent = this
                     this.attachTabView(tab)
                 } else {
                     state.ratios.splice(state.children.indexOf(childState), 0)
