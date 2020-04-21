@@ -209,6 +209,15 @@ ngb-tabset.vertical(type='pills', [activeId]='activeTab')
 
             .form-line(*ngIf='config.store.appearance.dock != "off"')
                 .header
+                    .title Dock always on top
+                    .description Keep docked terminal always on top
+                toggle(
+                    [(ngModel)]='config.store.appearance.dockAlwaysOnTop',
+                    (ngModelChange)='config.save(); docking.dock()',
+                )
+
+            .form-line(*ngIf='config.store.appearance.dock != "off"')
+                .header
                     .title Docked terminal size
                 input(
                     type='range',

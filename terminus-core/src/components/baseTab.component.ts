@@ -15,6 +15,11 @@ export interface BaseTabProcess {
  */
 export abstract class BaseTabComponent {
     /**
+     * Parent tab (usually a SplitTabComponent)
+     */
+    parent: BaseTabComponent|null = null
+
+    /**
      * Current tab title
      */
     title: string
