@@ -58,6 +58,13 @@
   resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-free/-/fontawesome-free-5.13.0.tgz#fcb113d1aca4b471b709e8c9c168674fbd6e06d9"
   integrity sha512-xKOeQEl5O47GPZYIMToj6uuA2syyFlq9EMSl2ui0uytjY9xbe8XS0pexNWmxrdcCyNGyDmLyYw5FtKsalBUeOg==
 
+"@malept/cross-spawn-promise@^1.0.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@malept/cross-spawn-promise/-/cross-spawn-promise-1.1.0.tgz#258fde4098f5004a56db67c35f33033af64810f6"
+  integrity sha512-GeIK5rfU1Yd7BZJQPTGZMMmcZy5nhRToPXZcjaDwQDRSewdhp648GT2E4dh+L7+Io7AOW6WQ+GR44QSzja4qxg==
+  dependencies:
+    cross-spawn "^7.0.1"
+
 "@sentry/apm@5.10.2":
   version "5.10.2"
   resolved "https://registry.yarnpkg.com/@sentry/apm/-/apm-5.10.2.tgz#41a401b3964b68514439f8a595b12c6fd05ab21a"
@@ -2005,13 +2012,13 @@ electron-fetch@^1.4.0:
   dependencies:
     encoding "^0.1.12"
 
-electron-installer-common@^0.10.0:
-  version "0.10.0"
-  resolved "https://registry.yarnpkg.com/electron-installer-common/-/electron-installer-common-0.10.0.tgz#e57b9cac3637fc312d28f3e45f197f5c1743c931"
-  integrity sha512-oWkkKSrBtsg9rEh1lscRoboNBvA/biZV1L86jwsv8AOhQ6WqMqWPI6xf2HFRNsVDdsHGIldJSpGR4F8ITclerQ==
+electron-installer-common@^0.10.1:
+  version "0.10.1"
+  resolved "https://registry.yarnpkg.com/electron-installer-common/-/electron-installer-common-0.10.1.tgz#42738f140c15270758681ac3f32039430b9fc023"
+  integrity sha512-d9gEXhfSSyMn8mkFNdbUdkqdLkxVZ8nO3NDso3nuSnG1+wy7cJuuCjutwR4+zsXdQuNFC1n/DxpTk4pBLZSCTQ==
   dependencies:
+    "@malept/cross-spawn-promise" "^1.0.0"
     asar "^2.0.1"
-    cross-spawn "^7.0.1"
     debug "^4.1.1"
     fs-extra "^8.0.1"
     glob "^7.1.4"
@@ -2020,14 +2027,15 @@ electron-installer-common@^0.10.0:
     semver "^7.1.1"
     tmp-promise "^2.0.1"
 
-electron-installer-snap@^5.0.0:
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/electron-installer-snap/-/electron-installer-snap-5.0.0.tgz#09553749b367aa6d00c1f92e57d3f3e05daced5a"
-  integrity sha512-M5ADJ7MP3QX1bRfdMZer4B/t5p2fVWciCXkqUs1t3kBSyxEJw4N2jNMydAeJRLend9cbM1E2Jq5+bhPEES85Kg==
+electron-installer-snap@^5.1.0:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/electron-installer-snap/-/electron-installer-snap-5.1.0.tgz#30334cd9b59bb8efa70f2fe45b54a6b10545b134"
+  integrity sha512-lZ/EQ8SFbmEplhxbGdDRKGJUVZqXzoK+CbZtL3SoCwWz1MWKfOZzlx0VhNlLDuaAo6DKFN2Hxh+3yPikzqfbew==
   dependencies:
+    "@malept/cross-spawn-promise" "^1.0.0"
     debug "^4.1.1"
-    electron-installer-common "^0.10.0"
-    fs-extra "^8.0.1"
+    electron-installer-common "^0.10.1"
+    fs-extra "^9.0.0"
     js-yaml "^3.10.0"
     lodash "^4.17.15"
     semver "^7.1.1"
@@ -6181,12 +6189,7 @@ semver@^6.0.0, semver@^6.1.2, semver@^6.3.0:
   resolved "https://registry.yarnpkg.com/semver/-/semver-6.3.0.tgz#ee0a64c8af5e8ceea67687b133761e1becbd1d3d"
   integrity sha512-b39TBaTSfV6yBrapU89p5fKekE2m/NwnDocOVruQFS1/veMgdzuPcnOM34M6CwxW8jH/lxEa5rBoDeUwu5HHTw==
 
-semver@^7.1.1:
-  version "7.1.1"
-  resolved "https://registry.yarnpkg.com/semver/-/semver-7.1.1.tgz#29104598a197d6cbe4733eeecbe968f7b43a9667"
-  integrity sha512-WfuG+fl6eh3eZ2qAf6goB7nhiCd7NPXhmyFxigB/TOkQyeLP8w8GsVehvtGNtnNmyboz4TgeK40B1Kbql/8c5A==
-
-semver@^7.1.3:
+semver@^7.1.1, semver@^7.1.3:
   version "7.1.3"
   resolved "https://registry.yarnpkg.com/semver/-/semver-7.1.3.tgz#e4345ce73071c53f336445cfc19efb1c311df2a6"
   integrity sha512-ekM0zfiA9SCBlsKa2X1hxyxiI4L3B6EbVJkkdgQXnSEEaHlGdvyodMruTiulSRWMMB4NeIuYNMC9rTKTz97GxA==
