@@ -1994,10 +1994,10 @@ ngx-toastr@^12.0.1:
   resolved "https://registry.yarnpkg.com/ngx-toastr/-/ngx-toastr-12.0.1.tgz#288c8ef505f1216aa4952cd2a8c6fa7c57a54ccc"
   integrity sha512-PABtbn2dyHweVSbo/py1W3veXzcmZO7uVItfTW9AykSSeAUju3gOCgauAw89km0aJ9EBcPOieaoI+9tAR7Pfug==
 
-node-abi@^2.15.0, node-abi@^2.7.0:
-  version "2.15.0"
-  resolved "https://registry.yarnpkg.com/node-abi/-/node-abi-2.15.0.tgz#51d55cc711bd9e4a24a572ace13b9231945ccb10"
-  integrity sha512-FeLpTS0F39U7hHZU1srAK4Vx+5AHNVOTP+hxBNQknR/54laTHSFIJkDWDqiquY1LeLUgTfPN7sLPhMubx0PLAg==
+node-abi@^2.16.0, node-abi@^2.7.0:
+  version "2.16.0"
+  resolved "https://registry.yarnpkg.com/node-abi/-/node-abi-2.16.0.tgz#7df94e9c0a7a189f4197ab84bac8089ef5894992"
+  integrity sha512-+sa0XNlWDA6T+bDLmkCUYn6W5k5W6BPRL6mqzSCs6H/xUgtl4D5x2fORKDzopKiU6wsyn/+wXlRXwXeSp+mtoA==
   dependencies:
     semver "^5.4.1"
 
