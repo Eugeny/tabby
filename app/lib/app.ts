@@ -137,6 +137,13 @@ export class Application {
         }
     }
 
+    handleSecondInstance (argv: string[], cwd: string): void {
+        this.presentAllWindows()
+        for (let window of this.windows) {
+            window.handleSecondInstance(argv, cwd)
+        }
+    }
+
     private setupMenu () {
         let template: Electron.MenuItemConstructorOptions[] = [
             {

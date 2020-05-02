@@ -5,6 +5,7 @@ import ElectronConfig = require('electron-config')
 import * as os from 'os'
 import * as path from 'path'
 
+import { parseArgs } from './cli'
 import { loadConfig } from './config'
 
 let SetWindowCompositionAttribute: any
@@ -207,6 +208,12 @@ export class Window {
                     this.window.focus()
                 }
             }
+        }
+    }
+
+    handleSecondInstance (argv: string[], cwd: string): void {
+        if (!this.configStore.appearance?.dock) {
+            this.send('host:second-instance', parseArgs(argv, cwd), cwd)
         }
     }
 

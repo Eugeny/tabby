@@ -34,8 +34,7 @@ process.on('uncaughtException' as any, err => {
 })
 
 app.on('second-instance', (_event, argv, cwd) => {
-    application.presentAllWindows()
-    application.send('host:second-instance', parseArgs(argv, cwd), cwd)
+    application.handleSecondInstance(argv, cwd)
 })
 
 const argv = parseArgs(process.argv, process.cwd())
