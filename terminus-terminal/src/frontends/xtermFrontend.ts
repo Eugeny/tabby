@@ -40,6 +40,7 @@ export class XTermFrontend extends Frontend {
         super()
         this.xterm = new Terminal({
             allowTransparency: true,
+            windowsMode: process.platform === 'win32',
         })
         this.xtermCore = (this.xterm as any)._core
 
