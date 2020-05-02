@@ -13,7 +13,7 @@
     "watch": "webpack --progress --color --watch"
   },
   "dependencies": {
-    "@angular/animations": "9.1.2",
+    "@angular/animations": "9.1.4",
     "@angular/common": "9.1.2",
     "@angular/compiler": "9.1.2",
     "@angular/core": "9.1.2",
