@@ -38,7 +38,7 @@
     "pug-static-loader": "2.0.0",
     "raw-loader": "4.0.1",
     "sass-loader": "^8.0.0",
-    "shelljs": "0.8.3",
+    "shelljs": "0.8.4",
     "source-code-pro": "^2.30.2",
     "source-sans-pro": "3.6.0",
     "style-loader": "^1.1.4",
