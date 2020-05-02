@@ -324,7 +324,7 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
      * Inserts a new `tab` to the `side` of the `relative` tab
      */
     async addTab (tab: BaseTabComponent, relative: BaseTabComponent|null, side: SplitDirection): Promise<void> {
-        await this.initialized$.toPromise()
+        tab.parent = this
 
         let target = (relative ? this.getParentOf(relative) : null) || this.root
         let insertIndex = relative ? target.children.indexOf(relative) : -1
@@ -355,10 +355,12 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
         target.children.splice(insertIndex, 0, tab)
 
         this.recoveryStateChangedHint.next()
+
+        await this.initialized$.toPromise()
+
         this.attachTabView(tab)
 
         setImmediate(() => {
-            tab.parent = this
             this.layout()
             this.tabAdded.next(tab)
             this.focus(tab)
