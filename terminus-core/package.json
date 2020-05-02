@@ -30,7 +30,7 @@
     "ng2-dnd": "^5.0.2",
     "ngx-perfect-scrollbar": "^8.0.0",
     "shell-escape": "^0.2.0",
-    "uuid": "^7.0.1",
+    "uuid": "^8.0.0",
     "winston": "^3.2.1"
   },
   "peerDependencies": {
