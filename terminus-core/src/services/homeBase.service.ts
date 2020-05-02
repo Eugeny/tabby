@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core'
 import { ElectronService } from './electron.service'
 import { ConfigService } from './config.service'
 import * as mixpanel from 'mixpanel'
-import * as uuidv4 from 'uuid/v4'
+import { v4 as uuidv4 } from 'uuid/v4'
 
 @Injectable({ providedIn: 'root' })
 export class HomeBaseService {
