@@ -39,6 +39,8 @@ jobs:
         GH_TOKEN: ${{ secrets.GH_TOKEN }}
         CSC_LINK: ${{ secrets.CSC_LINK }}
         CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
+        APPSTORE_USERNAME: ${{ secrets.APPSTORE_USERNAME }}
+        APPSTORE_PASSWORD: ${{ secrets.APPSTORE_PASSWORD }}
 
     - name: Build packages without signing
       run: scripts/build-macos.js
