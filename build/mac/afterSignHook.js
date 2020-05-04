@@ -6,7 +6,7 @@ const notarizer = require('electron-notarize')
 
 module.exports = async function (params) {
     // notarize the app on Mac OS only.
-    if (process.platform !== 'darwin' || process.env.GITHUB_REF !== 'refs/heads/master' || process.env.GITHUB_REF && !process.env.GITHUB_REF.startsWith('refs/tags/')) {
+    if (process.platform !== 'darwin' || !process.env.GITHUB_REF || !process.env.GITHUB_REF.startsWith('refs/tags/')) {
         return
     }
     console.log('afterSign hook triggered', params)
