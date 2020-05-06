@@ -529,21 +529,24 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
             if (child instanceof SplitContainer) {
                 this.layoutInternal(child, childX, childY, childW, childH)
             } else {
-                const element = this.viewRefs.get(child)!.rootNodes[0]
-                element.classList.toggle('child', true)
-                element.classList.toggle('maximized', child === this.maximizedTab)
-                element.classList.toggle('minimized', this.maximizedTab && child !== this.maximizedTab)
-                element.classList.toggle('focused', child === this.focusedTab)
-                element.style.left = `${childX}%`
-                element.style.top = `${childY}%`
-                element.style.width = `${childW}%`
-                element.style.height = `${childH}%`
+                const viewRef = this.viewRefs.get(child)
+                if (viewRef) {
+                    const element = viewRef.rootNodes[0]
+                    element.classList.toggle('child', true)
+                    element.classList.toggle('maximized', child === this.maximizedTab)
+                    element.classList.toggle('minimized', this.maximizedTab && child !== this.maximizedTab)
+                    element.classList.toggle('focused', child === this.focusedTab)
+                    element.style.left = `${childX}%`
+                    element.style.top = `${childY}%`
+                    element.style.width = `${childW}%`
+                    element.style.height = `${childH}%`
 
-                if (child === this.maximizedTab) {
-                    element.style.left = '5%'
-                    element.style.top = '5%'
-                    element.style.width = '90%'
-                    element.style.height = '90%'
+                    if (child === this.maximizedTab) {
+                        element.style.left = '5%'
+                        element.style.top = '5%'
+                        element.style.width = '90%'
+                        element.style.height = '90%'
+                    }
                 }
             }
             offset += sizes[i]
