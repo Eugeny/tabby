@@ -31,6 +31,8 @@ jobs:
     - name: Prepackage plugins
       run: scripts/prepackage-plugins.js
 
+    - run: sed -i '' 's/updateInfo = await/\/\/updateInfo = await/g' node_modules/app-builder-lib/out/targets/ArchiveTarget.js
+
     - name: Build and sign packages
       run: scripts/build-macos.js
       if: github.repository == 'Eugeny/terminus' && github.event_name == 'push'
