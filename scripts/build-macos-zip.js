@@ -7,7 +7,7 @@ const isCI = !!process.env.GITHUB_REF
 
 builder({
     dir: true,
-    mac: ['pkg'],
+    mac: ['zip'],
     config: {
         extraMetadata: {
             version: vars.version,
