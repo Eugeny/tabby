@@ -1,4 +1,4 @@
-name: macOS Build (ZIP)
+name: macOS Build
 on: [push, pull_request]
 jobs:
   build:
