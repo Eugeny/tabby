@@ -13,7 +13,7 @@ module.exports = async function (params) {
 
     let appId = 'org.terminus'
 
-    let appPath = path.join(params.appOutDir, `${params.packager.appInfo.productFilename}.app`)
+    let appPath = path.join(params.appOutDir, params._pathOverride || `${params.packager.appInfo.productFilename}.app`)
     if (!fs.existsSync(appPath)) {
         throw new Error(`Cannot find application at: ${appPath}`)
     }

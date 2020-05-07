@@ -1,9 +1,10 @@
 #!/usr/bin/env node
 const builder = require('electron-builder').build
 const vars = require('./vars')
+const fs = require('fs')
+const signHook = require('../build/mac/afterSignHook')
 
 const isTag = (process.env.GITHUB_REF || '').startsWith('refs/tags/')
-const isCI = !!process.env.GITHUB_REF
 
 builder({
     dir: true,
@@ -14,4 +15,7 @@ builder({
         },
     },
     publish: isTag ? 'always' : 'onTag',
-}).catch(() => process.exit(1))
+}).catch(e => {
+    console.error(e)
+    process.exit(1)
+})
