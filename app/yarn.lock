@@ -7,10 +7,10 @@
   resolved "https://registry.yarnpkg.com/@angular/animations/-/animations-9.1.4.tgz#22f64a062103d4903f2c7d862889a88fc6553bc7"
   integrity sha512-gMo/DbCm5BDArladMAeC7/75T2DvhLr4CSUGJt/P/aimTEG2ywoAALs3pzwSSe4qxrHiR0OIksVW3l4km3iXEw==
 
-"@angular/common@9.1.4":
-  version "9.1.4"
-  resolved "https://registry.yarnpkg.com/@angular/common/-/common-9.1.4.tgz#23d7b42cd87aba634b78b8d73e12c6ebffe86043"
-  integrity sha512-JvCoCWVbx0tF7l/0WTi24ui/mc2SElyVSNchR4VK/FViARnkvnSBdI/Ef5QWXrsPyKU4PYBtnWWgyxRspH+FBA==
+"@angular/common@9.1.5":
+  version "9.1.5"
+  resolved "https://registry.yarnpkg.com/@angular/common/-/common-9.1.5.tgz#cc556c46d5415ad60a2228888cff4b594198e424"
+  integrity sha512-KJC2yVeSFc7JlKYp3B+ndC3OCwiIm3JYnsBMP21ftYbJNV0AW9zhSis4GM5VUJo0wUmCyQxWxXFtqA2lOEsBVA==
 
 "@angular/compiler@9.1.4":
   version "9.1.4"
