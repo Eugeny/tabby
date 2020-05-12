@@ -12,10 +12,10 @@
   resolved "https://registry.yarnpkg.com/@angular/common/-/common-9.1.4.tgz#23d7b42cd87aba634b78b8d73e12c6ebffe86043"
   integrity sha512-JvCoCWVbx0tF7l/0WTi24ui/mc2SElyVSNchR4VK/FViARnkvnSBdI/Ef5QWXrsPyKU4PYBtnWWgyxRspH+FBA==
 
-"@angular/compiler@9.1.4":
-  version "9.1.4"
-  resolved "https://registry.yarnpkg.com/@angular/compiler/-/compiler-9.1.4.tgz#fe833fc3b74768bdd56b1bdd0010870f38ffaedc"
-  integrity sha512-B+f3lviFNEJtL9V9exSKYPSz2Ddb6dxgPzQR7GSjGikDo+fKMtC1PjNwgJooS9gavhQx30uwkEEMIPYQbM6nNA==
+"@angular/compiler@9.1.6":
+  version "9.1.6"
+  resolved "https://registry.yarnpkg.com/@angular/compiler/-/compiler-9.1.6.tgz#be4bc14e000c4b9e4c1ebf85f15f8de0b2603dc5"
+  integrity sha512-tHOQEjWuWqSkrk6/vI6BK7uJnpAyFajCXPW37rH5xspF/aMbetrpoOiGBNUQg/HLaFh04nOAnnFntjLkW0ooaA==
 
 "@angular/core@9.1.4":
   version "9.1.4"
