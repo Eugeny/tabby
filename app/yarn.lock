@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@angular/animations@9.1.4":
-  version "9.1.4"
-  resolved "https://registry.yarnpkg.com/@angular/animations/-/animations-9.1.4.tgz#22f64a062103d4903f2c7d862889a88fc6553bc7"
-  integrity sha512-gMo/DbCm5BDArladMAeC7/75T2DvhLr4CSUGJt/P/aimTEG2ywoAALs3pzwSSe4qxrHiR0OIksVW3l4km3iXEw==
+"@angular/animations@9.1.7":
+  version "9.1.7"
+  resolved "https://registry.yarnpkg.com/@angular/animations/-/animations-9.1.7.tgz#09bf7c84c234d8b6ecaa101024a3b3e69ab198cd"
+  integrity sha512-1wW8ndGMLDuE2LpTN2RNRz1Dt7JgVBeVmOPMgzoA7g1uuvm+jESTrGG7W3BzLzG0BE2TeXt0fY90o4iU+S2Rmg==
 
 "@angular/common@9.1.4":
   version "9.1.4"
