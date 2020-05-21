@@ -18,7 +18,7 @@
     "@angular/compiler": "9.1.4",
     "@angular/core": "9.1.4",
     "@angular/forms": "9.1.4",
-    "@angular/platform-browser": "9.1.4",
+    "@angular/platform-browser": "9.1.9",
     "@angular/platform-browser-dynamic": "9.1.4",
     "@ng-bootstrap/ng-bootstrap": "^6.1.0",
     "devtron": "1.4.0",
