@@ -49,6 +49,7 @@ deb:
   depends:
   - gconf2
   - gconf-service
+  - gnome-keyring
   - libnotify4
   - libsecret-1-0
   - libappindicator1
@@ -58,4 +59,4 @@ deb:
 rpm:
   depends:
   - screen
-  - gnome-python2-gnomekeyring
+  - gnome-keyring
