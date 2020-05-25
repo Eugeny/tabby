@@ -23,7 +23,7 @@
     "@ng-bootstrap/ng-bootstrap": "^6.1.0",
     "devtron": "1.4.0",
     "electron-config": "2.0.0",
-    "electron-debug": "^3.0.1",
+    "electron-debug": "^3.1.0",
     "electron-is-dev": "1.1.0",
     "electron-updater": "^4.3.1",
     "fontmanager-redux": "0.4.0",
