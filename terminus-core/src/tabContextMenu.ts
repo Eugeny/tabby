@@ -10,7 +10,7 @@ import { TabContextMenuItemProvider } from './api/tabContextMenuProvider'
 /** @hidden */
 @Injectable()
 export class TabManagementContextMenu extends TabContextMenuItemProvider {
-    weight = -5
+    weight = 99
 
     constructor (
         private app: AppService,
