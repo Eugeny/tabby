@@ -101,6 +101,7 @@ export class Window {
                     this.window.show()
                 }
                 this.window.focus()
+                this.window.moveTop()
             }
         })
 
@@ -152,6 +153,7 @@ export class Window {
 
     show (): void {
         this.window.show()
+        this.window.moveTop()
     }
 
     focus (): void {
