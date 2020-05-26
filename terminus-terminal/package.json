@@ -26,7 +26,6 @@
     "ps-node": "^0.1.6",
     "runes": "^0.4.2",
     "slugify": "^1.4.0",
-    "uuid": "^8.0.0",
     "xterm": "^4.6.0-beta.33",
     "xterm-addon-fit": "^0.4.0-beta.8",
     "xterm-addon-ligatures": "^0.3.0-beta.1",
