@@ -248,9 +248,9 @@ xterm-addon-serialize@^0.3.0-beta.3:
   integrity sha512-g+eGqgvQiON4CCEku0iG53obZxi353wig2XRR75DOoHlPMLrO63kvt2V+OahnJlxCpsWQ1BFu4Q5HquQnS6uvQ==
 
 xterm-addon-unicode11@^0.2.0-beta.5:
-  version "0.2.0-beta.5"
-  resolved "https://registry.yarnpkg.com/xterm-addon-unicode11/-/xterm-addon-unicode11-0.2.0-beta.5.tgz#5961850162df20b5e966166423cd6957ac2db298"
-  integrity sha512-IjnbBcyfS5JgJDXPO0W2nk/VBtGwx6GWE2snMC676z4DmAABUqPXfTzJKfUoWqoT6UcbxB0oIjDzykCfoRJp6Q==
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/xterm-addon-unicode11/-/xterm-addon-unicode11-0.2.0.tgz#9ed0c482b353908bba27778893ca80823382737c"
+  integrity sha512-rjFDItPc/IDoSiEnoDFwKroNwLD/7t9vYKENjrcKVZg5tgJuuUj8D4rZtP6iVCjSB1LTLYmUs4L/EmCqIyLR/Q==
 
 xterm-addon-webgl@^0.7.0-beta.5:
   version "0.7.0"
