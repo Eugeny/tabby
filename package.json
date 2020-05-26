@@ -5,7 +5,7 @@
     "@sentry/electron": "^1.2.1",
     "@types/electron-config": "^3.2.2",
     "@types/electron-debug": "^2.1.0",
-    "@types/js-yaml": "^3.12.3",
+    "@types/js-yaml": "^3.12.4",
     "@types/node": "12.7.12",
     "@types/webpack-env": "^1.15.2",
     "@typescript-eslint/eslint-plugin": "^2.26.0",
