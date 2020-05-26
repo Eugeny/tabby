@@ -99,7 +99,6 @@ export class TerminalConfigProvider extends ConfigProvider {
                 ],
                 'new-tab': [
                     '⌘-T',
-                    '⌘-N',
                 ],
                 home: ['⌘-Left', 'Home'],
                 end: ['⌘-Right', 'End'],
