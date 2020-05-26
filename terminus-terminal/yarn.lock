@@ -225,9 +225,9 @@ uuid@^8.0.0:
   integrity sha512-jOXGuXZAWdsTH7eZLtyXMqUb9EcWMGZNbL9YcGBJl4MH4nrxHmZJhEHvyLFrkxo+28uLb/NYRcStH48fnD0Vzw==
 
 xterm-addon-fit@^0.4.0-beta.8:
-  version "0.4.0-beta.8"
-  resolved "https://registry.yarnpkg.com/xterm-addon-fit/-/xterm-addon-fit-0.4.0-beta.8.tgz#3d38b16335a3f54d254bb446e554699319563a6f"
-  integrity sha512-gFfMQ9TeCELggiANB+z3y3rpleOK0Fc59rwJDbBRRVaMNGJW3Xedl5Ne6xJ+vqkqugYq66vl4CwrMRYylyq5IQ==
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/xterm-addon-fit/-/xterm-addon-fit-0.4.0.tgz#06e0c5d0a6aaacfb009ef565efa1c81e93d90193"
+  integrity sha512-p4BESuV/g2L6pZzFHpeNLLnep9mp/DkF3qrPglMiucSFtD8iJxtMufEoEJbN8LZwB4i+8PFpFvVuFrGOSpW05w==
 
 xterm-addon-ligatures@^0.3.0-beta.1:
   version "0.3.0-beta.1"
