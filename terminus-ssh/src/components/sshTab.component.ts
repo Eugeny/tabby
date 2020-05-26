@@ -153,6 +153,18 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
         this.initializeSession()
     }
 
+    async canClose (): Promise<boolean> {
+        return (await this.electron.showMessageBox(
+            this.hostApp.getWindow(),
+            {
+                type: 'warning',
+                message: `Disconnect from ${this.connection.host}?`,
+                buttons: ['Cancel', 'Disconnect'],
+                defaultId: 1,
+            }
+        )).response === 1
+    }
+
     ngOnDestroy (): void {
         this.homeEndSubscription.unsubscribe()
         super.ngOnDestroy()
