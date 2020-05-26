@@ -243,9 +243,9 @@ xterm-addon-search@^0.7.0-beta.1:
   integrity sha512-6060evmJJ+tZcjnx33FXaeEHLpuXEa7l9UzUsYfMlCKbu88AbE+5LJocTKCHYd71cwCwb9pjmv/G1o9Rf9Zbcg==
 
 xterm-addon-serialize@^0.3.0-beta.3:
-  version "0.3.0-beta.4"
-  resolved "https://registry.yarnpkg.com/xterm-addon-serialize/-/xterm-addon-serialize-0.3.0-beta.4.tgz#57ea1748bcfab93330c2a07bb851f212551ddf25"
-  integrity sha512-KRXwG6IyHgvSn+JC1qrInV43Dy8V76hlMOyaVktNH5v7X0W2Yxdgvoh/uQbpLXhw9gz3KxZ/Pivd4b4RR7OZYw==
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/xterm-addon-serialize/-/xterm-addon-serialize-0.3.0.tgz#b4f24089285801bcc5f601791a4cac416d528a6a"
+  integrity sha512-g+eGqgvQiON4CCEku0iG53obZxi353wig2XRR75DOoHlPMLrO63kvt2V+OahnJlxCpsWQ1BFu4Q5HquQnS6uvQ==
 
 xterm-addon-unicode11@^0.2.0-beta.5:
   version "0.2.0-beta.5"
