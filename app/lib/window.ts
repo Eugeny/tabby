@@ -88,8 +88,8 @@ export class Window {
 
         if (process.platform === 'linux') {
             glasstron.update(this.window, {
-                linux: {requestBlur: true}
-            });
+                linux: { requestBlur: true },
+            })
         }
         this.window.once('ready-to-show', () => {
             if (process.platform === 'darwin') {
@@ -150,8 +150,8 @@ export class Window {
             } else {
                 DwmEnableBlurBehindWindow(this.window, enabled)
             }
-        }else if(process.platform ==="linux"){
-            this.window.setBackgroundColor(enabled ? "#00000000" : "#131d27")
+        }else if(process.platform ==='linux'){
+            this.window.setBackgroundColor(enabled ? '#00000000' : '#131d27')
         } else {
             this.window.setVibrancy(enabled ? 'dark' : null as any) // electron issue 20269
         }
