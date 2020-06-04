@@ -1,3 +1,5 @@
+import * as glasstron from 'glasstron'
+glasstron.init()
 import { Subject, Observable } from 'rxjs'
 import { debounceTime } from 'rxjs/operators'
 import { BrowserWindow, app, ipcMain, Rectangle, Menu, screen } from 'electron'
@@ -82,11 +84,13 @@ export class Window {
             }
         }
 
-        if (process.platform === 'linux') {
-            bwOptions.backgroundColor = '#131d27'
-        }
-
         this.window = new BrowserWindow(bwOptions)
+
+        if (process.platform === 'linux') {
+            glasstron.update(this.window, {
+                linux: { requestBlur: true },
+            })
+        }
         this.window.once('ready-to-show', () => {
             if (process.platform === 'darwin') {
                 this.window.setVibrancy('window')
@@ -146,6 +150,8 @@ export class Window {
             } else {
                 DwmEnableBlurBehindWindow(this.window, enabled)
             }
+        }else if(process.platform ==='linux'){
+            this.window.setBackgroundColor(enabled ? '#00000000' : '#131d27')
         } else {
             this.window.setVibrancy(enabled ? 'dark' : null as any) // electron issue 20269
         }
