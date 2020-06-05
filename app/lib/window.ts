@@ -1,5 +1,8 @@
 import * as glasstron from 'glasstron'
-glasstron.init()
+if (process.platform === 'linux') {
+    glasstron.init()
+}
+
 import { Subject, Observable } from 'rxjs'
 import { debounceTime } from 'rxjs/operators'
 import { BrowserWindow, app, ipcMain, Rectangle, Menu, screen } from 'electron'
@@ -91,6 +94,7 @@ export class Window {
                 linux: { requestBlur: true },
             })
         }
+
         this.window.once('ready-to-show', () => {
             if (process.platform === 'darwin') {
                 this.window.setVibrancy('window')

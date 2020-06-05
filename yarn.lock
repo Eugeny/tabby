@@ -2905,13 +2905,6 @@ getpass@^0.1.1:
   dependencies:
     assert-plus "^1.0.0"
 
-glasstron@0.0.3:
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/glasstron/-/glasstron-0.0.3.tgz#3934d9e9b51dd2fd6b07eff8395493b3361ab917"
-  integrity sha512-yJ8+8gkGXXBlnI+4j6i8N+SaeZcswtrO82M863zQkCc5BQfC5fTXcwj9+v80f0jYUfZLFigsgaFuKoFmlVsOdw==
-  dependencies:
-    x11 "^2.3.0"
-
 glob-parent@^5.0.0:
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/glob-parent/-/glob-parent-5.0.0.tgz#1dc99f0f39b006d3e92c2c284068382f0c20e954"
@@ -5014,7 +5007,7 @@ ora@^3.4.0:
     strip-ansi "^5.2.0"
     wcwidth "^1.0.1"
 
-os-homedir@^1.0.0, os-homedir@^1.0.1:
+os-homedir@^1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/os-homedir/-/os-homedir-1.0.2.tgz#ffbc4988336e0e833de0c168c7ef152121aa7fb3"
   integrity sha1-/7xJiDNuDoM94MFox+8VISGqf7M=
@@ -7597,13 +7590,6 @@ write@1.0.3:
   integrity sha512-/lg70HAjtkUgWPVZhZcm+T4hkL8Zbtp1nFNOn3lRrxnlv50SRBv7cR7RqR+GMsd3hUXy9hWBo4CHTbFTcOYwig==
   dependencies:
     mkdirp "^0.5.1"
-
-x11@^2.3.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/x11/-/x11-2.3.0.tgz#bdaccedccdac2482fd560f0511e7bf2bd9e1dbf2"
-  integrity sha1-vazO3M2sJIL9Vg8FEee/K9nh2/I=
-  dependencies:
-    os-homedir "^1.0.1"
 
 xdg-basedir@^3.0.0:
   version "3.0.0"

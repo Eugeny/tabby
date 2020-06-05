@@ -25,7 +25,6 @@
     "eslint-plugin-import": "^2.20.2",
     "file-loader": "^5.0.2",
     "graceful-fs": "^4.2.4",
-    "glasstron": "0.0.3",
     "html-loader": "0.5.5",
     "json-loader": "0.5.7",
     "node-abi": "^2.16.0",

@@ -37,6 +37,7 @@ module.exports = {
     'electron-config': 'commonjs electron-config',
     'electron-vibrancy': 'commonjs electron-vibrancy',
     fs: 'commonjs fs',
+    glasstron: 'commonjs glasstron',
     mz: 'commonjs mz',
     path: 'commonjs path',
     yargs: 'commonjs yargs',

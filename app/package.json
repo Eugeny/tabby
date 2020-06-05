@@ -27,6 +27,7 @@
     "electron-is-dev": "1.1.0",
     "electron-updater": "^4.3.1",
     "fontmanager-redux": "0.4.0",
+    "glasstron": "0.0.3",
     "js-yaml": "3.14.0",
     "keytar": "^5.6.0",
     "mz": "^2.7.0",
