@@ -2057,10 +2057,10 @@ node-gyp@^4.0.0:
     tar "^4.4.8"
     which "1"
 
-node-pty@^0.10.0-beta9:
-  version "0.10.0-beta9"
-  resolved "https://registry.yarnpkg.com/node-pty/-/node-pty-0.10.0-beta9.tgz#e5a795f9b53948346803cb71bac4ffc02e7909f0"
-  integrity sha512-Qm6uSH30FUcAhJ9s76C+lgvTsOW2cHUbkIGjCdOVCL0c7S4DxsmKBRgjcr+guUK9d9KwfuZHeSjXYWjpJFPe4w==
+node-pty@^0.10.0-beta10:
+  version "0.10.0-beta10"
+  resolved "https://registry.yarnpkg.com/node-pty/-/node-pty-0.10.0-beta10.tgz#b454fbfe1f75ee74b48b5363f0472b2cd8343402"
+  integrity sha512-oiBnEKVDH6pEmj/jk3qCaHiW7VoLMXg81dPS+1YCQoP5gSxVgGmZKxkmiU2IsSmPQ2+pxC3cylQ0+pAW9XYc7w==
   dependencies:
     nan "^2.14.0"
 
