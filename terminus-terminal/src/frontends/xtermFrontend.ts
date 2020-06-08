@@ -124,7 +124,7 @@ export class XTermFrontend extends Frontend {
         }
 
         this.xterm.buffer.onBufferChange(() => {
-            const altBufferActive = this.xterm.buffer.active === this.xterm.buffer.alternate
+            const altBufferActive = this.xterm.buffer.active.type === 'alternate'
             this.alternateScreenActive.next(altBufferActive)
         })
     }
