@@ -1563,13 +1563,13 @@ keyboardevents-areequal@^0.2.1:
   resolved "https://registry.yarnpkg.com/keyboardevents-areequal/-/keyboardevents-areequal-0.2.2.tgz#88191ec738ce9f7591c25e9056de928b40277194"
   integrity sha512-Nv+Kr33T0mEjxR500q+I6IWisOQ0lK1GGOncV0kWE6n4KFmpcu7RUX5/2B0EUtX51Cb0HjZ9VJsSY3u4cBa0kw==
 
-keytar@^5.6.0:
-  version "5.6.0"
-  resolved "https://registry.yarnpkg.com/keytar/-/keytar-5.6.0.tgz#7b5d4bd043d17211163640be6c4a27a49b12bb39"
-  integrity sha512-ueulhshHSGoryfRXaIvTj0BV1yB0KddBGhGoqCxSN9LR1Ks1GKuuCdVhF+2/YOs5fMl6MlTI9On1a4DHDXoTow==
+keytar@^6.0.1:
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/keytar/-/keytar-6.0.1.tgz#996961abdebf300b2d34bb2eab6e42a8096b1ed8"
+  integrity sha512-1Ihpf2tdM3sLwGMkYHXYhVC/hx5BDR7CWFL4IrBA3IDZo0xHhS2nM+tU9Y+u/U7okNfbVkwmKsieLkcWRMh93g==
   dependencies:
-    nan "2.14.1"
-    prebuild-install "5.3.3"
+    node-addon-api "^3.0.0"
+    prebuild-install "5.3.4"
 
 latest-version@^3.0.0:
   version "3.1.0"
@@ -1991,7 +1991,7 @@ mz@^2.7.0:
     object-assign "^4.0.1"
     thenify-all "^1.0.0"
 
-nan@2.14.1, nan@^2.13.2, nan@^2.14.0, nan@^2.14.1:
+nan@^2.13.2, nan@^2.14.0, nan@^2.14.1:
   version "2.14.1"
   resolved "https://registry.yarnpkg.com/nan/-/nan-2.14.1.tgz#d7be34dfa3105b91494c3147089315eff8874b01"
   integrity sha512-isWHgVjnFjh2x2yuJ/tj3JbwoHu3UC2dX5G/88Cm24yB6YopVgxvBObDY7n5xW6ExmFhJpSEQqFPvq9zaXc8Jw==
@@ -2019,6 +2019,11 @@ node-abi@^2.7.0:
   integrity sha512-+sa0XNlWDA6T+bDLmkCUYn6W5k5W6BPRL6mqzSCs6H/xUgtl4D5x2fORKDzopKiU6wsyn/+wXlRXwXeSp+mtoA==
   dependencies:
     semver "^5.4.1"
+
+node-addon-api@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/node-addon-api/-/node-addon-api-3.0.0.tgz#812446a1001a54f71663bed188314bba07e09247"
+  integrity sha512-sSHCgWfJ+Lui/u+0msF3oyCgvdkhxDbkCS6Q8uiJquzOimkJBvX6hl5aSSA7DR1XbMpdM8r7phjcF63sF4rkKg==
 
 node-fetch-npm@^2.0.2:
   version "2.0.2"
@@ -2547,28 +2552,7 @@ pkg-up@^2.0.0:
   dependencies:
     find-up "^2.1.0"
 
-prebuild-install@5.3.3:
-  version "5.3.3"
-  resolved "https://registry.yarnpkg.com/prebuild-install/-/prebuild-install-5.3.3.tgz#ef4052baac60d465f5ba6bf003c9c1de79b9da8e"
-  integrity sha512-GV+nsUXuPW2p8Zy7SarF/2W/oiK8bFQgJcncoJ0d7kRpekEA0ftChjfEaF9/Y+QJEc/wFR7RAEa8lYByuUIe2g==
-  dependencies:
-    detect-libc "^1.0.3"
-    expand-template "^2.0.3"
-    github-from-package "0.0.0"
-    minimist "^1.2.0"
-    mkdirp "^0.5.1"
-    napi-build-utils "^1.0.1"
-    node-abi "^2.7.0"
-    noop-logger "^0.1.1"
-    npmlog "^4.0.1"
-    pump "^3.0.0"
-    rc "^1.2.7"
-    simple-get "^3.0.3"
-    tar-fs "^2.0.0"
-    tunnel-agent "^0.6.0"
-    which-pm-runs "^1.0.0"
-
-prebuild-install@^5.3.3:
+prebuild-install@5.3.4, prebuild-install@^5.3.3:
   version "5.3.4"
   resolved "https://registry.yarnpkg.com/prebuild-install/-/prebuild-install-5.3.4.tgz#6982d10084269d364c1856550b7d090ea31fa293"
   integrity sha512-AkKN+pf4fSEihjapLEEj8n85YIw/tN6BQqkhzbDc0RvEZGdkpJBGMUYx66AAMcPG2KzmPQS7Cm16an4HVBRRMA==
