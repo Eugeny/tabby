@@ -32,10 +32,10 @@
   resolved "https://registry.yarnpkg.com/@angular/platform-browser-dynamic/-/platform-browser-dynamic-9.1.9.tgz#12f8b05d3c9ef0844df88f3833e29ea1e49ec5e0"
   integrity sha512-b9MG5MWne+IuL3uLm8jwPhlJzqYaGBGk/qibOqb17T24j1iyrlO7T5bZ8zO6pUy5iT/TahVfHPnPJC1qTK5OmA==
 
-"@angular/platform-browser@9.1.9":
-  version "9.1.9"
-  resolved "https://registry.yarnpkg.com/@angular/platform-browser/-/platform-browser-9.1.9.tgz#c2fcc50aebfdc268521b407e32dc0d967cb40411"
-  integrity sha512-V861X3MxJp1AlMTnkUPldpBLIJbApXF3ka0A5Dq2nVJCyOFeteGkaRWSBgqe2jxmq+LVpJbzcNvtDFXw6mQ0jA==
+"@angular/platform-browser@9.1.10":
+  version "9.1.10"
+  resolved "https://registry.yarnpkg.com/@angular/platform-browser/-/platform-browser-9.1.10.tgz#d014e59a2ec4722d0bb428910116c41176868d77"
+  integrity sha512-u8PHq92+OV0vrRKwc5bqS0SCR/VkzhuaUUXKYbjYeLsmXG+HUtg/pUCDo95ze4zPO1WFSeUvwsnRb2x1hurYAw==
 
 "@ng-bootstrap/ng-bootstrap@^6.1.0":
   version "6.1.0"
