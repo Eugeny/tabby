@@ -1186,11 +1186,11 @@ github-from-package@0.0.0:
   resolved "https://registry.yarnpkg.com/github-from-package/-/github-from-package-0.0.0.tgz#97fb5d96bfde8973313f20e8288ef9a167fa64ce"
   integrity sha1-l/tdlr/eiXMxPyDoKI75oWf6ZM4=
 
-glasstron@0.0.3:
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/glasstron/-/glasstron-0.0.3.tgz#3934d9e9b51dd2fd6b07eff8395493b3361ab917"
-  integrity sha512-yJ8+8gkGXXBlnI+4j6i8N+SaeZcswtrO82M863zQkCc5BQfC5fTXcwj9+v80f0jYUfZLFigsgaFuKoFmlVsOdw==
+glasstron@sentialx/Glasstron#n-api:
+  version "0.0.4"
+  resolved "https://codeload.github.com/sentialx/Glasstron/tar.gz/1159908e1d85b8cceabf6b5d9353c446caea1f0b"
   dependencies:
+    node-addon-api "^3.0.0"
     x11 "^2.3.0"
 
 glob@^7.0.3, glob@^7.1.1, glob@^7.1.3:
