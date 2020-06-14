@@ -133,7 +133,7 @@ export class Window {
         if (process.platform === 'win32') {
             if (parseFloat(os.release()) >= 10) {
                 glasstron.update(this.window, {
-                    windows: { blurType: enabled ? ((type === 'fluent') ? 'acrylic' : 'blurbehind') : null },
+                    windows: { blurType: enabled ? type === 'fluent' ? 'acrylic' : 'blurbehind' : null },
                 })
             } else {
                 DwmEnableBlurBehindWindow(this.window, enabled)
