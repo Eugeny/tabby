@@ -7,10 +7,10 @@
   resolved "https://registry.yarnpkg.com/@angular/animations/-/animations-9.1.9.tgz#de54334ea195189402487855c9a98f5618605da4"
   integrity sha512-qWVi0TxmU6HeXAgEsfpQvFFygh+a0kH2kGe6bWij4XvG6dWfV3xZjlaFwSIYGk+yK4yL0+9+PAXH+ENfxNw+Cw==
 
-"@angular/common@9.1.9":
-  version "9.1.9"
-  resolved "https://registry.yarnpkg.com/@angular/common/-/common-9.1.9.tgz#16e77b2db675b80e32f1788a20c538150fd09294"
-  integrity sha512-y/tJtkuOJhV2kcaXZyrLZH84i4uQ1r+vaaEHvXj+JZYfYfcMMd/TDqMiPcIkUb3RxqghtZ+q0ZNW5D1Nlru3Pw==
+"@angular/common@9.1.11":
+  version "9.1.11"
+  resolved "https://registry.yarnpkg.com/@angular/common/-/common-9.1.11.tgz#1323f7b043410791bd2d0d71b0bbb1f862319c04"
+  integrity sha512-Vh5lF7zWwDK9RedmYXUc8vUXyrecR3j1mAWlTlnmcHYxxFThPzN/dr0slQcPi6nyJn0EmyRKUGvAoZx4rIb7wg==
 
 "@angular/compiler@9.1.9":
   version "9.1.9"
@@ -124,11 +124,6 @@
   version "12.7.12"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-12.7.12.tgz#7c6c571cc2f3f3ac4a59a5f2bd48f5bdbc8653cc"
   integrity sha512-KPYGmfD0/b1eXurQ59fXD1GBzhSQfz6/lKBxkaHX9dKTzjXbK68Zt7yGUxUsCS1jeTy/8aL+d9JEr+S54mpkWQ==
-
-"@types/node@^10.12.18":
-  version "10.12.18"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-10.12.18.tgz#1d3ca764718915584fcd9f6344621b7672665c67"
-  integrity sha512-fh+pAqt4xRzPfqA6eh3Z2y6fyZavRIumvjhaCL753+TVkGKGhpPeyrJG2JftD0T9q4GF00KjefsQ+PQNDdWQaQ==
 
 "@types/semver@^7.1.0":
   version "7.1.0"
@@ -3507,13 +3502,6 @@ windows-process-tree@^0.2.4:
   integrity sha512-9gag9AHm3Iin/4YC1EwoIfZlqW/rG2eV7rJZ4Fy5NnAMGdewmnwsie5Rz+CJo2vSolqzzfw7hPeu3oOdniNejg==
   dependencies:
     nan "^2.13.2"
-
-windows-swca@^2.0.2:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/windows-swca/-/windows-swca-2.0.2.tgz#66807012f73f5d3c0f0cb49bfa61be297aaabb50"
-  integrity sha512-9935KGV1gH3EBy7re9UEfDrxY3fbXBcwrUgEZk1exxe6swcGKFhO82ECh4QXVBjIhq+ROIVW3SBF/OUnZFSNGw==
-  dependencies:
-    "@types/node" "^10.12.18"
 
 worker-farm@^1.6.0:
   version "1.7.0"

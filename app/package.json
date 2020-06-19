@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@angular/animations": "9.1.9",
-    "@angular/common": "9.1.9",
+    "@angular/common": "9.1.11",
     "@angular/compiler": "9.1.9",
     "@angular/core": "9.1.9",
     "@angular/forms": "9.1.9",
