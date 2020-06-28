@@ -31,6 +31,15 @@ mac:
   entitlementsInherit: "./build/mac/entitlements.plist"
   extendInfo:
     NSRequiresAquaSystemAppearance: false
+    NSCameraUsageDescription: "A subprocess requests access to the device's camera."
+    NSMicrophoneUsageDescription: "A subprocess requests access to the device's microphone."
+    NSLocationUsageDescription: "A subprocess requests access to the user's location information."
+    NSDesktopFolderUsageDescription: "A subprocess requests access to the user's Desktop folder."
+    NSDocumentsFolderUsageDescription: "A subprocess requests access to the user's Documents folder."
+    NSDownloadsFolderUsageDescription: "A subprocess requests access to the user's Downloads folder."
+    NSNetworkVolumesUsageDescription: 'A subprocess requests access to files on a network volume.'
+    NSRemovableVolumesUsageDescription: 'A subprocess requests access to files on a removable volume.'
+
 pkg:
   artifactName: terminus-${version}-macos.pkg
 
