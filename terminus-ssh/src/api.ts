@@ -105,6 +105,7 @@ export class SSHSession extends BaseSession {
             this.shell = await this.openShellChannel({ x11: this.connection.x11 })
         } catch (err) {
             this.emitServiceMessage(colors.bgRed.black(' X ') + ` Remote rejected opening a shell channel: ${err}`)
+            return
         }
 
         this.shell.on('greeting', greeting => {
