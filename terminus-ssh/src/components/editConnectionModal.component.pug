@@ -19,20 +19,21 @@
                         [(ngModel)]='connection.group',
                     )
 
-                .form-group
-                    label Host
-                    input.form-control(
-                        type='text',
-                        [(ngModel)]='connection.host',
-                    )
+                .d-flex
+                    .form-group
+                        label Host
+                        input.form-control(
+                            type='text',
+                            [(ngModel)]='connection.host',
+                        )
 
-                .form-group
-                    label Port
-                    input.form-control(
-                        type='number',
-                        placeholder='22',
-                        [(ngModel)]='connection.port',
-                    )
+                    .form-group
+                        label Port
+                        input.form-control(
+                            type='number',
+                            placeholder='22',
+                            [(ngModel)]='connection.port',
+                        )
 
                 .form-group
                     label Username

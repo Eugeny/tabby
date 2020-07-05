@@ -474,7 +474,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
         ]
     }
 
-    protected attachSessionHandlers (): void {
+    protected attachSessionHandlers (destroyOnSessionClose = false): void {
         // this.session.output$.bufferTime(10).subscribe((datas) => {
         this.session.output$.subscribe(data => {
             if (this.enablePassthrough) {
@@ -485,9 +485,11 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
             }
         })
 
-        this.sessionCloseSubscription = this.session.closed$.subscribe(() => {
-            this.frontend.destroy()
-            this.destroy()
-        })
+        if (destroyOnSessionClose) {
+            this.sessionCloseSubscription = this.session.closed$.subscribe(() => {
+                this.frontend.destroy()
+                this.destroy()
+            })
+        }
     }
 }

@@ -60,7 +60,7 @@ export class TerminalTabComponent extends BaseTerminalTabComponent {
             })
         )
 
-        this.attachSessionHandlers()
+        this.attachSessionHandlers(true)
     }
 
     async getRecoveryToken (): Promise<any> {

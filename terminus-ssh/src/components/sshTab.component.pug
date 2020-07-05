@@ -6,9 +6,9 @@
         i.fas.fa-circle.text-danger.mr-2(*ngIf='!session.open')
         strong.mr-auto(*ngIf='session') {{session.connection.user}}@{{session.connection.host}}:{{session.connection.port}}
 
+        button.btn.btn-secondary.mr-2((click)='reconnect()', [class.btn-info]='!session.open')
+            span Reconnect
+
         button.btn.btn-secondary((click)='showPortForwarding()', *ngIf='session.open')
             i.fas.fa-plug
             span Ports
-
-        button.btn.btn-info((click)='reconnect()', *ngIf='!session.open')
-            span Reconnect

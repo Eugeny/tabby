@@ -73,6 +73,8 @@ export abstract class BaseSession {
             this.open = false
             this.closed.next()
             this.destroyed.next()
+            this.closed.complete()
+            this.destroyed.complete()
             this.output.complete()
             this.binaryOutput.complete()
             await this.gracefullyKillProcess()
