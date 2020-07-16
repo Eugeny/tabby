@@ -32,10 +32,12 @@
   resolved "https://registry.yarnpkg.com/@angular/platform-browser-dynamic/-/platform-browser-dynamic-9.1.9.tgz#12f8b05d3c9ef0844df88f3833e29ea1e49ec5e0"
   integrity sha512-b9MG5MWne+IuL3uLm8jwPhlJzqYaGBGk/qibOqb17T24j1iyrlO7T5bZ8zO6pUy5iT/TahVfHPnPJC1qTK5OmA==
 
-"@angular/platform-browser@9.1.9":
-  version "9.1.9"
-  resolved "https://registry.yarnpkg.com/@angular/platform-browser/-/platform-browser-9.1.9.tgz#c2fcc50aebfdc268521b407e32dc0d967cb40411"
-  integrity sha512-V861X3MxJp1AlMTnkUPldpBLIJbApXF3ka0A5Dq2nVJCyOFeteGkaRWSBgqe2jxmq+LVpJbzcNvtDFXw6mQ0jA==
+"@angular/platform-browser@10.0.4":
+  version "10.0.4"
+  resolved "https://registry.yarnpkg.com/@angular/platform-browser/-/platform-browser-10.0.4.tgz#58131215e414be7ee9d4024e47f61b4a02166b28"
+  integrity sha512-iaZ8pFS5XUgPCO6/C47TzSFPzlzgleayq099cVOOx9z0t/SwUCSKt4AdAVhyQ8RTnx6l1JmmwBgRaXpScZlqzg==
+  dependencies:
+    tslib "^2.0.0"
 
 "@ng-bootstrap/ng-bootstrap@^6.1.0":
   version "6.1.0"
@@ -3306,6 +3308,11 @@ tslib@^1.9.0:
   version "1.9.1"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.9.1.tgz#a5d1f0532a49221c87755cfcc89ca37197242ba7"
   integrity sha512-avfPS28HmGLLc2o4elcc2EIq2FcH++Yo5YxpBZi9Yw93BCTGFthI4HPE4Rpep6vSYQaK8e69PelM44tPj+RaQg==
+
+tslib@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.0.0.tgz#18d13fc2dce04051e20f074cc8387fd8089ce4f3"
+  integrity sha512-lTqkx847PI7xEDYJntxZH89L2/aXInsyF2luSafe/+0fHOMjlBNXdH6th7f70qxLDhul7KZK0zC8V5ZIyHl0/g==
 
 tunnel-agent@^0.6.0:
   version "0.6.0"
