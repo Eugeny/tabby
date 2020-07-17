@@ -161,7 +161,7 @@ export class SSHSession extends BaseSession {
             }
         })
 
-        this.shell.on('end', e => {
+        this.shell.on('end', () => {
             this.logger.info('Shell session ended')
             if (this.open) {
                 this.destroy()
