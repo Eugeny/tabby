@@ -19,7 +19,7 @@
     "@angular/core": "9.1.9",
     "@angular/forms": "9.1.11",
     "@angular/platform-browser": "9.1.9",
-    "@angular/platform-browser-dynamic": "9.1.9",
+    "@angular/platform-browser-dynamic": "10.0.5",
     "@ng-bootstrap/ng-bootstrap": "^6.1.0",
     "devtron": "1.4.0",
     "electron-config": "2.0.0",
