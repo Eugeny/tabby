@@ -144,4 +144,10 @@ export class SettingsTabComponent extends BaseTabComponent {
         }
         ptr[prop] = value
     }
+
+    hotkeyFilterFn (hotkey: HotkeyDescription, query: string): boolean {
+        // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+        const s = hotkey.name + (this.getHotkey(hotkey.id) || []).toString() as string
+        return s.toLowerCase().includes(query.toLowerCase())
+    }
 }

@@ -288,7 +288,7 @@ ngb-tabset.vertical(type='pills', [activeId]='activeTab')
                         th ID
                         th Hotkey
                     ng-container(*ngFor='let hotkey of hotkeyDescriptions')
-                        tr(*ngIf='!hotkeyFilter || hotkey.name.toLowerCase().includes(hotkeyFilter.toLowerCase())')
+                        tr(*ngIf='!hotkeyFilter || hotkeyFilterFn(hotkey, hotkeyFilter)')
                             td {{hotkey.name}}
                             td {{hotkey.id}}
                             td.pr-5
