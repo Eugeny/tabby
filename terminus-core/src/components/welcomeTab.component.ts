@@ -13,6 +13,7 @@ import { HostAppService } from '../services/hostApp.service'
 export class WelcomeTabComponent extends BaseTabComponent {
     enableSSH = false
     enableSerial = false
+    enableGlobalHotkey = true
 
     constructor (
         private hostApp: HostAppService,
@@ -32,6 +33,9 @@ export class WelcomeTabComponent extends BaseTabComponent {
         }
         if (!this.enableSerial) {
             this.config.store.pluginBlacklist.push('serial')
+        }
+        if (!this.enableGlobalHotkey) {
+            this.config.store.hotkeys['toggle-window'] = []
         }
         this.config.save()
         this.hostApp.getWindow().reload()

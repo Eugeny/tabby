@@ -9,18 +9,25 @@
     .form-line
         .header
             .title Enable analytics
-            .description Help us track the number of Terminus installs across the world!
+            .description Help track the number of Terminus installs across the world!
         toggle([(ngModel)]='config.store.enableAnalytics')
+
 
     .form-line
         .header
-            .title Enable SSH plugin
+            .title Enable global hotkey (#[strong Ctrl-Space])
+            .description Toggles the Terminus window visibility
+        toggle([(ngModel)]='enableGlobalHotkey')
+
+    .form-line
+        .header
+            .title Enable #[strong SSH] plugin
             .description Adds an SSH connection manager UI to Terminus
         toggle([(ngModel)]='enableSSH')
 
     .form-line
         .header
-            .title Enable Serial plugin
+            .title Enable #[strong Serial] plugin
             .description Allows attaching Terminus to serial ports
         toggle([(ngModel)]='enableSerial')
 
