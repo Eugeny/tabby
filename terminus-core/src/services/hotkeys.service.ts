@@ -189,6 +189,7 @@ export class HotkeysService {
 
             try {
                 let electronKeySpec = item[0]
+                electronKeySpec = electronKeySpec.replace('Meta', 'Super')
                 electronKeySpec = electronKeySpec.replace('⌘', 'Command')
                 electronKeySpec = electronKeySpec.replace('⌥', 'Alt')
                 electronKeySpec = electronKeySpec.replace(/-/g, '+')
