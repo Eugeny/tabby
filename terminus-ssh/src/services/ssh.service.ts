@@ -114,7 +114,9 @@ export class SSHService {
                         'ssh-keygen.exe',
                     )
                     await execFile('icacls', [temp.path, '/inheritance:r'])
-                    await execFile('icacls', [temp.path, '/grant:r', `${process.env.USERNAME}:(R,W)`])
+                    let sid = await execFile('whoami', ['/user', '/nh']);
+                    sid = sid[0].split(' ')[0];
+                    await execFile('icacls', [temp.path, '/grant:r', `${sid}:(R,W)`])
                 }
 
                 await execFile(sshKeygenPath, [
