@@ -280,6 +280,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "dimitory",
+      "name": "Dmitry Pronin",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/475955?v=4",
+      "profile": "https://github.com/Dimitory",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
