@@ -235,7 +235,7 @@ export class SSHService {
                     keepaliveInterval: session.connection.keepaliveInterval,
                     keepaliveCountMax: session.connection.keepaliveCountMax,
                     readyTimeout: session.connection.readyTimeout,
-                    hostVerifier: digest => {
+                    hostVerifier: (digest: string) => {
                         log(colors.bgWhite(' ') + ' Host key fingerprint:')
                         log(colors.bgWhite(' ') + ' ' + colors.black.bgWhite(' SHA256 ') + colors.bgBlackBright(' ' + digest + ' '))
                         return true
