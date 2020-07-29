@@ -28,3 +28,5 @@ docs/api
 .electron-symbols
 sentry.properties
 sentry-symbols.js
+
+terminus-ssh/util/pagent.exe

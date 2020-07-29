@@ -16,10 +16,6 @@ import { PromptModalComponent } from '../components/promptModal.component'
 import { PasswordStorageService } from './passwordStorage.service'
 import { SSHTabComponent } from '../components/sshTab.component'
 
-try {
-    var windowsProcessTreeNative = require('windows-process-tree/build/Release/windows_process_tree.node') // eslint-disable-line @typescript-eslint/no-var-requires, no-var
-} catch { }
-
 @Injectable({ providedIn: 'root' })
 export class SSHService {
     private logger: Logger
@@ -187,14 +183,7 @@ export class SSHService {
 
             let agent: string|null = null
             if (this.hostApp.platform === Platform.Windows) {
-                const pageantRunning = new Promise<boolean>(resolve => {
-                    windowsProcessTreeNative.getProcessList(list => { // eslint-disable-line block-scoped-var
-                        resolve(list.some(x => x.name === 'pageant.exe'))
-                    }, 0)
-                })
-                if (await pageantRunning) {
-                    agent = 'pageant'
-                }
+                agent = 'pageant'
             } else {
                 agent = process.env.SSH_AUTH_SOCK as string
             }
@@ -208,7 +197,7 @@ export class SSHService {
                     privateKey: privateKey || undefined,
                     tryKeyboard: true,
                     agent: agent || undefined,
-                    agentForward: !!agent,
+                    agentForward: session.connection.agentForward && !!agent,
                     keepaliveInterval: session.connection.keepaliveInterval,
                     keepaliveCountMax: session.connection.keepaliveCountMax,
                     readyTimeout: session.connection.readyTimeout,
