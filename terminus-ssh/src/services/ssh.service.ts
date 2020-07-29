@@ -16,6 +16,8 @@ import { PromptModalComponent } from '../components/promptModal.component'
 import { PasswordStorageService } from './passwordStorage.service'
 import { SSHTabComponent } from '../components/sshTab.component'
 
+const WINDOWS_OPENSSH_AGENT_PIPE = '\\\\.\\pipe\\openssh-ssh-agent'
+
 @Injectable({ providedIn: 'root' })
 export class SSHService {
     private logger: Logger
@@ -183,7 +185,11 @@ export class SSHService {
 
             let agent: string|null = null
             if (this.hostApp.platform === Platform.Windows) {
-                agent = 'pageant'
+                if (await fs.exists(WINDOWS_OPENSSH_AGENT_PIPE)) {
+                    agent = WINDOWS_OPENSSH_AGENT_PIPE
+                } else {
+                    agent = 'pageant'
+                }
             } else {
                 agent = process.env.SSH_AUTH_SOCK as string
             }
@@ -196,7 +202,7 @@ export class SSHService {
                     password: session.connection.privateKey ? undefined : '',
                     privateKey: privateKey || undefined,
                     tryKeyboard: true,
-                    agent: agent || undefined,
+                    agent: session.connection.agentForward && agent || undefined,
                     agentForward: session.connection.agentForward && !!agent,
                     keepaliveInterval: session.connection.keepaliveInterval,
                     keepaliveCountMax: session.connection.keepaliveCountMax,
