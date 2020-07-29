@@ -24,6 +24,7 @@ export interface SSHConnection {
     host: string
     port: number
     user: string
+    auth?: null|'password'|'publicKey'|'agent'|'keyboardInteractive'
     password?: string
     privateKey?: string
     group: string | null
@@ -36,7 +37,6 @@ export interface SSHConnection {
     skipBanner?: boolean
     disableDynamicTitle?: boolean
     jumpHost?: string
-    agentForward?: boolean
 
     algorithms?: {[t: string]: string[]}
 }

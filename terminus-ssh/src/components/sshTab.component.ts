@@ -160,6 +160,9 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
     }
 
     async canClose (): Promise<boolean> {
+        if (!this.session?.open) {
+            return true
+        }
         return (await this.electron.showMessageBox(
             this.hostApp.getWindow(),
             {

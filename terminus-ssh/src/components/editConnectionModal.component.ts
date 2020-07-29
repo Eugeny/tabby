@@ -49,6 +49,7 @@ export class EditConnectionModalComponent {
         this.hasSavedPassword = !!await this.passwordStorage.loadPassword(this.connection)
         this.connection.algorithms = this.connection.algorithms || {}
         this.connection.scripts = this.connection.scripts || []
+        this.connection.auth = this.connection.auth || null
 
         for (const k of Object.values(SSHAlgorithmType)) {
             if (!this.connection.algorithms[k]) {

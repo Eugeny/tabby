@@ -44,6 +44,34 @@
 
                 .form-line
                     .header
+                        .title Authentication
+                .btn-group.w-100(
+                    [(ngModel)]='connection.auth',
+                    ngbRadioGroup
+                )
+                    label.btn.btn-outline-secondary(ngbButtonLabel)
+                        input(type='radio', ngbButton, [value]='null')
+                        i.far.fa-lightbulb
+                        .m-0 Auto
+                    label.btn.btn-outline-secondary(ngbButtonLabel)
+                        input(type='radio', ngbButton, [value]='"password"')
+                        i.fas.fa-font
+                        .m-0 Password
+                    label.btn.btn-outline-secondary(ngbButtonLabel)
+                        input(type='radio', ngbButton, [value]='"publicKey"')
+                        i.fas.fa-key
+                        .m-0 Key
+                    label.btn.btn-outline-secondary(ngbButtonLabel)
+                        input(type='radio', ngbButton, [value]='"agent"')
+                        i.fas.fa-user-secret
+                        .m-0 Agent
+                    label.btn.btn-outline-secondary(ngbButtonLabel)
+                        input(type='radio', ngbButton, [value]='"keyboardInteractive"')
+                        i.far.fa-keyboard
+                        .m-0 Interactive
+
+                .form-line(*ngIf='!connection.auth || connection.auth === "password"')
+                    .header
                         .title Password
                         .description(*ngIf='!hasSavedPassword') Save a password in the keychain
                         .description(*ngIf='hasSavedPassword') There is a saved password for this connection
@@ -54,7 +82,7 @@
                         i.fas.fa-trash-alt
                         span Forget
 
-                .form-line
+                .form-line(*ngIf='!connection.auth || connection.auth === "publicKey"')
                     .header
                         .title Private key
                         .description Path to the private key file
@@ -82,11 +110,6 @@
                     .header
                         .title X11 forwarding
                     toggle([(ngModel)]='connection.x11')
-
-                .form-line
-                    .header
-                        .title Allow Agent Forwarding
-                    toggle([(ngModel)]='connection.agentForward')
 
                 .form-line
                     .header

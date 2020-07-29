@@ -165,8 +165,13 @@ export class SSHService {
                     const modal = this.ngbModal.open(PromptModalComponent)
                     modal.componentInstance.prompt = prompt.prompt
                     modal.componentInstance.password = !prompt.echo
-                    const result = await modal.result
-                    results.push(result ? result.value : '')
+
+                    try {
+                        const result = await modal.result
+                        results.push(result ? result.value : '')
+                    } catch {
+                        results.push('')
+                    }
                 }
                 finish(results)
             }))
@@ -194,6 +199,29 @@ export class SSHService {
                 agent = process.env.SSH_AUTH_SOCK as string
             }
 
+            const authMethodsLeft = ['none']
+            if (!session.connection.auth || session.connection.auth === 'password') {
+                authMethodsLeft.push('password')
+            }
+            if (!session.connection.auth || session.connection.auth === 'publicKey') {
+                if (!privateKey) {
+                    log('\r\nPrivate key auth selected, but no key is loaded\r\n')
+                } else {
+                    authMethodsLeft.push('publickey')
+                }
+            }
+            if (!session.connection.auth || session.connection.auth === 'agent') {
+                if (!agent) {
+                    log('\r\nAgent auth selected, but no running agent is detected\r\n')
+                } else {
+                    authMethodsLeft.push('agent')
+                }
+            }
+            if (!session.connection.auth || session.connection.auth === 'keyboardInteractive') {
+                authMethodsLeft.push('keyboard-interactive')
+            }
+            authMethodsLeft.push('hostbased')
+
             try {
                 ssh.connect({
                     host: session.connection.host,
@@ -202,8 +230,8 @@ export class SSHService {
                     password: session.connection.privateKey ? undefined : '',
                     privateKey: privateKey || undefined,
                     tryKeyboard: true,
-                    agent: session.connection.agentForward && agent || undefined,
-                    agentForward: session.connection.agentForward && !!agent,
+                    agent: agent || undefined,
+                    agentForward: (!session.connection.auth || session.connection.auth === 'agent') && !!agent,
                     keepaliveInterval: session.connection.keepaliveInterval,
                     keepaliveCountMax: session.connection.keepaliveCountMax,
                     readyTimeout: session.connection.readyTimeout,
@@ -215,7 +243,21 @@ export class SSHService {
                     hostHash: 'sha256' as any,
                     algorithms: session.connection.algorithms,
                     sock: session.jumpStream,
-                })
+                    authHandler: methodsLeft => {
+                        while (true) {
+                            let method = authMethodsLeft.shift()
+                            if (!method) {
+                                return false
+                            }
+                            if (methodsLeft && !methodsLeft.includes(method) && method !== 'agent') {
+                                // Agent can still be used even if not in methodsLeft
+                                this.logger.info('Server does not support auth method', method)
+                                continue
+                            }
+                            return method
+                        }
+                    },
+                } as any)
             } catch (e) {
                 this.toastr.error(e.message)
                 reject(e)
