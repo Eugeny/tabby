@@ -1,14 +1,9 @@
 import axios from 'axios'
-import * as fs from 'fs'
-import os from 'os'
-
-import { spawn } from 'mz/child_process'
 
 import { Injectable } from '@angular/core'
 import { Logger, LogService } from './log.service'
 import { ElectronService } from './electron.service'
 import { ConfigService } from './config.service'
-import { AppUpdater } from 'electron-updater'
 
 const UPDATES_URL = 'https://api.github.com/repos/eugeny/terminus/releases/latest'
 
@@ -19,7 +14,6 @@ export class UpdaterService {
     private downloaded: Promise<boolean>
     private electronUpdaterAvailable = true
     private updateURL: string
-    private autoUpdater: AppUpdater
 
     private constructor (
         log: LogService,
@@ -33,26 +27,25 @@ export class UpdaterService {
             return
         }
 
-        this.autoUpdater = electron.remote.require('electron-updater').autoUpdater
-
-        this.autoUpdater.autoInstallOnAppQuit = !!config.store.enableAutomaticUpdates
-
-        this.autoUpdater.on('update-available', () => {
+        electron.autoUpdater.on('update-available', () => {
             this.logger.info('Update available')
-            this.autoUpdater.downloadUpdate()
         })
-        this.autoUpdater.once('update-not-available', () => {
+
+        electron.autoUpdater.once('update-not-available', () => {
             this.logger.info('No updates')
         })
 
         this.downloaded = new Promise<boolean>(resolve => {
-            this.autoUpdater.once('update-downloaded', () => resolve(true))
+            electron.autoUpdater.once('update-downloaded', () => resolve(true))
         })
 
         if (config.store.enableAutomaticUpdates && this.electronUpdaterAvailable && !process.env.TERMINUS_DEV) {
             this.logger.debug('Checking for updates')
             try {
-                this.autoUpdater.checkForUpdates()
+                electron.autoUpdater.setFeedURL({
+                    url: `https://update.electronjs.org/eugeny/terminus/${process.platform}-${process.arch}/${electron.app.getVersion()}`,
+                })
+                electron.autoUpdater.checkForUpdates()
             } catch (e) {
                 this.electronUpdaterAvailable = false
                 this.logger.info('Electron updater unavailable, falling back', e)
@@ -84,21 +77,8 @@ export class UpdaterService {
         if (!this.electronUpdaterAvailable) {
             this.electron.shell.openExternal(this.updateURL)
         } else {
-            if (process.platform === 'win32') {
-                let downloadpath = await this.autoUpdater.downloadUpdate()
-                fs.exists(downloadpath[0], (exists) => {
-                    if (exists) {
-                        fs.copyFile(downloadpath[0], os.tmpdir() + 'terminus-installer-temp.exe', (err) => {
-                            if (!err) {
-                                spawn(os.tmpdir() + 'terminus-installer-temp.exe', ['--force-run'], { detached: true, stdio: 'ignore' })
-                            }
-                        })
-                    }
-                })
-            } else {
-                await this.downloaded
-                this.autoUpdater.quitAndInstall(false, true)
-            }
+            await this.downloaded
+            this.electron.autoUpdater.quitAndInstall()
         }
     }
 }
