@@ -62,6 +62,7 @@
     "build:typings": "node scripts/build-typings.js",
     "watch": "cross-env TERMINUS_DEV=1 webpack --progress --color --watch",
     "start": "cross-env TERMINUS_DEV=1 electron app --debug",
+    "start:prod": "electron app --debug",
     "prod": "cross-env TERMINUS_DEV=1 electron app",
     "docs": "typedoc --out docs/api terminus-core/src && typedoc --out docs/api/terminal --tsconfig terminus-terminal/tsconfig.typings.json terminus-terminal/src && typedoc --out docs/api/settings --tsconfig terminus-settings/tsconfig.typings.json terminus-settings/src",
     "lint": "eslint --ext ts */src */lib",
