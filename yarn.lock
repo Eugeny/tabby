@@ -2075,13 +2075,13 @@ electron-localshortcut@^3.1.0:
     keyboardevent-from-electron-accelerator "^1.1.0"
     keyboardevents-areequal "^0.2.1"
 
-electron-notarize@^0.1.1:
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/electron-notarize/-/electron-notarize-0.1.1.tgz#c3563d70c5e7b3315f44e8495b30050a8c408b91"
-  integrity sha512-TpKfJcz4LXl5jiGvZTs5fbEx+wUFXV5u8voeG5WCHWfY/cdgdD8lDZIZRqLVOtR3VO+drgJ9aiSHIO9TYn/fKg==
+electron-notarize@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/electron-notarize/-/electron-notarize-1.0.0.tgz#bc925b1ccc3f79e58e029e8c4706572b01a9fd8f"
+  integrity sha512-dsib1IAquMn0onCrNMJ6gtEIZn/azG8hZMCYOuZIMVMUeRMgBYHK1s5TK9P8xAcrAjh/2aN5WYHzgVSWX314og==
   dependencies:
     debug "^4.1.1"
-    fs-extra "^8.0.1"
+    fs-extra "^9.0.1"
 
 electron-publish@22.6.1:
   version "22.6.1"
@@ -2763,10 +2763,10 @@ fs-extra@^8.0.1, fs-extra@^8.1.0:
     jsonfile "^4.0.0"
     universalify "^0.1.0"
 
-fs-extra@^9.0.0:
-  version "9.0.0"
-  resolved "https://registry.yarnpkg.com/fs-extra/-/fs-extra-9.0.0.tgz#b6afc31036e247b2466dc99c29ae797d5d4580a3"
-  integrity sha512-pmEYSk3vYsG/bF651KPUXZ+hvjpgWYw/Gc7W9NFUe3ZVLczKKWIij3IKpOrQcdw4TILtibFslZ0UmR8Vvzig4g==
+fs-extra@^9.0.0, fs-extra@^9.0.1:
+  version "9.0.1"
+  resolved "https://registry.yarnpkg.com/fs-extra/-/fs-extra-9.0.1.tgz#910da0062437ba4c39fedd863f1675ccfefcb9fc"
+  integrity sha512-h2iAoN838FqAFJY2/qVpzFXy+EBxfVE220PalAqQLDVsFOHLJrZvut5puAbCdNv6WJk+B8ihI+k0c7JK5erwqQ==
   dependencies:
     at-least-node "^1.0.0"
     graceful-fs "^4.2.0"
