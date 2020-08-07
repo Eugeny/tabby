@@ -32,7 +32,7 @@
     "node-sass": "^4.14.1",
     "npmlog": "4.1.2",
     "npx": "^10.2.0",
-    "pug": "^2.0.4",
+    "pug": "^3.0.0",
     "pug-html-loader": "1.1.5",
     "pug-lint": "^2.6.0",
     "pug-loader": "^2.4.0",
