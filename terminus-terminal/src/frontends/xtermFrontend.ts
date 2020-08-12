@@ -110,7 +110,9 @@ export class XTermFrontend extends Frontend {
                     let cols = Math.floor(l / actualCellWidth)
                     let rows = Math.floor(i / actualCellHeight)
 
-                    this.xterm.resize(cols, rows)
+					if(/[0-9]/gi.test(cols) && /[0-9]/gi.test(rows) ){
+						this.xterm.resize(cols, rows);	
+					}
                 }
             } catch (e) {
                 // tends to throw when element wasn't shown yet
