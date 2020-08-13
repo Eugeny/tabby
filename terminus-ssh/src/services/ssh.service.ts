@@ -200,9 +200,6 @@ export class SSHService {
             }
 
             const authMethodsLeft = ['none']
-            if (!session.connection.auth || session.connection.auth === 'password') {
-                authMethodsLeft.push('password')
-            }
             if (!session.connection.auth || session.connection.auth === 'publicKey') {
                 if (!privateKey) {
                     log('\r\nPrivate key auth selected, but no key is loaded\r\n')
@@ -216,6 +213,9 @@ export class SSHService {
                 } else {
                     authMethodsLeft.push('agent')
                 }
+            }
+            if (!session.connection.auth || session.connection.auth === 'password') {
+                authMethodsLeft.push('password')
             }
             if (!session.connection.auth || session.connection.auth === 'keyboardInteractive') {
                 authMethodsLeft.push('keyboard-interactive')
