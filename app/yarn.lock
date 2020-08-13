@@ -7,10 +7,12 @@
   resolved "https://registry.yarnpkg.com/@angular/animations/-/animations-9.1.9.tgz#de54334ea195189402487855c9a98f5618605da4"
   integrity sha512-qWVi0TxmU6HeXAgEsfpQvFFygh+a0kH2kGe6bWij4XvG6dWfV3xZjlaFwSIYGk+yK4yL0+9+PAXH+ENfxNw+Cw==
 
-"@angular/common@9.1.11":
-  version "9.1.11"
-  resolved "https://registry.yarnpkg.com/@angular/common/-/common-9.1.11.tgz#1323f7b043410791bd2d0d71b0bbb1f862319c04"
-  integrity sha512-Vh5lF7zWwDK9RedmYXUc8vUXyrecR3j1mAWlTlnmcHYxxFThPzN/dr0slQcPi6nyJn0EmyRKUGvAoZx4rIb7wg==
+"@angular/common@10.0.9":
+  version "10.0.9"
+  resolved "https://registry.yarnpkg.com/@angular/common/-/common-10.0.9.tgz#47a7eaad30c5f7fd49f2ef927a6fbfd0bd0dcf9c"
+  integrity sha512-zg1xtTR8LwLXfTcXX0rL30ur1GKaf3Iu8FCQpfh0804Ezn5TeovuGg2zvf/O3igwmYzrym+a0JRMe4TZsAuJxQ==
+  dependencies:
+    tslib "^2.0.0"
 
 "@angular/compiler@9.1.9":
   version "9.1.9"
@@ -3234,6 +3236,11 @@ tslib@^1.9.0:
   version "1.9.1"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.9.1.tgz#a5d1f0532a49221c87755cfcc89ca37197242ba7"
   integrity sha512-avfPS28HmGLLc2o4elcc2EIq2FcH++Yo5YxpBZi9Yw93BCTGFthI4HPE4Rpep6vSYQaK8e69PelM44tPj+RaQg==
+
+tslib@^2.0.0:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.0.1.tgz#410eb0d113e5b6356490eec749603725b021b43e"
+  integrity sha512-SgIkNheinmEBgx1IUNirK0TUD4X9yjjBRTqqjggWCU3pUEqIk3/Uwl3yRixYKT6WjQuGiwDv4NomL3wqRCj+CQ==
 
 tunnel-agent@^0.6.0:
   version "0.6.0"
