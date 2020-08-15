@@ -281,7 +281,8 @@ export class Session extends BaseSession {
         }
         if (process.platform === 'linux') {
             try {
-                return await fs.readlink(`/proc/${this.truePID}/cwd`)
+                const cwd = await fs.readlink(`/proc/${this.truePID}/cwd`)
+                return cwd
             } catch (exc) {
                 console.error(exc)
                 return null
