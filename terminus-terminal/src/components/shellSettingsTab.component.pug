@@ -28,8 +28,8 @@ h3.mb-3 Shell
 .alert.alert-info.d-flex.align-items-center(*ngIf='config.store.terminal.useConPTY && isConPTYAvailable && !isConPTYStable')
     .mr-auto Windows 10 build 18309 or above is recommended for ConPTY
 
-.alert.alert-info.d-flex.align-items-center(*ngIf='config.store.terminal.profile.startsWith("WSL") && (config.store.terminal.frontend != "hterm" || !config.store.terminal.useConPTY)')
-    .mr-auto WSL terminal only supports TrueColor with ConPTY and the hterm frontend
+.alert.alert-info.d-flex.align-items-center(*ngIf='config.store.terminal.profile.startsWith("WSL") && (!config.store.terminal.useConPTY)')
+    .mr-auto WSL terminal only supports TrueColor with ConPTY
 
 .form-line(*ngIf='config.store.terminal.profile == "custom-shell"')
     .header
