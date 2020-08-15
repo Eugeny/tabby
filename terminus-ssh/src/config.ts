@@ -6,8 +6,7 @@ export class SSHConfigProvider extends ConfigProvider {
         ssh: {
             connections: [],
             recentConnections: [],
-            options: {
-            },
+            warnOnClose: false,
         },
         hotkeys: {
             ssh: [

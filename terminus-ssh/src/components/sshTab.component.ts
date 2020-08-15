@@ -163,6 +163,9 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
         if (!this.session?.open) {
             return true
         }
+        if (!(this.connection.warnOnClose ?? this.config.store.ssh.warnOnClose)) {
+            return true
+        }
         return (await this.electron.showMessageBox(
             this.hostApp.getWindow(),
             {

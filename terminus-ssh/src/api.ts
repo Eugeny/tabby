@@ -38,7 +38,7 @@ export interface SSHConnection {
     disableDynamicTitle?: boolean
     jumpHost?: string
     agentForward?: boolean
-
+    warnOnClose?: boolean
     algorithms?: {[t: string]: string[]}
 }
 

@@ -27,6 +27,9 @@ h3.mb-3 Appearance
                 (ngModelChange)='config.save()',
             )
 
+        .alert.alert-info.d-flex.align-items-center(*ngIf='config.store.terminal.ligatures && config.store.terminal.frontend == "xterm-webgl"') Ligatures are not supported by the WebGL frontend
+
+
     color-scheme-preview([scheme]='config.store.terminal.colorScheme', [fontPreview]='true')
 
 .form-line
