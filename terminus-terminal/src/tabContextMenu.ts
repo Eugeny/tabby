@@ -1,6 +1,6 @@
 import { Injectable, NgZone, Optional, Inject } from '@angular/core'
 import { ToastrService } from 'ngx-toastr'
-import { ConfigService, BaseTabComponent, TabContextMenuItemProvider, TabHeaderComponent } from 'terminus-core'
+import { ConfigService, BaseTabComponent, TabContextMenuItemProvider, TabHeaderComponent, SplitTabComponent } from 'terminus-core'
 import { TerminalTabComponent } from './components/terminalTab.component'
 import { UACService } from './services/uac.service'
 import { TerminalService } from './services/terminal.service'
@@ -109,6 +109,15 @@ export class NewTabContextMenu extends TabContextMenuItemProvider {
                         ...(tab as TerminalTabComponent).sessionOptions,
                         runAsAdministrator: true,
                     })
+                }),
+            })
+        }
+
+        if (tab instanceof BaseTerminalTabComponent && tab.parent instanceof SplitTabComponent && tab.parent.getAllTabs().length > 1) {
+            items.push({
+                label: 'Focus all panes',
+                click: () => this.zone.run(() => {
+                    tab.focusAllPanes()
                 }),
             })
         }

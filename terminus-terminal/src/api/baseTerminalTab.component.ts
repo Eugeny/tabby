@@ -4,7 +4,7 @@ import { ToastrService } from 'ngx-toastr'
 import colors from 'ansi-colors'
 import { NgZone, OnInit, OnDestroy, Injector, ViewChild, HostBinding, Input, ElementRef, InjectFlags } from '@angular/core'
 import { trigger, transition, style, animate, AnimationTriggerMetadata } from '@angular/animations'
-import { AppService, ConfigService, BaseTabComponent, ElectronService, HostAppService, HotkeysService, Platform, LogService, Logger, TabContextMenuItemProvider } from 'terminus-core'
+import { AppService, ConfigService, BaseTabComponent, ElectronService, HostAppService, HotkeysService, Platform, LogService, Logger, TabContextMenuItemProvider, SplitTabComponent } from 'terminus-core'
 
 import { BaseSession, SessionsService } from '../services/sessions.service'
 import { TerminalFrontendService } from '../services/terminalFrontend.service'
@@ -92,6 +92,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
     private hotkeysSubscription: Subscription
     private bellPlayer: HTMLAudioElement
     private termContainerSubscriptions: Subscription[] = []
+    private allFocusModeSubscription: Subscription|null = null
 
     get input$ (): Observable<Buffer> { return this.frontend.input$ }
     get output$ (): Observable<string> { return this.output }
@@ -171,6 +172,9 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
                     setImmediate(() => {
                         this.element.nativeElement.querySelector('.search-input').focus()
                     })
+                    break
+                case 'pane-focus-all':
+                    this.focusAllPanes()
                     break
             }
         })
@@ -255,6 +259,10 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
         })
 
         this.frontend.focus()
+
+        this.blurred$.subscribe(() => {
+            this.cancelFocusAllPanes()
+        })
     }
 
     async buildContextMenu (): Promise<Electron.MenuItemConstructorOptions[]> {
@@ -364,6 +372,35 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
     resetZoom (): void {
         this.zoom = 0
         this.frontend.setZoom(this.zoom)
+    }
+
+    focusAllPanes (): void {
+        if (this.allFocusModeSubscription) {
+            return
+        }
+        if (this.parent instanceof SplitTabComponent) {
+            this.parent._allFocusMode = true
+            this.parent.layout()
+            this.allFocusModeSubscription = this.frontend.input$.subscribe(data => {
+                for (const tab of (this.parent as SplitTabComponent).getAllTabs()) {
+                    if (tab !== this && tab instanceof BaseTerminalTabComponent) {
+                        tab.sendInput(data)
+                    }
+                }
+            })
+        }
+    }
+
+    cancelFocusAllPanes (): void {
+        if (!this.allFocusModeSubscription) {
+            return
+        }
+        if (this.parent instanceof SplitTabComponent) {
+            this.allFocusModeSubscription?.unsubscribe?.()
+            this.allFocusModeSubscription = null
+            this.parent._allFocusMode = false
+            this.parent.layout()
+        }
     }
 
     /** @hidden */

@@ -109,6 +109,9 @@ export class TerminalConfigProvider extends ConfigProvider {
                 search: [
                     '⌘-F',
                 ],
+                'pane-focus-all': [
+                    '⌘-Shift-I',
+                ],
             },
         },
         [Platform.Windows]: {
@@ -152,6 +155,9 @@ export class TerminalConfigProvider extends ConfigProvider {
                 search: [
                     'Ctrl-Shift-F',
                 ],
+                'pane-focus-all': [
+                    'Ctrl-Shift-I',
+                ],
             },
         },
         [Platform.Linux]: {
@@ -191,6 +197,9 @@ export class TerminalConfigProvider extends ConfigProvider {
                 'delete-next-word': ['Ctrl-Delete'],
                 search: [
                     'Ctrl-Shift-F',
+                ],
+                'pane-focus-all': [
+                    'Ctrl-Shift-I',
                 ],
             },
         },

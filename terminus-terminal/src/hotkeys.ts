@@ -66,6 +66,10 @@ export class TerminalHotkeyProvider extends HotkeyProvider {
             id: 'search',
             name: 'Search',
         },
+        {
+            id: 'pane-focus-all',
+            name: 'Focus all panes at once',
+        },
     ]
 
     constructor (
