@@ -9,7 +9,7 @@ Terminus Terminal Plugin
 Using the API:
 
 ```ts
-import { TerminalContextMenuItemProvider } from 'terminus-terminal'
+import { ShellProvider } from 'terminus-terminal'
 ```
 
 Exporting your subclasses:
@@ -19,7 +19,7 @@ Exporting your subclasses:
   ...
   providers: [
     ...
-    { provide: TerminalContextMenuItemProvider, useClass: MyContextMenu, multi: true },
+    { provide: ShellProvider, useClass: MyShellPlugin, multi: true },
     ...
   ]
 })
