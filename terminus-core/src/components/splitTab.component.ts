@@ -485,7 +485,7 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
         }
     }
 
-    layout () {
+    layout (): void {
         this.root.normalize()
         this._spanners = []
         this.layoutInternal(this.root, 0, 0, 100, 100)
