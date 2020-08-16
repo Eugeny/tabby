@@ -258,12 +258,13 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
         if (this._recoveredState) {
             await this.recoverContainer(this.root, this._recoveredState)
             this.layout()
-            setImmediate(() => {
+            setTimeout(() => {
                 if (this.hasFocus) {
-                    this.getAllTabs().forEach(x => x.emitFocused())
-                    this.focusAnyIn(this.root)
+                    for (const tab of this.getAllTabs()) {
+                        this.focus(tab)
+                    }
                 }
-            })
+            }, 100)
         }
         this.initialized.next()
         this.initialized.complete()
