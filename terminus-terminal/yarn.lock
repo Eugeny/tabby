@@ -263,8 +263,8 @@ yallist@^2.1.2:
   integrity sha1-HBH5IY8HYImkfdUS+TxmmaaoHVI=
 
 zmodem.js@^0.1.9:
-  version "0.1.9"
-  resolved "https://registry.yarnpkg.com/zmodem.js/-/zmodem.js-0.1.9.tgz#8dda36d45091bbdf263819f961d3c1a20223daf7"
-  integrity sha512-xixLjW1eML0uiWULsXDInyfwNW9mqESzz7ra+2MWHNG2F5JINEkE5vzF5MigpPcLvrYoHdnehPcJwQZlDph3hQ==
+  version "0.1.10"
+  resolved "https://registry.yarnpkg.com/zmodem.js/-/zmodem.js-0.1.10.tgz#848ae071ea0f2706e3decd24ec66fc009ed19c47"
+  integrity sha512-Z1DWngunZ/j3BmIzSJpFZVNV73iHkj89rxXX4IciJdU9ga3nZ7rJ5LkfjV/QDsKhc7bazDWTTJCLJ+iRXD82dw==
   dependencies:
     crc-32 "^1.1.1"
