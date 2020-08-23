@@ -108,6 +108,13 @@
   dependencies:
     debug "^4.1.1"
 
+"@terminus-term/node-pty@0.10.0-beta.9":
+  version "0.10.0-beta9"
+  resolved "https://registry.yarnpkg.com/@terminus-term/node-pty/-/node-pty-0.10.0-beta9.tgz#b4caff6b069139add9be959e00b364f8fe3c620d"
+  integrity sha512-wnttx12b9gxP9CPB9uqBMQx/Vp4EboUDGOY3xRP0Nvhec6pSF2qFZD6bwMbNzFIopbaohluEYcbEul0jTQcdeQ==
+  dependencies:
+    nan "^2.13.2"
+
 "@types/color-name@^1.1.1":
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@types/color-name/-/color-name-1.1.1.tgz#1c1261bbeaa10a8055bbc5d8ab84b7b2afc846a0"
@@ -1924,7 +1931,7 @@ mz@^2.7.0:
     object-assign "^4.0.1"
     thenify-all "^1.0.0"
 
-nan@^2.13.2, nan@^2.14.0, nan@^2.14.1:
+nan@^2.13.2, nan@^2.14.1:
   version "2.14.1"
   resolved "https://registry.yarnpkg.com/nan/-/nan-2.14.1.tgz#d7be34dfa3105b91494c3147089315eff8874b01"
   integrity sha512-isWHgVjnFjh2x2yuJ/tj3JbwoHu3UC2dX5G/88Cm24yB6YopVgxvBObDY7n5xW6ExmFhJpSEQqFPvq9zaXc8Jw==
@@ -1994,13 +2001,6 @@ node-gyp@^4.0.0:
     semver "~5.3.0"
     tar "^4.4.8"
     which "1"
-
-node-pty@^0.10.0-beta9:
-  version "0.10.0-beta9"
-  resolved "https://registry.yarnpkg.com/node-pty/-/node-pty-0.10.0-beta9.tgz#e5a795f9b53948346803cb71bac4ffc02e7909f0"
-  integrity sha512-Qm6uSH30FUcAhJ9s76C+lgvTsOW2cHUbkIGjCdOVCL0c7S4DxsmKBRgjcr+guUK9d9KwfuZHeSjXYWjpJFPe4w==
-  dependencies:
-    nan "^2.14.0"
 
 noop-logger@^0.1.1:
   version "0.1.1"

@@ -1,7 +1,7 @@
 import * as psNode from 'ps-node'
 import * as fs from 'mz/fs'
 import * as os from 'os'
-import * as nodePTY from 'node-pty'
+import * as nodePTY from '@terminus-term/node-pty'
 
 import { Observable, Subject } from 'rxjs'
 import { first } from 'rxjs/operators'
