@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common'
 import { FormsModule } from '@angular/forms'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { ToastrModule } from 'ngx-toastr'
-import TerminusCoreModule, { ToolbarButtonProvider, ConfigProvider, TabRecoveryProvider, HotkeyProvider } from 'terminus-core'
+import TerminusCoreModule, { ToolbarButtonProvider, ConfigProvider, TabRecoveryProvider, HotkeyProvider, TabContextMenuItemProvider } from 'terminus-core'
 import { SettingsTabProvider } from 'terminus-settings'
 import TerminusTerminalModule from 'terminus-terminal'
 
@@ -18,6 +18,7 @@ import { SSHConfigProvider } from './config'
 import { SSHSettingsTabProvider } from './settings'
 import { RecoveryProvider } from './recoveryProvider'
 import { SSHHotkeyProvider } from './hotkeys'
+import { WinSCPContextMenu } from './winSCPIntegration'
 
 /** @hidden */
 @NgModule({
@@ -35,6 +36,7 @@ import { SSHHotkeyProvider } from './hotkeys'
         { provide: SettingsTabProvider, useClass: SSHSettingsTabProvider, multi: true },
         { provide: TabRecoveryProvider, useClass: RecoveryProvider, multi: true },
         { provide: HotkeyProvider, useClass: SSHHotkeyProvider, multi: true },
+        { provide: TabContextMenuItemProvider, useClass: WinSCPContextMenu, multi: true },
     ],
     entryComponents: [
         EditConnectionModalComponent,

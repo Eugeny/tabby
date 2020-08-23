@@ -36,3 +36,14 @@ h3.mt-5 Options
         [(ngModel)]='config.store.ssh.warnOnClose',
         (ngModelChange)='config.save()',
     )
+
+.form-line
+    .header
+        .title WinSCP path
+        .descriptions When WinSCP is detected, you can launch an SCP session from the context menu.
+    input.form-control(
+        type='text',
+        placeholder='Auto-detect',
+        [(ngModel)]='config.store.ssh.winSCPPath',
+        (ngModelChange)='config.save()',
+    )
