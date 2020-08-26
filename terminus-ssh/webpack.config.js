@@ -45,10 +45,12 @@ module.exports = {
         ],
     },
     externals: [
+        'child_process',
         'fs',
         'keytar',
         'path',
         'ngx-toastr',
+        'windows-native-registry',
         'windows-process-tree/build/Release/windows_process_tree.node',
         /^rxjs/,
         /^@angular/,

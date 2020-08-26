@@ -7,6 +7,7 @@ export class SSHConfigProvider extends ConfigProvider {
             connections: [],
             recentConnections: [],
             warnOnClose: false,
+            winSCPPath: null,
         },
         hotkeys: {
             ssh: [
