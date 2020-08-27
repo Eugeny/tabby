@@ -197,7 +197,7 @@ export class SSHService {
                 if (await fs.exists(WINDOWS_OPENSSH_AGENT_PIPE)) {
                     agent = WINDOWS_OPENSSH_AGENT_PIPE
                 } else {
-                    const pageantRunning = new Promise<boolean>(resolve => {
+                    const pageantRunning = await new Promise<boolean>(resolve => {
                         windowsProcessTreeNative.getProcessList(list => { // eslint-disable-line block-scoped-var
                             resolve(list.some(x => x.name === 'pageant.exe'))
                         }, 0)
