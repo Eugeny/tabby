@@ -26,7 +26,7 @@
     "deepmerge": "^4.1.1",
     "electron-updater": "^4.0.6",
     "js-yaml": "^3.9.0",
-    "mixpanel": "^0.10.2",
+    "mixpanel": "^0.12.0",
     "ng2-dnd": "^5.0.2",
     "ngx-perfect-scrollbar": "^8.0.0",
     "shell-escape": "^0.2.0",
