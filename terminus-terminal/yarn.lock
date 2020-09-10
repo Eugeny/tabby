@@ -232,10 +232,10 @@ xterm-addon-ligatures@^0.4.0-beta.5:
     font-finder "^1.0.4"
     font-ligatures "^1.3.3"
 
-xterm-addon-search@^0.7.0-beta.2:
-  version "0.7.0"
-  resolved "https://registry.yarnpkg.com/xterm-addon-search/-/xterm-addon-search-0.7.0.tgz#c929d3e5cbb335e82bff72f158ea82936d9cd4ef"
-  integrity sha512-6060evmJJ+tZcjnx33FXaeEHLpuXEa7l9UzUsYfMlCKbu88AbE+5LJocTKCHYd71cwCwb9pjmv/G1o9Rf9Zbcg==
+xterm-addon-search@^0.8.0-beta.2:
+  version "0.8.0-beta.2"
+  resolved "https://registry.yarnpkg.com/xterm-addon-search/-/xterm-addon-search-0.8.0-beta.2.tgz#5a6c0ef0ccdbb40da55b154d8a92669c2efbe92b"
+  integrity sha512-pl5DUiXd95uvUlTiZdkttWojqA+ar9+ShjQ+MS5T4utXAflbQUWdFysVsrjieuRA7LGYZs5pRSH3CMEUIROjVQ==
 
 xterm-addon-serialize@^0.3.0:
   version "0.3.0"
