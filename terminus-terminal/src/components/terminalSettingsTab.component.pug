@@ -116,6 +116,14 @@ h3.mb-3 Terminal
         [(ngModel)]='config.store.terminal.scrollOnInput',
         (ngModelChange)='config.save()',
     )
+    
+.form-line
+    .header
+        .title Regex in search always enabled
+    toggle(
+        [(ngModel)]='config.store.terminal.searchRegexAlwaysEnabled',
+        (ngModelChange)='config.save()',
+    )
 
 .form-line
     .header

@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core'
 import { ToastrService } from 'ngx-toastr'
 import { Frontend, SearchOptions } from '../frontends/frontend'
+import {ConfigService} from "terminus-core";
 
 @Component({
     selector: 'search-panel',
@@ -13,12 +14,14 @@ export class SearchPanelComponent {
     notFound = false
     options: SearchOptions = {
         incremental: true,
+        regex: this.config.store.terminal.searchRegexAlwaysEnabled,
     }
 
     @Output() close = new EventEmitter()
 
     constructor (
         private toastr: ToastrService,
+        public config: ConfigService,
     ) { }
 
     onQueryChange (): void {
