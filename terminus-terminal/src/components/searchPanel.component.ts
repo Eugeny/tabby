@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core'
 import { ToastrService } from 'ngx-toastr'
 import { Frontend, SearchOptions } from '../frontends/frontend'
-import {ConfigService} from "terminus-core";
+import { ConfigService } from 'terminus-core'
 
 @Component({
     selector: 'search-panel',
