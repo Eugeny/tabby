@@ -47,9 +47,8 @@ export class SSHSettingsTabComponent {
     }
 
     copyConnection (connection) {
-        connection.name += ' Copy'
         const modal = this.ngbModal.open(EditConnectionModalComponent)
-        modal.componentInstance.connection = connection
+        modal.componentInstance.connection = Object.assign({name: name + ' Copy'}, connection)
         modal.result.then(result => {
             this.connections.push(result)
             this.config.store.ssh.connections = this.connections
