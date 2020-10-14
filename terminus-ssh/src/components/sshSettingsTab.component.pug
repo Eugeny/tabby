@@ -20,6 +20,8 @@ h3 Connections
                 .mr-auto
                     div {{connection.name}}
                     .text-muted {{connection.host}}
+                button.btn.btn-outline-info.ml-1((click)='$event.stopPropagation(); copyConnection(connection)')
+                    i.fas.fa-copy
                 button.btn.btn-outline-danger.ml-1((click)='$event.stopPropagation(); deleteConnection(connection)')
                     i.fas.fa-trash
 
