@@ -15,10 +15,18 @@
 
 $tabs-height: 38px;
 $tab-border-radius: 4px;
+$side-tab-width: 200px;
 
+.wrap {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  flex-direction: row;
+}
 
 .content {
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
     flex: auto;
     display: flex;
     flex-direction: column-reverse;
@@ -26,12 +34,24 @@ $tab-border-radius: 4px;
     &.tabs-on-top {
         flex-direction: column;
     }
+
+    &.with-side-tab {
+        width: calc(100% - #{$side-tab-width});
+    }
+
 }
 
 .tab-bar {
     flex: none;
     height: $tabs-height;
     display: flex;
+    width: 100%;
+    &.vertical {
+        height: 100%;
+        width: $side-tab-width;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
 
     .btn-tab-bar {
         line-height: $tabs-height + 2px;
@@ -59,6 +79,12 @@ $tab-border-radius: 4px;
         flex: 0 1 auto;
         display: flex;
         min-width: 0;
+
+        &.vertical {
+          width: $side-tab-width;
+          flex: auto;
+          flex-direction: column;
+        }
     }
 
     &>.drag-space {

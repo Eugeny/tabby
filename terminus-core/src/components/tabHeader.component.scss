@@ -13,6 +13,11 @@ $tabs-height: 38px;
 
     overflow: hidden;
 
+    &.vertical {
+      flex: none;
+      height: $tabs-height;
+    }
+
     .index {
         flex: none;
         font-weight: bold;
