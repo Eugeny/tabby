@@ -66,6 +66,11 @@ export class TerminalConfigProvider extends ConfigProvider {
             warnOnMultilinePaste: true,
             showDefaultProfiles: true,
             searchRegexAlwaysEnabled: false,
+            searchOptions: {
+                regex: false,
+                wholeWord: false,
+                caseSensitive: false
+            }
         },
     }
 

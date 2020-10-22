@@ -14,7 +14,7 @@ export class SearchPanelComponent {
     notFound = false
     options: SearchOptions = {
         incremental: true,
-        regex: this.config.store.terminal.searchRegexAlwaysEnabled,
+        ...this.config.store.terminal.searchOptions
     }
 
     @Output() close = new EventEmitter()
@@ -28,7 +28,7 @@ export class SearchPanelComponent {
         this.notFound = false
         this.findPrevious(true)
     }
-
+    
     findNext (incremental = false): void {
         if (!this.query) {
             return
@@ -47,5 +47,13 @@ export class SearchPanelComponent {
             this.notFound = true
             this.toastr.error('Not found')
         }
+    }
+    
+    saveSearchOptions (): void {
+        this.config.store.terminal.searchOptions.regex = this.options.regex;
+        this.config.store.terminal.searchOptions.caseSensitive = this.options.caseSensitive;
+        this.config.store.terminal.searchOptions.wholeWord = this.options.wholeWord;
+        
+        this.config.save();
     }
 }
