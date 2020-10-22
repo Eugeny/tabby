@@ -119,14 +119,6 @@ h3.mb-3 Terminal
     
 .form-line
     .header
-        .title Regex in search always enabled
-    toggle(
-        [(ngModel)]='config.store.terminal.searchRegexAlwaysEnabled',
-        (ngModelChange)='config.save()',
-    )
-
-.form-line
-    .header
         .title Use Alt key as the Meta key
         .description Lets the shell handle Meta key instead of OS
     toggle(
