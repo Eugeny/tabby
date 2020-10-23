@@ -69,8 +69,8 @@ export class TerminalConfigProvider extends ConfigProvider {
             searchOptions: {
                 regex: false,
                 wholeWord: false,
-                caseSensitive: false
-            }
+                caseSensitive: false,
+            },
         },
     }
 
