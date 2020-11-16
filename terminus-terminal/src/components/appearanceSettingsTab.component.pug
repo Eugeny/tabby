@@ -115,7 +115,7 @@ h3.mb-3 Appearance
 
     toggle(
         [(ngModel)]='config.store.terminal.disableTabIndex',
-        (ngModelChange)='config.save(); config.requestRestart()',
+        (ngModelChange)='config.save()',
     )
 
 .form-line
@@ -124,7 +124,7 @@ h3.mb-3 Appearance
 
     toggle(
         [(ngModel)]='config.store.terminal.disableCloseButton',
-        (ngModelChange)='config.save(); config.requestRestart()',
+        (ngModelChange)='config.save()',
     )
 
 .form-line
