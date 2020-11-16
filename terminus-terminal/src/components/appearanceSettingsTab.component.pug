@@ -111,6 +111,24 @@ h3.mb-3 Appearance
 
 .form-line
     .header
+        .title Disable Tab Index
+
+    toggle(
+        [(ngModel)]='config.store.terminal.disableTabIndex',
+        (ngModelChange)='config.save()',
+    )
+
+.form-line
+    .header
+        .title Disable Tab Close Button
+
+    toggle(
+        [(ngModel)]='config.store.terminal.disableCloseButton',
+        (ngModelChange)='config.save()',
+    )
+
+.form-line
+    .header
         .title Fallback font
         .description A second font family used to display characters missing in the main font
 

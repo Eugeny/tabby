@@ -9,6 +9,7 @@ import { HotkeysService } from '../services/hotkeys.service'
 import { ElectronService } from '../services/electron.service'
 import { AppService } from '../services/app.service'
 import { HostAppService, Platform } from '../services/hostApp.service'
+import { ConfigService } from '../services/config.service'
 
 /** @hidden */
 export interface SortableComponentProxy {
@@ -35,8 +36,9 @@ export class TabHeaderComponent {
         private hostApp: HostAppService,
         private ngbModal: NgbModal,
         private hotkeys: HotkeysService,
+        private config: ConfigService,
         @Inject(SortableComponent) private parentDraggable: SortableComponentProxy,
-        @Optional() @Inject(TabContextMenuItemProvider) protected contextMenuProviders: TabContextMenuItemProvider[],
+        @Optional() @Inject(TabContextMenuItemProvider) protected contextMenuProviders: TabContextMenuItemProvider[],        
     ) {
         this.hotkeys.matchedHotkey.subscribe((hotkey) => {
             if (this.app.activeTab === this.tab) {
@@ -52,6 +54,15 @@ export class TabHeaderComponent {
         this.tab.progress$.subscribe(progress => {
             this.progress = progress
         })
+
+        if (this.config.store.terminal.disableTabIndex) {
+            this.tab.showIndex = false;            
+        }
+
+        if (this.config.store.terminal.disableCloseButton) {
+            this.tab.showCloseButton = false;
+        }        
+
     }
 
     ngAfterViewInit () {

@@ -45,6 +45,8 @@ export abstract class BaseTabComponent {
     color: string|null = null
 
     hasFocus = false
+    showIndex = true
+    showCloseButton = true
 
     /**
      * Ping this if your recovery state has been changed and you want
