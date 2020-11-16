@@ -1,6 +1,5 @@
 app/node_modules
 app/assets/webpack
-.github/workflows
 
 node_modules
 
