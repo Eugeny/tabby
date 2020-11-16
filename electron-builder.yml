@@ -1,6 +1,6 @@
 ---
 appId: org.terminus
-productName: Terminus
+productName: Terminus2
 compression: normal
 afterSign: "./build/mac/afterSignHook.js"
 afterAllArtifactBuild: "./build/mac/afterBuildHook.js"
