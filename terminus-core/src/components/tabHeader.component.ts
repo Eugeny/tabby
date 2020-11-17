@@ -32,13 +32,13 @@ export class TabHeaderComponent {
 
     private constructor (
         public app: AppService,
+        public config: ConfigService,
         private electron: ElectronService,
         private hostApp: HostAppService,
         private ngbModal: NgbModal,
         private hotkeys: HotkeysService,
-        private config: ConfigService,
         @Inject(SortableComponent) private parentDraggable: SortableComponentProxy,
-        @Optional() @Inject(TabContextMenuItemProvider) protected contextMenuProviders: TabContextMenuItemProvider[],        
+        @Optional() @Inject(TabContextMenuItemProvider) protected contextMenuProviders: TabContextMenuItemProvider[],
     ) {
         this.hotkeys.matchedHotkey.subscribe((hotkey) => {
             if (this.app.activeTab === this.tab) {
@@ -54,15 +54,6 @@ export class TabHeaderComponent {
         this.tab.progress$.subscribe(progress => {
             this.progress = progress
         })
-
-        if (this.config.store.terminal.disableTabIndex) {
-            this.tab.showIndex = false;            
-        }
-
-        if (this.config.store.terminal.disableCloseButton) {
-            this.tab.showCloseButton = false;
-        }        
-
     }
 
     ngAfterViewInit () {

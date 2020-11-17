@@ -111,20 +111,20 @@ h3.mb-3 Appearance
 
 .form-line
     .header
-        .title Disable Tab Index
+        .title Disable tab index
 
     toggle(
         [(ngModel)]='config.store.terminal.disableTabIndex',
-        (ngModelChange)='config.save(); config.requestRestart()',
+        (ngModelChange)='config.save();',
     )
 
 .form-line
     .header
-        .title Disable Tab Close Button
+        .title Disable tab close button
 
     toggle(
         [(ngModel)]='config.store.terminal.disableCloseButton',
-        (ngModelChange)='config.save(); config.requestRestart()',
+        (ngModelChange)='config.save();',
     )
 
 .form-line
