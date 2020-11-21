@@ -50,5 +50,14 @@
     "@types/mz": "0.0.32",
     "@types/node": "12.7.12",
     "node-abi": "^2.18.0"
-  }
+  },
+  "peerDependencies": {
+    "terminus-core": "*",
+    "terminus-settings": "*",
+    "terminus-serial": "*",
+    "terminus-plugin-manager": "*",
+    "terminus-community-color-schemes": "*",
+    "terminus-ssh": "*",
+    "terminus-terminal": "*"
+  } 
 }
