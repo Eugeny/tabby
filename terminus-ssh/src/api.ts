@@ -246,7 +246,7 @@ export class SSHSession extends BaseSession {
                     fw.targetPort,
                     (err, stream) => {
                         if (err) {
-                            this.emitServiceMessage(colors.bgRed.black(' X ') + ` Remote has rejected the forwaded connection via ${fw}: ${err}`)
+                            this.emitServiceMessage(colors.bgRed.black(' X ') + ` Remote has rejected the forwarded connection via ${fw}: ${err}`)
                             socket.destroy()
                             return
                         }
@@ -263,7 +263,7 @@ export class SSHSession extends BaseSession {
                     }
                 )
             }).then(() => {
-                this.emitServiceMessage(colors.bgGreen.black(' -> ') + ` Forwaded ${fw}`)
+                this.emitServiceMessage(colors.bgGreen.black(' -> ') + ` Forwarded ${fw}`)
                 this.forwardedPorts.push(fw)
             }).catch(e => {
                 this.emitServiceMessage(colors.bgRed.black(' X ') + ` Failed to forward port ${fw}: ${e}`)
@@ -280,7 +280,7 @@ export class SSHSession extends BaseSession {
                     resolve()
                 })
             })
-            this.emitServiceMessage(colors.bgGreen.black(' <- ') + ` Forwaded ${fw}`)
+            this.emitServiceMessage(colors.bgGreen.black(' <- ') + ` Forwarded ${fw}`)
             this.forwardedPorts.push(fw)
         }
     }
