@@ -157,6 +157,11 @@ rimraf@~2.6.2:
   dependencies:
     glob "^7.1.3"
 
+run-script-os@^1.1.3:
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/run-script-os/-/run-script-os-1.1.3.tgz#1069b418307f4fd36ff056b5eda309c273fca8b0"
+  integrity sha512-xPlzE6533nvWVea5z7e5J7+JAIepfpxTu/HLGxcjJYlemVukOCWJBaRCod/DWXJFRIWEFOgSGbjd2m1QWTJi5w==
+
 safer-buffer@^2.0.2, safer-buffer@^2.1.0, safer-buffer@~2.1.0:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/safer-buffer/-/safer-buffer-2.1.2.tgz#44fa161b0187b9549dd84bb91802f9bd8385cd6a"
