@@ -43,14 +43,28 @@ ngb-tabset.vertical(type='pills', [activeId]='activeTab')
                             ngbButton,
                             [value]='"top"'
                         )
-                        | On the top
+                        | Top
                     label.btn.btn-secondary(ngbButtonLabel)
                         input(
                             type='radio',
                             ngbButton,
                             [value]='"bottom"'
                         )
-                        | At the bottom
+                        | Bottom
+                    label.btn.btn-secondary(ngbButtonLabel)
+                        input(
+                            type='radio',
+                            ngbButton,
+                            [value]='"left"'
+                        )
+                        | Left
+                    label.btn.btn-secondary(ngbButtonLabel)
+                        input(
+                            type='radio',
+                            ngbButton,
+                            [value]='"right"'
+                        )
+                        | Right
 
             .form-line
                 .header

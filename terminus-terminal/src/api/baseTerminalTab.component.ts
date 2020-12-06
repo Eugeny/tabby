@@ -360,7 +360,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
 
         this.topPadded = this.hostApp.platform === Platform.macOS
             && this.config.store.appearance.frame === 'thin'
-            && this.config.store.appearance.tabsLocation === 'bottom'
+            && this.config.store.appearance.tabsLocation !== 'top'
 
         if (this.config.store.terminal.background === 'colorScheme') {
             if (this.config.store.terminal.colorScheme.background) {

@@ -15,10 +15,18 @@
 
 $tabs-height: 38px;
 $tab-border-radius: 4px;
+$side-tab-width: 200px;
 
+.wrap {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  flex-direction: row;
+}
 
 .content {
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
     flex: auto;
     display: flex;
     flex-direction: column-reverse;
@@ -26,15 +34,50 @@ $tab-border-radius: 4px;
     &.tabs-on-top {
         flex-direction: column;
     }
+
+    &.tabs-on-side {
+        flex-direction: row-reverse;
+
+        &.tabs-on-top {
+            flex-direction: row;
+        }
+    }
+
 }
+
+.content.tabs-on-side > .tab-bar {
+    height: 100%;
+    width: $side-tab-width;
+    overflow-y: auto;
+    overflow-x: hidden;
+    flex-direction: column;
+    background: rgba(0, 0, 0, 0.25);
+
+    .tabs {
+        width: $side-tab-width;
+        flex: none;
+        flex-direction: column;
+
+        tab-header {
+            flex: 0 0 $tabs-height;
+        }
+    }
+
+    .drag-space {
+        flex: auto;
+    }
+}
+
 
 .tab-bar {
     flex: none;
     height: $tabs-height;
     display: flex;
+    width: 100%;
 
     .btn-tab-bar {
         line-height: $tabs-height + 2px;
+        height: $tabs-height;
         cursor: pointer;
 
         display: flex;
@@ -74,7 +117,10 @@ $tab-border-radius: 4px;
 
     & > .inset {
         width: 85px;
+        height: $tabs-height;
         flex: none;
+        opacity: 0;
+        -webkit-app-region: drag;
     }
 
     window-controls {
