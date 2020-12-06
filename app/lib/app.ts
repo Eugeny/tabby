@@ -139,9 +139,7 @@ export class Application {
 
     handleSecondInstance (argv: string[], cwd: string): void {
         this.presentAllWindows()
-        for (let window of this.windows) {
-            window.handleSecondInstance(argv, cwd)
-        }
+        this.windows[this.windows.length - 1].handleSecondInstance(argv, cwd)
     }
 
     private setupMenu () {
