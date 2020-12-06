@@ -1,7 +1,7 @@
 .progressbar([style.width]='progress + "%"', *ngIf='progress != null')
-.index(
+.index(*ngIf='!config.store.terminal.hideTabIndex',
     #handle,
     [style.background-color]='tab.color',
 ) {{index + 1}}
 .name([title]='tab.customTitle || tab.title') {{tab.customTitle || tab.title}}
-button((click)='app.closeTab(tab, true)') &times;
+button(*ngIf='!config.store.terminal.hideCloseButton',(click)='app.closeTab(tab, true)') &times;

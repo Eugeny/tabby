@@ -26,7 +26,7 @@ button.btn.btn-link(
 .mr-2
 
 button.btn.btn-link(
-    (click)='options.caseSensitive = !options.caseSensitive',
+    (click)='options.caseSensitive = !options.caseSensitive; saveSearchOptions()',
     [class.active]='options.caseSensitive',
     ngbTooltip='Case sensitivity',
     placement='bottom'
@@ -34,14 +34,14 @@ button.btn.btn-link(
     i.fa.fa-fw.fa-font
 
 button.btn.btn-link(
-    (click)='options.regex = !options.regex',
+    (click)='options.regex = !options.regex; saveSearchOptions()',
     [class.active]='options.regex',
     ngbTooltip='Regular expression',
     placement='bottom'
 )
     i.fa.fa-fw.fa-asterisk
 button.btn.btn-link(
-    (click)='options.wholeWord = !options.wholeWord',
+    (click)='options.wholeWord = !options.wholeWord; saveSearchOptions()',
     [class.active]='options.wholeWord',
     ngbTooltip='Whole word',
     placement='bottom'

@@ -211,9 +211,7 @@ export class Window {
     }
 
     handleSecondInstance (argv: string[], cwd: string): void {
-        if (!this.configStore.appearance?.dock) {
-            this.send('host:second-instance', parseArgs(argv, cwd), cwd)
-        }
+        this.send('host:second-instance', parseArgs(argv, cwd), cwd)
     }
 
     private setupWindowManagement () {
