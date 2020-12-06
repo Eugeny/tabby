@@ -316,6 +316,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "pinpins",
+      "name": "pinpin",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/36234677?v=4",
+      "profile": "https://zergpool.com",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
