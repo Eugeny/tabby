@@ -12,7 +12,6 @@ title-bar(
         && config.store.appearance.frame == "thin" \
         && (config.store.appearance.tabsLocation == "top" || config.store.appearance.tabsLocation == "left")')
         .tabs(
-            *ngIf='config.store.appearance.tabsLocation != "bottom"'
             dnd-sortable-container,
             [sortableData]='app.tabs',
         )
@@ -22,7 +21,6 @@ title-bar(
                 [sortableIndex]='idx',
                 (onDragStart)='onTabDragStart()',
                 (onDragEnd)='onTabDragEnd()',
-
                 [index]='idx',
                 [tab]='tab',
                 [active]='tab == app.activeTab',
