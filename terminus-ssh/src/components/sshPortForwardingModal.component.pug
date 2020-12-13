@@ -6,12 +6,22 @@
         .list-group-item.d-flex.align-items-center(*ngFor='let fw of session.forwardedPorts')
             strong(*ngIf='fw.type === PortForwardType.Local') Local
             strong(*ngIf='fw.type === PortForwardType.Remote') Remote
-            .ml-3 {{fw.host}}:{{fw.port}} &rarr; {{fw.targetAddress}}:{{fw.targetPort}}
+            strong(*ngIf='fw.type === PortForwardType.Dynamic') Dynamic
+            .ml-3 {{fw.host}}:{{fw.port}}
+            .ml-2 &rarr;
+            .ml-2(*ngIf='fw.type !== PortForwardType.Dynamic') {{fw.targetAddress}}:{{fw.targetPort}}
+            .ml-2(*ngIf='fw.type === PortForwardType.Dynamic') SOCKS proxy
             button.btn.btn-link.ml-auto((click)='remove(fw)')
                 i.fas.fa-trash-alt.mr-2
                 span Remove
 
-    .input-group.mb-2
+    .input-group.mb-2(*ngIf='newForward.type === PortForwardType.Dynamic')
+        input.form-control(type='text', [(ngModel)]='newForward.host')
+        .input-group-append
+            .input-group-text :
+        input.form-control(type='number', [(ngModel)]='newForward.port')
+
+    .input-group.mb-2(*ngIf='newForward.type !== PortForwardType.Dynamic')
         input.form-control(type='text', [(ngModel)]='newForward.host')
         .input-group-append
             .input-group-text :
@@ -42,6 +52,13 @@
                     [value]='PortForwardType.Remote'
                 )
                 | Remote
+            label.btn.btn-secondary.m-0(ngbButtonLabel)
+                input(
+                    type='radio',
+                    ngbButton,
+                    [value]='PortForwardType.Dynamic'
+                )
+                | Dynamic
 
         button.btn.btn-primary((click)='addForward()')
             i.fas.fa-check.mr-2

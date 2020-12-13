@@ -1,4 +1,6 @@
 import colors from 'ansi-colors'
+import stripAnsi from 'strip-ansi'
+import socksv5 from 'socksv5'
 import { BaseSession } from 'terminus-terminal'
 import { Server, Socket, createServer, createConnection } from 'net'
 import { Client, ClientChannel } from 'ssh2'
@@ -43,7 +45,7 @@ export interface SSHConnection {
 }
 
 export enum PortForwardType {
-    Local, Remote
+    Local, Remote, Dynamic
 }
 
 export class ForwardedPort {
@@ -55,13 +57,40 @@ export class ForwardedPort {
 
     private listener: Server
 
-    async startLocalListener (callback: (Socket) => void): Promise<void> {
-        this.listener = createServer(callback)
-        return new Promise((resolve, reject) => {
-            this.listener.listen(this.port, '127.0.0.1')
-            this.listener.on('error', reject)
-            this.listener.on('listening', resolve)
-        })
+    async startLocalListener (callback: (accept: () => Socket, reject: () => void, sourceAddress: string|null, sourcePort: number|null, targetAddress: string, targetPort: number) => void): Promise<void> {
+        if (this.type === PortForwardType.Local) {
+            this.listener = createServer(s => callback(
+                () => s,
+                () => s.destroy(),
+                s.remoteAddress ?? null,
+                s.remotePort ?? null,
+                this.targetAddress,
+                this.targetPort,
+            ))
+            return new Promise((resolve, reject) => {
+                this.listener.listen(this.port, this.host)
+                this.listener.on('error', reject)
+                this.listener.on('listening', resolve)
+            })
+        } else if (this.type === PortForwardType.Dynamic) {
+            return new Promise((resolve, reject) => {
+                this.listener = socksv5.createServer((info, accept, reject) => {
+                    callback(
+                        () => accept(true),
+                        () => reject(),
+                        null,
+                        null,
+                        info.dstAddr,
+                        info.dstPort,
+                    )
+                })
+                this.listener.on('error', reject)
+                this.listener.listen(this.port, this.host, resolve)
+                ;(this.listener as any).useAuth(socksv5.auth.None())
+            })
+        } else {
+            throw new Error('Invalid forward type for a local listener')
+        }
     }
 
     stopLocalListener (): void {
@@ -71,8 +100,10 @@ export class ForwardedPort {
     toString (): string {
         if (this.type === PortForwardType.Local) {
             return `(local) ${this.host}:${this.port} → (remote) ${this.targetAddress}:${this.targetPort}`
-        } else {
+        } if (this.type === PortForwardType.Remote) {
             return `(remote) ${this.host}:${this.port} → (local) ${this.targetAddress}:${this.targetPort}`
+        } else {
+            return `(dynamic) ${this.host}:${this.port}`
         }
     }
 }
@@ -232,25 +263,26 @@ export class SSHSession extends BaseSession {
 
     emitServiceMessage (msg: string): void {
         this.serviceMessage.next(msg)
-        this.logger.info(msg)
+        this.logger.info(stripAnsi(msg))
     }
 
     async addPortForward (fw: ForwardedPort): Promise<void> {
-        if (fw.type === PortForwardType.Local) {
-            await fw.startLocalListener((socket: Socket) => {
+        if (fw.type === PortForwardType.Local || fw.type === PortForwardType.Dynamic) {
+            await fw.startLocalListener((accept, reject, sourceAddress, sourcePort, targetAddress, targetPort) => {
                 this.logger.info(`New connection on ${fw}`)
                 this.ssh.forwardOut(
-                    socket.remoteAddress || '127.0.0.1',
-                    socket.remotePort || 0,
-                    fw.targetAddress,
-                    fw.targetPort,
+                    sourceAddress || '127.0.0.1',
+                    sourcePort || 0,
+                    targetAddress,
+                    targetPort,
                     (err, stream) => {
                         if (err) {
-                            this.emitServiceMessage(colors.bgRed.black(' X ') + ` Remote has rejected the forwarded connection via ${fw}: ${err}`)
-                            socket.destroy()
+                            this.emitServiceMessage(colors.bgRed.black(' X ') + ` Remote has rejected the forwarded connection to ${targetAddress}:${targetPort} via ${fw}: ${err}`)
+                            reject()
                             return
                         }
                         if (stream) {
+                            const socket = accept()
                             stream.pipe(socket)
                             socket.pipe(stream)
                             stream.on('close', () => {
@@ -286,7 +318,7 @@ export class SSHSession extends BaseSession {
     }
 
     async removePortForward (fw: ForwardedPort): Promise<void> {
-        if (fw.type === PortForwardType.Local) {
+        if (fw.type === PortForwardType.Local || fw.type === PortForwardType.Dynamic) {
             fw.stopLocalListener()
             this.forwardedPorts = this.forwardedPorts.filter(x => x !== fw)
         }

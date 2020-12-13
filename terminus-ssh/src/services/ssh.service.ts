@@ -1,4 +1,5 @@
 import colors from 'ansi-colors'
+import stripAnsi from 'strip-ansi'
 import { open as openTemp } from 'temp'
 import { Injectable, NgZone } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
@@ -137,7 +138,7 @@ export class SSHService {
 
         const log = (s: any) => {
             logCallback!(s)
-            this.logger.info(s)
+            this.logger.info(stripAnsi(s))
         }
 
         let privateKey: string|null = null
