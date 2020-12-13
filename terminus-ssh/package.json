@@ -10,7 +10,9 @@
   "scripts": {
     "build": "webpack --progress --color",
     "watch": "webpack --progress --color --watch",
-    "postinstall": "xcopy /i /y node_modules\\ssh2\\util\\pagent.exe util\\"
+    "postinstall": "run-script-os",
+    "postinstall:darwin:linux": "exit",
+    "postinstall:win32": "xcopy /i /y node_modules\\ssh2\\util\\pagent.exe util\\"
   },
   "files": [
     "dist",
