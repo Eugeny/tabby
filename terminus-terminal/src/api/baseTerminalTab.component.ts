@@ -156,16 +156,28 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
                     this.resetZoom()
                     break
                 case 'previous-word':
-                    this.sendInput('\x1bb')
+                    this.sendInput({
+                        [Platform.Windows]: '\x1b[1;5D',
+                        [Platform.macOS]: '\x1bb',
+                        [Platform.Linux]: '\x1bb',
+                    }[this.hostApp.platform])
                     break
                 case 'next-word':
-                    this.sendInput('\x1bf')
+                    this.sendInput({
+                        [Platform.Windows]: '\x1b[1;5C',
+                        [Platform.macOS]: '\x1bf',
+                        [Platform.Linux]: '\x1bf',
+                    }[this.hostApp.platform])
                     break
                 case 'delete-previous-word':
                     this.sendInput('\x1b\x7f')
                     break
                 case 'delete-next-word':
-                    this.sendInput('\x1bd')
+                    this.sendInput({
+                        [Platform.Windows]: '\x1bd\x1b[3;5~',
+                        [Platform.macOS]: '\x1bd',
+                        [Platform.Linux]: '\x1bd',
+                    }[this.hostApp.platform])
                     break
                 case 'search':
                     this.showSearchPanel = true
@@ -348,7 +360,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
 
         this.topPadded = this.hostApp.platform === Platform.macOS
             && this.config.store.appearance.frame === 'thin'
-            && this.config.store.appearance.tabsLocation === 'bottom'
+            && this.config.store.appearance.tabsLocation !== 'top'
 
         if (this.config.store.terminal.background === 'colorScheme') {
             if (this.config.store.terminal.colorScheme.background) {

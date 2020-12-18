@@ -50,6 +50,7 @@ module.exports = {
         'keytar',
         'path',
         'ngx-toastr',
+        'socksv5',
         'windows-native-registry',
         'windows-process-tree/build/Release/windows_process_tree.node',
         /^rxjs/,

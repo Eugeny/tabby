@@ -184,6 +184,10 @@ export class AppRootComponent {
         return false
     }
 
+    hasVerticalTabs () {
+        return this.config.store.appearance.tabsLocation === 'left' || this.config.store.appearance.tabsLocation === 'right'
+    }
+
     async updateApp () {
         if ((await this.electron.showMessageBox(
             this.hostApp.getWindow(),

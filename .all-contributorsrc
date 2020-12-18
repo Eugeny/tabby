@@ -316,6 +316,24 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "pinpins",
+      "name": "pinpin",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/36234677?v=4",
+      "profile": "https://zergpool.com",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "TakuroOnoda",
+      "name": "Takuro Onoda",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/1407926?v=4",
+      "profile": "https://github.com/TakuroOnoda",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,

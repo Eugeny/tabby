@@ -1,8 +1,8 @@
 {
   "devDependencies": {
-    "@fortawesome/fontawesome-free": "^5.15.1",
-    "@sentry/cli": "^1.59.0",
-    "@sentry/electron": "^1.5.2",
+    "@fortawesome/fontawesome-free": "^5.13.0",
+    "@sentry/cli": "^1.52.3",
+    "@sentry/electron": "^2.0.4",
     "@types/electron-config": "^3.2.2",
     "@types/electron-debug": "^2.1.0",
     "@types/js-yaml": "^3.12.5",
@@ -15,7 +15,7 @@
     "core-js": "^3.7.0",
     "cross-env": "7.0.2",
     "css-loader": "3.4.2",
-    "electron": "^8.5.3",
+    "electron": "^8.5.2",
     "electron-builder": "22.6.1",
     "electron-download": "^4.1.1",
     "electron-installer-snap": "^5.1.0",

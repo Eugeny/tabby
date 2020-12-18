@@ -65,7 +65,7 @@ export class SettingsTabComponent extends BaseTabComponent {
         const onConfigChange = () => {
             this.configFile = config.readRaw()
             this.padWindowControls = hostApp.platform === Platform.macOS
-                && config.store.appearance.tabsLocation === 'bottom'
+                && config.store.appearance.tabsLocation !== 'top'
         }
 
         this.configSubscription = config.changed$.subscribe(onConfigChange)
