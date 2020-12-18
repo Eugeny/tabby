@@ -1,5 +1,5 @@
 language: node_js
-node_js: 11
+node_js: 10
 
 stages:
   - Build
