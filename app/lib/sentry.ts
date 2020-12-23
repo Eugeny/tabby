@@ -1,4 +1,4 @@
-const { init } = process.type === 'main' ? require('@sentry/electron/dist/main') : require('@sentry/electron/dist/renderer')
+const { init } = String(process.type) === 'main' ? require('@sentry/electron/dist/main') : require('@sentry/electron/dist/renderer')
 import * as isDev from 'electron-is-dev'
 
 

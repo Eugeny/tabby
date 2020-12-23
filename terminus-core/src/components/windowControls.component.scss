@@ -12,7 +12,8 @@ button {
     padding: 0;
     line-height: 0;
     text-align: center;
-
+    align-items: center;
+    
     &:not(:hover):not(:active) {
         background: transparent;
     }

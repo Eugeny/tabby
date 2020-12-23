@@ -36,13 +36,13 @@
     "zmodem.js": "^0.1.9"
   },
   "peerDependencies": {
-    "@angular/animations": "^7",
-    "@angular/common": "^7",
-    "@angular/core": "^7",
-    "@angular/forms": "^7",
-    "@angular/platform-browser": "^7",
-    "@ng-bootstrap/ng-bootstrap": "^1",
-    "rxjs": "^5",
+    "@angular/animations": "^9.1.9",
+    "@angular/common": "^9.1.11",
+    "@angular/core": "^9.1.9",
+    "@angular/forms": "^9.1.11",
+    "@angular/platform-browser": "^9.1.11",
+    "@ng-bootstrap/ng-bootstrap": "^6.1.0",
+    "rxjs": "^6.5.5",
     "terminus-core": "*",
     "terminus-settings": "*"
   }

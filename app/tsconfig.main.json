@@ -12,7 +12,6 @@
         "noUnusedParameters": true,
         "noImplicitReturns": true,
         "noFallthroughCasesInSwitch": true,
-        "noUnusedParameters": true,
         "noUnusedLocals": true,
         "lib": [
            "dom",

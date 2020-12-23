@@ -17,7 +17,7 @@
   "author": "Eugene Pankov",
   "license": "MIT",
   "peerDependencies": {
-    "@angular/core": "^7",
+    "@angular/core": "^9.1.9",
     "terminus-core": "*",
     "terminus-terminal": "*"
   }

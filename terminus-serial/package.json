@@ -15,21 +15,23 @@
     "dist"
   ],
   "author": "Eugene Pankov",
-  "license": "MIT",
+  "license": "MIT", 
   "devDependencies": {
-    "@types/node": "12.7.3",
+    "@types/node": "14.14.14",
     "@types/ssh2": "^0.5.35",
     "ansi-colors": "^4.1.1",
     "cli-spinner": "^0.2.10",
-    "electron-rebuild": "^1.10.0",
-    "terminus-terminal": "^1.0.98-nightly.0"
+    "electron-rebuild": "^2.3.4"
   },
   "peerDependencies": {
-    "@angular/common": "^7",
-    "@angular/core": "^7",
-    "@angular/forms": "^7",
-    "@ng-bootstrap/ng-bootstrap": "^1",
-    "rxjs": "^5",
+    "@angular/animations": "^9.1.9",
+    "@angular/common": "^9.1.11",
+    "@angular/core": "^9.1.9",
+    "@angular/forms": "^9.1.11",
+    "@angular/platform-browser": "^9.1.11",
+    "@angular/platform-browser-dynamic": "^9.1.11",
+    "@ng-bootstrap/ng-bootstrap": "^6.2.0",
+    "rxjs": "^6.6.3",
     "terminus-core": "*",
     "terminus-settings": "*",
     "terminus-terminal": "*"

@@ -55,7 +55,7 @@ export class PluginsSettingsTabComponent {
     }
 
     openPluginsFolder (): void {
-        this.electron.shell.openItem(this.pluginManager.userPluginsPath)
+        this.electron.shell.openPath(this.pluginManager.userPluginsPath)
     }
 
     searchAvailable (query: string) {

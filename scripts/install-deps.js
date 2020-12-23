@@ -10,15 +10,17 @@ const npx = `${localBinPath}/npx`;
 log.info('deps', 'app')
 
 sh.cd('app')
-sh.exec(`${npx} yarn install`)
+sh.exec(`${npx} yarn install --force`)
 sh.cd('..')
 
 vars.builtinPlugins.forEach(plugin => {
   log.info('deps', plugin)
   sh.cd(plugin)
-  sh.exec(`${npx} yarn install`)
+  sh.exec(`${npx} yarn install --force`)
   sh.cd('..')
 })
+
+sh.cp('binding.gyp_hack', "app/node_modules/@terminus-term/node-pty/binding.gyp")
 
 if (['darwin', 'linux'].includes(process.platform)) {
   sh.cd('node_modules')

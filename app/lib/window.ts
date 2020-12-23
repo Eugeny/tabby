@@ -51,11 +51,12 @@ export class Window {
             height: 600,
             title: 'Terminus',
             minWidth: 400,
-            minHeight: 300,
+            minHeight: 300,   
             webPreferences: {
                 nodeIntegration: true,
                 preload: path.join(__dirname, 'sentry.js'),
                 backgroundThrottling: false,
+                enableRemoteModule: true,
             },
             frame: false,
             show: false,

@@ -11,11 +11,11 @@ jobs:
     - name: Installing Node
       uses: actions/setup-node@v1
       with:
-        node-version: 11
+        node-version: 15
 
     - name: Install deps
       run: |
-        sudo npm i -g yarn@1.19.1
+        sudo npm i -g yarn@1.22.1
         cd app
         yarn
         cd ..

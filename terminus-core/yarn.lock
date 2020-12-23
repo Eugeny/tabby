@@ -470,7 +470,15 @@ winston-transport@^4.4.0:
     readable-stream "^2.3.7"
     triple-beam "^1.2.0"
 
-winston@*, winston@^3.2.1:
+winston-transport@winstonjs/winston-transport:
+  version "4.4.0"
+  resolved "https://codeload.github.com/winstonjs/winston-transport/tar.gz/6a3bf79175288328d37c6cf4121d6b39eb68f19f"
+  dependencies:
+    logform "^2.2.0"
+    readable-stream "^3.4.0"
+    triple-beam "^1.2.0"
+
+winston@*, winston@^3.3.3:
   version "3.3.3"
   resolved "https://registry.yarnpkg.com/winston/-/winston-3.3.3.tgz#ae6172042cafb29786afa3d09c8ff833ab7c9170"
   integrity sha512-oEXTISQnC8VlSAKf1KYSSd7J6IWuRPQqDdo8eoRNaYKLvwSb5+79Z3Yi1lrl6KDpU6/VWaxpakDAtb1oQ4n9aw==

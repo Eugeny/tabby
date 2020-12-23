@@ -29,17 +29,19 @@
     "mixpanel": "^0.10.2",
     "ng2-dnd": "^5.0.2",
     "ngx-perfect-scrollbar": "^8.0.0",
+    "readable-stream": "^2.3.7",
     "shell-escape": "^0.2.0",
     "uuid": "^8.0.0",
-    "winston": "^3.2.1"
+    "winston": "^3.3.3",
+    "winston-transport": "winstonjs/winston-transport"
   },
   "peerDependencies": {
-    "@angular/animations": "^7",
-    "@angular/common": "^7",
-    "@angular/core": "^7",
-    "@angular/forms": "^7",
-    "@angular/platform-browser": "^7",
-    "@angular/platform-browser-dynamic": "^7",
-    "rxjs": "^5"
+    "@angular/animations": "^9.1.9",
+    "@angular/common": "^9.1.11",
+    "@angular/core": "^9.1.9",
+    "@angular/forms": "^9.1.11",
+    "@angular/platform-browser": "^9.1.11",
+    "@angular/platform-browser-dynamic": "^9.1.11",
+    "rxjs": "^6.6.3"
   }
 }
