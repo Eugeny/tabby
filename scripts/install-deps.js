@@ -20,8 +20,6 @@ vars.builtinPlugins.forEach(plugin => {
   sh.cd('..')
 })
 
-sh.cp('binding.gyp_hack', "app/node_modules/@terminus-term/node-pty/binding.gyp")
-
 if (['darwin', 'linux'].includes(process.platform)) {
   sh.cd('node_modules')
   for (let x of vars.builtinPlugins) {

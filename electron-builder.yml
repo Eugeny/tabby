@@ -25,7 +25,7 @@ nsis:
 mac:
   category: public.app-category.video
   icon: "./build/mac/icon.icns"
-  artifactName: terminus-${version}-macos.${ext}
+  artifactName: terminus-${version}-macos-${env.ARCH}.${ext}
   hardenedRuntime: true
   entitlements: "./build/mac/entitlements.plist"
   entitlementsInherit: "./build/mac/entitlements.plist"
@@ -39,9 +39,6 @@ mac:
     NSDownloadsFolderUsageDescription: "A subprocess requests access to the user's Downloads folder."
     NSNetworkVolumesUsageDescription: 'A subprocess requests access to files on a network volume.'
     NSRemovableVolumesUsageDescription: 'A subprocess requests access to files on a removable volume.'
-
-pkg:
-  artifactName: terminus-${version}-macos.pkg
 
 linux:
   category: Utilities

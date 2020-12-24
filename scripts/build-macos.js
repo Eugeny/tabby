@@ -9,6 +9,7 @@ const isTag = (process.env.GITHUB_REF || '').startsWith('refs/tags/')
 builder({
     dir: true,
     mac: ['pkg', 'zip'],
+    arm64: (process.env.ARCH ?? process.arch) === 'arm64',
     config: {
         extraMetadata: {
             version: vars.version,

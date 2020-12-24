@@ -1,3 +1,4 @@
+import type { Display } from 'electron'
 import { Injectable } from '@angular/core'
 import { ConfigService } from '../services/config.service'
 import { ElectronService } from '../services/electron.service'
@@ -11,8 +12,8 @@ export class DockingService {
         private config: ConfigService,
         private hostApp: HostAppService,
     ) {
-        electron.screen.on('display-removed', () => this.repositionWindow())
-        electron.screen.on('display-metrics-changed', () => this.repositionWindow())
+        hostApp.displaysChanged$.subscribe(() => this.repositionWindow())
+        hostApp.displayMetricsChanged$.subscribe(() => this.repositionWindow())
     }
 
     dock (): void {
@@ -61,11 +62,11 @@ export class DockingService {
         })
     }
 
-    getCurrentScreen (): Electron.Display {
+    getCurrentScreen (): Display {
         return this.electron.screen.getDisplayNearestPoint(this.electron.screen.getCursorScreenPoint())
     }
 
-    getScreens (): Electron.Display[] {
+    getScreens (): Display[] {
         const primaryDisplayID = this.electron.screen.getPrimaryDisplay().id
         return this.electron.screen.getAllDisplays().sort((a, b) =>
             a.bounds.x === b.bounds.x ? a.bounds.y - b.bounds.y : a.bounds.x - b.bounds.x
@@ -73,7 +74,7 @@ export class DockingService {
             return {
                 ...display,
                 id: display.id,
-                name: display.id === primaryDisplayID ? 'Primary Display' : `Display ${index +1}`,
+                name: display.id === primaryDisplayID ? 'Primary Display' : `Display ${index + 1}`,
             }
         })
     }

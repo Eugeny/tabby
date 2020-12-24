@@ -1,0 +1,4 @@
+owner: eugeny
+repo: terminus
+provider: github
+updaterCacheDirName: terminus-updater

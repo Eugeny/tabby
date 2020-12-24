@@ -1,6 +1,6 @@
 {
   "name": "terminus-ssh",
-  "version": "1.0.104-nightly.0",
+  "version": "1.0.123-nightly.0",
   "description": "SSH connection manager for Terminus",
   "keywords": [
     "terminus-builtin-plugin"

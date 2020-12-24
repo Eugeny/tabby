@@ -71,13 +71,9 @@ export class SettingsTabComponent extends BaseTabComponent {
         this.configSubscription = config.changed$.subscribe(onConfigChange)
         onConfigChange()
 
-        const onScreenChange = () => {
+        hostApp.displaysChanged$.subscribe(() => {
             this.zone.run(() => this.screens = this.docking.getScreens())
-        }
-
-        electron.screen.on('display-added', onScreenChange)
-        electron.screen.on('display-removed', onScreenChange)
-        electron.screen.on('display-metrics-changed', onScreenChange)
+        })
 
         hotkeys.getHotkeyDescriptions().then(descriptions => {
             this.hotkeyDescriptions = descriptions

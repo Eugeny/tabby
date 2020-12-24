@@ -1,3 +1,4 @@
+import type { BrowserWindow, TouchBar, MenuItemConstructorOptions } from 'electron'
 import * as path from 'path'
 import shellEscape from 'shell-escape'
 import { Observable, Subject } from 'rxjs'
@@ -42,6 +43,7 @@ export class HostAppService {
     private windowMoved = new Subject<void>()
     private windowFocused = new Subject<void>()
     private displayMetricsChanged = new Subject<void>()
+    private displaysChanged = new Subject<void>()
     private logger: Logger
     private windowId: number
 
@@ -90,6 +92,8 @@ export class HostAppService {
     get windowFocused$ (): Observable<void> { return this.windowFocused }
 
     get displayMetricsChanged$ (): Observable<void> { return this.displayMetricsChanged }
+
+    get displaysChanged$ (): Observable<void> { return this.displaysChanged }
 
     private constructor (
         private zone: NgZone,
@@ -140,6 +144,10 @@ export class HostAppService {
             this.zone.run(() => this.displayMetricsChanged.next())
         })
 
+        electron.ipcRenderer.on('host:displays-changed', () => {
+            this.zone.run(() => this.displaysChanged.next())
+        })
+
         electron.ipcRenderer.on('host:second-instance', (_$event, argv: any, cwd: string) => this.zone.run(() => {
             this.logger.info('Second instance', argv)
             const op = argv._[0]
@@ -177,8 +185,8 @@ export class HostAppService {
     /**
      * Returns the current remote [[BrowserWindow]]
      */
-    getWindow (): Electron.BrowserWindow {
-        return this.electron.BrowserWindow.fromId(this.windowId)
+    getWindow (): BrowserWindow {
+        return this.electron.BrowserWindow.fromId(this.windowId)!
     }
 
     newWindow (): void {
@@ -239,11 +247,11 @@ export class HostAppService {
         this.electron.ipcRenderer.send('window-set-title', title)
     }
 
-    setTouchBar (touchBar: Electron.TouchBar): void {
+    setTouchBar (touchBar: TouchBar): void {
         this.getWindow().setTouchBar(touchBar)
     }
 
-    popupContextMenu (menuDefinition: Electron.MenuItemConstructorOptions[]): void {
+    popupContextMenu (menuDefinition: MenuItemConstructorOptions[]): void {
         this.electron.Menu.buildFromTemplate(menuDefinition).popup({})
     }
 

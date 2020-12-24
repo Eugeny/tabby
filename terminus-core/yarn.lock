@@ -349,7 +349,7 @@ process-nextick-args@~2.0.0:
   resolved "https://registry.yarnpkg.com/process-nextick-args/-/process-nextick-args-2.0.1.tgz#7820d9b16120cc55ca9ae7792680ae7dba6d7fe2"
   integrity sha512-3ouUOpQhtgrbOa17J7+uxOTpITYWaGP7/AhoR3+A+/1e9skrzelGi/dXzEYyvbxubEF6Wn2ypscTKiKJFFn1ag==
 
-readable-stream@^2.3.7:
+readable-stream@2.3.7, readable-stream@^2.3.7:
   version "2.3.7"
   resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-2.3.7.tgz#1eca1cf711aef814c04f62252a36a62f6cb23b57"
   integrity sha512-Ebho8K4jIbHAxnuxi7o42OrZgF/ZTNcsZj6nRKyUmkhLFq8CHItp/fy6hQZuZmP/n3yZ9VBUbp4zz/mX8hmYPw==
@@ -468,14 +468,6 @@ winston-transport@^4.4.0:
   integrity sha512-Lc7/p3GtqtqPBYYtS6KCN3c77/2QCev51DvcJKbkFPQNoj1sinkGwLGFDxkXY9J6p9+EPnYs+D90uwbnaiURTw==
   dependencies:
     readable-stream "^2.3.7"
-    triple-beam "^1.2.0"
-
-winston-transport@winstonjs/winston-transport:
-  version "4.4.0"
-  resolved "https://codeload.github.com/winstonjs/winston-transport/tar.gz/6a3bf79175288328d37c6cf4121d6b39eb68f19f"
-  dependencies:
-    logform "^2.2.0"
-    readable-stream "^3.4.0"
     triple-beam "^1.2.0"
 
 winston@*, winston@^3.3.3:

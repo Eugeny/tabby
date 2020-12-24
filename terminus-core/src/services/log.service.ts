@@ -28,7 +28,7 @@ const initializeWinston = (electron: ElectronService) => {
 
 export class Logger {
     constructor (
-        private winstonLogger: any,
+        private winstonLogger: winston.Logger,
         private name: string,
     ) {}
 
@@ -62,7 +62,7 @@ export class Logger {
 
 @Injectable({ providedIn: 'root' })
 export class LogService {
-    private log: any
+    private log: winston.Logger
 
     /** @hidden */
     private constructor (electron: ElectronService) {

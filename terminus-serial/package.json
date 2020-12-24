@@ -1,6 +1,6 @@
 {
   "name": "terminus-serial",
-  "version": "1.0.104-nightly.0",
+  "version": "1.0.123-nightly.0",
   "description": "Serial connection manager for Terminus",
   "keywords": [
     "terminus-builtin-plugin"
@@ -15,7 +15,7 @@
     "dist"
   ],
   "author": "Eugene Pankov",
-  "license": "MIT", 
+  "license": "MIT",
   "devDependencies": {
     "@types/node": "14.14.14",
     "@types/ssh2": "^0.5.35",

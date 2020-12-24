@@ -14,7 +14,7 @@ import { Subscription } from 'rxjs'
 /** @hidden */
 @Component({
     selector: 'ssh-tab',
-    template: BaseTerminalTabComponent.template + require<string>('./sshTab.component.pug'),
+    template: BaseTerminalTabComponent.template + (require('./sshTab.component.pug') as string),
     styles: [require('./sshTab.component.scss'), ...BaseTerminalTabComponent.styles],
     animations: BaseTerminalTabComponent.animations,
 })
@@ -91,7 +91,7 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
 
 
         session.serviceMessage$.subscribe(msg => {
-            this.write('\r\n' + colors.black.bgWhite(' SSH ') + ' ' + msg + '\r\n')
+            this.write(`\r\n${colors.black.bgWhite(' SSH ')} ${msg}\r\n`)
             session.resize(this.size.columns, this.size.rows)
         })
 

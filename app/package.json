@@ -21,8 +21,7 @@
     "@angular/platform-browser": "^9.1.9",
     "@angular/platform-browser-dynamic": "^9.1.9",
     "@ng-bootstrap/ng-bootstrap": "^6.1.0",
-    "@terminus-term/node-pty": "0.10.0-beta9",
-    "devtron": "1.4.0",
+    "@terminus-term/node-pty": "0.10.0-beta10",
     "electron-config": "2.0.0",
     "electron-debug": "^3.0.1",
     "electron-is-dev": "1.1.0",
@@ -30,18 +29,12 @@
     "glasstron": "AryToNeX/Glasstron#dependabot/npm_and_yarn/electron-11.1.0",
     "js-yaml": "3.14.0",
     "keytar": "^7.2.0",
-    "macos-native-processlist": "^2.0.0",
     "mz": "^2.7.0",
     "ngx-toastr": "^12.0.1",
-    "node-gyp": "^7.1.2",
     "npm": "7.0.15",
     "path": "0.12.7",
     "rxjs": "^6.5.5",
     "rxjs-compat": "^6.6.0",
-    "serialport": "^9.0.4",
-    "windows-blurbehind": "^1.0.1",
-    "windows-native-registry": "^3.0.0",
-    "windows-process-tree": "^0.2.4",
     "yargs": "^15.4.1",
     "zone.js": "^0.11.3"
   },
@@ -55,15 +48,15 @@
   "devDependencies": {
     "@types/mz": "0.0.32",
     "@types/node": "14.14.14",
-    "node-abi": "github:lgeiger/node-abi"
+    "node-abi": "2.19.3"
   },
   "peerDependencies": {
-    "terminus-core": "*",
-    "terminus-settings": "*",
-    "terminus-serial": "*",
-    "terminus-plugin-manager": "*",
     "terminus-community-color-schemes": "*",
+    "terminus-core": "*",
+    "terminus-plugin-manager": "*",
+    "terminus-serial": "*",
+    "terminus-settings": "*",
     "terminus-ssh": "*",
     "terminus-terminal": "*"
-  } 
+  }
 }

@@ -1,6 +1,6 @@
 {
   "name": "terminus-plugin-manager",
-  "version": "1.0.104-nightly.0",
+  "version": "1.0.123-nightly.0",
   "description": "Terminus' plugin manager",
   "keywords": [
     "terminus-builtin-plugin"
@@ -15,17 +15,17 @@
     "dist"
   ],
   "author": "Eugene Pankov",
-  "license": "MIT", 
+  "license": "MIT",
   "devDependencies": {
     "@types/semver": "^7.1.0",
     "axios": "^0.19.0",
     "mz": "^2.6.0",
     "semver": "^7.1.1"
   },
-  "peerDependencies": {    
+  "peerDependencies": {
     "@angular/common": "^9.1.11",
     "@angular/core": "^9.1.9",
-    "@angular/forms": "^9.1.11",    
+    "@angular/forms": "^9.1.11",
     "@angular/platform-browser": "^9.1.11",
     "@ng-bootstrap/ng-bootstrap": "^6.1.0",
     "rxjs": "^6.5.5",

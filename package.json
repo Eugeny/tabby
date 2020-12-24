@@ -9,8 +9,8 @@
     "@types/js-yaml": "^3.12.5",
     "@types/node": "14.14.14",
     "@types/webpack-env": "^1.16.0",
-    "@typescript-eslint/eslint-plugin": "^4.1.0",
-    "@typescript-eslint/parser": "^4.1.0",
+    "@typescript-eslint/eslint-plugin": "^4.11.0",
+    "@typescript-eslint/parser": "^4.11.0",
     "apply-loader": "2.0.0",
     "awesome-typescript-loader": "^5.2.1",
     "core-js": "^3.8.1",
@@ -22,13 +22,13 @@
     "electron-installer-snap": "^5.1.0",
     "electron-notarize": "^1.0.0",
     "electron-rebuild": "^2.3.4",
-    "eslint": "^7.16.0",
-    "eslint-plugin-import": "^2.22.1",
+    "eslint": "^7.6.0",
+    "eslint-plugin-import": "^2.21.1",
     "file-loader": "^5.1.0",
     "graceful-fs": "^4.2.4",
     "html-loader": "0.5.5",
     "json-loader": "0.5.7",
-    "node-abi": "lgeiger/node-abi#d7a3f00c93cb16b5f4fbb3ae8c106e798cc52042",
+    "node-abi": "^2.19.3",
     "node-gyp": "^7.1.2",
     "node-sass": "^5.0.0",
     "npmlog": "4.1.2",
@@ -39,7 +39,6 @@
     "pug-loader": "^2.4.0",
     "pug-static-loader": "2.0.0",
     "raw-loader": "4.0.1",
-    "run-script-os": "^1.1.3",
     "sass-loader": "^10.1.0",
     "shelljs": "0.8.4",
     "source-code-pro": "^2.30.2",
@@ -55,8 +54,6 @@
     "val-loader": "2.1.1",
     "webpack": "^5.11.0",
     "webpack-cli": "^4.2.0",
-    "winston": "^3.3.3",
-    "winston-transport": "winstonjs/winston-transport",
     "yaml-loader": "0.6.0"
   },
   "resolutions": {
@@ -76,10 +73,5 @@
   },
   "repository": "eugeny/terminus",
   "author": "Eugene Pankov",
-  "license": "MIT",
-  "dependencies": {
-    "ssh2-streams": "^0.4.10",
-    "winston": "^3.3.3",
-    "yarn": "^1.22.10"
-  }
+  "license": "MIT"
 }

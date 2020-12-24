@@ -1,5 +1,5 @@
+import { NativeImage, SegmentedControlSegment, TouchBarSegmentedControl } from 'electron'
 import { Injectable, Inject, NgZone } from '@angular/core'
-import { TouchBarSegmentedControl, SegmentedControlSegment } from 'electron'
 import { AppService } from './app.service'
 import { ConfigService } from './config.service'
 import { ElectronService } from './electron.service'
@@ -12,7 +12,7 @@ export class TouchbarService {
     private tabsSegmentedControl: TouchBarSegmentedControl
     private buttonsSegmentedControl: TouchBarSegmentedControl
     private tabSegments: SegmentedControlSegment[] = []
-    private nsImageCache: {[id: string]: Electron.NativeImage} = {}
+    private nsImageCache: {[id: string]: NativeImage} = {}
 
     private constructor (
         private app: AppService,
@@ -100,7 +100,7 @@ export class TouchbarService {
         this.hostApp.setTouchBar(touchBar)
     }
 
-    private getButton (button: ToolbarButton): Electron.SegmentedControlSegment {
+    private getButton (button: ToolbarButton): SegmentedControlSegment {
         return {
             label: button.touchBarNSImage ? undefined : this.shortenTitle(button.touchBarTitle || button.title),
             icon: button.touchBarNSImage ? this.getCachedNSImage(button.touchBarNSImage) : undefined,

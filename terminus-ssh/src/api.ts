@@ -18,7 +18,7 @@ export enum SSHAlgorithmType {
     HMAC = 'hmac',
     KEX = 'kex',
     CIPHER = 'cipher',
-    HOSTKEY = 'serverHostKey'
+    HOSTKEY = 'serverHostKey',
 }
 
 export interface SSHConnection {
@@ -45,7 +45,7 @@ export interface SSHConnection {
 }
 
 export enum PortForwardType {
-    Local, Remote, Dynamic
+    Local, Remote, Dynamic,
 }
 
 export class ForwardedPort {
@@ -230,11 +230,11 @@ export class SSHSession extends BaseSession {
 
         this.ssh.on('x11', (details, accept, reject) => {
             this.logger.info(`Incoming X11 connection from ${details.srcIP}:${details.srcPort}`)
-            let displaySpec = process.env.DISPLAY || ':0'
+            const displaySpec = process.env.DISPLAY || ':0'
             this.logger.debug(`Trying display ${displaySpec}`)
-            let xHost = displaySpec.split(':')[0]
-            let xDisplay = parseInt(displaySpec.split(':')[1].split('.')[0] || '0')
-            let xPort = xDisplay < 100 ? xDisplay + 6000 : xDisplay
+            const xHost = displaySpec.split(':')[0]
+            const xDisplay = parseInt(displaySpec.split(':')[1].split('.')[0] || '0')
+            const xPort = xDisplay < 100 ? xDisplay + 6000 : xDisplay
 
             const socket = displaySpec.startsWith('/') ? createConnection(displaySpec) : new Socket()
             if (!displaySpec.startsWith('/')) {

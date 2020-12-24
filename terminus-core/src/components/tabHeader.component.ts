@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import type { MenuItemConstructorOptions } from 'electron'
 import { Component, Input, Optional, Inject, HostBinding, HostListener, ViewChild, ElementRef } from '@angular/core'
 import { SortableComponent } from 'ng2-dnd'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
@@ -13,7 +14,7 @@ import { ConfigService } from '../services/config.service'
 
 /** @hidden */
 export interface SortableComponentProxy {
-    setDragHandle (_: HTMLElement)
+    setDragHandle: (_: HTMLElement) => void
 }
 
 /** @hidden */
@@ -71,8 +72,8 @@ export class TabHeaderComponent {
         }).catch(() => null)
     }
 
-    async buildContextMenu (): Promise<Electron.MenuItemConstructorOptions[]> {
-        let items: Electron.MenuItemConstructorOptions[] = []
+    async buildContextMenu (): Promise<MenuItemConstructorOptions[]> {
+        let items: MenuItemConstructorOptions[] = []
         for (const section of await Promise.all(this.contextMenuProviders.map(x => x.getItems(this.tab, this)))) {
             items.push({ type: 'separator' })
             items = items.concat(section)

@@ -1,3 +1,4 @@
+import type { MenuItemConstructorOptions } from 'electron'
 import { Observable, Subject, Subscription } from 'rxjs'
 import { first } from 'rxjs/operators'
 import { ToastrService } from 'ngx-toastr'
@@ -16,14 +17,14 @@ import { TerminalDecorator } from './decorator'
 
 /** @hidden */
 export interface ToastrServiceProxy {
-    info (_: string)
+    info: (_: string) => void
 }
 /**
  * A class to base your custom terminal tabs on
  */
 export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit, OnDestroy {
-    static template = require<string>('../components/baseTerminalTab.component.pug')
-    static styles = [require<string>('../components/terminalTab.component.scss')]
+    static template: string = require<string>('../components/baseTerminalTab.component.pug')
+    static styles: string[] = [require<string>('../components/terminalTab.component.scss')]
     static animations: AnimationTriggerMetadata[] = [trigger('slideInOut', [
         transition(':enter', [
             style({ transform: 'translateY(-25%)' }),
@@ -277,8 +278,8 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
         })
     }
 
-    async buildContextMenu (): Promise<Electron.MenuItemConstructorOptions[]> {
-        let items: Electron.MenuItemConstructorOptions[] = []
+    async buildContextMenu (): Promise<MenuItemConstructorOptions[]> {
+        let items: MenuItemConstructorOptions[] = []
         for (const section of await Promise.all(this.contextMenuProviders.map(x => x.getItems(this)))) {
             items = items.concat(section)
             items.push({ type: 'separator' })
@@ -435,7 +436,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
 
     async destroy (): Promise<void> {
         super.destroy()
-        if (this.session && this.session.open) {
+        if (this.session?.open) {
             await this.session.destroy()
         }
     }
@@ -512,7 +513,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
                 this.logger.debug(`Resizing to ${columns}x${rows}`)
                 this.size = { columns, rows }
                 this.zone.run(() => {
-                    if (this.session && this.session.open) {
+                    if (this.session?.open) {
                         this.session.resize(columns, rows)
                     }
                 })

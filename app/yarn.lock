@@ -266,12 +266,12 @@
   dependencies:
     debug "^4.1.1"
 
-"@terminus-term/node-pty@0.10.0-beta9":
-  version "0.10.0-beta9"
-  resolved "https://registry.npmjs.org/@terminus-term/node-pty/-/node-pty-0.10.0-beta9.tgz"
-  integrity sha512-wnttx12b9gxP9CPB9uqBMQx/Vp4EboUDGOY3xRP0Nvhec6pSF2qFZD6bwMbNzFIopbaohluEYcbEul0jTQcdeQ==
+"@terminus-term/node-pty@0.10.0-beta10":
+  version "0.10.0-beta10"
+  resolved "https://registry.yarnpkg.com/@terminus-term/node-pty/-/node-pty-0.10.0-beta10.tgz#de9dade3d7549d44b0906ec0d0b9e1bb411f1f21"
+  integrity sha512-j9RJk7sD/es4vR6+AR5M/p3SicVxY6kZEeE0UQKhHNcaAla90/mcGeBNicAWPaAkjO1uQZVbYh5cJMMu5unQgA==
   dependencies:
-    nan "^2.13.2"
+    nan "^2.14.0"
 
 "@tootallnate/once@1":
   version "1.1.2"
@@ -294,11 +294,6 @@ abbrev@1, abbrev@~1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/abbrev/-/abbrev-1.1.1.tgz"
   integrity sha512-nne9/IiQ/hzIhY6pdDnbBtz7DjPTKrY00P/zvPSm5pOFkl6xuGrGnXn/VtTNNfNtAfZ9/1RtehkszU9qcTii0Q==
-
-accessibility-developer-tools@^2.11.0:
-  version "2.12.0"
-  resolved "https://registry.npmjs.org/accessibility-developer-tools/-/accessibility-developer-tools-2.12.0.tgz"
-  integrity sha1-PaDM6dbsY3OWS4TzXbfPw996tRQ=
 
 agent-base@6:
   version "6.0.2"
@@ -738,15 +733,6 @@ detect-libc@^1.0.3:
   resolved "https://registry.npmjs.org/detect-libc/-/detect-libc-1.0.3.tgz"
   integrity sha1-+hN8S9aY7fVc1c0CrFWfkaTEups=
 
-devtron@1.4.0:
-  version "1.4.0"
-  resolved "https://registry.npmjs.org/devtron/-/devtron-1.4.0.tgz"
-  integrity sha1-tedIvW6Vu+cL/MaKrm/mlhGUQeE=
-  dependencies:
-    accessibility-developer-tools "^2.11.0"
-    highlight.js "^9.3.0"
-    humanize-plus "^1.8.1"
-
 dezalgo@^1.0.0:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/dezalgo/-/dezalgo-1.0.3.tgz"
@@ -1022,11 +1008,6 @@ has@^1.0.3:
   dependencies:
     function-bind "^1.1.1"
 
-highlight.js@^9.3.0:
-  version "9.18.5"
-  resolved "https://registry.npmjs.org/highlight.js/-/highlight.js-9.18.5.tgz"
-  integrity sha512-a5bFyofd/BHCX52/8i8uJkjr9DYwXIPnM/plwI6W7ezItLGqzt7X2G2nXuYSfsIJdkwwj/g9DG1LkcGJI/dDoA==
-
 hosted-git-info@^3.0.6:
   version "3.0.7"
   resolved "https://registry.yarnpkg.com/hosted-git-info/-/hosted-git-info-3.0.7.tgz"
@@ -1071,11 +1052,6 @@ humanize-ms@^1.2.1:
   integrity sha1-xG4xWaKT9riW2ikxbYtv6Lt5u+0=
   dependencies:
     ms "^2.0.0"
-
-humanize-plus@^1.8.1:
-  version "1.8.2"
-  resolved "https://registry.npmjs.org/humanize-plus/-/humanize-plus-1.8.2.tgz"
-  integrity sha1-pls0RZrWNnrbs3B6gqPJ+RYWcDA=
 
 iconv-lite@^0.6.2:
   version "0.6.2"
@@ -1585,9 +1561,9 @@ mz@^2.7.0:
     object-assign "^4.0.1"
     thenify-all "^1.0.0"
 
-nan@^2.13.2, nan@^2.14.2:
+nan@^2.13.2, nan@^2.14.0, nan@^2.14.2:
   version "2.14.2"
-  resolved "https://registry.npmjs.org/nan/-/nan-2.14.2.tgz"
+  resolved "https://registry.yarnpkg.com/nan/-/nan-2.14.2.tgz#f5376400695168f4cc694ac9393d0c9585eeea19"
   integrity sha512-M2ufzIiINKCuDfBSAUr1vWQ+vuVcA9kqx8JJUsbQi6yf1uGRyb7HfpdfUr5qLXf3B/t8dPvcjhKMmlfnP47EzQ==
 
 napi-build-utils@^1.0.1:
@@ -1602,16 +1578,10 @@ ngx-toastr@^12.0.1:
   dependencies:
     tslib "^1.10.0"
 
-node-abi@^2.7.0:
+node-abi@2.19.3, node-abi@^2.7.0:
   version "2.19.3"
   resolved "https://registry.npmjs.org/node-abi/-/node-abi-2.19.3.tgz"
   integrity sha512-9xZrlyfvKhWme2EXFKQhZRp1yNWT/uI1luYPr3sFl+H4keYY4xR+1jO7mvTTijIsHf1M+QDe9uWuKeEpLInIlg==
-  dependencies:
-    semver "^5.4.1"
-
-"node-abi@github:lgeiger/node-abi":
-  version "0.0.0-development"
-  resolved "https://codeload.github.com/lgeiger/node-abi/tar.gz/d7a3f00c93cb16b5f4fbb3ae8c106e798cc52042"
   dependencies:
     semver "^5.4.1"
 
