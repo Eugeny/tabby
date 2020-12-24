@@ -5121,13 +5121,7 @@ no-case@^2.2.0:
   dependencies:
     lower-case "^1.1.1"
 
-node-abi@^2.19.2, node-abi@lgeiger/node-abi:
-  version "0.0.0-development"
-  resolved "https://codeload.github.com/lgeiger/node-abi/tar.gz/d7a3f00c93cb16b5f4fbb3ae8c106e798cc52042"
-  dependencies:
-    semver "^5.4.1"
-
-node-abi@^2.19.3:
+node-abi@^2.19.2, node-abi@^2.19.3:
   version "2.19.3"
   resolved "https://registry.yarnpkg.com/node-abi/-/node-abi-2.19.3.tgz#252f5dcab12dad1b5503b2d27eddd4733930282d"
   integrity sha512-9xZrlyfvKhWme2EXFKQhZRp1yNWT/uI1luYPr3sFl+H4keYY4xR+1jO7mvTTijIsHf1M+QDe9uWuKeEpLInIlg==

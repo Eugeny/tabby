@@ -20,8 +20,7 @@
     "@types/node": "14.14.14",
     "@types/ssh2": "^0.5.35",
     "ansi-colors": "^4.1.1",
-    "cli-spinner": "^0.2.10",
-    "electron-rebuild": "^2.3.4"
+    "cli-spinner": "^0.2.10"
   },
   "peerDependencies": {
     "@angular/animations": "^9.1.9",

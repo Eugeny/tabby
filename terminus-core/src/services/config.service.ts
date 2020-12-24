@@ -159,7 +159,7 @@ export class ConfigService {
         this._store = JSON.parse(JSON.stringify(this._store))
         fs.writeFileSync(this.path, yaml.safeDump(this._store), 'utf8')
         this.emitChange()
-        this.hostApp.broadcastConfigChange(this.store)
+        this.hostApp.broadcastConfigChange(JSON.parse(JSON.stringify(this.store)))
     }
 
     /**
