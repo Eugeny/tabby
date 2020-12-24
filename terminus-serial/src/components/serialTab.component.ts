@@ -11,7 +11,7 @@ import { Subscription } from 'rxjs'
 /** @hidden */
 @Component({
     selector: 'serial-tab',
-    template: BaseTerminalTabComponent.template + require<string>('./serialTab.component.pug'),
+    template: BaseTerminalTabComponent.template + (require('./serialTab.component.pug') as string),
     styles: [require('./serialTab.component.scss'), ...BaseTerminalTabComponent.styles],
     animations: BaseTerminalTabComponent.animations,
 })
@@ -64,7 +64,7 @@ export class SerialTabComponent extends BaseTerminalTabComponent {
 
         this.session = this.injector.get(SerialService).createSession(this.connection)
         this.session.serviceMessage$.subscribe(msg => {
-            this.write('\r\n' + colors.black.bgWhite(' serial ') + ' ' + msg + '\r\n')
+            this.write(`\r\n${colors.black.bgWhite(' serial ')} ${msg}\r\n`)
             this.session.resize(this.size.columns, this.size.rows)
         })
         this.attachSessionHandlers()

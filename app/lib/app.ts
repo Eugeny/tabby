@@ -1,6 +1,4 @@
-import { app, ipcMain, Menu, Tray, shell, globalShortcut } from 'electron'
-// eslint-disable-next-line no-duplicate-imports
-import * as electron from 'electron'
+import { app, ipcMain, Menu, Tray, shell, screen, globalShortcut, MenuItemConstructorOptions } from 'electron'
 import { loadConfig } from './config'
 import { Window, WindowOptions } from './window'
 
@@ -15,7 +13,7 @@ export class Application {
 
         ipcMain.on('app:register-global-hotkey', (_event, specs) => {
             globalShortcut.unregisterAll()
-            for (let spec of specs) {
+            for (const spec of specs) {
                 globalShortcut.register(spec, () => {
                     this.onGlobalHotkey()
                 })
@@ -41,11 +39,13 @@ export class Application {
     }
 
     init (): void {
-        electron.screen.on('display-metrics-changed', () => this.broadcast('host:display-metrics-changed'))
+        screen.on('display-metrics-changed', () => this.broadcast('host:display-metrics-changed'))
+        screen.on('display-added', () => this.broadcast('host:displays-changed'))
+        screen.on('display-removed', () => this.broadcast('host:displays-changed'))
     }
 
     async newWindow (options?: WindowOptions): Promise<Window> {
-        let window = new Window(options)
+        const window = new Window(options)
         this.windows.push(window)
         window.visible$.subscribe(visible => {
             if (visible) {
@@ -66,29 +66,29 @@ export class Application {
 
     onGlobalHotkey (): void {
         if (this.windows.some(x => x.isFocused())) {
-            for (let window of this.windows) {
+            for (const window of this.windows) {
                 window.hide()
             }
         } else {
-            for (let window of this.windows) {
+            for (const window of this.windows) {
                 window.present()
             }
         }
     }
 
     presentAllWindows (): void {
-        for (let window of this.windows) {
+        for (const window of this.windows) {
             window.present()
         }
     }
 
-    broadcast (event: string, ...args): void {
+    broadcast (event: string, ...args: any[]): void {
         for (const window of this.windows) {
             window.send(event, ...args)
         }
     }
 
-    async send (event: string, ...args): Promise<void> {
+    async send (event: string, ...args: any[]): Promise<void> {
         if (!this.hasWindows()) {
             await this.newWindow()
         }
@@ -132,7 +132,7 @@ export class Application {
     }
 
     focus (): void {
-        for (let window of this.windows) {
+        for (const window of this.windows) {
             window.show()
         }
     }
@@ -143,7 +143,7 @@ export class Application {
     }
 
     private setupMenu () {
-        let template: Electron.MenuItemConstructorOptions[] = [
+        const template: MenuItemConstructorOptions[] = [
             {
                 label: 'Application',
                 submenu: [

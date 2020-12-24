@@ -9,7 +9,7 @@ try {
 }
 
 if (null != appPath) {
-    if(fs.existsSync(path.join(appPath, 'terminus-data'))) {
+    if (fs.existsSync(path.join(appPath, 'terminus-data'))) {
         fs.renameSync(path.join(appPath, 'terminus-data'), path.join(appPath, 'data'))
     }
     const portableData = path.join(appPath, 'data')

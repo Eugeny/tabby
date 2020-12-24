@@ -8,7 +8,7 @@ export interface SessionOptions {
     command: string
     args: string[]
     cwd?: string
-    env?: {[id: string]: string}
+    env?: Record<string, string>
     width?: number
     height?: number
     pauseAfterExit?: boolean

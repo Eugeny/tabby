@@ -1,3 +1,4 @@
+import { MenuItemConstructorOptions } from 'electron'
 import { Injectable, NgZone, Optional, Inject } from '@angular/core'
 import { ToastrService } from 'ngx-toastr'
 import { ConfigService, BaseTabComponent, TabContextMenuItemProvider, TabHeaderComponent, SplitTabComponent } from 'terminus-core'
@@ -18,11 +19,11 @@ export class SaveAsProfileContextMenu extends TabContextMenuItemProvider {
         super()
     }
 
-    async getItems (tab: BaseTabComponent, _tabHeader?: TabHeaderComponent): Promise<Electron.MenuItemConstructorOptions[]> {
+    async getItems (tab: BaseTabComponent, _tabHeader?: TabHeaderComponent): Promise<MenuItemConstructorOptions[]> {
         if (!(tab instanceof TerminalTabComponent)) {
             return []
         }
-        const items: Electron.MenuItemConstructorOptions[] = [
+        const items: MenuItemConstructorOptions[] = [
             {
                 label: 'Save as profile',
                 click: () => this.zone.run(async () => {
@@ -61,10 +62,10 @@ export class NewTabContextMenu extends TabContextMenuItemProvider {
         super()
     }
 
-    async getItems (tab: BaseTabComponent, tabHeader?: TabHeaderComponent): Promise<Electron.MenuItemConstructorOptions[]> {
+    async getItems (tab: BaseTabComponent, tabHeader?: TabHeaderComponent): Promise<MenuItemConstructorOptions[]> {
         const profiles = await this.terminalService.getProfiles()
 
-        const items: Electron.MenuItemConstructorOptions[] = [
+        const items: MenuItemConstructorOptions[] = [
             {
                 label: 'New terminal',
                 click: () => this.zone.run(() => {
@@ -138,7 +139,7 @@ export class CopyPasteContextMenu extends TabContextMenuItemProvider {
         super()
     }
 
-    async getItems (tab: BaseTabComponent, tabHeader?: TabHeaderComponent): Promise<Electron.MenuItemConstructorOptions[]> {
+    async getItems (tab: BaseTabComponent, tabHeader?: TabHeaderComponent): Promise<MenuItemConstructorOptions[]> {
         if (tabHeader) {
             return []
         }
@@ -178,12 +179,12 @@ export class LegacyContextMenu extends TabContextMenuItemProvider {
         super()
     }
 
-    async getItems (tab: BaseTabComponent, _tabHeader?: TabHeaderComponent): Promise<Electron.MenuItemConstructorOptions[]> {
+    async getItems (tab: BaseTabComponent, _tabHeader?: TabHeaderComponent): Promise<MenuItemConstructorOptions[]> {
         if (!this.contextMenuProviders) {
             return []
         }
         if (tab instanceof BaseTerminalTabComponent) {
-            let items: Electron.MenuItemConstructorOptions[] = []
+            let items: MenuItemConstructorOptions[] = []
             for (const p of this.contextMenuProviders) {
                 items = items.concat(await p.getItems(tab))
             }

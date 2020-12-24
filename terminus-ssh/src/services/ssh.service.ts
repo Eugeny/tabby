@@ -87,7 +87,7 @@ export class SSHService {
                         try {
                             const result  = await modal.result
                             passphrase = result?.value
-                        } catch (e) { }
+                        } catch { }
                         parsedKey = sshpk.parsePrivateKey(
                             privateKey,
                             'auto',
@@ -269,7 +269,7 @@ export class SSHService {
                     sock: session.jumpStream,
                     authHandler: methodsLeft => {
                         while (true) {
-                            let method = authMethodsLeft.shift()
+                            const method = authMethodsLeft.shift()
                             if (!method) {
                                 return false
                             }
@@ -348,8 +348,8 @@ export class SSHService {
             })
         }
 
-        let groups: { name: string, connections: SSHConnection[] }[] = []
-        let connections = this.config.store.ssh.connections
+        const groups: { name: string, connections: SSHConnection[] }[] = []
+        const connections = this.config.store.ssh.connections
         for (const connection of connections) {
             connection.group = connection.group || null
             let group = groups.find(x => x.name === connection.group)

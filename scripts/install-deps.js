@@ -10,13 +10,13 @@ const npx = `${localBinPath}/npx`;
 log.info('deps', 'app')
 
 sh.cd('app')
-sh.exec(`${npx} yarn install`)
+sh.exec(`${npx} yarn install --force`)
 sh.cd('..')
 
 vars.builtinPlugins.forEach(plugin => {
   log.info('deps', plugin)
   sh.cd(plugin)
-  sh.exec(`${npx} yarn install`)
+  sh.exec(`${npx} yarn install --force`)
   sh.cd('..')
 })
 

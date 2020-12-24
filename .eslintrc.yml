@@ -37,6 +37,7 @@ rules:
   '@typescript-eslint/strict-boolean-expressions': off
   '@typescript-eslint/no-misused-promises': off
   '@typescript-eslint/typedef': off
+  '@typescript-eslint/consistent-type-imports': off
   '@typescript-eslint/no-use-before-define':
   - error
   - classes: false
@@ -53,7 +54,8 @@ rules:
   computed-property-spacing:
   - error
   - never
-  comma-dangle:
+  comma-dangle: off
+  '@typescript-eslint/comma-dangle':
   - error
   - always-multiline
   curly: error
@@ -104,3 +106,17 @@ rules:
   '@typescript-eslint/no-unsafe-call': off
   '@typescript-eslint/no-unsafe-return': off
   '@typescript-eslint/no-base-to-string': off # broken in typescript-eslint
+  '@typescript-eslint/no-unsafe-assignment': off
+  '@typescript-eslint/naming-convention': off
+  '@typescript-eslint/lines-between-class-members':
+  - error
+  - exceptAfterSingleLine: true
+  '@typescript-eslint/non-nullable-type-assertion-style': off
+  '@typescript-eslint/dot-notation': off
+  '@typescript-eslint/no-confusing-void-expression': off
+  '@typescript-eslint/prefer-enum-initializers': off
+  '@typescript-eslint/no-implicit-any-catch': off
+  '@typescript-eslint/member-ordering': off
+  '@typescript-eslint/consistent-indexed-object-style': off
+  '@typescript-eslint/no-var-requires': off
+  '@typescript-eslint/no-shadow': off

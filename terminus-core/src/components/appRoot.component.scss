@@ -92,6 +92,8 @@ $side-tab-width: 200px;
         color: #aaa;
         border: none;
         border-radius: 0;
+    
+        align-items: center;
 
         &.dropdown-toggle::after {
             display: none;

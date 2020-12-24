@@ -8,6 +8,7 @@ for (let dir of ['app', 'terminus-core', 'terminus-ssh', 'terminus-terminal']) {
     const build = rebuild({
         buildPath: path.resolve(__dirname, '../' + dir),
         electronVersion: vars.electronVersion,
+        arch: process.env.ARCH ?? process.arch,
         force: true,
     })
     build.catch(e => {

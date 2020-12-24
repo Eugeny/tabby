@@ -5,7 +5,7 @@ if (process.platform === 'win32' || process.platform === 'linux') {
 
 import { Subject, Observable } from 'rxjs'
 import { debounceTime } from 'rxjs/operators'
-import { BrowserWindow, app, ipcMain, Rectangle, Menu, screen } from 'electron'
+import { BrowserWindow, app, ipcMain, Rectangle, Menu, screen, BrowserWindowConstructorOptions } from 'electron'
 import ElectronConfig = require('electron-config')
 import * as os from 'os'
 import * as path from 'path'
@@ -13,7 +13,7 @@ import * as path from 'path'
 import { parseArgs } from './cli'
 import { loadConfig } from './config'
 
-let DwmEnableBlurBehindWindow: any
+let DwmEnableBlurBehindWindow: any = null
 if (process.platform === 'win32') {
     DwmEnableBlurBehindWindow = require('windows-blurbehind').DwmEnableBlurBehindWindow
 }
@@ -45,8 +45,8 @@ export class Window {
         this.windowConfig = new ElectronConfig({ name: 'window' })
         this.windowBounds = this.windowConfig.get('windowBoundaries')
 
-        let maximized = this.windowConfig.get('maximized')
-        let bwOptions: Electron.BrowserWindowConstructorOptions = {
+        const maximized = this.windowConfig.get('maximized')
+        const bwOptions: BrowserWindowConstructorOptions = {
             width: 800,
             height: 600,
             title: 'Terminus',
@@ -56,6 +56,7 @@ export class Window {
                 nodeIntegration: true,
                 preload: path.join(__dirname, 'sentry.js'),
                 backgroundThrottling: false,
+                enableRemoteModule: true,
             },
             frame: false,
             show: false,
@@ -138,7 +139,7 @@ export class Window {
             } else {
                 DwmEnableBlurBehindWindow(this.window, enabled)
             }
-        } else if (process.platform ==='linux') {
+        } else if (process.platform === 'linux') {
             glasstron.update(this.window, {
                 linux: { requestBlur: enabled },
             })
@@ -157,7 +158,7 @@ export class Window {
         this.window.focus()
     }
 
-    send (event: string, ...args): void {
+    send (event: string, ...args: any[]): void {
         if (!this.window) {
             return
         }
@@ -224,7 +225,7 @@ export class Window {
             this.visible.next(false)
         })
 
-        let moveSubscription = new Observable<void>(observer => {
+        const moveSubscription = new Observable<void>(observer => {
             this.window.on('move', () => observer.next())
         }).pipe(debounceTime(250)).subscribe(() => {
             this.send('host:window-moved')

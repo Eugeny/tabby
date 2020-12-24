@@ -1,6 +1,6 @@
 {
   "name": "terminus-community-color-schemes",
-  "version": "1.0.104-nightly.0",
+  "version": "1.0.123-nightly.0",
   "description": "Community color schemes for Terminus",
   "keywords": [
     "terminus-builtin-plugin"
@@ -17,7 +17,7 @@
   "author": "Eugene Pankov",
   "license": "MIT",
   "peerDependencies": {
-    "@angular/core": "^7",
+    "@angular/core": "^9.1.9",
     "terminus-core": "*",
     "terminus-terminal": "*"
   }

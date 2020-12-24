@@ -358,6 +358,7 @@ search-panel {
 .btn-secondary:not(:disabled):not(.disabled) {
     &.active, &:active {
         background: #191e23;
+        align-items: center;
     }
 }
 

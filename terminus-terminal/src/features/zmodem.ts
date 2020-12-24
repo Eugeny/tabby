@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import colors from 'ansi-colors'
 import * as ZModem from 'zmodem.js'
 import * as fs from 'fs'

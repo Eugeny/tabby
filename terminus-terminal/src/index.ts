@@ -171,7 +171,7 @@ export default class TerminalModule { // eslint-disable-line @typescript-eslint/
                 argv = argv.slice(1)
             }
 
-            if(require('yargs').parse(argv.slice(1))._[0] !== 'open'){
+            if (require('yargs').parse(argv.slice(1))._[0] !== 'open'){
                 app.ready$.subscribe(() => {
                     terminal.openTab()
                 })

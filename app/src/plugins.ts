@@ -83,7 +83,7 @@ const originalRequire = (global as any).require
     if (cachedBuiltinModules[query]) {
         return cachedBuiltinModules[query]
     }
-    return originalRequire.apply(this, arguments)
+    return originalRequire.apply(this, [query])
 }
 
 const originalModuleRequire = nodeModule.prototype.require

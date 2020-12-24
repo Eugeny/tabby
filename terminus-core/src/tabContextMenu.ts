@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import type { MenuItemConstructorOptions } from 'electron'
 import { Injectable, NgZone } from '@angular/core'
 import { Subscription } from 'rxjs'
 import { AppService } from './services/app.service'
@@ -19,8 +20,8 @@ export class TabManagementContextMenu extends TabContextMenuItemProvider {
         super()
     }
 
-    async getItems (tab: BaseTabComponent, tabHeader?: TabHeaderComponent): Promise<Electron.MenuItemConstructorOptions[]> {
-        let items: Electron.MenuItemConstructorOptions[] = [
+    async getItems (tab: BaseTabComponent, tabHeader?: TabHeaderComponent): Promise<MenuItemConstructorOptions[]> {
+        let items: MenuItemConstructorOptions[] = [
             {
                 label: 'Close',
                 click: () => this.zone.run(() => {
@@ -75,7 +76,7 @@ export class TabManagementContextMenu extends TabContextMenuItemProvider {
                         click: () => this.zone.run(() => {
                             (tab.parent as SplitTabComponent).splitTab(tab, dir)
                         }),
-                    })) as Electron.MenuItemConstructorOptions[],
+                    })) as MenuItemConstructorOptions[],
                 })
             }
         }
@@ -105,8 +106,8 @@ export class CommonOptionsContextMenu extends TabContextMenuItemProvider {
         super()
     }
 
-    async getItems (tab: BaseTabComponent, tabHeader?: TabHeaderComponent): Promise<Electron.MenuItemConstructorOptions[]> {
-        let items: Electron.MenuItemConstructorOptions[] = []
+    async getItems (tab: BaseTabComponent, tabHeader?: TabHeaderComponent): Promise<MenuItemConstructorOptions[]> {
+        let items: MenuItemConstructorOptions[] = []
         if (tabHeader) {
             items = [
                 ...items,
@@ -128,7 +129,7 @@ export class CommonOptionsContextMenu extends TabContextMenuItemProvider {
                         click: () => this.zone.run(() => {
                             tab.color = color.value
                         }),
-                    })) as Electron.MenuItemConstructorOptions[],
+                    })) as MenuItemConstructorOptions[],
                 },
             ]
         }
@@ -146,9 +147,9 @@ export class TaskCompletionContextMenu extends TabContextMenuItemProvider {
         super()
     }
 
-    async getItems (tab: BaseTabComponent): Promise<Electron.MenuItemConstructorOptions[]> {
+    async getItems (tab: BaseTabComponent): Promise<MenuItemConstructorOptions[]> {
         const process = await tab.getCurrentProcess()
-        let items: Electron.MenuItemConstructorOptions[] = []
+        const items: MenuItemConstructorOptions[] = []
 
         const extTab: (BaseTabComponent & { __completionNotificationEnabled?: boolean, __outputNotificationSubscription?: Subscription|null }) = tab
 

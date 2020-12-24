@@ -58,7 +58,7 @@ export class HomeBaseService {
 
     getAnalyticsProperties (): Record<string, string> {
         return {
-            distinct_id: window.localStorage.analyticsUserID, // eslint-disable-line @typescript-eslint/camelcase
+            distinct_id: window.localStorage.analyticsUserID,
             platform: process.platform,
             os: os.release(),
             version: this.appVersion,

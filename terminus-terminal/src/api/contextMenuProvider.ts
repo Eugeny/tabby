@@ -1,3 +1,4 @@
+import type { MenuItemConstructorOptions } from 'electron'
 import { BaseTerminalTabComponent } from './baseTerminalTab.component'
 
 /**
@@ -7,5 +8,5 @@ import { BaseTerminalTabComponent } from './baseTerminalTab.component'
 export abstract class TerminalContextMenuItemProvider {
     weight: number
 
-    abstract async getItems (tab: BaseTerminalTabComponent): Promise<Electron.MenuItemConstructorOptions[]>
+    abstract async getItems (tab: BaseTerminalTabComponent): Promise<MenuItemConstructorOptions[]>
 }

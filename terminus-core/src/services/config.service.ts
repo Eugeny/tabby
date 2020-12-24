@@ -97,7 +97,7 @@ export class ConfigService {
     private changed = new Subject<void>()
     private _store: any
     private defaults: any
-    private servicesCache: { [id: string]: Function[] }|null = null
+    private servicesCache: Record<string, Function[]>|null = null // eslint-disable-line @typescript-eslint/ban-types
 
     get changed$ (): Observable<void> { return this.changed }
 
@@ -159,7 +159,7 @@ export class ConfigService {
         this._store = JSON.parse(JSON.stringify(this._store))
         fs.writeFileSync(this.path, yaml.safeDump(this._store), 'utf8')
         this.emitChange()
-        this.hostApp.broadcastConfigChange(this.store)
+        this.hostApp.broadcastConfigChange(JSON.parse(JSON.stringify(this.store)))
     }
 
     /**
@@ -189,7 +189,7 @@ export class ConfigService {
      *
      * @typeparam T Base provider type
      */
-    enabledServices<T extends object> (services: T[]): T[] {
+    enabledServices<T extends object> (services: T[]): T[] { // eslint-disable-line @typescript-eslint/ban-types
         if (!this.servicesCache) {
             this.servicesCache = {}
             const ngModule = window['rootModule'].ɵinj

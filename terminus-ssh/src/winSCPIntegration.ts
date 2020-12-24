@@ -1,3 +1,4 @@
+import type { MenuItemConstructorOptions } from 'electron'
 import { execFile } from 'child_process'
 import { Injectable } from '@angular/core'
 import { ConfigService, BaseTabComponent, TabContextMenuItemProvider, TabHeaderComponent, HostAppService, Platform } from 'terminus-core'
@@ -36,7 +37,7 @@ export class WinSCPContextMenu extends TabContextMenuItemProvider {
         }
     }
 
-    async getItems (tab: BaseTabComponent, tabHeader?: TabHeaderComponent): Promise<Electron.MenuItemConstructorOptions[]> {
+    async getItems (tab: BaseTabComponent, tabHeader?: TabHeaderComponent): Promise<MenuItemConstructorOptions[]> {
         if (this.hostApp.platform !== Platform.Windows || tabHeader) {
             return []
         }
@@ -75,7 +76,7 @@ export class WinSCPContextMenu extends TabContextMenuItemProvider {
         if (!path) {
             return
         }
-        let args = [await this.getURI(connection)]
+        const args = [await this.getURI(connection)]
         if ((!connection.auth || connection.auth === 'publicKey') && connection.privateKey) {
             args.push('/privatekey')
             args.push(connection.privateKey)

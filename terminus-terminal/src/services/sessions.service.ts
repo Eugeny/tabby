@@ -267,7 +267,7 @@ export class Session extends BaseSession {
             return null
         }
         if (process.platform === 'darwin') {
-            let lines: string[]
+            let lines: string[] = []
             try {
                 lines = (await exec(`lsof -p ${this.truePID} -Fn`))[0].toString().split('\n')
             } catch (e) {
@@ -312,7 +312,7 @@ export class Session extends BaseSession {
     private processOSC1337 (data: Buffer) {
         if (data.includes(OSC1337Prefix)) {
             const preData = data.subarray(0, data.indexOf(OSC1337Prefix))
-            let params = data.subarray(data.indexOf(OSC1337Prefix) + OSC1337Prefix.length)
+            const params = data.subarray(data.indexOf(OSC1337Prefix) + OSC1337Prefix.length)
             const postData = params.subarray(params.indexOf(OSC1337Suffix) + OSC1337Suffix.length)
             const paramString = params.subarray(0, params.indexOf(OSC1337Suffix)).toString()
 

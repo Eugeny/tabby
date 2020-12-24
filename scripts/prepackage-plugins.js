@@ -15,10 +15,17 @@ vars.builtinPlugins.forEach(plugin => {
   sh.cp('-r', path.join('..', plugin), '.')
   sh.rm('-rf', path.join(plugin, 'node_modules'))
   sh.cd(plugin)
-  sh.exec(`npm install --only=prod`)
+  sh.exec(`yarn install --force --production`)
+
+
   log.info('rebuild', 'native')
   if (fs.existsSync('node_modules')) {
-    rebuild(path.resolve('.'), vars.electronVersion, process.arch, [], true)
+    rebuild({
+      buildPath: path.resolve('.'),
+      electronVersion: vars.electronVersion,
+      arch: process.env.ARCH ?? process.arch,
+      force: true,
+    })
   }
   sh.cd('..')
 })
