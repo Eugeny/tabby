@@ -337,10 +337,10 @@ tiny-inflate@^1.0.2:
   resolved "https://registry.yarnpkg.com/tiny-inflate/-/tiny-inflate-1.0.3.tgz#122715494913a1805166aaf7c93467933eea26c4"
   integrity sha512-pkY1fj1cKHb2seWDy0B16HeWyczlJA9/WW3u3c4z/NiWDsO3DOU5D7nhTLE9CF0yXv/QZFY7sEJmj24dK+Rrqw==
 
-xterm-addon-fit@^0.4.0-beta.8:
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/xterm-addon-fit/-/xterm-addon-fit-0.4.0.tgz#06e0c5d0a6aaacfb009ef565efa1c81e93d90193"
-  integrity sha512-p4BESuV/g2L6pZzFHpeNLLnep9mp/DkF3qrPglMiucSFtD8iJxtMufEoEJbN8LZwB4i+8PFpFvVuFrGOSpW05w==
+xterm-addon-fit@^0.5.0-beta.4:
+  version "0.5.0-beta.4"
+  resolved "https://registry.yarnpkg.com/xterm-addon-fit/-/xterm-addon-fit-0.5.0-beta.4.tgz#0ec2f4c88ccf24e6f7fb602ffd82769d2d6f5210"
+  integrity sha512-ATLo+/18nXz+pAZ/xPImeVeC1n23ptZmdWZ4D4agZ4FxPd/BcEJTsy4ZYM82Tx+09NHYKPVYNnzY6jq5E1He3w==
 
 xterm-addon-ligatures@^0.4.0-beta.5:
   version "0.4.0-beta.7"
