@@ -26,7 +26,7 @@
     "electron-debug": "^3.0.1",
     "electron-is-dev": "1.1.0",
     "fontmanager-redux": "1.0.0",
-    "glasstron": "AryToNeX/Glasstron#dependabot/npm_and_yarn/electron-11.1.0",
+    "glasstron": "0.0.5",
     "js-yaml": "3.14.0",
     "keytar": "^7.2.0",
     "mz": "^2.7.0",
