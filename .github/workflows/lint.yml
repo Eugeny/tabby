@@ -22,5 +22,8 @@ jobs:
         rm app/node_modules/.yarn-integrity
         yarn
 
+    - name: Build typings
+      run: yarn run build:typings
+
     - name: Lint
       run: yarn run lint
