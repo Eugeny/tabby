@@ -45,7 +45,9 @@ export interface SSHConnection {
 }
 
 export enum PortForwardType {
-    Local, Remote, Dynamic,
+    Local = 'Local',
+    Remote = 'Remote',
+    Dynamic = 'Dynamic',
 }
 
 export class ForwardedPort {

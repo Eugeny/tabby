@@ -7,7 +7,7 @@ import { Component, Input } from '@angular/core'
 import { ConfigService, ElectronService } from 'terminus-core'
 import { PluginInfo, PluginManagerService } from '../services/pluginManager.service'
 
-enum BusyState { Installing, Uninstalling }
+enum BusyState { Installing = 'Installing', Uninstalling = 'Uninstalling' }
 
 /** @hidden */
 @Component({

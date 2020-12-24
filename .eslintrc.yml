@@ -114,7 +114,6 @@ rules:
   '@typescript-eslint/non-nullable-type-assertion-style': off
   '@typescript-eslint/dot-notation': off
   '@typescript-eslint/no-confusing-void-expression': off
-  '@typescript-eslint/prefer-enum-initializers': off
   '@typescript-eslint/no-implicit-any-catch': off
   '@typescript-eslint/member-ordering': off
   '@typescript-eslint/no-var-requires': off
