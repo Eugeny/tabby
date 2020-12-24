@@ -30,7 +30,7 @@ jobs:
     - name: Build native deps
       run: scripts/build-native.js
       env:
-        ARCH: ${{arch}}
+        ARCH: ${{matrix.arch}}
 
     - name: Webpack
       run: yarn run build
@@ -38,7 +38,7 @@ jobs:
     - name: Prepackage plugins
       run: scripts/prepackage-plugins.js
       env:
-        ARCH: ${{arch}}
+        ARCH: ${{matrix.arch}}
 
     - run: sed -i '' 's/updateInfo = await/\/\/updateInfo = await/g' node_modules/app-builder-lib/out/targets/ArchiveTarget.js
 
@@ -46,7 +46,7 @@ jobs:
       run: scripts/build-macos.js
       if: github.repository == 'Eugeny/terminus' && github.event_name == 'push'
       env:
-        ARCH: ${{arch}}
+        ARCH: ${{matrix.arch}}
         GH_TOKEN: ${{ secrets.GH_TOKEN }}
         CSC_LINK: ${{ secrets.CSC_LINK }}
         CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
@@ -58,7 +58,7 @@ jobs:
       run: scripts/build-macos.js
       if: github.repository != 'Eugeny/terminus' || github.event_name != 'push'
       env:
-        ARCH: ${{arch}}
+        ARCH: ${{matrix.arch}}
         # DEBUG: electron-builder,electron-builder:*
 
     - name: Package artifacts
@@ -71,11 +71,11 @@ jobs:
     - uses: actions/upload-artifact@master
       name: Upload PKG
       with:
-        name: macOS .pkg (${{arch}})
+        name: macOS .pkg (${{matrix.arch}})
         path: artifact-pkg
 
     - uses: actions/upload-artifact@master
       name: Upload ZIP
       with:
-        name: macOS .zip (${{arch}})
+        name: macOS .zip (${{matrix.arch}})
         path: artifact-zip
