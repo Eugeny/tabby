@@ -14,7 +14,7 @@ import { PromptModalComponent } from './promptModal.component'
 export class SSHSettingsTabComponent {
     connections: SSHConnection[]
     childGroups: SSHConnectionGroup[]
-    groupCollapsed: {[id: string]: boolean} = {}
+    groupCollapsed: Record<string, boolean> = {}
 
     constructor (
         public config: ConfigService,

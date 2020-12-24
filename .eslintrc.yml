@@ -117,6 +117,5 @@ rules:
   '@typescript-eslint/prefer-enum-initializers': off
   '@typescript-eslint/no-implicit-any-catch': off
   '@typescript-eslint/member-ordering': off
-  '@typescript-eslint/consistent-indexed-object-style': off
   '@typescript-eslint/no-var-requires': off
   '@typescript-eslint/no-shadow': off

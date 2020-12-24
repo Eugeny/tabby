@@ -12,7 +12,7 @@ export class TouchbarService {
     private tabsSegmentedControl: TouchBarSegmentedControl
     private buttonsSegmentedControl: TouchBarSegmentedControl
     private tabSegments: SegmentedControlSegment[] = []
-    private nsImageCache: {[id: string]: NativeImage} = {}
+    private nsImageCache: Record<string, NativeImage> = {}
 
     private constructor (
         private app: AppService,

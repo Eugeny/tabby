@@ -41,7 +41,7 @@ export interface SSHConnection {
     jumpHost?: string
     agentForward?: boolean
     warnOnClose?: boolean
-    algorithms?: {[t: string]: string[]}
+    algorithms?: Record<string, string[]>
 }
 
 export enum PortForwardType {

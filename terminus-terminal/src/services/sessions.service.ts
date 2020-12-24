@@ -331,7 +331,7 @@ export class Session extends BaseSession {
 /** @hidden */
 @Injectable({ providedIn: 'root' })
 export class SessionsService {
-    sessions: {[id: string]: BaseSession} = {}
+    sessions: Record<string, BaseSession> = {}
     logger: Logger
     private lastID = 0
 

@@ -37,7 +37,7 @@ export interface Shell {
     name?: string
     command: string
     args?: string[]
-    env: {[id: string]: string}
+    env: Record<string, string>
 
     /**
      * Base path to which shell's internal FS is relative

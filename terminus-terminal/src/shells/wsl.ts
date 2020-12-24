@@ -16,7 +16,7 @@ try {
 // WSL Distribution List
 // https://docs.microsoft.com/en-us/windows/wsl/install-win10#install-your-linux-distribution-of-choice
 /* eslint-disable quote-props */
-const wslIconMap: { [key: string]: string } = {
+const wslIconMap: Record<string, string> = {
     'Alpine': require('../icons/alpine.svg'),
     'Debian': require('../icons/debian.svg'),
     'kali-linux': require('../icons/linux.svg'),

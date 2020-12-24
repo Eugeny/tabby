@@ -15,9 +15,9 @@ export class EditConnectionModalComponent {
     connection: SSHConnection
     hasSavedPassword: boolean
 
-    supportedAlgorithms: {[id: string]: string[]} = {}
-    defaultAlgorithms: {[id: string]: string[]} = {}
-    algorithms: {[id: string]: {[a: string]: boolean}} = {}
+    supportedAlgorithms: Record<string, string> = {}
+    defaultAlgorithms: Record<string, string> = {}
+    algorithms: Record<string, Record<string, boolean>> = {}
 
     constructor (
         public config: ConfigService,
