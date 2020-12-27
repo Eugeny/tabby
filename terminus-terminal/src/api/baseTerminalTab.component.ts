@@ -319,7 +319,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
     }
 
     async paste (): Promise<void> {
-        let data = this.electron.clipboard.readText() as string
+        let data = this.electron.clipboard.readText()
         if (this.config.store.terminal.bracketedPaste) {
             data = '\x1b[200~' + data + '\x1b[201~'
         }

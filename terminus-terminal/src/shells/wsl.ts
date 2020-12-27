@@ -72,7 +72,7 @@ export class WSLShellProvider extends ShellProvider {
                 return [{
                     id: 'wsl',
                     name: 'WSL / Bash on Windows',
-                    icon: wslIconMap['Linux'],
+                    icon: wslIconMap.Linux,
                     command: bashPath,
                     env: {
                         TERM: 'xterm-color',

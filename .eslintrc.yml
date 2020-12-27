@@ -111,7 +111,6 @@ rules:
   '@typescript-eslint/lines-between-class-members':
   - error
   - exceptAfterSingleLine: true
-  '@typescript-eslint/non-nullable-type-assertion-style': off
   '@typescript-eslint/dot-notation': off
   '@typescript-eslint/no-confusing-void-expression': off
   '@typescript-eslint/no-implicit-any-catch': off

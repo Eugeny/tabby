@@ -107,7 +107,7 @@ export class NewTabContextMenu extends TabContextMenuItemProvider {
                 label: 'Duplicate as administrator',
                 click: () => this.zone.run(async () => {
                     this.terminalService.openTabWithOptions({
-                        ...(tab as TerminalTabComponent).sessionOptions,
+                        ...tab.sessionOptions,
                         runAsAdministrator: true,
                     })
                 }),
@@ -150,7 +150,7 @@ export class CopyPasteContextMenu extends TabContextMenuItemProvider {
                     click: (): void => {
                         this.zone.run(() => {
                             setTimeout(() => {
-                                (tab as BaseTerminalTabComponent).frontend.copySelection()
+                                tab.frontend.copySelection()
                                 this.toastr.info('Copied')
                             })
                         })
@@ -159,7 +159,7 @@ export class CopyPasteContextMenu extends TabContextMenuItemProvider {
                 {
                     label: 'Paste',
                     click: (): void => {
-                        this.zone.run(() => (tab as BaseTerminalTabComponent).paste())
+                        this.zone.run(() => tab.paste())
                     },
                 },
             ]

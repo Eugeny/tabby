@@ -44,7 +44,7 @@ export class ShellIntegrationService {
                 'extras',
                 'automator-workflows',
             )
-            this.automatorWorkflowsDestination = path.join(process.env.HOME as string, 'Library', 'Services')
+            this.automatorWorkflowsDestination = path.join(process.env.HOME!, 'Library', 'Services')
         }
         this.updatePaths()
     }

@@ -11,8 +11,8 @@ export class RecoveryProvider extends TabRecoveryProvider {
             return {
                 type: TerminalTabComponent,
                 options: {
-                    sessionOptions: recoveryToken['sessionOptions'],
-                    savedState: recoveryToken['savedState'],
+                    sessionOptions: recoveryToken.sessionOptions,
+                    savedState: recoveryToken.savedState,
                 },
             }
         }

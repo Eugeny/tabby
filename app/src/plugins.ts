@@ -173,8 +173,8 @@ export async function loadPlugins (foundPlugins: PluginInfo[], progress: Progres
             console.time(label)
             const packageModule = nodeRequire(foundPlugin.path)
             const pluginModule = packageModule.default.forRoot ? packageModule.default.forRoot() : packageModule.default
-            pluginModule['pluginName'] = foundPlugin.name
-            pluginModule['bootstrap'] = packageModule.bootstrap
+            pluginModule.pluginName = foundPlugin.name
+            pluginModule.bootstrap = packageModule.bootstrap
             plugins.push(pluginModule)
             console.timeEnd(label)
             await new Promise(x => setTimeout(x, 50))

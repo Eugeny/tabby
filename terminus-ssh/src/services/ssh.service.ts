@@ -57,7 +57,7 @@ export class SSHService {
         let privateKeyPath = session.connection.privateKey
 
         if (!privateKeyPath) {
-            const userKeyPath = path.join(process.env.HOME as string, '.ssh', 'id_rsa')
+            const userKeyPath = path.join(process.env.HOME!, '.ssh', 'id_rsa')
             if (await fs.exists(userKeyPath)) {
                 logCallback?.('Using user\'s default private key')
                 privateKeyPath = userKeyPath
@@ -219,7 +219,7 @@ export class SSHService {
                     }
                 }
             } else {
-                agent = process.env.SSH_AUTH_SOCK as string
+                agent = process.env.SSH_AUTH_SOCK!
             }
 
             const authMethodsLeft = ['none']

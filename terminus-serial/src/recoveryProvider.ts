@@ -11,8 +11,8 @@ export class RecoveryProvider extends TabRecoveryProvider {
             return {
                 type: SerialTabComponent,
                 options: {
-                    connection: recoveryToken['connection'],
-                    savedState: recoveryToken['savedState'],
+                    connection: recoveryToken.connection,
+                    savedState: recoveryToken.savedState,
                 },
             }
         }
