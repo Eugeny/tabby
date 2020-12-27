@@ -5,7 +5,7 @@ import { Observable, Subject } from 'rxjs'
 import { Injectable, NgZone, EventEmitter } from '@angular/core'
 import { ElectronService } from './electron.service'
 import { Logger, LogService } from './log.service'
-import { isWindowsBuild, WIN_BUILD_FLUENT_BG_MOVE_BUG_FIXED, WIN_BUILD_FLUENT_BG_SUPPORTED } from '../utils'
+import { isWindowsBuild, WIN_BUILD_FLUENT_BG_SUPPORTED } from '../utils'
 
 export enum Platform {
     Linux = 'Linux',
@@ -176,10 +176,7 @@ export class HostAppService {
             this.configChangeBroadcast.next()
         }))
 
-        if (
-            isWindowsBuild(WIN_BUILD_FLUENT_BG_SUPPORTED) &&
-            !isWindowsBuild(WIN_BUILD_FLUENT_BG_MOVE_BUG_FIXED)
-        ) {
+        if (isWindowsBuild(WIN_BUILD_FLUENT_BG_SUPPORTED)) {
             electron.ipcRenderer.send('window-set-disable-vibrancy-while-dragging', true)
         }
     }
