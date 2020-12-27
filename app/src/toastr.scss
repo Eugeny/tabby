@@ -9,6 +9,7 @@
     padding: 10px;
     background-image: none;
     width: auto;
+    flex-basis: auto;
 
     &.toast-error {
       background-color: #BD362F;
