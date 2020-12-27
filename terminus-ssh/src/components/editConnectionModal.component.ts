@@ -16,7 +16,7 @@ export class EditConnectionModalComponent {
     hasSavedPassword: boolean
 
     supportedAlgorithms: Record<string, string> = {}
-    defaultAlgorithms: Record<string, string> = {}
+    defaultAlgorithms: Record<string, string[]> = {}
     algorithms: Record<string, Record<string, boolean>> = {}
 
     constructor (
