@@ -36,6 +36,11 @@
     ajv "^6.12.0"
     ajv-keywords "^3.4.1"
 
+"@discoveryjs/json-ext@^0.5.0":
+  version "0.5.2"
+  resolved "https://registry.yarnpkg.com/@discoveryjs/json-ext/-/json-ext-0.5.2.tgz#8f03a22a04de437254e8ce8cc84ba39689288752"
+  integrity sha512-HyYEUDeIj5rRQU2Hk5HTB2uHsbRQpF70nvMhVzi+VJR0X+xNEhjPui4/kBf3VeH/wqD28PT4sVOm8qqLjBrSZg==
+
 "@electron/get@^1.0.1":
   version "1.12.2"
   resolved "https://registry.npmjs.org/@electron/get/-/get-1.12.2.tgz"
@@ -616,17 +621,17 @@
     "@webassemblyjs/wast-parser" "1.9.1"
     "@xtuc/long" "4.2.2"
 
-"@webpack-cli/info@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.npmjs.org/@webpack-cli/info/-/info-1.1.0.tgz"
-  integrity sha512-uNWSdaYHc+f3LdIZNwhdhkjjLDDl3jP2+XBqAq9H8DjrJUvlOKdP8TNruy1yEaDfgpAIgbSAN7pye4FEHg9tYQ==
+"@webpack-cli/info@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@webpack-cli/info/-/info-1.2.0.tgz#6051d6adf3618df664f4945a2b76355c00f83f0d"
+  integrity sha512-+wA8lBKopgKmN76BSGJVJby5ZXDlsrO6p/nm7fUBsHznRNWB/ozotJP7Yfcz8JPfqeG2LxwYlTH2u6D9a/0XAw==
   dependencies:
     envinfo "^7.7.3"
 
-"@webpack-cli/serve@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.npmjs.org/@webpack-cli/serve/-/serve-1.1.0.tgz"
-  integrity sha512-7RfnMXCpJ/NThrhq4gYQYILB18xWyoQcBey81oIyVbmgbc6m5ZHHyFK+DyH7pLHJf0p14MxL4mTsoPAgBSTpIg==
+"@webpack-cli/serve@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@webpack-cli/serve/-/serve-1.2.0.tgz#8cb2c1e95426f5caed1f3bf9d7ccf3ea41d85f52"
+  integrity sha512-jI3P7jMp/AXDSPkM+ClwRcJZbxnlvNC8bVZBmyRr4scMMZ4p5WQcXkw3Q+Hc7RQekomJlBMN+UQGliT4hhG8Vw==
 
 "@xtuc/ieee754@^1.2.0":
   version "1.2.0"
@@ -899,11 +904,6 @@ arr-union@^3.1.0:
   version "3.1.0"
   resolved "https://registry.npmjs.org/arr-union/-/arr-union-3.1.0.tgz"
   integrity sha1-45sJrqne+Gao8gbiiK9jkZuuOcQ=
-
-array-back@^4.0.1:
-  version "4.0.1"
-  resolved "https://registry.npmjs.org/array-back/-/array-back-4.0.1.tgz"
-  integrity sha512-Z/JnaVEXv+A9xabHzN43FiiiWEE7gPCRXMrVmRm00tWbjZRul1iHm7ECzlyNq1p4a4ATXz+G9FJ3GqGOkOV3fg==
 
 array-find-index@^1.0.1:
   version "1.0.2"
@@ -1726,16 +1726,6 @@ combined-stream@^1.0.6, combined-stream@~1.0.6:
   dependencies:
     delayed-stream "~1.0.0"
 
-command-line-usage@^6.1.0:
-  version "6.1.1"
-  resolved "https://registry.npmjs.org/command-line-usage/-/command-line-usage-6.1.1.tgz"
-  integrity sha512-F59pEuAR9o1SF/bD0dQBDluhpT4jJQNWUHEuVBqpDmCUo6gPjCi+m9fCWnWZVR/oG6cMTUms4h+3NPl74wGXvA==
-  dependencies:
-    array-back "^4.0.1"
-    chalk "^2.4.2"
-    table-layout "^1.0.1"
-    typical "^5.2.0"
-
 commander@2.17.x:
   version "2.17.1"
   resolved "https://registry.npmjs.org/commander/-/commander-2.17.1.tgz"
@@ -2092,7 +2082,7 @@ decompress-response@^6.0.0:
   dependencies:
     mimic-response "^3.1.0"
 
-deep-extend@^0.6.0, deep-extend@~0.6.0:
+deep-extend@^0.6.0:
   version "0.6.0"
   resolved "https://registry.npmjs.org/deep-extend/-/deep-extend-0.6.0.tgz"
   integrity sha512-LOHxIOaPYdHlJRtCQfDIVZtfw/ufM8+rVj649RIHzcm/vGwQRXFt6OPqIFWsm2XEMrNIEtWR64sY1LEKD2vAOA==
@@ -2988,6 +2978,11 @@ fast-levenshtein@^2.0.6:
   version "2.0.6"
   resolved "https://registry.npmjs.org/fast-levenshtein/-/fast-levenshtein-2.0.6.tgz"
   integrity sha1-PYpcZog6FqMMqGQ+hR8Zuqd5eRc=
+
+fastest-levenshtein@^1.0.12:
+  version "1.0.12"
+  resolved "https://registry.yarnpkg.com/fastest-levenshtein/-/fastest-levenshtein-1.0.12.tgz#9990f7d3a88cc5a9ffd1f1745745251700d497e2"
+  integrity sha512-On2N+BpYJ15xIC974QNVuYGMOlEVt4s0EOI3wwMqOmK1fdDY+FN/zltPV8vosq4ad4c/gJ1KHScUn/6AWIgiow==
 
 fastparse@^1.1.1:
   version "1.1.2"
@@ -4535,11 +4530,6 @@ lcid@^2.0.0:
   integrity sha512-avPEb8P8EGnwXKClwsNUgryVjllcRqtMYa49NTsbQagYuT1DcXnl1915oxWjoyGrXR6zH/Y0Zc96xWsPcoDKeA==
   dependencies:
     invert-kv "^2.0.0"
-
-leven@^3.1.0:
-  version "3.1.0"
-  resolved "https://registry.npmjs.org/leven/-/leven-3.1.0.tgz"
-  integrity sha512-qsda+H8jTaUaN/x5vzW2rzc+8Rw4TAQ/4KjB46IwK5VH+IlVeeeje/EoZRpiXvIqjFgK84QffqPztGI3VBLG1A==
 
 levn@^0.4.1:
   version "0.4.1"
@@ -6607,11 +6597,6 @@ redent@^1.0.0:
     indent-string "^2.1.0"
     strip-indent "^1.0.1"
 
-reduce-flatten@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.npmjs.org/reduce-flatten/-/reduce-flatten-2.0.0.tgz"
-  integrity sha512-EJ4UNY/U1t2P/2k6oqotuX2Cc3T6nxJwsM0N0asT7dhrtH1ltUxDn4NalSYmPE2rCkVpcf/X6R0wDwcFpzhd4w==
-
 regenerator-runtime@^0.11.0:
   version "0.11.1"
   resolved "https://registry.npmjs.org/regenerator-runtime/-/regenerator-runtime-0.11.1.tgz"
@@ -7563,16 +7548,6 @@ svg-inline-loader@^0.8.2:
     object-assign "^4.0.1"
     simple-html-tokenizer "^0.1.1"
 
-table-layout@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.npmjs.org/table-layout/-/table-layout-1.0.1.tgz"
-  integrity sha512-dEquqYNJiGwY7iPfZ3wbXDI944iqanTSchrACLL2nOB+1r+h1Nzu2eH+DuPPvWvm5Ry7iAPeFlgEtP5bIp5U7Q==
-  dependencies:
-    array-back "^4.0.1"
-    deep-extend "~0.6.0"
-    typical "^5.2.0"
-    wordwrapjs "^4.0.0"
-
 table@^6.0.4:
   version "6.0.4"
   resolved "https://registry.npmjs.org/table/-/table-6.0.4.tgz"
@@ -7965,11 +7940,6 @@ typescript@^3.9.7:
   resolved "https://registry.npmjs.org/typescript/-/typescript-3.9.7.tgz"
   integrity sha512-BLbiRkiBzAwsjut4x/dsibSTB6yWpwT5qWmC2OfuCg3GgVQCSgMs4vEctYPhsaGtd0AeuuHMkjZ2h2WG8MSzRw==
 
-typical@^5.0.0, typical@^5.2.0:
-  version "5.2.0"
-  resolved "https://registry.npmjs.org/typical/-/typical-5.2.0.tgz"
-  integrity sha512-dvdQgNDNJo+8B2uBQoqdb11eUCE1JQXhvjC/CZtgvZseVd5TYMXnq0+vuUemXbd/Se29cTaUuPX3YIc2xgbvIg==
-
 uglify-js@3.4.x, uglify-js@^3.1.4:
   version "3.4.10"
   resolved "https://registry.npmjs.org/uglify-js/-/uglify-js-3.4.10.tgz"
@@ -8256,21 +8226,21 @@ wcwidth@^1.0.0, wcwidth@^1.0.1:
   dependencies:
     defaults "^1.0.3"
 
-webpack-cli@^4.2.0:
-  version "4.2.0"
-  resolved "https://registry.npmjs.org/webpack-cli/-/webpack-cli-4.2.0.tgz"
-  integrity sha512-EIl3k88vaF4fSxWSgtAQR+VwicfLMTZ9amQtqS4o+TDPW9HGaEpbFBbAZ4A3ZOT5SOnMxNOzROsSTPiE8tBJPA==
+webpack-cli@^4.3.0:
+  version "4.3.0"
+  resolved "https://registry.yarnpkg.com/webpack-cli/-/webpack-cli-4.3.0.tgz#e39303bf9f8002de122903e97029f3443d0f9174"
+  integrity sha512-gve+BBKrzMPTOYDjupzV8JchUznhVWMKtWM1hFIQWi6XoeLvGNoQwkrtMWVb+aJ437GgCKdta7sIn10v621pKA==
   dependencies:
-    "@webpack-cli/info" "^1.1.0"
-    "@webpack-cli/serve" "^1.1.0"
+    "@discoveryjs/json-ext" "^0.5.0"
+    "@webpack-cli/info" "^1.2.0"
+    "@webpack-cli/serve" "^1.2.0"
     colorette "^1.2.1"
-    command-line-usage "^6.1.0"
     commander "^6.2.0"
     enquirer "^2.3.6"
     execa "^4.1.0"
+    fastest-levenshtein "^1.0.12"
     import-local "^3.0.2"
     interpret "^2.2.0"
-    leven "^3.1.0"
     rechoir "^0.7.0"
     v8-compile-cache "^2.2.0"
     webpack-merge "^4.2.2"
@@ -8411,14 +8381,6 @@ wordwrap@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npmjs.org/wordwrap/-/wordwrap-1.0.0.tgz"
   integrity sha1-J1hIEIkUVqQXHI0CJkQa3pDLyus=
-
-wordwrapjs@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.npmjs.org/wordwrapjs/-/wordwrapjs-4.0.0.tgz"
-  integrity sha512-Svqw723a3R34KvsMgpjFBYCgNOSdcW3mQFK4wIfhGQhtaFVOJmdYoXgi63ne3dTlWgatVcUc7t4HtQ/+bUVIzQ==
-  dependencies:
-    reduce-flatten "^2.0.0"
-    typical "^5.0.0"
 
 worker-farm@~1.3.1:
   version "1.3.1"
