@@ -1,4 +1,5 @@
 import './portable'
+import 'source-map-support/register'
 import './sentry'
 import './lru'
 import { app, ipcMain, Menu } from 'electron'

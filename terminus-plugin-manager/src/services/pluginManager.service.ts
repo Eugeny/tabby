@@ -1,4 +1,5 @@
 import axios from 'axios'
+import promiseIpc from 'electron-promise-ipc'
 import { Observable, from } from 'rxjs'
 import { map } from 'rxjs/operators'
 import { Injectable } from '@angular/core'
@@ -31,34 +32,10 @@ export class PluginManagerService {
     userPluginsPath: string = (window as any).userPluginsPath
     installedPlugins: PluginInfo[] = (window as any).installedPlugins
 
-    private npmReady: Promise<void>
-    private npm: any
-
     private constructor (
         log: LogService,
     ) {
         this.logger = log.create('pluginManager')
-    }
-
-    async getNPM (): Promise<any> {
-        if (!this.npm) {
-            if (!this.npmReady) {
-                this.npmReady = new Promise(resolve => {
-                    const npm = (global as any).require('npm')
-                    npm.load({
-                        prefix: this.userPluginsPath,
-                    }, err => {
-                        if (err) {
-                            this.logger.error(err)
-                        }
-                        this.npm = npm
-                        resolve()
-                    })
-                })
-            }
-            await this.npmReady
-        }
-        return this.npm
     }
 
     listAvailable (query?: string): Observable<PluginInfo[]> {
@@ -84,21 +61,23 @@ export class PluginManagerService {
     }
 
     async installPlugin (plugin: PluginInfo): Promise<void> {
-        (await this.getNPM()).commands.install([`${plugin.packageName}@${plugin.version}`], err => {
-            if (err) {
-                this.logger.error(err)
-            }
+        try {
+            await (promiseIpc as any).send('plugin-manager:install', this.userPluginsPath, plugin.packageName, plugin.version)
             this.installedPlugins = this.installedPlugins.filter(x => x.packageName !== plugin.packageName)
             this.installedPlugins.push(plugin)
-        })
+        } catch (err) {
+            this.logger.error(err)
+            throw err
+        }
     }
 
     async uninstallPlugin (plugin: PluginInfo): Promise<void> {
-        (await this.getNPM()).commands.remove([plugin.packageName], err => {
-            if (err) {
-                this.logger.error(err)
-            }
+        try {
+            await (promiseIpc as any).send('plugin-manager:uninstall', this.userPluginsPath, plugin.packageName)
             this.installedPlugins = this.installedPlugins.filter(x => x.packageName !== plugin.packageName)
-        })
+        } catch (err) {
+            this.logger.error(err)
+            throw err
+        }
     }
 }

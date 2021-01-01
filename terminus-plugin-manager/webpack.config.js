@@ -46,8 +46,8 @@ module.exports = {
     externals: [
         'fs',
         'net',
-        'npm',
         'path',
+        'electron-promise-ipc',
         /^rxjs/,
         /^@angular/,
         /^@ng-bootstrap/,

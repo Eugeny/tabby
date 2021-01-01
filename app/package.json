@@ -31,7 +31,7 @@
     "keytar": "^7.2.0",
     "mz": "^2.7.0",
     "ngx-toastr": "^12.0.1",
-    "npm": "6.9.0",
+    "npm": "7",
     "path": "0.12.7",
     "rxjs": "^6.5.5",
     "rxjs-compat": "^6.6.0",
@@ -48,7 +48,8 @@
   "devDependencies": {
     "@types/mz": "0.0.32",
     "@types/node": "14.14.14",
-    "node-abi": "2.19.3"
+    "node-abi": "2.19.3",
+    "source-map-support": "^0.5.19"
   },
   "peerDependencies": {
     "terminus-community-color-schemes": "*",

@@ -1,6 +1,8 @@
 import { app, ipcMain, Menu, Tray, shell, screen, globalShortcut, MenuItemConstructorOptions } from 'electron'
+import * as promiseIpc from 'electron-promise-ipc'
 import { loadConfig } from './config'
 import { Window, WindowOptions } from './window'
+import { pluginManager } from './pluginManager'
 
 export class Application {
     private tray: Tray
@@ -18,6 +20,14 @@ export class Application {
                     this.onGlobalHotkey()
                 })
             }
+        })
+
+        ;(promiseIpc as any).on('plugin-manager:install', (path, name, version) => {
+            return pluginManager.install(path, name, version)
+        })
+
+        ;(promiseIpc as any).on('plugin-manager:uninstall', (path, name) => {
+            return pluginManager.uninstall(path, name)
         })
 
         const configData = loadConfig()

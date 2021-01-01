@@ -21,6 +21,7 @@
     "electron-download": "^4.1.1",
     "electron-installer-snap": "^5.1.0",
     "electron-notarize": "^1.0.0",
+    "electron-promise-ipc": "^2.2.4",
     "electron-rebuild": "^2.3.4",
     "eslint": "^7.6.0",
     "eslint-plugin-import": "^2.21.1",
