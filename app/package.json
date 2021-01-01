@@ -21,7 +21,7 @@
     "@angular/platform-browser": "^9.1.9",
     "@angular/platform-browser-dynamic": "^9.1.9",
     "@ng-bootstrap/ng-bootstrap": "^6.1.0",
-    "@terminus-term/node-pty": "0.10.0-beta10",
+    "@terminus-term/node-pty": "0.10.0-beta11",
     "electron-config": "2.0.0",
     "electron-debug": "^3.0.1",
     "electron-is-dev": "1.1.0",
