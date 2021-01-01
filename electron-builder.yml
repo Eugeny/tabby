@@ -26,7 +26,7 @@ nsis:
 mac:
   category: public.app-category.video
   icon: "./build/mac/icon.icns"
-  artifactName: terminus-${version}-macos-${env.ARCH}.${ext}
+  artifactName: terminus-${version}-macos-universal.${ext}
   hardenedRuntime: true
   entitlements: "./build/mac/entitlements.plist"
   entitlementsInherit: "./build/mac/entitlements.plist"
