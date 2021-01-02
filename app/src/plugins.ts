@@ -63,7 +63,6 @@ const builtinModules = [
     'ngx-toastr',
     'rxjs',
     'rxjs/operators',
-    'rxjs-compat/Subject',
     'terminus-core',
     'terminus-settings',
     'terminus-terminal',

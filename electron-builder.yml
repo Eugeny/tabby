@@ -6,8 +6,24 @@ npmRebuild: false
 afterSign: "./build/mac/afterSignHook.js"
 afterAllArtifactBuild: "./build/mac/afterBuildHook.js"
 files:
-- "**/*"
+- '**/*'
 - dist
+- '!src'
+- '!**/node_modules/*/{CHANGELOG.md,README.md,README,readme.md,readme}'
+- '!**/node_modules/*/{test,__tests__,tests,powered-test,example,examples,docs}'
+- '!**/node_modules/node-gyp'
+- '!**/node_modules/**/*.d.ts'
+- '!**/node_modules/**/*.map'
+- '!**/node_modules/**/include/node'
+- '!**/node_modules/.bin'
+- '!**/node_modules/*/*/{esm5,fesm5,esm2015,fesm2015,_esm2015,_fesm2015}'
+- '!**/*.{iml,o,hprof,orig,pyc,pyo,rbc,swp,csproj,sln,xproj}'
+- '!.editorconfig'
+- '!**/._*'
+- '!**/{.DS_Store,.git,.hg,.svn,CVS,RCS,SCCS,.gitignore,.gitattributes}'
+- '!**/{__pycache__,thumbs.db,.flowconfig,.idea,.vs,.nyc_output}'
+- '!**/{appveyor.yml,.travis.yml,circle.yml}'
+- '!**/{npm-debug.log,yarn.lock,.yarn-integrity,.yarn-metadata.json'
 extraResources:
 - builtin-plugins
 - extras
