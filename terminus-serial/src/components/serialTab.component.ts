@@ -52,7 +52,7 @@ export class SerialTabComponent extends BaseTerminalTabComponent {
         super.ngOnInit()
 
         setImmediate(() => {
-            this.setTitle(this.connection.name)
+            this.setTitle(this.connection!.name)
         })
     }
 
@@ -65,7 +65,7 @@ export class SerialTabComponent extends BaseTerminalTabComponent {
         this.session = this.injector.get(SerialService).createSession(this.connection)
         this.session.serviceMessage$.subscribe(msg => {
             this.write(`\r\n${colors.black.bgWhite(' serial ')} ${msg}\r\n`)
-            this.session.resize(this.size.columns, this.size.rows)
+            this.session?.resize(this.size.columns, this.size.rows)
         })
         this.attachSessionHandlers()
         this.write(`Connecting to `)
@@ -108,7 +108,7 @@ export class SerialTabComponent extends BaseTerminalTabComponent {
             name: x.toString(), result: x,
         })))
         this.serialPort.update({ baudRate: rate })
-        this.connection.baudrate = rate
+        this.connection!.baudrate = rate
     }
 
     ngOnDestroy () {

@@ -44,14 +44,14 @@ export class WinSCPContextMenu extends TabContextMenuItemProvider {
         if (!this.getPath()) {
             return []
         }
-        if (!(tab instanceof SSHTabComponent)) {
+        if (!(tab instanceof SSHTabComponent) || !tab.connection) {
             return []
         }
         return [
             {
                 label: 'Launch WinSCP',
                 click: (): void => {
-                    this.launchWinSCP(tab.connection)
+                    this.launchWinSCP(tab.connection!)
                 },
             },
         ]

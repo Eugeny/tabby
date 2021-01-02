@@ -5,7 +5,7 @@ export function parseArgs (argv: string[], cwd: string): any {
         argv = argv.slice(1)
     }
 
-    return require('yargs')
+    return require('yargs/yargs')(argv.slice(1))
         .usage('terminus [command] [arguments]')
         .command('open [directory]', 'open a shell in a directory', {
             directory: { type: 'string', 'default': cwd },
@@ -41,5 +41,5 @@ export function parseArgs (argv: string[], cwd: string): any {
             type: 'boolean',
         })
         .help('help')
-        .parse(argv.slice(1))
+        .parse()
 }

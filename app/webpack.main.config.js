@@ -42,7 +42,6 @@ module.exports = {
     mz: 'commonjs mz',
     npm: 'commonjs npm',
     path: 'commonjs path',
-    yargs: 'commonjs yargs',
     util: 'commonjs util',
     'source-map-support': 'commonjs source-map-support',
     'windows-swca': 'commonjs windows-swca',
@@ -54,4 +53,6 @@ module.exports = {
       'process.type': '"main"',
     }),
   ],
+  // Ignore warnings due to yarg's dynamic module loading
+  ignoreWarnings: [/node_modules\/yargs/],
 }

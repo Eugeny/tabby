@@ -74,4 +74,6 @@ module.exports = {
         'ngx-toastr',
         /^terminus-/,
     ],
+    // Ignore warnings due to yarg's dynamic module loading
+    ignoreWarnings: [/node_modules\/yargs/],
 }

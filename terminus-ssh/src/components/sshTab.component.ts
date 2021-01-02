@@ -33,6 +33,10 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
     }
 
     ngOnInit (): void {
+        if (!this.connection) {
+            throw new Error('Connection not set')
+        }
+
         this.logger = this.log.create('terminalTab')
 
         this.enableDynamicTitle = !this.connection.disableDynamicTitle
@@ -58,7 +62,7 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
         super.ngOnInit()
 
         setImmediate(() => {
-            this.setTitle(this.connection.name)
+            this.setTitle(this.connection!.name)
         })
     }
 
@@ -150,7 +154,7 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
 
     showPortForwarding (): void {
         const modal = this.ngbModal.open(SSHPortForwardingModalComponent).componentInstance as SSHPortForwardingModalComponent
-        modal.session = this.session
+        modal.session = this.session!
     }
 
     async reconnect (): Promise<void> {
@@ -163,14 +167,14 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
         if (!this.session?.open) {
             return true
         }
-        if (!(this.connection.warnOnClose ?? this.config.store.ssh.warnOnClose)) {
+        if (!(this.connection?.warnOnClose ?? this.config.store.ssh.warnOnClose)) {
             return true
         }
         return (await this.electron.showMessageBox(
             this.hostApp.getWindow(),
             {
                 type: 'warning',
-                message: `Disconnect from ${this.connection.host}?`,
+                message: `Disconnect from ${this.connection?.host}?`,
                 buttons: ['Cancel', 'Disconnect'],
                 defaultId: 1,
             }

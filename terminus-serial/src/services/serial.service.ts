@@ -127,7 +127,7 @@ export class SerialService {
                 (this.app.getParentTab(tab) ?? tab).color = connection.color
             }
             setTimeout(() => {
-                this.app.activeTab.emitFocused()
+                this.app.activeTab?.emitFocused()
             })
             return tab
         } catch (error) {

@@ -177,7 +177,7 @@ export class SSHSession extends BaseSession {
 
                     if (match) {
                         this.logger.info('Executing script: "' + cmd + '"')
-                        this.shell.write(cmd + '\n')
+                        this.shell!.write(cmd + '\n')
                         this.scripts = this.scripts.filter(x => x !== script)
                     } else {
                         if (script.optional) {
@@ -380,7 +380,7 @@ export class SSHSession extends BaseSession {
             for (const script of this.scripts) {
                 if (!script.expect) {
                     console.log('Executing script:', script.send)
-                    this.shell.write(script.send + '\n')
+                    this.shell!.write(script.send + '\n')
                     this.scripts = this.scripts.filter(x => x !== script)
                 } else {
                     break
