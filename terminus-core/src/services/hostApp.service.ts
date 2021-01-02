@@ -235,7 +235,7 @@ export class HostAppService {
      * @param type `null`, or `fluent` when supported (Windowd only)
      */
     setVibrancy (enable: boolean, type: string|null): void {
-        if (!isWindowsBuild(WIN_BUILD_FLUENT_BG_SUPPORTED)) {
+        if (this.platform === Platform.Windows && !isWindowsBuild(WIN_BUILD_FLUENT_BG_SUPPORTED)) {
             type = null
         }
         document.body.classList.toggle('vibrant', enable)
