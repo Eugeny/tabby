@@ -9,6 +9,8 @@ import { BrowserWindow, app, ipcMain, Rectangle, Menu, screen, BrowserWindowCons
 import ElectronConfig = require('electron-config')
 import * as os from 'os'
 import * as path from 'path'
+import macOSRelease from 'macos-release'
+import * as compareVersions from 'compare-versions'
 
 import { parseArgs } from './cli'
 import { loadConfig } from './config'
@@ -26,6 +28,8 @@ abstract class GlasstronWindow extends BrowserWindow {
     blurType: string
     abstract setBlur (_: boolean)
 }
+
+const macOSVibrancyType = compareVersions.compare(macOSRelease().version, '10.14', '>=') ? 'fullscreen-ui' : 'dark'
 
 export class Window {
     ready: Promise<void>
@@ -89,11 +93,15 @@ export class Window {
             }
         }
 
-        this.window = new glasstron.BrowserWindow(bwOptions)
+        if (process.platform === 'darwin') {
+            this.window = new BrowserWindow(bwOptions) as GlasstronWindow
+        } else {
+            this.window = new glasstron.BrowserWindow(bwOptions)
+        }
 
         this.window.once('ready-to-show', () => {
             if (process.platform === 'darwin') {
-                this.window.setVibrancy('window')
+                this.window.setVibrancy(macOSVibrancyType)
             } else if (process.platform === 'win32' && (this.configStore.appearance || {}).vibrancy) {
                 this.setVibrancy(true)
             }
@@ -149,7 +157,7 @@ export class Window {
             this.window.setBackgroundColor(enabled ? '#00000000' : '#131d27')
             this.window.setBlur(enabled)
         } else {
-            this.window.setVibrancy(enabled ? 'dark' : null as any) // electron issue 20269
+            this.window.setVibrancy(enabled ? macOSVibrancyType : null)
         }
     }
 
