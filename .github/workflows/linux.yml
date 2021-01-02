@@ -36,6 +36,7 @@ jobs:
       env:
         DEBUG: electron-builder,electron-builder:*
         GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        USE_HARD_LINKS: false
 
     - name: Package artifacts
       run: |
