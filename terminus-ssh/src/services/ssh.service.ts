@@ -155,7 +155,7 @@ export class SSHService {
                 }
                 this.zone.run(resolve)
             })
-            ssh.on('error', error => {
+            ssh.on('error', (error: Error) => {
                 if (error.message === 'All configured authentication methods failed') {
                     this.passwordStorage.deletePassword(session.connection)
                 }

@@ -212,7 +212,7 @@ export class SSHSession extends BaseSession {
             }
             const socket = new Socket()
             socket.connect(forward.targetPort, forward.targetAddress)
-            socket.on('error', e => {
+            socket.on('error', (e: Error) => {
                 this.emitServiceMessage(colors.bgRed.black(' X ') + ` Could not forward the remote connection to ${forward.targetAddress}:${forward.targetPort}: ${e}`)
                 reject()
             })
@@ -242,7 +242,7 @@ export class SSHSession extends BaseSession {
             if (!displaySpec.startsWith('/')) {
                 socket.connect(xPort, xHost)
             }
-            socket.on('error', e => {
+            socket.on('error', (e: Error) => {
                 this.emitServiceMessage(colors.bgRed.black(' X ') + ` Could not connect to the X server ${xHost}:${xPort}: ${e}`)
                 reject()
             })
@@ -277,7 +277,7 @@ export class SSHSession extends BaseSession {
                     sourcePort ?? 0,
                     targetAddress,
                     targetPort,
-                    (err, stream) => {
+                    (err: Error, stream) => {
                         if (err) {
                             this.emitServiceMessage(colors.bgRed.black(' X ') + ` Remote has rejected the forwarded connection to ${targetAddress}:${targetPort} via ${fw}: ${err}`)
                             return reject()
@@ -303,7 +303,7 @@ export class SSHSession extends BaseSession {
         }
         if (fw.type === PortForwardType.Remote) {
             await new Promise((resolve, reject) => {
-                this.ssh.forwardIn(fw.host, fw.port, err => {
+                this.ssh.forwardIn(fw.host, fw.port, (err: Error) => {
                     if (err) {
                         this.emitServiceMessage(colors.bgRed.black(' X ') + ` Remote rejected port forwarding for ${fw}: ${err}`)
                         return reject(err)
