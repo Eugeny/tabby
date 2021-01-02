@@ -66,6 +66,10 @@ $side-tab-width: 200px;
     .drag-space {
         flex: auto;
     }
+
+    &>.inset {
+        opacity: 0;
+    }
 }
 
 
@@ -92,7 +96,7 @@ $side-tab-width: 200px;
         color: #aaa;
         border: none;
         border-radius: 0;
-    
+
         align-items: center;
 
         &.dropdown-toggle::after {
@@ -121,7 +125,6 @@ $side-tab-width: 200px;
         width: 85px;
         height: $tabs-height;
         flex: none;
-        opacity: 0;
         -webkit-app-region: drag;
     }
 
