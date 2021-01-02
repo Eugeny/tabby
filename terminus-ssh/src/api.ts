@@ -212,7 +212,8 @@ export class SSHSession extends BaseSession {
             }
             const socket = new Socket()
             socket.connect(forward.targetPort, forward.targetAddress)
-            socket.on('error', (e: Error) => {
+            socket.on('error', e => {
+                // eslint-disable-next-line @typescript-eslint/no-base-to-string
                 this.emitServiceMessage(colors.bgRed.black(' X ') + ` Could not forward the remote connection to ${forward.targetAddress}:${forward.targetPort}: ${e}`)
                 reject()
             })
@@ -242,7 +243,8 @@ export class SSHSession extends BaseSession {
             if (!displaySpec.startsWith('/')) {
                 socket.connect(xPort, xHost)
             }
-            socket.on('error', (e: Error) => {
+            socket.on('error', e => {
+                // eslint-disable-next-line @typescript-eslint/no-base-to-string
                 this.emitServiceMessage(colors.bgRed.black(' X ') + ` Could not connect to the X server ${xHost}:${xPort}: ${e}`)
                 reject()
             })
@@ -277,8 +279,9 @@ export class SSHSession extends BaseSession {
                     sourcePort ?? 0,
                     targetAddress,
                     targetPort,
-                    (err: Error, stream) => {
+                    (err, stream) => {
                         if (err) {
+                            // eslint-disable-next-line @typescript-eslint/no-base-to-string
                             this.emitServiceMessage(colors.bgRed.black(' X ') + ` Remote has rejected the forwarded connection to ${targetAddress}:${targetPort} via ${fw}: ${err}`)
                             return reject()
                         }
@@ -303,8 +306,9 @@ export class SSHSession extends BaseSession {
         }
         if (fw.type === PortForwardType.Remote) {
             await new Promise((resolve, reject) => {
-                this.ssh.forwardIn(fw.host, fw.port, (err: Error) => {
+                this.ssh.forwardIn(fw.host, fw.port, err => {
                     if (err) {
+                        // eslint-disable-next-line @typescript-eslint/no-base-to-string
                         this.emitServiceMessage(colors.bgRed.black(' X ') + ` Remote rejected port forwarding for ${fw}: ${err}`)
                         return reject(err)
                     }

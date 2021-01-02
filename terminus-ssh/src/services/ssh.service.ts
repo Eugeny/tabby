@@ -155,12 +155,13 @@ export class SSHService {
                 }
                 this.zone.run(resolve)
             })
-            ssh.on('error', (error: Error) => {
+            ssh.on('error', error => {
                 if (error.message === 'All configured authentication methods failed') {
                     this.passwordStorage.deletePassword(session.connection)
                 }
                 this.zone.run(() => {
                     if (connected) {
+                        // eslint-disable-next-line @typescript-eslint/no-base-to-string
                         this.toastr.error(error.toString())
                     } else {
                         reject(error)
