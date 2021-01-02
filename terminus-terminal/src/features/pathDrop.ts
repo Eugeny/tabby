@@ -10,7 +10,7 @@ export class PathDropDecorator extends TerminalDecorator {
             this.subscribeUntilDetached(terminal, terminal.frontend?.dragOver$.subscribe(event => {
                 event.preventDefault()
             }))
-            this.subscribeUntilDetached(terminal, terminal.frontend?.drop$.subscribe(event => {
+            this.subscribeUntilDetached(terminal, terminal.frontend?.drop$.subscribe((event: DragEvent) => {
                 for (const file of event.dataTransfer!.files as any) {
                     this.injectPath(terminal, file.path)
                 }

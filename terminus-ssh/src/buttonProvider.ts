@@ -28,7 +28,7 @@ export class ButtonProvider extends ToolbarButtonProvider {
             weight: 5,
             title: 'SSH connections',
             touchBarNSImage: 'NSTouchBarOpenInBrowserTemplate',
-            click: async () => {
+            click: () => {
                 this.activate()
             },
         }]

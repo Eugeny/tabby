@@ -29,7 +29,6 @@ rules:
   '@typescript-eslint/no-magic-numbers': off
   '@typescript-eslint/member-delimiter-style': off
   '@typescript-eslint/promise-function-async': off
-  '@typescript-eslint/no-unnecessary-type-assertion': off
   '@typescript-eslint/require-array-sort-compare': off
   '@typescript-eslint/no-floating-promises': off
   '@typescript-eslint/prefer-readonly': off

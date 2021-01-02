@@ -134,7 +134,7 @@ export class SSHSettingsTabComponent {
                     name: connection.group!,
                     connections: [],
                 }
-                this.childGroups.push(group!)
+                this.childGroups.push(group)
             }
             group.connections.push(connection)
         }

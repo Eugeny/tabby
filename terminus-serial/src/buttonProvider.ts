@@ -28,7 +28,7 @@ export class ButtonProvider extends ToolbarButtonProvider {
             weight: 5,
             title: 'Serial connections',
             touchBarNSImage: 'NSTouchBarOpenInBrowserTemplate',
-            click: async () => {
+            click: () => {
                 this.activate()
             },
         }]

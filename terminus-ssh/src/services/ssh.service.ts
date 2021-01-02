@@ -98,7 +98,7 @@ export class SSHService {
                     }
                 }
 
-                const sshFormatKey = parsedKey!.toString('openssh')
+                const sshFormatKey = parsedKey.toString('openssh')
                 const temp = await openTemp()
                 fs.close(temp.fd)
                 await fs.writeFile(temp.path, sshFormatKey)
@@ -359,7 +359,7 @@ export class SSHService {
                     name: connection.group!,
                     connections: [],
                 }
-                groups.push(group!)
+                groups.push(group)
             }
             group.connections.push(connection)
         }
