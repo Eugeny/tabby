@@ -1,12 +1,12 @@
-![](https://github.com/Eugeny/terminus/raw/master/docs/readme.png)
+****![](https://github.com/Eugeny/terminus/raw/master/docs/readme.png)
 
 
 <p align="center">
-  <a href="https://raw.githubusercontent.com/Eugeny/terminus/master/LICENSE"><img alt="GitHub" src="https://img.shields.io/github/license/eugeny/terminus.svg?label=License&style=flat-square"></a> <a href="https://ci.appveyor.com/project/Eugeny/terminus"><img alt="AppVeyor" src="https://img.shields.io/appveyor/ci/eugeny/terminus.svg?label=CI&logo=appveyor&logoColor=white&style=flat-square"></a>
+  <a href="https://raw.githubusercontent.com/Eugeny/terminus/master/LICENSE"><img alt="GitHub" src="https://img.shields.io/github/license/eugeny/terminus.svg?label=License&style=flat-square"></a> <a href="https://ci.appveyor.com/project/Eugeny/terminus"><img alt="AppVeyor" src="https://img.shields.io/appveyor/ci/eugeny/****terminus****.svg?label=CI&logo=appveyor&logoColor=white&style=flat-square"></a>
 </p>
 
 <p align="center">
-  <a href="https://github.com/Eugeny/terminus/releases/latest"><img alt="GitHub All Releases" src="https://img.shields.io/github/downloads/eugeny/terminus/total.svg?label=DOWNLOAD&logo=github&style=for-the-badge"></a> <a href="https://ci.appveyor.com/project/Eugeny/terminus/build/artifacts"><img src="https://img.shields.io/badge/download-nightly%20build-magenta.svg?logo=appveyor&style=for-the-badge"/></a> <a href="https://gitter.im/terminus-terminal/community"><img alt="Gitter" src="https://img.shields.io/gitter/room/terminus/community.svg?color=blue&logo=gitter&style=for-the-badge"></a>
+  <a href="https://github.com/Eugeny/terminus/releases/latest"><img alt="GitHub All Releases" src="https://img.shields.io/github/downloads/eugeny/terminus/total.svg?label=RELEASE&logo=github&style=for-the-badge"></a> <a href="https://nightly.link/Eugeny/terminus/workflows/windows/master"><img src="https://shields.io/badge/-Nightly-blue?logo=windows&style=for-the-badge"/></a> <a href="https://nightly.link/Eugeny/terminus/workflows/macos/master"><img src="https://shields.io/badge/-Nightly-black?logo=apple&style=for-the-badge"/></a> <a href="https://nightly.link/Eugeny/terminus/workflows/linux/master"><img src="https://shields.io/badge/-Nightly-orange?logo=linux&style=for-the-badge"/></a> <a href="https://gitter.im/terminus-terminal/community"><img alt="Gitter" src="https://img.shields.io/gitter/room/terminus/community.svg?color=magenta&logo=gitter&style=for-the-badge"></a>
 </p>
 
 ----
