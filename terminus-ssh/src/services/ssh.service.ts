@@ -249,12 +249,12 @@ export class SSHService {
             try {
                 ssh.connect({
                     host: session.connection.host,
-                    port: session.connection.port || 22,
+                    port: session.connection.port ?? 22,
                     username: session.connection.user,
                     password: session.connection.privateKey ? undefined : '',
-                    privateKey: privateKey || undefined,
+                    privateKey: privateKey ?? undefined,
                     tryKeyboard: true,
-                    agent: agent || undefined,
+                    agent: agent ?? undefined,
                     agentForward: session.connection.agentForward && !!agent,
                     keepaliveInterval: session.connection.keepaliveInterval,
                     keepaliveCountMax: session.connection.keepaliveCountMax,
@@ -284,7 +284,7 @@ export class SSHService {
                 } as any)
             } catch (e) {
                 this.toastr.error(e.message)
-                reject(e)
+                return reject(e)
             }
 
             let keychainPasswordUsed = false
@@ -398,12 +398,10 @@ export class SSHService {
                 { connection }
             ) as SSHTabComponent
             if (connection.color) {
-                (this.app.getParentTab(tab) || tab).color = connection.color
+                (this.app.getParentTab(tab) ?? tab).color = connection.color
             }
 
-            setTimeout(() => {
-                this.app.activeTab?.emitFocused()
-            })
+            setTimeout(() => this.app.activeTab?.emitFocused())
 
             return tab
         } catch (error) {

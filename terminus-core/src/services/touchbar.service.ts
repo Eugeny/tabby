@@ -66,7 +66,7 @@ export class TouchbarService {
             buttons = buttons.concat(provider.provide())
         })
         buttons = buttons.filter(x => !!x.touchBarNSImage)
-        buttons.sort((a, b) => (a.weight || 0) - (b.weight || 0))
+        buttons.sort((a, b) => (a.weight ?? 0) - (b.weight ?? 0))
         this.tabSegments = this.app.tabs.map(tab => ({
             label: this.shortenTitle(tab.title),
         }))
@@ -102,7 +102,7 @@ export class TouchbarService {
 
     private getButton (button: ToolbarButton): SegmentedControlSegment {
         return {
-            label: button.touchBarNSImage ? undefined : this.shortenTitle(button.touchBarTitle || button.title),
+            label: button.touchBarNSImage ? undefined : this.shortenTitle(button.touchBarTitle ?? button.title),
             icon: button.touchBarNSImage ? this.getCachedNSImage(button.touchBarNSImage) : undefined,
             // click: () => this.zone.run(() => button.click()),
         }

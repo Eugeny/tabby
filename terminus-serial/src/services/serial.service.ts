@@ -57,7 +57,6 @@ export class SerialService {
                 this.toastr.error(e.message)
                 reject(e)
             }
-
         })
         return serial
     }
@@ -125,7 +124,7 @@ export class SerialService {
                 { connection }
             ) as SerialTabComponent
             if (connection.color) {
-                (this.app.getParentTab(tab) || tab).color = connection.color
+                (this.app.getParentTab(tab) ?? tab).color = connection.color
             }
             setTimeout(() => {
                 this.app.activeTab.emitFocused()

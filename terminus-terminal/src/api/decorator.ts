@@ -17,7 +17,7 @@ export abstract class TerminalDecorator {
      * Make sure to call super()
      */
     detach (terminal: BaseTerminalTabComponent): void {
-        for (const s of this.smartSubscriptions.get(terminal) || []) {
+        for (const s of this.smartSubscriptions.get(terminal) ?? []) {
             s.unsubscribe()
         }
         this.smartSubscriptions.delete(terminal)

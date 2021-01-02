@@ -127,7 +127,7 @@ export class SSHSettingsTabComponent {
         this.childGroups = []
 
         for (const connection of this.connections) {
-            connection.group = connection.group || null
+            connection.group = connection.group ?? null
             let group = this.childGroups.find(x => x.name === connection.group)
             if (!group) {
                 group = {

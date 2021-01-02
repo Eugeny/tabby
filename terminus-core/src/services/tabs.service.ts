@@ -22,7 +22,7 @@ export class TabsService {
         const componentRef = componentFactory.create(this.injector)
         const tab = componentRef.instance
         tab.hostView = componentRef.hostView
-        Object.assign(tab, inputs || {})
+        Object.assign(tab, inputs ?? {})
         return tab
     }
 

@@ -229,8 +229,8 @@ export class AppRootComponent {
             buttons = buttons.concat(provider.provide())
         })
         return buttons
-            .filter(button => (button.weight || 0) > 0 === aboveZero)
-            .sort((a: ToolbarButton, b: ToolbarButton) => (a.weight || 0) - (b.weight || 0))
+            .filter(button => (button.weight ?? 0) > 0 === aboveZero)
+            .sort((a: ToolbarButton, b: ToolbarButton) => (a.weight ?? 0) - (b.weight ?? 0))
     }
 
     private updateVibrancy () {

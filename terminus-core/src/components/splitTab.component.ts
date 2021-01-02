@@ -331,7 +331,7 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
     async addTab (tab: BaseTabComponent, relative: BaseTabComponent|null, side: SplitDirection): Promise<void> {
         tab.parent = this
 
-        let target = (relative ? this.getParentOf(relative) : null) || this.root
+        let target = (relative ? this.getParentOf(relative) : null) ?? this.root
         let insertIndex = relative ? target.children.indexOf(relative) : -1
 
         if (
@@ -442,7 +442,7 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
      * @returns the immediate parent of `tab`
      */
     getParentOf (tab: BaseTabComponent | SplitContainer, root?: SplitContainer): SplitContainer|null {
-        root = root || this.root
+        root = root ?? this.root
         for (const child of root.children) {
             if (child instanceof SplitContainer) {
                 const r = this.getParentOf(tab, child)
@@ -469,7 +469,7 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
 
     /** @hidden */
     async getCurrentProcess (): Promise<BaseTabProcess|null> {
-        return (await Promise.all(this.getAllTabs().map(x => x.getCurrentProcess()))).find(x => !!x) || null
+        return (await Promise.all(this.getAllTabs().map(x => x.getCurrentProcess()))).find(x => !!x) ?? null
     }
 
     /** @hidden */

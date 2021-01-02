@@ -18,8 +18,8 @@ export class EditProfileModalComponent {
     }
 
     ngOnInit () {
-        this.profile.sessionOptions.env = this.profile.sessionOptions.env || {}
-        this.profile.sessionOptions.args = this.profile.sessionOptions.args || []
+        this.profile.sessionOptions.env = this.profile.sessionOptions.env ?? {}
+        this.profile.sessionOptions.args = this.profile.sessionOptions.args ?? []
     }
 
     save () {

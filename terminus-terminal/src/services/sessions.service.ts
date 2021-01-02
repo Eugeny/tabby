@@ -102,7 +102,7 @@ export class Session extends BaseSession {
     }
 
     start (options: SessionOptions): void {
-        this.name = options.name || ''
+        this.name = options.name ?? ''
 
         const env = {
             ...process.env,
@@ -113,7 +113,7 @@ export class Session extends BaseSession {
         }
 
         if (process.platform === 'darwin' && !process.env.LC_ALL) {
-            const locale = process.env.LC_CTYPE || 'en_US.UTF-8'
+            const locale = process.env.LC_CTYPE ?? 'en_US.UTF-8'
             Object.assign(env, {
                 LANG: locale,
                 LC_ALL: locale,
@@ -124,17 +124,17 @@ export class Session extends BaseSession {
             })
         }
 
-        let cwd = options.cwd || process.env.HOME
+        let cwd = options.cwd ?? process.env.HOME
 
         if (!fs.existsSync(cwd)) {
             console.warn('Ignoring non-existent CWD:', cwd)
             cwd = undefined
         }
 
-        this.pty = nodePTY.spawn(options.command, options.args || [], {
+        this.pty = nodePTY.spawn(options.command, options.args ?? [], {
             name: 'xterm-256color',
-            cols: options.width || 80,
-            rows: options.height || 30,
+            cols: options.width ?? 80,
+            rows: options.height ?? 30,
             encoding: null,
             cwd,
             env: env,
@@ -142,7 +142,7 @@ export class Session extends BaseSession {
             useConpty: (isWindowsBuild(WIN_BUILD_CONPTY_SUPPORTED) && this.config.store.terminal.useConPTY ? 1 : false) as any,
         })
 
-        this.guessedCWD = cwd || null
+        this.guessedCWD = cwd ?? null
 
         this.truePID = this.pty['pid']
 
@@ -181,7 +181,7 @@ export class Session extends BaseSession {
             }
         })
 
-        this.pauseAfterExit = options.pauseAfterExit || false
+        this.pauseAfterExit = options.pauseAfterExit ?? false
     }
 
     resize (columns: number, rows: number): void {

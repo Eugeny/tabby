@@ -51,7 +51,7 @@ export class TabRecoveryService {
                 const tab = await provider.recover(token)
                 if (tab !== null) {
                     tab.options = tab.options || {}
-                    tab.options.color = token.tabColor || null
+                    tab.options.color = token.tabColor ?? null
                     tab.options.title = token.tabTitle || ''
                     return tab
                 }

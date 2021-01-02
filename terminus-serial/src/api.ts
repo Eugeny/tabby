@@ -44,7 +44,7 @@ export class SerialSession extends BaseSession {
 
     constructor (public connection: SerialConnection) {
         super()
-        this.scripts = connection.scripts || []
+        this.scripts = connection.scripts ?? []
     }
 
     async start (): Promise<void> {

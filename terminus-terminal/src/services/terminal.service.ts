@@ -38,6 +38,7 @@ export class TerminalService {
         const shells = await this.shells$.toPromise()
         return [
             ...this.config.store.terminal.profiles,
+            // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
             ...skipDefault ? [] : shells.filter(x => includeHidden || !x.hidden).map(shell => ({
                 name: shell.name,
                 shell: shell.id,
@@ -54,7 +55,7 @@ export class TerminalService {
 
     async getProfileByID (id: string): Promise<Profile> {
         const profiles = await this.getProfiles({ includeHidden: true })
-        return profiles.find(x => this.getProfileID(x) === id) || profiles[0]
+        return profiles.find(x => this.getProfileID(x) === id) ?? profiles[0]
     }
 
     /**
@@ -69,7 +70,7 @@ export class TerminalService {
             }
         }
 
-        cwd = cwd || profile.sessionOptions.cwd
+        cwd = cwd ?? profile.sessionOptions.cwd
 
         if (cwd && !fs.existsSync(cwd)) {
             console.warn('Ignoring non-existent CWD:', cwd)
@@ -89,20 +90,19 @@ export class TerminalService {
                     }
                 }
             }
-            cwd = cwd || this.config.store.terminal.workingDirectory
-            cwd = cwd || null
+            cwd = cwd ?? this.config.store.terminal.workingDirectory
         }
 
         this.logger.info(`Starting profile ${profile.name}`, profile)
         const sessionOptions = {
             ...profile.sessionOptions,
             pauseAfterExit: pause,
-            cwd: cwd || undefined,
+            cwd: cwd ?? undefined,
         }
 
         const tab = this.openTabWithOptions(sessionOptions)
         if (profile?.color) {
-            (this.app.getParentTab(tab) || tab).color = profile.color
+            (this.app.getParentTab(tab) ?? tab).color = profile.color
         }
         return tab
     }
@@ -110,7 +110,7 @@ export class TerminalService {
     optionsFromShell (shell: Shell): SessionOptions {
         return {
             command: shell.command,
-            args: shell.args || [],
+            args: shell.args ?? [],
             env: shell.env,
         }
     }

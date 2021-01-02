@@ -30,7 +30,7 @@ export class SaveAsProfileContextMenu extends TabContextMenuItemProvider {
                     const profile = {
                         sessionOptions: {
                             ...tab.sessionOptions,
-                            cwd: await tab.session.getWorkingDirectory() || tab.sessionOptions.cwd,
+                            cwd: await tab.session.getWorkingDirectory() ?? tab.sessionOptions.cwd,
                         },
                         name: tab.sessionOptions.command,
                     }

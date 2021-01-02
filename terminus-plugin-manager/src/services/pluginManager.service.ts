@@ -40,7 +40,7 @@ export class PluginManagerService {
 
     listAvailable (query?: string): Observable<PluginInfo[]> {
         return from(
-            axios.get(`https://www.npmjs.com/search?q=keywords%3A${KEYWORD}+${encodeURIComponent(query || '')}&from=0&size=1000`, {
+            axios.get(`https://www.npmjs.com/search?q=keywords%3A${KEYWORD}+${encodeURIComponent(query ?? '')}&from=0&size=1000`, {
                 headers: {
                     'x-spiferack': '1',
                 },

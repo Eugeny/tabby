@@ -67,7 +67,7 @@ export class ShellSettingsTabComponent {
 
     newProfile (shell: Shell): void {
         const profile: Profile = {
-            name: shell.name || '',
+            name: shell.name ?? '',
             shell: shell.id,
             sessionOptions: this.terminal.optionsFromShell(shell),
         }

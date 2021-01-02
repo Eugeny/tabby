@@ -93,11 +93,11 @@ export class ColorSchemeSettingsTabComponent {
     }
 
     getCurrentSchemeName () {
-        return (this.currentCustomScheme || this.currentStockScheme)?.name || 'Custom'
+        return (this.currentCustomScheme ?? this.currentStockScheme)?.name ?? 'Custom'
     }
 
     findMatchingScheme (scheme: TerminalColorScheme, schemes: TerminalColorScheme[]) {
-        return schemes.find(x => deepEqual(x, scheme)) || null
+        return schemes.find(x => deepEqual(x, scheme)) ?? null
     }
 
     colorsTrackBy (index) {

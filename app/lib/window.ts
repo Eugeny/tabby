@@ -49,7 +49,7 @@ export class Window {
     constructor (options?: WindowOptions) {
         this.configStore = loadConfig()
 
-        options = options || {}
+        options = options ?? {}
 
         this.windowConfig = new ElectronConfig({ name: 'window' })
         this.windowBounds = this.windowConfig.get('windowBoundaries')

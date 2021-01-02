@@ -26,10 +26,10 @@ export class StartPageComponent {
             .map(provider => provider.provide())
             .reduce((a, b) => a.concat(b))
             .filter(x => !!x.click)
-            .sort((a: ToolbarButton, b: ToolbarButton) => (a.weight || 0) - (b.weight || 0))
+            .sort((a: ToolbarButton, b: ToolbarButton) => (a.weight ?? 0) - (b.weight ?? 0))
     }
 
     sanitizeIcon (icon: string): any {
-        return this.domSanitizer.bypassSecurityTrustHtml(icon || '')
+        return this.domSanitizer.bypassSecurityTrustHtml(icon ?? '')
     }
 }

@@ -37,7 +37,7 @@ export class EditConnectionModalComponent {
     }
 
     async ngOnInit () {
-        this.connection.scripts = this.connection.scripts || []
+        this.connection.scripts = this.connection.scripts ?? []
         this.foundPorts = await this.serial.listPorts()
     }
 

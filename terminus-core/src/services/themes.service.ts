@@ -18,11 +18,11 @@ export class ThemesService {
     }
 
     findTheme (name: string): Theme|null {
-        return this.config.enabledServices(this.themes).find(x => x.name === name) || null
+        return this.config.enabledServices(this.themes).find(x => x.name === name) ?? null
     }
 
     findCurrentTheme (): Theme {
-        return this.findTheme(this.config.store.appearance.theme) || this.findTheme('Standard')!
+        return this.findTheme(this.config.store.appearance.theme) ?? this.findTheme('Standard')!
     }
 
     applyTheme (theme: Theme): void {

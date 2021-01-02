@@ -95,12 +95,12 @@ rules:
   - error
   - single
   - allowTemplateLiterals: true
+  '@typescript-eslint/no-confusing-void-expression': off
   '@typescript-eslint/no-non-null-assertion': off
   '@typescript-eslint/no-unnecessary-condition': off
   '@typescript-eslint/no-untyped-public-signature': off # bugs out on constructors
   '@typescript-eslint/restrict-template-expressions': off
   '@typescript-eslint/no-dynamic-delete': off
-  '@typescript-eslint/prefer-nullish-coalescing': off
   '@typescript-eslint/prefer-readonly-parameter-types': off
   '@typescript-eslint/no-unsafe-member-access': off
   '@typescript-eslint/no-unsafe-call': off
@@ -112,7 +112,6 @@ rules:
   - error
   - exceptAfterSingleLine: true
   '@typescript-eslint/dot-notation': off
-  '@typescript-eslint/no-confusing-void-expression': off
   '@typescript-eslint/no-implicit-any-catch': off
   '@typescript-eslint/member-ordering': off
   '@typescript-eslint/no-var-requires': off

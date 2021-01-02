@@ -123,7 +123,7 @@ export class SSHSession extends BaseSession {
 
     constructor (public connection: SSHConnection) {
         super()
-        this.scripts = connection.scripts || []
+        this.scripts = connection.scripts ?? []
         this.destroyed$.subscribe(() => {
             for (const port of this.forwardedPorts) {
                 if (port.type === PortForwardType.Local) {
@@ -232,7 +232,7 @@ export class SSHSession extends BaseSession {
 
         this.ssh.on('x11', (details, accept, reject) => {
             this.logger.info(`Incoming X11 connection from ${details.srcIP}:${details.srcPort}`)
-            const displaySpec = process.env.DISPLAY || ':0'
+            const displaySpec = process.env.DISPLAY ?? ':0'
             this.logger.debug(`Trying display ${displaySpec}`)
             const xHost = displaySpec.split(':')[0]
             const xDisplay = parseInt(displaySpec.split(':')[1].split('.')[0] || '0')
@@ -273,15 +273,14 @@ export class SSHSession extends BaseSession {
             await fw.startLocalListener((accept, reject, sourceAddress, sourcePort, targetAddress, targetPort) => {
                 this.logger.info(`New connection on ${fw}`)
                 this.ssh.forwardOut(
-                    sourceAddress || '127.0.0.1',
-                    sourcePort || 0,
+                    sourceAddress ?? '127.0.0.1',
+                    sourcePort ?? 0,
                     targetAddress,
                     targetPort,
                     (err, stream) => {
                         if (err) {
                             this.emitServiceMessage(colors.bgRed.black(' X ') + ` Remote has rejected the forwarded connection to ${targetAddress}:${targetPort} via ${fw}: ${err}`)
-                            reject()
-                            return
+                            return reject()
                         }
                         if (stream) {
                             const socket = accept()
@@ -345,7 +344,7 @@ export class SSHSession extends BaseSession {
 
     kill (signal?: string): void {
         if (this.shell) {
-            this.shell.signal(signal || 'TERM')
+            this.shell.signal(signal ?? 'TERM')
         }
     }
 

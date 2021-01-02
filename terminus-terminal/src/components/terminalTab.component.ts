@@ -69,7 +69,7 @@ export class TerminalTabComponent extends BaseTerminalTabComponent {
             type: 'app:terminal-tab',
             sessionOptions: {
                 ...this.sessionOptions,
-                cwd: cwd || this.sessionOptions.cwd,
+                cwd: cwd ?? this.sessionOptions.cwd,
             },
             savedState: this.frontend?.saveState(),
         }
