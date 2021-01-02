@@ -20,7 +20,7 @@ export class PluginsSettingsTabComponent {
     @Input() availablePluginsQuery$ = new BehaviorSubject<string>('')
     @Input() availablePluginsReady = false
     @Input() knownUpgrades: Record<string, PluginInfo|null> = {}
-    @Input() busy: Record<string, BusyState> = {}
+    @Input() busy = new Map<string, BusyState>()
     @Input() erroredPlugin: string
     @Input() errorMessage: string
 
@@ -67,29 +67,29 @@ export class PluginsSettingsTabComponent {
     }
 
     async installPlugin (plugin: PluginInfo): Promise<void> {
-        this.busy[plugin.name] = BusyState.Installing
+        this.busy.set(plugin.name, BusyState.Installing)
         try {
             await this.pluginManager.installPlugin(plugin)
-            delete this.busy[plugin.name]
+            this.busy.delete(plugin.name)
             this.config.requestRestart()
         } catch (err) {
             this.erroredPlugin = plugin.name
             this.errorMessage = err
-            delete this.busy[plugin.name]
+            this.busy.delete(plugin.name)
             throw err
         }
     }
 
     async uninstallPlugin (plugin: PluginInfo): Promise<void> {
-        this.busy[plugin.name] = BusyState.Uninstalling
+        this.busy.set(plugin.name, BusyState.Uninstalling)
         try {
             await this.pluginManager.uninstallPlugin(plugin)
-            delete this.busy[plugin.name]
+            this.busy.delete(plugin.name)
             this.config.requestRestart()
         } catch (err) {
             this.erroredPlugin = plugin.name
             this.errorMessage = err
-            delete this.busy[plugin.name]
+            this.busy.delete(plugin.name)
             throw err
         }
     }

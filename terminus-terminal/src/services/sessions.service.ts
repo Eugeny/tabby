@@ -331,7 +331,7 @@ export class Session extends BaseSession {
 /** @hidden */
 @Injectable({ providedIn: 'root' })
 export class SessionsService {
-    sessions: Record<string, BaseSession> = {}
+    sessions = new Map<string, BaseSession>()
     logger: Logger
     private lastID = 0
 
@@ -347,9 +347,9 @@ export class SessionsService {
         options.name = `session-${this.lastID}`
         session.start(options)
         session.destroyed$.pipe(first()).subscribe(() => {
-            delete this.sessions[session.name]
+            this.sessions.delete(session.name)
         })
-        this.sessions[session.name] = session
+        this.sessions.set(session.name, session)
         return session
     }
 }
