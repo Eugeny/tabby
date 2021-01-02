@@ -161,7 +161,7 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
     _allFocusMode = false
 
     /** @hidden */
-    private focusedTab: BaseTabComponent
+    private focusedTab: BaseTabComponent|null = null
     private maximizedTab: BaseTabComponent|null = null
     private hotkeysSubscription: Subscription
     private viewRefs: Map<BaseTabComponent, EmbeddedViewRef<any>> = new Map()
@@ -211,7 +211,7 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
         this.blurred$.subscribe(() => this.getAllTabs().forEach(x => x.emitBlurred()))
 
         this.hotkeysSubscription = this.hotkeys.matchedHotkey.subscribe(hotkey => {
-            if (!this.hasFocus) {
+            if (!this.hasFocus || !this.focusedTab) {
                 return
             }
             switch (hotkey) {
@@ -280,7 +280,7 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
         return this.root.getAllTabs()
     }
 
-    getFocusedTab (): BaseTabComponent {
+    getFocusedTab (): BaseTabComponent|null {
         return this.focusedTab
     }
 
@@ -295,10 +295,8 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
                 x.emitBlurred()
             }
         }
-        if (tab) {
-            tab.emitFocused()
-            this.focusChanged.next(tab)
-        }
+        tab.emitFocused()
+        this.focusChanged.next(tab)
 
         if (this.maximizedTab !== tab) {
             this.maximizedTab = null
@@ -314,7 +312,7 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
     /**
      * Focuses the first available tab inside the given [[SplitContainer]]
      */
-    focusAnyIn (parent: BaseTabComponent | SplitContainer): void {
+    focusAnyIn (parent?: BaseTabComponent | SplitContainer): void {
         if (!parent) {
             return
         }
@@ -398,6 +396,10 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
      * Moves focus in the given direction
      */
     navigate (dir: SplitDirection): void {
+        if (!this.focusedTab) {
+            return
+        }
+
         let rel: BaseTabComponent | SplitContainer = this.focusedTab
         let parent = this.getParentOf(rel)
         if (!parent) {
@@ -598,7 +600,7 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
 @Injectable()
 export class SplitTabRecoveryProvider extends TabRecoveryProvider {
     async recover (recoveryToken: RecoveryToken): Promise<RecoveredTab|null> {
-        if (recoveryToken && recoveryToken.type === 'app:split-tab') {
+        if (recoveryToken.type === 'app:split-tab') {
             return {
                 type: SplitTabComponent,
                 options: { _recoveredState: recoveryToken },

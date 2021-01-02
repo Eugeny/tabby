@@ -53,16 +53,16 @@ export class TerminalService {
         return slugify(profile.name, { remove: /[:.]/g }).toLowerCase()
     }
 
-    async getProfileByID (id: string): Promise<Profile> {
+    async getProfileByID (id: string): Promise<Profile|null> {
         const profiles = await this.getProfiles({ includeHidden: true })
-        return profiles.find(x => this.getProfileID(x) === id) ?? profiles[0]
+        return profiles.find(x => this.getProfileID(x) === id) ?? null
     }
 
     /**
      * Launches a new terminal with a specific shell and CWD
      * @param pause Wait for a keypress when the shell exits
      */
-    async openTab (profile?: Profile, cwd?: string|null, pause?: boolean): Promise<TerminalTabComponent> {
+    async openTab (profile?: Profile|null, cwd?: string|null, pause?: boolean): Promise<TerminalTabComponent> {
         if (!profile) {
             profile = await this.getProfileByID(this.config.store.terminal.profile)
             if (!profile) {
@@ -101,7 +101,7 @@ export class TerminalService {
         }
 
         const tab = this.openTabWithOptions(sessionOptions)
-        if (profile?.color) {
+        if (profile.color) {
             (this.app.getParentTab(tab) ?? tab).color = profile.color
         }
         return tab

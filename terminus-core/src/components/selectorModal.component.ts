@@ -72,7 +72,7 @@ export class SelectorModalComponent<T> {
         this.modalInstance.dismiss()
     }
 
-    iconIsSVG (icon: string): boolean {
-        return icon?.startsWith('<')
+    iconIsSVG (icon?: string): boolean {
+        return icon?.startsWith('<') ?? false
     }
 }

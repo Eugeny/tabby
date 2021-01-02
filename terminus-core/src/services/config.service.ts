@@ -109,10 +109,7 @@ export class ConfigService {
     ) {
         this.path = path.join(electron.app.getPath('userData'), 'config.yaml')
         this.defaults = configProviders.map(provider => {
-            let defaults = {}
-            if (provider.platformDefaults) {
-                defaults = configMerge(defaults, provider.platformDefaults[hostApp.platform] || {})
-            }
+            let defaults = provider.platformDefaults[hostApp.platform] || {}
             if (provider.defaults) {
                 defaults = configMerge(defaults, provider.defaults)
             }

@@ -97,7 +97,9 @@ rules:
   - allowTemplateLiterals: true
   '@typescript-eslint/no-confusing-void-expression': off
   '@typescript-eslint/no-non-null-assertion': off
-  '@typescript-eslint/no-unnecessary-condition': off
+  '@typescript-eslint/no-unnecessary-condition':
+  - error
+  - allowConstantLoopConditions: true
   '@typescript-eslint/no-untyped-public-signature': off # bugs out on constructors
   '@typescript-eslint/restrict-template-expressions': off
   '@typescript-eslint/no-dynamic-delete': off

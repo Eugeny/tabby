@@ -113,7 +113,7 @@ export class CommonOptionsContextMenu extends TabContextMenuItemProvider {
                 ...items,
                 {
                     label: 'Rename',
-                    click: () => this.zone.run(() => tabHeader?.showRenameTabModal()),
+                    click: () => this.zone.run(() => tabHeader.showRenameTabModal()),
                 },
                 {
                     label: 'Duplicate',

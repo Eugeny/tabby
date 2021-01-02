@@ -10,7 +10,7 @@ import { HotkeyInputModalComponent } from './hotkeyInputModal.component'
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MultiHotkeyInputComponent {
-    @Input() model: string[][]
+    @Input() model: string[][] = []
     @Output() modelChange = new EventEmitter()
 
     constructor (
@@ -18,9 +18,6 @@ export class MultiHotkeyInputComponent {
     ) { }
 
     ngOnInit (): void {
-        if (!this.model) {
-            this.model = []
-        }
         if (typeof this.model === 'string') {
             this.model = [this.model]
         }

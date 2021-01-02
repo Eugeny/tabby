@@ -60,9 +60,7 @@ export class ShellSettingsTabComponent {
                 properties: ['openDirectory', 'showHiddenFiles'],
             }
         )).filePaths
-        if (paths) {
-            this.config.store.terminal.workingDirectory = paths[0]
-        }
+        this.config.store.terminal.workingDirectory = paths[0]
     }
 
     newProfile (shell: Shell): void {

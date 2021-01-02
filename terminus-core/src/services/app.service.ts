@@ -46,10 +46,10 @@ class CompletionObserver {
 export class AppService {
     tabs: BaseTabComponent[] = []
 
-    get activeTab (): BaseTabComponent { return this._activeTab }
+    get activeTab (): BaseTabComponent|null { return this._activeTab ?? null }
 
     private lastTabIndex = 0
-    private _activeTab: BaseTabComponent
+    private _activeTab?: BaseTabComponent
     private closedTabsStack: RecoveryToken[] = []
 
     private activeTabChange = new Subject<BaseTabComponent>()
@@ -190,7 +190,7 @@ export class AppService {
             this._activeTab.emitFocused()
             return
         }
-        if (this.tabs.includes(this._activeTab)) {
+        if (this._activeTab && this.tabs.includes(this._activeTab)) {
             this.lastTabIndex = this.tabs.indexOf(this._activeTab)
         } else {
             this.lastTabIndex = 0
@@ -201,12 +201,10 @@ export class AppService {
         }
         this._activeTab = tab
         this.activeTabChange.next(tab)
-        if (this._activeTab) {
-            setImmediate(() => {
-                this._activeTab.emitFocused()
-            })
-            this.hostApp.setTitle(this._activeTab.title)
-        }
+        setImmediate(() => {
+            this._activeTab?.emitFocused()
+        })
+        this.hostApp.setTitle(this._activeTab.title)
     }
 
     getParentTab (tab: BaseTabComponent): SplitTabComponent|null {
@@ -229,6 +227,9 @@ export class AppService {
     }
 
     nextTab (): void {
+        if (!this._activeTab) {
+            return
+        }
         if (this.tabs.length > 1) {
             const tabIndex = this.tabs.indexOf(this._activeTab)
             if (tabIndex < this.tabs.length - 1) {
@@ -240,6 +241,9 @@ export class AppService {
     }
 
     previousTab (): void {
+        if (!this._activeTab) {
+            return
+        }
         if (this.tabs.length > 1) {
             const tabIndex = this.tabs.indexOf(this._activeTab)
             if (tabIndex > 0) {
@@ -251,6 +255,9 @@ export class AppService {
     }
 
     moveSelectedTabLeft (): void {
+        if (!this._activeTab) {
+            return
+        }
         if (this.tabs.length > 1) {
             const tabIndex = this.tabs.indexOf(this._activeTab)
             if (tabIndex > 0) {
@@ -262,6 +269,9 @@ export class AppService {
     }
 
     moveSelectedTabRight (): void {
+        if (!this._activeTab) {
+            return
+        }
         if (this.tabs.length > 1) {
             const tabIndex = this.tabs.indexOf(this._activeTab)
             if (tabIndex < this.tabs.length - 1) {

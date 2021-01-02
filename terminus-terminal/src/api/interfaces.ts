@@ -6,7 +6,7 @@ export interface ResizeEvent {
 export interface SessionOptions {
     name?: string
     command: string
-    args: string[]
+    args?: string[]
     cwd?: string
     env?: Record<string, string>
     width?: number

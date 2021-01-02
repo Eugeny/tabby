@@ -24,7 +24,7 @@ export enum SSHAlgorithmType {
 export interface SSHConnection {
     name: string
     host: string
-    port: number
+    port?: number
     user: string
     auth?: null|'password'|'publicKey'|'agent'|'keyboardInteractive'
     password?: string
@@ -112,7 +112,7 @@ export class ForwardedPort {
 
 export class SSHSession extends BaseSession {
     scripts?: LoginScript[]
-    shell: ClientChannel
+    shell?: ClientChannel
     ssh: Client
     forwardedPorts: ForwardedPort[] = []
     logger: Logger
@@ -282,17 +282,15 @@ export class SSHSession extends BaseSession {
                             this.emitServiceMessage(colors.bgRed.black(' X ') + ` Remote has rejected the forwarded connection to ${targetAddress}:${targetPort} via ${fw}: ${err}`)
                             return reject()
                         }
-                        if (stream) {
-                            const socket = accept()
-                            stream.pipe(socket)
-                            socket.pipe(stream)
-                            stream.on('close', () => {
-                                socket.destroy()
-                            })
-                            socket.on('close', () => {
-                                stream.close()
-                            })
-                        }
+                        const socket = accept()
+                        stream.pipe(socket)
+                        socket.pipe(stream)
+                        stream.on('close', () => {
+                            socket.destroy()
+                        })
+                        socket.on('close', () => {
+                            stream.close()
+                        })
                     }
                 )
             }).then(() => {

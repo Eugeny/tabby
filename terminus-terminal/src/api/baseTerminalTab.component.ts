@@ -35,8 +35,8 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
         ]),
     ])]
 
-    session: BaseSession
-    savedState: any
+    session?: BaseSession
+    savedState?: any
 
     @Input() zoom = 0
 
@@ -51,7 +51,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
     /** @hidden */
     @HostBinding('class.top-padded') topPadded: boolean
 
-    frontend: Frontend
+    frontend?: Frontend
 
     /** @hidden */
     frontendIsReady = false
@@ -83,7 +83,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
     protected terminalContainersService: TerminalFrontendService
     protected toastr: ToastrServiceProxy
     protected log: LogService
-    protected decorators: TerminalDecorator[]
+    protected decorators: TerminalDecorator[] = []
     protected contextMenuProviders: TabContextMenuItemProvider[]
     // Deps end
 
@@ -95,10 +95,29 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
     private termContainerSubscriptions: Subscription[] = []
     private allFocusModeSubscription: Subscription|null = null
 
-    get input$ (): Observable<Buffer> { return this.frontend.input$ }
+    get input$ (): Observable<Buffer> {
+        if (!this.frontend) {
+            throw new Error('Frontend not ready')
+        }
+        return this.frontend.input$
+    }
+
     get output$ (): Observable<string> { return this.output }
-    get resize$ (): Observable<ResizeEvent> { return this.frontend.resize$ }
-    get alternateScreenActive$ (): Observable<boolean> { return this.frontend.alternateScreenActive$ }
+
+    get resize$ (): Observable<ResizeEvent> {
+        if (!this.frontend) {
+            throw new Error('Frontend not ready')
+        }
+        return this.frontend.resize$
+    }
+
+    get alternateScreenActive$ (): Observable<boolean> {
+        if (!this.frontend) {
+            throw new Error('Frontend not ready')
+        }
+        return this.frontend.alternateScreenActive$
+    }
+
     get frontendReady$ (): Observable<void> { return this.frontendReady }
 
     constructor (protected injector: Injector) {
@@ -119,7 +138,6 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
         this.contextMenuProviders = injector.get<any>(TabContextMenuItemProvider, null, InjectFlags.Optional) as TabContextMenuItemProvider[]
 
         this.logger = this.log.create('baseTerminalTab')
-        this.decorators = this.decorators || []
         this.setTitle('Terminal')
 
         this.hotkeysSubscription = this.hotkeys.matchedHotkey.subscribe(hotkey => {
@@ -128,7 +146,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
             }
             switch (hotkey) {
                 case 'ctrl-c':
-                    if (this.frontend.getSelection()) {
+                    if (this.frontend?.getSelection()) {
                         this.frontend.copySelection()
                         this.frontend.clearSelection()
                         this.toastr.info('Copied')
@@ -137,15 +155,15 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
                     }
                     break
                 case 'copy':
-                    this.frontend.copySelection()
-                    this.frontend.clearSelection()
+                    this.frontend?.copySelection()
+                    this.frontend?.clearSelection()
                     this.toastr.info('Copied')
                     break
                 case 'paste':
                     this.paste()
                     break
                 case 'clear':
-                    this.frontend.clear()
+                    this.frontend?.clear()
                     break
                 case 'zoom-in':
                     this.zoomIn()
@@ -199,9 +217,13 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
 
     /** @hidden */
     ngOnInit (): void {
+        if (!this.session) {
+            throw new Error('No session set on the tab object by the time ngOnInit is called')
+        }
+
         this.focused$.subscribe(() => {
             this.configure()
-            this.frontend.focus()
+            this.frontend?.focus()
         })
 
         this.frontend = this.terminalContainersService.getFrontend(this.session)
@@ -223,10 +245,10 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
             })
 
             setTimeout(() => {
-                this.session.resize(columns, rows)
+                this.session?.resize(columns, rows)
             }, 1000)
 
-            this.session.releaseInitialDataBuffer()
+            this.session?.releaseInitialDataBuffer()
         })
 
         this.alternateScreenActive$.subscribe(x => {
@@ -242,12 +264,12 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
 
         setImmediate(() => {
             if (this.hasFocus) {
-                this.frontend.attach(this.content.nativeElement)
-                this.frontend.configure()
+                this.frontend!.attach(this.content.nativeElement)
+                this.frontend!.configure()
             } else {
                 this.focused$.pipe(first()).subscribe(() => {
-                    this.frontend.attach(this.content.nativeElement)
-                    this.frontend.configure()
+                    this.frontend!.attach(this.content.nativeElement)
+                    this.frontend!.configure()
                 })
             }
         })
@@ -264,7 +286,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
 
         this.frontend.bell$.subscribe(() => {
             if (this.config.store.terminal.bell === 'visual') {
-                this.frontend.visualBell()
+                this.frontend?.visualBell()
             }
             if (this.config.store.terminal.bell === 'audible') {
                 this.bellPlayer.play()
@@ -295,9 +317,9 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
         if (!(data instanceof Buffer)) {
             data = Buffer.from(data, 'utf-8')
         }
-        this.session.write(data)
+        this.session?.write(data)
         if (this.config.store.terminal.scrollOnInput) {
-            this.frontend.scrollToBottom()
+            this.frontend?.scrollToBottom()
         }
     }
 
@@ -305,6 +327,10 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
      * Feeds input into the terminal frontend
      */
     write (data: string): void {
+        if (!this.frontend) {
+            throw new Error('Frontend not ready')
+        }
+
         const percentageMatch = /(^|[^\d])(\d+(\.\d+)?)%([^\d]|$)/.exec(data)
         if (!this.alternateScreenActive && percentageMatch) {
             const percentage = percentageMatch[3] ? parseFloat(percentageMatch[2]) : parseInt(percentageMatch[2])
@@ -357,7 +383,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
      * Applies the user settings to the terminal
      */
     configure (): void {
-        this.frontend.configure()
+        this.frontend?.configure()
 
         this.topPadded = this.hostApp.platform === Platform.macOS
             && this.config.store.appearance.frame === 'thin'
@@ -374,17 +400,17 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
 
     zoomIn (): void {
         this.zoom++
-        this.frontend.setZoom(this.zoom)
+        this.frontend?.setZoom(this.zoom)
     }
 
     zoomOut (): void {
         this.zoom--
-        this.frontend.setZoom(this.zoom)
+        this.frontend?.setZoom(this.zoom)
     }
 
     resetZoom (): void {
         this.zoom = 0
-        this.frontend.setZoom(this.zoom)
+        this.frontend?.setZoom(this.zoom)
     }
 
     focusAllPanes (): void {
@@ -394,13 +420,13 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
         if (this.parent instanceof SplitTabComponent) {
             this.parent._allFocusMode = true
             this.parent.layout()
-            this.allFocusModeSubscription = this.frontend.input$.subscribe(data => {
+            this.allFocusModeSubscription = this.frontend?.input$.subscribe(data => {
                 for (const tab of (this.parent as SplitTabComponent).getAllTabs()) {
                     if (tab !== this && tab instanceof BaseTerminalTabComponent) {
                         tab.sendInput(data)
                     }
                 }
-            })
+            }) ?? null
         }
     }
 
@@ -418,7 +444,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
 
     /** @hidden */
     ngOnDestroy (): void {
-        this.frontend.detach(this.content.nativeElement)
+        this.frontend?.detach(this.content.nativeElement)
         this.detachTermContainerHandlers()
         this.config.enabledServices(this.decorators).forEach(decorator => {
             try {
@@ -451,6 +477,10 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
     protected attachTermContainerHandlers (): void {
         this.detachTermContainerHandlers()
 
+        if (!this.frontend) {
+            throw new Error('Frontend not ready')
+        }
+
         const maybeConfigure = () => {
             if (this.hasFocus) {
                 setTimeout(() => this.configure(), 250)
@@ -464,8 +494,8 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
                 }
             })),
 
-            this.focused$.subscribe(() => this.frontend.enableResizing = true),
-            this.blurred$.subscribe(() => this.frontend.enableResizing = false),
+            this.focused$.subscribe(() => this.frontend && (this.frontend.enableResizing = true)),
+            this.blurred$.subscribe(() => this.frontend && (this.frontend.enableResizing = false)),
 
             this.frontend.mouseEvent$.subscribe(async event => {
                 if (event.type === 'mousedown') {
@@ -525,6 +555,10 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
     }
 
     protected attachSessionHandlers (destroyOnSessionClose = false): void {
+        if (!this.session) {
+            throw new Error('Session not set')
+        }
+
         // this.session.output$.bufferTime(10).subscribe((datas) => {
         this.session.output$.subscribe(data => {
             if (this.enablePassthrough) {
@@ -537,7 +571,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
 
         if (destroyOnSessionClose) {
             this.sessionCloseSubscription = this.session.closed$.subscribe(() => {
-                this.frontend.destroy()
+                this.frontend?.destroy()
                 this.destroy()
             })
         }

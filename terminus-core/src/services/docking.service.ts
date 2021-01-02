@@ -26,6 +26,7 @@ export class DockingService {
 
         let display = this.electron.screen.getAllDisplays()
             .filter(x => x.id === this.config.store.appearance.dockScreen)[0]
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
         if (!display) {
             display = this.getCurrentScreen()
         }

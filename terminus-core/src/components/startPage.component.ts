@@ -29,7 +29,7 @@ export class StartPageComponent {
             .sort((a: ToolbarButton, b: ToolbarButton) => (a.weight ?? 0) - (b.weight ?? 0))
     }
 
-    sanitizeIcon (icon: string): any {
+    sanitizeIcon (icon?: string): any {
         return this.domSanitizer.bypassSecurityTrustHtml(icon ?? '')
     }
 }

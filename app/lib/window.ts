@@ -35,9 +35,9 @@ export class Window {
     ready: Promise<void>
     private visible = new Subject<boolean>()
     private closed = new Subject<void>()
-    private window: GlasstronWindow
+    private window?: GlasstronWindow
     private windowConfig: ElectronConfig
-    private windowBounds: Rectangle
+    private windowBounds?: Rectangle
     private closing = false
     private lastVibrancy: {enabled: boolean, type?: string} | null = null
     private disableVibrancyWhileDragging = false

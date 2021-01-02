@@ -7,7 +7,7 @@ import { TerminalTabComponent } from './components/terminalTab.component'
 @Injectable()
 export class RecoveryProvider extends TabRecoveryProvider {
     async recover (recoveryToken: RecoveryToken): Promise<RecoveredTab|null> {
-        if (recoveryToken?.type === 'app:terminal-tab') {
+        if (recoveryToken.type === 'app:terminal-tab') {
             return {
                 type: TerminalTabComponent,
                 options: {

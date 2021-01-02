@@ -52,6 +52,7 @@ export class EditConnectionModalComponent {
         this.connection.auth = this.connection.auth ?? null
 
         for (const k of Object.values(SSHAlgorithmType)) {
+            // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
             if (!this.connection.algorithms[k]) {
                 this.connection.algorithms[k] = this.defaultAlgorithms[k]
             }

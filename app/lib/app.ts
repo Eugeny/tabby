@@ -5,7 +5,7 @@ import { Window, WindowOptions } from './window'
 import { pluginManager } from './pluginManager'
 
 export class Application {
-    private tray: Tray
+    private tray?: Tray
     private windows: Window[] = []
 
     constructor () {
@@ -131,10 +131,8 @@ export class Application {
     }
 
     disableTray (): void {
-        if (this.tray) {
-            this.tray.destroy()
-            this.tray = null
-        }
+        this.tray?.destroy()
+        this.tray = null
     }
 
     hasWindows (): boolean {

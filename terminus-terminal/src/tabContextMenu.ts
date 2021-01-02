@@ -30,7 +30,7 @@ export class SaveAsProfileContextMenu extends TabContextMenuItemProvider {
                     const profile = {
                         sessionOptions: {
                             ...tab.sessionOptions,
-                            cwd: await tab.session.getWorkingDirectory() ?? tab.sessionOptions.cwd,
+                            cwd: await tab.session?.getWorkingDirectory() ?? tab.sessionOptions.cwd,
                         },
                         name: tab.sessionOptions.command,
                     }
@@ -79,7 +79,7 @@ export class NewTabContextMenu extends TabContextMenuItemProvider {
                     click: () => this.zone.run(async () => {
                         let workingDirectory = this.config.store.terminal.workingDirectory
                         if (this.config.store.terminal.alwaysUseWorkingDirectory !== true && tab instanceof TerminalTabComponent) {
-                            workingDirectory = await tab.session.getWorkingDirectory()
+                            workingDirectory = await tab.session?.getWorkingDirectory()
                         }
                         await this.terminalService.openTab(profile, workingDirectory)
                     }),
@@ -150,7 +150,7 @@ export class CopyPasteContextMenu extends TabContextMenuItemProvider {
                     click: (): void => {
                         this.zone.run(() => {
                             setTimeout(() => {
-                                tab.frontend.copySelection()
+                                tab.frontend?.copySelection()
                                 this.toastr.info('Copied')
                             })
                         })
@@ -174,7 +174,7 @@ export class LegacyContextMenu extends TabContextMenuItemProvider {
     weight = 1
 
     constructor (
-        @Optional() @Inject(TerminalContextMenuItemProvider) protected contextMenuProviders: TerminalContextMenuItemProvider[],
+        @Optional() @Inject(TerminalContextMenuItemProvider) protected contextMenuProviders: TerminalContextMenuItemProvider[]|null,
     ) {
         super()
     }

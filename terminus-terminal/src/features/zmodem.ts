@@ -36,7 +36,7 @@ export class ZModemDecorator extends TerminalDecorator {
                     terminal.write(data)
                 }
             },
-            sender: data => terminal.session.write(Buffer.from(data)),
+            sender: data => terminal.session!.write(Buffer.from(data)),
             on_detect: async detection => {
                 try {
                     terminal.enablePassthrough = false
@@ -50,7 +50,7 @@ export class ZModemDecorator extends TerminalDecorator {
             },
         })
         setTimeout(() => {
-            this.subscribeUntilDetached(terminal, terminal.session.binaryOutput$.subscribe(data => {
+            this.subscribeUntilDetached(terminal, terminal.session!.binaryOutput$.subscribe(data => {
                 const chunkSize = 1024
                 for (let i = 0; i <= Math.floor(data.length / chunkSize); i++) {
                     try {
@@ -153,6 +153,7 @@ export class ZModemDecorator extends TerminalDecorator {
                 this.cancelEvent.toPromise(),
             ])
 
+            // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
             if (canceled) {
                 this.showMessage(terminal, colors.bgRed.black(' Canceled ') + ' ' + details.name)
             } else {
@@ -207,6 +208,7 @@ export class ZModemDecorator extends TerminalDecorator {
 
             await xfer.end()
 
+            // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
             if (canceled) {
                 this.showMessage(terminal, colors.bgRed.black(' Canceled ') + ' ' + offer.name)
             } else {

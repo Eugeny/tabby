@@ -33,6 +33,7 @@ export class TouchbarService {
         app.tabOpened$.subscribe(tab => {
             tab.titleChange$.subscribe(title => {
                 const segment = this.tabSegments[app.tabs.indexOf(tab)]
+                // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
                 if (segment) {
                     segment.label = this.shortenTitle(title)
                     this.tabsSegmentedControl.segments = this.tabSegments
@@ -41,6 +42,7 @@ export class TouchbarService {
             tab.activity$.subscribe(hasActivity => {
                 const showIcon = this.app.activeTab !== tab && hasActivity
                 const segment = this.tabSegments[app.tabs.indexOf(tab)]
+                // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
                 if (segment) {
                     segment.icon = showIcon ? activityIcon : undefined
                 }
@@ -53,7 +55,7 @@ export class TouchbarService {
             label: this.shortenTitle(tab.title),
         }))
         this.tabsSegmentedControl.segments = this.tabSegments
-        this.tabsSegmentedControl.selectedIndex = this.app.tabs.indexOf(this.app.activeTab)
+        this.tabsSegmentedControl.selectedIndex = this.app.activeTab ? this.app.tabs.indexOf(this.app.activeTab) : 0
     }
 
     update (): void {
@@ -73,7 +75,7 @@ export class TouchbarService {
 
         this.tabsSegmentedControl = new this.electron.TouchBar.TouchBarSegmentedControl({
             segments: this.tabSegments,
-            selectedIndex: this.app.tabs.indexOf(this.app.activeTab),
+            selectedIndex: this.app.activeTab ? this.app.tabs.indexOf(this.app.activeTab) : undefined,
             change: (selectedIndex) => this.zone.run(() => {
                 this.app.selectTab(this.app.tabs[selectedIndex])
             }),
@@ -109,6 +111,7 @@ export class TouchbarService {
     }
 
     private getCachedNSImage (name: string) {
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
         if (!this.nsImageCache[name]) {
             this.nsImageCache[name] = this.electron.nativeImage.createFromNamedImage(name, [0, 0, 1])
         }

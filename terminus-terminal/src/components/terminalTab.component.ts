@@ -53,7 +53,7 @@ export class TerminalTabComponent extends BaseTerminalTabComponent {
 
     initializeSession (columns: number, rows: number): void {
         this.sessions.addSession(
-            this.session,
+            this.session!,
             Object.assign({}, this.sessionOptions, {
                 width: columns,
                 height: rows,
@@ -76,8 +76,8 @@ export class TerminalTabComponent extends BaseTerminalTabComponent {
     }
 
     async getCurrentProcess (): Promise<BaseTabProcess|null> {
-        const children = await this.session.getChildProcesses()
-        if (!children.length) {
+        const children = await this.session?.getChildProcesses()
+        if (!children?.length) {
             return null
         }
         return {
@@ -86,8 +86,8 @@ export class TerminalTabComponent extends BaseTerminalTabComponent {
     }
 
     async canClose (): Promise<boolean> {
-        const children = await this.session.getChildProcesses()
-        if (children.length === 0) {
+        const children = await this.session?.getChildProcesses()
+        if (!children?.length) {
             return true
         }
         return (await this.electron.showMessageBox(
@@ -104,6 +104,6 @@ export class TerminalTabComponent extends BaseTerminalTabComponent {
     ngOnDestroy (): void {
         this.homeEndSubscription.unsubscribe()
         super.ngOnDestroy()
-        this.session.destroy()
+        this.session?.destroy()
     }
 }

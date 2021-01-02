@@ -16,8 +16,8 @@ import { Subscription } from 'rxjs'
     animations: BaseTerminalTabComponent.animations,
 })
 export class SerialTabComponent extends BaseTerminalTabComponent {
-    connection: SerialConnection
-    session: SerialSession
+    connection?: SerialConnection
+    session?: SerialSession
     serialPort: any
     private homeEndSubscription: Subscription
 

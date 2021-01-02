@@ -8,7 +8,5 @@ export interface HotkeyDescription {
  * must also provide the `hotkeys.foo` config options with the default values
  */
 export abstract class HotkeyProvider {
-    hotkeys: HotkeyDescription[] = []
-
     abstract provide (): Promise<HotkeyDescription[]>
 }

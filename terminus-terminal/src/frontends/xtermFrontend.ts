@@ -33,7 +33,7 @@ export class XTermFrontend extends Frontend {
     private search = new SearchAddon()
     private fitAddon = new FitAddon()
     private serializeAddon = new SerializeAddon()
-    private ligaturesAddon: LigaturesAddon
+    private ligaturesAddon?: LigaturesAddon
     private opened = false
 
     constructor () {

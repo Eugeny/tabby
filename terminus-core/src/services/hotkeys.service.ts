@@ -172,7 +172,7 @@ export class HotkeysService {
         return (
             await Promise.all(
                 this.config.enabledServices(this.hotkeyProviders)
-                    .map(async x => x.provide ? x.provide() : x.hotkeys)
+                    .map(async x => x.provide())
             )
         ).reduce((a, b) => a.concat(b))
     }
@@ -222,7 +222,7 @@ export class HotkeysService {
                 if (!(value instanceof Array)) {
                     continue
                 }
-                if (value) {
+                if (value.length > 0) {
                     value = value.map((item: string | string[]) => typeof item === 'string' ? [item] : item)
                     keys[key] = value
                 }

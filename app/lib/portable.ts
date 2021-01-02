@@ -8,17 +8,15 @@ try {
     appPath = path.dirname(require('electron').remote.app.getPath('exe'))
 }
 
-if (null != appPath) {
-    if (fs.existsSync(path.join(appPath, 'terminus-data'))) {
-        fs.renameSync(path.join(appPath, 'terminus-data'), path.join(appPath, 'data'))
-    }
-    const portableData = path.join(appPath, 'data')
-    if (fs.existsSync(portableData)) {
-        console.log('reset user data to ' + portableData)
-        try {
-            require('electron').app.setPath('userData', portableData)
-        } catch {
-            require('electron').remote.app.setPath('userData', portableData)
-        }
+if (fs.existsSync(path.join(appPath, 'terminus-data'))) {
+    fs.renameSync(path.join(appPath, 'terminus-data'), path.join(appPath, 'data'))
+}
+const portableData = path.join(appPath, 'data')
+if (fs.existsSync(portableData)) {
+    console.log('reset user data to ' + portableData)
+    try {
+        require('electron').app.setPath('userData', portableData)
+    } catch {
+        require('electron').remote.app.setPath('userData', portableData)
     }
 }

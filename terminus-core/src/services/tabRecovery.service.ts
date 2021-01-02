@@ -11,7 +11,7 @@ export class TabRecoveryService {
     enabled = false
 
     private constructor (
-        @Inject(TabRecoveryProvider) private tabRecoveryProviders: TabRecoveryProvider[],
+        @Inject(TabRecoveryProvider) private tabRecoveryProviders: TabRecoveryProvider[]|null,
         private config: ConfigService,
         log: LogService
     ) {
@@ -23,30 +23,23 @@ export class TabRecoveryService {
             return
         }
         window.localStorage.tabsRecovery = JSON.stringify(
-            await Promise.all(
+            (await Promise.all(
                 tabs
-                    .map(tab => {
-                        let token = tab.getRecoveryToken()
-                        if (token) {
-                            token = token.then(r => {
-                                if (r) {
-                                    r.tabTitle = tab.title
-                                    if (tab.color) {
-                                        r.tabColor = tab.color
-                                    }
-                                }
-                                return r
-                            })
+                    .map(async tab => tab.getRecoveryToken().then(r => {
+                        if (r) {
+                            r.tabTitle = tab.title
+                            if (tab.color) {
+                                r.tabColor = tab.color
+                            }
                         }
-                        return token
-                    })
-                    .filter(token => !!token)
-            )
+                        return r
+                    }))
+            )).filter(token => !!token)
         )
     }
 
     async recoverTab (token: RecoveryToken): Promise<RecoveredTab|null> {
-        for (const provider of this.config.enabledServices(this.tabRecoveryProviders)) {
+        for (const provider of this.config.enabledServices(this.tabRecoveryProviders ?? [])) {
             try {
                 const tab = await provider.recover(token)
                 if (tab !== null) {

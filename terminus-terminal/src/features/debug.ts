@@ -18,7 +18,7 @@ export class DebugDecorator extends TerminalDecorator {
         let sessionOutputBuffer = ''
         const bufferLength = 8192
 
-        this.subscribeUntilDetached(terminal, terminal.session.output$.subscribe(data => {
+        this.subscribeUntilDetached(terminal, terminal.session!.output$.subscribe(data => {
             sessionOutputBuffer += data
             if (sessionOutputBuffer.length > bufferLength) {
                 sessionOutputBuffer = sessionOutputBuffer.substring(sessionOutputBuffer.length - bufferLength)
@@ -88,18 +88,18 @@ export class DebugDecorator extends TerminalDecorator {
     }
 
     private doSaveState (terminal: TerminalTabComponent) {
-        this.saveFile(terminal.frontend.saveState(), 'state.txt')
+        this.saveFile(terminal.frontend!.saveState(), 'state.txt')
     }
 
     private async doCopyState (terminal: TerminalTabComponent) {
-        const data = '```' + JSON.stringify(terminal.frontend.saveState()) + '```'
+        const data = '```' + JSON.stringify(terminal.frontend!.saveState()) + '```'
         this.electron.clipboard.writeText(data)
     }
 
     private async doLoadState (terminal: TerminalTabComponent) {
         const data = await this.loadFile()
         if (data) {
-            terminal.frontend.restoreState(data)
+            terminal.frontend!.restoreState(data)
         }
     }
 
@@ -109,7 +109,7 @@ export class DebugDecorator extends TerminalDecorator {
             if (data.startsWith('`')) {
                 data = data.substring(3, data.length - 3)
             }
-            terminal.frontend.restoreState(JSON.parse(data))
+            terminal.frontend!.restoreState(JSON.parse(data))
         }
     }
 
@@ -125,7 +125,7 @@ export class DebugDecorator extends TerminalDecorator {
     private async doLoadOutput (terminal: TerminalTabComponent) {
         const data = await this.loadFile()
         if (data) {
-            terminal.frontend.write(data)
+            terminal.frontend?.write(data)
         }
     }
 
@@ -135,7 +135,7 @@ export class DebugDecorator extends TerminalDecorator {
             if (data.startsWith('`')) {
                 data = data.substring(3, data.length - 3)
             }
-            terminal.frontend.write(JSON.parse(data))
+            terminal.frontend?.write(JSON.parse(data))
         }
     }
 }

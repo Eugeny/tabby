@@ -54,9 +54,7 @@ export class Logger {
 
     private doLog (level: string, ...args: any[]): void {
         console[level](`%c[${this.name}]`, 'color: #aaa', ...args)
-        if (this.winstonLogger) {
-            this.winstonLogger[level](...args)
-        }
+        this.winstonLogger[level](...args)
     }
 }
 

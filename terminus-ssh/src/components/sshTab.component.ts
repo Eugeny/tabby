@@ -19,8 +19,8 @@ import { Subscription } from 'rxjs'
     animations: BaseTerminalTabComponent.animations,
 })
 export class SSHTabComponent extends BaseTerminalTabComponent {
-    connection: SSHConnection
-    session: SSHSession
+    connection?: SSHConnection
+    session?: SSHSession
     private sessionStack: SSHSession[] = []
     private homeEndSubscription: Subscription
 
@@ -72,7 +72,7 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
             jumpSession.destroyed$.subscribe(() => session.destroy())
 
             session.jumpStream = await new Promise((resolve, reject) => jumpSession.ssh.forwardOut(
-                '127.0.0.1', 0, session.connection.host, session.connection.port,
+                '127.0.0.1', 0, session.connection.host, session.connection.port ?? 22,
                 (err, stream) => {
                     if (err) {
                         jumpSession.emitServiceMessage(colors.bgRed.black(' X ') + ` Could not set up port forward on ${jumpConnection.name}`)
@@ -156,7 +156,7 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
     async reconnect (): Promise<void> {
         this.session?.destroy()
         await this.initializeSession()
-        this.session.releaseInitialDataBuffer()
+        this.session?.releaseInitialDataBuffer()
     }
 
     async canClose (): Promise<boolean> {
