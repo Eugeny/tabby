@@ -58,8 +58,8 @@ findPlugins().then(async plugins => {
         window['safeModeReason'] = error
         try {
             await bootstrap(plugins, true)
-        } catch (error) {
-            console.error('Bootstrap failed:', error)
+        } catch (error2) {
+            console.error('Bootstrap failed:', error2)
         }
     }
 })

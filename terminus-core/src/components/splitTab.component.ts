@@ -520,7 +520,7 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
 
     private layoutInternal (root: SplitContainer, x: number, y: number, w: number, h: number) {
         const size = root.orientation === 'v' ? h : w
-        const sizes = root.ratios.map(x => x * size)
+        const sizes = root.ratios.map(ratio => ratio * size)
 
         root.x = x
         root.y = y

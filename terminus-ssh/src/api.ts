@@ -76,10 +76,10 @@ export class ForwardedPort {
             })
         } else if (this.type === PortForwardType.Dynamic) {
             return new Promise((resolve, reject) => {
-                this.listener = socksv5.createServer((info, accept, reject) => {
+                this.listener = socksv5.createServer((info, acceptConnection, rejectConnection) => {
                     callback(
-                        () => accept(true),
-                        () => reject(),
+                        () => acceptConnection(true),
+                        () => rejectConnection(),
                         null,
                         null,
                         info.dstAddr,

@@ -210,6 +210,7 @@ export class SSHService {
                 if (await fs.exists(WINDOWS_OPENSSH_AGENT_PIPE)) {
                     agent = WINDOWS_OPENSSH_AGENT_PIPE
                 } else {
+                    // eslint-disable-next-line @typescript-eslint/no-shadow
                     const pageantRunning = await new Promise<boolean>(resolve => {
                         windowsProcessTreeNative.getProcessList(list => { // eslint-disable-line block-scoped-var
                             resolve(list.some(x => x.name === 'pageant.exe'))

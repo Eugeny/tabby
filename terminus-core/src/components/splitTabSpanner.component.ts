@@ -34,8 +34,8 @@ export class SplitTabSpannerComponent {
             let current = start
             const oldPosition: number = this.isVertical ? this.element.nativeElement.offsetTop : this.element.nativeElement.offsetLeft
 
-            const dragHandler = (e: MouseEvent) => {
-                current = this.isVertical ? e.pageY : e.pageX
+            const dragHandler = (dragEvent: MouseEvent) => {
+                current = this.isVertical ? dragEvent.pageY : dragEvent.pageX
                 const newPosition = oldPosition + (current - start)
                 if (this.isVertical) {
                     this.element.nativeElement.style.top = `${newPosition - this.marginOffset}px`

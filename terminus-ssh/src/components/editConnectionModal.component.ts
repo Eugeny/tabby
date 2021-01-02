@@ -99,8 +99,8 @@ export class EditConnectionModalComponent {
     save () {
         for (const k of Object.values(SSHAlgorithmType)) {
             this.connection.algorithms![k] = Object.entries(this.algorithms[k])
-                .filter(([_k, v]) => !!v)
-                .map(([k, _v]) => k)
+                .filter(([_, v]) => !!v)
+                .map(([key, _]) => key)
         }
         this.modalInstance.close(this.connection)
     }

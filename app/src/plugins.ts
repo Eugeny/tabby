@@ -3,13 +3,13 @@ import * as path from 'path'
 const nodeModule = require('module') // eslint-disable-line @typescript-eslint/no-var-requires
 const nodeRequire = (global as any).require
 
-function normalizePath (path: string): string {
+function normalizePath (p: string): string {
     const cygwinPrefix = '/cygdrive/'
-    if (path.startsWith(cygwinPrefix)) {
-        path = path.substring(cygwinPrefix.length).replace('/', '\\')
-        path = path[0] + ':' + path.substring(1)
+    if (p.startsWith(cygwinPrefix)) {
+        p = p.substring(cygwinPrefix.length).replace('/', '\\')
+        p = p[0] + ':' + p.substring(1)
     }
-    return path
+    return p
 }
 
 global['module'].paths.map((x: string) => nodeModule.globalPaths.push(normalizePath(x)))
