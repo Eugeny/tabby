@@ -217,10 +217,6 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
 
     /** @hidden */
     ngOnInit (): void {
-        if (!this.session) {
-            throw new Error('No session set on the tab object by the time ngOnInit is called')
-        }
-
         this.focused$.subscribe(() => {
             this.configure()
             this.frontend?.focus()
