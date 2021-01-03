@@ -49,10 +49,10 @@ export class AppService {
     get activeTab (): BaseTabComponent|null { return this._activeTab ?? null }
 
     private lastTabIndex = 0
-    private _activeTab?: BaseTabComponent
+    private _activeTab: BaseTabComponent | null = null
     private closedTabsStack: RecoveryToken[] = []
 
-    private activeTabChange = new Subject<BaseTabComponent>()
+    private activeTabChange = new Subject<BaseTabComponent|null>()
     private tabsChanged = new Subject<void>()
     private tabOpened = new Subject<BaseTabComponent>()
     private tabClosed = new Subject<BaseTabComponent>()
@@ -60,7 +60,7 @@ export class AppService {
 
     private completionObservers = new Map<BaseTabComponent, CompletionObserver>()
 
-    get activeTabChange$ (): Observable<BaseTabComponent> { return this.activeTabChange }
+    get activeTabChange$ (): Observable<BaseTabComponent|null> { return this.activeTabChange }
     get tabOpened$ (): Observable<BaseTabComponent> { return this.tabOpened }
     get tabsChanged$ (): Observable<void> { return this.tabsChanged }
     get tabClosed$ (): Observable<BaseTabComponent> { return this.tabClosed }
@@ -185,8 +185,8 @@ export class AppService {
         return null
     }
 
-    selectTab (tab: BaseTabComponent): void {
-        if (this._activeTab === tab) {
+    selectTab (tab: BaseTabComponent|null): void {
+        if (tab && this._activeTab === tab) {
             this._activeTab.emitFocused()
             return
         }
@@ -204,7 +204,7 @@ export class AppService {
         setImmediate(() => {
             this._activeTab?.emitFocused()
         })
-        this.hostApp.setTitle(this._activeTab.title)
+        this.hostApp.setTitle(this._activeTab?.title)
     }
 
     getParentTab (tab: BaseTabComponent): SplitTabComponent|null {

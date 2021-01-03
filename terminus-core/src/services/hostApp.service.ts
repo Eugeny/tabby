@@ -242,8 +242,8 @@ export class HostAppService {
         this.electron.ipcRenderer.send('window-set-vibrancy', enable, type)
     }
 
-    setTitle (title: string): void {
-        this.electron.ipcRenderer.send('window-set-title', title)
+    setTitle (title?: string): void {
+        this.electron.ipcRenderer.send('window-set-title', title ?? 'Terminus')
     }
 
     setTouchBar (touchBar: TouchBar): void {
