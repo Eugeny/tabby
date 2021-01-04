@@ -34,6 +34,22 @@ jobs:
       run: node scripts/build-windows.js
       if: github.repository != 'Eugeny/terminus' || github.event_name != 'push'
 
+    - name: Upload symbols
+      run: |
+        npm install @sentry/cli
+        node_modules/.bin/sentry-cli.cmd upload-dif --auth-token ${{ secrets.SENTRY_AUTH_TOKEN }} --org ${{ secrets.SENTRY_ORG }} --project ${{ secrets.SENTRY_PROJECT }} app/node_modules
+
+    - name: Sentry Release
+      uses: getsentry/action-release@v1.0.0
+      env:
+        SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+        SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+        SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
+      with:
+        version: ${{ github.ref }}
+        version_prefix: v
+        sourcemaps: app/dist terminus-core/dist terminus-terminal/dist terminus-serial/dist terminus-ssh/dist terminus-settings/dist terminus-plugin-manager/dist
+
     - name: Package artifacts
       run: |
         mkdir artifact-setup
