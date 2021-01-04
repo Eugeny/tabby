@@ -62,6 +62,26 @@ jobs:
         ARCH: ${{matrix.arch}}
         # DEBUG: electron-builder,electron-builder:*
 
+    - name: Sentry Release
+      uses: getsentry/action-release@v1.0.0
+      env:
+        SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+        SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+        SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
+      with:
+        version: ${{ github.ref }}
+        version_prefix: v
+        sourcemaps: app/dist terminus-core/dist terminus-terminal/dist terminus-serial/dist terminus-ssh/dist terminus-settings/dist terminus-plugin-manager/dist
+
+    - name: Upload symbols
+      run: |
+        sudo npm install -g @sentry/cli --unsafe-perm
+        dsymutil app/node_modules/@serialport/bindings/build/Release/bindings.node
+        dsymutil app/node_modules/@terminus-term/node-pty/build/Release/pty.node
+        dsymutil app/node_modules/fontmanager-redux/build/Release/fontmanager.node
+        dsymutil app/node_modules/macos-native-processlist/build/Release/native.node
+        sentry-cli upload-dif --auth-token ${{ secrets.SENTRY_AUTH_TOKEN }} --org ${{ secrets.SENTRY_ORG }} --project ${{ secrets.SENTRY_PROJECT }} app/node_modules
+
     - name: Package artifacts
       run: |
         mkdir artifact-pkg
