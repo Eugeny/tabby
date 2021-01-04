@@ -20,5 +20,5 @@ if (process.platform === 'darwin') {
 sh.exec(`${sentryCli} upload-dif app/node_modules`)
 sh.exec(`${sentryCli} releases set-commits --auto ${vars.version}`)
 for (const p of vars.builtinPlugins) {
-    sh.exec(`${sentryCli} releases files ${vars.version} upload-sourcemaps app/dist ${p}/dist -u ${p}/dist/ -d ${process.platform}`)
+    sh.exec(`${sentryCli} releases files ${vars.version} upload-sourcemaps ${p}/dist -u ${p}/dist/ -d ${process.platform}-${p}`)
 }
