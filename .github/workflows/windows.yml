@@ -37,10 +37,7 @@ jobs:
     - name: Upload symbols
       run: |
         npm install @sentry/cli
-        node_modules/.bin/sentry-cli.cmd upload-dif app/node_modules
-        node_modules/.bin/sentry-cli.cmd releases new ${{ github.ref }} || true
-        node_modules/.bin/sentry-cli.cmd releases set-commits --auto ${{ github.ref }}
-        node_modules/.bin/sentry-cli.cmd releases files ${{ github.ref }} upload-sourcemaps app/dist terminus-core/dist terminus-terminal/dist terminus-serial/dist terminus-ssh/dist terminus-settings/dist terminus-plugin-manager/dist
+        node scripts/sentry-upload.js
       env:
         SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
         SENTRY_ORG: ${{ secrets.SENTRY_ORG }}

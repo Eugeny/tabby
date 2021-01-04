@@ -76,12 +76,7 @@ jobs:
     - name: Upload symbols
       run: |
         sudo npm install -g @sentry/cli --unsafe-perm
-        dsymutil app/node_modules/@serialport/bindings/build/Release/bindings.node
-        dsymutil app/node_modules/@terminus-term/node-pty/build/Release/pty.node
-        dsymutil app/node_modules/fontmanager-redux/build/Release/fontmanager.node
-        dsymutil app/node_modules/macos-native-processlist/build/Release/native.node
-        sentry-cli releases new ${{ github.ref }} || true
-        sentry-cli upload-dif app/node_modules
+        ./scripts/sentry-upload.js
       env:
         SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
         SENTRY_ORG: ${{ secrets.SENTRY_ORG }}

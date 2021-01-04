@@ -41,8 +41,7 @@ jobs:
     - name: Upload symbols
       run: |
         sudo npm install -g @sentry/cli --unsafe-perm
-        sentry-cli releases new ${{ github.ref }} || true
-        sentry-cli upload-dif app/node_modules
+        ./scripts/sentry-upload.js
       env:
         SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
         SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
