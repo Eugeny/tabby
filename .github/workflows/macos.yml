@@ -62,7 +62,7 @@ jobs:
         ARCH: ${{matrix.arch}}
         # DEBUG: electron-builder,electron-builder:*
 
-    - name: Sentry Release
+    - name: Sentry release
       uses: getsentry/action-release@v1.0.0
       env:
         SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
@@ -80,7 +80,7 @@ jobs:
         dsymutil app/node_modules/@terminus-term/node-pty/build/Release/pty.node
         dsymutil app/node_modules/fontmanager-redux/build/Release/fontmanager.node
         dsymutil app/node_modules/macos-native-processlist/build/Release/native.node
-        sentry-cli upload-dif --auth-token ${{ secrets.SENTRY_AUTH_TOKEN }} --org ${{ secrets.SENTRY_ORG }} --project ${{ secrets.SENTRY_PROJECT }} app/node_modules
+        sentry-cli --auth-token ${{ secrets.SENTRY_AUTH_TOKEN }} upload-dif --org ${{ secrets.SENTRY_ORG }} --project ${{ secrets.SENTRY_PROJECT }} app/node_modules
 
     - name: Package artifacts
       run: |

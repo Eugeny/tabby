@@ -38,6 +38,22 @@ jobs:
         GH_TOKEN: ${{ secrets.GH_TOKEN }}
         USE_HARD_LINKS: false
 
+    - name: Sentry release
+      uses: getsentry/action-release@v1.0.0
+      env:
+        SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+        SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+        SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
+      with:
+        version: ${{ github.ref }}
+        version_prefix: v
+        sourcemaps: app/dist terminus-core/dist terminus-terminal/dist terminus-serial/dist terminus-ssh/dist terminus-settings/dist terminus-plugin-manager/dist
+
+    - name: Upload symbols
+      run: |
+        sudo npm install -g @sentry/cli --unsafe-perm
+        sentry-cli --auth-token ${{ secrets.SENTRY_AUTH_TOKEN }} upload-dif --org ${{ secrets.SENTRY_ORG }} --project ${{ secrets.SENTRY_PROJECT }} app/node_modules
+
     - name: Package artifacts
       run: |
         mkdir artifact-deb

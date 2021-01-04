@@ -37,9 +37,9 @@ jobs:
     - name: Upload symbols
       run: |
         npm install @sentry/cli
-        node_modules/.bin/sentry-cli.cmd upload-dif --auth-token ${{ secrets.SENTRY_AUTH_TOKEN }} --org ${{ secrets.SENTRY_ORG }} --project ${{ secrets.SENTRY_PROJECT }} app/node_modules
+        node_modules/.bin/sentry-cli.cmd --auth-token ${{ secrets.SENTRY_AUTH_TOKEN }} upload-dif --org ${{ secrets.SENTRY_ORG }} --project ${{ secrets.SENTRY_PROJECT }} app/node_modules
 
-    - name: Sentry Release
+    - name: Sentry release
       uses: getsentry/action-release@v1.0.0
       env:
         SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
