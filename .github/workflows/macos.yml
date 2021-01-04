@@ -80,7 +80,12 @@ jobs:
         dsymutil app/node_modules/@terminus-term/node-pty/build/Release/pty.node
         dsymutil app/node_modules/fontmanager-redux/build/Release/fontmanager.node
         dsymutil app/node_modules/macos-native-processlist/build/Release/native.node
-        sentry-cli --auth-token ${{ secrets.SENTRY_AUTH_TOKEN }} upload-dif --org ${{ secrets.SENTRY_ORG }} --project ${{ secrets.SENTRY_PROJECT }} app/node_modules
+        sentry-cli releases new ${{ github.ref }} || true
+        sentry-cli upload-dif app/node_modules
+      env:
+        SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+        SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+        SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
 
     - name: Package artifacts
       run: |

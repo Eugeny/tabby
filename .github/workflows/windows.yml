@@ -37,18 +37,14 @@ jobs:
     - name: Upload symbols
       run: |
         npm install @sentry/cli
-        node_modules/.bin/sentry-cli.cmd --auth-token ${{ secrets.SENTRY_AUTH_TOKEN }} upload-dif --org ${{ secrets.SENTRY_ORG }} --project ${{ secrets.SENTRY_PROJECT }} app/node_modules
-
-    - name: Sentry release
-      uses: getsentry/action-release@v1.0.0
+        node_modules/.bin/sentry-cli.cmd upload-dif app/node_modules
+        node_modules/.bin/sentry-cli.cmd releases new ${{ github.ref }} || true
+        node_modules/.bin/sentry-cli.cmd releases set-commits --auto ${{ github.ref }}
+        node_modules/.bin/sentry-cli.cmd releases files ${{ github.ref }} upload-sourcemaps app/dist terminus-core/dist terminus-terminal/dist terminus-serial/dist terminus-ssh/dist terminus-settings/dist terminus-plugin-manager/dist
       env:
         SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
         SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
         SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
-      with:
-        version: ${{ github.ref }}
-        version_prefix: v
-        sourcemaps: app/dist terminus-core/dist terminus-terminal/dist terminus-serial/dist terminus-ssh/dist terminus-settings/dist terminus-plugin-manager/dist
 
     - name: Package artifacts
       run: |
