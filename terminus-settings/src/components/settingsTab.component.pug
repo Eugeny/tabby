@@ -307,7 +307,7 @@ ngb-tabset.vertical(type='pills', [activeId]='activeTab')
                             td {{hotkey.id}}
                             td.pr-5
                                 multi-hotkey-input(
-                                    [model]='getHotkey(hotkey.id)',
+                                    [model]='getHotkey(hotkey.id) || []',
                                     (modelChange)='setHotkey(hotkey.id, $event); config.save(); docking.dock()'
                                 )
 
