@@ -91,10 +91,10 @@ export class Window {
             }
         }
 
-        if (process.platform === 'darwin') {
-            this.window = new BrowserWindow(bwOptions) as GlasstronWindow
-        } else {
+        if (process.platform === 'win32') {
             this.window = new glasstron.BrowserWindow(bwOptions)
+        } else {
+            this.window = new BrowserWindow(bwOptions) as GlasstronWindow
         }
 
         this.window.once('ready-to-show', () => {
@@ -155,9 +155,6 @@ export class Window {
             } else {
                 DwmEnableBlurBehindWindow(this.window, enabled)
             }
-        } else if (process.platform === 'linux') {
-            this.window.setBackgroundColor(enabled ? '#00000000' : '#131d27')
-            this.window.setBlur(enabled)
         } else {
             this.window.setVibrancy(enabled ? macOSVibrancyType : null)
         }
