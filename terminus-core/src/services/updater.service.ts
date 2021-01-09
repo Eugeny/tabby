@@ -35,6 +35,10 @@ export class UpdaterService {
             this.logger.info('No updates')
         })
 
+        electron.autoUpdater.once('error', err => {
+            this.logger.error(err)
+        })
+
         this.downloaded = new Promise<boolean>(resolve => {
             electron.autoUpdater.once('update-downloaded', () => resolve(true))
         })
