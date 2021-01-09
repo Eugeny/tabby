@@ -62,17 +62,6 @@ jobs:
         ARCH: ${{matrix.arch}}
         # DEBUG: electron-builder,electron-builder:*
 
-    - name: Sentry release
-      uses: getsentry/action-release@v1.0.0
-      env:
-        SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-        SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
-        SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
-      with:
-        version: ${{ github.ref }}
-        version_prefix: v
-        sourcemaps: app/dist terminus-core/dist terminus-terminal/dist terminus-serial/dist terminus-ssh/dist terminus-settings/dist terminus-plugin-manager/dist
-
     - name: Upload symbols
       run: |
         sudo npm install -g @sentry/cli --unsafe-perm
