@@ -1,7 +1,4 @@
 import * as glasstron from 'glasstron'
-if (process.platform === 'win32' || process.platform === 'linux') {
-    glasstron.init()
-}
 
 import { Subject, Observable } from 'rxjs'
 import { debounceTime } from 'rxjs/operators'
@@ -66,6 +63,7 @@ export class Window {
                 preload: path.join(__dirname, 'sentry.js'),
                 backgroundThrottling: false,
                 enableRemoteModule: true,
+                contextIsolation: false,
             },
             frame: false,
             show: false,
@@ -149,7 +147,11 @@ export class Window {
         if (process.platform === 'win32') {
             if (parseFloat(os.release()) >= 10) {
                 this.window.blurType = enabled ? type === 'fluent' ? 'acrylic' : 'blurbehind' : null
-                this.window.setBlur(enabled)
+                try {
+                    this.window.setBlur(enabled)
+                } catch (error) {
+                    console.error('Failed to set window blur', error)
+                }
             } else {
                 DwmEnableBlurBehindWindow(this.window, enabled)
             }
