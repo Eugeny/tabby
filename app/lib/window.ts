@@ -26,7 +26,7 @@ abstract class GlasstronWindow extends BrowserWindow {
     abstract setBlur (_: boolean)
 }
 
-const macOSVibrancyType = compareVersions.compare(macOSRelease().version, '10.14', '>=') ? 'fullscreen-ui' : 'dark'
+const macOSVibrancyType = process.platform === 'darwin' ? compareVersions.compare(macOSRelease().version, '10.14', '>=') ? 'fullscreen-ui' : 'dark' : null
 
 export class Window {
     ready: Promise<void>
