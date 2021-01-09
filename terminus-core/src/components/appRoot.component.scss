@@ -26,8 +26,7 @@ $side-tab-width: 200px;
 
 .content {
     width: 100vw;
-    height: 100vh;
-    flex: auto;
+    flex: 1 1 0;
     display: flex;
     flex-direction: column-reverse;
 
