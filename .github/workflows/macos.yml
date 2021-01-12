@@ -27,6 +27,10 @@ jobs:
         rm app/node_modules/.yarn-integrity
         yarn
 
+    - name: Upgrade Electron for ARM builds
+      if: matrix.arch == "arm64"
+      run: yarn add -D electron@11.1.1
+
     - name: Build native deps
       run: scripts/build-native.js
       env:
