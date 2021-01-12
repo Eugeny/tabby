@@ -47,7 +47,7 @@
   },
   "devDependencies": {
     "@types/mz": "0.0.32",
-    "@types/node": "14.14.14",
+    "@types/node": "14.14.20",
     "node-abi": "2.19.3",
     "source-map-support": "^0.5.19"
   },
