@@ -28,7 +28,7 @@ jobs:
         yarn
 
     - name: Upgrade Electron for ARM builds
-      if: matrix.arch == "arm64"
+      if: matrix.arch == 'arm64'
       run: yarn add -D electron@11.1.1
 
     - name: Build native deps
