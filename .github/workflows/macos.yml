@@ -7,7 +7,9 @@ jobs:
       matrix:
         include:
           - arch: x86_64
+            electron_setup_cmd: 'true'
           - arch: arm64
+            electron_setup_cmd: 'yarn add -D electron@11.1.1'
 
     steps:
     - name: Checkout
@@ -28,8 +30,7 @@ jobs:
         yarn
 
     - name: Upgrade Electron for ARM builds
-      if: ${{ matrix.arch == 'arm64' }}
-      run: yarn add -D electron@11.1.1
+      run: ${{ matrix.electron_setup_cmd }}
 
     - name: Build native deps
       run: scripts/build-native.js
