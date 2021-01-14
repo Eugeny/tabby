@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core'
 import { TerminalColorSchemeProvider, TerminalColorScheme } from 'terminus-terminal'
 
-const schemeContents = require.context('../schemes/', true, /.*/)
+const schemeContents = require.context('../schemes/', false, /.*/)
 
 @Injectable()
 export class ColorSchemes extends TerminalColorSchemeProvider {
     async getSchemes (): Promise<TerminalColorScheme[]> {
         const schemes: TerminalColorScheme[] = []
 
-        schemeContents.keys().forEach(schemeFile => {
+        schemeContents.keys().filter(x => !x.startsWith('./')).forEach(schemeFile => {
             const lines = (schemeContents(schemeFile).default as string).split('\n')
 
             // process #define variables
