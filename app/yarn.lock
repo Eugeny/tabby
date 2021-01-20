@@ -93,6 +93,11 @@
   resolved "https://registry.npmjs.org/@serialport/parser-delimiter/-/parser-delimiter-9.0.1.tgz"
   integrity sha512-+oaSl5zEu47OlrRiF5p5tn2qgGqYuhVcE+NI+Pv4E1xsNB/A0fFxxMv/8XUw466CRLEJ5IESIB9qbFvKE6ltaQ==
 
+"@serialport/parser-inter-byte-timeout@^9.0.1":
+  version "9.0.1"
+  resolved "https://registry.yarnpkg.com/@serialport/parser-inter-byte-timeout/-/parser-inter-byte-timeout-9.0.1.tgz#3db6f51d472e5f4f3009d4b8433c9e3ff59b5dd3"
+  integrity sha512-lFflcUflcP5SF4vLIixAKs1xUI/wfOzCv1Xq78VbPOBlIjZ6ny9lQ6g7cMPR/sB/M1BHwGcdX7CEr90pe3kkog==
+
 "@serialport/parser-readline@^9.0.1":
   version "9.0.1"
   resolved "https://registry.npmjs.org/@serialport/parser-readline/-/parser-readline-9.0.1.tgz"
@@ -3099,16 +3104,17 @@ serialize-error@^5.0.0:
   dependencies:
     type-fest "^0.8.0"
 
-serialport@^9.0.4:
-  version "9.0.4"
-  resolved "https://registry.npmjs.org/serialport/-/serialport-9.0.4.tgz"
-  integrity sha512-Wtl6sxciHKNdJKW8jUZm+f5KRXt0J0UP25ksM8N31l08KTdAhZ5MmKNUFpoO/YYG6TvHFOu+07PUX35m+TUw7g==
+serialport@^9.0.6:
+  version "9.0.6"
+  resolved "https://registry.yarnpkg.com/serialport/-/serialport-9.0.6.tgz#3b0bd8ce6a230566aab56ecb9d3556e7c3b5d889"
+  integrity sha512-T9eY4HFzQij0Hd/RsPcZySdeuAqzV5iGICHz8FXUSKVn2SvGT5zjfz/H+pRwI86k+3iFVOyddEyy8gbVNVbW7A==
   dependencies:
     "@serialport/binding-mock" "^9.0.2"
     "@serialport/bindings" "^9.0.4"
     "@serialport/parser-byte-length" "^9.0.1"
     "@serialport/parser-cctalk" "^9.0.1"
     "@serialport/parser-delimiter" "^9.0.1"
+    "@serialport/parser-inter-byte-timeout" "^9.0.1"
     "@serialport/parser-readline" "^9.0.1"
     "@serialport/parser-ready" "^9.0.1"
     "@serialport/parser-regex" "^9.0.1"
