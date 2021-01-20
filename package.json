@@ -56,7 +56,7 @@
     "url-loader": "^3.0.0",
     "val-loader": "2.1.1",
     "webpack": "^5.11.0",
-    "webpack-cli": "^4.2.0",
+    "webpack-cli": "^4.4.0",
     "yaml-loader": "0.6.0"
   },
   "resolutions": {
