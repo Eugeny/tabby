@@ -1,4 +1,4 @@
-****![](https://github.com/Eugeny/terminus/raw/master/docs/readme.png)
+![](https://github.com/Eugeny/terminus/raw/master/docs/readme.png)
 
 
 <p align="center">
