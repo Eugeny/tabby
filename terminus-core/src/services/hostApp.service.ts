@@ -1,5 +1,6 @@
 import type { BrowserWindow, TouchBar, MenuItemConstructorOptions } from 'electron'
 import * as path from 'path'
+import * as fs from 'mz/fs'
 import shellEscape from 'shell-escape'
 import { Observable, Subject } from 'rxjs'
 import { Injectable, NgZone, EventEmitter } from '@angular/core'
@@ -150,9 +151,10 @@ export class HostAppService {
             this.zone.run(() => this.displaysChanged.next())
         })
 
-        electron.ipcRenderer.on('host:second-instance', (_$event, argv: any, cwd: string) => this.zone.run(() => {
+        electron.ipcRenderer.on('cli', (_$event, argv: any, cwd: string, secondInstance: boolean) => this.zone.run(async () => {
             this.logger.info('Second instance', argv)
             const op = argv._[0]
+            const opAsPath = path.resolve(cwd, op)
             if (op === 'open') {
                 this.cliOpenDirectory.next(path.resolve(cwd, argv.directory))
             } else if (op === 'run') {
@@ -167,7 +169,11 @@ export class HostAppService {
                 this.cliOpenProfile.next(argv.profileName)
             } else if (op === undefined) {
                 this.newWindow()
-            } else {
+            } else if ((await fs.lstat(opAsPath)).isDirectory()) {
+                this.cliOpenDirectory.next(opAsPath)
+            }
+
+            if (secondInstance) {
                 this.secondInstance.next()
             }
         }))

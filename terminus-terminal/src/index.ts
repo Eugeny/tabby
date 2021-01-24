@@ -194,6 +194,9 @@ export default class TerminalModule { // eslint-disable-line @typescript-eslint/
         })
 
         hostApp.cliOpenDirectory$.subscribe(async directory => {
+            if (directory.length > 1 && (directory.endsWith('/') || directory.endsWith('\\'))) {
+                directory = directory.substring(0, directory.length - 1)
+            }
             if (await fs.exists(directory)) {
                 if ((await fs.stat(directory)).isDirectory()) {
                     terminal.openTab(undefined, directory)

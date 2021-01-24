@@ -65,6 +65,7 @@ export class Window {
                 enableRemoteModule: true,
                 contextIsolation: false,
             },
+            maximizable: true,
             frame: false,
             show: false,
             backgroundColor: '#00000000',
@@ -229,8 +230,8 @@ export class Window {
         }
     }
 
-    handleSecondInstance (argv: string[], cwd: string): void {
-        this.send('host:second-instance', parseArgs(argv, cwd), cwd)
+    passCliArguments (argv: string[], cwd: string, secondInstance: boolean): void {
+        this.send('cli', parseArgs(argv, cwd), cwd, secondInstance)
     }
 
     private setupWindowManagement () {
