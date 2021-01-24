@@ -53,7 +53,7 @@ if (argv.d) {
     })
 }
 
-app.on('ready', () => {
+app.on('ready', async () => {
     if (process.platform === 'darwin') {
         app.dock.setMenu(Menu.buildFromTemplate([
             {
@@ -65,5 +65,8 @@ app.on('ready', () => {
         ]))
     }
     application.init()
-    application.newWindow({ hidden: argv.hidden })
+
+    const window = await application.newWindow({ hidden: argv.hidden })
+    await window.ready
+    window.passCliArguments(process.argv, process.cwd(), false)
 })

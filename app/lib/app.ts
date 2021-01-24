@@ -147,7 +147,7 @@ export class Application {
 
     handleSecondInstance (argv: string[], cwd: string): void {
         this.presentAllWindows()
-        this.windows[this.windows.length - 1].handleSecondInstance(argv, cwd)
+        this.windows[this.windows.length - 1].passCliArguments(argv, cwd, true)
     }
 
     private setupMenu () {
