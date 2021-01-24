@@ -12,7 +12,7 @@ import * as sshpk from 'sshpk'
 import { ToastrService } from 'ngx-toastr'
 import { HostAppService, Platform, Logger, LogService, ElectronService, AppService, SelectorOption, ConfigService } from 'terminus-core'
 import { SettingsTabComponent } from 'terminus-settings'
-import { SSHConnection, SSHSession } from '../api'
+import { ALGORITHM_BLACKLIST, SSHConnection, SSHSession } from '../api'
 import { PromptModalComponent } from '../components/promptModal.component'
 import { PasswordStorageService } from './passwordStorage.service'
 import { SSHTabComponent } from '../components/sshTab.component'
@@ -147,6 +147,10 @@ export class SSHService {
         session.ssh = ssh
         let connected = false
         let savedPassword: string|null = null
+        const algorithms = {}
+        for (const key of Object.keys(session.connection.algorithms ?? {})) {
+            algorithms[key] = session.connection.algorithms![key].filter(x => !ALGORITHM_BLACKLIST.includes(x))
+        }
         await new Promise(async (resolve, reject) => {
             ssh.on('ready', () => {
                 connected = true
@@ -267,7 +271,7 @@ export class SSHService {
                         return true
                     },
                     hostHash: 'sha256' as any,
-                    algorithms: session.connection.algorithms,
+                    algorithms,
                     sock: session.jumpStream,
                     authHandler: methodsLeft => {
                         while (true) {

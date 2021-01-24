@@ -398,3 +398,9 @@ export interface SSHConnectionGroup {
     name: string
     connections: SSHConnection[]
 }
+
+export const ALGORITHM_BLACKLIST = [
+    // cause native crashes in node crypto, use EC instead
+    'diffie-hellman-group-exchange-sha256',
+    'diffie-hellman-group-exchange-sha1',
+]

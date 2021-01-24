@@ -3,7 +3,7 @@ import { Component } from '@angular/core'
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
 import { ElectronService, HostAppService, ConfigService } from 'terminus-core'
 import { PasswordStorageService } from '../services/passwordStorage.service'
-import { SSHConnection, LoginScript, SSHAlgorithmType } from '../api'
+import { SSHConnection, LoginScript, SSHAlgorithmType, ALGORITHM_BLACKLIST } from '../api'
 import { PromptModalComponent } from './promptModal.component'
 import { ALGORITHMS } from 'ssh2-streams/lib/constants'
 
@@ -40,8 +40,8 @@ export class EditConnectionModalComponent {
                 [SSHAlgorithmType.CIPHER]: 'CIPHER',
                 [SSHAlgorithmType.HMAC]: 'HMAC',
             }[k]
-            this.supportedAlgorithms[k] = ALGORITHMS[supportedAlg]
-            this.defaultAlgorithms[k] = ALGORITHMS[defaultAlg]
+            this.supportedAlgorithms[k] = ALGORITHMS[supportedAlg].filter(x => !ALGORITHM_BLACKLIST.includes(x))
+            this.defaultAlgorithms[k] = ALGORITHMS[defaultAlg].filter(x => !ALGORITHM_BLACKLIST.includes(x))
         }
     }
 
