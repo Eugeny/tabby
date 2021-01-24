@@ -262,7 +262,7 @@ export class SSHService {
                     tryKeyboard: true,
                     agent: agent ?? undefined,
                     agentForward: session.connection.agentForward && !!agent,
-                    keepaliveInterval: session.connection.keepaliveInterval,
+                    keepaliveInterval: session.connection.keepaliveInterval ?? 15000,
                     keepaliveCountMax: session.connection.keepaliveCountMax,
                     readyTimeout: session.connection.readyTimeout,
                     hostVerifier: (digest: string) => {
