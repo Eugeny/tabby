@@ -190,6 +190,10 @@ export class Window {
         return this.window.isFocused()
     }
 
+    isVisible (): boolean {
+        return this.window.isVisible()
+    }
+
     hide (): void {
         if (process.platform === 'darwin') {
             // Lose focus

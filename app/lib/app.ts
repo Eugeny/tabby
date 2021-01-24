@@ -75,7 +75,7 @@ export class Application {
     }
 
     onGlobalHotkey (): void {
-        if (this.windows.some(x => x.isFocused())) {
+        if (this.windows.some(x => x.isFocused() && x.isVisible())) {
             for (const window of this.windows) {
                 window.hide()
             }
