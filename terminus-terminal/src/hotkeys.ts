@@ -63,6 +63,10 @@ export class TerminalHotkeyProvider extends HotkeyProvider {
             name: 'Intelligent Ctrl-C (copy/abort)',
         },
         {
+            id: 'copy-current-path',
+            name: 'Copy current path',
+        },
+        {
             id: 'search',
             name: 'Search',
         },

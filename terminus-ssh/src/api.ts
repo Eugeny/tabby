@@ -363,6 +363,10 @@ export class SSHSession extends BaseSession {
         this.kill('TERM')
     }
 
+    supportsWorkingDirectory (): boolean {
+        return true
+    }
+
     async getWorkingDirectory (): Promise<string|null> {
         return null
     }

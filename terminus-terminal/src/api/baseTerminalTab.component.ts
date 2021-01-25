@@ -18,6 +18,7 @@ import { TerminalDecorator } from './decorator'
 /** @hidden */
 export interface ToastrServiceProxy {
     info: (_: string) => void
+    error: (_: string) => void
 }
 /**
  * A class to base your custom terminal tabs on
@@ -140,7 +141,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
         this.logger = this.log.create('baseTerminalTab')
         this.setTitle('Terminal')
 
-        this.hotkeysSubscription = this.hotkeys.matchedHotkey.subscribe(hotkey => {
+        this.hotkeysSubscription = this.hotkeys.matchedHotkey.subscribe(async hotkey => {
             if (!this.hasFocus) {
                 return
             }
@@ -206,6 +207,9 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
                     break
                 case 'pane-focus-all':
                     this.focusAllPanes()
+                    break
+                case 'copy-current-path':
+                    this.copyCurrentPath()
                     break
             }
         })
@@ -435,6 +439,19 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
             this.allFocusModeSubscription = null
             this.parent._allFocusMode = false
             this.parent.layout()
+        }
+    }
+
+    async copyCurrentPath (): Promise<void> {
+        let cwd: string|null = null
+        if (this.session?.supportsWorkingDirectory()) {
+            cwd = await this.session.getWorkingDirectory()
+        }
+        if (cwd) {
+            this.electron.clipboard.writeText(cwd)
+            this.toastr.info('Copied')
+        } else {
+            this.toastr.error('Shell does not support current path detection')
         }
     }
 

@@ -87,6 +87,7 @@ export abstract class BaseSession {
     abstract kill (signal?: string): void
     abstract async getChildProcesses (): Promise<ChildProcess[]>
     abstract async gracefullyKillProcess (): Promise<void>
+    abstract supportsWorkingDirectory (): boolean
     abstract async getWorkingDirectory (): Promise<string|null>
 }
 
@@ -257,6 +258,16 @@ export class Session extends BaseSession {
                 })
             })
         }
+    }
+
+    supportsWorkingDirectory (): boolean {
+        if (this.reportedCWD || this.guessedCWD) {
+            return true
+        }
+        if (!this.truePID) {
+            return false
+        }
+        return process.platform !== 'win32'
     }
 
     async getWorkingDirectory (): Promise<string|null> {

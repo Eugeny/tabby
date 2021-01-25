@@ -4,6 +4,7 @@ import { ConfigProvider, Platform } from 'terminus-core'
 export class TerminalConfigProvider extends ConfigProvider {
     defaults = {
         hotkeys: {
+            'copy-current-path': [],
             shell: {
                 __nonStructural: true,
             },
