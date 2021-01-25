@@ -131,6 +131,10 @@ export class SerialSession extends BaseSession {
         this.kill('TERM')
     }
 
+    supportsWorkingDirectory (): boolean {
+        return false
+    }
+
     async getWorkingDirectory (): Promise<string|null> {
         return null
     }
