@@ -7,9 +7,7 @@ jobs:
       matrix:
         include:
           - arch: x86_64
-            electron_setup_cmd: 'true'
           - arch: arm64
-            electron_setup_cmd: 'yarn add -D electron@11.1.1'
 
     steps:
     - name: Checkout
@@ -28,9 +26,10 @@ jobs:
         cd ..
         rm app/node_modules/.yarn-integrity
         yarn
-
-    - name: Upgrade Electron for ARM builds
-      run: ${{ matrix.electron_setup_cmd }}
+        ./node_modules/.bin/patch-package
+        cd app
+        ../node_modules/.bin/patch-package
+        cd ..
 
     - name: Build native deps
       run: scripts/build-native.js

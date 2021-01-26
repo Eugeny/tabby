@@ -36,6 +36,7 @@
     "node-sass": "^5.0.0",
     "npmlog": "4.1.2",
     "npx": "^10.2.2",
+    "patch-package": "^6.2.2",
     "pug": "^2.0.4",
     "pug-html-loader": "1.1.5",
     "pug-lint": "^2.6.0",

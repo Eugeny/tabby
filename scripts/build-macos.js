@@ -1,8 +1,6 @@
 #!/usr/bin/env node
 const builder = require('electron-builder').build
 const vars = require('./vars')
-const fs = require('fs')
-const signHook = require('../build/mac/afterSignHook')
 
 const isTag = (process.env.GITHUB_REF || '').startsWith('refs/tags/')
 
@@ -16,6 +14,7 @@ builder({
         extraMetadata: {
             version: vars.version,
         },
+        npmRebuild: process.env.ARCH !== 'arm64',
     },
     publish: isTag ? 'always' : 'onTag',
 }).catch(e => {
