@@ -144,7 +144,7 @@ export class ConfigService {
 
     load (): void {
         if (fs.existsSync(this.path)) {
-            this._store = yaml.safeLoad(fs.readFileSync(this.path, 'utf8'))
+            this._store = yaml.load(fs.readFileSync(this.path, 'utf8'))
         } else {
             this._store = {}
         }
@@ -154,7 +154,7 @@ export class ConfigService {
     save (): void {
         // Scrub undefined values
         this._store = JSON.parse(JSON.stringify(this._store))
-        fs.writeFileSync(this.path, yaml.safeDump(this._store), 'utf8')
+        fs.writeFileSync(this.path, yaml.dump(this._store), 'utf8')
         this.emitChange()
         this.hostApp.broadcastConfigChange(JSON.parse(JSON.stringify(this.store)))
     }
@@ -163,14 +163,14 @@ export class ConfigService {
      * Reads config YAML as string
      */
     readRaw (): string {
-        return yaml.safeDump(this._store)
+        return yaml.dump(this._store)
     }
 
     /**
      * Writes config YAML as string
      */
     writeRaw (data: string): void {
-        this._store = yaml.safeLoad(data)
+        this._store = yaml.load(data)
         this.save()
         this.load()
         this.emitChange()

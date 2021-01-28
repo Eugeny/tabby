@@ -60,7 +60,7 @@ export class SettingsTabComponent extends BaseTabComponent {
         this.settingsProviders = config.enabledServices(this.settingsProviders)
         this.themes = config.enabledServices(this.themes)
 
-        this.configDefaults = yaml.safeDump(config.getDefaults())
+        this.configDefaults = yaml.dump(config.getDefaults())
 
         const onConfigChange = () => {
             this.configFile = config.readRaw()
@@ -116,7 +116,7 @@ export class SettingsTabComponent extends BaseTabComponent {
 
     isConfigFileValid () {
         try {
-            yaml.safeLoad(this.configFile)
+            yaml.load(this.configFile)
             return true
         } catch (_) {
             return false

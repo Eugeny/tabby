@@ -6,7 +6,7 @@ import { app } from 'electron'
 export function loadConfig (): any {
     const configPath = path.join(app.getPath('userData'), 'config.yaml')
     if (fs.existsSync(configPath)) {
-        return yaml.safeLoad(fs.readFileSync(configPath, 'utf8'))
+        return yaml.load(fs.readFileSync(configPath, 'utf8'))
     } else {
         return {}
     }
