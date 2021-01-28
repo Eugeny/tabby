@@ -43,7 +43,7 @@ module.exports = {
                 },
             },
             { test: /\.pug$/, use: ['apply-loader', 'pug-loader'] },
-            { test: /\.scss$/, use: ['to-string-loader', 'css-loader', 'sass-loader'] },
+            { test: /\.scss$/, use: ['@terminus-term/to-string-loader', 'css-loader', 'sass-loader'] },
             { test: /\.css$/, use: ['style-loader', 'css-loader'] },
             { test: /\.svg/, use: ['svg-inline-loader'] },
             {
