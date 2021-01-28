@@ -97,7 +97,7 @@ h3.mt-3 Saved Profiles
         button.btn.btn-outline-danger.ml-1((click)='$event.stopPropagation(); deleteProfile(profile)')
             i.fas.fa-trash
 
-div(ngbDropdown, placement='top-left')
+.mb-4(ngbDropdown, placement='top-left')
     button.btn.btn-primary(ngbDropdownToggle)
         i.fas.fa-fw.fa-plus
         | New profile
