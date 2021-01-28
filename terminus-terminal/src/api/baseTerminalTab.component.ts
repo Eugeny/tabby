@@ -347,7 +347,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
     async paste (): Promise<void> {
         let data = this.electron.clipboard.readText()
         if (this.config.store.terminal.bracketedPaste) {
-            data = '\x1b[200~' + data + '\x1b[201~'
+            data = `\x1b[200~${data}\x1b[201~`
         }
         if (this.hostApp.platform === Platform.Windows) {
             data = data.replace(/\r\n/g, '\r')
@@ -418,10 +418,11 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
             return
         }
         if (this.parent instanceof SplitTabComponent) {
-            this.parent._allFocusMode = true
-            this.parent.layout()
+            const parent = this.parent
+            parent._allFocusMode = true
+            parent.layout()
             this.allFocusModeSubscription = this.frontend?.input$.subscribe(data => {
-                for (const tab of (this.parent as SplitTabComponent).getAllTabs()) {
+                for (const tab of parent.getAllTabs()) {
                     if (tab !== this && tab instanceof BaseTerminalTabComponent) {
                         tab.sendInput(data)
                     }

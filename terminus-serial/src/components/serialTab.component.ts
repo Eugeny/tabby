@@ -11,7 +11,7 @@ import { Subscription } from 'rxjs'
 /** @hidden */
 @Component({
     selector: 'serial-tab',
-    template: BaseTerminalTabComponent.template + (require('./serialTab.component.pug') as string),
+    template: `${BaseTerminalTabComponent.template} ${require('./serialTab.component.pug')}`,
     styles: [require('./serialTab.component.scss'), ...BaseTerminalTabComponent.styles],
     animations: BaseTerminalTabComponent.animations,
 })

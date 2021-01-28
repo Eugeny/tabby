@@ -1,4 +1,4 @@
-import { Component, Input, HostListener, ViewChildren, QueryList, ElementRef } from '@angular/core'
+import { Component, Input, HostListener, ViewChildren, QueryList, ElementRef } from '@angular/core' // eslint-disable-line @typescript-eslint/no-unused-vars
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
 import { SelectorOption } from '../api/selector'
 

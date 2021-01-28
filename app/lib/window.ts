@@ -36,7 +36,7 @@ export class Window {
     private windowConfig: ElectronConfig
     private windowBounds?: Rectangle
     private closing = false
-    private lastVibrancy: {enabled: boolean, type?: string} | null = null
+    private lastVibrancy: { enabled: boolean, type?: string } | null = null
     private disableVibrancyWhileDragging = false
     private configStore: any
 

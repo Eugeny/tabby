@@ -10,7 +10,7 @@ import { Subject } from 'rxjs'
 })
 export class EnvironmentEditorComponent {
     @Output() modelChange = new Subject<any>()
-    vars: {key: string, value: string}[] = []
+    vars: { key: string, value: string }[] = []
     private cachedModel: any
 
     @Input() get model (): any {

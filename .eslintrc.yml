@@ -1,6 +1,8 @@
 parser: '@typescript-eslint/parser'
 parserOptions:
-  project: tsconfig.json
+  project:
+  - tsconfig.json
+  - '*/tsconfig.typings.json'
 extends:
   - 'plugin:@typescript-eslint/all'
 plugins:
@@ -37,6 +39,7 @@ rules:
   '@typescript-eslint/no-misused-promises': off
   '@typescript-eslint/typedef': off
   '@typescript-eslint/consistent-type-imports': off
+  '@typescript-eslint/sort-type-union-intersection-members': off
   '@typescript-eslint/no-use-before-define':
   - error
   - classes: false
@@ -81,7 +84,8 @@ rules:
       argsIgnorePattern: ^_
   no-undef: error
   no-var: error
-  object-curly-spacing:
+  object-curly-spacing: off
+  '@typescript-eslint/object-curly-spacing':
   - error
   - always
   quote-props:

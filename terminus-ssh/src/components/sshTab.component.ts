@@ -14,7 +14,7 @@ import { Subscription } from 'rxjs'
 /** @hidden */
 @Component({
     selector: 'ssh-tab',
-    template: BaseTerminalTabComponent.template + (require('./sshTab.component.pug') as string),
+    template: `${BaseTerminalTabComponent.template} ${require('./sshTab.component.pug')}`,
     styles: [require('./sshTab.component.scss'), ...BaseTerminalTabComponent.styles],
     animations: BaseTerminalTabComponent.animations,
 })
