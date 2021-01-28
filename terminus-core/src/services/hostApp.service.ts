@@ -154,7 +154,7 @@ export class HostAppService {
         electron.ipcRenderer.on('cli', (_$event, argv: any, cwd: string, secondInstance: boolean) => this.zone.run(async () => {
             this.logger.info('Second instance', argv)
             const op = argv._[0]
-            const opAsPath = path.resolve(cwd, op)
+            const opAsPath = op ? path.resolve(cwd, op) : null
             if (op === 'open') {
                 this.cliOpenDirectory.next(path.resolve(cwd, argv.directory))
             } else if (op === 'run') {
@@ -167,9 +167,9 @@ export class HostAppService {
                 this.cliPaste.next(text)
             } else if (op === 'profile') {
                 this.cliOpenProfile.next(argv.profileName)
-            } else if (op === undefined) {
+            } else if (secondInstance && op === undefined) {
                 this.newWindow()
-            } else if ((await fs.lstat(opAsPath)).isDirectory()) {
+            } else if (opAsPath && (await fs.lstat(opAsPath)).isDirectory()) {
                 this.cliOpenDirectory.next(opAsPath)
             }
 
