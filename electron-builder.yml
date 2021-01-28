@@ -8,8 +8,10 @@ afterAllArtifactBuild: "./build/mac/afterBuildHook.js"
 files:
 - '**/*'
 - dist
+- '!lib'
 - '!src'
-- '!**/node_modules/*/{CHANGELOG.md,README.md,README,readme.md,readme}'
+- '!**/node_modules/*/{CHANGELOG.md,README.md,README,readme.md,readme,node.lib}'
+- '!**/build/Release'
 - '!**/node_modules/*/{test,__tests__,tests,powered-test,example,examples,docs}'
 - '!**/node_modules/@angular/common/locales'
 - '!**/node_modules/@angular/compiler/src'
@@ -27,8 +29,6 @@ files:
 - '!**/{__pycache__,thumbs.db,.flowconfig,.idea,.vs,.nyc_output}'
 - '!**/{appveyor.yml,.travis.yml,circle.yml}'
 - '!**/{npm-debug.log,yarn.lock,.yarn-integrity,.yarn-metadata.json'
-asarUnpack:
-- 'node_modules/**/Release/*.node'
 extraResources:
 - builtin-plugins
 - extras
