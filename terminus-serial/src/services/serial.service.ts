@@ -30,10 +30,17 @@ export class SerialService {
     }
 
     async connectSession (session: SerialSession): Promise<SerialPort> {
-        const serial = new SerialPort(session.connection.port, { autoOpen: false, baudRate: session.connection.baudrate,
-            dataBits: session.connection.databits, stopBits: session.connection.stopbits, parity: session.connection.parity,
-            rtscts: session.connection.rtscts, xon: session.connection.xon, xoff: session.connection.xoff,
-            xany: session.connection.xany })
+        const serial = new SerialPort(session.connection.port, {
+            autoOpen: false,
+            baudRate: session.connection.baudrate,
+            dataBits: session.connection.databits,
+            stopBits: session.connection.stopbits,
+            parity: session.connection.parity,
+            rtscts: session.connection.rtscts,
+            xon: session.connection.xon,
+            xoff: session.connection.xoff,
+            xany: session.connection.xany,
+        })
         session.serial = serial
         let connected = false
         await new Promise(async (resolve, reject) => {
@@ -49,6 +56,10 @@ export class SerialService {
                         reject(error)
                     }
                 })
+            })
+            serial.on('close', () => {
+                session.emitServiceMessage('Port closed')
+                session.destroy()
             })
 
             try {

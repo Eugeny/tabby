@@ -20,12 +20,11 @@ import { Subscription } from 'rxjs'
 })
 export class SSHTabComponent extends BaseTerminalTabComponent {
     connection?: SSHConnection
-    session?: SSHSession
+    session: SSHSession|null = null
     private sessionStack: SSHSession[] = []
     private homeEndSubscription: Subscription
     private recentInputs = ''
     private reconnectOffered = false
-    private sessionHandlers: Subscription[] = []
 
     constructor (
         injector: Injector,
@@ -85,8 +84,12 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
 
             await this.setupOneSession(jumpSession)
 
-            this.sessionHandlers.push(
-                jumpSession.destroyed$.subscribe(() => session.destroy())
+            this.attachSessionHandler(
+                jumpSession.destroyed$.subscribe(() => {
+                    if (session.open) {
+                        session.destroy()
+                    }
+                })
             )
 
             session.jumpStream = await new Promise((resolve, reject) => jumpSession.ssh.forwardOut(
@@ -107,31 +110,11 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
             this.sessionStack.push(session)
         }
 
-        this.sessionHandlers.push(session.serviceMessage$.subscribe(msg => {
+        this.attachSessionHandler(session.serviceMessage$.subscribe(msg => {
             this.write(`\r\n${colors.black.bgWhite(' SSH ')} ${msg}\r\n`)
             session.resize(this.size.columns, this.size.rows)
         }))
 
-        this.sessionHandlers.push(session.destroyed$.subscribe(() => {
-            if (
-                // Ctrl-D
-                this.recentInputs.charCodeAt(this.recentInputs.length - 1) === 4 ||
-                this.recentInputs.endsWith('exit\r')
-            ) {
-                // User closed the session
-                this.destroy()
-            } else {
-                // Session was closed abruptly
-                this.write('\r\n' + colors.black.bgCyan(' SSH ') + ` ${session.connection.host}: session closed\r\n`)
-                if (!this.reconnectOffered) {
-                    this.reconnectOffered = true
-                    this.write('Press any key to reconnect\r\n')
-                    this.input$.pipe(first()).subscribe(() => {
-                        this.reconnect()
-                    })
-                }
-            }
-        }))
 
         this.write('\r\n' + colors.black.bgCyan(' SSH ') + ` Connecting to ${session.connection.host}\r\n`)
 
@@ -158,6 +141,31 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
         }
     }
 
+    protected attachSessionHandlers () {
+        const session = this.session!
+        super.attachSessionHandlers()
+        this.attachSessionHandler(session.destroyed$.subscribe(() => {
+            if (
+                // Ctrl-D
+                this.recentInputs.charCodeAt(this.recentInputs.length - 1) === 4 ||
+                this.recentInputs.endsWith('exit\r')
+            ) {
+                // User closed the session
+                this.destroy()
+            } else {
+                // Session was closed abruptly
+                this.write('\r\n' + colors.black.bgCyan(' SSH ') + ` ${session.connection.host}: session closed\r\n`)
+                if (!this.reconnectOffered) {
+                    this.reconnectOffered = true
+                    this.write('Press any key to reconnect\r\n')
+                    this.attachSessionHandler(this.input$.pipe(first()).subscribe(() => {
+                        this.reconnect()
+                    }))
+                }
+            }
+        }))
+    }
+
     async initializeSession (): Promise<void> {
         this.reconnectOffered = false
         if (!this.connection) {
@@ -165,18 +173,17 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
             return
         }
 
-        this.session = this.ssh.createSession(this.connection)
+        const session = this.ssh.createSession(this.connection)
+        this.setSession(session)
 
         try {
-            await this.setupOneSession(this.session)
+            await this.setupOneSession(session)
         } catch (e) {
             this.write(colors.black.bgRed(' X ') + ' ' + colors.red(e.message) + '\r\n')
         }
 
-        this.attachSessionHandlers()
-
-        await this.session.start()
-        this.session.resize(this.size.columns, this.size.rows)
+        await this.session!.start()
+        this.session!.resize(this.size.columns, this.size.rows)
     }
 
     async getRecoveryToken (): Promise<RecoveryToken> {
@@ -193,10 +200,6 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
     }
 
     async reconnect (): Promise<void> {
-        for (const s of this.sessionHandlers) {
-            s.unsubscribe()
-        }
-        this.sessionHandlers = []
         this.session?.destroy()
         await this.initializeSession()
         this.session?.releaseInitialDataBuffer()

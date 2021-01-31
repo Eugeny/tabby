@@ -16,7 +16,7 @@ export class TerminalFrontendService {
         private hotkeys: HotkeysService,
     ) { }
 
-    getFrontend (session?: BaseSession): Frontend {
+    getFrontend (session?: BaseSession|null): Frontend {
         if (!session) {
             const frontend: Frontend = new {
                 xterm: XTermFrontend,

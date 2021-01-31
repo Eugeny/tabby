@@ -36,7 +36,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
         ]),
     ])]
 
-    session?: BaseSession
+    session: BaseSession|null = null
     savedState?: any
 
     @Input() zoom = 0
@@ -95,6 +95,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
     private bellPlayer: HTMLAudioElement
     private termContainerSubscriptions: Subscription[] = []
     private allFocusModeSubscription: Subscription|null = null
+    private sessionHandlers: Subscription[] = []
 
     get input$ (): Observable<Buffer> {
         if (!this.frontend) {
@@ -568,26 +569,55 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
         ]
     }
 
+    setSession (session: BaseSession|null, destroyOnSessionClose = false) {
+        if (session) {
+            if (this.session) {
+                this.setSession(null)
+            }
+            this.detachSessionHandlers()
+            this.session = session
+            this.attachSessionHandlers(destroyOnSessionClose)
+        } else {
+            this.detachSessionHandlers()
+            this.session = null
+        }
+    }
+
+    protected attachSessionHandler (subscription: Subscription) {
+        this.sessionHandlers.push(subscription)
+    }
+
     protected attachSessionHandlers (destroyOnSessionClose = false): void {
         if (!this.session) {
             throw new Error('Session not set')
         }
 
         // this.session.output$.bufferTime(10).subscribe((datas) => {
-        this.session.output$.subscribe(data => {
+        this.attachSessionHandler(this.session.output$.subscribe(data => {
             if (this.enablePassthrough) {
                 this.zone.run(() => {
                     this.output.next(data)
                     this.write(data)
                 })
             }
-        })
+        }))
 
         if (destroyOnSessionClose) {
-            this.sessionCloseSubscription = this.session.closed$.subscribe(() => {
+            this.attachSessionHandler(this.sessionCloseSubscription = this.session.closed$.subscribe(() => {
                 this.frontend?.destroy()
                 this.destroy()
-            })
+            }))
         }
+
+        this.attachSessionHandler(this.session.destroyed$.subscribe(() => {
+            this.setSession(null)
+        }))
+    }
+
+    protected detachSessionHandlers () {
+        for (const s of this.sessionHandlers) {
+            s.unsubscribe()
+        }
+        this.sessionHandlers = []
     }
 }

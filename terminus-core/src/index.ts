@@ -110,7 +110,7 @@ export default class AppModule { // eslint-disable-line @typescript-eslint/no-ex
         })
     }
 
-    static forRoot (): ModuleWithProviders {
+    static forRoot (): ModuleWithProviders<AppModule> {
         return {
             ngModule: AppModule,
             providers: PROVIDERS,

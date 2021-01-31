@@ -1,3 +1,4 @@
+import stripAnsi from 'strip-ansi'
 import { BaseSession } from 'terminus-terminal'
 import { SerialPort } from 'serialport'
 import { Logger } from 'terminus-core'
@@ -50,49 +51,8 @@ export class SerialSession extends BaseSession {
     async start (): Promise<void> {
         this.open = true
 
-        this.serial.on('data', data => {
-            const dataString = data.toString()
-            this.emitOutput(data)
-
-            if (this.scripts) {
-                let found = false
-                for (const script of this.scripts) {
-                    let match = false
-                    let cmd = ''
-                    if (script.isRegex) {
-                        const re = new RegExp(script.expect, 'g')
-                        if (dataString.match(re)) {
-                            cmd = dataString.replace(re, script.send)
-                            match = true
-                            found = true
-                        }
-                    } else {
-                        if (dataString.includes(script.expect)) {
-                            cmd = script.send
-                            match = true
-                            found = true
-                        }
-                    }
-
-                    if (match) {
-                        this.logger.info('Executing script: "' + cmd + '"')
-                        this.serial.write(cmd + '\n')
-                        this.scripts = this.scripts.filter(x => x !== script)
-                    } else {
-                        if (script.optional) {
-                            this.logger.debug('Skip optional script: ' + script.expect)
-                            found = true
-                            this.scripts = this.scripts.filter(x => x !== script)
-                        } else {
-                            break
-                        }
-                    }
-                }
-
-                if (found) {
-                    this.executeUnconditionalScripts()
-                }
-            }
+        this.serial.on('readable', () => {
+            this.onData(this.serial.read())
         })
 
         this.serial.on('end', () => {
@@ -123,6 +83,11 @@ export class SerialSession extends BaseSession {
         this.serial.close()
     }
 
+    emitServiceMessage (msg: string): void {
+        this.serviceMessage.next(msg)
+        this.logger.info(stripAnsi(msg))
+    }
+
     async getChildProcesses (): Promise<any[]> {
         return []
     }
@@ -137,6 +102,51 @@ export class SerialSession extends BaseSession {
 
     async getWorkingDirectory (): Promise<string|null> {
         return null
+    }
+
+    private onData (data: Buffer) {
+        const dataString = data.toString()
+        this.emitOutput(data)
+
+        if (this.scripts) {
+            let found = false
+            for (const script of this.scripts) {
+                let match = false
+                let cmd = ''
+                if (script.isRegex) {
+                    const re = new RegExp(script.expect, 'g')
+                    if (dataString.match(re)) {
+                        cmd = dataString.replace(re, script.send)
+                        match = true
+                        found = true
+                    }
+                } else {
+                    if (dataString.includes(script.expect)) {
+                        cmd = script.send
+                        match = true
+                        found = true
+                    }
+                }
+
+                if (match) {
+                    this.logger.info('Executing script: "' + cmd + '"')
+                    this.serial.write(cmd + '\n')
+                    this.scripts = this.scripts.filter(x => x !== script)
+                } else {
+                    if (script.optional) {
+                        this.logger.debug('Skip optional script: ' + script.expect)
+                        found = true
+                        this.scripts = this.scripts.filter(x => x !== script)
+                    } else {
+                        break
+                    }
+                }
+            }
+
+            if (found) {
+                this.executeUnconditionalScripts()
+            }
+        }
     }
 
     private executeUnconditionalScripts () {
