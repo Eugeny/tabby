@@ -1,4 +1,5 @@
 import stripAnsi from 'strip-ansi'
+import bufferReplace from 'buffer-replace'
 import { BaseSession } from 'terminus-terminal'
 import { SerialPort } from 'serialport'
 import { Logger } from 'terminus-core'
@@ -28,6 +29,8 @@ export interface SerialConnection {
     scripts?: LoginScript[]
     color?: string
     inputMode?: InputMode
+    inputNewlines?: NewlineMode
+    outputNewlines?: NewlineMode
 }
 
 export const BAUD_RATES = [
@@ -40,6 +43,7 @@ export interface SerialPortInfo {
 }
 
 export type InputMode = null | 'readline'
+export type NewlineMode = null | 'cr' | 'lf' | 'crlf'
 
 export class SerialSession extends BaseSession {
     scripts?: LoginScript[]
@@ -136,7 +140,23 @@ export class SerialSession extends BaseSession {
         return null
     }
 
+    private replaceNewlines (data: Buffer, mode?: NewlineMode): Buffer {
+        if (!mode) {
+            return data
+        }
+        data = bufferReplace(data, '\r\n', '\n')
+        data = bufferReplace(data, '\r', '\n')
+        const replacement = {
+            strip: '',
+            cr: '\r',
+            lf: '\n',
+            crlf: '\r\n',
+        }[mode]
+        return bufferReplace(data, '\n', replacement)
+    }
+
     private onInput (data: Buffer) {
+        data = this.replaceNewlines(data, this.connection.inputNewlines)
         if (this.serial) {
             this.serial.write(data.toString())
         }
@@ -163,6 +183,8 @@ export class SerialSession extends BaseSession {
                 this.inputPromptVisible = false
             }
         }
+
+        data = this.replaceNewlines(data, this.connection.outputNewlines)
         this.emitOutput(data)
 
         if (this.scripts) {

@@ -19,6 +19,13 @@ export class EditConnectionModalComponent {
         { key: null, name: 'Normal', description: 'Input is sent as you type' },
         { key: 'readline', name: 'Line by line', description: 'Line editor, input is sent after you press Enter' },
     ]
+    newlineModes = [
+        { key: null, name: 'Keep' },
+        { key: 'strip', name: 'Strip' },
+        { key: 'cr', name: 'Force CR' },
+        { key: 'lf', name: 'Force LF' },
+        { key: 'crlf', name: 'Force CRLF' },
+    ]
 
     constructor (
         private modalInstance: NgbActiveModal,
