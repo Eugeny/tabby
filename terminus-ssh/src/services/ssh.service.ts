@@ -383,7 +383,7 @@ export class SSHService {
         options.push({
             name: 'Manage connections',
             icon: 'cog',
-            callback: () => this.app.openNewTab(SettingsTabComponent, { activeTab: 'ssh' }),
+            callback: () => this.app.openNewTabRaw(SettingsTabComponent, { activeTab: 'ssh' }),
         })
 
         options.push({

@@ -2,7 +2,10 @@ import stripAnsi from 'strip-ansi'
 import { BaseSession } from 'terminus-terminal'
 import { SerialPort } from 'serialport'
 import { Logger } from 'terminus-core'
-import { Subject, Observable } from 'rxjs'
+import { Subject, Observable, interval } from 'rxjs'
+import { debounce } from 'rxjs/operators'
+import { ReadLine, createInterface as createReadline, clearLine } from 'readline'
+import { PassThrough, Readable, Writable } from 'stream'
 
 export interface LoginScript {
     expect: string
@@ -24,6 +27,7 @@ export interface SerialConnection {
     xany: boolean
     scripts?: LoginScript[]
     color?: string
+    inputMode?: InputMode
 }
 
 export const BAUD_RATES = [
@@ -35,6 +39,8 @@ export interface SerialPortInfo {
     description?: string
 }
 
+export type InputMode = null | 'readline'
+
 export class SerialSession extends BaseSession {
     scripts?: LoginScript[]
     serial: SerialPort
@@ -42,17 +48,38 @@ export class SerialSession extends BaseSession {
 
     get serviceMessage$ (): Observable<string> { return this.serviceMessage }
     private serviceMessage = new Subject<string>()
+    private inputReadline: ReadLine
+    private inputPromptVisible = true
+    private inputReadlineInStream: Readable & Writable
+    private inputReadlineOutStream: Readable & Writable
 
     constructor (public connection: SerialConnection) {
         super()
         this.scripts = connection.scripts ?? []
+
+        this.inputReadlineInStream = new PassThrough()
+        this.inputReadlineOutStream = new PassThrough()
+        this.inputReadline = createReadline({
+            input: this.inputReadlineInStream,
+            output: this.inputReadlineOutStream,
+            terminal: true,
+        } as any)
+        this.inputReadlineOutStream.on('data', data => {
+            if (this.connection.inputMode == 'readline') {
+                this.emitOutput(data)
+            }
+        })
+        this.inputReadline.on('line', line => {
+            this.onInput(new Buffer(line + '\n'))
+        })
+        this.output$.pipe(debounce(() => interval(500))).subscribe(() => this.onOutputSettled())
     }
 
     async start (): Promise<void> {
         this.open = true
 
         this.serial.on('readable', () => {
-            this.onData(this.serial.read())
+            this.onOutput(this.serial.read())
         })
 
         this.serial.on('end', () => {
@@ -66,18 +93,23 @@ export class SerialSession extends BaseSession {
     }
 
     write (data: Buffer): void {
-        if (this.serial) {
-            this.serial.write(data.toString())
+        if (this.connection.inputMode == 'readline') {
+            this.inputReadlineInStream.write(data)
+        } else {
+            this.onInput(data)
         }
     }
 
     async destroy (): Promise<void> {
         this.serviceMessage.complete()
+        this.inputReadline.close()
         await super.destroy()
     }
 
     // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-empty-function
-    resize (_, __) { }
+    resize (_, __) {
+        this.inputReadlineOutStream.emit('resize')
+    }
 
     kill (_?: string): void {
         this.serial.close()
@@ -104,8 +136,33 @@ export class SerialSession extends BaseSession {
         return null
     }
 
-    private onData (data: Buffer) {
+    private onInput (data: Buffer) {
+        if (this.serial) {
+            this.serial.write(data.toString())
+        }
+    }
+
+    private onOutputSettled () {
+        if (this.connection.inputMode == 'readline' && !this.inputPromptVisible) {
+            this.resetInputPrompt()
+        }
+    }
+
+    private resetInputPrompt () {
+        this.emitOutput(new Buffer('\r\n'))
+        this.inputReadline.prompt(true)
+        this.inputPromptVisible = true
+    }
+
+    private onOutput (data: Buffer) {
         const dataString = data.toString()
+
+        if (this.connection.inputMode == 'readline') {
+            if (this.inputPromptVisible) {
+                clearLine(this.inputReadlineOutStream, 0)
+                this.inputPromptVisible = false
+            }
+        }
         this.emitOutput(data)
 
         if (this.scripts) {

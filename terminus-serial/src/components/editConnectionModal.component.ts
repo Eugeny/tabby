@@ -15,6 +15,10 @@ export class EditConnectionModalComponent {
     connection: SerialConnection
     foundPorts: SerialPortInfo[]
     baudRates = BAUD_RATES
+    inputModes = [
+        { key: null, name: 'Normal', description: 'Input is sent as you type' },
+        { key: 'readline', name: 'Line by line', description: 'Line editor, input is sent after you press Enter' },
+    ]
 
     constructor (
         private modalInstance: NgbActiveModal,
@@ -22,6 +26,10 @@ export class EditConnectionModalComponent {
         private hostApp: HostAppService,
         private serial: SerialService,
     ) {
+    }
+
+    getInputModeName (key) {
+        return this.inputModes.find(x => x.key === key)?.name
     }
 
     portsAutocomplete = text$ => text$.pipe(map(() => {

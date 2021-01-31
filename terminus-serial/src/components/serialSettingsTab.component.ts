@@ -34,6 +34,7 @@ export class SerialSettingsTabComponent {
             xany: false,
             xoff: false,
             xon: false,
+            inputMode: null
         }
 
         const modal = this.ngbModal.open(EditConnectionModalComponent)

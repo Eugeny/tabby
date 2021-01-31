@@ -11,21 +11,43 @@
                         [(ngModel)]='connection.name',
                     )
 
-                .form-group
-                    label Path
-                    input.form-control(
-                        type='text',
-                        [(ngModel)]='connection.port',
-                        [ngbTypeahead]='portsAutocomplete',
-                        [resultFormatter]='portsFormatter',
-                    )
+                .row
+                    .col-6
+                        .form-group
+                            label Path
+                            input.form-control(
+                                type='text',
+                                [(ngModel)]='connection.port',
+                                [ngbTypeahead]='portsAutocomplete',
+                                [resultFormatter]='portsFormatter',
+                            )
 
-                .form-group
-                    label Baud Rate
-                    select.form-control(
-                        [(ngModel)]='connection.baudrate',
-                    )
-                        option([value]='x', *ngFor='let x of baudRates') {{x}}
+                    .col-6
+                        .form-group
+                            label Baud Rate
+                            select.form-control(
+                                [(ngModel)]='connection.baudrate',
+                            )
+                                option([value]='x', *ngFor='let x of baudRates') {{x}}
+
+                .form-line
+                    .header
+                        .title Input mode
+
+                    .d-flex(ngbDropdown)
+                        button.btn.btn-secondary.btn-tab-bar(
+                            ngbDropdownToggle,
+                        ) {{getInputModeName(connection.inputMode)}}
+
+                        div(ngbDropdownMenu)
+                            a.d-flex.flex-column(
+                                *ngFor='let mode of inputModes',
+                                (click)='connection.inputMode = mode.key',
+                                ngbDropdownItem
+                            )
+                                div {{mode.name}}
+                                .text-muted {{mode.description}}
+
 
         ngb-tab(id='advanced')
             ng-template(ngbTabTitle) Advanced

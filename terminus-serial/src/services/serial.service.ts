@@ -114,7 +114,7 @@ export class SerialService {
         options.push({
             name: 'Manage connections',
             icon: 'cog',
-            callback: () => this.app.openNewTab(SettingsTabComponent, { activeTab: 'serial' }),
+            callback: () => this.app.openNewTabRaw(SettingsTabComponent, { activeTab: 'serial' }),
         })
 
         options.push({

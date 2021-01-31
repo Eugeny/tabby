@@ -50,6 +50,8 @@ module.exports = {
         'path',
         'ngx-toastr',
         'serialport',
+        'readline',
+        'stream',
         'windows-process-tree/build/Release/windows_process_tree.node',
         /^rxjs/,
         /^@angular/,

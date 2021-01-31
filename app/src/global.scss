@@ -95,3 +95,7 @@ input[type=range] {
     &::-moz-range-track { @include track(); }
     &::-ms-track { @include track(); }
 }
+
+a[ngbdropdownitem] {
+    cursor: pointer;
+}
