@@ -141,7 +141,7 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
         }
     }
 
-    protected attachSessionHandlers () {
+    protected attachSessionHandlers (): void {
         const session = this.session!
         super.attachSessionHandlers()
         this.attachSessionHandler(session.destroyed$.subscribe(() => {

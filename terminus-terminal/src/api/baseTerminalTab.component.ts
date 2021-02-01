@@ -569,7 +569,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
         ]
     }
 
-    setSession (session: BaseSession|null, destroyOnSessionClose = false) {
+    setSession (session: BaseSession|null, destroyOnSessionClose = false): void {
         if (session) {
             if (this.session) {
                 this.setSession(null)
@@ -583,7 +583,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
         }
     }
 
-    protected attachSessionHandler (subscription: Subscription) {
+    protected attachSessionHandler (subscription: Subscription): void {
         this.sessionHandlers.push(subscription)
     }
 
@@ -614,7 +614,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
         }))
     }
 
-    protected detachSessionHandlers () {
+    protected detachSessionHandlers (): void {
         for (const s of this.sessionHandlers) {
             s.unsubscribe()
         }

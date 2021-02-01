@@ -42,8 +42,8 @@ export interface SerialPortInfo {
     description?: string
 }
 
-export type InputMode = null | 'readline'
-export type NewlineMode = null | 'cr' | 'lf' | 'crlf'
+export type InputMode = null | 'readline' // eslint-disable-line @typescript-eslint/no-type-alias
+export type NewlineMode = null | 'cr' | 'lf' | 'crlf' // eslint-disable-line @typescript-eslint/no-type-alias
 
 export class SerialSession extends BaseSession {
     scripts?: LoginScript[]
@@ -69,7 +69,7 @@ export class SerialSession extends BaseSession {
             terminal: true,
         } as any)
         this.inputReadlineOutStream.on('data', data => {
-            if (this.connection.inputMode == 'readline') {
+            if (this.connection.inputMode === 'readline') {
                 this.emitOutput(data)
             }
         })
@@ -97,7 +97,7 @@ export class SerialSession extends BaseSession {
     }
 
     write (data: Buffer): void {
-        if (this.connection.inputMode == 'readline') {
+        if (this.connection.inputMode === 'readline') {
             this.inputReadlineInStream.write(data)
         } else {
             this.onInput(data)
@@ -163,7 +163,7 @@ export class SerialSession extends BaseSession {
     }
 
     private onOutputSettled () {
-        if (this.connection.inputMode == 'readline' && !this.inputPromptVisible) {
+        if (this.connection.inputMode === 'readline' && !this.inputPromptVisible) {
             this.resetInputPrompt()
         }
     }
@@ -177,7 +177,7 @@ export class SerialSession extends BaseSession {
     private onOutput (data: Buffer) {
         const dataString = data.toString()
 
-        if (this.connection.inputMode == 'readline') {
+        if (this.connection.inputMode === 'readline') {
             if (this.inputPromptVisible) {
                 clearLine(this.inputReadlineOutStream, 0)
                 this.inputPromptVisible = false
@@ -194,7 +194,7 @@ export class SerialSession extends BaseSession {
                 let cmd = ''
                 if (script.isRegex) {
                     const re = new RegExp(script.expect, 'g')
-                    if (dataString.match(re)) {
+                    if (re.test(dataString)) {
                         cmd = dataString.replace(re, script.send)
                         match = true
                         found = true
