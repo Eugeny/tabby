@@ -111,10 +111,10 @@ exit-on-epipe@~1.0.1:
   resolved "https://registry.yarnpkg.com/exit-on-epipe/-/exit-on-epipe-1.0.1.tgz#0bdd92e87d5285d267daa8171d0eb06159689692"
   integrity sha512-h2z5mrROTxce56S+pnvAV890uu7ls7f1kEvVGJbw1OlFH3/mlJ5bkXu0KRyW94v37zzHPiUd55iLn3DA7TjWpw==
 
-font-finder@^1.0.3, font-finder@^1.0.4:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/font-finder/-/font-finder-1.0.4.tgz#2ca944954dd8d0e1b5bdc4c596cc08607761d89b"
-  integrity sha512-naF16RpjWUTFLqzhmdivYpBCrqySN6PI+a4GPtoEsCdvOpbKYTGeTjO7mxh3Wwjz4xKU+Oqx9kwOcteLDeMFQA==
+font-finder@^1.0.3, font-finder@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/font-finder/-/font-finder-1.1.0.tgz#2bff2b2762acba720239c8bec898a96daae90858"
+  integrity sha512-wpCL2uIbi6GurJbU7ZlQ3nGd61Ho+dSU6U83/xJT5UPFfN35EeCW/rOtS+5k+IuEZu2SYmHzDIPL9eA5tSYRAw==
   dependencies:
     get-system-fonts "^2.0.0"
     promise-stream-reader "^1.0.1"
@@ -343,11 +343,11 @@ xterm-addon-fit@^0.4.0-beta.8:
   integrity sha512-p4BESuV/g2L6pZzFHpeNLLnep9mp/DkF3qrPglMiucSFtD8iJxtMufEoEJbN8LZwB4i+8PFpFvVuFrGOSpW05w==
 
 xterm-addon-ligatures@^0.4.0-beta.5:
-  version "0.4.0-beta.7"
-  resolved "https://registry.yarnpkg.com/xterm-addon-ligatures/-/xterm-addon-ligatures-0.4.0-beta.7.tgz#06dfafe0491a2e4744b1a6429958f261820baa00"
-  integrity sha512-GVZKbm7GRgs0LFtdKKmpu0Cs2jfC+sdRtl2E4vWEmhi8WNeW9iINbrsYgdtFPvs1X9OaKxEWqEXJkTcy5rmLHQ==
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/xterm-addon-ligatures/-/xterm-addon-ligatures-0.4.0.tgz#23235d831988c5780ca1e28002b750ec0b1a78ca"
+  integrity sha512-on+2TgzioEL5Mz60WchsTiuR2SvYzG3xVro39HIpYFM641lpMuPM83Pdm3W/ogkaGrpGm29Ysq2S2LCl/h7rhw==
   dependencies:
-    font-finder "^1.0.4"
+    font-finder "^1.1.0"
     font-ligatures "^1.3.3"
 
 xterm-addon-search@^0.7.0-beta.2:
