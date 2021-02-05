@@ -131,12 +131,12 @@
   dependencies:
     debug "^4.1.1"
 
-"@terminus-term/node-pty@0.10.0-beta10":
-  version "0.10.0-beta10"
-  resolved "https://registry.yarnpkg.com/@terminus-term/node-pty/-/node-pty-0.10.0-beta10.tgz#de9dade3d7549d44b0906ec0d0b9e1bb411f1f21"
-  integrity sha512-j9RJk7sD/es4vR6+AR5M/p3SicVxY6kZEeE0UQKhHNcaAla90/mcGeBNicAWPaAkjO1uQZVbYh5cJMMu5unQgA==
+"@terminus-term/node-pty@0.10.0-terminus.1":
+  version "0.10.0-terminus.1"
+  resolved "https://registry.yarnpkg.com/@terminus-term/node-pty/-/node-pty-0.10.0-terminus.1.tgz#c71dfc88444328005cda58753675f6d09eb22a5e"
+  integrity sha512-qJfW+8pIXnO3m41Mdp8dsrlPc2nTaZ4/iCwYdUMvstBR4DM13DDuBB/Hi0A1m6xrs9UlOxPlRwI8U5ILsKaKRg==
   dependencies:
-    nan "^2.14.0"
+    node-addon-api "^3.0.2"
 
 "@types/mz@0.0.32":
   version "0.0.32"
@@ -2084,7 +2084,7 @@ mz@^2.7.0:
     object-assign "^4.0.1"
     thenify-all "^1.0.0"
 
-nan@^2.13.2, nan@^2.14.0, nan@^2.14.2:
+nan@^2.13.2, nan@^2.14.2:
   version "2.14.2"
   resolved "https://registry.yarnpkg.com/nan/-/nan-2.14.2.tgz#f5376400695168f4cc694ac9393d0c9585eeea19"
   integrity sha512-M2ufzIiINKCuDfBSAUr1vWQ+vuVcA9kqx8JJUsbQi6yf1uGRyb7HfpdfUr5qLXf3B/t8dPvcjhKMmlfnP47EzQ==
