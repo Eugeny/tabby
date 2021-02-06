@@ -286,6 +286,7 @@ export class Session extends BaseSession {
             cwd = null
         }
 
+        // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
         cwd = cwd || this.guessedCWD
 
         try {
