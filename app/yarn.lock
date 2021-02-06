@@ -131,10 +131,10 @@
   dependencies:
     debug "^4.1.1"
 
-"@terminus-term/node-pty@0.10.0-beta10":
-  version "0.10.0-beta10"
-  resolved "https://registry.yarnpkg.com/@terminus-term/node-pty/-/node-pty-0.10.0-beta10.tgz#de9dade3d7549d44b0906ec0d0b9e1bb411f1f21"
-  integrity sha512-j9RJk7sD/es4vR6+AR5M/p3SicVxY6kZEeE0UQKhHNcaAla90/mcGeBNicAWPaAkjO1uQZVbYh5cJMMu5unQgA==
+"@terminus-term/node-pty@0.10.0-terminus.2":
+  version "0.10.0-terminus.2"
+  resolved "https://registry.yarnpkg.com/@terminus-term/node-pty/-/node-pty-0.10.0-terminus.2.tgz#028c7762d13150984bc800b8cd954ceb7dbcac68"
+  integrity sha512-vcscP3jldTMZeHv0XVxQjwEtnh0usUQgUWvsXtPRMy2rMjijwC1+8xFp/FKPpLpWYNTN8WWmRjSdiw+qGGU4CQ==
   dependencies:
     nan "^2.14.0"
 
@@ -2094,6 +2094,13 @@ napi-build-utils@^1.0.1:
   resolved "https://registry.npmjs.org/napi-build-utils/-/napi-build-utils-1.0.2.tgz"
   integrity sha512-ONmRUqK7zj7DWX0D9ADe03wbwOBZxNAfF20PlGfCWQcD3+/MakShIHrMqx9YwPTfxDdF1zLeL+RGZiR9kGMLdg==
 
+native-process-working-directory@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/native-process-working-directory/-/native-process-working-directory-1.0.2.tgz#7843e2fa1490f53cf8d2c7d1913de8b275e8b89a"
+  integrity sha512-3a67QQV8r3YMUTSOgvtMOCjPDgCpb/8xjv93L8Cqb8bv3hOKsWis4/+8HCu3bgj8ADQV75SCYFSsAGM5G0cXmQ==
+  dependencies:
+    node-addon-api "^3.1.0"
+
 ngx-toastr@^12.0.1:
   version "12.1.0"
   resolved "https://registry.npmjs.org/ngx-toastr/-/ngx-toastr-12.1.0.tgz"
@@ -2113,7 +2120,7 @@ node-addon-api@3.0.0:
   resolved "https://registry.npmjs.org/node-addon-api/-/node-addon-api-3.0.0.tgz"
   integrity sha512-sSHCgWfJ+Lui/u+0msF3oyCgvdkhxDbkCS6Q8uiJquzOimkJBvX6hl5aSSA7DR1XbMpdM8r7phjcF63sF4rkKg==
 
-node-addon-api@^3.0.0, node-addon-api@^3.0.2:
+node-addon-api@^3.0.0, node-addon-api@^3.0.2, node-addon-api@^3.1.0:
   version "3.1.0"
   resolved "https://registry.npmjs.org/node-addon-api/-/node-addon-api-3.1.0.tgz"
   integrity sha512-flmrDNB06LIl5lywUz7YlNGZH/5p0M7W28k8hzd9Lshtdh1wshD2Y+U4h9LD6KObOy1f+fEVdgprPrEymjM5uw==

@@ -2,12 +2,11 @@ import * as psNode from 'ps-node'
 import * as fs from 'mz/fs'
 import * as os from 'os'
 import * as nodePTY from '@terminus-term/node-pty'
-
+import { getWorkingDirectoryFromPID } from 'native-process-working-directory'
 import { Observable, Subject } from 'rxjs'
 import { first } from 'rxjs/operators'
 import { Injectable } from '@angular/core'
 import { Logger, LogService, ConfigService, WIN_BUILD_CONPTY_SUPPORTED, isWindowsBuild } from 'terminus-core'
-import { exec } from 'mz/child_process'
 import { SessionOptions } from '../api/interfaces'
 
 /* eslint-disable block-scoped-var */
@@ -20,7 +19,6 @@ try {
     var windowsProcessTree = require('windows-process-tree')  // eslint-disable-line @typescript-eslint/no-var-requires, no-var
 } catch { }
 
-
 export interface ChildProcess {
     pid: number
     ppid: number
@@ -28,7 +26,6 @@ export interface ChildProcess {
 }
 
 const windowsDirectoryRegex = /([a-zA-Z]:[^\:\[\]\?\"\<\>\|]+)/mi
-const catalinaDataVolumePrefix = '/System/Volumes/Data'
 const OSC1337Prefix = Buffer.from('\x1b]1337;')
 const OSC1337Suffix = Buffer.from('\x07')
 
@@ -97,6 +94,7 @@ export class Session extends BaseSession {
     private pauseAfterExit = false
     private guessedCWD: string|null = null
     private reportedCWD: string
+    private initialCWD: string|null = null
 
     constructor (private config: ConfigService) {
         super()
@@ -154,6 +152,7 @@ export class Session extends BaseSession {
                 this.truePID = processes[0].pid
                 processes = await this.getChildProcesses()
             }
+            this.initialCWD = await this.getWorkingDirectory()
         }, 2000)
 
         this.open = true
@@ -261,13 +260,7 @@ export class Session extends BaseSession {
     }
 
     supportsWorkingDirectory (): boolean {
-        if (this.reportedCWD || this.guessedCWD) {
-            return true
-        }
-        if (!this.truePID) {
-            return false
-        }
-        return process.platform !== 'win32'
+        return !!(this.truePID || this.reportedCWD || this.guessedCWD)
     }
 
     async getWorkingDirectory (): Promise<string|null> {
@@ -277,40 +270,30 @@ export class Session extends BaseSession {
         if (!this.truePID) {
             return null
         }
-        if (process.platform === 'darwin') {
-            let lines: string[] = []
-            try {
-                lines = (await exec(`lsof -p ${this.truePID} -Fn`))[0].toString().split('\n')
-            } catch (e) {
-                return null
-            }
-            let cwd = lines[lines[1] === 'fcwd' ? 2 : 1].substring(1)
-            if (cwd.startsWith(catalinaDataVolumePrefix)) {
-                cwd = cwd.substring(catalinaDataVolumePrefix.length)
-            }
-            return cwd
+        let cwd: string|null = null
+        try {
+            cwd = getWorkingDirectoryFromPID(this.truePID)
+        } catch (exc) {
+            console.error(exc)
         }
-        if (process.platform === 'linux') {
-            try {
-                const cwd = await fs.readlink(`/proc/${this.truePID}/cwd`)
-                return cwd
-            } catch (exc) {
-                console.error(exc)
-                return null
-            }
+
+        try {
+            cwd = await fs.realpath(cwd)
+        } catch {}
+
+        if (process.platform === 'win32' && (cwd === this.initialCWD || cwd === process.env.WINDIR)) {
+            // shell doesn't truly change its process' CWD
+            cwd = null
         }
-        if (process.platform === 'win32') {
-            if (!this.guessedCWD) {
-                return null
-            }
-            try {
-                await fs.access(this.guessedCWD)
-            } catch (e) {
-                return null
-            }
-            return this.guessedCWD
+
+        cwd = cwd || this.guessedCWD
+
+        try {
+            await fs.access(cwd)
+        } catch {
+            return null
         }
-        return null
+        return cwd
     }
 
     private guessWindowsCWD (data: string) {
