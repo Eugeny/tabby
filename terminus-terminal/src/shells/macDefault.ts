@@ -8,6 +8,8 @@ import { Shell } from '../api/interfaces'
 /** @hidden */
 @Injectable()
 export class MacOSDefaultShellProvider extends ShellProvider {
+    private cachedShell?: string
+
     constructor (
         private hostApp: HostAppService,
     ) {
@@ -18,14 +20,29 @@ export class MacOSDefaultShellProvider extends ShellProvider {
         if (this.hostApp.platform !== Platform.macOS) {
             return []
         }
-        const shellEntry = (await exec(`/usr/bin/dscl . -read /Users/${process.env.LOGNAME} UserShell`))[0].toString()
         return [{
             id: 'default',
             name: 'User default',
-            command: shellEntry.split(' ')[1].trim(),
+            command: await this.getDefaultShellCached(),
             args: ['--login'],
             hidden: true,
             env: {},
         }]
+    }
+
+    private async getDefaultShellCached () {
+        if (!this.cachedShell) {
+            this.cachedShell = await this.getDefaultShell()
+        } else {
+            this.getDefaultShell().then(shell => {
+                this.cachedShell = shell
+            })
+        }
+        return this.cachedShell!
+    }
+
+    private async getDefaultShell () {
+        const shellEntry = (await exec(`/usr/bin/dscl . -read /Users/${process.env.LOGNAME} UserShell`))[0].toString()
+        return shellEntry.split(' ')[1].trim()
     }
 }
