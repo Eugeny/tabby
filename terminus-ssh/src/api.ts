@@ -140,6 +140,9 @@ export class SSHSession extends BaseSession {
             this.shell = await this.openShellChannel({ x11: this.connection.x11 })
         } catch (err) {
             this.emitServiceMessage(colors.bgRed.black(' X ') + ` Remote rejected opening a shell channel: ${err}`)
+            if (err.toString().includes('Unable to request X11')) {
+                this.emitServiceMessage('    Make sure `xauth` is installed on the remote side')
+            }
             return
         }
 
@@ -245,7 +248,13 @@ export class SSHSession extends BaseSession {
             }
             socket.on('error', e => {
                 // eslint-disable-next-line @typescript-eslint/no-base-to-string
-                this.emitServiceMessage(colors.bgRed.black(' X ') + ` Could not connect to the X server ${xHost}:${xPort}: ${e}`)
+                this.emitServiceMessage(colors.bgRed.black(' X ') + ` Could not connect to the X server: ${e}`)
+                this.emitServiceMessage(`    Terminus tried to connect to ${xHost}:${xPort} based on the DISPLAY environment var (${displaySpec})`)
+                if (process.platform === 'win32') {
+                    this.emitServiceMessage('    To use X forwarding, you need a local X server, e.g.:')
+                    this.emitServiceMessage('    * VcXsrv: https://sourceforge.net/projects/vcxsrv/')
+                    this.emitServiceMessage('    * Xming: https://sourceforge.net/projects/xming/')
+                }
                 reject()
             })
             socket.on('connect', () => {
