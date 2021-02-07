@@ -142,6 +142,8 @@ export class AppRootComponent {
 
         this.touchbar.update()
 
+        this.hostApp.useBuiltinGraphics()
+
         config.changed$.subscribe(() => this.updateVibrancy())
         this.updateVibrancy()
 

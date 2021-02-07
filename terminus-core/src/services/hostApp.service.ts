@@ -8,6 +8,10 @@ import { ElectronService } from './electron.service'
 import { Logger, LogService } from './log.service'
 import { isWindowsBuild, WIN_BUILD_FLUENT_BG_SUPPORTED } from '../utils'
 
+try {
+    var wnr = require('windows-native-registry') // eslint-disable-line @typescript-eslint/no-var-requires, no-var
+} catch (_) { }
+
 export enum Platform {
     Linux = 'Linux',
     macOS = 'macOS',
@@ -281,6 +285,16 @@ export class HostAppService {
 
     registerGlobalHotkey (specs: string[]): void {
         this.electron.ipcRenderer.send('app:register-global-hotkey', specs)
+    }
+
+    useBuiltinGraphics () {
+        const keyPath = 'SOFTWARE\\Microsoft\\DirectX\\UserGpuPreferences'
+        const valueName = this.electron.app.getPath('exe')
+        if (this.platform === Platform.Windows) {
+            if (!wnr.getRegistryValue(wnr.HK.CU, keyPath, valueName)) {
+                wnr.setRegistryValue(wnr.HK.CU, keyPath, valueName, wnr.REG.SZ, 'GpuPreference=1;')
+            }
+        }
     }
 
     relaunch (): void {
