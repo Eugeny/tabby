@@ -17,7 +17,6 @@ async function start () {
         }
         static vm: any
         loggedIn = false
-        loadingInterval: any
 
         constructor () {
             if (!NodePTY.vm) {
@@ -28,10 +27,13 @@ async function start () {
                     vga_bios: {
                         url: '../data/vgabios.bin',
                     },
+                    wasm_path: '../data/v86.wasm',
                     cdrom: {
                         url: '../data/linux.iso',
                     },
-                    wasm_path: '../data/v86.wasm',
+                    initial_state: {
+                        url: '../data/v86state.bin'
+                    },
                     autostart: true,
                     disable_keyboard: true,
                 })
@@ -39,9 +41,6 @@ async function start () {
                     this.emit('data', '\r\nVM ready, booting\r\n')
                     setTimeout(() => {
                         this.emit('data', '[Yes, this is a real demo]\r\n')
-                        this.loadingInterval = setInterval(() => {
-                            this.emit('data', '.')
-                        }, 500)
                     }, 2000)
                 })
                 NodePTY.vm.add_listener('download-progress', (e) => {
@@ -49,7 +48,6 @@ async function start () {
                 })
                 NodePTY.vm.add_listener('download-error', (e) => {
                     this.emit('data', '\r\nDownload error\r\n')
-                    clearInterval(this.loadingInterval)
                 })
             } else {
                 setTimeout(() => {
@@ -59,7 +57,6 @@ async function start () {
 
             NodePTY.vm.add_listener('serial0-output-char', char => {
                 this.emit('data', char)
-                clearInterval(this.loadingInterval)
             })
         }
 
