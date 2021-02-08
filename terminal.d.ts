@@ -1,4 +1,4 @@
-import 'core-js/es7/reflect';
+import 'core-js/proposals/reflect-metadata';
 import '@fortawesome/fontawesome-free/css/solid.css';
 import '@fortawesome/fontawesome-free/css/brands.css';
 import '@fortawesome/fontawesome-free/css/fontawesome.css';

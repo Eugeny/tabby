@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack --progress",
-    "watch": "webpack --progress --watch"
+    "watch": "TERMINUS_DEV=1 webpack --progress --watch"
   },
   "private": true,
   "devDependencies": {
@@ -12,6 +12,8 @@
     "@types/node": "^11.9.5",
     "awesome-typescript-loader": "^5.2.1",
     "bootstrap": "^4.3.1",
+    "buffer": "^6.0.3",
+    "core-js": "^3.8.3",
     "css-loader": "^2.1.0",
     "file-loader": "^1.1.11",
     "node-sass": "^4.11.0",

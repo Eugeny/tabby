@@ -1,4 +1,4 @@
-import 'core-js/es7/reflect'
+import 'core-js/proposals/reflect-metadata'
 
 import '@fortawesome/fontawesome-free/css/solid.css'
 import '@fortawesome/fontawesome-free/css/brands.css'
@@ -17,6 +17,7 @@ async function start () {
         }
         static vm: any
         loggedIn = false
+        loadingInterval: any
 
         constructor () {
             if (!NodePTY.vm) {
@@ -34,18 +35,30 @@ async function start () {
                     disable_keyboard: true,
                 })
                 NodePTY.vm.add_listener('emulator-ready', () => {
-                    this.emit('data', '\r\nVM ready\r\n')
+                    this.emit('data', '\r\nVM ready, booting\r\n')
+                    setTimeout(() => {
+                        this.emit('data', '[Yes, this is a real demo]\r\n')
+                        this.loadingInterval = setInterval(() => {
+                            this.emit('data', '.')
+                        }, 500)
+                    }, 2000)
                 })
                 NodePTY.vm.add_listener('download-progress', (e) => {
                     this.emit('data', `\rDownloading ${e.Rg}: ${e.loaded / 1024}/${e.total / 1024} kB         `)
                 })
                 NodePTY.vm.add_listener('download-error', (e) => {
                     this.emit('data', '\r\nDownload error\r\n')
+                    clearInterval(this.loadingInterval)
                 })
+            } else {
+                setTimeout(() => {
+                    this.write('\n')
+                }, 2000)
             }
 
             NodePTY.vm.add_listener('serial0-output-char', char => {
                 this.emit('data', char)
+                clearInterval(this.loadingInterval)
             })
         }
 
@@ -53,7 +66,7 @@ async function start () {
 
         write (data) {
             //data = data.replace('\r', '\n')
-            NodePTY.vm.serial0_send(data)
+            NodePTY.vm.serial0_send(data.toString())
             //this.emit('data', data)
         }
 
@@ -79,6 +92,12 @@ async function start () {
         }
     }
 
+    function MockStream () {
+        this.once = () => null
+        this._readableState = {}
+        return this
+    }
+
     const mocks = {
         fs: {
             realpathSync: path => {
@@ -91,6 +110,9 @@ async function start () {
                 }
                 console.warn('mock existsSync', path)
                 return false
+            },
+            mkdir: path => {
+                console.warn('mock mkdir', path)
             },
             mkdirSync: path => {
                 console.warn('mock mkdirSync', path)
@@ -113,9 +135,12 @@ async function start () {
                 if (path === 'app-path/config.yaml') {
                     return `
                         enableAnalytics: false
+                        enableWelcomeTab: false
                         terminal:
                             font: "Source Code Pro"
                             autoOpen: true
+                        appearance:
+                            vibrancy: false
                     `
                 }
                 return ''
@@ -129,6 +154,8 @@ async function start () {
                     cb(null, '{ "keywords": ["terminus-builtin-plugin"], "author": "" }')
                 } else if (path === '/etc/shells') {
                     cb(null, '/bin/sh')
+                } else if (path === '/etc/passwd') {
+                    cb(null, 'root:x:0:0:root:/root:/bin/zsh\n')
                 } else {
                     console.warn('mock readFile', path)
                     cb('UNKNOWN', null)
@@ -152,10 +179,14 @@ async function start () {
                 app: {
                     getVersion: () => '1.0-web',
                     getPath: () => 'app-path',
+                    getWindow: () => ({
+                        reload: () => null,
+                    }),
                 },
                 screen: {
                     on: () => null,
                     getAllDisplays: () => [],
+                    getPrimaryDisplay: () => ({}),
                     getCursorScreenPoint: () => ({}),
                     getDisplayNearestPoint: () => null,
                 },
@@ -185,17 +216,19 @@ async function start () {
             join: (...x) => x.join('/'),
             basename: x => x,
             dirname: x => x,
+            relative: (a, b) => b,
+            resolve: (a, b) => {
+                console.warn('mock path.resolve', a, b)
+                return b
+            }
         },
         buffer: {
-            Buffer: {
-                from: x => x,
-                isBuffer: () => false,
-            },
+            Buffer: require('buffer').Buffer,
         },
         crypto: {
         },
         stream: {
-            Stream: {},
+            Stream: MockStream,
             Writable: Object,
         },
         util: {
@@ -207,15 +240,17 @@ async function start () {
         module: {
             globalPaths: [],
         },
-        assert: () => null,
+        assert: () => true,
         url: {
             parse: () => null,
         },
         http: {
             Agent: { prototype: {} },
+            request: {},
         },
         https: {
             Agent: { prototype: {} },
+            request: {},
         },
         querystring: {},
         events: {},
@@ -228,8 +263,10 @@ async function start () {
                 Console: Object,
             }
         },
+        'readable-stream': {},
         os: {
             platform: () => 'linux',
+            homedir: () => '/home',
         },
         'mz/child_process': {
             exec: (...x) => Promise.reject(),
@@ -239,12 +276,16 @@ async function start () {
             exists: path => mocks.fs.existsSync(path),
             existsSync: path => mocks.fs.existsSync(path),
         },
-        'node-pty': {
+        '@terminus-term/node-pty': {
             spawn: () => {
                 return new NodePTY()
             }
-        }
+        },
+        constants: {},
     }
+
+    ;(mocks.assert as any).assertNotStrictEqual = () => true
+    ;(mocks.assert as any).notStrictEqual = () => true
 
     let builtins = {
         '@angular/core': require('@angular/core'),
@@ -277,13 +318,15 @@ async function start () {
             console.warn('requiring', path)
         },
         process: {
-            env: {},
-            argv: [],
+            env: { XWEB: 1, LOGNAME: 'root' },
+            argv: ['terminus'],
             platform: 'linux',
             on: () => null,
             stdout: {},
             stderr: {},
             resourcesPath: 'resources',
+            version: '14.0.0',
+            cwd: () => '/',
         },
         global: window,
     })
@@ -292,8 +335,14 @@ async function start () {
         paths: []
     }
 
+    window['module'] = {
+        paths: []
+    }
+
     window['require'].resolve = path => null
     window['Buffer'] = mocks.buffer.Buffer
+    window['__dirname'] = '__dirname'
+    window['setImmediate'] = setTimeout
     mocks.module['prototype'] = { require: window['require'] }
     mocks.electron.remote['process'] = window['process']
 
