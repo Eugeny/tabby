@@ -31,6 +31,7 @@ async function start () {
                     cdrom: {
                         url: '../data/linux.iso',
                     },
+                    wasm_path: '../data/v86.wasm',
                     autostart: true,
                     disable_keyboard: true,
                 })
@@ -44,7 +45,7 @@ async function start () {
                     }, 2000)
                 })
                 NodePTY.vm.add_listener('download-progress', (e) => {
-                    this.emit('data', `\rDownloading ${e.Rg}: ${e.loaded / 1024}/${e.total / 1024} kB         `)
+                    this.emit('data', `\rDownloading ${e.file_name}: ${e.loaded / 1024}/${e.total / 1024} kB         `)
                 })
                 NodePTY.vm.add_listener('download-error', (e) => {
                     this.emit('data', '\r\nDownload error\r\n')
