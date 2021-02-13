@@ -97,11 +97,13 @@ export class SerialTabComponent extends BaseTerminalTabComponent {
         }))
         this.attachSessionHandler(this.session!.destroyed$.subscribe(() => {
             this.write('Press any key to reconnect\r\n')
-            this.input$.pipe(first()).subscribe(() => {
-                if (!this.session?.open) {
-                    this.reconnect()
-                }
-            })
+            setTimeout(() => {
+                this.input$.pipe(first()).subscribe(() => {
+                    if (!this.session?.open) {
+                        this.reconnect()
+                    }
+                })
+            }, 100)
         }))
         super.attachSessionHandlers()
     }

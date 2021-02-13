@@ -143,7 +143,6 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
 
     protected attachSessionHandlers (): void {
         const session = this.session!
-        super.attachSessionHandlers()
         this.attachSessionHandler(session.destroyed$.subscribe(() => {
             if (
                 // Ctrl-D
@@ -158,12 +157,15 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
                 if (!this.reconnectOffered) {
                     this.reconnectOffered = true
                     this.write('Press any key to reconnect\r\n')
-                    this.attachSessionHandler(this.input$.pipe(first()).subscribe(() => {
-                        this.reconnect()
-                    }))
+                    setTimeout(() => {
+                        this.attachSessionHandler(this.input$.pipe(first()).subscribe(() => {
+                            this.reconnect()
+                        }))
+                    }, 100)
                 }
             }
         }))
+        super.attachSessionHandlers()
     }
 
     async initializeSession (): Promise<void> {
