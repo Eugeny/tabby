@@ -54,6 +54,9 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
                 case 'end':
                     this.sendInput('\x1b[F' )
                     break
+                case 'restart-ssh-session':
+                    this.reconnect()
+                    break
             }
         })
 
@@ -157,11 +160,11 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
                 if (!this.reconnectOffered) {
                     this.reconnectOffered = true
                     this.write('Press any key to reconnect\r\n')
-                    setTimeout(() => {
-                        this.attachSessionHandler(this.input$.pipe(first()).subscribe(() => {
+                    this.input$.pipe(first()).subscribe(() => {
+                        if (!this.session?.open) {
                             this.reconnect()
-                        }))
-                    }, 100)
+                        }
+                    })
                 }
             }
         }))
