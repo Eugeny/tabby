@@ -44,8 +44,11 @@ import 'ng2-dnd/bundles/style.css'
 // PerfectScrollbar fix
 import { fromEvent } from 'rxjs/internal/observable/fromEvent'
 import { merge } from 'rxjs/internal/observable/merge'
-require('rxjs').fromEvent = fromEvent
-require('rxjs').merge = merge
+
+try {
+    require('rxjs').fromEvent = fromEvent
+    require('rxjs').merge = merge
+} catch {}
 
 const PROVIDERS = [
     { provide: HotkeyProvider, useClass: AppHotkeyProvider, multi: true },
