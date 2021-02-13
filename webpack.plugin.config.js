@@ -2,7 +2,7 @@ const path = require('path')
 
 module.exports = options => {
     const isDev = !!process.env.TERMINUS_DEV
-    const devtool = isDev && process.platform === 'win32' ? 'cheap-eval-module-source-map' : 'cheap-module-source-map'
+    const devtool = isDev && process.platform === 'win32' ? 'eval-cheap-module-source-map' : 'cheap-module-source-map'
     return {
         target: 'node',
         entry: 'src/index.ts',
@@ -83,7 +83,7 @@ module.exports = options => {
             'stream',
             'windows-native-registry',
             'windows-process-tree',
-            //'windows-process-tree/build/Release/windows_process_tree.node',
+            'windows-process-tree/build/Release/windows_process_tree.node',
             /^@angular/,
             /^@ng-bootstrap/,
             /^rxjs/,
