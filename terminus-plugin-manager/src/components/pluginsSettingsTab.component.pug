@@ -2,7 +2,6 @@
     strong Error in {{erroredPlugin}}:
     pre {{errorMessage}}
 
-
 .d-flex
     h3.mb-1 Installed
     button.btn.btn-outline-secondary.btn-sm.ml-auto((click)='openPluginsFolder()')
@@ -11,11 +10,16 @@
 
 .list-group.list-group-flush.mt-2
     .list-group-item.d-flex.align-items-center(*ngFor='let plugin of pluginManager.installedPlugins')
+        toggle(
+            [ngModel]='isPluginEnabled(plugin)',
+            (ngModelChange)='togglePlugin(plugin)'
+        )
+
         .mr-auto.d-flex.flex-column
             div
                 strong {{plugin.name}}
                 small.text-muted.ml-1(*ngIf='!plugin.isBuiltin') {{plugin.version}} / {{plugin.author}}
-                small.text-warning.ml-1(*ngIf='config.store.pluginBlacklist.includes(plugin.name)') Disabled
+                small.text-warning.ml-1(*ngIf='!isPluginEnabled(plugin)') Disabled
             a.text-muted.mb-0((click)='showPluginInfo(plugin)')
                 small {{plugin.description}}
 
@@ -27,18 +31,6 @@
             i.fas.fa-fw.fa-arrow-up(*ngIf='busy.get(plugin.name) != BusyState.Installing')
             i.fas.fa-fw.fa-circle-notch.fa-spin(*ngIf='busy.get(plugin.name) == BusyState.Installing')
             span Upgrade ({{knownUpgrades[plugin.name].version}})
-
-        button.btn.btn-link.text-primary.ml-2(
-            *ngIf='config.store.pluginBlacklist.includes(plugin.name)',
-            (click)='enablePlugin(plugin)'
-        )
-            i.fas.fa-fw.fa-play
-
-        button.btn.btn-link.ml-2(
-            *ngIf='!config.store.pluginBlacklist.includes(plugin.name)',
-            (click)='disablePlugin(plugin)'
-        )
-            i.fas.fa-fw.fa-pause
 
         button.btn.btn-link.text-danger.ml-2(
             (click)='uninstallPlugin(plugin)',

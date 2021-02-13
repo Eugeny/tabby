@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser'
 import { FormsModule } from '@angular/forms'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 
+import TerminusCorePlugin from 'terminus-core'
 import { SettingsTabProvider } from 'terminus-settings'
 
 import { PluginsSettingsTabComponent } from './components/pluginsSettingsTab.component'
@@ -14,6 +15,7 @@ import { PluginsSettingsTabProvider } from './settings'
         BrowserModule,
         FormsModule,
         NgbModule,
+        TerminusCorePlugin,
     ],
     providers: [
         { provide: SettingsTabProvider, useClass: PluginsSettingsTabProvider, multi: true },
