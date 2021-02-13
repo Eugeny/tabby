@@ -1,24 +1,18 @@
-import { NativeImage, SegmentedControlSegment, TouchBarSegmentedControl } from 'electron'
-import { Injectable, Inject, NgZone } from '@angular/core'
+import { SegmentedControlSegment, TouchBarSegmentedControl } from 'electron'
+import { Injectable, NgZone } from '@angular/core'
 import { AppService } from './app.service'
-import { ConfigService } from './config.service'
 import { ElectronService } from './electron.service'
 import { HostAppService, Platform } from './hostApp.service'
-import { ToolbarButton, ToolbarButtonProvider } from '../api'
 
 /** @hidden */
 @Injectable({ providedIn: 'root' })
 export class TouchbarService {
     private tabsSegmentedControl: TouchBarSegmentedControl
-    private buttonsSegmentedControl: TouchBarSegmentedControl
     private tabSegments: SegmentedControlSegment[] = []
-    private nsImageCache: Record<string, NativeImage> = {}
 
     private constructor (
         private app: AppService,
         private hostApp: HostAppService,
-        @Inject(ToolbarButtonProvider) private toolbarButtonProviders: ToolbarButtonProvider[],
-        private config: ConfigService,
         private electron: ElectronService,
         private zone: NgZone,
     ) {
@@ -63,16 +57,6 @@ export class TouchbarService {
             return
         }
 
-        let buttons: ToolbarButton[] = []
-        this.config.enabledServices(this.toolbarButtonProviders).forEach(provider => {
-            buttons = buttons.concat(provider.provide())
-        })
-        buttons = buttons.filter(x => !!x.touchBarNSImage)
-        buttons.sort((a, b) => (a.weight ?? 0) - (b.weight ?? 0))
-        this.tabSegments = this.app.tabs.map(tab => ({
-            label: this.shortenTitle(tab.title),
-        }))
-
         this.tabsSegmentedControl = new this.electron.TouchBar.TouchBarSegmentedControl({
             segments: this.tabSegments,
             selectedIndex: this.app.activeTab ? this.app.tabs.indexOf(this.app.activeTab) : undefined,
@@ -81,41 +65,12 @@ export class TouchbarService {
             }),
         })
 
-        this.buttonsSegmentedControl = new this.electron.TouchBar.TouchBarSegmentedControl({
-            segments: buttons.map(button => this.getButton(button)),
-            mode: 'buttons',
-            change: (selectedIndex) => this.zone.run(() => {
-                if (buttons[selectedIndex].click) {
-                    buttons[selectedIndex].click!()
-                }
-            }),
-        })
-
         const touchBar = new this.electron.TouchBar({
             items: [
                 this.tabsSegmentedControl,
-                // new this.electron.TouchBar.TouchBarSpacer({ size: 'flexible' }),
-                // new this.electron.TouchBar.TouchBarSpacer({ size: 'small' }),
-                // this.buttonsSegmentedControl,
             ],
         })
         this.hostApp.setTouchBar(touchBar)
-    }
-
-    private getButton (button: ToolbarButton): SegmentedControlSegment {
-        return {
-            label: button.touchBarNSImage ? undefined : this.shortenTitle(button.touchBarTitle ?? button.title),
-            icon: button.touchBarNSImage ? this.getCachedNSImage(button.touchBarNSImage) : undefined,
-            // click: () => this.zone.run(() => button.click()),
-        }
-    }
-
-    private getCachedNSImage (name: string) {
-        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-        if (!this.nsImageCache[name]) {
-            this.nsImageCache[name] = this.electron.nativeImage.createFromNamedImage(name, [0, 0, 1])
-        }
-        return this.nsImageCache[name]
     }
 
     private shortenTitle (title: string): string {
