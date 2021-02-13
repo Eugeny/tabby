@@ -1,6 +1,10 @@
 @import './theme.scss';
 
 app-root {
+    .tabs-on-side .tab-bar {
+        height: 100% !important;
+    }
+
     .tab-bar {
         height: 27px !important;
 
