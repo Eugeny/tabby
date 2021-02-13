@@ -81,6 +81,10 @@ export class TabHeaderComponent {
         return items.slice(1)
     }
 
+    @HostBinding('class.flex-width') get isFlexWidthEnabled (): boolean {
+        return this.config.store.appearance.flexTabs
+    }
+
     @HostListener('dblclick') onDoubleClick (): void {
         this.showRenameTabModal()
     }

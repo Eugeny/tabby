@@ -68,6 +68,29 @@ ngb-tabset.vertical(type='pills', [activeId]='activeTab')
 
             .form-line
                 .header
+                    .title Tabs width
+                .btn-group(
+                    [(ngModel)]='config.store.appearance.flexTabs',
+                    (ngModelChange)='config.save()',
+                    ngbRadioGroup
+                )
+                    label.btn.btn-secondary(ngbButtonLabel)
+                        input(
+                            type='radio',
+                            ngbButton,
+                            [value]='true'
+                        )
+                        | Dynamic
+                    label.btn.btn-secondary(ngbButtonLabel)
+                        input(
+                            type='radio',
+                            ngbButton,
+                            [value]='false'
+                        )
+                        | Fixed
+
+            .form-line
+                .header
                     .title(*ngIf='hostApp.platform !== Platform.macOS') Acrylic background
                     .title(*ngIf='hostApp.platform === Platform.macOS') Vibrancy
                     .description Gives the window a blurred transparent background

@@ -4,6 +4,7 @@ appearance:
   dockFill: 0.5
   dockHideOnBlur: false
   dockAlwaysOnTop: true
+  flexTabs: false
   tabsLocation: top
   cycleTabs: true
   theme: Standard
