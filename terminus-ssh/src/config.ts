@@ -13,6 +13,7 @@ export class SSHConfigProvider extends ConfigProvider {
             ssh: [
                 'Alt-S',
             ],
+            'restart-ssh-session': [],
         },
     }
 

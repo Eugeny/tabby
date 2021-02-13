@@ -9,6 +9,10 @@ export class SSHHotkeyProvider extends HotkeyProvider {
             id: 'ssh',
             name: 'Show SSH connections',
         },
+        {
+            id: 'restart-ssh-session',
+            name: 'Restart current SSH session',
+        },
     ]
 
     async provide (): Promise<HotkeyDescription[]> {

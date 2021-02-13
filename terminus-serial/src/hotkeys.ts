@@ -9,6 +9,10 @@ export class SerialHotkeyProvider extends HotkeyProvider {
             id: 'serial',
             name: 'Show Serial connections',
         },
+        {
+            id: 'restart-serial-session',
+            name: 'Restart current serial session',
+        },
     ]
 
     async provide (): Promise<HotkeyDescription[]> {

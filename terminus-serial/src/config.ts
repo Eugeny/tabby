@@ -12,6 +12,7 @@ export class SerialConfigProvider extends ConfigProvider {
             serial: [
                 'Alt-K',
             ],
+            'restart-serial-session': [],
         },
     }
 
