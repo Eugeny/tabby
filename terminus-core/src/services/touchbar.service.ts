@@ -94,9 +94,9 @@ export class TouchbarService {
         const touchBar = new this.electron.TouchBar({
             items: [
                 this.tabsSegmentedControl,
-                new this.electron.TouchBar.TouchBarSpacer({ size: 'flexible' }),
-                new this.electron.TouchBar.TouchBarSpacer({ size: 'small' }),
-                this.buttonsSegmentedControl,
+                // new this.electron.TouchBar.TouchBarSpacer({ size: 'flexible' }),
+                // new this.electron.TouchBar.TouchBarSpacer({ size: 'small' }),
+                // this.buttonsSegmentedControl,
             ],
         })
         this.hostApp.setTouchBar(touchBar)
