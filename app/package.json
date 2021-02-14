@@ -22,7 +22,7 @@
     "@angular/platform-browser": "^11.1.1",
     "@angular/platform-browser-dynamic": "^11.1.1",
     "@ng-bootstrap/ng-bootstrap": "^6.1.0",
-    "@terminus-term/node-pty": "0.10.0-terminus.2",
+    "@terminus-term/node-pty": "0.10.0-terminus.3",
     "electron-config": "2.0.0",
     "electron-debug": "^3.2.0",
     "electron-is-dev": "1.2.0",
