@@ -131,10 +131,10 @@
   dependencies:
     debug "^4.1.1"
 
-"@terminus-term/node-pty@0.10.0-terminus.2":
-  version "0.10.0-terminus.2"
-  resolved "https://registry.yarnpkg.com/@terminus-term/node-pty/-/node-pty-0.10.0-terminus.2.tgz#028c7762d13150984bc800b8cd954ceb7dbcac68"
-  integrity sha512-vcscP3jldTMZeHv0XVxQjwEtnh0usUQgUWvsXtPRMy2rMjijwC1+8xFp/FKPpLpWYNTN8WWmRjSdiw+qGGU4CQ==
+"@terminus-term/node-pty@0.10.0-terminus.3":
+  version "0.10.0-terminus.3"
+  resolved "https://registry.yarnpkg.com/@terminus-term/node-pty/-/node-pty-0.10.0-terminus.3.tgz#9dbd64d52afda5079e66265a89d313fe42affab7"
+  integrity sha512-HvIOts22dnoBXhRfLiK9DyPasuixYVgEUvgqZmOr0B0Ki9tF8e074oYPUtzLRll6Y553QiUzTWhriCS99MChNQ==
   dependencies:
     nan "^2.14.0"
 
