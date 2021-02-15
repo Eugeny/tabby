@@ -131,10 +131,10 @@
   dependencies:
     debug "^4.1.1"
 
-"@terminus-term/node-pty@0.10.0-terminus.2":
-  version "0.10.0-terminus.2"
-  resolved "https://registry.yarnpkg.com/@terminus-term/node-pty/-/node-pty-0.10.0-terminus.2.tgz#028c7762d13150984bc800b8cd954ceb7dbcac68"
-  integrity sha512-vcscP3jldTMZeHv0XVxQjwEtnh0usUQgUWvsXtPRMy2rMjijwC1+8xFp/FKPpLpWYNTN8WWmRjSdiw+qGGU4CQ==
+"@terminus-term/node-pty@0.10.0-terminus.3":
+  version "0.10.0-terminus.3"
+  resolved "https://registry.yarnpkg.com/@terminus-term/node-pty/-/node-pty-0.10.0-terminus.3.tgz#9dbd64d52afda5079e66265a89d313fe42affab7"
+  integrity sha512-HvIOts22dnoBXhRfLiK9DyPasuixYVgEUvgqZmOr0B0Ki9tF8e074oYPUtzLRll6Y553QiUzTWhriCS99MChNQ==
   dependencies:
     nan "^2.14.0"
 
@@ -145,10 +145,10 @@
   dependencies:
     "@types/node" "*"
 
-"@types/node@*", "@types/node@14.14.14":
-  version "14.14.14"
-  resolved "https://registry.npmjs.org/@types/node/-/node-14.14.14.tgz"
-  integrity sha512-UHnOPWVWV1z+VV8k6L1HhG7UbGBgIdghqF3l9Ny9ApPghbjICXkUJSd/b9gOgQfjM1r+37cipdw/HJ3F6ICEnQ==
+"@types/node@*", "@types/node@14.14.28":
+  version "14.14.28"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-14.14.28.tgz#cade4b64f8438f588951a6b35843ce536853f25b"
+  integrity sha512-lg55ArB+ZiHHbBBttLpzD07akz0QPrZgUODNakeC09i62dnrywr9mFErHuaPlB6I7z+sEbK+IYmplahvplCj2g==
 
 JSONStream@^1.3.4, JSONStream@^1.3.5:
   version "1.3.5"
