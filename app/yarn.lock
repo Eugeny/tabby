@@ -131,10 +131,10 @@
   dependencies:
     debug "^4.1.1"
 
-"@terminus-term/node-pty@0.10.0-terminus.2":
-  version "0.10.0-terminus.2"
-  resolved "https://registry.yarnpkg.com/@terminus-term/node-pty/-/node-pty-0.10.0-terminus.2.tgz#028c7762d13150984bc800b8cd954ceb7dbcac68"
-  integrity sha512-vcscP3jldTMZeHv0XVxQjwEtnh0usUQgUWvsXtPRMy2rMjijwC1+8xFp/FKPpLpWYNTN8WWmRjSdiw+qGGU4CQ==
+"@terminus-term/node-pty@0.10.0-terminus.3":
+  version "0.10.0-terminus.3"
+  resolved "https://registry.yarnpkg.com/@terminus-term/node-pty/-/node-pty-0.10.0-terminus.3.tgz#9dbd64d52afda5079e66265a89d313fe42affab7"
+  integrity sha512-HvIOts22dnoBXhRfLiK9DyPasuixYVgEUvgqZmOr0B0Ki9tF8e074oYPUtzLRll6Y553QiUzTWhriCS99MChNQ==
   dependencies:
     nan "^2.14.0"
 
@@ -1655,10 +1655,10 @@ keyboardevents-areequal@^0.2.1:
   resolved "https://registry.npmjs.org/keyboardevents-areequal/-/keyboardevents-areequal-0.2.2.tgz"
   integrity sha512-Nv+Kr33T0mEjxR500q+I6IWisOQ0lK1GGOncV0kWE6n4KFmpcu7RUX5/2B0EUtX51Cb0HjZ9VJsSY3u4cBa0kw==
 
-keytar@^7.2.0:
-  version "7.3.0"
-  resolved "https://registry.npmjs.org/keytar/-/keytar-7.3.0.tgz"
-  integrity sha512-t8YD0ETO5AeRxCaaN4N/hzj3JusIH0ugjVooE724+ozaVG9+l16Mau62T+U8tEhCv7SozY/g69BWF1U+o47qJg==
+keytar@^7.4.0:
+  version "7.4.0"
+  resolved "https://registry.yarnpkg.com/keytar/-/keytar-7.4.0.tgz#0a508d64850ca05aa3ba4127818037d13ca3219f"
+  integrity sha512-nELmc35YjSE4ZNSFaID/743CgDt/MdV4JLX7rRewAh9mKvU72RtF3uJMY0MdMpwdDYZhmD8FSdRCD1J97lEyVg==
   dependencies:
     node-addon-api "^3.0.0"
     prebuild-install "^6.0.0"
