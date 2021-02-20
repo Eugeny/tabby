@@ -6,3 +6,15 @@
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@types/deep-equal/-/deep-equal-1.0.1.tgz#71cfabb247c22bcc16d536111f50c0ed12476b03"
   integrity sha512-mMUu4nWHLBlHtxXY17Fg6+ucS/MnndyOWyOe7MmwkoMYxvfQU2ajtRaEvqSUv+aVkMqH/C0NCI8UoVfRNQ10yg==
+
+tinyqueue@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/tinyqueue/-/tinyqueue-2.0.3.tgz#64d8492ebf39e7801d7bd34062e29b45b2035f08"
+  integrity sha512-ppJZNDuKGgxzkHihX8v9v9G5f+18gzaTfrukGrq6ueg0lmH4nqVnA2IPG0AEH3jKEk2GRJCUhDoqpoiw3PHLBA==
+
+utils-decorators@^1.8.0:
+  version "1.8.0"
+  resolved "https://registry.yarnpkg.com/utils-decorators/-/utils-decorators-1.8.0.tgz#6897ce2e57b4a92b18c37fa1a3926f170edbfaa8"
+  integrity sha512-anKv6Zkebhfyh6exTg3mgvKRYA9fDLkRDbIvbs15m5ridTq0uKqsiBwr222BtJToXNImCJzwkN00F7vL4aKldg==
+  dependencies:
+    tinyqueue "^2.0.3"
