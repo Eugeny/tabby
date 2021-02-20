@@ -29,7 +29,7 @@ export class TabHeaderComponent {
     @Input() @HostBinding('class.has-activity') hasActivity: boolean
     @Input() tab: BaseTabComponent
     @Input() progress: number|null
-    @ViewChild('handle') handle: ElementRef
+    @ViewChild('handle') handle?: ElementRef
 
     private constructor (
         public app: AppService,
@@ -58,7 +58,7 @@ export class TabHeaderComponent {
     }
 
     ngAfterViewInit () {
-        if (this.hostApp.platform === Platform.macOS) {
+        if (this.handle && this.hostApp.platform === Platform.macOS) {
             this.parentDraggable.setDragHandle(this.handle.nativeElement)
         }
     }
