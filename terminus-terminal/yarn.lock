@@ -291,9 +291,9 @@ runes@^0.4.2:
   integrity sha512-K6p9y4ZyL9wPzA+PMDloNQPfoDGTiFYDvdlXznyGKgD10BJpcAosvATKrExRKOrNLgD8E7Um7WGW0lxsnOuNLg==
 
 slugify@^1.4.0:
-  version "1.4.6"
-  resolved "https://registry.yarnpkg.com/slugify/-/slugify-1.4.6.tgz#ef288d920a47fb01c2be56b3487b6722f5e34ace"
-  integrity sha512-ZdJIgv9gdrYwhXqxsH9pv7nXxjUEyQ6nqhngRxoAAOlmMGA28FDq5O4/5US4G2/Nod7d1ovNcgURQJ7kHq50KQ==
+  version "1.4.7"
+  resolved "https://registry.yarnpkg.com/slugify/-/slugify-1.4.7.tgz#e42359d505afd84a44513280868e31202a79a628"
+  integrity sha512-tf+h5W1IrjNm/9rKKj0JU2MDMruiopx0jjVA5zCdBtcGjfp0+c5rHw/zADLC3IeKlGHtVbHtpfzvYA0OYT+HKg==
 
 string.prototype.trimend@^1.0.1:
   version "1.0.2"
