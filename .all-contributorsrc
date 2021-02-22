@@ -343,6 +343,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "VectorKappa",
+      "name": "Piotr Patalong",
+      "avatar_url": "https://avatars.githubusercontent.com/u/29167842?v=4",
+      "profile": "http://patalong.pl",
+      "contributions": [
+        "design"
+      ]
     }
   ],
   "contributorsPerLine": 7,
