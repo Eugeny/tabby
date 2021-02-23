@@ -34,7 +34,7 @@
     "mz": "^2.7.0",
     "native-process-working-directory": "^1.0.2",
     "ngx-toastr": "^12.0.1",
-    "npm": "6",
+    "npm": "7",
     "path": "0.12.7",
     "rxjs": "^6.5.5",
     "yargs": "^15.4.1",
