@@ -88,3 +88,5 @@ rpm:
   depends:
   - screen
   - gnome-keyring
+  fpm:
+  - "--rpm-rpmbuild-define '_build_id_links none'"
