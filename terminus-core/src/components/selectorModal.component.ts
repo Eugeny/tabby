@@ -4,6 +4,7 @@ import { SelectorOption } from '../api/selector'
 
 /** @hidden */
 @Component({
+    selector: 'selector-modal',
     template: require('./selectorModal.component.pug'),
     styles: [require('./selectorModal.component.scss')],
 })

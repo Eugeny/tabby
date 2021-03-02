@@ -1,6 +1,12 @@
+.modal-body {
+    padding: 0;
+}
+
 .list-group {
     max-height: 70vh;
     overflow: auto;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
 }
 
 .icon {
