@@ -10,4 +10,7 @@ export abstract class Theme {
     css: string
 
     terminalBackground: string
+
+    macOSWindowButtonsInsetX?: number
+    macOSWindowButtonsInsetY?: number
 }

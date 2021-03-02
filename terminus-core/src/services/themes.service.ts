@@ -1,6 +1,7 @@
 import { Inject, Injectable } from '@angular/core'
 import { ConfigService } from '../services/config.service'
 import { Theme } from '../api/theme'
+import { HostAppService, Platform } from './hostApp.service'
 
 @Injectable({ providedIn: 'root' })
 export class ThemesService {
@@ -9,6 +10,7 @@ export class ThemesService {
     /** @hidden */
     private constructor (
         private config: ConfigService,
+        private hostApp: HostAppService,
         @Inject(Theme) private themes: Theme[],
     ) {
         this.applyCurrentTheme()
@@ -33,6 +35,12 @@ export class ThemesService {
         }
         this.styleElement.textContent = theme.css
         document.querySelector('style#custom-css')!.innerHTML = this.config.store.appearance.css
+        if (this.hostApp.platform === Platform.macOS) {
+            this.hostApp.setTrafficLightInset(
+                theme.macOSWindowButtonsInsetX ?? 14,
+                theme.macOSWindowButtonsInsetY ?? 22,
+            )
+        }
     }
 
     private applyCurrentTheme (): void {

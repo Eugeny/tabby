@@ -299,6 +299,10 @@ export class HostAppService {
         }
     }
 
+    setTrafficLightInset (x: number, y: number): void {
+        this.getWindow().setTrafficLightPosition({ x, y })
+    }
+
     relaunch (): void {
         if (this.isPortable) {
             this.electron.app.relaunch({ execPath: process.env.PORTABLE_EXECUTABLE_FILE })
