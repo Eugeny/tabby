@@ -17,7 +17,7 @@
   "author": "Eugene Pankov",
   "license": "MIT",
   "devDependencies": {
-    "@types/js-yaml": "^3.9.0",
+    "@types/js-yaml": "^4.0.0",
     "@types/shell-escape": "^0.2.0",
     "@types/winston": "^2.3.6",
     "axios": "^0.21.1",
