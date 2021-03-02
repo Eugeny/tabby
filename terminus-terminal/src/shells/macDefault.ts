@@ -33,10 +33,6 @@ export class MacOSDefaultShellProvider extends ShellProvider {
     private async getDefaultShellCached () {
         if (!this.cachedShell) {
             this.cachedShell = await this.getDefaultShell()
-        } else {
-            this.getDefaultShell().then(shell => {
-                this.cachedShell = shell
-            })
         }
         return this.cachedShell!
     }
