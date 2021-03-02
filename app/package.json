@@ -30,7 +30,7 @@
     "fontmanager-redux": "1.0.0",
     "glasstron": "0.0.6",
     "js-yaml": "4.0.0",
-    "keytar": "^7.2.0",
+    "keytar": "^7.4.0",
     "mz": "^2.7.0",
     "native-process-working-directory": "^1.0.2",
     "ngx-toastr": "^12.0.1",
@@ -38,7 +38,7 @@
     "path": "0.12.7",
     "rxjs": "^6.5.5",
     "yargs": "^15.4.1",
-    "zone.js": "^0.11.3"
+    "zone.js": "^0.11.4"
   },
   "optionalDependencies": {
     "macos-native-processlist": "^2.0.0",
