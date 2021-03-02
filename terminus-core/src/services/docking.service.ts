@@ -34,25 +34,30 @@ export class DockingService {
         const newBounds: Bounds = { x: 0, y: 0, width: 0, height: 0 }
 
         const fill = this.config.store.appearance.dockFill <= 1 ? this.config.store.appearance.dockFill : 1
+        const space = this.config.store.appearance.dockSpace <= 1 ? this.config.store.appearance.dockSpace : 1
         const [minWidth, minHeight] = this.hostApp.getWindow().getMinimumSize()
 
         if (dockSide === 'left' || dockSide === 'right') {
             newBounds.width = Math.max(minWidth, Math.round(fill * display.bounds.width))
-            newBounds.height = display.bounds.height
+            newBounds.height = Math.round(display.bounds.height * space)
         }
         if (dockSide === 'top' || dockSide === 'bottom') {
-            newBounds.width = display.bounds.width
+            newBounds.width = Math.round(display.bounds.width * space)
             newBounds.height = Math.max(minHeight, Math.round(fill * display.bounds.height))
         }
         if (dockSide === 'right') {
             newBounds.x = display.bounds.x + display.bounds.width - newBounds.width
-        } else {
+        } else if (dockSide === 'left') {
             newBounds.x = display.bounds.x
+        } else {
+            newBounds.x = display.bounds.x + Math.round(display.bounds.width / 2 * (1 - space))
         }
         if (dockSide === 'bottom') {
             newBounds.y = display.bounds.y + display.bounds.height - newBounds.height
-        } else {
+        } else if (dockSide === 'top') {
             newBounds.y = display.bounds.y
+        } else {
+            newBounds.y = display.bounds.y + Math.round(display.bounds.height / 2 * (1 - space))
         }
 
         const alwaysOnTop = this.config.store.appearance.dockAlwaysOnTop

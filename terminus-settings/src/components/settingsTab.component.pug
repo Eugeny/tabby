@@ -220,7 +220,7 @@ ngb-tabset.vertical(type='pills', [activeId]='activeTab')
                         )
                         | Bottom
 
-            .form-line(*ngIf='config.store.appearance.dock != "off"')
+            .ml-5.form-line(*ngIf='config.store.appearance.dock != "off"')
                 .header
                     .title Display on
                     .description Snaps the window to a side of the screen
@@ -245,7 +245,7 @@ ngb-tabset.vertical(type='pills', [activeId]='activeTab')
                         )
                         | {{screen.name}}
 
-            .form-line(*ngIf='config.store.appearance.dock != "off"')
+            .ml-5.form-line(*ngIf='config.store.appearance.dock != "off"')
                 .header
                     .title Dock always on top
                     .description Keep docked terminal always on top
@@ -254,7 +254,7 @@ ngb-tabset.vertical(type='pills', [activeId]='activeTab')
                     (ngModelChange)='saveConfiguration(); docking.dock()',
                 )
 
-            .form-line(*ngIf='config.store.appearance.dock != "off"')
+            .ml-5.form-line(*ngIf='config.store.appearance.dock != "off"')
                 .header
                     .title Docked terminal size
                 input(
@@ -266,7 +266,19 @@ ngb-tabset.vertical(type='pills', [activeId]='activeTab')
                     step='0.01'
                 )
 
-            .form-line(*ngIf='config.store.appearance.dock != "off"')
+            .ml-5.form-line(*ngIf='config.store.appearance.dock != "off"')
+                .header
+                    .title Docked terminal space
+                input(
+                    type='range',
+                    [(ngModel)]='config.store.appearance.dockSpace',
+                    (mouseup)='saveConfiguration(); docking.dock()',
+                    min='0.2',
+                    max='1',
+                    step='0.01'
+                )
+
+            .ml-5.form-line(*ngIf='config.store.appearance.dock != "off"')
                 .header
                     .title Hide dock on blur
                     .description Hides the docked terminal when you click away.
