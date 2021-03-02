@@ -1,6 +1,6 @@
 title-bar(
   *ngIf='!hostApp.isFullScreen && config.store.appearance.frame == "full" && config.store.appearance.dock == "off"',
-  [class.inset]='hostApp.platform == Platform.macOS'
+  [class.inset]='hostApp.platform == Platform.macOS && !hostApp.isFullScreen'
 )
 
 .content(
@@ -9,6 +9,7 @@ title-bar(
 )
     .tab-bar
         .inset.background(*ngIf='hostApp.platform == Platform.macOS \
+        && !hostApp.isFullScreen \
         && config.store.appearance.frame == "thin" \
         && (config.store.appearance.tabsLocation == "top" || config.store.appearance.tabsLocation == "left")')
         .tabs(
