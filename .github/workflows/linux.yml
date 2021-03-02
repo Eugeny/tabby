@@ -18,11 +18,13 @@ jobs:
         npm i -g yarn@1.19.1
         cd app
         yarn
-        ../node_modules/.bin/patch-package
         cd ..
         rm app/node_modules/.yarn-integrity
         yarn
         ./node_modules/.bin/patch-package
+        cd app
+        ../node_modules/.bin/patch-package
+        cd ..
 
     - name: Build native deps
       run: scripts/build-native.js
