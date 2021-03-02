@@ -352,6 +352,15 @@
       "contributions": [
         "design"
       ]
+    },
+    {
+      "login": "clarkwang",
+      "name": "Clark Wang",
+      "avatar_url": "https://avatars.githubusercontent.com/u/157076?v=4",
+      "profile": "https://github.com/clarkwang",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
