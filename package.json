@@ -38,7 +38,7 @@
     "npmlog": "4.1.2",
     "npx": "^10.2.2",
     "patch-package": "^6.2.2",
-    "pug": "^3.0.0",
+    "pug": "^3.0.1",
     "pug-html-loader": "1.1.5",
     "pug-lint": "^2.6.0",
     "pug-loader": "^2.4.0",

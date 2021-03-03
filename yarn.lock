@@ -5291,7 +5291,7 @@ no-case@^3.0.4:
     lower-case "^2.0.2"
     tslib "^2.0.3"
 
-node-abi@^2.19.2, node-abi@^2.19.3:
+node-abi@^2.19.2, node-abi@^2.19.3, node-abi@^2.20.0:
   version "2.20.0"
   resolved "https://registry.yarnpkg.com/node-abi/-/node-abi-2.20.0.tgz#0659ee1a4a04dacabd3ac4429fac6297ed58e92e"
   integrity sha512-6ldtfVR5l3RS8D0aT+lj/uM2Vv/PGEkeWzt2tl8DFBsGY/IuVnAIHl+dG6C14NlWClVv7Rn2+ZDvox+35Hx2Kg==
@@ -6409,10 +6409,10 @@ pug-code-gen@^2.0.2:
     void-elements "^2.0.1"
     with "^5.0.0"
 
-pug-code-gen@^3.0.0:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/pug-code-gen/-/pug-code-gen-3.0.1.tgz#ff3b337b100c494ea63ef766091d27f7d73acb7e"
-  integrity sha512-xJIGvmXTQlkJllq6hqxxjRWcay2F9CU69TuAuiVZgHK0afOhG5txrQOcZyaPHBvSWCU/QQOqEp5XCH94rRZpBQ==
+pug-code-gen@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/pug-code-gen/-/pug-code-gen-3.0.2.tgz#ad190f4943133bf186b60b80de483100e132e2ce"
+  integrity sha512-nJMhW16MbiGRiyR4miDTQMRWDgKplnHyeLvioEJYbk1RsPI3FuA3saEP8uwnTb2nTJEKBU90NFVWJBk4OU5qyg==
   dependencies:
     constantinople "^4.0.1"
     doctypes "^1.1.0"
@@ -6615,12 +6615,12 @@ pug@^2.0.0-rc.2:
     pug-runtime "^2.0.5"
     pug-strip-comments "^1.0.4"
 
-pug@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/pug/-/pug-3.0.0.tgz#101eecd7a236cd9906e420e17799d4d57f2b7d93"
-  integrity sha512-inmsJyFBSHZaiGLaguoFgJGViX0If6AcfcElimvwj9perqjDpUpw79UIEDZbWFmoGVidh08aoE+e8tVkjVJPCw==
+pug@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/pug/-/pug-3.0.1.tgz#9b287554043e6d18852673a382b0350595bdc067"
+  integrity sha512-9v1o2yXMfSKJy2PykKyWUhpgx9Pf9D/UlPgIs2pTTxR6DQZ0oivy4I9f8PlWXRY4sjIhDU4TMJ7hQmYnNJc2bw==
   dependencies:
-    pug-code-gen "^3.0.0"
+    pug-code-gen "^3.0.2"
     pug-filters "^4.0.0"
     pug-lexer "^5.0.0"
     pug-linker "^4.0.0"
