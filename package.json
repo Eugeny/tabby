@@ -53,7 +53,7 @@
     "svg-inline-loader": "^0.8.2",
     "tslib": "^2.0.3",
     "typedoc": "^0.20.28",
-    "typescript": "^3.9.7",
+    "typescript": "^3.9.9",
     "url-loader": "^4.1.1",
     "val-loader": "3.0.0",
     "webpack": "^5.18.0",
