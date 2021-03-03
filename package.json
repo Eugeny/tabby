@@ -52,7 +52,7 @@
     "style-loader": "^2.0.0",
     "svg-inline-loader": "^0.8.2",
     "tslib": "^2.0.3",
-    "typedoc": "^0.18.0",
+    "typedoc": "^0.20.28",
     "typescript": "^3.9.7",
     "url-loader": "^4.1.1",
     "val-loader": "3.0.0",
@@ -71,7 +71,7 @@
     "start": "cross-env TERMINUS_DEV=1 electron app --debug",
     "start:prod": "electron app --debug",
     "prod": "cross-env TERMINUS_DEV=1 electron app",
-    "docs": "typedoc --out docs/api terminus-core/src && typedoc --out docs/api/terminal --tsconfig terminus-terminal/tsconfig.typings.json terminus-terminal/src && typedoc --out docs/api/settings --tsconfig terminus-settings/tsconfig.typings.json terminus-settings/src",
+    "docs": "typedoc --out docs/api --tsconfig terminus-core/src/tsconfig.typings.json terminus-core/src/index.ts && typedoc --out docs/api/terminal --tsconfig terminus-terminal/tsconfig.typings.json terminus-terminal/src/index.ts && typedoc --out docs/api/settings --tsconfig terminus-settings/tsconfig.typings.json terminus-settings/src/index.ts",
     "lint": "eslint --ext ts */src */lib",
     "postinstall": "node ./scripts/install-deps.js"
   },
