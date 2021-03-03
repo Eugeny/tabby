@@ -25,7 +25,7 @@
     "@terminus-term/node-pty": "0.10.0-terminus.3",
     "electron-config": "2.0.0",
     "electron-debug": "^3.2.0",
-    "electron-is-dev": "1.2.0",
+    "electron-is-dev": "2.0.0",
     "electron-promise-ipc": "^2.2.4",
     "fontmanager-redux": "1.0.0",
     "glasstron": "0.0.7",
