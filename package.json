@@ -61,7 +61,7 @@
     "yaml-loader": "0.6.0"
   },
   "resolutions": {
-    "*/node-abi": "^2.19.3",
+    "*/node-abi": "^2.20.0",
     "**/graceful-fs": "^4.2.4"
   },
   "scripts": {
