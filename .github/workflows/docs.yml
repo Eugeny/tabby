@@ -23,6 +23,7 @@ jobs:
         cd ..
         rm app/node_modules/.yarn-integrity
         yarn
+        yarn run build:typings
         yarn run docs
         rsync -e "ssh -o StrictHostKeyChecking=no" -arv docs/api/ root@ajenti.org:/srv/terminus-docs/
 
