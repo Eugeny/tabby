@@ -5,14 +5,14 @@ import * as keytar from 'keytar'
 @Injectable({ providedIn: 'root' })
 export class PasswordStorageService {
     async savePassword (connection: SSHConnection, password: string): Promise<void> {
-        return keytar.setPassword(`ssh@${connection.host}`, connection.user, password)
+        return keytar.setPassword(`ssh@${connection.host}:${connection.port}`, connection.user, password)
     }
 
     async deletePassword (connection: SSHConnection): Promise<void> {
-        await keytar.deletePassword(`ssh@${connection.host}`, connection.user)
+        await keytar.deletePassword(`ssh@${connection.host}:${connection.port}`, connection.user)
     }
 
     async loadPassword (connection: SSHConnection): Promise<string|null> {
-        return keytar.getPassword(`ssh@${connection.host}`, connection.user)
+        return keytar.getPassword(`ssh@${connection.host}:${connection.port}`, connection.user)
     }
 }
