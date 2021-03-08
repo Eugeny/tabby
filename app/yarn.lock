@@ -2113,17 +2113,10 @@ ngx-toastr@^12.0.1:
   dependencies:
     tslib "^1.10.0"
 
-node-abi@^2.19.3, node-abi@^2.20.0:
-  version "2.20.0"
-  resolved "https://registry.yarnpkg.com/node-abi/-/node-abi-2.20.0.tgz#0659ee1a4a04dacabd3ac4429fac6297ed58e92e"
-  integrity sha512-6ldtfVR5l3RS8D0aT+lj/uM2Vv/PGEkeWzt2tl8DFBsGY/IuVnAIHl+dG6C14NlWClVv7Rn2+ZDvox+35Hx2Kg==
-  dependencies:
-    semver "^5.4.1"
-
-node-abi@^2.7.0:
-  version "2.19.3"
-  resolved "https://registry.npmjs.org/node-abi/-/node-abi-2.19.3.tgz"
-  integrity sha512-9xZrlyfvKhWme2EXFKQhZRp1yNWT/uI1luYPr3sFl+H4keYY4xR+1jO7mvTTijIsHf1M+QDe9uWuKeEpLInIlg==
+node-abi@^2.20.0, node-abi@^2.21.0, node-abi@^2.7.0:
+  version "2.21.0"
+  resolved "https://registry.yarnpkg.com/node-abi/-/node-abi-2.21.0.tgz#c2dc9ebad6f4f53d6ea9b531e7b8faad81041d48"
+  integrity sha512-smhrivuPqEM3H5LmnY3KU6HfYv0u4QklgAxfFyRNujKUzbUcYZ+Jc2EhukB9SRcD2VpqhxM7n/MIcp1Ua1/JMg==
   dependencies:
     semver "^5.4.1"
 

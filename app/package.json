@@ -50,7 +50,7 @@
   "devDependencies": {
     "@types/mz": "0.0.32",
     "@types/node": "14.14.31",
-    "node-abi": "^2.19.3",
+    "node-abi": "^2.21.0",
     "source-map-support": "^0.5.19"
   },
   "peerDependencies": {
