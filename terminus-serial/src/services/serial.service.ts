@@ -1,7 +1,6 @@
 import { Injectable, NgZone } from '@angular/core'
 import SerialPort from 'serialport'
-import { ToastrService } from 'ngx-toastr'
-import { LogService, AppService, SelectorOption, ConfigService } from 'terminus-core'
+import { LogService, AppService, SelectorOption, ConfigService, NotificationsService } from 'terminus-core'
 import { SettingsTabComponent } from 'terminus-settings'
 import { SerialConnection, SerialSession, SerialPortInfo, BAUD_RATES } from '../api'
 import { SerialTabComponent } from '../components/serialTab.component'
@@ -11,7 +10,7 @@ export class SerialService {
     private constructor (
         private log: LogService,
         private zone: NgZone,
-        private toastr: ToastrService,
+        private notifications: NotificationsService,
         private app: AppService,
         private config: ConfigService,
     ) { }
@@ -51,7 +50,7 @@ export class SerialService {
             serial.on('error', error => {
                 this.zone.run(() => {
                     if (connected) {
-                        this.toastr.error(error.toString())
+                        this.notifications.error(error.toString())
                     } else {
                         reject(error)
                     }
@@ -65,7 +64,7 @@ export class SerialService {
             try {
                 serial.open()
             } catch (e) {
-                this.toastr.error(e.message)
+                this.notifications.error(e.message)
                 reject(e)
             }
         })
@@ -142,7 +141,7 @@ export class SerialService {
             })
             return tab
         } catch (error) {
-            this.toastr.error(`Could not connect: ${error}`)
+            this.notifications.error(`Could not connect: ${error}`)
             throw error
         }
     }

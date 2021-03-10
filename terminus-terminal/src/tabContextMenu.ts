@@ -1,7 +1,6 @@
 import { MenuItemConstructorOptions } from 'electron'
 import { Injectable, NgZone, Optional, Inject } from '@angular/core'
-import { ToastrService } from 'ngx-toastr'
-import { ConfigService, BaseTabComponent, TabContextMenuItemProvider, TabHeaderComponent, SplitTabComponent } from 'terminus-core'
+import { ConfigService, BaseTabComponent, TabContextMenuItemProvider, TabHeaderComponent, SplitTabComponent, NotificationsService } from 'terminus-core'
 import { TerminalTabComponent } from './components/terminalTab.component'
 import { UACService } from './services/uac.service'
 import { TerminalService } from './services/terminal.service'
@@ -14,7 +13,7 @@ export class SaveAsProfileContextMenu extends TabContextMenuItemProvider {
     constructor (
         private config: ConfigService,
         private zone: NgZone,
-        private toastr: ToastrService,
+        private notifications: NotificationsService,
     ) {
         super()
     }
@@ -39,7 +38,7 @@ export class SaveAsProfileContextMenu extends TabContextMenuItemProvider {
                         profile,
                     ]
                     this.config.save()
-                    this.toastr.info('Saved')
+                    this.notifications.info('Saved')
                 }),
             },
         ]
@@ -141,7 +140,7 @@ export class CopyPasteContextMenu extends TabContextMenuItemProvider {
 
     constructor (
         private zone: NgZone,
-        private toastr: ToastrService,
+        private notifications: NotificationsService,
     ) {
         super()
     }
@@ -158,7 +157,7 @@ export class CopyPasteContextMenu extends TabContextMenuItemProvider {
                         this.zone.run(() => {
                             setTimeout(() => {
                                 tab.frontend?.copySelection()
-                                this.toastr.info('Copied')
+                                this.notifications.notice('Copied')
                             })
                         })
                     },

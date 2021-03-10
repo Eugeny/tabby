@@ -2,14 +2,16 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px;
+  padding: 20px 0 50px;
 
   .toast {
     box-shadow: 0 1px 0 rgba(0,0,0,.25);
-    padding: 10px;
+    padding: 7px 12px;
     background-image: none;
     width: auto;
     flex-basis: auto;
+    border-radius: 0.5rem;
+    font-size: 0.75rem;
 
     &.toast-error {
       background-color: #BD362F;

@@ -1,7 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core'
-import { ToastrService } from 'ngx-toastr'
 import { Frontend, SearchOptions } from '../frontends/frontend'
-import { ConfigService } from 'terminus-core'
+import { ConfigService, NotificationsService } from 'terminus-core'
 
 @Component({
     selector: 'search-panel',
@@ -20,7 +19,7 @@ export class SearchPanelComponent {
     @Output() close = new EventEmitter()
 
     constructor (
-        private toastr: ToastrService,
+        private notifications: NotificationsService,
         public config: ConfigService,
     ) { }
 
@@ -35,7 +34,7 @@ export class SearchPanelComponent {
         }
         if (!this.frontend.findNext(this.query, { ...this.options, incremental: incremental || undefined })) {
             this.notFound = true
-            this.toastr.error('Not found')
+            this.notifications.notice('Not found')
         }
     }
 
@@ -45,7 +44,7 @@ export class SearchPanelComponent {
         }
         if (!this.frontend.findPrevious(this.query, { ...this.options, incremental: incremental || undefined })) {
             this.notFound = true
-            this.toastr.error('Not found')
+            this.notifications.notice('Not found')
         }
     }
 
