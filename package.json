@@ -27,7 +27,7 @@
     "eslint": "^7.18.0",
     "eslint-plugin-import": "^2.21.1",
     "file-loader": "^6.2.0",
-    "graceful-fs": "^4.2.4",
+    "graceful-fs": "^4.2.6",
     "html-loader": "2.1.2",
     "json-loader": "0.5.7",
     "lru-cache": "^6.0.0",
