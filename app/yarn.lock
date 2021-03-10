@@ -2106,24 +2106,17 @@ native-process-working-directory@^1.0.2:
   dependencies:
     node-addon-api "^3.1.0"
 
-ngx-toastr@^12.0.1:
-  version "12.1.0"
-  resolved "https://registry.npmjs.org/ngx-toastr/-/ngx-toastr-12.1.0.tgz"
-  integrity sha512-rytCRBhvuudj614Kfj9GoIVQDrFuLvHSMP1YrMwTmR1SNkNJZOpGKmaSDCCBrNDkSrGouzMWBlFbl1UDBBsiqw==
+ngx-toastr@^13.2.0:
+  version "13.2.0"
+  resolved "https://registry.yarnpkg.com/ngx-toastr/-/ngx-toastr-13.2.0.tgz#3ef047c977a7d0fb67fed9338b8f5add3c87b356"
+  integrity sha512-XU+wACX5hxwOJ4BtPMAUExQmYbjfvH3C/R4vcC9QK/dX2Zw+2w9tS9m4W6TUFyR92xZ/tGLBtsqRdrDRn3fJCw==
   dependencies:
-    tslib "^1.10.0"
+    tslib "^2.0.0"
 
-node-abi@^2.19.3, node-abi@^2.20.0:
-  version "2.20.0"
-  resolved "https://registry.yarnpkg.com/node-abi/-/node-abi-2.20.0.tgz#0659ee1a4a04dacabd3ac4429fac6297ed58e92e"
-  integrity sha512-6ldtfVR5l3RS8D0aT+lj/uM2Vv/PGEkeWzt2tl8DFBsGY/IuVnAIHl+dG6C14NlWClVv7Rn2+ZDvox+35Hx2Kg==
-  dependencies:
-    semver "^5.4.1"
-
-node-abi@^2.7.0:
-  version "2.19.3"
-  resolved "https://registry.npmjs.org/node-abi/-/node-abi-2.19.3.tgz"
-  integrity sha512-9xZrlyfvKhWme2EXFKQhZRp1yNWT/uI1luYPr3sFl+H4keYY4xR+1jO7mvTTijIsHf1M+QDe9uWuKeEpLInIlg==
+node-abi@^2.20.0, node-abi@^2.21.0, node-abi@^2.7.0:
+  version "2.21.0"
+  resolved "https://registry.yarnpkg.com/node-abi/-/node-abi-2.21.0.tgz#c2dc9ebad6f4f53d6ea9b531e7b8faad81041d48"
+  integrity sha512-smhrivuPqEM3H5LmnY3KU6HfYv0u4QklgAxfFyRNujKUzbUcYZ+Jc2EhukB9SRcD2VpqhxM7n/MIcp1Ua1/JMg==
   dependencies:
     semver "^5.4.1"
 
@@ -3510,7 +3503,7 @@ tough-cookie@~2.5.0:
     psl "^1.1.28"
     punycode "^2.1.1"
 
-tslib@^1.10.0, tslib@^1.9.0:
+tslib@^1.9.0:
   version "1.14.1"
   resolved "https://registry.npmjs.org/tslib/-/tslib-1.14.1.tgz"
   integrity sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==

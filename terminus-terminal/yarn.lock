@@ -355,25 +355,25 @@ xterm-addon-search@^0.8.0:
   resolved "https://registry.yarnpkg.com/xterm-addon-search/-/xterm-addon-search-0.8.0.tgz#e33eab918df7eac7e7baf95dd2b3d14133754881"
   integrity sha512-MPJGPVPpHRUw9cLIuqQbrVepmENMOybVUSxIALz5h1ryyQBrVqVujq2hL5aroX5/dZJoHx9lGHQTVLQ07SKgKA==
 
-xterm-addon-serialize@^0.4.0:
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/xterm-addon-serialize/-/xterm-addon-serialize-0.4.0.tgz#9854fd87afba6157b9016e9c93f0cf9e0efc2de5"
-  integrity sha512-xEdzCNa6ZzFplDlscYTSSUogy1C6y3G3nS68Qbe5zntFAqHOBeyggExQi0E8yZg/no8ewYH0GSKZnOheo/ZoKg==
+xterm-addon-serialize@^0.5.0:
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/xterm-addon-serialize/-/xterm-addon-serialize-0.5.0.tgz#b6967d573e8c231fbb58c06fdc86871ba1e7a4bc"
+  integrity sha512-NueZvbBGQvWDNBhA02/ZkPDq2yFlCqvwy7XhYLqRWAsvjGYkqZg3Py9eoLw4j7+WIhuLK4czswUYa2ntwKC3QQ==
 
 xterm-addon-unicode11@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/xterm-addon-unicode11/-/xterm-addon-unicode11-0.2.0.tgz#9ed0c482b353908bba27778893ca80823382737c"
   integrity sha512-rjFDItPc/IDoSiEnoDFwKroNwLD/7t9vYKENjrcKVZg5tgJuuUj8D4rZtP6iVCjSB1LTLYmUs4L/EmCqIyLR/Q==
 
-xterm-addon-webgl@^0.9.0:
-  version "0.9.0"
-  resolved "https://registry.yarnpkg.com/xterm-addon-webgl/-/xterm-addon-webgl-0.9.0.tgz#947ca94f9fd72462155c300dfb82bc471402d60a"
-  integrity sha512-JSRoe/MgPEKCpr7LbiC+sQUq0c9l/ZhsBXYugKx5BJsJEPsY+5EFcqAexuhsJVe/qV+CP3hsbYDe/411rw3ASA==
+xterm-addon-webgl@^0.10.0:
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/xterm-addon-webgl/-/xterm-addon-webgl-0.10.0.tgz#e99366fdc4cbd46b798a5e2fc114ecc19f9fd4b7"
+  integrity sha512-MJzyWie5yw+PH6p//fXlXzmsULLtpBo992EWEKl2uv5M5Zj9etTwfuutCUK7o98mr6itDl+vS/CYIMP68jCf8w==
 
 xterm@^4.9.0-beta.7:
-  version "4.10.0"
-  resolved "https://registry.yarnpkg.com/xterm/-/xterm-4.10.0.tgz#fc4f554e3e718aff9b83622e858e64b0953067bb"
-  integrity sha512-Wn66I8YpSVkgP3R95GjABC6Eb21pFfnCSnyIqKIIoUI13ohvwd0KGVzUDfyEFfSAzKbPJfrT2+vt7SfUXBZQKQ==
+  version "4.11.0"
+  resolved "https://registry.yarnpkg.com/xterm/-/xterm-4.11.0.tgz#d7dabc7af5299579e4663fedf2b3a179af9aaff9"
+  integrity sha512-NeJH909WTO2vth/ZlC0gkP3AGzupbvVHVlmtrpBw56/sGFXaF9bNdKgqKa3tf8qbGvXMzL2JhCcHVklqFztIRw==
 
 yallist@^2.1.2:
   version "2.1.2"
