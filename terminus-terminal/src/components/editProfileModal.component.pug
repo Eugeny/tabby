@@ -62,6 +62,12 @@
             placeholder='#000000'
         )
 
+    .form-line
+        .header
+            .title Disable dynamic tab title
+            .description Connection name will be used as a title instead
+        toggle([(ngModel)]='profile.disableDynamicTitle')
+
 .modal-footer
     button.btn.btn-outline-primary((click)='save()') Save
     button.btn.btn-outline-danger((click)='cancel()') Cancel

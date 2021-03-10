@@ -22,6 +22,7 @@ export interface Profile {
     shell?: string
     isBuiltin?: boolean
     icon?: string
+    disableDynamicTitle?: boolean
 }
 
 export interface TerminalColorScheme {
