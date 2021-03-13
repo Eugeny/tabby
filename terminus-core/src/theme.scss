@@ -66,7 +66,9 @@ app-root  {
                         border: none;
                         transition: 0.25s all;
 
-                        &:hover { background: $button-hover-bg !important; }
+                        right: 5px;
+
+                        &:hover { background: $button-active-bg !important; }
                         &:active { background: $button-active-bg !important; }
                     }
 

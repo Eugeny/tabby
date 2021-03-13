@@ -58,6 +58,9 @@ $tabs-height: 38px;
         opacity: 0;
         -webkit-app-region: no-drag;
 
+        position: absolute;
+        right: 0;
+
         $button-size: 26px;
         width: $button-size;
         height: $button-size;
@@ -71,6 +74,13 @@ $tabs-height: 38px;
         &:focus {
           outline: 0;
         }
+    }
+
+    &:hover .name {
+        -webkit-mask-image: linear-gradient(black 0 0), linear-gradient(to left, transparent 0%, black 100%);
+        -webkit-mask-size: calc(100% - 60px) auto, 60px auto;
+        -webkit-mask-repeat: no-repeat;
+        -webkit-mask-position: left, right;
     }
 
     &:hover button {
