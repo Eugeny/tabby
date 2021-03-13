@@ -9,6 +9,8 @@ import { PluginInfo, PluginManagerService } from '../services/pluginManager.serv
 
 enum BusyState { Installing = 'Installing', Uninstalling = 'Uninstalling' }
 
+const FORCE_ENABLE = ['terminus-core', 'terminus-settings']
+
 /** @hidden */
 @Component({
     template: require('./pluginsSettingsTab.component.pug'),
@@ -104,6 +106,10 @@ export class PluginsSettingsTabComponent {
 
     isPluginEnabled (plugin: PluginInfo) {
         return !this.config.store.pluginBlacklist.includes(plugin.name)
+    }
+
+    canDisablePlugin (plugin: PluginInfo) {
+        return !FORCE_ENABLE.includes(plugin.packageName)
     }
 
     togglePlugin (plugin: PluginInfo) {

@@ -3,7 +3,6 @@
     $toggle-size: 18px;
     $height: 30px;
     $padding: 2px;
-    cursor: pointer;
     display: inline-flex;
     overflow: visible;
     border-radius: 3px;
@@ -16,8 +15,11 @@
     padding-left: 10px;
     margin-left: -10px;
 
-    &[disabled] {
+    &.disabled {
         opacity: 0.5;
     }
 
+    * {
+        cursor: pointer;
+    }
 }

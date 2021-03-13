@@ -12,7 +12,8 @@
     .list-group-item.d-flex.align-items-center(*ngFor='let plugin of pluginManager.installedPlugins')
         toggle(
             [ngModel]='isPluginEnabled(plugin)',
-            (ngModelChange)='togglePlugin(plugin)'
+            (ngModelChange)='togglePlugin(plugin)',
+            [disabled]='!canDisablePlugin(plugin)'
         )
 
         .mr-auto.d-flex.flex-column

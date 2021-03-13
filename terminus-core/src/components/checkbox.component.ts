@@ -17,7 +17,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms'
 })
 export class CheckboxComponent implements ControlValueAccessor {
     @HostBinding('class.active') @Input() model: boolean
-    @Input() disabled: boolean
+    @HostBinding('class.disabled') @Input() disabled: boolean
     @Input() text: string
     private changed = new Array<(val: boolean) => void>()
 
