@@ -263,7 +263,7 @@ export class AppService {
             if (tabIndex > 0) {
                 this.swapTabs(this._activeTab, this.tabs[tabIndex - 1])
             } else if (this.config.store.appearance.cycleTabs) {
-                this.swapTabs(this._activeTab, this.tabs[this.tabs.length - 1])
+                this.tabs.push(this.tabs.shift()!)
             }
         }
     }
@@ -277,7 +277,7 @@ export class AppService {
             if (tabIndex < this.tabs.length - 1) {
                 this.swapTabs(this._activeTab, this.tabs[tabIndex + 1])
             } else if (this.config.store.appearance.cycleTabs) {
-                this.swapTabs(this._activeTab, this.tabs[0])
+                this.tabs.unshift(this.tabs.pop()!)
             }
         }
     }
