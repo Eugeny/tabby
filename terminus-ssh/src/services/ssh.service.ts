@@ -420,7 +420,9 @@ export class SSHService {
         let host = query
         let port = 22
         if (host.includes('@')) {
-            [user, host] = host.split('@')
+            const parts = host.split(/@/g)
+            host = parts[parts.length - 1]
+            user = parts.slice(0, parts.length - 1).join('@')
         }
         if (host.includes(':')) {
             port = parseInt(host.split(':')[1])
