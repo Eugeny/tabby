@@ -31,7 +31,7 @@ export class SerialService {
     async connectSession (session: SerialSession): Promise<SerialPort> {
         const serial = new SerialPort(session.connection.port, {
             autoOpen: false,
-            baudRate: session.connection.baudrate,
+            baudRate: parseInt(session.connection.baudrate),
             dataBits: session.connection.databits,
             stopBits: session.connection.stopbits,
             parity: session.connection.parity,
