@@ -24,18 +24,20 @@ export class TabRecoveryService {
         }
         window.localStorage.tabsRecovery = JSON.stringify(
             (await Promise.all(
-                tabs
-                    .map(async tab => tab.getRecoveryToken().then(r => {
-                        if (r) {
-                            r.tabTitle = tab.title
-                            if (tab.color) {
-                                r.tabColor = tab.color
-                            }
-                        }
-                        return r
-                    }))
+                tabs.map(async tab => this.getFullRecoveryToken(tab))
             )).filter(token => !!token)
         )
+    }
+
+    async getFullRecoveryToken (tab: BaseTabComponent): Promise<RecoveryToken|null> {
+        const token = await tab.getRecoveryToken()
+        if (token) {
+            token.tabTitle = tab.title
+            if (tab.color) {
+                token.tabColor = tab.color
+            }
+        }
+        return token
     }
 
     async recoverTab (token: RecoveryToken): Promise<RecoveredTab|null> {

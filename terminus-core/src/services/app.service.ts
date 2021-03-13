@@ -100,7 +100,7 @@ export class AppService {
         hostApp.windowFocused$.subscribe(() => this._activeTab?.emitFocused())
 
         this.tabClosed$.subscribe(async tab => {
-            const token = await tab.getRecoveryToken()
+            const token = await tabRecovery.getFullRecoveryToken(tab)
             if (token) {
                 this.closedTabsStack.push(token)
             }

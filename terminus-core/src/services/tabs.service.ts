@@ -30,7 +30,7 @@ export class TabsService {
      * Duplicates an existing tab instance (using the tab recovery system)
      */
     async duplicate (tab: BaseTabComponent): Promise<BaseTabComponent|null> {
-        const token = await tab.getRecoveryToken()
+        const token = await this.tabRecovery.getFullRecoveryToken(tab)
         if (!token) {
             return null
         }
