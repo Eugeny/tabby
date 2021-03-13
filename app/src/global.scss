@@ -99,3 +99,8 @@ input[type=range] {
 a[ngbdropdownitem] {
     cursor: pointer;
 }
+
+ngb-typeahead-window {
+    max-height: 60vh;
+    overflow: auto;
+}
