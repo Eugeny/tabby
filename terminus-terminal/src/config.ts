@@ -74,6 +74,7 @@ export class TerminalConfigProvider extends ConfigProvider {
                 wholeWord: false,
                 caseSensitive: false,
             },
+            detectProgress: true,
         },
     }
 

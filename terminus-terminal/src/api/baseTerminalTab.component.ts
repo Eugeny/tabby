@@ -330,7 +330,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
         }
 
         const percentageMatch = /(^|[^\d])(\d+(\.\d+)?)%([^\d]|$)/.exec(data)
-        if (!this.alternateScreenActive && percentageMatch) {
+        if (!this.alternateScreenActive && percentageMatch && this.config.store.terminal.detectProgress) {
             const percentage = percentageMatch[3] ? parseFloat(percentageMatch[2]) : parseInt(percentageMatch[2])
             if (percentage > 0 && percentage <= 100) {
                 this.setProgress(percentage)
