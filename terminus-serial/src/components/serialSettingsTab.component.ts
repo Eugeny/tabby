@@ -35,6 +35,7 @@ export class SerialSettingsTabComponent {
             xoff: false,
             xon: false,
             inputMode: null,
+            outputMode: null,
             inputNewlines: null,
             outputNewlines: null,
         }

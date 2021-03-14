@@ -62,19 +62,19 @@
 
                 .row
                     .col-6
-                        //- .form-line
+                        .form-line
                             .header
                                 .title Output mode
 
                             .d-flex(ngbDropdown)
                                 button.btn.btn-secondary.btn-tab-bar(
                                     ngbDropdownToggle,
-                                ) {{getInputModeName(connection.inputMode)}}
+                                ) {{getOutputModeName(connection.outputMode)}}
 
                                 div(ngbDropdownMenu)
                                     a.d-flex.flex-column(
-                                        *ngFor='let mode of inputModes',
-                                        (click)='connection.inputMode = mode.key',
+                                        *ngFor='let mode of outputModes',
+                                        (click)='connection.outputMode = mode.key',
                                         ngbDropdownItem
                                     )
                                         div {{mode.name}}

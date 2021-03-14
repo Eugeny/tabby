@@ -1,3 +1,6 @@
+import hexdump from 'hexer'
+import colors from 'ansi-colors'
+import binstring from 'binstring'
 import stripAnsi from 'strip-ansi'
 import bufferReplace from 'buffer-replace'
 import { BaseSession } from 'terminus-terminal'
@@ -30,6 +33,7 @@ export interface SerialConnection {
     color?: string
     inputMode?: InputMode
     inputNewlines?: NewlineMode
+    outputMode?: OutputMode
     outputNewlines?: NewlineMode
 }
 
@@ -42,7 +46,8 @@ export interface SerialPortInfo {
     description?: string
 }
 
-export type InputMode = null | 'readline' // eslint-disable-line @typescript-eslint/no-type-alias
+export type InputMode = null | 'readline' | 'readline-hex' // eslint-disable-line @typescript-eslint/no-type-alias
+export type OutputMode = null | 'hex' // eslint-disable-line @typescript-eslint/no-type-alias
 export type NewlineMode = null | 'cr' | 'lf' | 'crlf' // eslint-disable-line @typescript-eslint/no-type-alias
 
 export class SerialSession extends BaseSession {
@@ -67,14 +72,14 @@ export class SerialSession extends BaseSession {
             input: this.inputReadlineInStream,
             output: this.inputReadlineOutStream,
             terminal: true,
+            prompt: this.connection.inputMode === 'readline-hex' ? 'hex> ' : '> ',
         } as any)
         this.inputReadlineOutStream.on('data', data => {
-            if (this.connection.inputMode === 'readline') {
-                this.emitOutput(data)
-            }
+            this.emitOutput(Buffer.from(data))
         })
         this.inputReadline.on('line', line => {
             this.onInput(new Buffer(line + '\n'))
+            this.resetInputPrompt()
         })
         this.output$.pipe(debounce(() => interval(500))).subscribe(() => this.onOutputSettled())
     }
@@ -97,7 +102,7 @@ export class SerialSession extends BaseSession {
     }
 
     write (data: Buffer): void {
-        if (this.connection.inputMode === 'readline') {
+        if (this.connection.inputMode?.startsWith('readline')) {
             this.inputReadlineInStream.write(data)
         } else {
             this.onInput(data)
@@ -156,6 +161,16 @@ export class SerialSession extends BaseSession {
     }
 
     private onInput (data: Buffer) {
+        if (this.connection.inputMode === 'readline-hex') {
+            const tokens = data.toString().split(/\s/g)
+            data = Buffer.concat(tokens.filter(t => !!t).map(t => {
+                if (t.startsWith('0x')) {
+                    t = t.substring(2)
+                }
+                return binstring(t, { 'in': 'hex' })
+            }))
+        }
+
         data = this.replaceNewlines(data, this.connection.inputNewlines)
         if (this.serial) {
             this.serial.write(data.toString())
@@ -163,7 +178,7 @@ export class SerialSession extends BaseSession {
     }
 
     private onOutputSettled () {
-        if (this.connection.inputMode === 'readline' && !this.inputPromptVisible) {
+        if (this.connection.inputMode?.startsWith('readline') && !this.inputPromptVisible) {
             this.resetInputPrompt()
         }
     }
@@ -177,7 +192,7 @@ export class SerialSession extends BaseSession {
     private onOutput (data: Buffer) {
         const dataString = data.toString()
 
-        if (this.connection.inputMode === 'readline') {
+        if (this.connection.inputMode?.startsWith('readline')) {
             if (this.inputPromptVisible) {
                 clearLine(this.inputReadlineOutStream, 0)
                 this.inputPromptVisible = false
@@ -185,7 +200,21 @@ export class SerialSession extends BaseSession {
         }
 
         data = this.replaceNewlines(data, this.connection.outputNewlines)
-        this.emitOutput(data)
+
+        if (this.connection.outputMode === 'hex') {
+            this.emitOutput(Buffer.concat([
+                new Buffer('\r\n'),
+                Buffer.from(hexdump(data, {
+                    group: 1,
+                    gutter: 4,
+                    divide: colors.gray(' ｜ '),
+                    emptyHuman: colors.gray('╳'),
+                }).replace(/\n/g, '\r\n')),
+                new Buffer('\r\n\n'),
+            ]))
+        } else {
+            this.emitOutput(data)
+        }
 
         if (this.scripts) {
             let found = false
