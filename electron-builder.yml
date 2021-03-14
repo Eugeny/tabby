@@ -63,7 +63,7 @@ mac:
     NSRemovableVolumesUsageDescription: 'A subprocess requests access to files on a removable volume.'
 
 linux:
-  category: Utilities
+  category: Utility
   icon: "./build/icons"
   artifactName: terminus-${version}-linux.${ext}
   executableArgs:
