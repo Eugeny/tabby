@@ -1,9 +1,5 @@
-![](https://github.com/Eugeny/terminus/raw/master/docs/readme.png)
+![](docs/readme.png)
 
-
-<p align="center">
-  <a href="https://raw.githubusercontent.com/Eugeny/terminus/master/LICENSE"><img alt="GitHub" src="https://img.shields.io/github/license/eugeny/terminus.svg?label=License&style=flat-square"></a> <a href="https://ci.appveyor.com/project/Eugeny/terminus"><img alt="AppVeyor" src="https://img.shields.io/appveyor/ci/eugeny/****terminus****.svg?label=CI&logo=appveyor&logoColor=white&style=flat-square"></a>
-</p>
 
 <p align="center">
   <a href="https://github.com/Eugeny/terminus/releases/latest"><img alt="GitHub All Releases" src="https://img.shields.io/github/downloads/eugeny/terminus/total.svg?label=RELEASE&logo=github&style=for-the-badge"></a> <a href="https://nightly.link/Eugeny/terminus/workflows/windows/master"><img src="https://shields.io/badge/-Nightly-blue?logo=windows&style=for-the-badge"/></a> <a href="https://nightly.link/Eugeny/terminus/workflows/macos/master"><img src="https://shields.io/badge/-Nightly-black?logo=apple&style=for-the-badge"/></a> <a href="https://nightly.link/Eugeny/terminus/workflows/linux/master"><img src="https://shields.io/badge/-Nightly-orange?logo=linux&style=for-the-badge"/></a> <a href="https://gitter.im/terminus-terminal/community"><img alt="Gitter" src="https://img.shields.io/gitter/room/terminus/community.svg?color=magenta&logo=gitter&style=for-the-badge"></a>
@@ -11,34 +7,86 @@
 
 ----
 
-**Terminus** is a highly configurable terminal emulator for Windows, macOS and Linux
+**Terminus** is a highly configurable terminal emulator, SSH and serial client for Windows, macOS and Linux
 
-  * Integrated SSH client and connection manager
-  * Theming and color schemes
-  * Fully configurable shortcuts
-  * Split panes
-  * Remembers your tabs
-  * PowerShell (and PS Core), WSL, Git-Bash, Cygwin, Cmder and CMD support
-  * Direct file transfer from/to SSH sessions via Zmodem
-  * Full Unicode support including double-width characters
-  * Doesn't choke on fast-flowing outputs
-  * Proper shell experience on Windows including tab completion (via Clink)
+* Integrated SSH client and connection manager
+* Integrated serial terminal
+* Theming and color schemes
+* Fully configurable shortcuts and multi-chord shortcuts
+* Split panes
+* Remembers your tabs
+* PowerShell (and PS Core), WSL, Git-Bash, Cygwin, Cmder and CMD support
+* Direct file transfer from/to SSH sessions via Zmodem
+* Full Unicode support including double-width characters
+* Doesn't choke on fast-flowing outputs
+* Proper shell experience on Windows including tab completion (via Clink)
 
 
 [![Buy me a coffee](https://github.com/Eugeny/terminus/raw/master/docs/kofi.png)](https://ko-fi.com/eugeny)
 
 ---
 
+# Contents
+
+- [Contents](#contents)
+- [What Terminus is and isn't](#what-terminus-is-and-isnt)
+- [Terminal features](#terminal-features)
+- [SSH Client](#ssh-client)
+- [Serial Terminal](#serial-terminal)
+- [Portable](#portable)
+- [Plugins](#plugins)
+- [Themes](#themes)
+- [Contributing](#contributing)
+
+<a name="about"></a>
+# What Terminus is and isn't
+
 * **Terminus is** an alternative to Windows' standard terminal (conhost), PowerShell ISE, PuTTY or iTerm
 
 * **Terminus is not** a new shell or a MinGW or Cygwin replacement. Neither is it lightweight - if RAM usage is of importance, consider [Conemu](https://conemu.github.io) or [Alacritty](https://github.com/jwilm/alacritty)
 
----
+<a name="terminal"></a>
+# Terminal features
 
+![](docs/readme-terminal.png)
+
+* A V220 terminal + various extensions
+* Multiple nested split panes
+* Tabs on any side of the window
+* Optional dockable window with a global spawn hotkey ("Quake console")
+* Progress detection
+* Notification on process completion
+* Bracketed paste, multiline paste warnings
+* Font ligatures
+* Custom shell profiles
+* Optional RMB paste and copy-on select (PuTTY style)
+
+<a name="ssh"></a>
+# SSH Client
+
+![](docs/readme-ssh.png)
+
+* SSH2 client with a connection manager
+* X11 and port forwarding
+* Automatic jump host management
+* Agent forwarding (incl. Pageant and Windows native OpenSSH Agent)
+* Login scripts
+
+<a name="serial"></a>
+# Serial Terminal
+
+* Saved connections
+* Readline input support
+* Optional hex byte-by-byte input and hexdump output
+* Newline conversion
+* Automatic reconnection
+
+<a name="portable"></a>
 # Portable
 
-For portable in windows, user can create folder `data` at the same directory as `Terminal.exe` to save the settings.
+Terminus will run as a portable app on Windows, if you create a `data` folder in the same location where `Terminus.exe` lives.
 
+<a name="plugins"></a>
 # Plugins
 
 Plugins and themes can be installed directly from the Settings view inside Terminus.
@@ -49,6 +97,7 @@ Plugins and themes can be installed directly from the Settings view inside Termi
   * [save-output](https://github.com/Eugeny/terminus-save-output) - record terminal output into a file
   * [scrollbar](https://github.com/kbjr/terminus-scrollbar) - adds a scrollbar to hterm tabs
 
+<a name="themes"></a>
 # Themes
 
   * [hype](https://github.com/Eugeny/terminus-theme-hype) - a Hyper inspired theme
@@ -57,8 +106,7 @@ Plugins and themes can be installed directly from the Settings view inside Termi
   * [windows10](https://www.npmjs.com/package/terminus-theme-windows10)
   * [altair](https://github.com/yxuko/terminus-altair)
 
----
-
+<a name="contributing"></a>
 # Contributing
 
 Pull requests and plugins are welcome!
@@ -66,6 +114,7 @@ Pull requests and plugins are welcome!
 See [HACKING.md](https://github.com/Eugeny/terminus/blob/master/HACKING.md) and [API docs](http://ajenti.org/terminus-docs/) for information of how the project is laid out, and a very brief plugin development tutorial.
 
 ---
+<a name="contributors"></a>
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 
