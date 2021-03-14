@@ -13,7 +13,7 @@ export class HTermFrontend extends Frontend {
     private configuredBackgroundColor = 'transparent'
     private zoom = 0
 
-    attach (host: HTMLElement): void {
+    async attach (host: HTMLElement): Promise<void> {
         if (!this.initialized) {
             this.init()
             this.initialized = true

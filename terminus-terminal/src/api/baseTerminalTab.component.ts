@@ -260,13 +260,13 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
             this.frontend.write('\r\n\r\n')
         }
 
-        setImmediate(() => {
+        setImmediate(async () => {
             if (this.hasFocus) {
-                this.frontend!.attach(this.content.nativeElement)
+                await this.frontend!.attach(this.content.nativeElement)
                 this.frontend!.configure()
             } else {
-                this.focused$.pipe(first()).subscribe(() => {
-                    this.frontend!.attach(this.content.nativeElement)
+                this.focused$.pipe(first()).subscribe(async () => {
+                    await this.frontend!.attach(this.content.nativeElement)
                     this.frontend!.configure()
                 })
             }

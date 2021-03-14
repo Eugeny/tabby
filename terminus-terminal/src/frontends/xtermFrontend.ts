@@ -131,11 +131,14 @@ export class XTermFrontend extends Frontend {
         })
     }
 
-    attach (host: HTMLElement): void {
+    async attach (host: HTMLElement): Promise<void> {
         this.configure()
 
         this.xterm.open(host)
         this.opened = true
+
+        // Work around font loading bugs
+        await new Promise(resolve => setTimeout(resolve, process.env.XWEB ? 1000 : 0))
 
         if (this.enableWebGL) {
             this.xterm.loadAddon(new WebglAddon())
