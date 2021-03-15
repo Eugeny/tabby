@@ -32,7 +32,7 @@
     "json-loader": "0.5.7",
     "lru-cache": "^6.0.0",
     "macos-release": "^2.4.1",
-    "node-abi": "^2.19.3",
+    "node-abi": "^2.21.0",
     "node-gyp": "^7.1.2",
     "node-sass": "^5.0.0",
     "npmlog": "4.1.2",
