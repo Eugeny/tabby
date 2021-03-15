@@ -329,15 +329,16 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
             throw new Error('Frontend not ready')
         }
 
-        const percentageMatch = /(^|[^\d])(\d+(\.\d+)?)%([^\d]|$)/.exec(data)
-        if (!this.alternateScreenActive && percentageMatch && this.config.store.terminal.detectProgress) {
-            const percentage = percentageMatch[3] ? parseFloat(percentageMatch[2]) : parseInt(percentageMatch[2])
-            if (percentage > 0 && percentage <= 100) {
-                this.setProgress(percentage)
-                // this.logger.debug('Detected progress:', percentage)
+        if (this.config.store.terminal.detectProgress) {
+            const percentageMatch = /(^|[^\d])(\d+(\.\d+)?)%([^\d]|$)/.exec(data)
+            if (!this.alternateScreenActive && percentageMatch) {
+                const percentage = percentageMatch[3] ? parseFloat(percentageMatch[2]) : parseInt(percentageMatch[2])
+                if (percentage > 0 && percentage <= 100) {
+                    this.setProgress(percentage)
+                }
+            } else {
+                this.setProgress(null)
             }
-        } else {
-            this.setProgress(null)
         }
         this.frontend.write(data)
     }
