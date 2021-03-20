@@ -65,10 +65,10 @@
     update-notifier "^2.2.0"
     yargs "^8.0.2"
 
-"@ng-bootstrap/ng-bootstrap@^7.0.0":
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/@ng-bootstrap/ng-bootstrap/-/ng-bootstrap-7.0.0.tgz#3bfa62eb52fdb891b1ce693ea11c39127e2d1ab7"
-  integrity sha512-SxUaptGWJmCxM0d2Zy1mx7K7p/YBwGZ69NmmBQVY4BE6p5av0hWrVmv9rzzfBz0rhxU7RPZLor2Jpaoq8Xyl4w==
+"@ng-bootstrap/ng-bootstrap@^9.0.2":
+  version "9.0.2"
+  resolved "https://registry.yarnpkg.com/@ng-bootstrap/ng-bootstrap/-/ng-bootstrap-9.0.2.tgz#1c00c9a9720fe77b27cb2859d4279bae57758b6d"
+  integrity sha512-MFtpBFKOtLZWFE8JnJWOnYLxXK3GVmVP16vhJsikdxiDVl7CtrnO+YmCYqK30WdS5eIvYKRBJF/hwOH8WvwYFQ==
   dependencies:
     tslib "^2.0.0"
 
@@ -873,11 +873,6 @@ electron-is-accelerator@^0.1.0:
   version "0.1.2"
   resolved "https://registry.npmjs.org/electron-is-accelerator/-/electron-is-accelerator-0.1.2.tgz"
   integrity sha1-UJ5RDCala1Xhf4Y6SwThEYRqsns=
-
-electron-is-dev@1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/electron-is-dev/-/electron-is-dev-1.2.0.tgz#2e5cea0a1b3ccf1c86f577cee77363ef55deb05e"
-  integrity sha512-R1oD5gMBPS7PVU8gJwH6CtT0e6VSoD0+SzSnYpNm+dBkcijgA+K7VAMHDfnRq/lkKPZArpzplTW6jfiMYosdzw==
 
 electron-is-dev@^1.1.0:
   version "1.1.0"
