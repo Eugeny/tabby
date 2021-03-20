@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import deepClone from 'clone-deep'
 import { Component } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { ConfigService, ElectronService, HostAppService } from 'terminus-core'
@@ -48,9 +49,10 @@ export class SSHSettingsTabComponent {
 
     copyConnection (connection: SSHConnection) {
         const modal = this.ngbModal.open(EditConnectionModalComponent)
-        modal.componentInstance.connection = Object.assign({
-            name: `${name} Copy`,
-        }, connection)
+        modal.componentInstance.connection = {
+            ...deepClone(connection),
+            name: `${connection.name} Copy`,
+        }
         modal.result.then(result => {
             this.connections.push(result)
             this.config.store.ssh.connections = this.connections
@@ -61,7 +63,7 @@ export class SSHSettingsTabComponent {
 
     editConnection (connection: SSHConnection) {
         const modal = this.ngbModal.open(EditConnectionModalComponent, { size: 'lg' })
-        modal.componentInstance.connection = Object.assign({}, connection)
+        modal.componentInstance.connection = deepClone(connection)
         modal.result.then(result => {
             Object.assign(connection, result)
             this.config.store.ssh.connections = this.connections
