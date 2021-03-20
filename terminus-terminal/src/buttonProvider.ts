@@ -15,10 +15,10 @@ export class ButtonProvider extends ToolbarButtonProvider {
         private terminal: TerminalService,
     ) {
         super()
-        if (!electron.remote.process.env.TERMINUS_DEV) {
+        if (!electron.process.env.TERMINUS_DEV) {
             setImmediate(async () => {
-                const argv: string[] = electron.remote.process.argv
-                for (const arg of argv.slice(1).concat([electron.remote.process.argv0])) {
+                const argv: string[] = electron.process.argv
+                for (const arg of argv.slice(1).concat([electron.process.argv0])) {
                     if (await fs.exists(arg)) {
                         if ((await fs.stat(arg)).isDirectory()) {
                             this.terminal.openTab(undefined, arg)

@@ -68,7 +68,6 @@ module.exports = {
     '@ng-bootstrap/ng-bootstrap': 'commonjs @ng-bootstrap/ng-bootstrap',
     child_process: 'commonjs child_process',
     electron: 'commonjs electron',
-    'electron-is-dev': 'commonjs electron-is-dev',
     fs: 'commonjs fs',
     'ngx-toastr': 'commonjs ngx-toastr',
     module: 'commonjs module',

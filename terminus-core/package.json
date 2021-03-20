@@ -17,6 +17,7 @@
   "author": "Eugene Pankov",
   "license": "MIT",
   "devDependencies": {
+    "@electron/remote": "^1.0.4",
     "@types/js-yaml": "^4.0.0",
     "@types/shell-escape": "^0.2.0",
     "@types/winston": "^2.3.6",

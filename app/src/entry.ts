@@ -2,8 +2,6 @@ import 'zone.js'
 import 'core-js/proposals/reflect-metadata'
 import 'rxjs'
 
-import * as isDev from 'electron-is-dev'
-
 import './global.scss'
 import './toastr.scss'
 
@@ -23,7 +21,7 @@ if (process.platform === 'win32' && !('HOME' in process.env)) {
     process.env.HOME = `${process.env.HOMEDRIVE}${process.env.HOMEPATH}`
 }
 
-if (isDev) {
+if (process.env.TERMINUS_DEV) {
     console.warn('Running in debug mode')
 } else {
     enableProdMode()
@@ -39,7 +37,7 @@ async function bootstrap (plugins: PluginInfo[], safeMode = false): Promise<NgMo
     const module = getRootModule(pluginsModules)
     window['rootModule'] = module
     return platformBrowserDynamic().bootstrapModule(module).then(moduleRef => {
-        if (isDev) {
+        if (process.env.TERMINUS_DEV) {
             const applicationRef = moduleRef.injector.get(ApplicationRef)
             const componentRef = applicationRef.components[0]
             enableDebugTools(componentRef)

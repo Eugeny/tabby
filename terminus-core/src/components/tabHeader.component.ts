@@ -105,7 +105,7 @@ export class TabHeaderComponent {
         if ($event.which === 3) {
             $event.preventDefault()
 
-            const contextMenu = this.electron.remote.Menu.buildFromTemplate(await this.buildContextMenu())
+            const contextMenu = this.electron.Menu.buildFromTemplate(await this.buildContextMenu())
 
             contextMenu.popup({
                 x: $event.pageX,

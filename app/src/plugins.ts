@@ -1,5 +1,6 @@
 import * as fs from 'mz/fs'
 import * as path from 'path'
+import * as remote from '@electron/remote'
 const nodeModule = require('module') // eslint-disable-line @typescript-eslint/no-var-requires
 const nodeRequire = (global as any).require
 
@@ -15,13 +16,13 @@ function normalizePath (p: string): string {
 global['module'].paths.map((x: string) => nodeModule.globalPaths.push(normalizePath(x)))
 
 if (process.env.TERMINUS_DEV) {
-    nodeModule.globalPaths.unshift(path.dirname(require('electron').remote.app.getAppPath()))
+    nodeModule.globalPaths.unshift(path.dirname(remote.app.getAppPath()))
 }
 
-const builtinPluginsPath = process.env.TERMINUS_DEV ? path.dirname(require('electron').remote.app.getAppPath()) : path.join((process as any).resourcesPath, 'builtin-plugins')
+const builtinPluginsPath = process.env.TERMINUS_DEV ? path.dirname(remote.app.getAppPath()) : path.join((process as any).resourcesPath, 'builtin-plugins')
 
 const userPluginsPath = path.join(
-    require('electron').remote.app.getPath('userData'),
+    remote.app.getPath('userData'),
     'plugins',
 )
 

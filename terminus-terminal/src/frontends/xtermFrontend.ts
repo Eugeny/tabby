@@ -175,12 +175,12 @@ export class XTermFrontend extends Frontend {
     copySelection (): void {
         const text = this.getSelection()
         if (text.length < 1024 * 32) {
-            require('electron').remote.clipboard.write({
+            require('@electron/remote').clipboard.write({
                 text: this.getSelection(),
                 html: this.getSelectionAsHTML(),
             })
         } else {
-            require('electron').remote.clipboard.write({
+            require('@electron/remote').clipboard.write({
                 text: this.getSelection(),
             })
         }

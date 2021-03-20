@@ -6,7 +6,7 @@ import { FormsModule } from '@angular/forms'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { ToastrModule } from 'ngx-toastr'
 
-import TerminusCorePlugin, { HostAppService, ToolbarButtonProvider, TabRecoveryProvider, ConfigProvider, HotkeysService, HotkeyProvider, AppService, ConfigService, TabContextMenuItemProvider } from 'terminus-core'
+import TerminusCorePlugin, { HostAppService, ToolbarButtonProvider, TabRecoveryProvider, ConfigProvider, HotkeysService, HotkeyProvider, AppService, ConfigService, TabContextMenuItemProvider, ElectronService } from 'terminus-core'
 import { SettingsTabProvider } from 'terminus-settings'
 
 import { AppearanceSettingsTabComponent } from './components/appearanceSettingsTab.component'
@@ -139,6 +139,7 @@ export default class TerminalModule { // eslint-disable-line @typescript-eslint/
         terminal: TerminalService,
         hostApp: HostAppService,
         dockMenu: DockMenuService,
+        electron: ElectronService,
     ) {
         const events = [
             {
@@ -165,8 +166,7 @@ export default class TerminalModule { // eslint-disable-line @typescript-eslint/
             }
         })
         if (config.store.terminal.autoOpen) {
-
-            let argv = require('electron').remote.process.argv
+            let argv = electron.process.argv
             if (argv[0].includes('node')) {
                 argv = argv.slice(1)
             }

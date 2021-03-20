@@ -41,7 +41,10 @@ module.exports = options => {
                             ],
                             paths: {
                                 'terminus-*': [path.resolve(options.dirname, '../terminus-*')],
-                                '*': [path.resolve(options.dirname, '../app/node_modules/*')],
+                                '*': [
+                                    path.resolve(options.dirname, '../app/node_modules/*'),
+                                    path.resolve(options.dirname, '../node_modules/*'),
+                                ],
                             },
                         },
                     },

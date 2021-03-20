@@ -1,5 +1,7 @@
 import { app, ipcMain, Menu, Tray, shell, screen, globalShortcut, MenuItemConstructorOptions } from 'electron'
 import * as promiseIpc from 'electron-promise-ipc'
+import * as remote from '@electron/remote/main'
+
 import { loadConfig } from './config'
 import { Window, WindowOptions } from './window'
 import { pluginManager } from './pluginManager'
@@ -9,6 +11,8 @@ export class Application {
     private windows: Window[] = []
 
     constructor () {
+        remote.initialize()
+
         ipcMain.on('app:config-change', (_event, config) => {
             this.broadcast('host:config-change', config)
         })
