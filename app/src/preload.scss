@@ -7,6 +7,7 @@
   height: 100vh;
   display: flex;
   animation: 0.5s ease-out fadeIn;
+  background: radial-gradient(#3a66820a 0%,  #000e17 30%, black 100%);
 
   &>div {
     width: 200px;
@@ -23,6 +24,7 @@
         transition: 1s ease-out width;
         background: #a1c5e4;
         height: 3px;
+        box-shadow: 0 0 2px #ffffff1f;
       }
     }
   }
@@ -37,8 +39,8 @@
 
 
 .terminus-logo {
-  width: 160px;
-  height: 160px;
+  width: 120px;
+  height: 120px;
   background: url('../assets/logo.svg');
   background-repeat: none;
   background-size: contain;
@@ -51,7 +53,7 @@
   font-family: 'Source Sans Pro';
   text-align: center;
   font-weight: normal;
-  font-size: 42px;
+  font-size: 32px;
   margin: 0;
 
   sup {
