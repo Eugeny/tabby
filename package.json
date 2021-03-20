@@ -52,7 +52,7 @@
     "style-loader": "^2.0.0",
     "svg-inline-loader": "^0.8.2",
     "tslib": "^2.1.0",
-    "typedoc": "^0.20.28",
+    "typedoc": "^0.20.32",
     "typescript": "^3.9.9",
     "url-loader": "^4.1.1",
     "val-loader": "3.0.0",
