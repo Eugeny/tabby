@@ -10,6 +10,8 @@ export const altKeyName = {
     linux: 'Alt',
 }[process.platform]
 
+const REGEX_LATIN_KEYNAME = /^[A-Za-z]$/
+
 export function stringifyKeySequence (events: KeyboardEvent[]): string[] {
     const items: string[] = []
     events = events.slice()
@@ -37,23 +39,29 @@ export function stringifyKeySequence (events: KeyboardEvent[]): string[] {
             }
 
             let key = event.code
-            key = key.replace('Key', '')
-            key = key.replace('Arrow', '')
-            key = key.replace('Digit', '')
-            key = {
-                Comma: ',',
-                Period: '.',
-                Slash: '/',
-                Backslash: '\\',
-                IntlBackslash: '\\',
-                Backquote: '`',
-                Minus: '-',
-                Equal: '=',
-                Semicolon: ';',
-                Quote: '\'',
-                BracketLeft: '[',
-                BracketRight: ']',
-            }[key] || key
+            if (REGEX_LATIN_KEYNAME.test(event.key)) {
+                // Handle Dvorak etc via the reported "character" instead of the scancode
+                key = event.key.toUpperCase()
+            } else {
+                key = key.replace('Key', '')
+                key = key.replace('Arrow', '')
+                key = key.replace('Digit', '')
+                key = {
+                    Comma: ',',
+                    Period: '.',
+                    Slash: '/',
+                    Backslash: '\\',
+                    IntlBackslash: '\\',
+                    Backquote: '`',
+                    Minus: '-',
+                    Equal: '=',
+                    Semicolon: ';',
+                    Quote: '\'',
+                    BracketLeft: '[',
+                    BracketRight: ']',
+                }[key] || key
+            }
+
             itemKeys.push(key)
             items.push(itemKeys.join('-'))
         }
