@@ -1,385 +1,387 @@
 button.btn.btn-outline-warning.btn-block(*ngIf='config.restartRequested', '(click)'='restartApp()') Restart the app to apply changes
 
-ngb-tabset.vertical(type='pills', [activeId]='activeTab')
-    ngb-tab(id='application')
-        ng-template(ngbTabTitle)
-            i.fas.fa-fw.fa-window-maximize.mr-2
-            | Application
-        ng-template(ngbTabContent)
-            .d-flex.align-items-center.flex-wrap.mb-4
-                h1.terminus-title.mb-2.mr-2 Terminus
-                    sup α
+.content
+    ul.nav-pills(ngbNav, #nav='ngbNav', [activeId]='activeTab', orientation='vertical')
+        li(ngbNavItem='application')
+            a(ngbNavLink)
+                i.fas.fa-fw.fa-window-maximize.mr-2
+                | Application
+            ng-template(ngbNavContent)
+                .d-flex.align-items-center.flex-wrap.mb-4
+                    h1.terminus-title.mb-2.mr-2 Terminus
+                        sup α
 
-                .text-muted.mr-auto {{homeBase.appVersion}}
+                    .text-muted.mr-auto {{homeBase.appVersion}}
 
-                div
-                    button.btn.btn-secondary.mr-3((click)='homeBase.openGitHub()')
-                        i.fab.fa-github
-                        span GitHub
+                    div
+                        button.btn.btn-secondary.mr-3((click)='homeBase.openGitHub()')
+                            i.fab.fa-github
+                            span GitHub
 
-                    button.btn.btn-secondary((click)='homeBase.reportBug()')
+                        button.btn.btn-secondary((click)='homeBase.reportBug()')
+                            i.fas.fa-bug
+                            span Report a problem
+
+                .form-line
+                    .header
+                        .title Theme
+                    select.form-control(
+                        [(ngModel)]='config.store.appearance.theme',
+                        (ngModelChange)='saveConfiguration()',
+                    )
+                        option(*ngFor='let theme of themes', [ngValue]='theme.name') {{theme.name}}
+
+                .form-line
+                    .header
+                        .title Tabs location
+                    .btn-group(
+                        [(ngModel)]='config.store.appearance.tabsLocation',
+                        (ngModelChange)='saveConfiguration()',
+                        ngbRadioGroup
+                    )
+                        label.btn.btn-secondary(ngbButtonLabel)
+                            input(
+                                type='radio',
+                                ngbButton,
+                                [value]='"top"'
+                            )
+                            | Top
+                        label.btn.btn-secondary(ngbButtonLabel)
+                            input(
+                                type='radio',
+                                ngbButton,
+                                [value]='"bottom"'
+                            )
+                            | Bottom
+                        label.btn.btn-secondary(ngbButtonLabel)
+                            input(
+                                type='radio',
+                                ngbButton,
+                                [value]='"left"'
+                            )
+                            | Left
+                        label.btn.btn-secondary(ngbButtonLabel)
+                            input(
+                                type='radio',
+                                ngbButton,
+                                [value]='"right"'
+                            )
+                            | Right
+
+                .form-line
+                    .header
+                        .title Tabs width
+                    .btn-group(
+                        [(ngModel)]='config.store.appearance.flexTabs',
+                        (ngModelChange)='saveConfiguration()',
+                        ngbRadioGroup
+                    )
+                        label.btn.btn-secondary(ngbButtonLabel)
+                            input(
+                                type='radio',
+                                ngbButton,
+                                [value]='true'
+                            )
+                            | Dynamic
+                        label.btn.btn-secondary(ngbButtonLabel)
+                            input(
+                                type='radio',
+                                ngbButton,
+                                [value]='false'
+                            )
+                            | Fixed
+
+                .form-line
+                    .header
+                        .title(*ngIf='hostApp.platform !== Platform.macOS') Acrylic background
+                        .title(*ngIf='hostApp.platform === Platform.macOS') Vibrancy
+                        .description Gives the window a blurred transparent background
+
+                    toggle(
+                        [(ngModel)]='config.store.appearance.vibrancy',
+                        (ngModelChange)='saveConfiguration()'
+                    )
+
+                .form-line(*ngIf='config.store.appearance.vibrancy && isFluentVibrancySupported')
+                    .header
+                        .title Background type
+                    .btn-group(
+                        [(ngModel)]='config.store.appearance.vibrancyType',
+                        (ngModelChange)='saveConfiguration()',
+                        ngbRadioGroup
+                    )
+                        label.btn.btn-secondary(ngbButtonLabel)
+                            input(
+                                type='radio',
+                                ngbButton,
+                                [value]='"blur"'
+                            )
+                            | Blur
+                        label.btn.btn-secondary(ngbButtonLabel)
+                            input(
+                                type='radio',
+                                ngbButton,
+                                [value]='"fluent"'
+                            )
+                            | Fluent
+
+                .form-line
+                    .header
+                        .title Opacity
+                    input(
+                        type='range',
+                        [(ngModel)]='config.store.appearance.opacity',
+                        (ngModelChange)='saveConfiguration(); (hostApp.platform === Platform.Linux && config.requestRestart())',
+                        min='0.4',
+                        max='1',
+                        step='0.01'
+                    )
+
+                .form-line(*ngIf='hostApp.platform !== Platform.Linux')
+                    .header
+                        .title Shell integration
+                        .description Allows quickly opening a terminal in the selected folder
+                    toggle([ngModel]='isShellIntegrationInstalled', (ngModelChange)='toggleShellIntegration()')
+
+                .form-line
+                    .header
+                        .title Window frame
+                        .description Whether a custom window or an OS native window should be used
+
+                    .btn-group(
+                        [(ngModel)]='config.store.appearance.frame',
+                        (ngModelChange)='saveConfiguration(true)',
+                        ngbRadioGroup
+                    )
+                        label.btn.btn-secondary(ngbButtonLabel)
+                            input(
+                                type='radio',
+                                ngbButton,
+                                [value]='"native"'
+                            )
+                            | Native
+                        label.btn.btn-secondary(ngbButtonLabel)
+                            input(
+                                type='radio',
+                                ngbButton,
+                                [value]='"thin"'
+                            )
+                            | Thin
+                        label.btn.btn-secondary(ngbButtonLabel)
+                            input(
+                                type='radio',
+                                ngbButton,
+                                [value]='"full"'
+                            )
+                            | Full
+
+                .form-line
+                    .header
+                        .title Dock the terminal
+                        .description Snaps the window to a side of the screen
+
+                    .btn-group(
+                        [(ngModel)]='config.store.appearance.dock',
+                        (ngModelChange)='saveConfiguration(); docking.dock()',
+                        ngbRadioGroup
+                    )
+                        label.btn.btn-secondary(ngbButtonLabel)
+                            input(
+                                type='radio',
+                                ngbButton,
+                                [value]='"off"'
+                            )
+                            | Off
+                        label.btn.btn-secondary(ngbButtonLabel)
+                            input(
+                                type='radio',
+                                ngbButton,
+                                [value]='"top"'
+                            )
+                            | Top
+                        label.btn.btn-secondary(ngbButtonLabel)
+                            input(
+                                type='radio',
+                                ngbButton,
+                                [value]='"left"'
+                            )
+                            | Left
+                        label.btn.btn-secondary(ngbButtonLabel)
+                            input(
+                                type='radio',
+                                ngbButton,
+                                [value]='"right"'
+                            )
+                            | Right
+                        label.btn.btn-secondary(ngbButtonLabel)
+                            input(
+                                type='radio',
+                                ngbButton,
+                                [value]='"bottom"'
+                            )
+                            | Bottom
+
+                .ml-5.form-line(*ngIf='config.store.appearance.dock != "off"')
+                    .header
+                        .title Display on
+                        .description Snaps the window to a side of the screen
+
+                    div(
+                        [(ngModel)]='config.store.appearance.dockScreen',
+                        (ngModelChange)='saveConfiguration(); docking.dock()',
+                        ngbRadioGroup
+                    )
+                        label.btn.btn-secondary(ngbButtonLabel)
+                            input(
+                                type='radio',
+                                ngbButton,
+                                value='current'
+                            )
+                            | Current
+                        label.btn.btn-secondary(*ngFor='let screen of screens', ngbButtonLabel)
+                            input(
+                                type='radio',
+                                ngbButton,
+                                [value]='screen.id'
+                            )
+                            | {{screen.name}}
+
+                .ml-5.form-line(*ngIf='config.store.appearance.dock != "off"')
+                    .header
+                        .title Dock always on top
+                        .description Keep docked terminal always on top
+                    toggle(
+                        [(ngModel)]='config.store.appearance.dockAlwaysOnTop',
+                        (ngModelChange)='saveConfiguration(); docking.dock()',
+                    )
+
+                .ml-5.form-line(*ngIf='config.store.appearance.dock != "off"')
+                    .header
+                        .title Docked terminal size
+                    input(
+                        type='range',
+                        [(ngModel)]='config.store.appearance.dockFill',
+                        (mouseup)='saveConfiguration(); docking.dock()',
+                        min='0.05',
+                        max='1',
+                        step='0.01'
+                    )
+
+                .ml-5.form-line(*ngIf='config.store.appearance.dock != "off"')
+                    .header
+                        .title Docked terminal space
+                    input(
+                        type='range',
+                        [(ngModel)]='config.store.appearance.dockSpace',
+                        (mouseup)='saveConfiguration(); docking.dock()',
+                        min='0.2',
+                        max='1',
+                        step='0.01'
+                    )
+
+                .ml-5.form-line(*ngIf='config.store.appearance.dock != "off"')
+                    .header
+                        .title Hide dock on blur
+                        .description Hides the docked terminal when you click away.
+                    toggle(
+                        [(ngModel)]='config.store.appearance.dockHideOnBlur',
+                        (ngModelChange)='saveConfiguration(); ',
+                    )
+
+                .form-line
+                    .header
+                        .title Debugging
+
+                    button.btn.btn-secondary((click)='hostApp.openDevTools()')
                         i.fas.fa-bug
-                        span Report a problem
+                        span Open DevTools
 
-            .form-line
-                .header
-                    .title Theme
-                select.form-control(
-                    [(ngModel)]='config.store.appearance.theme',
-                    (ngModelChange)='saveConfiguration()',
-                )
-                    option(*ngFor='let theme of themes', [ngValue]='theme.name') {{theme.name}}
+                .form-line
+                    .header
+                        .title Enable analytics
+                        .description We're only tracking your Terminus and OS versions.
+                    toggle(
+                        [(ngModel)]='config.store.enableAnalytics',
+                        (ngModelChange)='saveConfiguration(true)',
+                    )
 
-            .form-line
-                .header
-                    .title Tabs location
-                .btn-group(
-                    [(ngModel)]='config.store.appearance.tabsLocation',
-                    (ngModelChange)='saveConfiguration()',
-                    ngbRadioGroup
-                )
-                    label.btn.btn-secondary(ngbButtonLabel)
-                        input(
-                            type='radio',
-                            ngbButton,
-                            [value]='"top"'
-                        )
-                        | Top
-                    label.btn.btn-secondary(ngbButtonLabel)
-                        input(
-                            type='radio',
-                            ngbButton,
-                            [value]='"bottom"'
-                        )
-                        | Bottom
-                    label.btn.btn-secondary(ngbButtonLabel)
-                        input(
-                            type='radio',
-                            ngbButton,
-                            [value]='"left"'
-                        )
-                        | Left
-                    label.btn.btn-secondary(ngbButtonLabel)
-                        input(
-                            type='radio',
-                            ngbButton,
-                            [value]='"right"'
-                        )
-                        | Right
+                .form-line
+                    .header
+                        .title Automatic Updates
+                        .description Enable automatic installation of updates when they become available.
+                    toggle([(ngModel)]='config.store.enableAutomaticUpdates', (ngModelChange)='saveConfiguration()')
 
-            .form-line
-                .header
-                    .title Tabs width
-                .btn-group(
-                    [(ngModel)]='config.store.appearance.flexTabs',
-                    (ngModelChange)='saveConfiguration()',
-                    ngbRadioGroup
-                )
-                    label.btn.btn-secondary(ngbButtonLabel)
-                        input(
-                            type='radio',
-                            ngbButton,
-                            [value]='true'
-                        )
-                        | Dynamic
-                    label.btn.btn-secondary(ngbButtonLabel)
-                        input(
-                            type='radio',
-                            ngbButton,
-                            [value]='false'
-                        )
-                        | Fixed
+                .form-line
+                    .header
+                        .title Custom CSS
+                    textarea.form-control(
+                        [(ngModel)]='config.store.appearance.css',
+                        (ngModelChange)='saveConfiguration()',
+                    )
 
-            .form-line
-                .header
-                    .title(*ngIf='hostApp.platform !== Platform.macOS') Acrylic background
-                    .title(*ngIf='hostApp.platform === Platform.macOS') Vibrancy
-                    .description Gives the window a blurred transparent background
+        li(ngbNavItem='hotkeys')
+            a(ngbNavLink)
+                i.fas.fa-fw.fa-keyboard.mr-2
+                | Hotkeys
+            ng-template(ngbNavContent)
+                h3.mb-3 Hotkeys
 
-                toggle(
-                    [(ngModel)]='config.store.appearance.vibrancy',
-                    (ngModelChange)='saveConfiguration()'
-                )
+                .input-group.mb-4
+                    .input-group-prepend
+                        .input-group-text
+                            i.fas.fa-fw.fa-search
+                    input.form-control(type='search', placeholder='Search hotkeys', [(ngModel)]='hotkeyFilter')
 
-            .form-line(*ngIf='config.store.appearance.vibrancy && isFluentVibrancySupported')
-                .header
-                    .title Background type
-                .btn-group(
-                    [(ngModel)]='config.store.appearance.vibrancyType',
-                    (ngModelChange)='saveConfiguration()',
-                    ngbRadioGroup
-                )
-                    label.btn.btn-secondary(ngbButtonLabel)
-                        input(
-                            type='radio',
-                            ngbButton,
-                            [value]='"blur"'
-                        )
-                        | Blur
-                    label.btn.btn-secondary(ngbButtonLabel)
-                        input(
-                            type='radio',
-                            ngbButton,
-                            [value]='"fluent"'
-                        )
-                        | Fluent
+                .form-group
+                    table.hotkeys-table
+                        tr
+                            th Name
+                            th ID
+                            th Hotkey
+                        ng-container(*ngFor='let hotkey of hotkeyDescriptions')
+                            tr(*ngIf='!hotkeyFilter || hotkeyFilterFn(hotkey, hotkeyFilter)')
+                                td {{hotkey.name}}
+                                td {{hotkey.id}}
+                                td.pr-5
+                                    multi-hotkey-input(
+                                        [model]='getHotkey(hotkey.id) || []',
+                                        (modelChange)='setHotkey(hotkey.id, $event); saveConfiguration(); docking.dock()'
+                                    )
 
-            .form-line
-                .header
-                    .title Opacity
-                input(
-                    type='range',
-                    [(ngModel)]='config.store.appearance.opacity',
-                    (ngModelChange)='saveConfiguration(); (hostApp.platform === Platform.Linux && config.requestRestart())',
-                    min='0.4',
-                    max='1',
-                    step='0.01'
-                )
+        li(*ngFor='let provider of settingsProviders', [ngbNavItem]='provider.id')
+            a(ngbNavLink)
+                i(class='fas fa-fw mr-2 fa-{{provider.icon || "puzzle-piece"}}')
+                | {{provider.title}}
+            ng-template(ngbNavContent)
+                settings-tab-body([provider]='provider')
 
-            .form-line(*ngIf='hostApp.platform !== Platform.Linux')
-                .header
-                    .title Shell integration
-                    .description Allows quickly opening a terminal in the selected folder
-                toggle([ngModel]='isShellIntegrationInstalled', (ngModelChange)='toggleShellIntegration()')
+        li(ngbNavItem='config-file')
+            a(ngbNavLink)
+                i.fas.fa-fw.fa-code.mr-2
+                | Config file
+            ng-template.test(ngbNavContent)
+                .d-flex.flex-column.w-100.h-100
+                    .h-100.d-flex
+                        .w-100.d-flex.flex-column
+                            h3 Config File
+                            textarea.form-control.h-100(
+                                [(ngModel)]='configFile'
+                            )
+                        .w-100.d-flex.flex-column
+                            h3 Defaults
+                            textarea.form-control.h-100(
+                                [(ngModel)]='configDefaults',
+                                readonly
+                            )
+                    .mt-2.mb-2.d-flex
+                        button.btn.btn-primary((click)='saveConfigFile()', *ngIf='isConfigFileValid()')
+                            i.fas.fa-check.mr-2
+                            | Save and apply
+                        button.btn.btn-primary(disabled, *ngIf='!isConfigFileValid()')
+                            i.fas.fa-exclamation-triangle.mr-2
+                            | Invalid syntax
+                        button.btn.btn-secondary.ml-auto((click)='showConfigFile()')
+                            i.fas.fa-external-link-square-alt.mr-2
+                            | Show config file
 
-            .form-line
-                .header
-                    .title Window frame
-                    .description Whether a custom window or an OS native window should be used
-
-                .btn-group(
-                    [(ngModel)]='config.store.appearance.frame',
-                    (ngModelChange)='saveConfiguration(true)',
-                    ngbRadioGroup
-                )
-                    label.btn.btn-secondary(ngbButtonLabel)
-                        input(
-                            type='radio',
-                            ngbButton,
-                            [value]='"native"'
-                        )
-                        | Native
-                    label.btn.btn-secondary(ngbButtonLabel)
-                        input(
-                            type='radio',
-                            ngbButton,
-                            [value]='"thin"'
-                        )
-                        | Thin
-                    label.btn.btn-secondary(ngbButtonLabel)
-                        input(
-                            type='radio',
-                            ngbButton,
-                            [value]='"full"'
-                        )
-                        | Full
-
-            .form-line
-                .header
-                    .title Dock the terminal
-                    .description Snaps the window to a side of the screen
-
-                .btn-group(
-                    [(ngModel)]='config.store.appearance.dock',
-                    (ngModelChange)='saveConfiguration(); docking.dock()',
-                    ngbRadioGroup
-                )
-                    label.btn.btn-secondary(ngbButtonLabel)
-                        input(
-                            type='radio',
-                            ngbButton,
-                            [value]='"off"'
-                        )
-                        | Off
-                    label.btn.btn-secondary(ngbButtonLabel)
-                        input(
-                            type='radio',
-                            ngbButton,
-                            [value]='"top"'
-                        )
-                        | Top
-                    label.btn.btn-secondary(ngbButtonLabel)
-                        input(
-                            type='radio',
-                            ngbButton,
-                            [value]='"left"'
-                        )
-                        | Left
-                    label.btn.btn-secondary(ngbButtonLabel)
-                        input(
-                            type='radio',
-                            ngbButton,
-                            [value]='"right"'
-                        )
-                        | Right
-                    label.btn.btn-secondary(ngbButtonLabel)
-                        input(
-                            type='radio',
-                            ngbButton,
-                            [value]='"bottom"'
-                        )
-                        | Bottom
-
-            .ml-5.form-line(*ngIf='config.store.appearance.dock != "off"')
-                .header
-                    .title Display on
-                    .description Snaps the window to a side of the screen
-
-                div(
-                    [(ngModel)]='config.store.appearance.dockScreen',
-                    (ngModelChange)='saveConfiguration(); docking.dock()',
-                    ngbRadioGroup
-                )
-                    label.btn.btn-secondary(ngbButtonLabel)
-                        input(
-                            type='radio',
-                            ngbButton,
-                            value='current'
-                        )
-                        | Current
-                    label.btn.btn-secondary(*ngFor='let screen of screens', ngbButtonLabel)
-                        input(
-                            type='radio',
-                            ngbButton,
-                            [value]='screen.id'
-                        )
-                        | {{screen.name}}
-
-            .ml-5.form-line(*ngIf='config.store.appearance.dock != "off"')
-                .header
-                    .title Dock always on top
-                    .description Keep docked terminal always on top
-                toggle(
-                    [(ngModel)]='config.store.appearance.dockAlwaysOnTop',
-                    (ngModelChange)='saveConfiguration(); docking.dock()',
-                )
-
-            .ml-5.form-line(*ngIf='config.store.appearance.dock != "off"')
-                .header
-                    .title Docked terminal size
-                input(
-                    type='range',
-                    [(ngModel)]='config.store.appearance.dockFill',
-                    (mouseup)='saveConfiguration(); docking.dock()',
-                    min='0.05',
-                    max='1',
-                    step='0.01'
-                )
-
-            .ml-5.form-line(*ngIf='config.store.appearance.dock != "off"')
-                .header
-                    .title Docked terminal space
-                input(
-                    type='range',
-                    [(ngModel)]='config.store.appearance.dockSpace',
-                    (mouseup)='saveConfiguration(); docking.dock()',
-                    min='0.2',
-                    max='1',
-                    step='0.01'
-                )
-
-            .ml-5.form-line(*ngIf='config.store.appearance.dock != "off"')
-                .header
-                    .title Hide dock on blur
-                    .description Hides the docked terminal when you click away.
-                toggle(
-                    [(ngModel)]='config.store.appearance.dockHideOnBlur',
-                    (ngModelChange)='saveConfiguration(); ',
-                )
-
-            .form-line
-                .header
-                    .title Debugging
-
-                button.btn.btn-secondary((click)='hostApp.openDevTools()')
-                    i.fas.fa-bug
-                    span Open DevTools
-
-            .form-line
-                .header
-                    .title Enable analytics
-                    .description We're only tracking your Terminus and OS versions.
-                toggle(
-                    [(ngModel)]='config.store.enableAnalytics',
-                    (ngModelChange)='saveConfiguration(true)',
-                )
-
-            .form-line
-                .header
-                    .title Automatic Updates
-                    .description Enable automatic installation of updates when they become available.
-                toggle([(ngModel)]='config.store.enableAutomaticUpdates', (ngModelChange)='saveConfiguration()')
-
-            .form-line
-                .header
-                    .title Custom CSS
-                textarea.form-control(
-                    [(ngModel)]='config.store.appearance.css',
-                    (ngModelChange)='saveConfiguration()',
-                )
-
-    ngb-tab(id='hotkeys')
-        ng-template(ngbTabTitle)
-            i.fas.fa-fw.fa-keyboard.mr-2
-            | Hotkeys
-        ng-template(ngbTabContent)
-            h3.mb-3 Hotkeys
-
-            .input-group.mb-4
-                .input-group-prepend
-                    .input-group-text
-                        i.fas.fa-fw.fa-search
-                input.form-control(type='search', placeholder='Search hotkeys', [(ngModel)]='hotkeyFilter')
-
-            .form-group
-                table.hotkeys-table
-                    tr
-                        th Name
-                        th ID
-                        th Hotkey
-                    ng-container(*ngFor='let hotkey of hotkeyDescriptions')
-                        tr(*ngIf='!hotkeyFilter || hotkeyFilterFn(hotkey, hotkeyFilter)')
-                            td {{hotkey.name}}
-                            td {{hotkey.id}}
-                            td.pr-5
-                                multi-hotkey-input(
-                                    [model]='getHotkey(hotkey.id) || []',
-                                    (modelChange)='setHotkey(hotkey.id, $event); saveConfiguration(); docking.dock()'
-                                )
-
-    ngb-tab(*ngFor='let provider of settingsProviders', [id]='provider.id')
-        ng-template(ngbTabTitle)
-            i(class='fas fa-fw mr-2 fa-{{provider.icon || "puzzle-piece"}}')
-            | {{provider.title}}
-        ng-template(ngbTabContent)
-            settings-tab-body([provider]='provider')
-
-
-    ngb-tab(id='config-file')
-        ng-template(ngbTabTitle)
-            i.fas.fa-fw.fa-code.mr-2
-            | Config file
-        ng-template.test(ngbTabContent)
-            .d-flex.flex-column.w-100.h-100
-                .h-100.d-flex
-                    .w-100.d-flex.flex-column
-                        h3 Config File
-                        textarea.form-control.h-100(
-                            [(ngModel)]='configFile'
-                        )
-                    .w-100.d-flex.flex-column
-                        h3 Defaults
-                        textarea.form-control.h-100(
-                            [(ngModel)]='configDefaults',
-                            readonly
-                        )
-                .mt-2.mb-2.d-flex
-                    button.btn.btn-primary((click)='saveConfigFile()', *ngIf='isConfigFileValid()')
-                        i.fas.fa-check.mr-2
-                        | Save and apply
-                    button.btn.btn-primary(disabled, *ngIf='!isConfigFileValid()')
-                        i.fas.fa-exclamation-triangle.mr-2
-                        | Invalid syntax
-                    button.btn.btn-secondary.ml-auto((click)='showConfigFile()')
-                        i.fas.fa-external-link-square-alt.mr-2
-                        | Show config file
+    div([ngbNavOutlet]='nav')

@@ -108,7 +108,7 @@ window-controls {
 
     button:hover {
         background: rgba($black, 0.125);
-        
+
         svg {
             fill: $black;
         }
@@ -132,8 +132,6 @@ body {
 app-root  {
     &> .content {
         .tab-bar {
-            height: 40px;
-
             .btn-tab-bar {
                 background: transparent;
                 line-height: 42px;
@@ -230,11 +228,10 @@ tab-body {
     background: $content-bg;
 }
 
-settings-tab > ngb-tabset {
-    border-right: 1px solid $body-bg;
-
+settings-tab > .content {
     & > .nav {
         background: rgba(0, 0, 0, 0.25);
+        border-right: 1px solid $body-bg;
 
         & > .nav-item > .nav-link {
             border: none;
@@ -315,10 +312,6 @@ hotkey-input-modal {
         transition: 0.25s all;
         border-bottom-color: $nav-tabs-border-color;
     }
-}
-
-ngb-tabset .tab-content {
-    padding-top: 20px;
 }
 
 [ngbradiogroup] > label.active {

@@ -1,8 +1,8 @@
 .modal-body
-    ngb-tabset([activeId]='basic')
-        ngb-tab(id='basic')
-            ng-template(ngbTabTitle) General
-            ng-template(ngbTabContent)
+    ul.nav-tabs(ngbNav, #nav='ngbNav')
+        li(ngbNavItem)
+            a(ngbNavLink) General
+            ng-template(ngbNavContent)
                 .form-group
                     label Name
                     input.form-control(
@@ -96,9 +96,9 @@
                             button.btn.btn-secondary((click)='selectPrivateKey()')
                                 i.fas.fa-folder-open
 
-        ngb-tab(id='advanced')
-            ng-template(ngbTabTitle) Advanced
-            ng-template(ngbTabContent)
+        li(ngbNavItem)
+            a(ngbNavLink) Advanced
+            ng-template(ngbNavContent)
                 .form-line
                     .header
                         .title Jump host
@@ -113,7 +113,7 @@
 
                 .form-line
                     .header
-                        .title Agent Forwarding
+                        .title Agent forwarding
                     toggle([(ngModel)]='connection.agentForward')
 
                 .form-line
@@ -165,9 +165,9 @@
                         [(ngModel)]='connection.readyTimeout',
                     )
 
-        ngb-tab(id='ciphers')
-            ng-template(ngbTabTitle) Ciphers
-            ng-template(ngbTabContent)
+        li(ngbNavItem)
+            a(ngbNavLink) Ciphers
+            ng-template(ngbNavContent)
                 .form-line.align-items-start
                     .header
                         .title Ciphers
@@ -196,10 +196,9 @@
                         div(*ngFor='let alg of supportedAlgorithms.serverHostKey')
                             checkbox([text]='alg', [(ngModel)]='algorithms.serverHostKey[alg]')
 
-
-        ngb-tab(id='scripts')
-            ng-template(ngbTabTitle) Login scripts
-            ng-template(ngbTabContent)
+        li(ngbNavItem)
+            a(ngbNavLink) Login scripts
+            ng-template(ngbNavContent)
                 table(*ngIf='connection.scripts.length > 0')
                     tr
                         th String to expect
@@ -238,6 +237,8 @@
                 button.btn.btn-outline-info.mt-2((click)='addScript()')
                     i.fas.fa-plus
                     span New item
+
+    div([ngbNavOutlet]='nav')
 
 .modal-footer
     button.btn.btn-outline-primary((click)='save()') Save

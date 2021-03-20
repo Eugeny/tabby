@@ -135,30 +135,6 @@ tab-body {
     background: $content-bg;
 }
 
-settings-tab > ngb-tabset {
-    border-right: 1px solid $body-bg;
-
-    & > .nav {
-        background: rgba(0, 0, 0, 0.25);
-        flex-shrink: 0;
-
-        & > .nav-item > .nav-link {
-            border: none;
-            padding: 10px 50px 10px 20px;
-            font-size: 14px;
-            border-radius: 0;
-
-            &:not(.active) {
-                color: $body-color;
-
-                &:hover {
-                    color: $white;
-                }
-            }
-        }
-    }
-}
-
 multi-hotkey-input {
     .item {
         background: $body-bg2;
@@ -219,10 +195,6 @@ hotkey-input-modal {
 
 .form-group label {
     margin-bottom: 2px;
-}
-
-ngb-tabset .tab-content {
-    padding-top: 20px;
 }
 
 [ngbradiogroup] > label.active {

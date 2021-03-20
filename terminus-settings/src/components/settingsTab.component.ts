@@ -27,7 +27,6 @@ import { SettingsTabProvider } from '../api'
     template: require('./settingsTab.component.pug'),
     styles: [
         require('./settingsTab.component.scss'),
-        require('./settingsTab.deep.component.css'),
     ],
 })
 export class SettingsTabComponent extends BaseTabComponent {

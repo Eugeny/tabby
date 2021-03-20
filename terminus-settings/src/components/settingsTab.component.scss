@@ -1,14 +1,39 @@
 :host {
     display: flex;
-    flex-direction: column;
     flex: auto;
+    flex-direction: column;
 
     >.btn-block {
         margin: 20px;
         width: auto;
         flex: none;
     }
+
+    > .content {
+        display: flex;
+        min-height: 0;
+        flex: 1 0 0;
+
+        > .nav {
+            padding: 20px 10px;
+        }
+
+        > .tab-content {
+            flex: auto;
+            padding: 20px 30px;
+            overflow-y: auto;
+
+            > .tab-pane {
+                height: 100%;
+            }
+        }
+    }
+
+    &.pad-window-controls > .content > .nav {
+        padding-top: 40px;
+    }
 }
+
 
 .hotkeys-table {
     margin-top: 30px;
