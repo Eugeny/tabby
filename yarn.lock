@@ -8478,10 +8478,10 @@ v8-compile-cache@^2.2.0:
   resolved "https://registry.npmjs.org/v8-compile-cache/-/v8-compile-cache-2.2.0.tgz"
   integrity sha512-gTpR5XQNKFwOd4clxfnhaqvfqMpqEwr4tOtCyz4MtYZX2JYhfr1JvBFKdS+7K/9rfpZR3VLX+YWBbKoxCgS43Q==
 
-val-loader@3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/val-loader/-/val-loader-3.0.0.tgz#fd4683a748257b65b15d0cc7b9deda8e0d2fb133"
-  integrity sha512-bzoJAdCCjrh3nK61djE9/d717oCDyxKaHQhKpW8muop64MvKk0TLYOGgn1ZdNduYdplNtInynZ0cdzDifpLzZw==
+val-loader@3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/val-loader/-/val-loader-3.1.0.tgz#6f83b6dea65ecb7928cf7340098e2cd43c8021e1"
+  integrity sha512-d3ZJohectjSBhSogt83zvohvVm9P/Ap7plalmvXcWDS5BMdEEgRhGpxdvH8H9hhZR6/7X6yASjmhIEHZztQ7Yg==
 
 validate-npm-package-license@^3.0.1:
   version "3.0.4"
