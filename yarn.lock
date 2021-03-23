@@ -8595,10 +8595,10 @@ webpack-sources@^2.1.1:
     source-list-map "^2.0.1"
     source-map "^0.6.1"
 
-webpack@^5.26.3:
-  version "5.26.3"
-  resolved "https://registry.yarnpkg.com/webpack/-/webpack-5.26.3.tgz#bafd439abac08fbb82657ec855d038743b725ab8"
-  integrity sha512-z/F2lt2N1fZqaud1B4SzjL3OW03eULThbBXQ2OX4LSrZX4N9k1A5d0Rje3zS2g887DTWyAV0KGqEf64ois2dhg==
+webpack@^5.27.2:
+  version "5.27.2"
+  resolved "https://registry.yarnpkg.com/webpack/-/webpack-5.27.2.tgz#44442219e1469ebe00292703b848580faae03f07"
+  integrity sha512-brNF3N/EdvMzkaZ/Xzb8sqPn5Si3iw6meqCnmNFtcnkorZsFZCBFMa2ElpIMjx6sKWYsnUpBO2dnX+7xgj+mjg==
   dependencies:
     "@types/eslint-scope" "^3.7.0"
     "@types/estree" "^0.0.46"
