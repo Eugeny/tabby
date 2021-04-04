@@ -143,13 +143,6 @@
   dependencies:
     debug "^4.3.1"
 
-"@terminus-term/node-pty@0.10.0-terminus.3":
-  version "0.10.0-terminus.3"
-  resolved "https://registry.yarnpkg.com/@terminus-term/node-pty/-/node-pty-0.10.0-terminus.3.tgz#9dbd64d52afda5079e66265a89d313fe42affab7"
-  integrity sha512-HvIOts22dnoBXhRfLiK9DyPasuixYVgEUvgqZmOr0B0Ki9tF8e074oYPUtzLRll6Y553QiUzTWhriCS99MChNQ==
-  dependencies:
-    nan "^2.14.0"
-
 "@types/mz@2.7.3":
   version "2.7.3"
   resolved "https://registry.yarnpkg.com/@types/mz/-/mz-2.7.3.tgz#e42a21e73f5f9340fe4a176981fafb1eb8cc6c12"
@@ -875,9 +868,9 @@ electron-is-accelerator@^0.1.0:
   integrity sha1-UJ5RDCala1Xhf4Y6SwThEYRqsns=
 
 electron-is-dev@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.npmjs.org/electron-is-dev/-/electron-is-dev-1.1.0.tgz"
-  integrity sha512-Z1qA/1oHNowGtSBIcWk0pcLEqYT/j+13xUw/MYOrBUOL4X7VN0i0KCTf5SqyvMPmW5pSPKbo28wkxMxzZ20YnQ==
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/electron-is-dev/-/electron-is-dev-1.2.0.tgz#2e5cea0a1b3ccf1c86f577cee77363ef55deb05e"
+  integrity sha512-R1oD5gMBPS7PVU8gJwH6CtT0e6VSoD0+SzSnYpNm+dBkcijgA+K7VAMHDfnRq/lkKPZArpzplTW6jfiMYosdzw==
 
 electron-localshortcut@^3.1.0:
   version "3.2.1"
