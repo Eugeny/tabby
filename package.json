@@ -1,6 +1,6 @@
 {
   "devDependencies": {
-    "@fortawesome/fontawesome-free": "^5.15.2",
+    "@fortawesome/fontawesome-free": "^5.15.3",
     "@sentry/cli": "^1.63.1",
     "@sentry/electron": "^2.4.0",
     "@terminus-term/to-string-loader": "1.1.7-beta.1",
