@@ -77,7 +77,6 @@ module.exports = options => {
             'native-process-working-directory',
             'net',
             'ngx-toastr',
-            'node-pty',
             'os',
             'path',
             'readline',
