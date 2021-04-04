@@ -5,13 +5,16 @@ import * as remote from '@electron/remote/main'
 import { loadConfig } from './config'
 import { Window, WindowOptions } from './window'
 import { pluginManager } from './pluginManager'
+import { PTYManager } from './pty'
 
 export class Application {
     private tray?: Tray
+    private ptyManager = new PTYManager()
     private windows: Window[] = []
 
     constructor () {
         remote.initialize()
+        this.ptyManager.init(this)
 
         ipcMain.on('app:config-change', (_event, config) => {
             this.broadcast('host:config-change', config)

@@ -67,7 +67,6 @@ module.exports = options => {
             ],
         },
         externals: [
-            '@terminus-term/node-pty',
             'child_process',
             'electron-promise-ipc',
             'electron',

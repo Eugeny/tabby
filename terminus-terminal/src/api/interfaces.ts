@@ -4,6 +4,7 @@ export interface ResizeEvent {
 }
 
 export interface SessionOptions {
+    restoreFromPTYID?: string
     name?: string
     command: string
     args?: string[]
@@ -52,4 +53,10 @@ export interface Shell {
     icon?: string
 
     hidden?: boolean
+}
+
+export interface ChildProcess {
+    pid: number
+    ppid: number
+    command: string
 }

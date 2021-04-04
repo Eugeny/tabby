@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import type { MenuItemConstructorOptions } from 'electron'
-import { Component, Input, Optional, Inject, HostBinding, HostListener, ViewChild, ElementRef } from '@angular/core'
+import { Component, Input, Optional, Inject, HostBinding, HostListener, ViewChild, ElementRef, NgZone } from '@angular/core'
 import { SortableComponent } from 'ng2-dnd'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { TabContextMenuItemProvider } from '../api/tabContextMenuProvider'
@@ -38,6 +38,7 @@ export class TabHeaderComponent {
         private hostApp: HostAppService,
         private ngbModal: NgbModal,
         private hotkeys: HotkeysService,
+        private zone: NgZone,
         @Inject(SortableComponent) private parentDraggable: SortableComponentProxy,
         @Optional() @Inject(TabContextMenuItemProvider) protected contextMenuProviders: TabContextMenuItemProvider[],
     ) {
@@ -53,7 +54,9 @@ export class TabHeaderComponent {
 
     ngOnInit () {
         this.tab.progress$.subscribe(progress => {
-            this.progress = progress
+            this.zone.run(() => {
+                this.progress = progress
+            })
         })
     }
 

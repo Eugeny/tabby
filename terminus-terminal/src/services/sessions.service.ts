@@ -1,13 +1,13 @@
 import * as psNode from 'ps-node'
 import * as fs from 'mz/fs'
 import * as os from 'os'
-import * as nodePTY from '@terminus-term/node-pty'
+import { ipcRenderer } from 'electron'
 import { getWorkingDirectoryFromPID } from 'native-process-working-directory'
 import { Observable, Subject } from 'rxjs'
 import { first } from 'rxjs/operators'
 import { Injectable } from '@angular/core'
 import { Logger, LogService, ConfigService, WIN_BUILD_CONPTY_SUPPORTED, isWindowsBuild } from 'terminus-core'
-import { SessionOptions } from '../api/interfaces'
+import { SessionOptions, ChildProcess } from '../api/interfaces'
 
 /* eslint-disable block-scoped-var */
 
@@ -19,15 +19,71 @@ try {
     var windowsProcessTree = require('windows-process-tree')  // eslint-disable-line @typescript-eslint/no-var-requires, no-var
 } catch { }
 
-export interface ChildProcess {
-    pid: number
-    ppid: number
-    command: string
-}
-
 const windowsDirectoryRegex = /([a-zA-Z]:[^\:\[\]\?\"\<\>\|]+)/mi
 const OSC1337Prefix = Buffer.from('\x1b]1337;')
 const OSC1337Suffix = Buffer.from('\x07')
+
+// eslint-disable-next-line @typescript-eslint/no-extraneous-class
+export class PTYProxy {
+    private id: string
+    private subscriptions: Map<string, any> = new Map()
+
+    static spawn (...options: any[]): PTYProxy {
+        return new PTYProxy(null, ...options)
+    }
+
+    static restore (id: string): PTYProxy|null {
+        if (ipcRenderer.sendSync('pty:exists', id)) {
+            return new PTYProxy(id)
+        }
+        return null
+    }
+
+    private constructor (id: string|null, ...options: any[]) {
+        if (id) {
+            this.id = id
+        } else {
+            this.id = ipcRenderer.sendSync('pty:spawn', ...options)
+        }
+    }
+
+    getPTYID (): string {
+        return this.id
+    }
+
+    getPID (): number {
+        return ipcRenderer.sendSync('pty:get-pid', this.id)
+    }
+
+    subscribe (event: string, handler: (..._: any[]) => void): void {
+        const key = `pty:${this.id}:${event}`
+        const newHandler = (_event, ...args) => handler(...args)
+        this.subscriptions.set(key, newHandler)
+        ipcRenderer.on(key, newHandler)
+    }
+
+    ackData (length: number): void {
+        ipcRenderer.send('pty:ack-data', this.id, length)
+    }
+
+    unsubscribeAll (): void {
+        for (const k of this.subscriptions.keys()) {
+            ipcRenderer.off(k, this.subscriptions.get(k))
+        }
+    }
+
+    resize (columns: number, rows: number): void {
+        ipcRenderer.send('pty:resize', this.id, columns, rows)
+    }
+
+    write (data: Buffer): void {
+        ipcRenderer.send('pty:write', this.id, data)
+    }
+
+    kill (signal?: string): void {
+        ipcRenderer.send('pty:kill', this.id, signal)
+    }
+}
 
 /**
  * A session object for a [[BaseTerminalTabComponent]]
@@ -90,7 +146,7 @@ export abstract class BaseSession {
 
 /** @hidden */
 export class Session extends BaseSession {
-    private pty: any
+    private pty: PTYProxy|null = null
     private pauseAfterExit = false
     private guessedCWD: string|null = null
     private reportedCWD: string
@@ -103,47 +159,58 @@ export class Session extends BaseSession {
     start (options: SessionOptions): void {
         this.name = options.name ?? ''
 
-        const env = {
-            ...process.env,
-            TERM: 'xterm-256color',
-            TERM_PROGRAM: 'Terminus',
-            ...options.env,
-            ...this.config.store.terminal.environment || {},
+        let pty: PTYProxy|null = null
+
+        if (options.restoreFromPTYID) {
+            pty = PTYProxy.restore(options.restoreFromPTYID)
+            options.restoreFromPTYID = undefined
         }
 
-        if (process.platform === 'darwin' && !process.env.LC_ALL) {
-            const locale = process.env.LC_CTYPE ?? 'en_US.UTF-8'
-            Object.assign(env, {
-                LANG: locale,
-                LC_ALL: locale,
-                LC_MESSAGES: locale,
-                LC_NUMERIC: locale,
-                LC_COLLATE: locale,
-                LC_MONETARY: locale,
+        if (!pty) {
+            const env = {
+                ...process.env,
+                TERM: 'xterm-256color',
+                TERM_PROGRAM: 'Terminus',
+                ...options.env,
+                ...this.config.store.terminal.environment || {},
+            }
+
+            if (process.platform === 'darwin' && !process.env.LC_ALL) {
+                const locale = process.env.LC_CTYPE ?? 'en_US.UTF-8'
+                Object.assign(env, {
+                    LANG: locale,
+                    LC_ALL: locale,
+                    LC_MESSAGES: locale,
+                    LC_NUMERIC: locale,
+                    LC_COLLATE: locale,
+                    LC_MONETARY: locale,
+                })
+            }
+
+            let cwd = options.cwd ?? process.env.HOME
+
+            if (!fs.existsSync(cwd)) {
+                console.warn('Ignoring non-existent CWD:', cwd)
+                cwd = undefined
+            }
+
+            pty = PTYProxy.spawn(options.command, options.args ?? [], {
+                name: 'xterm-256color',
+                cols: options.width ?? 80,
+                rows: options.height ?? 30,
+                encoding: null,
+                cwd,
+                env: env,
+                // `1` instead of `true` forces ConPTY even if unstable
+                useConpty: (isWindowsBuild(WIN_BUILD_CONPTY_SUPPORTED) && this.config.store.terminal.useConPTY ? 1 : false) as any,
             })
+
+            this.guessedCWD = cwd ?? null
         }
 
-        let cwd = options.cwd ?? process.env.HOME
+        this.pty = pty
 
-        if (!fs.existsSync(cwd)) {
-            console.warn('Ignoring non-existent CWD:', cwd)
-            cwd = undefined
-        }
-
-        this.pty = nodePTY.spawn(options.command, options.args ?? [], {
-            name: 'xterm-256color',
-            cols: options.width ?? 80,
-            rows: options.height ?? 30,
-            encoding: null,
-            cwd,
-            env: env,
-            // `1` instead of `true` forces ConPTY even if unstable
-            useConpty: (isWindowsBuild(WIN_BUILD_CONPTY_SUPPORTED) && this.config.store.terminal.useConPTY ? 1 : false) as any,
-        })
-
-        this.guessedCWD = cwd ?? null
-
-        this.truePID = this.pty['pid']
+        this.truePID = this.pty.getPID()
 
         setTimeout(async () => {
             // Retrieve any possible single children now that shell has fully started
@@ -157,7 +224,10 @@ export class Session extends BaseSession {
 
         this.open = true
 
-        this.pty.on('data-buffered', (data: Buffer) => {
+        this.pty.subscribe('data-buffered', (array: Uint8Array) => {
+            this.pty!.ackData(array.length)
+
+            let data = Buffer.from(array)
             data = this.processOSC1337(data)
             this.emitOutput(data)
             if (process.platform === 'win32') {
@@ -165,7 +235,7 @@ export class Session extends BaseSession {
             }
         })
 
-        this.pty.on('exit', () => {
+        this.pty.subscribe('exit', () => {
             if (this.pauseAfterExit) {
                 return
             } else if (this.open) {
@@ -173,7 +243,7 @@ export class Session extends BaseSession {
             }
         })
 
-        this.pty.on('close', () => {
+        this.pty.subscribe('close', () => {
             if (this.pauseAfterExit) {
                 this.emitOutput(Buffer.from('\r\nPress any key to close\r\n'))
             } else if (this.open) {
@@ -182,26 +252,30 @@ export class Session extends BaseSession {
         })
 
         this.pauseAfterExit = options.pauseAfterExit ?? false
+
+        this.destroyed$.subscribe(() => this.pty!.unsubscribeAll())
+    }
+
+    getPTYID (): string|null {
+        return this.pty?.getPTYID() ?? null
     }
 
     resize (columns: number, rows: number): void {
-        if (this.pty._writable) {
-            this.pty.resize(columns, rows)
-        }
+        this.pty?.resize(columns, rows)
     }
 
     write (data: Buffer): void {
         if (this.open) {
-            if (this.pty._writable) {
-                this.pty.write(data)
-            } else {
-                this.destroy()
-            }
+            this.pty?.write(data)
+            // TODO if (this.pty._writable) {
+            // } else {
+            //     this.destroy()
+            // }
         }
     }
 
     kill (signal?: string): void {
-        this.pty.kill(signal)
+        this.pty?.kill(signal)
     }
 
     async getChildProcesses (): Promise<ChildProcess[]> {
@@ -245,7 +319,7 @@ export class Session extends BaseSession {
                 this.kill('SIGTERM')
                 setImmediate(() => {
                     try {
-                        process.kill(this.pty.pid, 0)
+                        process.kill(this.pty!.getPID(), 0)
                         // still alive
                         setTimeout(() => {
                             this.kill('SIGKILL')
@@ -333,7 +407,6 @@ export class SessionsService {
     private constructor (
         log: LogService,
     ) {
-        require('../bufferizedPTY')(nodePTY) // eslint-disable-line @typescript-eslint/no-var-requires
         this.logger = log.create('sessions')
     }
 

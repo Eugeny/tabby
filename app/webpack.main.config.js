@@ -46,6 +46,7 @@ module.exports = {
     'source-map-support': 'commonjs source-map-support',
     'windows-swca': 'commonjs windows-swca',
     'windows-blurbehind': 'commonjs windows-blurbehind',
+    '@terminus-term/node-pty': 'commonjs @terminus-term/node-pty',
   },
   plugins: [
     new webpack.optimize.ModuleConcatenationPlugin(),

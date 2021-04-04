@@ -40,16 +40,20 @@ export class TabRecoveryService {
         return token
     }
 
-    async recoverTab (token: RecoveryToken): Promise<RecoveredTab|null> {
+    async recoverTab (token: RecoveryToken, duplicate = false): Promise<RecoveredTab|null> {
         for (const provider of this.config.enabledServices(this.tabRecoveryProviders ?? [])) {
             try {
-                const tab = await provider.recover(token)
-                if (tab !== null) {
-                    tab.options = tab.options || {}
-                    tab.options.color = token.tabColor ?? null
-                    tab.options.title = token.tabTitle || ''
-                    return tab
+                if (!await provider.applicableTo(token)) {
+                    continue
                 }
+                if (duplicate) {
+                    token = provider.duplicate(token)
+                }
+                const tab = await provider.recover(token)
+                tab.options = tab.options || {}
+                tab.options.color = token.tabColor ?? null
+                tab.options.title = token.tabTitle || ''
+                return tab
             } catch (error) {
                 this.logger.warn('Tab recovery crashed:', token, provider, error)
             }

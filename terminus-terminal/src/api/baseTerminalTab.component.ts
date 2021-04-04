@@ -32,6 +32,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
 
     session: BaseSession|null = null
     savedState?: any
+    savedStateIsLive = false
 
     @Input() zoom = 0
 
@@ -226,8 +227,8 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
 
         this.frontend = this.terminalContainersService.getFrontend(this.session)
 
-        this.frontend.ready$.subscribe(() => {
-            this.frontendIsReady = true
+        this.frontendReady$.pipe(first()).subscribe(() => {
+            this.onFrontendReady()
         })
 
         this.frontend.resize$.pipe(first()).subscribe(async ({ columns, rows }) => {
@@ -252,13 +253,6 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
         this.alternateScreenActive$.subscribe(x => {
             this.alternateScreenActive = x
         })
-
-        if (this.savedState) {
-            this.frontend.restoreState(this.savedState)
-            this.frontend.write('\r\n\r\n')
-            this.frontend.write(colors.bgWhite.black(' * ') + colors.bgBlackBright.white(' History restored '))
-            this.frontend.write('\r\n\r\n')
-        }
 
         setImmediate(async () => {
             if (this.hasFocus) {
@@ -296,6 +290,18 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
         this.blurred$.subscribe(() => {
             this.cancelFocusAllPanes()
         })
+    }
+
+    protected onFrontendReady (): void {
+        this.frontendIsReady = true
+        if (this.savedState) {
+            this.frontend!.restoreState(this.savedState)
+            if (!this.savedStateIsLive) {
+                this.frontend!.write('\r\n\r\n')
+                this.frontend!.write(colors.bgWhite.black(' * ') + colors.bgBlackBright.white(' History restored '))
+                this.frontend!.write('\r\n\r\n')
+            }
+        }
     }
 
     async buildContextMenu (): Promise<MenuItemConstructorOptions[]> {
@@ -594,10 +600,8 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
         // this.session.output$.bufferTime(10).subscribe((datas) => {
         this.attachSessionHandler(this.session.output$.subscribe(data => {
             if (this.enablePassthrough) {
-                this.zone.run(() => {
-                    this.output.next(data)
-                    this.write(data)
-                })
+                this.output.next(data)
+                this.write(data)
             }
         }))
 

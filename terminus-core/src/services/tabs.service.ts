@@ -34,7 +34,7 @@ export class TabsService {
         if (!token) {
             return null
         }
-        const dup = await this.tabRecovery.recoverTab(token)
+        const dup = await this.tabRecovery.recoverTab(token, true)
         if (dup) {
             return this.create(dup.type, dup.options)
         }

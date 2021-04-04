@@ -232,7 +232,7 @@ export class XTermFrontend extends Frontend {
         }[config.terminal.cursor] || config.terminal.cursor)
         this.xterm.setOption('cursorBlink', config.terminal.cursorBlink)
         this.xterm.setOption('macOptionIsMeta', config.terminal.altIsMeta)
-        this.xterm.setOption('scrollback', 100000)
+        this.xterm.setOption('scrollback', config.terminal.scrollbackLines)
         this.xterm.setOption('wordSeparator', config.terminal.wordSeparator)
         this.configuredFontSize = config.terminal.fontSize
         this.configuredLinePadding = config.terminal.linePadding

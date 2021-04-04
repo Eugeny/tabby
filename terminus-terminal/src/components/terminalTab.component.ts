@@ -1,6 +1,5 @@
 import { Component, Input, Injector } from '@angular/core'
 import { Subscription } from 'rxjs'
-import { first } from 'rxjs/operators'
 import { BaseTabProcess, WIN_BUILD_CONPTY_SUPPORTED, isWindowsBuild } from 'terminus-core'
 import { BaseTerminalTabComponent } from '../api/baseTerminalTab.component'
 import { SessionOptions } from '../api/interfaces'
@@ -16,6 +15,7 @@ import { Session } from '../services/sessions.service'
 export class TerminalTabComponent extends BaseTerminalTabComponent {
     @Input() sessionOptions: SessionOptions
     private homeEndSubscription: Subscription
+    session: Session|null = null
 
     // eslint-disable-next-line @typescript-eslint/no-useless-constructor
     constructor (
@@ -44,11 +44,13 @@ export class TerminalTabComponent extends BaseTerminalTabComponent {
             }
         })
 
-        this.frontendReady$.pipe(first()).subscribe(() => {
-            this.initializeSession(this.size.columns, this.size.rows)
-        })
-
         super.ngOnInit()
+    }
+
+    protected onFrontendReady (): void {
+        this.initializeSession(this.size.columns, this.size.rows)
+        this.savedStateIsLive = this.sessionOptions.restoreFromPTYID === this.session?.getPTYID()
+        super.onFrontendReady()
     }
 
     initializeSession (columns: number, rows: number): void {
@@ -61,6 +63,7 @@ export class TerminalTabComponent extends BaseTerminalTabComponent {
         )
 
         this.attachSessionHandlers(true)
+        this.recoveryStateChangedHint.next()
     }
 
     async getRecoveryToken (): Promise<any> {
@@ -70,6 +73,7 @@ export class TerminalTabComponent extends BaseTerminalTabComponent {
             sessionOptions: {
                 ...this.sessionOptions,
                 cwd: cwd ?? this.sessionOptions.cwd,
+                restoreFromPTYID: this.session?.getPTYID(),
             },
             savedState: this.frontend?.saveState(),
         }

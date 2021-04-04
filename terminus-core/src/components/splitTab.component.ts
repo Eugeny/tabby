@@ -256,7 +256,7 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
     /** @hidden */
     async ngAfterViewInit (): Promise<void> {
         if (this._recoveredState) {
-            await this.recoverContainer(this.root, this._recoveredState)
+            await this.recoverContainer(this.root, this._recoveredState, this._recoveredState.duplicate)
             this.layout()
             setTimeout(() => {
                 if (this.hasFocus) {
@@ -505,6 +505,9 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
         if (tab.title) {
             this.setTitle(tab.title)
         }
+        tab.recoveryStateChangedHint$.subscribe(() => {
+            this.recoveryStateChangedHint.next()
+        })
         tab.destroyed$.subscribe(() => {
             this.removeTab(tab)
         })
@@ -567,7 +570,7 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
         })
     }
 
-    private async recoverContainer (root: SplitContainer, state: any) {
+    private async recoverContainer (root: SplitContainer, state: any, duplicate = false) {
         const children: (SplitContainer | BaseTabComponent)[] = []
         root.orientation = state.orientation
         root.ratios = state.ratios
@@ -575,10 +578,10 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
         for (const childState of state.children) {
             if (childState.type === 'app:split-tab') {
                 const child = new SplitContainer()
-                await this.recoverContainer(child, childState)
+                await this.recoverContainer(child, childState, duplicate)
                 children.push(child)
             } else {
-                const recovered = await this.tabRecovery.recoverTab(childState)
+                const recovered = await this.tabRecovery.recoverTab(childState, duplicate)
                 if (recovered) {
                     const tab = this.tabsService.create(recovered.type, recovered.options)
                     children.push(tab)
@@ -599,13 +602,21 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
 /** @hidden */
 @Injectable()
 export class SplitTabRecoveryProvider extends TabRecoveryProvider {
-    async recover (recoveryToken: RecoveryToken): Promise<RecoveredTab|null> {
-        if (recoveryToken.type === 'app:split-tab') {
-            return {
-                type: SplitTabComponent,
-                options: { _recoveredState: recoveryToken },
-            }
+    async applicableTo (recoveryToken: RecoveryToken): Promise<boolean> {
+        return recoveryToken.type === 'app:split-tab'
+    }
+
+    async recover (recoveryToken: RecoveryToken): Promise<RecoveredTab> {
+        return {
+            type: SplitTabComponent,
+            options: { _recoveredState: recoveryToken },
         }
-        return null
+    }
+
+    duplicate (recoveryToken: RecoveryToken): RecoveryToken {
+        return {
+            ...recoveryToken,
+            duplicate: true,
+        }
     }
 }

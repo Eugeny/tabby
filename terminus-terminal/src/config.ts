@@ -75,6 +75,7 @@ export class TerminalConfigProvider extends ConfigProvider {
                 caseSensitive: false,
             },
             detectProgress: true,
+            scrollbackLines: 25000,
         },
     }
 
