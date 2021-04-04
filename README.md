@@ -96,6 +96,7 @@ Plugins and themes can be installed directly from the Settings view inside Termi
   * [quick-cmds](https://github.com/Domain/terminus-quick-cmds) - quickly send commands to one or all terminal tabs
   * [save-output](https://github.com/Eugeny/terminus-save-output) - record terminal output into a file
   * [scrollbar](https://github.com/kbjr/terminus-scrollbar) - adds a scrollbar to hterm tabs
+  * [sync-config](https://github.com/starxg/terminus-sync-config) - sync the config to Gist or Gitee
 
 <a name="themes"></a>
 # Themes
