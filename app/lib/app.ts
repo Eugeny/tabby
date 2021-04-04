@@ -110,7 +110,7 @@ export class Application {
     }
 
     enableTray (): void {
-        if (this.tray) {
+        if (this.tray || process.platform === 'linux') {
             return
         }
         if (process.platform === 'darwin') {
@@ -135,6 +135,9 @@ export class Application {
     }
 
     disableTray (): void {
+        if (process.platform === 'linux') {
+            return
+        }
         this.tray?.destroy()
         this.tray = null
     }
