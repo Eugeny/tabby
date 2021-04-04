@@ -95,12 +95,14 @@ title-bar(
             && (hostApp.platform == Platform.Windows || hostApp.platform == Platform.Linux)',
         )
 
-    start-page(*ngIf='ready && app.tabs.length == 0')
+    .content
+        start-page.content-tab.content-tab-active(*ngIf='ready && app.tabs.length == 0')
 
-    tab-body(
-        *ngFor='let tab of unsortedTabs',
-        [active]='tab == app.activeTab',
-        [tab]='tab',
-    )
+        tab-body.content-tab(
+            *ngFor='let tab of unsortedTabs',
+            [class.content-tab-active]='tab == app.activeTab',
+            [active]='tab == app.activeTab',
+            [tab]='tab',
+        )
 
 ng-template(ngbModalContainer)

@@ -1,15 +1,11 @@
 :host {
-    display: none;
+    display: flex;
     flex: auto;
     position: relative;
     overflow: hidden;
 
-    &.active {
-        display: flex;
-
-        >* {
-            flex: auto;
-        }
+    >* {
+        flex: auto;
     }
 
     > perfect-scrollbar {

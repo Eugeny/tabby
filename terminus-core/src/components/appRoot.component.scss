@@ -134,9 +134,24 @@ $side-tab-width: 200px;
     }
 }
 
-.tabs-content {
-    flex: auto;
-    display: flex;
+.content {
+    flex: 1 1 0;
+    position: relative;
+    min-height: 0;
+    min-width: 0;
+
+    > .content-tab {
+        position: absolute;
+        top: 0;
+        width: 100%;
+        height: 100%;
+
+        left: 100%;
+
+        &.content-tab-active {
+            left: 0;
+        }
+    }
 }
 
 hotkey-hint {
