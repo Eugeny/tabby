@@ -1,5 +1,5 @@
 input.search-input.form-control(
-    type='search',
+    type='text',
     [(ngModel)]='query',
     (ngModelChange)='onQueryChange()',
     [class.text-danger]='notFound',
@@ -11,14 +11,14 @@ input.search-input.form-control(
 
 button.btn.btn-link(
     (click)='findPrevious()',
-    ngbTooltip='Next',
+    ngbTooltip='Search up',
     placement='bottom'
 )
     i.fa.fa-fw.fa-arrow-up
 
 button.btn.btn-link(
     (click)='findNext()',
-    ngbTooltip='Next',
+    ngbTooltip='Search down',
     placement='bottom'
 )
     i.fa.fa-fw.fa-arrow-down
@@ -48,4 +48,7 @@ button.btn.btn-link(
 )
     i.fa.fa-fw.fa-text-width
 
-button.close.text-light.pl-3.pr-2((click)='close.emit()') &times;
+.mr-2
+
+button.btn.btn-link((click)='close.emit()')
+    i.fa.fa-fw.fa-times

@@ -22,11 +22,20 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
     static styles: string[] = [require<string>('../components/terminalTab.component.scss')]
     static animations: AnimationTriggerMetadata[] = [trigger('slideInOut', [
         transition(':enter', [
-            style({ transform: 'translateY(-25%)' }),
-            animate('100ms ease-in-out', style({ transform: 'translateY(0%)' })),
+            style({
+                transform: 'translateY(-25%)',
+                opacity: '0',
+            }),
+            animate('100ms ease-out', style({
+                transform: 'translateY(0%)',
+                opacity: '1',
+            })),
         ]),
         transition(':leave', [
-            animate('100ms ease-in-out', style({ transform: 'translateY(-25%)' })),
+            animate('100ms ease-out', style({
+                transform: 'translateY(-25%)',
+                opacity: '0',
+            })),
         ]),
     ])]
 
