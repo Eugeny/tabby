@@ -25,7 +25,6 @@ title-bar(
                 [index]='idx',
                 [tab]='tab',
                 [active]='tab == app.activeTab',
-                [hasActivity]='tab.activity$|async',
                 @animateTab,
                 [@.disabled]='hasVerticalTabs()',
                 (click)='app.selectTab(tab)',

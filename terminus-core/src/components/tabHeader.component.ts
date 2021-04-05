@@ -26,7 +26,6 @@ export interface SortableComponentProxy {
 export class TabHeaderComponent {
     @Input() index: number
     @Input() @HostBinding('class.active') active: boolean
-    @Input() @HostBinding('class.has-activity') hasActivity: boolean
     @Input() tab: BaseTabComponent
     @Input() progress: number|null
     @ViewChild('handle') handle?: ElementRef

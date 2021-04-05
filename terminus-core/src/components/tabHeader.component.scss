@@ -4,6 +4,8 @@ $tabs-height: 38px;
     position: relative;
     cursor: pointer;
 
+    > * { cursor: pointer; }
+
     flex: 1000 1 200px;
     width: 200px;
     padding: 0 10px;
@@ -101,8 +103,30 @@ $tabs-height: 38px;
         position: absolute;
         left: 0;
         top: 0;
-        height: 5px;
-        z-index: -1;
+        height: 3px;
+        z-index: 1;
         transition: 0.25s width;
+    }
+
+    .colorbar {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        height: 3px;
+        width: 100%;
+        z-index: 1;
+    }
+
+    &.active .activity-indicator {
+        display: none;
+    }
+
+    .activity-indicator {
+        position: absolute;
+        left: 10px;
+        right: 10px;
+        bottom: 4px;
+        height: 2px;
+        z-index: -1;
     }
 }

@@ -1,8 +1,8 @@
+.colorbar([style.background-color]='tab.color', *ngIf='tab.color != null')
 .progressbar([style.width]='progress + "%"', *ngIf='progress != null')
-.index(*ngIf='!config.store.terminal.hideTabIndex',
-    #handle,
-    [style.background-color]='tab.color',
-) {{index + 1}}
+.activity-indicator(*ngIf='tab.activity$|async')
+
+.index(*ngIf='!config.store.terminal.hideTabIndex', #handle) {{index + 1}}
 .name(
     [title]='tab.customTitle || tab.title',
     [class.no-hover]='config.store.terminal.hideCloseButton'

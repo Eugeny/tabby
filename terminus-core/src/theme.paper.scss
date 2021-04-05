@@ -169,6 +169,10 @@ app-root  {
                         background: $blue;
                     }
 
+                    .activity-indicator {
+                        background:rgba(0, 0, 0, 0.2);
+                    }
+
                     &.active {
                         color: $black;
                         background: $content-bg;
@@ -190,10 +194,6 @@ app-root  {
                 &.active {
                     border-bottom-color: transparent;
                 }
-
-                &.has-activity:not(.active) {
-                    background: linear-gradient(to bottom, rgba(208, 0, 0, 0) 95%, #36beff 96%);
-                }
             }
         }
 
@@ -207,10 +207,6 @@ app-root  {
 
                 &.active {
                     margin-top: -1px;
-                }
-
-                &.has-activity:not(.active) {
-                    background: linear-gradient(to top, rgba(208, 0, 0, 0) 95%, #36beff 96%);
                 }
             }
         }
