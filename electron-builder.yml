@@ -31,6 +31,8 @@ files:
 extraResources:
 - builtin-plugins
 - extras
+asarUnpack:
+- dist/*.map
 publish:
 - provider: github
 
