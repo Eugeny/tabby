@@ -68,7 +68,6 @@ export class AppRootComponent {
 
     private constructor (
         private docking: DockingService,
-        private electron: ElectronService,
         private hotkeys: HotkeysService,
         private updater: UpdaterService,
         private touchbar: TouchbarService,
@@ -76,6 +75,7 @@ export class AppRootComponent {
         public config: ConfigService,
         public app: AppService,
         @Inject(ToolbarButtonProvider) private toolbarButtonProviders: ToolbarButtonProvider[],
+        electron: ElectronService,
         log: LogService,
         ngbModal: NgbModal,
         _themes: ThemesService,
