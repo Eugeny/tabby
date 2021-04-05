@@ -162,6 +162,9 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
                 case 'paste':
                     this.paste()
                     break
+                case 'select-all':
+                    this.frontend?.selectAll()
+                    break
                 case 'clear':
                     this.frontend?.clear()
                     break

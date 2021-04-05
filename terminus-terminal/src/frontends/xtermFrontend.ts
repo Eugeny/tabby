@@ -186,6 +186,10 @@ export class XTermFrontend extends Frontend {
         }
     }
 
+    selectAll (): void {
+        this.xterm.selectAll()
+    }
+
     clearSelection (): void {
         this.xterm.clearSelection()
     }

@@ -62,6 +62,7 @@ export abstract class Frontend {
 
     abstract getSelection (): string
     abstract copySelection (): void
+    abstract selectAll (): void
     abstract clearSelection (): void
     abstract focus (): void
     abstract write (data: string): void

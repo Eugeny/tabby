@@ -33,6 +33,12 @@ export class HTermFrontend extends Frontend {
         this.term.copySelectionToClipboard()
     }
 
+    selectAll (): void {
+        const content = this.term.getDocument().body.children[0]
+        const selection = content.ownerDocument.defaultView.getSelection()
+        selection.setBaseAndExtent(content, 0, content, 1)
+    }
+
     clearSelection (): void {
         this.term.getDocument().getSelection().removeAllRanges()
     }

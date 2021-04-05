@@ -97,6 +97,7 @@ export class TerminalConfigProvider extends ConfigProvider {
                 clear: [
                     '⌘-K',
                 ],
+                'select-all': ['⌘-A'],
                 'zoom-in': [
                     '⌘-=',
                     '⌘-Shift-=',
@@ -142,6 +143,7 @@ export class TerminalConfigProvider extends ConfigProvider {
                 paste: [
                     'Ctrl-Shift-V',
                 ],
+                'select-all': ['Ctrl-Shift-A'],
                 clear: [],
                 'zoom-in': [
                     'Ctrl-=',
@@ -185,6 +187,7 @@ export class TerminalConfigProvider extends ConfigProvider {
                 paste: [
                     'Ctrl-Shift-V',
                 ],
+                'select-all': ['Ctrl-Shift-A'],
                 clear: [],
                 'zoom-in': [
                     'Ctrl-=',
