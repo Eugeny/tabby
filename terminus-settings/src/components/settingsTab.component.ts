@@ -5,18 +5,13 @@ import { Subscription } from 'rxjs'
 import { Component, Inject, Input, HostBinding, NgZone } from '@angular/core'
 import {
     ElectronService,
-    DockingService,
     ConfigService,
-    HotkeyDescription,
-    HotkeysService,
     BaseTabComponent,
-    Theme,
     HostAppService,
     Platform,
     HomeBaseService,
     ShellIntegrationService,
-    isWindowsBuild,
-    WIN_BUILD_FLUENT_BG_SUPPORTED,
+    UpdaterService,
 } from 'terminus-core'
 
 import { SettingsTabProvider } from '../api'
@@ -31,34 +26,29 @@ import { SettingsTabProvider } from '../api'
 })
 export class SettingsTabComponent extends BaseTabComponent {
     @Input() activeTab: string
-    hotkeyFilter = ''
-    hotkeyDescriptions: HotkeyDescription[]
-    screens: any[]
     Platform = Platform
     configDefaults: any
     configFile: string
     isShellIntegrationInstalled = false
-    isFluentVibrancySupported = false
+    checkingForUpdate = false
+    updateAvailable = false
     @HostBinding('class.pad-window-controls') padWindowControls = false
     private configSubscription: Subscription
 
     constructor (
         public config: ConfigService,
         private electron: ElectronService,
-        public docking: DockingService,
         public hostApp: HostAppService,
         public homeBase: HomeBaseService,
         public shellIntegration: ShellIntegrationService,
         public zone: NgZone,
-        hotkeys: HotkeysService,
+        private updater: UpdaterService,
         @Inject(SettingsTabProvider) public settingsProviders: SettingsTabProvider[],
-        @Inject(Theme) public themes: Theme[],
     ) {
         super()
         this.setTitle('Settings')
-        this.screens = this.docking.getScreens()
         this.settingsProviders = config.enabledServices(this.settingsProviders)
-        this.themes = config.enabledServices(this.themes)
+        this.settingsProviders.sort((a, b) => a.title.localeCompare(b.title))
 
         this.configDefaults = yaml.dump(config.getDefaults())
 
@@ -70,16 +60,6 @@ export class SettingsTabComponent extends BaseTabComponent {
 
         this.configSubscription = config.changed$.subscribe(onConfigChange)
         onConfigChange()
-
-        hostApp.displaysChanged$.subscribe(() => {
-            this.zone.run(() => this.screens = this.docking.getScreens())
-        })
-
-        hotkeys.getHotkeyDescriptions().then(descriptions => {
-            this.hotkeyDescriptions = descriptions
-        })
-
-        this.isFluentVibrancySupported = isWindowsBuild(WIN_BUILD_FLUENT_BG_SUPPORTED)
     }
 
     async ngOnInit () {
@@ -131,27 +111,9 @@ export class SettingsTabComponent extends BaseTabComponent {
         }
     }
 
-    getHotkey (id: string) {
-        let ptr = this.config.store.hotkeys
-        for (const token of id.split(/\./g)) {
-            ptr = ptr[token]
-        }
-        return ptr
-    }
-
-    setHotkey (id: string, value) {
-        let ptr = this.config.store
-        let prop = 'hotkeys'
-        for (const token of id.split(/\./g)) {
-            ptr = ptr[prop]
-            prop = token
-        }
-        ptr[prop] = value
-    }
-
-    hotkeyFilterFn (hotkey: HotkeyDescription, query: string): boolean {
-        // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
-        const s = hotkey.name + (this.getHotkey(hotkey.id) || []).toString()
-        return s.toLowerCase().includes(query.toLowerCase())
+    async checkForUpdates () {
+        this.checkingForUpdate = true
+        this.updateAvailable = await this.updater.check()
+        this.checkingForUpdate = false
     }
 }

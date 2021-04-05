@@ -35,19 +35,6 @@ h3.mb-3 Appearance
 
 .form-line
     .header
-        .title Frontend
-        .description Switches terminal frontend implementation (experimental)
-
-    select.form-control(
-        [(ngModel)]='config.store.terminal.frontend',
-        (ngModelChange)='config.save()',
-    )
-        option(value='hterm') hterm
-        option(value='xterm') xterm
-        option(value='xterm-webgl') xterm (WebGL)
-
-.form-line
-    .header
         .title Terminal background
 
     .btn-group(
@@ -112,24 +99,6 @@ h3.mb-3 Appearance
 
 .form-line
     .header
-        .title Hide tab index
-
-    toggle(
-        [(ngModel)]='config.store.terminal.hideTabIndex',
-        (ngModelChange)='config.save();',
-    )
-
-.form-line
-    .header
-        .title Hide tab close button
-
-    toggle(
-        [(ngModel)]='config.store.terminal.hideCloseButton',
-        (ngModelChange)='config.save();',
-    )
-
-.form-line
-    .header
         .title Fallback font
         .description A second font family used to display characters missing in the main font
 
@@ -139,3 +108,13 @@ h3.mb-3 Appearance
         [(ngModel)]='config.store.terminal.fallbackFont',
         (ngModelChange)='config.save()'
     )
+
+
+.form-line
+    .header
+        .title Custom CSS
+
+textarea.form-control(
+    [(ngModel)]='config.store.appearance.css',
+    (ngModelChange)='saveConfiguration()',
+)

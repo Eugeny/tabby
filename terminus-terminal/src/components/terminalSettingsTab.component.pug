@@ -2,6 +2,19 @@ h3.mb-3 Terminal
 
 .form-line
     .header
+        .title Frontend
+        .description Switches terminal frontend implementation (experimental)
+
+    select.form-control(
+        [(ngModel)]='config.store.terminal.frontend',
+        (ngModelChange)='config.save()',
+    )
+        option(value='hterm') hterm
+        option(value='xterm') xterm
+        option(value='xterm-webgl') xterm (WebGL)
+
+.form-line
+    .header
         .title Terminal bell
     .btn-group(
         [(ngModel)]='config.store.terminal.bell',
@@ -116,7 +129,7 @@ h3.mb-3 Terminal
         [(ngModel)]='config.store.terminal.scrollOnInput',
         (ngModelChange)='config.save()',
     )
-    
+
 .form-line
     .header
         .title Use Alt key as the Meta key

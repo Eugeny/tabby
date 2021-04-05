@@ -76,7 +76,7 @@ $tabs-height: 38px;
         }
     }
 
-    &:hover .name {
+    &:hover .name:not(.no-hover) {
         -webkit-mask-image: linear-gradient(black 0 0), linear-gradient(to left, transparent 0%, black 100%);
         -webkit-mask-size: calc(100% - 60px) auto, 60px auto;
         -webkit-mask-repeat: no-repeat;

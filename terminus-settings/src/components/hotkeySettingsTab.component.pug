@@ -1,0 +1,23 @@
+h3.mb-3 Hotkeys
+
+.input-group.mb-4
+    .input-group-prepend
+        .input-group-text
+            i.fas.fa-fw.fa-search
+    input.form-control(type='search', placeholder='Search hotkeys', [(ngModel)]='hotkeyFilter')
+
+.form-group
+    table.hotkeys-table
+        tr
+            th Name
+            th ID
+            th Hotkey
+        ng-container(*ngFor='let hotkey of hotkeyDescriptions')
+            tr(*ngIf='!hotkeyFilter || hotkeyFilterFn(hotkey, hotkeyFilter)')
+                td {{hotkey.name}}
+                td {{hotkey.id}}
+                td.pr-5
+                    multi-hotkey-input(
+                        [model]='getHotkey(hotkey.id) || []',
+                        (modelChange)='setHotkey(hotkey.id, $event)'
+                    )

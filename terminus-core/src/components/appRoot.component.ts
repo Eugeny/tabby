@@ -136,9 +136,13 @@ export class AppRootComponent {
             ngbModal.open(SafeModeModalComponent)
         }
 
-        this.updater.check().then(available => {
-            this.updatesAvailable = available
-        })
+        setInterval(() => {
+            if (this.config.store.enableAutomaticUpdates) {
+                this.updater.check().then(available => {
+                    this.updatesAvailable = available
+                })
+            }
+        }, 3600 * 12)
 
         this.touchbar.update()
 
@@ -188,20 +192,6 @@ export class AppRootComponent {
 
     hasVerticalTabs () {
         return this.config.store.appearance.tabsLocation === 'left' || this.config.store.appearance.tabsLocation === 'right'
-    }
-
-    async updateApp () {
-        if ((await this.electron.showMessageBox(
-            this.hostApp.getWindow(),
-            {
-                type: 'warning',
-                message: 'Installing the update will close all tabs and restart Terminus.',
-                buttons: ['Cancel', 'Update'],
-                defaultId: 1,
-            }
-        )).response === 1) {
-            this.updater.update()
-        }
     }
 
     onTabDragStart () {

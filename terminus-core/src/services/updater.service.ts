@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core'
 import { Logger, LogService } from './log.service'
 import { ElectronService } from './electron.service'
 import { ConfigService } from './config.service'
+import { HostAppService } from './hostApp.service'
 
 const UPDATES_URL = 'https://api.github.com/repos/eugeny/terminus/releases/latest'
 
@@ -17,8 +18,9 @@ export class UpdaterService {
 
     private constructor (
         log: LogService,
+        config: ConfigService,
         private electron: ElectronService,
-        private config: ConfigService,
+        private hostApp: HostAppService,
     ) {
         this.logger = log.create('updater')
 
@@ -58,10 +60,42 @@ export class UpdaterService {
     }
 
     async check (): Promise<boolean> {
-        if (!this.config.store.enableAutomaticUpdates) {
-            return false
-        }
-        if (!this.electronUpdaterAvailable) {
+        if (this.electronUpdaterAvailable) {
+            return new Promise((resolve, reject) => {
+                // eslint-disable-next-line @typescript-eslint/init-declarations, prefer-const
+                let cancel
+                const onNoUpdate = () => {
+                    cancel()
+                    resolve(false)
+                }
+                const onUpdate = () => {
+                    cancel()
+                    resolve(this.downloaded)
+                }
+                const onError = (err) => {
+                    cancel()
+                    reject(err)
+                }
+                cancel = () => {
+                    this.electron.autoUpdater.off('error', onError)
+                    this.electron.autoUpdater.off('update-not-available', onNoUpdate)
+                    this.electron.autoUpdater.off('update-available', onUpdate)
+                }
+                this.electron.autoUpdater.on('error', onError)
+                this.electron.autoUpdater.on('update-not-available', onNoUpdate)
+                this.electron.autoUpdater.on('update-available', onUpdate)
+                this.electron.autoUpdater.checkForUpdates()
+            })
+
+            this.electron.autoUpdater.on('update-available', () => {
+                this.logger.info('Update available')
+            })
+
+            this.electron.autoUpdater.once('update-not-available', () => {
+                this.logger.info('No updates')
+            })
+
+        } else {
             this.logger.debug('Checking for updates through fallback method.')
             const response = await axios.get(UPDATES_URL)
             const data = response.data
@@ -81,8 +115,18 @@ export class UpdaterService {
         if (!this.electronUpdaterAvailable) {
             this.electron.shell.openExternal(this.updateURL)
         } else {
-            await this.downloaded
-            this.electron.autoUpdater.quitAndInstall()
+            if ((await this.electron.showMessageBox(
+                this.hostApp.getWindow(),
+                {
+                    type: 'warning',
+                    message: 'Installing the update will close all tabs and restart Terminus.',
+                    buttons: ['Cancel', 'Update'],
+                    defaultId: 1,
+                }
+            )).response === 1) {
+                await this.downloaded
+                this.electron.autoUpdater.quitAndInstall()
+            }
         }
     }
 }

@@ -24,7 +24,7 @@
             padding: 20px 30px;
             overflow-y: auto;
 
-            > .tab-pane {
+            > ::ng-deep .tab-pane {
                 height: 100%;
             }
         }
@@ -32,15 +32,6 @@
 
     &.pad-window-controls > .content > .nav {
         padding-top: 40px;
-    }
-}
-
-
-.hotkeys-table {
-    margin-top: 30px;
-
-    td, th {
-        padding: 5px 10px;
     }
 }
 
