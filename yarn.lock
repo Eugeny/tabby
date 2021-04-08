@@ -8581,10 +8581,10 @@ webpack-sources@^2.1.1:
     source-list-map "^2.0.1"
     source-map "^0.6.1"
 
-webpack@^5.26.3:
-  version "5.26.3"
-  resolved "https://registry.yarnpkg.com/webpack/-/webpack-5.26.3.tgz#bafd439abac08fbb82657ec855d038743b725ab8"
-  integrity sha512-z/F2lt2N1fZqaud1B4SzjL3OW03eULThbBXQ2OX4LSrZX4N9k1A5d0Rje3zS2g887DTWyAV0KGqEf64ois2dhg==
+webpack@^5.31.0:
+  version "5.31.0"
+  resolved "https://registry.yarnpkg.com/webpack/-/webpack-5.31.0.tgz#fab61d0be896feca4af87bdad5c18815c0d63455"
+  integrity sha512-3fUfZT/FUuThWSSyL32Fsh7weUUfYP/Fjc/cGSbla5KiSo0GtI1JMssCRUopJTvmLjrw05R2q7rlLtiKdSzkzQ==
   dependencies:
     "@types/eslint-scope" "^3.7.0"
     "@types/estree" "^0.0.46"
