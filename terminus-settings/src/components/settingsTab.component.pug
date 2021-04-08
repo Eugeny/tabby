@@ -94,7 +94,7 @@ button.btn.btn-outline-warning.btn-block(*ngIf='config.restartRequested', '(clic
                                 [(ngModel)]='configDefaults',
                                 readonly
                             )
-                    .mt-2.mb-2.d-flex
+                    .mt-3.d-flex
                         button.btn.btn-primary((click)='saveConfigFile()', *ngIf='isConfigFileValid()')
                             i.fas.fa-check.mr-2
                             | Save and apply
