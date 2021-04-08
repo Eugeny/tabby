@@ -1,9 +1,14 @@
 const path = require('path')
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+
+const bundleAnalyzer = new BundleAnalyzerPlugin({
+    analyzerPort: 0,
+})
 
 module.exports = options => {
     const isDev = !!process.env.TERMINUS_DEV
     const devtool = isDev && process.platform === 'win32' ? 'eval-cheap-module-source-map' : 'cheap-module-source-map'
-    return {
+    const config = {
         target: 'node',
         entry: 'src/index.ts',
         context: options.dirname,
@@ -67,6 +72,7 @@ module.exports = options => {
             ],
         },
         externals: [
+            'any-promise',
             'child_process',
             'electron-promise-ipc',
             'electron',
@@ -86,11 +92,17 @@ module.exports = options => {
             'windows-native-registry',
             'windows-process-tree',
             'windows-process-tree/build/Release/windows_process_tree.node',
+            'yargs/yargs',
             /^@angular/,
             /^@ng-bootstrap/,
             /^rxjs/,
             /^terminus-/,
+            ...options.externals || [],
         ],
-        ignoreWarnings: [/node_modules\/yargs/],
+        plugins: [],
     }
+    if (process.env.PLUGIN_BUNDLE_ANALYZER === options.name) {
+        config.plugins.push(bundleAnalyzer)
+    }
+    return config
 }
