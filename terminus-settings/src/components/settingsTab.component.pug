@@ -48,14 +48,6 @@ button.btn.btn-outline-warning.btn-block(*ngIf='config.restartRequested', '(clic
 
                 .form-line
                     .header
-                        .title Debugging
-
-                    button.btn.btn-secondary((click)='hostApp.openDevTools()')
-                        i.fas.fa-bug
-                        span Open DevTools
-
-                .form-line
-                    .header
                         .title Enable analytics
                         .description We're only tracking your Terminus and OS versions.
                     toggle(
@@ -68,6 +60,14 @@ button.btn.btn-outline-warning.btn-block(*ngIf='config.restartRequested', '(clic
                         .title Automatic Updates
                         .description Enable automatic installation of updates when they become available.
                     toggle([(ngModel)]='config.store.enableAutomaticUpdates', (ngModelChange)='saveConfiguration()')
+
+                .form-line
+                    .header
+                        .title Debugging
+
+                    button.btn.btn-secondary((click)='hostApp.openDevTools()')
+                        i.fas.fa-bug
+                        span Open DevTools
 
         li(*ngFor='let provider of settingsProviders', [ngbNavItem]='provider.id')
             a(ngbNavLink)
