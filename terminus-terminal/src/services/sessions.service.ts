@@ -168,6 +168,7 @@ export class Session extends BaseSession {
 
         if (!pty) {
             // filter out empty env
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
             const { '': _, ...env } = {
                 ...process.env,
                 TERM: 'xterm-256color',

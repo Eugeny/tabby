@@ -40,7 +40,7 @@ class PTYDataQueue {
                 buffersToSend.push(this.buffers.shift())
             }
 
-            if (buffersToSend.length == 0) {
+            if (buffersToSend.length === 0) {
                 return
             }
 
