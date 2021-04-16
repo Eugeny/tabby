@@ -167,7 +167,8 @@ export class Session extends BaseSession {
         }
 
         if (!pty) {
-            const env = {
+            // filter out empty env
+            const { '': _, ...env } = {
                 ...process.env,
                 TERM: 'xterm-256color',
                 TERM_PROGRAM: 'Terminus',
