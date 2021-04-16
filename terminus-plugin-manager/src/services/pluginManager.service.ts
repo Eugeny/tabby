@@ -57,6 +57,7 @@ export class PluginManagerService {
             }))),
             map(plugins => plugins.filter(x => x.packageName.startsWith(NAME_PREFIX))),
             map(plugins => plugins.filter(x => !BLACKLIST.includes(x.packageName))),
+            map(plugins => plugins.sort((a, b) => a.name.localeCompare(b.name))),
         )
     }
 
