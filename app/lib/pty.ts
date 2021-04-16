@@ -1,4 +1,4 @@
-import * as nodePTY from 'node-pty'
+import * as nodePTY from '@terminus-term/node-pty'
 import { v4 as uuidv4 } from 'uuid'
 import { ipcMain } from 'electron'
 import { Application } from './app'
@@ -39,12 +39,22 @@ class PTYDataQueue {
                 totalLength += this.buffers[0].length
                 buffersToSend.push(this.buffers.shift())
             }
+
+            if (buffersToSend.length == 0) {
+                return
+            }
+
             let toSend = Buffer.concat(buffersToSend)
-            this.buffers.unshift(toSend.slice(this.maxChunk))
-            toSend = toSend.slice(0, this.maxChunk)
+            if (toSend.length > this.maxChunk) {
+                this.buffers.unshift(toSend.slice(this.maxChunk))
+                toSend = toSend.slice(0, this.maxChunk)
+            }
             this.onData(toSend)
             this.delta += toSend.length
-            this.buffers = []
+
+            if (this.buffers.length) {
+                setImmediate(() => this.maybeEmit())
+            }
         }
     }
 

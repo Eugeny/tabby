@@ -34,7 +34,7 @@
     "mz": "^2.7.0",
     "native-process-working-directory": "^1.0.2",
     "ngx-toastr": "^13.2.1",
-    "node-pty": "^0.10.0",
+    "@terminus-term/node-pty": "0.10.0-terminus.3",
     "npm": "6",
     "path": "0.12.7",
     "rxjs": "^6.6.6",

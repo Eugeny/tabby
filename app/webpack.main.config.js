@@ -44,7 +44,7 @@ module.exports = {
     glasstron: 'commonjs glasstron',
     mz: 'commonjs mz',
     npm: 'commonjs npm',
-    'node-pty': 'commonjs node-pty',
+    '@terminus-term/node-pty': 'commonjs @terminus-term/node-pty',
     path: 'commonjs path',
     rxjs: 'commonjs rxjs',
     'rxjs/operators': 'commonjs rxjs/operators',
