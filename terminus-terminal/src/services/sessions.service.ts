@@ -167,15 +167,15 @@ export class Session extends BaseSession {
         }
 
         if (!pty) {
-            // filter out empty env
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            const { '': _, ...env } = {
+            const env = {
                 ...process.env,
                 TERM: 'xterm-256color',
                 TERM_PROGRAM: 'Terminus',
                 ...options.env,
                 ...this.config.store.terminal.environment || {},
             }
+
+            delete env['']
 
             if (process.platform === 'darwin' && !process.env.LC_ALL) {
                 const locale = process.env.LC_CTYPE ?? 'en_US.UTF-8'
