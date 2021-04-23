@@ -145,14 +145,15 @@
     "@sentry/utils" "5.27.6"
     tslib "^1.9.3"
 
-"@sentry/cli@^1.63.1":
-  version "1.63.1"
-  resolved "https://registry.yarnpkg.com/@sentry/cli/-/cli-1.63.1.tgz#306a0591190432574082d4ce4a72363201972461"
-  integrity sha512-qksIcrnObkGvtubs1FmW4EMXLo7R43Dobgzuxnyoebo1Y5KfRLziiw6H+ux8D4c1Nui4SuvDGDq0ObAfO5oE6Q==
+"@sentry/cli@^1.64.1":
+  version "1.64.1"
+  resolved "https://registry.yarnpkg.com/@sentry/cli/-/cli-1.64.1.tgz#632565d8f8b40ada51333ae38b7001ef35457a0b"
+  integrity sha512-G+TzOSG+58fG3f5uYvPXweK65f1sP/8MWSEuRmJE4P0JJTTXQI6WErvrqrhfR5F7UVvGzltEbpc8rvO7N3+88A==
   dependencies:
     https-proxy-agent "^5.0.0"
     mkdirp "^0.5.5"
     node-fetch "^2.6.0"
+    npmlog "^4.1.2"
     progress "^2.0.3"
     proxy-from-env "^1.1.0"
 
