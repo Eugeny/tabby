@@ -47,6 +47,7 @@ export class Application {
         }
 
         app.commandLine.appendSwitch('disable-http-cache')
+        app.commandLine.appendSwitch('max-active-webgl-contexts', '9000')
         app.commandLine.appendSwitch('lang', 'EN')
         app.allowRendererProcessReuse = false
 
