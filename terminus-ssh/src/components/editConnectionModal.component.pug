@@ -19,8 +19,8 @@
                         [(ngModel)]='connection.group',
                     )
 
-                .d-flex
-                    .form-group
+                .d-flex.w-100(*ngIf='!useProxyCommand')
+                    .form-group.w-100.mr-4
                         label Host
                         input.form-control(
                             type='text',
@@ -35,6 +35,9 @@
                             [(ngModel)]='connection.port',
                         )
 
+                .alert.alert-info(*ngIf='useProxyCommand')
+                    .mr-auto Using a proxy command instead of a network connection
+
                 .form-group
                     label Username
                     input.form-control(
@@ -42,9 +45,9 @@
                         [(ngModel)]='connection.user',
                     )
 
-                .form-line
-                    .header
-                        .title Authentication
+                .form-group
+                    label Authentication method
+
                 .btn-group.w-100(
                     [(ngModel)]='connection.auth',
                     ngbRadioGroup
@@ -99,7 +102,7 @@
         li(ngbNavItem)
             a(ngbNavLink) Advanced
             ng-template(ngbNavContent)
-                .form-line
+                .form-line(*ngIf='!useProxyCommand')
                     .header
                         .title Jump host
                     select.form-control([(ngModel)]='connection.jumpHost')
@@ -163,6 +166,19 @@
                         type='number',
                         placeholder='20000',
                         [(ngModel)]='connection.readyTimeout',
+                    )
+
+                .form-line(*ngIf='!connection.jumpHost')
+                    .header
+                        .title Use a proxy command
+                        .description Command's stdin/stdout is used instead of a network connection
+                    toggle([(ngModel)]='useProxyCommand')
+
+                .form-group(*ngIf='useProxyCommand && !connection.jumpHost')
+                    label Proxy command
+                    input.form-control(
+                        type='text',
+                        [(ngModel)]='connection.proxyCommand',
                     )
 
         li(ngbNavItem)

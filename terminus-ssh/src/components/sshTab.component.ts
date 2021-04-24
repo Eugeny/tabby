@@ -119,7 +119,7 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
         }))
 
 
-        this.write('\r\n' + colors.black.bgCyan(' SSH ') + ` Connecting to ${session.connection.host}\r\n`)
+        this.write('\r\n' + colors.black.bgWhite(' SSH ') + ` Connecting to ${session.connection.host}\r\n`)
 
         const spinner = new Spinner({
             text: 'Connecting',
@@ -156,7 +156,7 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
                 this.destroy()
             } else {
                 // Session was closed abruptly
-                this.write('\r\n' + colors.black.bgCyan(' SSH ') + ` ${session.connection.host}: session closed\r\n`)
+                this.write('\r\n' + colors.black.bgWhite(' SSH ') + ` ${session.connection.host}: session closed\r\n`)
                 if (!this.reconnectOffered) {
                     this.reconnectOffered = true
                     this.write('Press any key to reconnect\r\n')

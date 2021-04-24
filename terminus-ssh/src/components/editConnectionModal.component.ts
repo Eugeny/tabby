@@ -14,6 +14,7 @@ import { ALGORITHMS } from 'ssh2-streams/lib/constants'
 export class EditConnectionModalComponent {
     connection: SSHConnection
     hasSavedPassword: boolean
+    useProxyCommand: boolean
 
     supportedAlgorithms: Record<string, string> = {}
     defaultAlgorithms: Record<string, string[]> = {}
@@ -50,6 +51,8 @@ export class EditConnectionModalComponent {
         this.connection.algorithms = this.connection.algorithms ?? {}
         this.connection.scripts = this.connection.scripts ?? []
         this.connection.auth = this.connection.auth ?? null
+
+        this.useProxyCommand = !!this.connection.proxyCommand
 
         for (const k of Object.values(SSHAlgorithmType)) {
             // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
@@ -101,6 +104,9 @@ export class EditConnectionModalComponent {
             this.connection.algorithms![k] = Object.entries(this.algorithms[k])
                 .filter(([_, v]) => !!v)
                 .map(([key, _]) => key)
+        }
+        if (!this.useProxyCommand) {
+            this.connection.proxyCommand = undefined
         }
         this.modalInstance.close(this.connection)
     }

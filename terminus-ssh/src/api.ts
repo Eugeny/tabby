@@ -6,6 +6,7 @@ import { Server, Socket, createServer, createConnection } from 'net'
 import { Client, ClientChannel } from 'ssh2'
 import { Logger } from 'terminus-core'
 import { Subject, Observable } from 'rxjs'
+import { ProxyCommandStream } from './services/ssh.service'
 
 export interface LoginScript {
     expect: string
@@ -42,6 +43,7 @@ export interface SSHConnection {
     agentForward?: boolean
     warnOnClose?: boolean
     algorithms?: Record<string, string[]>
+    proxyCommand?: string
 }
 
 export enum PortForwardType {
@@ -117,6 +119,7 @@ export class SSHSession extends BaseSession {
     forwardedPorts: ForwardedPort[] = []
     logger: Logger
     jumpStream: any
+    proxyCommandStream: ProxyCommandStream|null = null
 
     get serviceMessage$ (): Observable<string> { return this.serviceMessage }
     private serviceMessage = new Subject<string>()
@@ -135,6 +138,11 @@ export class SSHSession extends BaseSession {
 
     async start (): Promise<void> {
         this.open = true
+
+        this.proxyCommandStream?.on('error', err => {
+            this.emitServiceMessage(colors.bgRed.black(' X ') + ` ${err.message}`)
+            this.destroy()
+        })
 
         try {
             this.shell = await this.openShellChannel({ x11: this.connection.x11 })
@@ -361,6 +369,7 @@ export class SSHSession extends BaseSession {
 
     async destroy (): Promise<void> {
         this.serviceMessage.complete()
+        this.proxyCommandStream?.destroy()
         await super.destroy()
     }
 

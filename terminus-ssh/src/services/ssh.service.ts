@@ -1,4 +1,5 @@
 import colors from 'ansi-colors'
+import { Duplex } from 'stream'
 import stripAnsi from 'strip-ansi'
 import { open as openTemp } from 'temp'
 import { Injectable, NgZone } from '@angular/core'
@@ -7,14 +8,17 @@ import { Client } from 'ssh2'
 import { SSH2Stream } from 'ssh2-streams'
 import * as fs from 'mz/fs'
 import { execFile } from 'mz/child_process'
+import { exec } from 'child_process'
 import * as path from 'path'
 import * as sshpk from 'sshpk'
+import { Subject, Observable } from 'rxjs'
 import { HostAppService, Platform, Logger, LogService, ElectronService, AppService, SelectorOption, ConfigService, NotificationsService } from 'terminus-core'
 import { SettingsTabComponent } from 'terminus-settings'
 import { ALGORITHM_BLACKLIST, SSHConnection, SSHSession } from '../api'
 import { PromptModalComponent } from '../components/promptModal.component'
 import { PasswordStorageService } from './passwordStorage.service'
 import { SSHTabComponent } from '../components/sshTab.component'
+import { ChildProcess } from 'node:child_process'
 
 const WINDOWS_OPENSSH_AGENT_PIPE = '\\\\.\\pipe\\openssh-ssh-agent'
 
@@ -252,9 +256,21 @@ export class SSHService {
             authMethodsLeft.push('hostbased')
 
             try {
+                if (session.connection.proxyCommand) {
+                    log(`Using proxy command: ${session.connection.proxyCommand}`)
+                    session.proxyCommandStream = new ProxyCommandStream(session.connection.proxyCommand)
+
+                    session.proxyCommandStream.output$.subscribe((message: string) => {
+                        session.emitServiceMessage(colors.bgBlue.black(' Proxy command ') + ' ' + message)
+                    })
+
+                    await session.proxyCommandStream.start()
+                }
+
                 ssh.connect({
                     host: session.connection.host,
                     port: session.connection.port ?? 22,
+                    sock: session.proxyCommandStream ?? session.jumpStream,
                     username: session.connection.user,
                     password: session.connection.privateKey ? undefined : '',
                     privateKey: privateKey ?? undefined,
@@ -271,7 +287,6 @@ export class SSHService {
                     },
                     hostHash: 'sha256' as any,
                     algorithms,
-                    sock: session.jumpStream,
                     authHandler: methodsLeft => {
                         while (true) {
                             const method = authMethodsLeft.shift()
@@ -445,6 +460,52 @@ export class SSHService {
         this.config.store.ssh.recentConnections = recentConnections
         this.config.save()
         return this.connect(connection)
+    }
+}
+
+export class ProxyCommandStream extends Duplex {
+    private process: ChildProcess
+
+    get output$ (): Observable<string> { return this.output }
+    private output = new Subject<string>()
+
+    constructor (private command: string) {
+        super({
+            allowHalfOpen: false,
+        })
+    }
+
+    async start (): Promise<void> {
+        this.process = exec(this.command, {
+            windowsHide: true,
+            encoding: 'buffer',
+        })
+        this.process.on('exit', code => {
+            this.destroy(new Error(`Proxy command has exited with code ${code}`))
+        })
+        this.process.stdout?.on('data', data => {
+            this.push(data)
+        })
+        this.process.stdout?.on('error', (err) => {
+            this.destroy(err)
+        })
+        this.process.stderr?.on('data', data => {
+            this.output.next(data.toString())
+        })
+    }
+
+    _read (size: number): void {
+        process.stdout.read(size)
+    }
+
+    _write (chunk: Buffer, _encoding: string, callback: (error?: Error | null) => void): void {
+        this.process.stdin?.write(chunk, callback)
+    }
+
+    _destroy (error: Error|null, callback: (error: Error|null) => void): void {
+        this.process.kill()
+        this.output.complete()
+        callback(error)
     }
 }
 
