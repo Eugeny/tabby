@@ -117,7 +117,7 @@ export class PTY {
 }
 
 export class PTYManager {
-    private ptys: Record<string, PTY> = {}
+    private ptys: Record<string, PTY|undefined> = {}
 
     init (app: Application): void {
         //require('./bufferizedPTY')(nodePTY) // eslint-disable-line @typescript-eslint/no-var-requires
@@ -132,23 +132,23 @@ export class PTYManager {
         })
 
         ipcMain.on('pty:get-pid', (event, id) => {
-            event.returnValue = this.ptys[id].getPID()
+            event.returnValue = this.ptys[id]?.getPID()
         })
 
         ipcMain.on('pty:resize', (_event, id, columns, rows) => {
-            this.ptys[id].resize(columns, rows)
+            this.ptys[id]?.resize(columns, rows)
         })
 
         ipcMain.on('pty:write', (_event, id, data) => {
-            this.ptys[id].write(Buffer.from(data))
+            this.ptys[id]?.write(Buffer.from(data))
         })
 
         ipcMain.on('pty:kill', (_event, id, signal) => {
-            this.ptys[id].kill(signal)
+            this.ptys[id]?.kill(signal)
         })
 
         ipcMain.on('pty:ack-data', (_event, id, length) => {
-            this.ptys[id].ackData(length)
+            this.ptys[id]?.ackData(length)
         })
     }
 }
