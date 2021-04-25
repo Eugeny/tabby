@@ -239,10 +239,6 @@ hotkey-input-modal {
         border: none;
         border-top: 1px solid rgba(255, 255, 255, .1);
 
-        &:not(.combi) {
-            padding: $list-group-item-padding-y $list-group-item-padding-x;
-        }
-
         &:first-child {
             border-top: none;
         }

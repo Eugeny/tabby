@@ -17,6 +17,10 @@ body {
 }
 
 .btn {
+    display: inline-flex;
+    align-items: center;
+    flex-wrap: nowrap;
+
     & > svg {
         pointer-events: none;
     }
@@ -104,3 +108,14 @@ ngb-typeahead-window {
     max-height: 60vh;
     overflow: auto;
 }
+
+
+.hover-reveal {
+    opacity: 0;
+
+    .hover-reveal-parent:hover &,
+    *:hover > &,
+    &:hover {
+      opacity: 1;
+    }
+  }

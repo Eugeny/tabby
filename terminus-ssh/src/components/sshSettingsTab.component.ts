@@ -4,18 +4,25 @@ import { Component } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { ConfigService, ElectronService, HostAppService } from 'terminus-core'
 import { PasswordStorageService } from '../services/passwordStorage.service'
-import { SSHConnection, SSHConnectionGroup } from '../api'
+import { SSHConnection } from '../api'
 import { EditConnectionModalComponent } from './editConnectionModal.component'
 import { PromptModalComponent } from './promptModal.component'
+
+interface SSHConnectionGroup {
+    name: string|null
+    connections: SSHConnection[]
+}
 
 /** @hidden */
 @Component({
     template: require('./sshSettingsTab.component.pug'),
+    styles: [require('./sshSettingsTab.component.scss')],
 })
 export class SSHSettingsTabComponent {
     connections: SSHConnection[]
     childGroups: SSHConnectionGroup[]
     groupCollapsed: Record<string, boolean> = {}
+    filter = ''
 
     constructor (
         public config: ConfigService,
@@ -133,12 +140,20 @@ export class SSHSettingsTabComponent {
             let group = this.childGroups.find(x => x.name === connection.group)
             if (!group) {
                 group = {
-                    name: connection.group!,
+                    name: connection.group,
                     connections: [],
                 }
                 this.childGroups.push(group)
             }
             group.connections.push(connection)
         }
+    }
+
+    isGroupVisible (group: SSHConnectionGroup): boolean {
+        return !this.filter || group.connections.some(x => this.isConnectionVisible(x))
+    }
+
+    isConnectionVisible (connection: SSHConnection): boolean {
+        return !this.filter || `${connection.name}$${connection.host}`.toLowerCase().includes(this.filter.toLowerCase())
     }
 }

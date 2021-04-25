@@ -17,6 +17,7 @@
                         type='text',
                         placeholder='Ungrouped',
                         [(ngModel)]='connection.group',
+                        [ngbTypeahead]='groupTypeahead',
                     )
 
                 .d-flex.w-100(*ngIf='!useProxyCommand')

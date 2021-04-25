@@ -1,6 +1,9 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Component } from '@angular/core'
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
+import { Observable } from 'rxjs'
+import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators'
+
 import { ElectronService, HostAppService, ConfigService } from 'terminus-core'
 import { PasswordStorageService } from '../services/passwordStorage.service'
 import { SSHConnection, LoginScript, SSHAlgorithmType, ALGORITHM_BLACKLIST } from '../api'
@@ -19,6 +22,8 @@ export class EditConnectionModalComponent {
     supportedAlgorithms: Record<string, string> = {}
     defaultAlgorithms: Record<string, string[]> = {}
     algorithms: Record<string, Record<string, boolean>> = {}
+
+    private groupNames: string[]
 
     constructor (
         public config: ConfigService,
@@ -44,7 +49,17 @@ export class EditConnectionModalComponent {
             this.supportedAlgorithms[k] = ALGORITHMS[supportedAlg].filter(x => !ALGORITHM_BLACKLIST.includes(x))
             this.defaultAlgorithms[k] = ALGORITHMS[defaultAlg].filter(x => !ALGORITHM_BLACKLIST.includes(x))
         }
+
+        this.groupNames = [...new Set(config.store.ssh.connections.map(x => x.group))] as string[]
+        this.groupNames = this.groupNames.filter(x => x).sort()
     }
+
+    groupTypeahead = (text$: Observable<string>) =>
+        text$.pipe(
+            debounceTime(200),
+            distinctUntilChanged(),
+            map(q => this.groupNames.filter(x => !q || x.toLowerCase().includes(q.toLowerCase())))
+        )
 
     async ngOnInit () {
         this.hasSavedPassword = !!await this.passwordStorage.loadPassword(this.connection)
