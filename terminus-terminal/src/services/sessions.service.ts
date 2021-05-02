@@ -147,6 +147,7 @@ export abstract class BaseSession {
 /** @hidden */
 export class Session extends BaseSession {
     private pty: PTYProxy|null = null
+    private ptyClosed = false
     private pauseAfterExit = false
     private guessedCWD: string|null = null
     private reportedCWD: string
@@ -246,6 +247,7 @@ export class Session extends BaseSession {
         })
 
         this.pty.subscribe('close', () => {
+            this.ptyClosed = true
             if (this.pauseAfterExit) {
                 this.emitOutput(Buffer.from('\r\nPress any key to close\r\n'))
             } else if (this.open) {
@@ -267,12 +269,11 @@ export class Session extends BaseSession {
     }
 
     write (data: Buffer): void {
+        if (this.ptyClosed) {
+            this.destroy()
+        }
         if (this.open) {
             this.pty?.write(data)
-            // TODO if (this.pty._writable) {
-            // } else {
-            //     this.destroy()
-            // }
         }
     }
 
