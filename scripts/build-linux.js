@@ -7,7 +7,7 @@ const isCI = !!process.env.GITHUB_REF
 
 builder({
     dir: true,
-    linux: ['deb', 'tar.gz', 'rpm'],
+    linux: ['deb', 'tar.gz', 'rpm', 'pacman'],
     config: {
         extraMetadata: {
             version: vars.version,
