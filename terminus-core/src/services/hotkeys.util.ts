@@ -51,8 +51,8 @@ export function stringifyKeySequence (events: KeyboardEvent[]): string[] {
                     Period: '.',
                     Slash: '/',
                     Backslash: '\\',
-                    IntlBackslash: '\\',
-                    Backquote: '`',
+                    IntlBackslash: '`',
+                    Backquote: '~', // Electron says it's the tilde
                     Minus: '-',
                     Equal: '=',
                     Semicolon: ';',
