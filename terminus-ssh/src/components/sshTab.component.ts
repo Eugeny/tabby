@@ -25,6 +25,13 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
     private homeEndSubscription: Subscription
     private recentInputs = ''
     private reconnectOffered = false
+    private spinner = new Spinner({
+        text: 'Connecting',
+        stream: {
+            write: x => this.write(x),
+        },
+    })
+    private spinnerActive = false
 
     constructor (
         injector: Injector,
@@ -113,32 +120,22 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
             this.sessionStack.push(session)
         }
 
-        this.attachSessionHandler(session.serviceMessage$.subscribe(msg => {
-            this.write(`\r\n${colors.black.bgWhite(' SSH ')} ${msg}\r\n`)
-            session.resize(this.size.columns, this.size.rows)
-        }))
-
-
         this.write('\r\n' + colors.black.bgWhite(' SSH ') + ` Connecting to ${session.connection.host}\r\n`)
 
-        const spinner = new Spinner({
-            text: 'Connecting',
-            stream: {
-                write: x => this.write(x),
-            },
-        })
-        spinner.setSpinnerString(6)
-        spinner.start()
+        this.startSpinner()
+
+        this.attachSessionHandler(session.serviceMessage$.subscribe(msg => {
+            this.pauseSpinner(() => {
+                this.write(`\r${colors.black.bgWhite(' SSH ')} ${msg}\r\n`)
+                session.resize(this.size.columns, this.size.rows)
+            })
+        }))
 
         try {
-            await this.ssh.connectSession(session, (message: string) => {
-                spinner.stop(true)
-                this.write(message + '\r\n')
-                spinner.start()
-            })
-            spinner.stop(true)
+            await this.ssh.connectSession(session)
+            this.stopSpinner()
         } catch (e) {
-            spinner.stop(true)
+            this.stopSpinner()
             this.write(colors.black.bgRed(' X ') + ' ' + colors.red(e.message) + '\r\n')
             return
         }
@@ -231,5 +228,25 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
     ngOnDestroy (): void {
         this.homeEndSubscription.unsubscribe()
         super.ngOnDestroy()
+    }
+
+    private startSpinner () {
+        this.spinner.setSpinnerString(6)
+        this.spinner.start()
+        this.spinnerActive = true
+    }
+
+    private stopSpinner () {
+        this.spinner.stop(true)
+        this.spinnerActive = false
+    }
+
+    private pauseSpinner (work: () => void) {
+        const wasActive = this.spinnerActive
+        this.stopSpinner()
+        work()
+        if (wasActive) {
+            this.startSpinner()
+        }
     }
 }
