@@ -9,6 +9,7 @@ import TerminusTerminalModule from 'terminus-terminal'
 
 import { EditConnectionModalComponent } from './components/editConnectionModal.component'
 import { SSHPortForwardingModalComponent } from './components/sshPortForwardingModal.component'
+import { SSHPortForwardingConfigComponent } from './components/sshPortForwardingConfig.component'
 import { PromptModalComponent } from './components/promptModal.component'
 import { SSHSettingsTabComponent } from './components/sshSettingsTab.component'
 import { SSHTabComponent } from './components/sshTab.component'
@@ -49,6 +50,7 @@ import { WinSCPContextMenu } from './winSCPIntegration'
         EditConnectionModalComponent,
         PromptModalComponent,
         SSHPortForwardingModalComponent,
+        SSHPortForwardingConfigComponent,
         SSHSettingsTabComponent,
         SSHTabComponent,
     ],

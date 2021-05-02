@@ -6,7 +6,7 @@ import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators'
 
 import { ElectronService, HostAppService, ConfigService } from 'terminus-core'
 import { PasswordStorageService } from '../services/passwordStorage.service'
-import { SSHConnection, LoginScript, SSHAlgorithmType, ALGORITHM_BLACKLIST } from '../api'
+import { SSHConnection, LoginScript, ForwardedPortConfig, SSHAlgorithmType, ALGORITHM_BLACKLIST } from '../api'
 import { PromptModalComponent } from './promptModal.component'
 import { ALGORITHMS } from 'ssh2-streams/lib/constants'
 
@@ -172,5 +172,14 @@ export class EditConnectionModalComponent {
             this.connection.scripts = []
         }
         this.connection.scripts.push({ expect: '', send: '' })
+    }
+
+    onForwardAdded (fw: ForwardedPortConfig) {
+        this.connection.forwardedPorts = this.connection.forwardedPorts ?? []
+        this.connection.forwardedPorts.push(fw)
+    }
+
+    onForwardRemoved (fw: ForwardedPortConfig) {
+        this.connection.forwardedPorts = this.connection.forwardedPorts?.filter(x => x !== fw)
     }
 }

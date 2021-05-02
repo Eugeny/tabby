@@ -101,6 +101,15 @@
                                 i.fas.fa-folder-open
 
         li(ngbNavItem)
+            a(ngbNavLink) Ports
+            ng-template(ngbNavContent)
+                ssh-port-forwarding-config(
+                    [model]='connection.forwardedPorts',
+                    (forwardAdded)='onForwardAdded($event)',
+                    (forwardRemoved)='onForwardRemoved($event)'
+                )
+
+        li(ngbNavItem)
             a(ngbNavLink) Advanced
             ng-template(ngbNavContent)
                 .form-line(*ngIf='!useProxyCommand')

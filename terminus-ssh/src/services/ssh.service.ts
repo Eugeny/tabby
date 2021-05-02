@@ -14,7 +14,7 @@ import * as sshpk from 'sshpk'
 import { Subject, Observable } from 'rxjs'
 import { HostAppService, Platform, Logger, LogService, ElectronService, AppService, SelectorOption, ConfigService, NotificationsService } from 'terminus-core'
 import { SettingsTabComponent } from 'terminus-settings'
-import { ALGORITHM_BLACKLIST, SSHConnection, SSHSession } from '../api'
+import { ALGORITHM_BLACKLIST, ForwardedPort, SSHConnection, SSHSession } from '../api'
 import { PromptModalComponent } from '../components/promptModal.component'
 import { PasswordStorageService } from './passwordStorage.service'
 import { SSHTabComponent } from '../components/sshTab.component'
@@ -164,6 +164,11 @@ export class SSHService {
                 if (savedPassword) {
                     this.passwordStorage.savePassword(session.connection, savedPassword)
                 }
+
+                for (const fw of session.connection.forwardedPorts ?? []) {
+                    session.addPortForward(Object.assign(new ForwardedPort(), fw))
+                }
+
                 this.zone.run(resolve)
             })
             ssh.on('error', error => {

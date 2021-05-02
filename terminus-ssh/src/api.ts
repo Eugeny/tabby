@@ -44,6 +44,7 @@ export interface SSHConnection {
     warnOnClose?: boolean
     algorithms?: Record<string, string[]>
     proxyCommand?: string
+    forwardedPorts?: ForwardedPortConfig[]
 }
 
 export enum PortForwardType {
@@ -52,7 +53,15 @@ export enum PortForwardType {
     Dynamic = 'Dynamic',
 }
 
-export class ForwardedPort {
+export interface ForwardedPortConfig {
+    type: PortForwardType
+    host: string
+    port: number
+    targetAddress: string
+    targetPort: number
+}
+
+export class ForwardedPort implements ForwardedPortConfig {
     type: PortForwardType
     host = '127.0.0.1'
     port: number
