@@ -341,9 +341,9 @@ ng2-dnd@^5.0.2:
   integrity sha512-5mWWBePwvEPsNd/HkdbD543Q9mPyJofL6zkNydl8/Ah3qrrvZT2DaEPbknY08OgkXpI2qUGksc01OzzVlRQ9dQ==
 
 ngx-perfect-scrollbar@^10.1.0:
-  version "10.1.0"
-  resolved "https://registry.yarnpkg.com/ngx-perfect-scrollbar/-/ngx-perfect-scrollbar-10.1.0.tgz#6f7e2d8c849e595077b1c71992b6b544d56084d7"
-  integrity sha512-CQ4pthb+UOoccTh3dOVcmBJsUILpHNBsKMHatif6AB2jsvhH6y2O6elMaoslhQEFqpv1fJlrU25AKIUJQZIA4A==
+  version "10.1.1"
+  resolved "https://registry.yarnpkg.com/ngx-perfect-scrollbar/-/ngx-perfect-scrollbar-10.1.1.tgz#f89832b9109e89bb59d516184638accd028e9735"
+  integrity sha512-f9IaDJGlBzSxnJ3Ki76n2JdzfQngUFyCf0E+CuVLaR5jL0IJDcTu7vOs8wexXunRMTd8xvIv0+sdIxf8hXAGWg==
   dependencies:
     perfect-scrollbar "1.5.0"
     resize-observer-polyfill "^1.5.0"
