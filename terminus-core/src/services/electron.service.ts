@@ -32,7 +32,7 @@ export class ElectronService {
         this.clipboard = electron.clipboard
         this.ipcRenderer = electron.ipcRenderer
 
-        this.process = remote.process
+        this.process = remote.getGlobal('process')
         this.app = remote.app
         this.screen = remote.screen
         this.dialog = remote.dialog
