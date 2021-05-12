@@ -1,0 +1,252 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "04:00"
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: "@types/node"
+    versions:
+    - 14.14.22
+    - 14.14.24
+    - 14.14.25
+    - 14.14.26
+    - 14.14.27
+    - 14.14.28
+    - 14.14.30
+    - 14.14.33
+    - 14.14.34
+    - 14.14.36
+    - 14.14.37
+    - 14.14.39
+    - 14.14.41
+    - 15.0.0
+  - dependency-name: core-js
+    versions:
+    - 3.10.0
+    - 3.10.1
+    - 3.10.2
+    - 3.11.0
+  - dependency-name: "@sentry/cli"
+    versions:
+    - 1.62.0
+    - 1.63.2
+    - 1.64.0
+  - dependency-name: eslint
+    versions:
+    - 7.21.0
+    - 7.22.0
+    - 7.23.0
+    - 7.24.0
+  - dependency-name: typedoc
+    versions:
+    - 0.20.19
+    - 0.20.20
+    - 0.20.23
+    - 0.20.24
+    - 0.20.25
+    - 0.20.27
+    - 0.20.30
+    - 0.20.33
+    - 0.20.34
+    - 0.20.35
+  - dependency-name: webpack
+    versions:
+    - 5.24.3
+    - 5.24.4
+    - 5.25.1
+    - 5.26.0
+    - 5.26.2
+    - 5.27.1
+    - 5.27.2
+    - 5.28.0
+    - 5.30.0
+    - 5.31.0
+  - dependency-name: "@typescript-eslint/eslint-plugin"
+    versions:
+    - 4.17.0
+    - 4.18.0
+    - 4.19.0
+    - 4.20.0
+    - 4.21.0
+  - dependency-name: "@typescript-eslint/parser"
+    versions:
+    - 4.16.1
+    - 4.19.0
+    - 4.20.0
+    - 4.21.0
+  - dependency-name: webpack-cli
+    versions:
+    - 4.6.0
+  - dependency-name: "@types/fs-extra"
+    versions:
+    - 9.0.10
+    - 9.0.6
+    - 9.0.7
+    - 9.0.8
+  - dependency-name: electron
+    versions:
+    - 12.0.0-beta.19
+    - 12.0.0-beta.20
+    - 12.0.0-beta.21
+    - 12.0.0-beta.22
+    - 12.0.1
+    - 12.0.2
+  - dependency-name: css-loader
+    versions:
+    - 5.1.2
+    - 5.2.0
+  - dependency-name: val-loader
+    versions:
+    - 3.1.0
+  - dependency-name: patch-package
+    versions:
+    - 6.4.6
+  - dependency-name: html-loader
+    versions:
+    - 2.1.1
+  - dependency-name: sass-loader
+    versions:
+    - 11.0.0
+- package-ecosystem: npm
+  directory: "/app"
+  schedule:
+    interval: daily
+    time: "04:00"
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: npm
+    versions:
+    - "> 6.14.11"
+  - dependency-name: "@types/node"
+    versions:
+    - 14.14.22
+    - 14.14.24
+    - 14.14.25
+    - 14.14.26
+    - 14.14.27
+    - 14.14.28
+    - 14.14.30
+    - 14.14.32
+    - 14.14.33
+    - 14.14.34
+    - 14.14.36
+    - 14.14.37
+    - 14.14.39
+    - 14.14.41
+    - 15.0.0
+  - dependency-name: keytar
+    versions:
+    - 7.5.0
+  - dependency-name: "@ng-bootstrap/ng-bootstrap"
+    versions:
+    - 9.0.2
+  - dependency-name: yargs
+    versions:
+    - 16.2.0
+  - dependency-name: "@terminus-term/node-pty"
+    versions:
+    - 0.10.0-beta11
+    - 0.10.0-terminus.1
+    - 0.10.0-terminus.3
+  - dependency-name: serialport
+    versions:
+    - 9.0.6
+- package-ecosystem: npm
+  directory: "/terminus-core"
+  schedule:
+    interval: daily
+    time: "04:00"
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: core-js
+    versions:
+    - 3.10.0
+    - 3.10.1
+    - 3.10.2
+    - 3.11.0
+    - 3.8.3
+    - 3.9.0
+- package-ecosystem: npm
+  directory: "/terminus-settings"
+  schedule:
+    interval: daily
+    time: "04:00"
+  open-pull-requests-limit: 10
+- package-ecosystem: npm
+  directory: "/terminus-terminal"
+  schedule:
+    interval: daily
+    time: "04:00"
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: deep-equal
+    versions:
+    - "> 1.1.0"
+  - dependency-name: xterm-addon-search
+    versions:
+    - 0.8.0
+    - 0.8.0-beta.4
+  - dependency-name: xterm
+    versions:
+    - 4.10.0
+  - dependency-name: xterm-addon-fit
+    versions:
+    - 0.5.0
+    - 0.5.0-beta.4
+  - dependency-name: xterm-addon-ligatures
+    versions:
+    - 0.4.0
+    - 0.4.0-beta.9
+  - dependency-name: xterm-addon-webgl
+    versions:
+    - 0.9.0
+  - dependency-name: xterm-addon-serialize
+    versions:
+    - 0.4.0
+- package-ecosystem: npm
+  directory: "/terminus-community-color-schemes"
+  schedule:
+    interval: daily
+    time: "04:00"
+  open-pull-requests-limit: 10
+- package-ecosystem: npm
+  directory: "/terminus-plugin-manager"
+  schedule:
+    interval: daily
+    time: "04:00"
+  open-pull-requests-limit: 10
+- package-ecosystem: npm
+  directory: "/terminus-ssh"
+  schedule:
+    interval: daily
+    time: "04:00"
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: "@types/node"
+    versions:
+    - 14.14.22
+    - 14.14.24
+    - 14.14.25
+    - 14.14.26
+    - 14.14.27
+    - 14.14.28
+    - 14.14.30
+    - 14.14.31
+    - 14.14.32
+    - 14.14.33
+    - 14.14.34
+    - 14.14.35
+    - 14.14.36
+    - 14.14.37
+    - 14.14.39
+    - 14.14.41
+    - 15.0.0
+- package-ecosystem: github-actions
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "04:00"
+  open-pull-requests-limit: 10
