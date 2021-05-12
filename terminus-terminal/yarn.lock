@@ -119,13 +119,13 @@ font-finder@^1.0.3, font-finder@^1.1.0:
     get-system-fonts "^2.0.0"
     promise-stream-reader "^1.0.1"
 
-font-ligatures@^1.3.3:
-  version "1.3.3"
-  resolved "https://registry.yarnpkg.com/font-ligatures/-/font-ligatures-1.3.3.tgz#63fff18dc8adb3a11fe5eec1f4e8d7edfa8075b9"
-  integrity sha512-NSGpHgVNX81M7AWS1XylK1UZbN3QllfUIDAAuPv6TUcl5O2b781JcKS5L2RopAU0AqlTyX3ZuX/04eaMpbVrHA==
+font-ligatures@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/font-ligatures/-/font-ligatures-1.4.0.tgz#6a7b370d96be1358dddfad67830e82fbfd59e6dc"
+  integrity sha512-n7DFnnEpJ0NrVoLqZIL4tMGVs+CnFwQc92m80LWyrbgAFO4x234+t2/H9o4eOYA1eh6ta9dZAEEsJAwsBdNezA==
   dependencies:
     font-finder "^1.0.3"
-    lru-cache "^4.1.3"
+    lru-cache "^6.0.0"
     opentype.js "^0.8.0"
 
 function-bind@^1.1.1:
@@ -198,13 +198,12 @@ is-symbol@^1.0.2:
   dependencies:
     has-symbols "^1.0.1"
 
-lru-cache@^4.1.3:
-  version "4.1.5"
-  resolved "https://registry.yarnpkg.com/lru-cache/-/lru-cache-4.1.5.tgz#8bbe50ea85bed59bc9e33dcab8235ee9bcf443cd"
-  integrity sha512-sWZlbEP2OsHNkXrMl5GYk/jKk70MBng6UU4YI/qGDYbgf6YbP4EvmqISbXCoJiRKs+1bSpFHVgQxvJ17F2li5g==
+lru-cache@^6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/lru-cache/-/lru-cache-6.0.0.tgz#6d6fe6570ebd96aaf90fcad1dafa3b2566db3a94"
+  integrity sha512-Jo6dJ04CmSjuznwJSS3pUeWmd/H0ffTlkXXgwZi+eq1UCmqQwCh+eLsYOYCwY991i2Fah4h1BEMCx4qThGbsiA==
   dependencies:
-    pseudomap "^1.0.2"
-    yallist "^2.1.2"
+    yallist "^4.0.0"
 
 mz@^2.6.0:
   version "2.7.0"
@@ -280,11 +279,6 @@ ps-node@^0.1.6:
   dependencies:
     table-parser "^0.1.3"
 
-pseudomap@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/pseudomap/-/pseudomap-1.0.2.tgz#f052a28da70e618917ef0a8ac34c1ae5a68286b3"
-  integrity sha1-8FKijacOYYkX7wqKw0wa5aaChrM=
-
 regexp.prototype.flags@^1.2.0:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/regexp.prototype.flags/-/regexp.prototype.flags-1.3.0.tgz#7aba89b3c13a64509dabcf3ca8d9fbb9bdf5cb75"
@@ -355,13 +349,13 @@ xterm-addon-fit@^0.5.0:
   resolved "https://registry.yarnpkg.com/xterm-addon-fit/-/xterm-addon-fit-0.5.0.tgz#2d51b983b786a97dcd6cde805e700c7f913bc596"
   integrity sha512-DsS9fqhXHacEmsPxBJZvfj2la30Iz9xk+UKjhQgnYNkrUIN5CYLbw7WEfz117c7+S86S/tpHPfvNxJsF5/G8wQ==
 
-xterm-addon-ligatures@^0.4.0:
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/xterm-addon-ligatures/-/xterm-addon-ligatures-0.4.0.tgz#23235d831988c5780ca1e28002b750ec0b1a78ca"
-  integrity sha512-on+2TgzioEL5Mz60WchsTiuR2SvYzG3xVro39HIpYFM641lpMuPM83Pdm3W/ogkaGrpGm29Ysq2S2LCl/h7rhw==
+xterm-addon-ligatures@^0.5.0:
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/xterm-addon-ligatures/-/xterm-addon-ligatures-0.5.0.tgz#08cd4dd3bcd3c4faa657a1995a5a8a6a6c39c496"
+  integrity sha512-1HFeEReL2yfw1oz7iZHE09ipWOA23Pg7yRAgDnuKeWkuItKRZZ9SbKXn8saviAkHYX/s6HgADVwPjRY8m2lyZA==
   dependencies:
     font-finder "^1.1.0"
-    font-ligatures "^1.3.3"
+    font-ligatures "^1.4.0"
 
 xterm-addon-search@^0.8.0:
   version "0.8.0"
@@ -388,10 +382,10 @@ xterm@^4.9.0-beta.7:
   resolved "https://registry.yarnpkg.com/xterm/-/xterm-4.12.0.tgz#db09b425b4dcae5b96f8cbbaaa93b3bc60997ca9"
   integrity sha512-K5mF/p3txUV18mjiZFlElagoHFpqXrm5OYHeoymeXSu8GG/nMaOO/+NRcNCwfdjzAbdQ5VLF32hEHiWWKKm0bw==
 
-yallist@^2.1.2:
-  version "2.1.2"
-  resolved "https://registry.yarnpkg.com/yallist/-/yallist-2.1.2.tgz#1c11f9218f076089a47dd512f93c6699a6a81d52"
-  integrity sha1-HBH5IY8HYImkfdUS+TxmmaaoHVI=
+yallist@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/yallist/-/yallist-4.0.0.tgz#9bb92790d9c0effec63be73519e11a35019a3a72"
+  integrity sha512-3wdGidZyq5PB084XLES5TpOSRA3wjXAlIWMhum2kRcv/41Sn2emQ0dycQW4uZXLejwKvg6EsvbdlVL+FYEct7A==
 
 zmodem.js@^0.1.9:
   version "0.1.10"
