@@ -2,7 +2,7 @@ name: Linux Build
 on: [push, pull_request]
 jobs:
   build:
-    runs-on: ubuntu-16.04
+    runs-on: ubuntu-18.04
 
     steps:
     - name: Checkout
@@ -15,6 +15,7 @@ jobs:
 
     - name: Install deps
       run: |
+        sudo apt-get install bsdtar
         npm i -g yarn@1.19.1
         cd app
         yarn
