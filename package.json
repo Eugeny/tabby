@@ -34,7 +34,7 @@
     "macos-release": "^2.4.1",
     "node-abi": "^2.21.0",
     "node-gyp": "^8.0.0",
-    "node-sass": "^5.0.0",
+    "node-sass": "^6.0.0",
     "npmlog": "4.1.2",
     "npx": "^10.2.2",
     "patch-package": "^6.4.7",
