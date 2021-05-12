@@ -37,7 +37,7 @@
     "@terminus-term/node-pty": "0.10.0-terminus.3",
     "npm": "6",
     "path": "0.12.7",
-    "rxjs": "^6.6.6",
+    "rxjs": "^6.6.7",
     "yargs": "^16.2.0",
     "zone.js": "^0.11.4"
   },
@@ -46,7 +46,7 @@
     "serialport": "^9.0.7",
     "windows-blurbehind": "^1.0.1",
     "windows-native-registry": "^3.0.0",
-    "windows-process-tree": "^0.2.4"
+    "windows-process-tree": "^0.3.0"
   },
   "devDependencies": {
     "@types/mz": "2.7.3",
