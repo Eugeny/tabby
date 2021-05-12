@@ -29,7 +29,7 @@
     "electron-promise-ipc": "^2.2.4",
     "fontmanager-redux": "1.0.0",
     "glasstron": "0.0.7",
-    "js-yaml": "4.0.0",
+    "js-yaml": "4.1.0",
     "keytar": "^7.6.0",
     "mz": "^2.7.0",
     "native-process-working-directory": "^1.0.2",
