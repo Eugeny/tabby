@@ -70,6 +70,8 @@ linux:
   artifactName: terminus-${version}-linux.${ext}
   executableArgs:
   - "--no-sandbox"
+  desktop:
+    StartupWMClass: terminus
 snap:
   plugs:
   - default
