@@ -9,7 +9,7 @@ jobs:
       uses: actions/checkout@v1
 
     - name: Installing Node
-      uses: actions/setup-node@v1
+      uses: actions/setup-node@v2.1.5
       with:
         node-version: 15
 
