@@ -84,7 +84,12 @@ export class UpdaterService {
                 this.electron.autoUpdater.on('error', onError)
                 this.electron.autoUpdater.on('update-not-available', onNoUpdate)
                 this.electron.autoUpdater.on('update-available', onUpdate)
-                this.electron.autoUpdater.checkForUpdates()
+                try {
+                    this.electron.autoUpdater.checkForUpdates()
+                } catch (e) {
+                    this.electronUpdaterAvailable = false
+                    this.logger.info('Electron updater unavailable, falling back', e)
+                }
             })
 
             this.electron.autoUpdater.on('update-available', () => {
