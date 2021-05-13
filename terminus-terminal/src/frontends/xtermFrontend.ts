@@ -24,6 +24,7 @@ export class XTermFrontend extends Frontend {
     protected xtermCore: any
     protected enableWebGL = false
     private xterm: Terminal
+    private element?: HTMLElement
     private configuredFontSize = 0
     private configuredLinePadding = 0
     private zoom = 0
@@ -62,6 +63,9 @@ export class XTermFrontend extends Frontend {
             if (this.copyOnSelect && this.getSelection()) {
                 this.copySelection()
             }
+        })
+        this.xterm.onBell(() => {
+            this.bell.next()
         })
 
         this.xterm.loadAddon(this.fitAddon)
@@ -135,6 +139,7 @@ export class XTermFrontend extends Frontend {
 
     async attach (host: HTMLElement): Promise<void> {
         this.configure()
+        this.element = host
 
         this.xterm.open(host)
         this.opened = true
@@ -217,7 +222,12 @@ export class XTermFrontend extends Frontend {
     }
 
     visualBell (): void {
-        this.xtermCore.bell()
+        if (this.element) {
+            this.element.style.animation = 'none'
+            setTimeout(() => {
+                this.element!.style.animation = 'terminalShakeFrames 0.3s ease'
+            })
+        }
     }
 
     scrollToBottom (): void {
