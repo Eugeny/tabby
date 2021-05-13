@@ -8,7 +8,6 @@ import { BaseTerminalTabComponent } from 'terminus-terminal'
 import { SSHService } from '../services/ssh.service'
 import { SSHConnection, SSHSession } from '../api'
 import { SSHPortForwardingModalComponent } from './sshPortForwardingModal.component'
-import { Subscription } from 'rxjs'
 
 
 /** @hidden */
@@ -22,7 +21,6 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
     connection?: SSHConnection
     session: SSHSession|null = null
     private sessionStack: SSHSession[] = []
-    private homeEndSubscription: Subscription
     private recentInputs = ''
     private reconnectOffered = false
     private spinner = new Spinner({
@@ -50,7 +48,7 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
 
         this.enableDynamicTitle = !this.connection.disableDynamicTitle
 
-        this.homeEndSubscription = this.hotkeys.matchedHotkey.subscribe(hotkey => {
+        this.subscribeUntilDestroyed(this.hotkeys.matchedHotkey, hotkey => {
             if (!this.hasFocus) {
                 return
             }
@@ -223,11 +221,6 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
                 defaultId: 1,
             }
         )).response === 1
-    }
-
-    ngOnDestroy (): void {
-        this.homeEndSubscription.unsubscribe()
-        super.ngOnDestroy()
     }
 
     private startSpinner () {

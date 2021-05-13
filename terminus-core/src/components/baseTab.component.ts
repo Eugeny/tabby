@@ -1,6 +1,7 @@
 import { Observable, Subject } from 'rxjs'
 import { ViewRef } from '@angular/core'
 import { RecoveryToken } from '../api/tabRecovery'
+import { BaseComponent } from './base.component'
 
 /**
  * Represents an active "process" inside a tab,
@@ -13,7 +14,7 @@ export interface BaseTabProcess {
 /**
  * Abstract base class for custom tab components
  */
-export abstract class BaseTabComponent {
+export abstract class BaseTabComponent extends BaseComponent {
     /**
      * Parent tab (usually a SplitTabComponent)
      */
@@ -69,6 +70,7 @@ export abstract class BaseTabComponent {
     get recoveryStateChangedHint$ (): Observable<void> { return this.recoveryStateChangedHint }
 
     protected constructor () {
+        super()
         this.focused$.subscribe(() => {
             this.hasFocus = true
         })
@@ -158,10 +160,17 @@ export abstract class BaseTabComponent {
         this.blurred.complete()
         this.titleChange.complete()
         this.progress.complete()
+        this.activity.complete()
         this.recoveryStateChangedHint.complete()
         if (!skipDestroyedEvent) {
             this.destroyed.next()
         }
         this.destroyed.complete()
+    }
+
+    /** @hidden */
+    ngOnDestroy (): void {
+        this.destroy()
+        super.ngOnDestroy()
     }
 }

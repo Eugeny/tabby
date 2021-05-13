@@ -1,5 +1,4 @@
 import { Component, Input, Injector } from '@angular/core'
-import { Subscription } from 'rxjs'
 import { BaseTabProcess, WIN_BUILD_CONPTY_SUPPORTED, isWindowsBuild } from 'terminus-core'
 import { BaseTerminalTabComponent } from '../api/baseTerminalTab.component'
 import { SessionOptions } from '../api/interfaces'
@@ -14,7 +13,6 @@ import { Session } from '../services/sessions.service'
 })
 export class TerminalTabComponent extends BaseTerminalTabComponent {
     @Input() sessionOptions: SessionOptions
-    private homeEndSubscription: Subscription
     session: Session|null = null
 
     // eslint-disable-next-line @typescript-eslint/no-useless-constructor
@@ -30,7 +28,7 @@ export class TerminalTabComponent extends BaseTerminalTabComponent {
 
         const isConPTY = isWindowsBuild(WIN_BUILD_CONPTY_SUPPORTED) && this.config.store.terminal.useConPTY
 
-        this.homeEndSubscription = this.hotkeys.matchedHotkey.subscribe(hotkey => {
+        this.subscribeUntilDestroyed(this.hotkeys.matchedHotkey, hotkey => {
             if (!this.hasFocus) {
                 return
             }
@@ -106,7 +104,6 @@ export class TerminalTabComponent extends BaseTerminalTabComponent {
     }
 
     ngOnDestroy (): void {
-        this.homeEndSubscription.unsubscribe()
         super.ngOnDestroy()
         this.session?.destroy()
     }

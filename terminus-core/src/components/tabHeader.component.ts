@@ -11,6 +11,7 @@ import { ElectronService } from '../services/electron.service'
 import { AppService } from '../services/app.service'
 import { HostAppService, Platform } from '../services/hostApp.service'
 import { ConfigService } from '../services/config.service'
+import { BaseComponent } from './base.component'
 
 /** @hidden */
 export interface SortableComponentProxy {
@@ -23,7 +24,7 @@ export interface SortableComponentProxy {
     template: require('./tabHeader.component.pug'),
     styles: [require('./tabHeader.component.scss')],
 })
-export class TabHeaderComponent {
+export class TabHeaderComponent extends BaseComponent {
     @Input() index: number
     @Input() @HostBinding('class.active') active: boolean
     @Input() tab: BaseTabComponent
@@ -41,7 +42,8 @@ export class TabHeaderComponent {
         @Inject(SortableComponent) private parentDraggable: SortableComponentProxy,
         @Optional() @Inject(TabContextMenuItemProvider) protected contextMenuProviders: TabContextMenuItemProvider[],
     ) {
-        this.hotkeys.matchedHotkey.subscribe((hotkey) => {
+        super()
+        this.subscribeUntilDestroyed(this.hotkeys.matchedHotkey, (hotkey) => {
             if (this.app.activeTab === this.tab) {
                 if (hotkey === 'rename-tab') {
                     this.showRenameTabModal()
@@ -52,7 +54,7 @@ export class TabHeaderComponent {
     }
 
     ngOnInit () {
-        this.tab.progress$.subscribe(progress => {
+        this.subscribeUntilDestroyed(this.tab.progress$, progress => {
             this.zone.run(() => {
                 this.progress = progress
             })

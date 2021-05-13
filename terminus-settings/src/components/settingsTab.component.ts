@@ -58,7 +58,7 @@ export class SettingsTabComponent extends BaseTabComponent {
                 && config.store.appearance.tabsLocation !== 'top'
         }
 
-        this.configSubscription = config.changed$.subscribe(onConfigChange)
+        this.configSubscription = this.subscribeUntilDestroyed(config.changed$, onConfigChange)
         onConfigChange()
     }
 

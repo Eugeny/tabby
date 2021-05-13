@@ -1,4 +1,4 @@
-import { Observable, Subject, Subscription } from 'rxjs'
+import { Observable, Subject } from 'rxjs'
 import { Component, Injectable, ViewChild, ViewContainerRef, EmbeddedViewRef, AfterViewInit, OnDestroy } from '@angular/core'
 import { BaseTabComponent, BaseTabProcess } from './baseTab.component'
 import { TabRecoveryProvider, RecoveredTab, RecoveryToken } from '../api/tabRecovery'
@@ -163,7 +163,6 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
     /** @hidden */
     private focusedTab: BaseTabComponent|null = null
     private maximizedTab: BaseTabComponent|null = null
-    private hotkeysSubscription: Subscription
     private viewRefs: Map<BaseTabComponent, EmbeddedViewRef<any>> = new Map()
 
     private tabAdded = new Subject<BaseTabComponent>()
@@ -210,7 +209,7 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
         })
         this.blurred$.subscribe(() => this.getAllTabs().forEach(x => x.emitBlurred()))
 
-        this.hotkeysSubscription = this.hotkeys.matchedHotkey.subscribe(hotkey => {
+        this.subscribeUntilDestroyed(this.hotkeys.matchedHotkey, hotkey => {
             if (!this.hasFocus || !this.focusedTab) {
                 return
             }
@@ -272,7 +271,9 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
 
     /** @hidden */
     ngOnDestroy (): void {
-        this.hotkeysSubscription.unsubscribe()
+        this.tabAdded.complete()
+        this.tabRemoved.complete()
+        super.ngOnDestroy()
     }
 
     /** @returns Flat list of all sub-tabs */
@@ -497,18 +498,18 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
         const ref = this.viewContainer.insert(tab.hostView) as EmbeddedViewRef<any> // eslint-disable-line @typescript-eslint/no-unnecessary-type-assertion
         this.viewRefs.set(tab, ref)
 
-        ref.rootNodes[0].addEventListener('click', () => this.focus(tab))
+        tab.addEventListenerUntilDestroyed(ref.rootNodes[0], 'click', () => this.focus(tab))
 
-        tab.titleChange$.subscribe(t => this.setTitle(t))
-        tab.activity$.subscribe(a => a ? this.displayActivity() : this.clearActivity())
-        tab.progress$.subscribe(p => this.setProgress(p))
+        tab.subscribeUntilDestroyed(tab.titleChange$, t => this.setTitle(t))
+        tab.subscribeUntilDestroyed(tab.activity$, a => a ? this.displayActivity() : this.clearActivity())
+        tab.subscribeUntilDestroyed(tab.progress$, p => this.setProgress(p))
         if (tab.title) {
             this.setTitle(tab.title)
         }
-        tab.recoveryStateChangedHint$.subscribe(() => {
+        tab.subscribeUntilDestroyed(tab.recoveryStateChangedHint$, () => {
             this.recoveryStateChangedHint.next()
         })
-        tab.destroyed$.subscribe(() => {
+        tab.subscribeUntilDestroyed(tab.destroyed$, () => {
             this.removeTab(tab)
         })
     }

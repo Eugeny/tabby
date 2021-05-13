@@ -1,3 +1,4 @@
+export { BaseComponent, SubscriptionContainer } from '../components/base.component'
 export { BaseTabComponent, BaseTabProcess } from '../components/baseTab.component'
 export { TabHeaderComponent } from '../components/tabHeader.component'
 export { SplitTabComponent, SplitContainer } from '../components/splitTab.component'

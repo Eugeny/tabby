@@ -6,7 +6,6 @@ import { first } from 'rxjs/operators'
 import { BaseTerminalTabComponent } from 'terminus-terminal'
 import { SerialService } from '../services/serial.service'
 import { SerialConnection, SerialSession, BAUD_RATES } from '../api'
-import { Subscription } from 'rxjs'
 
 /** @hidden */
 @Component({
@@ -20,7 +19,6 @@ export class SerialTabComponent extends BaseTerminalTabComponent {
     session: SerialSession|null = null
     serialPort: any
     private serialService: SerialService
-    private homeEndSubscription: Subscription
 
     // eslint-disable-next-line @typescript-eslint/no-useless-constructor
     constructor (
@@ -33,7 +31,7 @@ export class SerialTabComponent extends BaseTerminalTabComponent {
     ngOnInit () {
         this.logger = this.log.create('terminalTab')
 
-        this.homeEndSubscription = this.hotkeys.matchedHotkey.subscribe(hotkey => {
+        this.subscribeUntilDestroyed(this.hotkeys.matchedHotkey, hotkey => {
             if (!this.hasFocus) {
                 return
             }
@@ -129,10 +127,5 @@ export class SerialTabComponent extends BaseTerminalTabComponent {
         })))
         this.serialPort.update({ baudRate: rate })
         this.connection!.baudrate = rate
-    }
-
-    ngOnDestroy () {
-        this.homeEndSubscription.unsubscribe()
-        super.ngOnDestroy()
     }
 }

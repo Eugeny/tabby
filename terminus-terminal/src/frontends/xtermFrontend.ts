@@ -34,7 +34,9 @@ export class XTermFrontend extends Frontend {
     private fitAddon = new FitAddon()
     private serializeAddon = new SerializeAddon()
     private ligaturesAddon?: LigaturesAddon
+    private webGLAddon?: WebglAddon
     private opened = false
+    private resizeObserver?: any
 
     constructor () {
         super()
@@ -141,7 +143,8 @@ export class XTermFrontend extends Frontend {
         await new Promise(resolve => setTimeout(resolve, process.env.XWEB ? 1000 : 0))
 
         if (this.enableWebGL) {
-            this.xterm.loadAddon(new WebglAddon())
+            this.webGLAddon = new WebglAddon()
+            this.xterm.loadAddon(this.webGLAddon)
         }
 
         this.ready.next()
@@ -160,12 +163,19 @@ export class XTermFrontend extends Frontend {
         host.addEventListener('mouseup', event => this.mouseEvent.next(event))
         host.addEventListener('mousewheel', event => this.mouseEvent.next(event as MouseEvent))
 
-        const ro = new window['ResizeObserver'](() => setTimeout(() => this.resizeHandler()))
-        ro.observe(host)
+        this.resizeObserver = new window['ResizeObserver'](() => setTimeout(() => this.resizeHandler()))
+        this.resizeObserver.observe(host)
     }
 
     detach (_host: HTMLElement): void {
         window.removeEventListener('resize', this.resizeHandler)
+        this.resizeObserver?.disconnect()
+    }
+
+    destroy (): void {
+        super.destroy()
+        this.webGLAddon?.dispose()
+        this.xterm.dispose()
     }
 
     getSelection (): string {

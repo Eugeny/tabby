@@ -7,7 +7,7 @@ const bundleAnalyzer = new BundleAnalyzerPlugin({
 
 module.exports = options => {
     const isDev = !!process.env.TERMINUS_DEV
-    const devtool = isDev && process.platform === 'win32' ? 'eval-cheap-module-source-map' : 'cheap-module-source-map'
+    const devtool = process.env.WEBPACK_DEVTOOL ?? (isDev && process.platform === 'win32' ? 'eval-cheap-module-source-map' : 'cheap-module-source-map')
     const config = {
         target: 'node',
         entry: 'src/index.ts',

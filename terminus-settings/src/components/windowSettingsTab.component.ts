@@ -9,6 +9,7 @@ import {
     Platform,
     isWindowsBuild,
     WIN_BUILD_FLUENT_BG_SUPPORTED,
+    BaseComponent,
 } from 'terminus-core'
 
 
@@ -17,7 +18,7 @@ import {
     selector: 'window-settings-tab',
     template: require('./windowSettingsTab.component.pug'),
 })
-export class WindowSettingsTabComponent {
+export class WindowSettingsTabComponent extends BaseComponent {
     screens: any[]
     Platform = Platform
     isFluentVibrancySupported = false
@@ -29,10 +30,11 @@ export class WindowSettingsTabComponent {
         public zone: NgZone,
         @Inject(Theme) public themes: Theme[],
     ) {
+        super()
         this.screens = this.docking.getScreens()
         this.themes = config.enabledServices(this.themes)
 
-        hostApp.displaysChanged$.subscribe(() => {
+        this.subscribeUntilDestroyed(hostApp.displaysChanged$, () => {
             this.zone.run(() => this.screens = this.docking.getScreens())
         })
 

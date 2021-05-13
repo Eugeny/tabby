@@ -4,7 +4,7 @@ import { first } from 'rxjs/operators'
 import colors from 'ansi-colors'
 import { NgZone, OnInit, OnDestroy, Injector, ViewChild, HostBinding, Input, ElementRef, InjectFlags } from '@angular/core'
 import { trigger, transition, style, animate, AnimationTriggerMetadata } from '@angular/animations'
-import { AppService, ConfigService, BaseTabComponent, ElectronService, HostAppService, HotkeysService, NotificationsService, Platform, LogService, Logger, TabContextMenuItemProvider, SplitTabComponent } from 'terminus-core'
+import { AppService, ConfigService, BaseTabComponent, ElectronService, HostAppService, HotkeysService, NotificationsService, Platform, LogService, Logger, TabContextMenuItemProvider, SplitTabComponent, SubscriptionContainer } from 'terminus-core'
 
 import { BaseSession, SessionsService } from '../services/sessions.service'
 import { TerminalFrontendService } from '../services/terminalFrontend.service'
@@ -95,12 +95,10 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
     protected logger: Logger
     protected output = new Subject<string>()
     protected sessionChanged = new Subject<BaseSession|null>()
-    private sessionCloseSubscription: Subscription
-    private hotkeysSubscription: Subscription
     private bellPlayer: HTMLAudioElement
-    private termContainerSubscriptions: Subscription[] = []
+    private termContainerSubscriptions = new SubscriptionContainer()
     private allFocusModeSubscription: Subscription|null = null
-    private sessionHandlers: Subscription[] = []
+    private sessionHandlers = new SubscriptionContainer()
 
     get input$ (): Observable<Buffer> {
         if (!this.frontend) {
@@ -149,7 +147,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
         this.logger = this.log.create('baseTerminalTab')
         this.setTitle('Terminal')
 
-        this.hotkeysSubscription = this.hotkeys.matchedHotkey.subscribe(async hotkey => {
+        this.subscribeUntilDestroyed(this.hotkeys.matchedHotkey, async hotkey => {
             if (!this.hasFocus) {
                 return
             }
@@ -475,7 +473,13 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
 
     /** @hidden */
     ngOnDestroy (): void {
+        super.ngOnDestroy()
+    }
+
+    async destroy (): Promise<void> {
         this.frontend?.detach(this.content.nativeElement)
+        this.frontend = undefined
+        this.content.nativeElement.remove()
         this.detachTermContainerHandlers()
         this.config.enabledServices(this.decorators).forEach(decorator => {
             try {
@@ -484,14 +488,8 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
                 this.logger.warn('Decorator attach() throws', e)
             }
         })
-        this.hotkeysSubscription.unsubscribe()
-        if (this.sessionCloseSubscription) {
-            this.sessionCloseSubscription.unsubscribe()
-        }
         this.output.complete()
-    }
 
-    async destroy (): Promise<void> {
         super.destroy()
         if (this.session?.open) {
             await this.session.destroy()
@@ -499,10 +497,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
     }
 
     protected detachTermContainerHandlers (): void {
-        for (const subscription of this.termContainerSubscriptions) {
-            subscription.unsubscribe()
-        }
-        this.termContainerSubscriptions = []
+        this.termContainerSubscriptions.cancelAll()
     }
 
     protected attachTermContainerHandlers (): void {
@@ -518,71 +513,69 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
             }
         }
 
-        this.termContainerSubscriptions = [
-            this.frontend.title$.subscribe(title => this.zone.run(() => {
-                if (this.enableDynamicTitle) {
-                    this.setTitle(title)
+        this.termContainerSubscriptions.subscribe(this.frontend.title$, title => this.zone.run(() => {
+            if (this.enableDynamicTitle) {
+                this.setTitle(title)
+            }
+        }))
+
+        this.termContainerSubscriptions.subscribe(this.focused$, () => this.frontend && (this.frontend.enableResizing = true))
+        this.termContainerSubscriptions.subscribe(this.blurred$, () => this.frontend && (this.frontend.enableResizing = false))
+
+        this.termContainerSubscriptions.subscribe(this.frontend.mouseEvent$, async event => {
+            if (event.type === 'mousedown') {
+                if (event.which === 2) {
+                    if (this.config.store.terminal.pasteOnMiddleClick) {
+                        this.paste()
+                    }
+                    event.preventDefault()
+                    event.stopPropagation()
+                    return
                 }
-            })),
-
-            this.focused$.subscribe(() => this.frontend && (this.frontend.enableResizing = true)),
-            this.blurred$.subscribe(() => this.frontend && (this.frontend.enableResizing = false)),
-
-            this.frontend.mouseEvent$.subscribe(async event => {
-                if (event.type === 'mousedown') {
-                    if (event.which === 2) {
-                        if (this.config.store.terminal.pasteOnMiddleClick) {
-                            this.paste()
-                        }
-                        event.preventDefault()
-                        event.stopPropagation()
-                        return
+                if (event.which === 3 || event.which === 1 && event.ctrlKey) {
+                    if (this.config.store.terminal.rightClick === 'menu') {
+                        this.hostApp.popupContextMenu(await this.buildContextMenu())
+                    } else if (this.config.store.terminal.rightClick === 'paste') {
+                        this.paste()
                     }
-                    if (event.which === 3 || event.which === 1 && event.ctrlKey) {
-                        if (this.config.store.terminal.rightClick === 'menu') {
-                            this.hostApp.popupContextMenu(await this.buildContextMenu())
-                        } else if (this.config.store.terminal.rightClick === 'paste') {
-                            this.paste()
-                        }
-                        event.preventDefault()
-                        event.stopPropagation()
-                        return
-                    }
+                    event.preventDefault()
+                    event.stopPropagation()
+                    return
                 }
-                if (event.type === 'mousewheel') {
-                    let wheelDeltaY = 0
+            }
+            if (event.type === 'mousewheel') {
+                let wheelDeltaY = 0
 
-                    if ('wheelDeltaY' in event) {
-                        wheelDeltaY = (event as MouseWheelEvent)['wheelDeltaY']
-                    } else {
-                        wheelDeltaY = (event as MouseWheelEvent)['deltaY']
-                    }
-
-                    if (event.altKey) {
-                        event.preventDefault()
-                        const delta = Math.round(wheelDeltaY / 50)
-                        this.sendInput((delta > 0 ? '\u001bOA' : '\u001bOB').repeat(Math.abs(delta)))
-                    }
+                if ('wheelDeltaY' in event) {
+                    wheelDeltaY = (event as MouseWheelEvent)['wheelDeltaY']
+                } else {
+                    wheelDeltaY = (event as MouseWheelEvent)['deltaY']
                 }
-            }),
 
-            this.frontend.input$.subscribe(data => {
-                this.sendInput(data)
-            }),
+                if (event.altKey) {
+                    event.preventDefault()
+                    const delta = Math.round(wheelDeltaY / 50)
+                    this.sendInput((delta > 0 ? '\u001bOA' : '\u001bOB').repeat(Math.abs(delta)))
+                }
+            }
+        })
 
-            this.frontend.resize$.subscribe(({ columns, rows }) => {
-                this.logger.debug(`Resizing to ${columns}x${rows}`)
-                this.size = { columns, rows }
-                this.zone.run(() => {
-                    if (this.session?.open) {
-                        this.session.resize(columns, rows)
-                    }
-                })
-            }),
+        this.termContainerSubscriptions.subscribe(this.frontend.input$, data => {
+            this.sendInput(data)
+        })
 
-            this.hostApp.displayMetricsChanged$.subscribe(maybeConfigure),
-            this.hostApp.windowMoved$.subscribe(maybeConfigure),
-        ]
+        this.termContainerSubscriptions.subscribe(this.frontend.resize$, ({ columns, rows }) => {
+            this.logger.debug(`Resizing to ${columns}x${rows}`)
+            this.size = { columns, rows }
+            this.zone.run(() => {
+                if (this.session?.open) {
+                    this.session.resize(columns, rows)
+                }
+            })
+        })
+
+        this.termContainerSubscriptions.subscribe(this.hostApp.displayMetricsChanged$, maybeConfigure)
+        this.termContainerSubscriptions.subscribe(this.hostApp.windowMoved$, maybeConfigure)
     }
 
     setSession (session: BaseSession|null, destroyOnSessionClose = false): void {
@@ -600,8 +593,8 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
         this.sessionChanged.next(session)
     }
 
-    protected attachSessionHandler (subscription: Subscription): void {
-        this.sessionHandlers.push(subscription)
+    protected attachSessionHandler <T> (observable: Observable<T>, handler: (v: T) => void): void {
+        this.sessionHandlers.subscribe(observable, handler)
     }
 
     protected attachSessionHandlers (destroyOnSessionClose = false): void {
@@ -610,29 +603,26 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
         }
 
         // this.session.output$.bufferTime(10).subscribe((datas) => {
-        this.attachSessionHandler(this.session.output$.subscribe(data => {
+        this.attachSessionHandler(this.session.output$, data => {
             if (this.enablePassthrough) {
                 this.output.next(data)
                 this.write(data)
             }
-        }))
+        })
 
         if (destroyOnSessionClose) {
-            this.attachSessionHandler(this.sessionCloseSubscription = this.session.closed$.subscribe(() => {
+            this.attachSessionHandler(this.session.closed$, () => {
                 this.frontend?.destroy()
                 this.destroy()
-            }))
+            })
         }
 
-        this.attachSessionHandler(this.session.destroyed$.subscribe(() => {
+        this.attachSessionHandler(this.session.destroyed$, () => {
             this.setSession(null)
-        }))
+        })
     }
 
     protected detachSessionHandlers (): void {
-        for (const s of this.sessionHandlers) {
-            s.unsubscribe()
-        }
-        this.sessionHandlers = []
+        this.sessionHandlers.cancelAll()
     }
 }

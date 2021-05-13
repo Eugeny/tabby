@@ -10,15 +10,26 @@ export const altKeyName = {
     linux: 'Alt',
 }[process.platform]
 
+export interface EventData {
+    ctrlKey: boolean
+    metaKey: boolean
+    altKey: boolean
+    shiftKey: boolean
+    key: string
+    code: string
+    eventName: string
+    time: number
+}
+
 const REGEX_LATIN_KEYNAME = /^[A-Za-z]$/
 
-export function stringifyKeySequence (events: KeyboardEvent[]): string[] {
+export function stringifyKeySequence (events: EventData[]): string[] {
     const items: string[] = []
     events = events.slice()
 
     while (events.length > 0) {
         const event = events.shift()!
-        if ((event as any).event === 'keydown') {
+        if (event.eventName === 'keydown') {
             const itemKeys: string[] = []
             if (event.ctrlKey) {
                 itemKeys.push('Ctrl')

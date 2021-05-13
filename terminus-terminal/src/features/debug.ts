@@ -25,7 +25,7 @@ export class DebugDecorator extends TerminalDecorator {
             }
         }))
 
-        terminal.content.nativeElement.addEventListener('keyup', e => {
+        terminal.addEventListenerUntilDestroyed(terminal.content.nativeElement, 'keyup', (e: KeyboardEvent) => {
             // Ctrl-Shift-Alt-1
             if (e.which === 49 && e.ctrlKey && e.shiftKey && e.altKey) {
                 this.doSaveState(terminal)

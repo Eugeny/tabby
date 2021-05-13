@@ -1,8 +1,7 @@
 import { Component, Input } from '@angular/core'
 import { trigger, transition, style, animate } from '@angular/animations'
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
-import { Subscription } from 'rxjs'
-import { HotkeysService } from 'terminus-core'
+import { HotkeysService, BaseComponent } from 'terminus-core'
 
 const INPUT_TIMEOUT = 1000
 
@@ -36,11 +35,10 @@ const INPUT_TIMEOUT = 1000
         ]),
     ],
 })
-export class HotkeyInputModalComponent {
+export class HotkeyInputModalComponent extends BaseComponent {
     @Input() value: string[] = []
     @Input() timeoutProgress = 0
 
-    private keySubscription: Subscription
     private lastKeyEvent: number|null = null
     private keyTimeoutInterval: number|null = null
 
@@ -48,8 +46,9 @@ export class HotkeyInputModalComponent {
         private modalInstance: NgbActiveModal,
         public hotkeys: HotkeysService,
     ) {
+        super()
         this.hotkeys.clearCurrentKeystrokes()
-        this.keySubscription = hotkeys.key.subscribe((event) => {
+        this.subscribeUntilDestroyed(hotkeys.key, (event) => {
             this.lastKeyEvent = performance.now()
             this.value = this.hotkeys.getCurrentKeystrokes()
             event.preventDefault()
@@ -75,10 +74,10 @@ export class HotkeyInputModalComponent {
     }
 
     ngOnDestroy (): void {
-        this.keySubscription.unsubscribe()
         this.hotkeys.clearCurrentKeystrokes()
         this.hotkeys.enable()
         clearInterval(this.keyTimeoutInterval!)
+        super.ngOnDestroy()
     }
 
     close (): void {

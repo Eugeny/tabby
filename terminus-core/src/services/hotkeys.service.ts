@@ -1,7 +1,7 @@
 import { Injectable, Inject, NgZone, EventEmitter } from '@angular/core'
 import { Observable, Subject } from 'rxjs'
 import { HotkeyDescription, HotkeyProvider } from '../api/hotkeyProvider'
-import { stringifyKeySequence } from './hotkeys.util'
+import { stringifyKeySequence, EventData } from './hotkeys.util'
 import { ConfigService } from './config.service'
 import { ElectronService } from './electron.service'
 import { HostAppService } from './hostApp.service'
@@ -14,10 +14,6 @@ export interface PartialHotkeyMatch {
 
 const KEY_TIMEOUT = 2000
 
-interface EventBufferEntry {
-    event: KeyboardEvent
-    time: number
-}
 
 @Injectable({ providedIn: 'root' })
 export class HotkeysService {
@@ -32,7 +28,7 @@ export class HotkeysService {
     get hotkey$ (): Observable<string> { return this._hotkey }
 
     private _hotkey = new Subject<string>()
-    private currentKeystrokes: EventBufferEntry[] = []
+    private currentKeystrokes: EventData[] = []
     private disabledLevel = 0
     private hotkeyDescriptions: HotkeyDescription[] = []
 
@@ -73,7 +69,16 @@ export class HotkeysService {
      */
     pushKeystroke (name: string, nativeEvent: KeyboardEvent): void {
         (nativeEvent as any).event = name
-        this.currentKeystrokes.push({ event: nativeEvent, time: performance.now() })
+        this.currentKeystrokes.push({
+            ctrlKey: nativeEvent.ctrlKey,
+            metaKey: nativeEvent.metaKey,
+            altKey: nativeEvent.altKey,
+            shiftKey: nativeEvent.shiftKey,
+            code: nativeEvent.code,
+            key: nativeEvent.key,
+            eventName: name,
+            time: performance.now(),
+        })
     }
 
     /**
@@ -104,7 +109,7 @@ export class HotkeysService {
 
     getCurrentKeystrokes (): string[] {
         this.currentKeystrokes = this.currentKeystrokes.filter(x => performance.now() - x.time < KEY_TIMEOUT)
-        return stringifyKeySequence(this.currentKeystrokes.map(x => x.event))
+        return stringifyKeySequence(this.currentKeystrokes)
     }
 
     getCurrentFullyMatchedHotkey (): string|null {
