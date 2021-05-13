@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Observable } from 'rxjs'
+import { debounce } from 'utils-decorators/dist/cjs'
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators'
 import { exec } from 'mz/child_process'
 const fontManager = require('fontmanager-redux') // eslint-disable-line
@@ -49,5 +50,13 @@ export class AppearanceSettingsTabComponent {
 
     getPreviewFontFamily () {
         return getCSSFontFamily(this.config.store)
+    }
+
+    @debounce(500)
+    saveConfiguration (requireRestart?: boolean) {
+        this.config.save()
+        if (requireRestart) {
+            this.config.requestRestart()
+        }
     }
 }
