@@ -124,6 +124,9 @@ export class Window {
 
         this.window.loadURL(`file://${app.getAppPath()}/dist/index.html?${this.window.id}`, { extraHeaders: 'pragma: no-cache\n' })
 
+        this.window.webContents.setVisualZoomLevelLimits(1, 1)
+        this.window.webContents.setZoomFactor(1)
+
         if (process.platform !== 'darwin') {
             this.window.setMenu(null)
         }
