@@ -92,13 +92,11 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
 
             await this.setupOneSession(jumpSession)
 
-            this.attachSessionHandler(
-                jumpSession.destroyed$.subscribe(() => {
-                    if (session.open) {
-                        session.destroy()
-                    }
-                })
-            )
+            this.attachSessionHandler(jumpSession.destroyed$, () => {
+                if (session.open) {
+                    session.destroy()
+                }
+            })
 
             session.jumpStream = await new Promise((resolve, reject) => jumpSession.ssh.forwardOut(
                 '127.0.0.1', 0, session.connection.host, session.connection.port ?? 22,
@@ -122,12 +120,12 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
 
         this.startSpinner()
 
-        this.attachSessionHandler(session.serviceMessage$.subscribe(msg => {
+        this.attachSessionHandler(session.serviceMessage$, msg => {
             this.pauseSpinner(() => {
                 this.write(`\r${colors.black.bgWhite(' SSH ')} ${msg}\r\n`)
                 session.resize(this.size.columns, this.size.rows)
             })
-        }))
+        })
 
         try {
             await this.ssh.connectSession(session)
@@ -141,7 +139,7 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
 
     protected attachSessionHandlers (): void {
         const session = this.session!
-        this.attachSessionHandler(session.destroyed$.subscribe(() => {
+        this.attachSessionHandler(session.destroyed$, () => {
             if (
                 // Ctrl-D
                 this.recentInputs.charCodeAt(this.recentInputs.length - 1) === 4 ||
@@ -162,7 +160,7 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
                     })
                 }
             }
-        }))
+        })
         super.attachSessionHandlers()
     }
 

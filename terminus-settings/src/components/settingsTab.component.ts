@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import * as yaml from 'js-yaml'
 import { debounce } from 'utils-decorators/dist/cjs'
-import { Subscription } from 'rxjs'
 import { Component, Inject, Input, HostBinding, NgZone } from '@angular/core'
 import {
     ElectronService,
@@ -33,7 +32,6 @@ export class SettingsTabComponent extends BaseTabComponent {
     checkingForUpdate = false
     updateAvailable = false
     @HostBinding('class.pad-window-controls') padWindowControls = false
-    private configSubscription: Subscription
 
     constructor (
         public config: ConfigService,
@@ -58,7 +56,7 @@ export class SettingsTabComponent extends BaseTabComponent {
                 && config.store.appearance.tabsLocation !== 'top'
         }
 
-        this.configSubscription = this.subscribeUntilDestroyed(config.changed$, onConfigChange)
+        this.subscribeUntilDestroyed(config.changed$, onConfigChange)
         onConfigChange()
     }
 
@@ -76,7 +74,6 @@ export class SettingsTabComponent extends BaseTabComponent {
     }
 
     ngOnDestroy () {
-        this.configSubscription.unsubscribe()
         this.config.save()
     }
 

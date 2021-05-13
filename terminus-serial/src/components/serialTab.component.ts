@@ -92,18 +92,18 @@ export class SerialTabComponent extends BaseTerminalTabComponent {
     }
 
     protected attachSessionHandlers () {
-        this.attachSessionHandler(this.session!.serviceMessage$.subscribe(msg => {
+        this.attachSessionHandler(this.session!.serviceMessage$, msg => {
             this.write(`\r\n${colors.black.bgWhite(' Serial ')} ${msg}\r\n`)
             this.session?.resize(this.size.columns, this.size.rows)
-        }))
-        this.attachSessionHandler(this.session!.destroyed$.subscribe(() => {
+        })
+        this.attachSessionHandler(this.session!.destroyed$, () => {
             this.write('Press any key to reconnect\r\n')
             this.input$.pipe(first()).subscribe(() => {
                 if (!this.session?.open) {
                     this.reconnect()
                 }
             })
-        }))
+        })
         super.attachSessionHandlers()
     }
 
