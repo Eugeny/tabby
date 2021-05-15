@@ -2651,10 +2651,10 @@ electron-to-chromium@^1.3.621:
   resolved "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.3.629.tgz"
   integrity sha512-iSPPJtPvHrMAvYOt+9cdbDmTasPqwnwz4lkP8Dn200gDNUBQOLQ96xUsWXBwXslAo5XxdoXAoQQ3RAy4uao9IQ==
 
-electron@12.0.6:
-  version "12.0.6"
-  resolved "https://registry.yarnpkg.com/electron/-/electron-12.0.6.tgz#2d72fa5a7db553dca3a771b22aa13a676122b4af"
-  integrity sha512-+fqhpdG6Fd6LzsizMdaSPC1I8tfsMT8/7fsYBgABED3hEWdus/rt6CQ54P3/EWZyQebtyHR6HXtlofUqKMV3KQ==
+electron@12.0.7:
+  version "12.0.7"
+  resolved "https://registry.yarnpkg.com/electron/-/electron-12.0.7.tgz#e0fca2c8be34cb7da48c4d15cfb1d2ad666d2718"
+  integrity sha512-722TZNKDuLpEmj96AzTYFKHaJEH98xgOBH0aldStaPXI1xDFfb9SJQQuirvwFlkwG5OqQdz6Ne3OwwJ7Dbs5nQ==
   dependencies:
     "@electron/get" "^1.0.1"
     "@types/node" "^14.6.2"
