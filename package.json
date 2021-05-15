@@ -57,7 +57,7 @@
     "url-loader": "^4.1.1",
     "val-loader": "3.1.0",
     "webpack": "^5.37.0",
-    "webpack-bundle-analyzer": "^4.4.0",
+    "webpack-bundle-analyzer": "^4.4.1",
     "webpack-cli": "^4.7.0",
     "yaml-loader": "0.6.0"
   },
