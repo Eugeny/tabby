@@ -379,6 +379,8 @@ export class SSHSession extends BaseSession {
     async destroy (): Promise<void> {
         this.serviceMessage.complete()
         this.proxyCommandStream?.destroy()
+        this.kill()
+        this.ssh.end()
         await super.destroy()
     }
 
