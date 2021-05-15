@@ -1,18 +1,16 @@
 import colors from 'ansi-colors'
 import { Duplex } from 'stream'
 import * as crypto from 'crypto'
-import { open as openTemp } from 'temp'
 import { Injectable, NgZone } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { Client } from 'ssh2'
 import { SSH2Stream } from 'ssh2-streams'
 import * as fs from 'mz/fs'
-import { execFile } from 'mz/child_process'
 import { exec } from 'child_process'
 import * as path from 'path'
 import * as sshpk from 'sshpk'
 import { Subject, Observable } from 'rxjs'
-import { HostAppService, Platform, Logger, LogService, ElectronService, AppService, SelectorOption, ConfigService, NotificationsService } from 'terminus-core'
+import { HostAppService, Platform, Logger, LogService, AppService, SelectorOption, ConfigService, NotificationsService } from 'terminus-core'
 import { SettingsTabComponent } from 'terminus-settings'
 import { ALGORITHM_BLACKLIST, ForwardedPort, SSHConnection, SSHSession } from '../api'
 import { PromptModalComponent } from '../components/promptModal.component'
@@ -37,7 +35,6 @@ export class SSHService {
 
     private constructor (
         private log: LogService,
-        private electron: ElectronService,
         private zone: NgZone,
         private ngbModal: NgbModal,
         private hostApp: HostAppService,
@@ -72,41 +69,14 @@ export class SSHService {
             try {
                 privateKey = (await fs.readFile(privateKeyPath)).toString()
             } catch (error) {
-                session.emitServiceMessage(colors.bgRed.black(' X ') + 'Could not read the private key file')
+                session.emitServiceMessage(colors.bgRed.black(' X ') + ' Could not read the private key file')
+                session.emitServiceMessage(colors.bgRed.black(' X ') + ` ${error}`)
                 this.notifications.error('Could not read the private key file')
             }
 
             if (privateKey) {
                 const parsedKey = await this.parsePrivateKey(privateKey)
-
-                const sshFormatKey = parsedKey.toString('openssh')
-                const temp = await openTemp()
-                fs.close(temp.fd)
-                await fs.writeFile(temp.path, sshFormatKey)
-
-                let sshKeygenPath = 'ssh-keygen'
-                if (this.hostApp.platform === Platform.Windows) {
-                    sshKeygenPath = path.join(
-                        path.dirname(this.electron.app.getPath('exe')),
-                        'resources',
-                        'extras',
-                        'ssh-keygen',
-                        'ssh-keygen.exe',
-                    )
-                    await execFile('icacls', [temp.path, '/inheritance:r'])
-                    let sid = await execFile('whoami', ['/user', '/nh', '/fo', 'csv'])
-                    sid = sid[0].split(',')[0]
-                    sid = sid.substring(1, sid.length - 1)
-                    await execFile('icacls', [temp.path, '/grant:r', `${sid}:(R,W)`])
-                }
-
-                await execFile(sshKeygenPath, [
-                    '-p', '-P', '', '-N', '', '-m', 'PEM', '-f',
-                    temp.path,
-                ])
-
-                privateKey = await fs.readFile(temp.path, { encoding: 'utf-8' })
-                fs.unlink(temp.path)
+                privateKey = parsedKey.toString('openssh')
             }
         }
         return privateKey
@@ -119,7 +89,6 @@ export class SSHService {
             try {
                 return sshpk.parsePrivateKey(privateKey, 'auto', { passphrase })
             } catch (e) {
-                this.notifications.error('Could not read the private key', e.toString())
                 if (e instanceof sshpk.KeyEncryptedError || e instanceof sshpk.KeyParseError) {
                     await this.passwordStorage.deletePrivateKeyPassword(keyHash)
 
@@ -138,6 +107,7 @@ export class SSHService {
                         throw e
                     }
                 } else {
+                    this.notifications.error('Could not read the private key', e.toString())
                     throw e
                 }
             }

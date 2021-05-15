@@ -28,9 +28,8 @@
     "clone-deep": "^4.0.1",
     "ssh2": "^0.8.9",
     "ssh2-streams": "Eugeny/ssh2-streams#75f6d3425d071ac73a18fd46e2f5e738bfe897c5",
-    "sshpk": "^1.16.1",
-    "strip-ansi": "^7.0.0",
-    "temp": "^0.9.1"
+    "sshpk": "Eugeny/node-sshpk#89ed17dfae425a8b629873c8337e77d26838c04f",
+    "strip-ansi": "^7.0.0"
   },
   "dependencies": {
     "run-script-os": "^1.1.3",
