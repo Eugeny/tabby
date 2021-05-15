@@ -46,7 +46,7 @@
     "raw-loader": "4.0.2",
     "sass-loader": "^11.1.1",
     "shelljs": "0.8.4",
-    "source-code-pro": "^2.30.2",
+    "source-code-pro": "^2.38.0",
     "source-sans-pro": "3.6.0",
     "ssh2-streams": "^0.4.10",
     "style-loader": "^2.0.0",
