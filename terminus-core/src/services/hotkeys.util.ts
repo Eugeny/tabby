@@ -70,7 +70,7 @@ export function stringifyKeySequence (events: EventData[]): string[] {
                     Quote: '\'',
                     BracketLeft: '[',
                     BracketRight: ']',
-                }[key] || key
+                }[key] ?? key
             }
 
             itemKeys.push(key)

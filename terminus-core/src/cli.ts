@@ -14,7 +14,8 @@ export class LastCLIHandler extends CLIHandler {
     async handle (event: CLIEvent): Promise<boolean> {
         if (event.secondInstance) {
             this.hostApp.newWindow()
+            return true
         }
-        return true
+        return false
     }
 }

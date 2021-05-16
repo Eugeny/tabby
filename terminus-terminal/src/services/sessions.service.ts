@@ -190,7 +190,8 @@ export class Session extends BaseSession {
                 })
             }
 
-            let cwd = options.cwd ?? process.env.HOME
+            // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
+            let cwd = options.cwd || process.env.HOME
 
             if (!fs.existsSync(cwd)) {
                 console.warn('Ignoring non-existent CWD:', cwd)

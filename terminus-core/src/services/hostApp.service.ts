@@ -127,7 +127,8 @@ export class HostAppService {
         })
 
         electron.ipcRenderer.on('cli', (_$event, argv: any, cwd: string, secondInstance: boolean) => this.zone.run(async () => {
-            this.logger.info('CLI arguments received:', argv)
+            const event = { argv, cwd, secondInstance }
+            this.logger.info('CLI arguments received:', event)
 
             const cliHandlers = injector.get(CLIHandler) as unknown as CLIHandler[]
             cliHandlers.sort((a, b) => b.priority - a.priority)
@@ -137,7 +138,8 @@ export class HostAppService {
                 if (handled && handler.firstMatchOnly) {
                     continue
                 }
-                if (await handler.handle({ argv, cwd, secondInstance })) {
+                if (await handler.handle(event)) {
+                    this.logger.info('CLI handler matched:', handler.constructor.name)
                     handled = true
                 }
             }
