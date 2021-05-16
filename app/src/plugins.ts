@@ -101,7 +101,14 @@ export async function findPlugins (): Promise<PluginInfo[]> {
     const candidateLocations: { pluginDir: string, packageName: string }[] = []
     const PREFIX = 'terminus-'
 
+    const processedPaths = []
+
     for (let pluginDir of paths) {
+        if (processedPaths.includes(pluginDir)) {
+            continue
+        }
+        processedPaths.push(pluginDir)
+
         pluginDir = normalizePath(pluginDir)
         if (!await fs.exists(pluginDir)) {
             continue
@@ -132,6 +139,8 @@ export async function findPlugins (): Promise<PluginInfo[]> {
         if (builtinModules.includes(packageName) && pluginDir !== builtinPluginsPath) {
             continue
         }
+
+        console.log(`Found ${name} in ${pluginDir}`)
 
         if (foundPlugins.some(x => x.name === name)) {
             console.info(`Plugin ${packageName} already exists, overriding`)

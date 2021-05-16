@@ -290,6 +290,15 @@ export class Window {
             this.send('host:window-focused')
         })
 
+        ipcMain.on('ready', event => {
+            if (!this.window || event.sender !== this.window.webContents) {
+                return
+            }
+            this.window.webContents.send('start', {
+                config: this.configStore,
+            })
+        })
+
         ipcMain.on('window-focus', event => {
             if (!this.window || event.sender !== this.window.webContents) {
                 return
