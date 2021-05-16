@@ -78,7 +78,7 @@ export class SerialSession extends BaseSession {
             this.emitOutput(Buffer.from(data))
         })
         this.inputReadline.on('line', line => {
-            this.onInput(new Buffer(line + '\n'))
+            this.onInput(Buffer.from(line + '\n'))
             this.resetInputPrompt()
         })
         this.output$.pipe(debounce(() => interval(500))).subscribe(() => this.onOutputSettled())
@@ -184,7 +184,7 @@ export class SerialSession extends BaseSession {
     }
 
     private resetInputPrompt () {
-        this.emitOutput(new Buffer('\r\n'))
+        this.emitOutput(Buffer.from('\r\n'))
         this.inputReadline.prompt(true)
         this.inputPromptVisible = true
     }
@@ -203,14 +203,14 @@ export class SerialSession extends BaseSession {
 
         if (this.connection.outputMode === 'hex') {
             this.emitOutput(Buffer.concat([
-                new Buffer('\r\n'),
+                Buffer.from('\r\n'),
                 Buffer.from(hexdump(data, {
                     group: 1,
                     gutter: 4,
                     divide: colors.gray(' ｜ '),
                     emptyHuman: colors.gray('╳'),
                 }).replace(/\n/g, '\r\n')),
-                new Buffer('\r\n\n'),
+                Buffer.from('\r\n\n'),
             ]))
         } else {
             this.emitOutput(data)

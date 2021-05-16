@@ -158,7 +158,7 @@ export class HostAppService {
         })
 
         electron.ipcRenderer.on('cli', (_$event, argv: any, cwd: string, secondInstance: boolean) => this.zone.run(async () => {
-            this.logger.info('Second instance', argv)
+            this.logger.info('CLI arguments received:', argv)
             const op = argv._[0]
             const opAsPath = op ? path.resolve(cwd, op) : null
             if (op === 'open') {
