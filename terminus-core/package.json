@@ -19,7 +19,6 @@
   "devDependencies": {
     "@electron/remote": "1.1.0",
     "@types/js-yaml": "^4.0.0",
-    "@types/shell-escape": "^0.2.0",
     "@types/winston": "^2.3.6",
     "axios": "^0.21.1",
     "bootstrap": "^4.1.3",
@@ -32,7 +31,6 @@
     "ng2-dnd": "^5.0.2",
     "ngx-perfect-scrollbar": "^10.1.0",
     "readable-stream": "3.6.0",
-    "shell-escape": "^0.2.0",
     "uuid": "^8.0.0",
     "winston": "^3.3.3"
   },

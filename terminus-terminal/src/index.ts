@@ -1,12 +1,10 @@
-import * as fs from 'mz/fs'
-
 import { NgModule } from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
 import { FormsModule } from '@angular/forms'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { ToastrModule } from 'ngx-toastr'
 
-import TerminusCorePlugin, { HostAppService, ToolbarButtonProvider, TabRecoveryProvider, ConfigProvider, HotkeysService, HotkeyProvider, AppService, ConfigService, TabContextMenuItemProvider, ElectronService } from 'terminus-core'
+import TerminusCorePlugin, { HostAppService, ToolbarButtonProvider, TabRecoveryProvider, ConfigProvider, HotkeysService, HotkeyProvider, TabContextMenuItemProvider, CLIHandler } from 'terminus-core'
 import { SettingsTabProvider } from 'terminus-settings'
 
 import { AppearanceSettingsTabComponent } from './components/appearanceSettingsTab.component'
@@ -57,6 +55,7 @@ import { hterm } from './frontends/hterm'
 import { Frontend } from './frontends/frontend'
 import { HTermFrontend } from './frontends/htermFrontend'
 import { XTermFrontend, XTermWebGLFrontend } from './frontends/xtermFrontend'
+import { AutoOpenTabCLIHandler, OpenPathCLIHandler, TerminalCLIHandler } from './cli'
 
 /** @hidden */
 @NgModule({
@@ -100,6 +99,10 @@ import { XTermFrontend, XTermWebGLFrontend } from './frontends/xtermFrontend'
         { provide: TabContextMenuItemProvider, useClass: SaveAsProfileContextMenu, multi: true },
         { provide: TabContextMenuItemProvider, useClass: LegacyContextMenu, multi: true },
 
+        { provide: CLIHandler, useClass: TerminalCLIHandler, multi: true },
+        { provide: CLIHandler, useClass: OpenPathCLIHandler, multi: true },
+        { provide: CLIHandler, useClass: AutoOpenTabCLIHandler, multi: true },
+
         // For WindowsDefaultShellProvider
         PowerShellCoreShellProvider,
         WSLShellProvider,
@@ -133,13 +136,10 @@ import { XTermFrontend, XTermWebGLFrontend } from './frontends/xtermFrontend'
 })
 export default class TerminalModule { // eslint-disable-line @typescript-eslint/no-extraneous-class
     private constructor (
-        app: AppService,
-        config: ConfigService,
         hotkeys: HotkeysService,
         terminal: TerminalService,
         hostApp: HostAppService,
         dockMenu: DockMenuService,
-        electron: ElectronService,
     ) {
         const events = [
             {
@@ -165,18 +165,6 @@ export default class TerminalModule { // eslint-disable-line @typescript-eslint/
                 hotkeys.emitKeyEvent(nativeEvent)
             }
         })
-        if (config.store.terminal.autoOpen) {
-            let argv = electron.process.argv
-            if (argv[0].includes('node')) {
-                argv = argv.slice(1)
-            }
-
-            if (require('yargs/yargs')(argv.slice(1)).parse()._[0] !== 'open'){
-                app.ready$.subscribe(() => {
-                    terminal.openTab()
-                })
-            }
-        }
 
         hotkeys.matchedHotkey.subscribe(async (hotkey) => {
             if (hotkey === 'new-tab') {
@@ -191,46 +179,6 @@ export default class TerminalModule { // eslint-disable-line @typescript-eslint/
                     terminal.openTabWithOptions(profile.sessionOptions)
                 }
             }
-        })
-
-        hostApp.cliOpenDirectory$.subscribe(async directory => {
-            if (directory.length > 1 && (directory.endsWith('/') || directory.endsWith('\\'))) {
-                directory = directory.substring(0, directory.length - 1)
-            }
-            if (await fs.exists(directory)) {
-                if ((await fs.stat(directory)).isDirectory()) {
-                    terminal.openTab(undefined, directory)
-                    hostApp.bringToFront()
-                }
-            }
-        })
-
-        hostApp.cliRunCommand$.subscribe(async command => {
-            terminal.openTab({
-                name: '',
-                sessionOptions: {
-                    command: command[0],
-                    args: command.slice(1),
-                },
-            }, null, true)
-            hostApp.bringToFront()
-        })
-
-        hostApp.cliPaste$.subscribe(text => {
-            if (app.activeTab instanceof TerminalTabComponent && app.activeTab.session) {
-                app.activeTab.sendInput(text)
-                hostApp.bringToFront()
-            }
-        })
-
-        hostApp.cliOpenProfile$.subscribe(async profileName => {
-            const profile = config.store.terminal.profiles.find(x => x.name === profileName)
-            if (!profile) {
-                console.error('Requested profile', profileName, 'not found')
-                return
-            }
-            terminal.openTabWithOptions(profile.sessionOptions)
-            hostApp.bringToFront()
         })
 
         dockMenu.update()

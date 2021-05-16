@@ -1,11 +1,9 @@
 import type { BrowserWindow, TouchBar, MenuItemConstructorOptions } from 'electron'
-import * as path from 'path'
-import * as fs from 'mz/fs'
-import shellEscape from 'shell-escape'
 import { Observable, Subject } from 'rxjs'
-import { Injectable, NgZone, EventEmitter } from '@angular/core'
+import { Injectable, NgZone, EventEmitter, Injector } from '@angular/core'
 import { ElectronService } from './electron.service'
 import { Logger, LogService } from './log.service'
+import { CLIHandler } from '../api/cli'
 import { isWindowsBuild, WIN_BUILD_FLUENT_BG_SUPPORTED } from '../utils'
 
 /* eslint-disable block-scoped-var */
@@ -42,11 +40,6 @@ export class HostAppService {
     isPortable = !!process.env.PORTABLE_EXECUTABLE_FILE
 
     private preferencesMenu = new Subject<void>()
-    private secondInstance = new Subject<void>()
-    private cliOpenDirectory = new Subject<string>()
-    private cliRunCommand = new Subject<string[]>()
-    private cliPaste = new Subject<string>()
-    private cliOpenProfile = new Subject<string>()
     private configChangeBroadcast = new Subject<void>()
     private windowCloseRequest = new Subject<void>()
     private windowMoved = new Subject<void>()
@@ -60,31 +53,6 @@ export class HostAppService {
      * Fired when Preferences is selected in the macOS menu
      */
     get preferencesMenu$ (): Observable<void> { return this.preferencesMenu }
-
-    /**
-     * Fired when a second instance of Terminus is launched
-     */
-    get secondInstance$ (): Observable<void> { return this.secondInstance }
-
-    /**
-     * Fired for the `terminus open` CLI command
-     */
-    get cliOpenDirectory$ (): Observable<string> { return this.cliOpenDirectory }
-
-    /**
-     * Fired for the `terminus run` CLI command
-     */
-    get cliRunCommand$ (): Observable<string[]> { return this.cliRunCommand }
-
-    /**
-     * Fired for the `terminus paste` CLI command
-     */
-    get cliPaste$ (): Observable<string> { return this.cliPaste }
-
-    /**
-     * Fired for the `terminus profile` CLI command
-     */
-    get cliOpenProfile$ (): Observable<string> { return this.cliOpenProfile }
 
     /**
      * Fired when another window modified the config file
@@ -107,6 +75,7 @@ export class HostAppService {
     private constructor (
         private zone: NgZone,
         private electron: ElectronService,
+        injector: Injector,
         log: LogService,
     ) {
         this.logger = log.create('hostApp')
@@ -159,28 +128,18 @@ export class HostAppService {
 
         electron.ipcRenderer.on('cli', (_$event, argv: any, cwd: string, secondInstance: boolean) => this.zone.run(async () => {
             this.logger.info('CLI arguments received:', argv)
-            const op = argv._[0]
-            const opAsPath = op ? path.resolve(cwd, op) : null
-            if (op === 'open') {
-                this.cliOpenDirectory.next(path.resolve(cwd, argv.directory))
-            } else if (op === 'run') {
-                this.cliRunCommand.next(argv.command)
-            } else if (op === 'paste') {
-                let text = argv.text
-                if (argv.escape) {
-                    text = shellEscape([text])
-                }
-                this.cliPaste.next(text)
-            } else if (op === 'profile') {
-                this.cliOpenProfile.next(argv.profileName)
-            } else if (secondInstance && op === undefined) {
-                this.newWindow()
-            } else if (opAsPath && (await fs.lstat(opAsPath)).isDirectory()) {
-                this.cliOpenDirectory.next(opAsPath)
-            }
 
-            if (secondInstance) {
-                this.secondInstance.next()
+            const cliHandlers = injector.get(CLIHandler) as unknown as CLIHandler[]
+            cliHandlers.sort((a, b) => b.priority - a.priority)
+
+            let handled = false
+            for (const handler of cliHandlers) {
+                if (handled && handler.firstMatchOnly) {
+                    continue
+                }
+                if (await handler.handle({ argv, cwd, secondInstance })) {
+                    handled = true
+                }
             }
         }))
 
