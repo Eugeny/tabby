@@ -16,6 +16,12 @@ export function parseArgs (argv: string[], cwd: string): any {
         .command('profile [profileName]', 'open a tab with specified profile', {
             profileName: { type: 'string' },
         })
+        .command('connect-ssh [connectionName]', 'open a tab for a saved SSH connection', {
+            connectionName: { type: 'string' },
+        })
+        .command('connect-serial [connectionName]', 'open a tab for a saved serial connection', {
+            connectionName: { type: 'string' },
+        })
         .command('paste [text]', 'paste stdin into the active tab', yargs => {
             return yargs.option('escape', {
                 alias: 'e',

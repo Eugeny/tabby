@@ -101,7 +101,6 @@ module.exports = options => {
             'windows-native-registry',
             'windows-process-tree',
             'windows-process-tree/build/Release/windows_process_tree.node',
-            'yargs/yargs',
             /^@angular/,
             /^@ng-bootstrap/,
             /^rxjs/,

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common'
 import { FormsModule } from '@angular/forms'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { ToastrModule } from 'ngx-toastr'
-import TerminusCoreModule, { ToolbarButtonProvider, ConfigProvider, TabRecoveryProvider, HotkeyProvider } from 'terminus-core'
+import TerminusCoreModule, { ToolbarButtonProvider, ConfigProvider, TabRecoveryProvider, HotkeyProvider, CLIHandler } from 'terminus-core'
 import { SettingsTabProvider } from 'terminus-settings'
 import TerminusTerminalModule from 'terminus-terminal'
 
@@ -16,6 +16,7 @@ import { SerialConfigProvider } from './config'
 import { SerialSettingsTabProvider } from './settings'
 import { RecoveryProvider } from './recoveryProvider'
 import { SerialHotkeyProvider } from './hotkeys'
+import { SerialCLIHandler } from './cli'
 
 /** @hidden */
 @NgModule({
@@ -33,6 +34,7 @@ import { SerialHotkeyProvider } from './hotkeys'
         { provide: SettingsTabProvider, useClass: SerialSettingsTabProvider, multi: true },
         { provide: TabRecoveryProvider, useClass: RecoveryProvider, multi: true },
         { provide: HotkeyProvider, useClass: SerialHotkeyProvider, multi: true },
+        { provide: CLIHandler, useClass: SerialCLIHandler, multi: true },
     ],
     entryComponents: [
         EditConnectionModalComponent,

@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import * as fs from 'mz/fs'
 import { Injectable } from '@angular/core'
 import { ToolbarButtonProvider, ToolbarButton, ElectronService, ConfigService, SelectorOption, AppService } from 'terminus-core'
 
@@ -15,18 +14,6 @@ export class ButtonProvider extends ToolbarButtonProvider {
         private terminal: TerminalService,
     ) {
         super()
-        if (!electron.process.env.TERMINUS_DEV) {
-            setImmediate(async () => {
-                const argv: string[] = electron.process.argv
-                for (const arg of argv.slice(1).concat([electron.process.argv0])) {
-                    if (await fs.exists(arg)) {
-                        if ((await fs.stat(arg)).isDirectory()) {
-                            this.terminal.openTab(undefined, arg)
-                        }
-                    }
-                }
-            })
-        }
     }
 
     async activate () {
