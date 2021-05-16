@@ -25,10 +25,11 @@
                     .col-6
                         .form-group
                             label Baud Rate
-                            select.form-control(
+                            input.form-control(
+                                type='number',
                                 [(ngModel)]='connection.baudrate',
+                                [ngbTypeahead]='baudratesAutocomplete',
                             )
-                                option([value]='x', *ngFor='let x of baudRates') {{x}}
 
                 .row
                     .col-6

@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Component } from '@angular/core'
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
-import { map } from 'rxjs/operators'
+import { Observable } from 'rxjs'
+import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators'
 import { ElectronService, HostAppService } from 'terminus-core'
 import { SerialConnection, LoginScript, SerialPortInfo, BAUD_RATES } from '../api'
 import { SerialService } from '../services/serial.service'
-// import { PromptModalComponent } from './promptModal.component'
 
 /** @hidden */
 @Component({
@@ -14,7 +14,6 @@ import { SerialService } from '../services/serial.service'
 export class EditConnectionModalComponent {
     connection: SerialConnection
     foundPorts: SerialPortInfo[]
-    baudRates = BAUD_RATES
     inputModes = [
         { key: null, name: 'Normal', description: 'Input is sent as you type' },
         { key: 'readline', name: 'Line by line', description: 'Line editor, input is sent after you press Enter' },
@@ -51,6 +50,12 @@ export class EditConnectionModalComponent {
     portsAutocomplete = text$ => text$.pipe(map(() => {
         return this.foundPorts.map(x => x.name)
     }))
+
+    baudratesAutocomplete = text$ => text$.pipe(
+        debounceTime(200),
+        distinctUntilChanged(),
+        map(q => BAUD_RATES.filter(x => !q || x.toString().startsWith(q)))
+    )
 
     portsFormatter = port => {
         const p = this.foundPorts.find(x => x.name === port)
