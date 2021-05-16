@@ -1,18 +1,27 @@
 const path = require('path')
+const webpack = require('webpack')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
 const bundleAnalyzer = new BundleAnalyzerPlugin({
     analyzerPort: 0,
 })
 
+const sourceMapOptions = {
+    exclude: [/node_modules/, /vendor/],
+    filename: '[file].map',
+}
+
+if (process.env.CI) {
+    sourceMapOptions.append = '\n//# sourceMappingURL=../../../app.asar.unpacked/assets/webpack/[url]'
+}
+
 module.exports = options => {
     const isDev = !!process.env.TERMINUS_DEV
-    const devtool = process.env.WEBPACK_DEVTOOL ?? (isDev && process.platform === 'win32' ? 'eval-cheap-module-source-map' : 'cheap-module-source-map')
     const config = {
         target: 'node',
         entry: 'src/index.ts',
         context: options.dirname,
-        devtool,
+        devtool: false,
         output: {
             path: path.resolve(options.dirname, 'dist'),
             filename: 'index.js',
@@ -99,7 +108,9 @@ module.exports = options => {
             /^terminus-/,
             ...options.externals || [],
         ],
-        plugins: [],
+        plugins: [
+            new webpack.SourceMapDevToolPlugin(sourceMapOptions),
+        ],
     }
     if (process.env.PLUGIN_BUNDLE_ANALYZER === options.name) {
         config.plugins.push(bundleAnalyzer)
