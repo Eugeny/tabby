@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Component } from '@angular/core'
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
-import { Observable } from 'rxjs'
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators'
 import { ElectronService, HostAppService } from 'terminus-core'
 import { SerialConnection, LoginScript, SerialPortInfo, BAUD_RATES } from '../api'

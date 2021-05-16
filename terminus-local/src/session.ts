@@ -1,11 +1,10 @@
 import * as psNode from 'ps-node'
 import * as fs from 'mz/fs'
 import * as os from 'os'
-import { getBootstrapData } from 'terminus-core'
+import { ConfigService, WIN_BUILD_CONPTY_SUPPORTED, isWindowsBuild, getBootstrapData } from 'terminus-core'
 import { BaseSession } from 'terminus-terminal'
 import { ipcRenderer } from 'electron'
 import { getWorkingDirectoryFromPID } from 'native-process-working-directory'
-import { ConfigService, WIN_BUILD_CONPTY_SUPPORTED, isWindowsBuild } from 'terminus-core'
 import { SessionOptions, ChildProcess } from './api'
 
 /* eslint-disable block-scoped-var */
