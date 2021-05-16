@@ -53,7 +53,7 @@ export class EditConnectionModalComponent {
     baudratesAutocomplete = text$ => text$.pipe(
         debounceTime(200),
         distinctUntilChanged(),
-        map(q => BAUD_RATES.filter(x => !q || x.toString().startsWith(q.toString())))
+        map((q: string) => BAUD_RATES.filter(x => !q || x.toString().startsWith(q)))
     )
 
     portsFormatter = port => {
