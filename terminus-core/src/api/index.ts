@@ -10,6 +10,7 @@ export { Theme } from './theme'
 export { TabContextMenuItemProvider } from './tabContextMenuProvider'
 export { SelectorOption } from './selector'
 export { CLIHandler, CLIEvent } from './cli'
+export { BootstrapData } from './main-process'
 
 export { AppService } from '../services/app.service'
 export { ConfigService } from '../services/config.service'

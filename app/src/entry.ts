@@ -54,6 +54,8 @@ async function bootstrap (plugins: PluginInfo[], bootstrapData: BootstrapData, s
 
 ipcRenderer.once('start', async (_$event, bootstrapData: BootstrapData) => {
     console.log('Window bootstrap data:', bootstrapData)
+    ;(window as any).bootstrapData = bootstrapData
+
     let plugins = await findPlugins()
     if (bootstrapData.config.pluginBlacklist) {
         plugins = plugins.filter(x => !bootstrapData.config.pluginBlacklist.includes(x.name))

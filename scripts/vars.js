@@ -17,8 +17,8 @@ if (exports.version.includes('-c')) {
 exports.builtinPlugins = [
   'terminus-core',
   'terminus-settings',
-  'terminus-local',
   'terminus-terminal',
+  'terminus-local',
   'terminus-community-color-schemes',
   'terminus-plugin-manager',
   'terminus-ssh',

@@ -10,7 +10,7 @@ export function parseArgs (argv: string[], cwd: string): any {
         .command('open [directory]', 'open a shell in a directory', {
             directory: { type: 'string', 'default': cwd },
         })
-        .command('run [command...]', 'run a command in the terminal', {
+        .command(['run [command...]', '/k'], 'run a command in the terminal', {
             command: { type: 'string' },
         })
         .command('profile [profileName]', 'open a tab with specified profile', {

@@ -1,6 +1,7 @@
 import * as psNode from 'ps-node'
 import * as fs from 'mz/fs'
 import * as os from 'os'
+import { getBootstrapData } from 'terminus-core'
 import { BaseSession } from 'terminus-terminal'
 import { ipcRenderer } from 'electron'
 import { getWorkingDirectoryFromPID } from 'native-process-working-directory'
@@ -113,6 +114,10 @@ export class Session extends BaseSession {
                 TERM_PROGRAM: 'Terminus',
                 ...options.env,
                 ...this.config.store.terminal.environment || {},
+            }
+
+            if (process.platform === 'win32') {
+                env.COMSPEC = getBootstrapData().executable
             }
 
             delete env['']

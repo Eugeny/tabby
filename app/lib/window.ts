@@ -296,6 +296,7 @@ export class Window {
             }
             this.window.webContents.send('start', {
                 config: this.configStore,
+                executable: app.getPath('exe'),
             })
         })
 

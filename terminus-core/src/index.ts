@@ -24,12 +24,7 @@ import { WelcomeTabComponent } from './components/welcomeTab.component'
 import { AutofocusDirective } from './directives/autofocus.directive'
 import { FastHtmlBindDirective } from './directives/fastHtmlBind.directive'
 
-import { HotkeyProvider } from './api/hotkeyProvider'
-import { ConfigProvider } from './api/configProvider'
-import { Theme } from './api/theme'
-import { CLIHandler } from './api/cli'
-import { TabContextMenuItemProvider } from './api/tabContextMenuProvider'
-import { TabRecoveryProvider } from './api/tabRecovery'
+import { Theme, CLIHandler, BootstrapData, TabContextMenuItemProvider, TabRecoveryProvider, HotkeyProvider, ConfigProvider } from './api'
 
 import { AppService } from './services/app.service'
 import { ConfigService } from './services/config.service'
@@ -113,6 +108,10 @@ export default class AppModule { // eslint-disable-line @typescript-eslint/no-ex
             providers: PROVIDERS,
         }
     }
+}
+
+export function getBootstrapData (): BootstrapData {
+    return (window as any).bootstrapData
 }
 
 export { AppRootComponent as bootstrap }
