@@ -6,16 +6,17 @@ const bundleAnalyzer = new BundleAnalyzerPlugin({
     analyzerPort: 0,
 })
 
-const sourceMapOptions = {
-    exclude: [/node_modules/, /vendor/],
-    filename: '[file].map',
-}
-
-if (process.env.CI) {
-    sourceMapOptions.append = '\n//# sourceMappingURL=../../../app.asar.unpacked/assets/webpack/[url]'
-}
-
 module.exports = options => {
+    const sourceMapOptions = {
+        exclude: [/node_modules/, /vendor/],
+        filename: '[file].map',
+        moduleFilenameTemplate: `webpack-terminus-${options.name}:///[resource-path]`,
+    }
+
+    if (process.env.CI) {
+        sourceMapOptions.append = '\n//# sourceMappingURL=../../../app.asar.unpacked/assets/webpack/[url]'
+    }
+
     const isDev = !!process.env.TERMINUS_DEV
     const config = {
         target: 'node',
@@ -27,7 +28,6 @@ module.exports = options => {
             filename: 'index.js',
             pathinfo: true,
             libraryTarget: 'umd',
-            devtoolModuleFilenameTemplate: `webpack-terminus-${options.name}:///[resource-path]`,
         },
         mode: isDev ? 'development' : 'production',
         optimization:{
