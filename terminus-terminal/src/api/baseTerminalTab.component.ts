@@ -6,7 +6,7 @@ import { NgZone, OnInit, OnDestroy, Injector, ViewChild, HostBinding, Input, Ele
 import { trigger, transition, style, animate, AnimationTriggerMetadata } from '@angular/animations'
 import { AppService, ConfigService, BaseTabComponent, ElectronService, HostAppService, HotkeysService, NotificationsService, Platform, LogService, Logger, TabContextMenuItemProvider, SplitTabComponent, SubscriptionContainer } from 'terminus-core'
 
-import { BaseSession, SessionsService } from '../services/sessions.service'
+import { BaseSession } from '../session'
 import { TerminalFrontendService } from '../services/terminalFrontend.service'
 
 import { Frontend } from '../frontends/frontend'
@@ -19,7 +19,7 @@ import { TerminalDecorator } from './decorator'
  */
 export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit, OnDestroy {
     static template: string = require<string>('../components/baseTerminalTab.component.pug')
-    static styles: string[] = [require<string>('../components/terminalTab.component.scss')]
+    static styles: string[] = [require<string>('../components/baseTerminalTab.component.scss')]
     static animations: AnimationTriggerMetadata[] = [trigger('slideInOut', [
         transition(':enter', [
             style({
@@ -83,7 +83,6 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
     protected app: AppService
     protected hostApp: HostAppService
     protected hotkeys: HotkeysService
-    protected sessions: SessionsService
     protected electron: ElectronService
     protected terminalContainersService: TerminalFrontendService
     protected notifications: NotificationsService
@@ -136,7 +135,6 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
         this.app = injector.get(AppService)
         this.hostApp = injector.get(HostAppService)
         this.hotkeys = injector.get(HotkeysService)
-        this.sessions = injector.get(SessionsService)
         this.electron = injector.get(ElectronService)
         this.terminalContainersService = injector.get(TerminalFrontendService)
         this.notifications = injector.get(NotificationsService)

@@ -1,9 +1,7 @@
-import * as path from 'path'
 import { Injectable } from '@angular/core'
 import { HostAppService, Platform } from 'terminus-core'
 
-import { ShellProvider } from '../api/shellProvider'
-import { Shell } from '../api/interfaces'
+import { ShellProvider, Shell } from '../api'
 
 /* eslint-disable block-scoped-var */
 
@@ -13,7 +11,7 @@ try {
 
 /** @hidden */
 @Injectable()
-export class Cygwin64ShellProvider extends ShellProvider {
+export class PowerShellCoreShellProvider extends ShellProvider {
     constructor (
         private hostApp: HostAppService,
     ) {
@@ -25,18 +23,18 @@ export class Cygwin64ShellProvider extends ShellProvider {
             return []
         }
 
-        const cygwinPath = wnr.getRegistryValue(wnr.HK.LM, 'Software\\Cygwin\\setup', 'rootdir')
+        const pwshPath = wnr.getRegistryValue(wnr.HK.LM, 'SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\App Paths\\pwsh.exe', '')
 
-        if (!cygwinPath) {
+        if (!pwshPath) {
             return []
         }
 
         return [{
-            id: 'cygwin64',
-            name: 'Cygwin',
-            command: path.join(cygwinPath, 'bin', 'bash.exe'),
-            args: ['--login', '-i'],
-            icon: require('../icons/cygwin.svg'),
+            id: 'powershell-core',
+            name: 'PowerShell Core',
+            command: pwshPath,
+            args: ['-nologo'],
+            icon: require('../icons/powershell-core.svg'),
             env: {
                 TERM: 'cygwin',
             },

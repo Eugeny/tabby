@@ -3,18 +3,8 @@ import { ConfigProvider, Platform } from 'terminus-core'
 /** @hidden */
 export class TerminalConfigProvider extends ConfigProvider {
     defaults = {
-        hotkeys: {
-            'copy-current-path': [],
-            shell: {
-                __nonStructural: true,
-            },
-            profile: {
-                __nonStructural: true,
-            },
-        },
         terminal: {
             frontend: 'xterm',
-            autoOpen: false,
             fontSize: 14,
             fallbackFont: null,
             linePadding: 0,
@@ -26,13 +16,10 @@ export class TerminalConfigProvider extends ConfigProvider {
             cursorBlink: true,
             hideTabIndex: false,
             hideCloseButton: false,
-            customShell: '',
             rightClick: 'menu',
             pasteOnMiddleClick: true,
             copyOnSelect: false,
             scrollOnInput: true,
-            workingDirectory: '',
-            alwaysUseWorkingDirectory: false,
             altIsMeta: false,
             wordSeparator: ' ()[]{}\'"',
             colorScheme: {
@@ -62,12 +49,8 @@ export class TerminalConfigProvider extends ConfigProvider {
                 ],
             },
             customColorSchemes: [],
-            environment: {},
-            profiles: [],
-            useConPTY: true,
             recoverTabs: true,
             warnOnMultilinePaste: true,
-            showDefaultProfiles: true,
             searchRegexAlwaysEnabled: false,
             searchOptions: {
                 regex: false,
@@ -83,8 +66,6 @@ export class TerminalConfigProvider extends ConfigProvider {
         [Platform.macOS]: {
             terminal: {
                 font: 'Menlo',
-                shell: 'default',
-                profile: 'user-default',
             },
             hotkeys: {
                 'ctrl-c': ['Ctrl-C'],
@@ -109,9 +90,6 @@ export class TerminalConfigProvider extends ConfigProvider {
                 'reset-zoom': [
                     '⌘-0',
                 ],
-                'new-tab': [
-                    '⌘-T',
-                ],
                 home: ['⌘-Left', 'Home'],
                 end: ['⌘-Right', 'End'],
                 'previous-word': ['⌥-Left'],
@@ -129,8 +107,6 @@ export class TerminalConfigProvider extends ConfigProvider {
         [Platform.Windows]: {
             terminal: {
                 font: 'Consolas',
-                shell: 'clink',
-                profile: 'cmd-clink',
                 rightClick: 'paste',
                 pasteOnMiddleClick: false,
                 copyOnSelect: true,
@@ -156,9 +132,6 @@ export class TerminalConfigProvider extends ConfigProvider {
                 'reset-zoom': [
                     'Ctrl-0',
                 ],
-                'new-tab': [
-                    'Ctrl-Shift-T',
-                ],
                 home: ['Home'],
                 end: ['End'],
                 'previous-word': ['Ctrl-Left'],
@@ -176,8 +149,6 @@ export class TerminalConfigProvider extends ConfigProvider {
         [Platform.Linux]: {
             terminal: {
                 font: 'Liberation Mono',
-                shell: 'default',
-                profile: 'user-default',
             },
             hotkeys: {
                 'ctrl-c': ['Ctrl-C'],
@@ -199,9 +170,6 @@ export class TerminalConfigProvider extends ConfigProvider {
                 ],
                 'reset-zoom': [
                     'Ctrl-0',
-                ],
-                'new-tab': [
-                    'Ctrl-Shift-T',
                 ],
                 home: ['Home'],
                 end: ['End'],

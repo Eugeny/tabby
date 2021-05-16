@@ -4,7 +4,7 @@ const path = require('path')
 const vars = require('./vars')
 
 let lifecycles = []
-for (let dir of ['app', 'terminus-core', 'terminus-ssh', 'terminus-terminal']) {
+for (let dir of ['app', 'terminus-core', 'terminus-local', 'terminus-ssh', 'terminus-terminal']) {
     const build = rebuild({
         buildPath: path.resolve(__dirname, '../' + dir),
         electronVersion: vars.electronVersion,

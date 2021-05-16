@@ -1,7 +1,7 @@
 import * as fs from 'fs'
 import { Injectable } from '@angular/core'
 import { TerminalDecorator } from '../api/decorator'
-import { TerminalTabComponent } from '../components/terminalTab.component'
+import { BaseTerminalTabComponent } from '../api/baseTerminalTab.component'
 import { ElectronService, HostAppService } from 'terminus-core'
 
 /** @hidden */
@@ -14,7 +14,7 @@ export class DebugDecorator extends TerminalDecorator {
         super()
     }
 
-    attach (terminal: TerminalTabComponent): void {
+    attach (terminal: BaseTerminalTabComponent): void {
         let sessionOutputBuffer = ''
         const bufferLength = 8192
 
@@ -87,23 +87,23 @@ export class DebugDecorator extends TerminalDecorator {
         }
     }
 
-    private doSaveState (terminal: TerminalTabComponent) {
+    private doSaveState (terminal: BaseTerminalTabComponent) {
         this.saveFile(terminal.frontend!.saveState(), 'state.txt')
     }
 
-    private async doCopyState (terminal: TerminalTabComponent) {
+    private async doCopyState (terminal: BaseTerminalTabComponent) {
         const data = '```' + JSON.stringify(terminal.frontend!.saveState()) + '```'
         this.electron.clipboard.writeText(data)
     }
 
-    private async doLoadState (terminal: TerminalTabComponent) {
+    private async doLoadState (terminal: BaseTerminalTabComponent) {
         const data = await this.loadFile()
         if (data) {
             terminal.frontend!.restoreState(data)
         }
     }
 
-    private async doPasteState (terminal: TerminalTabComponent) {
+    private async doPasteState (terminal: BaseTerminalTabComponent) {
         let data = this.electron.clipboard.readText()
         if (data) {
             if (data.startsWith('`')) {
@@ -122,14 +122,14 @@ export class DebugDecorator extends TerminalDecorator {
         this.electron.clipboard.writeText(data)
     }
 
-    private async doLoadOutput (terminal: TerminalTabComponent) {
+    private async doLoadOutput (terminal: BaseTerminalTabComponent) {
         const data = await this.loadFile()
         if (data) {
             terminal.frontend?.write(data)
         }
     }
 
-    private async doPasteOutput (terminal: TerminalTabComponent) {
+    private async doPasteOutput (terminal: BaseTerminalTabComponent) {
         let data = this.electron.clipboard.readText()
         if (data) {
             if (data.startsWith('`')) {

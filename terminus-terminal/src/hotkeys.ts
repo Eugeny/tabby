@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core'
 import { HotkeyDescription, HotkeyProvider } from 'terminus-core'
-import { TerminalService } from './services/terminal.service'
 
 /** @hidden */
 @Injectable()
@@ -55,10 +54,6 @@ export class TerminalHotkeyProvider extends HotkeyProvider {
             name: 'Reset zoom',
         },
         {
-            id: 'new-tab',
-            name: 'New tab',
-        },
-        {
             id: 'ctrl-c',
             name: 'Intelligent Ctrl-C (copy/abort)',
         },
@@ -76,18 +71,7 @@ export class TerminalHotkeyProvider extends HotkeyProvider {
         },
     ]
 
-    constructor (
-        private terminal: TerminalService,
-    ) { super() }
-
     async provide (): Promise<HotkeyDescription[]> {
-        const profiles = await this.terminal.getProfiles()
-        return [
-            ...this.hotkeys,
-            ...profiles.map(profile => ({
-                id: `profile.${this.terminal.getProfileID(profile)}`,
-                name: `New tab: ${profile.name}`,
-            })),
-        ]
+        return this.hotkeys
     }
 }

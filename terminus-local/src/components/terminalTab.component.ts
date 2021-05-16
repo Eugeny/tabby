@@ -1,8 +1,8 @@
 import { Component, Input, Injector } from '@angular/core'
 import { BaseTabProcess, WIN_BUILD_CONPTY_SUPPORTED, isWindowsBuild } from 'terminus-core'
-import { BaseTerminalTabComponent } from '../api/baseTerminalTab.component'
-import { SessionOptions } from '../api/interfaces'
-import { Session } from '../services/sessions.service'
+import { BaseTerminalTabComponent } from 'terminus-terminal'
+import { SessionOptions } from '../api'
+import { Session } from '../session'
 
 /** @hidden */
 @Component({
@@ -52,13 +52,11 @@ export class TerminalTabComponent extends BaseTerminalTabComponent {
     }
 
     initializeSession (columns: number, rows: number): void {
-        this.sessions.addSession(
-            this.session!,
-            Object.assign({}, this.sessionOptions, {
-                width: columns,
-                height: rows,
-            })
-        )
+        this.session!.start({
+            ...this.sessionOptions,
+            width: columns,
+            height: rows,
+        })
 
         this.attachSessionHandlers(true)
         this.recoveryStateChangedHint.next()

@@ -1,0 +1,7 @@
+{
+  "extends": "../tsconfig.json",
+  "exclude": ["node_modules", "dist", "typings"],
+  "compilerOptions": {
+    "baseUrl": "src"
+  }
+}

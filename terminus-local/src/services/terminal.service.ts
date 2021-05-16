@@ -3,10 +3,9 @@ import slugify from 'slugify'
 import { Observable, AsyncSubject } from 'rxjs'
 import { Injectable, Inject } from '@angular/core'
 import { AppService, Logger, LogService, ConfigService, SplitTabComponent } from 'terminus-core'
-import { ShellProvider } from '../api/shellProvider'
-import { Shell, SessionOptions, Profile } from '../api/interfaces'
 import { TerminalTabComponent } from '../components/terminalTab.component'
-import { UACService } from './uac.service'
+import { ShellProvider, Shell, SessionOptions, Profile } from '../api'
+import { UACService } from '../services/uac.service'
 
 @Injectable({ providedIn: 'root' })
 export class TerminalService {

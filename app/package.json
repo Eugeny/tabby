@@ -57,6 +57,7 @@
   "peerDependencies": {
     "terminus-community-color-schemes": "*",
     "terminus-core": "*",
+    "terminus-local": "*",
     "terminus-plugin-manager": "*",
     "terminus-serial": "*",
     "terminus-settings": "*",

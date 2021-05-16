@@ -20,6 +20,7 @@
             div
                 strong {{plugin.name}}
                 small.text-muted.ml-1(*ngIf='!plugin.isBuiltin') {{plugin.version}} / {{plugin.author}}
+                small.text-muted.ml-1(*ngIf='plugin.isBuiltin') Built-in
                 small.text-warning.ml-1(*ngIf='!isPluginEnabled(plugin)') Disabled
             a.text-muted.mb-0((click)='showPluginInfo(plugin)')
                 small {{plugin.description}}

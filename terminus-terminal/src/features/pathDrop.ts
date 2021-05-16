@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core'
 import { TerminalDecorator } from '../api/decorator'
-import { TerminalTabComponent } from '../components/terminalTab.component'
+import { BaseTerminalTabComponent } from '../api/baseTerminalTab.component'
 
 /** @hidden */
 @Injectable()
 export class PathDropDecorator extends TerminalDecorator {
-    attach (terminal: TerminalTabComponent): void {
+    attach (terminal: BaseTerminalTabComponent): void {
         setTimeout(() => {
             this.subscribeUntilDetached(terminal, terminal.frontend?.dragOver$.subscribe(event => {
                 event.preventDefault()
@@ -19,7 +19,7 @@ export class PathDropDecorator extends TerminalDecorator {
         })
     }
 
-    private injectPath (terminal: TerminalTabComponent, path: string) {
+    private injectPath (terminal: BaseTerminalTabComponent, path: string) {
         if (path.includes(' ')) {
             path = `"${path}"`
         }

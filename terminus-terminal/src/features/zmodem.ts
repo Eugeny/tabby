@@ -6,7 +6,7 @@ import { Observable } from 'rxjs'
 import { filter } from 'rxjs/operators'
 import { Injectable } from '@angular/core'
 import { TerminalDecorator } from '../api/decorator'
-import { TerminalTabComponent } from '../components/terminalTab.component'
+import { BaseTerminalTabComponent } from '../api/baseTerminalTab.component'
 import { LogService, Logger, ElectronService, HostAppService, HotkeysService } from 'terminus-core'
 
 const SPACER = '            '
@@ -29,7 +29,7 @@ export class ZModemDecorator extends TerminalDecorator {
         this.cancelEvent = hotkeys.hotkey$.pipe(filter(x => x === 'ctrl-c'))
     }
 
-    attach (terminal: TerminalTabComponent): void {
+    attach (terminal: BaseTerminalTabComponent): void {
         const sentry = new ZModem.Sentry({
             to_terminal: data => {
                 if (!terminal.enablePassthrough) {

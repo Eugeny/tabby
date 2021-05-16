@@ -3,60 +3,10 @@ export interface ResizeEvent {
     rows: number
 }
 
-export interface SessionOptions {
-    restoreFromPTYID?: string
-    name?: string
-    command: string
-    args?: string[]
-    cwd?: string
-    env?: Record<string, string>
-    width?: number
-    height?: number
-    pauseAfterExit?: boolean
-    runAsAdministrator?: boolean
-}
-
-export interface Profile {
-    name: string
-    color?: string
-    sessionOptions: SessionOptions
-    shell?: string
-    isBuiltin?: boolean
-    icon?: string
-    disableDynamicTitle?: boolean
-}
-
 export interface TerminalColorScheme {
     name: string
     foreground: string
     background: string
     cursor: string
     colors: string[]
-}
-
-export interface Shell {
-    id: string
-    name?: string
-    command: string
-    args?: string[]
-    env: Record<string, string>
-
-    /**
-     * Base path to which shell's internal FS is relative
-     * Currently used for WSL only
-     */
-    fsBase?: string
-
-    /**
-     * SVG icon
-     */
-    icon?: string
-
-    hidden?: boolean
-}
-
-export interface ChildProcess {
-    pid: number
-    ppid: number
-    command: string
 }

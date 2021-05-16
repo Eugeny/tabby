@@ -4,58 +4,35 @@ import { FormsModule } from '@angular/forms'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { ToastrModule } from 'ngx-toastr'
 
-import TerminusCorePlugin, { HostAppService, ToolbarButtonProvider, TabRecoveryProvider, ConfigProvider, HotkeysService, HotkeyProvider, TabContextMenuItemProvider, CLIHandler } from 'terminus-core'
+import TerminusCorePlugin, { ConfigProvider, HotkeysService, HotkeyProvider, TabContextMenuItemProvider, CLIHandler } from 'terminus-core'
 import { SettingsTabProvider } from 'terminus-settings'
 
 import { AppearanceSettingsTabComponent } from './components/appearanceSettingsTab.component'
 import { ColorSchemeSettingsTabComponent } from './components/colorSchemeSettingsTab.component'
-import { TerminalTabComponent } from './components/terminalTab.component'
-import { ShellSettingsTabComponent } from './components/shellSettingsTab.component'
 import { TerminalSettingsTabComponent } from './components/terminalSettingsTab.component'
 import { ColorPickerComponent } from './components/colorPicker.component'
 import { ColorSchemePreviewComponent } from './components/colorSchemePreview.component'
-import { EditProfileModalComponent } from './components/editProfileModal.component'
-import { EnvironmentEditorComponent } from './components/environmentEditor.component'
 import { SearchPanelComponent } from './components/searchPanel.component'
 
-import { BaseSession } from './services/sessions.service'
 import { TerminalFrontendService } from './services/terminalFrontend.service'
-import { TerminalService } from './services/terminal.service'
-import { DockMenuService } from './services/dockMenu.service'
 
-import { ButtonProvider } from './buttonProvider'
-import { RecoveryProvider } from './recoveryProvider'
 import { TerminalDecorator } from './api/decorator'
 import { TerminalContextMenuItemProvider } from './api/contextMenuProvider'
 import { TerminalColorSchemeProvider } from './api/colorSchemeProvider'
-import { ShellProvider } from './api/shellProvider'
-import { TerminalSettingsTabProvider, AppearanceSettingsTabProvider, ColorSchemeSettingsTabProvider, ShellSettingsTabProvider } from './settings'
+import { TerminalSettingsTabProvider, AppearanceSettingsTabProvider, ColorSchemeSettingsTabProvider } from './settings'
 import { DebugDecorator } from './features/debug'
 import { PathDropDecorator } from './features/pathDrop'
 import { ZModemDecorator } from './features/zmodem'
 import { TerminalConfigProvider } from './config'
 import { TerminalHotkeyProvider } from './hotkeys'
 import { HyperColorSchemes } from './colorSchemes'
-import { NewTabContextMenu, CopyPasteContextMenu, SaveAsProfileContextMenu, LegacyContextMenu } from './tabContextMenu'
-
-import { CmderShellProvider } from './shells/cmder'
-import { CustomShellProvider } from './shells/custom'
-import { Cygwin32ShellProvider } from './shells/cygwin32'
-import { Cygwin64ShellProvider } from './shells/cygwin64'
-import { GitBashShellProvider } from './shells/gitBash'
-import { LinuxDefaultShellProvider } from './shells/linuxDefault'
-import { MacOSDefaultShellProvider } from './shells/macDefault'
-import { POSIXShellsProvider } from './shells/posix'
-import { PowerShellCoreShellProvider } from './shells/powershellCore'
-import { WindowsDefaultShellProvider } from './shells/winDefault'
-import { WindowsStockShellsProvider } from './shells/windowsStock'
-import { WSLShellProvider } from './shells/wsl'
+import { CopyPasteContextMenu, LegacyContextMenu } from './tabContextMenu'
 
 import { hterm } from './frontends/hterm'
 import { Frontend } from './frontends/frontend'
 import { HTermFrontend } from './frontends/htermFrontend'
 import { XTermFrontend, XTermWebGLFrontend } from './frontends/xtermFrontend'
-import { AutoOpenTabCLIHandler, OpenPathCLIHandler, TerminalCLIHandler } from './cli'
+import { TerminalCLIHandler } from './cli'
 
 /** @hidden */
 @NgModule({
@@ -69,11 +46,8 @@ import { AutoOpenTabCLIHandler, OpenPathCLIHandler, TerminalCLIHandler } from '.
     providers: [
         { provide: SettingsTabProvider, useClass: AppearanceSettingsTabProvider, multi: true },
         { provide: SettingsTabProvider, useClass: ColorSchemeSettingsTabProvider, multi: true },
-        { provide: SettingsTabProvider, useClass: ShellSettingsTabProvider, multi: true },
         { provide: SettingsTabProvider, useClass: TerminalSettingsTabProvider, multi: true },
 
-        { provide: ToolbarButtonProvider, useClass: ButtonProvider, multi: true },
-        { provide: TabRecoveryProvider, useClass: RecoveryProvider, multi: true },
         { provide: ConfigProvider, useClass: TerminalConfigProvider, multi: true },
         { provide: HotkeyProvider, useClass: TerminalHotkeyProvider, multi: true },
         { provide: TerminalColorSchemeProvider, useClass: HyperColorSchemes, multi: true },
@@ -81,65 +55,32 @@ import { AutoOpenTabCLIHandler, OpenPathCLIHandler, TerminalCLIHandler } from '.
         { provide: TerminalDecorator, useClass: ZModemDecorator, multi: true },
         { provide: TerminalDecorator, useClass: DebugDecorator, multi: true },
 
-        { provide: ShellProvider, useClass: WindowsDefaultShellProvider, multi: true },
-        { provide: ShellProvider, useClass: MacOSDefaultShellProvider, multi: true },
-        { provide: ShellProvider, useClass: LinuxDefaultShellProvider, multi: true },
-        { provide: ShellProvider, useClass: WindowsStockShellsProvider, multi: true },
-        { provide: ShellProvider, useClass: PowerShellCoreShellProvider, multi: true },
-        { provide: ShellProvider, useClass: CmderShellProvider, multi: true },
-        { provide: ShellProvider, useClass: CustomShellProvider, multi: true },
-        { provide: ShellProvider, useClass: Cygwin32ShellProvider, multi: true },
-        { provide: ShellProvider, useClass: Cygwin64ShellProvider, multi: true },
-        { provide: ShellProvider, useClass: GitBashShellProvider, multi: true },
-        { provide: ShellProvider, useClass: POSIXShellsProvider, multi: true },
-        { provide: ShellProvider, useClass: WSLShellProvider, multi: true },
-
-        { provide: TabContextMenuItemProvider, useClass: NewTabContextMenu, multi: true },
         { provide: TabContextMenuItemProvider, useClass: CopyPasteContextMenu, multi: true },
-        { provide: TabContextMenuItemProvider, useClass: SaveAsProfileContextMenu, multi: true },
         { provide: TabContextMenuItemProvider, useClass: LegacyContextMenu, multi: true },
 
         { provide: CLIHandler, useClass: TerminalCLIHandler, multi: true },
-        { provide: CLIHandler, useClass: OpenPathCLIHandler, multi: true },
-        { provide: CLIHandler, useClass: AutoOpenTabCLIHandler, multi: true },
-
-        // For WindowsDefaultShellProvider
-        PowerShellCoreShellProvider,
-        WSLShellProvider,
-        WindowsStockShellsProvider,
     ],
     entryComponents: [
-        TerminalTabComponent,
         AppearanceSettingsTabComponent,
         ColorSchemeSettingsTabComponent,
-        ShellSettingsTabComponent,
         TerminalSettingsTabComponent,
-        EditProfileModalComponent,
     ] as any[],
     declarations: [
         ColorPickerComponent,
         ColorSchemePreviewComponent,
-        TerminalTabComponent,
         AppearanceSettingsTabComponent,
         ColorSchemeSettingsTabComponent,
-        ShellSettingsTabComponent,
         TerminalSettingsTabComponent,
-        EditProfileModalComponent,
-        EnvironmentEditorComponent,
         SearchPanelComponent,
     ] as any[],
     exports: [
         ColorPickerComponent,
-        EnvironmentEditorComponent,
         SearchPanelComponent,
     ],
 })
 export default class TerminalModule { // eslint-disable-line @typescript-eslint/no-extraneous-class
     private constructor (
         hotkeys: HotkeysService,
-        terminal: TerminalService,
-        hostApp: HostAppService,
-        dockMenu: DockMenuService,
     ) {
         const events = [
             {
@@ -165,30 +106,11 @@ export default class TerminalModule { // eslint-disable-line @typescript-eslint/
                 hotkeys.emitKeyEvent(nativeEvent)
             }
         })
-
-        hotkeys.matchedHotkey.subscribe(async (hotkey) => {
-            if (hotkey === 'new-tab') {
-                terminal.openTab()
-            }
-            if (hotkey === 'new-window') {
-                hostApp.newWindow()
-            }
-            if (hotkey.startsWith('profile.')) {
-                const profile = await terminal.getProfileByID(hotkey.split('.')[1])
-                if (profile) {
-                    terminal.openTabWithOptions(profile.sessionOptions)
-                }
-            }
-        })
-
-        dockMenu.update()
     }
 }
 
-export { TerminalService, BaseSession, TerminalTabComponent, TerminalFrontendService, TerminalDecorator, TerminalContextMenuItemProvider, TerminalColorSchemeProvider, ShellProvider }
+export { TerminalFrontendService, TerminalDecorator, TerminalContextMenuItemProvider, TerminalColorSchemeProvider }
 export { Frontend, XTermFrontend, XTermWebGLFrontend, HTermFrontend }
 export { BaseTerminalTabComponent } from './api/baseTerminalTab.component'
 export * from './api/interfaces'
-
-// Deprecations
-export { TerminalColorScheme as ITerminalColorScheme, Shell as IShell } from './api/interfaces'
+export * from './session'

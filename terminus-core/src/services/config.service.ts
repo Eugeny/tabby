@@ -105,22 +105,27 @@ export class ConfigService {
     private constructor (
         electron: ElectronService,
         private hostApp: HostAppService,
-        @Inject(ConfigProvider) configProviders: ConfigProvider[],
+        @Inject(ConfigProvider) private configProviders: ConfigProvider[],
     ) {
         this.path = path.join(electron.app.getPath('userData'), 'config.yaml')
-        this.defaults = configProviders.map(provider => {
-            let defaults = provider.platformDefaults[hostApp.platform] || {}
-            if (provider.defaults) {
-                defaults = configMerge(defaults, provider.defaults)
-            }
-            return defaults
-        }).reduce(configMerge)
+        this.defaults = this.mergeDefaults()
         this.load()
 
         hostApp.configChangeBroadcast$.subscribe(() => {
             this.load()
             this.emitChange()
         })
+    }
+
+    mergeDefaults (): unknown {
+        const providers = this.configProviders
+        return providers.map(provider => {
+            let defaults = provider.platformDefaults[this.hostApp.platform] || {}
+            if (provider.defaults) {
+                defaults = configMerge(defaults, provider.defaults)
+            }
+            return defaults
+        }).reduce(configMerge)
     }
 
     getDefaults (): Record<string, any> {

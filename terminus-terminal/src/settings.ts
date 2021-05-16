@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core'
 import { SettingsTabProvider } from 'terminus-settings'
 
 import { AppearanceSettingsTabComponent } from './components/appearanceSettingsTab.component'
-import { ShellSettingsTabComponent } from './components/shellSettingsTab.component'
 import { TerminalSettingsTabComponent } from './components/terminalSettingsTab.component'
 import { ColorSchemeSettingsTabComponent } from './components/colorSchemeSettingsTab.component'
 
@@ -27,18 +26,6 @@ export class ColorSchemeSettingsTabProvider extends SettingsTabProvider {
 
     getComponentType (): any {
         return ColorSchemeSettingsTabComponent
-    }
-}
-
-/** @hidden */
-@Injectable()
-export class ShellSettingsTabProvider extends SettingsTabProvider {
-    id = 'terminal-shell'
-    icon = 'list-ul'
-    title = 'Shell'
-
-    getComponentType (): any {
-        return ShellSettingsTabComponent
     }
 }
 

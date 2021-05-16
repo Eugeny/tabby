@@ -2,7 +2,7 @@
 import { Component } from '@angular/core'
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
 import { UACService } from '../services/uac.service'
-import { Profile } from '../api/interfaces'
+import { Profile } from '../api'
 
 /** @hidden */
 @Component({

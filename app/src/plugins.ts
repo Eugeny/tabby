@@ -65,6 +65,7 @@ const builtinModules = [
     'rxjs',
     'rxjs/operators',
     'terminus-core',
+    'terminus-local',
     'terminus-settings',
     'terminus-terminal',
     'zone.js/dist/zone.js',
@@ -127,6 +128,10 @@ export async function findPlugins (): Promise<PluginInfo[]> {
         }
 
         const name = packageName.substring(PREFIX.length)
+
+        if (builtinModules.includes(packageName) && pluginDir !== builtinPluginsPath) {
+            continue
+        }
 
         if (foundPlugins.some(x => x.name === name)) {
             console.info(`Plugin ${packageName} already exists, overriding`)

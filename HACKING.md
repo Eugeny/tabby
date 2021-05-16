@@ -42,6 +42,7 @@ terminus
 ├─ scripts                              # Maintenance scripts
 ├─ terminus-community-color-schemes     # Plugin that provides color schemes
 ├─ terminus-core                        # Plugin that provides base UI and tab management
+└─ terminus-local                       # Plugin that provides local shells and profiles
 ├─ terminus-plugin-manager              # Plugin that installs other plugins
 ├─ terminus-settings                    # Plugin that provides the settings tab
 └─ terminus-terminal                    # Plugin that provides terminal tabs
@@ -61,7 +62,7 @@ terminus-pluginname
 |  └─ index.ts                          # Module entry point
 ├─ package.json
 ├─ tsconfig.json
-└─ webpack.config.js                         
+└─ webpack.config.js
 ```
 
 # Plugins
@@ -115,6 +116,6 @@ export default class MyModule { }
 ```
 
 
-See `terminus-core/src/api.ts`, `terminus-settings/src/api.ts` and `terminus-terminal/src/api.ts` for the available extension points.
+See `terminus-core/src/api.ts`, `terminus-settings/src/api.ts`, `terminus-local/src/api.ts` and `terminus-terminal/src/api.ts` for the available extension points.
 
 Publish your plugin on NPM with a `terminus-plugin` keyword to make it appear in the Plugin Manager.

@@ -31,6 +31,12 @@ updates:
     time: "04:00"
   open-pull-requests-limit: 20
 - package-ecosystem: npm
+  directory: "/terminus-local"
+  schedule:
+    interval: daily
+    time: "04:00"
+  open-pull-requests-limit: 20
+- package-ecosystem: npm
   directory: "/terminus-community-color-schemes"
   schedule:
     interval: daily

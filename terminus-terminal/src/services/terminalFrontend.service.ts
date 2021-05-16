@@ -3,7 +3,7 @@ import { ConfigService, ThemesService, HotkeysService } from 'terminus-core'
 import { Frontend } from '../frontends/frontend'
 import { HTermFrontend } from '../frontends/htermFrontend'
 import { XTermFrontend, XTermWebGLFrontend } from '../frontends/xtermFrontend'
-import { BaseSession } from '../services/sessions.service'
+import { BaseSession } from '../session'
 
 @Injectable({ providedIn: 'root' })
 export class TerminalFrontendService {
