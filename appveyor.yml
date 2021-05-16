@@ -4,7 +4,7 @@ platform:
   - x64
 
 environment:
-  nodejs_version: "15"
+  nodejs_version: "14"
 
 version: "{build}"
 
