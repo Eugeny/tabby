@@ -35,7 +35,7 @@ export class TerminalService {
     }
 
     async getProfiles ({ includeHidden, skipDefault }: { includeHidden?: boolean, skipDefault?: boolean } = {}): Promise<Profile[]> {
-        const shells = await this.shells$.toPromise()
+        const shells = (await this.shells$.toPromise())!
         return [
             ...this.config.store.terminal.profiles,
             // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
