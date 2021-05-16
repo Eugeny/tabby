@@ -43,7 +43,7 @@ h3.mb-3 Terminal
             )
             | Audible
 
-.alert.alert-info.d-flex.align-items-center(*ngIf='config.store.terminal.bell != "audible" && config.store.terminal.profile.startsWith("wsl")')
+.alert.alert-info.d-flex.align-items-center(*ngIf='config.store.terminal.bell != "audible" && (config.store.terminal.profile || "").startsWith("wsl")')
     .mr-auto WSL terminal bell can only be muted via Volume Mixer
     button.btn.btn-secondary((click)='openWSLVolumeMixer()') Show Mixer
 
