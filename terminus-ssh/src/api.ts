@@ -331,7 +331,7 @@ export class SSHSession extends BaseSession {
             })
         }
         if (fw.type === PortForwardType.Remote) {
-            await new Promise((resolve, reject) => {
+            await new Promise<void>((resolve, reject) => {
                 this.ssh.forwardIn(fw.host, fw.port, err => {
                     if (err) {
                         // eslint-disable-next-line @typescript-eslint/no-base-to-string

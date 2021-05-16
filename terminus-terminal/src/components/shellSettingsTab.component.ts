@@ -36,7 +36,7 @@ export class ShellSettingsTabComponent {
     }
 
     async ngOnInit (): Promise<void> {
-        this.shells = await this.terminal.shells$.toPromise()
+        this.shells = (await this.terminal.shells$.toPromise())!
     }
 
     ngOnDestroy (): void {

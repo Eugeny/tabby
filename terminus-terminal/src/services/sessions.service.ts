@@ -138,10 +138,10 @@ export abstract class BaseSession {
     abstract resize (columns: number, rows: number): void
     abstract write (data: Buffer): void
     abstract kill (signal?: string): void
-    abstract async getChildProcesses (): Promise<ChildProcess[]>
-    abstract async gracefullyKillProcess (): Promise<void>
+    abstract getChildProcesses (): Promise<ChildProcess[]>
+    abstract gracefullyKillProcess (): Promise<void>
     abstract supportsWorkingDirectory (): boolean
-    abstract async getWorkingDirectory (): Promise<string|null>
+    abstract getWorkingDirectory (): Promise<string|null>
 }
 
 /** @hidden */
@@ -318,7 +318,7 @@ export class Session extends BaseSession {
         if (process.platform === 'win32') {
             this.kill()
         } else {
-            await new Promise((resolve) => {
+            await new Promise<void>((resolve) => {
                 this.kill('SIGTERM')
                 setImmediate(() => {
                     try {

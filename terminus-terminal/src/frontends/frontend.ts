@@ -57,7 +57,7 @@ export abstract class Frontend {
         }
     }
 
-    abstract async attach (host: HTMLElement): Promise<void>
+    abstract attach (host: HTMLElement): Promise<void>
     detach (host: HTMLElement): void { } // eslint-disable-line
 
     abstract getSelection (): string
