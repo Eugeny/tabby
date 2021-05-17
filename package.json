@@ -25,7 +25,7 @@
     "electron-notarize": "^1.0.0",
     "electron-rebuild": "^2.3.5",
     "eslint": "^7.26.0",
-    "eslint-plugin-import": "^2.21.1",
+    "eslint-plugin-import": "^2.23.2",
     "file-loader": "^6.2.0",
     "graceful-fs": "^4.2.6",
     "html-loader": "2.1.2",
