@@ -1,5 +1,5 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core'
-import { ConfigService, getCSSFontFamily } from 'terminus-core'
+import { Component, Input, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core'
+import { BaseComponent, ConfigService, getCSSFontFamily } from 'terminus-core'
 import { TerminalColorScheme } from '../api/interfaces'
 
 /** @hidden */
@@ -9,11 +9,19 @@ import { TerminalColorScheme } from '../api/interfaces'
     styles: [require('./colorSchemePreview.component.scss')],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ColorSchemePreviewComponent {
+export class ColorSchemePreviewComponent extends BaseComponent {
     @Input() scheme: TerminalColorScheme
     @Input() fontPreview = false
 
-    constructor (public config: ConfigService) {}
+    constructor (
+        public config: ConfigService,
+        changeDetector: ChangeDetectorRef,
+    ) {
+        super()
+        this.subscribeUntilDestroyed(config.changed$, () => {
+            changeDetector.markForCheck()
+        })
+    }
 
     getPreviewFontFamily (): string {
         return getCSSFontFamily(this.config.store)
