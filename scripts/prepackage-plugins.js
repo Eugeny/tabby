@@ -12,7 +12,7 @@ fs.writeFileSync(path.join(target, 'package.json'), '{}')
 sh.cd(target)
 vars.builtinPlugins.forEach(plugin => {
   if (plugin === 'terminus-web') {
-    continue
+    return
   }
   log.info('install', plugin)
   sh.cp('-r', path.join('..', plugin), '.')
