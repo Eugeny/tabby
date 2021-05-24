@@ -11,7 +11,7 @@
     "@types/node": "14.14.35",
     "@types/webpack-env": "^1.16.0",
     "@typescript-eslint/eslint-plugin": "^4.14.1",
-    "@typescript-eslint/parser": "^4.23.0",
+    "@typescript-eslint/parser": "^4.24.0",
     "apply-loader": "2.0.0",
     "awesome-typescript-loader": "^5.2.1",
     "compare-versions": "^3.6.0",
