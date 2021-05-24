@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import type { MenuItemConstructorOptions } from 'electron'
 import { Component, Input, Optional, Inject, HostBinding, HostListener, ViewChild, ElementRef, NgZone } from '@angular/core'
 import { SortableComponent } from 'ng2-dnd'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
@@ -7,11 +6,12 @@ import { TabContextMenuItemProvider } from '../api/tabContextMenuProvider'
 import { BaseTabComponent } from './baseTab.component'
 import { RenameTabModalComponent } from './renameTabModal.component'
 import { HotkeysService } from '../services/hotkeys.service'
-import { ElectronService } from '../services/electron.service'
 import { AppService } from '../services/app.service'
 import { HostAppService, Platform } from '../services/hostApp.service'
 import { ConfigService } from '../services/config.service'
 import { BaseComponent } from './base.component'
+import { MenuItemOptions } from '../api/menu'
+import { PlatformService } from '../api/platform'
 
 /** @hidden */
 export interface SortableComponentProxy {
@@ -34,10 +34,10 @@ export class TabHeaderComponent extends BaseComponent {
     private constructor (
         public app: AppService,
         public config: ConfigService,
-        private electron: ElectronService,
         private hostApp: HostAppService,
         private ngbModal: NgbModal,
         private hotkeys: HotkeysService,
+        private platform: PlatformService,
         private zone: NgZone,
         @Inject(SortableComponent) private parentDraggable: SortableComponentProxy,
         @Optional() @Inject(TabContextMenuItemProvider) protected contextMenuProviders: TabContextMenuItemProvider[],
@@ -76,8 +76,8 @@ export class TabHeaderComponent extends BaseComponent {
         }).catch(() => null)
     }
 
-    async buildContextMenu (): Promise<MenuItemConstructorOptions[]> {
-        let items: MenuItemConstructorOptions[] = []
+    async buildContextMenu (): Promise<MenuItemOptions[]> {
+        let items: MenuItemOptions[] = []
         for (const section of await Promise.all(this.contextMenuProviders.map(x => x.getItems(this.tab, this)))) {
             items.push({ type: 'separator' })
             items = items.concat(section)
@@ -105,16 +105,8 @@ export class TabHeaderComponent extends BaseComponent {
         }
     }
 
-    @HostListener('auxclick', ['$event']) async onAuxClick ($event: MouseEvent) {
-        if ($event.which === 3) {
-            $event.preventDefault()
-
-            const contextMenu = this.electron.Menu.buildFromTemplate(await this.buildContextMenu())
-
-            contextMenu.popup({
-                x: $event.pageX,
-                y: $event.pageY,
-            })
-        }
+    @HostListener('contextmenu', ['$event']) async onContextMenu ($event: MouseEvent) {
+        $event.preventDefault()
+        this.platform.popupContextMenu(await this.buildContextMenu(), $event)
     }
 }

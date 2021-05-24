@@ -51,6 +51,7 @@ module.exports = {
     util: 'commonjs util',
     'source-map-support': 'commonjs source-map-support',
     'windows-swca': 'commonjs windows-swca',
+    'windows-native-registry': 'commonjs windows-native-registry',
     'windows-blurbehind': 'commonjs windows-blurbehind',
     'yargs/yargs': 'commonjs yargs/yargs',
   },

@@ -42,10 +42,12 @@ terminus
 ├─ scripts                              # Maintenance scripts
 ├─ terminus-community-color-schemes     # Plugin that provides color schemes
 ├─ terminus-core                        # Plugin that provides base UI and tab management
+├─ terminus-electron                    # Plugin that provides Electron-specific functions
 └─ terminus-local                       # Plugin that provides local shells and profiles
 ├─ terminus-plugin-manager              # Plugin that installs other plugins
 ├─ terminus-settings                    # Plugin that provides the settings tab
 └─ terminus-terminal                    # Plugin that provides terminal tabs
+├─ terminus-web                         # Plugin that provides web-specific functions
 ```
 
 # Plugin layout

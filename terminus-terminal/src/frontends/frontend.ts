@@ -1,6 +1,6 @@
+import { Injector } from '@angular/core'
 import { Observable, Subject, AsyncSubject, ReplaySubject, BehaviorSubject } from 'rxjs'
 import { ResizeEvent } from '../api/interfaces'
-import { ConfigService, ThemesService, HotkeysService } from 'terminus-core'
 
 export interface SearchOptions {
     regex?: boolean
@@ -13,10 +13,6 @@ export interface SearchOptions {
  * Extend to add support for a different VT frontend implementation
  */
 export abstract class Frontend {
-    configService: ConfigService
-    themesService: ThemesService
-    hotkeysService: HotkeysService
-
     enableResizing = true
     protected ready = new AsyncSubject<void>()
     protected title = new ReplaySubject<string>(1)
@@ -39,6 +35,8 @@ export abstract class Frontend {
     get resize$ (): Observable<ResizeEvent> { return this.resize }
     get dragOver$ (): Observable<DragEvent> { return this.dragOver }
     get drop$ (): Observable<DragEvent> { return this.drop }
+
+    constructor (protected injector: Injector) { }
 
     destroy (): void {
         for (const o of [

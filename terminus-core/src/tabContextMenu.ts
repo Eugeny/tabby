@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import type { MenuItemConstructorOptions } from 'electron'
 import { Injectable, NgZone } from '@angular/core'
 import { Subscription } from 'rxjs'
 import { AppService } from './services/app.service'
@@ -7,6 +6,7 @@ import { BaseTabComponent } from './components/baseTab.component'
 import { TabHeaderComponent } from './components/tabHeader.component'
 import { SplitTabComponent, SplitDirection } from './components/splitTab.component'
 import { TabContextMenuItemProvider } from './api/tabContextMenuProvider'
+import { MenuItemOptions } from './api/menu'
 
 /** @hidden */
 @Injectable()
@@ -20,8 +20,8 @@ export class TabManagementContextMenu extends TabContextMenuItemProvider {
         super()
     }
 
-    async getItems (tab: BaseTabComponent, tabHeader?: TabHeaderComponent): Promise<MenuItemConstructorOptions[]> {
-        let items: MenuItemConstructorOptions[] = [
+    async getItems (tab: BaseTabComponent, tabHeader?: TabHeaderComponent): Promise<MenuItemOptions[]> {
+        let items: MenuItemOptions[] = [
             {
                 label: 'Close',
                 click: () => this.zone.run(() => {
@@ -76,7 +76,7 @@ export class TabManagementContextMenu extends TabContextMenuItemProvider {
                         click: () => this.zone.run(() => {
                             (tab.parent as SplitTabComponent).splitTab(tab, dir)
                         }),
-                    })) as MenuItemConstructorOptions[],
+                    })) as MenuItemOptions[],
                 })
             }
         }
@@ -106,8 +106,8 @@ export class CommonOptionsContextMenu extends TabContextMenuItemProvider {
         super()
     }
 
-    async getItems (tab: BaseTabComponent, tabHeader?: TabHeaderComponent): Promise<MenuItemConstructorOptions[]> {
-        let items: MenuItemConstructorOptions[] = []
+    async getItems (tab: BaseTabComponent, tabHeader?: TabHeaderComponent): Promise<MenuItemOptions[]> {
+        let items: MenuItemOptions[] = []
         if (tabHeader) {
             items = [
                 ...items,
@@ -129,7 +129,7 @@ export class CommonOptionsContextMenu extends TabContextMenuItemProvider {
                         click: () => this.zone.run(() => {
                             tab.color = color.value
                         }),
-                    })) as MenuItemConstructorOptions[],
+                    })) as MenuItemOptions[],
                 },
             ]
         }
@@ -147,15 +147,14 @@ export class TaskCompletionContextMenu extends TabContextMenuItemProvider {
         super()
     }
 
-    async getItems (tab: BaseTabComponent): Promise<MenuItemConstructorOptions[]> {
+    async getItems (tab: BaseTabComponent): Promise<MenuItemOptions[]> {
         const process = await tab.getCurrentProcess()
-        const items: MenuItemConstructorOptions[] = []
+        const items: MenuItemOptions[] = []
 
         const extTab: (BaseTabComponent & { __completionNotificationEnabled?: boolean, __outputNotificationSubscription?: Subscription|null }) = tab
 
         if (process) {
             items.push({
-                id: 'process-name',
                 enabled: false,
                 label: 'Current process: ' + process.name,
             })

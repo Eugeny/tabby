@@ -2,11 +2,9 @@
 import { Observable } from 'rxjs'
 import { debounce } from 'utils-decorators/dist/cjs'
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators'
-import { exec } from 'mz/child_process'
-const fontManager = require('fontmanager-redux') // eslint-disable-line
 
 import { Component } from '@angular/core'
-import { ConfigService, HostAppService, Platform, getCSSFontFamily } from 'terminus-core'
+import { ConfigService, getCSSFontFamily, PlatformService } from 'terminus-core'
 
 /** @hidden */
 @Component({
@@ -17,26 +15,12 @@ export class AppearanceSettingsTabComponent {
     fonts: string[] = []
 
     constructor (
-        private hostApp: HostAppService,
         public config: ConfigService,
+        private platform: PlatformService,
     ) { }
 
     async ngOnInit () {
-        if (this.hostApp.platform === Platform.Windows || this.hostApp.platform === Platform.macOS) {
-            const fonts = await new Promise<any[]>((resolve) => fontManager.findFonts({ monospace: true }, resolve))
-            this.fonts = fonts.map(x => x.family.trim())
-            this.fonts.sort()
-        }
-        if (this.hostApp.platform === Platform.Linux) {
-            exec('fc-list :spacing=mono').then(([stdout, _]) => {
-                this.fonts = stdout.toString()
-                    .split('\n')
-                    .filter(x => !!x)
-                    .map(x => x.split(':')[1].trim())
-                    .map(x => x.split(',')[0].trim())
-                this.fonts.sort()
-            })
-        }
+        this.fonts = await this.platform.listFonts()
     }
 
     fontAutocomplete = (text$: Observable<string>) => {

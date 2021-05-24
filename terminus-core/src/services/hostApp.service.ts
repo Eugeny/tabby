@@ -1,21 +1,17 @@
-import type { BrowserWindow, TouchBar, MenuItemConstructorOptions } from 'electron'
+import type { BrowserWindow, TouchBar } from 'electron'
 import { Observable, Subject } from 'rxjs'
-import { Injectable, NgZone, EventEmitter, Injector } from '@angular/core'
+import { Injectable, NgZone, EventEmitter, Injector, Inject } from '@angular/core'
 import { ElectronService } from './electron.service'
 import { Logger, LogService } from './log.service'
 import { CLIHandler } from '../api/cli'
+import { BootstrapData, BOOTSTRAP_DATA } from '../api/mainProcess'
 import { isWindowsBuild, WIN_BUILD_FLUENT_BG_SUPPORTED } from '../utils'
-
-/* eslint-disable block-scoped-var */
-
-try {
-    var wnr = require('windows-native-registry') // eslint-disable-line @typescript-eslint/no-var-requires, no-var
-} catch (_) { }
 
 export enum Platform {
     Linux = 'Linux',
     macOS = 'macOS',
     Windows = 'Windows',
+    Web = 'Web',
 }
 
 export interface Bounds {
@@ -31,6 +27,7 @@ export interface Bounds {
 @Injectable({ providedIn: 'root' })
 export class HostAppService {
     platform: Platform
+    configPlatform: Platform
 
     /**
      * Fired once the window is visible
@@ -47,7 +44,6 @@ export class HostAppService {
     private displayMetricsChanged = new Subject<void>()
     private displaysChanged = new Subject<void>()
     private logger: Logger
-    private windowId: number
 
     /**
      * Fired when Preferences is selected in the macOS menu
@@ -75,18 +71,20 @@ export class HostAppService {
     private constructor (
         private zone: NgZone,
         private electron: ElectronService,
+        @Inject(BOOTSTRAP_DATA) private bootstrapData: BootstrapData,
         injector: Injector,
         log: LogService,
     ) {
         this.logger = log.create('hostApp')
-        this.platform = {
+        this.configPlatform = this.platform = {
             win32: Platform.Windows,
             darwin: Platform.macOS,
             linux: Platform.Linux,
         }[process.platform]
 
-        this.windowId = parseInt(location.search.substring(1))
-        this.logger.info('Window ID:', this.windowId)
+        if (process.env.XWEB) {
+            this.platform = Platform.Web
+        }
 
         electron.ipcRenderer.on('host:preferences-menu', () => this.zone.run(() => this.preferencesMenu.next()))
 
@@ -158,7 +156,7 @@ export class HostAppService {
      * Returns the current remote [[BrowserWindow]]
      */
     getWindow (): BrowserWindow {
-        return this.electron.BrowserWindow.fromId(this.windowId)!
+        return this.electron.BrowserWindow.fromId(this.bootstrapData.windowID)!
     }
 
     newWindow (): void {
@@ -202,29 +200,12 @@ export class HostAppService {
         this.electron.ipcRenderer.send('window-set-always-on-top', flag)
     }
 
-    /**
-     * Sets window vibrancy mode (Windows, macOS)
-     *
-     * @param type `null`, or `fluent` when supported (Windowd only)
-     */
-    setVibrancy (enable: boolean, type: string|null): void {
-        if (this.platform === Platform.Windows && !isWindowsBuild(WIN_BUILD_FLUENT_BG_SUPPORTED)) {
-            type = null
-        }
-        document.body.classList.toggle('vibrant', enable)
-        this.electron.ipcRenderer.send('window-set-vibrancy', enable, type)
-    }
-
     setTitle (title?: string): void {
         this.electron.ipcRenderer.send('window-set-title', title ?? 'Terminus')
     }
 
     setTouchBar (touchBar: TouchBar): void {
         this.getWindow().setTouchBar(touchBar)
-    }
-
-    popupContextMenu (menuDefinition: MenuItemConstructorOptions[]): void {
-        this.electron.Menu.buildFromTemplate(menuDefinition).popup({})
     }
 
     /**
@@ -248,20 +229,6 @@ export class HostAppService {
 
     registerGlobalHotkey (specs: string[]): void {
         this.electron.ipcRenderer.send('app:register-global-hotkey', specs)
-    }
-
-    useBuiltinGraphics (): void {
-        const keyPath = 'SOFTWARE\\Microsoft\\DirectX\\UserGpuPreferences'
-        const valueName = this.electron.app.getPath('exe')
-        if (this.platform === Platform.Windows) {
-            if (!wnr.getRegistryValue(wnr.HK.CU, keyPath, valueName)) {
-                wnr.setRegistryValue(wnr.HK.CU, keyPath, valueName, wnr.REG.SZ, 'GpuPreference=1;')
-            }
-        }
-    }
-
-    setTrafficLightInset (x: number, y: number): void {
-        this.getWindow().setTrafficLightPosition({ x, y })
     }
 
     relaunch (): void {

@@ -1,4 +1,5 @@
-import { getCSSFontFamily } from 'terminus-core'
+import { Injector } from '@angular/core'
+import { ConfigService, getCSSFontFamily, HostAppService, HotkeysService, Platform, PlatformService } from 'terminus-core'
 import { Frontend, SearchOptions } from './frontend'
 import { Terminal, ITheme } from 'xterm'
 import { FitAddon } from 'xterm-addon-fit'
@@ -39,8 +40,18 @@ export class XTermFrontend extends Frontend {
     private opened = false
     private resizeObserver?: any
 
-    constructor () {
-        super()
+    private configService: ConfigService
+    private hotkeysService: HotkeysService
+    private platformService: PlatformService
+    private hostApp: HostAppService
+
+    constructor (injector: Injector) {
+        super(injector)
+        this.configService = injector.get(ConfigService)
+        this.hotkeysService = injector.get(HotkeysService)
+        this.platformService = injector.get(PlatformService)
+        this.hostApp = injector.get(HostAppService)
+
         this.xterm = new Terminal({
             allowTransparency: true,
             windowsMode: process.platform === 'win32',
@@ -88,9 +99,11 @@ export class XTermFrontend extends Frontend {
         }
 
         this.xterm.attachCustomKeyEventHandler((event: KeyboardEvent) => {
-            if (event.getModifierState('Meta') && event.key.toLowerCase() === 'v') {
-                event.preventDefault()
-                return false
+            if (this.hostApp.platform !== Platform.Web) {
+                if (event.getModifierState('Meta') && event.key.toLowerCase() === 'v') {
+                    event.preventDefault()
+                    return false
+                }
             }
             if (event.getModifierState('Meta') && event.key.startsWith('Arrow')) {
                 return false
@@ -167,6 +180,10 @@ export class XTermFrontend extends Frontend {
         host.addEventListener('mousedown', event => this.mouseEvent.next(event))
         host.addEventListener('mouseup', event => this.mouseEvent.next(event))
         host.addEventListener('mousewheel', event => this.mouseEvent.next(event as MouseEvent))
+        host.addEventListener('contextmenu', event => {
+            event.preventDefault()
+            event.stopPropagation()
+        })
 
         this.resizeObserver = new window['ResizeObserver'](() => setTimeout(() => this.resizeHandler()))
         this.resizeObserver.observe(host)
@@ -190,12 +207,12 @@ export class XTermFrontend extends Frontend {
     copySelection (): void {
         const text = this.getSelection()
         if (text.length < 1024 * 32) {
-            require('@electron/remote').clipboard.write({
+            this.platformService.setClipboard({
                 text: this.getSelection(),
                 html: this.getSelectionAsHTML(),
             })
         } else {
-            require('@electron/remote').clipboard.write({
+            this.platformService.setClipboard({
                 text: this.getSelection(),
             })
         }

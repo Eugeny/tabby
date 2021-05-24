@@ -9,7 +9,7 @@ h3.mb-3 Window
     )
         option(*ngFor='let theme of themes', [ngValue]='theme.name') {{theme.name}}
 
-.form-line
+.form-line(*ngIf='platform.supportsWindowControls')
     .header
         .title(*ngIf='hostApp.platform !== Platform.macOS') Acrylic background
         .title(*ngIf='hostApp.platform === Platform.macOS') Vibrancy
@@ -43,7 +43,7 @@ h3.mb-3 Window
             )
             | Fluent
 
-.form-line
+.form-line(*ngIf='platform.supportsWindowControls')
     .header
         .title Opacity
     input(
@@ -55,7 +55,7 @@ h3.mb-3 Window
         step='0.01'
     )
 
-.form-line
+.form-line(*ngIf='platform.supportsWindowControls')
     .header
         .title Window frame
         .description Whether a custom window or an OS native window should be used
@@ -87,7 +87,7 @@ h3.mb-3 Window
             )
             | Full
 
-.form-line
+.form-line(*ngIf='docking')
     .header
         .title Dock the terminal
         .description Snaps the window to a side of the screen
@@ -133,7 +133,7 @@ h3.mb-3 Window
             )
             | Bottom
 
-.ml-5.form-line(*ngIf='config.store.appearance.dock != "off"')
+.ml-5.form-line(*ngIf='docking && config.store.appearance.dock != "off"')
     .header
         .title Display on
         .description Snaps the window to a side of the screen
@@ -158,7 +158,7 @@ h3.mb-3 Window
             )
             | {{screen.name}}
 
-.ml-5.form-line(*ngIf='config.store.appearance.dock != "off"')
+.ml-5.form-line(*ngIf='docking && config.store.appearance.dock != "off"')
     .header
         .title Dock always on top
         .description Keep docked terminal always on top
@@ -167,7 +167,7 @@ h3.mb-3 Window
         (ngModelChange)='saveConfiguration(); docking.dock()',
     )
 
-.ml-5.form-line(*ngIf='config.store.appearance.dock != "off"')
+.ml-5.form-line(*ngIf='docking && config.store.appearance.dock != "off"')
     .header
         .title Docked terminal size
     input(
@@ -179,7 +179,7 @@ h3.mb-3 Window
         step='0.01'
     )
 
-.ml-5.form-line(*ngIf='config.store.appearance.dock != "off"')
+.ml-5.form-line(*ngIf='docking && config.store.appearance.dock != "off"')
     .header
         .title Docked terminal space
     input(
@@ -191,7 +191,7 @@ h3.mb-3 Window
         step='0.01'
     )
 
-.ml-5.form-line(*ngIf='config.store.appearance.dock != "off"')
+.ml-5.form-line(*ngIf='docking && config.store.appearance.dock != "off"')
     .header
         .title Hide dock on blur
         .description Hides the docked terminal when you click away.

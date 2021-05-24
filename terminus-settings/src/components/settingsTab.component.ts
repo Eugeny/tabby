@@ -3,14 +3,13 @@ import * as yaml from 'js-yaml'
 import { debounce } from 'utils-decorators/dist/cjs'
 import { Component, Inject, Input, HostBinding, NgZone } from '@angular/core'
 import {
-    ElectronService,
     ConfigService,
     BaseTabComponent,
     HostAppService,
     Platform,
     HomeBaseService,
-    ShellIntegrationService,
     UpdaterService,
+    PlatformService,
 } from 'terminus-core'
 
 import { SettingsTabProvider } from '../api'
@@ -35,10 +34,9 @@ export class SettingsTabComponent extends BaseTabComponent {
 
     constructor (
         public config: ConfigService,
-        private electron: ElectronService,
         public hostApp: HostAppService,
         public homeBase: HomeBaseService,
-        public shellIntegration: ShellIntegrationService,
+        public platform: PlatformService,
         public zone: NgZone,
         private updater: UpdaterService,
         @Inject(SettingsTabProvider) public settingsProviders: SettingsTabProvider[],
@@ -61,16 +59,16 @@ export class SettingsTabComponent extends BaseTabComponent {
     }
 
     async ngOnInit () {
-        this.isShellIntegrationInstalled = await this.shellIntegration.isInstalled()
+        this.isShellIntegrationInstalled = await this.platform.isShellIntegrationInstalled()
     }
 
     async toggleShellIntegration () {
         if (!this.isShellIntegrationInstalled) {
-            await this.shellIntegration.install()
+            await this.platform.installShellIntegration()
         } else {
-            await this.shellIntegration.remove()
+            await this.platform.uninstallShellIntegration()
         }
-        this.isShellIntegrationInstalled = await this.shellIntegration.isInstalled()
+        this.isShellIntegrationInstalled = await this.platform.isShellIntegrationInstalled()
     }
 
     ngOnDestroy () {
@@ -96,7 +94,7 @@ export class SettingsTabComponent extends BaseTabComponent {
     }
 
     showConfigFile () {
-        this.electron.shell.showItemInFolder(this.config.path)
+        this.platform.showItemInFolder(this.platform.getConfigPath()!)
     }
 
     isConfigFileValid () {

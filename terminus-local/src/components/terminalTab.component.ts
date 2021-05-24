@@ -24,7 +24,7 @@ export class TerminalTabComponent extends BaseTerminalTabComponent {
 
     ngOnInit (): void {
         this.logger = this.log.create('terminalTab')
-        this.session = new Session(this.config)
+        this.session = new Session(this.injector)
 
         const isConPTY = isWindowsBuild(WIN_BUILD_CONPTY_SUPPORTED) && this.config.store.terminal.useConPTY
 

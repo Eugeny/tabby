@@ -12,7 +12,7 @@ import { ipcRenderer } from 'electron'
 
 import { getRootModule } from './app.module'
 import { findPlugins, loadPlugins, PluginInfo } from './plugins'
-import { BootstrapData } from '../common'
+import { BootstrapData, BOOTSTRAP_DATA } from '../../terminus-core/src/api/mainProcess'
 
 // Always land on the start view
 location.hash = ''
@@ -39,11 +39,9 @@ async function bootstrap (plugins: PluginInfo[], bootstrapData: BootstrapData, s
     })
     const module = getRootModule(pluginModules)
     window['rootModule'] = module
-    const moduleRef = await platformBrowserDynamic().bootstrapModule(module, {
-        providers: [
-            { provide: 'bootstrapData', useValue: bootstrapData },
-        ],
-    })
+    const moduleRef = await platformBrowserDynamic([
+        { provide: BOOTSTRAP_DATA, useValue: bootstrapData },
+    ]).bootstrapModule(module)
     if (process.env.TERMINUS_DEV) {
         const applicationRef = moduleRef.injector.get(ApplicationRef)
         const componentRef = applicationRef.components[0]
@@ -54,12 +52,12 @@ async function bootstrap (plugins: PluginInfo[], bootstrapData: BootstrapData, s
 
 ipcRenderer.once('start', async (_$event, bootstrapData: BootstrapData) => {
     console.log('Window bootstrap data:', bootstrapData)
-    ;(window as any).bootstrapData = bootstrapData
 
     let plugins = await findPlugins()
     if (bootstrapData.config.pluginBlacklist) {
         plugins = plugins.filter(x => !bootstrapData.config.pluginBlacklist.includes(x.name))
     }
+    plugins = plugins.filter(x => x.name !== 'web')
     console.log('Starting with plugins:', plugins)
     try {
         await bootstrap(plugins, bootstrapData)

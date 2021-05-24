@@ -1,7 +1,7 @@
 
 import { Observable, Subject, AsyncSubject } from 'rxjs'
 import { takeUntil } from 'rxjs/operators'
-import { Injectable } from '@angular/core'
+import { Injectable, Inject } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 
 import { BaseTabComponent } from '../components/baseTab.component'
@@ -9,6 +9,7 @@ import { SplitTabComponent } from '../components/splitTab.component'
 import { SelectorModalComponent } from '../components/selectorModal.component'
 import { SelectorOption } from '../api/selector'
 import { RecoveryToken } from '../api/tabRecovery'
+import { BootstrapData, BOOTSTRAP_DATA } from '../api/mainProcess'
 
 import { ConfigService } from './config.service'
 import { HostAppService } from './hostApp.service'
@@ -75,6 +76,7 @@ export class AppService {
         private tabRecovery: TabRecoveryService,
         private tabsService: TabsService,
         private ngbModal: NgbModal,
+        @Inject(BOOTSTRAP_DATA) private bootstrapData: BootstrapData,
     ) {
         this.tabsChanged$.subscribe(() => {
             this.tabRecovery.saveTabs(this.tabs)
@@ -83,19 +85,18 @@ export class AppService {
             this.tabRecovery.saveTabs(this.tabs)
         }, 30000)
 
-        if (hostApp.getWindow().id === 1) {
-            if (config.store.terminal.recoverTabs) {
-                this.tabRecovery.recoverTabs().then(tabs => {
+        config.ready$.toPromise().then(async () => {
+            if (this.bootstrapData.isFirstWindow) {
+                if (config.store.terminal.recoverTabs) {
+                    const tabs = await this.tabRecovery.recoverTabs()
                     for (const tab of tabs) {
                         this.openNewTabRaw(tab.type, tab.options)
                     }
-                    this.tabRecovery.enabled = true
-                })
-            } else {
+                }
                 /** Continue to store the tabs even if the setting is currently off */
                 this.tabRecovery.enabled = true
             }
-        }
+        })
 
         hostApp.windowFocused$.subscribe(() => this._activeTab?.emitFocused())
 
@@ -118,7 +119,7 @@ export class AppService {
         this.tabsChanged.next()
         this.tabOpened.next(tab)
 
-        if (this.hostApp.getWindow().id === 1) {
+        if (this.bootstrapData.isFirstWindow) {
             tab.recoveryStateChangedHint$.subscribe(() => {
                 this.tabRecovery.saveTabs(this.tabs)
             })

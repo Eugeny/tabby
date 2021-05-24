@@ -1,4 +1,4 @@
-import { NgModule, ModuleWithProviders } from '@angular/core'
+import { NgModule, ModuleWithProviders, APP_INITIALIZER } from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { FormsModule } from '@angular/forms'
@@ -24,7 +24,7 @@ import { WelcomeTabComponent } from './components/welcomeTab.component'
 import { AutofocusDirective } from './directives/autofocus.directive'
 import { FastHtmlBindDirective } from './directives/fastHtmlBind.directive'
 
-import { Theme, CLIHandler, BootstrapData, TabContextMenuItemProvider, TabRecoveryProvider, HotkeyProvider, ConfigProvider } from './api'
+import { Theme, CLIHandler, TabContextMenuItemProvider, TabRecoveryProvider, HotkeyProvider, ConfigProvider } from './api'
 
 import { AppService } from './services/app.service'
 import { ConfigService } from './services/config.service'
@@ -38,6 +38,10 @@ import { LastCLIHandler } from './cli'
 import 'perfect-scrollbar/css/perfect-scrollbar.css'
 import 'ng2-dnd/bundles/style.css'
 
+function initialize (config: ConfigService) {
+    return () => config.ready$.toPromise()
+}
+
 const PROVIDERS = [
     { provide: HotkeyProvider, useClass: AppHotkeyProvider, multi: true },
     { provide: Theme, useClass: StandardTheme, multi: true },
@@ -50,6 +54,7 @@ const PROVIDERS = [
     { provide: TabRecoveryProvider, useClass: SplitTabRecoveryProvider, multi: true },
     { provide: CLIHandler, useClass: LastCLIHandler, multi: true },
     { provide: PERFECT_SCROLLBAR_CONFIG, useValue: { suppressScrollX: true } },
+    { provide: APP_INITIALIZER, useFactory: initialize, deps: [ConfigService], multi: true },
 ]
 
 /** @hidden */
@@ -108,10 +113,6 @@ export default class AppModule { // eslint-disable-line @typescript-eslint/no-ex
             providers: PROVIDERS,
         }
     }
-}
-
-export function getBootstrapData (): BootstrapData {
-    return (window as any).bootstrapData
 }
 
 export { AppRootComponent as bootstrap }

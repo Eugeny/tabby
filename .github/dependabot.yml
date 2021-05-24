@@ -43,6 +43,18 @@ updates:
     time: "04:00"
   open-pull-requests-limit: 20
 - package-ecosystem: npm
+  directory: "/terminus-electron"
+  schedule:
+    interval: daily
+    time: "04:00"
+  open-pull-requests-limit: 20
+- package-ecosystem: npm
+  directory: "/terminus-web"
+  schedule:
+    interval: daily
+    time: "04:00"
+  open-pull-requests-limit: 20
+- package-ecosystem: npm
   directory: "/terminus-plugin-manager"
   schedule:
     interval: daily

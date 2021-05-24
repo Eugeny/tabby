@@ -10,7 +10,7 @@ import { exec } from 'child_process'
 import * as path from 'path'
 import * as sshpk from 'sshpk'
 import { Subject, Observable } from 'rxjs'
-import { HostAppService, Platform, Logger, LogService, AppService, SelectorOption, ConfigService, NotificationsService } from 'terminus-core'
+import { HostAppService, Platform, Logger, LogService, AppService, SelectorOption, ConfigService, NotificationsService, PlatformService } from 'terminus-core'
 import { SettingsTabComponent } from 'terminus-settings'
 import { ALGORITHM_BLACKLIST, ForwardedPort, SSHConnection, SSHSession } from '../api'
 import { PromptModalComponent } from '../components/promptModal.component'
@@ -19,15 +19,6 @@ import { SSHTabComponent } from '../components/sshTab.component'
 import { ChildProcess } from 'node:child_process'
 
 const WINDOWS_OPENSSH_AGENT_PIPE = '\\\\.\\pipe\\openssh-ssh-agent'
-
-try {
-    var windowsProcessTreeNative = require('windows-process-tree/build/Release/windows_process_tree.node') // eslint-disable-line @typescript-eslint/no-var-requires, no-var
-} catch { }
-
-
-// eslint-disable-next-line @typescript-eslint/no-type-alias
-export type SSHLogCallback = (message: string) => void
-
 
 @Injectable({ providedIn: 'root' })
 export class SSHService {
@@ -42,6 +33,7 @@ export class SSHService {
         private notifications: NotificationsService,
         private app: AppService,
         private config: ConfigService,
+        private platform: PlatformService,
     ) {
         this.logger = log.create('ssh')
     }
@@ -197,13 +189,7 @@ export class SSHService {
             if (await fs.exists(WINDOWS_OPENSSH_AGENT_PIPE)) {
                 agent = WINDOWS_OPENSSH_AGENT_PIPE
             } else {
-                // eslint-disable-next-line @typescript-eslint/no-shadow
-                const pageantRunning = await new Promise<boolean>(resolve => {
-                    windowsProcessTreeNative.getProcessList(list => { // eslint-disable-line block-scoped-var
-                        resolve(list.some(x => x.name === 'pageant.exe'))
-                    }, 0)
-                })
-                if (pageantRunning) {
+                if (await this.platform.isProcessRunning('pageant.exe')) {
                     agent = 'pageant'
                 }
             }

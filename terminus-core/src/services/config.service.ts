@@ -1,13 +1,12 @@
-import { Observable, Subject } from 'rxjs'
+import { Observable, Subject, AsyncSubject } from 'rxjs'
 import * as yaml from 'js-yaml'
-import * as path from 'path'
-import * as fs from 'fs'
 import { Injectable, Inject } from '@angular/core'
 import { ConfigProvider } from '../api/configProvider'
-import { ElectronService } from './electron.service'
+import { PlatformService } from '../api/platform'
 import { HostAppService } from './hostApp.service'
+const deepmerge = require('deepmerge')
 
-const configMerge = (a, b) => require('deepmerge')(a, b, { arrayMerge: (_d, s) => s }) // eslint-disable-line @typescript-eslint/no-var-requires
+const configMerge = (a, b) => deepmerge(a, b, { arrayMerge: (_d, s) => s }) // eslint-disable-line @typescript-eslint/no-var-requires
 
 function isStructuralMember (v) {
     return v instanceof Object && !(v instanceof Array) &&
@@ -89,11 +88,10 @@ export class ConfigService {
      */
     restartRequested: boolean
 
-    /**
-     * Full config file path
-     */
-    path: string
+    /** Fires once when the config is loaded */
+    get ready$ (): Observable<void> { return this.ready }
 
+    private ready = new AsyncSubject<void>()
     private changed = new Subject<void>()
     private _store: any
     private defaults: any
@@ -103,26 +101,24 @@ export class ConfigService {
 
     /** @hidden */
     private constructor (
-        electron: ElectronService,
         private hostApp: HostAppService,
+        private platform: PlatformService,
         @Inject(ConfigProvider) private configProviders: ConfigProvider[],
     ) {
-        this.path = path.join(electron.app.getPath('userData'), 'config.yaml')
         this.defaults = this.mergeDefaults()
-        this.load()
-
-        hostApp.configChangeBroadcast$.subscribe(() => {
-            this.load()
-            this.emitChange()
-        })
+        this.init()
     }
 
     mergeDefaults (): unknown {
         const providers = this.configProviders
         return providers.map(provider => {
-            let defaults = provider.platformDefaults[this.hostApp.platform] || {}
+            let defaults = provider.platformDefaults[this.hostApp.configPlatform] ?? {}
+            defaults = configMerge(
+                defaults,
+                provider.platformDefaults[this.hostApp.platform] ?? {},
+            )
             if (provider.defaults) {
-                defaults = configMerge(defaults, provider.defaults)
+                defaults = configMerge(provider.defaults, defaults)
             }
             return defaults
         }).reduce(configMerge)
@@ -147,19 +143,20 @@ export class ConfigService {
         return cleanup(this.defaults)
     }
 
-    load (): void {
-        if (fs.existsSync(this.path)) {
-            this._store = yaml.load(fs.readFileSync(this.path, 'utf8'))
+    async load (): Promise<void> {
+        const content = await this.platform.loadConfig()
+        if (content) {
+            this._store = yaml.load(content)
         } else {
             this._store = {}
         }
         this.store = new ConfigProxy(this._store, this.defaults)
     }
 
-    save (): void {
+    async save (): Promise<void> {
         // Scrub undefined values
-        this._store = JSON.parse(JSON.stringify(this._store))
-        fs.writeFileSync(this.path, yaml.dump(this._store), 'utf8')
+        const cleanStore = JSON.parse(JSON.stringify(this._store))
+        await this.platform.saveConfig(yaml.dump(cleanStore))
         this.emitChange()
         this.hostApp.broadcastConfigChange(JSON.parse(JSON.stringify(this.store)))
     }
@@ -211,6 +208,17 @@ export class ConfigService {
                 }
             }
             return true
+        })
+    }
+
+    private async init () {
+        await this.load()
+        this.ready.next()
+        this.ready.complete()
+
+        this.hostApp.configChangeBroadcast$.subscribe(() => {
+            this.load()
+            this.emitChange()
         })
     }
 

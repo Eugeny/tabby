@@ -16,9 +16,14 @@ export function getRootModule (plugins: any[]) {
             extendedTimeOut: 1000,
         }),
     ]
+
     const bootstrap = [
         ...plugins.filter(x => x.bootstrap).map(x => x.bootstrap),
     ]
+
+    const providers = [
+        ...plugins.filter(x => x.providers).map(x => x.providers),
+    ].flat()
 
     if (bootstrap.length === 0) {
         throw new Error('Did not find any bootstrap components. Are there any plugins installed?')
@@ -27,6 +32,7 @@ export function getRootModule (plugins: any[]) {
     @NgModule({
         imports,
         bootstrap,
+        providers,
     }) class RootModule { } // eslint-disable-line @typescript-eslint/no-extraneous-class
 
     return RootModule

@@ -1,10 +1,9 @@
-import type { MenuItemConstructorOptions } from 'electron'
 import { Observable, Subject, Subscription } from 'rxjs'
 import { first } from 'rxjs/operators'
 import colors from 'ansi-colors'
 import { NgZone, OnInit, OnDestroy, Injector, ViewChild, HostBinding, Input, ElementRef, InjectFlags } from '@angular/core'
 import { trigger, transition, style, animate, AnimationTriggerMetadata } from '@angular/animations'
-import { AppService, ConfigService, BaseTabComponent, ElectronService, HostAppService, HotkeysService, NotificationsService, Platform, LogService, Logger, TabContextMenuItemProvider, SplitTabComponent, SubscriptionContainer } from 'terminus-core'
+import { AppService, ConfigService, BaseTabComponent, ElectronService, HostAppService, HotkeysService, NotificationsService, Platform, LogService, Logger, TabContextMenuItemProvider, SplitTabComponent, SubscriptionContainer, MenuItemOptions, PlatformService } from 'terminus-core'
 
 import { BaseSession } from '../session'
 import { TerminalFrontendService } from '../services/terminalFrontend.service'
@@ -84,6 +83,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
     protected hostApp: HostAppService
     protected hotkeys: HotkeysService
     protected electron: ElectronService
+    protected platform: PlatformService
     protected terminalContainersService: TerminalFrontendService
     protected notifications: NotificationsService
     protected log: LogService
@@ -136,6 +136,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
         this.hostApp = injector.get(HostAppService)
         this.hotkeys = injector.get(HotkeysService)
         this.electron = injector.get(ElectronService)
+        this.platform = injector.get(PlatformService)
         this.terminalContainersService = injector.get(TerminalFrontendService)
         this.notifications = injector.get(NotificationsService)
         this.log = injector.get(LogService)
@@ -312,8 +313,8 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
         }
     }
 
-    async buildContextMenu (): Promise<MenuItemConstructorOptions[]> {
-        let items: MenuItemConstructorOptions[] = []
+    async buildContextMenu (): Promise<MenuItemOptions[]> {
+        let items: MenuItemOptions[] = []
         for (const section of await Promise.all(this.contextMenuProviders.map(x => x.getItems(this)))) {
             items = items.concat(section)
             items.push({ type: 'separator' })
@@ -498,6 +499,16 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
         this.termContainerSubscriptions.cancelAll()
     }
 
+    protected async handleRightClick (event: MouseEvent): Promise<void> {
+        event.preventDefault()
+        event.stopPropagation()
+        if (this.config.store.terminal.rightClick === 'menu') {
+            this.platform.popupContextMenu(await this.buildContextMenu(), event)
+        } else if (this.config.store.terminal.rightClick === 'paste') {
+            this.paste()
+        }
+    }
+
     protected attachTermContainerHandlers (): void {
         this.detachTermContainerHandlers()
 
@@ -531,13 +542,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
                     return
                 }
                 if (event.which === 3 || event.which === 1 && event.ctrlKey) {
-                    if (this.config.store.terminal.rightClick === 'menu') {
-                        this.hostApp.popupContextMenu(await this.buildContextMenu())
-                    } else if (this.config.store.terminal.rightClick === 'paste') {
-                        this.paste()
-                    }
-                    event.preventDefault()
-                    event.stopPropagation()
+                    this.handleRightClick(event)
                     return
                 }
             }

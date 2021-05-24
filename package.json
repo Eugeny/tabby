@@ -66,7 +66,7 @@
     "**/graceful-fs": "^4.2.4"
   },
   "scripts": {
-    "build": "npm run build:typings && webpack --color --config app/webpack.main.config.js && webpack --color --config app/webpack.config.js && webpack --color --config terminus-core/webpack.config.js && webpack --color --config terminus-settings/webpack.config.js && webpack --color --config terminus-terminal/webpack.config.js && webpack --color --config terminus-local/webpack.config.js && webpack --color --config terminus-plugin-manager/webpack.config.js && webpack --color --config terminus-community-color-schemes/webpack.config.js && webpack --color --config terminus-ssh/webpack.config.js && webpack --color --config terminus-serial/webpack.config.js",
+    "build": "npm run build:typings && webpack --color --config app/webpack.main.config.js && webpack --color --config app/webpack.config.js && webpack --color --config terminus-core/webpack.config.js && webpack --color --config terminus-settings/webpack.config.js && webpack --color --config terminus-terminal/webpack.config.js && webpack --color --config terminus-local/webpack.config.js && webpack --color --config terminus-plugin-manager/webpack.config.js && webpack --color --config terminus-community-color-schemes/webpack.config.js && webpack --color --config terminus-ssh/webpack.config.js && webpack --color --config terminus-serial/webpack.config.js && webpack --color --config terminus-electron/webpack.config.js && webpack --color --config terminus-web/webpack.config.js",
     "build:typings": "node scripts/build-typings.js",
     "watch": "cross-env TERMINUS_DEV=1 webpack --progress --color --watch",
     "start": "cross-env TERMINUS_DEV=1 electron app --debug --inspect",

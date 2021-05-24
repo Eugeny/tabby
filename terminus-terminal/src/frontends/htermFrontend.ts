@@ -1,6 +1,7 @@
+import { Injector } from '@angular/core'
+import { ConfigService, getCSSFontFamily, ThemesService } from 'terminus-core'
 import { Frontend, SearchOptions } from './frontend'
 import { hterm, preferenceManager } from './hterm'
-import { getCSSFontFamily } from 'terminus-core'
 
 /** @hidden */
 export class HTermFrontend extends Frontend {
@@ -12,6 +13,15 @@ export class HTermFrontend extends Frontend {
     private configuredLinePadding = 0
     private configuredBackgroundColor = 'transparent'
     private zoom = 0
+
+    private configService: ConfigService
+    private themesService: ThemesService
+
+    constructor (injector: Injector) {
+        super(injector)
+        this.configService = injector.get(ConfigService)
+        this.themesService = injector.get(ThemesService)
+    }
 
     async attach (host: HTMLElement): Promise<void> {
         if (!this.initialized) {

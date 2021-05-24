@@ -26,10 +26,12 @@ export class TerminalService {
         log: LogService,
     ) {
         this.logger = log.create('terminal')
-        this.reloadShells()
 
-        config.changed$.subscribe(() => {
+        config.ready$.toPromise().then(() => {
             this.reloadShells()
+            config.changed$.subscribe(() => {
+                this.reloadShells()
+            })
         })
     }
 

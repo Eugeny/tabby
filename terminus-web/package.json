@@ -1,0 +1,27 @@
+{
+  "name": "terminus-web",
+  "version": "1.0.135-nightly.0",
+  "description": "Web-specific bindings",
+  "keywords": [
+    "terminus-builtin-plugin"
+  ],
+  "main": "dist/index.js",
+  "typings": "typings/index.d.ts",
+  "scripts": {
+    "build": "webpack --progress --color",
+    "watch": "webpack --progress --color --watch"
+  },
+  "files": [
+    "dist"
+  ],
+  "author": "Eugene Pankov",
+  "license": "MIT",
+  "peerDependencies": {
+    "@angular/core": "^9.1.9"
+  },
+  "devDependencies": {
+    "@vaadin/vaadin-context-menu": "^5.0.0",
+    "bootstrap": "^4.1.3",
+    "copy-text-to-clipboard": "^3.0.1"
+  }
+}

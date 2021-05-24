@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core'
-import { ConfigService, ThemesService, HotkeysService } from 'terminus-core'
+import { Injectable, Injector } from '@angular/core'
+import { ConfigService } from 'terminus-core'
 import { Frontend } from '../frontends/frontend'
 import { HTermFrontend } from '../frontends/htermFrontend'
 import { XTermFrontend, XTermWebGLFrontend } from '../frontends/xtermFrontend'
@@ -12,8 +12,7 @@ export class TerminalFrontendService {
     /** @hidden */
     private constructor (
         private config: ConfigService,
-        private themes: ThemesService,
-        private hotkeys: HotkeysService,
+        private injector: Injector,
     ) { }
 
     getFrontend (session?: BaseSession|null): Frontend {
@@ -22,10 +21,7 @@ export class TerminalFrontendService {
                 xterm: XTermFrontend,
                 'xterm-webgl': XTermWebGLFrontend,
                 hterm: HTermFrontend,
-            }[this.config.store.terminal.frontend]()
-            frontend.configService = this.config
-            frontend.themesService = this.themes
-            frontend.hotkeysService = this.hotkeys
+            }[this.config.store.terminal.frontend](this.injector)
             return frontend
         }
         if (!this.containers.has(session)) {

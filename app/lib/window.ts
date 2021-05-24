@@ -122,7 +122,7 @@ export class Window {
             }
         })
 
-        this.window.loadURL(`file://${app.getAppPath()}/dist/index.html?${this.window.id}`, { extraHeaders: 'pragma: no-cache\n' })
+        this.window.loadURL(`file://${app.getAppPath()}/dist/index.html`, { extraHeaders: 'pragma: no-cache\n' })
 
         this.window.webContents.setVisualZoomLevelLimits(1, 1)
         this.window.webContents.setZoomFactor(1)
@@ -297,6 +297,8 @@ export class Window {
             this.window.webContents.send('start', {
                 config: this.configStore,
                 executable: app.getPath('exe'),
+                windowID: this.window.id,
+                isFirstWindow: this.window.id === 1,
             })
         })
 

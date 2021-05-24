@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { ToastrModule } from 'ngx-toastr'
 
-import TerminusCorePlugin, { HostAppService, ToolbarButtonProvider, TabRecoveryProvider, ConfigProvider, HotkeysService, HotkeyProvider, TabContextMenuItemProvider, CLIHandler } from 'terminus-core'
+import TerminusCorePlugin, { HostAppService, ToolbarButtonProvider, TabRecoveryProvider, ConfigProvider, HotkeysService, HotkeyProvider, TabContextMenuItemProvider, CLIHandler, ConfigService } from 'terminus-core'
 import TerminusTerminalModule from 'terminus-terminal'
 import { SettingsTabProvider } from 'terminus-settings'
 
@@ -104,6 +104,7 @@ export default class LocalTerminalModule { // eslint-disable-line @typescript-es
         terminal: TerminalService,
         hostApp: HostAppService,
         dockMenu: DockMenuService,
+        config: ConfigService,
     ) {
         hotkeys.matchedHotkey.subscribe(async (hotkey) => {
             if (hotkey === 'new-tab') {
@@ -120,7 +121,9 @@ export default class LocalTerminalModule { // eslint-disable-line @typescript-es
             }
         })
 
-        dockMenu.update()
+        config.ready$.toPromise().then(() => {
+            dockMenu.update()
+        })
     }
 }
 

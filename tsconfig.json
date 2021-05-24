@@ -23,7 +23,8 @@
       "es6",
       "es7",
       "es2015",
-      "es2017"
+      "es2017",
+      "es2019"
     ],
     "paths": {
       "terminus-*": ["../../terminus-*/src"]

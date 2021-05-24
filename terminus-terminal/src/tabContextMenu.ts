@@ -1,6 +1,5 @@
-import { MenuItemConstructorOptions } from 'electron'
 import { Injectable, NgZone, Optional, Inject } from '@angular/core'
-import { BaseTabComponent, TabContextMenuItemProvider, TabHeaderComponent, NotificationsService } from 'terminus-core'
+import { BaseTabComponent, TabContextMenuItemProvider, TabHeaderComponent, NotificationsService, MenuItemOptions } from 'terminus-core'
 import { BaseTerminalTabComponent } from './api/baseTerminalTab.component'
 import { TerminalContextMenuItemProvider } from './api/contextMenuProvider'
 
@@ -16,7 +15,7 @@ export class CopyPasteContextMenu extends TabContextMenuItemProvider {
         super()
     }
 
-    async getItems (tab: BaseTabComponent, tabHeader?: TabHeaderComponent): Promise<MenuItemConstructorOptions[]> {
+    async getItems (tab: BaseTabComponent, tabHeader?: TabHeaderComponent): Promise<MenuItemOptions[]> {
         if (tabHeader) {
             return []
         }
@@ -56,12 +55,12 @@ export class LegacyContextMenu extends TabContextMenuItemProvider {
         super()
     }
 
-    async getItems (tab: BaseTabComponent, _tabHeader?: TabHeaderComponent): Promise<MenuItemConstructorOptions[]> {
+    async getItems (tab: BaseTabComponent, _tabHeader?: TabHeaderComponent): Promise<MenuItemOptions[]> {
         if (!this.contextMenuProviders) {
             return []
         }
         if (tab instanceof BaseTerminalTabComponent) {
-            let items: MenuItemConstructorOptions[] = []
+            let items: MenuItemOptions[] = []
             for (const p of this.contextMenuProviders) {
                 items = items.concat(await p.getItems(tab))
             }

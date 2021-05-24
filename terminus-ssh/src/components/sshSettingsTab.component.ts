@@ -2,7 +2,7 @@
 import deepClone from 'clone-deep'
 import { Component } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
-import { ConfigService, ElectronService, HostAppService } from 'terminus-core'
+import { ConfigService, ElectronService, HostAppService, Platform } from 'terminus-core'
 import { PasswordStorageService } from '../services/passwordStorage.service'
 import { SSHConnection } from '../api'
 import { EditConnectionModalComponent } from './editConnectionModal.component'
@@ -23,11 +23,12 @@ export class SSHSettingsTabComponent {
     childGroups: SSHConnectionGroup[]
     groupCollapsed: Record<string, boolean> = {}
     filter = ''
+    Platform = Platform
 
     constructor (
         public config: ConfigService,
+        public hostApp: HostAppService,
         private electron: ElectronService,
-        private hostApp: HostAppService,
         private ngbModal: NgbModal,
         private passwordStorage: PasswordStorageService,
     ) {

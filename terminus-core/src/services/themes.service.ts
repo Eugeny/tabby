@@ -1,21 +1,25 @@
 import { Inject, Injectable } from '@angular/core'
+import { Subject, Observable } from 'rxjs'
 import { ConfigService } from '../services/config.service'
 import { Theme } from '../api/theme'
-import { HostAppService, Platform } from './hostApp.service'
 
 @Injectable({ providedIn: 'root' })
 export class ThemesService {
+    get themeChanged$ (): Observable<Theme> { return this.themeChanged }
+    private themeChanged = new Subject<Theme>()
+
     private styleElement: HTMLElement|null = null
 
     /** @hidden */
     private constructor (
         private config: ConfigService,
-        private hostApp: HostAppService,
         @Inject(Theme) private themes: Theme[],
     ) {
-        this.applyCurrentTheme()
-        config.changed$.subscribe(() => {
+        config.ready$.toPromise().then(() => {
             this.applyCurrentTheme()
+            config.changed$.subscribe(() => {
+                this.applyCurrentTheme()
+            })
         })
     }
 
@@ -35,12 +39,7 @@ export class ThemesService {
         }
         this.styleElement.textContent = theme.css
         document.querySelector('style#custom-css')!.innerHTML = this.config.store.appearance.css
-        if (this.hostApp.platform === Platform.macOS) {
-            this.hostApp.setTrafficLightInset(
-                theme.macOSWindowButtonsInsetX ?? 14,
-                theme.macOSWindowButtonsInsetY ?? 22,
-            )
-        }
+        this.themeChanged.next(theme)
     }
 
     private applyCurrentTheme (): void {

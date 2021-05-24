@@ -1,6 +1,6 @@
 h3.mb-3 Terminal
 
-.form-line
+.form-line(*ngIf='hostApp.platform !== Platform.Web')
     .header
         .title Frontend
         .description Switches terminal frontend implementation (experimental)
@@ -86,7 +86,7 @@ h3.mb-3 Terminal
         (ngModelChange)='config.save()',
     )
 
-.form-line
+.form-line(*ngIf='hostApp.platform !== Platform.Web')
     .header
         .title Auto-open a terminal on app start
 

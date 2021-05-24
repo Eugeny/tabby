@@ -40,7 +40,7 @@ button.btn.btn-outline-warning.btn-block(*ngIf='config.restartRequested', '(clic
                             i.fas.fa-sync
                             span Update
 
-                .form-line(*ngIf='hostApp.platform !== Platform.Linux')
+                .form-line(*ngIf='platform.isShellIntegrationSupported()')
                     .header
                         .title Shell integration
                         .description Allows quickly opening a terminal in the selected folder
@@ -101,7 +101,10 @@ button.btn.btn-outline-warning.btn-block(*ngIf='config.restartRequested', '(clic
                         button.btn.btn-primary(disabled, *ngIf='!isConfigFileValid()')
                             i.fas.fa-exclamation-triangle.mr-2
                             | Invalid syntax
-                        button.btn.btn-secondary.ml-auto((click)='showConfigFile()')
+                        button.btn.btn-secondary.ml-auto(
+                            *ngIf='platform.getConfigPath()',
+                            (click)='showConfigFile()'
+                        )
                             i.fas.fa-external-link-square-alt.mr-2
                             | Show config file
 

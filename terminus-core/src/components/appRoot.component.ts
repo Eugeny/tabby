@@ -3,19 +3,16 @@ import { Component, Inject, Input, HostListener, HostBinding } from '@angular/co
 import { trigger, style, animate, transition, state } from '@angular/animations'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 
-import { ElectronService } from '../services/electron.service'
 import { HostAppService, Platform } from '../services/hostApp.service'
 import { HotkeysService } from '../services/hotkeys.service'
 import { Logger, LogService } from '../services/log.service'
 import { ConfigService } from '../services/config.service'
-import { DockingService } from '../services/docking.service'
 import { ThemesService } from '../services/themes.service'
 import { UpdaterService } from '../services/updater.service'
-import { TouchbarService } from '../services/touchbar.service'
 
 import { BaseTabComponent } from './baseTab.component'
 import { SafeModeModalComponent } from './safeModeModal.component'
-import { AppService, ToolbarButton, ToolbarButtonProvider } from '../api'
+import { AppService, PlatformService, ToolbarButton, ToolbarButtonProvider } from '../api'
 
 /** @hidden */
 @Component({
@@ -67,21 +64,19 @@ export class AppRootComponent {
     private logger: Logger
 
     private constructor (
-        private docking: DockingService,
         private hotkeys: HotkeysService,
         private updater: UpdaterService,
-        private touchbar: TouchbarService,
         public hostApp: HostAppService,
         public config: ConfigService,
         public app: AppService,
         @Inject(ToolbarButtonProvider) private toolbarButtonProviders: ToolbarButtonProvider[],
-        electron: ElectronService,
+        platform: PlatformService,
         log: LogService,
         ngbModal: NgbModal,
         _themes: ThemesService,
     ) {
         this.logger = log.create('main')
-        this.logger.info('v', electron.app.getVersion())
+        this.logger.info('v', platform.getAppVersion())
 
         this.leftToolbarButtons = this.getToolbarButtons(false)
         this.rightToolbarButtons = this.getToolbarButtons(true)
@@ -123,11 +118,6 @@ export class AppRootComponent {
             }
         })
 
-        this.docking.dock()
-        this.hostApp.shown.subscribe(() => {
-            this.docking.dock()
-        })
-
         this.hostApp.windowCloseRequest$.subscribe(async () => {
             this.app.closeWindow()
         })
@@ -144,27 +134,8 @@ export class AppRootComponent {
             }
         }, 3600 * 12 * 1000)
 
-        this.touchbar.update()
-
-        this.hostApp.useBuiltinGraphics()
-
-        config.changed$.subscribe(() => this.updateVibrancy())
-        this.updateVibrancy()
-
-        let lastProgress: number|null = null
         this.app.tabOpened$.subscribe(tab => {
             this.unsortedTabs.push(tab)
-            tab.progress$.subscribe(progress => {
-                if (lastProgress === progress) {
-                    return
-                }
-                if (progress !== null) {
-                    this.hostApp.getWindow().setProgressBar(progress / 100.0, { mode: 'normal' })
-                } else {
-                    this.hostApp.getWindow().setProgressBar(-1, { mode: 'none' })
-                }
-                lastProgress = progress
-            })
             this.noTabs = false
         })
 
@@ -223,10 +194,5 @@ export class AppRootComponent {
         return buttons
             .filter(button => (button.weight ?? 0) > 0 === aboveZero)
             .sort((a: ToolbarButton, b: ToolbarButton) => (a.weight ?? 0) - (b.weight ?? 0))
-    }
-
-    private updateVibrancy () {
-        this.hostApp.setVibrancy(this.config.store.appearance.vibrancy, this.config.store.appearance.vibrancyType)
-        this.hostApp.getWindow().setOpacity(this.config.store.appearance.opacity)
     }
 }

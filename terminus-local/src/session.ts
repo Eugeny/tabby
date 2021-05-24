@@ -1,7 +1,8 @@
 import * as psNode from 'ps-node'
 import * as fs from 'mz/fs'
 import * as os from 'os'
-import { ConfigService, WIN_BUILD_CONPTY_SUPPORTED, isWindowsBuild, getBootstrapData } from 'terminus-core'
+import { Injector } from '@angular/core'
+import { HostAppService, ConfigService, WIN_BUILD_CONPTY_SUPPORTED, isWindowsBuild, Platform, BootstrapData, BOOTSTRAP_DATA } from 'terminus-core'
 import { BaseSession } from 'terminus-terminal'
 import { ipcRenderer } from 'electron'
 import { getWorkingDirectoryFromPID } from 'native-process-working-directory'
@@ -91,9 +92,15 @@ export class Session extends BaseSession {
     private guessedCWD: string|null = null
     private reportedCWD: string
     private initialCWD: string|null = null
+    private config: ConfigService
+    private hostApp: HostAppService
+    private bootstrapData: BootstrapData
 
-    constructor (private config: ConfigService) {
+    constructor (injector: Injector) {
         super()
+        this.config = injector.get(ConfigService)
+        this.hostApp = injector.get(HostAppService)
+        this.bootstrapData = injector.get(BOOTSTRAP_DATA) as BootstrapData
     }
 
     start (options: SessionOptions): void {
@@ -115,13 +122,13 @@ export class Session extends BaseSession {
                 ...this.config.store.terminal.environment || {},
             }
 
-            if (process.platform === 'win32') {
-                env.COMSPEC = getBootstrapData().executable
+            if (this.hostApp.platform === Platform.Windows) {
+                env.COMSPEC = this.bootstrapData.executable
             }
 
             delete env['']
 
-            if (process.platform === 'darwin' && !process.env.LC_ALL) {
+            if (this.hostApp.platform === Platform.macOS && !process.env.LC_ALL) {
                 const locale = process.env.LC_CTYPE ?? 'en_US.UTF-8'
                 Object.assign(env, {
                     LANG: locale,
@@ -177,7 +184,7 @@ export class Session extends BaseSession {
             let data = Buffer.from(array)
             data = this.processOSC1337(data)
             this.emitOutput(data)
-            if (process.platform === 'win32') {
+            if (this.hostApp.platform === Platform.Windows) {
                 this.guessWindowsCWD(data.toString())
             }
         })
@@ -229,7 +236,7 @@ export class Session extends BaseSession {
         if (!this.truePID) {
             return []
         }
-        if (process.platform === 'darwin') {
+        if (this.hostApp.platform === Platform.macOS) {
             const processes = await macOSNativeProcessList.getProcessList()
             return processes.filter(x => x.ppid === this.truePID).map(p => ({
                 pid: p.pid,
@@ -237,7 +244,7 @@ export class Session extends BaseSession {
                 command: p.name,
             }))
         }
-        if (process.platform === 'win32') {
+        if (this.hostApp.platform === Platform.Windows) {
             return new Promise<ChildProcess[]>(resolve => {
                 windowsProcessTree.getProcessTree(this.truePID, tree => {
                     resolve(tree ? tree.children.map(child => ({
@@ -259,7 +266,7 @@ export class Session extends BaseSession {
     }
 
     async gracefullyKillProcess (): Promise<void> {
-        if (process.platform === 'win32') {
+        if (this.hostApp.platform === Platform.Windows) {
             this.kill()
         } else {
             await new Promise<void>((resolve) => {
@@ -302,7 +309,7 @@ export class Session extends BaseSession {
             cwd = await fs.realpath(cwd)
         } catch {}
 
-        if (process.platform === 'win32' && (cwd === this.initialCWD || cwd === process.env.WINDIR)) {
+        if (this.hostApp.platform === Platform.Windows && (cwd === this.initialCWD || cwd === process.env.WINDIR)) {
             // shell doesn't truly change its process' CWD
             cwd = null
         }

@@ -7,6 +7,12 @@ import { Window, WindowOptions } from './window'
 import { pluginManager } from './pluginManager'
 import { PTYManager } from './pty'
 
+/* eslint-disable block-scoped-var */
+
+try {
+    var wnr = require('windows-native-registry') // eslint-disable-line @typescript-eslint/no-var-requires, no-var
+} catch (_) { }
+
 export class Application {
     private tray?: Tray
     private ptyManager = new PTYManager()
@@ -14,6 +20,7 @@ export class Application {
 
     constructor () {
         remote.initialize()
+        this.useBuiltinGraphics()
         this.ptyManager.init(this)
 
         ipcMain.on('app:config-change', (_event, config) => {
@@ -159,6 +166,16 @@ export class Application {
     handleSecondInstance (argv: string[], cwd: string): void {
         this.presentAllWindows()
         this.windows[this.windows.length - 1].passCliArguments(argv, cwd, true)
+    }
+
+    private useBuiltinGraphics (): void {
+        if (process.platform === 'win32') {
+            const keyPath = 'SOFTWARE\\Microsoft\\DirectX\\UserGpuPreferences'
+            const valueName = app.getPath('exe')
+            if (!wnr.getRegistryValue(wnr.HK.CU, keyPath, valueName)) {
+                wnr.setRegistryValue(wnr.HK.CU, keyPath, valueName, wnr.REG.SZ, 'GpuPreference=1;')
+            }
+        }
     }
 
     private setupMenu () {

@@ -19,7 +19,6 @@
   "devDependencies": {
     "@types/semver": "^7.1.0",
     "axios": "^0.21.1",
-    "electron-promise-ipc": "^2.2.4",
     "mz": "^2.6.0",
     "semver": "^7.1.1"
   },

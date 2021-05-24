@@ -1,27 +1,20 @@
-import type { MenuItemConstructorOptions } from 'electron'
-import { execFile } from 'child_process'
 import { Injectable } from '@angular/core'
-import { ConfigService, BaseTabComponent, TabContextMenuItemProvider, TabHeaderComponent, HostAppService, Platform } from 'terminus-core'
+import { ConfigService, BaseTabComponent, TabContextMenuItemProvider, TabHeaderComponent, HostAppService, Platform, PlatformService, MenuItemOptions } from 'terminus-core'
 import { SSHTabComponent } from './components/sshTab.component'
 import { PasswordStorageService } from './services/passwordStorage.service'
 import { SSHConnection } from './api'
-
-
-/* eslint-disable block-scoped-var */
-try {
-    var wnr = require('windows-native-registry') // eslint-disable-line @typescript-eslint/no-var-requires, no-var
-} catch { }
 
 
 /** @hidden */
 @Injectable()
 export class WinSCPContextMenu extends TabContextMenuItemProvider {
     weight = 10
-    private detectedPath?: string
+    private detectedPath: string | null
 
     constructor (
         private hostApp: HostAppService,
         private config: ConfigService,
+        private platform: PlatformService,
         private passwordStorage: PasswordStorageService,
     ) {
         super()
@@ -30,14 +23,10 @@ export class WinSCPContextMenu extends TabContextMenuItemProvider {
             return
         }
 
-        const key = wnr.getRegistryKey(wnr.HK.CR, 'WinSCP.Url\\DefaultIcon')
-        if (key?.['']) {
-            this.detectedPath = key[''].value?.split(',')[0]
-            this.detectedPath = this.detectedPath?.substring(1, this.detectedPath.length - 1)
-        }
+        this.detectedPath = platform.getWinSCPPath()
     }
 
-    async getItems (tab: BaseTabComponent, tabHeader?: TabHeaderComponent): Promise<MenuItemConstructorOptions[]> {
+    async getItems (tab: BaseTabComponent, tabHeader?: TabHeaderComponent): Promise<MenuItemOptions[]> {
         if (this.hostApp.platform !== Platform.Windows || tabHeader) {
             return []
         }
@@ -81,6 +70,6 @@ export class WinSCPContextMenu extends TabContextMenuItemProvider {
             args.push('/privatekey')
             args.push(connection.privateKey)
         }
-        execFile(path, args)
+        this.platform.exec(path, args)
     }
 }

@@ -67,6 +67,7 @@ export class HotkeyInputModalComponent extends BaseComponent {
             }
             this.timeoutProgress = Math.min(100, (performance.now() - this.lastKeyEvent) * 100 / INPUT_TIMEOUT)
             if (this.timeoutProgress === 100) {
+                clearInterval(this.keyTimeoutInterval!)
                 this.modalInstance.close(this.value)
             }
         }, 25)
@@ -74,13 +75,14 @@ export class HotkeyInputModalComponent extends BaseComponent {
     }
 
     ngOnDestroy (): void {
+        clearInterval(this.keyTimeoutInterval!)
         this.hotkeys.clearCurrentKeystrokes()
         this.hotkeys.enable()
-        clearInterval(this.keyTimeoutInterval!)
         super.ngOnDestroy()
     }
 
     close (): void {
+        clearInterval(this.keyTimeoutInterval!)
         this.modalInstance.dismiss()
     }
 }

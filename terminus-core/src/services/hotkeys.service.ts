@@ -3,7 +3,6 @@ import { Observable, Subject } from 'rxjs'
 import { HotkeyDescription, HotkeyProvider } from '../api/hotkeyProvider'
 import { stringifyKeySequence, EventData } from './hotkeys.util'
 import { ConfigService } from './config.service'
-import { ElectronService } from './electron.service'
 import { HostAppService } from './hostApp.service'
 
 export interface PartialHotkeyMatch {
@@ -35,7 +34,6 @@ export class HotkeysService {
     private constructor (
         private zone: NgZone,
         private hostApp: HostAppService,
-        private electron: ElectronService,
         private config: ConfigService,
         @Inject(HotkeyProvider) private hotkeyProviders: HotkeyProvider[],
     ) {
@@ -52,9 +50,11 @@ export class HotkeysService {
         this.config.changed$.subscribe(() => {
             this.registerGlobalHotkey()
         })
-        this.registerGlobalHotkey()
-        this.getHotkeyDescriptions().then(hotkeys => {
-            this.hotkeyDescriptions = hotkeys
+        this.config.ready$.toPromise().then(() => {
+            this.registerGlobalHotkey()
+            this.getHotkeyDescriptions().then(hotkeys => {
+                this.hotkeyDescriptions = hotkeys
+            })
         })
 
         // deprecated
@@ -183,7 +183,6 @@ export class HotkeysService {
     }
 
     private registerGlobalHotkey () {
-        this.electron.globalShortcut.unregisterAll()
         let value = this.config.store.hotkeys['toggle-window'] || []
         if (typeof value === 'string') {
             value = [value]

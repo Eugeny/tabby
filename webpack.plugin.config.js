@@ -43,6 +43,7 @@ module.exports = options => {
         },
         module: {
             rules: [
+                ...options.rules ?? [],
                 {
                     test: /\.ts$/,
                     use: {
@@ -64,7 +65,8 @@ module.exports = options => {
                     },
                 },
                 { test: /\.pug$/, use: ['apply-loader', 'pug-loader'] },
-                { test: /\.scss$/, use: ['@terminus-term/to-string-loader', 'css-loader', 'sass-loader'] },
+                { test: /\.scss$/, use: ['@terminus-term/to-string-loader', 'css-loader', 'sass-loader'], include: /(theme.*|component)\.scss/ },
+                { test: /\.scss$/, use: ['style-loader', 'css-loader', 'sass-loader'], exclude: /(theme.*|component)\.scss/ },
                 { test: /\.css$/, use: ['@terminus-term/to-string-loader', 'css-loader'], include: /component\.css/ },
                 { test: /\.css$/, use: ['style-loader', 'css-loader'], exclude: /component\.css/ },
                 { test: /\.yaml$/, use: ['json-loader', 'yaml-loader'] },
@@ -81,6 +83,7 @@ module.exports = options => {
             ],
         },
         externals: [
+            '@electron/remote',
             'any-promise',
             'child_process',
             'electron-promise-ipc',

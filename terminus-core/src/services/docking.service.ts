@@ -1,11 +1,19 @@
 import type { Display } from 'electron'
-import { Injectable } from '@angular/core'
 import { ConfigService } from '../services/config.service'
 import { ElectronService } from '../services/electron.service'
 import { HostAppService, Bounds } from '../services/hostApp.service'
 
-@Injectable({ providedIn: 'root' })
-export class DockingService {
+export abstract class Screen {
+    id: number
+    name?: string
+}
+
+export abstract class DockingService {
+    abstract dock (): void
+    abstract getScreens (): Screen[]
+}
+
+export class ElectronDockingService {
     /** @hidden */
     private constructor (
         private electron: ElectronService,
@@ -68,10 +76,6 @@ export class DockingService {
         })
     }
 
-    getCurrentScreen (): Display {
-        return this.electron.screen.getDisplayNearestPoint(this.electron.screen.getCursorScreenPoint())
-    }
-
     getScreens (): Display[] {
         const primaryDisplayID = this.electron.screen.getPrimaryDisplay().id
         return this.electron.screen.getAllDisplays().sort((a, b) =>
@@ -83,6 +87,10 @@ export class DockingService {
                 name: display.id === primaryDisplayID ? 'Primary Display' : `Display ${index + 1}`,
             }
         })
+    }
+
+    private getCurrentScreen (): Display {
+        return this.electron.screen.getDisplayNearestPoint(this.electron.screen.getCursorScreenPoint())
     }
 
     private repositionWindow () {

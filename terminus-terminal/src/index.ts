@@ -25,7 +25,6 @@ import { PathDropDecorator } from './features/pathDrop'
 import { ZModemDecorator } from './features/zmodem'
 import { TerminalConfigProvider } from './config'
 import { TerminalHotkeyProvider } from './hotkeys'
-import { HyperColorSchemes } from './colorSchemes'
 import { CopyPasteContextMenu, LegacyContextMenu } from './tabContextMenu'
 
 import { hterm } from './frontends/hterm'
@@ -50,7 +49,6 @@ import { TerminalCLIHandler } from './cli'
 
         { provide: ConfigProvider, useClass: TerminalConfigProvider, multi: true },
         { provide: HotkeyProvider, useClass: TerminalHotkeyProvider, multi: true },
-        { provide: TerminalColorSchemeProvider, useClass: HyperColorSchemes, multi: true },
         { provide: TerminalDecorator, useClass: PathDropDecorator, multi: true },
         { provide: TerminalDecorator, useClass: ZModemDecorator, multi: true },
         { provide: TerminalDecorator, useClass: DebugDecorator, multi: true },

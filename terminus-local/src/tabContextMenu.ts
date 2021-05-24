@@ -1,6 +1,5 @@
-import { MenuItemConstructorOptions } from 'electron'
 import { Injectable, NgZone } from '@angular/core'
-import { ConfigService, BaseTabComponent, TabContextMenuItemProvider, TabHeaderComponent, SplitTabComponent, NotificationsService } from 'terminus-core'
+import { ConfigService, BaseTabComponent, TabContextMenuItemProvider, TabHeaderComponent, SplitTabComponent, NotificationsService, MenuItemOptions } from 'terminus-core'
 import { TerminalTabComponent } from './components/terminalTab.component'
 import { UACService } from './services/uac.service'
 import { TerminalService } from './services/terminal.service'
@@ -16,11 +15,11 @@ export class SaveAsProfileContextMenu extends TabContextMenuItemProvider {
         super()
     }
 
-    async getItems (tab: BaseTabComponent, _tabHeader?: TabHeaderComponent): Promise<MenuItemConstructorOptions[]> {
+    async getItems (tab: BaseTabComponent, _tabHeader?: TabHeaderComponent): Promise<MenuItemOptions[]> {
         if (!(tab instanceof TerminalTabComponent)) {
             return []
         }
-        const items: MenuItemConstructorOptions[] = [
+        const items: MenuItemOptions[] = [
             {
                 label: 'Save as profile',
                 click: () => this.zone.run(async () => {
@@ -59,10 +58,10 @@ export class NewTabContextMenu extends TabContextMenuItemProvider {
         super()
     }
 
-    async getItems (tab: BaseTabComponent, tabHeader?: TabHeaderComponent): Promise<MenuItemConstructorOptions[]> {
+    async getItems (tab: BaseTabComponent, tabHeader?: TabHeaderComponent): Promise<MenuItemOptions[]> {
         const profiles = await this.terminalService.getProfiles()
 
-        const items: MenuItemConstructorOptions[] = [
+        const items: MenuItemOptions[] = [
             {
                 label: 'New terminal',
                 click: () => this.zone.run(() => {

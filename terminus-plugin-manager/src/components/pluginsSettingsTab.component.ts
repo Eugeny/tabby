@@ -4,7 +4,7 @@ import { debounceTime, distinctUntilChanged, first, tap, flatMap, map } from 'rx
 import semverGt from 'semver/functions/gt'
 
 import { Component, Input } from '@angular/core'
-import { ConfigService, ElectronService } from 'terminus-core'
+import { ConfigService, PlatformService } from 'terminus-core'
 import { PluginInfo, PluginManagerService } from '../services/pluginManager.service'
 
 enum BusyState { Installing = 'Installing', Uninstalling = 'Uninstalling' }
@@ -27,8 +27,8 @@ export class PluginsSettingsTabComponent {
     @Input() errorMessage: string
 
     constructor (
-        private electron: ElectronService,
         private config: ConfigService,
+        private platform: PlatformService,
         public pluginManager: PluginManagerService
     ) {
     }
@@ -57,7 +57,7 @@ export class PluginsSettingsTabComponent {
     }
 
     openPluginsFolder (): void {
-        this.electron.shell.openPath(this.pluginManager.userPluginsPath)
+        this.platform.openPath(this.pluginManager.userPluginsPath)
     }
 
     searchAvailable (query: string) {
@@ -101,7 +101,7 @@ export class PluginsSettingsTabComponent {
     }
 
     showPluginInfo (plugin: PluginInfo) {
-        this.electron.shell.openExternal('https://www.npmjs.com/package/' + plugin.packageName)
+        this.platform.openExternal('https://www.npmjs.com/package/' + plugin.packageName)
     }
 
     isPluginEnabled (plugin: PluginInfo) {

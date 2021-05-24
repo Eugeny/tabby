@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { debounce } from 'utils-decorators/dist/cjs'
-import { Component, Inject, NgZone } from '@angular/core'
+import { Component, Inject, NgZone, Optional } from '@angular/core'
 import {
     DockingService,
     ConfigService,
@@ -10,6 +10,8 @@ import {
     isWindowsBuild,
     WIN_BUILD_FLUENT_BG_SUPPORTED,
     BaseComponent,
+    Screen,
+    PlatformService,
 } from 'terminus-core'
 
 
@@ -19,24 +21,28 @@ import {
     template: require('./windowSettingsTab.component.pug'),
 })
 export class WindowSettingsTabComponent extends BaseComponent {
-    screens: any[]
+    screens: Screen[]
     Platform = Platform
     isFluentVibrancySupported = false
 
     constructor (
         public config: ConfigService,
-        public docking: DockingService,
         public hostApp: HostAppService,
+        public platform: PlatformService,
         public zone: NgZone,
         @Inject(Theme) public themes: Theme[],
+        @Optional() public docking?: DockingService,
     ) {
         super()
-        this.screens = this.docking.getScreens()
+
         this.themes = config.enabledServices(this.themes)
 
-        this.subscribeUntilDestroyed(hostApp.displaysChanged$, () => {
-            this.zone.run(() => this.screens = this.docking.getScreens())
-        })
+        if (this.docking) {
+            this.subscribeUntilDestroyed(hostApp.displaysChanged$, () => {
+                this.zone.run(() => this.screens = this.docking!.getScreens())
+            })
+            this.screens = this.docking.getScreens()
+        }
 
         this.isFluentVibrancySupported = isWindowsBuild(WIN_BUILD_FLUENT_BG_SUPPORTED)
     }

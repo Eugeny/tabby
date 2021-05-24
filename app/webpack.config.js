@@ -9,6 +9,7 @@ module.exports = {
     sentry: path.resolve(__dirname, 'lib/sentry.ts'),
     preload: path.resolve(__dirname, 'src/entry.preload.ts'),
     bundle: path.resolve(__dirname, 'src/entry.ts'),
+    'bundle-web': path.resolve(__dirname, 'src/entry-web.ts'),
   },
   mode: process.env.TERMINUS_DEV ? 'development' : 'production',
   optimization:{
@@ -41,9 +42,9 @@ module.exports = {
       {
         test: /\.(png|svg)$/,
         use: {
-          loader: 'file-loader',
+          loader: 'url-loader',
           options: {
-            name: 'images/[name].[ext]',
+            limit: 999999,
           },
         },
       },
@@ -66,6 +67,7 @@ module.exports = {
     '@angular/forms': 'commonjs @angular/forms',
     '@angular/common': 'commonjs @angular/common',
     '@ng-bootstrap/ng-bootstrap': 'commonjs @ng-bootstrap/ng-bootstrap',
+    '@electron/remote': 'commonjs @electron/remote',
     child_process: 'commonjs child_process',
     electron: 'commonjs electron',
     fs: 'commonjs fs',

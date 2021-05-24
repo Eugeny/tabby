@@ -2,6 +2,8 @@ module.exports = [
     require('./app/webpack.config.js'),
     require('./app/webpack.main.config.js'),
     require('./terminus-core/webpack.config.js'),
+    require('./terminus-electron/webpack.config.js'),
+    require('./terminus-web/webpack.config.js'),
     require('./terminus-settings/webpack.config.js'),
     require('./terminus-terminal/webpack.config.js'),
     require('./terminus-local/webpack.config.js'),

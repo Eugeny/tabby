@@ -1,9 +1,8 @@
-import * as os from 'os'
 import { Injectable } from '@angular/core'
-import { ElectronService } from './electron.service'
-import { ConfigService } from './config.service'
 import * as mixpanel from 'mixpanel'
 import { v4 as uuidv4 } from 'uuid'
+import { ConfigService } from './config.service'
+import { PlatformService } from '../api'
 
 @Injectable({ providedIn: 'root' })
 export class HomeBaseService {
@@ -12,10 +11,10 @@ export class HomeBaseService {
 
     /** @hidden */
     private constructor (
-        private electron: ElectronService,
         private config: ConfigService,
+        private platform: PlatformService,
     ) {
-        this.appVersion = electron.app.getVersion()
+        this.appVersion = platform.getAppVersion()
 
         if (this.config.store.enableAnalytics && !this.config.store.enableWelcomeTab) {
             this.enableAnalytics()
@@ -23,12 +22,12 @@ export class HomeBaseService {
     }
 
     openGitHub (): void {
-        this.electron.shell.openExternal('https://github.com/eugeny/terminus')
+        this.platform.openExternal('https://github.com/eugeny/terminus')
     }
 
     reportBug (): void {
         let body = `Version: ${this.appVersion}\n`
-        body += `Platform: ${os.platform()} ${os.release()}\n`
+        body += `Platform: ${process.platform} ${this.platform.getOSRelease()}\n`
         const label = {
             aix: 'OS: IBM AIX',
             android: 'OS: Android',
@@ -38,10 +37,10 @@ export class HomeBaseService {
             openbsd: 'OS: OpenBSD',
             sunos: 'OS: Solaris',
             win32: 'OS: Windows',
-        }[os.platform()]
+        }[process.platform]
         const plugins = (window as any).installedPlugins.filter(x => !x.isBuiltin).map(x => x.name)
         body += `Plugins: ${plugins.join(', ') || 'none'}\n\n`
-        this.electron.shell.openExternal(`https://github.com/eugeny/terminus/issues/new?body=${encodeURIComponent(body)}&labels=${label}`)
+        this.platform.openExternal(`https://github.com/eugeny/terminus/issues/new?body=${encodeURIComponent(body)}&labels=${label}`)
     }
 
     enableAnalytics (): void {
@@ -60,7 +59,7 @@ export class HomeBaseService {
         return {
             distinct_id: window.localStorage.analyticsUserID,
             platform: process.platform,
-            os: os.release(),
+            os: this.platform.getOSRelease(),
             version: this.appVersion,
         }
     }

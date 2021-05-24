@@ -7,6 +7,7 @@ export class CoreConfigProvider extends ConfigProvider {
         [Platform.macOS]: require('./configDefaults.macos.yaml'),
         [Platform.Windows]: require('./configDefaults.windows.yaml'),
         [Platform.Linux]: require('./configDefaults.linux.yaml'),
+        [Platform.Web]: require('./configDefaults.windows.yaml'),
     }
     defaults = require('./configDefaults.yaml')
 }

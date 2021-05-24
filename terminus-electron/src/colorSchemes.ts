@@ -1,8 +1,7 @@
 import * as fs from 'mz/fs'
 import * as path from 'path'
 import { Injectable } from '@angular/core'
-import { TerminalColorSchemeProvider } from './api/colorSchemeProvider'
-import { TerminalColorScheme } from './api/interfaces'
+import { TerminalColorSchemeProvider, TerminalColorScheme } from 'terminus-terminal'
 
 /** @hidden */
 @Injectable()

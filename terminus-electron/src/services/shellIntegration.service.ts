@@ -2,8 +2,8 @@ import * as path from 'path'
 import * as fs from 'mz/fs'
 import { exec } from 'mz/child_process'
 import { Injectable } from '@angular/core'
-import { ElectronService } from './electron.service'
-import { HostAppService, Platform } from './hostApp.service'
+import { ElectronService } from '../../../terminus-core/src/services/electron.service'
+import { HostAppService, Platform } from '../../../terminus-core/src/services/hostApp.service'
 
 /* eslint-disable block-scoped-var */
 
