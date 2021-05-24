@@ -8730,10 +8730,10 @@ v8-compile-cache@^2.0.3, v8-compile-cache@^2.2.0:
   resolved "https://registry.yarnpkg.com/v8-compile-cache/-/v8-compile-cache-2.3.0.tgz#2de19618c66dc247dcfb6f99338035d8245a2cee"
   integrity sha512-l8lCEmLcLYZh4nbunNZvQCJc5pv7+RCwa8q/LdUx8u7lsWvPDKmpodJAJNwkAhJC//dFY48KuIEmjtd4RViDrA==
 
-val-loader@3.1.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/val-loader/-/val-loader-3.1.0.tgz#6f83b6dea65ecb7928cf7340098e2cd43c8021e1"
-  integrity sha512-d3ZJohectjSBhSogt83zvohvVm9P/Ap7plalmvXcWDS5BMdEEgRhGpxdvH8H9hhZR6/7X6yASjmhIEHZztQ7Yg==
+val-loader@4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/val-loader/-/val-loader-4.0.0.tgz#c5ccf8abfe486de412d2cd59fa56deb49d44ec8d"
+  integrity sha512-tpDHHpVo1hrO9xFhpEcOw+RCK4wnQqqNkZmylwHJ04iVeue1YSYxIdDwCdKd7LVQ8g/fsGX/EC5gLda9BXovkg==
 
 validate-npm-package-license@^3.0.1:
   version "3.0.4"
