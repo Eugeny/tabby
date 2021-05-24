@@ -6,6 +6,12 @@ const isTag = (process.env.GITHUB_REF || '').startsWith('refs/tags/')
 
 process.env.ARCH = process.env.ARCH || process.arch
 
+if (process.env.GITHUB_HEAD_REF) {
+    delete process.env.CSC_LINK
+    delete process.env.CSC_KEY_PASSWORD
+    process.env.CSC_IDENTITY_AUTO_DISCOVERY = 'false'
+}
+
 builder({
     dir: true,
     mac: ['pkg', 'zip'],
