@@ -24,6 +24,7 @@
     "compileOnSave": false,
     "exclude": [
         "dist",
+        "src",
         "node_modules",
         "*/node_modules"
     ]
