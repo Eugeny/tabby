@@ -50,7 +50,7 @@
   },
   "devDependencies": {
     "@types/mz": "2.7.3",
-    "@types/node": "15.3.0",
+    "@types/node": "15.6.1",
     "node-abi": "^2.26.0",
     "source-map-support": "^0.5.19"
   },
