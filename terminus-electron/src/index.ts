@@ -41,7 +41,7 @@ export default class ElectronModule {
             if (hostApp.platform === Platform.macOS) {
                 hostApp.getWindow().setTrafficLightPosition({
                     x: theme.macOSWindowButtonsInsetX ?? 14,
-                    y: theme.macOSWindowButtonsInsetY ?? 22,
+                    y: theme.macOSWindowButtonsInsetY ?? 11,
                 })
             }
         })
