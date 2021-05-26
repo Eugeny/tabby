@@ -13,8 +13,8 @@ tinyqueue@^2.0.3:
   integrity sha512-ppJZNDuKGgxzkHihX8v9v9G5f+18gzaTfrukGrq6ueg0lmH4nqVnA2IPG0AEH3jKEk2GRJCUhDoqpoiw3PHLBA==
 
 utils-decorators@^1.8.0:
-  version "1.8.1"
-  resolved "https://registry.yarnpkg.com/utils-decorators/-/utils-decorators-1.8.1.tgz#6e7e2cf46c05a9554c05f004e5235696142bd5f7"
-  integrity sha512-UpqzJj40jdTknZpxdeYL7p+8Ynl3bpHP6yoxoY+RmuDCOaelTiOz4GcDpScPvfZhv/ivHTV1bPJZeQd8tlxczA==
+  version "1.8.2"
+  resolved "https://registry.yarnpkg.com/utils-decorators/-/utils-decorators-1.8.2.tgz#1bc90233fcf3f0a9d7aee9d3d520f112ac00b529"
+  integrity sha512-tr4qK9jStw0nu6uYGVa/PB/oZHSLVilm8Nrgqa6fuPoTSV9qLdN0tOfRzNOQYtFGD+Y6kJFITAniHCXUgS1vVw==
   dependencies:
     tinyqueue "^2.0.3"
