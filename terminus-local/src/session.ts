@@ -100,7 +100,7 @@ export class Session extends BaseSession {
         super()
         this.config = injector.get(ConfigService)
         this.hostApp = injector.get(HostAppService)
-        this.bootstrapData = injector.get(BOOTSTRAP_DATA) as BootstrapData
+        this.bootstrapData = injector.get(BOOTSTRAP_DATA)
     }
 
     start (options: SessionOptions): void {

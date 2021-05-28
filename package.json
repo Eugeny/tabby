@@ -10,7 +10,7 @@
     "@types/js-yaml": "^4.0.1",
     "@types/node": "15.6.1",
     "@types/webpack-env": "^1.16.0",
-    "@typescript-eslint/eslint-plugin": "^4.14.1",
+    "@typescript-eslint/eslint-plugin": "^4.25.0",
     "@typescript-eslint/parser": "^4.25.0",
     "apply-loader": "2.0.0",
     "awesome-typescript-loader": "^5.2.1",

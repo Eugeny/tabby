@@ -37,11 +37,12 @@ export class WindowSettingsTabComponent extends BaseComponent {
 
         this.themes = config.enabledServices(this.themes)
 
-        if (this.docking) {
+        const dockingService = docking
+        if (dockingService) {
             this.subscribeUntilDestroyed(hostApp.displaysChanged$, () => {
-                this.zone.run(() => this.screens = this.docking!.getScreens())
+                this.zone.run(() => this.screens = dockingService.getScreens())
             })
-            this.screens = this.docking.getScreens()
+            this.screens = dockingService.getScreens()
         }
 
         this.isFluentVibrancySupported = isWindowsBuild(WIN_BUILD_FLUENT_BG_SUPPORTED)
