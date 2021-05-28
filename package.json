@@ -32,7 +32,7 @@
     "json-loader": "0.5.7",
     "lru-cache": "^6.0.0",
     "macos-release": "^2.4.1",
-    "node-abi": "^2.26.0",
+    "node-abi": "^2.30.0",
     "node-gyp": "^8.0.0",
     "node-sass": "^6.0.0",
     "npmlog": "4.1.2",
@@ -62,7 +62,7 @@
     "yaml-loader": "0.6.0"
   },
   "resolutions": {
-    "*/node-abi": "^2.26.0",
+    "*/node-abi": "^2.30.0",
     "**/graceful-fs": "^4.2.4"
   },
   "scripts": {
