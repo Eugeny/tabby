@@ -67,7 +67,7 @@ export class TerminalHotkeyProvider extends HotkeyProvider {
         },
         {
             id: 'pane-focus-all',
-            name: 'Focus all panes at once',
+            name: 'Focus all panes at once (broadcast)',
         },
     ]
 

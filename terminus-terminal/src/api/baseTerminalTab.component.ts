@@ -533,6 +533,9 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
 
         this.termContainerSubscriptions.subscribe(this.frontend.mouseEvent$, async event => {
             if (event.type === 'mousedown') {
+                if (event.which === 1) {
+                    this.cancelFocusAllPanes()
+                }
                 if (event.which === 2) {
                     if (this.config.store.terminal.pasteOnMiddleClick) {
                         this.paste()
