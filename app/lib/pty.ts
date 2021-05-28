@@ -1,4 +1,5 @@
 import * as nodePTY from '@terminus-term/node-pty'
+import { StringDecoder } from 'string_decoder'
 import { v4 as uuidv4 } from 'uuid'
 import { ipcMain } from 'electron'
 import { Application } from './app'
@@ -9,6 +10,7 @@ class PTYDataQueue {
     private maxChunk = 1024
     private maxDelta = 1024 * 50
     private flowPaused = false
+    private decoder = new StringDecoder('utf8')
 
     constructor (private pty: nodePTY.IPty, private onData: (data: Buffer) => void) { }
 
@@ -49,13 +51,17 @@ class PTYDataQueue {
                 this.buffers.unshift(toSend.slice(this.maxChunk))
                 toSend = toSend.slice(0, this.maxChunk)
             }
-            this.onData(toSend)
+            this.emitData(toSend)
             this.delta += toSend.length
 
             if (this.buffers.length) {
                 setImmediate(() => this.maybeEmit())
             }
         }
+    }
+
+    private emitData (data: Buffer) {
+        this.onData(Buffer.from(this.decoder.write(data)))
     }
 
     private pause () {
