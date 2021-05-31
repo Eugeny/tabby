@@ -15,7 +15,7 @@
     "apply-loader": "2.0.0",
     "awesome-typescript-loader": "^5.2.1",
     "compare-versions": "^3.6.0",
-    "core-js": "^3.12.1",
+    "core-js": "^3.13.1",
     "cross-env": "7.0.3",
     "css-loader": "5.2.6",
     "electron": "13.0.0",
