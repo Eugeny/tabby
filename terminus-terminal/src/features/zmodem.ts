@@ -63,7 +63,6 @@ export class ZModemDecorator extends TerminalDecorator {
         }
         this.subscribeUntilDetached(terminal, terminal.session.binaryOutput$.subscribe(data => {
             const chunkSize = 1024
-            console.log('z rx', data.toString(), data)
             for (let i = 0; i <= Math.floor(data.length / chunkSize); i++) {
                 try {
                     sentry.consume(Buffer.from(data.slice(i * chunkSize, (i + 1) * chunkSize)))
