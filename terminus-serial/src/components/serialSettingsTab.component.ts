@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Component } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
-import { ConfigService, ElectronService, HostAppService } from 'terminus-core'
+import { ConfigService, PlatformService } from 'terminus-core'
 import { SerialConnection } from '../api'
 import { EditConnectionModalComponent } from './editConnectionModal.component'
 
@@ -14,8 +14,7 @@ export class SerialSettingsTabComponent {
 
     constructor (
         public config: ConfigService,
-        private electron: ElectronService,
-        private hostApp: HostAppService,
+        private platform: PlatformService,
         private ngbModal: NgbModal,
     ) {
         this.connections = this.config.store.serial.connections
@@ -62,8 +61,7 @@ export class SerialSettingsTabComponent {
     }
 
     async deleteConnection (connection: SerialConnection) {
-        if ((await this.electron.showMessageBox(
-            this.hostApp.getWindow(),
+        if ((await this.platform.showMessageBox(
             {
                 type: 'warning',
                 message: `Delete "${connection.name}"?`,

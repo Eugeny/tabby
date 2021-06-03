@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { App, IpcRenderer, Shell, Dialog, Clipboard, GlobalShortcut, Screen, Remote, AutoUpdater, TouchBar, BrowserWindow, Menu, MenuItem, NativeImage, MessageBoxOptions } from 'electron'
+import { App, IpcRenderer, Shell, Dialog, Clipboard, GlobalShortcut, Screen, Remote, AutoUpdater, TouchBar, BrowserWindow, Menu, MenuItem, NativeImage } from 'electron'
 import * as remote from '@electron/remote'
 
 export interface MessageBoxResponse {
@@ -43,12 +43,5 @@ export class ElectronService {
         this.BrowserWindow = remote.BrowserWindow
         this.Menu = remote.Menu
         this.MenuItem = remote.MenuItem
-    }
-
-    async showMessageBox (
-        browserWindow: BrowserWindow,
-        options: MessageBoxOptions
-    ): Promise<MessageBoxResponse> {
-        return this.dialog.showMessageBox(browserWindow, options)
     }
 }

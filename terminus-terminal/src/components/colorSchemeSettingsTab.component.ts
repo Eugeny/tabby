@@ -2,7 +2,7 @@
 import deepEqual from 'deep-equal'
 
 import { Component, Inject, Input, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core'
-import { ConfigService, HostAppService, ElectronService } from 'terminus-core'
+import { ConfigService, PlatformService } from 'terminus-core'
 import { TerminalColorSchemeProvider } from '../api/colorSchemeProvider'
 import { TerminalColorScheme } from '../api/interfaces'
 
@@ -26,8 +26,7 @@ export class ColorSchemeSettingsTabComponent {
     constructor (
         @Inject(TerminalColorSchemeProvider) private colorSchemeProviders: TerminalColorSchemeProvider[],
         private changeDetector: ChangeDetectorRef,
-        private hostApp: HostAppService,
-        private electron: ElectronService,
+        private platform: PlatformService,
         public config: ConfigService,
     ) { }
 
@@ -76,8 +75,7 @@ export class ColorSchemeSettingsTabComponent {
     }
 
     async deleteScheme (scheme: TerminalColorScheme) {
-        if ((await this.electron.showMessageBox(
-            this.hostApp.getWindow(),
+        if ((await this.platform.showMessageBox(
             {
                 type: 'warning',
                 message: `Delete "${scheme.name}"?`,

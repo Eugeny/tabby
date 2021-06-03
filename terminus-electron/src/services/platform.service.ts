@@ -4,7 +4,7 @@ import * as os from 'os'
 import promiseIpc from 'electron-promise-ipc'
 import { execFile } from 'mz/child_process'
 import { Injectable } from '@angular/core'
-import { PlatformService, ClipboardContent, HostAppService, Platform, ElectronService, MenuItemOptions } from 'terminus-core'
+import { PlatformService, ClipboardContent, HostAppService, Platform, ElectronService, MenuItemOptions, MessageBoxOptions, MessageBoxResult } from 'terminus-core'
 const fontManager = require('fontmanager-redux') // eslint-disable-line
 
 /* eslint-disable block-scoped-var */
@@ -28,6 +28,10 @@ export class ElectronPlatformService extends PlatformService {
     ) {
         super()
         this.configPath = path.join(electron.app.getPath('userData'), 'config.yaml')
+    }
+
+    readClipboard (): string {
+        return this.electron.clipboard.readText()
     }
 
     setClipboard (content: ClipboardContent): void {
@@ -86,7 +90,7 @@ export class ElectronPlatformService extends PlatformService {
 
     async loadConfig (): Promise<string> {
         if (await fs.exists(this.configPath)) {
-            return fs.readFileSync(this.configPath, 'utf8')
+            return fs.readFile(this.configPath, 'utf8')
         } else {
             return ''
         }
@@ -141,6 +145,12 @@ export class ElectronPlatformService extends PlatformService {
     }
 
     popupContextMenu (menu: MenuItemOptions[], _event?: MouseEvent): void {
-        this.electron.Menu.buildFromTemplate(menu).popup({})
+        this.electron.Menu.buildFromTemplate(menu.map(item => ({
+            ...item,
+        }))).popup({})
+    }
+
+    async showMessageBox (options: MessageBoxOptions): Promise<MessageBoxResult> {
+        return this.electron.dialog.showMessageBox(this.hostApp.getWindow(), options)
     }
 }

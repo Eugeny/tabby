@@ -2,13 +2,14 @@ import * as fs from 'fs'
 import { Injectable } from '@angular/core'
 import { TerminalDecorator } from '../api/decorator'
 import { BaseTerminalTabComponent } from '../api/baseTerminalTab.component'
-import { ElectronService, HostAppService } from 'terminus-core'
+import { ElectronService, HostAppService, PlatformService } from 'terminus-core'
 
 /** @hidden */
 @Injectable()
 export class DebugDecorator extends TerminalDecorator {
     constructor (
         private electron: ElectronService,
+        private platform: PlatformService,
         private hostApp: HostAppService,
     ) {
         super()
@@ -93,7 +94,7 @@ export class DebugDecorator extends TerminalDecorator {
 
     private async doCopyState (terminal: BaseTerminalTabComponent) {
         const data = '```' + JSON.stringify(terminal.frontend!.saveState()) + '```'
-        this.electron.clipboard.writeText(data)
+        this.platform.setClipboard({ text: data })
     }
 
     private async doLoadState (terminal: BaseTerminalTabComponent) {
@@ -104,7 +105,7 @@ export class DebugDecorator extends TerminalDecorator {
     }
 
     private async doPasteState (terminal: BaseTerminalTabComponent) {
-        let data = this.electron.clipboard.readText()
+        let data = this.platform.readClipboard()
         if (data) {
             if (data.startsWith('`')) {
                 data = data.substring(3, data.length - 3)
@@ -119,7 +120,7 @@ export class DebugDecorator extends TerminalDecorator {
 
     private async doCopyOutput (buffer: string) {
         const data = '```' + JSON.stringify(buffer) + '```'
-        this.electron.clipboard.writeText(data)
+        this.platform.setClipboard({ text: data })
     }
 
     private async doLoadOutput (terminal: BaseTerminalTabComponent) {
@@ -130,7 +131,7 @@ export class DebugDecorator extends TerminalDecorator {
     }
 
     private async doPasteOutput (terminal: BaseTerminalTabComponent) {
-        let data = this.electron.clipboard.readText()
+        let data = this.platform.readClipboard()
         if (data) {
             if (data.startsWith('`')) {
                 data = data.substring(3, data.length - 3)

@@ -2,7 +2,7 @@
 import deepClone from 'clone-deep'
 import { Component } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
-import { ConfigService, ElectronService, HostAppService, Platform } from 'terminus-core'
+import { ConfigService, HostAppService, Platform, PlatformService } from 'terminus-core'
 import { PasswordStorageService } from '../services/passwordStorage.service'
 import { SSHConnection } from '../api'
 import { EditConnectionModalComponent } from './editConnectionModal.component'
@@ -28,7 +28,7 @@ export class SSHSettingsTabComponent {
     constructor (
         public config: ConfigService,
         public hostApp: HostAppService,
-        private electron: ElectronService,
+        private platform: PlatformService,
         private ngbModal: NgbModal,
         private passwordStorage: PasswordStorageService,
     ) {
@@ -81,8 +81,7 @@ export class SSHSettingsTabComponent {
     }
 
     async deleteConnection (connection: SSHConnection) {
-        if ((await this.electron.showMessageBox(
-            this.hostApp.getWindow(),
+        if ((await this.platform.showMessageBox(
             {
                 type: 'warning',
                 message: `Delete "${connection.name}"?`,
@@ -115,8 +114,7 @@ export class SSHSettingsTabComponent {
     }
 
     async deleteGroup (group: SSHConnectionGroup) {
-        if ((await this.electron.showMessageBox(
-            this.hostApp.getWindow(),
+        if ((await this.platform.showMessageBox(
             {
                 type: 'warning',
                 message: `Delete "${group.name}"?`,

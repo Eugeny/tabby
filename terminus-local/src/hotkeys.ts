@@ -4,7 +4,7 @@ import { TerminalService } from './services/terminal.service'
 
 /** @hidden */
 @Injectable()
-export class TerminalHotkeyProvider extends HotkeyProvider {
+export class LocalTerminalHotkeyProvider extends HotkeyProvider {
     hotkeys: HotkeyDescription[] = [
         {
             id: 'new-tab',

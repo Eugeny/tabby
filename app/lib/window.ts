@@ -309,20 +309,6 @@ export class Window {
             this.window.focus()
         })
 
-        ipcMain.on('window-maximize', event => {
-            if (!this.window || event.sender !== this.window.webContents) {
-                return
-            }
-            this.window.maximize()
-        })
-
-        ipcMain.on('window-unmaximize', event => {
-            if (!this.window || event.sender !== this.window.webContents) {
-                return
-            }
-            this.window.unmaximize()
-        })
-
         ipcMain.on('window-toggle-maximize', event => {
             if (!this.window || event.sender !== this.window.webContents) {
                 return

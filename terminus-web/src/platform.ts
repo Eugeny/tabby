@@ -1,11 +1,13 @@
 import '@vaadin/vaadin-context-menu/vaadin-context-menu.js'
 import copyToClipboard from 'copy-text-to-clipboard'
 import { Injectable } from '@angular/core'
-import { PlatformService, ClipboardContent, MenuItemOptions } from 'terminus-core'
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
+import { PlatformService, ClipboardContent, MenuItemOptions, MessageBoxOptions, MessageBoxResult } from 'terminus-core'
 
 // eslint-disable-next-line no-duplicate-imports
 import type { ContextMenuElement, ContextMenuItem } from '@vaadin/vaadin-context-menu/vaadin-context-menu.js'
 
+import { MessageBoxModalComponent } from './components/messageBoxModal.component'
 import './styles.scss'
 
 @Injectable()
@@ -13,14 +15,19 @@ export class WebPlatformService extends PlatformService {
     private menu: ContextMenuElement
     private contextMenuHandlers = new Map<ContextMenuItem, () => void>()
 
-    constructor () {
+    constructor (
+        private ngbModal: NgbModal,
+    ) {
         super()
         this.menu = window.document.createElement('vaadin-context-menu')
         this.menu.addEventListener('item-selected', e => {
             this.contextMenuHandlers.get(e.detail.value)?.()
         })
         document.body.appendChild(this.menu)
-        console.log(require('./styles.scss'))
+    }
+
+    readClipboard (): string {
+        return ''
     }
 
     setClipboard (content: ClipboardContent): void {
@@ -72,5 +79,20 @@ export class WebPlatformService extends PlatformService {
             this.contextMenuHandlers.set(cmi, item.click)
         }
         return cmi
+    }
+
+    async showMessageBox (options: MessageBoxOptions): Promise<MessageBoxResult> {
+        console.log(options)
+        const modal = this.ngbModal.open(MessageBoxModalComponent, {
+            backdrop: 'static',
+        })
+        const instance: MessageBoxModalComponent = modal.componentInstance
+        instance.options = options
+        try {
+            const response = await modal.result
+            return { response }
+        } catch {
+            return { response: 0 }
+        }
     }
 }

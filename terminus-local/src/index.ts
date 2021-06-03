@@ -21,7 +21,7 @@ import { RecoveryProvider } from './recoveryProvider'
 import { ShellProvider } from './api'
 import { ShellSettingsTabProvider } from './settings'
 import { TerminalConfigProvider } from './config'
-import { TerminalHotkeyProvider } from './hotkeys'
+import { LocalTerminalHotkeyProvider } from './hotkeys'
 import { NewTabContextMenu, SaveAsProfileContextMenu } from './tabContextMenu'
 
 import { CmderShellProvider } from './shells/cmder'
@@ -55,7 +55,7 @@ import { AutoOpenTabCLIHandler, OpenPathCLIHandler, TerminalCLIHandler } from '.
         { provide: ToolbarButtonProvider, useClass: ButtonProvider, multi: true },
         { provide: TabRecoveryProvider, useClass: RecoveryProvider, multi: true },
         { provide: ConfigProvider, useClass: TerminalConfigProvider, multi: true },
-        { provide: HotkeyProvider, useClass: TerminalHotkeyProvider, multi: true },
+        { provide: HotkeyProvider, useClass: LocalTerminalHotkeyProvider, multi: true },
 
         { provide: ShellProvider, useClass: WindowsDefaultShellProvider, multi: true },
         { provide: ShellProvider, useClass: MacOSDefaultShellProvider, multi: true },

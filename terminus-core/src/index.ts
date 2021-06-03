@@ -1,4 +1,4 @@
-import { NgModule, ModuleWithProviders, APP_INITIALIZER } from '@angular/core'
+import { NgModule, ModuleWithProviders } from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { FormsModule } from '@angular/forms'
@@ -38,10 +38,6 @@ import { LastCLIHandler } from './cli'
 import 'perfect-scrollbar/css/perfect-scrollbar.css'
 import 'ng2-dnd/bundles/style.css'
 
-function initialize (config: ConfigService) {
-    return () => config.ready$.toPromise()
-}
-
 const PROVIDERS = [
     { provide: HotkeyProvider, useClass: AppHotkeyProvider, multi: true },
     { provide: Theme, useClass: StandardTheme, multi: true },
@@ -54,7 +50,6 @@ const PROVIDERS = [
     { provide: TabRecoveryProvider, useClass: SplitTabRecoveryProvider, multi: true },
     { provide: CLIHandler, useClass: LastCLIHandler, multi: true },
     { provide: PERFECT_SCROLLBAR_CONFIG, useValue: { suppressScrollX: true } },
-    { provide: APP_INITIALIZER, useFactory: initialize, deps: [ConfigService], multi: true },
 ]
 
 /** @hidden */

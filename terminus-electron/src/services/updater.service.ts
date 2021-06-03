@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core'
 import axios from 'axios'
 
-import { Logger, LogService, ElectronService, ConfigService, HostAppService, UpdaterService } from 'terminus-core'
+import { Logger, LogService, ElectronService, ConfigService, UpdaterService, PlatformService } from 'terminus-core'
 
 const UPDATES_URL = 'https://api.github.com/repos/eugeny/terminus/releases/latest'
 
@@ -15,8 +15,8 @@ export class ElectronUpdaterService extends UpdaterService {
     constructor (
         log: LogService,
         config: ConfigService,
+        private platform: PlatformService,
         private electron: ElectronService,
-        private hostApp: HostAppService,
     ) {
         super()
         this.logger = log.create('updater')
@@ -42,18 +42,21 @@ export class ElectronUpdaterService extends UpdaterService {
             electron.autoUpdater.once('update-downloaded', () => resolve(true))
         })
 
-        if (config.store.enableAutomaticUpdates && this.electronUpdaterAvailable && !process.env.TERMINUS_DEV) {
-            this.logger.debug('Checking for updates')
-            try {
-                electron.autoUpdater.setFeedURL({
-                    url: `https://update.electronjs.org/eugeny/terminus/${process.platform}-${process.arch}/${electron.app.getVersion()}`,
-                })
-                electron.autoUpdater.checkForUpdates()
-            } catch (e) {
-                this.electronUpdaterAvailable = false
-                this.logger.info('Electron updater unavailable, falling back', e)
+
+        config.ready$.toPromise().then(() => {
+            if (config.store.enableAutomaticUpdates && this.electronUpdaterAvailable && !process.env.TERMINUS_DEV) {
+                this.logger.debug('Checking for updates')
+                try {
+                    electron.autoUpdater.setFeedURL({
+                        url: `https://update.electronjs.org/eugeny/terminus/${process.platform}-${process.arch}/${electron.app.getVersion()}`,
+                    })
+                    electron.autoUpdater.checkForUpdates()
+                } catch (e) {
+                    this.electronUpdaterAvailable = false
+                    this.logger.info('Electron updater unavailable, falling back', e)
+                }
             }
-        }
+        })
     }
 
     async check (): Promise<boolean> {
@@ -117,8 +120,7 @@ export class ElectronUpdaterService extends UpdaterService {
         if (!this.electronUpdaterAvailable) {
             this.electron.shell.openExternal(this.updateURL)
         } else {
-            if ((await this.electron.showMessageBox(
-                this.hostApp.getWindow(),
+            if ((await this.platform.showMessageBox(
                 {
                     type: 'warning',
                     message: 'Installing the update will close all tabs and restart Terminus.',

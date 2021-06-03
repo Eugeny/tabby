@@ -6,9 +6,22 @@ export interface ClipboardContent {
     html?: string
 }
 
+export interface MessageBoxOptions {
+    type: 'warning'|'error'
+    message: string
+    detail?: string
+    buttons: string[]
+    defaultId?: number
+}
+
+export interface MessageBoxResult {
+    response: number
+}
+
 export abstract class PlatformService {
     supportsWindowControls = false
 
+    abstract readClipboard (): string
     abstract setClipboard (content: ClipboardContent): void
     abstract loadConfig (): Promise<string>
     abstract saveConfig (content: string): Promise<void>
@@ -66,4 +79,5 @@ export abstract class PlatformService {
     abstract openExternal (url: string): void
     abstract listFonts (): Promise<string[]>
     abstract popupContextMenu (menu: MenuItemOptions[], event?: MouseEvent): void
+    abstract showMessageBox (options: MessageBoxOptions): Promise<MessageBoxResult>
 }

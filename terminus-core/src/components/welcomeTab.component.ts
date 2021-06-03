@@ -2,7 +2,7 @@
 import { Component } from '@angular/core'
 import { BaseTabComponent } from './baseTab.component'
 import { ConfigService } from '../services/config.service'
-import { HostAppService } from '../services/hostApp.service'
+import { HostWindowService } from '../api/hostWindow'
 
 /** @hidden */
 @Component({
@@ -16,7 +16,7 @@ export class WelcomeTabComponent extends BaseTabComponent {
     enableGlobalHotkey = true
 
     constructor (
-        private hostApp: HostAppService,
+        private hostWindow: HostWindowService,
         public config: ConfigService,
     ) {
         super()
@@ -38,6 +38,6 @@ export class WelcomeTabComponent extends BaseTabComponent {
             this.config.store.hotkeys['toggle-window'] = []
         }
         this.config.save()
-        this.hostApp.getWindow().reload()
+        this.hostWindow.reload()
     }
 }

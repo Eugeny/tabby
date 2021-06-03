@@ -89,9 +89,9 @@ export class ConfigService {
     restartRequested: boolean
 
     /** Fires once when the config is loaded */
-    get ready$ (): Observable<void> { return this.ready }
+    get ready$ (): Observable<boolean> { return this.ready }
 
-    private ready = new AsyncSubject<void>()
+    private ready = new AsyncSubject<boolean>()
     private changed = new Subject<void>()
     private _store: any
     private defaults: any
@@ -213,7 +213,7 @@ export class ConfigService {
 
     private async init () {
         await this.load()
-        this.ready.next()
+        this.ready.next(true)
         this.ready.complete()
 
         this.hostApp.configChangeBroadcast$.subscribe(() => {

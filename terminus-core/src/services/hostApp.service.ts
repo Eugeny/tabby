@@ -33,7 +33,6 @@ export class HostAppService {
      * Fired once the window is visible
      */
     shown = new EventEmitter<any>()
-    isFullScreen = false
     isPortable = !!process.env.PORTABLE_EXECUTABLE_FILE
 
     private preferencesMenu = new Subject<void>()
@@ -91,14 +90,6 @@ export class HostAppService {
         electron.ipcRenderer.on('uncaughtException', (_$event, err) => {
             this.logger.error('Unhandled exception:', err)
         })
-
-        electron.ipcRenderer.on('host:window-enter-full-screen', () => this.zone.run(() => {
-            this.isFullScreen = true
-        }))
-
-        electron.ipcRenderer.on('host:window-leave-full-screen', () => this.zone.run(() => {
-            this.isFullScreen = false
-        }))
 
         electron.ipcRenderer.on('host:window-shown', () => {
             this.zone.run(() => this.shown.emit())
@@ -163,11 +154,6 @@ export class HostAppService {
         this.electron.ipcRenderer.send('app:new-window')
     }
 
-    toggleFullscreen (): void {
-        const window = this.getWindow()
-        window.setFullScreen(!this.isFullScreen)
-    }
-
     openDevTools (): void {
         this.getWindow().webContents.openDevTools({ mode: 'undocked' })
     }
@@ -176,32 +162,12 @@ export class HostAppService {
         this.electron.ipcRenderer.send('window-focus')
     }
 
-    minimize (): void {
-        this.electron.ipcRenderer.send('window-minimize')
-    }
-
-    maximize (): void {
-        this.electron.ipcRenderer.send('window-maximize')
-    }
-
-    unmaximize (): void {
-        this.electron.ipcRenderer.send('window-unmaximize')
-    }
-
-    toggleMaximize (): void {
-        this.electron.ipcRenderer.send('window-toggle-maximize')
-    }
-
     setBounds (bounds: Bounds): void {
         this.electron.ipcRenderer.send('window-set-bounds', bounds)
     }
 
     setAlwaysOnTop (flag: boolean): void {
         this.electron.ipcRenderer.send('window-set-always-on-top', flag)
-    }
-
-    setTitle (title?: string): void {
-        this.electron.ipcRenderer.send('window-set-title', title ?? 'Terminus')
     }
 
     setTouchBar (touchBar: TouchBar): void {
@@ -221,10 +187,6 @@ export class HostAppService {
 
     bringToFront (): void {
         this.electron.ipcRenderer.send('window-bring-to-front')
-    }
-
-    closeWindow (): void {
-        this.electron.ipcRenderer.send('window-close')
     }
 
     registerGlobalHotkey (specs: string[]): void {

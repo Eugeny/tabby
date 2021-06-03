@@ -210,8 +210,7 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
         if (!(this.connection?.warnOnClose ?? this.config.store.ssh.warnOnClose)) {
             return true
         }
-        return (await this.electron.showMessageBox(
-            this.hostApp.getWindow(),
+        return (await this.platform.showMessageBox(
             {
                 type: 'warning',
                 message: `Disconnect from ${this.connection?.host}?`,

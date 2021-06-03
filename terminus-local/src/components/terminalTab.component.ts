@@ -90,8 +90,7 @@ export class TerminalTabComponent extends BaseTerminalTabComponent {
         if (!children?.length) {
             return true
         }
-        return (await this.electron.showMessageBox(
-            this.hostApp.getWindow(),
+        return (await this.platform.showMessageBox(
             {
                 type: 'warning',
                 message: `"${children[0].command}" is still running. Close?`,

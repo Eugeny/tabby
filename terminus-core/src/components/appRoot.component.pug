@@ -1,15 +1,16 @@
 title-bar(
-  *ngIf='!hostApp.isFullScreen && config.store.appearance.frame == "full" && config.store.appearance.dock == "off"',
-  [class.inset]='hostApp.platform == Platform.macOS && !hostApp.isFullScreen'
+  *ngIf='ready && !hostWindow.isFullScreen && config.store.appearance.frame == "full" && config.store.appearance.dock == "off"',
+  [class.inset]='hostApp.platform == Platform.macOS && !hostWindow.isFullScreen'
 )
 
 .content(
+    *ngIf='ready',
     [class.tabs-on-top]='config.store.appearance.tabsLocation == "top" || config.store.appearance.tabsLocation == "left"',
     [class.tabs-on-side]='hasVerticalTabs()',
 )
     .tab-bar
         .inset.background(*ngIf='hostApp.platform == Platform.macOS \
-        && !hostApp.isFullScreen \
+        && !hostWindow.isFullScreen \
         && config.store.appearance.frame == "thin" \
         && (config.store.appearance.tabsLocation == "top" || config.store.appearance.tabsLocation == "left")')
         .tabs(

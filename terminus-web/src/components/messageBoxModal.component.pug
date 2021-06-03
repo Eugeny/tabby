@@ -1,0 +1,13 @@
+.modal-body
+    div {{options.message}}
+    small {{options.detail}}
+
+.modal-footer
+    .ml-auto
+    button.btn(
+        *ngFor='let button of options.buttons; index as i',
+        [autofocus]='i === options.defaultId',
+        [class.btn-primary]='i === options.defaultId',
+        [class.btn-secondary]='i !== options.defaultId',
+        (click)='onButton(i)',
+    ) {{button}}

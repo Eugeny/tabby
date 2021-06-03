@@ -12,7 +12,7 @@ import { UpdaterService } from '../services/updater.service'
 
 import { BaseTabComponent } from './baseTab.component'
 import { SafeModeModalComponent } from './safeModeModal.component'
-import { AppService, PlatformService, ToolbarButton, ToolbarButtonProvider } from '../api'
+import { AppService, HostWindowService, PlatformService, ToolbarButton, ToolbarButtonProvider } from '../api'
 
 /** @hidden */
 @Component({
@@ -66,6 +66,7 @@ export class AppRootComponent {
     private constructor (
         private hotkeys: HotkeysService,
         private updater: UpdaterService,
+        public hostWindow: HostWindowService,
         public hostApp: HostAppService,
         public config: ConfigService,
         public app: AppService,
@@ -77,9 +78,6 @@ export class AppRootComponent {
     ) {
         this.logger = log.create('main')
         this.logger.info('v', platform.getAppVersion())
-
-        this.leftToolbarButtons = this.getToolbarButtons(false)
-        this.rightToolbarButtons = this.getToolbarButtons(true)
 
         this.updateIcon = require('../icons/gift.svg')
 
@@ -114,7 +112,7 @@ export class AppRootComponent {
                 }
             }
             if (hotkey === 'toggle-fullscreen') {
-                this.hostApp.toggleFullscreen()
+                hostWindow.toggleFullscreen()
             }
         })
 
@@ -126,14 +124,6 @@ export class AppRootComponent {
             ngbModal.open(SafeModeModalComponent)
         }
 
-        setInterval(() => {
-            if (this.config.store.enableAutomaticUpdates) {
-                this.updater.check().then(available => {
-                    this.updatesAvailable = available
-                })
-            }
-        }, 3600 * 12 * 1000)
-
         this.app.tabOpened$.subscribe(tab => {
             this.unsortedTabs.push(tab)
             this.noTabs = false
@@ -143,12 +133,26 @@ export class AppRootComponent {
             this.unsortedTabs = this.unsortedTabs.filter(x => x !== tab)
             this.noTabs = app.tabs.length === 0
         })
+
+        config.ready$.toPromise().then(() => {
+            this.leftToolbarButtons = this.getToolbarButtons(false)
+            this.rightToolbarButtons = this.getToolbarButtons(true)
+
+            setInterval(() => {
+                if (this.config.store.enableAutomaticUpdates) {
+                    this.updater.check().then(available => {
+                        this.updatesAvailable = available
+                    })
+                }
+            }, 3600 * 12 * 1000)
+        })
     }
 
     async ngOnInit () {
-        this.ready = true
-
-        this.app.emitReady()
+        this.config.ready$.toPromise().then(() => {
+            this.ready = true
+            this.app.emitReady()
+        })
     }
 
     @HostListener('dragover')

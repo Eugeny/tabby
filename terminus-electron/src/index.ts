@@ -1,18 +1,20 @@
 import { NgModule } from '@angular/core'
-import { PlatformService, LogService, UpdaterService, DockingService, HostAppService, ThemesService, Platform, AppService, ConfigService, ElectronService, WIN_BUILD_FLUENT_BG_SUPPORTED, isWindowsBuild } from 'terminus-core'
+import { PlatformService, LogService, UpdaterService, DockingService, HostAppService, ThemesService, Platform, AppService, ConfigService, ElectronService, WIN_BUILD_FLUENT_BG_SUPPORTED, isWindowsBuild, HostWindowService } from 'terminus-core'
 import { TerminalColorSchemeProvider } from 'terminus-terminal'
 
 import { HyperColorSchemes } from './colorSchemes'
-import { ElectronPlatformService } from './services/platform'
+import { ElectronPlatformService } from './services/platform.service'
 import { ElectronLogService } from './services/log.service'
 import { ElectronUpdaterService } from './services/updater.service'
 import { TouchbarService } from './services/touchbar.service'
 import { ElectronDockingService } from './services/docking.service'
+import { ElectronHostWindow } from './services/hostWindow.service'
 
 @NgModule({
     providers: [
         { provide: TerminalColorSchemeProvider, useClass: HyperColorSchemes, multi: true },
         { provide: PlatformService, useClass: ElectronPlatformService },
+        { provide: HostWindowService, useClass: ElectronHostWindow },
         { provide: LogService, useClass: ElectronLogService },
         { provide: UpdaterService, useClass: ElectronUpdaterService },
         { provide: DockingService, useClass: ElectronDockingService },

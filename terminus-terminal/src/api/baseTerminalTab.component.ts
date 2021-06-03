@@ -3,7 +3,7 @@ import { first } from 'rxjs/operators'
 import colors from 'ansi-colors'
 import { NgZone, OnInit, OnDestroy, Injector, ViewChild, HostBinding, Input, ElementRef, InjectFlags } from '@angular/core'
 import { trigger, transition, style, animate, AnimationTriggerMetadata } from '@angular/animations'
-import { AppService, ConfigService, BaseTabComponent, ElectronService, HostAppService, HotkeysService, NotificationsService, Platform, LogService, Logger, TabContextMenuItemProvider, SplitTabComponent, SubscriptionContainer, MenuItemOptions, PlatformService } from 'terminus-core'
+import { AppService, ConfigService, BaseTabComponent, HostAppService, HotkeysService, NotificationsService, Platform, LogService, Logger, TabContextMenuItemProvider, SplitTabComponent, SubscriptionContainer, MenuItemOptions, PlatformService } from 'terminus-core'
 
 import { BaseSession } from '../session'
 import { TerminalFrontendService } from '../services/terminalFrontend.service'
@@ -82,7 +82,6 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
     protected app: AppService
     protected hostApp: HostAppService
     protected hotkeys: HotkeysService
-    protected electron: ElectronService
     protected platform: PlatformService
     protected terminalContainersService: TerminalFrontendService
     protected notifications: NotificationsService
@@ -135,7 +134,6 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
         this.app = injector.get(AppService)
         this.hostApp = injector.get(HostAppService)
         this.hotkeys = injector.get(HotkeysService)
-        this.electron = injector.get(ElectronService)
         this.platform = injector.get(PlatformService)
         this.terminalContainersService = injector.get(TerminalFrontendService)
         this.notifications = injector.get(NotificationsService)
@@ -359,7 +357,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
     }
 
     async paste (): Promise<void> {
-        let data = this.electron.clipboard.readText()
+        let data = this.platform.readClipboard()
         if (this.config.store.terminal.bracketedPaste) {
             data = `\x1b[200~${data}\x1b[201~`
         }
@@ -374,15 +372,13 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
 
             if (data.includes('\r') && this.config.store.terminal.warnOnMultilinePaste) {
                 const buttons = ['Paste', 'Cancel']
-                const result = (await this.electron.showMessageBox(
-                    this.hostApp.getWindow(),
+                const result = (await this.platform.showMessageBox(
                     {
                         type: 'warning',
                         detail: data,
                         message: `Paste multiple lines?`,
                         buttons,
                         defaultId: 0,
-                        cancelId: 1,
                     }
                 )).response
                 if (result === 1) {
@@ -463,7 +459,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
             cwd = await this.session.getWorkingDirectory()
         }
         if (cwd) {
-            this.electron.clipboard.writeText(cwd)
+            this.platform.setClipboard({ text: cwd })
             this.notifications.notice('Copied')
         } else {
             this.notifications.error('Shell does not support current path detection')

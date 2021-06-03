@@ -2,7 +2,7 @@
 import { Component } from '@angular/core'
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators'
-import { ElectronService, HostAppService } from 'terminus-core'
+import { PlatformService } from 'terminus-core'
 import { SerialConnection, LoginScript, SerialPortInfo, BAUD_RATES } from '../api'
 import { SerialService } from '../services/serial.service'
 
@@ -32,8 +32,7 @@ export class EditConnectionModalComponent {
 
     constructor (
         private modalInstance: NgbActiveModal,
-        private electron: ElectronService,
-        private hostApp: HostAppService,
+        private platform: PlatformService,
         private serial: SerialService,
     ) {
     }
@@ -100,8 +99,7 @@ export class EditConnectionModalComponent {
     }
 
     async deleteScript (script: LoginScript) {
-        if (this.connection.scripts && (await this.electron.showMessageBox(
-            this.hostApp.getWindow(),
+        if (this.connection.scripts && (await this.platform.showMessageBox(
             {
                 type: 'warning',
                 message: 'Delete this script?',

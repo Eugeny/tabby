@@ -10,6 +10,7 @@ import { SelectorModalComponent } from '../components/selectorModal.component'
 import { SelectorOption } from '../api/selector'
 import { RecoveryToken } from '../api/tabRecovery'
 import { BootstrapData, BOOTSTRAP_DATA } from '../api/mainProcess'
+import { HostWindowService } from '../api/hostWindow'
 
 import { ConfigService } from './config.service'
 import { HostAppService } from './hostApp.service'
@@ -73,6 +74,7 @@ export class AppService {
     private constructor (
         private config: ConfigService,
         private hostApp: HostAppService,
+        private hostWindow: HostWindowService,
         private tabRecovery: TabRecoveryService,
         private tabsService: TabsService,
         private ngbModal: NgbModal,
@@ -127,7 +129,7 @@ export class AppService {
 
         tab.titleChange$.subscribe(title => {
             if (tab === this._activeTab) {
-                this.hostApp.setTitle(title)
+                this.hostWindow.setTitle(title)
             }
         })
 
@@ -205,7 +207,7 @@ export class AppService {
         setImmediate(() => {
             this._activeTab?.emitFocused()
         })
-        this.hostApp.setTitle(this._activeTab?.title)
+        this.hostWindow.setTitle(this._activeTab?.title)
     }
 
     getParentTab (tab: BaseTabComponent): SplitTabComponent|null {
@@ -332,7 +334,7 @@ export class AppService {
         this.tabRecovery.enabled = false
         await this.tabRecovery.saveTabs(this.tabs)
         if (await this.closeAllTabs()) {
-            this.hostApp.closeWindow()
+            this.hostWindow.close()
         } else {
             this.tabRecovery.enabled = true
         }
