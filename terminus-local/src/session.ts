@@ -178,7 +178,7 @@ export class Session extends BaseSession {
 
         this.open = true
 
-        this.pty.subscribe('data-buffered', (array: Uint8Array) => {
+        this.pty.subscribe('data', (array: Uint8Array) => {
             this.pty!.ackData(array.length)
 
             let data = Buffer.from(array)

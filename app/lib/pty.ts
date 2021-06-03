@@ -1,5 +1,5 @@
 import * as nodePTY from '@terminus-term/node-pty'
-import { StringDecoder } from 'string_decoder'
+import { StringDecoder } from './stringDecoder'
 import { v4 as uuidv4 } from 'uuid'
 import { ipcMain } from 'electron'
 import { Application } from './app'
@@ -10,7 +10,7 @@ class PTYDataQueue {
     private maxChunk = 1024
     private maxDelta = 1024 * 50
     private flowPaused = false
-    private decoder = new StringDecoder('utf8')
+    private decoder = new StringDecoder()
 
     constructor (private pty: nodePTY.IPty, private onData: (data: Buffer) => void) { }
 
@@ -61,7 +61,7 @@ class PTYDataQueue {
     }
 
     private emitData (data: Buffer) {
-        this.onData(Buffer.from(this.decoder.write(data)))
+        this.onData(this.decoder.write(data))
     }
 
     private pause () {
@@ -87,7 +87,7 @@ export class PTY {
         }
 
         this.outputQueue = new PTYDataQueue(this.pty, data => {
-            setImmediate(() => this.emit('data-buffered', data))
+            setImmediate(() => this.emit('data', data))
         })
 
         this.pty.on('data', data => this.outputQueue.push(Buffer.from(data)))
@@ -126,7 +126,6 @@ export class PTYManager {
     private ptys: Record<string, PTY|undefined> = {}
 
     init (app: Application): void {
-        //require('./bufferizedPTY')(nodePTY) // eslint-disable-line @typescript-eslint/no-var-requires
         ipcMain.on('pty:spawn', (event, ...options) => {
             const id = uuidv4().toString()
             event.returnValue = id
