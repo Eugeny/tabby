@@ -32,9 +32,6 @@ jobs:
         cd app
         ../node_modules/.bin/patch-package
         cd ..
-        cd terminus-terminal
-        ../node_modules/.bin/patch-package
-        cd ..
 
     - name: Build native deps
       run: scripts/build-native.js

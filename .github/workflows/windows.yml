@@ -21,11 +21,6 @@ jobs:
         npm i -g yarn@1.19.1
         yarn
         node scripts/build-native.js
-
-        cd terminus-terminal
-        ../node_modules/.bin/patch-package
-        cd ..
-
         yarn run build
         node scripts/prepackage-plugins.js
 
