@@ -50,21 +50,33 @@ export class ZModemDecorator extends TerminalDecorator {
             },
         })
         setTimeout(() => {
-            this.subscribeUntilDetached(terminal, terminal.session!.binaryOutput$.subscribe(data => {
-                const chunkSize = 1024
-                for (let i = 0; i <= Math.floor(data.length / chunkSize); i++) {
-                    try {
-                        sentry.consume(data.subarray(i * chunkSize, (i + 1) * chunkSize))
-                    } catch (e) {
-                        this.logger.error('protocol error', e)
-                        this.activeSession.abort()
-                        this.activeSession = null
-                        terminal.enablePassthrough = true
-                        return
-                    }
-                }
+            this.attachToSession(sentry, terminal)
+            this.subscribeUntilDetached(terminal, terminal.sessionChanged$.subscribe(() => {
+                this.attachToSession(sentry, terminal)
             }))
         })
+    }
+
+    private attachToSession (sentry, terminal) {
+        if (!terminal.session) {
+            return
+        }
+        this.subscribeUntilDetached(terminal, terminal.session.binaryOutput$.subscribe(data => {
+            const chunkSize = 1024
+            console.log('z rx', data.toString(), data)
+            for (let i = 0; i <= Math.floor(data.length / chunkSize); i++) {
+                try {
+                    sentry.consume(Buffer.from(data.slice(i * chunkSize, (i + 1) * chunkSize)))
+                } catch (e) {
+                    this.showMessage(terminal, colors.bgRed.black(' Error ') + ' ' + e)
+                    this.logger.error('protocol error', e)
+                    this.activeSession.abort()
+                    this.activeSession = null
+                    terminal.enablePassthrough = true
+                    return
+                }
+            }
+        }))
     }
 
     private async process (terminal, detection): Promise<void> {

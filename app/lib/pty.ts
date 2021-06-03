@@ -105,7 +105,7 @@ export class PTY {
 
     write (buffer: Buffer): void {
         if ((this.pty as any)._writable) {
-            this.pty.write(buffer.toString())
+            this.pty.write(buffer as any)
         }
     }
 
