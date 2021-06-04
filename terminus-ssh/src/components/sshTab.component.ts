@@ -154,7 +154,7 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
                     this.reconnectOffered = true
                     this.write('Press any key to reconnect\r\n')
                     this.input$.pipe(first()).subscribe(() => {
-                        if (!this.session?.open) {
+                        if (!this.session?.open && this.reconnectOffered) {
                             this.reconnect()
                         }
                     })

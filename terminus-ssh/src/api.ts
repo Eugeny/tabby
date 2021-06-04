@@ -1,12 +1,16 @@
 import colors from 'ansi-colors'
 import stripAnsi from 'strip-ansi'
 import socksv5 from 'socksv5'
+import { Injector } from '@angular/core'
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { BaseSession } from 'terminus-terminal'
 import { Server, Socket, createServer, createConnection } from 'net'
 import { Client, ClientChannel } from 'ssh2'
 import { Logger } from 'terminus-core'
 import { Subject, Observable } from 'rxjs'
 import { ProxyCommandStream } from './services/ssh.service'
+import { PasswordStorageService } from './services/passwordStorage.service'
+import { PromptModalComponent } from './components/promptModal.component'
 
 export interface LoginScript {
     expect: string
@@ -129,12 +133,22 @@ export class SSHSession extends BaseSession {
     logger: Logger
     jumpStream: any
     proxyCommandStream: ProxyCommandStream|null = null
-
+    authMethodsLeft: string[] = []
+    savedPassword: string|undefined
     get serviceMessage$ (): Observable<string> { return this.serviceMessage }
     private serviceMessage = new Subject<string>()
+    private keychainPasswordUsed = false
+    private passwordStorage: PasswordStorageService
+    private ngbModal: NgbModal
 
-    constructor (public connection: SSHConnection) {
+    constructor (
+        injector: Injector,
+        public connection: SSHConnection
+    ) {
         super()
+        this.passwordStorage = injector.get(PasswordStorageService)
+        this.ngbModal = injector.get(NgbModal)
+
         this.scripts = connection.scripts ?? []
         this.destroyed$.subscribe(() => {
             for (const port of this.forwardedPorts) {
@@ -197,7 +211,7 @@ export class SSHSession extends BaseSession {
 
                     if (match) {
                         this.logger.info('Executing script: "' + cmd + '"')
-                        this.shell!.write(cmd + '\n')
+                        this.shell.write(cmd + '\n')
                         this.scripts = this.scripts.filter(x => x !== script)
                     } else {
                         if (script.optional) {
@@ -294,6 +308,67 @@ export class SSHSession extends BaseSession {
     emitServiceMessage (msg: string): void {
         this.serviceMessage.next(msg)
         this.logger.info(stripAnsi(msg))
+    }
+
+    async handleAuth (methodsLeft?: string[]): Promise<any> {
+        while (true) {
+            const method = this.authMethodsLeft.shift()
+            if (!method) {
+                return false
+            }
+            if (methodsLeft && !methodsLeft.includes(method) && method !== 'agent') {
+                // Agent can still be used even if not in methodsLeft
+                this.logger.info('Server does not support auth method', method)
+                continue
+            }
+            if (method === 'password') {
+                if (this.connection.password) {
+                    this.emitServiceMessage('Using preset password')
+                    return {
+                        type: 'password',
+                        username: this.connection.user,
+                        password: this.connection.password,
+                    }
+                }
+
+                if (!this.keychainPasswordUsed) {
+                    const password = await this.passwordStorage.loadPassword(this.connection)
+                    if (password) {
+                        this.emitServiceMessage('Trying saved password')
+                        this.keychainPasswordUsed = true
+                        return {
+                            type: 'password',
+                            username: this.connection.user,
+                            password,
+                        }
+                    }
+                }
+
+                const modal = this.ngbModal.open(PromptModalComponent)
+                modal.componentInstance.prompt = `Password for ${this.connection.user}@${this.connection.host}`
+                modal.componentInstance.password = true
+                modal.componentInstance.showRememberCheckbox = true
+
+                try {
+                    const result = await modal.result
+                    if (result) {
+                        if (result.remember) {
+                            this.savedPassword = result.value
+                        }
+                        return {
+                            type: 'password',
+                            username: this.connection.user,
+                            password: result.value,
+                        }
+                    } else {
+                        continue
+                    }
+                } catch {
+                    continue
+                }
+            }
+            return method
+        }
     }
 
     async addPortForward (fw: ForwardedPort): Promise<void> {
@@ -417,7 +492,7 @@ export class SSHSession extends BaseSession {
             for (const script of this.scripts) {
                 if (!script.expect) {
                     console.log('Executing script:', script.send)
-                    this.shell!.write(script.send + '\n')
+                    this.shell.write(script.send + '\n')
                     this.scripts = this.scripts.filter(x => x !== script)
                 } else {
                     break

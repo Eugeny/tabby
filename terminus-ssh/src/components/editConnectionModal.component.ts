@@ -8,7 +8,7 @@ import { ElectronService, HostAppService, ConfigService, PlatformService } from 
 import { PasswordStorageService } from '../services/passwordStorage.service'
 import { SSHConnection, LoginScript, ForwardedPortConfig, SSHAlgorithmType, ALGORITHM_BLACKLIST } from '../api'
 import { PromptModalComponent } from './promptModal.component'
-import { ALGORITHMS } from 'ssh2-streams/lib/constants'
+import * as ALGORITHMS from 'ssh2/lib/protocol/constants'
 
 /** @hidden */
 @Component({
@@ -39,15 +39,15 @@ export class EditConnectionModalComponent {
                 [SSHAlgorithmType.KEX]: 'SUPPORTED_KEX',
                 [SSHAlgorithmType.HOSTKEY]: 'SUPPORTED_SERVER_HOST_KEY',
                 [SSHAlgorithmType.CIPHER]: 'SUPPORTED_CIPHER',
-                [SSHAlgorithmType.HMAC]: 'SUPPORTED_HMAC',
+                [SSHAlgorithmType.HMAC]: 'SUPPORTED_MAC',
             }[k]
             const defaultAlg = {
-                [SSHAlgorithmType.KEX]: 'KEX',
-                [SSHAlgorithmType.HOSTKEY]: 'SERVER_HOST_KEY',
-                [SSHAlgorithmType.CIPHER]: 'CIPHER',
-                [SSHAlgorithmType.HMAC]: 'HMAC',
+                [SSHAlgorithmType.KEX]: 'DEFAULT_KEX',
+                [SSHAlgorithmType.HOSTKEY]: 'DEFAULT_SERVER_HOST_KEY',
+                [SSHAlgorithmType.CIPHER]: 'DEFAULT_CIPHER',
+                [SSHAlgorithmType.HMAC]: 'DEFAULT_MAC',
             }[k]
-            this.supportedAlgorithms[k] = ALGORITHMS[supportedAlg].filter(x => !ALGORITHM_BLACKLIST.includes(x))
+            this.supportedAlgorithms[k] = ALGORITHMS[supportedAlg].filter(x => !ALGORITHM_BLACKLIST.includes(x)).sort()
             this.defaultAlgorithms[k] = ALGORITHMS[defaultAlg].filter(x => !ALGORITHM_BLACKLIST.includes(x))
         }
 

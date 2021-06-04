@@ -73,10 +73,7 @@ const builtinModules = [
 
 const cachedBuiltinModules = {}
 builtinModules.forEach(m => {
-    const label = 'Caching ' + m
-    console.time(label)
     cachedBuiltinModules[m] = nodeRequire(m)
-    console.timeEnd(label)
 })
 
 const originalRequire = (global as any).require
@@ -183,14 +180,11 @@ export async function loadPlugins (foundPlugins: PluginInfo[], progress: Progres
         console.info(`Loading ${foundPlugin.name}: ${nodeRequire.resolve(foundPlugin.path)}`)
         progress(index, foundPlugins.length)
         try {
-            const label = 'Loading ' + foundPlugin.name
-            console.time(label)
             const packageModule = nodeRequire(foundPlugin.path)
             const pluginModule = packageModule.default.forRoot ? packageModule.default.forRoot() : packageModule.default
             pluginModule.pluginName = foundPlugin.name
             pluginModule.bootstrap = packageModule.bootstrap
             plugins.push(pluginModule)
-            console.timeEnd(label)
             await new Promise(x => setTimeout(x, 50))
         } catch (error) {
             console.error(`Could not load ${foundPlugin.name}:`, error)

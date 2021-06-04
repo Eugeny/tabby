@@ -46,7 +46,6 @@
     "shelljs": "0.8.4",
     "source-code-pro": "^2.38.0",
     "source-sans-pro": "3.6.0",
-    "ssh2-streams": "^0.4.10",
     "style-loader": "^2.0.0",
     "svg-inline-loader": "^0.8.2",
     "tslib": "^2.2.0",

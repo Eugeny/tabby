@@ -197,28 +197,28 @@
                 .form-line.align-items-start
                     .header
                         .title Ciphers
-                    .w-50
+                    .w-75
                         div(*ngFor='let alg of supportedAlgorithms.cipher')
                             checkbox([text]='alg', [(ngModel)]='algorithms.cipher[alg]')
 
                 .form-line.align-items-start
                     .header
                         .title Key exchange
-                    .w-50
+                    .w-75
                         div(*ngFor='let alg of supportedAlgorithms.kex')
                             checkbox([text]='alg', [(ngModel)]='algorithms.kex[alg]')
 
                 .form-line.align-items-start
                     .header
                         .title HMAC
-                    .w-50
+                    .w-75
                         div(*ngFor='let alg of supportedAlgorithms.hmac')
                             checkbox([text]='alg', [(ngModel)]='algorithms.hmac[alg]')
 
                 .form-line.align-items-start
                     .header
                         .title Host key
-                    .w-50
+                    .w-75
                         div(*ngFor='let alg of supportedAlgorithms.serverHostKey')
                             checkbox([text]='alg', [(ngModel)]='algorithms.serverHostKey[alg]')
 

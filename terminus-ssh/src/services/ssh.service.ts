@@ -1,10 +1,9 @@
 import colors from 'ansi-colors'
 import { Duplex } from 'stream'
 import * as crypto from 'crypto'
-import { Injectable, NgZone } from '@angular/core'
+import { Injectable, Injector, NgZone } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { Client } from 'ssh2'
-import { SSH2Stream } from 'ssh2-streams'
 import * as fs from 'mz/fs'
 import { exec } from 'child_process'
 import * as path from 'path'
@@ -25,6 +24,7 @@ export class SSHService {
     private logger: Logger
 
     private constructor (
+        private injector: Injector,
         private log: LogService,
         private zone: NgZone,
         private ngbModal: NgbModal,
@@ -39,7 +39,7 @@ export class SSHService {
     }
 
     createSession (connection: SSHConnection): SSHSession {
-        const session = new SSHSession(connection)
+        const session = new SSHSession(this.injector, connection)
         session.logger = this.log.create(`ssh-${connection.host}-${connection.port}`)
         return session
     }
@@ -114,7 +114,6 @@ export class SSHService {
         const ssh = new Client()
         session.ssh = ssh
         let connected = false
-        let savedPassword: string|null = null
         const algorithms = {}
         for (const key of Object.keys(session.connection.algorithms ?? {})) {
             algorithms[key] = session.connection.algorithms![key].filter(x => !ALGORITHM_BLACKLIST.includes(x))
@@ -123,8 +122,8 @@ export class SSHService {
         const resultPromise: Promise<void> = new Promise(async (resolve, reject) => {
             ssh.on('ready', () => {
                 connected = true
-                if (savedPassword) {
-                    this.passwordStorage.savePassword(session.connection, savedPassword)
+                if (session.savedPassword) {
+                    this.passwordStorage.savePassword(session.connection, session.savedPassword)
                 }
 
                 for (const fw of session.connection.forwardedPorts ?? []) {
@@ -132,6 +131,9 @@ export class SSHService {
                 }
 
                 this.zone.run(resolve)
+            })
+            ssh.on('handshake', negotiated => {
+                this.logger.info('Handshake complete:', negotiated)
             })
             ssh.on('error', error => {
                 if (error.message === 'All configured authentication methods failed') {
@@ -197,7 +199,7 @@ export class SSHService {
             agent = process.env.SSH_AUTH_SOCK!
         }
 
-        const authMethodsLeft = ['none']
+        session.authMethodsLeft = ['none']
         if (!session.connection.auth || session.connection.auth === 'publicKey') {
             try {
                 privateKey = await this.loadPrivateKeyForSession(session)
@@ -207,23 +209,23 @@ export class SSHService {
             if (!privateKey) {
                 session.emitServiceMessage(colors.bgYellow.yellow.black(' ! ') + ` Private key auth selected, but no key is loaded`)
             } else {
-                authMethodsLeft.push('publickey')
+                session.authMethodsLeft.push('publickey')
             }
         }
         if (!session.connection.auth || session.connection.auth === 'agent') {
             if (!agent) {
                 session.emitServiceMessage(colors.bgYellow.yellow.black(' ! ') + ` Agent auth selected, but no running agent is detected`)
             } else {
-                authMethodsLeft.push('agent')
+                session.authMethodsLeft.push('agent')
             }
         }
         if (!session.connection.auth || session.connection.auth === 'password') {
-            authMethodsLeft.push('password')
+            session.authMethodsLeft.push('password')
         }
         if (!session.connection.auth || session.connection.auth === 'keyboardInteractive') {
-            authMethodsLeft.push('keyboard-interactive')
+            session.authMethodsLeft.push('keyboard-interactive')
         }
-        authMethodsLeft.push('hostbased')
+        session.authMethodsLeft.push('hostbased')
 
         try {
             if (session.connection.proxyCommand) {
@@ -257,60 +259,16 @@ export class SSHService {
                 },
                 hostHash: 'sha256' as any,
                 algorithms,
-                authHandler: methodsLeft => {
-                    while (true) {
-                        const method = authMethodsLeft.shift()
-                        if (!method) {
-                            return false
-                        }
-                        if (methodsLeft && !methodsLeft.includes(method) && method !== 'agent') {
-                            // Agent can still be used even if not in methodsLeft
-                            this.logger.info('Server does not support auth method', method)
-                            continue
-                        }
-                        return method
-                    }
+                authHandler: (methodsLeft, partialSuccess, callback) => {
+                    this.zone.run(async () => {
+                        callback(await session.handleAuth(methodsLeft))
+                    })
                 },
             } as any)
         } catch (e) {
             this.notifications.error(e.message)
             throw e
         }
-
-        let keychainPasswordUsed = false
-
-        ;(ssh as any).config.password = () => this.zone.run(async () => {
-            if (session.connection.password) {
-                log('Using preset password')
-                return session.connection.password
-            }
-
-            if (!keychainPasswordUsed) {
-                const password = await this.passwordStorage.loadPassword(session.connection)
-                if (password) {
-                    log('Trying saved password')
-                    keychainPasswordUsed = true
-                    return password
-                }
-            }
-
-            const modal = this.ngbModal.open(PromptModalComponent)
-            modal.componentInstance.prompt = `Password for ${session.connection.user}@${session.connection.host}`
-            modal.componentInstance.password = true
-            modal.componentInstance.showRememberCheckbox = true
-            try {
-                const result = await modal.result
-                if (result) {
-                    if (result.remember) {
-                        savedPassword = result.value
-                    }
-                    return result.value
-                }
-                return ''
-            } catch {
-                return ''
-            }
-        })
 
         return resultPromise
     }
@@ -479,9 +437,3 @@ export class ProxyCommandStream extends Duplex {
         callback(error)
     }
 }
-
-/* eslint-disable */
-const _authPassword = SSH2Stream.prototype.authPassword
-SSH2Stream.prototype.authPassword = async function (username, passwordFn: any) {
-    _authPassword.bind(this)(username, await passwordFn())
-} as any
