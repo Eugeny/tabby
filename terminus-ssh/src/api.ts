@@ -1,16 +1,22 @@
+import * as fs from 'mz/fs'
+import * as crypto from 'crypto'
+import * as path from 'path'
+import * as sshpk from 'sshpk'
 import colors from 'ansi-colors'
 import stripAnsi from 'strip-ansi'
 import socksv5 from 'socksv5'
 import { Injector } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
+import { HostAppService, Logger, NotificationsService, Platform, PlatformService } from 'terminus-core'
 import { BaseSession } from 'terminus-terminal'
 import { Server, Socket, createServer, createConnection } from 'net'
 import { Client, ClientChannel } from 'ssh2'
-import { Logger } from 'terminus-core'
 import { Subject, Observable } from 'rxjs'
 import { ProxyCommandStream } from './services/ssh.service'
 import { PasswordStorageService } from './services/passwordStorage.service'
 import { PromptModalComponent } from './components/promptModal.component'
+
+const WINDOWS_OPENSSH_AGENT_PIPE = '\\\\.\\pipe\\openssh-ssh-agent'
 
 export interface LoginScript {
     expect: string
@@ -133,13 +139,21 @@ export class SSHSession extends BaseSession {
     logger: Logger
     jumpStream: any
     proxyCommandStream: ProxyCommandStream|null = null
-    authMethodsLeft: string[] = []
-    savedPassword: string|undefined
+    savedPassword?: string
     get serviceMessage$ (): Observable<string> { return this.serviceMessage }
+
+    agentPath?: string
+    privateKey?: string
+
+    private authMethodsLeft: string[] = []
     private serviceMessage = new Subject<string>()
     private keychainPasswordUsed = false
+
     private passwordStorage: PasswordStorageService
     private ngbModal: NgbModal
+    private hostApp: HostAppService
+    private platform: PlatformService
+    private notifications: NotificationsService
 
     constructor (
         injector: Injector,
@@ -148,6 +162,9 @@ export class SSHSession extends BaseSession {
         super()
         this.passwordStorage = injector.get(PasswordStorageService)
         this.ngbModal = injector.get(NgbModal)
+        this.hostApp = injector.get(HostAppService)
+        this.platform = injector.get(PlatformService)
+        this.notifications = injector.get(NotificationsService)
 
         this.scripts = connection.scripts ?? []
         this.destroyed$.subscribe(() => {
@@ -157,6 +174,48 @@ export class SSHSession extends BaseSession {
                 }
             }
         })
+    }
+
+    async init (): Promise<void> {
+        if (this.hostApp.platform === Platform.Windows) {
+            if (await fs.exists(WINDOWS_OPENSSH_AGENT_PIPE)) {
+                this.agentPath = WINDOWS_OPENSSH_AGENT_PIPE
+            } else {
+                if (await this.platform.isProcessRunning('pageant.exe')) {
+                    this.agentPath = 'pageant'
+                }
+            }
+        } else {
+            this.agentPath = process.env.SSH_AUTH_SOCK!
+        }
+
+        this.authMethodsLeft = ['none']
+        if (!this.connection.auth || this.connection.auth === 'publicKey') {
+            try {
+                await this.loadPrivateKey()
+            } catch (e) {
+                this.emitServiceMessage(colors.bgYellow.yellow.black(' ! ') + ` Failed to load private key: ${e}`)
+            }
+            if (!this.privateKey) {
+                this.emitServiceMessage(colors.bgYellow.yellow.black(' ! ') + ` Private key auth selected, but no key is loaded`)
+            } else {
+                this.authMethodsLeft.push('publickey')
+            }
+        }
+        if (!this.connection.auth || this.connection.auth === 'agent') {
+            if (!this.agentPath) {
+                this.emitServiceMessage(colors.bgYellow.yellow.black(' ! ') + ` Agent auth selected, but no running agent is detected`)
+            } else {
+                this.authMethodsLeft.push('agent')
+            }
+        }
+        if (!this.connection.auth || this.connection.auth === 'password') {
+            this.authMethodsLeft.push('password')
+        }
+        if (!this.connection.auth || this.connection.auth === 'keyboardInteractive') {
+            this.authMethodsLeft.push('keyboard-interactive')
+        }
+        this.authMethodsLeft.push('hostbased')
     }
 
     async start (): Promise<void> {
@@ -496,6 +555,64 @@ export class SSHSession extends BaseSession {
                     this.scripts = this.scripts.filter(x => x !== script)
                 } else {
                     break
+                }
+            }
+        }
+    }
+
+    async loadPrivateKey (): Promise<void> {
+        let privateKeyPath = this.connection.privateKey
+
+        if (!privateKeyPath) {
+            const userKeyPath = path.join(process.env.HOME!, '.ssh', 'id_rsa')
+            if (await fs.exists(userKeyPath)) {
+                this.emitServiceMessage('Using user\'s default private key')
+                privateKeyPath = userKeyPath
+            }
+        }
+
+        if (privateKeyPath) {
+            this.emitServiceMessage('Loading private key from ' + colors.bgWhite.blackBright(' ' + privateKeyPath + ' '))
+            try {
+                const privateKeyContents = (await fs.readFile(privateKeyPath)).toString()
+                const parsedKey = await this.parsePrivateKey(privateKeyContents)
+                this.privateKey = parsedKey.toString('openssh')
+            } catch (error) {
+                this.emitServiceMessage(colors.bgRed.black(' X ') + ' Could not read the private key file')
+                this.emitServiceMessage(colors.bgRed.black(' X ') + ` ${error}`)
+                this.notifications.error('Could not read the private key file')
+                return
+            }
+        }
+    }
+
+    async parsePrivateKey (privateKey: string): Promise<any> {
+        const keyHash = crypto.createHash('sha512').update(privateKey).digest('hex')
+        let passphrase: string|null = await this.passwordStorage.loadPrivateKeyPassword(keyHash)
+        while (true) {
+            try {
+                return sshpk.parsePrivateKey(privateKey, 'auto', { passphrase })
+            } catch (e) {
+                if (e instanceof sshpk.KeyEncryptedError || e instanceof sshpk.KeyParseError) {
+                    await this.passwordStorage.deletePrivateKeyPassword(keyHash)
+
+                    const modal = this.ngbModal.open(PromptModalComponent)
+                    modal.componentInstance.prompt = 'Private key passphrase'
+                    modal.componentInstance.password = true
+                    modal.componentInstance.showRememberCheckbox = true
+
+                    try {
+                        const result = await modal.result
+                        passphrase = result?.value
+                        if (passphrase && result.remember) {
+                            this.passwordStorage.savePrivateKeyPassword(keyHash, passphrase)
+                        }
+                    } catch {
+                        throw e
+                    }
+                } else {
+                    this.notifications.error('Could not read the private key', e.toString())
+                    throw e
                 }
             }
         }
