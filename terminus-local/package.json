@@ -31,7 +31,7 @@
     "runes": "^0.4.2",
     "shell-escape": "^0.2.0",
     "slugify": "^1.5.3",
-    "utils-decorators": "^1.8.1"
+    "utils-decorators": "^1.8.3"
   },
   "peerDependencies": {
     "@angular/animations": "^9.1.9",
