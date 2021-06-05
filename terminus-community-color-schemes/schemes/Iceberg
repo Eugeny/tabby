@@ -1,0 +1,42 @@
+! Iceberg
+! https://cocopon.github.io/iceberg.vim/
+*.foreground:  #c6c8d1
+*.background:  #161821
+*.cursorColor: #c6c8d1
+!
+! Black
+*.color0:      #1e2132
+*.color8:      #6b7089
+!
+! Red
+*.color1:      #e27878
+*.color9:      #e98989
+!
+! Green
+*.color2:      #b4be82
+*.color10:     #c0ca8e
+!
+! Yellow
+*.color3:      #e2a478
+*.color11:     #e9b189
+!
+! Blue
+*.color4:      #84a0c6
+*.color12:     #91acd1
+!
+! Magenta
+*.color5:      #a093c7
+*.color13:     #ada0d3
+!
+! Cyan
+*.color6:      #89b8c2
+*.color14:     #95c4ce
+!
+! White
+*.color7:      #c6c8d1
+*.color15:     #d2d4de
+!
+! Bold, Italic, Underline
+*.colorBD:     #c6c8d1
+!*.colorIT:
+!*.colorUL:
