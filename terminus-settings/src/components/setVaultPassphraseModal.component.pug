@@ -1,0 +1,20 @@
+h3.modal-header.m-0.pb-0 Set master passphrase
+.modal-body
+    .mb-2 You can change it later, but it's unrecoverable if forgotten.
+    .input-group
+        input.form-control.form-control-lg(
+            [type]='showPassphrase ? "text" : "password"',
+            autofocus,
+            [(ngModel)]='passphrase',
+            #input,
+            placeholder='Master passphrase',
+            (keyup.enter)='ok()',
+            (keyup.esc)='cancel()',
+        )
+        .input-group-append
+            button.btn.btn-secondary((click)='showPassphrase = !showPassphrase')
+                i.fas.fa-eye
+
+.modal-footer
+    button.btn.btn-outline-primary((click)='ok()') Set passphrase
+    button.btn.btn-outline-danger((click)='cancel()') Cancel

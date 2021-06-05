@@ -11,12 +11,14 @@ import { MultiHotkeyInputComponent } from './components/multiHotkeyInput.compone
 import { SettingsTabComponent } from './components/settingsTab.component'
 import { SettingsTabBodyComponent } from './components/settingsTabBody.component'
 import { WindowSettingsTabComponent } from './components/windowSettingsTab.component'
+import { VaultSettingsTabComponent }  from './components/vaultSettingsTab.component'
+import { SetVaultPassphraseModalComponent } from './components/setVaultPassphraseModal.component'
 
 import { SettingsTabProvider } from './api'
 import { ButtonProvider } from './buttonProvider'
 import { SettingsHotkeyProvider } from './hotkeys'
 import { SettingsConfigProvider } from './config'
-import { HotkeySettingsTabProvider, WindowSettingsTabProvider } from './settings'
+import { HotkeySettingsTabProvider, WindowSettingsTabProvider, VaultSettingsTabProvider } from './settings'
 
 /** @hidden */
 @NgModule({
@@ -32,11 +34,14 @@ import { HotkeySettingsTabProvider, WindowSettingsTabProvider } from './settings
         { provide: HotkeyProvider, useClass: SettingsHotkeyProvider, multi: true },
         { provide: SettingsTabProvider, useClass: HotkeySettingsTabProvider, multi: true },
         { provide: SettingsTabProvider, useClass: WindowSettingsTabProvider, multi: true },
+        { provide: SettingsTabProvider, useClass: VaultSettingsTabProvider, multi: true },
     ],
     entryComponents: [
         HotkeyInputModalComponent,
         HotkeySettingsTabComponent,
         SettingsTabComponent,
+        SetVaultPassphraseModalComponent,
+        VaultSettingsTabComponent,
         WindowSettingsTabComponent,
     ],
     declarations: [
@@ -45,6 +50,8 @@ import { HotkeySettingsTabProvider, WindowSettingsTabProvider } from './settings
         MultiHotkeyInputComponent,
         SettingsTabComponent,
         SettingsTabBodyComponent,
+        SetVaultPassphraseModalComponent,
+        VaultSettingsTabComponent,
         WindowSettingsTabComponent,
     ],
 })

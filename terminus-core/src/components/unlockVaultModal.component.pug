@@ -1,0 +1,29 @@
+.modal-body
+    .d-flex.align-items-center.mb-3
+        h3.m-0 Vault is locked
+        .ml-auto(ngbDropdown, placement='bottom-right')
+            button.btn.btn-link(ngbDropdownToggle, (click)='$event.stopPropagation()')
+                span(*ngIf='rememberFor') Remember for {{rememberFor}} min
+                span(*ngIf='!rememberFor') Do not remember
+            div(ngbDropdownMenu)
+                button.dropdown-item(
+                    (click)='rememberFor = 0',
+                ) Do not remember
+                button.dropdown-item(
+                    *ngFor='let x of rememberOptions',
+                    (click)='rememberFor = x',
+                ) {{x}} min
+
+    .input-group
+        input.form-control.form-control-lg(
+            type='password',
+            autofocus,
+            [(ngModel)]='passphrase',
+            #input,
+            placeholder='Master passphrase',
+            (keyup.enter)='ok()',
+            (keyup.esc)='cancel()',
+        )
+        .input-group-append
+            button.btn.btn-secondary((click)='ok()', *ngIf='passphrase')
+                i.fas.fa-check

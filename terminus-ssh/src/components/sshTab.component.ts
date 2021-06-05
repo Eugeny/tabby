@@ -152,7 +152,7 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
             ) {
                 // User closed the session
                 this.destroy()
-            } else {
+            } else if (this.frontend) {
                 // Session was closed abruptly
                 this.write('\r\n' + colors.black.bgWhite(' SSH ') + ` ${session.connection.host}: session closed\r\n`)
                 if (!this.reconnectOffered) {

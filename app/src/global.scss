@@ -138,3 +138,17 @@ ngb-typeahead-window {
         transform: translateX(0);
     }
 }
+
+.dropdown {
+    .dropdown-toggle::after {
+        vertical-align: 0.15em;
+        margin-left: .5em;
+        opacity: .5;
+    }
+
+    .dropdown-item {
+        i + span {
+            margin-left: 10px;
+        }
+    }
+}

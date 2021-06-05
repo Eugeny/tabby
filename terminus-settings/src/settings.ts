@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core'
 import { SettingsTabProvider } from './api'
 import { HotkeySettingsTabComponent } from './components/hotkeySettingsTab.component'
 import { WindowSettingsTabComponent } from './components/windowSettingsTab.component'
+import { VaultSettingsTabComponent } from './components/vaultSettingsTab.component'
 
 /** @hidden */
 @Injectable()
@@ -25,5 +26,18 @@ export class WindowSettingsTabProvider extends SettingsTabProvider {
 
     getComponentType (): any {
         return WindowSettingsTabComponent
+    }
+}
+
+
+/** @hidden */
+@Injectable()
+export class VaultSettingsTabProvider extends SettingsTabProvider {
+    id = 'vault'
+    icon = 'key'
+    title = 'Vault'
+
+    getComponentType (): any {
+        return VaultSettingsTabComponent
     }
 }

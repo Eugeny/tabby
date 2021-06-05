@@ -19,6 +19,7 @@ import { RenameTabModalComponent } from './components/renameTabModal.component'
 import { SelectorModalComponent } from './components/selectorModal.component'
 import { SplitTabComponent, SplitTabRecoveryProvider } from './components/splitTab.component'
 import { SplitTabSpannerComponent } from './components/splitTabSpanner.component'
+import { UnlockVaultModalComponent } from './components/unlockVaultModal.component'
 import { WelcomeTabComponent } from './components/welcomeTab.component'
 
 import { AutofocusDirective } from './directives/autofocus.directive'
@@ -78,6 +79,7 @@ const PROVIDERS = [
         SelectorModalComponent,
         SplitTabComponent,
         SplitTabSpannerComponent,
+        UnlockVaultModalComponent,
         WelcomeTabComponent,
     ],
     entryComponents: [
@@ -85,6 +87,7 @@ const PROVIDERS = [
         SafeModeModalComponent,
         SelectorModalComponent,
         SplitTabComponent,
+        UnlockVaultModalComponent,
         WelcomeTabComponent,
     ],
     exports: [

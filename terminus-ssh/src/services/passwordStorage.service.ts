@@ -1,40 +1,76 @@
+import * as keytar from 'keytar'
 import { Injectable } from '@angular/core'
 import { SSHConnection } from '../api'
-import * as keytar from 'keytar'
+import { VaultService } from 'terminus-core'
+
+export const VAULT_SECRET_TYPE_PASSWORD = 'ssh:password'
+export const VAULT_SECRET_TYPE_PASSPHRASE = 'ssh:key-passphrase'
 
 @Injectable({ providedIn: 'root' })
 export class PasswordStorageService {
+    constructor (private vault: VaultService) { }
+
     async savePassword (connection: SSHConnection, password: string): Promise<void> {
-        const key = this.getKeyForConnection(connection)
-        return keytar.setPassword(key, connection.user, password)
+        if (this.vault.enabled) {
+            const key = this.getVaultKeyForConnection(connection)
+            this.vault.addSecret({ type: VAULT_SECRET_TYPE_PASSWORD, key, value: password })
+        } else {
+            const key = this.getKeytarKeyForConnection(connection)
+            return keytar.setPassword(key, connection.user, password)
+        }
     }
 
     async deletePassword (connection: SSHConnection): Promise<void> {
-        const key = this.getKeyForConnection(connection)
-        await keytar.deletePassword(key, connection.user)
+        if (this.vault.enabled) {
+            const key = this.getVaultKeyForConnection(connection)
+            this.vault.removeSecret(VAULT_SECRET_TYPE_PASSWORD, key)
+        } else {
+            const key = this.getKeytarKeyForConnection(connection)
+            await keytar.deletePassword(key, connection.user)
+        }
     }
 
     async loadPassword (connection: SSHConnection): Promise<string|null> {
-        const key = this.getKeyForConnection(connection)
-        return keytar.getPassword(key, connection.user)
+        if (this.vault.enabled) {
+            const key = this.getVaultKeyForConnection(connection)
+            return (await this.vault.getSecret(VAULT_SECRET_TYPE_PASSWORD, key))?.value ?? null
+        } else {
+            const key = this.getKeytarKeyForConnection(connection)
+            return keytar.getPassword(key, connection.user)
+        }
     }
 
     async savePrivateKeyPassword (id: string, password: string): Promise<void> {
-        const key = this.getKeyForPrivateKey(id)
-        return keytar.setPassword(key, 'user', password)
+        if (this.vault.enabled) {
+            const key = this.getVaultKeyForPrivateKey(id)
+            this.vault.addSecret({ type: VAULT_SECRET_TYPE_PASSPHRASE, key, value: password })
+        } else {
+            const key = this.getKeytarKeyForPrivateKey(id)
+            return keytar.setPassword(key, 'user', password)
+        }
     }
 
     async deletePrivateKeyPassword (id: string): Promise<void> {
-        const key = this.getKeyForPrivateKey(id)
-        await keytar.deletePassword(key, 'user')
+        if (this.vault.enabled) {
+            const key = this.getVaultKeyForPrivateKey(id)
+            this.vault.removeSecret(VAULT_SECRET_TYPE_PASSPHRASE, key)
+        } else {
+            const key = this.getKeytarKeyForPrivateKey(id)
+            await keytar.deletePassword(key, 'user')
+        }
     }
 
     async loadPrivateKeyPassword (id: string): Promise<string|null> {
-        const key = this.getKeyForPrivateKey(id)
-        return keytar.getPassword(key, 'user')
+        if (this.vault.enabled) {
+            const key = this.getVaultKeyForPrivateKey(id)
+            return (await this.vault.getSecret(VAULT_SECRET_TYPE_PASSPHRASE, key))?.value ?? null
+        } else {
+            const key = this.getKeytarKeyForPrivateKey(id)
+            return keytar.getPassword(key, 'user')
+        }
     }
 
-    private getKeyForConnection (connection: SSHConnection): string {
+    private getKeytarKeyForConnection (connection: SSHConnection): string {
         let key = `ssh@${connection.host}`
         if (connection.port) {
             key = `ssh@${connection.host}:${connection.port}`
@@ -42,7 +78,19 @@ export class PasswordStorageService {
         return key
     }
 
-    private getKeyForPrivateKey (id: string): string {
+    private getKeytarKeyForPrivateKey (id: string): string {
         return `ssh-private-key:${id}`
+    }
+
+    private getVaultKeyForConnection (connection: SSHConnection) {
+        return {
+            user: connection.user,
+            host: connection.host,
+            port: connection.port,
+        }
+    }
+
+    private getVaultKeyForPrivateKey (id: string) {
+        return { hash: id }
     }
 }
