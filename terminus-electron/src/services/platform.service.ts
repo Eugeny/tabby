@@ -153,4 +153,8 @@ export class ElectronPlatformService extends PlatformService {
     async showMessageBox (options: MessageBoxOptions): Promise<MessageBoxResult> {
         return this.electron.dialog.showMessageBox(this.hostApp.getWindow(), options)
     }
+
+    quit (): void {
+        this.electron.app.exit(0)
+    }
 }

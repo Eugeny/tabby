@@ -4,6 +4,7 @@ import { Injectable, Inject } from '@angular/core'
 import { ConfigProvider } from '../api/configProvider'
 import { PlatformService } from '../api/platform'
 import { HostAppService } from './hostApp.service'
+import { Vault, VaultService } from './vault.service'
 const deepmerge = require('deepmerge')
 
 const configMerge = (a, b) => deepmerge(a, b, { arrayMerge: (_d, s) => s }) // eslint-disable-line @typescript-eslint/no-var-requires
@@ -105,10 +106,15 @@ export class ConfigService {
     private constructor (
         private hostApp: HostAppService,
         private platform: PlatformService,
+        private vault: VaultService,
         @Inject(ConfigProvider) private configProviders: ConfigProvider[],
     ) {
         this.defaults = this.mergeDefaults()
-        this.init()
+        setTimeout(() => this.init())
+        vault.contentChanged$.subscribe(() => {
+            this.store.vault = vault.store
+            this.save()
+        })
     }
 
     mergeDefaults (): unknown {
@@ -152,13 +158,16 @@ export class ConfigService {
         } else {
             this._store = { version: LATEST_VERSION }
         }
+        this._store = await this.maybeDecryptConfig(this._store)
         this.migrate(this._store)
         this.store = new ConfigProxy(this._store, this.defaults)
+        this.vault.setStore(this.store.vault)
     }
 
     async save (): Promise<void> {
         // Scrub undefined values
-        const cleanStore = JSON.parse(JSON.stringify(this._store))
+        let cleanStore = JSON.parse(JSON.stringify(this._store))
+        cleanStore = await this.maybeEncryptConfig(cleanStore)
         await this.platform.saveConfig(yaml.dump(cleanStore))
         this.emitChange()
         this.hostApp.broadcastConfigChange(JSON.parse(JSON.stringify(this.store)))
@@ -207,7 +216,7 @@ export class ConfigService {
         return services.filter(service => {
             for (const pluginName in this.servicesCache) {
                 if (this.servicesCache[pluginName].includes(service.constructor)) {
-                    return !this.store.pluginBlacklist.includes(pluginName)
+                    return !this.store?.pluginBlacklist?.includes(pluginName)
                 }
             }
             return true
@@ -227,6 +236,7 @@ export class ConfigService {
 
     private emitChange (): void {
         this.changed.next()
+        this.vault.setStore(this.store.vault)
     }
 
     private migrate (config) {
@@ -239,6 +249,69 @@ export class ConfigService {
                 }
             }
             config.version = 1
+        }
+    }
+
+    private async maybeDecryptConfig (store) {
+        if (!store.encrypted) {
+            return store
+        }
+        // eslint-disable-next-line @typescript-eslint/init-declarations
+        let decryptedVault: Vault
+        while (true) {
+            try {
+                const passphrase = await this.vault.getPassphrase()
+                decryptedVault = await this.vault.decrypt(store.vault, passphrase)
+                break
+            } catch (e) {
+                let result = await this.platform.showMessageBox({
+                    type: 'error',
+                    message: 'Could not decrypt config',
+                    detail: e.toString(),
+                    buttons: ['Try again', 'Erase config', 'Quit'],
+                    defaultId: 0,
+                })
+                if (result.response === 2) {
+                    this.platform.quit()
+                }
+                if (result.response === 1) {
+                    result = await this.platform.showMessageBox({
+                        type: 'warning',
+                        message: 'Are you sure?',
+                        detail: e.toString(),
+                        buttons: ['Erase config', 'Quit'],
+                        defaultId: 1,
+                    })
+                    if (result.response === 1) {
+                        this.platform.quit()
+                    }
+                    return {}
+                }
+            }
+        }
+        delete decryptedVault.config.vault
+        delete decryptedVault.config.encrypted
+        return {
+            ...decryptedVault.config,
+            vault: store.vault,
+            encrypted: store.encrypted,
+        }
+    }
+
+    private async maybeEncryptConfig (store) {
+        if (!store.encrypted) {
+            return store
+        }
+        const vault = await this.vault.load()
+        if (!vault) {
+            throw new Error('Vault not configured')
+        }
+        vault.config = { ...store }
+        delete vault.config.vault
+        delete vault.config.encrypted
+        return {
+            vault: await this.vault.encrypt(vault),
+            encrypted: true,
         }
     }
 }

@@ -1,13 +1,14 @@
-.text-center(*ngIf='!vault.enabled')
+.text-center(*ngIf='!vault.isEnabled()')
     i.fas.fa-key.fa-3x.m-3
     h3.m-3 Vault is not configured
     .m-3 Vault is an always-encrypted container for secrets such as SSH passwords and private key passphrases.
     button.btn.btn-primary.m-2((click)='enableVault()') Set master passphrase
 
-div(*ngIf='vault.enabled')
+
+div(*ngIf='vault.isEnabled()')
     .d-flex.align-items-center.mb-3
         h3.m-0 Vault
-        .d-flex.ml-auto(ngbDropdown, *ngIf='vault.enabled')
+        .d-flex.ml-auto(ngbDropdown, *ngIf='vault.isEnabled()')
             button.btn.btn-secondary(ngbDropdownToggle) Options
             div(ngbDropdownMenu)
                 a(ngbDropdownItem, (click)='changePassphrase()')
@@ -28,6 +29,16 @@ div(*ngIf='vault.enabled')
                 .mr-auto {{getSecretLabel(secret)}}
                 button.btn.btn-link((click)='removeSecret(secret)')
                     i.fas.fa-trash
+
+        h3.mt-5 Options
+        .form-line
+            .header
+                .title Encrypt config file
+                .description Puts all of Terminus configuration into the vault
+            toggle(
+                [ngModel]='config.store.encrypted',
+                (click)='toggleConfigEncrypted()',
+            )
 
     .text-center(*ngIf='!vaultContents')
         i.fas.fa-key.fa-3x

@@ -80,4 +80,5 @@ export abstract class PlatformService {
     abstract listFonts (): Promise<string[]>
     abstract popupContextMenu (menu: MenuItemOptions[], event?: MouseEvent): void
     abstract showMessageBox (options: MessageBoxOptions): Promise<MessageBoxResult>
+    abstract quit (): void
 }

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Component } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
-import { BaseComponent, VaultService, VaultSecret, Vault, PlatformService } from 'terminus-core'
+import { BaseComponent, VaultService, VaultSecret, Vault, PlatformService, ConfigService } from 'terminus-core'
 import { SetVaultPassphraseModalComponent } from './setVaultPassphraseModal.component'
 
 
@@ -15,6 +15,7 @@ export class VaultSettingsTabComponent extends BaseComponent {
 
     constructor (
         public vault: VaultService,
+        public config: ConfigService,
         private platform: PlatformService,
         private ngbModal: NgbModal,
     ) {
@@ -58,6 +59,16 @@ export class VaultSettingsTabComponent extends BaseComponent {
         const modal = this.ngbModal.open(SetVaultPassphraseModalComponent)
         const newPassphrase = await modal.result
         this.vault.save(this.vaultContents, newPassphrase)
+    }
+
+    async toggleConfigEncrypted () {
+        this.config.store.encrypted = !this.config.store.encrypted
+        try {
+            await this.config.save()
+        } catch (e) {
+            this.config.store.encrypted = !this.config.store.encrypted
+            throw e
+        }
     }
 
     getSecretLabel (secret: VaultSecret) {

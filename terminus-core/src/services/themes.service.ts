@@ -15,6 +15,7 @@ export class ThemesService {
         private config: ConfigService,
         @Inject(Theme) private themes: Theme[],
     ) {
+        this.applyTheme(this.findTheme('Standard')!)
         config.ready$.toPromise().then(() => {
             this.applyCurrentTheme()
             config.changed$.subscribe(() => {
@@ -38,7 +39,7 @@ export class ThemesService {
             document.querySelector('head')!.appendChild(this.styleElement)
         }
         this.styleElement.textContent = theme.css
-        document.querySelector('style#custom-css')!.innerHTML = this.config.store.appearance.css
+        document.querySelector('style#custom-css')!.innerHTML = this.config.store?.appearance?.css
         this.themeChanged.next(theme)
     }
 

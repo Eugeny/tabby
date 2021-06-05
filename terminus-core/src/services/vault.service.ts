@@ -2,8 +2,7 @@ import * as crypto from 'crypto'
 import { promisify } from 'util'
 import { Injectable, NgZone } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
-import { AsyncSubject, Observable } from 'rxjs'
-import { ConfigService } from '../services/config.service'
+import { AsyncSubject, Subject, Observable } from 'rxjs'
 import { UnlockVaultModalComponent } from '../components/unlockVaultModal.component'
 import { NotificationsService } from '../services/notifications.service'
 
@@ -28,11 +27,13 @@ export interface VaultSecret {
 }
 
 export interface Vault {
+    config: any
     secrets: VaultSecret[]
 }
 
 function migrateVaultContent (content: any): Vault {
     return {
+        config: content.config,
         secrets: content.secrets ?? [],
     }
 }
@@ -86,34 +87,27 @@ export class VaultService {
     /** Fires once when the config is loaded */
     get ready$ (): Observable<boolean> { return this.ready }
 
-    enabled = false
+    get contentChanged$ (): Observable<void> { return this.contentChanged }
+
+    store: StoredVault|null = null
     private ready = new AsyncSubject<boolean>()
+    private contentChanged = new Subject<void>()
 
     /** @hidden */
     private constructor (
-        private config: ConfigService,
         private zone: NgZone,
         private notifications: NotificationsService,
         private ngbModal: NgbModal,
-    ) {
-        config.ready$.toPromise().then(() => {
-            this.onConfigChange()
-            this.ready.next(true)
-            this.ready.complete()
-            config.changed$.subscribe(() => {
-                this.onConfigChange()
-            })
-        })
-    }
+    ) { }
 
     async setEnabled (enabled: boolean, passphrase?: string): Promise<void> {
         if (enabled) {
-            if (!this.config.store.vault) {
+            if (!this.store) {
                 await this.save(migrateVaultContent({}), passphrase)
             }
         } else {
-            this.config.store.vault = null
-            await this.config.save()
+            this.store = null
+            this.contentChanged.next()
         }
     }
 
@@ -121,15 +115,12 @@ export class VaultService {
         return !!_rememberedPassphrase
     }
 
-    async load (passphrase?: string): Promise<Vault|null> {
-        if (!this.config.store.vault) {
-            return null
-        }
+    async decrypt (storage: StoredVault, passphrase?: string): Promise<Vault> {
         if (!passphrase) {
             passphrase = await this.getPassphrase()
         }
         try {
-            return await this.wrapPromise(decryptVault(this.config.store.vault, passphrase))
+            return await this.wrapPromise(decryptVault(storage, passphrase))
         } catch (e) {
             _rememberedPassphrase = null
             if (e.toString().includes('BAD_DECRYPT')) {
@@ -139,15 +130,27 @@ export class VaultService {
         }
     }
 
-    async save (vault: Vault, passphrase?: string): Promise<void> {
+    async load (passphrase?: string): Promise<Vault|null> {
+        if (!this.store) {
+            return null
+        }
+        return this.decrypt(this.store, passphrase)
+    }
+
+    async encrypt (vault: Vault, passphrase?: string): Promise<StoredVault|null> {
         if (!passphrase) {
             passphrase = await this.getPassphrase()
         }
         if (_rememberedPassphrase) {
             _rememberedPassphrase = passphrase
         }
-        this.config.store.vault = await this.wrapPromise(encryptVault(vault, passphrase))
-        await this.config.save()
+        return this.wrapPromise(encryptVault(vault, passphrase))
+    }
+
+    async save (vault: Vault, passphrase?: string): Promise<void> {
+        await this.ready$.toPromise()
+        this.store = await this.encrypt(vault, passphrase)
+        this.contentChanged.next()
     }
 
     async getPassphrase (): Promise<string> {
@@ -156,7 +159,8 @@ export class VaultService {
             const { passphrase, rememberFor } = await modal.result
             setTimeout(() => {
                 _rememberedPassphrase = null
-            }, rememberFor * 60000)
+                // avoid multiple consequent prompts
+            }, Math.min(1000, rememberFor * 60000))
             _rememberedPassphrase = passphrase
         }
 
@@ -164,6 +168,7 @@ export class VaultService {
     }
 
     async getSecret (type: string, key: Record<string, any>): Promise<VaultSecret|null> {
+        await this.ready$.toPromise()
         const vault = await this.load()
         if (!vault) {
             return null
@@ -172,6 +177,7 @@ export class VaultService {
     }
 
     async addSecret (secret: VaultSecret): Promise<void> {
+        await this.ready$.toPromise()
         const vault = await this.load()
         if (!vault) {
             return
@@ -182,6 +188,7 @@ export class VaultService {
     }
 
     async removeSecret (type: string, key: Record<string, any>): Promise<void> {
+        await this.ready$.toPromise()
         const vault = await this.load()
         if (!vault) {
             return
@@ -194,8 +201,14 @@ export class VaultService {
         return Object.keys(key).every(k => secret.key[k] === key[k])
     }
 
-    private onConfigChange () {
-        this.enabled = !!this.config.store.vault
+    setStore (store: StoredVault): void {
+        this.store = store
+        this.ready.next(true)
+        this.ready.complete()
+    }
+
+    isEnabled (): boolean {
+        return !!this.store
     }
 
     private wrapPromise <T> (promise: Promise<T>): Promise<T> {

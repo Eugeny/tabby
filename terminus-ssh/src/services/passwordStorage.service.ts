@@ -11,7 +11,7 @@ export class PasswordStorageService {
     constructor (private vault: VaultService) { }
 
     async savePassword (connection: SSHConnection, password: string): Promise<void> {
-        if (this.vault.enabled) {
+        if (this.vault.isEnabled()) {
             const key = this.getVaultKeyForConnection(connection)
             this.vault.addSecret({ type: VAULT_SECRET_TYPE_PASSWORD, key, value: password })
         } else {
@@ -21,7 +21,7 @@ export class PasswordStorageService {
     }
 
     async deletePassword (connection: SSHConnection): Promise<void> {
-        if (this.vault.enabled) {
+        if (this.vault.isEnabled()) {
             const key = this.getVaultKeyForConnection(connection)
             this.vault.removeSecret(VAULT_SECRET_TYPE_PASSWORD, key)
         } else {
@@ -31,7 +31,7 @@ export class PasswordStorageService {
     }
 
     async loadPassword (connection: SSHConnection): Promise<string|null> {
-        if (this.vault.enabled) {
+        if (this.vault.isEnabled()) {
             const key = this.getVaultKeyForConnection(connection)
             return (await this.vault.getSecret(VAULT_SECRET_TYPE_PASSWORD, key))?.value ?? null
         } else {
@@ -41,7 +41,7 @@ export class PasswordStorageService {
     }
 
     async savePrivateKeyPassword (id: string, password: string): Promise<void> {
-        if (this.vault.enabled) {
+        if (this.vault.isEnabled()) {
             const key = this.getVaultKeyForPrivateKey(id)
             this.vault.addSecret({ type: VAULT_SECRET_TYPE_PASSPHRASE, key, value: password })
         } else {
@@ -51,7 +51,7 @@ export class PasswordStorageService {
     }
 
     async deletePrivateKeyPassword (id: string): Promise<void> {
-        if (this.vault.enabled) {
+        if (this.vault.isEnabled()) {
             const key = this.getVaultKeyForPrivateKey(id)
             this.vault.removeSecret(VAULT_SECRET_TYPE_PASSPHRASE, key)
         } else {
@@ -61,7 +61,7 @@ export class PasswordStorageService {
     }
 
     async loadPrivateKeyPassword (id: string): Promise<string|null> {
-        if (this.vault.enabled) {
+        if (this.vault.isEnabled()) {
             const key = this.getVaultKeyForPrivateKey(id)
             return (await this.vault.getSecret(VAULT_SECRET_TYPE_PASSPHRASE, key))?.value ?? null
         } else {

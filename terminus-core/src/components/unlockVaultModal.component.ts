@@ -16,7 +16,7 @@ export class UnlockVaultModalComponent {
     ) { }
 
     ngOnInit (): void {
-        this.rememberFor = window.localStorage.vaultRememberPassphraseFor ?? 0
+        this.rememberFor = parseInt(window.localStorage.vaultRememberPassphraseFor ?? 0)
         setTimeout(() => {
             this.input.nativeElement.focus()
         })

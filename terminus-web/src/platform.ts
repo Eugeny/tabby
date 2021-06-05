@@ -95,4 +95,8 @@ export class WebPlatformService extends PlatformService {
             return { response: 0 }
         }
     }
+
+    quit (): void {
+        window.close()
+    }
 }
