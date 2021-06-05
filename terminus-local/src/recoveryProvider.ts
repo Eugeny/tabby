@@ -27,6 +27,7 @@ export class RecoveryProvider extends TabRecoveryProvider {
                 ...recoveryToken.sessionOptions,
                 restoreFromPTYID: null,
             },
+            savedState: null,
         }
     }
 }
