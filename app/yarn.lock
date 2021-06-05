@@ -87,10 +87,10 @@
     "@serialport/binding-abstract" "^9.0.7"
     debug "^4.3.1"
 
-"@serialport/bindings@^9.0.8":
-  version "9.0.8"
-  resolved "https://registry.yarnpkg.com/@serialport/bindings/-/bindings-9.0.8.tgz#1b45988022feaadcc6cbcb330da7e6b94166fc58"
-  integrity sha512-N9MbJ7fh6gCjSp+kBboUUSpp4VtoAB+Hg8KkV+v8KyJJLxbnGbWmUiZOh2ce/7I+I/1KvzexEwvwKGB6VbWn+A==
+"@serialport/bindings@^9.1.0":
+  version "9.1.0"
+  resolved "https://registry.yarnpkg.com/@serialport/bindings/-/bindings-9.1.0.tgz#bb4c2778118a4404fd38749b64c0fe533d72003a"
+  integrity sha512-X0GM5iZgrBkR1HwoSDsJ/AJ+M61end5Ttg5mqcaUkwGCKpgJSDW3STX6pvFNr9xNzvqS56yuhAcU/eNJ2xuDaA==
   dependencies:
     "@serialport/binding-abstract" "^9.0.7"
     "@serialport/parser-readline" "^9.0.7"
@@ -2112,10 +2112,10 @@ ngx-toastr@^14.0.0:
   dependencies:
     tslib "^2.1.0"
 
-node-abi@^2.20.0, node-abi@^2.26.0, node-abi@^2.7.0:
-  version "2.26.0"
-  resolved "https://registry.yarnpkg.com/node-abi/-/node-abi-2.26.0.tgz#355d5d4bc603e856f74197adbf3f5117a396ba40"
-  integrity sha512-ag/Vos/mXXpWLLAYWsAoQdgS+gW7IwvgMLOgqopm/DbzAjazLltzgzpVMsFlgmo9TzG5hGXeaBZx2AI731RIsQ==
+node-abi@^2.20.0, node-abi@^2.30.0, node-abi@^2.7.0:
+  version "2.30.0"
+  resolved "https://registry.yarnpkg.com/node-abi/-/node-abi-2.30.0.tgz#8be53bf3e7945a34eea10e0fc9a5982776cf550b"
+  integrity sha512-g6bZh3YCKQRdwuO/tSZZYJAw622SjsRfJ2X0Iy4sSOHZ34/sPPdVBn8fev2tj7njzLwuqPw9uMtGsGkO5kIQvg==
   dependencies:
     semver "^5.4.1"
 
@@ -3069,13 +3069,13 @@ serialize-error@^5.0.0:
   dependencies:
     type-fest "^0.8.0"
 
-serialport@^9.0.8:
-  version "9.0.8"
-  resolved "https://registry.yarnpkg.com/serialport/-/serialport-9.0.8.tgz#de6b56d37089a7bb736fac1964316a535723c734"
-  integrity sha512-+G/Mp0sBoxC6iKSUmClOFKVMK0Nirdz6ui7zRWyK9CEXy3t3dCDhWKvzDDtfKxILYtHYPR3G1xP5H/ISDKrzcg==
+serialport@^9.1.0:
+  version "9.1.0"
+  resolved "https://registry.yarnpkg.com/serialport/-/serialport-9.1.0.tgz#f8b9dc87e6713e1e0198752f6e2cce95aaf5a6ab"
+  integrity sha512-W17ji2TOotufIUCXIWcB6P+RztO1S4BcWsAc99jQn5BaH3Kw6xUyOX2ng0ZQ+hPjS/WWI2CdWynf4bKRJKD/+A==
   dependencies:
     "@serialport/binding-mock" "^9.0.7"
-    "@serialport/bindings" "^9.0.8"
+    "@serialport/bindings" "^9.1.0"
     "@serialport/parser-byte-length" "^9.0.7"
     "@serialport/parser-cctalk" "^9.0.7"
     "@serialport/parser-delimiter" "^9.0.7"

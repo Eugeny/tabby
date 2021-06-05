@@ -44,7 +44,7 @@
   },
   "optionalDependencies": {
     "macos-native-processlist": "^2.0.0",
-    "serialport": "^9.0.8",
+    "serialport": "^9.1.0",
     "windows-blurbehind": "^1.0.1",
     "windows-native-registry": "^3.0.0",
     "windows-process-tree": "^0.3.0"
@@ -52,7 +52,7 @@
   "devDependencies": {
     "@types/mz": "2.7.3",
     "@types/node": "15.6.1",
-    "node-abi": "^2.26.0",
+    "node-abi": "^2.30.0",
     "source-map-support": "^0.5.19"
   },
   "peerDependencies": {
