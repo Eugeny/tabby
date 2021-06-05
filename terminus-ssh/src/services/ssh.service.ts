@@ -5,7 +5,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { Client } from 'ssh2'
 import { exec } from 'child_process'
 import { Subject, Observable } from 'rxjs'
-import { Logger, LogService, AppService, SelectorOption, ConfigService, NotificationsService } from 'terminus-core'
+import { Logger, LogService, AppService, SelectorOption, ConfigService, NotificationsService, HostAppService, Platform, PlatformService } from 'terminus-core'
 import { SettingsTabComponent } from 'terminus-settings'
 import { ALGORITHM_BLACKLIST, ForwardedPort, SSHConnection, SSHSession } from '../api'
 import { PromptModalComponent } from '../components/promptModal.component'
@@ -16,6 +16,7 @@ import { ChildProcess } from 'node:child_process'
 @Injectable({ providedIn: 'root' })
 export class SSHService {
     private logger: Logger
+    private detectedWinSCPPath: string | null
 
     private constructor (
         private injector: Injector,
@@ -26,8 +27,13 @@ export class SSHService {
         private notifications: NotificationsService,
         private app: AppService,
         private config: ConfigService,
+        hostApp: HostAppService,
+        private platform: PlatformService,
     ) {
         this.logger = log.create('ssh')
+        if (hostApp.platform === Platform.Windows) {
+            this.detectedWinSCPPath = platform.getWinSCPPath()
+        }
     }
 
     createSession (connection: SSHConnection): SSHSession {
@@ -276,6 +282,33 @@ export class SSHService {
         this.config.store.ssh.recentConnections = recentConnections
         this.config.save()
         return this.connect(connection)
+    }
+
+    getWinSCPPath (): string|undefined {
+        return this.detectedWinSCPPath ?? this.config.store.ssh.winSCPPath
+    }
+
+    async getWinSCPURI (connection: SSHConnection): Promise<string> {
+        let uri = `scp://${connection.user}`
+        const password = await this.passwordStorage.loadPassword(connection)
+        if (password) {
+            uri += ':' + encodeURIComponent(password)
+        }
+        uri += `@${connection.host}:${connection.port}/`
+        return uri
+    }
+
+    async launchWinSCP (session: SSHSession): Promise<void> {
+        const path = this.getWinSCPPath()
+        if (!path) {
+            return
+        }
+        const args = [await this.getWinSCPURI(session.connection)]
+        if (session.activePrivateKey) {
+            args.push('/privatekey')
+            args.push(session.activePrivateKey)
+        }
+        this.platform.exec(path, args)
     }
 }
 

@@ -62,6 +62,11 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
                 case 'restart-ssh-session':
                     this.reconnect()
                     break
+                case 'launch-winscp':
+                    if (this.session) {
+                        this.ssh.launchWinSCP(this.session)
+                    }
+                    break
             }
         })
 

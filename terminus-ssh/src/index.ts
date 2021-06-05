@@ -19,7 +19,7 @@ import { SSHConfigProvider } from './config'
 import { SSHSettingsTabProvider } from './settings'
 import { RecoveryProvider } from './recoveryProvider'
 import { SSHHotkeyProvider } from './hotkeys'
-import { WinSCPContextMenu } from './winSCPIntegration'
+import { WinSCPContextMenu } from './tabContextMenu'
 import { SSHCLIHandler } from './cli'
 
 /** @hidden */
