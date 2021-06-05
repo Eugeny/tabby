@@ -20,7 +20,7 @@
 * Full Unicode support including double-width characters
 * Doesn't choke on fast-flowing outputs
 * Proper shell experience on Windows including tab completion (via Clink)
-
+* Integrated encrypted container for SSH secrets and configuration
 
 [![Buy me a coffee](https://github.com/Eugeny/terminus/raw/master/docs/kofi.png)](https://ko-fi.com/eugeny)
 
