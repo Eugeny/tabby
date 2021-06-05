@@ -379,6 +379,15 @@
       "contributions": [
         "plugin"
       ]
+    },
+    {
+      "login": "lambdalisue",
+      "name": "Alisue",
+      "avatar_url": "https://avatars.githubusercontent.com/u/546312?v=4",
+      "profile": "http://hashnote.net/",
+      "contributions": [
+        "design"
+      ]
     }
   ],
   "contributorsPerLine": 7,
