@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core'
 import { ConfigService, BaseTabComponent, TabContextMenuItemProvider, TabHeaderComponent, HostAppService, Platform, PlatformService, MenuItemOptions } from 'terminus-core'
 import { SSHTabComponent } from './components/sshTab.component'
 import { PasswordStorageService } from './services/passwordStorage.service'
-import { SSHConnection } from './api'
+import { SSHConnection, SSHSession } from './api'
 
 
 /** @hidden */
@@ -40,7 +40,7 @@ export class WinSCPContextMenu extends TabContextMenuItemProvider {
             {
                 label: 'Launch WinSCP',
                 click: (): void => {
-                    this.launchWinSCP(tab.connection!)
+                    this.launchWinSCP(tab.session!)
                 },
             },
         ]
@@ -60,15 +60,15 @@ export class WinSCPContextMenu extends TabContextMenuItemProvider {
         return uri
     }
 
-    async launchWinSCP (connection: SSHConnection): Promise<void> {
+    async launchWinSCP (session: SSHSession): Promise<void> {
         const path = this.getPath()
         if (!path) {
             return
         }
-        const args = [await this.getURI(connection)]
-        if ((!connection.auth || connection.auth === 'publicKey') && connection.privateKey) {
+        const args = [await this.getURI(session.connection)]
+        if (session.activePrivateKey) {
             args.push('/privatekey')
-            args.push(connection.privateKey)
+            args.push(session.activePrivateKey)
         }
         this.platform.exec(path, args)
     }

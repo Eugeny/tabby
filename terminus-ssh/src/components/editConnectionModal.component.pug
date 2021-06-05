@@ -49,30 +49,30 @@
                 .form-group
                     label Authentication method
 
-                .btn-group.w-100(
-                    [(ngModel)]='connection.auth',
-                    ngbRadioGroup
-                )
-                    label.btn.btn-secondary(ngbButtonLabel)
-                        input(type='radio', ngbButton, [value]='null')
-                        i.far.fa-lightbulb
-                        .m-0 Auto
-                    label.btn.btn-secondary(ngbButtonLabel)
-                        input(type='radio', ngbButton, [value]='"password"')
-                        i.fas.fa-font
-                        .m-0 Password
-                    label.btn.btn-secondary(ngbButtonLabel)
-                        input(type='radio', ngbButton, [value]='"publicKey"')
-                        i.fas.fa-key
-                        .m-0 Key
-                    label.btn.btn-secondary(ngbButtonLabel)
-                        input(type='radio', ngbButton, [value]='"agent"')
-                        i.fas.fa-user-secret
-                        .m-0 Agent
-                    label.btn.btn-secondary(ngbButtonLabel)
-                        input(type='radio', ngbButton, [value]='"keyboardInteractive"')
-                        i.far.fa-keyboard
-                        .m-0 Interactive
+                    .btn-group.mt-1.w-100(
+                        [(ngModel)]='connection.auth',
+                        ngbRadioGroup
+                    )
+                        label.btn.btn-secondary(ngbButtonLabel)
+                            input(type='radio', ngbButton, [value]='null')
+                            i.far.fa-lightbulb
+                            .m-0 Auto
+                        label.btn.btn-secondary(ngbButtonLabel)
+                            input(type='radio', ngbButton, [value]='"password"')
+                            i.fas.fa-font
+                            .m-0 Password
+                        label.btn.btn-secondary(ngbButtonLabel)
+                            input(type='radio', ngbButton, [value]='"publicKey"')
+                            i.fas.fa-key
+                            .m-0 Key
+                        label.btn.btn-secondary(ngbButtonLabel)
+                            input(type='radio', ngbButton, [value]='"agent"')
+                            i.fas.fa-user-secret
+                            .m-0 Agent
+                        label.btn.btn-secondary(ngbButtonLabel)
+                            input(type='radio', ngbButton, [value]='"keyboardInteractive"')
+                            i.far.fa-keyboard
+                            .m-0 Interactive
 
                 .form-line(*ngIf='!connection.auth || connection.auth === "password"')
                     .header
@@ -86,19 +86,17 @@
                         i.fas.fa-trash-alt
                         span Forget
 
-                .form-line(*ngIf='!connection.auth || connection.auth === "publicKey"')
-                    .header
-                        .title Private key
-                        .description Path to the private key file
-                    .input-group
-                        input.form-control(
-                            type='text',
-                            placeholder='Key file path',
-                            [(ngModel)]='connection.privateKey'
-                        )
-                        .input-group-append
-                            button.btn.btn-secondary((click)='selectPrivateKey()')
-                                i.fas.fa-folder-open
+                .form-group(*ngIf='!connection.auth || connection.auth === "publicKey"')
+                    label Private keys
+                    .list-group.mb-2
+                        .list-group-item.d-flex.align-items-center.p-1.pl-3(*ngFor='let path of connection.privateKeys')
+                            i.fas.fa-key
+                            .mr-auto {{path}}
+                            button.btn.btn-link((click)='removePrivateKey(path)')
+                                i.fas.fa-trash
+                    button.btn.btn-secondary((click)='addPrivateKey()')
+                        i.fas.fa-folder-open
+                        span Add a private key
 
         li(ngbNavItem)
             a(ngbNavLink) Ports

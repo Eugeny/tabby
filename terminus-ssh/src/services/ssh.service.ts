@@ -133,8 +133,6 @@ export class SSHService {
                 port: session.connection.port ?? 22,
                 sock: session.proxyCommandStream ?? session.jumpStream,
                 username: session.connection.user,
-                password: session.connection.privateKey ? undefined : '',
-                privateKey: session.privateKey ?? undefined,
                 tryKeyboard: true,
                 agent: session.agentPath,
                 agentForward: session.connection.agentForward && !!session.agentPath,

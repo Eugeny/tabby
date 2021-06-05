@@ -30,6 +30,7 @@ export class SettingsTabComponent extends BaseTabComponent {
     isShellIntegrationInstalled = false
     checkingForUpdate = false
     updateAvailable = false
+    showConfigDefaults = false
     @HostBinding('class.pad-window-controls') padWindowControls = false
 
     constructor (

@@ -39,7 +39,7 @@ export interface SSHConnection {
     user: string
     auth?: null|'password'|'publicKey'|'agent'|'keyboardInteractive'
     password?: string
-    privateKey?: string
+    privateKeys?: string[]
     group: string | null
     scripts?: LoginScript[]
     keepaliveInterval?: number
@@ -131,6 +131,11 @@ export class ForwardedPort implements ForwardedPortConfig {
     }
 }
 
+interface AuthMethod {
+    type: 'none'|'publickey'|'agent'|'password'|'keyboard-interactive'|'hostbased'
+    path?: string
+}
+
 export class SSHSession extends BaseSession {
     scripts?: LoginScript[]
     shell?: ClientChannel
@@ -143,9 +148,9 @@ export class SSHSession extends BaseSession {
     get serviceMessage$ (): Observable<string> { return this.serviceMessage }
 
     agentPath?: string
-    privateKey?: string
+    activePrivateKey: string|null = null
 
-    private authMethodsLeft: string[] = []
+    private remainingAuthMethods: AuthMethod[] = []
     private serviceMessage = new Subject<string>()
     private keychainPasswordUsed = false
 
@@ -189,33 +194,31 @@ export class SSHSession extends BaseSession {
             this.agentPath = process.env.SSH_AUTH_SOCK!
         }
 
-        this.authMethodsLeft = ['none']
+        this.remainingAuthMethods = [{ type: 'none' }]
         if (!this.connection.auth || this.connection.auth === 'publicKey') {
-            try {
-                await this.loadPrivateKey()
-            } catch (e) {
-                this.emitServiceMessage(colors.bgYellow.yellow.black(' ! ') + ` Failed to load private key: ${e}`)
-            }
-            if (!this.privateKey) {
-                this.emitServiceMessage(colors.bgYellow.yellow.black(' ! ') + ` Private key auth selected, but no key is loaded`)
-            } else {
-                this.authMethodsLeft.push('publickey')
+            for (const pk of this.connection.privateKeys ?? []) {
+                if (await fs.exists(pk)) {
+                    this.remainingAuthMethods.push({
+                        type: 'publickey',
+                        path: pk,
+                    })
+                }
             }
         }
         if (!this.connection.auth || this.connection.auth === 'agent') {
             if (!this.agentPath) {
                 this.emitServiceMessage(colors.bgYellow.yellow.black(' ! ') + ` Agent auth selected, but no running agent is detected`)
             } else {
-                this.authMethodsLeft.push('agent')
+                this.remainingAuthMethods.push({ type: 'agent' })
             }
         }
         if (!this.connection.auth || this.connection.auth === 'password') {
-            this.authMethodsLeft.push('password')
+            this.remainingAuthMethods.push({ type: 'password' })
         }
         if (!this.connection.auth || this.connection.auth === 'keyboardInteractive') {
-            this.authMethodsLeft.push('keyboard-interactive')
+            this.remainingAuthMethods.push({ type: 'keyboard-interactive' })
         }
-        this.authMethodsLeft.push('hostbased')
+        this.remainingAuthMethods.push({ type: 'hostbased' })
     }
 
     async start (): Promise<void> {
@@ -370,17 +373,19 @@ export class SSHSession extends BaseSession {
     }
 
     async handleAuth (methodsLeft?: string[]): Promise<any> {
+        this.activePrivateKey = null
+
         while (true) {
-            const method = this.authMethodsLeft.shift()
+            const method = this.remainingAuthMethods.shift()
             if (!method) {
                 return false
             }
-            if (methodsLeft && !methodsLeft.includes(method) && method !== 'agent') {
+            if (methodsLeft && !methodsLeft.includes(method.type) && method.type !== 'agent') {
                 // Agent can still be used even if not in methodsLeft
-                this.logger.info('Server does not support auth method', method)
+                this.logger.info('Server does not support auth method', method.type)
                 continue
             }
-            if (method === 'password') {
+            if (method.type === 'password') {
                 if (this.connection.password) {
                     this.emitServiceMessage('Using preset password')
                     return {
@@ -423,6 +428,19 @@ export class SSHSession extends BaseSession {
                         continue
                     }
                 } catch {
+                    continue
+                }
+            }
+            if (method.type === 'publickey') {
+                try {
+                    const key = await this.loadPrivateKey(method.path!)
+                    return {
+                        type: 'publickey',
+                        username: this.connection.user,
+                        key,
+                    }
+                } catch (e) {
+                    this.emitServiceMessage(colors.bgYellow.yellow.black(' ! ') + ` Failed to load private key ${method.path}: ${e}`)
                     continue
                 }
             }
@@ -560,9 +578,7 @@ export class SSHSession extends BaseSession {
         }
     }
 
-    async loadPrivateKey (): Promise<void> {
-        let privateKeyPath = this.connection.privateKey
-
+    async loadPrivateKey (privateKeyPath: string): Promise<string|null> {
         if (!privateKeyPath) {
             const userKeyPath = path.join(process.env.HOME!, '.ssh', 'id_rsa')
             if (await fs.exists(userKeyPath)) {
@@ -571,18 +587,21 @@ export class SSHSession extends BaseSession {
             }
         }
 
-        if (privateKeyPath) {
-            this.emitServiceMessage('Loading private key from ' + colors.bgWhite.blackBright(' ' + privateKeyPath + ' '))
-            try {
-                const privateKeyContents = (await fs.readFile(privateKeyPath)).toString()
-                const parsedKey = await this.parsePrivateKey(privateKeyContents)
-                this.privateKey = parsedKey.toString('openssh')
-            } catch (error) {
-                this.emitServiceMessage(colors.bgRed.black(' X ') + ' Could not read the private key file')
-                this.emitServiceMessage(colors.bgRed.black(' X ') + ` ${error}`)
-                this.notifications.error('Could not read the private key file')
-                return
-            }
+        if (!privateKeyPath) {
+            return null
+        }
+
+        this.emitServiceMessage('Loading private key from ' + colors.bgWhite.blackBright(' ' + privateKeyPath + ' '))
+        try {
+            const privateKeyContents = (await fs.readFile(privateKeyPath)).toString()
+            const parsedKey = await this.parsePrivateKey(privateKeyContents)
+            this.activePrivateKey = parsedKey.toString('openssh')
+            return this.activePrivateKey
+        } catch (error) {
+            this.emitServiceMessage(colors.bgRed.black(' X ') + ' Could not read the private key file')
+            this.emitServiceMessage(colors.bgRed.black(' X ') + ` ${error}`)
+            this.notifications.error('Could not read the private key file')
+            return null
         }
     }
 

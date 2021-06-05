@@ -8,6 +8,8 @@ const deepmerge = require('deepmerge')
 
 const configMerge = (a, b) => deepmerge(a, b, { arrayMerge: (_d, s) => s }) // eslint-disable-line @typescript-eslint/no-var-requires
 
+const LATEST_VERSION = 1
+
 function isStructuralMember (v) {
     return v instanceof Object && !(v instanceof Array) &&
         Object.keys(v).length > 0 && !v.__nonStructural
@@ -148,8 +150,9 @@ export class ConfigService {
         if (content) {
             this._store = yaml.load(content)
         } else {
-            this._store = {}
+            this._store = { version: LATEST_VERSION }
         }
+        this.migrate(this._store)
         this.store = new ConfigProxy(this._store, this.defaults)
     }
 
@@ -224,5 +227,18 @@ export class ConfigService {
 
     private emitChange (): void {
         this.changed.next()
+    }
+
+    private migrate (config) {
+        config.version ??= 0
+        if (config.version < 1) {
+            for (const connection of config.ssh?.connections) {
+                if (connection.privateKey) {
+                    connection.privateKeys = [connection.privateKey]
+                    delete connection.privateKey
+                }
+            }
+            config.version = 1
+        }
     }
 }

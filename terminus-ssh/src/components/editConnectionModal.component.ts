@@ -67,6 +67,7 @@ export class EditConnectionModalComponent {
         this.connection.algorithms = this.connection.algorithms ?? {}
         this.connection.scripts = this.connection.scripts ?? []
         this.connection.auth = this.connection.auth ?? null
+        this.connection.privateKeys ??= []
 
         this.useProxyCommand = !!this.connection.proxyCommand
 
@@ -101,18 +102,25 @@ export class EditConnectionModalComponent {
         this.passwordStorage.deletePassword(this.connection)
     }
 
-    selectPrivateKey () {
+    addPrivateKey () {
         this.electron.dialog.showOpenDialog(
             this.hostApp.getWindow(),
             {
-                defaultPath: this.connection.privateKey,
+                defaultPath: this.connection.privateKeys![0],
                 title: 'Select private key',
             }
         ).then(result => {
             if (!result.canceled) {
-                this.connection.privateKey = result.filePaths[0]
+                this.connection.privateKeys = [
+                    ...this.connection.privateKeys!,
+                    ...result.filePaths,
+                ]
             }
         })
+    }
+
+    removePrivateKey (path: string) {
+        this.connection.privateKeys = this.connection.privateKeys?.filter(x => x !== path)
     }
 
     save () {
