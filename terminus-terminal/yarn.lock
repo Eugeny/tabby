@@ -533,9 +533,9 @@ unbox-primitive@^1.0.0:
     which-boxed-primitive "^1.0.2"
 
 utils-decorators@^1.8.1:
-  version "1.8.1"
-  resolved "https://registry.yarnpkg.com/utils-decorators/-/utils-decorators-1.8.1.tgz#6e7e2cf46c05a9554c05f004e5235696142bd5f7"
-  integrity sha512-UpqzJj40jdTknZpxdeYL7p+8Ynl3bpHP6yoxoY+RmuDCOaelTiOz4GcDpScPvfZhv/ivHTV1bPJZeQd8tlxczA==
+  version "1.8.3"
+  resolved "https://registry.yarnpkg.com/utils-decorators/-/utils-decorators-1.8.3.tgz#7ec9c2b4a943658de34cb2533bf2fd9c4b1cd61b"
+  integrity sha512-QtoRQikWeYtMZsT5ChOz5HNzYxLGCEBUELQ1J8+WIuSQo+1D2bPwIY08DKzw88YSl2HXes60RxfafYhgXnlVJA==
   dependencies:
     tinyqueue "^2.0.3"
 
