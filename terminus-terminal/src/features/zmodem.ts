@@ -1,13 +1,12 @@
 import colors from 'ansi-colors'
 import * as ZModem from 'zmodem.js'
 import * as fs from 'fs'
-import * as path from 'path'
 import { Observable } from 'rxjs'
 import { filter } from 'rxjs/operators'
 import { Injectable } from '@angular/core'
 import { TerminalDecorator } from '../api/decorator'
 import { BaseTerminalTabComponent } from '../api/baseTerminalTab.component'
-import { LogService, Logger, ElectronService, HostAppService, HotkeysService } from 'terminus-core'
+import { LogService, Logger, ElectronService, HostAppService, HotkeysService, PlatformService, FileUpload } from 'terminus-core'
 
 const SPACER = '            '
 
@@ -23,6 +22,7 @@ export class ZModemDecorator extends TerminalDecorator {
         hotkeys: HotkeysService,
         private electron: ElectronService,
         private hostApp: HostAppService,
+        private platform: PlatformService,
     ) {
         super()
         this.logger = log.create('zmodem')
@@ -87,22 +87,13 @@ export class ZModemDecorator extends TerminalDecorator {
         this.logger.info('new session', zsession)
 
         if (zsession.type === 'send') {
-            const result = await this.electron.dialog.showOpenDialog(
-                this.hostApp.getWindow(),
-                {
-                    buttonLabel: 'Send',
-                    properties: ['multiSelections', 'openFile', 'treatPackageAsDirectory'],
-                },
-            )
-            if (result.canceled) {
-                zsession.close()
-                return
-            }
-
-            let filesRemaining = result.filePaths.length
-            for (const filePath of result.filePaths) {
-                await this.sendFile(terminal, zsession, filePath, filesRemaining)
+            const transfers = await this.platform.startUpload()
+            let filesRemaining = transfers.length
+            let sizeRemaining = transfers.reduce((a, b) => a + b.getSize(), 0)
+            for (const transfer of transfers) {
+                await this.sendFile(terminal, zsession, transfer, filesRemaining, sizeRemaining)
                 filesRemaining--
+                sizeRemaining -= transfer.getSize()
             }
             this.activeSession = null
             await zsession.close()
@@ -178,44 +169,41 @@ export class ZModemDecorator extends TerminalDecorator {
         stream.end()
     }
 
-    private async sendFile (terminal, zsession, filePath, filesRemaining) {
-        const stat = fs.statSync(filePath)
+    private async sendFile (terminal, zsession, transfer: FileUpload, filesRemaining, sizeRemaining) {
         const offer = {
-            name: path.basename(filePath),
-            size: stat.size,
-            mode: stat.mode,
-            mtime: Math.floor(stat.mtimeMs / 1000),
+            name: transfer.getName(),
+            size: transfer.getSize(),
+            mode: 0o755,
             files_remaining: filesRemaining,
-            bytes_remaining: stat.size,
+            bytes_remaining: sizeRemaining,
         }
         this.logger.info('offering', offer)
         this.showMessage(terminal, colors.bgYellow.black(' Offered ') + ' ' + offer.name, true)
 
         const xfer = await zsession.send_offer(offer)
         if (xfer) {
-            let bytesSent = 0
             let canceled = false
-            const stream = fs.createReadStream(filePath)
             const cancelSubscription = this.cancelEvent.subscribe(() => {
                 if (terminal.hasFocus) {
                     canceled = true
                 }
             })
 
-            stream.on('data', chunk => {
-                if (canceled) {
-                    stream.close()
-                    return
+            while (true) {
+                const chunk = await transfer.read()
+                if (canceled || !chunk.length) {
+                    break
                 }
-                xfer.send(chunk)
-                bytesSent += chunk.length
-                this.showMessage(terminal, colors.bgYellow.black(' ' + Math.round(100 * bytesSent / offer.size).toString().padStart(3, ' ') + '% ') + offer.name, true)
-            })
 
-            await Promise.race([
-                new Promise(resolve => stream.on('end', resolve)),
-                this.cancelEvent.toPromise(),
-            ])
+                await xfer.send(chunk)
+                this.showMessage(terminal, colors.bgYellow.black(' ' + Math.round(100 * transfer.getCompletedBytes() / offer.size).toString().padStart(3, ' ') + '% ') + offer.name, true)
+            }
+
+            if (canceled) {
+                transfer.cancel()
+            } else {
+                transfer.close()
+            }
 
             await xfer.end()
 
@@ -226,7 +214,6 @@ export class ZModemDecorator extends TerminalDecorator {
                 this.showMessage(terminal, colors.bgGreen.black(' Sent ') + ' ' + offer.name)
             }
 
-            stream.close()
             cancelSubscription.unsubscribe()
         } else {
             this.showMessage(terminal, colors.bgRed.black(' Rejected ') + ' ' + offer.name)

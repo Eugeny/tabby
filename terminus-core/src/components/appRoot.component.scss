@@ -178,3 +178,25 @@ hotkey-hint {
 ::ng-deep .btn-update svg {
     fill: cyan;
 }
+
+.transfers-dropdown-menu {
+    min-width: 300px;
+
+    .transfer {
+        display: flex;
+        align-items: center;
+        padding: 5px 0 5px 25px;
+
+        .main {
+            margin-right: auto;
+
+            label {
+                margin-bottom: 5px;
+            }
+        }
+
+        > i {
+            margin-right: 10px;
+        }
+    }
+}

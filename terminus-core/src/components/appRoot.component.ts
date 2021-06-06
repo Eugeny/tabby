@@ -59,7 +59,6 @@ export class AppRootComponent {
     @HostBinding('class.no-tabs') noTabs = true
     tabsDragging = false
     unsortedTabs: BaseTabComponent[] = []
-    updateIcon: string
     updatesAvailable = false
     private logger: Logger
 
@@ -78,8 +77,6 @@ export class AppRootComponent {
     ) {
         this.logger = log.create('main')
         this.logger.info('v', platform.getAppVersion())
-
-        this.updateIcon = require('../icons/gift.svg')
 
         this.hotkeys.matchedHotkey.subscribe((hotkey: string) => {
             if (hotkey.startsWith('tab-')) {

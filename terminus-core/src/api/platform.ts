@@ -18,6 +18,44 @@ export interface MessageBoxResult {
     response: number
 }
 
+export abstract class FileTransfer {
+    abstract getName (): string
+    abstract getSize (): number
+    abstract close (): void
+
+    getCompletedBytes (): number {
+        return this.completedBytes
+    }
+
+    isComplete (): boolean {
+        return this.completedBytes >= this.getSize()
+    }
+
+    isCancelled (): boolean {
+        return this.cancelled
+    }
+
+    cancel (): void {
+        this.cancelled = true
+        this.close()
+    }
+
+    protected increaseProgress (bytes: number): void {
+        this.completedBytes += bytes
+    }
+
+    private completedBytes = 0
+    private cancelled = false
+}
+
+export abstract class FileDownload extends FileTransfer {
+    abstract write (buffer: Buffer): Promise<void>
+}
+
+export abstract class FileUpload extends FileTransfer {
+    abstract read (): Promise<Buffer>
+}
+
 export abstract class PlatformService {
     supportsWindowControls = false
 
@@ -25,6 +63,9 @@ export abstract class PlatformService {
     abstract setClipboard (content: ClipboardContent): void
     abstract loadConfig (): Promise<string>
     abstract saveConfig (content: string): Promise<void>
+
+    abstract startDownload (name: string, size: number): Promise<FileDownload>
+    abstract startUpload (): Promise<FileUpload[]>
 
     getConfigPath (): string|null {
         return null

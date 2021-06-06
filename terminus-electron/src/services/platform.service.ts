@@ -1,10 +1,11 @@
 import * as path from 'path'
-import * as fs from 'mz/fs'
+import * as fs from 'fs/promises'
+import * as fsSync from 'fs'
 import * as os from 'os'
 import promiseIpc from 'electron-promise-ipc'
 import { execFile } from 'mz/child_process'
 import { Injectable } from '@angular/core'
-import { PlatformService, ClipboardContent, HostAppService, Platform, ElectronService, MenuItemOptions, MessageBoxOptions, MessageBoxResult } from 'terminus-core'
+import { PlatformService, ClipboardContent, HostAppService, Platform, ElectronService, MenuItemOptions, MessageBoxOptions, MessageBoxResult, FileUpload } from 'terminus-core'
 const fontManager = require('fontmanager-redux') // eslint-disable-line
 
 /* eslint-disable block-scoped-var */
@@ -89,7 +90,7 @@ export class ElectronPlatformService extends PlatformService {
     }
 
     async loadConfig (): Promise<string> {
-        if (await fs.exists(this.configPath)) {
+        if (fsSync.existsSync(this.configPath)) {
             return fs.readFile(this.configPath, 'utf8')
         } else {
             return ''
@@ -156,5 +157,59 @@ export class ElectronPlatformService extends PlatformService {
 
     quit (): void {
         this.electron.app.exit(0)
+    }
+
+    async startUpload (): Promise<FileUpload[]> {
+        const result = await this.electron.dialog.showOpenDialog(
+            this.hostApp.getWindow(),
+            {
+                buttonLabel: 'Select',
+                properties: ['multiSelections', 'openFile', 'treatPackageAsDirectory'],
+            },
+        )
+        if (result.canceled) {
+            return []
+        }
+
+        return Promise.all(result.filePaths.map(async path => {
+            const t = new ElectronFileUpload(path)
+            await t.open()
+            return t
+        }))
+    }
+}
+
+class ElectronFileUpload extends FileUpload {
+    private size: number
+    private file: fs.FileHandle
+    private buffer: Buffer
+
+    constructor (private filePath: string) {
+        super()
+        this.buffer = Buffer.alloc(256 * 1024)
+    }
+
+    async open (): Promise<void> {
+        this.size = (await fs.stat(this.filePath)).size
+        this.file = await fs.open(this.filePath, 'r')
+    }
+
+    getName (): string {
+        return path.basename(this.filePath)
+    }
+
+    getSize (): number {
+        return this.size
+    }
+
+    async read (): Promise<Buffer> {
+        const result = await this.file.read(this.buffer, 0, this.buffer.length, null)
+        this.increaseProgress(result.bytesRead)
+        console.log(result)
+        return this.buffer.slice(0, result.bytesRead)
+    }
+
+    close (): void {
+        this.file.close()
     }
 }
