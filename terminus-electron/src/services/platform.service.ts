@@ -213,3 +213,38 @@ class ElectronFileUpload extends FileUpload {
         this.file.close()
     }
 }
+
+class ElectronFileDownload extends FileDownload {
+    private size: number
+    private file: fs.FileHandle
+    private buffer: Buffer
+
+    constructor (private filePath: string) {
+        super()
+        this.buffer = Buffer.alloc(256 * 1024)
+    }
+
+    async open (): Promise<void> {
+        this.size = (await fs.stat(this.filePath)).size
+        this.file = await fs.open(this.filePath, 'r')
+    }
+
+    getName (): string {
+        return path.basename(this.filePath)
+    }
+
+    getSize (): number {
+        return this.size
+    }
+
+    async read (): Promise<Buffer> {
+        const result = await this.file.read(this.buffer, 0, this.buffer.length, null)
+        this.increaseProgress(result.bytesRead)
+        console.log(result)
+        return this.buffer.slice(0, result.bytesRead)
+    }
+
+    close (): void {
+        this.file.close()
+    }
+}
