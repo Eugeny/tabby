@@ -1,0 +1,31 @@
+:host {
+    min-width: 300px;
+}
+
+.transfer {
+    display: flex;
+    align-items: center;
+    padding: 5px 0 5px 25px;
+
+    .icon {
+        padding: 4px 10px;
+        width: 36px;
+        height: 32px;
+        background: rgba(0,0,0,.25);
+        margin-right: 12px;
+    }
+
+    .main {
+        width: 100%;
+        margin-right: auto;
+        margin-bottom: 7px;
+
+        label {
+            margin: 0;
+        }
+    }
+
+    > i {
+        margin-right: 10px;
+    }
+}

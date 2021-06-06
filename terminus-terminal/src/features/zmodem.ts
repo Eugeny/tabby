@@ -1,12 +1,11 @@
 import colors from 'ansi-colors'
 import * as ZModem from 'zmodem.js'
-import * as fs from 'fs'
 import { Observable } from 'rxjs'
-import { filter } from 'rxjs/operators'
+import { filter, first } from 'rxjs/operators'
 import { Injectable } from '@angular/core'
 import { TerminalDecorator } from '../api/decorator'
 import { BaseTerminalTabComponent } from '../api/baseTerminalTab.component'
-import { LogService, Logger, ElectronService, HostAppService, HotkeysService, PlatformService, FileUpload } from 'terminus-core'
+import { LogService, Logger, HotkeysService, PlatformService, FileUpload } from 'terminus-core'
 
 const SPACER = '            '
 
@@ -20,8 +19,6 @@ export class ZModemDecorator extends TerminalDecorator {
     constructor (
         log: LogService,
         hotkeys: HotkeysService,
-        private electron: ElectronService,
-        private hostApp: HostAppService,
         private platform: PlatformService,
     ) {
         super()
@@ -87,7 +84,7 @@ export class ZModemDecorator extends TerminalDecorator {
         this.logger.info('new session', zsession)
 
         if (zsession.type === 'send') {
-            const transfers = await this.platform.startUpload()
+            const transfers = await this.platform.startUpload({ multiple: true })
             let filesRemaining = transfers.length
             let sizeRemaining = transfers.reduce((a, b) => a + b.getSize(), 0)
             for (const transfer of transfers) {
@@ -116,20 +113,14 @@ export class ZModemDecorator extends TerminalDecorator {
         } = xfer.get_details()
         this.showMessage(terminal, colors.bgYellow.black(' Offered ') + ' ' + details.name, true)
         this.logger.info('offered', xfer)
-        const result = await this.electron.dialog.showSaveDialog(
-            this.hostApp.getWindow(),
-            {
-                defaultPath: details.name,
-            },
-        )
-        if (!result.filePath) {
+
+        const transfer = await this.platform.startDownload(details.name, details.size)
+        if (!transfer) {
             this.showMessage(terminal, colors.bgRed.black(' Rejected ') + ' ' + details.name)
             xfer.skip()
             return
         }
 
-        const stream = fs.createWriteStream(result.filePath)
-        let bytesSent = 0
         let canceled = false
         const cancelSubscription = this.cancelEvent.subscribe(() => {
             if (terminal.hasFocus) {
@@ -147,18 +138,19 @@ export class ZModemDecorator extends TerminalDecorator {
                         if (canceled) {
                             return
                         }
-                        stream.write(Buffer.from(chunk))
-                        bytesSent += chunk.length
-                        this.showMessage(terminal, colors.bgYellow.black(' ' + Math.round(100 * bytesSent / details.size).toString().padStart(3, ' ') + '% ') + ' ' + details.name, true)
+                        transfer.write(Buffer.from(chunk))
+                        this.showMessage(terminal, colors.bgYellow.black(' ' + Math.round(100 * transfer.getCompletedBytes() / details.size).toString().padStart(3, ' ') + '% ') + ' ' + details.name, true)
                     },
                 }),
-                this.cancelEvent.toPromise(),
+                this.cancelEvent.pipe(first()).toPromise(),
             ])
 
             // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
             if (canceled) {
+                transfer.cancel()
                 this.showMessage(terminal, colors.bgRed.black(' Canceled ') + ' ' + details.name)
             } else {
+                transfer.close()
                 this.showMessage(terminal, colors.bgGreen.black(' Received ') + ' ' + details.name)
             }
         } catch {
@@ -166,7 +158,6 @@ export class ZModemDecorator extends TerminalDecorator {
         }
 
         cancelSubscription.unsubscribe()
-        stream.end()
     }
 
     private async sendFile (terminal, zsession, transfer: FileUpload, filesRemaining, sizeRemaining) {
@@ -191,6 +182,7 @@ export class ZModemDecorator extends TerminalDecorator {
 
             while (true) {
                 const chunk = await transfer.read()
+                // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
                 if (canceled || !chunk.length) {
                     break
                 }
@@ -199,6 +191,7 @@ export class ZModemDecorator extends TerminalDecorator {
                 this.showMessage(terminal, colors.bgYellow.black(' ' + Math.round(100 * transfer.getCompletedBytes() / offer.size).toString().padStart(3, ' ') + '% ') + offer.name, true)
             }
 
+            // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
             if (canceled) {
                 transfer.cancel()
             } else {
@@ -216,6 +209,7 @@ export class ZModemDecorator extends TerminalDecorator {
 
             cancelSubscription.unsubscribe()
         } else {
+            transfer.cancel()
             this.showMessage(terminal, colors.bgRed.black(' Rejected ') + ' ' + offer.name)
             this.logger.warn('rejected by the other side')
         }

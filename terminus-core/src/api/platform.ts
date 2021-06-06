@@ -1,4 +1,5 @@
 import { MenuItemOptions } from './menu'
+import { Subject, Observable } from 'rxjs'
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 export interface ClipboardContent {
@@ -54,18 +55,38 @@ export abstract class FileDownload extends FileTransfer {
 
 export abstract class FileUpload extends FileTransfer {
     abstract read (): Promise<Buffer>
+
+    async readAll (): Promise<Buffer> {
+        const buffers: Buffer[] = []
+        while (true) {
+            const buf = await this.read()
+            if (!buf.length) {
+                break
+            }
+            buffers.push(Buffer.from(buf))
+        }
+        return Buffer.concat(buffers)
+    }
+}
+
+export interface FileUploadOptions {
+    multiple: boolean
 }
 
 export abstract class PlatformService {
     supportsWindowControls = false
+
+    get fileTransferStarted$ (): Observable<FileTransfer> { return this.fileTransferStarted }
+
+    protected fileTransferStarted = new Subject<FileTransfer>()
 
     abstract readClipboard (): string
     abstract setClipboard (content: ClipboardContent): void
     abstract loadConfig (): Promise<string>
     abstract saveConfig (content: string): Promise<void>
 
-    abstract startDownload (name: string, size: number): Promise<FileDownload>
-    abstract startUpload (): Promise<FileUpload[]>
+    abstract startDownload (name: string, size: number): Promise<FileDownload|null>
+    abstract startUpload (options?: FileUploadOptions): Promise<FileUpload[]>
 
     getConfigPath (): string|null {
         return null

@@ -1,0 +1,13 @@
+.dropdown-header File transfers
+.dropdown-item.transfer(*ngFor='let transfer of transfers', (click)='showTransfer(transfer)')
+    .icon(*ngIf='isDownload(transfer)') !{require('../icons/download.svg')}
+    .icon(*ngIf='!isDownload(transfer)') !{require('../icons/upload.svg')}
+    .main
+        label {{transfer.getName()}}
+        .status(*ngIf='transfer.isComplete()')
+            ngb-progressbar(type='success', [value]='100')
+        .status(*ngIf='transfer.isCancelled()')
+            ngb-progressbar(type='danger', [value]='100')
+        .status(*ngIf='!transfer.isComplete() && !transfer.isCancelled()')
+            ngb-progressbar(type='info', [value]='getProgress(transfer)')
+    button.btn.btn-link((click)='removeTransfer(transfer); $event.stopPropagation()') !{require('../icons/times.svg')}

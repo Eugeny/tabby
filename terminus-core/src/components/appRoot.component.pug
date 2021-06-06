@@ -57,6 +57,17 @@ title-bar(
                         )
                         div([class.ml-3]='hasIcons(button.submenuItems)') {{item.title}}
 
+            .d-flex(
+                *ngIf='activeTransfers.length > 0',
+                ngbDropdown,
+                [(open)]='activeTransfersDropdownOpen'
+            )
+                button.btn.btn-secondary.btn-tab-bar(
+                    title='File transfers',
+                    ngbDropdownToggle
+                ) !{require('../icons/download-solid.svg')}
+                transfers-menu(ngbDropdownMenu, [(transfers)]='activeTransfers')
+
         .drag-space.background([class.persistent]='config.store.appearance.frame == "thin" && hostApp.platform != Platform.macOS')
 
         .btn-group.background
@@ -82,22 +93,6 @@ title-bar(
                             [fastHtmlBind]='item.icon'
                         )
                         div([class.ml-3]='hasIcons(button.submenuItems)') {{item.title}}
-
-            .d-flex(ngbDropdown)
-                button.btn.btn-secondary.btn-tab-bar(
-                    title='File transfers',
-                    ngbDropdownToggle
-                ) !{require('../icons/download.svg')}
-                .transfers-dropdown-menu(ngbDropdownMenu)
-                    .dropdown-header File transfers
-                    .dropdown-item.transfer
-                        .mr-3 !{require('../icons/download.svg')}
-                        .main
-                            label file.bin
-                            .progress
-                                .progress-bar.w-25
-                            small 25%
-                        button.btn.btn-link !{require('../icons/times.svg')}
 
             button.btn.btn-secondary.btn-tab-bar.btn-update(
                 *ngIf='updatesAvailable',

@@ -12,7 +12,7 @@ import { UpdaterService } from '../services/updater.service'
 
 import { BaseTabComponent } from './baseTab.component'
 import { SafeModeModalComponent } from './safeModeModal.component'
-import { AppService, HostWindowService, PlatformService, ToolbarButton, ToolbarButtonProvider } from '../api'
+import { AppService, FileTransfer, HostWindowService, PlatformService, ToolbarButton, ToolbarButtonProvider } from '../api'
 
 /** @hidden */
 @Component({
@@ -60,6 +60,8 @@ export class AppRootComponent {
     tabsDragging = false
     unsortedTabs: BaseTabComponent[] = []
     updatesAvailable = false
+    activeTransfers: FileTransfer[] = []
+    activeTransfersDropdownOpen = false
     private logger: Logger
 
     private constructor (
@@ -129,6 +131,11 @@ export class AppRootComponent {
         this.app.tabClosed$.subscribe(tab => {
             this.unsortedTabs = this.unsortedTabs.filter(x => x !== tab)
             this.noTabs = app.tabs.length === 0
+        })
+
+        platform.fileTransferStarted$.subscribe(transfer => {
+            this.activeTransfers.push(transfer)
+            this.activeTransfersDropdownOpen = true
         })
 
         config.ready$.toPromise().then(() => {
