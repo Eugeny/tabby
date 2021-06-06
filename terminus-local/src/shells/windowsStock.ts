@@ -18,23 +18,34 @@ export class WindowsStockShellsProvider extends ShellProvider {
         if (this.hostApp.platform !== Platform.Windows) {
             return []
         }
+
+        let clinkPath = path.join(
+            path.dirname(this.electron.app.getPath('exe')),
+            'resources',
+            'extras',
+            'clink',
+            `clink_${process.arch}.exe`,
+        )
+
+        if (process.env.TERMINUS_DEV) {
+            clinkPath = path.join(
+                path.dirname(this.electron.app.getPath('exe')),
+                '..', '..', '..',
+                'extras',
+                'clink',
+                `clink_${process.arch}.exe`,
+            )
+        }
         return [
             {
                 id: 'clink',
                 name: 'CMD (clink)',
                 command: 'cmd.exe',
-                args: [
-                    '/k',
-                    path.join(
-                        path.dirname(this.electron.app.getPath('exe')),
-                        'resources',
-                        'extras',
-                        'clink',
-                        `clink_${process.arch}.exe`,
-                    ),
-                    'inject',
-                ],
-                env: {},
+                args: ['/k', clinkPath, 'inject'],
+                env: {
+                    // Tell clink not to emulate ANSI handling
+                    WT_SESSION: '0',
+                },
                 icon: require('../icons/clink.svg'),
             },
             {
