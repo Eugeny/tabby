@@ -36,6 +36,7 @@
     "node-sass": "^6.0.0",
     "npmlog": "4.1.2",
     "npx": "^10.2.2",
+    "patch-package": "^6.4.7",
     "pug": "^3.0.2",
     "pug-html-loader": "1.1.5",
     "pug-lint": "^2.6.0",
@@ -71,7 +72,8 @@
     "prod": "cross-env TERMINUS_DEV=1 electron app",
     "docs": "typedoc --out docs/api --tsconfig terminus-core/src/tsconfig.typings.json terminus-core/src/index.ts && typedoc --out docs/api/terminal --tsconfig terminus-terminal/tsconfig.typings.json terminus-terminal/src/index.ts && typedoc --out docs/api/local --tsconfig terminus-local/tsconfig.typings.json terminus-local/src/index.ts && typedoc --out docs/api/settings --tsconfig terminus-settings/tsconfig.typings.json terminus-settings/src/index.ts",
     "lint": "eslint --ext ts */src */lib",
-    "postinstall": "node ./scripts/install-deps.js"
+    "postinstall": "node ./scripts/install-deps.js",
+    "patch": "patch-package"
   },
   "private": true
 }

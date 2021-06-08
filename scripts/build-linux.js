@@ -9,7 +9,6 @@ builder({
     linux: ['deb', 'tar.gz', 'rpm', 'pacman'],
     config: {
         extraMetadata: {
-            name: 'terminus-terminal',
             version: vars.version,
         },
     },

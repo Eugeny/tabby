@@ -24,6 +24,7 @@ jobs:
         cd ..
         rm app/node_modules/.yarn-integrity
         yarn
+        npm run patch
 
     - name: Build native deps
       run: scripts/build-native.js
