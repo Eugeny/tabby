@@ -43,7 +43,10 @@ app-root  {
             .btn-tab-bar {
                 background: transparent;
                 &:hover { background: rgba(0, 0, 0, .25) !important; }
-                &:active { background: rgba(0, 0, 0, .5) !important; }
+                &:active, &[aria-expanded-true] { background: rgba(0, 0, 0, .5) !important; }
+                &:focus {
+                    box-shadow: none;
+                }
 
                 &::after {
                     display: none;
@@ -385,4 +388,8 @@ search-panel {
 
 hr {
     border-color: $list-group-border-color;
+}
+
+.dropdown-menu {
+    box-shadow: $dropdown-box-shadow;
 }

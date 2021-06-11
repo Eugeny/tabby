@@ -242,7 +242,7 @@ export class ConfigService {
     private migrate (config) {
         config.version ??= 0
         if (config.version < 1) {
-            for (const connection of config.ssh?.connections) {
+            for (const connection of config.ssh?.connections ?? []) {
                 if (connection.privateKey) {
                     connection.privateKeys = [connection.privateKey]
                     delete connection.privateKey

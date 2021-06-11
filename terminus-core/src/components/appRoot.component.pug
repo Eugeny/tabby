@@ -57,6 +57,17 @@ title-bar(
                         )
                         div([class.ml-3]='hasIcons(button.submenuItems)') {{item.title}}
 
+            .d-flex(
+                *ngIf='activeTransfers.length > 0',
+                ngbDropdown,
+                [(open)]='activeTransfersDropdownOpen'
+            )
+                button.btn.btn-secondary.btn-tab-bar(
+                    title='File transfers',
+                    ngbDropdownToggle
+                ) !{require('../icons/download-solid.svg')}
+                transfers-menu(ngbDropdownMenu, [(transfers)]='activeTransfers')
+
         .drag-space.background([class.persistent]='config.store.appearance.frame == "thin" && hostApp.platform != Platform.macOS')
 
         .btn-group.background
@@ -86,9 +97,8 @@ title-bar(
             button.btn.btn-secondary.btn-tab-bar.btn-update(
                 *ngIf='updatesAvailable',
                 title='Update available - Click to install',
-                (click)='updater.update()',
-                [fastHtmlBind]='updateIcon'
-            )
+                (click)='updater.update()'
+            ) !{require('../icons/gift.svg')}
 
         window-controls.background(
             *ngIf='config.store.appearance.frame == "thin" \

@@ -21,6 +21,7 @@ import { SplitTabComponent, SplitTabRecoveryProvider } from './components/splitT
 import { SplitTabSpannerComponent } from './components/splitTabSpanner.component'
 import { UnlockVaultModalComponent } from './components/unlockVaultModal.component'
 import { WelcomeTabComponent } from './components/welcomeTab.component'
+import { TransfersMenuComponent } from './components/transfersMenu.component'
 
 import { AutofocusDirective } from './directives/autofocus.directive'
 import { FastHtmlBindDirective } from './directives/fastHtmlBind.directive'
@@ -81,6 +82,7 @@ const PROVIDERS = [
         SplitTabSpannerComponent,
         UnlockVaultModalComponent,
         WelcomeTabComponent,
+        TransfersMenuComponent,
     ],
     entryComponents: [
         RenameTabModalComponent,

@@ -1,10 +1,11 @@
 import * as path from 'path'
-import * as fs from 'mz/fs'
+import * as fs from 'fs/promises'
+import * as fsSync from 'fs'
 import * as os from 'os'
 import promiseIpc from 'electron-promise-ipc'
 import { execFile } from 'mz/child_process'
-import { Injectable } from '@angular/core'
-import { PlatformService, ClipboardContent, HostAppService, Platform, ElectronService, MenuItemOptions, MessageBoxOptions, MessageBoxResult } from 'terminus-core'
+import { Injectable, NgZone } from '@angular/core'
+import { PlatformService, ClipboardContent, HostAppService, Platform, ElectronService, MenuItemOptions, MessageBoxOptions, MessageBoxResult, FileUpload, FileDownload, FileUploadOptions } from 'terminus-core'
 const fontManager = require('fontmanager-redux') // eslint-disable-line
 
 /* eslint-disable block-scoped-var */
@@ -25,6 +26,7 @@ export class ElectronPlatformService extends PlatformService {
     constructor (
         private hostApp: HostAppService,
         private electron: ElectronService,
+        private zone: NgZone,
     ) {
         super()
         this.configPath = path.join(electron.app.getPath('userData'), 'config.yaml')
@@ -89,7 +91,7 @@ export class ElectronPlatformService extends PlatformService {
     }
 
     async loadConfig (): Promise<string> {
-        if (await fs.exists(this.configPath)) {
+        if (fsSync.existsSync(this.configPath)) {
             return fs.readFile(this.configPath, 'utf8')
         } else {
             return ''
@@ -156,5 +158,128 @@ export class ElectronPlatformService extends PlatformService {
 
     quit (): void {
         this.electron.app.exit(0)
+    }
+
+    async startUpload (options?: FileUploadOptions): Promise<FileUpload[]> {
+        options ??= { multiple: false }
+
+        const properties: any[] = ['openFile', 'treatPackageAsDirectory']
+        if (options.multiple) {
+            properties.push('multiSelections')
+        }
+
+        const result = await this.electron.dialog.showOpenDialog(
+            this.hostApp.getWindow(),
+            {
+                buttonLabel: 'Select',
+                properties,
+            },
+        )
+        if (result.canceled) {
+            return []
+        }
+
+        return Promise.all(result.filePaths.map(async p => {
+            const transfer = new ElectronFileUpload(p)
+            await this.wrapPromise(transfer.open())
+            this.fileTransferStarted.next(transfer)
+            return transfer
+        }))
+    }
+
+    async startDownload (name: string, size: number): Promise<FileDownload|null> {
+        const result = await this.electron.dialog.showSaveDialog(
+            this.hostApp.getWindow(),
+            {
+                defaultPath: name,
+            },
+        )
+        if (!result.filePath) {
+            return null
+        }
+        const transfer = new ElectronFileDownload(result.filePath, size)
+        await this.wrapPromise(transfer.open())
+        this.fileTransferStarted.next(transfer)
+        return transfer
+    }
+
+    private wrapPromise <T> (promise: Promise<T>): Promise<T> {
+        return new Promise((resolve, reject) => {
+            promise.then(result => {
+                this.zone.run(() => resolve(result))
+            }).catch(error => {
+                this.zone.run(() => reject(error))
+            })
+        })
+    }
+}
+
+class ElectronFileUpload extends FileUpload {
+    private size: number
+    private file: fs.FileHandle
+    private buffer: Buffer
+
+    constructor (private filePath: string) {
+        super()
+        this.buffer = Buffer.alloc(256 * 1024)
+    }
+
+    async open (): Promise<void> {
+        this.size = (await fs.stat(this.filePath)).size
+        this.file = await fs.open(this.filePath, 'r')
+    }
+
+    getName (): string {
+        return path.basename(this.filePath)
+    }
+
+    getSize (): number {
+        return this.size
+    }
+
+    async read (): Promise<Buffer> {
+        const result = await this.file.read(this.buffer, 0, this.buffer.length, null)
+        this.increaseProgress(result.bytesRead)
+        return this.buffer.slice(0, result.bytesRead)
+    }
+
+    close (): void {
+        this.file.close()
+    }
+}
+
+class ElectronFileDownload extends FileDownload {
+    private file: fs.FileHandle
+
+    constructor (
+        private filePath: string,
+        private size: number,
+    ) {
+        super()
+    }
+
+    async open (): Promise<void> {
+        this.file = await fs.open(this.filePath, 'w')
+    }
+
+    getName (): string {
+        return path.basename(this.filePath)
+    }
+
+    getSize (): number {
+        return this.size
+    }
+
+    async write (buffer: Buffer): Promise<void> {
+        let pos = 0
+        while (pos < buffer.length) {
+            const result = await this.file.write(buffer, pos, buffer.length - pos, null)
+            this.increaseProgress(result.bytesWritten)
+            pos += result.bytesWritten
+        }
+    }
+
+    close (): void {
+        this.file.close()
     }
 }

@@ -12,7 +12,7 @@ import { UpdaterService } from '../services/updater.service'
 
 import { BaseTabComponent } from './baseTab.component'
 import { SafeModeModalComponent } from './safeModeModal.component'
-import { AppService, HostWindowService, PlatformService, ToolbarButton, ToolbarButtonProvider } from '../api'
+import { AppService, FileTransfer, HostWindowService, PlatformService, ToolbarButton, ToolbarButtonProvider } from '../api'
 
 /** @hidden */
 @Component({
@@ -59,8 +59,9 @@ export class AppRootComponent {
     @HostBinding('class.no-tabs') noTabs = true
     tabsDragging = false
     unsortedTabs: BaseTabComponent[] = []
-    updateIcon: string
     updatesAvailable = false
+    activeTransfers: FileTransfer[] = []
+    activeTransfersDropdownOpen = false
     private logger: Logger
 
     private constructor (
@@ -78,8 +79,6 @@ export class AppRootComponent {
     ) {
         this.logger = log.create('main')
         this.logger.info('v', platform.getAppVersion())
-
-        this.updateIcon = require('../icons/gift.svg')
 
         this.hotkeys.matchedHotkey.subscribe((hotkey: string) => {
             if (hotkey.startsWith('tab-')) {
@@ -132,6 +131,11 @@ export class AppRootComponent {
         this.app.tabClosed$.subscribe(tab => {
             this.unsortedTabs = this.unsortedTabs.filter(x => x !== tab)
             this.noTabs = app.tabs.length === 0
+        })
+
+        platform.fileTransferStarted$.subscribe(transfer => {
+            this.activeTransfers.push(transfer)
+            this.activeTransfersDropdownOpen = true
         })
 
         config.ready$.toPromise().then(() => {
