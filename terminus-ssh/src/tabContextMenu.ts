@@ -16,11 +16,11 @@ export class WinSCPContextMenu extends TabContextMenuItemProvider {
         super()
     }
 
-    async getItems (tab: BaseTabComponent, tabHeader?: TabHeaderComponent): Promise<MenuItemOptions[]> {
+    async getItems (tab: BaseTabComponent, _tabHeader?: TabHeaderComponent): Promise<MenuItemOptions[]> {
         if (!(tab instanceof SSHTabComponent) || !tab.connection) {
             return []
         }
-        if (this.hostApp.platform !== Platform.Windows || tabHeader || !this.ssh.getWinSCPPath()) {
+        if (this.hostApp.platform !== Platform.Windows || !this.ssh.getWinSCPPath()) {
             return []
         }
         return [
