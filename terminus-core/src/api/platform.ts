@@ -88,6 +88,21 @@ export abstract class PlatformService {
     abstract startDownload (name: string, size: number): Promise<FileDownload|null>
     abstract startUpload (options?: FileUploadOptions): Promise<FileUpload[]>
 
+    startUploadFromDragEvent (event: DragEvent): FileUpload[] {
+        const result: FileUpload[] = []
+        if (!event.dataTransfer) {
+            return []
+        }
+        // eslint-disable-next-line @typescript-eslint/prefer-for-of
+        for (let i = 0; i < event.dataTransfer.files.length; i++) {
+            const file = event.dataTransfer.files[i]
+            const transfer = new DropUpload(file)
+            this.fileTransferStarted.next(transfer)
+            result.push(transfer)
+        }
+        return result
+    }
+
     getConfigPath (): string|null {
         return null
     }
@@ -143,4 +158,37 @@ export abstract class PlatformService {
     abstract popupContextMenu (menu: MenuItemOptions[], event?: MouseEvent): void
     abstract showMessageBox (options: MessageBoxOptions): Promise<MessageBoxResult>
     abstract quit (): void
+}
+
+
+class DropUpload extends FileUpload {
+    private stream: ReadableStream
+    private reader: ReadableStreamDefaultReader
+
+    constructor (private file: File) {
+        super()
+        this.stream = this.file.stream()
+        this.reader = this.stream.getReader()
+    }
+
+    getName (): string {
+        return this.file.name
+    }
+
+    getSize (): number {
+        return this.file.size
+    }
+
+    async read (): Promise<Buffer> {
+        const result: any = await this.reader.read()
+        if (result.done || !result.value) {
+            return Buffer.from('')
+        }
+        const chunk = Buffer.from(result.value)
+        this.increaseProgress(chunk.length)
+        return chunk
+    }
+
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    close (): void { }
 }

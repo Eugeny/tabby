@@ -1,6 +1,6 @@
 import colors from 'ansi-colors'
 import { Spinner } from 'cli-spinner'
-import { Component, Injector } from '@angular/core'
+import { Component, Injector, HostListener } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { first } from 'rxjs/operators'
 import { RecoveryToken } from 'terminus-core'
@@ -20,6 +20,7 @@ import { SSHPortForwardingModalComponent } from './sshPortForwardingModal.compon
 export class SSHTabComponent extends BaseTerminalTabComponent {
     connection?: SSHConnection
     session: SSHSession|null = null
+    sftpPanelVisible = false
     private sessionStack: SSHSession[] = []
     private recentInputs = ''
     private reconnectOffered = false
@@ -223,6 +224,17 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
                 defaultId: 1,
             }
         )).response === 1
+    }
+
+    openSFTP (): void {
+        setTimeout(() => {
+            this.sftpPanelVisible = true
+        }, 100)
+    }
+
+    @HostListener('click')
+    onClick (): void {
+        this.sftpPanelVisible = false
     }
 
     private startSpinner () {

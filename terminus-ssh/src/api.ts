@@ -10,11 +10,12 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { HostAppService, Logger, NotificationsService, Platform, PlatformService } from 'terminus-core'
 import { BaseSession } from 'terminus-terminal'
 import { Server, Socket, createServer, createConnection } from 'net'
-import { Client, ClientChannel } from 'ssh2'
+import { Client, ClientChannel, SFTPWrapper } from 'ssh2'
 import { Subject, Observable } from 'rxjs'
 import { ProxyCommandStream } from './services/ssh.service'
 import { PasswordStorageService } from './services/passwordStorage.service'
 import { PromptModalComponent } from './components/promptModal.component'
+import { promisify } from 'util'
 
 const WINDOWS_OPENSSH_AGENT_PIPE = '\\\\.\\pipe\\openssh-ssh-agent'
 
@@ -140,6 +141,7 @@ export class SSHSession extends BaseSession {
     scripts?: LoginScript[]
     shell?: ClientChannel
     ssh: Client
+    sftp?: SFTPWrapper
     forwardedPorts: ForwardedPort[] = []
     logger: Logger
     jumpStream: any
@@ -221,6 +223,13 @@ export class SSHSession extends BaseSession {
         this.remainingAuthMethods.push({ type: 'hostbased' })
     }
 
+    async openSFTP (): Promise<SFTPWrapper> {
+        if (!this.sftp) {
+            this.sftp = await promisify<SFTPWrapper>(f => this.ssh.sftp(f))()
+        }
+        return this.sftp
+    }
+
     async start (): Promise<void> {
         this.open = true
 
@@ -273,7 +282,7 @@ export class SSHSession extends BaseSession {
 
                     if (match) {
                         this.logger.info('Executing script: "' + cmd + '"')
-                        this.shell.write(cmd + '\n')
+                        this.shell?.write(cmd + '\n')
                         this.scripts = this.scripts.filter(x => x !== script)
                     } else {
                         if (script.optional) {
@@ -569,7 +578,7 @@ export class SSHSession extends BaseSession {
             for (const script of this.scripts) {
                 if (!script.expect) {
                     console.log('Executing script:', script.send)
-                    this.shell.write(script.send + '\n')
+                    this.shell?.write(script.send + '\n')
                     this.scripts = this.scripts.filter(x => x !== script)
                 } else {
                     break

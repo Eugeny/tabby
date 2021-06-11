@@ -25,6 +25,7 @@ import { TransfersMenuComponent } from './components/transfersMenu.component'
 
 import { AutofocusDirective } from './directives/autofocus.directive'
 import { FastHtmlBindDirective } from './directives/fastHtmlBind.directive'
+import { DropZoneDirective } from './directives/dropZone.directive'
 
 import { Theme, CLIHandler, TabContextMenuItemProvider, TabRecoveryProvider, HotkeyProvider, ConfigProvider } from './api'
 
@@ -83,6 +84,7 @@ const PROVIDERS = [
         UnlockVaultModalComponent,
         WelcomeTabComponent,
         TransfersMenuComponent,
+        DropZoneDirective,
     ],
     entryComponents: [
         RenameTabModalComponent,
@@ -96,6 +98,7 @@ const PROVIDERS = [
         CheckboxComponent,
         ToggleComponent,
         AutofocusDirective,
+        DropZoneDirective,
     ],
 })
 export default class AppModule { // eslint-disable-line @typescript-eslint/no-extraneous-class

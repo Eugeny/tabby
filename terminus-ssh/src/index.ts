@@ -13,6 +13,7 @@ import { SSHPortForwardingConfigComponent } from './components/sshPortForwarding
 import { PromptModalComponent } from './components/promptModal.component'
 import { SSHSettingsTabComponent } from './components/sshSettingsTab.component'
 import { SSHTabComponent } from './components/sshTab.component'
+import { SFTPPanelComponent } from './components/sftpPanel.component'
 
 import { ButtonProvider } from './buttonProvider'
 import { SSHConfigProvider } from './config'
@@ -55,6 +56,7 @@ import { SSHCLIHandler } from './cli'
         SSHPortForwardingConfigComponent,
         SSHSettingsTabComponent,
         SSHTabComponent,
+        SFTPPanelComponent,
     ],
 })
 export default class SSHModule { } // eslint-disable-line @typescript-eslint/no-extraneous-class

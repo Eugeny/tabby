@@ -38,7 +38,7 @@ $theme-colors: (
   warning: $orange,
   danger: $red,
   light: $gray-300,
-  dark: $gray-800,
+  dark: #0e151d,
   rare: $purple
 );
 
@@ -150,7 +150,7 @@ $navbar-padding-x: 0;
 $dropdown-bg: $content-bg-solid;
 $dropdown-color: $body-color;
 $dropdown-border-width: 1px;
-$dropdown-box-shadow: 0 .5rem 1rem rgba($black,.175);
+$dropdown-box-shadow: 0 0 1rem rgba($black, .25), 0 1px 1px rgba($black, .12);
 $dropdown-header-color: $gray-500;
 
 $dropdown-link-color: $body-color;

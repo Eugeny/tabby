@@ -9,6 +9,16 @@
         button.btn.btn-secondary.mr-2((click)='reconnect()', [class.btn-info]='!session || !session.open')
             span Reconnect
 
+        button.btn.btn-secondary.mr-2((click)='openSFTP()', *ngIf='session && session.open')
+            span SFTP
+
         button.btn.btn-secondary((click)='showPortForwarding()', *ngIf='session && session.open')
             i.fas.fa-plug
             span Ports
+
+sftp-panel.bg-dark(
+    *ngIf='sftpPanelVisible',
+    (click)='$event.stopPropagation()',
+    [session]='session',
+    (closed)='sftpPanelVisible = false'
+)

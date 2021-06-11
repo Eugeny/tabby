@@ -22,6 +22,7 @@
   "license": "MIT",
   "devDependencies": {
     "@types/node": "14.14.31",
+    "@types/ssh2": "^0.5.46",
     "ansi-colors": "^4.1.1",
     "cli-spinner": "^0.2.10",
     "clone-deep": "^4.0.1",
