@@ -17,6 +17,7 @@ jobs:
 
     - name: Install deps
       run: |
+        sudo apt-get update
         sudo apt-get install bsdtar
         npm i -g yarn@1.19.1
         cd app
