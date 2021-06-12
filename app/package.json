@@ -36,7 +36,6 @@
     "native-process-working-directory": "^1.0.2",
     "ngx-toastr": "^14.0.0",
     "npm": "6",
-    "path": "0.12.7",
     "rxjs": "^7.1.0",
     "ssh2": "^1.1.0",
     "yargs": "^17.0.1",

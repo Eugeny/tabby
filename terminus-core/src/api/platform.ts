@@ -88,7 +88,7 @@ export abstract class PlatformService {
     abstract startDownload (name: string, size: number): Promise<FileDownload|null>
     abstract startUpload (options?: FileUploadOptions): Promise<FileUpload[]>
 
-    startUploadFromDragEvent (event: DragEvent): FileUpload[] {
+    startUploadFromDragEvent (event: DragEvent, multiple = false): FileUpload[] {
         const result: FileUpload[] = []
         if (!event.dataTransfer) {
             return []
@@ -96,9 +96,12 @@ export abstract class PlatformService {
         // eslint-disable-next-line @typescript-eslint/prefer-for-of
         for (let i = 0; i < event.dataTransfer.files.length; i++) {
             const file = event.dataTransfer.files[i]
-            const transfer = new DropUpload(file)
+            const transfer = new HTMLFileUpload(file)
             this.fileTransferStarted.next(transfer)
             result.push(transfer)
+            if (!multiple) {
+                break
+            }
         }
         return result
     }
@@ -160,8 +163,7 @@ export abstract class PlatformService {
     abstract quit (): void
 }
 
-
-class DropUpload extends FileUpload {
+export class HTMLFileUpload extends FileUpload {
     private stream: ReadableStream
     private reader: ReadableStreamDefaultReader
 

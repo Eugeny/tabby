@@ -2,7 +2,7 @@ import '@vaadin/vaadin-context-menu/vaadin-context-menu.js'
 import copyToClipboard from 'copy-text-to-clipboard'
 import { Injectable } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
-import { PlatformService, ClipboardContent, MenuItemOptions, MessageBoxOptions, MessageBoxResult } from 'terminus-core'
+import { PlatformService, ClipboardContent, MenuItemOptions, MessageBoxOptions, MessageBoxResult, FileUpload, FileUploadOptions, FileDownload, HTMLFileUpload } from 'terminus-core'
 
 // eslint-disable-next-line no-duplicate-imports
 import type { ContextMenuElement, ContextMenuItem } from '@vaadin/vaadin-context-menu/vaadin-context-menu.js'
@@ -14,6 +14,7 @@ import './styles.scss'
 export class WebPlatformService extends PlatformService {
     private menu: ContextMenuElement
     private contextMenuHandlers = new Map<ContextMenuItem, () => void>()
+    private fileSelector: HTMLInputElement
 
     constructor (
         private ngbModal: NgbModal,
@@ -24,6 +25,11 @@ export class WebPlatformService extends PlatformService {
             this.contextMenuHandlers.get(e.detail.value)?.()
         })
         document.body.appendChild(this.menu)
+
+        this.fileSelector = document.createElement('input')
+        this.fileSelector.type = 'file'
+        this.fileSelector.style.visibility = 'hidden'
+        document.body.appendChild(this.fileSelector)
     }
 
     readClipboard (): string {
@@ -99,4 +105,71 @@ export class WebPlatformService extends PlatformService {
     quit (): void {
         window.close()
     }
+
+    async startDownload (name: string, size: number): Promise<FileDownload|null> {
+        const transfer = new HTMLFileDownload(name, size)
+        this.fileTransferStarted.next(transfer)
+        return transfer
+    }
+
+    startUpload (options?: FileUploadOptions): Promise<FileUpload[]> {
+        return new Promise(resolve => {
+            this.fileSelector.onchange = () => {
+                const transfers: FileUpload[] = []
+                const fileList = this.fileSelector.files!
+                // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+                for (let i = 0; i < (fileList.length ?? 0); i++) {
+                    const file = fileList[i]
+                    const transfer = new HTMLFileUpload(file)
+                    this.fileTransferStarted.next(transfer)
+                    transfers.push(transfer)
+                    if (!options?.multiple) {
+                        break
+                    }
+                }
+                resolve(transfers)
+            }
+            this.fileSelector.click()
+        })
+    }
+}
+
+class HTMLFileDownload extends FileDownload {
+    private buffers: Buffer[] = []
+
+    constructor (
+        private name: string,
+        private size: number,
+    ) {
+        super()
+    }
+
+    getName (): string {
+        return this.name
+    }
+
+    getSize (): number {
+        return this.size
+    }
+
+    async write (buffer: Buffer): Promise<void> {
+        this.buffers.push(Buffer.from(buffer))
+        this.increaseProgress(buffer.length)
+        if (this.isComplete()) {
+            this.finish()
+        }
+    }
+
+    finish () {
+        const blob = new Blob(this.buffers, { type: 'application/octet-stream' })
+        const element = window.document.createElement('a')
+        element.href = window.URL.createObjectURL(blob)
+        element.download = this.name
+        document.body.appendChild(element)
+        element.click()
+        document.body.removeChild(element)
+    }
+
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    close (): void { }
 }
