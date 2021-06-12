@@ -1,10 +1,10 @@
 button.btn.btn-secondary.btn-minimize(
-    (click)='hostApp.minimize()',
+    (click)='hostWindow.minimize()',
 )
     svg(version='1.1', width='10', height='10')
         path(d='M 0,5 10,5 10,6 0,6 Z')
 button.btn.btn-secondary.btn-maximize(
-    (click)='hostApp.toggleMaximize()',
+    (click)='hostWindow.toggleMaximize()',
 )
     svg(version='1.1', width='10', height='10')
         path(d='M 0,0 0,10 10,10 10,0 Z M 1,1 9,1 9,9 1,9 Z')
