@@ -3,7 +3,7 @@ import { promisify } from 'util'
 import { Injectable, NgZone } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { AsyncSubject, Subject, Observable } from 'rxjs'
-import { wrapPromise } from 'terminus-core'
+import { wrapPromise } from '../utils'
 import { UnlockVaultModalComponent } from '../components/unlockVaultModal.component'
 import { NotificationsService } from '../services/notifications.service'
 
