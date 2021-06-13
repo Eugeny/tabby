@@ -121,7 +121,7 @@ export class VaultService {
             passphrase = await this.getPassphrase()
         }
         try {
-            return await wrapPromise(this.zone, decryptVault(storage, passphrase))
+            return wrapPromise(this.zone, decryptVault(storage, passphrase))
         } catch (e) {
             _rememberedPassphrase = null
             if (e.toString().includes('BAD_DECRYPT')) {
