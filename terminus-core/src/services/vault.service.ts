@@ -3,9 +3,9 @@ import { promisify } from 'util'
 import { Injectable, NgZone } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { AsyncSubject, Subject, Observable } from 'rxjs'
+import { wrapPromise } from 'terminus-core'
 import { UnlockVaultModalComponent } from '../components/unlockVaultModal.component'
 import { NotificationsService } from '../services/notifications.service'
-import { wrapPromise } from 'utils'
 
 const PBKDF_ITERATIONS = 100000
 const PBKDF_DIGEST = 'sha512'
@@ -121,7 +121,7 @@ export class VaultService {
             passphrase = await this.getPassphrase()
         }
         try {
-            return wrapPromise(this.zone, decryptVault(storage, passphrase))
+            return await wrapPromise(this.zone, decryptVault(storage, passphrase))
         } catch (e) {
             _rememberedPassphrase = null
             if (e.toString().includes('BAD_DECRYPT')) {
