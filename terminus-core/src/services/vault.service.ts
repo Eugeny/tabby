@@ -5,6 +5,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { AsyncSubject, Subject, Observable } from 'rxjs'
 import { UnlockVaultModalComponent } from '../components/unlockVaultModal.component'
 import { NotificationsService } from '../services/notifications.service'
+import { wrapPromise } from 'utils'
 
 const PBKDF_ITERATIONS = 100000
 const PBKDF_DIGEST = 'sha512'
@@ -120,7 +121,7 @@ export class VaultService {
             passphrase = await this.getPassphrase()
         }
         try {
-            return await this.wrapPromise(decryptVault(storage, passphrase))
+            return await wrapPromise(this.zone, decryptVault(storage, passphrase))
         } catch (e) {
             _rememberedPassphrase = null
             if (e.toString().includes('BAD_DECRYPT')) {
@@ -144,7 +145,7 @@ export class VaultService {
         if (_rememberedPassphrase) {
             _rememberedPassphrase = passphrase
         }
-        return this.wrapPromise(encryptVault(vault, passphrase))
+        return wrapPromise(this.zone, encryptVault(vault, passphrase))
     }
 
     async save (vault: Vault, passphrase?: string): Promise<void> {
@@ -209,15 +210,5 @@ export class VaultService {
 
     isEnabled (): boolean {
         return !!this.store
-    }
-
-    private wrapPromise <T> (promise: Promise<T>): Promise<T> {
-        return new Promise((resolve, reject) => {
-            promise.then(result => {
-                this.zone.run(() => resolve(result))
-            }).catch(error => {
-                this.zone.run(() => reject(error))
-            })
-        })
     }
 }

@@ -5,12 +5,13 @@ import * as sshpk from 'sshpk'
 import colors from 'ansi-colors'
 import stripAnsi from 'strip-ansi'
 import socksv5 from 'socksv5'
-import { Injector } from '@angular/core'
+import { Injector, NgZone } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
-import { HostAppService, Logger, NotificationsService, Platform, PlatformService } from 'terminus-core'
+import { HostAppService, Logger, NotificationsService, Platform, PlatformService, wrapPromise } from 'terminus-core'
 import { BaseSession } from 'terminus-terminal'
 import { Server, Socket, createServer, createConnection } from 'net'
 import { Client, ClientChannel, SFTPWrapper } from 'ssh2'
+import type { FileEntry, Stats } from 'ssh2-streams'
 import { Subject, Observable } from 'rxjs'
 import { ProxyCommandStream } from './services/ssh.service'
 import { PasswordStorageService } from './services/passwordStorage.service'
@@ -137,6 +138,77 @@ interface AuthMethod {
     path?: string
 }
 
+export class SFTPFileHandle {
+    position = 0
+
+    constructor (
+        private sftp: SFTPWrapper,
+        private handle: Buffer,
+        private zone: NgZone,
+    ) { }
+
+    read (): Promise<Buffer> {
+        const buffer = Buffer.alloc(256 * 1024)
+        return wrapPromise(this.zone, new Promise((resolve, reject) => {
+            while (true) {
+                const wait = this.sftp.read(this.handle, buffer, 0, buffer.length, this.position, (err, read) => {
+                    if (err) {
+                        reject(err)
+                        return
+                    }
+                    this.position += read
+                    resolve(buffer.slice(0, read))
+                })
+                if (!wait) {
+                    break
+                }
+            }
+        }))
+    }
+
+    write (chunk: Buffer): Promise<void> {
+        return wrapPromise(this.zone, new Promise<void>((resolve, reject) => {
+            while (true) {
+                const wait = this.sftp.write(this.handle, chunk, 0, chunk.length, this.position, err => {
+                    if (err) {
+                        return reject(err)
+                    }
+                    this.position += chunk.length
+                    resolve()
+                })
+                if (!wait) {
+                    break
+                }
+            }
+        }))
+    }
+
+    close (): Promise<void> {
+        return wrapPromise(this.zone, promisify(this.sftp.close.bind(this.sftp))(this.handle))
+    }
+}
+
+export class SFTPSession {
+    constructor (private sftp: SFTPWrapper, private zone: NgZone) { }
+
+    readdir (p: string): Promise<FileEntry[]> {
+        return wrapPromise(this.zone, promisify<FileEntry[]>(f => this.sftp.readdir(p, f))())
+    }
+
+    readlink (p: string): Promise<string> {
+        return wrapPromise(this.zone, promisify<string>(f => this.sftp.readlink(p, f))())
+    }
+
+    stat (p: string): Promise<Stats> {
+        return wrapPromise(this.zone, promisify<Stats>(f => this.sftp.stat(p, f))())
+    }
+
+    async open (p: string, mode: string): Promise<SFTPFileHandle> {
+        const handle = await wrapPromise(this.zone, promisify<Buffer>(f => this.sftp.open(p, mode, f))())
+        return new SFTPFileHandle(this.sftp, handle, this.zone)
+    }
+}
+
 export class SSHSession extends BaseSession {
     scripts?: LoginScript[]
     shell?: ClientChannel
@@ -161,6 +233,7 @@ export class SSHSession extends BaseSession {
     private hostApp: HostAppService
     private platform: PlatformService
     private notifications: NotificationsService
+    private zone: NgZone
 
     constructor (
         injector: Injector,
@@ -172,6 +245,7 @@ export class SSHSession extends BaseSession {
         this.hostApp = injector.get(HostAppService)
         this.platform = injector.get(PlatformService)
         this.notifications = injector.get(NotificationsService)
+        this.zone = injector.get(NgZone)
 
         this.scripts = connection.scripts ?? []
         this.destroyed$.subscribe(() => {
@@ -223,11 +297,11 @@ export class SSHSession extends BaseSession {
         this.remainingAuthMethods.push({ type: 'hostbased' })
     }
 
-    async openSFTP (): Promise<SFTPWrapper> {
+    async openSFTP (): Promise<SFTPSession> {
         if (!this.sftp) {
-            this.sftp = await promisify<SFTPWrapper>(f => this.ssh.sftp(f))()
+            this.sftp = await wrapPromise(this.zone, promisify<SFTPWrapper>(f => this.ssh.sftp(f))())
         }
-        return this.sftp
+        return new SFTPSession(this.sftp, this.zone)
     }
 
     async start (): Promise<void> {

@@ -1,8 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core'
-import { SFTPWrapper } from 'ssh2'
-import type { FileEntry, Stats } from 'ssh2-streams'
-import { promisify } from 'util'
-import { SSHSession } from '../api'
+import type { FileEntry } from 'ssh2-streams'
+import { SSHSession, SFTPSession } from '../api'
 import * as path from 'path'
 import * as C from 'constants'
 import { FileUpload, PlatformService } from 'terminus-core'
@@ -21,7 +19,7 @@ interface PathSegment {
 export class SFTPPanelComponent {
     @Input() session: SSHSession
     @Output() closed = new EventEmitter<void>()
-    sftp: SFTPWrapper
+    sftp: SFTPSession
     fileList: FileEntry[]|null = null
     path = '/'
     pathSegments: PathSegment[] = []
@@ -49,8 +47,7 @@ export class SFTPPanelComponent {
         }
 
         this.fileList = null
-        this.fileList = await promisify<FileEntry[]>(f => this.sftp.readdir(this.path, f))()
-        console.log(this.fileList)
+        this.fileList = await this.sftp.readdir(this.path)
 
         const dirKey = a => (a.attrs.mode & C.S_IFDIR) === C.S_IFDIR ? 1 : 0
         this.fileList.sort((a, b) =>
@@ -77,8 +74,8 @@ export class SFTPPanelComponent {
         if ((item.attrs.mode & C.S_IFDIR) === C.S_IFDIR) {
             this.navigate(path.join(this.path, item.filename))
         } else if ((item.attrs.mode & C.S_IFLNK) === C.S_IFLNK) {
-            const target = await promisify<string>(f => this.sftp.readlink(itemPath, f))()
-            const stat = await promisify<Stats>(f => this.sftp.stat(target, f))()
+            const target = await this.sftp.readlink(itemPath)
+            const stat = await this.sftp.stat(target)
             if (stat.isDirectory()) {
                 this.navigate(itemPath)
             } else {
@@ -104,30 +101,15 @@ export class SFTPPanelComponent {
     async uploadOne (transfer: FileUpload): Promise<void> {
         const itemPath = path.join(this.path, transfer.getName())
         try {
-            const handle = await promisify<Buffer>(f => this.sftp.open(itemPath, 'w', f))()
-            let position = 0
+            const handle = await this.sftp.open(itemPath, 'w')
             while (true) {
                 const chunk = await transfer.read()
                 if (!chunk.length) {
                     break
                 }
-                const p = position
-                await new Promise<void>((resolve, reject) => {
-                    while (true) {
-                        const wait = this.sftp.write(handle, chunk, 0, chunk.length, p, err => {
-                            if (err) {
-                                return reject(err)
-                            }
-                            resolve()
-                        })
-                        if (!wait) {
-                            break
-                        }
-                    }
-                })
-                position += chunk.length
+                await handle.write(chunk)
             }
-            this.sftp.close(handle, () => null)
+            handle.close()
             transfer.close()
         } catch (e) {
             transfer.cancel()
@@ -141,33 +123,16 @@ export class SFTPPanelComponent {
             return
         }
         try {
-            const handle = await promisify<Buffer>(f => this.sftp.open(itemPath, 'r', f))()
-            const buffer = Buffer.alloc(256 * 1024)
-            let position = 0
+            const handle = await this.sftp.open(itemPath, 'r')
             while (true) {
-                const p = position
-                const chunk: Buffer = await new Promise((resolve, reject) => {
-                    while (true) {
-                        const wait = this.sftp.read(handle, buffer, 0, buffer.length, p, (err, read) => {
-                            if (err) {
-                                reject(err)
-                                return
-                            }
-                            resolve(buffer.slice(0, read))
-                        })
-                        if (!wait) {
-                            break
-                        }
-                    }
-                })
+                const chunk = await handle.read()
                 if (!chunk.length) {
                     break
                 }
                 await transfer.write(chunk)
-                position += chunk.length
             }
             transfer.close()
-            this.sftp.close(handle, () => null)
+            handle.close()
         } catch (e) {
             transfer.cancel()
             throw e

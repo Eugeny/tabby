@@ -5,7 +5,7 @@ import * as os from 'os'
 import promiseIpc from 'electron-promise-ipc'
 import { execFile } from 'mz/child_process'
 import { Injectable, NgZone } from '@angular/core'
-import { PlatformService, ClipboardContent, HostAppService, Platform, ElectronService, MenuItemOptions, MessageBoxOptions, MessageBoxResult, FileUpload, FileDownload, FileUploadOptions } from 'terminus-core'
+import { PlatformService, ClipboardContent, HostAppService, Platform, ElectronService, MenuItemOptions, MessageBoxOptions, MessageBoxResult, FileUpload, FileDownload, FileUploadOptions, wrapPromise } from 'terminus-core'
 const fontManager = require('fontmanager-redux') // eslint-disable-line
 
 /* eslint-disable block-scoped-var */
@@ -181,7 +181,7 @@ export class ElectronPlatformService extends PlatformService {
 
         return Promise.all(result.filePaths.map(async p => {
             const transfer = new ElectronFileUpload(p)
-            await this.wrapPromise(transfer.open())
+            await wrapPromise(this.zone, transfer.open())
             this.fileTransferStarted.next(transfer)
             return transfer
         }))
@@ -198,19 +198,9 @@ export class ElectronPlatformService extends PlatformService {
             return null
         }
         const transfer = new ElectronFileDownload(result.filePath, size)
-        await this.wrapPromise(transfer.open())
+        await wrapPromise(this.zone, transfer.open())
         this.fileTransferStarted.next(transfer)
         return transfer
-    }
-
-    private wrapPromise <T> (promise: Promise<T>): Promise<T> {
-        return new Promise((resolve, reject) => {
-            promise.then(result => {
-                this.zone.run(() => resolve(result))
-            }).catch(error => {
-                this.zone.run(() => reject(error))
-            })
-        })
     }
 }
 

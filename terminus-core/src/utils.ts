@@ -1,4 +1,5 @@
 import * as os from 'os'
+import { NgZone } from '@angular/core'
 
 export const WIN_BUILD_CONPTY_SUPPORTED = 17692
 export const WIN_BUILD_CONPTY_STABLE = 18309
@@ -19,4 +20,14 @@ export function getCSSFontFamily (config: any): string {
     fonts.push('monospace')
     fonts = fonts.map(x => `"${x}"`)
     return fonts.join(', ')
+}
+
+export function wrapPromise <T> (zone: NgZone, promise: Promise<T>): Promise<T> {
+    return new Promise((resolve, reject) => {
+        promise.then(result => {
+            zone.run(() => resolve(result))
+        }).catch(error => {
+            zone.run(() => reject(error))
+        })
+    })
 }
