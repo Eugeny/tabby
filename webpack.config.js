@@ -11,4 +11,5 @@ module.exports = [
     require('./terminus-plugin-manager/webpack.config.js'),
     require('./terminus-ssh/webpack.config.js'),
     require('./terminus-serial/webpack.config.js'),
+    require('./terminus-web/webpack.config.js'),
 ]

@@ -1,4 +1,3 @@
-import { execFile } from 'mz/child_process'
 import { Component } from '@angular/core'
 import { ConfigService, HostAppService, Platform, PlatformService } from 'terminus-core'
 
@@ -17,6 +16,6 @@ export class TerminalSettingsTabComponent {
 
     openWSLVolumeMixer (): void {
         this.platform.openPath('sndvol.exe')
-        execFile('wsl.exe', ['tput', 'bel'])
+        this.platform.exec('wsl.exe', ['tput', 'bel'])
     }
 }

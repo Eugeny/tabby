@@ -297,7 +297,7 @@ export class XTermFrontend extends Frontend {
             this.configuredTheme = theme
         }
 
-        if (this.opened && config.terminal.ligatures && !this.ligaturesAddon) {
+        if (this.opened && config.terminal.ligatures && !this.ligaturesAddon && this.hostApp.platform !== Platform.Web) {
             this.ligaturesAddon = new LigaturesAddon()
             this.xterm.loadAddon(this.ligaturesAddon)
         }

@@ -1,0 +1,36 @@
+{
+    "compilerOptions": {
+        "baseUrl": "./src",
+        "module": "commonjs",
+        "target": "es2015",
+        "declaration": false,
+        "noImplicitAny": false,
+        "removeComments": false,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "sourceMap": true,
+        "noImplicitReturns": true,
+        "noFallthroughCasesInSwitch": true,
+        "noUnusedParameters": true,
+        "noUnusedLocals": true,
+        "lib": [
+           "dom",
+           "es2015",
+           "es2015.iterable",
+           "es2017",
+           "es2019",
+           "es7"
+        ],
+        "paths": {
+            "*": ["../../app/node_modules/*"]
+        }
+    },
+    "compileOnSave": false,
+    "exclude": [
+        "dist",
+        "node_modules",
+        "*/node_modules",
+        "terminus*",
+        "platforms"
+    ]
+}

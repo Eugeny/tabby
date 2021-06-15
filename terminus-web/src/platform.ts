@@ -10,16 +10,20 @@ import type { ContextMenuElement, ContextMenuItem } from '@vaadin/vaadin-context
 import { MessageBoxModalComponent } from './components/messageBoxModal.component'
 import './styles.scss'
 
+
 @Injectable()
 export class WebPlatformService extends PlatformService {
     private menu: ContextMenuElement
     private contextMenuHandlers = new Map<ContextMenuItem, () => void>()
     private fileSelector: HTMLInputElement
+    private connector: any
 
     constructor (
         private ngbModal: NgbModal,
     ) {
         super()
+        this.connector = window['__connector__']
+
         this.menu = window.document.createElement('vaadin-context-menu')
         this.menu.addEventListener('item-selected', e => {
             this.contextMenuHandlers.get(e.detail.value)?.()
@@ -41,11 +45,11 @@ export class WebPlatformService extends PlatformService {
     }
 
     async loadConfig (): Promise<string> {
-        return window['terminusConfig']
+        return this.connector.loadConfig()
     }
 
     async saveConfig (content: string): Promise<void> {
-        console.log('config save', content)
+        await this.connector.saveConfig(content)
     }
 
     getOSRelease (): string {
