@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core'
 import type { FileEntry } from 'ssh2-streams'
 import { SSHSession, SFTPSession } from '../api'
-import * as path from 'path'
+import { posix as path } from 'path'
 import * as C from 'constants'
 import { FileUpload, PlatformService } from 'terminus-core'
 
