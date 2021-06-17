@@ -20,16 +20,18 @@ export class WinSCPContextMenu extends TabContextMenuItemProvider {
         if (!(tab instanceof SSHTabComponent) || !tab.connection) {
             return []
         }
-        if (this.hostApp.platform !== Platform.Windows || !this.ssh.getWinSCPPath()) {
-            return []
-        }
-        return [
-            {
+        const items = [{
+            label: 'Open SFTP panel',
+            click: () => tab.openSFTP(),
+        }]
+        if (this.hostApp.platform === Platform.Windows && this.ssh.getWinSCPPath()) {
+            items.push({
                 label: 'Launch WinSCP',
                 click: (): void => {
                     this.ssh.launchWinSCP(tab.session!)
                 },
-            },
-        ]
+            })
+        }
+        return items
     }
 }

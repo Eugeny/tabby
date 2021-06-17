@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { Injectable, NgZone } from '@angular/core'
+import { Injectable } from '@angular/core'
 import { Subscription } from 'rxjs'
 import { AppService } from './services/app.service'
 import { BaseTabComponent } from './components/baseTab.component'
@@ -15,7 +15,6 @@ export class TabManagementContextMenu extends TabContextMenuItemProvider {
 
     constructor (
         private app: AppService,
-        private zone: NgZone,
     ) {
         super()
     }
@@ -24,13 +23,13 @@ export class TabManagementContextMenu extends TabContextMenuItemProvider {
         let items: MenuItemOptions[] = [
             {
                 label: 'Close',
-                click: () => this.zone.run(() => {
+                click: () => {
                     if (this.app.tabs.includes(tab)) {
                         this.app.closeTab(tab, true)
                     } else {
                         tab.destroy()
                     }
-                }),
+                },
             },
         ]
         if (tabHeader) {
@@ -38,27 +37,27 @@ export class TabManagementContextMenu extends TabContextMenuItemProvider {
                 ...items,
                 {
                     label: 'Close other tabs',
-                    click: () => this.zone.run(() => {
+                    click: () => {
                         for (const t of this.app.tabs.filter(x => x !== tab)) {
                             this.app.closeTab(t, true)
                         }
-                    }),
+                    },
                 },
                 {
                     label: 'Close tabs to the right',
-                    click: () => this.zone.run(() => {
+                    click: () => {
                         for (const t of this.app.tabs.slice(this.app.tabs.indexOf(tab) + 1)) {
                             this.app.closeTab(t, true)
                         }
-                    }),
+                    },
                 },
                 {
                     label: 'Close tabs to the left',
-                    click: () => this.zone.run(() => {
+                    click: () => {
                         for (const t of this.app.tabs.slice(0, this.app.tabs.indexOf(tab))) {
                             this.app.closeTab(t, true)
                         }
-                    }),
+                    },
                 },
             ]
         } else {
@@ -73,9 +72,9 @@ export class TabManagementContextMenu extends TabContextMenuItemProvider {
                             l: 'Left',
                             t: 'Up',
                         }[dir],
-                        click: () => this.zone.run(() => {
+                        click: () => {
                             (tab.parent as SplitTabComponent).splitTab(tab, dir)
-                        }),
+                        },
                     })) as MenuItemOptions[],
                 })
             }
@@ -100,7 +99,6 @@ export class CommonOptionsContextMenu extends TabContextMenuItemProvider {
     weight = -1
 
     constructor (
-        private zone: NgZone,
         private app: AppService,
     ) {
         super()
@@ -113,11 +111,11 @@ export class CommonOptionsContextMenu extends TabContextMenuItemProvider {
                 ...items,
                 {
                     label: 'Rename',
-                    click: () => this.zone.run(() => tabHeader.showRenameTabModal()),
+                    click: () => tabHeader.showRenameTabModal(),
                 },
                 {
                     label: 'Duplicate',
-                    click: () => this.zone.run(() => this.app.duplicateTab(tab)),
+                    click: () => this.app.duplicateTab(tab),
                 },
                 {
                     label: 'Color',
@@ -126,9 +124,9 @@ export class CommonOptionsContextMenu extends TabContextMenuItemProvider {
                         label: color.name,
                         type: 'radio',
                         checked: tab.color === color.value,
-                        click: () => this.zone.run(() => {
+                        click: () => {
                             tab.color = color.value
-                        }),
+                        },
                     })) as MenuItemOptions[],
                 },
             ]
@@ -142,7 +140,6 @@ export class CommonOptionsContextMenu extends TabContextMenuItemProvider {
 export class TaskCompletionContextMenu extends TabContextMenuItemProvider {
     constructor (
         private app: AppService,
-        private zone: NgZone,
     ) {
         super()
     }
@@ -162,7 +159,7 @@ export class TaskCompletionContextMenu extends TabContextMenuItemProvider {
                 label: 'Notify when done',
                 type: 'checkbox',
                 checked: extTab.__completionNotificationEnabled,
-                click: () => this.zone.run(() => {
+                click: () => {
                     extTab.__completionNotificationEnabled = !extTab.__completionNotificationEnabled
 
                     if (extTab.__completionNotificationEnabled) {
@@ -177,14 +174,14 @@ export class TaskCompletionContextMenu extends TabContextMenuItemProvider {
                     } else {
                         this.app.stopObservingTabCompletion(tab)
                     }
-                }),
+                },
             })
         }
         items.push({
             label: 'Notify on activity',
             type: 'checkbox',
             checked: !!extTab.__outputNotificationSubscription,
-            click: () => this.zone.run(() => {
+            click: () => {
                 if (extTab.__outputNotificationSubscription) {
                     extTab.__outputNotificationSubscription.unsubscribe()
                     extTab.__outputNotificationSubscription = null
@@ -201,7 +198,7 @@ export class TaskCompletionContextMenu extends TabContextMenuItemProvider {
                         }
                     })
                 }
-            }),
+            },
         })
         return items
     }

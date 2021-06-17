@@ -147,9 +147,19 @@ export class ElectronPlatformService extends PlatformService {
     }
 
     popupContextMenu (menu: MenuItemOptions[], _event?: MouseEvent): void {
-        this.electron.Menu.buildFromTemplate(menu.map(item => ({
-            ...item,
-        }))).popup({})
+        this.electron.Menu.buildFromTemplate(menu.map(item => this.rewrapMenuItemOptions(item))).popup({})
+    }
+
+    rewrapMenuItemOptions (menu: MenuItemOptions): MenuItemOptions {
+        return {
+            ...menu,
+            click: () => {
+                this.zone.run(() => {
+                    menu.click?.()
+                })
+            },
+            submenu: menu.submenu ? menu.submenu.map(x => this.rewrapMenuItemOptions(x)) : undefined,
+        }
     }
 
     async showMessageBox (options: MessageBoxOptions): Promise<MessageBoxResult> {

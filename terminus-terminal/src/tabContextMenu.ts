@@ -1,4 +1,4 @@
-import { Injectable, NgZone, Optional, Inject } from '@angular/core'
+import { Injectable, Optional, Inject } from '@angular/core'
 import { BaseTabComponent, TabContextMenuItemProvider, TabHeaderComponent, NotificationsService, MenuItemOptions } from 'terminus-core'
 import { BaseTerminalTabComponent } from './api/baseTerminalTab.component'
 import { TerminalContextMenuItemProvider } from './api/contextMenuProvider'
@@ -9,7 +9,6 @@ export class CopyPasteContextMenu extends TabContextMenuItemProvider {
     weight = -10
 
     constructor (
-        private zone: NgZone,
         private notifications: NotificationsService,
     ) {
         super()
@@ -24,19 +23,15 @@ export class CopyPasteContextMenu extends TabContextMenuItemProvider {
                 {
                     label: 'Copy',
                     click: (): void => {
-                        this.zone.run(() => {
-                            setTimeout(() => {
-                                tab.frontend?.copySelection()
-                                this.notifications.notice('Copied')
-                            })
+                        setTimeout(() => {
+                            tab.frontend?.copySelection()
+                            this.notifications.notice('Copied')
                         })
                     },
                 },
                 {
                     label: 'Paste',
-                    click: (): void => {
-                        this.zone.run(() => tab.paste())
-                    },
+                    click: () => tab.paste(),
                 },
             ]
         }

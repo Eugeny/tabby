@@ -1,4 +1,4 @@
-import { Injectable, NgZone } from '@angular/core'
+import { Injectable } from '@angular/core'
 import { ConfigService, BaseTabComponent, TabContextMenuItemProvider, TabHeaderComponent, SplitTabComponent, NotificationsService, MenuItemOptions } from 'terminus-core'
 import { TerminalTabComponent } from './components/terminalTab.component'
 import { UACService } from './services/uac.service'
@@ -9,7 +9,6 @@ import { TerminalService } from './services/terminal.service'
 export class SaveAsProfileContextMenu extends TabContextMenuItemProvider {
     constructor (
         private config: ConfigService,
-        private zone: NgZone,
         private notifications: NotificationsService,
     ) {
         super()
@@ -22,7 +21,7 @@ export class SaveAsProfileContextMenu extends TabContextMenuItemProvider {
         const items: MenuItemOptions[] = [
             {
                 label: 'Save as profile',
-                click: () => this.zone.run(async () => {
+                click: async () => {
                     const profile = {
                         sessionOptions: {
                             ...tab.sessionOptions,
@@ -36,7 +35,7 @@ export class SaveAsProfileContextMenu extends TabContextMenuItemProvider {
                     ]
                     this.config.save()
                     this.notifications.info('Saved')
-                }),
+                },
             },
         ]
 
@@ -51,7 +50,6 @@ export class NewTabContextMenu extends TabContextMenuItemProvider {
 
     constructor (
         public config: ConfigService,
-        private zone: NgZone,
         private terminalService: TerminalService,
         private uac: UACService,
     ) {
@@ -64,21 +62,21 @@ export class NewTabContextMenu extends TabContextMenuItemProvider {
         const items: MenuItemOptions[] = [
             {
                 label: 'New terminal',
-                click: () => this.zone.run(() => {
+                click: () => {
                     this.terminalService.openTabWithOptions((tab as any).sessionOptions)
-                }),
+                },
             },
             {
                 label: 'New with profile',
                 submenu: profiles.map(profile => ({
                     label: profile.name,
-                    click: () => this.zone.run(async () => {
+                    click: async () => {
                         let workingDirectory = this.config.store.terminal.workingDirectory
                         if (this.config.store.terminal.alwaysUseWorkingDirectory !== true && tab instanceof TerminalTabComponent) {
                             workingDirectory = await tab.session?.getWorkingDirectory()
                         }
                         await this.terminalService.openTab(profile, workingDirectory)
-                    }),
+                    },
                 })),
             },
         ]
@@ -88,12 +86,12 @@ export class NewTabContextMenu extends TabContextMenuItemProvider {
                 label: 'New admin tab',
                 submenu: profiles.map(profile => ({
                     label: profile.name,
-                    click: () => this.zone.run(async () => {
+                    click: () => {
                         this.terminalService.openTabWithOptions({
                             ...profile.sessionOptions,
                             runAsAdministrator: true,
                         })
-                    }),
+                    },
                 })),
             })
         }
@@ -101,28 +99,28 @@ export class NewTabContextMenu extends TabContextMenuItemProvider {
         if (tab instanceof TerminalTabComponent && tabHeader && this.uac.isAvailable) {
             items.push({
                 label: 'Duplicate as administrator',
-                click: () => this.zone.run(async () => {
+                click: () => {
                     this.terminalService.openTabWithOptions({
                         ...tab.sessionOptions,
                         runAsAdministrator: true,
                     })
-                }),
+                },
             })
         }
 
         if (tab instanceof TerminalTabComponent && tab.parent instanceof SplitTabComponent && tab.parent.getAllTabs().length > 1) {
             items.push({
                 label: 'Focus all panes',
-                click: () => this.zone.run(() => {
+                click: () => {
                     tab.focusAllPanes()
-                }),
+                },
             })
         }
 
         if (tab instanceof TerminalTabComponent && tab.session?.supportsWorkingDirectory()) {
             items.push({
                 label: 'Copy current path',
-                click: () => this.zone.run(() => tab.copyCurrentPath()),
+                click: () => tab.copyCurrentPath(),
             })
         }
 
