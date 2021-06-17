@@ -24,6 +24,10 @@
         margin: 0;
     }
 
+    .breadcrumb-item {
+        cursor: pointer;
+    }
+
     .breadcrumb-item:first-child {
         font-weight: bold;
     }

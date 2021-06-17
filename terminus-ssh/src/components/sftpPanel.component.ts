@@ -1,9 +1,10 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core'
-import type { FileEntry } from 'ssh2-streams'
-import { SSHSession, SFTPSession } from '../api'
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
+import { SSHSession, SFTPSession, SFTPFile } from '../api'
 import { posix as path } from 'path'
 import * as C from 'constants'
 import { FileUpload, PlatformService } from 'terminus-core'
+import { SFTPDeleteModalComponent } from './sftpDeleteModal.component'
 
 interface PathSegment {
     name: string
@@ -20,21 +21,24 @@ export class SFTPPanelComponent {
     @Input() session: SSHSession
     @Output() closed = new EventEmitter<void>()
     sftp: SFTPSession
-    fileList: FileEntry[]|null = null
-    path = '/'
+    fileList: SFTPFile[]|null = null
+    @Input() path = '/'
+    @Output() pathChange = new EventEmitter<string>()
     pathSegments: PathSegment[] = []
 
     constructor (
         private platform: PlatformService,
+        private ngbModal: NgbModal,
     ) { }
 
     async ngOnInit (): Promise<void> {
         this.sftp = await this.session.openSFTP()
-        this.navigate('/')
+        this.navigate(this.path)
     }
 
     async navigate (newPath: string): Promise<void> {
         this.path = newPath
+        this.pathChange.next(this.path)
 
         let p = newPath
         this.pathSegments = []
@@ -49,17 +53,17 @@ export class SFTPPanelComponent {
         this.fileList = null
         this.fileList = await this.sftp.readdir(this.path)
 
-        const dirKey = a => (a.attrs.mode & C.S_IFDIR) === C.S_IFDIR ? 1 : 0
+        const dirKey = a => a.isDirectory ? 1 : 0
         this.fileList.sort((a, b) =>
             dirKey(b) - dirKey(a) ||
-            a.filename.localeCompare(b.filename))
+            a.name.localeCompare(b.name))
     }
 
-    getIcon (item: FileEntry): string {
-        if ((item.attrs.mode & C.S_IFDIR) === C.S_IFDIR) {
+    getIcon (item: SFTPFile): string {
+        if (item.isDirectory) {
             return 'fas fa-folder text-info'
         }
-        if ((item.attrs.mode & C.S_IFLNK) === C.S_IFLNK) {
+        if (item.isSymlink) {
             return 'fas fa-link text-warning'
         }
         return 'fas fa-file'
@@ -69,20 +73,19 @@ export class SFTPPanelComponent {
         this.navigate(path.dirname(this.path))
     }
 
-    async open (item: FileEntry): Promise<void> {
-        const itemPath = path.join(this.path, item.filename)
-        if ((item.attrs.mode & C.S_IFDIR) === C.S_IFDIR) {
-            this.navigate(path.join(this.path, item.filename))
-        } else if ((item.attrs.mode & C.S_IFLNK) === C.S_IFLNK) {
-            const target = await this.sftp.readlink(itemPath)
+    async open (item: SFTPFile): Promise<void> {
+        if (item.isDirectory) {
+            this.navigate(item.fullPath)
+        } else if (item.isSymlink) {
+            const target = await this.sftp.readlink(item.fullPath)
             const stat = await this.sftp.stat(target)
-            if (stat.isDirectory()) {
-                this.navigate(itemPath)
+            if (stat.isDirectory) {
+                this.navigate(item.fullPath)
             } else {
-                this.download(itemPath, stat.size)
+                this.download(item.fullPath, stat.size)
             }
         } else {
-            this.download(itemPath, item.attrs.size)
+            this.download(item.fullPath, item.size)
         }
     }
 
@@ -139,7 +142,7 @@ export class SFTPPanelComponent {
         }
     }
 
-    getModeString (item: FileEntry): string {
+    getModeString (item: SFTPFile): string {
         const s = 'SGdrwxrwxrwx'
         const e = '   ---------'
         const c = [
@@ -150,9 +153,36 @@ export class SFTPPanelComponent {
         ]
         let result = ''
         for (let i = 0; i < c.length; i++) {
-            result += item.attrs.mode & c[i] ? s[i] : e[i]
+            result += item.mode & c[i] ? s[i] : e[i]
         }
         return result
+    }
+
+    showContextMenu (item: SFTPFile, event: MouseEvent): void {
+        event.preventDefault()
+        this.platform.popupContextMenu([
+            {
+                click: async () => {
+                    if ((await this.platform.showMessageBox({
+                        type: 'warning',
+                        message: `Delete ${item.fullPath}?`,
+                        defaultId: 0,
+                        buttons: ['Delete', 'Cancel'],
+                    })).response === 0) {
+                        await this.deleteItem(item)
+                        this.navigate(this.path)
+                    }
+                },
+                label: 'Delete',
+            },
+        ], event)
+    }
+
+    async deleteItem (item: SFTPFile): Promise<void> {
+        const modal = this.ngbModal.open(SFTPDeleteModalComponent)
+        modal.componentInstance.item = item
+        modal.componentInstance.sftp = this.sftp
+        await modal.result
     }
 
     close (): void {

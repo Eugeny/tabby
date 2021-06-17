@@ -6,7 +6,7 @@ import { SSHService } from './services/ssh.service'
 
 /** @hidden */
 @Injectable()
-export class WinSCPContextMenu extends TabContextMenuItemProvider {
+export class SFTPContextMenu extends TabContextMenuItemProvider {
     weight = 10
 
     constructor (

@@ -14,13 +14,14 @@ import { PromptModalComponent } from './components/promptModal.component'
 import { SSHSettingsTabComponent } from './components/sshSettingsTab.component'
 import { SSHTabComponent } from './components/sshTab.component'
 import { SFTPPanelComponent } from './components/sftpPanel.component'
+import { SFTPDeleteModalComponent } from './components/sftpDeleteModal.component'
 
 import { ButtonProvider } from './buttonProvider'
 import { SSHConfigProvider } from './config'
 import { SSHSettingsTabProvider } from './settings'
 import { RecoveryProvider } from './recoveryProvider'
 import { SSHHotkeyProvider } from './hotkeys'
-import { WinSCPContextMenu } from './tabContextMenu'
+import { SFTPContextMenu } from './tabContextMenu'
 import { SSHCLIHandler } from './cli'
 
 /** @hidden */
@@ -39,12 +40,13 @@ import { SSHCLIHandler } from './cli'
         { provide: SettingsTabProvider, useClass: SSHSettingsTabProvider, multi: true },
         { provide: TabRecoveryProvider, useClass: RecoveryProvider, multi: true },
         { provide: HotkeyProvider, useClass: SSHHotkeyProvider, multi: true },
-        { provide: TabContextMenuItemProvider, useClass: WinSCPContextMenu, multi: true },
+        { provide: TabContextMenuItemProvider, useClass: SFTPContextMenu, multi: true },
         { provide: CLIHandler, useClass: SSHCLIHandler, multi: true },
     ],
     entryComponents: [
         EditConnectionModalComponent,
         PromptModalComponent,
+        SFTPDeleteModalComponent,
         SSHPortForwardingModalComponent,
         SSHSettingsTabComponent,
         SSHTabComponent,
@@ -52,6 +54,7 @@ import { SSHCLIHandler } from './cli'
     declarations: [
         EditConnectionModalComponent,
         PromptModalComponent,
+        SFTPDeleteModalComponent,
         SSHPortForwardingModalComponent,
         SSHPortForwardingConfigComponent,
         SSHSettingsTabComponent,

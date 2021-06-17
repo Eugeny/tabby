@@ -152,3 +152,9 @@ ngb-typeahead-window {
         }
     }
 }
+
+.no-wrap {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}

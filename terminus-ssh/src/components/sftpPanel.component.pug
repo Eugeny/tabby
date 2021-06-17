@@ -25,9 +25,10 @@
                 div Go up
             .list-group-item.list-group-item-action.d-flex.align-items-center(
                 *ngFor='let item of fileList',
+                (contextmenu)='showContextMenu(item, $event)',
                 (click)='open(item)'
             )
                 i.fa-fw([class]='getIcon(item)')
-                div {{item.filename}}
+                div {{item.name}}
                 .mr-auto
                 .mode {{getModeString(item)}}

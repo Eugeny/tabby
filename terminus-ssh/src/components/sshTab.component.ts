@@ -21,6 +21,7 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
     connection?: SSHConnection
     session: SSHSession|null = null
     sftpPanelVisible = false
+    sftpPath = '/'
     private sessionStack: SSHSession[] = []
     private recentInputs = ''
     private reconnectOffered = false

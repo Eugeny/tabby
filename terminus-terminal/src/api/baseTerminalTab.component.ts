@@ -19,24 +19,44 @@ import { TerminalDecorator } from './decorator'
 export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit, OnDestroy {
     static template: string = require<string>('../components/baseTerminalTab.component.pug')
     static styles: string[] = [require<string>('../components/baseTerminalTab.component.scss')]
-    static animations: AnimationTriggerMetadata[] = [trigger('slideInOut', [
-        transition(':enter', [
-            style({
-                transform: 'translateY(-25%)',
-                opacity: '0',
-            }),
-            animate('100ms ease-out', style({
-                transform: 'translateY(0%)',
-                opacity: '1',
-            })),
+    static animations: AnimationTriggerMetadata[] = [
+        trigger('toolbarSlide', [
+            transition(':enter', [
+                style({
+                    transform: 'translateY(-25%)',
+                    opacity: '0',
+                }),
+                animate('100ms ease-out', style({
+                    transform: 'translateY(0%)',
+                    opacity: '1',
+                })),
+            ]),
+            transition(':leave', [
+                animate('100ms ease-out', style({
+                    transform: 'translateY(-25%)',
+                    opacity: '0',
+                })),
+            ]),
         ]),
-        transition(':leave', [
-            animate('100ms ease-out', style({
-                transform: 'translateY(-25%)',
-                opacity: '0',
-            })),
+        trigger('panelSlide', [
+            transition(':enter', [
+                style({
+                    transform: 'translateY(25%)',
+                    opacity: '0',
+                }),
+                animate('100ms ease-out', style({
+                    transform: 'translateY(0%)',
+                    opacity: '1',
+                })),
+            ]),
+            transition(':leave', [
+                animate('100ms ease-out', style({
+                    transform: 'translateY(25%)',
+                    opacity: '0',
+                })),
+            ]),
         ]),
-    ])]
+    ]
 
     session: BaseSession|null = null
     savedState?: any

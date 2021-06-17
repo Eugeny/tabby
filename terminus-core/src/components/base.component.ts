@@ -1,4 +1,4 @@
-import { Observable, Subscription } from 'rxjs'
+import { Observable, Subscription, Subject } from 'rxjs'
 
 interface CancellableEvent {
     element: HTMLElement
@@ -38,17 +38,21 @@ export class SubscriptionContainer {
 }
 
 export class BaseComponent {
-    private subscriptionContainer = new SubscriptionContainer()
+    protected get destroyed$ (): Observable<void> { return this._destroyed }
+    private _destroyed = new Subject<void>()
+    private _subscriptionContainer = new SubscriptionContainer()
 
     addEventListenerUntilDestroyed (element: HTMLElement, event: string, handler: EventListenerOrEventListenerObject, options?: boolean|AddEventListenerOptions): void {
-        this.subscriptionContainer.addEventListener(element, event, handler, options)
+        this._subscriptionContainer.addEventListener(element, event, handler, options)
     }
 
     subscribeUntilDestroyed <T> (observable: Observable<T>, handler: (v: T) => void): void {
-        this.subscriptionContainer.subscribe(observable, handler)
+        this._subscriptionContainer.subscribe(observable, handler)
     }
 
     ngOnDestroy (): void {
-        this.subscriptionContainer.cancelAll()
+        this._destroyed.next()
+        this._destroyed.complete()
+        this._subscriptionContainer.cancelAll()
     }
 }

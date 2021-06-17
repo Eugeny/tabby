@@ -1,6 +1,9 @@
 import * as fs from 'mz/fs'
 import * as crypto from 'crypto'
 import * as path from 'path'
+import * as C from 'constants'
+// eslint-disable-next-line @typescript-eslint/no-duplicate-imports, no-duplicate-imports
+import { posix as posixPath } from 'path'
 import * as sshpk from 'sshpk'
 import colors from 'ansi-colors'
 import stripAnsi from 'strip-ansi'
@@ -138,6 +141,15 @@ interface AuthMethod {
     path?: string
 }
 
+export interface SFTPFile {
+    name: string
+    fullPath: string
+    isDirectory: boolean
+    isSymlink: boolean
+    mode: number
+    size: number
+}
+
 export class SFTPFileHandle {
     position = 0
 
@@ -191,21 +203,51 @@ export class SFTPFileHandle {
 export class SFTPSession {
     constructor (private sftp: SFTPWrapper, private zone: NgZone) { }
 
-    readdir (p: string): Promise<FileEntry[]> {
-        return wrapPromise(this.zone, promisify<FileEntry[]>(f => this.sftp.readdir(p, f))())
+    async readdir (p: string): Promise<SFTPFile[]> {
+        const entries = await wrapPromise(this.zone, promisify<FileEntry[]>(f => this.sftp.readdir(p, f))())
+        return entries.map(entry => this._makeFile(
+            posixPath.join(p, entry.filename), entry,
+        ))
     }
 
     readlink (p: string): Promise<string> {
         return wrapPromise(this.zone, promisify<string>(f => this.sftp.readlink(p, f))())
     }
 
-    stat (p: string): Promise<Stats> {
-        return wrapPromise(this.zone, promisify<Stats>(f => this.sftp.stat(p, f))())
+    async stat (p: string): Promise<SFTPFile> {
+        const stats = await wrapPromise(this.zone, promisify<Stats>(f => this.sftp.stat(p, f))())
+        return {
+            name: posixPath.basename(p),
+            fullPath: p,
+            isDirectory: stats.isDirectory(),
+            isSymlink: stats.isSymbolicLink(),
+            mode: stats.mode,
+            size: stats.size,
+        }
     }
 
     async open (p: string, mode: string): Promise<SFTPFileHandle> {
         const handle = await wrapPromise(this.zone, promisify<Buffer>(f => this.sftp.open(p, mode, f))())
         return new SFTPFileHandle(this.sftp, handle, this.zone)
+    }
+
+    async rmdir (p: string): Promise<void> {
+        await promisify((f: any) => this.sftp.rmdir(p, f))()
+    }
+
+    async unlink (p: string): Promise<void> {
+        await promisify((f: any) => this.sftp.unlink(p, f))()
+    }
+
+    private _makeFile (p: string, entry: FileEntry): SFTPFile {
+        return {
+            fullPath: p,
+            name: posixPath.basename(p),
+            isDirectory: (entry.attrs.mode & C.S_IFDIR) === C.S_IFDIR,
+            isSymlink: (entry.attrs.mode & C.S_IFLNK) === C.S_IFLNK,
+            mode: entry.attrs.mode,
+            size: entry.attrs.size,
+        }
     }
 }
 

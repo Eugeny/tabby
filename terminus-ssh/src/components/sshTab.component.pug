@@ -11,12 +11,17 @@
 
         button.btn.btn-secondary.mr-2((click)='openSFTP()', *ngIf='session && session.open')
             span SFTP
+            span.badge.badge-info.ml-2
+                i.fas.fa-flask
+                span Experimental
 
         button.btn.btn-secondary((click)='showPortForwarding()', *ngIf='session && session.open')
             i.fas.fa-plug
             span Ports
 
 sftp-panel.bg-dark(
+    @panelSlide,
+    [(path)]='sftpPath',
     *ngIf='sftpPanelVisible',
     (click)='$event.stopPropagation()',
     [session]='session',
