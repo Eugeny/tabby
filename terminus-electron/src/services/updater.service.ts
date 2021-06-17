@@ -30,12 +30,13 @@ export class ElectronUpdaterService extends UpdaterService {
             this.logger.info('Update available')
         })
 
-        electron.autoUpdater.once('update-not-available', () => {
+        electron.autoUpdater.on('update-not-available', () => {
             this.logger.info('No updates')
         })
 
-        electron.autoUpdater.once('error', err => {
+        electron.autoUpdater.on('error', err => {
             this.logger.error(err)
+            this.electronUpdaterAvailable = false
         })
 
         this.downloaded = new Promise<boolean>(resolve => {
