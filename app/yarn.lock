@@ -51,10 +51,10 @@
   dependencies:
     tslib "^2.1.0"
 
-"@electron/remote@1.0.4":
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/@electron/remote/-/remote-1.0.4.tgz#f1c8cf3560bab762b462bfae9991919cced8bc33"
-  integrity sha512-kguDJRhL3ZynHrkbX8Tr7xoAzGsNgh4eqXkycXb6cgXbOgehGqkBVe+MnjSVMXz3QJykerGKPy28gqcM7AFGYw==
+"@electron/remote@1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@electron/remote/-/remote-1.2.0.tgz#772eb4c3ac17aaba5a9cf05a09092f6277f5671f"
+  integrity sha512-C774t2DFVJsa+dxU9Gc2nYzylRZoJ79I0Sxrh8T9cN69fBkntfGbyBEQiD9UfZopqL0CYLzk1anY2Ywhql6h1w==
 
 "@iarna/cli@^1.2.0":
   version "1.2.0"
