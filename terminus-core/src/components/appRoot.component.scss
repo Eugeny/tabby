@@ -86,7 +86,7 @@ $side-tab-width: 200px;
 
         display: flex;
         align-items: center;
-        padding: 0 15px;
+        padding: 0 12px;
         flex: 0 0 auto;
         border-bottom: 2px solid transparent;
         transition: 0.25s all;
@@ -163,7 +163,7 @@ hotkey-hint {
 
 ::ng-deep .btn-tab-bar svg,
 ::ng-deep .btn-tab-bar + .dropdown-menu svg {
-    width: 16px;
+    width: 22px;
     height: 16px;
     fill: white;
     fill-opacity: 0.75;
