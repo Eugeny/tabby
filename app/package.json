@@ -51,6 +51,7 @@
   "devDependencies": {
     "@types/mz": "2.7.3",
     "@types/node": "15.12.1",
+    "ngx-filesize": "^2.0.16",
     "node-abi": "^2.30.0",
     "source-map-support": "^0.5.19"
   },

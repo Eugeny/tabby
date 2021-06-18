@@ -31,4 +31,6 @@
                 i.fa-fw([class]='getIcon(item)')
                 div {{item.name}}
                 .mr-auto
+                .size(*ngIf='!item.isDirectory') {{item.size|filesize}}
+                .date {{item.modified|date:'medium'}}
                 .mode {{getModeString(item)}}

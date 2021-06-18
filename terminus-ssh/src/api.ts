@@ -148,6 +148,7 @@ export interface SFTPFile {
     isSymlink: boolean
     mode: number
     size: number
+    modified: Date
 }
 
 export class SFTPFileHandle {
@@ -223,6 +224,7 @@ export class SFTPSession {
             isSymlink: stats.isSymbolicLink(),
             mode: stats.mode,
             size: stats.size,
+            modified: new Date(stats.mtime * 1000),
         }
     }
 
@@ -247,6 +249,7 @@ export class SFTPSession {
             isSymlink: (entry.attrs.mode & C.S_IFLNK) === C.S_IFLNK,
             mode: entry.attrs.mode,
             size: entry.attrs.size,
+            modified: new Date(entry.attrs.mtime * 1000),
         }
     }
 }

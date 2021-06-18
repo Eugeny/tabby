@@ -32,10 +32,20 @@
         font-weight: bold;
     }
 
-    .mode {
+    .mode, .size, .date {
         font-family: monospace;
         opacity: .5;
         font-size: 12px;
+        text-align: right;
+        margin-left: 20px;
+    }
+
+    .size {
+        width: 100px;
+    }
+
+    .date {
+        width: 200px;
     }
 }
 

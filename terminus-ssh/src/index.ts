@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common'
 import { FormsModule } from '@angular/forms'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { ToastrModule } from 'ngx-toastr'
+import { NgxFilesizeModule } from 'ngx-filesize'
 import TerminusCoreModule, { ToolbarButtonProvider, ConfigProvider, TabRecoveryProvider, HotkeyProvider, TabContextMenuItemProvider, CLIHandler } from 'terminus-core'
 import { SettingsTabProvider } from 'terminus-settings'
 import TerminusTerminalModule from 'terminus-terminal'
@@ -28,6 +29,7 @@ import { SSHCLIHandler } from './cli'
 @NgModule({
     imports: [
         NgbModule,
+        NgxFilesizeModule,
         CommonModule,
         FormsModule,
         ToastrModule,
