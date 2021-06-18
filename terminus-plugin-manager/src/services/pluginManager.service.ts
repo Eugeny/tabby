@@ -1,8 +1,8 @@
 import axios from 'axios'
 import { Observable, from } from 'rxjs'
 import { map } from 'rxjs/operators'
-import { Injectable } from '@angular/core'
-import { Logger, LogService, PlatformService } from 'terminus-core'
+import { Injectable, Inject } from '@angular/core'
+import { Logger, LogService, PlatformService, BOOTSTRAP_DATA, BootstrapData, PluginInfo } from 'terminus-core'
 
 const NAME_PREFIX = 'terminus-'
 const KEYWORD = 'terminus-plugin'
@@ -12,30 +12,20 @@ const BLACKLIST = [
     'terminus-shell-selector', // superseded by profiles
 ]
 
-export interface PluginInfo {
-    name: string
-    description: string
-    packageName: string
-    isBuiltin: boolean
-    isOfficial: boolean
-    version: string
-    homepage?: string
-    author: string
-    path?: string
-}
-
 @Injectable({ providedIn: 'root' })
 export class PluginManagerService {
     logger: Logger
-    builtinPluginsPath: string = (window as any).builtinPluginsPath
-    userPluginsPath: string = (window as any).userPluginsPath
-    installedPlugins: PluginInfo[] = (window as any).installedPlugins
+    userPluginsPath: string
+    installedPlugins: PluginInfo[]
 
     private constructor (
         log: LogService,
         private platform: PlatformService,
+        @Inject(BOOTSTRAP_DATA) bootstrapData: BootstrapData,
     ) {
         this.logger = log.create('pluginManager')
+        this.installedPlugins = bootstrapData.installedPlugins
+        this.userPluginsPath = bootstrapData.userPluginsPath
     }
 
     listAvailable (query?: string): Observable<PluginInfo[]> {

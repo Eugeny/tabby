@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core'
+import { Injectable, Inject } from '@angular/core'
 import * as mixpanel from 'mixpanel'
 import { v4 as uuidv4 } from 'uuid'
 import { ConfigService } from './config.service'
-import { PlatformService } from '../api'
+import { PlatformService, BOOTSTRAP_DATA, BootstrapData } from '../api'
 
 @Injectable({ providedIn: 'root' })
 export class HomeBaseService {
@@ -13,6 +13,7 @@ export class HomeBaseService {
     private constructor (
         private config: ConfigService,
         private platform: PlatformService,
+        @Inject(BOOTSTRAP_DATA) private bootstrapData: BootstrapData,
     ) {
         this.appVersion = platform.getAppVersion()
 
@@ -38,7 +39,7 @@ export class HomeBaseService {
             sunos: 'OS: Solaris',
             win32: 'OS: Windows',
         }[process.platform]
-        const plugins = (window as any).installedPlugins.filter(x => !x.isBuiltin).map(x => x.name)
+        const plugins = this.bootstrapData.installedPlugins.filter(x => !x.isBuiltin).map(x => x.name)
         body += `Plugins: ${plugins.join(', ') || 'none'}\n\n`
         this.platform.openExternal(`https://github.com/eugeny/terminus/issues/new?body=${encodeURIComponent(body)}&labels=${label}`)
     }

@@ -9,6 +9,7 @@ import * as path from 'path'
 import macOSRelease from 'macos-release'
 import * as compareVersions from 'compare-versions'
 
+import type { Application } from './app'
 import { parseArgs } from './cli'
 import { loadConfig } from './config'
 
@@ -43,7 +44,7 @@ export class Window {
     get visible$ (): Observable<boolean> { return this.visible }
     get closed$ (): Observable<void> { return this.closed }
 
-    constructor (options?: WindowOptions) {
+    constructor (private application: Application, options?: WindowOptions) {
         this.configStore = loadConfig()
 
         options = options ?? {}
@@ -299,14 +300,8 @@ export class Window {
                 executable: app.getPath('exe'),
                 windowID: this.window.id,
                 isFirstWindow: this.window.id === 1,
+                userPluginsPath: this.application.userPluginsPath,
             })
-        })
-
-        ipcMain.on('window-focus', event => {
-            if (!this.window || event.sender !== this.window.webContents) {
-                return
-            }
-            this.window.focus()
         })
 
         ipcMain.on('window-toggle-maximize', event => {

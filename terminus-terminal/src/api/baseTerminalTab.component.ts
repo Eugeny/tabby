@@ -3,7 +3,7 @@ import { first } from 'rxjs/operators'
 import colors from 'ansi-colors'
 import { NgZone, OnInit, OnDestroy, Injector, ViewChild, HostBinding, Input, ElementRef, InjectFlags } from '@angular/core'
 import { trigger, transition, style, animate, AnimationTriggerMetadata } from '@angular/animations'
-import { AppService, ConfigService, BaseTabComponent, HostAppService, HotkeysService, NotificationsService, Platform, LogService, Logger, TabContextMenuItemProvider, SplitTabComponent, SubscriptionContainer, MenuItemOptions, PlatformService } from 'terminus-core'
+import { AppService, ConfigService, BaseTabComponent, HostAppService, HotkeysService, NotificationsService, Platform, LogService, Logger, TabContextMenuItemProvider, SplitTabComponent, SubscriptionContainer, MenuItemOptions, PlatformService, HostWindowService } from 'terminus-core'
 
 import { BaseSession } from '../session'
 import { TerminalFrontendService } from '../services/terminalFrontend.service'
@@ -108,6 +108,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
     protected log: LogService
     protected decorators: TerminalDecorator[] = []
     protected contextMenuProviders: TabContextMenuItemProvider[]
+    protected hostWindow: HostWindowService
     // Deps end
 
     protected logger: Logger
@@ -160,6 +161,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
         this.log = injector.get(LogService)
         this.decorators = injector.get<any>(TerminalDecorator, null, InjectFlags.Optional) as TerminalDecorator[]
         this.contextMenuProviders = injector.get<any>(TabContextMenuItemProvider, null, InjectFlags.Optional) as TabContextMenuItemProvider[]
+        this.hostWindow = injector.get(HostWindowService)
 
         this.logger = this.log.create('baseTerminalTab')
         this.setTitle('Terminal')
@@ -596,8 +598,8 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
             })
         })
 
-        this.termContainerSubscriptions.subscribe(this.hostApp.displayMetricsChanged$, maybeConfigure)
-        this.termContainerSubscriptions.subscribe(this.hostApp.windowMoved$, maybeConfigure)
+        this.termContainerSubscriptions.subscribe(this.platform.displayMetricsChanged$, maybeConfigure)
+        this.termContainerSubscriptions.subscribe(this.hostWindow.windowMoved$, maybeConfigure)
     }
 
     setSession (session: BaseSession|null, destroyOnSessionClose = false): void {

@@ -1,6 +1,6 @@
 import shellEscape from 'shell-escape'
 import { Injectable } from '@angular/core'
-import { CLIHandler, CLIEvent, HostAppService, AppService } from 'terminus-core'
+import { CLIHandler, CLIEvent, AppService, HostWindowService } from 'terminus-core'
 import { BaseTerminalTabComponent } from './api/baseTerminalTab.component'
 
 @Injectable()
@@ -10,7 +10,7 @@ export class TerminalCLIHandler extends CLIHandler {
 
     constructor (
         private app: AppService,
-        private hostApp: HostAppService,
+        private hostWindow: HostWindowService,
     ) {
         super()
     }
@@ -30,11 +30,10 @@ export class TerminalCLIHandler extends CLIHandler {
         return false
     }
 
-
     private handlePaste (text: string) {
         if (this.app.activeTab instanceof BaseTerminalTabComponent && this.app.activeTab.session) {
             this.app.activeTab.sendInput(text)
-            this.hostApp.bringToFront()
+            this.hostWindow.bringToFront()
         }
     }
 }

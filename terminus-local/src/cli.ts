@@ -1,7 +1,7 @@
 import * as path from 'path'
 import * as fs from 'mz/fs'
 import { Injectable } from '@angular/core'
-import { CLIHandler, CLIEvent, HostAppService, AppService, ConfigService } from 'terminus-core'
+import { CLIHandler, CLIEvent, AppService, ConfigService, HostWindowService } from 'terminus-core'
 import { TerminalService } from './services/terminal.service'
 
 @Injectable()
@@ -11,7 +11,7 @@ export class TerminalCLIHandler extends CLIHandler {
 
     constructor (
         private config: ConfigService,
-        private hostApp: HostAppService,
+        private hostWindow: HostWindowService,
         private terminal: TerminalService,
     ) {
         super()
@@ -40,7 +40,7 @@ export class TerminalCLIHandler extends CLIHandler {
         if (await fs.exists(directory)) {
             if ((await fs.stat(directory)).isDirectory()) {
                 this.terminal.openTab(undefined, directory)
-                this.hostApp.bringToFront()
+                this.hostWindow.bringToFront()
             }
         }
     }
@@ -53,7 +53,7 @@ export class TerminalCLIHandler extends CLIHandler {
                 args: command.slice(1),
             },
         }, null, true)
-        this.hostApp.bringToFront()
+        this.hostWindow.bringToFront()
     }
 
     private handleOpenProfile (profileName: string) {
@@ -63,7 +63,7 @@ export class TerminalCLIHandler extends CLIHandler {
             return
         }
         this.terminal.openTabWithOptions(profile.sessionOptions)
-        this.hostApp.bringToFront()
+        this.hostWindow.bringToFront()
     }
 }
 
@@ -75,7 +75,7 @@ export class OpenPathCLIHandler extends CLIHandler {
 
     constructor (
         private terminal: TerminalService,
-        private hostApp: HostAppService,
+        private hostWindow: HostWindowService,
     ) {
         super()
     }
@@ -86,7 +86,7 @@ export class OpenPathCLIHandler extends CLIHandler {
 
         if (opAsPath && (await fs.lstat(opAsPath)).isDirectory()) {
             this.terminal.openTab(undefined, opAsPath)
-            this.hostApp.bringToFront()
+            this.hostWindow.bringToFront()
             return true
         }
 

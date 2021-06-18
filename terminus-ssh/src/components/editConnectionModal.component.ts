@@ -4,7 +4,7 @@ import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
 import { Observable } from 'rxjs'
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators'
 
-import { ElectronService, HostAppService, ConfigService, PlatformService } from 'terminus-core'
+import { ElectronService, ConfigService, PlatformService } from 'terminus-core'
 import { PasswordStorageService } from '../services/passwordStorage.service'
 import { SSHConnection, LoginScript, ForwardedPortConfig, SSHAlgorithmType, ALGORITHM_BLACKLIST } from '../api'
 import { PromptModalComponent } from './promptModal.component'
@@ -30,7 +30,6 @@ export class EditConnectionModalComponent {
         private modalInstance: NgbActiveModal,
         private electron: ElectronService,
         private platform: PlatformService,
-        private hostApp: HostAppService,
         private passwordStorage: PasswordStorageService,
         private ngbModal: NgbModal,
     ) {
@@ -104,7 +103,6 @@ export class EditConnectionModalComponent {
 
     addPrivateKey () {
         this.electron.dialog.showOpenDialog(
-            this.hostApp.getWindow(),
             {
                 defaultPath: this.connection.privateKeys![0],
                 title: 'Select private key',

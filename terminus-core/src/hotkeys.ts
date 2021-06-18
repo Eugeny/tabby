@@ -6,14 +6,6 @@ import { HotkeyDescription, HotkeyProvider } from './api/hotkeyProvider'
 export class AppHotkeyProvider extends HotkeyProvider {
     hotkeys: HotkeyDescription[] = [
         {
-            id: 'new-window',
-            name: 'New window',
-        },
-        {
-            id: 'toggle-window',
-            name: 'Toggle terminal window',
-        },
-        {
             id: 'toggle-fullscreen',
             name: 'Toggle fullscreen mode',
         },

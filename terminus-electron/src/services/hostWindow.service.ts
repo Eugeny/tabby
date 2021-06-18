@@ -1,19 +1,24 @@
-import { Injectable, NgZone } from '@angular/core'
-import { Observable, Subject } from 'rxjs'
-import { ElectronService, HostAppService, HostWindowService } from 'terminus-core'
+import type { BrowserWindow, TouchBar } from 'electron'
+import { Injectable, Inject, NgZone } from '@angular/core'
+import { BootstrapData, BOOTSTRAP_DATA, ElectronService, HostWindowService } from 'terminus-core'
+
+export interface Bounds {
+    x: number
+    y: number
+    width: number
+    height: number
+}
 
 @Injectable({ providedIn: 'root' })
 export class ElectronHostWindow extends HostWindowService {
-    get closeRequest$ (): Observable<void> { return this.closeRequest }
     get isFullscreen (): boolean { return this._isFullScreen}
 
-    private closeRequest = new Subject<void>()
     private _isFullScreen = false
 
     constructor (
-        private electron: ElectronService,
-        private hostApp: HostAppService,
         zone: NgZone,
+        private electron: ElectronService,
+        @Inject(BOOTSTRAP_DATA) private bootstrapData: BootstrapData,
     ) {
         super()
         electron.ipcRenderer.on('host:window-enter-full-screen', () => zone.run(() => {
@@ -23,10 +28,34 @@ export class ElectronHostWindow extends HostWindowService {
         electron.ipcRenderer.on('host:window-leave-full-screen', () => zone.run(() => {
             this._isFullScreen = false
         }))
+
+        electron.ipcRenderer.on('host:window-shown', () => {
+            zone.run(() => this.windowShown.next())
+        })
+
+        electron.ipcRenderer.on('host:window-close-request', () => {
+            zone.run(() => this.windowCloseRequest.next())
+        })
+
+        electron.ipcRenderer.on('host:window-moved', () => {
+            zone.run(() => this.windowMoved.next())
+        })
+
+        electron.ipcRenderer.on('host:window-focused', () => {
+            zone.run(() => this.windowFocused.next())
+        })
+    }
+
+    getWindow (): BrowserWindow {
+        return this.electron.BrowserWindow.fromId(this.bootstrapData.windowID)!
+    }
+
+    openDevTools (): void {
+        this.getWindow().webContents.openDevTools({ mode: 'undocked' })
     }
 
     reload (): void {
-        this.hostApp.getWindow().reload()
+        this.getWindow().reload()
     }
 
     setTitle (title?: string): void {
@@ -34,7 +63,7 @@ export class ElectronHostWindow extends HostWindowService {
     }
 
     toggleFullscreen (): void {
-        this.hostApp.getWindow().setFullScreen(!this._isFullScreen)
+        this.getWindow().setFullScreen(!this._isFullScreen)
     }
 
     minimize (): void {
@@ -47,5 +76,21 @@ export class ElectronHostWindow extends HostWindowService {
 
     close (): void {
         this.electron.ipcRenderer.send('window-close')
+    }
+
+    setBounds (bounds: Bounds): void {
+        this.electron.ipcRenderer.send('window-set-bounds', bounds)
+    }
+
+    setAlwaysOnTop (flag: boolean): void {
+        this.electron.ipcRenderer.send('window-set-always-on-top', flag)
+    }
+
+    setTouchBar (touchBar: TouchBar): void {
+        this.getWindow().setTouchBar(touchBar)
+    }
+
+    bringToFront (): void {
+        this.electron.ipcRenderer.send('window-bring-to-front')
     }
 }

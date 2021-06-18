@@ -1,6 +1,8 @@
 import { app, ipcMain, Menu, Tray, shell, screen, globalShortcut, MenuItemConstructorOptions } from 'electron'
 import * as promiseIpc from 'electron-promise-ipc'
 import * as remote from '@electron/remote/main'
+import * as path from 'path'
+import * as fs from 'fs'
 
 import { loadConfig } from './config'
 import { Window, WindowOptions } from './window'
@@ -17,6 +19,7 @@ export class Application {
     private tray?: Tray
     private ptyManager = new PTYManager()
     private windows: Window[] = []
+    userPluginsPath: string
 
     constructor () {
         remote.initialize()
@@ -36,12 +39,12 @@ export class Application {
             }
         })
 
-        ;(promiseIpc as any).on('plugin-manager:install', (path, name, version) => {
-            return pluginManager.install(path, name, version)
+        ;(promiseIpc as any).on('plugin-manager:install', (name, version) => {
+            return pluginManager.install(this.userPluginsPath, name, version)
         })
 
-        ;(promiseIpc as any).on('plugin-manager:uninstall', (path, name) => {
-            return pluginManager.uninstall(path, name)
+        ;(promiseIpc as any).on('plugin-manager:uninstall', (name) => {
+            return pluginManager.uninstall(this.userPluginsPath, name)
         })
 
         const configData = loadConfig()
@@ -51,6 +54,15 @@ export class Application {
                 app.commandLine.appendSwitch('enable-transparent-visuals')
                 app.disableHardwareAcceleration()
             }
+        }
+
+        this.userPluginsPath = path.join(
+            app.getPath('userData'),
+            'plugins',
+        )
+
+        if (!fs.existsSync(this.userPluginsPath)) {
+            fs.mkdirSync(this.userPluginsPath)
         }
 
         app.commandLine.appendSwitch('disable-http-cache')
@@ -70,7 +82,7 @@ export class Application {
     }
 
     async newWindow (options?: WindowOptions): Promise<Window> {
-        const window = new Window(options)
+        const window = new Window(this, options)
         this.windows.push(window)
         window.visible$.subscribe(visible => {
             if (visible) {

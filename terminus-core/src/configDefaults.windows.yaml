@@ -1,8 +1,4 @@
 hotkeys:
-  new-window:
-    - 'Ctrl-Shift-N'
-  toggle-window:
-    - 'Ctrl+Space'
   toggle-fullscreen:
     - 'F11'
     - 'Alt-Enter'

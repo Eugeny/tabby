@@ -10,6 +10,7 @@ import {
     HomeBaseService,
     UpdaterService,
     PlatformService,
+    HostWindowService,
 } from 'terminus-core'
 
 import { SettingsTabProvider } from '../api'
@@ -36,6 +37,7 @@ export class SettingsTabComponent extends BaseTabComponent {
     constructor (
         public config: ConfigService,
         public hostApp: HostAppService,
+        public hostWindow: HostWindowService,
         public homeBase: HomeBaseService,
         public platform: PlatformService,
         public zone: NgZone,

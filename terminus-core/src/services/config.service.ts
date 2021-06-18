@@ -3,7 +3,7 @@ import * as yaml from 'js-yaml'
 import { Injectable, Inject } from '@angular/core'
 import { ConfigProvider } from '../api/configProvider'
 import { PlatformService } from '../api/platform'
-import { HostAppService } from './hostApp.service'
+import { HostAppService } from '../api/hostApp'
 import { Vault, VaultService } from './vault.service'
 const deepmerge = require('deepmerge')
 

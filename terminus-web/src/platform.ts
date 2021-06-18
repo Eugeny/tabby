@@ -61,7 +61,7 @@ export class WebPlatformService extends PlatformService {
     }
 
     getAppVersion (): string {
-        return '1.0-web'
+        return this.connector.getAppVersion()
     }
 
     async listFonts (): Promise<string[]> {
@@ -135,6 +135,10 @@ export class WebPlatformService extends PlatformService {
             }
             this.fileSelector.click()
         })
+    }
+
+    setErrorHandler (handler: (_: any) => void): void {
+        window.addEventListener('error', handler)
     }
 }
 

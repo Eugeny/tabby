@@ -3,7 +3,6 @@ import { Observable, Subject } from 'rxjs'
 import { HotkeyDescription, HotkeyProvider } from '../api/hotkeyProvider'
 import { stringifyKeySequence, EventData } from './hotkeys.util'
 import { ConfigService } from './config.service'
-import { HostAppService } from './hostApp.service'
 
 export interface PartialHotkeyMatch {
     id: string
@@ -33,7 +32,6 @@ export class HotkeysService {
 
     private constructor (
         private zone: NgZone,
-        private hostApp: HostAppService,
         private config: ConfigService,
         @Inject(HotkeyProvider) private hotkeyProviders: HotkeyProvider[],
     ) {
@@ -47,11 +45,7 @@ export class HotkeysService {
                 }
             })
         })
-        this.config.changed$.subscribe(() => {
-            this.registerGlobalHotkey()
-        })
         this.config.ready$.toPromise().then(() => {
-            this.registerGlobalHotkey()
             this.getHotkeyDescriptions().then(hotkeys => {
                 this.hotkeyDescriptions = hotkeys
             })
@@ -180,30 +174,6 @@ export class HotkeysService {
                     .map(async x => x.provide())
             )
         ).reduce((a, b) => a.concat(b))
-    }
-
-    private registerGlobalHotkey () {
-        let value = this.config.store.hotkeys['toggle-window'] || []
-        if (typeof value === 'string') {
-            value = [value]
-        }
-        const specs: string[] = []
-        value.forEach((item: string | string[]) => {
-            item = typeof item === 'string' ? [item] : item
-
-            try {
-                let electronKeySpec = item[0]
-                electronKeySpec = electronKeySpec.replace('Meta', 'Super')
-                electronKeySpec = electronKeySpec.replace('⌘', 'Command')
-                electronKeySpec = electronKeySpec.replace('⌥', 'Alt')
-                electronKeySpec = electronKeySpec.replace(/-/g, '+')
-                specs.push(electronKeySpec)
-            } catch (err) {
-                console.error('Could not register the global hotkey:', err)
-            }
-        })
-
-        this.hostApp.registerGlobalHotkey(specs)
     }
 
     private getHotkeysConfig () {

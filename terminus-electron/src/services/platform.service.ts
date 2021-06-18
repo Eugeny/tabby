@@ -6,6 +6,7 @@ import promiseIpc from 'electron-promise-ipc'
 import { execFile } from 'mz/child_process'
 import { Injectable, NgZone } from '@angular/core'
 import { PlatformService, ClipboardContent, HostAppService, Platform, ElectronService, MenuItemOptions, MessageBoxOptions, MessageBoxResult, FileUpload, FileDownload, FileUploadOptions, wrapPromise } from 'terminus-core'
+import { ElectronHostWindow } from './hostWindow.service'
 const fontManager = require('fontmanager-redux') // eslint-disable-line
 
 /* eslint-disable block-scoped-var */
@@ -20,16 +21,20 @@ try {
 @Injectable()
 export class ElectronPlatformService extends PlatformService {
     supportsWindowControls = true
-    private userPluginsPath: string = (window as any).userPluginsPath
     private configPath: string
 
     constructor (
         private hostApp: HostAppService,
+        private hostWindow: ElectronHostWindow,
         private electron: ElectronService,
         private zone: NgZone,
     ) {
         super()
         this.configPath = path.join(electron.app.getPath('userData'), 'config.yaml')
+
+        electron.ipcRenderer.on('host:display-metrics-changed', () => {
+            this.zone.run(() => this.displayMetricsChanged.next())
+        })
     }
 
     readClipboard (): string {
@@ -41,11 +46,11 @@ export class ElectronPlatformService extends PlatformService {
     }
 
     async installPlugin (name: string, version: string): Promise<void> {
-        await (promiseIpc as any).send('plugin-manager:install', this.userPluginsPath, name, version)
+        await (promiseIpc as any).send('plugin-manager:install', name, version)
     }
 
     async uninstallPlugin (name: string): Promise<void> {
-        await (promiseIpc as any).send('plugin-manager:uninstall', this.userPluginsPath, name)
+        await (promiseIpc as any).send('plugin-manager:uninstall', name)
     }
 
     async isProcessRunning (name: string): Promise<boolean> {
@@ -163,7 +168,7 @@ export class ElectronPlatformService extends PlatformService {
     }
 
     async showMessageBox (options: MessageBoxOptions): Promise<MessageBoxResult> {
-        return this.electron.dialog.showMessageBox(this.hostApp.getWindow(), options)
+        return this.electron.dialog.showMessageBox(this.hostWindow.getWindow(), options)
     }
 
     quit (): void {
@@ -179,7 +184,7 @@ export class ElectronPlatformService extends PlatformService {
         }
 
         const result = await this.electron.dialog.showOpenDialog(
-            this.hostApp.getWindow(),
+            this.hostWindow.getWindow(),
             {
                 buttonLabel: 'Select',
                 properties,
@@ -199,7 +204,7 @@ export class ElectronPlatformService extends PlatformService {
 
     async startDownload (name: string, size: number): Promise<FileDownload|null> {
         const result = await this.electron.dialog.showSaveDialog(
-            this.hostApp.getWindow(),
+            this.hostWindow.getWindow(),
             {
                 defaultPath: name,
             },
@@ -211,6 +216,12 @@ export class ElectronPlatformService extends PlatformService {
         await wrapPromise(this.zone, transfer.open())
         this.fileTransferStarted.next(transfer)
         return transfer
+    }
+
+    setErrorHandler (handler: (_: any) => void): void {
+        this.electron.ipcRenderer.on('uncaughtException', (_$event, err) => {
+            handler(err)
+        })
     }
 }
 

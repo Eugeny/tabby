@@ -24,7 +24,7 @@ button.btn.btn-outline-warning.btn-block(*ngIf='config.restartRequested', '(clic
                             span Report a problem
 
                         button.btn.btn-secondary(
-                            *ngIf='!updateAvailable',
+                            *ngIf='!updateAvailable && hostApp.platform !== Platform.Web',
                             (click)='checkForUpdates()',
                             [disabled]='checkingForUpdate'
                         )
@@ -46,7 +46,7 @@ button.btn.btn-outline-warning.btn-block(*ngIf='config.restartRequested', '(clic
                         .description Allows quickly opening a terminal in the selected folder
                     toggle([ngModel]='isShellIntegrationInstalled', (ngModelChange)='toggleShellIntegration()')
 
-                .form-line
+                .form-line(*ngIf='hostApp.platform !== Platform.Web')
                     .header
                         .title Enable analytics
                         .description We're only tracking your Terminus and OS versions.
@@ -55,17 +55,17 @@ button.btn.btn-outline-warning.btn-block(*ngIf='config.restartRequested', '(clic
                         (ngModelChange)='saveConfiguration(true)',
                     )
 
-                .form-line
+                .form-line(*ngIf='hostApp.platform !== Platform.Web')
                     .header
                         .title Automatic Updates
                         .description Enable automatic installation of updates when they become available.
                     toggle([(ngModel)]='config.store.enableAutomaticUpdates', (ngModelChange)='saveConfiguration()')
 
-                .form-line
+                .form-line(*ngIf='hostApp.platform !== Platform.Web')
                     .header
                         .title Debugging
 
-                    button.btn.btn-secondary((click)='hostApp.openDevTools()')
+                    button.btn.btn-secondary((click)='hostWindow.openDevTools()')
                         i.fas.fa-bug
                         span Open DevTools
 

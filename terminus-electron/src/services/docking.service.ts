@@ -1,24 +1,31 @@
-import { Injectable } from '@angular/core'
+import { Injectable, NgZone } from '@angular/core'
 import type { Display } from 'electron'
-import { ConfigService, ElectronService, HostAppService, Bounds, DockingService, Screen } from 'terminus-core'
+import { ConfigService, ElectronService, DockingService, Screen, PlatformService } from 'terminus-core'
+import { ElectronHostWindow, Bounds } from './hostWindow.service'
 
 @Injectable()
 export class ElectronDockingService extends DockingService {
     constructor (
         private electron: ElectronService,
         private config: ConfigService,
-        private hostApp: HostAppService,
+        private zone: NgZone,
+        private hostWindow: ElectronHostWindow,
+        platform: PlatformService,
     ) {
         super()
-        hostApp.displaysChanged$.subscribe(() => this.repositionWindow())
-        hostApp.displayMetricsChanged$.subscribe(() => this.repositionWindow())
+        this.screensChanged$.subscribe(() => this.repositionWindow())
+        platform.displayMetricsChanged$.subscribe(() => this.repositionWindow())
+
+        electron.ipcRenderer.on('host:displays-changed', () => {
+            this.zone.run(() => this.screensChanged.next())
+        })
     }
 
     dock (): void {
         const dockSide = this.config.store.appearance.dock
 
         if (dockSide === 'off') {
-            this.hostApp.setAlwaysOnTop(false)
+            this.hostWindow.setAlwaysOnTop(false)
             return
         }
 
@@ -33,7 +40,7 @@ export class ElectronDockingService extends DockingService {
 
         const fill = this.config.store.appearance.dockFill <= 1 ? this.config.store.appearance.dockFill : 1
         const space = this.config.store.appearance.dockSpace <= 1 ? this.config.store.appearance.dockSpace : 1
-        const [minWidth, minHeight] = this.hostApp.getWindow().getMinimumSize()
+        const [minWidth, minHeight] = this.hostWindow.getWindow().getMinimumSize()
 
         if (dockSide === 'left' || dockSide === 'right') {
             newBounds.width = Math.max(minWidth, Math.round(fill * display.bounds.width))
@@ -60,9 +67,9 @@ export class ElectronDockingService extends DockingService {
 
         const alwaysOnTop = this.config.store.appearance.dockAlwaysOnTop
 
-        this.hostApp.setAlwaysOnTop(alwaysOnTop)
+        this.hostWindow.setAlwaysOnTop(alwaysOnTop)
         setImmediate(() => {
-            this.hostApp.setBounds(newBounds)
+            this.hostWindow.setBounds(newBounds)
         })
     }
 
@@ -84,7 +91,7 @@ export class ElectronDockingService extends DockingService {
     }
 
     private repositionWindow () {
-        const [x, y] = this.hostApp.getWindow().getPosition()
+        const [x, y] = this.hostWindow.getWindow().getPosition()
         for (const screen of this.electron.screen.getAllDisplays()) {
             const bounds = screen.bounds
             if (x >= bounds.x && x <= bounds.x + bounds.width && y >= bounds.y && y <= bounds.y + bounds.height) {
@@ -92,6 +99,6 @@ export class ElectronDockingService extends DockingService {
             }
         }
         const screen = this.electron.screen.getPrimaryDisplay()
-        this.hostApp.getWindow().setPosition(screen.bounds.x, screen.bounds.y)
+        this.hostWindow.getWindow().setPosition(screen.bounds.x, screen.bounds.y)
     }
 }

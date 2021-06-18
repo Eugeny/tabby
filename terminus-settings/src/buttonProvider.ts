@@ -12,7 +12,7 @@ export class ButtonProvider extends ToolbarButtonProvider {
         private app: AppService,
     ) {
         super()
-        hostApp.preferencesMenu$.subscribe(() => this.open())
+        hostApp.settingsUIRequest$.subscribe(() => this.open())
 
         hotkeys.matchedHotkey.subscribe(async (hotkey) => {
             if (hotkey === 'settings') {

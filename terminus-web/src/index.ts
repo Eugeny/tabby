@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
-import { HostWindowService, LogService, PlatformService, UpdaterService } from 'terminus-core'
+import { HostAppService, HostWindowService, LogService, PlatformService, UpdaterService } from 'terminus-core'
 
 import { WebPlatformService } from './platform'
 import { ConsoleLogService } from './services/log.service'
 import { NullUpdaterService } from './services/updater.service'
 import { WebHostWindow } from './services/hostWindow.service'
+import { WebHostApp } from './services/hostApp.service'
 import { MessageBoxModalComponent } from './components/messageBoxModal.component'
 
 import './styles.scss'
@@ -19,6 +20,7 @@ import './styles.scss'
         { provide: LogService, useClass: ConsoleLogService },
         { provide: UpdaterService, useClass: NullUpdaterService },
         { provide: HostWindowService, useClass: WebHostWindow },
+        { provide: HostAppService, useClass: WebHostApp },
     ],
     declarations: [
         MessageBoxModalComponent,

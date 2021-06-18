@@ -3,7 +3,7 @@ import { Component, Inject, Input, HostListener, HostBinding } from '@angular/co
 import { trigger, style, animate, transition, state } from '@angular/animations'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 
-import { HostAppService, Platform } from '../services/hostApp.service'
+import { HostAppService, Platform } from '../api/hostApp'
 import { HotkeysService } from '../services/hotkeys.service'
 import { Logger, LogService } from '../services/log.service'
 import { ConfigService } from '../services/config.service'
@@ -115,7 +115,7 @@ export class AppRootComponent {
             }
         })
 
-        this.hostApp.windowCloseRequest$.subscribe(async () => {
+        this.hostWindow.windowCloseRequest$.subscribe(async () => {
             this.app.closeWindow()
         })
 

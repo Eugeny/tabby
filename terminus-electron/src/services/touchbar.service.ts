@@ -1,6 +1,7 @@
 import { SegmentedControlSegment, TouchBarSegmentedControl } from 'electron'
 import { Injectable, NgZone } from '@angular/core'
 import { AppService, HostAppService, Platform, ElectronService } from 'terminus-core'
+import { ElectronHostWindow } from './hostWindow.service'
 
 /** @hidden */
 @Injectable({ providedIn: 'root' })
@@ -11,6 +12,7 @@ export class TouchbarService {
     private constructor (
         private app: AppService,
         private hostApp: HostAppService,
+        private hostWindow: ElectronHostWindow,
         private electron: ElectronService,
         private zone: NgZone,
     ) {
@@ -68,7 +70,7 @@ export class TouchbarService {
                 this.tabsSegmentedControl,
             ],
         })
-        this.hostApp.setTouchBar(touchBar)
+        this.hostWindow.setTouchBar(touchBar)
     }
 
     private shortenTitle (title: string): string {

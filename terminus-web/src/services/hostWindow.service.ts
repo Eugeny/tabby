@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core'
-import { Observable, Subject } from 'rxjs'
 import { HostWindowService } from 'terminus-core'
 
 @Injectable({ providedIn: 'root' })
 export class WebHostWindow extends HostWindowService {
-    get closeRequest$ (): Observable<void> { return this.closeRequest }
     get isFullscreen (): boolean { return !!document.fullscreenElement }
 
-    private closeRequest = new Subject<void>()
+    constructor () {
+        super()
+        this.windowShown.next()
+        this.windowFocused.next()
+    }
 
     reload (): void {
         location.reload()

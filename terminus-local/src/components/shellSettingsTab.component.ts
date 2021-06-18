@@ -2,6 +2,7 @@ import { Component } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { Subscription } from 'rxjs'
 import { ConfigService, ElectronService, HostAppService, Platform, WIN_BUILD_CONPTY_SUPPORTED, WIN_BUILD_CONPTY_STABLE, isWindowsBuild } from 'terminus-core'
+import { ElectronHostWindow } from 'terminus-electron'
 import { EditProfileModalComponent } from './editProfileModal.component'
 import { Shell, Profile } from '../api'
 import { TerminalService } from '../services/terminal.service'
@@ -21,6 +22,7 @@ export class ShellSettingsTabComponent {
     constructor (
         public config: ConfigService,
         public hostApp: HostAppService,
+        public hostWindow: ElectronHostWindow,
         public terminal: TerminalService,
         private electron: ElectronService,
         private ngbModal: NgbModal,
@@ -54,7 +56,7 @@ export class ShellSettingsTabComponent {
             return
         }
         const paths = (await this.electron.dialog.showOpenDialog(
-            this.hostApp.getWindow(),
+            this.hostWindow.getWindow(),
             {
                 defaultPath: shell.fsBase,
                 properties: ['openDirectory', 'showHiddenFiles'],

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Injectable } from '@angular/core'
-import { HotkeysService, ToolbarButtonProvider, ToolbarButton } from 'terminus-core'
+import { HotkeysService, ToolbarButtonProvider, ToolbarButton, HostAppService, Platform } from 'terminus-core'
 import { SSHService } from './services/ssh.service'
 
 /** @hidden */
@@ -8,6 +8,7 @@ import { SSHService } from './services/ssh.service'
 export class ButtonProvider extends ToolbarButtonProvider {
     constructor (
         hotkeys: HotkeysService,
+        private hostApp: HostAppService,
         private ssh: SSHService,
     ) {
         super()
@@ -23,14 +24,20 @@ export class ButtonProvider extends ToolbarButtonProvider {
     }
 
     provide (): ToolbarButton[] {
-        return [{
-            icon: require('./icons/globe.svg'),
-            weight: 5,
-            title: 'SSH connections',
-            touchBarNSImage: 'NSTouchBarOpenInBrowserTemplate',
-            click: () => {
-                this.activate()
-            },
-        }]
+        if (this.hostApp.platform === Platform.Web) {
+            return [{
+                icon: require('../../terminus-local/src/icons/plus.svg'),
+                title: 'SSH connections',
+                click: () => this.activate(),
+            }]
+        } else {
+            return [{
+                icon: require('./icons/globe.svg'),
+                weight: 5,
+                title: 'SSH connections',
+                touchBarNSImage: 'NSTouchBarOpenInBrowserTemplate',
+                click: () => this.activate(),
+            }]
+        }
     }
 }

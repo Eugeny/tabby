@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core'
-import { PlatformService, LogService, UpdaterService, DockingService, HostAppService, ThemesService, Platform, AppService, ConfigService, ElectronService, WIN_BUILD_FLUENT_BG_SUPPORTED, isWindowsBuild, HostWindowService } from 'terminus-core'
+import { PlatformService, LogService, UpdaterService, DockingService, HostAppService, ThemesService, Platform, AppService, ConfigService, ElectronService, WIN_BUILD_FLUENT_BG_SUPPORTED, isWindowsBuild, HostWindowService, HotkeyProvider, ConfigProvider } from 'terminus-core'
 import { TerminalColorSchemeProvider } from 'terminus-terminal'
 
 import { HyperColorSchemes } from './colorSchemes'
@@ -9,39 +9,51 @@ import { ElectronUpdaterService } from './services/updater.service'
 import { TouchbarService } from './services/touchbar.service'
 import { ElectronDockingService } from './services/docking.service'
 import { ElectronHostWindow } from './services/hostWindow.service'
+import { ElectronHostAppService } from './services/hostApp.service'
+import { ElectronHotkeyProvider } from './hotkeys'
+import { ElectronConfigProvider } from './config'
 
 @NgModule({
     providers: [
         { provide: TerminalColorSchemeProvider, useClass: HyperColorSchemes, multi: true },
         { provide: PlatformService, useClass: ElectronPlatformService },
         { provide: HostWindowService, useClass: ElectronHostWindow },
+        { provide: HostAppService, useClass: ElectronHostAppService },
         { provide: LogService, useClass: ElectronLogService },
         { provide: UpdaterService, useClass: ElectronUpdaterService },
         { provide: DockingService, useClass: ElectronDockingService },
+        { provide: HotkeyProvider, useClass: ElectronHotkeyProvider, multi: true },
+        { provide: ConfigProvider, useClass: ElectronConfigProvider, multi: true },
     ],
 })
 export default class ElectronModule {
     constructor (
         private config: ConfigService,
-        private hostApp: HostAppService,
+        private hostApp: ElectronHostAppService,
         private electron: ElectronService,
+        private hostWindow: ElectronHostWindow,
         touchbar: TouchbarService,
         docking: DockingService,
         themeService: ThemesService,
-        app: AppService
+        app: AppService,
     ) {
         config.ready$.toPromise().then(() => {
             touchbar.update()
             docking.dock()
-            hostApp.shown.subscribe(() => {
+            hostWindow.windowShown$.subscribe(() => {
                 docking.dock()
             })
+            this.registerGlobalHotkey()
             this.updateVibrancy()
+        })
+
+        config.changed$.subscribe(() => {
+            this.registerGlobalHotkey()
         })
 
         themeService.themeChanged$.subscribe(theme => {
             if (hostApp.platform === Platform.macOS) {
-                hostApp.getWindow().setTrafficLightPosition({
+                hostWindow.getWindow().setTrafficLightPosition({
                     x: theme.macOSWindowButtonsInsetX ?? 14,
                     y: theme.macOSWindowButtonsInsetY ?? 11,
                 })
@@ -55,15 +67,39 @@ export default class ElectronModule {
                     return
                 }
                 if (progress !== null) {
-                    hostApp.getWindow().setProgressBar(progress / 100.0, { mode: 'normal' })
+                    hostWindow.getWindow().setProgressBar(progress / 100.0, { mode: 'normal' })
                 } else {
-                    hostApp.getWindow().setProgressBar(-1, { mode: 'none' })
+                    hostWindow.getWindow().setProgressBar(-1, { mode: 'none' })
                 }
                 lastProgress = progress
             })
         })
 
         config.changed$.subscribe(() => this.updateVibrancy())
+    }
+
+    private registerGlobalHotkey () {
+        let value = this.config.store.hotkeys['toggle-window'] || []
+        if (typeof value === 'string') {
+            value = [value]
+        }
+        const specs: string[] = []
+        value.forEach((item: string | string[]) => {
+            item = typeof item === 'string' ? [item] : item
+
+            try {
+                let electronKeySpec = item[0]
+                electronKeySpec = electronKeySpec.replace('Meta', 'Super')
+                electronKeySpec = electronKeySpec.replace('⌘', 'Command')
+                electronKeySpec = electronKeySpec.replace('⌥', 'Alt')
+                electronKeySpec = electronKeySpec.replace(/-/g, '+')
+                specs.push(electronKeySpec)
+            } catch (err) {
+                console.error('Could not register the global hotkey:', err)
+            }
+        })
+
+        this.electron.ipcRenderer.send('app:register-global-hotkey', specs)
     }
 
     private updateVibrancy () {
@@ -74,6 +110,8 @@ export default class ElectronModule {
         document.body.classList.toggle('vibrant', this.config.store.appearance.vibrancy)
         this.electron.ipcRenderer.send('window-set-vibrancy', this.config.store.appearance.vibrancy, vibrancyType)
 
-        this.hostApp.getWindow().setOpacity(this.config.store.appearance.opacity)
+        this.hostWindow.getWindow().setOpacity(this.config.store.appearance.opacity)
     }
 }
+
+export { ElectronHostWindow, ElectronHostAppService }

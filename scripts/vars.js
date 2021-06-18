@@ -3,7 +3,6 @@ const fs = require('fs')
 const semver = require('semver')
 const childProcess = require('child_process')
 
-const appInfo = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../app/package.json')))
 const electronInfo = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../node_modules/electron/package.json')))
 
 exports.version = childProcess.execSync('git describe --tags', {encoding:'utf-8'})
@@ -18,10 +17,10 @@ exports.builtinPlugins = [
   'terminus-core',
   'terminus-settings',
   'terminus-terminal',
+  'terminus-electron',
   'terminus-local',
   'terminus-web',
   'terminus-community-color-schemes',
-  'terminus-electron',
   'terminus-plugin-manager',
   'terminus-ssh',
   'terminus-serial',

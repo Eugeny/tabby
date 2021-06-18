@@ -1,8 +1,4 @@
 hotkeys:
-  new-window:
-    - '⌘-N'
-  toggle-window:
-    - 'Ctrl+Space'
   toggle-fullscreen:
     - 'Ctrl+⌘+F'
   close-tab:

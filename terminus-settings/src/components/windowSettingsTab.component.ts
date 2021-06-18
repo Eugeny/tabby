@@ -39,7 +39,7 @@ export class WindowSettingsTabComponent extends BaseComponent {
 
         const dockingService = docking
         if (dockingService) {
-            this.subscribeUntilDestroyed(hostApp.displaysChanged$, () => {
+            this.subscribeUntilDestroyed(dockingService.screensChanged$, () => {
                 this.zone.run(() => this.screens = dockingService.getScreens())
             })
             this.screens = dockingService.getScreens()

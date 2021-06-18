@@ -11,9 +11,9 @@ import { SelectorOption } from '../api/selector'
 import { RecoveryToken } from '../api/tabRecovery'
 import { BootstrapData, BOOTSTRAP_DATA } from '../api/mainProcess'
 import { HostWindowService } from '../api/hostWindow'
+import { HostAppService } from '../api/hostApp'
 
 import { ConfigService } from './config.service'
-import { HostAppService } from './hostApp.service'
 import { TabRecoveryService } from './tabRecovery.service'
 import { TabsService, TabComponentType } from './tabs.service'
 
@@ -100,7 +100,7 @@ export class AppService {
             }
         })
 
-        hostApp.windowFocused$.subscribe(() => this._activeTab?.emitFocused())
+        hostWindow.windowFocused$.subscribe(() => this._activeTab?.emitFocused())
 
         this.tabClosed$.subscribe(async tab => {
             const token = await tabRecovery.getFullRecoveryToken(tab)

@@ -77,8 +77,10 @@ export abstract class PlatformService {
     supportsWindowControls = false
 
     get fileTransferStarted$ (): Observable<FileTransfer> { return this.fileTransferStarted }
+    get displayMetricsChanged$ (): Observable<void> { return this.displayMetricsChanged }
 
     protected fileTransferStarted = new Subject<FileTransfer>()
+    protected displayMetricsChanged = new Subject<void>()
 
     abstract readClipboard (): string
     abstract setClipboard (content: ClipboardContent): void
@@ -158,6 +160,7 @@ export abstract class PlatformService {
     abstract getAppVersion (): string
     abstract openExternal (url: string): void
     abstract listFonts (): Promise<string[]>
+    abstract setErrorHandler (handler: (_: any) => void): void
     abstract popupContextMenu (menu: MenuItemOptions[], event?: MouseEvent): void
     abstract showMessageBox (options: MessageBoxOptions): Promise<MessageBoxResult>
     abstract quit (): void
@@ -190,6 +193,9 @@ export class HTMLFileUpload extends FileUpload {
         this.increaseProgress(chunk.length)
         return chunk
     }
+
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    bringToFront (): void { }
 
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     close (): void { }

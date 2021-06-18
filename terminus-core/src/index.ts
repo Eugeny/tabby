@@ -27,7 +27,7 @@ import { AutofocusDirective } from './directives/autofocus.directive'
 import { FastHtmlBindDirective } from './directives/fastHtmlBind.directive'
 import { DropZoneDirective } from './directives/dropZone.directive'
 
-import { Theme, CLIHandler, TabContextMenuItemProvider, TabRecoveryProvider, HotkeyProvider, ConfigProvider } from './api'
+import { Theme, CLIHandler, TabContextMenuItemProvider, TabRecoveryProvider, HotkeyProvider, ConfigProvider, PlatformService } from './api'
 
 import { AppService } from './services/app.service'
 import { ConfigService } from './services/config.service'
@@ -102,11 +102,15 @@ const PROVIDERS = [
     ],
 })
 export default class AppModule { // eslint-disable-line @typescript-eslint/no-extraneous-class
-    constructor (app: AppService, config: ConfigService) {
+    constructor (app: AppService, config: ConfigService, platform: PlatformService) {
         app.ready$.subscribe(() => {
             if (config.store.enableWelcomeTab) {
                 app.openNewTabRaw(WelcomeTabComponent)
             }
+        })
+
+        platform.setErrorHandler(err => {
+            console.error('Unhandled exception:', err)
         })
     }
 

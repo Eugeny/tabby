@@ -1,8 +1,11 @@
 import * as fs from 'mz/fs'
 import * as path from 'path'
 import * as remote from '@electron/remote'
+import { PluginInfo } from '../../terminus-core/src/api/mainProcess'
+
 const nodeModule = require('module') // eslint-disable-line @typescript-eslint/no-var-requires
-const nodeRequire = (global as any).require
+
+const nodeRequire = global['require']
 
 function normalizePath (p: string): string {
     const cygwinPrefix = '/cygdrive/'
@@ -13,44 +16,7 @@ function normalizePath (p: string): string {
     return p
 }
 
-global['module'].paths.map((x: string) => nodeModule.globalPaths.push(normalizePath(x)))
-
-if (process.env.TERMINUS_DEV) {
-    nodeModule.globalPaths.unshift(path.dirname(remote.app.getAppPath()))
-}
-
 const builtinPluginsPath = process.env.TERMINUS_DEV ? path.dirname(remote.app.getAppPath()) : path.join((process as any).resourcesPath, 'builtin-plugins')
-
-const userPluginsPath = path.join(
-    remote.app.getPath('userData'),
-    'plugins',
-)
-
-if (!fs.existsSync(userPluginsPath)) {
-    fs.mkdir(userPluginsPath)
-}
-
-Object.assign(window, { builtinPluginsPath, userPluginsPath })
-nodeModule.globalPaths.unshift(builtinPluginsPath)
-nodeModule.globalPaths.unshift(path.join(userPluginsPath, 'node_modules'))
-// nodeModule.globalPaths.unshift(path.join((process as any).resourcesPath, 'app.asar', 'node_modules'))
-if (process.env.TERMINUS_PLUGINS) {
-    process.env.TERMINUS_PLUGINS.split(':').map(x => nodeModule.globalPaths.push(normalizePath(x)))
-}
-
-export type ProgressCallback = (current: number, total: number) => void // eslint-disable-line @typescript-eslint/no-type-alias
-
-export interface PluginInfo {
-    name: string
-    description: string
-    packageName: string
-    isBuiltin: boolean
-    version: string
-    author: string
-    homepage?: string
-    path?: string
-    info?: any
-}
 
 const builtinModules = [
     '@angular/animations',
@@ -71,25 +37,42 @@ const builtinModules = [
     'zone.js/dist/zone.js',
 ]
 
-const cachedBuiltinModules = {}
-builtinModules.forEach(m => {
-    cachedBuiltinModules[m] = nodeRequire(m)
-})
+export type ProgressCallback = (current: number, total: number) => void // eslint-disable-line @typescript-eslint/no-type-alias
 
-const originalRequire = (global as any).require
-;(global as any).require = function (query: string) {
-    if (cachedBuiltinModules[query]) {
-        return cachedBuiltinModules[query]
-    }
-    return originalRequire.apply(this, [query])
-}
+export function initModuleLookup (userPluginsPath: string): void {
+    global['module'].paths.map((x: string) => nodeModule.globalPaths.push(normalizePath(x)))
 
-const originalModuleRequire = nodeModule.prototype.require
-nodeModule.prototype.require = function (query: string) {
-    if (cachedBuiltinModules[query]) {
-        return cachedBuiltinModules[query]
+    if (process.env.TERMINUS_DEV) {
+        nodeModule.globalPaths.unshift(path.dirname(remote.app.getAppPath()))
     }
-    return originalModuleRequire.call(this, query)
+
+    nodeModule.globalPaths.unshift(builtinPluginsPath)
+    nodeModule.globalPaths.unshift(path.join(userPluginsPath, 'node_modules'))
+    // nodeModule.globalPaths.unshift(path.join((process as any).resourcesPath, 'app.asar', 'node_modules'))
+    if (process.env.TERMINUS_PLUGINS) {
+        process.env.TERMINUS_PLUGINS.split(':').map(x => nodeModule.globalPaths.push(normalizePath(x)))
+    }
+
+    const cachedBuiltinModules = {}
+    builtinModules.forEach(m => {
+        cachedBuiltinModules[m] = nodeRequire(m)
+    })
+
+    const originalRequire = (global as any).require
+    ;(global as any).require = function (query: string) {
+        if (cachedBuiltinModules[query]) {
+            return cachedBuiltinModules[query]
+        }
+        return originalRequire.apply(this, [query])
+    }
+
+    const originalModuleRequire = nodeModule.prototype.require
+    nodeModule.prototype.require = function (query: string) {
+        if (cachedBuiltinModules[query]) {
+            return cachedBuiltinModules[query]
+        }
+        return originalModuleRequire.call(this, query)
+    }
 }
 
 export async function findPlugins (): Promise<PluginInfo[]> {
@@ -167,8 +150,6 @@ export async function findPlugins (): Promise<PluginInfo[]> {
     }
 
     foundPlugins.sort((a, b) => a.name > b.name ? 1 : -1)
-
-    ;(window as any).installedPlugins = foundPlugins
     return foundPlugins
 }
 

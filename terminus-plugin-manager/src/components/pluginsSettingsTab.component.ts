@@ -4,8 +4,8 @@ import { debounceTime, distinctUntilChanged, first, tap, flatMap, map } from 'rx
 import semverGt from 'semver/functions/gt'
 
 import { Component, Input } from '@angular/core'
-import { ConfigService, PlatformService } from 'terminus-core'
-import { PluginInfo, PluginManagerService } from '../services/pluginManager.service'
+import { ConfigService, PlatformService, PluginInfo } from 'terminus-core'
+import { PluginManagerService } from '../services/pluginManager.service'
 
 enum BusyState { Installing = 'Installing', Uninstalling = 'Uninstalling' }
 

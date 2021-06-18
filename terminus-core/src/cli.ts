@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { HostAppService } from './services/hostApp.service'
+import { HostAppService } from './api/hostApp'
 import { CLIHandler, CLIEvent } from './api/cli'
 
 @Injectable()
