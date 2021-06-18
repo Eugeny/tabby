@@ -91,18 +91,14 @@ export class SFTPPanelComponent {
 
     async upload (): Promise<void> {
         const transfers = await this.platform.startUpload({ multiple: true })
-        const savedPath = this.path
         for (const transfer of transfers) {
-            this.uploadOne(transfer).then(() => {
-                if (this.path === savedPath) {
-                    this.navigate(this.path)
-                }
-            })
+            this.uploadOne(transfer)
         }
     }
 
     async uploadOne (transfer: FileUpload): Promise<void> {
         const itemPath = path.join(this.path, transfer.getName())
+        const savedPath = this.path
         try {
             const handle = await this.sftp.open(itemPath, 'w')
             while (true) {
@@ -114,6 +110,9 @@ export class SFTPPanelComponent {
             }
             handle.close()
             transfer.close()
+            if (this.path === savedPath) {
+                this.navigate(this.path)
+            }
         } catch (e) {
             transfer.cancel()
             throw e

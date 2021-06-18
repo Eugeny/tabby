@@ -29,7 +29,7 @@ export class DropZoneDirective implements AfterViewInit {
         })
         this.el.nativeElement.addEventListener('drop', (event: DragEvent) => {
             this.removeHint()
-            for (const transfer of this.platform.startUploadFromDragEvent(event)) {
+            for (const transfer of this.platform.startUploadFromDragEvent(event, true)) {
                 this.transfer.emit(transfer)
             }
         })
