@@ -43,6 +43,9 @@ jobs:
         GH_TOKEN: ${{ secrets.GH_TOKEN }}
         USE_HARD_LINKS: false
 
+    - name: Build web resources
+      run: 'tar czf terminus-web.tar.gz (terminus-*|web)/dist'
+
     - name: Upload symbols
       run: |
         sudo npm install -g @sentry/cli --unsafe-perm
@@ -64,6 +67,8 @@ jobs:
         mv dist/*.snap artifact-snap/ || true
         mkdir artifact-tar.gz
         mv dist/*.tar.gz artifact-tar.gz/ || true
+        mkdir artifact-web
+        mv terminus-web.tar.gz artifact-web/ || true
 
     - uses: actions/upload-artifact@master
       name: Upload DEB
@@ -90,7 +95,13 @@ jobs:
         path: artifact-snap
 
     - uses: actions/upload-artifact@master
-      name: Upload tarball
+      name: Upload Linux tarball
       with:
         name: Linux tarball
         path: artifact-tar.gz
+
+    - uses: actions/upload-artifact@master
+      name: Upload web tarball
+      with:
+        name: Web tarball
+        path: artifact-web.gz
