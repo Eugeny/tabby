@@ -104,4 +104,4 @@ jobs:
       name: Upload web tarball
       with:
         name: Web tarball
-        path: artifact-web.gz
+        path: artifact-web
