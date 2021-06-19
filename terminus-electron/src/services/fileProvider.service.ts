@@ -1,6 +1,7 @@
 import { promises as fs } from 'fs'
 import { Injectable } from '@angular/core'
-import { ElectronService, FileProvider } from 'terminus-core'
+import { FileProvider } from 'terminus-core'
+import { ElectronService } from '../services/electron.service'
 import { ElectronHostWindow } from './hostWindow.service'
 
 @Injectable()

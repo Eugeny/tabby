@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Injectable } from '@angular/core'
-import { ToolbarButtonProvider, ToolbarButton, ElectronService, ConfigService, SelectorOption, AppService } from 'terminus-core'
+import { ToolbarButtonProvider, ToolbarButton, ConfigService, SelectorOption, AppService } from 'terminus-core'
+import { ElectronService } from 'terminus-electron'
 
 import { TerminalService } from './services/terminal.service'
 

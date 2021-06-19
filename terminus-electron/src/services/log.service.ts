@@ -2,7 +2,8 @@ import * as fs from 'fs'
 import * as path from 'path'
 import * as winston from 'winston'
 import { Injectable } from '@angular/core'
-import { ConsoleLogger, Logger, ElectronService } from 'terminus-core'
+import { ConsoleLogger, Logger } from 'terminus-core'
+import { ElectronService } from '../services/electron.service'
 
 const initializeWinston = (electron: ElectronService) => {
     const logDirectory = electron.app.getPath('userData')

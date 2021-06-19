@@ -1,6 +1,7 @@
 import * as path from 'path'
 import { Injectable } from '@angular/core'
-import { HostAppService, Platform, ElectronService } from 'terminus-core'
+import { HostAppService, Platform } from 'terminus-core'
+import { ElectronService } from 'terminus-electron'
 
 import { ShellProvider, Shell } from '../api'
 

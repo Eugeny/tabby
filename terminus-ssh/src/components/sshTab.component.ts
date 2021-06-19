@@ -3,7 +3,7 @@ import { Spinner } from 'cli-spinner'
 import { Component, Injector, HostListener } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { first } from 'rxjs/operators'
-import { RecoveryToken } from 'terminus-core'
+import { Platform, RecoveryToken } from 'terminus-core'
 import { BaseTerminalTabComponent } from 'terminus-terminal'
 import { SSHService } from '../services/ssh.service'
 import { SSHConnection, SSHSession } from '../api'
@@ -18,6 +18,7 @@ import { SSHPortForwardingModalComponent } from './sshPortForwardingModal.compon
     animations: BaseTerminalTabComponent.animations,
 })
 export class SSHTabComponent extends BaseTerminalTabComponent {
+    Platform = Platform
     connection?: SSHConnection
     session: SSHSession|null = null
     sftpPanelVisible = false

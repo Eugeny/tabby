@@ -1,5 +1,6 @@
 import { Injectable, NgZone, Injector } from '@angular/core'
-import { ElectronService, isWindowsBuild, WIN_BUILD_FLUENT_BG_SUPPORTED, HostAppService, Platform, CLIHandler } from 'terminus-core'
+import { isWindowsBuild, WIN_BUILD_FLUENT_BG_SUPPORTED, HostAppService, Platform, CLIHandler } from 'terminus-core'
+import { ElectronService } from '../services/electron.service'
 
 
 @Injectable({ providedIn: 'root' })

@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core'
-import { PlatformService, LogService, UpdaterService, DockingService, HostAppService, ThemesService, Platform, AppService, ConfigService, ElectronService, WIN_BUILD_FLUENT_BG_SUPPORTED, isWindowsBuild, HostWindowService, HotkeyProvider, ConfigProvider, FileProvider } from 'terminus-core'
+import { PlatformService, LogService, UpdaterService, DockingService, HostAppService, ThemesService, Platform, AppService, ConfigService, WIN_BUILD_FLUENT_BG_SUPPORTED, isWindowsBuild, HostWindowService, HotkeyProvider, ConfigProvider, FileProvider } from 'terminus-core'
 import { TerminalColorSchemeProvider } from 'terminus-terminal'
 
 import { HyperColorSchemes } from './colorSchemes'
@@ -11,6 +11,7 @@ import { ElectronDockingService } from './services/docking.service'
 import { ElectronHostWindow } from './services/hostWindow.service'
 import { ElectronFileProvider } from './services/fileProvider.service'
 import { ElectronHostAppService } from './services/hostApp.service'
+import { ElectronService } from './services/electron.service'
 import { ElectronHotkeyProvider } from './hotkeys'
 import { ElectronConfigProvider } from './config'
 
@@ -116,4 +117,4 @@ export default class ElectronModule {
     }
 }
 
-export { ElectronHostWindow, ElectronHostAppService }
+export { ElectronHostWindow, ElectronHostAppService, ElectronService }

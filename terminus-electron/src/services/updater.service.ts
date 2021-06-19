@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core'
 import axios from 'axios'
 
-import { Logger, LogService, ElectronService, ConfigService, UpdaterService, PlatformService } from 'terminus-core'
+import { Logger, LogService, ConfigService, UpdaterService, PlatformService } from 'terminus-core'
+import { ElectronService } from '../services/electron.service'
 
 const UPDATES_URL = 'https://api.github.com/repos/eugeny/terminus/releases/latest'
 

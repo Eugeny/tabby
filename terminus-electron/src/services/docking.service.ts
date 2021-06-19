@@ -1,6 +1,7 @@
 import { Injectable, NgZone } from '@angular/core'
 import type { Display } from 'electron'
-import { ConfigService, ElectronService, DockingService, Screen, PlatformService } from 'terminus-core'
+import { ConfigService, DockingService, Screen, PlatformService } from 'terminus-core'
+import { ElectronService } from '../services/electron.service'
 import { ElectronHostWindow, Bounds } from './hostWindow.service'
 
 @Injectable()

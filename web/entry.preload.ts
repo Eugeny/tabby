@@ -6,3 +6,6 @@ import '@fortawesome/fontawesome-free/css/regular.css'
 import '@fortawesome/fontawesome-free/css/fontawesome.css'
 import 'ngx-toastr/toastr.css'
 import '../app/src/preload.scss'
+
+// Required before other imports
+import './polyfills.buffer'

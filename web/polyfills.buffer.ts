@@ -234,3 +234,13 @@ export function hexSlice (start, end) {
     }
     return out
 }
+
+import { Buffer } from 'buffer'
+
+Buffer.prototype['latin1Slice'] = latin1Slice
+Buffer.prototype['utf8Slice'] = utf8Slice
+Buffer.prototype['base64Slice'] = base64Slice
+Buffer.prototype['utf8Write'] = utf8Write
+Buffer.prototype['hexSlice'] = hexSlice
+
+window['Buffer'] = Buffer

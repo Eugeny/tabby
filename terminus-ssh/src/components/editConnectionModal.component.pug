@@ -65,7 +65,7 @@
                             input(type='radio', ngbButton, [value]='"publicKey"')
                             i.fas.fa-key
                             .m-0 Key
-                        label.btn.btn-secondary(ngbButtonLabel)
+                        label.btn.btn-secondary(ngbButtonLabel, ng:if='hostApp.platform !== Platform.Web')
                             input(type='radio', ngbButton, [value]='"agent"')
                             i.fas.fa-user-secret
                             .m-0 Agent
@@ -117,12 +117,12 @@
                         option(value='') None
                         option([ngValue]='x.name', *ngFor='let x of config.store.ssh.connections') {{x.name}}
 
-                .form-line
+                .form-line(ng:if='hostApp.platform !== Platform.Web')
                     .header
                         .title X11 forwarding
                     toggle([(ngModel)]='connection.x11')
 
-                .form-line
+                .form-line(ng:if='hostApp.platform !== Platform.Web')
                     .header
                         .title Agent forwarding
                     toggle([(ngModel)]='connection.agentForward')
@@ -176,7 +176,7 @@
                         [(ngModel)]='connection.readyTimeout',
                     )
 
-                .form-line(*ngIf='!connection.jumpHost')
+                .form-line(*ngIf='!connection.jumpHost && hostApp.platform !== Platform.Web')
                     .header
                         .title Use a proxy command
                         .description Command's stdin/stdout is used instead of a network connection

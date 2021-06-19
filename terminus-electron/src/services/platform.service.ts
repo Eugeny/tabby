@@ -5,7 +5,8 @@ import * as os from 'os'
 import promiseIpc from 'electron-promise-ipc'
 import { execFile } from 'mz/child_process'
 import { Injectable, NgZone } from '@angular/core'
-import { PlatformService, ClipboardContent, HostAppService, Platform, ElectronService, MenuItemOptions, MessageBoxOptions, MessageBoxResult, FileUpload, FileDownload, FileUploadOptions, wrapPromise } from 'terminus-core'
+import { PlatformService, ClipboardContent, HostAppService, Platform, MenuItemOptions, MessageBoxOptions, MessageBoxResult, FileUpload, FileDownload, FileUploadOptions, wrapPromise } from 'terminus-core'
+import { ElectronService } from '../services/electron.service'
 import { ElectronHostWindow } from './hostWindow.service'
 const fontManager = require('fontmanager-redux') // eslint-disable-line
 

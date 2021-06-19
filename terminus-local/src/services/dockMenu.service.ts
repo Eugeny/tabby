@@ -1,5 +1,6 @@
 import { NgZone, Injectable } from '@angular/core'
-import { ElectronService, ConfigService, HostAppService, Platform } from 'terminus-core'
+import { ConfigService, HostAppService, Platform } from 'terminus-core'
+import { ElectronService } from 'terminus-electron'
 import { TerminalService } from './terminal.service'
 
 /** @hidden */

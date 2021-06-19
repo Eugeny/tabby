@@ -1,6 +1,7 @@
 import * as path from 'path'
 import { Injectable } from '@angular/core'
-import { ElectronService, WIN_BUILD_CONPTY_SUPPORTED, isWindowsBuild } from 'terminus-core'
+import { WIN_BUILD_CONPTY_SUPPORTED, isWindowsBuild } from 'terminus-core'
+import { ElectronService } from 'terminus-electron'
 import { SessionOptions } from '../api'
 
 /** @hidden */

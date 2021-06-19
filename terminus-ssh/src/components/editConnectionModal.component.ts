@@ -4,7 +4,7 @@ import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
 import { Observable } from 'rxjs'
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators'
 
-import { ConfigService, PlatformService, FileProvidersService } from 'terminus-core'
+import { ConfigService, PlatformService, FileProvidersService, Platform, HostAppService } from 'terminus-core'
 import { PasswordStorageService } from '../services/passwordStorage.service'
 import { SSHConnection, LoginScript, ForwardedPortConfig, SSHAlgorithmType, ALGORITHM_BLACKLIST } from '../api'
 import { PromptModalComponent } from './promptModal.component'
@@ -15,6 +15,7 @@ import * as ALGORITHMS from 'ssh2/lib/protocol/constants'
     template: require('./editConnectionModal.component.pug'),
 })
 export class EditConnectionModalComponent {
+    Platform = Platform
     connection: SSHConnection
     hasSavedPassword: boolean
     useProxyCommand: boolean
@@ -27,6 +28,7 @@ export class EditConnectionModalComponent {
 
     constructor (
         public config: ConfigService,
+        public hostApp: HostAppService,
         private modalInstance: NgbActiveModal,
         private platform: PlatformService,
         private passwordStorage: PasswordStorageService,

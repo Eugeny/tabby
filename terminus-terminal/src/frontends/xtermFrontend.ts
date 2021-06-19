@@ -158,7 +158,7 @@ export class XTermFrontend extends Frontend {
         this.opened = true
 
         // Work around font loading bugs
-        await new Promise(resolve => setTimeout(resolve, process.env.XWEB ? 1000 : 0))
+        await new Promise(resolve => setTimeout(resolve, this.hostApp.platform === Platform.Web ? 1000 : 0))
 
         if (this.enableWebGL) {
             this.webGLAddon = new WebglAddon()

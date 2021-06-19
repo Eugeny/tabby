@@ -15,7 +15,10 @@
                 i.fas.fa-flask
                 span Experimental
 
-        button.btn.btn-secondary((click)='showPortForwarding()', *ngIf='session && session.open')
+        button.btn.btn-secondary(
+            *ngIf='session && session.open && hostApp.platform !== Platform.Web',
+            (click)='showPortForwarding()'
+        )
             i.fas.fa-plug
             span Ports
 

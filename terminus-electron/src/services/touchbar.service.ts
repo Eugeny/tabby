@@ -1,6 +1,7 @@
 import { SegmentedControlSegment, TouchBarSegmentedControl } from 'electron'
 import { Injectable, NgZone } from '@angular/core'
-import { AppService, HostAppService, Platform, ElectronService } from 'terminus-core'
+import { AppService, HostAppService, Platform } from 'terminus-core'
+import { ElectronService } from '../services/electron.service'
 import { ElectronHostWindow } from './hostWindow.service'
 
 /** @hidden */

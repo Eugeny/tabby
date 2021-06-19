@@ -1,6 +1,7 @@
 import type { BrowserWindow, TouchBar } from 'electron'
 import { Injectable, Inject, NgZone } from '@angular/core'
-import { BootstrapData, BOOTSTRAP_DATA, ElectronService, HostWindowService } from 'terminus-core'
+import { BootstrapData, BOOTSTRAP_DATA, HostWindowService } from 'terminus-core'
+import { ElectronService } from '../services/electron.service'
 
 export interface Bounds {
     x: number

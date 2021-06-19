@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
+/* eslint-disable @typescript-eslint/no-extraneous-class */
 import * as angularCoreModule from '@angular/core'
 import * as angularCompilerModule from '@angular/compiler'
 import * as angularCommonModule from '@angular/common'
@@ -9,49 +11,53 @@ import * as angularAnimationsModule from '@angular/animations'
 import * as ngBootstrapModule from '@ng-bootstrap/ng-bootstrap'
 import * as ngxToastrModule from 'ngx-toastr'
 
-import { Buffer } from 'buffer'
-import { base64Slice, hexSlice, latin1Slice, utf8Slice, utf8Write } from './polyfills.buffer'
+import './polyfills.buffer'
+import { Duplex } from 'stream-browserify'
 
 
-window['Buffer'] = Buffer
+export class SocketProxy extends Duplex {
+    socket: any
 
-Buffer.prototype['latin1Slice'] = latin1Slice
-Buffer.prototype['utf8Slice'] = utf8Slice
-Buffer.prototype['base64Slice'] = base64Slice
-Buffer.prototype['utf8Write'] = utf8Write
-Buffer.prototype['hexSlice'] = hexSlice
+    constructor (...args) {
+        super({
+            allowHalfOpen: false,
+        })
+        this.socket = new window['__connector__'].Socket(...args)
+        this.socket.connect$.subscribe(() => this['emit']('connect'))
+        this.socket.data$.subscribe(data => this['emit']('data', Buffer.from(data)))
+    }
+
+    connect (...args) {
+        this.socket.connect(...args)
+    }
+
+    setNoDelay () { }
+
+    setTimeout () { }
+
+    _read (_size: number): void { }
+
+    _write (chunk: Buffer, _encoding: string, callback: (error?: Error | null) => void): void {
+        this.socket.write(chunk)
+        callback()
+    }
+
+    _destroy (error: Error|null, callback: (error: Error|null) => void): void {
+        this.socket.close(error)
+        callback(error)
+    }
+}
 
 const mocks = {
     fs: {
-        //     console.warn('mock realPathSync', path)
-        //     return path
-        // },
-        // existsSync: path => {
-        //     console.warn('mock existsSync', path)
-        //     return false
-        // },
         realpathSync: () => null,
         readdir: () => null,
         stat: () => null,
         appendFile: () => null,
-        // mkdir: path => {
-        //     console.warn('mock mkdir', path)
-        // },
-        // mkdirSync: path => {
-        //     console.warn('mock mkdirSync', path)
-        // },
-        // writeFileSync: () => null,
-        // readFileSync: (path) => {
-        //     return ''
-        // },
-        // readFile: (path, enc, cb) => {
-        //     console.warn('mock readFile', path)
-        //     cb('UNKNOWN', null)
-        // },
         constants: {},
     },
     buffer: {
-        Buffer,
+        Buffer: window['Buffer'],
     },
     crypto: {
         ...require('crypto-browserify'),
@@ -80,6 +86,9 @@ const mocks = {
     assert: require('assert'),
     url: {
         parse: () => null,
+    },
+    net: {
+        Socket: SocketProxy,
     },
     http: {
         Agent: class {},
@@ -117,10 +126,13 @@ const mocks = {
         },
     },
     dns: {},
+    socksv5: {},
     util: require('util/'),
     keytar: {
         getPassword: () => null,
     },
+    './crypto/build/Release/sshcrypto.node': {},
+    '../build/Release/cpufeatures.node': {},
 }
 
 const builtins = {
@@ -157,18 +169,17 @@ mockRequire['resolve'] = (() => null) as any
 
 Object.assign(window, {
     require: mockRequire,
+    module: {
+        paths: [],
+    },
+    __dirname: '__dirname',
+    setImmediate: setTimeout as any,
 })
 
 window['require'].main = {
     paths: [],
 } as any
 
-window['module'] = {
-    paths: [],
-} as any
-
-window['__dirname'] = '__dirname'
-window['setImmediate'] = setTimeout as any
 mocks.module['prototype'] = { require: window['require'] }
 mocks.assert.assertNotStrictEqual = () => true
 mocks.assert.notStrictEqual = () => true
