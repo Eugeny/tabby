@@ -13,6 +13,10 @@ sh.cd('app')
 sh.exec(`${npx} yarn install --force`)
 sh.cd('..')
 
+sh.cd('web')
+sh.exec(`${npx} yarn install --force`)
+sh.cd('..')
+
 vars.builtinPlugins.forEach(plugin => {
   log.info('deps', plugin)
   sh.cd(plugin)
