@@ -18,7 +18,7 @@ jobs:
     - name: Install deps
       run: |
         sudo apt-get update
-        sudo apt-get install bsdtar
+        sudo apt-get install bsdtar zsh
         npm i -g yarn@1.19.1
         cd app
         yarn
@@ -44,7 +44,7 @@ jobs:
         USE_HARD_LINKS: false
 
     - name: Build web resources
-      run: 'tar czf terminus-web.tar.gz (terminus-*|web)/dist'
+      run: zsh -c 'tar czf terminus-web.tar.gz (terminus-*|web)/dist'
 
     - name: Upload symbols
       run: |
