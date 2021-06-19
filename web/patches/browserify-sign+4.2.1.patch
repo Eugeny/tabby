@@ -1,0 +1,13 @@
+diff --git a/node_modules/browserify-sign/browser/index.js b/node_modules/browserify-sign/browser/index.js
+index e6df44c..641e18e 100644
+--- a/node_modules/browserify-sign/browser/index.js
++++ b/node_modules/browserify-sign/browser/index.js
+@@ -11,6 +11,8 @@ Object.keys(algorithms).forEach(function (key) {
+   algorithms[key.toLowerCase()] = algorithms[key]
+ })
+ 
++algorithms['sha1'] = algorithms['RSA-SHA1']
++
+ function Sign (algorithm) {
+   stream.Writable.call(this)
+ 

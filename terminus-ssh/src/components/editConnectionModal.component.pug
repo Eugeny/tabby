@@ -91,7 +91,7 @@
                     .list-group.mb-2
                         .list-group-item.d-flex.align-items-center.p-1.pl-3(*ngFor='let path of connection.privateKeys')
                             i.fas.fa-key
-                            .mr-auto {{path}}
+                            .no-wrap.mr-auto {{path}}
                             button.btn.btn-link((click)='removePrivateKey(path)')
                                 i.fas.fa-trash
                     button.btn.btn-secondary((click)='addPrivateKey()')

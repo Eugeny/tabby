@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Component } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
-import { BaseComponent, VaultService, VaultSecret, Vault, PlatformService, ConfigService } from 'terminus-core'
+import { BaseComponent, VaultService, VaultSecret, Vault, PlatformService, ConfigService, VAULT_SECRET_TYPE_FILE } from 'terminus-core'
 import { SetVaultPassphraseModalComponent } from './setVaultPassphraseModal.component'
 
 
@@ -77,6 +77,9 @@ export class VaultSettingsTabComponent extends BaseComponent {
         }
         if (secret.type === 'ssh:key-passphrase') {
             return `Passphrase for a private key with hash ${secret.key.hash.substring(0, 8)}...`
+        }
+        if (secret.type === VAULT_SECRET_TYPE_FILE) {
+            return `File: ${secret.key.description}`
         }
         return `Unknown secret of type ${secret.type} for ${JSON.stringify(secret.key)}`
     }

@@ -4,7 +4,7 @@ import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
 import { Observable } from 'rxjs'
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators'
 
-import { ElectronService, ConfigService, PlatformService } from 'terminus-core'
+import { ConfigService, PlatformService, FileProvidersService } from 'terminus-core'
 import { PasswordStorageService } from '../services/passwordStorage.service'
 import { SSHConnection, LoginScript, ForwardedPortConfig, SSHAlgorithmType, ALGORITHM_BLACKLIST } from '../api'
 import { PromptModalComponent } from './promptModal.component'
@@ -28,10 +28,10 @@ export class EditConnectionModalComponent {
     constructor (
         public config: ConfigService,
         private modalInstance: NgbActiveModal,
-        private electron: ElectronService,
         private platform: PlatformService,
         private passwordStorage: PasswordStorageService,
         private ngbModal: NgbModal,
+        private fileProviders: FileProvidersService,
     ) {
         for (const k of Object.values(SSHAlgorithmType)) {
             const supportedAlg = {
@@ -101,20 +101,12 @@ export class EditConnectionModalComponent {
         this.passwordStorage.deletePassword(this.connection)
     }
 
-    addPrivateKey () {
-        this.electron.dialog.showOpenDialog(
-            {
-                defaultPath: this.connection.privateKeys![0],
-                title: 'Select private key',
-            }
-        ).then(result => {
-            if (!result.canceled) {
-                this.connection.privateKeys = [
-                    ...this.connection.privateKeys!,
-                    ...result.filePaths,
-                ]
-            }
-        })
+    async addPrivateKey () {
+        const ref = await this.fileProviders.selectAndStoreFile(`private key for ${this.connection.name}`)
+        this.connection.privateKeys = [
+            ...this.connection.privateKeys!,
+            ref,
+        ]
     }
 
     removePrivateKey (path: string) {

@@ -10,7 +10,7 @@ import * as ngBootstrapModule from '@ng-bootstrap/ng-bootstrap'
 import * as ngxToastrModule from 'ngx-toastr'
 
 import { Buffer } from 'buffer'
-import { base64Slice, latin1Slice, utf8Slice, utf8Write } from './polyfills.buffer'
+import { base64Slice, hexSlice, latin1Slice, utf8Slice, utf8Write } from './polyfills.buffer'
 
 
 window['Buffer'] = Buffer
@@ -19,6 +19,7 @@ Buffer.prototype['latin1Slice'] = latin1Slice
 Buffer.prototype['utf8Slice'] = utf8Slice
 Buffer.prototype['base64Slice'] = base64Slice
 Buffer.prototype['utf8Write'] = utf8Write
+Buffer.prototype['hexSlice'] = hexSlice
 
 const mocks = {
     fs: {

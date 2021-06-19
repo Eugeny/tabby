@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core'
-import { PlatformService, LogService, UpdaterService, DockingService, HostAppService, ThemesService, Platform, AppService, ConfigService, ElectronService, WIN_BUILD_FLUENT_BG_SUPPORTED, isWindowsBuild, HostWindowService, HotkeyProvider, ConfigProvider } from 'terminus-core'
+import { PlatformService, LogService, UpdaterService, DockingService, HostAppService, ThemesService, Platform, AppService, ConfigService, ElectronService, WIN_BUILD_FLUENT_BG_SUPPORTED, isWindowsBuild, HostWindowService, HotkeyProvider, ConfigProvider, FileProvider } from 'terminus-core'
 import { TerminalColorSchemeProvider } from 'terminus-terminal'
 
 import { HyperColorSchemes } from './colorSchemes'
@@ -9,6 +9,7 @@ import { ElectronUpdaterService } from './services/updater.service'
 import { TouchbarService } from './services/touchbar.service'
 import { ElectronDockingService } from './services/docking.service'
 import { ElectronHostWindow } from './services/hostWindow.service'
+import { ElectronFileProvider } from './services/fileProvider.service'
 import { ElectronHostAppService } from './services/hostApp.service'
 import { ElectronHotkeyProvider } from './hotkeys'
 import { ElectronConfigProvider } from './config'
@@ -24,6 +25,7 @@ import { ElectronConfigProvider } from './config'
         { provide: DockingService, useClass: ElectronDockingService },
         { provide: HotkeyProvider, useClass: ElectronHotkeyProvider, multi: true },
         { provide: ConfigProvider, useClass: ElectronConfigProvider, multi: true },
+        { provide: FileProvider, useClass: ElectronFileProvider, multi: true },
     ],
 })
 export default class ElectronModule {

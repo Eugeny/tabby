@@ -10,7 +10,7 @@ import stripAnsi from 'strip-ansi'
 import socksv5 from 'socksv5'
 import { Injector, NgZone } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
-import { HostAppService, Logger, NotificationsService, Platform, PlatformService, wrapPromise } from 'terminus-core'
+import { FileProvidersService, HostAppService, Logger, NotificationsService, Platform, PlatformService, wrapPromise } from 'terminus-core'
 import { BaseSession } from 'terminus-terminal'
 import { Server, Socket, createServer, createConnection } from 'net'
 import { Client, ClientChannel, SFTPWrapper } from 'ssh2'
@@ -138,7 +138,8 @@ export class ForwardedPort implements ForwardedPortConfig {
 
 interface AuthMethod {
     type: 'none'|'publickey'|'agent'|'password'|'keyboard-interactive'|'hostbased'
-    path?: string
+    name?: string
+    contents?: Buffer
 }
 
 export interface SFTPFile {
@@ -279,10 +280,11 @@ export class SSHSession extends BaseSession {
     private platform: PlatformService
     private notifications: NotificationsService
     private zone: NgZone
+    private fileProviders: FileProvidersService
 
     constructor (
         injector: Injector,
-        public connection: SSHConnection
+        public connection: SSHConnection,
     ) {
         super()
         this.passwordStorage = injector.get(PasswordStorageService)
@@ -291,6 +293,7 @@ export class SSHSession extends BaseSession {
         this.platform = injector.get(PlatformService)
         this.notifications = injector.get(NotificationsService)
         this.zone = injector.get(NgZone)
+        this.fileProviders = injector.get(FileProvidersService)
 
         this.scripts = connection.scripts ?? []
         this.destroyed$.subscribe(() => {
@@ -318,11 +321,14 @@ export class SSHSession extends BaseSession {
         this.remainingAuthMethods = [{ type: 'none' }]
         if (!this.connection.auth || this.connection.auth === 'publicKey') {
             for (const pk of this.connection.privateKeys ?? []) {
-                if (await fs.exists(pk)) {
+                try {
                     this.remainingAuthMethods.push({
                         type: 'publickey',
-                        path: pk,
+                        name: pk,
+                        contents: await this.fileProviders.retrieveFile(pk),
                     })
+                } catch (error) {
+                    this.emitServiceMessage(colors.bgYellow.yellow.black(' ! ') + ` Could not load private key ${pk}: ${error}`)
                 }
             }
         }
@@ -561,14 +567,14 @@ export class SSHSession extends BaseSession {
             }
             if (method.type === 'publickey') {
                 try {
-                    const key = await this.loadPrivateKey(method.path!)
+                    const key = await this.loadPrivateKey(method.contents)
                     return {
                         type: 'publickey',
                         username: this.connection.user,
                         key,
                     }
                 } catch (e) {
-                    this.emitServiceMessage(colors.bgYellow.yellow.black(' ! ') + ` Failed to load private key ${method.path}: ${e}`)
+                    this.emitServiceMessage(colors.bgYellow.yellow.black(' ! ') + ` Failed to load private key ${method.name}: ${e}`)
                     continue
                 }
             }
@@ -706,23 +712,22 @@ export class SSHSession extends BaseSession {
         }
     }
 
-    async loadPrivateKey (privateKeyPath: string): Promise<string|null> {
-        if (!privateKeyPath) {
+    async loadPrivateKey (privateKeyContents?: Buffer): Promise<string|null> {
+        if (!privateKeyContents) {
             const userKeyPath = path.join(process.env.HOME!, '.ssh', 'id_rsa')
             if (await fs.exists(userKeyPath)) {
                 this.emitServiceMessage('Using user\'s default private key')
-                privateKeyPath = userKeyPath
+                privateKeyContents = fs.readFile(userKeyPath, { encoding: null })
             }
         }
 
-        if (!privateKeyPath) {
+        if (!privateKeyContents) {
             return null
         }
 
-        this.emitServiceMessage('Loading private key from ' + colors.bgWhite.blackBright(' ' + privateKeyPath + ' '))
+        this.emitServiceMessage('Loading private key')
         try {
-            const privateKeyContents = (await fs.readFile(privateKeyPath)).toString()
-            const parsedKey = await this.parsePrivateKey(privateKeyContents)
+            const parsedKey = await this.parsePrivateKey(privateKeyContents.toString())
             this.activePrivateKey = parsedKey.toString('openssh')
             return this.activePrivateKey
         } catch (error) {

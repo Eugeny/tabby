@@ -6,6 +6,8 @@ import { AsyncSubject, Subject, Observable } from 'rxjs'
 import { wrapPromise } from '../utils'
 import { UnlockVaultModalComponent } from '../components/unlockVaultModal.component'
 import { NotificationsService } from '../services/notifications.service'
+import { FileProvider } from '../api/fileProvider'
+import { PlatformService } from '../api/platform'
 
 const PBKDF_ITERATIONS = 100000
 const PBKDF_DIGEST = 'sha512'
@@ -79,6 +81,8 @@ async function decryptVault (vault: StoredVault, passphrase: string): Promise<Va
     const plaintext = decipher.update(encrypted, undefined, 'utf-8') + decipher.final('utf-8')
     return migrateVaultContent(JSON.parse(plaintext))
 }
+
+export const VAULT_SECRET_TYPE_FILE = 'file'
 
 // Don't make it accessible through VaultService fields
 let _rememberedPassphrase: string|null = null
@@ -161,7 +165,7 @@ export class VaultService {
             setTimeout(() => {
                 _rememberedPassphrase = null
                 // avoid multiple consequent prompts
-            }, Math.min(1000, rememberFor * 60000))
+            }, Math.max(1000, rememberFor * 60000))
             _rememberedPassphrase = passphrase
         }
 
@@ -210,5 +214,53 @@ export class VaultService {
 
     isEnabled (): boolean {
         return !!this.store
+    }
+}
+
+
+@Injectable()
+export class VaultFileProvider extends FileProvider {
+    name = 'Vault'
+    prefix = 'vault://'
+
+    constructor (
+        private vault: VaultService,
+        private platform: PlatformService,
+        private zone: NgZone,
+    ) {
+        super()
+    }
+
+    async isAvailable (): Promise<boolean> {
+        return this.vault.isEnabled()
+    }
+
+    async selectAndStoreFile (description: string): Promise<string> {
+        const transfers = await this.platform.startUpload()
+        if (!transfers.length) {
+            throw new Error('Nothing selected')
+        }
+        const transfer = transfers[0]
+        const id = (await wrapPromise(this.zone, promisify(crypto.randomBytes)(32))).toString('hex')
+        this.vault.addSecret({
+            type: VAULT_SECRET_TYPE_FILE,
+            key: {
+                id,
+                description,
+            },
+            value: (await transfer.readAll()).toString('base64'),
+        })
+        return `${this.prefix}${id}`
+    }
+
+    async retrieveFile (key: string): Promise<Buffer> {
+        if (!key.startsWith(this.prefix)) {
+            throw new Error('Incorrect type')
+        }
+        const secret = await this.vault.getSecret(VAULT_SECRET_TYPE_FILE, { id: key.substring(this.prefix.length) })
+        if (!secret) {
+            throw new Error('Not found')
+        }
+        return Buffer.from(secret.value, 'base64')
     }
 }
