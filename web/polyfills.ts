@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable @typescript-eslint/no-extraneous-class */
 import * as angularCoreModule from '@angular/core'
@@ -18,7 +19,7 @@ import { Duplex } from 'stream-browserify'
 export class SocketProxy extends Duplex {
     socket: any
 
-    constructor (...args) {
+    constructor (...args: any[]) {
         super({
             allowHalfOpen: false,
         })
@@ -27,7 +28,7 @@ export class SocketProxy extends Duplex {
         this.socket.data$.subscribe(data => this['emit']('data', Buffer.from(data)))
     }
 
-    connect (...args) {
+    connect (...args: any[]) {
         this.socket.connect(...args)
     }
 
@@ -156,7 +157,7 @@ const builtins = {
 const originalRequire = window['require']
 const mockRequire = path => {
     if (mocks[path]) {
-        console.warn('requiring mock', path)
+        console.log(':: mock', path)
         return mocks[path]
     }
     if (builtins[path]) {
