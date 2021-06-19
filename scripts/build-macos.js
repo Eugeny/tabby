@@ -20,6 +20,7 @@ builder({
         extraMetadata: {
             version: vars.version,
         },
+        identity: !process.env.CI || process.env.CSC_LINK ? undefined : null,
         npmRebuild: process.env.ARCH !== 'arm64',
     },
     publish: isTag ? 'always' : 'onTag',
