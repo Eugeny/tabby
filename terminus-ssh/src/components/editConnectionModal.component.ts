@@ -64,14 +64,6 @@ export class EditConnectionModalComponent {
         )
 
     async ngOnInit () {
-        this.hasSavedPassword = !!await this.passwordStorage.loadPassword(this.connection)
-        this.connection.algorithms = this.connection.algorithms ?? {}
-        this.connection.scripts = this.connection.scripts ?? []
-        this.connection.auth = this.connection.auth ?? null
-        this.connection.privateKeys ??= []
-
-        this.useProxyCommand = !!this.connection.proxyCommand
-
         for (const k of Object.values(SSHAlgorithmType)) {
             // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
             if (!this.connection.algorithms[k]) {
@@ -82,6 +74,18 @@ export class EditConnectionModalComponent {
             for (const alg of this.connection.algorithms[k]) {
                 this.algorithms[k][alg] = true
             }
+        }
+
+        this.connection.algorithms = this.connection.algorithms ?? {}
+        this.connection.scripts = this.connection.scripts ?? []
+        this.connection.auth = this.connection.auth ?? null
+        this.connection.privateKeys ??= []
+
+        this.useProxyCommand = !!this.connection.proxyCommand
+        try {
+            this.hasSavedPassword = !!await this.passwordStorage.loadPassword(this.connection)
+        } catch (e) {
+            console.error('Could not check for saved password', e)
         }
     }
 
