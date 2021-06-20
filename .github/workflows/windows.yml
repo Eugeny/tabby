@@ -31,7 +31,7 @@ jobs:
         GH_TOKEN: ${{ secrets.GH_TOKEN }}
         WIN_CSC_LINK: ${{ secrets.WIN_CSC_LINK }}
         WIN_CSC_KEY_PASSWORD: ${{ secrets.WIN_CSC_KEY_PASSWORD }}
-        DEBUG: electron-builder,electron-builder:*
+        # DEBUG: electron-builder,electron-builder:*
 
     - name: Build packages without signing
       run: node scripts/build-windows.js

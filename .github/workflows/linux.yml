@@ -39,9 +39,9 @@ jobs:
     - name: Build packages
       run: scripts/build-linux.js
       env:
-        DEBUG: electron-builder,electron-builder:*
         GH_TOKEN: ${{ secrets.GH_TOKEN }}
         USE_HARD_LINKS: false
+        # DEBUG: electron-builder,electron-builder:*
 
     - name: Build web resources
       run: zsh -c 'tar czf terminus-web.tar.gz (terminus-*|web)/dist'
