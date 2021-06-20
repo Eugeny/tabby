@@ -49,7 +49,7 @@ jobs:
       if: github.repository == 'Eugeny/terminus' && github.event_name == 'push'
       env:
         ARCH: ${{matrix.arch}}
-        GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         CSC_LINK: ${{ secrets.CSC_LINK }}
         CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
         APPSTORE_USERNAME: ${{ secrets.APPSTORE_USERNAME }}
