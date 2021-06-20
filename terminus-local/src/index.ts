@@ -6,6 +6,7 @@ import { ToastrModule } from 'ngx-toastr'
 
 import TerminusCorePlugin, { HostAppService, ToolbarButtonProvider, TabRecoveryProvider, ConfigProvider, HotkeysService, HotkeyProvider, TabContextMenuItemProvider, CLIHandler, ConfigService } from 'terminus-core'
 import TerminusTerminalModule from 'terminus-terminal'
+import TerminusElectronPlugin from 'terminus-electron'
 import { SettingsTabProvider } from 'terminus-settings'
 
 import { TerminalTabComponent } from './components/terminalTab.component'
@@ -47,6 +48,7 @@ import { AutoOpenTabCLIHandler, OpenPathCLIHandler, TerminalCLIHandler } from '.
         NgbModule,
         ToastrModule,
         TerminusCorePlugin,
+        TerminusElectronPlugin,
         TerminusTerminalModule,
     ],
     providers: [

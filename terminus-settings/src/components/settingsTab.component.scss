@@ -19,6 +19,7 @@
             width: 190px;
             flex: none;
             overflow-y: auto;
+            flex-wrap: nowrap;
         }
 
         > .tab-content {

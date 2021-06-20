@@ -320,16 +320,23 @@ export class SSHSession extends BaseSession {
 
         this.remainingAuthMethods = [{ type: 'none' }]
         if (!this.connection.auth || this.connection.auth === 'publicKey') {
-            for (const pk of this.connection.privateKeys ?? []) {
-                try {
-                    this.remainingAuthMethods.push({
-                        type: 'publickey',
-                        name: pk,
-                        contents: await this.fileProviders.retrieveFile(pk),
-                    })
-                } catch (error) {
-                    this.emitServiceMessage(colors.bgYellow.yellow.black(' ! ') + ` Could not load private key ${pk}: ${error}`)
+            if (this.connection.privateKeys?.length) {
+                for (const pk of this.connection.privateKeys) {
+                    try {
+                        this.remainingAuthMethods.push({
+                            type: 'publickey',
+                            name: pk,
+                            contents: await this.fileProviders.retrieveFile(pk),
+                        })
+                    } catch (error) {
+                        this.emitServiceMessage(colors.bgYellow.yellow.black(' ! ') + ` Could not load private key ${pk}: ${error}`)
+                    }
                 }
+            } else {
+                this.remainingAuthMethods.push({
+                    type: 'publickey',
+                    name: 'auto',
+                })
             }
         }
         if (!this.connection.auth || this.connection.auth === 'agent') {
@@ -717,7 +724,7 @@ export class SSHSession extends BaseSession {
             const userKeyPath = path.join(process.env.HOME!, '.ssh', 'id_rsa')
             if (await fs.exists(userKeyPath)) {
                 this.emitServiceMessage('Using user\'s default private key')
-                privateKeyContents = fs.readFile(userKeyPath, { encoding: null })
+                privateKeyContents = await fs.readFile(userKeyPath, { encoding: null })
             }
         }
 
@@ -740,11 +747,17 @@ export class SSHSession extends BaseSession {
 
     async parsePrivateKey (privateKey: string): Promise<any> {
         const keyHash = crypto.createHash('sha512').update(privateKey).digest('hex')
-        let passphrase: string|null = await this.passwordStorage.loadPrivateKeyPassword(keyHash)
+        let triedSavedPassphrase = false
+        let passphrase: string|null = null
         while (true) {
             try {
                 return sshpk.parsePrivateKey(privateKey, 'auto', { passphrase })
             } catch (e) {
+                if (!triedSavedPassphrase) {
+                    passphrase = await this.passwordStorage.loadPrivateKeyPassword(keyHash)
+                    triedSavedPassphrase = true
+                    continue
+                }
                 if (e instanceof sshpk.KeyEncryptedError || e instanceof sshpk.KeyParseError) {
                     await this.passwordStorage.deletePrivateKeyPassword(keyHash)
 
