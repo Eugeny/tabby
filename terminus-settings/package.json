@@ -1,6 +1,6 @@
 {
   "name": "terminus-settings",
-  "version": "1.0.135-nightly.0",
+  "version": "1.0.140",
   "description": "Terminus terminal settings page",
   "keywords": [
     "terminus-builtin-plugin"

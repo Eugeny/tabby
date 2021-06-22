@@ -1,6 +1,6 @@
 {
   "name": "terminus-web",
-  "version": "1.0.135-nightly.0",
+  "version": "1.0.140",
   "description": "Web-specific bindings",
   "keywords": [
     "terminus-builtin-plugin"
