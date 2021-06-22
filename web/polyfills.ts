@@ -23,9 +23,10 @@ export class SocketProxy extends Duplex {
         super({
             allowHalfOpen: false,
         })
-        this.socket = new window['__connector__'].Socket(...args)
+        this.socket = window['__connector__'].createSocket(...args)
         this.socket.connect$.subscribe(() => this['emit']('connect'))
         this.socket.data$.subscribe(data => this['emit']('data', Buffer.from(data)))
+        this.socket.error$.subscribe(error => this['emit']('error', error))
     }
 
     connect (...args: any[]) {
