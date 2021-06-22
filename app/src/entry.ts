@@ -12,7 +12,7 @@ import { ipcRenderer } from 'electron'
 
 import { getRootModule } from './app.module'
 import { findPlugins, initModuleLookup, loadPlugins } from './plugins'
-import { BootstrapData, BOOTSTRAP_DATA } from '../../terminus-core/src/api/mainProcess'
+import { BootstrapData, BOOTSTRAP_DATA, PluginInfo } from '../../terminus-core/src/api/mainProcess'
 
 // Always land on the start view
 location.hash = ''
@@ -29,12 +29,12 @@ if (process.env.TERMINUS_DEV && !process.env.TERMINUS_FORCE_ANGULAR_PROD) {
     enableProdMode()
 }
 
-async function bootstrap (bootstrapData: BootstrapData, safeMode = false): Promise<NgModuleRef<any>> {
+async function bootstrap (bootstrapData: BootstrapData, plugins: PluginInfo[], safeMode = false): Promise<NgModuleRef<any>> {
     if (safeMode) {
-        bootstrapData.installedPlugins = bootstrapData.installedPlugins.filter(x => x.isBuiltin)
+        plugins = plugins.filter(x => x.isBuiltin)
     }
 
-    const pluginModules = await loadPlugins(bootstrapData.installedPlugins, (current, total) => {
+    const pluginModules = await loadPlugins(plugins, (current, total) => {
         (document.querySelector('.progress .bar') as HTMLElement).style.width = `${100 * current / total}%` // eslint-disable-line
     })
     const module = getRootModule(pluginModules)
@@ -56,21 +56,21 @@ ipcRenderer.once('start', async (_$event, bootstrapData: BootstrapData) => {
     initModuleLookup(bootstrapData.userPluginsPath)
 
     let plugins = await findPlugins()
+    bootstrapData.installedPlugins = plugins
     if (bootstrapData.config.pluginBlacklist) {
         plugins = plugins.filter(x => !bootstrapData.config.pluginBlacklist.includes(x.name))
     }
     plugins = plugins.filter(x => x.name !== 'web')
-    bootstrapData.installedPlugins = plugins
 
     console.log('Starting with plugins:', plugins)
     try {
-        await bootstrap(bootstrapData)
+        await bootstrap(bootstrapData, plugins)
     } catch (error) {
         console.error('Angular bootstrapping error:', error)
         console.warn('Trying safe mode')
         window['safeModeReason'] = error
         try {
-            await bootstrap(bootstrapData, true)
+            await bootstrap(bootstrapData, plugins, true)
         } catch (error2) {
             console.error('Bootstrap failed:', error2)
         }
