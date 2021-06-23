@@ -21,7 +21,7 @@
     "@angular/forms": "^12.0.0",
     "@angular/platform-browser": "^12.0.0",
     "@angular/platform-browser-dynamic": "^12.0.0",
-    "@electron/remote": "1.0.4",
+    "@electron/remote": "1.2.0",
     "@ng-bootstrap/ng-bootstrap": "^9.1.1",
     "@terminus-term/node-pty": "0.10.0-terminus.3",
     "any-promise": "^1.3.0",
