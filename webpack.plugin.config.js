@@ -39,6 +39,7 @@ module.exports = options => {
             cacheDirectory: path.resolve(options.dirname, 'node_modules', '.webpack-cache'),
         },
         resolve: {
+            alias: options.alias ?? {},
             modules: ['.', 'src', 'node_modules', '../app/node_modules'].map(x => path.join(options.dirname, x)),
             extensions: ['.ts', '.js'],
         },
