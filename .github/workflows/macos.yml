@@ -34,6 +34,12 @@ jobs:
       env:
         ARCH: ${{matrix.arch}}
 
+    - name: Build native deps
+      run: |
+        rm -rf app/node_modules/cpu-features
+        rm -rf app/node_modules/ssh2/crypto/build
+      if: ${{ arch == 'arm64' }}
+
     - name: Webpack
       run: yarn run build
 
