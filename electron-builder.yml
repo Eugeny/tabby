@@ -34,7 +34,6 @@ extraResources:
 - extras
 asarUnpack:
 - 'dist/*.map'
-- '**/node_modules/ssh2'
 publish:
 - provider: github
 

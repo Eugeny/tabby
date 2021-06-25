@@ -100,8 +100,6 @@ module.exports = options => {
             'path',
             'readline',
             'serialport',
-            'ssh2',
-            'ssh2/lib/protocol/constants',
             'socksv5',
             'stream',
             'windows-native-registry',

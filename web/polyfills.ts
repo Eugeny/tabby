@@ -188,6 +188,4 @@ mocks.assert.notStrictEqual = () => true
 
 // Late mocks and builtins
 
-builtins['ssh2'] = require('ssh2')
-builtins['ssh2/lib/protocol/constants'] = require('ssh2/lib/protocol/constants')
 builtins['stream'] = require('stream-browserify')
