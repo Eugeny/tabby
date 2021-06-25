@@ -47,7 +47,7 @@
     "shelljs": "0.8.4",
     "source-code-pro": "^2.38.0",
     "source-sans-pro": "3.6.0",
-    "style-loader": "^2.0.0",
+    "style-loader": "^3.0.0",
     "svg-inline-loader": "^0.8.2",
     "tslib": "^2.2.0",
     "typedoc": "^0.20.36",
