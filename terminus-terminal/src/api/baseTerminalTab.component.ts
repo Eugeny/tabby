@@ -118,6 +118,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
     private termContainerSubscriptions = new SubscriptionContainer()
     private allFocusModeSubscription: Subscription|null = null
     private sessionHandlers = new SubscriptionContainer()
+    private sessionSupportsBracketedPaste = false
 
     get input$ (): Observable<Buffer> {
         if (!this.frontend) {
@@ -375,12 +376,20 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
                 this.setProgress(null)
             }
         }
+
+        if (data.includes('\x1b[?2004h')) {
+            this.sessionSupportsBracketedPaste = true
+        }
+        if (data.includes('\x1b[?2004l')) {
+            this.sessionSupportsBracketedPaste = false
+        }
+
         this.frontend.write(data)
     }
 
     async paste (): Promise<void> {
         let data = this.platform.readClipboard()
-        if (this.config.store.terminal.bracketedPaste) {
+        if (this.config.store.terminal.bracketedPaste && this.sessionSupportsBracketedPaste) {
             data = `\x1b[200~${data}\x1b[201~`
         }
         if (this.hostApp.platform === Platform.Windows) {
