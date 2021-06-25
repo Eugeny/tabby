@@ -9,3 +9,76 @@ import '../app/src/preload.scss'
 
 // Required before other imports
 import './polyfills.buffer'
+
+const mocks = {}
+const modules = {}
+
+const originalRequire = window['require']
+const customRequire = path => {
+    if (mocks[path]) {
+        console.log(':: mock', path)
+        return mocks[path]
+    }
+    if (modules[path]) {
+        return modules[path]
+    }
+    return originalRequire(path)
+}
+
+customRequire['resolve'] = (() => null) as any
+customRequire['main'] = {
+    paths: [],
+}
+
+async function webRequire (url) {
+    console.log(`Loading ${url}`)
+    const e = document.createElement('script')
+    window['module'] = { exports: {} } as any
+    window['exports'] = window['module'].exports
+    await new Promise(resolve => {
+        e.onload = resolve
+        e.src = url
+        document.querySelector('head').appendChild(e)
+    })
+    return window['module'].exports
+}
+
+const Terminus = {
+    registerMock: (name, mod) => {
+        mocks[name] = mod
+    },
+    registerModule: (name, mod) => {
+        modules[name] = mod
+    },
+    loadPlugin: async (url) => {
+        const pkg = await (await fetch(url + '/package.json')).json()
+        url += '/' + pkg.main
+        const module = await webRequire(url)
+        Terminus.registerModule(`resources/builtin-plugins/${pkg.name}`, module)
+        Terminus.registerModule(pkg.name, module)
+        return module
+    },
+    bootstrap: (...args) => window['bootstrapTerminus'](...args),
+    webRequire,
+}
+
+Object.assign(window, {
+    require: customRequire,
+    module: {
+        paths: [],
+    },
+    Terminus,
+    process: {
+        env: { },
+        argv: ['terminus'],
+        platform: 'darwin',
+        on: () => null,
+        stdout: {},
+        stderr: {},
+        resourcesPath: 'resources',
+        version: '14.0.0',
+        nextTick: (f, ...args) => setTimeout(() => f(...args)),
+        cwd: () => '/',
+    },
+    global: window,
+})

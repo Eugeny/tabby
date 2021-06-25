@@ -15,6 +15,7 @@ import * as ngxToastrModule from 'ngx-toastr'
 import './polyfills.buffer'
 import { Duplex } from 'stream-browserify'
 
+const Terminus = window['Terminus']
 
 export class SocketProxy extends Duplex {
     socket: any
@@ -50,142 +51,116 @@ export class SocketProxy extends Duplex {
     }
 }
 
-const mocks = {
-    fs: {
-        realpathSync: () => null,
-        readdir: () => null,
-        stat: () => null,
-        appendFile: () => null,
-        constants: {},
-    },
-    buffer: {
-        Buffer: window['Buffer'],
-    },
-    crypto: {
-        ...require('crypto-browserify'),
-        getHashes () {
-            return ['sha1', 'sha224', 'sha256', 'sha384', 'sha512', 'md5', 'rmd160']
-        },
-        timingSafeEqual (a, b) {
-            return a.equals(b)
-        },
-    },
-    events: require('events'),
-    path: require('path-browserify'),
-    readline: {
-        cursorTo: () => null,
-        clearLine: stream => stream.write('\r'),
-    },
-    zlib: {
-        ...require('browserify-zlib'),
-        constants: require('browserify-zlib'),
-    },
-    'any-promise': Promise,
-    tls: { },
-    module: {
-        globalPaths: [],
-    },
-    assert: require('assert'),
-    url: {
-        parse: () => null,
-    },
-    net: {
-        Socket: SocketProxy,
-    },
-    http: {
-        Agent: class {},
-        request: {},
-    },
-    https: {
-        Agent: class {},
-        request: {},
-    },
-    querystring: {},
-    tty: { isatty: () => false },
-    child_process: {},
-    'readable-stream': {},
-    os: {
-        platform: () => 'web',
-        homedir: () => '/home',
-    },
-    constants: require('constants-browserify'),
-    'hterm-umdjs': {
-        hterm: {
-            PreferenceManager: class { set () {} },
-            VT: {
-                ESC: {},
-                CSI: {},
-                OSC: {},
-            },
-            Terminal: class {},
-            Keyboard: class {},
-        },
-        lib: {
-            wc: {},
-            Storage: {
-                Memory: class {},
-            },
-        },
-    },
-    dns: {},
-    socksv5: {},
-    util: require('util/'),
-    keytar: {
-        getPassword: () => null,
-    },
-    './crypto/build/Release/sshcrypto.node': {},
-    '../build/Release/cpufeatures.node': {},
-}
+Terminus.registerMock('fs', {
+    realpathSync: () => null,
+    readdir: () => null,
+    stat: () => null,
+    appendFile: () => null,
+    constants: {},
+})
+Terminus.registerMock('readline', {
+    cursorTo: () => null,
+    clearLine: stream => stream.write('\r'),
+})
+Terminus.registerMock('any-promise', Promise)
+Terminus.registerMock('tls', {})
+Terminus.registerMock('module', {
+    globalPaths: [],
+    prototype: { require: window['require'] },
+})
 
-const builtins = {
-    '@angular/core': angularCoreModule,
-    '@angular/compiler': angularCompilerModule,
-    '@angular/common': angularCommonModule,
-    '@angular/forms': angularFormsModule,
-    '@angular/platform-browser': angularPlatformBrowserModule,
-    '@angular/platform-browser/animations': angularPlatformBrowserAnimationsModule,
-    '@angular/platform-browser-dynamic': angularPlatformBrowserDynamicModule,
-    '@angular/animations': angularAnimationsModule,
-    '@ng-bootstrap/ng-bootstrap': ngBootstrapModule,
-    'ngx-toastr': ngxToastrModule,
-    deepmerge: require('deepmerge'),
-    rxjs: require('rxjs'),
-    'rxjs/operators': require('rxjs/operators'),
-    'js-yaml': require('js-yaml'),
-    'zone.js/dist/zone.js': require('zone.js/dist/zone.js'),
-}
+Terminus.registerMock('url', {
+    parse: () => null,
+})
+Terminus.registerMock('http', {
+    Agent: class {},
+    request: {},
+})
+Terminus.registerMock('https', {
+    Agent: class {},
+    request: {},
+})
+Terminus.registerMock('querystring', {})
+Terminus.registerMock('tty', { isatty: () => false })
+Terminus.registerMock('child_process', {})
+Terminus.registerMock('readable-stream', {})
+Terminus.registerMock('os', {
+    platform: () => 'web',
+    homedir: () => '/home',
+})
+Terminus.registerModule('buffer', {
+    Buffer: window['Buffer'],
+})
+Terminus.registerModule('crypto', {
+    ...require('crypto-browserify'),
+    getHashes () {
+        return ['sha1', 'sha224', 'sha256', 'sha384', 'sha512', 'md5', 'rmd160']
+    },
+    timingSafeEqual (a, b) {
+        return a.equals(b)
+    },
+})
+Terminus.registerMock('hterm-umdjs', {
+    hterm: {
+        PreferenceManager: class { set () {} },
+        VT: {
+            ESC: {},
+            CSI: {},
+            OSC: {},
+        },
+        Terminal: class {},
+        Keyboard: class {},
+    },
+    lib: {
+        wc: {},
+        Storage: {
+            Memory: class {},
+        },
+    },
+})
+Terminus.registerMock('dns', {})
+Terminus.registerMock('socksv5', {})
+Terminus.registerMock('util', require('util/'))
+Terminus.registerMock('keytar', {
+    getPassword: () => null,
+})
 
-const originalRequire = window['require']
-const mockRequire = path => {
-    if (mocks[path]) {
-        console.log(':: mock', path)
-        return mocks[path]
-    }
-    if (builtins[path]) {
-        return builtins[path]
-    }
-    return originalRequire(path)
-}
+Terminus.registerModule('net', {
+    Socket: SocketProxy,
+})
+Terminus.registerModule('events', require('events'))
+Terminus.registerModule('path', require('path-browserify'))
+Terminus.registerModule('zlib', {
+    ...require('browserify-zlib'),
+    constants: require('browserify-zlib'),
+})
+Terminus.registerModule('assert', Object.assign(
+    require('assert'),
+    {
+        assertNotStrictEqual: () => true,
+        notStrictEqual: () => true,
+    },
+))
+Terminus.registerModule('constants', require('constants-browserify'))
+Terminus.registerModule('stream', require('stream-browserify'))
 
-mockRequire['resolve'] = (() => null) as any
+Terminus.registerModule('@angular/core', angularCoreModule)
+Terminus.registerModule('@angular/compiler', angularCompilerModule)
+Terminus.registerModule('@angular/common', angularCommonModule)
+Terminus.registerModule('@angular/forms', angularFormsModule)
+Terminus.registerModule('@angular/platform-browser', angularPlatformBrowserModule)
+Terminus.registerModule('@angular/platform-browser/animations', angularPlatformBrowserAnimationsModule)
+Terminus.registerModule('@angular/platform-browser-dynamic', angularPlatformBrowserDynamicModule)
+Terminus.registerModule('@angular/animations', angularAnimationsModule)
+Terminus.registerModule('@ng-bootstrap/ng-bootstrap', ngBootstrapModule)
+Terminus.registerModule('ngx-toastr', ngxToastrModule)
+Terminus.registerModule('deepmerge', require('deepmerge'))
+Terminus.registerModule('rxjs', require('rxjs'))
+Terminus.registerModule('rxjs/operators', require('rxjs/operators'))
+Terminus.registerModule('js-yaml', require('js-yaml'))
+Terminus.registerModule('zone.js/dist/zone.js', require('zone.js/dist/zone.js'))
 
 Object.assign(window, {
-    require: mockRequire,
-    module: {
-        paths: [],
-    },
     __dirname: '__dirname',
     setImmediate: setTimeout as any,
 })
-
-window['require'].main = {
-    paths: [],
-} as any
-
-mocks.module['prototype'] = { require: window['require'] }
-mocks.assert.assertNotStrictEqual = () => true
-mocks.assert.notStrictEqual = () => true
-
-// Late mocks and builtins
-
-builtins['stream'] = require('stream-browserify')
