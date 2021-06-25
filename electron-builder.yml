@@ -33,7 +33,8 @@ extraResources:
 - builtin-plugins
 - extras
 asarUnpack:
-- dist/*.map
+- 'dist/*.map'
+- '**/node_modules/ssh2'
 publish:
 - provider: github
 

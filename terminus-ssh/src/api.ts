@@ -585,7 +585,7 @@ export class SSHSession extends BaseSession {
                     continue
                 }
             }
-            return method
+            return method.type
         }
     }
 
