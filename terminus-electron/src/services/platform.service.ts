@@ -8,6 +8,7 @@ import { Injectable, NgZone } from '@angular/core'
 import { PlatformService, ClipboardContent, HostAppService, Platform, MenuItemOptions, MessageBoxOptions, MessageBoxResult, FileUpload, FileDownload, FileUploadOptions, wrapPromise } from 'terminus-core'
 import { ElectronService } from '../services/electron.service'
 import { ElectronHostWindow } from './hostWindow.service'
+import { ShellIntegrationService } from './shellIntegration.service'
 const fontManager = require('fontmanager-redux') // eslint-disable-line
 
 /* eslint-disable block-scoped-var */
@@ -29,6 +30,7 @@ export class ElectronPlatformService extends PlatformService {
         private hostWindow: ElectronHostWindow,
         private electron: ElectronService,
         private zone: NgZone,
+        private shellIntegration: ShellIntegrationService,
     ) {
         super()
         this.configPath = path.join(electron.app.getPath('userData'), 'config.yaml')
@@ -85,15 +87,15 @@ export class ElectronPlatformService extends PlatformService {
     }
 
     async isShellIntegrationInstalled (): Promise<boolean> {
-        return false
+        return this.shellIntegration.isInstalled()
     }
 
     async installShellIntegration (): Promise<void> {
-        throw new Error('Not implemented')
+        await this.shellIntegration.install()
     }
 
     async uninstallShellIntegration (): Promise<void> {
-        throw new Error('Not implemented')
+        await this.shellIntegration.remove()
     }
 
     async loadConfig (): Promise<string> {
