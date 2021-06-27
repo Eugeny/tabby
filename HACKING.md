@@ -4,15 +4,24 @@ Terminus is an Electron app, with the frontend written in Typescript with the he
 
 # Getting started
 
-First of all, clone this repository. You'll also need a recent version of Node installed.
+First of all, clone this repository. You'll also need Node.js 14 or newer and Yarn.
 
 First, install the dependencies:
 
 ```
-# macOS/Linux:
+# macOS:
 yarn
 ./scripts/build-native.js
+```
 
+```
+# Linux (Debian here as an example)
+sudo apt install libfontconfig-dev libsecret-1-dev bsdtar libnss3
+yarn
+./scripts/build-native.js
+```
+
+```
 # Windows:
 npm -g install windows-build-tools
 yarn
@@ -31,6 +40,22 @@ Start Terminus with
 yarn start
 ```
 
+# Building an installer
+
+To build an installer, first complete a "normal" build as described above and then run:
+
+```
+node scripts/prepackage-plugins.js
+
+node scripts/build-windows.js
+# or
+node scripts/build-linux.js
+# or
+node scripts/build-macos.js
+```
+
+The artifacts will be produced in the `dist` folder.
+
 # Project layout
 ```
 terminus
@@ -43,11 +68,11 @@ terminus
 ├─ terminus-community-color-schemes     # Plugin that provides color schemes
 ├─ terminus-core                        # Plugin that provides base UI and tab management
 ├─ terminus-electron                    # Plugin that provides Electron-specific functions
-└─ terminus-local                       # Plugin that provides local shells and profiles
+├─ terminus-local                       # Plugin that provides local shells and profiles
 ├─ terminus-plugin-manager              # Plugin that installs other plugins
 ├─ terminus-settings                    # Plugin that provides the settings tab
-└─ terminus-terminal                    # Plugin that provides terminal tabs
-├─ terminus-web                         # Plugin that provides web-specific functions
+├─ terminus-terminal                    # Plugin that provides terminal tabs
+└─ terminus-web                         # Plugin that provides web-specific functions
 ```
 
 # Plugin layout
