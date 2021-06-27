@@ -33,7 +33,7 @@
     "lru-cache": "^6.0.0",
     "macos-release": "^2.5.0",
     "node-abi": "^2.30.0",
-    "node-sass": "^6.0.0",
+    "node-sass": "^6.0.1",
     "npmlog": "4.1.2",
     "npx": "^10.2.2",
     "patch-package": "^6.4.7",
