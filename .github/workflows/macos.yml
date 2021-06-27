@@ -52,7 +52,7 @@ jobs:
 
     - name: Build and sign packages
       run: scripts/build-macos.js
-      if: github.repository == 'Eugeny/terminus' && github.event_name == 'push'
+      if: github.repository == 'Eugeny/terminus' && github.event_name == 'push' && github.ref == 'refs/heads/master'
       env:
         ARCH: ${{matrix.arch}}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -65,7 +65,7 @@ jobs:
 
     - name: Build packages without signing
       run: scripts/build-macos.js
-      if: github.repository != 'Eugeny/terminus' || github.event_name != 'push'
+      if: github.repository != 'Eugeny/terminus' || github.event_name != 'push' || github.ref != 'refs/heads/master'
       env:
         ARCH: ${{matrix.arch}}
         # DEBUG: electron-builder,electron-builder:*
