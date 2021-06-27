@@ -19,8 +19,8 @@ import { ElectronConfigProvider } from './config'
     providers: [
         { provide: TerminalColorSchemeProvider, useClass: HyperColorSchemes, multi: true },
         { provide: PlatformService, useClass: ElectronPlatformService },
-        { provide: HostWindowService, useClass: ElectronHostWindow },
-        { provide: HostAppService, useClass: ElectronHostAppService },
+        { provide: HostWindowService, useExisting: ElectronHostWindow },
+        { provide: HostAppService, useExisting: ElectronHostAppService },
         { provide: LogService, useClass: ElectronLogService },
         { provide: UpdaterService, useClass: ElectronUpdaterService },
         { provide: DockingService, useClass: ElectronDockingService },
