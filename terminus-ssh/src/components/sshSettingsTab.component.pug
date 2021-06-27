@@ -64,10 +64,33 @@ h3.mt-5 Options
 .form-line(*ngIf='hostApp.platform === Platform.Windows')
     .header
         .title WinSCP path
-        .descriptions When WinSCP is detected, you can launch an SCP session from the context menu.
+        .description When WinSCP is detected, you can launch an SCP session from the context menu.
     input.form-control(
         type='text',
         placeholder='Auto-detect',
         [(ngModel)]='config.store.ssh.winSCPPath',
+        (ngModelChange)='config.save()',
+    )
+
+.form-line(*ngIf='hostApp.platform === Platform.Windows')
+    .header
+        .title Agent type
+        .description Forces a specific SSH agent connection type.
+    select.form-control(
+        [(ngModel)]='config.store.ssh.agentType',
+        (ngModelChange)='config.save()',
+    )
+        option(value='auto') Automatic
+        option(value='pageant') Pageant
+        option(value='pipe') Named pipe
+
+.form-line(*ngIf='config.store.ssh.agentType === "pipe"')
+    .header
+        .title Agent pipe path
+        .description Sets the SSH agent's named pipe path.
+    input.form-control(
+        type='text',
+        placeholder='Default: \\\\.\\pipe\\openssh-ssh-agent',
+        [(ngModel)]='config.store.ssh.agentPath',
         (ngModelChange)='config.save()',
     )

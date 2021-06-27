@@ -10,7 +10,7 @@ import stripAnsi from 'strip-ansi'
 import socksv5 from 'socksv5'
 import { Injector, NgZone } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
-import { FileProvidersService, HostAppService, Logger, NotificationsService, Platform, PlatformService, wrapPromise } from 'terminus-core'
+import { ConfigService, FileProvidersService, HostAppService, Logger, NotificationsService, Platform, PlatformService, wrapPromise } from 'terminus-core'
 import { BaseSession } from 'terminus-terminal'
 import { Server, Socket, createServer, createConnection } from 'net'
 import { Client, ClientChannel, SFTPWrapper } from 'ssh2'
@@ -281,6 +281,7 @@ export class SSHSession extends BaseSession {
     private notifications: NotificationsService
     private zone: NgZone
     private fileProviders: FileProvidersService
+    private config: ConfigService
 
     constructor (
         injector: Injector,
@@ -294,6 +295,7 @@ export class SSHSession extends BaseSession {
         this.notifications = injector.get(NotificationsService)
         this.zone = injector.get(NgZone)
         this.fileProviders = injector.get(FileProvidersService)
+        this.config = injector.get(ConfigService)
 
         this.scripts = connection.scripts ?? []
         this.destroyed$.subscribe(() => {
@@ -307,12 +309,18 @@ export class SSHSession extends BaseSession {
 
     async init (): Promise<void> {
         if (this.hostApp.platform === Platform.Windows) {
-            if (await fs.exists(WINDOWS_OPENSSH_AGENT_PIPE)) {
-                this.agentPath = WINDOWS_OPENSSH_AGENT_PIPE
-            } else {
-                if (await this.platform.isProcessRunning('pageant.exe')) {
-                    this.agentPath = 'pageant'
+            if (this.config.store.ssh.agentType === 'auto') {
+                if (await fs.exists(WINDOWS_OPENSSH_AGENT_PIPE)) {
+                    this.agentPath = WINDOWS_OPENSSH_AGENT_PIPE
+                } else {
+                    if (await this.platform.isProcessRunning('pageant.exe')) {
+                        this.agentPath = 'pageant'
+                    }
                 }
+            } else if (this.config.store.ssh.agentType === 'pageant') {
+                this.agentPath = 'pageant'
+            } else {
+                this.agentPath = this.config.store.ssh.agentPath || WINDOWS_OPENSSH_AGENT_PIPE
             }
         } else {
             this.agentPath = process.env.SSH_AUTH_SOCK!
