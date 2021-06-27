@@ -1,6 +1,6 @@
 import '@vaadin/vaadin-context-menu/vaadin-context-menu.js'
 import copyToClipboard from 'copy-text-to-clipboard'
-import { Injectable } from '@angular/core'
+import { Injectable, Inject } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { PlatformService, ClipboardContent, MenuItemOptions, MessageBoxOptions, MessageBoxResult, FileUpload, FileUploadOptions, FileDownload, HTMLFileUpload } from 'terminus-core'
 
@@ -16,14 +16,13 @@ export class WebPlatformService extends PlatformService {
     private menu: ContextMenuElement
     private contextMenuHandlers = new Map<ContextMenuItem, () => void>()
     private fileSelector: HTMLInputElement
-    private connector: any
 
     constructor (
+        // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+        @Inject('WEB_CONNECTOR') private connector: any,
         private ngbModal: NgbModal,
     ) {
         super()
-        this.connector = window['__connector__']
-
         this.menu = window.document.createElement('vaadin-context-menu')
         this.menu.addEventListener('item-selected', e => {
             this.contextMenuHandlers.get(e.detail.value)?.()

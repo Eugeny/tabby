@@ -15,19 +15,25 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic'
 import { getRootModule } from '../app/src/app.module'
 import { BootstrapData, BOOTSTRAP_DATA } from '../terminus-core/src/api/mainProcess'
 
+interface BootstrapOptions {
+    packageModules: any[]
+    bootstrapData: BootstrapData
+    debugMode: boolean
+    connector: any
+}
 
-window['bootstrapTerminus'] = async function bootstrap (packageModules: any[], bootstrapData: BootstrapData, debugMode = false): Promise<NgModuleRef<any>> {
+window['bootstrapTerminus'] = async function bootstrap (options: BootstrapOptions): Promise<NgModuleRef<any>> {
     window.parent.postMessage('request-connector', '*')
 
     const pluginModules = []
-    for (const packageModule of packageModules) {
+    for (const packageModule of options.packageModules) {
         const pluginModule = packageModule.default.forRoot ? packageModule.default.forRoot() : packageModule.default
         pluginModule.pluginName = packageModule.pluginName
         pluginModule.bootstrap = packageModule.bootstrap
         pluginModules.push(pluginModule)
     }
 
-    if (!debugMode) {
+    if (!options.debugMode) {
         enableProdMode()
     }
 
@@ -35,9 +41,10 @@ window['bootstrapTerminus'] = async function bootstrap (packageModules: any[], b
     window['rootModule'] = module
 
     const moduleRef = await platformBrowserDynamic([
-        { provide: BOOTSTRAP_DATA, useValue: bootstrapData },
+        { provide: BOOTSTRAP_DATA, useValue: options.bootstrapData },
+        { provide: 'WEB_CONNECTOR', useValue: options.connector },
     ]).bootstrapModule(module)
-    if (debugMode) {
+    if (options.debugMode) {
         const applicationRef = moduleRef.injector.get(ApplicationRef)
         const componentRef = applicationRef.components[0]
         enableDebugTools(componentRef)
