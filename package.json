@@ -49,7 +49,7 @@
     "source-sans-pro": "3.6.0",
     "style-loader": "^3.0.0",
     "svg-inline-loader": "^0.8.2",
-    "tslib": "^2.2.0",
+    "tslib": "^2.3.0",
     "typedoc": "^0.20.36",
     "typescript": "^4.2.4",
     "url-loader": "^4.1.1",
