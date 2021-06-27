@@ -57,7 +57,6 @@ div
             placeholder='Search plugins'
         )
 
-
     .list-group.list-group-flush.mb-4(*ngIf='availablePlugins$')
         ng-container(*ngFor='let plugin of (availablePlugins$|async)')
             .list-group-item.d-flex.align-items-center(*ngIf='!isAlreadyInstalled(plugin)')
@@ -71,6 +70,9 @@ div
                 div((click)='showPluginInfo(plugin)')
                     div
                         strong {{plugin.name}}
-                        small.text-muted.ml-1 {{plugin.version}} / {{plugin.author}}
-                        i.fas.fa-check.text-success.ml-1(*ngIf='plugin.isOfficial', title='Official')
+                        small.text-muted.ml-1 {{plugin.version}}
+                        small.text-muted.ml-1(*ngIf='!plugin.isOfficial') by {{plugin.author}}
+                        small.text-success.ml-1(*ngIf='plugin.isOfficial')
+                            i.fas.fa-check
+                            span.ml-1 Official
                     small.text-muted {{plugin.description}}
