@@ -60,6 +60,10 @@ hotkeys:
     - '⌘-⌥-Up'
   pane-nav-left:
     - '⌘-⌥-Left'
+  pane-nav-previous:
+    - '⌘-⌥-['
+  pane-nav-next:
+    - '⌘-⌥-]'
   pane-maximize:
     - '⌘-⌥-Enter'
   close-pane:

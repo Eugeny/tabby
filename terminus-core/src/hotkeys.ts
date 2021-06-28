@@ -158,6 +158,14 @@ export class AppHotkeyProvider extends HotkeyProvider {
             name: 'Focus the pane on the right',
         },
         {
+            id: 'pane-nav-previous',
+            name: 'Focus previous pane',
+        },
+        {
+            id: 'pane-nav-next',
+            name: 'Focus next pane',
+        },
+        {
             id: 'close-pane',
             name: 'Close focused pane',
         },

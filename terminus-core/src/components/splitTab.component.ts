@@ -238,6 +238,12 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
                 case 'pane-nav-down':
                     this.navigate('b')
                     break
+                case 'pane-nav-previous':
+                    this.navigateLinear(-1)
+                    break
+                case 'pane-nav-next':
+                    this.navigateLinear(1)
+                    break
                 case 'pane-maximize':
                     if (this.maximizedTab) {
                         this.maximize(null)
@@ -431,6 +437,17 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
                 this.focusAnyIn(parent.children[index + 1])
             }
         }
+    }
+
+    navigateLinear (delta: number): void {
+        if (!this.focusedTab) {
+            return
+        }
+
+        const relativeTo: BaseTabComponent = this.focusedTab
+        const all = this.getAllTabs()
+        const target = all[(all.indexOf(relativeTo) + delta + all.length) % all.length]
+        this.focus(target)
     }
 
     async splitTab (tab: BaseTabComponent, dir: SplitDirection): Promise<BaseTabComponent|null> {
