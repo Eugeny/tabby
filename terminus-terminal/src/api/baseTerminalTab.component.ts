@@ -178,7 +178,15 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
                         this.frontend.clearSelection()
                         this.notifications.notice('Copied')
                     } else {
-                        this.sendInput('\x03')
+                        if (this.parent && this.parent instanceof SplitTabComponent && this.parent._allFocusMode) {
+                            for (const tab of this.parent.getAllTabs()) {
+                                if (tab instanceof BaseTerminalTabComponent) {
+                                    tab.sendInput('\x03')
+                                }
+                            }
+                        } else {
+                            this.sendInput('\x03')
+                        }
                     }
                     break
                 case 'copy':
