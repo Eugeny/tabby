@@ -11,6 +11,10 @@ export class SubscriptionContainer {
     private subscriptions: Subscription[] = []
     private events: CancellableEvent[] = []
 
+    isEmpty (): boolean {
+        return this.events.length === 0 && this.subscriptions.length === 0
+    }
+
     addEventListener (element: HTMLElement, event: string, handler: EventListenerOrEventListenerObject, options?: boolean|AddEventListenerOptions): void {
         element.addEventListener(event, handler, options)
         this.events.push({
