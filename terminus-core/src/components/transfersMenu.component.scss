@@ -8,7 +8,7 @@
     padding: 5px 0 5px 25px;
 
     .icon {
-        padding: 4px 10px;
+        padding: 4px 7px;
         width: 36px;
         height: 32px;
         background: rgba(0,0,0,.25);
@@ -18,14 +18,29 @@
     .main {
         width: 100%;
         margin-right: auto;
-        margin-bottom: 7px;
+        margin-bottom: 3px;
 
         label {
             margin: 0;
         }
     }
 
+    .metadata {
+        font-size: 10px;
+        opacity: .5;
+        display: flex;
+        align-items: center;
+
+        .speed {
+            margin-left: auto;
+        }
+    }
+
     > i {
         margin-right: 10px;
     }
+}
+
+button {
+    flex: none;
 }

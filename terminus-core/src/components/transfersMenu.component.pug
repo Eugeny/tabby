@@ -1,5 +1,7 @@
-.dropdown-header File transfers
-.dropdown-item.transfer(*ngFor='let transfer of transfers', (click)='showTransfer(transfer)')
+.d-flex.align-items-center
+    .dropdown-header File transfers
+    button.btn.btn-link.ml-auto((click)='removeAll(); $event.stopPropagation()') !{require('../icons/times.svg')}
+.transfer(*ngFor='let transfer of transfers', (click)='showTransfer(transfer)')
     .icon(*ngIf='isDownload(transfer)') !{require('../icons/download.svg')}
     .icon(*ngIf='!isDownload(transfer)') !{require('../icons/upload.svg')}
     .main
@@ -10,4 +12,8 @@
             ngb-progressbar(type='danger', [value]='100')
         .status(*ngIf='!transfer.isComplete() && !transfer.isCancelled()')
             ngb-progressbar(type='info', [value]='getProgress(transfer)')
+        .metadata
+            .size {{transfer.getSize()|filesize}}
+            .speed(*ngIf='transfer.getSpeed()') {{transfer.getSpeed()|filesize}}/s
+
     button.btn.btn-link((click)='removeTransfer(transfer); $event.stopPropagation()') !{require('../icons/times.svg')}

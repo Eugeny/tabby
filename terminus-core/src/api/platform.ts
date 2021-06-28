@@ -24,6 +24,10 @@ export abstract class FileTransfer {
     abstract getSize (): number
     abstract close (): void
 
+    getSpeed (): number {
+        return this.lastChunkSpeed
+    }
+
     getCompletedBytes (): number {
         return this.completedBytes
     }
@@ -43,9 +47,13 @@ export abstract class FileTransfer {
 
     protected increaseProgress (bytes: number): void {
         this.completedBytes += bytes
+        this.lastChunkSpeed = bytes * 1000 / (Date.now() - this.lastChunkStartTime)
+        this.lastChunkStartTime = Date.now()
     }
 
     private completedBytes = 0
+    private lastChunkStartTime = Date.now()
+    private lastChunkSpeed = 0
     private cancelled = false
 }
 

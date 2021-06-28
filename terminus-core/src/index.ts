@@ -4,6 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { FormsModule } from '@angular/forms'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { PerfectScrollbarModule, PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar'
+import { NgxFilesizeModule } from 'ngx-filesize'
 import { DndModule } from 'ng2-dnd'
 
 import { AppRootComponent } from './components/appRoot.component'
@@ -64,6 +65,7 @@ const PROVIDERS = [
         BrowserAnimationsModule,
         FormsModule,
         NgbModule,
+        NgxFilesizeModule,
         PerfectScrollbarModule,
         DndModule.forRoot(),
     ],

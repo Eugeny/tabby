@@ -35,4 +35,19 @@ export class TransfersMenuComponent {
         this.transfers = this.transfers.filter(x => x !== transfer)
         this.transfersChange.emit(this.transfers)
     }
+
+    async removeAll (): Promise<void> {
+        if (this.transfers.some(x => !x.isComplete())) {
+            if ((await this.platform.showMessageBox({
+                type: 'warning',
+                message: 'There are active file transfers',
+                buttons: ['Abort all', 'Do not abort'],
+            })).response === 1) {
+                return
+            }
+        }
+        for (const t of this.transfers) {
+            this.removeTransfer(t)
+        }
+    }
 }
