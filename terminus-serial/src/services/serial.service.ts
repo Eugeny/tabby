@@ -1,6 +1,6 @@
 import { Injectable, NgZone } from '@angular/core'
 import SerialPort from 'serialport'
-import { LogService, AppService, SelectorOption, ConfigService, NotificationsService } from 'terminus-core'
+import { LogService, AppService, SelectorOption, ConfigService, NotificationsService, SelectorService } from 'terminus-core'
 import { SettingsTabComponent } from 'terminus-settings'
 import { SerialConnection, SerialSession, SerialPortInfo, BAUD_RATES } from '../api'
 import { SerialTabComponent } from '../components/serialTab.component'
@@ -12,6 +12,7 @@ export class SerialService {
         private zone: NgZone,
         private notifications: NotificationsService,
         private app: AppService,
+        private selector: SelectorService,
         private config: ConfigService,
     ) { }
 
@@ -124,7 +125,7 @@ export class SerialService {
         })
 
 
-        await this.app.showSelector('Open a serial port', options)
+        await this.selector.show('Open a serial port', options)
     }
 
     async connect (connection: SerialConnection): Promise<SerialTabComponent> {
@@ -170,7 +171,7 @@ export class SerialService {
     }
 
     async connectFoundPort (port: SerialPortInfo): Promise<SerialTabComponent> {
-        const rate = await this.app.showSelector('Baud rate', BAUD_RATES.map(x => ({
+        const rate = await this.selector.show('Baud rate', BAUD_RATES.map(x => ({
             name: x.toString(), result: x,
         })))
         return this.quickConnect(`${port.name}@${rate}`)

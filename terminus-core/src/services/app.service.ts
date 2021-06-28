@@ -2,11 +2,9 @@
 import { Observable, Subject, AsyncSubject } from 'rxjs'
 import { takeUntil } from 'rxjs/operators'
 import { Injectable, Inject } from '@angular/core'
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 
 import { BaseTabComponent } from '../components/baseTab.component'
 import { SplitTabComponent } from '../components/splitTab.component'
-import { SelectorModalComponent } from '../components/selectorModal.component'
 import { SelectorOption } from '../api/selector'
 import { RecoveryToken } from '../api/tabRecovery'
 import { BootstrapData, BOOTSTRAP_DATA } from '../api/mainProcess'
@@ -16,6 +14,7 @@ import { HostAppService } from '../api/hostApp'
 import { ConfigService } from './config.service'
 import { TabRecoveryService } from './tabRecovery.service'
 import { TabsService, TabComponentType } from './tabs.service'
+import { SelectorService } from './selector.service'
 
 class CompletionObserver {
     get done$ (): Observable<void> { return this.done }
@@ -77,7 +76,7 @@ export class AppService {
         private hostWindow: HostWindowService,
         private tabRecovery: TabRecoveryService,
         private tabsService: TabsService,
-        private ngbModal: NgbModal,
+        private selector: SelectorService,
         @Inject(BOOTSTRAP_DATA) private bootstrapData: BootstrapData,
     ) {
         this.tabsChanged$.subscribe(() => {
@@ -366,11 +365,8 @@ export class AppService {
         this.completionObservers.delete(tab)
     }
 
+    // Deprecated
     showSelector <T> (name: string, options: SelectorOption<T>[]): Promise<T> {
-        const modal = this.ngbModal.open(SelectorModalComponent)
-        const instance: SelectorModalComponent<T> = modal.componentInstance
-        instance.name = name
-        instance.options = options
-        return modal.result as Promise<T>
+        return this.selector.show(name, options)
     }
 }

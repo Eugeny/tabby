@@ -5,7 +5,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { Client } from 'ssh2'
 import { exec } from 'child_process'
 import { Subject, Observable } from 'rxjs'
-import { Logger, LogService, AppService, SelectorOption, ConfigService, NotificationsService, HostAppService, Platform, PlatformService } from 'terminus-core'
+import { Logger, LogService, AppService, SelectorOption, ConfigService, NotificationsService, HostAppService, Platform, PlatformService, SelectorService } from 'terminus-core'
 import { SettingsTabComponent } from 'terminus-settings'
 import { ALGORITHM_BLACKLIST, ForwardedPort, SSHConnection, SSHSession } from '../api'
 import { PromptModalComponent } from '../components/promptModal.component'
@@ -26,6 +26,7 @@ export class SSHService {
         private passwordStorage: PasswordStorageService,
         private notifications: NotificationsService,
         private app: AppService,
+        private selector: SelectorService,
         private config: ConfigService,
         hostApp: HostAppService,
         private platform: PlatformService,
@@ -230,7 +231,7 @@ export class SSHService {
         })
 
 
-        await this.app.showSelector('Open an SSH connection', options)
+        await this.selector.show('Open an SSH connection', options)
     }
 
     async connect (connection: SSHConnection): Promise<SSHTabComponent> {

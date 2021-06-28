@@ -1,11 +1,11 @@
 import { Inject, Injectable } from '@angular/core'
-import { AppService, FileProvider, NotificationsService } from '../api'
+import { FileProvider, NotificationsService, SelectorService } from '../api'
 
 @Injectable({ providedIn: 'root' })
 export class FileProvidersService {
     /** @hidden */
     private constructor (
-        private app: AppService,
+        private selector: SelectorService,
         private notifications: NotificationsService,
         @Inject(FileProvider) private fileProviders: FileProvider[],
     ) { }
@@ -40,7 +40,7 @@ export class FileProvidersService {
         if (providers.length === 1) {
             return providers[0]
         }
-        return this.app.showSelector('Select file storage', providers.map(p => ({
+        return this.selector.show('Select file storage', providers.map(p => ({
             name: p.name,
             result: p,
         })))

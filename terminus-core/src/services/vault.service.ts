@@ -5,7 +5,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { AsyncSubject, Subject, Observable } from 'rxjs'
 import { wrapPromise } from '../utils'
 import { UnlockVaultModalComponent } from '../components/unlockVaultModal.component'
-import { NotificationsService } from '../services/notifications.service'
+import { NotificationsService } from './notifications.service'
+import { SelectorService } from './selector.service'
 import { FileProvider } from '../api/fileProvider'
 import { PlatformService } from '../api/platform'
 
@@ -226,6 +227,7 @@ export class VaultFileProvider extends FileProvider {
     constructor (
         private vault: VaultService,
         private platform: PlatformService,
+        private selector: SelectorService,
         private zone: NgZone,
     ) {
         super()
@@ -236,6 +238,32 @@ export class VaultFileProvider extends FileProvider {
     }
 
     async selectAndStoreFile (description: string): Promise<string> {
+        const vault = await this.vault.load()
+        if (!vault) {
+            throw new Error('Vault is locked')
+        }
+        const files = vault.secrets.filter(x => x.type === VAULT_SECRET_TYPE_FILE)
+        if (files.length) {
+            const result = await this.selector.show<VaultSecret|null>('Select file', [
+                {
+                    name: 'Add a new file',
+                    icon: 'plus',
+                    result: null,
+                },
+                ...files.map(f => ({
+                    name: f.key.description,
+                    icon: 'file',
+                    result: f,
+                })),
+            ])
+            if (result) {
+                return `${this.prefix}${result.key.id}`
+            }
+        }
+        return this.addNewFile(description)
+    }
+
+    async addNewFile (description: string): Promise<string> {
         const transfers = await this.platform.startUpload()
         if (!transfers.length) {
             throw new Error('Nothing selected')

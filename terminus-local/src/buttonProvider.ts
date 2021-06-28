@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Injectable } from '@angular/core'
-import { ToolbarButtonProvider, ToolbarButton, ConfigService, SelectorOption, AppService } from 'terminus-core'
+import { ToolbarButtonProvider, ToolbarButton, ConfigService, SelectorOption, SelectorService } from 'terminus-core'
 import { ElectronService } from 'terminus-electron'
 
 import { TerminalService } from './services/terminal.service'
@@ -10,7 +10,7 @@ import { TerminalService } from './services/terminal.service'
 export class ButtonProvider extends ToolbarButtonProvider {
     constructor (
         electron: ElectronService,
-        private app: AppService,
+        private selector: SelectorService,
         private config: ConfigService,
         private terminal: TerminalService,
     ) {
@@ -29,7 +29,7 @@ export class ButtonProvider extends ToolbarButtonProvider {
             })
         }
 
-        await this.app.showSelector('Select profile', options)
+        await this.selector.show('Select profile', options)
     }
 
     provide (): ToolbarButton[] {

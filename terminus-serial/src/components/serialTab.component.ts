@@ -3,6 +3,7 @@ import colors from 'ansi-colors'
 import { Spinner } from 'cli-spinner'
 import { Component, Injector } from '@angular/core'
 import { first } from 'rxjs/operators'
+import { SelectorService } from 'terminus-core'
 import { BaseTerminalTabComponent } from 'terminus-terminal'
 import { SerialService } from '../services/serial.service'
 import { SerialConnection, SerialSession, BAUD_RATES } from '../api'
@@ -23,6 +24,7 @@ export class SerialTabComponent extends BaseTerminalTabComponent {
     // eslint-disable-next-line @typescript-eslint/no-useless-constructor
     constructor (
         injector: Injector,
+        private selector: SelectorService,
     ) {
         super(injector)
         this.serialService = injector.get(SerialService)
@@ -122,7 +124,7 @@ export class SerialTabComponent extends BaseTerminalTabComponent {
     }
 
     async changeBaudRate () {
-        const rate = await this.app.showSelector('Baud rate', BAUD_RATES.map(x => ({
+        const rate = await this.selector.show('Baud rate', BAUD_RATES.map(x => ({
             name: x.toString(), result: x,
         })))
         this.serialPort.update({ baudRate: rate })
