@@ -19,4 +19,11 @@ export class RecoveryProvider extends TabRecoveryProvider {
             },
         }
     }
+
+    duplicate (recoveryToken: RecoveryToken): RecoveryToken {
+        return {
+            ...recoveryToken,
+            savedState: null,
+        }
+    }
 }
