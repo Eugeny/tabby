@@ -304,17 +304,6 @@ export class Window {
             })
         })
 
-        ipcMain.on('window-toggle-maximize', event => {
-            if (!this.window || event.sender !== this.window.webContents) {
-                return
-            }
-            if (this.window.isMaximized()) {
-                this.window.unmaximize()
-            } else {
-                this.window.maximize()
-            }
-        })
-
         ipcMain.on('window-minimize', event => {
             if (!this.window || event.sender !== this.window.webContents) {
                 return

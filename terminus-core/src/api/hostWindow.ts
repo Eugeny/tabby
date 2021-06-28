@@ -24,6 +24,7 @@ export abstract class HostWindowService {
     abstract setTitle (title?: string): void
     abstract toggleFullscreen (): void
     abstract minimize (): void
+    abstract isMaximized (): boolean
     abstract toggleMaximize (): void
     abstract close (): void
 

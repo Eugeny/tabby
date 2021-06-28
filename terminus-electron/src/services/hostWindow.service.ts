@@ -71,8 +71,16 @@ export class ElectronHostWindow extends HostWindowService {
         this.electron.ipcRenderer.send('window-minimize')
     }
 
+    isMaximized (): boolean {
+        return this.getWindow().isMaximized()
+    }
+
     toggleMaximize (): void {
-        this.electron.ipcRenderer.send('window-toggle-maximize')
+        if (this.getWindow().isMaximized()) {
+            this.getWindow().unmaximize()
+        } else {
+            this.getWindow().maximize()
+        }
     }
 
     close (): void {

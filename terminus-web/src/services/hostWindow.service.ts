@@ -31,6 +31,10 @@ export class WebHostWindow extends HostWindowService {
         throw new Error('Unavailable')
     }
 
+    isMaximized (): boolean {
+        return true
+    }
+
     toggleMaximize (): void {
         throw new Error('Unavailable')
     }
