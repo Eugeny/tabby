@@ -7,8 +7,8 @@ import { parseArgs } from './cli'
 import { Application } from './app'
 import electronDebug = require('electron-debug')
 
-if (!process.env.TERMINUS_PLUGINS) {
-    process.env.TERMINUS_PLUGINS = ''
+if (!process.env.TABBY_PLUGINS) {
+    process.env.TABBY_PLUGINS = ''
 }
 
 const application = new Application()

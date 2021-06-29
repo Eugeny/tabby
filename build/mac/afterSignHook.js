@@ -11,7 +11,7 @@ module.exports = async function (params) {
     }
     console.log('afterSign hook triggered', params)
 
-    let appId = 'org.terminus'
+    let appId = 'org.tabby'
 
     let appPath = path.join(params.appOutDir, params._pathOverride || `${params.packager.appInfo.productFilename}.app`)
     if (!fs.existsSync(appPath)) {

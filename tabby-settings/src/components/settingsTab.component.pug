@@ -1,0 +1,114 @@
+button.btn.btn-outline-warning.btn-block(*ngIf='config.restartRequested', '(click)'='restartApp()') Restart the app to apply changes
+
+.content
+    ul.nav-pills(ngbNav, #nav='ngbNav', [activeId]='activeTab', orientation='vertical')
+        li(ngbNavItem='application')
+            a(ngbNavLink)
+                i.fas.fa-fw.fa-window-maximize.mr-2
+                | Application
+            ng-template(ngbNavContent)
+                .tabby-logo.mt-3
+                h1.tabby-title Tabby
+                    sup α
+
+                .text-center
+                    .text-muted {{homeBase.appVersion}}
+
+                    .mb-5.mt-3
+                        button.btn.btn-secondary.mr-3((click)='homeBase.openGitHub()')
+                            i.fab.fa-github
+                            span GitHub
+
+                        button.btn.btn-secondary.mr-3((click)='homeBase.reportBug()')
+                            i.fas.fa-bug
+                            span Report a problem
+
+                        button.btn.btn-secondary(
+                            *ngIf='!updateAvailable && hostApp.platform !== Platform.Web',
+                            (click)='checkForUpdates()',
+                            [disabled]='checkingForUpdate'
+                        )
+                            i.fas.fa-sync(
+                                [class.fa-spin]='checkingForUpdate'
+                            )
+                            span Check for updates
+
+                        button.btn.btn-info(
+                            *ngIf='updateAvailable',
+                            (click)='updater.update()',
+                        )
+                            i.fas.fa-sync
+                            span Update
+
+                .form-line(*ngIf='platform.isShellIntegrationSupported()')
+                    .header
+                        .title Shell integration
+                        .description Allows quickly opening a terminal in the selected folder
+                    toggle([ngModel]='isShellIntegrationInstalled', (ngModelChange)='toggleShellIntegration()')
+
+                .form-line(*ngIf='hostApp.platform !== Platform.Web')
+                    .header
+                        .title Enable analytics
+                        .description We're only tracking your Tabby and OS versions.
+                    toggle(
+                        [(ngModel)]='config.store.enableAnalytics',
+                        (ngModelChange)='saveConfiguration(true)',
+                    )
+
+                .form-line(*ngIf='hostApp.platform !== Platform.Web')
+                    .header
+                        .title Automatic Updates
+                        .description Enable automatic installation of updates when they become available.
+                    toggle([(ngModel)]='config.store.enableAutomaticUpdates', (ngModelChange)='saveConfiguration()')
+
+                .form-line(*ngIf='hostApp.platform !== Platform.Web')
+                    .header
+                        .title Debugging
+
+                    button.btn.btn-secondary((click)='hostWindow.openDevTools()')
+                        i.fas.fa-bug
+                        span Open DevTools
+
+        li(*ngFor='let provider of settingsProviders', [ngbNavItem]='provider.id')
+            a(ngbNavLink)
+                i(class='fas fa-fw mr-2 fa-{{provider.icon || "puzzle-piece"}}')
+                | {{provider.title}}
+            ng-template(ngbNavContent)
+                settings-tab-body([provider]='provider')
+
+        li(ngbNavItem='config-file')
+            a(ngbNavLink)
+                i.fas.fa-fw.fa-code.mr-2
+                | Config file
+            ng-template.test(ngbNavContent)
+                .d-flex.flex-column.w-100.h-100
+                    .h-100.d-flex
+                        .w-100.d-flex.flex-column
+                            h3 Config File
+                            textarea.form-control.h-100(
+                                [(ngModel)]='configFile'
+                            )
+                        .w-100.d-flex.flex-column(*ngIf='showConfigDefaults')
+                            h3 Defaults
+                            textarea.form-control.h-100(
+                                [(ngModel)]='configDefaults',
+                                readonly
+                            )
+                    .mt-3.d-flex
+                        button.btn.btn-primary((click)='saveConfigFile()', *ngIf='isConfigFileValid()')
+                            i.fas.fa-check.mr-2
+                            | Save and apply
+                        button.btn.btn-primary(disabled, *ngIf='!isConfigFileValid()')
+                            i.fas.fa-exclamation-triangle.mr-2
+                            | Invalid syntax
+                        button.btn.btn-secondary.ml-auto(
+                            (click)='showConfigDefaults = !showConfigDefaults'
+                        ) Show defaults
+                        button.btn.btn-secondary.ml-3(
+                            *ngIf='platform.getConfigPath()',
+                            (click)='showConfigFile()'
+                        )
+                            i.fas.fa-external-link-square-alt.mr-2
+                            | Show config file
+
+    div([ngbNavOutlet]='nav')

@@ -32,5 +32,5 @@ docs/api
 sentry.properties
 sentry-symbols.js
 
-terminus-ssh/util/pagent.exe
+tabby-ssh/util/pagent.exe
 *.psd

@@ -44,7 +44,7 @@ jobs:
         # DEBUG: electron-builder,electron-builder:*
 
     - name: Build web resources
-      run: zsh -c 'tar czf terminus-web.tar.gz (terminus-*|web)/dist'
+      run: zsh -c 'tar czf tabby-web.tar.gz (tabby-*|web)/dist'
 
     - name: Upload symbols
       run: |
@@ -68,7 +68,7 @@ jobs:
         mkdir artifact-tar.gz
         mv dist/*.tar.gz artifact-tar.gz/ || true
         mkdir artifact-web
-        mv terminus-web.tar.gz artifact-web/ || true
+        mv tabby-web.tar.gz artifact-web/ || true
 
     - uses: actions/upload-artifact@master
       name: Upload DEB

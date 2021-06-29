@@ -8,7 +8,7 @@
             "protocol": "inspector",
             "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron",
             "env": {
-                "TERMINUS_DEV": "1"
+                "TABBY_DEV": "1"
             },
             "runtimeArgs": [
                 "--remote-debugging-port=9223",

@@ -43,7 +43,7 @@ async function webRequire (url) {
     return window['module'].exports
 }
 
-const Terminus = {
+const Tabby = {
     registerMock: (name, mod) => {
         mocks[name] = mod
     },
@@ -54,11 +54,11 @@ const Terminus = {
         const pkg = await (await fetch(url + '/package.json')).json()
         url += '/' + pkg.main
         const module = await webRequire(url)
-        Terminus.registerModule(`resources/builtin-plugins/${pkg.name}`, module)
-        Terminus.registerModule(pkg.name, module)
+        Tabby.registerModule(`resources/builtin-plugins/${pkg.name}`, module)
+        Tabby.registerModule(pkg.name, module)
         return module
     },
-    bootstrap: (...args) => window['bootstrapTerminus'](...args),
+    bootstrap: (...args) => window['bootstrapTabby'](...args),
     webRequire,
 }
 
@@ -67,10 +67,10 @@ Object.assign(window, {
     module: {
         paths: [],
     },
-    Terminus,
+    Tabby,
     process: {
         env: { },
-        argv: ['terminus'],
+        argv: ['tabby'],
         platform: 'darwin',
         on: () => null,
         stdout: {},

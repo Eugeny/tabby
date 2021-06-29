@@ -13,55 +13,55 @@ updates:
     time: "04:00"
   open-pull-requests-limit: 20
 - package-ecosystem: npm
-  directory: "/terminus-core"
+  directory: "/tabby-core"
   schedule:
     interval: daily
     time: "04:00"
   open-pull-requests-limit: 20
 - package-ecosystem: npm
-  directory: "/terminus-settings"
+  directory: "/tabby-settings"
   schedule:
     interval: daily
     time: "04:00"
   open-pull-requests-limit: 20
 - package-ecosystem: npm
-  directory: "/terminus-terminal"
+  directory: "/tabby-terminal"
   schedule:
     interval: daily
     time: "04:00"
   open-pull-requests-limit: 20
 - package-ecosystem: npm
-  directory: "/terminus-local"
+  directory: "/tabby-local"
   schedule:
     interval: daily
     time: "04:00"
   open-pull-requests-limit: 20
 - package-ecosystem: npm
-  directory: "/terminus-community-color-schemes"
+  directory: "/tabby-community-color-schemes"
   schedule:
     interval: daily
     time: "04:00"
   open-pull-requests-limit: 20
 - package-ecosystem: npm
-  directory: "/terminus-electron"
+  directory: "/tabby-electron"
   schedule:
     interval: daily
     time: "04:00"
   open-pull-requests-limit: 20
 - package-ecosystem: npm
-  directory: "/terminus-web"
+  directory: "/tabby-web"
   schedule:
     interval: daily
     time: "04:00"
   open-pull-requests-limit: 20
 - package-ecosystem: npm
-  directory: "/terminus-plugin-manager"
+  directory: "/tabby-plugin-manager"
   schedule:
     interval: daily
     time: "04:00"
   open-pull-requests-limit: 20
 - package-ecosystem: npm
-  directory: "/terminus-ssh"
+  directory: "/tabby-ssh"
   schedule:
     interval: daily
     time: "04:00"

@@ -5,9 +5,9 @@ index 25a159e..d8a0262 100644
 @@ -165,7 +165,7 @@ class AppInfo {
    get linuxPackageName() {
      const name = this.name; // https://github.com/electron-userland/electron-builder/issues/2963
- 
+
 -    return name.startsWith("@") ? this.sanitizedProductName : name;
-+    return 'terminus-terminal'
++    return 'tabby-terminal'
    }
- 
+
    get sanitizedName() {

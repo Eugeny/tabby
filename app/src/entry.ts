@@ -12,7 +12,7 @@ import { ipcRenderer } from 'electron'
 
 import { getRootModule } from './app.module'
 import { findPlugins, initModuleLookup, loadPlugins } from './plugins'
-import { BootstrapData, BOOTSTRAP_DATA, PluginInfo } from '../../terminus-core/src/api/mainProcess'
+import { BootstrapData, BOOTSTRAP_DATA, PluginInfo } from '../../tabby-core/src/api/mainProcess'
 
 // Always land on the start view
 location.hash = ''
@@ -23,7 +23,7 @@ if (process.platform === 'win32' && !('HOME' in process.env)) {
     process.env.HOME = `${process.env.HOMEDRIVE}${process.env.HOMEPATH}`
 }
 
-if (process.env.TERMINUS_DEV && !process.env.TERMINUS_FORCE_ANGULAR_PROD) {
+if (process.env.TABBY_DEV && !process.env.TABBY_FORCE_ANGULAR_PROD) {
     console.warn('Running in debug mode')
 } else {
     enableProdMode()
@@ -42,7 +42,7 @@ async function bootstrap (bootstrapData: BootstrapData, plugins: PluginInfo[], s
     const moduleRef = await platformBrowserDynamic([
         { provide: BOOTSTRAP_DATA, useValue: bootstrapData },
     ]).bootstrapModule(module)
-    if (process.env.TERMINUS_DEV) {
+    if (process.env.TABBY_DEV) {
         const applicationRef = moduleRef.injector.get(ApplicationRef)
         const componentRef = applicationRef.components[0]
         enableDebugTools(componentRef)

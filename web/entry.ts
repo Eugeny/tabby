@@ -13,7 +13,7 @@ import { enableDebugTools } from '@angular/platform-browser'
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic'
 
 import { getRootModule } from '../app/src/app.module'
-import { BootstrapData, BOOTSTRAP_DATA } from '../terminus-core/src/api/mainProcess'
+import { BootstrapData, BOOTSTRAP_DATA } from '../tabby-core/src/api/mainProcess'
 
 interface BootstrapOptions {
     packageModules: any[]
@@ -22,7 +22,7 @@ interface BootstrapOptions {
     connector: any
 }
 
-window['bootstrapTerminus'] = async function bootstrap (options: BootstrapOptions): Promise<NgModuleRef<any>> {
+window['bootstrapTabby'] = async function bootstrap (options: BootstrapOptions): Promise<NgModuleRef<any>> {
     window.parent.postMessage('request-connector', '*')
 
     const pluginModules = []

@@ -7,7 +7,7 @@
 
 ----
 
-**Terminus** is a highly configurable terminal emulator, SSH and serial client for Windows, macOS and Linux
+**Tabby** (formerly **Terminus**) is a highly configurable terminal emulator, SSH and serial client for Windows, macOS and Linux
 
 * Integrated SSH client and connection manager
 * Integrated serial terminal
@@ -29,7 +29,7 @@
 # Contents
 
 - [Contents](#contents)
-- [What Terminus is and isn't](#what-terminus-is-and-isnt)
+- [What Tabby is and isn't](#what-tabby-is-and-isnt)
 - [Terminal features](#terminal-features)
 - [SSH Client](#ssh-client)
 - [Serial Terminal](#serial-terminal)
@@ -39,11 +39,11 @@
 - [Contributing](#contributing)
 
 <a name="about"></a>
-# What Terminus is and isn't
+# What Tabby is and isn't
 
-* **Terminus is** an alternative to Windows' standard terminal (conhost), PowerShell ISE, PuTTY or iTerm
+* **Tabby is** an alternative to Windows' standard terminal (conhost), PowerShell ISE, PuTTY or iTerm
 
-* **Terminus is not** a new shell or a MinGW or Cygwin replacement. Neither is it lightweight - if RAM usage is of importance, consider [Conemu](https://conemu.github.io) or [Alacritty](https://github.com/jwilm/alacritty)
+* **Tabby is not** a new shell or a MinGW or Cygwin replacement. Neither is it lightweight - if RAM usage is of importance, consider [Conemu](https://conemu.github.io) or [Alacritty](https://github.com/jwilm/alacritty)
 
 <a name="terminal"></a>
 # Terminal features
@@ -84,12 +84,12 @@
 <a name="portable"></a>
 # Portable
 
-Terminus will run as a portable app on Windows, if you create a `data` folder in the same location where `Terminus.exe` lives.
+Tabby will run as a portable app on Windows, if you create a `data` folder in the same location where `Tabby.exe` lives.
 
 <a name="plugins"></a>
 # Plugins
 
-Plugins and themes can be installed directly from the Settings view inside Terminus.
+Plugins and themes can be installed directly from the Settings view inside Tabby.
 
   * [clickable-links](https://github.com/Eugeny/terminus-clickable-links) - makes paths and URLs in the terminal clickable
   * [title-control](https://github.com/kbjr/terminus-title-control) - allows modifying the title of the terminal tabs by providing a prefix, suffix, and/or strings to be removed
@@ -102,7 +102,7 @@ Plugins and themes can be installed directly from the Settings view inside Termi
 # Themes
 
   * [hype](https://github.com/Eugeny/terminus-theme-hype) - a Hyper inspired theme
-  * [relaxed](https://github.com/Relaxed-Theme/relaxed-terminal-themes#terminus) - the Relaxed theme for Terminus
+  * [relaxed](https://github.com/Relaxed-Theme/relaxed-terminal-themes#terminus) - the Relaxed theme for Tabby
   * [gruvbox](https://github.com/porkloin/terminus-theme-gruvbox)
   * [windows10](https://www.npmjs.com/package/terminus-theme-windows10)
   * [altair](https://github.com/yxuko/terminus-altair)

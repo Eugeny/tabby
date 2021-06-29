@@ -4,9 +4,6 @@ import * as electron from 'electron'
 
 const appPath = path.dirname(electron.app.getPath('exe'))
 
-if (fs.existsSync(path.join(appPath, 'terminus-data'))) {
-    fs.renameSync(path.join(appPath, 'terminus-data'), path.join(appPath, 'data'))
-}
 const portableData = path.join(appPath, 'data')
 if (fs.existsSync(portableData)) {
     console.log('reset user data to ' + portableData)

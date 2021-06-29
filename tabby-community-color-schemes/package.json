@@ -1,0 +1,24 @@
+{
+  "name": "tabby-community-color-schemes",
+  "version": "1.0.140",
+  "description": "Community color schemes for Tabby",
+  "keywords": [
+    "tabby-builtin-plugin"
+  ],
+  "main": "dist/index.js",
+  "typings": "typings/index.d.ts",
+  "scripts": {
+    "build": "webpack --progress --color",
+    "watch": "webpack --progress --color --watch"
+  },
+  "files": [
+    "dist"
+  ],
+  "author": "Eugene Pankov",
+  "license": "MIT",
+  "peerDependencies": {
+    "@angular/core": "^9.1.9",
+    "tabby-core": "*",
+    "tabby-terminal": "*"
+  }
+}

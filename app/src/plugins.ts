@@ -1,7 +1,7 @@
 import * as fs from 'mz/fs'
 import * as path from 'path'
 import * as remote from '@electron/remote'
-import { PluginInfo } from '../../terminus-core/src/api/mainProcess'
+import { PluginInfo } from '../../tabby-core/src/api/mainProcess'
 
 const nodeModule = require('module') // eslint-disable-line @typescript-eslint/no-var-requires
 
@@ -16,7 +16,7 @@ function normalizePath (p: string): string {
     return p
 }
 
-const builtinPluginsPath = process.env.TERMINUS_DEV ? path.dirname(remote.app.getAppPath()) : path.join((process as any).resourcesPath, 'builtin-plugins')
+const builtinPluginsPath = process.env.TABBY_DEV ? path.dirname(remote.app.getAppPath()) : path.join((process as any).resourcesPath, 'builtin-plugins')
 
 const builtinModules = [
     '@angular/animations',
@@ -30,10 +30,10 @@ const builtinModules = [
     'ngx-toastr',
     'rxjs',
     'rxjs/operators',
-    'terminus-core',
-    'terminus-local',
-    'terminus-settings',
-    'terminus-terminal',
+    'tabby-core',
+    'tabby-local',
+    'tabby-settings',
+    'tabby-terminal',
     'zone.js/dist/zone.js',
 ]
 
@@ -42,15 +42,15 @@ export type ProgressCallback = (current: number, total: number) => void // eslin
 export function initModuleLookup (userPluginsPath: string): void {
     global['module'].paths.map((x: string) => nodeModule.globalPaths.push(normalizePath(x)))
 
-    if (process.env.TERMINUS_DEV) {
+    if (process.env.TABBY_DEV) {
         nodeModule.globalPaths.unshift(path.dirname(remote.app.getAppPath()))
     }
 
     nodeModule.globalPaths.unshift(builtinPluginsPath)
     nodeModule.globalPaths.unshift(path.join(userPluginsPath, 'node_modules'))
     // nodeModule.globalPaths.unshift(path.join((process as any).resourcesPath, 'app.asar', 'node_modules'))
-    if (process.env.TERMINUS_PLUGINS) {
-        process.env.TERMINUS_PLUGINS.split(':').map(x => nodeModule.globalPaths.push(normalizePath(x)))
+    if (process.env.TABBY_PLUGINS) {
+        process.env.TABBY_PLUGINS.split(':').map(x => nodeModule.globalPaths.push(normalizePath(x)))
     }
 
     const cachedBuiltinModules = {}
@@ -79,7 +79,8 @@ export async function findPlugins (): Promise<PluginInfo[]> {
     const paths = nodeModule.globalPaths
     let foundPlugins: PluginInfo[] = []
     const candidateLocations: { pluginDir: string, packageName: string }[] = []
-    const PREFIX = 'terminus-'
+    const PREFIX = 'tabby-'
+    const LEGACY_PREFIX = 'terminus-'
 
     const processedPaths = []
 
@@ -101,7 +102,7 @@ export async function findPlugins (): Promise<PluginInfo[]> {
             })
         }
         for (const packageName of pluginNames) {
-            if (packageName.startsWith(PREFIX)) {
+            if (packageName.startsWith(PREFIX) || packageName.startsWith(LEGACY_PREFIX)) {
                 candidateLocations.push({ pluginDir, packageName })
             }
         }
@@ -114,7 +115,7 @@ export async function findPlugins (): Promise<PluginInfo[]> {
             continue
         }
 
-        const name = packageName.substring(PREFIX.length)
+        const name = packageName.startsWith(PREFIX) ? packageName.substring(PREFIX.length) : packageName.substring(LEGACY_PREFIX.length)
 
         if (builtinModules.includes(packageName) && pluginDir !== builtinPluginsPath) {
             continue
@@ -129,7 +130,7 @@ export async function findPlugins (): Promise<PluginInfo[]> {
 
         try {
             const info = JSON.parse(await fs.readFile(infoPath, { encoding: 'utf-8' }))
-            if (!info.keywords || !(info.keywords.includes('terminus-plugin') || info.keywords.includes('terminus-builtin-plugin'))) {
+            if (!info.keywords || !(info.keywords.includes('terminus-plugin') || info.keywords.includes('terminus-builtin-plugin') || !info.keywords.includes('tabby-plugin') || info.keywords.includes('tabby-builtin-plugin'))) {
                 continue
             }
             let author = info.author

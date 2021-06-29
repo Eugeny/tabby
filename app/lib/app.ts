@@ -154,7 +154,7 @@ export class Application {
             this.tray.setContextMenu(contextMenu)
         }
 
-        this.tray.setToolTip(`Terminus ${app.getVersion()}`)
+        this.tray.setToolTip(`Tabby ${app.getVersion()}`)
     }
 
     disableTray (): void {
@@ -195,7 +195,7 @@ export class Application {
             {
                 label: 'Application',
                 submenu: [
-                    { role: 'about', label: 'About Terminus' },
+                    { role: 'about', label: 'About Tabby' },
                     { type: 'separator' },
                     {
                         label: 'Preferences',

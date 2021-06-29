@@ -1,6 +1,6 @@
 # Some background
 
-Terminus is an Electron app, with the frontend written in Typescript with the help of Angular framework. It's built using Webpack.
+Tabby is an Electron app, with the frontend written in Typescript with the help of Angular framework. It's built using Webpack.
 
 # Getting started
 
@@ -34,7 +34,7 @@ Now, check if your build is working:
 yarn run build
 ```
 
-Start Terminus with
+Start Tabby with
 
 ```
 yarn start
@@ -58,26 +58,26 @@ The artifacts will be produced in the `dist` folder.
 
 # Project layout
 ```
-terminus
+tabby
 ├─ app                                  # Electron app, just the bare essentials
 |  ├─ src                               # Electron renderer code
 |  └─ main.js                           # Electron main entry point
 ├─ build
 ├─ clink                                # Clink distributive, for Windows
 ├─ scripts                              # Maintenance scripts
-├─ terminus-community-color-schemes     # Plugin that provides color schemes
-├─ terminus-core                        # Plugin that provides base UI and tab management
-├─ terminus-electron                    # Plugin that provides Electron-specific functions
-├─ terminus-local                       # Plugin that provides local shells and profiles
-├─ terminus-plugin-manager              # Plugin that installs other plugins
-├─ terminus-settings                    # Plugin that provides the settings tab
-├─ terminus-terminal                    # Plugin that provides terminal tabs
-└─ terminus-web                         # Plugin that provides web-specific functions
+├─ tabby-community-color-schemes     # Plugin that provides color schemes
+├─ tabby-core                        # Plugin that provides base UI and tab management
+├─ tabby-electron                    # Plugin that provides Electron-specific functions
+├─ tabby-local                       # Plugin that provides local shells and profiles
+├─ tabby-plugin-manager              # Plugin that installs other plugins
+├─ tabby-settings                    # Plugin that provides the settings tab
+├─ tabby-terminal                    # Plugin that provides terminal tabs
+└─ tabby-web                         # Plugin that provides web-specific functions
 ```
 
 # Plugin layout
 ```
-terminus-pluginname
+tabby-pluginname
 ├─ src                                  # Typescript code
 |  ├─ components                        # Angular components
 |  |  ├─ foo.component.ts               # Code
@@ -94,11 +94,11 @@ terminus-pluginname
 
 # Plugins
 
-The app will load all plugins from the source checkout in the dev mode, from the user's plugins directory at all times (click `Open Plugins Directory` under `Settings` > `Plugins`) and from the directory specified by the `TERMINUS_PLUGINS` environment var.
+The app will load all plugins from the source checkout in the dev mode, from the user's plugins directory at all times (click `Open Plugins Directory` under `Settings` > `Plugins`) and from the directory specified by the `TABBY_PLUGINS` environment var.
 
-Only modules whose `package.json` file contains a `terminus-plugin` keyword will be loaded.
+Only modules whose `package.json` file contains a `tabby-plugin` keyword will be loaded.
 
-If you're currently in your plugin's directory, start Terminus as `TERMINUS_PLUGINS=$(pwd) terminus --debug`
+If you're currently in your plugin's directory, start Tabby as `TABBY_PLUGINS=$(pwd) tabby --debug`
 
 A plugin should only provide a default export, which should be a `NgModule` class (or a `NgModuleWithDependencies` where applicable). This module will be injected as a dependency to the app's root module.
 
@@ -118,7 +118,7 @@ Plugins provide functionality by exporting singular or multi providers:
 
 ```javascript
 import { NgModule, Injectable } from '@angular/core'
-import { ToolbarButtonProvider, ToolbarButton } from 'terminus-core'
+import { ToolbarButtonProvider, ToolbarButton } from 'tabby-core'
 
 @Injectable()
 export class MyButtonProvider extends ToolbarButtonProvider {
@@ -143,6 +143,6 @@ export default class MyModule { }
 ```
 
 
-See `terminus-core/src/api.ts`, `terminus-settings/src/api.ts`, `terminus-local/src/api.ts` and `terminus-terminal/src/api.ts` for the available extension points.
+See `tabby-core/src/api.ts`, `tabby-settings/src/api.ts`, `tabby-local/src/api.ts` and `tabby-terminal/src/api.ts` for the available extension points.
 
-Publish your plugin on NPM with a `terminus-plugin` keyword to make it appear in the Plugin Manager.
+Publish your plugin on NPM with a `tabby-plugin` keyword to make it appear in the Plugin Manager.

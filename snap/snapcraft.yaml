@@ -1,26 +1,26 @@
-name: terminus
+name: tabby
 version: '1.0.0'
 summary: A terminal for a modern age
 description: |
-  Terminus is a terminal heavily inspired by Hyper. It is, however, designed for people who need to get things done.
+  Tabby is a local, SSH and serial terminal heavily inspired by Hyper.
 
-grade: devel 
+grade: devel
 confinement: devmode
 
 apps:
-  terminus:
-    command: opt/terminus/terminus
-    
+  tabby:
+    command: opt/tabby/tabby
+
 parts:
   app:
     plugin: nodejs
     source: .
-    build-packages: 
+    build-packages:
       - libfontconfig-dev
     override-build: |
       yarn
       ./scripts/build-native.js
       yarn run build
       ./scripts/build-linux.js
-      mkdir -p $SNAPCRAFT_PART_INSTALL/opt/terminus || true
-      cp -ar dist/linux-unpacked/* $SNAPCRAFT_PART_INSTALL/opt/terminus/
+      mkdir -p $SNAPCRAFT_PART_INSTALL/opt/tabby || true
+      cp -ar dist/linux-unpacked/* $SNAPCRAFT_PART_INSTALL/opt/tabby/

@@ -27,7 +27,7 @@
       "es2019"
     ],
     "paths": {
-      "terminus-*": ["../../terminus-*/src"]
+      "tabby-*": ["../../tabby-*/src"]
     }
   }
 }

@@ -1,0 +1,11 @@
+@import "../../tabby-core/src/theme.vars.scss";
+
+html.tabby {
+    --lumo-primary-text-color: #{$body-color};
+    --lumo-base-color: #{$body-bg};
+    --lumo-body-text-color: #{$body-color};
+    --lumo-tint-5pct: #{$body-bg};
+    --lumo-font-family: #{$font-family-sans-serif};
+    --lumo-font-size-m: #{$font-size-base};
+    --lumo-box-shadow-m: #{$dropdown-box-shadow};
+}

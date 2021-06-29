@@ -10,14 +10,14 @@ module.exports = options => {
     const sourceMapOptions = {
         exclude: [/node_modules/, /vendor/],
         filename: '[file].map',
-        moduleFilenameTemplate: `webpack-terminus-${options.name}:///[resource-path]`,
+        moduleFilenameTemplate: `webpack-tabby-${options.name}:///[resource-path]`,
     }
 
     if (process.env.CI) {
         sourceMapOptions.append = '\n//# sourceMappingURL=../../../app.asar.unpacked/assets/webpack/[url]'
     }
 
-    const isDev = !!process.env.TERMINUS_DEV
+    const isDev = !!process.env.TABBY_DEV
     const config = {
         target: 'node',
         entry: 'src/index.ts',
@@ -57,7 +57,7 @@ module.exports = options => {
                                 path.resolve(options.dirname, '../node_modules/@types'),
                             ],
                             paths: {
-                                'terminus-*': [path.resolve(options.dirname, '../terminus-*')],
+                                'tabby-*': [path.resolve(options.dirname, '../tabby-*')],
                                 '*': [
                                     path.resolve(options.dirname, '../app/node_modules/*'),
                                     path.resolve(options.dirname, '../node_modules/*'),
@@ -109,7 +109,7 @@ module.exports = options => {
             /^@angular/,
             /^@ng-bootstrap/,
             /^rxjs/,
-            /^terminus-/,
+            /^tabby-/,
             ...options.externals || [],
         ],
         plugins: [

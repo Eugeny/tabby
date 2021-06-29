@@ -22,13 +22,13 @@ for (const key of [
 }
 
 module.exports = {
-    name: 'terminus-web-entry',
+    name: 'tabby-web-entry',
     target: 'web',
     entry: {
         preload: path.resolve(__dirname, 'entry.preload.ts'),
         bundle: path.resolve(__dirname, 'entry.ts'),
     },
-    mode: process.env.TERMINUS_DEV ? 'development' : 'production',
+    mode: process.env.TABBY_DEV ? 'development' : 'production',
     optimization:{
         minimize: false,
     },

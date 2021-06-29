@@ -14,16 +14,16 @@ if (exports.version.includes('-c')) {
 }
 
 exports.builtinPlugins = [
-  'terminus-core',
-  'terminus-settings',
-  'terminus-terminal',
-  'terminus-electron',
-  'terminus-local',
-  'terminus-web',
-  'terminus-community-color-schemes',
-  'terminus-plugin-manager',
-  'terminus-ssh',
-  'terminus-serial',
+  'tabby-core',
+  'tabby-settings',
+  'tabby-terminal',
+  'tabby-electron',
+  'tabby-local',
+  'tabby-web',
+  'tabby-community-color-schemes',
+  'tabby-plugin-manager',
+  'tabby-ssh',
+  'tabby-serial',
 ]
 exports.bundledModules = [
   '@angular',

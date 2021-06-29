@@ -1,6 +1,6 @@
 ---
-appId: org.terminus
-productName: Terminus
+appId: org.tabby
+productName: Tabby
 compression: normal
 npmRebuild: false
 afterSign: "./build/mac/afterSignHook.js"
@@ -39,18 +39,18 @@ publish:
 
 win:
   icon: "./build/windows/icon.ico"
-  artifactName: terminus-${version}-portable.${ext}
+  artifactName: tabby-${version}-portable.${ext}
   rfc3161TimeStampServer: http://sha256timestamp.ws.symantec.com/sha256/timestamp
 nsis:
   oneClick: false
-  artifactName: terminus-${version}-setup.${ext}
+  artifactName: tabby-${version}-setup.${ext}
   installerIcon: "./build/windows/icon.ico"
   allowToChangeInstallationDirectory: true
 
 mac:
   category: public.app-category.video
   icon: "./build/mac/icon.icns"
-  artifactName: terminus-${version}-macos-${env.ARCH}.${ext}
+  artifactName: tabby-${version}-macos-${env.ARCH}.${ext}
   hardenedRuntime: true
   entitlements: "./build/mac/entitlements.plist"
   entitlementsInherit: "./build/mac/entitlements.plist"
@@ -68,11 +68,11 @@ mac:
 linux:
   category: Utility
   icon: "./build/icons"
-  artifactName: terminus-${version}-linux.${ext}
+  artifactName: tabby-${version}-linux.${ext}
   executableArgs:
   - "--no-sandbox"
   desktop:
-    StartupWMClass: terminus
+    StartupWMClass: tabby
 snap:
   plugs:
   - default
@@ -91,7 +91,7 @@ deb:
   afterInstall: build/linux/after-install.tpl
   fpm:
   - '--replaces'
-  - 'terminus'
+  - 'terminus-terminal'
 pacman:
   depends:
   - gnome-keyring
@@ -103,4 +103,4 @@ rpm:
   - '--rpm-rpmbuild-define'
   - '_build_id_links none'
   - '--replaces'
-  - 'terminus'
+  - 'terminus-terminal'

@@ -15,7 +15,7 @@ import * as ngxToastrModule from 'ngx-toastr'
 import './polyfills.buffer'
 import { Duplex } from 'stream-browserify'
 
-const Terminus = window['Terminus']
+const Tabby = window['Tabby']
 
 export class SocketProxy extends Duplex {
     socket: any
@@ -51,47 +51,47 @@ export class SocketProxy extends Duplex {
     }
 }
 
-Terminus.registerMock('fs', {
+Tabby.registerMock('fs', {
     realpathSync: () => null,
     readdir: () => null,
     stat: () => null,
     appendFile: () => null,
     constants: {},
 })
-Terminus.registerMock('readline', {
+Tabby.registerMock('readline', {
     cursorTo: () => null,
     clearLine: stream => stream.write('\r'),
 })
-Terminus.registerMock('any-promise', Promise)
-Terminus.registerMock('tls', {})
-Terminus.registerMock('module', {
+Tabby.registerMock('any-promise', Promise)
+Tabby.registerMock('tls', {})
+Tabby.registerMock('module', {
     globalPaths: [],
     prototype: { require: window['require'] },
 })
 
-Terminus.registerMock('url', {
+Tabby.registerMock('url', {
     parse: () => null,
 })
-Terminus.registerMock('http', {
+Tabby.registerMock('http', {
     Agent: class {},
     request: {},
 })
-Terminus.registerMock('https', {
+Tabby.registerMock('https', {
     Agent: class {},
     request: {},
 })
-Terminus.registerMock('querystring', {})
-Terminus.registerMock('tty', { isatty: () => false })
-Terminus.registerMock('child_process', {})
-Terminus.registerMock('readable-stream', {})
-Terminus.registerMock('os', {
+Tabby.registerMock('querystring', {})
+Tabby.registerMock('tty', { isatty: () => false })
+Tabby.registerMock('child_process', {})
+Tabby.registerMock('readable-stream', {})
+Tabby.registerMock('os', {
     platform: () => 'web',
     homedir: () => '/home',
 })
-Terminus.registerModule('buffer', {
+Tabby.registerModule('buffer', {
     Buffer: window['Buffer'],
 })
-Terminus.registerModule('crypto', {
+Tabby.registerModule('crypto', {
     ...require('crypto-browserify'),
     getHashes () {
         return ['sha1', 'sha224', 'sha256', 'sha384', 'sha512', 'md5', 'rmd160']
@@ -100,7 +100,7 @@ Terminus.registerModule('crypto', {
         return a.equals(b)
     },
 })
-Terminus.registerMock('hterm-umdjs', {
+Tabby.registerMock('hterm-umdjs', {
     hterm: {
         PreferenceManager: class { set () {} },
         VT: {
@@ -118,47 +118,47 @@ Terminus.registerMock('hterm-umdjs', {
         },
     },
 })
-Terminus.registerMock('dns', {})
-Terminus.registerMock('socksv5', {})
-Terminus.registerMock('util', require('util/'))
-Terminus.registerMock('keytar', {
+Tabby.registerMock('dns', {})
+Tabby.registerMock('socksv5', {})
+Tabby.registerMock('util', require('util/'))
+Tabby.registerMock('keytar', {
     getPassword: () => null,
 })
 
-Terminus.registerModule('net', {
+Tabby.registerModule('net', {
     Socket: SocketProxy,
 })
-Terminus.registerModule('events', require('events'))
-Terminus.registerModule('path', require('path-browserify'))
-Terminus.registerModule('zlib', {
+Tabby.registerModule('events', require('events'))
+Tabby.registerModule('path', require('path-browserify'))
+Tabby.registerModule('zlib', {
     ...require('browserify-zlib'),
     constants: require('browserify-zlib'),
 })
-Terminus.registerModule('assert', Object.assign(
+Tabby.registerModule('assert', Object.assign(
     require('assert'),
     {
         assertNotStrictEqual: () => true,
         notStrictEqual: () => true,
     },
 ))
-Terminus.registerModule('constants', require('constants-browserify'))
-Terminus.registerModule('stream', require('stream-browserify'))
+Tabby.registerModule('constants', require('constants-browserify'))
+Tabby.registerModule('stream', require('stream-browserify'))
 
-Terminus.registerModule('@angular/core', angularCoreModule)
-Terminus.registerModule('@angular/compiler', angularCompilerModule)
-Terminus.registerModule('@angular/common', angularCommonModule)
-Terminus.registerModule('@angular/forms', angularFormsModule)
-Terminus.registerModule('@angular/platform-browser', angularPlatformBrowserModule)
-Terminus.registerModule('@angular/platform-browser/animations', angularPlatformBrowserAnimationsModule)
-Terminus.registerModule('@angular/platform-browser-dynamic', angularPlatformBrowserDynamicModule)
-Terminus.registerModule('@angular/animations', angularAnimationsModule)
-Terminus.registerModule('@ng-bootstrap/ng-bootstrap', ngBootstrapModule)
-Terminus.registerModule('ngx-toastr', ngxToastrModule)
-Terminus.registerModule('deepmerge', require('deepmerge'))
-Terminus.registerModule('rxjs', require('rxjs'))
-Terminus.registerModule('rxjs/operators', require('rxjs/operators'))
-Terminus.registerModule('js-yaml', require('js-yaml'))
-Terminus.registerModule('zone.js/dist/zone.js', require('zone.js/dist/zone.js'))
+Tabby.registerModule('@angular/core', angularCoreModule)
+Tabby.registerModule('@angular/compiler', angularCompilerModule)
+Tabby.registerModule('@angular/common', angularCommonModule)
+Tabby.registerModule('@angular/forms', angularFormsModule)
+Tabby.registerModule('@angular/platform-browser', angularPlatformBrowserModule)
+Tabby.registerModule('@angular/platform-browser/animations', angularPlatformBrowserAnimationsModule)
+Tabby.registerModule('@angular/platform-browser-dynamic', angularPlatformBrowserDynamicModule)
+Tabby.registerModule('@angular/animations', angularAnimationsModule)
+Tabby.registerModule('@ng-bootstrap/ng-bootstrap', ngBootstrapModule)
+Tabby.registerModule('ngx-toastr', ngxToastrModule)
+Tabby.registerModule('deepmerge', require('deepmerge'))
+Tabby.registerModule('rxjs', require('rxjs'))
+Tabby.registerModule('rxjs/operators', require('rxjs/operators'))
+Tabby.registerModule('js-yaml', require('js-yaml'))
+Tabby.registerModule('zone.js/dist/zone.js', require('zone.js/dist/zone.js'))
 
 Object.assign(window, {
     __dirname: '__dirname',

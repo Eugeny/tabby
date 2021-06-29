@@ -3,12 +3,12 @@ const webpack = require('webpack')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
 module.exports = {
-  name: 'terminus-main',
+  name: 'tabby-main',
   target: 'electron-main',
   entry: {
     main: path.resolve(__dirname, 'lib/index.ts'),
   },
-  mode: process.env.TERMINUS_DEV ? 'development' : 'production',
+  mode: process.env.TABBY_DEV ? 'development' : 'production',
   context: __dirname,
   devtool: 'source-map',
   output: {

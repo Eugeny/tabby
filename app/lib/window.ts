@@ -56,7 +56,7 @@ export class Window {
         const bwOptions: BrowserWindowConstructorOptions = {
             width: 800,
             height: 600,
-            title: 'Terminus',
+            title: 'Tabby',
             minWidth: 400,
             minHeight: 300,
             webPreferences: {
@@ -118,7 +118,7 @@ export class Window {
         })
 
         this.window.on('blur', () => {
-            if (this.configStore.appearance.dock !== 'off' && this.configStore.appearance?.dockHideOnBlur) {
+            if (this.configStore.appearance?.dock !== 'off' && this.configStore.appearance?.dockHideOnBlur) {
                 this.hide()
             }
         })

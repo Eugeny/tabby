@@ -1,0 +1,23 @@
+div
+    .tabby-logo
+    h1.tabby-title Tabby
+        sup α
+
+    .list-group
+        a.list-group-item.list-group-item-action.d-flex(
+            *ngFor='let button of getButtons()',
+            (click)='button.click()',
+        )
+            .d-flex.align-self-center([innerHTML]='sanitizeIcon(button.icon)')
+            span {{button.title}}
+
+footer.d-flex.align-items-center
+    .btn-group.mr-auto
+        button.btn.btn-secondary((click)='homeBase.openGitHub()')
+            i.fab.fa-github
+            span GitHub
+        button.btn.btn-secondary((click)='homeBase.reportBug()')
+            i.fas.fa-bug
+            span Report a problem
+
+    .form-control-static.selectable.no-drag Version: {{homeBase.appVersion}}

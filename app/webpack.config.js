@@ -2,7 +2,7 @@ const path = require('path')
 const webpack = require('webpack')
 
 module.exports = {
-    name: 'terminus',
+    name: 'tabby',
     target: 'node',
     entry: {
         'index.ignore': 'file-loader?name=index.html!pug-html-loader!' + path.resolve(__dirname, './index.pug'),
@@ -10,7 +10,7 @@ module.exports = {
         preload: path.resolve(__dirname, 'src/entry.preload.ts'),
         bundle: path.resolve(__dirname, 'src/entry.ts'),
     },
-    mode: process.env.TERMINUS_DEV ? 'development' : 'production',
+    mode: process.env.TABBY_DEV ? 'development' : 'production',
     optimization:{
         minimize: false,
     },

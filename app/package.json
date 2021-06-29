@@ -1,5 +1,5 @@
 {
-  "name": "terminus",
+  "name": "tabby",
   "description": "A terminal for a modern age",
   "private": true,
   "repository": "https://github.com/eugeny/terminus",
@@ -55,15 +55,15 @@
     "source-map-support": "^0.5.19"
   },
   "peerDependencies": {
-    "terminus-community-color-schemes": "*",
-    "terminus-core": "*",
-    "terminus-electron": "*",
-    "terminus-local": "*",
-    "terminus-plugin-manager": "*",
-    "terminus-serial": "*",
-    "terminus-settings": "*",
-    "terminus-ssh": "*",
-    "terminus-terminal": "*"
+    "tabby-community-color-schemes": "*",
+    "tabby-core": "*",
+    "tabby-electron": "*",
+    "tabby-local": "*",
+    "tabby-plugin-manager": "*",
+    "tabby-serial": "*",
+    "tabby-settings": "*",
+    "tabby-ssh": "*",
+    "tabby-terminal": "*"
   },
   "resolutions": {
     "*/node-abi": "^2.20.0"

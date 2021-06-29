@@ -1,0 +1,36 @@
+.header
+    .breadcrumb.mr-auto
+        a.breadcrumb-item((click)='navigate("/")') SFTP
+        a.breadcrumb-item(
+            *ngFor='let segment of pathSegments',
+            (click)='navigate(segment.path)'
+        ) {{segment.name}}
+
+    button.btn.btn-link.btn-sm.d-flex((click)='upload()')
+        i.fas.fa-upload.mr-1
+        div Upload
+
+    button.btn.btn-link.btn-close((click)='close()') !{require('../../../tabby-core/src/icons/times.svg')}
+
+.body(dropZone, (transfer)='uploadOne($event)')
+    div(*ngIf='!sftp') Connecting
+    div(*ngIf='sftp')
+        div(*ngIf='fileList === null') Loading
+        .list-group.list-group-light(*ngIf='fileList !== null')
+            .list-group-item.list-group-item-action.d-flex.align-items-center(
+                *ngIf='path !== "/"',
+                (click)='goUp()'
+            )
+                i.fas.fa-fw.fa-level-up-alt
+                div Go up
+            .list-group-item.list-group-item-action.d-flex.align-items-center(
+                *ngFor='let item of fileList',
+                (contextmenu)='showContextMenu(item, $event)',
+                (click)='open(item)'
+            )
+                i.fa-fw([class]='getIcon(item)')
+                div {{item.name}}
+                .mr-auto
+                .size(*ngIf='!item.isDirectory') {{item.size|filesize}}
+                .date {{item.modified|date:'medium'}}
+                .mode {{getModeString(item)}}

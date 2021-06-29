@@ -1,0 +1,40 @@
+{
+  "name": "tabby-serial",
+  "version": "1.0.140",
+  "description": "Serial connection manager for Tabby",
+  "keywords": [
+    "tabby-builtin-plugin"
+  ],
+  "main": "dist/index.js",
+  "typings": "typings/index.d.ts",
+  "scripts": {
+    "build": "webpack --progress --color",
+    "watch": "webpack --progress --color --watch"
+  },
+  "files": [
+    "dist"
+  ],
+  "author": "Eugene Pankov",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "14.14.14",
+    "ansi-colors": "^4.1.1",
+    "binstring": "^0.2.1",
+    "buffer-replace": "^1.0.0",
+    "cli-spinner": "^0.2.10",
+    "hexer": "^1.5.0"
+  },
+  "peerDependencies": {
+    "@angular/animations": "^9.1.9",
+    "@angular/common": "^9.1.11",
+    "@angular/core": "^9.1.9",
+    "@angular/forms": "^9.1.11",
+    "@angular/platform-browser": "^9.1.11",
+    "@angular/platform-browser-dynamic": "^9.1.11",
+    "@ng-bootstrap/ng-bootstrap": "^6.2.0",
+    "rxjs": "^6.6.3",
+    "tabby-core": "*",
+    "tabby-settings": "*",
+    "tabby-terminal": "*"
+  }
+}

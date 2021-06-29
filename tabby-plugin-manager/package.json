@@ -1,0 +1,34 @@
+{
+  "name": "tabby-plugin-manager",
+  "version": "1.0.140",
+  "description": "Tabby's plugin manager",
+  "keywords": [
+    "tabby-builtin-plugin"
+  ],
+  "main": "dist/index.js",
+  "typings": "typings/index.d.ts",
+  "scripts": {
+    "build": "webpack --progress --color --display-modules",
+    "watch": "webpack --progress --color --watch"
+  },
+  "files": [
+    "dist"
+  ],
+  "author": "Eugene Pankov",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/semver": "^7.1.0",
+    "axios": "^0.21.1",
+    "semver": "^7.1.1"
+  },
+  "peerDependencies": {
+    "@angular/common": "^9.1.11",
+    "@angular/core": "^9.1.9",
+    "@angular/forms": "^9.1.11",
+    "@angular/platform-browser": "^9.1.11",
+    "@ng-bootstrap/ng-bootstrap": "^6.1.0",
+    "rxjs": "^6.5.5",
+    "tabby-core": "*",
+    "tabby-settings": "*"
+  }
+}
