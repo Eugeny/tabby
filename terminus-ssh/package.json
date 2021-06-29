@@ -21,7 +21,7 @@
   "author": "Eugene Pankov",
   "license": "MIT",
   "devDependencies": {
-    "@types/node": "14.14.31",
+    "@types/node": "15.12.5",
     "@types/ssh2": "^0.5.46",
     "ansi-colors": "^4.1.1",
     "cli-spinner": "^0.2.10",
