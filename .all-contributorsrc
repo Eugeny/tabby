@@ -397,6 +397,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "bdr99",
+      "name": "Brandon Rothweiler",
+      "avatar_url": "https://avatars.githubusercontent.com/u/2292715?v=4",
+      "profile": "https://github.com/bdr99",
+      "contributions": [
+        "design"
+      ]
     }
   ],
   "contributorsPerLine": 7,
