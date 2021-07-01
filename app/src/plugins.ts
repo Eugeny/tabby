@@ -125,14 +125,20 @@ export async function findPlugins (): Promise<PluginInfo[]> {
 
         console.log(`Found ${name} in ${pluginDir}`)
 
-        if (foundPlugins.some(x => x.name === name)) {
-            console.info(`Plugin ${packageName} already exists, overriding`)
-            foundPlugins = foundPlugins.filter(x => x.name !== name)
+        const existing = foundPlugins.find(x => x.name === name)
+        if (existing) {
+            if (existing.isLegacy) {
+                console.info(`Plugin ${packageName} already exists, overriding`)
+                foundPlugins = foundPlugins.filter(x => x.name !== name)
+            } else {
+                console.info(`Plugin ${packageName} already exists, skipping`)
+                continue
+            }
         }
 
         try {
             const info = JSON.parse(await fs.readFile(infoPath, { encoding: 'utf-8' }))
-            if (!info.keywords || !(info.keywords.includes('terminus-plugin') || info.keywords.includes('terminus-builtin-plugin') || !info.keywords.includes('tabby-plugin') || info.keywords.includes('tabby-builtin-plugin'))) {
+            if (!info.keywords || !(info.keywords.includes('terminus-plugin') || info.keywords.includes('terminus-builtin-plugin') || info.keywords.includes('tabby-plugin') || info.keywords.includes('tabby-builtin-plugin'))) {
                 continue
             }
             let author = info.author
@@ -141,6 +147,7 @@ export async function findPlugins (): Promise<PluginInfo[]> {
                 name: name,
                 packageName: packageName,
                 isBuiltin: pluginDir === builtinPluginsPath,
+                isLegacy: info.keywords.includes('terminus-plugin') || info.keywords.includes('terminus-builtin-plugin'),
                 version: info.version,
                 description: info.description,
                 author,

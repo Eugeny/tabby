@@ -5,6 +5,7 @@ export interface PluginInfo {
     description: string
     packageName: string
     isBuiltin: boolean
+    isLegacy: boolean
     version: string
     author: string
     homepage?: string

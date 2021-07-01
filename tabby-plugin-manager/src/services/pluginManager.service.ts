@@ -22,7 +22,8 @@ export class PluginManagerService {
         @Inject(BOOTSTRAP_DATA) bootstrapData: BootstrapData,
     ) {
         this.logger = log.create('pluginManager')
-        this.installedPlugins = bootstrapData.installedPlugins
+        this.installedPlugins = [...bootstrapData.installedPlugins]
+        this.installedPlugins.sort((a, b) => a.name.localeCompare(b.name))
         this.userPluginsPath = bootstrapData.userPluginsPath
     }
 
