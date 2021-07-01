@@ -39,21 +39,23 @@ const builtinModules = [
 
 export type ProgressCallback = (current: number, total: number) => void // eslint-disable-line @typescript-eslint/no-type-alias
 
+const cachedBuiltinModules = {}
+
 export function initModuleLookup (userPluginsPath: string): void {
     global['module'].paths.map((x: string) => nodeModule.globalPaths.push(normalizePath(x)))
+
+    nodeModule.globalPaths.unshift(path.join(userPluginsPath, 'node_modules'))
 
     if (process.env.TABBY_DEV) {
         nodeModule.globalPaths.unshift(path.dirname(remote.app.getAppPath()))
     }
 
     nodeModule.globalPaths.unshift(builtinPluginsPath)
-    nodeModule.globalPaths.unshift(path.join(userPluginsPath, 'node_modules'))
     // nodeModule.globalPaths.unshift(path.join((process as any).resourcesPath, 'app.asar', 'node_modules'))
     if (process.env.TABBY_PLUGINS) {
         process.env.TABBY_PLUGINS.split(':').map(x => nodeModule.globalPaths.push(normalizePath(x)))
     }
 
-    const cachedBuiltinModules = {}
     builtinModules.forEach(m => {
         cachedBuiltinModules[m] = nodeRequire(m)
     })
@@ -151,6 +153,7 @@ export async function findPlugins (): Promise<PluginInfo[]> {
     }
 
     foundPlugins.sort((a, b) => a.name > b.name ? 1 : -1)
+    foundPlugins.sort((a, b) => a.isBuiltin < b.isBuiltin ? 1 : -1)
     return foundPlugins
 }
 
@@ -163,6 +166,9 @@ export async function loadPlugins (foundPlugins: PluginInfo[], progress: Progres
         progress(index, foundPlugins.length)
         try {
             const packageModule = nodeRequire(foundPlugin.path)
+            if (foundPlugin.packageName.startsWith('tabby-')) {
+                cachedBuiltinModules[foundPlugin.packageName.replace('tabby-', 'terminus-')] = packageModule
+            }
             const pluginModule = packageModule.default.forRoot ? packageModule.default.forRoot() : packageModule.default
             pluginModule.pluginName = foundPlugin.name
             pluginModule.bootstrap = packageModule.bootstrap
