@@ -5,6 +5,12 @@
   <a href="https://github.com/Eugeny/tabby/releases/latest"><img alt="GitHub All Releases" src="https://img.shields.io/github/downloads/eugeny/tabby/total.svg?label=RELEASE&logo=github&style=for-the-badge"></a> <a href="https://nightly.link/Eugeny/tabby/workflows/windows/master"><img src="https://shields.io/badge/-Nightly-blue?logo=windows&style=for-the-badge"/></a> <a href="https://nightly.link/Eugeny/tabby/workflows/macos/master"><img src="https://shields.io/badge/-Nightly-black?logo=apple&style=for-the-badge"/></a> <a href="https://nightly.link/Eugeny/tabby/workflows/linux/master"><img src="https://shields.io/badge/-Nightly-orange?logo=linux&style=for-the-badge"/></a> <a href="https://gitter.im/terminus-terminal/community"><img alt="Gitter" src="https://img.shields.io/gitter/room/terminus/community.svg?color=magenta&logo=gitter&style=for-the-badge"></a>
 </p>
 
+<p align="center">
+  <a href="https://ko-fi.com/J3J8KWTF">
+    <img src="https://ko-fi.com/img/githubbutton_sm.svg">
+  </a>
+</p>
+
 ----
 
 **Tabby** (formerly **Terminus**) is a highly configurable terminal emulator, SSH and serial client for Windows, macOS and Linux
@@ -21,8 +27,6 @@
 * Doesn't choke on fast-flowing outputs
 * Proper shell experience on Windows including tab completion (via Clink)
 * Integrated encrypted container for SSH secrets and configuration
-
-[![Buy me a coffee](https://github.com/Eugeny/tabby/raw/master/docs/kofi.png)](https://ko-fi.com/eugeny)
 
 ---
 
