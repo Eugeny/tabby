@@ -95,17 +95,17 @@ Tabby will run as a portable app on Windows, if you create a `data` folder in th
 
 Plugins and themes can be installed directly from the Settings view inside Tabby.
 
-  * [clickable-links](https://github.com/Eugeny/terminus-clickable-links) - makes paths and URLs in the terminal clickable
+  * [clickable-links](https://github.com/Eugeny/tabby-clickable-links) - makes paths and URLs in the terminal clickable
   * [title-control](https://github.com/kbjr/terminus-title-control) - allows modifying the title of the terminal tabs by providing a prefix, suffix, and/or strings to be removed
   * [quick-cmds](https://github.com/Domain/terminus-quick-cmds) - quickly send commands to one or all terminal tabs
-  * [save-output](https://github.com/Eugeny/terminus-save-output) - record terminal output into a file
+  * [save-output](https://github.com/Eugeny/tabby-save-output) - record terminal output into a file
   * [scrollbar](https://github.com/kbjr/terminus-scrollbar) - adds a scrollbar to hterm tabs
   * [sync-config](https://github.com/starxg/terminus-sync-config) - sync the config to Gist or Gitee
 
 <a name="themes"></a>
 # Themes
 
-  * [hype](https://github.com/Eugeny/terminus-theme-hype) - a Hyper inspired theme
+  * [hype](https://github.com/Eugeny/tabby-theme-hype) - a Hyper inspired theme
   * [relaxed](https://github.com/Relaxed-Theme/relaxed-terminal-themes#terminus) - the Relaxed theme for Tabby
   * [gruvbox](https://github.com/porkloin/terminus-theme-gruvbox)
   * [windows10](https://www.npmjs.com/package/terminus-theme-windows10)
