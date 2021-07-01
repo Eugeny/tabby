@@ -41,15 +41,18 @@ export class PluginManagerService {
                 },
             })
         ).pipe(
-            map(response => response.data.objects.map(item => ({
-                name: item.package.name.substring(namePrefix.length),
-                packageName: item.package.name,
-                description: item.package.description,
-                version: item.package.version,
-                homepage: item.package.links.homepage,
-                author: (item.package.author || {}).name,
-                isOfficial: item.package.publisher.name === OFFICIAL_NPM_ACCOUNT,
-            }))),
+            map(response => response.data.objects
+                .filter(item => !item.keywords?.includes('tabby-dummy-transition-plugin'))
+                .map(item => ({
+                    name: item.package.name.substring(namePrefix.length),
+                    packageName: item.package.name,
+                    description: item.package.description,
+                    version: item.package.version,
+                    homepage: item.package.links.homepage,
+                    author: (item.package.author || {}).name,
+                    isOfficial: item.package.publisher.name === OFFICIAL_NPM_ACCOUNT,
+                }))
+            ),
             map(plugins => plugins.filter(x => x.packageName.startsWith(namePrefix))),
             map(plugins => plugins.filter(x => !BLACKLIST.includes(x.packageName))),
             map(plugins => plugins.sort((a, b) => a.name.localeCompare(b.name))),
