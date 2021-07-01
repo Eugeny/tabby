@@ -23,7 +23,7 @@ export class HomeBaseService {
     }
 
     openGitHub (): void {
-        this.platform.openExternal('https://github.com/eugeny/terminus')
+        this.platform.openExternal('https://github.com/Eugeny/tabby')
     }
 
     reportBug (): void {
@@ -41,7 +41,7 @@ export class HomeBaseService {
         }[process.platform]
         const plugins = this.bootstrapData.installedPlugins.filter(x => !x.isBuiltin).map(x => x.name)
         body += `Plugins: ${plugins.join(', ') || 'none'}\n\n`
-        this.platform.openExternal(`https://github.com/eugeny/terminus/issues/new?body=${encodeURIComponent(body)}&labels=${label}`)
+        this.platform.openExternal(`https://github.com/Eugeny/tabby/issues/new?body=${encodeURIComponent(body)}&labels=${label}`)
     }
 
     enableAnalytics (): void {

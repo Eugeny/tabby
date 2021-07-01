@@ -2,7 +2,7 @@
   "name": "tabby",
   "description": "A terminal for a modern age",
   "private": true,
-  "repository": "https://github.com/eugeny/terminus",
+  "repository": "https://github.com/Eugeny/tabby",
   "author": {
     "name": "Eugene Pankov",
     "email": "e@ajenti.org"

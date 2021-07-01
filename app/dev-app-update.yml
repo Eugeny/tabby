@@ -1,4 +1,4 @@
 owner: eugeny
-repo: terminus
+repo: tabby
 provider: github
 updaterCacheDirName: tabby-updater

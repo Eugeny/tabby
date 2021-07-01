@@ -26,7 +26,7 @@ jobs:
 
     - name: Build and sign packages
       run: node scripts/build-windows.js
-      if: github.repository == 'Eugeny/terminus' && github.event_name == 'push' && (github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags'))
+      if: github.repository == 'Eugeny/tabby' && github.event_name == 'push' && (github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags'))
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         WIN_CSC_LINK: ${{ secrets.WIN_CSC_LINK }}
@@ -35,7 +35,7 @@ jobs:
 
     - name: Build packages without signing
       run: node scripts/build-windows.js
-      if: "!(github.repository == 'Eugeny/terminus' && github.event_name == 'push' && (github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags')))"
+      if: "!(github.repository == 'Eugeny/tabby' && github.event_name == 'push' && (github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags')))"
 
     - name: Upload symbols
       run: |

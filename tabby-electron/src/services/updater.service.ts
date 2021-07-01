@@ -4,7 +4,7 @@ import axios from 'axios'
 import { Logger, LogService, ConfigService, UpdaterService, PlatformService } from 'tabby-core'
 import { ElectronService } from '../services/electron.service'
 
-const UPDATES_URL = 'https://api.github.com/repos/eugeny/terminus/releases/latest'
+const UPDATES_URL = 'https://api.github.com/repos/eugeny/tabby/releases/latest'
 
 @Injectable()
 export class ElectronUpdaterService extends UpdaterService {
@@ -50,7 +50,7 @@ export class ElectronUpdaterService extends UpdaterService {
                 this.logger.debug('Checking for updates')
                 try {
                     electron.autoUpdater.setFeedURL({
-                        url: `https://update.electronjs.org/eugeny/terminus/${process.platform}-${process.arch}/${electron.app.getVersion()}`,
+                        url: `https://update.electronjs.org/eugeny/tabby/${process.platform}-${process.arch}/${electron.app.getVersion()}`,
                     })
                     electron.autoUpdater.checkForUpdates()
                 } catch (e) {
