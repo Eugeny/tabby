@@ -345,9 +345,9 @@ async function start () {
     mocks.electron.remote['process'] = window['process']
 
     let pluginCode = {
-        core: await import(/* webpackChunkName: "app" */ '../terminus/terminus-core/dist/index.js'),
-        settings: await import(/* webpackChunkName: "app" */ '../terminus/terminus-settings/dist/index.js'),
-        terminal: await import(/* webpackChunkName: "app" */ '../terminus/terminus-terminal/dist/index.js'),
+        core: await import(/* webpackChunkName: "app" */ '../tabby/tabby-core/dist/index.js'),
+        settings: await import(/* webpackChunkName: "app" */ '../tabby/tabby-settings/dist/index.js'),
+        terminal: await import(/* webpackChunkName: "app" */ '../tabby/tabby-terminal/dist/index.js'),
     }
 
     function loadPlugin (name) {
@@ -364,9 +364,9 @@ async function start () {
     builtins['resources/builtin-plugins/terminus-terminal'] = builtins['terminus-terminal'] = loadPlugin('terminal')
 
     require('script-loader!./data/v86_all.js')
-    await import(/* webpackChunkName: "app" */ '../terminus/app/dist/preload.js')
+    await import(/* webpackChunkName: "app" */ '../tabby/app/dist/preload.js')
     document.querySelector('app-root')['style'].display = 'flex'
-    await import(/* webpackChunkName: "app" */ '../terminus/app/dist/bundle.js')
+    await import(/* webpackChunkName: "app" */ '../tabby/app/dist/bundle.js')
 }
 
 start()

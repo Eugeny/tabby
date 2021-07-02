@@ -20,12 +20,12 @@ module.exports = {
   },
   resolve: {
     modules: [
-      '../terminus/terminus-core/node_modules/',
-      '../terminus/terminus-settings/node_modules/',
-      '../terminus/terminus-terminal/node_modules/',
-      '../terminus/node_modules',
-      '../terminus/app/node_modules',
-      '../terminus/app/assets/',
+      '../tabby/tabby-core/node_modules/',
+      '../tabby/tabby-settings/node_modules/',
+      '../tabby/tabby-terminal/node_modules/',
+      '../tabby/node_modules',
+      '../tabby/app/node_modules',
+      '../tabby/app/assets/',
     ].map(x => path.join(__dirname, x)),
     extensions: ['.ts', '.js'],
   },
