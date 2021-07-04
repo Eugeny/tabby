@@ -2,7 +2,7 @@
 
 
 <p align="center">
-  <a href="https://github.com/Eugeny/tabby/releases/latest"><img alt="GitHub All Releases" src="https://img.shields.io/github/downloads/eugeny/tabby/total.svg?label=RELEASE&logo=github&style=for-the-badge"></a> <a href="https://nightly.link/Eugeny/tabby/workflows/windows/master"><img src="https://shields.io/badge/-Nightly-blue?logo=windows&style=for-the-badge"/></a> <a href="https://nightly.link/Eugeny/tabby/workflows/macos/master"><img src="https://shields.io/badge/-Nightly-black?logo=apple&style=for-the-badge"/></a> <a href="https://nightly.link/Eugeny/tabby/workflows/linux/master"><img src="https://shields.io/badge/-Nightly-orange?logo=linux&style=for-the-badge"/></a> <a href="https://gitter.im/terminus-terminal/community"><img alt="Gitter" src="https://img.shields.io/gitter/room/terminus/community.svg?color=magenta&logo=gitter&style=for-the-badge"></a>
+  <a href="https://github.com/Eugeny/tabby/releases/latest"><img alt="GitHub All Releases" src="https://img.shields.io/github/downloads/eugeny/tabby/total.svg?label=RELEASE&logo=github&style=for-the-badge"></a> &nbsp; <a href="https://nightly.link/Eugeny/tabby/workflows/build/master"><img src="https://shields.io/badge/-Nightly%20Builds-orange?logo=hackthebox&logoColor=fff&style=for-the-badge"/></a> &nbsp; <a href="https://matrix.to/#/#tabby-general:matrix.org"><img alt="Matrix" src="https://img.shields.io/matrix/tabby-general:matrix.org?logo=matrix&style=for-the-badge&color=magenta"></a>
 </p>
 
 <p align="center">
