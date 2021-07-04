@@ -24,8 +24,7 @@ export class TerminalConfigProvider extends ConfigProvider {
     platformDefaults = {
         [Platform.macOS]: {
             terminal: {
-                shell: 'default',
-                profile: 'local:user-default',
+                profile: 'local:default',
             },
             hotkeys: {
                 'new-tab': [
@@ -35,7 +34,6 @@ export class TerminalConfigProvider extends ConfigProvider {
         },
         [Platform.Windows]: {
             terminal: {
-                shell: 'clink',
                 profile: 'local:cmd-clink',
             },
             hotkeys: {
@@ -46,8 +44,7 @@ export class TerminalConfigProvider extends ConfigProvider {
         },
         [Platform.Linux]: {
             terminal: {
-                shell: 'default',
-                profile: 'local:user-default',
+                profile: 'local:default',
             },
             hotkeys: {
                 'new-tab': [
