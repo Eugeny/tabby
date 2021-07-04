@@ -1,4 +1,3 @@
-
 import { Observable, Subject, AsyncSubject } from 'rxjs'
 import { takeUntil } from 'rxjs/operators'
 import { Injectable, Inject } from '@angular/core'
@@ -13,7 +12,7 @@ import { HostAppService } from '../api/hostApp'
 
 import { ConfigService } from './config.service'
 import { TabRecoveryService } from './tabRecovery.service'
-import { TabsService, TabComponentType } from './tabs.service'
+import { TabsService, NewTabParameters } from './tabs.service'
 import { SelectorService } from './selector.service'
 
 class CompletionObserver {
@@ -88,10 +87,10 @@ export class AppService {
 
         config.ready$.toPromise().then(async () => {
             if (this.bootstrapData.isFirstWindow) {
-                if (config.store.terminal.recoverTabs) {
+                if (config.store.recoverTabs) {
                     const tabs = await this.tabRecovery.recoverTabs()
                     for (const tab of tabs) {
-                        this.openNewTabRaw(tab.type, tab.options)
+                        this.openNewTabRaw(tab)
                     }
                 }
                 /** Continue to store the tabs even if the setting is currently off */
@@ -152,8 +151,8 @@ export class AppService {
      * Adds a new tab **without** wrapping it in a SplitTabComponent
      * @param inputs  Properties to be assigned on the new tab component instance
      */
-    openNewTabRaw (type: TabComponentType, inputs?: Record<string, any>): BaseTabComponent {
-        const tab = this.tabsService.create(type, inputs)
+    openNewTabRaw <T extends BaseTabComponent> (params: NewTabParameters<T>): T {
+        const tab = this.tabsService.create(params)
         this.addTabRaw(tab)
         return tab
     }
@@ -162,9 +161,9 @@ export class AppService {
      * Adds a new tab while wrapping it in a SplitTabComponent
      * @param inputs  Properties to be assigned on the new tab component instance
      */
-    openNewTab (type: TabComponentType, inputs?: Record<string, any>): BaseTabComponent {
-        const splitTab = this.tabsService.create(SplitTabComponent) as SplitTabComponent
-        const tab = this.tabsService.create(type, inputs)
+    openNewTab <T extends BaseTabComponent> (params: NewTabParameters<T>): T {
+        const splitTab = this.tabsService.create({ type: SplitTabComponent })
+        const tab = this.tabsService.create(params)
         splitTab.addTab(tab, null, 'r')
         this.addTabRaw(splitTab)
         return tab
@@ -175,7 +174,7 @@ export class AppService {
         if (token) {
             const recoveredTab = await this.tabRecovery.recoverTab(token)
             if (recoveredTab) {
-                const tab = this.tabsService.create(recoveredTab.type, recoveredTab.options)
+                const tab = this.tabsService.create(recoveredTab)
                 if (this.activeTab) {
                     this.addTabRaw(tab, this.tabs.indexOf(this.activeTab) + 1)
                 } else {

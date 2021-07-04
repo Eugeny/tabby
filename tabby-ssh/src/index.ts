@@ -4,26 +4,24 @@ import { FormsModule } from '@angular/forms'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { ToastrModule } from 'ngx-toastr'
 import { NgxFilesizeModule } from 'ngx-filesize'
-import TabbyCoreModule, { ToolbarButtonProvider, ConfigProvider, TabRecoveryProvider, HotkeyProvider, TabContextMenuItemProvider, CLIHandler } from 'tabby-core'
+import TabbyCoreModule, { ConfigProvider, TabRecoveryProvider, HotkeyProvider, TabContextMenuItemProvider, ProfileProvider } from 'tabby-core'
 import { SettingsTabProvider } from 'tabby-settings'
 import TabbyTerminalModule from 'tabby-terminal'
 
-import { EditConnectionModalComponent } from './components/editConnectionModal.component'
+import { SSHProfileSettingsComponent } from './components/sshProfileSettings.component'
 import { SSHPortForwardingModalComponent } from './components/sshPortForwardingModal.component'
 import { SSHPortForwardingConfigComponent } from './components/sshPortForwardingConfig.component'
-import { PromptModalComponent } from './components/promptModal.component'
 import { SSHSettingsTabComponent } from './components/sshSettingsTab.component'
 import { SSHTabComponent } from './components/sshTab.component'
 import { SFTPPanelComponent } from './components/sftpPanel.component'
 import { SFTPDeleteModalComponent } from './components/sftpDeleteModal.component'
 
-import { ButtonProvider } from './buttonProvider'
 import { SSHConfigProvider } from './config'
 import { SSHSettingsTabProvider } from './settings'
 import { RecoveryProvider } from './recoveryProvider'
 import { SSHHotkeyProvider } from './hotkeys'
 import { SFTPContextMenu } from './tabContextMenu'
-import { SSHCLIHandler } from './cli'
+import { SSHProfilesService } from './profiles'
 
 /** @hidden */
 @NgModule({
@@ -37,25 +35,22 @@ import { SSHCLIHandler } from './cli'
         TabbyTerminalModule,
     ],
     providers: [
-        { provide: ToolbarButtonProvider, useClass: ButtonProvider, multi: true },
         { provide: ConfigProvider, useClass: SSHConfigProvider, multi: true },
         { provide: SettingsTabProvider, useClass: SSHSettingsTabProvider, multi: true },
         { provide: TabRecoveryProvider, useClass: RecoveryProvider, multi: true },
         { provide: HotkeyProvider, useClass: SSHHotkeyProvider, multi: true },
         { provide: TabContextMenuItemProvider, useClass: SFTPContextMenu, multi: true },
-        { provide: CLIHandler, useClass: SSHCLIHandler, multi: true },
+        { provide: ProfileProvider, useClass: SSHProfilesService, multi: true },
     ],
     entryComponents: [
-        EditConnectionModalComponent,
-        PromptModalComponent,
+        SSHProfileSettingsComponent,
         SFTPDeleteModalComponent,
         SSHPortForwardingModalComponent,
         SSHSettingsTabComponent,
         SSHTabComponent,
     ],
     declarations: [
-        EditConnectionModalComponent,
-        PromptModalComponent,
+        SSHProfileSettingsComponent,
         SFTPDeleteModalComponent,
         SSHPortForwardingModalComponent,
         SSHPortForwardingConfigComponent,

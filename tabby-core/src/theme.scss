@@ -235,12 +235,11 @@ hotkey-input-modal {
     }
 }
 
-
 .list-group-light {
     .list-group-item {
         background: transparent;
         border: none;
-        border-top: 1px solid rgba(255, 255, 255, .1);
+        border-top: 1px solid rgba(255, 255, 255, .05);
 
         &:first-child {
             border-top: none;

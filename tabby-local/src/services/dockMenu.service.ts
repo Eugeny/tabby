@@ -1,7 +1,6 @@
 import { NgZone, Injectable } from '@angular/core'
-import { ConfigService, HostAppService, Platform } from 'tabby-core'
+import { ConfigService, HostAppService, Platform, ProfilesService } from 'tabby-core'
 import { ElectronService } from 'tabby-electron'
-import { TerminalService } from './terminal.service'
 
 /** @hidden */
 @Injectable({ providedIn: 'root' })
@@ -13,17 +12,17 @@ export class DockMenuService {
         private config: ConfigService,
         private hostApp: HostAppService,
         private zone: NgZone,
-        private terminalService: TerminalService,
+        private profilesService: ProfilesService,
     ) {
         config.changed$.subscribe(() => this.update())
     }
 
     update (): void {
         if (this.hostApp.platform === Platform.Windows) {
-            this.electron.app.setJumpList(this.config.store.terminal.profiles.length ? [{
+            this.electron.app.setJumpList(this.config.store.profiles.length ? [{
                 type: 'custom',
                 name: 'Profiles',
-                items: this.config.store.terminal.profiles.map(profile => ({
+                items: this.config.store.profiles.map(profile => ({
                     type: 'task',
                     program: process.execPath,
                     args: `profile "${profile.name}"`,
@@ -35,10 +34,10 @@ export class DockMenuService {
         }
         if (this.hostApp.platform === Platform.macOS) {
             this.electron.app.dock.setMenu(this.electron.Menu.buildFromTemplate(
-                this.config.store.terminal.profiles.map(profile => ({
+                this.config.store.profiles.map(profile => ({
                     label: profile.name,
-                    click: () => this.zone.run(() => {
-                        this.terminalService.openTabWithOptions(profile.sessionOptions)
+                    click: () => this.zone.run(async () => {
+                        this.profilesService.openNewTabForProfile(profile)
                     }),
                 }))
             ))

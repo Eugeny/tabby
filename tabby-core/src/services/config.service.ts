@@ -1,5 +1,6 @@
-import { Observable, Subject, AsyncSubject } from 'rxjs'
+import { v4 as uuidv4 } from 'uuid'
 import * as yaml from 'js-yaml'
+import { Observable, Subject, AsyncSubject } from 'rxjs'
 import { Injectable, Inject } from '@angular/core'
 import { ConfigProvider } from '../api/configProvider'
 import { PlatformService } from '../api/platform'
@@ -58,18 +59,27 @@ export class ConfigProxy {
             if (real[key] !== undefined) {
                 return real[key]
             } else {
-                if (isNonStructuralObjectMember(defaults[key])) {
-                    real[key] = { ...defaults[key] }
-                    delete real[key].__nonStructural
-                    return real[key]
-                } else {
-                    return defaults[key]
-                }
+                return this.getDefault(key)
+            }
+        }
+
+        this.getDefault = (key: string) => { // eslint-disable-line @typescript-eslint/unbound-method
+            if (isNonStructuralObjectMember(defaults[key])) {
+                real[key] = { ...defaults[key] }
+                delete real[key].__nonStructural
+                return real[key]
+            } else {
+                return defaults[key]
             }
         }
 
         this.setValue = (key: string, value: any) => { // eslint-disable-line @typescript-eslint/unbound-method
-            real[key] = value
+            if (value === this.getDefault(key)) {
+                // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
+                delete real[key]
+            } else {
+                real[key] = value
+            }
         }
     }
 
@@ -77,6 +87,8 @@ export class ConfigProxy {
     getValue (_key: string): any { }
     // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-empty-function
     setValue (_key: string, _value: any) { }
+    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-empty-function
+    getDefault (_key: string) { }
 }
 
 @Injectable({ providedIn: 'root' })
@@ -249,6 +261,67 @@ export class ConfigService {
                 }
             }
             config.version = 1
+        }
+        if (config.version < 2) {
+            if (config.terminal?.recoverTabs !== undefined) {
+                config.recoverTabs = config.terminal.recoverTabs
+                delete config.terminal.recoverTabs
+            }
+            for (const profile of config.terminal?.profiles ?? []) {
+                if (profile.sessionOptions) {
+                    profile.options = profile.sessionOptions
+                    delete profile.sessionOptions
+                }
+                profile.type = 'local'
+                profile.id = `local:custom:${uuidv4()}`
+            }
+            if (config.terminal?.profiles) {
+                config.profiles = config.terminal.profiles
+                delete config.terminal.profiles
+                delete config.terminal.environment
+                config.terminal.profile = `local:${config.terminal.profile}`
+            }
+            config.version = 2
+        }
+        if (config.version < 3) {
+            delete config.ssh.recentConnections
+            for (const c of config.ssh?.connections ?? []) {
+                const p = {
+                    id: `ssh:${uuidv4()}`,
+                    type: 'ssh',
+                    icon: 'fas fa-desktop',
+                    name: c.name,
+                    group: c.group ?? undefined,
+                    color: c.color,
+                    disableDynamicTitle: c.disableDynamicTitle,
+                    options: c,
+                }
+                config.profiles.push(p)
+            }
+            for (const p of config.profiles ?? []) {
+                if (p.type === 'ssh') {
+                    if (p.options.jumpHost) {
+                        p.options.jumpHost = config.profiles.find(x => x.name === p.options.jumpHost)?.id
+                    }
+                }
+            }
+            for (const c of config.serial?.connections ?? []) {
+                const p = {
+                    id: `serial:${uuidv4()}`,
+                    type: 'serial',
+                    icon: 'fas fa-microchip',
+                    name: c.name,
+                    group: c.group ?? undefined,
+                    color: c.color,
+                    options: c,
+                }
+                config.profiles.push(p)
+            }
+            delete config.ssh?.connections
+            delete config.serial?.connections
+            delete window.localStorage.lastSerialConnection
+            // config.version = 3
+            // migrate jump hosts
         }
     }
 

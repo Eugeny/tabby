@@ -1,20 +1,20 @@
 import { Injectable } from '@angular/core'
-import { TabRecoveryProvider, RecoveredTab, RecoveryToken } from 'tabby-core'
+import { TabRecoveryProvider, NewTabParameters, RecoveryToken } from 'tabby-core'
 
 import { SSHTabComponent } from './components/sshTab.component'
 
 /** @hidden */
 @Injectable()
-export class RecoveryProvider extends TabRecoveryProvider {
+export class RecoveryProvider extends TabRecoveryProvider<SSHTabComponent> {
     async applicableTo (recoveryToken: RecoveryToken): Promise<boolean> {
         return recoveryToken.type === 'app:ssh-tab'
     }
 
-    async recover (recoveryToken: RecoveryToken): Promise<RecoveredTab> {
+    async recover (recoveryToken: RecoveryToken): Promise<NewTabParameters<SSHTabComponent>> {
         return {
             type: SSHTabComponent,
-            options: {
-                connection: recoveryToken['connection'],
+            inputs: {
+                profile: recoveryToken['profile'],
                 savedState: recoveryToken['savedState'],
             },
         }

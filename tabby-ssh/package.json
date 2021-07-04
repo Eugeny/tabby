@@ -25,7 +25,6 @@
     "@types/ssh2": "^0.5.46",
     "ansi-colors": "^4.1.1",
     "cli-spinner": "^0.2.10",
-    "clone-deep": "^4.0.1",
     "ssh2": "^1.1.0",
     "sshpk": "Eugeny/node-sshpk#89ed17dfae425a8b629873c8337e77d26838c04f",
     "strip-ansi": "^7.0.0"

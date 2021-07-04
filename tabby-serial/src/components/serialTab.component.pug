@@ -4,7 +4,7 @@
     .toolbar
         i.fas.fa-circle.text-success.mr-2(*ngIf='session && session.open')
         i.fas.fa-circle.text-danger.mr-2(*ngIf='!session || !session.open')
-        strong {{connection.port}} ({{connection.baudrate}})
+        strong {{profile.options.port}} ({{profile.options.baudrate}})
 
         .mr-auto
 

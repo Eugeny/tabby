@@ -1,8 +1,7 @@
 import { Injectable, NgZone } from '@angular/core'
 import SerialPort from 'serialport'
-import { LogService, AppService, SelectorOption, ConfigService, NotificationsService, SelectorService } from 'tabby-core'
-import { SettingsTabComponent } from 'tabby-settings'
-import { SerialConnection, SerialSession, SerialPortInfo, BAUD_RATES } from '../api'
+import { LogService, NotificationsService, SelectorService, ProfilesService } from 'tabby-core'
+import { SerialSession, SerialPortInfo, BAUD_RATES, SerialProfile } from '../api'
 import { SerialTabComponent } from '../components/serialTab.component'
 
 @Injectable({ providedIn: 'root' })
@@ -11,9 +10,8 @@ export class SerialService {
         private log: LogService,
         private zone: NgZone,
         private notifications: NotificationsService,
-        private app: AppService,
+        private profilesService: ProfilesService,
         private selector: SelectorService,
-        private config: ConfigService,
     ) { }
 
     async listPorts (): Promise<SerialPortInfo[]> {
@@ -23,23 +21,23 @@ export class SerialService {
         }))
     }
 
-    createSession (connection: SerialConnection): SerialSession {
-        const session = new SerialSession(connection)
-        session.logger = this.log.create(`serial-${connection.port}`)
+    createSession (profile: SerialProfile): SerialSession {
+        const session = new SerialSession(profile)
+        session.logger = this.log.create(`serial-${profile.options.port}`)
         return session
     }
 
     async connectSession (session: SerialSession): Promise<SerialPort> {
-        const serial = new SerialPort(session.connection.port, {
+        const serial = new SerialPort(session.profile.options.port, {
             autoOpen: false,
-            baudRate: parseInt(session.connection.baudrate as any),
-            dataBits: session.connection.databits,
-            stopBits: session.connection.stopbits,
-            parity: session.connection.parity,
-            rtscts: session.connection.rtscts,
-            xon: session.connection.xon,
-            xoff: session.connection.xoff,
-            xany: session.connection.xany,
+            baudRate: parseInt(session.profile.options.baudrate as any),
+            dataBits: session.profile.options.databits,
+            stopBits: session.profile.options.stopbits,
+            parity: session.profile.options.parity,
+            rtscts: session.profile.options.rtscts,
+            xon: session.profile.options.xon,
+            xoff: session.profile.options.xoff,
+            xany: session.profile.options.xany,
         })
         session.serial = serial
         let connected = false
@@ -72,105 +70,33 @@ export class SerialService {
         return serial
     }
 
-    async showConnectionSelector (): Promise<void> {
-        const options: SelectorOption<void>[] = []
-        const foundPorts = await this.listPorts()
-
-        try {
-            const lastConnection = JSON.parse(window.localStorage.lastSerialConnection)
-            if (lastConnection) {
-                options.push({
-                    name: lastConnection.name,
-                    icon: 'history',
-                    callback: () => this.connect(lastConnection),
-                })
-                options.push({
-                    name: 'Clear last connection',
-                    icon: 'eraser',
-                    callback: () => {
-                        window.localStorage.lastSerialConnection = null
-                    },
-                })
-            }
-        } catch { }
-
-        for (const port of foundPorts) {
-            options.push({
-                name: port.name,
-                description: port.description,
-                icon: 'arrow-right',
-                callback: () => this.connectFoundPort(port),
-            })
-        }
-
-        for (const connection of this.config.store.serial.connections) {
-            options.push({
-                name: connection.name,
-                description: connection.port,
-                callback: () => this.connect(connection),
-            })
-        }
-
-        options.push({
-            name: 'Manage connections',
-            icon: 'cog',
-            callback: () => this.app.openNewTabRaw(SettingsTabComponent, { activeTab: 'serial' }),
-        })
-
-        options.push({
-            name: 'Quick connect',
-            freeInputPattern: 'Open device: %s...',
-            icon: 'arrow-right',
-            callback: query => this.quickConnect(query),
-        })
-
-
-        await this.selector.show('Open a serial port', options)
-    }
-
-    async connect (connection: SerialConnection): Promise<SerialTabComponent> {
-        try {
-            const tab = this.app.openNewTab(
-                SerialTabComponent,
-                { connection }
-            ) as SerialTabComponent
-            if (connection.color) {
-                (this.app.getParentTab(tab) ?? tab).color = connection.color
-            }
-            setTimeout(() => {
-                this.app.activeTab?.emitFocused()
-            })
-            return tab
-        } catch (error) {
-            this.notifications.error(`Could not connect: ${error}`)
-            throw error
-        }
-    }
-
-    quickConnect (query: string): Promise<SerialTabComponent> {
+    quickConnect (query: string): Promise<SerialTabComponent|null> {
         let path = query
         let baudrate = 115200
         if (query.includes('@')) {
             baudrate = parseInt(path.split('@')[1])
             path = path.split('@')[0]
         }
-        const connection: SerialConnection = {
+        const profile: SerialProfile = {
             name: query,
-            port: path,
-            baudrate: baudrate,
-            databits: 8,
-            parity: 'none',
-            rtscts: false,
-            stopbits: 1,
-            xany: false,
-            xoff: false,
-            xon: false,
+            type: 'serial',
+            options: {
+                port: path,
+                baudrate: baudrate,
+                databits: 8,
+                parity: 'none',
+                rtscts: false,
+                stopbits: 1,
+                xany: false,
+                xoff: false,
+                xon: false,
+            },
         }
-        window.localStorage.lastSerialConnection = JSON.stringify(connection)
-        return this.connect(connection)
+        window.localStorage.lastSerialConnection = JSON.stringify(profile)
+        return this.profilesService.openNewTabForProfile(profile) as Promise<SerialTabComponent|null>
     }
 
-    async connectFoundPort (port: SerialPortInfo): Promise<SerialTabComponent> {
+    async connectFoundPort (port: SerialPortInfo): Promise<SerialTabComponent|null> {
         const rate = await this.selector.show('Baud rate', BAUD_RATES.map(x => ({
             name: x.toString(), result: x,
         })))

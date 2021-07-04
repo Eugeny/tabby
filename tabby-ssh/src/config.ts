@@ -4,8 +4,6 @@ import { ConfigProvider } from 'tabby-core'
 export class SSHConfigProvider extends ConfigProvider {
     defaults = {
         ssh: {
-            connections: [],
-            recentConnections: [],
             warnOnClose: false,
             winSCPPath: null,
             agentType: 'auto',

@@ -14,11 +14,8 @@ export class TerminalConfigProvider extends ConfigProvider {
         },
         terminal: {
             autoOpen: false,
-            customShell: '',
-            workingDirectory: '',
-            alwaysUseWorkingDirectory: false,
             useConPTY: true,
-            showDefaultProfiles: true,
+            showBuiltinProfiles: true,
             environment: {},
             profiles: [],
         },
@@ -28,7 +25,7 @@ export class TerminalConfigProvider extends ConfigProvider {
         [Platform.macOS]: {
             terminal: {
                 shell: 'default',
-                profile: 'user-default',
+                profile: 'local:user-default',
             },
             hotkeys: {
                 'new-tab': [
@@ -39,7 +36,7 @@ export class TerminalConfigProvider extends ConfigProvider {
         [Platform.Windows]: {
             terminal: {
                 shell: 'clink',
-                profile: 'cmd-clink',
+                profile: 'local:cmd-clink',
             },
             hotkeys: {
                 'new-tab': [
@@ -50,7 +47,7 @@ export class TerminalConfigProvider extends ConfigProvider {
         [Platform.Linux]: {
             terminal: {
                 shell: 'default',
-                profile: 'user-default',
+                profile: 'local:user-default',
             },
             hotkeys: {
                 'new-tab': [

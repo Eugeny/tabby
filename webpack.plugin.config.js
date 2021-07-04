@@ -40,7 +40,7 @@ module.exports = options => {
         },
         resolve: {
             alias: options.alias ?? {},
-            modules: ['.', 'src', 'node_modules', '../app/node_modules'].map(x => path.join(options.dirname, x)),
+            modules: ['.', 'src', 'node_modules', '../app/node_modules', '../node_modules'].map(x => path.join(options.dirname, x)),
             extensions: ['.ts', '.js'],
         },
         module: {

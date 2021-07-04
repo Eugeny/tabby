@@ -1,0 +1,171 @@
+ul.nav-tabs(ngbNav, #nav='ngbNav')
+    li(ngbNavItem)
+        a(ngbNavLink) General
+        ng-template(ngbNavContent)
+            .row
+                .col-6
+                    .form-group
+                        label Device
+                        input.form-control(
+                            type='text',
+                            [(ngModel)]='profile.options.port',
+                            [ngbTypeahead]='portsAutocomplete',
+                            [resultFormatter]='portsFormatter',
+                        )
+
+                .col-6
+                    .form-group
+                        label Baud Rate
+                        input.form-control(
+                            type='number',
+                            [(ngModel)]='profile.options.baudrate',
+                            [ngbTypeahead]='baudratesAutocomplete',
+                        )
+
+            .form-line
+                .header
+                    .title Input mode
+
+                .d-flex(ngbDropdown)
+                    button.btn.btn-secondary.btn-tab-bar(
+                        ngbDropdownToggle,
+                    ) {{getInputModeName(profile.options.inputMode)}}
+
+                    div(ngbDropdownMenu)
+                        a.d-flex.flex-column(
+                            *ngFor='let mode of inputModes',
+                            (click)='profile.options.inputMode = mode.key',
+                            ngbDropdownItem
+                        )
+                            div {{mode.name}}
+                            .text-muted {{mode.description}}
+
+            .form-line
+                .header
+                    .title Input newlines
+
+                select.form-control(
+                    [(ngModel)]='profile.options.inputNewlines',
+                )
+                    option([ngValue]='mode.key', *ngFor='let mode of newlineModes') {{mode.name}}
+
+            .form-line
+                .header
+                    .title Output mode
+
+                .d-flex(ngbDropdown)
+                    button.btn.btn-secondary.btn-tab-bar(
+                        ngbDropdownToggle,
+                    ) {{getOutputModeName(profile.options.outputMode)}}
+
+                    div(ngbDropdownMenu)
+                        a.d-flex.flex-column(
+                            *ngFor='let mode of outputModes',
+                            (click)='profile.options.outputMode = mode.key',
+                            ngbDropdownItem
+                        )
+                            div {{mode.name}}
+                            .text-muted {{mode.description}}
+
+            .form-line
+                .header
+                    .title Output newlines
+
+                select.form-control(
+                    [(ngModel)]='profile.options.outputNewlines',
+                )
+                    option([ngValue]='mode.key', *ngFor='let mode of newlineModes') {{mode.name}}
+
+    li(ngbNavItem)
+        a(ngbNavLink) Advanced
+        ng-template(ngbNavContent)
+            .form-line
+                .header
+                    .title Data bits
+                input.form-control(
+                    type='number',
+                    placeholder='8',
+                    [(ngModel)]='profile.options.databits',
+                )
+
+            .form-line
+                .header
+                    .title Stop bits
+                input.form-control(
+                    type='number',
+                    placeholder='1',
+                    [(ngModel)]='profile.options.stopbits',
+                )
+
+            .form-line
+                .header
+                    .title Parity
+                input.form-control(
+                    type='text',
+                    [(ngModel)]='profile.options.parity',
+                    placeholder='none'
+                )
+
+            .form-line
+                .header
+                    .title RTS / CTS
+                toggle([(ngModel)]='profile.options.rtscts')
+
+            .form-line
+                .header
+                    .title XON
+                toggle([(ngModel)]='profile.options.xon')
+
+            .form-line
+                .header
+                    .title XOFF
+                toggle([(ngModel)]='profile.options.xoff')
+
+            .form-line
+                .header
+                    .title Xany
+                toggle([(ngModel)]='profile.options.xany')
+
+    li(ngbNavItem)
+        a(ngbNavLink) Login scripts
+        ng-template(ngbNavContent)
+            table(*ngIf='profile.options.scripts.length > 0')
+                tr
+                    th String to expect
+                    th String to be sent
+                    th.pl-2 Regex
+                    th.pl-2 Optional
+                    th.pl-2 Actions
+                tr(*ngFor='let script of profile.options.scripts')
+                    td.pr-2
+                        input.form-control(
+                            type='text',
+                            [(ngModel)]='script.expect'
+                        )
+                    td
+                        input.form-control(
+                            type='text',
+                            [(ngModel)]='script.send'
+                        )
+                    td.pl-2
+                        checkbox(
+                            [(ngModel)]='script.isRegex',
+                        )
+                    td.pl-2
+                        checkbox(
+                            [(ngModel)]='script.optional',
+                        )
+                    td.pl-2
+                        .input-group.flex-nowrap
+                            button.btn.btn-outline-info.ml-0((click)='moveScriptUp(script)')
+                                i.fas.fa-arrow-up
+                            button.btn.btn-outline-info.ml-0((click)='moveScriptDown(script)')
+                                i.fas.fa-arrow-down
+                            button.btn.btn-outline-danger.ml-0((click)='deleteScript(script)')
+                                i.fas.fa-trash
+
+            button.btn.btn-outline-info.mt-2((click)='addScript()')
+                i.fas.fa-plus
+                span New item
+
+div([ngbNavOutlet]='nav')

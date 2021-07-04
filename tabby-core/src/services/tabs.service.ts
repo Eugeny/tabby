@@ -3,7 +3,22 @@ import { BaseTabComponent } from '../components/baseTab.component'
 import { TabRecoveryService } from './tabRecovery.service'
 
 // eslint-disable-next-line @typescript-eslint/no-type-alias
-export type TabComponentType = new (...args: any[]) => BaseTabComponent
+export interface TabComponentType<T extends BaseTabComponent> {
+    // eslint-disable-next-line @typescript-eslint/prefer-function-type
+    new (...args: any[]): T
+}
+
+export interface NewTabParameters<T extends BaseTabComponent> {
+    /**
+     * Component type to be instantiated
+     */
+    type: TabComponentType<T>
+
+    /**
+     * Component instance inputs
+     */
+    inputs?: Record<string, any>
+}
 
 @Injectable({ providedIn: 'root' })
 export class TabsService {
@@ -17,12 +32,12 @@ export class TabsService {
     /**
      * Instantiates a tab component and assigns given inputs
      */
-    create (type: TabComponentType, inputs?: Record<string, any>): BaseTabComponent {
-        const componentFactory = this.componentFactoryResolver.resolveComponentFactory(type)
+    create <T extends BaseTabComponent> (params: NewTabParameters<T>): T {
+        const componentFactory = this.componentFactoryResolver.resolveComponentFactory(params.type)
         const componentRef = componentFactory.create(this.injector)
         const tab = componentRef.instance
         tab.hostView = componentRef.hostView
-        Object.assign(tab, inputs ?? {})
+        Object.assign(tab, params.inputs ?? {})
         return tab
     }
 
@@ -36,7 +51,7 @@ export class TabsService {
         }
         const dup = await this.tabRecovery.recoverTab(token, true)
         if (dup) {
-            return this.create(dup.type, dup.options)
+            return this.create(dup)
         }
         return null
     }

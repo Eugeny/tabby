@@ -6,18 +6,14 @@ h3.mb-3 Hotkeys
             i.fas.fa-fw.fa-search
     input.form-control(type='search', placeholder='Search hotkeys', [(ngModel)]='hotkeyFilter')
 
-.form-group
-    table.hotkeys-table
-        tr
-            th Name
-            th ID
-            th Hotkey
-        ng-container(*ngFor='let hotkey of hotkeyDescriptions')
-            tr(*ngIf='!hotkeyFilter || hotkeyFilterFn(hotkey, hotkeyFilter)')
-                td {{hotkey.name}}
-                td {{hotkey.id}}
-                td.pr-5
-                    multi-hotkey-input(
-                        [model]='getHotkey(hotkey.id) || []',
-                        (modelChange)='setHotkey(hotkey.id, $event)'
-                    )
+.form-group.hotkeys-table
+    ng-container(*ngFor='let hotkey of hotkeyDescriptions')
+        .row.align-items-center(*ngIf='!hotkeyFilter || hotkeyFilterFn(hotkey, hotkeyFilter)')
+            .col-8.py-2
+                span {{hotkey.name}}
+                span.ml-2.text-muted ({{hotkey.id}})
+            .col-4.pr-5
+                multi-hotkey-input(
+                    [model]='getHotkey(hotkey.id) || []',
+                    (modelChange)='setHotkey(hotkey.id, $event)'
+                )

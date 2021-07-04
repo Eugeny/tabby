@@ -1,0 +1,51 @@
+.form-group
+    label Command
+    input.form-control(
+        type='text',
+        [(ngModel)]='profile.options.command',
+    )
+
+.form-group
+    label Arguments
+    .input-group(
+        *ngFor='let arg of profile.options.args; index as i; trackBy: trackByIndex',
+    )
+        input.form-control(
+            type='text',
+            [(ngModel)]='profile.options.args[i]',
+        )
+        .input-group-append
+            button.btn.btn-secondary((click)='profile.options.args.splice(i, 1)')
+                i.fas.fa-trash
+
+    .mt-2
+        button.btn.btn-secondary((click)='profile.options.args.push("")')
+            i.fas.fa-plus.mr-2
+            | Add
+
+.form-line(*ngIf='uac.isAvailable')
+    .header
+        .title Run as administrator
+    toggle(
+        [(ngModel)]='profile.options.runAsAdministrator',
+    )
+
+.form-group
+    label Working directory
+
+    .input-group
+        input.form-control(
+            type='text',
+            placeholder='Home directory',
+            [(ngModel)]='profile.options.cwd'
+        )
+        .input-group-append
+            button.btn.btn-secondary((click)='pickWorkingDirectory()')
+                i.fas.fa-folder-open
+
+.form-group
+    label Environment
+    environment-editor(
+        type='text',
+        [(model)]='profile.options.env',
+    )

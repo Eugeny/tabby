@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core'
-import { ConfigService, BaseTabComponent, TabContextMenuItemProvider, TabHeaderComponent, SplitTabComponent, NotificationsService, MenuItemOptions } from 'tabby-core'
+import { ConfigService, BaseTabComponent, TabContextMenuItemProvider, TabHeaderComponent, SplitTabComponent, NotificationsService, MenuItemOptions, ProfilesService } from 'tabby-core'
 import { TerminalTabComponent } from './components/terminalTab.component'
 import { UACService } from './services/uac.service'
 import { TerminalService } from './services/terminal.service'
+import { LocalProfile } from './api'
 
 /** @hidden */
 @Injectable()
@@ -23,14 +24,15 @@ export class SaveAsProfileContextMenu extends TabContextMenuItemProvider {
                 label: 'Save as profile',
                 click: async () => {
                     const profile = {
-                        sessionOptions: {
+                        options: {
                             ...tab.sessionOptions,
                             cwd: await tab.session?.getWorkingDirectory() ?? tab.sessionOptions.cwd,
                         },
                         name: tab.sessionOptions.command,
+                        type: 'local',
                     }
-                    this.config.store.terminal.profiles = [
-                        ...this.config.store.terminal.profiles,
+                    this.config.store.profiles = [
+                        ...this.config.store.profiles,
                         profile,
                     ]
                     this.config.save()
@@ -50,6 +52,7 @@ export class NewTabContextMenu extends TabContextMenuItemProvider {
 
     constructor (
         public config: ConfigService,
+        private profilesService: ProfilesService,
         private terminalService: TerminalService,
         private uac: UACService,
     ) {
@@ -57,7 +60,7 @@ export class NewTabContextMenu extends TabContextMenuItemProvider {
     }
 
     async getItems (tab: BaseTabComponent, tabHeader?: TabHeaderComponent): Promise<MenuItemOptions[]> {
-        const profiles = await this.terminalService.getProfiles()
+        const profiles = (await this.profilesService.getProfiles()).filter(x => x.type === 'local') as LocalProfile[]
 
         const items: MenuItemOptions[] = [
             {
@@ -71,9 +74,9 @@ export class NewTabContextMenu extends TabContextMenuItemProvider {
                 submenu: profiles.map(profile => ({
                     label: profile.name,
                     click: async () => {
-                        let workingDirectory = this.config.store.terminal.workingDirectory
-                        if (this.config.store.terminal.alwaysUseWorkingDirectory !== true && tab instanceof TerminalTabComponent) {
-                            workingDirectory = await tab.session?.getWorkingDirectory()
+                        let workingDirectory = profile.options.cwd
+                        if (!workingDirectory && tab instanceof TerminalTabComponent) {
+                            workingDirectory = await tab.session?.getWorkingDirectory() ?? undefined
                         }
                         await this.terminalService.openTab(profile, workingDirectory)
                     },
@@ -88,7 +91,7 @@ export class NewTabContextMenu extends TabContextMenuItemProvider {
                     label: profile.name,
                     click: () => {
                         this.terminalService.openTabWithOptions({
-                            ...profile.sessionOptions,
+                            ...profile.options,
                             runAsAdministrator: true,
                         })
                     },

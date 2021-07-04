@@ -1,8 +1,9 @@
 import { Injectable, Inject } from '@angular/core'
-import { TabRecoveryProvider, RecoveredTab, RecoveryToken } from '../api/tabRecovery'
+import { TabRecoveryProvider, RecoveryToken } from '../api/tabRecovery'
 import { BaseTabComponent } from '../components/baseTab.component'
-import { Logger, LogService } from '../services/log.service'
-import { ConfigService } from '../services/config.service'
+import { Logger, LogService } from './log.service'
+import { ConfigService } from './config.service'
+import { NewTabParameters } from './tabs.service'
 
 /** @hidden */
 @Injectable({ providedIn: 'root' })
@@ -11,7 +12,7 @@ export class TabRecoveryService {
     enabled = false
 
     private constructor (
-        @Inject(TabRecoveryProvider) private tabRecoveryProviders: TabRecoveryProvider[]|null,
+        @Inject(TabRecoveryProvider) private tabRecoveryProviders: TabRecoveryProvider<BaseTabComponent>[]|null,
         private config: ConfigService,
         log: LogService
     ) {
@@ -40,7 +41,7 @@ export class TabRecoveryService {
         return token
     }
 
-    async recoverTab (token: RecoveryToken, duplicate = false): Promise<RecoveredTab|null> {
+    async recoverTab (token: RecoveryToken, duplicate = false): Promise<NewTabParameters<BaseTabComponent>|null> {
         for (const provider of this.config.enabledServices(this.tabRecoveryProviders ?? [])) {
             try {
                 if (!await provider.applicableTo(token)) {
@@ -50,9 +51,9 @@ export class TabRecoveryService {
                     token = provider.duplicate(token)
                 }
                 const tab = await provider.recover(token)
-                tab.options = tab.options || {}
-                tab.options.color = token.tabColor ?? null
-                tab.options.title = token.tabTitle || ''
+                tab.inputs = tab.inputs ?? {}
+                tab.inputs.color = token.tabColor ?? null
+                tab.inputs.title = token.tabTitle || ''
                 return tab
             } catch (error) {
                 this.logger.warn('Tab recovery crashed:', token, provider, error)
@@ -61,9 +62,9 @@ export class TabRecoveryService {
         return null
     }
 
-    async recoverTabs (): Promise<RecoveredTab[]> {
+    async recoverTabs (): Promise<NewTabParameters<BaseTabComponent>[]> {
         if (window.localStorage.tabsRecovery) {
-            const tabs: RecoveredTab[] = []
+            const tabs: NewTabParameters<BaseTabComponent>[] = []
             for (const token of JSON.parse(window.localStorage.tabsRecovery)) {
                 const tab = await this.recoverTab(token)
                 if (tab) {

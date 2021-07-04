@@ -10,6 +10,7 @@ import { DndModule } from 'ng2-dnd'
 import { AppRootComponent } from './components/appRoot.component'
 import { CheckboxComponent } from './components/checkbox.component'
 import { TabBodyComponent } from './components/tabBody.component'
+import { PromptModalComponent } from './components/promptModal.component'
 import { SafeModeModalComponent } from './components/safeModeModal.component'
 import { StartPageComponent } from './components/startPage.component'
 import { TabHeaderComponent } from './components/tabHeader.component'
@@ -25,20 +26,23 @@ import { WelcomeTabComponent } from './components/welcomeTab.component'
 import { TransfersMenuComponent } from './components/transfersMenu.component'
 
 import { AutofocusDirective } from './directives/autofocus.directive'
+import { AlwaysVisibleTypeaheadDirective } from './directives/alwaysVisibleTypeahead.directive'
 import { FastHtmlBindDirective } from './directives/fastHtmlBind.directive'
 import { DropZoneDirective } from './directives/dropZone.directive'
 
-import { Theme, CLIHandler, TabContextMenuItemProvider, TabRecoveryProvider, HotkeyProvider, ConfigProvider, PlatformService, FileProvider } from './api'
+import { Theme, CLIHandler, TabContextMenuItemProvider, TabRecoveryProvider, HotkeyProvider, ConfigProvider, PlatformService, FileProvider, ToolbarButtonProvider, ProfilesService } from './api'
 
 import { AppService } from './services/app.service'
 import { ConfigService } from './services/config.service'
 import { VaultFileProvider } from './services/vault.service'
+import { HotkeysService } from './services/hotkeys.service'
 
 import { StandardTheme, StandardCompactTheme, PaperTheme } from './theme'
 import { CoreConfigProvider } from './config'
 import { AppHotkeyProvider } from './hotkeys'
 import { TaskCompletionContextMenu, CommonOptionsContextMenu, TabManagementContextMenu } from './tabContextMenu'
-import { LastCLIHandler } from './cli'
+import { LastCLIHandler, ProfileCLIHandler } from './cli'
+import { ButtonProvider } from './buttonProvider'
 
 import 'perfect-scrollbar/css/perfect-scrollbar.css'
 import 'ng2-dnd/bundles/style.css'
@@ -53,9 +57,11 @@ const PROVIDERS = [
     { provide: TabContextMenuItemProvider, useClass: TabManagementContextMenu, multi: true },
     { provide: TabContextMenuItemProvider, useClass: TaskCompletionContextMenu, multi: true },
     { provide: TabRecoveryProvider, useClass: SplitTabRecoveryProvider, multi: true },
+    { provide: CLIHandler, useClass: ProfileCLIHandler, multi: true },
     { provide: CLIHandler, useClass: LastCLIHandler, multi: true },
     { provide: PERFECT_SCROLLBAR_CONFIG, useValue: { suppressScrollX: true } },
     { provide: FileProvider, useClass: VaultFileProvider, multi: true },
+    { provide: ToolbarButtonProvider, useClass: ButtonProvider, multi: true },
 ]
 
 /** @hidden */
@@ -72,6 +78,7 @@ const PROVIDERS = [
     declarations: [
         AppRootComponent as any,
         CheckboxComponent,
+        PromptModalComponent,
         StartPageComponent,
         TabBodyComponent,
         TabHeaderComponent,
@@ -82,6 +89,7 @@ const PROVIDERS = [
         SafeModeModalComponent,
         AutofocusDirective,
         FastHtmlBindDirective,
+        AlwaysVisibleTypeaheadDirective,
         SelectorModalComponent,
         SplitTabComponent,
         SplitTabSpannerComponent,
@@ -91,6 +99,7 @@ const PROVIDERS = [
         DropZoneDirective,
     ],
     entryComponents: [
+        PromptModalComponent,
         RenameTabModalComponent,
         SafeModeModalComponent,
         SelectorModalComponent,
@@ -101,20 +110,39 @@ const PROVIDERS = [
     exports: [
         CheckboxComponent,
         ToggleComponent,
+        PromptModalComponent,
         AutofocusDirective,
         DropZoneDirective,
+        FastHtmlBindDirective,
+        AlwaysVisibleTypeaheadDirective,
     ],
 })
 export default class AppModule { // eslint-disable-line @typescript-eslint/no-extraneous-class
-    constructor (app: AppService, config: ConfigService, platform: PlatformService) {
+    constructor (
+        app: AppService,
+        config: ConfigService,
+        platform: PlatformService,
+        hotkeys: HotkeysService,
+        profilesService: ProfilesService,
+    ) {
         app.ready$.subscribe(() => {
             if (config.store.enableWelcomeTab) {
-                app.openNewTabRaw(WelcomeTabComponent)
+                app.openNewTabRaw({ type: WelcomeTabComponent })
             }
         })
 
         platform.setErrorHandler(err => {
             console.error('Unhandled exception:', err)
+        })
+
+        hotkeys.matchedHotkey.subscribe(async (hotkey) => {
+            if (hotkey.startsWith('profile.')) {
+                const id = hotkey.split('.')[1]
+                const profile = (await profilesService.getProfiles()).find(x => x.id === id)
+                if (profile) {
+                    profilesService.openNewTabForProfile(profile)
+                }
+            }
         })
     }
 

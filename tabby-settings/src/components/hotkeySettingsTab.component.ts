@@ -11,9 +11,6 @@ import {
 @Component({
     selector: 'hotkey-settings-tab',
     template: require('./hotkeySettingsTab.component.pug'),
-    styles: [
-        require('./hotkeySettingsTab.component.scss'),
-    ],
 })
 export class HotkeySettingsTabComponent {
     hotkeyFilter = ''
@@ -51,7 +48,7 @@ export class HotkeySettingsTabComponent {
 
     hotkeyFilterFn (hotkey: HotkeyDescription, query: string): boolean {
         // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
-        const s = hotkey.name + (this.getHotkey(hotkey.id) || []).toString()
+        const s = hotkey.name + hotkey.id + (this.getHotkey(hotkey.id) || []).toString()
         return s.toLowerCase().includes(query.toLowerCase())
     }
 }

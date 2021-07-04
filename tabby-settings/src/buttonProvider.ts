@@ -36,7 +36,7 @@ export class ButtonProvider extends ToolbarButtonProvider {
         if (settingsTab) {
             this.app.selectTab(settingsTab)
         } else {
-            this.app.openNewTabRaw(SettingsTabComponent)
+            this.app.openNewTabRaw({ type: SettingsTabComponent })
         }
     }
 }

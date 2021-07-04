@@ -3,6 +3,7 @@ import { BaseTabProcess, WIN_BUILD_CONPTY_SUPPORTED, isWindowsBuild } from 'tabb
 import { BaseTerminalTabComponent } from 'tabby-terminal'
 import { SessionOptions } from '../api'
 import { Session } from '../session'
+import { UACService } from '../services/uac.service'
 
 /** @hidden */
 @Component({
@@ -18,6 +19,7 @@ export class TerminalTabComponent extends BaseTerminalTabComponent {
     // eslint-disable-next-line @typescript-eslint/no-useless-constructor
     constructor (
         injector: Injector,
+        private uac: UACService,
     ) {
         super(injector)
     }
@@ -52,6 +54,10 @@ export class TerminalTabComponent extends BaseTerminalTabComponent {
     }
 
     initializeSession (columns: number, rows: number): void {
+        if (this.sessionOptions.runAsAdministrator && this.uac.isAvailable) {
+            this.sessionOptions = this.uac.patchSessionOptionsForUAC(this.sessionOptions)
+        }
+
         this.session!.start({
             ...this.sessionOptions,
             width: columns,

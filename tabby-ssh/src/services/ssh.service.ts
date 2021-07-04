@@ -5,12 +5,9 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { Client } from 'ssh2'
 import { exec } from 'child_process'
 import { Subject, Observable } from 'rxjs'
-import { Logger, LogService, AppService, SelectorOption, ConfigService, NotificationsService, HostAppService, Platform, PlatformService, SelectorService } from 'tabby-core'
-import { SettingsTabComponent } from 'tabby-settings'
-import { ALGORITHM_BLACKLIST, ForwardedPort, SSHConnection, SSHSession } from '../api'
-import { PromptModalComponent } from '../components/promptModal.component'
+import { Logger, LogService, ConfigService, NotificationsService, HostAppService, Platform, PlatformService, PromptModalComponent } from 'tabby-core'
+import { ALGORITHM_BLACKLIST, ForwardedPort, SSHProfile, SSHSession } from '../api'
 import { PasswordStorageService } from './passwordStorage.service'
-import { SSHTabComponent } from '../components/sshTab.component'
 import { ChildProcess } from 'node:child_process'
 
 @Injectable({ providedIn: 'root' })
@@ -25,8 +22,6 @@ export class SSHService {
         private ngbModal: NgbModal,
         private passwordStorage: PasswordStorageService,
         private notifications: NotificationsService,
-        private app: AppService,
-        private selector: SelectorService,
         private config: ConfigService,
         hostApp: HostAppService,
         private platform: PlatformService,
@@ -37,9 +32,9 @@ export class SSHService {
         }
     }
 
-    createSession (connection: SSHConnection): SSHSession {
-        const session = new SSHSession(this.injector, connection)
-        session.logger = this.log.create(`ssh-${connection.host}-${connection.port}`)
+    createSession (profile: SSHProfile): SSHSession {
+        const session = new SSHSession(this.injector, profile)
+        session.logger = this.log.create(`ssh-${profile.options.host}-${profile.options.port}`)
         return session
     }
 
@@ -52,18 +47,18 @@ export class SSHService {
 
         let connected = false
         const algorithms = {}
-        for (const key of Object.keys(session.connection.algorithms ?? {})) {
-            algorithms[key] = session.connection.algorithms![key].filter(x => !ALGORITHM_BLACKLIST.includes(x))
+        for (const key of Object.keys(session.profile.options.algorithms ?? {})) {
+            algorithms[key] = session.profile.options.algorithms![key].filter(x => !ALGORITHM_BLACKLIST.includes(x))
         }
 
         const resultPromise: Promise<void> = new Promise(async (resolve, reject) => {
             ssh.on('ready', () => {
                 connected = true
                 if (session.savedPassword) {
-                    this.passwordStorage.savePassword(session.connection, session.savedPassword)
+                    this.passwordStorage.savePassword(session.profile, session.savedPassword)
                 }
 
-                for (const fw of session.connection.forwardedPorts ?? []) {
+                for (const fw of session.profile.options.forwardedPorts ?? []) {
                     session.addPortForward(Object.assign(new ForwardedPort(), fw))
                 }
 
@@ -74,7 +69,7 @@ export class SSHService {
             })
             ssh.on('error', error => {
                 if (error.message === 'All configured authentication methods failed') {
-                    this.passwordStorage.deletePassword(session.connection)
+                    this.passwordStorage.deletePassword(session.profile)
                 }
                 this.zone.run(() => {
                     if (connected) {
@@ -111,22 +106,22 @@ export class SSHService {
             }))
 
             ssh.on('greeting', greeting => {
-                if (!session.connection.skipBanner) {
+                if (!session.profile.options.skipBanner) {
                     log('Greeting: ' + greeting)
                 }
             })
 
             ssh.on('banner', banner => {
-                if (!session.connection.skipBanner) {
+                if (!session.profile.options.skipBanner) {
                     log(banner)
                 }
             })
         })
 
         try {
-            if (session.connection.proxyCommand) {
-                session.emitServiceMessage(colors.bgBlue.black(' Proxy command ') + ` Using ${session.connection.proxyCommand}`)
-                session.proxyCommandStream = new ProxyCommandStream(session.connection.proxyCommand)
+            if (session.profile.options.proxyCommand) {
+                session.emitServiceMessage(colors.bgBlue.black(' Proxy command ') + ` Using ${session.profile.options.proxyCommand}`)
+                session.proxyCommandStream = new ProxyCommandStream(session.profile.options.proxyCommand)
 
                 session.proxyCommandStream.output$.subscribe((message: string) => {
                     session.emitServiceMessage(colors.bgBlue.black(' Proxy command ') + ' ' + message.trim())
@@ -136,16 +131,16 @@ export class SSHService {
             }
 
             ssh.connect({
-                host: session.connection.host.trim(),
-                port: session.connection.port ?? 22,
+                host: session.profile.options.host.trim(),
+                port: session.profile.options.port ?? 22,
                 sock: session.proxyCommandStream ?? session.jumpStream,
-                username: session.connection.user,
+                username: session.profile.options.user,
                 tryKeyboard: true,
                 agent: session.agentPath,
-                agentForward: session.connection.agentForward && !!session.agentPath,
-                keepaliveInterval: session.connection.keepaliveInterval ?? 15000,
-                keepaliveCountMax: session.connection.keepaliveCountMax,
-                readyTimeout: session.connection.readyTimeout,
+                agentForward: session.profile.options.agentForward && !!session.agentPath,
+                keepaliveInterval: session.profile.options.keepaliveInterval ?? 15000,
+                keepaliveCountMax: session.profile.options.keepaliveCountMax,
+                readyTimeout: session.profile.options.readyTimeout,
                 hostVerifier: (digest: string) => {
                     log('Host key fingerprint:')
                     log(colors.white.bgBlack(' SHA256 ') + colors.bgBlackBright(' ' + digest + ' '))
@@ -167,138 +162,17 @@ export class SSHService {
         return resultPromise
     }
 
-    async showConnectionSelector (): Promise<void> {
-        const options: SelectorOption<void>[] = []
-        const recentConnections = this.config.store.ssh.recentConnections
-
-        for (const connection of recentConnections) {
-            options.push({
-                name: connection.name,
-                description: connection.host,
-                icon: 'history',
-                callback: () => this.connect(connection),
-            })
-        }
-
-        if (recentConnections.length) {
-            options.push({
-                name: 'Clear recent connections',
-                icon: 'eraser',
-                callback: () => {
-                    this.config.store.ssh.recentConnections = []
-                    this.config.save()
-                },
-            })
-        }
-
-        const groups: { name: string, connections: SSHConnection[] }[] = []
-        const connections = this.config.store.ssh.connections
-        for (const connection of connections) {
-            connection.group = connection.group || null
-            let group = groups.find(x => x.name === connection.group)
-            if (!group) {
-                group = {
-                    name: connection.group!,
-                    connections: [],
-                }
-                groups.push(group)
-            }
-            group.connections.push(connection)
-        }
-
-        for (const group of groups) {
-            for (const connection of group.connections) {
-                options.push({
-                    name: (group.name ? `${group.name} / ` : '') + connection.name,
-                    description: connection.host,
-                    icon: 'desktop',
-                    callback: () => this.connect(connection),
-                })
-            }
-        }
-
-        options.push({
-            name: 'Manage connections',
-            icon: 'cog',
-            callback: () => this.app.openNewTabRaw(SettingsTabComponent, { activeTab: 'ssh' }),
-        })
-
-        options.push({
-            name: 'Quick connect',
-            freeInputPattern: 'Connect to "%s"...',
-            icon: 'arrow-right',
-            callback: query => this.quickConnect(query),
-        })
-
-
-        await this.selector.show('Open an SSH connection', options)
-    }
-
-    async connect (connection: SSHConnection): Promise<SSHTabComponent> {
-        try {
-            const tab = this.app.openNewTab(
-                SSHTabComponent,
-                { connection }
-            ) as SSHTabComponent
-            if (connection.color) {
-                (this.app.getParentTab(tab) ?? tab).color = connection.color
-            }
-
-            setTimeout(() => this.app.activeTab?.emitFocused())
-
-            return tab
-        } catch (error) {
-            this.notifications.error(`Could not connect: ${error}`)
-            throw error
-        }
-    }
-
-    quickConnect (query: string): Promise<SSHTabComponent> {
-        let user = 'root'
-        let host = query
-        let port = 22
-        if (host.includes('@')) {
-            const parts = host.split(/@/g)
-            host = parts[parts.length - 1]
-            user = parts.slice(0, parts.length - 1).join('@')
-        }
-        if (host.includes('[')) {
-            port = parseInt(host.split(']')[1].substring(1))
-            host = host.split(']')[0].substring(1)
-        } else if (host.includes(':')) {
-            port = parseInt(host.split(/:/g)[1])
-            host = host.split(':')[0]
-        }
-
-        const connection: SSHConnection = {
-            name: query,
-            group: null,
-            host,
-            user,
-            port,
-        }
-
-        const recentConnections = this.config.store.ssh.recentConnections
-        recentConnections.unshift(connection)
-        if (recentConnections.length > 5) {
-            recentConnections.pop()
-        }
-        this.config.store.ssh.recentConnections = recentConnections
-        this.config.save()
-        return this.connect(connection)
-    }
-
     getWinSCPPath (): string|undefined {
         return this.detectedWinSCPPath ?? this.config.store.ssh.winSCPPath
     }
 
-    async getWinSCPURI (connection: SSHConnection): Promise<string> {
-        let uri = `scp://${connection.user}`
-        const password = await this.passwordStorage.loadPassword(connection)
+    async getWinSCPURI (profile: SSHProfile): Promise<string> {
+        let uri = `scp://${profile.options.user}`
+        const password = await this.passwordStorage.loadPassword(profile)
         if (password) {
             uri += ':' + encodeURIComponent(password)
         }
-        uri += `@${connection.host}:${connection.port}/`
+        uri += `@${profile.options.host}:${profile.options.port}/`
         return uri
     }
 
@@ -307,7 +181,7 @@ export class SSHService {
         if (!path) {
             return
         }
-        const args = [await this.getWinSCPURI(session.connection)]
+        const args = [await this.getWinSCPURI(session.profile)]
         if (session.activePrivateKey) {
             args.push('/privatekey')
             args.push(session.activePrivateKey)

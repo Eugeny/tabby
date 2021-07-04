@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core'
+import { ProfilesService } from './services/profiles.service'
 import { HotkeyDescription, HotkeyProvider } from './api/hotkeyProvider'
 
 /** @hidden */
@@ -171,7 +172,18 @@ export class AppHotkeyProvider extends HotkeyProvider {
         },
     ]
 
+    constructor (
+        private profilesService: ProfilesService,
+    ) { super() }
+
     async provide (): Promise<HotkeyDescription[]> {
-        return this.hotkeys
+        const profiles = await this.profilesService.getProfiles()
+        return [
+            ...this.hotkeys,
+            ...profiles.map(profile => ({
+                id: `profile.${profile.id}`,
+                name: `New tab: ${profile.name}`,
+            })),
+        ]
     }
 }

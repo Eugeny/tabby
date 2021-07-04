@@ -10,7 +10,6 @@ export class TerminalCLIHandler extends CLIHandler {
     priority = 0
 
     constructor (
-        private config: ConfigService,
         private hostWindow: HostWindowService,
         private terminal: TerminalService,
     ) {
@@ -24,8 +23,6 @@ export class TerminalCLIHandler extends CLIHandler {
             this.handleOpenDirectory(path.resolve(event.cwd, event.argv.directory))
         } else if (op === 'run') {
             this.handleRunCommand(event.argv.command)
-        } else if (op === 'profile') {
-            this.handleOpenProfile(event.argv.profileName)
         } else {
             return false
         }
@@ -47,22 +44,13 @@ export class TerminalCLIHandler extends CLIHandler {
 
     private handleRunCommand (command: string[]) {
         this.terminal.openTab({
+            type: 'local',
             name: '',
-            sessionOptions: {
+            options: {
                 command: command[0],
                 args: command.slice(1),
             },
         }, null, true)
-        this.hostWindow.bringToFront()
-    }
-
-    private handleOpenProfile (profileName: string) {
-        const profile = this.config.store.terminal.profiles.find(x => x.name === profileName)
-        if (!profile) {
-            console.error('Requested profile', profileName, 'not found')
-            return
-        }
-        this.terminal.openTabWithOptions(profile.sessionOptions)
         this.hostWindow.bringToFront()
     }
 }

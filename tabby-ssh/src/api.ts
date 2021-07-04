@@ -10,7 +10,7 @@ import stripAnsi from 'strip-ansi'
 import socksv5 from 'socksv5'
 import { Injector, NgZone } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
-import { ConfigService, FileProvidersService, HostAppService, Logger, NotificationsService, Platform, PlatformService, wrapPromise } from 'tabby-core'
+import { ConfigService, FileProvidersService, HostAppService, Logger, NotificationsService, Platform, PlatformService, wrapPromise, PromptModalComponent, Profile } from 'tabby-core'
 import { BaseSession } from 'tabby-terminal'
 import { Server, Socket, createServer, createConnection } from 'net'
 import { Client, ClientChannel, SFTPWrapper } from 'ssh2'
@@ -18,7 +18,6 @@ import type { FileEntry, Stats } from 'ssh2-streams'
 import { Subject, Observable } from 'rxjs'
 import { ProxyCommandStream } from './services/ssh.service'
 import { PasswordStorageService } from './services/passwordStorage.service'
-import { PromptModalComponent } from './components/promptModal.component'
 import { promisify } from 'util'
 
 const WINDOWS_OPENSSH_AGENT_PIPE = '\\\\.\\pipe\\openssh-ssh-agent'
@@ -37,23 +36,23 @@ export enum SSHAlgorithmType {
     HOSTKEY = 'serverHostKey',
 }
 
-export interface SSHConnection {
-    name: string
+export interface SSHProfile extends Profile {
+    options: SSHProfileOptions
+}
+
+export interface SSHProfileOptions {
     host: string
     port?: number
     user: string
     auth?: null|'password'|'publicKey'|'agent'|'keyboardInteractive'
     password?: string
     privateKeys?: string[]
-    group: string | null
     scripts?: LoginScript[]
     keepaliveInterval?: number
     keepaliveCountMax?: number
     readyTimeout?: number
-    color?: string
     x11?: boolean
     skipBanner?: boolean
-    disableDynamicTitle?: boolean
     jumpHost?: string
     agentForward?: boolean
     warnOnClose?: boolean
@@ -285,7 +284,7 @@ export class SSHSession extends BaseSession {
 
     constructor (
         injector: Injector,
-        public connection: SSHConnection,
+        public profile: SSHProfile,
     ) {
         super()
         this.passwordStorage = injector.get(PasswordStorageService)
@@ -297,7 +296,7 @@ export class SSHSession extends BaseSession {
         this.fileProviders = injector.get(FileProvidersService)
         this.config = injector.get(ConfigService)
 
-        this.scripts = connection.scripts ?? []
+        this.scripts = profile.options.scripts ?? []
         this.destroyed$.subscribe(() => {
             for (const port of this.forwardedPorts) {
                 if (port.type === PortForwardType.Local) {
@@ -327,9 +326,9 @@ export class SSHSession extends BaseSession {
         }
 
         this.remainingAuthMethods = [{ type: 'none' }]
-        if (!this.connection.auth || this.connection.auth === 'publicKey') {
-            if (this.connection.privateKeys?.length) {
-                for (const pk of this.connection.privateKeys) {
+        if (!this.profile.options.auth || this.profile.options.auth === 'publicKey') {
+            if (this.profile.options.privateKeys?.length) {
+                for (const pk of this.profile.options.privateKeys) {
                     try {
                         this.remainingAuthMethods.push({
                             type: 'publickey',
@@ -347,17 +346,17 @@ export class SSHSession extends BaseSession {
                 })
             }
         }
-        if (!this.connection.auth || this.connection.auth === 'agent') {
+        if (!this.profile.options.auth || this.profile.options.auth === 'agent') {
             if (!this.agentPath) {
                 this.emitServiceMessage(colors.bgYellow.yellow.black(' ! ') + ` Agent auth selected, but no running agent is detected`)
             } else {
                 this.remainingAuthMethods.push({ type: 'agent' })
             }
         }
-        if (!this.connection.auth || this.connection.auth === 'password') {
+        if (!this.profile.options.auth || this.profile.options.auth === 'password') {
             this.remainingAuthMethods.push({ type: 'password' })
         }
-        if (!this.connection.auth || this.connection.auth === 'keyboardInteractive') {
+        if (!this.profile.options.auth || this.profile.options.auth === 'keyboardInteractive') {
             this.remainingAuthMethods.push({ type: 'keyboard-interactive' })
         }
         this.remainingAuthMethods.push({ type: 'hostbased' })
@@ -379,7 +378,7 @@ export class SSHSession extends BaseSession {
         })
 
         try {
-            this.shell = await this.openShellChannel({ x11: this.connection.x11 })
+            this.shell = await this.openShellChannel({ x11: this.profile.options.x11 })
         } catch (err) {
             this.emitServiceMessage(colors.bgRed.black(' X ') + ` Remote rejected opening a shell channel: ${err}`)
             if (err.toString().includes('Unable to request X11')) {
@@ -535,30 +534,30 @@ export class SSHSession extends BaseSession {
                 continue
             }
             if (method.type === 'password') {
-                if (this.connection.password) {
+                if (this.profile.options.password) {
                     this.emitServiceMessage('Using preset password')
                     return {
                         type: 'password',
-                        username: this.connection.user,
-                        password: this.connection.password,
+                        username: this.profile.options.user,
+                        password: this.profile.options.password,
                     }
                 }
 
                 if (!this.keychainPasswordUsed) {
-                    const password = await this.passwordStorage.loadPassword(this.connection)
+                    const password = await this.passwordStorage.loadPassword(this.profile)
                     if (password) {
                         this.emitServiceMessage('Trying saved password')
                         this.keychainPasswordUsed = true
                         return {
                             type: 'password',
-                            username: this.connection.user,
+                            username: this.profile.options.user,
                             password,
                         }
                     }
                 }
 
                 const modal = this.ngbModal.open(PromptModalComponent)
-                modal.componentInstance.prompt = `Password for ${this.connection.user}@${this.connection.host}`
+                modal.componentInstance.prompt = `Password for ${this.profile.options.user}@${this.profile.options.host}`
                 modal.componentInstance.password = true
                 modal.componentInstance.showRememberCheckbox = true
 
@@ -570,7 +569,7 @@ export class SSHSession extends BaseSession {
                         }
                         return {
                             type: 'password',
-                            username: this.connection.user,
+                            username: this.profile.options.user,
                             password: result.value,
                         }
                     } else {
@@ -585,7 +584,7 @@ export class SSHSession extends BaseSession {
                     const key = await this.loadPrivateKey(method.contents)
                     return {
                         type: 'publickey',
-                        username: this.connection.user,
+                        username: this.profile.options.user,
                         key,
                     }
                 } catch (e) {

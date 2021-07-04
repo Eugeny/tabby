@@ -14,8 +14,9 @@ appearance:
   opacity: 1.0
   vibrancy: true
   vibrancyType: 'blur'
-terminal:
-  recoverTabs: true
+profiles: []
+recentProfiles: []
+recoverTabs: true
 enableAnalytics: true
 enableWelcomeTab: true
 electronFlags:

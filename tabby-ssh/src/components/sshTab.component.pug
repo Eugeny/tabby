@@ -4,7 +4,7 @@
     .toolbar
         i.fas.fa-circle.text-success.mr-2(*ngIf='session && session.open')
         i.fas.fa-circle.text-danger.mr-2(*ngIf='!session || !session.open')
-        strong.mr-auto {{connection.user}}@{{connection.host}}:{{connection.port}}
+        strong.mr-auto {{profile.options.user}}@{{profile.options.host}}:{{profile.options.port}}
 
         button.btn.btn-secondary.mr-2((click)='reconnect()', [class.btn-info]='!session || !session.open')
             span Reconnect

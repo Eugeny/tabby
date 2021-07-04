@@ -15,7 +15,7 @@
             *ngFor='let option of filteredOptions; let i = index'
         )
             i.icon(
-                class='fa-fw fas fa-{{option.icon}}',
+                class='fa-fw {{option.icon}}',
                 *ngIf='!iconIsSVG(option.icon)'
             )
             .icon(

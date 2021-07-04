@@ -3,20 +3,16 @@ import { CommonModule } from '@angular/common'
 import { FormsModule } from '@angular/forms'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { ToastrModule } from 'ngx-toastr'
-import TabbyCoreModule, { ToolbarButtonProvider, ConfigProvider, TabRecoveryProvider, HotkeyProvider, CLIHandler } from 'tabby-core'
-import { SettingsTabProvider } from 'tabby-settings'
+import TabbyCoreModule, { ConfigProvider, TabRecoveryProvider, HotkeyProvider, ProfileProvider } from 'tabby-core'
 import TabbyTerminalModule from 'tabby-terminal'
 
-import { EditConnectionModalComponent } from './components/editConnectionModal.component'
-import { SerialSettingsTabComponent } from './components/serialSettingsTab.component'
+import { SerialProfileSettingsComponent } from './components/serialProfileSettings.component'
 import { SerialTabComponent } from './components/serialTab.component'
 
-import { ButtonProvider } from './buttonProvider'
 import { SerialConfigProvider } from './config'
-import { SerialSettingsTabProvider } from './settings'
 import { RecoveryProvider } from './recoveryProvider'
 import { SerialHotkeyProvider } from './hotkeys'
-import { SerialCLIHandler } from './cli'
+import { SerialProfilesService } from './profiles'
 
 /** @hidden */
 @NgModule({
@@ -29,21 +25,17 @@ import { SerialCLIHandler } from './cli'
         TabbyTerminalModule,
     ],
     providers: [
-        { provide: ToolbarButtonProvider, useClass: ButtonProvider, multi: true },
         { provide: ConfigProvider, useClass: SerialConfigProvider, multi: true },
-        { provide: SettingsTabProvider, useClass: SerialSettingsTabProvider, multi: true },
+        { provide: ProfileProvider, useClass: SerialProfilesService, multi: true },
         { provide: TabRecoveryProvider, useClass: RecoveryProvider, multi: true },
         { provide: HotkeyProvider, useClass: SerialHotkeyProvider, multi: true },
-        { provide: CLIHandler, useClass: SerialCLIHandler, multi: true },
     ],
     entryComponents: [
-        EditConnectionModalComponent,
-        SerialSettingsTabComponent,
+        SerialProfileSettingsComponent,
         SerialTabComponent,
     ],
     declarations: [
-        EditConnectionModalComponent,
-        SerialSettingsTabComponent,
+        SerialProfileSettingsComponent,
         SerialTabComponent,
     ],
 })

@@ -6,7 +6,7 @@ import { first } from 'rxjs/operators'
 import { Platform, RecoveryToken } from 'tabby-core'
 import { BaseTerminalTabComponent } from 'tabby-terminal'
 import { SSHService } from '../services/ssh.service'
-import { SSHConnection, SSHSession } from '../api'
+import { SSHProfile, SSHSession } from '../api'
 import { SSHPortForwardingModalComponent } from './sshPortForwardingModal.component'
 
 
@@ -19,7 +19,7 @@ import { SSHPortForwardingModalComponent } from './sshPortForwardingModal.compon
 })
 export class SSHTabComponent extends BaseTerminalTabComponent {
     Platform = Platform
-    connection?: SSHConnection
+    profile?: SSHProfile
     session: SSHSession|null = null
     sftpPanelVisible = false
     sftpPath = '/'
@@ -43,13 +43,13 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
     }
 
     ngOnInit (): void {
-        if (!this.connection) {
-            throw new Error('Connection not set')
+        if (!this.profile) {
+            throw new Error('Profile not set')
         }
 
         this.logger = this.log.create('terminalTab')
 
-        this.enableDynamicTitle = !this.connection.disableDynamicTitle
+        this.enableDynamicTitle = !this.profile.disableDynamicTitle
 
         this.subscribeUntilDestroyed(this.hotkeys.matchedHotkey, hotkey => {
             if (!this.hasFocus) {
@@ -84,16 +84,16 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
         super.ngOnInit()
 
         setImmediate(() => {
-            this.setTitle(this.connection!.name)
+            this.setTitle(this.profile!.name)
         })
     }
 
     async setupOneSession (session: SSHSession): Promise<void> {
-        if (session.connection.jumpHost) {
-            const jumpConnection: SSHConnection|null = this.config.store.ssh.connections.find(x => x.name === session.connection.jumpHost)
+        if (session.profile.options.jumpHost) {
+            const jumpConnection: SSHProfile|null = this.config.store.profiles.find(x => x.id === session.profile.options.jumpHost)
 
             if (!jumpConnection) {
-                throw new Error(`${session.connection.host}: jump host "${session.connection.jumpHost}" not found in your config`)
+                throw new Error(`${session.profile.options.host}: jump host "${session.profile.options.jumpHost}" not found in your config`)
             }
 
             const jumpSession = this.ssh.createSession(jumpConnection)
@@ -107,7 +107,7 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
             })
 
             session.jumpStream = await new Promise((resolve, reject) => jumpSession.ssh.forwardOut(
-                '127.0.0.1', 0, session.connection.host, session.connection.port ?? 22,
+                '127.0.0.1', 0, session.profile.options.host, session.profile.options.port ?? 22,
                 (err, stream) => {
                     if (err) {
                         jumpSession.emitServiceMessage(colors.bgRed.black(' X ') + ` Could not set up port forward on ${jumpConnection.name}`)
@@ -124,7 +124,7 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
             this.sessionStack.push(session)
         }
 
-        this.write('\r\n' + colors.black.bgWhite(' SSH ') + ` Connecting to ${session.connection.host}\r\n`)
+        this.write('\r\n' + colors.black.bgWhite(' SSH ') + ` Connecting to ${session.profile.options.host}\r\n`)
 
         this.startSpinner()
 
@@ -157,7 +157,7 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
                 this.destroy()
             } else if (this.frontend) {
                 // Session was closed abruptly
-                this.write('\r\n' + colors.black.bgWhite(' SSH ') + ` ${session.connection.host}: session closed\r\n`)
+                this.write('\r\n' + colors.black.bgWhite(' SSH ') + ` ${session.profile.options.host}: session closed\r\n`)
                 if (!this.reconnectOffered) {
                     this.reconnectOffered = true
                     this.write('Press any key to reconnect\r\n')
@@ -174,12 +174,12 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
 
     async initializeSession (): Promise<void> {
         this.reconnectOffered = false
-        if (!this.connection) {
+        if (!this.profile) {
             this.logger.error('No SSH connection info supplied')
             return
         }
 
-        const session = this.ssh.createSession(this.connection)
+        const session = this.ssh.createSession(this.profile)
         this.setSession(session)
 
         try {
@@ -195,7 +195,7 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
     async getRecoveryToken (): Promise<RecoveryToken> {
         return {
             type: 'app:ssh-tab',
-            connection: this.connection,
+            profile: this.profile,
             savedState: this.frontend?.saveState(),
         }
     }
@@ -215,13 +215,13 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
         if (!this.session?.open) {
             return true
         }
-        if (!(this.connection?.warnOnClose ?? this.config.store.ssh.warnOnClose)) {
+        if (!(this.profile?.options.warnOnClose ?? this.config.store.ssh.warnOnClose)) {
             return true
         }
         return (await this.platform.showMessageBox(
             {
                 type: 'warning',
-                message: `Disconnect from ${this.connection?.host}?`,
+                message: `Disconnect from ${this.profile?.options.host}?`,
                 buttons: ['Cancel', 'Disconnect'],
                 defaultId: 1,
             }

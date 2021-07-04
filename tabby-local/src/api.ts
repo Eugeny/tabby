@@ -1,6 +1,8 @@
+import { Profile } from 'tabby-core'
+
 export interface Shell {
     id: string
-    name?: string
+    name: string
     command: string
     args?: string[]
     env: Record<string, string>
@@ -40,14 +42,8 @@ export interface SessionOptions {
     runAsAdministrator?: boolean
 }
 
-export interface Profile {
-    name: string
-    color?: string
-    sessionOptions: SessionOptions
-    shell?: string
-    isBuiltin?: boolean
-    icon?: string
-    disableDynamicTitle?: boolean
+export interface LocalProfile extends Profile {
+    options: SessionOptions
 }
 
 export interface ChildProcess {

@@ -25,6 +25,7 @@ export class POSIXShellsProvider extends ShellProvider {
             .map(x => ({
                 id: slugify(x),
                 name: x.split('/')[2],
+                icon: 'fas fa-terminal',
                 command: x,
                 args: ['-l'],
                 env: {},

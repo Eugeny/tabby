@@ -39,7 +39,7 @@ export class WindowsDefaultShellProvider extends ShellProvider {
                 return [{
                     ...shell,
                     id: 'default',
-                    name: `Default (${shell.name})`,
+                    name: `OS default (${shell.name})`,
                     hidden: true,
                     env: {},
                 }]

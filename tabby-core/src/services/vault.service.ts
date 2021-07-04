@@ -247,12 +247,12 @@ export class VaultFileProvider extends FileProvider {
             const result = await this.selector.show<VaultSecret|null>('Select file', [
                 {
                     name: 'Add a new file',
-                    icon: 'plus',
+                    icon: 'fas fa-plus',
                     result: null,
                 },
                 ...files.map(f => ({
                     name: f.key.description,
-                    icon: 'file',
+                    icon: 'fas fa-file',
                     result: f,
                 })),
             ])

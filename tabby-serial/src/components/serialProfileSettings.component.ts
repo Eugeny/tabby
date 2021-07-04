@@ -1,17 +1,16 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Component } from '@angular/core'
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators'
-import { PlatformService } from 'tabby-core'
-import { SerialConnection, LoginScript, SerialPortInfo, BAUD_RATES } from '../api'
+import { PlatformService, ProfileSettingsComponent } from 'tabby-core'
+import { LoginScript, SerialPortInfo, BAUD_RATES, SerialProfile } from '../api'
 import { SerialService } from '../services/serial.service'
 
 /** @hidden */
 @Component({
-    template: require('./editConnectionModal.component.pug'),
+    template: require('./serialProfileSettings.component.pug'),
 })
-export class EditConnectionModalComponent {
-    connection: SerialConnection
+export class SerialProfileSettingsComponent implements ProfileSettingsComponent {
+    profile: SerialProfile
     foundPorts: SerialPortInfo[]
     inputModes = [
         { key: null, name: 'Normal', description: 'Input is sent as you type' },
@@ -31,11 +30,9 @@ export class EditConnectionModalComponent {
     ]
 
     constructor (
-        private modalInstance: NgbActiveModal,
         private platform: PlatformService,
         private serial: SerialService,
-    ) {
-    }
+    ) { }
 
     getInputModeName (key) {
         return this.inputModes.find(x => x.key === key)?.name
@@ -64,42 +61,34 @@ export class EditConnectionModalComponent {
     }
 
     async ngOnInit () {
-        this.connection.scripts = this.connection.scripts ?? []
+        this.profile.options.scripts = this.profile.options.scripts ?? []
         this.foundPorts = await this.serial.listPorts()
     }
 
-    save () {
-        this.modalInstance.close(this.connection)
-    }
-
-    cancel () {
-        this.modalInstance.dismiss()
-    }
-
     moveScriptUp (script: LoginScript) {
-        if (!this.connection.scripts) {
-            this.connection.scripts = []
+        if (!this.profile.options.scripts) {
+            this.profile.options.scripts = []
         }
-        const index = this.connection.scripts.indexOf(script)
+        const index = this.profile.options.scripts.indexOf(script)
         if (index > 0) {
-            this.connection.scripts.splice(index, 1)
-            this.connection.scripts.splice(index - 1, 0, script)
+            this.profile.options.scripts.splice(index, 1)
+            this.profile.options.scripts.splice(index - 1, 0, script)
         }
     }
 
     moveScriptDown (script: LoginScript) {
-        if (!this.connection.scripts) {
-            this.connection.scripts = []
+        if (!this.profile.options.scripts) {
+            this.profile.options.scripts = []
         }
-        const index = this.connection.scripts.indexOf(script)
-        if (index >= 0 && index < this.connection.scripts.length - 1) {
-            this.connection.scripts.splice(index, 1)
-            this.connection.scripts.splice(index + 1, 0, script)
+        const index = this.profile.options.scripts.indexOf(script)
+        if (index >= 0 && index < this.profile.options.scripts.length - 1) {
+            this.profile.options.scripts.splice(index, 1)
+            this.profile.options.scripts.splice(index + 1, 0, script)
         }
     }
 
     async deleteScript (script: LoginScript) {
-        if (this.connection.scripts && (await this.platform.showMessageBox(
+        if (this.profile.options.scripts && (await this.platform.showMessageBox(
             {
                 type: 'warning',
                 message: 'Delete this script?',
@@ -108,14 +97,14 @@ export class EditConnectionModalComponent {
                 defaultId: 1,
             }
         )).response === 1) {
-            this.connection.scripts = this.connection.scripts.filter(x => x !== script)
+            this.profile.options.scripts = this.profile.options.scripts.filter(x => x !== script)
         }
     }
 
     addScript () {
-        if (!this.connection.scripts) {
-            this.connection.scripts = []
+        if (!this.profile.options.scripts) {
+            this.profile.options.scripts = []
         }
-        this.connection.scripts.push({ expect: '', send: '' })
+        this.profile.options.scripts.push({ expect: '', send: '' })
     }
 }

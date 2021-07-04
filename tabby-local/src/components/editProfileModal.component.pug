@@ -1,72 +1,64 @@
+.modal-header
+    h3.m-0 {{profile.name}}
+
 .modal-body
-    .form-group
-        label Name
-        input.form-control(
-            type='text',
-            autofocus,
-            [(ngModel)]='profile.name',
-        )
+    .row
+        .col-12.col-lg-4
+            .form-group
+                label Name
+                input.form-control(
+                    type='text',
+                    autofocus,
+                    [(ngModel)]='profile.name',
+                )
 
-    .form-group
-        label Command
-        input.form-control(
-            type='text',
-            [(ngModel)]='profile.sessionOptions.command',
-        )
+            .form-group
+                label Group
+                input.form-control(
+                    type='text',
+                    alwaysVisibleTypeahead,
+                    placeholder='Ungrouped',
+                    [(ngModel)]='profile.group',
+                    [ngbTypeahead]='groupTypeahead',
+                )
 
-    .form-group
-        label Arguments
-        .input-group(
-            *ngFor='let arg of profile.sessionOptions.args; index as i; trackBy: trackByIndex',
-        )
-            input.form-control(
-                type='text',
-                [(ngModel)]='profile.sessionOptions.args[i]',
-            )
-            .input-group-append
-                button.btn.btn-secondary((click)='profile.sessionOptions.args.splice(i, 1)')
-                    i.fas.fa-trash
+            .form-group
+                label Icon
+                .input-group
+                    input.form-control(
+                        type='text',
+                        alwaysVisibleTypeahead,
+                        [(ngModel)]='profile.icon',
+                        [ngbTypeahead]='iconSearch',
+                        [resultTemplate]='rt'
+                    )
+                    .input-group-append
+                        .input-group-text
+                            i([class]='"fa-fw " + profile.icon')
 
-        .mt-2
-            button.btn.btn-secondary((click)='profile.sessionOptions.args.push("")')
-                i.fas.fa-plus.mr-2
-                | Add
+                ng-template(#rt,let-r='result',let-t='term')
+                    i([class]='"fa-fw " + r')
+                    ngb-highlight.ml-2([result]='r', [term]='t')
 
-    .form-line(*ngIf='uac.isAvailable')
-        .header
-            .title Run as administrator
-        toggle(
-            [(ngModel)]='profile.sessionOptions.runAsAdministrator',
-        )
+            .form-line
+                .header
+                    .title Color
+                input.form-control.w-50(
+                    type='text',
+                    [(ngModel)]='profile.color',
+                    placeholder='#000000'
+                )
 
-    .form-group
-        label Working directory
-        input.form-control(
-            type='text',
-            [(ngModel)]='profile.sessionOptions.cwd',
-        )
+            .form-line
+                .header
+                    .title Disable dynamic tab title
+                    .description Connection name will be used instead
+                toggle([(ngModel)]='profile.disableDynamicTitle')
 
-    .form-group
-        label Environment
-        environment-editor(
-            type='text',
-            [(model)]='profile.sessionOptions.env',
-        )
+            .mb-4
 
-    .form-group
-        label Tab color
-        input.form-control(
-            type='text',
-            autofocus,
-            [(ngModel)]='profile.color',
-            placeholder='#000000'
-        )
-
-    .form-line
-        .header
-            .title Disable dynamic tab title
-            .description Connection name will be used as a title instead
-        toggle([(ngModel)]='profile.disableDynamicTitle')
+        .col-12.col-lg-8
+            ng-template(#placeholder)
 
 .modal-footer
     button.btn.btn-outline-primary((click)='save()') Save

@@ -6,7 +6,7 @@ import { first } from 'rxjs/operators'
 import { SelectorService } from 'tabby-core'
 import { BaseTerminalTabComponent } from 'tabby-terminal'
 import { SerialService } from '../services/serial.service'
-import { SerialConnection, SerialSession, BAUD_RATES } from '../api'
+import { SerialSession, BAUD_RATES, SerialProfile } from '../api'
 
 /** @hidden */
 @Component({
@@ -16,7 +16,7 @@ import { SerialConnection, SerialSession, BAUD_RATES } from '../api'
     animations: BaseTerminalTabComponent.animations,
 })
 export class SerialTabComponent extends BaseTerminalTabComponent {
-    connection?: SerialConnection
+    profile?: SerialProfile
     session: SerialSession|null = null
     serialPort: any
     private serialService: SerialService
@@ -57,17 +57,17 @@ export class SerialTabComponent extends BaseTerminalTabComponent {
         super.ngOnInit()
 
         setImmediate(() => {
-            this.setTitle(this.connection!.name)
+            this.setTitle(this.profile!.name)
         })
     }
 
     async initializeSession () {
-        if (!this.connection) {
-            this.logger.error('No Serial connection info supplied')
+        if (!this.profile) {
+            this.logger.error('No serial profile info supplied')
             return
         }
 
-        const session = this.serialService.createSession(this.connection)
+        const session = this.serialService.createSession(this.profile)
         this.setSession(session)
         this.write(`Connecting to `)
 
@@ -112,7 +112,7 @@ export class SerialTabComponent extends BaseTerminalTabComponent {
     async getRecoveryToken (): Promise<any> {
         return {
             type: 'app:serial-tab',
-            connection: this.connection,
+            profile: this.profile,
             savedState: this.frontend?.saveState(),
         }
     }
@@ -128,6 +128,6 @@ export class SerialTabComponent extends BaseTerminalTabComponent {
             name: x.toString(), result: x,
         })))
         this.serialPort.update({ baudRate: rate })
-        this.connection!.baudrate = rate
+        this.profile!.options.baudrate = rate
     }
 }

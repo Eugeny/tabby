@@ -29,7 +29,6 @@
     "ps-node": "^0.1.6",
     "runes": "^0.4.2",
     "shell-escape": "^0.2.0",
-    "slugify": "^1.5.3",
     "utils-decorators": "^1.8.3"
   },
   "peerDependencies": {

@@ -5,7 +5,7 @@ import stripAnsi from 'strip-ansi'
 import bufferReplace from 'buffer-replace'
 import { BaseSession } from 'tabby-terminal'
 import { SerialPort } from 'serialport'
-import { Logger } from 'tabby-core'
+import { Logger, Profile } from 'tabby-core'
 import { Subject, Observable, interval } from 'rxjs'
 import { debounce } from 'rxjs/operators'
 import { ReadLine, createInterface as createReadline, clearLine } from 'readline'
@@ -18,17 +18,20 @@ export interface LoginScript {
     optional?: boolean
 }
 
-export interface SerialConnection {
-    name: string
+export interface SerialProfile extends Profile {
+    options: SerialProfileOptions
+}
+
+export interface SerialProfileOptions {
     port: string
-    baudrate: number
-    databits: number
-    stopbits: number
-    parity: string
-    rtscts: boolean
-    xon: boolean
-    xoff: boolean
-    xany: boolean
+    baudrate?: number
+    databits?: number
+    stopbits?: number
+    parity?: string
+    rtscts?: boolean
+    xon?: boolean
+    xoff?: boolean
+    xany?: boolean
     scripts?: LoginScript[]
     color?: string
     inputMode?: InputMode
@@ -62,9 +65,9 @@ export class SerialSession extends BaseSession {
     private inputReadlineInStream: Readable & Writable
     private inputReadlineOutStream: Readable & Writable
 
-    constructor (public connection: SerialConnection) {
+    constructor (public profile: SerialProfile) {
         super()
-        this.scripts = connection.scripts ?? []
+        this.scripts = profile.options.scripts ?? []
 
         this.inputReadlineInStream = new PassThrough()
         this.inputReadlineOutStream = new PassThrough()
@@ -72,7 +75,7 @@ export class SerialSession extends BaseSession {
             input: this.inputReadlineInStream,
             output: this.inputReadlineOutStream,
             terminal: true,
-            prompt: this.connection.inputMode === 'readline-hex' ? 'hex> ' : '> ',
+            prompt: this.profile.options.inputMode === 'readline-hex' ? 'hex> ' : '> ',
         } as any)
         this.inputReadlineOutStream.on('data', data => {
             this.emitOutput(Buffer.from(data))
@@ -102,7 +105,7 @@ export class SerialSession extends BaseSession {
     }
 
     write (data: Buffer): void {
-        if (this.connection.inputMode?.startsWith('readline')) {
+        if (this.profile.options.inputMode?.startsWith('readline')) {
             this.inputReadlineInStream.write(data)
         } else {
             this.onInput(data)
@@ -161,7 +164,7 @@ export class SerialSession extends BaseSession {
     }
 
     private onInput (data: Buffer) {
-        if (this.connection.inputMode === 'readline-hex') {
+        if (this.profile.options.inputMode === 'readline-hex') {
             const tokens = data.toString().split(/\s/g)
             data = Buffer.concat(tokens.filter(t => !!t).map(t => {
                 if (t.startsWith('0x')) {
@@ -171,14 +174,14 @@ export class SerialSession extends BaseSession {
             }))
         }
 
-        data = this.replaceNewlines(data, this.connection.inputNewlines)
+        data = this.replaceNewlines(data, this.profile.options.inputNewlines)
         if (this.serial) {
             this.serial.write(data.toString())
         }
     }
 
     private onOutputSettled () {
-        if (this.connection.inputMode?.startsWith('readline') && !this.inputPromptVisible) {
+        if (this.profile.options.inputMode?.startsWith('readline') && !this.inputPromptVisible) {
             this.resetInputPrompt()
         }
     }
@@ -192,16 +195,16 @@ export class SerialSession extends BaseSession {
     private onOutput (data: Buffer) {
         const dataString = data.toString()
 
-        if (this.connection.inputMode?.startsWith('readline')) {
+        if (this.profile.options.inputMode?.startsWith('readline')) {
             if (this.inputPromptVisible) {
                 clearLine(this.inputReadlineOutStream, 0)
                 this.inputPromptVisible = false
             }
         }
 
-        data = this.replaceNewlines(data, this.connection.outputNewlines)
+        data = this.replaceNewlines(data, this.profile.options.outputNewlines)
 
-        if (this.connection.outputMode === 'hex') {
+        if (this.profile.options.outputMode === 'hex') {
             this.emitOutput(Buffer.concat([
                 Buffer.from('\r\n'),
                 Buffer.from(hexdump(data, {
@@ -270,9 +273,4 @@ export class SerialSession extends BaseSession {
             }
         }
     }
-}
-
-export interface SerialConnectionGroup {
-    name: string
-    connections: SerialConnection[]
 }

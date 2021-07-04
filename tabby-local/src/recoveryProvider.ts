@@ -1,19 +1,19 @@
 import { Injectable } from '@angular/core'
-import { TabRecoveryProvider, RecoveredTab, RecoveryToken } from 'tabby-core'
+import { TabRecoveryProvider, NewTabParameters, RecoveryToken } from 'tabby-core'
 
 import { TerminalTabComponent } from './components/terminalTab.component'
 
 /** @hidden */
 @Injectable()
-export class RecoveryProvider extends TabRecoveryProvider {
+export class RecoveryProvider extends TabRecoveryProvider<TerminalTabComponent> {
     async applicableTo (recoveryToken: RecoveryToken): Promise<boolean> {
         return recoveryToken.type === 'app:terminal-tab'
     }
 
-    async recover (recoveryToken: RecoveryToken): Promise<RecoveredTab> {
+    async recover (recoveryToken: RecoveryToken): Promise<NewTabParameters<TerminalTabComponent>> {
         return {
             type: TerminalTabComponent,
-            options: {
+            inputs: {
                 sessionOptions: recoveryToken.sessionOptions,
                 savedState: recoveryToken.savedState,
             },

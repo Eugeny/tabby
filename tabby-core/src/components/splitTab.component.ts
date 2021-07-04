@@ -1,8 +1,8 @@
 import { Observable, Subject } from 'rxjs'
 import { Component, Injectable, ViewChild, ViewContainerRef, EmbeddedViewRef, AfterViewInit, OnDestroy } from '@angular/core'
 import { BaseTabComponent, BaseTabProcess } from './baseTab.component'
-import { TabRecoveryProvider, RecoveredTab, RecoveryToken } from '../api/tabRecovery'
-import { TabsService } from '../services/tabs.service'
+import { TabRecoveryProvider, RecoveryToken } from '../api/tabRecovery'
+import { TabsService, NewTabParameters } from '../services/tabs.service'
 import { HotkeysService } from '../services/hotkeys.service'
 import { TabRecoveryService } from '../services/tabRecovery.service'
 
@@ -601,7 +601,7 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
             } else {
                 const recovered = await this.tabRecovery.recoverTab(childState, duplicate)
                 if (recovered) {
-                    const tab = this.tabsService.create(recovered.type, recovered.options)
+                    const tab = this.tabsService.create(recovered)
                     children.push(tab)
                     tab.parent = this
                     this.attachTabView(tab)
@@ -619,15 +619,15 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
 
 /** @hidden */
 @Injectable()
-export class SplitTabRecoveryProvider extends TabRecoveryProvider {
+export class SplitTabRecoveryProvider extends TabRecoveryProvider<SplitTabComponent> {
     async applicableTo (recoveryToken: RecoveryToken): Promise<boolean> {
         return recoveryToken.type === 'app:split-tab'
     }
 
-    async recover (recoveryToken: RecoveryToken): Promise<RecoveredTab> {
+    async recover (recoveryToken: RecoveryToken): Promise<NewTabParameters<SplitTabComponent>> {
         return {
             type: SplitTabComponent,
-            options: { _recoveredState: recoveryToken },
+            inputs: { _recoveredState: recoveryToken },
         }
     }
 

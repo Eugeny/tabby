@@ -1,17 +1,6 @@
 import deepClone from 'clone-deep'
-import { TabComponentType } from '../services/tabs.service'
-
-export interface RecoveredTab {
-    /**
-     * Component type to be instantiated
-     */
-    type: TabComponentType
-
-    /**
-     * Component instance inputs
-     */
-    options?: any
-}
+import { BaseTabComponent } from '../components/baseTab.component'
+import { NewTabParameters } from '../services/tabs.service'
 
 export interface RecoveryToken {
     [_: string]: any
@@ -35,19 +24,20 @@ export interface RecoveryToken {
  * }
  * ```
  */
-export abstract class TabRecoveryProvider {
+export abstract class TabRecoveryProvider <T extends BaseTabComponent> {
     /**
      * @param recoveryToken a recovery token found in the saved tabs list
      * @returns [[boolean]] whether this [[TabRecoveryProvider]] can recover a tab from this token
      */
 
     abstract applicableTo (recoveryToken: RecoveryToken): Promise<boolean>
+
     /**
      * @param recoveryToken a recovery token found in the saved tabs list
-     * @returns [[RecoveredTab]] descriptor containing tab type and component inputs
+     * @returns [[NewTabParameters]] descriptor containing tab type and component inputs
      *          or `null` if this token is from a different tab type or is not supported
      */
-    abstract recover (recoveryToken: RecoveryToken): Promise<RecoveredTab>
+    abstract recover (recoveryToken: RecoveryToken): Promise<NewTabParameters<T>>
 
     /**
      * @param recoveryToken a recovery token found in the saved tabs list

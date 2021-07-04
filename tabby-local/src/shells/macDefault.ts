@@ -21,7 +21,7 @@ export class MacOSDefaultShellProvider extends ShellProvider {
         }
         return [{
             id: 'default',
-            name: 'User default',
+            name: 'OS default',
             command: await this.getDefaultShellCached(),
             args: ['--login'],
             hidden: true,
