@@ -320,8 +320,7 @@ export class ConfigService {
             delete config.ssh?.connections
             delete config.serial?.connections
             delete window.localStorage.lastSerialConnection
-            // config.version = 3
-            // migrate jump hosts
+            config.version = 3
         }
     }
 
