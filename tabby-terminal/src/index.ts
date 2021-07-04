@@ -13,6 +13,7 @@ import { TerminalSettingsTabComponent } from './components/terminalSettingsTab.c
 import { ColorPickerComponent } from './components/colorPicker.component'
 import { ColorSchemePreviewComponent } from './components/colorSchemePreview.component'
 import { SearchPanelComponent } from './components/searchPanel.component'
+import { StreamProcessingSettingsComponent } from './components/streamProcessingSettings.component'
 
 import { TerminalFrontendService } from './services/terminalFrontend.service'
 
@@ -70,10 +71,12 @@ import { TerminalCLIHandler } from './cli'
         ColorSchemeSettingsTabComponent,
         TerminalSettingsTabComponent,
         SearchPanelComponent,
+        StreamProcessingSettingsComponent,
     ] as any[],
     exports: [
         ColorPickerComponent,
         SearchPanelComponent,
+        StreamProcessingSettingsComponent,
     ],
 })
 export default class TerminalModule { // eslint-disable-line @typescript-eslint/no-extraneous-class
@@ -111,4 +114,5 @@ export { TerminalFrontendService, TerminalDecorator, TerminalContextMenuItemProv
 export { Frontend, XTermFrontend, XTermWebGLFrontend, HTermFrontend }
 export { BaseTerminalTabComponent } from './api/baseTerminalTab.component'
 export * from './api/interfaces'
+export * from './api/streamProcessing'
 export * from './session'

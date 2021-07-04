@@ -1,15 +1,8 @@
-import hexdump from 'hexer'
-import colors from 'ansi-colors'
-import binstring from 'binstring'
 import stripAnsi from 'strip-ansi'
-import bufferReplace from 'buffer-replace'
-import { BaseSession } from 'tabby-terminal'
 import { SerialPort } from 'serialport'
 import { Logger, Profile } from 'tabby-core'
-import { Subject, Observable, interval } from 'rxjs'
-import { debounce } from 'rxjs/operators'
-import { ReadLine, createInterface as createReadline, clearLine } from 'readline'
-import { PassThrough, Readable, Writable } from 'stream'
+import { Subject, Observable } from 'rxjs'
+import { BaseSession, StreamProcessingOptions, TerminalStreamProcessor } from 'tabby-terminal'
 
 export interface LoginScript {
     expect: string
@@ -22,7 +15,7 @@ export interface SerialProfile extends Profile {
     options: SerialProfileOptions
 }
 
-export interface SerialProfileOptions {
+export interface SerialProfileOptions extends StreamProcessingOptions {
     port: string
     baudrate?: number
     databits?: number
@@ -34,10 +27,6 @@ export interface SerialProfileOptions {
     xany?: boolean
     scripts?: LoginScript[]
     color?: string
-    inputMode?: InputMode
-    inputNewlines?: NewlineMode
-    outputMode?: OutputMode
-    outputNewlines?: NewlineMode
 }
 
 export const BAUD_RATES = [
@@ -49,10 +38,6 @@ export interface SerialPortInfo {
     description?: string
 }
 
-export type InputMode = null | 'readline' | 'readline-hex' // eslint-disable-line @typescript-eslint/no-type-alias
-export type OutputMode = null | 'hex' // eslint-disable-line @typescript-eslint/no-type-alias
-export type NewlineMode = null | 'cr' | 'lf' | 'crlf' // eslint-disable-line @typescript-eslint/no-type-alias
-
 export class SerialSession extends BaseSession {
     scripts?: LoginScript[]
     serial: SerialPort
@@ -60,38 +45,67 @@ export class SerialSession extends BaseSession {
 
     get serviceMessage$ (): Observable<string> { return this.serviceMessage }
     private serviceMessage = new Subject<string>()
-    private inputReadline: ReadLine
-    private inputPromptVisible = true
-    private inputReadlineInStream: Readable & Writable
-    private inputReadlineOutStream: Readable & Writable
+    private streamProcessor: TerminalStreamProcessor
 
     constructor (public profile: SerialProfile) {
         super()
         this.scripts = profile.options.scripts ?? []
+        this.streamProcessor = new TerminalStreamProcessor(profile.options)
+        this.streamProcessor.outputToSession$.subscribe(data => {
+            this.serial?.write(data.toString())
+        })
+        this.streamProcessor.outputToTerminal$.subscribe(data => {
+            this.emitOutput(data)
 
-        this.inputReadlineInStream = new PassThrough()
-        this.inputReadlineOutStream = new PassThrough()
-        this.inputReadline = createReadline({
-            input: this.inputReadlineInStream,
-            output: this.inputReadlineOutStream,
-            terminal: true,
-            prompt: this.profile.options.inputMode === 'readline-hex' ? 'hex> ' : '> ',
-        } as any)
-        this.inputReadlineOutStream.on('data', data => {
-            this.emitOutput(Buffer.from(data))
+            const dataString = data.toString()
+
+            if (this.scripts) {
+                let found = false
+                for (const script of this.scripts) {
+                    let match = false
+                    let cmd = ''
+                    if (script.isRegex) {
+                        const re = new RegExp(script.expect, 'g')
+                        if (re.test(dataString)) {
+                            cmd = dataString.replace(re, script.send)
+                            match = true
+                            found = true
+                        }
+                    } else {
+                        if (dataString.includes(script.expect)) {
+                            cmd = script.send
+                            match = true
+                            found = true
+                        }
+                    }
+
+                    if (match) {
+                        this.logger.info('Executing script: "' + cmd + '"')
+                        this.serial.write(cmd + '\n')
+                        this.scripts = this.scripts.filter(x => x !== script)
+                    } else {
+                        if (script.optional) {
+                            this.logger.debug('Skip optional script: ' + script.expect)
+                            found = true
+                            this.scripts = this.scripts.filter(x => x !== script)
+                        } else {
+                            break
+                        }
+                    }
+                }
+
+                if (found) {
+                    this.executeUnconditionalScripts()
+                }
+            }
         })
-        this.inputReadline.on('line', line => {
-            this.onInput(Buffer.from(line + '\n'))
-            this.resetInputPrompt()
-        })
-        this.output$.pipe(debounce(() => interval(500))).subscribe(() => this.onOutputSettled())
     }
 
     async start (): Promise<void> {
         this.open = true
 
         this.serial.on('readable', () => {
-            this.onOutput(this.serial.read())
+            this.streamProcessor.feedFromSession(this.serial.read())
         })
 
         this.serial.on('end', () => {
@@ -105,22 +119,18 @@ export class SerialSession extends BaseSession {
     }
 
     write (data: Buffer): void {
-        if (this.profile.options.inputMode?.startsWith('readline')) {
-            this.inputReadlineInStream.write(data)
-        } else {
-            this.onInput(data)
-        }
+        this.streamProcessor.feedFromTerminal(data)
     }
 
     async destroy (): Promise<void> {
+        this.streamProcessor.close()
         this.serviceMessage.complete()
-        this.inputReadline.close()
         await super.destroy()
     }
 
     // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-empty-function
     resize (_, __) {
-        this.inputReadlineOutStream.emit('resize')
+        this.streamProcessor.resize()
     }
 
     kill (_?: string): void {
@@ -146,118 +156,6 @@ export class SerialSession extends BaseSession {
 
     async getWorkingDirectory (): Promise<string|null> {
         return null
-    }
-
-    private replaceNewlines (data: Buffer, mode?: NewlineMode): Buffer {
-        if (!mode) {
-            return data
-        }
-        data = bufferReplace(data, '\r\n', '\n')
-        data = bufferReplace(data, '\r', '\n')
-        const replacement = {
-            strip: '',
-            cr: '\r',
-            lf: '\n',
-            crlf: '\r\n',
-        }[mode]
-        return bufferReplace(data, '\n', replacement)
-    }
-
-    private onInput (data: Buffer) {
-        if (this.profile.options.inputMode === 'readline-hex') {
-            const tokens = data.toString().split(/\s/g)
-            data = Buffer.concat(tokens.filter(t => !!t).map(t => {
-                if (t.startsWith('0x')) {
-                    t = t.substring(2)
-                }
-                return binstring(t, { 'in': 'hex' })
-            }))
-        }
-
-        data = this.replaceNewlines(data, this.profile.options.inputNewlines)
-        if (this.serial) {
-            this.serial.write(data.toString())
-        }
-    }
-
-    private onOutputSettled () {
-        if (this.profile.options.inputMode?.startsWith('readline') && !this.inputPromptVisible) {
-            this.resetInputPrompt()
-        }
-    }
-
-    private resetInputPrompt () {
-        this.emitOutput(Buffer.from('\r\n'))
-        this.inputReadline.prompt(true)
-        this.inputPromptVisible = true
-    }
-
-    private onOutput (data: Buffer) {
-        const dataString = data.toString()
-
-        if (this.profile.options.inputMode?.startsWith('readline')) {
-            if (this.inputPromptVisible) {
-                clearLine(this.inputReadlineOutStream, 0)
-                this.inputPromptVisible = false
-            }
-        }
-
-        data = this.replaceNewlines(data, this.profile.options.outputNewlines)
-
-        if (this.profile.options.outputMode === 'hex') {
-            this.emitOutput(Buffer.concat([
-                Buffer.from('\r\n'),
-                Buffer.from(hexdump(data, {
-                    group: 1,
-                    gutter: 4,
-                    divide: colors.gray(' ｜ '),
-                    emptyHuman: colors.gray('╳'),
-                }).replace(/\n/g, '\r\n')),
-                Buffer.from('\r\n\n'),
-            ]))
-        } else {
-            this.emitOutput(data)
-        }
-
-        if (this.scripts) {
-            let found = false
-            for (const script of this.scripts) {
-                let match = false
-                let cmd = ''
-                if (script.isRegex) {
-                    const re = new RegExp(script.expect, 'g')
-                    if (re.test(dataString)) {
-                        cmd = dataString.replace(re, script.send)
-                        match = true
-                        found = true
-                    }
-                } else {
-                    if (dataString.includes(script.expect)) {
-                        cmd = script.send
-                        match = true
-                        found = true
-                    }
-                }
-
-                if (match) {
-                    this.logger.info('Executing script: "' + cmd + '"')
-                    this.serial.write(cmd + '\n')
-                    this.scripts = this.scripts.filter(x => x !== script)
-                } else {
-                    if (script.optional) {
-                        this.logger.debug('Skip optional script: ' + script.expect)
-                        found = true
-                        this.scripts = this.scripts.filter(x => x !== script)
-                    } else {
-                        break
-                    }
-                }
-            }
-
-            if (found) {
-                this.executeUnconditionalScripts()
-            }
-        }
     }
 
     private executeUnconditionalScripts () {

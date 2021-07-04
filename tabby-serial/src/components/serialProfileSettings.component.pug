@@ -8,7 +8,7 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
                         label Device
                         input.form-control(
                             type='text',
-                            alwaysShowTypeahead,
+                            alwaysVisibleTypeahead,
                             [(ngModel)]='profile.options.port',
                             [ngbTypeahead]='portsAutocomplete',
                             [resultFormatter]='portsFormatter'
@@ -19,65 +19,13 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
                         label Baud Rate
                         input.form-control(
                             type='number',
-                            alwaysShowTypeahead,
+                            alwaysVisibleTypeahead,
                             placeholder='Ask every time',
                             [(ngModel)]='profile.options.baudrate',
                             [ngbTypeahead]='baudratesAutocomplete'
                         )
 
-            .form-line
-                .header
-                    .title Input mode
-
-                .d-flex(ngbDropdown)
-                    button.btn.btn-secondary.btn-tab-bar(
-                        ngbDropdownToggle,
-                    ) {{getInputModeName(profile.options.inputMode)}}
-
-                    div(ngbDropdownMenu)
-                        a.d-flex.flex-column(
-                            *ngFor='let mode of inputModes',
-                            (click)='profile.options.inputMode = mode.key',
-                            ngbDropdownItem
-                        )
-                            div {{mode.name}}
-                            .text-muted {{mode.description}}
-
-            .form-line
-                .header
-                    .title Input newlines
-
-                select.form-control(
-                    [(ngModel)]='profile.options.inputNewlines',
-                )
-                    option([ngValue]='mode.key', *ngFor='let mode of newlineModes') {{mode.name}}
-
-            .form-line
-                .header
-                    .title Output mode
-
-                .d-flex(ngbDropdown)
-                    button.btn.btn-secondary.btn-tab-bar(
-                        ngbDropdownToggle,
-                    ) {{getOutputModeName(profile.options.outputMode)}}
-
-                    div(ngbDropdownMenu)
-                        a.d-flex.flex-column(
-                            *ngFor='let mode of outputModes',
-                            (click)='profile.options.outputMode = mode.key',
-                            ngbDropdownItem
-                        )
-                            div {{mode.name}}
-                            .text-muted {{mode.description}}
-
-            .form-line
-                .header
-                    .title Output newlines
-
-                select.form-control(
-                    [(ngModel)]='profile.options.outputNewlines',
-                )
-                    option([ngValue]='mode.key', *ngFor='let mode of newlineModes') {{mode.name}}
+            stream-processing-settings([options]='profile.options')
 
     li(ngbNavItem)
         a(ngbNavLink) Advanced
