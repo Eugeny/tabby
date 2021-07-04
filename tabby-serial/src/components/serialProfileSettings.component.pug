@@ -8,9 +8,10 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
                         label Device
                         input.form-control(
                             type='text',
+                            alwaysShowTypeahead,
                             [(ngModel)]='profile.options.port',
                             [ngbTypeahead]='portsAutocomplete',
-                            [resultFormatter]='portsFormatter',
+                            [resultFormatter]='portsFormatter'
                         )
 
                 .col-6
@@ -18,8 +19,10 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
                         label Baud Rate
                         input.form-control(
                             type='number',
+                            alwaysShowTypeahead,
+                            placeholder='Ask every time',
                             [(ngModel)]='profile.options.baudrate',
-                            [ngbTypeahead]='baudratesAutocomplete',
+                            [ngbTypeahead]='baudratesAutocomplete'
                         )
 
             .form-line

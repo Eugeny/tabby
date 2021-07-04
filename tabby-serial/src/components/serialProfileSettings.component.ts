@@ -49,7 +49,10 @@ export class SerialProfileSettingsComponent implements ProfileSettingsComponent 
     baudratesAutocomplete = text$ => text$.pipe(
         debounceTime(200),
         distinctUntilChanged(),
-        map((q: string) => BAUD_RATES.filter(x => !q || x.toString().startsWith(q)))
+        map((q: string) => [
+            null,
+            ...BAUD_RATES.filter(x => !q || x.toString().startsWith(q)),
+        ])
     )
 
     portsFormatter = port => {
