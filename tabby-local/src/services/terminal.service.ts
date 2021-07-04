@@ -64,6 +64,6 @@ export class TerminalService {
         return this.app.openNewTab({
             type: TerminalTabComponent,
             inputs: { sessionOptions },
-        }) as TerminalTabComponent
+        })
     }
 }
