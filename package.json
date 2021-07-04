@@ -19,7 +19,7 @@
     "core-js": "^3.14.0",
     "cross-env": "7.0.3",
     "css-loader": "5.2.6",
-    "electron": "13.1.4",
+    "electron": "13.1.5",
     "electron-builder": "22.10.5",
     "electron-download": "^4.1.1",
     "electron-installer-snap": "^5.1.0",
