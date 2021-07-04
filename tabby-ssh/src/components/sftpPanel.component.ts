@@ -77,7 +77,7 @@ export class SFTPPanelComponent {
         if (item.isDirectory) {
             this.navigate(item.fullPath)
         } else if (item.isSymlink) {
-            const target = await this.sftp.readlink(item.fullPath)
+            const target = path.resolve(this.path, await this.sftp.readlink(item.fullPath))
             const stat = await this.sftp.stat(target)
             if (stat.isDirectory) {
                 this.navigate(item.fullPath)
