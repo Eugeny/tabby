@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core'
-import { ConfigService, BaseTabComponent, TabContextMenuItemProvider, TabHeaderComponent, SplitTabComponent, NotificationsService, MenuItemOptions, ProfilesService } from 'tabby-core'
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
+import { ConfigService, BaseTabComponent, TabContextMenuItemProvider, TabHeaderComponent, SplitTabComponent, NotificationsService, MenuItemOptions, ProfilesService, PromptModalComponent } from 'tabby-core'
 import { TerminalTabComponent } from './components/terminalTab.component'
 import { UACService } from './services/uac.service'
 import { TerminalService } from './services/terminal.service'
@@ -10,6 +11,7 @@ import { LocalProfile } from './api'
 export class SaveAsProfileContextMenu extends TabContextMenuItemProvider {
     constructor (
         private config: ConfigService,
+        private ngbModal: NgbModal,
         private notifications: NotificationsService,
     ) {
         super()
@@ -23,12 +25,18 @@ export class SaveAsProfileContextMenu extends TabContextMenuItemProvider {
             {
                 label: 'Save as profile',
                 click: async () => {
+                    const modal = this.ngbModal.open(PromptModalComponent)
+                    modal.componentInstance.prompt = 'New profile name'
+                    const name = (await modal.result)?.name
+                    if (!name) {
+                        return
+                    }
                     const profile = {
                         options: {
                             ...tab.sessionOptions,
                             cwd: await tab.session?.getWorkingDirectory() ?? tab.sessionOptions.cwd,
                         },
-                        name: tab.sessionOptions.command,
+                        name,
                         type: 'local',
                     }
                     this.config.store.profiles = [
