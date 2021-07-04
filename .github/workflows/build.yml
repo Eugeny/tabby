@@ -1,8 +1,38 @@
 name: Package-Build
 on: [push, pull_request]
 jobs:
+  Lint:
+    runs-on: macos-11.0
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2.3.4
+      with:
+        fetch-depth: 0
+
+    - name: Installing Node
+      uses: actions/setup-node@v2.1.5
+      with:
+        node-version: 14
+
+    - name: Install deps
+      run: |
+        npm i -g yarn@1.19.1
+        cd app
+        yarn
+        cd ..
+        rm app/node_modules/.yarn-integrity
+        yarn
+
+    - name: Build typings
+      run: yarn run build:typings
+
+    - name: Lint
+      run: yarn run lint
+
   macOS-Build:
     runs-on: macos-11.0
+    needs: Lint
     strategy:
       matrix:
         include:
@@ -100,6 +130,7 @@ jobs:
 
   Linux-Build:
     runs-on: ubuntu-18.04
+    needs: Lint
 
     steps:
     - name: Checkout
@@ -205,6 +236,7 @@ jobs:
 
   Windows-Build:
     runs-on: windows-2016
+    needs: Lint
 
     steps:
     - name: Checkout
