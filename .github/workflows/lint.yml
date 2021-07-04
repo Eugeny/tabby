@@ -1,8 +1,8 @@
 name: Lint
 on: [push, pull_request]
 jobs:
-  build:
-    runs-on: macOS-latest
+  Lint:
+    runs-on: macos-11.0
 
     steps:
     - name: Checkout

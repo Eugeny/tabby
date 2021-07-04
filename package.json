@@ -67,7 +67,7 @@
     "**/graceful-fs": "^4.2.4"
   },
   "scripts": {
-    "build": "npm run build:typings && webpack --color --config app/webpack.main.config.js && webpack --color --config app/webpack.config.js && webpack --color --config tabby-core/webpack.config.js && webpack --color --config tabby-settings/webpack.config.js && webpack --color --config tabby-terminal/webpack.config.js && webpack --color --config tabby-local/webpack.config.js && webpack --color --config tabby-plugin-manager/webpack.config.js && webpack --color --config tabby-community-color-schemes/webpack.config.js && webpack --color --config tabby-ssh/webpack.config.js && webpack --color --config tabby-serial/webpack.config.js && webpack --color --config tabby-electron/webpack.config.js && webpack --color --config tabby-web/webpack.config.js && webpack --color --config web/webpack.config.js",
+    "build": "npm run build:typings && node scripts/build-modules.js",
     "build:typings": "node scripts/build-typings.js",
     "watch": "cross-env TABBY_DEV=1 webpack --progress --color --watch",
     "start": "cross-env TABBY_DEV=1 electron app --debug --inspect",
