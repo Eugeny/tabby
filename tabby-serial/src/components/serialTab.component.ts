@@ -5,7 +5,6 @@ import { Component, Injector } from '@angular/core'
 import { first } from 'rxjs/operators'
 import { SelectorService } from 'tabby-core'
 import { BaseTerminalTabComponent } from 'tabby-terminal'
-import { SerialService } from '../services/serial.service'
 import { SerialSession, BAUD_RATES, SerialProfile } from '../api'
 
 /** @hidden */
@@ -19,7 +18,6 @@ export class SerialTabComponent extends BaseTerminalTabComponent {
     profile?: SerialProfile
     session: SerialSession|null = null
     serialPort: any
-    private serialService: SerialService
 
     // eslint-disable-next-line @typescript-eslint/no-useless-constructor
     constructor (
@@ -27,7 +25,6 @@ export class SerialTabComponent extends BaseTerminalTabComponent {
         private selector: SelectorService,
     ) {
         super(injector)
-        this.serialService = injector.get(SerialService)
     }
 
     ngOnInit () {
@@ -67,7 +64,7 @@ export class SerialTabComponent extends BaseTerminalTabComponent {
             return
         }
 
-        const session = this.serialService.createSession(this.profile)
+        const session = new SerialSession(this.injector, this.profile)
         this.setSession(session)
         this.write(`Connecting to `)
 
@@ -81,7 +78,7 @@ export class SerialTabComponent extends BaseTerminalTabComponent {
         spinner.start()
 
         try {
-            this.serialPort = await this.serialService.connectSession(this.session!)
+            await this.session!.start()
             spinner.stop(true)
             session.emitServiceMessage('Port opened')
         } catch (e) {
@@ -89,7 +86,6 @@ export class SerialTabComponent extends BaseTerminalTabComponent {
             this.write(colors.black.bgRed(' X ') + ' ' + colors.red(e.message) + '\r\n')
             return
         }
-        await this.session!.start()
         this.session!.resize(this.size.columns, this.size.rows)
     }
 

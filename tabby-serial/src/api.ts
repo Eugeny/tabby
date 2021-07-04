@@ -1,7 +1,8 @@
 import stripAnsi from 'strip-ansi'
-import { SerialPort } from 'serialport'
-import { Logger, Profile } from 'tabby-core'
+import SerialPort from 'serialport'
+import { Logger, LogService, NotificationsService, Profile } from 'tabby-core'
 import { Subject, Observable } from 'rxjs'
+import { Injector, NgZone } from '@angular/core'
 import { BaseSession, StreamProcessingOptions, TerminalStreamProcessor } from 'tabby-terminal'
 
 export interface LoginScript {
@@ -46,9 +47,16 @@ export class SerialSession extends BaseSession {
     get serviceMessage$ (): Observable<string> { return this.serviceMessage }
     private serviceMessage = new Subject<string>()
     private streamProcessor: TerminalStreamProcessor
+    private zone: NgZone
+    private notifications: NotificationsService
 
-    constructor (public profile: SerialProfile) {
+    constructor (injector: Injector, public profile: SerialProfile) {
         super()
+
+        this.logger = injector.get(LogService).create(`serial-${profile.options.port}`)
+        this.zone = injector.get(NgZone)
+        this.notifications = injector.get(NotificationsService)
+
         this.scripts = profile.options.scripts ?? []
         this.streamProcessor = new TerminalStreamProcessor(profile.options)
         this.streamProcessor.outputToSession$.subscribe(data => {
@@ -102,6 +110,46 @@ export class SerialSession extends BaseSession {
     }
 
     async start (): Promise<void> {
+        this.serial = new SerialPort(this.profile.options.port, {
+            autoOpen: false,
+            baudRate: parseInt(this.profile.options.baudrate as any),
+            dataBits: this.profile.options.databits ?? 8,
+            stopBits: this.profile.options.stopbits ?? 1,
+            parity: this.profile.options.parity ?? 'none',
+            rtscts: this.profile.options.rtscts ?? false,
+            xon: this.profile.options.xon ?? false,
+            xoff: this.profile.options.xoff ?? false,
+            xany: this.profile.options.xany ?? false,
+        })
+        let connected = false
+        await new Promise(async (resolve, reject) => {
+            this.serial.on('open', () => {
+                connected = true
+                this.zone.run(resolve)
+            })
+            this.serial.on('error', error => {
+                this.zone.run(() => {
+                    if (connected) {
+                        this.notifications.error(error.toString())
+                    } else {
+                        reject(error)
+                    }
+                    this.destroy()
+                })
+            })
+            this.serial.on('close', () => {
+                this.emitServiceMessage('Port closed')
+                this.destroy()
+            })
+
+            try {
+                this.serial.open()
+            } catch (e) {
+                this.notifications.error(e.message)
+                reject(e)
+            }
+        })
+
         this.open = true
 
         this.serial.on('readable', () => {

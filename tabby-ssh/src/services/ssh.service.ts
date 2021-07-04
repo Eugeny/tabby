@@ -32,12 +32,6 @@ export class SSHService {
         }
     }
 
-    createSession (profile: SSHProfile): SSHSession {
-        const session = new SSHSession(this.injector, profile)
-        session.logger = this.log.create(`ssh-${profile.options.host}-${profile.options.port}`)
-        return session
-    }
-
     async connectSession (session: SSHSession): Promise<void> {
         const log = (s: any) => session.emitServiceMessage(s)
 

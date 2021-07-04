@@ -10,7 +10,7 @@ import stripAnsi from 'strip-ansi'
 import socksv5 from 'socksv5'
 import { Injector, NgZone } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
-import { ConfigService, FileProvidersService, HostAppService, Logger, NotificationsService, Platform, PlatformService, wrapPromise, PromptModalComponent, Profile } from 'tabby-core'
+import { ConfigService, FileProvidersService, HostAppService, Logger, NotificationsService, Platform, PlatformService, wrapPromise, PromptModalComponent, Profile, LogService } from 'tabby-core'
 import { BaseSession } from 'tabby-terminal'
 import { Server, Socket, createServer, createConnection } from 'net'
 import { Client, ClientChannel, SFTPWrapper } from 'ssh2'
@@ -287,6 +287,8 @@ export class SSHSession extends BaseSession {
         public profile: SSHProfile,
     ) {
         super()
+        this.logger = injector.get(LogService).create(`ssh-${profile.options.host}-${profile.options.port}`)
+
         this.passwordStorage = injector.get(PasswordStorageService)
         this.ngbModal = injector.get(NgbModal)
         this.hostApp = injector.get(HostAppService)
