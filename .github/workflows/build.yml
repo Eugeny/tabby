@@ -290,11 +290,11 @@ jobs:
     - uses: actions/upload-artifact@master
       name: Upload installer
       with:
-        name: Installer
+        name: Windows installer
         path: artifact-setup
 
     - uses: actions/upload-artifact@master
       name: Upload portable build
       with:
-        name: Portable build
+        name: Windows portable build
         path: artifact-portable
