@@ -51,6 +51,7 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
     async newProfile (base?: Profile): Promise<void> {
         if (!base) {
             const profiles = [...this.templateProfiles, ...this.builtinProfiles, ...this.profiles]
+            profiles.sort((a, b) => (a.weight ?? 0) - (b.weight ?? 0))
             base = await this.selector.show(
                 'Select a base profile to use as a template',
                 profiles.map(p => ({
@@ -196,6 +197,7 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
         return {
             ssh: 'secondary',
             serial: 'success',
+            telnet: 'info',
         }[this.profilesService.providerForProfile(profile)?.id ?? ''] ?? 'warning'
     }
 }

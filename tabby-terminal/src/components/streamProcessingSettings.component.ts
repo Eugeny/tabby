@@ -12,6 +12,7 @@ export class StreamProcessingSettingsComponent {
 
     inputModes = [
         { key: null, name: 'Normal', description: 'Input is sent as you type' },
+        { key: 'local-echo', name: 'Local echo', description: 'Immediately echoes your input locally' },
         { key: 'readline', name: 'Line by line', description: 'Line editor, input is sent after you press Enter' },
         { key: 'readline-hex', name: 'Hexadecimal', description: 'Send bytes by typing in hex values' },
     ]

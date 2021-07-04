@@ -1,7 +1,7 @@
 {
-  "name": "tabby-ssh",
+  "name": "tabby-telnet",
   "version": "1.0.144",
-  "description": "SSH connections for Tabby",
+  "description": "Telnet/socket connections for Tabby",
   "keywords": [
     "tabby-builtin-plugin"
   ],
@@ -9,29 +9,16 @@
   "typings": "typings/index.d.ts",
   "scripts": {
     "build": "webpack --progress --color",
-    "watch": "webpack --progress --color --watch",
-    "postinstall": "run-script-os",
-    "postinstall:darwin:linux": "exit",
-    "postinstall:win32": "xcopy /i /y node_modules\\ssh2\\util\\pagent.exe util\\"
+    "watch": "webpack --progress --color --watch"
   },
   "files": [
-    "dist",
-    "util/pagent.exe"
+    "typings"
   ],
   "author": "Eugene Pankov",
   "license": "MIT",
   "devDependencies": {
     "@types/node": "14.14.31",
-    "@types/ssh2": "^0.5.46",
-    "ansi-colors": "^4.1.1",
-    "cli-spinner": "^0.2.10",
-    "ssh2": "^1.1.0",
-    "sshpk": "Eugeny/node-sshpk#89ed17dfae425a8b629873c8337e77d26838c04f",
-    "strip-ansi": "^7.0.0"
-  },
-  "dependencies": {
-    "run-script-os": "^1.1.3",
-    "socksv5": "^0.0.6"
+    "cli-spinner": "^0.2.10"
   },
   "peerDependencies": {
     "@angular/animations": "^9.1.9",

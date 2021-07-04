@@ -19,18 +19,6 @@
             .description Toggles the Tabby window visibility
         toggle([(ngModel)]='enableGlobalHotkey')
 
-    .form-line
-        .header
-            .title Enable #[strong SSH] plugin
-            .description Adds an SSH connection manager UI to Tabby
-        toggle([(ngModel)]='enableSSH')
-
-    .form-line
-        .header
-            .title Enable #[strong Serial] plugin
-            .description Allows attaching Tabby to serial ports
-        toggle([(ngModel)]='enableSerial')
-
 
     .text-center.mt-5
         button.btn.btn-primary((click)='closeAndDisable()') Close and never show again

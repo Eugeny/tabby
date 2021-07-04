@@ -49,8 +49,6 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
 
         this.logger = this.log.create('terminalTab')
 
-        this.enableDynamicTitle = !this.profile.disableDynamicTitle
-
         this.subscribeUntilDestroyed(this.hotkeys.matchedHotkey, hotkey => {
             if (!this.hasFocus) {
                 return
@@ -82,10 +80,6 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
         })
 
         super.ngOnInit()
-
-        setImmediate(() => {
-            this.setTitle(this.profile!.name)
-        })
     }
 
     async setupOneSession (session: SSHSession): Promise<void> {

@@ -91,7 +91,6 @@ export class WebPlatformService extends PlatformService {
     }
 
     async showMessageBox (options: MessageBoxOptions): Promise<MessageBoxResult> {
-        console.log(options)
         const modal = this.ngbModal.open(MessageBoxModalComponent, {
             backdrop: 'static',
         })

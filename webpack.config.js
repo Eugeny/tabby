@@ -1,16 +1,13 @@
-module.exports = [
-    require('./app/webpack.config.js'),
-    require('./app/webpack.main.config.js'),
-    require('./tabby-core/webpack.config.js'),
-    require('./tabby-electron/webpack.config.js'),
-    require('./tabby-web/webpack.config.js'),
-    require('./tabby-settings/webpack.config.js'),
-    require('./tabby-terminal/webpack.config.js'),
-    require('./tabby-local/webpack.config.js'),
-    require('./tabby-community-color-schemes/webpack.config.js'),
-    require('./tabby-plugin-manager/webpack.config.js'),
-    require('./tabby-ssh/webpack.config.js'),
-    require('./tabby-serial/webpack.config.js'),
-    require('./tabby-web/webpack.config.js'),
-    require('./web/webpack.config.js'),
+const log = require('npmlog')
+const { builtinPlugins } = require('./scripts/vars')
+
+const paths = [
+    './app/webpack.config.js',
+    './app/webpack.main.config.js',
+    './web/webpack.config.js',
+    ...builtinPlugins.map(x => `./${x}/webpack.config.js`),
 ]
+
+paths.forEach(x => log.info(`Using config: ${x}`))
+
+module.exports = paths.map(x => require(x))

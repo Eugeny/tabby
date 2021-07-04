@@ -1,0 +1,16 @@
+.form-group
+    label Host
+    input.form-control(
+        type='text',
+        [(ngModel)]='profile.options.host',
+    )
+
+.form-group
+    label Port
+    input.form-control(
+        type='number',
+        placeholder='22',
+        [(ngModel)]='profile.options.port',
+    )
+
+stream-processing-settings([options]='profile.options')

@@ -284,7 +284,7 @@ export class ConfigService {
             config.version = 2
         }
         if (config.version < 3) {
-            delete config.ssh.recentConnections
+            delete config.ssh?.recentConnections
             for (const c of config.ssh?.connections ?? []) {
                 const p = {
                     id: `ssh:${uuidv4()}`,

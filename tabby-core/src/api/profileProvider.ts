@@ -14,6 +14,7 @@ export interface Profile {
     color?: string
     disableDynamicTitle?: boolean
 
+    weight?: number
     isBuiltin?: boolean
     isTemplate?: boolean
 }

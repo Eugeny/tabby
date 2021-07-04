@@ -11,8 +11,6 @@ import { HostWindowService } from '../api/hostWindow'
     styles: [require('./welcomeTab.component.scss')],
 })
 export class WelcomeTabComponent extends BaseTabComponent {
-    enableSSH = false
-    enableSerial = false
     enableGlobalHotkey = true
 
     constructor (
@@ -21,19 +19,11 @@ export class WelcomeTabComponent extends BaseTabComponent {
     ) {
         super()
         this.setTitle('Welcome')
-        this.enableSSH = !config.store.pluginBlacklist.includes('ssh')
-        this.enableSerial = !config.store.pluginBlacklist.includes('serial')
     }
 
     closeAndDisable () {
         this.config.store.enableWelcomeTab = false
         this.config.store.pluginBlacklist = []
-        if (!this.enableSSH) {
-            this.config.store.pluginBlacklist.push('ssh')
-        }
-        if (!this.enableSerial) {
-            this.config.store.pluginBlacklist.push('serial')
-        }
         if (!this.enableGlobalHotkey) {
             this.config.store.hotkeys['toggle-window'] = []
         }

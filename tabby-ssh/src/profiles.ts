@@ -31,6 +31,7 @@ export class SSHProfilesService extends ProfileProvider {
             },
             isBuiltin: true,
             isTemplate: true,
+            weight: -1,
         }]
     }
 

@@ -7,7 +7,7 @@ import { debounce } from 'rxjs/operators'
 import { PassThrough, Readable, Writable } from 'stream'
 import { ReadLine, createInterface as createReadline, clearLine } from 'readline'
 
-export type InputMode = null | 'readline' | 'readline-hex' // eslint-disable-line @typescript-eslint/no-type-alias
+export type InputMode = null | 'local-echo' | 'readline' | 'readline-hex' // eslint-disable-line @typescript-eslint/no-type-alias
 export type OutputMode = null | 'hex' // eslint-disable-line @typescript-eslint/no-type-alias
 export type NewlineMode = null | 'cr' | 'lf' | 'crlf' // eslint-disable-line @typescript-eslint/no-type-alias
 
@@ -76,6 +76,9 @@ export class TerminalStreamProcessor {
     }
 
     feedFromTerminal (data: Buffer): void {
+        if (this.options.inputMode === 'local-echo') {
+            this.outputToTerminal.next(this.replaceNewlines(data, 'crlf'))
+        }
         if (this.options.inputMode?.startsWith('readline')) {
             this.inputReadlineInStream.write(data)
         } else {

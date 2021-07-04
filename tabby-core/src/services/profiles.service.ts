@@ -18,9 +18,9 @@ export class ProfilesService {
         if (params) {
             const tab = this.app.openNewTab(params)
             ;(this.app.getParentTab(tab) ?? tab).color = profile.color ?? null
+            tab.setTitle(profile.name)
             if (profile.disableDynamicTitle) {
                 tab['enableDynamicTitle'] = false
-                tab.setTitle(profile.name)
             }
             return tab
         }

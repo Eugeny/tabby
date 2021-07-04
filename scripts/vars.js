@@ -5,28 +5,29 @@ const childProcess = require('child_process')
 
 const electronInfo = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../node_modules/electron/package.json')))
 
-exports.version = childProcess.execSync('git describe --tags', {encoding:'utf-8'})
+exports.version = childProcess.execSync('git describe --tags', { encoding:'utf-8' })
 exports.version = exports.version.substring(1).trim()
 exports.version = exports.version.replace('-', '-c')
 
 if (exports.version.includes('-c')) {
-  exports.version = semver.inc(exports.version, 'prepatch').replace('-0', '-nightly.0')
+    exports.version = semver.inc(exports.version, 'prepatch').replace('-0', '-nightly.0')
 }
 
 exports.builtinPlugins = [
-  'tabby-core',
-  'tabby-settings',
-  'tabby-terminal',
-  'tabby-electron',
-  'tabby-local',
-  'tabby-web',
-  'tabby-community-color-schemes',
-  'tabby-plugin-manager',
-  'tabby-ssh',
-  'tabby-serial',
+    'tabby-core',
+    'tabby-settings',
+    'tabby-terminal',
+    'tabby-electron',
+    'tabby-local',
+    'tabby-web',
+    'tabby-community-color-schemes',
+    'tabby-plugin-manager',
+    'tabby-ssh',
+    'tabby-serial',
+    'tabby-telnet',
 ]
 exports.bundledModules = [
-  '@angular',
-  '@ng-bootstrap',
+    '@angular',
+    '@ng-bootstrap',
 ]
 exports.electronVersion = electronInfo.version
