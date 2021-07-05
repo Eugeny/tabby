@@ -46,7 +46,7 @@ export class TelnetSession extends BaseSession {
         return new Promise((resolve, reject) => {
             this.socket.on('error', err => {
                 this.emitServiceMessage(colors.bgRed.black(' X ') + ` Socket error: ${err as any}`)
-                reject()
+                reject(err)
                 this.destroy()
             })
             this.socket.on('close', () => {
