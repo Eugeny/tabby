@@ -406,6 +406,15 @@
       "contributions": [
         "design"
       ]
+    },
+    {
+      "login": "logicmachine123",
+      "name": "Logic Machine",
+      "avatar_url": "https://avatars.githubusercontent.com/u/63876444?v=4",
+      "profile": "https://git.io/JnP49",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,

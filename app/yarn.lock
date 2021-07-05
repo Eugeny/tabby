@@ -65,12 +65,12 @@
     update-notifier "^2.2.0"
     yargs "^8.0.2"
 
-"@ng-bootstrap/ng-bootstrap@^9.1.1":
-  version "9.1.1"
-  resolved "https://registry.yarnpkg.com/@ng-bootstrap/ng-bootstrap/-/ng-bootstrap-9.1.1.tgz#5a629915ea93b4f9b4d61854cb6862d99a7c9ca4"
-  integrity sha512-m31qKJylYueXm+a3YEoOfnrJYR1lovb7WgaQwvXQz3dDmtaYRX4n8aPeCMp1VrI7hFfFITKWo0GxPaI3JIFk4w==
+"@ng-bootstrap/ng-bootstrap@^10.0.0":
+  version "10.0.0"
+  resolved "https://registry.yarnpkg.com/@ng-bootstrap/ng-bootstrap/-/ng-bootstrap-10.0.0.tgz#6022927bac7029bdd12d7f1e10b5b20074db06dc"
+  integrity sha512-Sz+QaxjuyJYJ+zyUbf0TevgcgVesCPQiiFiggEzxKjzY5R+Hvq3YgryLdXf2r/ryePL+C3FXCcmmKpTM5bfczQ==
   dependencies:
-    tslib "^2.0.0"
+    tslib "^2.1.0"
 
 "@serialport/binding-abstract@^9.0.7":
   version "9.0.7"
