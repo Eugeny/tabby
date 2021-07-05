@@ -6,6 +6,10 @@ import { HotkeyDescription, HotkeyProvider } from 'tabby-core'
 export class SSHHotkeyProvider extends HotkeyProvider {
     hotkeys: HotkeyDescription[] = [
         {
+            id: 'ssh-profile-selector',
+            name: 'Show SSH profile selector',
+        },
+        {
             id: 'restart-ssh-session',
             name: 'Restart current SSH session',
         },

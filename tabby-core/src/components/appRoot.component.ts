@@ -80,7 +80,7 @@ export class AppRootComponent {
         this.logger = log.create('main')
         this.logger.info('v', platform.getAppVersion())
 
-        this.hotkeys.matchedHotkey.subscribe((hotkey: string) => {
+        this.hotkeys.hotkey$.subscribe((hotkey: string) => {
             if (hotkey.startsWith('tab-')) {
                 const index = parseInt(hotkey.split('-')[1])
                 if (index <= this.app.tabs.length) {

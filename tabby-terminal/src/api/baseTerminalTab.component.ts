@@ -174,7 +174,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
         this.logger = this.log.create('baseTerminalTab')
         this.setTitle('Terminal')
 
-        this.subscribeUntilDestroyed(this.hotkeys.matchedHotkey, async hotkey => {
+        this.subscribeUntilDestroyed(this.hotkeys.hotkey$, async hotkey => {
             if (!this.hasFocus) {
                 return
             }

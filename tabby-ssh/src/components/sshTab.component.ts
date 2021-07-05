@@ -41,7 +41,7 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
 
         this.logger = this.log.create('terminalTab')
 
-        this.subscribeUntilDestroyed(this.hotkeys.matchedHotkey, hotkey => {
+        this.subscribeUntilDestroyed(this.hotkeys.hotkey$, hotkey => {
             if (!this.hasFocus) {
                 return
             }

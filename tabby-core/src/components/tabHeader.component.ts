@@ -43,7 +43,7 @@ export class TabHeaderComponent extends BaseComponent {
         @Optional() @Inject(TabContextMenuItemProvider) protected contextMenuProviders: TabContextMenuItemProvider[],
     ) {
         super()
-        this.subscribeUntilDestroyed(this.hotkeys.matchedHotkey, (hotkey) => {
+        this.subscribeUntilDestroyed(this.hotkeys.hotkey$, (hotkey) => {
             if (this.app.activeTab === this.tab) {
                 if (hotkey === 'rename-tab') {
                     this.showRenameTabModal()

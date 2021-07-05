@@ -33,7 +33,7 @@ export class TelnetTabComponent extends BaseTerminalTabComponent {
 
         this.logger = this.log.create('telnetTab')
 
-        this.subscribeUntilDestroyed(this.hotkeys.matchedHotkey, hotkey => {
+        this.subscribeUntilDestroyed(this.hotkeys.hotkey$, hotkey => {
             if (this.hasFocus && hotkey === 'restart-telnet-session') {
                 this.reconnect()
             }

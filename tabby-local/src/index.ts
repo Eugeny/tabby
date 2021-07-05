@@ -116,7 +116,7 @@ export default class LocalTerminalModule { // eslint-disable-line @typescript-es
         dockMenu: DockMenuService,
         config: ConfigService,
     ) {
-        hotkeys.matchedHotkey.subscribe(async (hotkey) => {
+        hotkeys.hotkey$.subscribe(async (hotkey) => {
             if (hotkey === 'new-tab') {
                 terminal.openTab()
             }

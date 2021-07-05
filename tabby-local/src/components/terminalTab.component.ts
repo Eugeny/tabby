@@ -30,7 +30,7 @@ export class TerminalTabComponent extends BaseTerminalTabComponent {
 
         const isConPTY = isWindowsBuild(WIN_BUILD_CONPTY_SUPPORTED) && this.config.store.terminal.useConPTY
 
-        this.subscribeUntilDestroyed(this.hotkeys.matchedHotkey, hotkey => {
+        this.subscribeUntilDestroyed(this.hotkeys.hotkey$, hotkey => {
             if (!this.hasFocus) {
                 return
             }

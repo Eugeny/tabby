@@ -2,6 +2,7 @@ import { Injectable, Inject } from '@angular/core'
 import { NewTabParameters } from './tabs.service'
 import { BaseTabComponent } from '../components/baseTab.component'
 import { Profile, ProfileProvider } from '../api/profileProvider'
+import { SelectorOption } from '../api/selector'
 import { AppService } from './app.service'
 import { ConfigService } from './config.service'
 
@@ -50,5 +51,13 @@ export class ProfilesService {
 
     providerForProfile (profile: Profile): ProfileProvider|null {
         return this.profileProviders.find(x => x.id === profile.type) ?? null
+    }
+
+    selectorOptionForProfile <T> (profile: Profile): SelectorOption<T> {
+        return {
+            icon: profile.icon,
+            name: profile.group ? `${profile.group} / ${profile.name}` : profile.name,
+            description: this.providerForProfile(profile)?.getDescription(profile),
+        }
     }
 }

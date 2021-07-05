@@ -3,6 +3,7 @@ import { Observable, Subject } from 'rxjs'
 import { HotkeyDescription, HotkeyProvider } from '../api/hotkeyProvider'
 import { stringifyKeySequence, EventData } from './hotkeys.util'
 import { ConfigService } from './config.service'
+import { deprecate } from 'util'
 
 export interface PartialHotkeyMatch {
     id: string
@@ -53,6 +54,7 @@ export class HotkeysService {
 
         // deprecated
         this.hotkey$.subscribe(h => this.matchedHotkey.emit(h))
+        this.matchedHotkey.subscribe = deprecate(this.matchedHotkey.subscribe, 'matchedHotkey is deprecated, use hotkey$')
     }
 
     /**

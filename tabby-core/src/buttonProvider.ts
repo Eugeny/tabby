@@ -7,10 +7,10 @@ import { HostAppService, Platform } from './api/hostApp'
 import { Profile } from './api/profileProvider'
 import { ConfigService } from './services/config.service'
 import { SelectorOption } from './api/selector'
+import { HotkeysService } from './services/hotkeys.service'
 import { ProfilesService } from './services/profiles.service'
 import { AppService } from './services/app.service'
 import { NotificationsService } from './services/notifications.service'
-import { HotkeysService } from 'api'
 
 /** @hidden */
 @Injectable()
@@ -35,12 +35,14 @@ export class ButtonProvider extends ToolbarButtonProvider {
     async activate () {
         const recentProfiles: Profile[] = this.config.store.recentProfiles
 
-        const getProfileOptions = (profile): SelectorOption<void> => ({
-            icon: recentProfiles.includes(profile) ? 'fas fa-history' : profile.icon,
-            name: profile.group ? `${profile.group} / ${profile.name}` : profile.name,
-            description: this.profilesServices.providerForProfile(profile)?.getDescription(profile),
-            callback: () => this.launchProfile(profile),
-        })
+        const getProfileOptions = (profile): SelectorOption<void> => {
+            const result: SelectorOption<void> = this.profilesServices.selectorOptionForProfile(profile)
+            if (recentProfiles.includes(profile)) {
+                result.icon = 'fas fa-history'
+            }
+            result.callback = () => this.launchProfile(profile)
+            return result
+        }
 
         let options = recentProfiles.map(getProfileOptions)
         if (recentProfiles.length) {

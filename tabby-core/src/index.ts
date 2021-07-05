@@ -135,7 +135,7 @@ export default class AppModule { // eslint-disable-line @typescript-eslint/no-ex
             console.error('Unhandled exception:', err)
         })
 
-        hotkeys.matchedHotkey.subscribe(async (hotkey) => {
+        hotkeys.hotkey$.subscribe(async (hotkey) => {
             if (hotkey.startsWith('profile.')) {
                 const id = hotkey.split('.')[1]
                 const profile = (await profilesService.getProfiles()).find(x => x.id === id)

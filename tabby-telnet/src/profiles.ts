@@ -8,7 +8,7 @@ import { TelnetProfile } from './session'
 export class TelnetProfilesService extends ProfileProvider {
     id = 'telnet'
     name = 'Telnet'
-    supportsQuickConnect = true
+    supportsQuickConnect = false
     settingsComponent = TelnetProfileSettingsComponent
 
     async getBuiltinProfiles (): Promise<TelnetProfile[]> {
@@ -41,12 +41,7 @@ export class TelnetProfilesService extends ProfileProvider {
         return profile.options.host ? `${profile.options.host}:${profile.options.port}` : ''
     }
 
-    quickConnect (query: string): TelnetProfile|null {
-        if (!query.startsWith('telnet:')) {
-            return null
-        }
-        query = query.substring('telnet:'.length)
-
+    quickConnect (query: string): TelnetProfile {
         let host = query
         let port = 23
         if (host.includes('[')) {

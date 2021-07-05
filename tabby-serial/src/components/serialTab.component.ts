@@ -29,7 +29,7 @@ export class SerialTabComponent extends BaseTerminalTabComponent {
     ngOnInit () {
         this.logger = this.log.create('terminalTab')
 
-        this.subscribeUntilDestroyed(this.hotkeys.matchedHotkey, hotkey => {
+        this.subscribeUntilDestroyed(this.hotkeys.hotkey$, hotkey => {
             if (!this.hasFocus) {
                 return
             }

@@ -4,8 +4,8 @@ import { FormsModule } from '@angular/forms'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { ToastrModule } from 'ngx-toastr'
 import { NgxFilesizeModule } from 'ngx-filesize'
-import TabbyCoreModule, { ConfigProvider, TabRecoveryProvider, HotkeyProvider, TabContextMenuItemProvider, ProfileProvider } from 'tabby-core'
-import { SettingsTabProvider } from 'tabby-settings'
+import TabbyCoreModule, { ConfigProvider, TabRecoveryProvider, HotkeyProvider, TabContextMenuItemProvider, ProfileProvider, HotkeysService, ProfilesService, AppService, SelectorService, SelectorOption } from 'tabby-core'
+import { SettingsTabComponent, SettingsTabProvider } from 'tabby-settings'
 import TabbyTerminalModule from 'tabby-terminal'
 
 import { SSHProfileSettingsComponent } from './components/sshProfileSettings.component'
@@ -40,7 +40,7 @@ import { SSHProfilesService } from './profiles'
         { provide: TabRecoveryProvider, useClass: RecoveryProvider, multi: true },
         { provide: HotkeyProvider, useClass: SSHHotkeyProvider, multi: true },
         { provide: TabContextMenuItemProvider, useClass: SFTPContextMenu, multi: true },
-        { provide: ProfileProvider, useClass: SSHProfilesService, multi: true },
+        { provide: ProfileProvider, useExisting: SSHProfilesService, multi: true },
     ],
     entryComponents: [
         SSHProfileSettingsComponent,
@@ -59,4 +59,49 @@ import { SSHProfilesService } from './profiles'
         SFTPPanelComponent,
     ],
 })
-export default class SSHModule { } // eslint-disable-line @typescript-eslint/no-extraneous-class
+export default class SSHModule {
+    constructor (
+        hotkeys: HotkeysService,
+        private app: AppService,
+        private selector: SelectorService,
+        private profilesService: ProfilesService,
+        private sshProfiles: SSHProfilesService,
+    ) {
+        hotkeys.hotkey$.subscribe(hotkey => {
+            if (hotkey === 'ssh-profile-selector') {
+                this.showSelector()
+            }
+        })
+    }
+
+    async showSelector (): Promise<void> {
+        let profiles = await this.profilesService.getProfiles()
+
+        profiles = profiles.filter(x => !x.isTemplate && x.type === 'ssh')
+
+        const options: SelectorOption<void>[] = profiles.map(p => ({
+            ...this.profilesService.selectorOptionForProfile(p),
+            callback: () => this.profilesService.openNewTabForProfile(p),
+        }))
+
+        options.push({
+            name: 'Manage profiles',
+            icon: 'fas fa-window-restore',
+            callback: () => this.app.openNewTabRaw({
+                type: SettingsTabComponent,
+                inputs: { activeTab: 'profiles' },
+            }),
+        })
+
+        options.push({
+            name: 'Quick connect',
+            freeInputPattern: 'Connect to "%s"...',
+            icon: 'fas fa-arrow-right',
+            callback: query => this.profilesService.openNewTabForProfile(
+                this.sshProfiles.quickConnect(query)
+            ),
+        })
+
+        await this.selector.show('Select an SSH profile', options)
+    }
+}
