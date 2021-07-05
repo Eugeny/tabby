@@ -1,6 +1,5 @@
 import { Observable, Subject } from 'rxjs'
 
-
 /**
  * A session object for a [[BaseTerminalTabComponent]]
  * Extend this to implement custom I/O and process management for your terminal tab

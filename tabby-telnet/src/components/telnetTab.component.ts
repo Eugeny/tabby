@@ -1,5 +1,4 @@
 import colors from 'ansi-colors'
-import { Spinner } from 'cli-spinner'
 import { Component, Injector } from '@angular/core'
 import { first } from 'rxjs/operators'
 import { Platform, RecoveryToken } from 'tabby-core'
@@ -19,13 +18,6 @@ export class TelnetTabComponent extends BaseTerminalTabComponent {
     profile?: TelnetProfile
     session: TelnetSession|null = null
     private reconnectOffered = false
-    private spinner = new Spinner({
-        text: 'Connecting',
-        stream: {
-            write: x => this.write(x),
-        },
-    })
-    private spinnerActive = false
 
     // eslint-disable-next-line @typescript-eslint/no-useless-constructor
     constructor (
@@ -84,13 +76,11 @@ export class TelnetTabComponent extends BaseTerminalTabComponent {
         this.setSession(session)
 
         try {
-            this.startSpinner()
+            this.startSpinner('Connecting')
 
             this.attachSessionHandler(session.serviceMessage$, msg => {
-                this.pauseSpinner(() => {
-                    this.write(`\r${colors.black.bgWhite(' Telnet ')} ${msg}\r\n`)
-                    session.resize(this.size.columns, this.size.rows)
-                })
+                this.write(`\r${colors.black.bgWhite(' Telnet ')} ${msg}\r\n`)
+                session.resize(this.size.columns, this.size.rows)
             })
 
             try {
@@ -132,25 +122,5 @@ export class TelnetTabComponent extends BaseTerminalTabComponent {
                 defaultId: 1,
             }
         )).response === 1
-    }
-
-    private startSpinner () {
-        this.spinner.setSpinnerString(6)
-        this.spinner.start()
-        this.spinnerActive = true
-    }
-
-    private stopSpinner () {
-        this.spinner.stop(true)
-        this.spinnerActive = false
-    }
-
-    private pauseSpinner (work: () => void) {
-        const wasActive = this.spinnerActive
-        this.stopSpinner()
-        work()
-        if (wasActive) {
-            this.startSpinner()
-        }
     }
 }

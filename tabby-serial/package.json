@@ -18,8 +18,7 @@
   "license": "MIT",
   "devDependencies": {
     "@types/node": "14.14.14",
-    "ansi-colors": "^4.1.1",
-    "cli-spinner": "^0.2.10"
+    "ansi-colors": "^4.1.1"
   },
   "peerDependencies": {
     "@angular/animations": "^9.1.9",

@@ -1,5 +1,6 @@
 import { Observable, Subject, Subscription } from 'rxjs'
 import { first } from 'rxjs/operators'
+import { Spinner } from 'cli-spinner'
 import colors from 'ansi-colors'
 import { NgZone, OnInit, OnDestroy, Injector, ViewChild, HostBinding, Input, ElementRef, InjectFlags } from '@angular/core'
 import { trigger, transition, style, animate, AnimationTriggerMetadata } from '@angular/animations'
@@ -119,6 +120,12 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
     private allFocusModeSubscription: Subscription|null = null
     private sessionHandlers = new SubscriptionContainer()
     private sessionSupportsBracketedPaste = false
+    private spinner = new Spinner({
+        stream: {
+            write: x => this.writeRaw(x),
+        },
+    })
+    private spinnerActive = false
 
     get input$ (): Observable<Buffer> {
         if (!this.frontend) {
@@ -369,6 +376,12 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
      * Feeds input into the terminal frontend
      */
     write (data: string): void {
+        this.withSpinnerPaused(() => {
+            this.writeRaw(data)
+        })
+    }
+
+    protected writeRaw (data: string): void {
         if (!this.frontend) {
             throw new Error('Frontend not ready')
         }
@@ -665,5 +678,34 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
 
     protected detachSessionHandlers (): void {
         this.sessionHandlers.cancelAll()
+    }
+
+    protected startSpinner (text?: string): void {
+        if (this.spinnerActive) {
+            return
+        }
+        if (text) {
+            this.spinner.text = text
+        }
+        this.spinner.setSpinnerString(6)
+        this.spinner.start()
+        this.spinnerActive = true
+    }
+
+    protected stopSpinner (): void {
+        if (!this.spinnerActive) {
+            return
+        }
+        this.spinner.stop(true)
+        this.spinnerActive = false
+    }
+
+    protected withSpinnerPaused (work: () => void): void {
+        const wasActive = this.spinnerActive
+        this.stopSpinner()
+        work()
+        if (wasActive) {
+            this.startSpinner()
+        }
     }
 }

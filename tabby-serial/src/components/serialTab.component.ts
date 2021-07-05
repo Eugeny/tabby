@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import colors from 'ansi-colors'
-import { Spinner } from 'cli-spinner'
 import { Component, Injector } from '@angular/core'
 import { first } from 'rxjs/operators'
 import { SelectorService } from 'tabby-core'
@@ -68,21 +67,14 @@ export class SerialTabComponent extends BaseTerminalTabComponent {
         this.setSession(session)
         this.write(`Connecting to `)
 
-        const spinner = new Spinner({
-            text: 'Connecting',
-            stream: {
-                write: x => this.write(x),
-            },
-        })
-        spinner.setSpinnerString(6)
-        spinner.start()
+        this.startSpinner('Connecting')
 
         try {
             await this.session!.start()
-            spinner.stop(true)
+            this.stopSpinner()
             session.emitServiceMessage('Port opened')
         } catch (e) {
-            spinner.stop(true)
+            this.stopSpinner()
             this.write(colors.black.bgRed(' X ') + ' ' + colors.red(e.message) + '\r\n')
             return
         }

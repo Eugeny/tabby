@@ -1,6 +1,6 @@
 import colors from 'ansi-colors'
 import { Duplex } from 'stream'
-import { Injectable, Injector, NgZone } from '@angular/core'
+import { Injectable, NgZone } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { Client } from 'ssh2'
 import { exec } from 'child_process'
@@ -16,8 +16,7 @@ export class SSHService {
     private detectedWinSCPPath: string | null
 
     private constructor (
-        private injector: Injector,
-        private log: LogService,
+        log: LogService,
         private zone: NgZone,
         private ngbModal: NgbModal,
         private passwordStorage: PasswordStorageService,

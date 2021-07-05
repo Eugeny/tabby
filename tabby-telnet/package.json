@@ -17,8 +17,7 @@
   "author": "Eugene Pankov",
   "license": "MIT",
   "devDependencies": {
-    "@types/node": "14.14.31",
-    "cli-spinner": "^0.2.10"
+    "@types/node": "14.14.31"
   },
   "peerDependencies": {
     "@angular/animations": "^9.1.9",
