@@ -68,4 +68,6 @@ hotkeys:
     - '⌘-⌥-Enter'
   close-pane:
     - '⌘-Shift-W'
+  profile-selector:
+    - '⌘-E'
 pluginBlacklist: ['ssh']

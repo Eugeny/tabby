@@ -10,6 +10,7 @@ import { SelectorOption } from './api/selector'
 import { ProfilesService } from './services/profiles.service'
 import { AppService } from './services/app.service'
 import { NotificationsService } from './services/notifications.service'
+import { HotkeysService } from 'api'
 
 /** @hidden */
 @Injectable()
@@ -21,8 +22,14 @@ export class ButtonProvider extends ToolbarButtonProvider {
         private profilesServices: ProfilesService,
         private config: ConfigService,
         private notifications: NotificationsService,
+        hotkeys: HotkeysService,
     ) {
         super()
+        hotkeys.hotkey$.subscribe(hotkey => {
+            if (hotkey === 'profile-selector') {
+                this.activate()
+            }
+        })
     }
 
     async activate () {

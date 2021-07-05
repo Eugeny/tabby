@@ -69,4 +69,6 @@ hotkeys:
   pane-maximize:
     - 'Ctrl-Alt-Enter'
   close-pane: []
+  profile-selector:
+    - 'Ctrl-Shift-T'
 pluginBlacklist: ['ssh']

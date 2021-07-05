@@ -7,6 +7,10 @@ import { HotkeyDescription, HotkeyProvider } from './api/hotkeyProvider'
 export class AppHotkeyProvider extends HotkeyProvider {
     hotkeys: HotkeyDescription[] = [
         {
+            id: 'profile-selector',
+            name: 'Show profile selector',
+        },
+        {
             id: 'toggle-fullscreen',
             name: 'Toggle fullscreen mode',
         },
