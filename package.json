@@ -9,7 +9,7 @@
     "@types/fs-extra": "^9.0.11",
     "@types/js-yaml": "^4.0.1",
     "@types/node": "15.12.5",
-    "@types/webpack-env": "^1.16.0",
+    "@types/webpack-env": "^1.16.2",
     "@typescript-eslint/eslint-plugin": "^4.25.0",
     "@typescript-eslint/parser": "^4.28.0",
     "apply-loader": "2.0.0",
