@@ -1,0 +1,38 @@
+table(*ngIf='options.scripts.length > 0')
+    tr
+        th String to expect
+        th String to be sent
+        th.pl-2 Regex
+        th.pl-2 Optional
+        th.pl-2 Actions
+    tr(*ngFor='let script of options.scripts')
+        td.pr-2
+            input.form-control(
+                type='text',
+                [(ngModel)]='script.expect'
+            )
+        td
+            input.form-control(
+                type='text',
+                [(ngModel)]='script.send'
+            )
+        td.pl-2
+            checkbox(
+                [(ngModel)]='script.isRegex',
+            )
+        td.pl-2
+            checkbox(
+                [(ngModel)]='script.optional',
+            )
+        td.pl-2
+            .input-group.flex-nowrap
+                button.btn.btn-outline-info.ml-0((click)='moveScriptUp(script)')
+                    i.fas.fa-arrow-up
+                button.btn.btn-outline-info.ml-0((click)='moveScriptDown(script)')
+                    i.fas.fa-arrow-down
+                button.btn.btn-outline-danger.ml-0((click)='deleteScript(script)')
+                    i.fas.fa-trash
+
+button.btn.btn-outline-info.mt-2((click)='addScript()')
+    i.fas.fa-plus
+    span New item

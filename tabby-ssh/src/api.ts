@@ -10,8 +10,8 @@ import stripAnsi from 'strip-ansi'
 import socksv5 from 'socksv5'
 import { Injector, NgZone } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
-import { ConfigService, FileProvidersService, HostAppService, Logger, NotificationsService, Platform, PlatformService, wrapPromise, PromptModalComponent, Profile, LogService } from 'tabby-core'
-import { BaseSession } from 'tabby-terminal'
+import { ConfigService, FileProvidersService, HostAppService, NotificationsService, Platform, PlatformService, wrapPromise, PromptModalComponent, Profile, LogService } from 'tabby-core'
+import { BaseSession, LoginScriptsOptions } from 'tabby-terminal'
 import { Server, Socket, createServer, createConnection } from 'net'
 import { Client, ClientChannel, SFTPWrapper } from 'ssh2'
 import type { FileEntry, Stats } from 'ssh2-streams'
@@ -21,13 +21,6 @@ import { PasswordStorageService } from './services/passwordStorage.service'
 import { promisify } from 'util'
 
 const WINDOWS_OPENSSH_AGENT_PIPE = '\\\\.\\pipe\\openssh-ssh-agent'
-
-export interface LoginScript {
-    expect: string
-    send: string
-    isRegex?: boolean
-    optional?: boolean
-}
 
 export enum SSHAlgorithmType {
     HMAC = 'hmac',
@@ -40,14 +33,13 @@ export interface SSHProfile extends Profile {
     options: SSHProfileOptions
 }
 
-export interface SSHProfileOptions {
+export interface SSHProfileOptions extends LoginScriptsOptions {
     host: string
     port?: number
     user: string
     auth?: null|'password'|'publicKey'|'agent'|'keyboardInteractive'
     password?: string
     privateKeys?: string[]
-    scripts?: LoginScript[]
     keepaliveInterval?: number
     keepaliveCountMax?: number
     readyTimeout?: number
@@ -255,12 +247,10 @@ export class SFTPSession {
 }
 
 export class SSHSession extends BaseSession {
-    scripts?: LoginScript[]
     shell?: ClientChannel
     ssh: Client
     sftp?: SFTPWrapper
     forwardedPorts: ForwardedPort[] = []
-    logger: Logger
     jumpStream: any
     proxyCommandStream: ProxyCommandStream|null = null
     savedPassword?: string
@@ -286,8 +276,7 @@ export class SSHSession extends BaseSession {
         injector: Injector,
         public profile: SSHProfile,
     ) {
-        super()
-        this.logger = injector.get(LogService).create(`ssh-${profile.options.host}-${profile.options.port}`)
+        super(injector.get(LogService).create(`ssh-${profile.options.host}-${profile.options.port}`))
 
         this.passwordStorage = injector.get(PasswordStorageService)
         this.ngbModal = injector.get(NgbModal)
@@ -298,7 +287,6 @@ export class SSHSession extends BaseSession {
         this.fileProviders = injector.get(FileProvidersService)
         this.config = injector.get(ConfigService)
 
-        this.scripts = profile.options.scripts ?? []
         this.destroyed$.subscribe(() => {
             for (const port of this.forwardedPorts) {
                 if (port.type === PortForwardType.Local) {
@@ -306,6 +294,8 @@ export class SSHSession extends BaseSession {
                 }
             }
         })
+
+        this.setLoginScriptsOptions(profile.options)
     }
 
     async init (): Promise<void> {
@@ -389,6 +379,8 @@ export class SSHSession extends BaseSession {
             return
         }
 
+        this.loginScriptProcessor?.executeUnconditionalScripts()
+
         this.shell.on('greeting', greeting => {
             this.emitServiceMessage(`Shell greeting: ${greeting}`)
         })
@@ -398,48 +390,7 @@ export class SSHSession extends BaseSession {
         })
 
         this.shell.on('data', data => {
-            const dataString = data.toString()
             this.emitOutput(data)
-
-            if (this.scripts) {
-                let found = false
-                for (const script of this.scripts) {
-                    let match = false
-                    let cmd = ''
-                    if (script.isRegex) {
-                        const re = new RegExp(script.expect, 'g')
-                        if (dataString.match(re)) {
-                            cmd = dataString.replace(re, script.send)
-                            match = true
-                            found = true
-                        }
-                    } else {
-                        if (dataString.includes(script.expect)) {
-                            cmd = script.send
-                            match = true
-                            found = true
-                        }
-                    }
-
-                    if (match) {
-                        this.logger.info('Executing script: "' + cmd + '"')
-                        this.shell?.write(cmd + '\n')
-                        this.scripts = this.scripts.filter(x => x !== script)
-                    } else {
-                        if (script.optional) {
-                            this.logger.debug('Skip optional script: ' + script.expect)
-                            found = true
-                            this.scripts = this.scripts.filter(x => x !== script)
-                        } else {
-                            break
-                        }
-                    }
-                }
-
-                if (found) {
-                    this.executeUnconditionalScripts()
-                }
-            }
         })
 
         this.shell.on('end', () => {
@@ -513,8 +464,6 @@ export class SSHSession extends BaseSession {
                 })
             })
         })
-
-        this.executeUnconditionalScripts()
     }
 
     emitServiceMessage (msg: string): void {
@@ -712,20 +661,6 @@ export class SSHSession extends BaseSession {
                 }
             })
         })
-    }
-
-    private executeUnconditionalScripts () {
-        if (this.scripts) {
-            for (const script of this.scripts) {
-                if (!script.expect) {
-                    console.log('Executing script:', script.send)
-                    this.shell?.write(script.send + '\n')
-                    this.scripts = this.scripts.filter(x => x !== script)
-                } else {
-                    break
-                }
-            }
-        }
     }
 
     async loadPrivateKey (privateKeyContents?: Buffer): Promise<string|null> {

@@ -20,7 +20,7 @@ export class TelnetProfilesService extends ProfileProvider {
             options: {
                 host: '',
                 port: 23,
-                inputMode: 'local-echo',
+                inputMode: 'readline',
                 outputMode: null,
                 inputNewlines: null,
                 outputNewlines: 'crlf',
@@ -58,7 +58,7 @@ export class TelnetProfilesService extends ProfileProvider {
             options: {
                 host,
                 port,
-                inputMode: 'local-echo',
+                inputMode: 'readline',
                 outputNewlines: 'crlf',
             },
         }

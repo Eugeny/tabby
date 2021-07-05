@@ -2,8 +2,8 @@ import { Socket } from 'net'
 import colors from 'ansi-colors'
 import stripAnsi from 'strip-ansi'
 import { Injector } from '@angular/core'
-import { Logger, Profile, LogService } from 'tabby-core'
-import { BaseSession, StreamProcessingOptions, TerminalStreamProcessor } from 'tabby-terminal'
+import { Profile, LogService } from 'tabby-core'
+import { BaseSession, LoginScriptsOptions, StreamProcessingOptions, TerminalStreamProcessor } from 'tabby-terminal'
 import { Subject, Observable } from 'rxjs'
 
 
@@ -11,13 +11,12 @@ export interface TelnetProfile extends Profile {
     options: TelnetProfileOptions
 }
 
-export interface TelnetProfileOptions extends StreamProcessingOptions {
+export interface TelnetProfileOptions extends StreamProcessingOptions, LoginScriptsOptions {
     host: string
     port?: number
 }
 
 export class TelnetSession extends BaseSession {
-    logger: Logger
     get serviceMessage$ (): Observable<string> { return this.serviceMessage }
 
     private serviceMessage = new Subject<string>()
@@ -28,8 +27,7 @@ export class TelnetSession extends BaseSession {
         injector: Injector,
         public profile: TelnetProfile,
     ) {
-        super()
-        this.logger = injector.get(LogService).create(`telnet-${profile.options.host}-${profile.options.port}`)
+        super(injector.get(LogService).create(`telnet-${profile.options.host}-${profile.options.port}`))
         this.streamProcessor = new TerminalStreamProcessor(profile.options)
         this.streamProcessor.outputToSession$.subscribe(data => {
             this.socket.write(data)
@@ -37,6 +35,7 @@ export class TelnetSession extends BaseSession {
         this.streamProcessor.outputToTerminal$.subscribe(data => {
             this.emitOutput(data)
         })
+        this.setLoginScriptsOptions(profile.options)
     }
 
     async start (): Promise<void> {
@@ -57,6 +56,8 @@ export class TelnetSession extends BaseSession {
             this.socket.connect(this.profile.options.port ?? 23, this.profile.options.host, () => {
                 this.emitServiceMessage('Connected')
                 this.open = true
+                setTimeout(() => this.streamProcessor.start())
+                this.loginScriptProcessor?.executeUnconditionalScripts()
                 resolve()
             })
         })

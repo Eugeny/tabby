@@ -2,7 +2,7 @@ import * as psNode from 'ps-node'
 import * as fs from 'mz/fs'
 import * as os from 'os'
 import { Injector } from '@angular/core'
-import { HostAppService, ConfigService, WIN_BUILD_CONPTY_SUPPORTED, isWindowsBuild, Platform, BootstrapData, BOOTSTRAP_DATA } from 'tabby-core'
+import { HostAppService, ConfigService, WIN_BUILD_CONPTY_SUPPORTED, isWindowsBuild, Platform, BootstrapData, BOOTSTRAP_DATA, LogService } from 'tabby-core'
 import { BaseSession } from 'tabby-terminal'
 import { ipcRenderer } from 'electron'
 import { getWorkingDirectoryFromPID } from 'native-process-working-directory'
@@ -97,7 +97,7 @@ export class Session extends BaseSession {
     private bootstrapData: BootstrapData
 
     constructor (injector: Injector) {
-        super()
+        super(injector.get(LogService).create('local'))
         this.config = injector.get(ConfigService)
         this.hostApp = injector.get(HostAppService)
         this.bootstrapData = injector.get(BOOTSTRAP_DATA)

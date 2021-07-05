@@ -1,4 +1,6 @@
 import { Observable, Subject } from 'rxjs'
+import { Logger } from 'tabby-core'
+import { LoginScriptProcessor, LoginScriptsOptions } from './api/loginScriptProcessing'
 
 /**
  * A session object for a [[BaseTerminalTabComponent]]
@@ -12,6 +14,7 @@ export abstract class BaseSession {
     protected binaryOutput = new Subject<Buffer>()
     protected closed = new Subject<void>()
     protected destroyed = new Subject<void>()
+    protected loginScriptProcessor: LoginScriptProcessor | null = null
     private initialDataBuffer = Buffer.from('')
     private initialDataBufferReleased = false
 
@@ -20,12 +23,15 @@ export abstract class BaseSession {
     get closed$ (): Observable<void> { return this.closed }
     get destroyed$ (): Observable<void> { return this.destroyed }
 
+    constructor (protected logger: Logger) { }
+
     emitOutput (data: Buffer): void {
         if (!this.initialDataBufferReleased) {
             this.initialDataBuffer = Buffer.concat([this.initialDataBuffer, data])
         } else {
             this.output.next(data.toString())
             this.binaryOutput.next(data)
+            this.loginScriptProcessor?.feedFromSession(data)
         }
     }
 
@@ -36,9 +42,17 @@ export abstract class BaseSession {
         this.initialDataBuffer = Buffer.from('')
     }
 
+    setLoginScriptsOptions (options: LoginScriptsOptions): void {
+        this.loginScriptProcessor?.close()
+        this.loginScriptProcessor = new LoginScriptProcessor(this.logger, options)
+        this.loginScriptProcessor.outputToSession$.subscribe(data => this.write(data))
+    }
+
     async destroy (): Promise<void> {
         if (this.open) {
+            this.logger.info('Destroying')
             this.open = false
+            this.loginScriptProcessor?.close()
             this.closed.next()
             this.destroyed.next()
             await this.gracefullyKillProcess()

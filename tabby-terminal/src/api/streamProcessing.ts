@@ -26,9 +26,10 @@ export class TerminalStreamProcessor {
     protected outputToTerminal = new Subject<Buffer>()
 
     private inputReadline: ReadLine
-    private inputPromptVisible = true
+    private inputPromptVisible = false
     private inputReadlineInStream: Readable & Writable
     private inputReadlineOutStream: Readable & Writable
+    private started = false
 
     constructor (private options: StreamProcessingOptions) {
         this.inputReadlineInStream = new PassThrough()
@@ -46,7 +47,16 @@ export class TerminalStreamProcessor {
             this.onTerminalInput(Buffer.from(line + '\n'))
             this.resetInputPrompt()
         })
-        this.outputToTerminal$.pipe(debounce(() => interval(500))).subscribe(() => this.onOutputSettled())
+        this.outputToTerminal$.pipe(debounce(() => interval(500))).subscribe(() => {
+            if (this.started) {
+                this.onOutputSettled()
+            }
+        })
+    }
+
+    start (): void {
+        this.started = true
+        this.onOutputSettled()
     }
 
     feedFromSession (data: Buffer): void {

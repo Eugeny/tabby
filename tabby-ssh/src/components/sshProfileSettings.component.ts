@@ -2,9 +2,9 @@
 import { Component } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 
-import { ConfigService, PlatformService, FileProvidersService, Platform, HostAppService, PromptModalComponent } from 'tabby-core'
+import { ConfigService, FileProvidersService, Platform, HostAppService, PromptModalComponent } from 'tabby-core'
 import { PasswordStorageService } from '../services/passwordStorage.service'
-import { LoginScript, ForwardedPortConfig, SSHAlgorithmType, ALGORITHM_BLACKLIST, SSHProfile } from '../api'
+import { ForwardedPortConfig, SSHAlgorithmType, ALGORITHM_BLACKLIST, SSHProfile } from '../api'
 import * as ALGORITHMS from 'ssh2/lib/protocol/constants'
 
 /** @hidden */
@@ -23,9 +23,8 @@ export class SSHProfileSettingsComponent {
     jumpHosts: SSHProfile[]
 
     constructor (
-        public config: ConfigService,
         public hostApp: HostAppService,
-        private platform: PlatformService,
+        private config: ConfigService,
         private passwordStorage: PasswordStorageService,
         private ngbModal: NgbModal,
         private fileProviders: FileProvidersService,
@@ -63,7 +62,6 @@ export class SSHProfileSettingsComponent {
             }
         }
 
-        this.profile.options.scripts = this.profile.options.scripts ?? []
         this.profile.options.auth = this.profile.options.auth ?? null
         this.profile.options.privateKeys ??= []
 
@@ -114,49 +112,6 @@ export class SSHProfileSettingsComponent {
         if (!this.useProxyCommand) {
             this.profile.options.proxyCommand = undefined
         }
-    }
-
-    moveScriptUp (script: LoginScript) {
-        if (!this.profile.options.scripts) {
-            this.profile.options.scripts = []
-        }
-        const index = this.profile.options.scripts.indexOf(script)
-        if (index > 0) {
-            this.profile.options.scripts.splice(index, 1)
-            this.profile.options.scripts.splice(index - 1, 0, script)
-        }
-    }
-
-    moveScriptDown (script: LoginScript) {
-        if (!this.profile.options.scripts) {
-            this.profile.options.scripts = []
-        }
-        const index = this.profile.options.scripts.indexOf(script)
-        if (index >= 0 && index < this.profile.options.scripts.length - 1) {
-            this.profile.options.scripts.splice(index, 1)
-            this.profile.options.scripts.splice(index + 1, 0, script)
-        }
-    }
-
-    async deleteScript (script: LoginScript) {
-        if (this.profile.options.scripts && (await this.platform.showMessageBox(
-            {
-                type: 'warning',
-                message: 'Delete this script?',
-                detail: script.expect,
-                buttons: ['Keep', 'Delete'],
-                defaultId: 1,
-            }
-        )).response === 1) {
-            this.profile.options.scripts = this.profile.options.scripts.filter(x => x !== script)
-        }
-    }
-
-    addScript () {
-        if (!this.profile.options.scripts) {
-            this.profile.options.scripts = []
-        }
-        this.profile.options.scripts.push({ expect: '', send: '' })
     }
 
     onForwardAdded (fw: ForwardedPortConfig) {

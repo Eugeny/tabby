@@ -1,22 +1,15 @@
 import stripAnsi from 'strip-ansi'
 import SerialPort from 'serialport'
-import { Logger, LogService, NotificationsService, Profile } from 'tabby-core'
+import { LogService, NotificationsService, Profile } from 'tabby-core'
 import { Subject, Observable } from 'rxjs'
 import { Injector, NgZone } from '@angular/core'
-import { BaseSession, StreamProcessingOptions, TerminalStreamProcessor } from 'tabby-terminal'
-
-export interface LoginScript {
-    expect: string
-    send: string
-    isRegex?: boolean
-    optional?: boolean
-}
+import { BaseSession, LoginScriptsOptions, StreamProcessingOptions, TerminalStreamProcessor } from 'tabby-terminal'
 
 export interface SerialProfile extends Profile {
     options: SerialProfileOptions
 }
 
-export interface SerialProfileOptions extends StreamProcessingOptions {
+export interface SerialProfileOptions extends StreamProcessingOptions, LoginScriptsOptions {
     port: string
     baudrate?: number
     databits?: number
@@ -26,7 +19,6 @@ export interface SerialProfileOptions extends StreamProcessingOptions {
     xon?: boolean
     xoff?: boolean
     xany?: boolean
-    scripts?: LoginScript[]
     color?: string
 }
 
@@ -40,9 +32,7 @@ export interface SerialPortInfo {
 }
 
 export class SerialSession extends BaseSession {
-    scripts?: LoginScript[]
     serial: SerialPort
-    logger: Logger
 
     get serviceMessage$ (): Observable<string> { return this.serviceMessage }
     private serviceMessage = new Subject<string>()
@@ -51,62 +41,20 @@ export class SerialSession extends BaseSession {
     private notifications: NotificationsService
 
     constructor (injector: Injector, public profile: SerialProfile) {
-        super()
-
-        this.logger = injector.get(LogService).create(`serial-${profile.options.port}`)
+        super(injector.get(LogService).create(`serial-${profile.options.port}`))
         this.zone = injector.get(NgZone)
         this.notifications = injector.get(NotificationsService)
 
-        this.scripts = profile.options.scripts ?? []
         this.streamProcessor = new TerminalStreamProcessor(profile.options)
         this.streamProcessor.outputToSession$.subscribe(data => {
             this.serial?.write(data.toString())
         })
         this.streamProcessor.outputToTerminal$.subscribe(data => {
             this.emitOutput(data)
-
-            const dataString = data.toString()
-
-            if (this.scripts) {
-                let found = false
-                for (const script of this.scripts) {
-                    let match = false
-                    let cmd = ''
-                    if (script.isRegex) {
-                        const re = new RegExp(script.expect, 'g')
-                        if (re.test(dataString)) {
-                            cmd = dataString.replace(re, script.send)
-                            match = true
-                            found = true
-                        }
-                    } else {
-                        if (dataString.includes(script.expect)) {
-                            cmd = script.send
-                            match = true
-                            found = true
-                        }
-                    }
-
-                    if (match) {
-                        this.logger.info('Executing script: "' + cmd + '"')
-                        this.serial.write(cmd + '\n')
-                        this.scripts = this.scripts.filter(x => x !== script)
-                    } else {
-                        if (script.optional) {
-                            this.logger.debug('Skip optional script: ' + script.expect)
-                            found = true
-                            this.scripts = this.scripts.filter(x => x !== script)
-                        } else {
-                            break
-                        }
-                    }
-                }
-
-                if (found) {
-                    this.executeUnconditionalScripts()
-                }
-            }
+            this.loginScriptProcessor?.feedFromSession(data)
         })
+
+        this.setLoginScriptsOptions(profile.options)
     }
 
     async start (): Promise<void> {
@@ -151,6 +99,7 @@ export class SerialSession extends BaseSession {
         })
 
         this.open = true
+        setTimeout(() => this.streamProcessor.start())
 
         this.serial.on('readable', () => {
             this.streamProcessor.feedFromSession(this.serial.read())
@@ -163,7 +112,7 @@ export class SerialSession extends BaseSession {
             }
         })
 
-        this.executeUnconditionalScripts()
+        this.loginScriptProcessor?.executeUnconditionalScripts()
     }
 
     write (data: Buffer): void {
@@ -204,19 +153,5 @@ export class SerialSession extends BaseSession {
 
     async getWorkingDirectory (): Promise<string|null> {
         return null
-    }
-
-    private executeUnconditionalScripts () {
-        if (this.scripts) {
-            for (const script of this.scripts) {
-                if (!script.expect) {
-                    console.log('Executing script:', script.send)
-                    this.serial.write(script.send + '\n')
-                    this.scripts = this.scripts.filter(x => x !== script)
-                } else {
-                    break
-                }
-            }
-        }
     }
 }
