@@ -31,6 +31,6 @@ export class TabBodyComponent implements OnChanges {
     }
 
     ngOnDestroy () {
-        this.placeholder.detach()
+        this.placeholder?.detach()
     }
 }
