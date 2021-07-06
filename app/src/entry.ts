@@ -5,13 +5,15 @@ import 'rxjs'
 import './global.scss'
 import './toastr.scss'
 
+// Importing before @angular/*
+import { findPlugins, initModuleLookup, loadPlugins } from './plugins'
+
 import { enableProdMode, NgModuleRef, ApplicationRef } from '@angular/core'
 import { enableDebugTools } from '@angular/platform-browser'
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic'
 import { ipcRenderer } from 'electron'
 
 import { getRootModule } from './app.module'
-import { findPlugins, initModuleLookup, loadPlugins } from './plugins'
 import { BootstrapData, BOOTSTRAP_DATA, PluginInfo } from '../../tabby-core/src/api/mainProcess'
 
 // Always land on the start view

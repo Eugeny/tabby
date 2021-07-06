@@ -1,6 +1,14 @@
 {
   "devDependencies": {
+    "@angular/animations": "^12.0.0",
+    "@angular/common": "^12.0.0",
+    "@angular/compiler": "^12.0.0",
+    "@angular/core": "^12.0.0",
+    "@angular/forms": "^12.0.0",
+    "@angular/platform-browser": "^12.0.0",
+    "@angular/platform-browser-dynamic": "^12.0.0",
     "@fortawesome/fontawesome-free": "^5.15.3",
+    "@ng-bootstrap/ng-bootstrap": "^10.0.0",
     "@sentry/cli": "^1.64.2",
     "@sentry/electron": "^2.5.0",
     "@tabby-gang/to-string-loader": "^1.1.7-beta.2",
@@ -32,6 +40,7 @@
     "json-loader": "0.5.7",
     "lru-cache": "^6.0.0",
     "macos-release": "^2.5.0",
+    "ngx-toastr": "^14.0.0",
     "node-abi": "^2.30.0",
     "node-sass": "^6.0.1",
     "npmlog": "4.1.2",
@@ -43,10 +52,12 @@
     "pug-loader": "^2.4.0",
     "pug-static-loader": "2.0.0",
     "raw-loader": "4.0.2",
+    "rxjs": "^7.2.0",
     "sass-loader": "^12.1.0",
     "shelljs": "0.8.4",
     "slugify": "^1.5.3",
     "source-code-pro": "^2.38.0",
+    "source-map-loader": "^3.0.0",
     "source-sans-pro": "3.6.0",
     "style-loader": "^3.0.0",
     "svg-inline-loader": "^0.8.2",
@@ -59,7 +70,8 @@
     "webpack": "^5.42.1",
     "webpack-bundle-analyzer": "^4.4.2",
     "webpack-cli": "^4.7.0",
-    "yaml-loader": "0.6.0"
+    "yaml-loader": "0.6.0",
+    "zone.js": "^0.11.4"
   },
   "resolutions": {
     "lzma-native": "^8.0.0",

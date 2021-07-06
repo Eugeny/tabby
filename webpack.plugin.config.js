@@ -48,9 +48,26 @@ module.exports = options => {
             modules: ['.', 'src', 'node_modules', '../app/node_modules', '../node_modules'].map(x => path.join(options.dirname, x)),
             extensions: ['.ts', '.js'],
         },
+        ignoreWarnings: [/Failed to parse source map/],
         module: {
             rules: [
                 ...options.rules ?? [],
+                {
+                    test: /\.js$/,
+                    enforce: 'pre',
+                    use:                         {
+                        loader: 'source-map-loader',
+                        options: {
+                            filterSourceMappingUrl: (url, resourcePath) => {
+                                if (/node_modules/.test(resourcePath)) {
+                                    return false
+                                }
+                                return true
+                            },
+
+                        },
+                    },
+                },
                 {
                     test: /\.ts$/,
                     use: {
