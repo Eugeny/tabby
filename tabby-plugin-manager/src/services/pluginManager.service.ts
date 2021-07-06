@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { compare as semverCompare } from 'semver'
 import { Observable, from, forkJoin, map } from 'rxjs'
 import { Injectable, Inject } from '@angular/core'
 import { Logger, LogService, PlatformService, BOOTSTRAP_DATA, BootstrapData, PluginInfo } from 'tabby-core'
@@ -55,6 +56,17 @@ export class PluginManagerService {
             ),
             map(plugins => plugins.filter(x => x.packageName.startsWith(namePrefix))),
             map(plugins => plugins.filter(x => !BLACKLIST.includes(x.packageName))),
+            map(plugins => {
+                const mapping: Record<string, PluginInfo[]> = {}
+                for (const p of plugins) {
+                    mapping[p.name] ??= []
+                    mapping[p.name].push(p)
+                }
+                return Object.values(mapping).map(list => {
+                    list.sort((a, b) => -semverCompare(a.version, b.version))
+                    return list[0]
+                })
+            }),
             map(plugins => plugins.sort((a, b) => a.name.localeCompare(b.name))),
         )
     }
