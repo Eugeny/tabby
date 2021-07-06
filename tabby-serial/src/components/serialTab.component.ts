@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import colors from 'ansi-colors'
 import { Component, Injector } from '@angular/core'
-import { first } from 'rxjs/operators'
+import { first } from 'rxjs'
 import { SelectorService } from 'tabby-core'
 import { BaseTerminalTabComponent } from 'tabby-terminal'
 import { SerialSession, BAUD_RATES, SerialProfile } from '../api'

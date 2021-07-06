@@ -1,7 +1,6 @@
 import colors from 'ansi-colors'
 import * as ZModem from 'zmodem.js'
-import { Observable } from 'rxjs'
-import { filter, first } from 'rxjs/operators'
+import { Observable, filter, first } from 'rxjs'
 import { Injectable } from '@angular/core'
 import { TerminalDecorator } from '../api/decorator'
 import { BaseTerminalTabComponent } from '../api/baseTerminalTab.component'

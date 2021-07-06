@@ -1,6 +1,6 @@
 import colors from 'ansi-colors'
 import { Component, Injector } from '@angular/core'
-import { first } from 'rxjs/operators'
+import { first } from 'rxjs'
 import { Platform, RecoveryToken } from 'tabby-core'
 import { BaseTerminalTabComponent } from 'tabby-terminal'
 import { TelnetProfile, TelnetSession } from '../session'

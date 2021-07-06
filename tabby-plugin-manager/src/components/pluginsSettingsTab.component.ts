@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { BehaviorSubject, Observable } from 'rxjs'
-import { debounceTime, distinctUntilChanged, first, tap, flatMap, map } from 'rxjs/operators'
+import { BehaviorSubject, Observable, debounceTime, distinctUntilChanged, first, tap, flatMap, map } from 'rxjs'
 import semverGt from 'semver/functions/gt'
 
 import { Component, Input } from '@angular/core'

@@ -1,6 +1,5 @@
 import axios from 'axios'
-import { Observable, from, forkJoin } from 'rxjs'
-import { map } from 'rxjs/operators'
+import { Observable, from, forkJoin, map } from 'rxjs'
 import { Injectable, Inject } from '@angular/core'
 import { Logger, LogService, PlatformService, BOOTSTRAP_DATA, BootstrapData, PluginInfo } from 'tabby-core'
 

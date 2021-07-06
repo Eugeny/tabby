@@ -1,5 +1,4 @@
-import { Observable, Subject, Subscription } from 'rxjs'
-import { first } from 'rxjs/operators'
+import { Observable, Subject, Subscription, first } from 'rxjs'
 import { Spinner } from 'cli-spinner'
 import colors from 'ansi-colors'
 import { NgZone, OnInit, OnDestroy, Injector, ViewChild, HostBinding, Input, ElementRef, InjectFlags } from '@angular/core'

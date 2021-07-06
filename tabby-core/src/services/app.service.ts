@@ -1,5 +1,4 @@
-import { Observable, Subject, AsyncSubject } from 'rxjs'
-import { takeUntil } from 'rxjs/operators'
+import { Observable, Subject, AsyncSubject, takeUntil } from 'rxjs'
 import { Injectable, Inject } from '@angular/core'
 
 import { BaseTabComponent } from '../components/baseTab.component'
