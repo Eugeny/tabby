@@ -83,7 +83,7 @@ import { TerminalCLIHandler } from './cli'
     ],
 })
 export default class TerminalModule { // eslint-disable-line @typescript-eslint/no-extraneous-class
-    private constructor (
+    constructor (
         hotkeys: HotkeysService,
     ) {
         const events = [

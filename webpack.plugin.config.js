@@ -49,20 +49,10 @@ module.exports = options => {
                 {
                     test: /\.ts$/,
                     use: {
-                        loader: 'awesome-typescript-loader',
+                        loader: 'ts-loader',
                         options: {
-                            configFileName: path.resolve(options.dirname, 'tsconfig.json'),
-                            typeRoots: [
-                                path.resolve(options.dirname, 'node_modules/@types'),
-                                path.resolve(options.dirname, '../node_modules/@types'),
-                            ],
-                            paths: {
-                                'tabby-*': [path.resolve(options.dirname, '../tabby-*')],
-                                '*': [
-                                    path.resolve(options.dirname, '../app/node_modules/*'),
-                                    path.resolve(options.dirname, '../node_modules/*'),
-                                ],
-                            },
+                            configFile: path.resolve(options.dirname, 'tsconfig.json'),
+                            allowTsInNodeModules: true,
                         },
                     },
                 },

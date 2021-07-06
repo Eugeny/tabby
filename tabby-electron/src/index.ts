@@ -92,10 +92,10 @@ export default class ElectronModule {
 
             try {
                 let electronKeySpec = item[0]
-                electronKeySpec = electronKeySpec.replace('Meta', 'Super')
-                electronKeySpec = electronKeySpec.replace('⌘', 'Command')
-                electronKeySpec = electronKeySpec.replace('⌥', 'Alt')
-                electronKeySpec = electronKeySpec.replace(/-/g, '+')
+                electronKeySpec = electronKeySpec.replaceAll('Meta', 'Super')
+                electronKeySpec = electronKeySpec.replaceAll('⌘', 'Command')
+                electronKeySpec = electronKeySpec.replaceAll('⌥', 'Alt')
+                electronKeySpec = electronKeySpec.replaceAll('-', '+')
                 specs.push(electronKeySpec)
             } catch (err) {
                 console.error('Could not register the global hotkey:', err)

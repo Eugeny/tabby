@@ -414,9 +414,9 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
             data = `\x1b[200~${data}\x1b[201~`
         }
         if (this.hostApp.platform === Platform.Windows) {
-            data = data.replace(/\r\n/g, '\r')
+            data = data.replaceAll('\r\n', '\r')
         } else {
-            data = data.replace(/\n/g, '\r')
+            data = data.replaceAll('\n', '\r')
         }
 
         if (!this.alternateScreenActive) {

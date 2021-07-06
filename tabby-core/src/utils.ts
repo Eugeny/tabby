@@ -12,7 +12,7 @@ export function isWindowsBuild (build: number): boolean {
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export function getCSSFontFamily (config: any): string {
-    let fonts: string[] = config.terminal.font.split(',').map(x => x.trim().replace(/"/g, ''))
+    let fonts: string[] = config.terminal.font.split(',').map(x => x.trim().replaceAll('"', ''))
     if (config.terminal.fallbackFont) {
         fonts.push(config.terminal.fallbackFont)
     }

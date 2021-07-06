@@ -18,16 +18,30 @@
     "importHelpers": true,
     "strictNullChecks": true,
     "lib": [
-      "dom",
-      "es5",
-      "es6",
-      "es7",
-      "es2015",
-      "es2017",
-      "es2019"
+      "DOM",
+      "ES5",
+      "ES6",
+      "ES7",
+      "ES2015",
+      "ES2017",
+      "ES2019",
+      "ES2021"
     ],
     "paths": {
+      "*": [
+        "../node_modules/*",
+        "../../app/node_modules/*"
+      ],
+      "common*": [
+        "../../tabby-terminal/node_modules/xterm/src/common*"
+      ],
       "tabby-*": ["../../tabby-*/src"]
     }
+  },
+  "typeAcquisition": {
+    "include": [
+      "../node_modules",
+      "../../app/node_modules"
+    ]
   }
 }

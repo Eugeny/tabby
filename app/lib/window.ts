@@ -1,7 +1,6 @@
 import * as glasstron from 'glasstron'
 
-import { Subject, Observable } from 'rxjs'
-import { debounceTime } from 'rxjs/operators'
+import { Subject, Observable, debounceTime } from 'rxjs'
 import { BrowserWindow, app, ipcMain, Rectangle, Menu, screen, BrowserWindowConstructorOptions } from 'electron'
 import ElectronConfig = require('electron-config')
 import * as os from 'os'
@@ -364,7 +363,7 @@ export class Window {
             this.disableVibrancyWhileDragging = value
         })
 
-        let moveEndedTimeout: number|null = null
+        let moveEndedTimeout: NodeJS.Timeout|null = null
         const onBoundsChange = () => {
             if (!this.lastVibrancy?.enabled || !this.disableVibrancyWhileDragging) {
                 return

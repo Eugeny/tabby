@@ -77,7 +77,7 @@ export class TerminalStreamProcessor {
                     gutter: 4,
                     divide: colors.gray(' ｜ '),
                     emptyHuman: colors.gray('╳'),
-                }).replace(/\n/g, '\r\n')),
+                }).replaceAll('\n', '\r\n')),
                 Buffer.from('\r\n\n'),
             ]))
         } else {

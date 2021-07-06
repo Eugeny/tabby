@@ -25,9 +25,9 @@ module.exports = {
             {
                 test: /\.ts$/,
                 use: {
-                    loader: 'awesome-typescript-loader',
+                    loader: 'ts-loader',
                     options: {
-                        configFileName: path.resolve(__dirname, 'tsconfig.main.json'),
+                        configFile: path.resolve(__dirname, 'tsconfig.main.json'),
                     },
                 },
             },
