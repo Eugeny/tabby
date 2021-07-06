@@ -12,9 +12,14 @@ module.exports = options => {
         filename: '[file].map',
         moduleFilenameTemplate: `webpack-tabby-${options.name}:///[resource-path]`,
     }
+    let SourceMapDevToolPlugin = webpack.SourceMapDevToolPlugin
 
     if (process.env.CI) {
         sourceMapOptions.append = '\n//# sourceMappingURL=../../../app.asar.unpacked/assets/webpack/[url]'
+    }
+
+    if (process.platform === 'win32' && process.env.TABBY_DEV) {
+        SourceMapDevToolPlugin = webpack.EvalSourceMapDevToolPlugin
     }
 
     const isDev = !!process.env.TABBY_DEV
@@ -103,7 +108,7 @@ module.exports = options => {
             ...options.externals || [],
         ],
         plugins: [
-            new webpack.SourceMapDevToolPlugin(sourceMapOptions),
+            new SourceMapDevToolPlugin(sourceMapOptions),
         ],
     }
     if (process.env.PLUGIN_BUNDLE_ANALYZER === options.name) {
