@@ -308,7 +308,7 @@ export class Session extends BaseSession {
         try {
             cwd = getWorkingDirectoryFromPID(this.truePID)
         } catch (exc) {
-            console.error(exc)
+            console.info('Could not read working directory:', exc)
         }
 
         try {
