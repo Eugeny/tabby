@@ -38,6 +38,7 @@ import { PowerShellCoreShellProvider } from './shells/powershellCore'
 import { WindowsDefaultShellProvider } from './shells/winDefault'
 import { WindowsStockShellsProvider } from './shells/windowsStock'
 import { WSLShellProvider } from './shells/wsl'
+import { VSDevToolsProvider } from './shells/vs'
 
 import { AutoOpenTabCLIHandler, OpenPathCLIHandler, TerminalCLIHandler } from './cli'
 import { LocalProfilesService } from './profiles'
@@ -73,6 +74,7 @@ import { LocalProfilesService } from './profiles'
         { provide: ShellProvider, useClass: GitBashShellProvider, multi: true },
         { provide: ShellProvider, useClass: POSIXShellsProvider, multi: true },
         { provide: ShellProvider, useClass: WSLShellProvider, multi: true },
+        { provide: ShellProvider, useClass: VSDevToolsProvider, multi: true },
 
         { provide: ProfileProvider, useClass: LocalProfilesService, multi: true },
 
