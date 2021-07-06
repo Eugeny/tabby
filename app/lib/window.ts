@@ -363,7 +363,7 @@ export class Window {
             this.disableVibrancyWhileDragging = value
         })
 
-        let moveEndedTimeout: NodeJS.Timeout|null = null
+        let moveEndedTimeout: any = null
         const onBoundsChange = () => {
             if (!this.lastVibrancy?.enabled || !this.disableVibrancyWhileDragging) {
                 return
