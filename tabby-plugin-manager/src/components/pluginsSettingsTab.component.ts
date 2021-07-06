@@ -50,7 +50,7 @@ export class PluginsSettingsTabComponent {
             return plugins
         })).subscribe(available => {
             for (const plugin of this.pluginManager.installedPlugins) {
-                this.knownUpgrades[plugin.name] = available.find(x => x.name === plugin.name && semverGt(x.version, plugin.version)) || null
+                this.knownUpgrades[plugin.name] = available.find(x => x.name === plugin.name && semverGt(x.version, plugin.version)) ?? null
             }
         })
     }

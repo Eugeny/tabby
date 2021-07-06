@@ -19,15 +19,13 @@ import { BaseTabComponent } from '../components/baseTab.component'
 export class TabBodyComponent implements OnChanges {
     @Input() @HostBinding('class.active') active: boolean
     @Input() tab: BaseTabComponent
-    @ViewChild('placeholder', { read: ViewContainerRef }) placeholder: ViewContainerRef
+    @ViewChild('placeholder', { read: ViewContainerRef }) placeholder?: ViewContainerRef
 
     ngOnChanges (changes) {
         if (changes.tab) {
-            if (this.placeholder) {
-                this.placeholder.detach()
-            }
+            this.placeholder?.detach()
             setImmediate(() => {
-                this.placeholder.insert(this.tab.hostView)
+                this.placeholder?.insert(this.tab.hostView)
             })
         }
     }

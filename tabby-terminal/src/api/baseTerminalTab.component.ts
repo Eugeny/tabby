@@ -497,7 +497,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
             return
         }
         if (this.parent instanceof SplitTabComponent) {
-            this.allFocusModeSubscription?.unsubscribe?.()
+            this.allFocusModeSubscription.unsubscribe()
             this.allFocusModeSubscription = null
             this.parent._allFocusMode = false
             this.parent.layout()
