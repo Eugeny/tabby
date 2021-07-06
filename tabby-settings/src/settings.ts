@@ -3,6 +3,7 @@ import { SettingsTabProvider } from './api'
 import { HotkeySettingsTabComponent } from './components/hotkeySettingsTab.component'
 import { WindowSettingsTabComponent } from './components/windowSettingsTab.component'
 import { VaultSettingsTabComponent } from './components/vaultSettingsTab.component'
+import { ProfilesSettingsTabComponent } from './components/profilesSettingsTab.component'
 
 /** @hidden */
 @Injectable()
@@ -39,5 +40,18 @@ export class VaultSettingsTabProvider extends SettingsTabProvider {
 
     getComponentType (): any {
         return VaultSettingsTabComponent
+    }
+}
+
+
+/** @hidden */
+@Injectable()
+export class ProfilesSettingsTabProvider extends SettingsTabProvider {
+    id = 'profiles'
+    icon = 'window-restore'
+    title = 'Profiles'
+
+    getComponentType (): any {
+        return ProfilesSettingsTabComponent
     }
 }

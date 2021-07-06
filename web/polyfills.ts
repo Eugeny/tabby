@@ -156,7 +156,7 @@ Tabby.registerModule('@ng-bootstrap/ng-bootstrap', ngBootstrapModule)
 Tabby.registerModule('ngx-toastr', ngxToastrModule)
 Tabby.registerModule('deepmerge', require('deepmerge'))
 Tabby.registerModule('rxjs', require('rxjs'))
-Tabby.registerModule('rxjs/operators', require('rxjs/operators'))
+Tabby.registerModule('rxjs/operators', require('rxjs'))
 Tabby.registerModule('js-yaml', require('js-yaml'))
 Tabby.registerModule('zone.js/dist/zone.js', require('zone.js/dist/zone.js'))
 

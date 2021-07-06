@@ -1,6 +1,6 @@
 {
   "name": "tabby-telnet",
-  "version": "1.0.144",
+  "version": "1.0.145-nightly.0",
   "description": "Telnet/socket connections for Tabby",
   "keywords": [
     "tabby-builtin-plugin"

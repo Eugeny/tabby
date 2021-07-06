@@ -2,8 +2,6 @@
 import { Observable, OperatorFunction, debounceTime, map, distinctUntilChanged } from 'rxjs'
 import { Component, Input, ViewChild, ViewContainerRef, ComponentFactoryResolver, Injector } from '@angular/core'
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
-import { UACService } from '../services/uac.service'
-import { LocalProfile } from '../api'
 import { ConfigService, Profile, ProfileProvider, ProfileSettingsComponent } from 'tabby-core'
 
 const iconsData = require('../../../tabby-core/src/icons.json')
@@ -18,7 +16,7 @@ const iconsClassList = Object.keys(iconsData).map(
     template: require('./editProfileModal.component.pug'),
 })
 export class EditProfileModalComponent {
-    @Input() profile: LocalProfile
+    @Input() profile: Profile
     @Input() profileProvider: ProfileProvider
     @Input() settingsComponent: new () => ProfileSettingsComponent
     groupNames: string[]
@@ -27,7 +25,6 @@ export class EditProfileModalComponent {
     private settingsComponentInstance: ProfileSettingsComponent
 
     constructor (
-        public uac: UACService,
         private injector: Injector,
         private componentFactoryResolver: ComponentFactoryResolver,
         config: ConfigService,

@@ -13,7 +13,6 @@ import './polyfills.buffer'
 const mocks = {}
 const modules = {}
 
-const originalRequire = window['require']
 const customRequire = path => {
     if (mocks[path]) {
         console.log(':: mock', path)
@@ -22,7 +21,7 @@ const customRequire = path => {
     if (modules[path]) {
         return modules[path]
     }
-    return originalRequire(path)
+    throw new Error(`Attempted to require ${path}`)
 }
 
 customRequire['resolve'] = (() => null) as any

@@ -11,9 +11,7 @@ import { SettingsTabProvider } from 'tabby-settings'
 
 import { TerminalTabComponent } from './components/terminalTab.component'
 import { ShellSettingsTabComponent } from './components/shellSettingsTab.component'
-import { EditProfileModalComponent } from './components/editProfileModal.component'
 import { EnvironmentEditorComponent } from './components/environmentEditor.component'
-import { ProfilesSettingsTabComponent } from './components/profilesSettingsTab.component'
 import { LocalProfileSettingsComponent } from './components/localProfileSettings.component'
 
 import { TerminalService } from './services/terminal.service'
@@ -22,7 +20,7 @@ import { DockMenuService } from './services/dockMenu.service'
 import { ButtonProvider } from './buttonProvider'
 import { RecoveryProvider } from './recoveryProvider'
 import { ShellProvider } from './api'
-import { ProfilesSettingsTabProvider, ShellSettingsTabProvider } from './settings'
+import { ShellSettingsTabProvider } from './settings'
 import { TerminalConfigProvider } from './config'
 import { LocalTerminalHotkeyProvider } from './hotkeys'
 import { NewTabContextMenu, SaveAsProfileContextMenu } from './tabContextMenu'
@@ -56,7 +54,6 @@ import { LocalProfilesService } from './profiles'
     ],
     providers: [
         { provide: SettingsTabProvider, useClass: ShellSettingsTabProvider, multi: true },
-        { provide: SettingsTabProvider, useClass: ProfilesSettingsTabProvider, multi: true },
 
         { provide: ToolbarButtonProvider, useClass: ButtonProvider, multi: true },
         { provide: TabRecoveryProvider, useClass: RecoveryProvider, multi: true },
@@ -92,16 +89,12 @@ import { LocalProfilesService } from './profiles'
     ],
     entryComponents: [
         TerminalTabComponent,
-        ProfilesSettingsTabComponent,
         ShellSettingsTabComponent,
-        EditProfileModalComponent,
         LocalProfileSettingsComponent,
     ] as any[],
     declarations: [
         TerminalTabComponent,
-        ProfilesSettingsTabComponent,
         ShellSettingsTabComponent,
-        EditProfileModalComponent,
         EnvironmentEditorComponent,
         LocalProfileSettingsComponent,
     ] as any[],

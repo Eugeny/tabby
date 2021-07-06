@@ -5,16 +5,11 @@ export class TerminalConfigProvider extends ConfigProvider {
     defaults = {
         hotkeys: {
             'copy-current-path': [],
-            profile: {
-                __nonStructural: true,
-            },
         },
         terminal: {
             autoOpen: false,
             useConPTY: true,
-            showBuiltinProfiles: true,
             environment: {},
-            profiles: [],
             setComSpec: false,
         },
     }
