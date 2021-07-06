@@ -240,8 +240,8 @@ export class ConfigService {
         this.ready.next(true)
         this.ready.complete()
 
-        this.hostApp.configChangeBroadcast$.subscribe(() => {
-            this.load()
+        this.hostApp.configChangeBroadcast$.subscribe(async () => {
+            await this.load()
             this.emitChange()
         })
     }
