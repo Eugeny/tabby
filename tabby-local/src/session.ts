@@ -122,7 +122,13 @@ export class Session extends BaseSession {
                 ...this.config.store.terminal.environment || {},
             }
 
-            if (this.hostApp.platform === Platform.Windows) {
+            if (this.hostApp.platform === Platform.Windows && this.config.store.terminal.setComSpec) {
+                for (const k of Object.keys(env)) {
+                    if (k.toUpperCase() === 'COMSPEC') {
+                        // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
+                        delete env[k]
+                    }
+                }
                 env.COMSPEC = this.bootstrapData.executable
             }
 

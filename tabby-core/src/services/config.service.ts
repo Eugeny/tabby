@@ -263,6 +263,7 @@ export class ConfigService {
             config.version = 1
         }
         if (config.version < 2) {
+            config.profiles ??= []
             if (config.terminal?.recoverTabs !== undefined) {
                 config.recoverTabs = config.terminal.recoverTabs
                 delete config.terminal.recoverTabs

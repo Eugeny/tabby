@@ -15,6 +15,7 @@ export class TerminalConfigProvider extends ConfigProvider {
             showBuiltinProfiles: true,
             environment: {},
             profiles: [],
+            setComSpec: false,
         },
     }
 

@@ -158,3 +158,12 @@ h3.mb-3 Terminal
         [(ngModel)]='config.store.terminal.warnOnMultilinePaste',
         (ngModelChange)='config.save()',
     )
+
+.form-line(*ngIf='hostApp.platform === Platform.Windows')
+    .header
+        .title Set Tabby as %COMSPEC%
+        .description Allows opening .bat files in tabs, but breaks some shells
+    toggle(
+        [(ngModel)]='config.store.terminal.setComSpec',
+        (ngModelChange)='config.save()',
+    )
