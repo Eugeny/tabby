@@ -176,7 +176,8 @@ export class SFTPFileHandle {
             while (true) {
                 const wait = this.sftp.write(this.handle, chunk, 0, chunk.length, this.position, err => {
                     if (err) {
-                        return reject(err)
+                        reject(err)
+                        return
                     }
                     this.position += chunk.length
                     resolve()
@@ -405,7 +406,8 @@ export class SSHSession extends BaseSession {
             const forward = this.forwardedPorts.find(x => x.port === details.destPort)
             if (!forward) {
                 this.emitServiceMessage(colors.bgRed.black(' X ') + ` Rejected incoming forwarded connection for unrecognized port ${details.destPort}`)
-                return reject()
+                reject()
+                return
             }
             const socket = new Socket()
             socket.connect(forward.targetPort, forward.targetAddress)
@@ -560,7 +562,8 @@ export class SSHSession extends BaseSession {
                         if (err) {
                             // eslint-disable-next-line @typescript-eslint/no-base-to-string
                             this.emitServiceMessage(colors.bgRed.black(' X ') + ` Remote has rejected the forwarded connection to ${targetAddress}:${targetPort} via ${fw}: ${err}`)
-                            return reject()
+                            reject()
+                            return
                         }
                         const socket = accept()
                         stream.pipe(socket)
@@ -587,7 +590,8 @@ export class SSHSession extends BaseSession {
                     if (err) {
                         // eslint-disable-next-line @typescript-eslint/no-base-to-string
                         this.emitServiceMessage(colors.bgRed.black(' X ') + ` Remote rejected port forwarding for ${fw}: ${err}`)
-                        return reject(err)
+                        reject(err)
+                        return
                     }
                     resolve()
                 })

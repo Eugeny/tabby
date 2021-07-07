@@ -264,7 +264,8 @@ export class Session extends BaseSession {
         return new Promise<ChildProcess[]>((resolve, reject) => {
             psNode.lookup({ ppid: this.truePID }, (err, processes) => {
                 if (err) {
-                    return reject(err)
+                    reject(err)
+                    return
                 }
                 resolve(processes as ChildProcess[])
             })

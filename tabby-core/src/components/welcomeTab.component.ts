@@ -21,13 +21,13 @@ export class WelcomeTabComponent extends BaseTabComponent {
         this.setTitle('Welcome')
     }
 
-    closeAndDisable () {
+    async closeAndDisable () {
         this.config.store.enableWelcomeTab = false
         this.config.store.pluginBlacklist = []
         if (!this.enableGlobalHotkey) {
             this.config.store.hotkeys['toggle-window'] = []
         }
-        this.config.save()
+        await this.config.save()
         this.hostWindow.reload()
     }
 }

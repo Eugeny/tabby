@@ -33,7 +33,7 @@ export class SFTPPanelComponent {
 
     async ngOnInit (): Promise<void> {
         this.sftp = await this.session.openSFTP()
-        this.navigate(this.path)
+        await this.navigate(this.path)
     }
 
     async navigate (newPath: string): Promise<void> {
@@ -75,25 +75,23 @@ export class SFTPPanelComponent {
 
     async open (item: SFTPFile): Promise<void> {
         if (item.isDirectory) {
-            this.navigate(item.fullPath)
+            await this.navigate(item.fullPath)
         } else if (item.isSymlink) {
             const target = path.resolve(this.path, await this.sftp.readlink(item.fullPath))
             const stat = await this.sftp.stat(target)
             if (stat.isDirectory) {
-                this.navigate(item.fullPath)
+                await this.navigate(item.fullPath)
             } else {
-                this.download(item.fullPath, stat.size)
+                await this.download(item.fullPath, stat.size)
             }
         } else {
-            this.download(item.fullPath, item.size)
+            await this.download(item.fullPath, item.size)
         }
     }
 
     async upload (): Promise<void> {
         const transfers = await this.platform.startUpload({ multiple: true })
-        for (const transfer of transfers) {
-            this.uploadOne(transfer)
-        }
+        await Promise.all(transfers.map(t => this.uploadOne(t)))
     }
 
     async uploadOne (transfer: FileUpload): Promise<void> {
@@ -111,7 +109,7 @@ export class SFTPPanelComponent {
             handle.close()
             transfer.close()
             if (this.path === savedPath) {
-                this.navigate(this.path)
+                await this.navigate(this.path)
             }
         } catch (e) {
             transfer.cancel()

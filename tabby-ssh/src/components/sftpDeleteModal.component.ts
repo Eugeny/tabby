@@ -19,11 +19,10 @@ export class SFTPDeleteModalComponent extends BaseComponent {
         super()
     }
 
-    ngOnInit (): void {
+    async ngOnInit (): Promise<void> {
         this.destroyed$.subscribe(() => this.cancel())
-        this.run(this.item).then(() => {
-            this.modalInstance.close()
-        })
+        await this.run(this.item)
+        this.modalInstance.close()
     }
 
     cancel (): void {

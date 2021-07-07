@@ -453,7 +453,7 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
     async splitTab (tab: BaseTabComponent, dir: SplitDirection): Promise<BaseTabComponent|null> {
         const newTab = await this.tabsService.duplicate(tab)
         if (newTab) {
-            this.addTab(newTab, tab, dir)
+            await this.addTab(newTab, tab, dir)
         }
         return newTab
     }

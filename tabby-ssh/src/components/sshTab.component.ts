@@ -98,7 +98,8 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
                 (err, stream) => {
                     if (err) {
                         jumpSession.emitServiceMessage(colors.bgRed.black(' X ') + ` Could not set up port forward on ${jumpConnection.name}`)
-                        return reject(err)
+                        reject(err)
+                        return
                     }
                     resolve(stream)
                 }

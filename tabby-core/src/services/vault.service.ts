@@ -270,7 +270,7 @@ export class VaultFileProvider extends FileProvider {
         }
         const transfer = transfers[0]
         const id = (await wrapPromise(this.zone, promisify(crypto.randomBytes)(32))).toString('hex')
-        this.vault.addSecret({
+        await this.vault.addSecret({
             type: VAULT_SECRET_TYPE_FILE,
             key: {
                 id,

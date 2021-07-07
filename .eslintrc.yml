@@ -36,7 +36,9 @@ rules:
   '@typescript-eslint/prefer-readonly': off
   '@typescript-eslint/require-await': off
   '@typescript-eslint/strict-boolean-expressions': off
-  '@typescript-eslint/no-misused-promises': off
+  '@typescript-eslint/no-misused-promises':
+  - error
+  - checksVoidReturn: false
   '@typescript-eslint/typedef': off
   '@typescript-eslint/consistent-type-imports': off
   '@typescript-eslint/sort-type-union-intersection-members': off
@@ -95,7 +97,9 @@ rules:
   - error
   - single
   - allowTemplateLiterals: true
-  '@typescript-eslint/no-confusing-void-expression': off
+  '@typescript-eslint/no-confusing-void-expression':
+  - error
+  - ignoreArrowShorthand: true
   '@typescript-eslint/no-non-null-assertion': off
   '@typescript-eslint/no-unnecessary-condition':
   - error

@@ -46,10 +46,9 @@ export class HotkeysService {
                 }
             })
         })
-        this.config.ready$.toPromise().then(() => {
-            this.getHotkeyDescriptions().then(hotkeys => {
-                this.hotkeyDescriptions = hotkeys
-            })
+        this.config.ready$.toPromise().then(async () => {
+            const hotkeys = await this.getHotkeyDescriptions()
+            this.hotkeyDescriptions = hotkeys
         })
 
         // deprecated

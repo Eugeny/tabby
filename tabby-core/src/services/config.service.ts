@@ -88,7 +88,7 @@ export class ConfigProxy {
     // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-empty-function
     setValue (_key: string, _value: any) { }
     // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-empty-function
-    getDefault (_key: string) { }
+    getDefault (_key: string): any { }
 }
 
 @Injectable({ providedIn: 'root' })
@@ -195,10 +195,10 @@ export class ConfigService {
     /**
      * Writes config YAML as string
      */
-    writeRaw (data: string): void {
+    async writeRaw (data: string): Promise<void> {
         this._store = yaml.load(data)
-        this.save()
-        this.load()
+        await this.save()
+        await this.load()
         this.emitChange()
     }
 

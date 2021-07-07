@@ -120,7 +120,7 @@ export class ElectronUpdaterService extends UpdaterService {
 
     async update (): Promise<void> {
         if (!this.electronUpdaterAvailable) {
-            this.electron.shell.openExternal(this.updateURL)
+            await this.electron.shell.openExternal(this.updateURL)
         } else {
             if ((await this.platform.showMessageBox(
                 {
