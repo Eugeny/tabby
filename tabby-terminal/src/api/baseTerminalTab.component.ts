@@ -273,7 +273,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
 
         this.contextMenuProviders.sort((a, b) => a.weight - b.weight)
 
-        this.pinToolbar = (window.localStorage.pinTerminalToolbar ?? 'true') === 'true'
+        this.pinToolbar = this.enableToolbar && (window.localStorage.pinTerminalToolbar ?? 'true') === 'true'
     }
 
     /** @hidden */
