@@ -27,6 +27,8 @@
     "native-process-working-directory": "^1.0.2",
     "node-pty": "^0.10.1",
     "npm": "6",
+    "rxjs": "^7.2.0",
+    "source-map-support": "^0.5.19",
     "yargs": "^17.0.1"
   },
   "optionalDependencies": {
@@ -40,8 +42,7 @@
     "@types/mz": "2.7.4",
     "@types/node": "16.0.0",
     "ngx-filesize": "^2.0.16",
-    "node-abi": "^2.30.0",
-    "source-map-support": "^0.5.19"
+    "node-abi": "^2.30.0"
   },
   "peerDependencies": {
     "tabby-community-color-schemes": "*",

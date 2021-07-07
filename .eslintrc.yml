@@ -110,7 +110,6 @@ rules:
   '@typescript-eslint/lines-between-class-members':
   - error
   - exceptAfterSingleLine: true
-  '@typescript-eslint/dot-notation': off
   '@typescript-eslint/no-implicit-any-catch': off
   '@typescript-eslint/member-ordering': off
   '@typescript-eslint/no-var-requires': off
