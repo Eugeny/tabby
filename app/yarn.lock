@@ -87,10 +87,10 @@
   dependencies:
     debug "^4.3.1"
 
-"@types/mz@2.7.3":
-  version "2.7.3"
-  resolved "https://registry.yarnpkg.com/@types/mz/-/mz-2.7.3.tgz#e42a21e73f5f9340fe4a176981fafb1eb8cc6c12"
-  integrity sha512-Zp1NUJ4Alh3gaun0a5rkF3DL7b2j1WB6rPPI5h+CJ98sQnxe9qwskClvupz/4bqChGR3L/BRhTjlaOwR+uiZJg==
+"@types/mz@2.7.4":
+  version "2.7.4"
+  resolved "https://registry.yarnpkg.com/@types/mz/-/mz-2.7.4.tgz#f9d1535cb5171199b28ae6abd6ec29e856551401"
+  integrity sha512-Zs0imXxyWT20j3Z2NwKpr0IO2LmLactBblNyLua5Az4UHuqOQ02V3jPTgyKwDkuc33/ahw+C3O1PIZdrhFMuQA==
   dependencies:
     "@types/node" "*"
 
