@@ -116,3 +116,4 @@ rules:
   '@typescript-eslint/no-var-requires': off
   '@typescript-eslint/no-unsafe-argument': off
   '@typescript-eslint/restrict-plus-operands': off
+  '@typescript-eslint/space-infix-ops': off
