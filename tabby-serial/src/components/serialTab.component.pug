@@ -1,16 +1,16 @@
-.tab-toolbar([class.show]='!session || !session.open')
-    .btn.btn-outline-secondary.reveal-button
-        i.fas.fa-ellipsis-h
-    .toolbar
-        i.fas.fa-circle.text-success.mr-2(*ngIf='session && session.open')
-        i.fas.fa-circle.text-danger.mr-2(*ngIf='!session || !session.open')
-        strong {{profile.options.port}} ({{profile.options.baudrate}})
+.terminal-toolbar(
+    (mouseenter)='showToolbar()',
+    (mouseleave)='hideToolbar()'
+)
+    i.fas.fa-xs.fa-circle.text-success.mr-2(*ngIf='session && session.open')
+    i.fas.fa-xs.fa-circle.text-danger.mr-2(*ngIf='!session || !session.open')
+    strong {{profile.options.port}} ({{profile.options.baudrate}})
 
-        .mr-auto
+    .mr-auto
 
-        button.btn.btn-secondary.mr-3((click)='changeBaudRate()', *ngIf='session && session.open')
-            span Change baud rate
+    button.btn.btn-sm.btn-link.mr-3((click)='changeBaudRate()', *ngIf='session && session.open')
+        span Change baud rate
 
-        button.btn.btn-info((click)='reconnect()', *ngIf='!session || !session.open')
-            i.fas.fa-reload
-            span Reconnect
+    button.btn.btn-sm.btn-link((click)='reconnect()', *ngIf='!session || !session.open')
+        i.fas.fa-redo
+        span Reconnect

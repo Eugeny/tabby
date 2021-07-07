@@ -3,6 +3,7 @@
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    position: relative;
 
     &.top-padded {
         padding-top: 20px;
@@ -20,6 +21,49 @@
         div[style]:last-child {
             background: black !important;
             color: white !important;
+        }
+    }
+
+    $toolbarHeight: 40px;
+
+    &>.terminal-toolbar {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 4;
+        height: $toolbarHeight;
+
+        opacity: 0;
+        background: rgba(0, 0, 0, .75);
+        padding: 5px 85px 5px 15px;
+        transition: 0.25s opacity;
+
+        display: flex;
+        align-items: center;
+        z-index: 3;
+        will-change: transform;
+        transform: translate(0, -100px);
+        transition: 0.25s transform ease-out;
+    }
+
+    &.toolbar-revealed, &.toolbar-pinned {
+        > .terminal-toolbar {
+            opacity: 1;
+            transform: translate(0, 0);
+        }
+    }
+
+    &>.toolbar-pin-button {
+        position: absolute;
+        right: 10px;
+        top: 2px;
+        z-index: 4;
+    }
+
+    &.toolbar-pinned {
+        .content {
+            margin-top: 15px + $toolbarHeight;
         }
     }
 }

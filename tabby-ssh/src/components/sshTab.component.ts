@@ -17,6 +17,7 @@ import { SSHPortForwardingModalComponent } from './sshPortForwardingModal.compon
     animations: BaseTerminalTabComponent.animations,
 })
 export class SSHTabComponent extends BaseTerminalTabComponent {
+    enableToolbar = true
     Platform = Platform
     profile?: SSHProfile
     session: SSHSession|null = null

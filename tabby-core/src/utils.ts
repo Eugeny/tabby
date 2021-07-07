@@ -31,3 +31,26 @@ export function wrapPromise <T> (zone: NgZone, promise: Promise<T>): Promise<T> 
         })
     })
 }
+
+export class ResettableTimeout {
+    private fn: () => void
+    private timeout: number
+    private id: any
+
+    constructor (fn: () => void, timeout: number) {
+        this.fn = fn
+        this.timeout = timeout
+        this.id = null
+    }
+
+    set (timeout?: number): void {
+        this.clear()
+        this.id = setTimeout(this.fn, timeout ?? this.timeout)
+    }
+
+    clear (): void {
+        if (this.id) {
+            clearTimeout(this.id)
+        }
+    }
+}

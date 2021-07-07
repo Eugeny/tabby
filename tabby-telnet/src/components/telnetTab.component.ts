@@ -14,6 +14,7 @@ import { TelnetProfile, TelnetSession } from '../session'
     animations: BaseTerminalTabComponent.animations,
 })
 export class TelnetTabComponent extends BaseTerminalTabComponent {
+    enableToolbar = true
     Platform = Platform
     profile?: TelnetProfile
     session: TelnetSession|null = null

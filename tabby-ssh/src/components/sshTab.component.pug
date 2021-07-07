@@ -1,26 +1,26 @@
-.tab-toolbar([class.show]='!session || !session.open')
-    .btn.btn-outline-secondary.reveal-button
-        i.fas.fa-ellipsis-h
-    .toolbar
-        i.fas.fa-circle.text-success.mr-2(*ngIf='session && session.open')
-        i.fas.fa-circle.text-danger.mr-2(*ngIf='!session || !session.open')
-        strong.mr-auto {{profile.options.user}}@{{profile.options.host}}:{{profile.options.port}}
+.terminal-toolbar(
+    (mouseenter)='showToolbar()',
+    (mouseleave)='hideToolbar()'
+)
+    i.fas.fa-xs.fa-circle.text-success.mr-2(*ngIf='session && session.open')
+    i.fas.fa-xs.fa-circle.text-danger.mr-2(*ngIf='!session || !session.open')
+    strong.mr-auto {{profile.options.user}}@{{profile.options.host}}:{{profile.options.port}}
 
-        button.btn.btn-secondary.mr-2((click)='reconnect()', [class.btn-info]='!session || !session.open')
-            span Reconnect
+    button.btn.btn-sm.btn-link.mr-2((click)='reconnect()')
+        i.fas.fa-redo
+        span Reconnect
 
-        button.btn.btn-secondary.mr-2((click)='openSFTP()', *ngIf='session && session.open')
-            span SFTP
-            span.badge.badge-info.ml-2
-                i.fas.fa-flask
-                span Experimental
+    button.btn.btn-sm.btn-link.mr-2((click)='openSFTP()', *ngIf='session && session.open')
+        i.far.fa-folder-open
+        span SFTP
 
-        button.btn.btn-secondary(
-            *ngIf='session && session.open && hostApp.platform !== Platform.Web',
-            (click)='showPortForwarding()'
-        )
-            i.fas.fa-plug
-            span Ports
+    button.btn.btn-sm.btn-link(
+        *ngIf='session && session.open && hostApp.platform !== Platform.Web',
+        (click)='showPortForwarding()'
+    )
+        i.fas.fa-plug
+        span Ports
+
 
 sftp-panel.bg-dark(
     @panelSlide,

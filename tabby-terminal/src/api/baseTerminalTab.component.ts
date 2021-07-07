@@ -3,7 +3,7 @@ import { Spinner } from 'cli-spinner'
 import colors from 'ansi-colors'
 import { NgZone, OnInit, OnDestroy, Injector, ViewChild, HostBinding, Input, ElementRef, InjectFlags } from '@angular/core'
 import { trigger, transition, style, animate, AnimationTriggerMetadata } from '@angular/animations'
-import { AppService, ConfigService, BaseTabComponent, HostAppService, HotkeysService, NotificationsService, Platform, LogService, Logger, TabContextMenuItemProvider, SplitTabComponent, SubscriptionContainer, MenuItemOptions, PlatformService, HostWindowService } from 'tabby-core'
+import { AppService, ConfigService, BaseTabComponent, HostAppService, HotkeysService, NotificationsService, Platform, LogService, Logger, TabContextMenuItemProvider, SplitTabComponent, SubscriptionContainer, MenuItemOptions, PlatformService, HostWindowService, ResettableTimeout } from 'tabby-core'
 
 import { BaseSession } from '../session'
 import { TerminalFrontendService } from '../services/terminalFrontend.service'
@@ -75,6 +75,15 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
     /** @hidden */
     @HostBinding('class.top-padded') topPadded: boolean
 
+    /** @hidden */
+    @HostBinding('class.toolbar-enabled') enableToolbar = false
+
+    /** @hidden */
+    @HostBinding('class.toolbar-pinned') pinToolbar = false
+
+    /** @hidden */
+    @HostBinding('class.toolbar-revealed') revealToolbar = false
+
     frontend?: Frontend
 
     /** @hidden */
@@ -125,6 +134,9 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
         },
     })
     private spinnerActive = false
+    private toolbarRevealTimeout = new ResettableTimeout(() => {
+        this.revealToolbar = false
+    }, 1000)
 
     get input$ (): Observable<Buffer> {
         if (!this.frontend) {
@@ -260,6 +272,8 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
         this.bellPlayer.src = require('../bell.ogg').default
 
         this.contextMenuProviders.sort((a, b) => a.weight - b.weight)
+
+        this.pinToolbar = (window.localStorage.pinTerminalToolbar ?? 'true') === 'true'
     }
 
     /** @hidden */
@@ -644,6 +658,20 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
             this.session = null
         }
         this.sessionChanged.next(session)
+    }
+
+    showToolbar (): void {
+        this.revealToolbar = true
+        this.toolbarRevealTimeout.clear()
+    }
+
+    hideToolbar (): void {
+        this.toolbarRevealTimeout.set()
+    }
+
+    togglePinToolbar (): void {
+        this.pinToolbar = !this.pinToolbar
+        window.localStorage.pinTerminalToolbar = this.pinToolbar
     }
 
     protected attachSessionHandler <T> (observable: Observable<T>, handler: (v: T) => void): void {

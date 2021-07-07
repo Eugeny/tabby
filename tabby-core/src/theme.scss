@@ -132,6 +132,10 @@ app-root  {
 
 tab-body {
     background: $content-bg;
+
+    .terminal-toolbar .btn, .toolbar-pin-button {
+        font-weight: bold;
+    }
 }
 
 multi-hotkey-input {

@@ -5,3 +5,14 @@ search-panel(
     [frontend]='frontend',
     (close)='showSearchPanel = false'
 )
+
+button.btn.btn-sm.btn-link.toolbar-pin-button(
+    *ngIf='enableToolbar',
+    (click)='togglePinToolbar()',
+    (mouseenter)='showToolbar()',
+    (mouseleave)='hideToolbar()'
+)
+    i.fas.fa-thumbtack(*ngIf='revealToolbar || pinToolbar')
+    i.fas.fa-wrench.mr-3(*ngIf='!revealToolbar && !pinToolbar')
+    span(*ngIf='pinToolbar') Unpin
+    span(*ngIf='!pinToolbar && revealToolbar') Pin
