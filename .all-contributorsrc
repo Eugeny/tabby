@@ -415,6 +415,15 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "cypherbits",
+      "name": "cypherbits",
+      "avatar_url": "https://avatars.githubusercontent.com/u/10424900?v=4",
+      "profile": "https://github.com/cypherbits",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
