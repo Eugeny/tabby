@@ -16,7 +16,14 @@ yarn
 
 ```
 # Linux (Debian here as an example)
-sudo apt install libfontconfig-dev libsecret-1-dev bsdtar libnss3 libatk1.0-0 libatk-bridge2.0-0 libgdk-pixbuf2.0-0 	libgtk-3-0 libgbm1
+sudo apt install libfontconfig-dev libsecret-1-dev bsdtar libnss3 libatk1.0-0 libatk-bridge2.0-0 libgdk-pixbuf2.0-0 libgtk-3-0 libgbm1
+yarn
+./scripts/build-native.js
+```
+
+```
+# Linux (Ubuntu 20.04)
+sudo apt install libfontconfig-dev libsecret-1-dev libarchive-tools libnss3 libatk1.0-0 libatk-bridge2.0-0 libgdk-pixbuf2.0-0 libgtk-3-0 libgbm1 cmake
 yarn
 ./scripts/build-native.js
 ```
