@@ -10,7 +10,7 @@
     "@fortawesome/fontawesome-free": "^5.15.3",
     "@ng-bootstrap/ng-bootstrap": "^10.0.0",
     "@sentry/cli": "^1.64.2",
-    "@sentry/electron": "^2.5.0",
+    "@sentry/electron": "^2.5.1",
     "@tabby-gang/to-string-loader": "^1.1.7-beta.2",
     "@types/electron-config": "^3.2.2",
     "@types/electron-debug": "^2.1.0",
