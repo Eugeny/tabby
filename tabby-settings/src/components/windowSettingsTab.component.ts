@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { debounce } from 'utils-decorators/dist/cjs'
+import { debounce } from 'utils-decorators/dist/esm/debounce/debounce'
 import { Component, Inject, NgZone, Optional } from '@angular/core'
 import {
     DockingService,

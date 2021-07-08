@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Observable, debounceTime, distinctUntilChanged, map } from 'rxjs'
-import { debounce } from 'utils-decorators/dist/cjs'
+import { debounce } from 'utils-decorators/dist/esm/debounce/debounce'
 
 import { Component } from '@angular/core'
 import { ConfigService, getCSSFontFamily, PlatformService } from 'tabby-core'

@@ -130,6 +130,7 @@ module.exports = options => {
     }
     if (process.env.PLUGIN_BUNDLE_ANALYZER === options.name) {
         config.plugins.push(bundleAnalyzer)
+        config.cache = false
     }
     return config
 }

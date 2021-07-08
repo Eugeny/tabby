@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import * as yaml from 'js-yaml'
-import { debounce } from 'utils-decorators/dist/cjs'
+import { debounce } from 'utils-decorators/dist/esm/debounce/debounce'
 import { Component, Inject, Input, HostBinding, NgZone } from '@angular/core'
 import {
     ConfigService,
