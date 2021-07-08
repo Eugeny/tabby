@@ -30,7 +30,7 @@ customRequire['main'] = {
 }
 
 async function webRequire (url) {
-    console.log(`Loading ${url}`)
+    console.log(`>> Loading ${url}`)
     const e = document.createElement('script')
     window['module'] = { exports: {} } as any
     window['exports'] = window['module'].exports
@@ -42,6 +42,11 @@ async function webRequire (url) {
     return window['module'].exports
 }
 
+async function prefetchURL (url) {
+    console.log(`:: Prefetching ${url}`)
+    await (await fetch(url)).text()
+}
+
 const Tabby = {
     registerMock: (name, mod) => {
         mocks[name] = mod
@@ -49,13 +54,31 @@ const Tabby = {
     registerModule: (name, mod) => {
         modules[name] = mod
     },
-    loadPlugin: async (url) => {
+    resolvePluginInfo: async (url): Promise<any> => {
         const pkg = await (await fetch(url + '/package.json')).json()
         url += '/' + pkg.main
-        const module = await webRequire(url)
-        Tabby.registerModule(`resources/builtin-plugins/${pkg.name}`, module)
-        Tabby.registerModule(pkg.name, module)
+        return { ...pkg, url }
+    },
+    registerPluginModule: (packageName, module) => {
+        Tabby.registerModule(`resources/builtin-plugins/${packageName}`, module)
+        Tabby.registerModule(packageName, module)
+    },
+    loadPlugin: async (url) => {
+        const info = await Tabby.resolvePluginInfo(url)
+        const module = await webRequire(info.url)
+        Tabby.registerPluginModule(info.name, module)
         return module
+    },
+    loadPlugins: async (urls) => {
+        const infos: any[] = await Promise.all(urls.map(Tabby.resolvePluginInfo))
+        await Promise.all(infos.map(x => prefetchURL(x.url)))
+        const pluginModules = []
+        for (const info of infos) {
+            const module = await webRequire(info.url)
+            Tabby.registerPluginModule(info.name, module)
+            pluginModules.push(module)
+        }
+        return pluginModules
     },
     bootstrap: (...args) => window['bootstrapTabby'](...args),
     webRequire,
