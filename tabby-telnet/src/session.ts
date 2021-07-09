@@ -80,6 +80,7 @@ export class TelnetSession extends BaseSession {
     }
 
     async destroy (): Promise<void> {
+        this.streamProcessor.close()
         this.serviceMessage.complete()
         this.kill()
         await super.destroy()
