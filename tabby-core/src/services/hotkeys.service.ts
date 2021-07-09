@@ -53,7 +53,7 @@ export class HotkeysService {
 
         // deprecated
         this.hotkey$.subscribe(h => this.matchedHotkey.emit(h))
-        this.matchedHotkey.subscribe = deprecate(s => this.matchedHotkey.subscribe(s), 'matchedHotkey is deprecated, use hotkey$')
+        this.matchedHotkey.subscribe = deprecate(s => this.hotkey$.subscribe(s), 'matchedHotkey is deprecated, use hotkey$')
     }
 
     /**
