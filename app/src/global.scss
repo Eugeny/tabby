@@ -181,4 +181,8 @@ ngb-typeahead-window {
     .custom-switch .custom-control-input:checked ~ .custom-control-label::after {
         background: canvas;
     }
+
+    color-scheme-preview, terminaltab > .content {
+        forced-color-adjust: none;
+    }
 }
