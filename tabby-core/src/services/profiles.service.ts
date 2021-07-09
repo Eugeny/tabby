@@ -43,8 +43,8 @@ export class ProfilesService {
             ...this.config.store.profiles ?? [],
             ...list,
         ]
-        list.sort((a, b) => a.group?.localeCompare(b.group ?? '') ?? -1)
-        list.sort((a, b) => a.name.localeCompare(b.name))
+        const sortKey = p => `${p.group ?? ''} / ${p.name}`
+        list.sort((a, b) => sortKey(a).localeCompare(sortKey(b)))
         list.sort((a, b) => (a.isBuiltin ? 1 : 0) - (b.isBuiltin ? 1 : 0))
         return list
     }
