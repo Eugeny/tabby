@@ -162,3 +162,23 @@ ngb-typeahead-window {
 .list-group-item > button {
     margin: -7px 0;
 }
+
+
+// Windows high contrast mode
+@media screen and (forced-colors: active) {
+    .custom-switch .custom-control-label::before {
+        background: buttonface;
+    }
+
+    .custom-switch .custom-control-label::after {
+        background: buttontext;
+    }
+
+    .custom-switch .custom-control-input:checked ~ .custom-control-label::before {
+        background: activetext;
+    }
+
+    .custom-switch .custom-control-input:checked ~ .custom-control-label::after {
+        background: canvas;
+    }
+}
