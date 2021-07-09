@@ -17,7 +17,6 @@ import { SSHPortForwardingModalComponent } from './sshPortForwardingModal.compon
     animations: BaseTerminalTabComponent.animations,
 })
 export class SSHTabComponent extends BaseTerminalTabComponent {
-    enableToolbar = true
     Platform = Platform
     profile?: SSHProfile
     session: SSHSession|null = null
@@ -33,6 +32,7 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
         private ngbModal: NgbModal,
     ) {
         super(injector)
+        this.enableToolbar = true
     }
 
     ngOnInit (): void {

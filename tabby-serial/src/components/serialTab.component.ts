@@ -14,7 +14,6 @@ import { SerialSession, BAUD_RATES, SerialProfile } from '../api'
     animations: BaseTerminalTabComponent.animations,
 })
 export class SerialTabComponent extends BaseTerminalTabComponent {
-    enableToolbar = true
     profile?: SerialProfile
     session: SerialSession|null = null
     serialPort: any
@@ -25,6 +24,7 @@ export class SerialTabComponent extends BaseTerminalTabComponent {
         private selector: SelectorService,
     ) {
         super(injector)
+        this.enableToolbar = true
     }
 
     ngOnInit () {
