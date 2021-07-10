@@ -369,12 +369,7 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
         await this.initialized$.toPromise()
 
         this.attachTabView(tab)
-
-        setImmediate(() => {
-            this.layout()
-            this.tabAdded.next(tab)
-            this.focus(tab)
-        })
+        this.onAfterTabAdded(tab)
     }
 
     removeTab (tab: BaseTabComponent): void {
@@ -397,6 +392,21 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
         } else {
             this.focusAnyIn(parent)
         }
+    }
+
+    replaceTab (tab: BaseTabComponent, newTab: BaseTabComponent): void {
+        const parent = this.getParentOf(tab)
+        if (!parent) {
+            return
+        }
+        const position = parent.children.indexOf(tab)
+        parent.children[position] = newTab
+        this.detachTabView(tab)
+        this.attachTabView(newTab)
+        tab.parent = null
+        newTab.parent = this
+        this.recoveryStateChangedHint.next()
+        this.onAfterTabAdded(newTab)
     }
 
     /**
@@ -537,6 +547,14 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
             this.viewRefs.delete(tab)
             this.viewContainer.remove(this.viewContainer.indexOf(ref))
         }
+    }
+
+    private onAfterTabAdded (tab: BaseTabComponent) {
+        setImmediate(() => {
+            this.layout()
+            this.tabAdded.next(tab)
+            this.focus(tab)
+        })
     }
 
     private layoutInternal (root: SplitContainer, x: number, y: number, w: number, h: number) {

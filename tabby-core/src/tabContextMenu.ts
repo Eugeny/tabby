@@ -7,6 +7,9 @@ import { TabHeaderComponent } from './components/tabHeader.component'
 import { SplitTabComponent, SplitDirection } from './components/splitTab.component'
 import { TabContextMenuItemProvider } from './api/tabContextMenuProvider'
 import { MenuItemOptions } from './api/menu'
+import { ProfilesService } from './services/profiles.service'
+import { TabsService } from './services/tabs.service'
+import { HotkeysService } from './services/hotkeys.service'
 
 /** @hidden */
 @Injectable()
@@ -201,5 +204,67 @@ export class TaskCompletionContextMenu extends TabContextMenuItemProvider {
             },
         })
         return items
+    }
+}
+
+
+/** @hidden */
+@Injectable()
+export class ProfilesContextMenu extends TabContextMenuItemProvider {
+    weight = 10
+
+    constructor (
+        private profilesService: ProfilesService,
+        private tabsService: TabsService,
+        private app: AppService,
+        hotkeys: HotkeysService,
+    ) {
+        super()
+        hotkeys.hotkey$.subscribe(hotkey => {
+            if (hotkey === 'switch-profile') {
+                let tab = this.app.activeTab
+                if (tab instanceof SplitTabComponent) {
+                    tab = tab.getFocusedTab()
+                    if (tab) {
+                        this.switchTabProfile(tab)
+                    }
+                }
+            }
+        })
+    }
+
+    async switchTabProfile (tab: BaseTabComponent) {
+        const profile = await this.profilesService.showProfileSelector()
+        if (!profile) {
+            return
+        }
+
+        const params = await this.profilesService.newTabParametersForProfile(profile)
+        if (!params) {
+            return
+        }
+
+        if (!await tab.canClose()) {
+            return
+        }
+
+        const newTab = this.tabsService.create(params)
+        ;(tab.parent as SplitTabComponent).replaceTab(tab, newTab)
+
+        tab.destroy()
+    }
+
+    async getItems (tab: BaseTabComponent, tabHeader?: TabHeaderComponent): Promise<MenuItemOptions[]> {
+
+        if (!tabHeader && tab.parent instanceof SplitTabComponent && tab.parent.getAllTabs().length > 1) {
+            return [
+                {
+                    label: 'Switch profile',
+                    click: () => this.switchTabProfile(tab),
+                },
+            ]
+        }
+
+        return []
     }
 }

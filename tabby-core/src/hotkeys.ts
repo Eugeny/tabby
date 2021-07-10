@@ -171,6 +171,10 @@ export class AppHotkeyProvider extends HotkeyProvider {
             name: 'Focus next pane',
         },
         {
+            id: 'switch-profile',
+            name: 'Switch profile in the active pane',
+        },
+        {
             id: 'close-pane',
             name: 'Close focused pane',
         },

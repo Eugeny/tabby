@@ -40,7 +40,7 @@ import { HotkeysService } from './services/hotkeys.service'
 import { StandardTheme, StandardCompactTheme, PaperTheme } from './theme'
 import { CoreConfigProvider } from './config'
 import { AppHotkeyProvider } from './hotkeys'
-import { TaskCompletionContextMenu, CommonOptionsContextMenu, TabManagementContextMenu } from './tabContextMenu'
+import { TaskCompletionContextMenu, CommonOptionsContextMenu, TabManagementContextMenu, ProfilesContextMenu } from './tabContextMenu'
 import { LastCLIHandler, ProfileCLIHandler } from './cli'
 import { ButtonProvider } from './buttonProvider'
 
@@ -56,6 +56,7 @@ const PROVIDERS = [
     { provide: TabContextMenuItemProvider, useClass: CommonOptionsContextMenu, multi: true },
     { provide: TabContextMenuItemProvider, useClass: TabManagementContextMenu, multi: true },
     { provide: TabContextMenuItemProvider, useClass: TaskCompletionContextMenu, multi: true },
+    { provide: TabContextMenuItemProvider, useClass: ProfilesContextMenu, multi: true },
     { provide: TabRecoveryProvider, useClass: SplitTabRecoveryProvider, multi: true },
     { provide: CLIHandler, useClass: ProfileCLIHandler, multi: true },
     { provide: CLIHandler, useClass: LastCLIHandler, multi: true },

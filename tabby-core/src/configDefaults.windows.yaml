@@ -70,6 +70,8 @@ hotkeys:
   pane-maximize:
     - 'Ctrl-Alt-Enter'
   close-pane: []
+  switch-profile:
+    - 'Ctrl-Alt-T'
   profile-selector:
     - 'Ctrl-Shift-T'
 pluginBlacklist: []

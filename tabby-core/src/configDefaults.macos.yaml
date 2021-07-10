@@ -70,4 +70,6 @@ hotkeys:
     - '⌘-Shift-W'
   profile-selector:
     - '⌘-E'
+  switch-profile:
+    - '⌘-Shift-E'
 pluginBlacklist: ['ssh']
