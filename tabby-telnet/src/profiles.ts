@@ -12,22 +12,36 @@ export class TelnetProfilesService extends ProfileProvider {
     settingsComponent = TelnetProfileSettingsComponent
 
     async getBuiltinProfiles (): Promise<TelnetProfile[]> {
-        return [{
-            id: `telnet:template`,
-            type: 'telnet',
-            name: 'Telnet/socket connection',
-            icon: 'fas fa-network-wired',
-            options: {
-                host: '',
-                port: 23,
-                inputMode: 'readline',
-                outputMode: null,
-                inputNewlines: null,
-                outputNewlines: 'crlf',
+        return [
+            {
+                id: `telnet:template`,
+                type: 'telnet',
+                name: 'Telnet session',
+                icon: 'fas fa-network-wired',
+                options: {
+                    host: '',
+                    port: 23,
+                    inputMode: 'readline',
+                    outputMode: null,
+                    inputNewlines: null,
+                    outputNewlines: 'crlf',
+                },
+                isBuiltin: true,
+                isTemplate: true,
             },
-            isBuiltin: true,
-            isTemplate: true,
-        }]
+            {
+                id: `socket:template`,
+                type: 'telnet',
+                name: 'Raw socket connection',
+                icon: 'fas fa-network-wired',
+                options: {
+                    host: '',
+                    port: 1234,
+                },
+                isBuiltin: true,
+                isTemplate: true,
+            },
+        ]
     }
 
     async getNewTabParameters (profile: Profile): Promise<NewTabParameters<TelnetTabComponent>> {
