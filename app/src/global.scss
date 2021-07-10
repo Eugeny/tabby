@@ -115,7 +115,8 @@ ngb-typeahead-window {
 
     .hover-reveal-parent:hover &,
     *:hover > &,
-    &:hover {
+    &:hover,
+    &.show {
       opacity: 1;
     }
 }

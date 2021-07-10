@@ -30,6 +30,13 @@ export interface VaultSecret {
     value: string
 }
 
+export interface VaultFileSecret extends VaultSecret {
+    key: {
+        id: string
+        description: string
+    }
+}
+
 export interface Vault {
     config: any
     secrets: VaultSecret[]
@@ -121,6 +128,10 @@ export class VaultService {
         return !!_rememberedPassphrase
     }
 
+    forgetPassphrase (): void {
+        _rememberedPassphrase = null
+    }
+
     async decrypt (storage: StoredVault, passphrase?: string): Promise<Vault> {
         if (!passphrase) {
             passphrase = await this.getPassphrase()
@@ -128,7 +139,7 @@ export class VaultService {
         try {
             return await wrapPromise(this.zone, decryptVault(storage, passphrase))
         } catch (e) {
-            _rememberedPassphrase = null
+            this.forgetPassphrase()
             if (e.toString().includes('BAD_DECRYPT')) {
                 this.notifications.error('Incorrect passphrase')
             }
@@ -190,6 +201,20 @@ export class VaultService {
         }
         vault.secrets = vault.secrets.filter(s => s.type !== secret.type || !this.keyMatches(secret.key, s))
         vault.secrets.push(secret)
+        await this.save(vault)
+    }
+
+    async updateSecret (secret: VaultSecret, update: VaultSecret): Promise<void> {
+        await this.ready$.toPromise()
+        const vault = await this.load()
+        if (!vault) {
+            return
+        }
+        const target = vault.secrets.find(s => s.type === secret.type && this.keyMatches(secret.key, s))
+        if (!target) {
+            return
+        }
+        Object.assign(target, update)
         await this.save(vault)
     }
 
@@ -274,7 +299,7 @@ export class VaultFileProvider extends FileProvider {
             type: VAULT_SECRET_TYPE_FILE,
             key: {
                 id,
-                description,
+                description: `${description} (${transfer.getName()})`,
             },
             value: (await transfer.readAll()).toString('base64'),
         })

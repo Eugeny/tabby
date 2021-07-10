@@ -27,8 +27,35 @@ div(*ngIf='vault.isEnabled()')
             .list-group-item.d-flex.align-items-center.p-1.pl-3(*ngFor='let secret of vaultContents.secrets')
                 i.fas.fa-key
                 .mr-auto {{getSecretLabel(secret)}}
-                button.btn.btn-link((click)='removeSecret(secret)')
-                    i.fas.fa-trash
+
+                .hover-reveal(ngbDropdown)
+                    button.btn.btn-link(ngbDropdownToggle)
+                        i.fas.fa-ellipsis-v
+                    div(ngbDropdownMenu)
+                        button(
+                            ngbDropdownItem,
+                            *ngIf='secret.type === VAULT_SECRET_TYPE_FILE',
+                            (click)='renameFile(secret)'
+                        )
+                            i.fas.fa-fw.fa-pencil-alt
+                            span Rename
+                        button(
+                            ngbDropdownItem,
+                            *ngIf='secret.type === VAULT_SECRET_TYPE_FILE',
+                            (click)='replaceFileContent(secret)'
+                        )
+                            i.fas.fa-fw.fa-file-import
+                            span Replace
+                        button(
+                            ngbDropdownItem,
+                            *ngIf='secret.type === VAULT_SECRET_TYPE_FILE',
+                            (click)='exportFile(secret)'
+                        )
+                            i.fas.fa-fw.fa-file-export
+                            span Export
+                        button(ngbDropdownItem, (click)='removeSecret(secret)')
+                            i.fas.fa-fw.fa-trash
+                            span Delete
 
         h3.mt-5 Options
         .form-line
