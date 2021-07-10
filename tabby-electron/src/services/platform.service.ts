@@ -205,7 +205,7 @@ export class ElectronPlatformService extends PlatformService {
         }))
     }
 
-    async startDownload (name: string, size: number): Promise<FileDownload|null> {
+    async startDownload (name: string, mode: number, size: number): Promise<FileDownload|null> {
         const result = await this.electron.dialog.showSaveDialog(
             this.hostWindow.getWindow(),
             {
@@ -215,7 +215,7 @@ export class ElectronPlatformService extends PlatformService {
         if (!result.filePath) {
             return null
         }
-        const transfer = new ElectronFileDownload(result.filePath, size)
+        const transfer = new ElectronFileDownload(result.filePath, mode, size)
         await wrapPromise(this.zone, transfer.open())
         this.fileTransferStarted.next(transfer)
         return transfer
@@ -230,6 +230,7 @@ export class ElectronPlatformService extends PlatformService {
 
 class ElectronFileUpload extends FileUpload {
     private size: number
+    private mode: number
     private file: fs.FileHandle
     private buffer: Buffer
 
@@ -239,12 +240,18 @@ class ElectronFileUpload extends FileUpload {
     }
 
     async open (): Promise<void> {
-        this.size = (await fs.stat(this.filePath)).size
+        const stat = await fs.stat(this.filePath)
+        this.size = stat.size
+        this.mode = stat.mode
         this.file = await fs.open(this.filePath, 'r')
     }
 
     getName (): string {
         return path.basename(this.filePath)
+    }
+
+    getMode (): number {
+        return this.mode
     }
 
     getSize (): number {
@@ -267,17 +274,22 @@ class ElectronFileDownload extends FileDownload {
 
     constructor (
         private filePath: string,
+        private mode: number,
         private size: number,
     ) {
         super()
     }
 
     async open (): Promise<void> {
-        this.file = await fs.open(this.filePath, 'w')
+        this.file = await fs.open(this.filePath, 'w', this.mode)
     }
 
     getName (): string {
         return path.basename(this.filePath)
+    }
+
+    getMode (): number {
+        return this.mode
     }
 
     getSize (): number {

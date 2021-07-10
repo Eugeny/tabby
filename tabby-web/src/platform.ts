@@ -108,8 +108,8 @@ export class WebPlatformService extends PlatformService {
         window.close()
     }
 
-    async startDownload (name: string, size: number): Promise<FileDownload|null> {
-        const transfer = new HTMLFileDownload(name, size)
+    async startDownload (name: string, mode: number, size: number): Promise<FileDownload|null> {
+        const transfer = new HTMLFileDownload(name, mode, size)
         this.fileTransferStarted.next(transfer)
         return transfer
     }
@@ -145,6 +145,7 @@ class HTMLFileDownload extends FileDownload {
 
     constructor (
         private name: string,
+        private mode: number,
         private size: number,
     ) {
         super()
@@ -152,6 +153,10 @@ class HTMLFileDownload extends FileDownload {
 
     getName (): string {
         return this.name
+    }
+
+    getMode (): number {
+        return this.mode
     }
 
     getSize (): number {

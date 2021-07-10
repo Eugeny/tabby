@@ -82,10 +82,10 @@ export class SFTPPanelComponent {
             if (stat.isDirectory) {
                 await this.navigate(item.fullPath)
             } else {
-                await this.download(item.fullPath, stat.size)
+                await this.download(item.fullPath, stat.mode, stat.size)
             }
         } else {
-            await this.download(item.fullPath, item.size)
+            await this.download(item.fullPath, item.mode, item.size)
         }
     }
 
@@ -117,8 +117,8 @@ export class SFTPPanelComponent {
         }
     }
 
-    async download (itemPath: string, size: number): Promise<void> {
-        const transfer = await this.platform.startDownload(path.basename(itemPath), size)
+    async download (itemPath: string, mode: number, size: number): Promise<void> {
+        const transfer = await this.platform.startDownload(path.basename(itemPath), mode, size)
         if (!transfer) {
             return
         }

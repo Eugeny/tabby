@@ -113,7 +113,7 @@ export class ZModemDecorator extends TerminalDecorator {
         this.showMessage(terminal, colors.bgYellow.black(' Offered ') + ' ' + details.name, true)
         this.logger.info('offered', xfer)
 
-        const transfer = await this.platform.startDownload(details.name, details.size)
+        const transfer = await this.platform.startDownload(details.name, 0o644, details.size)
         if (!transfer) {
             this.showMessage(terminal, colors.bgRed.black(' Rejected ') + ' ' + details.name)
             xfer.skip()

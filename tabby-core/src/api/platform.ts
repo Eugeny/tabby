@@ -21,6 +21,7 @@ export interface MessageBoxResult {
 
 export abstract class FileTransfer {
     abstract getName (): string
+    abstract getMode (): number
     abstract getSize (): number
     abstract close (): void
 
@@ -95,7 +96,7 @@ export abstract class PlatformService {
     abstract loadConfig (): Promise<string>
     abstract saveConfig (content: string): Promise<void>
 
-    abstract startDownload (name: string, size: number): Promise<FileDownload|null>
+    abstract startDownload (name: string, mode: number, size: number): Promise<FileDownload|null>
     abstract startUpload (options?: FileUploadOptions): Promise<FileUpload[]>
 
     startUploadFromDragEvent (event: DragEvent, multiple = false): FileUpload[] {
@@ -186,6 +187,10 @@ export class HTMLFileUpload extends FileUpload {
 
     getName (): string {
         return this.file.name
+    }
+
+    getMode (): number {
+        return 0o644
     }
 
     getSize (): number {

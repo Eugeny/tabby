@@ -71,7 +71,7 @@ export class DebugDecorator extends TerminalDecorator {
 
     private async saveFile (content: string, name: string) {
         const data = Buffer.from(content)
-        const transfer = await this.platform.startDownload(name, data.length)
+        const transfer = await this.platform.startDownload(name, 0o644, data.length)
         if (transfer) {
             transfer.write(data)
             transfer.close()
