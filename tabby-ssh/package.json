@@ -12,7 +12,7 @@
     "watch": "webpack --progress --color --watch",
     "postinstall": "run-script-os",
     "postinstall:darwin:linux": "exit",
-    "postinstall:win32": "xcopy /i /y node_modules\\ssh2\\util\\pagent.exe util\\"
+    "postinstall:win32": "xcopy /i /y ..\\node_modules\\ssh2\\util\\pagent.exe util\\"
   },
   "files": [
     "dist",
@@ -24,7 +24,6 @@
     "@types/node": "16.0.1",
     "@types/ssh2": "^0.5.46",
     "ansi-colors": "^4.1.1",
-    "ssh2": "^1.1.0",
     "sshpk": "Eugeny/node-sshpk#89ed17dfae425a8b629873c8337e77d26838c04f",
     "strip-ansi": "^7.0.0"
   },

@@ -1,0 +1,15 @@
+diff --git a/node_modules/ssh2/lib/protocol/Protocol.js b/node_modules/ssh2/lib/protocol/Protocol.js
+index b4d1ee0..1e3ac66 100644
+--- a/node_modules/ssh2/lib/protocol/Protocol.js
++++ b/node_modules/ssh2/lib/protocol/Protocol.js
+@@ -254,8 +254,8 @@ class Protocol {
+       );
+       if (greeting)
+         this._onWrite(greeting);
+-      this._onWrite(this._identRaw);
+-      this._onWrite(CRLF);
++      this._onWrite(Buffer.concat([this._identRaw, CRLF]));
++      // this._onWrite(CRLF);
+     });
+   }
+   _destruct(reason) {
