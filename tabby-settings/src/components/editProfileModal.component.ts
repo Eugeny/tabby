@@ -2,7 +2,7 @@
 import { Observable, OperatorFunction, debounceTime, map, distinctUntilChanged } from 'rxjs'
 import { Component, Input, ViewChild, ViewContainerRef, ComponentFactoryResolver, Injector } from '@angular/core'
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
-import { ConfigService, Profile, ProfileProvider, ProfileSettingsComponent } from 'tabby-core'
+import { ConfigProxy, ConfigService, Profile, ProfileProvider, ProfileSettingsComponent, ProfilesService } from 'tabby-core'
 
 const iconsData = require('../../../tabby-core/src/icons.json')
 const iconsClassList = Object.keys(iconsData).map(
@@ -16,17 +16,19 @@ const iconsClassList = Object.keys(iconsData).map(
     template: require('./editProfileModal.component.pug'),
 })
 export class EditProfileModalComponent {
-    @Input() profile: Profile
+    @Input() profile: Profile|ConfigProxy
     @Input() profileProvider: ProfileProvider
     @Input() settingsComponent: new () => ProfileSettingsComponent
     groupNames: string[]
     @ViewChild('placeholder', { read: ViewContainerRef }) placeholder: ViewContainerRef
 
+    private _profile: Profile
     private settingsComponentInstance: ProfileSettingsComponent
 
     constructor (
         private injector: Injector,
         private componentFactoryResolver: ComponentFactoryResolver,
+        private profilesService: ProfilesService,
         config: ConfigService,
         private modalInstance: NgbActiveModal,
     ) {
@@ -35,6 +37,11 @@ export class EditProfileModalComponent {
                 .map(x => x.group)
                 .filter(x => !!x)
         )].sort() as string[]
+    }
+
+    ngOnInit () {
+        this._profile = this.profile
+        this.profile = this.profilesService.getConfigProxyForProfile(this.profile)
     }
 
     ngAfterViewInit () {
@@ -63,7 +70,8 @@ export class EditProfileModalComponent {
     save () {
         this.profile.group ||= undefined
         this.settingsComponentInstance.save?.()
-        this.modalInstance.close(this.profile)
+        this.profile.__cleanup()
+        this.modalInstance.close(this._profile)
     }
 
     cancel () {

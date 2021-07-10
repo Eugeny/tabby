@@ -10,6 +10,17 @@ export class TelnetProfilesService extends ProfileProvider {
     name = 'Telnet'
     supportsQuickConnect = false
     settingsComponent = TelnetProfileSettingsComponent
+    configDefaults = {
+        options: {
+            host: null,
+            port: 23,
+            inputMode: 'local-echo',
+            outputMode: null,
+            inputNewlines: null,
+            outputNewlines: 'crlf',
+            scripts: [],
+        },
+    }
 
     async getBuiltinProfiles (): Promise<TelnetProfile[]> {
         return [

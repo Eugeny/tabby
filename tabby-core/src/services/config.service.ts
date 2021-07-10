@@ -1,3 +1,4 @@
+import deepEqual from 'deep-equal'
 import { v4 as uuidv4 } from 'uuid'
 import * as yaml from 'js-yaml'
 import { Observable, Subject, AsyncSubject } from 'rxjs'
@@ -8,7 +9,8 @@ import { HostAppService } from '../api/hostApp'
 import { Vault, VaultService } from './vault.service'
 const deepmerge = require('deepmerge')
 
-const configMerge = (a, b) => deepmerge(a, b, { arrayMerge: (_d, s) => s }) // eslint-disable-line @typescript-eslint/no-var-requires
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const configMerge = (a, b) => deepmerge(a, b, { arrayMerge: (_d, s) => s }) // eslint-disable-line @typescript-eslint/no-var-requires
 
 const LATEST_VERSION = 1
 
@@ -46,24 +48,24 @@ export class ConfigProxy {
                     {
                         enumerable: true,
                         configurable: false,
-                        get: () => this.getValue(key),
+                        get: () => this.__getValue(key),
                         set: (value) => {
-                            this.setValue(key, value)
+                            this.__setValue(key, value)
                         },
                     }
                 )
             }
         }
 
-        this.getValue = (key: string) => { // eslint-disable-line @typescript-eslint/unbound-method
+        this.__getValue = (key: string) => { // eslint-disable-line @typescript-eslint/unbound-method
             if (real[key] !== undefined) {
                 return real[key]
             } else {
-                return this.getDefault(key)
+                return this.__getDefault(key)
             }
         }
 
-        this.getDefault = (key: string) => { // eslint-disable-line @typescript-eslint/unbound-method
+        this.__getDefault = (key: string) => { // eslint-disable-line @typescript-eslint/unbound-method
             if (isNonStructuralObjectMember(defaults[key])) {
                 real[key] = { ...defaults[key] }
                 delete real[key].__nonStructural
@@ -73,22 +75,36 @@ export class ConfigProxy {
             }
         }
 
-        this.setValue = (key: string, value: any) => { // eslint-disable-line @typescript-eslint/unbound-method
-            if (value === this.getDefault(key)) {
+        this.__setValue = (key: string, value: any) => { // eslint-disable-line @typescript-eslint/unbound-method
+            if (deepEqual(value, this.__getDefault(key))) {
                 // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
                 delete real[key]
             } else {
                 real[key] = value
             }
         }
+
+        this.__cleanup = () => { // eslint-disable-line @typescript-eslint/unbound-method
+            // Trigger removal of default values
+            for (const key in defaults) {
+                if (isStructuralMember(defaults[key])) {
+                    this[key].__cleanup()
+                } else {
+                    const v = this.__getValue(key)
+                    this.__setValue(key, v)
+                }
+            }
+        }
     }
 
     // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-empty-function
-    getValue (_key: string): any { }
+    __getValue (_key: string): any { }
     // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-empty-function
-    setValue (_key: string, _value: any) { }
+    __setValue (_key: string, _value: any) { }
     // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-empty-function
-    getDefault (_key: string): any { }
+    __getDefault (_key: string): any { }
+    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-empty-function
+    __cleanup () { }
 }
 
 @Injectable({ providedIn: 'root' })
@@ -177,6 +193,7 @@ export class ConfigService {
     }
 
     async save (): Promise<void> {
+        this.store.__cleanup()
         // Scrub undefined values
         let cleanStore = JSON.parse(JSON.stringify(this._store))
         cleanStore = await this.maybeEncryptConfig(cleanStore)

@@ -20,7 +20,7 @@ export { ProfileProvider, Profile, ProfileSettingsComponent } from './profilePro
 export { PromptModalComponent } from '../components/promptModal.component'
 
 export { AppService } from '../services/app.service'
-export { ConfigService } from '../services/config.service'
+export { ConfigService, configMerge, ConfigProxy } from '../services/config.service'
 export { DockingService, Screen } from '../services/docking.service'
 export { Logger, ConsoleLogger, LogService } from '../services/log.service'
 export { HomeBaseService } from '../services/homeBase.service'

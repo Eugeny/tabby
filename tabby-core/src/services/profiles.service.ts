@@ -4,12 +4,26 @@ import { BaseTabComponent } from '../components/baseTab.component'
 import { Profile, ProfileProvider } from '../api/profileProvider'
 import { SelectorOption } from '../api/selector'
 import { AppService } from './app.service'
-import { ConfigService } from './config.service'
+import { configMerge, ConfigProxy, ConfigService } from './config.service'
 import { NotificationsService } from './notifications.service'
 import { SelectorService } from './selector.service'
 
 @Injectable({ providedIn: 'root' })
 export class ProfilesService {
+    private profileDefaults = {
+        id: '',
+        type: '',
+        name: '',
+        group: '',
+        options: {},
+        icon: '',
+        color: '',
+        disableDynamicTitle: false,
+        weight: 0,
+        isBuiltin: false,
+        isTemplate: false,
+    }
+
     constructor (
         private app: AppService,
         private config: ConfigService,
@@ -19,6 +33,7 @@ export class ProfilesService {
     ) { }
 
     async openNewTabForProfile (profile: Profile): Promise<BaseTabComponent|null> {
+        profile = this.getConfigProxyForProfile(profile)
         const params = await this.newTabParametersForProfile(profile)
         if (params) {
             const tab = this.app.openNewTab(params)
@@ -33,6 +48,7 @@ export class ProfilesService {
     }
 
     async newTabParametersForProfile (profile: Profile): Promise<NewTabParameters<BaseTabComponent>|null> {
+        profile = this.getConfigProxyForProfile(profile)
         return this.providerForProfile(profile)?.getNewTabParameters(profile) ?? null
     }
 
@@ -149,5 +165,11 @@ export class ProfilesService {
         }
         this.notifications.error(`Could not parse "${query}"`)
         return null
+    }
+
+    getConfigProxyForProfile (profile: Profile): Profile {
+        const provider = this.providerForProfile(profile)
+        const defaults = configMerge(this.profileDefaults, provider?.configDefaults ?? {})
+        return new ConfigProxy(profile, defaults) as unknown as Profile
     }
 }

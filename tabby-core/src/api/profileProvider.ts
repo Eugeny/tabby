@@ -29,6 +29,7 @@ export abstract class ProfileProvider {
     name: string
     supportsQuickConnect = false
     settingsComponent: new (...args: any[]) => ProfileSettingsComponent
+    configDefaults = {}
 
     abstract getBuiltinProfiles (): Promise<Profile[]>
 

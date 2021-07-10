@@ -4,8 +4,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 
 import { ConfigService, FileProvidersService, Platform, HostAppService, PromptModalComponent } from 'tabby-core'
 import { PasswordStorageService } from '../services/passwordStorage.service'
-import { ForwardedPortConfig, SSHAlgorithmType, ALGORITHM_BLACKLIST, SSHProfile } from '../api'
-import * as ALGORITHMS from 'ssh2/lib/protocol/constants'
+import { ForwardedPortConfig, SSHAlgorithmType, SSHProfile } from '../api'
+import { SSHProfilesService } from '../profiles'
 
 /** @hidden */
 @Component({
@@ -18,7 +18,6 @@ export class SSHProfileSettingsComponent {
     useProxyCommand: boolean
 
     supportedAlgorithms: Record<string, string> = {}
-    defaultAlgorithms: Record<string, string[]> = {}
     algorithms: Record<string, Record<string, boolean>> = {}
     jumpHosts: SSHProfile[]
 
@@ -28,36 +27,16 @@ export class SSHProfileSettingsComponent {
         private passwordStorage: PasswordStorageService,
         private ngbModal: NgbModal,
         private fileProviders: FileProvidersService,
+        sshProfilesService: SSHProfilesService,
     ) {
-        for (const k of Object.values(SSHAlgorithmType)) {
-            const supportedAlg = {
-                [SSHAlgorithmType.KEX]: 'SUPPORTED_KEX',
-                [SSHAlgorithmType.HOSTKEY]: 'SUPPORTED_SERVER_HOST_KEY',
-                [SSHAlgorithmType.CIPHER]: 'SUPPORTED_CIPHER',
-                [SSHAlgorithmType.HMAC]: 'SUPPORTED_MAC',
-            }[k]
-            const defaultAlg = {
-                [SSHAlgorithmType.KEX]: 'DEFAULT_KEX',
-                [SSHAlgorithmType.HOSTKEY]: 'DEFAULT_SERVER_HOST_KEY',
-                [SSHAlgorithmType.CIPHER]: 'DEFAULT_CIPHER',
-                [SSHAlgorithmType.HMAC]: 'DEFAULT_MAC',
-            }[k]
-            this.supportedAlgorithms[k] = ALGORITHMS[supportedAlg].filter(x => !ALGORITHM_BLACKLIST.includes(x)).sort()
-            this.defaultAlgorithms[k] = ALGORITHMS[defaultAlg].filter(x => !ALGORITHM_BLACKLIST.includes(x))
-        }
+        this.supportedAlgorithms = sshProfilesService.supportedAlgorithms
     }
 
     async ngOnInit () {
         this.jumpHosts = this.config.store.profiles.filter(x => x.type === 'ssh' && x !== this.profile)
-        this.profile.options.algorithms = this.profile.options.algorithms ?? {}
         for (const k of Object.values(SSHAlgorithmType)) {
-            // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-            if (!this.profile.options.algorithms[k]) {
-                this.profile.options.algorithms[k] = this.defaultAlgorithms[k]
-            }
-
             this.algorithms[k] = {}
-            for (const alg of this.profile.options.algorithms[k]) {
+            for (const alg of this.profile.options.algorithms?.[k] ?? []) {
                 this.algorithms[k][alg] = true
             }
         }
@@ -108,6 +87,7 @@ export class SSHProfileSettingsComponent {
             this.profile.options.algorithms![k] = Object.entries(this.algorithms[k])
                 .filter(([_, v]) => !!v)
                 .map(([key, _]) => key)
+            this.profile.options.algorithms![k].sort()
         }
         if (!this.useProxyCommand) {
             this.profile.options.proxyCommand = undefined

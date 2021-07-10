@@ -82,7 +82,14 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
         modal.componentInstance.profile = Object.assign({}, profile)
         modal.componentInstance.profileProvider = this.profilesService.providerForProfile(profile)
         const result = await modal.result
+
+        // Fully replace the config
+        for (const k in profile) {
+            // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
+            delete profile[k]
+        }
         Object.assign(profile, result)
+
         await this.config.save()
     }
 

@@ -13,6 +13,24 @@ export class SerialProfilesService extends ProfileProvider {
     id = 'serial'
     name = 'Serial'
     settingsComponent = SerialProfileSettingsComponent
+    configDefaults = {
+        options: {
+            port: null,
+            baudrate: null,
+            databits: 8,
+            stopbits: 1,
+            parity: 'none',
+            rtscts: false,
+            xon: false,
+            xoff: false,
+            xany: false,
+            inputMode: 'local-echo',
+            outputMode: null,
+            inputNewlines: null,
+            outputNewlines: 'crlf',
+            scripts: [],
+        },
+    }
 
     constructor (
         private selector: SelectorService,

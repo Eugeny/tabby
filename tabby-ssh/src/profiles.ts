@@ -3,7 +3,9 @@ import { ProfileProvider, Profile, NewTabParameters } from 'tabby-core'
 import { SSHProfileSettingsComponent } from './components/sshProfileSettings.component'
 import { SSHTabComponent } from './components/sshTab.component'
 import { PasswordStorageService } from './services/passwordStorage.service'
-import { SSHProfile } from './api'
+import { ALGORITHM_BLACKLIST, SSHAlgorithmType, SSHProfile } from './api'
+
+import * as ALGORITHMS from 'ssh2/lib/protocol/constants'
 
 @Injectable({ providedIn: 'root' })
 export class SSHProfilesService extends ProfileProvider {
@@ -11,11 +13,57 @@ export class SSHProfilesService extends ProfileProvider {
     name = 'SSH'
     supportsQuickConnect = true
     settingsComponent = SSHProfileSettingsComponent
+    configDefaults = {
+        options: {
+            host: null,
+            port: 22,
+            user: 'root',
+            auth: null,
+            password: null,
+            privateKeys: [],
+            keepaliveInterval: null,
+            keepaliveCountMax: null,
+            readyTimeout: null,
+            x11: false,
+            skipBanner: false,
+            jumpHost: null,
+            agentForward: false,
+            warnOnClose: null,
+            algorithms: {
+                hmac: [],
+                kex: [],
+                cipher: [],
+                serverHostKey: [],
+            },
+            proxyCommand: null,
+            forwardedPorts: [],
+            scripts: [],
+        },
+    }
+
+    supportedAlgorithms: Record<string, string> = {}
 
     constructor (
         private passwordStorage: PasswordStorageService
     ) {
         super()
+        for (const k of Object.values(SSHAlgorithmType)) {
+            const supportedAlg = {
+                [SSHAlgorithmType.KEX]: 'SUPPORTED_KEX',
+                [SSHAlgorithmType.HOSTKEY]: 'SUPPORTED_SERVER_HOST_KEY',
+                [SSHAlgorithmType.CIPHER]: 'SUPPORTED_CIPHER',
+                [SSHAlgorithmType.HMAC]: 'SUPPORTED_MAC',
+            }[k]
+            const defaultAlg = {
+                [SSHAlgorithmType.KEX]: 'DEFAULT_KEX',
+                [SSHAlgorithmType.HOSTKEY]: 'DEFAULT_SERVER_HOST_KEY',
+                [SSHAlgorithmType.CIPHER]: 'DEFAULT_CIPHER',
+                [SSHAlgorithmType.HMAC]: 'DEFAULT_MAC',
+            }[k]
+            this.supportedAlgorithms[k] = ALGORITHMS[supportedAlg].filter(x => !ALGORITHM_BLACKLIST.includes(x)).sort()
+            this.configDefaults.options.algorithms[k] = ALGORITHMS[defaultAlg].filter(x => !ALGORITHM_BLACKLIST.includes(x))
+            this.configDefaults.options.algorithms[k].sort()
+        }
     }
 
     async getBuiltinProfiles (): Promise<Profile[]> {

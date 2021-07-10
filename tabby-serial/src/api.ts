@@ -19,7 +19,6 @@ export interface SerialProfileOptions extends StreamProcessingOptions, LoginScri
     xon?: boolean
     xoff?: boolean
     xany?: boolean
-    color?: string
 }
 
 export const BAUD_RATES = [
