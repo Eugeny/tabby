@@ -35,21 +35,21 @@ export class ButtonProvider extends ToolbarButtonProvider {
     async activate () {
         const recentProfiles: Profile[] = this.config.store.recentProfiles
 
-        const getProfileOptions = (profile): SelectorOption<void> => {
-            const result: SelectorOption<void> = this.profilesServices.selectorOptionForProfile(profile)
-            if (recentProfiles.includes(profile)) {
-                result.icon = 'fas fa-history'
-            }
-            result.callback = () => this.launchProfile(profile)
-            return result
-        }
-
-        let options = recentProfiles.map(getProfileOptions)
+        let options: SelectorOption<void>[] = recentProfiles.map(p => ({
+            ...this.profilesServices.selectorOptionForProfile(p),
+            icon: 'fas fa-history',
+            callback: async () => {
+                if (p.id) {
+                    p = (await this.profilesServices.getProfiles()).find(x => x.id === p.id) ?? p
+                }
+                this.launchProfile(p)
+            },
+        }))
         if (recentProfiles.length) {
             options.push({
                 name: 'Clear recent connections',
                 icon: 'fas fa-eraser',
-                callback: () => {
+                callback: async () => {
                     this.config.store.recentProfiles = []
                     this.config.save()
                 },
@@ -64,7 +64,10 @@ export class ButtonProvider extends ToolbarButtonProvider {
 
         profiles = profiles.filter(x => !x.isTemplate)
 
-        options = [...options, ...profiles.map(getProfileOptions)]
+        options = [...options, ...profiles.map((p): SelectorOption<void> => ({
+            ...this.profilesServices.selectorOptionForProfile(p),
+            callback: () => this.launchProfile(p),
+        }))]
 
         try {
             const { SettingsTabComponent } = window['nodeRequire']('tabby-settings')
