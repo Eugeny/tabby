@@ -91,10 +91,12 @@ export class ButtonProvider extends ToolbarButtonProvider {
 
     quickConnect (query: string) {
         for (const provider of this.profilesServices.getProviders()) {
-            const profile = provider.quickConnect(query)
-            if (profile) {
-                this.launchProfile(profile)
-                return
+            if (provider.supportsQuickConnect) {
+                const profile = provider.quickConnect(query)
+                if (profile) {
+                    this.launchProfile(profile)
+                    return
+                }
             }
         }
         this.notifications.error(`Could not parse "${query}"`)
