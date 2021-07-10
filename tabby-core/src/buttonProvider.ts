@@ -105,7 +105,8 @@ export class ButtonProvider extends ToolbarButtonProvider {
     async launchProfile (profile: Profile) {
         await this.profilesServices.openNewTabForProfile(profile)
 
-        const recentProfiles = this.config.store.recentProfiles
+        let recentProfiles = this.config.store.recentProfiles
+        recentProfiles = recentProfiles.filter(x => x.group !== profile.group || x.name !== profile.name)
         recentProfiles.unshift(profile)
         if (recentProfiles.length > 5) {
             recentProfiles.pop()
