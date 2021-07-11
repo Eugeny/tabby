@@ -31,6 +31,7 @@ import { DemoProfilesService } from 'profiles'
         DemoTerminalTabComponent,
     ],
 })
+// eslint-disable-next-line @typescript-eslint/no-extraneous-class
 export default class DemoTerminalModule {
     constructor (
         app: AppService,
@@ -39,4 +40,4 @@ export default class DemoTerminalModule {
             app.openNewTab({ type: DemoTerminalTabComponent })
         })
     }
-} // eslint-disable-line @typescript-eslint/no-extraneous-class
+}

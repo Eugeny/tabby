@@ -1,9 +1,11 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
+import * as path from 'path'
 import { BaseSession } from 'tabby-terminal'
 
 const currentScript: any = document.currentScript
 
 export class Session extends BaseSession {
-    private dataPath = window['tabbyWebDemoDataPath'] ?? (currentScript.src + '../../../data')
+    private dataPath = window['tabbyWebDemoDataPath'] ?? currentScript.src + '../../../data'
     private vm: any
     static v86Loaded = false
 
@@ -49,7 +51,7 @@ export class Session extends BaseSession {
             }, 2000)
         })
         this.vm.add_listener('download-progress', (e) => {
-            this.emitMessage(`\rDownloading ${e.file_name}: ${e.loaded / 1024}/${e.total / 1024} kB         `)
+            this.emitMessage(`\rDownloading ${path.basename(e.file_name)}: ${e.loaded / 1024}/${e.total / 1024} kB         `)
         })
         this.vm.add_listener('download-error', (e) => {
             this.emitMessage(`\r\nDownload error: ${e}\r\n`)
@@ -60,8 +62,7 @@ export class Session extends BaseSession {
         })
     }
 
-    resize (_columns: number, _rows: number): void {
-    }
+    resize (_columns: number, _rows: number): void { }
 
     write (data: Buffer): void {
         this.vm.serial0_send(data.toString())
@@ -74,13 +75,13 @@ export class Session extends BaseSession {
         this.emitOutput(Buffer.from(msg))
     }
 
-    async gracefullyKillProcess(): Promise<void> { }
+    async gracefullyKillProcess (): Promise<void> { }
 
-    supportsWorkingDirectory(): boolean {
+    supportsWorkingDirectory (): boolean {
         return false
     }
 
-    getWorkingDirectory(): Promise<string | null> {
+    getWorkingDirectory (): Promise<string | null> {
         return null
     }
 }
