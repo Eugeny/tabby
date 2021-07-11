@@ -69,15 +69,18 @@ const Tabby = {
         Tabby.registerPluginModule(info.name, module)
         return module
     },
-    loadPlugins: async (urls) => {
+    loadPlugins: async (urls, progressCallback) => {
         const infos: any[] = await Promise.all(urls.map(Tabby.resolvePluginInfo))
+        progressCallback?.(0, 1)
         await Promise.all(infos.map(x => prefetchURL(x.url)))
         const pluginModules = []
         for (const info of infos) {
             const module = await webRequire(info.url)
             Tabby.registerPluginModule(info.name, module)
             pluginModules.push(module)
+            progressCallback?.(infos.indexOf(info), infos.length)
         }
+        progressCallback?.(1, 1)
         return pluginModules
     },
     bootstrap: (...args) => window['bootstrapTabby'](...args),
