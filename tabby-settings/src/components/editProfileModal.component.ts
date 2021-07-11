@@ -16,7 +16,7 @@ const iconsClassList = Object.keys(iconsData).map(
     template: require('./editProfileModal.component.pug'),
 })
 export class EditProfileModalComponent {
-    @Input() profile: Profile|ConfigProxy
+    @Input() profile: Profile & ConfigProxy
     @Input() profileProvider: ProfileProvider
     @Input() settingsComponent: new () => ProfileSettingsComponent
     groupNames: string[]
@@ -41,17 +41,20 @@ export class EditProfileModalComponent {
 
     ngOnInit () {
         this._profile = this.profile
-        this.profile = this.profilesService.getConfigProxyForProfile(this.profile)
+        this.profile = this.profilesService.getConfigProxyForProfile(this.profile) as any
     }
 
     ngAfterViewInit () {
-        setTimeout(() => {
-            const componentFactory = this.componentFactoryResolver.resolveComponentFactory(this.profileProvider.settingsComponent)
-            const componentRef = componentFactory.create(this.injector)
-            this.settingsComponentInstance = componentRef.instance
-            this.settingsComponentInstance.profile = this.profile
-            this.placeholder.insert(componentRef.hostView)
-        })
+        const componentType = this.profileProvider.settingsComponent
+        if (componentType) {
+            setTimeout(() => {
+                const componentFactory = this.componentFactoryResolver.resolveComponentFactory(componentType)
+                const componentRef = componentFactory.create(this.injector)
+                this.settingsComponentInstance = componentRef.instance
+                this.settingsComponentInstance.profile = this.profile
+                this.placeholder.insert(componentRef.hostView)
+            })
+        }
     }
 
     groupTypeahead = (text$: Observable<string>) =>

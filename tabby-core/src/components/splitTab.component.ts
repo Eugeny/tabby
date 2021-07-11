@@ -636,7 +636,7 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
 }
 
 /** @hidden */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class SplitTabRecoveryProvider extends TabRecoveryProvider<SplitTabComponent> {
     async applicableTo (recoveryToken: RecoveryToken): Promise<boolean> {
         return recoveryToken.type === 'app:split-tab'

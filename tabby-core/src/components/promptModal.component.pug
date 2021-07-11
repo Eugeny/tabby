@@ -1,19 +1,19 @@
 .modal-body
     input.form-control(
-        [type]='password ? "password" : "text"', 
+        [type]='password ? "password" : "text"',
         autofocus,
-        [(ngModel)]='value', 
-        #input, 
-        [placeholder]='prompt', 
+        [(ngModel)]='value',
+        #input,
+        [placeholder]='prompt',
         (keyup.enter)='ok()',
         (keyup.esc)='cancel()',
     )
     .d-flex.align-items-start.mt-2
         checkbox(
             *ngIf='showRememberCheckbox',
-            [(ngModel)]='remember', 
+            [(ngModel)]='remember',
             text='Remember'
         )
         button.btn.btn-primary.ml-auto(
             (click)='ok()',
-        ) Enter
+        ) OK

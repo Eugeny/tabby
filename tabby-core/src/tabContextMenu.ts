@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Injectable } from '@angular/core'
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { Subscription } from 'rxjs'
 import { AppService } from './services/app.service'
 import { BaseTabComponent } from './components/baseTab.component'
@@ -10,6 +11,8 @@ import { MenuItemOptions } from './api/menu'
 import { ProfilesService } from './services/profiles.service'
 import { TabsService } from './services/tabs.service'
 import { HotkeysService } from './services/hotkeys.service'
+import { PromptModalComponent } from './components/promptModal.component'
+import { SplitLayoutProfilesService } from './profiles'
 
 /** @hidden */
 @Injectable()
@@ -103,6 +106,8 @@ export class CommonOptionsContextMenu extends TabContextMenuItemProvider {
 
     constructor (
         private app: AppService,
+        private ngbModal: NgbModal,
+        private splitLayoutProfilesService: SplitLayoutProfilesService,
     ) {
         super()
     }
@@ -133,6 +138,21 @@ export class CommonOptionsContextMenu extends TabContextMenuItemProvider {
                     })) as MenuItemOptions[],
                 },
             ]
+
+            if (tab instanceof SplitTabComponent && tab.getAllTabs().length > 1) {
+                items.push({
+                    label: 'Save layout as profile',
+                    click: async () => {
+                        const modal = this.ngbModal.open(PromptModalComponent)
+                        modal.componentInstance.prompt = 'Profile name'
+                        const name = (await modal.result)?.value
+                        if (!name) {
+                            return
+                        }
+                        this.splitLayoutProfilesService.createProfile(tab, name)
+                    },
+                })
+            }
         }
         return items
     }
