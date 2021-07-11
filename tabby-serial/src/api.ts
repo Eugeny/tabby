@@ -4,6 +4,7 @@ import { LogService, NotificationsService, Profile } from 'tabby-core'
 import { Subject, Observable } from 'rxjs'
 import { Injector, NgZone } from '@angular/core'
 import { BaseSession, LoginScriptsOptions, StreamProcessingOptions, TerminalStreamProcessor } from 'tabby-terminal'
+import { SerialService } from './services/serial.service'
 
 export interface SerialProfile extends Profile {
     options: SerialProfileOptions
@@ -38,9 +39,12 @@ export class SerialSession extends BaseSession {
     private streamProcessor: TerminalStreamProcessor
     private zone: NgZone
     private notifications: NotificationsService
+    private serialService: SerialService
 
     constructor (injector: Injector, public profile: SerialProfile) {
         super(injector.get(LogService).create(`serial-${profile.options.port}`))
+        this.serialService = injector.get(SerialService)
+
         this.zone = injector.get(NgZone)
         this.notifications = injector.get(NotificationsService)
 
@@ -57,6 +61,10 @@ export class SerialSession extends BaseSession {
     }
 
     async start (): Promise<void> {
+        if (!this.profile.options.port) {
+            this.profile.options.port = (await this.serialService.listPorts())[0].name
+        }
+
         this.serial = new SerialPort(this.profile.options.port, {
             autoOpen: false,
             baudRate: parseInt(this.profile.options.baudrate as any),

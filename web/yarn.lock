@@ -800,6 +800,11 @@ readable-stream@^3.5.0, readable-stream@^3.6.0:
     string_decoder "^1.1.1"
     util-deprecate "^1.0.1"
 
+readline-browserify@^0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/readline-browserify/-/readline-browserify-0.0.4.tgz#d4367efe1e74881ea9deb836f69a608b885ffc7c"
+  integrity sha1-1DZ+/h50iB6p3rg29ppgi4hf/Hw=
+
 rimraf@^2.6.3:
   version "2.7.1"
   resolved "https://registry.yarnpkg.com/rimraf/-/rimraf-2.7.1.tgz#35797f13a7fdadc566142c29d4f07ccad483e3ec"

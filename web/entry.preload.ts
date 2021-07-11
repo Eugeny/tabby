@@ -102,6 +102,9 @@ Object.assign(window, {
         stderr: {},
         resourcesPath: 'resources',
         version: '14.0.0',
+        versions: {
+            modules: 0,
+        },
         nextTick: (f, ...args) => setTimeout(() => f(...args)),
         cwd: () => '/',
     },

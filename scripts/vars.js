@@ -26,6 +26,13 @@ exports.builtinPlugins = [
     'tabby-serial',
     'tabby-telnet',
 ]
+
+exports.allPackages = [
+    ...exports.builtinPlugins,
+    'web',
+    'tabby-web-demo',
+]
+
 exports.bundledModules = [
     '@angular',
     '@ng-bootstrap',

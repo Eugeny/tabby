@@ -58,10 +58,6 @@ Tabby.registerMock('fs', {
     appendFile: () => null,
     constants: {},
 })
-Tabby.registerMock('readline', {
-    cursorTo: () => null,
-    clearLine: stream => stream.write('\r'),
-})
 Tabby.registerMock('any-promise', Promise)
 Tabby.registerMock('tls', {})
 Tabby.registerMock('module', {
@@ -124,6 +120,7 @@ Tabby.registerMock('util', require('util/'))
 Tabby.registerMock('keytar', {
     getPassword: () => null,
 })
+Tabby.registerMock('@serialport/bindings', {})
 
 Tabby.registerModule('net', {
     Socket: SocketProxy,
@@ -143,6 +140,11 @@ Tabby.registerModule('assert', Object.assign(
 ))
 Tabby.registerModule('constants', require('constants-browserify'))
 Tabby.registerModule('stream', require('stream-browserify'))
+Tabby.registerModule('readline', {
+    ...require('readline-browserify'),
+    cursorTo: () => null,
+    clearLine: stream => stream.write('\r'),
+})
 
 Tabby.registerModule('@angular/core', angularCoreModule)
 Tabby.registerModule('@angular/compiler', angularCompilerModule)

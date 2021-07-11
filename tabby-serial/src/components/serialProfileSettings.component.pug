@@ -3,7 +3,7 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
         a(ngbNavLink) General
         ng-template(ngbNavContent)
             .row
-                .col-6
+                .col-6(ng:if='hostApp.platform !== Platform.Web')
                     .form-group
                         label Device
                         input.form-control(

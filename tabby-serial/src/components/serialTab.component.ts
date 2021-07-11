@@ -2,7 +2,7 @@
 import colors from 'ansi-colors'
 import { Component, Injector } from '@angular/core'
 import { first } from 'rxjs'
-import { SelectorService } from 'tabby-core'
+import { Platform, SelectorService } from 'tabby-core'
 import { BaseTerminalTabComponent } from 'tabby-terminal'
 import { SerialSession, BAUD_RATES, SerialProfile } from '../api'
 
@@ -17,6 +17,7 @@ export class SerialTabComponent extends BaseTerminalTabComponent {
     profile?: SerialProfile
     session: SerialSession|null = null
     serialPort: any
+    Platform = Platform
 
     // eslint-disable-next-line @typescript-eslint/no-useless-constructor
     constructor (

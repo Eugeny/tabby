@@ -98,6 +98,7 @@ module.exports = options => {
         },
         externals: [
             '@electron/remote',
+            '@serialport/bindings',
             'any-promise',
             'child_process',
             'electron-promise-ipc',
@@ -112,7 +113,6 @@ module.exports = options => {
             'os',
             'path',
             'readline',
-            'serialport',
             'socksv5',
             'stream',
             'windows-native-registry',

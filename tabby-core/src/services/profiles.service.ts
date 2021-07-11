@@ -74,6 +74,7 @@ export class ProfilesService {
     }
 
     selectorOptionForProfile <T> (profile: Profile): SelectorOption<T> {
+        profile = this.getConfigProxyForProfile(profile)
         return {
             icon: profile.icon,
             name: profile.group ? `${profile.group} / ${profile.name}` : profile.name,

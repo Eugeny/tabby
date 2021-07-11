@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Component } from '@angular/core'
 import { debounceTime, distinctUntilChanged, map } from 'rxjs'
-import { ProfileSettingsComponent } from 'tabby-core'
+import { HostAppService, Platform, ProfileSettingsComponent } from 'tabby-core'
 import { SerialPortInfo, BAUD_RATES, SerialProfile } from '../api'
 import { SerialService } from '../services/serial.service'
 
@@ -12,9 +12,11 @@ import { SerialService } from '../services/serial.service'
 export class SerialProfileSettingsComponent implements ProfileSettingsComponent {
     profile: SerialProfile
     foundPorts: SerialPortInfo[]
+    Platform = Platform
 
     constructor (
         private serial: SerialService,
+        public hostApp: HostAppService,
     ) { }
 
     portsAutocomplete = text$ => text$.pipe(map(() => {

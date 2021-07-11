@@ -1,8 +1,9 @@
 import slugify from 'slugify'
+import SerialPort from 'serialport'
+import WSABinding from 'serialport-binding-webserialapi'
 import deepClone from 'clone-deep'
 import { Injectable } from '@angular/core'
-import { ProfileProvider, NewTabParameters, SelectorService } from 'tabby-core'
-import { InputMode, NewlineMode } from 'tabby-terminal'
+import { ProfileProvider, NewTabParameters, SelectorService, HostAppService, Platform } from 'tabby-core'
 import { SerialProfileSettingsComponent } from './components/serialProfileSettings.component'
 import { SerialTabComponent } from './components/serialTab.component'
 import { SerialService } from './services/serial.service'
@@ -35,44 +36,43 @@ export class SerialProfilesService extends ProfileProvider {
     constructor (
         private selector: SelectorService,
         private serial: SerialService,
-    ) { super() }
+        private hostApp: HostAppService,
+    ) {
+        super()
+        if (hostApp.platform === Platform.Web) {
+            SerialPort.Binding = WSABinding
+        }
+    }
 
     async getBuiltinProfiles (): Promise<SerialProfile[]> {
+        if (this.hostApp.platform === Platform.Web) {
+            return [
+                {
+                    id: `serial:web`,
+                    type: 'serial',
+                    name: 'Serial connection',
+                    icon: 'fas fa-microchip',
+                    isBuiltin: true,
+                } as SerialProfile,
+            ]
+        }
+
         return [
             {
                 id: `serial:template`,
                 type: 'serial',
                 name: 'Serial connection',
                 icon: 'fas fa-microchip',
-                options: {
-                    port: '',
-                    databits: 8,
-                    parity: 'none',
-                    rtscts: false,
-                    stopbits: 1,
-                    xany: false,
-                    xoff: false,
-                    xon: false,
-                    inputMode: 'local-echo' as InputMode,
-                    outputMode: null,
-                    inputNewlines: null,
-                    outputNewlines: 'crlf' as NewlineMode,
-                },
                 isBuiltin: true,
                 isTemplate: true,
-            },
+            } as SerialProfile,
             ...(await this.serial.listPorts()).map(p => ({
                 id: `serial:port-${slugify(p.name).replace('.', '-')}`,
                 type: 'serial',
                 name: p.description ? `Serial: ${p.description}` : 'Serial',
                 icon: 'fas fa-microchip',
                 isBuiltin: true,
-                options: {
-                    port: p.name,
-                    inputMode: 'local-echo' as InputMode,
-                    outputNewlines: 'crlf' as NewlineMode,
-                },
-            })),
+            } as SerialProfile)),
         ]
     }
 
