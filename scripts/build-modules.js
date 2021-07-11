@@ -9,6 +9,7 @@ const configs = [
     '../app/webpack.main.config.js',
     '../app/webpack.config.js',
     '../web/webpack.config.js',
+    '../tabby-web-demo/webpack.config.js',
     ...vars.builtinPlugins.map(x => `../${x}/webpack.config.js`),
 ]
 
