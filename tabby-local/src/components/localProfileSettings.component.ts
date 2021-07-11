@@ -3,7 +3,7 @@ import { Component } from '@angular/core'
 import { UACService } from '../services/uac.service'
 import { LocalProfile } from '../api'
 import { ElectronHostWindow, ElectronService } from 'tabby-electron'
-import { ProfileSettingsComponent } from '../../../tabby-core/src/api/profileProvider'
+import { ProfileSettingsComponent } from 'tabby-core'
 
 
 /** @hidden */
