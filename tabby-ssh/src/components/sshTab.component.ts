@@ -48,10 +48,10 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
             }
             switch (hotkey) {
                 case 'home':
-                    this.sendInput('\x1b[H' )
+                    this.sendInput('\x1bOH' )
                     break
                 case 'end':
-                    this.sendInput('\x1b[F' )
+                    this.sendInput('\x1bOF' )
                     break
                 case 'restart-ssh-session':
                     this.reconnect()
