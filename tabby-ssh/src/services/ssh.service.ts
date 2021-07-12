@@ -6,7 +6,7 @@ import { Client } from 'ssh2'
 import { exec } from 'child_process'
 import { Subject, Observable } from 'rxjs'
 import { Logger, LogService, ConfigService, NotificationsService, HostAppService, Platform, PlatformService, PromptModalComponent } from 'tabby-core'
-import { ALGORITHM_BLACKLIST, ForwardedPort, SSHProfile, SSHSession } from '../api'
+import { ALGORITHM_BLACKLIST, ForwardedPort, SSHAlgorithmType, SSHProfile, SSHSession } from '../api'
 import { PasswordStorageService } from './passwordStorage.service'
 import { ChildProcess } from 'node:child_process'
 
@@ -40,7 +40,7 @@ export class SSHService {
 
         let connected = false
         const algorithms = {}
-        for (const key of Object.keys(session.profile.options.algorithms ?? {})) {
+        for (const key of Object.values(SSHAlgorithmType)) {
             algorithms[key] = session.profile.options.algorithms![key].filter(x => !ALGORITHM_BLACKLIST.includes(x))
         }
 
