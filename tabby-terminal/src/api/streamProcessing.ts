@@ -33,18 +33,8 @@ export class TerminalStreamProcessor {
     constructor (private options: StreamProcessingOptions) {
         this.inputReadlineInStream = new PassThrough()
         this.inputReadlineOutStream = new PassThrough()
-        this.inputReadline = createReadline({
-            input: this.inputReadlineInStream,
-            output: this.inputReadlineOutStream,
-            terminal: true,
-            prompt: this.options.inputMode === 'readline-hex' ? 'hex> ' : '> ',
-        } as any)
         this.inputReadlineOutStream.on('data', data => {
             this.outputToTerminal.next(Buffer.from(data))
-        })
-        this.inputReadline.on('line', line => {
-            this.onTerminalInput(Buffer.from(line + '\n'))
-            this.resetInputPrompt()
         })
         this.outputToTerminal$.pipe(debounce(() => interval(500))).subscribe(() => {
             if (this.started) {
@@ -54,14 +44,24 @@ export class TerminalStreamProcessor {
     }
 
     start (): void {
+        this.inputReadline = createReadline({
+            input: this.inputReadlineInStream,
+            output: this.inputReadlineOutStream,
+            terminal: true,
+            prompt: this.options.inputMode === 'readline-hex' ? 'hex> ' : '> ',
+        } as any)
+        this.inputReadline.on('line', line => {
+            this.onTerminalInput(Buffer.from(line + '\n'))
+            this.resetInputPrompt()
+        })
         this.started = true
-        this.onOutputSettled()
     }
 
     feedFromSession (data: Buffer): void {
         if (this.options.inputMode?.startsWith('readline')) {
             if (this.inputPromptVisible) {
                 clearLine(this.inputReadlineOutStream, 0)
+                this.outputToTerminal.next(Buffer.from('\r'))
                 this.inputPromptVisible = false
             }
         }
