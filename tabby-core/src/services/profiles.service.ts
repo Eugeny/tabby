@@ -148,7 +148,7 @@ export class ProfilesService {
                         },
                     })
                 }
-                await this.selector.show('Select profile', options)
+                await this.selector.show('Select profile or enter an address', options)
             } catch (err) {
                 reject(err)
             }
