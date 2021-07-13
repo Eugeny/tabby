@@ -1,3 +1,4 @@
+import deepClone from 'clone-deep'
 import { Subject, Observable } from 'rxjs'
 import { Logger } from 'tabby-core'
 
@@ -18,11 +19,28 @@ export class LoginScriptProcessor {
     private outputToSession = new Subject<Buffer>()
     private remainingScripts: LoginScript[] = []
 
+    private escapeSeqMap = {
+        a: '\x07',
+        b: '\x08',
+        e: '\x1b',
+        f: '\x0c',
+        n: '\x0a',
+        r: '\x0d',
+        t: '\x09',
+        v: '\x0b',
+    }
+
     constructor (
         private logger: Logger,
         options: LoginScriptsOptions
     ) {
-        this.remainingScripts = options.scripts ?? []
+        this.remainingScripts = deepClone(options.scripts ?? [])
+        for (const script of this.remainingScripts) {
+            if (!script.isRegex) {
+                script.expect = this.unescape(script.expect)
+            }
+            script.send = this.unescape(script.send)
+        }
     }
 
     feedFromSession (data: Buffer): boolean {
@@ -34,25 +52,17 @@ export class LoginScriptProcessor {
                 continue
             }
             let match = false
-            let cmd = ''
             if (script.isRegex) {
                 const re = new RegExp(script.expect, 'g')
-                if (re.exec(dataString)) {
-                    cmd = dataString.replace(re, script.send)
-                    match = true
-                    found = true
-                }
+                match = re.test(dataString)
             } else {
-                if (dataString.includes(script.expect)) {
-                    cmd = script.send
-                    match = true
-                    found = true
-                }
+                match = dataString.includes(script.expect)
             }
 
             if (match) {
-                this.logger.info('Executing script: "' + cmd + '"')
-                this.outputToSession.next(Buffer.from(cmd + '\n'))
+                found = true
+                this.logger.info('Executing script:', script)
+                this.outputToSession.next(Buffer.from(script.send + '\n'))
                 this.remainingScripts = this.remainingScripts.filter(x => x !== script)
             } else {
                 if (script.optional) {
@@ -82,5 +92,14 @@ export class LoginScriptProcessor {
                 break
             }
         }
+    }
+
+    unescape (line: string): string {
+        line = line.replace(/\\((x\d{2})|(u\d{4}))/g, (match, g) => {
+            return String.fromCharCode(parseInt(g.substr(1), 16))
+        })
+        return line.replace(/\\(.)/g, (match, g) => {
+            return this.escapeSeqMap[g] || g
+        })
     }
 }

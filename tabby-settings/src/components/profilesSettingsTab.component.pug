@@ -56,7 +56,7 @@ h3.mb-3 Profiles
                     *ngIf='group.editable && group.name',
                     (click)='$event.stopPropagation(); deleteGroup(group)'
                 )
-                    i.fas.fa-trash
+                    i.fas.fa-trash-alt
             ng-container(*ngIf='!group.collapsed')
                 ng-container(*ngFor='let profile of group.profiles')
                     .list-group-item.pl-5.d-flex.align-items-center(
@@ -85,10 +85,10 @@ h3.mb-3 Profiles
                         button.btn.btn-link.hover-reveal.ml-1((click)='$event.stopPropagation(); newProfile(profile)')
                             i.fas.fa-copy
 
-                        button.btn.btn-link.text-danger.hover-reveal.ml-1(
+                        button.btn.btn-link.hover-reveal.ml-1(
                             *ngIf='!profile.isBuiltin',
                             (click)='$event.stopPropagation(); deleteProfile(profile)'
                         )
-                            i.fas.fa-trash
+                            i.fas.fa-trash-alt
 
                         .ml-1(class='badge badge-{{getTypeColorClass(profile)}}') {{getTypeLabel(profile)}}

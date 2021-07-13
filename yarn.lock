@@ -509,6 +509,11 @@
   dependencies:
     "@types/node" "*"
 
+"@types/sortablejs@^1.10.7":
+  version "1.10.7"
+  resolved "https://registry.yarnpkg.com/@types/sortablejs/-/sortablejs-1.10.7.tgz#ab9039c85429f0516955ec6dbc0bb20139417b15"
+  integrity sha512-lGCwwgpj8zW/ZmaueoPVSP7nnc9t8VqVWXS+ASX3eoUUENmiazv0rlXyTRludXzuX9ALjPsMqBu85TgJNWbTOg==
+
 "@types/verror@^1.10.3":
   version "1.10.4"
   resolved "https://registry.npmjs.org/@types/verror/-/verror-1.10.4.tgz"
@@ -5036,6 +5041,13 @@ neo-async@^2.6.0, neo-async@^2.6.2:
   resolved "https://registry.npmjs.org/neo-async/-/neo-async-2.6.2.tgz"
   integrity sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==
 
+ngx-sortablejs@^11.1.0:
+  version "11.1.0"
+  resolved "https://registry.yarnpkg.com/ngx-sortablejs/-/ngx-sortablejs-11.1.0.tgz#14e50c48db908c1cb4b37722b28c2d3867c6140a"
+  integrity sha512-eM4dHwWSmXDcvF5gUmyMMQ0qqcqBXWCSZ9IRpqx4UkBKfo4N7pk/QuYh5io2fXVHWVFDaxW1yhn2FNpqxV6Jqw==
+  dependencies:
+    tslib "^2.0.0"
+
 ngx-toastr@^14.0.0:
   version "14.0.0"
   resolved "https://registry.yarnpkg.com/ngx-toastr/-/ngx-toastr-14.0.0.tgz#20e4737ef330b892a453768cd98b980558aeb286"
@@ -7141,6 +7153,11 @@ socks@^1.1.10:
   dependencies:
     ip "^1.1.4"
     smart-buffer "^1.0.13"
+
+sortablejs@^1.14.0:
+  version "1.14.0"
+  resolved "https://registry.yarnpkg.com/sortablejs/-/sortablejs-1.14.0.tgz#6d2e17ccbdb25f464734df621d4f35d4ab35b3d8"
+  integrity sha512-pBXvQCs5/33fdN1/39pPL0NZF20LeRbLQ5jtnheIPN9JQAaufGjKdWduZn4U7wCtVuzKhmRkI0DFYHYRbB2H1w==
 
 sorted-object@~2.0.1:
   version "2.0.1"

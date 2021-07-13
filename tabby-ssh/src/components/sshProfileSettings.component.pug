@@ -189,6 +189,6 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
     li(ngbNavItem)
         a(ngbNavLink) Login scripts
         ng-template(ngbNavContent)
-            login-scripts-settings([options]='profile.options')
+            login-scripts-settings([options]='profile.options', #loginScriptsSettings)
 
 div([ngbNavOutlet]='nav')

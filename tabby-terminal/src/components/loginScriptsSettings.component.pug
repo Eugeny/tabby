@@ -1,37 +1,43 @@
-table(*ngIf='options.scripts.length > 0')
-    tr
-        th String to expect
-        th String to be sent
-        th.pl-2 Regex
-        th.pl-2 Optional
-        th.pl-2 Actions
-    tr(*ngFor='let script of options.scripts')
-        td.pr-2
-            input.form-control(
-                type='text',
-                [(ngModel)]='script.expect'
-            )
-        td
-            input.form-control(
-                type='text',
-                [(ngModel)]='script.send'
-            )
-        td.pl-2
-            checkbox(
-                [(ngModel)]='script.isRegex',
-            )
-        td.pl-2
-            checkbox(
-                [(ngModel)]='script.optional',
-            )
-        td.pl-2
-            .input-group.flex-nowrap
-                button.btn.btn-outline-info.ml-0((click)='moveScriptUp(script)')
-                    i.fas.fa-arrow-up
-                button.btn.btn-outline-info.ml-0((click)='moveScriptDown(script)')
-                    i.fas.fa-arrow-down
-                button.btn.btn-outline-danger.ml-0((click)='deleteScript(script)')
-                    i.fas.fa-trash
+div([sortablejs]='scripts')
+    .input-group.flex-grow-1(*ngFor='let script of scripts')
+        input.form-control(
+            type='text',
+            placeholder='Expect',
+            [(ngModel)]='script.expect'
+        )
+        input.form-control(
+            type='text',
+            placeholder='Send',
+            [(ngModel)]='script.send'
+        )
+        .input-group-append.input-group-text.p-0.border-0
+            .hover-reveal(ngbDropdown)
+                button.btn.btn-link.btn-sm(ngbDropdownToggle)
+                    i.fas.fa-fw.fa-cog
+                .dropdown-menu-right(ngbDropdownMenu)
+                    a.dropdown-item(
+                        href='#',
+                        (click)='script.isRegex = false',
+                        [class.active]='!script.isRegex',
+                    )
+                        i.fas.fa-fw([class.fa-check]='!script.isRegex')
+                        span Exact match
+                    a.dropdown-item(
+                        href='#',
+                        (click)='script.isRegex = true',
+                        [class.active]='script.isRegex',
+                    )
+                        i.fas.fa-fw([class.fa-check]='script.isRegex')
+                        span Regex
+                    a.dropdown-item(
+                        href='#',
+                        (click)='script.optional = !script.optional',
+                        [class.active]='script.optional',
+                    )
+                        i.fas.fa-fw([class.fa-check]='script.optional')
+                        span Optional
+            button.btn.btn-link.btn-sm.hover-reveal((click)='deleteScript(script)')
+                i.fas.fa-fw.fa-trash-alt
 
 button.btn.btn-outline-info.mt-2((click)='addScript()')
     i.fas.fa-plus

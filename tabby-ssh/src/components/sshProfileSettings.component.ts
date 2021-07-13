@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { Component } from '@angular/core'
+import { Component, ViewChild } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 
 import { ConfigService, FileProvidersService, Platform, HostAppService, PromptModalComponent } from 'tabby-core'
+import { LoginScriptsSettingsComponent } from 'tabby-terminal'
 import { PasswordStorageService } from '../services/passwordStorage.service'
 import { ForwardedPortConfig, SSHAlgorithmType, SSHProfile } from '../api'
 import { SSHProfilesService } from '../profiles'
@@ -20,6 +21,7 @@ export class SSHProfileSettingsComponent {
     supportedAlgorithms: Record<string, string> = {}
     algorithms: Record<string, Record<string, boolean>> = {}
     jumpHosts: SSHProfile[]
+    @ViewChild('loginScriptsSettings') loginScriptsSettings: LoginScriptsSettingsComponent|null
 
     constructor (
         public hostApp: HostAppService,
@@ -92,6 +94,7 @@ export class SSHProfileSettingsComponent {
         if (!this.useProxyCommand) {
             this.profile.options.proxyCommand = undefined
         }
+        this.loginScriptsSettings?.save()
     }
 
     onForwardAdded (fw: ForwardedPortConfig) {

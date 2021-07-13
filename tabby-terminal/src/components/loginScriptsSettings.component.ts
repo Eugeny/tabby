@@ -11,29 +11,14 @@ import { LoginScript, LoginScriptsOptions } from '../api/loginScriptProcessing'
 })
 export class LoginScriptsSettingsComponent {
     @Input() options: LoginScriptsOptions
+    scripts: LoginScript[]
 
     constructor (
         private platform: PlatformService,
     ) { }
 
     ngOnInit () {
-        this.options.scripts ??= []
-    }
-
-    moveScriptUp (script: LoginScript) {
-        const index = this.options.scripts!.indexOf(script)
-        if (index > 0) {
-            this.options.scripts!.splice(index, 1)
-            this.options.scripts!.splice(index - 1, 0, script)
-        }
-    }
-
-    moveScriptDown (script: LoginScript) {
-        const index = this.options.scripts!.indexOf(script)
-        if (index >= 0 && index < this.options.scripts!.length - 1) {
-            this.options.scripts!.splice(index, 1)
-            this.options.scripts!.splice(index + 1, 0, script)
-        }
+        this.scripts = this.options.scripts ?? []
     }
 
     async deleteScript (script: LoginScript) {
@@ -46,11 +31,15 @@ export class LoginScriptsSettingsComponent {
                 defaultId: 1,
             }
         )).response === 1) {
-            this.options.scripts = this.options.scripts!.filter(x => x !== script)
+            this.scripts = this.scripts.filter(x => x !== script)
         }
     }
 
     addScript () {
-        this.options.scripts!.push({ expect: '', send: '' })
+        this.scripts.push({ expect: '', send: '' })
+    }
+
+    save () {
+        this.options.scripts = this.scripts
     }
 }

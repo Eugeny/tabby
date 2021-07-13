@@ -120,3 +120,4 @@ export * from './api/interfaces'
 export * from './api/streamProcessing'
 export * from './api/loginScriptProcessing'
 export * from './session'
+export { LoginScriptsSettingsComponent, StreamProcessingSettingsComponent }

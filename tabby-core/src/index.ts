@@ -6,6 +6,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { PerfectScrollbarModule, PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar'
 import { NgxFilesizeModule } from 'ngx-filesize'
 import { DndModule } from 'ng2-dnd'
+import { SortablejsModule } from 'ngx-sortablejs'
 
 import { AppRootComponent } from './components/appRoot.component'
 import { CheckboxComponent } from './components/checkbox.component'
@@ -77,6 +78,7 @@ const PROVIDERS = [
         NgxFilesizeModule,
         PerfectScrollbarModule,
         DndModule.forRoot(),
+        SortablejsModule.forRoot({ animation: 150 }),
     ],
     declarations: [
         AppRootComponent as any,
@@ -118,6 +120,7 @@ const PROVIDERS = [
         DropZoneDirective,
         FastHtmlBindDirective,
         AlwaysVisibleTypeaheadDirective,
+        SortablejsModule,
     ],
 })
 export default class AppModule { // eslint-disable-line @typescript-eslint/no-extraneous-class
