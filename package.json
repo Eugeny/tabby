@@ -20,7 +20,7 @@
     "@types/sortablejs": "^1.10.7",
     "@types/webpack-env": "^1.16.2",
     "@typescript-eslint/eslint-plugin": "^4.28.3",
-    "@typescript-eslint/parser": "^4.28.2",
+    "@typescript-eslint/parser": "^4.28.3",
     "apply-loader": "2.0.0",
     "clone-deep": "^4.0.1",
     "compare-versions": "^3.6.0",
