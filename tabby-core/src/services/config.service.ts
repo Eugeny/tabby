@@ -1,3 +1,4 @@
+import deepClone from 'clone-deep'
 import deepEqual from 'deep-equal'
 import { v4 as uuidv4 } from 'uuid'
 import * as yaml from 'js-yaml'
@@ -71,7 +72,7 @@ export class ConfigProxy {
                 delete real[key].__nonStructural
                 return real[key]
             } else {
-                return defaults[key]
+                return deepClone(defaults[key])
             }
         }
 
