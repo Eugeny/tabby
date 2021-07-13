@@ -306,7 +306,7 @@ search-panel {
     }
 }
 
-.btn.btn-outline-secondary {
+.btn.btn-secondary {
     @include button-outline-variant(#9badb9, #fff);
     &:hover:not([disabled]), &:active:not([disabled]), &.active:not([disabled]) {
         background-color: #3f484e;
