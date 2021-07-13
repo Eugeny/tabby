@@ -13,7 +13,7 @@ import { ToolbarButton, ToolbarButtonProvider } from '../api'
 export class StartPageComponent {
     version: string
 
-    private constructor (
+    constructor (
         private config: ConfigService,
         private domSanitizer: DomSanitizer,
         public homeBase: HomeBaseService,

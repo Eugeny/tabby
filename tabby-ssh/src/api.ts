@@ -471,7 +471,7 @@ export class SSHSession extends BaseSession {
         this.logger.info(stripAnsi(msg))
     }
 
-    async handleAuth (methodsLeft?: string[]): Promise<any> {
+    async handleAuth (methodsLeft?: string[] | null): Promise<any> {
         this.activePrivateKey = null
 
         while (true) {

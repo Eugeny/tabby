@@ -31,7 +31,7 @@ export class TabHeaderComponent extends BaseComponent {
     @Input() progress: number|null
     @ViewChild('handle') handle?: ElementRef
 
-    private constructor (
+    constructor (
         public app: AppService,
         public config: ConfigService,
         private hostApp: HostAppService,

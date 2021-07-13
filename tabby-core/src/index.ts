@@ -81,7 +81,7 @@ const PROVIDERS = [
         SortablejsModule.forRoot({ animation: 150 }),
     ],
     declarations: [
-        AppRootComponent as any,
+        AppRootComponent,
         CheckboxComponent,
         PromptModalComponent,
         StartPageComponent,

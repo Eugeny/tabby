@@ -64,7 +64,7 @@ export class AppRootComponent {
     activeTransfersDropdownOpen = false
     private logger: Logger
 
-    private constructor (
+    constructor (
         private hotkeys: HotkeysService,
         private updater: UpdaterService,
         public hostWindow: HostWindowService,

@@ -63,7 +63,7 @@ export class HotkeysService {
      * @param nativeEvent event object
      */
     pushKeystroke (name: string, nativeEvent: KeyboardEvent): void {
-        (nativeEvent as any).event = name
+        nativeEvent['event'] = name
         this.currentKeystrokes.push({
             ctrlKey: nativeEvent.ctrlKey,
             metaKey: nativeEvent.metaKey,

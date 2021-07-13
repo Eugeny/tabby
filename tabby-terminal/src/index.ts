@@ -64,7 +64,7 @@ import { TerminalCLIHandler } from './cli'
         AppearanceSettingsTabComponent,
         ColorSchemeSettingsTabComponent,
         TerminalSettingsTabComponent,
-    ] as any[],
+    ],
     declarations: [
         ColorPickerComponent,
         ColorSchemePreviewComponent,
@@ -74,7 +74,7 @@ import { TerminalCLIHandler } from './cli'
         SearchPanelComponent,
         StreamProcessingSettingsComponent,
         LoginScriptsSettingsComponent,
-    ] as any[],
+    ],
     exports: [
         ColorPickerComponent,
         SearchPanelComponent,

@@ -49,7 +49,7 @@ export class TerminalStreamProcessor {
             output: this.inputReadlineOutStream,
             terminal: true,
             prompt: this.options.inputMode === 'readline-hex' ? 'hex> ' : '> ',
-        } as any)
+        })
         this.inputReadline.on('line', line => {
             this.onTerminalInput(Buffer.from(line + '\n'))
             this.resetInputPrompt()

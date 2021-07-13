@@ -146,7 +146,7 @@ export class SSHService {
                         callback(await session.handleAuth(methodsLeft))
                     })
                 },
-            } as any)
+            })
         } catch (e) {
             this.notifications.error(e.message)
             throw e

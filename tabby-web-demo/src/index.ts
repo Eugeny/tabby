@@ -16,17 +16,17 @@ import { DemoProfilesService } from 'profiles'
         FormsModule,
         NgbModule,
         TabbyCorePlugin,
-        TabbyTerminalModule as any,
+        TabbyTerminalModule,
     ],
     providers: [
         { provide: ProfileProvider, useClass: DemoProfilesService, multi: true },
     ],
     entryComponents: [
         DemoTerminalTabComponent,
-    ] as any[],
+    ],
     declarations: [
         DemoTerminalTabComponent,
-    ] as any[],
+    ],
     exports: [
         DemoTerminalTabComponent,
     ],

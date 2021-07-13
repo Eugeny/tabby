@@ -56,7 +56,7 @@ export class XTermFrontend extends Frontend {
             allowTransparency: true,
             windowsMode: process.platform === 'win32',
         })
-        this.xtermCore = (this.xterm as any)._core
+        this.xtermCore = this.xterm['_core']
 
         this.xterm.onBinary(data => {
             this.input.next(Buffer.from(data, 'binary'))
@@ -365,7 +365,11 @@ export class XTermFrontend extends Frontend {
     private getLineAsHTML (y: number, start: number, end: number): string {
         let html = '<div>'
         let lastStyle: string|null = null
-        const line = (this.xterm.buffer.active.getLine(y) as any)._line
+        const outerLine = this.xterm.buffer.active.getLine(y)
+        if (!outerLine) {
+            return ''
+        }
+        const line = outerLine['_line']
         const cell = new CellData()
         for (let i = start; i < end; i++) {
             line.loadCell(i, cell)

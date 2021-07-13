@@ -91,13 +91,13 @@ import { LocalProfilesService } from './profiles'
         TerminalTabComponent,
         ShellSettingsTabComponent,
         LocalProfileSettingsComponent,
-    ] as any[],
+    ],
     declarations: [
         TerminalTabComponent,
         ShellSettingsTabComponent,
         EnvironmentEditorComponent,
         LocalProfileSettingsComponent,
-    ] as any[],
+    ],
     exports: [
         TerminalTabComponent,
         EnvironmentEditorComponent,
