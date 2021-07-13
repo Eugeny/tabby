@@ -1,3 +1,4 @@
+import deepClone from 'clone-deep'
 import { Injectable, Inject } from '@angular/core'
 import { ProfileProvider, Profile, NewTabParameters, ConfigService, SplitTabComponent, AppService } from 'tabby-core'
 import { TerminalTabComponent } from './components/terminalTab.component'
@@ -9,6 +10,21 @@ export class LocalProfilesService extends ProfileProvider {
     id = 'local'
     name = 'Local'
     settingsComponent = LocalProfileSettingsComponent
+    configDefaults = {
+        options: {
+            restoreFromPTYID: null,
+            command: '',
+            args: [],
+            cwd: null,
+            env: {
+                __nonStructural: true,
+            },
+            width: null,
+            height: null,
+            pauseAfterExit: false,
+            runAsAdministrator: false,
+        },
+    }
 
     constructor (
         private app: AppService,
@@ -30,17 +46,19 @@ export class LocalProfilesService extends ProfileProvider {
     }
 
     async getNewTabParameters (profile: Profile): Promise<NewTabParameters<TerminalTabComponent>> {
-        const options = { ...profile.options }
+        profile = deepClone(profile)
 
-        if (!options.cwd) {
+        if (!profile.options?.cwd) {
             if (this.app.activeTab instanceof TerminalTabComponent && this.app.activeTab.session) {
-                options.cwd = await this.app.activeTab.session.getWorkingDirectory()
+                profile.options ??= {}
+                profile.options.cwd = await this.app.activeTab.session.getWorkingDirectory()
             }
             if (this.app.activeTab instanceof SplitTabComponent) {
                 const focusedTab = this.app.activeTab.getFocusedTab()
 
                 if (focusedTab instanceof TerminalTabComponent && focusedTab.session) {
-                    options.cwd = await focusedTab.session.getWorkingDirectory()
+                    profile.options ??= {}
+                    profile.options.cwd = await focusedTab.session.getWorkingDirectory()
                 }
             }
         }
@@ -48,7 +66,7 @@ export class LocalProfilesService extends ProfileProvider {
         return {
             type: TerminalTabComponent,
             inputs: {
-                sessionOptions: options,
+                profile,
             },
         }
     }

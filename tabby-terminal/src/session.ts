@@ -8,7 +8,6 @@ import { LoginScriptProcessor, LoginScriptsOptions } from './api/loginScriptProc
  */
 export abstract class BaseSession {
     open: boolean
-    name: string
     truePID: number
     protected output = new Subject<string>()
     protected binaryOutput = new Subject<Buffer>()

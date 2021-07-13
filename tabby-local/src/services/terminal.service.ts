@@ -2,7 +2,7 @@ import * as fs from 'mz/fs'
 import { Injectable } from '@angular/core'
 import { Logger, LogService, ConfigService, AppService, ProfilesService } from 'tabby-core'
 import { TerminalTabComponent } from '../components/terminalTab.component'
-import { SessionOptions, LocalProfile } from '../api'
+import { LocalProfile } from '../api'
 
 @Injectable({ providedIn: 'root' })
 export class TerminalService {
@@ -54,16 +54,5 @@ export class TerminalService {
             ...profile,
             options,
         })) as TerminalTabComponent
-    }
-
-    /**
-     * Open a terminal with custom session options
-     */
-    openTabWithOptions (sessionOptions: SessionOptions): TerminalTabComponent {
-        this.logger.info('Using session options:', sessionOptions)
-        return this.app.openNewTab({
-            type: TerminalTabComponent,
-            inputs: { sessionOptions },
-        })
     }
 }

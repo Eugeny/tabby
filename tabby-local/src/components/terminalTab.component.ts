@@ -1,9 +1,10 @@
 import { Component, Input, Injector } from '@angular/core'
 import { BaseTabProcess, WIN_BUILD_CONPTY_SUPPORTED, isWindowsBuild } from 'tabby-core'
 import { BaseTerminalTabComponent } from 'tabby-terminal'
-import { SessionOptions } from '../api'
+import { LocalProfile } from '../api'
 import { Session } from '../session'
 import { UACService } from '../services/uac.service'
+import { SessionOptions } from 'http2'
 
 /** @hidden */
 @Component({
@@ -13,7 +14,8 @@ import { UACService } from '../services/uac.service'
     animations: BaseTerminalTabComponent.animations,
 })
 export class TerminalTabComponent extends BaseTerminalTabComponent {
-    @Input() sessionOptions: SessionOptions
+    @Input() sessionOptions: SessionOptions // Deprecated
+    @Input() profile: LocalProfile
     session: Session|null = null
 
     // eslint-disable-next-line @typescript-eslint/no-useless-constructor
@@ -25,6 +27,8 @@ export class TerminalTabComponent extends BaseTerminalTabComponent {
     }
 
     ngOnInit (): void {
+        this.sessionOptions = this.profile.options
+
         this.logger = this.log.create('terminalTab')
         this.session = new Session(this.injector)
 
@@ -49,17 +53,17 @@ export class TerminalTabComponent extends BaseTerminalTabComponent {
 
     protected onFrontendReady (): void {
         this.initializeSession(this.size.columns, this.size.rows)
-        this.savedStateIsLive = this.sessionOptions.restoreFromPTYID === this.session?.getPTYID()
+        this.savedStateIsLive = this.profile.options.restoreFromPTYID === this.session?.getPTYID()
         super.onFrontendReady()
     }
 
     initializeSession (columns: number, rows: number): void {
-        if (this.sessionOptions.runAsAdministrator && this.uac.isAvailable) {
-            this.sessionOptions = this.uac.patchSessionOptionsForUAC(this.sessionOptions)
+        if (this.profile.options.runAsAdministrator && this.uac.isAvailable) {
+            this.profile.options = this.uac.patchSessionOptionsForUAC(this.profile.options)
         }
 
         this.session!.start({
-            ...this.sessionOptions,
+            ...this.profile.options,
             width: columns,
             height: rows,
         })
@@ -72,10 +76,13 @@ export class TerminalTabComponent extends BaseTerminalTabComponent {
         const cwd = this.session ? await this.session.getWorkingDirectory() : null
         return {
             type: 'app:terminal-tab',
-            sessionOptions: {
-                ...this.sessionOptions,
-                cwd: cwd ?? this.sessionOptions.cwd,
-                restoreFromPTYID: this.session?.getPTYID(),
+            profile: {
+                ...this.profile,
+                options: {
+                    ...this.profile.options,
+                    cwd: cwd ?? this.profile.options.cwd,
+                    restoreFromPTYID: this.session?.getPTYID(),
+                },
             },
             savedState: this.frontend?.saveState(),
         }

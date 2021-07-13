@@ -104,8 +104,6 @@ export class Session extends BaseSession {
     }
 
     start (options: SessionOptions): void {
-        this.name = options.name ?? ''
-
         let pty: PTYProxy|null = null
 
         if (options.restoreFromPTYID) {

@@ -33,8 +33,8 @@ export class SaveAsProfileContextMenu extends TabContextMenuItemProvider {
                     }
                     const profile = {
                         options: {
-                            ...tab.sessionOptions,
-                            cwd: await tab.session?.getWorkingDirectory() ?? tab.sessionOptions.cwd,
+                            ...tab.profile.options,
+                            cwd: await tab.session?.getWorkingDirectory() ?? tab.profile.options.cwd,
                         },
                         name,
                         type: 'local',
@@ -74,7 +74,11 @@ export class NewTabContextMenu extends TabContextMenuItemProvider {
             {
                 label: 'New terminal',
                 click: () => {
-                    this.terminalService.openTabWithOptions((tab as any).sessionOptions)
+                    if (tab instanceof TerminalTabComponent) {
+                        this.profilesService.openNewTabForProfile(tab.profile)
+                    } else {
+                        this.terminalService.openTab()
+                    }
                 },
             },
             {
@@ -98,9 +102,12 @@ export class NewTabContextMenu extends TabContextMenuItemProvider {
                 submenu: profiles.map(profile => ({
                     label: profile.name,
                     click: () => {
-                        this.terminalService.openTabWithOptions({
-                            ...profile.options,
-                            runAsAdministrator: true,
+                        this.profilesService.openNewTabForProfile({
+                            ...profile,
+                            options: {
+                                ...profile.options,
+                                runAsAdministrator: true,
+                            },
                         })
                     },
                 })),
@@ -111,9 +118,12 @@ export class NewTabContextMenu extends TabContextMenuItemProvider {
             items.push({
                 label: 'Duplicate as administrator',
                 click: () => {
-                    this.terminalService.openTabWithOptions({
-                        ...tab.sessionOptions,
-                        runAsAdministrator: true,
+                    this.profilesService.openNewTabForProfile({
+                        ...tab.profile,
+                        options: {
+                            ...tab.profile.options,
+                            runAsAdministrator: true,
+                        },
                     })
                 },
             })

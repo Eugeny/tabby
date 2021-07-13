@@ -7,14 +7,14 @@ import { TerminalTabComponent } from './components/terminalTab.component'
 @Injectable()
 export class RecoveryProvider extends TabRecoveryProvider<TerminalTabComponent> {
     async applicableTo (recoveryToken: RecoveryToken): Promise<boolean> {
-        return recoveryToken.type === 'app:terminal-tab'
+        return recoveryToken.type === 'app:local-tab'
     }
 
     async recover (recoveryToken: RecoveryToken): Promise<NewTabParameters<TerminalTabComponent>> {
         return {
             type: TerminalTabComponent,
             inputs: {
-                sessionOptions: recoveryToken.sessionOptions,
+                profile: recoveryToken.profile,
                 savedState: recoveryToken.savedState,
             },
         }
@@ -23,9 +23,12 @@ export class RecoveryProvider extends TabRecoveryProvider<TerminalTabComponent> 
     duplicate (recoveryToken: RecoveryToken): RecoveryToken {
         return {
             ...recoveryToken,
-            sessionOptions: {
-                ...recoveryToken.sessionOptions,
-                restoreFromPTYID: null,
+            profile: {
+                ...recoveryToken.profile,
+                options: {
+                    ...recoveryToken.profile.options,
+                    restoreFromPTYID: null,
+                },
             },
             savedState: null,
         }

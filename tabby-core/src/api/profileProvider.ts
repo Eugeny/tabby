@@ -8,7 +8,7 @@ export interface Profile {
     type: string
     name: string
     group?: string
-    options?: Record<string, any>
+    options: Record<string, any>
 
     icon?: string
     color?: string
