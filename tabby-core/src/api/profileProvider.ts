@@ -1,45 +1,56 @@
+/* eslint-disable @typescript-eslint/no-type-alias */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { BaseTabComponent } from '../components/baseTab.component'
 import { NewTabParameters } from '../services/tabs.service'
 
 export interface Profile {
-    id?: string
+    id: string
     type: string
     name: string
     group?: string
-    options: Record<string, any>
+    options: any
 
     icon?: string
     color?: string
-    disableDynamicTitle?: boolean
+    disableDynamicTitle: boolean
 
-    weight?: number
-    isBuiltin?: boolean
-    isTemplate?: boolean
+    weight: number
+    isBuiltin: boolean
+    isTemplate: boolean
 }
 
-export interface ProfileSettingsComponent {
-    profile: Profile
+export type PartialProfile<T extends Profile> = Omit<Omit<Omit<{
+    [K in keyof T]?: T[K]
+}, 'options'>, 'type'>, 'name'> & {
+    type: string
+    name: string
+    options?: {
+        [K in keyof T['options']]?: T['options'][K]
+    }
+}
+
+export interface ProfileSettingsComponent<P extends Profile> {
+    profile: P
     save?: () => void
 }
 
-export abstract class ProfileProvider {
+export abstract class ProfileProvider<P extends Profile> {
     id: string
     name: string
     supportsQuickConnect = false
-    settingsComponent?: new (...args: any[]) => ProfileSettingsComponent
+    settingsComponent?: new (...args: any[]) => ProfileSettingsComponent<P>
     configDefaults = {}
 
-    abstract getBuiltinProfiles (): Promise<Profile[]>
+    abstract getBuiltinProfiles (): Promise<PartialProfile<P>[]>
 
-    abstract getNewTabParameters (profile: Profile): Promise<NewTabParameters<BaseTabComponent>>
+    abstract getNewTabParameters (profile: PartialProfile<P>): Promise<NewTabParameters<BaseTabComponent>>
 
-    abstract getDescription (profile: Profile): string
+    abstract getDescription (profile: PartialProfile<P>): string
 
-    quickConnect (query: string): Profile|null {
+    quickConnect (query: string): PartialProfile<P>|null {
         return null
     }
 
-    deleteProfile (profile: Profile): void { }
+    deleteProfile (profile: P): void { }
 }

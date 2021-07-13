@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { ProfileProvider, Profile, NewTabParameters } from 'tabby-core'
+import { ProfileProvider, NewTabParameters, PartialProfile } from 'tabby-core'
 import { SSHProfileSettingsComponent } from './components/sshProfileSettings.component'
 import { SSHTabComponent } from './components/sshTab.component'
 import { PasswordStorageService } from './services/passwordStorage.service'
@@ -8,7 +8,7 @@ import { ALGORITHM_BLACKLIST, SSHAlgorithmType, SSHProfile } from './api'
 import * as ALGORITHMS from 'ssh2/lib/protocol/constants'
 
 @Injectable({ providedIn: 'root' })
-export class SSHProfilesService extends ProfileProvider {
+export class SSHProfilesService extends ProfileProvider<SSHProfile> {
     id = 'ssh'
     name = 'SSH'
     supportsQuickConnect = true
@@ -66,7 +66,7 @@ export class SSHProfilesService extends ProfileProvider {
         }
     }
 
-    async getBuiltinProfiles (): Promise<Profile[]> {
+    async getBuiltinProfiles (): Promise<PartialProfile<SSHProfile>[]> {
         return [{
             id: `ssh:template`,
             type: 'ssh',
@@ -83,22 +83,22 @@ export class SSHProfilesService extends ProfileProvider {
         }]
     }
 
-    async getNewTabParameters (profile: Profile): Promise<NewTabParameters<SSHTabComponent>> {
+    async getNewTabParameters (profile: PartialProfile<SSHProfile>): Promise<NewTabParameters<SSHTabComponent>> {
         return {
             type: SSHTabComponent,
             inputs: { profile },
         }
     }
 
-    getDescription (profile: SSHProfile): string {
-        return profile.options.host
+    getDescription (profile: PartialProfile<SSHProfile>): string {
+        return profile.options?.host ?? ''
     }
 
     deleteProfile (profile: SSHProfile): void {
         this.passwordStorage.deletePassword(profile)
     }
 
-    quickConnect (query: string): SSHProfile {
+    quickConnect (query: string): PartialProfile<SSHProfile> {
         let user = 'root'
         let host = query
         let port = 22

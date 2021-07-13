@@ -3,12 +3,12 @@ import slugify from 'slugify'
 import deepClone from 'clone-deep'
 import { Component } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
-import { ConfigService, HostAppService, Profile, SelectorService, ProfilesService, PromptModalComponent, PlatformService, BaseComponent } from 'tabby-core'
+import { ConfigService, HostAppService, Profile, SelectorService, ProfilesService, PromptModalComponent, PlatformService, BaseComponent, PartialProfile } from 'tabby-core'
 import { EditProfileModalComponent } from './editProfileModal.component'
 
 interface ProfileGroup {
     name?: string
-    profiles: Profile[]
+    profiles: PartialProfile<Profile>[]
     editable: boolean
     collapsed: boolean
 }
@@ -19,9 +19,9 @@ interface ProfileGroup {
     styles: [require('./profilesSettingsTab.component.scss')],
 })
 export class ProfilesSettingsTabComponent extends BaseComponent {
-    profiles: Profile[] = []
-    builtinProfiles: Profile[] = []
-    templateProfiles: Profile[] = []
+    profiles: PartialProfile<Profile>[] = []
+    builtinProfiles: PartialProfile<Profile>[] = []
+    templateProfiles: PartialProfile<Profile>[] = []
     profileGroups: ProfileGroup[]
     filter = ''
 
@@ -45,11 +45,11 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
         this.subscribeUntilDestroyed(this.config.changed$, () => this.refresh())
     }
 
-    launchProfile (profile: Profile): void {
+    launchProfile (profile: PartialProfile<Profile>): void {
         this.profilesService.openNewTabForProfile(profile)
     }
 
-    async newProfile (base?: Profile): Promise<void> {
+    async newProfile (base?: PartialProfile<Profile>): Promise<void> {
         if (!base) {
             const profiles = [...this.templateProfiles, ...this.builtinProfiles, ...this.profiles]
             profiles.sort((a, b) => (a.weight ?? 0) - (b.weight ?? 0))
@@ -57,7 +57,7 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
                 'Select a base profile to use as a template',
                 profiles.map(p => ({
                     icon: p.icon,
-                    description: this.profilesService.providerForProfile(p)?.getDescription(p),
+                    description: this.profilesService.getDescription(p) ?? undefined,
                     name: p.group ? `${p.group} / ${p.name}` : p.name,
                     result: p,
                 })),
@@ -74,7 +74,7 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
         await this.config.save()
     }
 
-    async editProfile (profile: Profile): Promise<void> {
+    async editProfile (profile: PartialProfile<Profile>): Promise<void> {
         const modal = this.ngbModal.open(
             EditProfileModalComponent,
             { size: 'lg' },
@@ -93,7 +93,7 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
         await this.config.save()
     }
 
-    async deleteProfile (profile: Profile): Promise<void> {
+    async deleteProfile (profile: PartialProfile<Profile>): Promise<void> {
         if ((await this.platform.showMessageBox(
             {
                 type: 'warning',
@@ -102,7 +102,8 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
                 defaultId: 0,
             }
         )).response === 1) {
-            this.profilesService.providerForProfile(profile)?.deleteProfile(profile)
+            this.profilesService.providerForProfile(profile)?.deleteProfile(
+                this.profilesService.getConfigProxyForProfile(profile))
             this.config.store.profiles = this.config.store.profiles.filter(x => x !== profile)
             await this.config.save()
         }
@@ -181,7 +182,7 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
         return !this.filter || group.profiles.some(x => this.isProfileVisible(x))
     }
 
-    isProfileVisible (profile: Profile): boolean {
+    isProfileVisible (profile: PartialProfile<Profile>): boolean {
         return !this.filter || profile.name.toLowerCase().includes(this.filter.toLowerCase())
     }
 
@@ -189,11 +190,11 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
         return icon?.startsWith('<') ?? false
     }
 
-    getDescription (profile: Profile): string|null {
+    getDescription (profile: PartialProfile<Profile>): string|null {
         return this.profilesService.getDescription(profile)
     }
 
-    getTypeLabel (profile: Profile): string {
+    getTypeLabel (profile: PartialProfile<Profile>): string {
         const name = this.profilesService.providerForProfile(profile)?.name
         if (name === 'Local') {
             return ''
@@ -201,7 +202,7 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
         return name ?? 'Unknown'
     }
 
-    getTypeColorClass (profile: Profile): string {
+    getTypeColorClass (profile: PartialProfile<Profile>): string {
         return {
             ssh: 'secondary',
             serial: 'success',

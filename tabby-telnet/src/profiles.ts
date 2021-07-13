@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core'
-import { ProfileProvider, Profile, NewTabParameters } from 'tabby-core'
+import { ProfileProvider, NewTabParameters, PartialProfile } from 'tabby-core'
 import { TelnetProfileSettingsComponent } from './components/telnetProfileSettings.component'
 import { TelnetTabComponent } from './components/telnetTab.component'
 import { TelnetProfile } from './session'
 
 @Injectable({ providedIn: 'root' })
-export class TelnetProfilesService extends ProfileProvider {
+export class TelnetProfilesService extends ProfileProvider<TelnetProfile> {
     id = 'telnet'
     name = 'Telnet'
     supportsQuickConnect = false
@@ -22,7 +22,7 @@ export class TelnetProfilesService extends ProfileProvider {
         },
     }
 
-    async getBuiltinProfiles (): Promise<TelnetProfile[]> {
+    async getBuiltinProfiles (): Promise<PartialProfile<TelnetProfile>[]> {
         return [
             {
                 id: `telnet:template`,
@@ -55,7 +55,7 @@ export class TelnetProfilesService extends ProfileProvider {
         ]
     }
 
-    async getNewTabParameters (profile: Profile): Promise<NewTabParameters<TelnetTabComponent>> {
+    async getNewTabParameters (profile: PartialProfile<TelnetProfile>): Promise<NewTabParameters<TelnetTabComponent>> {
         return {
             type: TelnetTabComponent,
             inputs: { profile },
@@ -66,7 +66,7 @@ export class TelnetProfilesService extends ProfileProvider {
         return profile.options.host ? `${profile.options.host}:${profile.options.port}` : ''
     }
 
-    quickConnect (query: string): TelnetProfile {
+    quickConnect (query: string): PartialProfile<TelnetProfile> {
         let host = query
         let port = 23
         if (host.includes('[')) {

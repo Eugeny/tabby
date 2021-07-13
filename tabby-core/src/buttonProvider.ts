@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core'
 
 import { ToolbarButton, ToolbarButtonProvider } from './api/toolbarButtonProvider'
 import { HostAppService, Platform } from './api/hostApp'
-import { Profile } from './api/profileProvider'
+import { PartialProfile, Profile } from './api/profileProvider'
 import { ConfigService } from './services/config.service'
 import { HotkeysService } from './services/hotkeys.service'
 import { ProfilesService } from './services/profiles.service'
@@ -32,7 +32,7 @@ export class ButtonProvider extends ToolbarButtonProvider {
         }
     }
 
-    async launchProfile (profile: Profile) {
+    async launchProfile (profile: PartialProfile<Profile>) {
         await this.profilesService.openNewTabForProfile(profile)
 
         let recentProfiles = this.config.store.recentProfiles

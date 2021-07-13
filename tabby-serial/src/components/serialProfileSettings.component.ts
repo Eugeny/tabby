@@ -9,7 +9,7 @@ import { SerialService } from '../services/serial.service'
 @Component({
     template: require('./serialProfileSettings.component.pug'),
 })
-export class SerialProfileSettingsComponent implements ProfileSettingsComponent {
+export class SerialProfileSettingsComponent implements ProfileSettingsComponent<SerialProfile> {
     profile: SerialProfile
     foundPorts: SerialPortInfo[]
     Platform = Platform

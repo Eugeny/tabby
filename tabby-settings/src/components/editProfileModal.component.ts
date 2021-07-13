@@ -15,15 +15,15 @@ const iconsClassList = Object.keys(iconsData).map(
 @Component({
     template: require('./editProfileModal.component.pug'),
 })
-export class EditProfileModalComponent {
-    @Input() profile: Profile & ConfigProxy
-    @Input() profileProvider: ProfileProvider
-    @Input() settingsComponent: new () => ProfileSettingsComponent
+export class EditProfileModalComponent<P extends Profile> {
+    @Input() profile: P & ConfigProxy
+    @Input() profileProvider: ProfileProvider<P>
+    @Input() settingsComponent: new () => ProfileSettingsComponent<P>
     groupNames: string[]
     @ViewChild('placeholder', { read: ViewContainerRef }) placeholder: ViewContainerRef
 
     private _profile: Profile
-    private settingsComponentInstance: ProfileSettingsComponent
+    private settingsComponentInstance: ProfileSettingsComponent<P>
 
     constructor (
         private injector: Injector,

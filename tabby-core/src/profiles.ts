@@ -1,7 +1,7 @@
 import slugify from 'slugify'
 import { v4 as uuidv4 } from 'uuid'
 import { Injectable } from '@angular/core'
-import { ConfigService, NewTabParameters, Profile, ProfileProvider } from './api'
+import { ConfigService, NewTabParameters, PartialProfile, Profile, ProfileProvider } from './api'
 import { SplitTabComponent, SplitTabRecoveryProvider } from './components/splitTab.component'
 
 export interface SplitLayoutProfileOptions {
@@ -13,7 +13,7 @@ export interface SplitLayoutProfile extends Profile {
 }
 
 @Injectable({ providedIn: 'root' })
-export class SplitLayoutProfilesService extends ProfileProvider {
+export class SplitLayoutProfilesService extends ProfileProvider<SplitLayoutProfile> {
     id = 'split-layout'
     name = 'Saved layout'
     configDefaults = {
@@ -29,7 +29,7 @@ export class SplitLayoutProfilesService extends ProfileProvider {
         super()
     }
 
-    async getBuiltinProfiles (): Promise<Profile[]> {
+    async getBuiltinProfiles (): Promise<PartialProfile<SplitLayoutProfile>[]> {
         return []
     }
 
@@ -43,7 +43,7 @@ export class SplitLayoutProfilesService extends ProfileProvider {
 
     async createProfile (tab: SplitTabComponent, name: string): Promise<void> {
         const token = await tab.getRecoveryToken()
-        const profile: SplitLayoutProfile = {
+        const profile: PartialProfile<SplitLayoutProfile> = {
             id: `${this.id}:custom:${slugify(name)}:${uuidv4()}`,
             type: this.id,
             name,

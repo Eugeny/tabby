@@ -1,8 +1,8 @@
 import { Injectable, Inject } from '@angular/core'
 import { NewTabParameters } from './tabs.service'
 import { BaseTabComponent } from '../components/baseTab.component'
-import { Profile, ProfileProvider } from '../api/profileProvider'
-import { SelectorOption } from '../api/selector'
+import { PartialProfile, Profile, ProfileProvider } from '../api/profileProvider'
+;import { SelectorOption } from '../api/selector'
 import { AppService } from './app.service'
 import { configMerge, ConfigProxy, ConfigService } from './config.service'
 import { NotificationsService } from './notifications.service'
@@ -29,15 +29,18 @@ export class ProfilesService {
         private config: ConfigService,
         private notifications: NotificationsService,
         private selector: SelectorService,
-        @Inject(ProfileProvider) private profileProviders: ProfileProvider[],
+        @Inject(ProfileProvider) private profileProviders: ProfileProvider<Profile>[],
     ) { }
 
-    async openNewTabForProfile (profile: Profile): Promise<BaseTabComponent|null> {
+    async openNewTabForProfile <P extends Profile> (profile: PartialProfile<P>): Promise<BaseTabComponent|null> {
         const params = await this.newTabParametersForProfile(profile)
         if (params) {
             const tab = this.app.openNewTab(params)
             ;(this.app.getParentTab(tab) ?? tab).color = profile.color ?? null
-            tab.setTitle(profile.name)
+
+            if (profile.name) {
+                tab.setTitle(profile.name)
+            }
             if (profile.disableDynamicTitle) {
                 tab['enableDynamicTitle'] = false
             }
@@ -46,16 +49,16 @@ export class ProfilesService {
         return null
     }
 
-    async newTabParametersForProfile (profile: Profile): Promise<NewTabParameters<BaseTabComponent>|null> {
-        profile = this.getConfigProxyForProfile(profile)
-        return this.providerForProfile(profile)?.getNewTabParameters(profile) ?? null
+    async newTabParametersForProfile <P extends Profile> (profile: PartialProfile<P>): Promise<NewTabParameters<BaseTabComponent>|null> {
+        const fullProfile = this.getConfigProxyForProfile(profile)
+        return this.providerForProfile(fullProfile)?.getNewTabParameters(fullProfile) ?? null
     }
 
-    getProviders (): ProfileProvider[] {
+    getProviders (): ProfileProvider<Profile>[] {
         return [...this.profileProviders]
     }
 
-    async getProfiles (): Promise<Profile[]> {
+    async getProfiles (): Promise<PartialProfile<Profile>[]> {
         const lists = await Promise.all(this.config.enabledServices(this.profileProviders).map(x => x.getBuiltinProfiles()))
         let list = lists.reduce((a, b) => a.concat(b), [])
         list = [
@@ -68,28 +71,29 @@ export class ProfilesService {
         return list
     }
 
-    providerForProfile (profile: Profile): ProfileProvider|null {
-        return this.profileProviders.find(x => x.id === profile.type) ?? null
+    providerForProfile <T extends Profile> (profile: PartialProfile<T>): ProfileProvider<T>|null {
+        const provider = this.profileProviders.find(x => x.id === profile.type) ?? null
+        return provider as unknown as ProfileProvider<T>|null
     }
 
-    getDescription (profile: Profile): string|null {
+    getDescription <P extends Profile> (profile: PartialProfile<P>): string|null {
         profile = this.getConfigProxyForProfile(profile)
         return this.providerForProfile(profile)?.getDescription(profile) ?? null
     }
 
-    selectorOptionForProfile <T> (profile: Profile): SelectorOption<T> {
-        profile = this.getConfigProxyForProfile(profile)
+    selectorOptionForProfile <P extends Profile, T> (profile: PartialProfile<P>): SelectorOption<T> {
+        const fullProfile = this.getConfigProxyForProfile(profile)
         return {
             icon: profile.icon,
-            name: profile.group ? `${profile.group} / ${profile.name}` : profile.name,
-            description: this.providerForProfile(profile)?.getDescription(profile),
+            name: profile.group ? `${fullProfile.group} / ${fullProfile.name}` : fullProfile.name,
+            description: this.providerForProfile(fullProfile)?.getDescription(fullProfile),
         }
     }
 
-    showProfileSelector (): Promise<Profile|null> {
-        return new Promise<Profile|null>(async (resolve, reject) => {
+    showProfileSelector (): Promise<PartialProfile<Profile>|null> {
+        return new Promise<PartialProfile<Profile>|null>(async (resolve, reject) => {
             try {
-                const recentProfiles: Profile[] = this.config.store.recentProfiles
+                const recentProfiles: PartialProfile<Profile>[] = this.config.store.recentProfiles
 
                 let options: SelectorOption<void>[] = recentProfiles.map(p => ({
                     ...this.selectorOptionForProfile(p),
@@ -159,7 +163,7 @@ export class ProfilesService {
         })
     }
 
-    async quickConnect (query: string): Promise<Profile|null> {
+    async quickConnect (query: string): Promise<PartialProfile<Profile>|null> {
         for (const provider of this.getProviders()) {
             if (provider.supportsQuickConnect) {
                 const profile = provider.quickConnect(query)
@@ -172,9 +176,9 @@ export class ProfilesService {
         return null
     }
 
-    getConfigProxyForProfile (profile: Profile): Profile {
+    getConfigProxyForProfile <T extends Profile> (profile: PartialProfile<T>): T {
         const provider = this.providerForProfile(profile)
         const defaults = configMerge(this.profileDefaults, provider?.configDefaults ?? {})
-        return new ConfigProxy(profile, defaults) as unknown as Profile
+        return new ConfigProxy(profile, defaults) as unknown as T
     }
 }

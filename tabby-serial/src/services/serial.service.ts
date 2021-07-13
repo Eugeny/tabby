@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 import SerialPort from 'serialport'
-import { ProfilesService } from 'tabby-core'
+import { PartialProfile, ProfilesService } from 'tabby-core'
 import { SerialPortInfo, SerialProfile } from '../api'
 import { SerialTabComponent } from '../components/serialTab.component'
 
@@ -24,19 +24,12 @@ export class SerialService {
             baudrate = parseInt(path.split('@')[1])
             path = path.split('@')[0]
         }
-        const profile: SerialProfile = {
+        const profile: PartialProfile<SerialProfile> = {
             name: query,
             type: 'serial',
             options: {
                 port: path,
                 baudrate: baudrate,
-                databits: 8,
-                parity: 'none',
-                rtscts: false,
-                stopbits: 1,
-                xany: false,
-                xoff: false,
-                xon: false,
             },
         }
         window.localStorage.lastSerialConnection = JSON.stringify(profile)

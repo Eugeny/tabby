@@ -1,12 +1,12 @@
 import deepClone from 'clone-deep'
 import { Injectable, Inject } from '@angular/core'
-import { ProfileProvider, Profile, NewTabParameters, ConfigService, SplitTabComponent, AppService } from 'tabby-core'
+import { ProfileProvider, NewTabParameters, ConfigService, SplitTabComponent, AppService, PartialProfile } from 'tabby-core'
 import { TerminalTabComponent } from './components/terminalTab.component'
 import { LocalProfileSettingsComponent } from './components/localProfileSettings.component'
-import { ShellProvider, Shell, SessionOptions } from './api'
+import { ShellProvider, Shell, SessionOptions, LocalProfile } from './api'
 
 @Injectable({ providedIn: 'root' })
-export class LocalProfilesService extends ProfileProvider {
+export class LocalProfilesService extends ProfileProvider<LocalProfile> {
     id = 'local'
     name = 'Local'
     settingsComponent = LocalProfileSettingsComponent
@@ -34,7 +34,7 @@ export class LocalProfilesService extends ProfileProvider {
         super()
     }
 
-    async getBuiltinProfiles (): Promise<Profile[]> {
+    async getBuiltinProfiles (): Promise<PartialProfile<LocalProfile>[]> {
         return (await this.getShells()).map(shell => ({
             id: `local:${shell.id}`,
             type: 'local',
@@ -45,20 +45,20 @@ export class LocalProfilesService extends ProfileProvider {
         }))
     }
 
-    async getNewTabParameters (profile: Profile): Promise<NewTabParameters<TerminalTabComponent>> {
+    async getNewTabParameters (profile: PartialProfile<LocalProfile>): Promise<NewTabParameters<TerminalTabComponent>> {
         profile = deepClone(profile)
 
         if (!profile.options?.cwd) {
             if (this.app.activeTab instanceof TerminalTabComponent && this.app.activeTab.session) {
                 profile.options ??= {}
-                profile.options.cwd = await this.app.activeTab.session.getWorkingDirectory()
+                profile.options.cwd = await this.app.activeTab.session.getWorkingDirectory() ?? undefined
             }
             if (this.app.activeTab instanceof SplitTabComponent) {
                 const focusedTab = this.app.activeTab.getFocusedTab()
 
                 if (focusedTab instanceof TerminalTabComponent && focusedTab.session) {
                     profile.options ??= {}
-                    profile.options.cwd = await focusedTab.session.getWorkingDirectory()
+                    profile.options!.cwd = await focusedTab.session.getWorkingDirectory() ?? undefined
                 }
             }
         }
@@ -84,7 +84,7 @@ export class LocalProfilesService extends ProfileProvider {
         }
     }
 
-    getDescription (profile: Profile): string {
-        return profile.options?.command
+    getDescription (profile: PartialProfile<LocalProfile>): string {
+        return profile.options?.command ?? ''
     }
 }

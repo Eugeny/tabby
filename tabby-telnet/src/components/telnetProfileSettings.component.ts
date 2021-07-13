@@ -8,6 +8,6 @@ import { TelnetProfile } from '../session'
 @Component({
     template: require('./telnetProfileSettings.component.pug'),
 })
-export class TelnetProfileSettingsComponent implements ProfileSettingsComponent {
+export class TelnetProfileSettingsComponent implements ProfileSettingsComponent<TelnetProfile> {
     profile: TelnetProfile
 }

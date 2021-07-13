@@ -10,7 +10,7 @@ import { SerialService } from './services/serial.service'
 import { BAUD_RATES, SerialProfile } from './api'
 
 @Injectable({ providedIn: 'root' })
-export class SerialProfilesService extends ProfileProvider {
+export class SerialProfilesService extends ProfileProvider<SerialProfile> {
     id = 'serial'
     name = 'Serial'
     settingsComponent = SerialProfileSettingsComponent
