@@ -41,7 +41,7 @@ export class EditProfileModalComponent<P extends Profile> {
 
     ngOnInit () {
         this._profile = this.profile
-        this.profile = this.profilesService.getConfigProxyForProfile(this.profile) as any
+        this.profile = this.profilesService.getConfigProxyForProfile(this.profile)
     }
 
     ngAfterViewInit () {

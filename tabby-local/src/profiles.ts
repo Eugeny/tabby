@@ -58,7 +58,7 @@ export class LocalProfilesService extends ProfileProvider<LocalProfile> {
 
                 if (focusedTab instanceof TerminalTabComponent && focusedTab.session) {
                     profile.options ??= {}
-                    profile.options!.cwd = await focusedTab.session.getWorkingDirectory() ?? undefined
+                    profile.options.cwd = await focusedTab.session.getWorkingDirectory() ?? undefined
                 }
             }
         }
