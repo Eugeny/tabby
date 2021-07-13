@@ -1,6 +1,6 @@
 import * as fs from 'mz/fs'
 import { Injectable } from '@angular/core'
-import { Logger, LogService, ConfigService, AppService, ProfilesService } from 'tabby-core'
+import { Logger, LogService, ConfigService, ProfilesService } from 'tabby-core'
 import { TerminalTabComponent } from '../components/terminalTab.component'
 import { LocalProfile } from '../api'
 
@@ -10,7 +10,6 @@ export class TerminalService {
 
     /** @hidden */
     private constructor (
-        private app: AppService,
         private profilesService: ProfilesService,
         private config: ConfigService,
         log: LogService,

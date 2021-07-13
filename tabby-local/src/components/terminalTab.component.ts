@@ -1,10 +1,9 @@
 import { Component, Input, Injector } from '@angular/core'
 import { BaseTabProcess, WIN_BUILD_CONPTY_SUPPORTED, isWindowsBuild } from 'tabby-core'
 import { BaseTerminalTabComponent } from 'tabby-terminal'
-import { LocalProfile } from '../api'
+import { LocalProfile, SessionOptions } from '../api'
 import { Session } from '../session'
 import { UACService } from '../services/uac.service'
-import { SessionOptions } from 'http2'
 
 /** @hidden */
 @Component({
