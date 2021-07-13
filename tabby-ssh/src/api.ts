@@ -74,11 +74,11 @@ export class ForwardedPort implements ForwardedPortConfig {
     targetAddress: string
     targetPort: number
 
-    private listener: Server
+    private listener: Server|null = null
 
     async startLocalListener (callback: (accept: () => Socket, reject: () => void, sourceAddress: string|null, sourcePort: number|null, targetAddress: string, targetPort: number) => void): Promise<void> {
         if (this.type === PortForwardType.Local) {
-            this.listener = createServer(s => callback(
+            const listener = this.listener = createServer(s => callback(
                 () => s,
                 () => s.destroy(),
                 s.remoteAddress ?? null,
@@ -87,9 +87,9 @@ export class ForwardedPort implements ForwardedPortConfig {
                 this.targetPort,
             ))
             return new Promise((resolve, reject) => {
-                this.listener.listen(this.port, this.host)
-                this.listener.on('error', reject)
-                this.listener.on('listening', resolve)
+                listener.listen(this.port, this.host)
+                listener.on('error', reject)
+                listener.on('listening', resolve)
             })
         } else if (this.type === PortForwardType.Dynamic) {
             return new Promise((resolve, reject) => {
@@ -102,10 +102,10 @@ export class ForwardedPort implements ForwardedPortConfig {
                         info.dstAddr,
                         info.dstPort,
                     )
-                })
+                }) as Server
                 this.listener.on('error', reject)
                 this.listener.listen(this.port, this.host, resolve)
-                ;(this.listener as any).useAuth(socksv5.auth.None())
+                this.listener['useAuth'](socksv5.auth.None())
             })
         } else {
             throw new Error('Invalid forward type for a local listener')
@@ -113,7 +113,7 @@ export class ForwardedPort implements ForwardedPortConfig {
     }
 
     stopLocalListener (): void {
-        this.listener.close()
+        this.listener?.close()
     }
 
     toString (): string {
@@ -290,9 +290,7 @@ export class SSHSession extends BaseSession {
 
         this.destroyed$.subscribe(() => {
             for (const port of this.forwardedPorts) {
-                if (port.type === PortForwardType.Local) {
-                    port.stopLocalListener()
-                }
+                port.stopLocalListener()
             }
         })
 
