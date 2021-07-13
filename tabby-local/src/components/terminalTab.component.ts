@@ -75,7 +75,7 @@ export class TerminalTabComponent extends BaseTerminalTabComponent {
     async getRecoveryToken (): Promise<any> {
         const cwd = this.session ? await this.session.getWorkingDirectory() : null
         return {
-            type: 'app:terminal-tab',
+            type: 'app:local-tab',
             profile: {
                 ...this.profile,
                 options: {

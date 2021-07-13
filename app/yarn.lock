@@ -3586,12 +3586,12 @@ windows-blurbehind@^1.0.1:
   resolved "https://registry.yarnpkg.com/windows-blurbehind/-/windows-blurbehind-1.0.1.tgz#ff098713873304e38330b2c54cc41bb369b587b9"
   integrity sha512-1HzHfCiM1ayrbACJu5qE9zELV24uX/tINT6kxaZwLY3rtQAoeav6x9z7LFHWoLaGDN/sYbnK+9Vk0cz7fsk5HQ==
 
-windows-native-registry@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/windows-native-registry/-/windows-native-registry-3.0.0.tgz#82e715df7a59d5054c768547d81e0bfc81a59d2e"
-  integrity sha512-Mz/9a23UivwPc23DsTOL/ZCp/XXogT+6h/khk1psOfDDusXqpomBdxNdsBBE/BvIgOExjGom0XPOfEPiDnHy7A==
+windows-native-registry@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/windows-native-registry/-/windows-native-registry-3.1.0.tgz#909ef3254519fdec57d2f149ac59a2c9dc84419a"
+  integrity sha512-WrDysn2V7dH+EYE6cS2RF+7r2P+M0pOYWtU8iBrjV2HaGkCLlUdGUWzOdzT0JPdWwz0BkVu3IOae2xmBajQqBA==
   dependencies:
-    node-addon-api "^3.0.0"
+    node-addon-api "^3.1.0"
 
 windows-process-tree@^0.3.0:
   version "0.3.0"

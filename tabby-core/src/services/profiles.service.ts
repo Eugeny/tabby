@@ -33,7 +33,6 @@ export class ProfilesService {
     ) { }
 
     async openNewTabForProfile (profile: Profile): Promise<BaseTabComponent|null> {
-        profile = this.getConfigProxyForProfile(profile)
         const params = await this.newTabParametersForProfile(profile)
         if (params) {
             const tab = this.app.openNewTab(params)
