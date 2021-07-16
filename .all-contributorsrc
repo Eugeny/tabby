@@ -424,6 +424,15 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "KingMob",
+      "name": "Matthew Davidson",
+      "avatar_url": "https://avatars.githubusercontent.com/u/946421?v=4",
+      "profile": "https://modulolotus.net",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
