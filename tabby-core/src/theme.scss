@@ -306,21 +306,6 @@ search-panel {
     }
 }
 
-.btn.btn-secondary {
-    @include button-outline-variant(#9badb9, #fff);
-    &:hover:not([disabled]), &:active:not([disabled]), &.active:not([disabled]) {
-        background-color: #3f484e;
-        border-color: darken(#9badb9, 25%);
-    }
-
-    border-color: darken(#9badb9, 25%);
-
-    &.disabled,
-    &:disabled {
-        color: #9badb9;
-    }
-}
-
 .btn-warning:not(:disabled):not(.disabled) {
     &.active, &:active {
         color: $gray-900;

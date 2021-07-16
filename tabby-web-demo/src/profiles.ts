@@ -1,15 +1,13 @@
 import { Injectable } from '@angular/core'
-import { ProfileProvider, NewTabParameters, Profile } from 'tabby-core'
-// import { SerialProfileSettingsComponent } from './components/serialProfileSettings.component'
+import { ProfileProvider, NewTabParameters, Profile, PartialProfile } from 'tabby-core'
 import { DemoTerminalTabComponent } from './components/terminalTab.component'
 
 @Injectable({ providedIn: 'root' })
-export class DemoProfilesService extends ProfileProvider {
+export class DemoProfilesService extends ProfileProvider<Profile> {
     id = 'demo'
     name = 'Demo'
-    // settingsComponent = SerialProfileSettingsComponent
 
-    async getBuiltinProfiles (): Promise<Profile[]> {
+    async getBuiltinProfiles (): Promise<PartialProfile<Profile>[]> {
         return [
             {
                 id: 'demo',

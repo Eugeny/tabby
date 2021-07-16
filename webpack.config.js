@@ -5,6 +5,7 @@ const paths = [
     './app/webpack.config.js',
     './app/webpack.main.config.js',
     './web/webpack.config.js',
+    './tabby-web-demo/webpack.config.js',
     ...builtinPlugins.map(x => `./${x}/webpack.config.js`),
 ]
 
