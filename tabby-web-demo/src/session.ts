@@ -1,13 +1,24 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
+import { Injector, NgZone } from '@angular/core'
 import * as path from 'path'
 import { BaseSession } from 'tabby-terminal'
+import { Logger } from '../../tabby-core/typings'
 
 const currentScript: any = document.currentScript
 
 export class Session extends BaseSession {
     private dataPath = window['tabbyWebDemoDataPath'] ?? currentScript.src + '../../../data'
     private vm: any
+    private zone: NgZone
     static v86Loaded = false
+
+    constructor (
+        injector: Injector,
+        logger: Logger,
+    ) {
+        super(logger)
+        this.zone = injector.get(NgZone)
+    }
 
     async start (): Promise<void> {
         this.open = true
@@ -25,23 +36,25 @@ export class Session extends BaseSession {
             })
         }
 
-        this.vm = new window['V86Starter']({
-            bios: {
-                url: `${this.dataPath}/bios.bin`,
-            },
-            vga_bios: {
-                url: `${this.dataPath}/vgabios.bin`,
-            },
-            wasm_path: `${this.dataPath}/v86.wasm`,
-            cdrom: {
-                url: `${this.dataPath}/linux.iso`,
-            },
-            initial_state: {
-                url: `${this.dataPath}/v86state.bin`,
-            },
-            autostart: true,
-            disable_keyboard: true,
-            disable_speaker: true,
+        this.zone.runOutsideAngular(() => {
+            this.vm = new window['V86Starter']({
+                bios: {
+                    url: `${this.dataPath}/bios.bin`,
+                },
+                vga_bios: {
+                    url: `${this.dataPath}/vgabios.bin`,
+                },
+                wasm_path: `${this.dataPath}/v86.wasm`,
+                cdrom: {
+                    url: `${this.dataPath}/linux.iso`,
+                },
+                initial_state: {
+                    url: `${this.dataPath}/v86state.bin`,
+                },
+                autostart: true,
+                disable_keyboard: true,
+                disable_speaker: true,
+            })
         })
 
         this.vm.add_listener('emulator-ready', () => {

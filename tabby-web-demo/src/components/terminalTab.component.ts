@@ -21,7 +21,7 @@ export class DemoTerminalTabComponent extends BaseTerminalTabComponent {
 
     ngOnInit (): void {
         this.logger = this.log.create('terminalTab')
-        this.session = new Session(this.logger)
+        this.session = new Session(this.injector, this.logger)
         super.ngOnInit()
     }
 
