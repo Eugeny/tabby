@@ -9,6 +9,17 @@ h3.mb-3 Window
     )
         option(*ngFor='let theme of themes', [ngValue]='theme.name') {{theme.name}}
 
+
+.form-line(*ngIf='hostApp.platform === Platform.Web')
+    .header
+        .title Ask before closing the browser tab
+        .description Prevents accidental closing
+    toggle(
+        [(ngModel)]='config.store.web.preventAccidentalTabClosure',
+        (ngModelChange)='saveConfiguration()',
+    )
+
+
 .form-line(*ngIf='platform.supportsWindowControls')
     .header
         .title(*ngIf='hostApp.platform !== Platform.macOS') Acrylic background

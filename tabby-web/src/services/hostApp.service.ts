@@ -1,3 +1,4 @@
+import Bowser from 'bowser'
 import { Injectable, Injector } from '@angular/core'
 import { HostAppService, Platform } from 'tabby-core'
 
@@ -8,7 +9,8 @@ export class WebHostApp extends HostAppService {
     }
 
     get configPlatform (): Platform {
-        return Platform.Windows // TODO
+        const os = Bowser.parse(window.navigator.userAgent).os
+        return Platform[os.name ?? 'Windows'] ?? Platform.Windows
     }
 
     // Needed for injector metadata

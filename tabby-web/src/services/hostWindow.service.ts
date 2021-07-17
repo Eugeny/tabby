@@ -1,14 +1,23 @@
 import { Injectable } from '@angular/core'
-import { HostWindowService } from 'tabby-core'
+import { ConfigService, HostWindowService } from 'tabby-core'
 
 @Injectable({ providedIn: 'root' })
 export class WebHostWindow extends HostWindowService {
     get isFullscreen (): boolean { return !!document.fullscreenElement }
 
-    constructor () {
+    constructor (
+        config: ConfigService,
+    ) {
         super()
         this.windowShown.next()
         this.windowFocused.next()
+
+        window.addEventListener('beforeunload', (event) => {
+            if (config.store.web.preventAccidentalTabClosure) {
+                event.preventDefault()
+                event.returnValue = 'Are you sure you want to close Tabby? You can disable this prompt in Settings -> Window.'
+            }
+        }
     }
 
     reload (): void {

@@ -3,6 +3,7 @@ import { Observable, Subject } from 'rxjs'
 import { HotkeyDescription, HotkeyProvider } from '../api/hotkeyProvider'
 import { stringifyKeySequence, EventData } from './hotkeys.util'
 import { ConfigService } from './config.service'
+import { HostAppService, Platform } from '../api/hostApp'
 import { deprecate } from 'util'
 
 export interface PartialHotkeyMatch {
@@ -35,6 +36,7 @@ export class HotkeysService {
         private zone: NgZone,
         private config: ConfigService,
         @Inject(HotkeyProvider) private hotkeyProviders: HotkeyProvider[],
+        hostApp: HostAppService,
     ) {
         const events = ['keydown', 'keyup']
         events.forEach(event => {
@@ -43,6 +45,10 @@ export class HotkeysService {
                     this.pushKeystroke(event, nativeEvent)
                     this.processKeystrokes()
                     this.emitKeyEvent(nativeEvent)
+                    if (hostApp.platform === Platform.Web) {
+                        nativeEvent.preventDefault()
+                        nativeEvent.stopPropagation()
+                    }
                 }
             })
         })
