@@ -17,7 +17,7 @@ export class WebHostWindow extends HostWindowService {
                 event.preventDefault()
                 event.returnValue = 'Are you sure you want to close Tabby? You can disable this prompt in Settings -> Window.'
             }
-        }
+        })
     }
 
     reload (): void {
