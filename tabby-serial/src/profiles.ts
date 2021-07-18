@@ -72,6 +72,9 @@ export class SerialProfilesService extends ProfileProvider<SerialProfile> {
                 name: p.description ? `Serial: ${p.description}` : 'Serial',
                 icon: 'fas fa-microchip',
                 isBuiltin: true,
+                options: {
+                    port: p.name,
+                },
             } as SerialProfile)),
         ]
     }
