@@ -1,0 +1,12 @@
+.container(
+    infiniteScroll,
+    [infiniteScrollDistance]='2',
+    [infiniteScrollThrottle]='50',
+    infiniteScrollContainer='release-notes-tab',
+    [fromRoot]='true',
+    (scrolled)='onScrolled()'
+)
+    div(*ngFor='let release of releases')
+        h1 {{release.name}}
+        .text-muted {{release.version}} / {{release.date|date:'mediumDate'}}
+        section([fastHtmlBind]='release.content')

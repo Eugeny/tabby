@@ -1,0 +1,17 @@
+:host {
+    overflow-y: scroll;
+    width: 100%;
+    padding: 30px;
+}
+
+::ng-deep img {
+    max-width: 100%;
+}
+
+h1 {
+    margin: 0;
+}
+
+section {
+    margin: 20px 0;
+}

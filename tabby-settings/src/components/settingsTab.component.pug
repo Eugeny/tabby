@@ -23,6 +23,12 @@ button.btn.btn-warning.btn-block(*ngIf='config.restartRequested', '(click)'='res
                             i.fas.fa-bug
                             span Report a problem
 
+                        button.btn.btn-secondary.mr-3(
+                            (click)='showReleaseNotes()',
+                        )
+                            i.fas.fa-book
+                            span What's new
+
                         button.btn.btn-secondary(
                             *ngIf='!updateAvailable && hostApp.platform !== Platform.Web',
                             (click)='checkForUpdates()',

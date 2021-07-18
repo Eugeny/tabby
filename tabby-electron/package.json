@@ -20,7 +20,6 @@
     "@angular/core": "^9.1.9"
   },
   "devDependencies": {
-    "axios": "^0.21.1",
     "winston": "^3.3.3",
     "electron-promise-ipc": "^2.2.4"
   }

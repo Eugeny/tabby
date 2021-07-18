@@ -6,9 +6,6 @@ import { BaseTabComponent } from '../components/baseTab.component'
 @Component({
     selector: 'tab-body',
     template: `
-        <!--perfect-scrollbar [config]="{ suppressScrollX: true }" *ngIf="scrollable">
-            <ng-template #scrollablePlaceholder></ng-template>
-        </perfect-scrollbar-->
         <ng-template #placeholder></ng-template>
     `,
     styles: [

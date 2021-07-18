@@ -11,9 +11,11 @@ import {
     UpdaterService,
     PlatformService,
     HostWindowService,
+    AppService,
 } from 'tabby-core'
 
 import { SettingsTabProvider } from '../api'
+import { ReleaseNotesComponent } from './releaseNotesTab.component'
 
 /** @hidden */
 @Component({
@@ -42,6 +44,7 @@ export class SettingsTabComponent extends BaseTabComponent {
         public platform: PlatformService,
         public zone: NgZone,
         private updater: UpdaterService,
+        private app: AppService,
         @Inject(SettingsTabProvider) public settingsProviders: SettingsTabProvider[],
     ) {
         super()
@@ -114,5 +117,11 @@ export class SettingsTabComponent extends BaseTabComponent {
         this.checkingForUpdate = true
         this.updateAvailable = await this.updater.check()
         this.checkingForUpdate = false
+    }
+
+    showReleaseNotes () {
+        this.app.openNewTabRaw({
+            type: ReleaseNotesComponent,
+        })
     }
 }

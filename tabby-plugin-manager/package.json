@@ -18,7 +18,6 @@
   "license": "MIT",
   "devDependencies": {
     "@types/semver": "^7.1.0",
-    "axios": "^0.21.1",
     "semver": "^7.1.1"
   },
   "peerDependencies": {
