@@ -1,0 +1,41 @@
+ng-container(*ngIf='!argvMode')
+    .form-group
+        label Command line
+        .input-group
+            .input-group-prepend
+                button.btn.btn-secondary((click)='switchToArgv()', title='Switch to split arguments')
+                    i.fas.fa-fw.fa-caret-right
+            input.form-control.text-monospace(
+                [(ngModel)]='command',
+                (ngModelChange)='parseCommand()'
+            )
+
+ng-container(*ngIf='argvMode')
+    .form-group
+        label Program
+        .input-group
+            .input-group-prepend
+                button.btn.btn-secondary((click)='switchToCommand()', title='Switch to a single-line command')
+                    i.fas.fa-fw.fa-caret-down
+            input.form-control.text-monospace(
+                type='text',
+                [(ngModel)]='_model.command',
+            )
+
+    .form-group
+        label Arguments
+        .input-group(
+            *ngFor='let arg of _model.args; index as i; trackBy: trackByIndex',
+        )
+            input.form-control.text-monospace(
+                type='text',
+                [(ngModel)]='_model.args[i]',
+            )
+            .input-group-append
+                button.btn.btn-secondary((click)='_model.args.splice(i, 1)')
+                    i.fas.fa-fw.fa-trash
+
+        .mt-2
+            button.btn.btn-secondary((click)='_model.args.push("")')
+                i.fas.fa-plus.mr-2
+                | Add

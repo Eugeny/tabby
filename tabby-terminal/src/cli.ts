@@ -1,4 +1,4 @@
-import shellEscape from 'shell-escape'
+import shellQuote from 'shell-quote'
 import { Injectable } from '@angular/core'
 import { CLIHandler, CLIEvent, AppService, HostWindowService } from 'tabby-core'
 import { BaseTerminalTabComponent } from './api/baseTerminalTab.component'
@@ -21,7 +21,7 @@ export class TerminalCLIHandler extends CLIHandler {
         if (op === 'paste') {
             let text = event.argv.text
             if (event.argv.escape) {
-                text = shellEscape([text])
+                text = shellQuote.quote([text])
             }
             this.handlePaste(text)
             return true

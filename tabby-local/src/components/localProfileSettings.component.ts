@@ -40,8 +40,4 @@ export class LocalProfileSettingsComponent implements ProfileSettingsComponent<L
         )).filePaths
         this.profile.options.cwd = paths[0]
     }
-
-    trackByIndex (index) {
-        return index
-    }
 }

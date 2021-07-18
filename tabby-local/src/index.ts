@@ -13,6 +13,7 @@ import { TerminalTabComponent } from './components/terminalTab.component'
 import { ShellSettingsTabComponent } from './components/shellSettingsTab.component'
 import { EnvironmentEditorComponent } from './components/environmentEditor.component'
 import { LocalProfileSettingsComponent } from './components/localProfileSettings.component'
+import { CommandLineEditorComponent } from './components/commandLineEditor.component'
 
 import { TerminalService } from './services/terminal.service'
 import { DockMenuService } from './services/dockMenu.service'
@@ -96,11 +97,13 @@ import { LocalProfilesService } from './profiles'
         TerminalTabComponent,
         ShellSettingsTabComponent,
         EnvironmentEditorComponent,
+        CommandLineEditorComponent,
         LocalProfileSettingsComponent,
     ],
     exports: [
         TerminalTabComponent,
         EnvironmentEditorComponent,
+        CommandLineEditorComponent,
     ],
 })
 export default class LocalTerminalModule { // eslint-disable-line @typescript-eslint/no-extraneous-class

@@ -1,27 +1,4 @@
-.form-group
-    label Command
-    input.form-control(
-        type='text',
-        [(ngModel)]='profile.options.command',
-    )
-
-.form-group
-    label Arguments
-    .input-group(
-        *ngFor='let arg of profile.options.args; index as i; trackBy: trackByIndex',
-    )
-        input.form-control(
-            type='text',
-            [(ngModel)]='profile.options.args[i]',
-        )
-        .input-group-append
-            button.btn.btn-secondary((click)='profile.options.args.splice(i, 1)')
-                i.fas.fa-trash
-
-    .mt-2
-        button.btn.btn-secondary((click)='profile.options.args.push("")')
-            i.fas.fa-plus.mr-2
-            | Add
+command-line-editor([model]='profile.options')
 
 .form-line(*ngIf='uac.isAvailable')
     .header

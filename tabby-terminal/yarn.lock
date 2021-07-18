@@ -7,11 +7,6 @@
   resolved "https://registry.yarnpkg.com/@types/deep-equal/-/deep-equal-1.0.1.tgz#71cfabb247c22bcc16d536111f50c0ed12476b03"
   integrity sha512-mMUu4nWHLBlHtxXY17Fg6+ucS/MnndyOWyOe7MmwkoMYxvfQU2ajtRaEvqSUv+aVkMqH/C0NCI8UoVfRNQ10yg==
 
-"@types/shell-escape@^0.2.0":
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/@types/shell-escape/-/shell-escape-0.2.0.tgz#cd2f0df814388599dd07196dcc510de2669d1ed2"
-  integrity sha512-7kUdtJtUylvyISJbe9FMcvMTjRdP0EvNDO1WbT0lT22k/IPBiPRTpmWaKu5HTWLCGLQRWVHrzVHZktTDvvR23g==
-
 ansi-color@^0.2.1:
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/ansi-color/-/ansi-color-0.2.1.tgz#3e75c037475217544ed763a8db5709fa9ae5bf9a"
@@ -455,11 +450,6 @@ runes@^0.4.2:
   version "0.4.3"
   resolved "https://registry.yarnpkg.com/runes/-/runes-0.4.3.tgz#32f7738844bc767b65cc68171528e3373c7bb355"
   integrity sha512-K6p9y4ZyL9wPzA+PMDloNQPfoDGTiFYDvdlXznyGKgD10BJpcAosvATKrExRKOrNLgD8E7Um7WGW0lxsnOuNLg==
-
-shell-escape@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/shell-escape/-/shell-escape-0.2.0.tgz#68fd025eb0490b4f567a027f0bf22480b5f84133"
-  integrity sha1-aP0CXrBJC09WegJ/C/IkgLX4QTM=
 
 side-channel@^1.0.3:
   version "1.0.4"

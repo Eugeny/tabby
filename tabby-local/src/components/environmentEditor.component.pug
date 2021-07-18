@@ -1,12 +1,12 @@
 .mb-2.d-flex.align-items-center(*ngFor='let pair of vars')
     .input-group
-        input.form-control.w-25([(ngModel)]='pair.key', (blur)='emitUpdate()', placeholder='Variable name')
+        input.form-control.w-25.text-monospace([(ngModel)]='pair.key', (blur)='emitUpdate()', placeholder='Variable name')
         .input-group-append
             .input-group-text =
-        input.form-control.w-50([(ngModel)]='pair.value', (blur)='emitUpdate()', placeholder='Value')
+        input.form-control.w-50.text-monospace([(ngModel)]='pair.value', (blur)='emitUpdate()', placeholder='Value')
         .input-group-append
             button.btn.btn-secondary((click)='removeEnvironmentVar(pair.key)')
-                i.fas.fa-trash
+                i.fas.fa-fw.fa-trash
 
 button.btn.btn-secondary((click)='addEnvironmentVar()')
     i.fas.fa-plus.mr-2
