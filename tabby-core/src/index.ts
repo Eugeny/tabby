@@ -5,7 +5,6 @@ import { FormsModule } from '@angular/forms'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { PerfectScrollbarModule, PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar'
 import { NgxFilesizeModule } from 'ngx-filesize'
-import { DndModule } from 'ng2-dnd'
 import { SortablejsModule } from 'ngx-sortablejs'
 import { DragDropModule } from '@angular/cdk/drag-drop'
 
@@ -50,7 +49,6 @@ import { ButtonProvider } from './buttonProvider'
 import { SplitLayoutProfilesService } from './profiles'
 
 import 'perfect-scrollbar/css/perfect-scrollbar.css'
-import 'ng2-dnd/bundles/style.css'
 
 const PROVIDERS = [
     { provide: HotkeyProvider, useClass: AppHotkeyProvider, multi: true },
@@ -80,7 +78,6 @@ const PROVIDERS = [
         NgbModule,
         NgxFilesizeModule,
         PerfectScrollbarModule,
-        DndModule.forRoot(),
         DragDropModule,
         SortablejsModule.forRoot({ animation: 150 }),
     ],
