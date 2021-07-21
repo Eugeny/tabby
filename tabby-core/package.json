@@ -25,7 +25,6 @@
     "electron-updater": "^4.0.6",
     "js-yaml": "^4.0.0",
     "mixpanel": "^0.13.0",
-    "ng2-dnd": "^5.0.2",
     "ngx-filesize": "^2.0.16",
     "ngx-perfect-scrollbar": "^10.1.0",
     "readable-stream": "3.6.0",

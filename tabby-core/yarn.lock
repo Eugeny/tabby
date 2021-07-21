@@ -374,11 +374,6 @@ ms@2.1.2:
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.1.2.tgz#d09d1f357b443f493382a8eb3ccd183872ae6009"
   integrity sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==
 
-ng2-dnd@^5.0.2:
-  version "5.0.2"
-  resolved "https://registry.yarnpkg.com/ng2-dnd/-/ng2-dnd-5.0.2.tgz#862278ac7dedfa14f5783bbf34014d5d73dfefb4"
-  integrity sha512-5mWWBePwvEPsNd/HkdbD543Q9mPyJofL6zkNydl8/Ah3qrrvZT2DaEPbknY08OgkXpI2qUGksc01OzzVlRQ9dQ==
-
 ngx-filesize@^2.0.16:
   version "2.0.16"
   resolved "https://registry.yarnpkg.com/ngx-filesize/-/ngx-filesize-2.0.16.tgz#fdaba04170edb6cfcdf7be932783cf913b03f016"
