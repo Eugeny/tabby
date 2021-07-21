@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { Component, Inject, Input, HostListener, HostBinding } from '@angular/core'
+import { Component, Inject, Input, HostListener, HostBinding, ViewChildren } from '@angular/core'
 import { trigger, style, animate, transition, state } from '@angular/animations'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop'
 
 import { HostAppService, Platform } from '../api/hostApp'
 import { HotkeysService } from '../services/hotkeys.service'
@@ -12,6 +13,7 @@ import { UpdaterService } from '../services/updater.service'
 
 import { BaseTabComponent } from './baseTab.component'
 import { SafeModeModalComponent } from './safeModeModal.component'
+import { TabBodyComponent } from './tabBody.component'
 import { AppService, FileTransfer, HostWindowService, PlatformService, ToolbarButton, ToolbarButtonProvider } from '../api'
 
 /** @hidden */
@@ -57,7 +59,7 @@ export class AppRootComponent {
     @HostBinding('class.platform-darwin') platformClassMacOS = process.platform === 'darwin'
     @HostBinding('class.platform-linux') platformClassLinux = process.platform === 'linux'
     @HostBinding('class.no-tabs') noTabs = true
-    tabsDragging = false
+    @ViewChildren(TabBodyComponent) tabBodies: TabBodyComponent[]
     unsortedTabs: BaseTabComponent[] = []
     updatesAvailable = false
     activeTransfers: FileTransfer[] = []
@@ -126,11 +128,18 @@ export class AppRootComponent {
         this.app.tabOpened$.subscribe(tab => {
             this.unsortedTabs.push(tab)
             this.noTabs = false
+            this.app.emitTabDragEnded()
         })
 
-        this.app.tabClosed$.subscribe(tab => {
+        this.app.tabRemoved$.subscribe(tab => {
+            for (const tabBody of this.tabBodies) {
+                if (tabBody.tab === tab) {
+                    tabBody.detach()
+                }
+            }
             this.unsortedTabs = this.unsortedTabs.filter(x => x !== tab)
             this.noTabs = app.tabs.length === 0
+            this.app.emitTabDragEnded()
         })
 
         platform.fileTransferStarted$.subscribe(transfer => {
@@ -174,12 +183,12 @@ export class AppRootComponent {
     }
 
     onTabDragStart () {
-        this.tabsDragging = true
+        this.app.emitTabDragStarted()
     }
 
     onTabDragEnd () {
         setTimeout(() => {
-            this.tabsDragging = false
+            this.app.emitTabDragEnded()
             this.app.emitTabsChanged()
         })
     }
@@ -192,6 +201,11 @@ export class AppRootComponent {
 
     hasIcons (submenuItems: ToolbarButton[]): boolean {
         return submenuItems.some(x => !!x.icon)
+    }
+
+    onTabsReordered (event: CdkDragDrop<BaseTabComponent[]>) {
+        moveItemInArray(this.app.tabs, event.previousIndex, event.currentIndex)
+        this.app.emitTabsChanged()
     }
 
     private getToolbarButtons (aboveZero: boolean): ToolbarButton[] {

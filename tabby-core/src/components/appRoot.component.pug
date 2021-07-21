@@ -14,15 +14,17 @@ title-bar(
         && config.store.appearance.frame == "thin" \
         && (config.store.appearance.tabsLocation == "top" || config.store.appearance.tabsLocation == "left")')
         .tabs(
-            dnd-sortable-container,
-            [sortableData]='app.tabs',
+            cdkDropList,
+            [cdkDropListOrientation]='(config.store.appearance.tabsLocation == "top" || config.store.appearance.tabsLocation == "bottom") ? "horizontal" : "vertical"',
+            (cdkDropListDropped)='onTabsReordered($event)',
+            cdkAutoDropGroup='app-tabs'
         )
             tab-header(
                 *ngFor='let tab of app.tabs; let idx = index',
-                dnd-sortable,
-                [sortableIndex]='idx',
-                (onDragStart)='onTabDragStart()',
-                (onDragEnd)='onTabDragEnd()',
+                cdkDrag,
+                [cdkDragData]='tab',
+                (cdkDragStarted)='onTabDragStart()',
+                (cdkDragEnded)='onTabDragEnd()',
                 [index]='idx',
                 [tab]='tab',
                 [active]='tab == app.activeTab',
@@ -30,7 +32,7 @@ title-bar(
                 [@.disabled]='hasVerticalTabs()',
                 (click)='app.selectTab(tab)',
                 [class.fully-draggable]='hostApp.platform != Platform.macOS',
-                [class.drag-region]='hostApp.platform == Platform.macOS && !tabsDragging',
+                [class.drag-region]='hostApp.platform == Platform.macOS && !(app.tabDragActive$|async)',
             )
 
         .btn-group.background
@@ -109,6 +111,7 @@ title-bar(
         start-page.content-tab.content-tab-active(*ngIf='ready && app.tabs.length == 0')
 
         tab-body.content-tab(
+            #tabBodies,
             *ngFor='let tab of unsortedTabs',
             [class.content-tab-active]='tab == app.activeTab',
             [active]='tab == app.activeTab',

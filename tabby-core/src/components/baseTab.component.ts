@@ -1,5 +1,5 @@
 import { Observable, Subject } from 'rxjs'
-import { ViewRef } from '@angular/core'
+import { EmbeddedViewRef, ViewContainerRef, ViewRef } from '@angular/core'
 import { RecoveryToken } from '../api/tabRecovery'
 import { BaseComponent } from './base.component'
 
@@ -52,6 +52,10 @@ export abstract class BaseTabComponent extends BaseComponent {
      * your tab state to be saved sooner
      */
     protected recoveryStateChangedHint = new Subject<void>()
+    protected viewContainer?: ViewContainerRef
+
+    /* @hidden */
+    viewContainerEmbeddedRef?: EmbeddedViewRef<any>
 
     private progressClearTimeout: number
     private titleChange = new Subject<string>()
@@ -60,6 +64,8 @@ export abstract class BaseTabComponent extends BaseComponent {
     private progress = new Subject<number|null>()
     private activity = new Subject<boolean>()
     private destroyed = new Subject<void>()
+
+    private _destroyCalled = false
 
     get focused$ (): Observable<void> { return this.focused }
     get blurred$ (): Observable<void> { return this.blurred }
@@ -152,10 +158,29 @@ export abstract class BaseTabComponent extends BaseComponent {
         this.blurred.next()
     }
 
+    insertIntoContainer (container: ViewContainerRef): EmbeddedViewRef<any> {
+        this.viewContainerEmbeddedRef = container.insert(this.hostView) as EmbeddedViewRef<any>
+        this.viewContainer = container
+        return this.viewContainerEmbeddedRef
+    }
+
+    removeFromContainer (): void {
+        if (!this.viewContainer || !this.viewContainerEmbeddedRef) {
+            return
+        }
+        this.viewContainer.detach(this.viewContainer.indexOf(this.viewContainerEmbeddedRef))
+        this.viewContainerEmbeddedRef = undefined
+        this.viewContainer = undefined
+    }
+
     /**
      * Called before the tab is closed
      */
     destroy (skipDestroyedEvent = false): void {
+        if (this._destroyCalled) {
+            return
+        }
+        this._destroyCalled = true
         this.focused.complete()
         this.blurred.complete()
         this.titleChange.complete()
@@ -166,6 +191,7 @@ export abstract class BaseTabComponent extends BaseComponent {
             this.destroyed.next()
         }
         this.destroyed.complete()
+        this.hostView.destroy()
     }
 
     /** @hidden */

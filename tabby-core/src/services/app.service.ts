@@ -54,7 +54,9 @@ export class AppService {
     private activeTabChange = new Subject<BaseTabComponent|null>()
     private tabsChanged = new Subject<void>()
     private tabOpened = new Subject<BaseTabComponent>()
+    private tabRemoved = new Subject<BaseTabComponent>()
     private tabClosed = new Subject<BaseTabComponent>()
+    private tabDragActive = new Subject<boolean>()
     private ready = new AsyncSubject<void>()
 
     private completionObservers = new Map<BaseTabComponent, CompletionObserver>()
@@ -62,7 +64,9 @@ export class AppService {
     get activeTabChange$ (): Observable<BaseTabComponent|null> { return this.activeTabChange }
     get tabOpened$ (): Observable<BaseTabComponent> { return this.tabOpened }
     get tabsChanged$ (): Observable<void> { return this.tabsChanged }
+    get tabRemoved$ (): Observable<BaseTabComponent> { return this.tabRemoved }
     get tabClosed$ (): Observable<BaseTabComponent> { return this.tabClosed }
+    get tabDragActive$ (): Observable<boolean> { return this.tabDragActive }
 
     /** Fires once when the app is ready */
     get ready$ (): Observable<void> { return this.ready }
@@ -131,19 +135,28 @@ export class AppService {
         })
 
         tab.destroyed$.subscribe(() => {
-            const newIndex = Math.max(0, this.tabs.indexOf(tab) - 1)
-            this.tabs = this.tabs.filter((x) => x !== tab)
-            if (tab === this._activeTab) {
-                this.selectTab(this.tabs[newIndex])
-            }
-            this.tabsChanged.next()
+            this.removeTab(tab)
+            this.tabRemoved.next(tab)
             this.tabClosed.next(tab)
         })
 
         if (tab instanceof SplitTabComponent) {
             tab.tabAdded$.subscribe(() => this.emitTabsChanged())
             tab.tabRemoved$.subscribe(() => this.emitTabsChanged())
+            tab.tabAdopted$.subscribe(t => {
+                this.removeTab(t)
+                this.tabRemoved.next(t)
+            })
         }
+    }
+
+    removeTab (tab: BaseTabComponent): void {
+        const newIndex = Math.max(0, this.tabs.indexOf(tab) - 1)
+        this.tabs = this.tabs.filter((x) => x !== tab)
+        if (tab === this._activeTab) {
+            this.selectTab(this.tabs[newIndex])
+        }
+        this.tabsChanged.next()
     }
 
     /**
@@ -342,6 +355,16 @@ export class AppService {
         this.ready.next()
         this.ready.complete()
         this.hostApp.emitReady()
+    }
+
+    /** @hidden */
+    emitTabDragStarted (): void {
+        this.tabDragActive.next(true)
+    }
+
+    /** @hidden */
+    emitTabDragEnded (): void {
+        this.tabDragActive.next(false)
     }
 
     /**

@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Component, Input, HostBinding, ElementRef, Output, EventEmitter } from '@angular/core'
+import { SelfPositioningComponent } from './selfPositioning.component'
 import { SplitContainer } from './splitTab.component'
 
 /** @hidden */
@@ -8,20 +9,19 @@ import { SplitContainer } from './splitTab.component'
     template: '',
     styles: [require('./splitTabSpanner.component.scss')],
 })
-export class SplitTabSpannerComponent {
+export class SplitTabSpannerComponent extends SelfPositioningComponent {
     @Input() container: SplitContainer
     @Input() index: number
     @Output() change = new EventEmitter<void>()
     @HostBinding('class.active') isActive = false
     @HostBinding('class.h') isHorizontal = false
     @HostBinding('class.v') isVertical = true
-    @HostBinding('style.left') cssLeft: string
-    @HostBinding('style.top') cssTop: string
-    @HostBinding('style.width') cssWidth: string | null
-    @HostBinding('style.height') cssHeight: string | null
     private marginOffset = -5
 
-    constructor (private element: ElementRef) { }
+    // eslint-disable-next-line @typescript-eslint/no-useless-constructor
+    constructor (element: ElementRef) {
+        super(element)
+    }
 
     ngAfterViewInit () {
         this.element.nativeElement.addEventListener('dblclick', () => {
@@ -91,12 +91,5 @@ export class SplitTabSpannerComponent {
         this.container.ratios[this.index - 1] = ratio
         this.container.ratios[this.index] = ratio
         this.change.emit()
-    }
-
-    private setDimensions (x: number, y: number, w: number, h: number) {
-        this.cssLeft = `${x}%`
-        this.cssTop = `${y}%`
-        this.cssWidth = w ? `${w}%` : null
-        this.cssHeight = h ? `${h}%` : null
     }
 }

@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable @typescript-eslint/no-extraneous-class */
 import * as angularCoreModule from '@angular/core'
+import * as angularCDKModule from '@angular/cdk'
 import * as angularCompilerModule from '@angular/compiler'
 import * as angularCommonModule from '@angular/common'
 import * as angularFormsModule from '@angular/forms'
@@ -147,6 +148,7 @@ Tabby.registerModule('readline', {
 })
 
 Tabby.registerModule('@angular/core', angularCoreModule)
+Tabby.registerModule('@angular/cdk', angularCDKModule)
 Tabby.registerModule('@angular/compiler', angularCompilerModule)
 Tabby.registerModule('@angular/common', angularCommonModule)
 Tabby.registerModule('@angular/forms', angularFormsModule)

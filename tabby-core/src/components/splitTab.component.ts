@@ -124,6 +124,14 @@ export interface SplitSpannerInfo {
 }
 
 /**
+ * Represents a tab drop zone
+ */
+export interface SplitDropZoneInfo {
+    relativeToTab: BaseTabComponent
+    side: SplitDirection
+}
+
+/**
  * Split tab is a tab that contains other tabs and allows further splitting them
  * You'll mainly encounter it inside [[AppService]].tabs
  */
@@ -137,6 +145,12 @@ export interface SplitSpannerInfo {
             [index]='spanner.index'
             (change)='onSpannerAdjusted(spanner)'
         ></split-tab-spanner>
+        <split-tab-drop-zone
+            *ngFor='let dropZone of _dropZones'
+            [dropZone]='dropZone'
+            (tabDropped)='onTabDropped($event, dropZone)'
+        >
+        </split-tab-drop-zone>
     `,
     styles: [require('./splitTab.component.scss')],
 })
@@ -158,6 +172,9 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
     _spanners: SplitSpannerInfo[] = []
 
     /** @hidden */
+    _dropZones: SplitDropZoneInfo[] = []
+
+    /** @hidden */
     _allFocusMode = false
 
     /** @hidden */
@@ -166,12 +183,19 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
     private viewRefs: Map<BaseTabComponent, EmbeddedViewRef<any>> = new Map()
 
     private tabAdded = new Subject<BaseTabComponent>()
+    private tabAdopted = new Subject<BaseTabComponent>()
     private tabRemoved = new Subject<BaseTabComponent>()
     private splitAdjusted = new Subject<SplitSpannerInfo>()
     private focusChanged = new Subject<BaseTabComponent>()
     private initialized = new Subject<void>()
 
     get tabAdded$ (): Observable<BaseTabComponent> { return this.tabAdded }
+
+    /**
+     * Fired when an existing top-level tab is dragged into this tab
+     */
+    get tabAdopted$ (): Observable<BaseTabComponent> { return this.tabAdopted }
+
     get tabRemoved$ (): Observable<BaseTabComponent> { return this.tabRemoved }
 
     /**
@@ -330,11 +354,27 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
         }
     }
 
+    addTab (tab: BaseTabComponent, relative: BaseTabComponent|null, side: SplitDirection): Promise<void> {
+        return this.add(tab, relative, side)
+    }
+
     /**
      * Inserts a new `tab` to the `side` of the `relative` tab
      */
-    async addTab (tab: BaseTabComponent, relative: BaseTabComponent|null, side: SplitDirection): Promise<void> {
-        tab.parent = this
+    async add (thing: BaseTabComponent|SplitContainer, relative: BaseTabComponent|null, side: SplitDirection): Promise<void> {
+        if (thing instanceof SplitTabComponent) {
+            const tab = thing
+            thing = tab.root
+            tab.root = new SplitContainer()
+            for (const child of thing.getAllTabs()) {
+                child.removeFromContainer()
+            }
+            tab.destroy()
+        }
+
+        if (thing instanceof BaseTabComponent) {
+            thing.parent = this
+        }
 
         let target = (relative ? this.getParentOf(relative) : null) ?? this.root
         let insertIndex = relative ? target.children.indexOf(relative) : -1
@@ -362,14 +402,16 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
             target.ratios[i] *= target.children.length / (target.children.length + 1)
         }
         target.ratios.splice(insertIndex, 0, 1 / (target.children.length + 1))
-        target.children.splice(insertIndex, 0, tab)
+        target.children.splice(insertIndex, 0, thing)
 
         this.recoveryStateChangedHint.next()
 
         await this.initialized$.toPromise()
 
-        this.attachTabView(tab)
-        this.onAfterTabAdded(tab)
+        for (const tab of thing instanceof SplitContainer ? thing.getAllTabs() : [thing]) {
+            this.attachTabView(tab)
+            this.onAfterTabAdded(tab)
+        }
     }
 
     removeTab (tab: BaseTabComponent): void {
@@ -381,8 +423,9 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
         parent.ratios.splice(index, 1)
         parent.children.splice(index, 1)
 
-        this.detachTabView(tab)
+        tab.removeFromContainer()
         tab.parent = null
+        this.viewRefs.delete(tab)
 
         this.layout()
 
@@ -401,7 +444,7 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
         }
         const position = parent.children.indexOf(tab)
         parent.children[position] = newTab
-        this.detachTabView(tab)
+        tab.removeFromContainer()
         this.attachTabView(newTab)
         tab.parent = null
         newTab.parent = this
@@ -508,6 +551,16 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
         this.splitAdjusted.next(spanner)
     }
 
+    /** @hidden */
+    onTabDropped (tab: BaseTabComponent, zone: SplitDropZoneInfo) { // eslint-disable-line @typescript-eslint/explicit-module-boundary-types
+        if (tab === this) {
+            return
+        }
+
+        this.add(tab, zone.relativeToTab, zone.side)
+        this.tabAdopted.next(tab)
+    }
+
     destroy (): void {
         super.destroy()
         for (const x of this.getAllTabs()) {
@@ -518,13 +571,13 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
     layout (): void {
         this.root.normalize()
         this._spanners = []
+        this._dropZones = []
         this.layoutInternal(this.root, 0, 0, 100, 100)
     }
 
     private attachTabView (tab: BaseTabComponent) {
-        const ref = this.viewContainer.insert(tab.hostView) as EmbeddedViewRef<any> // eslint-disable-line @typescript-eslint/no-unnecessary-type-assertion
+        const ref = tab.insertIntoContainer(this.viewContainer)
         this.viewRefs.set(tab, ref)
-
         tab.addEventListenerUntilDestroyed(ref.rootNodes[0], 'click', () => this.focus(tab))
 
         tab.subscribeUntilDestroyed(tab.titleChange$, t => this.setTitle(t))
@@ -539,14 +592,6 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
         tab.subscribeUntilDestroyed(tab.destroyed$, () => {
             this.removeTab(tab)
         })
-    }
-
-    private detachTabView (tab: BaseTabComponent) {
-        const ref = this.viewRefs.get(tab)
-        if (ref) {
-            this.viewRefs.delete(tab)
-            this.viewContainer.remove(this.viewContainer.indexOf(ref))
-        }
     }
 
     private onAfterTabAdded (tab: BaseTabComponent) {
@@ -593,6 +638,13 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
                         element.style.width = '90%'
                         element.style.height = '90%'
                     }
+
+                    for (const side of ['t', 'r', 'b', 'l']) {
+                        this._dropZones.push({
+                            relativeToTab: child,
+                            side: side as SplitDirection,
+                        })
+                    }
                 }
             }
             offset += sizes[i]
@@ -612,6 +664,9 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
         root.ratios = state.ratios
         root.children = children
         for (const childState of state.children) {
+            if (!childState) {
+                continue
+            }
             if (childState.type === 'app:split-tab') {
                 const child = new SplitContainer()
                 await this.recoverContainer(child, childState, duplicate)

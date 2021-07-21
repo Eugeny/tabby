@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { Component, Input, Optional, Inject, HostBinding, HostListener, ViewChild, ElementRef, NgZone } from '@angular/core'
-import { SortableComponent } from 'ng2-dnd'
+import { Component, Input, Optional, Inject, HostBinding, HostListener, NgZone } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { TabContextMenuItemProvider } from '../api/tabContextMenuProvider'
 import { BaseTabComponent } from './baseTab.component'
@@ -14,11 +13,6 @@ import { MenuItemOptions } from '../api/menu'
 import { PlatformService } from '../api/platform'
 
 /** @hidden */
-export interface SortableComponentProxy {
-    setDragHandle: (_: HTMLElement) => void
-}
-
-/** @hidden */
 @Component({
     selector: 'tab-header',
     template: require('./tabHeader.component.pug'),
@@ -29,17 +23,16 @@ export class TabHeaderComponent extends BaseComponent {
     @Input() @HostBinding('class.active') active: boolean
     @Input() tab: BaseTabComponent
     @Input() progress: number|null
-    @ViewChild('handle') handle?: ElementRef
+    Platform = Platform
 
     constructor (
         public app: AppService,
         public config: ConfigService,
-        private hostApp: HostAppService,
+        public hostApp: HostAppService,
         private ngbModal: NgbModal,
         private hotkeys: HotkeysService,
         private platform: PlatformService,
         private zone: NgZone,
-        @Inject(SortableComponent) private parentDraggable: SortableComponentProxy,
         @Optional() @Inject(TabContextMenuItemProvider) protected contextMenuProviders: TabContextMenuItemProvider[],
     ) {
         super()
@@ -59,12 +52,6 @@ export class TabHeaderComponent extends BaseComponent {
                 this.progress = progress
             })
         })
-    }
-
-    ngAfterViewInit () {
-        if (this.handle && this.hostApp.platform === Platform.macOS) {
-            this.parentDraggable.setDragHandle(this.handle.nativeElement)
-        }
     }
 
     showRenameTabModal (): void {

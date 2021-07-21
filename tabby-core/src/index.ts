@@ -7,6 +7,7 @@ import { PerfectScrollbarModule, PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-sc
 import { NgxFilesizeModule } from 'ngx-filesize'
 import { DndModule } from 'ng2-dnd'
 import { SortablejsModule } from 'ngx-sortablejs'
+import { DragDropModule } from '@angular/cdk/drag-drop'
 
 import { AppRootComponent } from './components/appRoot.component'
 import { CheckboxComponent } from './components/checkbox.component'
@@ -22,6 +23,7 @@ import { RenameTabModalComponent } from './components/renameTabModal.component'
 import { SelectorModalComponent } from './components/selectorModal.component'
 import { SplitTabComponent, SplitTabRecoveryProvider } from './components/splitTab.component'
 import { SplitTabSpannerComponent } from './components/splitTabSpanner.component'
+import { SplitTabDropZoneComponent } from './components/splitTabDropZone.component'
 import { UnlockVaultModalComponent } from './components/unlockVaultModal.component'
 import { WelcomeTabComponent } from './components/welcomeTab.component'
 import { TransfersMenuComponent } from './components/transfersMenu.component'
@@ -30,6 +32,7 @@ import { AutofocusDirective } from './directives/autofocus.directive'
 import { AlwaysVisibleTypeaheadDirective } from './directives/alwaysVisibleTypeahead.directive'
 import { FastHtmlBindDirective } from './directives/fastHtmlBind.directive'
 import { DropZoneDirective } from './directives/dropZone.directive'
+import { CdkAutoDropGroup } from './directives/cdkAutoDropGroup.directive'
 
 import { Theme, CLIHandler, TabContextMenuItemProvider, TabRecoveryProvider, HotkeyProvider, ConfigProvider, PlatformService, FileProvider, ToolbarButtonProvider, ProfilesService, ProfileProvider } from './api'
 
@@ -78,6 +81,7 @@ const PROVIDERS = [
         NgxFilesizeModule,
         PerfectScrollbarModule,
         DndModule.forRoot(),
+        DragDropModule,
         SortablejsModule.forRoot({ animation: 150 }),
     ],
     declarations: [
@@ -98,10 +102,12 @@ const PROVIDERS = [
         SelectorModalComponent,
         SplitTabComponent,
         SplitTabSpannerComponent,
+        SplitTabDropZoneComponent,
         UnlockVaultModalComponent,
         WelcomeTabComponent,
         TransfersMenuComponent,
         DropZoneDirective,
+        CdkAutoDropGroup,
     ],
     entryComponents: [
         PromptModalComponent,
@@ -121,6 +127,7 @@ const PROVIDERS = [
         FastHtmlBindDirective,
         AlwaysVisibleTypeaheadDirective,
         SortablejsModule,
+        DragDropModule,
     ],
 })
 export default class AppModule { // eslint-disable-line @typescript-eslint/no-extraneous-class
