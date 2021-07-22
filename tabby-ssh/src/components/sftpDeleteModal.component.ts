@@ -1,7 +1,7 @@
 import { Component } from '@angular/core'
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
 import { BaseComponent } from 'tabby-core'
-import { SFTPFile, SFTPSession } from '../api'
+import { SFTPFile, SFTPSession } from '../session/sftp'
 
 /** @hidden */
 @Component({

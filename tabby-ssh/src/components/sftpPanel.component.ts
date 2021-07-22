@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
-import { SSHSession, SFTPSession, SFTPFile } from '../api'
+import { SSHSession } from '../api'
+import { SFTPSession, SFTPFile } from '../session/sftp'
 import { posix as path } from 'path'
 import * as C from 'constants'
 import { FileUpload, PlatformService } from 'tabby-core'
@@ -96,9 +97,10 @@ export class SFTPPanelComponent {
 
     async uploadOne (transfer: FileUpload): Promise<void> {
         const itemPath = path.join(this.path, transfer.getName())
+        const tempPath = itemPath + '.tabby-upload'
         const savedPath = this.path
         try {
-            const handle = await this.sftp.open(itemPath, 'w')
+            const handle = await this.sftp.open(tempPath, 'w')
             while (true) {
                 const chunk = await transfer.read()
                 if (!chunk.length) {
@@ -107,12 +109,14 @@ export class SFTPPanelComponent {
                 await handle.write(chunk)
             }
             handle.close()
+            await this.sftp.rename(tempPath, itemPath)
             transfer.close()
             if (this.path === savedPath) {
                 await this.navigate(this.path)
             }
         } catch (e) {
             transfer.cancel()
+            this.sftp.unlink(tempPath)
             throw e
         }
     }
