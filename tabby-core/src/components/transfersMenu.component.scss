@@ -16,12 +16,13 @@
     }
 
     .main {
-        width: 100%;
+        min-width: 0;
         margin-right: auto;
         margin-bottom: 3px;
 
         label {
             margin: 0;
+            max-width: 100%;
         }
     }
 
