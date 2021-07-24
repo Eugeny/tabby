@@ -1,25 +1,7 @@
 {
+  "extends": "../tsconfig.json",
+  "exclude": ["node_modules", "dist", "typings"],
   "compilerOptions": {
-    "baseUrl": "src",
-    "module": "commonjs",
-    "target": "es2016",
-    "esModuleInterop": true,
-    "noImplicitAny": false,
-    "removeComments": false,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "sourceMap": true,
-    "noUnusedParameters": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    "noUnusedLocals": true,
-    "declaration": true,
-    "declarationDir": "dist",
-    "lib": [
-      "dom",
-      "es2015",
-      "es7"
-    ]
-  },
-  "exclude": ["node_modules", "dist"]
+    "baseUrl": "src"
+  }
 }

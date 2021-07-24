@@ -4,8 +4,8 @@ import { SSHProfileSettingsComponent } from './components/sshProfileSettings.com
 import { SSHTabComponent } from './components/sshTab.component'
 import { PasswordStorageService } from './services/passwordStorage.service'
 import { ALGORITHM_BLACKLIST, SSHAlgorithmType, SSHProfile } from './api'
-
 import * as ALGORITHMS from 'ssh2/lib/protocol/constants'
+
 
 @Injectable({ providedIn: 'root' })
 export class SSHProfilesService extends ProfileProvider<SSHProfile> {
@@ -41,26 +41,17 @@ export class SSHProfilesService extends ProfileProvider<SSHProfile> {
         },
     }
 
-    supportedAlgorithms: Record<string, string> = {}
-
     constructor (
         private passwordStorage: PasswordStorageService
     ) {
         super()
         for (const k of Object.values(SSHAlgorithmType)) {
-            const supportedAlg = {
-                [SSHAlgorithmType.KEX]: 'SUPPORTED_KEX',
-                [SSHAlgorithmType.HOSTKEY]: 'SUPPORTED_SERVER_HOST_KEY',
-                [SSHAlgorithmType.CIPHER]: 'SUPPORTED_CIPHER',
-                [SSHAlgorithmType.HMAC]: 'SUPPORTED_MAC',
-            }[k]
             const defaultAlg = {
                 [SSHAlgorithmType.KEX]: 'DEFAULT_KEX',
                 [SSHAlgorithmType.HOSTKEY]: 'DEFAULT_SERVER_HOST_KEY',
                 [SSHAlgorithmType.CIPHER]: 'DEFAULT_CIPHER',
                 [SSHAlgorithmType.HMAC]: 'DEFAULT_MAC',
             }[k]
-            this.supportedAlgorithms[k] = ALGORITHMS[supportedAlg].filter(x => !ALGORITHM_BLACKLIST.includes(x)).sort()
             this.configDefaults.options.algorithms[k] = ALGORITHMS[defaultAlg].filter(x => !ALGORITHM_BLACKLIST.includes(x))
             this.configDefaults.options.algorithms[k].sort()
         }

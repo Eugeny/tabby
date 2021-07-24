@@ -2,7 +2,7 @@
 import { Injector, NgZone } from '@angular/core'
 import * as path from 'path'
 import { BaseSession } from 'tabby-terminal'
-import { Logger } from '../../tabby-core/typings'
+import { Logger } from 'tabby-core'
 
 const currentScript: any = document.currentScript
 
@@ -32,7 +32,7 @@ export class Session extends BaseSession {
                     Session.v86Loaded = true
                 }
                 script.src = `${this.dataPath}/v86_all.js`
-                document.querySelector('head').appendChild(script)
+                document.querySelector('head')?.appendChild(script)
             })
         }
 
@@ -94,7 +94,7 @@ export class Session extends BaseSession {
         return false
     }
 
-    getWorkingDirectory (): Promise<string | null> {
+    async getWorkingDirectory (): Promise<string | null> {
         return null
     }
 }

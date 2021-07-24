@@ -6,7 +6,7 @@ import { ConfigService, FileProvidersService, Platform, HostAppService, PromptMo
 import { LoginScriptsSettingsComponent } from 'tabby-terminal'
 import { PasswordStorageService } from '../services/passwordStorage.service'
 import { ForwardedPortConfig, SSHAlgorithmType, SSHProfile } from '../api'
-import { SSHProfilesService } from '../profiles'
+import { supportedAlgorithms } from '../algorithms'
 
 /** @hidden */
 @Component({
@@ -18,7 +18,7 @@ export class SSHProfileSettingsComponent {
     hasSavedPassword: boolean
     useProxyCommand: boolean
 
-    supportedAlgorithms: Record<string, string> = {}
+    supportedAlgorithms = supportedAlgorithms
     algorithms: Record<string, Record<string, boolean>> = {}
     jumpHosts: SSHProfile[]
     @ViewChild('loginScriptsSettings') loginScriptsSettings: LoginScriptsSettingsComponent|null
@@ -29,10 +29,7 @@ export class SSHProfileSettingsComponent {
         private passwordStorage: PasswordStorageService,
         private ngbModal: NgbModal,
         private fileProviders: FileProvidersService,
-        sshProfilesService: SSHProfilesService,
-    ) {
-        this.supportedAlgorithms = sshProfilesService.supportedAlgorithms
-    }
+    ) { }
 
     async ngOnInit () {
         this.jumpHosts = this.config.store.profiles.filter(x => x.type === 'ssh' && x !== this.profile)
