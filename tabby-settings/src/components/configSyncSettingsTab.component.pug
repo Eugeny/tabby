@@ -1,0 +1,116 @@
+h3.mb-3 Config sync
+
+ul.nav-tabs(ngbNav, #nav='ngbNav')
+    li(ngbNavItem)
+        a(ngbNavLink) Sync
+        ng-template(ngbNavContent)
+            .form-line
+                .header
+                    .title Sync host
+
+                input.form-control(
+                    type='text',
+                    [(ngModel)]='config.store.configSync.host',
+                    (ngModelChange)='config.save()',
+                )
+
+            .form-line
+                .header
+                    .title Secret sync token
+                    .description Get it from the Tabby Web settings window
+
+                .input-group
+                    input.form-control(
+                        type='password',
+                        [(ngModel)]='config.store.configSync.token',
+                        (ngModelChange)='config.save(); testConnection()'
+                    )
+                    .input-group-append(*ngIf='config.store.configSync.token')
+                        .input-group-text
+                            i.fas.fa-fw.fa-circle-notch.fa-spin.text-warning(*ngIf='connectionSuccessful === null')
+                            i.fas.fa-fw.fa-check.text-success(*ngIf='connectionSuccessful')
+                            i.fas.fa-fw.fa-exclamation-triangle.text-danger(*ngIf='connectionSuccessful === false')
+
+            ng-container(*ngIf='config.store.configSync.token')
+                .alert.alert-danger(*ngIf='connectionSuccessful === false')
+                    i.fas.fa-exclamation-triangle
+                    span.ml-2 Connection failed: {{connectionError}}
+
+            ng-container(*ngIf='connectionSuccessful')
+                .form-line
+                    .header
+                        .title Configs
+
+                div(*ngIf='configs === null')
+                    i.fas.fa-fw.fa-circle-notch.fa-spin
+                    span.ml-2 Loading configs...
+
+                ng-container(*ngIf='configs !== null')
+                    .list-group-light
+                        .list-group-item.d-flex.align-items-center(
+                            *ngFor='let cfg of configs',
+                            [class.active]='cfg.id === config.store.configSync.configID',
+                        )
+                            i.fas.fa-fw.fa-file
+                            .ml-2.d-flex.flex-column.align-items-start
+                                div {{cfg.name}}
+                                small.text-muted Modified on {{cfg.modified_at|date:'medium'}}
+                                .badge.badge-info(*ngIf='cfg.id === config.store.configSync.configID') ACTIVE
+                            .mr-auto
+                            button.btn.btn-link.ml-1(
+                                (click)='uploadAndSync(cfg)',
+                                [class.hover-reveal]='cfg.id !== config.store.configSync.configID'
+                            )
+                                i.fas.fa-arrow-up
+                                span.ml-2 Upload
+                            button.btn.btn-link.ml-1(
+                                (click)='downloadAndSync(cfg)',
+                                [class.hover-reveal]='cfg.id !== config.store.configSync.configID'
+                            )
+                                i.fas.fa-arrow-down
+                                span.ml-2 Download
+                        a.list-group-item.list-group-item-action.d-flex.align-items-center(
+                            href='#',
+                            (click)='uploadAsNew()'
+                        )
+                            i.fas.fa-fw.fa-cloud-upload-alt
+                            .ml-2 Upload as a new config
+
+            ng-container(*ngIf='config.store.configSync.configID')
+                .form-line
+                    .header
+                        .title Sync automatically
+
+                    toggle(
+                        [(ngModel)]='config.store.configSync.auto',
+                        (ngModelChange)='config.save()',
+                    )
+
+    li(ngbNavItem)
+        a(ngbNavLink) Advanced
+        ng-template(ngbNavContent)
+            .form-line
+                .header
+                    .title Sync hotkeys
+                toggle(
+                    [(ngModel)]='config.store.configSync.parts.hotkeys',
+                    (ngModelChange)='config.save()',
+                )
+
+            .form-line
+                .header
+                    .title Sync window settings
+                toggle(
+                    [(ngModel)]='config.store.configSync.parts.appearance',
+                    (ngModelChange)='config.save()',
+                )
+
+            .form-line
+                .header
+                    .title Sync Vault
+                toggle(
+                    [(ngModel)]='config.store.configSync.parts.vault',
+                    (ngModelChange)='config.save()',
+                )
+
+div([ngbNavOutlet]='nav')

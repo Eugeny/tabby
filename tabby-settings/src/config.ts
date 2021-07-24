@@ -2,7 +2,19 @@ import { ConfigProvider, Platform } from 'tabby-core'
 
 /** @hidden */
 export class SettingsConfigProvider extends ConfigProvider {
-    defaults = { }
+    defaults = {
+        configSync: {
+            host: 'https://tabby.sh',
+            token: '',
+            configID: null,
+            auto: false,
+            parts: {
+                hotkeys: true,
+                appearance: true,
+                vault: true,
+            },
+        },
+    }
     platformDefaults = {
         [Platform.macOS]: {
             hotkeys: {

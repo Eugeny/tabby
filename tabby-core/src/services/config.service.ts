@@ -194,7 +194,6 @@ export class ConfigService {
     }
 
     async save (): Promise<void> {
-        this.store.__cleanup()
         // Scrub undefined values
         let cleanStore = JSON.parse(JSON.stringify(this._store))
         cleanStore = await this.maybeEncryptConfig(cleanStore)
@@ -238,7 +237,7 @@ export class ConfigService {
                 const module = imp.ngModule || imp
                 if (module.ɵinj?.providers) {
                     this.servicesCache[module.pluginName] = module.ɵinj.providers.map(provider => {
-                        return provider.useClass || provider
+                        return provider.useClass ?? provider.useExisting ?? provider
                     })
                 }
             }
@@ -382,10 +381,12 @@ export class ConfigService {
         }
         delete decryptedVault.config.vault
         delete decryptedVault.config.encrypted
+        delete decryptedVault.config.configSync
         return {
             ...decryptedVault.config,
             vault: store.vault,
             encrypted: store.encrypted,
+            configSync: store.configSync,
         }
     }
 
@@ -400,9 +401,11 @@ export class ConfigService {
         vault.config = { ...store }
         delete vault.config.vault
         delete vault.config.encrypted
+        delete vault.config.configSync
         return {
             vault: await this.vault.encrypt(vault),
             encrypted: true,
+            configSync: store.configSync,
         }
     }
 }

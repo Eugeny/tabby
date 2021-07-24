@@ -22,7 +22,7 @@ export class AppearanceSettingsTabProvider extends SettingsTabProvider {
 export class ColorSchemeSettingsTabProvider extends SettingsTabProvider {
     id = 'terminal-color-scheme'
     icon = 'palette'
-    title = 'Color Scheme'
+    title = 'Color scheme'
 
     getComponentType (): any {
         return ColorSchemeSettingsTabComponent

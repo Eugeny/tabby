@@ -3,7 +3,9 @@ import { SettingsTabProvider } from './api'
 import { HotkeySettingsTabComponent } from './components/hotkeySettingsTab.component'
 import { WindowSettingsTabComponent } from './components/windowSettingsTab.component'
 import { VaultSettingsTabComponent } from './components/vaultSettingsTab.component'
+import { ConfigSyncSettingsTabComponent } from './components/configSyncSettingsTab.component'
 import { ProfilesSettingsTabComponent } from './components/profilesSettingsTab.component'
+import { ConfigSyncService } from './services/configSync.service'
 
 /** @hidden */
 @Injectable()
@@ -53,5 +55,24 @@ export class ProfilesSettingsTabProvider extends SettingsTabProvider {
 
     getComponentType (): any {
         return ProfilesSettingsTabComponent
+    }
+}
+
+/** @hidden */
+@Injectable()
+export class ConfigSyncSettingsTabProvider extends SettingsTabProvider {
+    id = 'config-sync'
+    icon = 'cloud'
+    title = 'Config sync'
+
+    constructor (
+        private configSync: ConfigSyncService,
+    ) { super() }
+
+    getComponentType (): any {
+        if (!this.configSync.isAvailable()) {
+            return null
+        }
+        return ConfigSyncSettingsTabComponent
     }
 }

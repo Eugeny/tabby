@@ -12,7 +12,7 @@ import { ElectronHostWindow } from './services/hostWindow.service'
 import { ElectronFileProvider } from './services/fileProvider.service'
 import { ElectronHostAppService } from './services/hostApp.service'
 import { ElectronService } from './services/electron.service'
-import { ElectronHotkeyProvider } from './hotkeys'
+// import { ElectronHotkeyProvider } from './hotkeys'
 import { ElectronConfigProvider } from './config'
 
 @NgModule({
@@ -24,7 +24,7 @@ import { ElectronConfigProvider } from './config'
         { provide: LogService, useClass: ElectronLogService },
         { provide: UpdaterService, useClass: ElectronUpdaterService },
         { provide: DockingService, useClass: ElectronDockingService },
-        { provide: HotkeyProvider, useClass: ElectronHotkeyProvider, multi: true },
+        // { provide: HotkeyProvider, useClass: ElectronHotkeyProvider, multi: true },
         { provide: ConfigProvider, useClass: ElectronConfigProvider, multi: true },
         { provide: FileProvider, useClass: ElectronFileProvider, multi: true },
     ],

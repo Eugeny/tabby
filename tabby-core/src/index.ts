@@ -136,9 +136,11 @@ export default class AppModule { // eslint-disable-line @typescript-eslint/no-ex
         profilesService: ProfilesService,
     ) {
         app.ready$.subscribe(() => {
-            if (config.store.enableWelcomeTab) {
-                app.openNewTabRaw({ type: WelcomeTabComponent })
-            }
+            config.ready$.toPromise().then(() => {
+                if (config.store.enableWelcomeTab) {
+                    app.openNewTabRaw({ type: WelcomeTabComponent })
+                }
+            })
         })
 
         platform.setErrorHandler(err => {
