@@ -1,17 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable @typescript-eslint/no-extraneous-class */
-import * as angularCoreModule from '@angular/core'
-import * as angularCDKModule from '@angular/cdk'
-import * as angularCompilerModule from '@angular/compiler'
-import * as angularCommonModule from '@angular/common'
-import * as angularFormsModule from '@angular/forms'
-import * as angularPlatformBrowserModule from '@angular/platform-browser'
-import * as angularPlatformBrowserAnimationsModule from '@angular/platform-browser/animations'
-import * as angularPlatformBrowserDynamicModule from '@angular/platform-browser-dynamic'
-import * as angularAnimationsModule from '@angular/animations'
-import * as ngBootstrapModule from '@ng-bootstrap/ng-bootstrap'
-import * as ngxToastrModule from 'ngx-toastr'
 
 import './polyfills.buffer'
 import { Duplex } from 'stream-browserify'
@@ -147,17 +136,19 @@ Tabby.registerModule('readline', {
     clearLine: stream => stream.write('\r'),
 })
 
-Tabby.registerModule('@angular/core', angularCoreModule)
-Tabby.registerModule('@angular/cdk', angularCDKModule)
-Tabby.registerModule('@angular/compiler', angularCompilerModule)
-Tabby.registerModule('@angular/common', angularCommonModule)
-Tabby.registerModule('@angular/forms', angularFormsModule)
-Tabby.registerModule('@angular/platform-browser', angularPlatformBrowserModule)
-Tabby.registerModule('@angular/platform-browser/animations', angularPlatformBrowserAnimationsModule)
-Tabby.registerModule('@angular/platform-browser-dynamic', angularPlatformBrowserDynamicModule)
-Tabby.registerModule('@angular/animations', angularAnimationsModule)
-Tabby.registerModule('@ng-bootstrap/ng-bootstrap', ngBootstrapModule)
-Tabby.registerModule('ngx-toastr', ngxToastrModule)
+Tabby.registerModule('@angular/core', require('@angular/core'))
+Tabby.registerModule('@angular/cdk', require('@angular/cdk'))
+Tabby.registerModule('@angular/cdk/clipboard', require('@angular/cdk/clipboard'))
+Tabby.registerModule('@angular/cdk/drag-drop', require('@angular/cdk/drag-drop'))
+Tabby.registerModule('@angular/compiler', require('@angular/compiler'))
+Tabby.registerModule('@angular/common', require('@angular/common'))
+Tabby.registerModule('@angular/forms', require('@angular/forms'))
+Tabby.registerModule('@angular/platform-browser', require('@angular/platform-browser'))
+Tabby.registerModule('@angular/platform-browser/animations', require('@angular/platform-browser/animations'))
+Tabby.registerModule('@angular/platform-browser-dynamic', require('@angular/platform-browser-dynamic'))
+Tabby.registerModule('@angular/animations', require('@angular/animations'))
+Tabby.registerModule('@ng-bootstrap/ng-bootstrap', require('@ng-bootstrap/ng-bootstrap'))
+Tabby.registerModule('ngx-toastr', require('ngx-toastr'))
 Tabby.registerModule('deepmerge', require('deepmerge'))
 Tabby.registerModule('rxjs', require('rxjs'))
 Tabby.registerModule('rxjs/operators', require('rxjs'))
