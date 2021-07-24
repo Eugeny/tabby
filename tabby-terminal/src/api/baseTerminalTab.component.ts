@@ -268,16 +268,17 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
                     break
             }
         })
+
         this.bellPlayer = document.createElement('audio')
         this.bellPlayer.src = require('../bell.ogg').default
 
         this.contextMenuProviders.sort((a, b) => a.weight - b.weight)
-
-        this.pinToolbar = this.enableToolbar && (window.localStorage.pinTerminalToolbar ?? 'true') === 'true'
     }
 
     /** @hidden */
     ngOnInit (): void {
+        this.pinToolbar = this.enableToolbar && (window.localStorage.pinTerminalToolbar ?? 'true') === 'true'
+
         this.focused$.subscribe(() => {
             this.configure()
             this.frontend?.focus()

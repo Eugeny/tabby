@@ -41,6 +41,22 @@ export class CopyPasteContextMenu extends TabContextMenuItemProvider {
 
 /** @hidden */
 @Injectable()
+export class MiscContextMenu extends TabContextMenuItemProvider {
+    weight = 1
+
+    async getItems (tab: BaseTabComponent): Promise<MenuItemOptions[]> {
+        if (tab instanceof BaseTerminalTabComponent && tab.session?.supportsWorkingDirectory()) {
+            return [{
+                label: 'Copy current path',
+                click: () => tab.copyCurrentPath(),
+            }]
+        }
+        return []
+    }
+}
+
+/** @hidden */
+@Injectable()
 export class LegacyContextMenu extends TabContextMenuItemProvider {
     weight = 1
 

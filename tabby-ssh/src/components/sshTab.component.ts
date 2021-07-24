@@ -22,6 +22,7 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
     session: SSHSession|null = null
     sftpPanelVisible = false
     sftpPath = '/'
+    enableToolbar = true
     private sessionStack: SSHSession[] = []
     private recentInputs = ''
     private reconnectOffered = false
@@ -32,7 +33,6 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
         private ngbModal: NgbModal,
     ) {
         super(injector)
-        this.enableToolbar = true
     }
 
     ngOnInit (): void {
@@ -214,7 +214,8 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
         )).response === 1
     }
 
-    openSFTP (): void {
+    async openSFTP (): Promise<void> {
+        this.sftpPath = await this.session?.getWorkingDirectory() ?? this.sftpPath
         setTimeout(() => {
             this.sftpPanelVisible = true
         }, 100)

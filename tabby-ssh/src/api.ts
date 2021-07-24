@@ -530,11 +530,11 @@ export class SSHSession extends BaseSession {
     }
 
     supportsWorkingDirectory (): boolean {
-        return true
+        return !!this.reportedCWD
     }
 
     async getWorkingDirectory (): Promise<string|null> {
-        return null
+        return this.reportedCWD ?? null
     }
 
     private openShellChannel (options): Promise<ClientChannel> {

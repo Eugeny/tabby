@@ -22,7 +22,9 @@ export class SFTPContextMenu extends TabContextMenuItemProvider {
         }
         const items = [{
             label: 'Open SFTP panel',
-            click: () => tab.openSFTP(),
+            click: () => {
+                tab.openSFTP()
+            },
         }]
         if (this.hostApp.platform === Platform.Windows && this.ssh.getWinSCPPath()) {
             items.push({

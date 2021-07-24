@@ -138,13 +138,6 @@ export class NewTabContextMenu extends TabContextMenuItemProvider {
             })
         }
 
-        if (tab instanceof TerminalTabComponent && tab.session?.supportsWorkingDirectory()) {
-            items.push({
-                label: 'Copy current path',
-                click: () => tab.copyCurrentPath(),
-            })
-        }
-
         return items
     }
 }

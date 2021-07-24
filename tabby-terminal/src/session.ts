@@ -1,6 +1,7 @@
 import { Observable, Subject } from 'rxjs'
 import { Logger } from 'tabby-core'
 import { LoginScriptProcessor, LoginScriptsOptions } from './api/loginScriptProcessing'
+import { OSC1337Processor } from './api/osc1337Processing'
 
 /**
  * A session object for a [[BaseTerminalTabComponent]]
@@ -14,6 +15,8 @@ export abstract class BaseSession {
     protected closed = new Subject<void>()
     protected destroyed = new Subject<void>()
     protected loginScriptProcessor: LoginScriptProcessor | null = null
+    protected reportedCWD?: string
+    protected osc1337Processor = new OSC1337Processor()
     private initialDataBuffer = Buffer.from('')
     private initialDataBufferReleased = false
 
@@ -22,9 +25,14 @@ export abstract class BaseSession {
     get closed$ (): Observable<void> { return this.closed }
     get destroyed$ (): Observable<void> { return this.destroyed }
 
-    constructor (protected logger: Logger) { }
+    constructor (protected logger: Logger) {
+        this.osc1337Processor.cwdReported$.subscribe(cwd => {
+            this.reportedCWD = cwd
+        })
+    }
 
     emitOutput (data: Buffer): void {
+        data = this.osc1337Processor.process(data)
         if (!this.initialDataBufferReleased) {
             this.initialDataBuffer = Buffer.concat([this.initialDataBuffer, data])
         } else {
@@ -56,6 +64,7 @@ export abstract class BaseSession {
             this.destroyed.next()
             await this.gracefullyKillProcess()
         }
+        this.osc1337Processor.close()
         this.closed.complete()
         this.destroyed.complete()
         this.output.complete()

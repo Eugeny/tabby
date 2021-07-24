@@ -1,6 +1,5 @@
 import * as psNode from 'ps-node'
 import * as fs from 'mz/fs'
-import * as os from 'os'
 import { Injector } from '@angular/core'
 import { HostAppService, ConfigService, WIN_BUILD_CONPTY_SUPPORTED, isWindowsBuild, Platform, BootstrapData, BOOTSTRAP_DATA, LogService } from 'tabby-core'
 import { BaseSession } from 'tabby-terminal'
@@ -19,8 +18,6 @@ try {
 } catch { }
 
 const windowsDirectoryRegex = /([a-zA-Z]:[^\:\[\]\?\"\<\>\|]+)/mi
-const OSC1337Prefix = Buffer.from('\x1b]1337;')
-const OSC1337Suffix = Buffer.from('\x07')
 
 // eslint-disable-next-line @typescript-eslint/no-extraneous-class
 export class PTYProxy {
@@ -90,7 +87,6 @@ export class Session extends BaseSession {
     private ptyClosed = false
     private pauseAfterExit = false
     private guessedCWD: string|null = null
-    private reportedCWD: string
     private initialCWD: string|null = null
     private config: ConfigService
     private hostApp: HostAppService
@@ -184,9 +180,7 @@ export class Session extends BaseSession {
 
         this.pty.subscribe('data', (array: Uint8Array) => {
             this.pty!.ackData(array.length)
-
-            let data = Buffer.from(array)
-            data = this.processOSC1337(data)
+            const data = Buffer.from(array)
             this.emitOutput(data)
             if (this.hostApp.platform === Platform.Windows) {
                 this.guessWindowsCWD(data.toString())
@@ -293,7 +287,7 @@ export class Session extends BaseSession {
     }
 
     supportsWorkingDirectory (): boolean {
-        return !!(this.truePID || this.reportedCWD || this.guessedCWD)
+        return !!(this.truePID || this.reportedCWD ?? this.guessedCWD)
     }
 
     async getWorkingDirectory (): Promise<string|null> {
@@ -335,23 +329,5 @@ export class Session extends BaseSession {
         if (match) {
             this.guessedCWD = match[0]
         }
-    }
-
-    private processOSC1337 (data: Buffer) {
-        if (data.includes(OSC1337Prefix)) {
-            const preData = data.subarray(0, data.indexOf(OSC1337Prefix))
-            const params = data.subarray(data.indexOf(OSC1337Prefix) + OSC1337Prefix.length)
-            const postData = params.subarray(params.indexOf(OSC1337Suffix) + OSC1337Suffix.length)
-            const paramString = params.subarray(0, params.indexOf(OSC1337Suffix)).toString()
-
-            if (paramString.startsWith('CurrentDir=')) {
-                this.reportedCWD = paramString.split('=')[1]
-                if (this.reportedCWD.startsWith('~')) {
-                    this.reportedCWD = os.homedir() + this.reportedCWD.substring(1)
-                }
-                data = Buffer.concat([preData, postData])
-            }
-        }
-        return data
     }
 }

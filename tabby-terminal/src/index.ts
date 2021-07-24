@@ -27,7 +27,7 @@ import { PathDropDecorator } from './features/pathDrop'
 import { ZModemDecorator } from './features/zmodem'
 import { TerminalConfigProvider } from './config'
 import { TerminalHotkeyProvider } from './hotkeys'
-import { CopyPasteContextMenu, LegacyContextMenu } from './tabContextMenu'
+import { CopyPasteContextMenu, MiscContextMenu, LegacyContextMenu } from './tabContextMenu'
 
 import { hterm } from './frontends/hterm'
 import { Frontend } from './frontends/frontend'
@@ -56,6 +56,7 @@ import { TerminalCLIHandler } from './cli'
         { provide: TerminalDecorator, useClass: DebugDecorator, multi: true },
 
         { provide: TabContextMenuItemProvider, useClass: CopyPasteContextMenu, multi: true },
+        { provide: TabContextMenuItemProvider, useClass: MiscContextMenu, multi: true },
         { provide: TabContextMenuItemProvider, useClass: LegacyContextMenu, multi: true },
 
         { provide: CLIHandler, useClass: TerminalCLIHandler, multi: true },
@@ -119,5 +120,6 @@ export { BaseTerminalTabComponent } from './api/baseTerminalTab.component'
 export * from './api/interfaces'
 export * from './api/streamProcessing'
 export * from './api/loginScriptProcessing'
+export * from './api/osc1337Processing'
 export * from './session'
 export { LoginScriptsSettingsComponent, StreamProcessingSettingsComponent }

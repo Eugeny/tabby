@@ -3,6 +3,9 @@ import { ConfigProvider, Platform } from 'tabby-core'
 /** @hidden */
 export class TerminalConfigProvider extends ConfigProvider {
     defaults = {
+        hotkeys: {
+            'copy-current-path': [],
+        },
         terminal: {
             frontend: 'xterm',
             fontSize: 14,
