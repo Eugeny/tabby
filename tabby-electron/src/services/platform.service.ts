@@ -198,7 +198,7 @@ export class ElectronPlatformService extends PlatformService {
         }
 
         return Promise.all(result.filePaths.map(async p => {
-            const transfer = new ElectronFileUpload(p)
+            const transfer = new ElectronFileUpload(p, this.electron)
             await wrapPromise(this.zone, transfer.open())
             this.fileTransferStarted.next(transfer)
             return transfer
@@ -215,7 +215,7 @@ export class ElectronPlatformService extends PlatformService {
         if (!result.filePath) {
             return null
         }
-        const transfer = new ElectronFileDownload(result.filePath, mode, size)
+        const transfer = new ElectronFileDownload(result.filePath, mode, size, this.electron)
         await wrapPromise(this.zone, transfer.open())
         this.fileTransferStarted.next(transfer)
         return transfer
@@ -233,10 +233,12 @@ class ElectronFileUpload extends FileUpload {
     private mode: number
     private file: fs.FileHandle
     private buffer: Buffer
+    private powerSaveBlocker = 0
 
-    constructor (private filePath: string) {
+    constructor (private filePath: string, private electron: ElectronService) {
         super()
         this.buffer = Buffer.alloc(256 * 1024)
+        this.powerSaveBlocker = electron.powerSaveBlocker.start('prevent-app-suspension')
     }
 
     async open (): Promise<void> {
@@ -265,19 +267,23 @@ class ElectronFileUpload extends FileUpload {
     }
 
     close (): void {
+        this.electron.powerSaveBlocker.stop(this.powerSaveBlocker)
         this.file.close()
     }
 }
 
 class ElectronFileDownload extends FileDownload {
     private file: fs.FileHandle
+    private powerSaveBlocker = 0
 
     constructor (
         private filePath: string,
         private mode: number,
         private size: number,
+        private electron: ElectronService,
     ) {
         super()
+        this.powerSaveBlocker = electron.powerSaveBlocker.start('prevent-app-suspension')
     }
 
     async open (): Promise<void> {
@@ -306,6 +312,7 @@ class ElectronFileDownload extends FileDownload {
     }
 
     close (): void {
+        this.electron.powerSaveBlocker.stop(this.powerSaveBlocker)
         this.file.close()
     }
 }
