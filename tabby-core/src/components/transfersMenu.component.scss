@@ -6,6 +6,7 @@
     display: flex;
     align-items: center;
     padding: 5px 0 5px 25px;
+    width: 100%;
 
     .icon {
         padding: 4px 7px;
@@ -16,6 +17,8 @@
     }
 
     .main {
+        display: flex;
+        flex-direction: column;
         min-width: 0;
         margin-right: auto;
         margin-bottom: 3px;
