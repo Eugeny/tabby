@@ -9,7 +9,7 @@ import { OSC1337Processor } from './api/osc1337Processing'
  */
 export abstract class BaseSession {
     open: boolean
-    truePID: number
+    truePID?: number
     protected output = new Subject<string>()
     protected binaryOutput = new Subject<Buffer>()
     protected closed = new Subject<void>()
