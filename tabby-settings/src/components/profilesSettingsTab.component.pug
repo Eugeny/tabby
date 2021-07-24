@@ -19,6 +19,19 @@ h3.mb-3 Profiles
 
 .form-line(*ngIf='config.store.profiles.length > 0')
     .header
+        .title Show recent profiles in selector
+        .description Set to 0 to disable recent profiles
+
+    input.form-control(
+        type='number',
+        min='0',
+        step='1',
+        [(ngModel)]='config.store.terminal.showRecentProfiles',
+        (ngModelChange)='config.save()'
+    )
+
+.form-line(*ngIf='config.store.profiles.length > 0')
+    .header
         .title Show built-in profiles in selector
         .description If disabled, only custom profiles will show up in the profile selector
 
@@ -26,6 +39,7 @@ h3.mb-3 Profiles
         [(ngModel)]='config.store.terminal.showBuiltinProfiles',
         (ngModelChange)='config.save()'
     )
+
 
 .d-flex.mb-3.mt-4
     .input-group

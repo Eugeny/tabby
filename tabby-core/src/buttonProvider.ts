@@ -36,10 +36,12 @@ export class ButtonProvider extends ToolbarButtonProvider {
         await this.profilesService.openNewTabForProfile(profile)
 
         let recentProfiles = this.config.store.recentProfiles
-        recentProfiles = recentProfiles.filter(x => x.group !== profile.group || x.name !== profile.name)
-        recentProfiles.unshift(profile)
-        if (recentProfiles.length > 5) {
-            recentProfiles.pop()
+        if (this.config.store.terminal.showRecentProfiles > 0) {
+            recentProfiles = recentProfiles.filter(x => x.group !== profile.group || x.name !== profile.name)
+            recentProfiles.unshift(profile)
+            recentProfiles = recentProfiles.slice(0, this.config.store.terminal.showRecentProfiles)
+        } else {
+            recentProfiles = []
         }
         this.config.store.recentProfiles = recentProfiles
         this.config.save()

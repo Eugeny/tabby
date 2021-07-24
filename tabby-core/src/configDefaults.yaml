@@ -16,6 +16,7 @@ appearance:
   vibrancyType: 'blur'
 terminal:
   showBuiltinProfiles: true
+  showRecentProfiles: 3
 hotkeys:
   profile:
     __nonStructural: true

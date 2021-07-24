@@ -93,7 +93,8 @@ export class ProfilesService {
     showProfileSelector (): Promise<PartialProfile<Profile>|null> {
         return new Promise<PartialProfile<Profile>|null>(async (resolve, reject) => {
             try {
-                const recentProfiles: PartialProfile<Profile>[] = this.config.store.recentProfiles
+                let recentProfiles: PartialProfile<Profile>[] = this.config.store.recentProfiles
+                recentProfiles = recentProfiles.slice(0, this.config.store.terminal.showRecentProfiles)
 
                 let options: SelectorOption<void>[] = recentProfiles.map(p => ({
                     ...this.selectorOptionForProfile(p),
