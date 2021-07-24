@@ -287,7 +287,7 @@ export class Session extends BaseSession {
     }
 
     supportsWorkingDirectory (): boolean {
-        return !!this.truePID ?? this.reportedCWD ?? this.guessedCWD
+        return !!(this.truePID ?? this.reportedCWD ?? this.guessedCWD)
     }
 
     async getWorkingDirectory (): Promise<string|null> {
