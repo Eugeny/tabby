@@ -17,7 +17,7 @@ export class MultiHotkeyInputComponent {
         private ngbModal: NgbModal,
     ) { }
 
-    ngOnInit (): void {
+    ngOnChanges (): void {
         if (typeof this.model === 'string') {
             this.model = [this.model]
         }
