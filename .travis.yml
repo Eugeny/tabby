@@ -15,9 +15,8 @@ before_install:
   - sudo apt update
   - sudo apt install -y libfontconfig-dev libsecret-1-dev libarchive-tools libnss3 libatk1.0-0 libatk-bridge2.0-0 libgdk-pixbuf2.0-0 libgtk-3-0 libgbm1 cmake
   - yarn
+script:
   - ./scripts/build-native.js
   - yarn run build
-  - yarn start
-script:
   - node scripts/prepackage-plugins.js
   - node scripts/build-linux.js
