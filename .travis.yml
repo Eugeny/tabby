@@ -29,9 +29,9 @@ script:
   - mv dist/*.deb artifact-deb/ || true
 deploy:
   provider: releases
-  api_key: ${GITHUB_TOKEN}
-  path:
-  - artifact-deb
-  skip_cleanup: true
+  token: ${GITHUB_TOKEN}
+  file:
+  - *.deb
+  cleanup: false
   on:
-    push: master
+    tag: false
