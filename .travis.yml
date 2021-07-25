@@ -34,4 +34,4 @@ deploy:
   - "$TRAVIS_BUILD_DIR/dist/*.deb"
   cleanup: false
   on:
-    tag: false
+    tags: false
