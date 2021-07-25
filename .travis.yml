@@ -13,13 +13,9 @@ before_install:
   - curl -o- -L https://yarnpkg.com/install.sh 
   - export PATH="$HOME/.yarn/bin:$PATH"
   - sudo apt update
-  - sudo apt install -y libfontconfig-dev libsecret-1-dev libarchive-tools libnss3 libatk1.0-0 libatk-bridge2.0-0 libgdk-pixbuf2.0-0 libgtk-3-0 libgbm1 cmake libarchive-tools zsh
-  - cd app
+  - sudo apt install -y libfontconfig-dev libsecret-1-dev libarchive-tools libnss3 libatk1.0-0 libatk-bridge2.0-0 libgdk-pixbuf2.0-0 libgtk-3-0 libgbm1 cmake
   - yarn
-  - cd ..
-  - rm app/node_modules/.yarn-integrity
-  - yarn
-  - npm run patch
+  - ./scripts/install-deps.js
 script:
   - ./scripts/build-native.js
   - yarn run build
