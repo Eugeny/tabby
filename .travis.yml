@@ -31,7 +31,7 @@ deploy:
   provider: releases
   token: ${GITHUB_TOKEN}
   file:
-  - *.deb
+  - "$TRAVIS_BUILD_DIR/dist/*.deb"
   cleanup: false
   on:
-    tag: true
+    tag: false
