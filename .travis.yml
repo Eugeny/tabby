@@ -17,6 +17,7 @@ before_install:
   - yarn
   - ./scripts/build-native.js
   - yarn run build
-install:
+  - yarn start
+script:
   - node scripts/prepackage-plugins.js
   - node scripts/build-linux.js
