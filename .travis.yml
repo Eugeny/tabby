@@ -27,3 +27,11 @@ script:
   - node scripts/build-linux.js
   - mkdir artifact-deb
   - mv dist/*.deb artifact-deb/ || true
+deploy:
+  provider: releases
+  api_key: ${GITHUB_TOKEN}
+  path:
+  - artifact-deb
+  skip_cleanup: true
+  on:
+    push: master
