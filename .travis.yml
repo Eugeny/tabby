@@ -1,0 +1,7 @@
+language: node_js
+node_js:
+  - 16
+arch:
+  - amd64
+  - arm64 
+os: linux 
