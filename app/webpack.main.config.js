@@ -34,6 +34,7 @@ module.exports = {
         ],
     },
     externals: {
+        'v8-compile-cache': 'commonjs v8-compile-cache',
         'any-promise': 'commonjs any-promise',
         electron: 'commonjs electron',
         'electron-config': 'commonjs electron-config',

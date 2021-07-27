@@ -30,6 +30,7 @@
     "npm": "6",
     "rxjs": "^7.2.0",
     "source-map-support": "^0.5.19",
+    "v8-compile-cache": "^2.3.0",
     "yargs": "^17.0.1"
   },
   "optionalDependencies": {

@@ -1,3 +1,4 @@
+import 'v8-compile-cache'
 import './portable'
 import 'source-map-support/register'
 import './sentry'
