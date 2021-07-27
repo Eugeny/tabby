@@ -1,6 +1,6 @@
 {
   "name": "tabby-terminal",
-  "version": "1.0.149-nightly.3",
+  "version": "1.0.149-nightly.4",
   "description": "Tabby's terminal emulation core",
   "keywords": [
     "tabby-builtin-plugin"

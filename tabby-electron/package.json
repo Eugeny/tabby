@@ -1,6 +1,6 @@
 {
   "name": "tabby-electron",
-  "version": "1.0.149-nightly.3",
+  "version": "1.0.149-nightly.4",
   "description": "Electron-specific bindings",
   "keywords": [
     "tabby-builtin-plugin"

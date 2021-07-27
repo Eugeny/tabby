@@ -1,6 +1,6 @@
 {
   "name": "tabby-plugin-manager",
-  "version": "1.0.149-nightly.3",
+  "version": "1.0.149-nightly.4",
   "description": "Tabby's plugin manager",
   "keywords": [
     "tabby-builtin-plugin"
