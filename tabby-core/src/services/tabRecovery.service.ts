@@ -20,7 +20,7 @@ export class TabRecoveryService {
     }
 
     async saveTabs (tabs: BaseTabComponent[]): Promise<void> {
-        if (!this.enabled) {
+        if (!this.enabled || !this.config.store.recoverTabs) {
             return
         }
         window.localStorage.tabsRecovery = JSON.stringify(
