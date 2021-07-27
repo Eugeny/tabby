@@ -243,7 +243,8 @@ hotkey-input-modal {
     .list-group-item {
         background: transparent;
         border: none;
-        border-top: 1px solid rgba(255, 255, 255, .05);
+
+        border-top: 1px solid rgb(0, 21, 43, .4);
 
         &:first-child {
             border-top: none;
