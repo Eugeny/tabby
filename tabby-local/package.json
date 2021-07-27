@@ -1,6 +1,6 @@
 {
   "name": "tabby-local",
-  "version": "1.0.148-nightly.2",
+  "version": "1.0.149-nightly.3",
   "description": "Tabby's local shell plugin",
   "keywords": [
     "tabby-builtin-plugin"
