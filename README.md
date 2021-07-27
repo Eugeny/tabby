@@ -7,9 +7,16 @@
 
 <p align="center">
   <a href="https://ko-fi.com/J3J8KWTF">
-    <img src="https://ko-fi.com/img/githubbutton_sm.svg">
+    <img src="https://cdn.ko-fi.com/cdn/kofi3.png?v=2" width="150">
   </a>
 </p>
+
+----
+
+### Downloads:
+
+* [Latest release](https://github.com/Eugeny/tabby/releases/latest)
+* [Nightly build](https://nightly.link/Eugeny/tabby/workflows/build/master)
 
 ----
 
