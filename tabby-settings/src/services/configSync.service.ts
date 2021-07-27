@@ -173,7 +173,7 @@ export class ConfigSyncService {
                     this.lastRemoteChange = new Date(cfg.modified_at)
                 }
             }
-            await new Promise(resolve => setTimeout(resolve, 5000))
+            await new Promise(resolve => setTimeout(resolve, 60000))
         }
     }
 }
