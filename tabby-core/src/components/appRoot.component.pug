@@ -23,7 +23,7 @@ title-bar(
                 *ngFor='let tab of app.tabs; let idx = index',
                 cdkDrag,
                 [cdkDragData]='tab',
-                (cdkDragStarted)='onTabDragStart()',
+                (cdkDragStarted)='onTabDragStart(tab)',
                 (cdkDragEnded)='onTabDragEnd()',
                 [index]='idx',
                 [tab]='tab',

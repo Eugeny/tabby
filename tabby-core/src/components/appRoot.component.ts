@@ -182,8 +182,8 @@ export class AppRootComponent {
         return this.config.store.appearance.tabsLocation === 'left' || this.config.store.appearance.tabsLocation === 'right'
     }
 
-    onTabDragStart () {
-        this.app.emitTabDragStarted()
+    onTabDragStart (tab: BaseTabComponent) {
+        this.app.emitTabDragStarted(tab)
     }
 
     onTabDragEnd () {
