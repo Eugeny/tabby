@@ -22,6 +22,7 @@ import { SplitDropZoneInfo } from './splitTab.component'
 })
 export class SplitTabDropZoneComponent extends SelfPositioningComponent {
     @Input() dropZone: SplitDropZoneInfo
+    @Input() parent: BaseTabComponent
     @Output() tabDropped = new EventEmitter<BaseTabComponent>()
     @HostBinding('class.active') isActive = false
     @HostBinding('class.highlighted') isHighlighted = false
@@ -32,8 +33,8 @@ export class SplitTabDropZoneComponent extends SelfPositioningComponent {
         app: AppService,
     ) {
         super(element)
-        this.subscribeUntilDestroyed(app.tabDragActive$, active => {
-            this.isActive = active
+        this.subscribeUntilDestroyed(app.tabDragActive$, tab => {
+            this.isActive = !!tab && tab !== this.parent
             this.layout()
         })
     }
@@ -43,7 +44,12 @@ export class SplitTabDropZoneComponent extends SelfPositioningComponent {
     }
 
     layout () {
-        const tabElement: HTMLElement = this.dropZone.relativeToTab.viewContainerEmbeddedRef?.rootNodes[0]
+        const tabElement: HTMLElement|undefined = this.dropZone.relativeToTab.viewContainerEmbeddedRef?.rootNodes[0]
+
+        if (!tabElement) {
+            // being destroyed
+            return
+        }
 
         const args = {
             t: [0, 0, tabElement.clientWidth, tabElement.clientHeight / 5],

@@ -147,6 +147,7 @@ export interface SplitDropZoneInfo {
         ></split-tab-spanner>
         <split-tab-drop-zone
             *ngFor='let dropZone of _dropZones'
+            [parent]='this'
             [dropZone]='dropZone'
             (tabDropped)='onTabDropped($event, dropZone)'
         >
