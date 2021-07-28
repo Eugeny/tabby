@@ -21,7 +21,7 @@ export class SSHProfilesService extends ProfileProvider<SSHProfile> {
             auth: null,
             password: null,
             privateKeys: [],
-            keepaliveInterval: 5,
+            keepaliveInterval: 5000,
             keepaliveCountMax: 10,
             readyTimeout: null,
             x11: false,
