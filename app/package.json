@@ -28,7 +28,7 @@
     "native-process-working-directory": "^1.0.2",
     "node-pty": "^0.10.1",
     "npm": "6",
-    "rxjs": "^7.2.0",
+    "rxjs": "^7.3.0",
     "source-map-support": "^0.5.19",
     "v8-compile-cache": "^2.3.0",
     "yargs": "^17.0.1"
