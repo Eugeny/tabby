@@ -45,6 +45,12 @@
         will-change: transform;
         transform: translate(0, -100px);
         transition: 0.25s transform ease-out;
+
+        > .btn {
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
     }
 
     &.toolbar-revealed, &.toolbar-pinned {
