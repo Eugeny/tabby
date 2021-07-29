@@ -17,10 +17,10 @@ export class ConfigSyncSettingsTabComponent extends BaseComponent {
 
     constructor (
         public config: ConfigService,
+        public platform: PlatformService,
         private configSync: ConfigSyncService,
         private hostApp: HostAppService,
         private ngbModal: NgbModal,
-        private platform: PlatformService,
         private notifications: NotificationsService,
     ) {
         super()
@@ -95,5 +95,13 @@ export class ConfigSyncSettingsTabComponent extends BaseComponent {
         this.configSync.setConfig(cfg)
         await this.configSync.download()
         this.notifications.info('Config downloaded')
+    }
+
+    hasMatchingRemoteConfig () {
+        return !!this.configs?.find(c => this.isActiveConfig(c))
+    }
+
+    isActiveConfig (c: Config) {
+        return c.id === this.config.store.configSync.configID
     }
 }

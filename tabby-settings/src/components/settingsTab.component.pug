@@ -29,7 +29,7 @@ button.btn.btn-warning.btn-block(*ngIf='config.restartRequested', '(click)'='res
                             i.fas.fa-book
                             span What's new
 
-                        button.btn.btn-secondary(
+                        button.btn.btn-secondary.mr-3.mb-2(
                             *ngIf='!updateAvailable && hostApp.platform !== Platform.Web',
                             (click)='checkForUpdates()',
                             [disabled]='checkingForUpdate'
@@ -39,7 +39,7 @@ button.btn.btn-warning.btn-block(*ngIf='config.restartRequested', '(click)'='res
                             )
                             span Check for updates
 
-                        button.btn.btn-info(
+                        button.btn.btn-info.mr-3.mb-2(
                             *ngIf='updateAvailable',
                             (click)='updater.update()',
                         )
