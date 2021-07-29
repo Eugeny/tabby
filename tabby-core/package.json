@@ -1,6 +1,6 @@
 {
   "name": "tabby-core",
-  "version": "1.0.149-nightly.4",
+  "version": "1.0.149",
   "description": "Tabby core",
   "keywords": [
     "tabby-builtin-plugin"

@@ -1,6 +1,6 @@
 {
   "name": "tabby-web-demo",
-  "version": "1.0.149-nightly.4",
+  "version": "1.0.149",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "scripts": {
