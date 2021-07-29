@@ -576,16 +576,20 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
         this.layoutInternal(this.root, 0, 0, 100, 100)
     }
 
+    private updateTitle (): void {
+        this.setTitle(this.getAllTabs().map(x => x.title).join(' | '))
+    }
+
     private attachTabView (tab: BaseTabComponent) {
         const ref = tab.insertIntoContainer(this.viewContainer)
         this.viewRefs.set(tab, ref)
         tab.addEventListenerUntilDestroyed(ref.rootNodes[0], 'click', () => this.focus(tab))
 
-        tab.subscribeUntilDestroyed(tab.titleChange$, t => this.setTitle(t))
+        tab.subscribeUntilDestroyed(tab.titleChange$, () => this.updateTitle())
         tab.subscribeUntilDestroyed(tab.activity$, a => a ? this.displayActivity() : this.clearActivity())
         tab.subscribeUntilDestroyed(tab.progress$, p => this.setProgress(p))
         if (tab.title) {
-            this.setTitle(tab.title)
+            this.updateTitle()
         }
         tab.subscribeUntilDestroyed(tab.recoveryStateChangedHint$, () => {
             this.recoveryStateChangedHint.next()
