@@ -152,6 +152,14 @@ export interface SplitDropZoneInfo {
             (tabDropped)='onTabDropped($event, dropZone)'
         >
         </split-tab-drop-zone>
+        <split-tab-pane-label
+            *ngFor='let tab of getAllTabs()'
+            cdkDropList
+            cdkAutoDropGroup='app-tabs'
+            [tab]='tab'
+            [parent]='this'
+        >
+        </split-tab-pane-label>
     `,
     styles: [require('./splitTab.component.scss')],
 })
@@ -374,6 +382,10 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
         }
 
         if (thing instanceof BaseTabComponent) {
+            if (thing.parent instanceof SplitTabComponent) {
+                thing.parent.removeTab(thing)
+            }
+            thing.removeFromContainer()
             thing.parent = this
         }
 

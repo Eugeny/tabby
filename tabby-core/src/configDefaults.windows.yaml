@@ -19,6 +19,8 @@ hotkeys:
     - 'Ctrl-Shift-PageUp'
   move-tab-right:
     - 'Ctrl-Shift-PageDown'
+  rearrange-panes:
+    - 'Ctrl-Shift'
   tab-1:
     - 'Alt-1'
   tab-2:

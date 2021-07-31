@@ -23,6 +23,7 @@ import { SelectorModalComponent } from './components/selectorModal.component'
 import { SplitTabComponent, SplitTabRecoveryProvider } from './components/splitTab.component'
 import { SplitTabSpannerComponent } from './components/splitTabSpanner.component'
 import { SplitTabDropZoneComponent } from './components/splitTabDropZone.component'
+import { SplitTabPaneLabelComponent } from './components/splitTabPaneLabel.component'
 import { UnlockVaultModalComponent } from './components/unlockVaultModal.component'
 import { WelcomeTabComponent } from './components/welcomeTab.component'
 import { TransfersMenuComponent } from './components/transfersMenu.component'
@@ -100,6 +101,7 @@ const PROVIDERS = [
         SplitTabComponent,
         SplitTabSpannerComponent,
         SplitTabDropZoneComponent,
+        SplitTabPaneLabelComponent,
         UnlockVaultModalComponent,
         WelcomeTabComponent,
         TransfersMenuComponent,

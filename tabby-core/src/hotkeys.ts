@@ -47,6 +47,10 @@ export class AppHotkeyProvider extends HotkeyProvider {
             name: 'Move tab to the right',
         },
         {
+            id: 'rearrange-panes',
+            name: 'Show pane labels (for rearranging)',
+        },
+        {
             id: 'tab-1',
             name: 'Tab 1',
         },

@@ -92,9 +92,6 @@ export class XTermFrontend extends Frontend {
                 event.preventDefault()
                 ret = false
             }
-            this.hotkeysService.processKeystrokes()
-            this.hotkeysService.emitKeyEvent(event)
-
             return ret
         }
 
