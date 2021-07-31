@@ -97,7 +97,7 @@ export default class TerminalModule { // eslint-disable-line @typescript-eslint/
                 htermHandler: 'onKeyUp_',
             },
         ]
-        events.forEach((event) => {
+        events.forEach(event => {
             const oldHandler = hterm.hterm.Keyboard.prototype[event.htermHandler]
             hterm.hterm.Keyboard.prototype[event.htermHandler] = function (nativeEvent) {
                 hotkeys.pushKeystroke(event.name, nativeEvent)

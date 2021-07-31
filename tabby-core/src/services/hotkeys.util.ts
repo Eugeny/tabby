@@ -10,46 +10,66 @@ export const altKeyName = {
     linux: 'Alt',
 }[process.platform]
 
-export interface EventData {
-    ctrlKey: boolean
-    metaKey: boolean
-    altKey: boolean
-    shiftKey: boolean
+export interface KeyEventData {
+    ctrlKey?: boolean
+    metaKey?: boolean
+    altKey?: boolean
+    shiftKey?: boolean
     key: string
     code: string
     eventName: string
     time: number
+    registrationTime: number
 }
 
 const REGEX_LATIN_KEYNAME = /^[A-Za-z]$/
 
-export function stringifyKeySequence (events: EventData[]): string[] {
-    const items: string[] = []
+export interface KeySequenceItem {
+    value: string
+    firstEvent: KeyEventData
+    lastEvent: KeyEventData
+}
+
+export function stringifyKeySequence (events: KeyEventData[]): KeySequenceItem[] {
+    const items: KeySequenceItem[] = []
+    let pressedKeys: KeySequenceItem[] = []
     events = events.slice()
+
+    const strictOrdering = ['Ctrl', metaKeyName, altKeyName, 'Shift']
+
+    function flushPressedKeys () {
+        if (pressedKeys.length) {
+            const v = {
+                firstEvent: pressedKeys[0].firstEvent,
+                lastEvent: pressedKeys[pressedKeys.length - 1].lastEvent,
+            }
+            pressedKeys = [
+                ...strictOrdering.map(x => pressedKeys.find(p => p.value === x)).filter(x => !!x) as KeySequenceItem[],
+                ...pressedKeys.filter(p => !strictOrdering.includes(p.value)),
+            ]
+            items.push({
+                value: pressedKeys.map(x => x.value).join('-'),
+                ...v,
+            })
+            pressedKeys = []
+        }
+    }
 
     while (events.length > 0) {
         const event = events.shift()!
-        if (event.eventName === 'keydown') {
-            const itemKeys: string[] = []
-            if (event.ctrlKey) {
-                itemKeys.push('Ctrl')
-            }
-            if (event.metaKey) {
-                itemKeys.push(metaKeyName)
-            }
-            if (event.altKey) {
-                itemKeys.push(altKeyName)
-            }
-            if (event.shiftKey) {
-                itemKeys.push('Shift')
-            }
 
-            if (['Control', 'Shift', 'Alt', 'Meta'].includes(event.key)) {
-                // TODO make this optional?
-                continue
-            }
-
-            let key = event.code
+        // eslint-disable-next-line @typescript-eslint/init-declarations
+        let key: string
+        if (event.key === 'Control') {
+            key = 'Ctrl'
+        } else if (event.key === 'Meta') {
+            key = metaKeyName
+        } else if (event.key === 'Alt') {
+            key = altKeyName
+        } else if (event.key === 'Shift') {
+            key = 'Shift'
+        } else {
+            key = event.code
             if (REGEX_LATIN_KEYNAME.test(event.key)) {
                 // Handle Dvorak etc via the reported "character" instead of the scancode
                 key = event.key.toUpperCase()
@@ -72,10 +92,20 @@ export function stringifyKeySequence (events: EventData[]): string[] {
                     BracketRight: ']',
                 }[key] ?? key
             }
+        }
 
-            itemKeys.push(key)
-            items.push(itemKeys.join('-'))
+        if (event.eventName === 'keydown') {
+            pressedKeys.push({
+                value: key,
+                firstEvent: event,
+                lastEvent: event,
+            })
+        }
+        if (event.eventName === 'keyup') {
+            flushPressedKeys()
         }
     }
+
+    flushPressedKeys()
     return items
 }
