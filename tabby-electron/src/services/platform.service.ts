@@ -24,6 +24,7 @@ try {
 export class ElectronPlatformService extends PlatformService {
     supportsWindowControls = true
     private configPath: string
+    private _configSaveInProgress = Promise.resolve()
 
     constructor (
         private hostApp: HostAppService,
@@ -107,7 +108,17 @@ export class ElectronPlatformService extends PlatformService {
     }
 
     async saveConfig (content: string): Promise<void> {
-        await fs.writeFile(this.configPath, content, 'utf8')
+        try {
+            await this._configSaveInProgress
+        } catch { }
+        this._configSaveInProgress = this._saveConfigInternal(content)
+        await this._configSaveInProgress
+    }
+
+    async _saveConfigInternal (content: string): Promise<void> {
+        const tempPath = this.configPath + '.new'
+        await fs.writeFile(tempPath, content, 'utf8')
+        await fs.rename(tempPath, this.configPath)
     }
 
     getConfigPath (): string|null {
