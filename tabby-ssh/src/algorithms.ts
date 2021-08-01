@@ -1,5 +1,5 @@
-import { ALGORITHM_BLACKLIST, SSHAlgorithmType } from './api'
 import * as ALGORITHMS from 'ssh2/lib/protocol/constants'
+import { ALGORITHM_BLACKLIST, SSHAlgorithmType } from './api'
 
 export const supportedAlgorithms: Record<string, string> = {}
 

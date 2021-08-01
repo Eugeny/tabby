@@ -22,6 +22,8 @@ import { RecoveryProvider } from './recoveryProvider'
 import { SSHHotkeyProvider } from './hotkeys'
 import { SFTPContextMenu } from './tabContextMenu'
 import { SSHProfilesService } from './profiles'
+import { SFTPContextMenuItemProvider } from './api/contextMenu'
+import { CommonSFTPContextMenu } from './sftpContextMenu'
 
 /** @hidden */
 @NgModule({
@@ -41,6 +43,7 @@ import { SSHProfilesService } from './profiles'
         { provide: HotkeyProvider, useClass: SSHHotkeyProvider, multi: true },
         { provide: TabContextMenuItemProvider, useClass: SFTPContextMenu, multi: true },
         { provide: ProfileProvider, useExisting: SSHProfilesService, multi: true },
+        { provide: SFTPContextMenuItemProvider, useClass: CommonSFTPContextMenu, multi: true },
     ],
     entryComponents: [
         SSHProfileSettingsComponent,
@@ -105,3 +108,7 @@ export default class SSHModule {
         await this.selector.show('Select an SSH profile', options)
     }
 }
+
+export * from './api'
+export { SFTPFile, SFTPSession } from './session/sftp'
+export { SFTPPanelComponent }

@@ -20,7 +20,7 @@ try {
     var wnr = require('windows-native-registry')
 } catch { }
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ElectronPlatformService extends PlatformService {
     supportsWindowControls = true
     private configPath: string
@@ -189,7 +189,7 @@ export class ElectronPlatformService extends PlatformService {
         this.electron.app.exit(0)
     }
 
-    async startUpload (options?: FileUploadOptions): Promise<FileUpload[]> {
+    async startUpload (options?: FileUploadOptions, paths?: string[]): Promise<FileUpload[]> {
         options ??= { multiple: false }
 
         const properties: any[] = ['openFile', 'treatPackageAsDirectory']
@@ -197,18 +197,21 @@ export class ElectronPlatformService extends PlatformService {
             properties.push('multiSelections')
         }
 
-        const result = await this.electron.dialog.showOpenDialog(
-            this.hostWindow.getWindow(),
-            {
-                buttonLabel: 'Select',
-                properties,
-            },
-        )
-        if (result.canceled) {
-            return []
+        if (!paths) {
+            const result = await this.electron.dialog.showOpenDialog(
+                this.hostWindow.getWindow(),
+                {
+                    buttonLabel: 'Select',
+                    properties,
+                },
+            )
+            if (result.canceled) {
+                return []
+            }
+            paths = result.filePaths
         }
 
-        return Promise.all(result.filePaths.map(async p => {
+        return Promise.all(paths.map(async p => {
             const transfer = new ElectronFileUpload(p, this.electron)
             await wrapPromise(this.zone, transfer.open())
             this.fileTransferStarted.next(transfer)
@@ -216,17 +219,20 @@ export class ElectronPlatformService extends PlatformService {
         }))
     }
 
-    async startDownload (name: string, mode: number, size: number): Promise<FileDownload|null> {
-        const result = await this.electron.dialog.showSaveDialog(
-            this.hostWindow.getWindow(),
-            {
-                defaultPath: name,
-            },
-        )
-        if (!result.filePath) {
-            return null
+    async startDownload (name: string, mode: number, size: number, filePath?: string): Promise<FileDownload|null> {
+        if (!filePath) {
+            const result = await this.electron.dialog.showSaveDialog(
+                this.hostWindow.getWindow(),
+                {
+                    defaultPath: name,
+                },
+            )
+            if (!result.filePath) {
+                return null
+            }
+            filePath = result.filePath
         }
-        const transfer = new ElectronFileDownload(result.filePath, mode, size, this.electron)
+        const transfer = new ElectronFileDownload(filePath, mode, size, this.electron)
         await wrapPromise(this.zone, transfer.open())
         this.fileTransferStarted.next(transfer)
         return transfer

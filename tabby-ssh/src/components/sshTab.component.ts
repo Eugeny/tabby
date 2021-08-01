@@ -5,8 +5,9 @@ import { first } from 'rxjs'
 import { Platform, RecoveryToken } from 'tabby-core'
 import { BaseTerminalTabComponent } from 'tabby-terminal'
 import { SSHService } from '../services/ssh.service'
-import { SSHProfile, SSHSession } from '../api'
+import { SSHSession } from '../session/ssh'
 import { SSHPortForwardingModalComponent } from './sshPortForwardingModal.component'
+import { SSHProfile } from '../api'
 
 
 /** @hidden */

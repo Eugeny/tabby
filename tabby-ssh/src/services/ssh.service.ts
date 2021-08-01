@@ -4,11 +4,13 @@ import { Injectable, NgZone } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { Client } from 'ssh2'
 import { exec } from 'child_process'
+import { ChildProcess } from 'node:child_process'
 import { Subject, Observable } from 'rxjs'
 import { Logger, LogService, ConfigService, NotificationsService, HostAppService, Platform, PlatformService, PromptModalComponent } from 'tabby-core'
-import { ALGORITHM_BLACKLIST, ForwardedPort, SSHAlgorithmType, SSHProfile, SSHSession } from '../api'
+import { SSHSession } from '../session/ssh'
+import { ForwardedPort } from '../session/forwards'
+import { ALGORITHM_BLACKLIST, SSHAlgorithmType, SSHProfile } from '../api'
 import { PasswordStorageService } from './passwordStorage.service'
-import { ChildProcess } from 'node:child_process'
 
 @Injectable({ providedIn: 'root' })
 export class SSHService {

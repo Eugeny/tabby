@@ -20,7 +20,8 @@
     "@angular/core": "^9.1.9"
   },
   "devDependencies": {
-    "winston": "^3.3.3",
-    "electron-promise-ipc": "^2.2.4"
+    "electron-promise-ipc": "^2.2.4",
+    "tmp-promise": "^3.0.2",
+    "winston": "^3.3.3"
   }
 }

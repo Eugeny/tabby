@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core'
 import { ProfileProvider, NewTabParameters, PartialProfile } from 'tabby-core'
+import * as ALGORITHMS from 'ssh2/lib/protocol/constants'
 import { SSHProfileSettingsComponent } from './components/sshProfileSettings.component'
 import { SSHTabComponent } from './components/sshTab.component'
 import { PasswordStorageService } from './services/passwordStorage.service'
 import { ALGORITHM_BLACKLIST, SSHAlgorithmType, SSHProfile } from './api'
-import * as ALGORITHMS from 'ssh2/lib/protocol/constants'
 
 
 @Injectable({ providedIn: 'root' })
