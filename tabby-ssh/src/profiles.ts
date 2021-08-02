@@ -81,6 +81,10 @@ export class SSHProfilesService extends ProfileProvider<SSHProfile> {
         }
     }
 
+    getSuggestedName (profile: SSHProfile): string {
+        return `${profile.options.user}@${profile.options.host}:${profile.options.port}`
+    }
+
     getDescription (profile: PartialProfile<SSHProfile>): string {
         return profile.options?.host ?? ''
     }

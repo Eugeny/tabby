@@ -8,6 +8,7 @@ import { SerialProfileSettingsComponent } from './components/serialProfileSettin
 import { SerialTabComponent } from './components/serialTab.component'
 import { SerialService } from './services/serial.service'
 import { BAUD_RATES, SerialProfile } from './api'
+import { profileEnd } from 'console'
 
 @Injectable({ providedIn: 'root' })
 export class SerialProfilesService extends ProfileProvider<SerialProfile> {
@@ -90,6 +91,10 @@ export class SerialProfilesService extends ProfileProvider<SerialProfile> {
             type: SerialTabComponent,
             inputs: { profile },
         }
+    }
+
+    getSuggestedName (profile: SerialProfile): string {
+        return this.getDescription(profile)
     }
 
     getDescription (profile: SerialProfile): string {

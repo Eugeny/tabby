@@ -63,12 +63,20 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
                 })),
             )
         }
-        const profile = deepClone(base)
-        profile.id = null
-        profile.name = `${profile.name} copy`
+        const profile: PartialProfile<Profile> = deepClone(base)
+        delete profile.id
+        if (base.isTemplate) {
+            profile.name = ''
+        } else if (!base.isBuiltin) {
+            profile.name = `${base.name} copy`
+        }
         profile.isBuiltin = false
         profile.isTemplate = false
         await this.editProfile(profile)
+        if (!profile.name) {
+            const cfgProxy = this.profilesService.getConfigProxyForProfile(profile)
+            profile.name = this.profilesService.providerForProfile(profile)?.getSuggestedName(cfgProxy) ?? `${base.name} copy`
+        }
         profile.id = `${profile.type}:custom:${slugify(profile.name)}:${uuidv4()}`
         this.config.store.profiles = [profile, ...this.config.store.profiles]
         await this.config.save()

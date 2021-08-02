@@ -84,6 +84,10 @@ export class LocalProfilesService extends ProfileProvider<LocalProfile> {
         }
     }
 
+    getSuggestedName (profile: LocalProfile): string {
+        return this.getDescription(profile)
+    }
+
     getDescription (profile: PartialProfile<LocalProfile>): string {
         return profile.options?.command ?? ''
     }
