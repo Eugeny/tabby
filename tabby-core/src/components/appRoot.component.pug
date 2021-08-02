@@ -21,10 +21,6 @@ title-bar(
         )
             tab-header(
                 *ngFor='let tab of app.tabs; let idx = index',
-                cdkDrag,
-                [cdkDragData]='tab',
-                (cdkDragStarted)='onTabDragStart(tab)',
-                (cdkDragEnded)='onTabDragEnd()',
                 [index]='idx',
                 [tab]='tab',
                 [active]='tab == app.activeTab',
