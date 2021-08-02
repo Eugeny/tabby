@@ -32,7 +32,7 @@
     "electron-builder": "22.10.5",
     "electron-download": "^4.1.1",
     "electron-installer-snap": "^5.1.0",
-    "electron-notarize": "^1.0.0",
+    "electron-notarize": "^1.0.1",
     "electron-rebuild": "^2.3.5",
     "eslint": "^7.31.0",
     "eslint-plugin-import": "^2.23.4",
