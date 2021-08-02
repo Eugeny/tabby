@@ -5,7 +5,7 @@ div
 
     .list-group
         a.list-group-item.list-group-item-action.d-flex(
-            *ngFor='let button of getButtons()',
+            *ngFor='let button of getButtons(); trackBy: buttonsTrackBy',
             (click)='button.click()',
         )
             .d-flex.align-self-center([innerHTML]='sanitizeIcon(button.icon)')

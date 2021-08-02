@@ -32,4 +32,8 @@ export class StartPageComponent {
     sanitizeIcon (icon?: string): any {
         return this.domSanitizer.bypassSecurityTrustHtml(icon ?? '')
     }
+
+    buttonsTrackBy (btn: ToolbarButton): any {
+        return btn.title + btn.icon
+    }
 }
