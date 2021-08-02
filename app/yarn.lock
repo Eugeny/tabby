@@ -11,10 +11,10 @@
   optionalDependencies:
     parse5 "^5.0.0"
 
-"@electron/remote@1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@electron/remote/-/remote-1.2.0.tgz#772eb4c3ac17aaba5a9cf05a09092f6277f5671f"
-  integrity sha512-C774t2DFVJsa+dxU9Gc2nYzylRZoJ79I0Sxrh8T9cN69fBkntfGbyBEQiD9UfZopqL0CYLzk1anY2Ywhql6h1w==
+"@electron/remote@1.2.1":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@electron/remote/-/remote-1.2.1.tgz#665b9fc2c6a60f9e5039bf235e2c60ccd0242c32"
+  integrity sha512-yKh60I8KjezQkZqeuN5Nu2O/Z72+tgNgzvAa8QQPLtQbsrCOaeIWdXZQqierz4jQ5jzTNUk6KIcK3V2kFeaxaQ==
 
 "@iarna/cli@^1.2.0":
   version "1.2.0"
