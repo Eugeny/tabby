@@ -126,10 +126,11 @@ export class ElectronUpdaterService extends UpdaterService {
                 {
                     type: 'warning',
                     message: 'Installing the update will close all tabs and restart Tabby.',
-                    buttons: ['Cancel', 'Update'],
-                    defaultId: 1,
+                    buttons: ['Update', 'Cancel'],
+                    defaultId: 0,
+                    cancelId: 1,
                 }
-            )).response === 1) {
+            )).response === 0) {
                 await this.downloaded
                 this.electron.autoUpdater.quitAndInstall()
             }

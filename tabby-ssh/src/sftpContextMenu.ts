@@ -27,6 +27,7 @@ export class CommonSFTPContextMenu extends SFTPContextMenuItemProvider {
                         type: 'warning',
                         message: `Delete ${item.fullPath}?`,
                         defaultId: 0,
+                        cancelId: 1,
                         buttons: ['Delete', 'Cancel'],
                     })).response === 0) {
                         await this.deleteItem(item, panel.sftp)

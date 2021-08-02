@@ -106,10 +106,11 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
             {
                 type: 'warning',
                 message: `Delete "${profile.name}"?`,
-                buttons: ['Keep', 'Delete'],
-                defaultId: 0,
+                buttons: ['Delete', 'Keep'],
+                defaultId: 1,
+                cancelId: 1,
             }
-        )).response === 1) {
+        )).response === 0) {
             this.profilesService.providerForProfile(profile)?.deleteProfile(
                 this.profilesService.getConfigProxyForProfile(profile))
             this.config.store.profiles = this.config.store.profiles.filter(x => x !== profile)
@@ -164,16 +165,18 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
             {
                 type: 'warning',
                 message: `Delete "${group.name}"?`,
-                buttons: ['Keep', 'Delete'],
-                defaultId: 0,
+                buttons: ['Delete', 'Keep'],
+                defaultId: 1,
+                cancelId: 1,
             }
-        )).response === 1) {
+        )).response === 0) {
             if ((await this.platform.showMessageBox(
                 {
                     type: 'warning',
                     message: `Delete the group's profiles?`,
                     buttons: ['Move to "Ungrouped"', 'Delete'],
                     defaultId: 0,
+                    cancelId: 0,
                 }
             )).response === 0) {
                 for (const profile of this.profiles.filter(x => x.group === group.name)) {

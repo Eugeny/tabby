@@ -106,10 +106,11 @@ export class TerminalTabComponent extends BaseTerminalTabComponent {
             {
                 type: 'warning',
                 message: `"${children[0].command}" is still running. Close?`,
-                buttons: ['Cancel', 'Kill'],
-                defaultId: 1,
+                buttons: ['Kill', 'Cancel'],
+                defaultId: 0,
+                cancelId: 1,
             }
-        )).response === 1
+        )).response === 0
     }
 
     ngOnDestroy (): void {

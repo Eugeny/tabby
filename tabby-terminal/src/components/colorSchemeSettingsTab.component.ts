@@ -79,10 +79,11 @@ export class ColorSchemeSettingsTabComponent {
             {
                 type: 'warning',
                 message: `Delete "${scheme.name}"?`,
-                buttons: ['Keep', 'Delete'],
+                buttons: ['Delete', 'Keep'],
                 defaultId: 1,
+                cancelId: 1,
             }
-        )).response === 1) {
+        )).response === 0) {
             this.customColorSchemes = this.customColorSchemes.filter(x => x.name !== scheme.name)
             this.config.store.terminal.customColorSchemes = this.customColorSchemes
             this.config.save()
