@@ -28,7 +28,7 @@ export class SerialProfilesService extends ProfileProvider<SerialProfile> {
             inputMode: null,
             outputMode: null,
             inputNewlines: null,
-            outputNewlines: 'crlf',
+            outputNewlines: null,
             scripts: [],
         },
     }
