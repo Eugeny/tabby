@@ -72,6 +72,17 @@ export class TabHeaderComponent extends BaseComponent {
         return items.slice(1)
     }
 
+    onTabDragStart (tab: BaseTabComponent) {
+        this.app.emitTabDragStarted(tab)
+    }
+
+    onTabDragEnd () {
+        setTimeout(() => {
+            this.app.emitTabDragEnded()
+            this.app.emitTabsChanged()
+        })
+    }
+
     @HostBinding('class.flex-width') get isFlexWidthEnabled (): boolean {
         return this.config.store.appearance.flexTabs
     }

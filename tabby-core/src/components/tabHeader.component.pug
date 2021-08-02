@@ -2,13 +2,17 @@
 .progressbar([style.width]='progress + "%"', *ngIf='progress != null')
 .activity-indicator(*ngIf='tab.activity$|async')
 
-ng-container(*ngIf='!config.store.terminal.hideTabIndex')
-    .index(*ngIf='hostApp.platform === Platform.macOS', cdkDragHandle) {{index + 1}}
-    .index(*ngIf='hostApp.platform !== Platform.macOS') {{index + 1}}
+.index(*ngIf='!config.store.terminal.hideTabIndex && hostApp.platform === Platform.macOS', cdkDragHandle) {{index + 1}}
+.index(*ngIf='!config.store.terminal.hideTabIndex && hostApp.platform !== Platform.macOS') {{index + 1}}
 
 .name(
     [title]='tab.customTitle || tab.title',
     [class.no-hover]='config.store.terminal.hideCloseButton'
+    cdkDrag,
+    cdkDragRootElement='tab-header',
+    [cdkDragData]='tab',
+    (cdkDragStarted)='onTabDragStart(tab)',
+    (cdkDragEnded)='onTabDragEnd()',
 ) {{tab.customTitle || tab.title}}
 button(*ngIf='!config.store.terminal.hideCloseButton',(click)='app.closeTab(tab, true)') &times;
 

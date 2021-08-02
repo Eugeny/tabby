@@ -182,17 +182,6 @@ export class AppRootComponent {
         return this.config.store.appearance.tabsLocation === 'left' || this.config.store.appearance.tabsLocation === 'right'
     }
 
-    onTabDragStart (tab: BaseTabComponent) {
-        this.app.emitTabDragStarted(tab)
-    }
-
-    onTabDragEnd () {
-        setTimeout(() => {
-            this.app.emitTabDragEnded()
-            this.app.emitTabsChanged()
-        })
-    }
-
     async generateButtonSubmenu (button: ToolbarButton) {
         if (button.submenu) {
             button.submenuItems = await button.submenu()
