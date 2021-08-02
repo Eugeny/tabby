@@ -127,8 +127,14 @@ export interface SplitSpannerInfo {
  * Represents a tab drop zone
  */
 export interface SplitDropZoneInfo {
-    relativeToTab: BaseTabComponent
-    side: SplitDirection
+    container?: SplitContainer
+    position?: number
+    relativeTo?: BaseTabComponent|SplitContainer
+    side?: SplitDirection
+    x: number
+    y: number
+    w: number
+    h: number
 }
 
 /**
@@ -370,7 +376,7 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
     /**
      * Inserts a new `tab` to the `side` of the `relative` tab
      */
-    async add (thing: BaseTabComponent|SplitContainer, relative: BaseTabComponent|null, side: SplitDirection): Promise<void> {
+    async add (thing: BaseTabComponent|SplitContainer, relative: BaseTabComponent|SplitContainer|null, side: SplitDirection): Promise<void> {
         if (thing instanceof SplitTabComponent) {
             const tab = thing
             thing = tab.root
@@ -389,30 +395,39 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
             thing.parent = this
         }
 
-        let target = (relative ? this.getParentOf(relative) : null) ?? this.root
-        let insertIndex = relative ? target.children.indexOf(relative) : -1
+        let target = relative ? this.getParentOf(relative) : null
+        if (!target) {
+            // Rewrap the root container just in case the orientation isn't compatibile
+            target = new SplitContainer()
+            target.orientation = ['l', 'r'].includes(side) ? 'h' : 'v'
+            target.children = [this.root]
+            target.ratios = [1]
+            this.root = target
+        }
+
+        let insertIndex = relative
+            ? target.children.indexOf(relative) + ('tl'.includes(side) ? 0 : 1)
+            : 'tl'.includes(side) ? 0 : -1
 
         if (
             target.orientation === 'v' && ['l', 'r'].includes(side) ||
             target.orientation === 'h' && ['t', 'b'].includes(side)
         ) {
+            // Inserting into a container but the orientation isn't compatible
             const newContainer = new SplitContainer()
-            newContainer.orientation = target.orientation === 'v' ? 'h' : 'v'
+            newContainer.orientation = ['l', 'r'].includes(side) ? 'h' : 'v'
             newContainer.children = relative ? [relative] : []
             newContainer.ratios = [1]
-            target.children[insertIndex] = newContainer
+            target.children.splice(relative ? target.children.indexOf(relative) : -1, 1, newContainer)
             target = newContainer
             insertIndex = 0
         }
 
-        if (insertIndex === -1) {
-            insertIndex = 0
-        } else {
-            insertIndex += side === 'l' || side === 't' ? 0 : 1
-        }
-
         for (let i = 0; i < target.children.length; i++) {
             target.ratios[i] *= target.children.length / (target.children.length + 1)
+        }
+        if (insertIndex === -1) {
+            insertIndex = target.ratios.length
         }
         target.ratios.splice(insertIndex, 0, 1 / (target.children.length + 1))
         target.children.splice(insertIndex, 0, thing)
@@ -570,7 +585,11 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
             return
         }
 
-        this.add(tab, zone.relativeToTab, zone.side)
+        if (zone.container) {
+            this.add(tab, zone.container.children[zone.position!], zone.container.orientation === 'h' ? 'r' : 'b')
+        } else {
+            this.add(tab, null, zone.side!)
+        }
         this.tabAdopted.next(tab)
     }
 
@@ -622,6 +641,38 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
     private layoutInternal (root: SplitContainer, x: number, y: number, w: number, h: number) {
         const size = root.orientation === 'v' ? h : w
         const sizes = root.ratios.map(ratio => ratio * size)
+        const thickness = 10
+
+        if (root === this.root) {
+            this._dropZones.push({
+                x: x - thickness / 2,
+                y: y + thickness,
+                w: thickness,
+                h: h - thickness * 2,
+                side: 'l',
+            })
+            this._dropZones.push({
+                x,
+                y: y - thickness / 2,
+                w,
+                h: thickness,
+                side: 't',
+            })
+            this._dropZones.push({
+                x: x + w - thickness / 2,
+                y: y + thickness,
+                w: thickness,
+                h: h - thickness * 2,
+                side: 'r',
+            })
+            this._dropZones.push({
+                x,
+                y: y + h - thickness / 2,
+                w,
+                h: thickness,
+                side: 'b',
+            })
+        }
 
         root.x = x
         root.y = y
@@ -655,16 +706,59 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
                         element.style.width = '90%'
                         element.style.height = '90%'
                     }
-
-                    for (const side of ['t', 'r', 'b', 'l']) {
-                        this._dropZones.push({
-                            relativeToTab: child,
-                            side: side as SplitDirection,
-                        })
-                    }
                 }
             }
+
             offset += sizes[i]
+
+            if (i !== root.ratios.length - 1) {
+                // Spanner area
+                this._dropZones.push({
+                    relativeTo: root.children[i],
+                    side: root.orientation === 'v' ? 'b': 'r',
+                    x: root.orientation === 'v' ? childX + thickness : childX + offset - thickness / 2,
+                    y: root.orientation === 'v' ? childY + offset - thickness / 2 : childY + thickness,
+                    w: root.orientation === 'v' ? childW - thickness * 2 : thickness,
+                    h: root.orientation === 'v' ? thickness : childH - thickness * 2,
+                })
+            }
+
+            // Sides
+            if (root.orientation === 'v') {
+                this._dropZones.push({
+                    x: childX,
+                    y: childY + thickness,
+                    w: thickness,
+                    h: childH - thickness * 2,
+                    relativeTo: child,
+                    side: 'l',
+                })
+                this._dropZones.push({
+                    x: childX + w - thickness,
+                    y: childY + thickness,
+                    w: thickness,
+                    h: childH - thickness * 2,
+                    relativeTo: child,
+                    side: 'r',
+                })
+            } else {
+                this._dropZones.push({
+                    x: childX + thickness,
+                    y: childY,
+                    w: childW - thickness * 2,
+                    h: thickness,
+                    relativeTo: child,
+                    side: 't',
+                })
+                this._dropZones.push({
+                    x: childX + thickness,
+                    y: childY + childH - thickness,
+                    w: childW - thickness * 2,
+                    h: thickness,
+                    relativeTo: child,
+                    side: 'b',
+                })
+            }
 
             if (i !== 0) {
                 this._spanners.push({
