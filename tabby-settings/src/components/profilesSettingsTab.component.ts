@@ -65,7 +65,7 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
         }
         const profile = deepClone(base)
         profile.id = null
-        profile.name = ''
+        profile.name = `${profile.name} copy`
         profile.isBuiltin = false
         profile.isTemplate = false
         await this.editProfile(profile)
