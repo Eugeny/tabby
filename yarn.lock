@@ -7295,10 +7295,10 @@ sprintf-js@~1.0.2:
   resolved "https://registry.yarnpkg.com/sprintf-js/-/sprintf-js-1.0.3.tgz#04e6926f662895354f3dd015203633b857297e2c"
   integrity sha1-BOaSb2YolTVPPdAVIDYzuFcpfiw=
 
-ssh2@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/ssh2/-/ssh2-1.1.0.tgz#43dd24930e15e317687f519d6b40270d9cd00d00"
-  integrity sha512-CidQLG2ZacoT0Z7O6dOyisj4JdrOrLVJ4KbHjVNz9yI1vO08FAYQPcnkXY9BP8zeYo+J/nBgY6Gg4R7w4WFWtg==
+ssh2@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/ssh2/-/ssh2-1.2.0.tgz#177a46bb12b7ef2b7bce28bdcbd7eae3cbc50045"
+  integrity sha512-vklfVRyylayGV/zMwVEkTC9kBhA3t264hoUHV/yGuunBJh6uBGP1VlzhOp8EsqxpKnG0xkLE1qHZlU0+t8Vh6Q==
   dependencies:
     asn1 "^0.2.4"
     bcrypt-pbkdf "^1.0.2"
