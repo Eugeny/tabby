@@ -98,9 +98,9 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
     enablePassthrough = true
 
     /**
-     * Enables receiving dynamic window/tab title provided by the shell
+     * Disables display of dynamic window/tab title provided by the shell
      */
-    enableDynamicTitle = true
+    disableDynamicTitle = false
 
     alternateScreenActive = false
 
@@ -586,7 +586,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
         }
 
         this.termContainerSubscriptions.subscribe(this.frontend.title$, title => this.zone.run(() => {
-            if (this.enableDynamicTitle) {
+            if (!this.disableDynamicTitle) {
                 this.setTitle(title)
             }
         }))

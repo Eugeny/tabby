@@ -37,6 +37,7 @@ export class TabRecoveryService {
             if (tab.color) {
                 token.tabColor = tab.color
             }
+            token.disableDynamicTitle = tab['disableDynamicTitle']
         }
         return token
     }
@@ -54,6 +55,7 @@ export class TabRecoveryService {
                 tab.inputs = tab.inputs ?? {}
                 tab.inputs.color = token.tabColor ?? null
                 tab.inputs.title = token.tabTitle || ''
+                tab.inputs.disableDynamicTitle = token.disableDynamicTitle
                 return tab
             } catch (error) {
                 this.logger.warn('Tab recovery crashed:', token, provider, error)

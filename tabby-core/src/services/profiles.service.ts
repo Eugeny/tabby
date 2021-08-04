@@ -42,7 +42,7 @@ export class ProfilesService {
                 tab.setTitle(profile.name)
             }
             if (profile.disableDynamicTitle) {
-                tab['enableDynamicTitle'] = false
+                tab['disableDynamicTitle'] = true
             }
             return tab
         }

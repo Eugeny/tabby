@@ -93,13 +93,13 @@ export class SplitContainer {
         return s
     }
 
-    async serialize (): Promise<RecoveryToken> {
+    async serialize (tabsRecovery: TabRecoveryService): Promise<RecoveryToken> {
         const children: any[] = []
         for (const child of this.children) {
             if (child instanceof SplitContainer) {
-                children.push(await child.serialize())
+                children.push(await child.serialize(tabsRecovery))
             } else {
-                children.push(await child.getRecoveryToken())
+                children.push(await tabsRecovery.getFullRecoveryToken(child))
             }
         }
         return {
@@ -565,7 +565,7 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
 
     /** @hidden */
     async getRecoveryToken (): Promise<any> {
-        return this.root.serialize()
+        return this.root.serialize(this.tabRecovery)
     }
 
     /** @hidden */
