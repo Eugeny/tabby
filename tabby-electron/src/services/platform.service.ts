@@ -1,7 +1,9 @@
 import * as path from 'path'
 import * as fs from 'fs/promises'
+import * as gracefulFS from 'graceful-fs'
 import * as fsSync from 'fs'
 import * as os from 'os'
+import { promisify } from 'util'
 import promiseIpc, { RendererProcessType } from 'electron-promise-ipc'
 import { execFile } from 'mz/child_process'
 import { Injectable, NgZone } from '@angular/core'
@@ -118,7 +120,7 @@ export class ElectronPlatformService extends PlatformService {
     async _saveConfigInternal (content: string): Promise<void> {
         const tempPath = this.configPath + '.new'
         await fs.writeFile(tempPath, content, 'utf8')
-        await fs.rename(tempPath, this.configPath)
+        await promisify(gracefulFS.rename)(tempPath, this.configPath)
     }
 
     getConfigPath (): string|null {
