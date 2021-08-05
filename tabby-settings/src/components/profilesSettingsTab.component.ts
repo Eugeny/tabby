@@ -72,7 +72,7 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
         }
         profile.isBuiltin = false
         profile.isTemplate = false
-        await this.editProfile(profile)
+        await this.showProfileEditModal(profile)
         if (!profile.name) {
             const cfgProxy = this.profilesService.getConfigProxyForProfile(profile)
             profile.name = this.profilesService.providerForProfile(profile)?.getSuggestedName(cfgProxy) ?? `${base.name} copy`
@@ -83,6 +83,11 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
     }
 
     async editProfile (profile: PartialProfile<Profile>): Promise<void> {
+        await this.showProfileEditModal(profile)
+        await this.config.save()
+    }
+
+    async showProfileEditModal (profile: PartialProfile<Profile>): Promise<void> {
         const modal = this.ngbModal.open(
             EditProfileModalComponent,
             { size: 'lg' },
@@ -97,8 +102,6 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
             delete profile[k]
         }
         Object.assign(profile, result)
-
-        await this.config.save()
     }
 
     async deleteProfile (profile: PartialProfile<Profile>): Promise<void> {
