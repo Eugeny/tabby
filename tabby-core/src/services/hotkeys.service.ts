@@ -128,7 +128,7 @@ export class HotkeysService {
 
         const keyName = getKeyName(eventData)
         if (eventName === 'keydown') {
-            this.addPressedKey(eventData)
+            this.addPressedKey(keyName, eventData)
             this.shouldSaveNextKeystroke = true
             this.updateModifiers(eventData)
         }
@@ -272,6 +272,9 @@ export class HotkeysService {
             if (!event[prop] && this.pressedKeys.has(key)) {
                 this.removePressedKey(key)
             }
+            if (event[prop] && !this.pressedKeys.has(key)) {
+                this.addPressedKey(key, event)
+            }
         }
     }
 
@@ -324,8 +327,7 @@ export class HotkeysService {
         return keys
     }
 
-    private addPressedKey (eventData: KeyEventData) {
-        const keyName = getKeyName(eventData)
+    private addPressedKey (keyName: KeyName, eventData: KeyEventData) {
         this.pressedKeys.add(keyName)
         this.pressedKeyTimestamps.set(keyName, eventData.registrationTime)
     }

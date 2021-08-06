@@ -48,11 +48,13 @@ export class HotkeyInputModalComponent extends BaseComponent {
     ) {
         super()
         this.hotkeys.clearCurrentKeystrokes()
-        this.subscribeUntilDestroyed(hotkeys.keystroke$, (keystroke) => {
-            this.lastKeyEvent = performance.now()
-            this.value.push(keystroke)
+        this.subscribeUntilDestroyed(hotkeys.keyEvent$, event => {
             event.preventDefault()
             event.stopPropagation()
+        })
+        this.subscribeUntilDestroyed(hotkeys.keystroke$, keystroke => {
+            this.lastKeyEvent = performance.now()
+            this.value.push(keystroke)
         })
     }
 
