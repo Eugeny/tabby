@@ -433,6 +433,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "al-wi",
+      "name": "Alexander Wiedemann",
+      "avatar_url": "https://avatars.githubusercontent.com/u/11092199?v=4",
+      "profile": "https://github.com/al-wi",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
