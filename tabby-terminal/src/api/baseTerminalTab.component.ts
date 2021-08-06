@@ -315,12 +315,12 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
 
         setImmediate(async () => {
             if (this.hasFocus) {
-                await this.frontend!.attach(this.content.nativeElement)
-                this.frontend!.configure()
+                await this.frontend?.attach(this.content.nativeElement)
+                this.frontend?.configure()
             } else {
                 this.focused$.pipe(first()).subscribe(async () => {
-                    await this.frontend!.attach(this.content.nativeElement)
-                    this.frontend!.configure()
+                    await this.frontend?.attach(this.content.nativeElement)
+                    this.frontend?.configure()
                 })
             }
         })
