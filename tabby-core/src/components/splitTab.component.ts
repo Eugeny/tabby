@@ -420,7 +420,7 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
             newContainer.ratios = [1]
             target.children.splice(relative ? target.children.indexOf(relative) : -1, 1, newContainer)
             target = newContainer
-            insertIndex = 0
+            insertIndex = 'tl'.includes(side) ? 0 : 1
         }
 
         for (let i = 0; i < target.children.length; i++) {
