@@ -1,7 +1,7 @@
 import { Injectable, Inject, NgZone, EventEmitter } from '@angular/core'
 import { Observable, Subject } from 'rxjs'
 import { HotkeyDescription, HotkeyProvider } from '../api/hotkeyProvider'
-import { stringifyKeySequence, KeyEventData, KeySequenceItem } from './hotkeys.util'
+import { KeyEventData, getKeyName, Keystroke, KeyName, getKeystrokeName, metaKeyName, altKeyName } from './hotkeys.util'
 import { ConfigService } from './config.service'
 import { HostAppService, Platform } from '../api/hostApp'
 import { deprecate } from 'util'
@@ -12,14 +12,17 @@ export interface PartialHotkeyMatch {
     matchedLength: number
 }
 
-const KEY_TIMEOUT = 2000
-
+interface PastKeystroke {
+    keystroke: Keystroke
+    time: number
+}
 
 @Injectable({ providedIn: 'root' })
 export class HotkeysService {
+    /** @hidden @deprecated */
     key = new EventEmitter<KeyboardEvent>()
 
-    /** @hidden */
+    /** @hidden @deprecated */
     matchedHotkey = new EventEmitter<string>()
 
     /**
@@ -33,19 +36,34 @@ export class HotkeysService {
     get hotkeyOff$ (): Observable<string> { return this._hotkeyOff }
 
     /**
-     * Fired for each recognized hotkey
+     * Fired for each singular key
      */
-    get key$ (): Observable<KeyboardEvent> { return this._key }
+    get key$ (): Observable<KeyName> { return this._key }
+
+    /**
+     * Fired for each key event
+     */
+    get keyEvent$ (): Observable<KeyboardEvent> { return this._keyEvent }
+
+    /**
+     * Fired for each singular key combination
+     */
+    get keystroke$ (): Observable<Keystroke> { return this._keystroke }
 
     private _hotkey = new Subject<string>()
     private _hotkeyOff = new Subject<string>()
-    private _key = new Subject<KeyboardEvent>()
-    private currentEvents: KeyEventData[] = []
+    private _keyEvent = new Subject<KeyboardEvent>()
+    private _key = new Subject<KeyName>()
+    private _keystroke = new Subject<Keystroke>()
     private disabledLevel = 0
     private hotkeyDescriptions: HotkeyDescription[] = []
+
+    private pressedKeys = new Set<KeyName>()
+    private pressedKeyTimestamps = new Map<KeyName, number>()
     private pressedHotkey: string|null = null
-    private lastMatchedHotkeyStartTime = performance.now()
-    private lastMatchedHotkeyEndTime = performance.now()
+    private pressedKeystroke: Keystroke|null = null
+    private lastKeystrokes: PastKeystroke[] = []
+    private shouldSaveNextKeystroke = true
 
     private constructor (
         private zone: NgZone,
@@ -56,9 +74,10 @@ export class HotkeysService {
         const events = ['keydown', 'keyup']
         events.forEach(eventType => {
             document.addEventListener(eventType, (nativeEvent: KeyboardEvent) => {
+                this._keyEvent.next(nativeEvent)
                 if (eventType === 'keyup' || document.querySelectorAll('input:focus').length === 0) {
-                    this.pushKeystroke(eventType, nativeEvent)
-                    if (hostApp.platform === Platform.Web) {
+                    this.pushKeyEvent(eventType, nativeEvent)
+                    if (hostApp.platform === Platform.Web && this.matchActiveHotkey(true) !== null) {
                         nativeEvent.preventDefault()
                         nativeEvent.stopPropagation()
                     }
@@ -73,144 +92,149 @@ export class HotkeysService {
         // deprecated
         this.hotkey$.subscribe(h => this.matchedHotkey.emit(h))
         this.matchedHotkey.subscribe = deprecate(s => this.hotkey$.subscribe(s), 'matchedHotkey is deprecated, use hotkey$')
-
-        this.key$.subscribe(e => this.key.emit(e))
+        this.keyEvent$.subscribe(h => this.key.next(h))
+        this.key.subscribe = deprecate(s => this.keyEvent$.subscribe(s), 'key is deprecated, use keyEvent$')
     }
 
     /**
      * Adds a new key event to the buffer
      *
-     * @param name DOM event name
+     * @param eventName DOM event name
      * @param nativeEvent event object
      */
-    pushKeystroke (name: string, nativeEvent: KeyboardEvent): void {
-        nativeEvent['event'] = name
-        if (nativeEvent.timeStamp && this.currentEvents.find(x => x.time === nativeEvent.timeStamp)) {
-            return
-        }
-        this.currentEvents.push({
+    pushKeyEvent (eventName: string, nativeEvent: KeyboardEvent): void {
+        nativeEvent['event'] = eventName
+
+        const eventData = {
             ctrlKey: nativeEvent.ctrlKey,
             metaKey: nativeEvent.metaKey,
             altKey: nativeEvent.altKey,
             shiftKey: nativeEvent.shiftKey,
             code: nativeEvent.code,
             key: nativeEvent.key,
-            eventName: name,
+            eventName,
             time: nativeEvent.timeStamp,
             registrationTime: performance.now(),
-        })
+        }
+
+        for (const [key, time] of this.pressedKeyTimestamps.entries()) {
+            if (time < performance.now() - 5000) {
+                this.pressedKeys.delete(key)
+                this.pressedKeyTimestamps.delete(key)
+            }
+        }
+
+        const keyName = getKeyName(eventData)
+        if (eventName === 'keydown') {
+            this.pressedKeys.add(keyName)
+            this.pressedKeyTimestamps.set(keyName, eventData.registrationTime)
+            this.shouldSaveNextKeystroke = true
+            this.updateModifiers(eventData)
+        }
+        if (eventName === 'keyup') {
+            const keystroke = getKeystrokeName([...this.pressedKeys])
+            if (this.shouldSaveNextKeystroke) {
+                this._keystroke.next(keystroke)
+                this.lastKeystrokes.push({
+                    keystroke,
+                    time: performance.now(),
+                })
+                this.shouldSaveNextKeystroke = false
+            }
+            this.pressedKeys.delete(keyName)
+            this.pressedKeyTimestamps.delete(keyName)
+        }
+
+        if (this.pressedKeys.size) {
+            this.pressedKeystroke = getKeystrokeName([...this.pressedKeys])
+        } else {
+            this.pressedKeystroke = null
+        }
+
         this.processKeystrokes()
-        this.emitKeyEvent(nativeEvent)
-    }
 
-    /**
-     * Check the buffer for new complete keystrokes
-     */
-    processKeystrokes (): void {
-        if (this.isEnabled()) {
-            this.zone.run(() => {
-                let fullMatches: {
-                    id: string,
-                    sequence: string[],
-                    startTime: number,
-                    endTime: number,
-                }[] = []
-
-                const currentSequence = this.getCurrentKeySequence()
-                const config = this.getHotkeysConfig()
-                for (const id in config) {
-                    for (const sequence of config[id]) {
-                        if (currentSequence.length < sequence.length) {
-                            continue
-                        }
-                        if (sequence.every(
-                            (x: string, index: number) =>
-                                x.toLowerCase() ===
-                                    currentSequence[currentSequence.length - sequence.length + index].value.toLowerCase()
-                        )) {
-                            fullMatches.push({
-                                id: id,
-                                sequence,
-                                startTime: currentSequence[currentSequence.length - sequence.length].firstEvent.registrationTime,
-                                endTime: currentSequence[currentSequence.length - 1].lastEvent.registrationTime,
-                            })
-                        }
-                    }
-                }
-
-                fullMatches.sort((a, b) => b.startTime - a.startTime + (b.sequence.length - a.sequence.length))
-                fullMatches = fullMatches.filter(x => x.startTime >= this.lastMatchedHotkeyStartTime)
-                fullMatches = fullMatches.filter(x => x.endTime > this.lastMatchedHotkeyEndTime)
-
-                const matched = fullMatches[0]?.id
-                if (matched) {
-                    this.emitHotkeyOn(matched)
-                    this.lastMatchedHotkeyStartTime = fullMatches[0].startTime
-                    this.lastMatchedHotkeyEndTime = fullMatches[0].endTime
-                } else if (this.pressedHotkey) {
-                    this.emitHotkeyOff(this.pressedHotkey)
-                }
-            })
-        }
-    }
-
-    private emitHotkeyOn (hotkey: string) {
-        if (this.pressedHotkey) {
-            this.emitHotkeyOff(this.pressedHotkey)
-        }
-        console.debug('Matched hotkey', hotkey)
-        this._hotkey.next(hotkey)
-        this.pressedHotkey = hotkey
-    }
-
-    private emitHotkeyOff (hotkey: string) {
-        console.debug('Unmatched hotkey', hotkey)
-        this._hotkeyOff.next(hotkey)
-        this.pressedHotkey = null
-    }
-
-    emitKeyEvent (nativeEvent: KeyboardEvent): void {
         this.zone.run(() => {
-            this._key.next(nativeEvent)
+            this._key.next(getKeyName(eventData))
         })
     }
 
-    clearCurrentKeystrokes (): void {
-        this.currentEvents = []
+    private updateModifiers (event: KeyEventData) {
+        for (const [prop, key] of Object.entries({
+            ctrlKey: 'Ctrl',
+            metaKey: metaKeyName,
+            altKey: altKeyName,
+            shiftKey: 'Shift',
+        })) {
+            if (!event[prop] && this.pressedKeys.has(key)) {
+                this.pressedKeys.delete(key)
+                this.pressedKeyTimestamps.delete(key)
+            }
+        }
     }
 
-    getCurrentKeySequence (): KeySequenceItem[] {
-        this.currentEvents = this.currentEvents.filter(x => performance.now() - x.time < KEY_TIMEOUT && x.registrationTime >= this.lastMatchedHotkeyStartTime)
-        return stringifyKeySequence(this.currentEvents)
+    getCurrentKeystrokes (): Keystroke[] {
+        if (!this.pressedKeystroke) {
+            return []
+        }
+        return [...this.lastKeystrokes.map(x => x.keystroke), this.pressedKeystroke]
     }
 
-    getCurrentFullyMatchedHotkey (): string|null {
-        return this.pressedHotkey
-    }
+    matchActiveHotkey (partial = false): string|null {
+        if (!this.isEnabled() || !this.pressedKeystroke) {
+            return null
+        }
+        const matches: {
+            id: string,
+            sequence: string[],
+        }[] = []
 
-    getCurrentPartiallyMatchedHotkeys (): PartialHotkeyMatch[] {
-        const currentStrokes = this.getCurrentKeySequence().map(x => x.value)
+        const currentSequence = this.getCurrentKeystrokes()
+
         const config = this.getHotkeysConfig()
-        const result: PartialHotkeyMatch[] = []
         for (const id in config) {
             for (const sequence of config[id]) {
-                for (let matchLength = Math.min(currentStrokes.length, sequence.length); matchLength > 0; matchLength--) {
-                    if (sequence.slice(0, matchLength).every(
-                        (x: string, index: number) =>
-                            x.toLowerCase() ===
-                                currentStrokes[currentStrokes.length - matchLength + index].toLowerCase()
-                    )) {
-                        result.push({
-                            matchedLength: matchLength,
-                            id,
-                            strokes: sequence,
-                        })
+                if (currentSequence.length < sequence.length) {
+                    continue
+                }
+                if (sequence[sequence.length - 1] !== this.pressedKeystroke) {
+                    continue
+                }
+
+                let lastIndex = 0
+                let matched = true
+                for (const item of sequence) {
+                    const nextOffset = currentSequence.slice(lastIndex).findIndex(
+                        x => x.toLowerCase() === item.toLowerCase()
+                    )
+                    if (nextOffset === -1) {
+                        matched = false
                         break
                     }
+                    lastIndex += nextOffset
+                }
+
+                if (partial ? lastIndex > 0 : matched) {
+                    matches.push({
+                        id,
+                        sequence,
+                    })
                 }
             }
         }
-        return result
+
+        matches.sort((a, b) => b.sequence.length - a.sequence.length)
+        if (!matches.length) {
+            return null
+        }
+        return matches[0].id
+    }
+
+    clearCurrentKeystrokes (): void {
+        this.lastKeystrokes = []
+        this.pressedKeys.clear()
+        this.pressedKeyTimestamps.clear()
+        this.pressedKeystroke = null
+        this.pressedHotkey = null
     }
 
     getHotkeyDescription (id: string): HotkeyDescription {
@@ -236,6 +260,32 @@ export class HotkeysService {
                     .map(async x => x.provide())
             )
         ).reduce((a, b) => a.concat(b))
+    }
+
+    private processKeystrokes () {
+        const matched = this.matchActiveHotkey()
+        this.zone.run(() => {
+            if (matched) {
+                this.emitHotkeyOn(matched)
+            } else if (this.pressedHotkey) {
+                this.emitHotkeyOff(this.pressedHotkey)
+            }
+        })
+    }
+
+    private emitHotkeyOn (hotkey: string) {
+        if (this.pressedHotkey) {
+            this.emitHotkeyOff(this.pressedHotkey)
+        }
+        console.debug('Matched hotkey', hotkey)
+        this._hotkey.next(hotkey)
+        this.pressedHotkey = hotkey
+    }
+
+    private emitHotkeyOff (hotkey: string) {
+        console.debug('Unmatched hotkey', hotkey)
+        this._hotkeyOff.next(hotkey)
+        this.pressedHotkey = null
     }
 
     private getHotkeysConfig () {
