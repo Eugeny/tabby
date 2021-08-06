@@ -64,6 +64,7 @@ export class HotkeysService {
     private pressedKeystroke: Keystroke|null = null
     private lastKeystrokes: PastKeystroke[] = []
     private shouldSaveNextKeystroke = true
+    private lastEventTimestamp = 0
 
     private constructor (
         private zone: NgZone,
@@ -75,12 +76,10 @@ export class HotkeysService {
         events.forEach(eventType => {
             document.addEventListener(eventType, (nativeEvent: KeyboardEvent) => {
                 this._keyEvent.next(nativeEvent)
-                if (eventType === 'keyup' || document.querySelectorAll('input:focus').length === 0) {
-                    this.pushKeyEvent(eventType, nativeEvent)
-                    if (hostApp.platform === Platform.Web && this.matchActiveHotkey(true) !== null) {
-                        nativeEvent.preventDefault()
-                        nativeEvent.stopPropagation()
-                    }
+                this.pushKeyEvent(eventType, nativeEvent)
+                if (hostApp.platform === Platform.Web && this.matchActiveHotkey(true) !== null) {
+                    nativeEvent.preventDefault()
+                    nativeEvent.stopPropagation()
                 }
             })
         })
@@ -103,6 +102,10 @@ export class HotkeysService {
      * @param nativeEvent event object
      */
     pushKeyEvent (eventName: string, nativeEvent: KeyboardEvent): void {
+        if (nativeEvent.timeStamp === this.lastEventTimestamp) {
+            return
+        }
+
         nativeEvent['event'] = eventName
 
         const eventData = {
@@ -119,15 +122,13 @@ export class HotkeysService {
 
         for (const [key, time] of this.pressedKeyTimestamps.entries()) {
             if (time < performance.now() - 5000) {
-                this.pressedKeys.delete(key)
-                this.pressedKeyTimestamps.delete(key)
+                this.removePressedKey(key)
             }
         }
 
         const keyName = getKeyName(eventData)
         if (eventName === 'keydown') {
-            this.pressedKeys.add(keyName)
-            this.pressedKeyTimestamps.set(keyName, eventData.registrationTime)
+            this.addPressedKey(eventData)
             this.shouldSaveNextKeystroke = true
             this.updateModifiers(eventData)
         }
@@ -141,8 +142,7 @@ export class HotkeysService {
                 })
                 this.shouldSaveNextKeystroke = false
             }
-            this.pressedKeys.delete(keyName)
-            this.pressedKeyTimestamps.delete(keyName)
+            this.removePressedKey(keyName)
         }
 
         if (this.pressedKeys.size) {
@@ -151,25 +151,25 @@ export class HotkeysService {
             this.pressedKeystroke = null
         }
 
-        this.processKeystrokes()
+        const matched = this.matchActiveHotkey()
+        this.zone.run(() => {
+            if (matched) {
+                this.emitHotkeyOn(matched)
+            } else if (this.pressedHotkey) {
+                this.emitHotkeyOff(this.pressedHotkey)
+            }
+        })
 
         this.zone.run(() => {
             this._key.next(getKeyName(eventData))
         })
-    }
 
-    private updateModifiers (event: KeyEventData) {
-        for (const [prop, key] of Object.entries({
-            ctrlKey: 'Ctrl',
-            metaKey: metaKeyName,
-            altKey: altKeyName,
-            shiftKey: 'Shift',
-        })) {
-            if (!event[prop] && this.pressedKeys.has(key)) {
-                this.pressedKeys.delete(key)
-                this.pressedKeyTimestamps.delete(key)
-            }
+        if (process.platform === 'darwin' && eventData.metaKey && eventName === 'keydown' && !['Ctrl', 'Shift', altKeyName, metaKeyName].includes(keyName)) {
+            // macOS will swallow non-modified keyups if Cmd is held down
+            this.pushKeyEvent('keyup', nativeEvent)
         }
+
+        this.lastEventTimestamp = nativeEvent.timeStamp
     }
 
     getCurrentKeystrokes (): Keystroke[] {
@@ -262,24 +262,31 @@ export class HotkeysService {
         ).reduce((a, b) => a.concat(b))
     }
 
-    private processKeystrokes () {
-        const matched = this.matchActiveHotkey()
-        this.zone.run(() => {
-            if (matched) {
-                this.emitHotkeyOn(matched)
-            } else if (this.pressedHotkey) {
-                this.emitHotkeyOff(this.pressedHotkey)
+    private updateModifiers (event: KeyEventData) {
+        for (const [prop, key] of Object.entries({
+            ctrlKey: 'Ctrl',
+            metaKey: metaKeyName,
+            altKey: altKeyName,
+            shiftKey: 'Shift',
+        })) {
+            if (!event[prop] && this.pressedKeys.has(key)) {
+                this.removePressedKey(key)
             }
-        })
+        }
     }
 
     private emitHotkeyOn (hotkey: string) {
         if (this.pressedHotkey) {
+            if (this.pressedHotkey === hotkey) {
+                return
+            }
             this.emitHotkeyOff(this.pressedHotkey)
         }
-        console.debug('Matched hotkey', hotkey)
-        this._hotkey.next(hotkey)
-        this.pressedHotkey = hotkey
+        if (document.querySelectorAll('input:focus').length === 0) {
+            console.debug('Matched hotkey', hotkey)
+            this._hotkey.next(hotkey)
+            this.pressedHotkey = hotkey
+        }
     }
 
     private emitHotkeyOff (hotkey: string) {
@@ -315,5 +322,16 @@ export class HotkeysService {
             }
         }
         return keys
+    }
+
+    private addPressedKey (eventData: KeyEventData) {
+        const keyName = getKeyName(eventData)
+        this.pressedKeys.add(keyName)
+        this.pressedKeyTimestamps.set(keyName, eventData.registrationTime)
+    }
+
+    private removePressedKey (key: KeyName) {
+        this.pressedKeys.delete(key)
+        this.pressedKeyTimestamps.delete(key)
     }
 }
