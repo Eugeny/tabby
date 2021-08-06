@@ -50,8 +50,9 @@ export class SelectorModalComponent<T> {
         if (!f) {
             this.filteredOptions = this.options.filter(x => !x.freeInputPattern)
         } else {
+            const terms = f.split(' ')
             // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
-            this.filteredOptions = this.options.filter(x => x.freeInputPattern ?? (x.name + (x.description ?? '')).toLowerCase().includes(f))
+            this.filteredOptions = this.options.filter(x => x.freeInputPattern ?? terms.every(term => (x.name + (x.description ?? '')).toLowerCase().includes(term)))
         }
         this.selectedIndex = Math.max(0, this.selectedIndex)
         this.selectedIndex = Math.min(this.filteredOptions.length - 1, this.selectedIndex)
