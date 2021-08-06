@@ -43,7 +43,7 @@
     "lru-cache": "^6.0.0",
     "macos-release": "^2.5.0",
     "ngx-sortablejs": "^11.1.0",
-    "ngx-toastr": "^14.0.0",
+    "ngx-toastr": "^14.1.0",
     "node-abi": "^2.30.0",
     "node-sass": "^6.0.1",
     "npmlog": "5.0.0",
