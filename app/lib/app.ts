@@ -3,6 +3,7 @@ import * as promiseIpc from 'electron-promise-ipc'
 import * as remote from '@electron/remote/main'
 import * as path from 'path'
 import * as fs from 'fs'
+import { Subject, throttleTime } from 'rxjs'
 
 import { loadConfig } from './config'
 import { Window, WindowOptions } from './window'
@@ -19,6 +20,7 @@ export class Application {
     private tray?: Tray
     private ptyManager = new PTYManager()
     private windows: Window[] = []
+    private globalHotkey$ = new Subject<void>()
     userPluginsPath: string
 
     constructor () {
@@ -33,10 +35,12 @@ export class Application {
         ipcMain.on('app:register-global-hotkey', (_event, specs) => {
             globalShortcut.unregisterAll()
             for (const spec of specs) {
-                globalShortcut.register(spec, () => {
-                    this.onGlobalHotkey()
-                })
+                globalShortcut.register(spec, () => this.globalHotkey$.next())
             }
+        })
+
+        this.globalHotkey$.pipe(throttleTime(100)).subscribe(() => {
+            this.onGlobalHotkey()
         })
 
         ;(promiseIpc as any).on('plugin-manager:install', (name, version) => {
