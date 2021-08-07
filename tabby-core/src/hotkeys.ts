@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core'
 import { ProfilesService } from './services/profiles.service'
 import { HotkeyDescription, HotkeyProvider } from './api/hotkeyProvider'
+import { PartialProfile, Profile } from './api'
 
 /** @hidden */
 @Injectable()
@@ -193,9 +194,13 @@ export class AppHotkeyProvider extends HotkeyProvider {
         return [
             ...this.hotkeys,
             ...profiles.map(profile => ({
-                id: `profile.${profile.id}`,
+                id: `profile.${AppHotkeyProvider.getProfileHotkeyName(profile)}`,
                 name: `New tab: ${profile.name}`,
             })),
         ]
+    }
+
+    static getProfileHotkeyName (profile: PartialProfile<Profile>): string {
+        return profile.id!.replace(/\./g, '-')
     }
 }

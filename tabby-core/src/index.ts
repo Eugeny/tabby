@@ -151,8 +151,9 @@ export default class AppModule { // eslint-disable-line @typescript-eslint/no-ex
 
         hotkeys.hotkey$.subscribe(async (hotkey) => {
             if (hotkey.startsWith('profile.')) {
-                const id = hotkey.split('.')[1]
-                const profile = (await profilesService.getProfiles()).find(x => x.id === id)
+                const id = hotkey.substring(hotkey.indexOf('.') + 1)
+                const profiles = await profilesService.getProfiles()
+                const profile = profiles.find(x => AppHotkeyProvider.getProfileHotkeyName(x) === id)
                 if (profile) {
                     profilesService.openNewTabForProfile(profile)
                 }
