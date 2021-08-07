@@ -1,7 +1,7 @@
 import * as glasstron from 'glasstron'
 
 import { Subject, Observable, debounceTime } from 'rxjs'
-import { BrowserWindow, app, ipcMain, Rectangle, Menu, screen, BrowserWindowConstructorOptions } from 'electron'
+import { BrowserWindow, app, ipcMain, Rectangle, Menu, screen, BrowserWindowConstructorOptions, TouchBar } from 'electron'
 import ElectronConfig = require('electron-config')
 import * as os from 'os'
 import * as path from 'path'
@@ -39,6 +39,7 @@ export class Window {
     private lastVibrancy: { enabled: boolean, type?: string } | null = null
     private disableVibrancyWhileDragging = false
     private configStore: any
+    private touchBarControl: any
 
     get visible$ (): Observable<boolean> { return this.visible }
     get closed$ (): Observable<void> { return this.closed }
@@ -127,7 +128,15 @@ export class Window {
         this.window.webContents.setVisualZoomLevelLimits(1, 1)
         this.window.webContents.setZoomFactor(1)
 
-        if (process.platform !== 'darwin') {
+        if (process.platform === 'darwin') {
+            this.touchBarControl = new TouchBar.TouchBarSegmentedControl({
+                segments: [],
+                change: index => this.send('touchbar-selection', index),
+            })
+            this.window.setTouchBar(new TouchBar({
+                items: [this.touchBarControl],
+            }))
+        } else {
             this.window.setMenu(null)
         }
 
@@ -355,6 +364,11 @@ export class Window {
             }
             this.closing = true
             this.window.close()
+        })
+
+        ipcMain.on('window-set-touch-bar', (_event, segments, selectedIndex) => {
+            this.touchBarControl.segments = segments
+            this.touchBarControl.selectedIndex = selectedIndex
         })
 
         this.window.webContents.on('new-window', event => event.preventDefault())
