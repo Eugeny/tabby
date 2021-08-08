@@ -72,20 +72,21 @@ export class HotkeysService {
         @Inject(HotkeyProvider) private hotkeyProviders: HotkeyProvider[],
         hostApp: HostAppService,
     ) {
-        const events = ['keydown', 'keyup']
-        events.forEach(eventType => {
-            document.addEventListener(eventType, (nativeEvent: KeyboardEvent) => {
-                this._keyEvent.next(nativeEvent)
-                this.pushKeyEvent(eventType, nativeEvent)
-                if (hostApp.platform === Platform.Web && this.matchActiveHotkey(true) !== null) {
-                    nativeEvent.preventDefault()
-                    nativeEvent.stopPropagation()
-                }
-            })
-        })
         this.config.ready$.toPromise().then(async () => {
             const hotkeys = await this.getHotkeyDescriptions()
             this.hotkeyDescriptions = hotkeys
+            const events = ['keydown', 'keyup']
+
+            events.forEach(eventType => {
+                document.addEventListener(eventType, (nativeEvent: KeyboardEvent) => {
+                    this._keyEvent.next(nativeEvent)
+                    this.pushKeyEvent(eventType, nativeEvent)
+                    if (hostApp.platform === Platform.Web && this.matchActiveHotkey(true) !== null) {
+                        nativeEvent.preventDefault()
+                        nativeEvent.stopPropagation()
+                    }
+                })
+            })
         })
 
         // deprecated
