@@ -20,7 +20,7 @@ sh.cd('web')
 sh.exec(`${npx} yarn install --force`)
 sh.cd('..')
 
-vars.builtinPlugins.forEach(plugin => {
+vars.allPackages.forEach(plugin => {
     log.info('deps', plugin)
     sh.cd(plugin)
     sh.exec(`${npx} yarn install --force`)

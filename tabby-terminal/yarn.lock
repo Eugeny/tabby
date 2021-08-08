@@ -239,11 +239,6 @@ hexer@^1.5.0:
     process "^0.10.0"
     xtend "^4.0.0"
 
-hterm-umdjs@1.4.1:
-  version "1.4.1"
-  resolved "https://registry.yarnpkg.com/hterm-umdjs/-/hterm-umdjs-1.4.1.tgz#0cd5352eaf927c70b83c36146cf2c2a281dba957"
-  integrity sha512-r5JOmdDK1bZCmp3cKcuGRLVeum33H+pzD119ZxmQou+QUVe6SAVSz03HvKWVhM2Ao1Biv+fkhFDmnsaRPq0tFg==
-
 is-arguments@^1.0.4, is-arguments@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/is-arguments/-/is-arguments-1.1.0.tgz#62353031dfbee07ceb34656a6bde59efecae8dd9"

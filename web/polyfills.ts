@@ -86,24 +86,6 @@ Tabby.registerModule('crypto', {
         return a.equals(b)
     },
 })
-Tabby.registerMock('hterm-umdjs', {
-    hterm: {
-        PreferenceManager: class { set () {} },
-        VT: {
-            ESC: {},
-            CSI: {},
-            OSC: {},
-        },
-        Terminal: class {},
-        Keyboard: class {},
-    },
-    lib: {
-        wc: {},
-        Storage: {
-            Memory: class {},
-        },
-    },
-})
 Tabby.registerMock('dns', {})
 Tabby.registerMock('socksv5', {})
 Tabby.registerMock('util', require('util/'))

@@ -9,7 +9,6 @@ h3.mb-3 Terminal
         [(ngModel)]='config.store.terminal.frontend',
         (ngModelChange)='config.save()',
     )
-        option(value='hterm') hterm
         option(value='xterm') xterm
         option(value='xterm-webgl') xterm (WebGL)
 
