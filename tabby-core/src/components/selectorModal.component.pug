@@ -22,5 +22,5 @@
                 [fastHtmlBind]='option.icon',
                 *ngIf='iconIsSVG(option.icon)'
             )
-            .mr-2.title {{getOptionText(option)}}
-            .text-muted {{option.description}}
+            .title.mr-2 {{getOptionText(option)}}
+            .description.no-wrap.text-muted {{option.description}}

@@ -16,6 +16,11 @@
 
 .title {
     margin-left: 10px;
+    flex: none;
+}
+
+.description {
+    flex: 1 1 0;
 }
 
 input {
