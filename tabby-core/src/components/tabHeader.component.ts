@@ -60,6 +60,7 @@ export class TabHeaderComponent extends BaseComponent {
         modal.result.then(result => {
             this.tab.setTitle(result)
             this.tab.customTitle = result
+            this.app.emitTabsChanged()
         }).catch(() => null)
     }
 

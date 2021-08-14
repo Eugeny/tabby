@@ -34,6 +34,7 @@ export class TabRecoveryService {
         const token = await tab.getRecoveryToken()
         if (token) {
             token.tabTitle = tab.title
+            token.tabCustomTitle = tab.customTitle
             if (tab.color) {
                 token.tabColor = tab.color
             }
@@ -55,6 +56,7 @@ export class TabRecoveryService {
                 tab.inputs = tab.inputs ?? {}
                 tab.inputs.color = token.tabColor ?? null
                 tab.inputs.title = token.tabTitle || ''
+                tab.inputs.customTitle = token.tabCustomTitle || ''
                 tab.inputs.disableDynamicTitle = token.disableDynamicTitle
                 return tab
             } catch (error) {
