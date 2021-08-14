@@ -84,8 +84,9 @@ export class ProfilesService {
     selectorOptionForProfile <P extends Profile, T> (profile: PartialProfile<P>): SelectorOption<T> {
         const fullProfile = this.getConfigProxyForProfile(profile)
         return {
-            icon: profile.icon,
             name: profile.group ? `${fullProfile.group} / ${fullProfile.name}` : fullProfile.name,
+            icon: profile.icon,
+            color: profile.color,
             description: this.providerForProfile(fullProfile)?.getDescription(fullProfile),
         }
     }
@@ -99,6 +100,7 @@ export class ProfilesService {
                 let options: SelectorOption<void>[] = recentProfiles.map(p => ({
                     ...this.selectorOptionForProfile(p),
                     icon: 'fas fa-history',
+                    color: p.color,
                     callback: async () => {
                         if (p.id) {
                             p = (await this.getProfiles()).find(x => x.id === p.id) ?? p

@@ -7,7 +7,7 @@
         (ngModelChange)='onFilterChange()'
     )
 
-    .list-group(*ngIf='filteredOptions.length')
+    div(*ngIf='filteredOptions.length')
         a.list-group-item.list-group-item-action.d-flex.align-items-center(
             #item,
             (click)='selectOption(option)',
@@ -16,10 +16,12 @@
         )
             i.icon(
                 class='fa-fw {{option.icon}}',
+                style='color: {{option.color}}',
                 *ngIf='!iconIsSVG(option.icon)'
             )
             .icon(
                 [fastHtmlBind]='option.icon',
+                style='color: {{option.color}}',
                 *ngIf='iconIsSVG(option.icon)'
             )
             .title.mr-2 {{getOptionText(option)}}
