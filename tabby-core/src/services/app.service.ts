@@ -174,7 +174,7 @@ export class AppService {
      * @param inputs  Properties to be assigned on the new tab component instance
      */
     openNewTab <T extends BaseTabComponent> (params: NewTabParameters<T>): T {
-        if (params.type === SplitTabComponent) {
+        if (params.type as any === SplitTabComponent) {
             return this.openNewTabRaw(params)
         }
         const splitTab = this.tabsService.create({ type: SplitTabComponent })
