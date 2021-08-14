@@ -230,25 +230,24 @@ hotkey-input-modal {
     }
 }
 
-.list-group.list-group-flush {
+.list-group.list-group-flush .list-group-item {
     background: transparent;
     border-color: rgba(0, 0, 0, 0.2);
 
     &:not(:last-child) {
         border-bottom: none;
     }
+
+    &.list-group-item-action {
+        &:hover, &.active {
+            background: $list-group-hover-bg;
+        }
+    }
 }
 
 .list-group-light {
     .list-group-item {
-        background: transparent;
         border: none;
-
-        border-top: 1px solid rgba(0, 21, 43, .4);
-
-        &:first-child {
-            border-top: none;
-        }
 
         &.list-group-item-action {
             &:hover, &.active {

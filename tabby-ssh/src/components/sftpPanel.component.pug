@@ -16,7 +16,7 @@
     div(*ngIf='!sftp') Connecting
     div(*ngIf='sftp')
         div(*ngIf='fileList === null') Loading
-        .list-group.list-group-light(*ngIf='fileList !== null')
+        .list-group.list-group-flush(*ngIf='fileList !== null')
             .list-group-item.list-group-item-action.d-flex.align-items-center(
                 *ngIf='path !== "/"',
                 (click)='goUp()'

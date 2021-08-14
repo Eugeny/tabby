@@ -7,7 +7,7 @@
         (ngModelChange)='onFilterChange()'
     )
 
-    div(*ngIf='filteredOptions.length')
+    .list-group.list-group-light(*ngIf='filteredOptions.length')
         a.list-group-item.list-group-item-action.d-flex.align-items-center(
             #item,
             (click)='selectOption(option)',
