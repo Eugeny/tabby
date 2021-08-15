@@ -26,7 +26,7 @@
     "keytar": "^7.7.0",
     "mz": "^2.7.0",
     "native-process-working-directory": "^1.0.2",
-    "node-pty": "npm:@tabby-gang/node-pty@0.11.0-beta.0",
+    "node-pty": "npm:@tabby-gang/node-pty@0.11.0-beta.1",
     "npm": "6",
     "rxjs": "^7.2.0",
     "source-map-support": "^0.5.19",
