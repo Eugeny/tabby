@@ -171,10 +171,12 @@ export class TelnetSession extends BaseSession {
                 if (command === TelnetCommands.DO) {
                     if (option === TelnetOptions.NEGO_WINDOW_SIZE) {
                         this.emitSize()
+                        this.emitTelnet(TelnetCommands.WILL, option)
                     } else if (option === TelnetOptions.ECHO) {
                         this.echoEnabled = true
                         this.emitTelnet(TelnetCommands.WILL, option)
                     } else if (option === TelnetOptions.TERMINAL_TYPE) {
+                        this.emitTelnet(TelnetCommands.WILL, option)
                         this.emitTelnetSuboption(option, Buffer.from([0, ...Buffer.from('XTERM-256COLOR')]))
                     } else {
                         this.logger.debug('(!) Unhandled option')
