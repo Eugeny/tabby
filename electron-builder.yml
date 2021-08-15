@@ -33,6 +33,7 @@ extraResources:
 - builtin-plugins
 - extras
 asarUnpack:
+- 'node_modules/node-pty'
 - 'dist/*.map'
 publish:
 - provider: github
