@@ -2,7 +2,7 @@
 import { Component, ViewChild } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 
-import { ConfigService, FileProvidersService, Platform, HostAppService, PromptModalComponent } from 'tabby-core'
+import { ConfigService, FileProvidersService, Platform, HostAppService, PromptModalComponent, PartialProfile } from 'tabby-core'
 import { LoginScriptsSettingsComponent } from 'tabby-terminal'
 import { PasswordStorageService } from '../services/passwordStorage.service'
 import { ForwardedPortConfig, SSHAlgorithmType, SSHProfile } from '../api'
@@ -20,7 +20,7 @@ export class SSHProfileSettingsComponent {
 
     supportedAlgorithms = supportedAlgorithms
     algorithms: Record<string, Record<string, boolean>> = {}
-    jumpHosts: SSHProfile[]
+    jumpHosts: PartialProfile<SSHProfile>[]
     @ViewChild('loginScriptsSettings') loginScriptsSettings: LoginScriptsSettingsComponent|null
 
     constructor (

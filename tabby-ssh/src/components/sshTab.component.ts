@@ -2,7 +2,7 @@ import colors from 'ansi-colors'
 import { Component, Injector, HostListener } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { first } from 'rxjs'
-import { Platform, RecoveryToken } from 'tabby-core'
+import { PartialProfile, Platform, ProfilesService, RecoveryToken } from 'tabby-core'
 import { BaseTerminalTabComponent } from 'tabby-terminal'
 import { SSHService } from '../services/ssh.service'
 import { SSHSession } from '../session/ssh'
@@ -32,6 +32,7 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
         injector: Injector,
         public ssh: SSHService,
         private ngbModal: NgbModal,
+        private profilesService: ProfilesService,
     ) {
         super(injector)
     }
@@ -78,13 +79,16 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
 
     async setupOneSession (session: SSHSession): Promise<void> {
         if (session.profile.options.jumpHost) {
-            const jumpConnection: SSHProfile|null = this.config.store.profiles.find(x => x.id === session.profile.options.jumpHost)
+            const jumpConnection: PartialProfile<SSHProfile>|null = this.config.store.profiles.find(x => x.id === session.profile.options.jumpHost)
 
             if (!jumpConnection) {
                 throw new Error(`${session.profile.options.host}: jump host "${session.profile.options.jumpHost}" not found in your config`)
             }
 
-            const jumpSession = new SSHSession(this.injector, jumpConnection)
+            const jumpSession = new SSHSession(
+                this.injector,
+                this.profilesService.getConfigProxyForProfile(jumpConnection)
+            )
 
             await this.setupOneSession(jumpSession)
 
