@@ -170,7 +170,7 @@ export class TelnetSession extends BaseSession {
                 }
                 if (command === TelnetCommands.DO) {
                     if (option === TelnetOptions.NEGO_WINDOW_SIZE) {
-                        this.resize(0, 0)
+                        this.emitSize()
                     } else if (option === TelnetOptions.ECHO) {
                         this.echoEnabled = true
                         this.emitTelnet(TelnetCommands.WILL, option)
@@ -210,10 +210,18 @@ export class TelnetSession extends BaseSession {
             this.lastHeight = h
         }
         if (this.lastWidth && this.lastHeight && this.telnetProtocol) {
+            this.emitSize()
+        }
+    }
+
+    private emitSize () {
+        if (this.lastWidth && this.lastHeight) {
             this.emitTelnetSuboption(TelnetOptions.NEGO_WINDOW_SIZE, Buffer.from([
                 this.lastWidth >> 8, this.lastWidth & 0xff,
                 this.lastHeight >> 8, this.lastHeight & 0xff,
             ]))
+        } else {
+            this.emitTelnet(TelnetCommands.WONT, TelnetOptions.NEGO_WINDOW_SIZE)
         }
     }
 
