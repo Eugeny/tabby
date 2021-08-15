@@ -6,8 +6,8 @@ import { TabsService, NewTabParameters } from '../services/tabs.service'
 import { HotkeysService } from '../services/hotkeys.service'
 import { TabRecoveryService } from '../services/tabRecovery.service'
 
-export type SplitOrientation = 'v' | 'h' // eslint-disable-line @typescript-eslint/no-type-alias
-export type SplitDirection = 'r' | 't' | 'b' | 'l' // eslint-disable-line @typescript-eslint/no-type-alias
+export type SplitOrientation = 'v' | 'h'
+export type SplitDirection = 'r' | 't' | 'b' | 'l'
 
 /**
  * Describes a horizontal or vertical split row or column
@@ -126,16 +126,21 @@ export interface SplitSpannerInfo {
 /**
  * Represents a tab drop zone
  */
-export interface SplitDropZoneInfo {
-    container?: SplitContainer
-    position?: number
-    relativeTo?: BaseTabComponent|SplitContainer
-    side?: SplitDirection
+export type SplitDropZoneInfo = {
     x: number
     y: number
     w: number
     h: number
-}
+} & ({
+    type: 'absolute'
+    container: SplitContainer
+    position: number
+} | {
+    type: 'relative'
+    relativeTo?: BaseTabComponent|SplitContainer
+    side: SplitDirection
+})
+
 
 /**
  * Split tab is a tab that contains other tabs and allows further splitting them
@@ -585,10 +590,10 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
             return
         }
 
-        if (zone.container) {
-            this.add(tab, zone.container.children[zone.position!], zone.container.orientation === 'h' ? 'r' : 'b')
-        } else {
-            this.add(tab, null, zone.side!)
+        if (zone.type === 'relative') {
+            this.add(tab, zone.relativeTo ?? null, zone.side)
+        } else if (zone.container) {
+            this.add(tab, zone.container.children[zone.position], zone.container.orientation === 'h' ? 'r' : 'b')
         }
         this.tabAdopted.next(tab)
     }
@@ -649,6 +654,7 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
                 y: y + thickness,
                 w: thickness,
                 h: h - thickness * 2,
+                type: 'relative',
                 side: 'l',
             })
             this._dropZones.push({
@@ -656,6 +662,7 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
                 y: y - thickness / 2,
                 w,
                 h: thickness,
+                type: 'relative',
                 side: 't',
             })
             this._dropZones.push({
@@ -663,6 +670,7 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
                 y: y + thickness,
                 w: thickness,
                 h: h - thickness * 2,
+                type: 'relative',
                 side: 'r',
             })
             this._dropZones.push({
@@ -670,6 +678,7 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
                 y: y + h - thickness / 2,
                 w,
                 h: thickness,
+                type: 'relative',
                 side: 'b',
             })
         }
@@ -714,6 +723,7 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
             if (i !== root.ratios.length - 1) {
                 // Spanner area
                 this._dropZones.push({
+                    type: 'relative',
                     relativeTo: root.children[i],
                     side: root.orientation === 'v' ? 'b': 'r',
                     x: root.orientation === 'v' ? childX + thickness : childX + offset - thickness / 2,
@@ -730,6 +740,7 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
                     y: childY + thickness,
                     w: thickness,
                     h: childH - thickness * 2,
+                    type: 'relative',
                     relativeTo: child,
                     side: 'l',
                 })
@@ -738,6 +749,7 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
                     y: childY + thickness,
                     w: thickness,
                     h: childH - thickness * 2,
+                    type: 'relative',
                     relativeTo: child,
                     side: 'r',
                 })
@@ -747,6 +759,7 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
                     y: childY,
                     w: childW - thickness * 2,
                     h: thickness,
+                    type: 'relative',
                     relativeTo: child,
                     side: 't',
                 })
@@ -755,6 +768,7 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
                     y: childY + childH - thickness,
                     w: childW - thickness * 2,
                     h: thickness,
+                    type: 'relative',
                     relativeTo: child,
                     side: 'b',
                 })

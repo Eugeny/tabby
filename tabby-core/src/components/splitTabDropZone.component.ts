@@ -34,7 +34,7 @@ export class SplitTabDropZoneComponent extends SelfPositioningComponent {
     ) {
         super(element)
         this.subscribeUntilDestroyed(app.tabDragActive$, tab => {
-            this.isActive = !!tab && tab !== this.parent && tab !== this.dropZone.container?.children[this.dropZone.position!]
+            this.isActive = !!tab && tab !== this.parent && (this.dropZone.type === 'relative' || tab !== this.dropZone.container?.children[this.dropZone.position])
             this.layout()
         })
     }
