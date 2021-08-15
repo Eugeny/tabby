@@ -125,3 +125,4 @@ rules:
   - error
   - allowAliases: in-unions-and-intersections
     allowLiterals: always
+    allowCallbacks: always

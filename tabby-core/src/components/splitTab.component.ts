@@ -592,7 +592,7 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
 
         if (zone.type === 'relative') {
             this.add(tab, zone.relativeTo ?? null, zone.side)
-        } else if (zone.container) {
+        } else {
             this.add(tab, zone.container.children[zone.position], zone.container.orientation === 'h' ? 'r' : 'b')
         }
         this.tabAdopted.next(tab)

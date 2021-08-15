@@ -6,9 +6,9 @@ import { Subject, Observable, interval, debounce } from 'rxjs'
 import { PassThrough, Readable, Writable } from 'stream'
 import { ReadLine, createInterface as createReadline, clearLine } from 'readline'
 
-export type InputMode = null | 'local-echo' | 'readline' | 'readline-hex' // eslint-disable-line @typescript-eslint/no-type-alias
-export type OutputMode = null | 'hex' // eslint-disable-line @typescript-eslint/no-type-alias
-export type NewlineMode = null | 'cr' | 'lf' | 'crlf' // eslint-disable-line @typescript-eslint/no-type-alias
+export type InputMode = null | 'local-echo' | 'readline' | 'readline-hex'
+export type OutputMode = null | 'hex'
+export type NewlineMode = null | 'cr' | 'lf' | 'crlf'
 
 export interface StreamProcessingOptions {
     inputMode?: InputMode
