@@ -372,7 +372,7 @@ export class Window {
             this.touchBarControl.segments = segments.map(s => ({
                 label: s.label,
                 icon: s.hasActivity ? activityIcon : undefined,
-            })
+            }))
             this.touchBarControl.selectedIndex = selectedIndex
         })
 
