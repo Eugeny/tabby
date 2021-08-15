@@ -1,7 +1,7 @@
 import * as glasstron from 'glasstron'
 
 import { Subject, Observable, debounceTime } from 'rxjs'
-import { BrowserWindow, app, ipcMain, Rectangle, Menu, screen, BrowserWindowConstructorOptions, TouchBar } from 'electron'
+import { BrowserWindow, app, ipcMain, Rectangle, Menu, screen, BrowserWindowConstructorOptions, TouchBar, nativeImage } from 'electron'
 import ElectronConfig = require('electron-config')
 import * as os from 'os'
 import * as path from 'path'
@@ -27,6 +27,8 @@ abstract class GlasstronWindow extends BrowserWindow {
 }
 
 const macOSVibrancyType = process.platform === 'darwin' ? compareVersions.compare(macOSRelease().version, '10.14', '>=') ? 'fullscreen-ui' : 'dark' : null
+
+const activityIcon = nativeImage.createFromPath(`${app.getAppPath()}/assets/activity.png`)
 
 export class Window {
     ready: Promise<void>
@@ -367,7 +369,10 @@ export class Window {
         })
 
         ipcMain.on('window-set-touch-bar', (_event, segments, selectedIndex) => {
-            this.touchBarControl.segments = segments
+            this.touchBarControl.segments = segments.map(s => ({
+                label: s.label,
+                icon: s.hasActivity ? activityIcon : undefined,
+            })
             this.touchBarControl.selectedIndex = selectedIndex
         })
 
