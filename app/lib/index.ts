@@ -26,9 +26,7 @@ app.on('activate', () => {
     }
 })
 
-app.on('window-all-closed', () => {
-    app.quit()
-})
+app.on('window-all-closed', () => null)
 
 process.on('uncaughtException' as any, err => {
     console.log(err)
