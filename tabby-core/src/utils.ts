@@ -54,3 +54,13 @@ export class ResettableTimeout {
         }
     }
 }
+
+export const TAB_COLORS = [
+    { name: 'No color', value: null },
+    { name: 'Blue', value: '#0275d8' },
+    { name: 'Green', value: '#5cb85c' },
+    { name: 'Orange', value: '#f0ad4e' },
+    { name: 'Purple', value: '#613d7c' },
+    { name: 'Red', value: '#d9534f' },
+    { name: 'Yellow', value: '#ffd500' },
+]

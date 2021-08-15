@@ -46,7 +46,10 @@
                 input.form-control.w-50(
                     type='text',
                     [(ngModel)]='profile.color',
-                    placeholder='#000000'
+                    placeholder='#000000',
+                    alwaysVisibleTypeahead,
+                    [ngbTypeahead]='colorsAutocomplete',
+                    [resultFormatter]='colorsFormatter'
                 )
 
             .form-line
