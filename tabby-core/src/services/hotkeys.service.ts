@@ -122,7 +122,7 @@ export class HotkeysService {
         }
 
         for (const [key, time] of this.pressedKeyTimestamps.entries()) {
-            if (time < performance.now() - 5000) {
+            if (time < performance.now() - 2000) {
                 this.removePressedKey(key)
             }
         }
