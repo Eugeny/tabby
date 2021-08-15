@@ -44,6 +44,7 @@ module.exports = {
         glasstron: 'commonjs glasstron',
         mz: 'commonjs mz',
         npm: 'commonjs npm',
+        'node:os': 'commonjs os',
         'node-pty': 'commonjs node-pty',
         path: 'commonjs path',
         util: 'commonjs util',
