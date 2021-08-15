@@ -598,10 +598,10 @@ xterm-addon-webgl@^0.11.0:
   resolved "https://registry.yarnpkg.com/xterm-addon-webgl/-/xterm-addon-webgl-0.11.1.tgz#33dd250ab52e9f51d2ff52396447962e6f53e24c"
   integrity sha512-xF6DnEoV+rPtzetMBXBZVe1kLKtus7AKdEcyfq2eMHQzhaRvC+pfnU+XiCXC85kueguqu2UkBHXZs5mihK9jOQ==
 
-xterm@^4.9.0-beta.7:
-  version "4.13.0"
-  resolved "https://registry.yarnpkg.com/xterm/-/xterm-4.13.0.tgz#7998de1e2ad92c4796fe45807be4f31061f3d9d1"
-  integrity sha512-HVW1gdoLOTnkMaqQCr2r3mQy4fX9iSa5gWxKZ2UTYdLa4iqavv7QxJ8n1Ypse32shPVkhTYPLS6vHEFZp5ghzw==
+"xterm@npm:@tabby-gang/xterm@4.14.0-beta.0":
+  version "4.14.0-beta.0"
+  resolved "https://registry.yarnpkg.com/@tabby-gang/xterm/-/xterm-4.14.0-beta.0.tgz#6a446917179db1d1c864cd094baddcd05881e71c"
+  integrity sha512-Aj1oXfJlkjjcaqxQJDshzUeiB6Cc/K3PA+gVuAtVcuFfscjArZvhSrGbaWgioUhYk5xcamxgh55fnXsvFEf9sA==
 
 yallist@^4.0.0:
   version "4.0.0"
