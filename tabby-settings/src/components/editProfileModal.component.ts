@@ -42,7 +42,11 @@ export class EditProfileModalComponent<P extends Profile> {
     colorsAutocomplete = text$ => text$.pipe(
         debounceTime(200),
         distinctUntilChanged(),
-        map((q: string) => TAB_COLORS.filter(x => !q || x.toString().startsWith(q)).map(x => x.value))
+        map((q: string) =>
+            TAB_COLORS
+                .filter(x => !q || x.name.toLowerCase().startsWith(q.toLowerCase()))
+                .map(x => x.value)
+        )
     )
 
     colorsFormatter = value => {
