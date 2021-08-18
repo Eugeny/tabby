@@ -96,6 +96,13 @@
   dependencies:
     debug "^4.3.1"
 
+"@tabby-gang/node-pty@^0.11.0-beta.200":
+  version "0.11.0-beta.200"
+  resolved "https://registry.yarnpkg.com/@tabby-gang/node-pty/-/node-pty-0.11.0-beta.200.tgz#485cd6d85a04f4b272b81a9862578d7fc38cdfb5"
+  integrity sha512-32ANParjnd38SzvICaLYvEBlTZAE2sqsgEZPK6ITgd38FcCsS/yvvsDZcjkclbxApnMM2rJDaYjsZMa0lr9Iyg==
+  dependencies:
+    nan "^2.14.0"
+
 "@types/mz@2.7.4":
   version "2.7.4"
   resolved "https://registry.yarnpkg.com/@types/mz/-/mz-2.7.4.tgz#f9d1535cb5171199b28ae6abd6ec29e856551401"
@@ -2094,13 +2101,6 @@ node-gyp@^5.0.2, node-gyp@^5.1.0:
     semver "^5.7.1"
     tar "^4.4.12"
     which "^1.3.1"
-
-node-pty@^0.10.1:
-  version "0.10.1"
-  resolved "https://registry.yarnpkg.com/node-pty/-/node-pty-0.10.1.tgz#cd05d03a2710315ec40221232ec04186f6ac2c6d"
-  integrity sha512-JTdtUS0Im/yRsWJSx7yiW9rtpfmxqxolrtnyKwPLI+6XqTAPW/O2MjS8FYL4I5TsMbH2lVgDb2VMjp+9LoQGNg==
-  dependencies:
-    nan "^2.14.0"
 
 noop-logger@^0.1.1:
   version "0.1.1"
