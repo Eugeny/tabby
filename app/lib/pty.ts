@@ -1,4 +1,4 @@
-import * as nodePTY from 'node-pty'
+import * as nodePTY from '@tabby-gang/node-pty'
 import { StringDecoder } from './stringDecoder'
 import { v4 as uuidv4 } from 'uuid'
 import { ipcMain } from 'electron'
