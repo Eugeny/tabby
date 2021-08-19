@@ -7,8 +7,8 @@ import { Application } from './app'
 class PTYDataQueue {
     private buffers: Buffer[] = []
     private delta = 0
-    private maxChunk = 1024
-    private maxDelta = 1024 * 50
+    private maxChunk = 1024 * 100
+    private maxDelta = this.maxChunk * 5
     private flowPaused = false
     private decoder = new StringDecoder()
 
