@@ -20,10 +20,8 @@
     "opentype.js": "^1.3.3"
   },
   "devDependencies": {
-    "@types/deep-equal": "^1.0.0",
     "ansi-colors": "^4.1.1",
     "dataurl": "0.1.0",
-    "deep-equal": "2.0.5",
     "ps-node": "^0.1.6",
     "runes": "^0.4.2",
     "utils-decorators": "^1.8.3"

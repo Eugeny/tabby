@@ -1,3 +1,5 @@
+import deepEqual from 'deep-equal'
+import { Subject, distinctUntilChanged } from 'rxjs'
 import { ipcRenderer } from 'electron'
 import { Injectable, NgZone } from '@angular/core'
 import { AppService, HostAppService, Platform } from 'tabby-core'
@@ -5,6 +7,8 @@ import { AppService, HostAppService, Platform } from 'tabby-core'
 /** @hidden */
 @Injectable({ providedIn: 'root' })
 export class TouchbarService {
+    private touchbarState$ = new Subject<any>()
+
     private constructor (
         private app: AppService,
         private hostApp: HostAppService,
@@ -24,6 +28,10 @@ export class TouchbarService {
         ipcRenderer.on('touchbar-selection', (_event, index) => this.zone.run(() => {
             this.app.selectTab(this.app.tabs[index])
         }))
+
+        this.touchbarState$.pipe(distinctUntilChanged(deepEqual)).subscribe(state => {
+            ipcRenderer.send('window-set-touch-bar', ...state)
+        })
     }
 
     update (): void {
@@ -36,7 +44,7 @@ export class TouchbarService {
             hasActivity: this.app.activeTab !== tab && tab.hasActivity,
         }))
 
-        ipcRenderer.send('window-set-touch-bar', tabSegments, this.app.activeTab ? this.app.tabs.indexOf(this.app.activeTab) : undefined)
+        this.touchbarState$.next([tabSegments, this.app.activeTab ? this.app.tabs.indexOf(this.app.activeTab) : undefined])
     }
 
     private shortenTitle (title: string): string {
