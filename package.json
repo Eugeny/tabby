@@ -13,6 +13,8 @@
     "@sentry/electron": "^2.5.1",
     "@tabby-gang/to-string-loader": "^1.1.7-beta.2",
     "@types/electron-config": "^3.2.2",
+    "@types/deep-equal": "1.0.1",
+    "deep-equal": "2.0.5",
     "@types/electron-debug": "^2.1.0",
     "@types/fs-extra": "^9.0.12",
     "@types/js-yaml": "^4.0.2",
