@@ -1,4 +1,4 @@
-import { Observable, Subject } from 'rxjs'
+import { Observable, Subject, distinct } from 'rxjs'
 import { EmbeddedViewRef, ViewContainerRef, ViewRef } from '@angular/core'
 import { RecoveryToken } from '../api/tabRecovery'
 import { BaseComponent } from './base.component'
@@ -69,8 +69,8 @@ export abstract class BaseTabComponent extends BaseComponent {
 
     get focused$ (): Observable<void> { return this.focused }
     get blurred$ (): Observable<void> { return this.blurred }
-    get titleChange$ (): Observable<string> { return this.titleChange }
-    get progress$ (): Observable<number|null> { return this.progress }
+    get titleChange$ (): Observable<string> { return this.titleChange.pipe(distinct()) }
+    get progress$ (): Observable<number|null> { return this.progress.pipe(distinct()) }
     get activity$ (): Observable<boolean> { return this.activity }
     get destroyed$ (): Observable<void> { return this.destroyed }
     get recoveryStateChangedHint$ (): Observable<void> { return this.recoveryStateChangedHint }
