@@ -1,9 +1,9 @@
 import { v4 as uuidv4 } from 'uuid'
 import slugify from 'slugify'
 import deepClone from 'clone-deep'
-import { Component } from '@angular/core'
+import { Component, Inject } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
-import { ConfigService, HostAppService, Profile, SelectorService, ProfilesService, PromptModalComponent, PlatformService, BaseComponent, PartialProfile } from 'tabby-core'
+import { ConfigService, HostAppService, Profile, SelectorService, ProfilesService, PromptModalComponent, PlatformService, BaseComponent, PartialProfile, ProfileProvider } from 'tabby-core'
 import { EditProfileModalComponent } from './editProfileModal.component'
 
 interface ProfileGroup {
@@ -28,12 +28,14 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
     constructor (
         public config: ConfigService,
         public hostApp: HostAppService,
+        @Inject(ProfileProvider) public profileProviders: ProfileProvider<Profile>[],
         private profilesService: ProfilesService,
         private selector: SelectorService,
         private ngbModal: NgbModal,
         private platform: PlatformService,
     ) {
         super()
+        this.profileProviders.sort((a, b) => a.name.localeCompare(b.name))
     }
 
     async ngOnInit (): Promise<void> {
@@ -102,6 +104,8 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
             delete profile[k]
         }
         Object.assign(profile, result)
+
+        profile.type = modal.componentInstance.profileProvider.id
     }
 
     async deleteProfile (profile: PartialProfile<Profile>): Promise<void> {
@@ -223,5 +227,27 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
             telnet: 'info',
             'split-layout': 'primary',
         }[this.profilesService.providerForProfile(profile)?.id ?? ''] ?? 'warning'
+    }
+
+    async editDefaults (provider: ProfileProvider<Profile>): Promise<void> {
+        const modal = this.ngbModal.open(
+            EditProfileModalComponent,
+            { size: 'lg' },
+        )
+        const model = this.config.store.profileDefaults[provider.id] ?? {}
+        model.type = provider.id
+        modal.componentInstance.profile = Object.assign({}, model)
+        modal.componentInstance.profileProvider = provider
+        modal.componentInstance.defaultsMode = true
+        const result = await modal.result
+
+        // Fully replace the config
+        for (const k in model) {
+            // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
+            delete model[k]
+        }
+        Object.assign(model, result)
+        this.config.store.profileDefaults[provider.id] = model
+        await this.config.save()
     }
 }

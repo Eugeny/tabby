@@ -19,6 +19,7 @@ export class EditProfileModalComponent<P extends Profile> {
     @Input() profile: P & ConfigProxy
     @Input() profileProvider: ProfileProvider<P>
     @Input() settingsComponent: new () => ProfileSettingsComponent<P>
+    @Input() defaultsMode = false
     groupNames: string[]
     @ViewChild('placeholder', { read: ViewContainerRef }) placeholder: ViewContainerRef
 
@@ -55,7 +56,7 @@ export class EditProfileModalComponent<P extends Profile> {
 
     ngOnInit () {
         this._profile = this.profile
-        this.profile = this.profilesService.getConfigProxyForProfile(this.profile)
+        this.profile = this.profilesService.getConfigProxyForProfile(this.profile, this.defaultsMode)
     }
 
     ngAfterViewInit () {

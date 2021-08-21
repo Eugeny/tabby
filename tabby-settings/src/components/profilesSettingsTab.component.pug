@@ -1,108 +1,127 @@
 h3.mb-3 Profiles
 
-.form-line
-    .header
-        .title Default profile for new tabs
+ul.nav-tabs(ngbNav, #nav='ngbNav')
+    li(ngbNavItem)
+        a(ngbNavLink) Profiles
+        ng-template(ngbNavContent)
+            .form-line
+                .header
+                    .title Default profile for new tabs
 
-    select.form-control(
-        [(ngModel)]='config.store.terminal.profile',
-        (ngModelChange)='config.save()',
-    )
-        option(
-            *ngFor='let profile of profiles',
-            [ngValue]='profile.id'
-        ) {{profile.name}}
-        option(
-            *ngFor='let profile of builtinProfiles',
-            [ngValue]='profile.id'
-        ) {{profile.name}}
-
-.form-line(*ngIf='config.store.profiles.length > 0')
-    .header
-        .title Show recent profiles in selector
-        .description Set to 0 to disable recent profiles
-
-    input.form-control(
-        type='number',
-        min='0',
-        step='1',
-        [(ngModel)]='config.store.terminal.showRecentProfiles',
-        (ngModelChange)='config.save()'
-    )
-
-.form-line(*ngIf='config.store.profiles.length > 0')
-    .header
-        .title Show built-in profiles in selector
-        .description If disabled, only custom profiles will show up in the profile selector
-
-    toggle(
-        [(ngModel)]='config.store.terminal.showBuiltinProfiles',
-        (ngModelChange)='config.save()'
-    )
-
-
-.d-flex.mb-3.mt-4
-    .input-group
-        .input-group-prepend
-            .input-group-text
-                i.fas.fa-fw.fa-search
-        input.form-control(type='search', placeholder='Filter', [(ngModel)]='filter')
-
-    button.btn.btn-primary.flex-shrink-0.ml-3((click)='newProfile()')
-        i.fas.fa-fw.fa-plus
-        | New profile
-
-.list-group.list-group-light.mt-3.mb-3
-    ng-container(*ngFor='let group of profileGroups')
-        ng-container(*ngIf='isGroupVisible(group)')
-            .list-group-item.list-group-item-action.d-flex.align-items-center(
-                (click)='group.collapsed = !group.collapsed'
-            )
-                .fa.fa-fw.fa-chevron-right(*ngIf='group.collapsed')
-                .fa.fa-fw.fa-chevron-down(*ngIf='!group.collapsed')
-                span.ml-3.mr-auto {{group.name || "Ungrouped"}}
-                button.btn.btn-sm.btn-link.hover-reveal.ml-2(
-                    *ngIf='group.editable && group.name',
-                    (click)='$event.stopPropagation(); editGroup(group)'
+                select.form-control(
+                    [(ngModel)]='config.store.terminal.profile',
+                    (ngModelChange)='config.save()',
                 )
-                    i.fas.fa-pencil-alt
-                button.btn.btn-sm.btn-link.hover-reveal.ml-2(
-                    *ngIf='group.editable && group.name',
-                    (click)='$event.stopPropagation(); deleteGroup(group)'
+                    option(
+                        *ngFor='let profile of profiles',
+                        [ngValue]='profile.id'
+                    ) {{profile.name}}
+                    option(
+                        *ngFor='let profile of builtinProfiles',
+                        [ngValue]='profile.id'
+                    ) {{profile.name}}
+
+            .d-flex.mb-3.mt-4
+                .input-group
+                    .input-group-prepend
+                        .input-group-text
+                            i.fas.fa-fw.fa-search
+                    input.form-control(type='search', placeholder='Filter', [(ngModel)]='filter')
+
+                button.btn.btn-primary.flex-shrink-0.ml-3((click)='newProfile()')
+                    i.fas.fa-fw.fa-plus
+                    | New profile
+
+            .list-group.list-group-light.mt-3.mb-3
+                ng-container(*ngFor='let group of profileGroups')
+                    ng-container(*ngIf='isGroupVisible(group)')
+                        .list-group-item.list-group-item-action.d-flex.align-items-center(
+                            (click)='group.collapsed = !group.collapsed'
+                        )
+                            .fa.fa-fw.fa-chevron-right(*ngIf='group.collapsed')
+                            .fa.fa-fw.fa-chevron-down(*ngIf='!group.collapsed')
+                            span.ml-3.mr-auto {{group.name || "Ungrouped"}}
+                            button.btn.btn-sm.btn-link.hover-reveal.ml-2(
+                                *ngIf='group.editable && group.name',
+                                (click)='$event.stopPropagation(); editGroup(group)'
+                            )
+                                i.fas.fa-pencil-alt
+                            button.btn.btn-sm.btn-link.hover-reveal.ml-2(
+                                *ngIf='group.editable && group.name',
+                                (click)='$event.stopPropagation(); deleteGroup(group)'
+                            )
+                                i.fas.fa-trash-alt
+                        ng-container(*ngIf='!group.collapsed')
+                            ng-container(*ngFor='let profile of group.profiles')
+                                .list-group-item.pl-5.d-flex.align-items-center(
+                                    *ngIf='isProfileVisible(profile)',
+                                    [class.list-group-item-action]='!profile.isBuiltin',
+                                    (click)='profile.isBuiltin ? null : editProfile(profile)'
+                                )
+                                    i.icon(
+                                        class='fa-fw {{profile.icon}}',
+                                        [style.color]='profile.color',
+                                        *ngIf='!iconIsSVG(profile.icon)'
+                                    )
+                                    .icon(
+                                        [fastHtmlBind]='profile.icon',
+                                        *ngIf='iconIsSVG(profile.icon)'
+                                    )
+
+                                    div {{profile.name}}
+                                    .text-muted.ml-2 {{getDescription(profile)}}
+
+                                    .mr-auto
+
+                                    button.btn.btn-link.hover-reveal.ml-1((click)='$event.stopPropagation(); launchProfile(profile)')
+                                        i.fas.fa-play
+
+                                    button.btn.btn-link.hover-reveal.ml-1((click)='$event.stopPropagation(); newProfile(profile)')
+                                        i.fas.fa-copy
+
+                                    button.btn.btn-link.hover-reveal.ml-1(
+                                        *ngIf='!profile.isBuiltin',
+                                        (click)='$event.stopPropagation(); deleteProfile(profile)'
+                                    )
+                                        i.fas.fa-trash-alt
+
+                                    .ml-1(class='badge badge-{{getTypeColorClass(profile)}}') {{getTypeLabel(profile)}}
+
+    li(ngbNavItem)
+        a(ngbNavLink) Advanced
+        ng-template(ngbNavContent)
+            .form-line(*ngIf='config.store.profiles.length > 0')
+                .header
+                    .title Show recent profiles in selector
+                    .description Set to 0 to disable recent profiles
+
+                input.form-control(
+                    type='number',
+                    min='0',
+                    step='1',
+                    [(ngModel)]='config.store.terminal.showRecentProfiles',
+                    (ngModelChange)='config.save()'
                 )
-                    i.fas.fa-trash-alt
-            ng-container(*ngIf='!group.collapsed')
-                ng-container(*ngFor='let profile of group.profiles')
-                    .list-group-item.pl-5.d-flex.align-items-center(
-                        *ngIf='isProfileVisible(profile)',
-                        [class.list-group-item-action]='!profile.isBuiltin',
-                        (click)='profile.isBuiltin ? null : editProfile(profile)'
-                    )
-                        i.icon(
-                            class='fa-fw {{profile.icon}}',
-                            [style.color]='profile.color',
-                            *ngIf='!iconIsSVG(profile.icon)'
-                        )
-                        .icon(
-                            [fastHtmlBind]='profile.icon',
-                            *ngIf='iconIsSVG(profile.icon)'
-                        )
 
-                        div {{profile.name}}
-                        .text-muted.ml-2 {{getDescription(profile)}}
+            .form-line(*ngIf='config.store.profiles.length > 0')
+                .header
+                    .title Show built-in profiles in selector
+                    .description If disabled, only custom profiles will show up in the profile selector
 
-                        .mr-auto
+                toggle(
+                    [(ngModel)]='config.store.terminal.showBuiltinProfiles',
+                    (ngModelChange)='config.save()'
+                )
 
-                        button.btn.btn-link.hover-reveal.ml-1((click)='$event.stopPropagation(); launchProfile(profile)')
-                            i.fas.fa-play
+            .form-line
+                .header
+                    .title Default profile settings
+                    .description These apply to all profiles of a given type
 
-                        button.btn.btn-link.hover-reveal.ml-1((click)='$event.stopPropagation(); newProfile(profile)')
-                            i.fas.fa-copy
+            .list-group.list-group-light.mt-3.mb-3
+                a.list-group-item.list-group-item-action(
+                    (click)='editDefaults(provider)',
+                    *ngFor='let provider of profileProviders'
+                ) {{provider.name}}
 
-                        button.btn.btn-link.hover-reveal.ml-1(
-                            *ngIf='!profile.isBuiltin',
-                            (click)='$event.stopPropagation(); deleteProfile(profile)'
-                        )
-                            i.fas.fa-trash-alt
-
-                        .ml-1(class='badge badge-{{getTypeColorClass(profile)}}') {{getTypeLabel(profile)}}
+div([ngbNavOutlet]='nav')

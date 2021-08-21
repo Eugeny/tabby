@@ -21,6 +21,8 @@ hotkeys:
   profile:
     __nonStructural: true
 profiles: []
+profileDefaults:
+  __nonStructural: true
 recentProfiles: []
 recoverTabs: true
 enableAnalytics: true
