@@ -85,7 +85,6 @@ deb:
   - gnome-keyring
   - libnotify4
   - libsecret-1-0
-  - libappindicator1
   - libxtst6
   - libnss3
   afterInstall: build/linux/after-install.tpl
