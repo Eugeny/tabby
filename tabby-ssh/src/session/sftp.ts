@@ -146,7 +146,9 @@ export class SFTPSession {
                 await handle.write(chunk)
             }
             handle.close()
-            await this.unlink(path)
+            try {
+                await this.unlink(path)
+            } catch { }
             await this.rename(tempPath, path)
             transfer.close()
         } catch (e) {

@@ -96,7 +96,7 @@ export class SFTPPanelComponent {
     }
 
     async uploadOne (transfer: FileUpload): Promise<void> {
-        this.sftp.upload(path.join(this.path, transfer.getName()), transfer)
+        await this.sftp.upload(path.join(this.path, transfer.getName()), transfer)
         const savedPath = this.path
         if (this.path === savedPath) {
             await this.navigate(this.path)
