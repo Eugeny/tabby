@@ -42,49 +42,5 @@ import { TelnetProfilesService } from './profiles'
         TelnetTabComponent,
     ],
 })
-export default class TelnetModule {
-    constructor (
-        hotkeys: HotkeysService,
-        private app: AppService,
-        private selector: SelectorService,
-        private profilesService: ProfilesService,
-        private telnetProfiles: TelnetProfilesService,
-    ) {
-        hotkeys.hotkey$.subscribe(hotkey => {
-            if (hotkey === 'telnet-profile-selector') {
-                this.showSelector()
-            }
-        })
-    }
-
-    async showSelector (): Promise<void> {
-        let profiles = await this.profilesService.getProfiles()
-
-        profiles = profiles.filter(x => !x.isTemplate && x.type === 'telnet')
-
-        const options: SelectorOption<void>[] = profiles.map(p => ({
-            ...this.profilesService.selectorOptionForProfile(p),
-            callback: () => this.profilesService.openNewTabForProfile(p),
-        }))
-
-        options.push({
-            name: 'Manage profiles',
-            icon: 'fas fa-window-restore',
-            callback: () => this.app.openNewTabRaw({
-                type: SettingsTabComponent,
-                inputs: { activeTab: 'profiles' },
-            }),
-        })
-
-        options.push({
-            name: 'Quick connect',
-            freeInputPattern: 'Connect to "%s"...',
-            icon: 'fas fa-arrow-right',
-            callback: query => this.profilesService.openNewTabForProfile(
-                this.telnetProfiles.quickConnect(query)
-            ),
-        })
-
-        await this.selector.show('Select an Telnet profile', options)
-    }
-}
+// eslint-disable-next-line @typescript-eslint/no-extraneous-class
+export default class TelnetModule { }

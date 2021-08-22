@@ -197,6 +197,10 @@ export class AppHotkeyProvider extends HotkeyProvider {
                 id: `profile.${AppHotkeyProvider.getProfileHotkeyName(profile)}`,
                 name: `New tab: ${profile.name}`,
             })),
+            ...this.profilesService.getProviders().map(provider => ({
+                id: `profile-selectors.${provider.id}`,
+                name: `Show ${provider.name} profile selector`,
+            })),
         ]
     }
 

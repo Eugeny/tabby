@@ -20,6 +20,8 @@ terminal:
 hotkeys:
   profile:
     __nonStructural: true
+  profile-selectors:
+    __nonStructural: true
 profiles: []
 profileDefaults:
   __nonStructural: true

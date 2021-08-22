@@ -10,7 +10,6 @@ export class SSHConfigProvider extends ConfigProvider {
             agentPath: null,
         },
         hotkeys: {
-            'ssh-profile-selector': [],
             'restart-ssh-session': [],
             'launch-winscp': [],
         },

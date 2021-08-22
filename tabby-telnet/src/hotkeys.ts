@@ -6,10 +6,6 @@ import { HotkeyDescription, HotkeyProvider } from 'tabby-core'
 export class TelnetHotkeyProvider extends HotkeyProvider {
     hotkeys: HotkeyDescription[] = [
         {
-            id: 'telnet-profile-selector',
-            name: 'Show Telnet profile selector',
-        },
-        {
             id: 'restart-telnet-session',
             name: 'Restart current Telnet session',
         },

@@ -62,52 +62,8 @@ import { CommonSFTPContextMenu } from './sftpContextMenu'
         SFTPPanelComponent,
     ],
 })
-export default class SSHModule {
-    constructor (
-        hotkeys: HotkeysService,
-        private app: AppService,
-        private selector: SelectorService,
-        private profilesService: ProfilesService,
-        private sshProfiles: SSHProfilesService,
-    ) {
-        hotkeys.hotkey$.subscribe(hotkey => {
-            if (hotkey === 'ssh-profile-selector') {
-                this.showSelector()
-            }
-        })
-    }
-
-    async showSelector (): Promise<void> {
-        let profiles = await this.profilesService.getProfiles()
-
-        profiles = profiles.filter(x => !x.isTemplate && x.type === 'ssh')
-
-        const options: SelectorOption<void>[] = profiles.map(p => ({
-            ...this.profilesService.selectorOptionForProfile(p),
-            callback: () => this.profilesService.openNewTabForProfile(p),
-        }))
-
-        options.push({
-            name: 'Manage profiles',
-            icon: 'fas fa-window-restore',
-            callback: () => this.app.openNewTabRaw({
-                type: SettingsTabComponent,
-                inputs: { activeTab: 'profiles' },
-            }),
-        })
-
-        options.push({
-            name: 'Quick connect',
-            freeInputPattern: 'Connect to "%s"...',
-            icon: 'fas fa-arrow-right',
-            callback: query => this.profilesService.openNewTabForProfile(
-                this.sshProfiles.quickConnect(query)
-            ),
-        })
-
-        await this.selector.show('Select an SSH profile', options)
-    }
-}
+// eslint-disable-next-line @typescript-eslint/no-extraneous-class
+export default class SSHModule { }
 
 export * from './api'
 export { SFTPFile, SFTPSession } from './session/sftp'
