@@ -69,7 +69,7 @@
 
     &.toolbar-pinned {
         .content {
-            margin-top: 15px + $toolbarHeight;
+            padding-top: $toolbarHeight;
         }
     }
 }
