@@ -1234,12 +1234,12 @@ github-from-package@0.0.0:
   resolved "https://registry.npmjs.org/github-from-package/-/github-from-package-0.0.0.tgz"
   integrity sha1-l/tdlr/eiXMxPyDoKI75oWf6ZM4=
 
-glasstron@0.0.7:
-  version "0.0.7"
-  resolved "https://registry.yarnpkg.com/glasstron/-/glasstron-0.0.7.tgz#d0f3e8344351bbcb89a39323282b4ddb06b03ba0"
-  integrity sha512-zeqfC0E153yBKWHB8ZBA5rT1o1dCCQcPECBryzWLX3uy6VTX3CUcy7kjk/4BlVztEIbpV2plEetpOxSAOe5cqw==
+glasstron@0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/glasstron/-/glasstron-0.1.0.tgz#0598a25b95285e18a47290ccc3ba13d25e22f9c0"
+  integrity sha512-AKGqreKv0xUmhLOcjn5WAedNjEbnrQGVxaM6eBUCrXoEn+fJBTgsjOHypdywIM5UHUyytQPMbMfeRQirt81BWQ==
   dependencies:
-    node-addon-api "^3.0.0"
+    node-addon-api "^4.0.0"
     x11 "^2.3.0"
 
 glob@^7.1.1, glob@^7.1.3, glob@^7.1.4, glob@^7.1.6:
@@ -2154,6 +2154,11 @@ node-addon-api@^3.0.0, node-addon-api@^3.0.2, node-addon-api@^3.1.0:
   version "3.1.0"
   resolved "https://registry.npmjs.org/node-addon-api/-/node-addon-api-3.1.0.tgz"
   integrity sha512-flmrDNB06LIl5lywUz7YlNGZH/5p0M7W28k8hzd9Lshtdh1wshD2Y+U4h9LD6KObOy1f+fEVdgprPrEymjM5uw==
+
+node-addon-api@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/node-addon-api/-/node-addon-api-4.0.0.tgz#ac128f43eff7fac4b5f5ef2f39d6d7c2709efead"
+  integrity sha512-ALmRVBFzfwldBfk3SbKfl6+PVMXiCPKZBEfsJqB/EjXAMAI+MfFrEHR+GMRBuI162DihZ1QjEZ8ieYKuRCJ8Hg==
 
 node-fetch-npm@^2.0.2:
   version "2.0.4"
