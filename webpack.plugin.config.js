@@ -97,6 +97,7 @@ module.exports = options => {
             'any-promise',
             'child_process',
             'electron-promise-ipc',
+            'electron-updater',
             'electron',
             'fontmanager-redux',
             'fs',
