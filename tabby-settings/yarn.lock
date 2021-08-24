@@ -7,10 +7,10 @@
   resolved "https://registry.yarnpkg.com/@scarf/scarf/-/scarf-1.1.1.tgz#d8b9f20037b3a37dbf8dcdc4b3b72f9285bfce35"
   integrity sha512-VGbKDbk1RFIaSmdVb0cNjjWJoRWRI/Weo23AjRCC2nryO0iAS8pzsToJfPVPtVs74WHw4L1UTADNdIYRLkirZQ==
 
-marked@^2.1.3:
-  version "2.1.3"
-  resolved "https://registry.yarnpkg.com/marked/-/marked-2.1.3.tgz#bd017cef6431724fd4b27e0657f5ceb14bff3753"
-  integrity sha512-/Q+7MGzaETqifOMWYEA7HVMaZb4XbcRfaOzcSsHZEith83KGlvaSG33u0SKu89Mj5h+T8V2hM+8O45Qc5XTgwA==
+marked@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/marked/-/marked-3.0.1.tgz#fba5af166129771c60f4a7398ddcf35557dfe890"
+  integrity sha512-GQtec2MkSCp+ZecV2jBe7+J2fiDXeBFKUBr4981srZDjCaXg0WrtTo9eY2CVc2ZC5YQXkkc0Q8sTZ6c1DB1o2Q==
 
 ngx-infinite-scroll@^10.0.1:
   version "10.0.1"
