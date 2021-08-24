@@ -1,6 +1,6 @@
 {
   "name": "tabby-ssh",
-  "version": "1.0.150",
+  "version": "1.0.156-nightly.2",
   "description": "SSH connections for Tabby",
   "keywords": [
     "tabby-builtin-plugin"
