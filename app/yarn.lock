@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@angular/cdk@^12.2.0":
-  version "12.2.0"
-  resolved "https://registry.yarnpkg.com/@angular/cdk/-/cdk-12.2.0.tgz#7c6de53522ef7cf911d86e187f3df2a90e8fee49"
-  integrity sha512-Dts+KIMz6EdzQxaWBFcNwgWAHVPkI5pnOGMidKKVOmjezSUN6mhfBKq8emgsddJMRAqz/1VHMAEaRkp0VoBKiA==
+"@angular/cdk@^12.2.3":
+  version "12.2.3"
+  resolved "https://registry.yarnpkg.com/@angular/cdk/-/cdk-12.2.3.tgz#1b454e8a406e51a704e1cfd762cdc31d9c2c3cef"
+  integrity sha512-ahY3k5X3eoQlsCX/fYiwbe1z7nfmwY15EiLpcJ8YrnUoB+ZshPm8qFIZi6gwY4tsMmUN8OfsIGcUO701bdxFpg==
   dependencies:
     tslib "^2.2.0"
   optionalDependencies:
