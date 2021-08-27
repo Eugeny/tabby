@@ -143,11 +143,6 @@ export class SSHSession extends BaseSession {
     async start (): Promise<void> {
         this.open = true
 
-        this.proxyCommandStream?.on('error', err => {
-            this.emitServiceMessage(colors.bgRed.black(' X ') + ` ${err.message}`)
-            this.destroy()
-        })
-
         try {
             this.shell = await this.openShellChannel({ x11: this.profile.options.x11 })
         } catch (err) {
