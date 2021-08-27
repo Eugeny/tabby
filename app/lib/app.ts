@@ -22,6 +22,7 @@ export class Application {
     private ptyManager = new PTYManager()
     private windows: Window[] = []
     private globalHotkey$ = new Subject<void>()
+    private quitRequested = false
     userPluginsPath: string
 
     constructor () {
@@ -82,6 +83,12 @@ export class Application {
         for (const flag of configData.flags || [['force_discrete_gpu', '0']]) {
             app.commandLine.appendSwitch(flag[0], flag[1])
         }
+
+        app.on('window-all-closed', () => {
+            if (this.quitRequested || process.platform !== 'darwin') {
+                app.quit()
+            }
+        })
     }
 
     init (): void {
@@ -226,7 +233,8 @@ export class Application {
                     {
                         label: 'Quit',
                         accelerator: 'Cmd+Q',
-                        click () {
+                        click: () => {
+                            this.quitRequested = true
                             app.quit()
                         },
                     },
