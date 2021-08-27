@@ -44,7 +44,6 @@ export class ButtonProvider extends ToolbarButtonProvider {
             recentProfiles = []
         }
         window.localStorage['recentProfiles'] = JSON.stringify(recentProfiles)
-        this.config.save()
     }
 
     provide (): ToolbarButton[] {

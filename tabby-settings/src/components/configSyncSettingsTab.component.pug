@@ -55,11 +55,11 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
                             *ngFor='let cfg of configs',
                             [class.active]='isActiveConfig(cfg)',
                         )
+                            i.fas.fa-fw.text-success([class.fa-check]='isActiveConfig(cfg)')
                             i.fas.fa-fw.fa-file
                             .ml-2.d-flex.flex-column.align-items-start
                                 div {{cfg.name}}
                                 small.text-muted Modified on {{cfg.modified_at|date:'medium'}}
-                                .badge.badge-info(*ngIf='isActiveConfig(cfg)') ACTIVE
                             .mr-auto
                             button.btn.btn-link.ml-1(
                                 (click)='uploadAndSync(cfg)',
@@ -78,6 +78,7 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
                             href='#',
                             (click)='uploadAsNew()'
                         )
+                            i.fas.fa-fw
                             i.fas.fa-fw.fa-cloud-upload-alt
                             .ml-2 Upload as a new config
 
