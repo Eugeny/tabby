@@ -35,7 +35,7 @@ export class ButtonProvider extends ToolbarButtonProvider {
     async launchProfile (profile: PartialProfile<Profile>) {
         await this.profilesService.openNewTabForProfile(profile)
 
-        let recentProfiles = this.config.store.recentProfiles
+        let recentProfiles: PartialProfile<Profile>[] = JSON.parse(window.localStorage['recentProfiles'] ?? '[]')
         if (this.config.store.terminal.showRecentProfiles > 0) {
             recentProfiles = recentProfiles.filter(x => x.group !== profile.group || x.name !== profile.name)
             recentProfiles.unshift(profile)
@@ -43,7 +43,7 @@ export class ButtonProvider extends ToolbarButtonProvider {
         } else {
             recentProfiles = []
         }
-        this.config.store.recentProfiles = recentProfiles
+        window.localStorage['recentProfiles'] = JSON.stringify(recentProfiles)
         this.config.save()
     }
 

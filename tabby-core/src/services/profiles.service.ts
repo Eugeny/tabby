@@ -94,7 +94,7 @@ export class ProfilesService {
     showProfileSelector (): Promise<PartialProfile<Profile>|null> {
         return new Promise<PartialProfile<Profile>|null>(async (resolve, reject) => {
             try {
-                let recentProfiles: PartialProfile<Profile>[] = this.config.store.recentProfiles
+                let recentProfiles: PartialProfile<Profile>[] = JSON.parse(window.localStorage['recentProfiles'] ?? '[]')
                 recentProfiles = recentProfiles.slice(0, this.config.store.terminal.showRecentProfiles)
 
                 let options: SelectorOption<void>[] = recentProfiles.map(p => ({
@@ -113,7 +113,7 @@ export class ProfilesService {
                         name: 'Clear recent connections',
                         icon: 'fas fa-eraser',
                         callback: async () => {
-                            this.config.store.recentProfiles = []
+                            window.localStorage.removeItem('recentProfiles')
                             this.config.save()
                             resolve(null)
                         },
