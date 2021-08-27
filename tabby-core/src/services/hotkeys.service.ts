@@ -63,7 +63,7 @@ export class HotkeysService {
     private pressedHotkey: string|null = null
     private pressedKeystroke: Keystroke|null = null
     private lastKeystrokes: PastKeystroke[] = []
-    private shouldSaveNextKeystroke = true
+    private recognitionPhase = true
     private lastEventTimestamp = 0
 
     private constructor (
@@ -130,18 +130,20 @@ export class HotkeysService {
         const keyName = getKeyName(eventData)
         if (eventName === 'keydown') {
             this.addPressedKey(keyName, eventData)
-            this.shouldSaveNextKeystroke = true
+            if (!nativeEvent.repeat) {
+                this.recognitionPhase = true
+            }
             this.updateModifiers(eventData)
         }
         if (eventName === 'keyup') {
             const keystroke = getKeystrokeName([...this.pressedKeys])
-            if (this.shouldSaveNextKeystroke) {
+            if (this.recognitionPhase) {
                 this._keystroke.next(keystroke)
                 this.lastKeystrokes.push({
                     keystroke,
                     time: performance.now(),
                 })
-                this.shouldSaveNextKeystroke = false
+                this.recognitionPhase = false
             }
             this.removePressedKey(keyName)
         }
@@ -154,7 +156,7 @@ export class HotkeysService {
 
         const matched = this.matchActiveHotkey()
         this.zone.run(() => {
-            if (matched) {
+            if (matched && this.recognitionPhase) {
                 this.emitHotkeyOn(matched)
             } else if (this.pressedHotkey) {
                 this.emitHotkeyOff(this.pressedHotkey)
