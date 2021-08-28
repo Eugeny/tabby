@@ -234,6 +234,18 @@ jobs:
         name: Web tarball
         path: artifact-web
 
+    - uses: lpenz/ghaction-packagecloud@v0.3
+      name: Upload .deb to packagecloud
+      with:
+        repository: tabby
+        files: dist/*.deb
+
+    - uses: lpenz/ghaction-packagecloud@v0.3
+      name: Upload .rpm to packagecloud
+      with:
+        repository: tabby
+        files: dist/*.rpm
+
   Windows-Build:
     runs-on: windows-2016
     needs: Lint
