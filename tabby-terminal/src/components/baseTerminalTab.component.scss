@@ -67,9 +67,8 @@
         z-index: 4;
     }
 
-    &.toolbar-pinned {
-        .content {
-            padding-top: $toolbarHeight;
-        }
+    &.toolbar-pinned > .terminal-toolbar-spacer {
+        width: 100%;
+        height: $toolbarHeight;
     }
 }
