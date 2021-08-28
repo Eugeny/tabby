@@ -130,7 +130,13 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
     private sessionSupportsBracketedPaste = false
     private spinner = new Spinner({
         stream: {
-            write: x => this.writeRaw(x),
+            write: x => {
+                try {
+                    this.writeRaw(x)
+                } catch {
+                    this.spinner.stop()
+                }
+            },
         },
     })
     private spinnerActive = false
