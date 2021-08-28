@@ -34,7 +34,12 @@ export class SFTPPanelComponent {
 
     async ngOnInit (): Promise<void> {
         this.sftp = await this.session.openSFTP()
-        await this.navigate(this.path)
+        try {
+            await this.navigate(this.path)
+        } catch (error) {
+            console.warn('Could not navigate to', this.path, ':', error)
+            await this.navigate('/')
+        }
     }
 
     async navigate (newPath: string): Promise<void> {
