@@ -2,7 +2,7 @@
 
 
 <p align="center">
-  <a href="https://github.com/Eugeny/tabby/releases/latest"><img alt="GitHub All Releases" src="https://img.shields.io/github/downloads/eugeny/tabby/total.svg?label=RELEASE&logo=github&style=for-the-badge"></a> &nbsp; <a href="https://nightly.link/Eugeny/tabby/workflows/build/master"><img src="https://shields.io/badge/-Nightly%20Builds-orange?logo=hackthebox&logoColor=fff&style=for-the-badge"/></a> &nbsp; <a href="https://matrix.to/#/#tabby-general:matrix.org"><img alt="Matrix" src="https://img.shields.io/matrix/tabby-general:matrix.org?logo=matrix&style=for-the-badge&color=magenta"></a>
+  <a href="https://github.com/Eugeny/tabby/releases/latest"><img alt="GitHub All Releases" src="https://img.shields.io/github/downloads/eugeny/tabby/total.svg?label=DOWNLOADS&logo=github&style=for-the-badge"></a> &nbsp; <a href="https://nightly.link/Eugeny/tabby/workflows/build/master"><img src="https://shields.io/badge/-Nightly%20Builds-orange?logo=hackthebox&logoColor=fff&style=for-the-badge"/></a> &nbsp; <a href="https://matrix.to/#/#tabby-general:matrix.org"><img alt="Matrix" src="https://img.shields.io/matrix/tabby-general:matrix.org?logo=matrix&style=for-the-badge&color=magenta"></a>
 </p>
 
 <p align="center">
@@ -16,7 +16,8 @@
 ### Downloads:
 
 * [Latest release](https://github.com/Eugeny/tabby/releases/latest)
-* [Nightly build](https://nightly.link/Eugeny/tabby/workflows/build/master)
+* [Repositories](https://packagecloud.io/eugeny/tabby): [Debian/Ubuntu-based](https://packagecloud.io/eugeny/tabby/install#bash-deb), [RPM-based](https://packagecloud.io/eugeny/tabby/install#bash-rpm)
+* [Latest nightly build](https://nightly.link/Eugeny/tabby/workflows/build/master)
 
 ----
 
@@ -35,11 +36,8 @@
 * Proper shell experience on Windows including tab completion (via Clink)
 * Integrated encrypted container for SSH secrets and configuration
 
----
+# Contents <!-- omit in toc -->
 
-# Contents
-
-- [Contents](#contents)
 - [What Tabby is and isn't](#what-tabby-is-and-isnt)
 - [Terminal features](#terminal-features)
 - [SSH Client](#ssh-client)
@@ -50,13 +48,15 @@
 - [Contributing](#contributing)
 
 <a name="about"></a>
+
 # What Tabby is and isn't
 
-* **Tabby is** an alternative to Windows' standard terminal (conhost), PowerShell ISE, PuTTY or iTerm
+* **Tabby is** an alternative to Windows' standard terminal (conhost), PowerShell ISE, PuTTY, macOS Terminal.app and iTerm
 
 * **Tabby is not** a new shell or a MinGW or Cygwin replacement. Neither is it lightweight - if RAM usage is of importance, consider [Conemu](https://conemu.github.io) or [Alacritty](https://github.com/jwilm/alacritty)
 
 <a name="terminal"></a>
+
 # Terminal features
 
 ![](docs/readme-terminal.png)
@@ -102,21 +102,21 @@ Tabby will run as a portable app on Windows, if you create a `data` folder in th
 
 Plugins and themes can be installed directly from the Settings view inside Tabby.
 
-  * [clickable-links](https://github.com/Eugeny/tabby-clickable-links) - makes paths and URLs in the terminal clickable
-  * [docker](https://github.com/Eugeny/tabby-docker) - connect to Docker containers
-  * [title-control](https://github.com/kbjr/terminus-title-control) - allows modifying the title of the terminal tabs by providing a prefix, suffix, and/or strings to be removed
-  * [quick-cmds](https://github.com/Domain/terminus-quick-cmds) - quickly send commands to one or all terminal tabs
-  * [save-output](https://github.com/Eugeny/tabby-save-output) - record terminal output into a file
-  * [sync-config](https://github.com/starxg/terminus-sync-config) - sync the config to Gist or Gitee
+* [clickable-links](https://github.com/Eugeny/tabby-clickable-links) - makes paths and URLs in the terminal clickable
+* [docker](https://github.com/Eugeny/tabby-docker) - connect to Docker containers
+* [title-control](https://github.com/kbjr/terminus-title-control) - allows modifying the title of the terminal tabs by providing a prefix, suffix, and/or strings to be removed
+* [quick-cmds](https://github.com/Domain/terminus-quick-cmds) - quickly send commands to one or all terminal tabs
+* [save-output](https://github.com/Eugeny/tabby-save-output) - record terminal output into a file
+* [sync-config](https://github.com/starxg/terminus-sync-config) - sync the config to Gist or Gitee
 
 <a name="themes"></a>
 # Themes
 
-  * [hype](https://github.com/Eugeny/tabby-theme-hype) - a Hyper inspired theme
-  * [relaxed](https://github.com/Relaxed-Theme/relaxed-terminal-themes#terminus) - the Relaxed theme for Tabby
-  * [gruvbox](https://github.com/porkloin/terminus-theme-gruvbox)
-  * [windows10](https://www.npmjs.com/package/terminus-theme-windows10)
-  * [altair](https://github.com/yxuko/terminus-altair)
+* [hype](https://github.com/Eugeny/tabby-theme-hype) - a Hyper inspired theme
+* [relaxed](https://github.com/Relaxed-Theme/relaxed-terminal-themes#terminus) - the Relaxed theme for Tabby
+* [gruvbox](https://github.com/porkloin/terminus-theme-gruvbox)
+* [windows10](https://www.npmjs.com/package/terminus-theme-windows10)
+* [altair](https://github.com/yxuko/terminus-altair)
 
 <a name="contributing"></a>
 # Contributing
