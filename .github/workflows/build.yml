@@ -183,6 +183,14 @@ jobs:
         SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
         SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
 
+    - name: Upload packages to packagecloud.io
+      uses: TykTechnologies/packagecloud-action@main
+      env:
+        PACKAGECLOUD_TOKEN: ${{ secrets.PACKAGECLOUD_TOKEN }}
+      with:
+        repo: 'eugeny/tabby'
+        dir: 'dist'
+
     - name: Package artifacts
       run: |
         mkdir artifact-deb
@@ -233,13 +241,6 @@ jobs:
       with:
         name: Web tarball
         path: artifact-web
-
-    - uses: TykTechnologies/packagecloud-action@main
-      env:
-        PACKAGECLOUD_TOKEN: ${{ secrets.PACKAGECLOUD_TOKEN }}
-      with:
-        repo: 'eugeny/tabby'
-        dir: 'dist'
 
   Windows-Build:
     runs-on: windows-2016
