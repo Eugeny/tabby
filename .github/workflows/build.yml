@@ -239,7 +239,7 @@ jobs:
       env:
         PACKAGECLOUD_TOKEN: ${{ secrets.PACKAGECLOUD_TOKEN }}
       with:
-        repository: tabby
+        repository: tabby/ubuntu/precise
         files: dist/*.deb
 
     - uses: lpenz/ghaction-packagecloud@v0.3
