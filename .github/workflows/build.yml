@@ -234,21 +234,12 @@ jobs:
         name: Web tarball
         path: artifact-web
 
-    - uses: lpenz/ghaction-packagecloud@v0.3
-      name: Upload .deb to packagecloud
+    - uses: TykTechnologies/packagecloud-action
       env:
         PACKAGECLOUD_TOKEN: ${{ secrets.PACKAGECLOUD_TOKEN }}
       with:
-        repository: tabby/ubuntu/precise
-        files: dist/*.deb
-
-    - uses: lpenz/ghaction-packagecloud@v0.3
-      name: Upload .rpm to packagecloud
-      env:
-        PACKAGECLOUD_TOKEN: ${{ secrets.PACKAGECLOUD_TOKEN }}
-      with:
-        repository: tabby
-        files: dist/*.rpm
+        repo: 'eugeny/tabby'
+        dir: 'dist'
 
   Windows-Build:
     runs-on: windows-2016
