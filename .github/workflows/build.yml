@@ -234,7 +234,7 @@ jobs:
         name: Web tarball
         path: artifact-web
 
-    - uses: TykTechnologies/packagecloud-action
+    - uses: TykTechnologies/packagecloud-action@main
       env:
         PACKAGECLOUD_TOKEN: ${{ secrets.PACKAGECLOUD_TOKEN }}
       with:
