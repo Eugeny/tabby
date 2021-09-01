@@ -118,6 +118,12 @@ Plugins and themes can be installed directly from the Settings view inside Tabby
 * [windows10](https://www.npmjs.com/package/terminus-theme-windows10)
 * [altair](https://github.com/yxuko/terminus-altair)
 
+# Sponsors <!-- omit in toc -->
+
+[![](https://assets-production.packagecloud.io/assets/packagecloud-logo-light-scaled-26ce8e96060fddf74afbd4445e63ba35590d4aaa56edc98495bb390ef3cae0ae.png)](https://packagecloud.io)
+
+[**packagecloud**](https://packagecloud.io) has provided free Debian/RPM repository hosting
+
 <a name="contributing"></a>
 # Contributing
 
