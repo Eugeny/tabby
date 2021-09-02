@@ -15,7 +15,7 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
                         (ngModelChange)='config.save()',
                     )
                     .input-group-append(*ngIf='config.store.configSync.host')
-                        button.btn.btn-secondary((click)='platform.openExternal("http://" + config.store.configSync.host)')
+                        button.btn.btn-secondary((click)='openSyncHost()')
                             i.fas.fa-external-link-alt
 
             .form-line

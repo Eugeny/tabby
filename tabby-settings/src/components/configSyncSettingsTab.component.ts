@@ -106,4 +106,12 @@ export class ConfigSyncSettingsTabComponent extends BaseComponent {
     isActiveConfig (c: Config) {
         return c.id === this.config.store.configSync.configID
     }
+
+    openSyncHost () {
+        if (this.config.store.configSync.host === 'https://api.tabby.sh') {
+            this.platform.openExternal('https://tabby.sh/app')
+        } else {
+            this.platform.openExternal(this.config.store.configSync.host)
+        }
+    }
 }
