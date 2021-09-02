@@ -1,4 +1,4 @@
-![](docs/readme.png)
+[![](docs/readme.png)](https://tabby.sh)
 
 
 <p align="center">
