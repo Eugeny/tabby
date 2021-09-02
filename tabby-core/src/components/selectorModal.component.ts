@@ -14,6 +14,7 @@ export class SelectorModalComponent<T> {
     @Input() filter = ''
     @Input() name: string
     @Input() selectedIndex = 0
+    hasGroups = false
     @ViewChildren('item') itemChildren: QueryList<ElementRef>
 
     constructor (
@@ -22,6 +23,7 @@ export class SelectorModalComponent<T> {
 
     ngOnInit (): void {
         this.onFilterChange()
+        this.hasGroups = this.options.some(x => x.group)
     }
 
     @HostListener('keyup', ['$event']) onKeyUp (event: KeyboardEvent): void {
@@ -48,14 +50,21 @@ export class SelectorModalComponent<T> {
     onFilterChange (): void {
         const f = this.filter.trim().toLowerCase()
         if (!f) {
-            this.filteredOptions = this.options.filter(x => !x.freeInputPattern)
+            this.filteredOptions = this.options.slice()
+                .sort((a, b) => a.group?.localeCompare(b.group ?? '') ?? 0)
+                .filter(x => !x.freeInputPattern)
         } else {
             const terms = f.split(' ')
             // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
-            this.filteredOptions = this.options.filter(x => x.freeInputPattern ?? terms.every(term => (x.name + (x.description ?? '')).toLowerCase().includes(term)))
+            this.filteredOptions = this.options.filter(x => x.freeInputPattern ?? this.filterMatches(x, terms))
         }
         this.selectedIndex = Math.max(0, this.selectedIndex)
         this.selectedIndex = Math.min(this.filteredOptions.length - 1, this.selectedIndex)
+    }
+
+    filterMatches (option: SelectorOption<T>, terms: string[]): boolean {
+        const content = (option.group ?? '') + option.name + (option.description ?? '')
+        return terms.every(term => content.toLowerCase().includes(term))
     }
 
     getOptionText (option: SelectorOption<T>): string {

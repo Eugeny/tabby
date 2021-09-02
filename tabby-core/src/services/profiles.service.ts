@@ -84,9 +84,7 @@ export class ProfilesService {
     selectorOptionForProfile <P extends Profile, T> (profile: PartialProfile<P>): SelectorOption<T> {
         const fullProfile = this.getConfigProxyForProfile(profile)
         return {
-            name: profile.group ? `${fullProfile.group} / ${fullProfile.name}` : fullProfile.name,
-            icon: profile.icon,
-            color: profile.color,
+            ...profile,
             description: this.providerForProfile(fullProfile)?.getDescription(fullProfile),
         }
     }
@@ -99,6 +97,7 @@ export class ProfilesService {
 
                 let options: SelectorOption<void>[] = recentProfiles.map(p => ({
                     ...this.selectorOptionForProfile(p),
+                    group: 'Recent',
                     icon: 'fas fa-history',
                     color: p.color,
                     callback: async () => {
@@ -111,6 +110,7 @@ export class ProfilesService {
                 if (recentProfiles.length) {
                     options.push({
                         name: 'Clear recent connections',
+                        group: 'Recent',
                         icon: 'fas fa-eraser',
                         callback: async () => {
                             window.localStorage.removeItem('recentProfiles')
