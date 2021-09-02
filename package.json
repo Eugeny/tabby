@@ -42,7 +42,7 @@
     "html-loader": "2.1.2",
     "json-loader": "0.5.7",
     "lru-cache": "^6.0.0",
-    "macos-release": "^3.0.0",
+    "macos-release": "^3.0.1",
     "ngx-sortablejs": "^11.1.0",
     "ngx-toastr": "^14.0.0",
     "node-abi": "^2.30.0",
