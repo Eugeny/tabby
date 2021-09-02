@@ -120,6 +120,7 @@ export class ElectronPlatformService extends PlatformService {
     async _saveConfigInternal (content: string): Promise<void> {
         const tempPath = this.configPath + '.new'
         await fs.writeFile(tempPath, content, 'utf8')
+        await fs.writeFile(this.configPath + '.backup', content, 'utf8')
         await promisify(gracefulFS.rename)(tempPath, this.configPath)
     }
 
