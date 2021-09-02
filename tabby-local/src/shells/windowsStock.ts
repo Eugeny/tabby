@@ -1,4 +1,7 @@
 import * as path from 'path'
+import * as fs from 'fs/promises'
+import hasbin from 'hasbin'
+import { promisify } from 'util'
 import { Injectable } from '@angular/core'
 import { HostAppService, Platform } from 'tabby-core'
 import { ElectronService } from 'tabby-electron'
@@ -59,7 +62,7 @@ export class WindowsStockShellsProvider extends ShellProvider {
             {
                 id: 'powershell',
                 name: 'PowerShell',
-                command: 'powershell.exe',
+                command: await this.getPowerShellPath(),
                 args: ['-nologo'],
                 icon: require('../icons/powershell.svg'),
                 env: {
@@ -67,5 +70,24 @@ export class WindowsStockShellsProvider extends ShellProvider {
                 },
             },
         ]
+    }
+
+    private async getPowerShellPath () {
+        const ps = 'powershell.exe'
+
+        if (!await promisify(hasbin)(ps)) {
+            for (const searchPath of [
+                `${process.env.SystemRoot}\\System32\\WindowsPowerShell\\v1.0`,
+                `${process.env.SystemRoot}\\System32`,
+                process.env.SystemRoot ?? 'C:\\Windows',
+            ]) {
+                const newPath = path.join(searchPath, ps)
+                try {
+                    await fs.stat(newPath)
+                    return newPath
+                } catch { }
+            }
+        }
+        return ps
     }
 }
