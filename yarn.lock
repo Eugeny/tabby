@@ -2600,10 +2600,10 @@ electron-localshortcut@^3.1.0:
     keyboardevent-from-electron-accelerator "^2.0.0"
     keyboardevents-areequal "^0.2.1"
 
-electron-notarize@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/electron-notarize/-/electron-notarize-1.0.1.tgz#97e6ab57fdc32abc6dfa88d3edbb5037189a9fb1"
-  integrity sha512-5B0ToIuuqb+Uzq3Kvs7BReUh52WRELmy8dHWusQwXgksYm2RgzsFFGNhv9eAmzuzXNW4xPgUbdCmYrcVGSlXIg==
+electron-notarize@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/electron-notarize/-/electron-notarize-1.1.1.tgz#3ed274b36158c1beb1dbef14e7faf5927e028629"
+  integrity sha512-kufsnqh86CTX89AYNG3NCPoboqnku/+32RxeJ2+7A4Rbm4bbOx0Nc7XTy3/gAlBfpj9xPAxHfhZLOHgfi6cJVw==
   dependencies:
     debug "^4.1.1"
     fs-extra "^9.0.1"
