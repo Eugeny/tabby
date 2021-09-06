@@ -145,4 +145,6 @@ export default class MyModule { }
 
 See `tabby-core/src/api.ts`, `tabby-settings/src/api.ts`, `tabby-local/src/api.ts` and `tabby-terminal/src/api.ts` for the available extension points.
 
+Also check out [the example plugin](https://github.com/Eugeny/tabby-clippy).
+
 Publish your plugin on NPM with a `tabby-plugin` keyword to make it appear in the Plugin Manager.

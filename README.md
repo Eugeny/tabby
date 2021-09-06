@@ -108,6 +108,7 @@ Plugins and themes can be installed directly from the Settings view inside Tabby
 * [quick-cmds](https://github.com/Domain/terminus-quick-cmds) - quickly send commands to one or all terminal tabs
 * [save-output](https://github.com/Eugeny/tabby-save-output) - record terminal output into a file
 * [sync-config](https://github.com/starxg/terminus-sync-config) - sync the config to Gist or Gitee
+* [clippy](https://github.com/Eugeny/tabby-clippy) - an example plugin which annoys you all the time
 
 <a name="themes"></a>
 # Themes
