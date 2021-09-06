@@ -13,7 +13,7 @@
 
 ----
 
-### Downloads:
+### 다운로드:
 
 * [Latest release](https://github.com/Eugeny/tabby/releases/latest)
 * [Repositories](https://packagecloud.io/eugeny/tabby): [Debian/Ubuntu-based](https://packagecloud.io/eugeny/tabby/install#bash-deb), [RPM-based](https://packagecloud.io/eugeny/tabby/install#bash-rpm)
@@ -21,120 +21,120 @@
 
 ----
 
-**Tabby** (formerly **Terminus**) is a highly configurable terminal emulator, SSH and serial client for Windows, macOS and Linux
+**Tabby** (구 **Terminus**)는 Windows, macOS 및 Linux용으로 뛰어난 구성의 터미널 에뮬레이터, SSH 및 시리얼 클라이언트입니다.
 
-* Integrated SSH client and connection manager
-* Integrated serial terminal
-* Theming and color schemes
-* Fully configurable shortcuts and multi-chord shortcuts
-* Split panes
-* Remembers your tabs
-* PowerShell (and PS Core), WSL, Git-Bash, Cygwin, Cmder and CMD support
-* Direct file transfer from/to SSH sessions via Zmodem
-* Full Unicode support including double-width characters
-* Doesn't choke on fast-flowing outputs
-* Proper shell experience on Windows including tab completion (via Clink)
-* Integrated encrypted container for SSH secrets and configuration
+* 통합 SSH 클라이언트 및 연결 관리자
+* 통합 시리얼 터미널
+* 테마 및 색 구성표
+* 전체 구성이 가능한 단축키 및 다중 코드 단축키
+* 창 분할
+* 이전 탭 사용을 기억
+* PowerShell (및 PS Core), WSL, Git-Bash, Cygwin, Cmder 및 CMD 지원
+* Zmodem을 통한 SSH 세션 간의 직접 파일 전송
+* 2바이트 문자를 포함한 전체 유니코드 지원
+* 빠르게 출력되는 것에 대해 휩쓸리지 않음
+* 탭 완성을 포함한 Windows에서의 적절한 셸 환경 (Clink을 통해)
+* SSH 시크릿 및 구성을 위한 통합 암호화 컨테이너
 
-# Contents <!-- omit in toc -->
+# 목차 <!-- omit in toc -->
 
-- [What Tabby is and isn't](#what-tabby-is-and-isnt)
-- [Terminal features](#terminal-features)
-- [SSH Client](#ssh-client)
-- [Serial Terminal](#serial-terminal)
-- [Portable](#portable)
-- [Plugins](#plugins)
-- [Themes](#themes)
-- [Contributing](#contributing)
+- [Tabby는 무엇인가](#about)
+- [터미널 기능](#terminal)
+- [SSH 클라이언트](#ssh)
+- [시리얼 터미널](#serial)
+- [포터블](#portable)
+- [플러그인](#plugins)
+- [테마](#themes)
+- [기여](#contributing)
 
 <a name="about"></a>
 
-# What Tabby is and isn't
+# Tabby는 무엇인가
 
-* **Tabby is** an alternative to Windows' standard terminal (conhost), PowerShell ISE, PuTTY, macOS Terminal.app and iTerm
+* **Tabby는** Windows의 표준 터미널 (conhost), PowerShell ISE, PuTTY 또는 iTerm의 대안 프로그램입니다.
 
-* **Tabby is not** a new shell or a MinGW or Cygwin replacement. Neither is it lightweight - if RAM usage is of importance, consider [Conemu](https://conemu.github.io) or [Alacritty](https://github.com/jwilm/alacritty)
+* **Tabby는** 새로운 셸이나 MinGW 또는 Cygwin을 대체하지 **않습니다**. 가볍지도 않습니다. - RAM 사용량이 중요한 경우, [Conemu](https://conemu.github.io) 또는 [Alacritty](https://github.com/jwilm/alacritty)를 고려하십시오.
 
 <a name="terminal"></a>
 
-# Terminal features
+# 터미널 기능
 
 ![](docs/readme-terminal.png)
 
-* A V220 terminal + various extensions
-* Multiple nested split panes
-* Tabs on any side of the window
-* Optional dockable window with a global spawn hotkey ("Quake console")
-* Progress detection
-* Notification on process completion
-* Bracketed paste, multiline paste warnings
-* Font ligatures
-* Custom shell profiles
-* Optional RMB paste and copy-on select (PuTTY style)
+* A V220 terminal + 다양한 확장
+* 여러 개의 분할 창 중첩
+* 모든 측면에 탭이 위치함
+* 전역 스폰 단축키가 있는 도킹 가능한 윈도우 ("Quake console")
+* 진행률 탐지
+* 프로세스 완료 시 알림
+* 괄호 붙여넣기, 여러 줄 붙여넣기 경고
+* 폰트 합자(ligatures)
+* 커스텀 셸 프로필
+* RMB 붙여넣기 및 복사 선택 옵션 (PuTTY 스타일)
 
 <a name="ssh"></a>
-# SSH Client
+# SSH 클라이언트
 
 ![](docs/readme-ssh.png)
 
-* SSH2 client with a connection manager
-* X11 and port forwarding
-* Automatic jump host management
-* Agent forwarding (incl. Pageant and Windows native OpenSSH Agent)
-* Login scripts
+* 연결 관리자가 있는 SSH2 클라이언트
+* X11 및 포트 포워딩
+* 자동 jump 호스트 관리
+* 에이전트 전달 (Pageant 및 Windows 기본 OpenSSH 에이전트 포함)
+* 로그인 스크립트
 
 <a name="serial"></a>
-# Serial Terminal
+# 시리얼 터미널
 
-* Saved connections
-* Readline input support
-* Optional hex byte-by-byte input and hexdump output
-* Newline conversion
-* Automatic reconnection
+* 연결 저장
+* Readline 입력 지원
+* 선택적 hex byte별 입력 및 hexdump 출력
+* 개행 변환
+* 자동 재접속
 
 <a name="portable"></a>
-# Portable
+# 포터블
 
-Tabby will run as a portable app on Windows, if you create a `data` folder in the same location where `Tabby.exe` lives.
+`Tabby.exe`가 있는 동일한 위치에 `data` 폴더를 생성하면 Windows에서 Tabby가 포터블 앱으로 실행됩니다.
 
 <a name="plugins"></a>
-# Plugins
+# 플러그인
 
-Plugins and themes can be installed directly from the Settings view inside Tabby.
+플러그인과 테마는 Tabby 내부의 설정에서 직접 설치할 수 있습니다.
 
-* [clickable-links](https://github.com/Eugeny/tabby-clickable-links) - makes paths and URLs in the terminal clickable
-* [docker](https://github.com/Eugeny/tabby-docker) - connect to Docker containers
-* [title-control](https://github.com/kbjr/terminus-title-control) - allows modifying the title of the terminal tabs by providing a prefix, suffix, and/or strings to be removed
-* [quick-cmds](https://github.com/Domain/terminus-quick-cmds) - quickly send commands to one or all terminal tabs
-* [save-output](https://github.com/Eugeny/tabby-save-output) - record terminal output into a file
-* [sync-config](https://github.com/starxg/terminus-sync-config) - sync the config to Gist or Gitee
+* [clickable-links](https://github.com/Eugeny/tabby-clickable-links) - m터미널의 경로 및 URL을 클릭 가능하게
+* [docker](https://github.com/Eugeny/tabby-docker) - Docker 컨테이너에 연결
+* [title-control](https://github.com/kbjr/terminus-title-control) - 접두사, 접미사 및/또는 문자열 제거를 제공하여 터미널 탭의 제목을 수정
+* [quick-cmds](https://github.com/Domain/terminus-quick-cmds) - 하나 또는 모든 터미널 탭에 신속한 명령 전송
+* [save-output](https://github.com/Eugeny/tabby-save-output) - 터미널 출력을 파일에 기록
+* [sync-config](https://github.com/starxg/terminus-sync-config) - 구성을 Gist 또는 Gitee에 동기화
 
 <a name="themes"></a>
-# Themes
+# 테마
 
-* [hype](https://github.com/Eugeny/tabby-theme-hype) - a Hyper inspired theme
-* [relaxed](https://github.com/Relaxed-Theme/relaxed-terminal-themes#terminus) - the Relaxed theme for Tabby
+* [hype](https://github.com/Eugeny/tabby-theme-hype) - Hyper에서 영감을 받은 테마
+* [relaxed](https://github.com/Relaxed-Theme/relaxed-terminal-themes#terminus) - Tabby를 위해 여유로움을 제공하는 테마
 * [gruvbox](https://github.com/porkloin/terminus-theme-gruvbox)
 * [windows10](https://www.npmjs.com/package/terminus-theme-windows10)
 * [altair](https://github.com/yxuko/terminus-altair)
 
-# Sponsors <!-- omit in toc -->
+# 스폰서 <!-- omit in toc -->
 
 [![](https://assets-production.packagecloud.io/assets/packagecloud-logo-light-scaled-26ce8e96060fddf74afbd4445e63ba35590d4aaa56edc98495bb390ef3cae0ae.png)](https://packagecloud.io)
 
-[**packagecloud**](https://packagecloud.io) has provided free Debian/RPM repository hosting
+[**packagecloud**](https://packagecloud.io)가 무료 Debian/RPM 저장소 호스팅을 제공하였습니다.
 
 <a name="contributing"></a>
-# Contributing
+# 기여
 
 Pull requests and plugins are welcome!
 
-See [HACKING.md](https://github.com/Eugeny/tabby/blob/master/HACKING.md) and [API docs](http://ajenti.org/terminus-docs/) for information of how the project is laid out, and a very brief plugin development tutorial.
+프로젝트 배치 방법에 대한 자세한 내용과 매우 간단한 플러그인 개발 튜토리얼은 [HACKING.md](https://github.com/Eugeny/tabby/blob/master/HACKING.md) 및 [API docs](http://ajenti.org/terminus-docs/)를 참조하십시오.
 
 ---
 <a name="contributors"></a>
 
-Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+여기있는 멋진 사람들에게 진심으로 감사합니다. ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
@@ -209,6 +209,6 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
-This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
+이 프로젝트는 [모든 기여자](https://github.com/all-contributors/all-contributors)의 규격을 따릅니다. 어떠한 종류의 기여도 모두 환영합니다!
 
 <img src="https://ga-beacon.appspot.com/UA-3278102-18/github/readme" width="1"/>
