@@ -30,7 +30,7 @@
     "core-js": "^3.15.2",
     "cross-env": "7.0.3",
     "css-loader": "^6.2.0",
-    "electron": "13.2.2",
+    "electron": "14.0.0",
     "electron-builder": "22.10.5",
     "electron-download": "^4.1.1",
     "electron-installer-snap": "^5.1.0",
