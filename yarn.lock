@@ -5277,12 +5277,12 @@ ngx-sortablejs@^11.1.0:
   dependencies:
     tslib "^2.0.0"
 
-ngx-toastr@^14.0.0:
-  version "14.0.0"
-  resolved "https://registry.yarnpkg.com/ngx-toastr/-/ngx-toastr-14.0.0.tgz#20e4737ef330b892a453768cd98b980558aeb286"
-  integrity sha512-dnDzSY73pF6FvNyxdh6ftfvXvUg6SU7MAT3orPUCzA77t3ZcFslro06zk4NCA2g67RF7dBwM0OJ/y0SN6fdGYw==
+ngx-toastr@^14.1.1:
+  version "14.1.1"
+  resolved "https://registry.yarnpkg.com/ngx-toastr/-/ngx-toastr-14.1.1.tgz#d12f2a454d96a54e6366cf8b6d18e294e232df95"
+  integrity sha512-ZfldGplwfw2eFMswicrad6laBUz6DcaWFhuRNngHd9VWPTOBwVWzGhQiptuaomN/6Nc4sCNMCOMH+AE5ML8TVg==
   dependencies:
-    tslib "^2.1.0"
+    tslib "^2.2.0"
 
 nice-try@^1.0.4:
   version "1.0.5"
