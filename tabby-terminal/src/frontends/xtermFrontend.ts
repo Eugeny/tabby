@@ -324,6 +324,10 @@ export class XTermFrontend extends Frontend {
         this.xterm.write(state)
     }
 
+    supportsBracketedPaste (): boolean {
+        return this.xterm.modes.bracketedPasteMode
+    }
+
     private setFontSize () {
         const scale = Math.pow(1.1, this.zoom)
         this.xterm.setOption('fontSize', this.configuredFontSize * scale)

@@ -12,7 +12,7 @@ export class TerminalConfigProvider extends ConfigProvider {
             fallbackFont: null,
             linePadding: 0,
             bell: 'off',
-            bracketedPaste: false,
+            bracketedPaste: true,
             background: 'theme',
             ligatures: false,
             cursor: 'block',
