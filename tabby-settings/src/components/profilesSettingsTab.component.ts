@@ -95,6 +95,9 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
             { size: 'lg' },
         )
         const provider = this.profilesService.providerForProfile(profile)
+        if (!provider) {
+            throw new Error('Cannot edit a profile without a provider')
+        }
         modal.componentInstance.profile = Object.assign({}, profile)
         modal.componentInstance.profileProvider = provider
         const result = await modal.result
