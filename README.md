@@ -20,9 +20,9 @@
 * [Latest nightly build](https://nightly.link/Eugeny/tabby/workflows/build/master)
 
 <br/>
-<center>
+<p align="center">
 This README is also available in: <a href="./README.ko-KR.md">Korean</a>
-</center>
+</p>
 
 ----
 
