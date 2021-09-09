@@ -109,7 +109,7 @@ export class ProfilesService {
                 }))
                 if (recentProfiles.length) {
                     options.push({
-                        name: 'Clear recent connections',
+                        name: 'Clear recent profiles',
                         group: 'Recent',
                         icon: 'fas fa-eraser',
                         callback: async () => {
