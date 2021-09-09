@@ -442,6 +442,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "BoYeonJang",
+      "name": "장보연",
+      "avatar_url": "https://avatars.githubusercontent.com/u/59506394?v=4",
+      "profile": "https://www.notion.so/3d45c6bd2cbd4f938873a4bd12e23375",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
