@@ -27,6 +27,21 @@ interface AuthMethod {
     contents?: Buffer
 }
 
+export class KeyboardInteractivePrompt {
+    responses: string[] = []
+
+    constructor (
+        public name: string,
+        public instruction: string,
+        public prompts: string[],
+        private callback: (_: string[]) => void,
+    ) { }
+
+    respond (): void {
+        this.callback(this.responses)
+    }
+}
+
 export class SSHSession extends BaseSession {
     shell?: ClientChannel
     ssh: Client
@@ -36,12 +51,14 @@ export class SSHSession extends BaseSession {
     proxyCommandStream: ProxyCommandStream|null = null
     savedPassword?: string
     get serviceMessage$ (): Observable<string> { return this.serviceMessage }
+    get keyboardInteractivePrompt$ (): Observable<KeyboardInteractivePrompt> { return this.keyboardInteractivePrompt }
 
     agentPath?: string
     activePrivateKey: string|null = null
 
     private remainingAuthMethods: AuthMethod[] = []
     private serviceMessage = new Subject<string>()
+    private keyboardInteractivePrompt = new Subject<KeyboardInteractivePrompt>()
     private keychainPasswordUsed = false
 
     private passwordStorage: PasswordStorageService
@@ -244,6 +261,17 @@ export class SSHSession extends BaseSession {
     emitServiceMessage (msg: string): void {
         this.serviceMessage.next(msg)
         this.logger.info(stripAnsi(msg))
+    }
+
+    emitKeyboardInteractivePrompt (prompt: KeyboardInteractivePrompt): void {
+        this.logger.info('Keyboard-interactive auth:', prompt.name, prompt.instruction)
+        this.emitServiceMessage(colors.bgBlackBright(' ') + ` Keyboard-interactive auth requested: ${prompt.name}`)
+        if (prompt.instruction) {
+            for (const line of prompt.instruction.split('\n')) {
+                this.emitServiceMessage(line)
+            }
+        }
+        this.keyboardInteractivePrompt.next(prompt)
     }
 
     async handleAuth (methodsLeft?: string[] | null): Promise<any> {

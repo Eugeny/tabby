@@ -2,13 +2,12 @@ import colors from 'ansi-colors'
 import * as shellQuote from 'shell-quote'
 import { Duplex } from 'stream'
 import { Injectable, NgZone } from '@angular/core'
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { Client } from 'ssh2'
 import { spawn } from 'child_process'
 import { ChildProcess } from 'node:child_process'
 import { Subject, Observable } from 'rxjs'
-import { Logger, LogService, ConfigService, NotificationsService, HostAppService, Platform, PlatformService, PromptModalComponent } from 'tabby-core'
-import { SSHSession } from '../session/ssh'
+import { Logger, LogService, ConfigService, NotificationsService, HostAppService, Platform, PlatformService } from 'tabby-core'
+import { KeyboardInteractivePrompt, SSHSession } from '../session/ssh'
 import { ForwardedPort } from '../session/forwards'
 import { ALGORITHM_BLACKLIST, SSHAlgorithmType, SSHProfile } from '../api'
 import { PasswordStorageService } from './passwordStorage.service'
@@ -21,7 +20,6 @@ export class SSHService {
     private constructor (
         log: LogService,
         private zone: NgZone,
-        private ngbModal: NgbModal,
         private passwordStorage: PasswordStorageService,
         private notifications: NotificationsService,
         private config: ConfigService,
@@ -83,22 +81,12 @@ export class SSHService {
             })
 
             ssh.on('keyboard-interactive', (name, instructions, instructionsLang, prompts, finish) => this.zone.run(async () => {
-                log(colors.bgBlackBright(' ') + ` Keyboard-interactive auth requested: ${name}`)
-                this.logger.info('Keyboard-interactive auth:', name, instructions, instructionsLang)
-                const results: string[] = []
-                for (const prompt of prompts) {
-                    const modal = this.ngbModal.open(PromptModalComponent)
-                    modal.componentInstance.prompt = prompt.prompt
-                    modal.componentInstance.password = !prompt.echo
-
-                    try {
-                        const result = await modal.result
-                        results.push(result ? result.value : '')
-                    } catch {
-                        results.push('')
-                    }
-                }
-                finish(results)
+                session.emitKeyboardInteractivePrompt(new KeyboardInteractivePrompt(
+                    name,
+                    instructions,
+                    prompts.map(x => x.prompt),
+                    finish,
+                ))
             }))
 
             ssh.on('greeting', greeting => {

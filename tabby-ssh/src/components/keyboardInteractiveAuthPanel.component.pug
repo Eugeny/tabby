@@ -1,0 +1,26 @@
+.d-flex
+    strong Keyboard-interactive auth
+    .ml-2 {{prompt.name}}
+
+.prompt-text {{prompt.prompts[step]}}
+
+input.form-control.mt-2(
+    #input,
+    autofocus,
+    [type]='isPassword() ? "password": "text"',
+    placeholder='Response',
+    (keyup.enter)='next()',
+    [(ngModel)]='prompt.responses[step]'
+)
+
+.d-flex.mt-3
+    button.btn.btn-secondary(
+        *ngIf='step > 0',
+        (click)='previous()'
+    )
+    .ml-auto
+    button.btn.btn-primary(
+        (click)='next()'
+    )
+        span(*ngIf='step < prompt.prompts.length - 1') Next
+        span(*ngIf='step == prompt.prompts.length - 1') Finish

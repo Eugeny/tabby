@@ -15,6 +15,7 @@ import { SSHSettingsTabComponent } from './components/sshSettingsTab.component'
 import { SSHTabComponent } from './components/sshTab.component'
 import { SFTPPanelComponent } from './components/sftpPanel.component'
 import { SFTPDeleteModalComponent } from './components/sftpDeleteModal.component'
+import { KeyboardInteractiveAuthComponent } from './components/keyboardInteractiveAuthPanel.component'
 
 import { SSHConfigProvider } from './config'
 import { SSHSettingsTabProvider } from './settings'
@@ -60,6 +61,7 @@ import { CommonSFTPContextMenu } from './sftpContextMenu'
         SSHSettingsTabComponent,
         SSHTabComponent,
         SFTPPanelComponent,
+        KeyboardInteractiveAuthComponent,
     ],
 })
 // eslint-disable-next-line @typescript-eslint/no-extraneous-class

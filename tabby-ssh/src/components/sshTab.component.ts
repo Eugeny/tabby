@@ -5,7 +5,7 @@ import { first } from 'rxjs'
 import { PartialProfile, Platform, ProfilesService, RecoveryToken } from 'tabby-core'
 import { BaseTerminalTabComponent } from 'tabby-terminal'
 import { SSHService } from '../services/ssh.service'
-import { SSHSession } from '../session/ssh'
+import { KeyboardInteractivePrompt, SSHSession } from '../session/ssh'
 import { SSHPortForwardingModalComponent } from './sshPortForwardingModal.component'
 import { SSHProfile } from '../api'
 
@@ -24,6 +24,7 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
     sftpPanelVisible = false
     sftpPath = '/'
     enableToolbar = true
+    activeKIPrompt: KeyboardInteractivePrompt|null = null
     private sessionStack: SSHSession[] = []
     private recentInputs = ''
     private reconnectOffered = false
@@ -35,6 +36,9 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
         private profilesService: ProfilesService,
     ) {
         super(injector)
+        this.sessionChanged$.subscribe(() => {
+            this.activeKIPrompt = null
+        })
     }
 
     ngOnInit (): void {
@@ -124,6 +128,17 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
         this.attachSessionHandler(session.serviceMessage$, msg => {
             this.write(`\r${colors.black.bgWhite(' SSH ')} ${msg}\r\n`)
             session.resize(this.size.columns, this.size.rows)
+        })
+
+        this.attachSessionHandler(session.destroyed$, () => {
+            this.activeKIPrompt = null
+        })
+
+        this.attachSessionHandler(session.keyboardInteractivePrompt$, prompt => {
+            this.activeKIPrompt = prompt
+            setTimeout(() => {
+                this.frontend?.scrollToBottom()
+            })
         })
 
         try {
