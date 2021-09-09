@@ -19,17 +19,22 @@
 * [Repositories](https://packagecloud.io/eugeny/tabby): [Debian/Ubuntu-based](https://packagecloud.io/eugeny/tabby/install#bash-deb), [RPM-based](https://packagecloud.io/eugeny/tabby/install#bash-rpm)
 * [Latest nightly build](https://nightly.link/Eugeny/tabby/workflows/build/master)
 
+<br/>
+<center>
+This README is also available in: <a href="./README.ko-KR.md">Korean</a>
+</center>
+
 ----
 
-**Tabby** (formerly **Terminus**) is a highly configurable terminal emulator, SSH and serial client for Windows, macOS and Linux
+[**Tabby**](https://tabby.sh) (formerly **Terminus**) is a highly configurable terminal emulator, SSH and serial client for Windows, macOS and Linux
 
-* Integrated SSH client and connection manager
+* Integrated SSH and Telnet client and connection manager
 * Integrated serial terminal
 * Theming and color schemes
 * Fully configurable shortcuts and multi-chord shortcuts
 * Split panes
 * Remembers your tabs
-* PowerShell (and PS Core), WSL, Git-Bash, Cygwin, Cmder and CMD support
+* PowerShell (and PS Core), WSL, Git-Bash, Cygwin, MSYS2, Cmder and CMD support
 * Direct file transfer from/to SSH sessions via Zmodem
 * Full Unicode support including double-width characters
 * Doesn't choke on fast-flowing outputs
