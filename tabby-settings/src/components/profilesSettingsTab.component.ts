@@ -94,8 +94,9 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
             EditProfileModalComponent,
             { size: 'lg' },
         )
+        const provider = this.profilesService.providerForProfile(profile)
         modal.componentInstance.profile = Object.assign({}, profile)
-        modal.componentInstance.profileProvider = this.profilesService.providerForProfile(profile)
+        modal.componentInstance.profileProvider = provider
         const result = await modal.result
 
         // Fully replace the config
@@ -105,7 +106,7 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
         }
         Object.assign(profile, result)
 
-        profile.type = modal.componentInstance.profileProvider.id
+        profile.type = provider.id
     }
 
     async deleteProfile (profile: PartialProfile<Profile>): Promise<void> {
