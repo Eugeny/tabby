@@ -46,7 +46,7 @@ nsis:
   artifactName: tabby-${version}-setup.${ext}
   installerIcon: "./build/windows/icon.ico"
   allowToChangeInstallationDirectory: true
-
+  shortcutName: Tabby Terminal
 mac:
   category: public.app-category.video
   icon: "./build/mac/icon.icns"
