@@ -40,10 +40,10 @@
     "@serialport/binding-abstract" "^9.0.7"
     debug "^4.3.1"
 
-"@serialport/bindings@^9.2.0":
-  version "9.2.0"
-  resolved "https://registry.yarnpkg.com/@serialport/bindings/-/bindings-9.2.0.tgz#de6df688d0ff99bdbb86ea6db412562cb2d9ebe7"
-  integrity sha512-s9EKHDZjLHipHhypxy6pz2XsoI1fPiOGU+X13AIGdQfoe7I6piEyhJ2znNgXMugMe43OxNk0/CmuVMzzcw1lmQ==
+"@serialport/bindings@9.2.1":
+  version "9.2.1"
+  resolved "https://registry.yarnpkg.com/@serialport/bindings/-/bindings-9.2.1.tgz#5e6b83222821f9b849512abdc8637386a6675355"
+  integrity sha512-e1CvbvkuMptSjCKc/YwIGjEsSod7kGRpS5TciACQMOi2QQTD8XwVPim0izqVCBZko4n4b0dC6sG3EBkTkQIwnw==
   dependencies:
     "@serialport/binding-abstract" "^9.0.7"
     "@serialport/parser-readline" "^9.0.7"
@@ -699,14 +699,7 @@ debug@^3.1.0:
   dependencies:
     ms "^2.1.1"
 
-debug@^4.0.1, debug@^4.3.1:
-  version "4.3.1"
-  resolved "https://registry.npmjs.org/debug/-/debug-4.3.1.tgz"
-  integrity sha512-doEwdvm4PCeK4K3RQN2ZC2BYUBaxwLARCqZmMjtF8a51J2Rb0xpVloFRnCODwqjpwnAoao4pelN8l3RJdv3gRQ==
-  dependencies:
-    ms "2.1.2"
-
-debug@^4.3.2:
+debug@^4.0.1, debug@^4.3.1, debug@^4.3.2:
   version "4.3.2"
   resolved "https://registry.yarnpkg.com/debug/-/debug-4.3.2.tgz#f0a49c18ac8779e31d4a0c6029dfb76873c7428b"
   integrity sha512-mOp8wKcvj7XxC78zLgw/ZA+6TSgkoE2C/ienthhRD298T7UNwAg9diBpLRxC0mOezLl4B0xV7M0cCO6P/O0Xhw==
@@ -3106,13 +3099,13 @@ serialize-error@^5.0.0:
   dependencies:
     type-fest "^0.8.0"
 
-serialport@^9.2.0:
-  version "9.2.0"
-  resolved "https://registry.yarnpkg.com/serialport/-/serialport-9.2.0.tgz#17a8364979f3c06a54a7bf4e8cbb8ebc91e54511"
-  integrity sha512-C6AQ4jD4mre3tn3QA+atn++mEZDh4r40CIeh1sKhskKE+Q4eiIr/nzVMOiPxHb8gskrSNxujH+Br49tl3i9s9g==
+serialport@^9.2.1:
+  version "9.2.1"
+  resolved "https://registry.yarnpkg.com/serialport/-/serialport-9.2.1.tgz#9da02f6657ee9e2c8bd7642ff6c5c59a6a65d17e"
+  integrity sha512-zX18SVSNRZvMrkxNvSnhqqag46MLQH517EaLSVv8PKSVnTFMzemRCfBdXbOY2XhtUqzpQq6ep2mR1t+AMhJssg==
   dependencies:
     "@serialport/binding-mock" "9.0.7"
-    "@serialport/bindings" "^9.2.0"
+    "@serialport/bindings" "9.2.1"
     "@serialport/parser-byte-length" "9.0.7"
     "@serialport/parser-cctalk" "9.0.7"
     "@serialport/parser-delimiter" "9.0.7"
