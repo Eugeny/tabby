@@ -229,6 +229,9 @@ export class HotkeysService {
         if (!matches.length) {
             return null
         }
+        if (matches[0].sequence.length > 1) {
+            this.clearCurrentKeystrokes()
+        }
         return matches[0].id
     }
 
