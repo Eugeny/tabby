@@ -145,6 +145,8 @@ export class HotkeysService {
                 })
                 this.recognitionPhase = false
             }
+            this.pressedKeys.clear()
+            this.pressedKeyTimestamps.clear()
             this.removePressedKey(keyName)
         }
 
@@ -296,6 +298,7 @@ export class HotkeysService {
             this._hotkey.next(hotkey)
             this.pressedHotkey = hotkey
         }
+        this.recognitionPhase = false
     }
 
     private emitHotkeyOff (hotkey: string) {
