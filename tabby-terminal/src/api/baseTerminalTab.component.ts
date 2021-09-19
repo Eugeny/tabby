@@ -701,6 +701,11 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
         this.attachSessionHandler(this.session.destroyed$, () => {
             this.setSession(null)
         })
+
+        this.attachSessionHandler(this.session.oscProcessor.copyRequested$, content => {
+            this.platform.setClipboard({ text: content })
+            this.notifications.notice('Copied')
+        })
     }
 
     protected detachSessionHandlers (): void {
