@@ -25,6 +25,7 @@ export class StartPageComponent {
         return this.config.enabledServices(this.toolbarButtonProviders)
             .map(provider => provider.provide())
             .reduce((a, b) => a.concat(b))
+            .filter(x => x.showInStartPage ?? true)
             .filter(x => !!x.click)
             .sort((a: ToolbarButton, b: ToolbarButton) => (a.weight ?? 0) - (b.weight ?? 0))
     }

@@ -89,11 +89,16 @@ export class ProfilesService {
         }
     }
 
+    getRecentProfiles (): PartialProfile<Profile>[] {
+        let recentProfiles: PartialProfile<Profile>[] = JSON.parse(window.localStorage['recentProfiles'] ?? '[]')
+        recentProfiles = recentProfiles.slice(0, this.config.store.terminal.showRecentProfiles)
+        return recentProfiles
+    }
+
     showProfileSelector (): Promise<PartialProfile<Profile>|null> {
         return new Promise<PartialProfile<Profile>|null>(async (resolve, reject) => {
             try {
-                let recentProfiles: PartialProfile<Profile>[] = JSON.parse(window.localStorage['recentProfiles'] ?? '[]')
-                recentProfiles = recentProfiles.slice(0, this.config.store.terminal.showRecentProfiles)
+                const recentProfiles = this.getRecentProfiles()
 
                 let options: SelectorOption<void>[] = recentProfiles.map(p => ({
                     ...this.selectorOptionForProfile(p),
@@ -187,5 +192,19 @@ export class ProfilesService {
             !provider || skipUserDefaults ? {} : this.config.store.profileDefaults[provider.id] ?? {},
         ].reduce(configMerge, {})
         return new ConfigProxy(profile, defaults) as unknown as T
+    }
+
+    async launchProfile (profile: PartialProfile<Profile>): Promise<void> {
+        await this.openNewTabForProfile(profile)
+
+        let recentProfiles: PartialProfile<Profile>[] = JSON.parse(window.localStorage['recentProfiles'] ?? '[]')
+        if (this.config.store.terminal.showRecentProfiles > 0) {
+            recentProfiles = recentProfiles.filter(x => x.group !== profile.group || x.name !== profile.name)
+            recentProfiles.unshift(profile)
+            recentProfiles = recentProfiles.slice(0, this.config.store.terminal.showRecentProfiles)
+        } else {
+            recentProfiles = []
+        }
+        window.localStorage['recentProfiles'] = JSON.stringify(recentProfiles)
     }
 }

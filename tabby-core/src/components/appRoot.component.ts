@@ -203,6 +203,7 @@ export class AppRootComponent {
             buttons = buttons.concat(provider.provide())
         })
         return buttons
+            .filter(x => x.showInToolbar ?? true)
             .filter(button => (button.weight ?? 0) > 0 === aboveZero)
             .sort((a: ToolbarButton, b: ToolbarButton) => (a.weight ?? 0) - (b.weight ?? 0))
     }
