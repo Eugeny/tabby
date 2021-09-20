@@ -25,6 +25,7 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
                 label Username
                 input.form-control(
                     type='text',
+                    placeholder='Ask every time',
                     [(ngModel)]='profile.options.user',
                 )
 
@@ -56,7 +57,7 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
                         i.far.fa-keyboard
                         .m-0 Interactive
 
-            .form-line(*ngIf='!profile.options.auth || profile.options.auth === "password"')
+            .form-line(*ngIf='profile.options.user && (!profile.options.auth || profile.options.auth === "password")')
                 .header
                     .title Password
                     .description(*ngIf='!hasSavedPassword') Save a password in the keychain

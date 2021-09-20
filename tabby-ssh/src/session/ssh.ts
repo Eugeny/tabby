@@ -16,7 +16,7 @@ import { ProxyCommandStream } from '../services/ssh.service'
 import { PasswordStorageService } from '../services/passwordStorage.service'
 import { promisify } from 'util'
 import { SFTPSession } from './sftp'
-import { PortForwardType, SSHProfile } from '../api/interfaces'
+import { ALGORITHM_BLACKLIST, SSHAlgorithmType, PortForwardType, SSHProfile } from '../api'
 import { ForwardedPort } from './forwards'
 
 const WINDOWS_OPENSSH_AGENT_PIPE = '\\\\.\\pipe\\openssh-ssh-agent'
@@ -60,6 +60,7 @@ export class SSHSession extends BaseSession {
     private serviceMessage = new Subject<string>()
     private keyboardInteractivePrompt = new Subject<KeyboardInteractivePrompt>()
     private keychainPasswordUsed = false
+    private authUsername: string|null = null
 
     private passwordStorage: PasswordStorageService
     private ngbModal: NgbModal
@@ -157,8 +158,142 @@ export class SSHSession extends BaseSession {
         return new SFTPSession(this.sftp, this.injector)
     }
 
-    async start (): Promise<void> {
+
+    async start (interactive = true): Promise<void> {
+        const log = (s: any) => this.emitServiceMessage(s)
+
+        const ssh = new Client()
+        this.ssh = ssh
+        await this.init()
+
+        let connected = false
+        const algorithms = {}
+        for (const key of Object.values(SSHAlgorithmType)) {
+            algorithms[key] = this.profile.options.algorithms![key].filter(x => !ALGORITHM_BLACKLIST.includes(x))
+        }
+
+        const resultPromise: Promise<void> = new Promise(async (resolve, reject) => {
+            ssh.on('ready', () => {
+                connected = true
+                if (this.savedPassword) {
+                    this.passwordStorage.savePassword(this.profile, this.savedPassword)
+                }
+
+                for (const fw of this.profile.options.forwardedPorts ?? []) {
+                    this.addPortForward(Object.assign(new ForwardedPort(), fw))
+                }
+
+                this.zone.run(resolve)
+            })
+            ssh.on('handshake', negotiated => {
+                this.logger.info('Handshake complete:', negotiated)
+            })
+            ssh.on('error', error => {
+                if (error.message === 'All configured authentication methods failed') {
+                    this.passwordStorage.deletePassword(this.profile)
+                }
+                this.zone.run(() => {
+                    if (connected) {
+                        // eslint-disable-next-line @typescript-eslint/no-base-to-string
+                        this.notifications.error(error.toString())
+                    } else {
+                        reject(error)
+                    }
+                })
+            })
+            ssh.on('close', () => {
+                if (this.open) {
+                    this.destroy()
+                }
+            })
+
+            ssh.on('keyboard-interactive', (name, instructions, instructionsLang, prompts, finish) => this.zone.run(async () => {
+                this.emitKeyboardInteractivePrompt(new KeyboardInteractivePrompt(
+                    name,
+                    instructions,
+                    prompts.map(x => x.prompt),
+                    finish,
+                ))
+            }))
+
+            ssh.on('greeting', greeting => {
+                if (!this.profile.options.skipBanner) {
+                    log('Greeting: ' + greeting)
+                }
+            })
+
+            ssh.on('banner', banner => {
+                if (!this.profile.options.skipBanner) {
+                    log(banner)
+                }
+            })
+        })
+
+        try {
+            if (this.profile.options.proxyCommand) {
+                this.emitServiceMessage(colors.bgBlue.black(' Proxy command ') + ` Using ${this.profile.options.proxyCommand}`)
+                this.proxyCommandStream = new ProxyCommandStream(this.profile.options.proxyCommand)
+
+                this.proxyCommandStream.on('error', err => {
+                    this.emitServiceMessage(colors.bgRed.black(' X ') + ` ${err.message}`)
+                    this.destroy()
+                })
+
+                this.proxyCommandStream.output$.subscribe((message: string) => {
+                    this.emitServiceMessage(colors.bgBlue.black(' Proxy command ') + ' ' + message.trim())
+                })
+
+                await this.proxyCommandStream.start()
+            }
+
+            this.authUsername ??= this.profile.options.user
+            if (!this.authUsername) {
+                const modal = this.ngbModal.open(PromptModalComponent)
+                modal.componentInstance.prompt = `Username for ${this.profile.options.host}`
+                const result = await modal.result
+                this.authUsername = result?.value ?? null
+            }
+
+            ssh.connect({
+                host: this.profile.options.host.trim(),
+                port: this.profile.options.port ?? 22,
+                sock: this.proxyCommandStream ?? this.jumpStream,
+                username: this.authUsername ?? undefined,
+                tryKeyboard: true,
+                agent: this.agentPath,
+                agentForward: this.profile.options.agentForward && !!this.agentPath,
+                keepaliveInterval: this.profile.options.keepaliveInterval ?? 15000,
+                keepaliveCountMax: this.profile.options.keepaliveCountMax,
+                readyTimeout: this.profile.options.readyTimeout,
+                hostVerifier: (digest: string) => {
+                    log('Host key fingerprint:')
+                    log(colors.white.bgBlack(' SHA256 ') + colors.bgBlackBright(' ' + digest + ' '))
+                    return true
+                },
+                hostHash: 'sha256' as any,
+                algorithms,
+                authHandler: (methodsLeft, partialSuccess, callback) => {
+                    this.zone.run(async () => {
+                        const a = await this.handleAuth(methodsLeft)
+                        console.warn(a)
+                        callback(a)
+                    })
+                },
+            })
+        } catch (e) {
+            this.notifications.error(e.message)
+            throw e
+        }
+
+        await resultPromise
+
         this.open = true
+
+        if (!interactive) {
+            return
+        }
+
+        // -----------
 
         try {
             this.shell = await this.openShellChannel({ x11: this.profile.options.x11 })
@@ -292,26 +427,26 @@ export class SSHSession extends BaseSession {
                     this.emitServiceMessage('Using preset password')
                     return {
                         type: 'password',
-                        username: this.profile.options.user,
+                        username: this.authUsername,
                         password: this.profile.options.password,
                     }
                 }
 
-                if (!this.keychainPasswordUsed) {
+                if (!this.keychainPasswordUsed && this.profile.options.user) {
                     const password = await this.passwordStorage.loadPassword(this.profile)
                     if (password) {
                         this.emitServiceMessage('Trying saved password')
                         this.keychainPasswordUsed = true
                         return {
                             type: 'password',
-                            username: this.profile.options.user,
+                            username: this.authUsername,
                             password,
                         }
                     }
                 }
 
                 const modal = this.ngbModal.open(PromptModalComponent)
-                modal.componentInstance.prompt = `Password for ${this.profile.options.user}@${this.profile.options.host}`
+                modal.componentInstance.prompt = `Password for ${this.authUsername}@${this.profile.options.host}`
                 modal.componentInstance.password = true
                 modal.componentInstance.showRememberCheckbox = true
 
@@ -323,7 +458,7 @@ export class SSHSession extends BaseSession {
                         }
                         return {
                             type: 'password',
-                            username: this.profile.options.user,
+                            username: this.authUsername,
                             password: result.value,
                         }
                     } else {
@@ -338,7 +473,7 @@ export class SSHSession extends BaseSession {
                     const key = await this.loadPrivateKey(method.contents)
                     return {
                         type: 'publickey',
-                        username: this.profile.options.user,
+                        username: this.authUsername,
                         key,
                     }
                 } catch (e) {

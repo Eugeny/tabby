@@ -81,7 +81,7 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
         super.ngOnInit()
     }
 
-    async setupOneSession (session: SSHSession): Promise<void> {
+    async setupOneSession (session: SSHSession, interactive: boolean): Promise<void> {
         if (session.profile.options.jumpHost) {
             const jumpConnection: PartialProfile<SSHProfile>|null = this.config.store.profiles.find(x => x.id === session.profile.options.jumpHost)
 
@@ -94,7 +94,7 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
                 this.profilesService.getConfigProxyForProfile(jumpConnection)
             )
 
-            await this.setupOneSession(jumpSession)
+            await this.setupOneSession(jumpSession, false)
 
             this.attachSessionHandler(jumpSession.destroyed$, () => {
                 if (session.open) {
@@ -142,7 +142,7 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
         })
 
         try {
-            await this.ssh.connectSession(session)
+            await session.start(interactive)
             this.stopSpinner()
         } catch (e) {
             this.stopSpinner()
@@ -189,12 +189,11 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
         this.setSession(session)
 
         try {
-            await this.setupOneSession(session)
+            await this.setupOneSession(session, true)
         } catch (e) {
             this.write(colors.black.bgRed(' X ') + ' ' + colors.red(e.message) + '\r\n')
         }
 
-        await this.session!.start()
         this.session!.resize(this.size.columns, this.size.rows)
     }
 
