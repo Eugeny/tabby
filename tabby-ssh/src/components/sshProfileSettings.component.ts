@@ -44,10 +44,12 @@ export class SSHProfileSettingsComponent {
         this.profile.options.privateKeys ??= []
 
         this.useProxyCommand = !!this.profile.options.proxyCommand
-        try {
-            this.hasSavedPassword = !!await this.passwordStorage.loadPassword(this.profile)
-        } catch (e) {
-            console.error('Could not check for saved password', e)
+        if (this.profile.options.user) {
+            try {
+                this.hasSavedPassword = !!await this.passwordStorage.loadPassword(this.profile)
+            } catch (e) {
+                console.error('Could not check for saved password', e)
+            }
         }
     }
 
