@@ -76,4 +76,6 @@ export abstract class Frontend {
 
     abstract saveState (): any
     abstract restoreState (state: string): void
+
+    abstract supportsBracketedPaste (): boolean
 }

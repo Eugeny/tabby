@@ -1,14 +1,16 @@
 import colors from 'ansi-colors'
+import * as shellQuote from 'shell-quote'
 import { Duplex } from 'stream'
 import { Injectable, NgZone } from '@angular/core'
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { Client } from 'ssh2'
-import { exec } from 'child_process'
-import { Subject, Observable } from 'rxjs'
-import { Logger, LogService, ConfigService, NotificationsService, HostAppService, Platform, PlatformService, PromptModalComponent } from 'tabby-core'
-import { ALGORITHM_BLACKLIST, ForwardedPort, SSHAlgorithmType, SSHProfile, SSHSession } from '../api'
-import { PasswordStorageService } from './passwordStorage.service'
+import { spawn } from 'child_process'
 import { ChildProcess } from 'node:child_process'
+import { Subject, Observable } from 'rxjs'
+import { Logger, LogService, ConfigService, NotificationsService, HostAppService, Platform, PlatformService } from 'tabby-core'
+import { KeyboardInteractivePrompt, SSHSession } from '../session/ssh'
+import { ForwardedPort } from '../session/forwards'
+import { ALGORITHM_BLACKLIST, SSHAlgorithmType, SSHProfile } from '../api'
+import { PasswordStorageService } from './passwordStorage.service'
 
 @Injectable({ providedIn: 'root' })
 export class SSHService {
@@ -18,7 +20,6 @@ export class SSHService {
     private constructor (
         log: LogService,
         private zone: NgZone,
-        private ngbModal: NgbModal,
         private passwordStorage: PasswordStorageService,
         private notifications: NotificationsService,
         private config: ConfigService,
@@ -80,22 +81,12 @@ export class SSHService {
             })
 
             ssh.on('keyboard-interactive', (name, instructions, instructionsLang, prompts, finish) => this.zone.run(async () => {
-                log(colors.bgBlackBright(' ') + ` Keyboard-interactive auth requested: ${name}`)
-                this.logger.info('Keyboard-interactive auth:', name, instructions, instructionsLang)
-                const results: string[] = []
-                for (const prompt of prompts) {
-                    const modal = this.ngbModal.open(PromptModalComponent)
-                    modal.componentInstance.prompt = prompt.prompt
-                    modal.componentInstance.password = !prompt.echo
-
-                    try {
-                        const result = await modal.result
-                        results.push(result ? result.value : '')
-                    } catch {
-                        results.push('')
-                    }
-                }
-                finish(results)
+                session.emitKeyboardInteractivePrompt(new KeyboardInteractivePrompt(
+                    name,
+                    instructions,
+                    prompts.map(x => x.prompt),
+                    finish,
+                ))
             }))
 
             ssh.on('greeting', greeting => {
@@ -115,6 +106,11 @@ export class SSHService {
             if (session.profile.options.proxyCommand) {
                 session.emitServiceMessage(colors.bgBlue.black(' Proxy command ') + ` Using ${session.profile.options.proxyCommand}`)
                 session.proxyCommandStream = new ProxyCommandStream(session.profile.options.proxyCommand)
+
+                session.proxyCommandStream.on('error', err => {
+                    session.emitServiceMessage(colors.bgRed.black(' X ') + ` ${err.message}`)
+                    session.destroy()
+                })
 
                 session.proxyCommandStream.output$.subscribe((message: string) => {
                     session.emitServiceMessage(colors.bgBlue.black(' Proxy command ') + ' ' + message.trim())
@@ -196,9 +192,13 @@ export class ProxyCommandStream extends Duplex {
     }
 
     async start (): Promise<void> {
-        this.process = exec(this.command, {
+        const argv = shellQuote.parse(this.command)
+        this.process = spawn(argv[0], argv.slice(1), {
             windowsHide: true,
-            encoding: 'buffer',
+            stdio: ['pipe', 'pipe', 'ignore'],
+        })
+        this.process.on('error', error => {
+            this.destroy(new Error(`Proxy command has failed to start: ${error.message}`))
         })
         this.process.on('exit', code => {
             this.destroy(new Error(`Proxy command has exited with code ${code}`))
@@ -215,7 +215,7 @@ export class ProxyCommandStream extends Duplex {
     }
 
     _read (size: number): void {
-        process.stdout.read(size)
+        this.process.stdout?.read(size)
     }
 
     _write (chunk: Buffer, _encoding: string, callback: (error?: Error | null) => void): void {

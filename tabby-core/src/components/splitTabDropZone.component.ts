@@ -22,6 +22,7 @@ import { SplitDropZoneInfo } from './splitTab.component'
 })
 export class SplitTabDropZoneComponent extends SelfPositioningComponent {
     @Input() dropZone: SplitDropZoneInfo
+    @Input() parent: BaseTabComponent
     @Output() tabDropped = new EventEmitter<BaseTabComponent>()
     @HostBinding('class.active') isActive = false
     @HostBinding('class.highlighted') isHighlighted = false
@@ -32,8 +33,8 @@ export class SplitTabDropZoneComponent extends SelfPositioningComponent {
         app: AppService,
     ) {
         super(element)
-        this.subscribeUntilDestroyed(app.tabDragActive$, active => {
-            this.isActive = active
+        this.subscribeUntilDestroyed(app.tabDragActive$, tab => {
+            this.isActive = !!tab && tab !== this.parent && (this.dropZone.type === 'relative' || tab !== this.dropZone.container.children[this.dropZone.position])
             this.layout()
         })
     }
@@ -43,21 +44,11 @@ export class SplitTabDropZoneComponent extends SelfPositioningComponent {
     }
 
     layout () {
-        const tabElement: HTMLElement = this.dropZone.relativeToTab.viewContainerEmbeddedRef?.rootNodes[0]
-
-        const args = {
-            t: [0, 0, tabElement.clientWidth, tabElement.clientHeight / 5],
-            l: [0, tabElement.clientHeight / 5, tabElement.clientWidth / 3, tabElement.clientHeight * 3 / 5],
-            r: [tabElement.clientWidth * 2 / 3, tabElement.clientHeight / 5, tabElement.clientWidth / 3, tabElement.clientHeight * 3 / 5],
-            b: [0, tabElement.clientHeight * 4 / 5, tabElement.clientWidth, tabElement.clientHeight / 5],
-        }[this.dropZone.side]
-
         this.setDimensions(
-            args[0] + tabElement.offsetLeft,
-            args[1] + tabElement.offsetTop,
-            args[2],
-            args[3],
-            'px'
+            this.dropZone.x,
+            this.dropZone.y,
+            this.dropZone.w,
+            this.dropZone.h,
         )
     }
 }

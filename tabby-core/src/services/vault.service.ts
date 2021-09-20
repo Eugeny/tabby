@@ -26,7 +26,7 @@ interface StoredVault {
 
 export interface VaultSecret {
     type: string
-    key: Record<string, any>
+    key: VaultSecretKey
     value: string
 }
 
@@ -41,6 +41,9 @@ export interface Vault {
     config: any
     secrets: VaultSecret[]
 }
+
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface VaultSecretKey { }
 
 function migrateVaultContent (content: any): Vault {
     return {
@@ -184,7 +187,7 @@ export class VaultService {
         return _rememberedPassphrase!
     }
 
-    async getSecret (type: string, key: Record<string, any>): Promise<VaultSecret|null> {
+    async getSecret (type: string, key: VaultSecretKey): Promise<VaultSecret|null> {
         await this.ready$.toPromise()
         const vault = await this.load()
         if (!vault) {
@@ -218,7 +221,7 @@ export class VaultService {
         await this.save(vault)
     }
 
-    async removeSecret (type: string, key: Record<string, any>): Promise<void> {
+    async removeSecret (type: string, key: VaultSecretKey): Promise<void> {
         await this.ready$.toPromise()
         const vault = await this.load()
         if (!vault) {
@@ -228,7 +231,7 @@ export class VaultService {
         await this.save(vault)
     }
 
-    private keyMatches (key: Record<string, any>, secret: VaultSecret): boolean {
+    private keyMatches (key: VaultSecretKey, secret: VaultSecret): boolean {
         return Object.keys(key).every(k => secret.key[k] === key[k])
     }
 
@@ -267,9 +270,9 @@ export class VaultFileProvider extends FileProvider {
         if (!vault) {
             throw new Error('Vault is locked')
         }
-        const files = vault.secrets.filter(x => x.type === VAULT_SECRET_TYPE_FILE)
+        const files = vault.secrets.filter(x => x.type === VAULT_SECRET_TYPE_FILE) as VaultFileSecret[]
         if (files.length) {
-            const result = await this.selector.show<VaultSecret|null>('Select file', [
+            const result = await this.selector.show<VaultFileSecret|null>('Select file', [
                 {
                     name: 'Add a new file',
                     icon: 'fas fa-plus',

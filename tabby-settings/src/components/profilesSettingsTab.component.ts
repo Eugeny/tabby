@@ -1,9 +1,9 @@
 import { v4 as uuidv4 } from 'uuid'
 import slugify from 'slugify'
 import deepClone from 'clone-deep'
-import { Component } from '@angular/core'
+import { Component, Inject } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
-import { ConfigService, HostAppService, Profile, SelectorService, ProfilesService, PromptModalComponent, PlatformService, BaseComponent, PartialProfile } from 'tabby-core'
+import { ConfigService, HostAppService, Profile, SelectorService, ProfilesService, PromptModalComponent, PlatformService, BaseComponent, PartialProfile, ProfileProvider } from 'tabby-core'
 import { EditProfileModalComponent } from './editProfileModal.component'
 
 interface ProfileGroup {
@@ -28,12 +28,14 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
     constructor (
         public config: ConfigService,
         public hostApp: HostAppService,
+        @Inject(ProfileProvider) public profileProviders: ProfileProvider<Profile>[],
         private profilesService: ProfilesService,
         private selector: SelectorService,
         private ngbModal: NgbModal,
         private platform: PlatformService,
     ) {
         super()
+        this.profileProviders.sort((a, b) => a.name.localeCompare(b.name))
     }
 
     async ngOnInit (): Promise<void> {
@@ -63,24 +65,41 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
                 })),
             )
         }
-        const profile = deepClone(base)
-        profile.id = null
-        profile.name = ''
+        const profile: PartialProfile<Profile> = deepClone(base)
+        delete profile.id
+        if (base.isTemplate) {
+            profile.name = ''
+        } else if (!base.isBuiltin) {
+            profile.name = `${base.name} copy`
+        }
         profile.isBuiltin = false
         profile.isTemplate = false
-        await this.editProfile(profile)
+        await this.showProfileEditModal(profile)
+        if (!profile.name) {
+            const cfgProxy = this.profilesService.getConfigProxyForProfile(profile)
+            profile.name = this.profilesService.providerForProfile(profile)?.getSuggestedName(cfgProxy) ?? `${base.name} copy`
+        }
         profile.id = `${profile.type}:custom:${slugify(profile.name)}:${uuidv4()}`
         this.config.store.profiles = [profile, ...this.config.store.profiles]
         await this.config.save()
     }
 
     async editProfile (profile: PartialProfile<Profile>): Promise<void> {
+        await this.showProfileEditModal(profile)
+        await this.config.save()
+    }
+
+    async showProfileEditModal (profile: PartialProfile<Profile>): Promise<void> {
         const modal = this.ngbModal.open(
             EditProfileModalComponent,
             { size: 'lg' },
         )
+        const provider = this.profilesService.providerForProfile(profile)
+        if (!provider) {
+            throw new Error('Cannot edit a profile without a provider')
+        }
         modal.componentInstance.profile = Object.assign({}, profile)
-        modal.componentInstance.profileProvider = this.profilesService.providerForProfile(profile)
+        modal.componentInstance.profileProvider = provider
         const result = await modal.result
 
         // Fully replace the config
@@ -90,7 +109,7 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
         }
         Object.assign(profile, result)
 
-        await this.config.save()
+        profile.type = provider.id
     }
 
     async deleteProfile (profile: PartialProfile<Profile>): Promise<void> {
@@ -98,10 +117,11 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
             {
                 type: 'warning',
                 message: `Delete "${profile.name}"?`,
-                buttons: ['Keep', 'Delete'],
-                defaultId: 0,
+                buttons: ['Delete', 'Keep'],
+                defaultId: 1,
+                cancelId: 1,
             }
-        )).response === 1) {
+        )).response === 0) {
             this.profilesService.providerForProfile(profile)?.deleteProfile(
                 this.profilesService.getConfigProxyForProfile(profile))
             this.config.store.profiles = this.config.store.profiles.filter(x => x !== profile)
@@ -156,16 +176,18 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
             {
                 type: 'warning',
                 message: `Delete "${group.name}"?`,
-                buttons: ['Keep', 'Delete'],
-                defaultId: 0,
+                buttons: ['Delete', 'Keep'],
+                defaultId: 1,
+                cancelId: 1,
             }
-        )).response === 1) {
+        )).response === 0) {
             if ((await this.platform.showMessageBox(
                 {
                     type: 'warning',
                     message: `Delete the group's profiles?`,
                     buttons: ['Move to "Ungrouped"', 'Delete'],
                     defaultId: 0,
+                    cancelId: 0,
                 }
             )).response === 0) {
                 for (const profile of this.profiles.filter(x => x.group === group.name)) {
@@ -209,5 +231,27 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
             telnet: 'info',
             'split-layout': 'primary',
         }[this.profilesService.providerForProfile(profile)?.id ?? ''] ?? 'warning'
+    }
+
+    async editDefaults (provider: ProfileProvider<Profile>): Promise<void> {
+        const modal = this.ngbModal.open(
+            EditProfileModalComponent,
+            { size: 'lg' },
+        )
+        const model = this.config.store.profileDefaults[provider.id] ?? {}
+        model.type = provider.id
+        modal.componentInstance.profile = Object.assign({}, model)
+        modal.componentInstance.profileProvider = provider
+        modal.componentInstance.defaultsMode = true
+        const result = await modal.result
+
+        // Fully replace the config
+        for (const k in model) {
+            // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
+            delete model[k]
+        }
+        Object.assign(model, result)
+        this.config.store.profileDefaults[provider.id] = model
+        await this.config.save()
     }
 }

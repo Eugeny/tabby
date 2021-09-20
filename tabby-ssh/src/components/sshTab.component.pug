@@ -6,7 +6,12 @@
     i.fas.fa-xs.fa-circle.text-danger.mr-2(*ngIf='!session || !session.open')
     strong.mr-auto {{profile.options.user}}@{{profile.options.host}}:{{profile.options.port}}
 
-    .mr-2(ngbDropdown, *ngIf='session && !session.supportsWorkingDirectory()', placement='bottom-right')
+    .mr-2(
+        ngbDropdown,
+        container='body',
+        *ngIf='session && !session.supportsWorkingDirectory()',
+        placement='bottom-right'
+    )
         button.btn.btn-sm.btn-link(ngbDropdownToggle)
             i.far.fa-lightbulb
         .bg-dark(ngbDropdownMenu)
@@ -39,4 +44,11 @@ sftp-panel.bg-dark(
     (click)='$event.stopPropagation()',
     [session]='session',
     (closed)='sftpPanelVisible = false'
+)
+
+keyboard-interactive-auth-panel.bg-dark(
+    *ngIf='activeKIPrompt',
+    [prompt]='activeKIPrompt',
+    (click)='$event.stopPropagation()',
+    (done)='activeKIPrompt = null; frontend.focus()'
 )

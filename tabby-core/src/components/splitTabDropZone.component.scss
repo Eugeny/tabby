@@ -9,6 +9,7 @@
         flex: 1 1 0;
         width: 100%;
         height: 100%;
+        opacity: 0;
 
         background: rgba(255, 255, 255, .125);
         border-radius: 5px;
@@ -21,6 +22,7 @@
         border-radius: 3px;
 
         > div {
+            opacity: 1;
             background: rgba(255, 255, 255, .5);
         }
     }

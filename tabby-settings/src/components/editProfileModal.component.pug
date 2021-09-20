@@ -1,10 +1,13 @@
-.modal-header
+.modal-header(*ngIf='!defaultsMode')
     h3.m-0 {{profile.name}}
+
+.modal-header(*ngIf='defaultsMode')
+    h3.m-0 Defaults for {{profileProvider.name}}
 
 .modal-body
     .row
         .col-12.col-lg-4
-            .form-group
+            .form-group(*ngIf='!defaultsMode')
                 label Name
                 input.form-control(
                     type='text',
@@ -12,7 +15,7 @@
                     [(ngModel)]='profile.name',
                 )
 
-            .form-group
+            .form-group(*ngIf='!defaultsMode')
                 label Group
                 input.form-control(
                     type='text',
@@ -22,7 +25,7 @@
                     [ngbTypeahead]='groupTypeahead',
                 )
 
-            .form-group
+            .form-group(*ngIf='!defaultsMode')
                 label Icon
                 .input-group
                     input.form-control(
@@ -46,7 +49,9 @@
                 input.form-control.w-50(
                     type='text',
                     [(ngModel)]='profile.color',
-                    placeholder='#000000'
+                    placeholder='#000000',
+                    [ngbTypeahead]='colorsAutocomplete',
+                    [resultFormatter]='colorsFormatter'
                 )
 
             .form-line

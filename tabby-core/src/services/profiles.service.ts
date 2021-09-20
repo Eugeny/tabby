@@ -42,7 +42,7 @@ export class ProfilesService {
                 tab.setTitle(profile.name)
             }
             if (profile.disableDynamicTitle) {
-                tab['enableDynamicTitle'] = false
+                tab['disableDynamicTitle'] = true
             }
             return tab
         }
@@ -84,21 +84,27 @@ export class ProfilesService {
     selectorOptionForProfile <P extends Profile, T> (profile: PartialProfile<P>): SelectorOption<T> {
         const fullProfile = this.getConfigProxyForProfile(profile)
         return {
-            icon: profile.icon,
-            name: profile.group ? `${fullProfile.group} / ${fullProfile.name}` : fullProfile.name,
+            ...profile,
             description: this.providerForProfile(fullProfile)?.getDescription(fullProfile),
         }
+    }
+
+    getRecentProfiles (): PartialProfile<Profile>[] {
+        let recentProfiles: PartialProfile<Profile>[] = JSON.parse(window.localStorage['recentProfiles'] ?? '[]')
+        recentProfiles = recentProfiles.slice(0, this.config.store.terminal.showRecentProfiles)
+        return recentProfiles
     }
 
     showProfileSelector (): Promise<PartialProfile<Profile>|null> {
         return new Promise<PartialProfile<Profile>|null>(async (resolve, reject) => {
             try {
-                let recentProfiles: PartialProfile<Profile>[] = this.config.store.recentProfiles
-                recentProfiles = recentProfiles.slice(0, this.config.store.terminal.showRecentProfiles)
+                const recentProfiles = this.getRecentProfiles()
 
                 let options: SelectorOption<void>[] = recentProfiles.map(p => ({
                     ...this.selectorOptionForProfile(p),
+                    group: 'Recent',
                     icon: 'fas fa-history',
+                    color: p.color,
                     callback: async () => {
                         if (p.id) {
                             p = (await this.getProfiles()).find(x => x.id === p.id) ?? p
@@ -108,10 +114,11 @@ export class ProfilesService {
                 }))
                 if (recentProfiles.length) {
                     options.push({
-                        name: 'Clear recent connections',
+                        name: 'Clear recent profiles',
+                        group: 'Recent',
                         icon: 'fas fa-eraser',
                         callback: async () => {
-                            this.config.store.recentProfiles = []
+                            window.localStorage.removeItem('recentProfiles')
                             this.config.save()
                             resolve(null)
                         },
@@ -177,9 +184,27 @@ export class ProfilesService {
         return null
     }
 
-    getConfigProxyForProfile <T extends Profile> (profile: PartialProfile<T>): T {
+    getConfigProxyForProfile <T extends Profile> (profile: PartialProfile<T>, skipUserDefaults = false): T {
         const provider = this.providerForProfile(profile)
-        const defaults = configMerge(this.profileDefaults, provider?.configDefaults ?? {})
+        const defaults = [
+            this.profileDefaults,
+            provider?.configDefaults ?? {},
+            !provider || skipUserDefaults ? {} : this.config.store.profileDefaults[provider.id] ?? {},
+        ].reduce(configMerge, {})
         return new ConfigProxy(profile, defaults) as unknown as T
+    }
+
+    async launchProfile (profile: PartialProfile<Profile>): Promise<void> {
+        await this.openNewTabForProfile(profile)
+
+        let recentProfiles: PartialProfile<Profile>[] = JSON.parse(window.localStorage['recentProfiles'] ?? '[]')
+        if (this.config.store.terminal.showRecentProfiles > 0) {
+            recentProfiles = recentProfiles.filter(x => x.group !== profile.group || x.name !== profile.name)
+            recentProfiles.unshift(profile)
+            recentProfiles = recentProfiles.slice(0, this.config.store.terminal.showRecentProfiles)
+        } else {
+            recentProfiles = []
+        }
+        window.localStorage['recentProfiles'] = JSON.stringify(recentProfiles)
     }
 }

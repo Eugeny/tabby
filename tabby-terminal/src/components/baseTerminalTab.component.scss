@@ -45,6 +45,12 @@
         will-change: transform;
         transform: translate(0, -100px);
         transition: 0.25s transform ease-out;
+
+        > .btn {
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
     }
 
     &.toolbar-revealed, &.toolbar-pinned {
@@ -61,9 +67,8 @@
         z-index: 4;
     }
 
-    &.toolbar-pinned {
-        .content {
-            margin-top: 15px + $toolbarHeight;
-        }
+    &.toolbar-pinned > .terminal-toolbar-spacer {
+        width: 100%;
+        height: $toolbarHeight;
     }
 }

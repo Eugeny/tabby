@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core'
 import { ProfileProvider, NewTabParameters, PartialProfile } from 'tabby-core'
+import * as ALGORITHMS from 'ssh2/lib/protocol/constants'
 import { SSHProfileSettingsComponent } from './components/sshProfileSettings.component'
 import { SSHTabComponent } from './components/sshTab.component'
 import { PasswordStorageService } from './services/passwordStorage.service'
 import { ALGORITHM_BLACKLIST, SSHAlgorithmType, SSHProfile } from './api'
-import * as ALGORITHMS from 'ssh2/lib/protocol/constants'
 
 
 @Injectable({ providedIn: 'root' })
@@ -21,7 +21,7 @@ export class SSHProfilesService extends ProfileProvider<SSHProfile> {
             auth: null,
             password: null,
             privateKeys: [],
-            keepaliveInterval: 5,
+            keepaliveInterval: 5000,
             keepaliveCountMax: 10,
             readyTimeout: null,
             x11: false,
@@ -79,6 +79,10 @@ export class SSHProfilesService extends ProfileProvider<SSHProfile> {
             type: SSHTabComponent,
             inputs: { profile },
         }
+    }
+
+    getSuggestedName (profile: SSHProfile): string {
+        return `${profile.options.user}@${profile.options.host}:${profile.options.port}`
     }
 
     getDescription (profile: PartialProfile<SSHProfile>): string {

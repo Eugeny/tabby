@@ -2,7 +2,7 @@ import { Injectable, Inject } from '@angular/core'
 import * as mixpanel from 'mixpanel'
 import { v4 as uuidv4 } from 'uuid'
 import { ConfigService } from './config.service'
-import { PlatformService, BOOTSTRAP_DATA, BootstrapData } from '../api'
+import { PlatformService, BOOTSTRAP_DATA, BootstrapData, HostAppService } from '../api'
 
 @Injectable({ providedIn: 'root' })
 export class HomeBaseService {
@@ -13,6 +13,7 @@ export class HomeBaseService {
     private constructor (
         private config: ConfigService,
         private platform: PlatformService,
+        private hostApp: HostAppService,
         @Inject(BOOTSTRAP_DATA) private bootstrapData: BootstrapData,
     ) {
         this.appVersion = platform.getAppVersion()
@@ -28,20 +29,11 @@ export class HomeBaseService {
 
     reportBug (): void {
         let body = `Version: ${this.appVersion}\n`
-        body += `Platform: ${process.platform} ${this.platform.getOSRelease()}\n`
-        const label = {
-            aix: 'OS: IBM AIX',
-            android: 'OS: Android',
-            darwin: 'OS: macOS',
-            freebsd: 'OS: FreeBSD',
-            linux: 'OS: Linux',
-            openbsd: 'OS: OpenBSD',
-            sunos: 'OS: Solaris',
-            win32: 'OS: Windows',
-        }[process.platform]
+        body += `Platform: ${this.hostApp.platform} ${process.arch} ${this.platform.getOSRelease()}\n`
         const plugins = this.bootstrapData.installedPlugins.filter(x => !x.isBuiltin).map(x => x.name)
-        body += `Plugins: ${plugins.join(', ') || 'none'}\n\n`
-        this.platform.openExternal(`https://github.com/Eugeny/tabby/issues/new?body=${encodeURIComponent(body)}&labels=${label}`)
+        body += `Plugins: ${plugins.join(', ') || 'none'}\n`
+        body += `Frontend: ${this.config.store.terminal?.frontend}\n\n`
+        this.platform.openExternal(`https://github.com/Eugeny/tabby/issues/new?body=${encodeURIComponent(body)}`)
     }
 
     enableAnalytics (): void {

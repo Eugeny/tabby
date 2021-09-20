@@ -58,7 +58,7 @@ nodeModule.prototype.require = function (query: string) {
     return originalModuleRequire.call(this, query)
 }
 
-export type ProgressCallback = (current: number, total: number) => void // eslint-disable-line @typescript-eslint/no-type-alias
+export type ProgressCallback = (current: number, total: number) => void
 
 export function initModuleLookup (userPluginsPath: string): void {
     global['module'].paths.map((x: string) => nodeModule.globalPaths.push(normalizePath(x)))

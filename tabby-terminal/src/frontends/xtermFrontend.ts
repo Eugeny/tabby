@@ -85,22 +85,22 @@ export class XTermFrontend extends Frontend {
         this.xterm.unicode.activeVersion = '11'
 
         const keyboardEventHandler = (name: string, event: KeyboardEvent) => {
-            this.hotkeysService.pushKeystroke(name, event)
+            this.hotkeysService.pushKeyEvent(name, event)
             let ret = true
-            if (this.hotkeysService.getCurrentPartiallyMatchedHotkeys().length !== 0) {
+            if (this.hotkeysService.matchActiveHotkey(true) !== null) {
                 event.stopPropagation()
                 event.preventDefault()
                 ret = false
             }
-            this.hotkeysService.processKeystrokes()
-            this.hotkeysService.emitKeyEvent(event)
-
             return ret
         }
 
         this.xterm.attachCustomKeyEventHandler((event: KeyboardEvent) => {
             if (this.hostApp.platform !== Platform.Web) {
-                if (event.getModifierState('Meta') && event.key.toLowerCase() === 'v') {
+                if (
+                    event.getModifierState('Meta') && event.key.toLowerCase() === 'v' ||
+                    event.key === 'Insert' && event.shiftKey
+                ) {
                     event.preventDefault()
                     return false
                 }
@@ -206,6 +206,9 @@ export class XTermFrontend extends Frontend {
 
     copySelection (): void {
         const text = this.getSelection()
+        if (!text.trim().length) {
+            return
+        }
         if (text.length < 1024 * 32) {
             this.platformService.setClipboard({
                 text: this.getSelection(),
@@ -322,6 +325,10 @@ export class XTermFrontend extends Frontend {
 
     restoreState (state: string): void {
         this.xterm.write(state)
+    }
+
+    supportsBracketedPaste (): boolean {
+        return this.xterm.modes.bracketedPasteMode
     }
 
     private setFontSize () {

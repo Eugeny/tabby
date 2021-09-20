@@ -23,7 +23,7 @@ export class TerminalService {
         if (!profile) {
             profile = profiles.filter(x => x.type === 'local' && x.isBuiltin)[0]
         }
-        return profile as PartialProfile<LocalProfile>
+        return profile
     }
 
     /**

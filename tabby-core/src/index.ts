@@ -23,6 +23,7 @@ import { SelectorModalComponent } from './components/selectorModal.component'
 import { SplitTabComponent, SplitTabRecoveryProvider } from './components/splitTab.component'
 import { SplitTabSpannerComponent } from './components/splitTabSpanner.component'
 import { SplitTabDropZoneComponent } from './components/splitTabDropZone.component'
+import { SplitTabPaneLabelComponent } from './components/splitTabPaneLabel.component'
 import { UnlockVaultModalComponent } from './components/unlockVaultModal.component'
 import { WelcomeTabComponent } from './components/welcomeTab.component'
 import { TransfersMenuComponent } from './components/transfersMenu.component'
@@ -33,7 +34,7 @@ import { FastHtmlBindDirective } from './directives/fastHtmlBind.directive'
 import { DropZoneDirective } from './directives/dropZone.directive'
 import { CdkAutoDropGroup } from './directives/cdkAutoDropGroup.directive'
 
-import { Theme, CLIHandler, TabContextMenuItemProvider, TabRecoveryProvider, HotkeyProvider, ConfigProvider, PlatformService, FileProvider, ToolbarButtonProvider, ProfilesService, ProfileProvider } from './api'
+import { Theme, CLIHandler, TabContextMenuItemProvider, TabRecoveryProvider, HotkeyProvider, ConfigProvider, PlatformService, FileProvider, ToolbarButtonProvider, ProfilesService, ProfileProvider, SelectorOption, Profile, SelectorService } from './api'
 
 import { AppService } from './services/app.service'
 import { ConfigService } from './services/config.service'
@@ -100,6 +101,7 @@ const PROVIDERS = [
         SplitTabComponent,
         SplitTabSpannerComponent,
         SplitTabDropZoneComponent,
+        SplitTabPaneLabelComponent,
         UnlockVaultModalComponent,
         WelcomeTabComponent,
         TransfersMenuComponent,
@@ -133,7 +135,8 @@ export default class AppModule { // eslint-disable-line @typescript-eslint/no-ex
         config: ConfigService,
         platform: PlatformService,
         hotkeys: HotkeysService,
-        profilesService: ProfilesService,
+        private profilesService: ProfilesService,
+        private selector: SelectorService,
     ) {
         app.ready$.subscribe(() => {
             config.ready$.toPromise().then(() => {
@@ -149,13 +152,49 @@ export default class AppModule { // eslint-disable-line @typescript-eslint/no-ex
 
         hotkeys.hotkey$.subscribe(async (hotkey) => {
             if (hotkey.startsWith('profile.')) {
-                const id = hotkey.split('.')[1]
-                const profile = (await profilesService.getProfiles()).find(x => x.id === id)
+                const id = hotkey.substring(hotkey.indexOf('.') + 1)
+                const profiles = await profilesService.getProfiles()
+                const profile = profiles.find(x => AppHotkeyProvider.getProfileHotkeyName(x) === id)
                 if (profile) {
                     profilesService.openNewTabForProfile(profile)
                 }
             }
+            if (hotkey.startsWith('profile-selectors.')) {
+                const id = hotkey.substring(hotkey.indexOf('.') + 1)
+                const provider = profilesService.getProviders().find(x => x.id === id)
+                if (!provider) {
+                    return
+                }
+                this.showSelector(provider)
+            }
         })
+    }
+
+    async showSelector (provider: ProfileProvider<Profile>): Promise<void> {
+        let profiles = await this.profilesService.getProfiles()
+
+        profiles = profiles.filter(x => !x.isTemplate && x.type === provider.id)
+
+        const options: SelectorOption<void>[] = profiles.map(p => ({
+            ...this.profilesService.selectorOptionForProfile(p),
+            callback: () => this.profilesService.openNewTabForProfile(p),
+        }))
+
+        if (provider.supportsQuickConnect) {
+            options.push({
+                name: 'Quick connect',
+                freeInputPattern: 'Connect to "%s"...',
+                icon: 'fas fa-arrow-right',
+                callback: query => {
+                    const p = provider.quickConnect(query)
+                    if (p) {
+                        this.profilesService.openNewTabForProfile(p)
+                    }
+                },
+            })
+        }
+
+        await this.selector.show('Select profile', options)
     }
 
     static forRoot (): ModuleWithProviders<AppModule> {

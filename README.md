@@ -1,38 +1,48 @@
-![](docs/readme.png)
+[![](docs/readme.png)](https://tabby.sh)
 
 
 <p align="center">
-  <a href="https://github.com/Eugeny/tabby/releases/latest"><img alt="GitHub All Releases" src="https://img.shields.io/github/downloads/eugeny/tabby/total.svg?label=RELEASE&logo=github&style=for-the-badge"></a> &nbsp; <a href="https://nightly.link/Eugeny/tabby/workflows/build/master"><img src="https://shields.io/badge/-Nightly%20Builds-orange?logo=hackthebox&logoColor=fff&style=for-the-badge"/></a> &nbsp; <a href="https://matrix.to/#/#tabby-general:matrix.org"><img alt="Matrix" src="https://img.shields.io/matrix/tabby-general:matrix.org?logo=matrix&style=for-the-badge&color=magenta"></a>
+  <a href="https://github.com/Eugeny/tabby/releases/latest"><img alt="GitHub All Releases" src="https://img.shields.io/github/downloads/eugeny/tabby/total.svg?label=DOWNLOADS&logo=github&style=for-the-badge"></a> &nbsp; <a href="https://nightly.link/Eugeny/tabby/workflows/build/master"><img src="https://shields.io/badge/-Nightly%20Builds-orange?logo=hackthebox&logoColor=fff&style=for-the-badge"/></a> &nbsp; <a href="https://matrix.to/#/#tabby-general:matrix.org"><img alt="Matrix" src="https://img.shields.io/matrix/tabby-general:matrix.org?logo=matrix&style=for-the-badge&color=magenta"></a>
 </p>
 
 <p align="center">
   <a href="https://ko-fi.com/J3J8KWTF">
-    <img src="https://ko-fi.com/img/githubbutton_sm.svg">
+    <img src="https://cdn.ko-fi.com/cdn/kofi3.png?v=2" width="150">
   </a>
 </p>
 
 ----
 
-**Tabby** (formerly **Terminus**) is a highly configurable terminal emulator, SSH and serial client for Windows, macOS and Linux
+### Downloads:
 
-* Integrated SSH client and connection manager
+* [Latest release](https://github.com/Eugeny/tabby/releases/latest)
+* [Repositories](https://packagecloud.io/eugeny/tabby): [Debian/Ubuntu-based](https://packagecloud.io/eugeny/tabby/install#bash-deb), [RPM-based](https://packagecloud.io/eugeny/tabby/install#bash-rpm)
+* [Latest nightly build](https://nightly.link/Eugeny/tabby/workflows/build/master)
+
+<br/>
+<p align="center">
+This README is also available in: <a href="./README.ko-KR.md">Korean</a>
+</p>
+
+----
+
+[**Tabby**](https://tabby.sh) (formerly **Terminus**) is a highly configurable terminal emulator, SSH and serial client for Windows, macOS and Linux
+
+* Integrated SSH and Telnet client and connection manager
 * Integrated serial terminal
 * Theming and color schemes
 * Fully configurable shortcuts and multi-chord shortcuts
 * Split panes
 * Remembers your tabs
-* PowerShell (and PS Core), WSL, Git-Bash, Cygwin, Cmder and CMD support
+* PowerShell (and PS Core), WSL, Git-Bash, Cygwin, MSYS2, Cmder and CMD support
 * Direct file transfer from/to SSH sessions via Zmodem
 * Full Unicode support including double-width characters
 * Doesn't choke on fast-flowing outputs
 * Proper shell experience on Windows including tab completion (via Clink)
 * Integrated encrypted container for SSH secrets and configuration
 
----
+# Contents <!-- omit in toc -->
 
-# Contents
-
-- [Contents](#contents)
 - [What Tabby is and isn't](#what-tabby-is-and-isnt)
 - [Terminal features](#terminal-features)
 - [SSH Client](#ssh-client)
@@ -43,13 +53,15 @@
 - [Contributing](#contributing)
 
 <a name="about"></a>
+
 # What Tabby is and isn't
 
-* **Tabby is** an alternative to Windows' standard terminal (conhost), PowerShell ISE, PuTTY or iTerm
+* **Tabby is** an alternative to Windows' standard terminal (conhost), PowerShell ISE, PuTTY, macOS Terminal.app and iTerm
 
 * **Tabby is not** a new shell or a MinGW or Cygwin replacement. Neither is it lightweight - if RAM usage is of importance, consider [Conemu](https://conemu.github.io) or [Alacritty](https://github.com/jwilm/alacritty)
 
 <a name="terminal"></a>
+
 # Terminal features
 
 ![](docs/readme-terminal.png)
@@ -95,21 +107,28 @@ Tabby will run as a portable app on Windows, if you create a `data` folder in th
 
 Plugins and themes can be installed directly from the Settings view inside Tabby.
 
-  * [clickable-links](https://github.com/Eugeny/tabby-clickable-links) - makes paths and URLs in the terminal clickable
-  * [title-control](https://github.com/kbjr/terminus-title-control) - allows modifying the title of the terminal tabs by providing a prefix, suffix, and/or strings to be removed
-  * [quick-cmds](https://github.com/Domain/terminus-quick-cmds) - quickly send commands to one or all terminal tabs
-  * [save-output](https://github.com/Eugeny/tabby-save-output) - record terminal output into a file
-  * [scrollbar](https://github.com/kbjr/terminus-scrollbar) - adds a scrollbar to hterm tabs
-  * [sync-config](https://github.com/starxg/terminus-sync-config) - sync the config to Gist or Gitee
+* [clickable-links](https://github.com/Eugeny/tabby-clickable-links) - makes paths and URLs in the terminal clickable
+* [docker](https://github.com/Eugeny/tabby-docker) - connect to Docker containers
+* [title-control](https://github.com/kbjr/terminus-title-control) - allows modifying the title of the terminal tabs by providing a prefix, suffix, and/or strings to be removed
+* [quick-cmds](https://github.com/Domain/terminus-quick-cmds) - quickly send commands to one or all terminal tabs
+* [save-output](https://github.com/Eugeny/tabby-save-output) - record terminal output into a file
+* [sync-config](https://github.com/starxg/terminus-sync-config) - sync the config to Gist or Gitee
+* [clippy](https://github.com/Eugeny/tabby-clippy) - an example plugin which annoys you all the time
 
 <a name="themes"></a>
 # Themes
 
-  * [hype](https://github.com/Eugeny/tabby-theme-hype) - a Hyper inspired theme
-  * [relaxed](https://github.com/Relaxed-Theme/relaxed-terminal-themes#terminus) - the Relaxed theme for Tabby
-  * [gruvbox](https://github.com/porkloin/terminus-theme-gruvbox)
-  * [windows10](https://www.npmjs.com/package/terminus-theme-windows10)
-  * [altair](https://github.com/yxuko/terminus-altair)
+* [hype](https://github.com/Eugeny/tabby-theme-hype) - a Hyper inspired theme
+* [relaxed](https://github.com/Relaxed-Theme/relaxed-terminal-themes#terminus) - the Relaxed theme for Tabby
+* [gruvbox](https://github.com/porkloin/terminus-theme-gruvbox)
+* [windows10](https://www.npmjs.com/package/terminus-theme-windows10)
+* [altair](https://github.com/yxuko/terminus-altair)
+
+# Sponsors <!-- omit in toc -->
+
+[![](https://assets-production.packagecloud.io/assets/packagecloud-logo-light-scaled-26ce8e96060fddf74afbd4445e63ba35590d4aaa56edc98495bb390ef3cae0ae.png)](https://packagecloud.io)
+
+[**packagecloud**](https://packagecloud.io) has provided free Debian/RPM repository hosting
 
 <a name="contributing"></a>
 # Contributing
@@ -187,6 +206,8 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://git.io/JnP49"><img src="https://avatars.githubusercontent.com/u/63876444?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Logic Machine</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=logicmachine123" title="Documentation">📖</a></td>
     <td align="center"><a href="https://github.com/cypherbits"><img src="https://avatars.githubusercontent.com/u/10424900?v=4?s=100" width="100px;" alt=""/><br /><sub><b>cypherbits</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=cypherbits" title="Documentation">📖</a></td>
     <td align="center"><a href="https://modulolotus.net"><img src="https://avatars.githubusercontent.com/u/946421?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Matthew Davidson</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=KingMob" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/al-wi"><img src="https://avatars.githubusercontent.com/u/11092199?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Alexander Wiedemann</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=al-wi" title="Code">💻</a></td>
+    <td align="center"><a href="https://www.notion.so/3d45c6bd2cbd4f938873a4bd12e23375"><img src="https://avatars.githubusercontent.com/u/59506394?v=4?s=100" width="100px;" alt=""/><br /><sub><b>장보연</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=BoYeonJang" title="Documentation">📖</a></td>
   </tr>
 </table>
 

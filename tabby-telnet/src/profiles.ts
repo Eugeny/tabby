@@ -62,6 +62,10 @@ export class TelnetProfilesService extends ProfileProvider<TelnetProfile> {
         }
     }
 
+    getSuggestedName (profile: TelnetProfile): string|null {
+        return this.getDescription(profile) || null
+    }
+
     getDescription (profile: TelnetProfile): string {
         return profile.options.host ? `${profile.options.host}:${profile.options.port}` : ''
     }

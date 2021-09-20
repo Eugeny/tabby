@@ -42,10 +42,11 @@ export class VaultSettingsTabComponent extends BaseComponent {
             {
                 type: 'warning',
                 message: 'Delete vault contents?',
-                buttons: ['Keep', 'Delete'],
+                buttons: ['Delete', 'Keep'],
                 defaultId: 1,
+                cancelId: 1,
             }
-        )).response === 1) {
+        )).response === 0) {
             await this.vault.setEnabled(false)
         }
     }
@@ -74,13 +75,14 @@ export class VaultSettingsTabComponent extends BaseComponent {
 
     getSecretLabel (secret: VaultSecret) {
         if (secret.type === 'ssh:password') {
-            return `SSH password for ${secret.key.user}@${secret.key.host}:${secret.key.port}`
+            return `SSH password for ${(secret as any).key.user}@${(secret as any).key.host}:${(secret as any).key.port}`
         }
         if (secret.type === 'ssh:key-passphrase') {
-            return `Passphrase for a private key with hash ${secret.key.hash.substring(0, 8)}...`
+            return `Passphrase for a private key with hash ${(secret as any).key.hash.substring(0, 8)}...`
         }
         if (secret.type === VAULT_SECRET_TYPE_FILE) {
-            return `File: ${secret.key.description}`
+            // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
+            return `File: ${(secret as VaultFileSecret).key.description}`
         }
         return `Unknown secret of type ${secret.type} for ${JSON.stringify(secret.key)}`
     }
@@ -129,6 +131,7 @@ export class VaultSettingsTabComponent extends BaseComponent {
     async exportFile (secret: VaultFileSecret) {
         this.vault.forgetPassphrase()
 
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
         secret = (await this.vault.getSecret(secret.type, secret.key)) as VaultFileSecret
 
         const content = Buffer.from(secret.value, 'base64')

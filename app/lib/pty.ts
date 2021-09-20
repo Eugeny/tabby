@@ -1,18 +1,27 @@
-import * as nodePTY from 'node-pty'
-import { StringDecoder } from './stringDecoder'
+import * as nodePTY from '@tabby-gang/node-pty'
 import { v4 as uuidv4 } from 'uuid'
 import { ipcMain } from 'electron'
 import { Application } from './app'
+import { UTF8Splitter } from './utfSplitter'
+import { Subject, debounceTime } from 'rxjs'
 
 class PTYDataQueue {
     private buffers: Buffer[] = []
     private delta = 0
-    private maxChunk = 1024
-    private maxDelta = 1024 * 50
+    private maxChunk = 1024 * 100
+    private maxDelta = this.maxChunk * 5
     private flowPaused = false
-    private decoder = new StringDecoder()
+    private decoder = new UTF8Splitter()
+    private output$ = new Subject<Buffer>()
 
-    constructor (private pty: nodePTY.IPty, private onData: (data: Buffer) => void) { }
+    constructor (private pty: nodePTY.IPty, private onData: (data: Buffer) => void) {
+        this.output$.pipe(debounceTime(500)).subscribe(() => {
+            const remainder = this.decoder.flush()
+            if (remainder.length) {
+                this.onData(remainder)
+            }
+        })
+    }
 
     push (data: Buffer) {
         this.buffers.push(data)
@@ -61,7 +70,9 @@ class PTYDataQueue {
     }
 
     private emitData (data: Buffer) {
-        this.onData(this.decoder.write(data))
+        const validChunk = this.decoder.write(data)
+        this.onData(validChunk)
+        this.output$.next(validChunk)
     }
 
     private pause () {

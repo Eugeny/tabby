@@ -46,7 +46,7 @@ nsis:
   artifactName: tabby-${version}-setup.${ext}
   installerIcon: "./build/windows/icon.ico"
   allowToChangeInstallationDirectory: true
-
+  shortcutName: Tabby Terminal
 mac:
   category: public.app-category.video
   icon: "./build/mac/icon.icns"
@@ -85,7 +85,6 @@ deb:
   - gnome-keyring
   - libnotify4
   - libsecret-1-0
-  - libappindicator1
   - libxtst6
   - libnss3
   afterInstall: build/linux/after-install.tpl

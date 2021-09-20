@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { ToastrModule } from 'ngx-toastr'
 
-import TabbyCorePlugin, { ConfigProvider, HotkeysService, HotkeyProvider, TabContextMenuItemProvider, CLIHandler } from 'tabby-core'
+import TabbyCorePlugin, { ConfigProvider, HotkeyProvider, TabContextMenuItemProvider, CLIHandler } from 'tabby-core'
 import { SettingsTabProvider } from 'tabby-settings'
 
 import { AppearanceSettingsTabComponent } from './components/appearanceSettingsTab.component'
@@ -29,9 +29,7 @@ import { TerminalConfigProvider } from './config'
 import { TerminalHotkeyProvider } from './hotkeys'
 import { CopyPasteContextMenu, MiscContextMenu, LegacyContextMenu } from './tabContextMenu'
 
-import { hterm } from './frontends/hterm'
 import { Frontend } from './frontends/frontend'
-import { HTermFrontend } from './frontends/htermFrontend'
 import { XTermFrontend, XTermWebGLFrontend } from './frontends/xtermFrontend'
 import { TerminalCLIHandler } from './cli'
 
@@ -83,39 +81,10 @@ import { TerminalCLIHandler } from './cli'
         LoginScriptsSettingsComponent,
     ],
 })
-export default class TerminalModule { // eslint-disable-line @typescript-eslint/no-extraneous-class
-    constructor (
-        hotkeys: HotkeysService,
-    ) {
-        const events = [
-            {
-                name: 'keydown',
-                htermHandler: 'onKeyDown_',
-            },
-            {
-                name: 'keyup',
-                htermHandler: 'onKeyUp_',
-            },
-        ]
-        events.forEach((event) => {
-            const oldHandler = hterm.hterm.Keyboard.prototype[event.htermHandler]
-            hterm.hterm.Keyboard.prototype[event.htermHandler] = function (nativeEvent) {
-                hotkeys.pushKeystroke(event.name, nativeEvent)
-                if (hotkeys.getCurrentPartiallyMatchedHotkeys().length === 0) {
-                    oldHandler.bind(this)(nativeEvent)
-                } else {
-                    nativeEvent.stopPropagation()
-                    nativeEvent.preventDefault()
-                }
-                hotkeys.processKeystrokes()
-                hotkeys.emitKeyEvent(nativeEvent)
-            }
-        })
-    }
-}
+export default class TerminalModule { } // eslint-disable-line @typescript-eslint/no-extraneous-class
 
 export { TerminalFrontendService, TerminalDecorator, TerminalContextMenuItemProvider, TerminalColorSchemeProvider }
-export { Frontend, XTermFrontend, XTermWebGLFrontend, HTermFrontend }
+export { Frontend, XTermFrontend, XTermWebGLFrontend }
 export { BaseTerminalTabComponent } from './api/baseTerminalTab.component'
 export * from './api/interfaces'
 export * from './api/streamProcessing'

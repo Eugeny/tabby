@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core'
 import { ProfilesService } from './services/profiles.service'
 import { HotkeyDescription, HotkeyProvider } from './api/hotkeyProvider'
+import { PartialProfile, Profile } from './api'
 
 /** @hidden */
 @Injectable()
@@ -45,6 +46,10 @@ export class AppHotkeyProvider extends HotkeyProvider {
         {
             id: 'move-tab-right',
             name: 'Move tab to the right',
+        },
+        {
+            id: 'rearrange-panes',
+            name: 'Show pane labels (for rearranging)',
         },
         {
             id: 'tab-1',
@@ -189,9 +194,17 @@ export class AppHotkeyProvider extends HotkeyProvider {
         return [
             ...this.hotkeys,
             ...profiles.map(profile => ({
-                id: `profile.${profile.id}`,
+                id: `profile.${AppHotkeyProvider.getProfileHotkeyName(profile)}`,
                 name: `New tab: ${profile.name}`,
             })),
+            ...this.profilesService.getProviders().map(provider => ({
+                id: `profile-selectors.${provider.id}`,
+                name: `Show ${provider.name} profile selector`,
+            })),
         ]
+    }
+
+    static getProfileHotkeyName (profile: PartialProfile<Profile>): string {
+        return profile.id!.replace(/\./g, '-')
     }
 }

@@ -17,6 +17,7 @@ export interface TelnetProfileOptions extends StreamProcessingOptions, LoginScri
 }
 
 enum TelnetCommands {
+    SUBOPTION_SEND = 1,
     SUBOPTION_END = 240,
     GA = 249,
     SUBOPTION = 250,
@@ -35,7 +36,9 @@ enum TelnetOptions {
     NEGO_WINDOW_SIZE = 0x1f,
     NEGO_TERMINAL_SPEED = 0x20,
     STATUS = 0x05,
+    REMOTE_FLOW_CONTROL = 0x21,
     X_DISPLAY_LOCATION = 0x23,
+    NEW_ENVIRON = 0x27,
 }
 
 export class TelnetSession extends BaseSession {
@@ -48,6 +51,7 @@ export class TelnetSession extends BaseSession {
     private echoEnabled = false
     private lastWidth = 0
     private lastHeight = 0
+    private requestedOptions = new Set<number>()
 
     constructor (
         injector: Injector,
@@ -107,6 +111,11 @@ export class TelnetSession extends BaseSession {
         })
     }
 
+    requestOption (cmd: TelnetCommands, option: TelnetOptions): void {
+        this.requestedOptions.add(option)
+        this.emitTelnet(cmd, option)
+    }
+
     emitServiceMessage (msg: string): void {
         this.serviceMessage.next(msg)
         this.logger.info(stripAnsi(msg))
@@ -115,7 +124,7 @@ export class TelnetSession extends BaseSession {
     onData (data: Buffer): void {
         if (!this.telnetProtocol && data[0] === TelnetCommands.IAC) {
             this.telnetProtocol = true
-            this.emitTelnet(TelnetCommands.DO, TelnetOptions.SUPPRESS_GO_AHEAD)
+            this.requestOption(TelnetCommands.DO, TelnetOptions.SUPPRESS_GO_AHEAD)
             this.emitTelnet(TelnetCommands.WILL, TelnetOptions.TERMINAL_TYPE)
             this.emitTelnet(TelnetCommands.WILL, TelnetOptions.NEGO_WINDOW_SIZE)
         }
@@ -126,7 +135,7 @@ export class TelnetSession extends BaseSession {
     }
 
     emitTelnet (command: TelnetCommands, option: TelnetOptions): void {
-        this.logger.debug('>', TelnetCommands[command], TelnetOptions[option])
+        this.logger.debug('>', TelnetCommands[command], TelnetOptions[option] || option)
         this.socket.write(Buffer.from([TelnetCommands.IAC, command, option]))
     }
 
@@ -157,6 +166,14 @@ export class TelnetSession extends BaseSession {
 
                 data = data.slice(3)
                 this.logger.debug('<', commandName || command, optionName || option)
+
+                if (command === TelnetCommands.WILL || command === TelnetCommands.WONT) {
+                    if (this.requestedOptions.has(option)) {
+                        this.requestedOptions.delete(option)
+                        continue
+                    }
+                }
+
                 if (command === TelnetCommands.WILL) {
                     if ([
                         TelnetOptions.SUPPRESS_GO_AHEAD,
@@ -170,12 +187,13 @@ export class TelnetSession extends BaseSession {
                 }
                 if (command === TelnetCommands.DO) {
                     if (option === TelnetOptions.NEGO_WINDOW_SIZE) {
-                        this.resize(0, 0)
+                        this.emitTelnet(TelnetCommands.WILL, option)
+                        this.emitSize()
                     } else if (option === TelnetOptions.ECHO) {
                         this.echoEnabled = true
                         this.emitTelnet(TelnetCommands.WILL, option)
                     } else if (option === TelnetOptions.TERMINAL_TYPE) {
-                        this.emitTelnetSuboption(option, Buffer.from([0, ...Buffer.from('XTERM-256COLOR')]))
+                        this.emitTelnet(TelnetCommands.WILL, option)
                     } else {
                         this.logger.debug('(!) Unhandled option')
                         this.emitTelnet(TelnetCommands.WONT, option)
@@ -194,6 +212,11 @@ export class TelnetSession extends BaseSession {
                     const endIndex = data.indexOf(TelnetCommands.IAC)
                     const optionValue = data.slice(0, endIndex)
                     this.logger.debug('<', commandName || command, optionName || option, optionValue)
+
+                    if (option === TelnetOptions.TERMINAL_TYPE && optionValue[0] === TelnetCommands.SUBOPTION_SEND) {
+                        this.emitTelnetSuboption(option, Buffer.from([0, ...Buffer.from('XTERM-256COLOR')]))
+                    }
+
                     data = data.slice(endIndex + 2)
                 }
             } else {
@@ -210,10 +233,18 @@ export class TelnetSession extends BaseSession {
             this.lastHeight = h
         }
         if (this.lastWidth && this.lastHeight && this.telnetProtocol) {
+            this.emitSize()
+        }
+    }
+
+    private emitSize () {
+        if (this.lastWidth && this.lastHeight) {
             this.emitTelnetSuboption(TelnetOptions.NEGO_WINDOW_SIZE, Buffer.from([
                 this.lastWidth >> 8, this.lastWidth & 0xff,
                 this.lastHeight >> 8, this.lastHeight & 0xff,
             ]))
+        } else {
+            this.emitTelnet(TelnetCommands.WONT, TelnetOptions.NEGO_WINDOW_SIZE)
         }
     }
 

@@ -55,9 +55,6 @@ Tabby.registerMock('module', {
     prototype: { require: window['require'] },
 })
 
-Tabby.registerMock('url', {
-    parse: () => null,
-})
 Tabby.registerMock('http', {
     Agent: class {},
     request: {},
@@ -86,24 +83,6 @@ Tabby.registerModule('crypto', {
         return a.equals(b)
     },
 })
-Tabby.registerMock('hterm-umdjs', {
-    hterm: {
-        PreferenceManager: class { set () {} },
-        VT: {
-            ESC: {},
-            CSI: {},
-            OSC: {},
-        },
-        Terminal: class {},
-        Keyboard: class {},
-    },
-    lib: {
-        wc: {},
-        Storage: {
-            Memory: class {},
-        },
-    },
-})
 Tabby.registerMock('dns', {})
 Tabby.registerMock('socksv5', {})
 Tabby.registerMock('util', require('util/'))
@@ -117,6 +96,10 @@ Tabby.registerModule('net', {
 })
 Tabby.registerModule('events', require('events'))
 Tabby.registerModule('path', require('path-browserify'))
+Tabby.registerModule('url', {
+    ...require('url'),
+    pathToFileURL: x => `file://${x}`,
+})
 Tabby.registerModule('zlib', {
     ...require('browserify-zlib'),
     constants: require('browserify-zlib'),

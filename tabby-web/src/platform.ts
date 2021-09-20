@@ -100,7 +100,7 @@ export class WebPlatformService extends PlatformService {
             const response = await modal.result
             return { response }
         } catch {
-            return { response: 0 }
+            return { response: options.cancelId ?? 1 }
         }
     }
 

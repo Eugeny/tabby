@@ -3,7 +3,6 @@ module.exports = config({
     name: 'terminal',
     dirname: __dirname,
     externals: [
-        'hterm-umdjs',
         'opentype.js',
     ],
 })

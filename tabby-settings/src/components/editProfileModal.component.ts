@@ -2,7 +2,7 @@
 import { Observable, OperatorFunction, debounceTime, map, distinctUntilChanged } from 'rxjs'
 import { Component, Input, ViewChild, ViewContainerRef, ComponentFactoryResolver, Injector } from '@angular/core'
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
-import { ConfigProxy, ConfigService, Profile, ProfileProvider, ProfileSettingsComponent, ProfilesService } from 'tabby-core'
+import { ConfigProxy, ConfigService, Profile, ProfileProvider, ProfileSettingsComponent, ProfilesService, TAB_COLORS } from 'tabby-core'
 
 const iconsData = require('../../../tabby-core/src/icons.json')
 const iconsClassList = Object.keys(iconsData).map(
@@ -19,6 +19,7 @@ export class EditProfileModalComponent<P extends Profile> {
     @Input() profile: P & ConfigProxy
     @Input() profileProvider: ProfileProvider<P>
     @Input() settingsComponent: new () => ProfileSettingsComponent<P>
+    @Input() defaultsMode = false
     groupNames: string[]
     @ViewChild('placeholder', { read: ViewContainerRef }) placeholder: ViewContainerRef
 
@@ -39,9 +40,23 @@ export class EditProfileModalComponent<P extends Profile> {
         )].sort() as string[]
     }
 
+    colorsAutocomplete = text$ => text$.pipe(
+        debounceTime(200),
+        distinctUntilChanged(),
+        map((q: string) =>
+            TAB_COLORS
+                .filter(x => !q || x.name.toLowerCase().startsWith(q.toLowerCase()))
+                .map(x => x.value)
+        )
+    )
+
+    colorsFormatter = value => {
+        return TAB_COLORS.find(x => x.value === value)?.name ?? value
+    }
+
     ngOnInit () {
         this._profile = this.profile
-        this.profile = this.profilesService.getConfigProxyForProfile(this.profile)
+        this.profile = this.profilesService.getConfigProxyForProfile(this.profile, this.defaultsMode)
     }
 
     ngAfterViewInit () {

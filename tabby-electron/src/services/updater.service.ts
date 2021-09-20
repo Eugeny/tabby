@@ -1,3 +1,4 @@
+import type { AppUpdater } from 'electron-updater'
 import { Injectable } from '@angular/core'
 import axios from 'axios'
 
@@ -12,6 +13,7 @@ export class ElectronUpdaterService extends UpdaterService {
     private downloaded: Promise<boolean>
     private electronUpdaterAvailable = true
     private updateURL: string
+    private autoUpdater: AppUpdater
 
     constructor (
         log: LogService,
@@ -27,32 +29,35 @@ export class ElectronUpdaterService extends UpdaterService {
             return
         }
 
-        electron.autoUpdater.on('update-available', () => {
+        this.autoUpdater = electron.remote.require('electron-updater').autoUpdater
+
+        this.autoUpdater.on('update-available', () => {
             this.logger.info('Update available')
         })
 
-        electron.autoUpdater.on('update-not-available', () => {
+        this.autoUpdater.on('update-not-available', () => {
             this.logger.info('No updates')
         })
 
-        electron.autoUpdater.on('error', err => {
+        this.autoUpdater.on('error', err => {
             this.logger.error(err)
             this.electronUpdaterAvailable = false
         })
 
         this.downloaded = new Promise<boolean>(resolve => {
-            electron.autoUpdater.once('update-downloaded', () => resolve(true))
+            this.autoUpdater.once('update-downloaded', () => resolve(true))
         })
-
 
         config.ready$.toPromise().then(() => {
             if (config.store.enableAutomaticUpdates && this.electronUpdaterAvailable && !process.env.TABBY_DEV) {
                 this.logger.debug('Checking for updates')
                 try {
-                    electron.autoUpdater.setFeedURL({
-                        url: `https://update.electronjs.org/eugeny/tabby/${process.platform}-${process.arch}/${electron.app.getVersion()}`,
+                    this.autoUpdater.setFeedURL({
+                        provider: 'github',
+                        repo: 'tabby',
+                        owner: 'eugeny',
                     })
-                    electron.autoUpdater.checkForUpdates()
+                    this.autoUpdater.checkForUpdates()
                 } catch (e) {
                     this.electronUpdaterAvailable = false
                     this.logger.info('Electron updater unavailable, falling back', e)
@@ -79,26 +84,26 @@ export class ElectronUpdaterService extends UpdaterService {
                     reject(err)
                 }
                 cancel = () => {
-                    this.electron.autoUpdater.off('error', onError)
-                    this.electron.autoUpdater.off('update-not-available', onNoUpdate)
-                    this.electron.autoUpdater.off('update-available', onUpdate)
+                    this.autoUpdater.off('error', onError)
+                    this.autoUpdater.off('update-not-available', onNoUpdate)
+                    this.autoUpdater.off('update-available', onUpdate)
                 }
-                this.electron.autoUpdater.on('error', onError)
-                this.electron.autoUpdater.on('update-not-available', onNoUpdate)
-                this.electron.autoUpdater.on('update-available', onUpdate)
+                this.autoUpdater.on('error', onError)
+                this.autoUpdater.on('update-not-available', onNoUpdate)
+                this.autoUpdater.on('update-available', onUpdate)
                 try {
-                    this.electron.autoUpdater.checkForUpdates()
+                    this.autoUpdater.checkForUpdates()
                 } catch (e) {
                     this.electronUpdaterAvailable = false
                     this.logger.info('Electron updater unavailable, falling back', e)
                 }
             })
 
-            this.electron.autoUpdater.on('update-available', () => {
+            this.autoUpdater.on('update-available', () => {
                 this.logger.info('Update available')
             })
 
-            this.electron.autoUpdater.once('update-not-available', () => {
+            this.autoUpdater.once('update-not-available', () => {
                 this.logger.info('No updates')
             })
 
@@ -126,12 +131,13 @@ export class ElectronUpdaterService extends UpdaterService {
                 {
                     type: 'warning',
                     message: 'Installing the update will close all tabs and restart Tabby.',
-                    buttons: ['Cancel', 'Update'],
-                    defaultId: 1,
+                    buttons: ['Update', 'Cancel'],
+                    defaultId: 0,
+                    cancelId: 1,
                 }
-            )).response === 1) {
+            )).response === 0) {
                 await this.downloaded
-                this.electron.autoUpdater.quitAndInstall()
+                this.autoUpdater.quitAndInstall()
             }
         }
     }

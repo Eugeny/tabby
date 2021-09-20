@@ -98,9 +98,9 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
     enablePassthrough = true
 
     /**
-     * Enables receiving dynamic window/tab title provided by the shell
+     * Disables display of dynamic window/tab title provided by the shell
      */
-    enableDynamicTitle = true
+    disableDynamicTitle = false
 
     alternateScreenActive = false
 
@@ -127,10 +127,15 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
     private termContainerSubscriptions = new SubscriptionContainer()
     private allFocusModeSubscription: Subscription|null = null
     private sessionHandlers = new SubscriptionContainer()
-    private sessionSupportsBracketedPaste = false
     private spinner = new Spinner({
         stream: {
-            write: x => this.writeRaw(x),
+            write: x => {
+                try {
+                    this.writeRaw(x)
+                } catch {
+                    this.spinner.stop()
+                }
+            },
         },
     })
     private spinnerActive = false
@@ -315,12 +320,12 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
 
         setImmediate(async () => {
             if (this.hasFocus) {
-                await this.frontend!.attach(this.content.nativeElement)
-                this.frontend!.configure()
+                await this.frontend?.attach(this.content.nativeElement)
+                this.frontend?.configure()
             } else {
                 this.focused$.pipe(first()).subscribe(async () => {
-                    await this.frontend!.attach(this.content.nativeElement)
-                    this.frontend!.configure()
+                    await this.frontend?.attach(this.content.nativeElement)
+                    this.frontend?.configure()
                 })
             }
         })
@@ -412,19 +417,12 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
             }
         }
 
-        if (data.includes('\x1b[?2004h')) {
-            this.sessionSupportsBracketedPaste = true
-        }
-        if (data.includes('\x1b[?2004l')) {
-            this.sessionSupportsBracketedPaste = false
-        }
-
         this.frontend.write(data)
     }
 
     async paste (): Promise<void> {
         let data = this.platform.readClipboard()
-        if (this.config.store.terminal.bracketedPaste && this.sessionSupportsBracketedPaste) {
+        if (this.config.store.terminal.bracketedPaste && this.frontend?.supportsBracketedPaste()) {
             data = `\x1b[200~${data}\x1b[201~`
         }
         if (this.hostApp.platform === Platform.Windows) {
@@ -445,6 +443,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
                         message: `Paste multiple lines?`,
                         buttons,
                         defaultId: 0,
+                        cancelId: 1,
                     }
                 )).response
                 if (result === 1) {
@@ -585,7 +584,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
         }
 
         this.termContainerSubscriptions.subscribe(this.frontend.title$, title => this.zone.run(() => {
-            if (this.enableDynamicTitle) {
+            if (!this.disableDynamicTitle) {
                 this.setTitle(title)
             }
         }))
@@ -593,7 +592,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
         this.termContainerSubscriptions.subscribe(this.focused$, () => this.frontend && (this.frontend.enableResizing = true))
         this.termContainerSubscriptions.subscribe(this.blurred$, () => this.frontend && (this.frontend.enableResizing = false))
 
-        this.termContainerSubscriptions.subscribe(this.frontend.mouseEvent$, async event => {
+        this.termContainerSubscriptions.subscribe(this.frontend.mouseEvent$, event => {
             if (event.type === 'mousedown') {
                 if (event.which === 1) {
                     this.cancelFocusAllPanes()
@@ -702,6 +701,11 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
         this.attachSessionHandler(this.session.destroyed$, () => {
             this.setSession(null)
         })
+
+        this.attachSessionHandler(this.session.oscProcessor.copyRequested$, content => {
+            this.platform.setClipboard({ text: content })
+            this.notifications.notice('Copied')
+        })
     }
 
     protected detachSessionHandlers (): void {
@@ -716,7 +720,9 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
             this.spinner.text = text
         }
         this.spinner.setSpinnerString(6)
-        this.spinner.start()
+        this.zone.runOutsideAngular(() => {
+            this.spinner.start()
+        })
         this.spinnerActive = true
     }
 

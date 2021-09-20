@@ -1,5 +1,5 @@
 .modal-body
-    input.form-control(
+    input.form-control.form-control-lg(
         type='text',
         [(ngModel)]='filter',
         autofocus,
@@ -7,20 +7,25 @@
         (ngModelChange)='onFilterChange()'
     )
 
-    .list-group(*ngIf='filteredOptions.length')
-        a.list-group-item.list-group-item-action.d-flex.align-items-center(
-            #item,
-            (click)='selectOption(option)',
-            [class.active]='selectedIndex == i',
-            *ngFor='let option of filteredOptions; let i = index'
-        )
-            i.icon(
-                class='fa-fw {{option.icon}}',
-                *ngIf='!iconIsSVG(option.icon)'
+    .list-group.list-group-light(*ngIf='filteredOptions.length')
+        ng-container(*ngFor='let option of filteredOptions; let i = index')
+            label.group-header(
+                *ngIf='hasGroups && option.group !== filteredOptions[i - 1]?.group'
+            ) {{option.group}}
+            a.list-group-item.list-group-item-action.d-flex.align-items-center(
+                #item,
+                (click)='selectOption(option)',
+                [class.active]='selectedIndex == i'
             )
-            .icon(
-                [fastHtmlBind]='option.icon',
-                *ngIf='iconIsSVG(option.icon)'
-            )
-            .mr-2.title {{getOptionText(option)}}
-            .text-muted {{option.description}}
+                i.icon(
+                    class='fa-fw {{option.icon}}',
+                    style='color: {{option.color}}',
+                    *ngIf='!iconIsSVG(option.icon)'
+                )
+                .icon(
+                    [fastHtmlBind]='option.icon',
+                    style='color: {{option.color}}',
+                    *ngIf='iconIsSVG(option.icon)'
+                )
+                .title.mr-2 {{getOptionText(option)}}
+                .description.no-wrap.text-muted {{option.description}}

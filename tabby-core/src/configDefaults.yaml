@@ -20,8 +20,11 @@ terminal:
 hotkeys:
   profile:
     __nonStructural: true
+  profile-selectors:
+    __nonStructural: true
 profiles: []
-recentProfiles: []
+profileDefaults:
+  __nonStructural: true
 recoverTabs: true
 enableAnalytics: true
 enableWelcomeTab: true

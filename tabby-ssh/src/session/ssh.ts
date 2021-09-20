@@ -5,130 +5,41 @@ import * as path from 'path'
 import * as sshpk from 'sshpk'
 import colors from 'ansi-colors'
 import stripAnsi from 'strip-ansi'
-import socksv5 from 'socksv5'
 import { Injector, NgZone } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
-import { ConfigService, FileProvidersService, HostAppService, NotificationsService, Platform, PlatformService, wrapPromise, PromptModalComponent, Profile, LogService } from 'tabby-core'
-import { BaseSession, LoginScriptsOptions } from 'tabby-terminal'
-import { Server, Socket, createServer, createConnection } from 'net'
+import { ConfigService, FileProvidersService, HostAppService, NotificationsService, Platform, PlatformService, wrapPromise, PromptModalComponent, LogService } from 'tabby-core'
+import { BaseSession } from 'tabby-terminal'
+import { Socket, createConnection } from 'net'
 import { Client, ClientChannel, SFTPWrapper } from 'ssh2'
 import { Subject, Observable } from 'rxjs'
-import { ProxyCommandStream } from './services/ssh.service'
-import { PasswordStorageService } from './services/passwordStorage.service'
+import { ProxyCommandStream } from '../services/ssh.service'
+import { PasswordStorageService } from '../services/passwordStorage.service'
 import { promisify } from 'util'
-import { SFTPSession } from './session/sftp'
+import { SFTPSession } from './sftp'
+import { PortForwardType, SSHProfile } from '../api/interfaces'
+import { ForwardedPort } from './forwards'
 
 const WINDOWS_OPENSSH_AGENT_PIPE = '\\\\.\\pipe\\openssh-ssh-agent'
-
-export enum SSHAlgorithmType {
-    HMAC = 'hmac',
-    KEX = 'kex',
-    CIPHER = 'cipher',
-    HOSTKEY = 'serverHostKey',
-}
-
-export interface SSHProfile extends Profile {
-    options: SSHProfileOptions
-}
-
-export interface SSHProfileOptions extends LoginScriptsOptions {
-    host: string
-    port?: number
-    user: string
-    auth?: null|'password'|'publicKey'|'agent'|'keyboardInteractive'
-    password?: string
-    privateKeys?: string[]
-    keepaliveInterval?: number
-    keepaliveCountMax?: number
-    readyTimeout?: number
-    x11?: boolean
-    skipBanner?: boolean
-    jumpHost?: string
-    agentForward?: boolean
-    warnOnClose?: boolean
-    algorithms?: Record<string, string[]>
-    proxyCommand?: string
-    forwardedPorts?: ForwardedPortConfig[]
-}
-
-export enum PortForwardType {
-    Local = 'Local',
-    Remote = 'Remote',
-    Dynamic = 'Dynamic',
-}
-
-export interface ForwardedPortConfig {
-    type: PortForwardType
-    host: string
-    port: number
-    targetAddress: string
-    targetPort: number
-}
-
-export class ForwardedPort implements ForwardedPortConfig {
-    type: PortForwardType
-    host = '127.0.0.1'
-    port: number
-    targetAddress: string
-    targetPort: number
-
-    private listener: Server|null = null
-
-    async startLocalListener (callback: (accept: () => Socket, reject: () => void, sourceAddress: string|null, sourcePort: number|null, targetAddress: string, targetPort: number) => void): Promise<void> {
-        if (this.type === PortForwardType.Local) {
-            const listener = this.listener = createServer(s => callback(
-                () => s,
-                () => s.destroy(),
-                s.remoteAddress ?? null,
-                s.remotePort ?? null,
-                this.targetAddress,
-                this.targetPort,
-            ))
-            return new Promise((resolve, reject) => {
-                listener.listen(this.port, this.host)
-                listener.on('error', reject)
-                listener.on('listening', resolve)
-            })
-        } else if (this.type === PortForwardType.Dynamic) {
-            return new Promise((resolve, reject) => {
-                this.listener = socksv5.createServer((info, acceptConnection, rejectConnection) => {
-                    callback(
-                        () => acceptConnection(true),
-                        () => rejectConnection(),
-                        null,
-                        null,
-                        info.dstAddr,
-                        info.dstPort,
-                    )
-                }) as Server
-                this.listener.on('error', reject)
-                this.listener.listen(this.port, this.host, resolve)
-                this.listener['useAuth'](socksv5.auth.None())
-            })
-        } else {
-            throw new Error('Invalid forward type for a local listener')
-        }
-    }
-
-    stopLocalListener (): void {
-        this.listener?.close()
-    }
-
-    toString (): string {
-        if (this.type === PortForwardType.Local) {
-            return `(local) ${this.host}:${this.port} → (remote) ${this.targetAddress}:${this.targetPort}`
-        } if (this.type === PortForwardType.Remote) {
-            return `(remote) ${this.host}:${this.port} → (local) ${this.targetAddress}:${this.targetPort}`
-        } else {
-            return `(dynamic) ${this.host}:${this.port}`
-        }
-    }
-}
 
 interface AuthMethod {
     type: 'none'|'publickey'|'agent'|'password'|'keyboard-interactive'|'hostbased'
     name?: string
     contents?: Buffer
+}
+
+export class KeyboardInteractivePrompt {
+    responses: string[] = []
+
+    constructor (
+        public name: string,
+        public instruction: string,
+        public prompts: string[],
+        private callback: (_: string[]) => void,
+    ) { }
+
+    respond (): void {
+        this.callback(this.responses)
+    }
 }
 
 export class SSHSession extends BaseSession {
@@ -140,12 +51,14 @@ export class SSHSession extends BaseSession {
     proxyCommandStream: ProxyCommandStream|null = null
     savedPassword?: string
     get serviceMessage$ (): Observable<string> { return this.serviceMessage }
+    get keyboardInteractivePrompt$ (): Observable<KeyboardInteractivePrompt> { return this.keyboardInteractivePrompt }
 
     agentPath?: string
     activePrivateKey: string|null = null
 
     private remainingAuthMethods: AuthMethod[] = []
     private serviceMessage = new Subject<string>()
+    private keyboardInteractivePrompt = new Subject<KeyboardInteractivePrompt>()
     private keychainPasswordUsed = false
 
     private passwordStorage: PasswordStorageService
@@ -158,7 +71,7 @@ export class SSHSession extends BaseSession {
     private config: ConfigService
 
     constructor (
-        injector: Injector,
+        private injector: Injector,
         public profile: SSHProfile,
     ) {
         super(injector.get(LogService).create(`ssh-${profile.options.host}-${profile.options.port}`))
@@ -241,16 +154,11 @@ export class SSHSession extends BaseSession {
         if (!this.sftp) {
             this.sftp = await wrapPromise(this.zone, promisify<SFTPWrapper>(f => this.ssh.sftp(f))())
         }
-        return new SFTPSession(this.sftp, this.zone)
+        return new SFTPSession(this.sftp, this.injector)
     }
 
     async start (): Promise<void> {
         this.open = true
-
-        this.proxyCommandStream?.on('error', err => {
-            this.emitServiceMessage(colors.bgRed.black(' X ') + ` ${err.message}`)
-            this.destroy()
-        })
 
         try {
             this.shell = await this.openShellChannel({ x11: this.profile.options.x11 })
@@ -353,6 +261,17 @@ export class SSHSession extends BaseSession {
     emitServiceMessage (msg: string): void {
         this.serviceMessage.next(msg)
         this.logger.info(stripAnsi(msg))
+    }
+
+    emitKeyboardInteractivePrompt (prompt: KeyboardInteractivePrompt): void {
+        this.logger.info('Keyboard-interactive auth:', prompt.name, prompt.instruction)
+        this.emitServiceMessage(colors.bgBlackBright(' ') + ` Keyboard-interactive auth requested: ${prompt.name}`)
+        if (prompt.instruction) {
+            for (const line of prompt.instruction.split('\n')) {
+                this.emitServiceMessage(line)
+            }
+        }
+        this.keyboardInteractivePrompt.next(prompt)
     }
 
     async handleAuth (methodsLeft?: string[] | null): Promise<any> {
@@ -613,9 +532,3 @@ export class SSHSession extends BaseSession {
         }
     }
 }
-
-export const ALGORITHM_BLACKLIST = [
-    // cause native crashes in node crypto, use EC instead
-    'diffie-hellman-group-exchange-sha256',
-    'diffie-hellman-group-exchange-sha1',
-]

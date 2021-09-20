@@ -3,6 +3,7 @@
     position: absolute;
     z-index: 5;
     transition: 0.125s background;
+    background: rgba(0, 0, 0, .2);
 
     &.v {
         cursor: ns-resize;

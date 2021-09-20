@@ -1,3 +1,4 @@
+import 'v8-compile-cache'
 import './portable'
 import 'source-map-support/register'
 import './sentry'
@@ -23,10 +24,6 @@ app.on('activate', () => {
     } else {
         application.focus()
     }
-})
-
-app.on('window-all-closed', () => {
-    app.quit()
 })
 
 process.on('uncaughtException' as any, err => {

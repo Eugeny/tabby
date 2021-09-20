@@ -13,6 +13,7 @@ import { TabsService } from './services/tabs.service'
 import { HotkeysService } from './services/hotkeys.service'
 import { PromptModalComponent } from './components/promptModal.component'
 import { SplitLayoutProfilesService } from './profiles'
+import { TAB_COLORS } from './utils'
 
 /** @hidden */
 @Injectable()
@@ -89,16 +90,6 @@ export class TabManagementContextMenu extends TabContextMenuItemProvider {
     }
 }
 
-const COLORS = [
-    { name: 'No color', value: null },
-    { name: 'Blue', value: '#0275d8' },
-    { name: 'Green', value: '#5cb85c' },
-    { name: 'Orange', value: '#f0ad4e' },
-    { name: 'Purple', value: '#613d7c' },
-    { name: 'Red', value: '#d9534f' },
-    { name: 'Yellow', value: '#ffd500' },
-]
-
 /** @hidden */
 @Injectable()
 export class CommonOptionsContextMenu extends TabContextMenuItemProvider {
@@ -127,8 +118,8 @@ export class CommonOptionsContextMenu extends TabContextMenuItemProvider {
                 },
                 {
                     label: 'Color',
-                    sublabel: COLORS.find(x => x.value === tab.color)?.name,
-                    submenu: COLORS.map(color => ({
+                    sublabel: TAB_COLORS.find(x => x.value === tab.color)?.name,
+                    submenu: TAB_COLORS.map(color => ({
                         label: color.name,
                         type: 'radio',
                         checked: tab.color === color.value,

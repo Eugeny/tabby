@@ -194,6 +194,10 @@ export class ConfigService {
     }
 
     async save (): Promise<void> {
+        await this.ready$
+        if (!this._store) {
+            throw new Error('Cannot save an empty store')
+        }
         // Scrub undefined values
         let cleanStore = JSON.parse(JSON.stringify(this._store))
         cleanStore = await this.maybeEncryptConfig(cleanStore)
@@ -371,6 +375,7 @@ export class ConfigService {
                         detail: e.toString(),
                         buttons: ['Erase config', 'Quit'],
                         defaultId: 1,
+                        cancelId: 1,
                     })
                     if (result.response === 1) {
                         this.platform.quit()

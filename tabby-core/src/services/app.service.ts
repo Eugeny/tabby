@@ -56,7 +56,7 @@ export class AppService {
     private tabOpened = new Subject<BaseTabComponent>()
     private tabRemoved = new Subject<BaseTabComponent>()
     private tabClosed = new Subject<BaseTabComponent>()
-    private tabDragActive = new Subject<boolean>()
+    private tabDragActive = new Subject<BaseTabComponent|null>()
     private ready = new AsyncSubject<void>()
 
     private completionObservers = new Map<BaseTabComponent, CompletionObserver>()
@@ -66,7 +66,7 @@ export class AppService {
     get tabsChanged$ (): Observable<void> { return this.tabsChanged }
     get tabRemoved$ (): Observable<BaseTabComponent> { return this.tabRemoved }
     get tabClosed$ (): Observable<BaseTabComponent> { return this.tabClosed }
-    get tabDragActive$ (): Observable<boolean> { return this.tabDragActive }
+    get tabDragActive$ (): Observable<BaseTabComponent|null> { return this.tabDragActive }
 
     /** Fires once when the app is ready */
     get ready$ (): Observable<void> { return this.ready }
@@ -174,6 +174,9 @@ export class AppService {
      * @param inputs  Properties to be assigned on the new tab component instance
      */
     openNewTab <T extends BaseTabComponent> (params: NewTabParameters<T>): T {
+        if (params.type as any === SplitTabComponent) {
+            return this.openNewTabRaw(params)
+        }
         const splitTab = this.tabsService.create({ type: SplitTabComponent })
         const tab = this.tabsService.create(params)
         splitTab.addTab(tab, null, 'r')
@@ -358,13 +361,13 @@ export class AppService {
     }
 
     /** @hidden */
-    emitTabDragStarted (): void {
-        this.tabDragActive.next(true)
+    emitTabDragStarted (tab: BaseTabComponent): void {
+        this.tabDragActive.next(tab)
     }
 
     /** @hidden */
     emitTabDragEnded (): void {
-        this.tabDragActive.next(false)
+        this.tabDragActive.next(null)
     }
 
     /**

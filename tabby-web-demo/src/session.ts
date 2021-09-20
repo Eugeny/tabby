@@ -64,7 +64,7 @@ export class Session extends BaseSession {
             }, 2000)
         })
         this.vm.add_listener('download-progress', (e) => {
-            this.emitMessage(`\rDownloading ${path.basename(e.file_name)}: ${e.loaded / 1024}/${e.total / 1024} kB         `)
+            this.emitMessage(`\rDownloading ${path.basename(e.file_name)}: ${Math.floor(e.loaded / 1024)}/${Math.floor(e.total / 1024)} kB         `)
         })
         this.vm.add_listener('download-error', (e) => {
             this.emitMessage(`\r\nDownload error: ${e}\r\n`)

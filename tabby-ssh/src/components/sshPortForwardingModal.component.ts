@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Component, Input } from '@angular/core'
-import { ForwardedPort, ForwardedPortConfig, SSHSession } from '../api'
+import { ForwardedPort } from '../session/forwards'
+import { SSHSession } from '../session/ssh'
+import { ForwardedPortConfig } from '../api'
 
 /** @hidden */
 @Component({

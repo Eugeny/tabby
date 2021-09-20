@@ -1,18 +1,16 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core'
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
-import { SSHSession } from '../api'
-import { SFTPSession, SFTPFile } from '../session/sftp'
-import { posix as path } from 'path'
 import * as C from 'constants'
-import { FileUpload, PlatformService } from 'tabby-core'
-import { SFTPDeleteModalComponent } from './sftpDeleteModal.component'
+import { posix as path } from 'path'
+import { Component, Input, Output, EventEmitter, Inject, Optional } from '@angular/core'
+import { FileUpload, MenuItemOptions, PlatformService } from 'tabby-core'
+import { SFTPSession, SFTPFile } from '../session/sftp'
+import { SSHSession } from '../session/ssh'
+import { SFTPContextMenuItemProvider } from '../api'
 
 interface PathSegment {
     name: string
     path: string
 }
 
-/** @hidden */
 @Component({
     selector: 'sftp-panel',
     template: require('./sftpPanel.component.pug'),
@@ -29,12 +27,19 @@ export class SFTPPanelComponent {
 
     constructor (
         private platform: PlatformService,
-        private ngbModal: NgbModal,
-    ) { }
+        @Optional() @Inject(SFTPContextMenuItemProvider) protected contextMenuProviders: SFTPContextMenuItemProvider[],
+    ) {
+        this.contextMenuProviders.sort((a, b) => a.weight - b.weight)
+    }
 
     async ngOnInit (): Promise<void> {
         this.sftp = await this.session.openSFTP()
-        await this.navigate(this.path)
+        try {
+            await this.navigate(this.path)
+        } catch (error) {
+            console.warn('Could not navigate to', this.path, ':', error)
+            await this.navigate('/')
+        }
     }
 
     async navigate (newPath: string): Promise<void> {
@@ -96,28 +101,10 @@ export class SFTPPanelComponent {
     }
 
     async uploadOne (transfer: FileUpload): Promise<void> {
-        const itemPath = path.join(this.path, transfer.getName())
-        const tempPath = itemPath + '.tabby-upload'
+        await this.sftp.upload(path.join(this.path, transfer.getName()), transfer)
         const savedPath = this.path
-        try {
-            const handle = await this.sftp.open(tempPath, 'w')
-            while (true) {
-                const chunk = await transfer.read()
-                if (!chunk.length) {
-                    break
-                }
-                await handle.write(chunk)
-            }
-            handle.close()
-            await this.sftp.rename(tempPath, itemPath)
-            transfer.close()
-            if (this.path === savedPath) {
-                await this.navigate(this.path)
-            }
-        } catch (e) {
-            transfer.cancel()
-            this.sftp.unlink(tempPath)
-            throw e
+        if (this.path === savedPath) {
+            await this.navigate(this.path)
         }
     }
 
@@ -126,21 +113,7 @@ export class SFTPPanelComponent {
         if (!transfer) {
             return
         }
-        try {
-            const handle = await this.sftp.open(itemPath, 'r')
-            while (true) {
-                const chunk = await handle.read()
-                if (!chunk.length) {
-                    break
-                }
-                await transfer.write(chunk)
-            }
-            transfer.close()
-            handle.close()
-        } catch (e) {
-            transfer.cancel()
-            throw e
-        }
+        this.sftp.download(itemPath, transfer)
     }
 
     getModeString (item: SFTPFile): string {
@@ -159,31 +132,18 @@ export class SFTPPanelComponent {
         return result
     }
 
-    showContextMenu (item: SFTPFile, event: MouseEvent): void {
-        event.preventDefault()
-        this.platform.popupContextMenu([
-            {
-                click: async () => {
-                    if ((await this.platform.showMessageBox({
-                        type: 'warning',
-                        message: `Delete ${item.fullPath}?`,
-                        defaultId: 0,
-                        buttons: ['Delete', 'Cancel'],
-                    })).response === 0) {
-                        await this.deleteItem(item)
-                        this.navigate(this.path)
-                    }
-                },
-                label: 'Delete',
-            },
-        ], event)
+    async buildContextMenu (item: SFTPFile): Promise<MenuItemOptions[]> {
+        let items: MenuItemOptions[] = []
+        for (const section of await Promise.all(this.contextMenuProviders.map(x => x.getItems(item, this)))) {
+            items.push({ type: 'separator' })
+            items = items.concat(section)
+        }
+        return items.slice(1)
     }
 
-    async deleteItem (item: SFTPFile): Promise<void> {
-        const modal = this.ngbModal.open(SFTPDeleteModalComponent)
-        modal.componentInstance.item = item
-        modal.componentInstance.sftp = this.sftp
-        await modal.result
+    async showContextMenu (item: SFTPFile, event: MouseEvent): Promise<void> {
+        event.preventDefault()
+        this.platform.popupContextMenu(await this.buildContextMenu(item), event)
     }
 
     close (): void {

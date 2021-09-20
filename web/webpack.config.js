@@ -13,7 +13,6 @@ for (const key of [
     'querystring',
     'tls',
     'tty',
-    'url',
     'zlib',
     '../build/Release/cpufeatures.node',
     './crypto/build/Release/sshcrypto.node',
@@ -64,22 +63,8 @@ module.exports = {
             { test: /\.scss$/, use: ['style-loader', 'css-loader', 'sass-loader'] },
             { test: /\.css$/, use: ['style-loader', 'css-loader', 'sass-loader'] },
             {
-                test: /\.(png|svg)$/,
-                use: {
-                    loader: 'url-loader',
-                    options: {
-                        limit: 999999,
-                    },
-                },
-            },
-            {
-                test: /\.(ttf|eot|otf|woff|woff2)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-                use: {
-                    loader: 'file-loader',
-                    options: {
-                        name: 'fonts/[name].[ext]',
-                    },
-                },
+                test: /\.(png|svg|ttf|eot|otf|woff|woff2)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+                type: 'asset',
             },
         ],
     },

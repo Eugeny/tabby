@@ -182,17 +182,6 @@ export class AppRootComponent {
         return this.config.store.appearance.tabsLocation === 'left' || this.config.store.appearance.tabsLocation === 'right'
     }
 
-    onTabDragStart () {
-        this.app.emitTabDragStarted()
-    }
-
-    onTabDragEnd () {
-        setTimeout(() => {
-            this.app.emitTabDragEnded()
-            this.app.emitTabsChanged()
-        })
-    }
-
     async generateButtonSubmenu (button: ToolbarButton) {
         if (button.submenu) {
             button.submenuItems = await button.submenu()
@@ -214,6 +203,7 @@ export class AppRootComponent {
             buttons = buttons.concat(provider.provide())
         })
         return buttons
+            .filter(x => x.showInToolbar ?? true)
             .filter(button => (button.weight ?? 0) > 0 === aboveZero)
             .sort((a: ToolbarButton, b: ToolbarButton) => (a.weight ?? 0) - (b.weight ?? 0))
     }

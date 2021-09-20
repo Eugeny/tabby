@@ -25,10 +25,10 @@ export class SerialProfilesService extends ProfileProvider<SerialProfile> {
             xon: false,
             xoff: false,
             xany: false,
-            inputMode: 'local-echo',
+            inputMode: null,
             outputMode: null,
             inputNewlines: null,
-            outputNewlines: 'crlf',
+            outputNewlines: null,
             scripts: [],
         },
     }
@@ -90,6 +90,10 @@ export class SerialProfilesService extends ProfileProvider<SerialProfile> {
             type: SerialTabComponent,
             inputs: { profile },
         }
+    }
+
+    getSuggestedName (profile: SerialProfile): string {
+        return this.getDescription(profile)
     }
 
     getDescription (profile: SerialProfile): string {

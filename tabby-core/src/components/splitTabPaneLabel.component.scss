@@ -1,0 +1,35 @@
+:host {
+    position: absolute;
+    background: rgba(255, 255, 255, .25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    z-index: 10;
+    opacity: 0;
+    transition: .125s opacity cubic-bezier(0.86, 0, 0.07, 1);
+}
+
+div {
+    background: rgba(0, 0, 0, .7);
+    padding: 20px 30px;
+    font-size: 18px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    cursor: move;
+}
+
+:host.active {
+    opacity: 1;
+
+    > div {
+        pointer-events: initial;
+    }
+}
+
+label {
+    margin: 0;
+    cursor: move;
+}

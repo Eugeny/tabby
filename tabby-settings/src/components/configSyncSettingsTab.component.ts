@@ -17,10 +17,10 @@ export class ConfigSyncSettingsTabComponent extends BaseComponent {
 
     constructor (
         public config: ConfigService,
+        public platform: PlatformService,
         private configSync: ConfigSyncService,
         private hostApp: HostAppService,
         private ngbModal: NgbModal,
-        private platform: PlatformService,
         private notifications: NotificationsService,
     ) {
         super()
@@ -73,6 +73,7 @@ export class ConfigSyncSettingsTabComponent extends BaseComponent {
                 message: 'Overwrite the config on the remote side and start syncing?',
                 buttons: ['Overwrite remote and sync', 'Cancel'],
                 defaultId: 1,
+                cancelId: 1,
             })).response === 1) {
                 return
             }
@@ -89,11 +90,28 @@ export class ConfigSyncSettingsTabComponent extends BaseComponent {
             message: 'Overwrite the local config and start syncing?',
             buttons: ['Overwrite local and sync', 'Cancel'],
             defaultId: 1,
+            cancelId: 1,
         })).response === 1) {
             return
         }
         this.configSync.setConfig(cfg)
         await this.configSync.download()
         this.notifications.info('Config downloaded')
+    }
+
+    hasMatchingRemoteConfig () {
+        return !!this.configs?.find(c => this.isActiveConfig(c))
+    }
+
+    isActiveConfig (c: Config) {
+        return c.id === this.config.store.configSync.configID
+    }
+
+    openSyncHost () {
+        if (this.config.store.configSync.host === 'https://api.tabby.sh') {
+            this.platform.openExternal('https://tabby.sh/app')
+        } else {
+            this.platform.openExternal(this.config.store.configSync.host)
+        }
     }
 }

@@ -1,8 +1,10 @@
 import { app, ipcMain, Menu, Tray, shell, screen, globalShortcut, MenuItemConstructorOptions } from 'electron'
 import * as promiseIpc from 'electron-promise-ipc'
 import * as remote from '@electron/remote/main'
+import { exec } from 'mz/child_process'
 import * as path from 'path'
 import * as fs from 'fs'
+import { Subject, throttleTime } from 'rxjs'
 
 import { loadConfig } from './config'
 import { Window, WindowOptions } from './window'
@@ -19,6 +21,8 @@ export class Application {
     private tray?: Tray
     private ptyManager = new PTYManager()
     private windows: Window[] = []
+    private globalHotkey$ = new Subject<void>()
+    private quitRequested = false
     userPluginsPath: string
 
     constructor () {
@@ -33,10 +37,12 @@ export class Application {
         ipcMain.on('app:register-global-hotkey', (_event, specs) => {
             globalShortcut.unregisterAll()
             for (const spec of specs) {
-                globalShortcut.register(spec, () => {
-                    this.onGlobalHotkey()
-                })
+                globalShortcut.register(spec, () => this.globalHotkey$.next())
             }
+        })
+
+        this.globalHotkey$.pipe(throttleTime(100)).subscribe(() => {
+            this.onGlobalHotkey()
         })
 
         ;(promiseIpc as any).on('plugin-manager:install', (name, version) => {
@@ -45,6 +51,10 @@ export class Application {
 
         ;(promiseIpc as any).on('plugin-manager:uninstall', (name) => {
             return pluginManager.uninstall(this.userPluginsPath, name)
+        })
+
+        ;(promiseIpc as any).on('get-default-mac-shell', async () => {
+            return (await exec(`/usr/bin/dscl . -read /Users/${process.env.LOGNAME} UserShell`))[0].toString().split(' ')[1].trim()
         })
 
         const configData = loadConfig()
@@ -73,6 +83,12 @@ export class Application {
         for (const flag of configData.flags || [['force_discrete_gpu', '0']]) {
             app.commandLine.appendSwitch(flag[0], flag[1])
         }
+
+        app.on('window-all-closed', () => {
+            if (this.quitRequested || process.platform !== 'darwin') {
+                app.quit()
+            }
+        })
     }
 
     init (): void {
@@ -217,7 +233,8 @@ export class Application {
                     {
                         label: 'Quit',
                         accelerator: 'Cmd+Q',
-                        click () {
+                        click: () => {
+                            this.quitRequested = true
                             app.quit()
                         },
                     },

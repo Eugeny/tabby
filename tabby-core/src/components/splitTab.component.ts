@@ -6,8 +6,8 @@ import { TabsService, NewTabParameters } from '../services/tabs.service'
 import { HotkeysService } from '../services/hotkeys.service'
 import { TabRecoveryService } from '../services/tabRecovery.service'
 
-export type SplitOrientation = 'v' | 'h' // eslint-disable-line @typescript-eslint/no-type-alias
-export type SplitDirection = 'r' | 't' | 'b' | 'l' // eslint-disable-line @typescript-eslint/no-type-alias
+export type SplitOrientation = 'v' | 'h'
+export type SplitDirection = 'r' | 't' | 'b' | 'l'
 
 /**
  * Describes a horizontal or vertical split row or column
@@ -93,13 +93,13 @@ export class SplitContainer {
         return s
     }
 
-    async serialize (): Promise<RecoveryToken> {
+    async serialize (tabsRecovery: TabRecoveryService): Promise<RecoveryToken> {
         const children: any[] = []
         for (const child of this.children) {
             if (child instanceof SplitContainer) {
-                children.push(await child.serialize())
+                children.push(await child.serialize(tabsRecovery))
             } else {
-                children.push(await child.getRecoveryToken())
+                children.push(await tabsRecovery.getFullRecoveryToken(child))
             }
         }
         return {
@@ -126,10 +126,21 @@ export interface SplitSpannerInfo {
 /**
  * Represents a tab drop zone
  */
-export interface SplitDropZoneInfo {
-    relativeToTab: BaseTabComponent
+export type SplitDropZoneInfo = {
+    x: number
+    y: number
+    w: number
+    h: number
+} & ({
+    type: 'absolute'
+    container: SplitContainer
+    position: number
+} | {
+    type: 'relative'
+    relativeTo?: BaseTabComponent|SplitContainer
     side: SplitDirection
-}
+})
+
 
 /**
  * Split tab is a tab that contains other tabs and allows further splitting them
@@ -147,10 +158,19 @@ export interface SplitDropZoneInfo {
         ></split-tab-spanner>
         <split-tab-drop-zone
             *ngFor='let dropZone of _dropZones'
+            [parent]='this'
             [dropZone]='dropZone'
             (tabDropped)='onTabDropped($event, dropZone)'
         >
         </split-tab-drop-zone>
+        <split-tab-pane-label
+            *ngFor='let tab of getAllTabs()'
+            cdkDropList
+            cdkAutoDropGroup='app-tabs'
+            [tab]='tab'
+            [parent]='this'
+        >
+        </split-tab-pane-label>
     `,
     styles: [require('./splitTab.component.scss')],
 })
@@ -361,7 +381,7 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
     /**
      * Inserts a new `tab` to the `side` of the `relative` tab
      */
-    async add (thing: BaseTabComponent|SplitContainer, relative: BaseTabComponent|null, side: SplitDirection): Promise<void> {
+    async add (thing: BaseTabComponent|SplitContainer, relative: BaseTabComponent|SplitContainer|null, side: SplitDirection): Promise<void> {
         if (thing instanceof SplitTabComponent) {
             const tab = thing
             thing = tab.root
@@ -373,33 +393,46 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
         }
 
         if (thing instanceof BaseTabComponent) {
+            if (thing.parent instanceof SplitTabComponent) {
+                thing.parent.removeTab(thing)
+            }
+            thing.removeFromContainer()
             thing.parent = this
         }
 
-        let target = (relative ? this.getParentOf(relative) : null) ?? this.root
-        let insertIndex = relative ? target.children.indexOf(relative) : -1
+        let target = relative ? this.getParentOf(relative) : null
+        if (!target) {
+            // Rewrap the root container just in case the orientation isn't compatibile
+            target = new SplitContainer()
+            target.orientation = ['l', 'r'].includes(side) ? 'h' : 'v'
+            target.children = [this.root]
+            target.ratios = [1]
+            this.root = target
+        }
+
+        let insertIndex = relative
+            ? target.children.indexOf(relative) + ('tl'.includes(side) ? 0 : 1)
+            : 'tl'.includes(side) ? 0 : -1
 
         if (
             target.orientation === 'v' && ['l', 'r'].includes(side) ||
             target.orientation === 'h' && ['t', 'b'].includes(side)
         ) {
+            // Inserting into a container but the orientation isn't compatible
             const newContainer = new SplitContainer()
-            newContainer.orientation = target.orientation === 'v' ? 'h' : 'v'
+            newContainer.orientation = ['l', 'r'].includes(side) ? 'h' : 'v'
             newContainer.children = relative ? [relative] : []
             newContainer.ratios = [1]
-            target.children[insertIndex] = newContainer
+            target.children.splice(relative ? target.children.indexOf(relative) : -1, 1, newContainer)
             target = newContainer
-            insertIndex = 0
-        }
-
-        if (insertIndex === -1) {
-            insertIndex = 0
-        } else {
-            insertIndex += side === 'l' || side === 't' ? 0 : 1
+            insertIndex = 'tl'.includes(side) ? 0 : 1
         }
 
         for (let i = 0; i < target.children.length; i++) {
             target.ratios[i] *= target.children.length / (target.children.length + 1)
+        }
+        if (insertIndex === -1) {
+            insertIndex = target.ratios.length
         }
         target.ratios.splice(insertIndex, 0, 1 / (target.children.length + 1))
         target.children.splice(insertIndex, 0, thing)
@@ -537,7 +570,7 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
 
     /** @hidden */
     async getRecoveryToken (): Promise<any> {
-        return this.root.serialize()
+        return this.root.serialize(this.tabRecovery)
     }
 
     /** @hidden */
@@ -557,7 +590,11 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
             return
         }
 
-        this.add(tab, zone.relativeToTab, zone.side)
+        if (zone.type === 'relative') {
+            this.add(tab, zone.relativeTo ?? null, zone.side)
+        } else {
+            this.add(tab, zone.container.children[zone.position], zone.container.orientation === 'h' ? 'r' : 'b')
+        }
         this.tabAdopted.next(tab)
     }
 
@@ -575,16 +612,20 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
         this.layoutInternal(this.root, 0, 0, 100, 100)
     }
 
+    private updateTitle (): void {
+        this.setTitle(this.getAllTabs().map(x => x.title).join(' | '))
+    }
+
     private attachTabView (tab: BaseTabComponent) {
         const ref = tab.insertIntoContainer(this.viewContainer)
         this.viewRefs.set(tab, ref)
         tab.addEventListenerUntilDestroyed(ref.rootNodes[0], 'click', () => this.focus(tab))
 
-        tab.subscribeUntilDestroyed(tab.titleChange$, t => this.setTitle(t))
+        tab.subscribeUntilDestroyed(tab.titleChange$, () => this.updateTitle())
         tab.subscribeUntilDestroyed(tab.activity$, a => a ? this.displayActivity() : this.clearActivity())
         tab.subscribeUntilDestroyed(tab.progress$, p => this.setProgress(p))
         if (tab.title) {
-            this.setTitle(tab.title)
+            this.updateTitle()
         }
         tab.subscribeUntilDestroyed(tab.recoveryStateChangedHint$, () => {
             this.recoveryStateChangedHint.next()
@@ -605,6 +646,42 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
     private layoutInternal (root: SplitContainer, x: number, y: number, w: number, h: number) {
         const size = root.orientation === 'v' ? h : w
         const sizes = root.ratios.map(ratio => ratio * size)
+        const thickness = 10
+
+        if (root === this.root) {
+            this._dropZones.push({
+                x: x - thickness / 2,
+                y: y + thickness,
+                w: thickness,
+                h: h - thickness * 2,
+                type: 'relative',
+                side: 'l',
+            })
+            this._dropZones.push({
+                x,
+                y: y - thickness / 2,
+                w,
+                h: thickness,
+                type: 'relative',
+                side: 't',
+            })
+            this._dropZones.push({
+                x: x + w - thickness / 2,
+                y: y + thickness,
+                w: thickness,
+                h: h - thickness * 2,
+                type: 'relative',
+                side: 'r',
+            })
+            this._dropZones.push({
+                x,
+                y: y + h - thickness / 2,
+                w,
+                h: thickness,
+                type: 'relative',
+                side: 'b',
+            })
+        }
 
         root.x = x
         root.y = y
@@ -638,16 +715,64 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
                         element.style.width = '90%'
                         element.style.height = '90%'
                     }
-
-                    for (const side of ['t', 'r', 'b', 'l']) {
-                        this._dropZones.push({
-                            relativeToTab: child,
-                            side: side as SplitDirection,
-                        })
-                    }
                 }
             }
+
             offset += sizes[i]
+
+            if (i !== root.ratios.length - 1) {
+                // Spanner area
+                this._dropZones.push({
+                    type: 'relative',
+                    relativeTo: root.children[i],
+                    side: root.orientation === 'v' ? 'b': 'r',
+                    x: root.orientation === 'v' ? childX + thickness : childX + offset - thickness / 2,
+                    y: root.orientation === 'v' ? childY + offset - thickness / 2 : childY + thickness,
+                    w: root.orientation === 'v' ? childW - thickness * 2 : thickness,
+                    h: root.orientation === 'v' ? thickness : childH - thickness * 2,
+                })
+            }
+
+            // Sides
+            if (root.orientation === 'v') {
+                this._dropZones.push({
+                    x: childX,
+                    y: childY + thickness,
+                    w: thickness,
+                    h: childH - thickness * 2,
+                    type: 'relative',
+                    relativeTo: child,
+                    side: 'l',
+                })
+                this._dropZones.push({
+                    x: childX + w - thickness,
+                    y: childY + thickness,
+                    w: thickness,
+                    h: childH - thickness * 2,
+                    type: 'relative',
+                    relativeTo: child,
+                    side: 'r',
+                })
+            } else {
+                this._dropZones.push({
+                    x: childX + thickness,
+                    y: childY,
+                    w: childW - thickness * 2,
+                    h: thickness,
+                    type: 'relative',
+                    relativeTo: child,
+                    side: 't',
+                })
+                this._dropZones.push({
+                    x: childX + thickness,
+                    y: childY + childH - thickness,
+                    w: childW - thickness * 2,
+                    h: thickness,
+                    type: 'relative',
+                    relativeTo: child,
+                    side: 'b',
+                })
+            }
 
             if (i !== 0) {
                 this._spanners.push({

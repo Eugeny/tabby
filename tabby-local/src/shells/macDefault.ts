@@ -1,5 +1,5 @@
-import { exec } from 'mz/child_process'
 import { Injectable } from '@angular/core'
+import promiseIpc, { RendererProcessType } from 'electron-promise-ipc'
 import { HostAppService, Platform } from 'tabby-core'
 
 import { ShellProvider, Shell } from '../api'
@@ -33,11 +33,11 @@ export class MacOSDefaultShellProvider extends ShellProvider {
         if (!this.cachedShell) {
             this.cachedShell = await this.getDefaultShell()
         }
-        return this.cachedShell!
+        return this.cachedShell
     }
 
-    private async getDefaultShell () {
-        const shellEntry = (await exec(`/usr/bin/dscl . -read /Users/${process.env.LOGNAME} UserShell`))[0].toString()
-        return shellEntry.split(' ')[1].trim()
+    private async getDefaultShell (): Promise<string> {
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
+        return (promiseIpc as RendererProcessType).send('get-default-mac-shell') as Promise<string>
     }
 }

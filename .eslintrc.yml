@@ -121,3 +121,8 @@ rules:
   '@typescript-eslint/no-unsafe-argument': off
   '@typescript-eslint/restrict-plus-operands': off
   '@typescript-eslint/space-infix-ops': off
+  '@typescript-eslint/no-type-alias':
+  - error
+  - allowAliases: in-unions-and-intersections
+    allowLiterals: always
+    allowCallbacks: always

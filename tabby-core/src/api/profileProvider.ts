@@ -46,6 +46,10 @@ export abstract class ProfileProvider<P extends Profile> {
 
     abstract getNewTabParameters (profile: PartialProfile<P>): Promise<NewTabParameters<BaseTabComponent>>
 
+    getSuggestedName (profile: PartialProfile<P>): string|null {
+        return null
+    }
+
     abstract getDescription (profile: PartialProfile<P>): string
 
     quickConnect (query: string): PartialProfile<P>|null {

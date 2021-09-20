@@ -34,6 +34,7 @@ module.exports = {
         ],
     },
     externals: {
+        'v8-compile-cache': 'commonjs v8-compile-cache',
         'any-promise': 'commonjs any-promise',
         electron: 'commonjs electron',
         'electron-config': 'commonjs electron-config',
@@ -43,7 +44,8 @@ module.exports = {
         glasstron: 'commonjs glasstron',
         mz: 'commonjs mz',
         npm: 'commonjs npm',
-        'node-pty': 'commonjs node-pty',
+        'node:os': 'commonjs os',
+        '@tabby-gang/node-pty': 'commonjs @tabby-gang/node-pty',
         path: 'commonjs path',
         util: 'commonjs util',
         'source-map-support': 'commonjs source-map-support',

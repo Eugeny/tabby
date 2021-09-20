@@ -43,6 +43,7 @@ export class TransfersMenuComponent {
                 message: 'There are active file transfers',
                 buttons: ['Abort all', 'Do not abort'],
                 defaultId: 1,
+                cancelId: 1,
             })).response === 1) {
                 return
             }

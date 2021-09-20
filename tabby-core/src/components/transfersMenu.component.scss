@@ -1,5 +1,7 @@
 :host {
     min-width: 300px;
+    max-height: 80vh;
+    overflow-y: auto;
 }
 
 .transfer {
@@ -22,6 +24,7 @@
         min-width: 0;
         margin-right: auto;
         margin-bottom: 3px;
+        width: 100%;
 
         label {
             margin: 0;

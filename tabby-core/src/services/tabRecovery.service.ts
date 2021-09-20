@@ -20,7 +20,7 @@ export class TabRecoveryService {
     }
 
     async saveTabs (tabs: BaseTabComponent[]): Promise<void> {
-        if (!this.enabled) {
+        if (!this.enabled || !this.config.store.recoverTabs) {
             return
         }
         window.localStorage.tabsRecovery = JSON.stringify(
@@ -34,9 +34,11 @@ export class TabRecoveryService {
         const token = await tab.getRecoveryToken()
         if (token) {
             token.tabTitle = tab.title
+            token.tabCustomTitle = tab.customTitle
             if (tab.color) {
                 token.tabColor = tab.color
             }
+            token.disableDynamicTitle = tab['disableDynamicTitle']
         }
         return token
     }
@@ -54,6 +56,8 @@ export class TabRecoveryService {
                 tab.inputs = tab.inputs ?? {}
                 tab.inputs.color = token.tabColor ?? null
                 tab.inputs.title = token.tabTitle || ''
+                tab.inputs.customTitle = token.tabCustomTitle || ''
+                tab.inputs.disableDynamicTitle = token.disableDynamicTitle
                 return tab
             } catch (error) {
                 this.logger.warn('Tab recovery crashed:', token, provider, error)

@@ -27,10 +27,11 @@ export class LoginScriptsSettingsComponent {
                 type: 'warning',
                 message: 'Delete this script?',
                 detail: script.expect,
-                buttons: ['Keep', 'Delete'],
-                defaultId: 1,
+                buttons: ['Delete', 'Keep'],
+                defaultId: 0,
+                cancelId: 1,
             }
-        )).response === 1) {
+        )).response === 0) {
             this.scripts = this.scripts.filter(x => x !== script)
         }
     }

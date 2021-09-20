@@ -26,8 +26,8 @@ $purple: #613d7c !default;
 $content-bg: rgba(39, 49, 60, 0.65); //#1D272D;
 $content-bg-solid: #1D272D;
 
-$table-bg: rgba(255,255,255,.05);
-$table-bg-hover: rgba(255,255,255,.1);
+$table-bg: rgba(255,255,255,.025);
+$table-bg-hover: rgba(255,255,255,.05);
 $table-border-color: rgba(255,255,255,.1);
 
 $theme-colors: (
@@ -88,7 +88,7 @@ $list-group-item-padding-y: 0.8rem;
 $list-group-item-padding-x: 1rem;
 
 $list-group-hover-bg: $table-bg-hover;
-$list-group-active-bg: rgba(255,255,255,.2);
+$list-group-active-bg: rgba(255,255,255,.05);
 $list-group-active-color: $component-active-color;
 $list-group-active-border-color: translate;
 

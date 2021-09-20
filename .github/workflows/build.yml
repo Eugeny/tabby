@@ -11,7 +11,7 @@ jobs:
         fetch-depth: 0
 
     - name: Installing Node
-      uses: actions/setup-node@v2.2.0
+      uses: actions/setup-node@v2.4.0
       with:
         node-version: 14
 
@@ -46,7 +46,7 @@ jobs:
         fetch-depth: 0
 
     - name: Installing Node
-      uses: actions/setup-node@v2.2.0
+      uses: actions/setup-node@v2.4.0
       with:
         node-version: 14
 
@@ -139,7 +139,7 @@ jobs:
         fetch-depth: 0
 
     - name: Install Node
-      uses: actions/setup-node@v2.2.0
+      uses: actions/setup-node@v2.4.0
       with:
         node-version: 14
 
@@ -182,6 +182,15 @@ jobs:
         SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
         SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
         SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
+
+    - name: Upload packages to packagecloud.io
+      uses: TykTechnologies/packagecloud-action@main
+      if: github.repository == 'Eugeny/tabby' && github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
+      env:
+        PACKAGECLOUD_TOKEN: ${{ secrets.PACKAGECLOUD_TOKEN }}
+      with:
+        repo: 'eugeny/tabby'
+        dir: 'dist'
 
     - name: Package artifacts
       run: |
@@ -245,7 +254,7 @@ jobs:
         fetch-depth: 0
 
     - name: Installing Node
-      uses: actions/setup-node@v2.2.0
+      uses: actions/setup-node@v2.4.0
       with:
         node-version: 14
 

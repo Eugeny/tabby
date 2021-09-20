@@ -9,6 +9,11 @@
     border-top-right-radius: 0;
 }
 
+.group-header {
+    padding: 0 1rem;
+    margin: 20px 0 10px;
+}
+
 .icon {
     width: 1.25rem;
     margin-right: 0.25rem;
@@ -16,9 +21,13 @@
 
 .title {
     margin-left: 10px;
+    flex: none;
+}
+
+.description {
+    flex: 1 1 0;
 }
 
 input {
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
+    border-radius: 0;
 }

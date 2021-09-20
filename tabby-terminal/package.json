@@ -1,6 +1,6 @@
 {
   "name": "tabby-terminal",
-  "version": "1.0.148-nightly.2",
+  "version": "1.0.156",
   "description": "Tabby's terminal emulation core",
   "keywords": [
     "tabby-builtin-plugin"
@@ -17,28 +17,25 @@
   "author": "Eugene Pankov",
   "license": "MIT",
   "dependencies": {
-    "hterm-umdjs": "1.4.1",
     "opentype.js": "^1.3.3"
   },
   "devDependencies": {
-    "@types/deep-equal": "^1.0.0",
     "ansi-colors": "^4.1.1",
     "binstring": "^0.2.1",
     "buffer-replace": "^1.0.0",
     "cli-spinner": "^0.2.10",
     "dataurl": "0.1.0",
-    "deep-equal": "2.0.5",
     "hexer": "^1.5.0",
     "ps-node": "^0.1.6",
     "runes": "^0.4.2",
     "utils-decorators": "^1.8.1",
-    "xterm": "^4.9.0-beta.7",
+    "xterm": "npm:@tabby-gang/xterm@4.14.0",
     "xterm-addon-fit": "^0.5.0",
     "xterm-addon-ligatures": "^0.5.0",
-    "xterm-addon-search": "^0.8.0",
-    "xterm-addon-serialize": "^0.5.0",
-    "xterm-addon-unicode11": "^0.2.0",
-    "xterm-addon-webgl": "^0.11.0",
+    "xterm-addon-search": "^0.8.1",
+    "xterm-addon-serialize": "^0.6.0",
+    "xterm-addon-unicode11": "^0.3.0",
+    "xterm-addon-webgl": "^0.11.2",
     "zmodem.js": "^0.1.9"
   },
   "peerDependencies": {

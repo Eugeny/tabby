@@ -1,7 +1,6 @@
 import { Injectable, Injector } from '@angular/core'
 import { ConfigService } from 'tabby-core'
 import { Frontend } from '../frontends/frontend'
-import { HTermFrontend } from '../frontends/htermFrontend'
 import { XTermFrontend, XTermWebGLFrontend } from '../frontends/xtermFrontend'
 import { BaseSession } from '../session'
 
@@ -17,12 +16,11 @@ export class TerminalFrontendService {
 
     getFrontend (session?: BaseSession|null): Frontend {
         if (!session) {
-            const frontend: Frontend = new {
+            const cls = {
                 xterm: XTermFrontend,
                 'xterm-webgl': XTermWebGLFrontend,
-                hterm: HTermFrontend,
-            }[this.config.store.terminal.frontend](this.injector)
-            return frontend
+            }[this.config.store.terminal.frontend] ?? XTermFrontend
+            return new cls(this.injector)
         }
         if (!this.containers.has(session)) {
             this.containers.set(

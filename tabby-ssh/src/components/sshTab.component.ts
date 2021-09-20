@@ -2,11 +2,12 @@ import colors from 'ansi-colors'
 import { Component, Injector, HostListener } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { first } from 'rxjs'
-import { Platform, RecoveryToken } from 'tabby-core'
+import { PartialProfile, Platform, ProfilesService, RecoveryToken } from 'tabby-core'
 import { BaseTerminalTabComponent } from 'tabby-terminal'
 import { SSHService } from '../services/ssh.service'
-import { SSHProfile, SSHSession } from '../api'
+import { KeyboardInteractivePrompt, SSHSession } from '../session/ssh'
 import { SSHPortForwardingModalComponent } from './sshPortForwardingModal.component'
+import { SSHProfile } from '../api'
 
 
 /** @hidden */
@@ -23,6 +24,7 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
     sftpPanelVisible = false
     sftpPath = '/'
     enableToolbar = true
+    activeKIPrompt: KeyboardInteractivePrompt|null = null
     private sessionStack: SSHSession[] = []
     private recentInputs = ''
     private reconnectOffered = false
@@ -31,8 +33,12 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
         injector: Injector,
         public ssh: SSHService,
         private ngbModal: NgbModal,
+        private profilesService: ProfilesService,
     ) {
         super(injector)
+        this.sessionChanged$.subscribe(() => {
+            this.activeKIPrompt = null
+        })
     }
 
     ngOnInit (): void {
@@ -77,13 +83,16 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
 
     async setupOneSession (session: SSHSession): Promise<void> {
         if (session.profile.options.jumpHost) {
-            const jumpConnection: SSHProfile|null = this.config.store.profiles.find(x => x.id === session.profile.options.jumpHost)
+            const jumpConnection: PartialProfile<SSHProfile>|null = this.config.store.profiles.find(x => x.id === session.profile.options.jumpHost)
 
             if (!jumpConnection) {
                 throw new Error(`${session.profile.options.host}: jump host "${session.profile.options.jumpHost}" not found in your config`)
             }
 
-            const jumpSession = new SSHSession(this.injector, jumpConnection)
+            const jumpSession = new SSHSession(
+                this.injector,
+                this.profilesService.getConfigProxyForProfile(jumpConnection)
+            )
 
             await this.setupOneSession(jumpSession)
 
@@ -119,6 +128,17 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
         this.attachSessionHandler(session.serviceMessage$, msg => {
             this.write(`\r${colors.black.bgWhite(' SSH ')} ${msg}\r\n`)
             session.resize(this.size.columns, this.size.rows)
+        })
+
+        this.attachSessionHandler(session.destroyed$, () => {
+            this.activeKIPrompt = null
+        })
+
+        this.attachSessionHandler(session.keyboardInteractivePrompt$, prompt => {
+            this.activeKIPrompt = prompt
+            setTimeout(() => {
+                this.frontend?.scrollToBottom()
+            })
         })
 
         try {
@@ -208,10 +228,11 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
             {
                 type: 'warning',
                 message: `Disconnect from ${this.profile?.options.host}?`,
-                buttons: ['Cancel', 'Disconnect'],
-                defaultId: 1,
+                buttons: ['Disconnect', 'Do not close'],
+                defaultId: 0,
+                cancelId: 1,
             }
-        )).response === 1
+        )).response === 0
     }
 
     async openSFTP (): Promise<void> {

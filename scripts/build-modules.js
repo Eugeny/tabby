@@ -13,6 +13,10 @@ const configs = [
 ;(async () => {
     for (const c of configs) {
         log.info('build', c)
-        await promisify(webpack)(require(c))
+        const stats = await promisify(webpack)(require(c))
+        console.log(stats.toString({ colors: true }))
+        if (stats.hasErrors()) {
+            process.exit(1)
+        }
     }
 })()

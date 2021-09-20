@@ -32,6 +32,7 @@ import { Cygwin64ShellProvider } from './shells/cygwin64'
 import { GitBashShellProvider } from './shells/gitBash'
 import { LinuxDefaultShellProvider } from './shells/linuxDefault'
 import { MacOSDefaultShellProvider } from './shells/macDefault'
+import { MSYS2ShellProvider } from './shells/msys2'
 import { POSIXShellsProvider } from './shells/posix'
 import { PowerShellCoreShellProvider } from './shells/powershellCore'
 import { WindowsDefaultShellProvider } from './shells/winDefault'
@@ -71,6 +72,7 @@ import { LocalProfilesService } from './profiles'
         { provide: ShellProvider, useClass: Cygwin64ShellProvider, multi: true },
         { provide: ShellProvider, useClass: GitBashShellProvider, multi: true },
         { provide: ShellProvider, useClass: POSIXShellsProvider, multi: true },
+        { provide: ShellProvider, useClass: MSYS2ShellProvider, multi: true },
         { provide: ShellProvider, useClass: WSLShellProvider, multi: true },
         { provide: ShellProvider, useClass: VSDevToolsProvider, multi: true },
 
