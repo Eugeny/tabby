@@ -28,6 +28,6 @@ deploy:
   token: ${GITHUB_TOKEN}
   file:
   - "$TRAVIS_BUILD_DIR/dist/*.deb"
-  cleanup: false
+  cleanup: true
   on:
     tags: false
