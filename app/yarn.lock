@@ -3846,10 +3846,10 @@ yargs@^14.2.3:
     y18n "^4.0.0"
     yargs-parser "^15.0.1"
 
-yargs@^17.1.0:
-  version "17.1.0"
-  resolved "https://registry.yarnpkg.com/yargs/-/yargs-17.1.0.tgz#0cd9827a0572c9a1795361c4d1530e53ada168cf"
-  integrity sha512-SQr7qqmQ2sNijjJGHL4u7t8vyDZdZ3Ahkmo4sc1w5xI9TBX0QDdG/g4SFnxtWOsGLjwHQue57eFALfwFCnixgg==
+yargs@^17.2.0:
+  version "17.2.0"
+  resolved "https://registry.yarnpkg.com/yargs/-/yargs-17.2.0.tgz#ec529632b2cb9044f3927f4b45f9cc4ae2535653"
+  integrity sha512-UPeZv4h9Xv510ibpt5rdsUNzgD78nMa1rhxxCgvkKiq06hlKCEHJLiJ6Ub8zDg/wR6hedEI6ovnd2vCvJ4nusA==
   dependencies:
     cliui "^7.0.2"
     escalade "^3.1.1"
