@@ -612,6 +612,13 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
         this.layoutInternal(this.root, 0, 0, 100, 100)
     }
 
+    clearActivity (): void {
+        for (const tab of this.getAllTabs()) {
+            tab.clearActivity()
+        }
+        super.clearActivity()
+    }
+
     private updateTitle (): void {
         this.setTitle(this.getAllTabs().map(x => x.title).join(' | '))
     }

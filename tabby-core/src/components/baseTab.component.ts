@@ -1,4 +1,4 @@
-import { Observable, Subject, distinctUntilChanged, debounceTime } from 'rxjs'
+import { Observable, Subject, distinctUntilChanged } from 'rxjs'
 import { EmbeddedViewRef, ViewContainerRef, ViewRef } from '@angular/core'
 import { RecoveryToken } from '../api/tabRecovery'
 import { BaseComponent } from './base.component'
@@ -71,7 +71,7 @@ export abstract class BaseTabComponent extends BaseComponent {
     get blurred$ (): Observable<void> { return this.blurred }
     get titleChange$ (): Observable<string> { return this.titleChange.pipe(distinctUntilChanged()) }
     get progress$ (): Observable<number|null> { return this.progress.pipe(distinctUntilChanged()) }
-    get activity$ (): Observable<boolean> { return this.activity.pipe(debounceTime(500)) }
+    get activity$ (): Observable<boolean> { return this.activity }
     get destroyed$ (): Observable<void> { return this.destroyed }
     get recoveryStateChangedHint$ (): Observable<void> { return this.recoveryStateChangedHint }
 
@@ -113,16 +113,20 @@ export abstract class BaseTabComponent extends BaseComponent {
      * Shows the acticity marker on the tab header
      */
     displayActivity (): void {
-        this.hasActivity = true
-        this.activity.next(true)
+        if (!this.hasActivity) {
+            this.hasActivity = true
+            this.activity.next(true)
+        }
     }
 
     /**
      * Removes the acticity marker from the tab header
      */
     clearActivity (): void {
-        this.hasActivity = false
-        this.activity.next(false)
+        if (this.hasActivity) {
+            this.hasActivity = false
+            this.activity.next(false)
+        }
     }
 
     /**
