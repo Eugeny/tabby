@@ -422,13 +422,14 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
 
     async paste (): Promise<void> {
         let data = this.platform.readClipboard()
-        if (this.config.store.terminal.bracketedPaste && this.frontend?.supportsBracketedPaste()) {
-            data = `\x1b[200~${data}\x1b[201~`
-        }
         if (this.hostApp.platform === Platform.Windows) {
             data = data.replaceAll('\r\n', '\r')
         } else {
             data = data.replaceAll('\n', '\r')
+        }
+
+        if (data.endsWith('\n')) {
+            data = data.substring(0, data.length - 1)
         }
 
         if (!this.alternateScreenActive) {
@@ -450,6 +451,10 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
                     return
                 }
             }
+        }
+
+        if (this.config.store.terminal.bracketedPaste && this.frontend?.supportsBracketedPaste()) {
+            data = `\x1b[200~${data}\x1b[201~`
         }
         this.sendInput(data)
     }
