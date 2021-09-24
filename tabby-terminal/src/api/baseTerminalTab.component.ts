@@ -201,15 +201,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
                         this.frontend.clearSelection()
                         this.notifications.notice('Copied')
                     } else {
-                        if (this.parent && this.parent instanceof SplitTabComponent && this.parent._allFocusMode) {
-                            for (const tab of this.parent.getAllTabs()) {
-                                if (tab instanceof BaseTerminalTabComponent) {
-                                    tab.sendInput('\x03')
-                                }
-                            }
-                        } else {
-                            this.sendInput('\x03')
-                        }
+                        this.forEachFocusedTerminalPane(tab => tab.sendInput('\x03'))
                     }
                     break
                 case 'copy':
@@ -218,46 +210,54 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
                     this.notifications.notice('Copied')
                     break
                 case 'paste':
-                    this.paste()
+                    this.forEachFocusedTerminalPane(tab => tab.paste())
                     break
                 case 'select-all':
                     this.frontend?.selectAll()
                     break
                 case 'clear':
-                    this.frontend?.clear()
+                    this.forEachFocusedTerminalPane(tab => tab.frontend?.clear())
                     break
                 case 'zoom-in':
-                    this.zoomIn()
+                    this.forEachFocusedTerminalPane(tab => tab.zoomIn())
                     break
                 case 'zoom-out':
-                    this.zoomOut()
+                    this.forEachFocusedTerminalPane(tab => tab.zoomOut())
                     break
                 case 'reset-zoom':
-                    this.resetZoom()
+                    this.forEachFocusedTerminalPane(tab => tab.resetZoom())
                     break
                 case 'previous-word':
-                    this.sendInput({
-                        [Platform.Windows]: '\x1b[1;5D',
-                        [Platform.macOS]: '\x1bb',
-                        [Platform.Linux]: '\x1bb',
-                    }[this.hostApp.platform])
+                    this.forEachFocusedTerminalPane(tab => {
+                        tab.sendInput({
+                            [Platform.Windows]: '\x1b[1;5D',
+                            [Platform.macOS]: '\x1bb',
+                            [Platform.Linux]: '\x1bb',
+                        }[this.hostApp.platform])
+                    })
                     break
                 case 'next-word':
-                    this.sendInput({
-                        [Platform.Windows]: '\x1b[1;5C',
-                        [Platform.macOS]: '\x1bf',
-                        [Platform.Linux]: '\x1bf',
-                    }[this.hostApp.platform])
+                    this.forEachFocusedTerminalPane(tab => {
+                        tab.sendInput({
+                            [Platform.Windows]: '\x1b[1;5C',
+                            [Platform.macOS]: '\x1bf',
+                            [Platform.Linux]: '\x1bf',
+                        }[this.hostApp.platform])
+                    })
                     break
                 case 'delete-previous-word':
-                    this.sendInput('\x1b\x7f')
+                    this.forEachFocusedTerminalPane(tab => {
+                        tab.sendInput('\x1b\x7f')
+                    })
                     break
                 case 'delete-next-word':
-                    this.sendInput({
-                        [Platform.Windows]: '\x1bd\x1b[3;5~',
-                        [Platform.macOS]: '\x1bd',
-                        [Platform.Linux]: '\x1bd',
-                    }[this.hostApp.platform])
+                    this.forEachFocusedTerminalPane(tab => {
+                        tab.sendInput({
+                            [Platform.Windows]: '\x1bd\x1b[3;5~',
+                            [Platform.macOS]: '\x1bd',
+                            [Platform.Linux]: '\x1bd',
+                        }[this.hostApp.platform])
+                    })
                     break
                 case 'search':
                     this.showSearchPanel = true
@@ -740,6 +740,18 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
         work()
         if (wasActive) {
             this.startSpinner()
+        }
+    }
+
+    protected forEachFocusedTerminalPane (cb: (tab: BaseTerminalTabComponent) => void): void {
+        if (this.parent && this.parent instanceof SplitTabComponent && this.parent._allFocusMode) {
+            for (const tab of this.parent.getAllTabs()) {
+                if (tab instanceof BaseTerminalTabComponent) {
+                    cb(tab)
+                }
+            }
+        } else {
+            cb(this)
         }
     }
 }
