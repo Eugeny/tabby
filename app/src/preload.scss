@@ -7,7 +7,8 @@
   height: 100vh;
   display: flex;
   animation: 0.5s ease-out fadeIn;
-  background: radial-gradient(#3a66820a 0%,  #000e17 30%, black 100%);
+  background-image: radial-gradient(#3a66820a 0%,  #000e17 30%, black 100%);
+  background-color: black;
 
   &>div {
     width: 200px;
