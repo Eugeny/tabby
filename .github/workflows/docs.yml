@@ -18,8 +18,6 @@ jobs:
 
     - name: Build
       run: |
-        eval $(ssh-agent -s)
-        ssh-add <(echo "$DOCS_PRIVATE_KEY")
         yarn cache clean
         cd app
         yarn
@@ -28,7 +26,13 @@ jobs:
         yarn
         yarn run build:typings
         yarn run docs
-        rsync -e "ssh -o StrictHostKeyChecking=no" -arv docs/api/ root@ajenti.org:/srv/terminus-docs/
 
       env:
         DOCS_PRIVATE_KEY: ${{ secrets.DOCS_PRIVATE_KEY }}
+
+    - uses: FirebaseExtended/action-hosting-deploy@v0
+      with:
+        repoToken: '${{ secrets.GITHUB_TOKEN }}'
+        firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_TABBY_DOCS }}'
+        channelId: live
+        projectId: tabby-docs
