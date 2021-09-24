@@ -483,6 +483,7 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
         newTab.parent = this
         this.recoveryStateChangedHint.next()
         this.onAfterTabAdded(newTab)
+        this.updateTitle()
     }
 
     /**
