@@ -116,6 +116,7 @@ export class Window {
                 }
                 this.window.focus()
                 this.window.moveTop()
+                application.focus()
             }
         })
 
