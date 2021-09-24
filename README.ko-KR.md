@@ -38,14 +38,14 @@
 
 # 목차 <!-- omit in toc -->
 
-- [Tabby는 무엇인가](#about)
-- [터미널 기능](#terminal)
-- [SSH 클라이언트](#ssh)
-- [시리얼 터미널](#serial)
-- [포터블](#portable)
-- [플러그인](#plugins)
-- [테마](#themes)
-- [기여](#contributing)
+- [Tabby는 무엇인가](#tabby는-무엇인가)
+- [터미널 기능](#터미널-기능)
+- [SSH 클라이언트](#ssh-클라이언트)
+- [시리얼 터미널](#시리얼-터미널)
+- [포터블](#포터블)
+- [플러그인](#플러그인)
+- [테마](#테마)
+- [기여](#기여)
 
 <a name="about"></a>
 
@@ -130,7 +130,7 @@
 
 Pull requests and plugins are welcome!
 
-프로젝트 배치 방법에 대한 자세한 내용과 매우 간단한 플러그인 개발 튜토리얼은 [HACKING.md](https://github.com/Eugeny/tabby/blob/master/HACKING.md) 및 [API docs](http://ajenti.org/terminus-docs/)를 참조하십시오.
+프로젝트 배치 방법에 대한 자세한 내용과 매우 간단한 플러그인 개발 튜토리얼은 [HACKING.md](https://github.com/Eugeny/tabby/blob/master/HACKING.md) 및 [API docs](https://docs.tabby.sh/)를 참조하십시오.
 
 ---
 <a name="contributors"></a>

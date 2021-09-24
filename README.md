@@ -135,7 +135,7 @@ Plugins and themes can be installed directly from the Settings view inside Tabby
 
 Pull requests and plugins are welcome!
 
-See [HACKING.md](https://github.com/Eugeny/tabby/blob/master/HACKING.md) and [API docs](http://ajenti.org/terminus-docs/) for information of how the project is laid out, and a very brief plugin development tutorial.
+See [HACKING.md](https://github.com/Eugeny/tabby/blob/master/HACKING.md) and [API docs](https://docs.tabby.sh/) for information of how the project is laid out, and a very brief plugin development tutorial.
 
 ---
 <a name="contributors"></a>
