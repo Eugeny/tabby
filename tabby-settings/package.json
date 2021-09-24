@@ -18,8 +18,7 @@
   "license": "MIT",
   "devDependencies": {
     "marked": "^3.0.2",
-    "ngx-infinite-scroll": "^10.0.1",
-    "utils-decorators": "^1.8.0"
+    "ngx-infinite-scroll": "^10.0.1"
   },
   "peerDependencies": {
     "@angular/animations": "^9.1.9",

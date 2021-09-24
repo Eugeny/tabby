@@ -24,8 +24,7 @@
     "dataurl": "0.1.0",
     "hasbin": "^1.2.3",
     "ps-node": "^0.1.6",
-    "runes": "^0.4.2",
-    "utils-decorators": "^1.8.3"
+    "runes": "^0.4.2"
   },
   "peerDependencies": {
     "@angular/animations": "^9.1.9",

@@ -7965,6 +7965,11 @@ timed-out@^4.0.0:
   resolved "https://registry.npmjs.org/timed-out/-/timed-out-4.0.1.tgz"
   integrity sha1-8y6srFoXW+ol1/q1Zas+2HQe9W8=
 
+tinyqueue@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/tinyqueue/-/tinyqueue-2.0.3.tgz#64d8492ebf39e7801d7bd34062e29b45b2035f08"
+  integrity sha512-ppJZNDuKGgxzkHihX8v9v9G5f+18gzaTfrukGrq6ueg0lmH4nqVnA2IPG0AEH3jKEk2GRJCUhDoqpoiw3PHLBA==
+
 tmp-promise@^2.0.1:
   version "2.1.1"
   resolved "https://registry.npmjs.org/tmp-promise/-/tmp-promise-2.1.1.tgz"
@@ -8367,6 +8372,13 @@ util-extend@^1.0.1:
   version "1.0.3"
   resolved "https://registry.npmjs.org/util-extend/-/util-extend-1.0.3.tgz"
   integrity sha1-p8IW0mdUUWljeztu3GypEZ4v+T8=
+
+utils-decorators@^1.8.3:
+  version "1.10.2"
+  resolved "https://registry.yarnpkg.com/utils-decorators/-/utils-decorators-1.10.2.tgz#c0d514675d12e9efbedc0d5bf71f2c4f1fbabad8"
+  integrity sha512-UsrCOMHUhLOg9UuqletRS3ICctJLK5oa3db/vWjGZD9ZHcA410WPQGrXagx9lp0QfBbAbU9jtUqeFrzp3tJ2SQ==
+  dependencies:
+    tinyqueue "^2.0.3"
 
 uuid@^3.0.0, uuid@^3.3.2:
   version "3.4.0"

@@ -24,15 +24,3 @@ opencollective-postinstall@^2.0.2:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/opencollective-postinstall/-/opencollective-postinstall-2.0.3.tgz#7a0fff978f6dbfa4d006238fbac98ed4198c3259"
   integrity sha512-8AV/sCtuzUeTo8gQK5qDZzARrulB3egtLzFgteqB2tcT4Mw7B8Kt7JcDHmltjz6FOAHsvTevk70gZEbhM4ZS9Q==
-
-tinyqueue@^2.0.3:
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/tinyqueue/-/tinyqueue-2.0.3.tgz#64d8492ebf39e7801d7bd34062e29b45b2035f08"
-  integrity sha512-ppJZNDuKGgxzkHihX8v9v9G5f+18gzaTfrukGrq6ueg0lmH4nqVnA2IPG0AEH3jKEk2GRJCUhDoqpoiw3PHLBA==
-
-utils-decorators@^1.8.0:
-  version "1.10.0"
-  resolved "https://registry.yarnpkg.com/utils-decorators/-/utils-decorators-1.10.0.tgz#eb9208ccbb7fbb7488d5d04b2611df62c2fcaf4d"
-  integrity sha512-wlNRoPCFdxSReLfmhNqkZsg8FqsKu9d5trdSELxBZCtmK4KPtSidxRg24+bpZQjEBBF0hUIQEFz2uM7sBDVG2Q==
-  dependencies:
-    tinyqueue "^2.0.3"
