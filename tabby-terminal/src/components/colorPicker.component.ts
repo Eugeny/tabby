@@ -10,6 +10,7 @@ import { NgbPopover } from '@ng-bootstrap/ng-bootstrap'
 export class ColorPickerComponent {
     @Input() model: string
     @Input() title: string
+    @Input() hint: string
     @Output() modelChange = new EventEmitter<string>()
     @ViewChild('popover') popover: NgbPopover
 

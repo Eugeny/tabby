@@ -26,22 +26,32 @@
                 [(model)]='config.store.terminal.colorScheme.foreground',
                 (modelChange)='config.save()',
                 title='FG',
+                hint='Foreground'
             )
             color-picker(
                 [(model)]='config.store.terminal.colorScheme.background',
                 (modelChange)='config.save()',
                 title='BG',
+                hint='Background'
             )
             color-picker(
                 [(model)]='config.store.terminal.colorScheme.cursor',
                 (modelChange)='config.save()',
                 title='CU',
+                hint='Cursor color'
+            )
+            color-picker(
+                [(model)]='config.store.terminal.colorScheme.cursorAccent',
+                (modelChange)='config.save()',
+                title='CA',
+                hint='Block cursor foreground'
             )
             color-picker(
                 *ngFor='let _ of config.store.terminal.colorScheme.colors; let idx = index; trackBy: colorsTrackBy',
                 [(model)]='config.store.terminal.colorScheme.colors[idx]',
                 (modelChange)='config.save()',
                 [title]='idx',
+                hint='ANSI color {{idx}}'
             )
 
     color-scheme-preview([scheme]='config.store.terminal.colorScheme')

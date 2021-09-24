@@ -289,6 +289,7 @@ export class XTermFrontend extends Frontend {
             selection: config.terminal.colorScheme.selection || '#88888888',
             background: config.terminal.background === 'colorScheme' ? config.terminal.colorScheme.background : '#00000000',
             cursor: config.terminal.colorScheme.cursor,
+            cursorAccent: config.terminal.colorScheme.cursorAccent,
         }
 
         for (let i = 0; i < COLOR_NAMES.length; i++) {
