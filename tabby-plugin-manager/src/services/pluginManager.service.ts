@@ -8,6 +8,7 @@ const OFFICIAL_NPM_ACCOUNT = 'eugenepankov'
 
 const BLACKLIST = [
     'terminus-shell-selector', // superseded by profiles
+    'terminus-scrollbar', // now useless
 ]
 
 @Injectable({ providedIn: 'root' })
