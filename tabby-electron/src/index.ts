@@ -59,10 +59,10 @@ export default class ElectronModule {
 
         themeService.themeChanged$.subscribe(theme => {
             if (hostApp.platform === Platform.macOS) {
-                hostWindow.getWindow().setTrafficLightPosition({
-                    x: theme.macOSWindowButtonsInsetX ?? 14,
-                    y: theme.macOSWindowButtonsInsetY ?? 11,
-                })
+                hostWindow.setTrafficLightPosition(
+                    theme.macOSWindowButtonsInsetX ?? 14,
+                    theme.macOSWindowButtonsInsetY ?? 11,
+                )
             }
         })
 
@@ -73,9 +73,9 @@ export default class ElectronModule {
                     return
                 }
                 if (progress !== null) {
-                    hostWindow.getWindow().setProgressBar(progress / 100.0, { mode: 'normal' })
+                    hostWindow.setProgressBar(progress / 100.0)
                 } else {
-                    hostWindow.getWindow().setProgressBar(-1, { mode: 'none' })
+                    hostWindow.setProgressBar(-1)
                 }
                 lastProgress = progress
             })
@@ -116,7 +116,7 @@ export default class ElectronModule {
         document.body.classList.toggle('vibrant', this.config.store.appearance.vibrancy)
         this.electron.ipcRenderer.send('window-set-vibrancy', this.config.store.appearance.vibrancy, vibrancyType)
 
-        this.hostWindow.getWindow().setOpacity(this.config.store.appearance.opacity)
+        this.hostWindow.setOpacity(this.config.store.appearance.opacity)
     }
 }
 

@@ -398,6 +398,18 @@ export class Window {
         }
         this.window.on('move', onBoundsChange)
         this.window.on('resize', onBoundsChange)
+
+        ipcMain.on('window-set-traffic-light-position', (_event, x, y) => {
+            this.window.setTrafficLightPosition({ x, y })
+        })
+
+        ipcMain.on('window-set-opacity', (_event, opacity) => {
+            this.window.setOpacity(opacity)
+        })
+
+        ipcMain.on('window-set-progress-bar', (_event, value) => {
+            this.window.setProgressBar(value, { mode: value < 0 ? 'none' : 'normal' })
+        })
     }
 
     private destroy () {
