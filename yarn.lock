@@ -5287,10 +5287,10 @@ node-abi@^2.19.2, node-abi@^2.30.0:
   dependencies:
     semver "^5.4.1"
 
-node-abi@^3.1.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/node-abi/-/node-abi-3.1.0.tgz#9560f38fbe2309e87c61f4f103c9d95e0f961c32"
-  integrity sha512-kVF+eIDzPPwPcJdoVhWboJvdCe+YF1+rkd7+LeYmA95179T0sVB5kKG8VADM/3sBnGWeAUBR8FzH+whlksJTrQ==
+node-abi@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/node-abi/-/node-abi-3.2.0.tgz#c8ec6874f808b4da5fbd56e9506390ce65b152a2"
+  integrity sha512-/qb92JAb2uiwEQ4aXpVphXfGJU77qdCieXACDaIofcMz+YMPBmnCo8v0OlzJBuXh5QHmMiiI/GKyiCzbjOMn2g==
   dependencies:
     semver "^7.3.5"
 
