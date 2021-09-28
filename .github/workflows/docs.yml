@@ -12,7 +12,7 @@ jobs:
         fetch-depth: 0
 
     - name: Installing Node
-      uses: actions/setup-node@v2.4.0
+      uses: actions/setup-node@v2.4.1
       with:
         node-version: 14
 
