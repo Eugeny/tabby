@@ -36,7 +36,7 @@
   },
   "optionalDependencies": {
     "macos-native-processlist": "^2.0.0",
-    "serialport": "^9.2.1",
+    "serialport": "^9.2.4",
     "windows-blurbehind": "^1.0.1",
     "windows-native-registry": "^3.1.0",
     "windows-process-tree": "^0.3.0"
