@@ -146,7 +146,7 @@ jobs:
     - name: Install deps
       run: |
         sudo apt-get update
-        sudo apt-get install bsdtar zsh
+        sudo apt-get install libarchive-tools zsh
         npm i -g yarn@1.19.1
         cd app
         yarn
