@@ -58,7 +58,10 @@ export class TerminalTabComponent extends BaseTerminalTabComponent {
 
     initializeSession (columns: number, rows: number): void {
         if (this.profile.options.runAsAdministrator && this.uac.isAvailable) {
-            this.profile.options = this.uac.patchSessionOptionsForUAC(this.profile.options)
+            this.profile = {
+                ...this.profile,
+                options: this.uac.patchSessionOptionsForUAC(this.profile.options),
+            }
         }
 
         this.session!.start({
