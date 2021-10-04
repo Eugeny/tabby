@@ -29,9 +29,11 @@ export class SelectorModalComponent<T> {
     @HostListener('keyup', ['$event']) onKeyUp (event: KeyboardEvent): void {
         if (event.key === 'ArrowUp') {
             this.selectedIndex--
+            event.preventDefault()
         }
         if (event.key === 'ArrowDown') {
             this.selectedIndex++
+            event.preventDefault()
         }
         if (event.key === 'Enter') {
             this.selectOption(this.filteredOptions[this.selectedIndex])
