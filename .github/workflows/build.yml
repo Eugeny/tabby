@@ -129,7 +129,7 @@ jobs:
         path: artifact-zip
 
   Linux-Build:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     needs: Lint
 
     steps:
