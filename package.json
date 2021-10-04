@@ -26,7 +26,7 @@
     "axios": "^0.21.1",
     "clone-deep": "^4.0.1",
     "compare-versions": "^3.6.0",
-    "core-js": "^3.15.2",
+    "core-js": "^3.18.1",
     "cross-env": "7.0.3",
     "css-loader": "^6.2.0",
     "deep-equal": "2.0.5",
