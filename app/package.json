@@ -43,7 +43,7 @@
   },
   "devDependencies": {
     "@types/mz": "2.7.4",
-    "@types/node": "16.0.1",
+    "@types/node": "16.10.2",
     "ngx-filesize": "^2.0.16",
     "node-abi": "^3.1.0"
   },
