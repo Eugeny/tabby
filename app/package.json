@@ -29,7 +29,7 @@
     "mz": "^2.7.0",
     "native-process-working-directory": "^1.0.2",
     "npm": "6",
-    "rxjs": "^7.2.0",
+    "rxjs": "^7.3.1",
     "source-map-support": "^0.5.20",
     "v8-compile-cache": "^2.3.0",
     "yargs": "^17.1.0"
