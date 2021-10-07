@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@angular/cdk": "^12.2.9",
-    "@electron/remote": "1.2.0",
+    "@electron/remote": "2.0.1",
     "@tabby-gang/node-pty": "^0.11.0-beta.200",
     "any-promise": "^1.3.0",
     "electron-config": "2.0.0",
