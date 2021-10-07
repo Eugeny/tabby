@@ -125,17 +125,17 @@
   resolved "https://registry.yarnpkg.com/@discoveryjs/json-ext/-/json-ext-0.5.2.tgz#8f03a22a04de437254e8ce8cc84ba39689288752"
   integrity sha512-HyYEUDeIj5rRQU2Hk5HTB2uHsbRQpF70nvMhVzi+VJR0X+xNEhjPui4/kBf3VeH/wqD28PT4sVOm8qqLjBrSZg==
 
-"@electron/get@^1.0.1":
-  version "1.12.2"
-  resolved "https://registry.npmjs.org/@electron/get/-/get-1.12.2.tgz"
-  integrity sha512-vAuHUbfvBQpYTJ5wB7uVIDq5c/Ry0fiTBMs7lnEYAo/qXXppIVcWdfBr57u6eRnKdVso7KSiH6p/LbQAG6Izrg==
+"@electron/get@^1.13.0":
+  version "1.13.0"
+  resolved "https://registry.yarnpkg.com/@electron/get/-/get-1.13.0.tgz#95c6bcaff4f9a505ea46792424f451efea89228c"
+  integrity sha512-+SjZhRuRo+STTO1Fdhzqnv9D2ZhjxXP6egsJ9kiO8dtP68cDx7dFCwWi64dlMQV7sWcfW1OYCW4wviEBzmRsfQ==
   dependencies:
     debug "^4.1.1"
     env-paths "^2.2.0"
     fs-extra "^8.1.0"
     got "^9.6.0"
     progress "^2.0.3"
-    sanitize-filename "^1.6.2"
+    semver "^6.2.0"
     sumchecker "^3.0.1"
   optionalDependencies:
     global-agent "^2.0.2"
@@ -2663,12 +2663,12 @@ electron-to-chromium@^1.3.723:
   resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.736.tgz#f632d900a1f788dab22fec9c62ec5c9c8f0c4052"
   integrity sha512-DY8dA7gR51MSo66DqitEQoUMQ0Z+A2DSXFi7tK304bdTVqczCAfUuyQw6Wdg8hIoo5zIxkU1L24RQtUce1Ioig==
 
-electron@13.5.1:
-  version "13.5.1"
-  resolved "https://registry.yarnpkg.com/electron/-/electron-13.5.1.tgz#76c02c39be228532f886a170b472cbd3d93f0d0f"
-  integrity sha512-ZyxhIhmdaeE3xiIGObf0zqEyCyuIDqZQBv9NKX8w5FNzGm87j4qR0H1+GQg6vz+cA1Nnv1x175Zvimzc0/UwEQ==
+electron@15.1.1:
+  version "15.1.1"
+  resolved "https://registry.yarnpkg.com/electron/-/electron-15.1.1.tgz#cd3eaaaf62aa30c0f2d28ba28c5b62bd5ee2c325"
+  integrity sha512-ogVGNWL38KegiqAhUdgjWoKPOufTqDb+cNIqQF/WpVxgauNjzXEk/RNEk7qlw946B/g2dHpzpHeUhi+D/4EcIg==
   dependencies:
-    "@electron/get" "^1.0.1"
+    "@electron/get" "^1.13.0"
     "@types/node" "^14.6.2"
     extract-zip "^1.0.3"
 
@@ -7148,7 +7148,7 @@ safe-buffer@~5.1.0, safe-buffer@~5.1.1:
   resolved "https://registry.npmjs.org/safer-buffer/-/safer-buffer-2.1.2.tgz"
   integrity sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==
 
-sanitize-filename@^1.6.2, sanitize-filename@^1.6.3:
+sanitize-filename@^1.6.3:
   version "1.6.3"
   resolved "https://registry.npmjs.org/sanitize-filename/-/sanitize-filename-1.6.3.tgz"
   integrity sha512-y/52Mcy7aw3gRm7IrcGDFx/bCk4AhRh2eI9luHOQM86nZsqwiRkkq2GekHXBBD+SmPidc8i2PqtYZl+pWJ8Oeg==

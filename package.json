@@ -31,7 +31,7 @@
     "css-loader": "^6.2.0",
     "deep-equal": "2.0.5",
     "electron-builder": "^22.11.7",
-    "electron": "13.5.1",
+    "electron": "15.1.1",
     "electron-download": "^4.1.1",
     "electron-installer-snap": "^5.1.0",
     "electron-notarize": "^1.1.1",
