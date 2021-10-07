@@ -8,9 +8,9 @@
   integrity sha512-VGbKDbk1RFIaSmdVb0cNjjWJoRWRI/Weo23AjRCC2nryO0iAS8pzsToJfPVPtVs74WHw4L1UTADNdIYRLkirZQ==
 
 marked@^3.0.2:
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/marked/-/marked-3.0.2.tgz#60ce97d6aec34dd882ab4bb4df82494666854e17"
-  integrity sha512-TMJQQ79Z0e3rJYazY0tIoMsFzteUGw9fB3FD+gzuIT3zLuG9L9ckIvUfF51apdJkcqc208jJN2KbtPbOvXtbjA==
+  version "3.0.6"
+  resolved "https://registry.yarnpkg.com/marked/-/marked-3.0.6.tgz#d268f7229717ff55f81ff759c519d23c90def40e"
+  integrity sha512-a1hY8eqdP9JgmsaO0MYYhO9Li2nfY/5pAj+gWU5r41Lze6AV4Xty1cseLWDcOYimJnaVfQAomaA6NK+z2IyR+w==
 
 ngx-infinite-scroll@^10.0.1:
   version "10.0.1"
