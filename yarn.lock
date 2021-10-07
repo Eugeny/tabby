@@ -2725,10 +2725,10 @@ end-of-stream@^1.0.0, end-of-stream@^1.1.0:
   dependencies:
     once "^1.4.0"
 
-enhanced-resolve@^5.0.0, enhanced-resolve@^5.8.0:
-  version "5.8.2"
-  resolved "https://registry.yarnpkg.com/enhanced-resolve/-/enhanced-resolve-5.8.2.tgz#15ddc779345cbb73e97c611cd00c01c1e7bf4d8b"
-  integrity sha512-F27oB3WuHDzvR2DOGNTaYy0D5o0cnrv8TeI482VM4kYgQd/FT9lUQwuNsJ0oOHtBUq7eiW5ytqzp7nBFknL+GA==
+enhanced-resolve@^5.0.0, enhanced-resolve@^5.8.3:
+  version "5.8.3"
+  resolved "https://registry.yarnpkg.com/enhanced-resolve/-/enhanced-resolve-5.8.3.tgz#6d552d465cce0423f5b3d718511ea53826a7b2f0"
+  integrity sha512-EGAbGvH7j7Xt2nc0E7D99La1OiEs8LnyimkRgwExpUMScN6O+3x9tIWs7PLQZVNx4YD+00skHXPXi1yQHpAmZA==
   dependencies:
     graceful-fs "^4.2.4"
     tapable "^2.2.0"
@@ -2816,10 +2816,10 @@ es-get-iterator@^1.1.1:
     is-string "^1.0.5"
     isarray "^2.0.5"
 
-es-module-lexer@^0.7.1:
-  version "0.7.1"
-  resolved "https://registry.yarnpkg.com/es-module-lexer/-/es-module-lexer-0.7.1.tgz#c2c8e0f46f2df06274cdaf0dd3f3b33e0a0b267d"
-  integrity sha512-MgtWFl5No+4S3TmhDmCz2ObFGm6lEpTnzbQi+Dd+pw4mlTIZTmM2iAs5gRlmx5zS9luzobCSBSI90JM/1/JgOw==
+es-module-lexer@^0.9.0:
+  version "0.9.2"
+  resolved "https://registry.yarnpkg.com/es-module-lexer/-/es-module-lexer-0.9.2.tgz#d0a8c72c5d904014111fac7fab4c92b9ac545564"
+  integrity sha512-YkAGWqxZq2B4FxQ5y687UwywDwvLQhIMCZ+SDU7ZW729SDHOEI6wVFXwTRecz+yiwJzCsVwC6V7bxyNbZSB1rg==
 
 es-to-primitive@^1.2.1:
   version "1.2.1"
@@ -8521,10 +8521,10 @@ webpack-sources@^3.2.0:
   resolved "https://registry.yarnpkg.com/webpack-sources/-/webpack-sources-3.2.0.tgz#b16973bcf844ebcdb3afde32eda1c04d0b90f89d"
   integrity sha512-fahN08Et7P9trej8xz/Z7eRu8ltyiygEo/hnRi9KqBUs80KeDcnf96ZJo++ewWd84fEf3xSX9bp4ZS9hbw0OBw==
 
-webpack@^5.52.1:
-  version "5.52.1"
-  resolved "https://registry.yarnpkg.com/webpack/-/webpack-5.52.1.tgz#2dc1d9029ecb7acfb80da7bf67baab67baa517a7"
-  integrity sha512-wkGb0hLfrS7ML3n2xIKfUIwHbjB6gxwQHyLmVHoAqEQBw+nWo+G6LoHL098FEXqahqximsntjBLuewStrnJk0g==
+webpack@^5.57.1:
+  version "5.57.1"
+  resolved "https://registry.yarnpkg.com/webpack/-/webpack-5.57.1.tgz#ead5ace2c17ecef2ae8126f143bfeaa7f55eab44"
+  integrity sha512-kHszukYjTPVfCOEyrUthA3jqJwduY/P3eO8I0gMNOZGIQWKAwZftxmp5hq6paophvwo9NoUrcZOecs9ulOyyTg==
   dependencies:
     "@types/eslint-scope" "^3.7.0"
     "@types/estree" "^0.0.50"
@@ -8535,8 +8535,8 @@ webpack@^5.52.1:
     acorn-import-assertions "^1.7.6"
     browserslist "^4.14.5"
     chrome-trace-event "^1.0.2"
-    enhanced-resolve "^5.8.0"
-    es-module-lexer "^0.7.1"
+    enhanced-resolve "^5.8.3"
+    es-module-lexer "^0.9.0"
     eslint-scope "5.1.1"
     events "^3.2.0"
     glob-to-regexp "^0.4.1"
