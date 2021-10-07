@@ -1108,7 +1108,15 @@ archy@~1.0.0:
   resolved "https://registry.npmjs.org/archy/-/archy-1.0.0.tgz"
   integrity sha1-+cjBN1fMHde8N5rHeyxipcKGjEA=
 
-are-we-there-yet@^1.1.5, are-we-there-yet@~1.1.2:
+are-we-there-yet@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/are-we-there-yet/-/are-we-there-yet-2.0.0.tgz#372e0e7bd279d8e94c653aaa1f67200884bf3e1c"
+  integrity sha512-Ci/qENmwHnsYo9xKIcUJN5LeDKdJ6R1Z1j9V/J5wyq8nh/mYPEpIKJbBZXtZjG04HiK7zV/p6Vs9952MrMeUIw==
+  dependencies:
+    delegates "^1.0.0"
+    readable-stream "^3.6.0"
+
+are-we-there-yet@~1.1.2:
   version "1.1.5"
   resolved "https://registry.yarnpkg.com/are-we-there-yet/-/are-we-there-yet-1.1.5.tgz#4b35c2944f062a8bfcda66410760350fe9ddfc21"
   integrity sha512-5hYdAkZlcG8tOLujVDTgCT+uPX0VnpAH28gWsLfzpXYm7wP6mp5Q/gYyR7YQ0cKVJcXJnl3j2kpBan13PtQf6w==
@@ -5683,12 +5691,12 @@ npm@5.1.0:
     gauge "~2.7.3"
     set-blocking "~2.0.0"
 
-npmlog@5.0.0:
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/npmlog/-/npmlog-5.0.0.tgz#e6a41b556e9b34cb29ea132294676c07acb30efb"
-  integrity sha512-ftpIiLjerL2tUg3dCqN8pOSoB90gqZlzv/gaZoxHaKjeLClrfJIEQ1Pdxi6qSzflz916Bljdy8dTWQ4J7hAFSQ==
+npmlog@5.0.1:
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/npmlog/-/npmlog-5.0.1.tgz#f06678e80e29419ad67ab964e0fa69959c1eb8b0"
+  integrity sha512-AqZtDUWOMKs1G/8lwylVjrdYgqA4d9nu8hc+0gzRxlDb1I10+FHBGMXs6aiQHFdCUUlqH99MUMuLfzWDNDtfxw==
   dependencies:
-    are-we-there-yet "^1.1.5"
+    are-we-there-yet "^2.0.0"
     console-control-strings "^1.1.0"
     gauge "^3.0.0"
     set-blocking "^2.0.0"
