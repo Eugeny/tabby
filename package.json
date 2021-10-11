@@ -28,7 +28,7 @@
     "compare-versions": "^3.6.0",
     "core-js": "^3.18.2",
     "cross-env": "7.0.3",
-    "css-loader": "^6.2.0",
+    "css-loader": "^6.4.0",
     "deep-equal": "2.0.5",
     "electron-builder": "^22.11.7",
     "electron": "13.5.1",
