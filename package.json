@@ -23,7 +23,7 @@
     "@typescript-eslint/eslint-plugin": "^4.31.1",
     "@typescript-eslint/parser": "^4.33.0",
     "apply-loader": "2.0.0",
-    "axios": "^0.21.1",
+    "axios": "^0.23.0",
     "clone-deep": "^4.0.1",
     "compare-versions": "^3.6.0",
     "core-js": "^3.18.2",
