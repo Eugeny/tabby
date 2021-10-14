@@ -39,7 +39,7 @@
     "serialport": "^9.2.1",
     "windows-blurbehind": "^1.0.1",
     "windows-native-registry": "^3.1.0",
-    "windows-process-tree": "^0.3.0"
+    "windows-process-tree": "^0.3.2"
   },
   "devDependencies": {
     "@types/mz": "2.7.4",
