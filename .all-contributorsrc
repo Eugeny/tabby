@@ -451,6 +451,15 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "Me1onRind",
+      "name": "zZ",
+      "avatar_url": "https://avatars.githubusercontent.com/u/19531270?v=4",
+      "profile": "https://github.com/Me1onRind",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
