@@ -21,6 +21,7 @@ hotkeys:
     - 'Ctrl-Shift-PageDown'
   rearrange-panes:
     - 'Ctrl-Shift'
+  duplicate-tab: []
   tab-1:
     - 'Alt-1'
   tab-2:
