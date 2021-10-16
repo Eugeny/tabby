@@ -52,6 +52,10 @@ export class AppHotkeyProvider extends HotkeyProvider {
             name: 'Show pane labels (for rearranging)',
         },
         {
+            id: 'duplicate-tab',
+            name: 'Duplicate tab',
+        },
+        {
             id: 'tab-1',
             name: 'Tab 1',
         },

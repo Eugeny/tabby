@@ -38,6 +38,7 @@ hotkeys:
     - '⌘-9'
   tab-10:
     - '⌘-0'
+  duplicate-tab: []
   tab-11: []
   tab-12: []
   tab-13: []

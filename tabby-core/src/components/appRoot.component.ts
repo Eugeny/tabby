@@ -111,6 +111,9 @@ export class AppRootComponent {
                 if (hotkey === 'reopen-tab') {
                     this.app.reopenLastTab()
                 }
+                if (hotkey === 'duplicate-tab') {
+                    this.app.duplicateTab(this.app.activeTab)
+                }
             }
             if (hotkey === 'toggle-fullscreen') {
                 hostWindow.toggleFullscreen()
