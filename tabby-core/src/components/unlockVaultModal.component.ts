@@ -34,17 +34,12 @@ export class UnlockVaultModalComponent {
         this.modalInstance.close(null)
     }
 
-    getRememberForDisplay (rememberOption): string {       
-        if (rememberOption >= 1440)
-        {
-            return `${Math.round((rememberOption/1440)*10)/10} day`
-        }
-        else if (rememberOption >= 60)
-        {
-            return `${Math.round((rememberOption/60)*10)/10} hour`
-        }
-        else
-        {
+    getRememberForDisplay (rememberOption: number): string {
+        if (rememberOption >= 1440) {
+            return `${Math.round(rememberOption/1440*10)/10} day`
+        } else if (rememberOption >= 60) {
+            return `${Math.round(rememberOption/60*10)/10} hour`
+        } else {
             return `${rememberOption} min`
         }
     }
