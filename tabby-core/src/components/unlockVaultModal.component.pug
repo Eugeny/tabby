@@ -3,7 +3,7 @@
         h3.m-0 Vault is locked
         .ml-auto(ngbDropdown, placement='bottom-right')
             button.btn.btn-link(ngbDropdownToggle, (click)='$event.stopPropagation()')
-                span(*ngIf='rememberFor') Remember for {{rememberFor}} min
+                span(*ngIf='rememberFor') Remember for {{getRememberForDisplay(rememberFor)}}
                 span(*ngIf='!rememberFor') Do not remember
             div(ngbDropdownMenu)
                 button.dropdown-item(
@@ -12,7 +12,7 @@
                 button.dropdown-item(
                     *ngFor='let x of rememberOptions',
                     (click)='rememberFor = x',
-                ) {{x}} min
+                ) {{getRememberForDisplay(x)}}
 
     .input-group
         input.form-control.form-control-lg(
