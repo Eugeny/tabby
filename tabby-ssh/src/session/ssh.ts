@@ -250,8 +250,12 @@ export class SSHSession extends BaseSession {
             if (!this.authUsername) {
                 const modal = this.ngbModal.open(PromptModalComponent)
                 modal.componentInstance.prompt = `Username for ${this.profile.options.host}`
-                const result = await modal.result
-                this.authUsername = result?.value ?? null
+                try {
+                    const result = await modal.result
+                    this.authUsername = result?.value ?? null
+                } catch {
+                    this.authUsername = 'root'
+                }
             }
 
             ssh.connect({
