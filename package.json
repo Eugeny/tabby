@@ -9,7 +9,7 @@
     "@angular/platform-browser-dynamic": "^12.0.0",
     "@fortawesome/fontawesome-free": "^5.15.4",
     "@ng-bootstrap/ng-bootstrap": "^10.0.0",
-    "@sentry/cli": "^1.67.2",
+    "@sentry/cli": "^1.70.0",
     "@sentry/electron": "^2.5.4",
     "@tabby-gang/to-string-loader": "^1.1.7-beta.2",
     "@types/deep-equal": "1.0.1",
