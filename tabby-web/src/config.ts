@@ -4,7 +4,7 @@ import { ConfigProvider } from 'tabby-core'
 export class WebConfigProvider extends ConfigProvider {
     defaults = {
         web: {
-            preventAccidentalTabClosure: true,
+            preventAccidentalTabClosure: false,
         },
     }
 }

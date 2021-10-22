@@ -12,12 +12,15 @@ export class WebHostWindow extends HostWindowService {
         this.windowShown.next()
         this.windowFocused.next()
 
-        window.addEventListener('beforeunload', (event) => {
+        const unloadHandler = (event) => {
             if (config.store.web.preventAccidentalTabClosure) {
                 event.preventDefault()
                 event.returnValue = 'Are you sure you want to close Tabby? You can disable this prompt in Settings -> Window.'
+            } else {
+                window.removeEventListener('beforeunload', unloadHandler)
             }
-        })
+        }
+        window.addEventListener('beforeunload', unloadHandler)
     }
 
     reload (): void {
