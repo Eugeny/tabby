@@ -35,7 +35,7 @@ export class ButtonProvider extends ToolbarButtonProvider {
                 icon: this.hostApp.platform === Platform.Web
                     ? require('./icons/plus.svg')
                     : require('./icons/profiles.svg'),
-                title: 'New tab with profile',
+                title: 'Profiles and connections',
                 click: () => this.activate(),
             },
             ...this.profilesService.getRecentProfiles().map(profile => ({
