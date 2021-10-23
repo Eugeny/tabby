@@ -44,4 +44,13 @@ export class EnvironmentEditorComponent {
         this.emitUpdate()
     }
 
+    shouldShowExample (): boolean {
+        return !this.vars.find(v => v.key.toLowerCase() === 'path')
+    }
+
+    addExample (): void {
+        const value = process.platform === 'win32' ? 'C:\\Program Files\\Custom:%PATH%' : '/opt/custom:$PATH'
+        this.vars.push({ key: 'PATH', value })
+        this.emitUpdate()
+    }
 }

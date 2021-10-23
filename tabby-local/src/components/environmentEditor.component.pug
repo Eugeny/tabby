@@ -8,6 +8,13 @@
             button.btn.btn-secondary((click)='removeEnvironmentVar(pair.key)')
                 i.fas.fa-fw.fa-trash
 
-button.btn.btn-secondary((click)='addEnvironmentVar()')
-    i.fas.fa-plus.mr-2
-    span Add
+.d-flex
+    button.btn.btn-secondary((click)='addEnvironmentVar()')
+        i.fas.fa-plus.mr-2
+        span Add
+
+    .ml-auto
+    .text-muted Substitutions allowed.
+    .d-flex.ml-1(*ngIf='shouldShowExample()')
+        .text-muted Example:
+        a.ml-1((click)='addExample()', href='#') extend PATH
