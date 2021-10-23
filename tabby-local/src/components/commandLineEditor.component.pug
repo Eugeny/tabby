@@ -3,7 +3,11 @@ ng-container(*ngIf='!argvMode')
         label Command line
         .input-group
             .input-group-prepend
-                button.btn.btn-secondary((click)='switchToArgv()', title='Switch to split arguments')
+                a.input-group-text(
+                    (click)='switchToArgv()',
+                    ngbTooltip='Split into unescaped arguments',
+                    href='#'
+                )
                     i.fas.fa-fw.fa-caret-right
             input.form-control.text-monospace(
                 [(ngModel)]='command',
@@ -15,7 +19,11 @@ ng-container(*ngIf='argvMode')
         label Program
         .input-group
             .input-group-prepend
-                button.btn.btn-secondary((click)='switchToCommand()', title='Switch to a single-line command')
+                a.input-group-text(
+                    (click)='switchToCommand()',
+                    ngbTooltip='Combine into a single escaped command',
+                    href='#'
+                )
                     i.fas.fa-fw.fa-caret-down
             input.form-control.text-monospace(
                 type='text',
