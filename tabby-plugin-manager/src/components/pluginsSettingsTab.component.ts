@@ -2,7 +2,7 @@
 import { BehaviorSubject, Observable, debounceTime, distinctUntilChanged, first, tap, flatMap, map } from 'rxjs'
 import semverGt from 'semver/functions/gt'
 
-import { Component, Input } from '@angular/core'
+import { Component, HostBinding, Input } from '@angular/core'
 import { ConfigService, PlatformService, PluginInfo } from 'tabby-core'
 import { PluginManagerService } from '../services/pluginManager.service'
 
@@ -24,6 +24,8 @@ export class PluginsSettingsTabComponent {
     @Input() busy = new Map<string, BusyState>()
     @Input() erroredPlugin: string
     @Input() errorMessage: string
+
+    @HostBinding('class.content-box') true
 
     constructor (
         private config: ConfigService,

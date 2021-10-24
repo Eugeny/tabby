@@ -1,4 +1,4 @@
-import { Component } from '@angular/core'
+import { Component, HostBinding } from '@angular/core'
 import { X11Socket } from '../session/x11'
 import { ConfigService, HostAppService, Platform } from 'tabby-core'
 
@@ -9,6 +9,8 @@ import { ConfigService, HostAppService, Platform } from 'tabby-core'
 export class SSHSettingsTabComponent {
     Platform = Platform
     defaultX11Display: string
+
+    @HostBinding('class.content-box') true
 
     constructor (
         public config: ConfigService,

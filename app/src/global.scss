@@ -163,6 +163,10 @@ ngb-typeahead-window {
     margin: -7px 0;
 }
 
+.content-box {
+    max-width: 600px;
+}
+
 
 // Windows high contrast mode
 @media screen and (forced-colors: active) {

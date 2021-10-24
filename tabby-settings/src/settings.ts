@@ -51,7 +51,8 @@ export class VaultSettingsTabProvider extends SettingsTabProvider {
 export class ProfilesSettingsTabProvider extends SettingsTabProvider {
     id = 'profiles'
     icon = 'window-restore'
-    title = 'Profiles'
+    title = 'Profiles & connections'
+    prioritized = true
 
     getComponentType (): any {
         return ProfilesSettingsTabComponent

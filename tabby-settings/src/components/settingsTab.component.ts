@@ -51,7 +51,7 @@ export class SettingsTabComponent extends BaseTabComponent {
         this.setTitle('Settings')
         this.settingsProviders = config.enabledServices(this.settingsProviders)
         this.settingsProviders = this.settingsProviders.filter(x => !!x.getComponentType())
-        this.settingsProviders.sort((a, b) => a.title.localeCompare(b.title))
+        this.settingsProviders.sort((a, b) => a.weight - b.weight + a.title.localeCompare(b.title))
 
         this.configDefaults = yaml.dump(config.getDefaults())
 

@@ -16,7 +16,7 @@
 
         > .nav {
             padding: 20px 10px;
-            width: 190px;
+            width: 212px;
             flex: none;
             overflow-y: auto;
             flex-wrap: nowrap;
@@ -29,6 +29,10 @@
 
             > ::ng-deep .tab-pane {
                 height: 100%;
+
+                > settings-tab-body > * {
+                    display: block;
+                }
             }
         }
     }

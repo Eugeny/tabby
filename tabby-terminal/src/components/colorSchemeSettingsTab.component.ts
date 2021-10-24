@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import deepEqual from 'deep-equal'
 
-import { Component, Inject, Input, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core'
+import { Component, Inject, Input, ChangeDetectionStrategy, ChangeDetectorRef, HostBinding } from '@angular/core'
 import { ConfigService, PlatformService } from 'tabby-core'
 import { TerminalColorSchemeProvider } from '../api/colorSchemeProvider'
 import { TerminalColorScheme } from '../api/interfaces'
@@ -22,6 +22,8 @@ export class ColorSchemeSettingsTabComponent {
 
     currentStockScheme: TerminalColorScheme|null = null
     currentCustomScheme: TerminalColorScheme|null = null
+
+    @HostBinding('class.content-box') true
 
     constructor (
         @Inject(TerminalColorSchemeProvider) private colorSchemeProviders: TerminalColorSchemeProvider[],

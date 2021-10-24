@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { debounce } from 'utils-decorators/dist/esm/debounce/debounce'
-import { Component, Inject, NgZone, Optional } from '@angular/core'
+import { Component, HostBinding, Inject, NgZone, Optional } from '@angular/core'
 import {
     DockingService,
     ConfigService,
@@ -24,6 +24,8 @@ export class WindowSettingsTabComponent extends BaseComponent {
     screens: Screen[]
     Platform = Platform
     isFluentVibrancySupported = false
+
+    @HostBinding('class.content-box') true
 
     constructor (
         public config: ConfigService,

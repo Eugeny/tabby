@@ -1,4 +1,4 @@
-import { Component } from '@angular/core'
+import { Component, HostBinding } from '@angular/core'
 import { ConfigService, HostAppService, Platform, PlatformService } from 'tabby-core'
 
 /** @hidden */
@@ -7,6 +7,8 @@ import { ConfigService, HostAppService, Platform, PlatformService } from 'tabby-
 })
 export class TerminalSettingsTabComponent {
     Platform = Platform
+
+    @HostBinding('class.content-box') true
 
     constructor (
         public config: ConfigService,

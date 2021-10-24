@@ -1,4 +1,4 @@
-import { Component } from '@angular/core'
+import { Component, HostBinding } from '@angular/core'
 import { WIN_BUILD_CONPTY_SUPPORTED, WIN_BUILD_CONPTY_STABLE, isWindowsBuild, ConfigService } from 'tabby-core'
 
 /** @hidden */
@@ -8,6 +8,8 @@ import { WIN_BUILD_CONPTY_SUPPORTED, WIN_BUILD_CONPTY_STABLE, isWindowsBuild, Co
 export class ShellSettingsTabComponent {
     isConPTYAvailable: boolean
     isConPTYStable: boolean
+
+    @HostBinding('class.content-box') true
 
     constructor (
         public config: ConfigService,

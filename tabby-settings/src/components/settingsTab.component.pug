@@ -1,5 +1,3 @@
-button.btn.btn-warning.btn-block(*ngIf='config.restartRequested', '(click)'='restartApp()') Restart the app to apply changes
-
 .content
     ul.nav-pills(ngbNav, #nav='ngbNav', [activeId]='activeTab', orientation='vertical')
         li(ngbNavItem='application')
@@ -7,80 +5,92 @@ button.btn.btn-warning.btn-block(*ngIf='config.restartRequested', '(click)'='res
                 i.fas.fa-fw.fa-window-maximize.mr-2
                 | Application
             ng-template(ngbNavContent)
-                .tabby-logo.mt-3
-                h1.tabby-title Tabby
-                    sup α
+                .content-box
+                    .tabby-logo.mt-3
+                    h1.tabby-title Tabby
+                        sup α
 
-                .text-center
-                    .text-muted {{homeBase.appVersion}}
+                    .text-center
+                        .text-muted {{homeBase.appVersion}}
 
-                    .mb-5.mt-3
-                        button.btn.btn-secondary.mr-3.mb-2((click)='homeBase.openGitHub()')
-                            i.fab.fa-github
-                            span GitHub
+                        .mb-5.mt-3
+                            button.btn.btn-secondary.mr-3.mb-2((click)='homeBase.openGitHub()')
+                                i.fab.fa-github
+                                span GitHub
 
-                        button.btn.btn-secondary.mr-3.mb-2((click)='homeBase.reportBug()')
-                            i.fas.fa-bug
-                            span Report a problem
+                            button.btn.btn-secondary.mr-3.mb-2((click)='homeBase.reportBug()')
+                                i.fas.fa-bug
+                                span Report a problem
 
-                        button.btn.btn-secondary.mr-3.mb-2(
-                            (click)='showReleaseNotes()',
-                        )
-                            i.fas.fa-book
-                            span What's new
-
-                        button.btn.btn-secondary.mr-3.mb-2(
-                            *ngIf='!updateAvailable && hostApp.platform !== Platform.Web',
-                            (click)='checkForUpdates()',
-                            [disabled]='checkingForUpdate'
-                        )
-                            i.fas.fa-sync(
-                                [class.fa-spin]='checkingForUpdate'
+                            button.btn.btn-secondary.mr-3.mb-2(
+                                (click)='showReleaseNotes()',
                             )
-                            span Check for updates
+                                i.fas.fa-book
+                                span What's new
 
-                        button.btn.btn-info.mr-3.mb-2(
-                            *ngIf='updateAvailable',
-                            (click)='updater.update()',
+                            button.btn.btn-secondary.mr-3.mb-2(
+                                *ngIf='!updateAvailable && hostApp.platform !== Platform.Web',
+                                (click)='checkForUpdates()',
+                                [disabled]='checkingForUpdate'
+                            )
+                                i.fas.fa-sync(
+                                    [class.fa-spin]='checkingForUpdate'
+                                )
+                                span Check for updates
+
+                            button.btn.btn-info.mr-3.mb-2(
+                                *ngIf='updateAvailable',
+                                (click)='updater.update()',
+                            )
+                                i.fas.fa-sync
+                                span Update
+
+                    .form-line(*ngIf='platform.isShellIntegrationSupported()')
+                        .header
+                            .title Shell integration
+                            .description Allows quickly opening a terminal in the selected folder
+                        toggle([ngModel]='isShellIntegrationInstalled', (ngModelChange)='toggleShellIntegration()')
+
+                    .form-line(*ngIf='hostApp.platform !== Platform.Web')
+                        .header
+                            .title Enable analytics
+                            .description We're only tracking your Tabby and OS versions.
+                        toggle(
+                            [(ngModel)]='config.store.enableAnalytics',
+                            (ngModelChange)='saveConfiguration(true)',
                         )
-                            i.fas.fa-sync
-                            span Update
 
-                .form-line(*ngIf='platform.isShellIntegrationSupported()')
-                    .header
-                        .title Shell integration
-                        .description Allows quickly opening a terminal in the selected folder
-                    toggle([ngModel]='isShellIntegrationInstalled', (ngModelChange)='toggleShellIntegration()')
+                    .form-line(*ngIf='hostApp.platform !== Platform.Web')
+                        .header
+                            .title Automatic Updates
+                            .description Enable automatic installation of updates when they become available.
+                        toggle([(ngModel)]='config.store.enableAutomaticUpdates', (ngModelChange)='saveConfiguration()')
 
-                .form-line(*ngIf='hostApp.platform !== Platform.Web')
-                    .header
-                        .title Enable analytics
-                        .description We're only tracking your Tabby and OS versions.
-                    toggle(
-                        [(ngModel)]='config.store.enableAnalytics',
-                        (ngModelChange)='saveConfiguration(true)',
-                    )
+                    .form-line(*ngIf='hostApp.platform !== Platform.Web')
+                        .header
+                            .title Debugging
 
-                .form-line(*ngIf='hostApp.platform !== Platform.Web')
-                    .header
-                        .title Automatic Updates
-                        .description Enable automatic installation of updates when they become available.
-                    toggle([(ngModel)]='config.store.enableAutomaticUpdates', (ngModelChange)='saveConfiguration()')
+                        button.btn.btn-secondary((click)='hostWindow.openDevTools()')
+                            i.fas.fa-bug
+                            span Open DevTools
 
-                .form-line(*ngIf='hostApp.platform !== Platform.Web')
-                    .header
-                        .title Debugging
+        ng-container(*ngFor='let provider of settingsProviders')
+            li(*ngIf='provider.prioritized', [ngbNavItem]='provider.id')
+                a(ngbNavLink)
+                    i(class='fas fa-fw mr-2 fa-{{provider.icon}}')
+                    | {{provider.title}}
+                ng-template(ngbNavContent)
+                    settings-tab-body([provider]='provider')
 
-                    button.btn.btn-secondary((click)='hostWindow.openDevTools()')
-                        i.fas.fa-bug
-                        span Open DevTools
+        .mb-3
 
-        li(*ngFor='let provider of settingsProviders', [ngbNavItem]='provider.id')
-            a(ngbNavLink)
-                i(class='fas fa-fw mr-2 fa-{{provider.icon || "puzzle-piece"}}')
-                | {{provider.title}}
-            ng-template(ngbNavContent)
-                settings-tab-body([provider]='provider')
+        ng-container(*ngFor='let provider of settingsProviders')
+            li(*ngIf='!provider.prioritized', [ngbNavItem]='provider.id')
+                a(ngbNavLink)
+                    i(class='fas fa-fw mr-2 fa-{{provider.icon || "puzzle-piece"}}')
+                    | {{provider.title}}
+                ng-template(ngbNavContent)
+                    settings-tab-body([provider]='provider')
 
         li(ngbNavItem='config-file')
             a(ngbNavLink)
@@ -118,3 +128,5 @@ button.btn.btn-warning.btn-block(*ngIf='config.restartRequested', '(click)'='res
                             | Show config file
 
     div([ngbNavOutlet]='nav')
+
+button.btn.btn-warning.btn-block(*ngIf='config.restartRequested', '(click)'='restartApp()') Restart the app to apply changes

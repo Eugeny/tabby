@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from 'uuid'
 import slugify from 'slugify'
 import deepClone from 'clone-deep'
-import { Component, Inject } from '@angular/core'
+import { Component, HostBinding, Inject } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { ConfigService, HostAppService, Profile, SelectorService, ProfilesService, PromptModalComponent, PlatformService, BaseComponent, PartialProfile, ProfileProvider } from 'tabby-core'
 import { EditProfileModalComponent } from './editProfileModal.component'
@@ -24,6 +24,8 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
     templateProfiles: PartialProfile<Profile>[] = []
     profileGroups: ProfileGroup[]
     filter = ''
+
+    @HostBinding('class.content-box') true
 
     constructor (
         public config: ConfigService,

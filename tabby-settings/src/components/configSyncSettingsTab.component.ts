@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { Component } from '@angular/core'
+import { Component, HostBinding } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { BaseComponent, ConfigService, PromptModalComponent, HostAppService, PlatformService, NotificationsService } from 'tabby-core'
 import { Config, ConfigSyncService } from '../services/configSync.service'
@@ -14,6 +14,8 @@ export class ConfigSyncSettingsTabComponent extends BaseComponent {
     connectionSuccessful: boolean|null = null
     connectionError: Error|null = null
     configs: Config[]|null = null
+
+    @HostBinding('class.content-box') true
 
     constructor (
         public config: ConfigService,
