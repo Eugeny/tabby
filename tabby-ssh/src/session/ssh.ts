@@ -9,7 +9,7 @@ import { Injector, NgZone } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { ConfigService, FileProvidersService, HostAppService, NotificationsService, Platform, PlatformService, wrapPromise, PromptModalComponent, LogService } from 'tabby-core'
 import { BaseSession } from 'tabby-terminal'
-import { Socket, createConnection } from 'net'
+import { Socket } from 'net'
 import { Client, ClientChannel, SFTPWrapper } from 'ssh2'
 import { Subject, Observable } from 'rxjs'
 import { ProxyCommandStream } from '../services/ssh.service'
@@ -18,6 +18,7 @@ import { promisify } from 'util'
 import { SFTPSession } from './sftp'
 import { ALGORITHM_BLACKLIST, SSHAlgorithmType, PortForwardType, SSHProfile } from '../api'
 import { ForwardedPort } from './forwards'
+import { X11Socket } from './x11'
 
 const WINDOWS_OPENSSH_AGENT_PIPE = '\\\\.\\pipe\\openssh-ssh-agent'
 
@@ -359,41 +360,35 @@ export class SSHSession extends BaseSession {
             })
         })
 
-        this.ssh.on('x11', (details, accept, reject) => {
+        this.ssh.on('x11', async (details, accept, reject) => {
             this.logger.info(`Incoming X11 connection from ${details.srcIP}:${details.srcPort}`)
-            const displaySpec = process.env.DISPLAY ?? ':0'
+            const displaySpec = process.env.DISPLAY ?? 'localhost:0'
             this.logger.debug(`Trying display ${displaySpec}`)
-            const xHost = displaySpec.split(':')[0]
-            const xDisplay = parseInt(displaySpec.split(':')[1].split('.')[0] || '0')
-            const xPort = xDisplay < 100 ? xDisplay + 6000 : xDisplay
 
-            const socket = displaySpec.startsWith('/') ? createConnection(displaySpec) : new Socket()
-            if (!displaySpec.startsWith('/')) {
-                socket.connect(xPort, xHost)
-            }
-            socket.on('error', e => {
+            const socket = new X11Socket()
+            try {
+                const x11Stream = await socket.connect(displaySpec)
+                this.logger.info('Connection forwarded')
+                const stream = accept()
+                stream.pipe(x11Stream)
+                x11Stream.pipe(stream)
+                stream.on('close', () => {
+                    socket.destroy()
+                })
+                x11Stream.on('close', () => {
+                    stream.close()
+                })
+            } catch (e) {
                 // eslint-disable-next-line @typescript-eslint/no-base-to-string
                 this.emitServiceMessage(colors.bgRed.black(' X ') + ` Could not connect to the X server: ${e}`)
-                this.emitServiceMessage(`    Tabby tried to connect to ${xHost}:${xPort} based on the DISPLAY environment var (${displaySpec})`)
+                this.emitServiceMessage(`    Tabby tried to connect to ${JSON.stringify(X11Socket.resolveDisplaySpec(displaySpec))} based on the DISPLAY environment var (${displaySpec})`)
                 if (process.platform === 'win32') {
                     this.emitServiceMessage('    To use X forwarding, you need a local X server, e.g.:')
                     this.emitServiceMessage('    * VcXsrv: https://sourceforge.net/projects/vcxsrv/')
                     this.emitServiceMessage('    * Xming: https://sourceforge.net/projects/xming/')
                 }
                 reject()
-            })
-            socket.on('connect', () => {
-                this.logger.info('Connection forwarded')
-                const stream = accept()
-                stream.pipe(socket)
-                socket.pipe(stream)
-                stream.on('close', () => {
-                    socket.destroy()
-                })
-                socket.on('close', () => {
-                    stream.close()
-                })
-            })
+            }
         })
     }
 
