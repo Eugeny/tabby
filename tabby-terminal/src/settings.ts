@@ -11,6 +11,7 @@ export class AppearanceSettingsTabProvider extends SettingsTabProvider {
     id = 'terminal-appearance'
     icon = 'swatchbook'
     title = 'Appearance'
+    prioritized = true
 
     getComponentType (): any {
         return AppearanceSettingsTabComponent
@@ -35,6 +36,7 @@ export class TerminalSettingsTabProvider extends SettingsTabProvider {
     id = 'terminal'
     icon = 'terminal'
     title = 'Terminal'
+    prioritized = true
 
     getComponentType (): any {
         return TerminalSettingsTabComponent

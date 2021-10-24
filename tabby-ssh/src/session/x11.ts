@@ -5,16 +5,16 @@ export class X11Socket {
     error$ = new Subject<Error>()
     private socket: Socket | null = null
 
-    static resolveDisplaySpec (spec: string): SocketConnectOpts {
+    static resolveDisplaySpec (spec?: string|null): SocketConnectOpts {
         // eslint-disable-next-line prefer-const
-        let [xHost, xDisplay] = /^(.+):(\d+)(?:.(\d+))$/.exec(spec) ?? []
+        let [xHost, xDisplay] = /^(.+):(\d+)(?:.(\d+))$/.exec(spec ?? process.env.DISPLAY ?? 'localhost:0') ?? []
         if (process.platform === 'win32') {
             xHost ??= 'localhost'
         } else {
             xHost ??= 'unix'
         }
 
-        if (spec.startsWith('/')) {
+        if (spec?.startsWith('/')) {
             xHost = spec
         }
 

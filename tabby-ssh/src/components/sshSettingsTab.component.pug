@@ -42,4 +42,15 @@ h3 SSH
         (ngModelChange)='config.save()',
     )
 
-.alert.alert-info SSH connection management is now done through the Profiles tab
+.form-line
+    .header
+        .title Override X11 display
+        .description Path or address of the local X11 socket
+    input.form-control(
+        type='text',
+        [placeholder]='defaultX11Display',
+        [(ngModel)]='config.store.ssh.x11Display',
+        (ngModelChange)='config.save()'
+    )
+
+.alert.alert-info SSH connection management is now done through the #[strong Profiles & connections] tab

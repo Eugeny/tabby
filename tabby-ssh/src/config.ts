@@ -8,6 +8,7 @@ export class SSHConfigProvider extends ConfigProvider {
             winSCPPath: null,
             agentType: 'auto',
             agentPath: null,
+            x11Display: null,
         },
         hotkeys: {
             'restart-ssh-session': [],
