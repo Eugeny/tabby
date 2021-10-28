@@ -9,6 +9,8 @@ import { ALGORITHM_BLACKLIST, SSHAlgorithmType, SSHProfile } from './api'
 // Counteracts https://github.com/mscdex/ssh2/commit/f1b5ac3c81734c194740016eab79a699efae83d8
 ALGORITHMS.DEFAULT_CIPHER.push('aes128-gcm')
 ALGORITHMS.DEFAULT_CIPHER.push('aes256-gcm')
+ALGORITHMS.SUPPORTED_CIPHER.push('aes128-gcm')
+ALGORITHMS.SUPPORTED_CIPHER.push('aes256-gcm')
 
 @Injectable({ providedIn: 'root' })
 export class SSHProfilesService extends ProfileProvider<SSHProfile> {
