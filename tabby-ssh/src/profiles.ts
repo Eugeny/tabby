@@ -99,7 +99,7 @@ export class SSHProfilesService extends ProfileProvider<SSHProfile> {
     }
 
     quickConnect (query: string): PartialProfile<SSHProfile> {
-        let user = 'root'
+        let user: string|undefined = undefined
         let host = query
         let port = 22
         if (host.includes('@')) {
