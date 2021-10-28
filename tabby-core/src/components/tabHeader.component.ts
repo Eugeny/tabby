@@ -88,8 +88,9 @@ export class TabHeaderComponent extends BaseComponent {
         return this.config.store.appearance.flexTabs
     }
 
-    @HostListener('dblclick') onDoubleClick (): void {
+    @HostListener('dblclick', ['$event']) onDoubleClick ($event: MouseEvent): void {
         this.showRenameTabModal()
+        $event.stopPropagation()
     }
 
     @HostListener('mousedown', ['$event']) async onMouseDown ($event: MouseEvent) {
