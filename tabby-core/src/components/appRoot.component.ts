@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { Component, Inject, Input, HostListener, HostBinding, ViewChildren } from '@angular/core'
+import { Component, Inject, Input, HostListener, HostBinding, ViewChildren, ViewChild } from '@angular/core'
 import { trigger, style, animate, transition, state } from '@angular/animations'
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
+import { NgbDropdown, NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop'
 
 import { HostAppService, Platform } from '../api/hostApp'
@@ -60,10 +60,10 @@ export class AppRootComponent {
     @HostBinding('class.platform-linux') platformClassLinux = process.platform === 'linux'
     @HostBinding('class.no-tabs') noTabs = true
     @ViewChildren(TabBodyComponent) tabBodies: TabBodyComponent[]
+    @ViewChild('activeTransfersDropdown') activeTransfersDropdown: NgbDropdown
     unsortedTabs: BaseTabComponent[] = []
     updatesAvailable = false
     activeTransfers: FileTransfer[] = []
-    activeTransfersDropdownOpen = false
     private logger: Logger
 
     constructor (
@@ -147,7 +147,7 @@ export class AppRootComponent {
 
         platform.fileTransferStarted$.subscribe(transfer => {
             this.activeTransfers.push(transfer)
-            this.activeTransfersDropdownOpen = true
+            this.activeTransfersDropdown.open()
         })
 
         config.ready$.toPromise().then(() => {
@@ -198,6 +198,12 @@ export class AppRootComponent {
     onTabsReordered (event: CdkDragDrop<BaseTabComponent[]>) {
         moveItemInArray(this.app.tabs, event.previousIndex, event.currentIndex)
         this.app.emitTabsChanged()
+    }
+
+    onTransfersChange () {
+        if (this.activeTransfers.length === 0) {
+            this.activeTransfersDropdown.close()
+        }
     }
 
     private getToolbarButtons (aboveZero: boolean): ToolbarButton[] {
