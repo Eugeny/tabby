@@ -118,20 +118,8 @@ export class XTermFrontend extends Frontend {
         this.resizeHandler = () => {
             try {
                 if (this.xterm.element && getComputedStyle(this.xterm.element).getPropertyValue('height') !== 'auto') {
-                    const t = window.getComputedStyle(this.xterm.element.parentElement!)
-                    const r = parseInt(t.getPropertyValue('height'))
-                    const n = Math.max(0, parseInt(t.getPropertyValue('width')))
-                    const o = window.getComputedStyle(this.xterm.element)
-                    const i = r - (parseInt(o.getPropertyValue('padding-top')) + parseInt(o.getPropertyValue('padding-bottom')))
-                    const l = n - (parseInt(o.getPropertyValue('padding-right')) + parseInt(o.getPropertyValue('padding-left'))) - this.xtermCore.viewport.scrollBarWidth
-                    const actualCellWidth = this.xtermCore._renderService.dimensions.actualCellWidth || 9
-                    const actualCellHeight = this.xtermCore._renderService.dimensions.actualCellHeight || 17
-                    const cols = Math.floor(l / actualCellWidth)
-                    const rows = Math.floor(i / actualCellHeight)
-
-                    if (!isNaN(cols) && !isNaN(rows)) {
-                        this.xterm.resize(cols, rows)
-                    }
+                    this.fitAddon.fit()
+                    this.xtermCore.viewport._refresh()
                 }
             } catch (e) {
                 // tends to throw when element wasn't shown yet
