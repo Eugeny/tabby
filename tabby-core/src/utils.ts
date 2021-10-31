@@ -67,9 +67,9 @@ export const TAB_COLORS = [
 
 export function serializeFunction <T extends () => Promise<any>> (fn: T): T {
     let queue = Promise.resolve()
-    return (...args) => {
+    return ((...args) => {
         const res = queue.then(() => fn(...args))
         queue = res.catch(() => null)
         return res
-    }
+    }) as T
 }
