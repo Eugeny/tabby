@@ -64,3 +64,12 @@ export const TAB_COLORS = [
     { name: 'Red', value: '#d9534f' },
     { name: 'Yellow', value: '#ffd500' },
 ]
+
+export function serializeFunction <T extends () => Promise<any>> (fn: T): T {
+    let queue = Promise.resolve()
+    return (...args) => {
+        const res = queue.then(() => fn(...args))
+        queue = res.catch(() => null)
+        return res
+    }
+}
