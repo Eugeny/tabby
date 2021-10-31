@@ -1,6 +1,6 @@
 {
   "name": "tabby-settings",
-  "version": "1.0.160-nightly.0",
+  "version": "1.0.162-nightly.0",
   "description": "Tabby terminal settings page",
   "keywords": [
     "tabby-builtin-plugin"
