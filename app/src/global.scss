@@ -16,13 +16,17 @@ body {
     display: none;
 }
 
-.btn {
-    display: inline-flex;
-    align-items: center;
-    flex-wrap: nowrap;
+a, button {
+    &.btn {
+        display: inline-flex;
+        align-items: center;
+        flex-wrap: nowrap;
 
-    & > svg {
-        pointer-events: none;
+        & > svg {
+            pointer-events: none;
+            width: 16px;
+            height: 16px;
+        }
     }
 }
 

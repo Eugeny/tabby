@@ -18,6 +18,15 @@ export class SearchPanelComponent {
 
     @Output() close = new EventEmitter()
 
+    icons = {
+        'case': require('../icons/case.svg'),
+        regexp: require('../icons/regexp.svg'),
+        wholeWord: require('../icons/whole-word.svg'),
+        arrowUp: require('../icons/arrow-up.svg'),
+        arrowDown: require('../icons/arrow-down.svg'),
+        close: require('../icons/close.svg'),
+    }
+
     constructor (
         private notifications: NotificationsService,
         public config: ConfigService,

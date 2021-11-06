@@ -24,6 +24,7 @@ export abstract class Frontend {
     protected resize = new ReplaySubject<ResizeEvent>(1)
     protected dragOver = new Subject<DragEvent>()
     protected drop = new Subject<DragEvent>()
+    protected destroyed = new Subject<void>()
 
     get ready$ (): Observable<void> { return this.ready }
     get title$ (): Observable<string> { return this.title }
@@ -35,10 +36,12 @@ export abstract class Frontend {
     get resize$ (): Observable<ResizeEvent> { return this.resize }
     get dragOver$ (): Observable<DragEvent> { return this.dragOver }
     get drop$ (): Observable<DragEvent> { return this.drop }
+    get destroyed$ (): Observable<void> { return this.destroyed }
 
     constructor (protected injector: Injector) { }
 
     destroy (): void {
+        this.destroyed.next()
         for (const o of [
             this.ready,
             this.title,
@@ -50,6 +53,7 @@ export abstract class Frontend {
             this.resize,
             this.dragOver,
             this.drop,
+            this.destroyed,
         ]) {
             o.complete()
         }

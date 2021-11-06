@@ -1,10 +1,9 @@
 :host {
     position: fixed;
     width: 400px;
-    right: 50px;
+    right: 40px;
     z-index: 5;
-    padding: 10px;
-    border-radius: 0 0 3px 3px;
+    border-radius: 0 0 5px 5px;
     background: rgba(0, 0, 0, .95);
     border: 1px solid rgba(0, 0, 0, .5);
     border-top: 0;
@@ -12,6 +11,7 @@
 
     button {
         padding: 0 6px;
+        margin: 4px 2px;
         flex-shrink: 0;
     }
 }

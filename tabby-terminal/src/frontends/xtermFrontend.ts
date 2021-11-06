@@ -1,6 +1,7 @@
 import { Injector } from '@angular/core'
 import { ConfigService, getCSSFontFamily, HostAppService, HotkeysService, Platform, PlatformService } from 'tabby-core'
 import { Frontend, SearchOptions } from './frontend'
+import { takeUntil } from 'rxjs'
 import { Terminal, ITheme } from 'xterm'
 import { FitAddon } from 'xterm-addon-fit'
 import { LigaturesAddon } from 'xterm-addon-ligatures'
@@ -151,6 +152,11 @@ export class XTermFrontend extends Frontend {
         if (this.enableWebGL) {
             this.webGLAddon = new WebglAddon()
             this.xterm.loadAddon(this.webGLAddon)
+            this.platformService.displayMetricsChanged$.pipe(
+                takeUntil(this.destroyed$),
+            ).subscribe(() => {
+                this.webGLAddon?.clearTextureAtlas()
+            })
         }
 
         this.ready.next()

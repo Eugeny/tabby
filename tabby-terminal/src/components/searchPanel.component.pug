@@ -12,16 +12,16 @@ input.search-input.form-control(
 button.btn.btn-link(
     (click)='findPrevious()',
     ngbTooltip='Search up',
-    placement='bottom'
+    placement='bottom',
+    [fastHtmlBind]='icons.arrowUp'
 )
-    i.fa.fa-fw.fa-arrow-up
 
 button.btn.btn-link(
     (click)='findNext()',
     ngbTooltip='Search down',
-    placement='bottom'
+    placement='bottom',
+    [fastHtmlBind]='icons.arrowDown'
 )
-    i.fa.fa-fw.fa-arrow-down
 
 .mr-2
 
@@ -29,26 +29,29 @@ button.btn.btn-link(
     (click)='options.caseSensitive = !options.caseSensitive; saveSearchOptions()',
     [class.active]='options.caseSensitive',
     ngbTooltip='Case sensitivity',
-    placement='bottom'
+    placement='bottom',
+    [fastHtmlBind]='icons.case'
 )
-    i.fa.fa-fw.fa-font
 
 button.btn.btn-link(
     (click)='options.regex = !options.regex; saveSearchOptions()',
     [class.active]='options.regex',
     ngbTooltip='Regular expression',
-    placement='bottom'
+    placement='bottom',
+    [fastHtmlBind]='icons.regexp'
 )
-    i.fa.fa-fw.fa-asterisk
+
 button.btn.btn-link(
     (click)='options.wholeWord = !options.wholeWord; saveSearchOptions()',
     [class.active]='options.wholeWord',
     ngbTooltip='Whole word',
-    placement='bottom'
+    placement='bottom',
+    [fastHtmlBind]='icons.wholeWord'
 )
-    i.fa.fa-fw.fa-text-width
 
 .mr-2
 
-button.btn.btn-link((click)='close.emit()')
-    i.fa.fa-fw.fa-times
+button.btn.btn-link(
+    (click)='close.emit()',
+    [fastHtmlBind]='icons.close'
+)
