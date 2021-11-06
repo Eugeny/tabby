@@ -94,14 +94,7 @@ minimist@^1.1.0:
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.5.tgz#67d66014b66a6a8aaa0c083c5fd58df4e4e97602"
   integrity sha512-FM9nNUYrRBAELZQT3xeZQ7fmMOBg6nWNmJKTcgsJeaLstP/UODVpGsr5OhXhhXg6f+qtJ8uiZ+PUxkDWcgIXLw==
 
-opentype.js@^0.8.0:
-  version "0.8.0"
-  resolved "https://registry.yarnpkg.com/opentype.js/-/opentype.js-0.8.0.tgz#acabcfa1642fbe894a3e4d759e43ba694e02bd35"
-  integrity sha1-rKvPoWQvvolKPk11nkO6aU4CvTU=
-  dependencies:
-    tiny-inflate "^1.0.2"
-
-opentype.js@^1.3.4:
+opentype.js@^0.8.0, opentype.js@^1.3.4:
   version "1.3.4"
   resolved "https://registry.yarnpkg.com/opentype.js/-/opentype.js-1.3.4.tgz#1c0e72e46288473cc4a4c6a2dc60fd7fe6020d77"
   integrity sha512-d2JE9RP/6uagpQAVtJoF0pJJA/fgai89Cc50Yp0EJHk+eLp6QQ7gBoblsnubRULNY132I0J1QKMJ+JTbMqz4sw==
@@ -148,7 +141,7 @@ table-parser@^0.1.3:
   dependencies:
     connected-domain "^1.0.0"
 
-tiny-inflate@^1.0.2, tiny-inflate@^1.0.3:
+tiny-inflate@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/tiny-inflate/-/tiny-inflate-1.0.3.tgz#122715494913a1805166aaf7c93467933eea26c4"
   integrity sha512-pkY1fj1cKHb2seWDy0B16HeWyczlJA9/WW3u3c4z/NiWDsO3DOU5D7nhTLE9CF0yXv/QZFY7sEJmj24dK+Rrqw==
@@ -191,10 +184,10 @@ xterm-addon-webgl@^0.11.3:
   resolved "https://registry.yarnpkg.com/xterm-addon-webgl/-/xterm-addon-webgl-0.11.3.tgz#4d13933d8810d146613bbb66d59ea90de561f999"
   integrity sha512-Lr6VjLYOrgxLNaUNLDdCBehkr1Vaja/laDMTtvghfRusUMRXTlRKlCb7E3yqx4VgCg5KcV96cArmh88KcwSpUg==
 
-"xterm@npm:@tabby-gang/xterm@^4.15.0":
-  version "4.15.0"
-  resolved "https://registry.yarnpkg.com/@tabby-gang/xterm/-/xterm-4.15.0.tgz#8de23d234d076b2b11e65b4a71d96b5156f8d414"
-  integrity sha512-er9SQsNXV42OLQxgDcOxURxLl7DkAI7zSoawCBu9M72C7fl1a3lU/rTNowHgHyJ/7ruaFGTA2+x5ji8IONVY+A==
+"xterm@npm:@tabby-gang/xterm@^4.15.1-beta.1":
+  version "4.15.1-beta.1"
+  resolved "https://registry.yarnpkg.com/@tabby-gang/xterm/-/xterm-4.15.1-beta.1.tgz#217a52f4e614cbbe567413e921b221e12a4f31c2"
+  integrity sha512-rn7AfdAQwl4sLvgUVJqJNyZP/0rnrBHjENV/iwgbd6bPfKcpynhjog7fv4Jxmp73itPnLuIs71D2kk9t1Hu0Wg==
 
 yallist@^4.0.0:
   version "4.0.0"
