@@ -167,10 +167,10 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@fortawesome/fontawesome-free@^5.15.4":
-  version "5.15.4"
-  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-free/-/fontawesome-free-5.15.4.tgz#ecda5712b61ac852c760d8b3c79c96adca5554e5"
-  integrity sha512-eYm8vijH/hpzr/6/1CJ/V/Eb1xQFW2nnUKArb3z+yUWv7HTwj6M7SP957oMjfZjAHU6qpoNc2wQvIxBLWYa/Jg==
+"@fortawesome/fontawesome-free@^6.0.0-beta.2":
+  version "6.0.0-beta2"
+  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-free/-/fontawesome-free-6.0.0-beta2.tgz#d66c6e9aad085d003f2cf88244f6adce16e07f78"
+  integrity sha512-od2COSiBZ70dB5YgZuZEJ3Jy3RHFUhKKjN4dBxNVtmC8DYlyuI4q9wUSzmpLWXQVnRTADRoOLywA9E6SRaS6YQ==
 
 "@humanwhocodes/config-array@^0.5.0":
   version "0.5.0"
