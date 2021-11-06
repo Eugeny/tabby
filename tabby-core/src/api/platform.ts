@@ -48,6 +48,9 @@ export abstract class FileTransfer {
     }
 
     protected increaseProgress (bytes: number): void {
+        if (!bytes) {
+            return
+        }
         this.completedBytes += bytes
         this.lastChunkSpeed = bytes * 1000 / (Date.now() - this.lastChunkStartTime)
         this.lastChunkStartTime = Date.now()
