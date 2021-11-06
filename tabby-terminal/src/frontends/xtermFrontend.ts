@@ -257,15 +257,15 @@ export class XTermFrontend extends Frontend {
             }
         })
 
-        this.xterm.setOption('fontFamily', getCSSFontFamily(config))
-        this.xterm.setOption('bellStyle', config.terminal.bell)
-        this.xterm.setOption('cursorStyle', {
+        this.xterm.options.fontFamily = getCSSFontFamily(config)
+        this.xterm.options.bellStyle = config.terminal.bell
+        this.xterm.options.cursorStyle = {
             beam: 'bar',
-        }[config.terminal.cursor] || config.terminal.cursor)
-        this.xterm.setOption('cursorBlink', config.terminal.cursorBlink)
-        this.xterm.setOption('macOptionIsMeta', config.terminal.altIsMeta)
-        this.xterm.setOption('scrollback', config.terminal.scrollbackLines)
-        this.xterm.setOption('wordSeparator', config.terminal.wordSeparator)
+        }[config.terminal.cursor] || config.terminal.cursor
+        this.xterm.options.cursorBlink = config.terminal.cursorBlink
+        this.xterm.options.macOptionIsMeta = config.terminal.altIsMeta
+        this.xterm.options.scrollback = config.terminal.scrollbackLines
+        this.xterm.options.wordSeparator = config.terminal.wordSeparator
         this.configuredFontSize = config.terminal.fontSize
         this.configuredLinePadding = config.terminal.linePadding
         this.setFontSize()
@@ -285,7 +285,7 @@ export class XTermFrontend extends Frontend {
         }
 
         if (this.xtermCore._colorManager && !deepEqual(this.configuredTheme, theme)) {
-            this.xterm.setOption('theme', theme)
+            this.xterm.options.theme = theme
             this.configuredTheme = theme
         }
 
@@ -309,7 +309,11 @@ export class XTermFrontend extends Frontend {
     }
 
     saveState (): any {
-        return this.serializeAddon.serialize(1000)
+        return this.serializeAddon.serialize({
+            excludeAltBuffer: true,
+            excludeModes: true,
+            scrollback: 1000,
+        })
     }
 
     restoreState (state: string): void {
@@ -322,9 +326,9 @@ export class XTermFrontend extends Frontend {
 
     private setFontSize () {
         const scale = Math.pow(1.1, this.zoom)
-        this.xterm.setOption('fontSize', this.configuredFontSize * scale)
+        this.xterm.options.fontSize = this.configuredFontSize * scale
         // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
-        this.xterm.setOption('lineHeight', (this.configuredFontSize + this.configuredLinePadding * 2) / this.configuredFontSize)
+        this.xterm.options.lineHeight = (this.configuredFontSize + this.configuredLinePadding * 2) / this.configuredFontSize * scale
         this.resizeHandler()
     }
 

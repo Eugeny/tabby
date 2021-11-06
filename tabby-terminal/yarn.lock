@@ -101,10 +101,10 @@ opentype.js@^0.8.0:
   dependencies:
     tiny-inflate "^1.0.2"
 
-opentype.js@^1.3.3:
-  version "1.3.3"
-  resolved "https://registry.yarnpkg.com/opentype.js/-/opentype.js-1.3.3.tgz#65b8645b090a1ad444065b784d442fa19d1061f6"
-  integrity sha512-/qIY/+WnKGlPIIPhbeNjynfD2PO15G9lA/xqlX2bDH+4lc3Xz5GCQ68mqxj3DdUv6AJqCeaPvuAoH8mVL0zcuA==
+opentype.js@^1.3.4:
+  version "1.3.4"
+  resolved "https://registry.yarnpkg.com/opentype.js/-/opentype.js-1.3.4.tgz#1c0e72e46288473cc4a4c6a2dc60fd7fe6020d77"
+  integrity sha512-d2JE9RP/6uagpQAVtJoF0pJJA/fgai89Cc50Yp0EJHk+eLp6QQ7gBoblsnubRULNY132I0J1QKMJ+JTbMqz4sw==
   dependencies:
     string.prototype.codepointat "^0.2.1"
     tiny-inflate "^1.0.3"
@@ -176,25 +176,25 @@ xterm-addon-search@^0.8.1:
   resolved "https://registry.yarnpkg.com/xterm-addon-search/-/xterm-addon-search-0.8.1.tgz#dfc557e9bcf5fd8ed96292c0d271aa865bc545d5"
   integrity sha512-OtOaC9gxD2Q4ZnjZrCSRZmKLwwUjXX3gP7mIzq8Rs50317DGRDqgTLuHTYv/Nx/LvI5ceVFRYCxK36Ixs1nXNw==
 
-xterm-addon-serialize@^0.6.0:
-  version "0.6.0"
-  resolved "https://registry.yarnpkg.com/xterm-addon-serialize/-/xterm-addon-serialize-0.6.0.tgz#3c967428de2cfd257a09066ef36e9aeba9817fe9"
-  integrity sha512-0D7nNdfvRsGhDdLgMIt1jYiYSVlvo18QRVkD4toa+3XcXr4G58FLbKu/gdfCt7da4aj7UIHbnOCexI0BncbVMA==
+xterm-addon-serialize@^0.6.1:
+  version "0.6.1"
+  resolved "https://registry.yarnpkg.com/xterm-addon-serialize/-/xterm-addon-serialize-0.6.1.tgz#509335afee1367628dc685b822a1055b1213de83"
+  integrity sha512-dKscxAaNU6+cWEpuLrUGEn/IjrRvhdaVbDyJlIN1uQYGTi8HOgoGIoy6D5WtPabl2/CJ0W4OwlOQaUotCktXYA==
 
 xterm-addon-unicode11@^0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/xterm-addon-unicode11/-/xterm-addon-unicode11-0.3.0.tgz#e4435c3c91a5294a7eb8b79c380acbb28a659463"
   integrity sha512-x5fHDZT2j9tlTlHnzPHt++9uKZ2kJ/lYQOj3L6xJA22xoJsS8UQRw/5YIFg2FUHqEAbV77Z1fZij/9NycMSH/A==
 
-xterm-addon-webgl@^0.11.2:
-  version "0.11.2"
-  resolved "https://registry.yarnpkg.com/xterm-addon-webgl/-/xterm-addon-webgl-0.11.2.tgz#eeb01f85cb35b0e47d1a3b691d4c6de8b2584c8e"
-  integrity sha512-eEOKEIMZO0IRb+UTHhTaUwxpD1cu7Zqr+jdUfhDv9cfVieg9c4mcRn9RWvNGlprGdlLmOSTUByhm8ve6qAc4HQ==
+xterm-addon-webgl@^0.11.3:
+  version "0.11.3"
+  resolved "https://registry.yarnpkg.com/xterm-addon-webgl/-/xterm-addon-webgl-0.11.3.tgz#4d13933d8810d146613bbb66d59ea90de561f999"
+  integrity sha512-Lr6VjLYOrgxLNaUNLDdCBehkr1Vaja/laDMTtvghfRusUMRXTlRKlCb7E3yqx4VgCg5KcV96cArmh88KcwSpUg==
 
-"xterm@npm:@tabby-gang/xterm@4.14.0":
-  version "4.14.0"
-  resolved "https://registry.yarnpkg.com/@tabby-gang/xterm/-/xterm-4.14.0.tgz#4f86c17b5464302f3d011eb79d00b2c7f7b1a548"
-  integrity sha512-cUh0GyXdL7FgcdizJ83JItY42OhLyxGvUprG91bpLVGPJ6CBK+9cO+fEOl/Kcfx9fUyGW6Y5EzANg9LxXBoqcQ==
+"xterm@npm:@tabby-gang/xterm@^4.15.0":
+  version "4.15.0"
+  resolved "https://registry.yarnpkg.com/@tabby-gang/xterm/-/xterm-4.15.0.tgz#8de23d234d076b2b11e65b4a71d96b5156f8d414"
+  integrity sha512-er9SQsNXV42OLQxgDcOxURxLl7DkAI7zSoawCBu9M72C7fl1a3lU/rTNowHgHyJ/7ruaFGTA2+x5ji8IONVY+A==
 
 yallist@^4.0.0:
   version "4.0.0"
