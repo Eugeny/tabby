@@ -16,9 +16,6 @@
   ],
   "author": "Eugene Pankov",
   "license": "MIT",
-  "dependencies": {
-    "opentype.js": "^1.3.3"
-  },
   "devDependencies": {
     "ansi-colors": "^4.1.1",
     "dataurl": "0.1.0",
