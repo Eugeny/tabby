@@ -17,7 +17,7 @@ const CRYPT_ALG = 'aes-256-cbc'
 const CRYPT_KEY_LENGTH = 256 / 8
 const CRYPT_IV_LENGTH = 128 / 8
 
-interface StoredVault {
+export interface StoredVault {
     version: number
     contents: string
     keySalt: string
