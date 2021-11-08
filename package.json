@@ -39,7 +39,7 @@
     "eslint": "^7.32.0",
     "file-loader": "^6.2.0",
     "graceful-fs": "^4.2.8",
-    "html-loader": "2.1.2",
+    "html-loader": "3.0.1",
     "json-loader": "0.5.7",
     "lru-cache": "^6.0.0",
     "macos-release": "^3.0.1",
