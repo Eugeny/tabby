@@ -1936,10 +1936,10 @@ commander@^7.0.0, commander@^7.2.0:
   resolved "https://registry.yarnpkg.com/commander/-/commander-7.2.0.tgz#a36cb57d0b501ce108e4d20559a150a391d97ab7"
   integrity sha512-QrWXB+ZQSVPmIWIhtEO9H+gwHaMGYiF5ChvoJ+K9ZGHG/sVsa6yiesAD1GC/x46sET00Xlwo1u49RVVVzvcSkw==
 
-compare-versions@^3.6.0:
-  version "3.6.0"
-  resolved "https://registry.yarnpkg.com/compare-versions/-/compare-versions-3.6.0.tgz#1a5689913685e5a87637b8d3ffca75514ec41d62"
-  integrity sha512-W6Af2Iw1z4CB7q4uU4hv646dW9GQuBM+YpC0UvUCWSD8w90SJjp+ujJuXaEMtAXBtSqGfMPuFOVn4/+FlaqfBA==
+compare-versions@^4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/compare-versions/-/compare-versions-4.0.1.tgz#be467c86e6514f5b08f63207a75ce844553dc84b"
+  integrity sha512-CWRFliMK+3xX42rdenZuutpAA02Egtxb5HbSSb5WJRHhkdGC6VAHigssQ7DoyNq7g+6VamJhCQ5wpoApZkFxGw==
 
 concat-map@0.0.1:
   version "0.0.1"
