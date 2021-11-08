@@ -19,7 +19,7 @@
     "@types/js-yaml": "^4.0.4",
     "@types/node": "16.0.1",
     "@types/sortablejs": "^1.10.7",
-    "@types/webpack-env": "^1.16.2",
+    "@types/webpack-env": "^1.16.3",
     "@typescript-eslint/eslint-plugin": "^4.33.0",
     "@typescript-eslint/parser": "^4.33.0",
     "apply-loader": "2.0.0",
