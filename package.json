@@ -35,7 +35,7 @@
     "electron-download": "^4.1.1",
     "electron-installer-snap": "^5.1.0",
     "electron-notarize": "^1.1.1",
-    "electron-rebuild": "^3.2.3",
+    "electron-rebuild": "^3.2.4",
     "eslint": "^7.32.0",
     "file-loader": "^6.2.0",
     "graceful-fs": "^4.2.8",

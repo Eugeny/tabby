@@ -2606,10 +2606,10 @@ electron-publish@22.11.7:
     lazy-val "^1.0.5"
     mime "^2.5.2"
 
-electron-rebuild@^3.2.3:
-  version "3.2.3"
-  resolved "https://registry.yarnpkg.com/electron-rebuild/-/electron-rebuild-3.2.3.tgz#2c0b06b7b1a5240fec96f1d368d04222e2590c3d"
-  integrity sha512-9oxNmKlDCaf651c+yJWCDIBpF6A9aY+wQtasLEeR5AsPYPuOKEX6xHnC2+WgCLOC94JEpCZznecyC84fbwZq4A==
+electron-rebuild@^3.2.4:
+  version "3.2.4"
+  resolved "https://registry.yarnpkg.com/electron-rebuild/-/electron-rebuild-3.2.4.tgz#15cdae4e23829d7ae9fbdcd28a1ad3a558b2c05a"
+  integrity sha512-9Si+pehS1h9Oo0SxJxWkkgvcYm0XrPx3ZzT3Ai7tVjT1ZK5v8v0FrKhER3I4/Hg5lmS5iPmKbCYK4sbW+Y6q7Q==
   dependencies:
     "@malept/cross-spawn-promise" "^2.0.0"
     colors "^1.3.3"
@@ -2618,7 +2618,7 @@ electron-rebuild@^3.2.3:
     fs-extra "^10.0.0"
     got "^11.7.0"
     lzma-native "^8.0.1"
-    node-abi "^2.19.2"
+    node-abi "^3.0.0"
     node-api-version "^0.1.4"
     node-gyp "^8.1.0"
     ora "^5.1.0"
@@ -5289,7 +5289,7 @@ no-case@^3.0.4:
     lower-case "^2.0.2"
     tslib "^2.0.3"
 
-node-abi@^2.19.2, node-abi@^2.30.0:
+node-abi@^2.30.0, node-abi@^3.0.0:
   version "2.30.0"
   resolved "https://registry.yarnpkg.com/node-abi/-/node-abi-2.30.0.tgz#8be53bf3e7945a34eea10e0fc9a5982776cf550b"
   integrity sha512-g6bZh3YCKQRdwuO/tSZZYJAw622SjsRfJ2X0Iy4sSOHZ34/sPPdVBn8fev2tj7njzLwuqPw9uMtGsGkO5kIQvg==
