@@ -32,7 +32,20 @@ export class PluginManagerService {
         return forkJoin(
             this._listAvailableInternal('tabby-', 'tabby-plugin', query),
             this._listAvailableInternal('terminus-', 'terminus-plugin', query),
-        ).pipe(map(x => x.reduce((a, b) => a.concat(b), [])))
+        ).pipe(
+            map(x => x.reduce((a, b) => a.concat(b), [])),
+            map(x => {
+                const names = new Set<string>()
+                return x.filter(item => {
+                    if (names.has(item.name)) {
+                        return false
+                    }
+                    names.add(item.name)
+                    return true
+                })
+            }),
+            map(x => x.sort((a, b) => a.name.localeCompare(b.name))),
+        )
     }
 
     _listAvailableInternal (namePrefix: string, keyword: string, query?: string): Observable<PluginInfo[]> {

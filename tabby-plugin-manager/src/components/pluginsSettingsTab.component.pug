@@ -1,78 +1,125 @@
-.alert.alert-danger(*ngIf='errorMessage')
-    strong Error in {{erroredPlugin}}:
-    pre {{errorMessage}}
-
-.d-flex
-    h3.mb-1 Installed
+.d-flex.mb-3
+    h3 Plugins
     button.btn.btn-secondary.btn-sm.ml-auto((click)='openPluginsFolder()')
         i.fas.fa-folder
         span Plugins folder
 
-.list-group.list-group-flush.mt-2
-    .list-group-item.d-flex.align-items-center(*ngFor='let plugin of pluginManager.installedPlugins')
-        toggle(
-            [ngModel]='isPluginEnabled(plugin)',
-            (ngModelChange)='togglePlugin(plugin)',
-            [disabled]='!canDisablePlugin(plugin)'
-        )
+.alert.alert-danger(*ngIf='errorMessage')
+    strong Error in {{erroredPlugin}}:
+    pre {{errorMessage}}
 
-        .mr-auto.d-flex.flex-column
-            div
-                strong {{plugin.name}}
-                small.text-muted.ml-1(*ngIf='!plugin.isBuiltin') {{plugin.version}} / {{plugin.author}}
-                small.text-muted.ml-1(*ngIf='plugin.isBuiltin') Built-in
-                small.text-warning.ml-1(*ngIf='!isPluginEnabled(plugin)') Disabled
-            a.text-muted.mb-0((click)='showPluginInfo(plugin)')
-                small {{plugin.description}}
-
-        button.btn.btn-primary.ml-2(
-            *ngIf='knownUpgrades[plugin.name]',
-            (click)='upgradePlugin(plugin)',
-            [disabled]='busy.has(plugin.name)'
-        )
-            i.fas.fa-fw.fa-arrow-up(*ngIf='busy.get(plugin.name) != BusyState.Installing')
-            i.fas.fa-fw.fa-circle-notch.fa-spin(*ngIf='busy.get(plugin.name) == BusyState.Installing')
-            span Upgrade ({{knownUpgrades[plugin.name].version}})
-
-        button.btn.btn-link.text-danger.ml-2(
-            (click)='uninstallPlugin(plugin)',
-            *ngIf='!plugin.isBuiltin',
-            [disabled]='busy.has(plugin.name)'
-        )
-            i.fas.fa-fw.fa-trash(*ngIf='busy.get(plugin.name) != BusyState.Uninstalling')
-            i.fas.fa-fw.fa-circle-notch.fa-spin(*ngIf='busy.get(plugin.name) == BusyState.Uninstalling')
-
-div
-    h3.mt-4 Available
-
-    .input-group.mb-3
-        .input-group-prepend
-            .input-group-text
-                i.fas.fa-fw.fa-circle-notch.fa-spin(*ngIf='!availablePluginsReady')
-                i.fas.fa-fw.fa-search(*ngIf='availablePluginsReady')
-        input.form-control(
-            type='text',
-            [(ngModel)]='_1',
-            (ngModelChange)='searchAvailable(_1)',
-            placeholder='Search plugins'
-        )
-
-    .list-group.list-group-flush.mb-4(*ngIf='availablePlugins$')
-        ng-container(*ngFor='let plugin of (availablePlugins$|async)')
-            .list-group-item.d-flex.align-items-center(*ngIf='!isAlreadyInstalled(plugin)')
-                button.btn.btn-primary.mr-3(
-                    (click)='installPlugin(plugin)',
-                    [disabled]='busy.has(plugin.name)'
+ul.nav-tabs.mb-2(ngbNav, #nav='ngbNav')
+    li(ngbNavItem)
+        a(ngbNavLink) Available
+        ng-template(ngbNavContent)
+            .input-group.mb-3.mt-3
+                .input-group-prepend
+                    .input-group-text
+                        i.fas.fa-fw.fa-circle-notch.fa-spin(*ngIf='!availablePluginsReady')
+                        i.fas.fa-fw.fa-search(*ngIf='availablePluginsReady')
+                input.form-control(
+                    type='text',
+                    [(ngModel)]='_1',
+                    (ngModelChange)='searchAvailable(_1)',
+                    placeholder='Search plugins'
                 )
-                    i.fas.fa-fw.fa-download(*ngIf='busy.get(plugin.name) != BusyState.Installing')
-                    i.fas.fa-fw.fa-circle-notch.fa-spin(*ngIf='busy.get(plugin.name) == BusyState.Installing')
 
-                div((click)='showPluginInfo(plugin)')
-                    div
-                        strong {{plugin.name}}
-                        small.text-muted.ml-1 {{plugin.version}}
-                        small.text-muted.ml-1(*ngIf='!plugin.isOfficial') by {{plugin.author}}
-                        small.text-success.ml-1(*ngIf='plugin.isOfficial')
-                            i.fas.fa-check
-                            span.ml-1 Official
-                    small.text-muted {{plugin.description}}
+            ngb-accordion.mb-4(*ngIf='availablePlugins$', type='dark', [closeOthers]='true')
+                ng-container(*ngFor='let plugin of (availablePlugins$|async)')
+                    ngb-panel(*ngIf='!isAlreadyInstalled(plugin)', cardClass='bg-dark')
+                        ng-template(ngbPanelTitle)
+                            .text-left
+                                strong.d-block {{plugin.name}}
+                                small.d-block.text-muted {{plugin.description}}
+                        ng-template(ngbPanelContent)
+                            .row
+                                .col-4
+                                    button.btn.btn-primary.btn-block.justify-content-center(
+                                        (click)='installPlugin(plugin)',
+                                        [disabled]='busy.has(plugin.name)'
+                                    )
+                                        i.fas.fa-fw.fa-cloud-download(*ngIf='busy.get(plugin.name) != BusyState.Installing')
+                                        i.fas.fa-fw.fa-circle-notch.fa-spin(*ngIf='busy.get(plugin.name) == BusyState.Installing')
+                                        span.ml-2 Get
+
+                                    button.btn.btn-secondary.btn-block.justify-content-center(
+                                        *ngIf='plugin.homepage',
+                                        (click)='showPluginHomepage(plugin)'
+                                    )
+                                        i.fas.fa-fw.fa-external-link-alt
+                                        span.ml-2 Homepage
+
+                                .col-8
+                                    ng-container(*ngTemplateOutlet='pluginInfo; context: { plugin }')
+
+                            .mt-2 {{plugin.description}}
+
+    li(ngbNavItem)
+        a(ngbNavLink) Installed
+        ng-template(ngbNavContent)
+            ngb-accordion.mb-4(type='dark', [closeOthers]='true')
+                ng-container(*ngFor='let plugin of pluginManager.installedPlugins')
+                    ngb-panel(cardClass='bg-dark')
+                        ng-template(ngbPanelTitle)
+                            .text-left.mr-auto
+                                div
+                                    strong {{plugin.name}}
+                                    small.text-muted.ml-2(*ngIf='plugin.isBuiltin') Built-in
+                                    small.text-warning.ml-2(*ngIf='!isPluginEnabled(plugin)') Disabled
+                                small.d-block.text-muted {{plugin.description}}
+
+                            button.btn.btn-primary.ml-2(
+                                *ngIf='knownUpgrades[plugin.name]',
+                                (click)='upgradePlugin(plugin)',
+                                [disabled]='busy.has(plugin.name)'
+                            )
+                                i.fas.fa-fw.fa-arrow-up(*ngIf='busy.get(plugin.name) != BusyState.Installing')
+                                i.fas.fa-fw.fa-circle-notch.fa-spin(*ngIf='busy.get(plugin.name) == BusyState.Installing')
+                                span Upgrade to {{knownUpgrades[plugin.name].version}}
+
+                        ng-template(ngbPanelContent)
+                            .row
+                                .col-4
+                                    button.btn.btn-warning.btn-block.justify-content-center(
+                                        (click)='togglePlugin(plugin)',
+                                        *ngIf='isPluginEnabled(plugin)',
+                                        [disabled]='!canDisablePlugin(plugin)'
+                                    ) Disable
+
+                                    button.btn.btn-success.btn-block.justify-content-center(
+                                        (click)='togglePlugin(plugin)',
+                                        *ngIf='canDisablePlugin(plugin) && !isPluginEnabled(plugin)'
+                                    ) Enable
+
+                                    button.btn.btn-danger.btn-block.justify-content-center(
+                                        (click)='uninstallPlugin(plugin)',
+                                        *ngIf='!plugin.isBuiltin',
+                                        [disabled]='busy.has(plugin.name)'
+                                    )
+                                        i.fas.fa-fw.fa-trash(*ngIf='busy.get(plugin.name) != BusyState.Uninstalling')
+                                        i.fas.fa-fw.fa-circle-notch.fa-spin(*ngIf='busy.get(plugin.name) == BusyState.Uninstalling')
+                                        span Uninstall
+                                .col-8
+                                    ng-container(*ngTemplateOutlet='pluginInfo; context: { plugin }')
+
+
+                            .mt-2 {{plugin.description}}
+
+ng-template(#pluginInfo, let-plugin='plugin')
+    .row.align-items-center
+        .col-4
+            strong Version
+        .col-8
+            span {{plugin.version}}
+    .row.align-items-center
+        .col-4
+            strong Author
+        .col-8
+            .badge.badge-success(*ngIf='plugin.isOfficial')
+                i.fas.fa-check
+                span.ml-1 Official
+            a.btn.btn-link.px-0.w-auto((click)='showPluginInfo(plugin)', *ngIf='!plugin.isOfficial')
+                span {{plugin.author}}
+                i.fas.fa-fw.fa-external-link-alt.ml-2
+
+.mb-4([ngbNavOutlet]='nav')

@@ -1,8 +1,7 @@
-.appearance-preview {
-    padding: 10px 20px;
-    margin: 0 0 10px;
-    overflow: hidden;
-    span {
-        white-space: pre;
+::ng-deep .card-header {
+    padding: 0;
+
+    > button {
+        width: 100%;
     }
 }

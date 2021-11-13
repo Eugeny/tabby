@@ -105,6 +105,10 @@ export class PluginsSettingsTabComponent {
         this.platform.openExternal('https://www.npmjs.com/package/' + plugin.packageName)
     }
 
+    showPluginHomepage (plugin: PluginInfo) {
+        this.platform.openExternal(plugin.homepage ?? '')
+    }
+
     isPluginEnabled (plugin: PluginInfo) {
         return !this.config.store.pluginBlacklist.includes(plugin.name)
     }
