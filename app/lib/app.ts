@@ -54,7 +54,11 @@ export class Application {
         })
 
         ;(promiseIpc as any).on('get-default-mac-shell', async () => {
-            return (await exec(`/usr/bin/dscl . -read /Users/${process.env.LOGNAME} UserShell`))[0].toString().split(' ')[1].trim()
+            try {
+                return (await exec(`/usr/bin/dscl . -read /Users/${process.env.LOGNAME} UserShell`))[0].toString().split(' ')[1].trim()
+            } catch {
+                return '/bin/bash'
+            }
         })
 
         const configData = loadConfig()
