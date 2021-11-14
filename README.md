@@ -115,6 +115,8 @@ Plugins and themes can be installed directly from the Settings view inside Tabby
 * [save-output](https://github.com/Eugeny/tabby-save-output) - record terminal output into a file
 * [sync-config](https://github.com/starxg/terminus-sync-config) - sync the config to Gist or Gitee
 * [clippy](https://github.com/Eugeny/tabby-clippy) - an example plugin which annoys you all the time
+* [workspace-manager](https://github.com/composer404/tabby-workspace-manager) - allows creating custom workspace profiles based on the given config
+* [search-in-browser](https://github.com/composer404/tabby-search-in-browser) - opens default system browser with a text selected from the Tabby's tab
 
 <a name="themes"></a>
 # Themes

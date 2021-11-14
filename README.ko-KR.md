@@ -109,6 +109,8 @@
 * [save-output](https://github.com/Eugeny/tabby-save-output) - 터미널 출력을 파일에 기록
 * [sync-config](https://github.com/starxg/terminus-sync-config) - 구성을 Gist 또는 Gitee에 동기화
 * [clippy](https://github.com/Eugeny/tabby-clippy) - 항상 당신을 귀찮게 하는 예제 플러그인
+* [workspace-manager](https://github.com/composer404/tabby-workspace-manager) - 주어진 구성을 기반으로 사용자 정의 작업 공간 프로필을 생성할 수 있습니다
+* [search-in-browser](https://github.com/composer404/tabby-search-in-browser) - Tabby의 탭에서 선택한 텍스트로 기본 시스템 브라우저를 엽니다
 
 <a name="themes"></a>
 # 테마
