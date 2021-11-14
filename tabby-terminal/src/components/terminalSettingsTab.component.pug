@@ -49,6 +49,7 @@ h3.mb-3 Terminal
 .form-line
     .header
         .title Right click
+        .description(*ngIf='config.store.terminal.rightClick == "paste"') Long-click for context menu
     .btn-group(
         [(ngModel)]='config.store.terminal.rightClick',
         (ngModelChange)='config.save()',

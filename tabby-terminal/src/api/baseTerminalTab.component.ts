@@ -565,13 +565,27 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
         this.termContainerSubscriptions.cancelAll()
     }
 
-    protected async handleRightClick (event: MouseEvent): Promise<void> {
+    private rightMouseDownTime = 0
+
+    protected async handleRightMouseDown (event: MouseEvent): Promise<void> {
         event.preventDefault()
         event.stopPropagation()
+        this.rightMouseDownTime = Date.now()
         if (this.config.store.terminal.rightClick === 'menu') {
             this.platform.popupContextMenu(await this.buildContextMenu(), event)
-        } else if (this.config.store.terminal.rightClick === 'paste') {
-            this.paste()
+        }
+    }
+
+    protected async handleRightMouseUp (event: MouseEvent): Promise<void> {
+        event.preventDefault()
+        event.stopPropagation()
+        if (this.config.store.terminal.rightClick === 'paste') {
+            const duration = Date.now() - this.rightMouseDownTime
+            if (duration < 250) {
+                this.paste()
+            } else {
+                this.platform.popupContextMenu(await this.buildContextMenu(), event)
+            }
         }
     }
 
@@ -611,7 +625,13 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
                     return
                 }
                 if (event.which === 3 || event.which === 1 && event.ctrlKey) {
-                    this.handleRightClick(event)
+                    this.handleRightMouseDown(event)
+                    return
+                }
+            }
+            if (event.type === 'mouseup') {
+                if (event.which === 3 || event.which === 1 && event.ctrlKey) {
+                    this.handleRightMouseUp(event)
                     return
                 }
             }
