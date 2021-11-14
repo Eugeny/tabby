@@ -5,7 +5,6 @@ import { WindowSettingsTabComponent } from './components/windowSettingsTab.compo
 import { VaultSettingsTabComponent } from './components/vaultSettingsTab.component'
 import { ConfigSyncSettingsTabComponent } from './components/configSyncSettingsTab.component'
 import { ProfilesSettingsTabComponent } from './components/profilesSettingsTab.component'
-import { ConfigSyncService } from './services/configSync.service'
 
 /** @hidden */
 @Injectable()
@@ -66,14 +65,7 @@ export class ConfigSyncSettingsTabProvider extends SettingsTabProvider {
     icon = 'cloud'
     title = 'Config sync'
 
-    constructor (
-        private configSync: ConfigSyncService,
-    ) { super() }
-
     getComponentType (): any {
-        if (!this.configSync.isAvailable()) {
-            return null
-        }
         return ConfigSyncSettingsTabComponent
     }
 }
