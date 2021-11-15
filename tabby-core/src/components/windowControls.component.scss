@@ -13,6 +13,7 @@ button {
     line-height: 0;
     text-align: center;
     align-items: center;
+    justify-content: center;
     
     &:not(:hover):not(:active) {
         background: transparent;
@@ -20,5 +21,10 @@ button {
 
     &:focus {
         box-shadow: none;
+    }
+
+    svg {
+        width: 10px;
+        height: 10px;
     }
 }
