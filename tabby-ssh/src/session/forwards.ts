@@ -9,6 +9,7 @@ export class ForwardedPort implements ForwardedPortConfig {
     port: number
     targetAddress: string
     targetPort: number
+    description: string
 
     private listener: Server|null = null
 

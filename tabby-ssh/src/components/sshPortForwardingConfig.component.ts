@@ -26,6 +26,7 @@ export class SSHPortForwardingConfigComponent {
             port: 8000,
             targetAddress: '127.0.0.1',
             targetPort: 80,
+            description: '',
         }
     }
 

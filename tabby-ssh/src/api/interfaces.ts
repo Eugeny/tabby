@@ -44,6 +44,7 @@ export interface ForwardedPortConfig {
     port: number
     targetAddress: string
     targetPort: number
+    description: string
 }
 
 export const ALGORITHM_BLACKLIST = [
