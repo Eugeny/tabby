@@ -40,10 +40,10 @@
     "@serialport/binding-abstract" "9.2.3"
     debug "^4.3.2"
 
-"@serialport/bindings@9.2.5":
-  version "9.2.5"
-  resolved "https://registry.yarnpkg.com/@serialport/bindings/-/bindings-9.2.5.tgz#d49f6e74d780340558c4dc33546a190befd5476b"
-  integrity sha512-fyabNg56gWbOMuYJc5c45z94sANC/WzTnGeML7Nr1IYVk0SJ1uksN4ETI8Nea9ZAtr4DhNiIMQ3/IOkyof6Tqg==
+"@serialport/bindings@9.2.7":
+  version "9.2.7"
+  resolved "https://registry.yarnpkg.com/@serialport/bindings/-/bindings-9.2.7.tgz#3482c78972d8c2088ff841e82694b9b2d7135a64"
+  integrity sha512-glbCqpMYyyfxiUSgGt/ayf84nVDRer9bxvxRv8JDwTYo+Wp2JTofbW4gC5wDa8xNtxMhD90J6PJTJA8E9YhrBg==
   dependencies:
     "@serialport/binding-abstract" "9.2.3"
     "@serialport/parser-readline" "9.2.4"
@@ -3123,13 +3123,13 @@ serialize-error@^5.0.0:
   dependencies:
     type-fest "^0.8.0"
 
-serialport@^9.2.5:
-  version "9.2.5"
-  resolved "https://registry.yarnpkg.com/serialport/-/serialport-9.2.5.tgz#23e81588336e844e8d7071742a00f501eec9f2b1"
-  integrity sha512-nsDsD2GN/43T2a8jQYr1HH76gmDZ575Ts8FOdcBRUY8ecaI16BPbXa612cPPkQjOfg28+KL5qtQL9c0vvTaidg==
+serialport@^9.2.7:
+  version "9.2.7"
+  resolved "https://registry.yarnpkg.com/serialport/-/serialport-9.2.7.tgz#590bba742d7a3ce8bf2de268828044a326f0ec2f"
+  integrity sha512-jH5mC0CtmDcE5Z1UXSDrYpzNzCFTGGyaAN/1D38olDbgTKqTrJ1VSfP1LzcKpHCL8M6UEiL+hs3xKP9PWrFeKQ==
   dependencies:
     "@serialport/binding-mock" "9.2.4"
-    "@serialport/bindings" "9.2.5"
+    "@serialport/bindings" "9.2.7"
     "@serialport/parser-byte-length" "9.2.4"
     "@serialport/parser-cctalk" "9.2.4"
     "@serialport/parser-delimiter" "9.2.4"
