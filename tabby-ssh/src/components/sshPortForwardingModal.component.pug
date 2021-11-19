@@ -1,5 +1,5 @@
-.modal-header
-    h5.m-0 Port forwarding
+.modal-header(*ngIf='session.forwardedPorts.length')
+    h5.m-0 Forwarded ports
 
 .modal-body.pt-0
     ssh-port-forwarding-config(

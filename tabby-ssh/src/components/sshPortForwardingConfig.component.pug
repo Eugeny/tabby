@@ -1,7 +1,6 @@
 .list-group.mb-3
     .list-group-item.d-flex.align-items-center(*ngFor='let fw of model')
         div
-            span {{fw.description}}
             .ms-2.d-flex.align-items-center
                 strong(*ngIf='fw.type === PortForwardType.Local') Local
                 strong(*ngIf='fw.type === PortForwardType.Remote') Remote
@@ -10,11 +9,11 @@
                 .ml-2 &rarr;
                 .ml-2(*ngIf='fw.type !== PortForwardType.Dynamic') {{fw.targetAddress}}:{{fw.targetPort}}
                 .ml-2(*ngIf='fw.type === PortForwardType.Dynamic') SOCKS proxy
+            div {{fw.description}}
         button.btn.btn-link.hover-reveal.ml-auto((click)='remove(fw)')
             i.fas.fa-trash-alt
 
-.input-group.mb-2
-    input.form-control(type='text', placeholder='Description', [(ngModel)]='newForward.description')
+h5 Add a port forward
 
 .input-group.mb-2(*ngIf='newForward.type === PortForwardType.Dynamic')
     input.form-control(type='text', [(ngModel)]='newForward.host')
@@ -36,6 +35,9 @@
     .input-group-append
         .input-group-text :
     input.form-control(type='number', [(ngModel)]='newForward.targetPort')
+
+.input-group.mb-2
+    input.form-control(type='text', placeholder='Description', [(ngModel)]='newForward.description')
 
 .d-flex
     .btn-group.mr-auto(
