@@ -478,6 +478,15 @@
       "contributions": [
         "design"
       ]
+    },
+    {
+      "login": "highfredo",
+      "name": "Alfredo Arellano de la Fuente",
+      "avatar_url": "https://avatars.githubusercontent.com/u/5951524?v=4",
+      "profile": "https://github.com/highfredo",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
