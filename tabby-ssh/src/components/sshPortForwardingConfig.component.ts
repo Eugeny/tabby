@@ -41,5 +41,6 @@ export class SSHPortForwardingConfigComponent {
 
     remove (fw: ForwardedPortConfig) {
         this.forwardRemoved.emit(fw)
+        this.newForward = fw
     }
 }
