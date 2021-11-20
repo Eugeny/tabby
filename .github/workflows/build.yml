@@ -129,7 +129,7 @@ jobs:
         path: artifact-zip
 
   Linux-Build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04 # build against an older glibc for compatibility
     needs: Lint
 
     steps:
