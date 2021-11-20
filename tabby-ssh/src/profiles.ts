@@ -73,7 +73,7 @@ export class SSHProfilesService extends ProfileProvider<SSHProfile> {
         }]
     }
 
-    async getNewTabParameters (profile: PartialProfile<SSHProfile>): Promise<NewTabParameters<SSHTabComponent>> {
+    async getNewTabParameters (profile: SSHProfile): Promise<NewTabParameters<SSHTabComponent>> {
         return {
             type: SSHTabComponent,
             inputs: { profile },

@@ -56,12 +56,12 @@ export class SSHSession extends BaseSession {
 
     agentPath?: string
     activePrivateKey: string|null = null
+    authUsername: string|null = null
 
     private remainingAuthMethods: AuthMethod[] = []
     private serviceMessage = new Subject<string>()
     private keyboardInteractivePrompt = new Subject<KeyboardInteractivePrompt>()
     private keychainPasswordUsed = false
-    private authUsername: string|null = null
 
     private passwordStorage: PasswordStorageService
     private ngbModal: NgbModal

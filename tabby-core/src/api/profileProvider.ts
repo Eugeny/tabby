@@ -44,7 +44,7 @@ export abstract class ProfileProvider<P extends Profile> {
 
     abstract getBuiltinProfiles (): Promise<PartialProfile<P>[]>
 
-    abstract getNewTabParameters (profile: PartialProfile<P>): Promise<NewTabParameters<BaseTabComponent>>
+    abstract getNewTabParameters (profile: P): Promise<NewTabParameters<BaseTabComponent>>
 
     getSuggestedName (profile: PartialProfile<P>): string|null {
         return null

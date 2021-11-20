@@ -28,8 +28,8 @@ export class SSHService {
         return this.detectedWinSCPPath ?? this.config.store.ssh.winSCPPath
     }
 
-    async getWinSCPURI (profile: SSHProfile, cwd?: string): Promise<string> {
-        let uri = `scp://${profile.options.user}`
+    async getWinSCPURI (profile: SSHProfile, cwd?: string, username?: string): Promise<string> {
+        let uri = `scp://${username ?? profile.options.user}`
         const password = await this.passwordStorage.loadPassword(profile)
         if (password) {
             uri += ':' + encodeURIComponent(password)
@@ -43,7 +43,7 @@ export class SSHService {
         if (!path) {
             return
         }
-        const args = [await this.getWinSCPURI(session.profile)]
+        const args = [await this.getWinSCPURI(session.profile, undefined, session.authUsername ?? undefined)]
         if (session.activePrivateKey) {
             args.push('/privatekey')
             args.push(session.activePrivateKey)

@@ -45,19 +45,17 @@ export class LocalProfilesService extends ProfileProvider<LocalProfile> {
         }))
     }
 
-    async getNewTabParameters (profile: PartialProfile<LocalProfile>): Promise<NewTabParameters<TerminalTabComponent>> {
+    async getNewTabParameters (profile: LocalProfile): Promise<NewTabParameters<TerminalTabComponent>> {
         profile = deepClone(profile)
 
-        if (!profile.options?.cwd) {
+        if (!profile.options.cwd) {
             if (this.app.activeTab instanceof TerminalTabComponent && this.app.activeTab.session) {
-                profile.options ??= {}
                 profile.options.cwd = await this.app.activeTab.session.getWorkingDirectory() ?? undefined
             }
             if (this.app.activeTab instanceof SplitTabComponent) {
                 const focusedTab = this.app.activeTab.getFocusedTab()
 
                 if (focusedTab instanceof TerminalTabComponent && focusedTab.session) {
-                    profile.options ??= {}
                     profile.options.cwd = await focusedTab.session.getWorkingDirectory() ?? undefined
                 }
             }

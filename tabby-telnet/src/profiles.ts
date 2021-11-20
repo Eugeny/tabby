@@ -55,7 +55,7 @@ export class TelnetProfilesService extends ProfileProvider<TelnetProfile> {
         ]
     }
 
-    async getNewTabParameters (profile: PartialProfile<TelnetProfile>): Promise<NewTabParameters<TelnetTabComponent>> {
+    async getNewTabParameters (profile: TelnetProfile): Promise<NewTabParameters<TelnetTabComponent>> {
         return {
             type: TelnetTabComponent,
             inputs: { profile },
