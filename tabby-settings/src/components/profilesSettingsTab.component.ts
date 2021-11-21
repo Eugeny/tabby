@@ -102,17 +102,20 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
         }
         modal.componentInstance.profile = deepClone(profile)
         modal.componentInstance.profileProvider = provider
-        try {
-            const result = await modal.result
-            // Fully replace the config
-            for (const k in profile) {
-                // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
-                delete profile[k]
-            }
-            Object.assign(profile, result)
 
-            profile.type = provider.id
-        } catch (e) { }
+        const result = await modal.result.catch(() => null)
+        if (!result) {
+            return
+        }
+
+        // Fully replace the config
+        for (const k in profile) {
+            // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
+            delete profile[k]
+        }
+        Object.assign(profile, result)
+
+        profile.type = provider.id
     }
 
     async deleteProfile (profile: PartialProfile<Profile>): Promise<void> {
