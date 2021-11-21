@@ -100,18 +100,19 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
         if (!provider) {
             throw new Error('Cannot edit a profile without a provider')
         }
-        modal.componentInstance.profile = Object.assign({}, profile)
+        modal.componentInstance.profile = deepClone(profile)
         modal.componentInstance.profileProvider = provider
-        const result = await modal.result
+        try {
+            const result = await modal.result
+            // Fully replace the config
+            for (const k in profile) {
+                // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
+                delete profile[k]
+            }
+            Object.assign(profile, result)
 
-        // Fully replace the config
-        for (const k in profile) {
-            // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
-            delete profile[k]
-        }
-        Object.assign(profile, result)
-
-        profile.type = provider.id
+            profile.type = provider.id
+        } catch (e) { }
     }
 
     async deleteProfile (profile: PartialProfile<Profile>): Promise<void> {
