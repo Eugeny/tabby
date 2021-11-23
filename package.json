@@ -7,7 +7,7 @@
     "@angular/forms": "^12.0.0",
     "@angular/platform-browser": "^12.0.0",
     "@angular/platform-browser-dynamic": "^12.0.0",
-    "@fortawesome/fontawesome-free": "^6.0.0-beta.2",
+    "@fortawesome/fontawesome-free": "^6.0.0-beta3",
     "@ng-bootstrap/ng-bootstrap": "^10.0.0",
     "@sentry/cli": "^1.71.0",
     "@sentry/electron": "^2.5.4",
