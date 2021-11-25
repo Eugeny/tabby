@@ -39,6 +39,10 @@ export function getKeyName (event: KeyEventData): KeyName {
         key = altKeyName
     } else if (event.key === 'Shift') {
         key = 'Shift'
+    } else if (event.key === '`') {
+        key = '`'
+    } else if (event.key === '~') {
+        key = '~'
     } else {
         key = event.code
         if (REGEX_LATIN_KEYNAME.test(event.key)) {
@@ -54,7 +58,6 @@ export function getKeyName (event: KeyEventData): KeyName {
                 Slash: '/',
                 Backslash: '\\',
                 IntlBackslash: '`',
-                Backquote: '~', // Electron says it's the tilde
                 Minus: '-',
                 Equal: '=',
                 Semicolon: ';',
