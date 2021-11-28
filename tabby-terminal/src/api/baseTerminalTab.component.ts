@@ -298,6 +298,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
         this.frontend.resize$.pipe(first()).subscribe(async ({ columns, rows }) => {
             this.size = { columns, rows }
             this.frontendReady.next()
+            this.frontendReady.complete()
 
             this.config.enabledServices(this.decorators).forEach(decorator => {
                 try {
@@ -554,6 +555,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
             }
         })
         this.output.complete()
+        this.frontendReady.complete()
 
         super.destroy()
         if (this.session?.open) {

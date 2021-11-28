@@ -2,15 +2,48 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
     li(ngbNavItem)
         a(ngbNavLink) General
         ng-template(ngbNavContent)
-            .d-flex.w-100(*ngIf='!useProxyCommand')
-                .form-group.w-100.mr-4
+            .d-flex.w-100.mt-3
+                .form-group.mr-2(
+                    ngbDropdown
+                )
+                    label Connection
+                    button.btn.btn-secondary.d-block(ngbDropdownToggle) {{getConnectionDropdownTitle()}}
+                    div(ngbDropdownMenu)
+                        button.dropdown-item(
+                            (click)='connectionMode = "direct"',
+                        ) Direct
+                        button.dropdown-item(
+                            *ngIf='hostApp.platform !== Platform.Web',
+                            (click)='connectionMode = "proxyCommand"',
+                        )
+                            div Proxy command
+                            .text-muted Command's stdin/stdout is used instead of a network connection
+                        button.dropdown-item(
+                            (click)='connectionMode = "jumpHost"',
+                        )
+                            div Jump host
+                            .text-muted Connect to a different host first and use it as a proxy
+                        button.dropdown-item(
+                            (click)='connectionMode = "socksProxy"',
+                        )
+                            div SOCKS proxy
+                            .text-muted Connect through a proxy server
+
+                .form-group.w-100(*ngIf='connectionMode === "proxyCommand"')
+                    label Proxy command
+                    input.form-control(
+                        type='text',
+                        [(ngModel)]='profile.options.proxyCommand',
+                    )
+
+                .form-group.w-100.mr-2(*ngIf='connectionMode !== "proxyCommand"')
                     label Host
                     input.form-control(
                         type='text',
                         [(ngModel)]='profile.options.host',
                     )
 
-                .form-group
+                .form-group(*ngIf='connectionMode !== "proxyCommand"')
                     label Port
                     input.form-control(
                         type='number',
@@ -18,8 +51,28 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
                         [(ngModel)]='profile.options.port',
                     )
 
-            .alert.alert-info(*ngIf='useProxyCommand')
-                .mr-auto Using a proxy command instead of a network connection
+            .form-group(*ngIf='connectionMode === "jumpHost"')
+                label Jump host
+                select.form-control([(ngModel)]='profile.options.jumpHost')
+                    option([ngValue]='null') Select
+                    option([ngValue]='x.id', *ngFor='let x of jumpHosts') {{x.name}}
+
+
+            .d-flex.w-100(*ngIf='connectionMode === "socksProxy"')
+                .form-group.w-100.mr-2
+                    label SOCKS proxy host
+                    input.form-control(
+                        type='text',
+                        [(ngModel)]='profile.options.socksProxyHost',
+                    )
+
+                .form-group
+                    label SOCKS proxy port
+                    input.form-control(
+                        type='number',
+                        placeholder='5000',
+                        [(ngModel)]='profile.options.socksProxyPort',
+                    )
 
             .form-group
                 label Username
@@ -93,13 +146,6 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
     li(ngbNavItem)
         a(ngbNavLink) Advanced
         ng-template(ngbNavContent)
-            .form-line(*ngIf='!useProxyCommand')
-                .header
-                    .title Jump host
-                select.form-control([(ngModel)]='profile.options.jumpHost')
-                    option(value='') None
-                    option([ngValue]='x.id', *ngFor='let x of jumpHosts') {{x.name}}
-
             .form-line(ng:if='hostApp.platform !== Platform.Web')
                 .header
                     .title X11 forwarding
@@ -141,19 +187,6 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
                     type='number',
                     placeholder='20000',
                     [(ngModel)]='profile.options.readyTimeout',
-                )
-
-            .form-line(*ngIf='!profile.options.jumpHost && hostApp.platform !== Platform.Web')
-                .header
-                    .title Use a proxy command
-                    .description Command's stdin/stdout is used instead of a network connection
-                toggle([(ngModel)]='useProxyCommand')
-
-            .form-group(*ngIf='useProxyCommand && !profile.options.jumpHost')
-                label Proxy command
-                input.form-control(
-                    type='text',
-                    [(ngModel)]='profile.options.proxyCommand',
                 )
 
     li(ngbNavItem)

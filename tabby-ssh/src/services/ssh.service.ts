@@ -1,4 +1,5 @@
 import * as shellQuote from 'shell-quote'
+import socksv5 from '@luminati-io/socksv5'
 import { Duplex } from 'stream'
 import { Injectable } from '@angular/core'
 import { spawn } from 'child_process'
@@ -51,6 +52,61 @@ export class SSHService {
         this.platform.exec(path, args)
     }
 }
+
+export class SocksProxyStream extends Duplex {
+    private client: Duplex|null
+    private header: Buffer|null
+
+    constructor (private profile: SSHProfile) {
+        super({
+            allowHalfOpen: false,
+        })
+    }
+
+    async start (): Promise<void> {
+        this.client = await new Promise((resolve, reject) => {
+            const connector = socksv5.connect({
+                host: this.profile.options.host,
+                port: this.profile.options.port,
+                proxyHost: this.profile.options.socksProxyHost ?? '127.0.0.1',
+                proxyPort: this.profile.options.socksProxyPort ?? 5000,
+                auths: [socksv5.auth.None()],
+            }, s => {
+                resolve(s)
+                this.header = s.read()
+                this.push(this.header)
+            })
+            connector.on('error', (err) => {
+                reject(err)
+                this.destroy(err)
+            })
+        })
+        this.client?.on('data', data => {
+            if (data !== this.header) {
+                // socksv5 doesn't reliably emit the first data event
+                this.push(data)
+                this.header = null
+            }
+        })
+        this.client?.on('close', (err) => {
+            this.destroy(err)
+        })
+    }
+
+    _read (size: number): void {
+        this.client?.read(size)
+    }
+
+    _write (chunk: Buffer, _encoding: string, callback: (error?: Error | null) => void): void {
+        this.client?.write(chunk, callback)
+    }
+
+    _destroy (error: Error|null, callback: (error: Error|null) => void): void {
+        this.client?.destroy()
+        callback(error)
+    }
+}
+
 
 export class ProxyCommandStream extends Duplex {
     private process: ChildProcess

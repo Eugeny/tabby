@@ -12,7 +12,7 @@ import { BaseSession } from 'tabby-terminal'
 import { Socket } from 'net'
 import { Client, ClientChannel, SFTPWrapper } from 'ssh2'
 import { Subject, Observable } from 'rxjs'
-import { ProxyCommandStream } from '../services/ssh.service'
+import { ProxyCommandStream, SocksProxyStream } from '../services/ssh.service'
 import { PasswordStorageService } from '../services/passwordStorage.service'
 import { promisify } from 'util'
 import { SFTPSession } from './sftp'
@@ -50,6 +50,7 @@ export class SSHSession extends BaseSession {
     forwardedPorts: ForwardedPort[] = []
     jumpStream: any
     proxyCommandStream: ProxyCommandStream|null = null
+    socksProxyStream: SocksProxyStream|null = null
     savedPassword?: string
     get serviceMessage$ (): Observable<string> { return this.serviceMessage }
     get keyboardInteractivePrompt$ (): Observable<KeyboardInteractivePrompt> { return this.keyboardInteractivePrompt }
@@ -231,6 +232,11 @@ export class SSHSession extends BaseSession {
         })
 
         try {
+            if (this.profile.options.socksProxyHost) {
+                this.emitServiceMessage(colors.bgBlue.black(' Proxy ') + ` Using ${this.profile.options.socksProxyHost}:${this.profile.options.socksProxyPort}`)
+                this.socksProxyStream = new SocksProxyStream(this.profile)
+                await this.socksProxyStream.start()
+            }
             if (this.profile.options.proxyCommand) {
                 this.emitServiceMessage(colors.bgBlue.black(' Proxy command ') + ` Using ${this.profile.options.proxyCommand}`)
                 this.proxyCommandStream = new ProxyCommandStream(this.profile.options.proxyCommand)
@@ -262,7 +268,7 @@ export class SSHSession extends BaseSession {
             ssh.connect({
                 host: this.profile.options.host.trim(),
                 port: this.profile.options.port ?? 22,
-                sock: this.proxyCommandStream ?? this.jumpStream,
+                sock: this.proxyCommandStream ?? this.jumpStream ?? this.socksProxyStream,
                 username: this.authUsername ?? undefined,
                 tryKeyboard: true,
                 agent: this.agentPath,
@@ -279,9 +285,7 @@ export class SSHSession extends BaseSession {
                 algorithms,
                 authHandler: (methodsLeft, partialSuccess, callback) => {
                     this.zone.run(async () => {
-                        const a = await this.handleAuth(methodsLeft)
-                        console.warn(a)
-                        callback(a)
+                        callback(await this.handleAuth(methodsLeft))
                     })
                 },
             })

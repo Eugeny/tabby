@@ -109,7 +109,7 @@ module.exports = options => {
             'os',
             'path',
             'readline',
-            'socksv5',
+            '@luminati-io/socksv5',
             'stream',
             'windows-native-registry',
             'windows-process-tree',

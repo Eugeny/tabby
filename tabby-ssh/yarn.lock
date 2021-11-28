@@ -2,6 +2,13 @@
 # yarn lockfile v1
 
 
+"@luminati-io/socksv5@^0.0.7":
+  version "0.0.7"
+  resolved "https://registry.yarnpkg.com/@luminati-io/socksv5/-/socksv5-0.0.7.tgz#87414177d473c97aaefa907a3fe454d62d2fceca"
+  integrity sha512-paEEbcstjMZb2SvFHsSUOzimkx80/pFmMG5T3XR6Keb4NeBfYWEAtlVeiF39OrHRf9AjpNxahhwzdCAlLXZ4Hw==
+  dependencies:
+    ipv6 "*"
+
 "@types/node@*", "@types/node@16.0.1":
   version "16.0.1"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-16.0.1.tgz#70cedfda26af7a2ca073fdcc9beb2fff4aa693f8"
@@ -214,13 +221,6 @@ safer-buffer@^2.0.2, safer-buffer@^2.1.0, safer-buffer@~2.1.0:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/safer-buffer/-/safer-buffer-2.1.2.tgz#44fa161b0187b9549dd84bb91802f9bd8385cd6a"
   integrity sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==
-
-socksv5@^0.0.6:
-  version "0.0.6"
-  resolved "https://registry.yarnpkg.com/socksv5/-/socksv5-0.0.6.tgz#1327235ff7e8de21ac434a0a579dc69c3f071061"
-  integrity sha1-EycjX/fo3iGsQ0oKV53GnD8HEGE=
-  dependencies:
-    ipv6 "*"
 
 sprintf@0.1.x:
   version "0.1.5"

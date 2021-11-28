@@ -37,6 +37,8 @@ export class SSHProfilesService extends ProfileProvider<SSHProfile> {
             proxyCommand: null,
             forwardedPorts: [],
             scripts: [],
+            socksProxyHost: null,
+            socksProxyPort: null,
         },
     }
 

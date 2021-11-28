@@ -1,4 +1,4 @@
-import socksv5 from 'socksv5'
+import socksv5 from '@luminati-io/socksv5'
 import { Server, Socket, createServer } from 'net'
 
 import { ForwardedPortConfig, PortForwardType } from '../api'

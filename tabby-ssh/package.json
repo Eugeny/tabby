@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "run-script-os": "^1.1.3",
-    "socksv5": "^0.0.6"
+    "@luminati-io/socksv5": "^0.0.7"
   },
   "peerDependencies": {
     "@angular/animations": "^9.1.9",

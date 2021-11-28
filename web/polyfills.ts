@@ -84,7 +84,7 @@ Tabby.registerModule('crypto', {
     },
 })
 Tabby.registerMock('dns', {})
-Tabby.registerMock('socksv5', {})
+Tabby.registerMock('@luminati-io/socksv5', {})
 Tabby.registerMock('util', require('util/'))
 Tabby.registerMock('keytar', {
     getPassword: () => null,

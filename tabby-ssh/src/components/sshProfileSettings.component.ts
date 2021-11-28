@@ -16,7 +16,8 @@ export class SSHProfileSettingsComponent {
     Platform = Platform
     profile: SSHProfile
     hasSavedPassword: boolean
-    useProxyCommand: boolean
+
+    connectionMode: 'direct'|'proxyCommand'|'jumpHost'|'socksProxy' = 'direct'
 
     supportedAlgorithms = supportedAlgorithms
     algorithms: Record<string, Record<string, boolean>> = {}
@@ -43,7 +44,14 @@ export class SSHProfileSettingsComponent {
         this.profile.options.auth = this.profile.options.auth ?? null
         this.profile.options.privateKeys ??= []
 
-        this.useProxyCommand = !!this.profile.options.proxyCommand
+        if (this.profile.options.proxyCommand) {
+            this.connectionMode = 'proxyCommand'
+        } else if (this.profile.options.jumpHost) {
+            this.connectionMode = 'jumpHost'
+        } else if (this.profile.options.socksProxyHost) {
+            this.connectionMode = 'socksProxy'
+        }
+
         if (this.profile.options.user) {
             try {
                 this.hasSavedPassword = !!await this.passwordStorage.loadPassword(this.profile)
@@ -90,9 +98,18 @@ export class SSHProfileSettingsComponent {
                 .map(([key, _]) => key)
             this.profile.options.algorithms![k].sort()
         }
-        if (!this.useProxyCommand) {
+
+        if (this.connectionMode !== 'jumpHost') {
+            this.profile.options.jumpHost = undefined
+        }
+        if (this.connectionMode !== 'proxyCommand') {
             this.profile.options.proxyCommand = undefined
         }
+        if (this.connectionMode !== 'socksProxy') {
+            this.profile.options.socksProxyHost = undefined
+            this.profile.options.socksProxyPort = undefined
+        }
+
         this.loginScriptsSettings?.save()
     }
 
@@ -103,5 +120,14 @@ export class SSHProfileSettingsComponent {
 
     onForwardRemoved (fw: ForwardedPortConfig) {
         this.profile.options.forwardedPorts = this.profile.options.forwardedPorts?.filter(x => x !== fw)
+    }
+
+    getConnectionDropdownTitle () {
+        return {
+            direct: 'Direct',
+            proxyCommand: 'Proxy command',
+            jumpHost: 'Jump host',
+            socksProxy: 'SOCKS proxy',
+        }[this.connectionMode]
     }
 }
