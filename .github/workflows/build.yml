@@ -244,7 +244,7 @@ jobs:
         path: artifact-web
 
   Windows-Build:
-    runs-on: windows-2016
+    runs-on: windows-latest
     needs: Lint
 
     steps:
