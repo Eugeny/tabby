@@ -11,7 +11,6 @@ import { ConfigService, FileProvidersService, HostAppService, NotificationsServi
 import { BaseSession } from 'tabby-terminal'
 import { Socket } from 'net'
 import { Client, ClientChannel, SFTPWrapper } from 'ssh2'
-import type { Prompt } from 'ssh2-streams'
 import { Subject, Observable } from 'rxjs'
 import { ProxyCommandStream, SocksProxyStream } from '../services/ssh.service'
 import { PasswordStorageService } from '../services/passwordStorage.service'
@@ -22,6 +21,11 @@ import { ForwardedPort } from './forwards'
 import { X11Socket } from './x11'
 
 const WINDOWS_OPENSSH_AGENT_PIPE = '\\\\.\\pipe\\openssh-ssh-agent'
+
+export interface Prompt {
+    prompt: string
+    echo: boolean
+}
 
 interface AuthMethod {
     type: 'none'|'publickey'|'agent'|'password'|'keyboard-interactive'|'hostbased'
