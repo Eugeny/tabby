@@ -93,7 +93,7 @@
     "prod": "cross-env TABBY_DEV=1 electron app",
     "docs": "typedoc --out docs/api --tsconfig tabby-core/tsconfig.typings.json tabby-core/src/index.ts && typedoc --out docs/api/terminal --tsconfig tabby-terminal/tsconfig.typings.json tabby-terminal/src/index.ts && typedoc --out docs/api/local --tsconfig tabby-local/tsconfig.typings.json tabby-local/src/index.ts && typedoc --out docs/api/settings --tsconfig tabby-settings/tsconfig.typings.json tabby-settings/src/index.ts",
     "lint": "eslint --ext ts */src */lib",
-    "postinstall": "patch-package; node ./scripts/install-deps.js"
+    "postinstall": "patch-package && node ./scripts/install-deps.js"
   },
   "private": true
 }
