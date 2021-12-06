@@ -21,7 +21,7 @@
     "electron-config": "2.0.0",
     "electron-debug": "^3.2.0",
     "electron-promise-ipc": "^2.2.4",
-    "electron-updater": "^4.3.9",
+    "electron-updater": "^4.6.1",
     "fontmanager-redux": "1.1.0",
     "glasstron": "0.0.7",
     "js-yaml": "4.1.0",
