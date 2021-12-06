@@ -243,7 +243,7 @@ jobs:
         path: artifact-web
 
   Windows-Build:
-    runs-on: windows-latest
+    runs-on: windows-2022
     needs: Lint
 
     steps:
