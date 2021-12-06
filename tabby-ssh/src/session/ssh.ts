@@ -24,7 +24,7 @@ const WINDOWS_OPENSSH_AGENT_PIPE = '\\\\.\\pipe\\openssh-ssh-agent'
 
 export interface Prompt {
     prompt: string
-    echo: boolean
+    echo?: boolean
 }
 
 interface AuthMethod {
