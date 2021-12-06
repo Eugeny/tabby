@@ -11,6 +11,7 @@ import { ConfigService, FileProvidersService, HostAppService, NotificationsServi
 import { BaseSession } from 'tabby-terminal'
 import { Socket } from 'net'
 import { Client, ClientChannel, SFTPWrapper } from 'ssh2'
+import type { Prompt } from 'ssh2-streams'
 import { Subject, Observable } from 'rxjs'
 import { ProxyCommandStream, SocksProxyStream } from '../services/ssh.service'
 import { PasswordStorageService } from '../services/passwordStorage.service'
@@ -34,7 +35,7 @@ export class KeyboardInteractivePrompt {
     constructor (
         public name: string,
         public instruction: string,
-        public prompts: string[],
+        public prompts: Prompt[],
         private callback: (_: string[]) => void,
     ) { }
 
@@ -213,7 +214,7 @@ export class SSHSession extends BaseSession {
                 this.emitKeyboardInteractivePrompt(new KeyboardInteractivePrompt(
                     name,
                     instructions,
-                    prompts.map(x => x.prompt),
+                    prompts,
                     finish,
                 ))
             }))

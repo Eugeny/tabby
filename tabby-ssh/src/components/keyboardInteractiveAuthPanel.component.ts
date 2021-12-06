@@ -15,7 +15,7 @@ export class KeyboardInteractiveAuthComponent {
     @ViewChild('input') input: ElementRef
 
     isPassword (): boolean {
-        return this.prompt.prompts[this.step].toLowerCase().includes('password')
+        return this.prompt.prompts[this.step].prompt.toLowerCase().includes('password') || !this.prompt.prompts[this.step].echo
     }
 
     previous (): void {
