@@ -1,5 +1,5 @@
 diff --git a/node_modules/app-builder-lib/out/appInfo.js b/node_modules/app-builder-lib/out/appInfo.js
-index f241acc..2bddb7f 100644
+index 363f32c..a0434a9 100644
 --- a/node_modules/app-builder-lib/out/appInfo.js
 +++ b/node_modules/app-builder-lib/out/appInfo.js
 @@ -100,9 +100,7 @@ class AppInfo {
@@ -12,4 +12,4 @@ index f241acc..2bddb7f 100644
 +        return 'tabby-terminal'
      }
      get sanitizedName() {
-         return sanitizeFileName_1.sanitizeFileName(this.name);
+         return filename_1.sanitizeFileName(this.name);

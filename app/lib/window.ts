@@ -6,7 +6,7 @@ import ElectronConfig = require('electron-config')
 import * as os from 'os'
 import * as path from 'path'
 import macOSRelease from 'macos-release'
-import * as compareVersions from 'compare-versions'
+import compareVersions from 'compare-versions'
 
 import type { Application } from './app'
 import { parseArgs } from './cli'

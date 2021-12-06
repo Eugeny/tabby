@@ -19,7 +19,6 @@
   "devDependencies": {
     "bootstrap": "^4.1.3",
     "deepmerge": "^4.1.1",
-    "electron-updater": "^4.0.6",
     "js-yaml": "^4.0.0",
     "mixpanel": "^0.13.0",
     "ngx-filesize": "^2.0.16",
