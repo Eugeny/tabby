@@ -6,7 +6,7 @@ import ElectronConfig = require('electron-config')
 import * as os from 'os'
 import * as path from 'path'
 import macOSRelease from 'macos-release'
-import compareVersions from 'compare-versions'
+import { compare as compareVersions } from 'compare-versions'
 
 import type { Application } from './app'
 import { parseArgs } from './cli'
@@ -26,7 +26,7 @@ abstract class GlasstronWindow extends BrowserWindow {
     abstract setBlur (_: boolean)
 }
 
-const macOSVibrancyType = process.platform === 'darwin' ? compareVersions.compare(macOSRelease().version, '10.14', '>=') ? 'fullscreen-ui' : 'dark' : null
+const macOSVibrancyType = process.platform === 'darwin' ? compareVersions(macOSRelease().version, '10.14', '>=') ? 'fullscreen-ui' : 'dark' : null
 
 const activityIcon = nativeImage.createFromPath(`${app.getAppPath()}/assets/activity.png`)
 

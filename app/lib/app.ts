@@ -1,5 +1,5 @@
 import { app, ipcMain, Menu, Tray, shell, screen, globalShortcut, MenuItemConstructorOptions } from 'electron'
-import * as promiseIpc from 'electron-promise-ipc'
+import promiseIpc from 'electron-promise-ipc'
 import * as remote from '@electron/remote/main'
 import { exec } from 'mz/child_process'
 import * as path from 'path'
