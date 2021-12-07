@@ -8236,10 +8236,10 @@ typedarray@^0.0.6:
   resolved "https://registry.npmjs.org/typedarray/-/typedarray-0.0.6.tgz"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
-typedoc@^0.22.9:
-  version "0.22.9"
-  resolved "https://registry.yarnpkg.com/typedoc/-/typedoc-0.22.9.tgz#7e3f4f72586bbef4c2382f0afcea8e0f9270b712"
-  integrity sha512-84PjudoXVcap6bwdZFbYIUWlgdz/iLV09ZHwrCzhtHWXaDQG6mlosJ8te6DSThuRkRvQjp46HO+qY/P7Gpm78g==
+typedoc@^0.22.10:
+  version "0.22.10"
+  resolved "https://registry.yarnpkg.com/typedoc/-/typedoc-0.22.10.tgz#221e1a2b17bcb71817ef027dc4c4969d572e7620"
+  integrity sha512-hQYZ4WtoMZ61wDC6w10kxA42+jclWngdmztNZsDvIz7BMJg7F2xnT+uYsUa7OluyKossdFj9E9Ye4QOZKTy8SA==
   dependencies:
     glob "^7.2.0"
     lunr "^2.3.9"
