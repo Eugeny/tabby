@@ -70,7 +70,7 @@
     "ts-loader": "^9.2.3",
     "tslib": "^2.3.1",
     "typedoc": "^0.22.10",
-    "typescript": "^4.3.5",
+    "typescript": "^4.5.2",
     "utils-decorators": "^1.10.4",
     "val-loader": "4.0.0",
     "webpack": "^5.64.4",
