@@ -7,7 +7,7 @@ export class X11Socket {
 
     static resolveDisplaySpec (spec?: string|null): SocketConnectOpts {
         // eslint-disable-next-line prefer-const
-        let [xHost, xDisplay] = /^(.+):(\d+)(?:.(\d+))$/.exec(spec ?? process.env.DISPLAY ?? 'localhost:0') ?? []
+        let [_, xHost, xDisplay] = /^(.+):(\d+)(?:.(\d+))$/.exec(spec ?? process.env.DISPLAY ?? 'localhost:0') ?? []
         if (process.platform === 'win32') {
             xHost ??= 'localhost'
         } else {

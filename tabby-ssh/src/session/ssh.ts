@@ -371,7 +371,7 @@ export class SSHSession extends BaseSession {
 
         this.ssh.on('x11', async (details, accept, reject) => {
             this.logger.info(`Incoming X11 connection from ${details.srcIP}:${details.srcPort}`)
-            const displaySpec = process.env.DISPLAY ?? 'localhost:0'
+            const displaySpec = (this.config.store.ssh.x11Display || process.env.DISPLAY) ?? 'localhost:0'
             this.logger.debug(`Trying display ${displaySpec}`)
 
             const socket = new X11Socket()
