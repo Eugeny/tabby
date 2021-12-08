@@ -1,169 +1,203 @@
-h3.mb-3 Terminal
+div
+    h3.mb-3 Rendering
 
-.form-line(*ngIf='hostApp.platform !== Platform.Web')
-    .header
-        .title Frontend
-        .description Switches terminal frontend implementation (experimental)
+    .form-line(*ngIf='hostApp.platform !== Platform.Web')
+        .header
+            .title Frontend
+            .description Switches terminal frontend implementation (experimental)
 
-    select.form-control(
-        [(ngModel)]='config.store.terminal.frontend',
-        (ngModelChange)='config.save()',
-    )
-        option(value='xterm') xterm
-        option(value='xterm-webgl') xterm (WebGL)
+        select.form-control(
+            [(ngModel)]='config.store.terminal.frontend',
+            (ngModelChange)='config.save()',
+        )
+            option(value='xterm') xterm
+            option(value='xterm-webgl') xterm (WebGL)
 
-.form-line
-    .header
-        .title Terminal bell
-    .btn-group(
-        [(ngModel)]='config.store.terminal.bell',
-        (ngModelChange)='config.save()',
-        ngbRadioGroup
-    )
-        label.btn.btn-secondary(ngbButtonLabel)
-            input(
-                type='radio',
-                ngbButton,
-                [value]='"off"'
-            )
-            | Off
-        label.btn.btn-secondary(ngbButtonLabel)
-            input(
-                type='radio',
-                ngbButton,
-                [value]='"visual"'
-            )
-            | Visual
-        label.btn.btn-secondary(ngbButtonLabel)
-            input(
-                type='radio',
-                ngbButton,
-                [value]='"audible"'
-            )
-            | Audible
+div.mt-4
+    h3 Keyboard
 
-.alert.alert-info.d-flex.align-items-center(*ngIf='config.store.terminal.bell != "audible" && (config.store.terminal.profile || "").startsWith("wsl")')
-    .mr-auto WSL terminal bell can only be muted via Volume Mixer
-    button.btn.btn-secondary((click)='openWSLVolumeMixer()') Show Mixer
+    .form-line
+        .header
+            .title Use {{altKeyName}} as the Meta key
+            .description Lets the shell handle Meta key instead of OS
+        toggle(
+            [(ngModel)]='config.store.terminal.altIsMeta',
+            (ngModelChange)='config.save()',
+        )
 
-.form-line
-    .header
-        .title Right click
-        .description(*ngIf='config.store.terminal.rightClick == "paste"') Long-click for context menu
-    .btn-group(
-        [(ngModel)]='config.store.terminal.rightClick',
-        (ngModelChange)='config.save()',
-        ngbRadioGroup
-    )
-        label.btn.btn-secondary(ngbButtonLabel)
-            input(
-                type='radio',
-                ngbButton,
-                value='off'
-            )
-            | Off
-        label.btn.btn-secondary(ngbButtonLabel)
-            input(
-                type='radio',
-                ngbButton,
-                value='menu'
-            )
-            | Context menu
-        label.btn.btn-secondary(ngbButtonLabel)
-            input(
-                type='radio',
-                ngbButton,
-                value='paste'
-            )
-            | Paste
+    .form-line
+        .header
+            .title Scroll on input
+            .description Scrolls the terminal to the bottom on user input
+        toggle(
+            [(ngModel)]='config.store.terminal.scrollOnInput',
+            (ngModelChange)='config.save()',
+        )
 
-.form-line
-    .header
-        .title Paste on middle-click
+div.mt-4
+    h3 Mouse
 
-    toggle(
-        [(ngModel)]='config.store.terminal.pasteOnMiddleClick',
-        (ngModelChange)='config.save()',
-    )
+    .form-line
+        .header
+            .title Right click
+            .description(*ngIf='config.store.terminal.rightClick == "paste"') Long-click for context menu
+        .btn-group(
+            [(ngModel)]='config.store.terminal.rightClick',
+            (ngModelChange)='config.save()',
+            ngbRadioGroup
+        )
+            label.btn.btn-secondary(ngbButtonLabel)
+                input(
+                    type='radio',
+                    ngbButton,
+                    value='off'
+                )
+                | Off
+            label.btn.btn-secondary(ngbButtonLabel)
+                input(
+                    type='radio',
+                    ngbButton,
+                    value='menu'
+                )
+                | Context menu
+            label.btn.btn-secondary(ngbButtonLabel)
+                input(
+                    type='radio',
+                    ngbButton,
+                    value='paste'
+                )
+                | Paste
 
-.form-line(*ngIf='hostApp.platform !== Platform.Web')
-    .header
-        .title Auto-open a terminal on app start
+    .form-line
+        .header
+            .title Paste on middle-click
 
-    toggle(
-        [(ngModel)]='config.store.terminal.autoOpen',
-        (ngModelChange)='config.save()',
-    )
+        toggle(
+            [(ngModel)]='config.store.terminal.pasteOnMiddleClick',
+            (ngModelChange)='config.save()',
+        )
 
-.form-line
-    .header
-        .title Restore terminal tabs on app start
+    .form-line
+        .header
+            .title Word separators
+            .description Double-click selection will stop at these characters
+        input.form-control(
+            type='text',
+            placeholder=' ()[]{}\'"',
+            [(ngModel)]='config.store.terminal.wordSeparator',
+            (ngModelChange)='config.save()',
+        )
 
-    toggle(
-        [(ngModel)]='config.store.recoverTabs',
-        (ngModelChange)='config.save()',
-    )
+    .form-line
+        .header
+            .title Require a key to click links
+            .description When enabled, links are only clickable while holding this key
 
-.form-line
-    .header
-        .title Bracketed paste (requires shell support)
-        .description Prevents accidental execution of pasted commands
-    toggle(
-        [(ngModel)]='config.store.terminal.bracketedPaste',
-        (ngModelChange)='config.save()',
-    )
+        select.form-control(
+            [(ngModel)]='config.store.clickableLinks.modifier',
+            (ngModelChange)='config.save()',
+        )
+            option([value]='null') None
+            option(value='ctrlKey') Ctrl
+            option(value='altKey') {{altKeyName}}
+            option(value='shiftKey') Shift
+            option(value='metaKey') {{metaKeyName}}
 
-.form-line
-    .header
-        .title Copy on select
-    toggle(
-        [(ngModel)]='config.store.terminal.copyOnSelect',
-        (ngModelChange)='config.save()',
-    )
+div.mt-4
+    h3 Clipboard
 
-.form-line
-    .header
-        .title Scroll on input
-        .description Scrolls the terminal to the bottom on user input
-    toggle(
-        [(ngModel)]='config.store.terminal.scrollOnInput',
-        (ngModelChange)='config.save()',
-    )
+    .form-line
+        .header
+            .title Copy on select
+        toggle(
+            [(ngModel)]='config.store.terminal.copyOnSelect',
+            (ngModelChange)='config.save()',
+        )
 
-.form-line
-    .header
-        .title Use Alt key as the Meta key
-        .description Lets the shell handle Meta key instead of OS
-    toggle(
-        [(ngModel)]='config.store.terminal.altIsMeta',
-        (ngModelChange)='config.save()',
-    )
+    .form-line
+        .header
+            .title Bracketed paste (requires shell support)
+            .description Prevents accidental execution of pasted commands
+        toggle(
+            [(ngModel)]='config.store.terminal.bracketedPaste',
+            (ngModelChange)='config.save()',
+        )
 
-.form-line
-    .header
-        .title Word separators
-        .description Double-click selection will stop at these characters
-    input.form-control(
-        type='text',
-        placeholder=' ()[]{}\'"',
-        [(ngModel)]='config.store.terminal.wordSeparator',
-        (ngModelChange)='config.save()',
-    )
+    .form-line
+        .header
+            .title Warn on multi-line paste
+            .description Show a confirmation box when pasting multiple lines
+        toggle(
+            [(ngModel)]='config.store.terminal.warnOnMultilinePaste',
+            (ngModelChange)='config.save()',
+        )
 
-.form-line
-    .header
-        .title Warn on multi-line paste
-        .description Show a confirmation box when pasting multiple lines
-    toggle(
-        [(ngModel)]='config.store.terminal.warnOnMultilinePaste',
-        (ngModelChange)='config.save()',
-    )
+div.mt-4
+    h3 Sound
 
-.form-line(*ngIf='hostApp.platform === Platform.Windows')
-    .header
-        .title Set Tabby as %COMSPEC%
-        .description Allows opening .bat files in tabs, but breaks some shells
-    toggle(
-        [(ngModel)]='config.store.terminal.setComSpec',
-        (ngModelChange)='config.save()',
-    )
+    .form-line
+        .header
+            .title Terminal bell
+        .btn-group(
+            [(ngModel)]='config.store.terminal.bell',
+            (ngModelChange)='config.save()',
+            ngbRadioGroup
+        )
+            label.btn.btn-secondary(ngbButtonLabel)
+                input(
+                    type='radio',
+                    ngbButton,
+                    [value]='"off"'
+                )
+                | Off
+            label.btn.btn-secondary(ngbButtonLabel)
+                input(
+                    type='radio',
+                    ngbButton,
+                    [value]='"visual"'
+                )
+                | Visual
+            label.btn.btn-secondary(ngbButtonLabel)
+                input(
+                    type='radio',
+                    ngbButton,
+                    [value]='"audible"'
+                )
+                | Audible
+
+    .alert.alert-info.d-flex.align-items-center(*ngIf='config.store.terminal.bell != "audible" && (config.store.terminal.profile || "").startsWith("wsl")')
+        .mr-auto WSL terminal bell can only be muted via Volume Mixer
+        button.btn.btn-secondary((click)='openWSLVolumeMixer()') Show Mixer
+
+div.mt-4
+    h3 Startup
+
+    .form-line(*ngIf='hostApp.platform !== Platform.Web')
+        .header
+            .title Auto-open a terminal on app start
+
+        toggle(
+            [(ngModel)]='config.store.terminal.autoOpen',
+            (ngModelChange)='config.save()',
+        )
+
+    .form-line
+        .header
+            .title Restore terminal tabs on app start
+
+        toggle(
+            [(ngModel)]='config.store.recoverTabs',
+            (ngModelChange)='config.save()',
+        )
+
+div.mt-4(*ngIf='hostApp.platform === Platform.Windows')
+    h3 Windows
+
+    .form-line
+        .header
+            .title Set Tabby as %COMSPEC%
+            .description Allows opening .bat files in tabs, but breaks some shells
+        toggle(
+            [(ngModel)]='config.store.terminal.setComSpec',
+            (ngModelChange)='config.save()',
+        )

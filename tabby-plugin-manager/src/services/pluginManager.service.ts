@@ -3,13 +3,10 @@ import { compare as semverCompare } from 'semver'
 import { Observable, from, forkJoin, map } from 'rxjs'
 import { Injectable, Inject } from '@angular/core'
 import { Logger, LogService, PlatformService, BOOTSTRAP_DATA, BootstrapData, PluginInfo } from 'tabby-core'
+import { PLUGIN_BLACKLIST } from '../../../app/src/pluginBlacklist'
 
 const OFFICIAL_NPM_ACCOUNT = 'eugenepankov'
 
-const BLACKLIST = [
-    'terminus-shell-selector', // superseded by profiles
-    'terminus-scrollbar', // now useless
-]
 
 @Injectable({ providedIn: 'root' })
 export class PluginManagerService {
@@ -69,7 +66,7 @@ export class PluginManagerService {
                 }))
             ),
             map(plugins => plugins.filter(x => x.packageName.startsWith(namePrefix))),
-            map(plugins => plugins.filter(x => !BLACKLIST.includes(x.packageName))),
+            map(plugins => plugins.filter(x => !PLUGIN_BLACKLIST.includes(x.packageName))),
             map(plugins => {
                 const mapping: Record<string, PluginInfo[]> = {}
                 for (const p of plugins) {

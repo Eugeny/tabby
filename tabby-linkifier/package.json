@@ -1,0 +1,22 @@
+{
+  "name": "tabby-linkifier",
+  "version": "1.0.165-nightly.0",
+  "description": "Makes URLs, IPs and file paths clickable in Tabby",
+  "keywords": [
+    "tabby-builtin-plugin"
+  ],
+  "main": "dist/index.js",
+  "typings": "typings/index.d.ts",
+  "scripts": {
+    "build": "webpack --progress --color --display-modules",
+    "watch": "webpack --progress --color --watch"
+  },
+  "files": [
+    "typings"
+  ],
+  "author": "Eugene Pankov",
+  "license": "MIT",
+  "devDependencies": {
+    "untildify": "^4.0.0"
+  }
+}

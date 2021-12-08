@@ -1,7 +1,13 @@
-Tabby Core Plugin
---------------------
+# Tabby Core Plugin
 
-See also: [Settings plugin API](./settings/), [Terminal plugin API](./terminal/), [Local terminal API](./local/)
+See also:
+
+* [Settings plugin API](./settings/)
+* [Terminal plugin API](./terminal/)
+* [Local terminal API](./local/)
+* [Linkifier plugin API](./linkifier/)
+
+This module provides:
 
 * tabbed interface services
 * toolbar UI

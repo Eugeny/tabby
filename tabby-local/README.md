@@ -1,5 +1,4 @@
-Tabby Local Plugin
----------------------
+# Tabby Local Plugin
 
 * local shells
 

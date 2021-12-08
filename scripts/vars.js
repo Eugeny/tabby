@@ -25,6 +25,14 @@ exports.builtinPlugins = [
     'tabby-electron',
     'tabby-local',
     'tabby-plugin-manager',
+    'tabby-linkifier',
+]
+
+exports.packagesWithDocs = [
+    ['.', 'tabby-core'],
+    ['terminal', 'tabby-terminal'],
+    ['local', 'tabby-local'],
+    ['settings', 'tabby-settings'],
 ]
 
 exports.allPackages = [

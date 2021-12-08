@@ -2,6 +2,7 @@ import * as fs from 'mz/fs'
 import * as path from 'path'
 import * as remote from '@electron/remote'
 import { PluginInfo } from '../../tabby-core/src/api/mainProcess'
+import { PLUGIN_BLACKLIST } from './pluginBlacklist'
 
 const nodeModule = require('module') // eslint-disable-line @typescript-eslint/no-var-requires
 
@@ -109,7 +110,7 @@ export async function findPlugins (): Promise<PluginInfo[]> {
             })
         }
         for (const packageName of pluginNames) {
-            if (packageName.startsWith(PREFIX) || packageName.startsWith(LEGACY_PREFIX)) {
+            if ((packageName.startsWith(PREFIX) || packageName.startsWith(LEGACY_PREFIX)) && !PLUGIN_BLACKLIST.includes(packageName)) {
                 candidateLocations.push({ pluginDir, packageName })
             }
         }

@@ -1,5 +1,4 @@
-Tabby Settings Plugin
-------------------------
+# Tabby Settings Plugin
 
 * tabbed settings interface
 
