@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-extraneous-class */
 import { NgModule } from '@angular/core'
 import { ToastrModule } from 'ngx-toastr'
 import { ConfigProvider } from 'tabby-core'

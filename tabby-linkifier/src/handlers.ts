@@ -19,7 +19,7 @@ export class URLHandler extends LinkHandler {
         super()
     }
 
-    handle (uri: string) {
+    handle (uri: string): void {
         this.platform.openExternal(uri)
     }
 }
@@ -34,7 +34,7 @@ export class IPHandler extends LinkHandler {
         super()
     }
 
-    handle (uri: string) {
+    handle (uri: string): void {
         this.platform.openExternal(`http://${uri}`)
     }
 }
@@ -47,9 +47,9 @@ export class BaseFileHandler extends LinkHandler {
         super()
     }
 
-    async handle (uri: string) {
+    async handle (uri: string): Promise<void> {
         try {
-            await this.platform.openExternal('file://' + uri)
+            this.platform.openExternal('file://' + uri)
         } catch (err) {
             this.toastr.error(err.toString())
         }

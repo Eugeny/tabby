@@ -6,7 +6,7 @@ export class X11Socket {
     private socket: Socket | null = null
 
     static resolveDisplaySpec (spec?: string|null): SocketConnectOpts {
-        // eslint-disable-next-line prefer-const
+        // eslint-disable-next-line prefer-const, @typescript-eslint/no-unused-vars
         let [_, xHost, xDisplay] = /^(.+):(\d+)(?:.(\d+))$/.exec(spec ?? process.env.DISPLAY ?? 'localhost:0') ?? []
         if (process.platform === 'win32') {
             xHost ??= 'localhost'

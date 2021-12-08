@@ -20,7 +20,7 @@ export class LinkHighlighterDecorator extends TerminalDecorator {
             return
         }
 
-        for (let handler of this.handlers) {
+        for (const handler of this.handlers) {
             const getLink = async uri => handler.convert(uri, tab)
             const openLink = async uri => handler.handle(await getLink(uri), tab)
 
