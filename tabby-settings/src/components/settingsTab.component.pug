@@ -58,6 +58,12 @@
                                         div What's new
                                         small.text-muted Show release notes
 
+                                button.list-group-item.list-group-item-action.link-card((click)='homeBase.openTwitter()')
+                                    i.fab.fa-fw.fa-twitter
+                                    div
+                                        div Subscribe to updates
+                                        small.text-muted Tabby news and updates on Twitter
+
 
                     h3 Application settings
                     .form-line(*ngIf='platform.isShellIntegrationSupported()')
