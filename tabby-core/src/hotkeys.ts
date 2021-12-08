@@ -209,6 +209,6 @@ export class AppHotkeyProvider extends HotkeyProvider {
     }
 
     static getProfileHotkeyName (profile: PartialProfile<Profile>): string {
-        return profile.id!.replace(/\./g, '-')
+        return (profile.id ?? profile.name).replace(/\./g, '-')
     }
 }
