@@ -306,6 +306,7 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
     async ngAfterViewInit (): Promise<void> {
         if (this._recoveredState) {
             await this.recoverContainer(this.root, this._recoveredState, this._recoveredState.duplicate)
+            this.updateTitle()
             this.layout()
             setTimeout(() => {
                 if (this.hasFocus) {

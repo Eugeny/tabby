@@ -102,13 +102,6 @@ export class AppService {
         })
 
         hostWindow.windowFocused$.subscribe(() => this._activeTab?.emitFocused())
-
-        this.tabClosed$.subscribe(async tab => {
-            const token = await tabRecovery.getFullRecoveryToken(tab)
-            if (token) {
-                this.closedTabsStack.push(token)
-            }
-        })
     }
 
     addTabRaw (tab: BaseTabComponent, index: number|null = null): void {
@@ -316,6 +309,10 @@ export class AppService {
         }
         if (checkCanClose && !await tab.canClose()) {
             return
+        }
+        const token = await this.tabRecovery.getFullRecoveryToken(tab)
+        if (token) {
+            this.closedTabsStack.push(token)
         }
         tab.destroy()
     }

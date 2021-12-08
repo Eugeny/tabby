@@ -295,18 +295,16 @@ export class Session extends BaseSession {
         } else {
             await new Promise<void>((resolve) => {
                 this.kill('SIGTERM')
-                setImmediate(() => {
+                setTimeout(() => {
                     try {
                         process.kill(this.pty!.getPID(), 0)
                         // still alive
-                        setTimeout(() => {
-                            this.kill('SIGKILL')
-                            resolve()
-                        }, 1000)
+                        this.kill('SIGKILL')
+                        resolve()
                     } catch {
                         resolve()
                     }
-                })
+                }, 500)
             })
         }
     }
