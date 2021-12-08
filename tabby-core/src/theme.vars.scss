@@ -78,11 +78,11 @@ $link-color: $gray-400;
 $link-hover-color: $white;
 $link-hover-decoration: none;
 
-$component-active-color: $white;
-$component-active-bg: #2f3a42;
+$component-active-color: #4fadff;
+$component-active-bg: #0059a559;
 
 $list-group-bg: $table-bg;
-$list-group-border-color: $table-border-color;
+$list-group-border-color: transparent;
 
 $list-group-item-padding-y: 0.8rem;
 $list-group-item-padding-x: 1rem;
@@ -197,3 +197,5 @@ $progress-height: 3px;
 $alert-bg-level: 9;
 $alert-border-level: 5;
 $alert-color-level: -5;
+
+$text-muted: rgba(255, 255, 255, 0.5);

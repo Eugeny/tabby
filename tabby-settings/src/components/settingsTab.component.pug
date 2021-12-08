@@ -6,45 +6,60 @@
                 | Application
             ng-template(ngbNavContent)
                 .content-box
-                    .tabby-logo.mt-3
-                    h1.tabby-title Tabby
-                        sup α
+                    .row
+                        .col-12.col-md-6
+                            .logo-area
+                                .tabby-logo.mt-3
 
-                    .text-center
-                        .text-muted {{homeBase.appVersion}}
+                                h1.tabby-title Tabby
+                                    sup α
+                                .text-muted {{homeBase.appVersion}}
 
-                        .mb-5.mt-3
-                            button.btn.btn-secondary.mr-3.mb-2((click)='homeBase.openGitHub()')
-                                i.fab.fa-github
-                                span GitHub
-
-                            button.btn.btn-secondary.mr-3.mb-2((click)='homeBase.reportBug()')
-                                i.fas.fa-bug
-                                span Report a problem
-
-                            button.btn.btn-secondary.mr-3.mb-2(
-                                (click)='showReleaseNotes()',
-                            )
-                                i.fas.fa-book
-                                span What's new
-
-                            button.btn.btn-secondary.mr-3.mb-2(
-                                *ngIf='!updateAvailable && hostApp.platform !== Platform.Web',
-                                (click)='checkForUpdates()',
-                                [disabled]='checkingForUpdate'
-                            )
-                                i.fas.fa-sync(
-                                    [class.fa-spin]='checkingForUpdate'
+                                button.btn.btn-secondary.mt-3.mb-2(
+                                    *ngIf='!updateAvailable && hostApp.platform !== Platform.Web',
+                                    (click)='checkForUpdates()',
+                                    [disabled]='checkingForUpdate'
                                 )
-                                span Check for updates
+                                    i.fas.fa-sync(
+                                        [class.fa-spin]='checkingForUpdate'
+                                    )
+                                    span Check for updates
 
-                            button.btn.btn-info.mr-3.mb-2(
-                                *ngIf='updateAvailable',
-                                (click)='updater.update()',
-                            )
-                                i.fas.fa-sync
-                                span Update
+                                button.btn.btn-info.mt-3.mb-2(
+                                    *ngIf='updateAvailable',
+                                    (click)='updater.update()',
+                                )
+                                    i.fas.fa-sync
+                                    span Update
 
+                        .col-12.col-md-6
+                            .list-group.list-group-light.mb-5
+                                button.list-group-item.list-group-item-action.link-card((click)='homeBase.reportBug()')
+                                    i.fas.fa-fw.fa-bug
+                                    div
+                                        div Report a problem
+                                        small.text-muted Generate a pre-filled GitHub issue
+
+                                button.list-group-item.list-group-item-action.link-card((click)='homeBase.openDiscussions()')
+                                    i.fas.fa-fw.fa-comments
+                                    div
+                                        div Ask a question
+                                        small.text-muted On GitHub Discussions
+
+                                button.list-group-item.list-group-item-action.link-card((click)='homeBase.openGitHub()')
+                                    i.fab.fa-fw.fa-github
+                                    div
+                                        div GitHub
+                                        small.text-muted Source code
+
+                                button.list-group-item.list-group-item-action.link-card((click)='showReleaseNotes()')
+                                    i.fas.fa-fw.fa-book
+                                    div
+                                        div What's new
+                                        small.text-muted Show release notes
+
+
+                    h3 Application settings
                     .form-line(*ngIf='platform.isShellIntegrationSupported()')
                         .header
                             .title Shell integration

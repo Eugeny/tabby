@@ -3,7 +3,7 @@ div
     h1.tabby-title Tabby
         sup α
 
-    .list-group.list-group-light.mb-4
+    .list-group.mb-4
         a.list-group-item.list-group-item-action.d-flex(
             *ngFor='let button of getButtons(); trackBy: buttonsTrackBy',
             (click)='button.click()',

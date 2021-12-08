@@ -223,7 +223,7 @@ hotkey-input-modal {
 }
 
 .list-group-item {
-    transition: 0.0625s background;
+    // transition: 0.0625s background ease;
 
     i + * {
         margin-left: 10px;
@@ -232,7 +232,7 @@ hotkey-input-modal {
 
 .list-group.list-group-flush .list-group-item {
     background: transparent;
-    border-color: rgba(0, 0, 0, 0.2);
+    border: none;
 
     &:not(:last-child) {
         border-bottom: none;
@@ -247,11 +247,16 @@ hotkey-input-modal {
 
 .list-group-light {
     .list-group-item {
-        border: none;
+        border: none !important;
+        outline: none !important;
+        background: transparent;
+        border-radius: $border-radius;
+        margin: 0 !important;
 
         &.list-group-item-action {
             &:hover, &.active {
-                background: $list-group-hover-bg;
+                background: $component-active-bg;
+                color: $component-active-color;
             }
         }
     }

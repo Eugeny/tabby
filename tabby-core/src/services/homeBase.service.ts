@@ -27,6 +27,10 @@ export class HomeBaseService {
         this.platform.openExternal('https://github.com/Eugeny/tabby')
     }
 
+    openDiscussions (): void {
+        this.platform.openExternal('https://github.com/Eugeny/tabby/discussions')
+    }
+
     reportBug (): void {
         let body = `Version: ${this.appVersion}\n`
         body += `Platform: ${this.hostApp.platform} ${process.arch} ${this.platform.getOSRelease()}\n`

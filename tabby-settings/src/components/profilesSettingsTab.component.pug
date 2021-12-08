@@ -32,7 +32,7 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
                     i.fas.fa-fw.fa-plus
                     | New profile
 
-            .list-group.list-group-light.mt-3.mb-3
+            .list-group.mt-3.mb-3
                 ng-container(*ngFor='let group of profileGroups')
                     ng-container(*ngIf='isGroupVisible(group)')
                         .list-group-item.list-group-item-action.d-flex.align-items-center(
@@ -118,7 +118,7 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
                     .title Default profile settings
                     .description These apply to all profiles of a given type
 
-            .list-group.list-group-light.mt-3.mb-3
+            .list-group.mt-3.mb-3
                 a.list-group-item.list-group-item-action(
                     (click)='editDefaults(provider)',
                     *ngFor='let provider of profileProviders'
