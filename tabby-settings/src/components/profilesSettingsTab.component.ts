@@ -211,7 +211,7 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
     }
 
     isProfileVisible (profile: PartialProfile<Profile>): boolean {
-        return !this.filter || profile.name.toLowerCase().includes(this.filter.toLowerCase())
+        return !this.filter || (profile.name + '$' + (this.getDescription(profile) ?? '')).toLowerCase().includes(this.filter.toLowerCase())
     }
 
     iconIsSVG (icon?: string): boolean {
