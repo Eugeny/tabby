@@ -257,6 +257,11 @@ jobs:
       with:
         node-version: 16
 
+    - name: Update node-gyp
+      run: |
+        npm install --global node-gyp@8.4.1
+        for /f "delims=" %P in ('npm prefix -g') do npm config set node_gyp "%P\node_modules\node-gyp\bin\node-gyp.js"
+
     - name: Build
       shell: powershell
       run: |
