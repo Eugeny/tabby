@@ -1958,9 +1958,9 @@ compare-version@^0.1.2:
   integrity sha1-AWLsLZNR9d3VmpICy6k1NmpyUIA=
 
 compare-versions@^4:
-  version "4.1.1"
-  resolved "https://registry.yarnpkg.com/compare-versions/-/compare-versions-4.1.1.tgz#d881fc9f47d6eb2b8f63109dc5e82dae39c3680c"
-  integrity sha512-jHQA7zMUpbO+FhPz/kADChZVSk3edtD7c3WkEAjleBtwgAl0ji6wGrYxryaBhViGgq0A+Pb6JPhjhg9jpth4mQ==
+  version "4.1.2"
+  resolved "https://registry.yarnpkg.com/compare-versions/-/compare-versions-4.1.2.tgz#a7b1678c897000d03a70a0e01efee43e7b04dda7"
+  integrity sha512-LAfbAbAgjnIwPsr2fvJLfrSyqAhK5nj/ffIg7a5aigry9RXJfNzVnOu0Egw8Z+G8LMDu1Qig2q48bpBzjyjZoQ==
 
 concat-map@0.0.1:
   version "0.0.1"
