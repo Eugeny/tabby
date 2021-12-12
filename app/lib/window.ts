@@ -42,6 +42,7 @@ export class Window {
     private disableVibrancyWhileDragging = false
     private configStore: any
     private touchBarControl: any
+    private isFluentVibrancy = false
 
     get visible$ (): Observable<boolean> { return this.visible }
     get closed$ (): Observable<void> { return this.closed }
@@ -165,6 +166,7 @@ export class Window {
                 this.window.blurType = enabled ? type === 'fluent' ? 'acrylic' : 'blurbehind' : null
                 try {
                     this.window.setBlur(enabled)
+                    this.isFluentVibrancy = enabled && type === 'fluent'
                 } catch (error) {
                     console.error('Failed to set window blur', error)
                 }
@@ -385,7 +387,7 @@ export class Window {
 
         let moveEndedTimeout: any = null
         const onBoundsChange = () => {
-            if (!this.lastVibrancy?.enabled || !this.disableVibrancyWhileDragging) {
+            if (!this.lastVibrancy?.enabled || !this.disableVibrancyWhileDragging || !this.isFluentVibrancy) {
                 return
             }
             this.setVibrancy(false, undefined, false)
