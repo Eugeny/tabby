@@ -103,7 +103,7 @@
   dependencies:
     nan "^2.14.0"
 
-"@tabby-gang/windows-blurbehind@^1.0.1":
+"@tabby-gang/windows-blurbehind@^3.0.0":
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/@tabby-gang/windows-blurbehind/-/windows-blurbehind-3.0.0.tgz#48d409c2eb14a12c867b70de5ee4d6769ef45e8f"
   integrity sha512-ah6eJcoQZWOZfu9sd2pWlOJmfl1v+2EZQMeIp7MWvg+/16WS16UFNdnOtlV6AUiABHfZo2QKfCNUEuorCM+Q2A==
