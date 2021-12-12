@@ -30,6 +30,7 @@ export class SerialProfilesService extends ProfileProvider<SerialProfile> {
             inputNewlines: null,
             outputNewlines: null,
             scripts: [],
+            slowSend: false,
         },
     }
 

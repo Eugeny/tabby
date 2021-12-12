@@ -20,6 +20,7 @@ export interface SerialProfileOptions extends StreamProcessingOptions, LoginScri
     xon?: boolean
     xoff?: boolean
     xany?: boolean
+    slowSend?: boolean
 }
 
 export const BAUD_RATES = [
@@ -123,7 +124,13 @@ export class SerialSession extends BaseSession {
     }
 
     write (data: Buffer): void {
-        this.streamProcessor.feedFromTerminal(data)
+        if (!this.profile.options.slowSend) {
+            this.streamProcessor.feedFromTerminal(data)
+        } else {
+            for (const byte of data) {
+                this.streamProcessor.feedFromTerminal(Buffer.from([byte]))
+            }
+        }
     }
 
     async destroy (): Promise<void> {

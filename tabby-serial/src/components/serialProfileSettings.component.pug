@@ -77,6 +77,12 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
                     .title Xany
                 toggle([(ngModel)]='profile.options.xany')
 
+            .form-line
+                .header
+                    .title Slow feed
+                    .description Sends data one byte at a time
+                toggle([(ngModel)]='profile.options.slowFeed')
+
     li(ngbNavItem)
         a(ngbNavLink) Login scripts
         ng-template(ngbNavContent)
