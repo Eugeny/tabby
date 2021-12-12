@@ -25,7 +25,7 @@ export function parseArgs (argv: string[], cwd: string): any {
                 type: 'string',
             })
         })
-        .version('version', '', app.getVersion())
+        .version(app.getVersion())
         .option('debug', {
             alias: 'd',
             describe: 'Show DevTools on start',
