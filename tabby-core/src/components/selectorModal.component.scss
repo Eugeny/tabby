@@ -7,12 +7,17 @@
     overflow: auto;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
-    padding: 0 15px;
+    padding: 10px 15px;
 }
 
 .group-header {
     padding: 0 1rem;
-    margin: 20px 0 10px;
+    margin: 15px 0 10px;
+    font-weight: bold;
+
+    &:first-child {
+        margin-top: 5px;
+    }
 }
 
 .icon {

@@ -24,9 +24,9 @@ ul.nav-tabs.mb-2(ngbNav, #nav='ngbNav')
                     placeholder='Search plugins'
                 )
 
-            ngb-accordion.mb-4(*ngIf='availablePlugins$', type='dark', [closeOthers]='true')
+            ngb-accordion.mb-4(*ngIf='availablePlugins$', [closeOthers]='true')
                 ng-container(*ngFor='let plugin of (availablePlugins$|async)')
-                    ngb-panel(*ngIf='!isAlreadyInstalled(plugin)', cardClass='bg-dark')
+                    ngb-panel(*ngIf='!isAlreadyInstalled(plugin)')
                         ng-template(ngbPanelTitle)
                             .text-left
                                 strong.d-block {{plugin.name}}
@@ -57,9 +57,9 @@ ul.nav-tabs.mb-2(ngbNav, #nav='ngbNav')
     li(ngbNavItem)
         a(ngbNavLink) Installed
         ng-template(ngbNavContent)
-            ngb-accordion.mb-4(type='dark', [closeOthers]='true')
+            ngb-accordion.mb-4([closeOthers]='true')
                 ng-container(*ngFor='let plugin of pluginManager.installedPlugins')
-                    ngb-panel(cardClass='bg-dark')
+                    ngb-panel
                         ng-template(ngbPanelTitle)
                             .text-left.mr-auto
                                 div

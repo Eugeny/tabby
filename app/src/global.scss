@@ -2,6 +2,7 @@ body {
     min-height: 100vh;
     overflow: hidden;
     background: #1D272D;
+    -webkit-font-smoothing: antialiased;
 }
 
 .modal-dialog, .modal-backdrop, .no-drag {
