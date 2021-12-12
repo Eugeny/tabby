@@ -3,6 +3,7 @@ import * as glasstron from 'glasstron'
 import { Subject, Observable, debounceTime } from 'rxjs'
 import { BrowserWindow, app, ipcMain, Rectangle, Menu, screen, BrowserWindowConstructorOptions, TouchBar, nativeImage } from 'electron'
 import ElectronConfig = require('electron-config')
+import { enable as enableRemote } from '@electron/remote/main'
 import * as os from 'os'
 import * as path from 'path'
 import macOSRelease from 'macos-release'
@@ -65,7 +66,6 @@ export class Window {
                 nodeIntegration: true,
                 preload: path.join(__dirname, 'sentry.js'),
                 backgroundThrottling: false,
-                enableRemoteModule: true,
                 contextIsolation: false,
             },
             maximizable: true,
@@ -125,6 +125,8 @@ export class Window {
                 this.hide()
             }
         })
+
+        enableRemote(this.window.webContents)
 
         this.window.loadURL(`file://${app.getAppPath()}/dist/index.html`, { extraHeaders: 'pragma: no-cache\n' })
 
