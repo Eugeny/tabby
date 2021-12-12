@@ -35,11 +35,6 @@ export function parseArgs (argv: string[], cwd: string): any {
             describe: 'Start minimized',
             type: 'boolean',
         })
-        .option('version', {
-            alias: 'v',
-            describe: 'Show version and exit',
-            type: 'boolean',
-        })
         .help('help')
         .parse()
 }
