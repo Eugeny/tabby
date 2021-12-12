@@ -148,7 +148,7 @@ export class PTYManager {
         })
 
         ipcMain.on('pty:exists', (event, id) => {
-            event.returnValue = !this.ptys[id]?.exited
+            event.returnValue = this.ptys[id] && !this.ptys[id].exited
         })
 
         ipcMain.on('pty:get-pid', (event, id) => {
