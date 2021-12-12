@@ -12,7 +12,7 @@ appearance:
   frame: thin
   css: '/* * { color: blue !important; } */'
   opacity: 1.0
-  vibrancy: true
+  vibrancy: false
   vibrancyType: 'blur'
 terminal:
   showBuiltinProfiles: true
