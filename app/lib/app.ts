@@ -82,7 +82,6 @@ export class Application {
         app.commandLine.appendSwitch('disable-http-cache')
         app.commandLine.appendSwitch('max-active-webgl-contexts', '9000')
         app.commandLine.appendSwitch('lang', 'EN')
-        app.allowRendererProcessReuse = false
 
         for (const flag of configData.flags || [['force_discrete_gpu', '0']]) {
             app.commandLine.appendSwitch(flag[0], flag[1])

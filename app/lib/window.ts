@@ -14,7 +14,7 @@ import { loadConfig } from './config'
 
 let DwmEnableBlurBehindWindow: any = null
 if (process.platform === 'win32') {
-    DwmEnableBlurBehindWindow = require('windows-blurbehind').DwmEnableBlurBehindWindow
+    DwmEnableBlurBehindWindow = require('@tabby-gang/windows-blurbehind').DwmEnableBlurBehindWindow
 }
 
 export interface WindowOptions {
