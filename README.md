@@ -19,10 +19,12 @@
 * [Repositories](https://packagecloud.io/eugeny/tabby): [Debian/Ubuntu-based](https://packagecloud.io/eugeny/tabby/install#bash-deb), [RPM-based](https://packagecloud.io/eugeny/tabby/install#bash-rpm)
 * [Latest nightly build](https://nightly.link/Eugeny/tabby/workflows/build/master)
 
-<br/>
-<p align="center">
-This README is also available in: <a href="./README.ko-KR.md">Korean</a>
-</p>
+### This README is also available in:
+
+
+[English](README.md) | [简体中文](./README.zh-CN.md) |[繁體中文](./README.zh-TW.md) | [Korean](./README.ko-KR.md)| [Français](./README.fr.md) | [اللغة العربية](./README.ar.md) | [हिंदी](./README.hi.md) 
+
+
 
 ----
 
