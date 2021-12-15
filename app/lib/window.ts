@@ -32,6 +32,7 @@ const activityIcon = nativeImage.createFromPath(`${app.getAppPath()}/assets/acti
 
 export class Window {
     ready: Promise<void>
+    isMainWindow = false
     private visible = new Subject<boolean>()
     private closed = new Subject<void>()
     private window?: GlasstronWindow
@@ -157,6 +158,11 @@ export class Window {
         })
     }
 
+    makeMain () {
+        this.isMainWindow = true
+        this.window.webContents.send('host:became-main-window')
+    }
+
     setVibrancy (enabled: boolean, type?: string, userRequested?: boolean): void {
         if (userRequested ?? true) {
             this.lastVibrancy = { enabled, type }
@@ -181,11 +187,6 @@ export class Window {
         }
     }
 
-    show (): void {
-        this.window.show()
-        this.window.moveTop()
-    }
-
     focus (): void {
         this.window.focus()
     }
@@ -197,6 +198,7 @@ export class Window {
         this.window.webContents.send(event, ...args)
         if (event === 'host:config-change') {
             this.configStore = args[0]
+            this.enableDockedWindowStyles(this.isDockedOnTop())
         }
     }
 
@@ -212,43 +214,51 @@ export class Window {
         return this.window.isVisible()
     }
 
-    hide (): void {
+    isDockedOnTop (): boolean {
+        return this.isMainWindow && this.configStore.appearance?.dock && this.configStore.appearance?.dock !== 'off' && (this.configStore.appearance?.dockAlwaysOnTop ?? true)
+    }
+
+    async hide (): Promise<void> {
         if (process.platform === 'darwin') {
             // Lose focus
             Menu.sendActionToFirstResponder('hide:')
-        }
-        this.window.blur()
-        if (process.platform !== 'darwin') {
-            this.window.hide()
-        }
-    }
-
-    present (): void {
-        if (!this.window.isVisible()) {
-            // unfocused, invisible
-            this.window.show()
-            this.window.focus()
-        } else {
-            if (!this.configStore.appearance?.dock || this.configStore.appearance?.dock === 'off') {
-                // not docked, visible
-                setTimeout(() => {
-                    this.window.show()
-                    this.window.focus()
-                })
-            } else {
-                if (this.configStore.appearance?.dockAlwaysOnTop) {
-                    // docked, visible, on top
-                    this.window.hide()
-                } else {
-                    // docked, visible, not on top
-                    this.window.focus()
-                }
+            if (this.isDockedOnTop()) {
+                await this.enableDockedWindowStyles(false)
             }
         }
+        this.window.blur()
+        this.window.hide()
+    }
+
+    async show (): Promise<void> {
+        await this.enableDockedWindowStyles(this.isDockedOnTop())
+        this.window.show()
+        this.window.focus()
+    }
+
+    async present (): Promise<void> {
+        await this.show()
+        this.window.moveTop()
     }
 
     passCliArguments (argv: string[], cwd: string, secondInstance: boolean): void {
         this.send('cli', parseArgs(argv, cwd), cwd, secondInstance)
+    }
+
+    private async enableDockedWindowStyles (enabled: boolean) {
+        if (process.platform === 'darwin') {
+            if (enabled) {
+                app.dock.hide()
+                this.window.setAlwaysOnTop(true, 'screen-saver', 1)
+                this.window.setVisibleOnAllWorkspaces(true, { visibleOnFullScreen: true })
+                this.window.setFullScreenable(false)
+            } else {
+                await app.dock.show()
+                this.window.setAlwaysOnTop(false)
+                this.window.setVisibleOnAllWorkspaces(false)
+                this.window.setFullScreenable(true)
+            }
+        }
     }
 
     private setupWindowManagement () {
@@ -312,7 +322,7 @@ export class Window {
                 config: this.configStore,
                 executable: app.getPath('exe'),
                 windowID: this.window.id,
-                isFirstWindow: this.window.id === 1,
+                isMainWindow: this.isMainWindow,
                 userPluginsPath: this.application.userPluginsPath,
             })
         })
@@ -359,8 +369,7 @@ export class Window {
             if (this.window.isMinimized()) {
                 this.window.restore()
             }
-            this.window.show()
-            this.window.moveTop()
+            this.present()
         })
 
         ipcMain.on('window-close', event => {

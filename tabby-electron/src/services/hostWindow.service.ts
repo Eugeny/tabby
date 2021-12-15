@@ -43,6 +43,10 @@ export class ElectronHostWindow extends HostWindowService {
         electron.ipcRenderer.on('host:window-focused', () => zone.run(() => {
             this.windowFocused.next()
         }))
+
+        electron.ipcRenderer.on('host:became-main-window', () => zone.run(() => {
+            this.bootstrapData.isMainWindow = true
+        }))
     }
 
     getWindow (): BrowserWindow {

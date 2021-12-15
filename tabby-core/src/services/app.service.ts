@@ -89,7 +89,7 @@ export class AppService {
         }, 30000)
 
         config.ready$.toPromise().then(async () => {
-            if (this.bootstrapData.isFirstWindow) {
+            if (this.bootstrapData.isMainWindow) {
                 if (config.store.recoverTabs) {
                     const tabs = await this.tabRecovery.recoverTabs()
                     for (const tab of tabs) {
@@ -115,7 +115,7 @@ export class AppService {
         this.tabsChanged.next()
         this.tabOpened.next(tab)
 
-        if (this.bootstrapData.isFirstWindow) {
+        if (this.bootstrapData.isMainWindow) {
             tab.recoveryStateChangedHint$.subscribe(() => {
                 this.tabRecovery.saveTabs(this.tabs)
             })

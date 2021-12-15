@@ -16,7 +16,7 @@ export interface PluginInfo {
 export interface BootstrapData {
     config: Record<string, any>
     executable: string
-    isFirstWindow: boolean
+    isMainWindow: boolean
     windowID: number
     installedPlugins: PluginInfo[]
     userPluginsPath: string

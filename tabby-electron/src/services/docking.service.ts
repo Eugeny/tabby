@@ -1,6 +1,6 @@
-import { Injectable, NgZone } from '@angular/core'
+import { Injectable, NgZone, Inject } from '@angular/core'
 import type { Display } from 'electron'
-import { ConfigService, DockingService, Screen, PlatformService } from 'tabby-core'
+import { ConfigService, DockingService, Screen, PlatformService, BootstrapData, BOOTSTRAP_DATA } from 'tabby-core'
 import { ElectronService } from '../services/electron.service'
 import { ElectronHostWindow, Bounds } from './hostWindow.service'
 
@@ -12,6 +12,7 @@ export class ElectronDockingService extends DockingService {
         private zone: NgZone,
         private hostWindow: ElectronHostWindow,
         platform: PlatformService,
+        @Inject(BOOTSTRAP_DATA) private bootstrapData: BootstrapData,
     ) {
         super()
         this.screensChanged$.subscribe(() => this.repositionWindow())
@@ -25,7 +26,7 @@ export class ElectronDockingService extends DockingService {
     dock (): void {
         const dockSide = this.config.store.appearance.dock
 
-        if (dockSide === 'off') {
+        if (dockSide === 'off' || !this.bootstrapData.isMainWindow) {
             this.hostWindow.setAlwaysOnTop(false)
             return
         }
