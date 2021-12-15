@@ -158,7 +158,7 @@ export class Window {
         })
     }
 
-    makeMain () {
+    makeMain (): void {
         this.isMainWindow = true
         this.window.webContents.send('host:became-main-window')
     }
