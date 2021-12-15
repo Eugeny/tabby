@@ -41,7 +41,7 @@ export class ConfigSyncService {
     }
 
     isAvailable (): boolean {
-        return this.config.store.enableExperimentalFeatures && this.hostApp.platform !== Platform.Web
+        return this.hostApp.platform !== Platform.Web
     }
 
     isEnabled (): boolean {
