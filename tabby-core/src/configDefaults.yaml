@@ -36,3 +36,5 @@ vault: null
 encrypted: false
 enableExperimentalFeatures: false
 pluginBlacklist: []
+hacks:
+  disableGPU: false

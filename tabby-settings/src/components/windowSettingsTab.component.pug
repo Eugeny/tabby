@@ -98,6 +98,8 @@ h3.mb-3 Window
             )
             | Full
 
+h3.mt-4 Docking
+
 .form-line(*ngIf='docking')
     .header
         .title Dock the terminal
@@ -211,6 +213,8 @@ h3.mb-3 Window
         (ngModelChange)='saveConfiguration(); ',
     )
 
+h3.mt-4 Tabs
+
 .form-line
     .header
         .title Tabs location
@@ -287,4 +291,16 @@ h3.mb-3 Window
     toggle(
         [(ngModel)]='config.store.terminal.hideCloseButton',
         (ngModelChange)='config.save();',
+    )
+
+h3.mt-4 Hacks
+
+.form-line
+    .header
+        .title Disable GPU acceleration
+        .description Tick this if you're experiencing aliasing, ghosting or other visual issues
+
+    toggle(
+        [(ngModel)]='config.store.hacks.disableGPU',
+        (ngModelChange)='config.save(); config.requestRestart()'
     )
