@@ -1,9 +1,6 @@
 :host {
     display: flex;
-    flex-direction: column;;
-
-    > * {
-    }
+    flex-direction: column;
 
     > .header {
         padding: 5px 15px 0 20px;
