@@ -30,7 +30,7 @@ export class ElectronUpdaterService extends UpdaterService {
         }
 
         this.autoUpdater = electron.remote.require('electron-updater').autoUpdater
-        this.autoUpdater.autoDownload = false
+        this.autoUpdater.autoDownload = true
         this.autoUpdater.autoInstallOnAppQuit = false
 
         this.autoUpdater.on('update-available', () => {
