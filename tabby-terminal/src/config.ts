@@ -153,6 +153,7 @@ export class TerminalConfigProvider extends ConfigProvider {
         [Platform.Linux]: {
             terminal: {
                 font: 'Liberation Mono',
+                pasteOnMiddleClick: false, // handled by OS
             },
             hotkeys: {
                 'ctrl-c': ['Ctrl-C'],
