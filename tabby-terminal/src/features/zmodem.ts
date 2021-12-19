@@ -163,7 +163,7 @@ export class ZModemDecorator extends TerminalDecorator {
         const offer = {
             name: transfer.getName(),
             size: transfer.getSize(),
-            mode: 0o755,
+            mode: transfer.getMode(),
             files_remaining: filesRemaining,
             bytes_remaining: sizeRemaining,
         }
