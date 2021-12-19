@@ -72,3 +72,7 @@
         height: $toolbarHeight;
     }
 }
+
+:host-context(.platform-darwin) .terminal-toolbar {
+    padding-left: 90px;
+}
