@@ -227,9 +227,9 @@ sprintf@0.1.x:
   resolved "https://registry.yarnpkg.com/sprintf/-/sprintf-0.1.5.tgz#8f83e39a9317c1a502cb7db8050e51c679f6edcf"
   integrity sha1-j4PjmpMXwaUCy324BQ5Rxnn27c8=
 
-sshpk@Eugeny/node-sshpk#89ed17dfae425a8b629873c8337e77d26838c04f:
+sshpk@Eugeny/node-sshpk#d92ddb8def1778e876703f90cd6ff2c90900f390:
   version "1.16.1"
-  resolved "https://codeload.github.com/Eugeny/node-sshpk/tar.gz/89ed17dfae425a8b629873c8337e77d26838c04f"
+  resolved "https://codeload.github.com/Eugeny/node-sshpk/tar.gz/d92ddb8def1778e876703f90cd6ff2c90900f390"
   dependencies:
     asn1 "~0.2.3"
     assert-plus "^1.0.0"
