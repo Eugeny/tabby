@@ -13,6 +13,16 @@ div
             option(value='xterm') xterm
             option(value='xterm-webgl') xterm (WebGL)
 
+    .form-line
+        .header
+            .title Scrollback
+            .description Number of lines kept in the buffer
+        input.form-control(
+            type='number',
+            [(ngModel)]='config.store.terminal.scrollbackLines',
+            (ngModelChange)='config.save()',
+        )
+
 div.mt-4
     h3 Keyboard
 
