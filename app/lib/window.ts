@@ -44,6 +44,7 @@ export class Window {
     private configStore: any
     private touchBarControl: any
     private isFluentVibrancy = false
+    private dockHidden = false
 
     get visible$ (): Observable<boolean> { return this.visible }
     get closed$ (): Observable<void> { return this.closed }
@@ -248,15 +249,31 @@ export class Window {
     private async enableDockedWindowStyles (enabled: boolean) {
         if (process.platform === 'darwin') {
             if (enabled) {
-                app.dock.hide()
+                if (!this.dockHidden) {
+                    app.dock.hide()
+                    this.dockHidden = true
+                }
                 this.window.setAlwaysOnTop(true, 'screen-saver', 1)
-                this.window.setVisibleOnAllWorkspaces(true, { visibleOnFullScreen: true })
-                this.window.setFullScreenable(false)
+                if (!this.window.isVisibleOnAllWorkspaces()) {
+                    this.window.setVisibleOnAllWorkspaces(true, { visibleOnFullScreen: true })
+                }
+                if (this.window.fullScreenable) {
+                    this.window.setFullScreenable(false)
+                }
             } else {
-                await app.dock.show()
-                this.window.setAlwaysOnTop(false)
-                this.window.setVisibleOnAllWorkspaces(false)
-                this.window.setFullScreenable(true)
+                if (this.dockHidden) {
+                    await app.dock.show()
+                    this.dockHidden = false
+                }
+                if (this.window.isAlwaysOnTop()) {
+                    this.window.setAlwaysOnTop(false)
+                }
+                if (this.window.isVisibleOnAllWorkspaces()) {
+                    this.window.setVisibleOnAllWorkspaces(false)
+                }
+                if (!this.window.fullScreenable) {
+                    this.window.setFullScreenable(true)
+                }
             }
         }
     }
