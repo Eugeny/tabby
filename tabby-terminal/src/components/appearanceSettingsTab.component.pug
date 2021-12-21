@@ -107,6 +107,16 @@ h3.mb-3 Appearance
             (ngModelChange)='config.save()'
         )
 
+    .form-line
+        .header
+            .title Line padding
+            .description Additional space between lines
+        input.form-control(
+            type='number',
+            [(ngModel)]='config.store.terminal.linePadding',
+            (ngModelChange)='config.save()',
+        )
+
 
     .form-line
         .header
