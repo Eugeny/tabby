@@ -8,6 +8,7 @@ h3.mb-3 Appearance
             .input-group.w-75
                 input.form-control.w-75(
                     type='text',
+                    [showHint]='true',
                     [ngbTypeahead]='fontAutocomplete',
                     [(ngModel)]='config.store.terminal.font',
                     (ngModelChange)='config.save()',
