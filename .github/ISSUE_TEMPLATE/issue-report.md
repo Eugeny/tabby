@@ -11,7 +11,7 @@ assignees: ''
 Before submitting an issue, make sure that:
 * You're running the latest Tabby version: https://github.com/Eugeny/tabby/releases
 * You've searched the existing issues: https://github.com/Eugeny/tabby/issues
-* Your problem is not caused by plugins (disable all plugins, restart and try to reproduce the problem).
+* Your problem is not caused by third-party plugins (disable _third-party_ plugins, restart and try to reproduce the problem).
 
 *Reports are accepted in English ONLY.*
 -->
