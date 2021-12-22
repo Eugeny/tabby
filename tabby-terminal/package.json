@@ -25,13 +25,13 @@
     "hexer": "^1.5.0",
     "ps-node": "^0.1.6",
     "runes": "^0.4.2",
-    "xterm": "npm:@tabby-gang/xterm@^4.15.1-beta.1",
+    "xterm": "npm:@tabby-gang/xterm@^4.16.0",
     "xterm-addon-fit": "^0.5.0",
     "xterm-addon-ligatures": "^0.5.0",
-    "xterm-addon-search": "^0.8.1",
+    "xterm-addon-search": "^0.8.2",
     "xterm-addon-serialize": "^0.6.1",
     "xterm-addon-unicode11": "^0.3.0",
-    "xterm-addon-webgl": "^0.11.3",
+    "xterm-addon-webgl": "^0.11.4",
     "zmodem.js": "^0.1.9"
   },
   "resolutions": {

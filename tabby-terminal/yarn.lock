@@ -164,10 +164,10 @@ xterm-addon-ligatures@^0.5.0:
     font-finder "^1.1.0"
     font-ligatures "^1.4.0"
 
-xterm-addon-search@^0.8.1:
-  version "0.8.1"
-  resolved "https://registry.yarnpkg.com/xterm-addon-search/-/xterm-addon-search-0.8.1.tgz#dfc557e9bcf5fd8ed96292c0d271aa865bc545d5"
-  integrity sha512-OtOaC9gxD2Q4ZnjZrCSRZmKLwwUjXX3gP7mIzq8Rs50317DGRDqgTLuHTYv/Nx/LvI5ceVFRYCxK36Ixs1nXNw==
+xterm-addon-search@^0.8.2:
+  version "0.8.2"
+  resolved "https://registry.yarnpkg.com/xterm-addon-search/-/xterm-addon-search-0.8.2.tgz#be7aa74d5ff12c901707c6ff674229f214318032"
+  integrity sha512-I1863mjn8P6uVrqm/X+btalVsqjAKLhnhpbP7SavAOpEkI1jJhbHU2UTp7NjeRtcKTks6UWk/ycgds5snDSejg==
 
 xterm-addon-serialize@^0.6.1:
   version "0.6.1"
@@ -179,15 +179,15 @@ xterm-addon-unicode11@^0.3.0:
   resolved "https://registry.yarnpkg.com/xterm-addon-unicode11/-/xterm-addon-unicode11-0.3.0.tgz#e4435c3c91a5294a7eb8b79c380acbb28a659463"
   integrity sha512-x5fHDZT2j9tlTlHnzPHt++9uKZ2kJ/lYQOj3L6xJA22xoJsS8UQRw/5YIFg2FUHqEAbV77Z1fZij/9NycMSH/A==
 
-xterm-addon-webgl@^0.11.3:
-  version "0.11.3"
-  resolved "https://registry.yarnpkg.com/xterm-addon-webgl/-/xterm-addon-webgl-0.11.3.tgz#4d13933d8810d146613bbb66d59ea90de561f999"
-  integrity sha512-Lr6VjLYOrgxLNaUNLDdCBehkr1Vaja/laDMTtvghfRusUMRXTlRKlCb7E3yqx4VgCg5KcV96cArmh88KcwSpUg==
+xterm-addon-webgl@^0.11.4:
+  version "0.11.4"
+  resolved "https://registry.yarnpkg.com/xterm-addon-webgl/-/xterm-addon-webgl-0.11.4.tgz#e22f3ec0cafca3d4adcabb89bb7c16efaaf3c8db"
+  integrity sha512-/a/VFeftc+etGXQYWaaks977j1P7/wickBXn15zDxZzXYYMT9RN17ztqyIDVLXg9krtg28+icKK6lvgIYghJ0w==
 
-"xterm@npm:@tabby-gang/xterm@^4.15.1-beta.1":
-  version "4.15.1-beta.1"
-  resolved "https://registry.yarnpkg.com/@tabby-gang/xterm/-/xterm-4.15.1-beta.1.tgz#217a52f4e614cbbe567413e921b221e12a4f31c2"
-  integrity sha512-rn7AfdAQwl4sLvgUVJqJNyZP/0rnrBHjENV/iwgbd6bPfKcpynhjog7fv4Jxmp73itPnLuIs71D2kk9t1Hu0Wg==
+"xterm@npm:@tabby-gang/xterm@^4.16.0":
+  version "4.16.0"
+  resolved "https://registry.yarnpkg.com/@tabby-gang/xterm/-/xterm-4.16.0.tgz#5706adc800aa515d3ae214cba9ceec670500735d"
+  integrity sha512-TeEhVmMtbkLyUIELHhWO39oxvD/KG7ZTLlx/OyDRXAeU6FoZFRATBKa8S70teJkyZ0yDgy8QZlRyx0HdRIIoyA==
 
 yallist@^4.0.0:
   version "4.0.0"
