@@ -73,21 +73,22 @@ export class WindowsStockShellsProvider extends ShellProvider {
     }
 
     private async getPowerShellPath () {
-        const ps = 'powershell.exe'
-
-        if (!await promisify(hasbin)(ps)) {
-            for (const searchPath of [
-                `${process.env.SystemRoot}\\System32\\WindowsPowerShell\\v1.0`,
-                `${process.env.SystemRoot}\\System32`,
-                process.env.SystemRoot ?? 'C:\\Windows',
-            ]) {
-                const newPath = path.join(searchPath, ps)
-                try {
-                    await fs.stat(newPath)
-                    return newPath
-                } catch { }
+        for (const name of ['pwsh.exe', 'powershell.exe']) {
+            if (await promisify(hasbin)(name)) {
+                return name
             }
         }
-        return ps
+        for (const psPath of [
+            `${process.env.USERPROFILE}\\AppData\\Local\\Microsoft\\WindowsApps\\pwsh.exe`,
+            `${process.env.SystemRoot}\\System32\\WindowsPowerShell\\v1.0\\powershell.exe`,
+            `${process.env.SystemRoot}\\System32\\powershell.exe`,
+            (process.env.SystemRoot ?? 'C:\\Windows') + '\\powerhshell.exe',
+        ]) {
+            try {
+                await fs.stat(psPath)
+                return psPath
+            } catch { }
+        }
+        return 'powershell.exe'
     }
 }
