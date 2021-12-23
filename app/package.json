@@ -10,6 +10,7 @@
   "main": "dist/main.js",
   "version": "1.0.0-alpha.1",
   "scripts": {
+    "postinstall": "patch-package",
     "build": "webpack --progress --color --display-modules",
     "watch": "webpack --progress --color --watch"
   },
@@ -44,7 +45,8 @@
   "devDependencies": {
     "@types/mz": "2.7.4",
     "@types/node": "16.0.1",
-    "ngx-filesize": "^2.0.16"
+    "ngx-filesize": "^2.0.16",
+    "patch-package": "^6.4.7"
   },
   "peerDependencies": {
     "tabby-community-color-schemes": "*",

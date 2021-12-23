@@ -1,0 +1,14 @@
+diff --git a/node_modules/@serialport/bindings/src/serialport.cpp b/node_modules/@serialport/bindings/src/serialport.cpp
+index c48e150..00a5f5a 100644
+--- a/node_modules/@serialport/bindings/src/serialport.cpp
++++ b/node_modules/@serialport/bindings/src/serialport.cpp
+@@ -269,7 +269,8 @@ Napi::Value Drain(const Napi::CallbackInfo& info) {
+ }
+
+ inline SerialPortParity ToParityEnum(const Napi::String& napistr) {
+-  const char* str = napistr.Utf8Value().c_str();
++  auto tmp = napistr.Utf8Value();
++  const char* str = tmp.c_str();
+   size_t count = strlen(str);
+   SerialPortParity parity = SERIALPORT_PARITY_NONE;
+   if (!strncasecmp(str, "none", count)) {

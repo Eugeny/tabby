@@ -51,11 +51,15 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
             .form-line
                 .header
                     .title Parity
-                input.form-control(
+                select.form-control(
                     type='text',
-                    [(ngModel)]='profile.options.parity',
-                    placeholder='none'
+                    [(ngModel)]='profile.options.parity'
                 )
+                    option(value='none') None
+                    option(value='even') Even
+                    option(value='odd') Odd
+                    option(value='mark', ng:if='hostApp.platform === Platform.Windows') Mark
+                    option(value='space', ng:if='hostApp.platform === Platform.Windows') Space
 
             .form-line
                 .header
