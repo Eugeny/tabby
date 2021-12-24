@@ -77,6 +77,7 @@ export class SSHShellSession extends BaseSession {
         this.serviceMessage.next(msg)
         this.logger.info(stripAnsi(msg))
     }
+
     resize (columns: number, rows: number): void {
         if (this.shell) {
             this.shell.setWindow(rows, columns, rows, columns)

@@ -169,7 +169,7 @@ export class SSHSession {
     }
 
 
-    async start (interactive = true): Promise<void> {
+    async start (): Promise<void> {
         const log = (s: any) => this.emitServiceMessage(s)
 
         const ssh = new Client()
@@ -305,10 +305,6 @@ export class SSHSession {
         await resultPromise
 
         this.open = true
-
-        if (!interactive) {
-            return
-        }
 
         this.ssh.on('tcp connection', (details, accept, reject) => {
             this.logger.info(`Incoming forwarded connection: (remote) ${details.srcIP}:${details.srcPort} -> (local) ${details.destIP}:${details.destPort}`)

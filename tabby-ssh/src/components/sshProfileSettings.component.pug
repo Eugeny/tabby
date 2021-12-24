@@ -164,6 +164,12 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
 
             .form-line
                 .header
+                    .title Reuse session for multiple tabs
+                    .description Multiplex multiple shells through the same connection
+                toggle([(ngModel)]='profile.options.reuseSession')
+
+            .form-line
+                .header
                     .title Keep Alive Interval (Milliseconds)
                 input.form-control(
                     type='number',

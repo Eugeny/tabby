@@ -9,6 +9,7 @@ import { KeyboardInteractivePrompt, SSHSession } from '../session/ssh'
 import { SSHPortForwardingModalComponent } from './sshPortForwardingModal.component'
 import { SSHProfile } from '../api'
 import { SSHShellSession } from '../session/shell'
+import { SSHMultiplexerService } from '../services/sshMultiplexer.service'
 
 /** @hidden */
 @Component({
@@ -26,7 +27,6 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
     sftpPath = '/'
     enableToolbar = true
     activeKIPrompt: KeyboardInteractivePrompt|null = null
-    private sessionStack: SSHSession[] = []
     private recentInputs = ''
     private reconnectOffered = false
 
@@ -35,6 +35,7 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
         public ssh: SSHService,
         private ngbModal: NgbModal,
         private profilesService: ProfilesService,
+        private sshMultiplexer: SSHMultiplexerService,
     ) {
         super(injector)
         this.sessionChanged$.subscribe(() => {
@@ -82,49 +83,44 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
         super.ngOnInit()
     }
 
-    async setupOneSession (session: SSHSession, interactive: boolean): Promise<void> {
-        if (session.profile.options.jumpHost) {
-            const jumpConnection: PartialProfile<SSHProfile>|null = this.config.store.profiles.find(x => x.id === session.profile.options.jumpHost)
+    async setupOneSession (injector: Injector, profile: SSHProfile): Promise<SSHSession> {
+        let session = this.sshMultiplexer.getSession(profile)
+        if (!session || !profile.options.reuseSession) {
+            session = new SSHSession(injector, profile)
 
-            if (!jumpConnection) {
-                throw new Error(`${session.profile.options.host}: jump host "${session.profile.options.jumpHost}" not found in your config`)
-            }
+            if (profile.options.jumpHost) {
+                const jumpConnection: PartialProfile<SSHProfile>|null = this.config.store.profiles.find(x => x.id === profile.options.jumpHost)
 
-            const jumpSession = new SSHSession(
-                this.injector,
-                this.profilesService.getConfigProxyForProfile(jumpConnection)
-            )
-
-            await this.setupOneSession(jumpSession, false)
-
-            this.attachSessionHandler(jumpSession.willDestroy$, () => {
-                if (session.open) {
-                    session.destroy()
+                if (!jumpConnection) {
+                    throw new Error(`${profile.options.host}: jump host "${profile.options.jumpHost}" not found in your config`)
                 }
-            })
 
-            session.jumpStream = await new Promise((resolve, reject) => jumpSession.ssh.forwardOut(
-                '127.0.0.1', 0, session.profile.options.host, session.profile.options.port ?? 22,
-                (err, stream) => {
-                    if (err) {
-                        jumpSession.emitServiceMessage(colors.bgRed.black(' X ') + ` Could not set up port forward on ${jumpConnection.name}`)
-                        reject(err)
-                        return
+                const jumpSession = await this.setupOneSession(
+                    this.injector,
+                    this.profilesService.getConfigProxyForProfile(jumpConnection)
+                )
+
+                jumpSession.ref()
+                session.willDestroy$.subscribe(() => jumpSession.unref())
+                jumpSession.willDestroy$.subscribe(() => {
+                    if (session?.open) {
+                        session.destroy()
                     }
-                    resolve(stream)
-                }
-            ))
+                })
 
-            session.jumpStream.on('close', () => {
-                jumpSession.destroy()
-            })
-
-            this.sessionStack.push(session)
+                session.jumpStream = await new Promise((resolve, reject) => jumpSession.ssh.forwardOut(
+                    '127.0.0.1', 0, profile.options.host, profile.options.port ?? 22,
+                    (err, stream) => {
+                        if (err) {
+                            jumpSession.emitServiceMessage(colors.bgRed.black(' X ') + ` Could not set up port forward on ${jumpConnection.name}`)
+                            reject(err)
+                            return
+                        }
+                        resolve(stream)
+                    }
+                ))
+            }
         }
-
-        this.write('\r\n' + colors.black.bgWhite(' SSH ') + ` Connecting to ${session.profile.options.host}\r\n`)
-
-        this.startSpinner('Connecting')
 
         this.attachSessionHandler(session.serviceMessage$, msg => {
             this.write(`\r${colors.black.bgWhite(' SSH ')} ${msg}\r\n`)
@@ -141,14 +137,24 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
             })
         })
 
-        try {
-            await session.start(interactive)
-            this.stopSpinner()
-        } catch (e) {
-            this.stopSpinner()
-            this.write(colors.black.bgRed(' X ') + ' ' + colors.red(e.message) + '\r\n')
-            return
+        if (!session.open) {
+            this.write('\r\n' + colors.black.bgWhite(' SSH ') + ` Connecting to ${session.profile.options.host}\r\n`)
+
+            this.startSpinner('Connecting')
+
+            try {
+                await session.start()
+                this.stopSpinner()
+            } catch (e) {
+                this.stopSpinner()
+                this.write(colors.black.bgRed(' X ') + ' ' + colors.red(e.message) + '\r\n')
+                return session
+            }
+
+            this.sshMultiplexer.addSession(session)
         }
+
+        return session
     }
 
     protected attachSessionHandlers (): void {
@@ -185,11 +191,11 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
             return
         }
 
-        this.sshSession = new SSHSession(this.injector, this.profile)
         try {
-            await this.setupOneSession(this.sshSession, true)
+            this.sshSession = await this.setupOneSession(this.injector, this.profile)
         } catch (e) {
             this.write(colors.black.bgRed(' X ') + ' ' + colors.red(e.message) + '\r\n')
+            return
         }
 
         const session = new SSHShellSession(this.injector, this.sshSession)

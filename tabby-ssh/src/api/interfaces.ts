@@ -32,6 +32,7 @@ export interface SSHProfileOptions extends LoginScriptsOptions {
     forwardedPorts?: ForwardedPortConfig[]
     socksProxyHost?: string
     socksProxyPort?: number
+    reuseSession?: boolean
 }
 
 export enum PortForwardType {
