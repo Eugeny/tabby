@@ -30,7 +30,7 @@ export class SFTPContextMenu extends TabContextMenuItemProvider {
             items.push({
                 label: 'Launch WinSCP',
                 click: (): void => {
-                    this.ssh.launchWinSCP(tab.session!)
+                    this.ssh.launchWinSCP(tab.sshSession!)
                 },
             })
         }

@@ -7,8 +7,7 @@ import colors from 'ansi-colors'
 import stripAnsi from 'strip-ansi'
 import { Injector, NgZone } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
-import { ConfigService, FileProvidersService, HostAppService, NotificationsService, Platform, PlatformService, wrapPromise, PromptModalComponent, LogService } from 'tabby-core'
-import { BaseSession } from 'tabby-terminal'
+import { ConfigService, FileProvidersService, HostAppService, NotificationsService, Platform, PlatformService, wrapPromise, PromptModalComponent, LogService, Logger } from 'tabby-core'
 import { Socket } from 'net'
 import { Client, ClientChannel, SFTPWrapper } from 'ssh2'
 import { Subject, Observable } from 'rxjs'
@@ -48,7 +47,7 @@ export class KeyboardInteractivePrompt {
     }
 }
 
-export class SSHSession extends BaseSession {
+export class SSHSession {
     shell?: ClientChannel
     ssh: Client
     sftp?: SFTPWrapper
@@ -59,14 +58,20 @@ export class SSHSession extends BaseSession {
     savedPassword?: string
     get serviceMessage$ (): Observable<string> { return this.serviceMessage }
     get keyboardInteractivePrompt$ (): Observable<KeyboardInteractivePrompt> { return this.keyboardInteractivePrompt }
+    get willDestroy$ (): Observable<void> { return this.willDestroy }
 
     agentPath?: string
     activePrivateKey: string|null = null
     authUsername: string|null = null
 
+    open = false
+
+    private logger: Logger
+    private refCount = 0
     private remainingAuthMethods: AuthMethod[] = []
     private serviceMessage = new Subject<string>()
     private keyboardInteractivePrompt = new Subject<KeyboardInteractivePrompt>()
+    private willDestroy = new Subject<void>()
     private keychainPasswordUsed = false
 
     private passwordStorage: PasswordStorageService
@@ -82,7 +87,7 @@ export class SSHSession extends BaseSession {
         private injector: Injector,
         public profile: SSHProfile,
     ) {
-        super(injector.get(LogService).create(`ssh-${profile.options.host}-${profile.options.port}`))
+        this.logger = injector.get(LogService).create(`ssh-${profile.options.host}-${profile.options.port}`)
 
         this.passwordStorage = injector.get(PasswordStorageService)
         this.ngbModal = injector.get(NgbModal)
@@ -93,13 +98,11 @@ export class SSHSession extends BaseSession {
         this.fileProviders = injector.get(FileProvidersService)
         this.config = injector.get(ConfigService)
 
-        this.destroyed$.subscribe(() => {
+        this.willDestroy$.subscribe(() => {
             for (const port of this.forwardedPorts) {
                 port.stopLocalListener()
             }
         })
-
-        this.setLoginScriptsOptions(profile.options)
     }
 
     async init (): Promise<void> {
@@ -306,39 +309,6 @@ export class SSHSession extends BaseSession {
         if (!interactive) {
             return
         }
-
-        // -----------
-
-        try {
-            this.shell = await this.openShellChannel({ x11: this.profile.options.x11 })
-        } catch (err) {
-            this.emitServiceMessage(colors.bgRed.black(' X ') + ` Remote rejected opening a shell channel: ${err}`)
-            if (err.toString().includes('Unable to request X11')) {
-                this.emitServiceMessage('    Make sure `xauth` is installed on the remote side')
-            }
-            return
-        }
-
-        this.loginScriptProcessor?.executeUnconditionalScripts()
-
-        this.shell.on('greeting', greeting => {
-            this.emitServiceMessage(`Shell greeting: ${greeting}`)
-        })
-
-        this.shell.on('banner', banner => {
-            this.emitServiceMessage(`Shell banner: ${banner}`)
-        })
-
-        this.shell.on('data', data => {
-            this.emitOutput(data)
-        })
-
-        this.shell.on('end', () => {
-            this.logger.info('Shell session ended')
-            if (this.open) {
-                this.destroy()
-            }
-        })
 
         this.ssh.on('tcp connection', (details, accept, reject) => {
             this.logger.info(`Incoming forwarded connection: (remote) ${details.srcIP}:${details.srcPort} -> (local) ${details.destIP}:${details.destPort}`)
@@ -557,49 +527,16 @@ export class SSHSession extends BaseSession {
         this.emitServiceMessage(`Stopped forwarding ${fw}`)
     }
 
-    resize (columns: number, rows: number): void {
-        if (this.shell) {
-            this.shell.setWindow(rows, columns, rows, columns)
-        }
-    }
-
-    write (data: Buffer): void {
-        if (this.shell) {
-            this.shell.write(data)
-        }
-    }
-
-    kill (signal?: string): void {
-        if (this.shell) {
-            this.shell.signal(signal ?? 'TERM')
-        }
-    }
-
     async destroy (): Promise<void> {
+        this.logger.info('Destroying')
+        this.willDestroy.next()
+        this.willDestroy.complete()
         this.serviceMessage.complete()
         this.proxyCommandStream?.destroy()
-        this.kill()
         this.ssh.end()
-        await super.destroy()
     }
 
-    async getChildProcesses (): Promise<any[]> {
-        return []
-    }
-
-    async gracefullyKillProcess (): Promise<void> {
-        this.kill('TERM')
-    }
-
-    supportsWorkingDirectory (): boolean {
-        return !!this.reportedCWD
-    }
-
-    async getWorkingDirectory (): Promise<string|null> {
-        return this.reportedCWD ?? null
-    }
-
-    private openShellChannel (options): Promise<ClientChannel> {
+    openShellChannel (options: { x11: boolean }): Promise<ClientChannel> {
         return new Promise<ClientChannel>((resolve, reject) => {
             this.ssh.shell({ term: 'xterm-256color' }, options, (err, shell) => {
                 if (err) {
@@ -672,6 +609,17 @@ export class SSHSession extends BaseSession {
                     throw e
                 }
             }
+        }
+    }
+
+    ref (): void {
+        this.refCount++
+    }
+
+    unref (): void {
+        this.refCount--
+        if (this.refCount === 0) {
+            this.destroy()
         }
     }
 }

@@ -8,7 +8,7 @@ import { SSHService } from '../services/ssh.service'
 import { KeyboardInteractivePrompt, SSHSession } from '../session/ssh'
 import { SSHPortForwardingModalComponent } from './sshPortForwardingModal.component'
 import { SSHProfile } from '../api'
-
+import { SSHShellSession } from '../session/shell'
 
 /** @hidden */
 @Component({
@@ -20,7 +20,8 @@ import { SSHProfile } from '../api'
 export class SSHTabComponent extends BaseTerminalTabComponent {
     Platform = Platform
     profile?: SSHProfile
-    session: SSHSession|null = null
+    sshSession: SSHSession|null = null
+    session: SSHShellSession|null = null
     sftpPanelVisible = false
     sftpPath = '/'
     enableToolbar = true
@@ -63,8 +64,8 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
                     this.reconnect()
                     break
                 case 'launch-winscp':
-                    if (this.session) {
-                        this.ssh.launchWinSCP(this.session)
+                    if (this.sshSession) {
+                        this.ssh.launchWinSCP(this.sshSession)
                     }
                     break
             }
@@ -96,7 +97,7 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
 
             await this.setupOneSession(jumpSession, false)
 
-            this.attachSessionHandler(jumpSession.destroyed$, () => {
+            this.attachSessionHandler(jumpSession.willDestroy$, () => {
                 if (session.open) {
                     session.destroy()
                 }
@@ -127,10 +128,9 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
 
         this.attachSessionHandler(session.serviceMessage$, msg => {
             this.write(`\r${colors.black.bgWhite(' SSH ')} ${msg}\r\n`)
-            session.resize(this.size.columns, this.size.rows)
         })
 
-        this.attachSessionHandler(session.destroyed$, () => {
+        this.attachSessionHandler(session.willDestroy$, () => {
             this.activeKIPrompt = null
         })
 
@@ -163,7 +163,7 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
                 this.destroy()
             } else if (this.frontend) {
                 // Session was closed abruptly
-                this.write('\r\n' + colors.black.bgWhite(' SSH ') + ` ${session.profile.options.host}: session closed\r\n`)
+                this.write('\r\n' + colors.black.bgWhite(' SSH ') + ` ${this.sshSession?.profile.options.host}: session closed\r\n`)
                 if (!this.reconnectOffered) {
                     this.reconnectOffered = true
                     this.write('Press any key to reconnect\r\n')
@@ -185,16 +185,23 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
             return
         }
 
-        const session = new SSHSession(this.injector, this.profile)
-        this.setSession(session)
-
+        this.sshSession = new SSHSession(this.injector, this.profile)
         try {
-            await this.setupOneSession(session, true)
+            await this.setupOneSession(this.sshSession, true)
         } catch (e) {
             this.write(colors.black.bgRed(' X ') + ' ' + colors.red(e.message) + '\r\n')
         }
 
-        this.session!.resize(this.size.columns, this.size.rows)
+        const session = new SSHShellSession(this.injector, this.sshSession)
+
+        this.attachSessionHandler(session.serviceMessage$, msg => {
+            this.write(`\r${colors.black.bgWhite(' SSH ')} ${msg}\r\n`)
+            session.resize(this.size.columns, this.size.rows)
+        })
+
+        this.setSession(session)
+        await session.start()
+        this.session?.resize(this.size.columns, this.size.rows)
     }
 
     async getRecoveryToken (): Promise<RecoveryToken> {
@@ -207,7 +214,7 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
 
     showPortForwarding (): void {
         const modal = this.ngbModal.open(SSHPortForwardingModalComponent).componentInstance as SSHPortForwardingModalComponent
-        modal.session = this.session!
+        modal.session = this.sshSession!
     }
 
     async reconnect (): Promise<void> {

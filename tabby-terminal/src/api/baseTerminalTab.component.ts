@@ -313,6 +313,9 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
             }, 1000)
 
             this.session?.releaseInitialDataBuffer()
+            this.sessionChanged$.subscribe(() => {
+                this.session?.releaseInitialDataBuffer()
+            })
         })
 
         this.alternateScreenActive$.subscribe(x => {
