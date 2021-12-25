@@ -1,0 +1,44 @@
+!
+! Rosé Pine Dawn
+! https://rosepinetheme.com/
+!
+*.foreground:  #575279
+*.background:  #faf4ed
+*.cursorColor: #9893a5
+!
+! Black
+*.color0:      #f2e9de
+*.color8:      #6e6a86
+!
+! Red
+*.color1:      #b4637a
+*.color9:      #b4637a
+!
+! Green
+*.color2:      #286983
+*.color10:     #286983
+!
+! Yellow
+*.color3:      #ea9d34
+*.color11:     #ea9d34
+!
+! Blue
+*.color4:      #56949f
+*.color12:     #56949f
+!
+! Magenta
+*.color5:      #907aa9
+*.color13:     #907aa9
+!
+! Cyan
+*.color6:      #d7827e
+*.color14:     #d7827e
+!
+! White
+*.color7:      #575279
+*.color15:     #575279
+!
+! Bold, Italic, Underline
+!*.colorBD:
+!*.colorIT:
+!*.colorUL:

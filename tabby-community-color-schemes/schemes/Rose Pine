@@ -1,0 +1,44 @@
+!
+! Rosé Pine
+! https://rosepinetheme.com/
+!
+*.foreground:  #e0def4
+*.background:  #191724
+*.cursorColor: #555169
+!
+! Black
+*.color0:      #26233a
+*.color8:      #6e6a86
+!
+! Red
+*.color1:      #eb6f92
+*.color9:      #eb6f92
+!
+! Green
+*.color2:      #31748f
+*.color10:     #31748f
+!
+! Yellow
+*.color3:      #f6c177
+*.color11:     #f6c177
+!
+! Blue
+*.color4:      #9ccfd8
+*.color12:     #9ccfd8
+
+! Magenta
+*.color5:      #c4a7e7
+*.color13:     #c4a7e7
+!
+! Cyan
+*.color6:      #ebbcba
+*.color14:     #ebbcba
+!
+! White
+*.color7:      #e0def4
+*.color15:     #e0def4
+!
+! Bold, Italic, Underline
+!*.colorBD:
+!*.colorIT:
+!*.colorUL:

@@ -1,0 +1,44 @@
+!
+! Rosé Pine Moon
+! https://rosepinetheme.com/
+!
+*.foreground:  #e0def4
+*.background:  #232136
+*.cursorColor: #59546d
+!
+! Black
+*.color0:      #393552
+*.color8:      #817c9c
+!
+! Red
+*.color1:      #eb6f92
+*.color9:      #eb6f92
+!
+! Green
+*.color2:      #3e8fb0
+*.color10:     #3e8fb0
+!
+! Yellow
+*.color3:      #f6c177
+*.color11:     #f6c177
+!
+! Blue
+*.color4:      #9ccfd8
+*.color12:     #9ccfd8
+!
+! Magenta
+*.color5:      #c4a7e7
+*.color13:     #c4a7e7
+!
+! Cyan
+*.color6:      #ea9a97
+*.color14:     #ea9a97
+!
+! White
+*.color7:      #e0def4
+*.color15:     #e0def4
+!
+! Bold, Italic, Underline
+!*.colorBD:
+!*.colorIT:
+!*.colorUL:
