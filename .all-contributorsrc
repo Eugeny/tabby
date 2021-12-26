@@ -496,6 +496,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "jaimeadf",
+      "name": "Marmota",
+      "avatar_url": "https://avatars.githubusercontent.com/u/40345645?v=4",
+      "profile": "https://discord.gg/4c5EVTBhtp",
+      "contributions": [
+        "design"
+      ]
     }
   ],
   "contributorsPerLine": 7,
