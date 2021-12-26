@@ -39,7 +39,7 @@ export class SSHProfilesService extends ProfileProvider<SSHProfile> {
             scripts: [],
             socksProxyHost: null,
             socksProxyPort: null,
-            reuseSession: true,
+            reuseSession: false,
         },
     }
 
