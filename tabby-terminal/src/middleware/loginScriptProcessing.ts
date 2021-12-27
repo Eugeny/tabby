@@ -75,6 +75,7 @@ export class LoginScriptProcessor extends SessionMiddleware {
 
     close (): void {
         this.outputToSession.complete()
+        super.close()
     }
 
     executeUnconditionalScripts (): void {
