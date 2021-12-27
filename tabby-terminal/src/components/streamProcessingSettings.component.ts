@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Component, Input } from '@angular/core'
-import { StreamProcessingOptions } from '../api/streamProcessing'
+import { StreamProcessingOptions } from '../middleware/streamProcessing'
 
 /** @hidden */
 @Component({

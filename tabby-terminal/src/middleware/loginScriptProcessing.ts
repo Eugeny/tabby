@@ -1,6 +1,6 @@
 import deepClone from 'clone-deep'
-import { Subject, Observable } from 'rxjs'
 import { Logger } from 'tabby-core'
+import { SessionMiddleware } from '../api/middleware'
 
 export interface LoginScript {
     expect: string
@@ -13,10 +13,7 @@ export interface LoginScriptsOptions {
     scripts?: LoginScript[]
 }
 
-export class LoginScriptProcessor {
-    get outputToSession$ (): Observable<Buffer> { return this.outputToSession }
-
-    private outputToSession = new Subject<Buffer>()
+export class LoginScriptProcessor extends SessionMiddleware {
     private remainingScripts: LoginScript[] = []
 
     private escapeSeqMap = {
@@ -34,6 +31,7 @@ export class LoginScriptProcessor {
         private logger: Logger,
         options: LoginScriptsOptions
     ) {
+        super()
         this.remainingScripts = deepClone(options.scripts ?? [])
         for (const script of this.remainingScripts) {
             if (!script.isRegex) {
@@ -43,10 +41,9 @@ export class LoginScriptProcessor {
         }
     }
 
-    feedFromSession (data: Buffer): boolean {
+    feedFromSession (data: Buffer): void {
         const dataString = data.toString()
 
-        let found = false
         for (const script of this.remainingScripts) {
             if (!script.expect) {
                 continue
@@ -60,14 +57,12 @@ export class LoginScriptProcessor {
             }
 
             if (match) {
-                found = true
                 this.logger.info('Executing script:', script)
                 this.outputToSession.next(Buffer.from(script.send + '\n'))
                 this.remainingScripts = this.remainingScripts.filter(x => x !== script)
             } else {
                 if (script.optional) {
                     this.logger.debug('Skip optional script: ' + script.expect)
-                    found = true
                     this.remainingScripts = this.remainingScripts.filter(x => x !== script)
                 } else {
                     break
@@ -75,7 +70,7 @@ export class LoginScriptProcessor {
             }
         }
 
-        return found
+        super.feedFromSession(data)
     }
 
     close (): void {

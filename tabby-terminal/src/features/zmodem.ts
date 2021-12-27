@@ -32,7 +32,7 @@ export class ZModemDecorator extends TerminalDecorator {
                     terminal.write(data)
                 }
             },
-            sender: data => terminal.session!.write(Buffer.from(data)),
+            sender: data => terminal.session!.feedFromTerminal(Buffer.from(data)),
             on_detect: async detection => {
                 try {
                     terminal.enablePassthrough = false

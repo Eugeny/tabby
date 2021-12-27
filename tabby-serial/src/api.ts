@@ -3,7 +3,7 @@ import SerialPort from 'serialport'
 import { LogService, NotificationsService, Profile } from 'tabby-core'
 import { Subject, Observable } from 'rxjs'
 import { Injector, NgZone } from '@angular/core'
-import { BaseSession, LoginScriptsOptions, StreamProcessingOptions, TerminalStreamProcessor } from 'tabby-terminal'
+import { BaseSession, LoginScriptsOptions, SessionMiddleware, StreamProcessingOptions, TerminalStreamProcessor } from 'tabby-terminal'
 import { SerialService } from './services/serial.service'
 
 export interface SerialProfile extends Profile {
@@ -32,6 +32,14 @@ export interface SerialPortInfo {
     description?: string
 }
 
+class SlowFeedMiddleware extends SessionMiddleware {
+    feedFromTerminal (data: Buffer): void {
+        for (const byte of data) {
+            this.outputToSession.next(Buffer.from([byte]))
+        }
+    }
+}
+
 export class SerialSession extends BaseSession {
     serial: SerialPort
 
@@ -50,13 +58,11 @@ export class SerialSession extends BaseSession {
         this.notifications = injector.get(NotificationsService)
 
         this.streamProcessor = new TerminalStreamProcessor(profile.options)
-        this.streamProcessor.outputToSession$.subscribe(data => {
-            this.serial?.write(data.toString())
-        })
-        this.streamProcessor.outputToTerminal$.subscribe(data => {
-            this.emitOutput(data)
-            this.loginScriptProcessor?.feedFromSession(data)
-        })
+        this.middleware.push(this.streamProcessor)
+
+        if (this.profile.options.slowSend) {
+            this.middleware.unshift(new SlowFeedMiddleware())
+        }
 
         this.setLoginScriptsOptions(profile.options)
     }
@@ -110,7 +116,7 @@ export class SerialSession extends BaseSession {
         setTimeout(() => this.streamProcessor.start())
 
         this.serial.on('readable', () => {
-            this.streamProcessor.feedFromSession(this.serial.read())
+            this.emitOutput(this.serial.read())
         })
 
         this.serial.on('end', () => {
@@ -124,17 +130,10 @@ export class SerialSession extends BaseSession {
     }
 
     write (data: Buffer): void {
-        if (!this.profile.options.slowSend) {
-            this.streamProcessor.feedFromTerminal(data)
-        } else {
-            for (const byte of data) {
-                this.streamProcessor.feedFromTerminal(Buffer.from([byte]))
-            }
-        }
+        this.serial?.write(data.toString())
     }
 
     async destroy (): Promise<void> {
-        this.streamProcessor.close()
         this.serviceMessage.complete()
         await super.destroy()
     }

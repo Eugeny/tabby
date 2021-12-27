@@ -1,17 +1,18 @@
 import * as os from 'os'
 import { Subject, Observable } from 'rxjs'
+import { SessionMiddleware } from '../api/middleware'
 
 const OSCPrefix = Buffer.from('\x1b]')
 const OSCSuffix = Buffer.from('\x07')
 
-export class OSCProcessor {
+export class OSCProcessor extends SessionMiddleware {
     get cwdReported$ (): Observable<string> { return this.cwdReported }
     get copyRequested$ (): Observable<string> { return this.copyRequested }
 
     private cwdReported = new Subject<string>()
     private copyRequested = new Subject<string>()
 
-    process (data: Buffer): Buffer {
+    feedFromSession (data: Buffer): void {
         let startIndex = 0
         while (data.includes(OSCPrefix, startIndex) && data.includes(OSCSuffix, startIndex)) {
             const params = data.subarray(data.indexOf(OSCPrefix, startIndex) + OSCPrefix.length)
@@ -42,10 +43,12 @@ export class OSCProcessor {
                 continue
             }
         }
-        return data
+        super.feedFromSession(data)
     }
 
     close (): void {
         this.cwdReported.complete()
+        this.copyRequested.complete()
+        super.close()
     }
 }

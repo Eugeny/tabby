@@ -87,8 +87,9 @@ export { TerminalFrontendService, TerminalDecorator, TerminalContextMenuItemProv
 export { Frontend, XTermFrontend, XTermWebGLFrontend }
 export { BaseTerminalTabComponent } from './api/baseTerminalTab.component'
 export * from './api/interfaces'
-export * from './api/streamProcessing'
-export * from './api/loginScriptProcessing'
-export * from './api/osc1337Processing'
+export * from './middleware/streamProcessing'
+export * from './middleware/loginScriptProcessing'
+export * from './middleware/oscProcessing'
+export * from './api/middleware'
 export * from './session'
 export { LoginScriptsSettingsComponent, StreamProcessingSettingsComponent }

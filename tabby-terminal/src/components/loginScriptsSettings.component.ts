@@ -2,7 +2,7 @@
 import { Component, Input } from '@angular/core'
 
 import { PlatformService } from 'tabby-core'
-import { LoginScript, LoginScriptsOptions } from '../api/loginScriptProcessing'
+import { LoginScript, LoginScriptsOptions } from '../middleware/loginScriptProcessing'
 
 /** @hidden */
 @Component({

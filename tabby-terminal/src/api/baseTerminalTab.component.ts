@@ -389,7 +389,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
         if (!(data instanceof Buffer)) {
             data = Buffer.from(data, 'utf-8')
         }
-        this.session?.write(data)
+        this.session?.feedFromTerminal(data)
         if (this.config.store.terminal.scrollOnInput) {
             this.frontend?.scrollToBottom()
         }
