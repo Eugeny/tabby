@@ -33,7 +33,7 @@
     "rxjs": "^7.4.0",
     "source-map-support": "^0.5.20",
     "v8-compile-cache": "^2.3.0",
-    "yargs": "^17.2.1"
+    "yargs": "^17.3.1"
   },
   "optionalDependencies": {
     "@tabby-gang/windows-blurbehind": "^3.0.0",
