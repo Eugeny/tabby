@@ -56,7 +56,7 @@
     "pug-loader": "^2.4.0",
     "pug-static-loader": "2.0.0",
     "raw-loader": "4.0.2",
-    "sass-loader": "^12.3.0",
+    "sass-loader": "^12.4.0",
     "shell-quote": "^1.7.3",
     "shelljs": "0.8.4",
     "slugify": "^1.6.1",
