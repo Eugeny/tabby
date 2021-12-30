@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import axios from 'axios'
-import marked from 'marked'
+import { marked } from 'marked'
 import { Component } from '@angular/core'
 import { BaseTabComponent } from 'tabby-core'
 
