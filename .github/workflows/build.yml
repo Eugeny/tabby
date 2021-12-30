@@ -183,7 +183,7 @@ jobs:
         SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
 
     - name: Upload packages to packagecloud.io
-      uses: TykTechnologies/packagecloud-action@main
+      uses: Eugeny/packagecloud-action@main
       if: github.repository == 'Eugeny/tabby' && github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
       env:
         PACKAGECLOUD_TOKEN: ${{ secrets.PACKAGECLOUD_TOKEN }}
