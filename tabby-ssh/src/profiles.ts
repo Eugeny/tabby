@@ -5,6 +5,7 @@ import { SSHProfileSettingsComponent } from './components/sshProfileSettings.com
 import { SSHTabComponent } from './components/sshTab.component'
 import { PasswordStorageService } from './services/passwordStorage.service'
 import { ALGORITHM_BLACKLIST, SSHAlgorithmType, SSHProfile } from './api'
+import { parseOpenSSHProfiles } from './openSSHImport'
 
 @Injectable({ providedIn: 'root' })
 export class SSHProfilesService extends ProfileProvider<SSHProfile> {
@@ -60,20 +61,33 @@ export class SSHProfilesService extends ProfileProvider<SSHProfile> {
     }
 
     async getBuiltinProfiles (): Promise<PartialProfile<SSHProfile>[]> {
-        return [{
-            id: `ssh:template`,
-            type: 'ssh',
-            name: 'SSH connection',
-            icon: 'fas fa-desktop',
-            options: {
-                host: '',
-                port: 22,
-                user: 'root',
+        let imported: PartialProfile<SSHProfile>[] = []
+        try {
+            imported = await parseOpenSSHProfiles()
+        } catch (e) {
+            console.warn('Could not parse OpenSSH config:', e)
+        }
+        return [
+            {
+                id: `ssh:template`,
+                type: 'ssh',
+                name: 'SSH connection',
+                icon: 'fas fa-desktop',
+                options: {
+                    host: '',
+                    port: 22,
+                    user: 'root',
+                },
+                isBuiltin: true,
+                isTemplate: true,
+                weight: -1,
             },
-            isBuiltin: true,
-            isTemplate: true,
-            weight: -1,
-        }]
+            ...imported.map(p => ({
+                ...p,
+                name: p.name + ' (.ssh/config)',
+                isBuiltin: true,
+            })),
+        ]
     }
 
     async getNewTabParameters (profile: SSHProfile): Promise<NewTabParameters<SSHTabComponent>> {

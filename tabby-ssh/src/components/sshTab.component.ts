@@ -2,7 +2,7 @@ import colors from 'ansi-colors'
 import { Component, Injector, HostListener } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { first } from 'rxjs'
-import { PartialProfile, Platform, ProfilesService, RecoveryToken } from 'tabby-core'
+import { Platform, ProfilesService, RecoveryToken } from 'tabby-core'
 import { BaseTerminalTabComponent } from 'tabby-terminal'
 import { SSHService } from '../services/ssh.service'
 import { KeyboardInteractivePrompt, SSHSession } from '../session/ssh'
@@ -84,12 +84,12 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
     }
 
     async setupOneSession (injector: Injector, profile: SSHProfile): Promise<SSHSession> {
-        let session = this.sshMultiplexer.getSession(profile)
+        let session = await this.sshMultiplexer.getSession(profile)
         if (!session || !profile.options.reuseSession) {
             session = new SSHSession(injector, profile)
 
             if (profile.options.jumpHost) {
-                const jumpConnection: PartialProfile<SSHProfile>|null = this.config.store.profiles.find(x => x.id === profile.options.jumpHost)
+                const jumpConnection = (await this.profilesService.getProfiles()).find(x => x.id === profile.options.jumpHost)
 
                 if (!jumpConnection) {
                     throw new Error(`${profile.options.host}: jump host "${profile.options.jumpHost}" not found in your config`)
