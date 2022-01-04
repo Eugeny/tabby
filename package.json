@@ -62,7 +62,7 @@
     "slugify": "^1.6.4",
     "sortablejs": "^1.14.0",
     "source-code-pro": "^2.38.0",
-    "source-map-loader": "^3.0.0",
+    "source-map-loader": "^3.0.1",
     "source-sans-pro": "3.6.0",
     "ssh2": "^1.5.0",
     "style-loader": "^3.2.1",
