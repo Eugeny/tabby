@@ -12,6 +12,7 @@ import {
     PlatformService,
     HostWindowService,
     AppService,
+    LocaleService,
 } from 'tabby-core'
 
 import { SettingsTabProvider } from '../api'
@@ -43,6 +44,7 @@ export class SettingsTabComponent extends BaseTabComponent {
         public homeBase: HomeBaseService,
         public platform: PlatformService,
         public zone: NgZone,
+        public locale: LocaleService,
         private updater: UpdaterService,
         private app: AppService,
         @Inject(SettingsTabProvider) public settingsProviders: SettingsTabProvider[],

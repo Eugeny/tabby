@@ -66,6 +66,15 @@
 
 
                     h3 Application settings
+                    .form-line
+                        .header
+                            .title Language
+                        select.form-control([(ngModel)]='config.store.language', (ngModelChange)='saveConfiguration()')
+                            option(
+                                [value]='lang.code',
+                                *ngFor='let lang of locale.allLanguages'
+                            ) {{lang.name|translate}}
+
                     .form-line(*ngIf='platform.isShellIntegrationSupported()')
                         .header
                             .title Shell integration

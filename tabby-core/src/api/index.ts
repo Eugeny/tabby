@@ -35,4 +35,5 @@ export { TabsService, NewTabParameters, TabComponentType } from '../services/tab
 export { UpdaterService } from '../services/updater.service'
 export { VaultService, Vault, VaultSecret, VaultFileSecret, VAULT_SECRET_TYPE_FILE, StoredVault, VaultSecretKey } from '../services/vault.service'
 export { FileProvidersService } from '../services/fileProviders.service'
+export { LocaleService } from '../services/locale.service'
 export * from '../utils'

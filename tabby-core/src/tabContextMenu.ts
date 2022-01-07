@@ -14,6 +14,7 @@ import { HotkeysService } from './services/hotkeys.service'
 import { PromptModalComponent } from './components/promptModal.component'
 import { SplitLayoutProfilesService } from './profiles'
 import { TAB_COLORS } from './utils'
+import { TranslateService } from '@ngx-translate/core'
 
 /** @hidden */
 @Injectable()
@@ -22,6 +23,7 @@ export class TabManagementContextMenu extends TabContextMenuItemProvider {
 
     constructor (
         private app: AppService,
+        private translate: TranslateService,
     ) {
         super()
     }
@@ -29,7 +31,7 @@ export class TabManagementContextMenu extends TabContextMenuItemProvider {
     async getItems (tab: BaseTabComponent, tabHeader?: TabHeaderComponent): Promise<MenuItemOptions[]> {
         let items: MenuItemOptions[] = [
             {
-                label: 'Close',
+                label: this.translate.instant('Close'),
                 click: () => {
                     if (this.app.tabs.includes(tab)) {
                         this.app.closeTab(tab, true)
@@ -43,7 +45,7 @@ export class TabManagementContextMenu extends TabContextMenuItemProvider {
             items = [
                 ...items,
                 {
-                    label: 'Close other tabs',
+                    label: this.translate.instant('Close other tabs'),
                     click: () => {
                         for (const t of this.app.tabs.filter(x => x !== tab)) {
                             this.app.closeTab(t, true)
@@ -51,7 +53,7 @@ export class TabManagementContextMenu extends TabContextMenuItemProvider {
                     },
                 },
                 {
-                    label: 'Close tabs to the right',
+                    label: this.translate.instant('Close tabs to the right'),
                     click: () => {
                         for (const t of this.app.tabs.slice(this.app.tabs.indexOf(tab) + 1)) {
                             this.app.closeTab(t, true)
@@ -59,7 +61,7 @@ export class TabManagementContextMenu extends TabContextMenuItemProvider {
                     },
                 },
                 {
-                    label: 'Close tabs to the left',
+                    label: this.translate.instant('Close tabs to the left'),
                     click: () => {
                         for (const t of this.app.tabs.slice(0, this.app.tabs.indexOf(tab))) {
                             this.app.closeTab(t, true)
@@ -71,13 +73,13 @@ export class TabManagementContextMenu extends TabContextMenuItemProvider {
             if (tab.parent instanceof SplitTabComponent) {
                 const directions: SplitDirection[] = ['r', 'b', 'l', 't']
                 items.push({
-                    label: 'Split',
+                    label: this.translate.instant('Split'),
                     submenu: directions.map(dir => ({
                         label: {
-                            r: 'Right',
-                            b: 'Down',
-                            l: 'Left',
-                            t: 'Up',
+                            r: this.translate.instant('Right'),
+                            b: this.translate.instant('Down'),
+                            l: this.translate.instant('Left'),
+                            t: this.translate.instant('Up'),
                         }[dir],
                         click: () => {
                             (tab.parent as SplitTabComponent).splitTab(tab, dir)
@@ -99,6 +101,7 @@ export class CommonOptionsContextMenu extends TabContextMenuItemProvider {
         private app: AppService,
         private ngbModal: NgbModal,
         private splitLayoutProfilesService: SplitLayoutProfilesService,
+        private translate: TranslateService,
     ) {
         super()
     }
@@ -109,18 +112,18 @@ export class CommonOptionsContextMenu extends TabContextMenuItemProvider {
             items = [
                 ...items,
                 {
-                    label: 'Rename',
+                    label: this.translate.instant('Rename'),
                     click: () => tabHeader.showRenameTabModal(),
                 },
                 {
-                    label: 'Duplicate',
+                    label: this.translate.instant('Duplicate'),
                     click: () => this.app.duplicateTab(tab),
                 },
                 {
-                    label: 'Color',
+                    label: this.translate.instant('Color'),
                     sublabel: TAB_COLORS.find(x => x.value === tab.color)?.name,
                     submenu: TAB_COLORS.map(color => ({
-                        label: color.name,
+                        label: this.translate.instant(color.name),
                         type: 'radio',
                         checked: tab.color === color.value,
                         click: () => {
@@ -132,10 +135,10 @@ export class CommonOptionsContextMenu extends TabContextMenuItemProvider {
 
             if (tab instanceof SplitTabComponent && tab.getAllTabs().length > 1) {
                 items.push({
-                    label: 'Save layout as profile',
+                    label: this.translate.instant('Save layout as profile'),
                     click: async () => {
                         const modal = this.ngbModal.open(PromptModalComponent)
-                        modal.componentInstance.prompt = 'Profile name'
+                        modal.componentInstance.prompt = this.translate.instant('Profile name')
                         const name = (await modal.result)?.value
                         if (!name) {
                             return
@@ -154,6 +157,7 @@ export class CommonOptionsContextMenu extends TabContextMenuItemProvider {
 export class TaskCompletionContextMenu extends TabContextMenuItemProvider {
     constructor (
         private app: AppService,
+        private translate: TranslateService,
     ) {
         super()
     }
@@ -167,10 +171,10 @@ export class TaskCompletionContextMenu extends TabContextMenuItemProvider {
         if (process) {
             items.push({
                 enabled: false,
-                label: 'Current process: ' + process.name,
+                label: this.translate.instant('Current process: ' + process.name),
             })
             items.push({
-                label: 'Notify when done',
+                label: this.translate.instant('Notify when done'),
                 type: 'checkbox',
                 checked: extTab.__completionNotificationEnabled,
                 click: () => {
@@ -178,7 +182,7 @@ export class TaskCompletionContextMenu extends TabContextMenuItemProvider {
 
                     if (extTab.__completionNotificationEnabled) {
                         this.app.observeTabCompletion(tab).subscribe(() => {
-                            new Notification('Process completed', {
+                            new Notification(this.translate.instant('Process completed'), {
                                 body: process.name,
                             }).addEventListener('click', () => {
                                 this.app.selectTab(tab)
@@ -192,7 +196,7 @@ export class TaskCompletionContextMenu extends TabContextMenuItemProvider {
             })
         }
         items.push({
-            label: 'Notify on activity',
+            label: this.translate.instant('Notify on activity'),
             type: 'checkbox',
             checked: !!extTab.__outputNotificationSubscription,
             click: () => {
@@ -204,7 +208,7 @@ export class TaskCompletionContextMenu extends TabContextMenuItemProvider {
                         if (extTab.__outputNotificationSubscription && active) {
                             extTab.__outputNotificationSubscription.unsubscribe()
                             extTab.__outputNotificationSubscription = null
-                            new Notification('Tab activity', {
+                            new Notification(this.translate.instant('Tab activity'), {
                                 body: tab.title,
                             }).addEventListener('click', () => {
                                 this.app.selectTab(tab)
