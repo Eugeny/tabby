@@ -505,6 +505,15 @@
       "contributions": [
         "design"
       ]
+    },
+    {
+      "login": "TENX-S",
+      "name": "Ares Andrew",
+      "avatar_url": "https://avatars.githubusercontent.com/u/40336192?v=4",
+      "profile": "https://ares.zone",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
