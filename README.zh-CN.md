@@ -13,116 +13,110 @@
 
 ----
 
-### Downloads:
+### 下载
 
 * [Latest release](https://github.com/Eugeny/tabby/releases/latest)
 * [Repositories](https://packagecloud.io/eugeny/tabby): [Debian/Ubuntu-based](https://packagecloud.io/eugeny/tabby/install#bash-deb), [RPM-based](https://packagecloud.io/eugeny/tabby/install#bash-rpm)
 * [Latest nightly build](https://nightly.link/Eugeny/tabby/workflows/build/master)
 
-<br/>
-<p align="center">
-This README is also available in: <a href="./README.ko-KR.md">Korean</a> <a href="./README.zh-CN.md">简体中文</a>
-</p>
-
 ----
 
-[**Tabby**](https://tabby.sh) (formerly **Terminus**) is a highly configurable terminal emulator, SSH and serial client for Windows, macOS and Linux
+[**Tabby**](https://tabby.sh) (前身是 **Terminus**) 是一个可高度配置的终端模拟器和 SSH 或串口客户端，支持 Windows，macOS 和 Linux
 
-* Integrated SSH and Telnet client and connection manager
-* Integrated serial terminal
-* Theming and color schemes
-* Fully configurable shortcuts and multi-chord shortcuts
-* Split panes
-* Remembers your tabs
-* PowerShell (and PS Core), WSL, Git-Bash, Cygwin, MSYS2, Cmder and CMD support
-* Direct file transfer from/to SSH sessions via Zmodem
-* Full Unicode support including double-width characters
-* Doesn't choke on fast-flowing outputs
-* Proper shell experience on Windows including tab completion (via Clink)
+* 集成 SSH，Telnet 客户端和连接管理器
+* 集成串行终端
+* 定制主题和配色方案
+* 完全可配置的快捷键和多键快捷键
+* 拆分窗格
+* 记住你的标签
+* 支持 PowerShell（和 PS Core）、WSL、Git-Bash、Cygwin、MSYS2、Cmder 和 CMD
+* 在 SSH 会话中通过 Zmodem 进行直接文件传输
+* 完整的 Unicode 支持，包括双角字符
+* 不会因快速的输出而卡住
+* Windows 上的正确 shell 体验，包括 tab 自动补全（通过 Clink）
 * Integrated encrypted container for SSH secrets and configuration
-* SSH, SFTP and Telnet client available as a [web app](https://tabby.sh/app) (also [self-hosted](https://github.com/Eugeny/tabby-web)).
+* SSH、SFTP 和 Telnet 客户端可用作 [Web 应用程序](https://tabby.sh/app)（也可[托管](https://github.com/Eugeny/tabby-web)）
 
-# Contents <!-- omit in toc -->
+# 目录 <!-- omit in toc -->
 
-- [What Tabby is and isn't](#what-tabby-is-and-isnt)
-- [Terminal features](#terminal-features)
-- [SSH Client](#ssh-client)
-- [Serial Terminal](#serial-terminal)
-- [Portable](#portable)
-- [Plugins](#plugins)
-- [Themes](#themes)
-- [Contributing](#contributing)
+- [Tabby的正确用途](#tabby的正确用途)
+- [终端特性](#终端特性)
+- [SSH 客户端](#ssh-客户端)
+- [串行终端](#串行终端)
+- [可移植的](#可移植的)
+- [插件](#插件)
+- [主题](#主题)
+- [贡献](#贡献)
 
 <a name="about"></a>
 
-# What Tabby is and isn't
+# Tabby的正确用途
 
-* **Tabby is** an alternative to Windows' standard terminal (conhost), PowerShell ISE, PuTTY, macOS Terminal.app and iTerm
+* **Tabby 是** Windows 标准终端 (conhost)、PowerShell ISE、PuTTY、macOS Terminal.app 和 iTerm 的替代品
 
-* **Tabby is not** a new shell or a MinGW or Cygwin replacement. Neither is it lightweight - if RAM usage is of importance, consider [Conemu](https://conemu.github.io) or [Alacritty](https://github.com/jwilm/alacritty)
-
+* **Tabby 不是** Tabby 不是新的 shell，也不是 MinGW 或 Cygwin 的替代品。它也不是轻量级的 - 如果，请考虑 [Conemu](https://conemu.github.io) 或 [Alacritty](https://github.com/jwilm/alacritty)
 <a name="terminal"></a>
 
-# Terminal features
+# 终端特性
 
 ![](docs/readme-terminal.png)
 
-* A V220 terminal + various extensions
-* Multiple nested split panes
+* 一个 V220 终端 + 各种插件
+* 多个嵌套的拆分窗格
 * Tabs on any side of the window
-* Optional dockable window with a global spawn hotkey ("Quake console")
-* Progress detection
-* Notification on process completion
-* Bracketed paste, multiline paste warnings
-* Font ligatures
-* Custom shell profiles
-* Optional RMB paste and copy-on select (PuTTY style)
+* 带有全局生成热键的可选可停靠窗口（“Quake console”）
+* 进度检测
+* 流程完成通知
+* 括号粘贴，多行粘贴警告
+* 连体字
+* 自定义 shell 配置文件
+* 可选的 RMB 粘贴和复制选择（PuTTY 风格）
 
 <a name="ssh"></a>
-# SSH Client
+# SSH 客户端
 
 ![](docs/readme-ssh.png)
 
-* SSH2 client with a connection manager
-* X11 and port forwarding
-* Automatic jump host management
-* Agent forwarding (incl. Pageant and Windows native OpenSSH Agent)
-* Login scripts
+* 带有连接管理器的 SSH2 客户端
+* X11和端口转发
+* 自动跳转主机管理
+* 代理转发（包括 Pageant 和 Windows 原生 OpenSSH 代理）
+* 登录脚本
 
 <a name="serial"></a>
-# Serial Terminal
+# 串行终端
 
-* Saved connections
-* Readline input support
-* Optional hex byte-by-byte input and hexdump output
-* Newline conversion
-* Automatic reconnection
+* 保存链接
+* Readline 输入支持
+* 可选的十六进制逐字节输入和十六进制转储输出
+* 换行转换
+* 自动重连
 
 <a name="portable"></a>
-# Portable
+# 可移植的
 
-Tabby will run as a portable app on Windows, if you create a `data` folder in the same location where `Tabby.exe` lives.
+如果在 Tabby.exe 所在的同一位置创建数据文件夹，Tabby 将在 Windows 上作为便携式的应用程序运行。
 
 <a name="plugins"></a>
-# Plugins
+# 插件
 
-Plugins and themes can be installed directly from the Settings view inside Tabby.
+插件和主题可以直接从 Tabby 中的设置视图安装。
 
-* [clickable-links](https://github.com/Eugeny/tabby-clickable-links) - makes paths and URLs in the terminal clickable
-* [docker](https://github.com/Eugeny/tabby-docker) - connect to Docker containers
-* [title-control](https://github.com/kbjr/terminus-title-control) - allows modifying the title of the terminal tabs by providing a prefix, suffix, and/or strings to be removed
-* [quick-cmds](https://github.com/Domain/terminus-quick-cmds) - quickly send commands to one or all terminal tabs
-* [save-output](https://github.com/Eugeny/tabby-save-output) - record terminal output into a file
-* [sync-config](https://github.com/starxg/terminus-sync-config) - sync the config to Gist or Gitee
-* [clippy](https://github.com/Eugeny/tabby-clippy) - an example plugin which annoys you all the time
-* [workspace-manager](https://github.com/composer404/tabby-workspace-manager) - allows creating custom workspace profiles based on the given config
-* [search-in-browser](https://github.com/composer404/tabby-search-in-browser) - opens default system browser with a text selected from the Tabby's tab
+* [clickable-links](https://github.com/Eugeny/tabby-clickable-links) - 使终端中的路径和 URL 可点击
+* [docker](https://github.com/Eugeny/tabby-docker) - 连接到 Docker 容器
+* [title-control](https://github.com/kbjr/terminus-title-control) - 允许通过提供要删除的前缀、后缀和/或字符串来修改终端选项卡的标题
+* [quick-cmds](https://github.com/Domain/terminus-quick-cmds) - 快速向一个或所有终端选项卡发送命令
+* [save-output](https://github.com/Eugeny/tabby-save-output) - 将终端输出记录到文件中
+* [sync-config](https://github.com/starxg/terminus-sync-config) - 将配置同步到 Gist 或 Gitee
+* [clippy](https://github.com/Eugeny/tabby-clippy) - 一个一直打扰你的示例插件
+* [workspace-manager](https://github.com/composer404/tabby-workspace-manager) - 允许根据给定的配置创建自定义工作区配置文件
+* [search-in-browser](https://github.com/composer404/tabby-search-in-browser) - 使用从 Tabby 选项卡中选择的文本打开默认系统浏览器
 
 <a name="themes"></a>
-# Themes
+# 主题
 
-* [hype](https://github.com/Eugeny/tabby-theme-hype) - a Hyper inspired theme
-* [relaxed](https://github.com/Relaxed-Theme/relaxed-terminal-themes#terminus) - the Relaxed theme for Tabby
+* [hype](https://github.com/Eugeny/tabby-theme-hype) - 受 Hyper 启发的主题
+* [relaxed](https://github.com/Relaxed-Theme/relaxed-terminal-themes#terminus) - 为 Tabby 打造的 Relaxed 主题
 * [gruvbox](https://github.com/porkloin/terminus-theme-gruvbox)
 * [windows10](https://www.npmjs.com/package/terminus-theme-windows10)
 * [altair](https://github.com/yxuko/terminus-altair)
@@ -131,19 +125,19 @@ Plugins and themes can be installed directly from the Settings view inside Tabby
 
 [![](https://assets-production.packagecloud.io/assets/packagecloud-logo-light-scaled-26ce8e96060fddf74afbd4445e63ba35590d4aaa56edc98495bb390ef3cae0ae.png)](https://packagecloud.io)
 
-[**packagecloud**](https://packagecloud.io) has provided free Debian/RPM repository hosting
+[**packagecloud**](https://packagecloud.io) 提供了免费的 Debian/RPM 存储库托管
 
 <a name="contributing"></a>
-# Contributing
+# 贡献
 
-Pull requests and plugins are welcome!
+欢迎提交 PR 和插件！
 
-See [HACKING.md](https://github.com/Eugeny/tabby/blob/master/HACKING.md) and [API docs](https://docs.tabby.sh/) for information of how the project is laid out, and a very brief plugin development tutorial.
+请参阅 [HACKING.md](https://github.com/Eugeny/tabby/blob/master/HACKING.md) 和 [API 文档](https://docs.tabby.sh/) 以获取有关项目布局的信息以及非常简短的插件开发教程。
 
 ---
 <a name="contributors"></a>
 
-Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+感谢这些人，他们棒极了！([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
