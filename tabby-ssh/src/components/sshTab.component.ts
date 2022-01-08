@@ -2,7 +2,7 @@ import colors from 'ansi-colors'
 import { Component, Injector, HostListener } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { first } from 'rxjs'
-import { Platform, ProfilesService, RecoveryToken, TranslateService } from 'tabby-core'
+import { Platform, ProfilesService, RecoveryToken } from 'tabby-core'
 import { BaseTerminalTabComponent } from 'tabby-terminal'
 import { SSHService } from '../services/ssh.service'
 import { KeyboardInteractivePrompt, SSHSession } from '../session/ssh'
@@ -36,7 +36,6 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
         private ngbModal: NgbModal,
         private profilesService: ProfilesService,
         private sshMultiplexer: SSHMultiplexerService,
-        private translate: TranslateService,
     ) {
         super(injector)
         this.sessionChanged$.subscribe(() => {

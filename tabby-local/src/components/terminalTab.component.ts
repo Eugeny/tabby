@@ -1,5 +1,5 @@
 import { Component, Input, Injector } from '@angular/core'
-import { BaseTabProcess, WIN_BUILD_CONPTY_SUPPORTED, isWindowsBuild, TranslateService } from 'tabby-core'
+import { BaseTabProcess, WIN_BUILD_CONPTY_SUPPORTED, isWindowsBuild } from 'tabby-core'
 import { BaseTerminalTabComponent } from 'tabby-terminal'
 import { LocalProfile, SessionOptions } from '../api'
 import { Session } from '../session'
@@ -20,7 +20,6 @@ export class TerminalTabComponent extends BaseTerminalTabComponent {
     // eslint-disable-next-line @typescript-eslint/no-useless-constructor
     constructor (
         injector: Injector,
-        private translate: TranslateService,
         private uac: UACService,
     ) {
         super(injector)

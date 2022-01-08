@@ -2,7 +2,7 @@
 import colors from 'ansi-colors'
 import { Component, Injector } from '@angular/core'
 import { first } from 'rxjs'
-import { Platform, SelectorService, TranslateService } from 'tabby-core'
+import { Platform, SelectorService } from 'tabby-core'
 import { BaseTerminalTabComponent } from 'tabby-terminal'
 import { SerialSession, BAUD_RATES, SerialProfile } from '../api'
 
@@ -23,7 +23,6 @@ export class SerialTabComponent extends BaseTerminalTabComponent {
     constructor (
         injector: Injector,
         private selector: SelectorService,
-        private translate: TranslateService,
     ) {
         super(injector)
         this.enableToolbar = true

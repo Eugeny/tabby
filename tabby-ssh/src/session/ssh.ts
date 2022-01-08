@@ -82,10 +82,10 @@ export class SSHSession {
     private zone: NgZone
     private fileProviders: FileProvidersService
     private config: ConfigService
+    private translate: TranslateService
 
     constructor (
         private injector: Injector,
-        private translate: TranslateService,
         public profile: SSHProfile,
     ) {
         this.logger = injector.get(LogService).create(`ssh-${profile.options.host}-${profile.options.port}`)
@@ -98,6 +98,7 @@ export class SSHSession {
         this.zone = injector.get(NgZone)
         this.fileProviders = injector.get(FileProvidersService)
         this.config = injector.get(ConfigService)
+        this.translate = injector.get(TranslateService)
 
         this.willDestroy$.subscribe(() => {
             for (const port of this.forwardedPorts) {
