@@ -5,6 +5,7 @@ export class TerminalConfigProvider extends ConfigProvider {
     defaults = {
         hotkeys: {
             'copy-current-path': [],
+            'scroll-to-bottom': [],
         },
         terminal: {
             frontend: 'xterm',
