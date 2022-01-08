@@ -2,7 +2,7 @@
 import deepEqual from 'deep-equal'
 
 import { Component, Inject, Input, ChangeDetectionStrategy, ChangeDetectorRef, HostBinding } from '@angular/core'
-import { ConfigService, PlatformService } from 'tabby-core'
+import { ConfigService, PlatformService, TranslateService } from 'tabby-core'
 import { TerminalColorSchemeProvider } from '../api/colorSchemeProvider'
 import { TerminalColorScheme } from '../api/interfaces'
 
@@ -29,6 +29,7 @@ export class ColorSchemeSettingsTabComponent {
         @Inject(TerminalColorSchemeProvider) private colorSchemeProviders: TerminalColorSchemeProvider[],
         private changeDetector: ChangeDetectorRef,
         private platform: PlatformService,
+        private translate: TranslateService,
         public config: ConfigService,
     ) { }
 
@@ -80,8 +81,11 @@ export class ColorSchemeSettingsTabComponent {
         if ((await this.platform.showMessageBox(
             {
                 type: 'warning',
-                message: `Delete "${scheme.name}"?`,
-                buttons: ['Delete', 'Keep'],
+                message: this.translate.instant('Delete "{name}"?', scheme),
+                buttons: [
+                    this.translate.instant('Delete'),
+                    this.translate.instant('Keep'),
+                ],
                 defaultId: 1,
                 cancelId: 1,
             }

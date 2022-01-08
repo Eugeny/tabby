@@ -1,4 +1,5 @@
 import { Injectable, Inject } from '@angular/core'
+import { TranslateService } from '@ngx-translate/core'
 import { NewTabParameters } from './tabs.service'
 import { BaseTabComponent } from '../components/baseTab.component'
 import { PartialProfile, Profile, ProfileProvider } from '../api/profileProvider'
@@ -29,6 +30,7 @@ export class ProfilesService {
         private config: ConfigService,
         private notifications: NotificationsService,
         private selector: SelectorService,
+        private translate: TranslateService,
         @Inject(ProfileProvider) private profileProviders: ProfileProvider<Profile>[],
     ) { }
 
@@ -103,7 +105,7 @@ export class ProfilesService {
 
                 let options: SelectorOption<void>[] = recentProfiles.map(p => ({
                     ...this.selectorOptionForProfile(p),
-                    group: 'Recent',
+                    group: this.translate.instant('Recent'),
                     icon: 'fas fa-history',
                     color: p.color,
                     callback: async () => {
@@ -115,8 +117,8 @@ export class ProfilesService {
                 }))
                 if (recentProfiles.length) {
                     options.push({
-                        name: 'Clear recent profiles',
-                        group: 'Recent',
+                        name: this.translate.instant('Clear recent profiles'),
+                        group: this.translate.instant('Recent'),
                         icon: 'fas fa-eraser',
                         callback: async () => {
                             window.localStorage.removeItem('recentProfiles')
@@ -142,7 +144,7 @@ export class ProfilesService {
                 try {
                     const { SettingsTabComponent } = window['nodeRequire']('tabby-settings')
                     options.push({
-                        name: 'Manage profiles',
+                        name: this.translate.instant('Manage profiles'),
                         icon: 'fas fa-window-restore',
                         callback: () => {
                             this.app.openNewTabRaw({
@@ -156,8 +158,8 @@ export class ProfilesService {
 
                 if (this.getProviders().some(x => x.supportsQuickConnect)) {
                     options.push({
-                        name: 'Quick connect',
-                        freeInputPattern: 'Connect to "%s"...',
+                        name: this.translate.instant('Quick connect'),
+                        freeInputPattern: this.translate.instant('Connect to "%s"...'),
                         icon: 'fas fa-arrow-right',
                         callback: query => {
                             const profile = this.quickConnect(query)
@@ -165,7 +167,7 @@ export class ProfilesService {
                         },
                     })
                 }
-                await this.selector.show('Select profile or enter an address', options)
+                await this.selector.show(this.translate.instant('Select profile or enter an address'), options)
             } catch (err) {
                 reject(err)
             }

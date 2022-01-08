@@ -1,4 +1,5 @@
 import { Inject, Injectable } from '@angular/core'
+import { TranslateService } from '@ngx-translate/core'
 import { FileProvider, NotificationsService, SelectorService } from '../api'
 
 @Injectable({ providedIn: 'root' })
@@ -7,6 +8,7 @@ export class FileProvidersService {
     private constructor (
         private selector: SelectorService,
         private notifications: NotificationsService,
+        private translate: TranslateService,
         @Inject(FileProvider) private fileProviders: FileProvider[],
     ) { }
 
@@ -34,15 +36,18 @@ export class FileProvidersService {
             }
         }))
         if (!providers.length) {
-            this.notifications.error('Vault master passphrase needs to be set to allow storing secrets')
+            this.notifications.error(this.translate.instant('Vault master passphrase needs to be set to allow storing secrets'))
             throw new Error('No available file providers')
         }
         if (providers.length === 1) {
             return providers[0]
         }
-        return this.selector.show('Select file storage', providers.map(p => ({
-            name: p.name,
-            result: p,
-        })))
+        return this.selector.show(
+            this.translate.instant('Select file storage'),
+            providers.map(p => ({
+                name: p.name,
+                result: p,
+            }))
+        )
     }
 }

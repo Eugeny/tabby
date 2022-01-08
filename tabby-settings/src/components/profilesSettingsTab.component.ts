@@ -3,7 +3,7 @@ import slugify from 'slugify'
 import deepClone from 'clone-deep'
 import { Component, HostBinding, Inject } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
-import { ConfigService, HostAppService, Profile, SelectorService, ProfilesService, PromptModalComponent, PlatformService, BaseComponent, PartialProfile, ProfileProvider } from 'tabby-core'
+import { ConfigService, HostAppService, Profile, SelectorService, ProfilesService, PromptModalComponent, PlatformService, BaseComponent, PartialProfile, ProfileProvider, TranslateService } from 'tabby-core'
 import { EditProfileModalComponent } from './editProfileModal.component'
 
 interface ProfileGroup {
@@ -35,6 +35,7 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
         private selector: SelectorService,
         private ngbModal: NgbModal,
         private platform: PlatformService,
+        private translate: TranslateService,
     ) {
         super()
         this.profileProviders.sort((a, b) => a.name.localeCompare(b.name))
@@ -58,7 +59,7 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
             const profiles = [...this.templateProfiles, ...this.builtinProfiles, ...this.profiles]
             profiles.sort((a, b) => (a.weight ?? 0) - (b.weight ?? 0))
             base = await this.selector.show(
-                'Select a base profile to use as a template',
+                this.translate.instant('Select a base profile to use as a template'),
                 profiles.map(p => ({
                     icon: p.icon,
                     description: this.profilesService.getDescription(p) ?? undefined,
@@ -72,14 +73,14 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
         if (base.isTemplate) {
             profile.name = ''
         } else if (!base.isBuiltin) {
-            profile.name = `${base.name} copy`
+            profile.name = this.translate.instant('{name} copy', base)
         }
         profile.isBuiltin = false
         profile.isTemplate = false
         await this.showProfileEditModal(profile)
         if (!profile.name) {
             const cfgProxy = this.profilesService.getConfigProxyForProfile(profile)
-            profile.name = this.profilesService.providerForProfile(profile)?.getSuggestedName(cfgProxy) ?? `${base.name} copy`
+            profile.name = this.profilesService.providerForProfile(profile)?.getSuggestedName(cfgProxy) ?? this.translate.instant('{name} copy', base)
         }
         profile.id = `${profile.type}:custom:${slugify(profile.name)}:${uuidv4()}`
         this.config.store.profiles = [profile, ...this.config.store.profiles]
@@ -122,8 +123,11 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
         if ((await this.platform.showMessageBox(
             {
                 type: 'warning',
-                message: `Delete "${profile.name}"?`,
-                buttons: ['Delete', 'Keep'],
+                message: this.translate.instant('Delete "{name}"?', profile),
+                buttons: [
+                    this.translate.instant('Delete'),
+                    this.translate.instant('Keep'),
+                ],
                 defaultId: 1,
                 cancelId: 1,
             }
@@ -156,7 +160,7 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
         this.profileGroups.sort((a, b) => a.name?.localeCompare(b.name ?? '') ?? -1)
 
         this.profileGroups.push({
-            name: 'Built-in',
+            name: this.translate.instant('Built-in'),
             profiles: this.builtinProfiles,
             editable: false,
             collapsed: false,
@@ -165,7 +169,7 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
 
     async editGroup (group: ProfileGroup): Promise<void> {
         const modal = this.ngbModal.open(PromptModalComponent)
-        modal.componentInstance.prompt = 'New name'
+        modal.componentInstance.prompt = this.translate.instant('New name')
         modal.componentInstance.value = group.name
         const result = await modal.result
         if (result) {
@@ -181,8 +185,11 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
         if ((await this.platform.showMessageBox(
             {
                 type: 'warning',
-                message: `Delete "${group.name}"?`,
-                buttons: ['Delete', 'Keep'],
+                message: this.translate.instant('Delete "{name}"?', group),
+                buttons: [
+                    this.translate.instant('Delete'),
+                    this.translate.instant('Keep'),
+                ],
                 defaultId: 1,
                 cancelId: 1,
             }
@@ -190,8 +197,11 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
             if ((await this.platform.showMessageBox(
                 {
                     type: 'warning',
-                    message: `Delete the group's profiles?`,
-                    buttons: ['Move to "Ungrouped"', 'Delete'],
+                    message: this.translate.instant(`Delete the group's profiles?`),
+                    buttons: [
+                        this.translate.instant('Move to "Ungrouped"'),
+                        this.translate.instant('Delete'),
+                    ],
                     defaultId: 0,
                     cancelId: 0,
                 }
@@ -224,10 +234,10 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
 
     getTypeLabel (profile: PartialProfile<Profile>): string {
         const name = this.profilesService.providerForProfile(profile)?.name
-        if (name === 'Local') {
+        if (name === this.translate.instant('Local terminal')) {
             return ''
         }
-        return name ?? 'Unknown'
+        return name ?? this.translate.instant('Unknown')
     }
 
     getTypeColorClass (profile: PartialProfile<Profile>): string {

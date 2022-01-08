@@ -3,7 +3,7 @@ import { Spinner } from 'cli-spinner'
 import colors from 'ansi-colors'
 import { NgZone, OnInit, OnDestroy, Injector, ViewChild, HostBinding, Input, ElementRef, InjectFlags } from '@angular/core'
 import { trigger, transition, style, animate, AnimationTriggerMetadata } from '@angular/animations'
-import { AppService, ConfigService, BaseTabComponent, HostAppService, HotkeysService, NotificationsService, Platform, LogService, Logger, TabContextMenuItemProvider, SplitTabComponent, SubscriptionContainer, MenuItemOptions, PlatformService, HostWindowService, ResettableTimeout } from 'tabby-core'
+import { AppService, ConfigService, BaseTabComponent, HostAppService, HotkeysService, NotificationsService, Platform, LogService, Logger, TabContextMenuItemProvider, SplitTabComponent, SubscriptionContainer, MenuItemOptions, PlatformService, HostWindowService, ResettableTimeout, TranslateService } from 'tabby-core'
 
 import { BaseSession } from '../session'
 import { TerminalFrontendService } from '../services/terminalFrontend.service'
@@ -118,6 +118,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
     protected decorators: TerminalDecorator[] = []
     protected contextMenuProviders: TabContextMenuItemProvider[]
     protected hostWindow: HostWindowService
+    protected translate: TranslateService
     // Deps end
 
     protected logger: Logger
@@ -186,9 +187,10 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
         this.decorators = injector.get<any>(TerminalDecorator, null, InjectFlags.Optional) as TerminalDecorator[]
         this.contextMenuProviders = injector.get<any>(TabContextMenuItemProvider, null, InjectFlags.Optional) as TabContextMenuItemProvider[]
         this.hostWindow = injector.get(HostWindowService)
+        this.translate = injector.get(TranslateService)
 
         this.logger = this.log.create('baseTerminalTab')
-        this.setTitle('Terminal')
+        this.setTitle(this.translate.instant('Terminal'))
 
         this.subscribeUntilDestroyed(this.hotkeys.hotkey$, async hotkey => {
             if (!this.hasFocus) {
@@ -199,7 +201,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
                     if (this.frontend?.getSelection()) {
                         this.frontend.copySelection()
                         this.frontend.clearSelection()
-                        this.notifications.notice('Copied')
+                        this.notifications.notice(this.translate.instant('Copied'))
                     } else {
                         this.forEachFocusedTerminalPane(tab => tab.sendInput('\x03'))
                     }
@@ -207,7 +209,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
                 case 'copy':
                     this.frontend?.copySelection()
                     this.frontend?.clearSelection()
-                    this.notifications.notice('Copied')
+                    this.notifications.notice(this.translate.instant('Copied'))
                     break
                 case 'paste':
                     this.forEachFocusedTerminalPane(tab => tab.paste())
@@ -440,12 +442,15 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
             data = data.trim()
 
             if (data.includes('\r') && this.config.store.terminal.warnOnMultilinePaste) {
-                const buttons = ['Paste', 'Cancel']
+                const buttons = [
+                    this.translate.instant('Paste'),
+                    this.translate.instant('Cancel'),
+                ]
                 const result = (await this.platform.showMessageBox(
                     {
                         type: 'warning',
                         detail: data,
-                        message: `Paste multiple lines?`,
+                        message: this.translate.instant(`Paste multiple lines?`),
                         buttons,
                         defaultId: 0,
                         cancelId: 1,
@@ -534,9 +539,9 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
         }
         if (cwd) {
             this.platform.setClipboard({ text: cwd })
-            this.notifications.notice('Copied')
+            this.notifications.notice(this.translate.instant('Copied'))
         } else {
-            this.notifications.error('Shell does not support current path detection')
+            this.notifications.error(this.translate.instant('Shell does not support current path detection'))
         }
     }
 
@@ -734,7 +739,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
 
         this.attachSessionHandler(this.session.oscProcessor.copyRequested$, content => {
             this.platform.setClipboard({ text: content })
-            this.notifications.notice('Copied')
+            this.notifications.notice(this.translate.instant('Copied'))
         })
     }
 

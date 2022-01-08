@@ -2,7 +2,7 @@
 import axios from 'axios'
 import { marked } from 'marked'
 import { Component } from '@angular/core'
-import { BaseTabComponent } from 'tabby-core'
+import { BaseTabComponent, TranslateService } from 'tabby-core'
 
 export interface Release {
     name: string
@@ -21,9 +21,9 @@ export class ReleaseNotesComponent extends BaseTabComponent {
     releases: Release[] = []
     lastPage = 1
 
-    constructor () {
+    constructor (translate: TranslateService) {
         super()
-        this.setTitle('Release notes')
+        this.setTitle(translate.instant('Release notes'))
         this.loadReleases(1)
     }
 

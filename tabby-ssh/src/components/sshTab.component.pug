@@ -17,24 +17,24 @@
         .bg-dark(ngbDropdownMenu)
             a.d-flex.align-items-center(ngbDropdownItem, (click)='platform.openExternal("https://tabby.sh/go/cwd-detection")')
                 .mr-auto
-                    strong Working directory detection
-                    div Learn how to allow Tabby to detect remote shell's working directory.
+                    strong(translate) Working directory detection
+                    div(translate) Learn how to allow Tabby to detect remote shell's working directory.
                 i.fas.fa-arrow-right.ml-4
 
     button.btn.btn-sm.btn-link.mr-2((click)='reconnect()')
         i.fas.fa-redo
-        span Reconnect
+        span(translate) Reconnect
 
     button.btn.btn-sm.btn-link.mr-2((click)='openSFTP()', *ngIf='session && session.open')
         i.far.fa-folder-open
-        span SFTP
+        span(translate) SFTP
 
     button.btn.btn-sm.btn-link(
         *ngIf='session && session.open && hostApp.platform !== Platform.Web',
         (click)='showPortForwarding()'
     )
         i.fas.fa-plug
-        span Ports
+        span(translate) Ports
 
 
 sftp-panel.bg-dark(

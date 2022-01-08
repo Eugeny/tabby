@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { BaseTabComponent, TabContextMenuItemProvider, TabHeaderComponent, HostAppService, Platform, MenuItemOptions } from 'tabby-core'
+import { BaseTabComponent, TabContextMenuItemProvider, TabHeaderComponent, HostAppService, Platform, MenuItemOptions, TranslateService } from 'tabby-core'
 import { SSHTabComponent } from './components/sshTab.component'
 import { SSHService } from './services/ssh.service'
 
@@ -12,6 +12,7 @@ export class SFTPContextMenu extends TabContextMenuItemProvider {
     constructor (
         private hostApp: HostAppService,
         private ssh: SSHService,
+        private translate: TranslateService,
     ) {
         super()
     }
@@ -21,14 +22,14 @@ export class SFTPContextMenu extends TabContextMenuItemProvider {
             return []
         }
         const items = [{
-            label: 'Open SFTP panel',
+            label: this.translate.instant('Open SFTP panel'),
             click: () => {
                 tab.openSFTP()
             },
         }]
         if (this.hostApp.platform === Platform.Windows && this.ssh.getWinSCPPath()) {
             items.push({
-                label: 'Launch WinSCP',
+                label: this.translate.instant('Launch WinSCP'),
                 click: (): void => {
                     this.ssh.launchWinSCP(tab.sshSession!)
                 },

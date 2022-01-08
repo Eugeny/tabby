@@ -1,5 +1,5 @@
 .head
-    h3.mb-3 Current color scheme
+    h3.mb-3(translate) Current color scheme
 
     .d-flex.align-items-center(*ngIf='!editing')
         span {{getCurrentSchemeName()}}
@@ -7,18 +7,18 @@
         .btn-toolbar
             button.btn.btn-secondary((click)='editScheme()')
                 i.fas.fa-pen
-                span Edit
+                span(translate) Edit
             .mr-1
             button.btn.btn-danger(
                 (click)='deleteScheme(config.store.terminal.colorScheme)',
                 *ngIf='currentCustomScheme'
             )
                 i.fas.fa-trash
-                span Delete
+                span(translate) Delete
 
     div(*ngIf='editing')
         .form-group
-            label Name
+            label(translate) Name
             input.form-control(type='text', [(ngModel)]='config.store.terminal.colorScheme.name')
 
         .form-group
@@ -60,11 +60,11 @@
         .mr-auto
         button.btn.btn-primary((click)='saveScheme()')
             i.fas.fa-check
-            span Save
+            span(translate) Save
         .mr-1
         button.btn.btn-secondary((click)='cancelEditing()')
             i.fas.fa-times
-            span Cancel
+            span(translate) Cancel
 
     hr.mt-3.mb-4
 

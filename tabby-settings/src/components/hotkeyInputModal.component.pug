@@ -1,5 +1,5 @@
 .modal-header
-    h5 Press the key now
+    h5(translate) Press the key now
 
 .modal-body
     .input
@@ -9,4 +9,4 @@
         div([style.width]='timeoutProgress + "%"')
 
 .modal-footer
-    button.btn.btn-primary((click)='close()') Cancel
+    button.btn.btn-primary((click)='close()', translate) Cancel

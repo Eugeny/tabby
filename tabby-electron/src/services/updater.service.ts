@@ -2,7 +2,7 @@ import type { AppUpdater } from 'electron-updater'
 import { Injectable } from '@angular/core'
 import axios from 'axios'
 
-import { Logger, LogService, ConfigService, UpdaterService, PlatformService } from 'tabby-core'
+import { Logger, LogService, ConfigService, UpdaterService, PlatformService, TranslateService } from 'tabby-core'
 import { ElectronService } from '../services/electron.service'
 
 const UPDATES_URL = 'https://api.github.com/repos/eugeny/tabby/releases/latest'
@@ -18,6 +18,7 @@ export class ElectronUpdaterService extends UpdaterService {
     constructor (
         log: LogService,
         config: ConfigService,
+        private translate: TranslateService,
         private platform: PlatformService,
         private electron: ElectronService,
     ) {
@@ -132,8 +133,11 @@ export class ElectronUpdaterService extends UpdaterService {
             if ((await this.platform.showMessageBox(
                 {
                     type: 'warning',
-                    message: 'Installing the update will close all tabs and restart Tabby.',
-                    buttons: ['Update', 'Cancel'],
+                    message: this.translate.instant('Installing the update will close all tabs and restart Tabby.'),
+                    buttons: [
+                        this.translate.instant('Update'),
+                        this.translate.instant('Cancel'),
+                    ],
                     defaultId: 0,
                     cancelId: 1,
                 }

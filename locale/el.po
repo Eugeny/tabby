@@ -1,0 +1,196 @@
+msgid ""
+msgstr ""
+"mime-version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Crowdin-Project: tabby\n"
+"X-Crowdin-Project-ID: 493349\n"
+"X-Crowdin-Language: el\n"
+"X-Crowdin-File: /locale/app.pot\n"
+"X-Crowdin-File-ID: 75\n"
+"Project-Id-Version: tabby\n"
+"Language-Team: Greek\n"
+"Language: el_GR\n"
+"PO-Revision-Date: 2022-01-08 12:42\n"
+
+msgid "Allows quickly opening a terminal in the selected folder"
+msgstr ""
+
+msgid "Application"
+msgstr ""
+
+msgid "Application settings"
+msgstr ""
+
+msgid "Ask a question"
+msgstr ""
+
+msgid "Automatic Updates"
+msgstr ""
+
+msgid "Blue"
+msgstr ""
+
+msgid "Check for updates"
+msgstr ""
+
+msgid "Close"
+msgstr ""
+
+msgid "Close other tabs"
+msgstr ""
+
+msgid "Close tabs to the left"
+msgstr ""
+
+msgid "Close tabs to the right"
+msgstr ""
+
+msgid "Color"
+msgstr ""
+
+msgid "Config file"
+msgstr ""
+
+msgid "Current process: {name}"
+msgstr ""
+
+msgid "Debugging"
+msgstr ""
+
+msgid "Defaults"
+msgstr ""
+
+msgid "Down"
+msgstr ""
+
+msgid "Duplicate"
+msgstr ""
+
+msgid "Enable analytics"
+msgstr ""
+
+msgid "Enable automatic installation of updates when they become available."
+msgstr ""
+
+msgid "English"
+msgstr ""
+
+msgid "French"
+msgstr ""
+
+msgid "Generate a pre-filled GitHub issue"
+msgstr ""
+
+msgid "German"
+msgstr ""
+
+msgid "Green"
+msgstr ""
+
+msgid "Invalid syntax"
+msgstr ""
+
+msgid "Language"
+msgstr ""
+
+msgid "Left"
+msgstr ""
+
+msgid "No color"
+msgstr ""
+
+msgid "Notify on activity"
+msgstr ""
+
+msgid "Notify when done"
+msgstr ""
+
+msgid "On GitHub Discussions"
+msgstr ""
+
+msgid "Open DevTools"
+msgstr ""
+
+msgid "Orange"
+msgstr ""
+
+msgid "Process completed"
+msgstr ""
+
+msgid "Profile name"
+msgstr ""
+
+msgid "Purple"
+msgstr ""
+
+msgid "Red"
+msgstr ""
+
+msgid "Rename"
+msgstr ""
+
+msgid "Report a problem"
+msgstr ""
+
+msgid "Restart the app to apply changes"
+msgstr ""
+
+msgid "Right"
+msgstr ""
+
+msgid "Russian"
+msgstr ""
+
+msgid "Save and apply"
+msgstr ""
+
+msgid "Save layout as profile"
+msgstr ""
+
+msgid "Shell integration"
+msgstr ""
+
+msgid "Show config file"
+msgstr ""
+
+msgid "Show defaults"
+msgstr ""
+
+msgid "Show release notes"
+msgstr ""
+
+msgid "Source code"
+msgstr ""
+
+msgid "Split"
+msgstr ""
+
+msgid "Subscribe to updates"
+msgstr ""
+
+msgid "Tab activity"
+msgstr ""
+
+msgid "Tabby news and updates on Twitter"
+msgstr ""
+
+msgid "Up"
+msgstr ""
+
+msgid "Update"
+msgstr ""
+
+msgid "We're only tracking your Tabby and OS versions."
+msgstr ""
+
+msgid "What's new"
+msgstr ""
+
+msgid "Yellow"
+msgstr ""
+
+msgid "click"
+msgstr ""
+

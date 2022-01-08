@@ -1,9 +1,9 @@
-h3.mb-3 Appearance
+h3.mb-3(translate) Appearance
 .row
     .col-12.col-md-6
         .form-line
             .header
-                .title Font
+                .title(translate) Font
 
             .input-group.w-75
                 input.form-control.w-75(
@@ -22,7 +22,7 @@ h3.mb-3 Appearance
 
         .form-line
             .header
-                .title Enable font ligatures
+                .title(translate) Enable font ligatures
             toggle(
                 [(ngModel)]='config.store.terminal.ligatures',
                 (ngModelChange)='config.save()',
@@ -34,7 +34,7 @@ h3.mb-3 Appearance
 .content-box
     .form-line
         .header
-            .title Terminal background
+            .title(translate) Terminal background
 
         .btn-group(
             [(ngModel)]='config.store.terminal.background',
@@ -47,18 +47,18 @@ h3.mb-3 Appearance
                     ngbButton,
                     [value]='"theme"'
                 )
-                | From theme
+                span(translate) From theme
             label.btn.btn-secondary(ngbButtonLabel)
                 input(
                     type='radio',
                     ngbButton,
                     [value]='"colorScheme"'
                 )
-                | From color scheme
+                span(translate) From color scheme
 
     .form-line
         .header
-            .title Cursor shape
+            .title(translate) Cursor shape
 
         .btn-group(
             [(ngModel)]='config.store.terminal.cursor',
@@ -89,7 +89,7 @@ h3.mb-3 Appearance
 
     .form-line
         .header
-            .title Blink cursor
+            .title(translate) Blink cursor
 
         toggle(
             [(ngModel)]='config.store.terminal.cursorBlink',
@@ -98,8 +98,8 @@ h3.mb-3 Appearance
 
     .form-line
         .header
-            .title Fallback font
-            .description A second font family used to display characters missing in the main font
+            .title(translate) Fallback font
+            .description(translate) A second font family used to display characters missing in the main font
 
         input.form-control(
             type='text',
@@ -110,8 +110,8 @@ h3.mb-3 Appearance
 
     .form-line
         .header
-            .title Line padding
-            .description Additional space between lines
+            .title(translate) Line padding
+            .description(translate) Additional space between lines
         input.form-control(
             type='number',
             [(ngModel)]='config.store.terminal.linePadding',
@@ -121,7 +121,7 @@ h3.mb-3 Appearance
 
     .form-line
         .header
-            .title Custom CSS
+            .title(translate) Custom CSS
 
     textarea.form-control.mb-5(
         [(ngModel)]='config.store.appearance.css',

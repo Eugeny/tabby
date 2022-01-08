@@ -1,6 +1,6 @@
-h3.modal-header.m-0.pb-0 Set master passphrase
+h3.modal-header.m-0.pb-0(translate) Set master passphrase
 .modal-body
-    .mb-2 You can change it later, but it's unrecoverable if forgotten.
+    .mb-2(translate) You can change it later, but it's unrecoverable if forgotten.
     .input-group
         input.form-control.form-control-lg(
             [type]='showPassphrase ? "text" : "password"',
@@ -16,5 +16,5 @@ h3.modal-header.m-0.pb-0 Set master passphrase
                 i.fas.fa-eye
 
 .modal-footer
-    button.btn.btn-primary((click)='ok()') Set passphrase
-    button.btn.btn-danger((click)='cancel()') Cancel
+    button.btn.btn-primary((click)='ok()', translate) Set passphrase
+    button.btn.btn-danger((click)='cancel()', translate) Cancel

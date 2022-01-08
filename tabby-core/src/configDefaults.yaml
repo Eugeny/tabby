@@ -38,3 +38,4 @@ enableExperimentalFeatures: false
 pluginBlacklist: []
 hacks:
   disableGPU: false
+language: null

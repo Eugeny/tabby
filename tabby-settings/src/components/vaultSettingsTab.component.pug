@@ -1,27 +1,27 @@
 .text-center(*ngIf='!vault.isEnabled()')
     i.fas.fa-key.fa-3x.m-3
-    h3.m-3 Vault is not configured
-    .m-3 Vault is an always-encrypted container for secrets such as SSH passwords and private key passphrases.
-    button.btn.btn-primary.m-2((click)='enableVault()') Set master passphrase
+    h3.m-3(translate) Vault is not configured
+    .m-3(translate) Vault is an always-encrypted container for secrets such as SSH passwords and private key passphrases.
+    button.btn.btn-primary.m-2((click)='enableVault()', translate) Set master passphrase
 
 
 div(*ngIf='vault.isEnabled()')
     .d-flex.align-items-center.mb-3
-        h3.m-0 Vault
+        h3.m-0(translate) Vault
         .d-flex.ml-auto(ngbDropdown, *ngIf='vault.isEnabled()')
-            button.btn.btn-secondary(ngbDropdownToggle) Options
+            button.btn.btn-secondary(ngbDropdownToggle, translate) Options
             div(ngbDropdownMenu)
                 a(ngbDropdownItem, (click)='changePassphrase()')
                     i.fas.fa-fw.fa-key
-                    span Change the master passphrase
+                    span(translate) Change the master passphrase
                 a(ngbDropdownItem, (click)='disableVault()')
                     i.fas.fa-fw.fa-radiation-alt
-                    span Erase the vault
+                    span(translate) Erase the Vault
 
     div(*ngIf='vaultContents')
         .text-center(*ngIf='!vaultContents.secrets.length')
             i.fas.fa-empty-set.fa-3x
-            h3.m-3 Vault is empty
+            h3.m-3(translate) Vault is empty
 
         .list-group
             .list-group-item.d-flex.align-items-center.p-1.pl-3(*ngFor='let secret of vaultContents.secrets')
@@ -38,30 +38,30 @@ div(*ngIf='vault.isEnabled()')
                             (click)='renameFile(secret)'
                         )
                             i.fas.fa-fw.fa-pencil-alt
-                            span Rename
+                            span(translate) Rename
                         button(
                             ngbDropdownItem,
                             *ngIf='secret.type === VAULT_SECRET_TYPE_FILE',
                             (click)='replaceFileContent(secret)'
                         )
                             i.fas.fa-fw.fa-file-import
-                            span Replace
+                            span(translate) Replace
                         button(
                             ngbDropdownItem,
                             *ngIf='secret.type === VAULT_SECRET_TYPE_FILE',
                             (click)='exportFile(secret)'
                         )
                             i.fas.fa-fw.fa-file-export
-                            span Export
+                            span(translate) Export
                         button(ngbDropdownItem, (click)='removeSecret(secret)')
                             i.fas.fa-fw.fa-trash
-                            span Delete
+                            span(translate) Delete
 
-        h3.mt-5 Options
+        h3.mt-5(translate) Options
         .form-line
             .header
-                .title Encrypt config file
-                .description Puts all of Tabby's configuration into the vault
+                .title(translate) Encrypt config file
+                .description(translate) Puts all of Tabby's configuration into the vault
             toggle(
                 [ngModel]='config.store.encrypted',
                 (click)='toggleConfigEncrypted()',
@@ -69,5 +69,5 @@ div(*ngIf='vault.isEnabled()')
 
     .text-center(*ngIf='!vaultContents')
         i.fas.fa-key.fa-3x
-        h3.m-3 Vault is locked
-        button.btn.btn-primary.m-2((click)='loadVault()') Show vault contents
+        h3.m-3(translate) Vault is locked
+        button.btn.btn-primary.m-2((click)='loadVault()', translate) Show vault contents

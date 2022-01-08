@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { ProfileProvider, NewTabParameters, PartialProfile } from 'tabby-core'
+import { ProfileProvider, NewTabParameters, PartialProfile, TranslateService } from 'tabby-core'
 import { TelnetProfileSettingsComponent } from './components/telnetProfileSettings.component'
 import { TelnetTabComponent } from './components/telnetTab.component'
 import { TelnetProfile } from './session'
@@ -7,7 +7,7 @@ import { TelnetProfile } from './session'
 @Injectable({ providedIn: 'root' })
 export class TelnetProfilesService extends ProfileProvider<TelnetProfile> {
     id = 'telnet'
-    name = 'Telnet'
+    name = this.translate.instant('Telnet')
     supportsQuickConnect = false
     settingsComponent = TelnetProfileSettingsComponent
     configDefaults = {
@@ -22,12 +22,14 @@ export class TelnetProfilesService extends ProfileProvider<TelnetProfile> {
         },
     }
 
+    constructor (private translate: TranslateService) { super() }
+
     async getBuiltinProfiles (): Promise<PartialProfile<TelnetProfile>[]> {
         return [
             {
                 id: `telnet:template`,
                 type: 'telnet',
-                name: 'Telnet session',
+                name: this.translate.instant('Telnet session'),
                 icon: 'fas fa-network-wired',
                 options: {
                     host: '',
@@ -43,7 +45,7 @@ export class TelnetProfilesService extends ProfileProvider<TelnetProfile> {
             {
                 id: `socket:template`,
                 type: 'telnet',
-                name: 'Raw socket connection',
+                name: this.translate.instant('Raw socket connection'),
                 icon: 'fas fa-network-wired',
                 options: {
                     host: '',

@@ -1,5 +1,5 @@
 import { NgZone, Injectable } from '@angular/core'
-import { ConfigService, HostAppService, Platform, ProfilesService } from 'tabby-core'
+import { ConfigService, HostAppService, Platform, ProfilesService, TranslateService } from 'tabby-core'
 import { ElectronService } from 'tabby-electron'
 
 /** @hidden */
@@ -13,6 +13,7 @@ export class DockMenuService {
         private hostApp: HostAppService,
         private zone: NgZone,
         private profilesService: ProfilesService,
+        private translate: TranslateService,
     ) {
         config.changed$.subscribe(() => this.update())
     }
@@ -21,7 +22,7 @@ export class DockMenuService {
         if (this.hostApp.platform === Platform.Windows) {
             this.electron.app.setJumpList(this.config.store.profiles.length ? [{
                 type: 'custom',
-                name: 'Profiles',
+                name: this.translate.instant('Profiles'),
                 items: this.config.store.profiles.map(profile => ({
                     type: 'task',
                     program: process.execPath,

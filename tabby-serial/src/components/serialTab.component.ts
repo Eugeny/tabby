@@ -2,7 +2,7 @@
 import colors from 'ansi-colors'
 import { Component, Injector } from '@angular/core'
 import { first } from 'rxjs'
-import { Platform, SelectorService } from 'tabby-core'
+import { Platform, SelectorService, TranslateService } from 'tabby-core'
 import { BaseTerminalTabComponent } from 'tabby-terminal'
 import { SerialSession, BAUD_RATES, SerialProfile } from '../api'
 
@@ -23,6 +23,7 @@ export class SerialTabComponent extends BaseTerminalTabComponent {
     constructor (
         injector: Injector,
         private selector: SelectorService,
+        private translate: TranslateService,
     ) {
         super(injector)
         this.enableToolbar = true
@@ -67,14 +68,13 @@ export class SerialTabComponent extends BaseTerminalTabComponent {
 
         const session = new SerialSession(this.injector, this.profile)
         this.setSession(session)
-        this.write(`Connecting to `)
 
-        this.startSpinner('Connecting')
+        this.startSpinner(this.translate.instant('Connecting'))
 
         try {
             await this.session!.start()
             this.stopSpinner()
-            session.emitServiceMessage('Port opened')
+            session.emitServiceMessage(this.translate.instant('Port opened'))
         } catch (e) {
             this.stopSpinner()
             this.write(colors.black.bgRed(' X ') + ' ' + colors.red(e.message) + '\r\n')
@@ -89,7 +89,7 @@ export class SerialTabComponent extends BaseTerminalTabComponent {
             this.session?.resize(this.size.columns, this.size.rows)
         })
         this.attachSessionHandler(this.session!.destroyed$, () => {
-            this.write('Press any key to reconnect\r\n')
+            this.write(this.translate.instant('Press any key to reconnect') + '\r\n')
             this.input$.pipe(first()).subscribe(() => {
                 if (!this.session?.open) {
                     this.reconnect()
@@ -114,9 +114,12 @@ export class SerialTabComponent extends BaseTerminalTabComponent {
     }
 
     async changeBaudRate () {
-        const rate = await this.selector.show('Baud rate', BAUD_RATES.map(x => ({
-            name: x.toString(), result: x,
-        })))
+        const rate = await this.selector.show(
+            this.translate.instant('Baud rate'),
+            BAUD_RATES.map(x => ({
+                name: x.toString(), result: x,
+            })),
+        )
         this.serialPort.update({ baudRate: rate })
         this.profile!.options.baudrate = rate
     }

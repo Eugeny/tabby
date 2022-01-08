@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { ProfileProvider, NewTabParameters, PartialProfile } from 'tabby-core'
+import { ProfileProvider, NewTabParameters, PartialProfile, TranslateService } from 'tabby-core'
 import * as ALGORITHMS from 'ssh2/lib/protocol/constants'
 import { SSHProfileSettingsComponent } from './components/sshProfileSettings.component'
 import { SSHTabComponent } from './components/sshTab.component'
@@ -45,7 +45,8 @@ export class SSHProfilesService extends ProfileProvider<SSHProfile> {
     }
 
     constructor (
-        private passwordStorage: PasswordStorageService
+        private passwordStorage: PasswordStorageService,
+        private translate: TranslateService,
     ) {
         super()
         for (const k of Object.values(SSHAlgorithmType)) {
@@ -71,7 +72,7 @@ export class SSHProfilesService extends ProfileProvider<SSHProfile> {
             {
                 id: `ssh:template`,
                 type: 'ssh',
-                name: 'SSH connection',
+                name: this.translate.instant('SSH connection'),
                 icon: 'fas fa-desktop',
                 options: {
                     host: '',

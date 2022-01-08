@@ -15,5 +15,5 @@ button.btn.btn-sm.btn-link.toolbar-pin-button(
 )
     i.fas.fa-thumbtack(*ngIf='revealToolbar || pinToolbar')
     i.fas.fa-wrench.mr-3(*ngIf='!revealToolbar && !pinToolbar')
-    span(*ngIf='pinToolbar') Unpin
-    span(*ngIf='!pinToolbar && revealToolbar') Pin
+    span(*ngIf='pinToolbar', translate) Unpin
+    span(*ngIf='!pinToolbar && revealToolbar', translate) Pin

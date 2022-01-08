@@ -1,0 +1,1303 @@
+msgid ""
+msgstr ""
+"mime-version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "\"{command}\" is still running. Close?"
+msgstr ""
+
+msgid "A second font family used to display characters missing in the main font"
+msgstr ""
+
+msgid "Abort all"
+msgstr ""
+
+msgid "Acrylic background"
+msgstr ""
+
+msgid "Add"
+msgstr ""
+
+msgid "Add a private key"
+msgstr ""
+
+msgid "Add..."
+msgstr ""
+
+msgid "Additional space between lines"
+msgstr ""
+
+msgid "Advanced"
+msgstr ""
+
+msgid "Agent"
+msgstr ""
+
+msgid "Agent forwarding"
+msgstr ""
+
+msgid "Agent pipe path"
+msgstr ""
+
+msgid "Agent type"
+msgstr ""
+
+msgid "Allows quickly opening a terminal in the selected folder"
+msgstr ""
+
+msgid "Appearance"
+msgstr ""
+
+msgid "Application"
+msgstr ""
+
+msgid "Application settings"
+msgstr ""
+
+msgid ""
+"Are you sure you want to close Tabby? You can disable this prompt in "
+"Settings -> Window."
+msgstr ""
+
+msgid "Are you sure?"
+msgstr ""
+
+msgid "Arguments"
+msgstr ""
+
+msgid "Ask a question"
+msgstr ""
+
+msgid "Ask before closing the browser tab"
+msgstr ""
+
+msgid "Authentication method"
+msgstr ""
+
+msgid "Auto"
+msgstr ""
+
+msgid "Automatic"
+msgstr ""
+
+msgid "Automatic Updates"
+msgstr ""
+
+msgid "Background type"
+msgstr ""
+
+msgid "Baud rate"
+msgstr ""
+
+msgid "Beginning of the line"
+msgstr ""
+
+msgid "Blink cursor"
+msgstr ""
+
+msgid "Blue"
+msgstr ""
+
+msgid "Blur"
+msgstr ""
+
+msgid "Bottom"
+msgstr ""
+
+msgid "Built-in"
+msgstr ""
+
+msgid "Cancel"
+msgstr ""
+
+msgid "Change baud rate"
+msgstr ""
+
+msgid "Change the master passphrase"
+msgstr ""
+
+msgid "Check for updates"
+msgstr ""
+
+msgid "Ciphers"
+msgstr ""
+
+msgid "Clear recent profiles"
+msgstr ""
+
+msgid "Clear terminal"
+msgstr ""
+
+msgid "Close"
+msgstr ""
+
+msgid "Close and never show again"
+msgstr ""
+
+msgid "Close focused pane"
+msgstr ""
+
+msgid "Close other tabs"
+msgstr ""
+
+msgid "Close tab"
+msgstr ""
+
+msgid "Close tabs to the left"
+msgstr ""
+
+msgid "Close tabs to the right"
+msgstr ""
+
+msgid "Color"
+msgstr ""
+
+msgid "Color scheme"
+msgstr ""
+
+msgid "Command line"
+msgstr ""
+
+msgid "Command's stdin/stdout is used instead of a network connection"
+msgstr ""
+
+msgid "Compact"
+msgstr ""
+
+msgid "Config downloaded"
+msgstr ""
+
+msgid "Config file"
+msgstr ""
+
+msgid "Config sync"
+msgstr ""
+
+msgid "Config uploaded"
+msgstr ""
+
+msgid "Connect through a proxy server"
+msgstr ""
+
+msgid "Connect to \"%s\"..."
+msgstr ""
+
+msgid "Connect to a different host first and use it as a proxy"
+msgstr ""
+
+msgid "Connecting"
+msgstr ""
+
+msgid "Connection"
+msgstr ""
+
+msgid "Copied"
+msgstr ""
+
+msgid "Copy"
+msgstr ""
+
+msgid "Copy current path"
+msgstr ""
+
+msgid "Copy to clipboard"
+msgstr ""
+
+msgid "Could not decrypt config"
+msgstr ""
+
+msgid "Current"
+msgstr ""
+
+msgid "Current color scheme"
+msgstr ""
+
+msgid "Current process: {name}"
+msgstr ""
+
+msgid "Cursor shape"
+msgstr ""
+
+msgid "Custom CSS"
+msgstr ""
+
+msgid "Data bits"
+msgstr ""
+
+msgid "Debugging"
+msgstr ""
+
+msgid "Default profile for new tabs"
+msgstr ""
+
+msgid "Default profile settings"
+msgstr ""
+
+msgid "Defaults"
+msgstr ""
+
+msgid "Delete"
+msgstr ""
+
+msgid "Delete \"{name}\"?"
+msgstr ""
+
+msgid "Delete next word"
+msgstr ""
+
+msgid "Delete previous word"
+msgstr ""
+
+msgid "Delete the group's profiles?"
+msgstr ""
+
+msgid "Delete this script?"
+msgstr ""
+
+msgid "Delete vault contents?"
+msgstr ""
+
+msgid "Delete {fullPath}?"
+msgstr ""
+
+msgid "Deleting"
+msgstr ""
+
+msgid "Device"
+msgstr ""
+
+msgid "Direct"
+msgstr ""
+
+msgid "Disable GPU acceleration"
+msgstr ""
+
+msgid "Disconnect"
+msgstr ""
+
+msgid "Disconnect from {host}?"
+msgstr ""
+
+msgid "Display on"
+msgstr ""
+
+msgid "Do not abort"
+msgstr ""
+
+msgid "Do not close"
+msgstr ""
+
+msgid "Dock always on top"
+msgstr ""
+
+msgid "Dock the terminal"
+msgstr ""
+
+msgid "Docked terminal size"
+msgstr ""
+
+msgid "Docked terminal space"
+msgstr ""
+
+msgid "Docking"
+msgstr ""
+
+msgid "Down"
+msgstr ""
+
+msgid "Duplicate"
+msgstr ""
+
+msgid "Duplicate as administrator"
+msgstr ""
+
+msgid "Duplicate tab"
+msgstr ""
+
+msgid "Dynamic"
+msgstr ""
+
+msgid "Edit"
+msgstr ""
+
+msgid "Enable analytics"
+msgstr ""
+
+msgid "Enable automatic installation of updates when they become available."
+msgstr ""
+
+msgid "Enable font ligatures"
+msgstr ""
+
+msgid "Enable global hotkey (Ctrl-Space)"
+msgstr ""
+
+msgid "Enables the experimental Windows ConPTY API"
+msgstr ""
+
+msgid "Encrypt config file"
+msgstr ""
+
+msgid "End of the line"
+msgstr ""
+
+msgid "English"
+msgstr ""
+
+msgid "Environment"
+msgstr ""
+
+msgid "Erase config"
+msgstr ""
+
+msgid "Erase the Vault"
+msgstr ""
+
+msgid "Exact match"
+msgstr ""
+
+msgid "Example:"
+msgstr ""
+
+msgid "Export"
+msgstr ""
+
+msgid "Fallback font"
+msgstr ""
+
+msgid "File transfers"
+msgstr ""
+
+msgid "File: {description}"
+msgstr ""
+
+msgid "Fixed"
+msgstr ""
+
+msgid "Focus all panes"
+msgstr ""
+
+msgid "Focus all panes at once (broadcast)"
+msgstr ""
+
+msgid "Focus next pane"
+msgstr ""
+
+msgid "Focus previous pane"
+msgstr ""
+
+msgid "Focus the pane above"
+msgstr ""
+
+msgid "Focus the pane below"
+msgstr ""
+
+msgid "Focus the pane on the left"
+msgstr ""
+
+msgid "Focus the pane on the right"
+msgstr ""
+
+msgid "Font"
+msgstr ""
+
+msgid "Force CR"
+msgstr ""
+
+msgid "Force CRLF"
+msgstr ""
+
+msgid "Force LF"
+msgstr ""
+
+msgid "Forces a specific SSH agent connection type."
+msgstr ""
+
+msgid "Forget"
+msgstr ""
+
+msgid "Forward port"
+msgstr ""
+
+msgid "Forwarded ports"
+msgstr ""
+
+msgid "French"
+msgstr ""
+
+msgid "From color scheme"
+msgstr ""
+
+msgid "From theme"
+msgstr ""
+
+msgid "Full"
+msgstr ""
+
+msgid "General"
+msgstr ""
+
+msgid "Generate a pre-filled GitHub issue"
+msgstr ""
+
+msgid "German"
+msgstr ""
+
+msgid "Gives the window a blurred transparent background"
+msgstr ""
+
+msgid "Go up"
+msgstr ""
+
+msgid "Green"
+msgstr ""
+
+msgid "Help track the number of Tabby installs across the world!"
+msgstr ""
+
+msgid "Hexadecimal"
+msgstr ""
+
+msgid "Hide dock on blur"
+msgstr ""
+
+msgid "Hide tab close button"
+msgstr ""
+
+msgid "Hide tab index"
+msgstr ""
+
+msgid "Hides the docked terminal when you click away."
+msgstr ""
+
+msgid "Host"
+msgstr ""
+
+msgid "Host key"
+msgstr ""
+
+msgid "Hotkeys"
+msgstr ""
+
+msgid "If disabled, only custom profiles will show up in the profile selector"
+msgstr ""
+
+msgid "Immediately echoes your input locally"
+msgstr ""
+
+msgid "Input is sent as you type"
+msgstr ""
+
+msgid "Input mode"
+msgstr ""
+
+msgid "Input newlines"
+msgstr ""
+
+msgid "Installing the update will close all tabs and restart Tabby."
+msgstr ""
+
+msgid "Intelligent Ctrl-C (copy/abort)"
+msgstr ""
+
+msgid "Interactive"
+msgstr ""
+
+msgid "Invalid syntax"
+msgstr ""
+
+msgid "Jump host"
+msgstr ""
+
+msgid "Jump to next word"
+msgstr ""
+
+msgid "Jump to previous word"
+msgstr ""
+
+msgid "Keep"
+msgstr ""
+
+msgid "Keep Alive Interval (Milliseconds)"
+msgstr ""
+
+msgid "Keep docked terminal always on top"
+msgstr ""
+
+msgid "Key"
+msgstr ""
+
+msgid "Key exchange"
+msgstr ""
+
+msgid "Keyboard-interactive auth"
+msgstr ""
+
+msgid "Kill"
+msgstr ""
+
+msgid "Language"
+msgstr ""
+
+msgid "Launch WinSCP"
+msgstr ""
+
+msgid "Launch WinSCP for current SSH session"
+msgstr ""
+
+msgid "Learn how to allow Tabby to detect remote shell's working directory."
+msgstr ""
+
+msgid "Left"
+msgstr ""
+
+msgid "Line by line"
+msgstr ""
+
+msgid "Line editor, input is sent after you press Enter"
+msgstr ""
+
+msgid "Line padding"
+msgstr ""
+
+msgid "Loading"
+msgstr ""
+
+msgid "Local"
+msgstr ""
+
+msgid "Local echo"
+msgstr ""
+
+msgid "Local terminal"
+msgstr ""
+
+msgid "Login scripts"
+msgstr ""
+
+msgid "Manage profiles"
+msgstr ""
+
+msgid "Max Keep Alive Count"
+msgstr ""
+
+msgid "Maximize the active pane"
+msgstr ""
+
+msgid "Move tab to the left"
+msgstr ""
+
+msgid "Move tab to the right"
+msgstr ""
+
+msgid "Move to \"Ungrouped\""
+msgstr ""
+
+msgid "Name"
+msgstr ""
+
+msgid "Name for the new config"
+msgstr ""
+
+msgid "Named pipe"
+msgstr ""
+
+msgid "Native"
+msgstr ""
+
+msgid "New admin tab"
+msgstr ""
+
+msgid "New config on {platform}"
+msgstr ""
+
+msgid "New item"
+msgstr ""
+
+msgid "New name"
+msgstr ""
+
+msgid "New profile"
+msgstr ""
+
+msgid "New profile name"
+msgstr ""
+
+msgid "New tab"
+msgstr ""
+
+msgid "New terminal"
+msgstr ""
+
+msgid "New window"
+msgstr ""
+
+msgid "New with profile"
+msgstr ""
+
+msgid "Next tab"
+msgstr ""
+
+msgid "No color"
+msgstr ""
+
+msgid "None"
+msgstr ""
+
+msgid "Normal"
+msgstr ""
+
+msgid "Not found"
+msgstr ""
+
+msgid "Notify on activity"
+msgstr ""
+
+msgid "Notify when done"
+msgstr ""
+
+msgid "OS default"
+msgstr ""
+
+msgid "OS default ({name})"
+msgstr ""
+
+msgid "Off"
+msgstr ""
+
+msgid "On GitHub Discussions"
+msgstr ""
+
+msgid "Opacity"
+msgstr ""
+
+msgid "Open"
+msgstr ""
+
+msgid "Open DevTools"
+msgstr ""
+
+msgid "Open SFTP panel"
+msgstr ""
+
+msgid "Open Settings"
+msgstr ""
+
+msgid "Optional"
+msgstr ""
+
+msgid "Options"
+msgstr ""
+
+msgid "Orange"
+msgstr ""
+
+msgid "Output is shown as a hexdump"
+msgstr ""
+
+msgid "Output is shown as it is received"
+msgstr ""
+
+msgid "Output mode"
+msgstr ""
+
+msgid "Output newlines"
+msgstr ""
+
+msgid "Override X11 display"
+msgstr ""
+
+msgid "Overwrite local and sync"
+msgstr ""
+
+msgid "Overwrite remote and sync"
+msgstr ""
+
+msgid "Overwrite the config on the remote side and start syncing?"
+msgstr ""
+
+msgid "Overwrite the local config and start syncing?"
+msgstr ""
+
+msgid "Paper"
+msgstr ""
+
+msgid "Parity"
+msgstr ""
+
+msgid "Passphrase for a private key with hash {hash}..."
+msgstr ""
+
+msgid "Password"
+msgstr ""
+
+msgid "Paste"
+msgstr ""
+
+msgid "Paste from clipboard"
+msgstr ""
+
+msgid "Paste multiple lines?"
+msgstr ""
+
+msgid "Path or address of the local X11 socket"
+msgstr ""
+
+msgid "Pin"
+msgstr ""
+
+msgid "Port"
+msgstr ""
+
+msgid "Port opened"
+msgstr ""
+
+msgid "Ports"
+msgstr ""
+
+msgid "Press any key to reconnect"
+msgstr ""
+
+msgid "Press the key now"
+msgstr ""
+
+msgid "Prevents accidental closing"
+msgstr ""
+
+msgid "Previous tab"
+msgstr ""
+
+msgid "Private keys"
+msgstr ""
+
+msgid "Process completed"
+msgstr ""
+
+msgid "Profile name"
+msgstr ""
+
+msgid "Profiles"
+msgstr ""
+
+msgid "Profiles & connections"
+msgstr ""
+
+msgid "Profiles and connections"
+msgstr ""
+
+msgid "Program"
+msgstr ""
+
+msgid "Proxy command"
+msgstr ""
+
+msgid "Purple"
+msgstr ""
+
+msgid "Puts all of Tabby's configuration into the vault"
+msgstr ""
+
+msgid "Quick connect"
+msgstr ""
+
+msgid "Quit"
+msgstr ""
+
+msgid "Raw socket connection"
+msgstr ""
+
+msgid "Ready Timeout (Milliseconds)"
+msgstr ""
+
+msgid "Recent"
+msgstr ""
+
+msgid "Reconnect"
+msgstr ""
+
+msgid "Red"
+msgstr ""
+
+msgid "Regex"
+msgstr ""
+
+msgid "Release notes"
+msgstr ""
+
+msgid "Remote"
+msgstr ""
+
+msgid "Rename"
+msgstr ""
+
+msgid "Rename Tab"
+msgstr ""
+
+msgid "Reopen last tab"
+msgstr ""
+
+msgid "Replace"
+msgstr ""
+
+msgid "Report a problem"
+msgstr ""
+
+msgid "Reset zoom"
+msgstr ""
+
+msgid "Restart current SSH session"
+msgstr ""
+
+msgid "Restart current Telnet session"
+msgstr ""
+
+msgid "Restart current serial session"
+msgstr ""
+
+msgid "Restart the app to apply changes"
+msgstr ""
+
+msgid "Reuse session for multiple tabs"
+msgstr ""
+
+msgid "Right"
+msgstr ""
+
+msgid "Run as administrator"
+msgstr ""
+
+msgid "Russian"
+msgstr ""
+
+msgid "SFTP"
+msgstr ""
+
+msgid "SOCKS proxy"
+msgstr ""
+
+msgid "SOCKS proxy host"
+msgstr ""
+
+msgid "SOCKS proxy port"
+msgstr ""
+
+msgid "SSH connection"
+msgstr ""
+
+msgid "SSH connection management is now done through the"
+msgstr ""
+
+msgid "SSH password for {user}@{host}:{port}"
+msgstr ""
+
+msgid "Save"
+msgstr ""
+
+msgid "Save a password in the keychain"
+msgstr ""
+
+msgid "Save and apply"
+msgstr ""
+
+msgid "Save as profile"
+msgstr ""
+
+msgid "Save layout as profile"
+msgstr ""
+
+msgid "Saved"
+msgstr ""
+
+msgid "Saved layout"
+msgstr ""
+
+msgid "Search"
+msgstr ""
+
+msgid "Select"
+msgstr ""
+
+msgid "Select a base profile to use as a template"
+msgstr ""
+
+msgid "Select file storage"
+msgstr ""
+
+msgid "Select profile"
+msgstr ""
+
+msgid "Select profile or enter an address"
+msgstr ""
+
+msgid "Send bytes by typing in hex values"
+msgstr ""
+
+msgid "Sends data one byte at a time"
+msgstr ""
+
+msgid "Serial"
+msgstr ""
+
+msgid "Serial connection"
+msgstr ""
+
+msgid "Serial: {description}"
+msgstr ""
+
+msgid "Set master passphrase"
+msgstr ""
+
+msgid "Set passphrase"
+msgstr ""
+
+msgid "Set password"
+msgstr ""
+
+msgid "Set to 0 to disable recent profiles"
+msgstr ""
+
+msgid "Sets the SSH agent's named pipe path."
+msgstr ""
+
+msgid "Settings"
+msgstr ""
+
+msgid "Shell"
+msgstr ""
+
+msgid "Shell does not support current path detection"
+msgstr ""
+
+msgid "Shell integration"
+msgstr ""
+
+msgid "Show Serial connections"
+msgstr ""
+
+msgid "Show built-in profiles in selector"
+msgstr ""
+
+msgid "Show config file"
+msgstr ""
+
+msgid "Show defaults"
+msgstr ""
+
+msgid "Show pane labels (for rearranging)"
+msgstr ""
+
+msgid "Show profile selector"
+msgstr ""
+
+msgid "Show recent profiles in selector"
+msgstr ""
+
+msgid "Show release notes"
+msgstr ""
+
+msgid "Show vault contents"
+msgstr ""
+
+msgid "Skip MoTD/banner"
+msgstr ""
+
+msgid "Slow feed"
+msgstr ""
+
+msgid "Snaps the window to a side of the screen"
+msgstr ""
+
+msgid "Source code"
+msgstr ""
+
+msgid "Split"
+msgstr ""
+
+msgid "Split to the bottom"
+msgstr ""
+
+msgid "Split to the left"
+msgstr ""
+
+msgid "Split to the right"
+msgstr ""
+
+msgid "Split to the top"
+msgstr ""
+
+msgid "Standard"
+msgstr ""
+
+msgid "Stop bits"
+msgstr ""
+
+msgid "Strip"
+msgstr ""
+
+msgid "Subscribe to updates"
+msgstr ""
+
+msgid "Substitutions allowed."
+msgstr ""
+
+msgid "Switch profile"
+msgstr ""
+
+msgid "Switch profile in the active pane"
+msgstr ""
+
+msgid "Tab 1"
+msgstr ""
+
+msgid "Tab 10"
+msgstr ""
+
+msgid "Tab 11"
+msgstr ""
+
+msgid "Tab 12"
+msgstr ""
+
+msgid "Tab 13"
+msgstr ""
+
+msgid "Tab 14"
+msgstr ""
+
+msgid "Tab 15"
+msgstr ""
+
+msgid "Tab 16"
+msgstr ""
+
+msgid "Tab 17"
+msgstr ""
+
+msgid "Tab 18"
+msgstr ""
+
+msgid "Tab 19"
+msgstr ""
+
+msgid "Tab 2"
+msgstr ""
+
+msgid "Tab 20"
+msgstr ""
+
+msgid "Tab 3"
+msgstr ""
+
+msgid "Tab 4"
+msgstr ""
+
+msgid "Tab 5"
+msgstr ""
+
+msgid "Tab 6"
+msgstr ""
+
+msgid "Tab 7"
+msgstr ""
+
+msgid "Tab 8"
+msgstr ""
+
+msgid "Tab 9"
+msgstr ""
+
+msgid "Tab activity"
+msgstr ""
+
+msgid ""
+"Tabby could not start with your plugins, so all third party plugins have "
+"been disabled in this session. The error was:"
+msgstr ""
+
+msgid "Tabby news and updates on Twitter"
+msgstr ""
+
+msgid "Tabs"
+msgstr ""
+
+msgid "Tabs location"
+msgstr ""
+
+msgid "Tabs width"
+msgstr ""
+
+msgid "Telnet"
+msgstr ""
+
+msgid "Telnet session"
+msgstr ""
+
+msgid "Terminal"
+msgstr ""
+
+msgid "Terminal background"
+msgstr ""
+
+msgid "Thank you for downloading Tabby!"
+msgstr ""
+
+msgid "Theme"
+msgstr ""
+
+msgid "There are active file transfers"
+msgstr ""
+
+msgid "There is a saved password for this connection"
+msgstr ""
+
+msgid "These apply to all profiles of a given type"
+msgstr ""
+
+msgid "Thin"
+msgstr ""
+
+msgid "Tick this if you're experiencing aliasing, ghosting or other visual issues"
+msgstr ""
+
+msgid "Toggle fullscreen mode"
+msgstr ""
+
+msgid "Toggle last tab"
+msgstr ""
+
+msgid "Toggle terminal window"
+msgstr ""
+
+msgid "Toggles the Tabby window visibility"
+msgstr ""
+
+msgid "Top"
+msgstr ""
+
+msgid "Try again"
+msgstr ""
+
+msgid "Trying saved password"
+msgstr ""
+
+msgid "Ungrouped"
+msgstr ""
+
+msgid "Unknown"
+msgstr ""
+
+msgid "Unknown secret of type {type} for {key}"
+msgstr ""
+
+msgid "Unpin"
+msgstr ""
+
+msgid "Up"
+msgstr ""
+
+msgid "Update"
+msgstr ""
+
+msgid "Upload"
+msgstr ""
+
+msgid "Use ConPTY"
+msgstr ""
+
+msgid "User default"
+msgstr ""
+
+msgid "Username"
+msgstr ""
+
+msgid "Using preset password"
+msgstr ""
+
+msgid "Vault"
+msgstr ""
+
+msgid ""
+"Vault is an always-encrypted container for secrets such as SSH passwords "
+"and private key passphrases."
+msgstr ""
+
+msgid "Vault is empty"
+msgstr ""
+
+msgid "Vault is locked"
+msgstr ""
+
+msgid "Vault is not configured"
+msgstr ""
+
+msgid "Vault master passphrase needs to be set to allow storing secrets"
+msgstr ""
+
+msgid "Vibrancy"
+msgstr ""
+
+msgid "WSL terminal only supports TrueColor with ConPTY"
+msgstr ""
+
+msgid "Warn when closing active connections"
+msgstr ""
+
+msgid "We're only tracking your Tabby and OS versions."
+msgstr ""
+
+msgid "Welcome"
+msgstr ""
+
+msgid "What's new"
+msgstr ""
+
+msgid ""
+"When WinSCP is detected, you can launch an SCP session from the context "
+"menu."
+msgstr ""
+
+msgid "Whether a custom window or an OS native window should be used"
+msgstr ""
+
+msgid "WinSCP path"
+msgstr ""
+
+msgid "Window"
+msgstr ""
+
+msgid "Window frame"
+msgstr ""
+
+msgid "Windows 10 build 18309 or above is recommended for ConPTY"
+msgstr ""
+
+msgid "Working directory"
+msgstr ""
+
+msgid "Working directory detection"
+msgstr ""
+
+msgid "X11 forwarding"
+msgstr ""
+
+msgid "Yellow"
+msgstr ""
+
+msgid "You can change it later, but it's unrecoverable if forgotten."
+msgstr ""
+
+msgid "Zoom in"
+msgstr ""
+
+msgid "Zoom out"
+msgstr ""
+
+msgid "click"
+msgstr ""
+
+msgid "tab"
+msgstr ""
+
+msgid "{name} copy"
+msgstr ""

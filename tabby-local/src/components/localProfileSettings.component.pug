@@ -2,13 +2,13 @@ command-line-editor([model]='profile.options')
 
 .form-line(*ngIf='uac.isAvailable')
     .header
-        .title Run as administrator
+        .title(translate) Run as administrator
     toggle(
         [(ngModel)]='profile.options.runAsAdministrator',
     )
 
 .form-group
-    label Working directory
+    label(translate) Working directory
 
     .input-group
         input.form-control(
@@ -21,7 +21,7 @@ command-line-editor([model]='profile.options')
                 i.fas.fa-folder-open
 
 .form-group
-    label Environment
+    label(translate) Environment
     environment-editor(
         type='text',
         [(model)]='profile.options.env',

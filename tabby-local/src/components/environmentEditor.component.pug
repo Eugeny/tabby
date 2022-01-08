@@ -11,10 +11,10 @@
 .d-flex
     button.btn.btn-secondary((click)='addEnvironmentVar()')
         i.fas.fa-plus.mr-2
-        span Add
+        span(translate) Add
 
     .ml-auto
-    .text-muted Substitutions allowed.
+    .text-muted(translate) Substitutions allowed.
     .d-flex.ml-1(*ngIf='shouldShowExample()')
-        .text-muted Example:
+        .text-muted(translate) Example:
         a.ml-1((click)='addExample()', href='#') extend PATH

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Injectable } from '@angular/core'
-import { ToolbarButtonProvider, ToolbarButton } from 'tabby-core'
+import { ToolbarButtonProvider, ToolbarButton, TranslateService } from 'tabby-core'
 import { TerminalService } from './services/terminal.service'
 
 /** @hidden */
@@ -8,6 +8,7 @@ import { TerminalService } from './services/terminal.service'
 export class ButtonProvider extends ToolbarButtonProvider {
     constructor (
         private terminal: TerminalService,
+        private translate: TranslateService,
     ) {
         super()
     }
@@ -16,7 +17,7 @@ export class ButtonProvider extends ToolbarButtonProvider {
         return [
             {
                 icon: require('./icons/plus.svg'),
-                title: 'New terminal',
+                title: this.translate.instant('New terminal'),
                 touchBarNSImage: 'NSTouchBarAddDetailTemplate',
                 click: () => {
                     this.terminal.openTab()

@@ -1,5 +1,5 @@
 import { Component, Input, Injector } from '@angular/core'
-import { BaseTabProcess, WIN_BUILD_CONPTY_SUPPORTED, isWindowsBuild } from 'tabby-core'
+import { BaseTabProcess, WIN_BUILD_CONPTY_SUPPORTED, isWindowsBuild, TranslateService } from 'tabby-core'
 import { BaseTerminalTabComponent } from 'tabby-terminal'
 import { LocalProfile, SessionOptions } from '../api'
 import { Session } from '../session'
@@ -20,6 +20,7 @@ export class TerminalTabComponent extends BaseTerminalTabComponent {
     // eslint-disable-next-line @typescript-eslint/no-useless-constructor
     constructor (
         injector: Injector,
+        private translate: TranslateService,
         private uac: UACService,
     ) {
         super(injector)
@@ -108,8 +109,14 @@ export class TerminalTabComponent extends BaseTerminalTabComponent {
         return (await this.platform.showMessageBox(
             {
                 type: 'warning',
-                message: `"${children[0].command}" is still running. Close?`,
-                buttons: ['Kill', 'Cancel'],
+                message: this.translate.instant(
+                    '"{command}" is still running. Close?',
+                    children[0],
+                ),
+                buttons: [
+                    this.translate.instant('Kill'),
+                    this.translate.instant('Cancel'),
+                ],
                 defaultId: 0,
                 cancelId: 1,
             }

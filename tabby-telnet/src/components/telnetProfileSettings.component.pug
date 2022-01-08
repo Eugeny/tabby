@@ -1,16 +1,16 @@
 ul.nav-tabs(ngbNav, #nav='ngbNav')
     li(ngbNavItem)
-        a(ngbNavLink) General
+        a(ngbNavLink, translate) General
         ng-template(ngbNavContent)
             .form-group
-                label Host
+                label(translate) Host
                 input.form-control(
                     type='text',
                     [(ngModel)]='profile.options.host',
                 )
 
             .form-group
-                label Port
+                label(translate) Port
                 input.form-control(
                     type='number',
                     placeholder='22',
@@ -20,7 +20,7 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
             stream-processing-settings([options]='profile.options')
 
     li(ngbNavItem)
-        a(ngbNavLink) Login scripts
+        a(ngbNavLink, translate) Login scripts
         ng-template(ngbNavContent)
             login-scripts-settings([options]='profile.options')
 

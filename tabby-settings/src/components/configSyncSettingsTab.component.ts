@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Component, HostBinding } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
-import { BaseComponent, ConfigService, PromptModalComponent, HostAppService, PlatformService, NotificationsService } from 'tabby-core'
+import { BaseComponent, ConfigService, PromptModalComponent, HostAppService, PlatformService, NotificationsService, TranslateService } from 'tabby-core'
 import { Config, ConfigSyncService } from '../services/configSync.service'
 
 
@@ -24,6 +24,7 @@ export class ConfigSyncSettingsTabComponent extends BaseComponent {
         private hostApp: HostAppService,
         private ngbModal: NgbModal,
         private notifications: NotificationsService,
+        private translate: TranslateService,
     ) {
         super()
     }
@@ -54,9 +55,9 @@ export class ConfigSyncSettingsTabComponent extends BaseComponent {
     }
 
     async uploadAsNew () {
-        let name = `New config on ${this.hostApp.platform}`
+        let name = this.translate.instant('New config on {platform}', this.hostApp)
         const modal = this.ngbModal.open(PromptModalComponent)
-        modal.componentInstance.prompt = 'Name for the new config'
+        modal.componentInstance.prompt = this.translate.instant('Name for the new config')
         modal.componentInstance.value = name
         name = (await modal.result)?.value
         if (!name) {
@@ -72,8 +73,11 @@ export class ConfigSyncSettingsTabComponent extends BaseComponent {
         if (this.config.store.configSync.configID !== cfg.id) {
             if ((await this.platform.showMessageBox({
                 type: 'warning',
-                message: 'Overwrite the config on the remote side and start syncing?',
-                buttons: ['Overwrite remote and sync', 'Cancel'],
+                message: this.translate.instant('Overwrite the config on the remote side and start syncing?'),
+                buttons: [
+                    this.translate.instant('Overwrite remote and sync'),
+                    this.translate.instant('Cancel'),
+                ],
                 defaultId: 1,
                 cancelId: 1,
             })).response === 1) {
@@ -83,14 +87,17 @@ export class ConfigSyncSettingsTabComponent extends BaseComponent {
         this.configSync.setConfig(cfg)
         await this.configSync.upload()
         this.loadConfigs()
-        this.notifications.info('Config uploaded')
+        this.notifications.info(this.translate.instant('Config uploaded'))
     }
 
     async downloadAndSync (cfg: Config) {
         if ((await this.platform.showMessageBox({
             type: 'warning',
-            message: 'Overwrite the local config and start syncing?',
-            buttons: ['Overwrite local and sync', 'Cancel'],
+            message: this.translate.instant('Overwrite the local config and start syncing?'),
+            buttons: [
+                this.translate.instant('Overwrite local and sync'),
+                this.translate.instant('Cancel'),
+            ],
             defaultId: 1,
             cancelId: 1,
         })).response === 1) {
@@ -98,7 +105,7 @@ export class ConfigSyncSettingsTabComponent extends BaseComponent {
         }
         this.configSync.setConfig(cfg)
         await this.configSync.download()
-        this.notifications.info('Config downloaded')
+        this.notifications.info(this.translate.instant('Config downloaded'))
     }
 
     hasMatchingRemoteConfig () {

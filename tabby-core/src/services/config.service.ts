@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from 'uuid'
 import * as yaml from 'js-yaml'
 import { Observable, Subject, AsyncSubject } from 'rxjs'
 import { Injectable, Inject } from '@angular/core'
+import { TranslateService } from '@ngx-translate/core'
 import { ConfigProvider } from '../api/configProvider'
 import { PlatformService } from '../api/platform'
 import { HostAppService } from '../api/hostApp'
@@ -136,6 +137,7 @@ export class ConfigService {
         private hostApp: HostAppService,
         private platform: PlatformService,
         private vault: VaultService,
+        private translate: TranslateService,
         @Inject(ConfigProvider) private configProviders: ConfigProvider[],
     ) {
         this.defaults = this.mergeDefaults()
@@ -360,9 +362,13 @@ export class ConfigService {
             } catch (e) {
                 let result = await this.platform.showMessageBox({
                     type: 'error',
-                    message: 'Could not decrypt config',
+                    message: this.translate.instant('Could not decrypt config'),
                     detail: e.toString(),
-                    buttons: ['Try again', 'Erase config', 'Quit'],
+                    buttons: [
+                        this.translate.instant('Try again'),
+                        this.translate.instant('Erase config'),
+                        this.translate.instant('Quit'),
+                    ],
                     defaultId: 0,
                 })
                 if (result.response === 2) {
@@ -371,9 +377,12 @@ export class ConfigService {
                 if (result.response === 1) {
                     result = await this.platform.showMessageBox({
                         type: 'warning',
-                        message: 'Are you sure?',
+                        message: this.translate.instant('Are you sure?'),
                         detail: e.toString(),
-                        buttons: ['Erase config', 'Quit'],
+                        buttons: [
+                            this.translate.instant('Erase config'),
+                            this.translate.instant('Quit'),
+                        ],
                         defaultId: 1,
                         cancelId: 1,
                     })

@@ -54,7 +54,7 @@ export class TelnetTabComponent extends BaseTerminalTabComponent {
                 // Session was closed abruptly
                 if (!this.reconnectOffered) {
                     this.reconnectOffered = true
-                    this.write('Press any key to reconnect\r\n')
+                    this.write(this.translate.instant('Press any key to reconnect') + '\r\n')
                     this.input$.pipe(first()).subscribe(() => {
                         if (!this.session?.open && this.reconnectOffered) {
                             this.reconnect()
@@ -77,7 +77,7 @@ export class TelnetTabComponent extends BaseTerminalTabComponent {
         this.setSession(session)
 
         try {
-            this.startSpinner('Connecting')
+            this.startSpinner(this.translate.instant('Connecting'))
 
             this.attachSessionHandler(session.serviceMessage$, msg => {
                 this.write(`\r${colors.black.bgWhite(' Telnet ')} ${msg}\r\n`)
@@ -118,8 +118,11 @@ export class TelnetTabComponent extends BaseTerminalTabComponent {
         return (await this.platform.showMessageBox(
             {
                 type: 'warning',
-                message: `Disconnect from ${this.profile?.options.host}?`,
-                buttons: ['Disconnect', 'Do not close'],
+                message: this.translate.instant('Disconnect from {host}?', this.profile?.options),
+                buttons: [
+                    this.translate.instant('Disconnect'),
+                    this.translate.instant('Do not close'),
+                ],
                 defaultId: 0,
                 cancelId: 1,
             }

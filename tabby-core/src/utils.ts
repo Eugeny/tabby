@@ -1,5 +1,6 @@
 import * as os from 'os'
 import { NgZone } from '@angular/core'
+import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker'
 
 export const WIN_BUILD_CONPTY_SUPPORTED = 17692
 export const WIN_BUILD_CONPTY_STABLE = 18309
@@ -56,13 +57,13 @@ export class ResettableTimeout {
 }
 
 export const TAB_COLORS = [
-    { name: 'No color', value: null },
-    { name: 'Blue', value: '#0275d8' },
-    { name: 'Green', value: '#5cb85c' },
-    { name: 'Orange', value: '#f0ad4e' },
-    { name: 'Purple', value: '#613d7c' },
-    { name: 'Red', value: '#d9534f' },
-    { name: 'Yellow', value: '#ffd500' },
+    { name: _('No color'), value: null },
+    { name: _('Blue'), value: '#0275d8' },
+    { name: _('Green'), value: '#5cb85c' },
+    { name: _('Orange'), value: '#f0ad4e' },
+    { name: _('Purple'), value: '#613d7c' },
+    { name: _('Red'), value: '#d9534f' },
+    { name: _('Yellow'), value: '#ffd500' },
 ]
 
 export function serializeFunction <T extends () => Promise<any>> (fn: T): T {

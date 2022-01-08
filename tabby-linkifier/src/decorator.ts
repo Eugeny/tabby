@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@angular/core'
-import { ConfigService, PlatformService } from 'tabby-core'
+import { ConfigService, PlatformService, TranslateService } from 'tabby-core'
 import { TerminalDecorator, BaseTerminalTabComponent } from 'tabby-terminal'
 
 import { LinkHandler } from './api'
@@ -9,6 +9,7 @@ export class LinkHighlighterDecorator extends TerminalDecorator {
     constructor (
         private config: ConfigService,
         private platform: PlatformService,
+        private translate: TranslateService,
         @Inject(LinkHandler) private handlers: LinkHandler[],
     ) {
         super()
@@ -42,13 +43,13 @@ export class LinkHighlighterDecorator extends TerminalDecorator {
                             this.platform.popupContextMenu([
                                 {
                                     click: () => openLink(uri),
-                                    label: 'Open',
+                                    label: this.translate.instant('Open'),
                                 },
                                 {
                                     click: async () => {
                                         this.platform.setClipboard({ text: await getLink(uri) })
                                     },
-                                    label: 'Copy',
+                                    label: this.translate.instant('Copy'),
                                 },
                             ])
                             return false

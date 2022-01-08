@@ -1,5 +1,5 @@
 import { Injectable, Optional, Inject } from '@angular/core'
-import { BaseTabComponent, TabContextMenuItemProvider, TabHeaderComponent, NotificationsService, MenuItemOptions } from 'tabby-core'
+import { BaseTabComponent, TabContextMenuItemProvider, TabHeaderComponent, NotificationsService, MenuItemOptions, TranslateService } from 'tabby-core'
 import { BaseTerminalTabComponent } from './api/baseTerminalTab.component'
 import { TerminalContextMenuItemProvider } from './api/contextMenuProvider'
 
@@ -10,6 +10,7 @@ export class CopyPasteContextMenu extends TabContextMenuItemProvider {
 
     constructor (
         private notifications: NotificationsService,
+        private translate: TranslateService,
     ) {
         super()
     }
@@ -21,16 +22,16 @@ export class CopyPasteContextMenu extends TabContextMenuItemProvider {
         if (tab instanceof BaseTerminalTabComponent) {
             return [
                 {
-                    label: 'Copy',
+                    label: this.translate.instant('Copy'),
                     click: (): void => {
                         setTimeout(() => {
                             tab.frontend?.copySelection()
-                            this.notifications.notice('Copied')
+                            this.notifications.notice(this.translate.instant('Copied'))
                         })
                     },
                 },
                 {
-                    label: 'Paste',
+                    label: this.translate.instant('Paste'),
                     click: () => tab.paste(),
                 },
             ]
@@ -44,10 +45,12 @@ export class CopyPasteContextMenu extends TabContextMenuItemProvider {
 export class MiscContextMenu extends TabContextMenuItemProvider {
     weight = 1
 
+    constructor (private translate: TranslateService) { super() }
+
     async getItems (tab: BaseTabComponent): Promise<MenuItemOptions[]> {
         if (tab instanceof BaseTerminalTabComponent && tab.session?.supportsWorkingDirectory()) {
             return [{
-                label: 'Copy current path',
+                label: this.translate.instant('Copy current path'),
                 click: () => tab.copyCurrentPath(),
             }]
         }

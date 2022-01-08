@@ -1,6 +1,6 @@
 ng-container(*ngIf='!argvMode')
     .form-group
-        label Command line
+        label(translate) Command line
         .input-group
             .input-group-prepend
                 a.input-group-text(
@@ -16,7 +16,7 @@ ng-container(*ngIf='!argvMode')
 
 ng-container(*ngIf='argvMode')
     .form-group
-        label Program
+        label(translate) Program
         .input-group
             .input-group-prepend
                 a.input-group-text(
@@ -31,7 +31,7 @@ ng-container(*ngIf='argvMode')
             )
 
     .form-group
-        label Arguments
+        label(translate) Arguments
         .input-group(
             *ngFor='let arg of _model.args; index as i; trackBy: trackByIndex',
         )
@@ -46,4 +46,4 @@ ng-container(*ngIf='argvMode')
         .mt-2
             button.btn.btn-secondary((click)='_model.args.push("")')
                 i.fas.fa-plus.mr-2
-                | Add
+                span(translate) Add

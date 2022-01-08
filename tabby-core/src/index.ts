@@ -1,4 +1,4 @@
-import { NgModule, ModuleWithProviders } from '@angular/core'
+import { NgModule, ModuleWithProviders, LOCALE_ID } from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { FormsModule } from '@angular/forms'
@@ -7,6 +7,8 @@ import { PerfectScrollbarModule, PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-sc
 import { NgxFilesizeModule } from 'ngx-filesize'
 import { SortablejsModule } from 'ngx-sortablejs'
 import { DragDropModule } from '@angular/cdk/drag-drop'
+import { TranslateModule, TranslateCompiler, TranslateService } from '@ngx-translate/core'
+import { TranslateMessageFormatCompiler, MESSAGE_FORMAT_CONFIG } from 'ngx-translate-messageformat-compiler'
 
 import { AppRootComponent } from './components/appRoot.component'
 import { CheckboxComponent } from './components/checkbox.component'
@@ -40,6 +42,7 @@ import { AppService } from './services/app.service'
 import { ConfigService } from './services/config.service'
 import { VaultFileProvider } from './services/vault.service'
 import { HotkeysService } from './services/hotkeys.service'
+import { LocaleService, TranslateServiceWrapper } from './services/locale.service'
 
 import { StandardTheme, StandardCompactTheme, PaperTheme } from './theme'
 import { CoreConfigProvider } from './config'
@@ -50,6 +53,10 @@ import { ButtonProvider } from './buttonProvider'
 import { SplitLayoutProfilesService } from './profiles'
 
 import 'perfect-scrollbar/css/perfect-scrollbar.css'
+
+export function TranslateMessageFormatCompilerFactory (): TranslateMessageFormatCompiler {
+    return new TranslateMessageFormatCompiler()
+}
 
 const PROVIDERS = [
     { provide: HotkeyProvider, useClass: AppHotkeyProvider, multi: true },
@@ -68,6 +75,19 @@ const PROVIDERS = [
     { provide: FileProvider, useClass: VaultFileProvider, multi: true },
     { provide: ToolbarButtonProvider, useClass: ButtonProvider, multi: true },
     { provide: ProfileProvider, useExisting: SplitLayoutProfilesService, multi: true },
+    {
+        provide: LOCALE_ID,
+        deps: [LocaleService],
+        useFactory: locale => locale.getLocale(),
+    },
+    {
+        provide: MESSAGE_FORMAT_CONFIG,
+        useValue: LocaleService.allLocales,
+    },
+    {
+        provide: TranslateService,
+        useClass: TranslateServiceWrapper,
+    },
 ]
 
 /** @hidden */
@@ -81,6 +101,7 @@ const PROVIDERS = [
         PerfectScrollbarModule,
         DragDropModule,
         SortablejsModule.forRoot({ animation: 150 }),
+        TranslateModule,
     ],
     declarations: [
         AppRootComponent,
@@ -127,6 +148,7 @@ const PROVIDERS = [
         AlwaysVisibleTypeaheadDirective,
         SortablejsModule,
         DragDropModule,
+        TranslateModule,
     ],
 })
 export default class AppModule { // eslint-disable-line @typescript-eslint/no-extraneous-class
@@ -135,6 +157,8 @@ export default class AppModule { // eslint-disable-line @typescript-eslint/no-ex
         config: ConfigService,
         platform: PlatformService,
         hotkeys: HotkeysService,
+        public locale: LocaleService,
+        private translate: TranslateService,
         private profilesService: ProfilesService,
         private selector: SelectorService,
     ) {
@@ -182,8 +206,8 @@ export default class AppModule { // eslint-disable-line @typescript-eslint/no-ex
 
         if (provider.supportsQuickConnect) {
             options.push({
-                name: 'Quick connect',
-                freeInputPattern: 'Connect to "%s"...',
+                name: this.translate.instant('Quick connect'),
+                freeInputPattern: this.translate.instant('Connect to "%s"...'),
                 icon: 'fas fa-arrow-right',
                 callback: query => {
                     const p = provider.quickConnect(query)
@@ -194,13 +218,23 @@ export default class AppModule { // eslint-disable-line @typescript-eslint/no-ex
             })
         }
 
-        await this.selector.show('Select profile', options)
+        await this.selector.show(this.translate.instant('Select profile'), options)
     }
 
     static forRoot (): ModuleWithProviders<AppModule> {
+        const translateModule = TranslateModule.forRoot({
+            defaultLanguage: 'en',
+            compiler: {
+                provide: TranslateCompiler,
+                useFactory: TranslateMessageFormatCompilerFactory,
+            },
+        })
         return {
             ngModule: AppModule,
-            providers: PROVIDERS,
+            providers: [
+                ...PROVIDERS,
+                ...translateModule.providers!.filter(x => x !== TranslateService),
+            ],
         }
     }
 }

@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core'
 import { Frontend, SearchOptions } from '../frontends/frontend'
-import { ConfigService, NotificationsService } from 'tabby-core'
+import { ConfigService, NotificationsService, TranslateService } from 'tabby-core'
 
 @Component({
     selector: 'search-panel',
@@ -29,6 +29,7 @@ export class SearchPanelComponent {
 
     constructor (
         private notifications: NotificationsService,
+        private translate: TranslateService,
         public config: ConfigService,
     ) { }
 
@@ -43,7 +44,7 @@ export class SearchPanelComponent {
         }
         if (!this.frontend.findNext(this.query, { ...this.options, incremental: incremental || undefined })) {
             this.notFound = true
-            this.notifications.notice('Not found')
+            this.notifications.notice(this.translate.instant('Not found'))
         }
     }
 
@@ -53,7 +54,7 @@ export class SearchPanelComponent {
         }
         if (!this.frontend.findPrevious(this.query, { ...this.options, incremental: incremental || undefined })) {
             this.notFound = true
-            this.notifications.notice('Not found')
+            this.notifications.notice(this.translate.instant('Not found'))
         }
     }
 

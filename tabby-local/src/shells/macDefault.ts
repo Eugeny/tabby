@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 import promiseIpc, { RendererProcessType } from 'electron-promise-ipc'
-import { HostAppService, Platform } from 'tabby-core'
+import { HostAppService, Platform, TranslateService } from 'tabby-core'
 
 import { ShellProvider, Shell } from '../api'
 
@@ -11,6 +11,7 @@ export class MacOSDefaultShellProvider extends ShellProvider {
 
     constructor (
         private hostApp: HostAppService,
+        private translate: TranslateService,
     ) {
         super()
     }
@@ -21,7 +22,7 @@ export class MacOSDefaultShellProvider extends ShellProvider {
         }
         return [{
             id: 'default',
-            name: 'OS default',
+            name: this.translate.instant('OS default'),
             command: await this.getDefaultShellCached(),
             args: ['--login'],
             hidden: true,

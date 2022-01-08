@@ -1,6 +1,6 @@
 import deepClone from 'clone-deep'
 import { Injectable, Inject } from '@angular/core'
-import { ProfileProvider, NewTabParameters, ConfigService, SplitTabComponent, AppService, PartialProfile } from 'tabby-core'
+import { ProfileProvider, NewTabParameters, ConfigService, SplitTabComponent, AppService, PartialProfile, TranslateService } from 'tabby-core'
 import { TerminalTabComponent } from './components/terminalTab.component'
 import { LocalProfileSettingsComponent } from './components/localProfileSettings.component'
 import { ShellProvider, Shell, SessionOptions, LocalProfile } from './api'
@@ -8,7 +8,7 @@ import { ShellProvider, Shell, SessionOptions, LocalProfile } from './api'
 @Injectable({ providedIn: 'root' })
 export class LocalProfilesService extends ProfileProvider<LocalProfile> {
     id = 'local'
-    name = 'Local'
+    name = this.translate.instant('Local terminal')
     settingsComponent = LocalProfileSettingsComponent
     configDefaults = {
         options: {
@@ -29,6 +29,7 @@ export class LocalProfilesService extends ProfileProvider<LocalProfile> {
     constructor (
         private app: AppService,
         private config: ConfigService,
+        private translate: TranslateService,
         @Inject(ShellProvider) private shellProviders: ShellProvider[],
     ) {
         super()

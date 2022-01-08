@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { HostAppService, Platform } from 'tabby-core'
+import { HostAppService, Platform, TranslateService } from 'tabby-core'
 
 import { ShellProvider, Shell } from '../api'
 
@@ -17,6 +17,7 @@ export class WindowsDefaultShellProvider extends ShellProvider {
         wsl: WSLShellProvider,
         stock: WindowsStockShellsProvider,
         private hostApp: HostAppService,
+        private translate: TranslateService,
     ) {
         super()
         this.providers = [
@@ -39,7 +40,7 @@ export class WindowsDefaultShellProvider extends ShellProvider {
                 return [{
                     ...shell,
                     id: 'default',
-                    name: `OS default (${shell.name})`,
+                    name: this.translate.instant('OS default ({name})', shell),
                     hidden: true,
                     env: {},
                 }]

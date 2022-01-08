@@ -6,7 +6,7 @@ input.search-input.form-control(
     (click)='$event.stopPropagation()',
     (keyup.enter)='findPrevious()',
     (keyup.esc)='close.emit()',
-    placeholder='Search...'
+    [placeholder]='"Search"|translate'
 )
 
 button.btn.btn-link(

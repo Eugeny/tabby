@@ -1,8 +1,8 @@
-h3.mb-3 Window
+h3.mb-3(translate) Window
 
 .form-line
     .header
-        .title Theme
+        .title(translate) Theme
     select.form-control(
         [(ngModel)]='config.store.appearance.theme',
         (ngModelChange)='saveConfiguration()',
@@ -12,8 +12,8 @@ h3.mb-3 Window
 
 .form-line(*ngIf='hostApp.platform === Platform.Web')
     .header
-        .title Ask before closing the browser tab
-        .description Prevents accidental closing
+        .title(translate) Ask before closing the browser tab
+        .description(translate) Prevents accidental closing
     toggle(
         [(ngModel)]='config.store.web.preventAccidentalTabClosure',
         (ngModelChange)='saveConfiguration()',
@@ -22,9 +22,9 @@ h3.mb-3 Window
 
 .form-line(*ngIf='platform.supportsWindowControls')
     .header
-        .title(*ngIf='hostApp.platform !== Platform.macOS') Acrylic background
-        .title(*ngIf='hostApp.platform === Platform.macOS') Vibrancy
-        .description Gives the window a blurred transparent background
+        .title(*ngIf='hostApp.platform !== Platform.macOS', translate) Acrylic background
+        .title(*ngIf='hostApp.platform === Platform.macOS', translate) Vibrancy
+        .description(translate) Gives the window a blurred transparent background
 
     toggle(
         [(ngModel)]='config.store.appearance.vibrancy',
@@ -33,7 +33,7 @@ h3.mb-3 Window
 
 .form-line(*ngIf='config.store.appearance.vibrancy && isFluentVibrancySupported')
     .header
-        .title Background type
+        .title(translate) Background type
     .btn-group(
         [(ngModel)]='config.store.appearance.vibrancyType',
         (ngModelChange)='saveConfiguration()',
@@ -45,18 +45,18 @@ h3.mb-3 Window
                 ngbButton,
                 [value]='"blur"'
             )
-            | Blur
+            span(translate) Blur
         label.btn.btn-secondary(ngbButtonLabel)
             input(
                 type='radio',
                 ngbButton,
                 [value]='"fluent"'
             )
-            | Fluent
+            span Fluent
 
 .form-line(*ngIf='platform.supportsWindowControls')
     .header
-        .title Opacity
+        .title(translate) Opacity
     input(
         type='range',
         [(ngModel)]='config.store.appearance.opacity',
@@ -68,8 +68,8 @@ h3.mb-3 Window
 
 .form-line(*ngIf='platform.supportsWindowControls')
     .header
-        .title Window frame
-        .description Whether a custom window or an OS native window should be used
+        .title(translate) Window frame
+        .description(translate) Whether a custom window or an OS native window should be used
 
     .btn-group(
         [(ngModel)]='config.store.appearance.frame',
@@ -82,28 +82,28 @@ h3.mb-3 Window
                 ngbButton,
                 [value]='"native"'
             )
-            | Native
+            span(translate) Native
         label.btn.btn-secondary(ngbButtonLabel)
             input(
                 type='radio',
                 ngbButton,
                 [value]='"thin"'
             )
-            | Thin
+            span(translate) Thin
         label.btn.btn-secondary(ngbButtonLabel)
             input(
                 type='radio',
                 ngbButton,
                 [value]='"full"'
             )
-            | Full
+            span(translate) Full
 
-h3.mt-4 Docking
+h3.mt-4(translate) Docking
 
 .form-line(*ngIf='docking')
     .header
-        .title Dock the terminal
-        .description Snaps the window to a side of the screen
+        .title(translate) Dock the terminal
+        .description(translate) Snaps the window to a side of the screen
 
     .btn-group(
         [(ngModel)]='config.store.appearance.dock',
@@ -116,40 +116,40 @@ h3.mt-4 Docking
                 ngbButton,
                 [value]='"off"'
             )
-            | Off
+            span(translate) Off
         label.btn.btn-secondary(ngbButtonLabel)
             input(
                 type='radio',
                 ngbButton,
                 [value]='"top"'
             )
-            | Top
+            span(translate) Top
         label.btn.btn-secondary(ngbButtonLabel)
             input(
                 type='radio',
                 ngbButton,
                 [value]='"left"'
             )
-            | Left
+            span(translate) Left
         label.btn.btn-secondary(ngbButtonLabel)
             input(
                 type='radio',
                 ngbButton,
                 [value]='"right"'
             )
-            | Right
+            span(translate) Right
         label.btn.btn-secondary(ngbButtonLabel)
             input(
                 type='radio',
                 ngbButton,
                 [value]='"bottom"'
             )
-            | Bottom
+            span(translate) Bottom
 
 .ml-5.form-line(*ngIf='docking && config.store.appearance.dock != "off"')
     .header
-        .title Display on
-        .description Snaps the window to a side of the screen
+        .title(translate) Display on
+        .description(translate) Snaps the window to a side of the screen
 
     div(
         [(ngModel)]='config.store.appearance.dockScreen',
@@ -162,7 +162,7 @@ h3.mt-4 Docking
                 ngbButton,
                 value='current'
             )
-            | Current
+            span(translate) Current
         label.btn.btn-secondary(*ngFor='let screen of screens', ngbButtonLabel)
             input(
                 type='radio',
@@ -173,8 +173,8 @@ h3.mt-4 Docking
 
 .ml-5.form-line(*ngIf='docking && config.store.appearance.dock != "off"')
     .header
-        .title Dock always on top
-        .description Keep docked terminal always on top
+        .title(translate) Dock always on top
+        .description(translate) Keep docked terminal always on top
     toggle(
         [(ngModel)]='config.store.appearance.dockAlwaysOnTop',
         (ngModelChange)='saveConfiguration(); docking.dock()',
@@ -182,7 +182,7 @@ h3.mt-4 Docking
 
 .ml-5.form-line(*ngIf='docking && config.store.appearance.dock != "off"')
     .header
-        .title Docked terminal size
+        .title(translate) Docked terminal size
     input(
         type='range',
         [(ngModel)]='config.store.appearance.dockFill',
@@ -194,7 +194,7 @@ h3.mt-4 Docking
 
 .ml-5.form-line(*ngIf='docking && config.store.appearance.dock != "off"')
     .header
-        .title Docked terminal space
+        .title(translate) Docked terminal space
     input(
         type='range',
         [(ngModel)]='config.store.appearance.dockSpace',
@@ -206,18 +206,18 @@ h3.mt-4 Docking
 
 .ml-5.form-line(*ngIf='docking && config.store.appearance.dock != "off"')
     .header
-        .title Hide dock on blur
-        .description Hides the docked terminal when you click away.
+        .title(translate) Hide dock on blur
+        .description(translate) Hides the docked terminal when you click away.
     toggle(
         [(ngModel)]='config.store.appearance.dockHideOnBlur',
         (ngModelChange)='saveConfiguration(); ',
     )
 
-h3.mt-4 Tabs
+h3.mt-4(translate) Tabs
 
 .form-line
     .header
-        .title Tabs location
+        .title(translate) Tabs location
     .btn-group(
         [(ngModel)]='config.store.appearance.tabsLocation',
         (ngModelChange)='saveConfiguration()',
@@ -229,32 +229,32 @@ h3.mt-4 Tabs
                 ngbButton,
                 [value]='"top"'
             )
-            | Top
+            span(translate) Top
         label.btn.btn-secondary(ngbButtonLabel)
             input(
                 type='radio',
                 ngbButton,
                 [value]='"bottom"'
             )
-            | Bottom
+            span(translate) Bottom
         label.btn.btn-secondary(ngbButtonLabel)
             input(
                 type='radio',
                 ngbButton,
                 [value]='"left"'
             )
-            | Left
+            span(translate) Left
         label.btn.btn-secondary(ngbButtonLabel)
             input(
                 type='radio',
                 ngbButton,
                 [value]='"right"'
             )
-            | Right
+            span(translate) Right
 
 .form-line
     .header
-        .title Tabs width
+        .title(translate) Tabs width
     .btn-group(
         [(ngModel)]='config.store.appearance.flexTabs',
         (ngModelChange)='saveConfiguration()',
@@ -266,18 +266,18 @@ h3.mt-4 Tabs
                 ngbButton,
                 [value]='true'
             )
-            | Dynamic
+            span(translate) Dynamic
         label.btn.btn-secondary(ngbButtonLabel)
             input(
                 type='radio',
                 ngbButton,
                 [value]='false'
             )
-            | Fixed
+            span(translate) Fixed
 
 .form-line
     .header
-        .title Hide tab index
+        .title(translate) Hide tab index
 
     toggle(
         [(ngModel)]='config.store.terminal.hideTabIndex',
@@ -286,7 +286,7 @@ h3.mt-4 Tabs
 
 .form-line
     .header
-        .title Hide tab close button
+        .title(translate) Hide tab close button
 
     toggle(
         [(ngModel)]='config.store.terminal.hideCloseButton',
@@ -297,8 +297,8 @@ h3.mt-4 Hacks
 
 .form-line
     .header
-        .title Disable GPU acceleration
-        .description Tick this if you're experiencing aliasing, ghosting or other visual issues
+        .title(translate) Disable GPU acceleration
+        .description(translate) Tick this if you're experiencing aliasing, ghosting or other visual issues
 
     toggle(
         [(ngModel)]='config.store.hacks.disableGPU',

@@ -3,7 +3,7 @@
         li(ngbNavItem='application')
             a(ngbNavLink)
                 i.fas.fa-fw.fa-window-maximize.mr-2
-                | Application
+                span(translate) Application
             ng-template(ngbNavContent)
                 .content-box
                     .row
@@ -23,59 +23,69 @@
                                     i.fas.fa-sync(
                                         [class.fa-spin]='checkingForUpdate'
                                     )
-                                    span Check for updates
+                                    span(translate) Check for updates
 
                                 button.btn.btn-info.mt-3.mb-2(
                                     *ngIf='updateAvailable',
                                     (click)='updater.update()',
                                 )
                                     i.fas.fa-sync
-                                    span Update
+                                    span(translate) Update
 
                         .col-12.col-md-6
                             .list-group.list-group-light.mb-5
                                 button.list-group-item.list-group-item-action.link-card((click)='homeBase.reportBug()')
                                     i.fas.fa-fw.fa-bug
                                     div
-                                        div Report a problem
-                                        small.text-muted Generate a pre-filled GitHub issue
+                                        div(translate) Report a problem
+                                        small.text-muted(translate) Generate a pre-filled GitHub issue
 
                                 button.list-group-item.list-group-item-action.link-card((click)='homeBase.openDiscussions()')
                                     i.fas.fa-fw.fa-comments
                                     div
-                                        div Ask a question
-                                        small.text-muted On GitHub Discussions
+                                        div(translate) Ask a question
+                                        small.text-muted(translate) On GitHub Discussions
 
                                 button.list-group-item.list-group-item-action.link-card((click)='homeBase.openGitHub()')
                                     i.fab.fa-fw.fa-github
                                     div
                                         div GitHub
-                                        small.text-muted Source code
+                                        small.text-muted(translate) Source code
 
                                 button.list-group-item.list-group-item-action.link-card((click)='showReleaseNotes()')
                                     i.fas.fa-fw.fa-book
                                     div
-                                        div What's new
-                                        small.text-muted Show release notes
+                                        div(translate) What's new
+                                        small.text-muted(translate) Show release notes
 
                                 button.list-group-item.list-group-item-action.link-card((click)='homeBase.openTwitter()')
                                     i.fab.fa-fw.fa-twitter
                                     div
-                                        div Subscribe to updates
-                                        small.text-muted Tabby news and updates on Twitter
+                                        div(translate) Subscribe to updates
+                                        small.text-muted(translate) Tabby news and updates on Twitter
 
 
-                    h3 Application settings
+                    h3(translate) Application settings
+                    .form-line
+                        .header
+                            .title(translate) Language
+                        select.form-control([(ngModel)]='config.store.language', (ngModelChange)='saveConfiguration()')
+                            option([value]='null', translate) Automatic
+                            option(
+                                [value]='lang.code',
+                                *ngFor='let lang of locale.allLanguages'
+                            ) {{lang.name|translate}}
+
                     .form-line(*ngIf='platform.isShellIntegrationSupported()')
                         .header
-                            .title Shell integration
-                            .description Allows quickly opening a terminal in the selected folder
+                            .title(translate) Shell integration
+                            .description(translate) Allows quickly opening a terminal in the selected folder
                         toggle([ngModel]='isShellIntegrationInstalled', (ngModelChange)='toggleShellIntegration()')
 
                     .form-line(*ngIf='hostApp.platform !== Platform.Web')
                         .header
-                            .title Enable analytics
-                            .description We're only tracking your Tabby and OS versions.
+                            .title(translate) Enable analytics
+                            .description(translate) We're only tracking your Tabby and OS versions.
                         toggle(
                             [(ngModel)]='config.store.enableAnalytics',
                             (ngModelChange)='saveConfiguration(true)',
@@ -83,23 +93,23 @@
 
                     .form-line(*ngIf='hostApp.platform !== Platform.Web')
                         .header
-                            .title Automatic Updates
-                            .description Enable automatic installation of updates when they become available.
+                            .title(translate) Automatic Updates
+                            .description(translate) Enable automatic installation of updates when they become available.
                         toggle([(ngModel)]='config.store.enableAutomaticUpdates', (ngModelChange)='saveConfiguration()')
 
                     .form-line(*ngIf='hostApp.platform !== Platform.Web')
                         .header
-                            .title Debugging
+                            .title(translate) Debugging
 
                         button.btn.btn-secondary((click)='hostWindow.openDevTools()')
                             i.fas.fa-bug
-                            span Open DevTools
+                            span(translate) Open DevTools
 
         ng-container(*ngFor='let provider of settingsProviders')
             li(*ngIf='provider.prioritized', [ngbNavItem]='provider.id')
                 a(ngbNavLink)
                     i(class='fas fa-fw mr-2 fa-{{provider.icon}}')
-                    | {{provider.title}}
+                    span(translate) {{provider.title}}
                 ng-template(ngbNavContent)
                     settings-tab-body([provider]='provider')
 
@@ -109,24 +119,24 @@
             li(*ngIf='!provider.prioritized', [ngbNavItem]='provider.id')
                 a(ngbNavLink)
                     i(class='fas fa-fw mr-2 fa-{{provider.icon || "puzzle-piece"}}')
-                    | {{provider.title}}
+                    span(translate) {{provider.title}}
                 ng-template(ngbNavContent)
                     settings-tab-body([provider]='provider')
 
         li(ngbNavItem='config-file')
             a(ngbNavLink)
                 i.fas.fa-fw.fa-code.mr-2
-                | Config file
+                span(translate) Config file
             ng-template.test(ngbNavContent)
                 .d-flex.flex-column.w-100.h-100
                     .h-100.d-flex
                         .w-100.d-flex.flex-column
-                            h3 Config file
+                            h3(translate) Config file
                             textarea.form-control.h-100(
                                 [(ngModel)]='configFile'
                             )
                         .w-100.d-flex.flex-column(*ngIf='showConfigDefaults')
-                            h3 Defaults
+                            h3(translate) Defaults
                             textarea.form-control.h-100(
                                 [(ngModel)]='configDefaults',
                                 readonly
@@ -134,20 +144,25 @@
                     .mt-3.d-flex
                         button.btn.btn-primary((click)='saveConfigFile()', *ngIf='isConfigFileValid()')
                             i.fas.fa-check.mr-2
-                            | Save and apply
+                            span(translate) Save and apply
                         button.btn.btn-primary(disabled, *ngIf='!isConfigFileValid()')
                             i.fas.fa-exclamation-triangle.mr-2
-                            | Invalid syntax
+                            span(translate) Invalid syntax
                         button.btn.btn-secondary.ml-auto(
-                            (click)='showConfigDefaults = !showConfigDefaults'
+                            (click)='showConfigDefaults = !showConfigDefaults',
+                            translate
                         ) Show defaults
                         button.btn.btn-secondary.ml-3(
                             *ngIf='platform.getConfigPath()',
                             (click)='showConfigFile()'
                         )
                             i.fas.fa-external-link-square-alt.mr-2
-                            | Show config file
+                            span(translate) Show config file
 
     div([ngbNavOutlet]='nav')
 
-button.btn.btn-warning.btn-block(*ngIf='config.restartRequested', '(click)'='restartApp()') Restart the app to apply changes
+button.btn.btn-warning.btn-block(
+    *ngIf='config.restartRequested',
+    (click)='restartApp()',
+    translate
+) Restart the app to apply changes

@@ -9,8 +9,8 @@
     .mr-auto
 
     button.btn.btn-sm.btn-link.mr-3((click)='changeBaudRate()', *ngIf='session && session.open && hostApp.platform !== Platform.Web')
-        span Change baud rate
+        span(translate) Change baud rate
 
     button.btn.btn-sm.btn-link((click)='reconnect()', *ngIf='!session || !session.open')
         i.fas.fa-redo
-        span Reconnect
+        span(translate) Reconnect

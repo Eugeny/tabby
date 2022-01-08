@@ -1,11 +1,11 @@
 ul.nav-tabs(ngbNav, #nav='ngbNav')
     li(ngbNavItem)
-        a(ngbNavLink) General
+        a(ngbNavLink, translate) General
         ng-template(ngbNavContent)
             .row
                 .col-6(ng:if='hostApp.platform !== Platform.Web')
                     .form-group
-                        label Device
+                        label(translate) Device
                         input.form-control(
                             type='text',
                             alwaysVisibleTypeahead,
@@ -16,7 +16,7 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
 
                 .col-6
                     .form-group
-                        label Baud Rate
+                        label(translate) Baud rate
                         input.form-control(
                             type='number',
                             alwaysVisibleTypeahead,
@@ -28,11 +28,11 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
             stream-processing-settings([options]='profile.options')
 
     li(ngbNavItem)
-        a(ngbNavLink) Advanced
+        a(ngbNavLink, translate) Advanced
         ng-template(ngbNavContent)
             .form-line
                 .header
-                    .title Data bits
+                    .title(translate) Data bits
                 input.form-control(
                     type='number',
                     placeholder='8',
@@ -41,7 +41,7 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
 
             .form-line
                 .header
-                    .title Stop bits
+                    .title(translate) Stop bits
                 input.form-control(
                     type='number',
                     placeholder='1',
@@ -50,12 +50,12 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
 
             .form-line
                 .header
-                    .title Parity
+                    .title(translate) Parity
                 select.form-control(
                     type='text',
                     [(ngModel)]='profile.options.parity'
                 )
-                    option(value='none') None
+                    option(value='none', translate) None
                     option(value='even') Even
                     option(value='odd') Odd
                     option(value='mark', ng:if='hostApp.platform === Platform.Windows') Mark
@@ -83,12 +83,12 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
 
             .form-line
                 .header
-                    .title Slow feed
-                    .description Sends data one byte at a time
+                    .title(translate) Slow feed
+                    .description(translate) Sends data one byte at a time
                 toggle([(ngModel)]='profile.options.slowFeed')
 
     li(ngbNavItem)
-        a(ngbNavLink) Login scripts
+        a(ngbNavLink, translate) Login scripts
         ng-template(ngbNavContent)
             login-scripts-settings([options]='profile.options')
 

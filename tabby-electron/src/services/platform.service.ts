@@ -7,7 +7,7 @@ import { promisify } from 'util'
 import promiseIpc, { RendererProcessType } from 'electron-promise-ipc'
 import { execFile } from 'mz/child_process'
 import { Injectable, NgZone } from '@angular/core'
-import { PlatformService, ClipboardContent, HostAppService, Platform, MenuItemOptions, MessageBoxOptions, MessageBoxResult, FileUpload, FileDownload, FileUploadOptions, wrapPromise } from 'tabby-core'
+import { PlatformService, ClipboardContent, HostAppService, Platform, MenuItemOptions, MessageBoxOptions, MessageBoxResult, FileUpload, FileDownload, FileUploadOptions, wrapPromise, TranslateService } from 'tabby-core'
 import { ElectronService } from '../services/electron.service'
 import { ElectronHostWindow } from './hostWindow.service'
 import { ShellIntegrationService } from './shellIntegration.service'
@@ -34,6 +34,7 @@ export class ElectronPlatformService extends PlatformService {
         private electron: ElectronService,
         private zone: NgZone,
         private shellIntegration: ShellIntegrationService,
+        private translate: TranslateService,
     ) {
         super()
         this.configPath = path.join(electron.app.getPath('userData'), 'config.yaml')
@@ -204,7 +205,7 @@ export class ElectronPlatformService extends PlatformService {
             const result = await this.electron.dialog.showOpenDialog(
                 this.hostWindow.getWindow(),
                 {
-                    buttonLabel: 'Select',
+                    buttonLabel: this.translate.instant('Select'),
                     properties,
                 },
             )

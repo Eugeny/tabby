@@ -21,24 +21,24 @@ div([sortablejs]='scripts')
                         [class.active]='!script.isRegex',
                     )
                         i.fas.fa-fw([class.fa-check]='!script.isRegex')
-                        span Exact match
+                        span(translate) Exact match
                     a.dropdown-item(
                         href='#',
                         (click)='script.isRegex = true',
                         [class.active]='script.isRegex',
                     )
                         i.fas.fa-fw([class.fa-check]='script.isRegex')
-                        span Regex
+                        span(translate) Regex
                     a.dropdown-item(
                         href='#',
                         (click)='script.optional = !script.optional',
                         [class.active]='script.optional',
                     )
                         i.fas.fa-fw([class.fa-check]='script.optional')
-                        span Optional
+                        span(translate) Optional
             button.btn.btn-link.btn-sm.hover-reveal((click)='deleteScript(script)')
                 i.fas.fa-fw.fa-trash-alt
 
 button.btn.btn-secondary.mt-2((click)='addScript()')
     i.fas.fa-plus
-    span New item
+    span(translate) New item

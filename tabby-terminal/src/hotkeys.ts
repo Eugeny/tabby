@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { HotkeyDescription, HotkeyProvider } from 'tabby-core'
+import { HotkeyDescription, HotkeyProvider, TranslateService } from 'tabby-core'
 
 /** @hidden */
 @Injectable()
@@ -7,69 +7,71 @@ export class TerminalHotkeyProvider extends HotkeyProvider {
     hotkeys: HotkeyDescription[] = [
         {
             id: 'copy',
-            name: 'Copy to clipboard',
+            name: this.translate.instant('Copy to clipboard'),
         },
         {
             id: 'paste',
-            name: 'Paste from clipboard',
+            name: this.translate.instant('Paste from clipboard'),
         },
         {
             id: 'home',
-            name: 'Beginning of the line',
+            name: this.translate.instant('Beginning of the line'),
         },
         {
             id: 'end',
-            name: 'End of the line',
+            name: this.translate.instant('End of the line'),
         },
         {
             id: 'previous-word',
-            name: 'Jump to previous word',
+            name: this.translate.instant('Jump to previous word'),
         },
         {
             id: 'next-word',
-            name: 'Jump to next word',
+            name: this.translate.instant('Jump to next word'),
         },
         {
             id: 'delete-previous-word',
-            name: 'Delete previous word',
+            name: this.translate.instant('Delete previous word'),
         },
         {
             id: 'delete-next-word',
-            name: 'Delete next word',
+            name: this.translate.instant('Delete next word'),
         },
         {
             id: 'clear',
-            name: 'Clear terminal',
+            name: this.translate.instant('Clear terminal'),
         },
         {
             id: 'zoom-in',
-            name: 'Zoom in',
+            name: this.translate.instant('Zoom in'),
         },
         {
             id: 'zoom-out',
-            name: 'Zoom out',
+            name: this.translate.instant('Zoom out'),
         },
         {
             id: 'reset-zoom',
-            name: 'Reset zoom',
+            name: this.translate.instant('Reset zoom'),
         },
         {
             id: 'ctrl-c',
-            name: 'Intelligent Ctrl-C (copy/abort)',
+            name: this.translate.instant('Intelligent Ctrl-C (copy/abort)'),
         },
         {
             id: 'copy-current-path',
-            name: 'Copy current path',
+            name: this.translate.instant('Copy current path'),
         },
         {
             id: 'search',
-            name: 'Search',
+            name: this.translate.instant('Search'),
         },
         {
             id: 'pane-focus-all',
-            name: 'Focus all panes at once (broadcast)',
+            name: this.translate.instant('Focus all panes at once (broadcast)'),
         },
     ]
+
+    constructor (private translate: TranslateService) { super() }
 
     async provide (): Promise<HotkeyDescription[]> {
         return this.hotkeys

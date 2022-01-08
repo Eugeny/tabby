@@ -2,7 +2,7 @@ import colors from 'ansi-colors'
 import { Component, Injector, HostListener } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { first } from 'rxjs'
-import { Platform, ProfilesService, RecoveryToken } from 'tabby-core'
+import { Platform, ProfilesService, RecoveryToken, TranslateService } from 'tabby-core'
 import { BaseTerminalTabComponent } from 'tabby-terminal'
 import { SSHService } from '../services/ssh.service'
 import { KeyboardInteractivePrompt, SSHSession } from '../session/ssh'
@@ -36,6 +36,7 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
         private ngbModal: NgbModal,
         private profilesService: ProfilesService,
         private sshMultiplexer: SSHMultiplexerService,
+        private translate: TranslateService,
     ) {
         super(injector)
         this.sessionChanged$.subscribe(() => {
@@ -140,7 +141,7 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
         if (!session.open) {
             this.write('\r\n' + colors.black.bgWhite(' SSH ') + ` Connecting to ${session.profile.options.host}\r\n`)
 
-            this.startSpinner('Connecting')
+            this.startSpinner(this.translate.instant('Connecting'))
 
             try {
                 await session.start()
@@ -172,7 +173,7 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
                 this.write('\r\n' + colors.black.bgWhite(' SSH ') + ` ${this.sshSession?.profile.options.host}: session closed\r\n`)
                 if (!this.reconnectOffered) {
                     this.reconnectOffered = true
-                    this.write('Press any key to reconnect\r\n')
+                    this.write(this.translate.instant('Press any key to reconnect') + '\r\n')
                     this.input$.pipe(first()).subscribe(() => {
                         if (!this.session?.open && this.reconnectOffered) {
                             this.reconnect()
@@ -239,8 +240,11 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
         return (await this.platform.showMessageBox(
             {
                 type: 'warning',
-                message: `Disconnect from ${this.profile?.options.host}?`,
-                buttons: ['Disconnect', 'Do not close'],
+                message: this.translate.instant('Disconnect from {host}?', this.profile?.options),
+                buttons: [
+                    this.translate.instant('Disconnect'),
+                    this.translate.instant('Do not close'),
+                ],
                 defaultId: 0,
                 cancelId: 1,
             }

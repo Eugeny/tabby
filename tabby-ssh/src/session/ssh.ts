@@ -7,7 +7,7 @@ import colors from 'ansi-colors'
 import stripAnsi from 'strip-ansi'
 import { Injector, NgZone } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
-import { ConfigService, FileProvidersService, HostAppService, NotificationsService, Platform, PlatformService, wrapPromise, PromptModalComponent, LogService, Logger } from 'tabby-core'
+import { ConfigService, FileProvidersService, HostAppService, NotificationsService, Platform, PlatformService, wrapPromise, PromptModalComponent, LogService, Logger, TranslateService } from 'tabby-core'
 import { Socket } from 'net'
 import { Client, ClientChannel, SFTPWrapper } from 'ssh2'
 import { Subject, Observable } from 'rxjs'
@@ -85,6 +85,7 @@ export class SSHSession {
 
     constructor (
         private injector: Injector,
+        private translate: TranslateService,
         public profile: SSHProfile,
     ) {
         this.logger = injector.get(LogService).create(`ssh-${profile.options.host}-${profile.options.port}`)
@@ -398,7 +399,7 @@ export class SSHSession {
             }
             if (method.type === 'password') {
                 if (this.profile.options.password) {
-                    this.emitServiceMessage('Using preset password')
+                    this.emitServiceMessage(this.translate.instant('Using preset password'))
                     return {
                         type: 'password',
                         username: this.authUsername,
@@ -409,7 +410,7 @@ export class SSHSession {
                 if (!this.keychainPasswordUsed && this.profile.options.user) {
                     const password = await this.passwordStorage.loadPassword(this.profile)
                     if (password) {
-                        this.emitServiceMessage('Trying saved password')
+                        this.emitServiceMessage(this.translate.instant('Trying saved password'))
                         this.keychainPasswordUsed = true
                         return {
                             type: 'password',
@@ -591,14 +592,10 @@ export class SSHSession {
                     modal.componentInstance.password = true
                     modal.componentInstance.showRememberCheckbox = true
 
-                    try {
-                        const result = await modal.result
-                        passphrase = result?.value
-                        if (passphrase && result.remember) {
-                            this.passwordStorage.savePrivateKeyPassword(keyHash, passphrase)
-                        }
-                    } catch {
-                        throw e
+                    const result = await modal.result
+                    passphrase = result?.value
+                    if (passphrase && result.remember) {
+                        this.passwordStorage.savePrivateKeyPassword(keyHash, passphrase)
                     }
                 } else {
                     this.notifications.error('Could not read the private key', e.toString())

@@ -15,9 +15,9 @@ footer.d-flex.align-items-center
     .btn-group.mr-auto
         button.btn.btn-dark((click)='homeBase.openGitHub()')
             i.fab.fa-github
-            span GitHub
+            span(translate) GitHub
         button.btn.btn-dark((click)='homeBase.reportBug()')
             i.fas.fa-bug
-            span Report a problem
+            span(translate) Report a problem
 
-    .form-control-static.selectable.no-drag Version: {{homeBase.appVersion}}
+    .form-control-static.selectable.no-drag(translate, [translateParams]='{version: homeBase.appVersion}') Version: {version}

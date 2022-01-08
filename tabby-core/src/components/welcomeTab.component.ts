@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Component } from '@angular/core'
+import { TranslateService } from '@ngx-translate/core'
 import { BaseTabComponent } from './baseTab.component'
 import { ConfigService } from '../services/config.service'
 import { HostWindowService } from '../api/hostWindow'
@@ -16,9 +17,10 @@ export class WelcomeTabComponent extends BaseTabComponent {
     constructor (
         private hostWindow: HostWindowService,
         public config: ConfigService,
+        translate: TranslateService,
     ) {
         super()
-        this.setTitle('Welcome')
+        this.setTitle(translate.instant('Welcome'))
     }
 
     async closeAndDisable () {

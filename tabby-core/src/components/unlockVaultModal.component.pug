@@ -1,13 +1,18 @@
 .modal-body
     .d-flex.align-items-center.mb-3
-        h3.m-0 Vault is locked
+        h3.m-0(translate) Vault is locked
         .ml-auto(ngbDropdown, placement='bottom-right')
             button.btn.btn-link(ngbDropdownToggle, (click)='$event.stopPropagation()')
-                span(*ngIf='rememberFor') Remember for {{getRememberForDisplay(rememberFor)}}
-                span(*ngIf='!rememberFor') Do not remember
+                span(
+                    *ngIf='rememberFor',
+                    translate,
+                    [translateParams]='{time: getRememberForDisplay(rememberFor)}'
+                ) Remember for {time}
+                span(*ngIf='!rememberFor', translate) Do not remember
             div(ngbDropdownMenu)
                 button.dropdown-item(
                     (click)='rememberFor = 0',
+                    translate
                 ) Do not remember
                 button.dropdown-item(
                     *ngFor='let x of rememberOptions',

@@ -1,6 +1,6 @@
 import * as fs from 'mz/fs'
 import { Injectable } from '@angular/core'
-import { HostAppService, Platform, LogService, Logger } from 'tabby-core'
+import { HostAppService, Platform, LogService, Logger, TranslateService } from 'tabby-core'
 
 import { ShellProvider, Shell } from '../api'
 
@@ -11,6 +11,7 @@ export class LinuxDefaultShellProvider extends ShellProvider {
 
     constructor (
         private hostApp: HostAppService,
+        private translate: TranslateService,
         log: LogService,
     ) {
         super()
@@ -27,14 +28,14 @@ export class LinuxDefaultShellProvider extends ShellProvider {
             this.logger.warn('Could not detect user shell')
             return [{
                 id: 'default',
-                name: 'User default',
+                name: this.translate.instant('User default'),
                 command: '/bin/sh',
                 env: {},
             }]
         } else {
             return [{
                 id: 'default',
-                name: 'User default',
+                name: this.translate.instant('User default'),
                 command: line.split(':')[6],
                 args: ['--login'],
                 hidden: true,

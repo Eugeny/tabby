@@ -2,7 +2,7 @@ h3 SSH
 
 .form-line
     .header
-        .title Warn when closing active connections
+        .title(translate) Warn when closing active connections
     toggle(
         [(ngModel)]='config.store.ssh.warnOnClose',
         (ngModelChange)='config.save()',
@@ -10,8 +10,8 @@ h3 SSH
 
 .form-line(*ngIf='hostApp.platform === Platform.Windows')
     .header
-        .title WinSCP path
-        .description When WinSCP is detected, you can launch an SCP session from the context menu.
+        .title(translate) WinSCP path
+        .description(translate) When WinSCP is detected, you can launch an SCP session from the context menu.
     input.form-control(
         type='text',
         placeholder='Auto-detect',
@@ -21,20 +21,20 @@ h3 SSH
 
 .form-line(*ngIf='hostApp.platform === Platform.Windows')
     .header
-        .title Agent type
-        .description Forces a specific SSH agent connection type.
+        .title(translate) Agent type
+        .description(translate) Forces a specific SSH agent connection type.
     select.form-control(
         [(ngModel)]='config.store.ssh.agentType',
         (ngModelChange)='config.save()',
     )
-        option(value='auto') Automatic
+        option(value='auto', translate) Automatic
         option(value='pageant') Pageant
-        option(value='pipe') Named pipe
+        option(value='pipe', translate) Named pipe
 
 .form-line(*ngIf='config.store.ssh.agentType === "pipe"')
     .header
-        .title Agent pipe path
-        .description Sets the SSH agent's named pipe path.
+        .title(translate) Agent pipe path
+        .description(translate) Sets the SSH agent's named pipe path.
     input.form-control(
         type='text',
         placeholder='Default: \\\\.\\pipe\\openssh-ssh-agent',
@@ -44,8 +44,8 @@ h3 SSH
 
 .form-line
     .header
-        .title Override X11 display
-        .description Path or address of the local X11 socket
+        .title(translate) Override X11 display
+        .description(translate) Path or address of the local X11 socket
     input.form-control(
         type='text',
         [placeholder]='defaultX11Display',
@@ -53,4 +53,4 @@ h3 SSH
         (ngModelChange)='config.save()'
     )
 
-.alert.alert-info SSH connection management is now done through the #[strong Profiles & connections] tab
+.alert.alert-info(translate) SSH connection management is now done through the #[strong Profiles & connections] tab

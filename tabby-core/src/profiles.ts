@@ -1,6 +1,7 @@
 import slugify from 'slugify'
 import { v4 as uuidv4 } from 'uuid'
 import { Injectable } from '@angular/core'
+import { TranslateService } from '@ngx-translate/core'
 import { ConfigService, NewTabParameters, PartialProfile, Profile, ProfileProvider } from './api'
 import { SplitTabComponent, SplitTabRecoveryProvider } from './components/splitTab.component'
 
@@ -15,7 +16,7 @@ export interface SplitLayoutProfile extends Profile {
 @Injectable({ providedIn: 'root' })
 export class SplitLayoutProfilesService extends ProfileProvider<SplitLayoutProfile> {
     id = 'split-layout'
-    name = 'Saved layout'
+    name = this.translate.instant('Saved layout')
     configDefaults = {
         options: {
             recoveryToken: null,
@@ -25,6 +26,7 @@ export class SplitLayoutProfilesService extends ProfileProvider<SplitLayoutProfi
     constructor (
         private splitTabRecoveryProvider: SplitTabRecoveryProvider,
         private config: ConfigService,
+        private translate: TranslateService,
     ) {
         super()
     }

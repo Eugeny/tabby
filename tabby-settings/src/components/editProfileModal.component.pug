@@ -2,13 +2,13 @@
     h3.m-0 {{profile.name}}
 
 .modal-header(*ngIf='defaultsMode')
-    h3.m-0 Defaults for {{profileProvider.name}}
+    h3.m-0(translate, [translateParams]='{type: profileProvider.name}') Defaults for {type}
 
 .modal-body
     .row
         .col-12.col-lg-4
             .form-group(*ngIf='!defaultsMode')
-                label Name
+                label(translate) Name
                 input.form-control(
                     type='text',
                     autofocus,
@@ -16,7 +16,7 @@
                 )
 
             .form-group(*ngIf='!defaultsMode')
-                label Group
+                label(translate) Group
                 input.form-control(
                     type='text',
                     alwaysVisibleTypeahead,
@@ -26,7 +26,7 @@
                 )
 
             .form-group(*ngIf='!defaultsMode')
-                label Icon
+                label(translate) Icon
                 .input-group
                     input.form-control(
                         type='text',
@@ -45,7 +45,7 @@
 
             .form-line
                 .header
-                    .title Color
+                    .title(translate) Color
                 input.form-control.w-50(
                     type='text',
                     [(ngModel)]='profile.color',
@@ -56,8 +56,8 @@
 
             .form-line
                 .header
-                    .title Disable dynamic tab title
-                    .description Connection name will be used instead
+                    .title(translate) Disable dynamic tab title
+                    .description(translate) Connection name will be used instead
                 toggle([(ngModel)]='profile.disableDynamicTitle')
 
             .mb-4
@@ -66,5 +66,5 @@
             ng-template(#placeholder)
 
 .modal-footer
-    button.btn.btn-primary((click)='save()') Save
-    button.btn.btn-danger((click)='cancel()') Cancel
+    button.btn.btn-primary((click)='save()', translate) Save
+    button.btn.btn-danger((click)='cancel()', translate) Cancel

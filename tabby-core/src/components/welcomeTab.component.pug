@@ -4,21 +4,21 @@
         h1.tabby-title Tabby
             sup α
 
-    .text-center.mb-5 Thank you for downloading Tabby!
+    .text-center.mb-5(translate) Thank you for downloading Tabby!
 
     .form-line
         .header
-            .title Enable analytics
-            .description Help track the number of Tabby installs across the world!
+            .title(translate) Enable analytics
+            .description(translate) Help track the number of Tabby installs across the world!
         toggle([(ngModel)]='config.store.enableAnalytics')
 
 
     .form-line
         .header
-            .title Enable global hotkey (#[strong Ctrl-Space])
-            .description Toggles the Tabby window visibility
+            .title(translate) Enable global hotkey (Ctrl-Space)
+            .description(translate) Toggles the Tabby window visibility
         toggle([(ngModel)]='enableGlobalHotkey')
 
 
     .text-center.mt-5
-        button.btn.btn-primary((click)='closeAndDisable()') Close and never show again
+        button.btn.btn-primary((click)='closeAndDisable()', translate) Close and never show again

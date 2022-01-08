@@ -7,6 +7,8 @@
     "@angular/forms": "^12.0.0",
     "@angular/platform-browser": "^12.0.0",
     "@angular/platform-browser-dynamic": "^12.0.0",
+    "@biesbjerg/ngx-translate-extract": "^7.0.4",
+    "@biesbjerg/ngx-translate-extract-marker": "^1.0.0",
     "@fortawesome/fontawesome-free": "^6.0.0-beta3",
     "@ng-bootstrap/ng-bootstrap": "^10.0.0",
     "@sentry/cli": "^1.71.0",
@@ -40,7 +42,7 @@
     "file-loader": "^6.2.0",
     "graceful-fs": "^4.2.8",
     "html-loader": "2.1.2",
-    "json-loader": "0.5.7",
+    "json-loader": "^0.5.7",
     "lru-cache": "^6.0.0",
     "macos-release": "^3.0.1",
     "ngx-sortablejs": "^11.1.0",
@@ -50,7 +52,9 @@
     "npmlog": "6.0.0",
     "npx": "^10.2.2",
     "patch-package": "^6.4.7",
-    "pug": "^3.0.2",
+    "po-gettext-loader": "^1.0.0",
+    "pug": "3",
+    "pug-cli": "^1.0.0-alpha6",
     "pug-html-loader": "1.1.5",
     "pug-lint": "^2.6.0",
     "pug-loader": "^2.4.0",
@@ -80,6 +84,7 @@
     "zone.js": "^0.11.4"
   },
   "resolutions": {
+    "*/pug": "^3",
     "lzma-native": "^8.0.0",
     "*/node-abi": "^3.5.0",
     "**/graceful-fs": "^4.2.4"

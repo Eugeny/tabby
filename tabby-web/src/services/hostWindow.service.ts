@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { ConfigService, HostWindowService } from 'tabby-core'
+import { ConfigService, HostWindowService, TranslateService } from 'tabby-core'
 
 @Injectable({ providedIn: 'root' })
 export class WebHostWindow extends HostWindowService {
@@ -7,6 +7,7 @@ export class WebHostWindow extends HostWindowService {
 
     constructor (
         config: ConfigService,
+        translate: TranslateService,
     ) {
         super()
         this.windowShown.next()
@@ -15,7 +16,7 @@ export class WebHostWindow extends HostWindowService {
         const unloadHandler = (event) => {
             if (config.store.web.preventAccidentalTabClosure) {
                 event.preventDefault()
-                event.returnValue = 'Are you sure you want to close Tabby? You can disable this prompt in Settings -> Window.'
+                event.returnValue = translate.instant('Are you sure you want to close Tabby? You can disable this prompt in Settings -> Window.')
             } else {
                 window.removeEventListener('beforeunload', unloadHandler)
             }
