@@ -98,7 +98,7 @@ div.mt-4
             (ngModelChange)='config.save()',
         )
 
-    .form-line
+    .form-line(*ngIf='config.store.clickableLinks')
         .header
             .title(translate) Require a key to click links
             .description(translate) When enabled, links are only clickable while holding this key
