@@ -22,9 +22,9 @@
     "@types/node" "*"
 
 "@types/ssh2@^0.5.46":
-  version "0.5.49"
-  resolved "https://registry.yarnpkg.com/@types/ssh2/-/ssh2-0.5.49.tgz#40014f780e3b7e6e667503df414fc884089c76e4"
-  integrity sha512-ffxhQhJqgTzrw8NxHTgkaDtAmAj2qxCyoves7ztpRgqvzbHcZTpTcm+ATWuuCbPQzxnnF4F3SGGTLGEWTZpwqA==
+  version "0.5.50"
+  resolved "https://registry.yarnpkg.com/@types/ssh2/-/ssh2-0.5.50.tgz#2ae2a250efd07b9432ee6a70de870cd1fb67ab40"
+  integrity sha512-Eu/rzX4L+GhWIKEFQbaeWKECdy8VRdIYOqjMlFp+v4v7tBhvcl30m34BZzVALn/dNXvcB6dmcMtspIW7iPOlPg==
   dependencies:
     "@types/node" "*"
     "@types/ssh2-streams" "*"
