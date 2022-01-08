@@ -38,7 +38,7 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
             ng-container(*ngIf='config.store.configSync.token')
                 .alert.alert-danger(*ngIf='connectionSuccessful === false')
                     i.fas.fa-exclamation-triangle
-                    span.ml-2(translate, [translateParams]='{error: connectionError}') Connection failed: {error}
+                    span.ml-2(translate='Connection failed: {error}', [translateParams]='{error: connectionError}')
 
             ng-container(*ngIf='connectionSuccessful')
                 .form-line
@@ -59,7 +59,7 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
                             i.fas.fa-fw.fa-file
                             .ml-2.d-flex.flex-column.align-items-start
                                 div {{cfg.name}}
-                                small.text-muted(translate, [translateParams]='{date: cfg.modified_at|date:"medium"}') Modified on {date}
+                                small.text-muted(translate='Modified on {date}', [translateParams]='{date: cfg.modified_at|date:"medium"}')
                             .mr-auto
                             button.btn.btn-link.ml-1(
                                 (click)='uploadAndSync(cfg)',

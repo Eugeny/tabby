@@ -2,7 +2,7 @@
     h3.m-0 {{profile.name}}
 
 .modal-header(*ngIf='defaultsMode')
-    h3.m-0(translate, [translateParams]='{type: profileProvider.name}') Defaults for {type}
+    h3.m-0(translate='Defaults for {type}', [translateParams]='{type: profileProvider.name}')
 
 .modal-body
     .row

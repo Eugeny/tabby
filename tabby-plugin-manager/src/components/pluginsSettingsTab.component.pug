@@ -5,7 +5,7 @@
         span(translate) Plugins folder
 
 .alert.alert-danger(*ngIf='errorMessage')
-    strong(translate, [translateParams]='{plugin: erroredPlugin}') Error in {plugin}:
+    strong(translate='Error in {plugin}:', [translateParams]='{plugin: erroredPlugin}')
     pre {{errorMessage}}
 
 ul.nav-tabs.mb-2(ngbNav, #nav='ngbNav')
@@ -75,7 +75,7 @@ ul.nav-tabs.mb-2(ngbNav, #nav='ngbNav')
                             )
                                 i.fas.fa-fw.fa-arrow-up(*ngIf='busy.get(plugin.name) != BusyState.Installing')
                                 i.fas.fa-fw.fa-circle-notch.fa-spin(*ngIf='busy.get(plugin.name) == BusyState.Installing')
-                                span(translate, [translateParams]='{version: knownUpgrades[plugin.name].version}') Upgrade to {version}
+                                span(translate='Upgrade to {version}', [translateParams]='{version: knownUpgrades[plugin.name].version}')
 
                         ng-template(ngbPanelContent)
                             .row
