@@ -2,7 +2,7 @@ import { Component, Inject } from '@angular/core'
 import { DomSanitizer } from '@angular/platform-browser'
 import { ConfigService } from '../services/config.service'
 import { HomeBaseService } from '../services/homeBase.service'
-import { ToolbarButton, ToolbarButtonProvider } from '../api'
+import { ToolbarButton, ToolbarButtonProvider, TranslateService } from '../api'
 
 /** @hidden */
 @Component({
@@ -16,6 +16,7 @@ export class StartPageComponent {
     constructor (
         private config: ConfigService,
         private domSanitizer: DomSanitizer,
+        private translate: TranslateService,
         public homeBase: HomeBaseService,
         @Inject(ToolbarButtonProvider) private toolbarButtonProviders: ToolbarButtonProvider[],
     ) {
@@ -36,5 +37,9 @@ export class StartPageComponent {
 
     buttonsTrackBy (btn: ToolbarButton): any {
         return btn.title + btn.icon
+    }
+
+    get versionLabel (): string {
+        return this.translate.instant('Version: {version}', { version: this.homeBase.appVersion })
     }
 }
