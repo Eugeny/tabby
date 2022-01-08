@@ -170,11 +170,19 @@ export class AppService {
         if (params.type as any === SplitTabComponent) {
             return this.openNewTabRaw(params)
         }
-        const splitTab = this.tabsService.create({ type: SplitTabComponent })
         const tab = this.tabsService.create(params)
+        this.wrapAndAddTab(tab)
+        return tab
+    }
+
+    /**
+     * Adds an existing tab while wrapping it in a SplitTabComponent
+     */
+    wrapAndAddTab (tab: BaseTabComponent): SplitTabComponent {
+        const splitTab = this.tabsService.create({ type: SplitTabComponent })
         splitTab.addTab(tab, null, 'r')
         this.addTabRaw(splitTab)
-        return tab
+        return splitTab
     }
 
     async reopenLastTab (): Promise<BaseTabComponent|null> {

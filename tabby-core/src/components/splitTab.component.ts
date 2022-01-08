@@ -253,6 +253,9 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
         })
         this.blurred$.subscribe(() => this.getAllTabs().forEach(x => x.emitBlurred()))
 
+        this.tabAdded$.subscribe(() => this.updateTitle())
+        this.tabRemoved$.subscribe(() => this.updateTitle())
+
         this.subscribeUntilDestroyed(this.hotkeys.hotkey$, hotkey => {
             if (!this.hasFocus || !this.focusedTab) {
                 return

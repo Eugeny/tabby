@@ -14,6 +14,7 @@ import { UpdaterService } from '../services/updater.service'
 import { BaseTabComponent } from './baseTab.component'
 import { SafeModeModalComponent } from './safeModeModal.component'
 import { TabBodyComponent } from './tabBody.component'
+import { SplitTabComponent } from './splitTab.component'
 import { AppService, FileTransfer, HostWindowService, PlatformService, ToolbarButton, ToolbarButtonProvider } from '../api'
 
 /** @hidden */
@@ -196,6 +197,13 @@ export class AppRootComponent {
     }
 
     onTabsReordered (event: CdkDragDrop<BaseTabComponent[]>) {
+        const tab: BaseTabComponent = event.item.data
+        if (!this.app.tabs.includes(tab)) {
+            if (tab.parent instanceof SplitTabComponent) {
+                tab.parent.removeTab(tab)
+                this.app.wrapAndAddTab(tab)
+            }
+        }
         moveItemInArray(this.app.tabs, event.previousIndex, event.currentIndex)
         this.app.emitTabsChanged()
     }
