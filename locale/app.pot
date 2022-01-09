@@ -138,6 +138,9 @@ msgstr ""
 msgid "Check for updates"
 msgstr ""
 
+msgid "Chinese (simplified)"
+msgstr ""
+
 msgid "Ciphers"
 msgstr ""
 
@@ -477,9 +480,6 @@ msgstr ""
 msgid "Forwarded ports"
 msgstr ""
 
-msgid "French"
-msgstr ""
-
 msgid "From color scheme"
 msgstr ""
 
@@ -496,9 +496,6 @@ msgid "General"
 msgstr ""
 
 msgid "Generate a pre-filled GitHub issue"
-msgstr ""
-
-msgid "German"
 msgstr ""
 
 msgid "Get"
@@ -982,9 +979,6 @@ msgid "Right click"
 msgstr ""
 
 msgid "Run as administrator"
-msgstr ""
-
-msgid "Russian"
 msgstr ""
 
 msgid "SFTP"

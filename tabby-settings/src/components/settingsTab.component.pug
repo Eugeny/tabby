@@ -70,7 +70,7 @@
                         .header
                             .title(translate) Language
                         select.form-control([(ngModel)]='config.store.language', (ngModelChange)='saveConfiguration()')
-                            option([value]='null', translate) Automatic
+                            option([ngValue]='null', translate) Automatic
                             option(
                                 [value]='lang.code',
                                 *ngFor='let lang of locale.allLanguages'

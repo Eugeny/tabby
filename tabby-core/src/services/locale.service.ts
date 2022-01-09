@@ -25,28 +25,15 @@ export class TranslateServiceWrapper extends TranslateService {
 export class LocaleService {
     private logger: Logger
 
-    static readonly allLocales = ['en', 'de', 'fr', 'ru']
+    static readonly allLocales = ['en-US', 'zh-CN']
+    readonly allLanguages: { code: string, name: string }[]
 
     get localeChanged$ (): Observable<string> {
         return this.localeChanged.pipe(distinctUntilChanged())
     }
 
-    get catalogChanged$ (): Observable<Record<string, string | undefined>> {
-        return this.catalogChanged.pipe(distinctUntilChanged())
-    }
-
-    readonly allLanguages: { code: string, name: string }[]
-    private translations = {
-        en: {
-            Close: 'Close',
-        },
-        ru: {
-            Close: 'Закрыть',
-        },
-    }
-    private locale = 'en'
+    private locale = 'en-US'
     private localeChanged = new Subject<string>()
-    private catalogChanged = new Subject<Record<string, string | undefined>>()
 
     constructor (
         private config: ConfigService,
@@ -63,52 +50,33 @@ export class LocaleService {
 
         this.allLanguages = [
             {
-                code: 'en',
+                code: 'en-US',
                 name: translate.instant('English'),
             },
             {
-                code: 'de',
-                name: translate.instant('German'),
+                code: 'zh-CN',
+                name: translate.instant('Chinese (simplified)'),
             },
-            {
-                code: 'fr',
-                name: translate.instant('French'),
-            },
-            /* {
-                code: 'it',
-                name: translate.instant('Italian'),
-            },
-            {
-                code: 'es',
-                name: translate.instant('Spanish'),
-            }, */
-            {
-                code: 'ru',
-                name: translate.instant('Russian'),
-            },
-            /* {
-                code: 'ar',
-                name: translate.instant('Arabic'),
-            }, */
         ]
+
+        this.translate.setTranslation('en-US', {})
     }
 
     refresh (): void {
         let lang = this.config.store.language
         if (!lang) {
-            const systemLanguage = navigator.language.toLowerCase().split('-')[0]
-            if (this.allLanguages.some(x => x.code === systemLanguage)) {
-                lang = systemLanguage
+            for (const systemLanguage of navigator.languages) {
+                if (!lang && this.allLanguages.some(x => x.code === systemLanguage)) {
+                    lang = systemLanguage
+                }
             }
         }
-        lang ??= 'en'
+        lang ??= 'en-US'
         this.setLocale(lang)
     }
 
     async setLocale (lang: string): Promise<void> {
-        const strings = this.translations[lang]
-
-        if (!this.translate.langs.includes(lang)) {
+        if (!this.translate.langs.includes(lang) && lang !== 'en-US') {
             this.translate.addLangs([lang])
 
             const po = require(`../../../locale/${lang}.po`).translations['']
@@ -125,7 +93,6 @@ export class LocaleService {
         this.locale = lang
         this.localeChanged.next(lang)
         this.logger.debug('Setting language to', lang)
-        this.catalogChanged.next(strings)
     }
 
     getLocale (): string {

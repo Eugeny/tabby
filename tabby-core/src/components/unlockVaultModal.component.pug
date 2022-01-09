@@ -4,10 +4,8 @@
         .ml-auto(ngbDropdown, placement='bottom-right')
             button.btn.btn-link(ngbDropdownToggle, (click)='$event.stopPropagation()')
                 span(
-                    *ngIf='rememberFor',
-                    translate='Remember for {time}',
-                    [translateParams]='{time: getRememberForDisplay(rememberFor)}'
-                )
+                    *ngIf='rememberFor'
+                ) {{ 'Remember for {time}'|translate:{time: getRememberForDisplay(rememberFor)} }}
                 span(*ngIf='!rememberFor', translate) Do not remember
             div(ngbDropdownMenu)
                 button.dropdown-item(

@@ -1,0 +1,1306 @@
+msgid ""
+msgstr ""
+"mime-version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Crowdin-Project: tabby\n"
+"X-Crowdin-Project-ID: 493349\n"
+"X-Crowdin-Language: zh-CN\n"
+"X-Crowdin-File: /locale/app.pot\n"
+"X-Crowdin-File-ID: 75\n"
+"Project-Id-Version: tabby\n"
+"Language-Team: Chinese Simplified\n"
+"Language: zh_CN\n"
+"PO-Revision-Date: 2022-01-09 09:56\n"
+
+msgid "\"{command}\" is still running. Close?"
+msgstr "\"{command}\" 仍在运行。仍需关闭吗？"
+
+msgid "A second font family used to display characters missing in the main font"
+msgstr "用于显示主字体中缺失字符的替代字体"
+
+msgid "Abort all"
+msgstr "中止全部"
+
+msgid "Acrylic background"
+msgstr "亚克力背景"
+
+msgid "Add"
+msgstr "添加"
+
+msgid "Add a private key"
+msgstr "添加私钥"
+
+msgid "Add..."
+msgstr "添加…"
+
+msgid "Additional space between lines"
+msgstr "行与行之间的空隙"
+
+msgid "Advanced"
+msgstr "高级设置"
+
+msgid "Agent"
+msgstr "代理"
+
+msgid "Agent forwarding"
+msgstr "代理转发"
+
+msgid "Agent pipe path"
+msgstr "代理管道路径"
+
+msgid "Agent type"
+msgstr "代理类型"
+
+msgid "Allows quickly opening a terminal in the selected folder"
+msgstr "允许在选定的文件夹中快速打开终端"
+
+msgid "Appearance"
+msgstr "外观"
+
+msgid "Application"
+msgstr "应用"
+
+msgid "Application settings"
+msgstr "应用程序设置"
+
+msgid "Are you sure you want to close Tabby? You can disable this prompt in Settings -> Window."
+msgstr "您确定要关闭 Tabby 吗？您可以在设置 -> 窗口中关闭此提示"
+
+msgid "Are you sure?"
+msgstr "您确定吗？"
+
+msgid "Arguments"
+msgstr "参数"
+
+msgid "Ask a question"
+msgstr "提出问题"
+
+msgid "Ask before closing the browser tab"
+msgstr "关闭标签页前询问"
+
+msgid "Authentication method"
+msgstr "身份验证方法"
+
+msgid "Auto"
+msgstr "自动"
+
+msgid "Automatic"
+msgstr "自动"
+
+msgid "Automatic Updates"
+msgstr "自动更新"
+
+msgid "Background type"
+msgstr "背景类型"
+
+msgid "Baud rate"
+msgstr "波特率"
+
+msgid "Beginning of the line"
+msgstr "行首"
+
+msgid "Blink cursor"
+msgstr "闪烁光标"
+
+msgid "Blue"
+msgstr "蓝色"
+
+msgid "Blur"
+msgstr "模糊化"
+
+msgid "Bottom"
+msgstr "底部"
+
+msgid "Built-in"
+msgstr "内置"
+
+msgid "Cancel"
+msgstr "取消"
+
+msgid "Change baud rate"
+msgstr "更改波特率"
+
+msgid "Change the master passphrase"
+msgstr "更改主密码"
+
+msgid "Check for updates"
+msgstr "检查更新"
+
+msgid "Ciphers"
+msgstr "加密方法"
+
+msgid "Clear recent profiles"
+msgstr "清除最近使用的配置"
+
+msgid "Clear terminal"
+msgstr "清除终端内容"
+
+msgid "Close"
+msgstr "关闭"
+
+msgid "Close and never show again"
+msgstr "关闭且不再提示"
+
+msgid "Close focused pane"
+msgstr "关闭选中窗格"
+
+msgid "Close other tabs"
+msgstr "关闭其它标签"
+
+msgid "Close tab"
+msgstr "关闭标签页"
+
+msgid "Close tabs to the left"
+msgstr "关闭左侧标签页"
+
+msgid "Close tabs to the right"
+msgstr "关闭右侧标签页"
+
+msgid "Color"
+msgstr "颜色"
+
+msgid "Color scheme"
+msgstr "配色方案"
+
+msgid "Command line"
+msgstr "命令行"
+
+msgid "Command's stdin/stdout is used instead of a network connection"
+msgstr "使用命令的 stdin/stdout 代替网络连接"
+
+msgid "Compact"
+msgstr "紧凑"
+
+msgid "Config downloaded"
+msgstr "配置已下载"
+
+msgid "Config file"
+msgstr "配置文件"
+
+msgid "Config sync"
+msgstr "配置同步"
+
+msgid "Config uploaded"
+msgstr "配置已上传"
+
+msgid "Connect through a proxy server"
+msgstr "通过代理服务器连接"
+
+msgid "Connect to \"%s\"..."
+msgstr "正在连接到 \"%s\"…"
+
+msgid "Connect to a different host first and use it as a proxy"
+msgstr "连接至另一主机，并将其作为代理"
+
+msgid "Connecting"
+msgstr "正在连接"
+
+msgid "Connection"
+msgstr "连接"
+
+msgid "Copied"
+msgstr "已复制"
+
+msgid "Copy"
+msgstr "复制"
+
+msgid "Copy current path"
+msgstr "复制当前路径"
+
+msgid "Copy to clipboard"
+msgstr "复制到剪贴板"
+
+msgid "Could not decrypt config"
+msgstr "无法解密配置"
+
+msgid "Current"
+msgstr "当前"
+
+msgid "Current color scheme"
+msgstr "当前配色方案"
+
+msgid "Current process: {name}"
+msgstr "当前进程：{name}"
+
+msgid "Cursor shape"
+msgstr "光标形状"
+
+msgid "Custom CSS"
+msgstr "自定义 CSS"
+
+msgid "Data bits"
+msgstr "数据位"
+
+msgid "Debugging"
+msgstr "调试"
+
+msgid "Default profile for new tabs"
+msgstr "新标签页默认配置"
+
+msgid "Default profile settings"
+msgstr "默认配置设置"
+
+msgid "Defaults"
+msgstr "默认值"
+
+msgid "Delete"
+msgstr "删除"
+
+msgid "Delete \"{name}\"?"
+msgstr "删除\"{name}\"？"
+
+msgid "Delete next word"
+msgstr "删除下一个单词"
+
+msgid "Delete previous word"
+msgstr "删除上一个单次"
+
+msgid "Delete the group's profiles?"
+msgstr "删除此分组所有配置？"
+
+msgid "Delete this script?"
+msgstr "删除此脚本？"
+
+msgid "Delete vault contents?"
+msgstr "删除密码库内容？"
+
+msgid "Delete {fullPath}?"
+msgstr "删除 {fullPath} 吗？"
+
+msgid "Deleting"
+msgstr "正在删除"
+
+msgid "Device"
+msgstr "设备"
+
+msgid "Direct"
+msgstr "直连"
+
+msgid "Disable GPU acceleration"
+msgstr "禁用 GPU 加速"
+
+msgid "Disconnect"
+msgstr "断开连接"
+
+msgid "Disconnect from {host}?"
+msgstr "断开与 {host} 的连接？"
+
+msgid "Display on"
+msgstr "显示于"
+
+msgid "Do not abort"
+msgstr "不中止"
+
+msgid "Do not close"
+msgstr "不关闭"
+
+msgid "Dock always on top"
+msgstr "窗口置顶"
+
+msgid "Dock the terminal"
+msgstr "停靠终端"
+
+msgid "Docked terminal size"
+msgstr "停靠终端大小"
+
+msgid "Docked terminal space"
+msgstr "停靠终端空间"
+
+msgid "Docking"
+msgstr "停靠"
+
+msgid "Down"
+msgstr "向下"
+
+msgid "Duplicate"
+msgstr "克隆"
+
+msgid "Duplicate as administrator"
+msgstr "使用管理员权限复制窗口"
+
+msgid "Duplicate tab"
+msgstr "克隆标签页"
+
+msgid "Dynamic"
+msgstr "动态"
+
+msgid "Edit"
+msgstr "编辑"
+
+msgid "Enable analytics"
+msgstr "启用分析"
+
+msgid "Enable automatic installation of updates when they become available."
+msgstr "当新版本可用时，启用自动安装"
+
+msgid "Enable font ligatures"
+msgstr "启用连体字"
+
+msgid "Enable global hotkey (Ctrl-Space)"
+msgstr "启用全局快捷键 (Ctrl-Space)"
+
+msgid "Enables the experimental Windows ConPTY API"
+msgstr "启用试验性 Windows ConPTY API"
+
+msgid "Encrypt config file"
+msgstr "加密配置文件"
+
+msgid "End of the line"
+msgstr "行尾"
+
+msgid "English"
+msgstr "英语"
+
+msgid "Environment"
+msgstr "环境变量"
+
+msgid "Erase config"
+msgstr "擦除配置"
+
+msgid "Erase the Vault"
+msgstr "擦除保险库"
+
+msgid "Exact match"
+msgstr "完全匹配"
+
+msgid "Example:"
+msgstr "示例："
+
+msgid "Export"
+msgstr "导出"
+
+msgid "Fallback font"
+msgstr "备用字体"
+
+msgid "File transfers"
+msgstr "文件传输"
+
+msgid "File: {description}"
+msgstr "文件： {description}"
+
+msgid "Fixed"
+msgstr "固定"
+
+msgid "Focus all panes"
+msgstr "聚焦所有窗格"
+
+msgid "Focus all panes at once (broadcast)"
+msgstr "同时聚焦所有窗格 (广播)"
+
+msgid "Focus next pane"
+msgstr "聚焦下一个窗格"
+
+msgid "Focus previous pane"
+msgstr "聚焦上一个窗格"
+
+msgid "Focus the pane above"
+msgstr "聚焦上面的窗格"
+
+msgid "Focus the pane below"
+msgstr "聚焦下面的窗格"
+
+msgid "Focus the pane on the left"
+msgstr "聚焦左方的窗格"
+
+msgid "Focus the pane on the right"
+msgstr "聚焦右方的窗格"
+
+msgid "Font"
+msgstr "字体"
+
+msgid "Force CR"
+msgstr "强制使用 CR"
+
+msgid "Force CRLF"
+msgstr "强制使用 CRLF"
+
+msgid "Force LF"
+msgstr "强制使用 LF"
+
+msgid "Forces a specific SSH agent connection type."
+msgstr "强制特定的 SSH 代理连接类型"
+
+msgid "Forget"
+msgstr "忘记"
+
+msgid "Forward port"
+msgstr "转发端口"
+
+msgid "Forwarded ports"
+msgstr "已转发端口"
+
+msgid "French"
+msgstr "法语"
+
+msgid "From color scheme"
+msgstr "来自配色方案"
+
+msgid "From theme"
+msgstr "来自主题"
+
+msgid "Full"
+msgstr "完整"
+
+msgid "General"
+msgstr "通用"
+
+msgid "Generate a pre-filled GitHub issue"
+msgstr "生成一个预填写的 GitHub 问题"
+
+msgid "German"
+msgstr "德语"
+
+msgid "Gives the window a blurred transparent background"
+msgstr "使窗口具有模糊透明的背景"
+
+msgid "Go up"
+msgstr "上一级"
+
+msgid "Green"
+msgstr "绿色"
+
+msgid "Help track the number of Tabby installs across the world!"
+msgstr "帮助跟踪 Tabby 在世界各地的安装次数！"
+
+msgid "Hexadecimal"
+msgstr "十六进制"
+
+msgid "Hide dock on blur"
+msgstr "模糊时隐藏停靠栏"
+
+msgid "Hide tab close button"
+msgstr "隐藏标签页关闭按钮"
+
+msgid "Hide tab index"
+msgstr "隐藏标签索引"
+
+msgid "Hides the docked terminal when you click away."
+msgstr "点击别处时隐藏停靠的终端"
+
+msgid "Host"
+msgstr "主机"
+
+msgid "Host key"
+msgstr "主机密钥"
+
+msgid "Hotkeys"
+msgstr "快捷键"
+
+msgid "If disabled, only custom profiles will show up in the profile selector"
+msgstr "如果禁用，则只在配置文件选择器中显示自定义配置"
+
+msgid "Immediately echoes your input locally"
+msgstr "立刻在本地回显您的输入"
+
+msgid "Input is sent as you type"
+msgstr "按您输入时发送"
+
+msgid "Input mode"
+msgstr "输入模式"
+
+msgid "Input newlines"
+msgstr "输入换行符"
+
+msgid "Installing the update will close all tabs and restart Tabby."
+msgstr "安装更新将关闭全部标签页并重启Tabby"
+
+msgid "Intelligent Ctrl-C (copy/abort)"
+msgstr "智能Ctrl-C (复制/中止)"
+
+msgid "Interactive"
+msgstr "交互式"
+
+msgid "Invalid syntax"
+msgstr "无效的语法"
+
+msgid "Jump host"
+msgstr "跳板机"
+
+msgid "Jump to next word"
+msgstr "跳到下一个单词"
+
+msgid "Jump to previous word"
+msgstr "跳到上一个单词"
+
+msgid "Keep"
+msgstr "保持"
+
+msgid "Keep Alive Interval (Milliseconds)"
+msgstr "保活间隔（毫秒）"
+
+msgid "Keep docked terminal always on top"
+msgstr "保持停靠终端置顶"
+
+msgid "Key"
+msgstr "密钥"
+
+msgid "Key exchange"
+msgstr "密钥交换"
+
+msgid "Keyboard-interactive auth"
+msgstr "键盘交互认证"
+
+msgid "Kill"
+msgstr "结束进程"
+
+msgid "Language"
+msgstr "语言"
+
+msgid "Launch WinSCP"
+msgstr "启动 WinSCP"
+
+msgid "Launch WinSCP for current SSH session"
+msgstr "为当前的 SSH 会话启动 WinSCP"
+
+msgid "Learn how to allow Tabby to detect remote shell's working directory."
+msgstr "了解如何让 Tabby 检测远程 shell 的工作目录"
+
+msgid "Left"
+msgstr "左侧"
+
+msgid "Line by line"
+msgstr "逐行"
+
+msgid "Line editor, input is sent after you press Enter"
+msgstr "行编辑器，按回车后发送输入的内容"
+
+msgid "Line padding"
+msgstr "行间距"
+
+msgid "Loading"
+msgstr "加载中"
+
+msgid "Local"
+msgstr "本地"
+
+msgid "Local echo"
+msgstr "本地回显"
+
+msgid "Local terminal"
+msgstr "本地终端"
+
+msgid "Login scripts"
+msgstr "登录脚本"
+
+msgid "Manage profiles"
+msgstr "管理配置"
+
+msgid "Max Keep Alive Count"
+msgstr "最大保活次数"
+
+msgid "Maximize the active pane"
+msgstr "最大化活动窗格"
+
+msgid "Move tab to the left"
+msgstr "将标签移至左侧"
+
+msgid "Move tab to the right"
+msgstr "将标签页移至右侧"
+
+msgid "Move to \"Ungrouped\""
+msgstr "移动到 “未分组”"
+
+msgid "Name"
+msgstr "名称"
+
+msgid "Name for the new config"
+msgstr "新配置名称"
+
+msgid "Named pipe"
+msgstr "已命名管道"
+
+msgid "Native"
+msgstr "原生"
+
+msgid "New admin tab"
+msgstr "新管理标签页"
+
+msgid "New config on {platform}"
+msgstr "{platform} 上的新配置"
+
+msgid "New item"
+msgstr "新建项"
+
+msgid "New name"
+msgstr "新名称"
+
+msgid "New profile"
+msgstr "新配置"
+
+msgid "New profile name"
+msgstr "新配置名称"
+
+msgid "New tab"
+msgstr "新标签页"
+
+msgid "New terminal"
+msgstr "新终端"
+
+msgid "New window"
+msgstr "新窗口"
+
+msgid "New with profile"
+msgstr "新建使用配置"
+
+msgid "Next tab"
+msgstr "下一个标签页"
+
+msgid "No color"
+msgstr "无色"
+
+msgid "None"
+msgstr "无"
+
+msgid "Normal"
+msgstr "一般"
+
+msgid "Not found"
+msgstr "未找到"
+
+msgid "Notify on activity"
+msgstr "活动时通知"
+
+msgid "Notify when done"
+msgstr "完成时通知"
+
+msgid "OS default"
+msgstr "系统默认"
+
+msgid "OS default ({name})"
+msgstr "系统默认 ({name})"
+
+msgid "Off"
+msgstr "关闭"
+
+msgid "On GitHub Discussions"
+msgstr "在 GitHub 讨论"
+
+msgid "Opacity"
+msgstr "不透明度"
+
+msgid "Open"
+msgstr "打开"
+
+msgid "Open DevTools"
+msgstr "打开 DevTools"
+
+msgid "Open SFTP panel"
+msgstr "打开 SFTP 面板"
+
+msgid "Open Settings"
+msgstr "打开设置"
+
+msgid "Optional"
+msgstr "选填"
+
+msgid "Options"
+msgstr "选项"
+
+msgid "Orange"
+msgstr "橙色"
+
+msgid "Output is shown as a hexdump"
+msgstr "输出以显示为十六进制"
+
+msgid "Output is shown as it is received"
+msgstr "输出在收到时显示"
+
+msgid "Output mode"
+msgstr "输出模式"
+
+msgid "Output newlines"
+msgstr "输出换行符"
+
+msgid "Override X11 display"
+msgstr "覆盖 X11 显示"
+
+msgid "Overwrite local and sync"
+msgstr "覆盖本地并同步"
+
+msgid "Overwrite remote and sync"
+msgstr "覆盖远程并同步"
+
+msgid "Overwrite the config on the remote side and start syncing?"
+msgstr "覆盖远程的配置并开始同步？"
+
+msgid "Overwrite the local config and start syncing?"
+msgstr "覆盖本地配置并开始同步？"
+
+msgid "Paper"
+msgstr "纸张"
+
+msgid "Parity"
+msgstr "奇偶校验"
+
+msgid "Passphrase for a private key with hash {hash}..."
+msgstr "带哈希值 {hash} 的私钥密码句..."
+
+msgid "Password"
+msgstr "密码"
+
+msgid "Paste"
+msgstr "粘贴"
+
+msgid "Paste from clipboard"
+msgstr "从剪贴板中粘贴"
+
+msgid "Paste multiple lines?"
+msgstr "粘贴多行？"
+
+msgid "Path or address of the local X11 socket"
+msgstr "路径或本地 X11 socket 地址"
+
+msgid "Pin"
+msgstr "固定"
+
+msgid "Port"
+msgstr "端口"
+
+msgid "Port opened"
+msgstr "端口已打开"
+
+msgid "Ports"
+msgstr "端口"
+
+msgid "Press any key to reconnect"
+msgstr "按任意键重新连接"
+
+msgid "Press the key now"
+msgstr "现在请输入按键"
+
+msgid "Prevents accidental closing"
+msgstr "防止意外关闭"
+
+msgid "Previous tab"
+msgstr "上一个标签页"
+
+msgid "Private keys"
+msgstr "私钥"
+
+msgid "Process completed"
+msgstr "处理完成"
+
+msgid "Profile name"
+msgstr "配置名称"
+
+msgid "Profiles"
+msgstr "配置"
+
+msgid "Profiles & connections"
+msgstr "配置和连接"
+
+msgid "Profiles and connections"
+msgstr "配置和连接"
+
+msgid "Program"
+msgstr "程序"
+
+msgid "Proxy command"
+msgstr "代理命令"
+
+msgid "Purple"
+msgstr "紫色"
+
+msgid "Puts all of Tabby's configuration into the vault"
+msgstr "将 Tabby 的所有配置放入保管库"
+
+msgid "Quick connect"
+msgstr "快速连接"
+
+msgid "Quit"
+msgstr "退出"
+
+msgid "Raw socket connection"
+msgstr "原始套接字连接"
+
+msgid "Ready Timeout (Milliseconds)"
+msgstr "准备超时（毫秒）"
+
+msgid "Recent"
+msgstr "最近"
+
+msgid "Reconnect"
+msgstr "重新连接"
+
+msgid "Red"
+msgstr "红色"
+
+msgid "Regex"
+msgstr "正则表达式"
+
+msgid "Release notes"
+msgstr "更新日志"
+
+msgid "Remote"
+msgstr "远程"
+
+msgid "Rename"
+msgstr "重命名"
+
+msgid "Rename Tab"
+msgstr "重命名标签页"
+
+msgid "Reopen last tab"
+msgstr "重新打开最后的标签页"
+
+msgid "Replace"
+msgstr "替换"
+
+msgid "Report a problem"
+msgstr "报告问题"
+
+msgid "Reset zoom"
+msgstr "重置缩放"
+
+msgid "Restart current SSH session"
+msgstr "重启当前 SSH 会话"
+
+msgid "Restart current Telnet session"
+msgstr "重启当前的 Telnet 会话"
+
+msgid "Restart current serial session"
+msgstr "重启当前串口会话"
+
+msgid "Restart the app to apply changes"
+msgstr "重新启动应用以使更改生效"
+
+msgid "Reuse session for multiple tabs"
+msgstr "为多个标签页重用会话"
+
+msgid "Right"
+msgstr "右侧"
+
+msgid "Run as administrator"
+msgstr "以管理员身份运行"
+
+msgid "Russian"
+msgstr "俄语"
+
+msgid "SFTP"
+msgstr "SFTP"
+
+msgid "SOCKS proxy"
+msgstr "SOCKS 代理"
+
+msgid "SOCKS proxy host"
+msgstr "SOCKS 代理主机"
+
+msgid "SOCKS proxy port"
+msgstr "SOCKS 代理端口"
+
+msgid "SSH connection"
+msgstr "SSH 连接"
+
+msgid "SSH connection management is now done through the"
+msgstr "SSH 连接管理现在通过"
+
+msgid "SSH password for {user}@{host}:{port}"
+msgstr "{user}@{host}:{port} 的 SSH 密码"
+
+msgid "Save"
+msgstr "保存"
+
+msgid "Save a password in the keychain"
+msgstr "在钥匙串中保存密码"
+
+msgid "Save and apply"
+msgstr "保存并应用"
+
+msgid "Save as profile"
+msgstr "另存为配置"
+
+msgid "Save layout as profile"
+msgstr "保存布局为配置"
+
+msgid "Saved"
+msgstr "已保存"
+
+msgid "Saved layout"
+msgstr "已保存的布局"
+
+msgid "Search"
+msgstr "搜索"
+
+msgid "Select"
+msgstr "选择"
+
+msgid "Select a base profile to use as a template"
+msgstr "选择一个基本配置作为模板"
+
+msgid "Select file storage"
+msgstr "选择文件存储"
+
+msgid "Select profile"
+msgstr "选择配置"
+
+msgid "Select profile or enter an address"
+msgstr "选择配置或输入地址"
+
+msgid "Send bytes by typing in hex values"
+msgstr "通过输入十六进制值发送字节"
+
+msgid "Sends data one byte at a time"
+msgstr "一次发送一个字节数据"
+
+msgid "Serial"
+msgstr "串口"
+
+msgid "Serial connection"
+msgstr "串口连接"
+
+msgid "Serial: {description}"
+msgstr "串口：{description}"
+
+msgid "Set master passphrase"
+msgstr "设置主密码"
+
+msgid "Set passphrase"
+msgstr "设置密码"
+
+msgid "Set password"
+msgstr "设置密码"
+
+msgid "Set to 0 to disable recent profiles"
+msgstr "设置为 0 以禁用最近的配置"
+
+msgid "Sets the SSH agent's named pipe path."
+msgstr "设置 SSH 代理已命名的管道路径"
+
+msgid "Settings"
+msgstr "设置"
+
+msgid "Shell"
+msgstr "Shell"
+
+msgid "Shell does not support current path detection"
+msgstr "Shell 不支持当前路径检测"
+
+msgid "Shell integration"
+msgstr "Shell 集成"
+
+msgid "Show Serial connections"
+msgstr "显示串行连接"
+
+msgid "Show built-in profiles in selector"
+msgstr "在选择器中显示内置配置"
+
+msgid "Show config file"
+msgstr "显示配置文件"
+
+msgid "Show defaults"
+msgstr "显示默认值"
+
+msgid "Show pane labels (for rearranging)"
+msgstr "显示窗格标签（用于重新排列）"
+
+msgid "Show profile selector"
+msgstr "显示配置选择器"
+
+msgid "Show recent profiles in selector"
+msgstr "在选择器中显示最近的配置"
+
+msgid "Show release notes"
+msgstr "显示更新日志"
+
+msgid "Show vault contents"
+msgstr "显示密码库内容"
+
+msgid "Skip MoTD/banner"
+msgstr "跳过MoTD/横幅消息"
+
+msgid "Slow feed"
+msgstr "慢速发送"
+
+msgid "Snaps the window to a side of the screen"
+msgstr "将窗口贴靠至屏幕的一侧"
+
+msgid "Source code"
+msgstr "源码"
+
+msgid "Split"
+msgstr "拆分"
+
+msgid "Split to the bottom"
+msgstr "向下拆分"
+
+msgid "Split to the left"
+msgstr "向左拆分"
+
+msgid "Split to the right"
+msgstr "向右拆分"
+
+msgid "Split to the top"
+msgstr "向上拆分"
+
+msgid "Standard"
+msgstr "标准"
+
+msgid "Stop bits"
+msgstr "停止位"
+
+msgid "Strip"
+msgstr "过滤"
+
+msgid "Subscribe to updates"
+msgstr "订阅更新"
+
+msgid "Substitutions allowed."
+msgstr "允许替换"
+
+msgid "Switch profile"
+msgstr "切换配置"
+
+msgid "Switch profile in the active pane"
+msgstr "在活动窗格中切换配置"
+
+msgid "Tab 1"
+msgstr "标签页 1"
+
+msgid "Tab 10"
+msgstr "标签页 10"
+
+msgid "Tab 11"
+msgstr "标签页 11"
+
+msgid "Tab 12"
+msgstr "标签页 12"
+
+msgid "Tab 13"
+msgstr "标签页 13"
+
+msgid "Tab 14"
+msgstr "标签页 14"
+
+msgid "Tab 15"
+msgstr "标签页 15"
+
+msgid "Tab 16"
+msgstr "标签页 16"
+
+msgid "Tab 17"
+msgstr "标签页 17"
+
+msgid "Tab 18"
+msgstr "标签页 18"
+
+msgid "Tab 19"
+msgstr "标签页 19"
+
+msgid "Tab 2"
+msgstr "标签页 2"
+
+msgid "Tab 20"
+msgstr "标签页 20"
+
+msgid "Tab 3"
+msgstr "标签页 3"
+
+msgid "Tab 4"
+msgstr "标签页 4"
+
+msgid "Tab 5"
+msgstr "标签页 5"
+
+msgid "Tab 6"
+msgstr "标签页 6"
+
+msgid "Tab 7"
+msgstr "标签页 7"
+
+msgid "Tab 8"
+msgstr "标签页 8"
+
+msgid "Tab 9"
+msgstr "标签页 9"
+
+msgid "Tab activity"
+msgstr "标签页活动"
+
+msgid "Tabby could not start with your plugins, so all third party plugins have been disabled in this session. The error was:"
+msgstr "Tabby不能使用您的插件启动，因此本会话中禁用了所有第三方插件。错误信息："
+
+msgid "Tabby news and updates on Twitter"
+msgstr "Tabby 在 Twitter 的新闻和更新"
+
+msgid "Tabs"
+msgstr "标签页"
+
+msgid "Tabs location"
+msgstr "标签页位置"
+
+msgid "Tabs width"
+msgstr "标签页宽度"
+
+msgid "Telnet"
+msgstr "Telnet"
+
+msgid "Telnet session"
+msgstr "Telnet 会话"
+
+msgid "Terminal"
+msgstr "终端"
+
+msgid "Terminal background"
+msgstr "终端背景"
+
+msgid "Thank you for downloading Tabby!"
+msgstr "感谢您下载 Tabby！"
+
+msgid "Theme"
+msgstr "主题"
+
+msgid "There are active file transfers"
+msgstr "当前有活动的文件传输"
+
+msgid "There is a saved password for this connection"
+msgstr "此连接已保存密码"
+
+msgid "These apply to all profiles of a given type"
+msgstr "应用于给定类型的所有配置文件"
+
+msgid "Thin"
+msgstr "简约"
+
+msgid "Tick this if you're experiencing aliasing, ghosting or other visual issues"
+msgstr "如果您遇到锯齿、重影或其他视觉问题，请勾选此选项"
+
+msgid "Toggle fullscreen mode"
+msgstr "切换全屏模式"
+
+msgid "Toggle last tab"
+msgstr "切换到最后一个选项卡"
+
+msgid "Toggle terminal window"
+msgstr "切换终端窗口"
+
+msgid "Toggles the Tabby window visibility"
+msgstr "切换 Tabby 显示或隐藏"
+
+msgid "Top"
+msgstr "顶部"
+
+msgid "Try again"
+msgstr "再试一次"
+
+msgid "Trying saved password"
+msgstr "尝试已保存的密码"
+
+msgid "Ungrouped"
+msgstr "未分组"
+
+msgid "Unknown"
+msgstr "未知"
+
+msgid "Unknown secret of type {type} for {key}"
+msgstr "{key} 的 {type} 类型的未知密钥"
+
+msgid "Unpin"
+msgstr "取消固定"
+
+msgid "Up"
+msgstr "向上"
+
+msgid "Update"
+msgstr "更新"
+
+msgid "Upload"
+msgstr "上传"
+
+msgid "Use ConPTY"
+msgstr "使用 ConPTY"
+
+msgid "User default"
+msgstr "用户默认值"
+
+msgid "Username"
+msgstr "用户名"
+
+msgid "Using preset password"
+msgstr "使用预设密码"
+
+msgid "Vault"
+msgstr "密码库"
+
+msgid "Vault is an always-encrypted container for secrets such as SSH passwords and private key passphrases."
+msgstr "密码库是一个始终加密的容器，用于存放SSH密码和私钥。"
+
+msgid "Vault is empty"
+msgstr "密码库为空"
+
+msgid "Vault is locked"
+msgstr "密码库已锁定"
+
+msgid "Vault is not configured"
+msgstr "密码库未配置"
+
+msgid "Vault master passphrase needs to be set to allow storing secrets"
+msgstr "为允许存储密钥，您必须设置密码库的主密码"
+
+msgid "Vibrancy"
+msgstr "鲜明"
+
+msgid "WSL terminal only supports TrueColor with ConPTY"
+msgstr "WSL 终端仅支持 ConPTY 真彩"
+
+msgid "Warn when closing active connections"
+msgstr "当关闭活动连接时，显示警告"
+
+msgid "We're only tracking your Tabby and OS versions."
+msgstr "我们只获取您的 Tabby 和操作系统版本信息"
+
+msgid "Welcome"
+msgstr "欢迎"
+
+msgid "What's new"
+msgstr "最近更新"
+
+msgid "When WinSCP is detected, you can launch an SCP session from the context menu."
+msgstr "检测到 WinSCP 时，您可以从上下文菜单中启动一个 SCP 会话。"
+
+msgid "Whether a custom window or an OS native window should be used"
+msgstr "使用自定义窗口或操作系统原生窗口"
+
+msgid "WinSCP path"
+msgstr "WinSCP 路径"
+
+msgid "Window"
+msgstr "窗口"
+
+msgid "Window frame"
+msgstr "窗口框架样式"
+
+msgid "Windows 10 build 18309 or above is recommended for ConPTY"
+msgstr "Windows 10 版本号 18309 或以上推荐 ConPTY"
+
+msgid "Working directory"
+msgstr "工作目录"
+
+msgid "Working directory detection"
+msgstr "工作目录检测"
+
+msgid "X11 forwarding"
+msgstr "X11 转发"
+
+msgid "Yellow"
+msgstr "黄色"
+
+msgid "You can change it later, but it's unrecoverable if forgotten."
+msgstr "您可以稍后更改，但在忘记时无法恢复"
+
+msgid "Zoom in"
+msgstr "放大"
+
+msgid "Zoom out"
+msgstr "缩小"
+
+msgid "click"
+msgstr "点击"
+
+msgid "tab"
+msgstr "标签页"
+
+msgid "{name} copy"
+msgstr "{name} 副本"
+

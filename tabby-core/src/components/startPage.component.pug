@@ -20,4 +20,4 @@ footer.d-flex.align-items-center
             i.fas.fa-bug
             span(translate) Report a problem
 
-    .form-control-static.selectable.no-drag {{versionLabel}}
+    .form-control-static.selectable.no-drag {{ 'Version: {version}'|translate:{ version: this.homeBase.appVersion } }}
