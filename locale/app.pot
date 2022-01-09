@@ -4,9 +4,6 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-msgid "\"{command}\" is still running. Close?"
-msgstr ""
-
 msgid "A second font family used to display characters missing in the main font"
 msgstr ""
 
@@ -43,6 +40,9 @@ msgstr ""
 msgid "Agent type"
 msgstr ""
 
+msgid "Allows opening .bat files in tabs, but breaks some shells"
+msgstr ""
+
 msgid "Allows quickly opening a terminal in the selected folder"
 msgstr ""
 
@@ -72,16 +72,31 @@ msgstr ""
 msgid "Ask before closing the browser tab"
 msgstr ""
 
+msgid "Audible"
+msgstr ""
+
 msgid "Authentication method"
 msgstr ""
 
+msgid "Author"
+msgstr ""
+
 msgid "Auto"
+msgstr ""
+
+msgid "Auto-open a terminal on app start"
 msgstr ""
 
 msgid "Automatic"
 msgstr ""
 
 msgid "Automatic Updates"
+msgstr ""
+
+msgid "Automatically upload changes and check for updates every minute"
+msgstr ""
+
+msgid "Available"
 msgstr ""
 
 msgid "Background type"
@@ -103,6 +118,9 @@ msgid "Blur"
 msgstr ""
 
 msgid "Bottom"
+msgstr ""
+
+msgid "Bracketed paste (requires shell support)"
 msgstr ""
 
 msgid "Built-in"
@@ -127,6 +145,9 @@ msgid "Clear recent profiles"
 msgstr ""
 
 msgid "Clear terminal"
+msgstr ""
+
+msgid "Clipboard"
 msgstr ""
 
 msgid "Close"
@@ -177,6 +198,9 @@ msgstr ""
 msgid "Config uploaded"
 msgstr ""
 
+msgid "Configs"
+msgstr ""
+
 msgid "Connect through a proxy server"
 msgstr ""
 
@@ -192,6 +216,15 @@ msgstr ""
 msgid "Connection"
 msgstr ""
 
+msgid "Connection failed: {error}"
+msgstr ""
+
+msgid "Connection name will be used instead"
+msgstr ""
+
+msgid "Context menu"
+msgstr ""
+
 msgid "Copied"
 msgstr ""
 
@@ -199,6 +232,9 @@ msgid "Copy"
 msgstr ""
 
 msgid "Copy current path"
+msgstr ""
+
+msgid "Copy on select"
 msgstr ""
 
 msgid "Copy to clipboard"
@@ -237,6 +273,9 @@ msgstr ""
 msgid "Defaults"
 msgstr ""
 
+msgid "Defaults for {type}"
+msgstr ""
+
 msgid "Delete"
 msgstr ""
 
@@ -270,13 +309,16 @@ msgstr ""
 msgid "Direct"
 msgstr ""
 
+msgid "Disable"
+msgstr ""
+
 msgid "Disable GPU acceleration"
 msgstr ""
 
-msgid "Disconnect"
+msgid "Disable dynamic tab title"
 msgstr ""
 
-msgid "Disconnect from {host}?"
+msgid "Disabled"
 msgstr ""
 
 msgid "Display on"
@@ -285,7 +327,7 @@ msgstr ""
 msgid "Do not abort"
 msgstr ""
 
-msgid "Do not close"
+msgid "Do not remember"
 msgstr ""
 
 msgid "Dock always on top"
@@ -303,7 +345,13 @@ msgstr ""
 msgid "Docking"
 msgstr ""
 
+msgid "Double-click selection will stop at these characters"
+msgstr ""
+
 msgid "Down"
+msgstr ""
+
+msgid "Download"
 msgstr ""
 
 msgid "Duplicate"
@@ -319,6 +367,9 @@ msgid "Dynamic"
 msgstr ""
 
 msgid "Edit"
+msgstr ""
+
+msgid "Enable"
 msgstr ""
 
 msgid "Enable analytics"
@@ -352,6 +403,9 @@ msgid "Erase config"
 msgstr ""
 
 msgid "Erase the Vault"
+msgstr ""
+
+msgid "Error in {plugin}:"
 msgstr ""
 
 msgid "Exact match"
@@ -432,6 +486,9 @@ msgstr ""
 msgid "From theme"
 msgstr ""
 
+msgid "Frontend"
+msgstr ""
+
 msgid "Full"
 msgstr ""
 
@@ -444,6 +501,15 @@ msgstr ""
 msgid "German"
 msgstr ""
 
+msgid "Get"
+msgstr ""
+
+msgid "Get it from the Tabby Web settings window"
+msgstr ""
+
+msgid "GitHub"
+msgstr ""
+
 msgid "Gives the window a blurred transparent background"
 msgstr ""
 
@@ -451,6 +517,9 @@ msgid "Go up"
 msgstr ""
 
 msgid "Green"
+msgstr ""
+
+msgid "Group"
 msgstr ""
 
 msgid "Help track the number of Tabby installs across the world!"
@@ -471,6 +540,9 @@ msgstr ""
 msgid "Hides the docked terminal when you click away."
 msgstr ""
 
+msgid "Homepage"
+msgstr ""
+
 msgid "Host"
 msgstr ""
 
@@ -478,6 +550,9 @@ msgid "Host key"
 msgstr ""
 
 msgid "Hotkeys"
+msgstr ""
+
+msgid "Icon"
 msgstr ""
 
 msgid "If disabled, only custom profiles will show up in the profile selector"
@@ -493,6 +568,9 @@ msgid "Input mode"
 msgstr ""
 
 msgid "Input newlines"
+msgstr ""
+
+msgid "Installed"
 msgstr ""
 
 msgid "Installing the update will close all tabs and restart Tabby."
@@ -534,9 +612,6 @@ msgstr ""
 msgid "Keyboard-interactive auth"
 msgstr ""
 
-msgid "Kill"
-msgstr ""
-
 msgid "Language"
 msgstr ""
 
@@ -552,6 +627,9 @@ msgstr ""
 msgid "Left"
 msgstr ""
 
+msgid "Lets the shell handle Meta key instead of OS"
+msgstr ""
+
 msgid "Line by line"
 msgstr ""
 
@@ -562,6 +640,9 @@ msgid "Line padding"
 msgstr ""
 
 msgid "Loading"
+msgstr ""
+
+msgid "Loading configs..."
 msgstr ""
 
 msgid "Local"
@@ -576,6 +657,9 @@ msgstr ""
 msgid "Login scripts"
 msgstr ""
 
+msgid "Long-click for context menu"
+msgstr ""
+
 msgid "Manage profiles"
 msgstr ""
 
@@ -583,6 +667,9 @@ msgid "Max Keep Alive Count"
 msgstr ""
 
 msgid "Maximize the active pane"
+msgstr ""
+
+msgid "Modified on {date}"
 msgstr ""
 
 msgid "Move tab to the left"
@@ -642,6 +729,9 @@ msgstr ""
 msgid "No color"
 msgstr ""
 
+msgid "No modifier"
+msgstr ""
+
 msgid "None"
 msgstr ""
 
@@ -657,6 +747,9 @@ msgstr ""
 msgid "Notify when done"
 msgstr ""
 
+msgid "Number of lines kept in the buffer"
+msgstr ""
+
 msgid "OS default"
 msgstr ""
 
@@ -664,6 +757,9 @@ msgid "OS default ({name})"
 msgstr ""
 
 msgid "Off"
+msgstr ""
+
+msgid "Official"
 msgstr ""
 
 msgid "On GitHub Discussions"
@@ -741,28 +837,34 @@ msgstr ""
 msgid "Paste multiple lines?"
 msgstr ""
 
+msgid "Paste on middle-click"
+msgstr ""
+
 msgid "Path or address of the local X11 socket"
 msgstr ""
 
 msgid "Pin"
 msgstr ""
 
+msgid "Plugins"
+msgstr ""
+
+msgid "Plugins folder"
+msgstr ""
+
 msgid "Port"
 msgstr ""
 
-msgid "Port opened"
-msgstr ""
-
 msgid "Ports"
-msgstr ""
-
-msgid "Press any key to reconnect"
 msgstr ""
 
 msgid "Press the key now"
 msgstr ""
 
 msgid "Prevents accidental closing"
+msgstr ""
+
+msgid "Prevents accidental execution of pasted commands"
 msgstr ""
 
 msgid "Previous tab"
@@ -825,6 +927,9 @@ msgstr ""
 msgid "Release notes"
 msgstr ""
 
+msgid "Remember for {time}"
+msgstr ""
+
 msgid "Remote"
 msgstr ""
 
@@ -834,6 +939,9 @@ msgstr ""
 msgid "Rename Tab"
 msgstr ""
 
+msgid "Rendering"
+msgstr ""
+
 msgid "Reopen last tab"
 msgstr ""
 
@@ -841,6 +949,9 @@ msgid "Replace"
 msgstr ""
 
 msgid "Report a problem"
+msgstr ""
+
+msgid "Require a key to click links"
 msgstr ""
 
 msgid "Reset zoom"
@@ -858,10 +969,16 @@ msgstr ""
 msgid "Restart the app to apply changes"
 msgstr ""
 
+msgid "Restore terminal tabs on app start"
+msgstr ""
+
 msgid "Reuse session for multiple tabs"
 msgstr ""
 
 msgid "Right"
+msgstr ""
+
+msgid "Right click"
 msgstr ""
 
 msgid "Run as administrator"
@@ -912,7 +1029,22 @@ msgstr ""
 msgid "Saved layout"
 msgstr ""
 
+msgid "Scroll on input"
+msgstr ""
+
+msgid "Scroll terminal to bottom"
+msgstr ""
+
+msgid "Scrollback"
+msgstr ""
+
+msgid "Scrolls the terminal to the bottom on user input"
+msgstr ""
+
 msgid "Search"
+msgstr ""
+
+msgid "Secret sync token"
 msgstr ""
 
 msgid "Select"
@@ -945,6 +1077,9 @@ msgstr ""
 msgid "Serial: {description}"
 msgstr ""
 
+msgid "Set Tabby as %COMSPEC%"
+msgstr ""
+
 msgid "Set master passphrase"
 msgstr ""
 
@@ -972,7 +1107,13 @@ msgstr ""
 msgid "Shell integration"
 msgstr ""
 
+msgid "Show Mixer"
+msgstr ""
+
 msgid "Show Serial connections"
+msgstr ""
+
+msgid "Show a confirmation box when pasting multiple lines"
 msgstr ""
 
 msgid "Show built-in profiles in selector"
@@ -1029,6 +1170,9 @@ msgstr ""
 msgid "Standard"
 msgstr ""
 
+msgid "Startup"
+msgstr ""
+
 msgid "Stop bits"
 msgstr ""
 
@@ -1045,6 +1189,27 @@ msgid "Switch profile"
 msgstr ""
 
 msgid "Switch profile in the active pane"
+msgstr ""
+
+msgid "Switches terminal frontend implementation (experimental)"
+msgstr ""
+
+msgid "Sync"
+msgstr ""
+
+msgid "Sync Vault"
+msgstr ""
+
+msgid "Sync automatically"
+msgstr ""
+
+msgid "Sync host"
+msgstr ""
+
+msgid "Sync hotkeys"
+msgstr ""
+
+msgid "Sync window settings"
 msgstr ""
 
 msgid "Tab 1"
@@ -1139,6 +1304,9 @@ msgstr ""
 msgid "Terminal background"
 msgstr ""
 
+msgid "Terminal bell"
+msgstr ""
+
 msgid "Thank you for downloading Tabby!"
 msgstr ""
 
@@ -1184,6 +1352,9 @@ msgstr ""
 msgid "Ungrouped"
 msgstr ""
 
+msgid "Uninstall"
+msgstr ""
+
 msgid "Unknown"
 msgstr ""
 
@@ -1199,10 +1370,19 @@ msgstr ""
 msgid "Update"
 msgstr ""
 
+msgid "Upgrade to {version}"
+msgstr ""
+
 msgid "Upload"
 msgstr ""
 
+msgid "Upload as a new config"
+msgstr ""
+
 msgid "Use ConPTY"
+msgstr ""
+
+msgid "Use {altKeyName} as the Meta key"
 msgstr ""
 
 msgid "User default"
@@ -1234,10 +1414,25 @@ msgstr ""
 msgid "Vault master passphrase needs to be set to allow storing secrets"
 msgstr ""
 
+msgid "Version"
+msgstr ""
+
+msgid "Version: {version}"
+msgstr ""
+
 msgid "Vibrancy"
 msgstr ""
 
+msgid "Visual"
+msgstr ""
+
+msgid "WSL terminal bell can only be muted via Volume Mixer"
+msgstr ""
+
 msgid "WSL terminal only supports TrueColor with ConPTY"
+msgstr ""
+
+msgid "Warn on multi-line paste"
 msgstr ""
 
 msgid "Warn when closing active connections"
@@ -1257,6 +1452,9 @@ msgid ""
 "menu."
 msgstr ""
 
+msgid "When enabled, links are only clickable while holding this key"
+msgstr ""
+
 msgid "Whether a custom window or an OS native window should be used"
 msgstr ""
 
@@ -1270,6 +1468,9 @@ msgid "Window frame"
 msgstr ""
 
 msgid "Windows 10 build 18309 or above is recommended for ConPTY"
+msgstr ""
+
+msgid "Word separators"
 msgstr ""
 
 msgid "Working directory"
