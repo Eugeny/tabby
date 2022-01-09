@@ -514,6 +514,51 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "gkor",
+      "name": "George Korsnick",
+      "avatar_url": "https://avatars.githubusercontent.com/u/780052?v=4",
+      "profile": "https://usual.io/",
+      "contributions": [
+        "financial"
+      ]
+    },
+    {
+      "login": "uluhonolulu",
+      "name": "Artem Smirnov",
+      "avatar_url": "https://avatars.githubusercontent.com/u/872764?v=4",
+      "profile": "https://about.me/ulu",
+      "contributions": [
+        "financial"
+      ]
+    },
+    {
+      "login": "nevotheless",
+      "name": "Tim Kopplow",
+      "avatar_url": "https://avatars.githubusercontent.com/u/779797?v=4",
+      "profile": "https://github.com/nevotheless",
+      "contributions": [
+        "financial"
+      ]
+    },
+    {
+      "login": "mrthock",
+      "name": "mrthock",
+      "avatar_url": "https://avatars.githubusercontent.com/u/88901709?v=4",
+      "profile": "https://github.com/mrthock",
+      "contributions": [
+        "financial"
+      ]
+    },
+    {
+      "login": "lrottach",
+      "name": "Lukas Rottach",
+      "avatar_url": "https://avatars.githubusercontent.com/u/50323692?v=4",
+      "profile": "https://github.com/lrottach",
+      "contributions": [
+        "financial"
+      ]
     }
   ],
   "contributorsPerLine": 7,
