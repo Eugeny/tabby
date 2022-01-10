@@ -1908,11 +1908,6 @@ colors@1.0.3:
   resolved "https://registry.yarnpkg.com/colors/-/colors-1.0.3.tgz#0433f44d809680fdeb60ed260f1b0c262e82a40b"
   integrity sha1-BDP0TYCWgP3rYO0mDxsMJi6CpAs=
 
-colors@^1.3.3:
-  version "1.4.0"
-  resolved "https://registry.npmjs.org/colors/-/colors-1.4.0.tgz"
-  integrity sha512-a+UqTh4kgZg/SlGvfbzDHpgRu7AAQOmmqRHJnxhRZICKFUT91brVhNNt58CMWU9PsBbv3PDCZUHbVxuDiH2mtA==
-
 columnify@~1.5.4:
   version "1.5.4"
   resolved "https://registry.npmjs.org/columnify/-/columnify-1.5.4.tgz"
@@ -2647,13 +2642,13 @@ electron-publish@22.14.5:
     lazy-val "^1.0.5"
     mime "^2.5.2"
 
-electron-rebuild@^3.2.5:
-  version "3.2.5"
-  resolved "https://registry.yarnpkg.com/electron-rebuild/-/electron-rebuild-3.2.5.tgz#a9e82b4259aac33ad449f6959de68ded2c5679f8"
-  integrity sha512-U9dKi10V9w/BdIVB8a8dTKYLK3Q1d2WZ+Yo5qfM3XX/O4jI7KpnwgvWgGoVv0jTWPC2NlebF00ffWS/8NfUAtA==
+electron-rebuild@^3.2.6:
+  version "3.2.6"
+  resolved "https://registry.yarnpkg.com/electron-rebuild/-/electron-rebuild-3.2.6.tgz#d71b914b21822b0fc7222369935d6674c3342a54"
+  integrity sha512-oVAouqlW1IJivSKrw+ahTIGhLoH2GQiiIwPcZGAPt6ZnynsROG31jpSLDlE5veAiD91szbpaVT4qhU5oGbrsKA==
   dependencies:
     "@malept/cross-spawn-promise" "^2.0.0"
-    colors "^1.3.3"
+    chalk "^4.0.0"
     debug "^4.1.1"
     detect-libc "^1.0.3"
     fs-extra "^10.0.0"
@@ -8891,20 +8886,7 @@ yargs@^16.2.0:
     y18n "^5.0.5"
     yargs-parser "^20.2.2"
 
-yargs@^17.0.1:
-  version "17.1.0"
-  resolved "https://registry.yarnpkg.com/yargs/-/yargs-17.1.0.tgz#0cd9827a0572c9a1795361c4d1530e53ada168cf"
-  integrity sha512-SQr7qqmQ2sNijjJGHL4u7t8vyDZdZ3Ahkmo4sc1w5xI9TBX0QDdG/g4SFnxtWOsGLjwHQue57eFALfwFCnixgg==
-  dependencies:
-    cliui "^7.0.2"
-    escalade "^3.1.1"
-    get-caller-file "^2.0.5"
-    require-directory "^2.1.1"
-    string-width "^4.2.0"
-    y18n "^5.0.5"
-    yargs-parser "^20.2.2"
-
-yargs@^17.2.1:
+yargs@^17.0.1, yargs@^17.2.1:
   version "17.3.1"
   resolved "https://registry.yarnpkg.com/yargs/-/yargs-17.3.1.tgz#da56b28f32e2fd45aefb402ed9c26f42be4c07b9"
   integrity sha512-WUANQeVgjLbNsEmGk20f+nlHgOqzRFpiGWVaBrYGYIGANIIu3lWjoyi0fNlFmJkvfhCZ6BXINe7/W2O2bV4iaA==
