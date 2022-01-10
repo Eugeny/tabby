@@ -270,8 +270,8 @@ export class ConfigService {
     }
 
     private emitChange (): void {
-        this.changed.next()
         this.vault.setStore(this.store.vault)
+        this.changed.next()
     }
 
     private migrate (config) {

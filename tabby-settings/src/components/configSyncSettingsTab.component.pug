@@ -96,7 +96,10 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
     li(ngbNavItem)
         a(ngbNavLink, translate) Advanced
         ng-template(ngbNavContent)
-            .form-line
+            .alert.alert-info(*ngIf='config.store.encrypted')
+                div(translate) Partial config sync is not possible when the config is encrypted via Vault.
+
+            .form-line(*ngIf='!config.store.encrypted')
                 .header
                     .title(translate) Sync hotkeys
                 toggle(
@@ -104,7 +107,7 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
                     (ngModelChange)='config.save()',
                 )
 
-            .form-line
+            .form-line(*ngIf='!config.store.encrypted')
                 .header
                     .title(translate) Sync window settings
                 toggle(
@@ -112,7 +115,7 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
                     (ngModelChange)='config.save()',
                 )
 
-            .form-line
+            .form-line(*ngIf='!config.store.encrypted')
                 .header
                     .title(translate) Sync Vault
                 toggle(
