@@ -2,7 +2,7 @@ import deepClone from 'clone-deep'
 import deepEqual from 'deep-equal'
 import { v4 as uuidv4 } from 'uuid'
 import * as yaml from 'js-yaml'
-import { Observable, Subject, AsyncSubject } from 'rxjs'
+import { Observable, Subject, AsyncSubject, lastValueFrom } from 'rxjs'
 import { Injectable, Inject } from '@angular/core'
 import { TranslateService } from '@ngx-translate/core'
 import { ConfigProvider } from '../api/configProvider'
@@ -196,7 +196,7 @@ export class ConfigService {
     }
 
     async save (): Promise<void> {
-        await this.ready$
+        await lastValueFrom(this.ready$)
         if (!this._store) {
             throw new Error('Cannot save an empty store')
         }
