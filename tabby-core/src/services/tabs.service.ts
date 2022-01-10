@@ -1,3 +1,4 @@
+import deepClone from 'clone-deep'
 import { Injectable, ComponentFactoryResolver, Injector } from '@angular/core'
 import { BaseTabComponent } from '../components/baseTab.component'
 import { TabRecoveryService } from './tabRecovery.service'
@@ -48,7 +49,7 @@ export class TabsService {
         if (!token) {
             return null
         }
-        const dup = await this.tabRecovery.recoverTab(token, true)
+        const dup = await this.tabRecovery.recoverTab(deepClone(token))
         if (dup) {
             return this.create(dup)
         }

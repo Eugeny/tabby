@@ -11,6 +11,10 @@ export interface BaseTabProcess {
     name: string
 }
 
+export interface GetRecoveryTokenOptions {
+    includeState: boolean
+}
+
 /**
  * Abstract base class for custom tab components
  */
@@ -136,7 +140,7 @@ export abstract class BaseTabComponent extends BaseComponent {
      * @return JSON serializable tab state representation
      *         for your [[TabRecoveryProvider]] to parse
      */
-    async getRecoveryToken (): Promise<RecoveryToken|null> {
+    async getRecoveryToken (options?: GetRecoveryTokenOptions): Promise<RecoveryToken|null> { // eslint-disable-line @typescript-eslint/no-unused-vars
         return null
     }
 

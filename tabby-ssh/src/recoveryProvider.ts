@@ -19,11 +19,4 @@ export class RecoveryProvider extends TabRecoveryProvider<SSHTabComponent> {
             },
         }
     }
-
-    duplicate (recoveryToken: RecoveryToken): RecoveryToken {
-        return {
-            ...recoveryToken,
-            savedState: null,
-        }
-    }
 }

@@ -44,7 +44,7 @@ export class SplitLayoutProfilesService extends ProfileProvider<SplitLayoutProfi
     }
 
     async createProfile (tab: SplitTabComponent, name: string): Promise<void> {
-        const token = await tab.getRecoveryToken()
+        const token = await tab.getRecoveryToken({ includeState: false })
         const profile: PartialProfile<SplitLayoutProfile> = {
             id: `${this.id}:custom:${slugify(name)}:${uuidv4()}`,
             type: this.id,

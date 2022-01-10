@@ -2,7 +2,7 @@
 import colors from 'ansi-colors'
 import { Component, Injector } from '@angular/core'
 import { first } from 'rxjs'
-import { Platform, SelectorService } from 'tabby-core'
+import { GetRecoveryTokenOptions, Platform, SelectorService } from 'tabby-core'
 import { BaseTerminalTabComponent } from 'tabby-terminal'
 import { SerialSession, BAUD_RATES, SerialProfile } from '../api'
 
@@ -98,11 +98,11 @@ export class SerialTabComponent extends BaseTerminalTabComponent {
         super.attachSessionHandlers()
     }
 
-    async getRecoveryToken (): Promise<any> {
+    async getRecoveryToken (options?: GetRecoveryTokenOptions): Promise<any> {
         return {
             type: 'app:serial-tab',
             profile: this.profile,
-            savedState: this.frontend?.saveState(),
+            savedState: options?.includeState && this.frontend?.saveState(),
         }
     }
 

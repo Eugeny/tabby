@@ -318,7 +318,7 @@ export class AppService {
         if (checkCanClose && !await tab.canClose()) {
             return
         }
-        const token = await this.tabRecovery.getFullRecoveryToken(tab)
+        const token = await this.tabRecovery.getFullRecoveryToken(tab, { includeState: true })
         if (token) {
             this.closedTabsStack.push(token)
         }

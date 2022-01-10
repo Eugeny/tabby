@@ -1,7 +1,7 @@
 import colors from 'ansi-colors'
 import { Component, Injector } from '@angular/core'
 import { first } from 'rxjs'
-import { Platform, RecoveryToken } from 'tabby-core'
+import { GetRecoveryTokenOptions, Platform, RecoveryToken } from 'tabby-core'
 import { BaseTerminalTabComponent } from 'tabby-terminal'
 import { TelnetProfile, TelnetSession } from '../session'
 
@@ -97,11 +97,11 @@ export class TelnetTabComponent extends BaseTerminalTabComponent {
         }
     }
 
-    async getRecoveryToken (): Promise<RecoveryToken> {
+    async getRecoveryToken (options?: GetRecoveryTokenOptions): Promise<RecoveryToken> {
         return {
             type: 'app:telnet-tab',
             profile: this.profile,
-            savedState: this.frontend?.saveState(),
+            savedState: options?.includeState && this.frontend?.saveState(),
         }
     }
 

@@ -2,7 +2,7 @@ import colors from 'ansi-colors'
 import { Component, Injector, HostListener } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { first } from 'rxjs'
-import { Platform, ProfilesService, RecoveryToken } from 'tabby-core'
+import { GetRecoveryTokenOptions, Platform, ProfilesService, RecoveryToken } from 'tabby-core'
 import { BaseTerminalTabComponent } from 'tabby-terminal'
 import { SSHService } from '../services/ssh.service'
 import { KeyboardInteractivePrompt, SSHSession } from '../session/ssh'
@@ -210,11 +210,11 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
         this.session?.resize(this.size.columns, this.size.rows)
     }
 
-    async getRecoveryToken (): Promise<RecoveryToken> {
+    async getRecoveryToken (options?: GetRecoveryTokenOptions): Promise<RecoveryToken> {
         return {
             type: 'app:ssh-tab',
             profile: this.profile,
-            savedState: this.frontend?.saveState(),
+            savedState: options?.includeState && this.frontend?.saveState(),
         }
     }
 

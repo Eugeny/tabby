@@ -1,6 +1,6 @@
 import { Observable, Subject } from 'rxjs'
 import { Component, Injectable, ViewChild, ViewContainerRef, EmbeddedViewRef, AfterViewInit, OnDestroy } from '@angular/core'
-import { BaseTabComponent, BaseTabProcess } from './baseTab.component'
+import { BaseTabComponent, BaseTabProcess, GetRecoveryTokenOptions } from './baseTab.component'
 import { TabRecoveryProvider, RecoveryToken } from '../api/tabRecovery'
 import { TabsService, NewTabParameters } from '../services/tabs.service'
 import { HotkeysService } from '../services/hotkeys.service'
@@ -93,13 +93,13 @@ export class SplitContainer {
         return s
     }
 
-    async serialize (tabsRecovery: TabRecoveryService): Promise<RecoveryToken> {
+    async serialize (tabsRecovery: TabRecoveryService, options?: GetRecoveryTokenOptions): Promise<RecoveryToken> {
         const children: any[] = []
         for (const child of this.children) {
             if (child instanceof SplitContainer) {
-                children.push(await child.serialize(tabsRecovery))
+                children.push(await child.serialize(tabsRecovery, options))
             } else {
-                children.push(await tabsRecovery.getFullRecoveryToken(child))
+                children.push(await tabsRecovery.getFullRecoveryToken(child, options))
             }
         }
         return {
@@ -308,7 +308,7 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
     /** @hidden */
     async ngAfterViewInit (): Promise<void> {
         if (this._recoveredState) {
-            await this.recoverContainer(this.root, this._recoveredState, this._recoveredState.duplicate)
+            await this.recoverContainer(this.root, this._recoveredState)
             this.updateTitle()
             this.layout()
             setTimeout(() => {
@@ -574,8 +574,8 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
     }
 
     /** @hidden */
-    async getRecoveryToken (): Promise<any> {
-        return this.root.serialize(this.tabRecovery)
+    async getRecoveryToken (options?: GetRecoveryTokenOptions): Promise<any> {
+        return this.root.serialize(this.tabRecovery, options)
     }
 
     /** @hidden */
@@ -795,7 +795,7 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
         })
     }
 
-    private async recoverContainer (root: SplitContainer, state: any, duplicate = false) {
+    private async recoverContainer (root: SplitContainer, state: any) {
         const children: (SplitContainer | BaseTabComponent)[] = []
         root.orientation = state.orientation
         root.ratios = state.ratios
@@ -806,10 +806,10 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
             }
             if (childState.type === 'app:split-tab') {
                 const child = new SplitContainer()
-                await this.recoverContainer(child, childState, duplicate)
+                await this.recoverContainer(child, childState)
                 children.push(child)
             } else {
-                const recovered = await this.tabRecovery.recoverTab(childState, duplicate)
+                const recovered = await this.tabRecovery.recoverTab(childState)
                 if (recovered) {
                     const tab = this.tabsService.create(recovered)
                     children.push(tab)
@@ -838,13 +838,6 @@ export class SplitTabRecoveryProvider extends TabRecoveryProvider<SplitTabCompon
         return {
             type: SplitTabComponent,
             inputs: { _recoveredState: recoveryToken },
-        }
-    }
-
-    duplicate (recoveryToken: RecoveryToken): RecoveryToken {
-        return {
-            ...recoveryToken,
-            duplicate: true,
         }
     }
 }

@@ -1,5 +1,5 @@
 export { BaseComponent, SubscriptionContainer } from '../components/base.component'
-export { BaseTabComponent, BaseTabProcess } from '../components/baseTab.component'
+export { BaseTabComponent, BaseTabProcess, GetRecoveryTokenOptions } from '../components/baseTab.component'
 export { TabHeaderComponent } from '../components/tabHeader.component'
 export { SplitTabComponent, SplitContainer, SplitDirection, SplitOrientation } from '../components/splitTab.component'
 export { TabRecoveryProvider, RecoveryToken } from './tabRecovery'

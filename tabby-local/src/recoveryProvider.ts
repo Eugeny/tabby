@@ -19,18 +19,4 @@ export class RecoveryProvider extends TabRecoveryProvider<TerminalTabComponent> 
             },
         }
     }
-
-    duplicate (recoveryToken: RecoveryToken): RecoveryToken {
-        return {
-            ...recoveryToken,
-            profile: {
-                ...recoveryToken.profile,
-                options: {
-                    ...recoveryToken.profile.options,
-                    restoreFromPTYID: null,
-                },
-            },
-            savedState: null,
-        }
-    }
 }
