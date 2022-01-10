@@ -124,8 +124,13 @@ app-root  {
 
     &.platform-win32, &.platform-linux {
         border: 1px solid #111;
-        &>.content .tab-bar .tabs tab-header:first-child {
-            border-left: none;
+
+        &>.content {
+            margin: -1px; // expand the content into the border
+
+            .tab-bar .tabs tab-header:first-child {
+                border-left: none;
+            }
         }
     }
 }
