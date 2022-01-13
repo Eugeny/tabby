@@ -70,10 +70,10 @@ export class Application {
                 app.commandLine.appendSwitch('enable-transparent-visuals')
                 app.disableHardwareAcceleration()
             }
-            if (this.configStore.hacks?.disableGPU) {
-                app.commandLine.appendSwitch('disable-gpu')
-                app.disableHardwareAcceleration()
-            }
+        }
+        if (this.configStore.hacks?.disableGPU) {
+            app.commandLine.appendSwitch('disable-gpu')
+            app.disableHardwareAcceleration()
         }
 
         this.userPluginsPath = path.join(
