@@ -12,13 +12,13 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2022-01-09 09:56\n"
+"PO-Revision-Date: 2022-01-13 13:23\n"
 
 msgid "\"{command}\" is still running. Close?"
-msgstr "\"{command}\" 仍在运行。仍需关闭吗？"
+msgstr "\"{command}\" 仍在运行。是否需要关闭？"
 
 msgid "A second font family used to display characters missing in the main font"
-msgstr "用于显示主字体中缺失字符的替代字体"
+msgstr "第二种字体，用于显示主字体中缺失的字符"
 
 msgid "Abort all"
 msgstr "中止全部"
@@ -135,7 +135,7 @@ msgid "Clear recent profiles"
 msgstr "清除最近使用的配置"
 
 msgid "Clear terminal"
-msgstr "清除终端内容"
+msgstr "清空终端内容"
 
 msgid "Close"
 msgstr "关闭"
@@ -144,7 +144,7 @@ msgid "Close and never show again"
 msgstr "关闭且不再提示"
 
 msgid "Close focused pane"
-msgstr "关闭选中窗格"
+msgstr "关闭已聚焦窗格"
 
 msgid "Close other tabs"
 msgstr "关闭其它标签"
@@ -168,7 +168,7 @@ msgid "Command line"
 msgstr "命令行"
 
 msgid "Command's stdin/stdout is used instead of a network connection"
-msgstr "使用命令的 stdin/stdout 代替网络连接"
+msgstr "使用命令的 stdin/stdout，而不是网络连接。"
 
 msgid "Compact"
 msgstr "紧凑"
@@ -192,7 +192,7 @@ msgid "Connect to \"%s\"..."
 msgstr "正在连接到 \"%s\"…"
 
 msgid "Connect to a different host first and use it as a proxy"
-msgstr "连接至另一主机，并将其作为代理"
+msgstr "首先连接至另一主机，并将其作为代理"
 
 msgid "Connecting"
 msgstr "正在连接"
@@ -231,7 +231,7 @@ msgid "Custom CSS"
 msgstr "自定义 CSS"
 
 msgid "Data bits"
-msgstr "数据位"
+msgstr "数据位数"
 
 msgid "Debugging"
 msgstr "调试"
@@ -255,7 +255,7 @@ msgid "Delete next word"
 msgstr "删除下一个单词"
 
 msgid "Delete previous word"
-msgstr "删除上一个单次"
+msgstr "删除上一个单词"
 
 msgid "Delete the group's profiles?"
 msgstr "删除此分组所有配置？"
@@ -267,7 +267,7 @@ msgid "Delete vault contents?"
 msgstr "删除密码库内容？"
 
 msgid "Delete {fullPath}?"
-msgstr "删除 {fullPath} 吗？"
+msgstr "是否删除 {fullPath} ？"
 
 msgid "Deleting"
 msgstr "正在删除"
@@ -291,10 +291,10 @@ msgid "Display on"
 msgstr "显示于"
 
 msgid "Do not abort"
-msgstr "不中止"
+msgstr "不要中止"
 
 msgid "Do not close"
-msgstr "不关闭"
+msgstr "不要关闭"
 
 msgid "Dock always on top"
 msgstr "窗口置顶"
@@ -318,7 +318,7 @@ msgid "Duplicate"
 msgstr "克隆"
 
 msgid "Duplicate as administrator"
-msgstr "使用管理员权限复制窗口"
+msgstr "以管理员身份克隆"
 
 msgid "Duplicate tab"
 msgstr "克隆标签页"
@@ -333,16 +333,16 @@ msgid "Enable analytics"
 msgstr "启用分析"
 
 msgid "Enable automatic installation of updates when they become available."
-msgstr "当新版本可用时，启用自动安装"
+msgstr "当更新可用时，启用自动安装"
 
 msgid "Enable font ligatures"
-msgstr "启用连体字"
+msgstr "启用连结字"
 
 msgid "Enable global hotkey (Ctrl-Space)"
 msgstr "启用全局快捷键 (Ctrl-Space)"
 
 msgid "Enables the experimental Windows ConPTY API"
-msgstr "启用试验性 Windows ConPTY API"
+msgstr "启用实验性 Windows ConPTY API"
 
 msgid "Encrypt config file"
 msgstr "加密配置文件"
@@ -360,7 +360,7 @@ msgid "Erase config"
 msgstr "擦除配置"
 
 msgid "Erase the Vault"
-msgstr "擦除保险库"
+msgstr "擦除密码库"
 
 msgid "Exact match"
 msgstr "完全匹配"
@@ -468,13 +468,13 @@ msgid "Hexadecimal"
 msgstr "十六进制"
 
 msgid "Hide dock on blur"
-msgstr "模糊时隐藏停靠栏"
+msgstr "模糊时隐藏停靠的窗口"
 
 msgid "Hide tab close button"
 msgstr "隐藏标签页关闭按钮"
 
 msgid "Hide tab index"
-msgstr "隐藏标签索引"
+msgstr "隐藏标签页索引"
 
 msgid "Hides the docked terminal when you click away."
 msgstr "点击别处时隐藏停靠的终端"
@@ -507,7 +507,7 @@ msgid "Installing the update will close all tabs and restart Tabby."
 msgstr "安装更新将关闭全部标签页并重启Tabby"
 
 msgid "Intelligent Ctrl-C (copy/abort)"
-msgstr "智能Ctrl-C (复制/中止)"
+msgstr "智能 Ctrl-C (复制/中止)"
 
 msgid "Interactive"
 msgstr "交互式"
@@ -594,10 +594,10 @@ msgid "Maximize the active pane"
 msgstr "最大化活动窗格"
 
 msgid "Move tab to the left"
-msgstr "将标签移至左侧"
+msgstr "将标签页向左移动"
 
 msgid "Move tab to the right"
-msgstr "将标签页移至右侧"
+msgstr "将标签页向右移动"
 
 msgid "Move to \"Ungrouped\""
 msgstr "移动到 “未分组”"
@@ -642,7 +642,7 @@ msgid "New window"
 msgstr "新窗口"
 
 msgid "New with profile"
-msgstr "新建使用配置"
+msgstr "依据配置新建"
 
 msgid "Next tab"
 msgstr "下一个标签页"
@@ -702,7 +702,7 @@ msgid "Orange"
 msgstr "橙色"
 
 msgid "Output is shown as a hexdump"
-msgstr "输出以显示为十六进制"
+msgstr "输出显示为十六进制转储"
 
 msgid "Output is shown as it is received"
 msgstr "输出在收到时显示"
@@ -735,7 +735,7 @@ msgid "Parity"
 msgstr "奇偶校验"
 
 msgid "Passphrase for a private key with hash {hash}..."
-msgstr "带哈希值 {hash} 的私钥密码句..."
+msgstr "带哈希值 {hash} 的私钥口令..."
 
 msgid "Password"
 msgstr "密码"
@@ -804,7 +804,7 @@ msgid "Purple"
 msgstr "紫色"
 
 msgid "Puts all of Tabby's configuration into the vault"
-msgstr "将 Tabby 的所有配置放入保管库"
+msgstr "将 Tabby 的所有配置放入密码库"
 
 msgid "Quick connect"
 msgstr "快速连接"
@@ -894,7 +894,7 @@ msgid "SSH connection"
 msgstr "SSH 连接"
 
 msgid "SSH connection management is now done through the"
-msgstr "SSH 连接管理现在通过"
+msgstr "现在，SSH 连接管理是通过"
 
 msgid "SSH password for {user}@{host}:{port}"
 msgstr "{user}@{host}:{port} 的 SSH 密码"
@@ -966,7 +966,7 @@ msgid "Set to 0 to disable recent profiles"
 msgstr "设置为 0 以禁用最近的配置"
 
 msgid "Sets the SSH agent's named pipe path."
-msgstr "设置 SSH 代理已命名的管道路径"
+msgstr "设置 SSH 代理的命名管道路径"
 
 msgid "Settings"
 msgstr "设置"
@@ -981,7 +981,7 @@ msgid "Shell integration"
 msgstr "Shell 集成"
 
 msgid "Show Serial connections"
-msgstr "显示串行连接"
+msgstr "显示串口连接"
 
 msgid "Show built-in profiles in selector"
 msgstr "在选择器中显示内置配置"
@@ -1008,10 +1008,10 @@ msgid "Show vault contents"
 msgstr "显示密码库内容"
 
 msgid "Skip MoTD/banner"
-msgstr "跳过MoTD/横幅消息"
+msgstr "跳过 MoTD/横幅消息"
 
 msgid "Slow feed"
-msgstr "慢速发送"
+msgstr "缓慢接收"
 
 msgid "Snaps the window to a side of the screen"
 msgstr "将窗口贴靠至屏幕的一侧"
