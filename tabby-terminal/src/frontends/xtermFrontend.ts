@@ -186,6 +186,7 @@ export class XTermFrontend extends Frontend {
     detach (_host: HTMLElement): void {
         window.removeEventListener('resize', this.resizeHandler)
         this.resizeObserver?.disconnect()
+        delete this.resizeObserver
     }
 
     destroy (): void {
