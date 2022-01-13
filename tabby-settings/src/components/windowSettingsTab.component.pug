@@ -183,6 +183,7 @@ h3.mt-4(translate) Docking
 .ml-5.form-line(*ngIf='docking && config.store.appearance.dock != "off"')
     .header
         .title(translate) Docked terminal size
+        .description(translate) Window dimension away from the edge
     input(
         type='range',
         [(ngModel)]='config.store.appearance.dockFill',
@@ -195,6 +196,7 @@ h3.mt-4(translate) Docking
 .ml-5.form-line(*ngIf='docking && config.store.appearance.dock != "off"')
     .header
         .title(translate) Docked terminal space
+        .description(translate) Window dimension along the edge
     input(
         type='range',
         [(ngModel)]='config.store.appearance.dockSpace',
@@ -206,7 +208,7 @@ h3.mt-4(translate) Docking
 
 .ml-5.form-line(*ngIf='docking && config.store.appearance.dock != "off"')
     .header
-        .title(translate) Hide dock on blur
+        .title(translate) Hide window on focus loss
         .description(translate) Hides the docked terminal when you click away.
     toggle(
         [(ngModel)]='config.store.appearance.dockHideOnBlur',
