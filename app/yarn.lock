@@ -2,12 +2,12 @@
 # yarn lockfile v1
 
 
-"@angular/cdk@^12.2.9":
-  version "12.2.9"
-  resolved "https://registry.yarnpkg.com/@angular/cdk/-/cdk-12.2.9.tgz#f39e4d7cdb3568ad8e1d412e3500772e2d4c605c"
-  integrity sha512-9Wgj69iGAZ4teQqW/zPbVg2RGna+m9i3v0zkWGx/+Uo95rikJCUZBQM4bfeOe+bSJrS77jV5EisBWG7ayNUSzQ==
+"@angular/cdk@^13.1.2":
+  version "13.1.2"
+  resolved "https://registry.yarnpkg.com/@angular/cdk/-/cdk-13.1.2.tgz#aaa1b577d1b8101d3d59f4da9a1ea51b7f7a5191"
+  integrity sha512-xORyqvfM0MueJpxHxVi3CR/X/f1RPKr45vt7NV6/x91OTnh2ukwxg++dAGuA6M5gUAHcVAcaBrfju4GQlU9hmg==
   dependencies:
-    tslib "^2.2.0"
+    tslib "^2.3.0"
   optionalDependencies:
     parse5 "^5.0.0"
 
@@ -3716,7 +3716,7 @@ tough-cookie@~2.5.0:
     psl "^1.1.28"
     punycode "^2.1.1"
 
-tslib@^2.0.0, tslib@^2.1.0, tslib@^2.2.0:
+tslib@^2.0.0, tslib@^2.1.0, tslib@^2.3.0:
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.3.1.tgz#e8a335add5ceae51aa261d32a490158ef042ef01"
   integrity sha512-77EbyPPpMz+FRFRuAFlWMtmgUWGe9UOG2Z25NqCwiIjRhOf5iKGuzSe5P2w1laq+FkRy4p+PCuVkJSGkzTEKVw==
