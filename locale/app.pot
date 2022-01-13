@@ -525,13 +525,13 @@ msgstr ""
 msgid "Hexadecimal"
 msgstr ""
 
-msgid "Hide dock on blur"
-msgstr ""
-
 msgid "Hide tab close button"
 msgstr ""
 
 msgid "Hide tab index"
+msgstr ""
+
+msgid "Hide window on focus loss"
 msgstr ""
 
 msgid "Hides the docked terminal when you click away."
@@ -817,6 +817,9 @@ msgid "Paper"
 msgstr ""
 
 msgid "Parity"
+msgstr ""
+
+msgid "Partial config sync is not possible when the config is encrypted via Vault."
 msgstr ""
 
 msgid "Passphrase for a private key with hash {hash}..."
@@ -1456,6 +1459,12 @@ msgid "WinSCP path"
 msgstr ""
 
 msgid "Window"
+msgstr ""
+
+msgid "Window dimension along the edge"
+msgstr ""
+
+msgid "Window dimension away from the edge"
 msgstr ""
 
 msgid "Window frame"
