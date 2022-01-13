@@ -3,14 +3,16 @@ import { registerLocaleData } from '@angular/common'
 import { TranslateService } from '@ngx-translate/core'
 
 import localeEN from '@angular/common/locales/en-GB'
-import localeRU from '@angular/common/locales/ru'
+import localeHR from '@angular/common/locales/hr'
+import localeZH from '@angular/common/locales/zh'
 import { Observable, Subject } from 'rxjs'
 import { distinctUntilChanged } from 'rxjs/operators'
 import { ConfigService } from './config.service'
 import { LogService, Logger } from './log.service'
 
 registerLocaleData(localeEN)
-registerLocaleData(localeRU)
+registerLocaleData(localeHR)
+registerLocaleData(localeZH)
 
 @Injectable({ providedIn: 'root' })
 export class TranslateServiceWrapper extends TranslateService {
@@ -25,7 +27,7 @@ export class TranslateServiceWrapper extends TranslateService {
 export class LocaleService {
     private logger: Logger
 
-    static readonly allLocales = ['en-US', 'zh-CN']
+    static readonly allLocales = ['en-US', 'hr-HR', 'zh-CN']
     readonly allLanguages: { code: string, name: string }[]
 
     get localeChanged$ (): Observable<string> {
@@ -52,6 +54,10 @@ export class LocaleService {
             {
                 code: 'en-US',
                 name: translate.instant('English'),
+            },
+            {
+                code: 'hr-HR',
+                name: translate.instant('Croatian'),
             },
             {
                 code: 'zh-CN',

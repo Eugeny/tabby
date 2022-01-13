@@ -99,9 +99,9 @@
     "docs": "node scripts/build-docs.js",
     "lint": "eslint --ext ts */src */lib",
     "postinstall": "patch-package && node ./scripts/install-deps.js",
-    "i18n:download": "crowdin download --skip-untranslated-files",
+    "i18n:pull": "crowdin pull --skip-untranslated-strings",
     "i18n:extract": "node scripts/i18n-extract.js",
-    "i18n:upload": "crowdin upload"
+    "i18n:push": "crowdin push"
   },
   "private": true
 }

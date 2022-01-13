@@ -12,10 +12,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Croatian\n"
 "Language: hr_HR\n"
-"PO-Revision-Date: 2022-01-13 13:23\n"
-
-msgid "\"{command}\" is still running. Close?"
-msgstr "„{command}” se još uvijek u izvodi. Zatvoriti?"
+"PO-Revision-Date: 2022-01-13 23:46\n"
 
 msgid "A second font family used to display characters missing in the main font"
 msgstr "Druga obitelj fontova koja se koristi za prikaz nedostajućih znakova u glavnom fontu"
@@ -53,6 +50,9 @@ msgstr "Staza procesa agenta"
 msgid "Agent type"
 msgstr "Vrsta agenta"
 
+msgid "Allows opening .bat files in tabs, but breaks some shells"
+msgstr ""
+
 msgid "Allows quickly opening a terminal in the selected folder"
 msgstr "Omogućuje brzo otvaranje terminala u odabranoj mapi"
 
@@ -80,17 +80,32 @@ msgstr "Postavi pitanje"
 msgid "Ask before closing the browser tab"
 msgstr "Pitaj prije zatvaranja regitra preglednika"
 
+msgid "Audible"
+msgstr ""
+
 msgid "Authentication method"
 msgstr "Način autentifikacije"
 
+msgid "Author"
+msgstr ""
+
 msgid "Auto"
 msgstr "Automatski"
+
+msgid "Auto-open a terminal on app start"
+msgstr ""
 
 msgid "Automatic"
 msgstr "Automatski"
 
 msgid "Automatic Updates"
 msgstr "Automatska aktualiziranja"
+
+msgid "Automatically upload changes and check for updates every minute"
+msgstr ""
+
+msgid "Available"
+msgstr ""
 
 msgid "Background type"
 msgstr "Vrsta pozadine"
@@ -113,6 +128,9 @@ msgstr "Zamuti"
 msgid "Bottom"
 msgstr "Dolje"
 
+msgid "Bracketed paste (requires shell support)"
+msgstr ""
+
 msgid "Built-in"
 msgstr "Ugrađeno"
 
@@ -128,6 +146,9 @@ msgstr "Promijeni tekstualnu master lozinku"
 msgid "Check for updates"
 msgstr "Traži nove verzije"
 
+msgid "Chinese (simplified)"
+msgstr ""
+
 msgid "Ciphers"
 msgstr "Šifre"
 
@@ -136,6 +157,9 @@ msgstr "Isprazni popis nedavnih profila"
 
 msgid "Clear terminal"
 msgstr "Isprazni terminal"
+
+msgid "Clipboard"
+msgstr ""
 
 msgid "Close"
 msgstr "Zatvori"
@@ -185,6 +209,9 @@ msgstr "Sinkronizacija konfiguracije"
 msgid "Config uploaded"
 msgstr "Konfiguracija prenesena"
 
+msgid "Configs"
+msgstr ""
+
 msgid "Connect through a proxy server"
 msgstr "Poveži se putem proxy poslužitelja"
 
@@ -200,6 +227,15 @@ msgstr "Povezivanje"
 msgid "Connection"
 msgstr "Veza"
 
+msgid "Connection failed: {error}"
+msgstr ""
+
+msgid "Connection name will be used instead"
+msgstr ""
+
+msgid "Context menu"
+msgstr ""
+
 msgid "Copied"
 msgstr "Kopirano"
 
@@ -208,6 +244,9 @@ msgstr "Kopiraj"
 
 msgid "Copy current path"
 msgstr "Kopiraj trenutačnu stazu"
+
+msgid "Copy on select"
+msgstr ""
 
 msgid "Copy to clipboard"
 msgstr "Kopiraj u međuspremnik"
@@ -245,6 +284,9 @@ msgstr "Postavke standardnog profila"
 msgid "Defaults"
 msgstr "Standardne vrijednosti"
 
+msgid "Defaults for {type}"
+msgstr ""
+
 msgid "Delete"
 msgstr "Izbriši"
 
@@ -278,14 +320,17 @@ msgstr "Uređaj"
 msgid "Direct"
 msgstr "Direktno"
 
+msgid "Disable"
+msgstr ""
+
 msgid "Disable GPU acceleration"
 msgstr "Deativiraj ubrzanje GPU-a"
 
-msgid "Disconnect"
-msgstr "Odspoji"
+msgid "Disable dynamic tab title"
+msgstr ""
 
-msgid "Disconnect from {host}?"
-msgstr "Odspojiti se od računala {host}?"
+msgid "Disabled"
+msgstr ""
 
 msgid "Display on"
 msgstr "Ekran uključen"
@@ -293,8 +338,8 @@ msgstr "Ekran uključen"
 msgid "Do not abort"
 msgstr "Nemoj prekinuti"
 
-msgid "Do not close"
-msgstr "Nemoj zatvoriti"
+msgid "Do not remember"
+msgstr ""
 
 msgid "Dock always on top"
 msgstr "Prikvači uvijek gore"
@@ -311,8 +356,14 @@ msgstr "Područje prikvačenog terminala"
 msgid "Docking"
 msgstr "Prikvačivanje"
 
+msgid "Double-click selection will stop at these characters"
+msgstr ""
+
 msgid "Down"
 msgstr "Dolje"
+
+msgid "Download"
+msgstr ""
 
 msgid "Duplicate"
 msgstr "Dupliciraj"
@@ -328,6 +379,9 @@ msgstr "Dinamički"
 
 msgid "Edit"
 msgstr "Uredi"
+
+msgid "Enable"
+msgstr ""
 
 msgid "Enable analytics"
 msgstr "Aktiviraj analitikčke podatke"
@@ -361,6 +415,9 @@ msgstr "Izbriši konfiguraciju"
 
 msgid "Erase the Vault"
 msgstr "Izbriši trezor"
+
+msgid "Error in {plugin}:"
+msgstr ""
 
 msgid "Exact match"
 msgstr "Točno podudaranje"
@@ -431,14 +488,14 @@ msgstr "Proslijedi priključak"
 msgid "Forwarded ports"
 msgstr "Proslijeđeni priključci"
 
-msgid "French"
-msgstr "Francuski"
-
 msgid "From color scheme"
 msgstr "Iz sheme boja"
 
 msgid "From theme"
 msgstr "Iz teme"
+
+msgid "Frontend"
+msgstr ""
 
 msgid "Full"
 msgstr "Potpuno"
@@ -449,8 +506,14 @@ msgstr "Opće"
 msgid "Generate a pre-filled GitHub issue"
 msgstr "Generiraj unaprijed ispunjeni GitHub problem"
 
-msgid "German"
-msgstr "Njemački"
+msgid "Get"
+msgstr ""
+
+msgid "Get it from the Tabby Web settings window"
+msgstr ""
+
+msgid "GitHub"
+msgstr ""
 
 msgid "Gives the window a blurred transparent background"
 msgstr "Daje prozoru zamućenu prozirnu pozadinu"
@@ -461,14 +524,14 @@ msgstr "Idi gore"
 msgid "Green"
 msgstr "Zelena"
 
+msgid "Group"
+msgstr ""
+
 msgid "Help track the number of Tabby installs across the world!"
 msgstr "Pomogni pratiti broj Tabby instalacija diljem svijeta!"
 
 msgid "Hexadecimal"
 msgstr "Heksadecimalni"
-
-msgid "Hide dock on blur"
-msgstr "Sakrij traku pri mutnoći"
 
 msgid "Hide tab close button"
 msgstr "Sakrij gumb za zatvaranje registra"
@@ -476,8 +539,14 @@ msgstr "Sakrij gumb za zatvaranje registra"
 msgid "Hide tab index"
 msgstr "Sakrij indeks registra"
 
+msgid "Hide window on focus loss"
+msgstr ""
+
 msgid "Hides the docked terminal when you click away."
 msgstr "Skriva prikvačeni terminal kad pritisneš negdje drugdje."
+
+msgid "Homepage"
+msgstr ""
 
 msgid "Host"
 msgstr "Host"
@@ -487,6 +556,9 @@ msgstr "Ključ hosta"
 
 msgid "Hotkeys"
 msgstr "Tipkovni prečaci"
+
+msgid "Icon"
+msgstr ""
 
 msgid "If disabled, only custom profiles will show up in the profile selector"
 msgstr "Ako je deaktivirano, u biraču profila prikazat će se samo prilagođeni profili"
@@ -502,6 +574,9 @@ msgstr "Modus unosa"
 
 msgid "Input newlines"
 msgstr "Upiši nove retke"
+
+msgid "Installed"
+msgstr ""
 
 msgid "Installing the update will close all tabs and restart Tabby."
 msgstr "Instaliranjem nove verzije zatvorit će se svi registri i Tabby će se ponovo pokrenuti."
@@ -542,9 +617,6 @@ msgstr "Zamjena tipki"
 msgid "Keyboard-interactive auth"
 msgstr "Autentifikacija interaktivnom tipkovnicom"
 
-msgid "Kill"
-msgstr "Uništi"
-
 msgid "Language"
 msgstr "Jezik"
 
@@ -560,6 +632,9 @@ msgstr "Saznaj kako dopustiti Tabbyju da otkrije radnu mapu udaljene ljuske."
 msgid "Left"
 msgstr "Lijevo"
 
+msgid "Lets the shell handle Meta key instead of OS"
+msgstr ""
+
 msgid "Line by line"
 msgstr "Redak po redak"
 
@@ -571,6 +646,9 @@ msgstr "Odmaci redaka"
 
 msgid "Loading"
 msgstr "Učitavanje"
+
+msgid "Loading configs..."
+msgstr ""
 
 msgid "Local"
 msgstr "Lokalno"
@@ -584,6 +662,9 @@ msgstr "Lokalni terminal"
 msgid "Login scripts"
 msgstr "Skripta za prijavu"
 
+msgid "Long-click for context menu"
+msgstr ""
+
 msgid "Manage profiles"
 msgstr "Upravljaj profilima"
 
@@ -592,6 +673,9 @@ msgstr "Maksimalni broj intervala održavanja"
 
 msgid "Maximize the active pane"
 msgstr "Maksimalno proširi aktivnu ploču"
+
+msgid "Modified on {date}"
+msgstr ""
 
 msgid "Move tab to the left"
 msgstr "Pomakni registar na lijevo"
@@ -650,6 +734,9 @@ msgstr "Sljedeća kartica"
 msgid "No color"
 msgstr "Bez boje"
 
+msgid "No modifier"
+msgstr ""
+
 msgid "None"
 msgstr "Ništa"
 
@@ -665,6 +752,9 @@ msgstr "Obavijesti prilikom aktivnosti"
 msgid "Notify when done"
 msgstr "Obavijesti kad ja gotovo"
 
+msgid "Number of lines kept in the buffer"
+msgstr ""
+
 msgid "OS default"
 msgstr "Standard sustava"
 
@@ -673,6 +763,9 @@ msgstr "Standard sustava ({name})"
 
 msgid "Off"
 msgstr "Isključi"
+
+msgid "Official"
+msgstr ""
 
 msgid "On GitHub Discussions"
 msgstr "Na GitHub diskusijama"
@@ -734,6 +827,9 @@ msgstr "Papir"
 msgid "Parity"
 msgstr "Paritet"
 
+msgid "Partial config sync is not possible when the config is encrypted via Vault."
+msgstr ""
+
 msgid "Passphrase for a private key with hash {hash}..."
 msgstr "Tekstualna lozinka za privatni ključ s hashem {hash}..."
 
@@ -749,29 +845,35 @@ msgstr "Umetni iz međuspremnika"
 msgid "Paste multiple lines?"
 msgstr "Umetnuti višestruke retke?"
 
+msgid "Paste on middle-click"
+msgstr ""
+
 msgid "Path or address of the local X11 socket"
 msgstr "Staza ili adresa lokalne X11 utičnice"
 
 msgid "Pin"
 msgstr "Prikvači"
 
+msgid "Plugins"
+msgstr ""
+
+msgid "Plugins folder"
+msgstr ""
+
 msgid "Port"
 msgstr "Priključak"
 
-msgid "Port opened"
-msgstr "Priključak otvoren"
-
 msgid "Ports"
 msgstr "Priključci"
-
-msgid "Press any key to reconnect"
-msgstr "Pritisni bilo koju tipku za ponovno povezivanje"
 
 msgid "Press the key now"
 msgstr "Pritisni tipku sada"
 
 msgid "Prevents accidental closing"
 msgstr "Sprečava slučajno zatvaranje"
+
+msgid "Prevents accidental execution of pasted commands"
+msgstr ""
 
 msgid "Previous tab"
 msgstr "Prethodni registar"
@@ -833,6 +935,9 @@ msgstr "Regularni izraz"
 msgid "Release notes"
 msgstr "Napomene uz izdanje"
 
+msgid "Remember for {time}"
+msgstr ""
+
 msgid "Remote"
 msgstr "Udaljeni repozitorij"
 
@@ -842,6 +947,9 @@ msgstr "Preimenuj"
 msgid "Rename Tab"
 msgstr "Preimenuj karticu"
 
+msgid "Rendering"
+msgstr ""
+
 msgid "Reopen last tab"
 msgstr "Ponovo otvori zadnju karticu"
 
@@ -850,6 +958,9 @@ msgstr "Zamijeni"
 
 msgid "Report a problem"
 msgstr "Prijavi problem"
+
+msgid "Require a key to click links"
+msgstr ""
 
 msgid "Reset zoom"
 msgstr "Resetiraj uvećanje"
@@ -866,17 +977,20 @@ msgstr "Ponovo pokreni sesiju serijskog priključka"
 msgid "Restart the app to apply changes"
 msgstr "Za primjenu promjena ponovo pokreni program"
 
+msgid "Restore terminal tabs on app start"
+msgstr ""
+
 msgid "Reuse session for multiple tabs"
 msgstr "Ponovo koristi sesiju za više registratora"
 
 msgid "Right"
 msgstr "Desno"
 
+msgid "Right click"
+msgstr ""
+
 msgid "Run as administrator"
 msgstr "Pokreni kao administrator"
-
-msgid "Russian"
-msgstr "Ruski"
 
 msgid "SFTP"
 msgstr "SFTP"
@@ -920,8 +1034,23 @@ msgstr "Spremljeno"
 msgid "Saved layout"
 msgstr "Spremljeni raspored"
 
+msgid "Scroll on input"
+msgstr ""
+
+msgid "Scroll terminal to bottom"
+msgstr ""
+
+msgid "Scrollback"
+msgstr ""
+
+msgid "Scrolls the terminal to the bottom on user input"
+msgstr ""
+
 msgid "Search"
 msgstr "Pretraga"
+
+msgid "Secret sync token"
+msgstr ""
 
 msgid "Select"
 msgstr "Odaberi"
@@ -953,6 +1082,9 @@ msgstr "Serijska veza"
 msgid "Serial: {description}"
 msgstr "Serijski priključak: {description}"
 
+msgid "Set Tabby as %COMSPEC%"
+msgstr ""
+
 msgid "Set master passphrase"
 msgstr "Postavi tekstualnu master lozinku"
 
@@ -980,8 +1112,14 @@ msgstr "Ljuska ne podržava trenutačno otkrivanje staze"
 msgid "Shell integration"
 msgstr "Integracija ljuske"
 
+msgid "Show Mixer"
+msgstr ""
+
 msgid "Show Serial connections"
 msgstr "Prikaži veze serijskih priključaka"
+
+msgid "Show a confirmation box when pasting multiple lines"
+msgstr ""
 
 msgid "Show built-in profiles in selector"
 msgstr "Prikaži ugrađene profile u selektoru"
@@ -1037,6 +1175,9 @@ msgstr "Podijeli prema gore"
 msgid "Standard"
 msgstr "Standardno"
 
+msgid "Startup"
+msgstr ""
+
 msgid "Stop bits"
 msgstr "Bitovi prekida"
 
@@ -1054,6 +1195,27 @@ msgstr "Zamijeni profil"
 
 msgid "Switch profile in the active pane"
 msgstr "Zamijeni profil u trenutačnoj ploči"
+
+msgid "Switches terminal frontend implementation (experimental)"
+msgstr ""
+
+msgid "Sync"
+msgstr ""
+
+msgid "Sync Vault"
+msgstr ""
+
+msgid "Sync automatically"
+msgstr ""
+
+msgid "Sync host"
+msgstr ""
+
+msgid "Sync hotkeys"
+msgstr ""
+
+msgid "Sync window settings"
+msgstr ""
 
 msgid "Tab 1"
 msgstr "Registar 1"
@@ -1145,6 +1307,9 @@ msgstr "Terminal"
 msgid "Terminal background"
 msgstr "Pozadina terminala"
 
+msgid "Terminal bell"
+msgstr ""
+
 msgid "Thank you for downloading Tabby!"
 msgstr "Zahvaljujemo na preuzimanju programa Tabby!"
 
@@ -1190,6 +1355,9 @@ msgstr "Pokušaj spremljene lozinke"
 msgid "Ungrouped"
 msgstr "Negrupirani"
 
+msgid "Uninstall"
+msgstr ""
+
 msgid "Unknown"
 msgstr "Nepoznato"
 
@@ -1205,11 +1373,20 @@ msgstr "Gore"
 msgid "Update"
 msgstr "Aktualiziraj"
 
+msgid "Upgrade to {version}"
+msgstr ""
+
 msgid "Upload"
 msgstr "Prenesi"
 
+msgid "Upload as a new config"
+msgstr ""
+
 msgid "Use ConPTY"
 msgstr "Koristi ConPTY"
+
+msgid "Use {altKeyName} as the Meta key"
+msgstr ""
 
 msgid "User default"
 msgstr "Korisnički standard"
@@ -1238,11 +1415,26 @@ msgstr "Trezor nije konfiguriran"
 msgid "Vault master passphrase needs to be set to allow storing secrets"
 msgstr "Za spremanje tajni, tekstualna master lozinka trezora mora biti postavljena"
 
+msgid "Version"
+msgstr ""
+
+msgid "Version: {version}"
+msgstr ""
+
 msgid "Vibrancy"
 msgstr "Svjetlost"
 
+msgid "Visual"
+msgstr ""
+
+msgid "WSL terminal bell can only be muted via Volume Mixer"
+msgstr ""
+
 msgid "WSL terminal only supports TrueColor with ConPTY"
 msgstr "WSL terminal podržava samo TrueColor s ConPTY"
+
+msgid "Warn on multi-line paste"
+msgstr ""
 
 msgid "Warn when closing active connections"
 msgstr "Upozori pri zatvaranju aktivnih veza"
@@ -1259,6 +1451,9 @@ msgstr "Novosti"
 msgid "When WinSCP is detected, you can launch an SCP session from the context menu."
 msgstr "Kad se otkrije WinSCP, SCP sesiju možeš prekinuti iz kontekstualnog izbornika."
 
+msgid "When enabled, links are only clickable while holding this key"
+msgstr ""
+
 msgid "Whether a custom window or an OS native window should be used"
 msgstr "Da li koristiti prilagođeni prozor ili izvorni prozor OS-a"
 
@@ -1268,11 +1463,20 @@ msgstr "WinSCP staza"
 msgid "Window"
 msgstr "Prozor"
 
+msgid "Window dimension along the edge"
+msgstr ""
+
+msgid "Window dimension away from the edge"
+msgstr ""
+
 msgid "Window frame"
 msgstr "Okvir prozora"
 
 msgid "Windows 10 build 18309 or above is recommended for ConPTY"
 msgstr "Za ConPTY se preporučuje Windows 10 gradnja 18309 ili novija"
+
+msgid "Word separators"
+msgstr ""
 
 msgid "Working directory"
 msgstr "Radna mapa"
