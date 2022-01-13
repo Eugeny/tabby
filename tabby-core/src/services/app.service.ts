@@ -321,6 +321,7 @@ export class AppService {
         const token = await this.tabRecovery.getFullRecoveryToken(tab, { includeState: true })
         if (token) {
             this.closedTabsStack.push(token)
+            this.closedTabsStack = this.closedTabsStack.slice(-5)
         }
         tab.destroy()
     }
