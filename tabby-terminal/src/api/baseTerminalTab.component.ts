@@ -6,12 +6,11 @@ import { trigger, transition, style, animate, AnimationTriggerMetadata } from '@
 import { AppService, ConfigService, BaseTabComponent, HostAppService, HotkeysService, NotificationsService, Platform, LogService, Logger, TabContextMenuItemProvider, SplitTabComponent, SubscriptionContainer, MenuItemOptions, PlatformService, HostWindowService, ResettableTimeout, TranslateService } from 'tabby-core'
 
 import { BaseSession } from '../session'
-import { TerminalFrontendService } from '../services/terminalFrontend.service'
 
 import { Frontend } from '../frontends/frontend'
+import { XTermFrontend, XTermWebGLFrontend } from '../frontends/xtermFrontend'
 import { ResizeEvent } from './interfaces'
 import { TerminalDecorator } from './decorator'
-
 
 /**
  * A class to base your custom terminal tabs on
@@ -112,7 +111,6 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
     protected hostApp: HostAppService
     protected hotkeys: HotkeysService
     protected platform: PlatformService
-    protected terminalContainersService: TerminalFrontendService
     protected notifications: NotificationsService
     protected log: LogService
     protected decorators: TerminalDecorator[] = []
@@ -181,7 +179,6 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
         this.hostApp = injector.get(HostAppService)
         this.hotkeys = injector.get(HotkeysService)
         this.platform = injector.get(PlatformService)
-        this.terminalContainersService = injector.get(TerminalFrontendService)
         this.notifications = injector.get(NotificationsService)
         this.log = injector.get(LogService)
         this.decorators = injector.get<any>(TerminalDecorator, null, InjectFlags.Optional) as TerminalDecorator[]
@@ -294,7 +291,11 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
             this.frontend?.focus()
         })
 
-        this.frontend = this.terminalContainersService.getFrontend(this.session)
+        const cls: new (..._) => Frontend = {
+            xterm: XTermFrontend,
+            'xterm-webgl': XTermWebGLFrontend,
+        }[this.config.store.terminal.frontend] ?? XTermFrontend
+        this.frontend = new cls(this.injector)
 
         this.frontendReady$.pipe(first()).subscribe(() => {
             this.onFrontendReady()
@@ -555,6 +556,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
 
     async destroy (): Promise<void> {
         this.frontend?.detach(this.content.nativeElement)
+        this.frontend?.destroy()
         this.frontend = undefined
         this.content.nativeElement.remove()
         this.detachTermContainerHandlers()
@@ -731,7 +733,6 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
 
         if (destroyOnSessionClose) {
             this.attachSessionHandler(this.session.closed$, () => {
-                this.frontend?.destroy()
                 this.destroy()
             })
         }

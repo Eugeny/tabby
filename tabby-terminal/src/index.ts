@@ -16,8 +16,6 @@ import { SearchPanelComponent } from './components/searchPanel.component'
 import { StreamProcessingSettingsComponent } from './components/streamProcessingSettings.component'
 import { LoginScriptsSettingsComponent } from './components/loginScriptsSettings.component'
 
-import { TerminalFrontendService } from './services/terminalFrontend.service'
-
 import { TerminalDecorator } from './api/decorator'
 import { TerminalContextMenuItemProvider } from './api/contextMenuProvider'
 import { TerminalColorSchemeProvider } from './api/colorSchemeProvider'
@@ -83,7 +81,7 @@ import { TerminalCLIHandler } from './cli'
 })
 export default class TerminalModule { } // eslint-disable-line @typescript-eslint/no-extraneous-class
 
-export { TerminalFrontendService, TerminalDecorator, TerminalContextMenuItemProvider, TerminalColorSchemeProvider }
+export { TerminalDecorator, TerminalContextMenuItemProvider, TerminalColorSchemeProvider }
 export { Frontend, XTermFrontend, XTermWebGLFrontend }
 export { BaseTerminalTabComponent } from './api/baseTerminalTab.component'
 export * from './api/interfaces'
