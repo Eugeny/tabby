@@ -16,4 +16,11 @@
             .size {{transfer.getSize()|filesize}}
             .speed(*ngIf='transfer.getSpeed()') {{transfer.getSpeed()|filesize}}/s
 
-    button.btn.btn-link((click)='removeTransfer(transfer); $event.stopPropagation()') !{require('../icons/times.svg')}
+    button.btn.btn-link(
+        *ngIf='!transfer.isComplete()',
+        (click)='removeTransfer(transfer); $event.stopPropagation()'
+    ) !{require('../icons/times.svg')}
+    button.btn.btn-link(
+        *ngIf='transfer.isComplete()',
+        (click)='removeTransfer(transfer); $event.stopPropagation()'
+    ) !{require('../icons/check.svg')}
