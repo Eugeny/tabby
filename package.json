@@ -62,7 +62,7 @@
     "raw-loader": "4.0.2",
     "sass-loader": "^12.4.0",
     "shell-quote": "^1.7.3",
-    "shelljs": "0.8.4",
+    "shelljs": "0.8.5",
     "slugify": "^1.6.5",
     "sortablejs": "^1.14.0",
     "source-code-pro": "^2.38.0",
