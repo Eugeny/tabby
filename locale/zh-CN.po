@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2022-01-13 23:46\n"
+"PO-Revision-Date: 2022-01-15 14:12\n"
 
 msgid "A second font family used to display characters missing in the main font"
 msgstr "第二种字体，用于显示主字体中缺失的字符"
@@ -39,19 +39,19 @@ msgid "Advanced"
 msgstr "高级设置"
 
 msgid "Agent"
-msgstr "代理"
+msgstr "Agent"
 
 msgid "Agent forwarding"
-msgstr "代理转发"
+msgstr "Agent 转发"
 
 msgid "Agent pipe path"
-msgstr "代理管道路径"
+msgstr "Agent pipe 路径"
 
 msgid "Agent type"
-msgstr "代理类型"
+msgstr "Agent 类型"
 
 msgid "Allows opening .bat files in tabs, but breaks some shells"
-msgstr ""
+msgstr "允许在选项卡中打开.bat文件，但会中断一些shell"
 
 msgid "Allows quickly opening a terminal in the selected folder"
 msgstr "允许在选定的文件夹中快速打开终端"
@@ -81,19 +81,19 @@ msgid "Ask before closing the browser tab"
 msgstr "关闭标签页前询问"
 
 msgid "Audible"
-msgstr ""
+msgstr "有声"
 
 msgid "Authentication method"
 msgstr "身份验证方法"
 
 msgid "Author"
-msgstr ""
+msgstr "开发者"
 
 msgid "Auto"
 msgstr "自动"
 
 msgid "Auto-open a terminal on app start"
-msgstr ""
+msgstr "在应用程序启动时自动打开终端"
 
 msgid "Automatic"
 msgstr "自动"
@@ -102,10 +102,10 @@ msgid "Automatic Updates"
 msgstr "自动更新"
 
 msgid "Automatically upload changes and check for updates every minute"
-msgstr ""
+msgstr "每分钟自动上传更改，并自动检查更新"
 
 msgid "Available"
-msgstr ""
+msgstr "可用"
 
 msgid "Background type"
 msgstr "背景类型"
@@ -129,7 +129,7 @@ msgid "Bottom"
 msgstr "底部"
 
 msgid "Bracketed paste (requires shell support)"
-msgstr ""
+msgstr "括号粘贴（需要 Shell 支持）"
 
 msgid "Built-in"
 msgstr "内置"
@@ -147,7 +147,7 @@ msgid "Check for updates"
 msgstr "检查更新"
 
 msgid "Chinese (simplified)"
-msgstr ""
+msgstr "中文（简体）"
 
 msgid "Ciphers"
 msgstr "加密方法"
@@ -159,7 +159,7 @@ msgid "Clear terminal"
 msgstr "清空终端内容"
 
 msgid "Clipboard"
-msgstr ""
+msgstr "剪贴板"
 
 msgid "Close"
 msgstr "关闭"
@@ -210,7 +210,7 @@ msgid "Config uploaded"
 msgstr "配置已上传"
 
 msgid "Configs"
-msgstr ""
+msgstr "配置"
 
 msgid "Connect through a proxy server"
 msgstr "通过代理服务器连接"
@@ -228,13 +228,13 @@ msgid "Connection"
 msgstr "连接"
 
 msgid "Connection failed: {error}"
-msgstr ""
+msgstr "连接失败: {error}"
 
 msgid "Connection name will be used instead"
-msgstr ""
+msgstr "将使用连接名称代替"
 
 msgid "Context menu"
-msgstr ""
+msgstr "右键菜单"
 
 msgid "Copied"
 msgstr "已复制"
@@ -246,7 +246,7 @@ msgid "Copy current path"
 msgstr "复制当前路径"
 
 msgid "Copy on select"
-msgstr ""
+msgstr "选中时复制"
 
 msgid "Copy to clipboard"
 msgstr "复制到剪贴板"
@@ -285,7 +285,7 @@ msgid "Defaults"
 msgstr "默认值"
 
 msgid "Defaults for {type}"
-msgstr ""
+msgstr "{type} 的默认值"
 
 msgid "Delete"
 msgstr "删除"
@@ -306,7 +306,7 @@ msgid "Delete this script?"
 msgstr "删除此脚本？"
 
 msgid "Delete vault contents?"
-msgstr "删除密码库内容？"
+msgstr "删除保险库内容？"
 
 msgid "Delete {fullPath}?"
 msgstr "是否删除 {fullPath} ？"
@@ -321,16 +321,16 @@ msgid "Direct"
 msgstr "直连"
 
 msgid "Disable"
-msgstr ""
+msgstr "禁用"
 
 msgid "Disable GPU acceleration"
 msgstr "禁用 GPU 加速"
 
 msgid "Disable dynamic tab title"
-msgstr ""
+msgstr "禁用动态标签页标题"
 
 msgid "Disabled"
-msgstr ""
+msgstr "已禁用"
 
 msgid "Display on"
 msgstr "显示于"
@@ -339,7 +339,7 @@ msgid "Do not abort"
 msgstr "不要中止"
 
 msgid "Do not remember"
-msgstr ""
+msgstr "不要记住"
 
 msgid "Dock always on top"
 msgstr "窗口置顶"
@@ -357,13 +357,13 @@ msgid "Docking"
 msgstr "停靠"
 
 msgid "Double-click selection will stop at these characters"
-msgstr ""
+msgstr "双击选择将停在在这些字符处"
 
 msgid "Down"
 msgstr "向下"
 
 msgid "Download"
-msgstr ""
+msgstr "下载"
 
 msgid "Duplicate"
 msgstr "克隆"
@@ -381,7 +381,7 @@ msgid "Edit"
 msgstr "编辑"
 
 msgid "Enable"
-msgstr ""
+msgstr "启用"
 
 msgid "Enable analytics"
 msgstr "启用分析"
@@ -414,10 +414,10 @@ msgid "Erase config"
 msgstr "擦除配置"
 
 msgid "Erase the Vault"
-msgstr "擦除密码库"
+msgstr "擦除保险库"
 
 msgid "Error in {plugin}:"
-msgstr ""
+msgstr "{plugin} 中的错误："
 
 msgid "Exact match"
 msgstr "完全匹配"
@@ -477,7 +477,7 @@ msgid "Force LF"
 msgstr "强制使用 LF"
 
 msgid "Forces a specific SSH agent connection type."
-msgstr "强制特定的 SSH 代理连接类型"
+msgstr "强制特定的 SSH Agent 连接类型"
 
 msgid "Forget"
 msgstr "忘记"
@@ -495,7 +495,7 @@ msgid "From theme"
 msgstr "来自主题"
 
 msgid "Frontend"
-msgstr ""
+msgstr "前端"
 
 msgid "Full"
 msgstr "完整"
@@ -507,13 +507,13 @@ msgid "Generate a pre-filled GitHub issue"
 msgstr "生成一个预填写的 GitHub 问题"
 
 msgid "Get"
-msgstr ""
+msgstr "获取"
 
 msgid "Get it from the Tabby Web settings window"
-msgstr ""
+msgstr "从 Tabby Web 设置窗口获取"
 
 msgid "GitHub"
-msgstr ""
+msgstr "GitHub"
 
 msgid "Gives the window a blurred transparent background"
 msgstr "使窗口具有模糊透明的背景"
@@ -525,7 +525,7 @@ msgid "Green"
 msgstr "绿色"
 
 msgid "Group"
-msgstr ""
+msgstr "分组"
 
 msgid "Help track the number of Tabby installs across the world!"
 msgstr "帮助跟踪 Tabby 在世界各地的安装次数！"
@@ -540,13 +540,13 @@ msgid "Hide tab index"
 msgstr "隐藏标签页索引"
 
 msgid "Hide window on focus loss"
-msgstr ""
+msgstr "失去聚焦时隐藏窗口"
 
 msgid "Hides the docked terminal when you click away."
 msgstr "点击别处时隐藏停靠的终端"
 
 msgid "Homepage"
-msgstr ""
+msgstr "主页"
 
 msgid "Host"
 msgstr "主机"
@@ -558,10 +558,10 @@ msgid "Hotkeys"
 msgstr "快捷键"
 
 msgid "Icon"
-msgstr ""
+msgstr "图标"
 
 msgid "If disabled, only custom profiles will show up in the profile selector"
-msgstr "如果禁用，则只在配置文件选择器中显示自定义配置"
+msgstr "如果禁用，则只在配置选择器中显示自定义配置"
 
 msgid "Immediately echoes your input locally"
 msgstr "立刻在本地回显您的输入"
@@ -576,7 +576,7 @@ msgid "Input newlines"
 msgstr "输入换行符"
 
 msgid "Installed"
-msgstr ""
+msgstr "已安装"
 
 msgid "Installing the update will close all tabs and restart Tabby."
 msgstr "安装更新将关闭全部标签页并重启Tabby"
@@ -633,7 +633,7 @@ msgid "Left"
 msgstr "左侧"
 
 msgid "Lets the shell handle Meta key instead of OS"
-msgstr ""
+msgstr "使用 Shell 替代操作系统处理 Meta 键"
 
 msgid "Line by line"
 msgstr "逐行"
@@ -648,7 +648,7 @@ msgid "Loading"
 msgstr "加载中"
 
 msgid "Loading configs..."
-msgstr ""
+msgstr "正在加载配置..."
 
 msgid "Local"
 msgstr "本地"
@@ -663,7 +663,7 @@ msgid "Login scripts"
 msgstr "登录脚本"
 
 msgid "Long-click for context menu"
-msgstr ""
+msgstr "长按右键菜单"
 
 msgid "Manage profiles"
 msgstr "管理配置"
@@ -675,7 +675,7 @@ msgid "Maximize the active pane"
 msgstr "最大化活动窗格"
 
 msgid "Modified on {date}"
-msgstr ""
+msgstr "修改于 {date}"
 
 msgid "Move tab to the left"
 msgstr "将标签页向左移动"
@@ -735,7 +735,7 @@ msgid "No color"
 msgstr "无色"
 
 msgid "No modifier"
-msgstr ""
+msgstr "关闭"
 
 msgid "None"
 msgstr "无"
@@ -753,7 +753,7 @@ msgid "Notify when done"
 msgstr "完成时通知"
 
 msgid "Number of lines kept in the buffer"
-msgstr ""
+msgstr "保存在缓冲区的行数"
 
 msgid "OS default"
 msgstr "系统默认"
@@ -765,7 +765,7 @@ msgid "Off"
 msgstr "关闭"
 
 msgid "Official"
-msgstr ""
+msgstr "官方"
 
 msgid "On GitHub Discussions"
 msgstr "在 GitHub 讨论"
@@ -828,7 +828,7 @@ msgid "Parity"
 msgstr "奇偶校验"
 
 msgid "Partial config sync is not possible when the config is encrypted via Vault."
-msgstr ""
+msgstr "当配置通过保险库加密时，部分配置同步不可用"
 
 msgid "Passphrase for a private key with hash {hash}..."
 msgstr "带哈希值 {hash} 的私钥口令..."
@@ -846,7 +846,7 @@ msgid "Paste multiple lines?"
 msgstr "粘贴多行？"
 
 msgid "Paste on middle-click"
-msgstr ""
+msgstr "按下鼠标滚轮（或中间按键）时粘贴"
 
 msgid "Path or address of the local X11 socket"
 msgstr "路径或本地 X11 socket 地址"
@@ -855,10 +855,10 @@ msgid "Pin"
 msgstr "固定"
 
 msgid "Plugins"
-msgstr ""
+msgstr "插件"
 
 msgid "Plugins folder"
-msgstr ""
+msgstr "插件文件夹"
 
 msgid "Port"
 msgstr "端口"
@@ -873,7 +873,7 @@ msgid "Prevents accidental closing"
 msgstr "防止意外关闭"
 
 msgid "Prevents accidental execution of pasted commands"
-msgstr ""
+msgstr "防止意外执行粘贴的命令"
 
 msgid "Previous tab"
 msgstr "上一个标签页"
@@ -906,7 +906,7 @@ msgid "Purple"
 msgstr "紫色"
 
 msgid "Puts all of Tabby's configuration into the vault"
-msgstr "将 Tabby 的所有配置放入密码库"
+msgstr "将 Tabby 的所有配置放入保险库"
 
 msgid "Quick connect"
 msgstr "快速连接"
@@ -936,7 +936,7 @@ msgid "Release notes"
 msgstr "更新日志"
 
 msgid "Remember for {time}"
-msgstr ""
+msgstr "记住密码 {time}"
 
 msgid "Remote"
 msgstr "远程"
@@ -948,7 +948,7 @@ msgid "Rename Tab"
 msgstr "重命名标签页"
 
 msgid "Rendering"
-msgstr ""
+msgstr "渲染"
 
 msgid "Reopen last tab"
 msgstr "重新打开最后的标签页"
@@ -960,7 +960,7 @@ msgid "Report a problem"
 msgstr "报告问题"
 
 msgid "Require a key to click links"
-msgstr ""
+msgstr "需要同时按下按键来点击链接"
 
 msgid "Reset zoom"
 msgstr "重置缩放"
@@ -978,7 +978,7 @@ msgid "Restart the app to apply changes"
 msgstr "重新启动应用以使更改生效"
 
 msgid "Restore terminal tabs on app start"
-msgstr ""
+msgstr "应用程序启动时恢复终端标签页"
 
 msgid "Reuse session for multiple tabs"
 msgstr "为多个标签页重用会话"
@@ -987,7 +987,7 @@ msgid "Right"
 msgstr "右侧"
 
 msgid "Right click"
-msgstr ""
+msgstr "右键点击"
 
 msgid "Run as administrator"
 msgstr "以管理员身份运行"
@@ -1008,7 +1008,7 @@ msgid "SSH connection"
 msgstr "SSH 连接"
 
 msgid "SSH connection management is now done through the"
-msgstr "现在，SSH 连接管理是通过"
+msgstr "现在，SSH 连接管理使用"
 
 msgid "SSH password for {user}@{host}:{port}"
 msgstr "{user}@{host}:{port} 的 SSH 密码"
@@ -1035,22 +1035,22 @@ msgid "Saved layout"
 msgstr "已保存的布局"
 
 msgid "Scroll on input"
-msgstr ""
+msgstr "输入时滚动"
 
 msgid "Scroll terminal to bottom"
-msgstr ""
+msgstr "滚动终端到底部"
 
 msgid "Scrollback"
-msgstr ""
+msgstr "回滚"
 
 msgid "Scrolls the terminal to the bottom on user input"
-msgstr ""
+msgstr "在用户输入时，将终端滚动至底部"
 
 msgid "Search"
 msgstr "搜索"
 
 msgid "Secret sync token"
-msgstr ""
+msgstr "加密同步令牌"
 
 msgid "Select"
 msgstr "选择"
@@ -1083,7 +1083,7 @@ msgid "Serial: {description}"
 msgstr "串口：{description}"
 
 msgid "Set Tabby as %COMSPEC%"
-msgstr ""
+msgstr "将 Tabby 设置为 %COMSPEC%"
 
 msgid "Set master passphrase"
 msgstr "设置主密码"
@@ -1098,7 +1098,7 @@ msgid "Set to 0 to disable recent profiles"
 msgstr "设置为 0 以禁用最近的配置"
 
 msgid "Sets the SSH agent's named pipe path."
-msgstr "设置 SSH 代理的命名管道路径"
+msgstr "设置 SSH agent 的命名 pipe 路径"
 
 msgid "Settings"
 msgstr "设置"
@@ -1113,13 +1113,13 @@ msgid "Shell integration"
 msgstr "Shell 集成"
 
 msgid "Show Mixer"
-msgstr ""
+msgstr "显示音量合成器"
 
 msgid "Show Serial connections"
 msgstr "显示串口连接"
 
 msgid "Show a confirmation box when pasting multiple lines"
-msgstr ""
+msgstr "当粘贴多行时，显示确认对话框"
 
 msgid "Show built-in profiles in selector"
 msgstr "在选择器中显示内置配置"
@@ -1143,7 +1143,7 @@ msgid "Show release notes"
 msgstr "显示更新日志"
 
 msgid "Show vault contents"
-msgstr "显示密码库内容"
+msgstr "显示保险库内容"
 
 msgid "Skip MoTD/banner"
 msgstr "跳过 MoTD/横幅消息"
@@ -1176,7 +1176,7 @@ msgid "Standard"
 msgstr "标准"
 
 msgid "Startup"
-msgstr ""
+msgstr "启动时"
 
 msgid "Stop bits"
 msgstr "停止位"
@@ -1197,25 +1197,25 @@ msgid "Switch profile in the active pane"
 msgstr "在活动窗格中切换配置"
 
 msgid "Switches terminal frontend implementation (experimental)"
-msgstr ""
+msgstr "切换终端前端实现（实验性）"
 
 msgid "Sync"
-msgstr ""
+msgstr "同步"
 
 msgid "Sync Vault"
-msgstr ""
+msgstr "同步保险库"
 
 msgid "Sync automatically"
-msgstr ""
+msgstr "自动同步"
 
 msgid "Sync host"
-msgstr ""
+msgstr "同步主机"
 
 msgid "Sync hotkeys"
-msgstr ""
+msgstr "同步快捷键"
 
 msgid "Sync window settings"
-msgstr ""
+msgstr "同步窗口设置"
 
 msgid "Tab 1"
 msgstr "标签页 1"
@@ -1308,7 +1308,7 @@ msgid "Terminal background"
 msgstr "终端背景"
 
 msgid "Terminal bell"
-msgstr ""
+msgstr "终端提示音"
 
 msgid "Thank you for downloading Tabby!"
 msgstr "感谢您下载 Tabby！"
@@ -1329,7 +1329,7 @@ msgid "Thin"
 msgstr "简约"
 
 msgid "Tick this if you're experiencing aliasing, ghosting or other visual issues"
-msgstr "如果您遇到锯齿、重影或其他视觉问题，请勾选此选项"
+msgstr "如果您遇到锯齿、重影或其他视觉问题，请打开此选项"
 
 msgid "Toggle fullscreen mode"
 msgstr "切换全屏模式"
@@ -1356,7 +1356,7 @@ msgid "Ungrouped"
 msgstr "未分组"
 
 msgid "Uninstall"
-msgstr ""
+msgstr "卸载"
 
 msgid "Unknown"
 msgstr "未知"
@@ -1374,19 +1374,19 @@ msgid "Update"
 msgstr "更新"
 
 msgid "Upgrade to {version}"
-msgstr ""
+msgstr "升级到 {version}"
 
 msgid "Upload"
 msgstr "上传"
 
 msgid "Upload as a new config"
-msgstr ""
+msgstr "上传为新配置"
 
 msgid "Use ConPTY"
 msgstr "使用 ConPTY"
 
 msgid "Use {altKeyName} as the Meta key"
-msgstr ""
+msgstr "使用 {altKeyName} 作为 Meta 键"
 
 msgid "User default"
 msgstr "用户默认值"
@@ -1398,43 +1398,43 @@ msgid "Using preset password"
 msgstr "使用预设密码"
 
 msgid "Vault"
-msgstr "密码库"
+msgstr "保险库"
 
 msgid "Vault is an always-encrypted container for secrets such as SSH passwords and private key passphrases."
-msgstr "密码库是一个始终加密的容器，用于存放SSH密码和私钥。"
+msgstr "保险库是一个始终加密的容器，用于存放SSH密码和私钥。"
 
 msgid "Vault is empty"
-msgstr "密码库为空"
+msgstr "保险库为空"
 
 msgid "Vault is locked"
-msgstr "密码库已锁定"
+msgstr "保险库已锁定"
 
 msgid "Vault is not configured"
-msgstr "密码库未配置"
+msgstr "保险库未配置"
 
 msgid "Vault master passphrase needs to be set to allow storing secrets"
-msgstr "为允许存储密钥，您必须设置密码库的主密码"
+msgstr "为允许存储密钥，您必须设置保险库的主密码"
 
 msgid "Version"
-msgstr ""
+msgstr "版本"
 
 msgid "Version: {version}"
-msgstr ""
+msgstr "版本：{version}"
 
 msgid "Vibrancy"
 msgstr "鲜明"
 
 msgid "Visual"
-msgstr ""
+msgstr "外观"
 
 msgid "WSL terminal bell can only be muted via Volume Mixer"
-msgstr ""
+msgstr "WSL 终端提示音只能通过音量混合器关闭"
 
 msgid "WSL terminal only supports TrueColor with ConPTY"
 msgstr "WSL 终端仅支持 ConPTY 真彩"
 
 msgid "Warn on multi-line paste"
-msgstr ""
+msgstr "多行粘贴时显示警告"
 
 msgid "Warn when closing active connections"
 msgstr "当关闭活动连接时，显示警告"
@@ -1449,10 +1449,10 @@ msgid "What's new"
 msgstr "最近更新"
 
 msgid "When WinSCP is detected, you can launch an SCP session from the context menu."
-msgstr "检测到 WinSCP 时，您可以从上下文菜单中启动一个 SCP 会话。"
+msgstr "检测到 WinSCP 时，您可以从右键菜单中启动一个 SCP 会话。"
 
 msgid "When enabled, links are only clickable while holding this key"
-msgstr ""
+msgstr "如果启用，链接只有在按住此键时可被点击"
 
 msgid "Whether a custom window or an OS native window should be used"
 msgstr "使用自定义窗口或操作系统原生窗口"
@@ -1464,10 +1464,10 @@ msgid "Window"
 msgstr "窗口"
 
 msgid "Window dimension along the edge"
-msgstr ""
+msgstr "沿边缘的窗口尺寸"
 
 msgid "Window dimension away from the edge"
-msgstr ""
+msgstr "远离边缘的窗口尺寸"
 
 msgid "Window frame"
 msgstr "窗口框架样式"
@@ -1476,7 +1476,7 @@ msgid "Windows 10 build 18309 or above is recommended for ConPTY"
 msgstr "Windows 10 版本号 18309 或以上推荐 ConPTY"
 
 msgid "Word separators"
-msgstr ""
+msgstr "单词分隔符"
 
 msgid "Working directory"
 msgstr "工作目录"
