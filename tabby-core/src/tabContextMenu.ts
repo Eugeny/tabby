@@ -121,7 +121,7 @@ export class CommonOptionsContextMenu extends TabContextMenuItemProvider {
                 },
                 {
                     label: this.translate.instant('Color'),
-                    sublabel: TAB_COLORS.find(x => x.value === tab.color)?.name,
+                    sublabel: this.translate.instant(TAB_COLORS.find(x => x.value === tab.color)?.name),
                     submenu: TAB_COLORS.map(color => ({
                         label: this.translate.instant(color.name),
                         type: 'radio',
