@@ -3,6 +3,8 @@ import { registerLocaleData } from '@angular/common'
 import { TranslateService } from '@ngx-translate/core'
 
 import localeEN from '@angular/common/locales/en-GB'
+import localeDE from '@angular/common/locales/de'
+import localeFR from '@angular/common/locales/fr'
 import localeHR from '@angular/common/locales/hr'
 import localeZH from '@angular/common/locales/zh'
 import { Observable, Subject } from 'rxjs'
@@ -11,6 +13,8 @@ import { ConfigService } from './config.service'
 import { LogService, Logger } from './log.service'
 
 registerLocaleData(localeEN)
+registerLocaleData(localeDE)
+registerLocaleData(localeFR)
 registerLocaleData(localeHR)
 registerLocaleData(localeZH)
 
@@ -27,7 +31,7 @@ export class TranslateServiceWrapper extends TranslateService {
 export class LocaleService {
     private logger: Logger
 
-    static readonly allLocales = ['en-US', 'hr-HR', 'zh-CN']
+    static readonly allLocales = ['en-US', 'de-DE', 'fr-FR', 'hr-HR', 'zh-CN']
     readonly allLanguages: { code: string, name: string }[]
 
     get localeChanged$ (): Observable<string> {
@@ -56,12 +60,20 @@ export class LocaleService {
                 name: translate.instant('English'),
             },
             {
+                code: 'zh-CN',
+                name: translate.instant('Chinese (simplified)'),
+            },
+            {
                 code: 'hr-HR',
                 name: translate.instant('Croatian'),
             },
             {
-                code: 'zh-CN',
-                name: translate.instant('Chinese (simplified)'),
+                code: 'de-DE',
+                name: translate.instant('German'),
+            },
+            {
+                code: 'fr-FR',
+                name: translate.instant('French'),
             },
         ]
 

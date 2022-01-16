@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2022-01-15 14:12\n"
+"PO-Revision-Date: 2022-01-16 18:41\n"
 
 msgid "A second font family used to display characters missing in the main font"
 msgstr "第二种字体，用于显示主字体中缺失的字符"
@@ -87,7 +87,7 @@ msgid "Authentication method"
 msgstr "身份验证方法"
 
 msgid "Author"
-msgstr "开发者"
+msgstr "作者"
 
 msgid "Auto"
 msgstr "自动"
@@ -1008,7 +1008,7 @@ msgid "SSH connection"
 msgstr "SSH 连接"
 
 msgid "SSH connection management is now done through the"
-msgstr "现在，SSH 连接管理使用"
+msgstr "现在，对 SSH 连接进行管理，请切换至"
 
 msgid "SSH password for {user}@{host}:{port}"
 msgstr "{user}@{host}:{port} 的 SSH 密码"
