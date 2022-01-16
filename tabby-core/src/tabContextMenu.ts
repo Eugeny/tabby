@@ -109,6 +109,7 @@ export class CommonOptionsContextMenu extends TabContextMenuItemProvider {
     async getItems (tab: BaseTabComponent, tabHeader?: TabHeaderComponent): Promise<MenuItemOptions[]> {
         let items: MenuItemOptions[] = []
         if (tabHeader) {
+            const currentColor = TAB_COLORS.find(x => x.value === tab.color)?.name
             items = [
                 ...items,
                 {
@@ -121,7 +122,7 @@ export class CommonOptionsContextMenu extends TabContextMenuItemProvider {
                 },
                 {
                     label: this.translate.instant('Color'),
-                    sublabel: this.translate.instant(TAB_COLORS.find(x => x.value === tab.color)?.name),
+                    sublabel: currentColor ? this.translate.instant(currentColor) : undefined,
                     submenu: TAB_COLORS.map(color => ({
                         label: this.translate.instant(color.name) ?? color.name,
                         type: 'radio',
