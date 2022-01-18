@@ -58,83 +58,83 @@ export class AppHotkeyProvider extends HotkeyProvider {
         },
         {
             id: 'tab-1',
-            name: this.translate.instant('Tab 1'),
+            name: this.translate.instant('Tab {number}', { number: 1 }),
         },
         {
             id: 'tab-2',
-            name: this.translate.instant('Tab 2'),
+            name: this.translate.instant('Tab {number}', { number: 2 }),
         },
         {
             id: 'tab-3',
-            name: this.translate.instant('Tab 3'),
+            name: this.translate.instant('Tab {number}', { number: 3 }),
         },
         {
             id: 'tab-4',
-            name: this.translate.instant('Tab 4'),
+            name: this.translate.instant('Tab {number}', { number: 4 }),
         },
         {
             id: 'tab-5',
-            name: this.translate.instant('Tab 5'),
+            name: this.translate.instant('Tab {number}', { number: 5 }),
         },
         {
             id: 'tab-6',
-            name: this.translate.instant('Tab 6'),
+            name: this.translate.instant('Tab {number}', { number: 6 }),
         },
         {
             id: 'tab-7',
-            name: this.translate.instant('Tab 7'),
+            name: this.translate.instant('Tab {number}', { number: 7 }),
         },
         {
             id: 'tab-8',
-            name: this.translate.instant('Tab 8'),
+            name: this.translate.instant('Tab {number}', { number: 8 }),
         },
         {
             id: 'tab-9',
-            name: this.translate.instant('Tab 9'),
+            name: this.translate.instant('Tab {number}', { number: 9 }),
         },
         {
             id: 'tab-10',
-            name: this.translate.instant('Tab 10'),
+            name: this.translate.instant('Tab {number}', { number: 10 }),
         },
         {
             id: 'tab-11',
-            name: this.translate.instant('Tab 11'),
+            name: this.translate.instant('Tab {number}', { number: 11 }),
         },
         {
             id: 'tab-12',
-            name: this.translate.instant('Tab 12'),
+            name: this.translate.instant('Tab {number}', { number: 12 }),
         },
         {
             id: 'tab-13',
-            name: this.translate.instant('Tab 13'),
+            name: this.translate.instant('Tab {number}', { number: 13 }),
         },
         {
             id: 'tab-14',
-            name: this.translate.instant('Tab 14'),
+            name: this.translate.instant('Tab {number}', { number: 14 }),
         },
         {
             id: 'tab-15',
-            name: this.translate.instant('Tab 15'),
+            name: this.translate.instant('Tab {number}', { number: 15 }),
         },
         {
             id: 'tab-16',
-            name: this.translate.instant('Tab 16'),
+            name: this.translate.instant('Tab {number}', { number: 16 }),
         },
         {
             id: 'tab-17',
-            name: this.translate.instant('Tab 17'),
+            name: this.translate.instant('Tab {number}', { number: 17 }),
         },
         {
             id: 'tab-18',
-            name: this.translate.instant('Tab 18'),
+            name: this.translate.instant('Tab {number}', { number: 18 }),
         },
         {
             id: 'tab-19',
-            name: this.translate.instant('Tab 19'),
+            name: this.translate.instant('Tab {number}', { number: 19 }),
         },
         {
             id: 'tab-20',
-            name: this.translate.instant('Tab 20'),
+            name: this.translate.instant('Tab {number}', { number: 20 }),
         },
         {
             id: 'split-right',

@@ -7,7 +7,7 @@ import { TelnetProfile } from './session'
 @Injectable({ providedIn: 'root' })
 export class TelnetProfilesService extends ProfileProvider<TelnetProfile> {
     id = 'telnet'
-    name = this.translate.instant('Telnet')
+    name = 'Telnet'
     supportsQuickConnect = false
     settingsComponent = TelnetProfileSettingsComponent
     configDefaults = {

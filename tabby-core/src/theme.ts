@@ -31,7 +31,7 @@ export class StandardCompactTheme extends Theme {
 /** @hidden */
 @Injectable()
 export class PaperTheme extends Theme {
-    name = this.translate.instant('Paper')
+    name = 'Paper'
     css = require('./theme.paper.scss')
     terminalBackground = '#f7f1e0'
 

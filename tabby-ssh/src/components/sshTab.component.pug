@@ -27,7 +27,7 @@
 
     button.btn.btn-sm.btn-link.mr-2((click)='openSFTP()', *ngIf='session && session.open')
         i.far.fa-folder-open
-        span(translate) SFTP
+        span SFTP
 
     button.btn.btn-sm.btn-link(
         *ngIf='session && session.open && hostApp.platform !== Platform.Web',
