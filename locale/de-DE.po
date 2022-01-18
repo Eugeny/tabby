@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: German\n"
 "Language: de_DE\n"
-"PO-Revision-Date: 2022-01-18 13:02\n"
+"PO-Revision-Date: 2022-01-18 22:26\n"
 
 msgid "A second font family used to display characters missing in the main font"
 msgstr "Eine zweite Schriftfamilie, die zur Darstellung von Zeichen verwendet wird, die in der Hauptschrift fehlen"
@@ -25,6 +25,9 @@ msgstr "Acryl-Hintergrund"
 
 msgid "Add"
 msgstr "Hinzufügen"
+
+msgid "Add a port forward"
+msgstr ""
 
 msgid "Add a private key"
 msgstr "Privaten Schlüssel importieren"
@@ -45,7 +48,7 @@ msgid "Agent forwarding"
 msgstr "Agent-Weiterleitung"
 
 msgid "Agent pipe path"
-msgstr "Agentpfad"
+msgstr "Agent Pipe-Pfad"
 
 msgid "Agent type"
 msgstr "Agenttyp"
@@ -66,7 +69,7 @@ msgid "Application settings"
 msgstr "Programmeinstellungen"
 
 msgid "Are you sure you want to close Tabby? You can disable this prompt in Settings -> Window."
-msgstr "Bist du sicher, dass du Tabby schließen möchtest? Du kannst diese Abfrage unter Einstellungen -> Fenster deaktivieren."
+msgstr "Sind Sie sicher, dass Sie Tabby schließen möchten? Sie können diese Abfrage unter Einstellungen -> Fenster deaktivieren."
 
 msgid "Are you sure?"
 msgstr "Sind Sie sicher?"
@@ -149,11 +152,14 @@ msgstr "Auf Aktualisierungen prüfen"
 msgid "Chinese (simplified)"
 msgstr "Chinesisch (vereinfacht)"
 
+msgid "Chinese (traditional)"
+msgstr ""
+
 msgid "Ciphers"
 msgstr "Verschlüsselungsverfahren"
 
 msgid "Clear recent profiles"
-msgstr "Zuletzt benutzt Profile leeren"
+msgstr "Zuletzt benutzte Profile leeren"
 
 msgid "Clear terminal"
 msgstr "Terminal leeren"
@@ -168,7 +174,7 @@ msgid "Close and never show again"
 msgstr "Schließen und nicht mehr anzeigen"
 
 msgid "Close focused pane"
-msgstr "Fokussiertes Fenster schließen"
+msgstr "Fokussiertes Bereich schließen"
 
 msgid "Close other tabs"
 msgstr "Alle anderen Tabs schließen"
@@ -198,7 +204,7 @@ msgid "Compact"
 msgstr "Kompakt"
 
 msgid "Config downloaded"
-msgstr "Konfigurationsdateien herunterladen"
+msgstr "Konfigurationsdatei heruntergeladen"
 
 msgid "Config file"
 msgstr "Konfigurationsdatei"
@@ -216,10 +222,10 @@ msgid "Connect through a proxy server"
 msgstr "Über einen Proxy-Server verbinden"
 
 msgid "Connect to \"%s\"..."
-msgstr "Verbinde mit %s..."
+msgstr "Mit \"%s\" verbinden..."
 
 msgid "Connect to a different host first and use it as a proxy"
-msgstr "Verbinde dich zuerst mit einem anderen Host und benutze ihn als Proxy"
+msgstr "Zuerst mit einem anderen Host verbinden und ihn als Proxy benutzen"
 
 msgid "Connecting"
 msgstr "Verbinde"
@@ -231,7 +237,7 @@ msgid "Connection failed: {error}"
 msgstr "Verbindung fehlgeschlagen: {error}"
 
 msgid "Connection name will be used instead"
-msgstr "Verbindungsname wird stattdessen verwendet"
+msgstr "Stattdessen wird der Verbindungsname verwendet"
 
 msgid "Context menu"
 msgstr "Kontextmenü"
@@ -342,7 +348,7 @@ msgid "Do not abort"
 msgstr "Nicht abbrechen"
 
 msgid "Do not remember"
-msgstr "Erinnere mich nicht in den nächsten"
+msgstr "Nicht merken"
 
 msgid "Dock always on top"
 msgstr "Immer oben andocken"
@@ -363,10 +369,10 @@ msgid "Double-click selection will stop at these characters"
 msgstr "Doppelklick-Auswahl wird bei diesen Zeichen beendet"
 
 msgid "Down"
-msgstr "Abwärts"
+msgstr "Unten"
 
 msgid "Download"
-msgstr "Download"
+msgstr "Herunterladen"
 
 msgid "Duplicate"
 msgstr "Duplizieren"
@@ -450,22 +456,22 @@ msgid "Focus all panes at once (broadcast)"
 msgstr "Alle Bereiche gleichzeitig fokussieren (Broadcast)"
 
 msgid "Focus next pane"
-msgstr "Nächstes Fenster fokussieren"
+msgstr "Nächsten Bereich fokussieren"
 
 msgid "Focus previous pane"
-msgstr "Vorheriges Fenster fokussieren"
+msgstr "Vorherigen Bereich fokussieren"
 
 msgid "Focus the pane above"
-msgstr "Fokussiere das obere Fenster"
+msgstr "Fokussiere den Bereich oben"
 
 msgid "Focus the pane below"
-msgstr "Fokussiere das untere Fenster"
+msgstr "Fokussiere den Bereich unten"
 
 msgid "Focus the pane on the left"
-msgstr "Fokussiere das linke Fenster"
+msgstr "Fokussiere den Bereich links"
 
 msgid "Focus the pane on the right"
-msgstr "Fokussiere das rechte Fenster"
+msgstr "Fokussiere den Bereich rechts"
 
 msgid "Font"
 msgstr "Schriftart"
@@ -483,7 +489,7 @@ msgid "Forces a specific SSH agent connection type."
 msgstr "Erzwingt einen bestimmten SSH-Agenten-Verbindungstyp."
 
 msgid "Forget"
-msgstr "Ignorieren"
+msgstr "Löschen"
 
 msgid "Forward port"
 msgstr "Port weiterleiten"
@@ -540,10 +546,10 @@ msgid "Hexadecimal"
 msgstr "Hexadezimal"
 
 msgid "Hide tab close button"
-msgstr "Tab Schließen verbergen"
+msgstr "Tab-Schließknopf ausblenden"
 
 msgid "Hide tab index"
-msgstr "Tab Nummerierung ausblenden"
+msgstr "Tab-Nummer ausblenden"
 
 msgid "Hide window on focus loss"
 msgstr "Fenster beim Fokusverlust ausblenden"
@@ -561,7 +567,7 @@ msgid "Host key"
 msgstr "Hostschlüssel"
 
 msgid "Hotkeys"
-msgstr "Tastenkombination"
+msgstr "Tastenkombinationen"
 
 msgid "Icon"
 msgstr "Symbol"
@@ -579,7 +585,7 @@ msgid "Input mode"
 msgstr "Eingabemodus"
 
 msgid "Input newlines"
-msgstr "Zeilenumbrüche eingeben"
+msgstr "Eingehende Zeilenumbrüche"
 
 msgid "Installed"
 msgstr "Installiert"
@@ -597,7 +603,7 @@ msgid "Invalid syntax"
 msgstr "Ungültige Syntax"
 
 msgid "Jump host"
-msgstr "Springe zum Host"
+msgstr "Jump-Host"
 
 msgid "Jump to next word"
 msgstr "Zum nächsten Wort springen"
@@ -675,7 +681,7 @@ msgid "Manage profiles"
 msgstr "Profile verwalten"
 
 msgid "Max Keep Alive Count"
-msgstr "Maximaler Aktivitäts Intervall"
+msgstr "Maximale Anzahl der Aktivitätsintervallen"
 
 msgid "Maximize the active pane"
 msgstr "Aktiven Bereich maximieren"
@@ -807,10 +813,10 @@ msgid "Output mode"
 msgstr "Ausgabemodus"
 
 msgid "Output newlines"
-msgstr "Ausgabe-Zeilenumbrüche"
+msgstr "Ausgehende Zeilenumbrüche"
 
 msgid "Override X11 display"
-msgstr "X11-Anzeige überschreiben"
+msgstr "X11-Display überschreiben"
 
 msgid "Overwrite local and sync"
 msgstr "Lokal überschreiben und synchronisieren"
@@ -860,6 +866,9 @@ msgstr "Erweiterungen"
 msgid "Plugins folder"
 msgstr "Ordner der Erweiterungen öffnen"
 
+msgid "Polish"
+msgstr "Polnisch"
+
 msgid "Port"
 msgstr "Port"
 
@@ -867,7 +876,7 @@ msgid "Ports"
 msgstr "Ports"
 
 msgid "Press the key now"
-msgstr "Drücke jetzt die Taste"
+msgstr "Drücken Sie jetzt die Taste"
 
 msgid "Prevents accidental closing"
 msgstr "Verhindert versehentliches Schließen"
@@ -933,7 +942,7 @@ msgid "Release notes"
 msgstr "Versionshinweise"
 
 msgid "Remember for {time}"
-msgstr "Erinnere mich nach {time}"
+msgstr "{time} lang merken"
 
 msgid "Remote"
 msgstr "Remote"
@@ -957,7 +966,7 @@ msgid "Report a problem"
 msgstr "Ein Problem melden"
 
 msgid "Require a key to click links"
-msgstr "Benötigt eine Taste für einen Links-klick"
+msgstr "Eine Taste für einen Link-klick benötigen"
 
 msgid "Reset zoom"
 msgstr "Vergrößerung zurücksetzen"
@@ -989,6 +998,9 @@ msgstr "Rechtsklick"
 msgid "Run as administrator"
 msgstr "Als Administrator ausführen"
 
+msgid "Russian"
+msgstr ""
+
 msgid "SOCKS proxy"
 msgstr "SOCKS-Proxy"
 
@@ -1002,7 +1014,7 @@ msgid "SSH connection"
 msgstr "SSH-Verbindung"
 
 msgid "SSH connection management is now done through the"
-msgstr "SSH-Verbindungsverwaltung wird nun über die"
+msgstr "SSH-Verbindungsverwaltung geht nun über"
 
 msgid "SSH password for {user}@{host}:{port}"
 msgstr "SSH-Passwort für {user}@{host}:{port}"
@@ -1026,7 +1038,7 @@ msgid "Saved"
 msgstr "Gespeichert"
 
 msgid "Saved layout"
-msgstr "Layout gespeichert"
+msgstr "Gespeichertes Layout"
 
 msgid "Scroll on input"
 msgstr "Scrollen bei Eingabe"
@@ -1074,7 +1086,7 @@ msgid "Serial connection"
 msgstr "Serielle Verbindung"
 
 msgid "Serial: {description}"
-msgstr "Serielle: {description}"
+msgstr "Serielle Verbindung: {description}"
 
 msgid "Set Tabby as %COMSPEC%"
 msgstr "Tabby als %COMSPEC% setzen"
@@ -1092,7 +1104,7 @@ msgid "Set to 0 to disable recent profiles"
 msgstr "Auf 0 setzen, um die zuletzt benutzten Profile zu deaktivieren"
 
 msgid "Sets the SSH agent's named pipe path."
-msgstr "Legt den Pfad des SSH-Agenten fest."
+msgstr "Legt den Pfad des SSH-Agenten-Pipes fest."
 
 msgid "Settings"
 msgstr "Einstellungen"
@@ -1122,7 +1134,7 @@ msgid "Show config file"
 msgstr "Konfigurationsdatei im Dateibrowser anzeigen"
 
 msgid "Show defaults"
-msgstr "Standard anzeigen"
+msgstr "Standardwerte anzeigen"
 
 msgid "Show pane labels (for rearranging)"
 msgstr "Bereichnamen anzeigen (für Neuanordnung)"
@@ -1176,10 +1188,10 @@ msgid "Stop bits"
 msgstr "Stoppbits"
 
 msgid "Strip"
-msgstr "Strip"
+msgstr "Entfernen"
 
 msgid "Subscribe to updates"
-msgstr "Twitter"
+msgstr "Updates abonnieren"
 
 msgid "Substitutions allowed."
 msgstr "Ersetzungen erlaubt."
@@ -1188,7 +1200,7 @@ msgid "Switch profile"
 msgstr "Profil wechseln"
 
 msgid "Switch profile in the active pane"
-msgstr "Profil im aktiven Fenster wechseln"
+msgstr "Profil im aktiven Bereich wechseln"
 
 msgid "Switches terminal frontend implementation (experimental)"
 msgstr "Umschaltung der Frontend-Implementierung (experimentell)"
@@ -1197,13 +1209,13 @@ msgid "Sync"
 msgstr "Synchronisierung"
 
 msgid "Sync Vault"
-msgstr "Tresor jetzt synchronisieren"
+msgstr "Tresor synchronisieren"
 
 msgid "Sync automatically"
 msgstr "Automatisch synchronisieren"
 
 msgid "Sync host"
-msgstr "Synchronisiere Host"
+msgstr "Synchronisierungs-Host"
 
 msgid "Sync hotkeys"
 msgstr "Tastenkombination synchronisieren"
@@ -1239,13 +1251,13 @@ msgid "Terminal"
 msgstr "Terminal"
 
 msgid "Terminal background"
-msgstr "Terminal-Darstellung"
+msgstr "Terminal-Hintergrund"
 
 msgid "Terminal bell"
 msgstr "Terminal Glocke"
 
 msgid "Thank you for downloading Tabby!"
-msgstr "Vielen Dank für das Herunterladen von Tabby!"
+msgstr "Vielen Dank, dass Sie Tabby heruntergeladen haben!"
 
 msgid "Theme"
 msgstr "Theme"
@@ -1269,7 +1281,7 @@ msgid "Toggle fullscreen mode"
 msgstr "Vollbildmodus umschalten"
 
 msgid "Toggle last tab"
-msgstr "Letzten Tab umschalten"
+msgstr "Zum letzten Tab wechseln"
 
 msgid "Toggle terminal window"
 msgstr "Terminalfenster umschalten"
@@ -1356,10 +1368,10 @@ msgid "Version: {version}"
 msgstr "Version: {version}"
 
 msgid "Vibrancy"
-msgstr "Farbsättigung"
+msgstr "Vibrancy"
 
 msgid "Visual"
-msgstr "Ansicht"
+msgstr "Optisch"
 
 msgid "WSL terminal bell can only be muted via Volume Mixer"
 msgstr "WSL-Terminal Glocke kann nur über Lautstärkeregler abgeschaltet werden"
@@ -1380,7 +1392,7 @@ msgid "Welcome"
 msgstr "Willkommen"
 
 msgid "What's new"
-msgstr "Was ist Neu"
+msgstr "Was gibt's Neues?"
 
 msgid "When WinSCP is detected, you can launch an SCP session from the context menu."
 msgstr "Wenn WinSCP erkannt wird, können Sie eine SCP-Sitzung aus dem Kontextmenü starten."
