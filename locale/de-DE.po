@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: German\n"
 "Language: de_DE\n"
-"PO-Revision-Date: 2022-01-18 09:13\n"
+"PO-Revision-Date: 2022-01-18 13:02\n"
 
 msgid "A second font family used to display characters missing in the main font"
 msgstr "Eine zweite Schriftfamilie, die zur Darstellung von Zeichen verwendet wird, die in der Hauptschrift fehlen"
@@ -78,7 +78,7 @@ msgid "Ask a question"
 msgstr "Eine Frage stellen"
 
 msgid "Ask before closing the browser tab"
-msgstr "Vor dem Schließen des Browser-Tab fragen"
+msgstr "Vor dem Schließen des Browser-Tabs fragen"
 
 msgid "Audible"
 msgstr "Hörbar"
@@ -249,13 +249,13 @@ msgid "Copy on select"
 msgstr "Bei Auswahl kopieren"
 
 msgid "Copy to clipboard"
-msgstr "in die Zwischenablage kopieren"
+msgstr "In die Zwischenablage kopieren"
 
 msgid "Could not decrypt config"
 msgstr "Konfiguration konnte nicht entschlüsselt werden"
 
 msgid "Croatian"
-msgstr ""
+msgstr "Kroatisch"
 
 msgid "Current"
 msgstr "Aktuell"
@@ -294,7 +294,7 @@ msgid "Delete"
 msgstr "Löschen"
 
 msgid "Delete \"{name}\"?"
-msgstr "\"{name} \"löschen?"
+msgstr "\"{name}\" löschen?"
 
 msgid "Delete next word"
 msgstr "Nächstes Wort löschen"
@@ -351,10 +351,10 @@ msgid "Dock the terminal"
 msgstr "Terminal andocken"
 
 msgid "Docked terminal size"
-msgstr "Andockbare Terminalgröße"
+msgstr "Größe des angedockten Terminals"
 
 msgid "Docked terminal space"
-msgstr "Andockbare Terminalfläche"
+msgstr "Breite des angedockten Terminals"
 
 msgid "Docking"
 msgstr "Andocken"
@@ -492,7 +492,7 @@ msgid "Forwarded ports"
 msgstr "Weitergeleitete Ports"
 
 msgid "French"
-msgstr ""
+msgstr "Französisch"
 
 msgid "From color scheme"
 msgstr "Aus dem Farbschema"
@@ -513,7 +513,7 @@ msgid "Generate a pre-filled GitHub issue"
 msgstr "Ein vorausgefülltes GitHub Ticket erzeugen"
 
 msgid "German"
-msgstr ""
+msgstr "Deutsch"
 
 msgid "Get"
 msgstr "Erhalten"
@@ -678,7 +678,7 @@ msgid "Max Keep Alive Count"
 msgstr "Maximaler Aktivitäts Intervall"
 
 msgid "Maximize the active pane"
-msgstr "Maximieren Sie das aktiven Bereiches"
+msgstr "Aktiven Bereich maximieren"
 
 msgid "Modified on {date}"
 msgstr "Geändert am {date}"
@@ -690,7 +690,7 @@ msgid "Move tab to the right"
 msgstr "Tab nach rechts verschieben"
 
 msgid "Move to \"Ungrouped\""
-msgstr "verschieben nach Ungruppiert"
+msgstr "Nach \"Ungruppiert\" verschieben"
 
 msgid "Name"
 msgstr "Name"
@@ -771,7 +771,7 @@ msgid "Official"
 msgstr "Offiziell"
 
 msgid "On GitHub Discussions"
-msgstr "GitHub Diskussionen"
+msgstr "Auf GitHub Discussions"
 
 msgid "Opacity"
 msgstr "Transparenz"
@@ -1215,7 +1215,7 @@ msgid "Tab activity"
 msgstr "Tab Aktivität"
 
 msgid "Tab {number}"
-msgstr ""
+msgstr "Tab {number}"
 
 msgid "Tabby could not start with your plugins, so all third party plugins have been disabled in this session. The error was:"
 msgstr "Tabby konnte nicht mit deinen Plugins starten, so dass alle Plugins von Dritten in dieser Sitzung deaktiviert wurden. Der Fehler war:"
@@ -1329,7 +1329,7 @@ msgid "Username"
 msgstr "Benutzername"
 
 msgid "Using preset password"
-msgstr "vorgegebenes Passwort verwenden"
+msgstr "Vorgegebenes Passwort wird verwendet"
 
 msgid "Vault"
 msgstr "Tresor"
@@ -1365,7 +1365,7 @@ msgid "WSL terminal bell can only be muted via Volume Mixer"
 msgstr "WSL-Terminal Glocke kann nur über Lautstärkeregler abgeschaltet werden"
 
 msgid "WSL terminal only supports TrueColor with ConPTY"
-msgstr "WSL-Terminal unterstützt nur TrueColor mit ConPTY"
+msgstr "WSL-Terminal unterstützt TrueColor nur mit ConPTY"
 
 msgid "Warn on multi-line paste"
 msgstr "Beim mehrzeiligen Einfügen warnen"

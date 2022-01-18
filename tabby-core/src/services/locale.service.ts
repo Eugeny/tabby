@@ -6,6 +6,7 @@ import localeEN from '@angular/common/locales/en'
 import localeDE from '@angular/common/locales/de'
 import localeFR from '@angular/common/locales/fr'
 import localeHR from '@angular/common/locales/hr'
+import localePL from '@angular/common/locales/pl'
 import localeRU from '@angular/common/locales/ru'
 import localeZH from '@angular/common/locales/zh'
 import { Observable, Subject } from 'rxjs'
@@ -17,6 +18,7 @@ registerLocaleData(localeEN)
 registerLocaleData(localeDE)
 registerLocaleData(localeFR)
 registerLocaleData(localeHR)
+registerLocaleData(localePL)
 registerLocaleData(localeRU)
 registerLocaleData(localeZH)
 
@@ -33,7 +35,7 @@ export class TranslateServiceWrapper extends TranslateService {
 export class LocaleService {
     private logger: Logger
 
-    static readonly allLocales = ['en-US', 'de-DE', 'fr-FR', 'hr-HR', 'ru-RU', 'zh-CN']
+    static readonly allLocales = ['en-US', 'de-DE', 'fr-FR', 'hr-HR', 'pl-PL', 'ru-RU', 'zh-CN']
     readonly allLanguages: { code: string, name: string }[]
 
     get localeChanged$ (): Observable<string> {
@@ -76,6 +78,10 @@ export class LocaleService {
             {
                 code: 'fr-FR',
                 name: translate.instant('French'),
+            },
+            {
+                code: 'pl-PL',
+                name: translate.instant('Polish'),
             },
             {
                 code: 'ru-EU',

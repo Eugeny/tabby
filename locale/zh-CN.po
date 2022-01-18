@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2022-01-18 09:13\n"
+"PO-Revision-Date: 2022-01-18 13:02\n"
 
 msgid "A second font family used to display characters missing in the main font"
 msgstr "第二种字体，用于显示主字体中缺失的字符"
@@ -78,7 +78,7 @@ msgid "Ask a question"
 msgstr "提出问题"
 
 msgid "Ask before closing the browser tab"
-msgstr "关闭标签页前询问"
+msgstr "关闭选项卡前询问"
 
 msgid "Audible"
 msgstr "有声"
@@ -171,16 +171,16 @@ msgid "Close focused pane"
 msgstr "关闭已聚焦窗格"
 
 msgid "Close other tabs"
-msgstr "关闭其它标签"
+msgstr "关闭其他选项卡"
 
 msgid "Close tab"
-msgstr "关闭标签页"
+msgstr "关闭选项卡"
 
 msgid "Close tabs to the left"
-msgstr "关闭左侧标签页"
+msgstr "关闭左侧选项卡"
 
 msgid "Close tabs to the right"
-msgstr "关闭右侧标签页"
+msgstr "关闭右侧选项卡"
 
 msgid "Color"
 msgstr "颜色"
@@ -255,7 +255,7 @@ msgid "Could not decrypt config"
 msgstr "无法解密配置"
 
 msgid "Croatian"
-msgstr ""
+msgstr "克罗地亚语"
 
 msgid "Current"
 msgstr "当前"
@@ -279,7 +279,7 @@ msgid "Debugging"
 msgstr "调试"
 
 msgid "Default profile for new tabs"
-msgstr "新标签页默认配置"
+msgstr "新选项卡的默认配置"
 
 msgid "Default profile settings"
 msgstr "默认配置设置"
@@ -330,7 +330,7 @@ msgid "Disable GPU acceleration"
 msgstr "禁用 GPU 加速"
 
 msgid "Disable dynamic tab title"
-msgstr "禁用动态标签页标题"
+msgstr "禁用动态选项卡标题"
 
 msgid "Disabled"
 msgstr "已禁用"
@@ -375,7 +375,7 @@ msgid "Duplicate as administrator"
 msgstr "以管理员身份克隆"
 
 msgid "Duplicate tab"
-msgstr "克隆标签页"
+msgstr "克隆选项卡"
 
 msgid "Dynamic"
 msgstr "动态"
@@ -492,7 +492,7 @@ msgid "Forwarded ports"
 msgstr "已转发端口"
 
 msgid "French"
-msgstr ""
+msgstr "法语"
 
 msgid "From color scheme"
 msgstr "来自配色方案"
@@ -513,7 +513,7 @@ msgid "Generate a pre-filled GitHub issue"
 msgstr "生成一个预填写的 GitHub 问题"
 
 msgid "German"
-msgstr ""
+msgstr "德语"
 
 msgid "Get"
 msgstr "获取"
@@ -540,10 +540,10 @@ msgid "Hexadecimal"
 msgstr "十六进制"
 
 msgid "Hide tab close button"
-msgstr "隐藏标签页关闭按钮"
+msgstr "隐藏选项卡关闭按钮"
 
 msgid "Hide tab index"
-msgstr "隐藏标签页索引"
+msgstr "隐藏选项卡索引"
 
 msgid "Hide window on focus loss"
 msgstr "失去聚焦时隐藏窗口"
@@ -585,7 +585,7 @@ msgid "Installed"
 msgstr "已安装"
 
 msgid "Installing the update will close all tabs and restart Tabby."
-msgstr "安装更新将关闭全部标签页并重启Tabby"
+msgstr "安装更新将关闭全部选项卡并重启Tabby"
 
 msgid "Intelligent Ctrl-C (copy/abort)"
 msgstr "智能 Ctrl-C (复制/中止)"
@@ -684,10 +684,10 @@ msgid "Modified on {date}"
 msgstr "修改于 {date}"
 
 msgid "Move tab to the left"
-msgstr "将标签页向左移动"
+msgstr "将选项卡向左移动"
 
 msgid "Move tab to the right"
-msgstr "将标签页向右移动"
+msgstr "将选项卡向右移动"
 
 msgid "Move to \"Ungrouped\""
 msgstr "移动到 “未分组”"
@@ -702,7 +702,7 @@ msgid "Native"
 msgstr "原生"
 
 msgid "New admin tab"
-msgstr "新管理标签页"
+msgstr "新管理选项卡"
 
 msgid "New config on {platform}"
 msgstr "{platform} 上的新配置"
@@ -720,7 +720,7 @@ msgid "New profile name"
 msgstr "新配置名称"
 
 msgid "New tab"
-msgstr "新标签页"
+msgstr "新选项卡"
 
 msgid "New terminal"
 msgstr "新终端"
@@ -732,7 +732,7 @@ msgid "New with profile"
 msgstr "依据配置新建"
 
 msgid "Next tab"
-msgstr "下一个标签页"
+msgstr "下一个选项卡"
 
 msgid "No color"
 msgstr "无色"
@@ -876,7 +876,7 @@ msgid "Prevents accidental execution of pasted commands"
 msgstr "防止意外执行粘贴的命令"
 
 msgid "Previous tab"
-msgstr "上一个标签页"
+msgstr "上一个选项卡"
 
 msgid "Private keys"
 msgstr "私钥"
@@ -942,13 +942,13 @@ msgid "Rename"
 msgstr "重命名"
 
 msgid "Rename Tab"
-msgstr "重命名标签页"
+msgstr "重命名选项卡"
 
 msgid "Rendering"
 msgstr "渲染"
 
 msgid "Reopen last tab"
-msgstr "重新打开最后的标签页"
+msgstr "重新打开最后的选项卡"
 
 msgid "Replace"
 msgstr "替换"
@@ -975,10 +975,10 @@ msgid "Restart the app to apply changes"
 msgstr "重新启动应用以使更改生效"
 
 msgid "Restore terminal tabs on app start"
-msgstr "应用程序启动时恢复终端标签页"
+msgstr "应用程序启动时恢复终端选项卡"
 
 msgid "Reuse session for multiple tabs"
-msgstr "为多个标签页重用会话"
+msgstr "为多个选项卡重用会话"
 
 msgid "Right"
 msgstr "右侧"
@@ -1212,10 +1212,10 @@ msgid "Sync window settings"
 msgstr "同步窗口设置"
 
 msgid "Tab activity"
-msgstr "标签页活动"
+msgstr "选项卡活动"
 
 msgid "Tab {number}"
-msgstr ""
+msgstr "分页 {number}"
 
 msgid "Tabby could not start with your plugins, so all third party plugins have been disabled in this session. The error was:"
 msgstr "Tabby不能使用您的插件启动，因此本会话中禁用了所有第三方插件。错误信息："
@@ -1224,13 +1224,13 @@ msgid "Tabby news and updates on Twitter"
 msgstr "Tabby 在 Twitter 的新闻和更新"
 
 msgid "Tabs"
-msgstr "标签页"
+msgstr "选项卡"
 
 msgid "Tabs location"
-msgstr "标签页位置"
+msgstr "选项卡位置"
 
 msgid "Tabs width"
-msgstr "标签页宽度"
+msgstr "选项卡宽度"
 
 msgid "Telnet session"
 msgstr "Telnet 会话"
@@ -1437,7 +1437,7 @@ msgid "click"
 msgstr "点击"
 
 msgid "tab"
-msgstr "标签页"
+msgstr "选项卡"
 
 msgid "{name} copy"
 msgstr "{name} 副本"
