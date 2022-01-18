@@ -9,11 +9,11 @@ sh.exec(`yarn patch-package`, { fatal: true })
 log.info('deps', 'app')
 
 sh.cd('app')
-sh.exec(`yarn yarn install --force`, { fatal: true })
+sh.exec(`yarn install --force`, { fatal: true })
 sh.cd('..')
 
 sh.cd('web')
-sh.exec(`yarn yarn install --force`, { fatal: true })
+sh.exec(`yarn install --force`, { fatal: true })
 sh.exec(`yarn patch-package`, { fatal: true })
 sh.cd('..')
 
