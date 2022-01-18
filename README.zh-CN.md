@@ -33,7 +33,7 @@
 * 定制主题和配色方案
 * 完全可配置的快捷键和多键快捷键
 * 分体式窗格
-* 自动保存选项卡
+* 自动保存标签页
 * 支持 PowerShell（和 PS Core）、WSL、Git-Bash、Cygwin、MSYS2、Cmder 和 CMD
 * 在 SSH 会话中通过 Zmodem 进行直接文件传输
 * 完整的 Unicode 支持，包括双角字符
@@ -48,7 +48,7 @@
 - [终端特性](#终端特性)
 - [SSH 客户端](#ssh-客户端)
 - [串行终端](#串行终端)
-- [可移植的](#可移植的)
+- [便携式应用](#便携式应用)
 - [插件](#插件)
 - [主题](#主题)
 - [贡献](#贡献)
@@ -68,7 +68,7 @@
 
 * 一个 V220 终端 + 各种插件
 * 多个嵌套的拆分窗格
-* 可以将选项卡设置在窗口的任意一侧
+* 可以将标签页设置在窗口的任意一侧
 * 带有全局生成热键的可选可停靠窗口（“Quake console”）
 * 进度检测
 * 流程完成通知
@@ -109,13 +109,13 @@
 
 * [clickable-links](https://github.com/Eugeny/tabby-clickable-links) - 使终端中的路径和 URL 可点击
 * [docker](https://github.com/Eugeny/tabby-docker) - 连接 Docker 容器
-* [title-control](https://github.com/kbjr/terminus-title-control) - 允许通过提供要删除的前缀、后缀和/或字符串来修改终端选项卡的标题
-* [quick-cmds](https://github.com/Domain/terminus-quick-cmds) - 快速向一个或所有终端选项卡发送命令
+* [title-control](https://github.com/kbjr/terminus-title-control) - 允许通过提供要删除的前缀、后缀和/或字符串来修改标签页的标题
+* [quick-cmds](https://github.com/Domain/terminus-quick-cmds) - 快速向一个或所有标签页发送命令
 * [save-output](https://github.com/Eugeny/tabby-save-output) - 将终端输出记录到文件中
 * [sync-config](https://github.com/starxg/terminus-sync-config) - 将配置同步到 Gist 或 Gitee
 * [clippy](https://github.com/Eugeny/tabby-clippy) - 一个可以一直烦你的示例插件
 * [workspace-manager](https://github.com/composer404/tabby-workspace-manager) - 允许根据给定的配置创建自定义工作区配置文件
-* [search-in-browser](https://github.com/composer404/tabby-search-in-browser) - 从 Tabby 选项卡中选择的文本打开默认系统浏览器
+* [search-in-browser](https://github.com/composer404/tabby-search-in-browser) - 从 Tabby 标签页带有选中的文本来打开系统默认浏览器
 
 <a name="themes"></a>
 # 主题
