@@ -34,8 +34,4 @@ export class PaperTheme extends Theme {
     name = 'Paper'
     css = require('./theme.paper.scss')
     terminalBackground = '#f7f1e0'
-
-    constructor (private translate: TranslateService) {
-        super()
-    }
 }
