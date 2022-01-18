@@ -4,7 +4,6 @@ import { TranslateService } from '@ngx-translate/core'
 import { BaseTabComponent } from './baseTab.component'
 import { ConfigService } from '../services/config.service'
 import { LocaleService } from '../services/locale.service'
-import { HostWindowService } from '../api/hostWindow'
 
 /** @hidden */
 @Component({
@@ -16,7 +15,6 @@ export class WelcomeTabComponent extends BaseTabComponent {
     enableGlobalHotkey = true
 
     constructor (
-        private hostWindow: HostWindowService,
         public config: ConfigService,
         public locale: LocaleService,
         translate: TranslateService,
