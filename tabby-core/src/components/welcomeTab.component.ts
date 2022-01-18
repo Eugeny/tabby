@@ -3,6 +3,7 @@ import { Component } from '@angular/core'
 import { TranslateService } from '@ngx-translate/core'
 import { BaseTabComponent } from './baseTab.component'
 import { ConfigService } from '../services/config.service'
+import { LocaleService } from '../services/locale.service'
 import { HostWindowService } from '../api/hostWindow'
 
 /** @hidden */
@@ -17,6 +18,7 @@ export class WelcomeTabComponent extends BaseTabComponent {
     constructor (
         private hostWindow: HostWindowService,
         public config: ConfigService,
+        public locale: LocaleService,
         translate: TranslateService,
     ) {
         super()
@@ -30,6 +32,6 @@ export class WelcomeTabComponent extends BaseTabComponent {
             this.config.store.hotkeys['toggle-window'] = []
         }
         await this.config.save()
-        this.hostWindow.reload()
+        this.destroy()
     }
 }

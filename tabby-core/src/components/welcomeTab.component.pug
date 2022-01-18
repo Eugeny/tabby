@@ -8,6 +8,16 @@
 
     .form-line
         .header
+            .title(translate) Language
+        select.form-control([(ngModel)]='config.store.language', (ngModelChange)='config.save()')
+            option([ngValue]='null', translate) Automatic
+            option(
+                [value]='lang.code',
+                *ngFor='let lang of locale.allLanguages'
+            ) {{lang.name|translate}}
+
+    .form-line
+        .header
             .title(translate) Enable analytics
             .description(translate) Help track the number of Tabby installs across the world!
         toggle([(ngModel)]='config.store.enableAnalytics')
