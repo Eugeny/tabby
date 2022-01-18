@@ -20,7 +20,7 @@ export interface StreamProcessingOptions {
 
 export class TerminalStreamProcessor extends SessionMiddleware {
     forceEcho = false
-    private inputReadline: ReadLine
+    private inputReadline: ReadLine|null = null
     private inputPromptVisible = false
     private inputReadlineInStream: Readable & Writable
     private inputReadlineOutStream: Readable & Writable
@@ -99,7 +99,7 @@ export class TerminalStreamProcessor extends SessionMiddleware {
     }
 
     close (): void {
-        this.inputReadline.close()
+        this.inputReadline?.close()
         super.close()
     }
 
@@ -126,7 +126,7 @@ export class TerminalStreamProcessor extends SessionMiddleware {
 
     private resetInputPrompt () {
         this.outputToTerminal.next(Buffer.from('\r\n'))
-        this.inputReadline.prompt(true)
+        this.inputReadline?.prompt(true)
         this.inputPromptVisible = true
     }
 
