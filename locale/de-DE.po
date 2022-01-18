@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: German\n"
 "Language: de_DE\n"
-"PO-Revision-Date: 2022-01-16 18:41\n"
+"PO-Revision-Date: 2022-01-18 09:13\n"
 
 msgid "A second font family used to display characters missing in the main font"
 msgstr "Eine zweite Schriftfamilie, die zur Darstellung von Zeichen verwendet wird, die in der Hauptschrift fehlen"
@@ -42,19 +42,19 @@ msgid "Agent"
 msgstr "Agent"
 
 msgid "Agent forwarding"
-msgstr ""
+msgstr "Agent-Weiterleitung"
 
 msgid "Agent pipe path"
-msgstr ""
+msgstr "Agentpfad"
 
 msgid "Agent type"
-msgstr ""
+msgstr "Agenttyp"
 
 msgid "Allows opening .bat files in tabs, but breaks some shells"
-msgstr ""
+msgstr "Ermöglicht das Öffnen von .bat Dateien in Tabs, es kann Shells zum abstürzen führen"
 
 msgid "Allows quickly opening a terminal in the selected folder"
-msgstr ""
+msgstr "Ermöglicht das schnelle Öffnen eines Terminals im ausgewählten Ordner"
 
 msgid "Appearance"
 msgstr "Darstellung"
@@ -66,7 +66,7 @@ msgid "Application settings"
 msgstr "Programmeinstellungen"
 
 msgid "Are you sure you want to close Tabby? You can disable this prompt in Settings -> Window."
-msgstr ""
+msgstr "Bist du sicher, dass du Tabby schließen möchtest? Du kannst diese Abfrage unter Einstellungen -> Fenster deaktivieren."
 
 msgid "Are you sure?"
 msgstr "Sind Sie sicher?"
@@ -81,7 +81,7 @@ msgid "Ask before closing the browser tab"
 msgstr "Vor dem Schließen des Browser-Tab fragen"
 
 msgid "Audible"
-msgstr ""
+msgstr "Hörbar"
 
 msgid "Authentication method"
 msgstr "Authentifizierungsmethode"
@@ -129,7 +129,7 @@ msgid "Bottom"
 msgstr "Unten"
 
 msgid "Bracketed paste (requires shell support)"
-msgstr ""
+msgstr "Sicheres einfügen (erfordert Shellunterstützung)"
 
 msgid "Built-in"
 msgstr "Integriert"
@@ -254,6 +254,9 @@ msgstr "in die Zwischenablage kopieren"
 msgid "Could not decrypt config"
 msgstr "Konfiguration konnte nicht entschlüsselt werden"
 
+msgid "Croatian"
+msgstr ""
+
 msgid "Current"
 msgstr "Aktuell"
 
@@ -357,7 +360,7 @@ msgid "Docking"
 msgstr "Andocken"
 
 msgid "Double-click selection will stop at these characters"
-msgstr ""
+msgstr "Doppelklick-Auswahl wird bei diesen Zeichen beendet"
 
 msgid "Down"
 msgstr "Abwärts"
@@ -477,7 +480,7 @@ msgid "Force LF"
 msgstr "LF erzwingen"
 
 msgid "Forces a specific SSH agent connection type."
-msgstr ""
+msgstr "Erzwingt einen bestimmten SSH-Agenten-Verbindungstyp."
 
 msgid "Forget"
 msgstr "Ignorieren"
@@ -487,6 +490,9 @@ msgstr "Port weiterleiten"
 
 msgid "Forwarded ports"
 msgstr "Weitergeleitete Ports"
+
+msgid "French"
+msgstr ""
 
 msgid "From color scheme"
 msgstr "Aus dem Farbschema"
@@ -506,17 +512,17 @@ msgstr "Allgemein"
 msgid "Generate a pre-filled GitHub issue"
 msgstr "Ein vorausgefülltes GitHub Ticket erzeugen"
 
+msgid "German"
+msgstr ""
+
 msgid "Get"
 msgstr "Erhalten"
 
 msgid "Get it from the Tabby Web settings window"
 msgstr "Holen Sie es aus dem Tabby Web-Einstellungen Fenster"
 
-msgid "GitHub"
-msgstr "GitHub"
-
 msgid "Gives the window a blurred transparent background"
-msgstr ""
+msgstr "Gibt dem Fenster einen verschwommenen transparenten Hintergrund"
 
 msgid "Go up"
 msgstr "Nach oben"
@@ -528,7 +534,7 @@ msgid "Group"
 msgstr "Gruppe"
 
 msgid "Help track the number of Tabby installs across the world!"
-msgstr ""
+msgstr "Hilf dabei, die Anzahl der Tabby-Installationen auf der ganzen Welt zu verfolgen!"
 
 msgid "Hexadecimal"
 msgstr "Hexadezimal"
@@ -564,16 +570,16 @@ msgid "If disabled, only custom profiles will show up in the profile selector"
 msgstr "Wenn deaktiviert, werden nur benutzerdefinierte Profile in der Profilauswahl angezeigt"
 
 msgid "Immediately echoes your input locally"
-msgstr ""
+msgstr "Gibt die Eingabe sofort lokal wieder"
 
 msgid "Input is sent as you type"
-msgstr ""
+msgstr "Eingabe wird beim Tippen gesendet"
 
 msgid "Input mode"
 msgstr "Eingabemodus"
 
 msgid "Input newlines"
-msgstr ""
+msgstr "Zeilenumbrüche eingeben"
 
 msgid "Installed"
 msgstr "Installiert"
@@ -603,7 +609,7 @@ msgid "Keep"
 msgstr "Behalten"
 
 msgid "Keep Alive Interval (Milliseconds)"
-msgstr ""
+msgstr "Aktivitäts Intervall (Millisekunden)"
 
 msgid "Keep docked terminal always on top"
 msgstr "Angedocktes Terminal immer oben halten"
@@ -615,7 +621,7 @@ msgid "Key exchange"
 msgstr "Schlüsselaustausch"
 
 msgid "Keyboard-interactive auth"
-msgstr ""
+msgstr "Tastatur-interaktive Authentifizierung"
 
 msgid "Language"
 msgstr "Sprache"
@@ -633,13 +639,13 @@ msgid "Left"
 msgstr "Links"
 
 msgid "Lets the shell handle Meta key instead of OS"
-msgstr ""
+msgstr "Ermöglicht der Shell das reagieren auf die Meta-Taste statt des Betriebssystems"
 
 msgid "Line by line"
 msgstr "Zeile für Zeile"
 
 msgid "Line editor, input is sent after you press Enter"
-msgstr ""
+msgstr "Zeileneditor, Eingabe wird nach Drücken der Eingabetaste gesendet"
 
 msgid "Line padding"
 msgstr "Zeilen Zwischenabstand"
@@ -669,7 +675,7 @@ msgid "Manage profiles"
 msgstr "Profile verwalten"
 
 msgid "Max Keep Alive Count"
-msgstr ""
+msgstr "Maximaler Aktivitäts Intervall"
 
 msgid "Maximize the active pane"
 msgstr "Maximieren Sie das aktiven Bereiches"
@@ -691,9 +697,6 @@ msgstr "Name"
 
 msgid "Name for the new config"
 msgstr "Name für die neue Konfiguration"
-
-msgid "Named pipe"
-msgstr ""
 
 msgid "Native"
 msgstr "Nativ"
@@ -753,13 +756,13 @@ msgid "Notify when done"
 msgstr "Benachrichtigen, wenn erledigt"
 
 msgid "Number of lines kept in the buffer"
-msgstr ""
+msgstr "Anzahl der Zeilen im Puffer"
 
 msgid "OS default"
-msgstr ""
+msgstr "Betriebssystem-Standard"
 
 msgid "OS default ({name})"
-msgstr ""
+msgstr "Betriebssystem-Standard ({name})"
 
 msgid "Off"
 msgstr "Aus"
@@ -786,7 +789,7 @@ msgid "Open Settings"
 msgstr "Einstellungen öffnen"
 
 msgid "Optional"
-msgstr ""
+msgstr "Optional"
 
 msgid "Options"
 msgstr "Optionen"
@@ -795,16 +798,16 @@ msgid "Orange"
 msgstr "Orange"
 
 msgid "Output is shown as a hexdump"
-msgstr ""
+msgstr "Ausgabe wird als Hexdump angezeigt"
 
 msgid "Output is shown as it is received"
-msgstr ""
+msgstr "Ausgabe wird angezeigt, wie sie empfangen wird"
 
 msgid "Output mode"
 msgstr "Ausgabemodus"
 
 msgid "Output newlines"
-msgstr ""
+msgstr "Ausgabe-Zeilenumbrüche"
 
 msgid "Override X11 display"
 msgstr "X11-Anzeige überschreiben"
@@ -821,14 +824,11 @@ msgstr "Die Remote Konfiguration überschreiben und mit der Synchronisierung beg
 msgid "Overwrite the local config and start syncing?"
 msgstr "Die lokale Konfiguration überschreiben und mit der Synchronisierung beginnen?"
 
-msgid "Paper"
-msgstr "Papier"
-
 msgid "Parity"
 msgstr "Parität"
 
 msgid "Partial config sync is not possible when the config is encrypted via Vault."
-msgstr ""
+msgstr "Teilweise Konfigurations-Synchronisation ist nicht möglich, wenn die Konfiguration verschlüsselt ist."
 
 msgid "Passphrase for a private key with hash {hash}..."
 msgstr "Passwort für einen privaten Schlüssel mit Hash {hash}..."
@@ -893,9 +893,6 @@ msgstr "Profile"
 msgid "Profiles & connections"
 msgstr "Profile & Verbindungen"
 
-msgid "Profiles and connections"
-msgstr "Profile & Verbindungen"
-
 msgid "Program"
 msgstr "Programm"
 
@@ -918,7 +915,7 @@ msgid "Raw socket connection"
 msgstr "Raw Socket-Verbindung"
 
 msgid "Ready Timeout (Milliseconds)"
-msgstr ""
+msgstr "Timeout (Millisekunden)"
 
 msgid "Recent"
 msgstr "Neueste"
@@ -936,7 +933,7 @@ msgid "Release notes"
 msgstr "Versionshinweise"
 
 msgid "Remember for {time}"
-msgstr ""
+msgstr "Erinnere mich nach {time}"
 
 msgid "Remote"
 msgstr "Remote"
@@ -981,7 +978,7 @@ msgid "Restore terminal tabs on app start"
 msgstr "Terminal-Tabs beim Anwendungs-Start wiederherstellen"
 
 msgid "Reuse session for multiple tabs"
-msgstr ""
+msgstr "Sitzung für mehrere Tabs wiederverwenden"
 
 msgid "Right"
 msgstr "Rechts"
@@ -991,9 +988,6 @@ msgstr "Rechtsklick"
 
 msgid "Run as administrator"
 msgstr "Als Administrator ausführen"
-
-msgid "SFTP"
-msgstr "SFTP"
 
 msgid "SOCKS proxy"
 msgstr "SOCKS-Proxy"
@@ -1041,10 +1035,10 @@ msgid "Scroll terminal to bottom"
 msgstr "Terminal nach unten scrollen"
 
 msgid "Scrollback"
-msgstr ""
+msgstr "Scrollback"
 
 msgid "Scrolls the terminal to the bottom on user input"
-msgstr ""
+msgstr "Scrollt das Terminal bei Benutzereingabe nach unten"
 
 msgid "Search"
 msgstr "Suche"
@@ -1068,10 +1062,10 @@ msgid "Select profile or enter an address"
 msgstr "Profil auswählen oder Adresse eingeben"
 
 msgid "Send bytes by typing in hex values"
-msgstr ""
+msgstr "Sende Bytes durch Eingabe von Hex-Werten"
 
 msgid "Sends data one byte at a time"
-msgstr ""
+msgstr "Sendet Daten Byte für Byte"
 
 msgid "Serial"
 msgstr "Seriell"
@@ -1083,7 +1077,7 @@ msgid "Serial: {description}"
 msgstr "Serielle: {description}"
 
 msgid "Set Tabby as %COMSPEC%"
-msgstr ""
+msgstr "Tabby als %COMSPEC% setzen"
 
 msgid "Set master passphrase"
 msgstr "Hauptpasswort festlegen"
@@ -1098,19 +1092,19 @@ msgid "Set to 0 to disable recent profiles"
 msgstr "Auf 0 setzen, um die zuletzt benutzten Profile zu deaktivieren"
 
 msgid "Sets the SSH agent's named pipe path."
-msgstr ""
+msgstr "Legt den Pfad des SSH-Agenten fest."
 
 msgid "Settings"
 msgstr "Einstellungen"
 
 msgid "Shell"
-msgstr ""
+msgstr "Shell"
 
 msgid "Shell does not support current path detection"
-msgstr ""
+msgstr "Shell unterstützt keine aktuelle Pfaderkennung"
 
 msgid "Shell integration"
-msgstr ""
+msgstr "Shell-Integration"
 
 msgid "Show Mixer"
 msgstr "Mixer anzeigen"
@@ -1146,10 +1140,10 @@ msgid "Show vault contents"
 msgstr "Tresor Inhalt anzeigen"
 
 msgid "Skip MoTD/banner"
-msgstr ""
+msgstr "MoTD/Banner überspringen"
 
 msgid "Slow feed"
-msgstr ""
+msgstr "Langsamer Feed"
 
 msgid "Snaps the window to a side of the screen"
 msgstr "Einrasten des Fensters an einer Seite des Bildschirms"
@@ -1182,7 +1176,7 @@ msgid "Stop bits"
 msgstr "Stoppbits"
 
 msgid "Strip"
-msgstr ""
+msgstr "Strip"
 
 msgid "Subscribe to updates"
 msgstr "Twitter"
@@ -1197,7 +1191,7 @@ msgid "Switch profile in the active pane"
 msgstr "Profil im aktiven Fenster wechseln"
 
 msgid "Switches terminal frontend implementation (experimental)"
-msgstr ""
+msgstr "Umschaltung der Frontend-Implementierung (experimentell)"
 
 msgid "Sync"
 msgstr "Synchronisierung"
@@ -1217,68 +1211,11 @@ msgstr "Tastenkombination synchronisieren"
 msgid "Sync window settings"
 msgstr "Fenster Einstellungen synchronisieren"
 
-msgid "Tab 1"
-msgstr "Tab 1"
-
-msgid "Tab 10"
-msgstr "Tab 10"
-
-msgid "Tab 11"
-msgstr "Tab 11"
-
-msgid "Tab 12"
-msgstr "Tab 12"
-
-msgid "Tab 13"
-msgstr "Tab 13"
-
-msgid "Tab 14"
-msgstr "Tab 14"
-
-msgid "Tab 15"
-msgstr "Tab 15"
-
-msgid "Tab 16"
-msgstr "Tab 16"
-
-msgid "Tab 17"
-msgstr "Tab 17"
-
-msgid "Tab 18"
-msgstr "Tab 18"
-
-msgid "Tab 19"
-msgstr "Tab 19"
-
-msgid "Tab 2"
-msgstr "Tab 2"
-
-msgid "Tab 20"
-msgstr "Tab 2"
-
-msgid "Tab 3"
-msgstr "Tab 3"
-
-msgid "Tab 4"
-msgstr "Tab 4"
-
-msgid "Tab 5"
-msgstr "Tab 5"
-
-msgid "Tab 6"
-msgstr "Tab 6"
-
-msgid "Tab 7"
-msgstr "Tab 7"
-
-msgid "Tab 8"
-msgstr "Tab 8"
-
-msgid "Tab 9"
-msgstr "Tab 9"
-
 msgid "Tab activity"
 msgstr "Tab Aktivität"
+
+msgid "Tab {number}"
+msgstr ""
 
 msgid "Tabby could not start with your plugins, so all third party plugins have been disabled in this session. The error was:"
 msgstr "Tabby konnte nicht mit deinen Plugins starten, so dass alle Plugins von Dritten in dieser Sitzung deaktiviert wurden. Der Fehler war:"
@@ -1294,9 +1231,6 @@ msgstr "Tab Position "
 
 msgid "Tabs width"
 msgstr "Tab Breite"
-
-msgid "Telnet"
-msgstr "Telnet"
 
 msgid "Telnet session"
 msgstr "Telnet-Sitzung"
@@ -1329,7 +1263,7 @@ msgid "Thin"
 msgstr "Dünn"
 
 msgid "Tick this if you're experiencing aliasing, ghosting or other visual issues"
-msgstr ""
+msgstr "Aktivieren Sie dies, wenn Sie visuelle Probleme haben"
 
 msgid "Toggle fullscreen mode"
 msgstr "Vollbildmodus umschalten"
@@ -1341,7 +1275,7 @@ msgid "Toggle terminal window"
 msgstr "Terminalfenster umschalten"
 
 msgid "Toggles the Tabby window visibility"
-msgstr ""
+msgstr "Schaltet die Sichtbarkeit des Tabby-Fensters um"
 
 msgid "Top"
 msgstr "Oben"
@@ -1374,7 +1308,7 @@ msgid "Update"
 msgstr "Aktualisieren"
 
 msgid "Upgrade to {version}"
-msgstr "Aktualisieren auf Version {{version}}"
+msgstr "Aktualisieren auf Version {version}"
 
 msgid "Upload"
 msgstr "Hochladen"
@@ -1386,7 +1320,7 @@ msgid "Use ConPTY"
 msgstr "ConPTY verwenden"
 
 msgid "Use {altKeyName} as the Meta key"
-msgstr ""
+msgstr "{altKeyName} als Meta-Taste verwenden"
 
 msgid "User default"
 msgstr "Benutzer Standards"
@@ -1464,7 +1398,7 @@ msgid "Window"
 msgstr "Fenster"
 
 msgid "Window dimension along the edge"
-msgstr ""
+msgstr "Fenstergröße entlang am Rand"
 
 msgid "Window dimension away from the edge"
 msgstr "Fenstergröße weg vom Rand"

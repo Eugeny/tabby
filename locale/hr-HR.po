@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Croatian\n"
 "Language: hr_HR\n"
-"PO-Revision-Date: 2022-01-16 18:41\n"
+"PO-Revision-Date: 2022-01-18 09:13\n"
 
 msgid "A second font family used to display characters missing in the main font"
 msgstr "Druga obitelj fontova koja se koristi za prikaz nedostajućih znakova u glavnom fontu"
@@ -254,6 +254,9 @@ msgstr "Kopiraj u međuspremnik"
 msgid "Could not decrypt config"
 msgstr "Neuspjelo dešifriranje konfiguracije"
 
+msgid "Croatian"
+msgstr ""
+
 msgid "Current"
 msgstr "Trenutačno"
 
@@ -488,6 +491,9 @@ msgstr "Proslijedi priključak"
 msgid "Forwarded ports"
 msgstr "Proslijeđeni priključci"
 
+msgid "French"
+msgstr ""
+
 msgid "From color scheme"
 msgstr "Iz sheme boja"
 
@@ -506,14 +512,14 @@ msgstr "Opće"
 msgid "Generate a pre-filled GitHub issue"
 msgstr "Generiraj unaprijed ispunjeni GitHub problem"
 
+msgid "German"
+msgstr ""
+
 msgid "Get"
 msgstr "Preuzmi"
 
 msgid "Get it from the Tabby Web settings window"
 msgstr "Preuzmi iz prozora Tabby-web postavki"
-
-msgid "GitHub"
-msgstr "GitHub"
 
 msgid "Gives the window a blurred transparent background"
 msgstr "Daje prozoru zamućenu prozirnu pozadinu"
@@ -692,9 +698,6 @@ msgstr "Ime"
 msgid "Name for the new config"
 msgstr "Ime nove konfiguracije"
 
-msgid "Named pipe"
-msgstr "Imenovani proces"
-
 msgid "Native"
 msgstr "Izvorni"
 
@@ -821,9 +824,6 @@ msgstr "Prepisati konfiguraciju na udaljenoj strani i započeti sinkronizaciju?"
 msgid "Overwrite the local config and start syncing?"
 msgstr "Prepisati lokalnu konfiguraciju i započeti sinkronizaciju?"
 
-msgid "Paper"
-msgstr "Papir"
-
 msgid "Parity"
 msgstr "Paritet"
 
@@ -891,9 +891,6 @@ msgid "Profiles"
 msgstr "Profili"
 
 msgid "Profiles & connections"
-msgstr "Profili i veze"
-
-msgid "Profiles and connections"
 msgstr "Profili i veze"
 
 msgid "Program"
@@ -991,9 +988,6 @@ msgstr "Pritisni desnu tipku miša"
 
 msgid "Run as administrator"
 msgstr "Pokreni kao administrator"
-
-msgid "SFTP"
-msgstr "SFTP"
 
 msgid "SOCKS proxy"
 msgstr "SOCKS proxy"
@@ -1217,68 +1211,11 @@ msgstr "Sinkronizraj tipkovne prečace"
 msgid "Sync window settings"
 msgstr "Sinkronizraj postavke prozora"
 
-msgid "Tab 1"
-msgstr "Kartica 1"
-
-msgid "Tab 10"
-msgstr "Kartica 10"
-
-msgid "Tab 11"
-msgstr "Kartica 11"
-
-msgid "Tab 12"
-msgstr "Kartica 12"
-
-msgid "Tab 13"
-msgstr "Kartica 13"
-
-msgid "Tab 14"
-msgstr "Kartica 14"
-
-msgid "Tab 15"
-msgstr "Kartica 15"
-
-msgid "Tab 16"
-msgstr "Kartica 16"
-
-msgid "Tab 17"
-msgstr "Kartica 17"
-
-msgid "Tab 18"
-msgstr "Kartica 18"
-
-msgid "Tab 19"
-msgstr "Kartica 19"
-
-msgid "Tab 2"
-msgstr "Kartica 2"
-
-msgid "Tab 20"
-msgstr "Kartica 20"
-
-msgid "Tab 3"
-msgstr "Kartica 3"
-
-msgid "Tab 4"
-msgstr "Kartica 4"
-
-msgid "Tab 5"
-msgstr "Kartica 5"
-
-msgid "Tab 6"
-msgstr "Kartica 6"
-
-msgid "Tab 7"
-msgstr "Kartica 7"
-
-msgid "Tab 8"
-msgstr "Kartica 8"
-
-msgid "Tab 9"
-msgstr "Kartica 9"
-
 msgid "Tab activity"
 msgstr "Aktivnost kartice"
+
+msgid "Tab {number}"
+msgstr ""
 
 msgid "Tabby could not start with your plugins, so all third party plugins have been disabled in this session. The error was:"
 msgstr "Tabby se nije mogao pokrenuti s tvojim dodacima, stoga su svi strani dodaci deaktivirani u ovoj sesiji. Greška je bila:"
@@ -1294,9 +1231,6 @@ msgstr "Mjesto kartica"
 
 msgid "Tabs width"
 msgstr "Širina kartica"
-
-msgid "Telnet"
-msgstr "Telnet"
 
 msgid "Telnet session"
 msgstr "Telnet sesija"

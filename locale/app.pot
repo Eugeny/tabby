@@ -246,6 +246,9 @@ msgstr ""
 msgid "Could not decrypt config"
 msgstr ""
 
+msgid "Croatian"
+msgstr ""
+
 msgid "Current"
 msgstr ""
 
@@ -480,6 +483,9 @@ msgstr ""
 msgid "Forwarded ports"
 msgstr ""
 
+msgid "French"
+msgstr ""
+
 msgid "From color scheme"
 msgstr ""
 
@@ -498,13 +504,13 @@ msgstr ""
 msgid "Generate a pre-filled GitHub issue"
 msgstr ""
 
+msgid "German"
+msgstr ""
+
 msgid "Get"
 msgstr ""
 
 msgid "Get it from the Tabby Web settings window"
-msgstr ""
-
-msgid "GitHub"
 msgstr ""
 
 msgid "Gives the window a blurred transparent background"
@@ -684,9 +690,6 @@ msgstr ""
 msgid "Name for the new config"
 msgstr ""
 
-msgid "Named pipe"
-msgstr ""
-
 msgid "Native"
 msgstr ""
 
@@ -813,9 +816,6 @@ msgstr ""
 msgid "Overwrite the local config and start syncing?"
 msgstr ""
 
-msgid "Paper"
-msgstr ""
-
 msgid "Parity"
 msgstr ""
 
@@ -883,9 +883,6 @@ msgid "Profiles"
 msgstr ""
 
 msgid "Profiles & connections"
-msgstr ""
-
-msgid "Profiles and connections"
 msgstr ""
 
 msgid "Program"
@@ -982,9 +979,6 @@ msgid "Right click"
 msgstr ""
 
 msgid "Run as administrator"
-msgstr ""
-
-msgid "SFTP"
 msgstr ""
 
 msgid "SOCKS proxy"
@@ -1209,67 +1203,10 @@ msgstr ""
 msgid "Sync window settings"
 msgstr ""
 
-msgid "Tab 1"
-msgstr ""
-
-msgid "Tab 10"
-msgstr ""
-
-msgid "Tab 11"
-msgstr ""
-
-msgid "Tab 12"
-msgstr ""
-
-msgid "Tab 13"
-msgstr ""
-
-msgid "Tab 14"
-msgstr ""
-
-msgid "Tab 15"
-msgstr ""
-
-msgid "Tab 16"
-msgstr ""
-
-msgid "Tab 17"
-msgstr ""
-
-msgid "Tab 18"
-msgstr ""
-
-msgid "Tab 19"
-msgstr ""
-
-msgid "Tab 2"
-msgstr ""
-
-msgid "Tab 20"
-msgstr ""
-
-msgid "Tab 3"
-msgstr ""
-
-msgid "Tab 4"
-msgstr ""
-
-msgid "Tab 5"
-msgstr ""
-
-msgid "Tab 6"
-msgstr ""
-
-msgid "Tab 7"
-msgstr ""
-
-msgid "Tab 8"
-msgstr ""
-
-msgid "Tab 9"
-msgstr ""
-
 msgid "Tab activity"
+msgstr ""
+
+msgid "Tab {number}"
 msgstr ""
 
 msgid ""
@@ -1287,9 +1224,6 @@ msgid "Tabs location"
 msgstr ""
 
 msgid "Tabs width"
-msgstr ""
-
-msgid "Telnet"
 msgstr ""
 
 msgid "Telnet session"

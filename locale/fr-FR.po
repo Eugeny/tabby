@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2022-01-16 18:41\n"
+"PO-Revision-Date: 2022-01-18 09:13\n"
 
 msgid "A second font family used to display characters missing in the main font"
 msgstr "Une seconde famille de polices utilisable pour afficher les caractères absents de la police principale"
@@ -254,6 +254,9 @@ msgstr "Copier dans le presse-papier"
 msgid "Could not decrypt config"
 msgstr "Impossible de déchiffrer la configuration"
 
+msgid "Croatian"
+msgstr ""
+
 msgid "Current"
 msgstr "Actif"
 
@@ -488,6 +491,9 @@ msgstr "Transfert de port"
 msgid "Forwarded ports"
 msgstr "Ports transférés"
 
+msgid "French"
+msgstr ""
+
 msgid "From color scheme"
 msgstr "A partir du schéma de couleurs"
 
@@ -506,14 +512,14 @@ msgstr "Général"
 msgid "Generate a pre-filled GitHub issue"
 msgstr "Générer une issue GitHub pré-remplie"
 
+msgid "German"
+msgstr ""
+
 msgid "Get"
 msgstr "Obtenir"
 
 msgid "Get it from the Tabby Web settings window"
 msgstr "Obtenir depuis la fenêtre des paramètres Tabby Web"
-
-msgid "GitHub"
-msgstr "GitHub"
 
 msgid "Gives the window a blurred transparent background"
 msgstr "Donne à la fenêtre un fond à la fois transparent et flouté"
@@ -692,9 +698,6 @@ msgstr "Nom"
 msgid "Name for the new config"
 msgstr "Nom de la nouvelle configuration"
 
-msgid "Named pipe"
-msgstr "Tuyau nommé"
-
 msgid "Native"
 msgstr "Natif"
 
@@ -821,9 +824,6 @@ msgstr "Écraser la configuration distante et démarrer la synchronisation ?"
 msgid "Overwrite the local config and start syncing?"
 msgstr "Écraser la configuration locale et démarrer la synchronisation ?"
 
-msgid "Paper"
-msgstr "Papier"
-
 msgid "Parity"
 msgstr "Parité"
 
@@ -892,9 +892,6 @@ msgstr "Profils"
 
 msgid "Profiles & connections"
 msgstr "Profils & connexions"
-
-msgid "Profiles and connections"
-msgstr "Profils et connexions"
 
 msgid "Program"
 msgstr "Application"
@@ -991,9 +988,6 @@ msgstr "Clic droit"
 
 msgid "Run as administrator"
 msgstr "Exécuter en tant qu'administrateur"
-
-msgid "SFTP"
-msgstr "SFTP"
 
 msgid "SOCKS proxy"
 msgstr "Proxy SOCKS"
@@ -1217,68 +1211,11 @@ msgstr "Synchroniser les raccourcis clavier"
 msgid "Sync window settings"
 msgstr "Synchroniser les réglages de fenêtres"
 
-msgid "Tab 1"
-msgstr "Onglet 1"
-
-msgid "Tab 10"
-msgstr "Onglet 10"
-
-msgid "Tab 11"
-msgstr "Onglet 11"
-
-msgid "Tab 12"
-msgstr "Onglet 12"
-
-msgid "Tab 13"
-msgstr "Onglet 13"
-
-msgid "Tab 14"
-msgstr "Onglet 14"
-
-msgid "Tab 15"
-msgstr "Onglet 15"
-
-msgid "Tab 16"
-msgstr "Onglet 16"
-
-msgid "Tab 17"
-msgstr "Onglet 17"
-
-msgid "Tab 18"
-msgstr "Onglet 18"
-
-msgid "Tab 19"
-msgstr "Onglet 19"
-
-msgid "Tab 2"
-msgstr "Onglet 2"
-
-msgid "Tab 20"
-msgstr "Onglet 20"
-
-msgid "Tab 3"
-msgstr "Onglet 3"
-
-msgid "Tab 4"
-msgstr "Onglet 4"
-
-msgid "Tab 5"
-msgstr "Onglet 5"
-
-msgid "Tab 6"
-msgstr "Onglet 6"
-
-msgid "Tab 7"
-msgstr "Onglet 7"
-
-msgid "Tab 8"
-msgstr "Onglet 8"
-
-msgid "Tab 9"
-msgstr "Onglet 9"
-
 msgid "Tab activity"
 msgstr "Activité de l'onglet"
+
+msgid "Tab {number}"
+msgstr ""
 
 msgid "Tabby could not start with your plugins, so all third party plugins have been disabled in this session. The error was:"
 msgstr "Tabby n'a pas pu démarrer avec vos extensions, tous les plugins tiers ont été désactivés dans cette session. L'erreur était :"
@@ -1294,9 +1231,6 @@ msgstr "Emplacement des onglets"
 
 msgid "Tabs width"
 msgstr "Largeur des onglets"
-
-msgid "Telnet"
-msgstr "Telnet"
 
 msgid "Telnet session"
 msgstr "Session Telnet"

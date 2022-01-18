@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2022-01-16 18:41\n"
+"PO-Revision-Date: 2022-01-18 09:13\n"
 
 msgid "A second font family used to display characters missing in the main font"
 msgstr "第二种字体，用于显示主字体中缺失的字符"
@@ -84,7 +84,7 @@ msgid "Audible"
 msgstr "有声"
 
 msgid "Authentication method"
-msgstr "身份验证方法"
+msgstr "认证方法"
 
 msgid "Author"
 msgstr "作者"
@@ -253,6 +253,9 @@ msgstr "复制到剪贴板"
 
 msgid "Could not decrypt config"
 msgstr "无法解密配置"
+
+msgid "Croatian"
+msgstr ""
 
 msgid "Current"
 msgstr "当前"
@@ -488,6 +491,9 @@ msgstr "转发端口"
 msgid "Forwarded ports"
 msgstr "已转发端口"
 
+msgid "French"
+msgstr ""
+
 msgid "From color scheme"
 msgstr "来自配色方案"
 
@@ -506,14 +512,14 @@ msgstr "通用"
 msgid "Generate a pre-filled GitHub issue"
 msgstr "生成一个预填写的 GitHub 问题"
 
+msgid "German"
+msgstr ""
+
 msgid "Get"
 msgstr "获取"
 
 msgid "Get it from the Tabby Web settings window"
 msgstr "从 Tabby Web 设置窗口获取"
-
-msgid "GitHub"
-msgstr "GitHub"
 
 msgid "Gives the window a blurred transparent background"
 msgstr "使窗口具有模糊透明的背景"
@@ -692,9 +698,6 @@ msgstr "名称"
 msgid "Name for the new config"
 msgstr "新配置名称"
 
-msgid "Named pipe"
-msgstr "已命名管道"
-
 msgid "Native"
 msgstr "原生"
 
@@ -821,9 +824,6 @@ msgstr "覆盖远程的配置并开始同步？"
 msgid "Overwrite the local config and start syncing?"
 msgstr "覆盖本地配置并开始同步？"
 
-msgid "Paper"
-msgstr "纸张"
-
 msgid "Parity"
 msgstr "奇偶校验"
 
@@ -891,9 +891,6 @@ msgid "Profiles"
 msgstr "配置"
 
 msgid "Profiles & connections"
-msgstr "配置和连接"
-
-msgid "Profiles and connections"
 msgstr "配置和连接"
 
 msgid "Program"
@@ -991,9 +988,6 @@ msgstr "右键点击"
 
 msgid "Run as administrator"
 msgstr "以管理员身份运行"
-
-msgid "SFTP"
-msgstr "SFTP"
 
 msgid "SOCKS proxy"
 msgstr "SOCKS 代理"
@@ -1217,68 +1211,11 @@ msgstr "同步快捷键"
 msgid "Sync window settings"
 msgstr "同步窗口设置"
 
-msgid "Tab 1"
-msgstr "标签页 1"
-
-msgid "Tab 10"
-msgstr "标签页 10"
-
-msgid "Tab 11"
-msgstr "标签页 11"
-
-msgid "Tab 12"
-msgstr "标签页 12"
-
-msgid "Tab 13"
-msgstr "标签页 13"
-
-msgid "Tab 14"
-msgstr "标签页 14"
-
-msgid "Tab 15"
-msgstr "标签页 15"
-
-msgid "Tab 16"
-msgstr "标签页 16"
-
-msgid "Tab 17"
-msgstr "标签页 17"
-
-msgid "Tab 18"
-msgstr "标签页 18"
-
-msgid "Tab 19"
-msgstr "标签页 19"
-
-msgid "Tab 2"
-msgstr "标签页 2"
-
-msgid "Tab 20"
-msgstr "标签页 20"
-
-msgid "Tab 3"
-msgstr "标签页 3"
-
-msgid "Tab 4"
-msgstr "标签页 4"
-
-msgid "Tab 5"
-msgstr "标签页 5"
-
-msgid "Tab 6"
-msgstr "标签页 6"
-
-msgid "Tab 7"
-msgstr "标签页 7"
-
-msgid "Tab 8"
-msgstr "标签页 8"
-
-msgid "Tab 9"
-msgstr "标签页 9"
-
 msgid "Tab activity"
 msgstr "标签页活动"
+
+msgid "Tab {number}"
+msgstr ""
 
 msgid "Tabby could not start with your plugins, so all third party plugins have been disabled in this session. The error was:"
 msgstr "Tabby不能使用您的插件启动，因此本会话中禁用了所有第三方插件。错误信息："
@@ -1294,9 +1231,6 @@ msgstr "标签页位置"
 
 msgid "Tabs width"
 msgstr "标签页宽度"
-
-msgid "Telnet"
-msgstr "Telnet"
 
 msgid "Telnet session"
 msgstr "Telnet 会话"
@@ -1374,7 +1308,7 @@ msgid "Update"
 msgstr "更新"
 
 msgid "Upgrade to {version}"
-msgstr "升级到 {version}"
+msgstr "升级至 {version}"
 
 msgid "Upload"
 msgstr "上传"
@@ -1389,7 +1323,7 @@ msgid "Use {altKeyName} as the Meta key"
 msgstr "使用 {altKeyName} 作为 Meta 键"
 
 msgid "User default"
-msgstr "用户默认值"
+msgstr "用户默认"
 
 msgid "Username"
 msgstr "用户名"
@@ -1473,7 +1407,7 @@ msgid "Window frame"
 msgstr "窗口框架样式"
 
 msgid "Windows 10 build 18309 or above is recommended for ConPTY"
-msgstr "Windows 10 版本号 18309 或以上推荐 ConPTY"
+msgstr "Windows 10 版本 18309 以上推荐 ConPTY"
 
 msgid "Word separators"
 msgstr "单词分隔符"
@@ -1482,7 +1416,7 @@ msgid "Working directory"
 msgstr "工作目录"
 
 msgid "Working directory detection"
-msgstr "工作目录检测"
+msgstr "查找工作目录"
 
 msgid "X11 forwarding"
 msgstr "X11 转发"

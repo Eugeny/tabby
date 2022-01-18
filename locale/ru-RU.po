@@ -1,0 +1,1444 @@
+msgid ""
+msgstr ""
+"mime-version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=((n%10==1 && n%100!=11) ? 0 : ((n%10 >= 2 && n%10 <=4 && (n%100 < 12 || n%100 > 14)) ? 1 : ((n%10 == 0 || (n%10 >= 5 && n%10 <=9)) || (n%100 >= 11 && n%100 <= 14)) ? 2 : 3));\n"
+"X-Crowdin-Project: tabby\n"
+"X-Crowdin-Project-ID: 493349\n"
+"X-Crowdin-Language: ru\n"
+"X-Crowdin-File: /locale/app.pot\n"
+"X-Crowdin-File-ID: 75\n"
+"Project-Id-Version: tabby\n"
+"Language-Team: Russian\n"
+"Language: ru_RU\n"
+"PO-Revision-Date: 2022-01-18 09:13\n"
+
+msgid "A second font family used to display characters missing in the main font"
+msgstr "Семейство шрифтов, используемое для отображения символов, отсутствующих в основном шрифте"
+
+msgid "Abort all"
+msgstr "Прервать все"
+
+msgid "Acrylic background"
+msgstr "Акриловый фон"
+
+msgid "Add"
+msgstr "Добавить"
+
+msgid "Add a private key"
+msgstr "Добавить приватный ключ"
+
+msgid "Add..."
+msgstr "Добавить..."
+
+msgid "Additional space between lines"
+msgstr "Доп. пространство между строками"
+
+msgid "Advanced"
+msgstr "Расширенные"
+
+msgid "Agent"
+msgstr "Агент"
+
+msgid "Agent forwarding"
+msgstr "Перенаправление агента"
+
+msgid "Agent pipe path"
+msgstr "Путь к pipe-у SSH-агента"
+
+msgid "Agent type"
+msgstr "Тип агента"
+
+msgid "Allows opening .bat files in tabs, but breaks some shells"
+msgstr "Позволяет открывать .bat файлы во вкладках, но ломает некоторые оболочки"
+
+msgid "Allows quickly opening a terminal in the selected folder"
+msgstr "Позволяет быстро открыть терминал в выбранной папке"
+
+msgid "Appearance"
+msgstr "Внешний вид"
+
+msgid "Application"
+msgstr "Приложение"
+
+msgid "Application settings"
+msgstr "Настройки приложения"
+
+msgid "Are you sure you want to close Tabby? You can disable this prompt in Settings -> Window."
+msgstr "Вы уверены, что хотите закрыть Tabby? Это предупреждение можно отключить в Настройках -> Окно."
+
+msgid "Are you sure?"
+msgstr "Вы уверены?"
+
+msgid "Arguments"
+msgstr "Аргументы"
+
+msgid "Ask a question"
+msgstr "Задать вопрос"
+
+msgid "Ask before closing the browser tab"
+msgstr "Спрашивать перед закрытием вкладки"
+
+msgid "Audible"
+msgstr "Звук"
+
+msgid "Authentication method"
+msgstr "Метод аутентификации"
+
+msgid "Author"
+msgstr "Автор"
+
+msgid "Auto"
+msgstr "Автоматически"
+
+msgid "Auto-open a terminal on app start"
+msgstr "Автооткрытие терминала при запуске приложения"
+
+msgid "Automatic"
+msgstr "Автоматически"
+
+msgid "Automatic Updates"
+msgstr "Обновлять автоматически"
+
+msgid "Automatically upload changes and check for updates every minute"
+msgstr "Автоматически загружать изменения и проверять наличие обновлений каждую минуту"
+
+msgid "Available"
+msgstr "Доступно"
+
+msgid "Background type"
+msgstr "Тип фона"
+
+msgid "Baud rate"
+msgstr "Скорость передачи"
+
+msgid "Beginning of the line"
+msgstr "Начало строки"
+
+msgid "Blink cursor"
+msgstr "Мигающий курсор"
+
+msgid "Blue"
+msgstr "Синий"
+
+msgid "Blur"
+msgstr "Размытие"
+
+msgid "Bottom"
+msgstr "Внизу"
+
+msgid "Bracketed paste (requires shell support)"
+msgstr "Bracketed-вставка (требует поддержки оболочки)"
+
+msgid "Built-in"
+msgstr "Встроенные"
+
+msgid "Cancel"
+msgstr "Отмена"
+
+msgid "Change baud rate"
+msgstr "Изменить скорость передачи"
+
+msgid "Change the master passphrase"
+msgstr "Изменить мастер-пароль"
+
+msgid "Check for updates"
+msgstr "Проверить обновления"
+
+msgid "Chinese (simplified)"
+msgstr "Китайский (упрощенный)"
+
+msgid "Ciphers"
+msgstr "Шифры"
+
+msgid "Clear recent profiles"
+msgstr "Очистить недавние профили"
+
+msgid "Clear terminal"
+msgstr "Очистить терминал"
+
+msgid "Clipboard"
+msgstr "Буфер обмена"
+
+msgid "Close"
+msgstr "Закрыть"
+
+msgid "Close and never show again"
+msgstr "Закрыть и не показывать снова"
+
+msgid "Close focused pane"
+msgstr "Закрыть активную панель"
+
+msgid "Close other tabs"
+msgstr "Закрыть другие вкладки"
+
+msgid "Close tab"
+msgstr "Закрыть вкладку"
+
+msgid "Close tabs to the left"
+msgstr "Закрыть вкладки слева"
+
+msgid "Close tabs to the right"
+msgstr "Закрыть вкладки справа"
+
+msgid "Color"
+msgstr "Цвет"
+
+msgid "Color scheme"
+msgstr "Цветовая схема"
+
+msgid "Command line"
+msgstr "Командная строка"
+
+msgid "Command's stdin/stdout is used instead of a network connection"
+msgstr "Вместо сетевого соединения используется stdin/stdout команды"
+
+msgid "Compact"
+msgstr "Компактная"
+
+msgid "Config downloaded"
+msgstr "Конфигурация скачана"
+
+msgid "Config file"
+msgstr "Файл настроек"
+
+msgid "Config sync"
+msgstr "Синхронизация конфигурации"
+
+msgid "Config uploaded"
+msgstr "Конфигурация загружена"
+
+msgid "Configs"
+msgstr "Конфигурации"
+
+msgid "Connect through a proxy server"
+msgstr "Подключиться через прокси-сервер"
+
+msgid "Connect to \"%s\"..."
+msgstr "Подключиться к \"%s\"..."
+
+msgid "Connect to a different host first and use it as a proxy"
+msgstr "Подключиться к другому хосту и использовать его как прокси"
+
+msgid "Connecting"
+msgstr "Соединение"
+
+msgid "Connection"
+msgstr "Соединение"
+
+msgid "Connection failed: {error}"
+msgstr "Ошибка соединения: {error}"
+
+msgid "Connection name will be used instead"
+msgstr "Вместо этого будет использоваться имя соединения"
+
+msgid "Context menu"
+msgstr "Контекстное меню"
+
+msgid "Copied"
+msgstr "Скопировано"
+
+msgid "Copy"
+msgstr "Копировать"
+
+msgid "Copy current path"
+msgstr "Копировать текущий путь"
+
+msgid "Copy on select"
+msgstr "Копировать при выделении"
+
+msgid "Copy to clipboard"
+msgstr "Копировать в буфер обмена"
+
+msgid "Could not decrypt config"
+msgstr "Не удалось расшифровать конфигурацию"
+
+msgid "Croatian"
+msgstr ""
+
+msgid "Current"
+msgstr "Текущий"
+
+msgid "Current color scheme"
+msgstr "Текущая цветовая схема"
+
+msgid "Current process: {name}"
+msgstr "Текущий процесс: {name}"
+
+msgid "Cursor shape"
+msgstr "Форма курсора"
+
+msgid "Custom CSS"
+msgstr "Пользовательский CSS"
+
+msgid "Data bits"
+msgstr "Биты данных"
+
+msgid "Debugging"
+msgstr "Отладка"
+
+msgid "Default profile for new tabs"
+msgstr "Профиль по умолчанию для новых вкладок"
+
+msgid "Default profile settings"
+msgstr "Настройки профилей по умолчанию"
+
+msgid "Defaults"
+msgstr "Значения по умолчанию"
+
+msgid "Defaults for {type}"
+msgstr "По умолчанию для {type}"
+
+msgid "Delete"
+msgstr "Удалить"
+
+msgid "Delete \"{name}\"?"
+msgstr "Удалить \"{name}\"?"
+
+msgid "Delete next word"
+msgstr "Удалить следующее слово"
+
+msgid "Delete previous word"
+msgstr "Удалить предыдущее слово"
+
+msgid "Delete the group's profiles?"
+msgstr "Удалить профили этой группы?"
+
+msgid "Delete this script?"
+msgstr "Удалить этот скрипт?"
+
+msgid "Delete vault contents?"
+msgstr "Удалить содержимое хранилища?"
+
+msgid "Delete {fullPath}?"
+msgstr "Удалить {fullPath}?"
+
+msgid "Deleting"
+msgstr "Удаление"
+
+msgid "Device"
+msgstr "Устройство"
+
+msgid "Direct"
+msgstr "Напрямую"
+
+msgid "Disable"
+msgstr "Отключить"
+
+msgid "Disable GPU acceleration"
+msgstr "Отключить GPU-ускорение"
+
+msgid "Disable dynamic tab title"
+msgstr "Отключить динамический заголовок вкладки"
+
+msgid "Disabled"
+msgstr "Отключено"
+
+msgid "Display on"
+msgstr "Отобразить на"
+
+msgid "Do not abort"
+msgstr "Не прерывать"
+
+msgid "Do not remember"
+msgstr "Не запоминать"
+
+msgid "Dock always on top"
+msgstr "Закрепить поверх всех окон"
+
+msgid "Dock the terminal"
+msgstr "Закрепить терминал"
+
+msgid "Docked terminal size"
+msgstr "Размер закреплённого терминала"
+
+msgid "Docked terminal space"
+msgstr "Отступы закреплённого терминала"
+
+msgid "Docking"
+msgstr "Закрепление"
+
+msgid "Double-click selection will stop at these characters"
+msgstr "Выделение по двойному щелчку остановится на этих символах"
+
+msgid "Down"
+msgstr "Вниз"
+
+msgid "Download"
+msgstr "Скачать"
+
+msgid "Duplicate"
+msgstr "Дублировать"
+
+msgid "Duplicate as administrator"
+msgstr "Дублировать как администратор"
+
+msgid "Duplicate tab"
+msgstr "Дублировать вкладку"
+
+msgid "Dynamic"
+msgstr "Динамическое"
+
+msgid "Edit"
+msgstr "Изменить"
+
+msgid "Enable"
+msgstr "Включить"
+
+msgid "Enable analytics"
+msgstr "Включить аналитику"
+
+msgid "Enable automatic installation of updates when they become available."
+msgstr "Включить автоматическую установку обновлений, когда они доступны."
+
+msgid "Enable font ligatures"
+msgstr "Включить лигатуры шрифтов"
+
+msgid "Enable global hotkey (Ctrl-Space)"
+msgstr "Включить глобальную горячую клавишу (Ctrl-Space)"
+
+msgid "Enables the experimental Windows ConPTY API"
+msgstr "Включить экспериментальный API Windows ConPTY"
+
+msgid "Encrypt config file"
+msgstr "Зашифровать файл конфигурации"
+
+msgid "End of the line"
+msgstr "Конец строки"
+
+msgid "English"
+msgstr "Английский"
+
+msgid "Environment"
+msgstr "Окружение"
+
+msgid "Erase config"
+msgstr "Очистить конфигурацию"
+
+msgid "Erase the Vault"
+msgstr "Очистить хранилище"
+
+msgid "Error in {plugin}:"
+msgstr "Ошибка в {plugin}:"
+
+msgid "Exact match"
+msgstr "Точное совпадение"
+
+msgid "Example:"
+msgstr "Например:"
+
+msgid "Export"
+msgstr "Экспорт"
+
+msgid "Fallback font"
+msgstr "Запасной шрифт"
+
+msgid "File transfers"
+msgstr "Передача файлов"
+
+msgid "File: {description}"
+msgstr "Файл: {description}"
+
+msgid "Fixed"
+msgstr "Фиксированная"
+
+msgid "Focus all panes"
+msgstr "Фокус на все панелях"
+
+msgid "Focus all panes at once (broadcast)"
+msgstr "Фокус на все панели сразу (broadcast)"
+
+msgid "Focus next pane"
+msgstr "Фокус на следующей панели"
+
+msgid "Focus previous pane"
+msgstr "Фокус на предыдущей панели"
+
+msgid "Focus the pane above"
+msgstr "Фокус на панели сверху"
+
+msgid "Focus the pane below"
+msgstr "Фокус на панели снизу"
+
+msgid "Focus the pane on the left"
+msgstr "Фокус на панели слева"
+
+msgid "Focus the pane on the right"
+msgstr "Фокус на панели справа"
+
+msgid "Font"
+msgstr "Шрифт"
+
+msgid "Force CR"
+msgstr "Изменить на CR"
+
+msgid "Force CRLF"
+msgstr "Изменить на CRLF"
+
+msgid "Force LF"
+msgstr "Изменить на LF"
+
+msgid "Forces a specific SSH agent connection type."
+msgstr "Принудительно устанавливает определенный тип подключения к SSH-агенту."
+
+msgid "Forget"
+msgstr "Забыть"
+
+msgid "Forward port"
+msgstr "Перенаправить порт"
+
+msgid "Forwarded ports"
+msgstr "Перенаправленные порты"
+
+msgid "French"
+msgstr ""
+
+msgid "From color scheme"
+msgstr "Из цветовой схемы"
+
+msgid "From theme"
+msgstr "Из темы"
+
+msgid "Frontend"
+msgstr "Фронтенд"
+
+msgid "Full"
+msgstr "Полный"
+
+msgid "General"
+msgstr "Общие"
+
+msgid "Generate a pre-filled GitHub issue"
+msgstr "Открыть пред-заполненный отчет на GitHub"
+
+msgid "German"
+msgstr ""
+
+msgid "Get"
+msgstr "Получить"
+
+msgid "Get it from the Tabby Web settings window"
+msgstr "Скопируйте его из окна настроек web-версии Tabby"
+
+msgid "Gives the window a blurred transparent background"
+msgstr "Придает окну размытый прозрачный фон"
+
+msgid "Go up"
+msgstr "Вверх"
+
+msgid "Green"
+msgstr "Зелёный"
+
+msgid "Group"
+msgstr "Группа"
+
+msgid "Help track the number of Tabby installs across the world!"
+msgstr "Помогите отслеживать количество установок Tabby по всему миру!"
+
+msgid "Hexadecimal"
+msgstr "Шестнадцатеричный"
+
+msgid "Hide tab close button"
+msgstr "Скрыть кнопку закрытия вкладки"
+
+msgid "Hide tab index"
+msgstr "Скрыть нумерацию вкладок"
+
+msgid "Hide window on focus loss"
+msgstr "Скрыть окно при потере фокуса"
+
+msgid "Hides the docked terminal when you click away."
+msgstr "Скрывает закреплённый терминал при нажатии вне его."
+
+msgid "Homepage"
+msgstr "Главная страница"
+
+msgid "Host"
+msgstr "Хост"
+
+msgid "Host key"
+msgstr "Ключ хоста"
+
+msgid "Hotkeys"
+msgstr "Горячие клавиши"
+
+msgid "Icon"
+msgstr "Иконка"
+
+msgid "If disabled, only custom profiles will show up in the profile selector"
+msgstr "Если отключено, при выборе профиля будут отображаться только пользовательские профили"
+
+msgid "Immediately echoes your input locally"
+msgstr "Мгновенно локально отображает ваш ввод"
+
+msgid "Input is sent as you type"
+msgstr "Введённые данные передаются во время ввода"
+
+msgid "Input mode"
+msgstr "Режим ввода"
+
+msgid "Input newlines"
+msgstr "Переносы строк во вводе"
+
+msgid "Installed"
+msgstr "Установлено"
+
+msgid "Installing the update will close all tabs and restart Tabby."
+msgstr "Установка обновления приведет к закрытию всех вкладок и перезапуску Tabby."
+
+msgid "Intelligent Ctrl-C (copy/abort)"
+msgstr "Умный Ctrl-C (копировать/отменить)"
+
+msgid "Interactive"
+msgstr "Интерактивная"
+
+msgid "Invalid syntax"
+msgstr "Неверный синтаксис"
+
+msgid "Jump host"
+msgstr "Промежуточный хост"
+
+msgid "Jump to next word"
+msgstr "Перейти к следующему слову"
+
+msgid "Jump to previous word"
+msgstr "Перейти к предыдущему слову"
+
+msgid "Keep"
+msgstr "Оставить"
+
+msgid "Keep Alive Interval (Milliseconds)"
+msgstr "Интервал проверки соединения (мс)"
+
+msgid "Keep docked terminal always on top"
+msgstr "Отображать закреплённый терминал всегда поверх всех окон"
+
+msgid "Key"
+msgstr "Ключ"
+
+msgid "Key exchange"
+msgstr "Обмен ключами"
+
+msgid "Keyboard-interactive auth"
+msgstr "Интерактивная аутентификация"
+
+msgid "Language"
+msgstr "Язык"
+
+msgid "Launch WinSCP"
+msgstr "Запустить WinSCP"
+
+msgid "Launch WinSCP for current SSH session"
+msgstr "Запустить WinSCP для текущей SSH сессии"
+
+msgid "Learn how to allow Tabby to detect remote shell's working directory."
+msgstr "Узнайте, как разрешить Tabby определять рабочий каталог удалённой оболочки."
+
+msgid "Left"
+msgstr "Налево"
+
+msgid "Lets the shell handle Meta key instead of OS"
+msgstr "Позволяет оболочке обрабатывать клавишу Meta вместо ОС"
+
+msgid "Line by line"
+msgstr "Построчно"
+
+msgid "Line editor, input is sent after you press Enter"
+msgstr "Редактор строк, ввод отправляется после нажатия Enter"
+
+msgid "Line padding"
+msgstr "Междустрочный интервал"
+
+msgid "Loading"
+msgstr "Загрузка"
+
+msgid "Loading configs..."
+msgstr "Загрузка конфигураций..."
+
+msgid "Local"
+msgstr "Локальное"
+
+msgid "Local echo"
+msgstr "Локальное эхо"
+
+msgid "Local terminal"
+msgstr "Локальный терминал"
+
+msgid "Login scripts"
+msgstr "Скрипты входа"
+
+msgid "Long-click for context menu"
+msgstr "Долгое нажатие для контекстного меню"
+
+msgid "Manage profiles"
+msgstr "Управление профилями"
+
+msgid "Max Keep Alive Count"
+msgstr "Максимальное количество проверок соединения"
+
+msgid "Maximize the active pane"
+msgstr "Развернуть активную панель"
+
+msgid "Modified on {date}"
+msgstr "Изменено {date}"
+
+msgid "Move tab to the left"
+msgstr "Переместить вкладку влево"
+
+msgid "Move tab to the right"
+msgstr "Переместить вкладку вправо"
+
+msgid "Move to \"Ungrouped\""
+msgstr "Переместить в «Без группы»"
+
+msgid "Name"
+msgstr "Имя"
+
+msgid "Name for the new config"
+msgstr "Имя для новой конфигурации"
+
+msgid "Native"
+msgstr "Системная"
+
+msgid "New admin tab"
+msgstr "Новый как администратор"
+
+msgid "New config on {platform}"
+msgstr "Новая конфигурация на {platform}"
+
+msgid "New item"
+msgstr "Новый элемент"
+
+msgid "New name"
+msgstr "Новое имя"
+
+msgid "New profile"
+msgstr "Новый профиль"
+
+msgid "New profile name"
+msgstr "Новое имя профиля"
+
+msgid "New tab"
+msgstr "Новая вкладка"
+
+msgid "New terminal"
+msgstr "Новый терминал"
+
+msgid "New window"
+msgstr "Новое окно"
+
+msgid "New with profile"
+msgstr "Новый с профилем"
+
+msgid "Next tab"
+msgstr "Следующая вкладка"
+
+msgid "No color"
+msgstr "Без цвета"
+
+msgid "No modifier"
+msgstr "Без модификатора"
+
+msgid "None"
+msgstr "Нет"
+
+msgid "Normal"
+msgstr "Нормальный"
+
+msgid "Not found"
+msgstr "Не найдено"
+
+msgid "Notify on activity"
+msgstr "Уведомить об активности"
+
+msgid "Notify when done"
+msgstr "Уведомить о завершении"
+
+msgid "Number of lines kept in the buffer"
+msgstr "Количество строк, сохраняемых в буфере"
+
+msgid "OS default"
+msgstr "По умолчанию для ОС"
+
+msgid "OS default ({name})"
+msgstr "По умолчанию для ОС ({name})"
+
+msgid "Off"
+msgstr "Выкл."
+
+msgid "Official"
+msgstr "Официальный"
+
+msgid "On GitHub Discussions"
+msgstr "На GitHub Discussions"
+
+msgid "Opacity"
+msgstr "Прозрачность"
+
+msgid "Open"
+msgstr "Открыть"
+
+msgid "Open DevTools"
+msgstr "Открыть DevTools"
+
+msgid "Open SFTP panel"
+msgstr "Открыть панель SFTP"
+
+msgid "Open Settings"
+msgstr "Открыть настройки"
+
+msgid "Optional"
+msgstr "Опциональный"
+
+msgid "Options"
+msgstr "Параметры"
+
+msgid "Orange"
+msgstr "Оранжевый"
+
+msgid "Output is shown as a hexdump"
+msgstr "Вывод показан в шестнадцатеричном виде"
+
+msgid "Output is shown as it is received"
+msgstr "Вывод показан в изначальном виде"
+
+msgid "Output mode"
+msgstr "Режим вывода"
+
+msgid "Output newlines"
+msgstr "Переносы строк в выводе"
+
+msgid "Override X11 display"
+msgstr "Переопределить дисплей X11"
+
+msgid "Overwrite local and sync"
+msgstr "Перезаписать локальную конфигурацию и синхронизировать"
+
+msgid "Overwrite remote and sync"
+msgstr "Перезаписать удаленную конфигурацию и синхронизировать"
+
+msgid "Overwrite the config on the remote side and start syncing?"
+msgstr "Перезаписать удаленную конфигурацию и начать синхронизацию?"
+
+msgid "Overwrite the local config and start syncing?"
+msgstr "Перезаписать локальную конфигурацию и начать синхронизацию?"
+
+msgid "Parity"
+msgstr "Контроль чётности"
+
+msgid "Partial config sync is not possible when the config is encrypted via Vault."
+msgstr "Частичная синхронизация конфигурации невозможна, если конфигурация зашифрована с помощью хранилища."
+
+msgid "Passphrase for a private key with hash {hash}..."
+msgstr "Парольная фраза для приватного ключа с хэшем {hash}..."
+
+msgid "Password"
+msgstr "Пароль"
+
+msgid "Paste"
+msgstr "Вставить"
+
+msgid "Paste from clipboard"
+msgstr "Вставить из буфера обмена"
+
+msgid "Paste multiple lines?"
+msgstr "Вставить несколько строк?"
+
+msgid "Paste on middle-click"
+msgstr "Вставить средней кнопкой мыши"
+
+msgid "Path or address of the local X11 socket"
+msgstr "Путь или адрес локального сокета X11"
+
+msgid "Pin"
+msgstr "Закрепить"
+
+msgid "Plugins"
+msgstr "Плагины"
+
+msgid "Plugins folder"
+msgstr "Папка с плагинами"
+
+msgid "Port"
+msgstr "Порт"
+
+msgid "Ports"
+msgstr "Порты"
+
+msgid "Press the key now"
+msgstr "Нажмите клавишу"
+
+msgid "Prevents accidental closing"
+msgstr "Предотвращает случайное закрытие"
+
+msgid "Prevents accidental execution of pasted commands"
+msgstr "Предотвращает случайное выполнение вставленных команд"
+
+msgid "Previous tab"
+msgstr "Предыдущая вкладка"
+
+msgid "Private keys"
+msgstr "Приватные ключи"
+
+msgid "Process completed"
+msgstr "Процесс завершён"
+
+msgid "Profile name"
+msgstr "Название профиля"
+
+msgid "Profiles"
+msgstr "Профили"
+
+msgid "Profiles & connections"
+msgstr "Профили и соединения"
+
+msgid "Program"
+msgstr "Программа"
+
+msgid "Proxy command"
+msgstr "Прокси-команда"
+
+msgid "Purple"
+msgstr "Фиолетовый"
+
+msgid "Puts all of Tabby's configuration into the vault"
+msgstr "Помещает всю конфигурацию Tabby в зашифрованное хранилище"
+
+msgid "Quick connect"
+msgstr "Быстрое подключение"
+
+msgid "Quit"
+msgstr "Выйти"
+
+msgid "Raw socket connection"
+msgstr "Подключение через сокет"
+
+msgid "Ready Timeout (Milliseconds)"
+msgstr "Таймаут подключения (мс)"
+
+msgid "Recent"
+msgstr "Недавние"
+
+msgid "Reconnect"
+msgstr "Переподключение"
+
+msgid "Red"
+msgstr "Красный"
+
+msgid "Regex"
+msgstr "Regex"
+
+msgid "Release notes"
+msgstr "Список изменений"
+
+msgid "Remember for {time}"
+msgstr "Запомнить на {time}"
+
+msgid "Remote"
+msgstr "Удаленное"
+
+msgid "Rename"
+msgstr "Переименовать"
+
+msgid "Rename Tab"
+msgstr "Переименовать вкладку"
+
+msgid "Rendering"
+msgstr "Отображение"
+
+msgid "Reopen last tab"
+msgstr "Восстановить последнюю вкладку"
+
+msgid "Replace"
+msgstr "Заменить"
+
+msgid "Report a problem"
+msgstr "Сообщить о проблеме"
+
+msgid "Require a key to click links"
+msgstr "Требовать зажатие клавишы для перехода по ссылкам"
+
+msgid "Reset zoom"
+msgstr "Сбросить масштабирование"
+
+msgid "Restart current SSH session"
+msgstr "Перезапустить текущую SSH сессию"
+
+msgid "Restart current Telnet session"
+msgstr "Перезапустить текущую сессию Telnet"
+
+msgid "Restart current serial session"
+msgstr "Перезапустить текущую последовательную сессию"
+
+msgid "Restart the app to apply changes"
+msgstr "Перезапустите приложение, чтобы применить изменения"
+
+msgid "Restore terminal tabs on app start"
+msgstr "Восстанавливать вкладки терминала при запуске приложения"
+
+msgid "Reuse session for multiple tabs"
+msgstr "Повторное использование сессии для нескольких вкладок"
+
+msgid "Right"
+msgstr "Направо"
+
+msgid "Right click"
+msgstr "Правый клик"
+
+msgid "Run as administrator"
+msgstr "Запустить от имени администратора"
+
+msgid "SOCKS proxy"
+msgstr "SOCKS прокси"
+
+msgid "SOCKS proxy host"
+msgstr "Хост SOCKS прокси"
+
+msgid "SOCKS proxy port"
+msgstr "Порт SOCKS прокси"
+
+msgid "SSH connection"
+msgstr "SSH-соединение"
+
+msgid "SSH connection management is now done through the"
+msgstr "Управление SSH-соединением теперь осуществляется через"
+
+msgid "SSH password for {user}@{host}:{port}"
+msgstr "Пароль SSH для {user}@{host}:{port}"
+
+msgid "Save"
+msgstr "Сохранить"
+
+msgid "Save a password in the keychain"
+msgstr "Сохранение пароля в связке ключей"
+
+msgid "Save and apply"
+msgstr "Сохранить и применить"
+
+msgid "Save as profile"
+msgstr "Сохранить как профиль"
+
+msgid "Save layout as profile"
+msgstr "Сохранить как профиль"
+
+msgid "Saved"
+msgstr "Сохранено"
+
+msgid "Saved layout"
+msgstr "Сохранённое расположение"
+
+msgid "Scroll on input"
+msgstr "Прокручивать при вводе"
+
+msgid "Scroll terminal to bottom"
+msgstr "Прокрутить терминал вниз"
+
+msgid "Scrollback"
+msgstr "Буфер обратной прокрутки"
+
+msgid "Scrolls the terminal to the bottom on user input"
+msgstr "Прокручивает терминал вниз при вводе"
+
+msgid "Search"
+msgstr "Поиск"
+
+msgid "Secret sync token"
+msgstr "Секретный токен синхронизации"
+
+msgid "Select"
+msgstr "Выбрать"
+
+msgid "Select a base profile to use as a template"
+msgstr "Выберите базовый профиль для использования в качестве шаблона"
+
+msgid "Select file storage"
+msgstr "Выберите хранилище файлов"
+
+msgid "Select profile"
+msgstr "Выбрать профиль"
+
+msgid "Select profile or enter an address"
+msgstr "Выберите профиль или введите адрес"
+
+msgid "Send bytes by typing in hex values"
+msgstr "Отправлять байты, вводя шестнадцатеричные значения"
+
+msgid "Sends data one byte at a time"
+msgstr "Отправляет данные по одному байту за раз"
+
+msgid "Serial"
+msgstr "Последовательный порт"
+
+msgid "Serial connection"
+msgstr "Соединение по последовательному порту"
+
+msgid "Serial: {description}"
+msgstr "Последовательный порт: {description}"
+
+msgid "Set Tabby as %COMSPEC%"
+msgstr "Установить Tabby как %COMSPEC%"
+
+msgid "Set master passphrase"
+msgstr "Установить мастер-пароль"
+
+msgid "Set passphrase"
+msgstr "Установить мастер-пароль"
+
+msgid "Set password"
+msgstr "Установить пароль"
+
+msgid "Set to 0 to disable recent profiles"
+msgstr "0 отключает последние профили"
+
+msgid "Sets the SSH agent's named pipe path."
+msgstr "Установка пути для named pipe SSH-агента."
+
+msgid "Settings"
+msgstr "Настройки"
+
+msgid "Shell"
+msgstr "Shell"
+
+msgid "Shell does not support current path detection"
+msgstr "Shell не поддерживает обнаружение текущего пути"
+
+msgid "Shell integration"
+msgstr "Интеграция в систему"
+
+msgid "Show Mixer"
+msgstr "Показать микшер"
+
+msgid "Show Serial connections"
+msgstr "Показать соединения по последовательному порту"
+
+msgid "Show a confirmation box when pasting multiple lines"
+msgstr "Показывать окно подтверждения при вставке нескольких строк"
+
+msgid "Show built-in profiles in selector"
+msgstr "Показывать встроенные профили при выборе"
+
+msgid "Show config file"
+msgstr "Показать файл настроек"
+
+msgid "Show defaults"
+msgstr "Показать значения по умолчанию"
+
+msgid "Show pane labels (for rearranging)"
+msgstr "Показать названия панелей (для перестановки)"
+
+msgid "Show profile selector"
+msgstr "Показать выбор профиля"
+
+msgid "Show recent profiles in selector"
+msgstr "Показать последние профили при выборе"
+
+msgid "Show release notes"
+msgstr "Посмотреть изменения в релизе"
+
+msgid "Show vault contents"
+msgstr "Показать содержимое хранилища"
+
+msgid "Skip MoTD/banner"
+msgstr "Пропустить MoTD/баннер"
+
+msgid "Slow feed"
+msgstr "Медленная отсылка"
+
+msgid "Snaps the window to a side of the screen"
+msgstr "Закрепляет окно к выбранному краю экрана"
+
+msgid "Source code"
+msgstr "Исходный код"
+
+msgid "Split"
+msgstr "Разделить"
+
+msgid "Split to the bottom"
+msgstr "Разделить снизу"
+
+msgid "Split to the left"
+msgstr "Разделить слева"
+
+msgid "Split to the right"
+msgstr "Разделить справа"
+
+msgid "Split to the top"
+msgstr "Разделить сверху"
+
+msgid "Standard"
+msgstr "Стандартная"
+
+msgid "Startup"
+msgstr "При запуске"
+
+msgid "Stop bits"
+msgstr "Стоп-биты"
+
+msgid "Strip"
+msgstr "Удалить"
+
+msgid "Subscribe to updates"
+msgstr "Подпишитесь на обновления"
+
+msgid "Substitutions allowed."
+msgstr "Допускаются подстановки."
+
+msgid "Switch profile"
+msgstr "Сменить профиль"
+
+msgid "Switch profile in the active pane"
+msgstr "Сменить профиль в активной панели"
+
+msgid "Switches terminal frontend implementation (experimental)"
+msgstr "Переключение реализации frontend для терминала (экспериментально)"
+
+msgid "Sync"
+msgstr "Синхронизация"
+
+msgid "Sync Vault"
+msgstr "Синхронизация хранилища"
+
+msgid "Sync automatically"
+msgstr "Автоматическая синхронизация"
+
+msgid "Sync host"
+msgstr "Хост синхронизации"
+
+msgid "Sync hotkeys"
+msgstr "Синхронизация горячих клавиш"
+
+msgid "Sync window settings"
+msgstr "Синхронизация настроек окна"
+
+msgid "Tab activity"
+msgstr "Активность во вкладке"
+
+msgid "Tab {number}"
+msgstr ""
+
+msgid "Tabby could not start with your plugins, so all third party plugins have been disabled in this session. The error was:"
+msgstr "Tabby не смог запуститься с вашими плагинами, поэтому все сторонние плагины были отключены в этой сессии. Ошибка в следующем:"
+
+msgid "Tabby news and updates on Twitter"
+msgstr "Новости и обновления Tabby в Twitter"
+
+msgid "Tabs"
+msgstr "Вкладки"
+
+msgid "Tabs location"
+msgstr "Расположение вкладок"
+
+msgid "Tabs width"
+msgstr "Ширина вкладки"
+
+msgid "Telnet session"
+msgstr "Telnet сессия"
+
+msgid "Terminal"
+msgstr "Терминал"
+
+msgid "Terminal background"
+msgstr "Фон терминала"
+
+msgid "Terminal bell"
+msgstr "Звуковой сигнал терминала"
+
+msgid "Thank you for downloading Tabby!"
+msgstr "Благодарим за загрузку Tabby!"
+
+msgid "Theme"
+msgstr "Тема"
+
+msgid "There are active file transfers"
+msgstr "Есть активные передачи файлов"
+
+msgid "There is a saved password for this connection"
+msgstr "Для этого соединения сохранён пароль"
+
+msgid "These apply to all profiles of a given type"
+msgstr "Применяются для всех профилей данного типа"
+
+msgid "Thin"
+msgstr "Тонкая"
+
+msgid "Tick this if you're experiencing aliasing, ghosting or other visual issues"
+msgstr "Включите, если испытываете алиасинг, гостинг или иные проблемы с отображением"
+
+msgid "Toggle fullscreen mode"
+msgstr "Переход в полноэкранный режим и обратно"
+
+msgid "Toggle last tab"
+msgstr "Переключиться на последнюю вкладку"
+
+msgid "Toggle terminal window"
+msgstr "Скрыть/показать окно терминала"
+
+msgid "Toggles the Tabby window visibility"
+msgstr "Переключает видимость окна Tabby"
+
+msgid "Top"
+msgstr "Сверху"
+
+msgid "Try again"
+msgstr "Повторить"
+
+msgid "Trying saved password"
+msgstr "Пробуем сохранённый пароль"
+
+msgid "Ungrouped"
+msgstr "Без группы"
+
+msgid "Uninstall"
+msgstr "Удалить"
+
+msgid "Unknown"
+msgstr "Неизвестно"
+
+msgid "Unknown secret of type {type} for {key}"
+msgstr "Неизвестный тип секретных данных {type} для {key}"
+
+msgid "Unpin"
+msgstr "Открепить"
+
+msgid "Up"
+msgstr "Вверх"
+
+msgid "Update"
+msgstr "Обновить"
+
+msgid "Upgrade to {version}"
+msgstr "Обновить до {version}"
+
+msgid "Upload"
+msgstr "Загрузить"
+
+msgid "Upload as a new config"
+msgstr "Загрузить как новую конфигурацию"
+
+msgid "Use ConPTY"
+msgstr "Использовать ConPTY"
+
+msgid "Use {altKeyName} as the Meta key"
+msgstr "Использовать {altKeyName} в качестве клавиши Meta"
+
+msgid "User default"
+msgstr "По умолчанию для пользователя"
+
+msgid "Username"
+msgstr "Имя пользователя"
+
+msgid "Using preset password"
+msgstr "Используем предустановленный пароль"
+
+msgid "Vault"
+msgstr "Хранилище"
+
+msgid "Vault is an always-encrypted container for secrets such as SSH passwords and private key passphrases."
+msgstr "Хранилище представляет собой постоянно зашифрованный контейнер, содержащий такие секретные данные, как SSH-пароли и парольные фразы приватных ключей."
+
+msgid "Vault is empty"
+msgstr "Хранилище пусто"
+
+msgid "Vault is locked"
+msgstr "Хранилище закрыто"
+
+msgid "Vault is not configured"
+msgstr "Хранилище не сконфигурировано"
+
+msgid "Vault master passphrase needs to be set to allow storing secrets"
+msgstr "Для сохранения секретных данных должен быть задан мастер-пароль хранилища"
+
+msgid "Version"
+msgstr "Версия"
+
+msgid "Version: {version}"
+msgstr "Версия: {version}"
+
+msgid "Vibrancy"
+msgstr "Размытый фон"
+
+msgid "Visual"
+msgstr "Визуально"
+
+msgid "WSL terminal bell can only be muted via Volume Mixer"
+msgstr "Колокольчик терминала WSL может быть заглушён только при помощи микшера громкости"
+
+msgid "WSL terminal only supports TrueColor with ConPTY"
+msgstr "Терминал WSL поддерживает TrueColor только с ConPTY"
+
+msgid "Warn on multi-line paste"
+msgstr "Предупреждать при многострочной вставке"
+
+msgid "Warn when closing active connections"
+msgstr "Предупреждать при закрытии активных соединений"
+
+msgid "We're only tracking your Tabby and OS versions."
+msgstr "Отслеживается только версия ОС и приложения."
+
+msgid "Welcome"
+msgstr "Добро пожаловать"
+
+msgid "What's new"
+msgstr "Что нового"
+
+msgid "When WinSCP is detected, you can launch an SCP session from the context menu."
+msgstr "Если WinSCP обнаружен, можно запускать SCP-сессии из контекстного меню."
+
+msgid "When enabled, links are only clickable while holding this key"
+msgstr "Когда включено, ссылки можно нажимать, только удерживая эту клавишу"
+
+msgid "Whether a custom window or an OS native window should be used"
+msgstr "Должно ли использоваться кастомное оформление окна или системное"
+
+msgid "WinSCP path"
+msgstr "Путь к WinSCP"
+
+msgid "Window"
+msgstr "Окно"
+
+msgid "Window dimension along the edge"
+msgstr "Размеры окна вдоль края"
+
+msgid "Window dimension away from the edge"
+msgstr "Размеры окна от края"
+
+msgid "Window frame"
+msgstr "Рамка окна"
+
+msgid "Windows 10 build 18309 or above is recommended for ConPTY"
+msgstr "Для ConPTY рекомендуется Windows 10 build 18309 или выше"
+
+msgid "Word separators"
+msgstr "Разделители слов"
+
+msgid "Working directory"
+msgstr "Рабочий каталог"
+
+msgid "Working directory detection"
+msgstr "Определение рабочего каталога"
+
+msgid "X11 forwarding"
+msgstr "Перенаправление X11"
+
+msgid "Yellow"
+msgstr "Жёлтый"
+
+msgid "You can change it later, but it's unrecoverable if forgotten."
+msgstr "Вы можете изменить его позже, но, если забудете, восстановить будет невозможно."
+
+msgid "Zoom in"
+msgstr "Приблизить"
+
+msgid "Zoom out"
+msgstr "Отдалить"
+
+msgid "click"
+msgstr "нажать"
+
+msgid "tab"
+msgstr "вкладка"
+
+msgid "{name} copy"
+msgstr "Копия {name}"
+
