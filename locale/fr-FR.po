@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2022-01-18 09:13\n"
+"PO-Revision-Date: 2022-01-18 20:25\n"
 
 msgid "A second font family used to display characters missing in the main font"
 msgstr "Une seconde famille de polices utilisable pour afficher les caractères absents de la police principale"
@@ -255,7 +255,7 @@ msgid "Could not decrypt config"
 msgstr "Impossible de déchiffrer la configuration"
 
 msgid "Croatian"
-msgstr ""
+msgstr "Croate"
 
 msgid "Current"
 msgstr "Actif"
@@ -492,7 +492,7 @@ msgid "Forwarded ports"
 msgstr "Ports transférés"
 
 msgid "French"
-msgstr ""
+msgstr "Français"
 
 msgid "From color scheme"
 msgstr "A partir du schéma de couleurs"
@@ -513,7 +513,7 @@ msgid "Generate a pre-filled GitHub issue"
 msgstr "Générer une issue GitHub pré-remplie"
 
 msgid "German"
-msgstr ""
+msgstr "Allemand"
 
 msgid "Get"
 msgstr "Obtenir"
@@ -1215,7 +1215,7 @@ msgid "Tab activity"
 msgstr "Activité de l'onglet"
 
 msgid "Tab {number}"
-msgstr ""
+msgstr "Onglet {number}"
 
 msgid "Tabby could not start with your plugins, so all third party plugins have been disabled in this session. The error was:"
 msgstr "Tabby n'a pas pu démarrer avec vos extensions, tous les plugins tiers ont été désactivés dans cette session. L'erreur était :"

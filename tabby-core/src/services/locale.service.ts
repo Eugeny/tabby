@@ -35,7 +35,17 @@ export class TranslateServiceWrapper extends TranslateService {
 export class LocaleService {
     private logger: Logger
 
-    static readonly allLocales = ['en-US', 'de-DE', 'fr-FR', 'hr-HR', 'pl-PL', 'ru-RU', 'zh-CN']
+    static readonly allLocales = [
+        'en-US',
+        'de-DE',
+        'fr-FR',
+        'hr-HR',
+        'pl-PL',
+        'ru-RU',
+        'zh-CN',
+        'zh-TW',
+    ]
+
     readonly allLanguages: { code: string, name: string }[]
 
     get localeChanged$ (): Observable<string> {
@@ -68,6 +78,10 @@ export class LocaleService {
                 name: translate.instant('Chinese (simplified)'),
             },
             {
+                code: 'zh-TW',
+                name: translate.instant('Chinese (traditional)'),
+            },
+            {
                 code: 'hr-HR',
                 name: translate.instant('Croatian'),
             },
@@ -84,7 +98,7 @@ export class LocaleService {
                 name: translate.instant('Polish'),
             },
             {
-                code: 'ru-EU',
+                code: 'ru-RU',
                 name: translate.instant('Russian'),
             },
         ]

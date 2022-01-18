@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Polish\n"
 "Language: pl_PL\n"
-"PO-Revision-Date: 2022-01-18 13:02\n"
+"PO-Revision-Date: 2022-01-18 20:53\n"
 
 msgid "A second font family used to display characters missing in the main font"
 msgstr "Druga rodzina czcionek używana do wyświetlania znaków, których brakuje w głównej czcionce"
@@ -1359,7 +1359,7 @@ msgid "Vibrancy"
 msgstr "Wibracja"
 
 msgid "Visual"
-msgstr "Wygląd"
+msgstr "Wizualny"
 
 msgid "WSL terminal bell can only be muted via Volume Mixer"
 msgstr "Dzwonek terminala WSL może być wyciszony tylko przez miksera głośności"

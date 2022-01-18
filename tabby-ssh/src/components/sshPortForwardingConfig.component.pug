@@ -13,7 +13,7 @@
         button.btn.btn-link.hover-reveal.ml-auto((click)='remove(fw)')
             i.fas.fa-trash-alt
 
-h5 Add a port forward
+h5(translate) Add a port forward
 
 .input-group.mb-2(*ngIf='newForward.type === PortForwardType.Dynamic')
     input.form-control(type='text', [(ngModel)]='newForward.host')
