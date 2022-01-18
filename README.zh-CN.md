@@ -2,7 +2,7 @@
 
 
 <p align="center">
-  <a href="https://github.com/Eugeny/tabby/releases/latest"><img alt="GitHub All Releases" src="https://img.shields.io/github/downloads/eugeny/tabby/total.svg?label=DOWNLOADS&logo=github&style=for-the-badge"></a> &nbsp; <a href="https://nightly.link/Eugeny/tabby/workflows/build/master"><img src="https://shields.io/badge/-Nightly%20Builds-orange?logo=hackthebox&logoColor=fff&style=for-the-badge"/></a> &nbsp; <a href="https://matrix.to/#/#tabby-general:matrix.org"><img alt="Matrix" src="https://img.shields.io/matrix/tabby-general:matrix.org?logo=matrix&style=for-the-badge&color=magenta"></a> &nbsp; <a href="https://twitter.com/eugeeeeny"><img alt="Twitter" src="https://shields.io/badge/Subscribe-News-blue?logo=twitter&style=for-the-badge&color=blue"></a>
+  <a href="https://github.com/Eugeny/tabby/releases/latest"><img alt="GitHub All Releases" src="https://img.shields.io/github/downloads/eugeny/tabby/total.svg?label=DOWNLOADS&logo=github&style=for-the-badge"></a> &nbsp; <a href="https://nightly.link/Eugeny/tabby/workflows/build/master"><img src="https://shields.io/badge/-Nightly%20Builds-orange?logo=hackthebox&logoColor=fff&style=for-the-badge"/></a> &nbsp; <a href="https://matrix.to/#/#tabby-general:matrix.org"><img alt="Matrix" src="https://img.shields.io/matrix/tabby-general:matrix.org?logo=matrix&style=for-the-badge&color=magenta"></a> &nbsp <a href="https://translate.tabby.sh/"><img alt="Translate" src="https://shields.io/badge/Translate-UI-white?logo=googletranslate&style=for-the-badge&color=white&logoColor=fff"></a> &nbsp; <a href="https://twitter.com/eugeeeeny"><img alt="Twitter" src="https://shields.io/badge/Subscribe-News-blue?logo=twitter&style=for-the-badge&color=blue"></a>
 </p>
 
 <p align="center">
@@ -19,6 +19,11 @@
 * [Repositories](https://packagecloud.io/eugeny/tabby): [Debian/Ubuntu-based](https://packagecloud.io/eugeny/tabby/install#bash-deb), [RPM-based](https://packagecloud.io/eugeny/tabby/install#bash-rpm)
 * [Latest nightly build](https://nightly.link/Eugeny/tabby/workflows/build/master)
 
+<br/>
+<p align="center">
+本 README 还适用于以下语言: <a href="./README.ru-RU.md">Русский</a> <a href="./README.ko-KR.md">한국어</a> <a href="./README.zh-CN.md">简体中文</a>
+</p>
+
 ----
 
 [**Tabby**](https://tabby.sh) (前身是 **Terminus**) 是一个可高度配置的终端模拟器和 SSH 或串口客户端，支持 Windows，macOS 和 Linux
@@ -27,15 +32,15 @@
 * 集成串行终端
 * 定制主题和配色方案
 * 完全可配置的快捷键和多键快捷键
-* 拆分窗格
-* 记住你的标签
+* 分体式窗格
+* 自动保存选项卡
 * 支持 PowerShell（和 PS Core）、WSL、Git-Bash、Cygwin、MSYS2、Cmder 和 CMD
 * 在 SSH 会话中通过 Zmodem 进行直接文件传输
 * 完整的 Unicode 支持，包括双角字符
 * 不会因快速的输出而卡住
-* Windows 上的正确 shell 体验，包括 tab 自动补全（通过 Clink）
-* Integrated encrypted container for SSH secrets and configuration
-* SSH、SFTP 和 Telnet 客户端可用作 [Web 应用程序](https://tabby.sh/app)（也可[托管](https://github.com/Eugeny/tabby-web)）
+* Windows 上舒适的 shell 体验，包括 tab 自动补全（通过 Clink）
+* 为 SSH secrets 和设置集成了加密容器
+* SSH、SFTP 和 Telnet 客户端可用作 [Web 应用](https://tabby.sh/app)（也可[托管](https://github.com/Eugeny/tabby-web)）
 
 # 目录 <!-- omit in toc -->
 
@@ -54,7 +59,7 @@
 
 * **Tabby 是** Windows 标准终端 (conhost)、PowerShell ISE、PuTTY、macOS Terminal.app 和 iTerm 的替代品
 
-* **Tabby 不是** Tabby 不是新的 shell，也不是 MinGW 或 Cygwin 的替代品。它也不是轻量级的 - 如果，请考虑 [Conemu](https://conemu.github.io) 或 [Alacritty](https://github.com/jwilm/alacritty)
+* **Tabby 不是** Tabby 不是一个全新的 shell，也不是 MinGW 或 Cygwin 的替代品。它也不是轻量级的 - 如果你对内存的占用很敏感，请考虑 [Conemu](https://conemu.github.io) 或 [Alacritty](https://github.com/jwilm/alacritty)
 <a name="terminal"></a>
 
 # 终端特性
@@ -63,11 +68,11 @@
 
 * 一个 V220 终端 + 各种插件
 * 多个嵌套的拆分窗格
-* Tabs on any side of the window
+* 可以将选项卡设置在窗口的任意一侧
 * 带有全局生成热键的可选可停靠窗口（“Quake console”）
 * 进度检测
 * 流程完成通知
-* 括号粘贴，多行粘贴警告
+* 带括号的粘贴，多行粘贴提示
 * 连体字
 * 自定义 shell 配置文件
 * 可选的 RMB 粘贴和复制选择（PuTTY 风格）
@@ -86,31 +91,31 @@
 <a name="serial"></a>
 # 串行终端
 
-* 保存链接
-* Readline 输入支持
+* 保存连接
+* 逐行读取的输入支持
 * 可选的十六进制逐字节输入和十六进制转储输出
 * 换行转换
 * 自动重连
 
 <a name="portable"></a>
-# 可移植的
+# 便携式应用
 
-如果在 Tabby.exe 所在的同一位置创建数据文件夹，Tabby 将在 Windows 上作为便携式的应用程序运行。
+如果在 Tabby.exe 所在的目录创建一个名为`data`文件夹，Tabby 将可以在 Windows 上作为便携式的应用程序运行。
 
 <a name="plugins"></a>
 # 插件
 
-插件和主题可以直接从 Tabby 中的设置视图安装。
+插件和主题可以直接在 Tabby 设置中安装。
 
 * [clickable-links](https://github.com/Eugeny/tabby-clickable-links) - 使终端中的路径和 URL 可点击
-* [docker](https://github.com/Eugeny/tabby-docker) - 连接到 Docker 容器
+* [docker](https://github.com/Eugeny/tabby-docker) - 连接 Docker 容器
 * [title-control](https://github.com/kbjr/terminus-title-control) - 允许通过提供要删除的前缀、后缀和/或字符串来修改终端选项卡的标题
 * [quick-cmds](https://github.com/Domain/terminus-quick-cmds) - 快速向一个或所有终端选项卡发送命令
 * [save-output](https://github.com/Eugeny/tabby-save-output) - 将终端输出记录到文件中
 * [sync-config](https://github.com/starxg/terminus-sync-config) - 将配置同步到 Gist 或 Gitee
-* [clippy](https://github.com/Eugeny/tabby-clippy) - 一个一直打扰你的示例插件
+* [clippy](https://github.com/Eugeny/tabby-clippy) - 一个可以一直烦你的示例插件
 * [workspace-manager](https://github.com/composer404/tabby-workspace-manager) - 允许根据给定的配置创建自定义工作区配置文件
-* [search-in-browser](https://github.com/composer404/tabby-search-in-browser) - 使用从 Tabby 选项卡中选择的文本打开默认系统浏览器
+* [search-in-browser](https://github.com/composer404/tabby-search-in-browser) - 从 Tabby 选项卡中选择的文本打开默认系统浏览器
 
 <a name="themes"></a>
 # 主题
@@ -213,6 +218,16 @@
     <td align="center"><a href="https://github.com/highfredo"><img src="https://avatars.githubusercontent.com/u/5951524?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Alfredo Arellano de la Fuente</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=highfredo" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/NessunKim"><img src="https://avatars.githubusercontent.com/u/12974079?v=4?s=100" width="100px;" alt=""/><br /><sub><b>MH Kim</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=NessunKim" title="Code">💻</a></td>
     <td align="center"><a href="https://discord.gg/4c5EVTBhtp"><img src="https://avatars.githubusercontent.com/u/40345645?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Marmota</b></sub></a><br /><a href="#design-jaimeadf" title="Design">🎨</a></td>
+    <td align="center"><a href="https://ares.zone"><img src="https://avatars.githubusercontent.com/u/40336192?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Ares Andrew</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=TENX-S" title="Documentation">📖</a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="https://usual.io/"><img src="https://avatars.githubusercontent.com/u/780052?v=4?s=100" width="100px;" alt=""/><br /><sub><b>George Korsnick</b></sub></a><br /><a href="#financial-gkor" title="Financial">💵</a></td>
+    <td align="center"><a href="https://about.me/ulu"><img src="https://avatars.githubusercontent.com/u/872764?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Artem Smirnov</b></sub></a><br /><a href="#financial-uluhonolulu" title="Financial">💵</a></td>
+    <td align="center"><a href="https://github.com/nevotheless"><img src="https://avatars.githubusercontent.com/u/779797?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Tim Kopplow</b></sub></a><br /><a href="#financial-nevotheless" title="Financial">💵</a></td>
+    <td align="center"><a href="https://github.com/mrthock"><img src="https://avatars.githubusercontent.com/u/88901709?v=4?s=100" width="100px;" alt=""/><br /><sub><b>mrthock</b></sub></a><br /><a href="#financial-mrthock" title="Financial">💵</a></td>
+    <td align="center"><a href="https://github.com/lrottach"><img src="https://avatars.githubusercontent.com/u/50323692?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Lukas Rottach</b></sub></a><br /><a href="#financial-lrottach" title="Financial">💵</a></td>
+    <td align="center"><a href="https://github.com/boonkerz"><img src="https://avatars.githubusercontent.com/u/277321?v=4?s=100" width="100px;" alt=""/><br /><sub><b>boonkerz</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=boonkerz" title="Code">💻</a> <a href="#translation-boonkerz" title="Translation">🌍</a></td>
+    <td align="center"><a href="https://github.com/milotype"><img src="https://avatars.githubusercontent.com/u/43657314?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Milo Ivir</b></sub></a><br /><a href="#translation-milotype" title="Translation">🌍</a></td>
   </tr>
 </table>
 
@@ -221,6 +236,4 @@
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
-This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
-
-<img src="https://ga-beacon.appspot.com/UA-3278102-18/github/readme" width="1"/>
+本项目遵循 [all-contributors](https://github.com/all-contributors/all-contributors) 规范。 欢迎任何形式的贡献！
