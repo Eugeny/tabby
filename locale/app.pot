@@ -16,6 +16,9 @@ msgstr ""
 msgid "Add"
 msgstr ""
 
+msgid "Add a port forward"
+msgstr ""
+
 msgid "Add a private key"
 msgstr ""
 
@@ -139,6 +142,9 @@ msgid "Check for updates"
 msgstr ""
 
 msgid "Chinese (simplified)"
+msgstr ""
+
+msgid "Chinese (traditional)"
 msgstr ""
 
 msgid "Ciphers"
@@ -852,6 +858,9 @@ msgstr ""
 msgid "Plugins folder"
 msgstr ""
 
+msgid "Polish"
+msgstr ""
+
 msgid "Port"
 msgstr ""
 
@@ -979,6 +988,9 @@ msgid "Right click"
 msgstr ""
 
 msgid "Run as administrator"
+msgstr ""
+
+msgid "Russian"
 msgstr ""
 
 msgid "SOCKS proxy"
