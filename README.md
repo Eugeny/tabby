@@ -21,7 +21,7 @@
 
 <br/>
 <p align="center">
-This README is also available in: <a href="./README.ko-KR.md">Korean</a> <a href="./README.zh-CN.md">简体中文</a>
+This README is also available in: <a href="./README.ru-RU.md">Русский</a> <a href="./README.ko-KR.md">한국어</a> <a href="./README.zh-CN.md">简体中文</a>
 </p>
 
 ----
@@ -238,5 +238,3 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
-
-<img src="https://ga-beacon.appspot.com/UA-3278102-18/github/readme" width="1"/>
