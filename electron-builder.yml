@@ -66,7 +66,7 @@ mac:
     NSRemovableVolumesUsageDescription: 'A subprocess requests access to files on a removable volume.'
 
 linux:
-  category: Utility
+  category: "Utility;TerminalEmulator;System"
   icon: "./build/icons"
   artifactName: tabby-${version}-linux.${ext}
   executableArgs:
