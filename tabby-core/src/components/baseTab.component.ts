@@ -1,4 +1,4 @@
-import { Observable, Subject, distinctUntilChanged } from 'rxjs'
+import { Observable, Subject, distinctUntilChanged, filter, debounceTime } from 'rxjs'
 import { EmbeddedViewRef, ViewContainerRef, ViewRef } from '@angular/core'
 import { RecoveryToken } from '../api/tabRecovery'
 import { BaseComponent } from './base.component'
@@ -61,7 +61,6 @@ export abstract class BaseTabComponent extends BaseComponent {
     /* @hidden */
     viewContainerEmbeddedRef?: EmbeddedViewRef<any>
 
-    private progressClearTimeout: number
     private titleChange = new Subject<string>()
     private focused = new Subject<void>()
     private blurred = new Subject<void>()
@@ -87,6 +86,12 @@ export abstract class BaseTabComponent extends BaseComponent {
         this.blurred$.subscribe(() => {
             this.hasFocus = false
         })
+        this.subscribeUntilDestroyed(this.progress.pipe(
+            filter(x => x !== null),
+            debounceTime(5000),
+        ), () => {
+            this.setProgress(null)
+        })
     }
 
     setTitle (title: string): void {
@@ -103,14 +108,6 @@ export abstract class BaseTabComponent extends BaseComponent {
      */
     setProgress (progress: number|null): void {
         this.progress.next(progress)
-        if (progress) {
-            if (this.progressClearTimeout) {
-                clearTimeout(this.progressClearTimeout)
-            }
-            this.progressClearTimeout = setTimeout(() => {
-                this.setProgress(null)
-            }, 5000) as any
-        }
     }
 
     /**

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core'
 import { PlatformService, LogService, UpdaterService, DockingService, HostAppService, ThemesService, Platform, AppService, ConfigService, WIN_BUILD_FLUENT_BG_SUPPORTED, isWindowsBuild, HostWindowService, HotkeyProvider, ConfigProvider, FileProvider } from 'tabby-core'
 import { TerminalColorSchemeProvider } from 'tabby-terminal'
 import { SFTPContextMenuItemProvider } from 'tabby-ssh'
+import { auditTime } from 'rxjs'
 
 import { HyperColorSchemes } from './colorSchemes'
 import { ElectronPlatformService } from './services/platform.service'
@@ -68,7 +69,7 @@ export default class ElectronModule {
 
         let lastProgress: number|null = null
         app.tabOpened$.subscribe(tab => {
-            tab.progress$.subscribe(progress => {
+            tab.progress$.pipe(auditTime(250)).subscribe(progress => {
                 if (lastProgress === progress) {
                     return
                 }

@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Component, Input, Optional, Inject, HostBinding, HostListener, NgZone } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
+import { auditTime } from 'rxjs'
 import { TabContextMenuItemProvider } from '../api/tabContextMenuProvider'
 import { BaseTabComponent } from './baseTab.component'
 import { RenameTabModalComponent } from './renameTabModal.component'
@@ -47,7 +48,9 @@ export class TabHeaderComponent extends BaseComponent {
     }
 
     ngOnInit () {
-        this.subscribeUntilDestroyed(this.tab.progress$, progress => {
+        this.subscribeUntilDestroyed(this.tab.progress$.pipe(
+            auditTime(300),
+        ), progress => {
             this.zone.run(() => {
                 this.progress = progress
             })
