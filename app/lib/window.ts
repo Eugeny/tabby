@@ -303,6 +303,9 @@ export class Window {
         this.window.on('enter-full-screen', () => this.send('host:window-enter-full-screen'))
         this.window.on('leave-full-screen', () => this.send('host:window-leave-full-screen'))
 
+        this.window.on('maximize', () => this.send('host:window-maximized'))
+        this.window.on('unmaximize', () => this.send('host:window-unmaximized'))
+
         this.window.on('close', event => {
             if (!this.closing) {
                 event.preventDefault()

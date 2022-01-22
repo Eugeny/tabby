@@ -15,6 +15,7 @@ export class ElectronHostWindow extends HostWindowService {
     get isFullscreen (): boolean { return this._isFullscreen }
 
     private _isFullscreen = false
+    private _isMaximized = false
 
     constructor (
         zone: NgZone,
@@ -47,6 +48,16 @@ export class ElectronHostWindow extends HostWindowService {
         electron.ipcRenderer.on('host:became-main-window', () => zone.run(() => {
             this.bootstrapData.isMainWindow = true
         }))
+
+        electron.ipcRenderer.on('host:window-maximized', () => zone.run(() => {
+            this._isMaximized = true
+        }))
+
+        electron.ipcRenderer.on('host:window-unmaximized', () => zone.run(() => {
+            this._isMaximized = false
+        }))
+
+        this._isMaximized = this.getWindow().isMaximized()
     }
 
     getWindow (): BrowserWindow {
@@ -74,7 +85,7 @@ export class ElectronHostWindow extends HostWindowService {
     }
 
     isMaximized (): boolean {
-        return this.getWindow().isMaximized()
+        return this._isMaximized
     }
 
     toggleMaximize (): void {
