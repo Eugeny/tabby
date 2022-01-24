@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Chinese Traditional\n"
 "Language: zh_TW\n"
-"PO-Revision-Date: 2022-01-18 20:53\n"
+"PO-Revision-Date: 2022-01-24 14:07\n"
 
 msgid "A second font family used to display characters missing in the main font"
 msgstr "第二個字體系列，用於顯示主字體中缺少的字元"
@@ -25,6 +25,9 @@ msgstr "壓克力背景"
 
 msgid "Add"
 msgstr "添加"
+
+msgid "Add a port forward"
+msgstr "添加新的埠轉發"
 
 msgid "Add a private key"
 msgstr "添加私密金鑰"
@@ -148,6 +151,9 @@ msgstr "檢查更新"
 
 msgid "Chinese (simplified)"
 msgstr "中文（簡體）"
+
+msgid "Chinese (traditional)"
+msgstr "中文 (繁體)"
 
 msgid "Ciphers"
 msgstr "密碼（Cipher）"
@@ -612,13 +618,13 @@ msgid "Keep Alive Interval (Milliseconds)"
 msgstr "Keep-Alive 區間(毫秒)"
 
 msgid "Keep docked terminal always on top"
-msgstr ""
+msgstr "總是將終端機釘選在上方"
 
 msgid "Key"
-msgstr ""
+msgstr "金鑰"
 
 msgid "Key exchange"
-msgstr ""
+msgstr "金鑰交換"
 
 msgid "Keyboard-interactive auth"
 msgstr ""
@@ -633,7 +639,7 @@ msgid "Launch WinSCP for current SSH session"
 msgstr ""
 
 msgid "Learn how to allow Tabby to detect remote shell's working directory."
-msgstr ""
+msgstr "得知如何讓 Tabby 偵測遠端工作目錄"
 
 msgid "Left"
 msgstr ""
@@ -669,7 +675,7 @@ msgid "Login scripts"
 msgstr "登入執行腳本"
 
 msgid "Long-click for context menu"
-msgstr ""
+msgstr "長按以叫出選單"
 
 msgid "Manage profiles"
 msgstr "管理設定檔"
@@ -860,6 +866,9 @@ msgstr "擴充功能"
 msgid "Plugins folder"
 msgstr "擴充功能資料夾"
 
+msgid "Polish"
+msgstr ""
+
 msgid "Port"
 msgstr "埠"
 
@@ -867,13 +876,13 @@ msgid "Ports"
 msgstr "埠"
 
 msgid "Press the key now"
-msgstr ""
+msgstr "點擊按鍵"
 
 msgid "Prevents accidental closing"
-msgstr ""
+msgstr "防止意外關閉"
 
 msgid "Prevents accidental execution of pasted commands"
-msgstr ""
+msgstr "防止意外貼上的指令執行"
 
 msgid "Previous tab"
 msgstr "上一個分頁"
@@ -897,7 +906,7 @@ msgid "Program"
 msgstr "程式"
 
 msgid "Proxy command"
-msgstr ""
+msgstr "代理指令"
 
 msgid "Purple"
 msgstr "紫色"
@@ -989,6 +998,9 @@ msgstr "右鍵點擊"
 msgid "Run as administrator"
 msgstr "以系統管理員執行"
 
+msgid "Russian"
+msgstr ""
+
 msgid "SOCKS proxy"
 msgstr "代理 SOCKS"
 
@@ -1011,7 +1023,7 @@ msgid "Save"
 msgstr "儲存"
 
 msgid "Save a password in the keychain"
-msgstr ""
+msgstr "將密碼存至鑰匙圈"
 
 msgid "Save and apply"
 msgstr "儲存並套用"
@@ -1020,7 +1032,7 @@ msgid "Save as profile"
 msgstr "另存設定檔"
 
 msgid "Save layout as profile"
-msgstr ""
+msgstr "將排版儲存為設定檔"
 
 msgid "Saved"
 msgstr "已儲存"
@@ -1035,7 +1047,7 @@ msgid "Scroll terminal to bottom"
 msgstr ""
 
 msgid "Scrollback"
-msgstr ""
+msgstr "回滾"
 
 msgid "Scrolls the terminal to the bottom on user input"
 msgstr ""
@@ -1059,10 +1071,10 @@ msgid "Select profile"
 msgstr "選擇設定檔"
 
 msgid "Select profile or enter an address"
-msgstr ""
+msgstr "選擇設定檔或輸入位置"
 
 msgid "Send bytes by typing in hex values"
-msgstr ""
+msgstr "傳輸以16進位輸入的資料"
 
 msgid "Sends data one byte at a time"
 msgstr ""

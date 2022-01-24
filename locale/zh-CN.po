@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2022-01-18 20:53\n"
+"PO-Revision-Date: 2022-01-24 14:07\n"
 
 msgid "A second font family used to display characters missing in the main font"
 msgstr "第二种字体，用于显示主字体中缺失的字符"
@@ -25,6 +25,9 @@ msgstr "亚克力背景"
 
 msgid "Add"
 msgstr "添加"
+
+msgid "Add a port forward"
+msgstr "添加端口转发"
 
 msgid "Add a private key"
 msgstr "添加私钥"
@@ -51,7 +54,7 @@ msgid "Agent type"
 msgstr "Agent 类型"
 
 msgid "Allows opening .bat files in tabs, but breaks some shells"
-msgstr "允许在标签页中打开.bat文件，但会中断一些shell"
+msgstr "允许在标签页中打开.bat文件，但会中断某些shell"
 
 msgid "Allows quickly opening a terminal in the selected folder"
 msgstr "允许在选定的文件夹中快速打开终端"
@@ -66,7 +69,7 @@ msgid "Application settings"
 msgstr "应用程序设置"
 
 msgid "Are you sure you want to close Tabby? You can disable this prompt in Settings -> Window."
-msgstr "您确定要关闭 Tabby 吗？您可以在设置 -> 窗口中关闭此提示"
+msgstr "您确定要关闭 Tabby 吗？您可以在 设置 -> 窗口 中关闭此提示。"
 
 msgid "Are you sure?"
 msgstr "您确定吗？"
@@ -84,7 +87,7 @@ msgid "Audible"
 msgstr "有声"
 
 msgid "Authentication method"
-msgstr "认证方法"
+msgstr "身份验证方法"
 
 msgid "Author"
 msgstr "作者"
@@ -93,7 +96,7 @@ msgid "Auto"
 msgstr "自动"
 
 msgid "Auto-open a terminal on app start"
-msgstr "在应用程序启动时自动打开终端"
+msgstr "在应用程序启动时自动打开一个终端窗口"
 
 msgid "Automatic"
 msgstr "自动"
@@ -123,13 +126,13 @@ msgid "Blue"
 msgstr "蓝色"
 
 msgid "Blur"
-msgstr "模糊化"
+msgstr "模糊"
 
 msgid "Bottom"
 msgstr "底部"
 
 msgid "Bracketed paste (requires shell support)"
-msgstr "括号粘贴（需要 Shell 支持）"
+msgstr "Bracketed 粘贴（需要 Shell 支持）"
 
 msgid "Built-in"
 msgstr "内置"
@@ -148,6 +151,9 @@ msgstr "检查更新"
 
 msgid "Chinese (simplified)"
 msgstr "中文（简体）"
+
+msgid "Chinese (traditional)"
+msgstr "中文（繁体）"
 
 msgid "Ciphers"
 msgstr "加密方法"
@@ -279,7 +285,7 @@ msgid "Debugging"
 msgstr "调试"
 
 msgid "Default profile for new tabs"
-msgstr "新标签页默认配置"
+msgstr "新标签页的默认配置"
 
 msgid "Default profile settings"
 msgstr "默认配置设置"
@@ -342,19 +348,19 @@ msgid "Do not abort"
 msgstr "不要中止"
 
 msgid "Do not remember"
-msgstr "不要记住"
+msgstr "不记住"
 
 msgid "Dock always on top"
-msgstr "窗口置顶"
+msgstr "窗口保持置顶"
 
 msgid "Dock the terminal"
 msgstr "停靠终端"
 
 msgid "Docked terminal size"
-msgstr "停靠终端大小"
+msgstr "停靠的终端大小"
 
 msgid "Docked terminal space"
-msgstr "停靠终端空间"
+msgstr "停靠的终端空间"
 
 msgid "Docking"
 msgstr "停靠"
@@ -534,7 +540,7 @@ msgid "Group"
 msgstr "分组"
 
 msgid "Help track the number of Tabby installs across the world!"
-msgstr "帮助跟踪 Tabby 在世界各地的安装次数！"
+msgstr "帮助追踪 Tabby 在世界各地的安装次数！"
 
 msgid "Hexadecimal"
 msgstr "十六进制"
@@ -585,7 +591,7 @@ msgid "Installed"
 msgstr "已安装"
 
 msgid "Installing the update will close all tabs and restart Tabby."
-msgstr "安装更新将关闭全部标签页并重启Tabby"
+msgstr "安装更新将关闭全部标签页并重启 Tabby。"
 
 msgid "Intelligent Ctrl-C (copy/abort)"
 msgstr "智能 Ctrl-C (复制/中止)"
@@ -633,7 +639,7 @@ msgid "Launch WinSCP for current SSH session"
 msgstr "为当前的 SSH 会话启动 WinSCP"
 
 msgid "Learn how to allow Tabby to detect remote shell's working directory."
-msgstr "了解如何让 Tabby 检测远程 shell 的工作目录"
+msgstr "了解如何让 Tabby 检测远程 shell 的工作目录。"
 
 msgid "Left"
 msgstr "左侧"
@@ -684,10 +690,10 @@ msgid "Modified on {date}"
 msgstr "修改于 {date}"
 
 msgid "Move tab to the left"
-msgstr "将标签页向左移动"
+msgstr "将标签页移至左侧"
 
 msgid "Move tab to the right"
-msgstr "将标签页向右移动"
+msgstr "将标签页移至右侧"
 
 msgid "Move to \"Ungrouped\""
 msgstr "移动到 “未分组”"
@@ -702,7 +708,7 @@ msgid "Native"
 msgstr "原生"
 
 msgid "New admin tab"
-msgstr "新管理标签页"
+msgstr "新的管理标签页"
 
 msgid "New config on {platform}"
 msgstr "{platform} 上的新配置"
@@ -860,6 +866,9 @@ msgstr "插件"
 msgid "Plugins folder"
 msgstr "插件文件夹"
 
+msgid "Polish"
+msgstr "波兰语"
+
 msgid "Port"
 msgstr "端口"
 
@@ -867,7 +876,7 @@ msgid "Ports"
 msgstr "端口"
 
 msgid "Press the key now"
-msgstr "现在请输入按键"
+msgstr "请输入按键"
 
 msgid "Prevents accidental closing"
 msgstr "防止意外关闭"
@@ -903,7 +912,7 @@ msgid "Purple"
 msgstr "紫色"
 
 msgid "Puts all of Tabby's configuration into the vault"
-msgstr "将 Tabby 的所有配置放入保险库"
+msgstr "将 Tabby 的所有配置放入保管库"
 
 msgid "Quick connect"
 msgstr "快速连接"
@@ -988,6 +997,9 @@ msgstr "右键点击"
 
 msgid "Run as administrator"
 msgstr "以管理员身份运行"
+
+msgid "Russian"
+msgstr "俄语"
 
 msgid "SOCKS proxy"
 msgstr "SOCKS 代理"
@@ -1143,7 +1155,7 @@ msgid "Skip MoTD/banner"
 msgstr "跳过 MoTD/横幅消息"
 
 msgid "Slow feed"
-msgstr "缓慢接收"
+msgstr "逐字节接收"
 
 msgid "Snaps the window to a side of the screen"
 msgstr "将窗口贴靠至屏幕的一侧"
@@ -1218,7 +1230,7 @@ msgid "Tab {number}"
 msgstr "标签页 {number}"
 
 msgid "Tabby could not start with your plugins, so all third party plugins have been disabled in this session. The error was:"
-msgstr "Tabby不能使用您的插件启动，因此本会话中禁用了所有第三方插件。错误信息："
+msgstr "Tabby 不能使用您的插件启动，因此本次会话中禁用了所有第三方插件。错误信息："
 
 msgid "Tabby news and updates on Twitter"
 msgstr "Tabby 在 Twitter 的新闻和更新"
@@ -1374,7 +1386,7 @@ msgid "Warn when closing active connections"
 msgstr "当关闭活动连接时，显示警告"
 
 msgid "We're only tracking your Tabby and OS versions."
-msgstr "我们只获取您的 Tabby 和操作系统版本信息"
+msgstr "我们只获取您的 Tabby 和操作系统版本信息。"
 
 msgid "Welcome"
 msgstr "欢迎"

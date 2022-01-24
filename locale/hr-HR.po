@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Croatian\n"
 "Language: hr_HR\n"
-"PO-Revision-Date: 2022-01-18 09:13\n"
+"PO-Revision-Date: 2022-01-18 22:26\n"
 
 msgid "A second font family used to display characters missing in the main font"
 msgstr "Druga obitelj fontova koja se koristi za prikaz nedostajućih znakova u glavnom fontu"
@@ -25,6 +25,9 @@ msgstr "Pozadina u boji akrila"
 
 msgid "Add"
 msgstr "Dodaj"
+
+msgid "Add a port forward"
+msgstr ""
 
 msgid "Add a private key"
 msgstr "Dodaj privatni ključ"
@@ -148,6 +151,9 @@ msgstr "Traži nove verzije"
 
 msgid "Chinese (simplified)"
 msgstr "Kineski (pojednostavljeni)"
+
+msgid "Chinese (traditional)"
+msgstr ""
 
 msgid "Ciphers"
 msgstr "Šifre"
@@ -860,6 +866,9 @@ msgstr "Dodaci"
 msgid "Plugins folder"
 msgstr "Mapa dodataka"
 
+msgid "Polish"
+msgstr ""
+
 msgid "Port"
 msgstr "Priključak"
 
@@ -988,6 +997,9 @@ msgstr "Pritisni desnu tipku miša"
 
 msgid "Run as administrator"
 msgstr "Pokreni kao administrator"
+
+msgid "Russian"
+msgstr ""
 
 msgid "SOCKS proxy"
 msgstr "SOCKS proxy"

@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2022-01-18 09:13\n"
+"PO-Revision-Date: 2022-01-24 14:07\n"
 
 msgid "A second font family used to display characters missing in the main font"
 msgstr "Семейство шрифтов, используемое для отображения символов, отсутствующих в основном шрифте"
@@ -25,6 +25,9 @@ msgstr "Акриловый фон"
 
 msgid "Add"
 msgstr "Добавить"
+
+msgid "Add a port forward"
+msgstr "Добавить проброс портов"
 
 msgid "Add a private key"
 msgstr "Добавить приватный ключ"
@@ -149,6 +152,9 @@ msgstr "Проверить обновления"
 msgid "Chinese (simplified)"
 msgstr "Китайский (упрощенный)"
 
+msgid "Chinese (traditional)"
+msgstr "Китайский (традиционный)"
+
 msgid "Ciphers"
 msgstr "Шифры"
 
@@ -255,7 +261,7 @@ msgid "Could not decrypt config"
 msgstr "Не удалось расшифровать конфигурацию"
 
 msgid "Croatian"
-msgstr ""
+msgstr "Хорватский"
 
 msgid "Current"
 msgstr "Текущий"
@@ -492,7 +498,7 @@ msgid "Forwarded ports"
 msgstr "Перенаправленные порты"
 
 msgid "French"
-msgstr ""
+msgstr "Французский"
 
 msgid "From color scheme"
 msgstr "Из цветовой схемы"
@@ -513,7 +519,7 @@ msgid "Generate a pre-filled GitHub issue"
 msgstr "Открыть пред-заполненный отчет на GitHub"
 
 msgid "German"
-msgstr ""
+msgstr "Немецкий"
 
 msgid "Get"
 msgstr "Получить"
@@ -860,6 +866,9 @@ msgstr "Плагины"
 msgid "Plugins folder"
 msgstr "Папка с плагинами"
 
+msgid "Polish"
+msgstr "Польский"
+
 msgid "Port"
 msgstr "Порт"
 
@@ -988,6 +997,9 @@ msgstr "Правый клик"
 
 msgid "Run as administrator"
 msgstr "Запустить от имени администратора"
+
+msgid "Russian"
+msgstr "Русский"
 
 msgid "SOCKS proxy"
 msgstr "SOCKS прокси"
@@ -1215,7 +1227,7 @@ msgid "Tab activity"
 msgstr "Активность во вкладке"
 
 msgid "Tab {number}"
-msgstr ""
+msgstr "Вкладка {number}"
 
 msgid "Tabby could not start with your plugins, so all third party plugins have been disabled in this session. The error was:"
 msgstr "Tabby не смог запуститься с вашими плагинами, поэтому все сторонние плагины были отключены в этой сессии. Ошибка в следующем:"

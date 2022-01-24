@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2022-01-18 20:25\n"
+"PO-Revision-Date: 2022-01-24 14:07\n"
 
 msgid "A second font family used to display characters missing in the main font"
 msgstr "Une seconde famille de polices utilisable pour afficher les caractères absents de la police principale"
@@ -25,6 +25,9 @@ msgstr "Arrière-plan acrylique"
 
 msgid "Add"
 msgstr "Ajouter"
+
+msgid "Add a port forward"
+msgstr "Ajouter un transfert de port"
 
 msgid "Add a private key"
 msgstr "Ajouter une clé privée"
@@ -102,7 +105,7 @@ msgid "Automatic Updates"
 msgstr "Mettre à jour automatiquement"
 
 msgid "Automatically upload changes and check for updates every minute"
-msgstr "Télécharger automatiquement les modifications et vérifier les mises à jour toutes les minutes"
+msgstr "Envoyer automatiquement les modifications et vérifier les mises à jour toutes les minutes"
 
 msgid "Available"
 msgstr "Disponible"
@@ -148,6 +151,9 @@ msgstr "Vérifier les mises à jour"
 
 msgid "Chinese (simplified)"
 msgstr "Chinois (simplifié)"
+
+msgid "Chinese (traditional)"
+msgstr "Chinois (traditionnel)"
 
 msgid "Ciphers"
 msgstr "Chiffrement"
@@ -860,6 +866,9 @@ msgstr "Extensions"
 msgid "Plugins folder"
 msgstr "Dossier des extensions"
 
+msgid "Polish"
+msgstr "Polonais"
+
 msgid "Port"
 msgstr "Port"
 
@@ -988,6 +997,9 @@ msgstr "Clic droit"
 
 msgid "Run as administrator"
 msgstr "Exécuter en tant qu'administrateur"
+
+msgid "Russian"
+msgstr "Russe"
 
 msgid "SOCKS proxy"
 msgstr "Proxy SOCKS"

@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Polish\n"
 "Language: pl_PL\n"
-"PO-Revision-Date: 2022-01-18 20:53\n"
+"PO-Revision-Date: 2022-01-24 14:07\n"
 
 msgid "A second font family used to display characters missing in the main font"
 msgstr "Druga rodzina czcionek używana do wyświetlania znaków, których brakuje w głównej czcionce"
@@ -25,6 +25,9 @@ msgstr "Akrylowe tło"
 
 msgid "Add"
 msgstr "Dodaj"
+
+msgid "Add a port forward"
+msgstr "Dodaj przekierowanie portów"
 
 msgid "Add a private key"
 msgstr "Dodaj klucz prywatny"
@@ -81,7 +84,7 @@ msgid "Ask before closing the browser tab"
 msgstr "Zapytaj przed zamknięciem karty przeglądarki"
 
 msgid "Audible"
-msgstr "Słyszalny"
+msgstr "Dźwiękowy"
 
 msgid "Authentication method"
 msgstr "Metoda uwierzytelniania"
@@ -105,7 +108,7 @@ msgid "Automatically upload changes and check for updates every minute"
 msgstr "Automatycznie wysyłaj zmiany i sprawdzaj aktualizacje co minutę"
 
 msgid "Available"
-msgstr "Dostępny"
+msgstr "Dostępne"
 
 msgid "Background type"
 msgstr "Typ tła"
@@ -148,6 +151,9 @@ msgstr "Sprawdź dostępność aktualizacji"
 
 msgid "Chinese (simplified)"
 msgstr "Chiński (uproszczony)"
+
+msgid "Chinese (traditional)"
+msgstr "Chiński (tradycyjny)"
 
 msgid "Ciphers"
 msgstr "Szyfry"
@@ -441,7 +447,7 @@ msgid "File: {description}"
 msgstr "Plik: {description}"
 
 msgid "Fixed"
-msgstr "Naprawiony"
+msgstr "Poprawiony"
 
 msgid "Focus all panes"
 msgstr "Podświetl wszystkie panele"
@@ -504,7 +510,7 @@ msgid "Frontend"
 msgstr "Strona"
 
 msgid "Full"
-msgstr "Pełny"
+msgstr "Gruba"
 
 msgid "General"
 msgstr "Ogólne"
@@ -543,7 +549,7 @@ msgid "Hide tab close button"
 msgstr "Ukryj przycisk zamykania karty"
 
 msgid "Hide tab index"
-msgstr "Ukryj indeks kart"
+msgstr "Ukryj numerację kart"
 
 msgid "Hide window on focus loss"
 msgstr "Ukryj okno po utracie wyróżnienia"
@@ -699,7 +705,7 @@ msgid "Name for the new config"
 msgstr "Nazwa nowej konfiguracji"
 
 msgid "Native"
-msgstr "Natywny"
+msgstr "Natywna"
 
 msgid "New admin tab"
 msgstr "Nowa karta admina"
@@ -846,7 +852,7 @@ msgid "Paste multiple lines?"
 msgstr "Wkleić wiele linii?"
 
 msgid "Paste on middle-click"
-msgstr "Wklej po środkowym kliknięciu"
+msgstr "Wklej po kliknięciu środkowym przyciskiem myszy"
 
 msgid "Path or address of the local X11 socket"
 msgstr "Ścieżka lub adres lokalnego gniazda X11"
@@ -859,6 +865,9 @@ msgstr "Wtyczki"
 
 msgid "Plugins folder"
 msgstr "Folder wtyczek"
+
+msgid "Polish"
+msgstr "Polski"
 
 msgid "Port"
 msgstr "Port"
@@ -957,7 +966,7 @@ msgid "Report a problem"
 msgstr "Zgłoś Problem"
 
 msgid "Require a key to click links"
-msgstr "Wymaga klucza aby kliknąć linki"
+msgstr "Wymaga dodatkowego klawisza, aby kliknąć linki"
 
 msgid "Reset zoom"
 msgstr "Zresetuj powiększenie"
@@ -988,6 +997,9 @@ msgstr "Prawy przycisk myszy"
 
 msgid "Run as administrator"
 msgstr "Uruchom jako administrator"
+
+msgid "Russian"
+msgstr "Rosyjski"
 
 msgid "SOCKS proxy"
 msgstr "SOCKS proxy"
@@ -1146,7 +1158,7 @@ msgid "Slow feed"
 msgstr "Powolne przesyłanie (bit po bicie)"
 
 msgid "Snaps the window to a side of the screen"
-msgstr "Przyciąga okno na bok ekranu"
+msgstr "Przyciąga okno w wybrane miejsce ekranu"
 
 msgid "Source code"
 msgstr "Kod źródłowy"
@@ -1170,7 +1182,7 @@ msgid "Standard"
 msgstr "Standardowe"
 
 msgid "Startup"
-msgstr "Autouruchomienie"
+msgstr "Uruchamianie"
 
 msgid "Stop bits"
 msgstr "Bity stopu"
@@ -1179,7 +1191,7 @@ msgid "Strip"
 msgstr "Pasek"
 
 msgid "Subscribe to updates"
-msgstr "Subskrybuj aktualizacje"
+msgstr "Subskrybuj powiadomienia"
 
 msgid "Substitutions allowed."
 msgstr "Podstawienia dozwolone."
@@ -1227,7 +1239,7 @@ msgid "Tabs"
 msgstr "Karty"
 
 msgid "Tabs location"
-msgstr "Lokalizacja kart"
+msgstr "Położenie kart"
 
 msgid "Tabs width"
 msgstr "Szerokość karty"
@@ -1260,7 +1272,7 @@ msgid "These apply to all profiles of a given type"
 msgstr "Dotyczy to wszystkich profili danego typu"
 
 msgid "Thin"
-msgstr "Cienki"
+msgstr "Cienka"
 
 msgid "Tick this if you're experiencing aliasing, ghosting or other visual issues"
 msgstr "Zaznacz to, jeśli doświadczasz aliasingu, ghostingu lub innych problemów wizualnych"
@@ -1386,10 +1398,10 @@ msgid "When WinSCP is detected, you can launch an SCP session from the context m
 msgstr "Po wykryciu WinSCP możesz uruchomić sesję SCP z menu kontekstowego."
 
 msgid "When enabled, links are only clickable while holding this key"
-msgstr "Gdy włączone, linki są klikalne tylko podczas przytrzymywania tego klawisza"
+msgstr "Gdy włączone, linki można kliknąć tylko podczas przytrzymania tego klawisza"
 
 msgid "Whether a custom window or an OS native window should be used"
-msgstr "Kiedy użyte powinno być okno niestandardowe lub natywne okno systemu operacyjnego"
+msgstr "Użyj do wyboru niestandardowego lub natywnego wyglądu dla okna terminalu"
 
 msgid "WinSCP path"
 msgstr "Ścieżka WinSCP"

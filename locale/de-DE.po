@@ -12,10 +12,10 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: German\n"
 "Language: de_DE\n"
-"PO-Revision-Date: 2022-01-18 22:26\n"
+"PO-Revision-Date: 2022-01-24 14:07\n"
 
 msgid "A second font family used to display characters missing in the main font"
-msgstr "Eine zweite Schriftfamilie, die zur Darstellung von Zeichen verwendet wird, die in der Hauptschrift fehlen"
+msgstr "Eine zweite Schriftart, die zur Darstellung von Zeichen verwendet wird, wenn in der Hauptschriftart Zeichen fehlen"
 
 msgid "Abort all"
 msgstr "Alles abbrechen"
@@ -27,7 +27,7 @@ msgid "Add"
 msgstr "Hinzufügen"
 
 msgid "Add a port forward"
-msgstr ""
+msgstr "Port-Weiterleitung hinzufügen"
 
 msgid "Add a private key"
 msgstr "Privaten Schlüssel importieren"
@@ -153,7 +153,7 @@ msgid "Chinese (simplified)"
 msgstr "Chinesisch (vereinfacht)"
 
 msgid "Chinese (traditional)"
-msgstr ""
+msgstr "Chinesisch (traditionell)"
 
 msgid "Ciphers"
 msgstr "Verschlüsselungsverfahren"
@@ -174,7 +174,7 @@ msgid "Close and never show again"
 msgstr "Schließen und nicht mehr anzeigen"
 
 msgid "Close focused pane"
-msgstr "Fokussiertes Bereich schließen"
+msgstr "Fokussierten Bereich schließen"
 
 msgid "Close other tabs"
 msgstr "Alle anderen Tabs schließen"
@@ -225,7 +225,7 @@ msgid "Connect to \"%s\"..."
 msgstr "Mit \"%s\" verbinden..."
 
 msgid "Connect to a different host first and use it as a proxy"
-msgstr "Zuerst mit einem anderen Host verbinden und ihn als Proxy benutzen"
+msgstr "Zuerst mit einem anderen Host verbinden, um diesen als Proxy zu nutzen"
 
 msgid "Connecting"
 msgstr "Verbinde"
@@ -372,7 +372,7 @@ msgid "Down"
 msgstr "Unten"
 
 msgid "Download"
-msgstr "Herunterladen"
+msgstr "Download"
 
 msgid "Duplicate"
 msgstr "Duplizieren"
@@ -462,10 +462,10 @@ msgid "Focus previous pane"
 msgstr "Vorherigen Bereich fokussieren"
 
 msgid "Focus the pane above"
-msgstr "Fokussiere den Bereich oben"
+msgstr "Fokussiere den darüberliegenden Bereich"
 
 msgid "Focus the pane below"
-msgstr "Fokussiere den Bereich unten"
+msgstr "Fokussiere den darunterliegenden Bereich"
 
 msgid "Focus the pane on the left"
 msgstr "Fokussiere den Bereich links"
@@ -522,7 +522,7 @@ msgid "German"
 msgstr "Deutsch"
 
 msgid "Get"
-msgstr "Erhalten"
+msgstr "Herunterladen"
 
 msgid "Get it from the Tabby Web settings window"
 msgstr "Holen Sie es aus dem Tabby Web-Einstellungen Fenster"
@@ -546,7 +546,7 @@ msgid "Hexadecimal"
 msgstr "Hexadezimal"
 
 msgid "Hide tab close button"
-msgstr "Tab-Schließknopf ausblenden"
+msgstr "Tab Schließen verbergen"
 
 msgid "Hide tab index"
 msgstr "Tab-Nummer ausblenden"
@@ -966,7 +966,7 @@ msgid "Report a problem"
 msgstr "Ein Problem melden"
 
 msgid "Require a key to click links"
-msgstr "Eine Taste für einen Link-klick benötigen"
+msgstr "Eine Taste zum öffnen von Links benötigen"
 
 msgid "Reset zoom"
 msgstr "Vergrößerung zurücksetzen"
@@ -999,7 +999,7 @@ msgid "Run as administrator"
 msgstr "Als Administrator ausführen"
 
 msgid "Russian"
-msgstr ""
+msgstr "Russisch"
 
 msgid "SOCKS proxy"
 msgstr "SOCKS-Proxy"
@@ -1038,7 +1038,7 @@ msgid "Saved"
 msgstr "Gespeichert"
 
 msgid "Saved layout"
-msgstr "Gespeichertes Layout"
+msgstr "Layout gespeichert"
 
 msgid "Scroll on input"
 msgstr "Scrollen bei Eingabe"
@@ -1215,7 +1215,7 @@ msgid "Sync automatically"
 msgstr "Automatisch synchronisieren"
 
 msgid "Sync host"
-msgstr "Synchronisierungs-Host"
+msgstr "Synchronisiere Host"
 
 msgid "Sync hotkeys"
 msgstr "Tastenkombination synchronisieren"
@@ -1335,7 +1335,7 @@ msgid "Use {altKeyName} as the Meta key"
 msgstr "{altKeyName} als Meta-Taste verwenden"
 
 msgid "User default"
-msgstr "Benutzer Standards"
+msgstr "Benutzer Standard"
 
 msgid "Username"
 msgstr "Benutzername"
