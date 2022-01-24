@@ -1,0 +1,44 @@
+!
+! Night Owl
+! https://github.com/sdras/night-owl-vscode-theme
+!
+*.foreground:  #d6deeb
+*.background:  #011627
+*.cursorColor: #80a4c2
+!
+! Black
+*.color0:      #011627
+*.color8:      #969696
+!
+! Red
+*.color1:      #ef5350
+*.color9:      #ef5350
+!
+! Green
+*.color2:      #22da6e
+*.color10:     #22da6e
+!
+! Yellow
+*.color3:      #addb67
+*.color11:     #ffeb95
+!
+! Blue
+*.color4:      #82aaff
+*.color12:     #82aaff
+!
+! Magenta
+*.color5:      #c792ea
+*.color13:     #c792ea
+!
+! Cyan
+*.color6:      #21c7a8
+*.color14:     #7fdbca
+!
+! White
+*.color7:      #ffffff
+*.color15:     #ffffff
+!
+! Bold, Italic, Underline
+!*.colorBD:
+!*.colorIT:
+!*.colorUL:
