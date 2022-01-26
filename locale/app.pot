@@ -720,6 +720,9 @@ msgstr ""
 msgid "New tab"
 msgstr ""
 
+msgid "New tab: {profile}"
+msgstr ""
+
 msgid "New terminal"
 msgstr ""
 
@@ -1141,6 +1144,9 @@ msgid "Show release notes"
 msgstr ""
 
 msgid "Show vault contents"
+msgstr ""
+
+msgid "Show {type} profile selector"
 msgstr ""
 
 msgid "Skip MoTD/banner"

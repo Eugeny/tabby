@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2022-01-24 14:07\n"
+"PO-Revision-Date: 2022-01-26 18:52\n"
 
 msgid "A second font family used to display characters missing in the main font"
 msgstr "第二种字体，用于显示主字体中缺失的字符"
@@ -84,7 +84,7 @@ msgid "Ask before closing the browser tab"
 msgstr "关闭标签页前询问"
 
 msgid "Audible"
-msgstr "有声"
+msgstr "声音"
 
 msgid "Authentication method"
 msgstr "身份验证方法"
@@ -728,6 +728,9 @@ msgstr "新配置名称"
 msgid "New tab"
 msgstr "新标签页"
 
+msgid "New tab: {profile}"
+msgstr ""
+
 msgid "New terminal"
 msgstr "新终端"
 
@@ -807,7 +810,7 @@ msgid "Output is shown as a hexdump"
 msgstr "输出显示为十六进制转储"
 
 msgid "Output is shown as it is received"
-msgstr "输出在收到时显示"
+msgstr "按收到的原有样式显示输出"
 
 msgid "Output mode"
 msgstr "输出模式"
@@ -912,7 +915,7 @@ msgid "Purple"
 msgstr "紫色"
 
 msgid "Puts all of Tabby's configuration into the vault"
-msgstr "将 Tabby 的所有配置放入保管库"
+msgstr "将 Tabby 的所有配置放入保险库"
 
 msgid "Quick connect"
 msgstr "快速连接"
@@ -1150,6 +1153,9 @@ msgstr "显示更新日志"
 
 msgid "Show vault contents"
 msgstr "显示保险库内容"
+
+msgid "Show {type} profile selector"
+msgstr ""
 
 msgid "Skip MoTD/banner"
 msgstr "跳过 MoTD/横幅消息"

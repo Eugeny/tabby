@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: German\n"
 "Language: de_DE\n"
-"PO-Revision-Date: 2022-01-24 14:07\n"
+"PO-Revision-Date: 2022-01-26 18:52\n"
 
 msgid "A second font family used to display characters missing in the main font"
 msgstr "Eine zweite Schriftart, die zur Darstellung von Zeichen verwendet wird, wenn in der Hauptschriftart Zeichen fehlen"
@@ -728,6 +728,9 @@ msgstr "Neuer Profilname"
 msgid "New tab"
 msgstr "Neuer Tab"
 
+msgid "New tab: {profile}"
+msgstr ""
+
 msgid "New terminal"
 msgstr "Neues Terminal"
 
@@ -1150,6 +1153,9 @@ msgstr "Versionshinweise anzeigen"
 
 msgid "Show vault contents"
 msgstr "Tresor Inhalt anzeigen"
+
+msgid "Show {type} profile selector"
+msgstr ""
 
 msgid "Skip MoTD/banner"
 msgstr "MoTD/Banner überspringen"

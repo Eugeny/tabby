@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Polish\n"
 "Language: pl_PL\n"
-"PO-Revision-Date: 2022-01-24 14:07\n"
+"PO-Revision-Date: 2022-01-26 18:52\n"
 
 msgid "A second font family used to display characters missing in the main font"
 msgstr "Druga rodzina czcionek używana do wyświetlania znaków, których brakuje w głównej czcionce"
@@ -728,6 +728,9 @@ msgstr "Nowa nazwa profilu"
 msgid "New tab"
 msgstr "Nowa karta"
 
+msgid "New tab: {profile}"
+msgstr ""
+
 msgid "New terminal"
 msgstr "Nowy terminal"
 
@@ -1150,6 +1153,9 @@ msgstr "Pokaż informacje o wydaniu"
 
 msgid "Show vault contents"
 msgstr "Pokaż zawartość sejfu"
+
+msgid "Show {type} profile selector"
+msgstr ""
 
 msgid "Skip MoTD/banner"
 msgstr "Pomiń MoTD/baner"

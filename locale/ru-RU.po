@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2022-01-24 14:07\n"
+"PO-Revision-Date: 2022-01-26 18:52\n"
 
 msgid "A second font family used to display characters missing in the main font"
 msgstr "Семейство шрифтов, используемое для отображения символов, отсутствующих в основном шрифте"
@@ -728,6 +728,9 @@ msgstr "Новое имя профиля"
 msgid "New tab"
 msgstr "Новая вкладка"
 
+msgid "New tab: {profile}"
+msgstr ""
+
 msgid "New terminal"
 msgstr "Новый терминал"
 
@@ -1150,6 +1153,9 @@ msgstr "Посмотреть изменения в релизе"
 
 msgid "Show vault contents"
 msgstr "Показать содержимое хранилища"
+
+msgid "Show {type} profile selector"
+msgstr ""
 
 msgid "Skip MoTD/banner"
 msgstr "Пропустить MoTD/баннер"

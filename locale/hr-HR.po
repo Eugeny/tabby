@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Croatian\n"
 "Language: hr_HR\n"
-"PO-Revision-Date: 2022-01-18 22:26\n"
+"PO-Revision-Date: 2022-01-26 18:52\n"
 
 msgid "A second font family used to display characters missing in the main font"
 msgstr "Druga obitelj fontova koja se koristi za prikaz nedostajućih znakova u glavnom fontu"
@@ -728,6 +728,9 @@ msgstr "Ime novog profila"
 msgid "New tab"
 msgstr "Nova kartica"
 
+msgid "New tab: {profile}"
+msgstr ""
+
 msgid "New terminal"
 msgstr "Novi terminal"
 
@@ -1150,6 +1153,9 @@ msgstr "Prikaži napomene uz izdanje"
 
 msgid "Show vault contents"
 msgstr "Prikaži sadržaj trezora"
+
+msgid "Show {type} profile selector"
+msgstr ""
 
 msgid "Skip MoTD/banner"
 msgstr "Preskoči MoTD/banner"
