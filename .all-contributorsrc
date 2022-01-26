@@ -1,6 +1,9 @@
 {
   "files": [
-    "README.md", "README.zh-CN.md", "README.ru-RU.md", "README.ko-KR.md"
+    "README.md",
+    "README.zh-CN.md",
+    "README.ru-RU.md",
+    "README.ko-KR.md"
   ],
   "imageSize": 100,
   "commit": false,
@@ -586,6 +589,15 @@
       "profile": "https://github.com/JasonCubic",
       "contributions": [
         "design"
+      ]
+    },
+    {
+      "login": "MaxWaldorf",
+      "name": "MaxWaldorf",
+      "avatar_url": "https://avatars.githubusercontent.com/u/15877853?v=4",
+      "profile": "https://github.com/MaxWaldorf",
+      "contributions": [
+        "infra"
       ]
     }
   ],
