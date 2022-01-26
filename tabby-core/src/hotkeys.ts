@@ -201,11 +201,11 @@ export class AppHotkeyProvider extends HotkeyProvider {
             ...this.hotkeys,
             ...profiles.map(profile => ({
                 id: `profile.${AppHotkeyProvider.getProfileHotkeyName(profile)}`,
-                name: `New tab: ${profile.name}`,
+                name: this.translate.instant('New tab: {profile}', { profile: profile.name }),
             })),
             ...this.profilesService.getProviders().map(provider => ({
                 id: `profile-selectors.${provider.id}`,
-                name: `Show ${provider.name} profile selector`,
+                name: this.translate.instant('Show {type} profile selector', { type: provider.name }),
             })),
         ]
     }

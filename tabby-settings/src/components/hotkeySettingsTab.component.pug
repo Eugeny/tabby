@@ -10,7 +10,7 @@ h3.mb-3(translate) Hotkeys
     ng-container(*ngFor='let hotkey of hotkeyDescriptions')
         .row.align-items-center(*ngIf='!hotkeyFilter || hotkeyFilterFn(hotkey, hotkeyFilter)')
             .col-8.py-2
-                span {{hotkey.name}}
+                span {{hotkey.name|translate}}
                 span.ml-2.text-muted ({{hotkey.id}})
             .col-4.pr-5
                 multi-hotkey-input(
