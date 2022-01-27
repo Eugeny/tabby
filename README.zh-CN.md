@@ -59,7 +59,7 @@
 
 * **Tabby 是** Windows 标准终端 (conhost)、PowerShell ISE、PuTTY、macOS Terminal.app 和 iTerm 的替代品
 
-* **Tabby 不是** Tabby 不是一个全新的 shell，也不是 MinGW 或 Cygwin 的替代品。它也不是轻量级的 - 如果你对内存的占用很敏感，请考虑 [Conemu](https://conemu.github.io) 或 [Alacritty](https://github.com/jwilm/alacritty)
+* **Tabby 不是**一个全新的 shell，也不是 MinGW 或 Cygwin 的替代品。它也不是轻量级的 - 如果你对内存的占用很敏感，请考虑 [Conemu](https://conemu.github.io) 或 [Alacritty](https://github.com/jwilm/alacritty)
 <a name="terminal"></a>
 
 # 终端特性
