@@ -40,7 +40,9 @@ export class KeyboardInteractivePrompt {
         public instruction: string,
         public prompts: Prompt[],
         private callback: (_: string[]) => void,
-    ) { }
+    ) {
+        this.responses = new Array(this.prompts.length).fill('')
+    }
 
     respond (): void {
         this.callback(this.responses)
