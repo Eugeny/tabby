@@ -89,15 +89,16 @@ export class OpenSSHImporter extends SSHProfileImporter {
                         })
                     } else {
                         const mappedKey = {
-                            Hostname: 'host',
-                            Port: 'port',
-                            User: 'user',
-                            ForwardX11: 'x11',
-                            ServerAliveInterval: 'keepaliveInterval',
-                            ServerAliveCountMax: 'keepaliveCountMax',
-                            ProxyCommand: 'proxyCommand',
-                            ProxyJump: 'jumpHost',
-                        }[key]
+                            hostname: 'host',
+                            host: 'host',
+                            port: 'port',
+                            user: 'user',
+                            forwardx11: 'x11',
+                            serveraliveinterval: 'keepaliveInterval',
+                            serveralivecountmax: 'keepaliveCountMax',
+                            proxycommand: 'proxyCommand',
+                            proxyjump: 'jumpHost',
+                        }[key.toLowerCase()]
                         if (mappedKey) {
                             target[mappedKey] = value
                         }
