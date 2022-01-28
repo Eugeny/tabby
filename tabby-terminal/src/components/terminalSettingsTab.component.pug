@@ -107,8 +107,8 @@ div.mt-4
             [(ngModel)]='config.store.clickableLinks.modifier',
             (ngModelChange)='config.save()',
         )
-            option([value]='null', translate) No modifier
-            option(value='ctrlKey') Ctrl
+            option([ngValue]='null', translate) No modifier
+            option(value='ctrlKey', *ngIf='hostApp.platform !== Platform.macOS') Ctrl
             option(value='altKey') {{altKeyName}}
             option(value='shiftKey') Shift
             option(value='metaKey') {{metaKeyName}}
