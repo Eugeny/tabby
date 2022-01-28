@@ -1008,7 +1008,9 @@ msgstr ""
 msgid "SSH connection"
 msgstr ""
 
-msgid "SSH connection management is now done through the"
+msgid ""
+"SSH connection management is now done through the \"Profiles & "
+"connections\" tab"
 msgstr ""
 
 msgid "SSH password for {user}@{host}:{port}"
@@ -1159,6 +1161,9 @@ msgid "Snaps the window to a side of the screen"
 msgstr ""
 
 msgid "Source code"
+msgstr ""
+
+msgid "Spanish"
 msgstr ""
 
 msgid "Split"
@@ -1450,9 +1455,6 @@ msgid "Zoom out"
 msgstr ""
 
 msgid "click"
-msgstr ""
-
-msgid "tab"
 msgstr ""
 
 msgid "{name} copy"

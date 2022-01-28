@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2022-01-26 18:52\n"
+"PO-Revision-Date: 2022-01-28 22:42\n"
 
 msgid "A second font family used to display characters missing in the main font"
 msgstr "Семейство шрифтов, используемое для отображения символов, отсутствующих в основном шрифте"
@@ -1016,8 +1016,8 @@ msgstr "Порт SOCKS прокси"
 msgid "SSH connection"
 msgstr "SSH-соединение"
 
-msgid "SSH connection management is now done through the"
-msgstr "Управление SSH-соединением теперь осуществляется через"
+msgid "SSH connection management is now done through the \"Profiles & connections\" tab"
+msgstr ""
 
 msgid "SSH password for {user}@{host}:{port}"
 msgstr "Пароль SSH для {user}@{host}:{port}"
@@ -1168,6 +1168,9 @@ msgstr "Закрепляет окно к выбранному краю экра�
 
 msgid "Source code"
 msgstr "Исходный код"
+
+msgid "Spanish"
+msgstr ""
 
 msgid "Split"
 msgstr "Разделить"
@@ -1453,9 +1456,6 @@ msgstr "Отдалить"
 
 msgid "click"
 msgstr "нажать"
-
-msgid "tab"
-msgstr "вкладка"
 
 msgid "{name} copy"
 msgstr "Копия {name}"

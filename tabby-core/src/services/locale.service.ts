@@ -4,6 +4,7 @@ import { TranslateService } from '@ngx-translate/core'
 
 import localeEN from '@angular/common/locales/en'
 import localeDE from '@angular/common/locales/de'
+import localeES from '@angular/common/locales/es'
 import localeFR from '@angular/common/locales/fr'
 import localeHR from '@angular/common/locales/hr'
 import localePL from '@angular/common/locales/pl'
@@ -16,6 +17,7 @@ import { LogService, Logger } from './log.service'
 
 registerLocaleData(localeEN)
 registerLocaleData(localeDE)
+registerLocaleData(localeES)
 registerLocaleData(localeFR)
 registerLocaleData(localeHR)
 registerLocaleData(localePL)
@@ -38,6 +40,7 @@ export class LocaleService {
     static readonly allLocales = [
         'en-US',
         'de-DE',
+        'es-ES',
         'fr-FR',
         'hr-HR',
         'pl-PL',
@@ -100,6 +103,10 @@ export class LocaleService {
             {
                 code: 'ru-RU',
                 name: translate.instant('Russian'),
+            },
+            {
+                code: 'es-ES',
+                name: translate.instant('Spanish'),
             },
         ]
 

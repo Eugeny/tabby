@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Polish\n"
 "Language: pl_PL\n"
-"PO-Revision-Date: 2022-01-26 18:52\n"
+"PO-Revision-Date: 2022-01-28 22:42\n"
 
 msgid "A second font family used to display characters missing in the main font"
 msgstr "Druga rodzina czcionek używana do wyświetlania znaków, których brakuje w głównej czcionce"
@@ -1016,8 +1016,8 @@ msgstr "SOCKS proxy port"
 msgid "SSH connection"
 msgstr "Połączenie SSH"
 
-msgid "SSH connection management is now done through the"
-msgstr "Zarządzanie połączeniem SSH jest teraz wykonywane przez"
+msgid "SSH connection management is now done through the \"Profiles & connections\" tab"
+msgstr ""
 
 msgid "SSH password for {user}@{host}:{port}"
 msgstr "Hasło SSH dla {user}@{host}:{port}"
@@ -1168,6 +1168,9 @@ msgstr "Przyciąga okno w wybrane miejsce ekranu"
 
 msgid "Source code"
 msgstr "Kod źródłowy"
+
+msgid "Spanish"
+msgstr ""
 
 msgid "Split"
 msgstr "Podziel"
@@ -1453,9 +1456,6 @@ msgstr "Pomniejsz"
 
 msgid "click"
 msgstr "kliknij"
-
-msgid "tab"
-msgstr "karta"
 
 msgid "{name} copy"
 msgstr "kopia {name}"

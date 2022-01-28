@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Croatian\n"
 "Language: hr_HR\n"
-"PO-Revision-Date: 2022-01-26 18:52\n"
+"PO-Revision-Date: 2022-01-28 22:42\n"
 
 msgid "A second font family used to display characters missing in the main font"
 msgstr "Druga obitelj fontova koja se koristi za prikaz nedostajućih znakova u glavnom fontu"
@@ -1016,8 +1016,8 @@ msgstr "SOCKS proxy priključak"
 msgid "SSH connection"
 msgstr "SSH veza"
 
-msgid "SSH connection management is now done through the"
-msgstr "Upravljanje SSH vezom sada se vrši putem"
+msgid "SSH connection management is now done through the \"Profiles & connections\" tab"
+msgstr ""
 
 msgid "SSH password for {user}@{host}:{port}"
 msgstr "SSH lozinka za {user}@{host}:{port}"
@@ -1168,6 +1168,9 @@ msgstr "Privlači prozor na jednu stranu ekrana"
 
 msgid "Source code"
 msgstr "Izvorni kod"
+
+msgid "Spanish"
+msgstr ""
 
 msgid "Split"
 msgstr "Podijeli"
@@ -1453,9 +1456,6 @@ msgstr "Umanji prikaz"
 
 msgid "click"
 msgstr "pritisni"
-
-msgid "tab"
-msgstr "kartica"
 
 msgid "{name} copy"
 msgstr "kopija {name}"

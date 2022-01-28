@@ -1,0 +1,1462 @@
+msgid ""
+msgstr ""
+"mime-version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Crowdin-Project: tabby\n"
+"X-Crowdin-Project-ID: 493349\n"
+"X-Crowdin-Language: es-ES\n"
+"X-Crowdin-File: /locale/app.pot\n"
+"X-Crowdin-File-ID: 75\n"
+"Project-Id-Version: tabby\n"
+"Language-Team: Spanish\n"
+"Language: es_ES\n"
+"PO-Revision-Date: 2022-01-28 22:42\n"
+
+msgid "A second font family used to display characters missing in the main font"
+msgstr "Una familia tipográfica secundaria usada para mostrar los caracteres faltantes en la principal"
+
+msgid "Abort all"
+msgstr "Abortar todo"
+
+msgid "Acrylic background"
+msgstr "Fondo acrílico"
+
+msgid "Add"
+msgstr "Añadir"
+
+msgid "Add a port forward"
+msgstr "Agregar un puerto de reenvío"
+
+msgid "Add a private key"
+msgstr "Añadir una clave privada"
+
+msgid "Add..."
+msgstr "Añadir..."
+
+msgid "Additional space between lines"
+msgstr "Espacio adicional entre líneas"
+
+msgid "Advanced"
+msgstr "Avanzado"
+
+msgid "Agent"
+msgstr "Agente"
+
+msgid "Agent forwarding"
+msgstr "Reenvío del agente"
+
+msgid "Agent pipe path"
+msgstr "Ruta de la tubería del agente"
+
+msgid "Agent type"
+msgstr "Tipo de agente"
+
+msgid "Allows opening .bat files in tabs, but breaks some shells"
+msgstr "Permite abrir archivos .bat en pestañas, pero rompe algunas shells"
+
+msgid "Allows quickly opening a terminal in the selected folder"
+msgstr "Permite abrir rápidamente un terminal en la carpeta seleccionada"
+
+msgid "Appearance"
+msgstr "Apariencia"
+
+msgid "Application"
+msgstr "Aplicación"
+
+msgid "Application settings"
+msgstr "Ajustes de la aplicación"
+
+msgid "Are you sure you want to close Tabby? You can disable this prompt in Settings -> Window."
+msgstr "¿Está seguro de que desea cerrar Tabby? Puede desactivar este mensaje en Ajustes -> Ventana."
+
+msgid "Are you sure?"
+msgstr "¿Estás seguro?"
+
+msgid "Arguments"
+msgstr "Argumentos"
+
+msgid "Ask a question"
+msgstr "Hacer una pregunta"
+
+msgid "Ask before closing the browser tab"
+msgstr "Preguntar antes de cerrar la pestaña del navegador"
+
+msgid "Audible"
+msgstr "Audible"
+
+msgid "Authentication method"
+msgstr "Método de autenticación"
+
+msgid "Author"
+msgstr "Autor"
+
+msgid "Auto"
+msgstr "Auto"
+
+msgid "Auto-open a terminal on app start"
+msgstr "Autoabrir un terminal al iniciar la aplicación"
+
+msgid "Automatic"
+msgstr "Automático"
+
+msgid "Automatic Updates"
+msgstr "Actualizaciones automáticas"
+
+msgid "Automatically upload changes and check for updates every minute"
+msgstr "Cargar automáticamente los cambios y comprobar si hay actualizaciones cada minuto"
+
+msgid "Available"
+msgstr "Disponible"
+
+msgid "Background type"
+msgstr "Tipo de fondo"
+
+msgid "Baud rate"
+msgstr "Velocidad en baudios"
+
+msgid "Beginning of the line"
+msgstr "Inicio de la línea"
+
+msgid "Blink cursor"
+msgstr "Parpadear cursor"
+
+msgid "Blue"
+msgstr "Azul"
+
+msgid "Blur"
+msgstr "Desenfoque"
+
+msgid "Bottom"
+msgstr "Inferior"
+
+msgid "Bracketed paste (requires shell support)"
+msgstr "Pegar con corchetes (requiere soporte de shell)"
+
+msgid "Built-in"
+msgstr "Integrado"
+
+msgid "Cancel"
+msgstr "Cancelar"
+
+msgid "Change baud rate"
+msgstr "Cambiar la velocidad en baudios"
+
+msgid "Change the master passphrase"
+msgstr "Cambiar la contraseña maestra"
+
+msgid "Check for updates"
+msgstr "Buscar actualizaciones"
+
+msgid "Chinese (simplified)"
+msgstr "Chino (simplificado)"
+
+msgid "Chinese (traditional)"
+msgstr "Chino (Tradicional)"
+
+msgid "Ciphers"
+msgstr "Cifrados"
+
+msgid "Clear recent profiles"
+msgstr "Limpiar los perfiles recientes"
+
+msgid "Clear terminal"
+msgstr "Limpiar terminal"
+
+msgid "Clipboard"
+msgstr "Portapapeles"
+
+msgid "Close"
+msgstr "Cerrar"
+
+msgid "Close and never show again"
+msgstr "Cerrar y no mostrar de nuevo"
+
+msgid "Close focused pane"
+msgstr "Cerrar el panel enfocado"
+
+msgid "Close other tabs"
+msgstr "Cerrar el resto de pestañas"
+
+msgid "Close tab"
+msgstr "Cerrar pestaña"
+
+msgid "Close tabs to the left"
+msgstr "Cerrar las pestañas de la izquierda"
+
+msgid "Close tabs to the right"
+msgstr "Cerrar las pestañas de la derecha"
+
+msgid "Color"
+msgstr "Color"
+
+msgid "Color scheme"
+msgstr "Esquema de color"
+
+msgid "Command line"
+msgstr "Línea de comandos"
+
+msgid "Command's stdin/stdout is used instead of a network connection"
+msgstr "El stdin/stdout del comando se utiliza en lugar de una conexión de red"
+
+msgid "Compact"
+msgstr "Compacto"
+
+msgid "Config downloaded"
+msgstr "Configuración descargada"
+
+msgid "Config file"
+msgstr "Archivo de configuración"
+
+msgid "Config sync"
+msgstr "Sincronizar configuración"
+
+msgid "Config uploaded"
+msgstr "Configuración subida"
+
+msgid "Configs"
+msgstr "Configuraciones"
+
+msgid "Connect through a proxy server"
+msgstr "Conectar a través de un servidor proxy"
+
+msgid "Connect to \"%s\"..."
+msgstr "Conectarse a %s..."
+
+msgid "Connect to a different host first and use it as a proxy"
+msgstr "Conectarse primero a un host diferente y utilizarlo como proxy"
+
+msgid "Connecting"
+msgstr "Conectando"
+
+msgid "Connection"
+msgstr "Conexión"
+
+msgid "Connection failed: {error}"
+msgstr "Conexión fallida: {error}"
+
+msgid "Connection name will be used instead"
+msgstr "El nombre de la conexión se utilizará en su lugar"
+
+msgid "Context menu"
+msgstr "Menú contextual"
+
+msgid "Copied"
+msgstr "Copiado"
+
+msgid "Copy"
+msgstr "Copiar"
+
+msgid "Copy current path"
+msgstr "Copiar la ruta actual"
+
+msgid "Copy on select"
+msgstr "Copiar al seleccionar"
+
+msgid "Copy to clipboard"
+msgstr "Copiar al portapapeles"
+
+msgid "Could not decrypt config"
+msgstr "No se ha podido descifrar la configuración"
+
+msgid "Croatian"
+msgstr "Croata"
+
+msgid "Current"
+msgstr "Actual"
+
+msgid "Current color scheme"
+msgstr "Esquema de color actual"
+
+msgid "Current process: {name}"
+msgstr "Proceso actual: {name}"
+
+msgid "Cursor shape"
+msgstr "Forma del cursor"
+
+msgid "Custom CSS"
+msgstr "CSS personalizado"
+
+msgid "Data bits"
+msgstr "Bits de datos"
+
+msgid "Debugging"
+msgstr "Depuración"
+
+msgid "Default profile for new tabs"
+msgstr "Perfil predeterminado para nuevas pestañas"
+
+msgid "Default profile settings"
+msgstr "Configuración de perfil predeterminada"
+
+msgid "Defaults"
+msgstr "Valores predeterminados"
+
+msgid "Defaults for {type}"
+msgstr "Valores predeterminados para {type}"
+
+msgid "Delete"
+msgstr "Borrar"
+
+msgid "Delete \"{name}\"?"
+msgstr "¿Eliminar \"{name}\"?"
+
+msgid "Delete next word"
+msgstr "Eliminar la siguiente palabra"
+
+msgid "Delete previous word"
+msgstr "Eliminar palabra anterior"
+
+msgid "Delete the group's profiles?"
+msgstr "¿Eliminar los perfiles del grupo?"
+
+msgid "Delete this script?"
+msgstr "¿Eliminar este código?"
+
+msgid "Delete vault contents?"
+msgstr "¿Eliminar el contenido de vault?"
+
+msgid "Delete {fullPath}?"
+msgstr "¿Eliminar la ruta {fullPath}?"
+
+msgid "Deleting"
+msgstr "Eliminando"
+
+msgid "Device"
+msgstr "Dispositivo"
+
+msgid "Direct"
+msgstr "Directo"
+
+msgid "Disable"
+msgstr "Deshabilitar"
+
+msgid "Disable GPU acceleration"
+msgstr "Deshabilitar la aceleración de GPU"
+
+msgid "Disable dynamic tab title"
+msgstr "Deshabilitar el título de la pestaña dinámica"
+
+msgid "Disabled"
+msgstr "Deshabilitado"
+
+msgid "Display on"
+msgstr "Mostrar en pantalla"
+
+msgid "Do not abort"
+msgstr "No abortar"
+
+msgid "Do not remember"
+msgstr "No recordar"
+
+msgid "Dock always on top"
+msgstr "Acoplar siempre en la parte superior"
+
+msgid "Dock the terminal"
+msgstr "Acoplar la terminal"
+
+msgid "Docked terminal size"
+msgstr "Tamaño de la terminal acoplada"
+
+msgid "Docked terminal space"
+msgstr "Espacio de la terminal acoplada"
+
+msgid "Docking"
+msgstr "Acoplamiento"
+
+msgid "Double-click selection will stop at these characters"
+msgstr "La selección con doble clic se detendrá en estos caracteres"
+
+msgid "Down"
+msgstr "Abajo"
+
+msgid "Download"
+msgstr "Descargar"
+
+msgid "Duplicate"
+msgstr "Duplicar"
+
+msgid "Duplicate as administrator"
+msgstr "Duplicar como administrador"
+
+msgid "Duplicate tab"
+msgstr "Duplicar pestaña"
+
+msgid "Dynamic"
+msgstr "Dinámico"
+
+msgid "Edit"
+msgstr "Editar"
+
+msgid "Enable"
+msgstr "Habilitar"
+
+msgid "Enable analytics"
+msgstr "Habilitar analíticas"
+
+msgid "Enable automatic installation of updates when they become available."
+msgstr "Habilitar la instalación automática de actualizaciones cuando estén disponibles."
+
+msgid "Enable font ligatures"
+msgstr "Habilitar ligaduras de fuentes"
+
+msgid "Enable global hotkey (Ctrl-Space)"
+msgstr "Habilitar tecla de acceso rápido (Ctrl-Space)"
+
+msgid "Enables the experimental Windows ConPTY API"
+msgstr "Habilitar la API experimental de Windows ConPTY"
+
+msgid "Encrypt config file"
+msgstr "Cifrar el archivo de configuración"
+
+msgid "End of the line"
+msgstr "Fin de la línea"
+
+msgid "English"
+msgstr "Inglés"
+
+msgid "Environment"
+msgstr "Entorno"
+
+msgid "Erase config"
+msgstr "Borrar configuración"
+
+msgid "Erase the Vault"
+msgstr "Borrar la Vault"
+
+msgid "Error in {plugin}:"
+msgstr "Error en {plugin}:"
+
+msgid "Exact match"
+msgstr "Coincidencia exacta"
+
+msgid "Example:"
+msgstr "Ejemplo:"
+
+msgid "Export"
+msgstr "Exportar"
+
+msgid "Fallback font"
+msgstr "Fuente alternativa"
+
+msgid "File transfers"
+msgstr "Transferencias de archivos"
+
+msgid "File: {description}"
+msgstr "Archivo: {description}"
+
+msgid "Fixed"
+msgstr "Solucionado"
+
+msgid "Focus all panes"
+msgstr "Enfocar todos los paneles"
+
+msgid "Focus all panes at once (broadcast)"
+msgstr "Enfocar todos los paneles a la vez (transmitir)"
+
+msgid "Focus next pane"
+msgstr "Enfocar el siguiente panel"
+
+msgid "Focus previous pane"
+msgstr "Enfocar el panel anterior"
+
+msgid "Focus the pane above"
+msgstr "Enfocar el panel de arriba"
+
+msgid "Focus the pane below"
+msgstr "Enfocar el panel de abajo"
+
+msgid "Focus the pane on the left"
+msgstr "Central el panel de la izquierda"
+
+msgid "Focus the pane on the right"
+msgstr "Central el panel de la derecha"
+
+msgid "Font"
+msgstr "Fuente"
+
+msgid "Force CR"
+msgstr "Forzar CR"
+
+msgid "Force CRLF"
+msgstr "Forzar CRLF"
+
+msgid "Force LF"
+msgstr "Forzar LF"
+
+msgid "Forces a specific SSH agent connection type."
+msgstr "Forzar un tipo de conexión de agente SSH específico."
+
+msgid "Forget"
+msgstr "Olvidar"
+
+msgid "Forward port"
+msgstr "Puerto de reenvío"
+
+msgid "Forwarded ports"
+msgstr "Puertos reenviados"
+
+msgid "French"
+msgstr "Francés"
+
+msgid "From color scheme"
+msgstr "Desde un color de esquema"
+
+msgid "From theme"
+msgstr "Desde el tema"
+
+msgid "Frontend"
+msgstr "Interfaz"
+
+msgid "Full"
+msgstr "Completo"
+
+msgid "General"
+msgstr "General"
+
+msgid "Generate a pre-filled GitHub issue"
+msgstr "Generar un problema de GitHub precargado"
+
+msgid "German"
+msgstr "Alemán"
+
+msgid "Get"
+msgstr "Obtener"
+
+msgid "Get it from the Tabby Web settings window"
+msgstr "Obtenerlo desde la ventana de configuración de Tabby"
+
+msgid "Gives the window a blurred transparent background"
+msgstr "Le da a la ventana un fondo transparente borroso"
+
+msgid "Go up"
+msgstr "Ir arriba"
+
+msgid "Green"
+msgstr "Verde"
+
+msgid "Group"
+msgstr "Grupo"
+
+msgid "Help track the number of Tabby installs across the world!"
+msgstr "¡Ayuda a rastrear la cantidad de instalaciones de Tabby en todo el mundo!"
+
+msgid "Hexadecimal"
+msgstr "Hexadecimal"
+
+msgid "Hide tab close button"
+msgstr "Ocultar botón de cierre de pestaña"
+
+msgid "Hide tab index"
+msgstr "Ocultar índice de pestaña"
+
+msgid "Hide window on focus loss"
+msgstr "Ocultar ventana al perder enfoque"
+
+msgid "Hides the docked terminal when you click away."
+msgstr "Oculta la terminal acoplada cuando hagas clic fuera."
+
+msgid "Homepage"
+msgstr "Página de inicio"
+
+msgid "Host"
+msgstr "Anfitrión"
+
+msgid "Host key"
+msgstr "Clave de anfitrión"
+
+msgid "Hotkeys"
+msgstr "Teclas de acceso rápido"
+
+msgid "Icon"
+msgstr "Ícono"
+
+msgid "If disabled, only custom profiles will show up in the profile selector"
+msgstr "Si está deshabilitado, solo se mostrarán perfiles personalizados en el selector de perfil"
+
+msgid "Immediately echoes your input locally"
+msgstr "Inmediatamente hace echo de tu entrada localmente"
+
+msgid "Input is sent as you type"
+msgstr "La entrada se envía mientras escribes"
+
+msgid "Input mode"
+msgstr "Modo de entrada"
+
+msgid "Input newlines"
+msgstr "Entrada de nuevas líneas"
+
+msgid "Installed"
+msgstr "Instalado"
+
+msgid "Installing the update will close all tabs and restart Tabby."
+msgstr "La instalación de la actualización cerrará todas las pestañas y reiniciará Tabby."
+
+msgid "Intelligent Ctrl-C (copy/abort)"
+msgstr "Ctrl-C inteligente (copiar/abortar)"
+
+msgid "Interactive"
+msgstr "Interactivo"
+
+msgid "Invalid syntax"
+msgstr "Sintáxis inválida"
+
+msgid "Jump host"
+msgstr "Saltar host"
+
+msgid "Jump to next word"
+msgstr "Saltar a la siguiente palabra"
+
+msgid "Jump to previous word"
+msgstr "Saltar a la palabra anterior"
+
+msgid "Keep"
+msgstr "Mantener"
+
+msgid "Keep Alive Interval (Milliseconds)"
+msgstr "Mantener vivo el intervalo (Milisegundos)"
+
+msgid "Keep docked terminal always on top"
+msgstr "Mantener la terminal acoplada siempre encima"
+
+msgid "Key"
+msgstr "Clave"
+
+msgid "Key exchange"
+msgstr "Intercambio de llaves"
+
+msgid "Keyboard-interactive auth"
+msgstr "Autenticación interactiva con teclado"
+
+msgid "Language"
+msgstr "Idioma"
+
+msgid "Launch WinSCP"
+msgstr "Iniciar WinSCP"
+
+msgid "Launch WinSCP for current SSH session"
+msgstr "Iniciar WinSCP para la sesión SSH actual"
+
+msgid "Learn how to allow Tabby to detect remote shell's working directory."
+msgstr "Aprende cómo permitir que Tabby detecte el directorio de trabajo remoto de la shell."
+
+msgid "Left"
+msgstr "Izquierda"
+
+msgid "Lets the shell handle Meta key instead of OS"
+msgstr "Permita que la shell maneje la tecla Meta en lugar del sistema operativo"
+
+msgid "Line by line"
+msgstr "Línea por línea"
+
+msgid "Line editor, input is sent after you press Enter"
+msgstr "Editor de línea, la entrada se envía después de pulsar Enter"
+
+msgid "Line padding"
+msgstr "Relleno de línea"
+
+msgid "Loading"
+msgstr "Cargando"
+
+msgid "Loading configs..."
+msgstr "Cargando configuraciones..."
+
+msgid "Local"
+msgstr "Local"
+
+msgid "Local echo"
+msgstr "Eco local"
+
+msgid "Local terminal"
+msgstr "Terminal local"
+
+msgid "Login scripts"
+msgstr "Código de acceso"
+
+msgid "Long-click for context menu"
+msgstr "Clic extendido para el menú contextual"
+
+msgid "Manage profiles"
+msgstr "Administrar perfiles"
+
+msgid "Max Keep Alive Count"
+msgstr "Cantidad máxima de mantenimiento vivo"
+
+msgid "Maximize the active pane"
+msgstr "Maximiza el panel activo"
+
+msgid "Modified on {date}"
+msgstr "Modificado el {date}"
+
+msgid "Move tab to the left"
+msgstr "Mover pestaña a la izquierda"
+
+msgid "Move tab to the right"
+msgstr "Mover pestaña a la derecha"
+
+msgid "Move to \"Ungrouped\""
+msgstr "Mover a \"Desagrupado\""
+
+msgid "Name"
+msgstr "Nombre"
+
+msgid "Name for the new config"
+msgstr "Nombre para la nueva configuración"
+
+msgid "Native"
+msgstr "Nativo"
+
+msgid "New admin tab"
+msgstr "Nueva pestaña de administración"
+
+msgid "New config on {platform}"
+msgstr "Nueva configuración en {platform}"
+
+msgid "New item"
+msgstr "Nuevo elemento"
+
+msgid "New name"
+msgstr "Nuevo nombre"
+
+msgid "New profile"
+msgstr "Nuevo perfil"
+
+msgid "New profile name"
+msgstr "Nuevo nombre de perfil"
+
+msgid "New tab"
+msgstr "Nueva pestaña"
+
+msgid "New tab: {profile}"
+msgstr "Nueva pestaña: {profile}"
+
+msgid "New terminal"
+msgstr "Nuevo terminal"
+
+msgid "New window"
+msgstr "Nueva ventana"
+
+msgid "New with profile"
+msgstr "Nuevo con perfil"
+
+msgid "Next tab"
+msgstr "Siguiente pestaña"
+
+msgid "No color"
+msgstr "Sin color"
+
+msgid "No modifier"
+msgstr "Sin modificador"
+
+msgid "None"
+msgstr "Ninguno"
+
+msgid "Normal"
+msgstr "Normal"
+
+msgid "Not found"
+msgstr "No encontrado"
+
+msgid "Notify on activity"
+msgstr "Notificar sobre la actividad"
+
+msgid "Notify when done"
+msgstr "Notificar cuando termine"
+
+msgid "Number of lines kept in the buffer"
+msgstr "Número de líneas guardadas en el búfer"
+
+msgid "OS default"
+msgstr "SO predeterminado"
+
+msgid "OS default ({name})"
+msgstr "SO predeterminado ({name})"
+
+msgid "Off"
+msgstr "Apagado"
+
+msgid "Official"
+msgstr "Oficial"
+
+msgid "On GitHub Discussions"
+msgstr "En discusiones de GitHub"
+
+msgid "Opacity"
+msgstr "Opacidad"
+
+msgid "Open"
+msgstr "Abrir"
+
+msgid "Open DevTools"
+msgstr "Abrir Herramientas de Desarrollo"
+
+msgid "Open SFTP panel"
+msgstr "Abrir panel SFTP"
+
+msgid "Open Settings"
+msgstr "Abrir Ajustes"
+
+msgid "Optional"
+msgstr "Opcional"
+
+msgid "Options"
+msgstr "Opciones"
+
+msgid "Orange"
+msgstr "Naranja"
+
+msgid "Output is shown as a hexdump"
+msgstr "La salida se muestra como un volcado hexadecimal"
+
+msgid "Output is shown as it is received"
+msgstr "La salida se muestra tal como se recibe"
+
+msgid "Output mode"
+msgstr "Modo de salida"
+
+msgid "Output newlines"
+msgstr "Salida de nuevas líneas"
+
+msgid "Override X11 display"
+msgstr "Reemplazar pantalla X11"
+
+msgid "Overwrite local and sync"
+msgstr "Sobrescribir local y sincronizar"
+
+msgid "Overwrite remote and sync"
+msgstr "Sobrescribir remoto y sincronizar"
+
+msgid "Overwrite the config on the remote side and start syncing?"
+msgstr "¿Sobrescribir la configuración en el lado remoto y empezar a sincronizar?"
+
+msgid "Overwrite the local config and start syncing?"
+msgstr "¿Sobrescribir la configuración local y empezar a sincronizar?"
+
+msgid "Parity"
+msgstr "Paridad"
+
+msgid "Partial config sync is not possible when the config is encrypted via Vault."
+msgstr "La sincronización parcial de configuración no es posible cuando la configuración es cifrada a través de Vault."
+
+msgid "Passphrase for a private key with hash {hash}..."
+msgstr "Contraseña para una clave privada con hash {hash}..."
+
+msgid "Password"
+msgstr "Contraseña"
+
+msgid "Paste"
+msgstr "Pegar"
+
+msgid "Paste from clipboard"
+msgstr "Pegar desde el portapapeles"
+
+msgid "Paste multiple lines?"
+msgstr "¿Pegar múltiples líneas?"
+
+msgid "Paste on middle-click"
+msgstr "Pegar con clic central"
+
+msgid "Path or address of the local X11 socket"
+msgstr "Ruta o dirección del socket local X11"
+
+msgid "Pin"
+msgstr "Fijar"
+
+msgid "Plugins"
+msgstr "Complementos"
+
+msgid "Plugins folder"
+msgstr "Carpeta de complementos"
+
+msgid "Polish"
+msgstr "Polaco"
+
+msgid "Port"
+msgstr "Puerto"
+
+msgid "Ports"
+msgstr "Puertos"
+
+msgid "Press the key now"
+msgstr "Presiona la tecla ahora"
+
+msgid "Prevents accidental closing"
+msgstr "Previene cierre accidental"
+
+msgid "Prevents accidental execution of pasted commands"
+msgstr "Previene la ejecución de comandos pegados"
+
+msgid "Previous tab"
+msgstr "Pestaña anterior"
+
+msgid "Private keys"
+msgstr "Claves privadas"
+
+msgid "Process completed"
+msgstr "Proceso completado"
+
+msgid "Profile name"
+msgstr "Nombre de perfil"
+
+msgid "Profiles"
+msgstr "Perfiles"
+
+msgid "Profiles & connections"
+msgstr "Perfiles y conexiones"
+
+msgid "Program"
+msgstr "Programa"
+
+msgid "Proxy command"
+msgstr "Comando proxy"
+
+msgid "Purple"
+msgstr "Morado"
+
+msgid "Puts all of Tabby's configuration into the vault"
+msgstr "Poner toda la configuración de Tabby en la vault"
+
+msgid "Quick connect"
+msgstr "Conexión rápida"
+
+msgid "Quit"
+msgstr "Salir"
+
+msgid "Raw socket connection"
+msgstr "Conexión de socket sin procesar"
+
+msgid "Ready Timeout (Milliseconds)"
+msgstr "Tiempo de espera listo (Milisegundos)"
+
+msgid "Recent"
+msgstr "Reciente"
+
+msgid "Reconnect"
+msgstr "Reconectar"
+
+msgid "Red"
+msgstr "Rojo"
+
+msgid "Regex"
+msgstr "Regex"
+
+msgid "Release notes"
+msgstr "Notas de lanzamiento"
+
+msgid "Remember for {time}"
+msgstr "Recordar por {time}"
+
+msgid "Remote"
+msgstr "Remoto"
+
+msgid "Rename"
+msgstr "Renombrar"
+
+msgid "Rename Tab"
+msgstr "Renombrar pestaña"
+
+msgid "Rendering"
+msgstr "Renderizando"
+
+msgid "Reopen last tab"
+msgstr "Reabrir última pestaña"
+
+msgid "Replace"
+msgstr "Reemplazar"
+
+msgid "Report a problem"
+msgstr "Reportar un problema"
+
+msgid "Require a key to click links"
+msgstr "Requerir una clave para hacer clic en enlaces"
+
+msgid "Reset zoom"
+msgstr "Restablecer zoom"
+
+msgid "Restart current SSH session"
+msgstr "Reiniciar sesión SSH actual"
+
+msgid "Restart current Telnet session"
+msgstr "Reiniciar sesión Telnet actual"
+
+msgid "Restart current serial session"
+msgstr "Reiniciar la sesión en serie actual"
+
+msgid "Restart the app to apply changes"
+msgstr "Reiniciar la aplicación para aplicar cambios"
+
+msgid "Restore terminal tabs on app start"
+msgstr "Restaurar pestañas de la terminar al iniciar la aplicación"
+
+msgid "Reuse session for multiple tabs"
+msgstr "Reutilizar sesión para múltiples pestañas"
+
+msgid "Right"
+msgstr "Derecha"
+
+msgid "Right click"
+msgstr "Clic derecho"
+
+msgid "Run as administrator"
+msgstr "Ejecutar como administrador"
+
+msgid "Russian"
+msgstr "Ruso"
+
+msgid "SOCKS proxy"
+msgstr "SOCKS proxy"
+
+msgid "SOCKS proxy host"
+msgstr "Servidor proxy SOCKS"
+
+msgid "SOCKS proxy port"
+msgstr "Puerto proxy SOCKS"
+
+msgid "SSH connection"
+msgstr "Conexión SSH"
+
+msgid "SSH connection management is now done through the \"Profiles & connections\" tab"
+msgstr ""
+
+msgid "SSH password for {user}@{host}:{port}"
+msgstr "Contraseña SSH para {user}@{host}:{port}"
+
+msgid "Save"
+msgstr "Guardar"
+
+msgid "Save a password in the keychain"
+msgstr "Guardar una contraseña en el llavero"
+
+msgid "Save and apply"
+msgstr "Guardar y aplicar"
+
+msgid "Save as profile"
+msgstr "Guardar como perfil"
+
+msgid "Save layout as profile"
+msgstr "Guardar diseño como perfil"
+
+msgid "Saved"
+msgstr "Guardado"
+
+msgid "Saved layout"
+msgstr "Diseño guardado"
+
+msgid "Scroll on input"
+msgstr "Desplazarse al entrar"
+
+msgid "Scroll terminal to bottom"
+msgstr "Desplazar terminal hacia abajo"
+
+msgid "Scrollback"
+msgstr "Retroceso"
+
+msgid "Scrolls the terminal to the bottom on user input"
+msgstr "Desplaza el terminal hasta la parte inferior de la entrada del usuario"
+
+msgid "Search"
+msgstr "Buscar"
+
+msgid "Secret sync token"
+msgstr "Token secreto de sincronización"
+
+msgid "Select"
+msgstr "Seleccionar"
+
+msgid "Select a base profile to use as a template"
+msgstr "Seleccione un perfil base para usar como plantilla"
+
+msgid "Select file storage"
+msgstr "Seleccionar archivo de almacenamiento"
+
+msgid "Select profile"
+msgstr "Seleccionar perfil"
+
+msgid "Select profile or enter an address"
+msgstr "Seleccionar perfil o introducir una dirección"
+
+msgid "Send bytes by typing in hex values"
+msgstr "Enviar bytes escribiendo en valores hexadecimales"
+
+msgid "Sends data one byte at a time"
+msgstr "Envía datos de un byte a la vez"
+
+msgid "Serial"
+msgstr "Serial"
+
+msgid "Serial connection"
+msgstr "Conexión serial"
+
+msgid "Serial: {description}"
+msgstr "Serial: {description}"
+
+msgid "Set Tabby as %COMSPEC%"
+msgstr "Establecer Tabby como %COMSPEC%"
+
+msgid "Set master passphrase"
+msgstr "Establecer contraseña maestra"
+
+msgid "Set passphrase"
+msgstr "Establecer contraseña"
+
+msgid "Set password"
+msgstr "Establecer contraseña"
+
+msgid "Set to 0 to disable recent profiles"
+msgstr "Establecer en 0 para desactivar perfiles recientes"
+
+msgid "Sets the SSH agent's named pipe path."
+msgstr "Establece la ruta de la tubería nombrada por el agente SSH."
+
+msgid "Settings"
+msgstr "Ajustes"
+
+msgid "Shell"
+msgstr "Escudo"
+
+msgid "Shell does not support current path detection"
+msgstr "Shell no soporta la detección actual de rutas"
+
+msgid "Shell integration"
+msgstr "Integración con la Shell"
+
+msgid "Show Mixer"
+msgstr "Mostrar Mixer"
+
+msgid "Show Serial connections"
+msgstr "Mostrar conexiones Serial"
+
+msgid "Show a confirmation box when pasting multiple lines"
+msgstr "Mostrar un cuadro de confirmación al pegar múltiples líneas"
+
+msgid "Show built-in profiles in selector"
+msgstr "Mostrar perfiles incorporados en el selector"
+
+msgid "Show config file"
+msgstr "Mostrar archivo de configuración"
+
+msgid "Show defaults"
+msgstr "Mostrar valores predeterminados"
+
+msgid "Show pane labels (for rearranging)"
+msgstr "Mostrar etiquetas de panel (para reordenar)"
+
+msgid "Show profile selector"
+msgstr "Mostrar selector de perfil"
+
+msgid "Show recent profiles in selector"
+msgstr "Mostrar perfiles recientes en el selector"
+
+msgid "Show release notes"
+msgstr "Mostrar notas del lanzamiento"
+
+msgid "Show vault contents"
+msgstr "Mostrar contenido de vault"
+
+msgid "Show {type} profile selector"
+msgstr "Mostrar {type} selector de perfil"
+
+msgid "Skip MoTD/banner"
+msgstr "Omitir MoTD/banner"
+
+msgid "Slow feed"
+msgstr "Fuente lenta"
+
+msgid "Snaps the window to a side of the screen"
+msgstr "Adherir la ventana a un lado de la pantalla"
+
+msgid "Source code"
+msgstr "Código fuente"
+
+msgid "Spanish"
+msgstr ""
+
+msgid "Split"
+msgstr "Dividir"
+
+msgid "Split to the bottom"
+msgstr "Dividir en la parte inferior"
+
+msgid "Split to the left"
+msgstr "Dividir a la izquierda"
+
+msgid "Split to the right"
+msgstr "Dividir a la derecha"
+
+msgid "Split to the top"
+msgstr "Dividir en la parte superior"
+
+msgid "Standard"
+msgstr "Estándar"
+
+msgid "Startup"
+msgstr "Inicialización"
+
+msgid "Stop bits"
+msgstr "Bits de parada"
+
+msgid "Strip"
+msgstr "Franja"
+
+msgid "Subscribe to updates"
+msgstr "Suscribirse a actualizaciones"
+
+msgid "Substitutions allowed."
+msgstr "Sustituciones permitidas."
+
+msgid "Switch profile"
+msgstr "Cambiar perfil"
+
+msgid "Switch profile in the active pane"
+msgstr "Cambiar perfil en panel activo"
+
+msgid "Switches terminal frontend implementation (experimental)"
+msgstr "Cambia la implementación de interfaz de la terminal (experimental)"
+
+msgid "Sync"
+msgstr "Sincronizar"
+
+msgid "Sync Vault"
+msgstr "Sincronizar Vault"
+
+msgid "Sync automatically"
+msgstr "Sincronizar automáticamente"
+
+msgid "Sync host"
+msgstr "Sincronizar host"
+
+msgid "Sync hotkeys"
+msgstr "Sincronizar atajos"
+
+msgid "Sync window settings"
+msgstr "Sincronizar la configuración de la ventana"
+
+msgid "Tab activity"
+msgstr "Actividad de la pestaña"
+
+msgid "Tab {number}"
+msgstr "Pestaña {number}"
+
+msgid "Tabby could not start with your plugins, so all third party plugins have been disabled in this session. The error was:"
+msgstr "Tabby no pudo iniciar con tus complementos, por lo que todos los complementos de terceros han sido deshabilitados en esta sesión. El error fue:"
+
+msgid "Tabby news and updates on Twitter"
+msgstr "Noticias de Tabby y actualizaciones en Twitter"
+
+msgid "Tabs"
+msgstr "Pestañas"
+
+msgid "Tabs location"
+msgstr "Ubicación de las pestañas"
+
+msgid "Tabs width"
+msgstr "Ancho de pestañas"
+
+msgid "Telnet session"
+msgstr "Sesión de Telnet"
+
+msgid "Terminal"
+msgstr "Terminal"
+
+msgid "Terminal background"
+msgstr "Fondo de la terminal"
+
+msgid "Terminal bell"
+msgstr "Campana de la terminal"
+
+msgid "Thank you for downloading Tabby!"
+msgstr "¡Gracias por descargar Tabby!"
+
+msgid "Theme"
+msgstr "Tema"
+
+msgid "There are active file transfers"
+msgstr "Hay transferencias de archivos activas"
+
+msgid "There is a saved password for this connection"
+msgstr "Hay una contraseña guardada para esta conexión"
+
+msgid "These apply to all profiles of a given type"
+msgstr "Estos se aplican a todos los perfiles de un tipo determinado"
+
+msgid "Thin"
+msgstr "Estrecho"
+
+msgid "Tick this if you're experiencing aliasing, ghosting or other visual issues"
+msgstr "Marque esto si está experimentando aliasing, efecto fantasma u otros problemas visuales"
+
+msgid "Toggle fullscreen mode"
+msgstr "Alternar modo de pantalla completa"
+
+msgid "Toggle last tab"
+msgstr "Alternar última pestaña"
+
+msgid "Toggle terminal window"
+msgstr "Alternar ventana de la terminal"
+
+msgid "Toggles the Tabby window visibility"
+msgstr "Alterna la visibilidad de la ventana de Tabby"
+
+msgid "Top"
+msgstr "Top"
+
+msgid "Try again"
+msgstr "Reintentar"
+
+msgid "Trying saved password"
+msgstr "Reintentar contraseña guardada"
+
+msgid "Ungrouped"
+msgstr "Desagrupado"
+
+msgid "Uninstall"
+msgstr "Desinstalar"
+
+msgid "Unknown"
+msgstr "Desconocido"
+
+msgid "Unknown secret of type {type} for {key}"
+msgstr "Secreto desconocido de tipo {type} para {key}"
+
+msgid "Unpin"
+msgstr "Quitar fijado"
+
+msgid "Up"
+msgstr "Arriba"
+
+msgid "Update"
+msgstr "Actualizar"
+
+msgid "Upgrade to {version}"
+msgstr "Actualizar a {version}"
+
+msgid "Upload"
+msgstr "Cargar"
+
+msgid "Upload as a new config"
+msgstr "Subir como una nueva configuración"
+
+msgid "Use ConPTY"
+msgstr "Usar ConPTY"
+
+msgid "Use {altKeyName} as the Meta key"
+msgstr "Usar {altKeyName} como la tecla Meta"
+
+msgid "User default"
+msgstr "Usuario predeterminado"
+
+msgid "Username"
+msgstr "Nombre de usuario"
+
+msgid "Using preset password"
+msgstr "Usando la contraseña preestablecida"
+
+msgid "Vault"
+msgstr "Caja fuerte"
+
+msgid "Vault is an always-encrypted container for secrets such as SSH passwords and private key passphrases."
+msgstr "Vault es un contenedor siempre cifrado para secretos tales como contraseñas SSH y contraseñas de clave privada."
+
+msgid "Vault is empty"
+msgstr "Vault está vacio"
+
+msgid "Vault is locked"
+msgstr "Vault está bloqueado"
+
+msgid "Vault is not configured"
+msgstr "Vault no está configurado"
+
+msgid "Vault master passphrase needs to be set to allow storing secrets"
+msgstr "La contraseña maestra de Vault debe estar establecida para permitir secretos"
+
+msgid "Version"
+msgstr "Versión"
+
+msgid "Version: {version}"
+msgstr "Versión: {version}"
+
+msgid "Vibrancy"
+msgstr "Vibración"
+
+msgid "Visual"
+msgstr "Visual"
+
+msgid "WSL terminal bell can only be muted via Volume Mixer"
+msgstr "La campana de la terminal WSL sólo puede silenciarse a través del Mezclador del Volumen"
+
+msgid "WSL terminal only supports TrueColor with ConPTY"
+msgstr "La terminal WSL sólo soporta TrueColor con ConPTY"
+
+msgid "Warn on multi-line paste"
+msgstr "Advertir al pegar múltiples líneas"
+
+msgid "Warn when closing active connections"
+msgstr "Advertir al cerrar conexiones activas"
+
+msgid "We're only tracking your Tabby and OS versions."
+msgstr "Solo estamos rastreando sus versiones de Tabby y SO."
+
+msgid "Welcome"
+msgstr "Bienvenido"
+
+msgid "What's new"
+msgstr "Qué hay de nuevo"
+
+msgid "When WinSCP is detected, you can launch an SCP session from the context menu."
+msgstr "Cuando se detecta WinSCP, puede iniciar una sesión SCP desde el menú contextual."
+
+msgid "When enabled, links are only clickable while holding this key"
+msgstr "Cuando está habilitado, los enlaces sólo se pueden hacer clic mientras se mantiene presionada esta tecla"
+
+msgid "Whether a custom window or an OS native window should be used"
+msgstr "Si se debe usar una ventana personalizada o una ventana nativa del sistema operativo"
+
+msgid "WinSCP path"
+msgstr "Ruta WinSCP"
+
+msgid "Window"
+msgstr "Ventana"
+
+msgid "Window dimension along the edge"
+msgstr "Dimensión de la ventana a lo largo del borde"
+
+msgid "Window dimension away from the edge"
+msgstr "Dimensión de la ventana lejos del borde"
+
+msgid "Window frame"
+msgstr "Marco de ventana"
+
+msgid "Windows 10 build 18309 or above is recommended for ConPTY"
+msgstr "Se recomienda Windows 10 build 18309 o superior para ConPTY"
+
+msgid "Word separators"
+msgstr "Separadores de palabra"
+
+msgid "Working directory"
+msgstr "Directorio de trabajo"
+
+msgid "Working directory detection"
+msgstr "Detección de directorio de trabajo"
+
+msgid "X11 forwarding"
+msgstr "Reenvío X11"
+
+msgid "Yellow"
+msgstr "Amarillo"
+
+msgid "You can change it later, but it's unrecoverable if forgotten."
+msgstr "Puedes cambiarlo más tarde, pero es irrecuperable si lo olvidas."
+
+msgid "Zoom in"
+msgstr "Ampliar"
+
+msgid "Zoom out"
+msgstr "Alejar vista"
+
+msgid "click"
+msgstr "clic"
+
+msgid "{name} copy"
+msgstr "{name} copia"
+

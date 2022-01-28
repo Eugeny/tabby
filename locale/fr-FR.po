@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2022-01-26 18:52\n"
+"PO-Revision-Date: 2022-01-28 22:42\n"
 
 msgid "A second font family used to display characters missing in the main font"
 msgstr "Une seconde famille de polices utilisable pour afficher les caractères absents de la police principale"
@@ -327,7 +327,7 @@ msgid "Device"
 msgstr "Périphérique"
 
 msgid "Direct"
-msgstr "Direct"
+msgstr "Directe"
 
 msgid "Disable"
 msgstr "Désactiver"
@@ -501,7 +501,7 @@ msgid "French"
 msgstr "Français"
 
 msgid "From color scheme"
-msgstr "A partir du schéma de couleurs"
+msgstr "À partir du schéma de couleurs"
 
 msgid "From theme"
 msgstr "Depuis le thème"
@@ -597,7 +597,7 @@ msgid "Intelligent Ctrl-C (copy/abort)"
 msgstr "Ctrl-C intelligent (copier/annuler)"
 
 msgid "Interactive"
-msgstr "Intéractif"
+msgstr "Interactif"
 
 msgid "Invalid syntax"
 msgstr "Syntaxe non valide"
@@ -729,7 +729,7 @@ msgid "New tab"
 msgstr "Nouvel onglet"
 
 msgid "New tab: {profile}"
-msgstr ""
+msgstr "Nouvel onglet: {profile}"
 
 msgid "New terminal"
 msgstr "Nouveau terminal"
@@ -774,7 +774,7 @@ msgid "OS default ({name})"
 msgstr "Valeur par défaut de l'OS ({name})"
 
 msgid "Off"
-msgstr "Éteint"
+msgstr "Désactivé"
 
 msgid "Official"
 msgstr "Officiel"
@@ -948,7 +948,7 @@ msgid "Remember for {time}"
 msgstr "S'en souvenir pendant {time}"
 
 msgid "Remote"
-msgstr "À distance"
+msgstr "Distant"
 
 msgid "Rename"
 msgstr "Renommer"
@@ -1016,8 +1016,8 @@ msgstr "Port proxy SOCKS"
 msgid "SSH connection"
 msgstr "Connexion SSH"
 
-msgid "SSH connection management is now done through the"
-msgstr "La gestion des connexions SSH est maintenant effectuée via le"
+msgid "SSH connection management is now done through the \"Profiles & connections\" tab"
+msgstr ""
 
 msgid "SSH password for {user}@{host}:{port}"
 msgstr "Mot de passe SSH pour {user}@{host}:{port}"
@@ -1026,7 +1026,7 @@ msgid "Save"
 msgstr "Enregistrer"
 
 msgid "Save a password in the keychain"
-msgstr "Enregistrer un mot de passe dans le trousseau"
+msgstr "Enregistrer le mot de passe dans le coffre"
 
 msgid "Save and apply"
 msgstr "Enregistrer et appliquer"
@@ -1169,6 +1169,9 @@ msgstr "Colle la fenêtre sur un côté de l'écran"
 msgid "Source code"
 msgstr "Code source"
 
+msgid "Spanish"
+msgstr ""
+
 msgid "Split"
 msgstr "Diviser"
 
@@ -1305,7 +1308,7 @@ msgid "Trying saved password"
 msgstr "Tente d'utiliser le mot de passe enregistré"
 
 msgid "Ungrouped"
-msgstr "Dégroupé"
+msgstr "Sans groupe"
 
 msgid "Uninstall"
 msgstr "Désinstaller"
@@ -1392,7 +1395,7 @@ msgid "Warn when closing active connections"
 msgstr "Avertir lors de la fermeture de connexions actives"
 
 msgid "We're only tracking your Tabby and OS versions."
-msgstr "Nous ne récupérons que les versions de Tabby et de l'OS."
+msgstr "Nous ne collectons que la version de Tabby et celle de l'OS."
 
 msgid "Welcome"
 msgstr "Bienvenue"
@@ -1453,9 +1456,6 @@ msgstr "Zoom arrière"
 
 msgid "click"
 msgstr "clic"
-
-msgid "tab"
-msgstr "onglet"
 
 msgid "{name} copy"
 msgstr "{name} - Copie"

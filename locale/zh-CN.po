@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2022-01-26 18:52\n"
+"PO-Revision-Date: 2022-01-28 22:42\n"
 
 msgid "A second font family used to display characters missing in the main font"
 msgstr "第二种字体，用于显示主字体中缺失的字符"
@@ -729,7 +729,7 @@ msgid "New tab"
 msgstr "新标签页"
 
 msgid "New tab: {profile}"
-msgstr ""
+msgstr "新标签页：{profile}"
 
 msgid "New terminal"
 msgstr "新终端"
@@ -1016,8 +1016,8 @@ msgstr "SOCKS 代理端口"
 msgid "SSH connection"
 msgstr "SSH 连接"
 
-msgid "SSH connection management is now done through the"
-msgstr "现在，对 SSH 连接进行管理，请切换至"
+msgid "SSH connection management is now done through the \"Profiles & connections\" tab"
+msgstr ""
 
 msgid "SSH password for {user}@{host}:{port}"
 msgstr "{user}@{host}:{port} 的 SSH 密码"
@@ -1155,7 +1155,7 @@ msgid "Show vault contents"
 msgstr "显示保险库内容"
 
 msgid "Show {type} profile selector"
-msgstr ""
+msgstr "显示 {type} 配置选择器"
 
 msgid "Skip MoTD/banner"
 msgstr "跳过 MoTD/横幅消息"
@@ -1168,6 +1168,9 @@ msgstr "将窗口贴靠至屏幕的一侧"
 
 msgid "Source code"
 msgstr "源码"
+
+msgid "Spanish"
+msgstr ""
 
 msgid "Split"
 msgstr "拆分"
@@ -1453,9 +1456,6 @@ msgstr "缩小"
 
 msgid "click"
 msgstr "点击"
-
-msgid "tab"
-msgstr "标签页"
 
 msgid "{name} copy"
 msgstr "{name} 副本"

@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Chinese Traditional\n"
 "Language: zh_TW\n"
-"PO-Revision-Date: 2022-01-26 18:52\n"
+"PO-Revision-Date: 2022-01-28 22:42\n"
 
 msgid "A second font family used to display characters missing in the main font"
 msgstr "第二個字體系列，用於顯示主字體中缺少的字元"
@@ -1016,7 +1016,7 @@ msgstr "SOCKS 代理埠"
 msgid "SSH connection"
 msgstr "SSH 連線"
 
-msgid "SSH connection management is now done through the"
+msgid "SSH connection management is now done through the \"Profiles & connections\" tab"
 msgstr ""
 
 msgid "SSH password for {user}@{host}:{port}"
@@ -1168,6 +1168,9 @@ msgstr "將視窗折至螢幕的其中一邊"
 
 msgid "Source code"
 msgstr "原始碼"
+
+msgid "Spanish"
+msgstr ""
 
 msgid "Split"
 msgstr "分割"
@@ -1453,9 +1456,6 @@ msgstr "縮小"
 
 msgid "click"
 msgstr "點擊"
-
-msgid "tab"
-msgstr "分頁"
 
 msgid "{name} copy"
 msgstr "{name} 複製"

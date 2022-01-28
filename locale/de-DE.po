@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: German\n"
 "Language: de_DE\n"
-"PO-Revision-Date: 2022-01-26 18:52\n"
+"PO-Revision-Date: 2022-01-28 22:42\n"
 
 msgid "A second font family used to display characters missing in the main font"
 msgstr "Eine zweite Schriftart, die zur Darstellung von Zeichen verwendet wird, wenn in der Hauptschriftart Zeichen fehlen"
@@ -729,7 +729,7 @@ msgid "New tab"
 msgstr "Neuer Tab"
 
 msgid "New tab: {profile}"
-msgstr ""
+msgstr "Neues Tab: {profile}"
 
 msgid "New terminal"
 msgstr "Neues Terminal"
@@ -1016,8 +1016,8 @@ msgstr "SOCKS-Proxy-Port"
 msgid "SSH connection"
 msgstr "SSH-Verbindung"
 
-msgid "SSH connection management is now done through the"
-msgstr "SSH-Verbindungsverwaltung geht nun über"
+msgid "SSH connection management is now done through the \"Profiles & connections\" tab"
+msgstr ""
 
 msgid "SSH password for {user}@{host}:{port}"
 msgstr "SSH-Passwort für {user}@{host}:{port}"
@@ -1155,7 +1155,7 @@ msgid "Show vault contents"
 msgstr "Tresor Inhalt anzeigen"
 
 msgid "Show {type} profile selector"
-msgstr ""
+msgstr "Zeige {type} Profilauswahl"
 
 msgid "Skip MoTD/banner"
 msgstr "MoTD/Banner überspringen"
@@ -1168,6 +1168,9 @@ msgstr "Einrasten des Fensters an einer Seite des Bildschirms"
 
 msgid "Source code"
 msgstr "Quellcode"
+
+msgid "Spanish"
+msgstr ""
 
 msgid "Split"
 msgstr "Teilen"
@@ -1248,7 +1251,7 @@ msgid "Tabs location"
 msgstr "Tab Position "
 
 msgid "Tabs width"
-msgstr "Tab Breite"
+msgstr "Tabs Breite"
 
 msgid "Telnet session"
 msgstr "Telnet-Sitzung"
@@ -1453,9 +1456,6 @@ msgstr "Herauszoomen"
 
 msgid "click"
 msgstr "klick"
-
-msgid "tab"
-msgstr "Tab"
 
 msgid "{name} copy"
 msgstr "{name} Kopie"
