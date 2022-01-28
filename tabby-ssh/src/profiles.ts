@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core'
+import { Inject, Injectable, Optional } from '@angular/core'
 import { ProfileProvider, NewTabParameters, PartialProfile, TranslateService } from 'tabby-core'
 import * as ALGORITHMS from 'ssh2/lib/protocol/constants'
 import { SSHProfileSettingsComponent } from './components/sshProfileSettings.component'
 import { SSHTabComponent } from './components/sshTab.component'
 import { PasswordStorageService } from './services/passwordStorage.service'
 import { ALGORITHM_BLACKLIST, SSHAlgorithmType, SSHProfile } from './api'
-import { parseOpenSSHProfiles } from './openSSHImport'
+import { SSHProfileImporter } from './api/importer'
 
 @Injectable({ providedIn: 'root' })
 export class SSHProfilesService extends ProfileProvider<SSHProfile> {
@@ -47,6 +47,7 @@ export class SSHProfilesService extends ProfileProvider<SSHProfile> {
     constructor (
         private passwordStorage: PasswordStorageService,
         private translate: TranslateService,
+        @Inject(SSHProfileImporter) @Optional() private importers: SSHProfileImporter[]|null,
     ) {
         super()
         for (const k of Object.values(SSHAlgorithmType)) {
@@ -63,10 +64,12 @@ export class SSHProfilesService extends ProfileProvider<SSHProfile> {
 
     async getBuiltinProfiles (): Promise<PartialProfile<SSHProfile>[]> {
         let imported: PartialProfile<SSHProfile>[] = []
-        try {
-            imported = await parseOpenSSHProfiles()
-        } catch (e) {
-            console.warn('Could not parse OpenSSH config:', e)
+        for (const importer of this.importers ?? []) {
+            try {
+                imported = imported.concat(await importer.getProfiles())
+            } catch (e) {
+                console.warn('Could not parse OpenSSH config:', e)
+            }
         }
         return [
             {
@@ -85,7 +88,6 @@ export class SSHProfilesService extends ProfileProvider<SSHProfile> {
             },
             ...imported.map(p => ({
                 ...p,
-                name: p.name + ' (.ssh/config)',
                 isBuiltin: true,
             })),
         ]

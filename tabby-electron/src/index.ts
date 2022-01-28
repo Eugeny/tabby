@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core'
 import { PlatformService, LogService, UpdaterService, DockingService, HostAppService, ThemesService, Platform, AppService, ConfigService, WIN_BUILD_FLUENT_BG_SUPPORTED, isWindowsBuild, HostWindowService, HotkeyProvider, ConfigProvider, FileProvider } from 'tabby-core'
 import { TerminalColorSchemeProvider } from 'tabby-terminal'
-import { SFTPContextMenuItemProvider } from 'tabby-ssh'
+import { SFTPContextMenuItemProvider, SSHProfileImporter } from 'tabby-ssh'
 import { auditTime } from 'rxjs'
 
 import { HyperColorSchemes } from './colorSchemes'
@@ -17,6 +17,7 @@ import { ElectronService } from './services/electron.service'
 import { ElectronHotkeyProvider } from './hotkeys'
 import { ElectronConfigProvider } from './config'
 import { EditSFTPContextMenu } from './sftpContextMenu'
+import { OpenSSHImporter } from './openSSHImport'
 
 @NgModule({
     providers: [
@@ -31,6 +32,7 @@ import { EditSFTPContextMenu } from './sftpContextMenu'
         { provide: ConfigProvider, useClass: ElectronConfigProvider, multi: true },
         { provide: FileProvider, useClass: ElectronFileProvider, multi: true },
         { provide: SFTPContextMenuItemProvider, useClass: EditSFTPContextMenu, multi: true },
+        { provide: SSHProfileImporter, useClass: OpenSSHImporter, multi: true },
     ],
 })
 export default class ElectronModule {
