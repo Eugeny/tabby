@@ -23,20 +23,30 @@ import { SplitDropZoneInfo } from './splitTab.component'
 export class SplitTabDropZoneComponent extends SelfPositioningComponent {
     @Input() dropZone: SplitDropZoneInfo
     @Input() parent: BaseTabComponent
+    @Input() enabled = false
     @Output() tabDropped = new EventEmitter<BaseTabComponent>()
     @HostBinding('class.active') isActive = false
     @HostBinding('class.highlighted') isHighlighted = false
 
-    // eslint-disable-next-line @typescript-eslint/no-useless-constructor
     constructor (
         element: ElementRef,
         app: AppService,
     ) {
         super(element)
         this.subscribeUntilDestroyed(app.tabDragActive$, tab => {
-            this.isActive = !!tab && tab !== this.parent && (this.dropZone.type === 'relative' || tab !== this.dropZone.container.children[this.dropZone.position])
+            this.isActive = !!(tab && this.canActivateFor(tab))
             this.layout()
         })
+    }
+
+    canActivateFor (tab: BaseTabComponent) {
+        if (tab === this.parent || !this.enabled) {
+            return false
+        }
+        if (this.dropZone.type === 'absolute' && tab === this.dropZone.container.children[this.dropZone.position]) {
+            return false
+        }
+        return true
     }
 
     ngOnChanges () {
