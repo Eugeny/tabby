@@ -1,0 +1,37 @@
+.modal-header
+    h3.m-0(translate) Host key verification
+
+.modal-body.pt-0
+    .alert.alert-danger(*ngIf='isMismatched')
+        strong(translate) Warning: remote host's key has suddenly changed!
+        div(translate) You could be under a man-in-the-middle attack right now, or the host key could have just been changed.
+
+    .form-group(*ngIf='isMismatched')
+        .d-flex.align-items-center
+            label(translate) Last known host key fingerprint
+            .badge.badge-danger.ml-auto {{ selector.type }}
+        code {{knownHost.digest}}
+
+    .form-group
+        .d-flex.align-items-center
+            label(translate) Current host key fingerprint
+            .badge.badge-success.ml-auto {{ selector.type }}
+        code {{digest}}
+
+.modal-footer
+    .w-100
+        button.d-block.w-100.mb-3.btn.btn-primary(
+            (click)='acceptAndSave()',
+            [class.btn-danger]='isMismatched',
+            translate
+        ) Accept and remember key
+        button.d-block.w-100.mb-3.btn.btn-secondary(
+            (click)='accept()',
+            [class.btn-warning]='isMismatched',
+            translate
+        ) Accept just this once
+        button.d-block.w-100.btn.btn-secondary(
+            [class.btn-danger]='!isMismatched',
+            (click)='cancel()',
+            translate
+        ) Disconnect

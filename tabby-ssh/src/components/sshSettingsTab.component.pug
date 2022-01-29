@@ -8,6 +8,14 @@ h3 SSH
         (ngModelChange)='config.save()',
     )
 
+.form-line
+    .header
+        .title(translate) Verify host keys when connecting
+    toggle(
+        [(ngModel)]='config.store.ssh.verifyHostKeys',
+        (ngModelChange)='config.save()',
+    )
+
 .form-line(*ngIf='hostApp.platform === Platform.Windows')
     .header
         .title(translate) WinSCP path

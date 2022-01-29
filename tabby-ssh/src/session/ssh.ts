@@ -11,8 +11,10 @@ import { ConfigService, FileProvidersService, HostAppService, NotificationsServi
 import { Socket } from 'net'
 import { Client, ClientChannel, SFTPWrapper } from 'ssh2'
 import { Subject, Observable } from 'rxjs'
+import { HostKeyPromptModalComponent } from '../components/hostKeyPromptModal.component'
 import { ProxyCommandStream, SocksProxyStream } from '../services/ssh.service'
 import { PasswordStorageService } from '../services/passwordStorage.service'
+import { SSHKnownHostsService } from '../services/sshKnownHosts.service'
 import { promisify } from 'util'
 import { SFTPSession } from './sftp'
 import { ALGORITHM_BLACKLIST, SSHAlgorithmType, PortForwardType, SSHProfile } from '../api'
@@ -30,6 +32,11 @@ interface AuthMethod {
     type: 'none'|'publickey'|'agent'|'password'|'keyboard-interactive'|'hostbased'
     name?: string
     contents?: Buffer
+}
+
+interface Handshake {
+    kex: string
+    serverHostKey: string
 }
 
 export class KeyboardInteractivePrompt {
@@ -75,6 +82,7 @@ export class SSHSession {
     private keyboardInteractivePrompt = new Subject<KeyboardInteractivePrompt>()
     private willDestroy = new Subject<void>()
     private keychainPasswordUsed = false
+    private hostKeyDigest = ''
 
     private passwordStorage: PasswordStorageService
     private ngbModal: NgbModal
@@ -85,6 +93,7 @@ export class SSHSession {
     private fileProviders: FileProvidersService
     private config: ConfigService
     private translate: TranslateService
+    private knownHosts: SSHKnownHostsService
 
     constructor (
         private injector: Injector,
@@ -101,6 +110,7 @@ export class SSHSession {
         this.fileProviders = injector.get(FileProvidersService)
         this.config = injector.get(ConfigService)
         this.translate = injector.get(TranslateService)
+        this.knownHosts = injector.get(SSHKnownHostsService)
 
         this.willDestroy$.subscribe(() => {
             for (const port of this.forwardedPorts) {
@@ -186,6 +196,18 @@ export class SSHSession {
             algorithms[key] = this.profile.options.algorithms![key].filter(x => !ALGORITHM_BLACKLIST.includes(x))
         }
 
+        const hostVerifiedPromise: Promise<void> = new Promise((resolve, reject) => {
+            ssh.on('handshake', async handshake => {
+                if (!await this.verifyHostKey(handshake)) {
+                    this.ssh.end()
+                    reject(new Error('Host key verification failed'))
+                    return
+                }
+                this.logger.info('Handshake complete:', handshake)
+                resolve()
+            })
+        })
+
         const resultPromise: Promise<void> = new Promise(async (resolve, reject) => {
             ssh.on('ready', () => {
                 connected = true
@@ -193,14 +215,7 @@ export class SSHSession {
                     this.passwordStorage.savePassword(this.profile, this.savedPassword)
                 }
 
-                for (const fw of this.profile.options.forwardedPorts ?? []) {
-                    this.addPortForward(Object.assign(new ForwardedPort(), fw))
-                }
-
                 this.zone.run(resolve)
-            })
-            ssh.on('handshake', negotiated => {
-                this.logger.info('Handshake complete:', negotiated)
             })
             ssh.on('error', error => {
                 if (error.message === 'All configured authentication methods failed') {
@@ -288,12 +303,10 @@ export class SSHSession {
                 keepaliveInterval: this.profile.options.keepaliveInterval ?? 15000,
                 keepaliveCountMax: this.profile.options.keepaliveCountMax,
                 readyTimeout: this.profile.options.readyTimeout,
-                hostVerifier: (digest: string) => {
-                    log('Host key fingerprint:')
-                    log(colors.white.bgBlack(' SHA256 ') + colors.bgBlackBright(' ' + digest + ' '))
+                hostVerifier: (key: any) => {
+                    this.hostKeyDigest = crypto.createHash('sha256').update(key).digest('base64')
                     return true
                 },
-                hostHash: 'sha256' as any,
                 algorithms,
                 authHandler: (methodsLeft, partialSuccess, callback) => {
                     this.zone.run(async () => {
@@ -307,6 +320,11 @@ export class SSHSession {
         }
 
         await resultPromise
+        await hostVerifiedPromise
+
+        for (const fw of this.profile.options.forwardedPorts ?? []) {
+            this.addPortForward(Object.assign(new ForwardedPort(), fw))
+        }
 
         this.open = true
 
@@ -369,6 +387,31 @@ export class SSHSession {
                 reject()
             }
         })
+    }
+
+    private async verifyHostKey (handshake: Handshake): Promise<boolean> {
+        this.emitServiceMessage('Host key fingerprint:')
+        this.emitServiceMessage(colors.white.bgBlack(` ${handshake.serverHostKey} `) + colors.bgBlackBright(' ' + this.hostKeyDigest + ' '))
+        if (!this.config.store.ssh.verifyHostKeys) {
+            return true
+        }
+        const selector = {
+            host: this.profile.options.host,
+            port: this.profile.options.port ?? 22,
+            type: handshake.serverHostKey,
+        }
+        const knownHost = this.knownHosts.getFor(selector)
+        if (!knownHost || knownHost.digest !== this.hostKeyDigest) {
+            const modal = this.ngbModal.open(HostKeyPromptModalComponent)
+            modal.componentInstance.selector = selector
+            modal.componentInstance.digest = this.hostKeyDigest
+            try {
+                return await modal.result
+            } catch {
+                return false
+            }
+        }
+        return true
     }
 
     emitServiceMessage (msg: string): void {

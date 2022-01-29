@@ -10,6 +10,12 @@ msgstr ""
 msgid "Abort all"
 msgstr ""
 
+msgid "Accept and remember key"
+msgstr ""
+
+msgid "Accept just this once"
+msgstr ""
+
 msgid "Acrylic background"
 msgstr ""
 
@@ -261,6 +267,9 @@ msgstr ""
 msgid "Current color scheme"
 msgstr ""
 
+msgid "Current host key fingerprint"
+msgstr ""
+
 msgid "Current process: {name}"
 msgstr ""
 
@@ -331,6 +340,9 @@ msgid "Disable dynamic tab title"
 msgstr ""
 
 msgid "Disabled"
+msgstr ""
+
+msgid "Disconnect"
 msgstr ""
 
 msgid "Display on"
@@ -558,6 +570,9 @@ msgstr ""
 msgid "Host key"
 msgstr ""
 
+msgid "Host key verification"
+msgstr ""
+
 msgid "Hotkeys"
 msgstr ""
 
@@ -622,6 +637,9 @@ msgid "Keyboard-interactive auth"
 msgstr ""
 
 msgid "Language"
+msgstr ""
+
+msgid "Last known host key fingerprint"
 msgstr ""
 
 msgid "Launch WinSCP"
@@ -1368,6 +1386,9 @@ msgstr ""
 msgid "Vault master passphrase needs to be set to allow storing secrets"
 msgstr ""
 
+msgid "Verify host keys when connecting"
+msgstr ""
+
 msgid "Version"
 msgstr ""
 
@@ -1390,6 +1411,9 @@ msgid "Warn on multi-line paste"
 msgstr ""
 
 msgid "Warn when closing active connections"
+msgstr ""
+
+msgid "Warning: remote host's key has suddenly changed!"
 msgstr ""
 
 msgid "We're only tracking your Tabby and OS versions."
@@ -1446,6 +1470,11 @@ msgid "Yellow"
 msgstr ""
 
 msgid "You can change it later, but it's unrecoverable if forgotten."
+msgstr ""
+
+msgid ""
+"You could be under a man-in-the-middle attack right now, or the host key "
+"could have just been changed."
 msgstr ""
 
 msgid "Zoom in"
