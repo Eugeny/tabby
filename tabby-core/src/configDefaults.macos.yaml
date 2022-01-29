@@ -75,3 +75,5 @@ hotkeys:
     - '⌘-E'
   switch-profile:
     - '⌘-Shift-E'
+appearance:
+  vibrancy: true
