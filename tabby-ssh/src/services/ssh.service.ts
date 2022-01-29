@@ -74,7 +74,9 @@ export class SocksProxyStream extends Duplex {
             }, s => {
                 resolve(s)
                 this.header = s.read()
-                this.push(this.header)
+                if (this.header) {
+                    this.push(this.header)
+                }
             })
             connector.on('error', (err) => {
                 reject(err)
@@ -82,7 +84,7 @@ export class SocksProxyStream extends Duplex {
             })
         })
         this.client?.on('data', data => {
-            if (data !== this.header) {
+            if (!this.header || data !== this.header) {
                 // socksv5 doesn't reliably emit the first data event
                 this.push(data)
                 this.header = null
