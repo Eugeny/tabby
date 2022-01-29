@@ -72,9 +72,6 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
     @HostBinding('style.background-color') backgroundColor: string|null = null
 
     /** @hidden */
-    @HostBinding('class.top-padded') topPadded: boolean
-
-    /** @hidden */
     @HostBinding('class.toolbar-enabled') enableToolbar = false
 
     /** @hidden */
@@ -478,10 +475,6 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
     configure (): void {
         this.frontend?.configure()
 
-        this.topPadded = this.hostApp.platform === Platform.macOS
-            && this.config.store.appearance.frame === 'thin'
-            && this.config.store.appearance.tabsLocation !== 'top'
-
         if (this.config.store.terminal.background === 'colorScheme') {
             if (this.config.store.terminal.colorScheme.background) {
                 this.backgroundColor = this.config.store.terminal.colorScheme.background
@@ -712,6 +705,10 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
     togglePinToolbar (): void {
         this.pinToolbar = !this.pinToolbar
         window.localStorage.pinTerminalToolbar = this.pinToolbar
+    }
+
+    @HostBinding('class.with-title-inset') get hasTitleInset (): boolean {
+        return this.hostApp.platform === Platform.macOS && this.config.store.appearance.tabsLocation !== 'top' && this.config.store.appearance.frame === 'thin'
     }
 
     protected attachSessionHandler <T> (observable: Observable<T>, handler: (v: T) => void): void {

@@ -1,7 +1,4 @@
-.terminal-toolbar(
-    (mouseenter)='showToolbar()',
-    (mouseleave)='hideToolbar()'
-)
+terminal-toolbar([tab]='this')
     i.fas.fa-xs.fa-circle.text-success.mr-2(*ngIf='session && session.open')
     i.fas.fa-xs.fa-circle.text-danger.mr-2(*ngIf='!session || !session.open')
     strong {{profile.options.port}} ({{profile.options.baudrate}})

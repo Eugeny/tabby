@@ -1,0 +1,14 @@
+:host {
+    background: rgba(0, 0, 0, .75);
+    padding: 5px 15px 5px 15px;
+
+    display: flex;
+    align-items: center;
+    z-index: 3;
+}
+
+::ng-deep .btn {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}

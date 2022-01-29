@@ -8,12 +8,9 @@ search-panel(
 )
 
 button.btn.btn-sm.btn-link.toolbar-pin-button(
-    *ngIf='enableToolbar',
+    *ngIf='enableToolbar && !pinToolbar',
     (click)='togglePinToolbar()',
     (mouseenter)='showToolbar()',
     (mouseleave)='hideToolbar()'
 )
-    i.fas.fa-thumbtack(*ngIf='revealToolbar || pinToolbar')
-    i.fas.fa-wrench.mr-3(*ngIf='!revealToolbar && !pinToolbar')
-    span(*ngIf='pinToolbar', translate) Unpin
-    span(*ngIf='!pinToolbar && revealToolbar', translate) Pin
+    i.fas.fa-wrench

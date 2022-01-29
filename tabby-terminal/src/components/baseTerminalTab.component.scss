@@ -5,10 +5,6 @@
     overflow: hidden;
     position: relative;
 
-    &.top-padded {
-        padding-top: 20px;
-    }
-
     &> .content {
         flex: auto;
         position: relative;
@@ -26,45 +22,34 @@
 
     $toolbarHeight: 40px;
 
-    &>.terminal-toolbar {
+    > terminal-toolbar {
         position: absolute;
         top: 0;
         left: 0;
         right: 0;
         z-index: 4;
-        height: $toolbarHeight;
 
         opacity: 0;
-        background: rgba(0, 0, 0, .75);
-        padding: 5px 85px 5px 15px;
         transition: 0.25s opacity;
-
-        display: flex;
-        align-items: center;
-        z-index: 3;
         will-change: transform;
         transform: translate(0, -100px);
         transition: 0.25s transform ease-out;
-
-        > .btn {
-            white-space: nowrap;
-            text-overflow: ellipsis;
-            overflow: hidden;
-        }
+        height: $toolbarHeight;
     }
 
     &.toolbar-revealed, &.toolbar-pinned {
-        > .terminal-toolbar {
+        > terminal-toolbar {
             opacity: 1;
             transform: translate(0, 0);
         }
     }
 
-    &>.toolbar-pin-button {
+    > .toolbar-pin-button {
         position: absolute;
-        right: 10px;
-        top: 2px;
+        right: 34px;
+        top: 5px;
         z-index: 4;
+        background: #00000047;
     }
 
     &.toolbar-pinned > .terminal-toolbar-spacer {
@@ -73,6 +58,10 @@
     }
 }
 
-:host-context(.platform-darwin) .terminal-toolbar {
-    padding-left: 90px;
+:host-context(.with-title-inset) {
+    padding-top: 20px;
+
+    terminal-toolbar {
+        padding-left: 90px;
+    }
 }
