@@ -12,13 +12,19 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2022-01-28 22:42\n"
+"PO-Revision-Date: 2022-01-30 20:02\n"
 
 msgid "A second font family used to display characters missing in the main font"
 msgstr "第二种字体，用于显示主字体中缺失的字符"
 
 msgid "Abort all"
 msgstr "中止全部"
+
+msgid "Accept and remember key"
+msgstr "接受并记住密钥"
+
+msgid "Accept just this once"
+msgstr "只接受本次"
 
 msgid "Acrylic background"
 msgstr "亚克力背景"
@@ -269,6 +275,9 @@ msgstr "当前"
 msgid "Current color scheme"
 msgstr "当前配色方案"
 
+msgid "Current host key fingerprint"
+msgstr "当前主机密钥指纹"
+
 msgid "Current process: {name}"
 msgstr "当前进程：{name}"
 
@@ -340,6 +349,9 @@ msgstr "禁用动态标签页标题"
 
 msgid "Disabled"
 msgstr "已禁用"
+
+msgid "Disconnect"
+msgstr "断开连接"
 
 msgid "Display on"
 msgstr "显示于"
@@ -566,6 +578,9 @@ msgstr "主机"
 msgid "Host key"
 msgstr "主机密钥"
 
+msgid "Host key verification"
+msgstr "主机密钥校验"
+
 msgid "Hotkeys"
 msgstr "快捷键"
 
@@ -631,6 +646,9 @@ msgstr "键盘交互认证"
 
 msgid "Language"
 msgstr "语言"
+
+msgid "Last known host key fingerprint"
+msgstr "最后已知的主机密钥指纹"
 
 msgid "Launch WinSCP"
 msgstr "启动 WinSCP"
@@ -1017,7 +1035,7 @@ msgid "SSH connection"
 msgstr "SSH 连接"
 
 msgid "SSH connection management is now done through the \"Profiles & connections\" tab"
-msgstr ""
+msgstr "现在，SSH 连接管理通过“配置和连接“选项卡完成"
 
 msgid "SSH password for {user}@{host}:{port}"
 msgstr "{user}@{host}:{port} 的 SSH 密码"
@@ -1170,7 +1188,7 @@ msgid "Source code"
 msgstr "源码"
 
 msgid "Spanish"
-msgstr ""
+msgstr "西班牙语"
 
 msgid "Split"
 msgstr "拆分"
@@ -1370,6 +1388,9 @@ msgstr "保险库未配置"
 msgid "Vault master passphrase needs to be set to allow storing secrets"
 msgstr "为允许存储密钥，您必须设置保险库的主密码"
 
+msgid "Verify host keys when connecting"
+msgstr "连接时校验主机密钥"
+
 msgid "Version"
 msgstr "版本"
 
@@ -1393,6 +1414,9 @@ msgstr "多行粘贴时显示警告"
 
 msgid "Warn when closing active connections"
 msgstr "当关闭活动连接时，显示警告"
+
+msgid "Warning: remote host's key has suddenly changed!"
+msgstr "警告：远程主机密钥突然改变！"
 
 msgid "We're only tracking your Tabby and OS versions."
 msgstr "我们只获取您的 Tabby 和操作系统版本信息。"
@@ -1447,6 +1471,9 @@ msgstr "黄色"
 
 msgid "You can change it later, but it's unrecoverable if forgotten."
 msgstr "您可以稍后更改，但在忘记时无法恢复"
+
+msgid "You could be under a man-in-the-middle attack right now, or the host key could have just been changed."
+msgstr "您可能正在遭受中间人攻击，或您的主机密钥已经被更改。"
 
 msgid "Zoom in"
 msgstr "放大"
