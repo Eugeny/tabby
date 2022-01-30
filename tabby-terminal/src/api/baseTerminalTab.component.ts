@@ -1,4 +1,4 @@
-import { Observable, Subject, Subscription, first } from 'rxjs'
+import { Observable, Subject, Subscription, first, auditTime } from 'rxjs'
 import { Spinner } from 'cli-spinner'
 import colors from 'ansi-colors'
 import { NgZone, OnInit, OnDestroy, Injector, ViewChild, HostBinding, Input, ElementRef, InjectFlags } from '@angular/core'
@@ -664,7 +664,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
             this.sendInput(data)
         })
 
-        this.termContainerSubscriptions.subscribe(this.frontend.resize$, ({ columns, rows }) => {
+        this.termContainerSubscriptions.subscribe(this.frontend.resize$.pipe(auditTime(100)), ({ columns, rows }) => {
             this.logger.debug(`Resizing to ${columns}x${rows}`)
             this.size = { columns, rows }
             this.zone.run(() => {
