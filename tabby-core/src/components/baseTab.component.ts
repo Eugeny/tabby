@@ -47,7 +47,9 @@ export abstract class BaseTabComponent extends BaseComponent {
     /**
      * CSS color override for the tab's header
      */
-    color: string|null = null
+    get color (): string|null { return this._color }
+    set color (value: string|null) { this._color = value }
+    private _color: string|null = null
 
     hasFocus = false
 

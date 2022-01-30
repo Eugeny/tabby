@@ -37,9 +37,7 @@ export class ProfilesService {
     async openNewTabForProfile <P extends Profile> (profile: PartialProfile<P>): Promise<BaseTabComponent|null> {
         const params = await this.newTabParametersForProfile(profile)
         if (params) {
-            const tab = this.app.openNewTab(params)
-            ;(this.app.getParentTab(tab) ?? tab).color = profile.color ?? null
-            return tab
+            return this.app.openNewTab(params)
         }
         return null
     }
@@ -50,8 +48,11 @@ export class ProfilesService {
         if (params) {
             params.inputs ??= {}
             params.inputs['title'] = profile.name
-            if (profile.disableDynamicTitle) {
+            if (fullProfile.disableDynamicTitle) {
                 params.inputs['disableDynamicTitle'] = true
+            }
+            if (fullProfile.color) {
+                params.inputs['color'] = fullProfile.color
             }
         }
         return params
