@@ -149,6 +149,7 @@ const PROVIDERS = [
         SortablejsModule,
         DragDropModule,
         TranslateModule,
+        CdkAutoDropGroup,
     ],
 })
 export default class AppModule { // eslint-disable-line @typescript-eslint/no-extraneous-class
