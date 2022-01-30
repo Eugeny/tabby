@@ -108,7 +108,6 @@ Tabby will run as a portable app on Windows, if you create a `data` folder in th
 
 Plugins and themes can be installed directly from the Settings view inside Tabby.
 
-* [clickable-links](https://github.com/Eugeny/tabby-clickable-links) - makes paths and URLs in the terminal clickable
 * [docker](https://github.com/Eugeny/tabby-docker) - connect to Docker containers
 * [title-control](https://github.com/kbjr/terminus-title-control) - allows modifying the title of the terminal tabs by providing a prefix, suffix, and/or strings to be removed
 * [quick-cmds](https://github.com/Domain/terminus-quick-cmds) - quickly send commands to one or all terminal tabs

@@ -40,7 +40,7 @@ publish:
 win:
   icon: "./build/windows/icon.ico"
   artifactName: tabby-${version}-portable.${ext}
-  rfc3161TimeStampServer: http://timestamp.comodoca.com/rfc3161
+  rfc3161TimeStampServer: http://timestamp.sectigo.com
 nsis:
   oneClick: false
   artifactName: tabby-${version}-setup.${ext}
