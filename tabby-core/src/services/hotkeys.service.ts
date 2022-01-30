@@ -130,9 +130,7 @@ export class HotkeysService {
         const keyName = getKeyName(eventData)
         if (eventName === 'keydown') {
             this.addPressedKey(keyName, eventData)
-            if (!nativeEvent.repeat) {
-                this.recognitionPhase = true
-            }
+            this.recognitionPhase = true
             this.updateModifiers(eventData)
         }
         if (eventName === 'keyup') {
@@ -158,8 +156,10 @@ export class HotkeysService {
 
         const matched = this.matchActiveHotkey()
         this.zone.run(() => {
-            if (matched && this.recognitionPhase) {
-                this.emitHotkeyOn(matched)
+            if (matched) {
+                if (this.recognitionPhase) {
+                    this.emitHotkeyOn(matched)
+                }
             } else if (this.pressedHotkey) {
                 this.emitHotkeyOff(this.pressedHotkey)
             }
@@ -288,10 +288,9 @@ export class HotkeysService {
 
     private emitHotkeyOn (hotkey: string) {
         if (this.pressedHotkey) {
-            if (this.pressedHotkey === hotkey) {
-                return
+            if (this.pressedHotkey !== hotkey) {
+                this.emitHotkeyOff(this.pressedHotkey)
             }
-            this.emitHotkeyOff(this.pressedHotkey)
         }
         if (document.querySelectorAll('input:focus').length === 0) {
             console.debug('Matched hotkey', hotkey)
