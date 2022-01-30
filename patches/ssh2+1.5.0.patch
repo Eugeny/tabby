@@ -8,7 +8,7 @@ index 9860e3f..ee82e51 100644
  } = require('crypto');
 +const { createVerify: createVerifyDSS } = require('browserify-sign')
  const supportedOpenSSLCiphers = getCiphers();
-
+ 
  const { Ber } = require('asn1');
 @@ -404,6 +405,17 @@ const BaseKey = {
            return new Error('No public key available');
