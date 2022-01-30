@@ -25,15 +25,13 @@ window-controls {
 
 $border-color: #111;
 
-body {
+app-root  {
     background: $body-bg;
 
     &.vibrant {
         background: rgba(0,0,0,.65);
     }
-}
 
-app-root  {
     &.no-tabs {
         background: rgba(0,0,0,.5);
     }

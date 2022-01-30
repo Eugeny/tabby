@@ -117,15 +117,13 @@ window-controls {
 
 $border-color: $base1;
 
-body {
+app-root  {
     background: $body-bg;
 
     &.vibrant {
         background: rgba(255, 255, 255,.4) !important;
     }
-}
 
-app-root  {
     &> .content {
         .tab-bar {
             .btn-tab-bar {
