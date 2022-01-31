@@ -68,8 +68,8 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
                                         *ngIf='iconIsSVG(profile.icon)'
                                     )
 
-                                    div {{profile.name}}
-                                    .text-muted.ml-2 {{getDescription(profile)}}
+                                    .no-wrap {{profile.name}}
+                                    .text-muted.no-wrap.ml-2 {{getDescription(profile)}}
 
                                     .mr-auto
 
