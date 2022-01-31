@@ -17,7 +17,7 @@ h3.mb-3(translate) Appearance
                     type='number',
                     max='48',
                     [(ngModel)]='config.store.terminal.fontSize',
-                    (ngModelChange)='config.save()',
+                    (ngModelChange)='fixFontSize(); config.save()',
                 )
 
         .form-line
