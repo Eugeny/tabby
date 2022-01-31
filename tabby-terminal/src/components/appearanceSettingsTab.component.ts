@@ -44,8 +44,12 @@ export class AppearanceSettingsTabComponent {
     }
 
     fixFontSize () {
-        if (this.config.store.terminal.fontSize > 100) {
-            this.config.store.terminal.fontSize = 12
-        }
+        this.config.store.terminal.fontSize = Math.min(
+            50,
+            Math.max(
+                5,
+                this.config.store.terminal.fontSize,
+            ),
+        )
     }
 }
