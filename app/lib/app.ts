@@ -130,7 +130,6 @@ export class Application {
             this.setupMenu()
         }
         await window.ready
-        window.present()
         return window
     }
 

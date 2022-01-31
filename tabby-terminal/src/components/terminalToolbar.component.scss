@@ -1,10 +1,20 @@
 :host {
-    background: rgba(0, 0, 0, .75);
+    background: #000000bf;
     padding: 5px 15px 5px 15px;
+    display: flex;
+    z-index: 3;
+}
 
+.content {
+    flex-grow: 1;
     display: flex;
     align-items: center;
-    z-index: 3;
+}
+
+.drag-handle {
+    margin: 0 10px 0 0;
+    cursor: move;
+    opacity: .3;
 }
 
 ::ng-deep .btn {

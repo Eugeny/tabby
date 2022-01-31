@@ -1,11 +1,23 @@
-ng-content
-
-button.btn.btn-sm.btn-link(
-    *ngIf='tab.enableToolbar',
-    (click)='tab.togglePinToolbar()',
-    (mouseenter)='tab.showToolbar()',
-    (mouseleave)='tab.hideToolbar()'
+.content(
+    cdkDropList
+    cdkAutoDropGroup='app-tabs'
 )
-    i.fas.fa-thumbtack
-    span(*ngIf='tab.pinToolbar', translate) Unpin
-    span(*ngIf='!tab.pinToolbar', translate) Pin
+    i.fas.fa-grip-vertical.drag-handle(
+        *ngIf='shouldShowDragHandle',
+        cdkDrag,
+        [cdkDragData]='tab',
+        (cdkDragStarted)='onTabDragStart()',
+        (cdkDragEnded)='onTabDragEnd()'
+    )
+
+    ng-content
+
+    button.btn.btn-sm.btn-link(
+        *ngIf='tab.enableToolbar',
+        (click)='tab.togglePinToolbar()',
+        (mouseenter)='tab.showToolbar()',
+        (mouseleave)='tab.hideToolbar()'
+    )
+        i.fas.fa-thumbtack
+        span(*ngIf='tab.pinToolbar', translate) Unpin
+        span(*ngIf='!tab.pinToolbar', translate) Pin

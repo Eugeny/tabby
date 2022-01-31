@@ -629,6 +629,16 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
         super.clearActivity()
     }
 
+    get color (): string|null {
+        return this.getFocusedTab()?.color ?? null
+    }
+
+    set color (color: string|null) {
+        for (const t of this.getAllTabs()) {
+            t.color = color
+        }
+    }
+
     private updateTitle (): void {
         this.setTitle(this.getAllTabs().map(x => x.title).join(' | '))
     }

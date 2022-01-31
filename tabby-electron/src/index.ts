@@ -116,7 +116,6 @@ export default class ElectronModule {
         if (this.hostApp.platform === Platform.Windows && !isWindowsBuild(WIN_BUILD_FLUENT_BG_SUPPORTED)) {
             vibrancyType = null
         }
-        document.body.classList.toggle('vibrant', this.config.store.appearance.vibrancy)
         this.electron.ipcRenderer.send('window-set-vibrancy', this.config.store.appearance.vibrancy, vibrancyType)
 
         this.hostWindow.setOpacity(this.config.store.appearance.opacity)

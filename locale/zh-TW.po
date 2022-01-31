@@ -12,13 +12,19 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Chinese Traditional\n"
 "Language: zh_TW\n"
-"PO-Revision-Date: 2022-01-28 22:42\n"
+"PO-Revision-Date: 2022-01-30 20:02\n"
 
 msgid "A second font family used to display characters missing in the main font"
 msgstr "第二個字體系列，用於顯示主字體中缺少的字元"
 
 msgid "Abort all"
 msgstr "中止所有"
+
+msgid "Accept and remember key"
+msgstr ""
+
+msgid "Accept just this once"
+msgstr ""
 
 msgid "Acrylic background"
 msgstr "壓克力背景"
@@ -269,6 +275,9 @@ msgstr "現時"
 msgid "Current color scheme"
 msgstr "當前配色方案"
 
+msgid "Current host key fingerprint"
+msgstr ""
+
 msgid "Current process: {name}"
 msgstr "當前行程：{name}"
 
@@ -340,6 +349,9 @@ msgstr "停用動態分頁標題"
 
 msgid "Disabled"
 msgstr "已停用"
+
+msgid "Disconnect"
+msgstr ""
 
 msgid "Display on"
 msgstr "顯示在"
@@ -566,6 +578,9 @@ msgstr "主機"
 msgid "Host key"
 msgstr "快捷鍵"
 
+msgid "Host key verification"
+msgstr ""
+
 msgid "Hotkeys"
 msgstr "快捷鍵"
 
@@ -631,6 +646,9 @@ msgstr ""
 
 msgid "Language"
 msgstr "語言"
+
+msgid "Last known host key fingerprint"
+msgstr ""
 
 msgid "Launch WinSCP"
 msgstr "啟動 WinSCP"
@@ -1370,6 +1388,9 @@ msgstr "金鑰庫未設定"
 msgid "Vault master passphrase needs to be set to allow storing secrets"
 msgstr ""
 
+msgid "Verify host keys when connecting"
+msgstr ""
+
 msgid "Version"
 msgstr "版本"
 
@@ -1392,6 +1413,9 @@ msgid "Warn on multi-line paste"
 msgstr "貼上多行時警告"
 
 msgid "Warn when closing active connections"
+msgstr ""
+
+msgid "Warning: remote host's key has suddenly changed!"
 msgstr ""
 
 msgid "We're only tracking your Tabby and OS versions."
@@ -1447,6 +1471,9 @@ msgstr "黃色"
 
 msgid "You can change it later, but it's unrecoverable if forgotten."
 msgstr "您可以稍後修改，但如果忘了就沒了"
+
+msgid "You could be under a man-in-the-middle attack right now, or the host key could have just been changed."
+msgstr ""
 
 msgid "Zoom in"
 msgstr "放大"
