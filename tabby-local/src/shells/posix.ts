@@ -18,7 +18,14 @@ export class POSIXShellsProvider extends ShellProvider {
         if (this.hostApp.platform === Platform.Windows) {
             return []
         }
-        return (await fs.readFile('/etc/shells', { encoding: 'utf-8' }))
+        let shellListPath = '/etc/shells'
+        try {
+            await fs.stat(shellListPath)
+        } catch {
+            // Solus Linux
+            shellListPath = '/usr/share/defaults/etc/shells'
+        }
+        return (await fs.readFile(shellListPath, { encoding: 'utf-8' }))
             .split('\n')
             .map(x => x.trim())
             .filter(x => x && !x.startsWith('#'))
