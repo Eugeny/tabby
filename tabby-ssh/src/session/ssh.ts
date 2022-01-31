@@ -125,7 +125,10 @@ export class SSHSession {
                 if (await fs.exists(WINDOWS_OPENSSH_AGENT_PIPE)) {
                     this.agentPath = WINDOWS_OPENSSH_AGENT_PIPE
                 } else {
-                    if (await this.platform.isProcessRunning('pageant.exe')) {
+                    if (
+                        await this.platform.isProcessRunning('pageant.exe') ||
+                        await this.platform.isProcessRunning('gpg-agent.exe')
+                    ) {
                         this.agentPath = 'pageant'
                     }
                 }
