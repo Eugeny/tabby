@@ -215,7 +215,7 @@ export class AppRootComponent {
     }
 
     @HostBinding('class.vibrant') get isVibrant () {
-        return this.config.store.appearance.vibrancy
+        return this.config.store?.appearance.vibrancy
     }
 
     private getToolbarButtons (aboveZero: boolean): ToolbarButton[] {
