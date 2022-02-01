@@ -102,6 +102,7 @@ module.exports = options => {
         externals: [
             '@electron/remote',
             '@serialport/bindings',
+            '@serialport/bindings-cpp',
             'any-promise',
             'child_process',
             'electron-promise-ipc',
