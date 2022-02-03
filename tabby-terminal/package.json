@@ -25,7 +25,7 @@
     "hexer": "^1.5.0",
     "ps-node": "^0.1.6",
     "runes": "^0.4.2",
-    "xterm": "npm:@tabby-gang/xterm@^4.16.0",
+    "xterm": "^4.17.0",
     "xterm-addon-fit": "^0.5.0",
     "xterm-addon-ligatures": "^0.5.0",
     "xterm-addon-search": "^0.8.2",
@@ -33,10 +33,6 @@
     "xterm-addon-unicode11": "^0.3.0",
     "xterm-addon-webgl": "^0.11.4",
     "zmodem.js": "^0.1.9"
-  },
-  "resolutions": {
-    "**/font-ligatures": "^1.4.1",
-    "**/opentype.js": "^1.3.1"
   },
   "peerDependencies": {
     "@angular/animations": "^9.1.9",
