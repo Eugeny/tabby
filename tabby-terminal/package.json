@@ -25,7 +25,7 @@
     "hexer": "^1.5.0",
     "ps-node": "^0.1.6",
     "runes": "^0.4.2",
-    "xterm": "^4.17.0",
+    "xterm": "npm:@tabby-gang/xterm@^4.17.1-beta.1",
     "xterm-addon-fit": "^0.5.0",
     "xterm-addon-ligatures": "^0.5.0",
     "xterm-addon-search": "^0.8.2",
