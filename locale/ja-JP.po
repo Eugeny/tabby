@@ -1,0 +1,1489 @@
+msgid ""
+msgstr ""
+"mime-version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Crowdin-Project: tabby\n"
+"X-Crowdin-Project-ID: 493349\n"
+"X-Crowdin-Language: ja\n"
+"X-Crowdin-File: /locale/app.pot\n"
+"X-Crowdin-File-ID: 75\n"
+"Project-Id-Version: tabby\n"
+"Language-Team: Japanese\n"
+"Language: ja_JP\n"
+"PO-Revision-Date: 2022-02-05 16:18\n"
+
+msgid "A second font family used to display characters missing in the main font"
+msgstr "既定フォントに不足してる文字を補って表示する代替フォント"
+
+msgid "Abort all"
+msgstr "すべて中止"
+
+msgid "Accept and remember key"
+msgstr ""
+
+msgid "Accept just this once"
+msgstr ""
+
+msgid "Acrylic background"
+msgstr "ウィンドウの透過"
+
+msgid "Add"
+msgstr "追加"
+
+msgid "Add a port forward"
+msgstr "ポート転送を追加"
+
+msgid "Add a private key"
+msgstr "秘密鍵を追加"
+
+msgid "Add..."
+msgstr "追加..."
+
+msgid "Additional space between lines"
+msgstr "行間のスペース"
+
+msgid "Advanced"
+msgstr "詳細"
+
+msgid "Agent"
+msgstr "SSHエージェント"
+
+msgid "Agent forwarding"
+msgstr "SSHエージェントの転送"
+
+msgid "Agent pipe path"
+msgstr "SSHエージェントのパイプのパス"
+
+msgid "Agent type"
+msgstr "SSHエージェントの種類"
+
+msgid "Allows opening .bat files in tabs, but breaks some shells"
+msgstr ".batファイルを開くことを許可 (シェルが正常に動作しない可能性があります)"
+
+msgid "Allows quickly opening a terminal in the selected folder"
+msgstr "選択したフォルダ内の端末を素早く開けるようにする"
+
+msgid "Appearance"
+msgstr "外観"
+
+msgid "Application"
+msgstr "アプリ"
+
+msgid "Application settings"
+msgstr "アプリケーションの設定"
+
+msgid "Are you sure you want to close Tabby? You can disable this prompt in Settings -> Window."
+msgstr "Tabbyを閉じてもよろしいですか？この画面は設定 -> ウィンドウから無効にすることができます。"
+
+msgid "Are you sure?"
+msgstr "本当によろしいですか？"
+
+msgid "Arguments"
+msgstr "引数"
+
+msgid "Ask a question"
+msgstr "質問する"
+
+msgid "Ask before closing the browser tab"
+msgstr "ブラウザタブを閉じる前に確認する"
+
+msgid "Audible"
+msgstr "音を鳴らす"
+
+msgid "Authentication method"
+msgstr "認証方法"
+
+msgid "Author"
+msgstr "作者"
+
+msgid "Auto"
+msgstr "自動"
+
+msgid "Auto-open a terminal on app start"
+msgstr "アプリ起動時に端末を自動で開く"
+
+msgid "Automatic"
+msgstr "自動"
+
+msgid "Automatic Updates"
+msgstr "自動更新"
+
+msgid "Automatically upload changes and check for updates every minute"
+msgstr "自動的に変更をアップロードし、毎分更新を確認する"
+
+msgid "Available"
+msgstr "利用可能"
+
+msgid "Background type"
+msgstr "透過の種類"
+
+msgid "Baud rate"
+msgstr "伝送速度"
+
+msgid "Beginning of the line"
+msgstr "行の先頭"
+
+msgid "Blink cursor"
+msgstr "カーソルの点滅"
+
+msgid "Blue"
+msgstr "青色"
+
+msgid "Blur"
+msgstr "ぼかし"
+
+msgid "Bottom"
+msgstr "下部"
+
+msgid "Bracketed paste (requires shell support)"
+msgstr "ブラケットペースト (シェルが対応している必要があります)"
+
+msgid "Built-in"
+msgstr "組込み"
+
+msgid "Cancel"
+msgstr "キャンセル"
+
+msgid "Change baud rate"
+msgstr "転送速度の変更"
+
+msgid "Change the master passphrase"
+msgstr "マスターパスフレーズを変更"
+
+msgid "Check for updates"
+msgstr "アップデートの確認"
+
+msgid "Chinese (simplified)"
+msgstr "中国語 (簡体字)"
+
+msgid "Chinese (traditional)"
+msgstr "中国語 (繁体字)"
+
+msgid "Ciphers"
+msgstr "暗号方式"
+
+msgid "Clear recent profiles"
+msgstr "最近使ったプロファイルをクリア"
+
+msgid "Clear terminal"
+msgstr "端末をクリア"
+
+msgid "Clipboard"
+msgstr "クリップボード"
+
+msgid "Close"
+msgstr "閉じる"
+
+msgid "Close and never show again"
+msgstr "閉じて今後表示しない"
+
+msgid "Close focused pane"
+msgstr "フォーカスしているペインを閉じる"
+
+msgid "Close other tabs"
+msgstr "他のタブを閉じる"
+
+msgid "Close tab"
+msgstr "タブを閉じる"
+
+msgid "Close tabs to the left"
+msgstr "左のタブを閉じる"
+
+msgid "Close tabs to the right"
+msgstr "右のタブを閉じる"
+
+msgid "Color"
+msgstr "色"
+
+msgid "Color scheme"
+msgstr "配色"
+
+msgid "Command line"
+msgstr "コマンドライン"
+
+msgid "Command's stdin/stdout is used instead of a network connection"
+msgstr "ネットワーク接続の代わりにコマンドの stdin/stdout が使用されます"
+
+msgid "Compact"
+msgstr "コンパクト"
+
+msgid "Config downloaded"
+msgstr "設定をダウンロードしました"
+
+msgid "Config file"
+msgstr "設定ファイル"
+
+msgid "Config sync"
+msgstr "設定の同期"
+
+msgid "Config uploaded"
+msgstr "設定をアップロードしました"
+
+msgid "Configs"
+msgstr "設定"
+
+msgid "Connect through a proxy server"
+msgstr "プロキシサーバー経由で接続"
+
+msgid "Connect to \"%s\"..."
+msgstr "'%s' に接続中..."
+
+msgid "Connect to a different host first and use it as a proxy"
+msgstr "最初に別のホストに接続し、プロキシとして使用します"
+
+msgid "Connecting"
+msgstr "接続中"
+
+msgid "Connection"
+msgstr "接続"
+
+msgid "Connection failed: {error}"
+msgstr "接続に失敗しました: {error}"
+
+msgid "Connection name will be used instead"
+msgstr "代わりに接続名が使用されます"
+
+msgid "Context menu"
+msgstr "コンテキストメニュー"
+
+msgid "Copied"
+msgstr "コピーしました"
+
+msgid "Copy"
+msgstr "コピー"
+
+msgid "Copy current path"
+msgstr "現在のパスをコピー"
+
+msgid "Copy on select"
+msgstr "選択時にコピー"
+
+msgid "Copy to clipboard"
+msgstr "クリップボードにコピー"
+
+msgid "Could not decrypt config"
+msgstr "設定を復号できませんでした"
+
+msgid "Croatian"
+msgstr "クロアチア語"
+
+msgid "Current"
+msgstr "現在"
+
+msgid "Current color scheme"
+msgstr "使用中の配色設定"
+
+msgid "Current host key fingerprint"
+msgstr "使用中のホストキーのフィンガープリント"
+
+msgid "Current process: {name}"
+msgstr "現在のプロセス: {name}"
+
+msgid "Cursor shape"
+msgstr "カーソルの形状"
+
+msgid "Custom CSS"
+msgstr "カスタム CSS"
+
+msgid "Data bits"
+msgstr "データ長"
+
+msgid "Debugging"
+msgstr "デバッグ"
+
+msgid "Default profile for new tabs"
+msgstr "新しいタブを開く際の既定プロファイル"
+
+msgid "Default profile settings"
+msgstr "既定プロファイルの設定"
+
+msgid "Defaults"
+msgstr "規定値"
+
+msgid "Defaults for {type}"
+msgstr "{type} の既定値"
+
+msgid "Delete"
+msgstr "削除"
+
+msgid "Delete \"{name}\"?"
+msgstr "{name} を削除しますか？"
+
+msgid "Delete next word"
+msgstr "次の単語を削除"
+
+msgid "Delete previous word"
+msgstr "前の単語を削除"
+
+msgid "Delete the group's profiles?"
+msgstr "グループのプロファイルを削除しますか？"
+
+msgid "Delete this script?"
+msgstr "このスクリプトを削除しますか？"
+
+msgid "Delete vault contents?"
+msgstr "Vaultのデータを削除しますか？"
+
+msgid "Delete {fullPath}?"
+msgstr "{fullPath} を削除しますか？"
+
+msgid "Deleting"
+msgstr "削除中"
+
+msgid "Device"
+msgstr "デバイス"
+
+msgid "Direct"
+msgstr "直接"
+
+msgid "Disable"
+msgstr "無効"
+
+msgid "Disable GPU acceleration"
+msgstr "GPUアクセラレーションを無効にします"
+
+msgid "Disable dynamic tab title"
+msgstr "動的なタブ名を無効にする"
+
+msgid "Disabled"
+msgstr "無効化"
+
+msgid "Disconnect"
+msgstr "切断"
+
+msgid "Display on"
+msgstr "表示"
+
+msgid "Do not abort"
+msgstr "中止しない"
+
+msgid "Do not remember"
+msgstr ""
+
+msgid "Dock always on top"
+msgstr "ドックを常に最前面表示"
+
+msgid "Dock the terminal"
+msgstr "端末をドック表示する"
+
+msgid "Docked terminal size"
+msgstr "ドック時の端末のサイズ"
+
+msgid "Docked terminal space"
+msgstr "ドック時の端末のスペース"
+
+msgid "Docking"
+msgstr "ドック表示"
+
+msgid "Double-click selection will stop at these characters"
+msgstr "ダブルクリックによる選択時に区切りとなる文字を設定できます"
+
+msgid "Down"
+msgstr "下へ"
+
+msgid "Download"
+msgstr "ダウンロード"
+
+msgid "Duplicate"
+msgstr "複製"
+
+msgid "Duplicate as administrator"
+msgstr "管理者として複製"
+
+msgid "Duplicate tab"
+msgstr "タブを複製"
+
+msgid "Dynamic"
+msgstr "動的"
+
+msgid "Edit"
+msgstr "編集"
+
+msgid "Enable"
+msgstr "有効"
+
+msgid "Enable analytics"
+msgstr "統計情報を有効化"
+
+msgid "Enable automatic installation of updates when they become available."
+msgstr "アップデートが利用可能になったら自動インストールを実行"
+
+msgid "Enable font ligatures"
+msgstr "合字フォントを有効化"
+
+msgid "Enable global hotkey (Ctrl-Space)"
+msgstr "グローバルホットキーを有効にする (Ctrl+Space)"
+
+msgid "Enables the experimental Windows ConPTY API"
+msgstr "実験的な Windows ConPTY API を有効にする"
+
+msgid "Encrypt config file"
+msgstr "設定ファイルを暗号化する"
+
+msgid "End of the line"
+msgstr "行末"
+
+msgid "English"
+msgstr "英語"
+
+msgid "Environment"
+msgstr "環境"
+
+msgid "Erase config"
+msgstr "設定を消去"
+
+msgid "Erase the Vault"
+msgstr "このVaultを消去する"
+
+msgid "Error in {plugin}:"
+msgstr "{plugin} のエラー:"
+
+msgid "Exact match"
+msgstr "完全一致"
+
+msgid "Example:"
+msgstr "例:"
+
+msgid "Export"
+msgstr "エクスポート"
+
+msgid "Fallback font"
+msgstr "フォールバックフォント"
+
+msgid "File transfers"
+msgstr "ファイル転送"
+
+msgid "File: {description}"
+msgstr "ファイル: {description}"
+
+msgid "Fixed"
+msgstr "固定"
+
+msgid "Focus all panes"
+msgstr "すべてのペインをフォーカス"
+
+msgid "Focus all panes at once (broadcast)"
+msgstr "すべてのペインを一度にフォーカス (ブロードキャスト)"
+
+msgid "Focus next pane"
+msgstr "次のペインにフォーカス"
+
+msgid "Focus previous pane"
+msgstr "前のペインにフォーカス"
+
+msgid "Focus the pane above"
+msgstr "上のペインにフォーカス"
+
+msgid "Focus the pane below"
+msgstr "下のペインにフォーカス"
+
+msgid "Focus the pane on the left"
+msgstr "左側のペインにフォーカス"
+
+msgid "Focus the pane on the right"
+msgstr "右側のペインにフォーカス"
+
+msgid "Font"
+msgstr "フォント"
+
+msgid "Force CR"
+msgstr "強制 CR"
+
+msgid "Force CRLF"
+msgstr "強制 CRLF"
+
+msgid "Force LF"
+msgstr "強制 LF"
+
+msgid "Forces a specific SSH agent connection type."
+msgstr "指定したSSHエージェント接続を強制します。"
+
+msgid "Forget"
+msgstr "破棄"
+
+msgid "Forward port"
+msgstr "転送ポート"
+
+msgid "Forwarded ports"
+msgstr "転送済みポート"
+
+msgid "French"
+msgstr "フランス語"
+
+msgid "From color scheme"
+msgstr "使用中の配色設定から"
+
+msgid "From theme"
+msgstr "使用中のテーマから"
+
+msgid "Frontend"
+msgstr "フロントエンド"
+
+msgid "Full"
+msgstr "完全"
+
+msgid "General"
+msgstr "全般"
+
+msgid "Generate a pre-filled GitHub issue"
+msgstr "事前に入力されたGitHubのissueを使用する"
+
+msgid "German"
+msgstr "ドイツ語"
+
+msgid "Get"
+msgstr "取得"
+
+msgid "Get it from the Tabby Web settings window"
+msgstr "Tabby Web設定ウィンドウから取得する"
+
+msgid "Gives the window a blurred transparent background"
+msgstr "ウィンドウの背景を透過します"
+
+msgid "Go up"
+msgstr "上へ"
+
+msgid "Green"
+msgstr "緑色"
+
+msgid "Group"
+msgstr "グループ"
+
+msgid "Help track the number of Tabby installs across the world!"
+msgstr "世界中のTabbyインストールの数の調査に役立ちます！"
+
+msgid "Hexadecimal"
+msgstr "16進"
+
+msgid "Hide tab close button"
+msgstr "タブを閉じるボタンを非表示"
+
+msgid "Hide tab index"
+msgstr "タブのインデックスを非表示"
+
+msgid "Hide window on focus loss"
+msgstr "フォーカス消失時にウィンドウを非表示"
+
+msgid "Hides the docked terminal when you click away."
+msgstr "画面外をクリックするとドックした端末が非表示になります"
+
+msgid "Homepage"
+msgstr "ホームページ"
+
+msgid "Host"
+msgstr "ホスト"
+
+msgid "Host key"
+msgstr "ホストキー"
+
+msgid "Host key verification"
+msgstr "ホストキーの検証"
+
+msgid "Hotkeys"
+msgstr "ホットキー"
+
+msgid "Icon"
+msgstr "アイコン"
+
+msgid "If disabled, only custom profiles will show up in the profile selector"
+msgstr "無効にした場合、プロファイルセレクターにカスタムプロファイルのみが表示されます"
+
+msgid "Immediately echoes your input locally"
+msgstr "送信した入力をローカル上で直ちに表示します"
+
+msgid "Input is sent as you type"
+msgstr "入力データは入力中に送信されます"
+
+msgid "Input mode"
+msgstr "入力モード"
+
+msgid "Input newlines"
+msgstr "改行の入力"
+
+msgid "Installed"
+msgstr "インストール済み"
+
+msgid "Installing the update will close all tabs and restart Tabby."
+msgstr "アップデートをインストールすると、すべてのタブが閉じられ、Tabbyを再起動します。"
+
+msgid "Intelligent Ctrl-C (copy/abort)"
+msgstr "スマートなCtrl+C (コピー/中止)"
+
+msgid "Interactive"
+msgstr "インタラクティブ"
+
+msgid "Invalid syntax"
+msgstr "無効な構文"
+
+msgid "Jump host"
+msgstr "ジャンプサーバー"
+
+msgid "Jump to next word"
+msgstr "次の単語にジャンプ"
+
+msgid "Jump to previous word"
+msgstr "前の単語にジャンプ"
+
+msgid "Keep"
+msgstr "保持"
+
+msgid "Keep Alive Interval (Milliseconds)"
+msgstr "Keep-Alive 間隔 (ミリ秒)"
+
+msgid "Keep docked terminal always on top"
+msgstr "ドックされた端末を常に最前面に表示"
+
+msgid "Key"
+msgstr "キー"
+
+msgid "Key exchange"
+msgstr "鍵交換"
+
+msgid "Keyboard-interactive auth"
+msgstr "キーボードインタラクティブ認証"
+
+msgid "Language"
+msgstr "言語"
+
+msgid "Last known host key fingerprint"
+msgstr "最後に使用したホストキーのフィンガープリント"
+
+msgid "Launch WinSCP"
+msgstr "WinSCPを起動"
+
+msgid "Launch WinSCP for current SSH session"
+msgstr "現在のSSHセッションでWinSCPを起動"
+
+msgid "Learn how to allow Tabby to detect remote shell's working directory."
+msgstr "Tabbyがリモートシェルの作業ディレクトリを検出できるようにする方法を紹介します。"
+
+msgid "Left"
+msgstr "左"
+
+msgid "Lets the shell handle Meta key instead of OS"
+msgstr "OSの代わりにシェルがメタキーを処理することを許可"
+
+msgid "Line by line"
+msgstr "一行ごとに"
+
+msgid "Line editor, input is sent after you press Enter"
+msgstr "Enterキーを押すと入力が送信されます"
+
+msgid "Line padding"
+msgstr "行間の大きさ"
+
+msgid "Loading"
+msgstr "読み込み中"
+
+msgid "Loading configs..."
+msgstr "設定を読み込み中..."
+
+msgid "Local"
+msgstr "ローカル"
+
+msgid "Local echo"
+msgstr "ローカルエコー"
+
+msgid "Local terminal"
+msgstr "ローカル端末"
+
+msgid "Login scripts"
+msgstr "ログインスクリプト"
+
+msgid "Long-click for context menu"
+msgstr "長押しするとコンテキストメニューが表示されます"
+
+msgid "Manage profiles"
+msgstr "プロファイルの管理"
+
+msgid "Max Keep Alive Count"
+msgstr "最大Keep-Alive"
+
+msgid "Maximize the active pane"
+msgstr "有効なペインを最大化"
+
+msgid "Modified on {date}"
+msgstr "更新日 {date}"
+
+msgid "Move tab to the left"
+msgstr "タブを左に移動"
+
+msgid "Move tab to the right"
+msgstr "タブを右に移動"
+
+msgid "Move to \"Ungrouped\""
+msgstr "\"グループ化されていない\" に移動"
+
+msgid "Name"
+msgstr "名前"
+
+msgid "Name for the new config"
+msgstr "新しい設定の名前"
+
+msgid "Native"
+msgstr "ネイティブ"
+
+msgid "New admin tab"
+msgstr "新しい管理者タブ"
+
+msgid "New config on {platform}"
+msgstr "{platform} の新しい設定"
+
+msgid "New item"
+msgstr "新しい項目"
+
+msgid "New name"
+msgstr "新しい名前"
+
+msgid "New profile"
+msgstr "新しいプロファイル"
+
+msgid "New profile name"
+msgstr "新しいプロファイル名"
+
+msgid "New tab"
+msgstr "新しいタブ"
+
+msgid "New tab: {profile}"
+msgstr "新しいタブ: {profile}"
+
+msgid "New terminal"
+msgstr "新しいターミナル"
+
+msgid "New window"
+msgstr "新しいウインドウ"
+
+msgid "New with profile"
+msgstr "新しいプロファイルを追加"
+
+msgid "Next tab"
+msgstr "次のタブ"
+
+msgid "No color"
+msgstr "色指定なし"
+
+msgid "No modifier"
+msgstr "変更なし"
+
+msgid "None"
+msgstr "なし"
+
+msgid "Normal"
+msgstr "標準"
+
+msgid "Not found"
+msgstr "見つかりませんでした"
+
+msgid "Notify on activity"
+msgstr "アクティビティを通知する"
+
+msgid "Notify when done"
+msgstr "完了時に通知する"
+
+msgid "Number of lines kept in the buffer"
+msgstr "バッファに保持される行数"
+
+msgid "OS default"
+msgstr "OSの既定"
+
+msgid "OS default ({name})"
+msgstr "OSの既定 ({name})"
+
+msgid "Off"
+msgstr "オフ"
+
+msgid "Official"
+msgstr "公式"
+
+msgid "On GitHub Discussions"
+msgstr "GitHub Discussions"
+
+msgid "Opacity"
+msgstr "不透明度"
+
+msgid "Open"
+msgstr "開く"
+
+msgid "Open DevTools"
+msgstr "DevToolsを開く"
+
+msgid "Open SFTP panel"
+msgstr "SFTP パネルを開く"
+
+msgid "Open Settings"
+msgstr "設定を開く"
+
+msgid "Optional"
+msgstr "オプション"
+
+msgid "Options"
+msgstr "設定"
+
+msgid "Orange"
+msgstr "橙色"
+
+msgid "Output is shown as a hexdump"
+msgstr "Hexdumpとして出力されます"
+
+msgid "Output is shown as it is received"
+msgstr "受信したデータがそのまま出力されます"
+
+msgid "Output mode"
+msgstr "出力モード"
+
+msgid "Output newlines"
+msgstr "改行の出力"
+
+msgid "Override X11 display"
+msgstr "X11ディスプレイを上書きする"
+
+msgid "Overwrite local and sync"
+msgstr "ローカルを上書きして同期"
+
+msgid "Overwrite remote and sync"
+msgstr "リモートを上書きして同期"
+
+msgid "Overwrite the config on the remote side and start syncing?"
+msgstr "リモート側の設定を上書きして同期を開始しますか？"
+
+msgid "Overwrite the local config and start syncing?"
+msgstr "ローカル設定を上書きして同期を開始しますか？"
+
+msgid "Parity"
+msgstr "パリティ"
+
+msgid "Partial config sync is not possible when the config is encrypted via Vault."
+msgstr "Vault経由で設定が暗号化されている場合、部分的な設定の同期はできません。"
+
+msgid "Passphrase for a private key with hash {hash}..."
+msgstr "ハッシュ値 {hash}... の秘密鍵のパスフレーズ"
+
+msgid "Password"
+msgstr "パスワード"
+
+msgid "Paste"
+msgstr "貼り付け"
+
+msgid "Paste from clipboard"
+msgstr "クリップボードから貼り付け"
+
+msgid "Paste multiple lines?"
+msgstr "複数行の貼り付けを行いますか？"
+
+msgid "Paste on middle-click"
+msgstr "中クリックで貼り付け"
+
+msgid "Path or address of the local X11 socket"
+msgstr "ローカル上のX11ソケットのパスまたはアドレス"
+
+msgid "Pin"
+msgstr "ピン留めする"
+
+msgid "Plugins"
+msgstr "プラグイン"
+
+msgid "Plugins folder"
+msgstr "プラグインのフォルダー"
+
+msgid "Polish"
+msgstr "ポーランド語"
+
+msgid "Port"
+msgstr "ポート"
+
+msgid "Ports"
+msgstr "ポート"
+
+msgid "Press the key now"
+msgstr "キーを押してください"
+
+msgid "Prevents accidental closing"
+msgstr "偶発的な終了を防止"
+
+msgid "Prevents accidental execution of pasted commands"
+msgstr "貼り付けたコマンドの偶発的な実行を防止"
+
+msgid "Previous tab"
+msgstr "前のタブ"
+
+msgid "Private keys"
+msgstr "秘密鍵"
+
+msgid "Process completed"
+msgstr "処理完了"
+
+msgid "Profile name"
+msgstr "プロファイル名"
+
+msgid "Profiles"
+msgstr "プロファイル"
+
+msgid "Profiles & connections"
+msgstr "プロファイルと接続"
+
+msgid "Program"
+msgstr "プログラム"
+
+msgid "Proxy command"
+msgstr "プロキシコマンド"
+
+msgid "Purple"
+msgstr "紫色"
+
+msgid "Puts all of Tabby's configuration into the vault"
+msgstr "Tabbyの設定をすべてVaultに格納する"
+
+msgid "Quick connect"
+msgstr "クイック接続"
+
+msgid "Quit"
+msgstr "終了"
+
+msgid "Raw socket connection"
+msgstr "Rawソケット接続"
+
+msgid "Ready Timeout (Milliseconds)"
+msgstr "タイムアウト (ミリ秒)"
+
+msgid "Recent"
+msgstr "最近"
+
+msgid "Reconnect"
+msgstr "再接続"
+
+msgid "Red"
+msgstr "赤色"
+
+msgid "Regex"
+msgstr "正規表現（Regex）"
+
+msgid "Release notes"
+msgstr "リリースノート"
+
+msgid "Remember for {time}"
+msgstr "{time} を記憶"
+
+msgid "Remote"
+msgstr "リモート"
+
+msgid "Rename"
+msgstr "名前を変更"
+
+msgid "Rename Tab"
+msgstr "タブの名前を変更"
+
+msgid "Rendering"
+msgstr "レンダリング"
+
+msgid "Reopen last tab"
+msgstr "最後に閉じたタブを開く"
+
+msgid "Replace"
+msgstr "置換"
+
+msgid "Report a problem"
+msgstr "問題を報告"
+
+msgid "Require a key to click links"
+msgstr "リンクをクリックするにはキーが必要です"
+
+msgid "Reset zoom"
+msgstr "拡大/縮小をリセット"
+
+msgid "Restart current SSH session"
+msgstr "現在のSSHセッションを再起動"
+
+msgid "Restart current Telnet session"
+msgstr "現在のTelnetセッションを再起動"
+
+msgid "Restart current serial session"
+msgstr "現在のシリアルセッションを再起動"
+
+msgid "Restart the app to apply changes"
+msgstr "変更を反映するには再起動が必要です"
+
+msgid "Restore terminal tabs on app start"
+msgstr "アプリ起動時に端末のタブを復元"
+
+msgid "Reuse session for multiple tabs"
+msgstr "複数のタブでセッションを再利用する"
+
+msgid "Right"
+msgstr "右"
+
+msgid "Right click"
+msgstr "右クリック"
+
+msgid "Run as administrator"
+msgstr "管理者として実行"
+
+msgid "Russian"
+msgstr "ロシア語"
+
+msgid "SOCKS proxy"
+msgstr "SOCKSプロキシ"
+
+msgid "SOCKS proxy host"
+msgstr "SOCKSプロキシホスト"
+
+msgid "SOCKS proxy port"
+msgstr "SOCKSプロキシポート"
+
+msgid "SSH connection"
+msgstr "SSH接続"
+
+msgid "SSH connection management is now done through the \"Profiles & connections\" tab"
+msgstr "SSH接続管理は「プロファイルと接続」タブで行えます。"
+
+msgid "SSH password for {user}@{host}:{port}"
+msgstr "{user}@{host}:{port} のSSHパスワード"
+
+msgid "Save"
+msgstr "保存"
+
+msgid "Save a password in the keychain"
+msgstr "キーチェーンにパスワードを保存する"
+
+msgid "Save and apply"
+msgstr "保存して適用"
+
+msgid "Save as profile"
+msgstr "プロファイルとして保存"
+
+msgid "Save layout as profile"
+msgstr "プロファイルとしてレイアウトを保存"
+
+msgid "Saved"
+msgstr "保存しました"
+
+msgid "Saved layout"
+msgstr "保存されたレイアウト"
+
+msgid "Scroll on input"
+msgstr "入力時にスクロール"
+
+msgid "Scroll terminal to bottom"
+msgstr "端末を最下部までスクロール"
+
+msgid "Scrollback"
+msgstr "バックスクロール"
+
+msgid "Scrolls the terminal to the bottom on user input"
+msgstr "ユーザー入力時に端末を下にスクロール"
+
+msgid "Search"
+msgstr "検索"
+
+msgid "Secret sync token"
+msgstr "シークレット同期トークン"
+
+msgid "Select"
+msgstr "選択"
+
+msgid "Select a base profile to use as a template"
+msgstr "テンプレートとして使用する基本プロファイルを選択"
+
+msgid "Select file storage"
+msgstr "ファイルストレージを選択"
+
+msgid "Select profile"
+msgstr "プロファイルを選択"
+
+msgid "Select profile or enter an address"
+msgstr "プロファイルの選択、またはアドレスを入力"
+
+msgid "Send bytes by typing in hex values"
+msgstr "16 進数の値を入力してバイトを送信"
+
+msgid "Sends data one byte at a time"
+msgstr "一度に 1 バイトのデータを送信"
+
+msgid "Serial"
+msgstr "シリアル"
+
+msgid "Serial connection"
+msgstr "シリアル接続"
+
+msgid "Serial: {description}"
+msgstr "シリアル: {description}"
+
+msgid "Set Tabby as %COMSPEC%"
+msgstr "Tabbyを %COMSPEC% に設定"
+
+msgid "Set master passphrase"
+msgstr "マスターパスフレーズを設定"
+
+msgid "Set passphrase"
+msgstr "パスフレーズを設定"
+
+msgid "Set password"
+msgstr "パスワードを設定"
+
+msgid "Set to 0 to disable recent profiles"
+msgstr "最近のプロファイルを無効にするには0に設定してください"
+
+msgid "Sets the SSH agent's named pipe path."
+msgstr "SSHエージェントの名前付きパイプのパスを設定"
+
+msgid "Settings"
+msgstr "設定"
+
+msgid "Shell"
+msgstr "シェル"
+
+msgid "Shell does not support current path detection"
+msgstr "シェルは現在のパス検出に対応していません"
+
+msgid "Shell integration"
+msgstr "シェル統合"
+
+msgid "Show Mixer"
+msgstr "ミキサーを表示"
+
+msgid "Show Serial connections"
+msgstr "シリアル接続を表示"
+
+msgid "Show a confirmation box when pasting multiple lines"
+msgstr "複数の行を貼り付けるときに確認ボックスを表示する"
+
+msgid "Show built-in profiles in selector"
+msgstr "セレクターに組み込みプロファイルを表示する"
+
+msgid "Show config file"
+msgstr "設定ファイルを表示"
+
+msgid "Show defaults"
+msgstr "既定を表示"
+
+msgid "Show pane labels (for rearranging)"
+msgstr "ペインラベルを表示 (再配置向け)"
+
+msgid "Show profile selector"
+msgstr "プロファイルセレクターを表示"
+
+msgid "Show recent profiles in selector"
+msgstr "最近のプロファイルをセレクターに表示"
+
+msgid "Show release notes"
+msgstr "リリースノートを表示"
+
+msgid "Show vault contents"
+msgstr "Vaultのデータを表示"
+
+msgid "Show {type} profile selector"
+msgstr "{type} プロファイルセレクターを表示"
+
+msgid "Skip MoTD/banner"
+msgstr "MoTD/バナーをスキップ"
+
+msgid "Slow feed"
+msgstr "低速送信"
+
+msgid "Snaps the window to a side of the screen"
+msgstr "画面の端にウィンドウをスナップ"
+
+msgid "Source code"
+msgstr "ソースコード"
+
+msgid "Spanish"
+msgstr "スペイン語"
+
+msgid "Split"
+msgstr "分割"
+
+msgid "Split to the bottom"
+msgstr "下部に分割"
+
+msgid "Split to the left"
+msgstr "左側に分割"
+
+msgid "Split to the right"
+msgstr "右側に分割"
+
+msgid "Split to the top"
+msgstr "上部に分割"
+
+msgid "Standard"
+msgstr "標準"
+
+msgid "Startup"
+msgstr "起動時"
+
+msgid "Stop bits"
+msgstr "ストップビット"
+
+msgid "Strip"
+msgstr "ストリップ"
+
+msgid "Subscribe to updates"
+msgstr "最新情報を受け取る"
+
+msgid "Substitutions allowed."
+msgstr "置換することができます。"
+
+msgid "Switch profile"
+msgstr "プロファイルを切り替える"
+
+msgid "Switch profile in the active pane"
+msgstr "アクティブなペインでプロファイルを切り替える"
+
+msgid "Switches terminal frontend implementation (experimental)"
+msgstr "端末のフロントエンド実装を切り替える (実験的)"
+
+msgid "Sync"
+msgstr "同期"
+
+msgid "Sync Vault"
+msgstr "Vaultの同期"
+
+msgid "Sync automatically"
+msgstr "自動的に同期"
+
+msgid "Sync host"
+msgstr "ホストを同期"
+
+msgid "Sync hotkeys"
+msgstr "ホットキーの同期"
+
+msgid "Sync window settings"
+msgstr ""
+
+msgid "Tab activity"
+msgstr ""
+
+msgid "Tab {number}"
+msgstr ""
+
+msgid "Tabby could not start with your plugins, so all third party plugins have been disabled in this session. The error was:"
+msgstr ""
+
+msgid "Tabby news and updates on Twitter"
+msgstr ""
+
+msgid "Tabs"
+msgstr "タブ"
+
+msgid "Tabs location"
+msgstr ""
+
+msgid "Tabs width"
+msgstr ""
+
+msgid "Telnet session"
+msgstr ""
+
+msgid "Terminal"
+msgstr "端末"
+
+msgid "Terminal background"
+msgstr "端末の背景"
+
+msgid "Terminal bell"
+msgstr "端末ベル"
+
+msgid "Thank you for downloading Tabby!"
+msgstr "Tabbyをダウンロードいただきありがとうございます!"
+
+msgid "Theme"
+msgstr "テーマ"
+
+msgid "There are active file transfers"
+msgstr ""
+
+msgid "There is a saved password for this connection"
+msgstr ""
+
+msgid "These apply to all profiles of a given type"
+msgstr ""
+
+msgid "Thin"
+msgstr ""
+
+msgid "Tick this if you're experiencing aliasing, ghosting or other visual issues"
+msgstr ""
+
+msgid "Toggle fullscreen mode"
+msgstr ""
+
+msgid "Toggle last tab"
+msgstr ""
+
+msgid "Toggle terminal window"
+msgstr ""
+
+msgid "Toggles the Tabby window visibility"
+msgstr ""
+
+msgid "Top"
+msgstr ""
+
+msgid "Try again"
+msgstr ""
+
+msgid "Trying saved password"
+msgstr ""
+
+msgid "Ungrouped"
+msgstr ""
+
+msgid "Uninstall"
+msgstr "アンインストール"
+
+msgid "Unknown"
+msgstr ""
+
+msgid "Unknown secret of type {type} for {key}"
+msgstr ""
+
+msgid "Unpin"
+msgstr ""
+
+msgid "Up"
+msgstr ""
+
+msgid "Update"
+msgstr "アップデート"
+
+msgid "Upgrade to {version}"
+msgstr "{version} にアップグレード"
+
+msgid "Upload"
+msgstr "アップロード"
+
+msgid "Upload as a new config"
+msgstr ""
+
+msgid "Use ConPTY"
+msgstr ""
+
+msgid "Use {altKeyName} as the Meta key"
+msgstr ""
+
+msgid "User default"
+msgstr ""
+
+msgid "Username"
+msgstr "ユーザー名"
+
+msgid "Using preset password"
+msgstr ""
+
+msgid "Vault"
+msgstr ""
+
+msgid "Vault is an always-encrypted container for secrets such as SSH passwords and private key passphrases."
+msgstr ""
+
+msgid "Vault is empty"
+msgstr ""
+
+msgid "Vault is locked"
+msgstr ""
+
+msgid "Vault is not configured"
+msgstr ""
+
+msgid "Vault master passphrase needs to be set to allow storing secrets"
+msgstr ""
+
+msgid "Verify host keys when connecting"
+msgstr ""
+
+msgid "Version"
+msgstr "バージョン"
+
+msgid "Version: {version}"
+msgstr "バージョン: {version}"
+
+msgid "Vibrancy"
+msgstr ""
+
+msgid "Visual"
+msgstr "表示のみ"
+
+msgid "WSL terminal bell can only be muted via Volume Mixer"
+msgstr ""
+
+msgid "WSL terminal only supports TrueColor with ConPTY"
+msgstr ""
+
+msgid "Warn on multi-line paste"
+msgstr ""
+
+msgid "Warn when closing active connections"
+msgstr ""
+
+msgid "Warning: remote host's key has suddenly changed!"
+msgstr ""
+
+msgid "We're only tracking your Tabby and OS versions."
+msgstr ""
+
+msgid "Welcome"
+msgstr "ようこそ"
+
+msgid "What's new"
+msgstr ""
+
+msgid "When WinSCP is detected, you can launch an SCP session from the context menu."
+msgstr ""
+
+msgid "When enabled, links are only clickable while holding this key"
+msgstr ""
+
+msgid "Whether a custom window or an OS native window should be used"
+msgstr ""
+
+msgid "WinSCP path"
+msgstr ""
+
+msgid "Window"
+msgstr "ウィンドウ"
+
+msgid "Window dimension along the edge"
+msgstr ""
+
+msgid "Window dimension away from the edge"
+msgstr ""
+
+msgid "Window frame"
+msgstr ""
+
+msgid "Windows 10 build 18309 or above is recommended for ConPTY"
+msgstr ""
+
+msgid "Word separators"
+msgstr ""
+
+msgid "Working directory"
+msgstr ""
+
+msgid "Working directory detection"
+msgstr ""
+
+msgid "X11 forwarding"
+msgstr ""
+
+msgid "Yellow"
+msgstr "黄色"
+
+msgid "You can change it later, but it's unrecoverable if forgotten."
+msgstr ""
+
+msgid "You could be under a man-in-the-middle attack right now, or the host key could have just been changed."
+msgstr ""
+
+msgid "Zoom in"
+msgstr ""
+
+msgid "Zoom out"
+msgstr ""
+
+msgid "click"
+msgstr "クリック"
+
+msgid "{name} copy"
+msgstr ""
+
