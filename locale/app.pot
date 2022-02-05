@@ -609,6 +609,9 @@ msgstr ""
 msgid "Invalid syntax"
 msgstr ""
 
+msgid "Japanese"
+msgstr ""
+
 msgid "Jump host"
 msgstr ""
 
