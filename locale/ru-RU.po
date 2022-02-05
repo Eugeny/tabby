@@ -12,13 +12,19 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2022-01-28 22:42\n"
+"PO-Revision-Date: 2022-02-05 16:18\n"
 
 msgid "A second font family used to display characters missing in the main font"
 msgstr "Семейство шрифтов, используемое для отображения символов, отсутствующих в основном шрифте"
 
 msgid "Abort all"
 msgstr "Прервать все"
+
+msgid "Accept and remember key"
+msgstr ""
+
+msgid "Accept just this once"
+msgstr ""
 
 msgid "Acrylic background"
 msgstr "Акриловый фон"
@@ -269,6 +275,9 @@ msgstr "Текущий"
 msgid "Current color scheme"
 msgstr "Текущая цветовая схема"
 
+msgid "Current host key fingerprint"
+msgstr ""
+
 msgid "Current process: {name}"
 msgstr "Текущий процесс: {name}"
 
@@ -340,6 +349,9 @@ msgstr "Отключить динамический заголовок вкла�
 
 msgid "Disabled"
 msgstr "Отключено"
+
+msgid "Disconnect"
+msgstr ""
 
 msgid "Display on"
 msgstr "Отобразить на"
@@ -566,6 +578,9 @@ msgstr "Хост"
 msgid "Host key"
 msgstr "Ключ хоста"
 
+msgid "Host key verification"
+msgstr ""
+
 msgid "Hotkeys"
 msgstr "Горячие клавиши"
 
@@ -631,6 +646,9 @@ msgstr "Интерактивная аутентификация"
 
 msgid "Language"
 msgstr "Язык"
+
+msgid "Last known host key fingerprint"
+msgstr ""
 
 msgid "Launch WinSCP"
 msgstr "Запустить WinSCP"
@@ -1170,7 +1188,7 @@ msgid "Source code"
 msgstr "Исходный код"
 
 msgid "Spanish"
-msgstr ""
+msgstr "Испанский"
 
 msgid "Split"
 msgstr "Разделить"
@@ -1370,6 +1388,9 @@ msgstr "Хранилище не сконфигурировано"
 msgid "Vault master passphrase needs to be set to allow storing secrets"
 msgstr "Для сохранения секретных данных должен быть задан мастер-пароль хранилища"
 
+msgid "Verify host keys when connecting"
+msgstr ""
+
 msgid "Version"
 msgstr "Версия"
 
@@ -1393,6 +1414,9 @@ msgstr "Предупреждать при многострочной встав�
 
 msgid "Warn when closing active connections"
 msgstr "Предупреждать при закрытии активных соединений"
+
+msgid "Warning: remote host's key has suddenly changed!"
+msgstr ""
 
 msgid "We're only tracking your Tabby and OS versions."
 msgstr "Отслеживается только версия ОС и приложения."
@@ -1447,6 +1471,9 @@ msgstr "Жёлтый"
 
 msgid "You can change it later, but it's unrecoverable if forgotten."
 msgstr "Вы можете изменить его позже, но, если забудете, восстановить будет невозможно."
+
+msgid "You could be under a man-in-the-middle attack right now, or the host key could have just been changed."
+msgstr ""
 
 msgid "Zoom in"
 msgstr "Приблизить"

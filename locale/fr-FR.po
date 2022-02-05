@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2022-01-30 20:02\n"
+"PO-Revision-Date: 2022-02-05 16:18\n"
 
 msgid "A second font family used to display characters missing in the main font"
 msgstr "Une seconde famille de polices utilisable pour afficher les caractères absents de la police principale"
@@ -21,10 +21,10 @@ msgid "Abort all"
 msgstr "Annuler tout"
 
 msgid "Accept and remember key"
-msgstr ""
+msgstr "Accepter et mémoriser la clé"
 
 msgid "Accept just this once"
-msgstr ""
+msgstr "Accepter uniquement cette fois"
 
 msgid "Acrylic background"
 msgstr "Arrière-plan acrylique"
@@ -276,7 +276,7 @@ msgid "Current color scheme"
 msgstr "Schéma de couleurs actuel"
 
 msgid "Current host key fingerprint"
-msgstr ""
+msgstr "Empreinte de la clé de l'hôte courant"
 
 msgid "Current process: {name}"
 msgstr "Processus actuel : {name}"
@@ -351,7 +351,7 @@ msgid "Disabled"
 msgstr "Désactivé"
 
 msgid "Disconnect"
-msgstr ""
+msgstr "Déconnecter"
 
 msgid "Display on"
 msgstr "Afficher sur"
@@ -579,7 +579,7 @@ msgid "Host key"
 msgstr "Clé de l'hôte"
 
 msgid "Host key verification"
-msgstr ""
+msgstr "Vérification de la clé de l'hôte"
 
 msgid "Hotkeys"
 msgstr "Raccourcis clavier"
@@ -648,7 +648,7 @@ msgid "Language"
 msgstr "Langue"
 
 msgid "Last known host key fingerprint"
-msgstr ""
+msgstr "Dernière empreinte de la clé d'hôte connue"
 
 msgid "Launch WinSCP"
 msgstr "Lancer WinSCP"
@@ -1389,7 +1389,7 @@ msgid "Vault master passphrase needs to be set to allow storing secrets"
 msgstr "Un mot de passe maître doit être défini pour permettre le stockage de secrets dans le coffre"
 
 msgid "Verify host keys when connecting"
-msgstr ""
+msgstr "Vérifier les clés d'hôte lors de la connexion"
 
 msgid "Version"
 msgstr "Version"
@@ -1416,7 +1416,7 @@ msgid "Warn when closing active connections"
 msgstr "Avertir lors de la fermeture de connexions actives"
 
 msgid "Warning: remote host's key has suddenly changed!"
-msgstr ""
+msgstr "Attention : la clé de l'hôte distant a soudainement changé !"
 
 msgid "We're only tracking your Tabby and OS versions."
 msgstr "Nous ne collectons que la version de Tabby et celle de l'OS."
@@ -1473,7 +1473,7 @@ msgid "You can change it later, but it's unrecoverable if forgotten."
 msgstr "Vous pouvez le changer plus tard, mais il n'est pas récupérable s'il est oublié."
 
 msgid "You could be under a man-in-the-middle attack right now, or the host key could have just been changed."
-msgstr ""
+msgstr "Vous pourriez être sous une attaque de man-in-the-middle en ce moment, ou la clé de l'hôte pourrait avoir été modifiée."
 
 msgid "Zoom in"
 msgstr "Zoom avant"

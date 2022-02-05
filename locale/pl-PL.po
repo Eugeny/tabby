@@ -12,13 +12,19 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Polish\n"
 "Language: pl_PL\n"
-"PO-Revision-Date: 2022-01-28 22:42\n"
+"PO-Revision-Date: 2022-01-30 20:02\n"
 
 msgid "A second font family used to display characters missing in the main font"
 msgstr "Druga rodzina czcionek używana do wyświetlania znaków, których brakuje w głównej czcionce"
 
 msgid "Abort all"
 msgstr "Przerwij wszystko"
+
+msgid "Accept and remember key"
+msgstr ""
+
+msgid "Accept just this once"
+msgstr ""
 
 msgid "Acrylic background"
 msgstr "Akrylowe tło"
@@ -269,6 +275,9 @@ msgstr "Aktualny"
 msgid "Current color scheme"
 msgstr "Aktualny schemat kolorów"
 
+msgid "Current host key fingerprint"
+msgstr ""
+
 msgid "Current process: {name}"
 msgstr "Bieżący proces: {name}"
 
@@ -340,6 +349,9 @@ msgstr "Wyłącz dynamiczny tytuł karty"
 
 msgid "Disabled"
 msgstr "Wyłączone"
+
+msgid "Disconnect"
+msgstr ""
 
 msgid "Display on"
 msgstr "Wyświetl na"
@@ -566,6 +578,9 @@ msgstr "Gospodarz"
 msgid "Host key"
 msgstr "Klucz hosta"
 
+msgid "Host key verification"
+msgstr ""
+
 msgid "Hotkeys"
 msgstr "Klawisze skrótów"
 
@@ -631,6 +646,9 @@ msgstr "Autoryzacja przy pomocy interaktywnej klawiatury"
 
 msgid "Language"
 msgstr "Język"
+
+msgid "Last known host key fingerprint"
+msgstr ""
 
 msgid "Launch WinSCP"
 msgstr "Uruchom WinSCP"
@@ -1370,6 +1388,9 @@ msgstr "Sejf nie jest skonfigurowany"
 msgid "Vault master passphrase needs to be set to allow storing secrets"
 msgstr "Hasło główne sejfu musi być ustawione, aby umożliwić przechowywanie danych poufnych"
 
+msgid "Verify host keys when connecting"
+msgstr ""
+
 msgid "Version"
 msgstr "Wersja"
 
@@ -1393,6 +1414,9 @@ msgstr "Ostrzegaj przy wklejaniu wieloliniowym"
 
 msgid "Warn when closing active connections"
 msgstr "Ostrzegaj przy zamykaniu aktywnych połączeń"
+
+msgid "Warning: remote host's key has suddenly changed!"
+msgstr ""
 
 msgid "We're only tracking your Tabby and OS versions."
 msgstr "Śledzimy tylko wersje Tabby i Twojego systemu operacyjnego."
@@ -1447,6 +1471,9 @@ msgstr "Żółty"
 
 msgid "You can change it later, but it's unrecoverable if forgotten."
 msgstr "Możesz zmienić to hasło poźniej, ale jeśli je zgubisz/zapomnisz, to nie będzie możliwości jego odzyskania."
+
+msgid "You could be under a man-in-the-middle attack right now, or the host key could have just been changed."
+msgstr ""
 
 msgid "Zoom in"
 msgstr "Powiększ"

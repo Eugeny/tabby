@@ -12,13 +12,19 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: German\n"
 "Language: de_DE\n"
-"PO-Revision-Date: 2022-01-28 22:42\n"
+"PO-Revision-Date: 2022-02-05 16:18\n"
 
 msgid "A second font family used to display characters missing in the main font"
 msgstr "Eine zweite Schriftart, die zur Darstellung von Zeichen verwendet wird, wenn in der Hauptschriftart Zeichen fehlen"
 
 msgid "Abort all"
 msgstr "Alles abbrechen"
+
+msgid "Accept and remember key"
+msgstr "Schlüssel akzeptieren und merken"
+
+msgid "Accept just this once"
+msgstr "Nur einmal akzeptieren"
 
 msgid "Acrylic background"
 msgstr "Acryl-Hintergrund"
@@ -269,6 +275,9 @@ msgstr "Aktuell"
 msgid "Current color scheme"
 msgstr "Aktuelles Farbschema"
 
+msgid "Current host key fingerprint"
+msgstr "Aktueller Host-Schlüssel-Fingerabdruck"
+
 msgid "Current process: {name}"
 msgstr "Aktueller Prozess: {name}"
 
@@ -340,6 +349,9 @@ msgstr "Dynamischen Tab-Titel deaktivieren"
 
 msgid "Disabled"
 msgstr "Deaktiviert"
+
+msgid "Disconnect"
+msgstr "Verbindung trennen"
 
 msgid "Display on"
 msgstr "Anzeigen auf"
@@ -566,6 +578,9 @@ msgstr "Host"
 msgid "Host key"
 msgstr "Hostschlüssel"
 
+msgid "Host key verification"
+msgstr "Hostschlüssel Verifizierung"
+
 msgid "Hotkeys"
 msgstr "Tastenkombinationen"
 
@@ -632,6 +647,9 @@ msgstr "Tastatur-interaktive Authentifizierung"
 msgid "Language"
 msgstr "Sprache"
 
+msgid "Last known host key fingerprint"
+msgstr "Letzter bekannter Host-Schlüssel-Fingerabdruck"
+
 msgid "Launch WinSCP"
 msgstr "Starte WinSCP"
 
@@ -654,7 +672,7 @@ msgid "Line editor, input is sent after you press Enter"
 msgstr "Zeileneditor, Eingabe wird nach Drücken der Eingabetaste gesendet"
 
 msgid "Line padding"
-msgstr "Zeilen Zwischenabstand"
+msgstr "Zeilenabstand"
 
 msgid "Loading"
 msgstr "Wird geladen"
@@ -1017,7 +1035,7 @@ msgid "SSH connection"
 msgstr "SSH-Verbindung"
 
 msgid "SSH connection management is now done through the \"Profiles & connections\" tab"
-msgstr ""
+msgstr "SSH-Verbindungsverwaltung erfolgt nun über die Registerkarte \"Profile & Verbindungen\""
 
 msgid "SSH password for {user}@{host}:{port}"
 msgstr "SSH-Passwort für {user}@{host}:{port}"
@@ -1170,7 +1188,7 @@ msgid "Source code"
 msgstr "Quellcode"
 
 msgid "Spanish"
-msgstr ""
+msgstr "Spanisch"
 
 msgid "Split"
 msgstr "Teilen"
@@ -1370,6 +1388,9 @@ msgstr "Tresor ist nicht konfiguriert"
 msgid "Vault master passphrase needs to be set to allow storing secrets"
 msgstr "Tresor Hauptpasswort muss gesetzt werden, um Einträge speichern zu können"
 
+msgid "Verify host keys when connecting"
+msgstr "Hostschlüssel bei Verbindung überprüfen"
+
 msgid "Version"
 msgstr "Version"
 
@@ -1393,6 +1414,9 @@ msgstr "Beim mehrzeiligen Einfügen warnen"
 
 msgid "Warn when closing active connections"
 msgstr "Warnung beim Schließen aktiver Verbindungen"
+
+msgid "Warning: remote host's key has suddenly changed!"
+msgstr "Warnung: Der Schlüssel des entfernten Hosts hat sich plötzlich geändert!"
 
 msgid "We're only tracking your Tabby and OS versions."
 msgstr "Wir analysieren nur Ihre Tabby- und Betriebssystem-Versionen."
@@ -1447,6 +1471,9 @@ msgstr "Gelb"
 
 msgid "You can change it later, but it's unrecoverable if forgotten."
 msgstr "Du kannst es später ändern, aber es lässt sich nicht wiederherstellen wenn vergessen."
+
+msgid "You could be under a man-in-the-middle attack right now, or the host key could have just been changed."
+msgstr "Sie könnten gerade Opfer eines Man-in-the-Middle-Angriffs sein oder der Host-Schlüssel könnte gerade geändert worden sein."
 
 msgid "Zoom in"
 msgstr "Hineinzoomen"

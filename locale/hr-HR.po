@@ -12,13 +12,19 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Croatian\n"
 "Language: hr_HR\n"
-"PO-Revision-Date: 2022-01-28 22:42\n"
+"PO-Revision-Date: 2022-02-05 16:18\n"
 
 msgid "A second font family used to display characters missing in the main font"
 msgstr "Druga obitelj fontova koja se koristi za prikaz nedostajućih znakova u glavnom fontu"
 
 msgid "Abort all"
 msgstr "Prekini sve"
+
+msgid "Accept and remember key"
+msgstr "Prihvati i zapamti ključ"
+
+msgid "Accept just this once"
+msgstr "Prihvati samo ovaj put"
 
 msgid "Acrylic background"
 msgstr "Pozadina u boji akrila"
@@ -27,7 +33,7 @@ msgid "Add"
 msgstr "Dodaj"
 
 msgid "Add a port forward"
-msgstr ""
+msgstr "Dodaj prosljeđujući priključak"
 
 msgid "Add a private key"
 msgstr "Dodaj privatni ključ"
@@ -153,7 +159,7 @@ msgid "Chinese (simplified)"
 msgstr "Kineski (pojednostavljeni)"
 
 msgid "Chinese (traditional)"
-msgstr ""
+msgstr "Kineski (tradicionalni)"
 
 msgid "Ciphers"
 msgstr "Šifre"
@@ -261,13 +267,16 @@ msgid "Could not decrypt config"
 msgstr "Neuspjelo dešifriranje konfiguracije"
 
 msgid "Croatian"
-msgstr ""
+msgstr "Hrvatski"
 
 msgid "Current"
 msgstr "Trenutačno"
 
 msgid "Current color scheme"
 msgstr "Trenutačna shema boja"
+
+msgid "Current host key fingerprint"
+msgstr "Trenutačna šifra ključa host računala"
 
 msgid "Current process: {name}"
 msgstr "Tenutačni postupak: {name}"
@@ -340,6 +349,9 @@ msgstr "Deaktiviraj dinamički naslov kartice"
 
 msgid "Disabled"
 msgstr "Deaktivirano"
+
+msgid "Disconnect"
+msgstr "Odspoji"
 
 msgid "Display on"
 msgstr "Ekran uključen"
@@ -498,7 +510,7 @@ msgid "Forwarded ports"
 msgstr "Proslijeđeni priključci"
 
 msgid "French"
-msgstr ""
+msgstr "Francuski"
 
 msgid "From color scheme"
 msgstr "Iz sheme boja"
@@ -519,7 +531,7 @@ msgid "Generate a pre-filled GitHub issue"
 msgstr "Generiraj unaprijed ispunjeni GitHub problem"
 
 msgid "German"
-msgstr ""
+msgstr "Njemački"
 
 msgid "Get"
 msgstr "Preuzmi"
@@ -564,7 +576,10 @@ msgid "Host"
 msgstr "Host računalo"
 
 msgid "Host key"
-msgstr "Tipka host računala"
+msgstr "Ključ host računala"
+
+msgid "Host key verification"
+msgstr "Provjera ključa host računala"
 
 msgid "Hotkeys"
 msgstr "Tipkovni prečaci"
@@ -603,7 +618,7 @@ msgid "Invalid syntax"
 msgstr "Neispravna sintaksa"
 
 msgid "Jump host"
-msgstr "Skoči host računalo"
+msgstr "„Jump” host računalo"
 
 msgid "Jump to next word"
 msgstr "Skoči na sljedeću riječ"
@@ -631,6 +646,9 @@ msgstr "Autentifikacija interaktivnom tipkovnicom"
 
 msgid "Language"
 msgstr "Jezik"
+
+msgid "Last known host key fingerprint"
+msgstr "Zadnja poznata šifra ključa host računala"
 
 msgid "Launch WinSCP"
 msgstr "Pokreni WinSCP"
@@ -729,7 +747,7 @@ msgid "New tab"
 msgstr "Nova kartica"
 
 msgid "New tab: {profile}"
-msgstr ""
+msgstr "Nova kartica: {profile}"
 
 msgid "New terminal"
 msgstr "Novi terminal"
@@ -870,7 +888,7 @@ msgid "Plugins folder"
 msgstr "Mapa dodataka"
 
 msgid "Polish"
-msgstr ""
+msgstr "Poljski"
 
 msgid "Port"
 msgstr "Priključak"
@@ -1002,7 +1020,7 @@ msgid "Run as administrator"
 msgstr "Pokreni kao administrator"
 
 msgid "Russian"
-msgstr ""
+msgstr "Ruski"
 
 msgid "SOCKS proxy"
 msgstr "SOCKS proxy"
@@ -1017,7 +1035,7 @@ msgid "SSH connection"
 msgstr "SSH veza"
 
 msgid "SSH connection management is now done through the \"Profiles & connections\" tab"
-msgstr ""
+msgstr "Upravljanje SSH vezom sada se vrši putem kartice „Profili i veze”"
 
 msgid "SSH password for {user}@{host}:{port}"
 msgstr "SSH lozinka za {user}@{host}:{port}"
@@ -1155,7 +1173,7 @@ msgid "Show vault contents"
 msgstr "Prikaži sadržaj trezora"
 
 msgid "Show {type} profile selector"
-msgstr ""
+msgstr "Prikaži {type} selektor profila"
 
 msgid "Skip MoTD/banner"
 msgstr "Preskoči MoTD/banner"
@@ -1170,7 +1188,7 @@ msgid "Source code"
 msgstr "Izvorni kod"
 
 msgid "Spanish"
-msgstr ""
+msgstr "Španjolski"
 
 msgid "Split"
 msgstr "Podijeli"
@@ -1236,7 +1254,7 @@ msgid "Tab activity"
 msgstr "Aktivnost kartice"
 
 msgid "Tab {number}"
-msgstr ""
+msgstr "Kartica {number}"
 
 msgid "Tabby could not start with your plugins, so all third party plugins have been disabled in this session. The error was:"
 msgstr "Tabby se nije mogao pokrenuti s tvojim dodacima, stoga su svi strani dodaci deaktivirani u ovoj sesiji. Greška je bila:"
@@ -1370,6 +1388,9 @@ msgstr "Trezor nije konfiguriran"
 msgid "Vault master passphrase needs to be set to allow storing secrets"
 msgstr "Za spremanje tajni, tekstualna master lozinka trezora mora biti postavljena"
 
+msgid "Verify host keys when connecting"
+msgstr "Provjeri ključeve host računala prilikom povezivanja"
+
 msgid "Version"
 msgstr "Verzija"
 
@@ -1393,6 +1414,9 @@ msgstr "Upozori prilikom umetanja više redaka"
 
 msgid "Warn when closing active connections"
 msgstr "Upozori pri zatvaranju aktivnih veza"
+
+msgid "Warning: remote host's key has suddenly changed!"
+msgstr "Upozorenje: ključ udaljenog host računala iznenada se promijenio!"
 
 msgid "We're only tracking your Tabby and OS versions."
 msgstr "Pratimo samo tvoje verzije Tabbyja i OS-a."
@@ -1447,6 +1471,9 @@ msgstr "Žuta"
 
 msgid "You can change it later, but it's unrecoverable if forgotten."
 msgstr "Može se kasnije promijeniti, ali ne ne može obnoviti ako se zaboravi."
+
+msgid "You could be under a man-in-the-middle attack right now, or the host key could have just been changed."
+msgstr "Možda se veza trenutačno nalazi pod napadom (man-in-the-middle attack) ili je ključ host računala jednostavno promijenjen."
 
 msgid "Zoom in"
 msgstr "Uvećaj prikaz"
