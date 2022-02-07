@@ -32,7 +32,7 @@
     "compare-versions": "^4",
     "core-js": "^3.20.3",
     "cross-env": "7.0.3",
-    "css-loader": "^6.5.1",
+    "css-loader": "^6.6.0",
     "deep-equal": "2.0.5",
     "electron": "17.0.0",
     "electron-builder": "^22.14.13",
