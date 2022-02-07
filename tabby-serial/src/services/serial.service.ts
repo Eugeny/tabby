@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import SerialPort from 'serialport'
+import { SerialPort } from 'serialport'
 import { PartialProfile, ProfilesService } from 'tabby-core'
 import { SerialPortInfo, SerialProfile } from '../api'
 import { SerialTabComponent } from '../components/serialTab.component'

@@ -1,5 +1,5 @@
 import stripAnsi from 'strip-ansi'
-import SerialPort from 'serialport'
+import { SerialPort } from 'serialport'
 import { LogService, NotificationsService, Profile } from 'tabby-core'
 import { Subject, Observable } from 'rxjs'
 import { Injector, NgZone } from '@angular/core'
@@ -72,11 +72,12 @@ export class SerialSession extends BaseSession {
             this.profile.options.port = (await this.serialService.listPorts())[0].name
         }
 
-        this.serial = new SerialPort(this.profile.options.port, {
+        this.serial = new SerialPort({
+            path: this.profile.options.port,
             autoOpen: false,
             baudRate: parseInt(this.profile.options.baudrate as any),
-            dataBits: this.profile.options.databits ?? 8,
-            stopBits: this.profile.options.stopbits ?? 1,
+            dataBits: this.profile.options.databits ?? 8 as any,
+            stopBits: this.profile.options.stopbits ?? 1 as any,
             parity: this.profile.options.parity ?? 'none',
             rtscts: this.profile.options.rtscts ?? false,
             xon: this.profile.options.xon ?? false,

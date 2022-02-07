@@ -1,5 +1,5 @@
 import slugify from 'slugify'
-import SerialPort from 'serialport'
+import { SerialPort } from 'serialport'
 import WSABinding from 'serialport-binding-webserialapi'
 import deepClone from 'clone-deep'
 import { Injectable } from '@angular/core'
@@ -42,7 +42,7 @@ export class SerialProfilesService extends ProfileProvider<SerialProfile> {
     ) {
         super()
         if (hostApp.platform === Platform.Web) {
-            SerialPort.Binding = WSABinding
+            SerialPort['Binding'] = WSABinding
         }
     }
 
