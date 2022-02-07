@@ -1,6 +1,6 @@
 {
   "name": "tabby-serial",
-  "version": "1.0.171-nightly.0",
+  "version": "1.0.171-nightly.1",
   "description": "Serial connections for Tabby",
   "keywords": [
     "tabby-builtin-plugin"
