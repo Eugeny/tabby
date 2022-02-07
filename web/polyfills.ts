@@ -68,6 +68,7 @@ Tabby.registerMock('tty', { isatty: () => false })
 Tabby.registerMock('child_process', {})
 Tabby.registerMock('readable-stream', {})
 Tabby.registerMock('os', {
+    arch: () => 'web',
     platform: () => 'web',
     homedir: () => '/home',
 })
@@ -90,6 +91,7 @@ Tabby.registerMock('keytar', {
     getPassword: () => null,
 })
 Tabby.registerMock('@serialport/bindings', {})
+Tabby.registerMock('@serialport/bindings-cpp', {})
 
 Tabby.registerModule('net', {
     Socket: SocketProxy,

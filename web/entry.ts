@@ -27,6 +27,9 @@ window['bootstrapTabby'] = async function bootstrap (options: BootstrapOptions):
 
     const pluginModules = []
     for (const packageModule of options.packageModules) {
+        if (!packageModule.default) {
+            continue
+        }
         const pluginModule = packageModule.default.forRoot ? packageModule.default.forRoot() : packageModule.default
         pluginModule.pluginName = packageModule.pluginName
         pluginModule.bootstrap = packageModule.bootstrap
