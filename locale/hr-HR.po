@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Croatian\n"
 "Language: hr_HR\n"
-"PO-Revision-Date: 2022-02-05 16:18\n"
+"PO-Revision-Date: 2022-02-07 14:27\n"
 
 msgid "A second font family used to display characters missing in the main font"
 msgstr "Druga obitelj fontova koja se koristi za prikaz nedostajućih znakova u glavnom fontu"
@@ -616,6 +616,9 @@ msgstr "Interaktivno"
 
 msgid "Invalid syntax"
 msgstr "Neispravna sintaksa"
+
+msgid "Japanese"
+msgstr ""
 
 msgid "Jump host"
 msgstr "„Jump” host računalo"

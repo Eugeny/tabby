@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2022-02-05 16:18\n"
+"PO-Revision-Date: 2022-02-07 14:27\n"
 
 msgid "A second font family used to display characters missing in the main font"
 msgstr "既定フォントに不足してる文字を補って表示する代替フォント"
@@ -21,10 +21,10 @@ msgid "Abort all"
 msgstr "すべて中止"
 
 msgid "Accept and remember key"
-msgstr ""
+msgstr "承認してキーを記憶"
 
 msgid "Accept just this once"
-msgstr ""
+msgstr "一度だけ"
 
 msgid "Acrylic background"
 msgstr "ウィンドウの透過"
@@ -42,7 +42,7 @@ msgid "Add..."
 msgstr "追加..."
 
 msgid "Additional space between lines"
-msgstr "行間のスペース"
+msgstr "行間にスペースを追加します"
 
 msgid "Advanced"
 msgstr "詳細"
@@ -273,7 +273,7 @@ msgid "Current"
 msgstr "現在"
 
 msgid "Current color scheme"
-msgstr "使用中の配色設定"
+msgstr "使用中の配色"
 
 msgid "Current host key fingerprint"
 msgstr "使用中のホストキーのフィンガープリント"
@@ -300,7 +300,7 @@ msgid "Default profile settings"
 msgstr "既定プロファイルの設定"
 
 msgid "Defaults"
-msgstr "規定値"
+msgstr "既定"
 
 msgid "Defaults for {type}"
 msgstr "{type} の既定値"
@@ -342,7 +342,7 @@ msgid "Disable"
 msgstr "無効"
 
 msgid "Disable GPU acceleration"
-msgstr "GPUアクセラレーションを無効にします"
+msgstr "GPUアクセラレーションを無効化"
 
 msgid "Disable dynamic tab title"
 msgstr "動的なタブ名を無効にする"
@@ -360,7 +360,7 @@ msgid "Do not abort"
 msgstr "中止しない"
 
 msgid "Do not remember"
-msgstr ""
+msgstr "記憶しない"
 
 msgid "Dock always on top"
 msgstr "ドックを常に最前面表示"
@@ -513,7 +513,7 @@ msgid "French"
 msgstr "フランス語"
 
 msgid "From color scheme"
-msgstr "使用中の配色設定から"
+msgstr "使用中の配色から"
 
 msgid "From theme"
 msgstr "使用中のテーマから"
@@ -617,6 +617,9 @@ msgstr "インタラクティブ"
 msgid "Invalid syntax"
 msgstr "無効な構文"
 
+msgid "Japanese"
+msgstr "日本語"
+
 msgid "Jump host"
 msgstr "ジャンプサーバー"
 
@@ -660,10 +663,10 @@ msgid "Learn how to allow Tabby to detect remote shell's working directory."
 msgstr "Tabbyがリモートシェルの作業ディレクトリを検出できるようにする方法を紹介します。"
 
 msgid "Left"
-msgstr "左"
+msgstr "左側"
 
 msgid "Lets the shell handle Meta key instead of OS"
-msgstr "OSの代わりにシェルがメタキーを処理することを許可"
+msgstr "OSの代わりにシェルにメタキーを処理させます"
 
 msgid "Line by line"
 msgstr "一行ごとに"
@@ -714,7 +717,7 @@ msgid "Move tab to the right"
 msgstr "タブを右に移動"
 
 msgid "Move to \"Ungrouped\""
-msgstr "\"グループ化されていない\" に移動"
+msgstr "\"未分類\" に移動"
 
 msgid "Name"
 msgstr "名前"
@@ -903,7 +906,7 @@ msgid "Prevents accidental closing"
 msgstr "偶発的な終了を防止"
 
 msgid "Prevents accidental execution of pasted commands"
-msgstr "貼り付けたコマンドの偶発的な実行を防止"
+msgstr "貼り付けたコマンドの偶発的な実行を防止することができます"
 
 msgid "Previous tab"
 msgstr "前のタブ"
@@ -1011,7 +1014,7 @@ msgid "Reuse session for multiple tabs"
 msgstr "複数のタブでセッションを再利用する"
 
 msgid "Right"
-msgstr "右"
+msgstr "右側"
 
 msgid "Right click"
 msgstr "右クリック"
@@ -1242,37 +1245,37 @@ msgid "Sync automatically"
 msgstr "自動的に同期"
 
 msgid "Sync host"
-msgstr "ホストを同期"
+msgstr "同期ホスト"
 
 msgid "Sync hotkeys"
 msgstr "ホットキーの同期"
 
 msgid "Sync window settings"
-msgstr ""
+msgstr "ウィンドウ設定の同期"
 
 msgid "Tab activity"
-msgstr ""
+msgstr "タブのアクティビティ"
 
 msgid "Tab {number}"
-msgstr ""
+msgstr "タブ {number}"
 
 msgid "Tabby could not start with your plugins, so all third party plugins have been disabled in this session. The error was:"
-msgstr ""
+msgstr "プラグインが原因でTabbyの起動に失敗しました。このセッションではすべてのサードパーティ製のプラグインが無効になっています。エラー:"
 
 msgid "Tabby news and updates on Twitter"
-msgstr ""
+msgstr "TabbyのニュースやアップデートをTwitterで配信"
 
 msgid "Tabs"
 msgstr "タブ"
 
 msgid "Tabs location"
-msgstr ""
+msgstr "タブの場所"
 
 msgid "Tabs width"
-msgstr ""
+msgstr "タブの幅"
 
 msgid "Telnet session"
-msgstr ""
+msgstr "Telnetセッション"
 
 msgid "Terminal"
 msgstr "端末"
@@ -1284,64 +1287,64 @@ msgid "Terminal bell"
 msgstr "端末ベル"
 
 msgid "Thank you for downloading Tabby!"
-msgstr "Tabbyをダウンロードいただきありがとうございます!"
+msgstr "Tabbyをダウンロードしていただきありがとうございます！"
 
 msgid "Theme"
 msgstr "テーマ"
 
 msgid "There are active file transfers"
-msgstr ""
+msgstr "ファイル転送を使用中"
 
 msgid "There is a saved password for this connection"
-msgstr ""
+msgstr "この接続に利用可能なパスワードが保存されています。"
 
 msgid "These apply to all profiles of a given type"
-msgstr ""
+msgstr "指定された種類のすべてのプロファイルに適用されます。"
 
 msgid "Thin"
-msgstr ""
+msgstr "細い"
 
 msgid "Tick this if you're experiencing aliasing, ghosting or other visual issues"
-msgstr ""
+msgstr "画像のギザギザやずれて見えるなどの表示の乱れが発生している場合は選択してください。"
 
 msgid "Toggle fullscreen mode"
-msgstr ""
+msgstr "全画面表示に切り替え"
 
 msgid "Toggle last tab"
-msgstr ""
+msgstr "最後のタブに切り替え"
 
 msgid "Toggle terminal window"
-msgstr ""
+msgstr "端末ウィンドウの切り替え"
 
 msgid "Toggles the Tabby window visibility"
-msgstr ""
+msgstr "Tabbyウィンドウの表示を切り替え"
 
 msgid "Top"
-msgstr ""
+msgstr "上部"
 
 msgid "Try again"
-msgstr ""
+msgstr "再試行"
 
 msgid "Trying saved password"
-msgstr ""
+msgstr "保存されたパスワードを試みています"
 
 msgid "Ungrouped"
-msgstr ""
+msgstr "未分類"
 
 msgid "Uninstall"
 msgstr "アンインストール"
 
 msgid "Unknown"
-msgstr ""
+msgstr "不明"
 
 msgid "Unknown secret of type {type} for {key}"
-msgstr ""
+msgstr "タイプ {type} の {key} の不明なシークレット"
 
 msgid "Unpin"
-msgstr ""
+msgstr "ピン留めを外す"
 
 msgid "Up"
-msgstr ""
+msgstr "上へ"
 
 msgid "Update"
 msgstr "アップデート"
@@ -1353,43 +1356,43 @@ msgid "Upload"
 msgstr "アップロード"
 
 msgid "Upload as a new config"
-msgstr ""
+msgstr "新しい設定としてアップロード"
 
 msgid "Use ConPTY"
-msgstr ""
+msgstr "ConPTYを使用する"
 
 msgid "Use {altKeyName} as the Meta key"
-msgstr ""
+msgstr "メタキーとして {altKeyName} を使用する"
 
 msgid "User default"
-msgstr ""
+msgstr "ユーザーの既定"
 
 msgid "Username"
 msgstr "ユーザー名"
 
 msgid "Using preset password"
-msgstr ""
+msgstr "プリセットパスワードの使用"
 
 msgid "Vault"
-msgstr ""
+msgstr "Vault"
 
 msgid "Vault is an always-encrypted container for secrets such as SSH passwords and private key passphrases."
-msgstr ""
+msgstr "VaultはSSHパスワードや秘密鍵パスフレーズなどの機密性の高い情報を保存するための常時暗号化されたコンテナです。"
 
 msgid "Vault is empty"
-msgstr ""
+msgstr "Vault内にデータは保存されていません"
 
 msgid "Vault is locked"
-msgstr ""
+msgstr "Vaultはロックされています"
 
 msgid "Vault is not configured"
-msgstr ""
+msgstr "Vaultが設定されていません"
 
 msgid "Vault master passphrase needs to be set to allow storing secrets"
-msgstr ""
+msgstr "機密性の高い情報を保存するには、Vaultのマスターパスフレーズを設定する必要があります"
 
 msgid "Verify host keys when connecting"
-msgstr ""
+msgstr "接続時にホストキーを確認"
 
 msgid "Version"
 msgstr "バージョン"
@@ -1398,92 +1401,92 @@ msgid "Version: {version}"
 msgstr "バージョン: {version}"
 
 msgid "Vibrancy"
-msgstr ""
+msgstr "磨りガラス"
 
 msgid "Visual"
-msgstr "表示のみ"
+msgstr "ビジュアル表示"
 
 msgid "WSL terminal bell can only be muted via Volume Mixer"
-msgstr ""
+msgstr "WSLによる端末ベルは音量ミキサーでのみミュートすることができます"
 
 msgid "WSL terminal only supports TrueColor with ConPTY"
-msgstr ""
+msgstr "WSL端末はConPTYによるTrueColorのみをサポートしています"
 
 msgid "Warn on multi-line paste"
-msgstr ""
+msgstr "複数行貼り付け時に警告"
 
 msgid "Warn when closing active connections"
-msgstr ""
+msgstr "使用中の接続を閉じたときに警告"
 
 msgid "Warning: remote host's key has suddenly changed!"
-msgstr ""
+msgstr "警告: リモートホストのキーが突然変更されました！"
 
 msgid "We're only tracking your Tabby and OS versions."
-msgstr ""
+msgstr "TabbyとOSのバージョンのみを調査しています。"
 
 msgid "Welcome"
 msgstr "ようこそ"
 
 msgid "What's new"
-msgstr ""
+msgstr "最新情報"
 
 msgid "When WinSCP is detected, you can launch an SCP session from the context menu."
-msgstr ""
+msgstr "WinSCPが検出されると、コンテキストメニューからSCPセッションを起動することができます。"
 
 msgid "When enabled, links are only clickable while holding this key"
-msgstr ""
+msgstr "有効な場合、指定されたキーを押している間のみリンクをクリック可能です"
 
 msgid "Whether a custom window or an OS native window should be used"
-msgstr ""
+msgstr "カスタムウィンドウまたはOSネイティブウィンドウを使用するかどうか"
 
 msgid "WinSCP path"
-msgstr ""
+msgstr "WinSCPのパス"
 
 msgid "Window"
 msgstr "ウィンドウ"
 
 msgid "Window dimension along the edge"
-msgstr ""
+msgstr "画面端のウィンドウの幅"
 
 msgid "Window dimension away from the edge"
-msgstr ""
+msgstr "画面端から離れたウィンドウの幅"
 
 msgid "Window frame"
-msgstr ""
+msgstr "ウィンドウのフレーム"
 
 msgid "Windows 10 build 18309 or above is recommended for ConPTY"
-msgstr ""
+msgstr "ConPTYにはWindows 10ビルド18309以上を推奨します"
 
 msgid "Word separators"
-msgstr ""
+msgstr "区切り文字"
 
 msgid "Working directory"
-msgstr ""
+msgstr "作業ディレクトリ"
 
 msgid "Working directory detection"
-msgstr ""
+msgstr "作業ディレクトリの検出"
 
 msgid "X11 forwarding"
-msgstr ""
+msgstr "X11転送"
 
 msgid "Yellow"
 msgstr "黄色"
 
 msgid "You can change it later, but it's unrecoverable if forgotten."
-msgstr ""
+msgstr "後から変更できますが、忘れた場合復元することはできません。"
 
 msgid "You could be under a man-in-the-middle attack right now, or the host key could have just been changed."
-msgstr ""
+msgstr "現在中間者攻撃を受けているか、もしくは、ホストキーが変更された可能性があります。"
 
 msgid "Zoom in"
-msgstr ""
+msgstr "拡大"
 
 msgid "Zoom out"
-msgstr ""
+msgstr "縮小"
 
 msgid "click"
 msgstr "クリック"
 
 msgid "{name} copy"
-msgstr ""
+msgstr "{name} コピー"
 

@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2022-02-05 16:18\n"
+"PO-Revision-Date: 2022-02-07 14:27\n"
 
 msgid "A second font family used to display characters missing in the main font"
 msgstr "Семейство шрифтов, используемое для отображения символов, отсутствующих в основном шрифте"
@@ -21,10 +21,10 @@ msgid "Abort all"
 msgstr "Прервать все"
 
 msgid "Accept and remember key"
-msgstr ""
+msgstr "Принять и запомнить ключ"
 
 msgid "Accept just this once"
-msgstr ""
+msgstr "Принять только один раз"
 
 msgid "Acrylic background"
 msgstr "Акриловый фон"
@@ -276,7 +276,7 @@ msgid "Current color scheme"
 msgstr "Текущая цветовая схема"
 
 msgid "Current host key fingerprint"
-msgstr ""
+msgstr "Отпечаток ключа текущего хоста"
 
 msgid "Current process: {name}"
 msgstr "Текущий процесс: {name}"
@@ -351,7 +351,7 @@ msgid "Disabled"
 msgstr "Отключено"
 
 msgid "Disconnect"
-msgstr ""
+msgstr "Отсоединиться"
 
 msgid "Display on"
 msgstr "Отобразить на"
@@ -579,7 +579,7 @@ msgid "Host key"
 msgstr "Ключ хоста"
 
 msgid "Host key verification"
-msgstr ""
+msgstr "Подтверждение ключа хоста"
 
 msgid "Hotkeys"
 msgstr "Горячие клавиши"
@@ -617,6 +617,9 @@ msgstr "Интерактивная"
 msgid "Invalid syntax"
 msgstr "Неверный синтаксис"
 
+msgid "Japanese"
+msgstr "Японский"
+
 msgid "Jump host"
 msgstr "Промежуточный хост"
 
@@ -648,7 +651,7 @@ msgid "Language"
 msgstr "Язык"
 
 msgid "Last known host key fingerprint"
-msgstr ""
+msgstr "Последний отпечаток ключа хоста"
 
 msgid "Launch WinSCP"
 msgstr "Запустить WinSCP"
@@ -747,7 +750,7 @@ msgid "New tab"
 msgstr "Новая вкладка"
 
 msgid "New tab: {profile}"
-msgstr ""
+msgstr "Новая вкладка: {profile}"
 
 msgid "New terminal"
 msgstr "Новый терминал"
@@ -1035,7 +1038,7 @@ msgid "SSH connection"
 msgstr "SSH-соединение"
 
 msgid "SSH connection management is now done through the \"Profiles & connections\" tab"
-msgstr ""
+msgstr "Управление SSH-подключениями теперь производится во вкладке «Профили и подключения»"
 
 msgid "SSH password for {user}@{host}:{port}"
 msgstr "Пароль SSH для {user}@{host}:{port}"
@@ -1173,7 +1176,7 @@ msgid "Show vault contents"
 msgstr "Показать содержимое хранилища"
 
 msgid "Show {type} profile selector"
-msgstr ""
+msgstr "Показать селектор профиля {type}"
 
 msgid "Skip MoTD/banner"
 msgstr "Пропустить MoTD/баннер"
@@ -1389,7 +1392,7 @@ msgid "Vault master passphrase needs to be set to allow storing secrets"
 msgstr "Для сохранения секретных данных должен быть задан мастер-пароль хранилища"
 
 msgid "Verify host keys when connecting"
-msgstr ""
+msgstr "Подтверждать ключ хоста при подключении"
 
 msgid "Version"
 msgstr "Версия"
@@ -1416,7 +1419,7 @@ msgid "Warn when closing active connections"
 msgstr "Предупреждать при закрытии активных соединений"
 
 msgid "Warning: remote host's key has suddenly changed!"
-msgstr ""
+msgstr "Предупреждение: ключ удалённого хоста неожиданно изменился!"
 
 msgid "We're only tracking your Tabby and OS versions."
 msgstr "Отслеживается только версия ОС и приложения."
@@ -1473,7 +1476,7 @@ msgid "You can change it later, but it's unrecoverable if forgotten."
 msgstr "Вы можете изменить его позже, но, если забудете, восстановить будет невозможно."
 
 msgid "You could be under a man-in-the-middle attack right now, or the host key could have just been changed."
-msgstr ""
+msgstr "В данный момент вы можете быть подвержены атаке посредника (man-in-the-middle), или же ключ хоста просто был изменён."
 
 msgid "Zoom in"
 msgstr "Приблизить"

@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2022-02-05 16:19\n"
+"PO-Revision-Date: 2022-02-07 14:27\n"
 
 msgid "A second font family used to display characters missing in the main font"
 msgstr "Una familia tipográfica secundaria usada para mostrar los caracteres faltantes en la principal"
@@ -616,6 +616,9 @@ msgstr "Interactivo"
 
 msgid "Invalid syntax"
 msgstr "Sintáxis inválida"
+
+msgid "Japanese"
+msgstr "Japonés"
 
 msgid "Jump host"
 msgstr "Saltar host"

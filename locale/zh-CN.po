@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2022-01-30 20:02\n"
+"PO-Revision-Date: 2022-02-07 14:27\n"
 
 msgid "A second font family used to display characters missing in the main font"
 msgstr "第二种字体，用于显示主字体中缺失的字符"
@@ -616,6 +616,9 @@ msgstr "交互式"
 
 msgid "Invalid syntax"
 msgstr "无效的语法"
+
+msgid "Japanese"
+msgstr "日语"
 
 msgid "Jump host"
 msgstr "跳板机"
