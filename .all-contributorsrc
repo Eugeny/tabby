@@ -599,6 +599,15 @@
       "contributions": [
         "infra"
       ]
+    },
+    {
+      "login": "mwz",
+      "name": "Michael Wizner",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1190768?v=4",
+      "profile": "https://github.com/mwz",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
