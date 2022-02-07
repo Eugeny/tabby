@@ -41,7 +41,7 @@ class SlowFeedMiddleware extends SessionMiddleware {
 }
 
 export class SerialSession extends BaseSession {
-    serial: SerialPort
+    serial: SerialPort|null
 
     get serviceMessage$ (): Observable<string> { return this.serviceMessage }
     private serviceMessage = new Subject<string>()
@@ -72,7 +72,7 @@ export class SerialSession extends BaseSession {
             this.profile.options.port = (await this.serialService.listPorts())[0].name
         }
 
-        this.serial = new SerialPort({
+        const serial = this.serial = new SerialPort({
             path: this.profile.options.port,
             autoOpen: false,
             baudRate: parseInt(this.profile.options.baudrate as any),
@@ -86,27 +86,27 @@ export class SerialSession extends BaseSession {
         })
         let connected = false
         await new Promise(async (resolve, reject) => {
-            this.serial.on('open', () => {
+            serial.on('open', () => {
                 connected = true
                 this.zone.run(resolve)
             })
-            this.serial.on('error', error => {
+            serial.on('error', error => {
                 this.zone.run(() => {
                     if (connected) {
-                        this.notifications.error(error.toString())
+                        this.notifications.error(error.message)
                     } else {
                         reject(error)
                     }
                     this.destroy()
                 })
             })
-            this.serial.on('close', () => {
+            serial.on('close', () => {
                 this.emitServiceMessage('Port closed')
                 this.destroy()
             })
 
             try {
-                this.serial.open()
+                serial.open()
             } catch (e) {
                 this.notifications.error(e.message)
                 reject(e)
@@ -116,11 +116,11 @@ export class SerialSession extends BaseSession {
         this.open = true
         setTimeout(() => this.streamProcessor.start())
 
-        this.serial.on('readable', () => {
-            this.emitOutput(this.serial.read())
+        serial.on('readable', () => {
+            this.emitOutput(serial.read())
         })
 
-        this.serial.on('end', () => {
+        serial.on('end', () => {
             this.logger.info('Shell session ended')
             if (this.open) {
                 this.destroy()
@@ -145,7 +145,7 @@ export class SerialSession extends BaseSession {
     }
 
     kill (_?: string): void {
-        this.serial.close()
+        this.serial?.close()
     }
 
     emitServiceMessage (msg: string): void {

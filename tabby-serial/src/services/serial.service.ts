@@ -13,7 +13,7 @@ export class SerialService {
     async listPorts (): Promise<SerialPortInfo[]> {
         return (await SerialPort.list()).map(x => ({
             name: x.path,
-            description: x.manufacturer || x.serialNumber ? `${x.manufacturer || ''} ${x.serialNumber || ''}` : undefined,
+            description: `${x.manufacturer ?? ''} ${x.serialNumber ?? ''}`.trim() || undefined,
         }))
     }
 
