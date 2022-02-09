@@ -14,6 +14,11 @@ export class SettingsConfigProvider extends ConfigProvider {
                 vault: true,
             },
         },
+        hotkeys: {
+            'settings-tab': {
+                __nonStructural: true,
+            },
+        },
     }
     platformDefaults = {
         [Platform.macOS]: {

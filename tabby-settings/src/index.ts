@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { InfiniteScrollModule } from 'ngx-infinite-scroll'
 
-import TabbyCorePlugin, { ToolbarButtonProvider, HotkeyProvider, ConfigProvider } from 'tabby-core'
+import TabbyCorePlugin, { ToolbarButtonProvider, HotkeyProvider, ConfigProvider, HotkeysService, AppService } from 'tabby-core'
 
 import { EditProfileModalComponent } from './components/editProfileModal.component'
 import { HotkeyInputModalComponent } from './components/hotkeyInputModal.component'
@@ -74,7 +74,21 @@ import { HotkeySettingsTabProvider, WindowSettingsTabProvider, VaultSettingsTabP
     ],
 })
 export default class SettingsModule {
-    constructor (public configSync: ConfigSyncService) { }
+    constructor (
+        public configSync: ConfigSyncService,
+        app: AppService,
+        hotkeys: HotkeysService,
+    ) {
+        hotkeys.hotkey$.subscribe(async hotkey => {
+            if (hotkey.startsWith('settings-tab.')) {
+                const id = hotkey.substring(hotkey.indexOf('.') + 1)
+                app.openNewTabRaw({
+                    type: SettingsTabComponent,
+                    inputs: { activeTab: id },
+                })
+            }
+        })
+    }
 }
 
 export * from './api'
