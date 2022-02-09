@@ -1,15 +1,20 @@
 import * as fs from 'fs/promises'
+import * as fsSync from 'fs'
 import * as path from 'path'
 import slugify from 'slugify'
+import * as yaml from 'js-yaml'
+import { Injectable } from '@angular/core'
 import { PartialProfile } from 'tabby-core'
 import { SSHProfileImporter, PortForwardType, SSHProfile, SSHProfileOptions } from 'tabby-ssh'
 
-function deriveID (name: string): string {
-    return 'openssh-config:' + slugify(name)
-}
+import { ElectronService } from './services/electron.service'
 
+
+@Injectable({ providedIn: 'root' })
 export class OpenSSHImporter extends SSHProfileImporter {
     async getProfiles (): Promise<PartialProfile<SSHProfile>[]> {
+        const deriveID = name => 'openssh-config:' + slugify(name)
+
         const results: PartialProfile<SSHProfile>[] = []
         const configPath = path.join(process.env.HOME ?? '~', '.ssh', 'config')
         try {
@@ -125,5 +130,36 @@ export class OpenSSHImporter extends SSHProfileImporter {
             }
             throw e
         }
+    }
+}
+
+@Injectable({ providedIn: 'root' })
+export class StaticFileImporter extends SSHProfileImporter {
+    private configPath: string
+
+    constructor (
+        electron: ElectronService,
+    ) {
+        super()
+        this.configPath = path.join(electron.app.getPath('userData'), 'ssh-profiles.yaml')
+    }
+
+    async getProfiles (): Promise<PartialProfile<SSHProfile>[]> {
+        const deriveID = name => 'file-config:' + slugify(name)
+
+        if (!fsSync.existsSync(this.configPath)) {
+            return []
+        }
+
+        const content = await fs.readFile(this.configPath, 'utf8')
+        if (!content) {
+            return []
+        }
+
+        return (yaml.load(content) as PartialProfile<SSHProfile>[]).map(item => ({
+            ...item,
+            id: deriveID(item.name),
+            type: 'ssh',
+        }))
     }
 }

@@ -17,7 +17,7 @@ import { ElectronService } from './services/electron.service'
 import { ElectronHotkeyProvider } from './hotkeys'
 import { ElectronConfigProvider } from './config'
 import { EditSFTPContextMenu } from './sftpContextMenu'
-import { OpenSSHImporter } from './openSSHImport'
+import { OpenSSHImporter, StaticFileImporter } from './sshImporters'
 
 @NgModule({
     providers: [
@@ -32,7 +32,8 @@ import { OpenSSHImporter } from './openSSHImport'
         { provide: ConfigProvider, useClass: ElectronConfigProvider, multi: true },
         { provide: FileProvider, useClass: ElectronFileProvider, multi: true },
         { provide: SFTPContextMenuItemProvider, useClass: EditSFTPContextMenu, multi: true },
-        { provide: SSHProfileImporter, useClass: OpenSSHImporter, multi: true },
+        { provide: SSHProfileImporter, useExisting: OpenSSHImporter, multi: true },
+        { provide: SSHProfileImporter, useExisting: StaticFileImporter, multi: true },
     ],
 })
 export default class ElectronModule {
