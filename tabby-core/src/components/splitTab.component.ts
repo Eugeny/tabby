@@ -635,7 +635,7 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
     }
 
     private updateTitle (): void {
-        this.setTitle(this.getAllTabs().map(x => x.title).join(' | '))
+        this.setTitle([...new Set(this.getAllTabs().map(x => x.title))].join(' | '))
     }
 
     private attachTabView (tab: BaseTabComponent) {
