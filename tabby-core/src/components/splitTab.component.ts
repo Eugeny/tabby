@@ -158,7 +158,6 @@ export type SplitDropZoneInfo = {
         ></split-tab-spanner>
         <split-tab-drop-zone
             *ngFor='let dropZone of _dropZones'
-            [enabled]='dropZonesEnabled'
             [parent]='this'
             [dropZone]='dropZone'
             (tabDropped)='onTabDropped($event, dropZone)'
@@ -602,10 +601,6 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
             this.add(tab, zone.container.children[zone.position], zone.container.orientation === 'h' ? 'r' : 'b')
         }
         this.tabAdopted.next(tab)
-    }
-
-    get dropZonesEnabled (): boolean {
-        return this.getAllTabs().length > 1
     }
 
     destroy (): void {
