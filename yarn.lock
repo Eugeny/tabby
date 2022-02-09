@@ -203,10 +203,10 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@fortawesome/fontawesome-free@^6.0.0-beta3":
-  version "6.0.0-beta3"
-  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-free/-/fontawesome-free-6.0.0-beta3.tgz#120e4a158a0de983924ce151bc35f27de46398b7"
-  integrity sha512-4SqOuhC8tSLeQvbW1nDmq6T7+8vdSgHy/w7PRwCFzMQCbKuYFIir/3UuWsV1QblX1lt7SGlSgwbaCv9XhRt8HA==
+"@fortawesome/fontawesome-free@^6.0.0":
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-free/-/fontawesome-free-6.0.0.tgz#6f3bd8e42997c7d536a1246877ed8bcd4f005a54"
+  integrity sha512-6LB4PYBST1Rx40klypw1SmSDArjFOcfBf2LeX9Zg5EKJT2eXiyiJq+CyBYKeXyK0sXS2FsCJWSPr/luyhuvh0Q==
 
 "@gar/promisify@^1.0.1":
   version "1.1.2"
@@ -5515,10 +5515,10 @@ no-case@^3.0.4:
     lower-case "^2.0.2"
     tslib "^2.0.3"
 
-node-abi@^3.0.0, node-abi@^3.5.0, node-abi@^3.7.0:
-  version "3.7.0"
-  resolved "https://registry.yarnpkg.com/node-abi/-/node-abi-3.7.0.tgz#ed980f6dbb6db9ff3b31aeb27d43cd9b096f6e9e"
-  integrity sha512-3J+U4CvxVNEk9+lGdJkmYbN8cIN0HMTDT9R0ezX7pmp7aD6BaKsfAHwVn3IvVg6pYIRUuQ+gHW1eawrvywnSQQ==
+node-abi@^3.0.0, node-abi@^3.5.0, node-abi@^3.8.0:
+  version "3.8.0"
+  resolved "https://registry.yarnpkg.com/node-abi/-/node-abi-3.8.0.tgz#679957dc8e7aa47b0a02589dbfde4f77b29ccb32"
+  integrity sha512-tzua9qWWi7iW4I42vUPKM+SfaF0vQSLAm4yO5J83mSwB7GeoWrDKC/K+8YCnYNwqP5duwazbw2X9l4m8SC2cUw==
   dependencies:
     semver "^7.3.5"
 
