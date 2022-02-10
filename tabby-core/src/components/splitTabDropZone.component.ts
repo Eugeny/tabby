@@ -3,7 +3,7 @@ import { Component, Input, HostBinding, ElementRef, Output, EventEmitter } from 
 import { AppService } from '../services/app.service'
 import { BaseTabComponent } from './baseTab.component'
 import { SelfPositioningComponent } from './selfPositioning.component'
-import { SplitDropZoneInfo } from './splitTab.component'
+import { SplitDropZoneInfo, SplitTabComponent } from './splitTab.component'
 
 /** @hidden */
 @Component({
