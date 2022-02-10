@@ -109,7 +109,7 @@
             li(*ngIf='provider.prioritized', [ngbNavItem]='provider.id')
                 a(ngbNavLink)
                     i(class='fas fa-fw mr-2 fa-{{provider.icon}}')
-                    span(translate) {{provider.title}}
+                    span {{provider.title|translate}}
                 ng-template(ngbNavContent)
                     settings-tab-body([provider]='provider')
 
@@ -119,7 +119,7 @@
             li(*ngIf='!provider.prioritized', [ngbNavItem]='provider.id')
                 a(ngbNavLink)
                     i(class='fas fa-fw mr-2 fa-{{provider.icon || "puzzle-piece"}}')
-                    span(translate) {{provider.title}}
+                    span {{provider.title|translate}}
                 ng-template(ngbNavContent)
                     settings-tab-body([provider]='provider')
 

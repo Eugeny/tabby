@@ -30,12 +30,30 @@ registerLocaleData(localePL)
 registerLocaleData(localeRU)
 registerLocaleData(localeZH)
 
+function flattenMessageFormatTranslation (po: any) {
+    const translation = {}
+    po = po.translations['']
+    for (const k of Object.keys(po)) {
+        translation[k] = po[k].msgstr[0] || k
+    }
+    return translation
+}
+
 @Injectable({ providedIn: 'root' })
 export class TranslateServiceWrapper extends TranslateService {
+    private _defaultTranslation: Record<string, string>|null
+
     // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
     getParsedResult (translations: any, key: any, interpolateParams?: any): any {
-        this.translations[this.defaultLang][key] ??= this.compiler.compile(key, this.defaultLang)
-        return super.getParsedResult(translations, key, interpolateParams)
+        if (!this._defaultTranslation) {
+            const po = require(`../../../locale/en-US.po`)
+            this._defaultTranslation = flattenMessageFormatTranslation(po)
+        }
+        this.translations[this.defaultLang][key] ??= this.compiler.compile(
+            this._defaultTranslation[key] || key,
+            this.defaultLang
+        )
+        return super.getParsedResult(translations, key, interpolateParams ?? {})
     }
 }
 
@@ -44,6 +62,10 @@ export class LocaleService {
     private logger: Logger
 
     static allLanguages = [
+        {
+            code: 'da-DK',
+            name: 'Dansk',
+        },
         {
             code: 'de-DE',
             name: 'Deutsch',
@@ -109,8 +131,6 @@ export class LocaleService {
         config.ready$.subscribe(() => {
             this.refresh()
         })
-
-        this.translate.setTranslation('en-US', {})
     }
 
     refresh (): void {
@@ -127,15 +147,11 @@ export class LocaleService {
     }
 
     async setLocale (lang: string): Promise<void> {
-        if (!this.translate.langs.includes(lang) && lang !== 'en-US') {
+        if (!this.translate.langs.includes(lang)) {
             this.translate.addLangs([lang])
 
-            const po = require(`../../../locale/${lang}.po`).translations['']
-            const translation = {}
-            for (const k of Object.keys(po)) {
-                translation[k] = po[k].msgstr[0] || k
-            }
-
+            const po = require(`../../../locale/${lang}.po`)
+            const translation = flattenMessageFormatTranslation(po)
             this.translate.setTranslation(lang, translation)
         }
 

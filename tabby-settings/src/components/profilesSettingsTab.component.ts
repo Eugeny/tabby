@@ -1,3 +1,4 @@
+import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker'
 import { v4 as uuidv4 } from 'uuid'
 import slugify from 'slugify'
 import deepClone from 'clone-deep'
@@ -12,6 +13,8 @@ interface ProfileGroup {
     editable: boolean
     collapsed: boolean
 }
+
+_('Ungrouped')
 
 /** @hidden */
 @Component({

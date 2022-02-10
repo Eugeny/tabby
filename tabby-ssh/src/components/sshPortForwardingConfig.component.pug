@@ -4,7 +4,7 @@
             .ms-2.d-flex.align-items-center
                 strong(*ngIf='fw.type === PortForwardType.Local', translate) Local
                 strong(*ngIf='fw.type === PortForwardType.Remote', translate) Remote
-                strong(*ngIf='fw.type === PortForwardType.Dynamic', translate) Dynamic
+                strong(*ngIf='fw.type === PortForwardType.Dynamic', translate, translateContext='[Dynamic] port forwarding') id.port-forwarding.dynamic
                 .ml-3 {{fw.host}}:{{fw.port}}
                 .ml-2 &rarr;
                 .ml-2(*ngIf='fw.type !== PortForwardType.Dynamic') {{fw.targetAddress}}:{{fw.targetPort}}
@@ -64,7 +64,7 @@ h5(translate) Add a port forward
                 ngbButton,
                 [value]='PortForwardType.Dynamic'
             )
-            span(translate) Dynamic
+            span(translate, translateContext='[Dynamic] port forwarding') id.port-forwarding.dynamic
 
     button.btn.btn-primary((click)='addForward()')
         i.fas.fa-check.mr-2

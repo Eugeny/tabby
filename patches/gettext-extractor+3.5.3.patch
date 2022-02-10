@@ -1,0 +1,13 @@
+diff --git a/node_modules/gettext-extractor/dist/html/selector.js b/node_modules/gettext-extractor/dist/html/selector.js
+index e290d12..cdb1d0b 100644
+--- a/node_modules/gettext-extractor/dist/html/selector.js
++++ b/node_modules/gettext-extractor/dist/html/selector.js
+@@ -120,7 +120,7 @@ class ElementSelector {
+             if (elementAttributeValue === null) {
+                 return false;
+             }
+-            if (attribute.value) {
++            if (attribute.value !== undefined) {
+                 switch (attribute.operator) {
+                     case '^=':
+                         if (elementAttributeValue.slice(0, attribute.value.length) !== attribute.value) {
