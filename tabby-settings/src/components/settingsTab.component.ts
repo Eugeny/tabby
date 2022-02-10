@@ -113,7 +113,7 @@ export class SettingsTabComponent extends BaseTabComponent {
         try {
             yaml.load(this.configFile)
             return true
-        } catch (_) {
+        } catch {
             return false
         }
     }
