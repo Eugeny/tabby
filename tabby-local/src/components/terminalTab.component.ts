@@ -1,3 +1,4 @@
+import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker'
 import { Component, Input, Injector } from '@angular/core'
 import { BaseTabProcess, WIN_BUILD_CONPTY_SUPPORTED, isWindowsBuild, GetRecoveryTokenOptions } from 'tabby-core'
 import { BaseTerminalTabComponent } from 'tabby-terminal'
@@ -109,12 +110,12 @@ export class TerminalTabComponent extends BaseTerminalTabComponent {
             {
                 type: 'warning',
                 message: this.translate.instant(
-                    '"{command}" is still running. Close?',
+                    _('"{command}" is still running. Close?'),
                     children[0],
                 ),
                 buttons: [
-                    this.translate.instant('Kill'),
-                    this.translate.instant('Cancel'),
+                    this.translate.instant(_('Kill')),
+                    this.translate.instant(_('Cancel')),
                 ],
                 defaultId: 0,
                 cancelId: 1,

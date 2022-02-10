@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker'
 import * as yaml from 'js-yaml'
 import { debounce } from 'utils-decorators/dist/esm/debounce/debounce'
 import { Component, Inject, Input, HostBinding, NgZone } from '@angular/core'
@@ -52,7 +53,7 @@ export class SettingsTabComponent extends BaseTabComponent {
         translate: TranslateService,
     ) {
         super()
-        this.setTitle(translate.instant('Settings'))
+        this.setTitle(translate.instant(_('Settings')))
         this.settingsProviders = config.enabledServices(this.settingsProviders)
         this.settingsProviders = this.settingsProviders.filter(x => !!x.getComponentType())
         this.settingsProviders.sort((a, b) => a.weight - b.weight + a.title.localeCompare(b.title))

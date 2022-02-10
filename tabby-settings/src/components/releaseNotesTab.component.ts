@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker'
 import axios from 'axios'
 import { marked } from 'marked'
 import { Component } from '@angular/core'
@@ -23,7 +24,7 @@ export class ReleaseNotesComponent extends BaseTabComponent {
 
     constructor (translate: TranslateService) {
         super()
-        this.setTitle(translate.instant('Release notes'))
+        this.setTitle(translate.instant(_('Release notes')))
         this.loadReleases(1)
     }
 

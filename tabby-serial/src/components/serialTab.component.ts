@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker'
 import colors from 'ansi-colors'
 import { Component, Injector } from '@angular/core'
 import { first } from 'rxjs'
@@ -68,12 +69,12 @@ export class SerialTabComponent extends BaseTerminalTabComponent {
         const session = new SerialSession(this.injector, this.profile)
         this.setSession(session)
 
-        this.startSpinner(this.translate.instant('Connecting'))
+        this.startSpinner(this.translate.instant(_('Connecting')))
 
         try {
             await this.session!.start()
             this.stopSpinner()
-            session.emitServiceMessage(this.translate.instant('Port opened'))
+            session.emitServiceMessage(this.translate.instant(_('Port opened')))
         } catch (e) {
             this.stopSpinner()
             this.write(colors.black.bgRed(' X ') + ' ' + colors.red(e.message) + '\r\n')
@@ -88,7 +89,7 @@ export class SerialTabComponent extends BaseTerminalTabComponent {
             this.session?.resize(this.size.columns, this.size.rows)
         })
         this.attachSessionHandler(this.session!.destroyed$, () => {
-            this.write(this.translate.instant('Press any key to reconnect') + '\r\n')
+            this.write(this.translate.instant(_('Press any key to reconnect')) + '\r\n')
             this.input$.pipe(first()).subscribe(() => {
                 if (!this.session?.open) {
                     this.reconnect()
@@ -114,7 +115,7 @@ export class SerialTabComponent extends BaseTerminalTabComponent {
 
     async changeBaudRate () {
         const rate = await this.selector.show(
-            this.translate.instant('Baud rate'),
+            this.translate.instant(_('Baud rate')),
             BAUD_RATES.map(x => ({
                 name: x.toString(), result: x,
             })),

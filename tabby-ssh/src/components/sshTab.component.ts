@@ -1,3 +1,4 @@
+import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker'
 import colors from 'ansi-colors'
 import { Component, Injector, HostListener } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
@@ -140,7 +141,7 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
         if (!session.open) {
             this.write('\r\n' + colors.black.bgWhite(' SSH ') + ` Connecting to ${session.profile.options.host}\r\n`)
 
-            this.startSpinner(this.translate.instant('Connecting'))
+            this.startSpinner(this.translate.instant(_('Connecting')))
 
             try {
                 await session.start()
@@ -172,7 +173,7 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
                 this.write('\r\n' + colors.black.bgWhite(' SSH ') + ` ${this.sshSession?.profile.options.host}: session closed\r\n`)
                 if (!this.reconnectOffered) {
                     this.reconnectOffered = true
-                    this.write(this.translate.instant('Press any key to reconnect') + '\r\n')
+                    this.write(this.translate.instant(_('Press any key to reconnect')) + '\r\n')
                     this.input$.pipe(first()).subscribe(() => {
                         if (!this.session?.open && this.reconnectOffered) {
                             this.reconnect()
@@ -239,10 +240,10 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
         return (await this.platform.showMessageBox(
             {
                 type: 'warning',
-                message: this.translate.instant('Disconnect from {host}?', this.profile?.options),
+                message: this.translate.instant(_('Disconnect from {host}?'), this.profile?.options),
                 buttons: [
-                    this.translate.instant('Disconnect'),
-                    this.translate.instant('Do not close'),
+                    this.translate.instant(_('Disconnect')),
+                    this.translate.instant(_('Do not close')),
                 ],
                 defaultId: 0,
                 cancelId: 1,

@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2022-02-07 14:27\n"
+"PO-Revision-Date: 2022-02-10 15:08\n"
 
 msgid "A second font family used to display characters missing in the main font"
 msgstr "既定フォントに不足してる文字を補って表示する代替フォント"
@@ -63,7 +63,7 @@ msgid "Allows opening .bat files in tabs, but breaks some shells"
 msgstr ".batファイルを開くことを許可 (シェルが正常に動作しない可能性があります)"
 
 msgid "Allows quickly opening a terminal in the selected folder"
-msgstr "選択したフォルダ内の端末を素早く開けるようにする"
+msgstr "フォルダから端末を素早く開けるようにします"
 
 msgid "Appearance"
 msgstr "外観"
@@ -360,7 +360,7 @@ msgid "Do not abort"
 msgstr "中止しない"
 
 msgid "Do not remember"
-msgstr "記憶しない"
+msgstr "常にパスワードを要求"
 
 msgid "Dock always on top"
 msgstr "ドックを常に最前面表示"
@@ -408,7 +408,7 @@ msgid "Enable analytics"
 msgstr "統計情報を有効化"
 
 msgid "Enable automatic installation of updates when they become available."
-msgstr "アップデートが利用可能になったら自動インストールを実行"
+msgstr "アップデートが利用可能になったら自動インストールを実行する"
 
 msgid "Enable font ligatures"
 msgstr "合字フォントを有効化"
@@ -966,7 +966,7 @@ msgid "Release notes"
 msgstr "リリースノート"
 
 msgid "Remember for {time}"
-msgstr "{time} を記憶"
+msgstr "{time} 後に再認証"
 
 msgid "Remote"
 msgstr "リモート"

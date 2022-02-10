@@ -4,6 +4,9 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+msgid "\"{command}\" is still running. Close?"
+msgstr ""
+
 msgid "A second font family used to display characters missing in the main font"
 msgstr ""
 
@@ -345,10 +348,16 @@ msgstr ""
 msgid "Disconnect"
 msgstr ""
 
+msgid "Disconnect from {host}?"
+msgstr ""
+
 msgid "Display on"
 msgstr ""
 
 msgid "Do not abort"
+msgstr ""
+
+msgid "Do not close"
 msgstr ""
 
 msgid "Do not remember"
@@ -609,6 +618,9 @@ msgstr ""
 msgid "Invalid syntax"
 msgstr ""
 
+msgid "Italian"
+msgstr ""
+
 msgid "Japanese"
 msgstr ""
 
@@ -637,6 +649,9 @@ msgid "Key exchange"
 msgstr ""
 
 msgid "Keyboard-interactive auth"
+msgstr ""
+
+msgid "Kill"
 msgstr ""
 
 msgid "Language"
@@ -810,6 +825,9 @@ msgstr ""
 msgid "Open Settings"
 msgstr ""
 
+msgid "Open settings tab: {tab}"
+msgstr ""
+
 msgid "Optional"
 msgstr ""
 
@@ -888,7 +906,13 @@ msgstr ""
 msgid "Port"
 msgstr ""
 
+msgid "Port opened"
+msgstr ""
+
 msgid "Ports"
+msgstr ""
+
+msgid "Press any key to reconnect"
 msgstr ""
 
 msgid "Press the key now"

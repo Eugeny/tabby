@@ -8,6 +8,7 @@ import localeDE from '@angular/common/locales/de'
 import localeES from '@angular/common/locales/es'
 import localeFR from '@angular/common/locales/fr'
 import localeHR from '@angular/common/locales/hr'
+import localeIT from '@angular/common/locales/it'
 import localeJA from '@angular/common/locales/ja'
 import localePL from '@angular/common/locales/pl'
 import localeRU from '@angular/common/locales/ru'
@@ -23,6 +24,7 @@ registerLocaleData(localeDE)
 registerLocaleData(localeES)
 registerLocaleData(localeFR)
 registerLocaleData(localeHR)
+registerLocaleData(localeIT)
 registerLocaleData(localeJA)
 registerLocaleData(localePL)
 registerLocaleData(localeRU)
@@ -48,6 +50,7 @@ export class LocaleService {
         'es-ES',
         'fr-FR',
         'hr-HR',
+        'it-IT',
         'ja-JP',
         'pl-PL',
         'ru-RU',
@@ -105,6 +108,10 @@ export class LocaleService {
             {
                 code: 'ja-JP',
                 name: translate.instant('Japanese'),
+            },
+            {
+                code: 'it-IT',
+                name: translate.instant('Italian'),
             },
             {
                 code: 'pl-PL',
