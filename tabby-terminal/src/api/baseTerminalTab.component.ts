@@ -451,7 +451,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
                     {
                         type: 'warning',
                         detail: data,
-                        message: this.translate.instant(`Paste multiple lines?`),
+                        message: this.translate.instant('Paste multiple lines?'),
                         buttons,
                         defaultId: 0,
                         cancelId: 1,

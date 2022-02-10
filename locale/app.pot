@@ -7,7 +7,8 @@ msgstr ""
 msgid "\"{command}\" is still running. Close?"
 msgstr ""
 
-msgid "A second font family used to display characters missing in the main font"
+msgid ""
+"A second font family used to display characters missing in the main font"
 msgstr ""
 
 msgid "Abort all"
@@ -843,7 +844,8 @@ msgstr ""
 msgid "Parity"
 msgstr ""
 
-msgid "Partial config sync is not possible when the config is encrypted via Vault."
+msgid ""
+"Partial config sync is not possible when the config is encrypted via Vault."
 msgstr ""
 
 msgid "Passphrase for a private key with hash {hash}..."
@@ -1024,8 +1026,8 @@ msgid "SSH connection"
 msgstr ""
 
 msgid ""
-"SSH connection management is now done through the \"Profiles & "
-"connections\" tab"
+"SSH connection management is now done through the \"Profiles & connections\" "
+"tab"
 msgstr ""
 
 msgid "SSH password for {user}@{host}:{port}"
@@ -1291,7 +1293,8 @@ msgstr ""
 msgid "Thin"
 msgstr ""
 
-msgid "Tick this if you're experiencing aliasing, ghosting or other visual issues"
+msgid ""
+"Tick this if you're experiencing aliasing, ghosting or other visual issues"
 msgstr ""
 
 msgid "Toggle fullscreen mode"
@@ -1364,8 +1367,8 @@ msgid "Vault"
 msgstr ""
 
 msgid ""
-"Vault is an always-encrypted container for secrets such as SSH passwords "
-"and private key passphrases."
+"Vault is an always-encrypted container for secrets such as SSH passwords and "
+"private key passphrases."
 msgstr ""
 
 msgid "Vault is empty"
@@ -1420,8 +1423,7 @@ msgid "What's new"
 msgstr ""
 
 msgid ""
-"When WinSCP is detected, you can launch an SCP session from the context "
-"menu."
+"When WinSCP is detected, you can launch an SCP session from the context menu."
 msgstr ""
 
 msgid "When enabled, links are only clickable while holding this key"

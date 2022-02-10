@@ -197,7 +197,7 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
             if ((await this.platform.showMessageBox(
                 {
                     type: 'warning',
-                    message: this.translate.instant(`Delete the group's profiles?`),
+                    message: this.translate.instant('Delete the group\'s profiles?'),
                     buttons: [
                         this.translate.instant('Move to "Ungrouped"'),
                         this.translate.instant('Delete'),

@@ -28,7 +28,10 @@ div.mt-4
 
     .form-line
         .header
-            .title {{ "Use {altKeyName} as the Meta key"|translate:{altKeyName: altKeyName} }}
+            .title(
+                translate="Use {altKeyName} as the Meta key",
+                [translateParams]='{altKeyName: altKeyName}'
+            )
             .description(translate) Lets the shell handle Meta key instead of OS
         toggle(
             [(ngModel)]='config.store.terminal.altIsMeta',

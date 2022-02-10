@@ -59,7 +59,10 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
                             i.fas.fa-fw.fa-file
                             .ml-2.d-flex.flex-column.align-items-start
                                 div {{cfg.name}}
-                                small.text-muted {{ 'Modified on {date}'|translate:{date: cfg.modified_at|date:"medium"} }}
+                                small.text-muted(
+                                    translate='Modified on {date}',
+                                    [translateParams]='{date: cfg.modified_at|date:"medium"}'
+                                )
                             .mr-auto
                             button.btn.btn-link.ml-1(
                                 (click)='uploadAndSync(cfg)',

@@ -74,7 +74,7 @@
                             option(
                                 [value]='lang.code',
                                 *ngFor='let lang of allLanguages'
-                            ) {{lang.name|translate}}
+                            ) {{lang.name}}
 
                     .form-line(*ngIf='platform.isShellIntegrationSupported()')
                         .header
