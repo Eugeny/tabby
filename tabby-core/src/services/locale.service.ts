@@ -43,22 +43,52 @@ export class TranslateServiceWrapper extends TranslateService {
 export class LocaleService {
     private logger: Logger
 
-    static readonly allLocales = [
-        'en-US',
-        'da-DK',
-        'de-DE',
-        'es-ES',
-        'fr-FR',
-        'hr-HR',
-        'it-IT',
-        'ja-JP',
-        'pl-PL',
-        'ru-RU',
-        'zh-CN',
-        'zh-TW',
+    static allLanguages = [
+        {
+            code: 'de-DE',
+            name: 'Deutsch',
+        },
+        {
+            code: 'en-US',
+            name: 'English',
+        },
+        {
+            code: 'es-ES',
+            name: 'Español',
+        },
+        {
+            code: 'fr-FR',
+            name: 'Français',
+        },
+        {
+            code: 'hr-HR',
+            name: 'Hrvatski',
+        },
+        {
+            code: 'it-IT',
+            name: 'Italiano',
+        },
+        {
+            code: 'pl-PL',
+            name: 'Polski',
+        },
+        {
+            code: 'ru-RU',
+            name: 'Русский',
+        },
+        {
+            code: 'ja-JP',
+            name: '日本語',
+        },
+        {
+            code: 'zh-CN',
+            name: '中文（简体）',
+        },
+        {
+            code: 'zh-TW',
+            name: '中文 (繁體)',
+        },
     ]
-
-    readonly allLanguages: { code: string, name: string }[]
 
     get localeChanged$ (): Observable<string> {
         return this.localeChanged.pipe(distinctUntilChanged())
@@ -80,53 +110,6 @@ export class LocaleService {
             this.refresh()
         })
 
-        this.allLanguages = [
-            {
-                code: 'en-US',
-                name: translate.instant('English'),
-            },
-            {
-                code: 'zh-CN',
-                name: translate.instant('Chinese (simplified)'),
-            },
-            {
-                code: 'zh-TW',
-                name: translate.instant('Chinese (traditional)'),
-            },
-            {
-                code: 'hr-HR',
-                name: translate.instant('Croatian'),
-            },
-            {
-                code: 'de-DE',
-                name: translate.instant('German'),
-            },
-            {
-                code: 'fr-FR',
-                name: translate.instant('French'),
-            },
-            {
-                code: 'ja-JP',
-                name: translate.instant('Japanese'),
-            },
-            {
-                code: 'it-IT',
-                name: translate.instant('Italian'),
-            },
-            {
-                code: 'pl-PL',
-                name: translate.instant('Polish'),
-            },
-            {
-                code: 'ru-RU',
-                name: translate.instant('Russian'),
-            },
-            {
-                code: 'es-ES',
-                name: translate.instant('Spanish'),
-            },
-        ]
-
         this.translate.setTranslation('en-US', {})
     }
 
@@ -134,7 +117,7 @@ export class LocaleService {
         let lang = this.config.store.language
         if (!lang) {
             for (const systemLanguage of navigator.languages) {
-                if (!lang && this.allLanguages.some(x => x.code === systemLanguage)) {
+                if (!lang && LocaleService.allLanguages.some(x => x.code === systemLanguage)) {
                     lang = systemLanguage
                 }
             }

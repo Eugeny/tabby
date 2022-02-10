@@ -73,7 +73,7 @@
                             option([ngValue]='null', translate) Automatic
                             option(
                                 [value]='lang.code',
-                                *ngFor='let lang of locale.allLanguages'
+                                *ngFor='let lang of allLanguages'
                             ) {{lang.name|translate}}
 
                     .form-line(*ngIf='platform.isShellIntegrationSupported()')

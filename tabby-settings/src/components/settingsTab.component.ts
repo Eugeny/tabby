@@ -37,6 +37,7 @@ export class SettingsTabComponent extends BaseTabComponent {
     checkingForUpdate = false
     updateAvailable = false
     showConfigDefaults = false
+    allLanguages = LocaleService.allLanguages
     @HostBinding('class.pad-window-controls') padWindowControls = false
 
     constructor (

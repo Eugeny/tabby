@@ -13,6 +13,7 @@ import { LocaleService } from '../services/locale.service'
 })
 export class WelcomeTabComponent extends BaseTabComponent {
     enableGlobalHotkey = true
+    allLanguages = LocaleService.allLanguages
 
     constructor (
         public config: ConfigService,

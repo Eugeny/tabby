@@ -82,7 +82,7 @@ const PROVIDERS = [
     },
     {
         provide: MESSAGE_FORMAT_CONFIG,
-        useValue: LocaleService.allLocales,
+        useValue: LocaleService.allLanguages.map(x => x.code),
     },
     {
         provide: TranslateService,
