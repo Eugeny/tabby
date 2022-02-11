@@ -1,5 +1,5 @@
 import stripAnsi from 'strip-ansi'
-import { SerialPort } from 'serialport'
+import { SerialPortStream } from '@serialport/stream'
 import { LogService, NotificationsService, Profile } from 'tabby-core'
 import { Subject, Observable } from 'rxjs'
 import { Injector, NgZone } from '@angular/core'
@@ -41,7 +41,7 @@ class SlowFeedMiddleware extends SessionMiddleware {
 }
 
 export class SerialSession extends BaseSession {
-    serial: SerialPort|null
+    serial: SerialPortStream|null
 
     get serviceMessage$ (): Observable<string> { return this.serviceMessage }
     private serviceMessage = new Subject<string>()
@@ -72,7 +72,8 @@ export class SerialSession extends BaseSession {
             this.profile.options.port = (await this.serialService.listPorts())[0].name
         }
 
-        const serial = this.serial = new SerialPort({
+        const serial = this.serial = new SerialPortStream({
+            binding: this.serialService.detectBinding(),
             path: this.profile.options.port,
             autoOpen: false,
             baudRate: parseInt(this.profile.options.baudrate as any),

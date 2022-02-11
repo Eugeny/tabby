@@ -1,6 +1,4 @@
 import slugify from 'slugify'
-import { SerialPort } from 'serialport'
-import WSABinding from 'serialport-binding-webserialapi'
 import deepClone from 'clone-deep'
 import { Injectable } from '@angular/core'
 import { ProfileProvider, NewTabParameters, SelectorService, HostAppService, Platform, TranslateService } from 'tabby-core'
@@ -41,9 +39,6 @@ export class SerialProfilesService extends ProfileProvider<SerialProfile> {
         private translate: TranslateService,
     ) {
         super()
-        if (hostApp.platform === Platform.Web) {
-            SerialPort['Binding'] = WSABinding
-        }
     }
 
     async getBuiltinProfiles (): Promise<SerialProfile[]> {

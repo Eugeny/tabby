@@ -16,6 +16,13 @@
     update-notifier "^2.2.0"
     yargs "^8.0.2"
 
+"@serialport/binding-abstract@^9.0.2":
+  version "9.2.3"
+  resolved "https://registry.yarnpkg.com/@serialport/binding-abstract/-/binding-abstract-9.2.3.tgz#e7dd273357b6a698af7ad58db6f57f62443a0acb"
+  integrity sha512-cQs9tbIlG3P0IrOWyVirqlhWuJ7Ms2Zh9m2108z6Y5UW/iVj6wEOiW8EmK9QX9jmJXYllE7wgGgvVozP5oCj3w==
+  dependencies:
+    debug "^4.3.2"
+
 "@serialport/binding-mock@10.2.2":
   version "10.2.2"
   resolved "https://registry.yarnpkg.com/@serialport/binding-mock/-/binding-mock-10.2.2.tgz#d322a8116a97806addda13c62f50e73d16125874"
@@ -98,6 +105,13 @@
   integrity sha512-xKO5f73KbqZYadKYbtlDHE5RUwqSK8dF2brQRA6dikeyHWbVNhjwNtjWglwgzPl4SLB1A1uT97hMxrBrSCs6/w==
   dependencies:
     "@serialport/bindings-interface" "1.2.1"
+    debug "^4.3.2"
+
+"@serialport/stream@^9.0.2":
+  version "9.2.4"
+  resolved "https://registry.yarnpkg.com/@serialport/stream/-/stream-9.2.4.tgz#9fce093d0b46ed4599953b4fae81718e050d2b33"
+  integrity sha512-bLye8Ub4vUFQGmkh8qEqehr7SE7EJs2yDs0h9jzuL5oKi+F34CFmWkEErO8GAOQ8YNn7p6b3GxUgs+0BrHHDZQ==
+  dependencies:
     debug "^4.3.2"
 
 "@tabby-gang/node-pty@^0.11.0-beta.200":
@@ -3241,6 +3255,14 @@ serialize-error@^5.0.0:
   integrity sha512-/VtpuyzYf82mHYTtI4QKtwHa79vAdU5OQpNPAmE/0UDdlGT0ZxHwC+J6gXkw29wwoVI8fMPsfcVHOwXtUQYYQA==
   dependencies:
     type-fest "^0.8.0"
+
+serialport-binding-webserialapi@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/serialport-binding-webserialapi/-/serialport-binding-webserialapi-1.0.3.tgz#cf4348c075da2de8f6cf9936c0b95645f3ae657b"
+  integrity sha512-TS7dsvetVoTeiWlzpsT/akjtljiYPO56FoJWSFyJSoO/E8icYJ2neQ7CW5NW/sHZDnMqAxULyAny47UFhWz9oQ==
+  dependencies:
+    "@serialport/binding-abstract" "^9.0.2"
+    "@serialport/stream" "^9.0.2"
 
 serialport@10.2.2:
   version "10.2.2"

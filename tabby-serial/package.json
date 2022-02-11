@@ -18,8 +18,7 @@
   "license": "MIT",
   "devDependencies": {
     "@types/node": "14.14.14",
-    "ansi-colors": "^4.1.1",
-    "serialport-binding-webserialapi": "^1.0.3"
+    "ansi-colors": "^4.1.1"
   },
   "peerDependencies": {
     "@angular/animations": "^9.1.9",

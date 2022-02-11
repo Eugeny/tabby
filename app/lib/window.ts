@@ -135,6 +135,8 @@ export class Window {
 
         this.window.webContents.setVisualZoomLevelLimits(1, 1)
         this.window.webContents.setZoomFactor(1)
+        this.window.webContents.session.setPermissionCheckHandler(() => true)
+        this.window.webContents.session.setDevicePermissionHandler(() => true)
 
         if (process.platform === 'darwin') {
             this.touchBarControl = new TouchBar.TouchBarSegmentedControl({
