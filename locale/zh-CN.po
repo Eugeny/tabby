@@ -10,11 +10,11 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2022-02-10 21:45\n"
+"PO-Revision-Date: 2022-02-12 09:07\n"
 
 #: tabby-local/src/components/terminalTab.component.ts:113
 msgid "\"{command}\" is still running. Close?"
-msgstr ""
+msgstr "\"{command}\" 仍在运行。是否需要关闭？"
 
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:79
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:86
@@ -514,7 +514,7 @@ msgstr "断开连接"
 #: tabby-ssh/src/components/sshTab.component.ts:243
 #: tabby-telnet/src/components/telnetTab.component.ts:122
 msgid "Disconnect from {host}?"
-msgstr ""
+msgstr "断开与 {host} 的连接？"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:88
 msgid "Display on"
@@ -527,7 +527,7 @@ msgstr "不要中止"
 #: tabby-ssh/src/components/sshTab.component.ts:246
 #: tabby-telnet/src/components/telnetTab.component.ts:125
 msgid "Do not close"
-msgstr ""
+msgstr "不要关闭"
 
 #: locale/tmp-html/tabby-core/src/components/unlockVaultModal.component.html:6
 #: locale/tmp-html/tabby-core/src/components/unlockVaultModal.component.html:8
@@ -827,7 +827,7 @@ msgstr "图标"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:154
 msgid "id.tab-width.dynamic"
-msgstr ""
+msgstr "动态"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:64
 msgid "If disabled, only custom profiles will show up in the profile selector"
@@ -913,7 +913,7 @@ msgstr "键盘交互认证"
 
 #: tabby-local/src/components/terminalTab.component.ts:117
 msgid "Kill"
-msgstr ""
+msgstr "结束进程"
 
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:10
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:50
@@ -1147,7 +1147,7 @@ msgstr "打开设置"
 
 #: tabby-settings/src/hotkeys.ts:25
 msgid "Open settings tab: {tab}"
-msgstr ""
+msgstr "打开设置标签页：{tab}"
 
 #: tabby-ssh/src/tabContextMenu.ts:25
 msgid "Open SFTP panel"
@@ -1268,7 +1268,7 @@ msgstr "端口"
 
 #: tabby-serial/src/components/serialTab.component.ts:77
 msgid "Port opened"
-msgstr ""
+msgstr "端口已打开"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:105
 #: locale/tmp-html/tabby-ssh/src/components/sshTab.component.html:12
@@ -1279,7 +1279,7 @@ msgstr "端口"
 #: tabby-ssh/src/components/sshTab.component.ts:176
 #: tabby-telnet/src/components/telnetTab.component.ts:58
 msgid "Press any key to reconnect"
-msgstr ""
+msgstr "按任意键重新连接"
 
 #: locale/tmp-html/tabby-settings/src/components/hotkeyInputModal.component.html:3
 msgid "Press the key now"
@@ -2107,5 +2107,5 @@ msgstr "缩小"
 #: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:55
 msgctxt "[Dynamic] port forwarding"
 msgid "id.port-forwarding.dynamic"
-msgstr ""
+msgstr "动态端口转发"
 

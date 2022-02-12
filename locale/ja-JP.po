@@ -10,11 +10,11 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2022-02-10 21:46\n"
+"PO-Revision-Date: 2022-02-12 09:07\n"
 
 #: tabby-local/src/components/terminalTab.component.ts:113
 msgid "\"{command}\" is still running. Close?"
-msgstr ""
+msgstr "\"{command}\"が実行中です。閉じますか？"
 
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:79
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:86
@@ -514,7 +514,7 @@ msgstr "切断"
 #: tabby-ssh/src/components/sshTab.component.ts:243
 #: tabby-telnet/src/components/telnetTab.component.ts:122
 msgid "Disconnect from {host}?"
-msgstr ""
+msgstr "{host} から切断しますか？"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:88
 msgid "Display on"
@@ -527,7 +527,7 @@ msgstr "中止しない"
 #: tabby-ssh/src/components/sshTab.component.ts:246
 #: tabby-telnet/src/components/telnetTab.component.ts:125
 msgid "Do not close"
-msgstr ""
+msgstr "閉じない"
 
 #: locale/tmp-html/tabby-core/src/components/unlockVaultModal.component.html:6
 #: locale/tmp-html/tabby-core/src/components/unlockVaultModal.component.html:8
@@ -776,7 +776,7 @@ msgstr "グループ"
 
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:20
 msgid "Help track the number of Tabby installs across the world!"
-msgstr "世界中のTabbyインストールの数の調査に役立ちます！"
+msgstr "世界中でのTabbyのインストール数調査にご協力ください！"
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:32
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:44
@@ -913,7 +913,7 @@ msgstr "キーボードインタラクティブ認証"
 
 #: tabby-local/src/components/terminalTab.component.ts:117
 msgid "Kill"
-msgstr ""
+msgstr "強制終了"
 
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:10
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:50
@@ -1147,7 +1147,7 @@ msgstr "設定を開く"
 
 #: tabby-settings/src/hotkeys.ts:25
 msgid "Open settings tab: {tab}"
-msgstr ""
+msgstr "設定タブを開く: {tab}"
 
 #: tabby-ssh/src/tabContextMenu.ts:25
 msgid "Open SFTP panel"
@@ -1268,7 +1268,7 @@ msgstr "ポート"
 
 #: tabby-serial/src/components/serialTab.component.ts:77
 msgid "Port opened"
-msgstr ""
+msgstr "ポートが開いています"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:105
 #: locale/tmp-html/tabby-ssh/src/components/sshTab.component.html:12
@@ -1279,7 +1279,7 @@ msgstr "ポート"
 #: tabby-ssh/src/components/sshTab.component.ts:176
 #: tabby-telnet/src/components/telnetTab.component.ts:58
 msgid "Press any key to reconnect"
-msgstr ""
+msgstr "再接続するには何かキーを押してください"
 
 #: locale/tmp-html/tabby-settings/src/components/hotkeyInputModal.component.html:3
 msgid "Press the key now"
@@ -1755,7 +1755,7 @@ msgstr "自動的に同期"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:8
 msgid "Sync host"
-msgstr "同期ホスト"
+msgstr "同期サーバー"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:71
 msgid "Sync hotkeys"

@@ -10,11 +10,11 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: German\n"
 "Language: de_DE\n"
-"PO-Revision-Date: 2022-02-10 21:45\n"
+"PO-Revision-Date: 2022-02-12 09:07\n"
 
 #: tabby-local/src/components/terminalTab.component.ts:113
 msgid "\"{command}\" is still running. Close?"
-msgstr ""
+msgstr "\"{command}\" läuft noch. Schließen?"
 
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:79
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:86
@@ -514,7 +514,7 @@ msgstr "Verbindung trennen"
 #: tabby-ssh/src/components/sshTab.component.ts:243
 #: tabby-telnet/src/components/telnetTab.component.ts:122
 msgid "Disconnect from {host}?"
-msgstr ""
+msgstr "Von {host} trennen?"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:88
 msgid "Display on"
@@ -527,7 +527,7 @@ msgstr "Nicht abbrechen"
 #: tabby-ssh/src/components/sshTab.component.ts:246
 #: tabby-telnet/src/components/telnetTab.component.ts:125
 msgid "Do not close"
-msgstr ""
+msgstr "Nicht schließen"
 
 #: locale/tmp-html/tabby-core/src/components/unlockVaultModal.component.html:6
 #: locale/tmp-html/tabby-core/src/components/unlockVaultModal.component.html:8
@@ -756,7 +756,7 @@ msgstr "Herunterladen"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:20
 msgid "Get it from the Tabby Web settings window"
-msgstr "Holen Sie es aus dem Tabby Web-Einstellungen Fenster"
+msgstr "Holen Sie es sich aus dem Einstellungen-Fenster der Tabby-Web-App"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:22
 msgid "Gives the window a blurred transparent background"
@@ -913,7 +913,7 @@ msgstr "Tastatur-interaktive Authentifizierung"
 
 #: tabby-local/src/components/terminalTab.component.ts:117
 msgid "Kill"
-msgstr ""
+msgstr "Beenden erzwingen"
 
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:10
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:50
@@ -1147,7 +1147,7 @@ msgstr "Einstellungen öffnen"
 
 #: tabby-settings/src/hotkeys.ts:25
 msgid "Open settings tab: {tab}"
-msgstr ""
+msgstr "Einstellungen öffnen: {tab}"
 
 #: tabby-ssh/src/tabContextMenu.ts:25
 msgid "Open SFTP panel"
@@ -1268,7 +1268,7 @@ msgstr "Port"
 
 #: tabby-serial/src/components/serialTab.component.ts:77
 msgid "Port opened"
-msgstr ""
+msgstr "Port geöffnet"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:105
 #: locale/tmp-html/tabby-ssh/src/components/sshTab.component.html:12
@@ -1279,7 +1279,7 @@ msgstr "Ports"
 #: tabby-ssh/src/components/sshTab.component.ts:176
 #: tabby-telnet/src/components/telnetTab.component.ts:58
 msgid "Press any key to reconnect"
-msgstr ""
+msgstr "Drücken Sie eine Taste zum erneuten Verbinden"
 
 #: locale/tmp-html/tabby-settings/src/components/hotkeyInputModal.component.html:3
 msgid "Press the key now"
