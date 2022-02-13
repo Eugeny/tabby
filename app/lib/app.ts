@@ -93,6 +93,10 @@ export class Application {
             app.commandLine.appendSwitch(flag[0], flag[1])
         }
 
+        app.on('before-quit', () => {
+            this.quitRequested = true
+        })
+
         app.on('window-all-closed', () => {
             if (this.quitRequested || process.platform !== 'darwin') {
                 app.quit()
