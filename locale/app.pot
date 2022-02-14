@@ -160,7 +160,7 @@ msgstr ""
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:14
 #: tabby-serial/src/components/serialTab.component.ts:118
-#: tabby-serial/src/profiles.ts:90
+#: tabby-serial/src/profiles.ts:85
 msgid "Baud rate"
 msgstr ""
 
@@ -897,6 +897,10 @@ msgstr ""
 msgid "Key exchange"
 msgstr ""
 
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:23
+msgid "Keyboard"
+msgstr ""
+
 #: locale/tmp-html/tabby-ssh/src/components/keyboardInteractiveAuthPanel.component.html:2
 msgid "Keyboard-interactive auth"
 msgstr ""
@@ -994,6 +998,10 @@ msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:43
 msgid "Modified on {date}"
+msgstr ""
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:40
+msgid "Mouse"
 msgstr ""
 
 #: tabby-core/src/hotkeys.ts:45
@@ -1532,17 +1540,17 @@ msgstr ""
 msgid "Sends data one byte at a time"
 msgstr ""
 
-#: tabby-serial/src/profiles.ts:15
-#: tabby-serial/src/profiles.ts:76
+#: tabby-serial/src/profiles.ts:13
+#: tabby-serial/src/profiles.ts:71
 msgid "Serial"
 msgstr ""
 
-#: tabby-serial/src/profiles.ts:55
-#: tabby-serial/src/profiles.ts:66
+#: tabby-serial/src/profiles.ts:50
+#: tabby-serial/src/profiles.ts:61
 msgid "Serial connection"
 msgstr ""
 
-#: tabby-serial/src/profiles.ts:75
+#: tabby-serial/src/profiles.ts:70
 msgid "Serial: {description}"
 msgstr ""
 
@@ -1661,6 +1669,10 @@ msgstr ""
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:51
 msgid "SOCKS proxy port"
+msgstr ""
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:109
+msgid "Sound"
 msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:31
@@ -2039,6 +2051,10 @@ msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:47
 msgid "Window frame"
+msgstr ""
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:147
+msgid "Windows"
 msgstr ""
 
 #: locale/tmp-html/tabby-local/src/components/shellSettingsTab.component.html:11
