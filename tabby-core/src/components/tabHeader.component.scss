@@ -26,7 +26,8 @@ $tabs-height: 38px;
       height: $tabs-height;
     }
 
-    .index {
+    .index,
+    .icon {
         flex: none;
         font-weight: bold;
         -webkit-app-region: no-drag;

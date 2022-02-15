@@ -624,6 +624,16 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
         super.clearActivity()
     }
 
+    get icon (): string|null {
+        return this.getFocusedTab()?.icon ?? null
+    }
+
+    set icon (icon: string|null) {
+        for (const t of this.getAllTabs()) {
+            t.icon = icon
+        }
+    }
+
     get color (): string|null {
         return this.getFocusedTab()?.color ?? null
     }

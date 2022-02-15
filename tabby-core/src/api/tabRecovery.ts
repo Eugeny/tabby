@@ -4,6 +4,7 @@ import { NewTabParameters } from '../services/tabs.service'
 export interface RecoveryToken {
     [_: string]: any
     type: string
+    tabIcon?: string|null
     tabColor?: string|null
 }
 
