@@ -107,7 +107,7 @@
 
         ng-container(*ngFor='let provider of settingsProviders')
             li(*ngIf='provider.prioritized', [ngbNavItem]='provider.id')
-                a(ngbNavLink)
+                a.d-flex.align-items-center(ngbNavLink)
                     i(class='fas fa-fw mr-2 fa-{{provider.icon}}')
                     span {{provider.title|translate}}
                 ng-template(ngbNavContent)
@@ -117,14 +117,14 @@
 
         ng-container(*ngFor='let provider of settingsProviders')
             li(*ngIf='!provider.prioritized', [ngbNavItem]='provider.id')
-                a(ngbNavLink)
+                a.d-flex.align-items-center(ngbNavLink)
                     i(class='fas fa-fw mr-2 fa-{{provider.icon || "puzzle-piece"}}')
                     span {{provider.title|translate}}
                 ng-template(ngbNavContent)
                     settings-tab-body([provider]='provider')
 
         li(ngbNavItem='config-file')
-            a(ngbNavLink)
+            a.d-flex.align-items-center(ngbNavLink)
                 i.fas.fa-fw.fa-code.mr-2
                 span(translate) Config file
             ng-template.test(ngbNavContent)
