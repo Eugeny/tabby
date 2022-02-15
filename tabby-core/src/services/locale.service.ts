@@ -3,6 +3,7 @@ import { registerLocaleData } from '@angular/common'
 import { TranslateService } from '@ngx-translate/core'
 
 import localeEN from '@angular/common/locales/en'
+import localeBG from '@angular/common/locales/bg'
 import localeDA from '@angular/common/locales/da'
 import localeDE from '@angular/common/locales/de'
 import localeES from '@angular/common/locales/es'
@@ -19,6 +20,7 @@ import { ConfigService } from './config.service'
 import { LogService, Logger } from './log.service'
 
 registerLocaleData(localeEN)
+registerLocaleData(localeBG)
 registerLocaleData(localeDA)
 registerLocaleData(localeDE)
 registerLocaleData(localeES)
@@ -93,6 +95,10 @@ export class LocaleService {
         {
             code: 'pl-PL',
             name: 'Polski',
+        },
+        {
+            code: 'bg-BG',
+            name: 'Български',
         },
         {
             code: 'ru-RU',

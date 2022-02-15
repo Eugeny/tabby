@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: German\n"
 "Language: de_DE\n"
-"PO-Revision-Date: 2022-02-12 09:07\n"
+"PO-Revision-Date: 2022-02-15 22:16\n"
 
 #: tabby-local/src/components/terminalTab.component.ts:113
 msgid "\"{command}\" is still running. Close?"
@@ -170,7 +170,7 @@ msgstr "Hintergrundtyp"
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:14
 #: tabby-serial/src/components/serialTab.component.ts:118
-#: tabby-serial/src/profiles.ts:90
+#: tabby-serial/src/profiles.ts:85
 msgid "Baud rate"
 msgstr "Baudrate"
 
@@ -236,7 +236,7 @@ msgstr "Auf Aktualisierungen prüfen"
 msgid "Ciphers"
 msgstr "Verschlüsselungsverfahren"
 
-#: tabby-core/src/services/profiles.service.ts:121
+#: tabby-core/src/services/profiles.service.ts:124
 msgid "Clear recent profiles"
 msgstr "Zuletzt benutzte Profile leeren"
 
@@ -325,7 +325,7 @@ msgid "Connect through a proxy server"
 msgstr "Über einen Proxy-Server verbinden"
 
 #: tabby-core/src/index.ts:211
-#: tabby-core/src/services/profiles.service.ts:163
+#: tabby-core/src/services/profiles.service.ts:166
 msgid "Connect to \"%s\"..."
 msgstr "Mit \"%s\" verbinden..."
 
@@ -497,7 +497,7 @@ msgstr "Deaktivieren"
 msgid "Disable dynamic tab title"
 msgstr "Dynamischen Tab-Titel deaktivieren"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:176
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:182
 msgid "Disable GPU acceleration"
 msgstr "Grafikkarten-Beschleunigung deaktivieren"
 
@@ -774,6 +774,10 @@ msgstr "Grün"
 msgid "Group"
 msgstr "Gruppe"
 
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:179
+msgid "Hacks"
+msgstr ""
+
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:20
 msgid "Help track the number of Tabby installs across the world!"
 msgstr "Hilf dabei, die Anzahl der Tabby-Installationen auf der ganzen Welt zu verfolgen!"
@@ -783,7 +787,7 @@ msgstr "Hilf dabei, die Anzahl der Tabby-Installationen auf der ganzen Welt zu v
 msgid "Hexadecimal"
 msgstr "Hexadezimal"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:169
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:175
 msgid "Hide tab close button"
 msgstr "Tab Schließen verbergen"
 
@@ -827,7 +831,7 @@ msgstr "Symbol"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:154
 msgid "id.tab-width.dynamic"
-msgstr ""
+msgstr "Dynamisch"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:64
 msgid "If disabled, only custom profiles will show up in the profile selector"
@@ -990,7 +994,7 @@ msgstr "Login-Skripte"
 msgid "Long-click for context menu"
 msgstr "Langer-Klick für Kontextmenü"
 
-#: tabby-core/src/services/profiles.service.ts:148
+#: tabby-core/src/services/profiles.service.ts:151
 msgid "Manage profiles"
 msgstr "Profile verwalten"
 
@@ -1337,7 +1341,7 @@ msgid "Puts all of Tabby's configuration into the vault"
 msgstr "Die gesamte Tabby-Konfiguration in den Tresor speichern"
 
 #: tabby-core/src/index.ts:210
-#: tabby-core/src/services/profiles.service.ts:162
+#: tabby-core/src/services/profiles.service.ts:165
 msgid "Quick connect"
 msgstr "Schnellverbindung"
 
@@ -1354,8 +1358,8 @@ msgstr "Raw Socket-Verbindung"
 msgid "Ready Timeout (Milliseconds)"
 msgstr "Timeout (Millisekunden)"
 
-#: tabby-core/src/services/profiles.service.ts:109
-#: tabby-core/src/services/profiles.service.ts:122
+#: tabby-core/src/services/profiles.service.ts:112
+#: tabby-core/src/services/profiles.service.ts:125
 msgid "Recent"
 msgstr "Neueste"
 
@@ -1530,7 +1534,7 @@ msgstr "Verzeichnis auswählen"
 msgid "Select profile"
 msgstr "Profil auswählen"
 
-#: tabby-core/src/services/profiles.service.ts:171
+#: tabby-core/src/services/profiles.service.ts:174
 msgid "Select profile or enter an address"
 msgstr "Profil auswählen oder Adresse eingeben"
 
@@ -1542,17 +1546,17 @@ msgstr "Sende Bytes durch Eingabe von Hex-Werten"
 msgid "Sends data one byte at a time"
 msgstr "Sendet Daten Byte für Byte"
 
-#: tabby-serial/src/profiles.ts:15
-#: tabby-serial/src/profiles.ts:76
+#: tabby-serial/src/profiles.ts:13
+#: tabby-serial/src/profiles.ts:71
 msgid "Serial"
 msgstr "Seriell"
 
-#: tabby-serial/src/profiles.ts:55
-#: tabby-serial/src/profiles.ts:66
+#: tabby-serial/src/profiles.ts:50
+#: tabby-serial/src/profiles.ts:61
 msgid "Serial connection"
 msgstr "Serielle Verbindung"
 
-#: tabby-serial/src/profiles.ts:75
+#: tabby-serial/src/profiles.ts:70
 msgid "Serial: {description}"
 msgstr "Serielle Verbindung: {description}"
 
@@ -1625,6 +1629,10 @@ msgstr "Mixer anzeigen"
 #: tabby-core/src/hotkeys.ts:53
 msgid "Show pane labels (for rearranging)"
 msgstr "Bereichnamen anzeigen (für Neuanordnung)"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:169
+msgid "Show profile icon on tab"
+msgstr ""
 
 #: tabby-core/src/hotkeys.ts:13
 msgid "Show profile selector"
@@ -1857,7 +1865,7 @@ msgstr "Diese gelten für alle Profile eines bestimmten Typs"
 msgid "Thin"
 msgstr "Dünn"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:177
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:183
 msgid "Tick this if you're experiencing aliasing, ghosting or other visual issues"
 msgstr "Aktivieren Sie dies, wenn Sie visuelle Probleme haben"
 
@@ -1886,7 +1894,7 @@ msgstr "Oben"
 msgid "Try again"
 msgstr "Erneut versuchen"
 
-#: tabby-ssh/src/session/ssh.ts:464
+#: tabby-ssh/src/session/ssh.ts:462
 msgid "Trying saved password"
 msgstr "Versuche gespeichertes Passwort"
 
@@ -1949,7 +1957,7 @@ msgstr "Benutzer Standard"
 msgid "Username"
 msgstr "Benutzername"
 
-#: tabby-ssh/src/session/ssh.ts:453
+#: tabby-ssh/src/session/ssh.ts:451
 msgid "Using preset password"
 msgstr "Vorgegebenes Passwort wird verwendet"
 
@@ -2107,5 +2115,5 @@ msgstr "Herauszoomen"
 #: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:55
 msgctxt "[Dynamic] port forwarding"
 msgid "id.port-forwarding.dynamic"
-msgstr ""
+msgstr "Dynamisch"
 

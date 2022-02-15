@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2022-02-12 09:07\n"
+"PO-Revision-Date: 2022-02-15 22:11\n"
 
 #: tabby-local/src/components/terminalTab.component.ts:113
 msgid "\"{command}\" is still running. Close?"
@@ -170,7 +170,7 @@ msgstr "透過の種類"
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:14
 #: tabby-serial/src/components/serialTab.component.ts:118
-#: tabby-serial/src/profiles.ts:90
+#: tabby-serial/src/profiles.ts:85
 msgid "Baud rate"
 msgstr "伝送速度"
 
@@ -236,7 +236,7 @@ msgstr "アップデートの確認"
 msgid "Ciphers"
 msgstr "暗号方式"
 
-#: tabby-core/src/services/profiles.service.ts:121
+#: tabby-core/src/services/profiles.service.ts:124
 msgid "Clear recent profiles"
 msgstr "最近使ったプロファイルをクリア"
 
@@ -325,7 +325,7 @@ msgid "Connect through a proxy server"
 msgstr "プロキシサーバー経由で接続"
 
 #: tabby-core/src/index.ts:211
-#: tabby-core/src/services/profiles.service.ts:163
+#: tabby-core/src/services/profiles.service.ts:166
 msgid "Connect to \"%s\"..."
 msgstr "'%s' に接続中..."
 
@@ -497,7 +497,7 @@ msgstr "無効"
 msgid "Disable dynamic tab title"
 msgstr "動的なタブ名を無効にする"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:176
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:182
 msgid "Disable GPU acceleration"
 msgstr "GPUアクセラレーションを無効化"
 
@@ -774,6 +774,10 @@ msgstr "緑色"
 msgid "Group"
 msgstr "グループ"
 
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:179
+msgid "Hacks"
+msgstr ""
+
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:20
 msgid "Help track the number of Tabby installs across the world!"
 msgstr "世界中でのTabbyのインストール数調査にご協力ください！"
@@ -783,7 +787,7 @@ msgstr "世界中でのTabbyのインストール数調査にご協力くださ�
 msgid "Hexadecimal"
 msgstr "16進"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:169
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:175
 msgid "Hide tab close button"
 msgstr "タブを閉じるボタンを非表示"
 
@@ -827,7 +831,7 @@ msgstr "アイコン"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:154
 msgid "id.tab-width.dynamic"
-msgstr ""
+msgstr "動的"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:64
 msgid "If disabled, only custom profiles will show up in the profile selector"
@@ -990,7 +994,7 @@ msgstr "ログインスクリプト"
 msgid "Long-click for context menu"
 msgstr "長押しするとコンテキストメニューが表示されます"
 
-#: tabby-core/src/services/profiles.service.ts:148
+#: tabby-core/src/services/profiles.service.ts:151
 msgid "Manage profiles"
 msgstr "プロファイルの管理"
 
@@ -1337,7 +1341,7 @@ msgid "Puts all of Tabby's configuration into the vault"
 msgstr "Tabbyの設定をすべてVaultに格納する"
 
 #: tabby-core/src/index.ts:210
-#: tabby-core/src/services/profiles.service.ts:162
+#: tabby-core/src/services/profiles.service.ts:165
 msgid "Quick connect"
 msgstr "クイック接続"
 
@@ -1354,8 +1358,8 @@ msgstr "Rawソケット接続"
 msgid "Ready Timeout (Milliseconds)"
 msgstr "タイムアウト (ミリ秒)"
 
-#: tabby-core/src/services/profiles.service.ts:109
-#: tabby-core/src/services/profiles.service.ts:122
+#: tabby-core/src/services/profiles.service.ts:112
+#: tabby-core/src/services/profiles.service.ts:125
 msgid "Recent"
 msgstr "最近"
 
@@ -1530,7 +1534,7 @@ msgstr "ファイルストレージを選択"
 msgid "Select profile"
 msgstr "プロファイルを選択"
 
-#: tabby-core/src/services/profiles.service.ts:171
+#: tabby-core/src/services/profiles.service.ts:174
 msgid "Select profile or enter an address"
 msgstr "プロファイルの選択、またはアドレスを入力"
 
@@ -1542,17 +1546,17 @@ msgstr "16 進数の値を入力してバイトを送信"
 msgid "Sends data one byte at a time"
 msgstr "一度に 1 バイトのデータを送信"
 
-#: tabby-serial/src/profiles.ts:15
-#: tabby-serial/src/profiles.ts:76
+#: tabby-serial/src/profiles.ts:13
+#: tabby-serial/src/profiles.ts:71
 msgid "Serial"
 msgstr "シリアル"
 
-#: tabby-serial/src/profiles.ts:55
-#: tabby-serial/src/profiles.ts:66
+#: tabby-serial/src/profiles.ts:50
+#: tabby-serial/src/profiles.ts:61
 msgid "Serial connection"
 msgstr "シリアル接続"
 
-#: tabby-serial/src/profiles.ts:75
+#: tabby-serial/src/profiles.ts:70
 msgid "Serial: {description}"
 msgstr "シリアル: {description}"
 
@@ -1625,6 +1629,10 @@ msgstr "ミキサーを表示"
 #: tabby-core/src/hotkeys.ts:53
 msgid "Show pane labels (for rearranging)"
 msgstr "ペインラベルを表示 (再配置向け)"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:169
+msgid "Show profile icon on tab"
+msgstr ""
 
 #: tabby-core/src/hotkeys.ts:13
 msgid "Show profile selector"
@@ -1857,7 +1865,7 @@ msgstr "指定された種類のすべてのプロファイルに適用されま
 msgid "Thin"
 msgstr "細い"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:177
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:183
 msgid "Tick this if you're experiencing aliasing, ghosting or other visual issues"
 msgstr "画像のギザギザやずれて見えるなどの表示の乱れが発生している場合は選択してください。"
 
@@ -1886,7 +1894,7 @@ msgstr "上部"
 msgid "Try again"
 msgstr "再試行"
 
-#: tabby-ssh/src/session/ssh.ts:464
+#: tabby-ssh/src/session/ssh.ts:462
 msgid "Trying saved password"
 msgstr "保存されたパスワードを試みています"
 
@@ -1949,7 +1957,7 @@ msgstr "ユーザーの既定"
 msgid "Username"
 msgstr "ユーザー名"
 
-#: tabby-ssh/src/session/ssh.ts:453
+#: tabby-ssh/src/session/ssh.ts:451
 msgid "Using preset password"
 msgstr "プリセットパスワードの使用"
 
@@ -2107,5 +2115,5 @@ msgstr "縮小"
 #: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:55
 msgctxt "[Dynamic] port forwarding"
 msgid "id.port-forwarding.dynamic"
-msgstr ""
+msgstr "ダイナミック"
 

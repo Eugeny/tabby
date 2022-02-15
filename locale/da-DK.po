@@ -10,11 +10,11 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Danish\n"
 "Language: da_DK\n"
-"PO-Revision-Date: 2022-02-10 21:45\n"
+"PO-Revision-Date: 2022-02-15 22:11\n"
 
 #: tabby-local/src/components/terminalTab.component.ts:113
 msgid "\"{command}\" is still running. Close?"
-msgstr ""
+msgstr "\"{command}\" kører stadig. Luk?"
 
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:79
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:86
@@ -170,7 +170,7 @@ msgstr "Baggrundstype"
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:14
 #: tabby-serial/src/components/serialTab.component.ts:118
-#: tabby-serial/src/profiles.ts:90
+#: tabby-serial/src/profiles.ts:85
 msgid "Baud rate"
 msgstr "Baud-rate (hastighed)"
 
@@ -236,7 +236,7 @@ msgstr "Kontrollér for opdateringer"
 msgid "Ciphers"
 msgstr "Ciphers"
 
-#: tabby-core/src/services/profiles.service.ts:121
+#: tabby-core/src/services/profiles.service.ts:124
 msgid "Clear recent profiles"
 msgstr "Ryd seneste profiler"
 
@@ -284,7 +284,7 @@ msgstr "Farve"
 
 #: tabby-terminal/src/settings.ts:29
 msgid "Color scheme"
-msgstr "Farveskema"
+msgstr "Farvetema"
 
 #: locale/tmp-html/tabby-local/src/components/commandLineEditor.component.html:4
 msgid "Command line"
@@ -325,7 +325,7 @@ msgid "Connect through a proxy server"
 msgstr "Forbind via en proxyserver"
 
 #: tabby-core/src/index.ts:211
-#: tabby-core/src/services/profiles.service.ts:163
+#: tabby-core/src/services/profiles.service.ts:166
 msgid "Connect to \"%s\"..."
 msgstr "Forbind til \"%s\"..."
 
@@ -392,7 +392,7 @@ msgstr "Nuværende"
 
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:3
 msgid "Current color scheme"
-msgstr "Nuværende farveskema"
+msgstr "Nuværende farvetema"
 
 #: locale/tmp-html/tabby-ssh/src/components/hostKeyPromptModal.component.html:17
 msgid "Current host key fingerprint"
@@ -497,7 +497,7 @@ msgstr "Deaktivér"
 msgid "Disable dynamic tab title"
 msgstr "Deaktiver dynamisk fanetitel"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:176
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:182
 msgid "Disable GPU acceleration"
 msgstr "Deaktivér GPU acceleration"
 
@@ -726,7 +726,7 @@ msgstr "Videresendte porte"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:35
 msgid "From color scheme"
-msgstr "Fra farveskema"
+msgstr "Fra farvetema"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:32
 msgid "From theme"
@@ -774,6 +774,10 @@ msgstr "Grøn"
 msgid "Group"
 msgstr "Gruppe"
 
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:179
+msgid "Hacks"
+msgstr ""
+
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:20
 msgid "Help track the number of Tabby installs across the world!"
 msgstr ""
@@ -783,7 +787,7 @@ msgstr ""
 msgid "Hexadecimal"
 msgstr "Hexadecimal"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:169
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:175
 msgid "Hide tab close button"
 msgstr "Skjul lukkeknap for fane"
 
@@ -835,11 +839,11 @@ msgstr "Hvis deaktiveret, vil kun brugerdefinerede profiler vises i profilvælge
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:23
 msgid "Immediately echoes your input locally"
-msgstr ""
+msgstr "Ekkoer straks dit input lokalt"
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:18
 msgid "Input is sent as you type"
-msgstr ""
+msgstr "Input sendes mens du skriver"
 
 #: locale/tmp-html/tabby-terminal/src/components/streamProcessingSettings.component.html:4
 msgid "Input mode"
@@ -990,7 +994,7 @@ msgstr "Login scripts"
 msgid "Long-click for context menu"
 msgstr ""
 
-#: tabby-core/src/services/profiles.service.ts:148
+#: tabby-core/src/services/profiles.service.ts:151
 msgid "Manage profiles"
 msgstr "Administrér profiler"
 
@@ -1075,7 +1079,7 @@ msgstr "Nyt vindue"
 
 #: tabby-local/src/tabContextMenu.ts:87
 msgid "New with profile"
-msgstr ""
+msgstr "Ny med profil"
 
 #: tabby-core/src/hotkeys.ts:37
 msgid "Next tab"
@@ -1147,7 +1151,7 @@ msgstr "Åbn indstillinger"
 
 #: tabby-settings/src/hotkeys.ts:25
 msgid "Open settings tab: {tab}"
-msgstr ""
+msgstr "Åbn indstillingsfane: {tab}"
 
 #: tabby-ssh/src/tabContextMenu.ts:25
 msgid "Open SFTP panel"
@@ -1268,7 +1272,7 @@ msgstr "Port"
 
 #: tabby-serial/src/components/serialTab.component.ts:77
 msgid "Port opened"
-msgstr ""
+msgstr "Port åbnet"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:105
 #: locale/tmp-html/tabby-ssh/src/components/sshTab.component.html:12
@@ -1279,7 +1283,7 @@ msgstr "Porte"
 #: tabby-ssh/src/components/sshTab.component.ts:176
 #: tabby-telnet/src/components/telnetTab.component.ts:58
 msgid "Press any key to reconnect"
-msgstr ""
+msgstr "Tryk på en vilkårlig tast for at forbinde igen"
 
 #: locale/tmp-html/tabby-settings/src/components/hotkeyInputModal.component.html:3
 msgid "Press the key now"
@@ -1337,7 +1341,7 @@ msgid "Puts all of Tabby's configuration into the vault"
 msgstr "Placerer alle Tabby's konfiguration i boksen"
 
 #: tabby-core/src/index.ts:210
-#: tabby-core/src/services/profiles.service.ts:162
+#: tabby-core/src/services/profiles.service.ts:165
 msgid "Quick connect"
 msgstr "Hurtig tilslutning"
 
@@ -1354,8 +1358,8 @@ msgstr "Rå socket forbindelse"
 msgid "Ready Timeout (Milliseconds)"
 msgstr ""
 
-#: tabby-core/src/services/profiles.service.ts:109
-#: tabby-core/src/services/profiles.service.ts:122
+#: tabby-core/src/services/profiles.service.ts:112
+#: tabby-core/src/services/profiles.service.ts:125
 msgid "Recent"
 msgstr "Seneste"
 
@@ -1530,7 +1534,7 @@ msgstr "Vælg lagerplads"
 msgid "Select profile"
 msgstr "Vælg profil"
 
-#: tabby-core/src/services/profiles.service.ts:171
+#: tabby-core/src/services/profiles.service.ts:174
 msgid "Select profile or enter an address"
 msgstr "Vælg profil eller indtast en adresse"
 
@@ -1542,17 +1546,17 @@ msgstr "Send bytes ved at skrive i hex-værdier"
 msgid "Sends data one byte at a time"
 msgstr "Sender data en byte ad gangen"
 
-#: tabby-serial/src/profiles.ts:15
-#: tabby-serial/src/profiles.ts:76
+#: tabby-serial/src/profiles.ts:13
+#: tabby-serial/src/profiles.ts:71
 msgid "Serial"
 msgstr "Seriel"
 
-#: tabby-serial/src/profiles.ts:55
-#: tabby-serial/src/profiles.ts:66
+#: tabby-serial/src/profiles.ts:50
+#: tabby-serial/src/profiles.ts:61
 msgid "Serial connection"
 msgstr "Seriel forbindelse"
 
-#: tabby-serial/src/profiles.ts:75
+#: tabby-serial/src/profiles.ts:70
 msgid "Serial: {description}"
 msgstr "Seriel: {description}"
 
@@ -1625,6 +1629,10 @@ msgstr ""
 #: tabby-core/src/hotkeys.ts:53
 msgid "Show pane labels (for rearranging)"
 msgstr "Vis rudeetiketter (til omarrangering)"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:169
+msgid "Show profile icon on tab"
+msgstr ""
 
 #: tabby-core/src/hotkeys.ts:13
 msgid "Show profile selector"
@@ -1857,7 +1865,7 @@ msgstr "Disse gælder for alle profiler af en given type"
 msgid "Thin"
 msgstr "Tynd"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:177
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:183
 msgid "Tick this if you're experiencing aliasing, ghosting or other visual issues"
 msgstr "Markér dette, hvis du oplever aliasing, ghosting eller andre visuelle problemer"
 
@@ -1886,7 +1894,7 @@ msgstr "Toppen"
 msgid "Try again"
 msgstr "Prøv igen"
 
-#: tabby-ssh/src/session/ssh.ts:464
+#: tabby-ssh/src/session/ssh.ts:462
 msgid "Trying saved password"
 msgstr "Prøver gemt adgangskode"
 
@@ -1943,13 +1951,13 @@ msgstr "Brug ConPTY"
 #: tabby-local/src/shells/linuxDefault.ts:31
 #: tabby-local/src/shells/linuxDefault.ts:38
 msgid "User default"
-msgstr ""
+msgstr "Brugerstandard"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:56
 msgid "Username"
 msgstr "Brugernavn"
 
-#: tabby-ssh/src/session/ssh.ts:453
+#: tabby-ssh/src/session/ssh.ts:451
 msgid "Using preset password"
 msgstr "Brug forudindstillede adgangskode"
 
@@ -2012,7 +2020,7 @@ msgstr "Advarsel: Den eksterne værtsnøgle er pludselig ændret!"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:67
 msgid "We're only tracking your Tabby and OS versions."
-msgstr ""
+msgstr "Vi indsamler kun dine Tabby og OS versioner."
 
 #: tabby-core/src/components/welcomeTab.component.ts:24
 msgid "Welcome"

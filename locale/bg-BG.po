@@ -1,208 +1,208 @@
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Crowdin-Project: tabby\n"
 "X-Crowdin-Project-ID: 493349\n"
-"X-Crowdin-Language: hr\n"
+"X-Crowdin-Language: bg\n"
 "X-Crowdin-File: /locale/app.pot\n"
 "X-Crowdin-File-ID: 75\n"
 "Project-Id-Version: tabby\n"
-"Language-Team: Croatian\n"
-"Language: hr_HR\n"
-"PO-Revision-Date: 2022-02-15 22:11\n"
+"Language-Team: Bulgarian\n"
+"Language: bg_BG\n"
+"PO-Revision-Date: 2022-02-15 22:16\n"
 
 #: tabby-local/src/components/terminalTab.component.ts:113
 msgid "\"{command}\" is still running. Close?"
-msgstr ""
+msgstr "\"{command}\" все още се изпълнява. Да затворя ли?"
 
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:79
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:86
 msgid "{name} copy"
-msgstr "kopija {name}"
+msgstr "{name} копирай"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:64
 msgid "A second font family used to display characters missing in the main font"
-msgstr "Druga obitelj fontova koja se koristi za prikaz nedostajućih znakova u glavnom fontu"
+msgstr "Шрифт, който да се използва в случай, че символ отсъства в основния шрифт"
 
 #: tabby-core/src/components/transfersMenu.component.ts:49
 msgid "Abort all"
-msgstr "Prekini sve"
+msgstr "Отмени всички"
 
 #: locale/tmp-html/tabby-ssh/src/components/hostKeyPromptModal.component.html:24
 msgid "Accept and remember key"
-msgstr "Prihvati i zapamti ključ"
+msgstr "Приеми и запомни ключа"
 
 #: locale/tmp-html/tabby-ssh/src/components/hostKeyPromptModal.component.html:25
 msgid "Accept just this once"
-msgstr "Prihvati samo ovaj put"
+msgstr "Приеми самотози веднъж"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:20
 msgid "Acrylic background"
-msgstr "Pozadina u boji akrila"
+msgstr "Акрилен фон"
 
 #: locale/tmp-html/tabby-local/src/components/commandLineEditor.component.html:28
 #: locale/tmp-html/tabby-local/src/components/environmentEditor.component.html:15
 msgid "Add"
-msgstr "Dodaj"
+msgstr "Добави"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:16
 msgid "Add a port forward"
-msgstr "Dodaj prosljeđujući priključak"
+msgstr "Добави препращащ порт"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:101
 msgid "Add a private key"
-msgstr "Dodaj privatni ključ"
+msgstr "Добави частен ключ"
 
 #: locale/tmp-html/tabby-settings/src/components/multiHotkeyInput.component.html:8
 msgid "Add..."
-msgstr "Dodaj …"
+msgstr "Добави..."
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:71
 msgid "Additional space between lines"
-msgstr "Dodatni razmak između redaka"
+msgstr "Допълнително разстояние между редовете"
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:22
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:64
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:52
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:110
 msgid "Advanced"
-msgstr "Napredno"
+msgstr "Разширени"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:76
 msgid "Agent"
-msgstr "Agent"
+msgstr "Агент"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:120
 msgid "Agent forwarding"
-msgstr "Proslijeđivanje agenta"
+msgstr "Пренасочване на агент"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:35
 msgid "Agent pipe path"
-msgstr "Staza procesa agenta"
+msgstr "Път към pipe SSH"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:24
 msgid "Agent type"
-msgstr "Vrsta agenta"
+msgstr "Агент тип"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:151
 msgid "Allows opening .bat files in tabs, but breaks some shells"
-msgstr "Omogućuje otvaranje .bat datoteka u karticama, ali kvari neke ljuske"
+msgstr "Разрешава отваряне на .bat файлове в табове, но прекъсва някои терминали"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:60
 msgid "Allows quickly opening a terminal in the selected folder"
-msgstr "Omogućuje brzo otvaranje terminala u odabranoj mapi"
+msgstr "Разрешава бързо отваряне на терминал в избраната папка"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:2
 #: tabby-terminal/src/settings.ts:14
 msgid "Appearance"
-msgstr "Izgled"
+msgstr "Изглед"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:4
 msgid "Application"
-msgstr "Program"
+msgstr "Приложение"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:47
 msgid "Application settings"
-msgstr "Postavke programa"
+msgstr "Настройки на приложението"
 
 #: tabby-web/src/services/hostWindow.service.ts:19
 msgid "Are you sure you want to close Tabby? You can disable this prompt in Settings -> Window."
-msgstr "Stvarno želiš zatvoriti Tabby? Ovaj upit možeš deaktivirati u Postavke -> Prozor."
+msgstr "Сигурни ли сте, че желаете да затворите Tabby? Може да изключите това съобщение от Настройки -> Прозорец."
 
 #: tabby-core/src/services/config.service.ts:380
 msgid "Are you sure?"
-msgstr "Sigurno?"
+msgstr "Сигурни ли сте?"
 
 #: locale/tmp-html/tabby-local/src/components/commandLineEditor.component.html:20
 msgid "Arguments"
-msgstr "Argumenti"
+msgstr "Аргументи"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:26
 msgid "Ask a question"
-msgstr "Postavi pitanje"
+msgstr "Задайте въпрос"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:13
 msgid "Ask before closing the browser tab"
-msgstr "Pitaj prije zatvaranja regitra preglednika"
+msgstr "Питай преди да затвориш таба на браузъра"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:122
 msgid "Audible"
-msgstr "Zvukovi"
+msgstr "Звучен"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:60
 msgid "Authentication method"
-msgstr "Način autentifikacije"
+msgstr "Метод за удостоверяване"
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:77
 msgid "Author"
-msgstr "Autor"
+msgstr "Автор"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:64
 msgid "Auto"
-msgstr "Automatski"
+msgstr "Автоматично"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:135
 msgid "Auto-open a terminal on app start"
-msgstr "Automatski otvori terminal tijekom pokretanja programa"
+msgstr "Автоматично отваряне на терминал при стартиране на приложението"
 
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:13
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:53
 #: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:28
 msgid "Automatic"
-msgstr "Automatski"
+msgstr "Автоматично"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:73
 msgid "Automatic Updates"
-msgstr "Automatska aktualiziranja"
+msgstr "Автоматична актуализация"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:57
 msgid "Automatically upload changes and check for updates every minute"
-msgstr "Automatski prenesi promjene i traži nove verzije svake minute"
+msgstr "Автоматично качи промените и проверявай за актуализация всяка минута"
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:10
 msgid "Available"
-msgstr "Dostupno"
+msgstr "Налични"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:28
 msgid "Background type"
-msgstr "Vrsta pozadine"
+msgstr "Тип на фона"
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:14
 #: tabby-serial/src/components/serialTab.component.ts:118
 #: tabby-serial/src/profiles.ts:85
 msgid "Baud rate"
-msgstr "Brzina prijenosa"
+msgstr "Скорост на предаване"
 
 #: tabby-terminal/src/hotkeys.ts:18
 msgid "Beginning of the line"
-msgstr "Početak retka"
+msgstr "Начало на реда"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:57
 msgid "Blink cursor"
-msgstr "Titranje kursora"
+msgstr "Мигане на курсор"
 
 #: tabby-core/src/utils.ts:61
 msgid "Blue"
-msgstr "Plava"
+msgstr "Синьо"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:32
 msgid "Blur"
-msgstr "Zamuti"
+msgstr "Замъгляване"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:138
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:82
 msgid "Bottom"
-msgstr "Dolje"
+msgstr "Долу"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:95
 msgid "Bracketed paste (requires shell support)"
-msgstr "Umetanje sadržaja s uglatim zagradama (zahtijeva podršku školjke)"
+msgstr "Bracketed paste (изисква шел подръжка)"
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:48
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:166
 msgid "Built-in"
-msgstr "Ugrađeno"
+msgstr "Вградени"
 
 #: locale/tmp-html/tabby-core/src/components/renameTabModal.component.html:7
 #: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:53
@@ -217,144 +217,144 @@ msgstr "Ugrađeno"
 #: tabby-ssh/src/sftpContextMenu.ts:34
 #: tabby-terminal/src/api/baseTerminalTab.component.ts:448
 msgid "Cancel"
-msgstr "Odustani"
+msgstr "Откажи"
 
 #: locale/tmp-html/tabby-serial/src/components/serialTab.component.html:4
 msgid "Change baud rate"
-msgstr "Promijeni brzinu prijenosa"
+msgstr "Промени скорост на предаване"
 
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:12
 msgid "Change the master passphrase"
-msgstr "Promijeni tekstualnu master lozinku"
+msgstr "Промени гравна парола"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:13
 msgid "Check for updates"
-msgstr "Traži nove verzije"
+msgstr "Провери за актуализация"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:158
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:162
 msgid "Ciphers"
-msgstr "Šifre"
+msgstr "Шифри"
 
 #: tabby-core/src/services/profiles.service.ts:124
 msgid "Clear recent profiles"
-msgstr "Isprazni popis nedavnih profila"
+msgstr "Изчисти скорошни профили"
 
 #: tabby-terminal/src/hotkeys.ts:42
 msgid "Clear terminal"
-msgstr "Isprazni terminal"
+msgstr "Изчисти терминал"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:86
 msgid "Clipboard"
-msgstr "Međuspremnik"
+msgstr "Клипборд"
 
 #: locale/tmp-html/tabby-core/src/components/safeModeModal.component.html:7
 #: tabby-core/src/tabContextMenu.ts:34
 msgid "Close"
-msgstr "Zatvori"
+msgstr "Затвори"
 
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:32
 msgid "Close and never show again"
-msgstr "Zatvori i više nemoj prikazati"
+msgstr "Затвори и не показвай отново"
 
 #: tabby-core/src/hotkeys.ts:189
 msgid "Close focused pane"
-msgstr "Zatvori aktivnu ploču"
+msgstr "Затвори панелът на фокус"
 
 #: tabby-core/src/tabContextMenu.ts:48
 msgid "Close other tabs"
-msgstr "Zatvori druge kartice"
+msgstr "Затвори останалите табове"
 
 #: tabby-core/src/hotkeys.ts:25
 msgid "Close tab"
-msgstr "Zatvori karticu"
+msgstr "Затваряне на таба"
 
 #: tabby-core/src/tabContextMenu.ts:64
 msgid "Close tabs to the left"
-msgstr "Zatvori kartice prema lijevo"
+msgstr "Затвори табовете вляво"
 
 #: tabby-core/src/tabContextMenu.ts:56
 msgid "Close tabs to the right"
-msgstr "Zatvori kartice prema desno"
+msgstr "Затвори табовете вдясно"
 
 #: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:33
 #: tabby-core/src/tabContextMenu.ts:124
 msgid "Color"
-msgstr "Boja"
+msgstr "Цветове"
 
 #: tabby-terminal/src/settings.ts:29
 msgid "Color scheme"
-msgstr "Shema boja"
+msgstr "Цветови схеми"
 
 #: locale/tmp-html/tabby-local/src/components/commandLineEditor.component.html:4
 msgid "Command line"
-msgstr "Naredbeni redak"
+msgstr "Команден ред"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:13
 msgid "Command's stdin/stdout is used instead of a network connection"
-msgstr "Umjesto mrežne veze koriste se standardni unos/sandardni rezultat (stdin/stdout) naredbe"
+msgstr "Командния stdin/stdout се използва вместо мрежова връзка"
 
 #: tabby-core/src/theme.ts:20
 msgid "Compact"
-msgstr "Kompaktno"
+msgstr "Компактна"
 
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:108
 msgid "Config downloaded"
-msgstr "Konfiguracija preuzeta"
+msgstr "Конфифурацията е свалена"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:102
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:107
 msgid "Config file"
-msgstr "Datoteka konfiguracije"
+msgstr "Конфигурационен файл"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:2
 #: tabby-settings/src/settings.ts:73
 msgid "Config sync"
-msgstr "Sinkronizacija konfiguracije"
+msgstr "Синхронизация на конфигурация"
 
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:90
 msgid "Config uploaded"
-msgstr "Konfiguracija prenesena"
+msgstr "Конфигурацията е качена"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:35
 msgid "Configs"
-msgstr "Konfiguracije"
+msgstr "Конфигурации"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:21
 msgid "Connect through a proxy server"
-msgstr "Poveži se putem proxy poslužitelja"
+msgstr "Връзка чрез прокси сървър"
 
 #: tabby-core/src/index.ts:211
 #: tabby-core/src/services/profiles.service.ts:166
 msgid "Connect to \"%s\"..."
-msgstr "Poveži se na „%s” …"
+msgstr "Свържи към \"%s\"..."
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:17
 msgid "Connect to a different host first and use it as a proxy"
-msgstr "Najprije se poveži s jednim drugim host računalom i koristi ga kao proxy"
+msgstr "Свържи се първо към друг хост и го използвай като прокси"
 
 #: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:10
 #: tabby-serial/src/components/serialTab.component.ts:72
 #: tabby-ssh/src/components/sshTab.component.ts:144
 #: tabby-telnet/src/components/telnetTab.component.ts:81
 msgid "Connecting"
-msgstr "Povezivanje"
+msgstr "Свързване"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:7
 msgid "Connection"
-msgstr "Veza"
+msgstr "Свързване"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:30
 msgid "Connection failed: {error}"
-msgstr "Veza neuspjela: {error}"
+msgstr "Свързването е неуспешно: {error}"
 
 #: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:40
 msgid "Connection name will be used instead"
-msgstr "Umjesto toga će se koristiti ime veze"
+msgstr "Името на свръзката ще се се използва вместо това"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:51
 msgid "Context menu"
-msgstr "Kontekstni izbornik"
+msgstr "Контекстно меню"
 
 #: tabby-terminal/src/api/baseTerminalTab.component.ts:198
 #: tabby-terminal/src/api/baseTerminalTab.component.ts:206
@@ -362,77 +362,77 @@ msgstr "Kontekstni izbornik"
 #: tabby-terminal/src/api/baseTerminalTab.component.ts:743
 #: tabby-terminal/src/tabContextMenu.ts:29
 msgid "Copied"
-msgstr "Kopirano"
+msgstr "Копирано"
 
 #: tabby-linkifier/src/decorator.ts:52
 #: tabby-terminal/src/tabContextMenu.ts:25
 msgid "Copy"
-msgstr "Kopiraj"
+msgstr "Копирай"
 
 #: tabby-terminal/src/hotkeys.ts:62
 #: tabby-terminal/src/tabContextMenu.ts:53
 msgid "Copy current path"
-msgstr "Kopiraj trenutačnu stazu"
+msgstr "Копирай текущия път"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:89
 msgid "Copy on select"
-msgstr "Kopiraj nakon odabiranja"
+msgstr "Копирай при маркиране"
 
 #: tabby-terminal/src/hotkeys.ts:10
 msgid "Copy to clipboard"
-msgstr "Kopiraj u međuspremnik"
+msgstr "Копирай в клипборда"
 
 #: tabby-core/src/services/config.service.ts:365
 msgid "Could not decrypt config"
-msgstr "Neuspjelo dešifriranje konfiguracije"
+msgstr "Конфигурацията не може да бъде декриптирана"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:93
 msgid "Current"
-msgstr "Trenutačno"
+msgstr "Текущ"
 
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:3
 msgid "Current color scheme"
-msgstr "Trenutačna shema boja"
+msgstr "Текуща цветова схема"
 
 #: locale/tmp-html/tabby-ssh/src/components/hostKeyPromptModal.component.html:17
 msgid "Current host key fingerprint"
-msgstr "Trenutačna šifra ključa host računala"
+msgstr "Текущ ключов отпечатък на хоста"
 
 #: tabby-core/src/tabContextMenu.ts:175
 msgid "Current process: {name}"
-msgstr "Tenutačni postupak: {name}"
+msgstr "Текущ процес: {name}"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:41
 msgid "Cursor shape"
-msgstr "Oblik kursora"
+msgstr "Форма на курсора"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:77
 msgid "Custom CSS"
-msgstr "Prilagođeni CSS"
+msgstr "Персонализиран CSS"
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:26
 msgid "Data bits"
-msgstr "Bitovi podataka"
+msgstr "Битове на данните"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:80
 msgid "Debugging"
-msgstr "Otklanjanje grešaka"
+msgstr "Отстраняване на грешки"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:8
 msgid "Default profile for new tabs"
-msgstr "Standardni profil za nove kartice"
+msgstr "Профил по подразбиране за нов таб"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:70
 msgid "Default profile settings"
-msgstr "Postavke standardnog profila"
+msgstr "Настройка на профил по подразбиране"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:111
 msgid "Defaults"
-msgstr "Standardne vrijednosti"
+msgstr "По подразбиране"
 
 #: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:6
 msgid "Defaults for {type}"
-msgstr "Standardne vrijednosti za {type}"
+msgstr "По подразбиране за {type}"
 
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:28
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:9
@@ -445,334 +445,334 @@ msgstr "Standardne vrijednosti za {type}"
 #: tabby-terminal/src/components/colorSchemeSettingsTab.component.ts:86
 #: tabby-terminal/src/components/loginScriptsSettings.component.ts:32
 msgid "Delete"
-msgstr "Izbriši"
+msgstr "Изтрий"
 
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:129
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:191
 #: tabby-terminal/src/components/colorSchemeSettingsTab.component.ts:84
 msgid "Delete \"{name}\"?"
-msgstr "Izbrisati „{name}”?"
+msgstr "Изтрий \"{name}\"?"
 
 #: tabby-ssh/src/sftpContextMenu.ts:29
 msgid "Delete {fullPath}?"
-msgstr "Izbrisati {fullPath}?"
+msgstr "Изтриване {fullPath}?"
 
 #: tabby-terminal/src/hotkeys.ts:38
 msgid "Delete next word"
-msgstr "Izbriši sljedeću riječ"
+msgstr "Изтрий следваща дума"
 
 #: tabby-terminal/src/hotkeys.ts:34
 msgid "Delete previous word"
-msgstr "Izbriši prethodnu riječ"
+msgstr "Изтрий предишна дума"
 
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:203
 msgid "Delete the group's profiles?"
-msgstr "Izbrisati profile ove grupe?"
+msgstr "Изтриване профилите на групата?"
 
 #: tabby-terminal/src/components/loginScriptsSettings.component.ts:29
 msgid "Delete this script?"
-msgstr "Ukloniti ovu skriptu?"
+msgstr "Изтриване на този скрипт?"
 
 #: tabby-settings/src/components/vaultSettingsTab.component.ts:47
 msgid "Delete vault contents?"
-msgstr "Izbrisati sadržaj trezora?"
+msgstr "Изтриване съдържанието на хранилището?"
 
 #: locale/tmp-html/tabby-ssh/src/components/sftpDeleteModal.component.html:3
 msgid "Deleting"
-msgstr "Briše se"
+msgstr "Изтриване"
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:8
 msgid "Device"
-msgstr "Uređaj"
+msgstr "Устройство"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:10
 msgid "Direct"
-msgstr "Direktno"
+msgstr "Директно"
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:55
 msgid "Disable"
-msgstr "Deaktiviraj"
+msgstr "Изключено"
 
 #: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:39
 msgid "Disable dynamic tab title"
-msgstr "Deaktiviraj dinamički naslov kartice"
+msgstr "Изключи динамично заглавие на таб"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:182
 msgid "Disable GPU acceleration"
-msgstr "Deativiraj ubrzanje GPU-a"
+msgstr "Изключи ускоряване от графичния процесор"
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:48
 msgid "Disabled"
-msgstr "Deaktivirano"
+msgstr "Изключено"
 
 #: locale/tmp-html/tabby-ssh/src/components/hostKeyPromptModal.component.html:26
 #: tabby-ssh/src/components/sshTab.component.ts:245
 #: tabby-telnet/src/components/telnetTab.component.ts:124
 msgid "Disconnect"
-msgstr "Odspoji"
+msgstr "Прекъсни"
 
 #: tabby-ssh/src/components/sshTab.component.ts:243
 #: tabby-telnet/src/components/telnetTab.component.ts:122
 msgid "Disconnect from {host}?"
-msgstr ""
+msgstr "Прекъсване на връзката с {host}?"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:88
 msgid "Display on"
-msgstr "Ekran uključen"
+msgstr "Показвай на"
 
 #: tabby-core/src/components/transfersMenu.component.ts:50
 msgid "Do not abort"
-msgstr "Nemoj prekinuti"
+msgstr "Не прекъсвай"
 
 #: tabby-ssh/src/components/sshTab.component.ts:246
 #: tabby-telnet/src/components/telnetTab.component.ts:125
 msgid "Do not close"
-msgstr ""
+msgstr "Не затваряй"
 
 #: locale/tmp-html/tabby-core/src/components/unlockVaultModal.component.html:6
 #: locale/tmp-html/tabby-core/src/components/unlockVaultModal.component.html:8
 msgid "Do not remember"
-msgstr "Nemoj zapamtiti"
+msgstr "Не запаметявай"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:102
 msgid "Dock always on top"
-msgstr "Prikvači uvijek gore"
+msgstr "Закрепи винаги отгоре"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:65
 msgid "Dock the terminal"
-msgstr "Prikvači terminal"
+msgstr "Закрепи терминала"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:109
 msgid "Docked terminal size"
-msgstr "Veličina prikvačenog terminala"
+msgstr "Рзамер на закрепения терминал"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:116
 msgid "Docked terminal space"
-msgstr "Područje prikvačenog terminala"
+msgstr "Отстояние от закрепения терминал"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:62
 msgid "Docking"
-msgstr "Prikvačivanje"
+msgstr "Закрепване"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:67
 msgid "Double-click selection will stop at these characters"
-msgstr "Dvostruki pritisak odabira prekinut će pri ovim znakovima"
+msgstr "Селекцията с двоен клик ще спира при тези символи"
 
 #: tabby-core/src/tabContextMenu.ts:80
 msgid "Down"
-msgstr "Dolje"
+msgstr "Долу"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:47
 msgid "Download"
-msgstr "Preuzmi"
+msgstr "Свали"
 
 #: tabby-core/src/tabContextMenu.ts:120
 msgid "Duplicate"
-msgstr "Dupliciraj"
+msgstr "Дублирай"
 
 #: tabby-local/src/tabContextMenu.ts:121
 msgid "Duplicate as administrator"
-msgstr "Dupliciraj kao administratora"
+msgstr "Дублирай като администратор"
 
 #: tabby-core/src/hotkeys.ts:57
 msgid "Duplicate tab"
-msgstr "Dupliciraj karticu"
+msgstr "Дублирай таб"
 
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:7
 msgid "Edit"
-msgstr "Uredi"
+msgstr "Редактирай"
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:56
 msgid "Enable"
-msgstr "Aktiviraj"
+msgstr "Включи"
 
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:19
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:66
 msgid "Enable analytics"
-msgstr "Aktiviraj analitikčke podatke"
+msgstr "Включи събиране на статистики"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:74
 msgid "Enable automatic installation of updates when they become available."
-msgstr "Akiviraj automatsko instaliranje novih verzija kad postanu dostupne."
+msgstr "Включи автоматично инсталиране на наличните актуализации."
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:16
 msgid "Enable font ligatures"
-msgstr "Aktiviraj ligature fontova"
+msgstr "Включи шрифрова типография"
 
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:26
 msgid "Enable global hotkey (Ctrl-Space)"
-msgstr "Aktiviraj globalne prečace (Ctrl-razmaknica)"
+msgstr "Включи глобален бърз клавиш (Ctrl-Space)"
 
 #: locale/tmp-html/tabby-local/src/components/shellSettingsTab.component.html:6
 msgid "Enables the experimental Windows ConPTY API"
-msgstr "Aktiviraj eksperimentalni Windows ConPTY API"
+msgstr "Включи експерименталния Windows ConPTY API"
 
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:36
 msgid "Encrypt config file"
-msgstr "Šifriraj datoteku konfiguracije"
+msgstr "Криптирай конфигурационния файл"
 
 #: tabby-terminal/src/hotkeys.ts:22
 msgid "End of the line"
-msgstr "Kraj retka"
+msgstr "На края на реда"
 
 #: locale/tmp-html/tabby-local/src/components/localProfileSettings.component.html:19
 msgid "Environment"
-msgstr "Okruženje"
+msgstr "Среда"
 
 #: tabby-core/src/services/config.service.ts:369
 #: tabby-core/src/services/config.service.ts:383
 msgid "Erase config"
-msgstr "Izbriši konfiguraciju"
+msgstr "Изтрий настройките"
 
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:12
 msgid "Erase the Vault"
-msgstr "Izbriši trezor"
+msgstr "Изтрий хранилището"
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:6
 msgid "Error in {plugin}:"
-msgstr "Greška u {plugin}:"
+msgstr "Грешка в {plugin}:"
 
 #: locale/tmp-html/tabby-terminal/src/components/loginScriptsSettings.component.html:9
 msgid "Exact match"
-msgstr "Točno podudaranje"
+msgstr "Точно съвпадение"
 
 #: locale/tmp-html/tabby-local/src/components/environmentEditor.component.html:19
 msgid "Example:"
-msgstr "Primjer:"
+msgstr "Пример:"
 
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:27
 msgid "Export"
-msgstr "Izvezi"
+msgstr "Експорт"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:63
 msgid "Fallback font"
-msgstr "Rezervni font"
+msgstr "Резервен шрифт"
 
 #: locale/tmp-html/tabby-core/src/components/transfersMenu.component.html:3
 msgid "File transfers"
-msgstr "Prijenosi datoteka"
+msgstr "Прехвърляне на файл"
 
 #: tabby-settings/src/components/vaultSettingsTab.component.ts:91
 msgid "File: {description}"
-msgstr "Datoteka: {description}"
+msgstr "Файл: {description}"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:157
 msgid "Fixed"
-msgstr "Fiksno"
+msgstr "Фиксиран"
 
 #: tabby-local/src/tabContextMenu.ts:136
 msgid "Focus all panes"
-msgstr "Postavi sve ploče kao aktivne"
+msgstr "Фокусирай всички пана"
 
 #: tabby-terminal/src/hotkeys.ts:70
 msgid "Focus all panes at once (broadcast)"
-msgstr "Postavi sve ploče kao aktivne odjednom"
+msgstr "Фокусирай всички пана наведнъж (излъчвай)"
 
 #: tabby-core/src/hotkeys.ts:181
 msgid "Focus next pane"
-msgstr "Postavi sljedeću ploču kao aktivnu"
+msgstr "Фокусирай следващия панел"
 
 #: tabby-core/src/hotkeys.ts:177
 msgid "Focus previous pane"
-msgstr "Postavi prethodnu ploču kao aktivnu"
+msgstr "Фокусирай предишен панел"
 
 #: tabby-core/src/hotkeys.ts:161
 msgid "Focus the pane above"
-msgstr "Postavi gornju ploču kao aktivnu"
+msgstr "Фокусирай горен панел"
 
 #: tabby-core/src/hotkeys.ts:165
 msgid "Focus the pane below"
-msgstr "Postavi donju ploču kao aktivnu"
+msgstr "Фокусирай долен панел"
 
 #: tabby-core/src/hotkeys.ts:169
 msgid "Focus the pane on the left"
-msgstr "Postavi lijevu ploču kao aktivnu"
+msgstr "Фокус на левия панел"
 
 #: tabby-core/src/hotkeys.ts:173
 msgid "Focus the pane on the right"
-msgstr "Postavi desnu ploču kao aktivnu"
+msgstr "Фокус на десния панел"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:7
 msgid "Font"
-msgstr "Font"
+msgstr "Шрифт"
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:51
 msgid "Force CR"
-msgstr "Prisili CR"
+msgstr "Принудително използване на CR"
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:53
 msgid "Force CRLF"
-msgstr "Prisili CRLF"
+msgstr "Принудително използване на CRLF"
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:52
 msgid "Force LF"
-msgstr "Prisili LF"
+msgstr "Принудително използване на LF"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:25
 msgid "Forces a specific SSH agent connection type."
-msgstr "Forsira određenu vrstu veze SSH agenta."
+msgstr "Принудително използване на специфичен SSH агент връзка."
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:91
 msgid "Forget"
-msgstr "Zaboravi"
+msgstr "Забрави"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:58
 msgid "Forward port"
-msgstr "Proslijedi priključak"
+msgstr "Пренасочи порт"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingModal.component.html:3
 msgid "Forwarded ports"
-msgstr "Proslijeđeni priključci"
+msgstr "Пренасочени портове"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:35
 msgid "From color scheme"
-msgstr "Iz sheme boja"
+msgstr "От цветова схема"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:32
 msgid "From theme"
-msgstr "Iz teme"
+msgstr "От тема"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:6
 msgid "Frontend"
-msgstr "Sučelje"
+msgstr "Фронтенд"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:58
 msgid "Full"
-msgstr "Potpuno"
+msgstr "Пълен"
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:3
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:3
 #: locale/tmp-html/tabby-telnet/src/components/telnetProfileSettings.component.html:3
 msgid "General"
-msgstr "Opće"
+msgstr "Общи"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:21
 msgid "Generate a pre-filled GitHub issue"
-msgstr "Generiraj unaprijed ispunjeni GitHub problem"
+msgstr "Генерирай предварително попълнен GitHub проблем"
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:27
 msgid "Get"
-msgstr "Preuzmi"
+msgstr "Получи"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:20
 msgid "Get it from the Tabby Web settings window"
-msgstr "Preuzmi iz prozora Tabby-web postavki"
+msgstr "Вземи от прозореца за Web настройки на Tabby"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:22
 msgid "Gives the window a blurred transparent background"
-msgstr "Daje prozoru zamućenu prozirnu pozadinu"
+msgstr "Придава на прозореца размазано прозрачен фон"
 
 #: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:15
 msgid "Go up"
-msgstr "Idi gore"
+msgstr "Нагоре"
 
 #: tabby-core/src/utils.ts:62
 msgid "Green"
-msgstr "Zelena"
+msgstr "Зелен"
 
 #: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:16
 msgid "Group"
-msgstr "Grupa"
+msgstr "Група"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:179
 msgid "Hacks"
@@ -780,54 +780,54 @@ msgstr ""
 
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:20
 msgid "Help track the number of Tabby installs across the world!"
-msgstr "Pomogni pratiti broj Tabby instalacija diljem svijeta!"
+msgstr "Помогнете за проследяване броя на инсталациите на Tabby по света!"
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:32
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:44
 msgid "Hexadecimal"
-msgstr "Heksadecimalni"
+msgstr "Шестнайсетичен"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:175
 msgid "Hide tab close button"
-msgstr "Sakrij gumb za zatvaranje kartice"
+msgstr "Скрий бутон затвори таб"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:163
 msgid "Hide tab index"
-msgstr "Sakrij indeks kartice"
+msgstr "Скрий номериране на таб"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:123
 msgid "Hide window on focus loss"
-msgstr "Sakrij prozor kad nije aktivan"
+msgstr "Скрий прозореца при загуба на фокус"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:124
 msgid "Hides the docked terminal when you click away."
-msgstr "Skriva prikvačeni terminal kad pritisneš negdje drugdje."
+msgstr "Скриване на прикрепения терминал в случай на кликване извън него."
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:28
 msgid "Homepage"
-msgstr "Naslovnica"
+msgstr "Начална страница"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:30
 #: locale/tmp-html/tabby-telnet/src/components/telnetProfileSettings.component.html:6
 msgid "Host"
-msgstr "Host računalo"
+msgstr "Хост"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:192
 msgid "Host key"
-msgstr "Ključ host računala"
+msgstr "Ключ на хоста"
 
 #: locale/tmp-html/tabby-ssh/src/components/hostKeyPromptModal.component.html:3
 msgid "Host key verification"
-msgstr "Provjera ključa host računala"
+msgstr "Проверка ключа на хоста"
 
 #: locale/tmp-html/tabby-settings/src/components/hotkeySettingsTab.component.html:2
 #: tabby-settings/src/settings.ts:15
 msgid "Hotkeys"
-msgstr "Tipkovni prečaci"
+msgstr "Горещи клавиши"
 
 #: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:20
 msgid "Icon"
-msgstr "Ikona"
+msgstr "Икона"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:154
 msgid "id.tab-width.dynamic"
@@ -835,56 +835,56 @@ msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:64
 msgid "If disabled, only custom profiles will show up in the profile selector"
-msgstr "Ako je deaktivirano, u biraču profila prikazat će se samo prilagođeni profili"
+msgstr "Ако е изключен, само потребителските профили ще се показват за избор"
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:23
 msgid "Immediately echoes your input locally"
-msgstr "Odmah lokalno odgovara tvoj unos"
+msgstr "Незабавно отразява локално въведеното от Вас"
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:18
 msgid "Input is sent as you type"
-msgstr "Unos se šalje tijekom tipkanja"
+msgstr "Въведенето се изпраща докато пишете"
 
 #: locale/tmp-html/tabby-terminal/src/components/streamProcessingSettings.component.html:4
 msgid "Input mode"
-msgstr "Modus unosa"
+msgstr "Режим на въвеждане"
 
 #: locale/tmp-html/tabby-terminal/src/components/streamProcessingSettings.component.html:15
 msgid "Input newlines"
-msgstr "Upiši nove retke"
+msgstr "Въвеждане на нови редове"
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:41
 msgid "Installed"
-msgstr "Instalirano"
+msgstr "Инсталирани"
 
 #: tabby-electron/src/services/updater.service.ts:136
 msgid "Installing the update will close all tabs and restart Tabby."
-msgstr "Instaliranjem nove verzije zatvorit će se sve kartice i Tabby će se ponovo pokrenuti."
+msgstr "Инсталирането на актуализацията ще затвори всички табове и ще рестартира Tabby."
 
 #: tabby-terminal/src/hotkeys.ts:58
 msgid "Intelligent Ctrl-C (copy/abort)"
-msgstr "Inteligenti Ctrl-C (kopiraj/prekini)"
+msgstr "Интелигентен Ctrl-C (копирай/прекъсни)"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:80
 msgid "Interactive"
-msgstr "Interaktivno"
+msgstr "Интерактивен"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:117
 msgid "Invalid syntax"
-msgstr "Neispravna sintaksa"
+msgstr "Неправилен синтаксис"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:16
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:39
 msgid "Jump host"
-msgstr "„Jump” host računalo"
+msgstr "Посреднически хост"
 
 #: tabby-terminal/src/hotkeys.ts:30
 msgid "Jump to next word"
-msgstr "Skoči na sljedeću riječ"
+msgstr "Прескочи към следваща дума"
 
 #: tabby-terminal/src/hotkeys.ts:26
 msgid "Jump to previous word"
-msgstr "Skoči na prethodnu riječ"
+msgstr "Прескочи към предишна дума"
 
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:132
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:194
@@ -893,742 +893,742 @@ msgstr "Skoči na prethodnu riječ"
 #: tabby-terminal/src/components/loginScriptsSettings.component.ts:33
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:49
 msgid "Keep"
-msgstr "Zadrži"
+msgstr "Запази"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:140
 msgid "Keep Alive Interval (Milliseconds)"
-msgstr "Interval održavanja (milisekunde)"
+msgstr "Интервал за проверка на връзката (мс)"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:103
 msgid "Keep docked terminal always on top"
-msgstr "Zadrži prikvačeni terminal uvijek ispred ostalih prozora"
+msgstr "Прикрепеният терминал винаги отгоре"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:72
 msgid "Key"
-msgstr "Tipka"
+msgstr "Ключ"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:172
 msgid "Key exchange"
-msgstr "Zamjena tipki"
+msgstr "Обмен на ключ"
 
 #: locale/tmp-html/tabby-ssh/src/components/keyboardInteractiveAuthPanel.component.html:2
 msgid "Keyboard-interactive auth"
-msgstr "Autentifikacija interaktivnom tipkovnicom"
+msgstr "Интерактивно удостоверяване"
 
 #: tabby-local/src/components/terminalTab.component.ts:117
 msgid "Kill"
-msgstr ""
+msgstr "Принудително спиране"
 
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:10
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:50
 msgid "Language"
-msgstr "Jezik"
+msgstr "Език"
 
 #: locale/tmp-html/tabby-ssh/src/components/hostKeyPromptModal.component.html:11
 msgid "Last known host key fingerprint"
-msgstr "Zadnja poznata šifra ključa host računala"
+msgstr "Последно известен ключов отпечатък на хоста"
 
 #: tabby-ssh/src/tabContextMenu.ts:32
 msgid "Launch WinSCP"
-msgstr "Pokreni WinSCP"
+msgstr "Стартирай WinSCP"
 
 #: tabby-ssh/src/hotkeys.ts:14
 msgid "Launch WinSCP for current SSH session"
-msgstr "Pokreni WinSCP za trenutačnu SSH sesiju"
+msgstr "Стартирай WinSCP за текущата SSH сесия"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshTab.component.html:7
 msgid "Learn how to allow Tabby to detect remote shell's working directory."
-msgstr "Saznaj kako dopustiti Tabbyju da otkrije radnu mapu udaljene ljuske."
+msgstr "Научете как да разрешите на Tabby да разпознава отдалечената работна директория."
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:141
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:76
 #: tabby-core/src/tabContextMenu.ts:81
 msgid "Left"
-msgstr "Lijevo"
+msgstr "Ляво"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:27
 msgid "Lets the shell handle Meta key instead of OS"
-msgstr "Omogućuje ljusci baratanje meta-tipkom umjesto OS-a"
+msgstr "Позволява терминалният шел да обравотва мета клавиша вместо ОС"
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:27
 msgid "Line by line"
-msgstr "Redak po redak"
+msgstr "Ред по ред"
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:28
 msgid "Line editor, input is sent after you press Enter"
-msgstr "Uređivač redaka, unos se šalje nakon što pritisneš tipku Enter"
+msgstr "Редактор на редове, входните данни се изпращат, след като натиснете Enter"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:70
 msgid "Line padding"
-msgstr "Odmaci redaka"
+msgstr "Разстояние между редовете"
 
 #: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:12
 msgid "Loading"
-msgstr "Učitavanje"
+msgstr "Зареждане"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:38
 msgid "Loading configs..."
-msgstr "Učitavanje konfiguracija …"
+msgstr "Зареждане на конфигурации..."
 
 #: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:49
 #: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:5
 msgid "Local"
-msgstr "Lokalno"
+msgstr "Локално"
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:22
 msgid "Local echo"
-msgstr "Lokalni odgovor"
+msgstr "Локално ехо"
 
 #: tabby-local/src/profiles.ts:11
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:240
 msgid "Local terminal"
-msgstr "Lokalni terminal"
+msgstr "Локален терминал"
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:81
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:202
 #: locale/tmp-html/tabby-telnet/src/components/telnetProfileSettings.component.html:16
 msgid "Login scripts"
-msgstr "Skripta za prijavu"
+msgstr "Скрипт при вход"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:44
 msgid "Long-click for context menu"
-msgstr "Pritisni dugo za kontekstni izbornik"
+msgstr "Продължително натискане за контекстно меню"
 
 #: tabby-core/src/services/profiles.service.ts:151
 msgid "Manage profiles"
-msgstr "Upravljaj profilima"
+msgstr "Управление на профили"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:146
 msgid "Max Keep Alive Count"
-msgstr "Maksimalni broj intervala održavanja"
+msgstr "Максимамален брой проверки на свръзката"
 
 #: tabby-core/src/hotkeys.ts:157
 msgid "Maximize the active pane"
-msgstr "Maksimalno proširi aktivnu ploču"
+msgstr "Увеличи максимално активния панел"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:43
 msgid "Modified on {date}"
-msgstr "Promijenjeno {date}"
+msgstr "Модифицирано на {date}"
 
 #: tabby-core/src/hotkeys.ts:45
 msgid "Move tab to the left"
-msgstr "Premjesti karticu lijevo"
+msgstr "Премести таба на ляво"
 
 #: tabby-core/src/hotkeys.ts:49
 msgid "Move tab to the right"
-msgstr "Premjesti karticu desno"
+msgstr "Премести таба на дясно"
 
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:205
 msgid "Move to \"Ungrouped\""
-msgstr "Premjesti u „Negrupirani”"
+msgstr "Премести в \"Негрупирани\""
 
 #: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:12
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:14
 msgid "Name"
-msgstr "Ime"
+msgstr "Име"
 
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:60
 msgid "Name for the new config"
-msgstr "Ime nove konfiguracije"
+msgstr "Име за новата конфигурация"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:52
 msgid "Native"
-msgstr "Izvorni"
+msgstr "Системна"
 
 #: tabby-local/src/tabContextMenu.ts:103
 msgid "New admin tab"
-msgstr "Kartica za novog administratora"
+msgstr "Нов администраторски таб"
 
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:58
 msgid "New config on {platform}"
-msgstr "Nova konfiguracija na {platform}"
+msgstr "Нова конфигурация на {platform}"
 
 #: locale/tmp-html/tabby-terminal/src/components/loginScriptsSettings.component.html:15
 msgid "New item"
-msgstr "Novi element"
+msgstr "Нов елемент"
 
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:175
 #: tabby-settings/src/components/vaultSettingsTab.component.ts:118
 msgid "New name"
-msgstr "Novo ime"
+msgstr "Ново име"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:22
 msgid "New profile"
-msgstr "Novi profil"
+msgstr "Нов профил"
 
 #: tabby-local/src/tabContextMenu.ts:30
 msgid "New profile name"
-msgstr "Ime novog profila"
+msgstr "Ново име на профила"
 
 #: tabby-local/src/hotkeys.ts:10
 msgid "New tab"
-msgstr "Nova kartica"
+msgstr "Нов таб"
 
 #: tabby-core/src/hotkeys.ts:204
 msgid "New tab: {profile}"
-msgstr "Nova kartica: {profile}"
+msgstr "Нов таб: {profile}"
 
 #: tabby-local/src/buttonProvider.ts:20
 #: tabby-local/src/tabContextMenu.ts:77
 msgid "New terminal"
-msgstr "Novi terminal"
+msgstr "Нов терминал"
 
 #: tabby-electron/src/hotkeys.ts:10
 msgid "New window"
-msgstr "Novi prozor"
+msgstr "Нов прозорец"
 
 #: tabby-local/src/tabContextMenu.ts:87
 msgid "New with profile"
-msgstr "Novi s profilom"
+msgstr "Нов с профил"
 
 #: tabby-core/src/hotkeys.ts:37
 msgid "Next tab"
-msgstr "Sljedeća kartica"
+msgstr "Следващ таб"
 
 #: tabby-core/src/utils.ts:60
 msgid "No color"
-msgstr "Bez boje"
+msgstr "Без цвят"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:77
 msgid "No modifier"
-msgstr "Bez modifikatora"
+msgstr "Без модификатор"
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:41
 msgid "None"
-msgstr "Ništa"
+msgstr "Без"
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:17
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:39
 msgid "Normal"
-msgstr "Normalno"
+msgstr "Нормален"
 
 #: tabby-terminal/src/components/searchPanel.component.ts:47
 #: tabby-terminal/src/components/searchPanel.component.ts:57
 msgid "Not found"
-msgstr "Nije nađeno"
+msgstr "Не е намерен"
 
 #: tabby-core/src/tabContextMenu.ts:200
 msgid "Notify on activity"
-msgstr "Obavijesti prilikom aktivnosti"
+msgstr "Извести при активност"
 
 #: tabby-core/src/tabContextMenu.ts:178
 msgid "Notify when done"
-msgstr "Obavijesti kad ja gotovo"
+msgstr "Извести като приключиш"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:17
 msgid "Number of lines kept in the buffer"
-msgstr "Broj redaka zadržanih u predmemoriji"
+msgstr "Брой редове за съхранение в буфера"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:70
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:116
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:48
 msgid "Off"
-msgstr "Isključi"
+msgstr "Изключено"
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:79
 msgid "Official"
-msgstr "Službeno"
+msgstr "Официален"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:26
 msgid "On GitHub Discussions"
-msgstr "Na GitHub diskusijama"
+msgstr "На GitHub Discussions"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:41
 msgid "Opacity"
-msgstr "Neprozirnost"
+msgstr "Непрозрачност"
 
 #: tabby-linkifier/src/decorator.ts:46
 msgid "Open"
-msgstr "Otvori"
+msgstr "Отвори"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:82
 msgid "Open DevTools"
-msgstr "Otvori alate za razvoj"
+msgstr "Отвори DevTools"
 
 #: tabby-settings/src/hotkeys.ts:11
 msgid "Open Settings"
-msgstr "Otvori postavke"
+msgstr "Отвори настройки"
 
 #: tabby-settings/src/hotkeys.ts:25
 msgid "Open settings tab: {tab}"
-msgstr ""
+msgstr "Отвори таба настройки: {tab}"
 
 #: tabby-ssh/src/tabContextMenu.ts:25
 msgid "Open SFTP panel"
-msgstr "Otvori SFTP ploču"
+msgstr "Отвори SFTP панел"
 
 #: locale/tmp-html/tabby-terminal/src/components/loginScriptsSettings.component.html:9
 msgid "Optional"
-msgstr "Opcionalno"
+msgstr "По желание"
 
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:11
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:33
 msgid "Options"
-msgstr "Opcije"
+msgstr "Опции"
 
 #: tabby-core/src/utils.ts:63
 msgid "Orange"
-msgstr "Narančasta"
+msgstr "Оранжев"
 
 #: tabby-local/src/shells/macDefault.ts:25
 msgid "OS default"
-msgstr "Standard sustava"
+msgstr "По подразбиране за ОС"
 
 #: tabby-local/src/shells/winDefault.ts:43
 msgid "OS default ({name})"
-msgstr "Standard sustava ({name})"
+msgstr "По подразбиране за ОС ({name})"
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:45
 msgid "Output is shown as a hexdump"
-msgstr "Rezultat se prikazuje u heksadecimalnom obliku"
+msgstr "Извеждане в шеснайсетичен вид"
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:40
 msgid "Output is shown as it is received"
-msgstr "Rezultat se prikazuje po primanju"
+msgstr "Извеждане в непроменен вид"
 
 #: locale/tmp-html/tabby-terminal/src/components/streamProcessingSettings.component.html:23
 msgid "Output mode"
-msgstr "Modus rezultata"
+msgstr "Режим на извеждане"
 
 #: locale/tmp-html/tabby-terminal/src/components/streamProcessingSettings.component.html:34
 msgid "Output newlines"
-msgstr "Ispiši nove retke"
+msgstr "Извеждане на нови редове"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:42
 msgid "Override X11 display"
-msgstr "Prepiši X11 ekran"
+msgstr "Отмяна на X11 дисплей"
 
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:98
 msgid "Overwrite local and sync"
-msgstr "Prepiši lokalnu konfiguraciju i sinkroniziraj"
+msgstr "Презапиши локалната и синхронизирай"
 
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:78
 msgid "Overwrite remote and sync"
-msgstr "Prepiši udaljenu konfiguraciju i sinkroniziraj"
+msgstr "Презапиши отдалечената и синхронизирай"
 
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:76
 msgid "Overwrite the config on the remote side and start syncing?"
-msgstr "Prepisati konfiguraciju na udaljenoj strani i započeti sinkronizaciju?"
+msgstr "Презаписване на отдалечената конфигурация и стартиране на синхронизация?"
 
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:96
 msgid "Overwrite the local config and start syncing?"
-msgstr "Prepisati lokalnu konfiguraciju i započeti sinkronizaciju?"
+msgstr "Презаписване на лоцалната конфигурация и стартиране на синхронизация?"
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:38
 msgid "Parity"
-msgstr "Paritet"
+msgstr "Проверка на четност"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:67
 msgid "Partial config sync is not possible when the config is encrypted via Vault."
-msgstr "Djelomično sinkroniziranje konfiguracije nije moguće kad je konfiguracija šifrirana putem trezora."
+msgstr "Частична синхронизация на конфигурацията не е възможна когато конфигурацията е криптирана в хранилището."
 
 #: tabby-settings/src/components/vaultSettingsTab.component.ts:87
 msgid "Passphrase for a private key with hash {hash}..."
-msgstr "Tekstualna lozinka za privatni ključ s hashem {hash}..."
+msgstr "Парола за частен ключ с хеш {hash}..."
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:68
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:86
 msgid "Password"
-msgstr "Lozinka"
+msgstr "Парола"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:54
 #: tabby-terminal/src/api/baseTerminalTab.component.ts:447
 #: tabby-terminal/src/tabContextMenu.ts:34
 msgid "Paste"
-msgstr "Umetni"
+msgstr "Вмъкни"
 
 #: tabby-terminal/src/hotkeys.ts:14
 msgid "Paste from clipboard"
-msgstr "Umetni iz međuspremnika"
+msgstr "Вмъкни от клипборда"
 
 #: tabby-terminal/src/api/baseTerminalTab.component.ts:454
 msgid "Paste multiple lines?"
-msgstr "Umetnuti višestruke retke?"
+msgstr "Вмъкване на няколко реда?"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:60
 msgid "Paste on middle-click"
-msgstr "Umetni pritiskom srednjeg gumba miša"
+msgstr "Вмъкване със среден клавиш на мишка"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:43
 msgid "Path or address of the local X11 socket"
-msgstr "Staza ili adresa lokalne X11 utičnice"
+msgstr "Път или адрес на локалния X11 сокет"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalToolbar.component.html:4
 msgid "Pin"
-msgstr "Prikvači"
+msgstr "Закрепи"
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:3
 msgid "Plugins"
-msgstr "Dodaci"
+msgstr "Приставки"
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:4
 msgid "Plugins folder"
-msgstr "Mapa dodataka"
+msgstr "Папка за приставки"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:34
 #: locale/tmp-html/tabby-telnet/src/components/telnetProfileSettings.component.html:10
 msgid "Port"
-msgstr "Priključak"
+msgstr "Порт"
 
 #: tabby-serial/src/components/serialTab.component.ts:77
 msgid "Port opened"
-msgstr ""
+msgstr "Портът е отворен"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:105
 #: locale/tmp-html/tabby-ssh/src/components/sshTab.component.html:12
 msgid "Ports"
-msgstr "Priključci"
+msgstr "Портове"
 
 #: tabby-serial/src/components/serialTab.component.ts:92
 #: tabby-ssh/src/components/sshTab.component.ts:176
 #: tabby-telnet/src/components/telnetTab.component.ts:58
 msgid "Press any key to reconnect"
-msgstr ""
+msgstr "Натиснете произволен клавиш за повторно свързване"
 
 #: locale/tmp-html/tabby-settings/src/components/hotkeyInputModal.component.html:3
 msgid "Press the key now"
-msgstr "Pritisni tipku sada"
+msgstr "Натиснете клавиша сега"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:14
 msgid "Prevents accidental closing"
-msgstr "Sprečava slučajno zatvaranje"
+msgstr "Предпазва от инцидентно затваряне"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:96
 msgid "Prevents accidental execution of pasted commands"
-msgstr "Sprečava slučajno izvršavanje umetnutih naredbi"
+msgstr "Предотврати инцидентно изпълнение на вмъкнати команди"
 
 #: tabby-core/src/hotkeys.ts:41
 msgid "Previous tab"
-msgstr "Prethodna kartica"
+msgstr "Предходен таб"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:94
 msgid "Private keys"
-msgstr "Privatni ključevi"
+msgstr "Частни ключове"
 
 #: tabby-core/src/tabContextMenu.ts:186
 msgid "Process completed"
-msgstr "Postupak završen"
+msgstr "Процесът е завършен"
 
 #: tabby-core/src/tabContextMenu.ts:142
 msgid "Profile name"
-msgstr "Ime profila"
+msgstr "Име на профила"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:2
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:4
 #: tabby-local/src/services/dockMenu.service.ts:25
 msgid "Profiles"
-msgstr "Profili"
+msgstr "Профили"
 
 #: tabby-core/src/buttonProvider.ts:40
 #: tabby-settings/src/settings.ts:58
 msgid "Profiles & connections"
-msgstr "Profili i veze"
+msgstr "Профили и връзки"
 
 #: locale/tmp-html/tabby-local/src/components/commandLineEditor.component.html:13
 msgid "Program"
-msgstr "Program"
+msgstr "Програма"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:26
 msgid "Proxy command"
-msgstr "Proxy naredba"
+msgstr "Прокси команда"
 
 #: tabby-core/src/utils.ts:64
 msgid "Purple"
-msgstr "Ljubičasta"
+msgstr "Лилаво"
 
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:37
 msgid "Puts all of Tabby's configuration into the vault"
-msgstr "Stavlja svu konfiguraciju programa Tabby u trezor"
+msgstr "Поставя всички конфигурации на Tabby в хранилището"
 
 #: tabby-core/src/index.ts:210
 #: tabby-core/src/services/profiles.service.ts:165
 msgid "Quick connect"
-msgstr "Brzo povezivanje"
+msgstr "Бързо свързване"
 
 #: tabby-core/src/services/config.service.ts:370
 #: tabby-core/src/services/config.service.ts:384
 msgid "Quit"
-msgstr "Zatvori program"
+msgstr "Изход"
 
 #: tabby-telnet/src/profiles.ts:48
 msgid "Raw socket connection"
-msgstr "Veza raw utičnice"
+msgstr "Свързване чрез сокет"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:152
 msgid "Ready Timeout (Milliseconds)"
-msgstr "Istek vremena spremnosti (milisekunde)"
+msgstr "Време за прекъсване на връзката (мс)"
 
 #: tabby-core/src/services/profiles.service.ts:112
 #: tabby-core/src/services/profiles.service.ts:125
 msgid "Recent"
-msgstr "Nedavni"
+msgstr "Последни"
 
 #: locale/tmp-html/tabby-serial/src/components/serialTab.component.html:5
 #: locale/tmp-html/tabby-ssh/src/components/sshTab.component.html:10
 #: locale/tmp-html/tabby-telnet/src/components/telnetTab.component.html:3
 msgid "Reconnect"
-msgstr "Ponovo spoji"
+msgstr "Повторно свързване"
 
 #: tabby-core/src/utils.ts:65
 msgid "Red"
-msgstr "Crvena"
+msgstr "Червен"
 
 #: locale/tmp-html/tabby-terminal/src/components/loginScriptsSettings.component.html:9
 msgid "Regex"
-msgstr "Regularni izraz"
+msgstr "Регулярен израз"
 
 #: tabby-settings/src/components/releaseNotesTab.component.ts:27
 msgid "Release notes"
-msgstr "Napomene uz izdanje"
+msgstr "Бележки към тази версия"
 
 #: locale/tmp-html/tabby-core/src/components/unlockVaultModal.component.html:6
 msgid "Remember for {time}"
-msgstr "Zapamti {time}"
+msgstr "Запомни за {time}"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:5
 #: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:52
 msgid "Remote"
-msgstr "Udaljeni repozitorij"
+msgstr "Отдалечен"
 
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:25
 #: tabby-core/src/tabContextMenu.ts:116
 msgid "Rename"
-msgstr "Preimenuj"
+msgstr "Преименувай"
 
 #: tabby-core/src/hotkeys.ts:21
 msgid "Rename Tab"
-msgstr "Preimenuj karticu"
+msgstr "Преименувай таб"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:3
 msgid "Rendering"
-msgstr "Iscrtavanje"
+msgstr "Рендване"
 
 #: tabby-core/src/hotkeys.ts:29
 msgid "Reopen last tab"
-msgstr "Ponovo otvori zadnju karticu"
+msgstr "Отвори отново последния таб"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:46
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:26
 msgid "Replace"
-msgstr "Zamijeni"
+msgstr "Замени"
 
 #: locale/tmp-html/tabby-core/src/components/startPage.component.html:11
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:21
 msgid "Report a problem"
-msgstr "Prijavi problem"
+msgstr "Докладвайте за проблем"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:73
 msgid "Require a key to click links"
-msgstr "Zatraži tipku za pritiskanje poveznica"
+msgstr "Изисква клавиш за отваряне на линк"
 
 #: tabby-terminal/src/hotkeys.ts:54
 msgid "Reset zoom"
-msgstr "Resetiraj uvećanje"
+msgstr "Възстанови мащаб"
 
 #: tabby-serial/src/hotkeys.ts:14
 msgid "Restart current serial session"
-msgstr "Ponovo pokreni sesiju serijskog priključka"
+msgstr "Рестартирай текуща serial сесия"
 
 #: tabby-ssh/src/hotkeys.ts:10
 msgid "Restart current SSH session"
-msgstr "Ponovo pokreni SSH sesiju"
+msgstr "Рестартирай текуща SSH сесия"
 
 #: tabby-telnet/src/hotkeys.ts:10
 msgid "Restart current Telnet session"
-msgstr "Ponovo pokreni Telnet sesiju"
+msgstr "Рестартирай текуща Telnet сесия"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:127
 msgid "Restart the app to apply changes"
-msgstr "Za primjenu promjena ponovo pokreni program"
+msgstr "Рестартирайте приложението, за да приложите промените"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:141
 msgid "Restore terminal tabs on app start"
-msgstr "Obnovi kartice terminala tijekom pokretanja programa"
+msgstr "Възстанови терминалните табове при стартиране на програмата"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:133
 msgid "Reuse session for multiple tabs"
-msgstr "Ponovo koristi sesiju za više kartica"
+msgstr "Повторно използване на сесията за няколко таба"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:144
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:79
 #: tabby-core/src/tabContextMenu.ts:79
 msgid "Right"
-msgstr "Desno"
+msgstr "Дясно"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:43
 msgid "Right click"
-msgstr "Pritisni desnu tipku miša"
+msgstr "Десен бутон на мишката"
 
 #: locale/tmp-html/tabby-local/src/components/localProfileSettings.component.html:5
 msgid "Run as administrator"
-msgstr "Pokreni kao administrator"
+msgstr "Стартирай като администратор"
 
 #: locale/tmp-html/tabby-core/src/components/renameTabModal.component.html:6
 #: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:52
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:28
 msgid "Save"
-msgstr "Spremi"
+msgstr "Запиши"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:87
 msgid "Save a password in the keychain"
-msgstr "Spremi lozinku u privjesak ključeva"
+msgstr "Запази паролата в ключодържателя"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:116
 msgid "Save and apply"
-msgstr "Spremi i primijeni"
+msgstr "Запиши и приложи"
 
 #: tabby-local/src/tabContextMenu.ts:27
 msgid "Save as profile"
-msgstr "Spremi kao profil"
+msgstr "Запази като профил"
 
 #: tabby-core/src/tabContextMenu.ts:139
 msgid "Save layout as profile"
-msgstr "Spremi raspored kao profil"
+msgstr "Запази оформлението като профил"
 
 #: tabby-local/src/tabContextMenu.ts:48
 msgid "Saved"
-msgstr "Spremljeno"
+msgstr "Записано"
 
 #: tabby-core/src/profiles.ts:19
 msgid "Saved layout"
-msgstr "Spremljeni raspored"
+msgstr "Запазени оформления"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:33
 msgid "Scroll on input"
-msgstr "Pomakni nakon unosa"
+msgstr "Превъртай екрана при въвеждане"
 
 #: tabby-terminal/src/hotkeys.ts:74
 msgid "Scroll terminal to bottom"
-msgstr "Pomakni terminal na kraj"
+msgstr "Превърти терминал до край"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:16
 msgid "Scrollback"
-msgstr "Pomicanje unatrag"
+msgstr "Превърти назад"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:34
 msgid "Scrolls the terminal to the bottom on user input"
-msgstr "Pomiče terminal na kraj nakon unosa korisnika"
+msgstr "Превърта терминала до край при въвежнане от потребителя"
 
 #: tabby-terminal/src/hotkeys.ts:66
 msgid "Search"
-msgstr "Pretraga"
+msgstr "Търси"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:19
 msgid "Secret sync token"
-msgstr "Tajni token za sinkronizaciju"
+msgstr "Токен за синхронизация"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:41
 #: tabby-electron/src/services/platform.service.ts:208
 msgid "Select"
-msgstr "Odaberi"
+msgstr "Избери"
 
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:65
 msgid "Select a base profile to use as a template"
-msgstr "Odaberi osnovni profil koji ćete koristiti kao predložak"
+msgstr "Изберете базов профил, който да се използва за шаблон"
 
 #: tabby-core/src/services/fileProviders.service.ts:46
 msgid "Select file storage"
-msgstr "Odaberi spremište datoteka"
+msgstr "Изберете къде ще съхранявате файлове"
 
 #: tabby-core/src/index.ts:222
 msgid "Select profile"
-msgstr "Odaberi profil"
+msgstr "Изберете профил"
 
 #: tabby-core/src/services/profiles.service.ts:174
 msgid "Select profile or enter an address"
-msgstr "Odaberi profil ili upiši e-mail adresu"
+msgstr "Изберете профил или въведете адрес"
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:33
 msgid "Send bytes by typing in hex values"
-msgstr "Šalji bajtove upisivanjem heksadecimalnih vrijednosti"
+msgstr ""
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:75
 msgid "Sends data one byte at a time"
-msgstr "Šalje podatke bajt po bajt"
+msgstr ""
 
 #: tabby-serial/src/profiles.ts:13
 #: tabby-serial/src/profiles.ts:71
 msgid "Serial"
-msgstr "Serijski priključak"
+msgstr ""
 
 #: tabby-serial/src/profiles.ts:50
 #: tabby-serial/src/profiles.ts:61
 msgid "Serial connection"
-msgstr "Serijska veza"
+msgstr ""
 
 #: tabby-serial/src/profiles.ts:70
 msgid "Serial: {description}"
-msgstr "Serijski priključak: {description}"
+msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/setVaultPassphraseModal.component.html:2
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:5
 msgid "Set master passphrase"
-msgstr "Postavi tekstualnu master lozinku"
+msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/setVaultPassphraseModal.component.html:13
 msgid "Set passphrase"
-msgstr "Postavi tekstualnu lozinku"
+msgstr ""
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:90
 msgid "Set password"
-msgstr "Postavi lozinku"
+msgstr ""
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:150
 msgid "Set Tabby as %COMSPEC%"
-msgstr "Postavi Tabby kao %COMSPEC%"
+msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:57
 msgid "Set to 0 to disable recent profiles"
-msgstr "Postavi na 0 za dekativiranje nedavnih profila"
+msgstr ""
 
 #: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:36
 msgid "Sets the SSH agent's named pipe path."
-msgstr "Postavlja imenovanu stazu procesa SSH agenta."
+msgstr ""
 
 #: tabby-settings/src/buttonProvider.ts:28
 #: tabby-settings/src/components/settingsTab.component.ts:57
 msgid "Settings"
-msgstr "Postavke"
+msgstr ""
 
 #: locale/tmp-html/tabby-local/src/components/shellSettingsTab.component.html:2
 msgid "Shell"
-msgstr "Ljuska"
+msgstr ""
 
 #: tabby-terminal/src/api/baseTerminalTab.component.ts:541
 msgid "Shell does not support current path detection"
-msgstr "Ljuska ne podržava trenutačno otkrivanje staze"
+msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:59
 msgid "Shell integration"
-msgstr "Integracija ljuske"
+msgstr ""
 
 #: tabby-core/src/hotkeys.ts:208
 msgid "Show {type} profile selector"
-msgstr "Prikaži {type} selektor profila"
+msgstr ""
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:103
 msgid "Show a confirmation box when pasting multiple lines"
-msgstr "Prikaži okvir za potvrdu prilikom umetanja više redaka"
+msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:63
 msgid "Show built-in profiles in selector"
-msgstr "Prikaži ugrađene profile u selektoru"
+msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:119
 msgid "Show config file"
-msgstr "Prikaži datoteku konfiguracije"
+msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:118
 msgid "Show defaults"
-msgstr "Prikaži standardne vrijednosti"
+msgstr ""
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:128
 msgid "Show Mixer"
-msgstr "Prikaži mikser"
+msgstr ""
 
 #: tabby-core/src/hotkeys.ts:53
 msgid "Show pane labels (for rearranging)"
-msgstr "Prikaži oznake prozora (za preuređivanje)"
+msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:169
 msgid "Show profile icon on tab"
@@ -1636,146 +1636,146 @@ msgstr ""
 
 #: tabby-core/src/hotkeys.ts:13
 msgid "Show profile selector"
-msgstr "Prikaži selektora profila"
+msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:56
 msgid "Show recent profiles in selector"
-msgstr "Prikaži nedavne profile u selektoru"
+msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:36
 msgid "Show release notes"
-msgstr "Prikaži napomene uz izdanje"
+msgstr ""
 
 #: tabby-serial/src/hotkeys.ts:10
 msgid "Show Serial connections"
-msgstr "Prikaži veze serijskih priključaka"
+msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:44
 msgid "Show vault contents"
-msgstr "Prikaži sadržaj trezora"
+msgstr ""
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:126
 msgid "Skip MoTD/banner"
-msgstr "Preskoči MoTD/banner"
+msgstr ""
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:74
 msgid "Slow feed"
-msgstr "Slow feed"
+msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:66
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:89
 msgid "Snaps the window to a side of the screen"
-msgstr "Privlači prozor na jednu stranu ekrana"
+msgstr ""
 
 #: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:26
 #: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:9
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:20
 msgid "SOCKS proxy"
-msgstr "SOCKS proxy"
+msgstr ""
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:47
 msgid "SOCKS proxy host"
-msgstr "SOCKS proxy host računalo"
+msgstr ""
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:51
 msgid "SOCKS proxy port"
-msgstr "SOCKS proxy priključak"
+msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:31
 msgid "Source code"
-msgstr "Izvorni kod"
+msgstr "Програмен код"
 
 #: tabby-core/src/tabContextMenu.ts:76
 msgid "Split"
-msgstr "Podijeli"
+msgstr "Раздели"
 
 #: tabby-core/src/hotkeys.ts:145
 msgid "Split to the bottom"
-msgstr "Podijeli prema dolje"
+msgstr ""
 
 #: tabby-core/src/hotkeys.ts:149
 msgid "Split to the left"
-msgstr "Podijeli na lijevo"
+msgstr ""
 
 #: tabby-core/src/hotkeys.ts:141
 msgid "Split to the right"
-msgstr "Podijeli na desno"
+msgstr ""
 
 #: tabby-core/src/hotkeys.ts:153
 msgid "Split to the top"
-msgstr "Podijeli prema gore"
+msgstr ""
 
 #: tabby-ssh/src/profiles.ts:78
 msgid "SSH connection"
-msgstr "SSH veza"
+msgstr ""
 
 #: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:47
 msgid "SSH connection management is now done through the \"Profiles & connections\" tab"
-msgstr "Upravljanje SSH vezom sada se vrši putem kartice „Profili i veze”"
+msgstr ""
 
 #: tabby-settings/src/components/vaultSettingsTab.component.ts:84
 msgid "SSH password for {user}@{host}:{port}"
-msgstr "SSH lozinka za {user}@{host}:{port}"
+msgstr ""
 
 #: tabby-core/src/theme.ts:8
 msgid "Standard"
-msgstr "Standardno"
+msgstr ""
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:132
 msgid "Startup"
-msgstr "Pokretanje"
+msgstr ""
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:32
 msgid "Stop bits"
-msgstr "Bitovi prekida"
+msgstr ""
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:50
 msgid "Strip"
-msgstr "Ukloni"
+msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:41
 msgid "Subscribe to updates"
-msgstr "Pretplati se ma bove verzije"
+msgstr ""
 
 #: locale/tmp-html/tabby-local/src/components/environmentEditor.component.html:17
 msgid "Substitutions allowed."
-msgstr "Zamjene su dozvoljene."
+msgstr ""
 
 #: tabby-core/src/tabContextMenu.ts:279
 msgid "Switch profile"
-msgstr "Zamijeni profil"
+msgstr ""
 
 #: tabby-core/src/hotkeys.ts:185
 msgid "Switch profile in the active pane"
-msgstr "Zamijeni profil u trenutačnoj ploči"
+msgstr ""
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:7
 msgid "Switches terminal frontend implementation (experimental)"
-msgstr "Zamjenjuje implementaciju sučelja terminala (eksperimentalno)"
+msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:4
 msgid "Sync"
-msgstr "Sinkronizraj"
+msgstr "Синхронизация"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:56
 msgid "Sync automatically"
-msgstr "Sinkronizraj automatski"
+msgstr "Автоматична синхронизация"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:8
 msgid "Sync host"
-msgstr "Sinkronizraj host računalo"
+msgstr "Хост за синхронизация"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:71
 msgid "Sync hotkeys"
-msgstr "Sinkronizraj tipkovne prečace"
+msgstr "Синхронизирай бързи клавиши"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:83
 msgid "Sync Vault"
-msgstr "Sinkronizraj trezor"
+msgstr "Синхронизирай хранилището"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:77
 msgid "Sync window settings"
-msgstr "Sinkronizraj postavke prozora"
+msgstr "Синхтонизирай настройки за прозорец"
 
 #: tabby-core/src/hotkeys.ts:101
 #: tabby-core/src/hotkeys.ts:105
@@ -1798,318 +1798,318 @@ msgstr "Sinkronizraj postavke prozora"
 #: tabby-core/src/hotkeys.ts:93
 #: tabby-core/src/hotkeys.ts:97
 msgid "Tab {number}"
-msgstr "Kartica {number}"
+msgstr "Таб {number}"
 
 #: tabby-core/src/tabContextMenu.ts:212
 msgid "Tab activity"
-msgstr "Aktivnost kartice"
+msgstr "Активност на таба"
 
 #: locale/tmp-html/tabby-core/src/components/safeModeModal.component.html:3
 msgid "Tabby could not start with your plugins, so all third party plugins have been disabled in this session. The error was:"
-msgstr "Tabby se nije mogao pokrenuti s tvojim dodacima, stoga su svi strani dodaci deaktivirani u ovoj sesiji. Greška je bila:"
+msgstr "Tabby не може да стартира с вашите приставки, така че всички приставки на трети страни са деактивирани в тази сесия. Грешката беше:"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:41
 msgid "Tabby news and updates on Twitter"
-msgstr "Tabby novosti i nove verzje na Twitteru"
+msgstr "Новини и актуализации за Tabby в Twitter"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:128
 msgid "Tabs"
-msgstr "Kartice"
+msgstr "Табове"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:131
 msgid "Tabs location"
-msgstr "Mjesto kartica"
+msgstr "Местоположение на табовете"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:150
 msgid "Tabs width"
-msgstr "Širina kartica"
+msgstr "Ширина на табовете"
 
 #: tabby-telnet/src/profiles.ts:32
 msgid "Telnet session"
-msgstr "Telnet sesija"
+msgstr "Telnet сесия"
 
 #: tabby-terminal/src/api/baseTerminalTab.component.ts:187
 #: tabby-terminal/src/settings.ts:43
 msgid "Terminal"
-msgstr "Terminal"
+msgstr "Терминал"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:28
 msgid "Terminal background"
-msgstr "Pozadina terminala"
+msgstr "Фон на терминала"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:112
 msgid "Terminal bell"
-msgstr "Zvono terminala"
+msgstr "Звънец на терминала"
 
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:7
 msgid "Thank you for downloading Tabby!"
-msgstr "Zahvaljujemo na preuzimanju programa Tabby!"
+msgstr "Благодарим Ви, че изтеглихте Tabby!"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:5
 msgid "Theme"
-msgstr "Tema"
+msgstr "Тема"
 
 #: tabby-core/src/components/transfersMenu.component.ts:47
 msgid "There are active file transfers"
-msgstr "Postoje aktivni prijenosi datoteka"
+msgstr "Има активни файлови трансфери"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:88
 msgid "There is a saved password for this connection"
-msgstr "Postoji spremljena lozinka za ovu vezu"
+msgstr "Има запаметена парола за тази сесия"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:71
 msgid "These apply to all profiles of a given type"
-msgstr "Primjenjuju se na se profile zadane vrste"
+msgstr "Прилага се за всички профили от дадения тип"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:55
 msgid "Thin"
-msgstr "Tanko"
+msgstr "Тънка"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:183
 msgid "Tick this if you're experiencing aliasing, ghosting or other visual issues"
-msgstr "Označi ovo ako se pojave vizualni problemi"
+msgstr "Поставете отметката, ако имате визуални проблеми с алиасинг, гостинг или други"
 
 #: tabby-core/src/hotkeys.ts:17
 msgid "Toggle fullscreen mode"
-msgstr "Uključi/isključi cjeloekranski prikaz"
+msgstr "Режим цял екран"
 
 #: tabby-core/src/hotkeys.ts:33
 msgid "Toggle last tab"
-msgstr "Uključi/isključi zadnju karticu"
+msgstr "Последен таб"
 
 #: tabby-electron/src/hotkeys.ts:14
 msgid "Toggle terminal window"
-msgstr "Uključi/isključi prozor terminala"
+msgstr "Показва/Скрива терминален прозорец"
 
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:27
 msgid "Toggles the Tabby window visibility"
-msgstr "Uključuje/isključuje vidljivosti Tabby prozora"
+msgstr "Превключва визуализацията на Tabby прозореца"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:135
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:73
 msgid "Top"
-msgstr "Gore"
+msgstr "Горе"
 
 #: tabby-core/src/services/config.service.ts:368
 msgid "Try again"
-msgstr "Pokušaj ponovo"
+msgstr ""
 
 #: tabby-ssh/src/session/ssh.ts:462
 msgid "Trying saved password"
-msgstr "Pokušaj spremljene lozinke"
+msgstr ""
 
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:17
 msgid "Ungrouped"
-msgstr "Negrupirani"
+msgstr ""
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:57
 msgid "Uninstall"
-msgstr "Deinstaliraj"
+msgstr "Деинсталирай"
 
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:243
 msgid "Unknown"
-msgstr "Nepoznato"
+msgstr ""
 
 #: tabby-settings/src/components/vaultSettingsTab.component.ts:93
 msgid "Unknown secret of type {type} for {key}"
-msgstr "Nepoznata tajna vrste {type} za {key}"
+msgstr ""
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalToolbar.component.html:4
 msgid "Unpin"
-msgstr "Otkvači"
+msgstr ""
 
 #: tabby-core/src/tabContextMenu.ts:82
 msgid "Up"
-msgstr "Gore"
+msgstr "Горе"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:14
 #: tabby-electron/src/services/updater.service.ts:138
 msgid "Update"
-msgstr "Aktualiziraj"
+msgstr "Актуализирай"
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:50
 msgid "Upgrade to {version}"
-msgstr "Nadogradi na {version}"
+msgstr "Обнови до {version}"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:46
 #: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:5
 msgid "Upload"
-msgstr "Prenesi"
+msgstr "Качи"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:49
 msgid "Upload as a new config"
-msgstr "Prenesi kao novu konfiguraciju"
+msgstr "Качи като нова конфигурация"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:26
 msgid "Use {altKeyName} as the Meta key"
-msgstr "Koristi {altKeyName} kao meta-tipku"
+msgstr "Използвай {altKeyName} като Meta клавиш"
 
 #: locale/tmp-html/tabby-local/src/components/shellSettingsTab.component.html:5
 msgid "Use ConPTY"
-msgstr "Koristi ConPTY"
+msgstr "Използвай ConPTY"
 
 #: tabby-local/src/shells/linuxDefault.ts:31
 #: tabby-local/src/shells/linuxDefault.ts:38
 msgid "User default"
-msgstr "Korisnički standard"
+msgstr "Потребителска настройка"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:56
 msgid "Username"
-msgstr "Korisničko ime"
+msgstr "Потребителско име"
 
 #: tabby-ssh/src/session/ssh.ts:451
 msgid "Using preset password"
-msgstr "Korištenje predodređene lozinke"
+msgstr "Използване на предварително зададена парола"
 
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:9
 msgid "Vault"
-msgstr "Trezor"
+msgstr "Хранилище"
 
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:4
 msgid "Vault is an always-encrypted container for secrets such as SSH passwords and private key passphrases."
-msgstr "Trezor je uvijek šifrirani spremnik za tajne kao što su SSH lozinke i tekstualne lozinke privatnog ključa."
+msgstr "Хранилището е винаги криптиран контейнер за тайни, като SSH пароли и пароли на частни ключове."
 
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:17
 msgid "Vault is empty"
-msgstr "Trezor je prazan"
+msgstr "Хранилището е празно"
 
 #: locale/tmp-html/tabby-core/src/components/unlockVaultModal.component.html:4
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:43
 msgid "Vault is locked"
-msgstr "Trezor je zaključan"
+msgstr "Хранилището е заключено"
 
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:3
 msgid "Vault is not configured"
-msgstr "Trezor nije konfiguriran"
+msgstr "Хранилището не е конфигурирано"
 
 #: tabby-core/src/services/fileProviders.service.ts:39
 msgid "Vault master passphrase needs to be set to allow storing secrets"
-msgstr "Za spremanje tajni, tekstualna master lozinka trezora mora biti postavljena"
+msgstr "Необходимо е да зададете главната парола на хранилището, за да съхранявате тайни"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:11
 msgid "Verify host keys when connecting"
-msgstr "Provjeri ključeve host računala prilikom povezivanja"
+msgstr "Проверявай ключа на хоста при свръзка"
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:73
 msgid "Version"
-msgstr "Verzija"
+msgstr "Версия"
 
 #: locale/tmp-html/tabby-core/src/components/startPage.component.html:13
 msgid "Version: {version}"
-msgstr "Verzija: {version}"
+msgstr "Версия: {version}"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:21
 msgid "Vibrancy"
-msgstr "Svjetlost"
+msgstr "Живи цветове"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:119
 msgid "Visual"
-msgstr "Prikaz"
+msgstr "Визуално"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:102
 msgid "Warn on multi-line paste"
-msgstr "Upozori prilikom umetanja više redaka"
+msgstr "Предупреждавай при вмъкване на няколко реда"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:5
 msgid "Warn when closing active connections"
-msgstr "Upozori pri zatvaranju aktivnih veza"
+msgstr "Предупреждавай при затваряне на активна връзка"
 
 #: locale/tmp-html/tabby-ssh/src/components/hostKeyPromptModal.component.html:6
 msgid "Warning: remote host's key has suddenly changed!"
-msgstr "Upozorenje: ključ udaljenog host računala iznenada se promijenio!"
+msgstr "Предупреждение: ключът на отдалечения хост внезапно се промени!"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:67
 msgid "We're only tracking your Tabby and OS versions."
-msgstr "Pratimo samo tvoje verzije Tabbyja i OS-a."
+msgstr "Ние проследяваме само версиите на Tabby и на ОС."
 
 #: tabby-core/src/components/welcomeTab.component.ts:24
 msgid "Welcome"
-msgstr "Dobrodošlica"
+msgstr "Добре дошли"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:36
 msgid "What's new"
-msgstr "Novosti"
+msgstr "Какво ново"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:74
 msgid "When enabled, links are only clickable while holding this key"
-msgstr "Kad je aktivirano, veze se mogu pritisnuti samo dok držiš ovu tipku"
+msgstr ""
 
 #: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:18
 msgid "When WinSCP is detected, you can launch an SCP session from the context menu."
-msgstr "Kad se otkrije WinSCP, SCP sesiju možeš prekinuti iz kontekstualnog izbornika."
+msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:48
 msgid "Whether a custom window or an OS native window should be used"
-msgstr "Da li koristiti prilagođeni prozor ili izvorni prozor OS-a"
+msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:2
 #: tabby-settings/src/settings.ts:30
 msgid "Window"
-msgstr "Prozor"
+msgstr "Прозорец"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:117
 msgid "Window dimension along the edge"
-msgstr "Dimenzija prozora uz rub"
+msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:110
 msgid "Window dimension away from the edge"
-msgstr "Dimenzija prozora od ruba"
+msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:47
 msgid "Window frame"
-msgstr "Okvir prozora"
+msgstr ""
 
 #: locale/tmp-html/tabby-local/src/components/shellSettingsTab.component.html:11
 msgid "Windows 10 build 18309 or above is recommended for ConPTY"
-msgstr "Za ConPTY se preporučuje Windows 10 gradnja 18309 ili novija"
+msgstr "Windows 10 версия 18309 или по-нова е препоръчителна за ConPTY"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:17
 msgid "WinSCP path"
-msgstr "WinSCP staza"
+msgstr "Път към WinSCP"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:66
 msgid "Word separators"
-msgstr "Znakovi razdvajanja riječi"
+msgstr ""
 
 #: locale/tmp-html/tabby-local/src/components/localProfileSettings.component.html:10
 msgid "Working directory"
-msgstr "Radna mapa"
+msgstr ""
 
 #: locale/tmp-html/tabby-ssh/src/components/sshTab.component.html:6
 msgid "Working directory detection"
-msgstr "Otkrivanje radne mape"
+msgstr ""
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:127
 msgid "WSL terminal bell can only be muted via Volume Mixer"
-msgstr "Zvono WSL terminala može se isključiti samo putem miksera glasnoće"
+msgstr "WSL теминалния звънец може да бъде заглушен само от Volume Mixer"
 
 #: locale/tmp-html/tabby-local/src/components/shellSettingsTab.component.html:14
 msgid "WSL terminal only supports TrueColor with ConPTY"
-msgstr "WSL terminal podržava samo TrueColor s ConPTY"
+msgstr ""
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:114
 msgid "X11 forwarding"
-msgstr "Proslijeđivanje X11"
+msgstr ""
 
 #: tabby-core/src/utils.ts:66
 msgid "Yellow"
-msgstr "Žuta"
+msgstr "Жълто"
 
 #: locale/tmp-html/tabby-settings/src/components/setVaultPassphraseModal.component.html:4
 msgid "You can change it later, but it's unrecoverable if forgotten."
-msgstr "Može se kasnije promijeniti, ali ne ne može obnoviti ako se zaboravi."
+msgstr ""
 
 #: locale/tmp-html/tabby-ssh/src/components/hostKeyPromptModal.component.html:7
 msgid "You could be under a man-in-the-middle attack right now, or the host key could have just been changed."
-msgstr "Možda se veza trenutačno nalazi pod napadom (man-in-the-middle attack) ili je ključ host računala jednostavno promijenjen."
+msgstr ""
 
 #: tabby-terminal/src/hotkeys.ts:46
 msgid "Zoom in"
-msgstr "Uvećaj prikaz"
+msgstr ""
 
 #: tabby-terminal/src/hotkeys.ts:50
 msgid "Zoom out"
-msgstr "Umanji prikaz"
+msgstr ""
 
 #: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:5
 #: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:55

@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2022-02-10 21:49\n"
+"PO-Revision-Date: 2022-02-15 22:11\n"
 
 #: tabby-local/src/components/terminalTab.component.ts:113
 msgid "\"{command}\" is still running. Close?"
@@ -170,7 +170,7 @@ msgstr "Тип фона"
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:14
 #: tabby-serial/src/components/serialTab.component.ts:118
-#: tabby-serial/src/profiles.ts:90
+#: tabby-serial/src/profiles.ts:85
 msgid "Baud rate"
 msgstr "Скорость передачи"
 
@@ -236,7 +236,7 @@ msgstr "Проверить обновления"
 msgid "Ciphers"
 msgstr "Шифры"
 
-#: tabby-core/src/services/profiles.service.ts:121
+#: tabby-core/src/services/profiles.service.ts:124
 msgid "Clear recent profiles"
 msgstr "Очистить недавние профили"
 
@@ -325,7 +325,7 @@ msgid "Connect through a proxy server"
 msgstr "Подключиться через прокси-сервер"
 
 #: tabby-core/src/index.ts:211
-#: tabby-core/src/services/profiles.service.ts:163
+#: tabby-core/src/services/profiles.service.ts:166
 msgid "Connect to \"%s\"..."
 msgstr "Подключиться к \"%s\"..."
 
@@ -497,7 +497,7 @@ msgstr "Отключить"
 msgid "Disable dynamic tab title"
 msgstr "Отключить динамический заголовок вкладки"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:176
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:182
 msgid "Disable GPU acceleration"
 msgstr "Отключить GPU-ускорение"
 
@@ -774,6 +774,10 @@ msgstr "Зелёный"
 msgid "Group"
 msgstr "Группа"
 
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:179
+msgid "Hacks"
+msgstr ""
+
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:20
 msgid "Help track the number of Tabby installs across the world!"
 msgstr "Помогите отслеживать количество установок Tabby по всему миру!"
@@ -783,7 +787,7 @@ msgstr "Помогите отслеживать количество устан�
 msgid "Hexadecimal"
 msgstr "Шестнадцатеричный"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:169
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:175
 msgid "Hide tab close button"
 msgstr "Скрыть кнопку закрытия вкладки"
 
@@ -990,7 +994,7 @@ msgstr "Скрипты входа"
 msgid "Long-click for context menu"
 msgstr "Долгое нажатие для контекстного меню"
 
-#: tabby-core/src/services/profiles.service.ts:148
+#: tabby-core/src/services/profiles.service.ts:151
 msgid "Manage profiles"
 msgstr "Управление профилями"
 
@@ -1337,7 +1341,7 @@ msgid "Puts all of Tabby's configuration into the vault"
 msgstr "Помещает всю конфигурацию Tabby в зашифрованное хранилище"
 
 #: tabby-core/src/index.ts:210
-#: tabby-core/src/services/profiles.service.ts:162
+#: tabby-core/src/services/profiles.service.ts:165
 msgid "Quick connect"
 msgstr "Быстрое подключение"
 
@@ -1354,8 +1358,8 @@ msgstr "Подключение через сокет"
 msgid "Ready Timeout (Milliseconds)"
 msgstr "Таймаут подключения (мс)"
 
-#: tabby-core/src/services/profiles.service.ts:109
-#: tabby-core/src/services/profiles.service.ts:122
+#: tabby-core/src/services/profiles.service.ts:112
+#: tabby-core/src/services/profiles.service.ts:125
 msgid "Recent"
 msgstr "Недавние"
 
@@ -1530,7 +1534,7 @@ msgstr "Выберите хранилище файлов"
 msgid "Select profile"
 msgstr "Выбрать профиль"
 
-#: tabby-core/src/services/profiles.service.ts:171
+#: tabby-core/src/services/profiles.service.ts:174
 msgid "Select profile or enter an address"
 msgstr "Выберите профиль или введите адрес"
 
@@ -1542,17 +1546,17 @@ msgstr "Отправлять байты, вводя шестнадцатерич
 msgid "Sends data one byte at a time"
 msgstr "Отправляет данные по одному байту за раз"
 
-#: tabby-serial/src/profiles.ts:15
-#: tabby-serial/src/profiles.ts:76
+#: tabby-serial/src/profiles.ts:13
+#: tabby-serial/src/profiles.ts:71
 msgid "Serial"
 msgstr "Последовательный порт"
 
-#: tabby-serial/src/profiles.ts:55
-#: tabby-serial/src/profiles.ts:66
+#: tabby-serial/src/profiles.ts:50
+#: tabby-serial/src/profiles.ts:61
 msgid "Serial connection"
 msgstr "Соединение по последовательному порту"
 
-#: tabby-serial/src/profiles.ts:75
+#: tabby-serial/src/profiles.ts:70
 msgid "Serial: {description}"
 msgstr "Последовательный порт: {description}"
 
@@ -1625,6 +1629,10 @@ msgstr "Показать микшер"
 #: tabby-core/src/hotkeys.ts:53
 msgid "Show pane labels (for rearranging)"
 msgstr "Показать названия панелей (для перестановки)"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:169
+msgid "Show profile icon on tab"
+msgstr ""
 
 #: tabby-core/src/hotkeys.ts:13
 msgid "Show profile selector"
@@ -1857,7 +1865,7 @@ msgstr "Применяются для всех профилей данного �
 msgid "Thin"
 msgstr "Тонкая"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:177
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:183
 msgid "Tick this if you're experiencing aliasing, ghosting or other visual issues"
 msgstr "Включите, если испытываете алиасинг, гостинг или иные проблемы с отображением"
 
@@ -1886,7 +1894,7 @@ msgstr "Сверху"
 msgid "Try again"
 msgstr "Повторить"
 
-#: tabby-ssh/src/session/ssh.ts:464
+#: tabby-ssh/src/session/ssh.ts:462
 msgid "Trying saved password"
 msgstr "Пробуем сохранённый пароль"
 
@@ -1949,7 +1957,7 @@ msgstr "По умолчанию для пользователя"
 msgid "Username"
 msgstr "Имя пользователя"
 
-#: tabby-ssh/src/session/ssh.ts:453
+#: tabby-ssh/src/session/ssh.ts:451
 msgid "Using preset password"
 msgstr "Используем предустановленный пароль"
 
