@@ -288,6 +288,15 @@ h3.mt-4(translate) Tabs
 
 .form-line
     .header
+        .title(translate) Show profile icon on tab
+
+    toggle(
+        [(ngModel)]='config.store.terminal.showTabProfileIcon',
+        (ngModelChange)='config.save();',
+    )
+
+.form-line
+    .header
         .title(translate) Hide tab close button
 
     toggle(

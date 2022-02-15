@@ -54,6 +54,9 @@ export class ProfilesService {
             if (fullProfile.color) {
                 params.inputs['color'] = fullProfile.color
             }
+            if (fullProfile.icon) {
+                params.inputs['icon'] = fullProfile.icon
+            }
         }
         return params
     }

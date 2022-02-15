@@ -51,6 +51,13 @@ export abstract class BaseTabComponent extends BaseComponent {
     set color (value: string|null) { this._color = value }
     private _color: string|null = null
 
+    /**
+     * icon override for the tab's header
+     */
+    get icon (): string|null { return this._icon }
+    set icon (value: string|null) { this._icon = value }
+    private _icon: string|null = null
+
     hasFocus = false
 
     /**

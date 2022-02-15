@@ -35,6 +35,9 @@ export class TabRecoveryService {
         if (token) {
             token.tabTitle = tab.title
             token.tabCustomTitle = tab.customTitle
+            if (tab.icon) {
+                token.tabIcon = tab.icon
+            }
             if (tab.color) {
                 token.tabColor = tab.color
             }
@@ -51,6 +54,7 @@ export class TabRecoveryService {
                 }
                 const tab = await provider.recover(token)
                 tab.inputs = tab.inputs ?? {}
+                tab.inputs.icon = token.tabIcon ?? null
                 tab.inputs.color = token.tabColor ?? null
                 tab.inputs.title = token.tabTitle || ''
                 tab.inputs.customTitle = token.tabCustomTitle || ''
