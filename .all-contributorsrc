@@ -608,6 +608,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "mgrulich",
+      "name": "Martin",
+      "avatar_url": "https://avatars.githubusercontent.com/u/781036?v=4",
+      "profile": "https://github.com/mgrulich",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
