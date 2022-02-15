@@ -5,7 +5,11 @@
 .index(*ngIf='!config.store.terminal.hideTabIndex && hostApp.platform === Platform.macOS', cdkDragHandle) {{index + 1}}
 .index(*ngIf='!config.store.terminal.hideTabIndex && hostApp.platform !== Platform.macOS') {{index + 1}}
 
-.icon(class='fa-fw {{tab.icon}}', style='{{ (tab.color)?"color:"+tab.color:"" }}', *ngIf='config.store.terminal.showTabProfileIcon')
+.icon(
+    *ngIf='config.store.terminal.showTabProfileIcon && tab.icon',
+    [ngClass]='tab.icon',
+    [style.color]='tab.color'
+)
 
 .name(
     [title]='tab.customTitle || tab.title',
