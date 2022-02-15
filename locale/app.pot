@@ -226,7 +226,7 @@ msgstr ""
 msgid "Ciphers"
 msgstr ""
 
-#: tabby-core/src/services/profiles.service.ts:121
+#: tabby-core/src/services/profiles.service.ts:124
 msgid "Clear recent profiles"
 msgstr ""
 
@@ -315,7 +315,7 @@ msgid "Connect through a proxy server"
 msgstr ""
 
 #: tabby-core/src/index.ts:211
-#: tabby-core/src/services/profiles.service.ts:163
+#: tabby-core/src/services/profiles.service.ts:166
 msgid "Connect to \"%s\"..."
 msgstr ""
 
@@ -487,7 +487,7 @@ msgstr ""
 msgid "Disable dynamic tab title"
 msgstr ""
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:176
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:182
 msgid "Disable GPU acceleration"
 msgstr ""
 
@@ -764,6 +764,10 @@ msgstr ""
 msgid "Group"
 msgstr ""
 
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:179
+msgid "Hacks"
+msgstr ""
+
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:20
 msgid "Help track the number of Tabby installs across the world!"
 msgstr ""
@@ -773,7 +777,7 @@ msgstr ""
 msgid "Hexadecimal"
 msgstr ""
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:169
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:175
 msgid "Hide tab close button"
 msgstr ""
 
@@ -897,10 +901,6 @@ msgstr ""
 msgid "Key exchange"
 msgstr ""
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:23
-msgid "Keyboard"
-msgstr ""
-
 #: locale/tmp-html/tabby-ssh/src/components/keyboardInteractiveAuthPanel.component.html:2
 msgid "Keyboard-interactive auth"
 msgstr ""
@@ -984,7 +984,7 @@ msgstr ""
 msgid "Long-click for context menu"
 msgstr ""
 
-#: tabby-core/src/services/profiles.service.ts:148
+#: tabby-core/src/services/profiles.service.ts:151
 msgid "Manage profiles"
 msgstr ""
 
@@ -998,10 +998,6 @@ msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:43
 msgid "Modified on {date}"
-msgstr ""
-
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:40
-msgid "Mouse"
 msgstr ""
 
 #: tabby-core/src/hotkeys.ts:45
@@ -1335,7 +1331,7 @@ msgid "Puts all of Tabby's configuration into the vault"
 msgstr ""
 
 #: tabby-core/src/index.ts:210
-#: tabby-core/src/services/profiles.service.ts:162
+#: tabby-core/src/services/profiles.service.ts:165
 msgid "Quick connect"
 msgstr ""
 
@@ -1352,8 +1348,8 @@ msgstr ""
 msgid "Ready Timeout (Milliseconds)"
 msgstr ""
 
-#: tabby-core/src/services/profiles.service.ts:109
-#: tabby-core/src/services/profiles.service.ts:122
+#: tabby-core/src/services/profiles.service.ts:112
+#: tabby-core/src/services/profiles.service.ts:125
 msgid "Recent"
 msgstr ""
 
@@ -1528,7 +1524,7 @@ msgstr ""
 msgid "Select profile"
 msgstr ""
 
-#: tabby-core/src/services/profiles.service.ts:171
+#: tabby-core/src/services/profiles.service.ts:174
 msgid "Select profile or enter an address"
 msgstr ""
 
@@ -1624,6 +1620,10 @@ msgstr ""
 msgid "Show pane labels (for rearranging)"
 msgstr ""
 
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:169
+msgid "Show profile icon on tab"
+msgstr ""
+
 #: tabby-core/src/hotkeys.ts:13
 msgid "Show profile selector"
 msgstr ""
@@ -1669,10 +1669,6 @@ msgstr ""
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:51
 msgid "SOCKS proxy port"
-msgstr ""
-
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:109
-msgid "Sound"
 msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:31
@@ -1859,7 +1855,7 @@ msgstr ""
 msgid "Thin"
 msgstr ""
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:177
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:183
 msgid "Tick this if you're experiencing aliasing, ghosting or other visual issues"
 msgstr ""
 
@@ -1888,7 +1884,7 @@ msgstr ""
 msgid "Try again"
 msgstr ""
 
-#: tabby-ssh/src/session/ssh.ts:464
+#: tabby-ssh/src/session/ssh.ts:462
 msgid "Trying saved password"
 msgstr ""
 
@@ -1951,7 +1947,7 @@ msgstr ""
 msgid "Username"
 msgstr ""
 
-#: tabby-ssh/src/session/ssh.ts:453
+#: tabby-ssh/src/session/ssh.ts:451
 msgid "Using preset password"
 msgstr ""
 
@@ -2051,10 +2047,6 @@ msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:47
 msgid "Window frame"
-msgstr ""
-
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:147
-msgid "Windows"
 msgstr ""
 
 #: locale/tmp-html/tabby-local/src/components/shellSettingsTab.component.html:11
