@@ -29,6 +29,11 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
                         )
                             div(translate) SOCKS proxy
                             .text-muted(translate) Connect through a proxy server
+                        button.dropdown-item(
+                            (click)='connectionMode = "httpProxy"',
+                        )
+                            div(translate) HTTP proxy
+                            .text-muted(translate) Using CONNECT method
 
                 .form-group.w-100(*ngIf='connectionMode === "proxyCommand"')
                     label(translate) Proxy command
@@ -73,6 +78,22 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
                         type='number',
                         placeholder='5000',
                         [(ngModel)]='profile.options.socksProxyPort',
+                    )
+
+            .d-flex.w-100(*ngIf='connectionMode === "httpProxy"')
+                .form-group.w-100.mr-2
+                    label(translate) HTTP proxy host
+                    input.form-control(
+                        type='text',
+                        [(ngModel)]='profile.options.httpProxyHost',
+                    )
+
+                .form-group
+                    label(translate) HTTP proxy port
+                    input.form-control(
+                        type='number',
+                        placeholder='5000',
+                        [(ngModel)]='profile.options.httpProxyPort',
                     )
 
             .form-group

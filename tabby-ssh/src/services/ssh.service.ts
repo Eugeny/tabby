@@ -1,13 +1,13 @@
 import * as shellQuote from 'shell-quote'
+import * as net from 'net'
 import socksv5 from '@luminati-io/socksv5'
 import { Duplex } from 'stream'
 import { Injectable } from '@angular/core'
 import { spawn } from 'child_process'
 import { ChildProcess } from 'node:child_process'
-import { Subject, Observable } from 'rxjs'
 import { ConfigService, HostAppService, Platform, PlatformService } from 'tabby-core'
 import { SSHSession } from '../session/ssh'
-import { SSHProfile } from '../api'
+import { SSHProfile, SSHProxyStream, SSHProxyStreamSocket } from '../api'
 import { PasswordStorageService } from './passwordStorage.service'
 
 @Injectable({ providedIn: 'root' })
@@ -53,17 +53,63 @@ export class SSHService {
     }
 }
 
-export class SocksProxyStream extends Duplex {
+export class ProxyCommandStream extends SSHProxyStream {
+    private process: ChildProcess|null
+
+    constructor (private command: string) {
+        super()
+    }
+
+    async start (): Promise<SSHProxyStreamSocket> {
+        const argv = shellQuote.parse(this.command)
+        this.process = spawn(argv[0], argv.slice(1), {
+            windowsHide: true,
+            stdio: ['pipe', 'pipe', 'pipe'],
+        })
+        this.process.on('error', error => {
+            this.stop(new Error(`Proxy command has failed to start: ${error.message}`))
+        })
+        this.process.on('exit', code => {
+            this.stop(new Error(`Proxy command has exited with code ${code}`))
+        })
+        this.process.stdout?.on('data', data => {
+            this.emitOutput(data)
+        })
+        this.process.stdout?.on('error', (err) => {
+            this.stop(err)
+        })
+        this.process.stderr?.on('data', data => {
+            this.emitMessage(data.toString())
+        })
+        return super.start()
+    }
+
+    requestData (size: number): void {
+        this.process?.stdout?.read(size)
+    }
+
+    async consumeInput (data: Buffer): Promise<void> {
+        const process = this.process
+        if (process) {
+            await new Promise(resolve => process.stdin?.write(data, resolve))
+        }
+    }
+
+    async stop (error?: Error): Promise<void> {
+        this.process?.kill()
+        super.stop(error)
+    }
+}
+
+export class SocksProxyStream extends SSHProxyStream {
     private client: Duplex|null
     private header: Buffer|null
 
     constructor (private profile: SSHProfile) {
-        super({
-            allowHalfOpen: false,
-        })
+        super()
     }
 
-    async start (): Promise<void> {
+    async start (): Promise<SSHProxyStreamSocket> {
         this.client = await new Promise((resolve, reject) => {
             const connector = socksv5.connect({
                 host: this.profile.options.host,
@@ -75,87 +121,101 @@ export class SocksProxyStream extends Duplex {
                 resolve(s)
                 this.header = s.read()
                 if (this.header) {
-                    this.push(this.header)
+                    this.emitOutput(this.header)
                 }
             })
             connector.on('error', (err) => {
                 reject(err)
-                this.destroy(err)
+                this.stop(new Error(`SOCKS connection failed: ${err.message}`))
             })
         })
         this.client?.on('data', data => {
             if (!this.header || data !== this.header) {
                 // socksv5 doesn't reliably emit the first data event
-                this.push(data)
+                this.emitOutput(data)
                 this.header = null
             }
         })
-        this.client?.on('close', (err) => {
-            this.destroy(err)
+        this.client?.on('close', error => {
+            this.stop(error)
         })
+
+        return super.start()
     }
 
-    _read (size: number): void {
+    requestData (size: number): void {
         this.client?.read(size)
     }
 
-    _write (chunk: Buffer, _encoding: string, callback: (error?: Error | null) => void): void {
-        this.client?.write(chunk, callback)
+    async consumeInput (data: Buffer): Promise<void> {
+        return new Promise((resolve, reject) => {
+            this.client?.write(data, undefined, err => err ? reject(err) : resolve())
+        })
     }
 
-    _destroy (error: Error|null, callback: (error: Error|null) => void): void {
+    async stop (error?: Error): Promise<void> {
         this.client?.destroy()
-        callback(error)
+        super.stop(error)
     }
 }
 
+export class HTTPProxyStream extends SSHProxyStream {
+    private client: Duplex|null
+    private connected = false
 
-export class ProxyCommandStream extends Duplex {
-    private process: ChildProcess
+    constructor (private profile: SSHProfile) {
+        super()
+    }
 
-    get output$ (): Observable<string> { return this.output }
-    private output = new Subject<string>()
+    async start (): Promise<SSHProxyStreamSocket> {
+        this.client = await new Promise((resolve, reject) => {
+            const connector = net.createConnection({
+                host: this.profile.options.httpProxyHost!,
+                port: this.profile.options.httpProxyPort!,
+            }, () => resolve(connector))
+            connector.on('error', error => {
+                reject(error)
+                this.stop(new Error(`Proxy connection failed: ${error.message}`))
+            })
+        })
+        this.client?.write(Buffer.from(`CONNECT ${this.profile.options.host}:${this.profile.options.port} HTTP/1.1\r\n\r\n`))
+        this.client?.on('data', (data: Buffer) => {
+            if (this.connected) {
+                this.emitOutput(data)
+            } else {
+                if (data.slice(0, 5).equals(Buffer.from('HTTP/'))) {
+                    const idx = data.indexOf('\n\n')
+                    const headers = data.slice(0, idx).toString()
+                    const code = parseInt(headers.split(' ')[1])
+                    if (code >= 200 && code < 300) {
+                        this.emitMessage('Connected')
+                        this.emitOutput(data.slice(idx + 2))
+                        this.connected = true
+                    } else {
+                        this.stop(new Error(`Connection failed, code ${code}`))
+                    }
+                }
+            }
+        })
+        this.client?.on('close', error => {
+            this.stop(error)
+        })
 
-    constructor (private command: string) {
-        super({
-            allowHalfOpen: false,
+        return super.start()
+    }
+
+    requestData (size: number): void {
+        this.client?.read(size)
+    }
+
+    async consumeInput (data: Buffer): Promise<void> {
+        return new Promise((resolve, reject) => {
+            this.client?.write(data, undefined, err => err ? reject(err) : resolve())
         })
     }
 
-    async start (): Promise<void> {
-        const argv = shellQuote.parse(this.command)
-        this.process = spawn(argv[0], argv.slice(1), {
-            windowsHide: true,
-            stdio: ['pipe', 'pipe', 'ignore'],
-        })
-        this.process.on('error', error => {
-            this.destroy(new Error(`Proxy command has failed to start: ${error.message}`))
-        })
-        this.process.on('exit', code => {
-            this.destroy(new Error(`Proxy command has exited with code ${code}`))
-        })
-        this.process.stdout?.on('data', data => {
-            this.push(data)
-        })
-        this.process.stdout?.on('error', (err) => {
-            this.destroy(err)
-        })
-        this.process.stderr?.on('data', data => {
-            this.output.next(data.toString())
-        })
-    }
-
-    _read (size: number): void {
-        this.process.stdout?.read(size)
-    }
-
-    _write (chunk: Buffer, _encoding: string, callback: (error?: Error | null) => void): void {
-        this.process.stdin?.write(chunk, callback)
-    }
-
-    _destroy (error: Error|null, callback: (error: Error|null) => void): void {
-        this.process.kill()
-        this.output.complete()
-        callback(error)
+    async stop (error?: Error): Promise<void> {
+        this.client?.destroy()
+        super.stop(error)
     }
 }

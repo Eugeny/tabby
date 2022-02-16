@@ -32,6 +32,8 @@ export interface SSHProfileOptions extends LoginScriptsOptions {
     forwardedPorts?: ForwardedPortConfig[]
     socksProxyHost?: string
     socksProxyPort?: number
+    httpProxyHost?: string
+    httpProxyPort?: number
     reuseSession?: boolean
 }
 

@@ -17,7 +17,7 @@ export class SSHProfileSettingsComponent {
     profile: SSHProfile
     hasSavedPassword: boolean
 
-    connectionMode: 'direct'|'proxyCommand'|'jumpHost'|'socksProxy' = 'direct'
+    connectionMode: 'direct'|'proxyCommand'|'jumpHost'|'socksProxy'|'httpProxy' = 'direct'
 
     supportedAlgorithms = supportedAlgorithms
     algorithms: Record<string, Record<string, boolean>> = {}
@@ -50,6 +50,8 @@ export class SSHProfileSettingsComponent {
             this.connectionMode = 'jumpHost'
         } else if (this.profile.options.socksProxyHost) {
             this.connectionMode = 'socksProxy'
+        } else if (this.profile.options.httpProxyHost) {
+            this.connectionMode = 'httpProxy'
         }
 
         if (this.profile.options.user) {
@@ -108,6 +110,10 @@ export class SSHProfileSettingsComponent {
         if (this.connectionMode !== 'socksProxy') {
             this.profile.options.socksProxyHost = undefined
             this.profile.options.socksProxyPort = undefined
+        }
+        if (this.connectionMode !== 'httpProxy') {
+            this.profile.options.httpProxyHost = undefined
+            this.profile.options.httpProxyPort = undefined
         }
 
         this.loginScriptsSettings?.save()

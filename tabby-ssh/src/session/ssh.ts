@@ -12,12 +12,12 @@ import { Socket } from 'net'
 import { Client, ClientChannel, SFTPWrapper } from 'ssh2'
 import { Subject, Observable } from 'rxjs'
 import { HostKeyPromptModalComponent } from '../components/hostKeyPromptModal.component'
-import { ProxyCommandStream, SocksProxyStream } from '../services/ssh.service'
+import { HTTPProxyStream, ProxyCommandStream, SocksProxyStream } from '../services/ssh.service'
 import { PasswordStorageService } from '../services/passwordStorage.service'
 import { SSHKnownHostsService } from '../services/sshKnownHosts.service'
 import { promisify } from 'util'
 import { SFTPSession } from './sftp'
-import { ALGORITHM_BLACKLIST, SSHAlgorithmType, PortForwardType, SSHProfile } from '../api'
+import { ALGORITHM_BLACKLIST, SSHAlgorithmType, PortForwardType, SSHProfile, SSHProxyStream } from '../api'
 import { ForwardedPort } from './forwards'
 import { X11Socket } from './x11'
 
@@ -62,8 +62,7 @@ export class SSHSession {
     sftp?: SFTPWrapper
     forwardedPorts: ForwardedPort[] = []
     jumpStream: any
-    proxyCommandStream: ProxyCommandStream|null = null
-    socksProxyStream: SocksProxyStream|null = null
+    proxyCommandStream: SSHProxyStream|null = null
     savedPassword?: string
     get serviceMessage$ (): Observable<string> { return this.serviceMessage }
     get keyboardInteractivePrompt$ (): Observable<KeyboardInteractivePrompt> { return this.keyboardInteractivePrompt }
@@ -264,20 +263,26 @@ export class SSHSession {
         try {
             if (this.profile.options.socksProxyHost) {
                 this.emitServiceMessage(colors.bgBlue.black(' Proxy ') + ` Using ${this.profile.options.socksProxyHost}:${this.profile.options.socksProxyPort}`)
-                this.socksProxyStream = new SocksProxyStream(this.profile)
-                await this.socksProxyStream.start()
+                this.proxyCommandStream = new SocksProxyStream(this.profile)
+            }
+            if (this.profile.options.httpProxyHost) {
+                this.emitServiceMessage(colors.bgBlue.black(' Proxy ') + ` Using ${this.profile.options.httpProxyHost}:${this.profile.options.httpProxyPort}`)
+                this.proxyCommandStream = new HTTPProxyStream(this.profile)
             }
             if (this.profile.options.proxyCommand) {
                 this.emitServiceMessage(colors.bgBlue.black(' Proxy command ') + ` Using ${this.profile.options.proxyCommand}`)
                 this.proxyCommandStream = new ProxyCommandStream(this.profile.options.proxyCommand)
-
-                this.proxyCommandStream.on('error', err => {
-                    this.emitServiceMessage(colors.bgRed.black(' X ') + ` ${err.message}`)
-                    this.destroy()
+            }
+            if (this.proxyCommandStream) {
+                this.proxyCommandStream.destroyed$.subscribe(err => {
+                    if (err) {
+                        this.emitServiceMessage(colors.bgRed.black(' X ') + ` ${err.message}`)
+                        this.destroy()
+                    }
                 })
 
-                this.proxyCommandStream.output$.subscribe((message: string) => {
-                    this.emitServiceMessage(colors.bgBlue.black(' Proxy command ') + ' ' + message.trim())
+                this.proxyCommandStream.message$.subscribe(message => {
+                    this.emitServiceMessage(colors.bgBlue.black(' Proxy ') + ' ' + message.trim())
                 })
 
                 await this.proxyCommandStream.start()
@@ -298,7 +303,7 @@ export class SSHSession {
             ssh.connect({
                 host: this.profile.options.host.trim(),
                 port: this.profile.options.port ?? 22,
-                sock: this.proxyCommandStream ?? this.jumpStream ?? this.socksProxyStream,
+                sock: this.proxyCommandStream?.socket ?? this.jumpStream,
                 username: this.authUsername ?? undefined,
                 tryKeyboard: true,
                 agent: this.agentPath,
@@ -578,7 +583,7 @@ export class SSHSession {
         this.willDestroy.next()
         this.willDestroy.complete()
         this.serviceMessage.complete()
-        this.proxyCommandStream?.destroy()
+        this.proxyCommandStream?.stop()
         this.ssh.end()
     }
 
