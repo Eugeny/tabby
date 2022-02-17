@@ -28,8 +28,6 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
     profileGroups: ProfileGroup[]
     filter = ''
 
-    @HostBinding('class.content-box') true
-
     constructor (
         public config: ConfigService,
         public hostApp: HostAppService,

@@ -21,7 +21,7 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
                         [ngValue]='profile.id'
                     ) {{profile.name}}
 
-            .d-flex.mb-3.mt-4
+            .d-flex.mb-3
                 .input-group
                     .input-group-prepend
                         .input-group-text
@@ -90,7 +90,7 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
     li(ngbNavItem)
         a(ngbNavLink, translate) Advanced
         ng-template(ngbNavContent)
-            .form-line(*ngIf='config.store.profiles.length > 0')
+            .form-line.content-box(*ngIf='config.store.profiles.length > 0')
                 .header
                     .title(translate) Show recent profiles in selector
                     .description(translate) Set to 0 to disable recent profiles
@@ -103,7 +103,7 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
                     (ngModelChange)='config.save()'
                 )
 
-            .form-line(*ngIf='config.store.profiles.length > 0')
+            .form-line.content-box(*ngIf='config.store.profiles.length > 0')
                 .header
                     .title(translate) Show built-in profiles in selector
                     .description(translate) If disabled, only custom profiles will show up in the profile selector
@@ -113,12 +113,12 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
                     (ngModelChange)='config.save()'
                 )
 
-            .form-line
+            .form-line.content-box
                 .header
                     .title(translate) Default profile settings
                     .description(translate) These apply to all profiles of a given type
 
-            .list-group.mt-3.mb-3
+            .list-group.mt-3.mb-3.content-box
                 a.list-group-item.list-group-item-action(
                     (click)='editDefaults(provider)',
                     *ngFor='let provider of profileProviders'
