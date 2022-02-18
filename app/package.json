@@ -25,7 +25,7 @@
     "fontmanager-redux": "1.1.0",
     "glasstron": "0.0.7",
     "js-yaml": "4.1.0",
-    "keytar": "^7.8.0",
+    "keytar": "^7.9.0",
     "mz": "^2.7.0",
     "native-process-working-directory": "^1.0.2",
     "npm": "6",
