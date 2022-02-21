@@ -10,11 +10,11 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Polish\n"
 "Language: pl_PL\n"
-"PO-Revision-Date: 2022-02-15 22:11\n"
+"PO-Revision-Date: 2022-02-21 16:20\n"
 
 #: tabby-local/src/components/terminalTab.component.ts:113
 msgid "\"{command}\" is still running. Close?"
-msgstr ""
+msgstr "\"{command}\" jest nadal uruchomiony. Zamknąć?"
 
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:79
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:86
@@ -31,11 +31,11 @@ msgstr "Przerwij wszystko"
 
 #: locale/tmp-html/tabby-ssh/src/components/hostKeyPromptModal.component.html:24
 msgid "Accept and remember key"
-msgstr ""
+msgstr "Akceptuj i zapamiętaj klucz"
 
 #: locale/tmp-html/tabby-ssh/src/components/hostKeyPromptModal.component.html:25
 msgid "Accept just this once"
-msgstr ""
+msgstr "Zaakceptuj tylko tym razem"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:20
 msgid "Acrylic background"
@@ -396,7 +396,7 @@ msgstr "Aktualny schemat kolorów"
 
 #: locale/tmp-html/tabby-ssh/src/components/hostKeyPromptModal.component.html:17
 msgid "Current host key fingerprint"
-msgstr ""
+msgstr "Odcisk klucza bieżącego hosta"
 
 #: tabby-core/src/tabContextMenu.ts:175
 msgid "Current process: {name}"
@@ -509,12 +509,12 @@ msgstr "Wyłączone"
 #: tabby-ssh/src/components/sshTab.component.ts:245
 #: tabby-telnet/src/components/telnetTab.component.ts:124
 msgid "Disconnect"
-msgstr ""
+msgstr "Rozłącz"
 
 #: tabby-ssh/src/components/sshTab.component.ts:243
 #: tabby-telnet/src/components/telnetTab.component.ts:122
 msgid "Disconnect from {host}?"
-msgstr ""
+msgstr "Odłączyć od {host}?"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:88
 msgid "Display on"
@@ -527,7 +527,7 @@ msgstr "Nie przerywaj"
 #: tabby-ssh/src/components/sshTab.component.ts:246
 #: tabby-telnet/src/components/telnetTab.component.ts:125
 msgid "Do not close"
-msgstr ""
+msgstr "Nie zamykaj"
 
 #: locale/tmp-html/tabby-core/src/components/unlockVaultModal.component.html:6
 #: locale/tmp-html/tabby-core/src/components/unlockVaultModal.component.html:8
@@ -776,7 +776,7 @@ msgstr "Grupa"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:179
 msgid "Hacks"
-msgstr ""
+msgstr "Haki"
 
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:20
 msgid "Help track the number of Tabby installs across the world!"
@@ -818,7 +818,7 @@ msgstr "Klucz hosta"
 
 #: locale/tmp-html/tabby-ssh/src/components/hostKeyPromptModal.component.html:3
 msgid "Host key verification"
-msgstr ""
+msgstr "Weryfikacja klucza hosta"
 
 #: locale/tmp-html/tabby-settings/src/components/hotkeySettingsTab.component.html:2
 #: tabby-settings/src/settings.ts:15
@@ -831,7 +831,7 @@ msgstr "Ikona"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:154
 msgid "id.tab-width.dynamic"
-msgstr ""
+msgstr "id.tab-width.dynamic"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:64
 msgid "If disabled, only custom profiles will show up in the profile selector"
@@ -917,7 +917,7 @@ msgstr "Autoryzacja przy pomocy interaktywnej klawiatury"
 
 #: tabby-local/src/components/terminalTab.component.ts:117
 msgid "Kill"
-msgstr ""
+msgstr "Zabij"
 
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:10
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:50
@@ -926,7 +926,7 @@ msgstr "Język"
 
 #: locale/tmp-html/tabby-ssh/src/components/hostKeyPromptModal.component.html:11
 msgid "Last known host key fingerprint"
-msgstr ""
+msgstr "Ostatni znany odcisk klucza hosta"
 
 #: tabby-ssh/src/tabContextMenu.ts:32
 msgid "Launch WinSCP"
@@ -1066,7 +1066,7 @@ msgstr "Nowa karta"
 
 #: tabby-core/src/hotkeys.ts:204
 msgid "New tab: {profile}"
-msgstr ""
+msgstr "Nowa karta: {profile}"
 
 #: tabby-local/src/buttonProvider.ts:20
 #: tabby-local/src/tabContextMenu.ts:77
@@ -1151,7 +1151,7 @@ msgstr "Otwórz Ustawienia"
 
 #: tabby-settings/src/hotkeys.ts:25
 msgid "Open settings tab: {tab}"
-msgstr ""
+msgstr "Otwórz kartę ustawień: {tab}"
 
 #: tabby-ssh/src/tabContextMenu.ts:25
 msgid "Open SFTP panel"
@@ -1272,7 +1272,7 @@ msgstr "Port"
 
 #: tabby-serial/src/components/serialTab.component.ts:77
 msgid "Port opened"
-msgstr ""
+msgstr "Port otwarty"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:105
 #: locale/tmp-html/tabby-ssh/src/components/sshTab.component.html:12
@@ -1283,7 +1283,7 @@ msgstr "Porty"
 #: tabby-ssh/src/components/sshTab.component.ts:176
 #: tabby-telnet/src/components/telnetTab.component.ts:58
 msgid "Press any key to reconnect"
-msgstr ""
+msgstr "Naciśnij dowolny klawisz, aby ponownie połączyć"
 
 #: locale/tmp-html/tabby-settings/src/components/hotkeyInputModal.component.html:3
 msgid "Press the key now"
@@ -1604,7 +1604,7 @@ msgstr "Integracja powłoki"
 
 #: tabby-core/src/hotkeys.ts:208
 msgid "Show {type} profile selector"
-msgstr ""
+msgstr "Pokaż selektor profilu {type}"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:103
 msgid "Show a confirmation box when pasting multiple lines"
@@ -1632,7 +1632,7 @@ msgstr "Pokaż etykiety (aby zmienić kolejność)"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:169
 msgid "Show profile icon on tab"
-msgstr ""
+msgstr "Pokaż ikonę profilu na karcie"
 
 #: tabby-core/src/hotkeys.ts:13
 msgid "Show profile selector"
@@ -1711,7 +1711,7 @@ msgstr "Połączenie SSH"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:47
 msgid "SSH connection management is now done through the \"Profiles & connections\" tab"
-msgstr ""
+msgstr "Zarządzanie połączeniami SSH odbywa się teraz za pomocą zakładki \"Profile i połączenia\""
 
 #: tabby-settings/src/components/vaultSettingsTab.component.ts:84
 msgid "SSH password for {user}@{host}:{port}"
@@ -1988,7 +1988,7 @@ msgstr "Hasło główne sejfu musi być ustawione, aby umożliwić przechowywani
 
 #: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:11
 msgid "Verify host keys when connecting"
-msgstr ""
+msgstr "Sprawdź klucze hosta podczas łączenia"
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:73
 msgid "Version"
@@ -2016,7 +2016,7 @@ msgstr "Ostrzegaj przy zamykaniu aktywnych połączeń"
 
 #: locale/tmp-html/tabby-ssh/src/components/hostKeyPromptModal.component.html:6
 msgid "Warning: remote host's key has suddenly changed!"
-msgstr ""
+msgstr "Ostrzeżenie: klucz zdalnego hosta został nagle zmieniony!"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:67
 msgid "We're only tracking your Tabby and OS versions."
@@ -2101,7 +2101,7 @@ msgstr "Możesz zmienić to hasło poźniej, ale jeśli je zgubisz/zapomnisz, to
 
 #: locale/tmp-html/tabby-ssh/src/components/hostKeyPromptModal.component.html:7
 msgid "You could be under a man-in-the-middle attack right now, or the host key could have just been changed."
-msgstr ""
+msgstr "Możesz być w trakcie ataku \"człowiek w środku\" lub klucz hosta mógł właśnie zostać zmieniony."
 
 #: tabby-terminal/src/hotkeys.ts:46
 msgid "Zoom in"
@@ -2115,5 +2115,5 @@ msgstr "Pomniejsz"
 #: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:55
 msgctxt "[Dynamic] port forwarding"
 msgid "id.port-forwarding.dynamic"
-msgstr ""
+msgstr "id.port-forwarding.dynamic"
 

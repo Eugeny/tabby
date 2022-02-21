@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Italian\n"
 "Language: it_IT\n"
-"PO-Revision-Date: 2022-02-15 22:11\n"
+"PO-Revision-Date: 2022-02-21 16:20\n"
 
 #: tabby-local/src/components/terminalTab.component.ts:113
 msgid "\"{command}\" is still running. Close?"
@@ -776,7 +776,7 @@ msgstr "Gruppo"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:179
 msgid "Hacks"
-msgstr ""
+msgstr "Hack"
 
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:20
 msgid "Help track the number of Tabby installs across the world!"
@@ -831,7 +831,7 @@ msgstr "Icona"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:154
 msgid "id.tab-width.dynamic"
-msgstr ""
+msgstr "Dinamica"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:64
 msgid "If disabled, only custom profiles will show up in the profile selector"
@@ -1079,7 +1079,7 @@ msgstr "Nuova finestra"
 
 #: tabby-local/src/tabContextMenu.ts:87
 msgid "New with profile"
-msgstr "Nuovo con profilo"
+msgstr "Nuovo terminale con"
 
 #: tabby-core/src/hotkeys.ts:37
 msgid "Next tab"
@@ -1123,7 +1123,7 @@ msgstr "Numero di righe conservate nel buffer"
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:116
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:48
 msgid "Off"
-msgstr "Non attivo"
+msgstr "Sganciato"
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:79
 msgid "Official"
@@ -1632,7 +1632,7 @@ msgstr "Mostra etichette riquadro (per riorganizzare)"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:169
 msgid "Show profile icon on tab"
-msgstr ""
+msgstr "Mostra l'icona del profilo nella scheda"
 
 #: tabby-core/src/hotkeys.ts:13
 msgid "Show profile selector"
@@ -1711,7 +1711,7 @@ msgstr "Connessione SSH"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:47
 msgid "SSH connection management is now done through the \"Profiles & connections\" tab"
-msgstr "La gestione della connessione SSH è ora fatta attraverso la scheda \"Profili & connessioni\""
+msgstr "La gestione della connessione SSH è ora fatta attraverso la scheda \"Profili e connessioni\""
 
 #: tabby-settings/src/components/vaultSettingsTab.component.ts:84
 msgid "SSH password for {user}@{host}:{port}"
@@ -1763,7 +1763,7 @@ msgstr "Sincronizza automaticamente"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:8
 msgid "Sync host"
-msgstr "Sincronizza host"
+msgstr "Host di sincronizzazione"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:71
 msgid "Sync hotkeys"
@@ -1839,7 +1839,7 @@ msgstr "Sfondo del terminale"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:112
 msgid "Terminal bell"
-msgstr "Campana del terminale"
+msgstr "Avvisi del terminale"
 
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:7
 msgid "Thank you for downloading Tabby!"
@@ -1951,7 +1951,7 @@ msgstr "Usa ConPTY"
 #: tabby-local/src/shells/linuxDefault.ts:31
 #: tabby-local/src/shells/linuxDefault.ts:38
 msgid "User default"
-msgstr "Impostazione predefinita"
+msgstr "Predefinito"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:56
 msgid "Username"
@@ -2081,7 +2081,7 @@ msgstr "Rilevamento cartella di lavoro"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:127
 msgid "WSL terminal bell can only be muted via Volume Mixer"
-msgstr "La campana del terminale WSL può essere silenziata soltanto tramite il regolatore di volume"
+msgstr "Gli avvisi del terminale WSL possono essere silenziati soltanto tramite il regolatore di volume"
 
 #: locale/tmp-html/tabby-local/src/components/shellSettingsTab.component.html:14
 msgid "WSL terminal only supports TrueColor with ConPTY"
@@ -2115,5 +2115,5 @@ msgstr "Zoom indietro"
 #: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:55
 msgctxt "[Dynamic] port forwarding"
 msgid "id.port-forwarding.dynamic"
-msgstr ""
+msgstr "Dinamico"
 

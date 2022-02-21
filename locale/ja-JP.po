@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2022-02-15 22:11\n"
+"PO-Revision-Date: 2022-02-21 16:20\n"
 
 #: tabby-local/src/components/terminalTab.component.ts:113
 msgid "\"{command}\" is still running. Close?"
@@ -776,7 +776,7 @@ msgstr "グループ"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:179
 msgid "Hacks"
-msgstr ""
+msgstr "調整"
 
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:20
 msgid "Help track the number of Tabby installs across the world!"
@@ -1338,7 +1338,7 @@ msgstr "紫色"
 
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:37
 msgid "Puts all of Tabby's configuration into the vault"
-msgstr "Tabbyの設定をすべてVaultに格納する"
+msgstr "Tabbyの設定をすべてVaultに保存します"
 
 #: tabby-core/src/index.ts:210
 #: tabby-core/src/services/profiles.service.ts:165
@@ -1632,7 +1632,7 @@ msgstr "ペインラベルを表示 (再配置向け)"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:169
 msgid "Show profile icon on tab"
-msgstr ""
+msgstr "タブにプロファイルアイコンを表示する"
 
 #: tabby-core/src/hotkeys.ts:13
 msgid "Show profile selector"
