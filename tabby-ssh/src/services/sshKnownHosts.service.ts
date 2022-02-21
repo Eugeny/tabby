@@ -21,12 +21,13 @@ export class SSHKnownHostsService {
         return this.config.store.ssh.knownHosts.find(x => x.host === selector.host && x.port === selector.port && x.type === selector.type) ?? null
     }
 
-    store (selector: KnownHostSelector, digest: string): void {
+    async store (selector: KnownHostSelector, digest: string): Promise<void> {
         const existing = this.getFor(selector)
         if (existing) {
             existing.digest = digest
         } else {
             this.config.store.ssh.knownHosts.push({ ...selector, digest })
         }
+        this.config.save()
     }
 }

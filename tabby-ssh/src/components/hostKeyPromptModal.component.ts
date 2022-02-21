@@ -32,8 +32,8 @@ export class HostKeyPromptModalComponent {
         this.modalInstance.close(true)
     }
 
-    acceptAndSave () {
-        this.knownHosts.store(this.selector, this.digest)
+    async acceptAndSave () {
+        await this.knownHosts.store(this.selector, this.digest)
         this.accept()
     }
 
