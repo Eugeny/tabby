@@ -5,7 +5,7 @@ import slugify from 'slugify'
 import * as yaml from 'js-yaml'
 import { Injectable } from '@angular/core'
 import { PartialProfile } from 'tabby-core'
-import { SSHProfileImporter, PortForwardType, SSHProfile, SSHProfileOptions } from 'tabby-ssh'
+import { SSHProfileImporter, PortForwardType, SSHProfile, SSHProfileOptions, AutoPrivateKeyLocator } from 'tabby-ssh'
 
 import { ElectronService } from './services/electron.service'
 
@@ -161,5 +161,27 @@ export class StaticFileImporter extends SSHProfileImporter {
             id: deriveID(item.name),
             type: 'ssh',
         }))
+    }
+}
+
+
+@Injectable({ providedIn: 'root' })
+export class PrivateKeyLocator extends AutoPrivateKeyLocator {
+    async getKeys (): Promise<[string, Buffer][]> {
+        const results: [string, Buffer][] = []
+        const keysPath = path.join(process.env.HOME!, '.ssh')
+        if (!fsSync.existsSync(keysPath)) {
+            return results
+        }
+        for (const file of await fs.readdir(keysPath)) {
+            if (/^id_[\w\d]+$/.test(file)) {
+                const privateKeyContents = await fs.readFile(
+                    path.join(keysPath, file),
+                    { encoding: null }
+                )
+                results.push([file, privateKeyContents])
+            }
+        }
+        return results
     }
 }

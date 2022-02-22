@@ -134,6 +134,7 @@ export class SSHProfileSettingsComponent {
             proxyCommand: 'Proxy command',
             jumpHost: 'Jump host',
             socksProxy: 'SOCKS proxy',
+            httpProxy: 'HTTP proxy',
         }[this.connectionMode]
     }
 }

@@ -1,6 +1,5 @@
 import * as fs from 'mz/fs'
 import * as crypto from 'crypto'
-import * as path from 'path'
 // eslint-disable-next-line @typescript-eslint/no-duplicate-imports, no-duplicate-imports
 import * as sshpk from 'sshpk'
 import colors from 'ansi-colors'
@@ -17,7 +16,7 @@ import { PasswordStorageService } from '../services/passwordStorage.service'
 import { SSHKnownHostsService } from '../services/sshKnownHosts.service'
 import { promisify } from 'util'
 import { SFTPSession } from './sftp'
-import { ALGORITHM_BLACKLIST, SSHAlgorithmType, PortForwardType, SSHProfile, SSHProxyStream } from '../api'
+import { ALGORITHM_BLACKLIST, SSHAlgorithmType, PortForwardType, SSHProfile, SSHProxyStream, AutoPrivateKeyLocator } from '../api'
 import { ForwardedPort } from './forwards'
 import { X11Socket } from './x11'
 
@@ -93,6 +92,7 @@ export class SSHSession {
     private config: ConfigService
     private translate: TranslateService
     private knownHosts: SSHKnownHostsService
+    private privateKeyImporters: AutoPrivateKeyLocator[]
 
     constructor (
         private injector: Injector,
@@ -110,6 +110,7 @@ export class SSHSession {
         this.config = injector.get(ConfigService)
         this.translate = injector.get(TranslateService)
         this.knownHosts = injector.get(SSHKnownHostsService)
+        this.privateKeyImporters = injector.get(AutoPrivateKeyLocator, [])
 
         this.willDestroy$.subscribe(() => {
             for (const port of this.forwardedPorts) {
@@ -155,10 +156,15 @@ export class SSHSession {
                     }
                 }
             } else {
-                this.remainingAuthMethods.push({
-                    type: 'publickey',
-                    name: 'auto',
-                })
+                for (const importer of this.privateKeyImporters) {
+                    for (const [name, contents] of await importer.getKeys()) {
+                        this.remainingAuthMethods.push({
+                            type: 'publickey',
+                            name,
+                            contents,
+                        })
+                    }
+                }
             }
         }
         if (!this.profile.options.auth || this.profile.options.auth === 'agent') {
@@ -497,9 +503,9 @@ export class SSHSession {
                     continue
                 }
             }
-            if (method.type === 'publickey') {
+            if (method.type === 'publickey' && method.contents) {
                 try {
-                    const key = await this.loadPrivateKey(method.contents)
+                    const key = await this.loadPrivateKey(method.name!, method.contents)
                     return {
                         type: 'publickey',
                         username: this.authUsername,
@@ -599,20 +605,8 @@ export class SSHSession {
         })
     }
 
-    async loadPrivateKey (privateKeyContents?: Buffer): Promise<string|null> {
-        if (!privateKeyContents) {
-            const userKeyPath = path.join(process.env.HOME!, '.ssh', 'id_rsa')
-            if (await fs.exists(userKeyPath)) {
-                this.emitServiceMessage('Using user\'s default private key')
-                privateKeyContents = await fs.readFile(userKeyPath, { encoding: null })
-            }
-        }
-
-        if (!privateKeyContents) {
-            return null
-        }
-
-        this.emitServiceMessage('Loading private key')
+    async loadPrivateKey (name: string, privateKeyContents: Buffer): Promise<string|null> {
+        this.emitServiceMessage(`Loading private key: ${name}`)
         try {
             const parsedKey = await this.parsePrivateKey(privateKeyContents.toString())
             this.activePrivateKey = parsedKey.toString('openssh')
