@@ -178,7 +178,7 @@
 
 @font-face {
     font-family: "monospace-fallback";
-    src: url(../fonts/SourceCodePro.otf) format("opentype");
+    src: url(../fonts/SourceCodePro.ttf) format("truetype");
 }
 
 .xterm-viewport::-webkit-scrollbar {

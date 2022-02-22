@@ -33,3 +33,14 @@
         span([style.color]='scheme.colors[6]')  sym
         span  ->
         span([style.color]='scheme.colors[1]')  link
+    div(*ngIf='fontPreview')
+        span
+            strong Icons:
+            span    
+        span
+            span  &nbsp;
+            span(
+                [style.background-color]='scheme.colors[1]',
+                [style.color]='scheme.colors[0]',
+            )  Powerline&nbsp;
+            span([style.color]='scheme.colors[1]') 
