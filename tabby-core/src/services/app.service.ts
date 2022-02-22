@@ -399,4 +399,40 @@ export class AppService {
     showSelector <T> (name: string, options: SelectorOption<T>[]): Promise<T> {
         return this.selector.show(name, options)
     }
+
+    explodeTab (tab: SplitTabComponent): SplitTabComponent[] {
+        const result: SplitTabComponent[] = []
+        for (const child of tab.getAllTabs().slice(1)) {
+            tab.removeTab(child)
+            result.push(this.wrapAndAddTab(child))
+        }
+        return result
+    }
+
+    combineTabsInto (into: SplitTabComponent): void {
+        this.explodeTab(into)
+
+        let allChildren: BaseTabComponent[] = []
+        for (const tab of this.tabs) {
+            if (into === tab) {
+                continue
+            }
+            let children = [tab]
+            if (tab instanceof SplitTabComponent) {
+                children = tab.getAllTabs()
+            }
+            allChildren = allChildren.concat(children)
+        }
+
+        let x = 1
+        let previous: BaseTabComponent|null = null
+        const stride = Math.ceil(Math.sqrt(allChildren.length + 1))
+        for (const child of allChildren) {
+            into.add(child, x ? previous : null, x ? 'r' : 'b')
+            previous = child
+            x = (x + 1) % stride
+        }
+
+        into.equalize()
+    }
 }

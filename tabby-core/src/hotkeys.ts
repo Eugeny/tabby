@@ -57,6 +57,14 @@ export class AppHotkeyProvider extends HotkeyProvider {
             name: this.translate.instant('Duplicate tab'),
         },
         {
+            id: 'explode-tab',
+            name: this.translate.instant('Turn current tab\'s panes into separate tabs'),
+        },
+        {
+            id: 'combine-tabs',
+            name: this.translate.instant('Combine all tabs into the current tab'),
+        },
+        {
             id: 'tab-1',
             name: this.translate.instant('Tab {number}', { number: 1 }),
         },

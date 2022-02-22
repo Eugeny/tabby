@@ -21,6 +21,10 @@ hotkeys:
   rearrange-panes:
     - 'Ctrl-Shift'
   duplicate-tab: []
+  explode-tab:
+    - 'Ctrl-Shift-.'
+  combine-tabs:
+    - 'Ctrl-Shift-,'
   tab-1:
     - 'Alt-1'
   tab-2:

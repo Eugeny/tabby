@@ -83,6 +83,18 @@ export class SplitContainer {
     }
 
     /**
+     * Makes all tabs have the same size
+     */
+    equalize (): void {
+        for (const child of this.children) {
+            if (child instanceof SplitContainer) {
+                child.equalize()
+            }
+        }
+        this.ratios.fill(1 / this.ratios.length)
+    }
+
+    /**
      * Gets the left/top side offset for the given element index (between 0 and 1)
      */
     getOffsetRatio (index: number): number {
@@ -449,6 +461,8 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
             this.attachTabView(tab)
             this.onAfterTabAdded(tab)
         }
+
+        this.root.normalize()
     }
 
     removeTab (tab: BaseTabComponent): void {
@@ -642,6 +656,11 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
         for (const t of this.getAllTabs()) {
             t.color = color
         }
+    }
+
+    equalize (): void {
+        this.root.normalize()
+        this.root.equalize()
     }
 
     private updateTitle (): void {
