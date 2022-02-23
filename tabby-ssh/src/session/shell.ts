@@ -24,6 +24,7 @@ export class SSHShellSession extends BaseSession {
         this.ssh = ssh
         this.profile = ssh.profile
         this.setLoginScriptsOptions(this.profile.options)
+        this.ssh.serviceMessage$.subscribe(m => this.serviceMessage.next(m))
     }
 
     async start (): Promise<void> {

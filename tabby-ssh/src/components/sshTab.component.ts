@@ -200,13 +200,12 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
         }
 
         const session = new SSHShellSession(this.injector, this.sshSession)
-
+        this.setSession(session)
         this.attachSessionHandler(session.serviceMessage$, msg => {
             this.write(`\r${colors.black.bgWhite(' SSH ')} ${msg}\r\n`)
             session.resize(this.size.columns, this.size.rows)
         })
 
-        this.setSession(session)
         await session.start()
         this.session?.resize(this.size.columns, this.size.rows)
     }
