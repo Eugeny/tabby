@@ -23,6 +23,10 @@ export class ProfileCLIHandler extends CLIHandler {
             this.handleOpenProfile(event.argv.profileName)
             return true
         }
+        if (op === 'recent') {
+            this.handleOpenRecentProfile(event.argv.profileNumber)
+            return true
+        }
         return false
     }
 
@@ -33,6 +37,15 @@ export class ProfileCLIHandler extends CLIHandler {
             return
         }
         this.profiles.openNewTabForProfile(profile)
+        this.hostWindow.bringToFront()
+    }
+
+    private async handleOpenRecentProfile (profileNumber: number) {
+        const profiles = this.profiles.getRecentProfiles()
+        if (profileNumber >= profiles.length) {
+            return
+        }
+        this.profiles.openNewTabForProfile(profiles[profileNumber])
         this.hostWindow.bringToFront()
     }
 }

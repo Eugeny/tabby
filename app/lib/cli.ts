@@ -25,6 +25,9 @@ export function parseArgs (argv: string[], cwd: string): any {
                 type: 'string',
             })
         })
+        .command('recent [index]', 'open a tab with a recent profile', {
+            profileNumber: { type: 'number' },
+        })
         .version(app.getVersion())
         .option('debug', {
             alias: 'd',
