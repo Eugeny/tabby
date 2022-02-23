@@ -86,6 +86,16 @@ export class XTermFrontend extends Frontend {
         this.xterm.unicode.activeVersion = '11'
 
         const keyboardEventHandler = (name: string, event: KeyboardEvent) => {
+            if (this.isAlternateScreenActive()) {
+                let modifiers = 0
+                modifiers += event.ctrlKey ? 1 : 0
+                modifiers += event.altKey ? 1 : 0
+                modifiers += event.shiftKey ? 1 : 0
+                modifiers += event.metaKey ? 1 : 0
+                if (event.key.startsWith('Arrow') && modifiers === 1) {
+                    return true
+                }
+            }
             this.hotkeysService.pushKeyEvent(name, event)
             let ret = true
             if (this.hotkeysService.matchActiveHotkey(true) !== null) {
@@ -329,6 +339,10 @@ export class XTermFrontend extends Frontend {
 
     supportsBracketedPaste (): boolean {
         return this.xterm.modes.bracketedPasteMode
+    }
+
+    isAlternateScreenActive (): boolean {
+        return this.xterm.buffer.active.type === 'alternate'
     }
 
     private setFontSize () {

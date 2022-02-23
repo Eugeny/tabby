@@ -82,4 +82,5 @@ export abstract class Frontend {
     abstract restoreState (state: string): void
 
     abstract supportsBracketedPaste (): boolean
+    abstract isAlternateScreenActive (): boolean
 }
