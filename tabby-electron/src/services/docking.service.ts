@@ -45,26 +45,26 @@ export class ElectronDockingService extends DockingService {
         const [minWidth, minHeight] = this.hostWindow.getWindow().getMinimumSize()
 
         if (dockSide === 'left' || dockSide === 'right') {
-            newBounds.width = Math.max(minWidth, Math.round(fill * display.bounds.width))
-            newBounds.height = Math.round(display.bounds.height * space)
+            newBounds.width = Math.max(minWidth, Math.round(fill * display.workArea.width))
+            newBounds.height = Math.round(display.workArea.height * space)
         }
         if (dockSide === 'top' || dockSide === 'bottom') {
-            newBounds.width = Math.round(display.bounds.width * space)
-            newBounds.height = Math.max(minHeight, Math.round(fill * display.bounds.height))
+            newBounds.width = Math.round(display.workArea.width * space)
+            newBounds.height = Math.max(minHeight, Math.round(fill * display.workArea.height))
         }
         if (dockSide === 'right') {
-            newBounds.x = display.bounds.x + display.bounds.width - newBounds.width
+            newBounds.x = display.workArea.x + display.workArea.width - newBounds.width
         } else if (dockSide === 'left') {
-            newBounds.x = display.bounds.x
+            newBounds.x = display.workArea.x
         } else {
-            newBounds.x = display.bounds.x + Math.round(display.bounds.width / 2 * (1 - space))
+            newBounds.x = display.workArea.x + Math.round(display.workArea.width / 2 * (1 - space))
         }
         if (dockSide === 'bottom') {
-            newBounds.y = display.bounds.y + display.bounds.height - newBounds.height
+            newBounds.y = display.workArea.y + display.workArea.height - newBounds.height
         } else if (dockSide === 'top') {
-            newBounds.y = display.bounds.y
+            newBounds.y = display.workArea.y
         } else {
-            newBounds.y = display.bounds.y + Math.round(display.bounds.height / 2 * (1 - space))
+            newBounds.y = display.workArea.y + Math.round(display.workArea.height / 2 * (1 - space))
         }
 
         const alwaysOnTop = this.config.store.appearance.dockAlwaysOnTop
