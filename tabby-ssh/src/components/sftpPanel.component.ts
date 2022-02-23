@@ -1,7 +1,7 @@
 import * as C from 'constants'
 import { posix as path } from 'path'
 import { Component, Input, Output, EventEmitter, Inject, Optional } from '@angular/core'
-import { FileUpload, MenuItemOptions, PlatformService } from 'tabby-core'
+import { FileUpload, MenuItemOptions, NotificationsService, PlatformService } from 'tabby-core'
 import { SFTPSession, SFTPFile } from '../session/sftp'
 import { SSHSession } from '../session/ssh'
 import { SFTPContextMenuItemProvider } from '../api'
@@ -27,6 +27,7 @@ export class SFTPPanelComponent {
 
     constructor (
         private platform: PlatformService,
+        private notifications: NotificationsService,
         @Optional() @Inject(SFTPContextMenuItemProvider) protected contextMenuProviders: SFTPContextMenuItemProvider[],
     ) {
         this.contextMenuProviders.sort((a, b) => a.weight - b.weight)
@@ -38,11 +39,13 @@ export class SFTPPanelComponent {
             await this.navigate(this.path)
         } catch (error) {
             console.warn('Could not navigate to', this.path, ':', error)
+            this.notifications.error(error.message)
             await this.navigate('/')
         }
     }
 
-    async navigate (newPath: string): Promise<void> {
+    async navigate (newPath: string, fallbackOnError = true): Promise<void> {
+        const previousPath = this.path
         this.path = newPath
         this.pathChange.next(this.path)
 
@@ -57,7 +60,15 @@ export class SFTPPanelComponent {
         }
 
         this.fileList = null
-        this.fileList = await this.sftp.readdir(this.path)
+        try {
+            this.fileList = await this.sftp.readdir(this.path)
+        } catch (error) {
+            this.notifications.error(error.message)
+            if (previousPath && fallbackOnError) {
+                this.navigate(previousPath, false)
+            }
+            return
+        }
 
         const dirKey = a => a.isDirectory ? 1 : 0
         this.fileList.sort((a, b) =>
