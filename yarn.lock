@@ -504,18 +504,10 @@
   dependencies:
     "@types/node" "*"
 
-"@types/glob@5 - 7":
+"@types/glob@5 - 7", "@types/glob@^7.1.1":
   version "7.2.0"
   resolved "https://registry.yarnpkg.com/@types/glob/-/glob-7.2.0.tgz#bc1b5bf3aa92f25bd5dd39f35c57361bdce5b2eb"
   integrity sha512-ZUxbzKl0IfJILTS6t7ip5fQQM/J3TJYubDm3nMbgubNNYS62eXeUpoLUC8/7fJNiFYHTrGPQn7hspDUzIHX3UA==
-  dependencies:
-    "@types/minimatch" "*"
-    "@types/node" "*"
-
-"@types/glob@^7.1.1":
-  version "7.1.3"
-  resolved "https://registry.npmjs.org/@types/glob/-/glob-7.1.3.tgz"
-  integrity sha512-SEYeGAIQIQX8NN6LDKprLjbrd5dARM5EXsd8GI/A5l0apYI1fGMWgPHSe4ZKL4eozlAyI+doUE9XbYS4xCkQ1w==
   dependencies:
     "@types/minimatch" "*"
     "@types/node" "*"
@@ -3587,10 +3579,10 @@ getpass@^0.1.1:
   dependencies:
     assert-plus "^1.0.0"
 
-gettext-extractor@^3.5.3:
-  version "3.5.3"
-  resolved "https://registry.yarnpkg.com/gettext-extractor/-/gettext-extractor-3.5.3.tgz#6ed46931c154a7485a80fa8b91b835ff7b8d0411"
-  integrity sha512-9EgJ+hmbtAbATdMIvCj4WnrkeDWH6fv1z+IJJ1XCxdcUMGx6JQdVVFTdzJkSyIHh4td53ngoB5EQbavbKJU9Og==
+gettext-extractor@^3.5.4:
+  version "3.5.4"
+  resolved "https://registry.yarnpkg.com/gettext-extractor/-/gettext-extractor-3.5.4.tgz#bd36c65b4d26014ffd925f9ac7b4738d6893d6b2"
+  integrity sha512-iK4tSnteSw+pFMts43OP8hUnsOklbkxz3ytWqru7dPf8Ec3uzTYv1aw70ojAvKItmofpj1ibfY7sZWsdSN6zIw==
   dependencies:
     "@types/glob" "5 - 7"
     "@types/parse5" "^5"
@@ -8373,15 +8365,10 @@ typedoc@^0.22.11:
     minimatch "^3.0.4"
     shiki "^0.10.0"
 
-"typescript@2 - 4":
+"typescript@2 - 4", typescript@^4.3.5:
   version "4.5.5"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.5.5.tgz#d8c953832d28924a9e3d37c73d729c846c5896f3"
   integrity sha512-TCTIul70LyWe6IJWT8QSYeA54WQe8EjQFU4wY52Fasj5UKx88LNYKCgBEHcOMOrFF1rKGbD8v/xcNWVUq9SymA==
-
-typescript@^4.3.5:
-  version "4.3.5"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.3.5.tgz#4d1c37cc16e893973c45a06886b7113234f119f4"
-  integrity sha512-DqQgihaQ9cUrskJo9kIyW/+g0Vxsk8cDtZ52a3NGh0YNTfpUSArXSohyUGnvbPazEPLu398C0UxmKSOrPumUzA==
 
 uid-number@0.0.6:
   version "0.0.6"
