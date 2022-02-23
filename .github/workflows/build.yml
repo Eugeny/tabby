@@ -2,7 +2,7 @@ name: Package-Build
 on: [push, pull_request]
 jobs:
   Lint:
-    runs-on: macos-11.0
+    runs-on: macos-11
 
     steps:
     - name: Checkout
@@ -31,7 +31,7 @@ jobs:
       run: yarn run lint
 
   macOS-Build:
-    runs-on: macos-11.0
+    runs-on: macos-11
     needs: Lint
     strategy:
       matrix:
@@ -54,10 +54,10 @@ jobs:
       run: |
         sudo npm i -g yarn@1.22.1
         cd app
-        yarn
+        yarn --network-timeout 1000000
         cd ..
         rm app/node_modules/.yarn-integrity
-        yarn
+        yarn --network-timeout 1000000
 
     - name: Build native deps
       run: scripts/build-native.js
@@ -149,10 +149,10 @@ jobs:
         sudo apt-get install libarchive-tools zsh
         npm i -g yarn@1.19.1
         cd app
-        yarn
+        yarn --network-timeout 1000000
         cd ..
         rm app/node_modules/.yarn-integrity
-        yarn
+        yarn --network-timeout 1000000
 
     - name: Build native deps
       run: scripts/build-native.js
@@ -266,7 +266,7 @@ jobs:
       shell: powershell
       run: |
         npm i -g yarn@1.19.1
-        yarn
+        yarn --network-timeout 1000000
         node scripts/build-native.js
         yarn run build
         node scripts/prepackage-plugins.js
