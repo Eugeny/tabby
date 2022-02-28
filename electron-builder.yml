@@ -48,7 +48,7 @@ nsis:
   allowToChangeInstallationDirectory: true
   shortcutName: Tabby Terminal
 mac:
-  category: public.app-category.video
+  category: public.app-category.utilities
   icon: "./build/mac/icon.icns"
   artifactName: tabby-${version}-macos-${env.ARCH}.${ext}
   hardenedRuntime: true
