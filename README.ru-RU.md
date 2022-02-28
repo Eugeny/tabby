@@ -236,6 +236,7 @@ Pull-запросы и плагины приветствуются!
     <td align="center"><a href="https://github.com/mwz"><img src="https://avatars.githubusercontent.com/u/1190768?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Michael Wizner</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=mwz" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/mgrulich"><img src="https://avatars.githubusercontent.com/u/781036?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Martin</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=mgrulich" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/piersandro"><img src="https://avatars.githubusercontent.com/u/19996309?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Piersandro Guerrera</b></sub></a><br /><a href="#translation-piersandro" title="Translation">🌍</a></td>
+    <td align="center"><a href="http://pingbase.cn"><img src="https://avatars.githubusercontent.com/u/19320096?v=4?s=100" width="100px;" alt=""/><br /><sub><b>X-0x01</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=X-0x01" title="Code">💻</a></td>
   </tr>
 </table>
 
