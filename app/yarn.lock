@@ -3885,10 +3885,10 @@ widest-line@^2.0.0:
   dependencies:
     string-width "^2.1.1"
 
-windows-native-registry@^3.1.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/windows-native-registry/-/windows-native-registry-3.1.0.tgz#909ef3254519fdec57d2f149ac59a2c9dc84419a"
-  integrity sha512-WrDysn2V7dH+EYE6cS2RF+7r2P+M0pOYWtU8iBrjV2HaGkCLlUdGUWzOdzT0JPdWwz0BkVu3IOae2xmBajQqBA==
+windows-native-registry@^3.2.1:
+  version "3.2.1"
+  resolved "https://registry.yarnpkg.com/windows-native-registry/-/windows-native-registry-3.2.1.tgz#8a60feb456398992677a1f8cad1eecb6b4f0d5f4"
+  integrity sha512-LUHzDUyabwcKNJNlIBVAmg/gdvzOWbuPPyeGmMGSYMAh+m4ZqmafrtyRuyWaviJ1lTzGT/MmhTVb5t8IO3Nlkg==
   dependencies:
     node-addon-api "^3.1.0"
 
