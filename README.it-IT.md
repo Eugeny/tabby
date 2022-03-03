@@ -15,96 +15,97 @@
 
 ### Downloads:
 
-* [Latest release](https://github.com/Eugeny/tabby/releases/latest)
-* [Repositories](https://packagecloud.io/eugeny/tabby): [Debian/Ubuntu-based](https://packagecloud.io/eugeny/tabby/install#bash-deb), [RPM-based](https://packagecloud.io/eugeny/tabby/install#bash-rpm)
-* [Latest nightly build](https://nightly.link/Eugeny/tabby/workflows/build/master)
+* [Ultima versione](https://github.com/Eugeny/tabby/releases/latest)
+* [Repository](https://packagecloud.io/eugeny/tabby): [Pacchetto Debian/Ubuntu](https://packagecloud.io/eugeny/tabby/install#bash-deb), [Pachetto RPM](https://packagecloud.io/eugeny/tabby/install#bash-rpm)
+* [Ultima edizione nightly](https://nightly.link/Eugeny/tabby/workflows/build/master)
 
 <br/>
 <p align="center">
-This README is also available in: <a href="./README.ru-RU.md">Русский</a> <a href="./README.ko-KR.md">한국어</a> <a href="./README.zh-CN.md">简体中文</a> <a href="./README.it-IT.md">Italiano</a>
-</p>
+Questo README è disponibile anche in: <a href="./README.md">Inglese</a> <a href="./README.ru-RU.md">Русский</a> <a href="./README.ko-KR.md">한국어</a> <a href="./README.zh-CN.md">简体中文</a>
 
 ----
 
-[**Tabby**](https://tabby.sh) (formerly **Terminus**) is a highly configurable terminal emulator, SSH and serial client for Windows, macOS and Linux
+[**Tabby**](https://tabby.sh) (precedentemente **Terminus**) è un emulatore di terminale, SSH e client seriale altamente configurabile per Windows, macOS e Linux
 
-* Integrated SSH and Telnet client and connection manager
-* Integrated serial terminal
-* Theming and color schemes
-* Fully configurable shortcuts and multi-chord shortcuts
-* Split panes
-* Remembers your tabs
-* PowerShell (and PS Core), WSL, Git-Bash, Cygwin, MSYS2, Cmder and CMD support
-* Direct file transfer from/to SSH sessions via Zmodem
-* Full Unicode support including double-width characters
-* Doesn't choke on fast-flowing outputs
+* Client SSH e Telnet integrato con gestore delle connessioni
+* Terminale seriale integrato
+* Temi e combinazioni di colori
+* Scorciatoie completamente configurabili e scorciatoie multi-tasto
+* Divisibile in pannelli
+* Ricorda le schede aperte
+* Supporto PowerShell (e PS Core), WSL, Git-Bash, Cygwin, MSYS2, Cmder e CMD
+* Trasferimento file diretto da/a sessioni SSH tramite Zmodem
+* Pieno supporto Unicode inclusi caratteri a doppia larghezza
+* Non si blocca su output a flusso rapido
 * Proper shell experience on Windows including tab completion (via Clink)
 * Integrated encrypted container for SSH secrets and configuration
-* SSH, SFTP and Telnet client available as a [web app](https://tabby.sh/app) (also [self-hosted](https://github.com/Eugeny/tabby-web)).
+* Esperienza shell studiaat per Windows incluso il completamento delle schede (tramite Clink)
+* Contenitore crittografato integrato per chiavi SSH e file di configurazione
+* Client SSH, SFTP e Telnet disponibile come [web app](https://tabby.sh/app) (anche [self-hosted](https://github.com/Eugeny/tabby-web)).
 
-# Contents <!-- omit in toc -->
+# Contenuti <!-- omit in toc -->
 
-- [What Tabby is and isn't](#what-tabby-is-and-isnt)
-- [Terminal features](#terminal-features)
-- [SSH Client](#ssh-client)
-- [Serial Terminal](#serial-terminal)
-- [Portable](#portable)
-- [Plugins](#plugins)
-- [Themes](#themes)
-- [Contributing](#contributing)
+- [Cosa è e cosa non è Tabby](#cosa-è-e-cosa-non-è-tabby)
+- [Caratteristiche del Terminale](#caratteristiche-del-terminale)
+- [Client SSH](#client-ssh)
+- [Terminale Seriale](#terminale-seriale)
+- [Portabilità](#portabilità)
+- [Plugin](#plugin)
+- [Temi](#temi)
+- [Partecipazione](#partecipazione)
 
 <a name="about"></a>
 
-# What Tabby is and isn't
+# Cosa è e cosa non è Tabby
 
-* **Tabby is** an alternative to Windows' standard terminal (conhost), PowerShell ISE, PuTTY, macOS Terminal.app and iTerm
+* **Tabby è** un'alternativa al terminale standard di Windows (conhost), PowerShell ISE, PuTTY, macOS Terminal.app e iTerm
 
-* **Tabby is not** a new shell or a MinGW or Cygwin replacement. Neither is it lightweight - if RAM usage is of importance, consider [Conemu](https://conemu.github.io) or [Alacritty](https://github.com/jwilm/alacritty)
+* **Tabby non è** una nuova shell o un'alternativa a MinGW o Cygwin. Non è nemmeno leggero: se l'utilizzo della RAM è importante, considera [Conemu](https://conemu.github.io) o [Alacritty](https://github.com/jwilm/alacritty)
 
 <a name="terminal"></a>
 
-# Terminal features
+# Caratteristiche del Terminale
 
 ![](docs/readme-terminal.png)
 
-* A V220 terminal + various extensions
-* Multiple nested split panes
-* Tabs on any side of the window
-* Optional dockable window with a global spawn hotkey ("Quake console")
-* Progress detection
-* Notification on process completion
-* Bracketed paste, multiline paste warnings
-* Font ligatures
-* Custom shell profiles
-* Optional RMB paste and copy-on select (PuTTY style)
+* Un terminale V220 + vari estensioni
+* Suddivisione in pannelli
+* Schede su qualsiasi lato della finestra
+* Finestra agganciabile opzionale con un tasto di scelta rapida ("Quake console")
+* Rilevamento del progresso
+* Notifica al completamento del processo
+* Incolla tra parentesi e avvisi di incollaggio multilinea
+* Legature dei caratteri
+* Profili shell personalizzati
+* Incolla RMB e copia su selezione opzionale (in stile PuTTY)
 
 <a name="ssh"></a>
-# SSH Client
+# Client SSH
 
 ![](docs/readme-ssh.png)
 
-* SSH2 client with a connection manager
-* X11 and port forwarding
-* Automatic jump host management
-* Agent forwarding (incl. Pageant and Windows native OpenSSH Agent)
-* Login scripts
+* Client SSH2 con un gestore di connessioni
+* X11 e port forwarding
+* Gestione automatica dell'host di salto
+* Inoltro dell'agente (incluso Pageant e l'agente OpenSSH nativo di Windows)
+* Script di accesso
 
 <a name="serial"></a>
-# Serial Terminal
+# Terminale Seriale
 
-* Saved connections
-* Readline input support
-* Optional hex byte-by-byte input and hexdump output
-* Newline conversion
-* Automatic reconnection
+* Connessioni salvate
+* Supporto per l'input Readline
+* Input esadecimale byte per byte opzionale e output hexdump
+* Conversione nuova riga
+* Riconnessione automatica
 
 <a name="portable"></a>
-# Portable
+# Portabilità
 
-Tabby will run as a portable app on Windows, if you create a `data` folder in the same location where `Tabby.exe` lives.
+Tabby può essere eseguito come app portatile su Windows, se crei una cartella `data` nella stessa posizione in cui si trova `Tabby.exe`.
 
 <a name="plugins"></a>
-# Plugins
+# Plugin
 
 Plugins and themes can be installed directly from the Settings view inside Tabby.
 
@@ -118,7 +119,7 @@ Plugins and themes can be installed directly from the Settings view inside Tabby
 * [search-in-browser](https://github.com/composer404/tabby-search-in-browser) - opens default system browser with a text selected from the Tabby's tab
 
 <a name="themes"></a>
-# Themes
+# Temi
 
 * [hype](https://github.com/Eugeny/tabby-theme-hype) - a Hyper inspired theme
 * [relaxed](https://github.com/Relaxed-Theme/relaxed-terminal-themes#terminus) - the Relaxed theme for Tabby
@@ -126,23 +127,23 @@ Plugins and themes can be installed directly from the Settings view inside Tabby
 * [windows10](https://www.npmjs.com/package/terminus-theme-windows10)
 * [altair](https://github.com/yxuko/terminus-altair)
 
-# Sponsors <!-- omit in toc -->
+# Sponsor <!-- omit in toc -->
 
 [![](https://assets-production.packagecloud.io/assets/packagecloud-logo-light-scaled-26ce8e96060fddf74afbd4445e63ba35590d4aaa56edc98495bb390ef3cae0ae.png)](https://packagecloud.io)
 
-[**packagecloud**](https://packagecloud.io) has provided free Debian/RPM repository hosting
+[**packagecloud**](https://packagecloud.io) ha fornito gratuitamente un hosting per i repository Debian/RPM
 
 <a name="contributing"></a>
-# Contributing
+# Partecipazione
 
-Pull requests and plugins are welcome!
+Richieste pull e plugin sono i benvenuti!
 
-See [HACKING.md](https://github.com/Eugeny/tabby/blob/master/HACKING.md) and [API docs](https://docs.tabby.sh/) for information of how the project is laid out, and a very brief plugin development tutorial.
+Vedi [HACKING.md](https://github.com/Eugeny/tabby/blob/master/HACKING.md) e la [documentazione API](https://docs.tabby.sh/) per informazioni su come è strutturato il progetto e un brevissimo tutorial sullo sviluppo dei plugin.
 
 ---
 <a name="contributors"></a>
 
-Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+Grazie a queste persone meravigliose ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
@@ -245,4 +246,4 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
-This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
+Questo progetto segue le specifiche [all-contributors](https://github.com/all-contributors/all-contributors). Contributi di qualsiasi genere sono ben accetti!
