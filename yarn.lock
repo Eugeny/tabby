@@ -294,10 +294,10 @@
     "@sentry/utils" "6.7.1"
     tslib "^1.9.3"
 
-"@sentry/cli@^1.73.0":
-  version "1.73.0"
-  resolved "https://registry.yarnpkg.com/@sentry/cli/-/cli-1.73.0.tgz#0d0bce913e0060ae192741c6693c57e50078c886"
-  integrity sha512-n4YINqmoncGUkLEpd4WuW+oD+aoUyQPhRbSBSYkbCFxPPmopn1VExCB2Vvzwj7vjXYRRGkix6keBMS0LLs3A3Q==
+"@sentry/cli@^1.73.1":
+  version "1.73.1"
+  resolved "https://registry.yarnpkg.com/@sentry/cli/-/cli-1.73.1.tgz#b7ccc964f23230b45921ee91baa52397430dce9e"
+  integrity sha512-EB9mSIVIgHhIDM00pMH1kBcz+pUI//nFB/wtD7PDb6twa+p8GyKV3h2k/HVC7rwY0sQ52lRA2cQysEQuYkgB6Q==
   dependencies:
     https-proxy-agent "^5.0.0"
     mkdirp "^0.5.5"
@@ -305,6 +305,7 @@
     npmlog "^4.1.2"
     progress "^2.0.3"
     proxy-from-env "^1.1.0"
+    which "^2.0.2"
 
 "@sentry/core@6.7.1":
   version "6.7.1"
