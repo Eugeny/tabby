@@ -76,8 +76,8 @@ export class OpenSSHImporter extends SSHProfileImporter {
                         target.forwardedPorts.push({
                             type: PortForwardType.Local,
                             description: value,
-                            host: bind.split(':')[0] ?? '127.0.0.1',
-                            port: parseInt(bind.split(':')[1] ?? bind),
+                            host: bind.includes(':') ? bind.split(':')[0] : '127.0.0.1',
+                            port: parseInt(bind.split(':').at(-1)),
                             targetAddress: tgt.split(':')[0],
                             targetPort: parseInt(tgt.split(':')[1]),
                         })
@@ -87,8 +87,8 @@ export class OpenSSHImporter extends SSHProfileImporter {
                         target.forwardedPorts.push({
                             type: PortForwardType.Dynamic,
                             description: value,
-                            host: bind.split(':')[0] ?? '127.0.0.1',
-                            port: parseInt(bind.split(':')[1] ?? bind),
+                            host: bind.includes(':') ? bind.split(':')[0] : '127.0.0.1',
+                            port: parseInt(bind.split(':').at(-1)),
                             targetAddress: '',
                             targetPort: 22,
                         })
