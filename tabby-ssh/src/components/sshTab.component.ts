@@ -124,6 +124,7 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
         }
 
         this.attachSessionHandler(session.serviceMessage$, msg => {
+            msg = msg.replace(/\n/g, '\r\n      ')
             this.write(`\r${colors.black.bgWhite(' SSH ')} ${msg}\r\n`)
         })
 
@@ -202,6 +203,7 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
         const session = new SSHShellSession(this.injector, this.sshSession)
         this.setSession(session)
         this.attachSessionHandler(session.serviceMessage$, msg => {
+            msg = msg.replace(/\n/g, '\r\n      ')
             this.write(`\r${colors.black.bgWhite(' SSH ')} ${msg}\r\n`)
             session.resize(this.size.columns, this.size.rows)
         })
