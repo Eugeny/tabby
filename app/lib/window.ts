@@ -415,12 +415,12 @@ export class Window {
         this.window.webContents.on('new-window', event => event.preventDefault())
 
         ipcMain.on('window-set-disable-vibrancy-while-dragging', (_event, value) => {
-            this.disableVibrancyWhileDragging = value
+            this.disableVibrancyWhileDragging = value && this.configStore.hacks.disableVibrancyWhileDragging
         })
 
         let moveEndedTimeout: any = null
         const onBoundsChange = () => {
-            if (!this.lastVibrancy?.enabled || !this.disableVibrancyWhileDragging || this.isFluentVibrancy) {
+            if (!this.lastVibrancy?.enabled || !this.disableVibrancyWhileDragging || !this.isFluentVibrancy) {
                 return
             }
             this.setVibrancy(false, undefined, false)
