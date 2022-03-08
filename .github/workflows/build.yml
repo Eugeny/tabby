@@ -228,32 +228,32 @@ jobs:
     - uses: actions/upload-artifact@master
       name: Upload DEB
       with:
-        name: Linux DEB
+        name: Linux DEB (${{matrix.arch}})
         path: artifact-deb
 
     - uses: actions/upload-artifact@master
       name: Upload RPM
       with:
-        name: Linux RPM
+        name: Linux RPM (${{matrix.arch}})
         path: artifact-rpm
 
     - uses: actions/upload-artifact@master
       name: Upload Pacman Package
       with:
-        name: Linux Pacman
+        name: Linux Pacman (${{matrix.arch}})
         path: artifact-pacman
       if: ${{ matrix.arch == 'x86_64' }}
 
     - uses: actions/upload-artifact@master
       name: Upload Snap
       with:
-        name: Linux Snap
+        name: Linux Snap  (${{matrix.arch}})
         path: artifact-snap
 
     - uses: actions/upload-artifact@master
       name: Upload Linux tarball
       with:
-        name: Linux tarball
+        name: Linux tarball (${{matrix.arch}})
         path: artifact-tar.gz
 
     - uses: actions/upload-artifact@master
@@ -261,6 +261,8 @@ jobs:
       with:
         name: Web tarball
         path: artifact-web
+      if: ${{ matrix.arch == 'x86_64' }}
+
 
   Windows-Build:
     runs-on: windows-2022
