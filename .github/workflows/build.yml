@@ -131,6 +131,12 @@ jobs:
   Linux-Build:
     runs-on: ubuntu-18.04 # build against an older glibc for compatibility
     needs: Lint
+    strategy:
+      matrix:
+        include:
+          - arch: x86_64
+          - arch: armv7l
+          - arch: arm64
 
     steps:
     - name: Checkout
@@ -156,22 +162,34 @@ jobs:
 
     - name: Build native deps
       run: scripts/build-native.js
+      env:
+        ARCH: ${{matrix.arch}}
+
+    - name: Build native deps
+      run: |
+        rm -rf app/node_modules/cpu-features
+        rm -rf app/node_modules/ssh2/crypto/build
+      if: ${{ matrix.arch == 'arm64' }}
 
     - name: Webpack
       run: yarn run build
 
     - name: Prepackage plugins
       run: scripts/prepackage-plugins.js
+      env:
+        ARCH: ${{matrix.arch}}
 
     - name: Build packages
       run: scripts/build-linux.js
       env:
+        ARCH: ${{matrix.arch}}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         USE_HARD_LINKS: false
         # DEBUG: electron-builder,electron-builder:*
 
     - name: Build web resources
       run: zsh -c 'tar czf tabby-web.tar.gz (tabby-*|web)/dist'
+      if: ${{ matrix.arch == x86_64 }}
 
     - name: Upload symbols
       run: |
@@ -181,6 +199,7 @@ jobs:
         SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
         SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
         SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
+      if: ${{ matrix.arch == x86_64 }}
 
     - name: Upload packages to packagecloud.io
       uses: Eugeny/packagecloud-action@main
