@@ -415,7 +415,7 @@ export class Window {
         this.window.webContents.on('new-window', event => event.preventDefault())
 
         ipcMain.on('window-set-disable-vibrancy-while-dragging', (_event, value) => {
-            this.disableVibrancyWhileDragging = value
+            this.disableVibrancyWhileDragging = value && this.configStore.hacks.disableVibrancyWhileDragging
         })
 
         let moveEndedTimeout: any = null
