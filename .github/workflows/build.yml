@@ -189,7 +189,7 @@ jobs:
 
     - name: Build web resources
       run: zsh -c 'tar czf tabby-web.tar.gz (tabby-*|web)/dist'
-      if: ${{ matrix.arch == x86_64 }}
+      if: ${{ matrix.arch == 'x86_64' }}
 
     - name: Upload symbols
       run: |
@@ -199,7 +199,7 @@ jobs:
         SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
         SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
         SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
-      if: ${{ matrix.arch == x86_64 }}
+      if: ${{ matrix.arch == 'x86_64' }}
 
     - name: Upload packages to packagecloud.io
       uses: Eugeny/packagecloud-action@main
