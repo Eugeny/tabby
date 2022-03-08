@@ -420,7 +420,7 @@ export class Window {
 
         let moveEndedTimeout: any = null
         const onBoundsChange = () => {
-            if (!this.lastVibrancy?.enabled || !this.disableVibrancyWhileDragging || !this.isFluentVibrancy) {
+            if (!this.lastVibrancy?.enabled || !this.disableVibrancyWhileDragging || this.isFluentVibrancy) {
                 return
             }
             this.setVibrancy(false, undefined, false)
