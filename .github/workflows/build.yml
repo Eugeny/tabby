@@ -265,6 +265,11 @@ jobs:
   Windows-Build:
     runs-on: windows-2022
     needs: Lint
+    strategy:
+      matrix:
+        include:
+          - arch: x86_64
+          - arch: arm64
 
     steps:
     - name: Checkout
@@ -290,6 +295,8 @@ jobs:
         node scripts/build-native.js
         yarn run build
         node scripts/prepackage-plugins.js
+      env:
+        ARCH: ${{matrix.arch}}
 
     - name: Build and sign packages
       run: node scripts/build-windows.js
@@ -303,6 +310,8 @@ jobs:
     - name: Build packages without signing
       run: node scripts/build-windows.js
       if: "!(github.repository == 'Eugeny/tabby' && github.event_name == 'push' && (github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags')))"
+      env:
+        ARCH: ${{matrix.arch}}
 
     - name: Upload symbols
       run: |
