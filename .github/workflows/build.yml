@@ -64,7 +64,7 @@ jobs:
       env:
         ARCH: ${{matrix.arch}}
 
-    - name: Build native deps
+    - name: Fix cross build
       run: |
         rm -rf app/node_modules/cpu-features
         rm -rf app/node_modules/ssh2/crypto/build
@@ -165,7 +165,7 @@ jobs:
       env:
         ARCH: ${{matrix.arch}}
 
-    - name: Build native deps
+    - name: Fix cross build
       run: |
         rm -rf app/node_modules/cpu-features
         rm -rf app/node_modules/ssh2/crypto/build
