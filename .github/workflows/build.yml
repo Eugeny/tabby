@@ -334,11 +334,11 @@ jobs:
     - uses: actions/upload-artifact@master
       name: Upload installer
       with:
-        name: Windows installer
+        name: Windows installer (${{matrix.arch}})
         path: artifact-setup
 
     - uses: actions/upload-artifact@master
       name: Upload portable build
       with:
-        name: Windows portable build
+        name: Windows portable build (${{matrix.arch}})
         path: artifact-portable
