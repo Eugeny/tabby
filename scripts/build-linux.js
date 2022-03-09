@@ -15,7 +15,7 @@ builder({
         extraMetadata: {
             version: vars.version,
         },
-        npmRebuild: (process.env.ARCH !== 'arm64' && process.env.ARCH !== 'armv7l'),
+        npmRebuild: process.env.ARCH !== 'arm*',
     },
     publish: isTag ? 'always' : 'onTag',
 }).catch(() => process.exit(1))

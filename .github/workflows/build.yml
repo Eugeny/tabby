@@ -218,8 +218,6 @@ jobs:
         mv dist/*.rpm artifact-rpm/ || true
         mkdir artifact-pacman
         mv dist/*.pacman artifact-pacman/ || true
-        mkdir artifact-snap
-        mv dist/*.snap artifact-snap/ || true
         mkdir artifact-tar.gz
         mv dist/*.tar.gz artifact-tar.gz/ || true
         mkdir artifact-web
@@ -242,13 +240,6 @@ jobs:
       with:
         name: Linux Pacman (${{matrix.arch}})
         path: artifact-pacman
-      # if: ${{ matrix.arch == 'x86_64' }}
-
-    - uses: actions/upload-artifact@master
-      name: Upload Snap
-      with:
-        name: Linux Snap  (${{matrix.arch}})
-        path: artifact-snap
 
     - uses: actions/upload-artifact@master
       name: Upload Linux tarball
