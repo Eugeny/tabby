@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: German\n"
 "Language: de_DE\n"
-"PO-Revision-Date: 2022-02-22 22:26\n"
+"PO-Revision-Date: 2022-03-06 13:35\n"
 
 #: tabby-local/src/components/terminalTab.component.ts:113
 msgid "\"{command}\" is still running. Close?"
@@ -288,7 +288,7 @@ msgstr "Farbschema"
 
 #: tabby-core/src/hotkeys.ts:65
 msgid "Combine all tabs into the current tab"
-msgstr ""
+msgstr "Alle Tabs in den aktuellen Tab kombinieren"
 
 #: locale/tmp-html/tabby-local/src/components/commandLineEditor.component.html:4
 msgid "Command line"
@@ -780,7 +780,7 @@ msgstr "Gruppe"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:179
 msgid "Hacks"
-msgstr ""
+msgstr "Problembehandlung"
 
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:20
 msgid "Help track the number of Tabby installs across the world!"
@@ -831,15 +831,15 @@ msgstr "Tastenkombinationen"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:24
 msgid "HTTP proxy"
-msgstr ""
+msgstr "HTTP-Proxy"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:61
 msgid "HTTP proxy host"
-msgstr ""
+msgstr "HTTP-Proxy-Host"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:65
 msgid "HTTP proxy port"
-msgstr ""
+msgstr "HTTP-Proxy-Port"
 
 #: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:20
 msgid "Icon"
@@ -929,7 +929,7 @@ msgstr "Schlüsselaustausch"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:23
 msgid "Keyboard"
-msgstr ""
+msgstr "Tastatur"
 
 #: locale/tmp-html/tabby-ssh/src/components/keyboardInteractiveAuthPanel.component.html:2
 msgid "Keyboard-interactive auth"
@@ -1032,7 +1032,7 @@ msgstr "Geändert am {date}"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:40
 msgid "Mouse"
-msgstr ""
+msgstr "Maus"
 
 #: tabby-core/src/hotkeys.ts:45
 msgid "Move tab to the left"
@@ -1656,7 +1656,7 @@ msgstr "Bereichnamen anzeigen (für Neuanordnung)"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:169
 msgid "Show profile icon on tab"
-msgstr ""
+msgstr "Profilsymbol im Tab anzeigen"
 
 #: tabby-core/src/hotkeys.ts:13
 msgid "Show profile selector"
@@ -1707,7 +1707,7 @@ msgstr "SOCKS-Proxy-Port"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:109
 msgid "Sound"
-msgstr ""
+msgstr "Töne"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:31
 msgid "Source code"
@@ -1928,7 +1928,7 @@ msgstr "Versuche gespeichertes Passwort"
 
 #: tabby-core/src/hotkeys.ts:61
 msgid "Turn current tab's panes into separate tabs"
-msgstr ""
+msgstr "Aktuell geteilten Tab in separate Tabs verwandeln"
 
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:17
 msgid "Ungrouped"
@@ -1991,7 +1991,7 @@ msgstr "Benutzername"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:25
 msgid "Using CONNECT method"
-msgstr ""
+msgstr "Mit der CONNECT-Methode"
 
 #: tabby-ssh/src/session/ssh.ts:462
 msgid "Using preset password"
@@ -2097,7 +2097,7 @@ msgstr "Fensterrahmen"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:147
 msgid "Windows"
-msgstr ""
+msgstr "Windows"
 
 #: locale/tmp-html/tabby-local/src/components/shellSettingsTab.component.html:11
 msgid "Windows 10 build 18309 or above is recommended for ConPTY"

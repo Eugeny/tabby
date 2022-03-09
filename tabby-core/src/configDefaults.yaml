@@ -38,4 +38,5 @@ enableExperimentalFeatures: false
 pluginBlacklist: []
 hacks:
   disableGPU: false
+  disableVibrancyWhileDragging: false
 language: null

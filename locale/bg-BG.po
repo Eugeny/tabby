@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Bulgarian\n"
 "Language: bg_BG\n"
-"PO-Revision-Date: 2022-02-22 22:26\n"
+"PO-Revision-Date: 2022-02-28 08:08\n"
 
 #: tabby-local/src/components/terminalTab.component.ts:113
 msgid "\"{command}\" is still running. Close?"
@@ -180,7 +180,7 @@ msgstr "Начало на реда"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:57
 msgid "Blink cursor"
-msgstr "Мигане на курсор"
+msgstr "Мигане на курсора"
 
 #: tabby-core/src/utils.ts:61
 msgid "Blue"
@@ -242,7 +242,7 @@ msgstr "Изчисти скорошни профили"
 
 #: tabby-terminal/src/hotkeys.ts:42
 msgid "Clear terminal"
-msgstr "Изчисти терминал"
+msgstr "Изчисти терминала"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:86
 msgid "Clipboard"
@@ -259,7 +259,7 @@ msgstr "Затвори и не показвай отново"
 
 #: tabby-core/src/hotkeys.ts:197
 msgid "Close focused pane"
-msgstr "Затвори панелът на фокус"
+msgstr "Затвори панела на фокус"
 
 #: tabby-core/src/tabContextMenu.ts:48
 msgid "Close other tabs"
@@ -288,7 +288,7 @@ msgstr "Цветови схеми"
 
 #: tabby-core/src/hotkeys.ts:65
 msgid "Combine all tabs into the current tab"
-msgstr ""
+msgstr "Комбинирай всички табове в текущия"
 
 #: locale/tmp-html/tabby-local/src/components/commandLineEditor.component.html:4
 msgid "Command line"
@@ -495,7 +495,7 @@ msgstr "Директно"
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:55
 msgid "Disable"
-msgstr "Изключено"
+msgstr "Изключи"
 
 #: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:39
 msgid "Disable dynamic tab title"
@@ -507,7 +507,7 @@ msgstr "Изключи ускоряване от графичния процес
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:48
 msgid "Disabled"
-msgstr "Изключено"
+msgstr "Изключен"
 
 #: locale/tmp-html/tabby-ssh/src/components/hostKeyPromptModal.component.html:26
 #: tabby-ssh/src/components/sshTab.component.ts:245
@@ -609,7 +609,7 @@ msgstr "Включи глобален бърз клавиш (Ctrl-Space)"
 
 #: locale/tmp-html/tabby-local/src/components/shellSettingsTab.component.html:6
 msgid "Enables the experimental Windows ConPTY API"
-msgstr "Включи експерименталния Windows ConPTY API"
+msgstr "Включва експерименталния Windows ConPTY API"
 
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:36
 msgid "Encrypt config file"
@@ -617,7 +617,7 @@ msgstr "Криптирай конфигурационния файл"
 
 #: tabby-terminal/src/hotkeys.ts:22
 msgid "End of the line"
-msgstr "На края на реда"
+msgstr "Края на реда"
 
 #: locale/tmp-html/tabby-local/src/components/localProfileSettings.component.html:19
 msgid "Environment"
@@ -662,7 +662,7 @@ msgstr "Файл: {description}"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:157
 msgid "Fixed"
-msgstr "Фиксиран"
+msgstr "Фиксирана"
 
 #: tabby-local/src/tabContextMenu.ts:136
 msgid "Focus all panes"
@@ -678,7 +678,7 @@ msgstr "Фокусирай следващия панел"
 
 #: tabby-core/src/hotkeys.ts:185
 msgid "Focus previous pane"
-msgstr "Фокусирай предишен панел"
+msgstr "Фокусирай предишния панел"
 
 #: tabby-core/src/hotkeys.ts:169
 msgid "Focus the pane above"
@@ -690,11 +690,11 @@ msgstr "Фокусирай долен панел"
 
 #: tabby-core/src/hotkeys.ts:177
 msgid "Focus the pane on the left"
-msgstr "Фокус на левия панел"
+msgstr "Фокусирай левия панел"
 
 #: tabby-core/src/hotkeys.ts:181
 msgid "Focus the pane on the right"
-msgstr "Фокус на десния панел"
+msgstr "Фокусирай десния панел"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:7
 msgid "Font"
@@ -760,7 +760,7 @@ msgstr "Получи"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:20
 msgid "Get it from the Tabby Web settings window"
-msgstr "Вземи от прозореца за Web настройки на Tabby"
+msgstr "Вземете от прозореца за Web настройки на Tabby"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:22
 msgid "Gives the window a blurred transparent background"
@@ -827,19 +827,19 @@ msgstr "Проверка ключа на хоста"
 #: locale/tmp-html/tabby-settings/src/components/hotkeySettingsTab.component.html:2
 #: tabby-settings/src/settings.ts:15
 msgid "Hotkeys"
-msgstr "Горещи клавиши"
+msgstr "Бързи клавиши"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:24
 msgid "HTTP proxy"
-msgstr ""
+msgstr "HTTP прокси"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:61
 msgid "HTTP proxy host"
-msgstr ""
+msgstr "HTTP прокси хост"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:65
 msgid "HTTP proxy port"
-msgstr ""
+msgstr "HTTP прокси порт"
 
 #: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:20
 msgid "Icon"
@@ -929,7 +929,7 @@ msgstr "Обмен на ключ"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:23
 msgid "Keyboard"
-msgstr ""
+msgstr "Клавиатура"
 
 #: locale/tmp-html/tabby-ssh/src/components/keyboardInteractiveAuthPanel.component.html:2
 msgid "Keyboard-interactive auth"
@@ -1032,15 +1032,15 @@ msgstr "Модифицирано на {date}"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:40
 msgid "Mouse"
-msgstr ""
+msgstr "Мишка"
 
 #: tabby-core/src/hotkeys.ts:45
 msgid "Move tab to the left"
-msgstr "Премести таба на ляво"
+msgstr "Премести таба наляво"
 
 #: tabby-core/src/hotkeys.ts:49
 msgid "Move tab to the right"
-msgstr "Премести таба на дясно"
+msgstr "Премести таба надясно"
 
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:203
 msgid "Move to \"Ungrouped\""
@@ -1155,7 +1155,7 @@ msgstr "Официален"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:26
 msgid "On GitHub Discussions"
-msgstr "На GitHub Discussions"
+msgstr "В GitHub Discussions"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:41
 msgid "Opacity"
@@ -1283,11 +1283,11 @@ msgstr "Закрепи"
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:3
 msgid "Plugins"
-msgstr "Приставки"
+msgstr "Плъгини"
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:4
 msgid "Plugins folder"
-msgstr "Папка за приставки"
+msgstr "Папка за плъгини"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:38
 #: locale/tmp-html/tabby-telnet/src/components/telnetProfileSettings.component.html:10
@@ -1447,19 +1447,19 @@ msgstr "Изисква клавиш за отваряне на линк"
 
 #: tabby-terminal/src/hotkeys.ts:54
 msgid "Reset zoom"
-msgstr "Възстанови мащаб"
+msgstr "Възстанови мащаба"
 
 #: tabby-serial/src/hotkeys.ts:14
 msgid "Restart current serial session"
-msgstr "Рестартирай текуща serial сесия"
+msgstr "Рестартирай текущата serial сесия"
 
 #: tabby-ssh/src/hotkeys.ts:10
 msgid "Restart current SSH session"
-msgstr "Рестартирай текуща SSH сесия"
+msgstr "Рестартирай текущата SSH сесия"
 
 #: tabby-telnet/src/hotkeys.ts:10
 msgid "Restart current Telnet session"
-msgstr "Рестартирай текуща Telnet сесия"
+msgstr "Рестартирай текущата Telnet сесия"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:127
 msgid "Restart the app to apply changes"
@@ -1523,11 +1523,11 @@ msgstr "Превъртай екрана при въвеждане"
 
 #: tabby-terminal/src/hotkeys.ts:74
 msgid "Scroll terminal to bottom"
-msgstr "Превърти терминал до край"
+msgstr "Превърти терминала до край"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:16
 msgid "Scrollback"
-msgstr "Превърти назад"
+msgstr "Буфер за превъртане"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:34
 msgid "Scrolls the terminal to the bottom on user input"
@@ -1707,7 +1707,7 @@ msgstr "SOCKS прокси порт"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:109
 msgid "Sound"
-msgstr ""
+msgstr "Звук"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:31
 msgid "Source code"
@@ -1834,7 +1834,7 @@ msgstr "Активност на таба"
 
 #: locale/tmp-html/tabby-core/src/components/safeModeModal.component.html:3
 msgid "Tabby could not start with your plugins, so all third party plugins have been disabled in this session. The error was:"
-msgstr "Tabby не може да стартира с вашите приставки, така че всички приставки на трети страни са деактивирани в тази сесия. Грешката беше:"
+msgstr "Tabby не може да стартира с вашите плъгини, така че всички плъгини на трети страни са деактивирани в тази сесия. Грешката беше:"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:41
 msgid "Tabby news and updates on Twitter"
@@ -1907,7 +1907,7 @@ msgstr "Последен таб"
 
 #: tabby-electron/src/hotkeys.ts:14
 msgid "Toggle terminal window"
-msgstr "Показва/Скрива терминален прозорец"
+msgstr "Показване/Скриване на терминалния прозорец"
 
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:27
 msgid "Toggles the Tabby window visibility"
@@ -1928,7 +1928,7 @@ msgstr "Опитвам запазена парола"
 
 #: tabby-core/src/hotkeys.ts:61
 msgid "Turn current tab's panes into separate tabs"
-msgstr ""
+msgstr "Превръщане на панелите на текущия таб в отделни табове"
 
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:17
 msgid "Ungrouped"
@@ -1991,7 +1991,7 @@ msgstr "Потребителско име"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:25
 msgid "Using CONNECT method"
-msgstr ""
+msgstr "Използване на CONNECT метод"
 
 #: tabby-ssh/src/session/ssh.ts:462
 msgid "Using preset password"
@@ -2097,7 +2097,7 @@ msgstr "Рамка на прозореца"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:147
 msgid "Windows"
-msgstr ""
+msgstr "Прозорци"
 
 #: locale/tmp-html/tabby-local/src/components/shellSettingsTab.component.html:11
 msgid "Windows 10 build 18309 or above is recommended for ConPTY"
@@ -2155,5 +2155,5 @@ msgstr "Намали"
 #: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:55
 msgctxt "[Dynamic] port forwarding"
 msgid "id.port-forwarding.dynamic"
-msgstr "id.port-forwarding.dynamic"
+msgstr "Динамичен"
 
