@@ -169,7 +169,7 @@ jobs:
       run: |
         rm -rf app/node_modules/cpu-features
         rm -rf app/node_modules/ssh2/crypto/build
-      if: ${{ matrix.arch == 'arm64' }}
+      if: ${{ matrix.arch == 'arm64' || matrix.arch == 'armv7l' }}
 
     - name: Webpack
       run: yarn run build
