@@ -4,6 +4,7 @@ import { ipcMain } from 'electron'
 import { Application } from './app'
 import { UTF8Splitter } from './utfSplitter'
 import { Subject, debounceTime } from 'rxjs'
+import { StringDecoder } from './stringDecoder'
 
 class PTYDataQueue {
     private buffers: Buffer[] = []
@@ -90,6 +91,7 @@ class PTYDataQueue {
 export class PTY {
     private pty: nodePTY.IPty
     private outputQueue: PTYDataQueue
+    private decoder = new StringDecoder()
     exited = false
 
     constructor (private id: string, private app: Application, ...args: any[]) {
@@ -99,7 +101,7 @@ export class PTY {
         }
 
         this.outputQueue = new PTYDataQueue(this.pty, data => {
-            setImmediate(() => this.emit('data', data))
+            setImmediate(() => this.emit('data', this.decoder.write(data)))
         })
 
         this.pty.onData(data => this.outputQueue.push(Buffer.from(data)))
