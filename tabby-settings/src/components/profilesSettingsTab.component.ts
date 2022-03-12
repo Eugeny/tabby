@@ -225,10 +225,6 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
         return !this.filter || (profile.name + '$' + (this.getDescription(profile) ?? '')).toLowerCase().includes(this.filter.toLowerCase())
     }
 
-    iconIsSVG (icon?: string): boolean {
-        return icon?.startsWith('<') ?? false
-    }
-
     getDescription (profile: PartialProfile<Profile>): string|null {
         return this.profilesService.getDescription(profile)
     }

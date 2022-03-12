@@ -1,0 +1,10 @@
+:host {
+    display: flex;
+    align-items: center;
+    max-width: 1.25rem;
+}
+
+::ng-deep img {
+    max-width: 100%;
+    max-height: 100%;
+}

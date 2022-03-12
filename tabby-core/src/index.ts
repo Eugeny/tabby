@@ -29,6 +29,7 @@ import { SplitTabPaneLabelComponent } from './components/splitTabPaneLabel.compo
 import { UnlockVaultModalComponent } from './components/unlockVaultModal.component'
 import { WelcomeTabComponent } from './components/welcomeTab.component'
 import { TransfersMenuComponent } from './components/transfersMenu.component'
+import { ProfileIconComponent } from './components/profileIcon.component'
 
 import { AutofocusDirective } from './directives/autofocus.directive'
 import { AlwaysVisibleTypeaheadDirective } from './directives/alwaysVisibleTypeahead.directive'
@@ -128,6 +129,7 @@ const PROVIDERS = [
         TransfersMenuComponent,
         DropZoneDirective,
         CdkAutoDropGroup,
+        ProfileIconComponent,
     ],
     entryComponents: [
         PromptModalComponent,
@@ -150,6 +152,7 @@ const PROVIDERS = [
         DragDropModule,
         TranslateModule,
         CdkAutoDropGroup,
+        ProfileIconComponent,
     ],
 })
 export default class AppModule { // eslint-disable-line @typescript-eslint/no-extraneous-class
