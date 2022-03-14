@@ -138,7 +138,7 @@ export class XTermFrontend extends Frontend {
             }
         }
 
-        const oldKeyUp = this.xtermCore._keyUp
+        const oldKeyUp = this.xtermCore._keyUp.bind(this.xtermCore)
         this.xtermCore._keyUp = (e: KeyboardEvent) => {
             this.xtermCore.updateCursorStyle(e)
             if (keyboardEventHandler('keyup', e)) {
