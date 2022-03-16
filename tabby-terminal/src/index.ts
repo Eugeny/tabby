@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser'
 import { FormsModule } from '@angular/forms'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { ToastrModule } from 'ngx-toastr'
+import { NgxColorsModule } from 'ngx-colors'
 
 import TabbyCorePlugin, { ConfigProvider, HotkeyProvider, TabContextMenuItemProvider, CLIHandler } from 'tabby-core'
 import { SettingsTabProvider } from 'tabby-settings'
@@ -40,6 +41,7 @@ import { TerminalCLIHandler } from './cli'
         NgbModule,
         ToastrModule,
         TabbyCorePlugin,
+        NgxColorsModule,
     ],
     providers: [
         { provide: SettingsTabProvider, useClass: AppearanceSettingsTabProvider, multi: true },

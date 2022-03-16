@@ -23,6 +23,7 @@
     "cli-spinner": "^0.2.10",
     "dataurl": "0.1.0",
     "hexer": "^1.5.0",
+    "ngx-colors": "^3.0.4",
     "ps-node": "^0.1.6",
     "runes": "^0.4.2",
     "xterm": "npm:@tabby-gang/xterm@^4.17.1-beta.2",
