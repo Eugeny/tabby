@@ -25,7 +25,7 @@
     "mixpanel": "^0.13.0",
     "ngx-filesize": "^2.0.16",
     "ngx-perfect-scrollbar": "^10.1.0",
-    "ngx-translate-messageformat-compiler": "^4.11.0",
+    "ngx-translate-messageformat-compiler": "^5.0.1",
     "readable-stream": "3.6.0",
     "uuid": "^8.0.0"
   },
