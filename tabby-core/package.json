@@ -27,7 +27,6 @@
     "ngx-perfect-scrollbar": "^10.1.0",
     "ngx-translate-messageformat-compiler": "^4.11.0",
     "readable-stream": "3.6.0",
-    "thenby": "^1.3.4",
     "uuid": "^8.0.0"
   },
   "peerDependencies": {

@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Component, ViewChild } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
+import { firstBy } from 'thenby'
 
 import { ConfigService, FileProvidersService, Platform, HostAppService, PromptModalComponent, PartialProfile } from 'tabby-core'
 import { LoginScriptsSettingsComponent } from 'tabby-terminal'
@@ -34,6 +35,8 @@ export class SSHProfileSettingsComponent {
 
     async ngOnInit () {
         this.jumpHosts = this.config.store.profiles.filter(x => x.type === 'ssh' && x !== this.profile)
+        this.jumpHosts.sort(firstBy(x => this.getJumpHostLabel(x)))
+
         for (const k of Object.values(SSHAlgorithmType)) {
             this.algorithms[k] = {}
             for (const alg of this.profile.options.algorithms?.[k] ?? []) {
@@ -61,6 +64,10 @@ export class SSHProfileSettingsComponent {
                 console.error('Could not check for saved password', e)
             }
         }
+    }
+
+    getJumpHostLabel (p: PartialProfile<SSHProfile>) {
+        return p.group ? `${p.group} / ${p.name}` : p.name
     }
 
     async setPassword () {

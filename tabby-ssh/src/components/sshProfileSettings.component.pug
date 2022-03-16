@@ -61,7 +61,7 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
                 label(translate) Jump host
                 select.form-control([(ngModel)]='profile.options.jumpHost')
                     option([ngValue]='null', translate) Select
-                    option([ngValue]='x.id', *ngFor='let x of jumpHosts') {{x.name}}
+                    option([ngValue]='x.id', *ngFor='let x of jumpHosts') {{getJumpHostLabel(x)}}
 
 
             .d-flex.w-100(*ngIf='connectionMode === "socksProxy"')
