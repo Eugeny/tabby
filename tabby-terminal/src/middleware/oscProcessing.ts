@@ -35,7 +35,7 @@ export class OSCProcessor extends SessionMiddleware {
                     console.debug('Unsupported OSC 1337 parameter:', paramString)
                 }
             } else if (oscCode === 52) {
-                if (oscParams[0] === 'c') {
+                if (oscParams[0] === 'c' || oscParams[0] === '') {
                     const content = Buffer.from(oscParams[1], 'base64')
                     this.copyRequested.next(content.toString())
                 }
