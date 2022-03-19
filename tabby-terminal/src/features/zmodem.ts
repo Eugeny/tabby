@@ -26,9 +26,10 @@ export class ZModemDecorator extends TerminalDecorator {
     }
 
     attach (terminal: BaseTerminalTabComponent): void {
+        let isActive = false
         const sentry = new ZModem.Sentry({
             to_terminal: data => {
-                if (!terminal.enablePassthrough) {
+                if (isActive) {
                     terminal.write(data)
                 }
             },
@@ -36,9 +37,11 @@ export class ZModemDecorator extends TerminalDecorator {
             on_detect: async detection => {
                 try {
                     terminal.enablePassthrough = false
+                    isActive = true
                     await this.process(terminal, detection)
                 } finally {
                     terminal.enablePassthrough = true
+                    isActive = false
                 }
             },
             on_retract: () => {
