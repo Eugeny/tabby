@@ -4,7 +4,6 @@ const path = require('path')
 const vars = require('./vars')
 
 process.env.ARCH = process.env.ARCH || process.arch
-if ( process.env.ARCH === 'arm' ) process.env.ARCH = 'armv7l' ;
 
 let lifecycles = []
 for (let dir of ['app', 'tabby-core', 'tabby-local', 'tabby-ssh', 'tabby-terminal']) {
