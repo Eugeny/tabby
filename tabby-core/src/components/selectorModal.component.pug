@@ -17,15 +17,9 @@
                 (click)='selectOption(option)',
                 [class.active]='selectedIndex == i'
             )
-                i.icon(
-                    class='fa-fw {{option.icon}}',
-                    style='color: {{option.color}}',
-                    *ngIf='!iconIsSVG(option.icon)'
-                )
-                .icon(
-                    [fastHtmlBind]='option.icon',
-                    style='color: {{option.color}}',
-                    *ngIf='iconIsSVG(option.icon)'
+                profile-icon(
+                    [icon]='option.icon',
+                    [color]='option.color'
                 )
                 .title.mr-2 {{getOptionText(option)}}
                 .description.no-wrap.text-muted {{option.description}}

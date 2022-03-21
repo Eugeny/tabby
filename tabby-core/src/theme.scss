@@ -393,3 +393,15 @@ hr {
 .dropdown-menu {
     box-shadow: $dropdown-box-shadow;
 }
+
+ngx-colors-panel .opened {
+    background: $body-bg !important;
+
+    button {
+        color: $body-color;
+    }
+
+    .button svg {
+        fill: white;
+    }
+}

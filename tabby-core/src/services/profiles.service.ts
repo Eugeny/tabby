@@ -112,6 +112,7 @@ export class ProfilesService {
                     group: this.translate.instant('Recent'),
                     icon: 'fas fa-history',
                     color: p.color,
+                    weight: -1,
                     callback: async () => {
                         if (p.id) {
                             p = (await this.getProfiles()).find(x => x.id === p.id) ?? p
@@ -124,6 +125,7 @@ export class ProfilesService {
                         name: this.translate.instant('Clear recent profiles'),
                         group: this.translate.instant('Recent'),
                         icon: 'fas fa-eraser',
+                        weight: -1,
                         callback: async () => {
                             window.localStorage.removeItem('recentProfiles')
                             this.config.save()
@@ -142,6 +144,7 @@ export class ProfilesService {
 
                 options = [...options, ...profiles.map((p): SelectorOption<void> => ({
                     ...this.selectorOptionForProfile(p),
+                    weight: p.isBuiltin ? 2 : 1,
                     callback: () => resolve(p),
                 }))]
 
@@ -150,6 +153,7 @@ export class ProfilesService {
                     options.push({
                         name: this.translate.instant('Manage profiles'),
                         icon: 'fas fa-window-restore',
+                        weight: 10,
                         callback: () => {
                             this.app.openNewTabRaw({
                                 type: SettingsTabComponent,

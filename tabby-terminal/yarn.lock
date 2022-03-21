@@ -94,6 +94,13 @@ minimist@^1.1.0:
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.5.tgz#67d66014b66a6a8aaa0c083c5fd58df4e4e97602"
   integrity sha512-FM9nNUYrRBAELZQT3xeZQ7fmMOBg6nWNmJKTcgsJeaLstP/UODVpGsr5OhXhhXg6f+qtJ8uiZ+PUxkDWcgIXLw==
 
+ngx-colors@^3.0.4:
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/ngx-colors/-/ngx-colors-3.0.4.tgz#69b760760e6e1e92fda5da51fa9b4bea7e555d40"
+  integrity sha512-peNvVpYkm8pe3nP8/TbaFFqo/RxZevGljKrzFa2g1hPPacdx+WdfwAN4uJfcGk7qTYbqlV64SSfb3Pnx8qjzDA==
+  dependencies:
+    tslib "^2.0.0"
+
 opentype.js@^0.8.0:
   version "0.8.0"
   resolved "https://registry.yarnpkg.com/opentype.js/-/opentype.js-0.8.0.tgz#acabcfa1642fbe894a3e4d759e43ba694e02bd35"
@@ -140,6 +147,11 @@ tiny-inflate@^1.0.2:
   resolved "https://registry.yarnpkg.com/tiny-inflate/-/tiny-inflate-1.0.3.tgz#122715494913a1805166aaf7c93467933eea26c4"
   integrity sha512-pkY1fj1cKHb2seWDy0B16HeWyczlJA9/WW3u3c4z/NiWDsO3DOU5D7nhTLE9CF0yXv/QZFY7sEJmj24dK+Rrqw==
 
+tslib@^2.0.0:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.3.1.tgz#e8a335add5ceae51aa261d32a490158ef042ef01"
+  integrity sha512-77EbyPPpMz+FRFRuAFlWMtmgUWGe9UOG2Z25NqCwiIjRhOf5iKGuzSe5P2w1laq+FkRy4p+PCuVkJSGkzTEKVw==
+
 xtend@^4.0.0:
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/xtend/-/xtend-4.0.2.tgz#bb72779f5fa465186b1f438f674fa347fdb5db54"
@@ -178,10 +190,10 @@ xterm-addon-webgl@^0.12.0-beta.24:
   resolved "https://registry.yarnpkg.com/xterm-addon-webgl/-/xterm-addon-webgl-0.12.0-beta.24.tgz#5c17256933991856554c95c9bd1eaab42e9727a0"
   integrity sha512-+wZxKReEOlfN9JRHyikoffA6Do61/THR7QY35ajkQo0lLutKr6hTd/TLTuZh0PhFVelgTgudpXqlP++Lc0WFIA==
 
-"xterm@npm:@tabby-gang/xterm@^4.17.1-beta.1":
-  version "4.17.1-beta.1"
-  resolved "https://registry.yarnpkg.com/@tabby-gang/xterm/-/xterm-4.17.1-beta.1.tgz#c24d507362c052491ca7ef1cb26445b9b1417942"
-  integrity sha512-nQNMhU7rBZTDv/0V+9UHxCjCCuEZNGftg+2/FiWrZxa1Tl5cWYFvlpMAB+O4drBJPTpkKJUKmDDdKKnbqlxnRg==
+"xterm@npm:@tabby-gang/xterm@^4.17.1-beta.2":
+  version "4.17.1-beta.2"
+  resolved "https://registry.yarnpkg.com/@tabby-gang/xterm/-/xterm-4.17.1-beta.2.tgz#3b4b542297609f082c12b0877582cdf1398a84b5"
+  integrity sha512-tKePw6VBFVGvnKaxtfuS7qKbeX8bIT0+7asXSP70RA/78h8xeq3YoRHaV/cZEHaicNHMchlYFbXl3VpHXwusDw==
 
 yallist@^4.0.0:
   version "4.0.0"

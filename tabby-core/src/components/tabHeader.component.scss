@@ -26,8 +26,7 @@ $tabs-height: 38px;
       height: $tabs-height;
     }
 
-    .index,
-    .icon {
+    .index {
         flex: none;
         font-weight: bold;
         -webkit-app-region: no-drag;
@@ -41,7 +40,7 @@ $tabs-height: 38px;
         margin-top: 1px;
     }
 
-    .icon {
+    profile-icon {
         font-size: 13px;
         margin: 1px 4px 0 0;
     }

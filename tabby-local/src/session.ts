@@ -140,6 +140,7 @@ export class Session extends BaseSession {
             let env = mergeEnv(
                 process.env,
                 {
+                    COLORTERM: 'truecolor',
                     TERM: 'xterm-256color',
                     TERM_PROGRAM: 'Tabby',
                 },

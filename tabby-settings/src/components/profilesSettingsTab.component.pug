@@ -58,14 +58,9 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
                                     [class.list-group-item-action]='!profile.isBuiltin',
                                     (click)='profile.isBuiltin ? null : editProfile(profile)'
                                 )
-                                    i.icon(
-                                        class='fa-fw {{profile.icon}}',
-                                        [style.color]='profile.color',
-                                        *ngIf='!iconIsSVG(profile.icon)'
-                                    )
-                                    .icon(
-                                        [fastHtmlBind]='profile.icon',
-                                        *ngIf='iconIsSVG(profile.icon)'
+                                    profile-icon(
+                                        [icon]='profile.icon',
+                                        [color]='profile.color'
                                     )
 
                                     .no-wrap {{profile.name}}

@@ -16,9 +16,10 @@ import { PasswordStorageService } from '../services/passwordStorage.service'
 import { SSHKnownHostsService } from '../services/sshKnownHosts.service'
 import { promisify } from 'util'
 import { SFTPSession } from './sftp'
-import { ALGORITHM_BLACKLIST, SSHAlgorithmType, PortForwardType, SSHProfile, SSHProxyStream, AutoPrivateKeyLocator } from '../api'
+import { SSHAlgorithmType, PortForwardType, SSHProfile, SSHProxyStream, AutoPrivateKeyLocator } from '../api'
 import { ForwardedPort } from './forwards'
 import { X11Socket } from './x11'
+import { supportedAlgorithms } from '../algorithms'
 
 const WINDOWS_OPENSSH_AGENT_PIPE = '\\\\.\\pipe\\openssh-ssh-agent'
 
@@ -201,7 +202,7 @@ export class SSHSession {
         let connected = false
         const algorithms = {}
         for (const key of Object.values(SSHAlgorithmType)) {
-            algorithms[key] = this.profile.options.algorithms![key].filter(x => !ALGORITHM_BLACKLIST.includes(x))
+            algorithms[key] = this.profile.options.algorithms![key].filter(x => supportedAlgorithms[key].includes(x))
         }
 
         const hostVerifiedPromise: Promise<void> = new Promise((resolve, reject) => {

@@ -1,3 +1,4 @@
+import { firstBy } from 'thenby'
 import { Component, Input, HostListener, ViewChildren, QueryList, ElementRef } from '@angular/core' // eslint-disable-line @typescript-eslint/no-unused-vars
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
 import { SelectorOption } from '../api/selector'
@@ -52,8 +53,11 @@ export class SelectorModalComponent<T> {
     onFilterChange (): void {
         const f = this.filter.trim().toLowerCase()
         if (!f) {
-            this.filteredOptions = this.options.slice()
-                .sort((a, b) => a.group?.localeCompare(b.group ?? '') ?? 0)
+            this.filteredOptions = this.options.slice().sort(
+                firstBy<SelectorOption<T>, number>(x => x.weight ?? 0)
+                    .thenBy<SelectorOption<T>, string>(x => x.group ?? '')
+                    .thenBy<SelectorOption<T>, string>(x => x.name)
+            )
                 .filter(x => !x.freeInputPattern)
         } else {
             const terms = f.split(' ')
@@ -83,9 +87,5 @@ export class SelectorModalComponent<T> {
 
     close (): void {
         this.modalInstance.dismiss()
-    }
-
-    iconIsSVG (icon?: string): boolean {
-        return icon?.startsWith('<') ?? false
     }
 }
