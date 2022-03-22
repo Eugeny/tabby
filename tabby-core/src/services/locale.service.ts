@@ -103,6 +103,10 @@ export class LocaleService {
             name: 'Português',
         },
         {
+            code: 'pt-BR',
+            name: 'Português do Brasil',
+        },
+        {
             code: 'bg-BG',
             name: 'Български',
         },

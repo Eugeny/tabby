@@ -4,70 +4,70 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Crowdin-Project: tabby\n"
 "X-Crowdin-Project-ID: 493349\n"
-"X-Crowdin-Language: it\n"
+"X-Crowdin-Language: pt-BR\n"
 "X-Crowdin-File: /locale/app.pot\n"
 "X-Crowdin-File-ID: 75\n"
 "Project-Id-Version: tabby\n"
-"Language-Team: Italian\n"
-"Language: it_IT\n"
-"PO-Revision-Date: 2022-03-22 14:14\n"
+"Language-Team: Portuguese, Brazilian\n"
+"Language: pt_BR\n"
+"PO-Revision-Date: 2022-03-22 14:20\n"
 
 #: tabby-local/src/components/terminalTab.component.ts:113
 msgid "\"{command}\" is still running. Close?"
-msgstr "\"{command}\" è ancora in esecuzione. Chiudere?"
+msgstr "\"{command}\" ainda está em execução. Fechar?"
 
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:77
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:84
 msgid "{name} copy"
-msgstr "{name} copia"
+msgstr "{name} cópia"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:64
 msgid "A second font family used to display characters missing in the main font"
-msgstr "Un set di caratteri secondario usato per mostrare quelli mancanti nel principale"
+msgstr "Uma segunda família de fontes usada para exibir caracteres faltando na fonte principal"
 
 #: tabby-core/src/components/transfersMenu.component.ts:49
 msgid "Abort all"
-msgstr "Annulla tutto"
+msgstr "Abortar tudo"
 
 #: locale/tmp-html/tabby-ssh/src/components/hostKeyPromptModal.component.html:24
 msgid "Accept and remember key"
-msgstr "Accetta e ricorda la chiave"
+msgstr "Aceitar e salvar a tecla"
 
 #: locale/tmp-html/tabby-ssh/src/components/hostKeyPromptModal.component.html:25
 msgid "Accept just this once"
-msgstr "Accetta solo questa volta"
+msgstr "Aceitar apenas desta vez"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:20
 msgid "Acrylic background"
-msgstr "Sfondo traslucido"
+msgstr "Fundo acrílico"
 
 #: locale/tmp-html/tabby-local/src/components/commandLineEditor.component.html:28
 #: locale/tmp-html/tabby-local/src/components/environmentEditor.component.html:15
 msgid "Add"
-msgstr "Aggiungi"
+msgstr "Adicionar"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:16
 msgid "Add a port forward"
-msgstr "Configura un inoltro di porta"
+msgstr "Adicionar um redirecionamento de porta"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:115
 msgid "Add a private key"
-msgstr "Aggiungi una chiave privata"
+msgstr "Adicionar uma chave privada"
 
 #: locale/tmp-html/tabby-settings/src/components/multiHotkeyInput.component.html:8
 msgid "Add..."
-msgstr "Aggiungi..."
+msgstr "Adicionar..."
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:71
 msgid "Additional space between lines"
-msgstr "Spazio aggiuntivo tra le righe"
+msgstr "Espaço adicional entre as linhas"
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:22
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:64
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:52
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:124
 msgid "Advanced"
-msgstr "Avanzate"
+msgstr "\"Avançado\""
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:90
 msgid "Agent"
@@ -75,134 +75,134 @@ msgstr "Agente"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:134
 msgid "Agent forwarding"
-msgstr "Inoltro dell'Agente"
+msgstr "Encaminhamento de agente"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:35
 msgid "Agent pipe path"
-msgstr "Percorso pipe dell'Agente"
+msgstr "Caminho do agente pipe"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:24
 msgid "Agent type"
-msgstr "Tipo di Agente"
+msgstr "Tipo de agente"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:151
 msgid "Allows opening .bat files in tabs, but breaks some shells"
-msgstr "Permette l'apertura di file .bat nelle schede, potrebbe bloccare alcune shell"
+msgstr "Permite abrir arquivos .bat em abas, mas quebra em alguns shells"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:60
 msgid "Allows quickly opening a terminal in the selected folder"
-msgstr "Permetti l'apertura rapida di un temrinale nella cartella selezionata"
+msgstr "Permite abrir rapidamente um terminal na pasta selecionada"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:2
 #: tabby-terminal/src/settings.ts:14
 msgid "Appearance"
-msgstr "Aspetto"
+msgstr "Aparência"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:4
 msgid "Application"
-msgstr "Applicazione"
+msgstr "Aplicação"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:47
 msgid "Application settings"
-msgstr "Impostazioni applicazione"
+msgstr "Configurações do aplicativo"
 
 #: tabby-web/src/services/hostWindow.service.ts:19
 msgid "Are you sure you want to close Tabby? You can disable this prompt in Settings -> Window."
-msgstr "Sei sicuro di voler chiudere Tabby? Puoi disabilitare questo avviso in Impostazioni -> Finestra."
+msgstr "Tem certeza que deseja fechar a \"Tabby\"? Você pode desativar essa mensagem em Configurações -> Janela."
 
 #: tabby-core/src/services/config.service.ts:380
 msgid "Are you sure?"
-msgstr "Sei sicuro?"
+msgstr "Você tem certeza?"
 
 #: locale/tmp-html/tabby-local/src/components/commandLineEditor.component.html:20
 msgid "Arguments"
-msgstr "Argomenti"
+msgstr "Argumentos"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:26
 msgid "Ask a question"
-msgstr "Fai una domanda"
+msgstr "Faça uma pergunta"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:13
 msgid "Ask before closing the browser tab"
-msgstr "Chiedi conferma prima di chiudere una scheda"
+msgstr "Perguntar antes de fechar a aba do navegador"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:122
 msgid "Audible"
-msgstr "Sonore"
+msgstr "Audível"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:74
 msgid "Authentication method"
-msgstr "Metodo di autenticazione"
+msgstr "Método de autenticação"
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:77
 msgid "Author"
-msgstr "Autore"
+msgstr "Autor"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:78
 msgid "Auto"
-msgstr "Automatico"
+msgstr "Automático"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:135
 msgid "Auto-open a terminal on app start"
-msgstr "Apertura automatica di un terminale all'avvio dell'app"
+msgstr "Abrir automaticamente um terminal no início da aplicação"
 
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:13
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:53
 #: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:28
 msgid "Automatic"
-msgstr "Automatico"
+msgstr "Automático"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:73
 msgid "Automatic Updates"
-msgstr "Aggiornamenti automatici"
+msgstr "Atualizações automáticas"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:57
 msgid "Automatically upload changes and check for updates every minute"
-msgstr "Carica automaticamente le modifiche e controlla gli aggiornamenti ogni minuto"
+msgstr "Carregar automaticamente alterações e procurar por atualizações a cada minuto"
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:10
 msgid "Available"
-msgstr "Disponibile"
+msgstr "Disponível"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:28
 msgid "Background type"
-msgstr "Tipo di sfondo"
+msgstr "Tipo de fundo"
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:14
 #: tabby-serial/src/components/serialTab.component.ts:118
 #: tabby-serial/src/profiles.ts:85
 msgid "Baud rate"
-msgstr "Velocità di trasmissione"
+msgstr "Taxa de dados (Baud Rate)"
 
 #: tabby-terminal/src/hotkeys.ts:18
 msgid "Beginning of the line"
-msgstr "Inizio della riga"
+msgstr "Começo da linha"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:57
 msgid "Blink cursor"
-msgstr "Cursore lampeggiante"
+msgstr "Piscar cursor"
 
 #: tabby-core/src/utils.ts:61
 msgid "Blue"
-msgstr "Blu"
+msgstr "Azul"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:32
 msgid "Blur"
-msgstr "Sfocatura"
+msgstr "Desfocar"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:138
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:82
 msgid "Bottom"
-msgstr "In basso"
+msgstr "Inferior"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:95
 msgid "Bracketed paste (requires shell support)"
-msgstr "Incolla tra parentesi (richiede una shell che lo supporti)"
+msgstr "Colar entre colchetes (requer suporte ao \"shell\")"
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:48
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:164
 msgid "Built-in"
-msgstr "Integrato"
+msgstr "Embutido"
 
 #: locale/tmp-html/tabby-core/src/components/renameTabModal.component.html:7
 #: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:53
@@ -217,148 +217,148 @@ msgstr "Integrato"
 #: tabby-ssh/src/sftpContextMenu.ts:34
 #: tabby-terminal/src/api/baseTerminalTab.component.ts:448
 msgid "Cancel"
-msgstr "Annulla"
+msgstr "Cancelar"
 
 #: locale/tmp-html/tabby-serial/src/components/serialTab.component.html:4
 msgid "Change baud rate"
-msgstr "Modifica velocità di trasmissione"
+msgstr "Alterar taxa de dados"
 
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:12
 msgid "Change the master passphrase"
-msgstr "Modifica la frase segreta principale"
+msgstr "Alterar a senha mestra"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:13
 msgid "Check for updates"
-msgstr "Verifica aggiornamenti"
+msgstr "Buscar atualizações"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:172
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:176
 msgid "Ciphers"
-msgstr "Crittografie"
+msgstr "Cifras"
 
 #: tabby-core/src/services/profiles.service.ts:124
 msgid "Clear recent profiles"
-msgstr "Cancella profili recenti"
+msgstr "Limpar perfis recentes"
 
 #: tabby-terminal/src/hotkeys.ts:42
 msgid "Clear terminal"
-msgstr "Pulisci il terminale"
+msgstr "Limpar terminal"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:86
 msgid "Clipboard"
-msgstr "Appunti"
+msgstr "Área de Transferência"
 
 #: locale/tmp-html/tabby-core/src/components/safeModeModal.component.html:7
 #: tabby-core/src/tabContextMenu.ts:34
 msgid "Close"
-msgstr "Chiudi"
+msgstr "Fechar"
 
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:32
 msgid "Close and never show again"
-msgstr "Chiudi e non mostrare più"
+msgstr "Fechar e nunca mais mostrar novamente"
 
 #: tabby-core/src/hotkeys.ts:197
 msgid "Close focused pane"
-msgstr "Chiudi riquadro in evidenza"
+msgstr "Fechar o painel em foco"
 
 #: tabby-core/src/tabContextMenu.ts:48
 msgid "Close other tabs"
-msgstr "Chiudi le altre schede"
+msgstr "Fechar as outras abas"
 
 #: tabby-core/src/hotkeys.ts:25
 msgid "Close tab"
-msgstr "Chiudi scheda"
+msgstr "Fechar aba"
 
 #: tabby-core/src/tabContextMenu.ts:64
 msgid "Close tabs to the left"
-msgstr "Chiudi schede a sinistra"
+msgstr "Fechar abas à esquerda"
 
 #: tabby-core/src/tabContextMenu.ts:56
 msgid "Close tabs to the right"
-msgstr "Chiudi schede a destra"
+msgstr "Fechar abas à direita"
 
 #: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:33
 #: tabby-core/src/tabContextMenu.ts:124
 msgid "Color"
-msgstr "Colore"
+msgstr "Cor"
 
 #: tabby-terminal/src/settings.ts:29
 msgid "Color scheme"
-msgstr "Tema del terminale"
+msgstr "Esquema de cores"
 
 #: tabby-core/src/hotkeys.ts:65
 msgid "Combine all tabs into the current tab"
-msgstr "Unisci tutte le schede all'interno della scheda corrente"
+msgstr "Combinar todas as abas na aba atual"
 
 #: locale/tmp-html/tabby-local/src/components/commandLineEditor.component.html:4
 msgid "Command line"
-msgstr "Riga di comando"
+msgstr "Linha de comando"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:13
 msgid "Command's stdin/stdout is used instead of a network connection"
-msgstr "Viene utilizzato lo stdin/stdout invece di una connessione di rete"
+msgstr "stdin/stdout do comando é usado ao invés de uma conexão de rede"
 
 #: tabby-core/src/theme.ts:20
 msgid "Compact"
-msgstr "Compatto"
+msgstr "Compacto"
 
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:108
 msgid "Config downloaded"
-msgstr "Configurazione scaricata"
+msgstr "Configuração baixada"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:102
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:107
 msgid "Config file"
-msgstr "File di configurazione"
+msgstr "Arquivo de configuração"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:2
 #: tabby-settings/src/settings.ts:73
 msgid "Config sync"
-msgstr "Backup configurazione"
+msgstr "Configurar sincronização"
 
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:90
 msgid "Config uploaded"
-msgstr "Configurazione caricata"
+msgstr "Configuração carregada"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:35
 msgid "Configs"
-msgstr "Configurazioni"
+msgstr "Configurações"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:21
 msgid "Connect through a proxy server"
-msgstr "Connetti tramite un server proxy"
+msgstr "Conecte-se através de um servidor proxy"
 
 #: tabby-core/src/index.ts:211
 #: tabby-core/src/services/profiles.service.ts:166
 msgid "Connect to \"%s\"..."
-msgstr "Connessione a \"%s\"..."
+msgstr "Conectando a %s..."
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:17
 msgid "Connect to a different host first and use it as a proxy"
-msgstr "Connettersi prima a un altro host e utilizzarlo come proxy"
+msgstr "Conecte-se a um host diferente primeiro e use-o como um proxy"
 
 #: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:10
 #: tabby-serial/src/components/serialTab.component.ts:72
 #: tabby-ssh/src/components/sshTab.component.ts:144
 #: tabby-telnet/src/components/telnetTab.component.ts:81
 msgid "Connecting"
-msgstr "In connessione"
+msgstr "Conectando"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:7
 msgid "Connection"
-msgstr "Connessione"
+msgstr "Conexão"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:30
 msgid "Connection failed: {error}"
-msgstr "Connessione fallita: {error}"
+msgstr "A conexão falhou: {error}"
 
 #: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:40
 msgid "Connection name will be used instead"
-msgstr "Verrà usato il nome della connessione"
+msgstr "O nome da conexão será usado no lugar"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:51
 msgid "Context menu"
-msgstr "Menu contestuale"
+msgstr "Menu de contexto"
 
 #: tabby-terminal/src/api/baseTerminalTab.component.ts:198
 #: tabby-terminal/src/api/baseTerminalTab.component.ts:206
@@ -366,77 +366,77 @@ msgstr "Menu contestuale"
 #: tabby-terminal/src/api/baseTerminalTab.component.ts:743
 #: tabby-terminal/src/tabContextMenu.ts:29
 msgid "Copied"
-msgstr "Copiato"
+msgstr "Copiado"
 
 #: tabby-linkifier/src/decorator.ts:52
 #: tabby-terminal/src/tabContextMenu.ts:25
 msgid "Copy"
-msgstr "Copia"
+msgstr "Copiar"
 
 #: tabby-terminal/src/hotkeys.ts:62
 #: tabby-terminal/src/tabContextMenu.ts:53
 msgid "Copy current path"
-msgstr "Copia percorso corrente"
+msgstr "Copiar o caminho atual"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:89
 msgid "Copy on select"
-msgstr "Copia sulla selezione"
+msgstr "Copiar ao selecionar"
 
 #: tabby-terminal/src/hotkeys.ts:10
 msgid "Copy to clipboard"
-msgstr "Copia negli appunti"
+msgstr "Copiar para área de transferência"
 
 #: tabby-core/src/services/config.service.ts:365
 msgid "Could not decrypt config"
-msgstr "Impossibile decifrare la configurazione"
+msgstr "Não foi possível descriptografar a configuração"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:93
 msgid "Current"
-msgstr "Corrente"
+msgstr "Atual"
 
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:3
 msgid "Current color scheme"
-msgstr "Tema in uso"
+msgstr "Esquema de cores atual"
 
 #: locale/tmp-html/tabby-ssh/src/components/hostKeyPromptModal.component.html:17
 msgid "Current host key fingerprint"
-msgstr "Firma della chiave host corrente"
+msgstr "Impressão digital da chave do host atual"
 
 #: tabby-core/src/tabContextMenu.ts:175
 msgid "Current process: {name}"
-msgstr "Processo corrente: {name}"
+msgstr "Processo atual: {name}"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:41
 msgid "Cursor shape"
-msgstr "Forma del cursore"
+msgstr "Formato do cursor"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:77
 msgid "Custom CSS"
-msgstr "CSS personalizzato"
+msgstr "CSS Personalizado"
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:26
 msgid "Data bits"
-msgstr "Bit di dati"
+msgstr "bits de dados"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:80
 msgid "Debugging"
-msgstr "Debugging"
+msgstr "Depurando"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:8
 msgid "Default profile for new tabs"
-msgstr "Profilo predefinito per le nuove schede"
+msgstr "Perfil padrão para novas abas"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:70
 msgid "Default profile settings"
-msgstr "Impostazioni del profilo predefinito"
+msgstr "Configurações do perfil padrão"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:111
 msgid "Defaults"
-msgstr "PredefinitI"
+msgstr "Padrões"
 
 #: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:6
 msgid "Defaults for {type}"
-msgstr "Predefiniti per {type}"
+msgstr "Padrões para {type}"
 
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:28
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:9
@@ -449,41 +449,41 @@ msgstr "Predefiniti per {type}"
 #: tabby-terminal/src/components/colorSchemeSettingsTab.component.ts:86
 #: tabby-terminal/src/components/loginScriptsSettings.component.ts:32
 msgid "Delete"
-msgstr "Elimina"
+msgstr "Excluir"
 
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:127
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:189
 #: tabby-terminal/src/components/colorSchemeSettingsTab.component.ts:84
 msgid "Delete \"{name}\"?"
-msgstr "Eliminare \"{name}\"?"
+msgstr "Excluir {name}?"
 
 #: tabby-ssh/src/sftpContextMenu.ts:29
 msgid "Delete {fullPath}?"
-msgstr "Eliminare {fullPath}?"
+msgstr "Excluir {fullPath}?"
 
 #: tabby-terminal/src/hotkeys.ts:38
 msgid "Delete next word"
-msgstr "Elimina parola successiva"
+msgstr "Excluir a próxima palavra"
 
 #: tabby-terminal/src/hotkeys.ts:34
 msgid "Delete previous word"
-msgstr "Elimina parola precedente"
+msgstr "Excluir palavra anterior"
 
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:201
 msgid "Delete the group's profiles?"
-msgstr "Eliminare i profili del gruppo?"
+msgstr "Excluir os perfis do grupo?"
 
 #: tabby-terminal/src/components/loginScriptsSettings.component.ts:29
 msgid "Delete this script?"
-msgstr "Eliminare questo script?"
+msgstr "Excluir esse script?"
 
 #: tabby-settings/src/components/vaultSettingsTab.component.ts:47
 msgid "Delete vault contents?"
-msgstr "Eliminare il contenuto della Cassaforte?"
+msgstr "Excluir conteúdo do vault?"
 
 #: locale/tmp-html/tabby-ssh/src/components/sftpDeleteModal.component.html:3
 msgid "Deleting"
-msgstr "Eliminazione"
+msgstr "Apagando"
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:8
 msgid "Device"
@@ -491,133 +491,133 @@ msgstr "Dispositivo"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:10
 msgid "Direct"
-msgstr "Diretto"
+msgstr "Direto"
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:55
 msgid "Disable"
-msgstr "Disabilita"
+msgstr "Desabilitar"
 
 #: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:39
 msgid "Disable dynamic tab title"
-msgstr "Disabilita il titolo dinamico per la scheda"
+msgstr "Desativar título da aba dinâmica"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:182
 msgid "Disable GPU acceleration"
-msgstr "Disabilita accelerazione GPU"
+msgstr "Desativar aceleração de GPU"
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:48
 msgid "Disabled"
-msgstr "Disabilitato"
+msgstr "Desabilitado"
 
 #: locale/tmp-html/tabby-ssh/src/components/hostKeyPromptModal.component.html:26
 #: tabby-ssh/src/components/sshTab.component.ts:245
 #: tabby-telnet/src/components/telnetTab.component.ts:124
 msgid "Disconnect"
-msgstr "Disconnetti"
+msgstr "Desconectar"
 
 #: tabby-ssh/src/components/sshTab.component.ts:243
 #: tabby-telnet/src/components/telnetTab.component.ts:122
 msgid "Disconnect from {host}?"
-msgstr "Disconnetti da {host}?"
+msgstr "Desconectar de {host}?"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:88
 msgid "Display on"
-msgstr "Mostra su"
+msgstr "Exibir em"
 
 #: tabby-core/src/components/transfersMenu.component.ts:50
 msgid "Do not abort"
-msgstr "Non interrompere"
+msgstr "Não abortar"
 
 #: tabby-ssh/src/components/sshTab.component.ts:246
 #: tabby-telnet/src/components/telnetTab.component.ts:125
 msgid "Do not close"
-msgstr "Non chiudere"
+msgstr "Não feche"
 
 #: locale/tmp-html/tabby-core/src/components/unlockVaultModal.component.html:6
 #: locale/tmp-html/tabby-core/src/components/unlockVaultModal.component.html:8
 msgid "Do not remember"
-msgstr "Non ricordare"
+msgstr "Não me lembre"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:102
 msgid "Dock always on top"
-msgstr "Mostra sempre in primo piano"
+msgstr "Janela sempre no topo"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:65
 msgid "Dock the terminal"
-msgstr "Aggancia il terminale"
+msgstr "Encaixe o terminal"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:109
 msgid "Docked terminal size"
-msgstr "Dimensione del terminale agganciato"
+msgstr "Tamanho do terminal encaixado"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:116
 msgid "Docked terminal space"
-msgstr "Margine del terminale agganciato"
+msgstr "Espaço do terminal encaixado"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:62
 msgid "Docking"
-msgstr "Aggancia"
+msgstr "Encaixando"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:67
 msgid "Double-click selection will stop at these characters"
-msgstr "La selezione con doppio clic si fermerà a questi caratteri"
+msgstr "A seleção com clique duplo irá parar nesses caracteres"
 
 #: tabby-core/src/tabContextMenu.ts:80
 msgid "Down"
-msgstr "Giù"
+msgstr "Abaixo"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:47
 msgid "Download"
-msgstr "Scarica"
+msgstr "Transferir"
 
 #: tabby-core/src/tabContextMenu.ts:120
 msgid "Duplicate"
-msgstr "Duplica"
+msgstr "Duplicar"
 
 #: tabby-local/src/tabContextMenu.ts:121
 msgid "Duplicate as administrator"
-msgstr "Duplica come amministratore"
+msgstr "Duplicar como administrador"
 
 #: tabby-core/src/hotkeys.ts:57
 msgid "Duplicate tab"
-msgstr "Duplica la scheda"
+msgstr "Duplicar Aba"
 
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:7
 msgid "Edit"
-msgstr "Modifica"
+msgstr "Editar"
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:56
 msgid "Enable"
-msgstr "Abilita"
+msgstr "Habilitar"
 
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:19
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:66
 msgid "Enable analytics"
-msgstr "Abilita dati analitici"
+msgstr "Habilitar análises"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:74
 msgid "Enable automatic installation of updates when they become available."
-msgstr "Abilita l'installazione automatica degli aggiornamenti quando sono disponibili."
+msgstr "Permite a instalação automática de atualizações quando elas estiverem disponíveis."
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:16
 msgid "Enable font ligatures"
-msgstr "Abilita le legature tra caratteri"
+msgstr "Habilitar ligaduras de fonte"
 
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:26
 msgid "Enable global hotkey (Ctrl-Space)"
-msgstr "Abilita tasto di scelta rapida globale (Ctrl-Space)"
+msgstr "Ativar atalho global (Ctrl-Espaço)"
 
 #: locale/tmp-html/tabby-local/src/components/shellSettingsTab.component.html:6
 msgid "Enables the experimental Windows ConPTY API"
-msgstr "Abilita l'API sperimentale di Windows ConPTY"
+msgstr "Habilita a API \"ConPTY\" experimental do Windows"
 
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:36
 msgid "Encrypt config file"
-msgstr "Cifra il file di configurazione"
+msgstr "Criptografar arquivo de configuração"
 
 #: tabby-terminal/src/hotkeys.ts:22
 msgid "End of the line"
-msgstr "Fine della riga"
+msgstr "Fim da linha"
 
 #: locale/tmp-html/tabby-local/src/components/localProfileSettings.component.html:19
 msgid "Environment"
@@ -626,149 +626,149 @@ msgstr "Ambiente"
 #: tabby-core/src/services/config.service.ts:369
 #: tabby-core/src/services/config.service.ts:383
 msgid "Erase config"
-msgstr "Cancella configurazione"
+msgstr "Apagar configuração"
 
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:12
 msgid "Erase the Vault"
-msgstr "Cancella la Cassaforte"
+msgstr "Apagar o Cofre"
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:6
 msgid "Error in {plugin}:"
-msgstr "Errore in {plugin}:"
+msgstr "Erro em {plugin}:"
 
 #: locale/tmp-html/tabby-terminal/src/components/loginScriptsSettings.component.html:9
 msgid "Exact match"
-msgstr "Corrispondenza esatta"
+msgstr "Correspondência exata"
 
 #: locale/tmp-html/tabby-local/src/components/environmentEditor.component.html:19
 msgid "Example:"
-msgstr "Esempio:"
+msgstr "Exemplo:"
 
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:27
 msgid "Export"
-msgstr "Esporta"
+msgstr "Exportar"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:63
 msgid "Fallback font"
-msgstr "Carattere sostitutivo"
+msgstr "Fonte alternativa"
 
 #: locale/tmp-html/tabby-core/src/components/transfersMenu.component.html:3
 msgid "File transfers"
-msgstr "Trasferimento file"
+msgstr "Transferências de arquivos"
 
 #: tabby-settings/src/components/vaultSettingsTab.component.ts:91
 msgid "File: {description}"
-msgstr "File: {description}"
+msgstr "Arquivo: {description}"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:157
 msgid "Fixed"
-msgstr "Fissa"
+msgstr "Corrigido"
 
 #: tabby-local/src/tabContextMenu.ts:136
 msgid "Focus all panes"
-msgstr "Evidenzia tutti i riquadri"
+msgstr "Focar todos os painéis"
 
 #: tabby-terminal/src/hotkeys.ts:70
 msgid "Focus all panes at once (broadcast)"
-msgstr "Evidenzia tutti i riquadri contemporaneamente (scrivi su tutti)"
+msgstr "Focar todos os painéis de uma vez (Broadcast)"
 
 #: tabby-core/src/hotkeys.ts:189
 msgid "Focus next pane"
-msgstr "Evidenzia riquadro successivo"
+msgstr "Focar próximo painel"
 
 #: tabby-core/src/hotkeys.ts:185
 msgid "Focus previous pane"
-msgstr "Evidenzia riquadro precedente"
+msgstr "Focar no painel anterior"
 
 #: tabby-core/src/hotkeys.ts:169
 msgid "Focus the pane above"
-msgstr "Evidenzia il riquadro sopra"
+msgstr "Focar no painel acima"
 
 #: tabby-core/src/hotkeys.ts:173
 msgid "Focus the pane below"
-msgstr "Evidenzia il riquadro sotto"
+msgstr "Focar no painel abaixo"
 
 #: tabby-core/src/hotkeys.ts:177
 msgid "Focus the pane on the left"
-msgstr "Evidenzia il riquadro a sinistra"
+msgstr "Concentre no painel à esquerda"
 
 #: tabby-core/src/hotkeys.ts:181
 msgid "Focus the pane on the right"
-msgstr "Evidenzia il riquadro a destra"
+msgstr "Focar no painel à direita"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:7
 msgid "Font"
-msgstr "Carattere"
+msgstr "Fonte"
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:51
 msgid "Force CR"
-msgstr "Forza CR"
+msgstr "Forçar CR"
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:53
 msgid "Force CRLF"
-msgstr "Forza CRLF"
+msgstr "Forçar CRLF"
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:52
 msgid "Force LF"
-msgstr "Forza LF"
+msgstr "Forçar LF"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:25
 msgid "Forces a specific SSH agent connection type."
-msgstr "Forza un tipo specifico di agente per la connessione SSH."
+msgstr "Força um tipo de conexão com agente SSH específico."
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:105
 msgid "Forget"
-msgstr "Dimentica"
+msgstr "Esquecer"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:58
 msgid "Forward port"
-msgstr "Inoltra porta"
+msgstr "Encaminhar porta"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingModal.component.html:3
 msgid "Forwarded ports"
-msgstr "Porte inoltrate"
+msgstr "Portas encaminhadas"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:35
 msgid "From color scheme"
-msgstr "Dal tema in uso"
+msgstr "Do esquema de cores"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:32
 msgid "From theme"
-msgstr "Dal tema"
+msgstr "Do tema"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:6
 msgid "Frontend"
-msgstr "Frontend"
+msgstr "Interface"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:58
 msgid "Full"
-msgstr "Piena"
+msgstr "Completo"
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:3
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:3
 #: locale/tmp-html/tabby-telnet/src/components/telnetProfileSettings.component.html:3
 msgid "General"
-msgstr "Generale"
+msgstr "Geral"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:21
 msgid "Generate a pre-filled GitHub issue"
-msgstr "Genera una segnalazione GitHub pre-compilata"
+msgstr "Gerar um problema do GitHub pré-preenchido"
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:27
 msgid "Get"
-msgstr "Ottieni"
+msgstr "Obter"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:20
 msgid "Get it from the Tabby Web settings window"
-msgstr "Ottienilo dalla finestra delle impostazioni Web di Tabby"
+msgstr "Obtenha-o na janela de configurações da Tabby Web"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:22
 msgid "Gives the window a blurred transparent background"
-msgstr "Dona alla finestra una trasparenza sfocata per lo sfondo"
+msgstr "Dá à janela um fundo transparente borrado"
 
 #: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:15
 msgid "Go up"
-msgstr "Vai su"
+msgstr "Ir para cima"
 
 #: tabby-core/src/utils.ts:62
 msgid "Green"
@@ -776,40 +776,40 @@ msgstr "Verde"
 
 #: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:16
 msgid "Group"
-msgstr "Gruppo"
+msgstr "Grupo"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:179
 msgid "Hacks"
-msgstr "Hack"
+msgstr "Hacks"
 
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:20
 msgid "Help track the number of Tabby installs across the world!"
-msgstr "Aiuta a tenere traccia del numero di installazioni di Tabby nel mondo!"
+msgstr "Ajude a acompanhar o número de instalações do Tabby pelo mundo!"
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:32
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:44
 msgid "Hexadecimal"
-msgstr "Esadecimale"
+msgstr "Hexadecimal"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:175
 msgid "Hide tab close button"
-msgstr "Nascondi pulsante di chiusura schede"
+msgstr "Ocultar botão de fechar aba"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:163
 msgid "Hide tab index"
-msgstr "Nascondi numerazione delle schede"
+msgstr "Ocultar índice da aba"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:123
 msgid "Hide window on focus loss"
-msgstr "Nascondi la finestra quando in secondo piano"
+msgstr "Ocultar janela em perda de foco"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:124
 msgid "Hides the docked terminal when you click away."
-msgstr "Nasconde il terminale agganciato quando si fa click fuori."
+msgstr "Oculta o terminal quando você clica longe."
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:28
 msgid "Homepage"
-msgstr "Homepage"
+msgstr "Página Inicial"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:34
 #: locale/tmp-html/tabby-telnet/src/components/telnetProfileSettings.component.html:6
@@ -818,16 +818,16 @@ msgstr "Host"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:206
 msgid "Host key"
-msgstr "Chiave host"
+msgstr "Chave do host"
 
 #: locale/tmp-html/tabby-ssh/src/components/hostKeyPromptModal.component.html:3
 msgid "Host key verification"
-msgstr "Verifica della chiave host"
+msgstr "Verificação da chave do host"
 
 #: locale/tmp-html/tabby-settings/src/components/hotkeySettingsTab.component.html:2
 #: tabby-settings/src/settings.ts:15
 msgid "Hotkeys"
-msgstr "Tasti di scelta rapida"
+msgstr "Teclas de atalho"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:24
 msgid "HTTP proxy"
@@ -835,72 +835,72 @@ msgstr "Proxy HTTP"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:61
 msgid "HTTP proxy host"
-msgstr "Host proxy HTTP"
+msgstr "Host do proxy HTTP"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:65
 msgid "HTTP proxy port"
-msgstr "Porta proxy HTTP"
+msgstr "Porta do Proxy HTTP"
 
 #: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:20
 msgid "Icon"
-msgstr "Icona"
+msgstr "Ícone"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:154
 msgid "id.tab-width.dynamic"
-msgstr "Dinamica"
+msgstr "Dinâmico"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:64
 msgid "If disabled, only custom profiles will show up in the profile selector"
-msgstr "Se disabilitato, solo i profili personalizzati verranno visualizzati nel selettore dei profili"
+msgstr "Se desativado, somente perfis personalizados aparecerão no seletor de perfil"
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:23
 msgid "Immediately echoes your input locally"
-msgstr "Riporta immediatamente i tuoi input locali"
+msgstr "Imediatamente repete sua entrada localmente"
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:18
 msgid "Input is sent as you type"
-msgstr "L'input è inviato mentre digiti"
+msgstr "O texto é enviado enquanto você digita"
 
 #: locale/tmp-html/tabby-terminal/src/components/streamProcessingSettings.component.html:4
 msgid "Input mode"
-msgstr "Modalità di inserimento"
+msgstr "Modo de entrada"
 
 #: locale/tmp-html/tabby-terminal/src/components/streamProcessingSettings.component.html:15
 msgid "Input newlines"
-msgstr "Input newlines"
+msgstr "Novas linhas de saída"
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:41
 msgid "Installed"
-msgstr "Installato"
+msgstr "Instalado"
 
 #: tabby-electron/src/services/updater.service.ts:136
 msgid "Installing the update will close all tabs and restart Tabby."
-msgstr "Installare l'aggiornamento chiuderà tutte le schede e riavvierà Tabby."
+msgstr "Ao instalar a atualização, todas as abas serão fechadas e o Tabby reiniciará."
 
 #: tabby-terminal/src/hotkeys.ts:58
 msgid "Intelligent Ctrl-C (copy/abort)"
-msgstr "Ctrl-C Intelligente (copia/annulla)"
+msgstr "Inteligente Ctrl-C (copiar/cancelar)"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:94
 msgid "Interactive"
-msgstr "Interattivo"
+msgstr "Interativo"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:117
 msgid "Invalid syntax"
-msgstr "Sintassi non valida"
+msgstr "Sintaxe inválida"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:16
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:43
 msgid "Jump host"
-msgstr "Salta host"
+msgstr "Servidor de Pulo"
 
 #: tabby-terminal/src/hotkeys.ts:30
 msgid "Jump to next word"
-msgstr "Vai alla parola successiva"
+msgstr "Pular para a próxima palavra"
 
 #: tabby-terminal/src/hotkeys.ts:26
 msgid "Jump to previous word"
-msgstr "Vai alla parola precedente"
+msgstr "Pular para a palavra anterior"
 
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:130
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:192
@@ -909,142 +909,142 @@ msgstr "Vai alla parola precedente"
 #: tabby-terminal/src/components/loginScriptsSettings.component.ts:33
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:49
 msgid "Keep"
-msgstr "Mantieni"
+msgstr "Manter"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:154
 msgid "Keep Alive Interval (Milliseconds)"
-msgstr "Keep Alive Interval (Millisecondi)"
+msgstr "Manter o intervalo vivo (milissegundos)"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:103
 msgid "Keep docked terminal always on top"
-msgstr "Mantieni il terminale agganciato sempre in primo piano"
+msgstr "Mantenha o terminal encaixado sempre no topo"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:86
 msgid "Key"
-msgstr "Chiave"
+msgstr "Chave"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:186
 msgid "Key exchange"
-msgstr "Scambio chiavi"
+msgstr "Troca de chaves"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:23
 msgid "Keyboard"
-msgstr "Tastiera"
+msgstr "Teclado"
 
 #: locale/tmp-html/tabby-ssh/src/components/keyboardInteractiveAuthPanel.component.html:2
 msgid "Keyboard-interactive auth"
-msgstr "Autenticazione interattiva da tastiera"
+msgstr "Autenticação interativa do teclado"
 
 #: tabby-local/src/components/terminalTab.component.ts:117
 msgid "Kill"
-msgstr "Forza chiusura"
+msgstr "Matar"
 
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:10
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:50
 msgid "Language"
-msgstr "Lingua"
+msgstr "Idioma"
 
 #: locale/tmp-html/tabby-ssh/src/components/hostKeyPromptModal.component.html:11
 msgid "Last known host key fingerprint"
-msgstr "Ultima firma nota della chiave host"
+msgstr "Última impressão digital da chave de host é conhecida"
 
 #: tabby-ssh/src/tabContextMenu.ts:32
 msgid "Launch WinSCP"
-msgstr "Avvia WinSCP"
+msgstr "Abrir \"WinSCP\""
 
 #: tabby-ssh/src/hotkeys.ts:14
 msgid "Launch WinSCP for current SSH session"
-msgstr "Avvia WinSCP per la sessione SSH corrente"
+msgstr "Inicie o \"WinSCP\" na sessão SSH atual"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshTab.component.html:7
 msgid "Learn how to allow Tabby to detect remote shell's working directory."
-msgstr "Scopri come consentire a Tabby di rilevare la cartella di lavoro della shell remota."
+msgstr "Aprenda como permitir que o \"Tabby\" detecte o diretório de trabalho da \"Shell\" remota."
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:141
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:76
 #: tabby-core/src/tabContextMenu.ts:81
 msgid "Left"
-msgstr "Sinistra"
+msgstr "Esquerda"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:27
 msgid "Lets the shell handle Meta key instead of OS"
-msgstr "Consenti alla shell di definire il tasto Meta al posto del sistema operativo"
+msgstr "Permite que o shell manipule Meta key em vez de S.O"
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:27
 msgid "Line by line"
-msgstr "Riga per riga"
+msgstr "Linha por linha"
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:28
 msgid "Line editor, input is sent after you press Enter"
-msgstr "Editor in linea, l'input viene inviato dopo aver premuto Invio"
+msgstr "Editor de linha, a entrada é enviada depois que você pressionar Enter"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:70
 msgid "Line padding"
-msgstr "Spessore della riga"
+msgstr "Linha de preenchimento"
 
 #: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:12
 msgid "Loading"
-msgstr "Caricamento"
+msgstr "Carregando"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:38
 msgid "Loading configs..."
-msgstr "Caricamento configurazioni..."
+msgstr "Carregando configurações..."
 
 #: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:49
 #: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:5
 msgid "Local"
-msgstr "Locale"
+msgstr "Local"
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:22
 msgid "Local echo"
-msgstr "Eco locale"
+msgstr "Efeito local"
 
 #: tabby-local/src/profiles.ts:11
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:238
 msgid "Local terminal"
-msgstr "Terminale locale"
+msgstr "Terminal local"
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:81
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:216
 #: locale/tmp-html/tabby-telnet/src/components/telnetProfileSettings.component.html:16
 msgid "Login scripts"
-msgstr "Script di login"
+msgstr "Scripts de login"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:44
 msgid "Long-click for context menu"
-msgstr "Click prolungato per il menu contestuale"
+msgstr "Clique longo para menu de contexto"
 
 #: tabby-core/src/services/profiles.service.ts:151
 msgid "Manage profiles"
-msgstr "Gestione profili"
+msgstr "Gerenciar perfil"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:160
 msgid "Max Keep Alive Count"
-msgstr "Numero massimo di Keep Alive"
+msgstr "Manter a contagem máxima viva"
 
 #: tabby-core/src/hotkeys.ts:165
 msgid "Maximize the active pane"
-msgstr "Massimizza il riquadro attivo"
+msgstr "Maximizar o painel ativo"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:43
 msgid "Modified on {date}"
-msgstr "Modificato il {date}"
+msgstr "Modificado em {date}"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:40
 msgid "Mouse"
-msgstr "Mouse"
+msgstr "mouse"
 
 #: tabby-core/src/hotkeys.ts:45
 msgid "Move tab to the left"
-msgstr "Sposta scheda a sinistra"
+msgstr "Mover a aba para a esquerda"
 
 #: tabby-core/src/hotkeys.ts:49
 msgid "Move tab to the right"
-msgstr "Sposta scheda a destra"
+msgstr "Mover a aba para a direita"
 
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:203
 msgid "Move to \"Ungrouped\""
-msgstr "Sposta in \"Non raggruppate\""
+msgstr "Mover para \"Desagrupado\""
 
 #: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:12
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:14
@@ -1053,241 +1053,241 @@ msgstr "Nome"
 
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:60
 msgid "Name for the new config"
-msgstr "Nome per la nuova configurazione"
+msgstr "Nome para a nova configuração"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:52
 msgid "Native"
-msgstr "Nativa"
+msgstr "Nativo"
 
 #: tabby-local/src/tabContextMenu.ts:103
 msgid "New admin tab"
-msgstr "Nuova scheda amministratore"
+msgstr "Nova aba admin"
 
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:58
 msgid "New config on {platform}"
-msgstr "Nuova configurazione su {platform}"
+msgstr "Nova configuração em {platform}"
 
 #: locale/tmp-html/tabby-terminal/src/components/loginScriptsSettings.component.html:15
 msgid "New item"
-msgstr "Nuovo elemento"
+msgstr "Novo item"
 
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:173
 #: tabby-settings/src/components/vaultSettingsTab.component.ts:118
 msgid "New name"
-msgstr "Nuovo nome"
+msgstr "Novo nome"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:22
 msgid "New profile"
-msgstr "Nuovo profilo"
+msgstr "Novo perfil"
 
 #: tabby-local/src/tabContextMenu.ts:30
 msgid "New profile name"
-msgstr "Nuovo nome profilo"
+msgstr "Novo nome do perfil"
 
 #: tabby-local/src/hotkeys.ts:10
 msgid "New tab"
-msgstr "Nuova scheda"
+msgstr "Nova aba"
 
 #: tabby-core/src/hotkeys.ts:212
 msgid "New tab: {profile}"
-msgstr "Nuova scheda: {profile}"
+msgstr "Nova aba: {profile}"
 
 #: tabby-local/src/buttonProvider.ts:20
 #: tabby-local/src/tabContextMenu.ts:77
 msgid "New terminal"
-msgstr "Nuovo terminale"
+msgstr "Novo terminal"
 
 #: tabby-electron/src/hotkeys.ts:10
 msgid "New window"
-msgstr "Nuova finestra"
+msgstr "Nova janela"
 
 #: tabby-local/src/tabContextMenu.ts:87
 msgid "New with profile"
-msgstr "Nuovo terminale con"
+msgstr "Novo perfil como"
 
 #: tabby-core/src/hotkeys.ts:37
 msgid "Next tab"
-msgstr "Scheda successiva"
+msgstr "Próxima aba"
 
 #: tabby-core/src/utils.ts:60
 msgid "No color"
-msgstr "Nessun colore"
+msgstr "Sem cor"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:77
 msgid "No modifier"
-msgstr "Nessun modificatore"
+msgstr "Não modificar"
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:41
 msgid "None"
-msgstr "Nessuno"
+msgstr "Nenhum"
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:17
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:39
 msgid "Normal"
-msgstr "Normale"
+msgstr "Normal"
 
 #: tabby-terminal/src/components/searchPanel.component.ts:47
 #: tabby-terminal/src/components/searchPanel.component.ts:57
 msgid "Not found"
-msgstr "Non trovato"
+msgstr "Não encontrado"
 
 #: tabby-core/src/tabContextMenu.ts:200
 msgid "Notify on activity"
-msgstr "Notifica sull'attività"
+msgstr "Notificar sobre a atividade"
 
 #: tabby-core/src/tabContextMenu.ts:178
 msgid "Notify when done"
-msgstr "Notifica quando terminato"
+msgstr "Notificar quando terminar"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:17
 msgid "Number of lines kept in the buffer"
-msgstr "Numero di righe conservate nel buffer"
+msgstr "Número de linhas contidas no buffer"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:70
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:116
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:48
 msgid "Off"
-msgstr "Disattivo"
+msgstr "Desligado"
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:79
 msgid "Official"
-msgstr "Ufficiale"
+msgstr "Oficial"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:26
 msgid "On GitHub Discussions"
-msgstr "Nelle discussioni di GitHub"
+msgstr "Nas discussões no GitHub"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:41
 msgid "Opacity"
-msgstr "Opacità"
+msgstr "Opacidade"
 
 #: tabby-linkifier/src/decorator.ts:46
 msgid "Open"
-msgstr "Apri"
+msgstr "Abrir"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:82
 msgid "Open DevTools"
-msgstr "Apri Strumenti di Sviluppo"
+msgstr "Abrir ferramentas de desenvolvimento"
 
 #: tabby-settings/src/hotkeys.ts:11
 msgid "Open Settings"
-msgstr "Apri Impostazioni"
+msgstr "Abrir configurações"
 
 #: tabby-settings/src/hotkeys.ts:25
 msgid "Open settings tab: {tab}"
-msgstr "Apri scheda impostazioni: {tab}"
+msgstr "Abrir guia de configurações: {tab}"
 
 #: tabby-ssh/src/tabContextMenu.ts:25
 msgid "Open SFTP panel"
-msgstr "Apri pannello SFTP"
+msgstr "Abrir painel SFTP"
 
 #: locale/tmp-html/tabby-terminal/src/components/loginScriptsSettings.component.html:9
 msgid "Optional"
-msgstr "Opzionale"
+msgstr "Opcional"
 
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:11
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:33
 msgid "Options"
-msgstr "Opzioni"
+msgstr "Opções"
 
 #: tabby-core/src/utils.ts:63
 msgid "Orange"
-msgstr "Arancione"
+msgstr "Laranja"
 
 #: tabby-local/src/shells/macDefault.ts:25
 msgid "OS default"
-msgstr "Predefinito del OS"
+msgstr "Padrão do sistema"
 
 #: tabby-local/src/shells/winDefault.ts:43
 msgid "OS default ({name})"
-msgstr "Predefinito del OS ({name})"
+msgstr "Padrão do sistema ({name})"
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:45
 msgid "Output is shown as a hexdump"
-msgstr "L'output è mostrato come un hexdump"
+msgstr "A saída é mostrada como um hexadecimal"
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:40
 msgid "Output is shown as it is received"
-msgstr "L'output è mostrato come viene ricevuto"
+msgstr "A saída é mostrada como é recebida"
 
 #: locale/tmp-html/tabby-terminal/src/components/streamProcessingSettings.component.html:23
 msgid "Output mode"
-msgstr "Modalità di output"
+msgstr "Mode de saída"
 
 #: locale/tmp-html/tabby-terminal/src/components/streamProcessingSettings.component.html:34
 msgid "Output newlines"
-msgstr "Output newlines"
+msgstr "Novas linhas de saída"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:42
 msgid "Override X11 display"
-msgstr "Sovrascrivi il display X11"
+msgstr "Sobrepor a tela X11"
 
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:98
 msgid "Overwrite local and sync"
-msgstr "Sovrascrivi locale e sincronizza"
+msgstr "Sobrescrever local e sincronizar"
 
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:78
 msgid "Overwrite remote and sync"
-msgstr "Sovrascrivi remoto e sincronizza"
+msgstr "Sobrescrever local e sincronizar"
 
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:76
 msgid "Overwrite the config on the remote side and start syncing?"
-msgstr "Sovrascrivere la configurazione remota e iniziare la sincronizzazione?"
+msgstr "Substituir as configurações no lado remoto e começar a sincronizar?"
 
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:96
 msgid "Overwrite the local config and start syncing?"
-msgstr "Sovrascrivere la configurazione locale e iniziare la sincronizzazione?"
+msgstr "Sobrescrever as configurações locais e começar a sincronizar?"
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:38
 msgid "Parity"
-msgstr "Parità"
+msgstr "Paridade"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:67
 msgid "Partial config sync is not possible when the config is encrypted via Vault."
-msgstr "La sincronizzazione parziale della configurazione non è possibile quando questa è cifrata all'interno della Cassaforte."
+msgstr "Sincronização parcial de configuração não é possível quando a configuração é criptografada pelo Cofre."
 
 #: tabby-settings/src/components/vaultSettingsTab.component.ts:87
 msgid "Passphrase for a private key with hash {hash}..."
-msgstr "Frase segreta per la chiave privata con hash {hash}..."
+msgstr "Frase de senha para uma chave privada com hash {hash}..."
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:100
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:82
 msgid "Password"
-msgstr "Password"
+msgstr "Senha"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:54
 #: tabby-terminal/src/api/baseTerminalTab.component.ts:447
 #: tabby-terminal/src/tabContextMenu.ts:34
 msgid "Paste"
-msgstr "Incolla"
+msgstr "Colar"
 
 #: tabby-terminal/src/hotkeys.ts:14
 msgid "Paste from clipboard"
-msgstr "Incolla dagli appunti"
+msgstr "Colar da área de transferência"
 
 #: tabby-terminal/src/api/baseTerminalTab.component.ts:454
 msgid "Paste multiple lines?"
-msgstr "Incollare righe multiple?"
+msgstr "Colar várias linhas?"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:60
 msgid "Paste on middle-click"
-msgstr "Incolla con il tasto centrale"
+msgstr "Colar com clique central"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:43
 msgid "Path or address of the local X11 socket"
-msgstr "Percorso o indirizzo del socket locale X11"
+msgstr "Caminho ou endereço do soquete X11 local"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalToolbar.component.html:4
 msgid "Pin"
-msgstr "Fissa"
+msgstr "Pin"
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:3
 msgid "Plugins"
-msgstr "Plugin"
+msgstr "Plugins"
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:4
 msgid "Plugins folder"
-msgstr "Cartella dei plugin"
+msgstr "Pasta de plugins"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:38
 #: locale/tmp-html/tabby-telnet/src/components/telnetProfileSettings.component.html:10
@@ -1296,118 +1296,118 @@ msgstr "Porta"
 
 #: tabby-serial/src/components/serialTab.component.ts:77
 msgid "Port opened"
-msgstr "Porta aperta"
+msgstr "Porta aberta"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:119
 #: locale/tmp-html/tabby-ssh/src/components/sshTab.component.html:12
 msgid "Ports"
-msgstr "Porte"
+msgstr "Portas"
 
 #: tabby-serial/src/components/serialTab.component.ts:92
 #: tabby-ssh/src/components/sshTab.component.ts:176
 #: tabby-telnet/src/components/telnetTab.component.ts:58
 msgid "Press any key to reconnect"
-msgstr "Premi un tasto per riconnettersi"
+msgstr "Pressione qualquer tecla para reconectar"
 
 #: locale/tmp-html/tabby-settings/src/components/hotkeyInputModal.component.html:3
 msgid "Press the key now"
-msgstr "Premi un tasto adesso"
+msgstr "Pressione a tecla agora"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:14
 msgid "Prevents accidental closing"
-msgstr "Previene la chiusura accidentale"
+msgstr "Impede fechamento acidental"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:96
 msgid "Prevents accidental execution of pasted commands"
-msgstr "Impedisce l'esecuzione accidentale di comandi incollati"
+msgstr "Prevenir a execução acidental de comandos colados"
 
 #: tabby-core/src/hotkeys.ts:41
 msgid "Previous tab"
-msgstr "Scheda precedente"
+msgstr "Aba anterior"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:108
 msgid "Private keys"
-msgstr "Chiavi private"
+msgstr "Chaves privadas"
 
 #: tabby-core/src/tabContextMenu.ts:186
 msgid "Process completed"
-msgstr "Processo completato"
+msgstr "Processo concluído"
 
 #: tabby-core/src/tabContextMenu.ts:142
 msgid "Profile name"
-msgstr "Nome profilo"
+msgstr "Nome do Perfil"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:2
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:4
 #: tabby-local/src/services/dockMenu.service.ts:25
 msgid "Profiles"
-msgstr "Profili"
+msgstr "Perfils"
 
 #: tabby-core/src/buttonProvider.ts:40
 #: tabby-settings/src/settings.ts:58
 msgid "Profiles & connections"
-msgstr "Profili e connessioni"
+msgstr "Perfis e conexões"
 
 #: locale/tmp-html/tabby-local/src/components/commandLineEditor.component.html:13
 msgid "Program"
-msgstr "Programma"
+msgstr "Programa"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:30
 msgid "Proxy command"
-msgstr "Comando proxy"
+msgstr "Comando do proxy"
 
 #: tabby-core/src/utils.ts:64
 msgid "Purple"
-msgstr "Viola"
+msgstr "Roxo"
 
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:37
 msgid "Puts all of Tabby's configuration into the vault"
-msgstr "Trasferisce tutta la configurazione di Tabby all'interno della Cassaforte"
+msgstr "Coloca todas as configurações da Tabby no cofre"
 
 #: tabby-core/src/index.ts:210
 #: tabby-core/src/services/profiles.service.ts:165
 msgid "Quick connect"
-msgstr "Connessione rapida"
+msgstr "Conexão rápida"
 
 #: tabby-core/src/services/config.service.ts:370
 #: tabby-core/src/services/config.service.ts:384
 msgid "Quit"
-msgstr "Esci"
+msgstr "Sair"
 
 #: tabby-telnet/src/profiles.ts:48
 msgid "Raw socket connection"
-msgstr "Connessione raw socket"
+msgstr "Conexão de soquete pura"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:166
 msgid "Ready Timeout (Milliseconds)"
-msgstr "Tempo di preparazione (in millisecondi)"
+msgstr "Tempo limite em(milissegundos)"
 
 #: tabby-core/src/services/profiles.service.ts:112
 #: tabby-core/src/services/profiles.service.ts:125
 msgid "Recent"
-msgstr "Recente"
+msgstr "Récente"
 
 #: locale/tmp-html/tabby-serial/src/components/serialTab.component.html:5
 #: locale/tmp-html/tabby-ssh/src/components/sshTab.component.html:10
 #: locale/tmp-html/tabby-telnet/src/components/telnetTab.component.html:3
 msgid "Reconnect"
-msgstr "Riconetti"
+msgstr "Reconectar"
 
 #: tabby-core/src/utils.ts:65
 msgid "Red"
-msgstr "Rosso"
+msgstr "Vermelho"
 
 #: locale/tmp-html/tabby-terminal/src/components/loginScriptsSettings.component.html:9
 msgid "Regex"
-msgstr "Espressione regolare"
+msgstr "Regex"
 
 #: tabby-settings/src/components/releaseNotesTab.component.ts:27
 msgid "Release notes"
-msgstr "Note di rilascio"
+msgstr "Notas da versão"
 
 #: locale/tmp-html/tabby-core/src/components/unlockVaultModal.component.html:6
 msgid "Remember for {time}"
-msgstr "Ricorda per {time}"
+msgstr "Lembrar do {time}"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:5
 #: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:52
@@ -1417,202 +1417,202 @@ msgstr "Remoto"
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:25
 #: tabby-core/src/tabContextMenu.ts:116
 msgid "Rename"
-msgstr "Rinomina"
+msgstr "Renomear"
 
 #: tabby-core/src/hotkeys.ts:21
 msgid "Rename Tab"
-msgstr "Rinomina scheda"
+msgstr "Renomear Aba"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:3
 msgid "Rendering"
-msgstr "Rendering"
+msgstr "Renderização"
 
 #: tabby-core/src/hotkeys.ts:29
 msgid "Reopen last tab"
-msgstr "Riapri l'ultima scheda"
+msgstr "Reabrir ultima aba"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:46
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:26
 msgid "Replace"
-msgstr "Sostituisci"
+msgstr "Substituir"
 
 #: locale/tmp-html/tabby-core/src/components/startPage.component.html:11
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:21
 msgid "Report a problem"
-msgstr "Segnala un problema"
+msgstr "Reportar um problema"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:73
 msgid "Require a key to click links"
-msgstr "Richiede una chiave per fare clic sui collegamenti"
+msgstr "Exigir uma tecla para clicar em links"
 
 #: tabby-terminal/src/hotkeys.ts:54
 msgid "Reset zoom"
-msgstr "Reimposta zoom"
+msgstr "Redefinir Zoom"
 
 #: tabby-serial/src/hotkeys.ts:14
 msgid "Restart current serial session"
-msgstr "Riavvia la sessione seriale corrente"
+msgstr "Reiniciar a sessão serial atual"
 
 #: tabby-ssh/src/hotkeys.ts:10
 msgid "Restart current SSH session"
-msgstr "Riavvia la sessione SSH corrente"
+msgstr "Reiniciar a sessão SSH atual"
 
 #: tabby-telnet/src/hotkeys.ts:10
 msgid "Restart current Telnet session"
-msgstr "Riavvia la sessione Telnet corrente"
+msgstr "Reiniciar sessão de Telnet atual"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:127
 msgid "Restart the app to apply changes"
-msgstr "Riavvia l'app per applicare le modifiche"
+msgstr "Reinicie o aplicativo para aplicar as alterações"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:141
 msgid "Restore terminal tabs on app start"
-msgstr "Ripristina le schede del terminale all'avvio dell'app"
+msgstr "Restaurar abas de terminal na inicialização do aplicativo"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:147
 msgid "Reuse session for multiple tabs"
-msgstr "Riutilizzare la sessione per più schede"
+msgstr "Reutilizar a sessão para multiplas abas"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:144
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:79
 #: tabby-core/src/tabContextMenu.ts:79
 msgid "Right"
-msgstr "Destra"
+msgstr "Direita"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:43
 msgid "Right click"
-msgstr "Click destro"
+msgstr "Clique direito"
 
 #: locale/tmp-html/tabby-local/src/components/localProfileSettings.component.html:5
 msgid "Run as administrator"
-msgstr "Esegui come amministratore"
+msgstr "Executar como administrador"
 
 #: locale/tmp-html/tabby-core/src/components/renameTabModal.component.html:6
 #: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:52
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:28
 msgid "Save"
-msgstr "Salva"
+msgstr "Salvar"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:101
 msgid "Save a password in the keychain"
-msgstr "Salva una password nel portachiavi"
+msgstr "Salvar uma senha no teclado"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:116
 msgid "Save and apply"
-msgstr "Salva e applica"
+msgstr "Salvar e aplicar"
 
 #: tabby-local/src/tabContextMenu.ts:27
 msgid "Save as profile"
-msgstr "Salva come profilo"
+msgstr "Salvar como perfil"
 
 #: tabby-core/src/tabContextMenu.ts:139
 msgid "Save layout as profile"
-msgstr "Salva layout come profilo"
+msgstr "Salvar layout como perfil"
 
 #: tabby-local/src/tabContextMenu.ts:48
 msgid "Saved"
-msgstr "Salvato"
+msgstr "Salvo"
 
 #: tabby-core/src/profiles.ts:19
 msgid "Saved layout"
-msgstr "Layout salvato"
+msgstr "Layout salvo"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:33
 msgid "Scroll on input"
-msgstr "Scorri durante la digitazione"
+msgstr "Rolar na entrada"
 
 #: tabby-terminal/src/hotkeys.ts:74
 msgid "Scroll terminal to bottom"
-msgstr "Scorri il terminale fino in fondo"
+msgstr "Rolar terminal para baixo"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:16
 msgid "Scrollback"
-msgstr "Scorrimento"
+msgstr "Reverter"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:34
 msgid "Scrolls the terminal to the bottom on user input"
-msgstr "Scorre il terminale in basso durante l'input dell'utente"
+msgstr "Rola o terminal para a parte inferior na entrada do usuário"
 
 #: tabby-terminal/src/hotkeys.ts:66
 msgid "Search"
-msgstr "Cerca"
+msgstr "Pesquisar"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:19
 msgid "Secret sync token"
-msgstr "Token di sincronizzazione segreto"
+msgstr "Token de sincronização secreta"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:45
 #: tabby-electron/src/services/platform.service.ts:208
 msgid "Select"
-msgstr "Seleziona"
+msgstr "Selecionar"
 
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:63
 msgid "Select a base profile to use as a template"
-msgstr "Seleziona un profilo di base da usare come modello"
+msgstr "Selecione um perfil base para usar como um modelo"
 
 #: tabby-core/src/services/fileProviders.service.ts:46
 msgid "Select file storage"
-msgstr "Seleziona archiviazione"
+msgstr "Selecionar armazenamento de arquivos"
 
 #: tabby-core/src/index.ts:222
 msgid "Select profile"
-msgstr "Seleziona profilo"
+msgstr "Selecione o perfil"
 
 #: tabby-core/src/services/profiles.service.ts:174
 msgid "Select profile or enter an address"
-msgstr "Seleziona profilo o inserisci indirizzo"
+msgstr "Selecione o perfil ou insira um endereço"
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:33
 msgid "Send bytes by typing in hex values"
-msgstr "Invia byte digitando valori esadecimali"
+msgstr "Enviar bytes digitando em valores hexadecimais"
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:75
 msgid "Sends data one byte at a time"
-msgstr "Invia dati un byte alla volta"
+msgstr "Envia dados um byte por vez"
 
 #: tabby-serial/src/profiles.ts:13
 #: tabby-serial/src/profiles.ts:71
 msgid "Serial"
-msgstr "Seriale"
+msgstr "Série"
 
 #: tabby-serial/src/profiles.ts:50
 #: tabby-serial/src/profiles.ts:61
 msgid "Serial connection"
-msgstr "Connessione seriale"
+msgstr "Conexão Serial"
 
 #: tabby-serial/src/profiles.ts:70
 msgid "Serial: {description}"
-msgstr "Seriale: {description}"
+msgstr "Série: {description}"
 
 #: locale/tmp-html/tabby-settings/src/components/setVaultPassphraseModal.component.html:2
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:5
 msgid "Set master passphrase"
-msgstr "Imposta la frase segreta principale"
+msgstr "Definir senha mestre"
 
 #: locale/tmp-html/tabby-settings/src/components/setVaultPassphraseModal.component.html:13
 msgid "Set passphrase"
-msgstr "Imposta frase segreta"
+msgstr "Definir senha"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:104
 msgid "Set password"
-msgstr "Imposta password"
+msgstr "Definir senha"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:150
 msgid "Set Tabby as %COMSPEC%"
-msgstr "Imposta Tabby come %COMSPEC%"
+msgstr "Definir Tabby como %COMSPEC%"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:57
 msgid "Set to 0 to disable recent profiles"
-msgstr "Impostare a 0 per disabilitare i profili recenti"
+msgstr "Defina 0 para desativar os perfis recentes"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:36
 msgid "Sets the SSH agent's named pipe path."
-msgstr "Imposta il percorso named pipe dell'agente SSH."
+msgstr "Define o caminho de tubo do agente SSH."
 
 #: tabby-settings/src/buttonProvider.ts:28
 #: tabby-settings/src/components/settingsTab.component.ts:57
 msgid "Settings"
-msgstr "Impostazioni"
+msgstr "Configurações"
 
 #: locale/tmp-html/tabby-local/src/components/shellSettingsTab.component.html:2
 msgid "Shell"
@@ -1620,190 +1620,190 @@ msgstr "Shell"
 
 #: tabby-terminal/src/api/baseTerminalTab.component.ts:541
 msgid "Shell does not support current path detection"
-msgstr "La shell non supporta il rilevamento del percorso corrente"
+msgstr "Shell não suporta a detecção de caminho atual"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:59
 msgid "Shell integration"
-msgstr "Integrazione shell"
+msgstr "Integração com o Shell"
 
 #: tabby-core/src/hotkeys.ts:216
 msgid "Show {type} profile selector"
-msgstr "Mostra il selettore profilo {type}"
+msgstr "Exibir seletor de perfil {type}"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:103
 msgid "Show a confirmation box when pasting multiple lines"
-msgstr "Mostra una casella di conferma quando incolli più righe"
+msgstr "Mostrar uma caixa de confirmação quando colar várias linhas"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:63
 msgid "Show built-in profiles in selector"
-msgstr "Mostra profili integrati nel selettore"
+msgstr "Mostrar perfis integrados no seletor"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:119
 msgid "Show config file"
-msgstr "Mostra file di configurazione"
+msgstr "Mostrar arquivo de configuração"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:118
 msgid "Show defaults"
-msgstr "Mostra predefiniti"
+msgstr "Mostrar padrões"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:128
 msgid "Show Mixer"
-msgstr "Mostra Mixer"
+msgstr "Mostrar Mixer"
 
 #: tabby-core/src/hotkeys.ts:53
 msgid "Show pane labels (for rearranging)"
-msgstr "Mostra etichette riquadro (per riorganizzare)"
+msgstr "Mostrar etiquetas do painel (para reorganização)"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:169
 msgid "Show profile icon on tab"
-msgstr "Mostra l'icona del profilo nella scheda"
+msgstr "Mostrar ícone do perfil na aba"
 
 #: tabby-core/src/hotkeys.ts:13
 msgid "Show profile selector"
-msgstr "Mostra selettore profilo"
+msgstr "Mostrar seletor de perfil"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:56
 msgid "Show recent profiles in selector"
-msgstr "Mostra i profili recenti nel selettore"
+msgstr "Mostrar perfis recentes no seletor"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:36
 msgid "Show release notes"
-msgstr "Mostra note di rilascio"
+msgstr "Mostrar notas de lançamento"
 
 #: tabby-serial/src/hotkeys.ts:10
 msgid "Show Serial connections"
-msgstr "Mostra connessioni seriali"
+msgstr "Mostrar conexões em série"
 
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:44
 msgid "Show vault contents"
-msgstr "Mostra contenuto della Cassaforte"
+msgstr "Mostrar conteúdo do cofre"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:140
 msgid "Skip MoTD/banner"
-msgstr "Salta MoTD/banner"
+msgstr "Pular banner do MoTD/"
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:74
 msgid "Slow feed"
-msgstr "Avanzamento lento"
+msgstr "Feed lento"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:66
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:89
 msgid "Snaps the window to a side of the screen"
-msgstr "Aggancia la finestra su un lato dello schermo"
+msgstr "Toca a janela em um lado da tela"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:26
 #: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:9
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:20
 msgid "SOCKS proxy"
-msgstr "Proxy SOCKS"
+msgstr "Usar proxy SOCKS"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:51
 msgid "SOCKS proxy host"
-msgstr "Host proxy SOCKS"
+msgstr "Host do proxy SOCKS"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:55
 msgid "SOCKS proxy port"
-msgstr "Porta proxy SOCKS"
+msgstr "Porta do proxy SOCKS"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:109
 msgid "Sound"
-msgstr "Notifiche"
+msgstr "Som"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:31
 msgid "Source code"
-msgstr "Codice sorgente"
+msgstr "Código-fonte"
 
 #: tabby-core/src/tabContextMenu.ts:76
 msgid "Split"
-msgstr "Dividi"
+msgstr "Dividir"
 
 #: tabby-core/src/hotkeys.ts:153
 msgid "Split to the bottom"
-msgstr "Dividi in basso"
+msgstr "Dividir para baixo"
 
 #: tabby-core/src/hotkeys.ts:157
 msgid "Split to the left"
-msgstr "Dividi a sinistra"
+msgstr "Dividir para a esquerda"
 
 #: tabby-core/src/hotkeys.ts:149
 msgid "Split to the right"
-msgstr "Dividi a destra"
+msgstr "Dividir para a direita"
 
 #: tabby-core/src/hotkeys.ts:161
 msgid "Split to the top"
-msgstr "Dividi in alto"
+msgstr "Rolar para o topo"
 
 #: tabby-ssh/src/profiles.ts:80
 msgid "SSH connection"
-msgstr "Connessione SSH"
+msgstr "Conexão SSH"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:47
 msgid "SSH connection management is now done through the \"Profiles & connections\" tab"
-msgstr "La gestione della connessione SSH è ora fatta attraverso la scheda \"Profili e connessioni\""
+msgstr "O gerenciamento de conexões SSH é feito através da aba \"Perfis e Conexões\""
 
 #: tabby-settings/src/components/vaultSettingsTab.component.ts:84
 msgid "SSH password for {user}@{host}:{port}"
-msgstr "Password SSH per {user}@{host}:{port}"
+msgstr "Senha SSH para {user}@{host}:{port}"
 
 #: tabby-core/src/theme.ts:8
 msgid "Standard"
-msgstr "Standard"
+msgstr "Padrão"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:132
 msgid "Startup"
-msgstr "Avvio"
+msgstr "Startup"
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:32
 msgid "Stop bits"
-msgstr "Ferma i bit"
+msgstr "Pare os bits"
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:50
 msgid "Strip"
-msgstr "Striscia"
+msgstr "Tirar"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:41
 msgid "Subscribe to updates"
-msgstr "Iscriviti agli aggiornamenti"
+msgstr "Inscrever-se para atualizações"
 
 #: locale/tmp-html/tabby-local/src/components/environmentEditor.component.html:17
 msgid "Substitutions allowed."
-msgstr "Sostituzioni consentite."
+msgstr "Substituições permitidas."
 
 #: tabby-core/src/tabContextMenu.ts:279
 msgid "Switch profile"
-msgstr "Cambia profilo"
+msgstr "Alternar perfil"
 
 #: tabby-core/src/hotkeys.ts:193
 msgid "Switch profile in the active pane"
-msgstr "Cambia profilo nel riquadro attivo"
+msgstr "Trocar perfil no painel ativo"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:7
 msgid "Switches terminal frontend implementation (experimental)"
-msgstr "Cambia l'implementazione del frontend del terminale (sperimentale)"
+msgstr "Alterna a implementação do terminal frontend (experimental)"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:4
 msgid "Sync"
-msgstr "Sincronizazione"
+msgstr "Sincronizar"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:56
 msgid "Sync automatically"
-msgstr "Sincronizza automaticamente"
+msgstr "Sincronizar automaticamente"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:8
 msgid "Sync host"
-msgstr "Host di sincronizzazione"
+msgstr "Sincronizar host"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:71
 msgid "Sync hotkeys"
-msgstr "Sincronizza tasti di scelta rapida"
+msgstr "Sincronizar atalhos"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:83
 msgid "Sync Vault"
-msgstr "Sincronizza Cassaforte"
+msgstr "Sincronizar Cofre"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:77
 msgid "Sync window settings"
-msgstr "Sincronizza impostazioni finestra"
+msgstr "Sincronizar configurações de janela"
 
 #: tabby-core/src/hotkeys.ts:101
 #: tabby-core/src/hotkeys.ts:105
@@ -1826,52 +1826,52 @@ msgstr "Sincronizza impostazioni finestra"
 #: tabby-core/src/hotkeys.ts:93
 #: tabby-core/src/hotkeys.ts:97
 msgid "Tab {number}"
-msgstr "Tab {number}"
+msgstr "Aba {number}"
 
 #: tabby-core/src/tabContextMenu.ts:212
 msgid "Tab activity"
-msgstr "Attività della scheda"
+msgstr "Atividade da aba"
 
 #: locale/tmp-html/tabby-core/src/components/safeModeModal.component.html:3
 msgid "Tabby could not start with your plugins, so all third party plugins have been disabled in this session. The error was:"
-msgstr "Tabby non può avviarsi con i tuoi plugin, quindi tutti i plugin di terze parti sono stati disabilitati in questa sessione. L'errore era:"
+msgstr "Tabby não pôde iniciar com seus plugins, então todos os plugins de terceiros foram desativados nesta sessão. O erro foi:"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:41
 msgid "Tabby news and updates on Twitter"
-msgstr "Notizie e aggiornamenti di Tabby su Twitter"
+msgstr "Notícias e atualizações do Tabby no Twitter"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:128
 msgid "Tabs"
-msgstr "Schede"
+msgstr "Abas"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:131
 msgid "Tabs location"
-msgstr "Posizione delle schede"
+msgstr "Localização das abas"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:150
 msgid "Tabs width"
-msgstr "Larghezza schede"
+msgstr "Largura da aba"
 
 #: tabby-telnet/src/profiles.ts:32
 msgid "Telnet session"
-msgstr "Sessione Telnet"
+msgstr "Sessão telefônica"
 
 #: tabby-terminal/src/api/baseTerminalTab.component.ts:187
 #: tabby-terminal/src/settings.ts:43
 msgid "Terminal"
-msgstr "Terminale"
+msgstr "Terminal"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:28
 msgid "Terminal background"
-msgstr "Sfondo del terminale"
+msgstr "Fundo do terminal"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:112
 msgid "Terminal bell"
-msgstr "Notifiche del terminale"
+msgstr "Aviso do terminal"
 
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:7
 msgid "Thank you for downloading Tabby!"
-msgstr "Grazie per aver scaricato Tabby!"
+msgstr "Obrigado por baixar Tabby!"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:5
 msgid "Theme"
@@ -1879,281 +1879,281 @@ msgstr "Tema"
 
 #: tabby-core/src/components/transfersMenu.component.ts:47
 msgid "There are active file transfers"
-msgstr "Ci sono trasferimenti di file attivi"
+msgstr "Existem transferências de arquivos ativas"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:102
 msgid "There is a saved password for this connection"
-msgstr "È presente una password salvata per questa connessione"
+msgstr "Existe uma senha salva para esta conexão"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:71
 msgid "These apply to all profiles of a given type"
-msgstr "Questi si applicano a tutti i profili di un dato tipo"
+msgstr "Estas se aplicam a todos os perfis de um determinado tipo"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:55
 msgid "Thin"
-msgstr "Sottile"
+msgstr "Fina"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:183
 msgid "Tick this if you're experiencing aliasing, ghosting or other visual issues"
-msgstr "Seleziona se stai sperimentando aliasing, ghosting o altri problemi visivi"
+msgstr "Marque isto se estiver enfrentando problemas visuais, como aliasing, fantasmas ou outros problemas visuais"
 
 #: tabby-core/src/hotkeys.ts:17
 msgid "Toggle fullscreen mode"
-msgstr "Attiva/Disattiva schermo intero"
+msgstr "Ativar/desativar modo tela cheia"
 
 #: tabby-core/src/hotkeys.ts:33
 msgid "Toggle last tab"
-msgstr "Attiva/disattiva ultima scheda"
+msgstr "Alternar última aba"
 
 #: tabby-electron/src/hotkeys.ts:14
 msgid "Toggle terminal window"
-msgstr "Attiva/disattiva finestra del terminale"
+msgstr "Alternar janela do terminal"
 
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:27
 msgid "Toggles the Tabby window visibility"
-msgstr "Attiva/disattiva la visibilità della finestra di Tabby"
+msgstr "Alterna a visibilidade da janela da aba"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:135
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:73
 msgid "Top"
-msgstr "In alto"
+msgstr "Topo"
 
 #: tabby-core/src/services/config.service.ts:368
 msgid "Try again"
-msgstr "Prova di nuovo"
+msgstr "Tentar novamente"
 
 #: tabby-ssh/src/session/ssh.ts:473
 msgid "Trying saved password"
-msgstr "Prova la password salvata"
+msgstr "Tentando salvar a senha"
 
 #: tabby-core/src/hotkeys.ts:61
 msgid "Turn current tab's panes into separate tabs"
-msgstr "Separa i pannelli della tab selezionata in nuovi pannelli"
+msgstr "Transformar painéis da aba atual em abas separadas"
 
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:17
 msgid "Ungrouped"
-msgstr "Non raggruppate"
+msgstr "Desagrupado"
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:57
 msgid "Uninstall"
-msgstr "Disinstalla"
+msgstr "Desinstalar"
 
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:241
 msgid "Unknown"
-msgstr "Sconosciuto"
+msgstr "Desconhecido"
 
 #: tabby-settings/src/components/vaultSettingsTab.component.ts:93
 msgid "Unknown secret of type {type} for {key}"
-msgstr "Codice segreto sconosciuto di tipo {type} per {key}"
+msgstr "Chave desconhecida do tipo {type} para {key}"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalToolbar.component.html:4
 msgid "Unpin"
-msgstr "Sgancia"
+msgstr "Liberar guia"
 
 #: tabby-core/src/tabContextMenu.ts:82
 msgid "Up"
-msgstr "Su"
+msgstr "Para cima"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:14
 #: tabby-electron/src/services/updater.service.ts:138
 msgid "Update"
-msgstr "Aggiorna"
+msgstr "Atualizar"
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:50
 msgid "Upgrade to {version}"
-msgstr "Aggiornamento alla {version}"
+msgstr "Fazer upgrade para {version}"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:46
 #: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:5
 msgid "Upload"
-msgstr "Carica"
+msgstr "Transferir"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:49
 msgid "Upload as a new config"
-msgstr "Carica come nuova configurazione"
+msgstr "Fazer upload como uma nova configuração"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:26
 msgid "Use {altKeyName} as the Meta key"
-msgstr "Usa {altKeyName} come chiave Meta"
+msgstr "Use {altKeyName} como Meta key"
 
 #: locale/tmp-html/tabby-local/src/components/shellSettingsTab.component.html:5
 msgid "Use ConPTY"
-msgstr "Usa ConPTY"
+msgstr "Usar ConPTY"
 
 #: tabby-local/src/shells/linuxDefault.ts:31
 #: tabby-local/src/shells/linuxDefault.ts:38
 msgid "User default"
-msgstr "Predefinito"
+msgstr "Usuário padrão"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:70
 msgid "Username"
-msgstr "Nome utente"
+msgstr "Nome de usuário"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:25
 msgid "Using CONNECT method"
-msgstr "Attraverso il metodo CONNECT"
+msgstr "Usando o método CONNECT"
 
 #: tabby-ssh/src/session/ssh.ts:462
 msgid "Using preset password"
-msgstr "Usare password preimpostata"
+msgstr "Usando a senha predefinida"
 
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:9
 msgid "Vault"
-msgstr "Cassaforte"
+msgstr "Cofre"
 
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:4
 msgid "Vault is an always-encrypted container for secrets such as SSH passwords and private key passphrases."
-msgstr "La Cassaforte è un contenitore protetto da cifratura per proteggere password SSH e frasi segrete delle chiavi private."
+msgstr "O Cofre é um contêiner sempre criptografado para segredos, como senhas de SSH e senhas de chave privada."
 
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:17
 msgid "Vault is empty"
-msgstr "La Cassaforte è vuota"
+msgstr "O cofre está vazio"
 
 #: locale/tmp-html/tabby-core/src/components/unlockVaultModal.component.html:4
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:43
 msgid "Vault is locked"
-msgstr "Cassaforte bloccata"
+msgstr "O cofre está trancado"
 
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:3
 msgid "Vault is not configured"
-msgstr "La Cassaforte non è configurata"
+msgstr "O cofre não está configurado"
 
 #: tabby-core/src/services/fileProviders.service.ts:39
 msgid "Vault master passphrase needs to be set to allow storing secrets"
-msgstr "La frase segreta principale della Cassaforte deve essere impostata per consentire la memorizzazione di dati cifrati"
+msgstr "A senha mestre do cofre precisa ser definida para permitir armazenamento"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:11
 msgid "Verify host keys when connecting"
-msgstr "Verifica le chiavi host durante la connessione"
+msgstr "Verificar as chaves do host ao conectar"
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:73
 msgid "Version"
-msgstr "Versione"
+msgstr "Versão"
 
 #: locale/tmp-html/tabby-core/src/components/startPage.component.html:13
 msgid "Version: {version}"
-msgstr "Versione: {version}"
+msgstr "Versão: {version}"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:21
 msgid "Vibrancy"
-msgstr "Trasparenza"
+msgstr "Vibração"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:119
 msgid "Visual"
-msgstr "Visive"
+msgstr "Visual"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:102
 msgid "Warn on multi-line paste"
-msgstr "Avviso prima di incollare righe multiple"
+msgstr "Avisar ao colar multi-linha"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:5
 msgid "Warn when closing active connections"
-msgstr "Avverti quando chiudi le connessioni attive"
+msgstr "Avisar ao fechar conexões ativas"
 
 #: locale/tmp-html/tabby-ssh/src/components/hostKeyPromptModal.component.html:6
 msgid "Warning: remote host's key has suddenly changed!"
-msgstr "Attenzione: la chiave dell'host remoto è improvvisamente cambiata!"
+msgstr "Aviso: a chave do host remoto mudou repentinamente!"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:67
 msgid "We're only tracking your Tabby and OS versions."
-msgstr "Monitoreremo soltanto le versioni di Tabby e del Sistema Operativo."
+msgstr "Estamos rastreando apenas as versões de Tabby e OS."
 
 #: tabby-core/src/components/welcomeTab.component.ts:24
 msgid "Welcome"
-msgstr "Benvenuto"
+msgstr "Bem-vindo"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:36
 msgid "What's new"
-msgstr "Novità"
+msgstr "Novidades"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:74
 msgid "When enabled, links are only clickable while holding this key"
-msgstr "Quando abilitato, i link sono cliccabili solo tenendo premuto questo tasto"
+msgstr "Quando ativado, os links só são clicáveis enquanto segura esta chave"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:18
 msgid "When WinSCP is detected, you can launch an SCP session from the context menu."
-msgstr "Quando si rileva WinSCP, è possibile avviare una sessione SCP dal menu contestuale."
+msgstr "Quando o WinSCP é detectado, você pode iniciar uma sessão SCP no menu de contexto."
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:48
 msgid "Whether a custom window or an OS native window should be used"
-msgstr "Indica se usare una cornice personalizzata o nativa del sistema operativo"
+msgstr "Se uma janela personalizada ou uma janela nativa do sistema deve ser usada"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:2
 #: tabby-settings/src/settings.ts:30
 msgid "Window"
-msgstr "Finestra"
+msgstr "Janela"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:117
 msgid "Window dimension along the edge"
-msgstr "Dimensione finestra lungo il bordo"
+msgstr "Dimensão da janela ao longo da borda"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:110
 msgid "Window dimension away from the edge"
-msgstr "Dimensione della finestra fuori dal bordo"
+msgstr "Dimensão da janela fora da borda"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:47
 msgid "Window frame"
-msgstr "Cornice della finestra"
+msgstr "Quadro de janela"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:147
 msgid "Windows"
-msgstr "Windows"
+msgstr "Janelas"
 
 #: locale/tmp-html/tabby-local/src/components/shellSettingsTab.component.html:11
 msgid "Windows 10 build 18309 or above is recommended for ConPTY"
-msgstr "Windows 10 build 18309 o superiore è raccomandato per ConPTY"
+msgstr "Windows 10 Compilação 18309 ou superior é recomendada para ConPTY"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:17
 msgid "WinSCP path"
-msgstr "Posizione di WinSCP"
+msgstr "Caminho do WinSCP"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:66
 msgid "Word separators"
-msgstr "Separatori di parole"
+msgstr "Separadores de palavra"
 
 #: locale/tmp-html/tabby-local/src/components/localProfileSettings.component.html:10
 msgid "Working directory"
-msgstr "Cartella di lavoro"
+msgstr "Diretório de trabalho"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshTab.component.html:6
 msgid "Working directory detection"
-msgstr "Rilevamento cartella di lavoro"
+msgstr "Detectar de diretório de trabalho"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:127
 msgid "WSL terminal bell can only be muted via Volume Mixer"
-msgstr "Gli avvisi del terminale WSL possono essere silenziati soltanto tramite il regolatore di volume"
+msgstr "O terminal WSL só pode ser silenciado pelo volume do mixer"
 
 #: locale/tmp-html/tabby-local/src/components/shellSettingsTab.component.html:14
 msgid "WSL terminal only supports TrueColor with ConPTY"
-msgstr "Il terminale WSL supporta solo TrueColor con ConPTY"
+msgstr "O terminal WSL só suporta TrueColor com ConPTY"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:128
 msgid "X11 forwarding"
-msgstr "Inoltro X11"
+msgstr "Encaminhamento X11"
 
 #: tabby-core/src/utils.ts:66
 msgid "Yellow"
-msgstr "Giallo"
+msgstr "Amarelo"
 
 #: locale/tmp-html/tabby-settings/src/components/setVaultPassphraseModal.component.html:4
 msgid "You can change it later, but it's unrecoverable if forgotten."
-msgstr "Si può cambiare più tardi, ma è irrecuperabile se dimenticato."
+msgstr "Você pode mudá-lo mais tarde, mas é inrecuperável se esquecido."
 
 #: locale/tmp-html/tabby-ssh/src/components/hostKeyPromptModal.component.html:7
 msgid "You could be under a man-in-the-middle attack right now, or the host key could have just been changed."
-msgstr "Potresti essere sotto un attacco man-in-the-middle in questo momento, o la chiave dell'host potrebbe essere stata appena cambiata."
+msgstr "Você pode estar sob um ataque no meio agora mesmo, ou a chave do anfitrião poderia ter sido alterada."
 
 #: tabby-terminal/src/hotkeys.ts:46
 msgid "Zoom in"
-msgstr "Zoom avanti"
+msgstr "Aumentar zoom"
 
 #: tabby-terminal/src/hotkeys.ts:50
 msgid "Zoom out"
-msgstr "Zoom indietro"
+msgstr "Diminuir zoom"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:5
 #: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:55
 msgctxt "[Dynamic] port forwarding"
 msgid "id.port-forwarding.dynamic"
-msgstr "Dinamico"
+msgstr "Dinâmico"
 
