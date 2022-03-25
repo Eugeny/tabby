@@ -1,10 +1,13 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import deepEqual from 'deep-equal'
+import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker'
 
 import { Component, Inject, Input, ChangeDetectionStrategy, ChangeDetectorRef, HostBinding } from '@angular/core'
 import { ConfigService, PlatformService, TranslateService } from 'tabby-core'
 import { TerminalColorSchemeProvider } from '../api/colorSchemeProvider'
 import { TerminalColorScheme } from '../api/interfaces'
+
+_('Search color schemes')
 
 /** @hidden */
 @Component({

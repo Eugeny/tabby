@@ -4,7 +4,7 @@ hotkeys:
   close-tab:
     - 'Ctrl-Shift-W'
   reopen-tab:
-    - 'Ctrl-Shift-T'
+    - 'Ctrl-Shift-Z'
   toggle-last-tab: []
   rename-tab:
     - 'Ctrl-Shift-R'
@@ -56,7 +56,7 @@ hotkeys:
   tab-19: []
   tab-20: []
   split-right:
-    - 'Ctrl-Shift-E'
+    - 'Ctrl-Shift-S'
   split-bottom:
     - 'Ctrl-Shift-D'
   split-left: []
@@ -79,4 +79,4 @@ hotkeys:
   switch-profile:
     - 'Ctrl-Alt-T'
   profile-selector:
-    - 'Ctrl-Shift-T'
+    - 'Ctrl-Shift-E'

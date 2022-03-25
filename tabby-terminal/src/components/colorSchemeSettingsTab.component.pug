@@ -72,7 +72,7 @@
         .input-group-prepend
             .input-group-text
                 i.fas.fa-fw.fa-search
-        input.form-control(type='search', placeholder='Search color schemes', [(ngModel)]='filter')
+        input.form-control(type='search', [placeholder]='"Search color schemes"|translate', [(ngModel)]='filter')
 
 .body
     .list-group-light.mb-3
@@ -89,7 +89,7 @@
 
                     .mr-auto
                         span {{scheme.name}}
-                        .badge.badge-info.ml-2(*ngIf='customColorSchemes.includes(scheme)') Custom
+                        .badge.badge-info.ml-2(*ngIf='customColorSchemes.includes(scheme)', translate) Custom
 
                     div
                         .d-flex
