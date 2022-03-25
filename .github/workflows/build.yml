@@ -131,12 +131,6 @@ jobs:
   Linux-Build:
     runs-on: ubuntu-18.04 # build against an older glibc for compatibility
     needs: Lint
-    strategy:
-      matrix:
-        include:
-          - arch: x86_64
-          - arch: armv7l
-          - arch: arm64
 
     steps:
     - name: Checkout
@@ -162,27 +156,16 @@ jobs:
 
     - name: Build native deps
       run: scripts/build-native.js
-      env:
-        ARCH: ${{matrix.arch}}
-
-    - name: Fix cross build
-      run: |
-        rm -rf app/node_modules/cpu-features
-        rm -rf app/node_modules/ssh2/crypto/build
-      if: ${{ matrix.arch == 'arm64' || matrix.arch == 'armv7l' }}
 
     - name: Webpack
       run: yarn run build
 
     - name: Prepackage plugins
       run: scripts/prepackage-plugins.js
-      env:
-        ARCH: ${{matrix.arch}}
 
     - name: Build packages
       run: scripts/build-linux.js
       env:
-        ARCH: ${{matrix.arch}}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         USE_HARD_LINKS: false
         # DEBUG: electron-builder,electron-builder:*
@@ -226,25 +209,25 @@ jobs:
     - uses: actions/upload-artifact@master
       name: Upload DEB
       with:
-        name: Linux DEB (${{matrix.arch}})
+        name: Linux DEB (x86_64)
         path: artifact-deb
 
     - uses: actions/upload-artifact@master
       name: Upload RPM
       with:
-        name: Linux RPM (${{matrix.arch}})
+        name: Linux RPM (x86_64)
         path: artifact-rpm
 
     - uses: actions/upload-artifact@master
       name: Upload Pacman Package
       with:
-        name: Linux Pacman (${{matrix.arch}})
+        name: Linux Pacman (x86_64)
         path: artifact-pacman
 
     - uses: actions/upload-artifact@master
       name: Upload Linux tarball
       with:
-        name: Linux tarball (${{matrix.arch}})
+        name: Linux tarball (x86_64)
         path: artifact-tar.gz
 
     - uses: actions/upload-artifact@master
@@ -252,7 +235,6 @@ jobs:
       with:
         name: Web tarball
         path: artifact-web
-      if: ${{ matrix.arch == 'x86_64' }}
 
 
   Windows-Build:
