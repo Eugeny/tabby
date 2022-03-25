@@ -14,6 +14,8 @@ yarn
 ./scripts/build-native.js
 ```
 
+**Note: For compiling for Linux armv7l, you need to downgrade electron to 17.0.0 in package.json present in root directory of tabby source**
+
 ```
 # Linux (Debian/Ubuntu here as an example)
 sudo apt install libfontconfig-dev libsecret-1-dev libarchive-tools libnss3 libatk1.0-0 libatk-bridge2.0-0 libgdk-pixbuf2.0-0 libgtk-3-0 libgbm1 cmake
