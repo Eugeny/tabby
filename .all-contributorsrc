@@ -664,6 +664,15 @@
       "contributions": [
         "platform"
       ]
+    },
+    {
+      "login": "ysc3839",
+      "name": "Richard Yu",
+      "avatar_url": "https://avatars.githubusercontent.com/u/12028138?v=4",
+      "profile": "https://blog.ysc3839.com",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
