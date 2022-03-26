@@ -182,7 +182,7 @@ export class Window {
                     console.error('Failed to set window blur', error)
                 }
             } else {
-                DwmEnableBlurBehindWindow(this.window, enabled)
+                DwmEnableBlurBehindWindow(this.window.getNativeWindowHandle(), enabled)
             }
         } else if (process.platform === 'linux') {
             this.window.setBackgroundColor(enabled ? '#00000000' : '#131d27')
