@@ -68,7 +68,7 @@
     "shell-quote": "^1.7.3",
     "shelljs": "0.8.5",
     "slugify": "^1.6.5",
-    "sortablejs": "^1.14.0",
+    "sortablejs": "^1.15.0",
     "source-code-pro": "^2.38.0",
     "source-map-loader": "^3.0.1",
     "source-sans-pro": "3.6.0",
