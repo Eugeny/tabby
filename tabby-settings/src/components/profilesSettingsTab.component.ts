@@ -143,6 +143,7 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
     refresh (): void {
         this.profiles = this.config.store.profiles
         this.profileGroups = []
+        const profileGroupCollapsed = JSON.parse(window.localStorage.profileGroupCollapsed ?? '{}')
 
         for (const profile of this.profiles) {
             let group = this.profileGroups.find(x => x.name === profile.group)
@@ -151,7 +152,7 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
                     name: profile.group,
                     profiles: [],
                     editable: true,
-                    collapsed: false,
+                    collapsed: profileGroupCollapsed[profile.group ?? ''] ?? false,
                 }
                 this.profileGroups.push(group)
             }
@@ -160,12 +161,14 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
 
         this.profileGroups.sort((a, b) => a.name?.localeCompare(b.name ?? '') ?? -1)
 
-        this.profileGroups.push({
+        const builtIn = {
             name: this.translate.instant('Built-in'),
             profiles: this.builtinProfiles,
             editable: false,
             collapsed: false,
-        })
+        }
+        builtIn.collapsed = profileGroupCollapsed[builtIn.name ?? ''] ?? false
+        this.profileGroups.push(builtIn)
     }
 
     async editGroup (group: ProfileGroup): Promise<void> {
@@ -244,6 +247,13 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
             telnet: 'info',
             'split-layout': 'primary',
         }[this.profilesService.providerForProfile(profile)?.id ?? ''] ?? 'warning'
+    }
+
+    toggleGroupCollapse (group: ProfileGroup): void {
+        group.collapsed = !group.collapsed
+        const profileGroupCollapsed = JSON.parse(window.localStorage.profileGroupCollapsed ?? '{}')
+        profileGroupCollapsed[group.name ?? ''] = group.collapsed
+        window.localStorage.profileGroupCollapsed = JSON.stringify(profileGroupCollapsed)
     }
 
     async editDefaults (provider: ProfileProvider<Profile>): Promise<void> {
