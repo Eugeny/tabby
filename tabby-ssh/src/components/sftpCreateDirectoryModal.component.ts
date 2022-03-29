@@ -14,19 +14,15 @@ export class SFTPCreateDirectoryModalComponent extends BaseComponent {
     item: SFTPFile
     panel: SFTPPanelComponent
     directoryName: string
-    
+
     constructor (
         private modalInstance: NgbActiveModal,
     ) {
         super()
     }
 
-    async ngOnInit (): Promise<void> {
-        
-    }
-
     create (): void {
-        this.createDirectory(this.item.directory);
+        this.createDirectory(this.item.directory)
     }
     cancel (): void {
         this.modalInstance.close()
@@ -34,9 +30,9 @@ export class SFTPCreateDirectoryModalComponent extends BaseComponent {
 
     async createDirectory (currentDirectory: string): Promise<void> {
         this.sftp.mkdir(path.join(currentDirectory, this.directoryName)).finally(() => {
-            this.panel.navigate(path.join(currentDirectory, this.directoryName));
-            this.cancel();
-        });
+            this.panel.navigate(path.join(currentDirectory, this.directoryName))
+            this.cancel()
+        })
 
     }
 }
