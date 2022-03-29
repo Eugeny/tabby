@@ -1533,6 +1533,11 @@ buffer@^5.1.0:
     base64-js "^1.3.1"
     ieee754 "^1.1.13"
 
+buildcheck@0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/buildcheck/-/buildcheck-0.0.3.tgz#70451897a95d80f7807e68fc412eb2e7e35ff4d5"
+  integrity sha512-pziaA+p/wdVImfcbsZLNF32EiWyujlQLwolMqUQE8xpKNOH7KmZQaY8sXN7DGOEzPAElo9QTaeNRfGnf3iOJbA==
+
 builder-util-runtime@8.9.2:
   version "8.9.2"
   resolved "https://registry.yarnpkg.com/builder-util-runtime/-/builder-util-runtime-8.9.2.tgz#a9669ae5b5dcabfe411ded26678e7ae997246c28"
@@ -2155,12 +2160,13 @@ core-util-is@1.0.2, core-util-is@~1.0.0:
   resolved "https://registry.yarnpkg.com/core-util-is/-/core-util-is-1.0.2.tgz#b5fd54220aa2bc5ab57aab7140c940754503c1a7"
   integrity sha1-tf1UIgqivFq1eqtxQMlAdUUDwac=
 
-cpu-features@0.0.2:
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/cpu-features/-/cpu-features-0.0.2.tgz#9f636156f1155fd04bdbaa028bb3c2fbef3cea7a"
-  integrity sha512-/2yieBqvMcRj8McNzkycjW2v3OIUOibBfd2dLEJ0nWts8NobAxwiyw9phVNS6oDL8x8tz9F7uNVFEVpJncQpeA==
+cpu-features@0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/cpu-features/-/cpu-features-0.0.3.tgz#2acee87f762d11d5197babb34629293007a09edd"
+  integrity sha512-p6C/uud4F4bDyCz9+BNU22KdV1AGxPK6L9rQG9x3x4SSzdMPyBPErP7Rxn8avT2ex1M2g5Rpjz5Us/ri/766Qg==
   dependencies:
-    nan "^2.14.1"
+    buildcheck "0.0.3"
+    nan "^2.15.0"
 
 crc@^3.8.0:
   version "3.8.0"
@@ -5451,7 +5457,7 @@ mute-stream@~0.0.4:
   resolved "https://registry.npmjs.org/mute-stream/-/mute-stream-0.0.7.tgz"
   integrity sha1-MHXOk7whuPq0PhvE2n6BFe0ee6s=
 
-nan@^2.13.2, nan@^2.14.1, nan@^2.15.0:
+nan@^2.13.2, nan@^2.15.0:
   version "2.15.0"
   resolved "https://registry.yarnpkg.com/nan/-/nan-2.15.0.tgz#3f34a473ff18e15c1b5626b62903b5ad6e665fee"
   integrity sha512-8ZtvEnA2c5aYCZYd1cvgdnU6cqwixRoYg70xPLWUws5ORTa/lnw+u4amixRS/Ac5U5mQVgp9pnlSUnbNWFaWZQ==
@@ -7729,15 +7735,15 @@ sprintf-js@~1.0.2:
   resolved "https://registry.yarnpkg.com/sprintf-js/-/sprintf-js-1.0.3.tgz#04e6926f662895354f3dd015203633b857297e2c"
   integrity sha1-BOaSb2YolTVPPdAVIDYzuFcpfiw=
 
-ssh2@^1.7.0:
-  version "1.7.0"
-  resolved "https://registry.yarnpkg.com/ssh2/-/ssh2-1.7.0.tgz#7aa30f2a5266f0ffd93944621b4eb1f403330fd4"
-  integrity sha512-u1gdFfqKV1PTGR2szS5FImhFii40o+8FOUpg1M//iimNaS4BkTyUVfVdoydXS93M1SquOU02Z4KFhYDBNqQO+g==
+ssh2@^1.8.0:
+  version "1.8.0"
+  resolved "https://registry.yarnpkg.com/ssh2/-/ssh2-1.8.0.tgz#97a9bfa3348412a2ed266265ddb351746b6edfc8"
+  integrity sha512-NVIRkIwJvWl+mcRozp+EBzHMVCcbDKBea64ToPdZEk43yAVGwmfqYZRPFRnnvGjsKC34wYCmiupTcKgCVNVNNg==
   dependencies:
     asn1 "^0.2.4"
     bcrypt-pbkdf "^1.0.2"
   optionalDependencies:
-    cpu-features "0.0.2"
+    cpu-features "0.0.3"
     nan "^2.15.0"
 
 sshpk@^1.7.0:
