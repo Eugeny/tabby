@@ -1,0 +1,13 @@
+.modal-body
+    label(translate) Create Directory
+    .form-group.w-100.mr-2
+        label(translate) Name
+        input.form-control(
+            type='text',
+            [(ngModel)]='directoryName',
+        )
+
+
+.modal-footer
+    button.btn.btn-success((click)='create()', translate) Create
+    button.btn.btn-danger((click)='cancel()', translate) Cancel

@@ -12,6 +12,7 @@ import type { FileEntry, Stats } from 'ssh2-streams'
 export interface SFTPFile {
     name: string
     fullPath: string
+    directory: string
     isDirectory: boolean
     isSymlink: boolean
     mode: number
@@ -103,6 +104,7 @@ export class SFTPSession {
         const stats = await wrapPromise(this.zone, promisify<Stats>(f => this.sftp.stat(p, f))())
         return {
             name: posixPath.basename(p),
+            directory: posixPath.dirname(p),
             fullPath: p,
             isDirectory: stats.isDirectory(),
             isSymlink: stats.isSymbolicLink(),
@@ -121,6 +123,11 @@ export class SFTPSession {
     async rmdir (p: string): Promise<void> {
         this.logger.debug('rmdir', p)
         await promisify((f: any) => this.sftp.rmdir(p, f))()
+    }
+
+    async mkdir (p: string): Promise<void> {
+        this.logger.debug('mkdir', p)
+        await promisify((f: any) => this.sftp.mkdir(p, f))()
     }
 
     async rename (oldPath: string, newPath: string): Promise<void> {
@@ -181,6 +188,7 @@ export class SFTPSession {
         return {
             fullPath: p,
             name: posixPath.basename(p),
+            directory: posixPath.dirname(p),
             isDirectory: (entry.attrs.mode & C.S_IFDIR) === C.S_IFDIR,
             isSymlink: (entry.attrs.mode & C.S_IFLNK) === C.S_IFLNK,
             mode: entry.attrs.mode,
