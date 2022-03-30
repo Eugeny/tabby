@@ -655,6 +655,33 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "Jai-JAP",
+      "name": "Jai A P",
+      "avatar_url": "https://avatars.githubusercontent.com/u/78354625?v=4",
+      "profile": "https://github.com/Jai-JAP",
+      "contributions": [
+        "platform"
+      ]
+    },
+    {
+      "login": "ysc3839",
+      "name": "Richard Yu",
+      "avatar_url": "https://avatars.githubusercontent.com/u/12028138?v=4",
+      "profile": "https://blog.ysc3839.com",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "artu-ole",
+      "name": "artu-ole",
+      "avatar_url": "https://avatars.githubusercontent.com/u/15938416?v=4",
+      "profile": "https://github.com/artu-ole",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,

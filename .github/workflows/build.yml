@@ -64,7 +64,7 @@ jobs:
       env:
         ARCH: ${{matrix.arch}}
 
-    - name: Build native deps
+    - name: Fix cross build
       run: |
         rm -rf app/node_modules/cpu-features
         rm -rf app/node_modules/ssh2/crypto/build
@@ -199,8 +199,6 @@ jobs:
         mv dist/*.rpm artifact-rpm/ || true
         mkdir artifact-pacman
         mv dist/*.pacman artifact-pacman/ || true
-        mkdir artifact-snap
-        mv dist/*.snap artifact-snap/ || true
         mkdir artifact-tar.gz
         mv dist/*.tar.gz artifact-tar.gz/ || true
         mkdir artifact-web
@@ -209,31 +207,25 @@ jobs:
     - uses: actions/upload-artifact@master
       name: Upload DEB
       with:
-        name: Linux DEB
+        name: Linux DEB (x86_64)
         path: artifact-deb
 
     - uses: actions/upload-artifact@master
       name: Upload RPM
       with:
-        name: Linux RPM
+        name: Linux RPM (x86_64)
         path: artifact-rpm
 
     - uses: actions/upload-artifact@master
       name: Upload Pacman Package
       with:
-        name: Linux Pacman
+        name: Linux Pacman (x86_64)
         path: artifact-pacman
-
-    - uses: actions/upload-artifact@master
-      name: Upload Snap
-      with:
-        name: Linux Snap
-        path: artifact-snap
 
     - uses: actions/upload-artifact@master
       name: Upload Linux tarball
       with:
-        name: Linux tarball
+        name: Linux tarball (x86_64)
         path: artifact-tar.gz
 
     - uses: actions/upload-artifact@master
@@ -242,9 +234,15 @@ jobs:
         name: Web tarball
         path: artifact-web
 
+
   Windows-Build:
     runs-on: windows-2022
     needs: Lint
+    strategy:
+      matrix:
+        include:
+          - arch: x86_64
+          - arch: arm64
 
     steps:
     - name: Checkout
@@ -270,6 +268,8 @@ jobs:
         node scripts/build-native.js
         yarn run build
         node scripts/prepackage-plugins.js
+      env:
+        ARCH: ${{matrix.arch}}
 
     - name: Build and sign packages
       run: node scripts/build-windows.js
@@ -283,6 +283,8 @@ jobs:
     - name: Build packages without signing
       run: node scripts/build-windows.js
       if: "!(github.repository == 'Eugeny/tabby' && github.event_name == 'push' && (github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags')))"
+      env:
+        ARCH: ${{matrix.arch}}
 
     - name: Upload symbols
       run: |
@@ -296,18 +298,18 @@ jobs:
     - name: Package artifacts
       run: |
         mkdir artifact-setup
-        mv dist/*-setup.exe artifact-setup/
+        mv dist/*-setup-*.exe artifact-setup/
         mkdir artifact-portable
-        mv dist/*-portable.zip artifact-portable/
+        mv dist/*-portable-*.zip artifact-portable/
 
     - uses: actions/upload-artifact@master
       name: Upload installer
       with:
-        name: Windows installer
+        name: Windows installer (${{matrix.arch}})
         path: artifact-setup
 
     - uses: actions/upload-artifact@master
       name: Upload portable build
       with:
-        name: Windows portable build
+        name: Windows portable build (${{matrix.arch}})
         path: artifact-portable
