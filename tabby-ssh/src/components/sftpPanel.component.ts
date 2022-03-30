@@ -113,8 +113,11 @@ export class SFTPPanelComponent {
         const modal = this.ngbModal.open(SFTPCreateDirectoryModalComponent)
         const directoryName = await modal.result
         if (directoryName !== '') {
-            this.sftp.mkdir(path.join(this.path, directoryName)).finally(() => {
+            this.sftp.mkdir(path.join(this.path, directoryName)).then(() => {
+                this.notifications.notice('The directory was created successfully')
                 this.navigate(path.join(this.path, directoryName))
+            }).catch(() => {
+                this.notifications.error('The directory could not be created')
             })
         }
     }
@@ -125,7 +128,11 @@ export class SFTPPanelComponent {
     }
 
     async uploadOne (transfer: FileUpload): Promise<void> {
+        const savedPath = this.path
         await this.sftp.upload(path.join(this.path, transfer.getName()), transfer)
+        if (this.path === savedPath) {
+            await this.navigate(this.path)
+        }
     }
 
     async download (itemPath: string, mode: number, size: number): Promise<void> {
