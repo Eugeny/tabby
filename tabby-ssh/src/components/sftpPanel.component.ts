@@ -5,6 +5,8 @@ import { FileUpload, MenuItemOptions, NotificationsService, PlatformService } fr
 import { SFTPSession, SFTPFile } from '../session/sftp'
 import { SSHSession } from '../session/ssh'
 import { SFTPContextMenuItemProvider } from '../api'
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
+import { SFTPCreateDirectoryModalComponent } from './sftpCreateDirectoryModal.component'
 
 interface PathSegment {
     name: string
@@ -26,6 +28,7 @@ export class SFTPPanelComponent {
     pathSegments: PathSegment[] = []
 
     constructor (
+        private ngbModal: NgbModal,
         private platform: PlatformService,
         private notifications: NotificationsService,
         @Optional() @Inject(SFTPContextMenuItemProvider) protected contextMenuProviders: SFTPContextMenuItemProvider[],
@@ -106,6 +109,16 @@ export class SFTPPanelComponent {
         }
     }
 
+    async openCreateDirectoryModal (): Promise<void> {
+        const modal = this.ngbModal.open(SFTPCreateDirectoryModalComponent)
+        const directoryName = await modal.result
+        if (directoryName !== '') {
+            this.sftp.mkdir(path.join(this.path, directoryName)).finally(() => {
+                this.navigate(path.join(this.path, directoryName))
+            })
+        }
+    }
+
     async upload (): Promise<void> {
         const transfers = await this.platform.startUpload({ multiple: true })
         await Promise.all(transfers.map(t => this.uploadOne(t)))
@@ -113,10 +126,6 @@ export class SFTPPanelComponent {
 
     async uploadOne (transfer: FileUpload): Promise<void> {
         await this.sftp.upload(path.join(this.path, transfer.getName()), transfer)
-        const savedPath = this.path
-        if (this.path === savedPath) {
-            await this.navigate(this.path)
-        }
     }
 
     async download (itemPath: string, mode: number, size: number): Promise<void> {

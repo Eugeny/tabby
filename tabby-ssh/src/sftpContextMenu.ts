@@ -5,7 +5,6 @@ import { SFTPSession, SFTPFile } from './session/sftp'
 import { SFTPContextMenuItemProvider } from './api'
 import { SFTPDeleteModalComponent } from './components/sftpDeleteModal.component'
 import { SFTPPanelComponent } from './components/sftpPanel.component'
-import { SFTPCreateDirectoryModalComponent } from './components/sftpCreateDirectoryModal.component'
 
 
 /** @hidden */
@@ -25,7 +24,7 @@ export class CommonSFTPContextMenu extends SFTPContextMenuItemProvider {
         return [
             {
                 click: async () => {
-                    await this.createDirectory(item, panel)
+                    await panel.openCreateDirectoryModal()
                 },
                 label: this.translate.instant('Create directory'),
             },
@@ -54,14 +53,6 @@ export class CommonSFTPContextMenu extends SFTPContextMenuItemProvider {
         const modal = this.ngbModal.open(SFTPDeleteModalComponent)
         modal.componentInstance.item = item
         modal.componentInstance.sftp = session
-        await modal.result
-    }
-
-    async createDirectory (item: SFTPFile, panel: SFTPPanelComponent): Promise<void> {
-        const modal = this.ngbModal.open(SFTPCreateDirectoryModalComponent)
-        modal.componentInstance.item = item
-        modal.componentInstance.sftp = panel.sftp
-        modal.componentInstance.panel = panel
         await modal.result
     }
 }
