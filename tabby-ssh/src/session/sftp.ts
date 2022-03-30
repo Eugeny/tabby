@@ -123,6 +123,11 @@ export class SFTPSession {
         await promisify((f: any) => this.sftp.rmdir(p, f))()
     }
 
+    async mkdir (p: string): Promise<void> {
+        this.logger.debug('mkdir', p)
+        await promisify((f: any) => this.sftp.mkdir(p, f))()
+    }
+
     async rename (oldPath: string, newPath: string): Promise<void> {
         this.logger.debug('rename', oldPath, newPath)
         await promisify((f: any) => this.sftp.rename(oldPath, newPath, f))()

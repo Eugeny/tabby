@@ -5,6 +5,8 @@ import { FileUpload, MenuItemOptions, NotificationsService, PlatformService } fr
 import { SFTPSession, SFTPFile } from '../session/sftp'
 import { SSHSession } from '../session/ssh'
 import { SFTPContextMenuItemProvider } from '../api'
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
+import { SFTPCreateDirectoryModalComponent } from './sftpCreateDirectoryModal.component'
 
 interface PathSegment {
     name: string
@@ -26,6 +28,7 @@ export class SFTPPanelComponent {
     pathSegments: PathSegment[] = []
 
     constructor (
+        private ngbModal: NgbModal,
         private platform: PlatformService,
         private notifications: NotificationsService,
         @Optional() @Inject(SFTPContextMenuItemProvider) protected contextMenuProviders: SFTPContextMenuItemProvider[],
@@ -103,6 +106,19 @@ export class SFTPPanelComponent {
             }
         } else {
             await this.download(item.fullPath, item.mode, item.size)
+        }
+    }
+
+    async openCreateDirectoryModal (): Promise<void> {
+        const modal = this.ngbModal.open(SFTPCreateDirectoryModalComponent)
+        const directoryName = await modal.result
+        if (directoryName !== '') {
+            this.sftp.mkdir(path.join(this.path, directoryName)).then(() => {
+                this.notifications.notice('The directory was created successfully')
+                this.navigate(path.join(this.path, directoryName))
+            }).catch(() => {
+                this.notifications.error('The directory could not be created')
+            })
         }
     }
 
