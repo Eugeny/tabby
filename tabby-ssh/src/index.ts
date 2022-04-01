@@ -26,6 +26,7 @@ import { SFTPContextMenu } from './tabContextMenu'
 import { SSHProfilesService } from './profiles'
 import { SFTPContextMenuItemProvider } from './api/contextMenu'
 import { CommonSFTPContextMenu } from './sftpContextMenu'
+import { SFTPCreateDirectoryModalComponent } from './components/sftpCreateDirectoryModal.component'
 
 /** @hidden */
 @NgModule({
@@ -50,6 +51,7 @@ import { CommonSFTPContextMenu } from './sftpContextMenu'
     entryComponents: [
         SSHProfileSettingsComponent,
         SFTPDeleteModalComponent,
+        SFTPCreateDirectoryModalComponent,
         SSHPortForwardingModalComponent,
         SSHSettingsTabComponent,
         SSHTabComponent,
@@ -58,6 +60,7 @@ import { CommonSFTPContextMenu } from './sftpContextMenu'
     declarations: [
         SSHProfileSettingsComponent,
         SFTPDeleteModalComponent,
+        SFTPCreateDirectoryModalComponent,
         SSHPortForwardingModalComponent,
         SSHPortForwardingConfigComponent,
         SSHSettingsTabComponent,

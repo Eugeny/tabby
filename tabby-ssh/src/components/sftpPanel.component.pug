@@ -6,6 +6,10 @@
             (click)='navigate(segment.path)'
         ) {{segment.name}}
 
+    button.btn.btn-link.btn-sm.d-flex((click)='openCreateDirectoryModal()')
+        i.fas.fa-plus.mr-1
+        div(translate) Create directory
+
     button.btn.btn-link.btn-sm.d-flex((click)='upload()')
         i.fas.fa-upload.mr-1
         div(translate) Upload

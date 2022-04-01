@@ -24,6 +24,12 @@ export class CommonSFTPContextMenu extends SFTPContextMenuItemProvider {
         return [
             {
                 click: async () => {
+                    await panel.openCreateDirectoryModal()
+                },
+                label: this.translate.instant('Create directory'),
+            },
+            {
+                click: async () => {
                     if ((await this.platform.showMessageBox({
                         type: 'warning',
                         message: this.translate.instant('Delete {fullPath}?', item),
