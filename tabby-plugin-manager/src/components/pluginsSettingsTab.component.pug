@@ -24,7 +24,7 @@ ul.nav-tabs.mb-2(ngbNav, #nav='ngbNav')
                     type='text',
                     [(ngModel)]='_1',
                     (ngModelChange)='searchAvailable(_1)',
-                    placeholder='Search plugins'
+                    [placeholder]='"Search plugins"|translate'
                 )
 
             ngb-accordion.mb-4(*ngIf='availablePlugins$', [closeOthers]='true')

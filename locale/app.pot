@@ -190,7 +190,7 @@ msgid "Bracketed paste (requires shell support)"
 msgstr ""
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:48
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:164
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:165
 msgid "Built-in"
 msgstr ""
 
@@ -435,8 +435,8 @@ msgstr ""
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:28
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:9
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:129
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:191
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:204
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:194
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:207
 #: tabby-settings/src/components/vaultSettingsTab.component.ts:49
 #: tabby-ssh/src/sftpContextMenu.ts:33
 #: tabby-ssh/src/sftpContextMenu.ts:41
@@ -446,7 +446,7 @@ msgid "Delete"
 msgstr ""
 
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:127
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:189
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:192
 #: tabby-terminal/src/components/colorSchemeSettingsTab.component.ts:87
 msgid "Delete \"{name}\"?"
 msgstr ""
@@ -463,7 +463,7 @@ msgstr ""
 msgid "Delete previous word"
 msgstr ""
 
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:201
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:204
 msgid "Delete the group's profiles?"
 msgstr ""
 
@@ -493,6 +493,10 @@ msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:41
 msgid "Disable dynamic tab title"
+msgstr ""
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:189
+msgid "Disable fluent background while dragging"
 msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:182
@@ -656,6 +660,10 @@ msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:157
 msgid "Fixed"
+msgstr ""
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:190
+msgid "Fluent background sometimes causes drag lag"
 msgstr ""
 
 #: tabby-local/src/tabContextMenu.ts:136
@@ -897,7 +905,7 @@ msgid "Jump to previous word"
 msgstr ""
 
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:130
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:192
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:195
 #: tabby-settings/src/components/vaultSettingsTab.component.ts:50
 #: tabby-terminal/src/components/colorSchemeSettingsTab.component.ts:90
 #: tabby-terminal/src/components/loginScriptsSettings.component.ts:33
@@ -994,7 +1002,7 @@ msgid "Local echo"
 msgstr ""
 
 #: tabby-local/src/profiles.ts:11
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:234
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:237
 msgid "Local terminal"
 msgstr ""
 
@@ -1036,7 +1044,7 @@ msgstr ""
 msgid "Move tab to the right"
 msgstr ""
 
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:203
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:206
 msgid "Move to \"Ungrouped\""
 msgstr ""
 
@@ -1065,7 +1073,7 @@ msgstr ""
 msgid "New item"
 msgstr ""
 
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:173
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:176
 #: tabby-settings/src/components/vaultSettingsTab.component.ts:118
 msgid "New name"
 msgstr ""
@@ -1536,6 +1544,14 @@ msgstr ""
 msgid "Search color schemes"
 msgstr ""
 
+#: tabby-settings/src/components/hotkeySettingsTab.component.ts:11
+msgid "Search hotkeys"
+msgstr ""
+
+#: tabby-plugin-manager/src/components/pluginsSettingsTab.component.ts:14
+msgid "Search plugins"
+msgstr ""
+
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:19
 msgid "Secret sync token"
 msgstr ""
@@ -1937,7 +1953,7 @@ msgstr ""
 msgid "Uninstall"
 msgstr ""
 
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:237
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:240
 msgid "Unknown"
 msgstr ""
 

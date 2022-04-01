@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker'
 import { BehaviorSubject, Observable, debounceTime, distinctUntilChanged, first, tap, flatMap, map } from 'rxjs'
 import semverGt from 'semver/functions/gt'
 
@@ -9,6 +10,8 @@ import { PluginManagerService } from '../services/pluginManager.service'
 enum BusyState { Installing = 'Installing', Uninstalling = 'Uninstalling' }
 
 const FORCE_ENABLE = ['tabby-core', 'tabby-settings', 'tabby-electron', 'tabby-web', 'tabby-plugin-manager']
+
+_('Search plugins')
 
 /** @hidden */
 @Component({

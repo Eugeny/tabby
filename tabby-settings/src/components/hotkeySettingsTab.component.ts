@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker'
 import { Component, NgZone } from '@angular/core'
 import {
     ConfigService,
@@ -6,6 +7,8 @@ import {
     HotkeysService,
     HostAppService,
 } from 'tabby-core'
+
+_('Search hotkeys')
 
 /** @hidden */
 @Component({

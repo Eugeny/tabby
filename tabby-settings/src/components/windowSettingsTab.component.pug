@@ -318,8 +318,8 @@ h3.mt-4(translate) Hacks
 
 .form-line(*ngIf='hostApp.platform === Platform.Windows')
     .header
-        .title Disable fluent background while dragging
-        .description Fluent background sometimes causes drag lag
+        .title(translate) Disable fluent background while dragging
+        .description(translate) Fluent background sometimes causes drag lag
 
     toggle(
         [(ngModel)]='config.store.hacks.disableVibrancyWhileDragging',

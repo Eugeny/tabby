@@ -4,7 +4,7 @@ h3.mb-3(translate) Hotkeys
     .input-group-prepend
         .input-group-text
             i.fas.fa-fw.fa-search
-    input.form-control(type='search', placeholder='Search hotkeys', [(ngModel)]='hotkeyFilter')
+    input.form-control(type='search', [placeholder]='"Search hotkeys"|translate', [(ngModel)]='hotkeyFilter')
 
 .form-group.hotkeys-table
     ng-container(*ngFor='let hotkey of hotkeyDescriptions')
