@@ -26,6 +26,13 @@ export class MSYS2ShellProvider extends ShellProvider {
             return []
         }
 
+        let homePath: string|undefined = path.resolve(msys2Path, 'home', process.env.USERNAME!)
+        try {
+            await fs.access(msys2Path)
+        } catch {
+            homePath = undefined
+        }
+
         const environments = ['msys', 'mingw64', 'clang64', 'ucrt64']
 
         return environments.map(e => ({
@@ -35,6 +42,7 @@ export class MSYS2ShellProvider extends ShellProvider {
             args: ['-defterm', '-here', '-no-start', '-' + e],
             icon: require('../icons/msys2.svg'),
             env: {},
+            cwd: homePath,
         }))
     }
 }

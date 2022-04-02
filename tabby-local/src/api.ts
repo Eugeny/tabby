@@ -13,6 +13,8 @@ export interface Shell {
      */
     fsBase?: string
 
+    cwd?: string
+
     /**
      * SVG icon
      */

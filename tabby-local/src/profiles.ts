@@ -80,6 +80,7 @@ export class LocalProfilesService extends ProfileProvider<LocalProfile> {
             command: shell.command,
             args: shell.args ?? [],
             env: shell.env,
+            cwd: shell.cwd,
         }
     }
 
