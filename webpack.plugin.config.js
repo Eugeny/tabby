@@ -87,8 +87,12 @@ module.exports = options => {
                 { test: /\.yaml$/, use: ['json-loader', 'yaml-loader'] },
                 { test: /\.svg/, use: ['svg-inline-loader'] },
                 {
-                    test: /\.(ttf|eot|otf|woff|woff2|ogg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+                    test: /\.(eot|otf|woff|woff2|ogg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
                     type: 'asset',
+                },
+                {
+                    test: /\.ttf$/,
+                    type: 'asset/inline',
                 },
                 {
                     test: /\.po$/,
