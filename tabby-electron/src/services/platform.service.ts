@@ -152,7 +152,7 @@ export class ElectronPlatformService extends PlatformService {
 
     async listFonts (): Promise<string[]> {
         if (this.hostApp.platform === Platform.Windows || this.hostApp.platform === Platform.macOS) {
-            let fonts = await new Promise<any[]>((resolve) => fontManager.findFonts({ monospace: true }, resolve))
+            let fonts = await new Promise<any[]>((resolve) => fontManager.findFonts({}, resolve))
             fonts = fonts.map(x => x.family.trim())
             return fonts
         }
