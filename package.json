@@ -72,7 +72,7 @@
     "source-code-pro": "^2.38.0",
     "source-map-loader": "^3.0.1",
     "source-sans-pro": "3.6.0",
-    "ssh2": "^1.7.0",
+    "ssh2": "^1.8.0",
     "style-loader": "^3.3.1",
     "svg-inline-loader": "^0.8.2",
     "ts-loader": "^9.2.8",
