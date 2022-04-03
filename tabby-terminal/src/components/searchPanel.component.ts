@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core'
-import { Frontend, SearchOptions } from '../frontends/frontend'
+import { Frontend, SearchOptions, SearchState } from '../frontends/frontend'
 import { ConfigService, NotificationsService, TranslateService } from 'tabby-core'
 
 @Component({
@@ -10,7 +10,7 @@ import { ConfigService, NotificationsService, TranslateService } from 'tabby-cor
 export class SearchPanelComponent {
     @Input() query: string
     @Input() frontend: Frontend
-    notFound = false
+    state: SearchState = { resultCount: 0 }
     options: SearchOptions = {
         incremental: true,
         ...this.config.store.terminal.searchOptions,
@@ -34,7 +34,7 @@ export class SearchPanelComponent {
     ) { }
 
     onQueryChange (): void {
-        this.notFound = false
+        this.state = { resultCount: 0 }
         this.findPrevious(true)
     }
 
@@ -42,8 +42,8 @@ export class SearchPanelComponent {
         if (!this.query) {
             return
         }
-        if (!this.frontend.findNext(this.query, { ...this.options, incremental: incremental || undefined })) {
-            this.notFound = true
+        this.state = this.frontend.findNext(this.query, { ...this.options, incremental: incremental || undefined })
+        if (!this.state.resultCount) {
             this.notifications.notice(this.translate.instant('Not found'))
         }
     }
@@ -52,8 +52,8 @@ export class SearchPanelComponent {
         if (!this.query) {
             return
         }
-        if (!this.frontend.findPrevious(this.query, { ...this.options, incremental: incremental || undefined })) {
-            this.notFound = true
+        this.state = this.frontend.findPrevious(this.query, { ...this.options, incremental: incremental || undefined })
+        if (!this.state.resultCount) {
             this.notifications.notice(this.translate.instant('Not found'))
         }
     }

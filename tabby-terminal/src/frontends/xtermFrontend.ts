@@ -1,6 +1,6 @@
 import { Injector } from '@angular/core'
 import { ConfigService, getCSSFontFamily, HostAppService, HotkeysService, Platform, PlatformService } from 'tabby-core'
-import { Frontend, SearchOptions } from './frontend'
+import { Frontend, SearchOptions, SearchState } from './frontend'
 import { takeUntil } from 'rxjs'
 import { Terminal, ITheme } from 'xterm'
 import { FitAddon } from 'xterm-addon-fit'
@@ -34,6 +34,7 @@ export class XTermFrontend extends Frontend {
     private configuredTheme: ITheme = {}
     private copyOnSelect = false
     private search = new SearchAddon()
+    private searchState: SearchState = { resultCount: 0 }
     private fitAddon = new FitAddon()
     private serializeAddon = new SerializeAddon()
     private ligaturesAddon?: LigaturesAddon
@@ -177,6 +178,10 @@ export class XTermFrontend extends Frontend {
         this.ready.complete()
 
         this.xterm.loadAddon(this.search)
+
+        this.search.onDidChangeResults(state => {
+            this.searchState = state ?? { resultCount: 0 }
+        })
 
         window.addEventListener('resize', this.resizeHandler)
 
@@ -327,16 +332,30 @@ export class XTermFrontend extends Frontend {
             decorations: {
                 matchOverviewRuler: '#cccc00',
                 activeMatchColorOverviewRuler: '#ffff00',
+                matchBorder: '#cc0',
+                activeMatchBorder: '#ff0',
+                activeMatchBackground: 'rgba(255, 255, 0, 0.3)',
             },
         }
     }
 
-    findNext (term: string, searchOptions?: SearchOptions): boolean {
-        return this.search.findNext(term, this.getSearchOptions(searchOptions))
+    private wrapSearchResult (result: boolean): SearchState {
+        if (!result) {
+            return { resultCount: 0 }
+        }
+        return this.searchState
     }
 
-    findPrevious (term: string, searchOptions?: SearchOptions): boolean {
-        return this.search.findPrevious(term, this.getSearchOptions(searchOptions))
+    findNext (term: string, searchOptions?: SearchOptions): SearchState {
+        return this.wrapSearchResult(
+            this.search.findNext(term, this.getSearchOptions(searchOptions))
+        )
+    }
+
+    findPrevious (term: string, searchOptions?: SearchOptions): SearchState {
+        return this.wrapSearchResult(
+            this.search.findPrevious(term, this.getSearchOptions(searchOptions))
+        )
     }
 
     cancelSearch (): void {

@@ -1,27 +1,31 @@
-input.search-input.form-control(
-    type='text',
-    [(ngModel)]='query',
-    (ngModelChange)='onQueryChange()',
-    [class.text-danger]='notFound',
-    (click)='$event.stopPropagation()',
-    (keyup.enter)='findPrevious()',
-    (keyup.esc)='close.emit()',
-    [placeholder]='"Search"|translate'
-)
+.input-group
+    input.search-input.form-control(
+        type='text',
+        [(ngModel)]='query',
+        (ngModelChange)='onQueryChange()',
+        [class.text-danger]='state.resultCount == 0',
+        (click)='$event.stopPropagation()',
+        (keyup.enter)='findPrevious()',
+        (keyup.esc)='close.emit()',
+        [placeholder]='"Search"|translate'
+    )
+    .input-group-append(*ngIf='state.resultCount > 0')
+        .input-group-text.result-counter {{state.resultIndex + 1}} / {{state.resultCount}}
 
-button.btn.btn-link(
-    (click)='findPrevious()',
-    ngbTooltip='Search up',
-    placement='bottom',
-    [fastHtmlBind]='icons.arrowUp'
-)
+ng-container(*ngIf='state.resultCount > 0')
+    button.btn.btn-link(
+        (click)='findPrevious()',
+        ngbTooltip='Search up',
+        placement='bottom',
+        [fastHtmlBind]='icons.arrowUp'
+    )
 
-button.btn.btn-link(
-    (click)='findNext()',
-    ngbTooltip='Search down',
-    placement='bottom',
-    [fastHtmlBind]='icons.arrowDown'
-)
+    button.btn.btn-link(
+        (click)='findNext()',
+        ngbTooltip='Search down',
+        placement='bottom',
+        [fastHtmlBind]='icons.arrowDown'
+    )
 
 .mr-2
 

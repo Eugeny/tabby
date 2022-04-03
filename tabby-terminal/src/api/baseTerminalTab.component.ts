@@ -261,7 +261,9 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
                 case 'search':
                     this.showSearchPanel = true
                     setImmediate(() => {
-                        this.element.nativeElement.querySelector('.search-input').focus()
+                        const input = this.element.nativeElement.querySelector('.search-input')
+                        input?.focus()
+                        input?.select()
                     })
                     break
                 case 'pane-focus-all':

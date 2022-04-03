@@ -1,6 +1,6 @@
 :host {
     position: fixed;
-    width: 400px;
+    width: 600px;
     right: 40px;
     z-index: 5;
     border-radius: 0 0 5px 5px;
@@ -14,4 +14,9 @@
         margin: 4px 2px;
         flex-shrink: 0;
     }
+}
+
+.result-counter {
+    font-size: 0.7rem;
+    opacity: .5;
 }
