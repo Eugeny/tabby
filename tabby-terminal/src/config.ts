@@ -24,6 +24,7 @@ export class TerminalConfigProvider extends ConfigProvider {
             rightClick: 'menu',
             pasteOnMiddleClick: true,
             copyOnSelect: false,
+            copyAsHTML: true,
             scrollOnInput: true,
             altIsMeta: false,
             wordSeparator: ' ()[]{}\'"',

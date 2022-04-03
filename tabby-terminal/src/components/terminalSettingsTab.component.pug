@@ -129,6 +129,14 @@ div.mt-4
 
     .form-line
         .header
+            .title(translate) Copy with formatting
+        toggle(
+            [(ngModel)]='config.store.terminal.copyAsHTML',
+            (ngModelChange)='config.save()',
+        )
+
+    .form-line
+        .header
             .title(translate) Bracketed paste (requires shell support)
             .description(translate) Prevents accidental execution of pasted commands
         toggle(

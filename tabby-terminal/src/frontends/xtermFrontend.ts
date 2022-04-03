@@ -217,7 +217,7 @@ export class XTermFrontend extends Frontend {
         if (!text.trim().length) {
             return
         }
-        if (text.length < 1024 * 32) {
+        if (text.length < 1024 * 32 && this.configService.store.terminal.copyAsHTML) {
             this.platformService.setClipboard({
                 text: this.getSelection(),
                 html: this.getSelectionAsHTML(),
