@@ -334,7 +334,7 @@ export class XTermFrontend extends Frontend {
                 activeMatchColorOverviewRuler: '#ffff00',
                 matchBorder: '#cc0',
                 activeMatchBorder: '#ff0',
-                activeMatchBackground: 'rgba(255, 255, 0, 0.3)',
+                activeMatchBackground: 'rgba(255, 255, 0, 0.125)',
             },
         }
     }
