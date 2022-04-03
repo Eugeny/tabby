@@ -190,10 +190,10 @@ xterm-addon-webgl@^0.12.0-beta.27:
   resolved "https://registry.yarnpkg.com/xterm-addon-webgl/-/xterm-addon-webgl-0.12.0-beta.27.tgz#afc5bc01d1ef3af9005fb9f6325a4db9c92aa8d9"
   integrity sha512-P948trotU8FMHtaA7C2x97VpLq6QLSjO53kWNvONS0/XwEKQBIYCI7Jfri2wcLgfQg6Cn4OQGLoj2YBK3MMyww==
 
-xterm@^4.19.0-beta.20:
-  version "4.19.0-beta.20"
-  resolved "https://registry.yarnpkg.com/xterm/-/xterm-4.19.0-beta.20.tgz#d8e970d8a8460c1d1a5ec9866f78f607a44c1349"
-  integrity sha512-IYI4ngSWzpV4sJXLWGEDF7vgLuUHn0CUQ42+TGv4H/hCGo4uru4s/D3Yws0ETb3a9VwRpZEPsigULaWTnhFusg==
+"xterm@npm:@tabby-gang/xterm@^4.19.0-beta.2":
+  version "4.19.0-beta.2"
+  resolved "https://registry.yarnpkg.com/@tabby-gang/xterm/-/xterm-4.19.0-beta.2.tgz#ffac3b0e776130f96ed860c8d44b30328d08ef62"
+  integrity sha512-6V4xlCFfvZ3SXy+fQL4n0rn/gyil5sThvVz6FSbfSVIHCY14JGiWt/7ouZwm3V4kdEgWmsf2P9KjR15YqVjECg==
 
 yallist@^4.0.0:
   version "4.0.0"
