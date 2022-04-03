@@ -5,7 +5,7 @@ import { takeUntil } from 'rxjs'
 import { Terminal, ITheme } from 'xterm'
 import { FitAddon } from 'xterm-addon-fit'
 import { LigaturesAddon } from 'xterm-addon-ligatures'
-import { SearchAddon } from 'xterm-addon-search'
+import { ISearchOptions, SearchAddon } from 'xterm-addon-search'
 import { WebglAddon } from 'xterm-addon-webgl'
 import { Unicode11Addon } from 'xterm-addon-unicode11'
 import { SerializeAddon } from 'xterm-addon-serialize'
@@ -55,6 +55,7 @@ export class XTermFrontend extends Frontend {
 
         this.xterm = new Terminal({
             allowTransparency: true,
+            overviewRulerWidth: 8,
             windowsMode: process.platform === 'win32',
         })
         this.xtermCore = this.xterm['_core']
@@ -320,12 +321,26 @@ export class XTermFrontend extends Frontend {
         this.setFontSize()
     }
 
+    private getSearchOptions (searchOptions?: SearchOptions): ISearchOptions {
+        return {
+            ...searchOptions,
+            decorations: {
+                matchOverviewRuler: '#cccc00',
+                activeMatchColorOverviewRuler: '#ffff00',
+            },
+        }
+    }
+
     findNext (term: string, searchOptions?: SearchOptions): boolean {
-        return this.search.findNext(term, searchOptions)
+        return this.search.findNext(term, this.getSearchOptions(searchOptions))
     }
 
     findPrevious (term: string, searchOptions?: SearchOptions): boolean {
-        return this.search.findPrevious(term, searchOptions)
+        return this.search.findPrevious(term, this.getSearchOptions(searchOptions))
+    }
+
+    cancelSearch (): void {
+        this.search.clearDecorations()
     }
 
     saveState (): any {

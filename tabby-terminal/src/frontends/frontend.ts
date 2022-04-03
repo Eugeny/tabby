@@ -77,6 +77,7 @@ export abstract class Frontend {
 
     abstract findNext (term: string, searchOptions?: SearchOptions): boolean
     abstract findPrevious (term: string, searchOptions?: SearchOptions): boolean
+    abstract cancelSearch (): void
 
     abstract saveState (): any
     abstract restoreState (state: string): void

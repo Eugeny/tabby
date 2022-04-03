@@ -11,6 +11,7 @@ import { Frontend } from '../frontends/frontend'
 import { XTermFrontend, XTermWebGLFrontend } from '../frontends/xtermFrontend'
 import { ResizeEvent } from './interfaces'
 import { TerminalDecorator } from './decorator'
+import { SearchPanelComponent } from '../components/searchPanel.component'
 
 /**
  * A class to base your custom terminal tabs on
@@ -99,6 +100,8 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
     disableDynamicTitle = false
 
     alternateScreenActive = false
+
+    @ViewChild(SearchPanelComponent, { 'static': false }) searchPanel?: SearchPanelComponent
 
     // Deps start
     config: ConfigService

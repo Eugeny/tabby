@@ -27,7 +27,7 @@ button.btn.btn-link(
 
 button.btn.btn-link(
     (click)='options.caseSensitive = !options.caseSensitive; saveSearchOptions()',
-    [class.active]='options.caseSensitive',
+    [class.btn-info]='options.caseSensitive',
     ngbTooltip='Case sensitivity',
     placement='bottom',
     [fastHtmlBind]='icons.case'
@@ -35,7 +35,7 @@ button.btn.btn-link(
 
 button.btn.btn-link(
     (click)='options.regex = !options.regex; saveSearchOptions()',
-    [class.active]='options.regex',
+    [class.btn-info]='options.regex',
     ngbTooltip='Regular expression',
     placement='bottom',
     [fastHtmlBind]='icons.regexp'
@@ -43,7 +43,7 @@ button.btn.btn-link(
 
 button.btn.btn-link(
     (click)='options.wholeWord = !options.wholeWord; saveSearchOptions()',
-    [class.active]='options.wholeWord',
+    [class.btn-info]='options.wholeWord',
     ngbTooltip='Whole word',
     placement='bottom',
     [fastHtmlBind]='icons.wholeWord'

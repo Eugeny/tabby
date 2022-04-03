@@ -4,7 +4,7 @@ search-panel(
     *ngIf='showSearchPanel && hasFocus',
     @toolbarSlide,
     [frontend]='frontend',
-    (close)='showSearchPanel = false'
+    (close)='showSearchPanel = false; frontend?.cancelSearch()'
 )
 
 button.btn.btn-sm.btn-link.toolbar-pin-button(
