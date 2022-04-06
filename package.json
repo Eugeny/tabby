@@ -34,7 +34,7 @@
     "cross-env": "7.0.3",
     "css-loader": "^6.7.1",
     "deep-equal": "2.0.5",
-    "electron": "18.0.1",
+    "electron": "18.0.2",
     "electron-builder": "^22.14.13",
     "electron-download": "^4.1.1",
     "electron-installer-snap": "^5.1.0",
