@@ -3,7 +3,7 @@ const rebuild = require('electron-rebuild').default
 const path = require('path')
 const vars = require('./vars')
 
-process.env.ARCH = process.env.ARCH || process.arch === 'arm' ? 'armv7l' : process.arch
+process.env.ARCH = (process.env.ARCH || process.arch) === 'arm' ? 'armv7l' : process.arch
 
 let lifecycles = []
 for (let dir of ['app', 'tabby-core', 'tabby-local', 'tabby-ssh', 'tabby-terminal']) {
