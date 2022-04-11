@@ -10,10 +10,11 @@ appearance:
   cycleTabs: true
   theme: Standard
   frame: thin
-  css: '/* * { color: blue !important; } */'
+  css: "/* * { color: blue !important; } */"
   opacity: 1.0
+  paneResize: 0.1
   vibrancy: false
-  vibrancyType: 'blur'
+  vibrancyType: "blur"
 terminal:
   showBuiltinProfiles: true
   showRecentProfiles: 3
@@ -29,7 +30,7 @@ recoverTabs: true
 enableAnalytics: true
 enableWelcomeTab: true
 electronFlags:
-  - ['force_discrete_gpu', '0']
+  - ["force_discrete_gpu", "0"]
 enableAutomaticUpdates: true
 version: 1
 vault: null

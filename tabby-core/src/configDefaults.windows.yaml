@@ -1,51 +1,51 @@
 hotkeys:
   toggle-fullscreen:
-    - 'F11'
-    - 'Alt-Enter'
+    - "F11"
+    - "Alt-Enter"
   close-tab:
-    - 'Ctrl-Shift-W'
+    - "Ctrl-Shift-W"
   reopen-tab:
-    - 'Ctrl-Shift-Z'
+    - "Ctrl-Shift-Z"
   toggle-last-tab: []
   rename-tab:
-    - 'Ctrl-Shift-R'
+    - "Ctrl-Shift-R"
   next-tab:
-    - 'Ctrl-Shift-Right'
-    - 'Ctrl-Tab'
+    - "Ctrl-Shift-Right"
+    - "Ctrl-Tab"
   previous-tab:
-    - 'Ctrl-Shift-Left'
-    - 'Ctrl-Shift-Tab'
+    - "Ctrl-Shift-Left"
+    - "Ctrl-Shift-Tab"
   move-tab-left:
-    - 'Ctrl-Shift-PageUp'
+    - "Ctrl-Shift-PageUp"
   move-tab-right:
-    - 'Ctrl-Shift-PageDown'
+    - "Ctrl-Shift-PageDown"
   rearrange-panes:
-    - 'Ctrl-Shift'
+    - "Ctrl-Shift"
   duplicate-tab: []
   explode-tab:
-    - 'Ctrl-Shift-.'
+    - "Ctrl-Shift-."
   combine-tab:
-    - 'Ctrl-Shift-,'
+    - "Ctrl-Shift-,"
   tab-1:
-    - 'Alt-1'
+    - "Alt-1"
   tab-2:
-    - 'Alt-2'
+    - "Alt-2"
   tab-3:
-    - 'Alt-3'
+    - "Alt-3"
   tab-4:
-    - 'Alt-4'
+    - "Alt-4"
   tab-5:
-    - 'Alt-5'
+    - "Alt-5"
   tab-6:
-    - 'Alt-6'
+    - "Alt-6"
   tab-7:
-    - 'Alt-7'
+    - "Alt-7"
   tab-8:
-    - 'Alt-8'
+    - "Alt-8"
   tab-9:
-    - 'Alt-9'
+    - "Alt-9"
   tab-10:
-    - 'Alt-0'
+    - "Alt-0"
   tab-11: []
   tab-12: []
   tab-13: []
@@ -57,27 +57,31 @@ hotkeys:
   tab-19: []
   tab-20: []
   split-right:
-    - 'Ctrl-Shift-S'
+    - "Ctrl-Shift-S"
   split-bottom:
-    - 'Ctrl-Shift-D'
+    - "Ctrl-Shift-D"
   split-left: []
   split-top: []
   pane-nav-right:
-    - 'Ctrl-Alt-Right'
+    - "Ctrl-Alt-Right"
   pane-nav-down:
-    - 'Ctrl-Alt-Down'
+    - "Ctrl-Alt-Down"
   pane-nav-up:
-    - 'Ctrl-Alt-Up'
+    - "Ctrl-Alt-Up"
   pane-nav-left:
-    - 'Ctrl-Alt-Left'
+    - "Ctrl-Alt-Left"
   pane-nav-previous:
-    - 'Ctrl-Alt-['
+    - "Ctrl-Alt-["
   pane-nav-next:
-    - 'Ctrl-Alt-]'
+    - "Ctrl-Alt-]"
+  pane-increase-vertical: []
+  pane-decrease-vertical: []
+  pane-increase-horizontal: []
+  pane-decrease-horizontal: []
   pane-maximize:
-    - 'Ctrl-Alt-Enter'
+    - "Ctrl-Alt-Enter"
   close-pane: []
   switch-profile:
-    - 'Ctrl-Alt-T'
+    - "Ctrl-Alt-T"
   profile-selector:
-    - 'Ctrl-Shift-E'
+    - "Ctrl-Shift-E"
