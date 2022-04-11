@@ -1,4 +1,4 @@
-import { Observable, Subject } from "rxjs";
+import { Observable, Subject } from 'rxjs'
 import {
     Component,
     Injectable,
@@ -7,138 +7,138 @@ import {
     EmbeddedViewRef,
     AfterViewInit,
     OnDestroy,
-} from "@angular/core";
+} from '@angular/core'
 import {
     BaseTabComponent,
     BaseTabProcess,
     GetRecoveryTokenOptions,
-} from "./baseTab.component";
-import { ConfigService } from "../api";
-import { TabRecoveryProvider, RecoveryToken } from "../api/tabRecovery";
-import { TabsService, NewTabParameters } from "../services/tabs.service";
-import { HotkeysService } from "../services/hotkeys.service";
-import { TabRecoveryService } from "../services/tabRecovery.service";
+} from './baseTab.component'
+import { ConfigService } from '../api'
+import { TabRecoveryProvider, RecoveryToken } from '../api/tabRecovery'
+import { TabsService, NewTabParameters } from '../services/tabs.service'
+import { HotkeysService } from '../services/hotkeys.service'
+import { TabRecoveryService } from '../services/tabRecovery.service'
 
-export type SplitOrientation = "v" | "h";
-export type SplitDirection = "r" | "t" | "b" | "l";
-export type ResizeDirection = "v" | "h" | "dv" | "dh";
+export type SplitOrientation = 'v' | 'h'
+export type SplitDirection = 'r' | 't' | 'b' | 'l'
+export type ResizeDirection = 'v' | 'h' | 'dv' | 'dh'
 
 /**
  * Describes a horizontal or vertical split row or column
  */
 export class SplitContainer {
-    orientation: SplitOrientation = "h";
+    orientation: SplitOrientation = 'h'
 
     /**
      * Children could be tabs or other containers
      */
-    children: (BaseTabComponent | SplitContainer)[] = [];
+    children: (BaseTabComponent | SplitContainer)[] = []
 
     /**
      * Relative sizes of children, between 0 and 1. Total sum is 1
      */
-    ratios: number[] = [];
+    ratios: number[] = []
 
-    x: number;
-    y: number;
-    w: number;
-    h: number;
+    x: number
+    y: number
+    w: number
+    h: number
 
     /**
      * @return Flat list of all tabs inside this container
      */
-    getAllTabs(): BaseTabComponent[] {
-        let r: BaseTabComponent[] = [];
+    getAllTabs (): BaseTabComponent[] {
+        let r: BaseTabComponent[] = []
         for (const child of this.children) {
             if (child instanceof SplitContainer) {
-                r = r.concat(child.getAllTabs());
+                r = r.concat(child.getAllTabs())
             } else {
-                r.push(child);
+                r.push(child)
             }
         }
-        return r;
+        return r
     }
 
     /**
      * Remove unnecessarily nested child containers and renormalizes [[ratios]]
      */
-    normalize(): void {
+    normalize (): void {
         for (let i = 0; i < this.children.length; i++) {
-            const child = this.children[i];
+            const child = this.children[i]
 
             if (child instanceof SplitContainer) {
-                child.normalize();
+                child.normalize()
 
                 if (child.children.length === 0) {
-                    this.children.splice(i, 1);
-                    this.ratios.splice(i, 1);
-                    i--;
-                    continue;
+                    this.children.splice(i, 1)
+                    this.ratios.splice(i, 1)
+                    i--
+                    continue
                 } else if (child.children.length === 1) {
-                    this.children[i] = child.children[0];
+                    this.children[i] = child.children[0]
                 } else if (child.orientation === this.orientation) {
-                    const ratio = this.ratios[i];
-                    this.children.splice(i, 1);
-                    this.ratios.splice(i, 1);
+                    const ratio = this.ratios[i]
+                    this.children.splice(i, 1)
+                    this.ratios.splice(i, 1)
                     for (let j = 0; j < child.children.length; j++) {
-                        this.children.splice(i, 0, child.children[j]);
-                        this.ratios.splice(i, 0, child.ratios[j] * ratio);
-                        i++;
+                        this.children.splice(i, 0, child.children[j])
+                        this.ratios.splice(i, 0, child.ratios[j] * ratio)
+                        i++
                     }
                 }
             }
         }
 
-        let s = 0;
+        let s = 0
         for (const x of this.ratios) {
-            s += x;
+            s += x
         }
-        this.ratios = this.ratios.map((x) => x / s);
+        this.ratios = this.ratios.map((x) => x / s)
     }
 
     /**
      * Makes all tabs have the same size
      */
-    equalize(): void {
+    equalize (): void {
         for (const child of this.children) {
             if (child instanceof SplitContainer) {
-                child.equalize();
+                child.equalize()
             }
         }
-        this.ratios.fill(1 / this.ratios.length);
+        this.ratios.fill(1 / this.ratios.length)
     }
 
     /**
      * Gets the left/top side offset for the given element index (between 0 and 1)
      */
-    getOffsetRatio(index: number): number {
-        let s = 0;
+    getOffsetRatio (index: number): number {
+        let s = 0
         for (let i = 0; i < index; i++) {
-            s += this.ratios[i];
+            s += this.ratios[i]
         }
-        return s;
+        return s
     }
 
-    async serialize(
+    async serialize (
         tabsRecovery: TabRecoveryService,
         options?: GetRecoveryTokenOptions
     ): Promise<RecoveryToken> {
-        const children: any[] = [];
+        const children: any[] = []
         for (const child of this.children) {
             if (child instanceof SplitContainer) {
-                children.push(await child.serialize(tabsRecovery, options));
+                children.push(await child.serialize(tabsRecovery, options))
             } else {
                 children.push(
                     await tabsRecovery.getFullRecoveryToken(child, options)
-                );
+                )
             }
         }
         return {
-            type: "app:split-tab",
+            type: 'app:split-tab',
             ratios: this.ratios,
             orientation: this.orientation,
             children,
-        };
+        }
     }
 }
 
@@ -164,23 +164,23 @@ export type SplitDropZoneInfo = {
     h: number;
 } & (
     | {
-          type: "absolute";
-          container: SplitContainer;
-          position: number;
-      }
+        type: 'absolute';
+        container: SplitContainer;
+        position: number;
+    }
     | {
-          type: "relative";
-          relativeTo?: BaseTabComponent | SplitContainer;
-          side: SplitDirection;
-      }
-);
+        type: 'relative';
+        relativeTo?: BaseTabComponent | SplitContainer;
+        side: SplitDirection;
+    }
+)
 
 /**
  * Split tab is a tab that contains other tabs and allows further splitting them
  * You'll mainly encounter it inside [[AppService]].tabs
  */
 @Component({
-    selector: "split-tab",
+    selector: 'split-tab',
     template: `
         <ng-container #vc></ng-container>
         <split-tab-spanner
@@ -205,660 +205,676 @@ export type SplitDropZoneInfo = {
         >
         </split-tab-pane-label>
     `,
-    styles: [require("./splitTab.component.scss")],
+    styles: [require('./splitTab.component.scss')],
 })
 export class SplitTabComponent
     extends BaseTabComponent
-    implements AfterViewInit, OnDestroy
-{
-    static DIRECTIONS: SplitDirection[] = ["t", "r", "b", "l"];
+    implements AfterViewInit, OnDestroy {
+    static DIRECTIONS: SplitDirection[] = ['t', 'r', 'b', 'l']
 
     /** @hidden */
-    @ViewChild("vc", { read: ViewContainerRef })
-    viewContainer: ViewContainerRef;
+    @ViewChild('vc', { read: ViewContainerRef })
+    viewContainer: ViewContainerRef
 
     /**
      * Top-level split container
      */
-    root: SplitContainer;
+    root: SplitContainer
 
     /** @hidden */
-    _recoveredState: any;
+    _recoveredState: any
 
     /** @hidden */
-    _spanners: SplitSpannerInfo[] = [];
+    _spanners: SplitSpannerInfo[] = []
 
     /** @hidden */
-    _dropZones: SplitDropZoneInfo[] = [];
+    _dropZones: SplitDropZoneInfo[] = []
 
     /** @hidden */
-    _allFocusMode = false;
+    _allFocusMode = false
 
     /** @hidden */
-    private focusedTab: BaseTabComponent | null = null;
-    private maximizedTab: BaseTabComponent | null = null;
-    private viewRefs: Map<BaseTabComponent, EmbeddedViewRef<any>> = new Map();
+    private focusedTab: BaseTabComponent | null = null
+    private maximizedTab: BaseTabComponent | null = null
+    private viewRefs: Map<BaseTabComponent, EmbeddedViewRef<any>> = new Map()
 
-    private tabAdded = new Subject<BaseTabComponent>();
-    private tabAdopted = new Subject<BaseTabComponent>();
-    private tabRemoved = new Subject<BaseTabComponent>();
-    private splitAdjusted = new Subject<SplitSpannerInfo>();
-    private focusChanged = new Subject<BaseTabComponent>();
-    private initialized = new Subject<void>();
+    private tabAdded = new Subject<BaseTabComponent>()
+    private tabAdopted = new Subject<BaseTabComponent>()
+    private tabRemoved = new Subject<BaseTabComponent>()
+    private splitAdjusted = new Subject<SplitSpannerInfo>()
+    private focusChanged = new Subject<BaseTabComponent>()
+    private initialized = new Subject<void>()
 
-    get tabAdded$(): Observable<BaseTabComponent> {
-        return this.tabAdded;
+    get tabAdded$ (): Observable<BaseTabComponent> {
+        return this.tabAdded
     }
 
     /**
      * Fired when an existing top-level tab is dragged into this tab
      */
-    get tabAdopted$(): Observable<BaseTabComponent> {
-        return this.tabAdopted;
+    get tabAdopted$ (): Observable<BaseTabComponent> {
+        return this.tabAdopted
     }
 
-    get tabRemoved$(): Observable<BaseTabComponent> {
-        return this.tabRemoved;
+    get tabRemoved$ (): Observable<BaseTabComponent> {
+        return this.tabRemoved
     }
 
     /**
      * Fired when split ratio is changed for a given spanner
      */
-    get splitAdjusted$(): Observable<SplitSpannerInfo> {
-        return this.splitAdjusted;
+    get splitAdjusted$ (): Observable<SplitSpannerInfo> {
+        return this.splitAdjusted
     }
 
     /**
      * Fired when a different sub-tab gains focus
      */
-    get focusChanged$(): Observable<BaseTabComponent> {
-        return this.focusChanged;
+    get focusChanged$ (): Observable<BaseTabComponent> {
+        return this.focusChanged
     }
 
     /**
      * Fired once tab layout is created and child tabs can be added
      */
-    get initialized$(): Observable<void> {
-        return this.initialized;
+    get initialized$ (): Observable<void> {
+        return this.initialized
     }
 
     /** @hidden */
-    constructor(
+    constructor (
         private hotkeys: HotkeysService,
         private tabsService: TabsService,
         private tabRecovery: TabRecoveryService,
         private config: ConfigService
     ) {
-        super();
-        this.root = new SplitContainer();
-        this.setTitle("");
+        super()
+        this.root = new SplitContainer()
+        this.setTitle('')
 
         this.focused$.subscribe(() => {
-            this.getAllTabs().forEach((x) => x.emitFocused());
+            this.getAllTabs().forEach((x) => x.emitFocused())
             if (this.focusedTab) {
-                this.focus(this.focusedTab);
+                this.focus(this.focusedTab)
             } else {
-                this.focusAnyIn(this.root);
+                this.focusAnyIn(this.root)
             }
-        });
+        })
         this.blurred$.subscribe(() =>
             this.getAllTabs().forEach((x) => x.emitBlurred())
-        );
+        )
 
-        this.tabAdded$.subscribe(() => this.updateTitle());
-        this.tabRemoved$.subscribe(() => this.updateTitle());
+        this.tabAdded$.subscribe(() => this.updateTitle())
+        this.tabRemoved$.subscribe(() => this.updateTitle())
 
         this.subscribeUntilDestroyed(this.hotkeys.hotkey$, (hotkey) => {
             if (!this.hasFocus || !this.focusedTab) {
-                return;
+                return
             }
             switch (hotkey) {
-                case "split-right":
-                    this.splitTab(this.focusedTab, "r");
-                    break;
-                case "split-bottom":
-                    this.splitTab(this.focusedTab, "b");
-                    break;
-                case "split-top":
-                    this.splitTab(this.focusedTab, "t");
-                    break;
-                case "split-left":
-                    this.splitTab(this.focusedTab, "l");
-                    break;
-                case "pane-nav-left":
-                    this.navigate("l");
-                    break;
-                case "pane-nav-right":
-                    this.navigate("r");
-                    break;
-                case "pane-nav-up":
-                    this.navigate("t");
-                    break;
-                case "pane-nav-down":
-                    this.navigate("b");
-                    break;
-                case "pane-nav-previous":
-                    this.navigateLinear(-1);
-                    break;
-                case "pane-nav-next":
-                    this.navigateLinear(1);
-                    break;
-                case "pane-maximize":
+                case 'split-right':
+                    this.splitTab(this.focusedTab, 'r')
+                    break
+                case 'split-bottom':
+                    this.splitTab(this.focusedTab, 'b')
+                    break
+                case 'split-top':
+                    this.splitTab(this.focusedTab, 't')
+                    break
+                case 'split-left':
+                    this.splitTab(this.focusedTab, 'l')
+                    break
+                case 'pane-nav-left':
+                    this.navigate('l')
+                    break
+                case 'pane-nav-right':
+                    this.navigate('r')
+                    break
+                case 'pane-nav-up':
+                    this.navigate('t')
+                    break
+                case 'pane-nav-down':
+                    this.navigate('b')
+                    break
+                case 'pane-nav-previous':
+                    this.navigateLinear(-1)
+                    break
+                case 'pane-nav-next':
+                    this.navigateLinear(1)
+                    break
+                case 'pane-maximize':
                     if (this.maximizedTab) {
-                        this.maximize(null);
+                        this.maximize(null)
                     } else if (this.getAllTabs().length > 1) {
-                        this.maximize(this.focusedTab);
+                        this.maximize(this.focusedTab)
                     }
-                    break;
-                case "close-pane":
-                    this.removeTab(this.focusedTab);
-                    break;
-                case "pane-increase-vertical":
-                    this.resizePane("v");
-                    break;
-                case "pane-decrease-vertical":
-                    this.resizePane("dv");
-                    break;
-                case "pane-increase-horizontal":
-                    this.resizePane("h");
-                    break;
-                case "pane-decrease-horizontal":
-                    this.resizePane("dh");
-                    break;
+                    break
+                case 'close-pane':
+                    this.removeTab(this.focusedTab)
+                    break
+                case 'pane-increase-vertical':
+                    this.resizePane('v')
+                    break
+                case 'pane-decrease-vertical':
+                    this.resizePane('dv')
+                    break
+                case 'pane-increase-horizontal':
+                    this.resizePane('h')
+                    break
+                case 'pane-decrease-horizontal':
+                    this.resizePane('dh')
+                    break
             }
-        });
+        })
     }
 
     /** @hidden */
-    async ngAfterViewInit(): Promise<void> {
+    async ngAfterViewInit (): Promise<void> {
         if (this._recoveredState) {
-            await this.recoverContainer(this.root, this._recoveredState);
-            this.updateTitle();
-            this.layout();
+            await this.recoverContainer(this.root, this._recoveredState)
+            this.updateTitle()
+            this.layout()
             setTimeout(() => {
                 if (this.hasFocus) {
                     for (const tab of this.getAllTabs()) {
-                        this.focus(tab);
+                        this.focus(tab)
                     }
                 }
-            }, 100);
+            }, 100)
         }
-        this.initialized.next();
-        this.initialized.complete();
+        this.initialized.next()
+        this.initialized.complete()
     }
 
     /** @hidden */
-    ngOnDestroy(): void {
-        this.tabAdded.complete();
-        this.tabRemoved.complete();
-        super.ngOnDestroy();
+    ngOnDestroy (): void {
+        this.tabAdded.complete()
+        this.tabRemoved.complete()
+        super.ngOnDestroy()
     }
 
     /** @returns Flat list of all sub-tabs */
-    getAllTabs(): BaseTabComponent[] {
-        return this.root.getAllTabs();
+    getAllTabs (): BaseTabComponent[] {
+        return this.root.getAllTabs()
     }
 
-    getFocusedTab(): BaseTabComponent | null {
-        return this.focusedTab;
+    getFocusedTab (): BaseTabComponent | null {
+        return this.focusedTab
     }
 
-    getMaximizedTab(): BaseTabComponent | null {
-        return this.maximizedTab;
+    getMaximizedTab (): BaseTabComponent | null {
+        return this.maximizedTab
     }
 
-    focus(tab: BaseTabComponent): void {
-        this.focusedTab = tab;
+    focus (tab: BaseTabComponent): void {
+        this.focusedTab = tab
         for (const x of this.getAllTabs()) {
             if (x !== tab) {
-                x.emitBlurred();
+                x.emitBlurred()
             }
         }
-        tab.emitFocused();
-        this.focusChanged.next(tab);
+        tab.emitFocused()
+        this.focusChanged.next(tab)
 
         if (this.maximizedTab !== tab) {
-            this.maximizedTab = null;
+            this.maximizedTab = null
         }
-        this.layout();
+        this.layout()
     }
 
-    maximize(tab: BaseTabComponent | null): void {
-        this.maximizedTab = tab;
-        this.layout();
+    maximize (tab: BaseTabComponent | null): void {
+        this.maximizedTab = tab
+        this.layout()
     }
 
     /**
      * Focuses the first available tab inside the given [[SplitContainer]]
      */
-    focusAnyIn(parent?: BaseTabComponent | SplitContainer): void {
+    focusAnyIn (parent?: BaseTabComponent | SplitContainer): void {
         if (!parent) {
-            return;
+            return
         }
         if (parent instanceof SplitContainer) {
-            this.focusAnyIn(parent.children[0]);
+            this.focusAnyIn(parent.children[0])
         } else {
-            this.focus(parent);
+            this.focus(parent)
         }
     }
 
-    addTab(
+    addTab (
         tab: BaseTabComponent,
         relative: BaseTabComponent | null,
         side: SplitDirection
     ): Promise<void> {
-        return this.add(tab, relative, side);
+        return this.add(tab, relative, side)
     }
 
     /**
      * Inserts a new `tab` to the `side` of the `relative` tab
      */
-    async add(
+    async add (
         thing: BaseTabComponent | SplitContainer,
         relative: BaseTabComponent | SplitContainer | null,
         side: SplitDirection
     ): Promise<void> {
         if (thing instanceof SplitTabComponent) {
-            const tab = thing;
-            thing = tab.root;
-            tab.root = new SplitContainer();
+            const tab = thing
+            thing = tab.root
+            tab.root = new SplitContainer()
             for (const child of thing.getAllTabs()) {
-                child.removeFromContainer();
+                child.removeFromContainer()
             }
-            tab.destroy();
+            tab.destroy()
         }
 
         if (thing instanceof BaseTabComponent) {
             if (thing.parent instanceof SplitTabComponent) {
-                thing.parent.removeTab(thing);
+                thing.parent.removeTab(thing)
             }
-            thing.removeFromContainer();
-            thing.parent = this;
+            thing.removeFromContainer()
+            thing.parent = this
         }
 
-        let target = relative ? this.getParentOf(relative) : null;
+        let target = relative ? this.getParentOf(relative) : null
         if (!target) {
             // Rewrap the root container just in case the orientation isn't compatibile
-            target = new SplitContainer();
-            target.orientation = ["l", "r"].includes(side) ? "h" : "v";
-            target.children = [this.root];
-            target.ratios = [1];
-            this.root = target;
+            target = new SplitContainer()
+            target.orientation = ['l', 'r'].includes(side) ? 'h' : 'v'
+            target.children = [this.root]
+            target.ratios = [1]
+            this.root = target
         }
 
         let insertIndex = relative
-            ? target.children.indexOf(relative) + ("tl".includes(side) ? 0 : 1)
-            : "tl".includes(side)
-            ? 0
-            : -1;
+            ? target.children.indexOf(relative) + ('tl'.includes(side) ? 0 : 1)
+            : 'tl'.includes(side)
+                ? 0
+                : -1
 
         if (
-            (target.orientation === "v" && ["l", "r"].includes(side)) ||
-            (target.orientation === "h" && ["t", "b"].includes(side))
+            target.orientation === 'v' && ['l', 'r'].includes(side) ||
+            target.orientation === 'h' && ['t', 'b'].includes(side)
         ) {
             // Inserting into a container but the orientation isn't compatible
-            const newContainer = new SplitContainer();
-            newContainer.orientation = ["l", "r"].includes(side) ? "h" : "v";
-            newContainer.children = relative ? [relative] : [];
-            newContainer.ratios = [1];
+            const newContainer = new SplitContainer()
+            newContainer.orientation = ['l', 'r'].includes(side) ? 'h' : 'v'
+            newContainer.children = relative ? [relative] : []
+            newContainer.ratios = [1]
             target.children.splice(
                 relative ? target.children.indexOf(relative) : -1,
                 1,
                 newContainer
-            );
-            target = newContainer;
-            insertIndex = "tl".includes(side) ? 0 : 1;
+            )
+            target = newContainer
+            insertIndex = 'tl'.includes(side) ? 0 : 1
         }
 
         for (let i = 0; i < target.children.length; i++) {
             target.ratios[i] *=
-                target.children.length / (target.children.length + 1);
+                target.children.length / (target.children.length + 1)
         }
         if (insertIndex === -1) {
-            insertIndex = target.ratios.length;
+            insertIndex = target.ratios.length
         }
-        target.ratios.splice(insertIndex, 0, 1 / (target.children.length + 1));
-        target.children.splice(insertIndex, 0, thing);
+        target.ratios.splice(insertIndex, 0, 1 / (target.children.length + 1))
+        target.children.splice(insertIndex, 0, thing)
 
-        this.recoveryStateChangedHint.next();
+        this.recoveryStateChangedHint.next()
 
-        await this.initialized$.toPromise();
+        await this.initialized$.toPromise()
 
         for (const tab of thing instanceof SplitContainer
             ? thing.getAllTabs()
             : [thing]) {
-            this.attachTabView(tab);
-            this.onAfterTabAdded(tab);
+            this.attachTabView(tab)
+            this.onAfterTabAdded(tab)
         }
 
-        this.root.normalize();
+        this.root.normalize()
     }
 
-    removeTab(tab: BaseTabComponent): void {
-        const parent = this.getParentOf(tab);
+    removeTab (tab: BaseTabComponent): void {
+        const parent = this.getParentOf(tab)
         if (!parent) {
-            return;
+            return
         }
-        const index = parent.children.indexOf(tab);
-        parent.ratios.splice(index, 1);
-        parent.children.splice(index, 1);
+        const index = parent.children.indexOf(tab)
+        parent.ratios.splice(index, 1)
+        parent.children.splice(index, 1)
 
-        tab.removeFromContainer();
-        tab.parent = null;
-        this.viewRefs.delete(tab);
+        tab.removeFromContainer()
+        tab.parent = null
+        this.viewRefs.delete(tab)
 
-        this.layout();
+        this.layout()
 
-        this.tabRemoved.next(tab);
+        this.tabRemoved.next(tab)
         if (this.root.children.length === 0) {
-            this.destroy();
+            this.destroy()
         } else {
-            this.focusAnyIn(parent);
+            this.focusAnyIn(parent)
         }
     }
 
-    replaceTab(tab: BaseTabComponent, newTab: BaseTabComponent): void {
-        const parent = this.getParentOf(tab);
+    replaceTab (tab: BaseTabComponent, newTab: BaseTabComponent): void {
+        const parent = this.getParentOf(tab)
         if (!parent) {
-            return;
+            return
         }
-        const position = parent.children.indexOf(tab);
-        parent.children[position] = newTab;
-        tab.removeFromContainer();
-        this.attachTabView(newTab);
-        tab.parent = null;
-        newTab.parent = this;
-        this.recoveryStateChangedHint.next();
-        this.onAfterTabAdded(newTab);
-        this.updateTitle();
+        const position = parent.children.indexOf(tab)
+        parent.children[position] = newTab
+        tab.removeFromContainer()
+        this.attachTabView(newTab)
+        tab.parent = null
+        newTab.parent = this
+        this.recoveryStateChangedHint.next()
+        this.onAfterTabAdded(newTab)
+        this.updateTitle()
     }
 
     /**
      * Changes the size of the focused pane in the given direction
      */
-    resizePane(direction: ResizeDirection) {
-        let resizeIncrement = this.config.store.appearance.paneResize;
+    resizePane (direction: ResizeDirection): void {
+        const resizeIncrement = this.config.store.appearance.paneResize
 
         // The direction of the resize pane, vertically or horizontally
-        let directionvh: SplitOrientation = "h";
+        let directionvh: SplitOrientation = 'h'
 
-        let isDecreasing: boolean = direction == "dv" || direction == "dh";
+        const isDecreasing: boolean = direction === 'dv' || direction === 'dh'
 
-        if (direction == "dh") directionvh = "h";
-        if (direction == "dv") directionvh = "v";
-        if (direction == "h") directionvh = "h";
-        if (direction == "v") directionvh = "v";
+        if (direction === 'dh') {
+            directionvh = 'h'
+        }
+        if (direction === 'dv') {
+            directionvh = 'v'
+        }
+        if (direction === 'h') {
+            directionvh = 'h'
+        }
+        if (direction === 'v') {
+            directionvh = 'v'
+        }
         if (!this.focusedTab) {
-            console.debug("No currently focused tab");
-            return;
+            console.debug('No currently focused tab')
+            return
         }
 
-        let cur: BaseTabComponent | SplitContainer = this.focusedTab;
-        let child: BaseTabComponent | SplitContainer | null = this.focusedTab;
-        let curSplitOrientation: SplitOrientation | null = null;
+        let cur: BaseTabComponent | SplitContainer = this.focusedTab
+        let child: BaseTabComponent | SplitContainer | null = this.focusedTab
+        let curSplitOrientation: SplitOrientation | null = null
 
         // Find the first split that is in the orientations that the user chooses to change
-        while (curSplitOrientation != directionvh) {
-            let par = this.getParentOf(cur);
-            if (par == null) return;
-            child = cur;
-            cur = par;
-            if (cur instanceof SplitContainer)
-                curSplitOrientation = cur.orientation;
-        }
-        let curSplit: SplitContainer = cur as SplitContainer;
-
-        // Determine which index in the ratios refers to the child that will be modified
-        let currentChildIndex = (cur as SplitContainer).children.indexOf(child);
-
-        let updatedRatio = 0;
-        if (isDecreasing) {
-            updatedRatio = curSplit.ratios[currentChildIndex] - resizeIncrement;
-            if (updatedRatio < 0) return;
-        } else {
-            updatedRatio = curSplit.ratios[currentChildIndex] + resizeIncrement;
-            if (updatedRatio > 1) return;
-        }
-        let ratioModifier = resizeIncrement / curSplit.ratios.length;
-
-        // Modify all the ratios evenly to normalize the pane sizes
-        for (const ratio in curSplit.ratios) {
-            if (isDecreasing) {
-                curSplit.ratios[ratio] += ratioModifier;
-            } else {
-                curSplit.ratios[ratio] -= ratioModifier;
+        while (curSplitOrientation !== directionvh) {
+            const par = this.getParentOf(cur)
+            if (par == null) {
+                return
+            }
+            child = cur
+            cur = par
+            if (cur instanceof SplitContainer) {
+                curSplitOrientation = cur.orientation
             }
         }
-        curSplit.ratios[currentChildIndex] = updatedRatio;
-        this.layout();
+        const curSplit: SplitContainer = cur as SplitContainer
+
+        // Determine which index in the ratios refers to the child that will be modified
+        const currentChildIndex = (cur as SplitContainer).children.indexOf(
+            child
+        )
+
+        let updatedRatio = 0
+        if (isDecreasing) {
+            updatedRatio = curSplit.ratios[currentChildIndex] - resizeIncrement
+            if (updatedRatio < 0) {
+                return
+            }
+        } else {
+            updatedRatio = curSplit.ratios[currentChildIndex] + resizeIncrement
+            if (updatedRatio > 1) {
+                return
+            }
+        }
+        const ratioModifier = resizeIncrement / curSplit.ratios.length
+
+        // Modify all the ratios evenly to normalize the pane sizes
+        curSplit.ratios.forEach((ratio) => {
+            if (isDecreasing) {
+                curSplit.ratios[ratio] += ratioModifier
+            } else {
+                curSplit.ratios[ratio] -= ratioModifier
+            }
+        })
+        curSplit.ratios[currentChildIndex] = updatedRatio
+        this.layout()
     }
 
     /**
      * Moves focus in the given direction
      */
-    navigate(dir: SplitDirection): void {
+    navigate (dir: SplitDirection): void {
         if (!this.focusedTab) {
-            return;
+            return
         }
 
-        let rel: BaseTabComponent | SplitContainer = this.focusedTab;
-        let parent = this.getParentOf(rel);
+        let rel: BaseTabComponent | SplitContainer = this.focusedTab
+        let parent = this.getParentOf(rel)
         if (!parent) {
-            return;
+            return
         }
 
-        const orientation = ["l", "r"].includes(dir) ? "h" : "v";
+        const orientation = ['l', 'r'].includes(dir) ? 'h' : 'v'
 
         while (parent !== this.root && parent.orientation !== orientation) {
-            rel = parent;
-            parent = this.getParentOf(rel);
+            rel = parent
+            parent = this.getParentOf(rel)
             if (!parent) {
-                return;
+                return
             }
         }
 
         if (parent.orientation !== orientation) {
-            return;
+            return
         }
 
-        const index = parent.children.indexOf(rel);
-        if (["l", "t"].includes(dir)) {
+        const index = parent.children.indexOf(rel)
+        if (['l', 't'].includes(dir)) {
             if (index > 0) {
-                this.focusAnyIn(parent.children[index - 1]);
+                this.focusAnyIn(parent.children[index - 1])
             }
         } else {
             if (index < parent.children.length - 1) {
-                this.focusAnyIn(parent.children[index + 1]);
+                this.focusAnyIn(parent.children[index + 1])
             }
         }
     }
 
-    navigateLinear(delta: number): void {
+    navigateLinear (delta: number): void {
         if (!this.focusedTab) {
-            return;
+            return
         }
 
-        const relativeTo: BaseTabComponent = this.focusedTab;
-        const all = this.getAllTabs();
+        const relativeTo: BaseTabComponent = this.focusedTab
+        const all = this.getAllTabs()
         const target =
-            all[(all.indexOf(relativeTo) + delta + all.length) % all.length];
-        this.focus(target);
+            all[(all.indexOf(relativeTo) + delta + all.length) % all.length]
+        this.focus(target)
     }
 
-    async splitTab(
+    async splitTab (
         tab: BaseTabComponent,
         dir: SplitDirection
     ): Promise<BaseTabComponent | null> {
-        const newTab = await this.tabsService.duplicate(tab);
+        const newTab = await this.tabsService.duplicate(tab)
         if (newTab) {
-            await this.addTab(newTab, tab, dir);
+            await this.addTab(newTab, tab, dir)
         }
-        return newTab;
+        return newTab
     }
 
     /**
      * @returns the immediate parent of `tab`
      */
-    getParentOf(
+    getParentOf (
         tab: BaseTabComponent | SplitContainer,
         root?: SplitContainer
     ): SplitContainer | null {
-        root = root ?? this.root;
+        root = root ?? this.root
         for (const child of root.children) {
             if (child instanceof SplitContainer) {
-                const r = this.getParentOf(tab, child);
+                const r = this.getParentOf(tab, child)
                 if (r) {
-                    return r;
+                    return r
                 }
             }
             if (child === tab) {
-                return root;
+                return root
             }
         }
-        return null;
+        return null
     }
 
     /** @hidden */
-    async canClose(): Promise<boolean> {
+    async canClose (): Promise<boolean> {
         return !(
             await Promise.all(this.getAllTabs().map((x) => x.canClose()))
-        ).some((x) => !x);
+        ).some((x) => !x)
     }
 
     /** @hidden */
-    async getRecoveryToken(options?: GetRecoveryTokenOptions): Promise<any> {
-        return this.root.serialize(this.tabRecovery, options);
+    async getRecoveryToken (options?: GetRecoveryTokenOptions): Promise<any> {
+        return this.root.serialize(this.tabRecovery, options)
     }
 
     /** @hidden */
-    async getCurrentProcess(): Promise<BaseTabProcess | null> {
+    async getCurrentProcess (): Promise<BaseTabProcess | null> {
         return (
             (
                 await Promise.all(
                     this.getAllTabs().map((x) => x.getCurrentProcess())
                 )
             ).find((x) => !!x) ?? null
-        );
+        )
     }
 
     /** @hidden */
-    onSpannerAdjusted(spanner: SplitSpannerInfo): void {
-        this.layout();
-        this.splitAdjusted.next(spanner);
+    onSpannerAdjusted (spanner: SplitSpannerInfo): void {
+        this.layout()
+        this.splitAdjusted.next(spanner)
     }
 
     /** @hidden */
-    onTabDropped(tab: BaseTabComponent, zone: SplitDropZoneInfo) {
+    onTabDropped (tab: BaseTabComponent, zone: SplitDropZoneInfo): void {
         // eslint-disable-line @typescript-eslint/explicit-module-boundary-types
         if (tab === this) {
-            return;
+            return
         }
 
-        if (zone.type === "relative") {
-            this.add(tab, zone.relativeTo ?? null, zone.side);
+        if (zone.type === 'relative') {
+            this.add(tab, zone.relativeTo ?? null, zone.side)
         } else {
             this.add(
                 tab,
                 zone.container.children[zone.position],
-                zone.container.orientation === "h" ? "r" : "b"
-            );
+                zone.container.orientation === 'h' ? 'r' : 'b'
+            )
         }
-        this.tabAdopted.next(tab);
+        this.tabAdopted.next(tab)
     }
 
-    destroy(): void {
-        super.destroy();
+    destroy (): void {
+        super.destroy()
         for (const x of this.getAllTabs()) {
-            x.destroy();
+            x.destroy()
         }
     }
 
-    layout(): void {
-        this.root.normalize();
-        this._spanners = [];
-        this._dropZones = [];
-        this.layoutInternal(this.root, 0, 0, 100, 100);
+    layout (): void {
+        this.root.normalize()
+        this._spanners = []
+        this._dropZones = []
+        this.layoutInternal(this.root, 0, 0, 100, 100)
     }
 
-    clearActivity(): void {
+    clearActivity (): void {
         for (const tab of this.getAllTabs()) {
-            tab.clearActivity();
+            tab.clearActivity()
         }
-        super.clearActivity();
+        super.clearActivity()
     }
 
-    get icon(): string | null {
-        return this.getFocusedTab()?.icon ?? null;
+    get icon (): string | null {
+        return this.getFocusedTab()?.icon ?? null
     }
 
-    set icon(icon: string | null) {
+    set icon (icon: string | null) {
         for (const t of this.getAllTabs()) {
-            t.icon = icon;
+            t.icon = icon
         }
     }
 
-    get color(): string | null {
-        return this.getFocusedTab()?.color ?? null;
+    get color (): string | null {
+        return this.getFocusedTab()?.color ?? null
     }
 
-    set color(color: string | null) {
+    set color (color: string | null) {
         for (const t of this.getAllTabs()) {
-            t.color = color;
+            t.color = color
         }
     }
 
-    equalize(): void {
-        this.root.normalize();
-        this.root.equalize();
+    equalize (): void {
+        this.root.normalize()
+        this.root.equalize()
     }
 
-    private updateTitle(): void {
+    private updateTitle (): void {
         this.setTitle(
-            [...new Set(this.getAllTabs().map((x) => x.title))].join(" | ")
-        );
+            [...new Set(this.getAllTabs().map((x) => x.title))].join(' | ')
+        )
     }
 
-    private attachTabView(tab: BaseTabComponent) {
-        const ref = tab.insertIntoContainer(this.viewContainer);
-        this.viewRefs.set(tab, ref);
-        tab.addEventListenerUntilDestroyed(ref.rootNodes[0], "click", () =>
+    private attachTabView (tab: BaseTabComponent) {
+        const ref = tab.insertIntoContainer(this.viewContainer)
+        this.viewRefs.set(tab, ref)
+        tab.addEventListenerUntilDestroyed(ref.rootNodes[0], 'click', () =>
             this.focus(tab)
-        );
+        )
 
-        tab.subscribeUntilDestroyed(tab.titleChange$, () => this.updateTitle());
+        tab.subscribeUntilDestroyed(tab.titleChange$, () => this.updateTitle())
         tab.subscribeUntilDestroyed(tab.activity$, (a) =>
             a ? this.displayActivity() : this.clearActivity()
-        );
-        tab.subscribeUntilDestroyed(tab.progress$, (p) => this.setProgress(p));
+        )
+        tab.subscribeUntilDestroyed(tab.progress$, (p) => this.setProgress(p))
         if (tab.title) {
-            this.updateTitle();
+            this.updateTitle()
         }
         tab.subscribeUntilDestroyed(tab.recoveryStateChangedHint$, () => {
-            this.recoveryStateChangedHint.next();
-        });
+            this.recoveryStateChangedHint.next()
+        })
         tab.subscribeUntilDestroyed(tab.destroyed$, () => {
-            this.removeTab(tab);
-        });
+            this.removeTab(tab)
+        })
     }
 
-    private onAfterTabAdded(tab: BaseTabComponent) {
+    private onAfterTabAdded (tab: BaseTabComponent) {
         setImmediate(() => {
-            this.layout();
-            this.tabAdded.next(tab);
-            this.focus(tab);
-        });
+            this.layout()
+            this.tabAdded.next(tab)
+            this.focus(tab)
+        })
     }
 
-    private layoutInternal(
+    private layoutInternal (
         root: SplitContainer,
         x: number,
         y: number,
         w: number,
         h: number
     ) {
-        const size = root.orientation === "v" ? h : w;
-        const sizes = root.ratios.map((ratio) => ratio * size);
-        const thickness = 10;
+        const size = root.orientation === 'v' ? h : w
+        const sizes = root.ratios.map((ratio) => ratio * size)
+        const thickness = 10
 
         if (root === this.root) {
             this._dropZones.push({
@@ -866,201 +882,201 @@ export class SplitTabComponent
                 y: y + thickness,
                 w: thickness,
                 h: h - thickness * 2,
-                type: "relative",
-                side: "l",
-            });
+                type: 'relative',
+                side: 'l',
+            })
             this._dropZones.push({
                 x,
                 y: y - thickness / 2,
                 w,
                 h: thickness,
-                type: "relative",
-                side: "t",
-            });
+                type: 'relative',
+                side: 't',
+            })
             this._dropZones.push({
                 x: x + w - thickness / 2,
                 y: y + thickness,
                 w: thickness,
                 h: h - thickness * 2,
-                type: "relative",
-                side: "r",
-            });
+                type: 'relative',
+                side: 'r',
+            })
             this._dropZones.push({
                 x,
                 y: y + h - thickness / 2,
                 w,
                 h: thickness,
-                type: "relative",
-                side: "b",
-            });
+                type: 'relative',
+                side: 'b',
+            })
         }
 
-        root.x = x;
-        root.y = y;
-        root.w = w;
-        root.h = h;
+        root.x = x
+        root.y = y
+        root.w = w
+        root.h = h
 
-        let offset = 0;
+        let offset = 0
         root.children.forEach((child, i) => {
-            const childX = root.orientation === "v" ? x : x + offset;
-            const childY = root.orientation === "v" ? y + offset : y;
-            const childW = root.orientation === "v" ? w : sizes[i];
-            const childH = root.orientation === "v" ? sizes[i] : h;
+            const childX = root.orientation === 'v' ? x : x + offset
+            const childY = root.orientation === 'v' ? y + offset : y
+            const childW = root.orientation === 'v' ? w : sizes[i]
+            const childH = root.orientation === 'v' ? sizes[i] : h
             if (child instanceof SplitContainer) {
-                this.layoutInternal(child, childX, childY, childW, childH);
+                this.layoutInternal(child, childX, childY, childW, childH)
             } else {
-                const viewRef = this.viewRefs.get(child);
+                const viewRef = this.viewRefs.get(child)
                 if (viewRef) {
-                    const element = viewRef.rootNodes[0];
-                    element.classList.toggle("child", true);
+                    const element = viewRef.rootNodes[0]
+                    element.classList.toggle('child', true)
                     element.classList.toggle(
-                        "maximized",
+                        'maximized',
                         child === this.maximizedTab
-                    );
+                    )
                     element.classList.toggle(
-                        "minimized",
+                        'minimized',
                         this.maximizedTab && child !== this.maximizedTab
-                    );
+                    )
                     element.classList.toggle(
-                        "focused",
+                        'focused',
                         this._allFocusMode || child === this.focusedTab
-                    );
-                    element.style.left = `${childX}%`;
-                    element.style.top = `${childY}%`;
-                    element.style.width = `${childW}%`;
-                    element.style.height = `${childH}%`;
+                    )
+                    element.style.left = `${childX}%`
+                    element.style.top = `${childY}%`
+                    element.style.width = `${childW}%`
+                    element.style.height = `${childH}%`
 
                     if (child === this.maximizedTab) {
-                        element.style.left = "5%";
-                        element.style.top = "5%";
-                        element.style.width = "90%";
-                        element.style.height = "90%";
+                        element.style.left = '5%'
+                        element.style.top = '5%'
+                        element.style.width = '90%'
+                        element.style.height = '90%'
                     }
                 }
             }
 
-            offset += sizes[i];
+            offset += sizes[i]
 
             if (i !== root.ratios.length - 1) {
                 // Spanner area
                 this._dropZones.push({
-                    type: "relative",
+                    type: 'relative',
                     relativeTo: root.children[i],
-                    side: root.orientation === "v" ? "b" : "r",
+                    side: root.orientation === 'v' ? 'b' : 'r',
                     x:
-                        root.orientation === "v"
+                        root.orientation === 'v'
                             ? childX + thickness
                             : childX + offset - thickness / 2,
                     y:
-                        root.orientation === "v"
+                        root.orientation === 'v'
                             ? childY + offset - thickness / 2
                             : childY + thickness,
                     w:
-                        root.orientation === "v"
+                        root.orientation === 'v'
                             ? childW - thickness * 2
                             : thickness,
                     h:
-                        root.orientation === "v"
+                        root.orientation === 'v'
                             ? thickness
                             : childH - thickness * 2,
-                });
+                })
             }
 
             // Sides
-            if (root.orientation === "v") {
+            if (root.orientation === 'v') {
                 this._dropZones.push({
                     x: childX,
                     y: childY + thickness,
                     w: thickness,
                     h: childH - thickness * 2,
-                    type: "relative",
+                    type: 'relative',
                     relativeTo: child,
-                    side: "l",
-                });
+                    side: 'l',
+                })
                 this._dropZones.push({
                     x: childX + w - thickness,
                     y: childY + thickness,
                     w: thickness,
                     h: childH - thickness * 2,
-                    type: "relative",
+                    type: 'relative',
                     relativeTo: child,
-                    side: "r",
-                });
+                    side: 'r',
+                })
             } else {
                 this._dropZones.push({
                     x: childX + thickness,
                     y: childY,
                     w: childW - thickness * 2,
                     h: thickness,
-                    type: "relative",
+                    type: 'relative',
                     relativeTo: child,
-                    side: "t",
-                });
+                    side: 't',
+                })
                 this._dropZones.push({
                     x: childX + thickness,
                     y: childY + childH - thickness,
                     w: childW - thickness * 2,
                     h: thickness,
-                    type: "relative",
+                    type: 'relative',
                     relativeTo: child,
-                    side: "b",
-                });
+                    side: 'b',
+                })
             }
 
             if (i !== 0) {
                 this._spanners.push({
                     container: root,
                     index: i,
-                });
+                })
             }
-        });
+        })
     }
 
-    private async recoverContainer(root: SplitContainer, state: any) {
-        const children: (SplitContainer | BaseTabComponent)[] = [];
-        root.orientation = state.orientation;
-        root.ratios = state.ratios;
-        root.children = children;
+    private async recoverContainer (root: SplitContainer, state: any) {
+        const children: (SplitContainer | BaseTabComponent)[] = []
+        root.orientation = state.orientation
+        root.ratios = state.ratios
+        root.children = children
         for (const childState of state.children) {
             if (!childState) {
-                continue;
+                continue
             }
-            if (childState.type === "app:split-tab") {
-                const child = new SplitContainer();
-                await this.recoverContainer(child, childState);
-                children.push(child);
+            if (childState.type === 'app:split-tab') {
+                const child = new SplitContainer()
+                await this.recoverContainer(child, childState)
+                children.push(child)
             } else {
-                const recovered = await this.tabRecovery.recoverTab(childState);
+                const recovered = await this.tabRecovery.recoverTab(childState)
                 if (recovered) {
-                    const tab = this.tabsService.create(recovered);
-                    children.push(tab);
-                    tab.parent = this;
-                    this.attachTabView(tab);
+                    const tab = this.tabsService.create(recovered)
+                    children.push(tab)
+                    tab.parent = this
+                    this.attachTabView(tab)
                 } else {
-                    state.ratios.splice(state.children.indexOf(childState), 0);
+                    state.ratios.splice(state.children.indexOf(childState), 0)
                 }
             }
         }
         while (root.ratios.length < root.children.length) {
-            root.ratios.push(1);
+            root.ratios.push(1)
         }
-        root.normalize();
+        root.normalize()
     }
 }
 
 /** @hidden */
-@Injectable({ providedIn: "root" })
+@Injectable({ providedIn: 'root' })
 export class SplitTabRecoveryProvider extends TabRecoveryProvider<SplitTabComponent> {
-    async applicableTo(recoveryToken: RecoveryToken): Promise<boolean> {
-        return recoveryToken.type === "app:split-tab";
+    async applicableTo (recoveryToken: RecoveryToken): Promise<boolean> {
+        return recoveryToken.type === 'app:split-tab'
     }
 
-    async recover(
+    async recover (
         recoveryToken: RecoveryToken
     ): Promise<NewTabParameters<SplitTabComponent>> {
         return {
             type: SplitTabComponent,
             inputs: { _recoveredState: recoveryToken },
-        };
+        }
     }
 }
