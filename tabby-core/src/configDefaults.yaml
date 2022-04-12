@@ -17,6 +17,7 @@ appearance:
 terminal:
   showBuiltinProfiles: true
   showRecentProfiles: 3
+  paneResizeStep: 0.1
 hotkeys:
   profile:
     __nonStructural: true
