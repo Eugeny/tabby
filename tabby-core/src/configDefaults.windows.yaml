@@ -77,6 +77,10 @@ hotkeys:
   pane-maximize:
     - 'Ctrl-Alt-Enter'
   close-pane: []
+  pane-increase-vertical: []
+  pane-decrease-vertical: []
+  pane-increase-horizontal: []
+  pane-decrease-horizontal: []
   switch-profile:
     - 'Ctrl-Alt-T'
   profile-selector:
