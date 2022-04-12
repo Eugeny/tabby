@@ -196,6 +196,22 @@ export class AppHotkeyProvider extends HotkeyProvider {
             id: 'close-pane',
             name: this.translate.instant('Close focused pane'),
         },
+        {
+            id: 'pane-increase-vertical',
+            name: this.translate.instant('Increase vertical split size'),
+        },
+        {
+            id: 'pane-decrease-vertical',
+            name: this.translate.instant('Decrease vertical split size'),
+        },
+        {
+            id: 'pane-increase-horizontal',
+            name: this.translate.instant('Increase horizontal split size'),
+        },
+        {
+            id: 'pane-decrease-horizontal',
+            name: this.translate.instant('Decrease horizontal split size'),
+        },
     ]
 
     constructor (

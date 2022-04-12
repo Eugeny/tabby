@@ -5,9 +5,11 @@ import { TabRecoveryProvider, RecoveryToken } from '../api/tabRecovery'
 import { TabsService, NewTabParameters } from '../services/tabs.service'
 import { HotkeysService } from '../services/hotkeys.service'
 import { TabRecoveryService } from '../services/tabRecovery.service'
+import { ConfigService } from '../api'
 
 export type SplitOrientation = 'v' | 'h'
 export type SplitDirection = 'r' | 't' | 'b' | 'l'
+export type ResizeDirection = 'v' | 'h' | 'dv' | 'dh'
 
 /**
  * Describes a horizontal or vertical split row or column
@@ -250,6 +252,7 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
         private hotkeys: HotkeysService,
         private tabsService: TabsService,
         private tabRecovery: TabRecoveryService,
+        private config: ConfigService,
     ) {
         super()
         this.root = new SplitContainer()
@@ -312,6 +315,18 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
                     break
                 case 'close-pane':
                     this.removeTab(this.focusedTab)
+                    break
+                case 'pane-increase-vertical':
+                    this.resizePane('v')
+                    break
+                case 'pane-decrease-vertical':
+                    this.resizePane('dv')
+                    break
+                case 'pane-increase-horizontal':
+                    this.resizePane('h')
+                    break
+                case 'pane-decrease-horizontal':
+                    this.resizePane('dh')
                     break
             }
         })
@@ -502,6 +517,81 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
         this.recoveryStateChangedHint.next()
         this.onAfterTabAdded(newTab)
         this.updateTitle()
+    }
+
+    /**
+      * Changes the size of the focused pane in the given direction
+      */
+    resizePane (direction: ResizeDirection): void {
+        const resizeIncrement = this.config.store.appearance.paneResize
+
+        // The direction of the resize pane, vertically or horizontally
+        let directionvh: SplitOrientation = 'h'
+
+        const isDecreasing: boolean = direction === 'dv' || direction === 'dh'
+
+        if (direction === 'dh') {
+            directionvh = 'h'
+        }
+        if (direction === 'dv') {
+            directionvh = 'v'
+        }
+        if (direction === 'h') {
+            directionvh = 'h'
+        }
+        if (direction === 'v') {
+            directionvh = 'v'
+        }
+        if (!this.focusedTab) {
+            console.debug('No currently focused tab')
+            return
+        }
+
+        let cur: BaseTabComponent | SplitContainer = this.focusedTab
+        let child: BaseTabComponent | SplitContainer | null = this.focusedTab
+        let curSplitOrientation: SplitOrientation | null = null
+
+        // Find the first split that is in the orientations that the user chooses to change
+        while (curSplitOrientation !== directionvh) {
+            const par = this.getParentOf(cur)
+            if (par == null) {
+                return
+            }
+            child = cur
+            cur = par
+            if (cur instanceof SplitContainer) {
+                curSplitOrientation = cur.orientation
+            }
+        }
+        const curSplit: SplitContainer = cur as SplitContainer
+
+        // Determine which index in the ratios refers to the child that will be modified
+        const currentChildIndex = (cur as SplitContainer).children.indexOf(child)
+
+        let updatedRatio = 0
+        if (isDecreasing) {
+            updatedRatio = curSplit.ratios[currentChildIndex] - resizeIncrement
+            if (updatedRatio < 0) {
+                return
+            }
+        } else {
+            updatedRatio = curSplit.ratios[currentChildIndex] + resizeIncrement
+            if (updatedRatio > 1) {
+                return
+            }
+        }
+        const ratioModifier = resizeIncrement / curSplit.ratios.length
+
+        // Modify all the ratios evenly to normalize the pane sizes
+        curSplit.ratios.forEach((ratio) => {
+            if (isDecreasing) {
+                curSplit.ratios[ratio] += ratioModifier
+            } else {
+                curSplit.ratios[ratio] -= ratioModifier
+            }
+        })
+        curSplit.ratios[currentChildIndex] = updatedRatio
+        this.layout()
     }
 
     /**

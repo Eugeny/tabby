@@ -75,6 +75,10 @@ hotkeys:
     - '⌘-⌥-Enter'
   close-pane:
     - '⌘-Shift-W'
+  pane-increase-vertical: []
+  pane-decrease-vertical: []
+  pane-increase-horizontal: []
+  pane-decrease-horizontal: []
   profile-selector:
     - '⌘-E'
   switch-profile:
