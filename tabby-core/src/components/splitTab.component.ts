@@ -523,7 +523,7 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
       * Changes the size of the focused pane in the given direction
       */
     resizePane (direction: ResizeDirection): void {
-        const resizeIncrement = this.config.store.appearance.paneResize
+        const resizeStep = this.config.store.terminal.paneResizeStep
 
         // The direction of the resize pane, vertically or horizontally
         let directionvh: SplitOrientation = 'h'
@@ -547,50 +547,44 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
             return
         }
 
-        let cur: BaseTabComponent | SplitContainer = this.focusedTab
+        let currentContainer: BaseTabComponent | SplitContainer = this.focusedTab
         let child: BaseTabComponent | SplitContainer | null = this.focusedTab
         let curSplitOrientation: SplitOrientation | null = null
 
         // Find the first split that is in the orientations that the user chooses to change
         while (curSplitOrientation !== directionvh) {
-            const par = this.getParentOf(cur)
-            if (par == null) {
+            const parentContainer = this.getParentOf(currentContainer)
+            if (!parentContainer) {
                 return
             }
-            child = cur
-            cur = par
-            if (cur instanceof SplitContainer) {
-                curSplitOrientation = cur.orientation
+            child = currentContainer
+            currentContainer = parentContainer
+            if (currentContainer instanceof SplitContainer) {
+                curSplitOrientation = currentContainer.orientation
             }
         }
-        const curSplit: SplitContainer = cur as SplitContainer
+
+        if (!(currentContainer instanceof SplitContainer)) {
+            return
+        }
 
         // Determine which index in the ratios refers to the child that will be modified
-        const currentChildIndex = (cur as SplitContainer).children.indexOf(child)
+        const currentChildIndex = currentContainer.children.indexOf(child)
 
         let updatedRatio = 0
         if (isDecreasing) {
-            updatedRatio = curSplit.ratios[currentChildIndex] - resizeIncrement
+            updatedRatio = currentContainer.ratios[currentChildIndex] - resizeStep
             if (updatedRatio < 0) {
                 return
             }
         } else {
-            updatedRatio = curSplit.ratios[currentChildIndex] + resizeIncrement
+            updatedRatio = currentContainer.ratios[currentChildIndex] + resizeStep
             if (updatedRatio > 1) {
                 return
             }
         }
-        const ratioModifier = resizeIncrement / curSplit.ratios.length
 
-        // Modify all the ratios evenly to normalize the pane sizes
-        curSplit.ratios.forEach((ratio) => {
-            if (isDecreasing) {
-                curSplit.ratios[ratio] += ratioModifier
-            } else {
-                curSplit.ratios[ratio] -= ratioModifier
-            }
-        })
-        curSplit.ratios[currentChildIndex] = updatedRatio
+        currentContainer.ratios[currentChildIndex] = updatedRatio
         this.layout()
     }
 

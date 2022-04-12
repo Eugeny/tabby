@@ -12,12 +12,12 @@ appearance:
   frame: thin
   css: '/* * { color: blue !important; } */'
   opacity: 1.0
-  paneResize: 0.1
   vibrancy: false
   vibrancyType: 'blur'
 terminal:
   showBuiltinProfiles: true
   showRecentProfiles: 3
+  paneResizeStep: 0.1
 hotkeys:
   profile:
     __nonStructural: true
