@@ -3,7 +3,11 @@
 
 .modal-body
     .input
-        .stroke(*ngFor='let stroke of value', [@animateKey]='true') {{stroke}}
+        .stroke(
+            *ngFor='let stroke of value',
+            [@animateKey]='true',
+            [@.disabled]='!config.store.accessibility.animations'
+        ) {{stroke}}
 
     .timeout
         div([style.width]='timeoutProgress + "%"')

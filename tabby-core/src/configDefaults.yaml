@@ -1,3 +1,5 @@
+accessibility:
+  animations: true
 appearance:
   dock: off
   dockScreen: current

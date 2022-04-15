@@ -26,7 +26,7 @@ title-bar(
                 [tab]='tab',
                 [active]='tab == app.activeTab',
                 @animateTab,
-                [@.disabled]='hasVerticalTabs()',
+                [@.disabled]='hasVerticalTabs() || !config.store.accessibility.animations',
                 (click)='app.selectTab(tab)',
                 [class.fully-draggable]='hostApp.platform != Platform.macOS',
                 [class.drag-region]='hostApp.platform == Platform.macOS && !(app.tabDragActive$|async)',

@@ -25,8 +25,8 @@ import { AppService, FileTransfer, HostWindowService, PlatformService, ToolbarBu
     animations: [
         trigger('animateTab', [
             state('in', style({
-                'flex-basis': '200px',
-                width: '200px',
+                'flex-basis': 'auto',
+                width: 'auto',
             })),
             transition(':enter', [
                 style({
@@ -34,14 +34,14 @@ import { AppService, FileTransfer, HostWindowService, PlatformService, ToolbarBu
                     width: '1px',
                 }),
                 animate('250ms ease-in-out', style({
-                    'flex-basis': '200px',
-                    width: '200px',
+                    'flex-basis': 'auto',
+                    width: 'auto',
                 })),
             ]),
             transition(':leave', [
                 style({
-                    'flex-basis': '200px',
-                    width: '200px',
+                    'flex-basis': 'auto',
+                    width: 'auto',
                 }),
                 animate('250ms ease-in-out', style({
                     'flex-basis': '1px',

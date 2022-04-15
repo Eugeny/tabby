@@ -105,6 +105,12 @@
                             i.fas.fa-bug
                             span(translate) Open DevTools
 
+                    h3(translate) Accessibility
+                    .form-line
+                        .header
+                            .title(translate) Enable animations
+                        toggle([(ngModel)]='config.store.accessibility.animations', (ngModelChange)='saveConfiguration()')
+
         ng-container(*ngFor='let provider of settingsProviders')
             li(*ngIf='provider.prioritized', [ngbNavItem]='provider.id')
                 a.d-flex.align-items-center(ngbNavLink)
