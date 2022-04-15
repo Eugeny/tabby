@@ -10,6 +10,8 @@ export class TerminalConfigProvider extends ConfigProvider {
         terminal: {
             frontend: 'xterm',
             fontSize: 14,
+            fontWeight: 400,
+            fontWeightBold: 700,
             fallbackFont: null,
             linePadding: 0,
             bell: 'off',

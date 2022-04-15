@@ -1,6 +1,7 @@
 .preview(
     [style.font-family]='getPreviewFontFamily()',
     [style.font-size]='(fontPreview ? config.store.terminal.fontSize : 11) + "px"',
+    [style.font-weight]='config.store.terminal.fontWeight',
     [style.background-color]='scheme.background',
     [style.color]='scheme.foreground',
     [style.font-feature-settings]='\'"liga" \' + config.store.terminal.ligatures ? 1 : 0',
@@ -10,21 +11,38 @@
         span([style.color]='scheme.colors[2]') john
         span([style.color]='scheme.colors[6]') @
         span([style.color]='scheme.colors[4]') doe-pc
-        strong([style.color]='scheme.colors[1]') $
+        strong(
+            [style.color]='scheme.colors[1]',
+            [style.font-weight]='config.store.terminal.fontWeightBold'
+        ) $
         span  ls
         span([style.background-color]='scheme.cursor') &nbsp;
     div
         span -rwxr-xr-x  1 root
-        strong([style.color]='scheme.colors[3]')  Documents
+        strong(
+            [style.color]='scheme.colors[3]',
+            [style.font-weight]='config.store.terminal.fontWeightBold'
+        )  Documents
     div
         span -rwxr-xr-x  1 root&nbsp;
-        strong([style.color]='scheme.colors[0]', [style.background]='scheme.colors[2]') Downloads
+        strong(
+            [style.color]='scheme.colors[0]',
+            [style.background]='scheme.colors[2]',
+            [style.font-weight]='config.store.terminal.fontWeightBold'
+        ) Downloads
     div
         span -rwxr-xr-x  1 root&nbsp;
-        strong([style.color]='scheme.colors[0]', [style.background]='scheme.colors[8]') Pictures
+        strong(
+            [style.color]='scheme.colors[0]',
+            [style.background]='scheme.colors[8]',
+            [style.font-weight]='config.store.terminal.fontWeightBold'
+        ) Pictures
     div
         span -rwxr-xr-x  1 root
-        strong([style.color]='scheme.colors[12]')  Music
+        strong(
+            [style.color]='scheme.colors[12]',
+            [style.font-weight]='config.store.terminal.fontWeightBold'
+        )  Music
     div(*ngIf='fontPreview')
         span -rwxr-xr-x  1 root
         span([style.color]='scheme.colors[2]')  実行可能ファイル
@@ -35,7 +53,9 @@
         span([style.color]='scheme.colors[1]')  link
     div(*ngIf='fontPreview')
         span
-            strong Icons:
+            strong(
+                [style.font-weight]='config.store.terminal.fontWeightBold'
+            ) Icons:
             span    
         span
             span  &nbsp;

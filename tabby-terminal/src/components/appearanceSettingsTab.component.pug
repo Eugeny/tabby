@@ -28,6 +28,30 @@ h3.mb-3(translate) Appearance
                 (ngModelChange)='config.save()',
             )
 
+        .form-line
+            .header
+                .title(translate) Normal font weight
+            input.form-control(
+                type='number',
+                min='100',
+                max='900',
+                step='100',
+                [(ngModel)]='config.store.terminal.fontWeight',
+                (ngModelChange)='config.save()'
+            )
+
+        .form-line
+            .header
+                .title(translate) Bold font weight
+            input.form-control(
+                type='number',
+                min='100',
+                max='900',
+                step='100',
+                [(ngModel)]='config.store.terminal.fontWeightBold',
+                (ngModelChange)='config.save()'
+            )
+
     .col-12.col-md-6
         color-scheme-preview([scheme]='config.store.terminal.colorScheme', [fontPreview]='true')
 
