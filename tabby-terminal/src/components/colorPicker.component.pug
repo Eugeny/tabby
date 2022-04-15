@@ -2,6 +2,6 @@ div(
     [style.background]='model',
     ngx-colors-trigger,
     [(ngModel)]='model',
-    (ngModelChange)='onChange($event)',
+    (ngModelChange)='modelChange.emit($event)',
     [ngbTooltip]='hint'
 ) {{ title }}

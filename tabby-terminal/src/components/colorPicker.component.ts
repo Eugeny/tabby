@@ -11,10 +11,4 @@ export class ColorPickerComponent {
     @Input() title: string
     @Input() hint: string
     @Output() modelChange = new EventEmitter<string>()
-
-    onChange (value: string): void {
-        if (value !== this.model) {
-            this.modelChange.emit(value)
-        }
-    }
 }
