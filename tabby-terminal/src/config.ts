@@ -67,6 +67,7 @@ export class TerminalConfigProvider extends ConfigProvider {
             },
             detectProgress: true,
             scrollbackLines: 25000,
+            drawBoldTextInBrightColors: true,
         },
     }
 

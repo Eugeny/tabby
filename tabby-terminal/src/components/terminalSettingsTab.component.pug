@@ -23,6 +23,14 @@ div
             (ngModelChange)='config.save()',
         )
 
+    .form-line
+        .header
+            .title(translate) Draw bold text in bright colors
+        toggle(
+            [(ngModel)]='config.store.terminal.drawBoldTextInBrightColors',
+            (ngModelChange)='config.save()'
+        )
+
 div.mt-4
     h3(translate) Keyboard
 

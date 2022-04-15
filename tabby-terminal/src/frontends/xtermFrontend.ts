@@ -292,6 +292,9 @@ export class XTermFrontend extends Frontend {
         this.xterm.options.macOptionIsMeta = config.terminal.altIsMeta
         this.xterm.options.scrollback = config.terminal.scrollbackLines
         this.xterm.options.wordSeparator = config.terminal.wordSeparator
+        this.xterm.options.drawBoldTextInBrightColors = config.terminal.drawBoldTextInBrightColors
+        this.xterm.options.fontWeight = config.terminal.fontWeight
+        this.xterm.options.fontWeightBold = config.terminal.fontWeightBold
         this.configuredFontSize = config.terminal.fontSize
         this.configuredLinePadding = config.terminal.linePadding
         this.setFontSize()
