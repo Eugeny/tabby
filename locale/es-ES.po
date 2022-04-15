@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2022-04-12 16:45\n"
+"PO-Revision-Date: 2022-04-15 10:35\n"
 
 #: tabby-local/src/components/terminalTab.component.ts:113
 msgid "\"{command}\" is still running. Close?"
@@ -85,7 +85,7 @@ msgstr "Ruta de la tubería del agente"
 msgid "Agent type"
 msgstr "Tipo de agente"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:151
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:157
 msgid "Allows opening .bat files in tabs, but breaks some shells"
 msgstr "Permite abrir archivos .bat en pestañas, pero rompe algunas shells"
 
@@ -126,7 +126,7 @@ msgstr "Hacer una pregunta"
 msgid "Ask before closing the browser tab"
 msgstr "Preguntar antes de cerrar la pestaña del navegador"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:122
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:128
 msgid "Audible"
 msgstr "Audible"
 
@@ -142,7 +142,7 @@ msgstr "Autor"
 msgid "Auto"
 msgstr "Auto"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:135
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:141
 msgid "Auto-open a terminal on app start"
 msgstr "Autoabrir un terminal al iniciar la aplicación"
 
@@ -195,7 +195,7 @@ msgstr "Desenfoque"
 msgid "Bottom"
 msgstr "Inferior"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:95
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:101
 msgid "Bracketed paste (requires shell support)"
 msgstr "Pegar con corchetes (requiere soporte de shell)"
 
@@ -208,14 +208,15 @@ msgstr "Integrado"
 #: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:55
 #: locale/tmp-html/tabby-settings/src/components/hotkeyInputModal.component.html:14
 #: locale/tmp-html/tabby-settings/src/components/setVaultPassphraseModal.component.html:14
+#: locale/tmp-html/tabby-ssh/src/components/sftpCreateDirectoryModal.component.html:10
 #: locale/tmp-html/tabby-ssh/src/components/sftpDeleteModal.component.html:7
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:30
 #: tabby-electron/src/services/updater.service.ts:139
 #: tabby-local/src/components/terminalTab.component.ts:118
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:79
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:99
-#: tabby-ssh/src/sftpContextMenu.ts:34
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:448
+#: tabby-ssh/src/sftpContextMenu.ts:40
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:453
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -337,7 +338,7 @@ msgstr "Conectarse a %s..."
 msgid "Connect to a different host first and use it as a proxy"
 msgstr "Conectarse primero a un host diferente y utilizarlo como proxy"
 
-#: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:10
+#: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:13
 #: tabby-serial/src/components/serialTab.component.ts:72
 #: tabby-ssh/src/components/sshTab.component.ts:145
 #: tabby-telnet/src/components/telnetTab.component.ts:81
@@ -360,10 +361,10 @@ msgstr "El nombre de la conexión se utilizará en su lugar"
 msgid "Context menu"
 msgstr "Menú contextual"
 
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:198
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:206
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:539
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:743
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:201
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:209
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:544
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:748
 #: tabby-terminal/src/tabContextMenu.ts:29
 msgid "Copied"
 msgstr "Copiado"
@@ -386,9 +387,22 @@ msgstr "Copiar al seleccionar"
 msgid "Copy to clipboard"
 msgstr "Copiar al portapapeles"
 
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:95
+msgid "Copy with formatting"
+msgstr ""
+
 #: tabby-core/src/services/config.service.ts:365
 msgid "Could not decrypt config"
 msgstr "No se ha podido descifrar la configuración"
+
+#: locale/tmp-html/tabby-ssh/src/components/sftpCreateDirectoryModal.component.html:9
+msgid "Create"
+msgstr ""
+
+#: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:5
+#: tabby-ssh/src/sftpContextMenu.ts:29
+msgid "Create directory"
+msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:93
 msgid "Current"
@@ -426,6 +440,14 @@ msgstr "Bits de datos"
 msgid "Debugging"
 msgstr "Depuración"
 
+#: tabby-core/src/hotkeys.ts:213
+msgid "Decrease horizontal split size"
+msgstr ""
+
+#: tabby-core/src/hotkeys.ts:205
+msgid "Decrease vertical split size"
+msgstr ""
+
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:8
 msgid "Default profile for new tabs"
 msgstr "Perfil predeterminado para nuevas pestañas"
@@ -448,8 +470,8 @@ msgstr "Valores predeterminados para {type}"
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:194
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:207
 #: tabby-settings/src/components/vaultSettingsTab.component.ts:49
-#: tabby-ssh/src/sftpContextMenu.ts:33
-#: tabby-ssh/src/sftpContextMenu.ts:41
+#: tabby-ssh/src/sftpContextMenu.ts:39
+#: tabby-ssh/src/sftpContextMenu.ts:47
 #: tabby-terminal/src/components/colorSchemeSettingsTab.component.ts:89
 #: tabby-terminal/src/components/loginScriptsSettings.component.ts:32
 msgid "Delete"
@@ -461,7 +483,7 @@ msgstr "Borrar"
 msgid "Delete \"{name}\"?"
 msgstr "¿Eliminar \"{name}\"?"
 
-#: tabby-ssh/src/sftpContextMenu.ts:29
+#: tabby-ssh/src/sftpContextMenu.ts:35
 msgid "Delete {fullPath}?"
 msgstr "¿Eliminar la ruta {fullPath}?"
 
@@ -505,11 +527,11 @@ msgstr "Deshabilitar"
 msgid "Disable dynamic tab title"
 msgstr "Deshabilitar el título de la pestaña dinámica"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:189
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:197
 msgid "Disable fluent background while dragging"
 msgstr ""
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:182
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:190
 msgid "Disable GPU acceleration"
 msgstr "Deshabilitar la aceleración de GPU"
 
@@ -672,7 +694,7 @@ msgstr "Archivo: {description}"
 msgid "Fixed"
 msgstr "Solucionado"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:190
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:198
 msgid "Fluent background sometimes causes drag lag"
 msgstr ""
 
@@ -711,6 +733,10 @@ msgstr "Central el panel de la derecha"
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:7
 msgid "Font"
 msgstr "Fuente"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:183
+msgid "For keyboard shortcuts"
+msgstr ""
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:51
 msgid "Force CR"
@@ -778,7 +804,7 @@ msgstr "Obtenerlo desde la ventana de configuración de Tabby"
 msgid "Gives the window a blurred transparent background"
 msgstr "Le da a la ventana un fondo transparente borroso"
 
-#: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:15
+#: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:18
 msgid "Go up"
 msgstr "Ir arriba"
 
@@ -790,7 +816,7 @@ msgstr "Verde"
 msgid "Group"
 msgstr "Grupo"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:179
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:187
 msgid "Hacks"
 msgstr "Hacks"
 
@@ -868,6 +894,14 @@ msgstr "Si está deshabilitado, solo se mostrarán perfiles personalizados en el
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:23
 msgid "Immediately echoes your input locally"
 msgstr "Inmediatamente hace echo de tu entrada localmente"
+
+#: tabby-core/src/hotkeys.ts:209
+msgid "Increase horizontal split size"
+msgstr ""
+
+#: tabby-core/src/hotkeys.ts:201
+msgid "Increase vertical split size"
+msgstr ""
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:18
 msgid "Input is sent as you type"
@@ -994,7 +1028,7 @@ msgstr "Editor de línea, la entrada se envía después de pulsar Enter"
 msgid "Line padding"
 msgstr "Relleno de línea"
 
-#: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:12
+#: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:15
 msgid "Loading"
 msgstr "Cargando"
 
@@ -1067,6 +1101,10 @@ msgstr "Nombre"
 msgid "Name for the new config"
 msgstr "Nombre para la nueva configuración"
 
+#: locale/tmp-html/tabby-ssh/src/components/sftpCreateDirectoryModal.component.html:3
+msgid "Name for the new directory"
+msgstr ""
+
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:52
 msgid "Native"
 msgstr "Nativo"
@@ -1100,7 +1138,7 @@ msgstr "Nuevo nombre de perfil"
 msgid "New tab"
 msgstr "Nueva pestaña"
 
-#: tabby-core/src/hotkeys.ts:212
+#: tabby-core/src/hotkeys.ts:228
 msgid "New tab: {profile}"
 msgstr "Nueva pestaña: {profile}"
 
@@ -1156,7 +1194,7 @@ msgid "Number of lines kept in the buffer"
 msgstr "Número de líneas guardadas en el búfer"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:70
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:116
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:122
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:48
 msgid "Off"
 msgstr "Apagado"
@@ -1250,6 +1288,14 @@ msgstr "¿Sobrescribir la configuración en el lado remoto y empezar a sincroniz
 msgid "Overwrite the local config and start syncing?"
 msgstr "¿Sobrescribir la configuración local y empezar a sincronizar?"
 
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:182
+msgid "Pane resize step"
+msgstr ""
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:179
+msgid "Panes"
+msgstr ""
+
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:38
 msgid "Parity"
 msgstr "Paridad"
@@ -1268,7 +1314,7 @@ msgid "Password"
 msgstr "Contraseña"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:54
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:447
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:452
 #: tabby-terminal/src/tabContextMenu.ts:34
 msgid "Paste"
 msgstr "Pegar"
@@ -1277,7 +1323,7 @@ msgstr "Pegar"
 msgid "Paste from clipboard"
 msgstr "Pegar desde el portapapeles"
 
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:454
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:459
 msgid "Paste multiple lines?"
 msgstr "¿Pegar múltiples líneas?"
 
@@ -1329,7 +1375,7 @@ msgstr "Presiona la tecla ahora"
 msgid "Prevents accidental closing"
 msgstr "Previene cierre accidental"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:96
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:102
 msgid "Prevents accidental execution of pasted commands"
 msgstr "Previene la ejecución de comandos pegados"
 
@@ -1478,7 +1524,7 @@ msgstr "Reiniciar sesión Telnet actual"
 msgid "Restart the app to apply changes"
 msgstr "Reiniciar la aplicación para aplicar cambios"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:141
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:147
 msgid "Restore terminal tabs on app start"
 msgstr "Restaurar pestañas de la terminar al iniciar la aplicación"
 
@@ -1622,7 +1668,7 @@ msgstr "Establecer contraseña"
 msgid "Set password"
 msgstr "Establecer contraseña"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:150
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:156
 msgid "Set Tabby as %COMSPEC%"
 msgstr "Establecer Tabby como %COMSPEC%"
 
@@ -1643,7 +1689,7 @@ msgstr "Ajustes"
 msgid "Shell"
 msgstr "Escudo"
 
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:541
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:546
 msgid "Shell does not support current path detection"
 msgstr "Shell no soporta la detección actual de rutas"
 
@@ -1651,11 +1697,11 @@ msgstr "Shell no soporta la detección actual de rutas"
 msgid "Shell integration"
 msgstr "Integración con la Shell"
 
-#: tabby-core/src/hotkeys.ts:216
+#: tabby-core/src/hotkeys.ts:232
 msgid "Show {type} profile selector"
 msgstr "Mostrar {type} selector de perfil"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:103
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:109
 msgid "Show a confirmation box when pasting multiple lines"
 msgstr "Mostrar un cuadro de confirmación al pegar múltiples líneas"
 
@@ -1671,7 +1717,7 @@ msgstr "Mostrar archivo de configuración"
 msgid "Show defaults"
 msgstr "Mostrar valores predeterminados"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:128
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:134
 msgid "Show Mixer"
 msgstr "Mostrar Mixer"
 
@@ -1730,7 +1776,7 @@ msgstr "Servidor proxy SOCKS"
 msgid "SOCKS proxy port"
 msgstr "Puerto proxy SOCKS"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:109
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:115
 msgid "Sound"
 msgstr "Sonido"
 
@@ -1774,7 +1820,7 @@ msgstr "Contraseña SSH para {user}@{host}:{port}"
 msgid "Standard"
 msgstr "Estándar"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:132
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:138
 msgid "Startup"
 msgstr "Inicialización"
 
@@ -1881,7 +1927,7 @@ msgstr "Ancho de pestañas"
 msgid "Telnet session"
 msgstr "Sesión de Telnet"
 
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:187
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:190
 #: tabby-terminal/src/settings.ts:43
 msgid "Terminal"
 msgstr "Terminal"
@@ -1890,7 +1936,7 @@ msgstr "Terminal"
 msgid "Terminal background"
 msgstr "Fondo de la terminal"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:112
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:118
 msgid "Terminal bell"
 msgstr "Campana de la terminal"
 
@@ -1918,7 +1964,7 @@ msgstr "Estos se aplican a todos los perfiles de un tipo determinado"
 msgid "Thin"
 msgstr "Estrecho"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:183
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:191
 msgid "Tick this if you're experiencing aliasing, ghosting or other visual issues"
 msgstr "Marque esto si está experimentando aliasing, efecto fantasma u otros problemas visuales"
 
@@ -1989,7 +2035,7 @@ msgid "Upgrade to {version}"
 msgstr "Actualizar a {version}"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:46
-#: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:5
+#: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:8
 msgid "Upload"
 msgstr "Cargar"
 
@@ -2063,11 +2109,11 @@ msgstr "Versión: {version}"
 msgid "Vibrancy"
 msgstr "Vibración"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:119
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:125
 msgid "Visual"
 msgstr "Visual"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:102
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:108
 msgid "Warn on multi-line paste"
 msgstr "Advertir al pegar múltiples líneas"
 
@@ -2120,7 +2166,7 @@ msgstr "Dimensión de la ventana lejos del borde"
 msgid "Window frame"
 msgstr "Marco de ventana"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:147
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:153
 msgid "Windows"
 msgstr "Ventanas"
 
@@ -2144,7 +2190,7 @@ msgstr "Directorio de trabajo"
 msgid "Working directory detection"
 msgstr "Detección de directorio de trabajo"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:127
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:133
 msgid "WSL terminal bell can only be muted via Volume Mixer"
 msgstr "La campana de la terminal WSL sólo puede silenciarse a través del Mezclador del Volumen"
 

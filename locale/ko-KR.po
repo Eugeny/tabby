@@ -1,208 +1,208 @@
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
-"Plural-Forms: nplurals=4; plural=((n%10==1 && n%100!=11) ? 0 : ((n%10 >= 2 && n%10 <=4 && (n%100 < 12 || n%100 > 14)) ? 1 : ((n%10 == 0 || (n%10 >= 5 && n%10 <=9)) || (n%100 >= 11 && n%100 <= 14)) ? 2 : 3));\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 "X-Crowdin-Project: tabby\n"
 "X-Crowdin-Project-ID: 493349\n"
-"X-Crowdin-Language: ru\n"
+"X-Crowdin-Language: ko\n"
 "X-Crowdin-File: /locale/app.pot\n"
 "X-Crowdin-File-ID: 75\n"
 "Project-Id-Version: tabby\n"
-"Language-Team: Russian\n"
-"Language: ru_RU\n"
+"Language-Team: Korean\n"
+"Language: ko_KR\n"
 "PO-Revision-Date: 2022-04-15 10:35\n"
 
 #: tabby-local/src/components/terminalTab.component.ts:113
 msgid "\"{command}\" is still running. Close?"
-msgstr "\"{command}\" всё ещё выполняется. Закрыть?"
+msgstr "\"{command}\" 명령어가 여전히 동작중입니다. 닫을까요?"
 
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:77
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:84
 msgid "{name} copy"
-msgstr "Копия {name}"
+msgstr "{name} 복사"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:64
 msgid "A second font family used to display characters missing in the main font"
-msgstr "Семейство шрифтов, используемое для отображения символов, отсутствующих в основном шрифте"
+msgstr "메인 글꼴에서 누락된 문자를 표시하기 위해 사용하는 2번째 글꼴"
 
 #: tabby-core/src/components/transfersMenu.component.ts:49
 msgid "Abort all"
-msgstr "Прервать все"
+msgstr "모두 중지"
 
 #: locale/tmp-html/tabby-ssh/src/components/hostKeyPromptModal.component.html:24
 msgid "Accept and remember key"
-msgstr "Принять и запомнить ключ"
+msgstr "허용 후 키 저장"
 
 #: locale/tmp-html/tabby-ssh/src/components/hostKeyPromptModal.component.html:25
 msgid "Accept just this once"
-msgstr "Принять только один раз"
+msgstr "이번 한번만 허용"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:20
 msgid "Acrylic background"
-msgstr "Акриловый фон"
+msgstr "아크릴 스타일의 배경"
 
 #: locale/tmp-html/tabby-local/src/components/commandLineEditor.component.html:28
 #: locale/tmp-html/tabby-local/src/components/environmentEditor.component.html:15
 msgid "Add"
-msgstr "Добавить"
+msgstr "추가"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:16
 msgid "Add a port forward"
-msgstr "Добавить перенаправление порта"
+msgstr "포트 포워딩 추가"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:115
 msgid "Add a private key"
-msgstr "Добавить приватный ключ"
+msgstr "개인 키 추가"
 
 #: locale/tmp-html/tabby-settings/src/components/multiHotkeyInput.component.html:8
 msgid "Add..."
-msgstr "Добавить..."
+msgstr "추가..."
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:71
 msgid "Additional space between lines"
-msgstr "Доп. пространство между строками"
+msgstr "행간 간격"
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:22
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:64
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:52
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:124
 msgid "Advanced"
-msgstr "Расширенные"
+msgstr "고급"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:90
 msgid "Agent"
-msgstr "Агент"
+msgstr "에이전트"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:134
 msgid "Agent forwarding"
-msgstr "Перенаправление агента"
+msgstr "에이전트 포워딩"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:35
 msgid "Agent pipe path"
-msgstr "Путь к pipe SSH-агента"
+msgstr "에이전트 연계 경로"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:24
 msgid "Agent type"
-msgstr "Тип агента"
+msgstr "에이전트 유형"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:157
 msgid "Allows opening .bat files in tabs, but breaks some shells"
-msgstr "Позволяет открывать .bat файлы во вкладках, но ломает некоторые оболочки"
+msgstr "탭에 .bat 파일 열기를 허용합니다. 몇몇 쉘 환경에서 동작하지 않을 수 있습니다."
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:60
 msgid "Allows quickly opening a terminal in the selected folder"
-msgstr "Позволяет быстро открыть терминал в выбранной папке"
+msgstr "일부 폴더에서 터미널을 빨리 열 수 있도록 합니다"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:2
 #: tabby-terminal/src/settings.ts:14
 msgid "Appearance"
-msgstr "Внешний вид"
+msgstr "모양"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:4
 msgid "Application"
-msgstr "Приложение"
+msgstr "응용 프로그램"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:47
 msgid "Application settings"
-msgstr "Настройки приложения"
+msgstr "응용 프로그램 설정"
 
 #: tabby-web/src/services/hostWindow.service.ts:19
 msgid "Are you sure you want to close Tabby? You can disable this prompt in Settings -> Window."
-msgstr "Вы уверены, что хотите закрыть Tabby? Это предупреждение можно отключить в Настройках -> Окно."
+msgstr "Tabby를 정말로 닫으시겠습니까? 더 이상 이 질문을 보지 않으려면 설정 -> 창 에서 변경할 수 있습니다."
 
 #: tabby-core/src/services/config.service.ts:380
 msgid "Are you sure?"
-msgstr "Вы уверены?"
+msgstr "확실한가요?"
 
 #: locale/tmp-html/tabby-local/src/components/commandLineEditor.component.html:20
 msgid "Arguments"
-msgstr "Аргументы"
+msgstr "매개 변수"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:26
 msgid "Ask a question"
-msgstr "Задать вопрос"
+msgstr "질문하기"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:13
 msgid "Ask before closing the browser tab"
-msgstr "Спрашивать перед закрытием вкладки"
+msgstr "브라우저 탭을 닫기 전에 물어보기"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:128
 msgid "Audible"
-msgstr "Звук"
+msgstr "소리"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:74
 msgid "Authentication method"
-msgstr "Метод аутентификации"
+msgstr "인증 방법"
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:77
 msgid "Author"
-msgstr "Автор"
+msgstr "만든 사람"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:78
 msgid "Auto"
-msgstr "Автоматически"
+msgstr "자동"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:141
 msgid "Auto-open a terminal on app start"
-msgstr "Автооткрытие терминала при запуске приложения"
+msgstr "앱 시작 시 터미널을 자동으로 열기"
 
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:13
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:53
 #: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:28
 msgid "Automatic"
-msgstr "Автоматически"
+msgstr "자동"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:73
 msgid "Automatic Updates"
-msgstr "Обновлять автоматически"
+msgstr "자동 업데이트"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:57
 msgid "Automatically upload changes and check for updates every minute"
-msgstr "Автоматически загружать изменения и проверять наличие обновлений каждую минуту"
+msgstr "자동으로 변경사항 업로드 후 매 분마다 갱신 확인"
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:10
 msgid "Available"
-msgstr "Доступно"
+msgstr "유효한"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:28
 msgid "Background type"
-msgstr "Тип фона"
+msgstr "배경 유형"
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:14
 #: tabby-serial/src/components/serialTab.component.ts:118
 #: tabby-serial/src/profiles.ts:85
 msgid "Baud rate"
-msgstr "Скорость передачи"
+msgstr "전송 속도"
 
 #: tabby-terminal/src/hotkeys.ts:18
 msgid "Beginning of the line"
-msgstr "Начало строки"
+msgstr "행 시작 부분"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:57
 msgid "Blink cursor"
-msgstr "Мигающий курсор"
+msgstr "커서 깜박임"
 
 #: tabby-core/src/utils.ts:61
 msgid "Blue"
-msgstr "Синий"
+msgstr "파란색"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:32
 msgid "Blur"
-msgstr "Размытие"
+msgstr "흐림 효과"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:138
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:82
 msgid "Bottom"
-msgstr "Снизу"
+msgstr "아래"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:101
 msgid "Bracketed paste (requires shell support)"
-msgstr "Bracketed-вставка (требует поддержки оболочки)"
+msgstr "괄호(Bracketed)식 붙여넣기 (쉘 지원 필요)"
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:48
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:165
 msgid "Built-in"
-msgstr "Встроенные"
+msgstr "빌트인"
 
 #: locale/tmp-html/tabby-core/src/components/renameTabModal.component.html:7
 #: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:55
@@ -218,148 +218,148 @@ msgstr "Встроенные"
 #: tabby-ssh/src/sftpContextMenu.ts:40
 #: tabby-terminal/src/api/baseTerminalTab.component.ts:453
 msgid "Cancel"
-msgstr "Отмена"
+msgstr "취소"
 
 #: locale/tmp-html/tabby-serial/src/components/serialTab.component.html:4
 msgid "Change baud rate"
-msgstr "Изменить скорость передачи"
+msgstr "baud rate 속도를 변경합니다"
 
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:12
 msgid "Change the master passphrase"
-msgstr "Изменить мастер-пароль"
+msgstr "마스터 비밀번호 변경"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:13
 msgid "Check for updates"
-msgstr "Проверить обновления"
+msgstr "업데이트 확인"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:172
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:176
 msgid "Ciphers"
-msgstr "Шифры"
+msgstr "암호화"
 
 #: tabby-core/src/services/profiles.service.ts:125
 msgid "Clear recent profiles"
-msgstr "Очистить недавние профили"
+msgstr "최근 프로필 삭제"
 
 #: tabby-terminal/src/hotkeys.ts:42
 msgid "Clear terminal"
-msgstr "Очистить терминал"
+msgstr "터미널 비우기"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:86
 msgid "Clipboard"
-msgstr "Буфер обмена"
+msgstr "클립보드"
 
 #: locale/tmp-html/tabby-core/src/components/safeModeModal.component.html:7
 #: tabby-core/src/tabContextMenu.ts:34
 msgid "Close"
-msgstr "Закрыть"
+msgstr "닫기"
 
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:32
 msgid "Close and never show again"
-msgstr "Закрыть и не показывать снова"
+msgstr "닫고 다시 보여주지 않음"
 
 #: tabby-core/src/hotkeys.ts:197
 msgid "Close focused pane"
-msgstr "Закрыть активную панель"
+msgstr "보고 있는 항목 닫기"
 
 #: tabby-core/src/tabContextMenu.ts:48
 msgid "Close other tabs"
-msgstr "Закрыть другие вкладки"
+msgstr "다른 탭 닫기"
 
 #: tabby-core/src/hotkeys.ts:25
 msgid "Close tab"
-msgstr "Закрыть вкладку"
+msgstr "탭 닫기"
 
 #: tabby-core/src/tabContextMenu.ts:64
 msgid "Close tabs to the left"
-msgstr "Закрыть вкладки слева"
+msgstr "왼쪽 탭들 모두 닫기"
 
 #: tabby-core/src/tabContextMenu.ts:56
 msgid "Close tabs to the right"
-msgstr "Закрыть вкладки справа"
+msgstr "오른쪽 탭들 모두 닫기"
 
 #: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:35
 #: tabby-core/src/tabContextMenu.ts:124
 msgid "Color"
-msgstr "Цвет"
+msgstr "색상"
 
 #: tabby-terminal/src/settings.ts:29
 msgid "Color scheme"
-msgstr "Цветовая схема"
+msgstr "색상 구성"
 
 #: tabby-core/src/hotkeys.ts:65
 msgid "Combine all tabs into the current tab"
-msgstr "Объединить все вкладки в текущую"
+msgstr "모든 탭을 현재 탭으로 합치기"
 
 #: locale/tmp-html/tabby-local/src/components/commandLineEditor.component.html:4
 msgid "Command line"
-msgstr "Командная строка"
+msgstr "명령줄"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:13
 msgid "Command's stdin/stdout is used instead of a network connection"
-msgstr "Вместо сетевого соединения используется stdin/stdout команды"
+msgstr "명령어의 네트워크 연결 대신 표준 입출력이 사용됩니다."
 
 #: tabby-core/src/theme.ts:20
 msgid "Compact"
-msgstr "Компактная"
+msgstr "콤팩트"
 
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:108
 msgid "Config downloaded"
-msgstr "Конфигурация скачана"
+msgstr "설정 다운로드됨"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:102
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:107
 msgid "Config file"
-msgstr "Файл настроек"
+msgstr "설정 파일"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:2
 #: tabby-settings/src/settings.ts:73
 msgid "Config sync"
-msgstr "Синхронизация конфигурации"
+msgstr "설정 동기화"
 
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:90
 msgid "Config uploaded"
-msgstr "Конфигурация загружена"
+msgstr "설정 업로드됨"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:35
 msgid "Configs"
-msgstr "Конфигурации"
+msgstr "설정"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:21
 msgid "Connect through a proxy server"
-msgstr "Подключиться через прокси-сервер"
+msgstr "프록시 서버를 통해 연결하기"
 
 #: tabby-core/src/index.ts:214
 #: tabby-core/src/services/profiles.service.ts:170
 msgid "Connect to \"%s\"..."
-msgstr "Подключиться к \"%s\"..."
+msgstr "\"%s\"에 연결하기"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:17
 msgid "Connect to a different host first and use it as a proxy"
-msgstr "Подключиться к другому хосту и использовать его как прокси"
+msgstr "다른 호스트에 먼저 연결 후 프록시로 사용"
 
 #: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:13
 #: tabby-serial/src/components/serialTab.component.ts:72
 #: tabby-ssh/src/components/sshTab.component.ts:145
 #: tabby-telnet/src/components/telnetTab.component.ts:81
 msgid "Connecting"
-msgstr "Соединение"
+msgstr "연결 중"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:7
 msgid "Connection"
-msgstr "Соединение"
+msgstr "연결"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:30
 msgid "Connection failed: {error}"
-msgstr "Ошибка соединения: {error}"
+msgstr "연결 실패: {error}"
 
 #: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:42
 msgid "Connection name will be used instead"
-msgstr "Вместо этого будет использоваться имя соединения"
+msgstr "연결 이름이 대신 사용됩니다."
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:51
 msgid "Context menu"
-msgstr "Контекстное меню"
+msgstr "컨텍스트 메뉴"
 
 #: tabby-terminal/src/api/baseTerminalTab.component.ts:201
 #: tabby-terminal/src/api/baseTerminalTab.component.ts:209
@@ -367,25 +367,25 @@ msgstr "Контекстное меню"
 #: tabby-terminal/src/api/baseTerminalTab.component.ts:748
 #: tabby-terminal/src/tabContextMenu.ts:29
 msgid "Copied"
-msgstr "Скопировано"
+msgstr "복사됨"
 
 #: tabby-linkifier/src/decorator.ts:52
 #: tabby-terminal/src/tabContextMenu.ts:25
 msgid "Copy"
-msgstr "Копировать"
+msgstr "복사"
 
 #: tabby-terminal/src/hotkeys.ts:62
 #: tabby-terminal/src/tabContextMenu.ts:53
 msgid "Copy current path"
-msgstr "Копировать текущий путь"
+msgstr "현재 경로 복사"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:89
 msgid "Copy on select"
-msgstr "Копировать при выделении"
+msgstr "선택 영역 복사"
 
 #: tabby-terminal/src/hotkeys.ts:10
 msgid "Copy to clipboard"
-msgstr "Копировать в буфер обмена"
+msgstr "클립보드에 복사"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:95
 msgid "Copy with formatting"
@@ -393,7 +393,7 @@ msgstr ""
 
 #: tabby-core/src/services/config.service.ts:365
 msgid "Could not decrypt config"
-msgstr "Не удалось расшифровать конфигурацию"
+msgstr "설정 해독에 실패했습니다."
 
 #: locale/tmp-html/tabby-ssh/src/components/sftpCreateDirectoryModal.component.html:9
 msgid "Create"
@@ -406,39 +406,39 @@ msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:93
 msgid "Current"
-msgstr "Текущий"
+msgstr "현재"
 
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:3
 msgid "Current color scheme"
-msgstr "Текущая цветовая схема"
+msgstr "현재 색상 구성"
 
 #: locale/tmp-html/tabby-ssh/src/components/hostKeyPromptModal.component.html:17
 msgid "Current host key fingerprint"
-msgstr "Отпечаток ключа текущего хоста"
+msgstr "현재 호스트 키 핑거프린트"
 
 #: tabby-core/src/tabContextMenu.ts:175
 msgid "Current process: {name}"
-msgstr "Текущий процесс: {name}"
+msgstr "현재 프로세스: {name}"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:41
 msgid "Cursor shape"
-msgstr "Форма курсора"
+msgstr "커서 모양"
 
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:47
 msgid "Custom"
-msgstr "Пользовательская"
+msgstr "사용자 정의"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:77
 msgid "Custom CSS"
-msgstr "Пользовательский CSS"
+msgstr "사용자 정의 CSS"
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:26
 msgid "Data bits"
-msgstr "Биты данных"
+msgstr "데이터 비트"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:80
 msgid "Debugging"
-msgstr "Отладка"
+msgstr "디버깅"
 
 #: tabby-core/src/hotkeys.ts:213
 msgid "Decrease horizontal split size"
@@ -450,19 +450,19 @@ msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:8
 msgid "Default profile for new tabs"
-msgstr "Профиль по умолчанию для новых вкладок"
+msgstr "새 탭의 기본 프로필"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:70
 msgid "Default profile settings"
-msgstr "Настройки профилей по умолчанию"
+msgstr "기본 프로필 설정"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:111
 msgid "Defaults"
-msgstr "Значения по умолчанию"
+msgstr "기본값"
 
 #: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:6
 msgid "Defaults for {type}"
-msgstr "По умолчанию для {type}"
+msgstr "{type} 의 기본값"
 
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:28
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:9
@@ -475,264 +475,264 @@ msgstr "По умолчанию для {type}"
 #: tabby-terminal/src/components/colorSchemeSettingsTab.component.ts:89
 #: tabby-terminal/src/components/loginScriptsSettings.component.ts:32
 msgid "Delete"
-msgstr "Удалить"
+msgstr "삭제"
 
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:127
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:192
 #: tabby-terminal/src/components/colorSchemeSettingsTab.component.ts:87
 msgid "Delete \"{name}\"?"
-msgstr "Удалить \"{name}\"?"
+msgstr "{name} 을/를 삭제하시겠습니까?"
 
 #: tabby-ssh/src/sftpContextMenu.ts:35
 msgid "Delete {fullPath}?"
-msgstr "Удалить {fullPath}?"
+msgstr "{fullPath} 를 삭제할까요?"
 
 #: tabby-terminal/src/hotkeys.ts:38
 msgid "Delete next word"
-msgstr "Удалить следующее слово"
+msgstr "다음 단어 삭제"
 
 #: tabby-terminal/src/hotkeys.ts:34
 msgid "Delete previous word"
-msgstr "Удалить предыдущее слово"
+msgstr "이전 단어 삭제"
 
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:204
 msgid "Delete the group's profiles?"
-msgstr "Удалить профили этой группы?"
+msgstr "그룹의 프로필을 삭제하시겠습니까?"
 
 #: tabby-terminal/src/components/loginScriptsSettings.component.ts:29
 msgid "Delete this script?"
-msgstr "Удалить этот скрипт?"
+msgstr "이 스크립트를 삭제하시겠습니까?"
 
 #: tabby-settings/src/components/vaultSettingsTab.component.ts:47
 msgid "Delete vault contents?"
-msgstr "Удалить содержимое хранилища?"
+msgstr "저장소 내용을 삭제하시겠습니까?"
 
 #: locale/tmp-html/tabby-ssh/src/components/sftpDeleteModal.component.html:3
 msgid "Deleting"
-msgstr "Удаление"
+msgstr "삭제 중"
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:8
 msgid "Device"
-msgstr "Устройство"
+msgstr "장치"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:10
 msgid "Direct"
-msgstr "Напрямую"
+msgstr "직접 연결"
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:55
 msgid "Disable"
-msgstr "Отключить"
+msgstr "비활성화"
 
 #: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:41
 msgid "Disable dynamic tab title"
-msgstr "Отключить динамический заголовок вкладки"
+msgstr "동적 탭 제목 비활성화"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:197
 msgid "Disable fluent background while dragging"
-msgstr "Отключить прозрачный фон на время перетаскивания окна"
+msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:190
 msgid "Disable GPU acceleration"
-msgstr "Отключить GPU-ускорение"
+msgstr "GPU 가속 비활성화"
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:48
 msgid "Disabled"
-msgstr "Отключено"
+msgstr "비활성화됨"
 
 #: locale/tmp-html/tabby-ssh/src/components/hostKeyPromptModal.component.html:26
 #: tabby-ssh/src/components/sshTab.component.ts:246
 #: tabby-telnet/src/components/telnetTab.component.ts:124
 msgid "Disconnect"
-msgstr "Отсоединиться"
+msgstr "연결 끊기"
 
 #: tabby-ssh/src/components/sshTab.component.ts:244
 #: tabby-telnet/src/components/telnetTab.component.ts:122
 msgid "Disconnect from {host}?"
-msgstr "Отключиться от {host}?"
+msgstr "{host} 로부터 연결을 끊으시겠습니까?"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:88
 msgid "Display on"
-msgstr "Отобразить на"
+msgstr "표시할 곳"
 
 #: tabby-core/src/components/transfersMenu.component.ts:50
 msgid "Do not abort"
-msgstr "Не прерывать"
+msgstr "중단하지 않음"
 
 #: tabby-ssh/src/components/sshTab.component.ts:247
 #: tabby-telnet/src/components/telnetTab.component.ts:125
 msgid "Do not close"
-msgstr "Не закрывать"
+msgstr "닫지 않음"
 
 #: locale/tmp-html/tabby-core/src/components/unlockVaultModal.component.html:6
 #: locale/tmp-html/tabby-core/src/components/unlockVaultModal.component.html:8
 msgid "Do not remember"
-msgstr "Не запоминать"
+msgstr "기억하지 않기"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:102
 msgid "Dock always on top"
-msgstr "Закрепить поверх всех окон"
+msgstr "독을 항상 맨 위에"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:65
 msgid "Dock the terminal"
-msgstr "Закрепить терминал"
+msgstr "터미널 도킹"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:109
 msgid "Docked terminal size"
-msgstr "Размер закреплённого терминала"
+msgstr "도킹된 터미널 크기"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:116
 msgid "Docked terminal space"
-msgstr "Отступы закреплённого терминала"
+msgstr "도킹된 터미널 공간"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:62
 msgid "Docking"
-msgstr "Закрепление"
+msgstr "도킹"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:67
 msgid "Double-click selection will stop at these characters"
-msgstr "Выделение по двойному щелчку остановится на этих символах"
+msgstr "더블 클릭으로 선택하여 해당 문자 끝에 중단"
 
 #: tabby-core/src/tabContextMenu.ts:80
 msgid "Down"
-msgstr "Вниз"
+msgstr "아래"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:47
 msgid "Download"
-msgstr "Скачать"
+msgstr "다운로드"
 
 #: tabby-core/src/tabContextMenu.ts:120
 msgid "Duplicate"
-msgstr "Дублировать"
+msgstr "복제"
 
 #: tabby-local/src/tabContextMenu.ts:121
 msgid "Duplicate as administrator"
-msgstr "Дублировать как администратор"
+msgstr "관리자에서 복제"
 
 #: tabby-core/src/hotkeys.ts:57
 msgid "Duplicate tab"
-msgstr "Дублировать вкладку"
+msgstr "탭 복제"
 
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:7
 msgid "Edit"
-msgstr "Изменить"
+msgstr "편집"
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:56
 msgid "Enable"
-msgstr "Включить"
+msgstr "활성화"
 
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:19
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:66
 msgid "Enable analytics"
-msgstr "Включить аналитику"
+msgstr "통계 전송 허용"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:74
 msgid "Enable automatic installation of updates when they become available."
-msgstr "Включить автоматическую установку обновлений, когда они доступны."
+msgstr "업데이트 가능할 때 자동으로 설치하도록 활성"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:16
 msgid "Enable font ligatures"
-msgstr "Включить лигатуры шрифтов"
+msgstr "합자(ligature) 활성화"
 
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:26
 msgid "Enable global hotkey (Ctrl-Space)"
-msgstr "Включить глобальную горячую клавишу (Ctrl-Space)"
+msgstr "전역 단축키 활성 (Ctrl-Space)"
 
 #: locale/tmp-html/tabby-local/src/components/shellSettingsTab.component.html:6
 msgid "Enables the experimental Windows ConPTY API"
-msgstr "Включить экспериментальный API Windows ConPTY"
+msgstr "실험적인 Windows ConPTY API 사용"
 
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:36
 msgid "Encrypt config file"
-msgstr "Зашифровать файл конфигурации"
+msgstr "설정 파일 암호화"
 
 #: tabby-terminal/src/hotkeys.ts:22
 msgid "End of the line"
-msgstr "Конец строки"
+msgstr "줄 끝"
 
 #: locale/tmp-html/tabby-local/src/components/localProfileSettings.component.html:19
 msgid "Environment"
-msgstr "Окружение"
+msgstr "환경"
 
 #: tabby-core/src/services/config.service.ts:369
 #: tabby-core/src/services/config.service.ts:383
 msgid "Erase config"
-msgstr "Очистить конфигурацию"
+msgstr "설정 지우기"
 
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:12
 msgid "Erase the Vault"
-msgstr "Очистить хранилище"
+msgstr "저장소 지우기"
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:6
 msgid "Error in {plugin}:"
-msgstr "Ошибка в {plugin}:"
+msgstr "{plugin} 오류:"
 
 #: locale/tmp-html/tabby-terminal/src/components/loginScriptsSettings.component.html:9
 msgid "Exact match"
-msgstr "Точное совпадение"
+msgstr "완전 일치"
 
 #: locale/tmp-html/tabby-local/src/components/environmentEditor.component.html:19
 msgid "Example:"
-msgstr "Например:"
+msgstr "예시:"
 
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:27
 msgid "Export"
-msgstr "Экспорт"
+msgstr "내보내기"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:63
 msgid "Fallback font"
-msgstr "Запасной шрифт"
+msgstr "대체 글꼴"
 
 #: locale/tmp-html/tabby-core/src/components/transfersMenu.component.html:3
 msgid "File transfers"
-msgstr "Передача файлов"
+msgstr "파일 전송"
 
 #: tabby-settings/src/components/vaultSettingsTab.component.ts:91
 msgid "File: {description}"
-msgstr "Файл: {description}"
+msgstr "파일: {description}"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:157
 msgid "Fixed"
-msgstr "Фиксированная"
+msgstr "고정"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:198
 msgid "Fluent background sometimes causes drag lag"
-msgstr "Иногда прозрачный фон вызывает лаги при перетаскивании"
+msgstr ""
 
 #: tabby-local/src/tabContextMenu.ts:136
 msgid "Focus all panes"
-msgstr "Фокус на все панелях"
+msgstr "모든 항목 포커스"
 
 #: tabby-terminal/src/hotkeys.ts:70
 msgid "Focus all panes at once (broadcast)"
-msgstr "Фокус на все панели сразу (broadcast)"
+msgstr "모든 항목을 한번에 포커스 (방영)"
 
 #: tabby-core/src/hotkeys.ts:189
 msgid "Focus next pane"
-msgstr "Фокус на следующей панели"
+msgstr "다음 항목 포커스"
 
 #: tabby-core/src/hotkeys.ts:185
 msgid "Focus previous pane"
-msgstr "Фокус на предыдущей панели"
+msgstr "이전 항목 포커스"
 
 #: tabby-core/src/hotkeys.ts:169
 msgid "Focus the pane above"
-msgstr "Фокус на панели сверху"
+msgstr "위 항목 포커스"
 
 #: tabby-core/src/hotkeys.ts:173
 msgid "Focus the pane below"
-msgstr "Фокус на панели снизу"
+msgstr "아래 항목 포커스"
 
 #: tabby-core/src/hotkeys.ts:177
 msgid "Focus the pane on the left"
-msgstr "Фокус на панели слева"
+msgstr "왼쪽 항목 포커스"
 
 #: tabby-core/src/hotkeys.ts:181
 msgid "Focus the pane on the right"
-msgstr "Фокус на панели справа"
+msgstr "오른쪽 항목 포커스"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:7
 msgid "Font"
-msgstr "Шрифт"
+msgstr "글꼴"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:183
 msgid "For keyboard shortcuts"
@@ -740,160 +740,160 @@ msgstr ""
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:51
 msgid "Force CR"
-msgstr "Изменить на CR"
+msgstr "CR 강제"
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:53
 msgid "Force CRLF"
-msgstr "Изменить на CRLF"
+msgstr "CRLF 강제"
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:52
 msgid "Force LF"
-msgstr "Изменить на LF"
+msgstr "LF 강제"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:25
 msgid "Forces a specific SSH agent connection type."
-msgstr "Принудительно устанавливает определенный тип подключения к SSH-агенту."
+msgstr "특정 SSH 에이전트로 연결 유형 강제"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:105
 msgid "Forget"
-msgstr "Забыть"
+msgstr "소거"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:58
 msgid "Forward port"
-msgstr "Перенаправить порт"
+msgstr "포트 포워딩"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingModal.component.html:3
 msgid "Forwarded ports"
-msgstr "Перенаправленные порты"
+msgstr "포워딩된 포트"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:35
 msgid "From color scheme"
-msgstr "Из цветовой схемы"
+msgstr "색상 구성에서"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:32
 msgid "From theme"
-msgstr "Из темы"
+msgstr "테마에서"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:6
 msgid "Frontend"
-msgstr "Фронтенд"
+msgstr "프론트앤드"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:58
 msgid "Full"
-msgstr "Полный"
+msgstr "전체"
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:3
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:3
 #: locale/tmp-html/tabby-telnet/src/components/telnetProfileSettings.component.html:3
 msgid "General"
-msgstr "Общие"
+msgstr "일반"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:21
 msgid "Generate a pre-filled GitHub issue"
-msgstr "Открыть пред-заполненный отчет на GitHub"
+msgstr "미리 지정된 양식을 생성하여 Github 이슈 작성"
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:27
 msgid "Get"
-msgstr "Получить"
+msgstr "받기"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:20
 msgid "Get it from the Tabby Web settings window"
-msgstr "Скопируйте его из окна настроек web-версии Tabby"
+msgstr "Tabby 웹 설정 창에서 받기"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:22
 msgid "Gives the window a blurred transparent background"
-msgstr "Придает окну размытый прозрачный фон"
+msgstr "배경을 투명하고 흐릿하게 표시합니다."
 
 #: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:18
 msgid "Go up"
-msgstr "Вверх"
+msgstr "상위 폴더로"
 
 #: tabby-core/src/utils.ts:62
 msgid "Green"
-msgstr "Зелёный"
+msgstr "녹색"
 
 #: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:16
 msgid "Group"
-msgstr "Группа"
+msgstr "그룹"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:187
 msgid "Hacks"
-msgstr "Проблемы"
+msgstr "핵"
 
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:20
 msgid "Help track the number of Tabby installs across the world!"
-msgstr "Помогите отслеживать количество установок Tabby по всему миру!"
+msgstr "전 세계적으로 Tabby 가 설치되어 어떻게 사용하는지 추적을 도와주세요!"
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:32
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:44
 msgid "Hexadecimal"
-msgstr "Шестнадцатеричный"
+msgstr "16진수"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:175
 msgid "Hide tab close button"
-msgstr "Скрыть кнопку закрытия вкладки"
+msgstr "탭 닫기 버튼 숨기기"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:163
 msgid "Hide tab index"
-msgstr "Скрыть нумерацию вкладок"
+msgstr "탭 번호 숨기기"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:123
 msgid "Hide window on focus loss"
-msgstr "Скрыть окно при потере фокуса"
+msgstr "포커스 해제 시 창 숨기기"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:124
 msgid "Hides the docked terminal when you click away."
-msgstr "Скрывает закреплённый терминал при нажатии вне его."
+msgstr "터미널 밖으로 클릭 시 도킹된 터미널 숨기기"
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:28
 msgid "Homepage"
-msgstr "Главная страница"
+msgstr "홈페이지"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:34
 #: locale/tmp-html/tabby-telnet/src/components/telnetProfileSettings.component.html:6
 msgid "Host"
-msgstr "Хост"
+msgstr "호스트"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:206
 msgid "Host key"
-msgstr "Ключ хоста"
+msgstr "호스트 키"
 
 #: locale/tmp-html/tabby-ssh/src/components/hostKeyPromptModal.component.html:3
 msgid "Host key verification"
-msgstr "Проверка ключа хоста"
+msgstr "호스트 키 확인"
 
 #: locale/tmp-html/tabby-settings/src/components/hotkeySettingsTab.component.html:2
 #: tabby-settings/src/settings.ts:15
 msgid "Hotkeys"
-msgstr "Горячие клавиши"
+msgstr "단축키"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:24
 msgid "HTTP proxy"
-msgstr "HTTP-прокси"
+msgstr "HTTP 프록시"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:61
 msgid "HTTP proxy host"
-msgstr "Хост HTTP-прокси"
+msgstr "HTTP 프록시 호스트"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:65
 msgid "HTTP proxy port"
-msgstr "Порт HTTP-прокси"
+msgstr "HTTP 프록시 포트"
 
 #: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:20
 msgid "Icon"
-msgstr "Иконка"
+msgstr "아이콘"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:154
 msgid "id.tab-width.dynamic"
-msgstr "Динамическая"
+msgstr "가변"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:64
 msgid "If disabled, only custom profiles will show up in the profile selector"
-msgstr "Если отключено, при выборе профиля будут отображаться только пользовательские профили"
+msgstr "비활성화 시, 사용자 지정 프로밀만 프로필 선택 란에 표시됩니다"
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:23
 msgid "Immediately echoes your input locally"
-msgstr "Мгновенно локально отображает ваш ввод"
+msgstr "로컬 입력 란에 즉시 출력"
 
 #: tabby-core/src/hotkeys.ts:209
 msgid "Increase horizontal split size"
@@ -905,48 +905,48 @@ msgstr ""
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:18
 msgid "Input is sent as you type"
-msgstr "Введённые данные передаются во время ввода"
+msgstr "입력한 그대로 입력"
 
 #: locale/tmp-html/tabby-terminal/src/components/streamProcessingSettings.component.html:4
 msgid "Input mode"
-msgstr "Режим ввода"
+msgstr "입력 모드"
 
 #: locale/tmp-html/tabby-terminal/src/components/streamProcessingSettings.component.html:15
 msgid "Input newlines"
-msgstr "Переносы строк во вводе"
+msgstr "개행 입력"
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:41
 msgid "Installed"
-msgstr "Установлено"
+msgstr "설치됨"
 
 #: tabby-electron/src/services/updater.service.ts:136
 msgid "Installing the update will close all tabs and restart Tabby."
-msgstr "Установка обновления приведет к закрытию всех вкладок и перезапуску Tabby."
+msgstr "업데이트 설치 시 모든 탭이 닫히고 Tabby 가 재시작됩니다."
 
 #: tabby-terminal/src/hotkeys.ts:58
 msgid "Intelligent Ctrl-C (copy/abort)"
-msgstr "Умный Ctrl-C (копировать/отменить)"
+msgstr "지능적인 Ctrl-C (복사/중단)"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:94
 msgid "Interactive"
-msgstr "Интерактивная"
+msgstr "상호작용"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:117
 msgid "Invalid syntax"
-msgstr "Неверный синтаксис"
+msgstr "올바르지 않은 구문입니다."
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:16
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:43
 msgid "Jump host"
-msgstr "Промежуточный хост"
+msgstr "점프 호스트"
 
 #: tabby-terminal/src/hotkeys.ts:30
 msgid "Jump to next word"
-msgstr "Перейти к следующему слову"
+msgstr "다음 단어로 이동"
 
 #: tabby-terminal/src/hotkeys.ts:26
 msgid "Jump to previous word"
-msgstr "Перейти к предыдущему слову"
+msgstr "이전 단어로 이동"
 
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:130
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:195
@@ -955,151 +955,151 @@ msgstr "Перейти к предыдущему слову"
 #: tabby-terminal/src/components/loginScriptsSettings.component.ts:33
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:49
 msgid "Keep"
-msgstr "Оставить"
+msgstr "유지"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:154
 msgid "Keep Alive Interval (Milliseconds)"
-msgstr "Интервал проверки соединения (мс)"
+msgstr "유지 주기 (밀리초)"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:103
 msgid "Keep docked terminal always on top"
-msgstr "Отображать закреплённый терминал всегда поверх всех окон"
+msgstr "도킹된 터미널을 항상 위로 유지"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:86
 msgid "Key"
-msgstr "Ключ"
+msgstr "키"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:186
 msgid "Key exchange"
-msgstr "Обмен ключами"
+msgstr "키 교환"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:23
 msgid "Keyboard"
-msgstr "Клавиатура"
+msgstr "키보드"
 
 #: locale/tmp-html/tabby-ssh/src/components/keyboardInteractiveAuthPanel.component.html:2
 msgid "Keyboard-interactive auth"
-msgstr "Интерактивная аутентификация"
+msgstr "키보드 상호작용 인증"
 
 #: tabby-local/src/components/terminalTab.component.ts:117
 msgid "Kill"
-msgstr "Завершить принудительно"
+msgstr "종료"
 
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:10
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:50
 msgid "Language"
-msgstr "Язык"
+msgstr "언어"
 
 #: locale/tmp-html/tabby-ssh/src/components/hostKeyPromptModal.component.html:11
 msgid "Last known host key fingerprint"
-msgstr "Последний известный отпечаток ключа хоста"
+msgstr "최근 알려진 호스트 키 지문"
 
 #: tabby-ssh/src/tabContextMenu.ts:32
 msgid "Launch WinSCP"
-msgstr "Запустить WinSCP"
+msgstr "WinSCP 실행"
 
 #: tabby-ssh/src/hotkeys.ts:14
 msgid "Launch WinSCP for current SSH session"
-msgstr "Запустить WinSCP для текущей SSH сессии"
+msgstr "현재 SSH 세션용으로 WinSCP 실행"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshTab.component.html:7
 msgid "Learn how to allow Tabby to detect remote shell's working directory."
-msgstr "Узнайте, как разрешить Tabby определять рабочий каталог удалённой оболочки."
+msgstr "Tabby가 원격 쉘에서 작업 디렉토리 감지를 허용하는 방법 알아보기"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:141
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:76
 #: tabby-core/src/tabContextMenu.ts:81
 msgid "Left"
-msgstr "Слева"
+msgstr "왼쪽"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:27
 msgid "Lets the shell handle Meta key instead of OS"
-msgstr "Позволяет оболочке обрабатывать клавишу Meta вместо ОС"
+msgstr "메타 키 입력을 OS 대신 쉘에서 결정"
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:27
 msgid "Line by line"
-msgstr "Построчно"
+msgstr "라인별"
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:28
 msgid "Line editor, input is sent after you press Enter"
-msgstr "Редактор строк, ввод отправляется после нажатия Enter"
+msgstr "줄 편집기, 입력한 내용을 Enter 키 누른 후 전송"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:70
 msgid "Line padding"
-msgstr "Междустрочный интервал"
+msgstr "줄 간격"
 
 #: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:15
 msgid "Loading"
-msgstr "Загрузка"
+msgstr "불러오는 중"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:38
 msgid "Loading configs..."
-msgstr "Загрузка конфигураций..."
+msgstr "설정을 불러오는 중..."
 
 #: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:49
 #: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:5
 msgid "Local"
-msgstr "Локальное"
+msgstr "로컬"
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:22
 msgid "Local echo"
-msgstr "Локальное эхо"
+msgstr "로컬 echo"
 
 #: tabby-local/src/profiles.ts:11
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:237
 msgid "Local terminal"
-msgstr "Локальный терминал"
+msgstr "로컬 터미널"
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:81
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:216
 #: locale/tmp-html/tabby-telnet/src/components/telnetProfileSettings.component.html:16
 msgid "Login scripts"
-msgstr "Скрипты входа"
+msgstr "로그인 스크립트"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:44
 msgid "Long-click for context menu"
-msgstr "Долгое нажатие для контекстного меню"
+msgstr "길게 클릭하여 메뉴 표시"
 
 #: tabby-core/src/services/profiles.service.ts:154
 msgid "Manage profiles"
-msgstr "Управление профилями"
+msgstr "프로필 관리"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:160
 msgid "Max Keep Alive Count"
-msgstr "Максимальное количество проверок соединения"
+msgstr "최대 유지 횟수"
 
 #: tabby-core/src/hotkeys.ts:165
 msgid "Maximize the active pane"
-msgstr "Развернуть активную панель"
+msgstr "활성 항목 최대화"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:43
 msgid "Modified on {date}"
-msgstr "Изменено {date}"
+msgstr "{date} 에 수정"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:40
 msgid "Mouse"
-msgstr "Мышь"
+msgstr "마우스"
 
 #: tabby-core/src/hotkeys.ts:45
 msgid "Move tab to the left"
-msgstr "Переместить вкладку влево"
+msgstr "탭을 왼쪽으로 이동"
 
 #: tabby-core/src/hotkeys.ts:49
 msgid "Move tab to the right"
-msgstr "Переместить вкладку вправо"
+msgstr "탭을 오른쪽으로 이동"
 
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:206
 msgid "Move to \"Ungrouped\""
-msgstr "Переместить в «Без группы»"
+msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:12
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:14
 msgid "Name"
-msgstr "Имя"
+msgstr ""
 
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:60
 msgid "Name for the new config"
-msgstr "Имя для новой конфигурации"
+msgstr "새 설정 이름"
 
 #: locale/tmp-html/tabby-ssh/src/components/sftpCreateDirectoryModal.component.html:3
 msgid "Name for the new directory"
@@ -1107,186 +1107,186 @@ msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:52
 msgid "Native"
-msgstr "Системная"
+msgstr "네이티브"
 
 #: tabby-local/src/tabContextMenu.ts:103
 msgid "New admin tab"
-msgstr "Новый как администратор"
+msgstr ""
 
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:58
 msgid "New config on {platform}"
-msgstr "Новая конфигурация на {platform}"
+msgstr ""
 
 #: locale/tmp-html/tabby-terminal/src/components/loginScriptsSettings.component.html:15
 msgid "New item"
-msgstr "Новый элемент"
+msgstr ""
 
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:176
 #: tabby-settings/src/components/vaultSettingsTab.component.ts:118
 msgid "New name"
-msgstr "Новое имя"
+msgstr "새 이름"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:22
 msgid "New profile"
-msgstr "Новый профиль"
+msgstr "새 프로필"
 
 #: tabby-local/src/tabContextMenu.ts:30
 msgid "New profile name"
-msgstr "Новое имя профиля"
+msgstr "새 프로필 이름"
 
 #: tabby-local/src/hotkeys.ts:10
 msgid "New tab"
-msgstr "Новая вкладка"
+msgstr "새 탭"
 
 #: tabby-core/src/hotkeys.ts:228
 msgid "New tab: {profile}"
-msgstr "Новая вкладка: {profile}"
+msgstr "새 탭: {profile}"
 
 #: tabby-local/src/buttonProvider.ts:20
 #: tabby-local/src/tabContextMenu.ts:77
 msgid "New terminal"
-msgstr "Новый терминал"
+msgstr "새 터미널"
 
 #: tabby-electron/src/hotkeys.ts:10
 msgid "New window"
-msgstr "Новое окно"
+msgstr "새 창"
 
 #: tabby-local/src/tabContextMenu.ts:87
 msgid "New with profile"
-msgstr "Новый с профилем"
+msgstr ""
 
 #: tabby-core/src/hotkeys.ts:37
 msgid "Next tab"
-msgstr "Следующая вкладка"
+msgstr "다음 탭"
 
 #: tabby-core/src/utils.ts:60
 msgid "No color"
-msgstr "Без цвета"
+msgstr "색 없음"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:77
 msgid "No modifier"
-msgstr "Без модификатора"
+msgstr ""
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:41
 msgid "None"
-msgstr "Нет"
+msgstr ""
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:17
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:39
 msgid "Normal"
-msgstr "Нормальный"
+msgstr ""
 
 #: tabby-terminal/src/components/searchPanel.component.ts:47
 #: tabby-terminal/src/components/searchPanel.component.ts:57
 msgid "Not found"
-msgstr "Не найдено"
+msgstr ""
 
 #: tabby-core/src/tabContextMenu.ts:200
 msgid "Notify on activity"
-msgstr "Уведомить об активности"
+msgstr ""
 
 #: tabby-core/src/tabContextMenu.ts:178
 msgid "Notify when done"
-msgstr "Уведомить о завершении"
+msgstr ""
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:17
 msgid "Number of lines kept in the buffer"
-msgstr "Количество строк, сохраняемых в буфере"
+msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:70
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:122
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:48
 msgid "Off"
-msgstr "Выкл."
+msgstr "끄기"
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:79
 msgid "Official"
-msgstr "Официальный"
+msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:26
 msgid "On GitHub Discussions"
-msgstr "На GitHub Discussions"
+msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:41
 msgid "Opacity"
-msgstr "Прозрачность"
+msgstr "불투명도"
 
 #: tabby-linkifier/src/decorator.ts:46
 msgid "Open"
-msgstr "Открыть"
+msgstr "열기"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:82
 msgid "Open DevTools"
-msgstr "Открыть DevTools"
+msgstr "DevTools 열기"
 
 #: tabby-settings/src/hotkeys.ts:11
 msgid "Open Settings"
-msgstr "Открыть настройки"
+msgstr "설정 열기"
 
 #: tabby-settings/src/hotkeys.ts:25
 msgid "Open settings tab: {tab}"
-msgstr "Открыть вкладку настроек: {tab}"
+msgstr ""
 
 #: tabby-ssh/src/tabContextMenu.ts:25
 msgid "Open SFTP panel"
-msgstr "Открыть панель SFTP"
+msgstr "SFTP 패널 열기"
 
 #: locale/tmp-html/tabby-terminal/src/components/loginScriptsSettings.component.html:9
 msgid "Optional"
-msgstr "Опциональный"
+msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:11
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:33
 msgid "Options"
-msgstr "Параметры"
+msgstr ""
 
 #: tabby-core/src/utils.ts:63
 msgid "Orange"
-msgstr "Оранжевый"
+msgstr ""
 
 #: tabby-local/src/shells/macDefault.ts:25
 msgid "OS default"
-msgstr "По умолчанию для ОС"
+msgstr ""
 
 #: tabby-local/src/shells/winDefault.ts:43
 msgid "OS default ({name})"
-msgstr "По умолчанию для ОС ({name})"
+msgstr ""
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:45
 msgid "Output is shown as a hexdump"
-msgstr "Вывод показан в шестнадцатеричном виде"
+msgstr ""
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:40
 msgid "Output is shown as it is received"
-msgstr "Вывод показан в изначальном виде"
+msgstr ""
 
 #: locale/tmp-html/tabby-terminal/src/components/streamProcessingSettings.component.html:23
 msgid "Output mode"
-msgstr "Режим вывода"
+msgstr ""
 
 #: locale/tmp-html/tabby-terminal/src/components/streamProcessingSettings.component.html:34
 msgid "Output newlines"
-msgstr "Переносы строк в выводе"
+msgstr ""
 
 #: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:42
 msgid "Override X11 display"
-msgstr "Переопределить дисплей X11"
+msgstr "X11 디스플레이 오버라이드"
 
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:98
 msgid "Overwrite local and sync"
-msgstr "Перезаписать локальную конфигурацию и синхронизировать"
+msgstr ""
 
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:78
 msgid "Overwrite remote and sync"
-msgstr "Перезаписать удаленную конфигурацию и синхронизировать"
+msgstr ""
 
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:76
 msgid "Overwrite the config on the remote side and start syncing?"
-msgstr "Перезаписать удаленную конфигурацию и начать синхронизацию?"
+msgstr ""
 
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:96
 msgid "Overwrite the local config and start syncing?"
-msgstr "Перезаписать локальную конфигурацию и начать синхронизацию?"
+msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:182
 msgid "Pane resize step"
@@ -1298,583 +1298,583 @@ msgstr ""
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:38
 msgid "Parity"
-msgstr "Контроль чётности"
+msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:67
 msgid "Partial config sync is not possible when the config is encrypted via Vault."
-msgstr "Частичная синхронизация конфигурации невозможна, если конфигурация зашифрована с помощью хранилища."
+msgstr ""
 
 #: tabby-settings/src/components/vaultSettingsTab.component.ts:87
 msgid "Passphrase for a private key with hash {hash}..."
-msgstr "Парольная фраза для приватного ключа с хэшем {hash}..."
+msgstr ""
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:100
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:82
 msgid "Password"
-msgstr "Пароль"
+msgstr "비밀번호"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:54
 #: tabby-terminal/src/api/baseTerminalTab.component.ts:452
 #: tabby-terminal/src/tabContextMenu.ts:34
 msgid "Paste"
-msgstr "Вставить"
+msgstr "붙여넣기"
 
 #: tabby-terminal/src/hotkeys.ts:14
 msgid "Paste from clipboard"
-msgstr "Вставить из буфера обмена"
+msgstr "클립보드에서 붙여넣기"
 
 #: tabby-terminal/src/api/baseTerminalTab.component.ts:459
 msgid "Paste multiple lines?"
-msgstr "Вставить несколько строк?"
+msgstr ""
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:60
 msgid "Paste on middle-click"
-msgstr "Вставить средней кнопкой мыши"
+msgstr ""
 
 #: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:43
 msgid "Path or address of the local X11 socket"
-msgstr "Путь или адрес локального сокета X11"
+msgstr "로컬 X11 소켓의 경로 혹은 주소"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalToolbar.component.html:4
 msgid "Pin"
-msgstr "Закрепить"
+msgstr ""
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:3
 msgid "Plugins"
-msgstr "Плагины"
+msgstr "플러그인"
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:4
 msgid "Plugins folder"
-msgstr "Папка с плагинами"
+msgstr "플러그인 폴더"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:38
 #: locale/tmp-html/tabby-telnet/src/components/telnetProfileSettings.component.html:10
 msgid "Port"
-msgstr "Порт"
+msgstr "포트"
 
 #: tabby-serial/src/components/serialTab.component.ts:77
 msgid "Port opened"
-msgstr "Порт открыт"
+msgstr ""
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:119
 #: locale/tmp-html/tabby-ssh/src/components/sshTab.component.html:12
 msgid "Ports"
-msgstr "Порты"
+msgstr ""
 
 #: tabby-serial/src/components/serialTab.component.ts:92
 #: tabby-ssh/src/components/sshTab.component.ts:177
 #: tabby-telnet/src/components/telnetTab.component.ts:58
 msgid "Press any key to reconnect"
-msgstr "Нажмите любую клавишу для переподключения"
+msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/hotkeyInputModal.component.html:3
 msgid "Press the key now"
-msgstr "Нажмите клавишу"
+msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:14
 msgid "Prevents accidental closing"
-msgstr "Предотвращает случайное закрытие"
+msgstr ""
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:102
 msgid "Prevents accidental execution of pasted commands"
-msgstr "Предотвращает случайное выполнение вставленных команд"
+msgstr ""
 
 #: tabby-core/src/hotkeys.ts:41
 msgid "Previous tab"
-msgstr "Предыдущая вкладка"
+msgstr ""
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:108
 msgid "Private keys"
-msgstr "Приватные ключи"
+msgstr "비밀 키"
 
 #: tabby-core/src/tabContextMenu.ts:186
 msgid "Process completed"
-msgstr "Процесс завершён"
+msgstr ""
 
 #: tabby-core/src/tabContextMenu.ts:142
 msgid "Profile name"
-msgstr "Название профиля"
+msgstr "프로필 이름"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:2
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:4
 #: tabby-local/src/services/dockMenu.service.ts:40
 msgid "Profiles"
-msgstr "Профили"
+msgstr "프로필"
 
 #: tabby-core/src/buttonProvider.ts:40
 #: tabby-settings/src/settings.ts:58
 msgid "Profiles & connections"
-msgstr "Профили и соединения"
+msgstr "프로필 및 연결"
 
 #: locale/tmp-html/tabby-local/src/components/commandLineEditor.component.html:13
 msgid "Program"
-msgstr "Программа"
+msgstr "프로그램"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:30
 msgid "Proxy command"
-msgstr "Прокси-команда"
+msgstr ""
 
 #: tabby-core/src/utils.ts:64
 msgid "Purple"
-msgstr "Фиолетовый"
+msgstr "보라"
 
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:37
 msgid "Puts all of Tabby's configuration into the vault"
-msgstr "Помещает всю конфигурацию Tabby в зашифрованное хранилище"
+msgstr ""
 
 #: tabby-core/src/index.ts:213
 #: tabby-core/src/services/profiles.service.ts:169
 msgid "Quick connect"
-msgstr "Быстрое подключение"
+msgstr "빠른 연결"
 
 #: tabby-core/src/services/config.service.ts:370
 #: tabby-core/src/services/config.service.ts:384
 msgid "Quit"
-msgstr "Выйти"
+msgstr "끝내기"
 
 #: tabby-telnet/src/profiles.ts:48
 msgid "Raw socket connection"
-msgstr "Подключение через сокет"
+msgstr ""
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:166
 msgid "Ready Timeout (Milliseconds)"
-msgstr "Таймаут подключения (мс)"
+msgstr ""
 
 #: tabby-core/src/services/profiles.service.ts:112
 #: tabby-core/src/services/profiles.service.ts:126
 #: tabby-local/src/services/dockMenu.service.ts:28
 msgid "Recent"
-msgstr "Недавние"
+msgstr ""
 
 #: locale/tmp-html/tabby-serial/src/components/serialTab.component.html:5
 #: locale/tmp-html/tabby-ssh/src/components/sshTab.component.html:10
 #: locale/tmp-html/tabby-telnet/src/components/telnetTab.component.html:3
 msgid "Reconnect"
-msgstr "Переподключение"
+msgstr "재접속"
 
 #: tabby-core/src/utils.ts:65
 msgid "Red"
-msgstr "Красный"
+msgstr "빨강"
 
 #: locale/tmp-html/tabby-terminal/src/components/loginScriptsSettings.component.html:9
 msgid "Regex"
-msgstr "Regex"
+msgstr "정규식"
 
 #: tabby-settings/src/components/releaseNotesTab.component.ts:27
 msgid "Release notes"
-msgstr "Список изменений"
+msgstr "릴리스 노트"
 
 #: locale/tmp-html/tabby-core/src/components/unlockVaultModal.component.html:6
 msgid "Remember for {time}"
-msgstr "Запомнить на {time}"
+msgstr ""
 
 #: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:5
 #: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:52
 msgid "Remote"
-msgstr "Удаленное"
+msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:25
 #: tabby-core/src/tabContextMenu.ts:116
 msgid "Rename"
-msgstr "Переименовать"
+msgstr "이름 바꾸기"
 
 #: tabby-core/src/hotkeys.ts:21
 msgid "Rename Tab"
-msgstr "Переименовать вкладку"
+msgstr "탭 이름 바꾸기"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:3
 msgid "Rendering"
-msgstr "Отображение"
+msgstr "렌더링"
 
 #: tabby-core/src/hotkeys.ts:29
 msgid "Reopen last tab"
-msgstr "Восстановить последнюю вкладку"
+msgstr "마지막 탭 다시 열기"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:46
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:26
 msgid "Replace"
-msgstr "Заменить"
+msgstr ""
 
 #: locale/tmp-html/tabby-core/src/components/startPage.component.html:11
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:21
 msgid "Report a problem"
-msgstr "Сообщить о проблеме"
+msgstr "문제 신고하기"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:73
 msgid "Require a key to click links"
-msgstr "Требовать зажатие клавишы для перехода по ссылкам"
+msgstr ""
 
 #: tabby-terminal/src/hotkeys.ts:54
 msgid "Reset zoom"
-msgstr "Сбросить масштабирование"
+msgstr ""
 
 #: tabby-serial/src/hotkeys.ts:14
 msgid "Restart current serial session"
-msgstr "Перезапустить текущую последовательную сессию"
+msgstr ""
 
 #: tabby-ssh/src/hotkeys.ts:10
 msgid "Restart current SSH session"
-msgstr "Перезапустить текущую SSH сессию"
+msgstr "현재 SSH 세션 재시작"
 
 #: tabby-telnet/src/hotkeys.ts:10
 msgid "Restart current Telnet session"
-msgstr "Перезапустить текущую сессию Telnet"
+msgstr "현재 텔넷 세션 재시작"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:127
 msgid "Restart the app to apply changes"
-msgstr "Перезапустите приложение, чтобы применить изменения"
+msgstr ""
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:147
 msgid "Restore terminal tabs on app start"
-msgstr "Восстанавливать вкладки терминала при запуске приложения"
+msgstr "앱 시작 시 터미널 탭 복원"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:147
 msgid "Reuse session for multiple tabs"
-msgstr "Повторное использование сессии для нескольких вкладок"
+msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:144
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:79
 #: tabby-core/src/tabContextMenu.ts:79
 msgid "Right"
-msgstr "Справа"
+msgstr "오른쪽"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:43
 msgid "Right click"
-msgstr "Правый клик"
+msgstr "오른쪽 클릭"
 
 #: locale/tmp-html/tabby-local/src/components/localProfileSettings.component.html:5
 msgid "Run as administrator"
-msgstr "Запустить от имени администратора"
+msgstr "관리자 권한으로 실행"
 
 #: locale/tmp-html/tabby-core/src/components/renameTabModal.component.html:6
 #: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:54
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:28
 msgid "Save"
-msgstr "Сохранить"
+msgstr "저장하기"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:101
 msgid "Save a password in the keychain"
-msgstr "Сохранение пароля в связке ключей"
+msgstr "비밀번호를 키체인에 저장"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:116
 msgid "Save and apply"
-msgstr "Сохранить и применить"
+msgstr "저장 및 적용"
 
 #: tabby-local/src/tabContextMenu.ts:27
 msgid "Save as profile"
-msgstr "Сохранить как профиль"
+msgstr ""
 
 #: tabby-core/src/tabContextMenu.ts:139
 msgid "Save layout as profile"
-msgstr "Сохранить как профиль"
+msgstr ""
 
 #: tabby-local/src/tabContextMenu.ts:48
 msgid "Saved"
-msgstr "Сохранено"
+msgstr "저장됨"
 
 #: tabby-core/src/profiles.ts:19
 msgid "Saved layout"
-msgstr "Сохранённое расположение"
+msgstr "저장된 레이아웃"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:33
 msgid "Scroll on input"
-msgstr "Прокручивать при вводе"
+msgstr ""
 
 #: tabby-terminal/src/hotkeys.ts:74
 msgid "Scroll terminal to bottom"
-msgstr "Прокрутить терминал вниз"
+msgstr ""
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:16
 msgid "Scrollback"
-msgstr "Буфер обратной прокрутки"
+msgstr ""
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:34
 msgid "Scrolls the terminal to the bottom on user input"
-msgstr "Прокручивает терминал вниз при вводе"
+msgstr ""
 
 #: tabby-terminal/src/hotkeys.ts:66
 msgid "Search"
-msgstr "Поиск"
+msgstr "검색"
 
 #: tabby-terminal/src/components/colorSchemeSettingsTab.component.ts:10
 msgid "Search color schemes"
-msgstr "Искать цветовые схемы"
+msgstr ""
 
 #: tabby-settings/src/components/hotkeySettingsTab.component.ts:11
 msgid "Search hotkeys"
-msgstr "Поиск горячих клавиш"
+msgstr ""
 
 #: tabby-plugin-manager/src/components/pluginsSettingsTab.component.ts:14
 msgid "Search plugins"
-msgstr "Поиск плагинов"
+msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:19
 msgid "Secret sync token"
-msgstr "Секретный токен синхронизации"
+msgstr "비밀 동기화 토큰"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:45
 #: tabby-electron/src/services/platform.service.ts:209
 msgid "Select"
-msgstr "Выбрать"
+msgstr "선택"
 
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:63
 msgid "Select a base profile to use as a template"
-msgstr "Выберите базовый профиль для использования в качестве шаблона"
+msgstr ""
 
 #: tabby-core/src/services/fileProviders.service.ts:46
 msgid "Select file storage"
-msgstr "Выберите хранилище файлов"
+msgstr ""
 
 #: tabby-core/src/index.ts:225
 msgid "Select profile"
-msgstr "Выбрать профиль"
+msgstr ""
 
 #: tabby-core/src/services/profiles.service.ts:178
 msgid "Select profile or enter an address"
-msgstr "Выберите профиль или введите адрес"
+msgstr ""
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:33
 msgid "Send bytes by typing in hex values"
-msgstr "Отправлять байты, вводя шестнадцатеричные значения"
+msgstr ""
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:75
 msgid "Sends data one byte at a time"
-msgstr "Отправляет данные по одному байту за раз"
+msgstr ""
 
 #: tabby-serial/src/profiles.ts:13
 #: tabby-serial/src/profiles.ts:71
 msgid "Serial"
-msgstr "Последовательный порт"
+msgstr ""
 
 #: tabby-serial/src/profiles.ts:50
 #: tabby-serial/src/profiles.ts:61
 msgid "Serial connection"
-msgstr "Соединение по последовательному порту"
+msgstr ""
 
 #: tabby-serial/src/profiles.ts:70
 msgid "Serial: {description}"
-msgstr "Последовательный порт: {description}"
+msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/setVaultPassphraseModal.component.html:2
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:5
 msgid "Set master passphrase"
-msgstr "Установить мастер-пароль"
+msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/setVaultPassphraseModal.component.html:13
 msgid "Set passphrase"
-msgstr "Установить мастер-пароль"
+msgstr ""
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:104
 msgid "Set password"
-msgstr "Установить пароль"
+msgstr "비밀번호 설정"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:156
 msgid "Set Tabby as %COMSPEC%"
-msgstr "Установить Tabby как %COMSPEC%"
+msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:57
 msgid "Set to 0 to disable recent profiles"
-msgstr "0 отключает последние профили"
+msgstr ""
 
 #: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:36
 msgid "Sets the SSH agent's named pipe path."
-msgstr "Установка пути для named pipe SSH-агента."
+msgstr ""
 
 #: tabby-settings/src/buttonProvider.ts:28
 #: tabby-settings/src/components/settingsTab.component.ts:57
 msgid "Settings"
-msgstr "Настройки"
+msgstr "설정"
 
 #: locale/tmp-html/tabby-local/src/components/shellSettingsTab.component.html:2
 msgid "Shell"
-msgstr "Shell"
+msgstr "셸"
 
 #: tabby-terminal/src/api/baseTerminalTab.component.ts:546
 msgid "Shell does not support current path detection"
-msgstr "Shell не поддерживает обнаружение текущего пути"
+msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:59
 msgid "Shell integration"
-msgstr "Интеграция в систему"
+msgstr "셸 통합"
 
 #: tabby-core/src/hotkeys.ts:232
 msgid "Show {type} profile selector"
-msgstr "Показать селектор профиля {type}"
+msgstr ""
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:109
 msgid "Show a confirmation box when pasting multiple lines"
-msgstr "Показывать окно подтверждения при вставке нескольких строк"
+msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:63
 msgid "Show built-in profiles in selector"
-msgstr "Показывать встроенные профили при выборе"
+msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:119
 msgid "Show config file"
-msgstr "Показать файл настроек"
+msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:118
 msgid "Show defaults"
-msgstr "Показать значения по умолчанию"
+msgstr ""
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:134
 msgid "Show Mixer"
-msgstr "Показать микшер"
+msgstr ""
 
 #: tabby-core/src/hotkeys.ts:53
 msgid "Show pane labels (for rearranging)"
-msgstr "Показать названия панелей (для перестановки)"
+msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:169
 msgid "Show profile icon on tab"
-msgstr "Показывать иконку профиля во вкладке"
+msgstr ""
 
 #: tabby-core/src/hotkeys.ts:13
 msgid "Show profile selector"
-msgstr "Показать выбор профиля"
+msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:56
 msgid "Show recent profiles in selector"
-msgstr "Показать последние профили при выборе"
+msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:36
 msgid "Show release notes"
-msgstr "Посмотреть изменения в релизе"
+msgstr ""
 
 #: tabby-serial/src/hotkeys.ts:10
 msgid "Show Serial connections"
-msgstr "Показать соединения по последовательному порту"
+msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:44
 msgid "Show vault contents"
-msgstr "Показать содержимое хранилища"
+msgstr ""
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:140
 msgid "Skip MoTD/banner"
-msgstr "Пропустить MoTD/баннер"
+msgstr ""
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:74
 msgid "Slow feed"
-msgstr "Медленная отсылка"
+msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:66
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:89
 msgid "Snaps the window to a side of the screen"
-msgstr "Закрепляет окно к выбранному краю экрана"
+msgstr ""
 
 #: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:26
 #: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:9
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:20
 msgid "SOCKS proxy"
-msgstr "SOCKS прокси"
+msgstr "SOCKS 프록시"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:51
 msgid "SOCKS proxy host"
-msgstr "Хост SOCKS прокси"
+msgstr "SOCKS 프록시 호스트"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:55
 msgid "SOCKS proxy port"
-msgstr "Порт SOCKS прокси"
+msgstr "SOCKS 프록시 포트"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:115
 msgid "Sound"
-msgstr "Звук"
+msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:31
 msgid "Source code"
-msgstr "Исходный код"
+msgstr "소스 코드"
 
 #: tabby-core/src/tabContextMenu.ts:76
 msgid "Split"
-msgstr "Разделить"
+msgstr "분할"
 
 #: tabby-core/src/hotkeys.ts:153
 msgid "Split to the bottom"
-msgstr "Разделить снизу"
+msgstr "아래쪽으로 분할"
 
 #: tabby-core/src/hotkeys.ts:157
 msgid "Split to the left"
-msgstr "Разделить слева"
+msgstr "왼쪽으로 분할"
 
 #: tabby-core/src/hotkeys.ts:149
 msgid "Split to the right"
-msgstr "Разделить справа"
+msgstr "오른쪽으로 분할"
 
 #: tabby-core/src/hotkeys.ts:161
 msgid "Split to the top"
-msgstr "Разделить сверху"
+msgstr "위쪽으로 분할"
 
 #: tabby-ssh/src/profiles.ts:80
 msgid "SSH connection"
-msgstr "SSH-соединение"
+msgstr "SSH 연결"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:47
 msgid "SSH connection management is now done through the \"Profiles & connections\" tab"
-msgstr "Управление SSH-подключениями теперь производится во вкладке «Профили и подключения»"
+msgstr ""
 
 #: tabby-settings/src/components/vaultSettingsTab.component.ts:84
 msgid "SSH password for {user}@{host}:{port}"
-msgstr "Пароль SSH для {user}@{host}:{port}"
+msgstr "{user}@{host}:{port} 의 SSH 비밀번호"
 
 #: tabby-core/src/theme.ts:8
 msgid "Standard"
-msgstr "Стандартная"
+msgstr "표준"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:138
 msgid "Startup"
-msgstr "При запуске"
+msgstr ""
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:32
 msgid "Stop bits"
-msgstr "Стоп-биты"
+msgstr ""
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:50
 msgid "Strip"
-msgstr "Удалить"
+msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:41
 msgid "Subscribe to updates"
-msgstr "Подпишитесь на обновления"
+msgstr ""
 
 #: locale/tmp-html/tabby-local/src/components/environmentEditor.component.html:17
 msgid "Substitutions allowed."
-msgstr "Допускаются подстановки."
+msgstr ""
 
 #: tabby-core/src/tabContextMenu.ts:279
 msgid "Switch profile"
-msgstr "Сменить профиль"
+msgstr ""
 
 #: tabby-core/src/hotkeys.ts:193
 msgid "Switch profile in the active pane"
-msgstr "Сменить профиль в активной панели"
+msgstr ""
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:7
 msgid "Switches terminal frontend implementation (experimental)"
-msgstr "Переключение реализации frontend для терминала (экспериментально)"
+msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:4
 msgid "Sync"
-msgstr "Синхронизация"
+msgstr "동기화"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:56
 msgid "Sync automatically"
-msgstr "Автоматическая синхронизация"
+msgstr "자동으로 동기화"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:8
 msgid "Sync host"
-msgstr "Хост синхронизации"
+msgstr "호스트 동기화"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:71
 msgid "Sync hotkeys"
-msgstr "Синхронизация горячих клавиш"
+msgstr "단축키 동기화"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:83
 msgid "Sync Vault"
-msgstr "Синхронизация хранилища"
+msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:77
 msgid "Sync window settings"
-msgstr "Синхронизация настроек окна"
+msgstr ""
 
 #: tabby-core/src/hotkeys.ts:101
 #: tabby-core/src/hotkeys.ts:105
@@ -1897,334 +1897,334 @@ msgstr "Синхронизация настроек окна"
 #: tabby-core/src/hotkeys.ts:93
 #: tabby-core/src/hotkeys.ts:97
 msgid "Tab {number}"
-msgstr "Вкладка {number}"
+msgstr "탭 {number}"
 
 #: tabby-core/src/tabContextMenu.ts:212
 msgid "Tab activity"
-msgstr "Активность во вкладке"
+msgstr ""
 
 #: locale/tmp-html/tabby-core/src/components/safeModeModal.component.html:3
 msgid "Tabby could not start with your plugins, so all third party plugins have been disabled in this session. The error was:"
-msgstr "Tabby не смог запуститься с вашими плагинами, поэтому все сторонние плагины были отключены в этой сессии. Ошибка в следующем:"
+msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:41
 msgid "Tabby news and updates on Twitter"
-msgstr "Новости и обновления Tabby в Twitter"
+msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:128
 msgid "Tabs"
-msgstr "Вкладки"
+msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:131
 msgid "Tabs location"
-msgstr "Расположение вкладок"
+msgstr "탭 위치"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:150
 msgid "Tabs width"
-msgstr "Ширина вкладки"
+msgstr "탭 너비"
 
 #: tabby-telnet/src/profiles.ts:32
 msgid "Telnet session"
-msgstr "Telnet сессия"
+msgstr "텔넷 세션"
 
 #: tabby-terminal/src/api/baseTerminalTab.component.ts:190
 #: tabby-terminal/src/settings.ts:43
 msgid "Terminal"
-msgstr "Терминал"
+msgstr "터미널"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:28
 msgid "Terminal background"
-msgstr "Фон терминала"
+msgstr ""
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:118
 msgid "Terminal bell"
-msgstr "Звуковой сигнал терминала"
+msgstr ""
 
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:7
 msgid "Thank you for downloading Tabby!"
-msgstr "Благодарим за загрузку Tabby!"
+msgstr "Tabby를 다운로드 해주셔서 감사합니다!"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:5
 msgid "Theme"
-msgstr "Тема"
+msgstr "테마"
 
 #: tabby-core/src/components/transfersMenu.component.ts:47
 msgid "There are active file transfers"
-msgstr "Есть активные передачи файлов"
+msgstr ""
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:102
 msgid "There is a saved password for this connection"
-msgstr "Для этого соединения сохранён пароль"
+msgstr "이 연결에 대해 저장된 비밀번호가 있습니다."
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:71
 msgid "These apply to all profiles of a given type"
-msgstr "Применяются для всех профилей данного типа"
+msgstr "이와 같은 유형의 모든 프로필에 적용됩니다."
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:55
 msgid "Thin"
-msgstr "Тонкая"
+msgstr "얇게"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:191
 msgid "Tick this if you're experiencing aliasing, ghosting or other visual issues"
-msgstr "Включите, если испытываете алиасинг, гостинг или иные проблемы с отображением"
+msgstr "계단 현상이나 고스팅 현상 등, 시각적 문제가 있을 경우 이 옵션을 활성화하세요."
 
 #: tabby-core/src/hotkeys.ts:17
 msgid "Toggle fullscreen mode"
-msgstr "Переход в полноэкранный режим и обратно"
+msgstr ""
 
 #: tabby-core/src/hotkeys.ts:33
 msgid "Toggle last tab"
-msgstr "Переключиться на последнюю вкладку"
+msgstr ""
 
 #: tabby-electron/src/hotkeys.ts:14
 msgid "Toggle terminal window"
-msgstr "Скрыть/показать окно терминала"
+msgstr ""
 
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:27
 msgid "Toggles the Tabby window visibility"
-msgstr "Переключает видимость окна Tabby"
+msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:135
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:73
 msgid "Top"
-msgstr "Сверху"
+msgstr "위"
 
 #: tabby-core/src/services/config.service.ts:368
 msgid "Try again"
-msgstr "Повторить"
+msgstr "다시 시도"
 
 #: tabby-ssh/src/session/ssh.ts:474
 msgid "Trying saved password"
-msgstr "Пробуем сохранённый пароль"
+msgstr ""
 
 #: tabby-core/src/hotkeys.ts:61
 msgid "Turn current tab's panes into separate tabs"
-msgstr "Превратить панели текущей вкладки в отдельные вкладки"
+msgstr ""
 
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:17
 msgid "Ungrouped"
-msgstr "Без группы"
+msgstr ""
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:57
 msgid "Uninstall"
-msgstr "Удалить"
+msgstr "설치 제거"
 
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:240
 msgid "Unknown"
-msgstr "Неизвестно"
+msgstr ""
 
 #: tabby-settings/src/components/vaultSettingsTab.component.ts:93
 msgid "Unknown secret of type {type} for {key}"
-msgstr "Неизвестный тип секретных данных {type} для {key}"
+msgstr ""
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalToolbar.component.html:4
 msgid "Unpin"
-msgstr "Открепить"
+msgstr "고정 해제"
 
 #: tabby-core/src/tabContextMenu.ts:82
 msgid "Up"
-msgstr "Вверх"
+msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:14
 #: tabby-electron/src/services/updater.service.ts:138
 msgid "Update"
-msgstr "Обновить"
+msgstr "업데이트"
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:50
 msgid "Upgrade to {version}"
-msgstr "Обновить до {version}"
+msgstr "{version} 로 업그레이드"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:46
 #: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:8
 msgid "Upload"
-msgstr "Загрузить"
+msgstr "업로드"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:49
 msgid "Upload as a new config"
-msgstr "Загрузить как новую конфигурацию"
+msgstr ""
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:26
 msgid "Use {altKeyName} as the Meta key"
-msgstr "Использовать {altKeyName} в качестве клавиши Meta"
+msgstr ""
 
 #: locale/tmp-html/tabby-local/src/components/shellSettingsTab.component.html:5
 msgid "Use ConPTY"
-msgstr "Использовать ConPTY"
+msgstr "ConPTY 사용"
 
 #: tabby-local/src/shells/linuxDefault.ts:31
 #: tabby-local/src/shells/linuxDefault.ts:38
 msgid "User default"
-msgstr "По умолчанию для пользователя"
+msgstr "사용자 기본값"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:70
 msgid "Username"
-msgstr "Имя пользователя"
+msgstr "사용자 이름"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:25
 msgid "Using CONNECT method"
-msgstr "Использовать метод CONNECT"
+msgstr ""
 
 #: tabby-ssh/src/session/ssh.ts:463
 msgid "Using preset password"
-msgstr "Используем предустановленный пароль"
+msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:9
 msgid "Vault"
-msgstr "Хранилище"
+msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:4
 msgid "Vault is an always-encrypted container for secrets such as SSH passwords and private key passphrases."
-msgstr "Хранилище представляет собой постоянно зашифрованный контейнер, содержащий такие секретные данные, как SSH-пароли и парольные фразы приватных ключей."
+msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:17
 msgid "Vault is empty"
-msgstr "Хранилище пусто"
+msgstr ""
 
 #: locale/tmp-html/tabby-core/src/components/unlockVaultModal.component.html:4
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:43
 msgid "Vault is locked"
-msgstr "Хранилище закрыто"
+msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:3
 msgid "Vault is not configured"
-msgstr "Хранилище не настроено"
+msgstr ""
 
 #: tabby-core/src/services/fileProviders.service.ts:39
 msgid "Vault master passphrase needs to be set to allow storing secrets"
-msgstr "Для сохранения секретных данных должен быть задан мастер-пароль хранилища"
+msgstr ""
 
 #: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:11
 msgid "Verify host keys when connecting"
-msgstr "Проверять ключ хоста при подключении"
+msgstr "연결 시 호스트 키 확인"
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:73
 msgid "Version"
-msgstr "Версия"
+msgstr "버전"
 
 #: locale/tmp-html/tabby-core/src/components/startPage.component.html:13
 msgid "Version: {version}"
-msgstr "Версия: {version}"
+msgstr "버전: {version}"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:21
 msgid "Vibrancy"
-msgstr "Размытый фон"
+msgstr ""
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:125
 msgid "Visual"
-msgstr "Визуально"
+msgstr "시각 효과"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:108
 msgid "Warn on multi-line paste"
-msgstr "Предупреждать при многострочной вставке"
+msgstr "여러 줄을 붙여넣을 때 경고"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:5
 msgid "Warn when closing active connections"
-msgstr "Предупреждать при закрытии активных соединений"
+msgstr ""
 
 #: locale/tmp-html/tabby-ssh/src/components/hostKeyPromptModal.component.html:6
 msgid "Warning: remote host's key has suddenly changed!"
-msgstr "Предупреждение: ключ удалённого хоста неожиданно изменился!"
+msgstr "경고: 원격 호스트의 키가 갑자기 변경되었습니다!"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:67
 msgid "We're only tracking your Tabby and OS versions."
-msgstr "Отслеживается только версия ОС и приложения."
+msgstr ""
 
 #: tabby-core/src/components/welcomeTab.component.ts:24
 msgid "Welcome"
-msgstr "Добро пожаловать"
+msgstr "환영합니다"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:36
 msgid "What's new"
-msgstr "Что нового"
+msgstr "새로운 기능"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:74
 msgid "When enabled, links are only clickable while holding this key"
-msgstr "Когда включено, ссылки можно нажимать, только удерживая эту клавишу"
+msgstr ""
 
 #: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:18
 msgid "When WinSCP is detected, you can launch an SCP session from the context menu."
-msgstr "Если WinSCP обнаружен, можно запускать SCP-сессии из контекстного меню."
+msgstr "WinSCP가 발견되면 컨텍스트 메뉴에서 SCP 세션을 시작할 수 있습니다."
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:48
 msgid "Whether a custom window or an OS native window should be used"
-msgstr "Должно ли использоваться кастомное оформление окна или системное"
+msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:2
 #: tabby-settings/src/settings.ts:30
 msgid "Window"
-msgstr "Окно"
+msgstr "창"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:117
 msgid "Window dimension along the edge"
-msgstr "Размеры окна вдоль края"
+msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:110
 msgid "Window dimension away from the edge"
-msgstr "Размеры окна от края"
+msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:47
 msgid "Window frame"
-msgstr "Рамка окна"
+msgstr ""
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:153
 msgid "Windows"
-msgstr "Windows"
+msgstr ""
 
 #: locale/tmp-html/tabby-local/src/components/shellSettingsTab.component.html:11
 msgid "Windows 10 build 18309 or above is recommended for ConPTY"
-msgstr "Для ConPTY рекомендуется Windows 10 build 18309 или выше"
+msgstr "ConPTY를 위해서는 Windows 10 빌드 18309 이상이 권장됩니다"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:17
 msgid "WinSCP path"
-msgstr "Путь к WinSCP"
+msgstr "WinSCP 경로"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:66
 msgid "Word separators"
-msgstr "Разделители слов"
+msgstr ""
 
 #: locale/tmp-html/tabby-local/src/components/localProfileSettings.component.html:10
 msgid "Working directory"
-msgstr "Рабочий каталог"
+msgstr "작업 폴더"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshTab.component.html:6
 msgid "Working directory detection"
-msgstr "Определение рабочего каталога"
+msgstr ""
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:133
 msgid "WSL terminal bell can only be muted via Volume Mixer"
-msgstr "Колокольчик терминала WSL может быть заглушён только при помощи микшера громкости"
+msgstr "WSL 터미널의 벨은 오직 볼륨 믹서를 통해서만 음소거할 수 있습니다."
 
 #: locale/tmp-html/tabby-local/src/components/shellSettingsTab.component.html:14
 msgid "WSL terminal only supports TrueColor with ConPTY"
-msgstr "Терминал WSL поддерживает TrueColor только с ConPTY"
+msgstr ""
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:128
 msgid "X11 forwarding"
-msgstr "Перенаправление X11"
+msgstr "X11 포워딩"
 
 #: tabby-core/src/utils.ts:66
 msgid "Yellow"
-msgstr "Жёлтый"
+msgstr "노랑"
 
 #: locale/tmp-html/tabby-settings/src/components/setVaultPassphraseModal.component.html:4
 msgid "You can change it later, but it's unrecoverable if forgotten."
-msgstr "Вы можете изменить его позже, но, если забудете, восстановить будет невозможно."
+msgstr ""
 
 #: locale/tmp-html/tabby-ssh/src/components/hostKeyPromptModal.component.html:7
 msgid "You could be under a man-in-the-middle attack right now, or the host key could have just been changed."
-msgstr "В данный момент вы можете быть подвержены атаке посредника (man-in-the-middle), или же ключ хоста просто был изменён."
+msgstr ""
 
 #: tabby-terminal/src/hotkeys.ts:46
 msgid "Zoom in"
-msgstr "Приблизить"
+msgstr "확대"
 
 #: tabby-terminal/src/hotkeys.ts:50
 msgid "Zoom out"
-msgstr "Отдалить"
+msgstr "축소"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:5
 #: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:55
 msgctxt "[Dynamic] port forwarding"
 msgid "id.port-forwarding.dynamic"
-msgstr "Динамическое"
+msgstr ""
 

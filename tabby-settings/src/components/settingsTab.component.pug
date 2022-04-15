@@ -69,6 +69,8 @@
                     .form-line
                         .header
                             .title(translate) Language
+                            a.description(translate, (click)='homeBase.openTranslations()') Help translate Tabby
+                                i.fas.fa-external-link-square-alt.ml-1
                         select.form-control([(ngModel)]='config.store.language', (ngModelChange)='saveConfiguration(true)')
                             option([ngValue]='null', translate) Automatic
                             option(

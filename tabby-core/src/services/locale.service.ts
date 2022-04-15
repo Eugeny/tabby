@@ -11,6 +11,7 @@ import localeFR from '@angular/common/locales/fr'
 import localeHR from '@angular/common/locales/hr'
 import localeIT from '@angular/common/locales/it'
 import localeJA from '@angular/common/locales/ja'
+import localeKO from '@angular/common/locales/ko'
 import localePL from '@angular/common/locales/pl'
 import localePT from '@angular/common/locales/pt'
 import localeRU from '@angular/common/locales/ru'
@@ -29,6 +30,7 @@ registerLocaleData(localeFR)
 registerLocaleData(localeHR)
 registerLocaleData(localeIT)
 registerLocaleData(localeJA)
+registerLocaleData(localeKO)
 registerLocaleData(localePL)
 registerLocaleData(localePT)
 registerLocaleData(localeRU)
@@ -117,6 +119,10 @@ export class LocaleService {
         {
             code: 'ja-JP',
             name: '日本語',
+        },
+        {
+            code: 'ko-KR',
+            name: '조선말',
         },
         {
             code: 'zh-CN',
