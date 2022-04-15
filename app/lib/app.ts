@@ -219,6 +219,9 @@ export class Application {
     }
 
     handleSecondInstance (argv: string[], cwd: string): void {
+        if (!this.windows.length) {
+            await this.newWindow()
+        }
         this.presentAllWindows()
         this.windows[this.windows.length - 1].passCliArguments(argv, cwd, true)
     }
