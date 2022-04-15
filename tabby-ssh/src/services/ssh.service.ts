@@ -117,6 +117,7 @@ export class SocksProxyStream extends SSHProxyStream {
                 proxyHost: this.profile.options.socksProxyHost ?? '127.0.0.1',
                 proxyPort: this.profile.options.socksProxyPort ?? 5000,
                 auths: [socksv5.auth.None()],
+                strictLocalDNS: false,
             }, s => {
                 resolve(s)
                 this.header = s.read()
