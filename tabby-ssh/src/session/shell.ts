@@ -11,7 +11,6 @@ import { SSHProfile } from '../api'
 
 export class SSHShellSession extends BaseSession {
     shell?: ClientChannel
-    private profile: SSHProfile
     get serviceMessage$ (): Observable<string> { return this.serviceMessage }
     private serviceMessage = new Subject<string>()
     private ssh: SSHSession|null
@@ -19,10 +18,10 @@ export class SSHShellSession extends BaseSession {
     constructor (
         injector: Injector,
         ssh: SSHSession,
+        private profile: SSHProfile,
     ) {
-        super(injector.get(LogService).create(`ssh-shell-${ssh.profile.options.host}-${ssh.profile.options.port}`))
+        super(injector.get(LogService).create(`ssh-shell-${profile.options.host}-${profile.options.port}`))
         this.ssh = ssh
-        this.profile = ssh.profile
         this.setLoginScriptsOptions(this.profile.options)
         this.ssh.serviceMessage$.subscribe(m => this.serviceMessage.next(m))
     }

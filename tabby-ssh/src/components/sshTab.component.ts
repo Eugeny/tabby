@@ -200,7 +200,7 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
             return
         }
 
-        const session = new SSHShellSession(this.injector, this.sshSession)
+        const session = new SSHShellSession(this.injector, this.sshSession, this.profile)
         this.setSession(session)
         this.attachSessionHandler(session.serviceMessage$, msg => {
             msg = msg.replace(/\n/g, '\r\n      ')
