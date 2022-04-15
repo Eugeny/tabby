@@ -141,4 +141,15 @@ export class SSHProfilesService extends ProfileProvider<SSHProfile> {
             },
         }
     }
+
+    intoQuickConnectString (profile: SSHProfile): string|null {
+        let s = profile.options.host
+        if (profile.options.user !== 'root') {
+            s = `${profile.options.user}@${s}`
+        }
+        if (profile.options.port !== 22) {
+            s = `${s}:${profile.options.port}`
+        }
+        return s
+    }
 }

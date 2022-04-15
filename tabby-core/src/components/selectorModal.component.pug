@@ -23,4 +23,10 @@
                 )
                 .title.mr-2 {{getOptionText(option)}}
                 .description.no-wrap.text-muted {{option.description}}
-                .no-wrap.badge.badge-secondary.text-muted.ml-auto(*ngIf='selectedIndex == i') Enter
+                .ml-auto
+                .no-wrap.badge.badge-secondary.text-muted.ml-2(*ngIf='selectedIndex == i && canEditSelected()')
+                    span Backspace
+                    i.fas.fa-pencil.ml-1
+                .no-wrap.badge.badge-secondary.text-muted.ml-2(*ngIf='selectedIndex == i')
+                    span Enter
+                    i.fas.fa-arrow-right.ml-1

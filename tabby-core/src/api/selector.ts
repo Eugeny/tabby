@@ -5,6 +5,7 @@ export interface SelectorOption<T> {
     result?: T
     icon?: string
     freeInputPattern?: string
+    freeInputEquivalent?: string
     color?: string
     weight?: number
     callback?: (string?) => void

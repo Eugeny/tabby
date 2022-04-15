@@ -27,7 +27,7 @@ export class SelectorModalComponent<T> {
         this.hasGroups = this.options.some(x => x.group)
     }
 
-    @HostListener('keyup', ['$event']) onKeyUp (event: KeyboardEvent): void {
+    @HostListener('keydown', ['$event']) onKeyUp (event: KeyboardEvent): void {
         if (event.key === 'ArrowUp') {
             this.selectedIndex--
             event.preventDefault()
@@ -41,6 +41,10 @@ export class SelectorModalComponent<T> {
         }
         if (event.key === 'Escape') {
             this.close()
+        }
+        if (event.key === 'Backspace' && this.canEditSelected()) {
+            this.filter = this.filteredOptions[this.selectedIndex].freeInputEquivalent!
+            this.onFilterChange()
         }
 
         this.selectedIndex = (this.selectedIndex + this.filteredOptions.length) % this.filteredOptions.length
@@ -83,6 +87,10 @@ export class SelectorModalComponent<T> {
     selectOption (option: SelectorOption<T>): void {
         option.callback?.(this.filter)
         this.modalInstance.close(option.result)
+    }
+
+    canEditSelected (): boolean {
+        return !this.filter && !!this.filteredOptions[this.selectedIndex].freeInputEquivalent && this.options.some(x => x.freeInputPattern)
     }
 
     close (): void {

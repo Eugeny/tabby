@@ -56,5 +56,9 @@ export abstract class ProfileProvider<P extends Profile> {
         return null
     }
 
+    intoQuickConnectString (profile: P): string|null {
+        return null
+    }
+
     deleteProfile (profile: P): void { }
 }

@@ -90,9 +90,12 @@ export class ProfilesService {
 
     selectorOptionForProfile <P extends Profile, T> (profile: PartialProfile<P>): SelectorOption<T> {
         const fullProfile = this.getConfigProxyForProfile(profile)
+        const provider = this.providerForProfile(fullProfile)
+        const freeInputEquivalent = provider?.intoQuickConnectString(fullProfile) ?? undefined
         return {
             ...profile,
-            description: this.providerForProfile(fullProfile)?.getDescription(fullProfile),
+            freeInputEquivalent,
+            description: provider?.getDescription(fullProfile),
         }
     }
 
