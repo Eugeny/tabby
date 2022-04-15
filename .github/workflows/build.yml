@@ -241,7 +241,7 @@ jobs:
     strategy:
       matrix:
         include:
-          - arch: x86_64
+          - arch: x64
           - arch: arm64
 
     steps:
