@@ -122,7 +122,7 @@ export class LocaleService {
         },
         {
             code: 'ko-KR',
-            name: '조선말',
+            name: '한국어',
         },
         {
             code: 'zh-CN',
