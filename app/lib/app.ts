@@ -218,7 +218,7 @@ export class Application {
         }
     }
 
-    handleSecondInstance (argv: string[], cwd: string): void {
+    async handleSecondInstance (argv: string[], cwd: string): Promise<void> {
         if (!this.windows.length) {
             await this.newWindow()
         }
