@@ -51,12 +51,18 @@ export class DockMenuService {
         }
         if (this.hostApp.platform === Platform.macOS) {
             this.electron.app.dock.setMenu(this.electron.Menu.buildFromTemplate(
-                [...this.profilesService.getRecentProfiles(), ...profiles].map(profile => ({
-                    label: profile.name,
-                    click: () => this.zone.run(async () => {
-                        this.profilesService.openNewTabForProfile(profile)
-                    }),
-                })),
+                [
+                    ...[...this.profilesService.getRecentProfiles(), ...profiles].map(profile => ({
+                        label: profile.name,
+                        click: () => this.zone.run(async () => {
+                            this.profilesService.openNewTabForProfile(profile)
+                        }),
+                    })),
+                    {
+                        label: this.translate.instant('New Window'),
+                        click: () => this.zone.run(() => this.hostApp.newWindow()),
+                    },
+                ],
             ))
         }
     }
