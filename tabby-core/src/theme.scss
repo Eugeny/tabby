@@ -32,10 +32,6 @@ app-root  {
         background: rgba(0,0,0,.65);
     }
 
-    &.no-tabs {
-        background: rgba(0,0,0,.5);
-    }
-
     &> .content {
         .tab-bar {
             .btn-tab-bar {
