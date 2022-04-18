@@ -2052,12 +2052,12 @@ lru-cache@^6.0.0:
   dependencies:
     yallist "^4.0.0"
 
-macos-native-processlist@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.npmjs.org/macos-native-processlist/-/macos-native-processlist-2.0.0.tgz"
-  integrity sha512-ciW1n2jL+9f7+9xijMMVmVzRbpVlKjzMFmgpNricm5QKfkUTMEa1suR0pc9pQRrLea4sJtbLo0u+izzHDvkpIA==
+macos-native-processlist@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/macos-native-processlist/-/macos-native-processlist-2.1.0.tgz#3ebfc0391083331bfa20acef01a45abd45b554dd"
+  integrity sha512-qXsNLedPaF7/vo26gOS6HyNvI8Oko5PgvezBsWwXkCFXQdU9+JOFDQvvRZ4WoPgUUkiV7a4PK7xbbkf8X6d/cQ==
   dependencies:
-    node-addon-api "3.0.0"
+    node-addon-api "3.1.0"
 
 make-dir@^1.0.0:
   version "1.3.0"
@@ -2265,12 +2265,7 @@ node-abi@^3.3.0:
   dependencies:
     semver "^7.3.5"
 
-node-addon-api@3.0.0:
-  version "3.0.0"
-  resolved "https://registry.npmjs.org/node-addon-api/-/node-addon-api-3.0.0.tgz"
-  integrity sha512-sSHCgWfJ+Lui/u+0msF3oyCgvdkhxDbkCS6Q8uiJquzOimkJBvX6hl5aSSA7DR1XbMpdM8r7phjcF63sF4rkKg==
-
-node-addon-api@^3.0.2, node-addon-api@^3.1.0:
+node-addon-api@3.1.0, node-addon-api@^3.0.2, node-addon-api@^3.1.0:
   version "3.1.0"
   resolved "https://registry.npmjs.org/node-addon-api/-/node-addon-api-3.1.0.tgz"
   integrity sha512-flmrDNB06LIl5lywUz7YlNGZH/5p0M7W28k8hzd9Lshtdh1wshD2Y+U4h9LD6KObOy1f+fEVdgprPrEymjM5uw==
