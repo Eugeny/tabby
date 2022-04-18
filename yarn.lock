@@ -2161,10 +2161,10 @@ core-util-is@1.0.2, core-util-is@~1.0.0:
   resolved "https://registry.yarnpkg.com/core-util-is/-/core-util-is-1.0.2.tgz#b5fd54220aa2bc5ab57aab7140c940754503c1a7"
   integrity sha1-tf1UIgqivFq1eqtxQMlAdUUDwac=
 
-cpu-features@0.0.3:
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/cpu-features/-/cpu-features-0.0.3.tgz#2acee87f762d11d5197babb34629293007a09edd"
-  integrity sha512-p6C/uud4F4bDyCz9+BNU22KdV1AGxPK6L9rQG9x3x4SSzdMPyBPErP7Rxn8avT2ex1M2g5Rpjz5Us/ri/766Qg==
+cpu-features@~0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/cpu-features/-/cpu-features-0.0.4.tgz#0023475bb4f4c525869c162e4108099e35bf19d8"
+  integrity sha512-fKiZ/zp1mUwQbnzb9IghXtHtDoTMtNeb8oYGx6kX2SYfhnG0HNdBEBIzB9b5KlXu5DQPhfy3mInbBxFcgwAr3A==
   dependencies:
     buildcheck "0.0.3"
     nan "^2.15.0"
@@ -7736,15 +7736,15 @@ sprintf-js@~1.0.2:
   resolved "https://registry.yarnpkg.com/sprintf-js/-/sprintf-js-1.0.3.tgz#04e6926f662895354f3dd015203633b857297e2c"
   integrity sha1-BOaSb2YolTVPPdAVIDYzuFcpfiw=
 
-ssh2@^1.8.0:
-  version "1.8.0"
-  resolved "https://registry.yarnpkg.com/ssh2/-/ssh2-1.8.0.tgz#97a9bfa3348412a2ed266265ddb351746b6edfc8"
-  integrity sha512-NVIRkIwJvWl+mcRozp+EBzHMVCcbDKBea64ToPdZEk43yAVGwmfqYZRPFRnnvGjsKC34wYCmiupTcKgCVNVNNg==
+ssh2@^1.9.0:
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/ssh2/-/ssh2-1.9.0.tgz#3ab8330cec2bb6ba3061052fefb25bc19e36f176"
+  integrity sha512-rhhIZT0eMPvCBSOG8CpqZZ7gre2vgXaIqmb3Jb83t88rjsxIsFzDanqBJM9Ns8BmP1835A5IbQ199io4EUZwOA==
   dependencies:
     asn1 "^0.2.4"
     bcrypt-pbkdf "^1.0.2"
   optionalDependencies:
-    cpu-features "0.0.3"
+    cpu-features "~0.0.4"
     nan "^2.15.0"
 
 sshpk@^1.7.0:
