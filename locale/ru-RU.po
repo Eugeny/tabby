@@ -389,7 +389,7 @@ msgstr "Копировать в буфер обмена"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:95
 msgid "Copy with formatting"
-msgstr ""
+msgstr "Копировать с форматированием"
 
 #: tabby-core/src/services/config.service.ts:365
 msgid "Could not decrypt config"
@@ -397,12 +397,12 @@ msgstr "Не удалось расшифровать конфигурацию"
 
 #: locale/tmp-html/tabby-ssh/src/components/sftpCreateDirectoryModal.component.html:9
 msgid "Create"
-msgstr ""
+msgstr "Создать"
 
 #: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:5
 #: tabby-ssh/src/sftpContextMenu.ts:29
 msgid "Create directory"
-msgstr ""
+msgstr "Создать папку"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:93
 msgid "Current"
@@ -442,11 +442,11 @@ msgstr "Отладка"
 
 #: tabby-core/src/hotkeys.ts:213
 msgid "Decrease horizontal split size"
-msgstr ""
+msgstr "Уменьшение размера горизонтального разделения"
 
 #: tabby-core/src/hotkeys.ts:205
 msgid "Decrease vertical split size"
-msgstr ""
+msgstr "Уменьшение размера вертикального разделения"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:8
 msgid "Default profile for new tabs"
@@ -736,7 +736,7 @@ msgstr "Шрифт"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:183
 msgid "For keyboard shortcuts"
-msgstr ""
+msgstr "Для сочетаний клавиш"
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:51
 msgid "Force CR"
@@ -897,11 +897,11 @@ msgstr "Мгновенно локально отображает ваш ввод
 
 #: tabby-core/src/hotkeys.ts:209
 msgid "Increase horizontal split size"
-msgstr ""
+msgstr "Увеличение размера горизонтального разделения"
 
 #: tabby-core/src/hotkeys.ts:201
 msgid "Increase vertical split size"
-msgstr ""
+msgstr "Увеличение размера вертикального разделения"
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:18
 msgid "Input is sent as you type"
@@ -1103,7 +1103,7 @@ msgstr "Имя для новой конфигурации"
 
 #: locale/tmp-html/tabby-ssh/src/components/sftpCreateDirectoryModal.component.html:3
 msgid "Name for the new directory"
-msgstr ""
+msgstr "Имя для нового каталога"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:52
 msgid "Native"
@@ -1290,11 +1290,11 @@ msgstr "Перезаписать локальную конфигурацию и 
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:182
 msgid "Pane resize step"
-msgstr ""
+msgstr "Шаг изменения размера панели"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:179
 msgid "Panes"
-msgstr ""
+msgstr "Панели"
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:38
 msgid "Parity"
