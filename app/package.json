@@ -8,7 +8,7 @@
     "email": "e@ajenti.org"
   },
   "main": "dist/main.js",
-  "version": "1.0.0-alpha.1",
+  "version": "1.0.0",
   "scripts": {
     "postinstall": "patch-package",
     "build": "webpack --progress --color --display-modules",

@@ -56,9 +56,8 @@ export class ElectronUpdaterService extends UpdaterService {
                 this.logger.debug('Checking for updates')
                 try {
                     this.autoUpdater.setFeedURL({
-                        provider: 'github',
-                        repo: 'tabby',
-                        owner: 'eugeny',
+                        provider: 's3',
+                        path: `updates-latest-${process.arch}`,
                     })
                     this.autoUpdater.checkForUpdates()
                 } catch (e) {
