@@ -57,6 +57,7 @@ export class ElectronUpdaterService extends UpdaterService {
                 try {
                     this.autoUpdater.setFeedURL({
                         provider: 's3',
+                        bucket: 'tabby-updates',
                         path: `updates-latest-${process.arch}`,
                     })
                     this.autoUpdater.checkForUpdates()
