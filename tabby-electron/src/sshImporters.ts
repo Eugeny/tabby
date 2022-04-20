@@ -26,7 +26,7 @@ export class OpenSSHImporter extends SSHProfileImporter {
                 if (line.trim().startsWith('#') || !line.trim()) {
                     continue
                 }
-                if (line.startsWith('Host ')) {
+                if (line.toLowerCase().startsWith('host ')) {
                     if (currentProfile) {
                         results.push(currentProfile)
                     }
