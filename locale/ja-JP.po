@@ -790,7 +790,7 @@ msgstr "全般"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:21
 msgid "Generate a pre-filled GitHub issue"
-msgstr "Githubに新しいissueを開く"
+msgstr "GitHubに新しいissueを開く"
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:27
 msgid "Get"
