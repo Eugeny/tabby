@@ -52,7 +52,7 @@
     "ngx-toastr": "^14.0.0",
     "node-abi": "^3.8.0",
     "node-sass": "^7.0.1",
-    "npmlog": "6.0.0",
+    "npmlog": "6.0.2",
     "npx": "^10.2.2",
     "patch-package": "^6.4.7",
     "po-gettext-loader": "^1.0.0",
