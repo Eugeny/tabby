@@ -306,6 +306,14 @@ export class SSHSession {
                     this.authUsername = 'root'
                 }
             }
+            if (this.authUsername?.startsWith('$')) {
+                try {
+                    const result = process.env[this.authUsername.slice(1)]
+                    this.authUsername = result ?? this.authUsername
+                } catch {
+                    this.authUsername = 'root'
+                }
+            }
 
             ssh.connect({
                 host: this.profile.options.host.trim(),

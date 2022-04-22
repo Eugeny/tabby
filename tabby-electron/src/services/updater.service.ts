@@ -54,10 +54,15 @@ export class ElectronUpdaterService extends UpdaterService {
         config.ready$.toPromise().then(() => {
             if (config.store.enableAutomaticUpdates && this.electronUpdaterAvailable && !process.env.TABBY_DEV) {
                 this.logger.debug('Checking for updates')
+                let arch = process.arch
+                if (process.platform === 'darwin' && process.arch === 'x64') {
+                    arch = 'x86_64'
+                }
                 try {
                     this.autoUpdater.setFeedURL({
                         provider: 's3',
-                        path: `updates-latest-${process.arch}`,
+                        bucket: 'tabby-updates',
+                        path: `updates-latest-${arch}`,
                     })
                     this.autoUpdater.checkForUpdates()
                 } catch (e) {

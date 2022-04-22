@@ -3,7 +3,7 @@
 search-panel(
     *ngIf='showSearchPanel && hasFocus',
     @toolbarSlide,
-    [@.disabled]='!config.store.accessibility.animations'
+    [@.disabled]='!config.store.accessibility.animations',
     [frontend]='frontend',
     (close)='showSearchPanel = false; frontend?.cancelSearch()'
 )
