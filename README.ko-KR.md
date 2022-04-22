@@ -242,6 +242,9 @@ Pull requests and plugins are welcome!
     <td align="center"><a href="https://git.christianbingman.com"><img src="https://avatars.githubusercontent.com/u/42191425?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Christian Bingman</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=ChristianBingman" title="Code">💻</a></td>
     <td align="center"><a href="http://zhangzhipeng2023.cn/"><img src="https://avatars.githubusercontent.com/u/5310853?v=4?s=100" width="100px;" alt=""/><br /><sub><b>zhipeng</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=Ox0400" title="Code">💻</a></td>
   </tr>
+  <tr>
+    <td align="center"><a href="https://github.com/woodmeal"><img src="https://avatars.githubusercontent.com/u/104011197?v=4?s=100" width="100px;" alt=""/><br /><sub><b>woodmeal</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=woodmeal" title="Code">💻</a></td>
+  </tr>
 </table>
 
 <!-- markdownlint-restore -->
