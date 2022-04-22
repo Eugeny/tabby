@@ -1,8 +1,7 @@
 [![](docs/readme.png)](https://tabby.sh)
 
-
-<p align="center">
-  <a href="https://github.com/Eugeny/tabby/releases/latest"><img alt="GitHub All Releases" src="https://img.shields.io/github/downloads/eugeny/tabby/total.svg?label=DOWNLOADS&logo=github&style=for-the-badge"></a> &nbsp; <a href="https://nightly.link/Eugeny/tabby/workflows/build/master"><img src="https://shields.io/badge/-Nightly%20Builds-orange?logo=hackthebox&logoColor=fff&style=for-the-badge"/></a> &nbsp; <a href="https://matrix.to/#/#tabby-general:matrix.org"><img alt="Matrix" src="https://img.shields.io/matrix/tabby-general:matrix.org?logo=matrix&style=for-the-badge&color=magenta"></a> &nbsp <a href="https://translate.tabby.sh/"><img alt="Translate" src="https://shields.io/badge/Translate-UI-white?logo=googletranslate&style=for-the-badge&color=white&logoColor=fff"></a> &nbsp; <a href="https://twitter.com/eugeeeeny"><img alt="Twitter" src="https://shields.io/badge/Subscribe-News-blue?logo=twitter&style=for-the-badge&color=blue"></a>
+<p  align="center">
+<a  href="https://github.com/Eugeny/tabby/releases/latest"><img  alt="Alle GitHub Releases"  src="https://img.shields.io/github/downloads/eugeny/tabby/total.svg?label=DOWNLOADS&logo=github&style=for-the-badge"></a>     <a  href="https://nightly.link/Eugeny/tabby/workflows/build/master"><img  src="https://shields.io/badge/-Nightly%20Builds-orange?logo=hackthebox&logoColor=fff&style=for-the-badge"/></a>     <a  href="https://matrix.to/#/#tabby-general:matrix.org"><img  alt="Matrix"  src="https://img.shields.io/matrix/tabby-general:matrix.org?logo=matrix&style=for-the-badge&color=magenta"></a> &nbsp <a  href="https://translate.tabby.sh/"><img  alt="Übersetzen"  src="https://shields.io/badge/Übersetzen-UI-white?logo=googletranslate&style=for-the-badge&color=white&logoColor=fff"></a>     <a  href="https://twitter.com/eugeeeeny"><img  alt="Twitter"  src="https://shields.io/badge/Abonnieren-Nachrichten-blue?logo=twitter&style=for-the-badge&color=blue"></a>
 </p>
 
 <p align="center">
@@ -13,141 +12,150 @@
 
 ----
 
-### Загрузки:
+### Downloads:
 
-* [Последняя версия](https://github.com/Eugeny/tabby/releases/latest)
-* [Репозитории](https://packagecloud.io/eugeny/tabby): [Debian/Ubuntu](https://packagecloud.io/eugeny/tabby/install#bash-deb), [RPM](https://packagecloud.io/eugeny/tabby/install#bash-rpm)
-* [Последний nightly-билд](https://nightly.link/Eugeny/tabby/workflows/build/master)
+* [Neueste Version](https://github.com/Eugeny/tabby/releases/latest)
+* [Repositories](https://packagecloud.io/eugeny/tabby): [Debian/Ubuntu-basiert](https://packagecloud.io/eugeny/tabby/install#bash-deb), [RPM-basiert](https://packagecloud.io/eugeny/tabby/install#bash-rpm)
+* [Neueste nightly Version](https://nightly.link/Eugeny/tabby/workflows/build/master)
 
 <br/>
-<p align="center">
-Этот README также доступен на: <a  href="./README.md">:gb: English</a> <a  href="./README.ko-KR.md">:kr: 한국어</a>  <a  href="./README.zh-CN.md">:cn: 简体中文</a> <a  href="./README.it-IT.md">:it: Italiano</a> <a href="./README.de-DE.md">:de: Deutsch</a>
+<p  align="center">
+Diese README ist auch verfügbar in: <a  href="./README.md">:gb: English</a> <a  href="./README.ru-RU.md">:ru: Русский</a>  <a  href="./README.ko-KR.md">:kr: 한국어</a>  <a  href="./README.zh-CN.md">:cn: 简体中文</a> <a  href="./README.it-IT.md">:it: Italiano</a>
 </p>
 
 ----
 
-[**Tabby**](https://tabby.sh) (ранее **Terminus**) — широко конфигурируемый эмулятор терминала, SSH- и COM-клиент для Windows, macOS и Linux:
+[**Tabby**](https://tabby.sh) (ehemals **Terminus**) ist ein äußerst konfigurierbarer Terminalemulator, SSH- und serieller Client für Windows, macOS und Linux
 
-* Встроенный SSH- и Telnet-клиент и менеджер подключений;
-* Встроенный последовтаельный терминал;
-* Темы и цветовые схемы;
-* Полностью настраеваемые сочетания клавиш;
-* Панели;
-* Запоминание вкладок;
-* Поддержка PowerShell (and PS Core), WSL, Git-Bash, Cygwin, MSYS2, Cmder и CMD;
-* Прямая передача файлов из и в SSH-сессии через Zmodem;
-* Полная поддержка Unicode, включая символы двойной ширины;
-* Не задыхается при быстром выводе;
-* Полноценный опыт работы с shell на Windows, включая дополнение слов и команд по Tab (при помощи Clink);
-* Втроенное защищённое хранилище для SSH-ключей и настроек;
-* SSH-, SFTP- и Telnet-клиент доступен как [веб-приложение](https://tabby.sh/app) (также для [самостоятелньного хостинга](https://github.com/Eugeny/tabby-web)).
+* Integrierter SSH- und Telnet-Client und Verbindungsmanager
+* Integriertes serielles Terminal
+* Theming und Farbschemata
+* Vollständig konfigurierbare Tastenkombinationen und Multi-Akkord-Tastenkombinationen
+* Geteilte Fenster
+* Merkt sich deine Tabs
+* Unterstützung für PowerShell (und PS Core), WSL, Git-Bash, Cygwin, MSYS2, Cmder und CMD
+* Direkte Dateiübertragung von/zu SSH-Sitzungen über Zmodem
+* Vollständige Unicode-Unterstützung, einschließlich Zeichen mit doppelter Breite
+* Kein Abbruch bei schnell ablaufenden Ausgaben
+* Richtiges Shell-Erlebnis unter Windows, einschließlich Tabulator-Vervollständigung (über Clink)
+* Integrierter verschlüsselter Container für SSH-Secrets und Konfiguration
+* SSH-, SFTP- und Telnet-Client verfügbar als [Web-App](https://tabby.sh/app) (auch [selbstgehostet](https://github.com/Eugeny/tabby-web)).
 
-# Содержание <!-- omit in toc -->
+# Inhaltsverzeichnis <!-- omit in toc -->
 
-- [Правда и ложь про Tabby](#правда-и-ложь-про-tabby)
-- [Функции терминала](#функции-терминала)
-- [SSH-клиент](#ssh-клиент)
-- [Терминал последовательного порта](#терминал-последовательного-порта)
-- [Портативность](#портативность)
-- [Плагины](#плагины)
-- [Темы](#темы)
-- [Внести свой вклад](#внести-свой-вклад)
+- [Was Tabby ist und was nicht](#what-tabby-is-and-isnt)
+- [Terminal-Funktionen](#terminal-features)
+- [SSH Client](#ssh-client)
+- [Serielles Terminal](#serial-terminal)
+- [Portabel](#portable)
+- [Plugins](#plugins)
+- [Themen](#themes)
+- [Beitragen](#contributing) 
 
-<a name="about"></a>
+<a  name="about"></a>  
 
-# Правда и ложь про Tabby
+# Was Tabby ist und was nicht
 
-* **Правда:** Tabby — это альтернатива стандартному терминалу Windows (conhost), PowerShell ISE, PuTTY, macOS Terminal.app и iTerm.
+**Tabby ist** eine Alternative zu Windows Standard-Terminal (conhost), PowerShell ISE, PuTTY, macOS Terminal.app und iTerm 
 
-* **Ложь:** Tabby — это не новая оболочка или замена MinGW или Cygwin. Также он нелёгок — если потребление ОЗУ крайне важно для вас, лучше взгляните на [Conemu](https://conemu.github.io) или [Alacritty](https://github.com/jwilm/alacritty).
+**Tabby ist weder** eine neue Shell noch ein MinGW- oder Cygwin-Ersatz. Sie ist auch nicht gerade sparsam - wenn die RAM-Nutzung von Bedeutung ist, solltest Du [Conemu](https://conemu.github.io) oder [Alacritty](https://github.com/jwilm/alacritty) in Betracht ziehen.
 
-<a name="terminal"></a>
+<a  name="terminal"></a> 
 
-# Функции терминала
+# Terminal-Funktionen
 
-![](docs/readme-terminal.png)
+![](docs/readme-terminal.png) 
 
-* Терминал V220 + различные дополнения;
-* Деление окна на несколько панелей;
-* Вкладки на любой стороне окна;
-* Опционально закрепляемое окно с глобальной горячей клавишей для вызова («Quake console»);
-* Определение прогресса процесса;
-* Уведомления о завершении процессов;
-* Защита от выполнения команд при вставке, предупреждения о вставке нескольких строк;
-* Лигатуры шрифтов;
-* Пользовательские профили оболочки;
-* Опциональная ПКМ-вставка и копирование при выделении (в стиле PuTTY).
+* Ein V220-Terminal + verschiedene Erweiterungen
+* Mehrere verschachtelte, geteilte Fenster
+* Tabs auf jeder Seite des Fensters
+* Optional andockbares Fenster mit einem globalen Spawn-Hotkey ("Quake-Konsole")
+* Fortschrittserkennung
+* Benachrichtigung bei Prozessabschluss
+* Einfügen in Klammern, mehrzeilige Einfügewarnungen
+* Schriftart-Ligaturen
+* Benutzerdefinierte Shell-Profile
+* Optionales RMB-Einfügen und Kopieren bei Auswahl (PuTTY-Stil) 
 
-<a name="ssh"></a>
-# SSH-клиент
+<a  name="ssh"></a>
 
-![](docs/readme-ssh.png)
+# SSH Client
 
-* SSH2-клиент с менеджером соединений;
-* Проброс портов и X11;
-* Управление автоматическими джамп-хостами;
-* Проброс агента (включая Pageant и встроеный в Windows OpenSSH Agent);
-* Скрипты для входа.
+![](docs/readme-ssh.png)  
 
-<a name="serial"></a>
-# Терминал последовательного порта
+* SSH2-Client mit einem Verbindungsmanager
+* X11 und Portweiterleitung
+* Automatisches Jump-Host-Management
+* Agent-Weiterleitung (inkl. Pageant und Windows-eigenem OpenSSH-Agent)
+* Anmeldeskripte 
 
-* Сохранение соединений;
-* Поддержка ввода readline;
-* Опциональый побатный ввод HEX и вывод hexdump;
-* Преобразование newline;
-* Автоматическое восстановление соединения.
+<a  name="serial"></a>
 
-<a name="portable"></a>
-# Портативность
+# Serielles Terminal
 
-На Windows Tabby будет работать в портативном режиме, если создать папку `data` там же, где расположен файл `Tabby.exe`.
+* Gespeicherte Verbindungen
+* Unterstützung von Readline-Eingaben
+* Optionale hexadezimale Byte-für-Byte-Eingabe und Hexdump-Ausgabe
+* Newline-Konvertierung
+* Automatische Wiederverbindung  
 
-<a name="plugins"></a>
-# Плагины
+<a  name="portable"></a>
 
-Плагины и темы можно установить напрямую из Настроек Tabby.
+# Portabel
 
-* [clickable-links](https://github.com/Eugeny/tabby-clickable-links) — делает пути и URL в терминале гиперссылками;
-* [docker](https://github.com/Eugeny/tabby-docker) — подключения к Docker-контейнерам;
-* [title-control](https://github.com/kbjr/terminus-title-control) — позволяет изменять названия вкладок, добавляя префиксы, суффиксы и позволяя удалять строки;
-* [quick-cmds](https://github.com/Domain/terminus-quick-cmds) — быстро передаёт команды в одну или все вкладки терминала;
-* [save-output](https://github.com/Eugeny/tabby-save-output) — запись вывода терминала в файл;
-* [sync-config](https://github.com/starxg/terminus-sync-config) — синхронизация конфига в Gist или Gitee;
-* [clippy](https://github.com/Eugeny/tabby-clippy) — плагин-пример, который постоянно будет вас бесить;
-* [workspace-manager](https://github.com/composer404/tabby-workspace-manager) — позволяет создавать пользовательские провили рабочего окружеиня на основе конфига;
-* [search-in-browser](https://github.com/composer404/tabby-search-in-browser) — открывает браузер по умолчанию с текстом, выделенном во вкладке Tabby.
+Tabby läuft als portable Anwendung unter Windows, wenn Sie einen `data`-Ordner am selben Ort erstellen, an dem sich auch `Tabby.exe` befindet. 
 
-<a name="themes"></a>
-# Темы
+<a  name="plugins"></a>
 
-* [hype](https://github.com/Eugeny/tabby-theme-hype) — тема, вдохновлённая Hyper;
-* [relaxed](https://github.com/Relaxed-Theme/relaxed-terminal-themes#terminus) — тема Relaxed для Tabby;
-* [gruvbox](https://github.com/porkloin/terminus-theme-gruvbox);
-* [windows10](https://www.npmjs.com/package/terminus-theme-windows10);
-* [altair](https://github.com/yxuko/terminus-altair).
+# Plugins
 
-# Спонсоры <!-- omit in toc -->
+Plugins und Themen können direkt aus der Ansicht "Einstellungen" in Tabby installiert werden.
 
-[![](https://assets-production.packagecloud.io/assets/packagecloud-logo-light-scaled-26ce8e96060fddf74afbd4445e63ba35590d4aaa56edc98495bb390ef3cae0ae.png)](https://packagecloud.io)
+* [docker](https://github.com/Eugeny/tabby-docker) - Verbindung zu Docker-Containern
+* [title-control](https://github.com/kbjr/terminus-title-control) - ermöglicht die Änderung des Titels der Terminal-Tabs durch Angabe eines Präfixes, Suffixes und/oder zu entfernender Strings
+* [quick-cmds](https://github.com/Domain/terminus-quick-cmds) - schnelles Senden von Befehlen an eine oder alle Terminal-Tabs
+* [save-output](https://github.com/Eugeny/tabby-save-output) - speichert Terminalausgaben in einer Datei
+* [sync-config](https://github.com/starxg/terminus-sync-config) - synchronisiert die Konfiguration mit Gist oder Gitee
+* [clippy](https://github.com/Eugeny/tabby-clippy) - ein Beispiel-Plugin, das einen die ganze Zeit nervt
+* [workspace-manager](https://github.com/composer404/tabby-workspace-manager) - ermöglicht das Erstellen eigener Workspace-Profile auf Basis der angegebenen Konfiguration
+* [search-in-browser](https://github.com/composer404/tabby-search-in-browser) - öffnet den Standard-Systembrowser mit einem Text, der aus dem Tabby Tab ausgewählt wurde 
 
-[**packagecloud**](https://packagecloud.io) предоставил бесплатный хостинг для Debian/RPM репозитория.
+<a  name="themes"></a>
 
-<a name="contributing"></a>
-# Внести свой вклад
+# Themen
 
-Pull-запросы и плагины приветствуются!
+* [hype](https://github.com/Eugeny/tabby-theme-hype) - ein von Hyper inspiriertes Thema
+* [relaxed](https://github.com/Relaxed-Theme/relaxed-terminal-themes#terminus) - das entspannte Thema für Tabby
+* [gruvbox](https://github.com/porkloin/terminus-theme-gruvbox)
+* [windows10](https://www.npmjs.com/package/terminus-theme-windows10)
+* [altair](https://github.com/yxuko/terminus-altair) 
 
-Взгляните на [HACKING.md](https://github.com/Eugeny/tabby/blob/master/HACKING.md) и [API docs](https://docs.tabby.sh/), чтобы понять, как устроен проект, и ради очень краткого туториала по созданию плагинов.
+# Sponsoren <!-- omit in toc -->
+
+[![](https://assets-production.packagecloud.io/assets/packagecloud-logo-light-scaled-26ce8e96060fddf74afbd4445e63ba35590d4aaa56edc98495bb390ef3cae0ae.png)](https://packagecloud.io) 
+
+[**packagecloud**](https://packagecloud.io) bietet kostenloses Debian/RPM-Repository-Hosting an 
+
+<a  name="contributing"></a>
+
+# Beitragen
+
+Pull Requests und Plugins sind willkommen!
+
+Siehe [HACKING.md](https://github.com/Eugeny/tabby/blob/master/HACKING.md) und [API docs](https://docs.tabby.sh/) für Informationen über den Aufbau des Projekts und ein sehr kurzes Tutorial zur Plugin-Entwicklung.
 
 ---
-<a name="contributors"></a>
 
-Огромное спасибо этим прекрасным людям ([описание эмодзи](https://allcontributors.org/docs/en/emoji-key)):
+<a  name="contributors"></a>
+
+Dank geht an diese wunderbaren Menschen ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+
 <!-- prettier-ignore-start -->
+
 <!-- markdownlint-disable -->
+
 <table>
   <tr>
     <td align="center"><a href="http://www.russellmyers.com"><img src="https://avatars2.githubusercontent.com/u/184085?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Russell Myers</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=mezner" title="Code">💻</a></td>
@@ -246,18 +254,13 @@ Pull-запросы и плагины приветствуются!
     <td align="center"><a href="https://github.com/artu-ole"><img src="https://avatars.githubusercontent.com/u/15938416?v=4?s=100" width="100px;" alt=""/><br /><sub><b>artu-ole</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=artu-ole" title="Code">💻</a></td>
     <td align="center"><a href="https://timagribanov.github.io/"><img src="https://avatars.githubusercontent.com/u/48593815?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Timofey Gribanov</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=TimaGribanov" title="Documentation">📖</a> <a href="#translation-TimaGribanov" title="Translation">🌍</a></td>
     <td align="center"><a href="https://git.christianbingman.com"><img src="https://avatars.githubusercontent.com/u/42191425?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Christian Bingman</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=ChristianBingman" title="Code">💻</a></td>
-    <td align="center"><a href="http://zhangzhipeng2023.cn/"><img src="https://avatars.githubusercontent.com/u/5310853?v=4?s=100" width="100px;" alt=""/><br /><sub><b>zhipeng</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=Ox0400" title="Code">💻</a></td>
-  </tr>
-  <tr>
-    <td align="center"><a href="https://github.com/woodmeal"><img src="https://avatars.githubusercontent.com/u/104011197?v=4?s=100" width="100px;" alt=""/><br /><sub><b>woodmeal</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=woodmeal" title="Code">💻</a></td>
   </tr>
 </table>
 
 <!-- markdownlint-restore -->
+
 <!-- prettier-ignore-end -->
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
-Данный проект следует заветам [all-contributors](https://github.com/all-contributors/all-contributors). Любые созидатели приветствуются!
-
-<img src="https://ga-beacon.appspot.com/UA-3278102-18/github/readme" width="1"/>
+Dieses Projekt folgt der [all-contributors](https://github.com/all-contributors/all-contributors) Spezifikation. Beiträge jeglicher Art sind willkommen!

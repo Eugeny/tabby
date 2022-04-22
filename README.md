@@ -21,7 +21,7 @@
 
 <br/>
 <p align="center">
-This README is also available in: <a href="./README.ru-RU.md">Русский</a> <a href="./README.ko-KR.md">한국어</a> <a href="./README.zh-CN.md">简体中文</a> <a href="./README.it-IT.md">Italiano</a>
+This README is also available in: <a  href="./README.ru-RU.md">:ru: Русский</a>  <a  href="./README.ko-KR.md">:kr: 한국어</a>  <a  href="./README.zh-CN.md">:cn: 简体中文</a> <a  href="./README.it-IT.md">:it: Italiano</a> <a href="./README.de-DE.md">:de: Deutsch</a>
 </p>
 
 ----
@@ -79,6 +79,7 @@ This README is also available in: <a href="./README.ru-RU.md">Русский</a>
 * Optional RMB paste and copy-on select (PuTTY style)
 
 <a name="ssh"></a>
+
 # SSH Client
 
 ![](docs/readme-ssh.png)
@@ -90,6 +91,7 @@ This README is also available in: <a href="./README.ru-RU.md">Русский</a>
 * Login scripts
 
 <a name="serial"></a>
+
 # Serial Terminal
 
 * Saved connections
@@ -99,11 +101,13 @@ This README is also available in: <a href="./README.ru-RU.md">Русский</a>
 * Automatic reconnection
 
 <a name="portable"></a>
+
 # Portable
 
 Tabby will run as a portable app on Windows, if you create a `data` folder in the same location where `Tabby.exe` lives.
 
 <a name="plugins"></a>
+
 # Plugins
 
 Plugins and themes can be installed directly from the Settings view inside Tabby.
@@ -118,6 +122,7 @@ Plugins and themes can be installed directly from the Settings view inside Tabby
 * [search-in-browser](https://github.com/composer404/tabby-search-in-browser) - opens default system browser with a text selected from the Tabby's tab
 
 <a name="themes"></a>
+
 # Themes
 
 * [hype](https://github.com/Eugeny/tabby-theme-hype) - a Hyper inspired theme
