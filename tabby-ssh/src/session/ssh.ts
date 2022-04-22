@@ -306,7 +306,7 @@ export class SSHSession {
                     this.authUsername = 'root'
                 }
             }
-            if (this.authUsername && this.authUsername.startsWith('$')) {
+            if (this.authUsername?.startsWith('$')) {
                 try {
                     const result = process.env[this.authUsername.slice(1)]
                     this.authUsername = result ?? this.authUsername
