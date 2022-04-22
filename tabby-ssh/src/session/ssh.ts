@@ -306,11 +306,10 @@ export class SSHSession {
                     this.authUsername = 'root'
                 }
             }
-            if (this.authUsername && this.authUsername.charAt(0) == '$') {
+            if (this.authUsername && this.authUsername.charAt(0) === '$') {
                 try {
-                    const result = (process.env[this.authUsername.slice(1)] as string)
-                    this.authUsername = result ?? 'root'
-                    console.warn(this.authUsername)
+                    const result = process.env[this.authUsername.slice(1)]
+                    this.authUsername = result ?? this.authUsername
                 } catch {
                     this.authUsername = 'root'
                 }
