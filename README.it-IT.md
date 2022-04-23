@@ -21,7 +21,7 @@
 
 <br/>
 <p align="center">
-Questo README è disponibile anche in: <a  href="./README.md">:gb: English</a> <a  href="./README.ru-RU.md">:ru: Русский</a>  <a  href="./README.ko-KR.md">:kr: 한국어</a>  <a  href="./README.zh-CN.md">:cn: 简体中文</a> <a href="./README.de-DE.md">:de: Deutsch</a>
+Questo README è disponibile anche in: <a  href="./README.md">:gb: English</a> · <a  href="./README.ru-RU.md">:ru: Русский</a> · <a  href="./README.ko-KR.md">:kr: 한국어</a> · <a  href="./README.zh-CN.md">:cn: 简体中文</a> · <a href="./README.de-DE.md">:de: Deutsch</a>
 
 ----
 
