@@ -4,7 +4,10 @@ const vars = require('./vars')
 
 const isTag = (process.env.GITHUB_REF || '').startsWith('refs/tags/')
 
-process.env.ARCH = (process.env.ARCH || process.arch) === 'arm' ? 'armv7l' : process.arch
+process.env.ARCH = process.env.ARCH || process.arch
+if (process.env.ARCH === 'arm') {
+  process.env.ARCH = 'armv7l'
+}
 
 builder({
     dir: true,
