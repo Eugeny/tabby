@@ -249,6 +249,7 @@
   </tr>
   <tr>
     <td align="center"><a href="https://github.com/woodmeal"><img src="https://avatars.githubusercontent.com/u/104011197?v=4?s=100" width="100px;" alt=""/><br /><sub><b>woodmeal</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=woodmeal" title="Code">💻</a></td>
+    <td align="center"><a href="https://magiclike.codeberg.page/"><img src="https://avatars.githubusercontent.com/u/82117109?v=4?s=100" width="100px;" alt=""/><br /><sub><b>MagicLike</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=MagicLike" title="Documentation">📖</a></td>
   </tr>
 </table>
 
