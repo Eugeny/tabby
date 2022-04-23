@@ -3,10 +3,9 @@ const rebuild = require('electron-rebuild').default
 const path = require('path')
 const vars = require('./vars')
 
-if (process.platform === 'win32' || process.platform === 'linux') {
-    process.env.ARCH = (process.env.ARCH || process.arch) === 'arm' ? 'armv7l' : process.arch
-} else {
-    process.env.ARCH ??= process.arch
+process.env.ARCH = process.env.ARCH || process.arch
+if (process.env.ARCH === 'arm') {
+  process.env.ARCH = 'armv7l'
 }
 
 let lifecycles = []
