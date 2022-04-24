@@ -12,7 +12,7 @@ if (process.env.ARCH === 'arm') {
 builder({
     dir: true,
     linux: ['deb', 'tar.gz', 'rpm', 'pacman'],
-    armv7l: process.env.ARCH === 'armv7l',
+    armv7l: process.env.ARCH === 'armv7l' || process.env.ARCH === 'arm',
     arm64: process.env.ARCH === 'arm64',
     config: {
         extraMetadata: {
