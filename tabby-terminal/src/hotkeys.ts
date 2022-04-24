@@ -34,6 +34,10 @@ export class TerminalHotkeyProvider extends HotkeyProvider {
             name: this.translate.instant('Delete previous word'),
         },
         {
+            id: 'delete-line',
+            name: this.translate.instant('Delete entire line'),
+        },
+        {
             id: 'delete-next-word',
             name: this.translate.instant('Delete next word'),
         },
