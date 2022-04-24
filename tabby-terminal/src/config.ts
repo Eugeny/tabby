@@ -104,6 +104,7 @@ export class TerminalConfigProvider extends ConfigProvider {
                 'previous-word': ['⌥-Left'],
                 'next-word': ['⌥-Right'],
                 'delete-previous-word': ['⌥-Backspace'],
+                'delete-line': ['⌘-Backspace'],
                 'delete-next-word': ['⌥-Delete'],
                 search: [
                     '⌘-F',
@@ -147,6 +148,7 @@ export class TerminalConfigProvider extends ConfigProvider {
                 'previous-word': ['Ctrl-Left'],
                 'next-word': ['Ctrl-Right'],
                 'delete-previous-word': ['Ctrl-Backspace'],
+                'delete-line': ['Ctrl-Shift-Backspace'],
                 'delete-next-word': ['Ctrl-Delete'],
                 search: [
                     'Ctrl-Shift-F',
@@ -188,6 +190,7 @@ export class TerminalConfigProvider extends ConfigProvider {
                 'previous-word': ['Ctrl-Left'],
                 'next-word': ['Ctrl-Right'],
                 'delete-previous-word': ['Ctrl-Backspace'],
+                'delete-line': ['Ctrl-Shift-Backspace'],
                 'delete-next-word': ['Ctrl-Delete'],
                 search: [
                     'Ctrl-Shift-F',
