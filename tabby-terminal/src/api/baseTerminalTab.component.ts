@@ -244,6 +244,11 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
                         }[this.hostApp.platform])
                     })
                     break
+                case 'delete-line':
+                    this.forEachFocusedTerminalPane(tab => {
+                        tab.sendInput('\x1bw')
+                    })
+                    break
                 case 'delete-previous-word':
                     this.forEachFocusedTerminalPane(tab => {
                         tab.sendInput('\x1b\x7f')

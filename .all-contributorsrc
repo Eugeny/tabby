@@ -720,6 +720,24 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "MagicLike",
+      "name": "MagicLike",
+      "avatar_url": "https://avatars.githubusercontent.com/u/82117109?v=4",
+      "profile": "https://magiclike.codeberg.page/",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "hisamafahri",
+      "name": "Hisam Fahri",
+      "avatar_url": "https://avatars.githubusercontent.com/u/65691613?v=4",
+      "profile": "https://github.com/hisamafahri",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,

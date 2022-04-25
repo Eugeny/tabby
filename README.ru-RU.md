@@ -21,7 +21,7 @@
 
 <br/>
 <p align="center">
-Этот README также доступен на: <a  href="./README.md">:gb: English</a> <a  href="./README.ko-KR.md">:kr: 한국어</a>  <a  href="./README.zh-CN.md">:cn: 简体中文</a> <a  href="./README.it-IT.md">:it: Italiano</a> <a href="./README.de-DE.md">:de: Deutsch</a>
+Этот README также доступен на: <a  href="./README.md">:gb: English</a> · <a  href="./README.ko-KR.md">:kr: 한국어</a> · <a  href="./README.zh-CN.md">:cn: 简体中文</a> · <a  href="./README.it-IT.md">:it: Italiano</a> · <a href="./README.de-DE.md">:de: Deutsch</a>
 </p>
 
 ----
@@ -250,6 +250,8 @@ Pull-запросы и плагины приветствуются!
   </tr>
   <tr>
     <td align="center"><a href="https://github.com/woodmeal"><img src="https://avatars.githubusercontent.com/u/104011197?v=4?s=100" width="100px;" alt=""/><br /><sub><b>woodmeal</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=woodmeal" title="Code">💻</a></td>
+    <td align="center"><a href="https://magiclike.codeberg.page/"><img src="https://avatars.githubusercontent.com/u/82117109?v=4?s=100" width="100px;" alt=""/><br /><sub><b>MagicLike</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=MagicLike" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://github.com/hisamafahri"><img src="https://avatars.githubusercontent.com/u/65691613?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Hisam Fahri</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=hisamafahri" title="Code">💻</a></td>
   </tr>
 </table>
 
