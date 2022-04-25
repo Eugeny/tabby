@@ -4,7 +4,7 @@ const path = require('path')
 const vars = require('./vars')
 
 if (process.platform === 'win32' || process.platform === 'linux') {
-    process.env.ARCH = (process.env.ARCH || process.arch) === 'arm' ? 'armv7l' : process.arch
+    process.env.ARCH = ((process.env.ARCH || process.arch) === 'arm') ? 'armv7l' : process.env.ARCH || process.arch
 } else {
     process.env.ARCH ??= process.arch
 }

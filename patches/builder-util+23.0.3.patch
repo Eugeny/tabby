@@ -1,0 +1,12 @@
+diff --git a/node_modules/builder-util/out/arch.js b/node_modules/builder-util/out/arch.js
+index eabcf47..e1ac595 100644
+--- a/node_modules/builder-util/out/arch.js
++++ b/node_modules/builder-util/out/arch.js
+@@ -40,6 +40,7 @@ function archFromString(name) {
+             return Arch.ia32;
+         case "arm64":
+             return Arch.arm64;
++        case "arm":
+         case "armv7l":
+             return Arch.armv7l;
+         case "universal":
