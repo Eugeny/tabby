@@ -8329,10 +8329,10 @@ truncate-utf8-bytes@^1.0.0:
   dependencies:
     utf8-byte-length "^1.0.1"
 
-ts-loader@^9.2.8:
-  version "9.2.8"
-  resolved "https://registry.yarnpkg.com/ts-loader/-/ts-loader-9.2.8.tgz#e89aa32fa829c5cad0a1d023d6b3adecd51d5a48"
-  integrity sha512-gxSak7IHUuRtwKf3FIPSW1VpZcqF9+MBrHOvBp9cjHh+525SjtCIJKVGjRKIAfxBwDGDGCFF00rTfzB1quxdSw==
+ts-loader@^9.2.9:
+  version "9.2.9"
+  resolved "https://registry.yarnpkg.com/ts-loader/-/ts-loader-9.2.9.tgz#0653e07fa1b4f225d0ca57a84fddbfd43d930f9e"
+  integrity sha512-b0+vUY2/enb0qYtDQuNlDnJ9900NTiPiJcDJ6sY7ax1CCCwXfYIqPOMm/BwW7jsF1km+Oz8W9s31HLuD+FLIMg==
   dependencies:
     chalk "^4.1.0"
     enhanced-resolve "^5.0.0"
