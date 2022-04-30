@@ -41,6 +41,7 @@ sftp-panel.bg-dark(
     *ngIf='sftpPanelVisible',
     (click)='$event.stopPropagation()',
     [session]='sshSession',
+    [cwdDetectionAvailable]='session?.supportsWorkingDirectory()',
     (closed)='sftpPanelVisible = false'
 )
 

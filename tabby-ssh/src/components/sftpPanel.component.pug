@@ -17,6 +17,16 @@
     button.btn.btn-link.btn-close((click)='close()') !{require('../../../tabby-core/src/icons/times.svg')}
 
 .body(dropZone, (transfer)='uploadOne($event)')
+    a.alert.alert-info.d-flex.align-items-center(
+        *ngIf='shouldShowCWDTip && !cwdDetectionAvailable',
+        (click)='platform.openExternal("https://tabby.sh/go/cwd-detection")'
+    )
+        .mr-auto(translate)
+            strong(translate) Working directory detection
+            div(translate) Learn how to allow Tabby to detect remote shell's working directory.
+        button.close((click)='dismissCWDTip()')
+            i.fas.fa-close
+
     div(*ngIf='!sftp', translate) Connecting
     div(*ngIf='sftp')
         div(*ngIf='fileList === null', translate) Loading

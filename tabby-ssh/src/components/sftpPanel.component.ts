@@ -26,11 +26,12 @@ export class SFTPPanelComponent {
     @Input() path = '/'
     @Output() pathChange = new EventEmitter<string>()
     pathSegments: PathSegment[] = []
+    @Input() cwdDetectionAvailable = false
 
     constructor (
         private ngbModal: NgbModal,
-        private platform: PlatformService,
         private notifications: NotificationsService,
+        public platform: PlatformService,
         @Optional() @Inject(SFTPContextMenuItemProvider) protected contextMenuProviders: SFTPContextMenuItemProvider[],
     ) {
         this.contextMenuProviders.sort((a, b) => a.weight - b.weight)
@@ -171,6 +172,14 @@ export class SFTPPanelComponent {
     async showContextMenu (item: SFTPFile, event: MouseEvent): Promise<void> {
         event.preventDefault()
         this.platform.popupContextMenu(await this.buildContextMenu(item), event)
+    }
+
+    get shouldShowCWDTip (): boolean {
+        return !window.localStorage.sshCWDTipDismissed
+    }
+
+    dismissCWDTip (): void {
+        window.localStorage.sshCWDTipDismissed = 'true'
     }
 
     close (): void {
