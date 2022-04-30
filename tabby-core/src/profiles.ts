@@ -38,7 +38,7 @@ export class SplitLayoutProfilesService extends ProfileProvider<SplitLayoutProfi
         return this.splitTabRecoveryProvider.recover(profile.options.recoveryToken)
     }
 
-    getDescription (_: SplitLayoutProfile): string {
+    getDescription (): string {
         return ''
     }
 
