@@ -1,3 +1,4 @@
+import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker'
 import slugify from 'slugify'
 import deepClone from 'clone-deep'
 import { Injectable } from '@angular/core'
@@ -10,7 +11,7 @@ import { BAUD_RATES, SerialProfile } from './api'
 @Injectable({ providedIn: 'root' })
 export class SerialProfilesService extends ProfileProvider<SerialProfile> {
     id = 'serial'
-    name = this.translate.instant('Serial')
+    name = _('Serial')
     settingsComponent = SerialProfileSettingsComponent
     configDefaults = {
         options: {

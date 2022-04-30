@@ -26,7 +26,7 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
                     .input-group-prepend
                         .input-group-text
                             i.fas.fa-fw.fa-search
-                    input.form-control(type='search', placeholder='Filter', [(ngModel)]='filter')
+                    input.form-control(type='search', [placeholder]='"Filter"|translate', [(ngModel)]='filter')
 
                 button.btn.btn-primary.flex-shrink-0.ml-3((click)='newProfile()')
                     i.fas.fa-fw.fa-plus
@@ -117,6 +117,6 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
                 a.list-group-item.list-group-item-action(
                     (click)='editDefaults(provider)',
                     *ngFor='let provider of profileProviders'
-                ) {{provider.name}}
+                ) {{provider.name|translate}}
 
 div([ngbNavOutlet]='nav')

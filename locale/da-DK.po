@@ -10,18 +10,23 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Danish\n"
 "Language: da_DK\n"
-"PO-Revision-Date: 2022-04-15 10:35\n"
+"PO-Revision-Date: 2022-04-30 18:35\n"
 
 #: tabby-local/src/components/terminalTab.component.ts:113
 msgid "\"{command}\" is still running. Close?"
 msgstr "\"{command}\" kører stadig. Luk?"
 
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:77
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:84
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:78
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:85
 msgid "{name} copy"
 msgstr "{name} kopi"
 
-#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:64
+#: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:13
+msgid "<strong translate=\"\">Working directory detection</strong>\n"
+"<div translate=\"\">Learn how to allow Tabby to detect remote shell's working directory.</div>"
+msgstr ""
+
+#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:76
 msgid "A second font family used to display characters missing in the main font"
 msgstr "En anden skrifttypefamilie, der bruges til at vise tegn, der mangler i hovedskrifttypen"
 
@@ -36,6 +41,10 @@ msgstr "Accepter og husk nøgle"
 #: locale/tmp-html/tabby-ssh/src/components/hostKeyPromptModal.component.html:25
 msgid "Accept just this once"
 msgstr "Accepter kun dette én gang"
+
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:84
+msgid "Accessibility"
+msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:20
 msgid "Acrylic background"
@@ -58,7 +67,7 @@ msgstr "Tilføj en privat nøgle"
 msgid "Add..."
 msgstr "Tilføj..."
 
-#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:71
+#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:83
 msgid "Additional space between lines"
 msgstr "Yderligere mellemrum mellem linjer"
 
@@ -85,7 +94,7 @@ msgstr "Agent pipe-sti"
 msgid "Agent type"
 msgstr "Agent type"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:157
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:163
 msgid "Allows opening .bat files in tabs, but breaks some shells"
 msgstr "Giver mulighed for at åbne .bat filer i faner, men virker ikke med nogle shell's"
 
@@ -126,7 +135,7 @@ msgstr "Stil et spørgsmål"
 msgid "Ask before closing the browser tab"
 msgstr "Spørg før du lukker browserfanen"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:128
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:134
 msgid "Audible"
 msgstr "Hørbar"
 
@@ -142,7 +151,7 @@ msgstr "Forfatter"
 msgid "Auto"
 msgstr "Auto"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:141
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:147
 msgid "Auto-open a terminal on app start"
 msgstr "Åbn automatisk en terminal ved appstart"
 
@@ -170,7 +179,7 @@ msgstr "Baggrundstype"
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:14
 #: tabby-serial/src/components/serialTab.component.ts:118
-#: tabby-serial/src/profiles.ts:85
+#: tabby-serial/src/profiles.ts:86
 msgid "Baud rate"
 msgstr "Baud-rate (hastighed)"
 
@@ -178,7 +187,7 @@ msgstr "Baud-rate (hastighed)"
 msgid "Beginning of the line"
 msgstr "Begyndelse af linjen"
 
-#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:57
+#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:69
 msgid "Blink cursor"
 msgstr "Blinkende markør"
 
@@ -190,17 +199,21 @@ msgstr "Blå"
 msgid "Blur"
 msgstr "Sløring"
 
+#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:28
+msgid "Bold font weight"
+msgstr ""
+
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:138
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:82
 msgid "Bottom"
 msgstr "Bunden"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:101
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:107
 msgid "Bracketed paste (requires shell support)"
 msgstr ""
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:48
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:165
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:166
 msgid "Built-in"
 msgstr "Indbygget"
 
@@ -211,12 +224,12 @@ msgstr "Indbygget"
 #: locale/tmp-html/tabby-ssh/src/components/sftpCreateDirectoryModal.component.html:10
 #: locale/tmp-html/tabby-ssh/src/components/sftpDeleteModal.component.html:7
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:30
-#: tabby-electron/src/services/updater.service.ts:139
+#: tabby-electron/src/services/updater.service.ts:143
 #: tabby-local/src/components/terminalTab.component.ts:118
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:79
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:99
 #: tabby-ssh/src/sftpContextMenu.ts:40
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:453
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:458
 msgid "Cancel"
 msgstr "Annullér"
 
@@ -237,15 +250,15 @@ msgstr "Kontrollér for opdateringer"
 msgid "Ciphers"
 msgstr "Ciphers"
 
-#: tabby-core/src/services/profiles.service.ts:125
+#: tabby-core/src/services/profiles.service.ts:128
 msgid "Clear recent profiles"
 msgstr "Ryd seneste profiler"
 
-#: tabby-terminal/src/hotkeys.ts:42
+#: tabby-terminal/src/hotkeys.ts:46
 msgid "Clear terminal"
 msgstr "Ryd terminal"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:86
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:92
 msgid "Clipboard"
 msgstr "Udklipsholder"
 
@@ -307,8 +320,8 @@ msgstr "Kompakt"
 msgid "Config downloaded"
 msgstr "Konfiguration downloadet"
 
-#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:102
-#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:107
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:109
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:114
 msgid "Config file"
 msgstr "Konfigurationsfil"
 
@@ -330,7 +343,7 @@ msgid "Connect through a proxy server"
 msgstr "Forbind via en proxyserver"
 
 #: tabby-core/src/index.ts:214
-#: tabby-core/src/services/profiles.service.ts:170
+#: tabby-core/src/services/profiles.service.ts:173
 msgid "Connect to \"%s\"..."
 msgstr "Forbind til \"%s\"..."
 
@@ -338,7 +351,7 @@ msgstr "Forbind til \"%s\"..."
 msgid "Connect to a different host first and use it as a proxy"
 msgstr "Opret forbindelse til en anden vært først og brug den som en proxy"
 
-#: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:13
+#: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:17
 #: tabby-serial/src/components/serialTab.component.ts:72
 #: tabby-ssh/src/components/sshTab.component.ts:145
 #: tabby-telnet/src/components/telnetTab.component.ts:81
@@ -357,14 +370,14 @@ msgstr "Forbindelse fejlede: {error}"
 msgid "Connection name will be used instead"
 msgstr "Forbindelsens navn vil blive brugt i stedet"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:51
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:57
 msgid "Context menu"
 msgstr "Kontekstmenu"
 
 #: tabby-terminal/src/api/baseTerminalTab.component.ts:201
 #: tabby-terminal/src/api/baseTerminalTab.component.ts:209
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:544
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:748
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:549
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:753
 #: tabby-terminal/src/tabContextMenu.ts:29
 msgid "Copied"
 msgstr "Kopieret"
@@ -374,12 +387,12 @@ msgstr "Kopieret"
 msgid "Copy"
 msgstr "Kopiér"
 
-#: tabby-terminal/src/hotkeys.ts:62
+#: tabby-terminal/src/hotkeys.ts:66
 #: tabby-terminal/src/tabContextMenu.ts:53
 msgid "Copy current path"
 msgstr "Kopiér nuværende sti"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:89
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:95
 msgid "Copy on select"
 msgstr "Kopiér ved markering"
 
@@ -387,7 +400,7 @@ msgstr "Kopiér ved markering"
 msgid "Copy to clipboard"
 msgstr "Kopiér til udklipsholder"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:95
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:101
 msgid "Copy with formatting"
 msgstr ""
 
@@ -420,7 +433,7 @@ msgstr "Nuværende værtsnøgle fingeraftryk"
 msgid "Current process: {name}"
 msgstr "Nuværende proces: {name}"
 
-#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:41
+#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:53
 msgid "Cursor shape"
 msgstr "Markørens form"
 
@@ -428,7 +441,7 @@ msgstr "Markørens form"
 msgid "Custom"
 msgstr ""
 
-#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:77
+#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:89
 msgid "Custom CSS"
 msgstr "Brugerdefineret CSS"
 
@@ -456,7 +469,7 @@ msgstr "Standard profil for nye faner"
 msgid "Default profile settings"
 msgstr "Standard profilindstillinger"
 
-#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:111
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:118
 msgid "Defaults"
 msgstr "Standardindstillinger"
 
@@ -466,9 +479,9 @@ msgstr "Standard for {type}"
 
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:28
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:9
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:129
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:194
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:207
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:130
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:195
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:208
 #: tabby-settings/src/components/vaultSettingsTab.component.ts:49
 #: tabby-ssh/src/sftpContextMenu.ts:39
 #: tabby-ssh/src/sftpContextMenu.ts:47
@@ -477,8 +490,8 @@ msgstr "Standard for {type}"
 msgid "Delete"
 msgstr "Slet"
 
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:127
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:192
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:128
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:193
 #: tabby-terminal/src/components/colorSchemeSettingsTab.component.ts:87
 msgid "Delete \"{name}\"?"
 msgstr "Slet \"{name}\"?"
@@ -488,6 +501,10 @@ msgid "Delete {fullPath}?"
 msgstr "Slet {fullPath}?"
 
 #: tabby-terminal/src/hotkeys.ts:38
+msgid "Delete entire line"
+msgstr ""
+
+#: tabby-terminal/src/hotkeys.ts:42
 msgid "Delete next word"
 msgstr "Slet næste ord"
 
@@ -495,7 +512,7 @@ msgstr "Slet næste ord"
 msgid "Delete previous word"
 msgstr "Slet forrige ord"
 
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:204
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:205
 msgid "Delete the group's profiles?"
 msgstr "Slet gruppens profiler?"
 
@@ -588,7 +605,7 @@ msgstr ""
 msgid "Docking"
 msgstr ""
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:67
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:73
 msgid "Double-click selection will stop at these characters"
 msgstr "Markering med dobbeltklik vil stoppe ved disse tegn"
 
@@ -599,6 +616,10 @@ msgstr "Ned"
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:47
 msgid "Download"
 msgstr "Download"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:23
+msgid "Draw bold text in bright colors"
+msgstr ""
 
 #: tabby-core/src/tabContextMenu.ts:120
 msgid "Duplicate"
@@ -623,6 +644,10 @@ msgstr "Aktivér"
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:19
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:66
 msgid "Enable analytics"
+msgstr ""
+
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:87
+msgid "Enable animations"
 msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:74
@@ -678,7 +703,7 @@ msgstr "Eksempel:"
 msgid "Export"
 msgstr "Eksportér"
 
-#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:63
+#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:75
 msgid "Fallback font"
 msgstr "Skrifttype at falde tilbage på"
 
@@ -689,6 +714,10 @@ msgstr "Filoverførsler"
 #: tabby-settings/src/components/vaultSettingsTab.component.ts:91
 msgid "File: {description}"
 msgstr "Fil: {description}"
+
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:17
+msgid "Filter"
+msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:157
 msgid "Fixed"
@@ -702,7 +731,7 @@ msgstr ""
 msgid "Focus all panes"
 msgstr "Fokusér alle ruder"
 
-#: tabby-terminal/src/hotkeys.ts:70
+#: tabby-terminal/src/hotkeys.ts:74
 msgid "Focus all panes at once (broadcast)"
 msgstr "Fokusér alle ruder på én gang (broadcast)"
 
@@ -766,11 +795,11 @@ msgstr "Videresend port"
 msgid "Forwarded ports"
 msgstr "Videresendte porte"
 
-#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:35
+#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:47
 msgid "From color scheme"
 msgstr "Fra farvetema"
 
-#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:32
+#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:44
 msgid "From theme"
 msgstr "Fra tema"
 
@@ -804,7 +833,7 @@ msgstr ""
 msgid "Gives the window a blurred transparent background"
 msgstr ""
 
-#: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:18
+#: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:22
 msgid "Go up"
 msgstr "Gå op"
 
@@ -822,6 +851,10 @@ msgstr ""
 
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:20
 msgid "Help track the number of Tabby installs across the world!"
+msgstr ""
+
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:50
+msgid "Help translate Tabby<i class=\"fas fa-external-link-square-alt ml-1\"></i>"
 msgstr ""
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:32
@@ -919,11 +952,11 @@ msgstr ""
 msgid "Installed"
 msgstr "Installeret"
 
-#: tabby-electron/src/services/updater.service.ts:136
+#: tabby-electron/src/services/updater.service.ts:140
 msgid "Installing the update will close all tabs and restart Tabby."
 msgstr "Installation af opdateringen vil lukke alle faner og genstarte Tabby."
 
-#: tabby-terminal/src/hotkeys.ts:58
+#: tabby-terminal/src/hotkeys.ts:62
 msgid "Intelligent Ctrl-C (copy/abort)"
 msgstr ""
 
@@ -931,7 +964,7 @@ msgstr ""
 msgid "Interactive"
 msgstr "Interaktiv"
 
-#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:117
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:124
 msgid "Invalid syntax"
 msgstr "Ugyldig syntaks"
 
@@ -948,8 +981,8 @@ msgstr "Hop til næste ord"
 msgid "Jump to previous word"
 msgstr "Hop til forrige ord"
 
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:130
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:195
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:131
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:196
 #: tabby-settings/src/components/vaultSettingsTab.component.ts:50
 #: tabby-terminal/src/components/colorSchemeSettingsTab.component.ts:90
 #: tabby-terminal/src/components/loginScriptsSettings.component.ts:33
@@ -973,7 +1006,7 @@ msgstr "Nøgle"
 msgid "Key exchange"
 msgstr ""
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:23
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:29
 msgid "Keyboard"
 msgstr ""
 
@@ -1002,6 +1035,7 @@ msgstr "Start WinSCP"
 msgid "Launch WinSCP for current SSH session"
 msgstr "Start WinSCP for den aktuelle SSH-session"
 
+#: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:14
 #: locale/tmp-html/tabby-ssh/src/components/sshTab.component.html:7
 msgid "Learn how to allow Tabby to detect remote shell's working directory."
 msgstr "Lær, hvordan du tillader Tabby at registrere ekstern shell's arbejdsmappe."
@@ -1012,7 +1046,7 @@ msgstr "Lær, hvordan du tillader Tabby at registrere ekstern shell's arbejdsmap
 msgid "Left"
 msgstr "Venstre"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:27
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:33
 msgid "Lets the shell handle Meta key instead of OS"
 msgstr "Lader shell'et håndtere Meta taster i stedet for operativsystemet"
 
@@ -1024,11 +1058,11 @@ msgstr "Linje for linje"
 msgid "Line editor, input is sent after you press Enter"
 msgstr ""
 
-#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:70
+#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:82
 msgid "Line padding"
 msgstr ""
 
-#: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:15
+#: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:19
 msgid "Loading"
 msgstr "Indlæser"
 
@@ -1045,8 +1079,7 @@ msgstr "Lokal"
 msgid "Local echo"
 msgstr "Lokalt ekko"
 
-#: tabby-local/src/profiles.ts:11
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:237
+#: tabby-local/src/profiles.ts:12
 msgid "Local terminal"
 msgstr "Lokal terminal"
 
@@ -1056,11 +1089,11 @@ msgstr "Lokal terminal"
 msgid "Login scripts"
 msgstr "Login scripts"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:44
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:50
 msgid "Long-click for context menu"
 msgstr ""
 
-#: tabby-core/src/services/profiles.service.ts:154
+#: tabby-core/src/services/profiles.service.ts:157
 msgid "Manage profiles"
 msgstr "Administrér profiler"
 
@@ -1076,7 +1109,7 @@ msgstr "Maksimér den aktive rude"
 msgid "Modified on {date}"
 msgstr "Ændret den {date}"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:40
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:46
 msgid "Mouse"
 msgstr ""
 
@@ -1088,7 +1121,7 @@ msgstr "Flyt fane til venstre"
 msgid "Move tab to the right"
 msgstr "Flyt fane til højre"
 
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:206
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:207
 msgid "Move to \"Ungrouped\""
 msgstr "Flyt til \"Ugrupperet\""
 
@@ -1121,7 +1154,7 @@ msgstr "Ny konfiguration på {platform}"
 msgid "New item"
 msgstr "Nyt element"
 
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:176
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:177
 #: tabby-settings/src/components/vaultSettingsTab.component.ts:118
 msgid "New name"
 msgstr "Nyt navn"
@@ -1151,6 +1184,10 @@ msgstr "Ny terminal"
 msgid "New window"
 msgstr "Nyt vindue"
 
+#: tabby-local/src/services/dockMenu.service.ts:62
+msgid "New Window"
+msgstr ""
+
 #: tabby-local/src/tabContextMenu.ts:87
 msgid "New with profile"
 msgstr "Ny med profil"
@@ -1163,7 +1200,7 @@ msgstr "Næste fane"
 msgid "No color"
 msgstr "Ingen farve"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:77
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:83
 msgid "No modifier"
 msgstr "Ingen modifikator"
 
@@ -1175,6 +1212,10 @@ msgstr "Ingen"
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:39
 msgid "Normal"
 msgstr "Normal"
+
+#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:22
+msgid "Normal font weight"
+msgstr ""
 
 #: tabby-terminal/src/components/searchPanel.component.ts:47
 #: tabby-terminal/src/components/searchPanel.component.ts:57
@@ -1194,8 +1235,8 @@ msgid "Number of lines kept in the buffer"
 msgstr "Antal linjer i bufferen"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:70
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:122
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:48
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:128
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:54
 msgid "Off"
 msgstr "Slået fra"
 
@@ -1313,8 +1354,8 @@ msgstr "Adgangskode for en privat nøgle med hash {hash}..."
 msgid "Password"
 msgstr "Adgangskode"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:54
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:452
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:60
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:457
 #: tabby-terminal/src/tabContextMenu.ts:34
 msgid "Paste"
 msgstr "Indsæt"
@@ -1323,11 +1364,11 @@ msgstr "Indsæt"
 msgid "Paste from clipboard"
 msgstr "Indsæt fra udklipsholder"
 
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:459
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:464
 msgid "Paste multiple lines?"
 msgstr "Indsæt flere linjer?"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:60
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:66
 msgid "Paste on middle-click"
 msgstr ""
 
@@ -1375,7 +1416,7 @@ msgstr "Tryk på tasten nu"
 msgid "Prevents accidental closing"
 msgstr "Forhindrer utilsigtet lukning"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:102
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:108
 msgid "Prevents accidental execution of pasted commands"
 msgstr "Forhindrer utilsigtet udførelse af indsatte kommandoer"
 
@@ -1423,7 +1464,7 @@ msgid "Puts all of Tabby's configuration into the vault"
 msgstr "Placerer alle Tabby's konfiguration i boksen"
 
 #: tabby-core/src/index.ts:213
-#: tabby-core/src/services/profiles.service.ts:169
+#: tabby-core/src/services/profiles.service.ts:172
 msgid "Quick connect"
 msgstr "Hurtig tilslutning"
 
@@ -1440,8 +1481,8 @@ msgstr "Rå socket forbindelse"
 msgid "Ready Timeout (Milliseconds)"
 msgstr ""
 
-#: tabby-core/src/services/profiles.service.ts:112
-#: tabby-core/src/services/profiles.service.ts:126
+#: tabby-core/src/services/profiles.service.ts:115
+#: tabby-core/src/services/profiles.service.ts:129
 #: tabby-local/src/services/dockMenu.service.ts:28
 msgid "Recent"
 msgstr "Seneste"
@@ -1500,11 +1541,11 @@ msgstr "Erstat"
 msgid "Report a problem"
 msgstr "Rapportér et problem"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:73
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:79
 msgid "Require a key to click links"
 msgstr ""
 
-#: tabby-terminal/src/hotkeys.ts:54
+#: tabby-terminal/src/hotkeys.ts:58
 msgid "Reset zoom"
 msgstr "Nulstil zoom"
 
@@ -1520,11 +1561,11 @@ msgstr "Genstart nuværende SSH-session"
 msgid "Restart current Telnet session"
 msgstr "Genstart nuværende Telnet session"
 
-#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:127
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:134
 msgid "Restart the app to apply changes"
 msgstr "Genstart app'en for at anvende ændringer"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:147
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:153
 msgid "Restore terminal tabs on app start"
 msgstr ""
 
@@ -1538,7 +1579,7 @@ msgstr ""
 msgid "Right"
 msgstr "Højre"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:43
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:49
 msgid "Right click"
 msgstr "Højreklik"
 
@@ -1556,7 +1597,7 @@ msgstr "Gem"
 msgid "Save a password in the keychain"
 msgstr "Gem en adgangskode i nøgleringen"
 
-#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:116
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:123
 msgid "Save and apply"
 msgstr "Gem og anvend"
 
@@ -1576,11 +1617,11 @@ msgstr "Gemt"
 msgid "Saved layout"
 msgstr "Gemt layout"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:33
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:39
 msgid "Scroll on input"
 msgstr ""
 
-#: tabby-terminal/src/hotkeys.ts:74
+#: tabby-terminal/src/hotkeys.ts:78
 msgid "Scroll terminal to bottom"
 msgstr "Rul terminal til bunden"
 
@@ -1588,11 +1629,11 @@ msgstr "Rul terminal til bunden"
 msgid "Scrollback"
 msgstr ""
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:34
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:40
 msgid "Scrolls the terminal to the bottom on user input"
 msgstr ""
 
-#: tabby-terminal/src/hotkeys.ts:66
+#: tabby-terminal/src/hotkeys.ts:70
 msgid "Search"
 msgstr "Søg"
 
@@ -1617,7 +1658,7 @@ msgstr "Hemmelig synkroniseringstoken"
 msgid "Select"
 msgstr "Vælg"
 
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:63
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:64
 msgid "Select a base profile to use as a template"
 msgstr "Vælg en basisprofil, der skal bruges som skabelon"
 
@@ -1629,7 +1670,7 @@ msgstr "Vælg lagerplads"
 msgid "Select profile"
 msgstr "Vælg profil"
 
-#: tabby-core/src/services/profiles.service.ts:178
+#: tabby-core/src/services/profiles.service.ts:181
 msgid "Select profile or enter an address"
 msgstr "Vælg profil eller indtast en adresse"
 
@@ -1641,17 +1682,17 @@ msgstr "Send bytes ved at skrive i hex-værdier"
 msgid "Sends data one byte at a time"
 msgstr "Sender data en byte ad gangen"
 
-#: tabby-serial/src/profiles.ts:13
-#: tabby-serial/src/profiles.ts:71
+#: tabby-serial/src/profiles.ts:14
+#: tabby-serial/src/profiles.ts:72
 msgid "Serial"
 msgstr "Seriel"
 
-#: tabby-serial/src/profiles.ts:50
-#: tabby-serial/src/profiles.ts:61
+#: tabby-serial/src/profiles.ts:51
+#: tabby-serial/src/profiles.ts:62
 msgid "Serial connection"
 msgstr "Seriel forbindelse"
 
-#: tabby-serial/src/profiles.ts:70
+#: tabby-serial/src/profiles.ts:71
 msgid "Serial: {description}"
 msgstr "Seriel: {description}"
 
@@ -1668,7 +1709,7 @@ msgstr "Indstil adgangskode"
 msgid "Set password"
 msgstr "Angiv adgangskode"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:156
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:162
 msgid "Set Tabby as %COMSPEC%"
 msgstr "Sæt Tabby som %COMSPEC%"
 
@@ -1689,7 +1730,7 @@ msgstr "Indstillinger"
 msgid "Shell"
 msgstr "Shell"
 
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:546
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:551
 msgid "Shell does not support current path detection"
 msgstr "Shell understøtter ikke detektion af aktuel sti"
 
@@ -1701,7 +1742,7 @@ msgstr "Shell integration"
 msgid "Show {type} profile selector"
 msgstr "Vis {type} profilvælger"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:109
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:115
 msgid "Show a confirmation box when pasting multiple lines"
 msgstr ""
 
@@ -1709,15 +1750,15 @@ msgstr ""
 msgid "Show built-in profiles in selector"
 msgstr "Vis indbyggede profiler i vælgeren"
 
-#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:119
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:126
 msgid "Show config file"
 msgstr "Vis konfigurationsfil"
 
-#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:118
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:125
 msgid "Show defaults"
 msgstr "Vis standardindstillinger"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:134
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:140
 msgid "Show Mixer"
 msgstr ""
 
@@ -1776,7 +1817,7 @@ msgstr "SOCKS proxy vært"
 msgid "SOCKS proxy port"
 msgstr "SOCKS proxy port"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:115
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:121
 msgid "Sound"
 msgstr ""
 
@@ -1820,7 +1861,7 @@ msgstr "SSH adgangskode for {user}@{host}:{port}"
 msgid "Standard"
 msgstr "Standard"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:138
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:144
 msgid "Startup"
 msgstr "Opstart"
 
@@ -1932,11 +1973,11 @@ msgstr "Telnet session"
 msgid "Terminal"
 msgstr "Terminal"
 
-#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:28
+#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:40
 msgid "Terminal background"
 msgstr "Terminalbaggrund"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:118
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:124
 msgid "Terminal bell"
 msgstr "Terminalklokke"
 
@@ -1993,7 +2034,7 @@ msgstr "Toppen"
 msgid "Try again"
 msgstr "Prøv igen"
 
-#: tabby-ssh/src/session/ssh.ts:474
+#: tabby-ssh/src/session/ssh.ts:482
 msgid "Trying saved password"
 msgstr "Prøver gemt adgangskode"
 
@@ -2001,7 +2042,7 @@ msgstr "Prøver gemt adgangskode"
 msgid "Turn current tab's panes into separate tabs"
 msgstr ""
 
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:17
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:18
 msgid "Ungrouped"
 msgstr "Ugrupperet"
 
@@ -2009,7 +2050,7 @@ msgstr "Ugrupperet"
 msgid "Uninstall"
 msgstr "Afinstallér"
 
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:240
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:241
 msgid "Unknown"
 msgstr "Ukendt"
 
@@ -2026,7 +2067,7 @@ msgid "Up"
 msgstr "Op"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:14
-#: tabby-electron/src/services/updater.service.ts:138
+#: tabby-electron/src/services/updater.service.ts:142
 msgid "Update"
 msgstr "Opdatér"
 
@@ -2043,7 +2084,7 @@ msgstr "Upload"
 msgid "Upload as a new config"
 msgstr "Upload som ny konfiguration"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:26
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:32
 msgid "Use {altKeyName} as the Meta key"
 msgstr "Brug {altKeyName} som Meta tasten"
 
@@ -2064,7 +2105,7 @@ msgstr "Brugernavn"
 msgid "Using CONNECT method"
 msgstr ""
 
-#: tabby-ssh/src/session/ssh.ts:463
+#: tabby-ssh/src/session/ssh.ts:471
 msgid "Using preset password"
 msgstr "Brug forudindstillede adgangskode"
 
@@ -2109,11 +2150,11 @@ msgstr "Version: {version}"
 msgid "Vibrancy"
 msgstr "Vibrancy"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:125
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:131
 msgid "Visual"
 msgstr "Visuel"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:108
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:114
 msgid "Warn on multi-line paste"
 msgstr ""
 
@@ -2137,7 +2178,7 @@ msgstr "Velkommen"
 msgid "What's new"
 msgstr "Nyheder"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:74
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:80
 msgid "When enabled, links are only clickable while holding this key"
 msgstr "Når aktiveret, er links kun klikbare mens du holder denne tast nede"
 
@@ -2166,7 +2207,7 @@ msgstr ""
 msgid "Window frame"
 msgstr "Vinduesramme"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:153
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:159
 msgid "Windows"
 msgstr ""
 
@@ -2178,7 +2219,7 @@ msgstr "Windows 10 build 18309 eller derover anbefales til ConPTY"
 msgid "WinSCP path"
 msgstr "WinSCP sti"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:66
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:72
 msgid "Word separators"
 msgstr "Ordseparatorer"
 
@@ -2186,11 +2227,12 @@ msgstr "Ordseparatorer"
 msgid "Working directory"
 msgstr "Arbejdsmappe"
 
+#: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:13
 #: locale/tmp-html/tabby-ssh/src/components/sshTab.component.html:6
 msgid "Working directory detection"
 msgstr "Detektering af arbejdsmappe"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:133
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:139
 msgid "WSL terminal bell can only be muted via Volume Mixer"
 msgstr ""
 
@@ -2214,11 +2256,11 @@ msgstr "Du kan ændre det senere, men det er uopretteligt, hvis det glemmes."
 msgid "You could be under a man-in-the-middle attack right now, or the host key could have just been changed."
 msgstr "Du kunne være under et man-in-the-middle angreb lige nu, eller værtsnøglen kunne lige være blevet ændret."
 
-#: tabby-terminal/src/hotkeys.ts:46
+#: tabby-terminal/src/hotkeys.ts:50
 msgid "Zoom in"
 msgstr "Zoom ind"
 
-#: tabby-terminal/src/hotkeys.ts:50
+#: tabby-terminal/src/hotkeys.ts:54
 msgid "Zoom out"
 msgstr "Zoom ud"
 

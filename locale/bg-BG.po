@@ -10,18 +10,23 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Bulgarian\n"
 "Language: bg_BG\n"
-"PO-Revision-Date: 2022-04-15 10:35\n"
+"PO-Revision-Date: 2022-04-30 18:35\n"
 
 #: tabby-local/src/components/terminalTab.component.ts:113
 msgid "\"{command}\" is still running. Close?"
 msgstr "\"{command}\" все още се изпълнява. Затваряне?"
 
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:77
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:84
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:78
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:85
 msgid "{name} copy"
 msgstr "{name} копирай"
 
-#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:64
+#: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:13
+msgid "<strong translate=\"\">Working directory detection</strong>\n"
+"<div translate=\"\">Learn how to allow Tabby to detect remote shell's working directory.</div>"
+msgstr ""
+
+#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:76
 msgid "A second font family used to display characters missing in the main font"
 msgstr "Шрифт, който да се използва в случай, че символ отсъства в основния шрифт"
 
@@ -36,6 +41,10 @@ msgstr "Приеми и запомни ключа"
 #: locale/tmp-html/tabby-ssh/src/components/hostKeyPromptModal.component.html:25
 msgid "Accept just this once"
 msgstr "Приеми самотози веднъж"
+
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:84
+msgid "Accessibility"
+msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:20
 msgid "Acrylic background"
@@ -58,7 +67,7 @@ msgstr "Добави частен ключ"
 msgid "Add..."
 msgstr "Добави..."
 
-#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:71
+#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:83
 msgid "Additional space between lines"
 msgstr "Допълнително разстояние между редовете"
 
@@ -85,7 +94,7 @@ msgstr "Път към pipe SSH"
 msgid "Agent type"
 msgstr "Агент тип"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:157
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:163
 msgid "Allows opening .bat files in tabs, but breaks some shells"
 msgstr "Разрешава отваряне на .bat файлове в табове, но прекъсва някои терминали"
 
@@ -126,7 +135,7 @@ msgstr "Задайте въпрос"
 msgid "Ask before closing the browser tab"
 msgstr "Питай преди да затвориш таба на браузъра"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:128
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:134
 msgid "Audible"
 msgstr "Звучен"
 
@@ -142,7 +151,7 @@ msgstr "Автор"
 msgid "Auto"
 msgstr "Автоматично"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:141
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:147
 msgid "Auto-open a terminal on app start"
 msgstr "Автоматично отваряне на терминал при стартиране на приложението"
 
@@ -170,7 +179,7 @@ msgstr "Тип на фона"
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:14
 #: tabby-serial/src/components/serialTab.component.ts:118
-#: tabby-serial/src/profiles.ts:85
+#: tabby-serial/src/profiles.ts:86
 msgid "Baud rate"
 msgstr "Скорост на предаване"
 
@@ -178,7 +187,7 @@ msgstr "Скорост на предаване"
 msgid "Beginning of the line"
 msgstr "Начало на реда"
 
-#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:57
+#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:69
 msgid "Blink cursor"
 msgstr "Мигане на курсора"
 
@@ -190,17 +199,21 @@ msgstr "Синьо"
 msgid "Blur"
 msgstr "Замъгляване"
 
+#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:28
+msgid "Bold font weight"
+msgstr ""
+
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:138
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:82
 msgid "Bottom"
 msgstr "Долу"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:101
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:107
 msgid "Bracketed paste (requires shell support)"
 msgstr "Bracketed paste (изисква shell подръжка)"
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:48
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:165
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:166
 msgid "Built-in"
 msgstr "Вградени"
 
@@ -211,12 +224,12 @@ msgstr "Вградени"
 #: locale/tmp-html/tabby-ssh/src/components/sftpCreateDirectoryModal.component.html:10
 #: locale/tmp-html/tabby-ssh/src/components/sftpDeleteModal.component.html:7
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:30
-#: tabby-electron/src/services/updater.service.ts:139
+#: tabby-electron/src/services/updater.service.ts:143
 #: tabby-local/src/components/terminalTab.component.ts:118
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:79
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:99
 #: tabby-ssh/src/sftpContextMenu.ts:40
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:453
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:458
 msgid "Cancel"
 msgstr "Откажи"
 
@@ -237,15 +250,15 @@ msgstr "Провери за актуализация"
 msgid "Ciphers"
 msgstr "Шифри"
 
-#: tabby-core/src/services/profiles.service.ts:125
+#: tabby-core/src/services/profiles.service.ts:128
 msgid "Clear recent profiles"
 msgstr "Изчисти скорошни профили"
 
-#: tabby-terminal/src/hotkeys.ts:42
+#: tabby-terminal/src/hotkeys.ts:46
 msgid "Clear terminal"
 msgstr "Изчисти терминала"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:86
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:92
 msgid "Clipboard"
 msgstr "Клипборд"
 
@@ -307,8 +320,8 @@ msgstr "Компактна"
 msgid "Config downloaded"
 msgstr "Конфифурацията е свалена"
 
-#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:102
-#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:107
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:109
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:114
 msgid "Config file"
 msgstr "Конфигурационен файл"
 
@@ -330,7 +343,7 @@ msgid "Connect through a proxy server"
 msgstr "Връзка чрез прокси сървър"
 
 #: tabby-core/src/index.ts:214
-#: tabby-core/src/services/profiles.service.ts:170
+#: tabby-core/src/services/profiles.service.ts:173
 msgid "Connect to \"%s\"..."
 msgstr "Свържи към \"%s\"..."
 
@@ -338,7 +351,7 @@ msgstr "Свържи към \"%s\"..."
 msgid "Connect to a different host first and use it as a proxy"
 msgstr "Свържи се първо към друг хост и го използвай като прокси"
 
-#: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:13
+#: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:17
 #: tabby-serial/src/components/serialTab.component.ts:72
 #: tabby-ssh/src/components/sshTab.component.ts:145
 #: tabby-telnet/src/components/telnetTab.component.ts:81
@@ -357,14 +370,14 @@ msgstr "Свързването е неуспешно: {error}"
 msgid "Connection name will be used instead"
 msgstr "Името на свръзката ще се се използва вместо това"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:51
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:57
 msgid "Context menu"
 msgstr "Контекстно меню"
 
 #: tabby-terminal/src/api/baseTerminalTab.component.ts:201
 #: tabby-terminal/src/api/baseTerminalTab.component.ts:209
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:544
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:748
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:549
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:753
 #: tabby-terminal/src/tabContextMenu.ts:29
 msgid "Copied"
 msgstr "Копирано"
@@ -374,12 +387,12 @@ msgstr "Копирано"
 msgid "Copy"
 msgstr "Копирай"
 
-#: tabby-terminal/src/hotkeys.ts:62
+#: tabby-terminal/src/hotkeys.ts:66
 #: tabby-terminal/src/tabContextMenu.ts:53
 msgid "Copy current path"
 msgstr "Копирай текущия път"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:89
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:95
 msgid "Copy on select"
 msgstr "Копирай при маркиране"
 
@@ -387,9 +400,9 @@ msgstr "Копирай при маркиране"
 msgid "Copy to clipboard"
 msgstr "Копирай в клипборда"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:95
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:101
 msgid "Copy with formatting"
-msgstr ""
+msgstr "Копирай с форматиране"
 
 #: tabby-core/src/services/config.service.ts:365
 msgid "Could not decrypt config"
@@ -397,12 +410,12 @@ msgstr "Конфигурацията не може да бъде декрипт�
 
 #: locale/tmp-html/tabby-ssh/src/components/sftpCreateDirectoryModal.component.html:9
 msgid "Create"
-msgstr ""
+msgstr "Създай"
 
 #: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:5
 #: tabby-ssh/src/sftpContextMenu.ts:29
 msgid "Create directory"
-msgstr ""
+msgstr "Създай директория"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:93
 msgid "Current"
@@ -420,15 +433,15 @@ msgstr "Текущ ключов отпечатък на хоста"
 msgid "Current process: {name}"
 msgstr "Текущ процес: {name}"
 
-#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:41
+#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:53
 msgid "Cursor shape"
 msgstr "Форма на курсора"
 
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:47
 msgid "Custom"
-msgstr ""
+msgstr "Потребителски"
 
-#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:77
+#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:89
 msgid "Custom CSS"
 msgstr "Персонализиран CSS"
 
@@ -442,11 +455,11 @@ msgstr "Отстраняване на грешки"
 
 #: tabby-core/src/hotkeys.ts:213
 msgid "Decrease horizontal split size"
-msgstr ""
+msgstr "Намали размера на хоризонталното разделяне"
 
 #: tabby-core/src/hotkeys.ts:205
 msgid "Decrease vertical split size"
-msgstr ""
+msgstr "Намали размера на вертикалното разделяне"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:8
 msgid "Default profile for new tabs"
@@ -456,7 +469,7 @@ msgstr "Профил по подразбиране за нов таб"
 msgid "Default profile settings"
 msgstr "Настройка на профил по подразбиране"
 
-#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:111
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:118
 msgid "Defaults"
 msgstr "По подразбиране"
 
@@ -466,9 +479,9 @@ msgstr "По подразбиране за {type}"
 
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:28
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:9
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:129
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:194
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:207
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:130
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:195
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:208
 #: tabby-settings/src/components/vaultSettingsTab.component.ts:49
 #: tabby-ssh/src/sftpContextMenu.ts:39
 #: tabby-ssh/src/sftpContextMenu.ts:47
@@ -477,8 +490,8 @@ msgstr "По подразбиране за {type}"
 msgid "Delete"
 msgstr "Изтрий"
 
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:127
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:192
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:128
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:193
 #: tabby-terminal/src/components/colorSchemeSettingsTab.component.ts:87
 msgid "Delete \"{name}\"?"
 msgstr "Изтрий \"{name}\"?"
@@ -488,6 +501,10 @@ msgid "Delete {fullPath}?"
 msgstr "Изтриване {fullPath}?"
 
 #: tabby-terminal/src/hotkeys.ts:38
+msgid "Delete entire line"
+msgstr ""
+
+#: tabby-terminal/src/hotkeys.ts:42
 msgid "Delete next word"
 msgstr "Изтрий следваща дума"
 
@@ -495,7 +512,7 @@ msgstr "Изтрий следваща дума"
 msgid "Delete previous word"
 msgstr "Изтрий предишна дума"
 
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:204
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:205
 msgid "Delete the group's profiles?"
 msgstr "Изтриване профилите на групата?"
 
@@ -529,7 +546,7 @@ msgstr "Изключи динамично заглавие на таб"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:197
 msgid "Disable fluent background while dragging"
-msgstr ""
+msgstr "Деактивиране на плавния фон при влачене"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:190
 msgid "Disable GPU acceleration"
@@ -588,7 +605,7 @@ msgstr "Отстояние от закрепения терминал"
 msgid "Docking"
 msgstr "Закрепване"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:67
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:73
 msgid "Double-click selection will stop at these characters"
 msgstr "Селекцията с двоен клик ще спира при тези символи"
 
@@ -599,6 +616,10 @@ msgstr "Долу"
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:47
 msgid "Download"
 msgstr "Свали"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:23
+msgid "Draw bold text in bright colors"
+msgstr ""
 
 #: tabby-core/src/tabContextMenu.ts:120
 msgid "Duplicate"
@@ -624,6 +645,10 @@ msgstr "Включи"
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:66
 msgid "Enable analytics"
 msgstr "Включи събиране на статистики"
+
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:87
+msgid "Enable animations"
+msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:74
 msgid "Enable automatic installation of updates when they become available."
@@ -678,7 +703,7 @@ msgstr "Пример:"
 msgid "Export"
 msgstr "Експорт"
 
-#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:63
+#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:75
 msgid "Fallback font"
 msgstr "Резервен шрифт"
 
@@ -690,19 +715,23 @@ msgstr "Прехвърляне на файл"
 msgid "File: {description}"
 msgstr "Файл: {description}"
 
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:17
+msgid "Filter"
+msgstr ""
+
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:157
 msgid "Fixed"
 msgstr "Фиксирана"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:198
 msgid "Fluent background sometimes causes drag lag"
-msgstr ""
+msgstr "В някои случаи плавният фон води до насичания при влачене"
 
 #: tabby-local/src/tabContextMenu.ts:136
 msgid "Focus all panes"
 msgstr "Фокусирай всички панели"
 
-#: tabby-terminal/src/hotkeys.ts:70
+#: tabby-terminal/src/hotkeys.ts:74
 msgid "Focus all panes at once (broadcast)"
 msgstr "Фокусирай всички панели наведнъж (излъчвай)"
 
@@ -736,7 +765,7 @@ msgstr "Шрифт"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:183
 msgid "For keyboard shortcuts"
-msgstr ""
+msgstr "За бързи клавиши"
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:51
 msgid "Force CR"
@@ -766,11 +795,11 @@ msgstr "Пренасочи порт"
 msgid "Forwarded ports"
 msgstr "Пренасочени портове"
 
-#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:35
+#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:47
 msgid "From color scheme"
 msgstr "От цветова схема"
 
-#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:32
+#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:44
 msgid "From theme"
 msgstr "От тема"
 
@@ -804,7 +833,7 @@ msgstr "Вземете от прозореца за Web настройки на 
 msgid "Gives the window a blurred transparent background"
 msgstr "Придава на прозореца размазано прозрачен фон"
 
-#: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:18
+#: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:22
 msgid "Go up"
 msgstr "Нагоре"
 
@@ -823,6 +852,10 @@ msgstr "Хакове"
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:20
 msgid "Help track the number of Tabby installs across the world!"
 msgstr "Помогнете за проследяване броя на инсталациите на Tabby по света!"
+
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:50
+msgid "Help translate Tabby<i class=\"fas fa-external-link-square-alt ml-1\"></i>"
+msgstr ""
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:32
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:44
@@ -897,11 +930,11 @@ msgstr "Незабавно отразява локално въведеното 
 
 #: tabby-core/src/hotkeys.ts:209
 msgid "Increase horizontal split size"
-msgstr ""
+msgstr "Увеличи размера на хоризонталното разделяне"
 
 #: tabby-core/src/hotkeys.ts:201
 msgid "Increase vertical split size"
-msgstr ""
+msgstr "Увеличи размера на вертикалното разделяне"
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:18
 msgid "Input is sent as you type"
@@ -919,11 +952,11 @@ msgstr "Въвеждане на нови редове"
 msgid "Installed"
 msgstr "Инсталирани"
 
-#: tabby-electron/src/services/updater.service.ts:136
+#: tabby-electron/src/services/updater.service.ts:140
 msgid "Installing the update will close all tabs and restart Tabby."
 msgstr "Инсталирането на актуализацията ще затвори всички табове и ще рестартира Tabby."
 
-#: tabby-terminal/src/hotkeys.ts:58
+#: tabby-terminal/src/hotkeys.ts:62
 msgid "Intelligent Ctrl-C (copy/abort)"
 msgstr "Интелигентен Ctrl-C (копирай/прекъсни)"
 
@@ -931,7 +964,7 @@ msgstr "Интелигентен Ctrl-C (копирай/прекъсни)"
 msgid "Interactive"
 msgstr "Интерактивен"
 
-#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:117
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:124
 msgid "Invalid syntax"
 msgstr "Неправилен синтаксис"
 
@@ -948,8 +981,8 @@ msgstr "Прескочи към следваща дума"
 msgid "Jump to previous word"
 msgstr "Прескочи към предишна дума"
 
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:130
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:195
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:131
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:196
 #: tabby-settings/src/components/vaultSettingsTab.component.ts:50
 #: tabby-terminal/src/components/colorSchemeSettingsTab.component.ts:90
 #: tabby-terminal/src/components/loginScriptsSettings.component.ts:33
@@ -973,7 +1006,7 @@ msgstr "Ключ"
 msgid "Key exchange"
 msgstr "Обмен на ключ"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:23
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:29
 msgid "Keyboard"
 msgstr "Клавиатура"
 
@@ -1002,6 +1035,7 @@ msgstr "Стартирай WinSCP"
 msgid "Launch WinSCP for current SSH session"
 msgstr "Стартирай WinSCP за текущата SSH сесия"
 
+#: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:14
 #: locale/tmp-html/tabby-ssh/src/components/sshTab.component.html:7
 msgid "Learn how to allow Tabby to detect remote shell's working directory."
 msgstr "Научете как да разрешите на Tabby да разпознава отдалечената работна директория."
@@ -1012,7 +1046,7 @@ msgstr "Научете как да разрешите на Tabby да разпо
 msgid "Left"
 msgstr "Ляво"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:27
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:33
 msgid "Lets the shell handle Meta key instead of OS"
 msgstr "Позволява на shell да обработва мета клавиша вместо ОС"
 
@@ -1024,11 +1058,11 @@ msgstr "Ред по ред"
 msgid "Line editor, input is sent after you press Enter"
 msgstr "Редактор на редове, входните данни се изпращат, след като натиснете Enter"
 
-#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:70
+#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:82
 msgid "Line padding"
 msgstr "Разстояние между редовете"
 
-#: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:15
+#: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:19
 msgid "Loading"
 msgstr "Зареждане"
 
@@ -1045,8 +1079,7 @@ msgstr "Локално"
 msgid "Local echo"
 msgstr "Локално ехо"
 
-#: tabby-local/src/profiles.ts:11
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:237
+#: tabby-local/src/profiles.ts:12
 msgid "Local terminal"
 msgstr "Локален терминал"
 
@@ -1056,11 +1089,11 @@ msgstr "Локален терминал"
 msgid "Login scripts"
 msgstr "Скрипт при вход"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:44
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:50
 msgid "Long-click for context menu"
 msgstr "Продължително натискане за контекстно меню"
 
-#: tabby-core/src/services/profiles.service.ts:154
+#: tabby-core/src/services/profiles.service.ts:157
 msgid "Manage profiles"
 msgstr "Управление на профили"
 
@@ -1076,7 +1109,7 @@ msgstr "Увеличи максимално активния панел"
 msgid "Modified on {date}"
 msgstr "Модифицирано на {date}"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:40
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:46
 msgid "Mouse"
 msgstr "Мишка"
 
@@ -1088,7 +1121,7 @@ msgstr "Премести таба наляво"
 msgid "Move tab to the right"
 msgstr "Премести таба надясно"
 
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:206
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:207
 msgid "Move to \"Ungrouped\""
 msgstr "Премести в \"Негрупирани\""
 
@@ -1103,7 +1136,7 @@ msgstr "Име за новата конфигурация"
 
 #: locale/tmp-html/tabby-ssh/src/components/sftpCreateDirectoryModal.component.html:3
 msgid "Name for the new directory"
-msgstr ""
+msgstr "Име на новата директория"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:52
 msgid "Native"
@@ -1121,7 +1154,7 @@ msgstr "Нова конфигурация на {platform}"
 msgid "New item"
 msgstr "Нов елемент"
 
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:176
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:177
 #: tabby-settings/src/components/vaultSettingsTab.component.ts:118
 msgid "New name"
 msgstr "Ново име"
@@ -1151,6 +1184,10 @@ msgstr "Нов терминал"
 msgid "New window"
 msgstr "Нов прозорец"
 
+#: tabby-local/src/services/dockMenu.service.ts:62
+msgid "New Window"
+msgstr ""
+
 #: tabby-local/src/tabContextMenu.ts:87
 msgid "New with profile"
 msgstr "Нов с профил"
@@ -1163,7 +1200,7 @@ msgstr "Следващ таб"
 msgid "No color"
 msgstr "Без цвят"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:77
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:83
 msgid "No modifier"
 msgstr "Без модификатор"
 
@@ -1175,6 +1212,10 @@ msgstr "Без"
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:39
 msgid "Normal"
 msgstr "Нормален"
+
+#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:22
+msgid "Normal font weight"
+msgstr ""
 
 #: tabby-terminal/src/components/searchPanel.component.ts:47
 #: tabby-terminal/src/components/searchPanel.component.ts:57
@@ -1194,8 +1235,8 @@ msgid "Number of lines kept in the buffer"
 msgstr "Брой редове за съхранение в буфера"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:70
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:122
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:48
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:128
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:54
 msgid "Off"
 msgstr "Изключено"
 
@@ -1290,11 +1331,11 @@ msgstr "Презаписване на лоцалната конфигураци�
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:182
 msgid "Pane resize step"
-msgstr ""
+msgstr "Стъпка за уразмераване на панела"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:179
 msgid "Panes"
-msgstr ""
+msgstr "Панели"
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:38
 msgid "Parity"
@@ -1313,8 +1354,8 @@ msgstr "Парола за частен ключ с хеш {hash}..."
 msgid "Password"
 msgstr "Парола"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:54
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:452
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:60
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:457
 #: tabby-terminal/src/tabContextMenu.ts:34
 msgid "Paste"
 msgstr "Вмъкни"
@@ -1323,11 +1364,11 @@ msgstr "Вмъкни"
 msgid "Paste from clipboard"
 msgstr "Вмъкни от клипборда"
 
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:459
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:464
 msgid "Paste multiple lines?"
 msgstr "Вмъкване на няколко реда?"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:60
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:66
 msgid "Paste on middle-click"
 msgstr "Вмъкване със среден клавиш на мишка"
 
@@ -1375,7 +1416,7 @@ msgstr "Натиснете клавиша сега"
 msgid "Prevents accidental closing"
 msgstr "Предпазва от инцидентно затваряне"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:102
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:108
 msgid "Prevents accidental execution of pasted commands"
 msgstr "Предотврати инцидентно изпълнение на вмъкнати команди"
 
@@ -1423,7 +1464,7 @@ msgid "Puts all of Tabby's configuration into the vault"
 msgstr "Поставя всички конфигурации на Tabby в хранилището"
 
 #: tabby-core/src/index.ts:213
-#: tabby-core/src/services/profiles.service.ts:169
+#: tabby-core/src/services/profiles.service.ts:172
 msgid "Quick connect"
 msgstr "Бързо свързване"
 
@@ -1440,8 +1481,8 @@ msgstr "Свързване чрез сокет"
 msgid "Ready Timeout (Milliseconds)"
 msgstr "Време за прекъсване на връзката (мс)"
 
-#: tabby-core/src/services/profiles.service.ts:112
-#: tabby-core/src/services/profiles.service.ts:126
+#: tabby-core/src/services/profiles.service.ts:115
+#: tabby-core/src/services/profiles.service.ts:129
 #: tabby-local/src/services/dockMenu.service.ts:28
 msgid "Recent"
 msgstr "Последни"
@@ -1500,11 +1541,11 @@ msgstr "Замени"
 msgid "Report a problem"
 msgstr "Докладвайте за проблем"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:73
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:79
 msgid "Require a key to click links"
 msgstr "Изисква клавиш за отваряне на линк"
 
-#: tabby-terminal/src/hotkeys.ts:54
+#: tabby-terminal/src/hotkeys.ts:58
 msgid "Reset zoom"
 msgstr "Възстанови мащаба"
 
@@ -1520,11 +1561,11 @@ msgstr "Рестартирай текущата SSH сесия"
 msgid "Restart current Telnet session"
 msgstr "Рестартирай текущата Telnet сесия"
 
-#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:127
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:134
 msgid "Restart the app to apply changes"
 msgstr "Рестартирайте приложението, за да приложите промените"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:147
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:153
 msgid "Restore terminal tabs on app start"
 msgstr "Възстанови терминалните табове при стартиране на програмата"
 
@@ -1538,7 +1579,7 @@ msgstr "Повторно използване на сесията за няко�
 msgid "Right"
 msgstr "Дясно"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:43
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:49
 msgid "Right click"
 msgstr "Десен бутон на мишката"
 
@@ -1556,7 +1597,7 @@ msgstr "Запиши"
 msgid "Save a password in the keychain"
 msgstr "Запази паролата в ключодържателя"
 
-#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:116
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:123
 msgid "Save and apply"
 msgstr "Запиши и приложи"
 
@@ -1576,11 +1617,11 @@ msgstr "Записано"
 msgid "Saved layout"
 msgstr "Запазени оформления"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:33
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:39
 msgid "Scroll on input"
 msgstr "Превъртай екрана при въвеждане"
 
-#: tabby-terminal/src/hotkeys.ts:74
+#: tabby-terminal/src/hotkeys.ts:78
 msgid "Scroll terminal to bottom"
 msgstr "Превърти терминала до край"
 
@@ -1588,25 +1629,25 @@ msgstr "Превърти терминала до край"
 msgid "Scrollback"
 msgstr "Буфер за превъртане"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:34
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:40
 msgid "Scrolls the terminal to the bottom on user input"
 msgstr "Превърта терминала до край при въвежнане от потребителя"
 
-#: tabby-terminal/src/hotkeys.ts:66
+#: tabby-terminal/src/hotkeys.ts:70
 msgid "Search"
 msgstr "Търси"
 
 #: tabby-terminal/src/components/colorSchemeSettingsTab.component.ts:10
 msgid "Search color schemes"
-msgstr ""
+msgstr "Търси цветови схеми"
 
 #: tabby-settings/src/components/hotkeySettingsTab.component.ts:11
 msgid "Search hotkeys"
-msgstr ""
+msgstr "Търси бързи клавиши"
 
 #: tabby-plugin-manager/src/components/pluginsSettingsTab.component.ts:14
 msgid "Search plugins"
-msgstr ""
+msgstr "Търси плъгини"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:19
 msgid "Secret sync token"
@@ -1617,7 +1658,7 @@ msgstr "Токен за синхронизация"
 msgid "Select"
 msgstr "Избери"
 
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:63
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:64
 msgid "Select a base profile to use as a template"
 msgstr "Изберете базов профил, който да се използва за шаблон"
 
@@ -1629,7 +1670,7 @@ msgstr "Изберете къде ще съхранявате файлове"
 msgid "Select profile"
 msgstr "Изберете профил"
 
-#: tabby-core/src/services/profiles.service.ts:178
+#: tabby-core/src/services/profiles.service.ts:181
 msgid "Select profile or enter an address"
 msgstr "Изберете профил или въведете адрес"
 
@@ -1641,17 +1682,17 @@ msgstr "Изпращане на байтове чрез въвеждане на 
 msgid "Sends data one byte at a time"
 msgstr "Изпраща данни по един байт"
 
-#: tabby-serial/src/profiles.ts:13
-#: tabby-serial/src/profiles.ts:71
+#: tabby-serial/src/profiles.ts:14
+#: tabby-serial/src/profiles.ts:72
 msgid "Serial"
 msgstr "Сериен порт"
 
-#: tabby-serial/src/profiles.ts:50
-#: tabby-serial/src/profiles.ts:61
+#: tabby-serial/src/profiles.ts:51
+#: tabby-serial/src/profiles.ts:62
 msgid "Serial connection"
 msgstr "Свръзка на сериен порт"
 
-#: tabby-serial/src/profiles.ts:70
+#: tabby-serial/src/profiles.ts:71
 msgid "Serial: {description}"
 msgstr "Сериен порт: {description}"
 
@@ -1668,7 +1709,7 @@ msgstr "Задай парола"
 msgid "Set password"
 msgstr "Създаване на парола"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:156
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:162
 msgid "Set Tabby as %COMSPEC%"
 msgstr "Задай Tabby като %COMSPEC%"
 
@@ -1689,7 +1730,7 @@ msgstr "Настройки"
 msgid "Shell"
 msgstr "Shell"
 
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:546
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:551
 msgid "Shell does not support current path detection"
 msgstr "Shell не поддържа откриване на текущия път"
 
@@ -1701,7 +1742,7 @@ msgstr "Shell интеграция"
 msgid "Show {type} profile selector"
 msgstr "Покажи {type} на селектора за профил"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:109
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:115
 msgid "Show a confirmation box when pasting multiple lines"
 msgstr "Покажи поле за потвърждение при поставяне на няколко реда"
 
@@ -1709,15 +1750,15 @@ msgstr "Покажи поле за потвърждение при постав�
 msgid "Show built-in profiles in selector"
 msgstr "Показване на вградените профили в селектора"
 
-#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:119
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:126
 msgid "Show config file"
 msgstr "Покажи конфигурационния файл"
 
-#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:118
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:125
 msgid "Show defaults"
 msgstr "Покажи настройките по подразбиране"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:134
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:140
 msgid "Show Mixer"
 msgstr "Покажи миксер"
 
@@ -1776,7 +1817,7 @@ msgstr "SOCKS прокси хост"
 msgid "SOCKS proxy port"
 msgstr "SOCKS прокси порт"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:115
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:121
 msgid "Sound"
 msgstr "Звук"
 
@@ -1820,7 +1861,7 @@ msgstr "SSH парола за {user}@{host}:{port}"
 msgid "Standard"
 msgstr "Стандартна"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:138
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:144
 msgid "Startup"
 msgstr "При стартиране"
 
@@ -1932,11 +1973,11 @@ msgstr "Telnet сесия"
 msgid "Terminal"
 msgstr "Терминал"
 
-#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:28
+#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:40
 msgid "Terminal background"
 msgstr "Фон на терминала"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:118
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:124
 msgid "Terminal bell"
 msgstr "Звънец на терминала"
 
@@ -1993,7 +2034,7 @@ msgstr "Горе"
 msgid "Try again"
 msgstr "Опитай отново"
 
-#: tabby-ssh/src/session/ssh.ts:474
+#: tabby-ssh/src/session/ssh.ts:482
 msgid "Trying saved password"
 msgstr "Опитвам запазена парола"
 
@@ -2001,7 +2042,7 @@ msgstr "Опитвам запазена парола"
 msgid "Turn current tab's panes into separate tabs"
 msgstr "Превръщане на панелите на текущия таб в отделни табове"
 
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:17
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:18
 msgid "Ungrouped"
 msgstr "Негрупирани"
 
@@ -2009,7 +2050,7 @@ msgstr "Негрупирани"
 msgid "Uninstall"
 msgstr "Деинсталирай"
 
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:240
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:241
 msgid "Unknown"
 msgstr "Неизвестен"
 
@@ -2026,7 +2067,7 @@ msgid "Up"
 msgstr "Горе"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:14
-#: tabby-electron/src/services/updater.service.ts:138
+#: tabby-electron/src/services/updater.service.ts:142
 msgid "Update"
 msgstr "Актуализирай"
 
@@ -2043,7 +2084,7 @@ msgstr "Качи"
 msgid "Upload as a new config"
 msgstr "Качи като нова конфигурация"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:26
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:32
 msgid "Use {altKeyName} as the Meta key"
 msgstr "Използвай {altKeyName} като Meta клавиш"
 
@@ -2064,7 +2105,7 @@ msgstr "Потребителско име"
 msgid "Using CONNECT method"
 msgstr "Използване на CONNECT метод"
 
-#: tabby-ssh/src/session/ssh.ts:463
+#: tabby-ssh/src/session/ssh.ts:471
 msgid "Using preset password"
 msgstr "Използване на предварително зададена парола"
 
@@ -2109,11 +2150,11 @@ msgstr "Версия: {version}"
 msgid "Vibrancy"
 msgstr "Живи цветове"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:125
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:131
 msgid "Visual"
 msgstr "Визуално"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:108
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:114
 msgid "Warn on multi-line paste"
 msgstr "Предупреждавай при вмъкване на няколко реда"
 
@@ -2137,7 +2178,7 @@ msgstr "Добре дошли"
 msgid "What's new"
 msgstr "Какво ново"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:74
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:80
 msgid "When enabled, links are only clickable while holding this key"
 msgstr "Когато е включено, връзките могат да се кликват само при задържане на този клавиш"
 
@@ -2166,7 +2207,7 @@ msgstr "Размер на прозореца от ръба"
 msgid "Window frame"
 msgstr "Рамка на прозореца"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:153
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:159
 msgid "Windows"
 msgstr "Прозорци"
 
@@ -2178,7 +2219,7 @@ msgstr "Windows 10 версия 18309 или по-нова е препоръчи
 msgid "WinSCP path"
 msgstr "Път към WinSCP"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:66
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:72
 msgid "Word separators"
 msgstr "Разделители на думи"
 
@@ -2186,11 +2227,12 @@ msgstr "Разделители на думи"
 msgid "Working directory"
 msgstr "Работна директория"
 
+#: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:13
 #: locale/tmp-html/tabby-ssh/src/components/sshTab.component.html:6
 msgid "Working directory detection"
 msgstr "Откриване на работна директория"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:133
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:139
 msgid "WSL terminal bell can only be muted via Volume Mixer"
 msgstr "WSL теминалния звънец може да бъде заглушен само от Volume Mixer"
 
@@ -2214,11 +2256,11 @@ msgstr "Може да я промените по-късно, но не може 
 msgid "You could be under a man-in-the-middle attack right now, or the host key could have just been changed."
 msgstr "Възможно е в момента да сте обект на атака от типа \"man-in-the-middle\" или ключът на хоста просто да е бил променен."
 
-#: tabby-terminal/src/hotkeys.ts:46
+#: tabby-terminal/src/hotkeys.ts:50
 msgid "Zoom in"
 msgstr "Увеличи"
 
-#: tabby-terminal/src/hotkeys.ts:50
+#: tabby-terminal/src/hotkeys.ts:54
 msgid "Zoom out"
 msgstr "Намали"
 

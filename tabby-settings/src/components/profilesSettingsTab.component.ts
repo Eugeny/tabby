@@ -14,6 +14,7 @@ interface ProfileGroup {
     collapsed: boolean
 }
 
+_('Filter')
 _('Ungrouped')
 
 /** @hidden */
@@ -234,10 +235,10 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
 
     getTypeLabel (profile: PartialProfile<Profile>): string {
         const name = this.profilesService.providerForProfile(profile)?.name
-        if (name === this.translate.instant('Local terminal')) {
+        if (name === 'Local terminal') {
             return ''
         }
-        return name ?? this.translate.instant('Unknown')
+        return name ? this.translate.instant(name) : this.translate.instant('Unknown')
     }
 
     getTypeColorClass (profile: PartialProfile<Profile>): string {
