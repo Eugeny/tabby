@@ -102,7 +102,7 @@
     "prod": "cross-env TABBY_DEV=1 electron app",
     "docs": "node scripts/build-docs.js",
     "lint": "eslint --ext ts */src */lib",
-    "postinstall": "patch-package && node ./scripts/install-deps.js",
+    "postinstall": "patch-package && node ./scripts/install-deps.js && node ./scripts/build-native.js",
     "i18n:pull": "crowdin pull --skip-untranslated-strings",
     "i18n:extract": "node scripts/i18n-extract.js",
     "i18n:push": "crowdin push"

@@ -19,7 +19,6 @@ parts:
       - libfontconfig-dev
     override-build: |
       yarn
-      ./scripts/build-native.js
       yarn run build
       ./scripts/build-linux.js
       mkdir -p $SNAPCRAFT_PART_INSTALL/opt/tabby || true

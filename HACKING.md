@@ -11,7 +11,6 @@ First, install the dependencies:
 ```
 # macOS:
 yarn
-./scripts/build-native.js
 ```
 
 **Note: For compiling for Linux armv7l, you need to downgrade electron to 17.0.0 in package.json present in root directory of tabby source**
@@ -20,14 +19,12 @@ yarn
 # Linux (Debian/Ubuntu here as an example)
 sudo apt install libfontconfig-dev libsecret-1-dev libarchive-tools libnss3 libatk1.0-0 libatk-bridge2.0-0 libgdk-pixbuf2.0-0 libgtk-3-0 libgbm1 cmake
 yarn
-./scripts/build-native.js
 ```
 
 ```
 # Windows:
 npm -g install windows-build-tools
 yarn
-node scripts\build-native.js
 ```
 
 Now, check if your build is working:

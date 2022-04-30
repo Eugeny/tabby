@@ -53,14 +53,7 @@ jobs:
     - name: Install deps
       run: |
         sudo npm i -g yarn@1.22.1
-        cd app
         yarn --network-timeout 1000000
-        cd ..
-        rm app/node_modules/.yarn-integrity
-        yarn --network-timeout 1000000
-
-    - name: Build native deps
-      run: scripts/build-native.js
       env:
         ARCH: ${{matrix.arch}}
 
@@ -150,14 +143,7 @@ jobs:
         sudo apt-get update
         sudo apt-get install libarchive-tools zsh
         npm i -g yarn@1.19.1
-        cd app
         yarn --network-timeout 1000000
-        cd ..
-        rm app/node_modules/.yarn-integrity
-        yarn --network-timeout 1000000
-
-    - name: Build native deps
-      run: scripts/build-native.js
 
     - name: Webpack
       run: yarn run build
@@ -269,7 +255,6 @@ jobs:
       run: |
         npm i -g yarn@1.19.1
         yarn --network-timeout 1000000
-        node scripts/build-native.js
         yarn run build
         node scripts/prepackage-plugins.js
       env:
