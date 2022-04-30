@@ -1,6 +1,7 @@
 :host {
     position: fixed;
     width: 600px;
+    max-width: 80vw;
     right: 40px;
     z-index: 5;
     border-radius: 0 0 5px 5px;
