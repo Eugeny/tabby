@@ -144,7 +144,7 @@ export class AppService {
     }
 
     removeTab (tab: BaseTabComponent): void {
-        const newIndex = Math.max(0, this.tabs.indexOf(tab) - 1)
+        const newIndex = Math.min(this.tabs.length - 2, this.tabs.indexOf(tab))
         this.tabs = this.tabs.filter((x) => x !== tab)
         if (tab === this._activeTab) {
             this.selectTab(this.tabs[newIndex])
