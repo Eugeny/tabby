@@ -1,0 +1,327 @@
+diff --git a/node_modules/@serialport/bindings-cpp/src/serialport_win.cpp b/node_modules/@serialport/bindings-cpp/src/serialport_win.cpp
+index b11c07f..910023e 100644
+--- a/node_modules/@serialport/bindings-cpp/src/serialport_win.cpp
++++ b/node_modules/@serialport/bindings-cpp/src/serialport_win.cpp
+@@ -10,6 +10,7 @@
+ #include <initguid.h>
+ #include <devpkey.h>
+ #include <devguid.h>
++#include <wchar.h>
+ #pragma comment(lib, "setupapi.lib")
+ 
+ #define ARRAY_SIZE(arr)     (sizeof(arr)/sizeof(arr[0]))
+@@ -25,6 +26,29 @@ typedef BOOL (WINAPI *CancelIoExType)(HANDLE hFile, LPOVERLAPPED lpOverlapped);
+ 
+ std::list<int> g_closingHandles;
+ 
++void ErrorCodeToString(const wchar_t* prefix, int errorCode, wchar_t *errorStr) {
++  switch (errorCode) {
++  case ERROR_FILE_NOT_FOUND:
++    _snwprintf_s(errorStr, ERROR_STRING_SIZE, _TRUNCATE, L"%ls: File not found", prefix);
++    break;
++  case ERROR_INVALID_HANDLE:
++    _snwprintf_s(errorStr, ERROR_STRING_SIZE, _TRUNCATE, L"%ls: Invalid handle", prefix);
++    break;
++  case ERROR_ACCESS_DENIED:
++    _snwprintf_s(errorStr, ERROR_STRING_SIZE, _TRUNCATE, L"%ls: Access denied", prefix);
++    break;
++  case ERROR_OPERATION_ABORTED:
++    _snwprintf_s(errorStr, ERROR_STRING_SIZE, _TRUNCATE, L"%ls: Operation aborted", prefix);
++    break;
++  case ERROR_INVALID_PARAMETER:
++    _snwprintf_s(errorStr, ERROR_STRING_SIZE, _TRUNCATE, L"%ls: The parameter is incorrect %d", prefix, errorCode);
++    break;
++  default:
++    _snwprintf_s(errorStr, ERROR_STRING_SIZE, _TRUNCATE, L"%ls: Unknown error code %d", prefix, errorCode);
++    break;
++  }
++}
++
+ void ErrorCodeToString(const char* prefix, int errorCode, char *errorStr) {
+   switch (errorCode) {
+   case ERROR_FILE_NOT_FOUND:
+@@ -608,9 +632,9 @@ void CloseBaton::Execute() {
+   }
+ }
+ 
+-char *copySubstring(char *someString, int n) {
+-  char *new_ = reinterpret_cast<char*>(malloc(sizeof(char)*n + 1));
+-  strncpy_s(new_, n + 1, someString, n);
++wchar_t *copySubstring(wchar_t *someString, int n) {
++  wchar_t *new_ = reinterpret_cast<wchar_t*>(malloc(sizeof(wchar_t)*n + 1));
++  wcsncpy_s(new_, n + 1, someString, n);
+   new_[n] = '\0';
+   return new_;
+ }
+@@ -625,7 +649,7 @@ Napi::Value List(const Napi::CallbackInfo& info) {
+ 
+   Napi::Function callback = info[0].As<Napi::Function>();
+   ListBaton* baton = new ListBaton(callback);
+-  snprintf(baton->errorString, sizeof(baton->errorString), "");
++  _snwprintf(baton->errorString, sizeof(baton->errorString), L"");
+ 
+   baton->Queue();
+   return env.Undefined();
+@@ -633,20 +657,20 @@ Napi::Value List(const Napi::CallbackInfo& info) {
+ 
+ // It's possible that the s/n is a construct and not the s/n of the parent USB
+ // composite device. This performs some convoluted registry lookups to fetch the USB s/n.
+-void getSerialNumber(const char *vid,
+-                     const char *pid,
++void getSerialNumber(const wchar_t *vid,
++                     const wchar_t *pid,
+                      const HDEVINFO hDevInfo,
+                      SP_DEVINFO_DATA deviceInfoData,
+                      const unsigned int maxSerialNumberLength,
+-                     char* serialNumber) {
+-  _snprintf_s(serialNumber, maxSerialNumberLength, _TRUNCATE, "");
++                     wchar_t* serialNumber) {
++  _snwprintf_s(serialNumber, maxSerialNumberLength, _TRUNCATE, L"");
+   if (vid == NULL || pid == NULL) {
+     return;
+   }
+ 
+   DWORD dwSize;
+   WCHAR szWUuidBuffer[MAX_BUFFER_SIZE];
+-  WCHAR containerUuid[MAX_BUFFER_SIZE];
++  WCHAR wantedUuid[MAX_BUFFER_SIZE];
+ 
+ 
+   // Fetch the "Container ID" for this device node. In USB context, this "Container
+@@ -683,7 +707,7 @@ void getSerialNumber(const char *vid,
+ 
+     // Given the UUID bytes, build up a (widechar) string from it. There's some mangling
+     // going on.
+-    StringFromGUID2((REFGUID)szWUuidBuffer, containerUuid, ARRAY_SIZE(containerUuid));
++    StringFromGUID2((REFGUID)szWUuidBuffer, wantedUuid, ARRAY_SIZE(wantedUuid));
+   } else {
+     // Container UUID could not be fetched, return empty serial number.
+     return;
+@@ -693,21 +717,15 @@ void getSerialNumber(const char *vid,
+   // This means they're non-removable, and are not handled (yet).
+   // Maybe they should inherit the s/n from somewhere else.
+ 
+-  // Sanitize input - for whatever reason, StringFromGUID2() returns a WCHAR* but
+-  // the comparisons later need a plain old char*, in lowercase ASCII.
+-  char wantedUuid[MAX_BUFFER_SIZE];
+-  _snprintf_s(wantedUuid, MAX_BUFFER_SIZE, _TRUNCATE, "%ws", containerUuid);
+-  strlwr(wantedUuid);
+-
+   // Iterate through all the USB devices with the given VendorID/ProductID
+ 
+   HKEY vendorProductHKey;
+   DWORD retCode;
+-  char hkeyPath[MAX_BUFFER_SIZE];
++  wchar_t hkeyPath[MAX_BUFFER_SIZE];
+ 
+-  _snprintf_s(hkeyPath, MAX_BUFFER_SIZE, _TRUNCATE, "SYSTEM\\CurrentControlSet\\Enum\\USB\\VID_%s&PID_%s", vid, pid);
++  _snwprintf_s(hkeyPath, MAX_BUFFER_SIZE, _TRUNCATE, L"SYSTEM\\CurrentControlSet\\Enum\\USB\\VID_%s&PID_%s", vid, pid);
+ 
+-  retCode = RegOpenKeyEx(
++  retCode = RegOpenKeyExW(
+     HKEY_LOCAL_MACHINE,
+     hkeyPath,
+     0,
+@@ -739,9 +757,9 @@ void getSerialNumber(const char *vid,
+           // Each of the subkeys here is the serial number of a USB device with the
+           // given VendorId/ProductId. Now fetch the string for the S/N.
+           DWORD serialNumberLength = maxSerialNumberLength;
+-          retCode = RegEnumKeyEx(vendorProductHKey,
++          retCode = RegEnumKeyExW(vendorProductHKey,
+                                   i,
+-                                  serialNumber,
++                                  reinterpret_cast<LPWSTR>(serialNumber),
+                                   &serialNumberLength,
+                                   NULL,
+                                   NULL,
+@@ -751,21 +769,21 @@ void getSerialNumber(const char *vid,
+           if (retCode == ERROR_SUCCESS) {
+             // Lookup info for VID_(vendorId)&PID_(productId)\(serialnumber)
+ 
+-            _snprintf_s(hkeyPath, MAX_BUFFER_SIZE, _TRUNCATE,
+-                        "SYSTEM\\CurrentControlSet\\Enum\\USB\\VID_%s&PID_%s\\%s",
++            _snwprintf_s(hkeyPath, MAX_BUFFER_SIZE, _TRUNCATE,
++                        L"SYSTEM\\CurrentControlSet\\Enum\\USB\\VID_%ls&PID_%ls\\%ls",
+                         vid, pid, serialNumber);
+ 
+             HKEY deviceHKey;
+ 
+-            if (RegOpenKeyEx(HKEY_LOCAL_MACHINE, hkeyPath, 0, KEY_READ, &deviceHKey) == ERROR_SUCCESS) {
+-                char readUuid[MAX_BUFFER_SIZE];
++            if (RegOpenKeyExW(HKEY_LOCAL_MACHINE, hkeyPath, 0, KEY_READ, &deviceHKey) == ERROR_SUCCESS) {
++                wchar_t readUuid[MAX_BUFFER_SIZE];
+                 DWORD readSize = sizeof(readUuid);
+ 
+                 // Query VID_(vendorId)&PID_(productId)\(serialnumber)\ContainerID
+-                retCode = RegQueryValueEx(deviceHKey, "ContainerID", NULL, NULL, (LPBYTE)&readUuid, &readSize);
++                retCode = RegQueryValueExW(deviceHKey, L"ContainerID", NULL, NULL, (LPBYTE)&readUuid, &readSize);
+                 if (retCode == ERROR_SUCCESS) {
+                     readUuid[readSize] = '\0';
+-                    if (strcmp(wantedUuid, readUuid) == 0) {
++                    if (wcscmp(wantedUuid, readUuid) == 0) {
+                         // The ContainerID UUIDs match, return now that serialNumber has
+                         // the right value.
+                         RegCloseKey(deviceHKey);
+@@ -783,7 +801,7 @@ void getSerialNumber(const char *vid,
+     RegCloseKey(vendorProductHKey);
+   }
+ 
+-  _snprintf_s(serialNumber, maxSerialNumberLength, _TRUNCATE, "");
++  _snwprintf_s(serialNumber, maxSerialNumberLength, _TRUNCATE, L"");
+   return;
+ }
+ 
+@@ -795,15 +813,15 @@ void ListBaton::Execute() {
+ 
+   int memberIndex = 0;
+   DWORD dwSize, dwPropertyRegDataType;
+-  char szBuffer[MAX_BUFFER_SIZE];
+-  char *pnpId;
+-  char *vendorId;
+-  char *productId;
+-  char *name;
+-  char *manufacturer;
+-  char *locationId;
+-  char *friendlyName;
+-  char serialNumber[MAX_REGISTRY_KEY_SIZE];
++  wchar_t szBuffer[MAX_BUFFER_SIZE];
++  wchar_t *pnpId;
++  wchar_t *vendorId;
++  wchar_t *productId;
++  wchar_t *name;
++  wchar_t *manufacturer;
++  wchar_t *locationId;
++  wchar_t *friendlyName;
++  wchar_t serialNumber[MAX_REGISTRY_KEY_SIZE];
+   bool isCom;
+   while (true) {
+     isCom = false;
+@@ -814,7 +832,6 @@ void ListBaton::Execute() {
+     manufacturer = NULL;
+     locationId = NULL;
+     friendlyName = NULL;
+-    isCom = false;
+ 
+     ZeroMemory(&deviceInfoData, sizeof(SP_DEVINFO_DATA));
+     deviceInfoData.cbSize = sizeof(SP_DEVINFO_DATA);
+@@ -826,16 +843,16 @@ void ListBaton::Execute() {
+     }
+ 
+     dwSize = sizeof(szBuffer);
+-    SetupDiGetDeviceInstanceId(hDevInfo, &deviceInfoData, szBuffer, dwSize, &dwSize);
++    SetupDiGetDeviceInstanceIdW(hDevInfo, &deviceInfoData, reinterpret_cast<PWSTR>(szBuffer), dwSize, &dwSize);
+     szBuffer[dwSize] = '\0';
+-    pnpId = strdup(szBuffer);
++    pnpId = wcsdup(szBuffer);
+ 
+-    vendorId = strstr(szBuffer, "VID_");
++    vendorId = wcsstr(szBuffer, L"VID_");
+     if (vendorId) {
+       vendorId += 4;
+       vendorId = copySubstring(vendorId, 4);
+     }
+-    productId = strstr(szBuffer, "PID_");
++    productId = wcsstr(szBuffer, L"PID_");
+     if (productId) {
+       productId += 4;
+       productId = copySubstring(productId, 4);
+@@ -843,32 +860,29 @@ void ListBaton::Execute() {
+ 
+     getSerialNumber(vendorId, productId, hDevInfo, deviceInfoData, MAX_REGISTRY_KEY_SIZE, serialNumber);
+ 
+-    if (SetupDiGetDeviceRegistryProperty(hDevInfo, &deviceInfoData,
++    if (SetupDiGetDeviceRegistryPropertyW(hDevInfo, &deviceInfoData,
+                                          SPDRP_LOCATION_INFORMATION, &dwPropertyRegDataType,
+-                                         reinterpret_cast<BYTE*>(szBuffer),
+-                                         sizeof(szBuffer), &dwSize)) {
+-      locationId = strdup(szBuffer);
++                                         reinterpret_cast<PBYTE>(szBuffer), sizeof(szBuffer), &dwSize)) {
++      locationId = wcsdup(szBuffer);
+     }
+-    if (SetupDiGetDeviceRegistryProperty(hDevInfo, &deviceInfoData,
++    if (SetupDiGetDeviceRegistryPropertyW(hDevInfo, &deviceInfoData,
+                                          SPDRP_FRIENDLYNAME, &dwPropertyRegDataType,
+-                                         reinterpret_cast<BYTE*>(szBuffer),
+-                                         sizeof(szBuffer), &dwSize)) {
+-      friendlyName = strdup(szBuffer);
++                                         reinterpret_cast<PBYTE>(szBuffer), sizeof(szBuffer), &dwSize)) {
++      friendlyName = wcsdup(szBuffer);
+     }
+-    if (SetupDiGetDeviceRegistryProperty(hDevInfo, &deviceInfoData,
++    if (SetupDiGetDeviceRegistryPropertyW(hDevInfo, &deviceInfoData,
+                                          SPDRP_MFG, &dwPropertyRegDataType,
+-                                         reinterpret_cast<BYTE*>(szBuffer),
+-                                         sizeof(szBuffer), &dwSize)) {
+-      manufacturer = strdup(szBuffer);
++                                         reinterpret_cast<PBYTE>(szBuffer), sizeof(szBuffer), &dwSize)) {
++      manufacturer = wcsdup(szBuffer);
+     }
+ 
+     HKEY hkey = SetupDiOpenDevRegKey(hDevInfo, &deviceInfoData, DICS_FLAG_GLOBAL, 0, DIREG_DEV, KEY_READ);
+     if (hkey != INVALID_HANDLE_VALUE) {
+       dwSize = sizeof(szBuffer);
+-      if (RegQueryValueEx(hkey, "PortName", NULL, NULL, (LPBYTE)&szBuffer, &dwSize) == ERROR_SUCCESS) {
++      if (RegQueryValueExW(hkey, L"PortName", NULL, NULL, (LPBYTE)&szBuffer, &dwSize) == ERROR_SUCCESS) {
++        name = wcsdup(szBuffer);
+         szBuffer[dwSize] = '\0';
+-        name = strdup(szBuffer);
+-        isCom = strstr(szBuffer, "COM") != NULL;
++        isCom = wcsstr(szBuffer, L"COM") != NULL;
+       }
+     }
+     if (isCom) {
+@@ -916,6 +930,16 @@ void setIfNotEmpty(Napi::Object item, std::string key, const char *value) {
+   }
+ }
+ 
++void setIfNotEmpty(Napi::Object item, std::string key, const wchar_t *value) {
++  Napi::Env env = item.Env();
++  Napi::String v8key = Napi::String::New(env, key);
++  if (wcslen(value) > 0) {
++    (item).Set(v8key, Napi::String::New(env, (const char16_t*) value));
++  } else {
++    (item).Set(v8key, env.Undefined());
++  }
++}
++
+ void FlushBaton::Execute() {
+   DWORD purge_all = PURGE_RXCLEAR | PURGE_TXABORT | PURGE_TXCLEAR;
+   if (!PurgeComm(int2handle(fd), purge_all)) {
+diff --git a/node_modules/@serialport/bindings-cpp/src/serialport_win.h b/node_modules/@serialport/bindings-cpp/src/serialport_win.h
+index f3e3c32..739b5dd 100644
+--- a/node_modules/@serialport/bindings-cpp/src/serialport_win.h
++++ b/node_modules/@serialport/bindings-cpp/src/serialport_win.h
+@@ -47,23 +47,24 @@ Napi::Value Read(const Napi::CallbackInfo& info);
+ 
+ Napi::Value List(const Napi::CallbackInfo& info);
+ void setIfNotEmpty(Napi::Object item, std::string key, const char *value);
++void setIfNotEmpty(Napi::Object item, std::string key, const wchar_t *value);
+ 
+ struct ListResultItem {
+-  std::string path;
+-  std::string manufacturer;
+-  std::string serialNumber;
+-  std::string pnpId;
+-  std::string locationId;
+-  std::string friendlyName;
+-  std::string vendorId;
+-  std::string productId;
++  std::wstring path;
++  std::wstring manufacturer;
++  std::wstring serialNumber;
++  std::wstring pnpId;
++  std::wstring locationId;
++  std::wstring friendlyName;
++  std::wstring vendorId;
++  std::wstring productId;
+ };
+ 
+ struct ListBaton : public Napi::AsyncWorker {
+   ListBaton(Napi::Function& callback) : Napi::AsyncWorker(callback, "node-serialport:ListBaton"),
+   errorString() {}
+   std::list<ListResultItem*> results;
+-  char errorString[ERROR_STRING_SIZE];
++  wchar_t errorString[ERROR_STRING_SIZE];
+   void Execute() override;
+ 
+   void OnOK() override {
