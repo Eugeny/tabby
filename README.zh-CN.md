@@ -44,7 +44,7 @@
 
 # 目录 <!-- omit in toc -->
 
-- [Tabby的正确用途](#tabby的正确用途)
+- [Tabby是什么](#tabby是什么)
 - [终端特性](#终端特性)
 - [SSH 客户端](#ssh-客户端)
 - [串行终端](#串行终端)
@@ -55,7 +55,7 @@
 
 <a name="about"></a>
 
-# Tabby的正确用途
+# Tabby是什么
 
 * **Tabby 是** Windows 标准终端 (conhost)、PowerShell ISE、PuTTY、macOS Terminal.app 和 iTerm 的替代品
 
