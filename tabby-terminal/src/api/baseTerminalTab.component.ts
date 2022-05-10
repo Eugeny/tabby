@@ -374,14 +374,14 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
         })
     }
 
-    protected async onFrontendReady (): Promise<void> {
+    protected onFrontendReady (): void {
         this.frontendIsReady = true
         if (this.savedState) {
             this.frontend!.restoreState(this.savedState)
             if (!this.savedStateIsLive) {
-                await this.frontend!.write('\r\n\r\n')
-                await this.frontend!.write(colors.bgWhite.black(' * ') + colors.bgBlackBright.white(' History restored '))
-                await this.frontend!.write('\r\n\r\n')
+                this.frontend!.write('\r\n\r\n')
+                this.frontend!.write(colors.bgWhite.black(' * ') + colors.bgBlackBright.white(' History restored '))
+                this.frontend!.write('\r\n\r\n')
             }
         }
     }
