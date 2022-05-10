@@ -15,6 +15,7 @@
 
 .xterm-decoration-overview-ruler {
     right: 6px;
+    pointer-events: none;
 }
 
 .xterm-find-result-decoration {
