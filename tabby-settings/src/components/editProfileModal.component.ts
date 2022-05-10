@@ -24,7 +24,7 @@ export class EditProfileModalComponent<P extends Profile> {
     @ViewChild('placeholder', { read: ViewContainerRef }) placeholder: ViewContainerRef
 
     private _profile: Profile
-    private settingsComponentInstance: ProfileSettingsComponent<P>
+    private settingsComponentInstance?: ProfileSettingsComponent<P>
 
     constructor (
         private injector: Injector,
@@ -87,7 +87,7 @@ export class EditProfileModalComponent<P extends Profile> {
 
     save () {
         this.profile.group ||= undefined
-        this.settingsComponentInstance.save?.()
+        this.settingsComponentInstance?.save?.()
         this.profile.__cleanup()
         this.modalInstance.close(this._profile)
     }

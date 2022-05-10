@@ -211,6 +211,11 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
     /** @hidden */
     _allFocusMode = false
 
+    /**
+     * Disables display of dynamic window/tab title provided by the shell
+     */
+    disableDynamicTitle = false
+
     /** @hidden */
     private focusedTab: BaseTabComponent|null = null
     private maximizedTab: BaseTabComponent|null = null
@@ -748,6 +753,9 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
     }
 
     private updateTitle (): void {
+        if (this.disableDynamicTitle) {
+            return
+        }
         this.setTitle([...new Set(this.getAllTabs().map(x => x.title))].join(' | '))
     }
 
