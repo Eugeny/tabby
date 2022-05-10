@@ -247,8 +247,8 @@ export class XTermFrontend extends Frontend {
         setTimeout(() => this.xterm.focus())
     }
 
-    write (data: string): void {
-        this.xterm.write(data)
+    async write (data: string): Promise<void> {
+        await new Promise<void>(r => this.xterm.write(data, r))
     }
 
     clear (): void {

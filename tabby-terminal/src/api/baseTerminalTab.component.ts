@@ -141,6 +141,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
     private toolbarRevealTimeout = new ResettableTimeout(() => {
         this.revealToolbar = false
     }, 1000)
+    private frontendWriteLock = Promise.resolve()
 
     get input$ (): Observable<Buffer> {
         if (!this.frontend) {
@@ -373,14 +374,14 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
         })
     }
 
-    protected onFrontendReady (): void {
+    protected async onFrontendReady (): Promise<void> {
         this.frontendIsReady = true
         if (this.savedState) {
             this.frontend!.restoreState(this.savedState)
             if (!this.savedStateIsLive) {
-                this.frontend!.write('\r\n\r\n')
-                this.frontend!.write(colors.bgWhite.black(' * ') + colors.bgBlackBright.white(' History restored '))
-                this.frontend!.write('\r\n\r\n')
+                await this.frontend!.write('\r\n\r\n')
+                await this.frontend!.write(colors.bgWhite.black(' * ') + colors.bgBlackBright.white(' History restored '))
+                await this.frontend!.write('\r\n\r\n')
             }
         }
     }
@@ -411,13 +412,13 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
     /**
      * Feeds input into the terminal frontend
      */
-    write (data: string): void {
-        this.withSpinnerPaused(() => {
-            this.writeRaw(data)
-        })
+    async write (data: string): Promise<void> {
+        this.frontendWriteLock = this.frontendWriteLock.then(() =>
+            this.withSpinnerPaused(() => this.writeRaw(data)))
+        await this.frontendWriteLock
     }
 
-    protected writeRaw (data: string): void {
+    protected async writeRaw (data: string): Promise<void> {
         if (!this.frontend) {
             throw new Error('Frontend not ready')
         }
@@ -434,7 +435,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
             }
         }
 
-        this.frontend.write(data)
+        await this.frontend.write(data)
     }
 
     async paste (): Promise<void> {
@@ -780,10 +781,10 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
         this.spinnerActive = false
     }
 
-    protected withSpinnerPaused (work: () => void): void {
+    protected async withSpinnerPaused (work: () => any): Promise<void> {
         const wasActive = this.spinnerActive
         this.stopSpinner()
-        work()
+        await work()
         if (wasActive) {
             this.startSpinner()
         }

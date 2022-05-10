@@ -121,7 +121,7 @@ export class DebugDecorator extends TerminalDecorator {
     private async doLoadOutput (terminal: BaseTerminalTabComponent) {
         const data = await this.loadFile()
         if (data) {
-            terminal.frontend?.write(data)
+            await terminal.frontend?.write(data)
         }
     }
 
@@ -131,7 +131,7 @@ export class DebugDecorator extends TerminalDecorator {
             if (data.startsWith('`')) {
                 data = data.substring(3, data.length - 3)
             }
-            terminal.frontend?.write(JSON.parse(data))
+            await terminal.frontend?.write(JSON.parse(data))
         }
     }
 }

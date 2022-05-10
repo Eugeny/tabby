@@ -72,7 +72,7 @@ export abstract class Frontend {
     abstract selectAll (): void
     abstract clearSelection (): void
     abstract focus (): void
-    abstract write (data: string): void
+    abstract write (data: string): Promise<void>
     abstract clear (): void
     abstract visualBell (): void
     abstract scrollToBottom (): void
