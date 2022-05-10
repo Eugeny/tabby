@@ -24,7 +24,7 @@ hotkeys:
   duplicate-tab: []
   explode-tab:
     - 'Ctrl-Shift-.'
-  combine-tab:
+  combine-tabs:
     - 'Ctrl-Shift-,'
   tab-1:
     - 'Alt-1'
