@@ -36,7 +36,7 @@ terminal-toolbar([tab]='this')
 
 sftp-panel.bg-dark(
     @panelSlide,
-    [@.disabled]='!config.store.accessibility.animations'
+    [@.disabled]='!config.store.accessibility.animations',
     [(path)]='sftpPath',
     *ngIf='sftpPanelVisible',
     (click)='$event.stopPropagation()',
