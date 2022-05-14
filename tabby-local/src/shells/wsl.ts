@@ -23,6 +23,7 @@ const wslIconMap: Record<string, string> = {
     'openSUSE-Leap-15-1': require('../icons/suse.svg'),
     'Ubuntu-16.04': require('../icons/ubuntu.svg'),
     'Ubuntu-18.04': require('../icons/ubuntu.svg'),
+    'Ubuntu-22.04': require('../icons/ubuntu.svg'),
     'Ubuntu': require('../icons/ubuntu.svg'),
     'Linux': require('../icons/linux.svg'),
     'docker-desktop': require('../icons/docker.svg'),
