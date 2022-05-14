@@ -18,7 +18,7 @@ try {
 const wslIconMap: Record<string, string> = {
     'Alpine': require('../icons/alpine.svg'),
     'Debian': require('../icons/debian.svg'),
-    'kali-linux': require('../icons/linux.svg'),
+    'kali-linux': require('../icons/kali.svg'),
     'SLES-12': require('../icons/suse.svg'),
     'openSUSE-Leap-15-1': require('../icons/suse.svg'),
     'Ubuntu-16.04': require('../icons/ubuntu.svg'),
