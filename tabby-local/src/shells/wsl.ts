@@ -26,6 +26,8 @@ const wslIconMap: Record<string, string> = {
     'Ubuntu-22.04': require('../icons/ubuntu.svg'),
     'Ubuntu': require('../icons/ubuntu.svg'),
     'AlmaLinux-8': require('../icons/alma.svg'),
+    'OracleLinux_7_9': require('../icons/oracle-linux.svg'),
+    'OracleLinux_8_5': require('../icons/oracle-linux.svg'),
     'openEuler': require('../icons/open-euler.svg'),
     'Linux': require('../icons/linux.svg'),
     'docker-desktop': require('../icons/docker.svg'),
