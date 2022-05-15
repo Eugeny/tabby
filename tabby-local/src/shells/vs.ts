@@ -5,6 +5,14 @@ import { HostAppService, Platform } from 'tabby-core'
 
 import { ShellProvider, Shell } from '../api'
 
+/* eslint-disable quote-props */
+const vsIconMap: Record<string, string> = {
+    '2017': require('../icons/vs2017.svg'),
+    '2019': require('../icons/vs2019.svg'),
+    '2022': require('../icons/vs2022.svg'),
+}
+/* eslint-enable quote-props */
+
 /** @hidden */
 @Injectable()
 export class VSDevToolsProvider extends ShellProvider {
@@ -40,7 +48,7 @@ export class VSDevToolsProvider extends ShellProvider {
                 name: `Developer Prompt for VS ${version}`,
                 command: 'cmd.exe',
                 args: ['/k', bat],
-                icon: require('../icons/vs.svg'),
+                icon: vsIconMap[version],
                 env: {},
             })
         }
