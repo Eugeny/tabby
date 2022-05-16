@@ -3,9 +3,9 @@
 
 
 ansi-colors@^4.1.1:
-  version "4.1.1"
-  resolved "https://registry.yarnpkg.com/ansi-colors/-/ansi-colors-4.1.1.tgz#cbb9ae256bf750af1eab344f229aa27fe94ba348"
-  integrity sha512-JoX0apGbHaUJBNl6yF+p6JAFYZ666/hhCGKN5t9QFjbJQKUU/g8MNbFDbvfrgKXvI1QpZplPOnwIo99lX/AAmA==
+  version "4.1.2"
+  resolved "https://registry.yarnpkg.com/ansi-colors/-/ansi-colors-4.1.2.tgz#e33debb85260fbe4ed8f00f1e0c282516109795e"
+  integrity sha512-cEG18jjLG0O74o/33eEfnmtXYDEY196ZjL0eQEISULF+Imi7vr25l6ntGYmqS5lIrQIEeze+CqUtPVItywE7ZQ==
 
 async@~1.5:
   version "1.5.2"
