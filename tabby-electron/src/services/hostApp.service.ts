@@ -74,7 +74,11 @@ export class ElectronHostAppService extends HostAppService {
         if (isPortable) {
             this.electron.app.relaunch({ execPath: process.env.PORTABLE_EXECUTABLE_FILE })
         } else {
-            this.electron.app.relaunch()
+            let args: string[] = []
+            if (this.platform === Platform.Linux) {
+                args = ['--no-sandbox']
+            }
+            this.electron.app.relaunch({ args })
         }
         this.electron.app.exit()
     }
