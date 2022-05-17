@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Croatian\n"
 "Language: hr_HR\n"
-"PO-Revision-Date: 2022-04-30 18:35\n"
+"PO-Revision-Date: 2022-05-17 06:36\n"
 
 #: tabby-local/src/components/terminalTab.component.ts:113
 msgid "\"{command}\" is still running. Close?"
@@ -24,7 +24,8 @@ msgstr "kopija {name}"
 #: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:13
 msgid "<strong translate=\"\">Working directory detection</strong>\n"
 "<div translate=\"\">Learn how to allow Tabby to detect remote shell's working directory.</div>"
-msgstr ""
+msgstr "<strong translate=\"\">Otkrivanje radne mape</strong>\n"
+"<div translate=\"\">Saznaj kako dopustiti Tabby da otkrije radnu mapu udaljene ljuske.</div>"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:76
 msgid "A second font family used to display characters missing in the main font"
@@ -44,7 +45,7 @@ msgstr "Prihvati samo ovaj put"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:84
 msgid "Accessibility"
-msgstr ""
+msgstr "Pristupačnost"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:20
 msgid "Acrylic background"
@@ -201,7 +202,7 @@ msgstr "Zamuti"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:28
 msgid "Bold font weight"
-msgstr ""
+msgstr "Podebljani font"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:138
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:82
@@ -415,7 +416,7 @@ msgstr "Stvori"
 #: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:5
 #: tabby-ssh/src/sftpContextMenu.ts:29
 msgid "Create directory"
-msgstr "Stvori direktorij"
+msgstr "Stvori mapu"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:93
 msgid "Current"
@@ -455,11 +456,11 @@ msgstr "Otklanjanje grešaka"
 
 #: tabby-core/src/hotkeys.ts:213
 msgid "Decrease horizontal split size"
-msgstr ""
+msgstr "Smanji veličinu vodoravne podjele"
 
 #: tabby-core/src/hotkeys.ts:205
 msgid "Decrease vertical split size"
-msgstr ""
+msgstr "Smanji veličinu okomite podjele"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:8
 msgid "Default profile for new tabs"
@@ -502,7 +503,7 @@ msgstr "Izbrisati {fullPath}?"
 
 #: tabby-terminal/src/hotkeys.ts:38
 msgid "Delete entire line"
-msgstr ""
+msgstr "Izbriši cijeli redak"
 
 #: tabby-terminal/src/hotkeys.ts:42
 msgid "Delete next word"
@@ -546,7 +547,7 @@ msgstr "Deaktiviraj dinamički naslov kartice"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:197
 msgid "Disable fluent background while dragging"
-msgstr ""
+msgstr "Deaktiviraj transparentnu pozadinu prilikom povlačenja prozora"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:190
 msgid "Disable GPU acceleration"
@@ -619,7 +620,7 @@ msgstr "Preuzmi"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:23
 msgid "Draw bold text in bright colors"
-msgstr ""
+msgstr "Crtaj podebljani tekst svijetlim bojama"
 
 #: tabby-core/src/tabContextMenu.ts:120
 msgid "Duplicate"
@@ -648,7 +649,7 @@ msgstr "Aktiviraj analitikčke podatke"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:87
 msgid "Enable animations"
-msgstr ""
+msgstr "Aktiviraj animacije"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:74
 msgid "Enable automatic installation of updates when they become available."
@@ -717,7 +718,7 @@ msgstr "Datoteka: {description}"
 
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:17
 msgid "Filter"
-msgstr ""
+msgstr "Filtar"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:157
 msgid "Fixed"
@@ -725,7 +726,7 @@ msgstr "Fiksno"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:198
 msgid "Fluent background sometimes causes drag lag"
-msgstr ""
+msgstr "Transparentna pozadina ponekad uzrokuje kašnjenje iscrtavanja prilikom povlačenja prozora"
 
 #: tabby-local/src/tabContextMenu.ts:136
 msgid "Focus all panes"
@@ -855,7 +856,7 @@ msgstr "Pomogni pratiti broj Tabby instalacija diljem svijeta!"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:50
 msgid "Help translate Tabby<i class=\"fas fa-external-link-square-alt ml-1\"></i>"
-msgstr ""
+msgstr "Pomogni prevesti Tabby<i class=\"fas fa-external-link-square-alt ml-1\"></i>"
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:32
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:44
@@ -930,11 +931,11 @@ msgstr "Odmah lokalno odgovara tvoj unos"
 
 #: tabby-core/src/hotkeys.ts:209
 msgid "Increase horizontal split size"
-msgstr ""
+msgstr "Povećaj veličinu vodoravne podjele"
 
 #: tabby-core/src/hotkeys.ts:201
 msgid "Increase vertical split size"
-msgstr ""
+msgstr "Povećaj veličinu okomite podjele"
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:18
 msgid "Input is sent as you type"
@@ -1136,7 +1137,7 @@ msgstr "Ime nove konfiguracije"
 
 #: locale/tmp-html/tabby-ssh/src/components/sftpCreateDirectoryModal.component.html:3
 msgid "Name for the new directory"
-msgstr "Ime novog direktorija"
+msgstr "Ime nove mape"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:52
 msgid "Native"
@@ -1186,7 +1187,7 @@ msgstr "Novi prozor"
 
 #: tabby-local/src/services/dockMenu.service.ts:62
 msgid "New Window"
-msgstr ""
+msgstr "Novi prozor"
 
 #: tabby-local/src/tabContextMenu.ts:87
 msgid "New with profile"
@@ -1215,7 +1216,7 @@ msgstr "Normalno"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:22
 msgid "Normal font weight"
-msgstr ""
+msgstr "Normalna debljina fonta"
 
 #: tabby-terminal/src/components/searchPanel.component.ts:47
 #: tabby-terminal/src/components/searchPanel.component.ts:57

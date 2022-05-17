@@ -21,7 +21,7 @@
         *ngIf='shouldShowCWDTip && !cwdDetectionAvailable',
         (click)='platform.openExternal("https://tabby.sh/go/cwd-detection")'
     )
-        .mr-auto(translate)
+        .mr-auto
             strong(translate) Working directory detection
             div(translate) Learn how to allow Tabby to detect remote shell's working directory.
         button.close((click)='dismissCWDTip()')

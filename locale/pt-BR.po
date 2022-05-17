@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Portuguese, Brazilian\n"
 "Language: pt_BR\n"
-"PO-Revision-Date: 2022-04-30 18:35\n"
+"PO-Revision-Date: 2022-05-17 06:35\n"
 
 #: tabby-local/src/components/terminalTab.component.ts:113
 msgid "\"{command}\" is still running. Close?"
@@ -19,12 +19,13 @@ msgstr "\"{command}\" ainda está em execução. Fechar?"
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:78
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:85
 msgid "{name} copy"
-msgstr "{name} cópia"
+msgstr "{name} Copiar"
 
 #: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:13
 msgid "<strong translate=\"\">Working directory detection</strong>\n"
 "<div translate=\"\">Learn how to allow Tabby to detect remote shell's working directory.</div>"
-msgstr ""
+msgstr "<strong translate=\"\">Detecção do diretório de trabalho</strong>\n"
+"<div translate=\"\">Aprenda como habilitar o Tabby a detectar shell's de diretórios de trabalho remoto.</div>"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:76
 msgid "A second font family used to display characters missing in the main font"
@@ -44,7 +45,7 @@ msgstr "Aceitar apenas desta vez"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:84
 msgid "Accessibility"
-msgstr ""
+msgstr "Acessibilidade"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:20
 msgid "Acrylic background"
@@ -201,7 +202,7 @@ msgstr "Desfocar"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:28
 msgid "Bold font weight"
-msgstr ""
+msgstr "Peso da fonte em negrito"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:138
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:82
@@ -340,7 +341,7 @@ msgstr "Configurações"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:21
 msgid "Connect through a proxy server"
-msgstr "Conecte-se através de um servidor proxy"
+msgstr "Conectar-se através de um servidor proxy"
 
 #: tabby-core/src/index.ts:214
 #: tabby-core/src/services/profiles.service.ts:173
@@ -394,7 +395,7 @@ msgstr "Copiar o caminho atual"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:95
 msgid "Copy on select"
-msgstr "Copiar ao selecionar"
+msgstr "Copiar a seleção"
 
 #: tabby-terminal/src/hotkeys.ts:10
 msgid "Copy to clipboard"
@@ -447,7 +448,7 @@ msgstr "CSS Personalizado"
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:26
 msgid "Data bits"
-msgstr "bits de dados"
+msgstr "Bits de dados"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:80
 msgid "Debugging"
@@ -502,7 +503,7 @@ msgstr "Excluir {fullPath}?"
 
 #: tabby-terminal/src/hotkeys.ts:38
 msgid "Delete entire line"
-msgstr ""
+msgstr "Apagar linha inteira"
 
 #: tabby-terminal/src/hotkeys.ts:42
 msgid "Delete next word"
@@ -619,7 +620,7 @@ msgstr "Transferir"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:23
 msgid "Draw bold text in bright colors"
-msgstr ""
+msgstr "Desenhar texto em negrito em cores brilhantes"
 
 #: tabby-core/src/tabContextMenu.ts:120
 msgid "Duplicate"
@@ -648,7 +649,7 @@ msgstr "Habilitar análises"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:87
 msgid "Enable animations"
-msgstr ""
+msgstr "Permitir animações"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:74
 msgid "Enable automatic installation of updates when they become available."
@@ -717,7 +718,7 @@ msgstr "Arquivo: {description}"
 
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:17
 msgid "Filter"
-msgstr ""
+msgstr "Filtro"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:157
 msgid "Fixed"
@@ -809,7 +810,7 @@ msgstr "Interface"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:58
 msgid "Full"
-msgstr "Completo"
+msgstr "Preencher"
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:3
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:3
@@ -819,7 +820,7 @@ msgstr "Geral"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:21
 msgid "Generate a pre-filled GitHub issue"
-msgstr "Gerar um problema do GitHub pré-preenchido"
+msgstr "Gerar uma issue pré-preenchida no GitHub"
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:27
 msgid "Get"
@@ -855,7 +856,7 @@ msgstr "Ajude a acompanhar o número de instalações do Tabby pelo mundo!"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:50
 msgid "Help translate Tabby<i class=\"fas fa-external-link-square-alt ml-1\"></i>"
-msgstr ""
+msgstr "Ajude a traduzir o Tabby<i class=\"fas fa-external-link-square-alt ml-1\"></i>"
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:32
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:44
@@ -946,7 +947,7 @@ msgstr "Modo de entrada"
 
 #: locale/tmp-html/tabby-terminal/src/components/streamProcessingSettings.component.html:15
 msgid "Input newlines"
-msgstr "Novas linhas de saída"
+msgstr "Novas linhas de entrada"
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:41
 msgid "Installed"
@@ -958,7 +959,7 @@ msgstr "Ao instalar a atualização, todas as abas serão fechadas e o Tabby rei
 
 #: tabby-terminal/src/hotkeys.ts:62
 msgid "Intelligent Ctrl-C (copy/abort)"
-msgstr "Inteligente Ctrl-C (copiar/cancelar)"
+msgstr "Ctrl-C Inteligente (copiar/cancelar)"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:94
 msgid "Interactive"
@@ -1016,7 +1017,7 @@ msgstr "Autenticação interativa do teclado"
 
 #: tabby-local/src/components/terminalTab.component.ts:117
 msgid "Kill"
-msgstr "Matar"
+msgstr "Finalizar"
 
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:10
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:50
@@ -1186,11 +1187,11 @@ msgstr "Nova janela"
 
 #: tabby-local/src/services/dockMenu.service.ts:62
 msgid "New Window"
-msgstr ""
+msgstr "Nova Janela"
 
 #: tabby-local/src/tabContextMenu.ts:87
 msgid "New with profile"
-msgstr "Novo perfil como"
+msgstr "Novo com perfil"
 
 #: tabby-core/src/hotkeys.ts:37
 msgid "Next tab"
@@ -1215,7 +1216,7 @@ msgstr "Normal"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:22
 msgid "Normal font weight"
-msgstr ""
+msgstr "Peso da fonte normal"
 
 #: tabby-terminal/src/components/searchPanel.component.ts:47
 #: tabby-terminal/src/components/searchPanel.component.ts:57

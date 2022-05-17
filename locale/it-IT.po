@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Italian\n"
 "Language: it_IT\n"
-"PO-Revision-Date: 2022-04-30 18:35\n"
+"PO-Revision-Date: 2022-05-17 06:35\n"
 
 #: tabby-local/src/components/terminalTab.component.ts:113
 msgid "\"{command}\" is still running. Close?"
@@ -24,7 +24,8 @@ msgstr "{name} copia"
 #: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:13
 msgid "<strong translate=\"\">Working directory detection</strong>\n"
 "<div translate=\"\">Learn how to allow Tabby to detect remote shell's working directory.</div>"
-msgstr ""
+msgstr "<strong translate=\"\">Rilevamento directory di lavoro</strong>\n"
+"<div translate=\"\">Scopri come consentire a Tabby di rilevare la directory di lavoro della shell remota.</div>"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:76
 msgid "A second font family used to display characters missing in the main font"
@@ -44,7 +45,7 @@ msgstr "Accetta solo questa volta"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:84
 msgid "Accessibility"
-msgstr ""
+msgstr "Accessibilità"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:20
 msgid "Acrylic background"
@@ -201,7 +202,7 @@ msgstr "Sfocatura"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:28
 msgid "Bold font weight"
-msgstr ""
+msgstr "Peso del carattere in grassetto"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:138
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:82
@@ -502,7 +503,7 @@ msgstr "Eliminare {fullPath}?"
 
 #: tabby-terminal/src/hotkeys.ts:38
 msgid "Delete entire line"
-msgstr ""
+msgstr "Elimina tutta la riga"
 
 #: tabby-terminal/src/hotkeys.ts:42
 msgid "Delete next word"
@@ -619,7 +620,7 @@ msgstr "Scarica"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:23
 msgid "Draw bold text in bright colors"
-msgstr ""
+msgstr "Evidenzia il testo in grassetto con colori chiari"
 
 #: tabby-core/src/tabContextMenu.ts:120
 msgid "Duplicate"
@@ -648,7 +649,7 @@ msgstr "Abilita dati analitici"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:87
 msgid "Enable animations"
-msgstr ""
+msgstr "Abilita animazioni"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:74
 msgid "Enable automatic installation of updates when they become available."
@@ -717,7 +718,7 @@ msgstr "File: {description}"
 
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:17
 msgid "Filter"
-msgstr ""
+msgstr "Filtra"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:157
 msgid "Fixed"
@@ -855,7 +856,7 @@ msgstr "Aiuta a tenere traccia del numero di installazioni di Tabby nel mondo!"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:50
 msgid "Help translate Tabby<i class=\"fas fa-external-link-square-alt ml-1\"></i>"
-msgstr ""
+msgstr "Aiuta a tradurre Tabby<i class=\"fas fa-external-link-square-alt ml-1\"></i>"
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:32
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:44
@@ -1186,7 +1187,7 @@ msgstr "Nuova finestra"
 
 #: tabby-local/src/services/dockMenu.service.ts:62
 msgid "New Window"
-msgstr ""
+msgstr "Nuova Finestra"
 
 #: tabby-local/src/tabContextMenu.ts:87
 msgid "New with profile"
@@ -1215,7 +1216,7 @@ msgstr "Normale"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:22
 msgid "Normal font weight"
-msgstr ""
+msgstr "Peso del carattere normale"
 
 #: tabby-terminal/src/components/searchPanel.component.ts:47
 #: tabby-terminal/src/components/searchPanel.component.ts:57

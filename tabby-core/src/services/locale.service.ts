@@ -15,6 +15,7 @@ import localeKO from '@angular/common/locales/ko'
 import localePL from '@angular/common/locales/pl'
 import localePT from '@angular/common/locales/pt'
 import localeRU from '@angular/common/locales/ru'
+import localeUK from '@angular/common/locales/uk'
 import localeZH from '@angular/common/locales/zh'
 import { Observable, Subject } from 'rxjs'
 import { distinctUntilChanged } from 'rxjs/operators'
@@ -34,6 +35,7 @@ registerLocaleData(localeKO)
 registerLocaleData(localePL)
 registerLocaleData(localePT)
 registerLocaleData(localeRU)
+registerLocaleData(localeUK)
 registerLocaleData(localeZH)
 
 function flattenMessageFormatTranslation (po: any) {
@@ -115,6 +117,10 @@ export class LocaleService {
         {
             code: 'ru-RU',
             name: 'Русский',
+        },
+        {
+            code: 'uk-UA',
+            name: 'Українська',
         },
         {
             code: 'ja-JP',
