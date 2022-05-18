@@ -44,7 +44,7 @@
   },
   "devDependencies": {
     "@types/mz": "2.7.4",
-    "@types/node": "16.0.1",
+    "@types/node": "17.0.34",
     "ngx-filesize": "^2.0.16",
     "patch-package": "^6.4.7"
   },
