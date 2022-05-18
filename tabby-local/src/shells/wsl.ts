@@ -18,12 +18,17 @@ try {
 const wslIconMap: Record<string, string> = {
     'Alpine': require('../icons/alpine.svg'),
     'Debian': require('../icons/debian.svg'),
-    'kali-linux': require('../icons/linux.svg'),
+    'kali-linux': require('../icons/kali.svg'),
     'SLES-12': require('../icons/suse.svg'),
     'openSUSE-Leap-15-1': require('../icons/suse.svg'),
     'Ubuntu-16.04': require('../icons/ubuntu.svg'),
     'Ubuntu-18.04': require('../icons/ubuntu.svg'),
+    'Ubuntu-22.04': require('../icons/ubuntu.svg'),
     'Ubuntu': require('../icons/ubuntu.svg'),
+    'AlmaLinux-8': require('../icons/alma.svg'),
+    'OracleLinux_7_9': require('../icons/oracle-linux.svg'),
+    'OracleLinux_8_5': require('../icons/oracle-linux.svg'),
+    'openEuler': require('../icons/open-euler.svg'),
     'Linux': require('../icons/linux.svg'),
     'docker-desktop': require('../icons/docker.svg'),
     'docker-desktop-data': require('../icons/docker.svg'),
@@ -62,7 +67,8 @@ export class WSLShellProvider extends ShellProvider {
                         TERM: 'xterm-color',
                         COLORTERM: 'truecolor',
                     },
-                    icon: wslIconMap[defaultDistKey.DistributionName.value],
+                    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+                    icon: wslIconMap[defaultDistKey.DistributionName.value] ?? wslIconMap.Linux,
                 }
                 shells.push(shell)
             }
@@ -103,7 +109,8 @@ export class WSLShellProvider extends ShellProvider {
                     TERM: 'xterm-color',
                     COLORTERM: 'truecolor',
                 },
-                icon: wslIconMap[name],
+                // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+                icon: wslIconMap[name] ?? wslIconMap.Linux,
             }
             shells.push(shell)
         }
