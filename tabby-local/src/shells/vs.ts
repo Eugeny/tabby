@@ -5,6 +5,14 @@ import { HostAppService, Platform } from 'tabby-core'
 
 import { ShellProvider, Shell } from '../api'
 
+/* eslint-disable quote-props */
+const vsIconMap: Record<string, string> = {
+    '2017': require('../icons/vs2017.svg'),
+    '2019': require('../icons/vs2019.svg'),
+    '2022': require('../icons/vs2022.svg'),
+}
+/* eslint-enable quote-props */
+
 /** @hidden */
 @Injectable()
 export class VSDevToolsProvider extends ShellProvider {
@@ -19,30 +27,32 @@ export class VSDevToolsProvider extends ShellProvider {
             return []
         }
 
-        const parentPath = path.join(process.env['programfiles(x86)'] ?? 'C:\\Program Files (x86', 'Microsoft Visual Studio')
-
-        try {
-            await fs.stat(parentPath)
-        } catch {
-            return []
-        }
+        const x86ParentPath = path.join(process.env['programfiles(x86)'] ?? 'C:\\Program Files (x86)', 'Microsoft Visual Studio')
+        const x64ParentPath = path.join(process.env['programfiles'] ?? 'C:\\Program Files', 'Microsoft Visual Studio')
 
         const result: Shell[] = []
-        for (const version of await fs.readdir(parentPath)) {
-            const bat = path.join(parentPath, version, 'Community\\Common7\\Tools\\VsDevCmd.bat')
+        for (const parentPath of [x86ParentPath, x64ParentPath]) {
             try {
-                await fs.stat(bat)
-            } catch {
-                continue
+                await fs.stat(parentPath)
+                for (const version of await fs.readdir(parentPath)) {
+                    const bat = path.join(parentPath, version, 'Community\\Common7\\Tools\\VsDevCmd.bat')
+                    try {
+                        await fs.stat(bat)
+                    } catch {
+                        continue
+                    }
+                    result.push({
+                        id: `vs-cmd-${version}`,
+                        name: `Developer Prompt for VS ${version}`,
+                        command: 'cmd.exe',
+                        args: ['/k', bat],
+                        icon: vsIconMap[version],
+                        env: {},
+                    })
+                }
+            } catch (_) {
+                // Ignore
             }
-            result.push({
-                id: `vs-cmd-${version}`,
-                name: `Developer Prompt for VS ${version}`,
-                command: 'cmd.exe',
-                args: ['/k', bat],
-                icon: require('../icons/vs.svg'),
-                env: {},
-            })
         }
         return result
 
