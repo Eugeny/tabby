@@ -71,6 +71,15 @@ hotkeys:
     - '⌘-⌥-['
   pane-nav-next:
     - '⌘-⌥-]'
+  pane-nav-1: []
+  pane-nav-2: []
+  pane-nav-3: []
+  pane-nav-4: []
+  pane-nav-5: []
+  pane-nav-6: []
+  pane-nav-7: []
+  pane-nav-8: []
+  pane-nav-9: []
   pane-maximize:
     - '⌘-⌥-Enter'
   close-pane:
