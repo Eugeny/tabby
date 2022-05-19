@@ -799,6 +799,9 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
         const ref = tab.insertIntoContainer(this.viewContainer)
         this.viewRefs.set(tab, ref)
         tab.addEventListenerUntilDestroyed(ref.rootNodes[0], 'click', () => this.focus(tab))
+        if (this.config.store.terminal.focusFollowsMouse) {
+            tab.addEventListenerUntilDestroyed(ref.rootNodes[0], 'mousemove', () => this.focus(tab))
+        }
 
         tab.subscribeUntilDestroyed(tab.titleChange$, () => this.updateTitle())
         tab.subscribeUntilDestroyed(tab.activity$, a => a ? this.displayActivity() : this.clearActivity())

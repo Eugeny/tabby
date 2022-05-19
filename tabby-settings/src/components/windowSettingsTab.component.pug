@@ -319,6 +319,15 @@ h3.mt-4(translate) Panes
         step='0.05'
     )
 
+.form-line()
+    .header
+        .title(translate) Focus follows mouse
+        .description(translate) Moving the mouse over an inactive pane will cause it to activate
+    toggle(
+        [(ngModel)]='config.store.terminal.focusFollowsMouse',
+        (ngModelChange)='config.save(); config.requestRestart()'
+    )
+
 h3.mt-4(translate) Hacks
 
 .form-line
