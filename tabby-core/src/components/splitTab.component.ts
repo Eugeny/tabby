@@ -311,6 +311,33 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
                 case 'pane-nav-next':
                     this.navigateLinear(1)
                     break
+                case 'pane-nav-1':
+                    this.navigateSpecific(0)
+                    break
+                case 'pane-nav-2':
+                    this.navigateSpecific(1)
+                    break
+                case 'pane-nav-3':
+                    this.navigateSpecific(2)
+                    break
+                case 'pane-nav-4':
+                    this.navigateSpecific(3)
+                    break
+                case 'pane-nav-5':
+                    this.navigateSpecific(4)
+                    break
+                case 'pane-nav-6':
+                    this.navigateSpecific(5)
+                    break
+                case 'pane-nav-7':
+                    this.navigateSpecific(6)
+                    break
+                case 'pane-nav-8':
+                    this.navigateSpecific(7)
+                    break
+                case 'pane-nav-9':
+                    this.navigateSpecific(8)
+                    break
                 case 'pane-maximize':
                     if (this.maximizedTab) {
                         this.maximize(null)
@@ -644,6 +671,15 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
         this.focus(target)
     }
 
+    navigateSpecific (target: number): void {
+        const all = this.getAllTabs()
+        if (target >= all.length) {
+            return
+        }
+
+        this.focus(all[target])
+    }
+
     async splitTab (tab: BaseTabComponent, dir: SplitDirection): Promise<BaseTabComponent|null> {
         const newTab = await this.tabsService.duplicate(tab)
         if (newTab) {
@@ -763,6 +799,9 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
         const ref = tab.insertIntoContainer(this.viewContainer)
         this.viewRefs.set(tab, ref)
         tab.addEventListenerUntilDestroyed(ref.rootNodes[0], 'click', () => this.focus(tab))
+        if (this.config.store.terminal.focusFollowsMouse) {
+            tab.addEventListenerUntilDestroyed(ref.rootNodes[0], 'mousemove', () => this.focus(tab))
+        }
 
         tab.subscribeUntilDestroyed(tab.titleChange$, () => this.updateTitle())
         tab.subscribeUntilDestroyed(tab.activity$, a => a ? this.displayActivity() : this.clearActivity())

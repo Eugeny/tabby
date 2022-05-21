@@ -189,6 +189,42 @@ export class AppHotkeyProvider extends HotkeyProvider {
             name: this.translate.instant('Focus next pane'),
         },
         {
+            id: 'pane-nav-1',
+            name: this.translate.instant('Focus pane {number}', { number: 1 }),
+        },
+        {
+            id: 'pane-nav-2',
+            name: this.translate.instant('Focus pane {number}', { number: 2 }),
+        },
+        {
+            id: 'pane-nav-3',
+            name: this.translate.instant('Focus pane {number}', { number: 3 }),
+        },
+        {
+            id: 'pane-nav-4',
+            name: this.translate.instant('Focus pane {number}', { number: 4 }),
+        },
+        {
+            id: 'pane-nav-5',
+            name: this.translate.instant('Focus pane {number}', { number: 5 }),
+        },
+        {
+            id: 'pane-nav-6',
+            name: this.translate.instant('Focus pane {number}', { number: 6 }),
+        },
+        {
+            id: 'pane-nav-7',
+            name: this.translate.instant('Focus pane {number}', { number: 7 }),
+        },
+        {
+            id: 'pane-nav-8',
+            name: this.translate.instant('Focus pane {number}', { number: 8 }),
+        },
+        {
+            id: 'pane-nav-9',
+            name: this.translate.instant('Focus pane {number}', { number: 9 }),
+        },
+        {
             id: 'switch-profile',
             name: this.translate.instant('Switch profile in the active pane'),
         },
