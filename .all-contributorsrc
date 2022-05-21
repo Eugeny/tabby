@@ -747,6 +747,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "attet",
+      "name": "Atte Timonen",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1911416?v=4",
+      "profile": "https://github.com/attet",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
