@@ -79,7 +79,11 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
         }
         profile.isBuiltin = false
         profile.isTemplate = false
-        await this.showProfileEditModal(profile)
+        const result = await this.showProfileEditModal(profile)
+        if (!result) {
+            return
+        }
+        Object.assign(profile, result)
         if (!profile.name) {
             const cfgProxy = this.profilesService.getConfigProxyForProfile(profile)
             profile.name = this.profilesService.providerForProfile(profile)?.getSuggestedName(cfgProxy) ?? this.translate.instant('{name} copy', base)
@@ -90,11 +94,15 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
     }
 
     async editProfile (profile: PartialProfile<Profile>): Promise<void> {
-        await this.showProfileEditModal(profile)
+        const result = await this.showProfileEditModal(profile)
+        if (!result) {
+            return
+        }
+        Object.assign(profile, result)
         await this.config.save()
     }
 
-    async showProfileEditModal (profile: PartialProfile<Profile>): Promise<void> {
+    async showProfileEditModal (profile: PartialProfile<Profile>): Promise<PartialProfile<Profile>|null> {
         const modal = this.ngbModal.open(
             EditProfileModalComponent,
             { size: 'lg' },
@@ -108,7 +116,7 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
 
         const result = await modal.result.catch(() => null)
         if (!result) {
-            return
+            return null
         }
 
         // Fully replace the config
@@ -116,9 +124,9 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
             // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
             delete profile[k]
         }
-        Object.assign(profile, result)
 
-        profile.type = provider.id
+        result.type = provider.id
+        return result
     }
 
     async deleteProfile (profile: PartialProfile<Profile>): Promise<void> {
