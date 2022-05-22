@@ -1,3 +1,4 @@
+import { BehaviorSubject, filter, firstValueFrom } from 'rxjs'
 import { Injector } from '@angular/core'
 import { ConfigService, getCSSFontFamily, HostAppService, HotkeysService, Platform, PlatformService } from 'tabby-core'
 import { Frontend, SearchOptions, SearchState } from './frontend'
@@ -20,6 +21,41 @@ const COLOR_NAMES = [
     'brightBlack', 'brightRed', 'brightGreen', 'brightYellow', 'brightBlue', 'brightMagenta', 'brightCyan', 'brightWhite',
 ]
 
+class FlowControl {
+    private blocked = false
+    private blocked$ = new BehaviorSubject<boolean>(false)
+    private pendingCallbacks = 0
+    private lowWatermark = 5
+    private highWatermark = 10
+    private bytesWritten = 0
+    private bytesThreshold = 1024 * 128
+
+    constructor (private xterm: Terminal) { }
+
+    async write (data: string) {
+        if (this.blocked) {
+            await firstValueFrom(this.blocked$.pipe(filter(x => !x)))
+        }
+        this.bytesWritten += data.length
+        if (this.bytesWritten > this.bytesThreshold) {
+            this.pendingCallbacks++
+            if (this.pendingCallbacks > this.highWatermark) {
+                this.blocked = true
+                this.blocked$.next(true)
+            }
+            this.xterm.write(data, () => {
+                this.pendingCallbacks--
+                if (this.pendingCallbacks < this.lowWatermark) {
+                    this.blocked = false
+                    this.blocked$.next(false)
+                }
+            })
+        } else {
+            this.xterm.write(data)
+        }
+    }
+}
+
 /** @hidden */
 export class XTermFrontend extends Frontend {
     enableResizing = true
@@ -41,6 +77,7 @@ export class XTermFrontend extends Frontend {
     private webGLAddon?: WebglAddon
     private opened = false
     private resizeObserver?: any
+    private flowControl: FlowControl
 
     private configService: ConfigService
     private hotkeysService: HotkeysService
@@ -59,6 +96,7 @@ export class XTermFrontend extends Frontend {
             overviewRulerWidth: 8,
             windowsMode: process.platform === 'win32',
         })
+        this.flowControl = new FlowControl(this.xterm)
         this.xtermCore = this.xterm['_core']
 
         this.xterm.onBinary(data => {
@@ -248,7 +286,7 @@ export class XTermFrontend extends Frontend {
     }
 
     async write (data: string): Promise<void> {
-        await new Promise<void>(r => this.xterm.write(data, r))
+        await this.flowControl.write(data)
     }
 
     clear (): void {
