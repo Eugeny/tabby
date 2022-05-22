@@ -115,7 +115,7 @@ export class ProfilesService {
                     group: this.translate.instant('Recent'),
                     icon: 'fas fa-history',
                     color: p.color,
-                    weight: -1,
+                    weight: -2,
                     callback: async () => {
                         if (p.id) {
                             p = (await this.getProfiles()).find(x => x.id === p.id) ?? p
