@@ -767,10 +767,10 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
             this.spinner.text = text
         }
         this.spinner.setSpinnerString(6)
+        this.spinnerActive = true
         this.zone.runOutsideAngular(() => {
             this.spinner.start()
         })
-        this.spinnerActive = true
     }
 
     protected stopSpinner (): void {
