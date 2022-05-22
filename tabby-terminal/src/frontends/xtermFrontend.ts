@@ -341,6 +341,7 @@ export class XTermFrontend extends Frontend {
         const theme: ITheme = {
             foreground: config.terminal.colorScheme.foreground,
             selection: config.terminal.colorScheme.selection || '#88888888',
+            selectionForeground: config.terminal.colorScheme.selectionForeground || undefined,
             background: config.terminal.background === 'colorScheme' ? config.terminal.colorScheme.background : '#00000000',
             cursor: config.terminal.colorScheme.cursor,
             cursorAccent: config.terminal.colorScheme.cursorAccent,

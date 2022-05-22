@@ -47,6 +47,18 @@
                 hint='Block cursor foreground'
             )
             color-picker(
+                [(model)]='config.store.terminal.colorScheme.selection',
+                (modelChange)='config.save()',
+                title='SB',
+                hint='Selection background'
+            )
+            color-picker(
+                [(model)]='config.store.terminal.colorScheme.selectionForeground',
+                (modelChange)='config.save()',
+                title='SF',
+                hint='Selection foreground'
+            )
+            color-picker(
                 *ngFor='let _ of config.store.terminal.colorScheme.colors; let idx = index; trackBy: colorsTrackBy',
                 [(model)]='config.store.terminal.colorScheme.colors[idx]',
                 (modelChange)='config.save()',

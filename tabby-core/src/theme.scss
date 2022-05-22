@@ -398,7 +398,7 @@ ngx-colors-panel .opened {
     background: $body-bg !important;
 
     button {
-        color: $body-color;
+        color: $body-color !important;
     }
 
     .button svg {

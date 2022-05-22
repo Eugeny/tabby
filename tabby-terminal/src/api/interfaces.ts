@@ -9,4 +9,6 @@ export interface TerminalColorScheme {
     background: string
     cursor: string
     colors: string[]
+    selection?: string
+    selectionForeground?: string
 }
