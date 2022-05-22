@@ -75,6 +75,7 @@ export class Window {
             frame: false,
             show: false,
             backgroundColor: '#00000000',
+            acceptFirstMouse: true,
         }
 
         if (this.windowBounds) {
