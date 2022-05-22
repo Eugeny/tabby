@@ -27,3 +27,8 @@
     outline: 2px solid yellow;
     backdrop-filter: contrast(2);
 }
+
+.xterm-find-active-result-decoration {
+    backdrop-filter: contrast(4);
+    outline-width: 2px !important;
+}
