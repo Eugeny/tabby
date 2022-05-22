@@ -26,7 +26,7 @@
     "ngx-colors": "^3.0.4",
     "ps-node": "^0.1.6",
     "runes": "^0.4.2",
-    "xterm": "npm:@tabby-gang/xterm@^4.19.0-beta.2",
+    "xterm": "npm:@tabby-gang/xterm@^4.19.0-beta.3",
     "xterm-addon-fit": "^0.6.0-beta.8",
     "xterm-addon-ligatures": "^0.6.0-beta.14",
     "xterm-addon-search": "^0.9.0-beta.18",
