@@ -22,7 +22,9 @@
                     [color]='option.color'
                 )
                 .title.mr-2 {{getOptionText(option)}}
-                .description.no-wrap.text-muted {{option.description}}
+                .description.no-wrap.text-muted(
+                    *ngIf='option.description !== getOptionText(option)'
+                ) {{option.description}}
                 .ml-auto
                 .no-wrap.badge.badge-secondary.text-muted.ml-2(*ngIf='selectedIndex == i && canEditSelected()')
                     span Backspace
