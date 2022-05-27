@@ -47,7 +47,8 @@ export class TerminalService {
         this.logger.info(`Starting profile ${fullProfile.name}`, fullProfile)
         const options = {
             ...fullProfile.options,
-            pauseAfterExit: pause,
+            // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
+            pauseAfterExit: fullProfile.options.pauseAfterExit || pause,
             cwd: cwd ?? undefined,
         }
 
