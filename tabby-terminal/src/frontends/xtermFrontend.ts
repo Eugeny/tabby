@@ -9,6 +9,7 @@ import { ISearchOptions, SearchAddon } from 'xterm-addon-search'
 import { WebglAddon } from 'xterm-addon-webgl'
 import { Unicode11Addon } from 'xterm-addon-unicode11'
 import { SerializeAddon } from 'xterm-addon-serialize'
+import { ImageAddon } from 'xterm-addon-image'
 import './xterm.css'
 import deepEqual from 'deep-equal'
 import { Attributes } from 'xterm/src/common/buffer/Constants'
@@ -123,6 +124,17 @@ export class XTermFrontend extends Frontend {
         this.xterm.loadAddon(this.serializeAddon)
         this.xterm.loadAddon(new Unicode11Addon())
         this.xterm.unicode.activeVersion = '11'
+
+        if (this.configService.store.terminal.sixel) {
+            this.xterm.loadAddon(new ImageAddon(
+                URL.createObjectURL(
+                    new Blob(
+                        [require('xterm-addon-image/lib/xterm-addon-image-worker.js')],
+                        { type: 'application/javascript' },
+                    ),
+                ),
+            ))
+        }
 
         const keyboardEventHandler = (name: string, event: KeyboardEvent) => {
             if (this.isAlternateScreenActive()) {

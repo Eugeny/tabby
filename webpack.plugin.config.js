@@ -56,7 +56,7 @@ module.exports = options => {
                 {
                     test: /\.js$/,
                     enforce: 'pre',
-                    use:                         {
+                    use: {
                         loader: 'source-map-loader',
                         options: {
                             filterSourceMappingUrl: (url, resourcePath) => {

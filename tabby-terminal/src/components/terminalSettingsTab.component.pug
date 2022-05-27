@@ -31,6 +31,15 @@ div
             (ngModelChange)='config.save()'
         )
 
+    .form-line
+        .header
+            .title(translate) Sixel graphics support (experimental)
+            .description(translate) Display images via Sixel escape sequences
+        toggle(
+            [(ngModel)]='config.store.terminal.sixel',
+            (ngModelChange)='config.save(); config.requestRestart()'
+        )
+
 div.mt-4
     h3(translate) Keyboard
 

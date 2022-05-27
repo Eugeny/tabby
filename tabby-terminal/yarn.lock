@@ -162,6 +162,11 @@ xterm-addon-fit@^0.6.0-beta.8:
   resolved "https://registry.yarnpkg.com/xterm-addon-fit/-/xterm-addon-fit-0.6.0-beta.9.tgz#55d550b7e8f3b90ee0781fdddf876b8502a31540"
   integrity sha512-QrlwItVFiapkiJ2YL2rj2drtOvFmr8luDyV286MCrVSK4iGxSnsOdT+NcjeNig1lqYmy5FAo8iuP4FPY//NDog==
 
+xterm-addon-image@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/xterm-addon-image/-/xterm-addon-image-0.1.0.tgz#ead96aa224f5fcbfb45da2907f02368fe92985e6"
+  integrity sha512-xMvcEQ2rVUIXbbj5BRhznrZU24CRaMiSo8l2HH/E1FeE+G+KKduoF6mwja856/n4ekZ7K0ALZmmyDsbZODhDqQ==
+
 xterm-addon-ligatures@^0.6.0-beta.14:
   version "0.6.0-beta.14"
   resolved "https://registry.yarnpkg.com/xterm-addon-ligatures/-/xterm-addon-ligatures-0.6.0-beta.14.tgz#392b8df0e32dcfc87f43b79901ec1c2abc997ae7"
@@ -190,10 +195,10 @@ xterm-addon-webgl@^0.12.0-beta.27:
   resolved "https://registry.yarnpkg.com/xterm-addon-webgl/-/xterm-addon-webgl-0.12.0-beta.36.tgz#460f80829a78c979a448d5b764699af3f0366ff1"
   integrity sha512-sgX7OHSGZQZE5b4xtPqd/5NEcll0Z+00tnTVxKZlXf5XEENcG0tnBF4I4f+k9K3cmjE1UIUVG2yYPrqWlYCdpA==
 
-"xterm@npm:@tabby-gang/xterm@^4.19.0-beta.3":
-  version "4.19.0-beta.3"
-  resolved "https://registry.yarnpkg.com/@tabby-gang/xterm/-/xterm-4.19.0-beta.3.tgz#a45e5fb81383cf24fe9f2b75a9aa3cbcbe27f311"
-  integrity sha512-PC30FqxOsIbZs5JLThAe0KNwm1OGn/mHKpCTZDpBfdk4be9ia+BzaSf6xcOXxiiPcQwBQ+uQn40XK1J+tGtVig==
+"xterm@npm:@tabby-gang/xterm@^4.19.0-beta.4":
+  version "4.19.0-beta.5"
+  resolved "https://registry.yarnpkg.com/@tabby-gang/xterm/-/xterm-4.19.0-beta.5.tgz#aa7a4509148a31ac4e4e55475c950f8572616899"
+  integrity sha512-8Vn92qMHDT2Q8TLPTFqalbwdS8ev3AmtLfPs2PRoMlJA/XzrcGUD5BNuAau5bn9lF5iEueX1gYqsJxzk5aYDbQ==
 
 yallist@^4.0.0:
   version "4.0.0"
