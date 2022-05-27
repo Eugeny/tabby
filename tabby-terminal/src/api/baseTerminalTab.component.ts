@@ -138,6 +138,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
         },
     })
     private spinnerActive = false
+    private spinnerPaused = false
     private toolbarRevealTimeout = new ResettableTimeout(() => {
         this.revealToolbar = false
     }, 1000)
@@ -760,7 +761,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
     }
 
     protected startSpinner (text?: string): void {
-        if (this.spinnerActive) {
+        if (this.spinnerActive || this.spinnerPaused) {
             return
         }
         if (text) {
@@ -782,11 +783,19 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
     }
 
     protected async withSpinnerPaused (work: () => any): Promise<void> {
-        const wasActive = this.spinnerActive
-        this.stopSpinner()
-        await work()
-        if (wasActive) {
-            this.startSpinner()
+        this.spinnerPaused = true
+        if (this.spinnerActive) {
+            this.spinner.stop(true)
+        }
+        try {
+            await work()
+        } finally {
+            this.spinnerPaused = false
+            if (this.spinnerActive) {
+                this.zone.runOutsideAngular(() => {
+                    this.spinner.start()
+                })
+            }
         }
     }
 
