@@ -6,7 +6,7 @@ import * as path from 'path'
 import * as fs from 'fs'
 import { Subject, throttleTime } from 'rxjs'
 
-import { loadConfig } from './config'
+import { saveConfig } from './config'
 import { Window, WindowOptions } from './window'
 import { pluginManager } from './pluginManager'
 import { PTYManager } from './pty'
@@ -23,10 +23,10 @@ export class Application {
     private windows: Window[] = []
     private globalHotkey$ = new Subject<void>()
     private quitRequested = false
-    private configStore: any
     userPluginsPath: string
 
-    constructor () {
+    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+    constructor (private configStore: any) {
         remote.initialize()
         this.useBuiltinGraphics()
         this.ptyManager.init(this)
@@ -34,6 +34,10 @@ export class Application {
         ipcMain.on('app:config-change', (_event, config) => {
             this.broadcast('host:config-change', config)
             this.configStore = config
+        })
+
+        ipcMain.on('app:save-config', (_event, data) => {
+            saveConfig(data)
         })
 
         ipcMain.on('app:register-global-hotkey', (_event, specs) => {
@@ -63,7 +67,6 @@ export class Application {
             }
         })
 
-        this.configStore = loadConfig()
         if (process.platform === 'linux') {
             app.commandLine.appendSwitch('no-sandbox')
             if (((this.configStore.appearance || {}).opacity || 1) !== 1) {
@@ -111,7 +114,7 @@ export class Application {
     }
 
     async newWindow (options?: WindowOptions): Promise<Window> {
-        const window = new Window(this, options)
+        const window = new Window(this, this.configStore, options)
         this.windows.push(window)
         if (this.windows.length === 1){
             window.makeMain()

@@ -11,7 +11,6 @@ import { compare as compareVersions } from 'compare-versions'
 
 import type { Application } from './app'
 import { parseArgs } from './cli'
-import { loadConfig } from './config'
 
 let DwmEnableBlurBehindWindow: any = null
 if (process.platform === 'win32') {
@@ -42,7 +41,6 @@ export class Window {
     private closing = false
     private lastVibrancy: { enabled: boolean, type?: string } | null = null
     private disableVibrancyWhileDragging = false
-    private configStore: any
     private touchBarControl: any
     private isFluentVibrancy = false
     private dockHidden = false
@@ -50,9 +48,8 @@ export class Window {
     get visible$ (): Observable<boolean> { return this.visible }
     get closed$ (): Observable<void> { return this.closed }
 
-    constructor (private application: Application, options?: WindowOptions) {
-        this.configStore = loadConfig()
-
+    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+    constructor (private application: Application, private configStore: any, options?: WindowOptions) {
         options = options ?? {}
 
         this.windowConfig = new ElectronConfig({ name: 'window' })

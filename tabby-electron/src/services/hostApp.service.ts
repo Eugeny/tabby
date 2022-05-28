@@ -65,6 +65,10 @@ export class ElectronHostAppService extends HostAppService {
         this.electron.ipcRenderer.send('app:config-change', configStore)
     }
 
+    saveConfig (data: string): void {
+        this.electron.ipcRenderer.send('app:save-config', data)
+    }
+
     emitReady (): void {
         this.electron.ipcRenderer.send('app:ready')
     }

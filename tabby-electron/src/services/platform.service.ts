@@ -1,17 +1,15 @@
 import * as path from 'path'
 import * as fs from 'fs/promises'
-import * as gracefulFS from 'graceful-fs'
 import * as fsSync from 'fs'
 import * as os from 'os'
-import { v4 as uuidv4 } from 'uuid'
-import { promisify } from 'util'
 import promiseIpc, { RendererProcessType } from 'electron-promise-ipc'
 import { execFile } from 'mz/child_process'
 import { Injectable, NgZone } from '@angular/core'
-import { PlatformService, ClipboardContent, HostAppService, Platform, MenuItemOptions, MessageBoxOptions, MessageBoxResult, FileUpload, FileDownload, FileUploadOptions, wrapPromise, TranslateService } from 'tabby-core'
+import { PlatformService, ClipboardContent, Platform, MenuItemOptions, MessageBoxOptions, MessageBoxResult, FileUpload, FileDownload, FileUploadOptions, wrapPromise, TranslateService } from 'tabby-core'
 import { ElectronService } from '../services/electron.service'
 import { ElectronHostWindow } from './hostWindow.service'
 import { ShellIntegrationService } from './shellIntegration.service'
+import { ElectronHostAppService } from './hostApp.service'
 const fontManager = require('fontmanager-redux') // eslint-disable-line
 
 /* eslint-disable block-scoped-var */
@@ -27,10 +25,9 @@ try {
 export class ElectronPlatformService extends PlatformService {
     supportsWindowControls = true
     private configPath: string
-    private _configSaveInProgress = Promise.resolve()
 
     constructor (
-        private hostApp: HostAppService,
+        private hostApp: ElectronHostAppService,
         private hostWindow: ElectronHostWindow,
         private electron: ElectronService,
         private zone: NgZone,
@@ -112,18 +109,7 @@ export class ElectronPlatformService extends PlatformService {
     }
 
     async saveConfig (content: string): Promise<void> {
-        try {
-            await this._configSaveInProgress
-        } catch { }
-        this._configSaveInProgress = this._saveConfigInternal(content)
-        await this._configSaveInProgress
-    }
-
-    async _saveConfigInternal (content: string): Promise<void> {
-        const tempPath = this.configPath + '.new.' + uuidv4().toString()
-        await fs.writeFile(tempPath, content, 'utf8')
-        await fs.writeFile(this.configPath + '.backup', content, 'utf8')
-        await promisify(gracefulFS.rename)(tempPath, this.configPath)
+        this.hostApp.saveConfig(content)
     }
 
     getConfigPath (): string|null {
