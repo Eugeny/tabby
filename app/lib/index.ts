@@ -39,6 +39,19 @@ loadConfig().then(configStore => {
         application.handleSecondInstance(newArgv, cwd)
     })
 
+    if (!app.requestSingleInstanceLock()) {
+        app.quit()
+        app.exit(0)
+    }
+
+    if (argv.d) {
+        electronDebug({
+            isEnabled: true,
+            showDevTools: true,
+            devToolsMode: 'undocked',
+        })
+    }
+
     app.on('ready', async () => {
         if (process.platform === 'darwin') {
             app.dock.setMenu(Menu.buildFromTemplate([
@@ -55,20 +68,8 @@ loadConfig().then(configStore => {
         const window = await application.newWindow({ hidden: argv.hidden })
         await window.ready
         window.passCliArguments(process.argv, process.cwd(), false)
+        window.focus()
     })
 }).catch(err => {
     dialog.showErrorBox('Could not read config', err.message)
 })
-
-if (!app.requestSingleInstanceLock()) {
-    app.quit()
-    app.exit(0)
-}
-
-if (argv.d) {
-    electronDebug({
-        isEnabled: true,
-        showDevTools: true,
-        devToolsMode: 'undocked',
-    })
-}
