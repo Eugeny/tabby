@@ -6,27 +6,28 @@ import * as gracefulFS from 'graceful-fs'
 import { app } from 'electron'
 import { promisify } from 'util'
 
-export async function migrateConfig (): Promise<void> {
+export function migrateConfig (): void {
     const configPath = path.join(app.getPath('userData'), 'config.yaml')
     const legacyConfigPath = path.join(app.getPath('userData'), '../terminus', 'config.yaml')
-    if (await fs.exists(legacyConfigPath) && (
-        !await fs.exists(configPath) ||
-        (await fs.stat(configPath)).mtime < (await fs.stat(legacyConfigPath)).mtime
+    if (fs.existsSync(legacyConfigPath) && (
+        !fs.existsSync(configPath) ||
+        fs.statSync(configPath).mtime < fs.statSync(legacyConfigPath).mtime
     )) {
-        await fs.writeFile(configPath, await fs.readFile(legacyConfigPath))
+        fs.writeFileSync(configPath, fs.readFileSync(legacyConfigPath))
     }
 }
 
-export async function loadConfig (): Promise<any> {
-    await migrateConfig()
+export function loadConfig (): any {
+    migrateConfig()
 
     const configPath = path.join(app.getPath('userData'), 'config.yaml')
-    if (await fs.exists(configPath)) {
-        return yaml.load(await fs.readFile(configPath, 'utf8'))
+    if (fs.existsSync(configPath)) {
+        return yaml.load(fs.readFileSync(configPath, 'utf8'))
     } else {
         return {}
     }
 }
+
 
 const configPath = path.join(app.getPath('userData'), 'config.yaml')
 let _configSaveInProgress = Promise.resolve()
