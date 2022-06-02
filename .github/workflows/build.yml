@@ -84,8 +84,6 @@ jobs:
         APPSTORE_USERNAME: ${{ secrets.APPSTORE_USERNAME }}
         APPSTORE_PASSWORD: ${{ secrets.APPSTORE_PASSWORD }}
         USE_HARD_LINKS: false
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         # DEBUG: electron-builder,electron-builder:*
 
     - name: Build packages without signing
@@ -156,8 +154,6 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         USE_HARD_LINKS: false
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         # DEBUG: electron-builder,electron-builder:*
 
     - name: Build web resources
@@ -269,8 +265,6 @@ jobs:
         WIN_CSC_LINK: ${{ secrets.WIN_CSC_LINK }}
         WIN_CSC_KEY_PASSWORD: ${{ secrets.WIN_CSC_KEY_PASSWORD }}
         DEBUG: electron-builder,electron-builder:*
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
     - name: Build packages without signing
       run: node scripts/build-windows.js

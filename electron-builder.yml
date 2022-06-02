@@ -35,9 +35,6 @@ extraResources:
 asarUnpack:
 - 'dist/*.map'
 publish:
-- provider: s3
-  bucket: tabby-updates
-  path: 'updates-${channel}-${env.ARCH}'
 - provider: github
 
 win:

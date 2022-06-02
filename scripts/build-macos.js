@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
 const builder = require('electron-builder').build
 const vars = require('./vars')
 
@@ -24,8 +25,12 @@ builder({
             identity: !process.env.CI || process.env.CSC_LINK ? undefined : null,
         },
         npmRebuild: process.env.ARCH !== 'arm64',
+        publish: {
+            provider: 'github',
+            channel: `latest-${process.arch}`,
+        },
     },
-    publish: isTag ? 'always' : 'onTag',
+    publish: isTag ? 'always' : 'onTagOrDraft',
 }).catch(e => {
     console.error(e)
     process.exit(1)
