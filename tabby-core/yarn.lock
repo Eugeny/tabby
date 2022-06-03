@@ -94,10 +94,10 @@ minimist@^1.2.0:
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.6.tgz#8637a5b759ea0d6e98702cfb3a9283323c93af44"
   integrity sha512-Jsjnk4bw3YJqYzbdyBiNsPWHPfO++UGG749Cxs6peCu5Xg4nrena6OVxOYxrQTqww0Jmwt+Ref8rggumkTLz9Q==
 
-mixpanel@^0.13.0:
-  version "0.13.0"
-  resolved "https://registry.yarnpkg.com/mixpanel/-/mixpanel-0.13.0.tgz#699bf510d9ba013c75edcf979ff1e24085fde9d2"
-  integrity sha512-YOWmpr/o4+zJ8LPjuLUkWLc2ImFeIkX6hF1t62Wlvq6loC6e8EK8qieYO4gYPTPxxtjAryl7xmIvf/7qnPwjrQ==
+mixpanel@^0.16.0:
+  version "0.16.0"
+  resolved "https://registry.yarnpkg.com/mixpanel/-/mixpanel-0.16.0.tgz#83a1a0ee04784cdb89ff4d2b433c9821727efeb7"
+  integrity sha512-+FeBnpO48tChYvw9LDB4YAaW7fTER56ZOQcx69EaC0NpoYC/M50vTrWWjhqtZt/x0V4h4BEml+5GWJjA1djbcA==
   dependencies:
     https-proxy-agent "5.0.0"
 

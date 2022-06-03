@@ -22,7 +22,7 @@
     "deepmerge": "^4.1.1",
     "js-yaml": "^4.0.0",
     "messageformat": "^2.3.0",
-    "mixpanel": "^0.13.0",
+    "mixpanel": "^0.16.0",
     "ngx-filesize": "^2.0.16",
     "ngx-perfect-scrollbar": "^10.1.0",
     "ngx-translate-messageformat-compiler": "^4.11.0",
