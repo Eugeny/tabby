@@ -1039,10 +1039,10 @@ ansistyles@~0.1.3:
   resolved "https://registry.npmjs.org/ansistyles/-/ansistyles-0.1.3.tgz"
   integrity sha1-XeYEFb2gcbs3EnhUyGT0GyMlRTk=
 
-app-builder-bin@3.7.1:
-  version "3.7.1"
-  resolved "https://registry.yarnpkg.com/app-builder-bin/-/app-builder-bin-3.7.1.tgz#cb0825c5e12efc85b196ac3ed9c89f076c61040e"
-  integrity sha512-ql93vEUq6WsstGXD+SBLSIQw6SNnhbDEM0swzgugytMxLp3rT24Ag/jcC80ZHxiPRTdew1niuR7P3/FCrDqIjw==
+app-builder-bin@4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/app-builder-bin/-/app-builder-bin-4.0.0.tgz#1df8e654bd1395e4a319d82545c98667d7eed2f0"
+  integrity sha512-xwdG0FJPQMe0M0UA4Tz0zEB8rBJTRA5a476ZawAqiBkMv16GRK5xpXThOjMaEOFnZ6zabejjG4J3da0SXG63KA==
 
 app-builder-lib@23.0.9:
   version "23.0.9"
@@ -1164,10 +1164,22 @@ asap@~2.0.3:
   resolved "https://registry.npmjs.org/asap/-/asap-2.0.6.tgz"
   integrity sha1-5QNHYR1+aQlDIIu9r+vLwvuGbUY=
 
-asar@^3.0.0, asar@^3.0.3:
+asar@^3.0.0:
   version "3.0.3"
   resolved "https://registry.npmjs.org/asar/-/asar-3.0.3.tgz"
   integrity sha512-k7zd+KoR+n8pl71PvgElcoKHrVNiSXtw7odKbyNpmgKe7EGRF9Pnu3uLOukD37EvavKwVFxOUpqXTIZC5B5Pmw==
+  dependencies:
+    chromium-pickle-js "^0.2.0"
+    commander "^5.0.0"
+    glob "^7.1.6"
+    minimatch "^3.0.4"
+  optionalDependencies:
+    "@types/glob" "^7.1.1"
+
+asar@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/asar/-/asar-3.1.0.tgz#70b0509449fe3daccc63beb4d3c7d2e24d3c6473"
+  integrity sha512-vyxPxP5arcAqN4F/ebHd/HhwnAiZtwhglvdmc7BR2f0ywbVNTOpSeyhLDbGXtE/y58hv1oC75TaNIXutnsOZsQ==
   dependencies:
     chromium-pickle-js "^0.2.0"
     commander "^5.0.0"
@@ -2158,10 +2170,10 @@ core-js@^2.4.0:
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.6.12.tgz#d9333dfa7b065e347cc5682219d6f690859cc2ec"
   integrity sha512-Kb2wC0fvsWfQrgk8HU5lW6U/Lcs8+9aaYcy4ZFc6DDlo4nZ7n70dEgE5rtR0oG6ufKDUnrwfWL1mXR5ljDatrQ==
 
-core-js@^3.21.1:
-  version "3.21.1"
-  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.21.1.tgz#f2e0ddc1fc43da6f904706e8e955bc19d06a0d94"
-  integrity sha512-FRq5b/VMrWlrmCzwRrpDYNxyHP9BcAZC+xHJaqTgIE5091ZV1NTmyh0sGOg5XqpnHvR0svdy0sv1gWA1zmhxig==
+core-js@^3.23.0:
+  version "3.23.0"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.23.0.tgz#9e33448c8fd3b02ad023d85bd6e85da6335b5cc4"
+  integrity sha512-v2/hZoRcRrvQiBoGsHwmRdr+S4oICKcjA6xb2qjVurin6TpcDC1X2CIDa8rdu/d5n8RT/Sdoos2IlnpQ1rXs5A==
 
 core-util-is@1.0.2, core-util-is@~1.0.0:
   version "1.0.2"
