@@ -39,13 +39,14 @@ class FlowControl {
         this.bytesWritten += data.length
         if (this.bytesWritten > this.bytesThreshold) {
             this.pendingCallbacks++
-            if (this.pendingCallbacks > this.highWatermark) {
+            this.bytesWritten = 0
+            if (!this.blocked && this.pendingCallbacks > this.highWatermark) {
                 this.blocked = true
                 this.blocked$.next(true)
             }
             this.xterm.write(data, () => {
                 this.pendingCallbacks--
-                if (this.pendingCallbacks < this.lowWatermark) {
+                if (this.blocked && this.pendingCallbacks < this.lowWatermark) {
                     this.blocked = false
                     this.blocked$.next(false)
                 }
