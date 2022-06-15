@@ -125,33 +125,45 @@ jobs:
   Linux-Build:
     runs-on: ubuntu-18.04 # build against an older glibc for compatibility
     needs: Lint
-
+    strategy:
+      matrix:
+        build-arch: [ x64, arm64, armv7l ]
+        
     steps:
     - name: Checkout
       uses: actions/checkout@v3
       with:
         fetch-depth: 0
 
-    - name: Install Node
+    - name: Set up multiarch/qemu-user-static
+      run: docker run --rm --privileged multiarch/qemu-user-static:register --reset
+      if: ${{matrix.build-arch != 'x64'}}
+
+    - name: Install Node (x64)
       uses: actions/setup-node@v3.2.0
       with:
         node-version: 16
+      if: ${{matrix.build-arch == 'x64'}}
 
-    - name: Install deps
+    - name: Install deps (x64)
       run: |
         sudo apt-get update
         sudo apt-get install libarchive-tools zsh
-        npm i -g yarn@1.19.1
+        npm i -g yarn
         yarn --network-timeout 1000000
-
-    - name: Webpack
+      if: ${{matrix.build-arch == 'x64'}}
+       
+    - name: Webpack (x64)
       run: yarn run build
+      if: ${{matrix.build-arch == 'x64'}}
 
-    - name: Prepackage plugins
+    - name: Prepackage plugins (x64)
       run: scripts/prepackage-plugins.js
-
-    - name: Build packages
+      if: ${{matrix.build-arch == 'x64'}}
+       
+    - name: Build packages (x64)
       run: scripts/build-linux.js
+      if: ${{matrix.build-arch == 'x64'}}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         USE_HARD_LINKS: false
@@ -159,11 +171,60 @@ jobs:
 
     - name: Build web resources
       run: zsh -c 'tar czf tabby-web.tar.gz (tabby-*|web)/dist'
+      if: ${{matrix.build-arch == 'x64'}}
+
+    - name: Install deps and Build (arm64)
+      uses: docker://multiarch/ubuntu-core:arm64-bionic
+      with: 
+          args: >
+            bash -c
+            "apt update && apt install curl lsb-release gnupg -y &&
+            curl -fsSL https://deb.nodesource.com/setup_16.x | bash - &&
+            apt install make build-essential git ruby libarchive-tools nodejs rpm libsecret-1-dev libfontconfig1-dev -y &&
+            git config --global --add safe.directory /github/workspace &&
+            gem install fpm --no-document &&
+            npm i -g yarn &&
+            cd /github/workspace &&
+            yarn --network-timeout 1000000 &&
+            yarn run build &&
+            scripts/prepackage-plugins.js &&
+            USE_SYSTEM_FPM=true scripts/build-linux.js"
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        USE_HARD_LINKS: false
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      if: ${{matrix.build-arch == 'arm64'}}
+
+    - name: Install deps and Build (armv7l)
+      uses: docker://multiarch/ubuntu-core:armhf-bionic
+      with: 
+          args: >
+            bash -c
+            "apt update && apt install curl lsb-release gnupg -y &&
+            curl -fsSL https://deb.nodesource.com/setup_16.x | bash - &&
+            apt install make build-essential git ruby libarchive-tools nodejs rpm libsecret-1-dev libfontconfig1-dev -y &&
+            git config --global --add safe.directory /github/workspace &&
+            gem install fpm --no-document &&
+            npm i -g yarn &&
+            cd /github/workspace &&
+            sed -i '/    \"electron\":/c\    \"electron\": \"17.0.0\",' package.json &&
+            yarn --network-timeout 1000000 &&
+            yarn run build &&
+            scripts/prepackage-plugins.js &&
+            USE_SYSTEM_FPM=true scripts/build-linux.js"
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        USE_HARD_LINKS: false
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      if: ${{matrix.build-arch == 'armv7l'}}
 
     - name: Upload symbols
       run: |
         sudo npm install -g @sentry/cli --unsafe-perm
         ./scripts/sentry-upload.js
+      if: ${{matrix.build-arch == 'x64'}}
       env:
         SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
         SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
@@ -178,48 +239,36 @@ jobs:
         repo: 'eugeny/tabby'
         dir: 'dist'
 
-    - name: Package artifacts
-      run: |
-        mkdir artifact-deb
-        mv dist/*.deb artifact-deb/ || true
-        mkdir artifact-rpm
-        mv dist/*.rpm artifact-rpm/ || true
-        mkdir artifact-pacman
-        mv dist/*.pacman artifact-pacman/ || true
-        mkdir artifact-tar.gz
-        mv dist/*.tar.gz artifact-tar.gz/ || true
-        mkdir artifact-web
-        mv tabby-web.tar.gz artifact-web/ || true
-
     - uses: actions/upload-artifact@master
       name: Upload DEB
       with:
-        name: Linux DEB (x86_64)
-        path: artifact-deb
+        name: Linux DEB (${{matrix.build-arch}})
+        path: dist/*.deb
 
     - uses: actions/upload-artifact@master
       name: Upload RPM
       with:
-        name: Linux RPM (x86_64)
-        path: artifact-rpm
+        name: Linux RPM (${{matrix.build-arch}})
+        path: dist/*.rpm
 
     - uses: actions/upload-artifact@master
       name: Upload Pacman Package
       with:
-        name: Linux Pacman (x86_64)
-        path: artifact-pacman
+        name: Linux Pacman (${{matrix.build-arch}})
+        path: dist/*.pacman
 
     - uses: actions/upload-artifact@master
       name: Upload Linux tarball
       with:
-        name: Linux tarball (x86_64)
-        path: artifact-tar.gz
+        name: Linux tarball (${{matrix.build-arch}})
+        path: dist/*.tar.gz
 
     - uses: actions/upload-artifact@master
       name: Upload web tarball
       with:
         name: Web tarball
-        path: artifact-web
+        path: tabby-web.tar.gz
+      if: ${{matrix.build-arch == 'x64'}}
 
 
   Windows-Build:
