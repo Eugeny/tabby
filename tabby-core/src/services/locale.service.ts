@@ -174,8 +174,8 @@ export class LocaleService {
 
         const d = new Date()
         if (d.getMonth() === 3 && d.getDate() === 1) {
-            LocaleService.allLanguages.find(x => x.code === 'en-US').name = 'English (simplified)'
-            LocaleService.allLanguages.find(x => x.code === 'en-GB').name = 'English (traditional)'
+            LocaleService.allLanguages.find(x => x.code === 'en-US')!.name = 'English (simplified)'
+            LocaleService.allLanguages.find(x => x.code === 'en-GB')!.name = 'English (traditional)'
         }
     }
 
