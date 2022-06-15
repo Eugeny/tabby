@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Ukrainian\n"
 "Language: uk_UA\n"
-"PO-Revision-Date: 2022-05-17 06:35\n"
+"PO-Revision-Date: 2022-06-15 20:28\n"
 
 #: tabby-local/src/components/terminalTab.component.ts:113
 msgid "\"{command}\" is still running. Close?"
@@ -20,12 +20,6 @@ msgstr "\"{command}\" все ще запущено. Закрити?"
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:85
 msgid "{name} copy"
 msgstr "{name} копія"
-
-#: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:13
-msgid "<strong translate=\"\">Working directory detection</strong>\n"
-"<div translate=\"\">Learn how to allow Tabby to detect remote shell's working directory.</div>"
-msgstr "<strong translate=\"\">Робоча папка</strong>\n"
-"<div translate=\"\">Дізнайтеся, як дозволити Tabby виявити робочий каталог віддаленої оболонки</div>"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:76
 msgid "A second font family used to display characters missing in the main font"
@@ -230,7 +224,7 @@ msgstr "Вбудовані"
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:79
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:99
 #: tabby-ssh/src/sftpContextMenu.ts:40
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:458
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:459
 msgid "Cancel"
 msgstr "Скасувати"
 
@@ -375,10 +369,10 @@ msgstr "Замість цього буде використовуватися і
 msgid "Context menu"
 msgstr "Контекстне меню"
 
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:201
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:209
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:549
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:753
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:202
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:210
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:550
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:754
 #: tabby-terminal/src/tabContextMenu.ts:29
 msgid "Copied"
 msgstr "Скопійовано"
@@ -855,8 +849,8 @@ msgid "Help track the number of Tabby installs across the world!"
 msgstr "Допоможіть відстежувати скільки встановлено Tabby по всьому світу!"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:50
-msgid "Help translate Tabby<i class=\"fas fa-external-link-square-alt ml-1\"></i>"
-msgstr "Допоможіть перекласти Tabby<i class=\"fas fa-external-link-square-alt ml-1\"></i>"
+msgid "Help translate Tabby"
+msgstr "Допоможіть перекласти Tabby"
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:32
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:44
@@ -1356,7 +1350,7 @@ msgid "Password"
 msgstr "Пароль"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:60
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:457
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:458
 #: tabby-terminal/src/tabContextMenu.ts:34
 msgid "Paste"
 msgstr "Вставити"
@@ -1365,7 +1359,7 @@ msgstr "Вставити"
 msgid "Paste from clipboard"
 msgstr "Вставити з буферу обміну"
 
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:464
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:465
 msgid "Paste multiple lines?"
 msgstr "Вставити кілька рядків?"
 
@@ -1731,7 +1725,7 @@ msgstr "Налаштування"
 msgid "Shell"
 msgstr "Shell"
 
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:551
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:552
 msgid "Shell does not support current path detection"
 msgstr "Shell не підтримує виявлення поточного шляху"
 
@@ -1969,7 +1963,7 @@ msgstr "Ширина вкладки"
 msgid "Telnet session"
 msgstr "Telnet сесія"
 
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:190
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:191
 #: tabby-terminal/src/settings.ts:43
 msgid "Terminal"
 msgstr "Термінал"

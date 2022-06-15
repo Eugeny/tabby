@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Danish\n"
 "Language: da_DK\n"
-"PO-Revision-Date: 2022-04-30 18:35\n"
+"PO-Revision-Date: 2022-06-15 20:28\n"
 
 #: tabby-local/src/components/terminalTab.component.ts:113
 msgid "\"{command}\" is still running. Close?"
@@ -20,11 +20,6 @@ msgstr "\"{command}\" kører stadig. Luk?"
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:85
 msgid "{name} copy"
 msgstr "{name} kopi"
-
-#: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:13
-msgid "<strong translate=\"\">Working directory detection</strong>\n"
-"<div translate=\"\">Learn how to allow Tabby to detect remote shell's working directory.</div>"
-msgstr ""
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:76
 msgid "A second font family used to display characters missing in the main font"
@@ -229,7 +224,7 @@ msgstr "Indbygget"
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:79
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:99
 #: tabby-ssh/src/sftpContextMenu.ts:40
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:458
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:459
 msgid "Cancel"
 msgstr "Annullér"
 
@@ -374,10 +369,10 @@ msgstr "Forbindelsens navn vil blive brugt i stedet"
 msgid "Context menu"
 msgstr "Kontekstmenu"
 
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:201
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:209
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:549
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:753
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:202
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:210
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:550
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:754
 #: tabby-terminal/src/tabContextMenu.ts:29
 msgid "Copied"
 msgstr "Kopieret"
@@ -854,7 +849,7 @@ msgid "Help track the number of Tabby installs across the world!"
 msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:50
-msgid "Help translate Tabby<i class=\"fas fa-external-link-square-alt ml-1\"></i>"
+msgid "Help translate Tabby"
 msgstr ""
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:32
@@ -1355,7 +1350,7 @@ msgid "Password"
 msgstr "Adgangskode"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:60
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:457
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:458
 #: tabby-terminal/src/tabContextMenu.ts:34
 msgid "Paste"
 msgstr "Indsæt"
@@ -1364,7 +1359,7 @@ msgstr "Indsæt"
 msgid "Paste from clipboard"
 msgstr "Indsæt fra udklipsholder"
 
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:464
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:465
 msgid "Paste multiple lines?"
 msgstr "Indsæt flere linjer?"
 
@@ -1730,7 +1725,7 @@ msgstr "Indstillinger"
 msgid "Shell"
 msgstr "Shell"
 
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:551
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:552
 msgid "Shell does not support current path detection"
 msgstr "Shell understøtter ikke detektion af aktuel sti"
 
@@ -1968,7 +1963,7 @@ msgstr "Fanebredde"
 msgid "Telnet session"
 msgstr "Telnet session"
 
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:190
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:191
 #: tabby-terminal/src/settings.ts:43
 msgid "Terminal"
 msgstr "Terminal"

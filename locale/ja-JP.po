@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2022-05-17 06:35\n"
+"PO-Revision-Date: 2022-06-15 20:28\n"
 
 #: tabby-local/src/components/terminalTab.component.ts:113
 msgid "\"{command}\" is still running. Close?"
@@ -20,12 +20,6 @@ msgstr "\"{command}\"が実行中です。閉じますか？"
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:85
 msgid "{name} copy"
 msgstr "{name} コピー"
-
-#: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:13
-msgid "<strong translate=\"\">Working directory detection</strong>\n"
-"<div translate=\"\">Learn how to allow Tabby to detect remote shell's working directory.</div>"
-msgstr "<strong translate=\"\">作業ディレクトリの検出</strong>\n"
-"<div translate=\"\">Tabbyにリモート側の作業ディレクトリを検出させる方法をご紹介します。</div>"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:76
 msgid "A second font family used to display characters missing in the main font"
@@ -230,7 +224,7 @@ msgstr "組込み"
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:79
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:99
 #: tabby-ssh/src/sftpContextMenu.ts:40
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:458
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:459
 msgid "Cancel"
 msgstr "キャンセル"
 
@@ -375,10 +369,10 @@ msgstr "代わりに接続名が使用されます"
 msgid "Context menu"
 msgstr "コンテキストメニュー"
 
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:201
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:209
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:549
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:753
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:202
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:210
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:550
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:754
 #: tabby-terminal/src/tabContextMenu.ts:29
 msgid "Copied"
 msgstr "コピーしました"
@@ -620,7 +614,7 @@ msgstr "ダウンロード"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:23
 msgid "Draw bold text in bright colors"
-msgstr "太字を明瞭な色で表示"
+msgstr "太字のテキストを明るい色で表示"
 
 #: tabby-core/src/tabContextMenu.ts:120
 msgid "Duplicate"
@@ -855,8 +849,8 @@ msgid "Help track the number of Tabby installs across the world!"
 msgstr "世界中でのTabbyのインストール数の調査にご協力ください！"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:50
-msgid "Help translate Tabby<i class=\"fas fa-external-link-square-alt ml-1\"></i>"
-msgstr "Tabby<i class=\"fas fa-external-link-square-alt ml-1\"></i>の翻訳に協力する"
+msgid "Help translate Tabby"
+msgstr "Tabbyの翻訳に参加する"
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:32
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:44
@@ -939,7 +933,7 @@ msgstr "垂直方向の分割サイズを拡大"
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:18
 msgid "Input is sent as you type"
-msgstr "入力データは入力中に送信されます"
+msgstr "入力する度に入力が送信されます"
 
 #: locale/tmp-html/tabby-terminal/src/components/streamProcessingSettings.component.html:4
 msgid "Input mode"
@@ -1356,7 +1350,7 @@ msgid "Password"
 msgstr "パスワード"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:60
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:457
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:458
 #: tabby-terminal/src/tabContextMenu.ts:34
 msgid "Paste"
 msgstr "貼り付け"
@@ -1365,7 +1359,7 @@ msgstr "貼り付け"
 msgid "Paste from clipboard"
 msgstr "クリップボードから貼り付け"
 
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:464
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:465
 msgid "Paste multiple lines?"
 msgstr "複数行の貼り付けを行いますか？"
 
@@ -1731,7 +1725,7 @@ msgstr "設定"
 msgid "Shell"
 msgstr "シェル"
 
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:551
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:552
 msgid "Shell does not support current path detection"
 msgstr "シェルは現在のパス検出に対応していません"
 
@@ -1969,7 +1963,7 @@ msgstr "タブの幅"
 msgid "Telnet session"
 msgstr "Telnetセッション"
 
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:190
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:191
 #: tabby-terminal/src/settings.ts:43
 msgid "Terminal"
 msgstr "端末"

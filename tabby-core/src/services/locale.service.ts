@@ -2,13 +2,15 @@ import { Injectable } from '@angular/core'
 import { registerLocaleData } from '@angular/common'
 import { TranslateService } from '@ngx-translate/core'
 
-import localeEN from '@angular/common/locales/en'
+import localeENUS from '@angular/common/locales/en'
+import localeENGB from '@angular/common/locales/en-GB'
 import localeBG from '@angular/common/locales/bg'
 import localeDA from '@angular/common/locales/da'
 import localeDE from '@angular/common/locales/de'
 import localeES from '@angular/common/locales/es'
 import localeFR from '@angular/common/locales/fr'
 import localeHR from '@angular/common/locales/hr'
+import localeID from '@angular/common/locales/id'
 import localeIT from '@angular/common/locales/it'
 import localeJA from '@angular/common/locales/ja'
 import localeKO from '@angular/common/locales/ko'
@@ -22,13 +24,15 @@ import { distinctUntilChanged } from 'rxjs/operators'
 import { ConfigService } from './config.service'
 import { LogService, Logger } from './log.service'
 
-registerLocaleData(localeEN)
+registerLocaleData(localeENUS)
+registerLocaleData(localeENGB)
 registerLocaleData(localeBG)
 registerLocaleData(localeDA)
 registerLocaleData(localeDE)
 registerLocaleData(localeES)
 registerLocaleData(localeFR)
 registerLocaleData(localeHR)
+registerLocaleData(localeID)
 registerLocaleData(localeIT)
 registerLocaleData(localeJA)
 registerLocaleData(localeKO)
@@ -71,6 +75,10 @@ export class LocaleService {
 
     static allLanguages = [
         {
+            code: 'id-ID',
+            name: 'Bahasa Indonesia',
+        },
+        {
             code: 'da-DK',
             name: 'Dansk',
         },
@@ -79,8 +87,12 @@ export class LocaleService {
             name: 'Deutsch',
         },
         {
+            code: 'en-GB',
+            name: 'English (UK)',
+        },
+        {
             code: 'en-US',
-            name: 'English',
+            name: 'English (US)',
         },
         {
             code: 'es-ES',
@@ -159,6 +171,12 @@ export class LocaleService {
         config.ready$.subscribe(() => {
             this.refresh()
         })
+
+        const d = new Date()
+        if (d.getMonth() === 3 && d.getDate() === 1) {
+            LocaleService.allLanguages.find(x => x.code === 'en-US').name = 'English (simplified)'
+            LocaleService.allLanguages.find(x => x.code === 'en-GB').name = 'English (traditional)'
+        }
     }
 
     refresh (): void {

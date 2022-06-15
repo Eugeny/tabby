@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2022-04-30 18:35\n"
+"PO-Revision-Date: 2022-06-15 20:28\n"
 
 #: tabby-local/src/components/terminalTab.component.ts:113
 msgid "\"{command}\" is still running. Close?"
@@ -20,11 +20,6 @@ msgstr "\"{command}\" всё ещё выполняется. Закрыть?"
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:85
 msgid "{name} copy"
 msgstr "Копия {name}"
-
-#: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:13
-msgid "<strong translate=\"\">Working directory detection</strong>\n"
-"<div translate=\"\">Learn how to allow Tabby to detect remote shell's working directory.</div>"
-msgstr ""
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:76
 msgid "A second font family used to display characters missing in the main font"
@@ -44,7 +39,7 @@ msgstr "Принять только один раз"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:84
 msgid "Accessibility"
-msgstr ""
+msgstr "Специальные возможности"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:20
 msgid "Acrylic background"
@@ -201,7 +196,7 @@ msgstr "Размытие"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:28
 msgid "Bold font weight"
-msgstr ""
+msgstr "Вес полужирного шрифта"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:138
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:82
@@ -229,7 +224,7 @@ msgstr "Встроенные"
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:79
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:99
 #: tabby-ssh/src/sftpContextMenu.ts:40
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:458
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:459
 msgid "Cancel"
 msgstr "Отмена"
 
@@ -374,10 +369,10 @@ msgstr "Вместо этого будет использоваться имя �
 msgid "Context menu"
 msgstr "Контекстное меню"
 
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:201
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:209
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:549
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:753
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:202
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:210
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:550
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:754
 #: tabby-terminal/src/tabContextMenu.ts:29
 msgid "Copied"
 msgstr "Скопировано"
@@ -502,7 +497,7 @@ msgstr "Удалить {fullPath}?"
 
 #: tabby-terminal/src/hotkeys.ts:38
 msgid "Delete entire line"
-msgstr ""
+msgstr "Удалить всю строку"
 
 #: tabby-terminal/src/hotkeys.ts:42
 msgid "Delete next word"
@@ -619,7 +614,7 @@ msgstr "Скачать"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:23
 msgid "Draw bold text in bright colors"
-msgstr ""
+msgstr "Выделять полужирный текст ярким цветом"
 
 #: tabby-core/src/tabContextMenu.ts:120
 msgid "Duplicate"
@@ -648,7 +643,7 @@ msgstr "Включить аналитику"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:87
 msgid "Enable animations"
-msgstr ""
+msgstr "Включить анимацию"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:74
 msgid "Enable automatic installation of updates when they become available."
@@ -717,7 +712,7 @@ msgstr "Файл: {description}"
 
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:17
 msgid "Filter"
-msgstr ""
+msgstr "Фильтр"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:157
 msgid "Fixed"
@@ -854,8 +849,8 @@ msgid "Help track the number of Tabby installs across the world!"
 msgstr "Помогите отслеживать количество установок Tabby по всему миру!"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:50
-msgid "Help translate Tabby<i class=\"fas fa-external-link-square-alt ml-1\"></i>"
-msgstr ""
+msgid "Help translate Tabby"
+msgstr "Помогите с переводом Tabby"
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:32
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:44
@@ -1186,7 +1181,7 @@ msgstr "Новое окно"
 
 #: tabby-local/src/services/dockMenu.service.ts:62
 msgid "New Window"
-msgstr ""
+msgstr "Новое окно"
 
 #: tabby-local/src/tabContextMenu.ts:87
 msgid "New with profile"
@@ -1215,7 +1210,7 @@ msgstr "Нормальный"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:22
 msgid "Normal font weight"
-msgstr ""
+msgstr "Вес обычного шрифта"
 
 #: tabby-terminal/src/components/searchPanel.component.ts:47
 #: tabby-terminal/src/components/searchPanel.component.ts:57
@@ -1355,7 +1350,7 @@ msgid "Password"
 msgstr "Пароль"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:60
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:457
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:458
 #: tabby-terminal/src/tabContextMenu.ts:34
 msgid "Paste"
 msgstr "Вставить"
@@ -1364,7 +1359,7 @@ msgstr "Вставить"
 msgid "Paste from clipboard"
 msgstr "Вставить из буфера обмена"
 
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:464
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:465
 msgid "Paste multiple lines?"
 msgstr "Вставить несколько строк?"
 
@@ -1730,7 +1725,7 @@ msgstr "Настройки"
 msgid "Shell"
 msgstr "Shell"
 
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:551
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:552
 msgid "Shell does not support current path detection"
 msgstr "Shell не поддерживает обнаружение текущего пути"
 
@@ -1968,7 +1963,7 @@ msgstr "Ширина вкладки"
 msgid "Telnet session"
 msgstr "Telnet сессия"
 
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:190
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:191
 #: tabby-terminal/src/settings.ts:43
 msgid "Terminal"
 msgstr "Терминал"
