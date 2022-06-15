@@ -45,8 +45,10 @@
   "devDependencies": {
     "@types/mz": "2.7.4",
     "@types/node": "16.0.1",
+    "@types/write-file-atomic": "^4.0.0",
     "ngx-filesize": "^2.0.16",
-    "patch-package": "^6.4.7"
+    "patch-package": "^6.4.7",
+    "write-file-atomic": "^4.0.1"
   },
   "peerDependencies": {
     "tabby-community-color-schemes": "*",
