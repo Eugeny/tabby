@@ -3,7 +3,7 @@ import * as path from 'path'
 import * as fs from 'fs'
 import { Subject, debounceTime, debounce } from 'rxjs'
 import { Injectable } from '@angular/core'
-import { MenuItemOptions } from 'tabby-core'
+import { MenuItemOptions, TranslateService } from 'tabby-core'
 import { SFTPFile, SFTPPanelComponent, SFTPContextMenuItemProvider, SFTPSession } from 'tabby-ssh'
 import { ElectronPlatformService } from './services/platform.service'
 
@@ -14,6 +14,7 @@ export class EditSFTPContextMenu extends SFTPContextMenuItemProvider {
     weight = 0
 
     constructor (
+        private translate: TranslateService,
         private platform: ElectronPlatformService,
     ) {
         super()
@@ -26,7 +27,7 @@ export class EditSFTPContextMenu extends SFTPContextMenuItemProvider {
         return [
             {
                 click: () => this.edit(item, panel.sftp),
-                label: 'Edit locally',
+                label: this.translate.instant('Edit locally'),
             },
         ]
     }

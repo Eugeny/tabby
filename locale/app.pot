@@ -626,6 +626,10 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
+#: tabby-electron/src/sftpContextMenu.ts:30
+msgid "Edit locally"
+msgstr ""
+
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:56
 msgid "Enable"
 msgstr ""
