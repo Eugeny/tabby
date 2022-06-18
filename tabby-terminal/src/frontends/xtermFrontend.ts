@@ -149,8 +149,15 @@ export class XTermFrontend extends Frontend {
                 }
             }
 
+            // Ctrl-/
             if (event.type === 'keydown' && event.key === '/' && event.ctrlKey) {
                 this.input.next(Buffer.from('\u001f', 'binary'))
+                return false
+            }
+
+            // Ctrl-@
+            if (event.type === 'keydown' && event.key === '@' && event.ctrlKey) {
+                this.input.next(Buffer.from('\u0000', 'binary'))
                 return false
             }
 
