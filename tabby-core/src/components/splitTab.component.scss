@@ -18,7 +18,7 @@
     }
 
     &.maximized {
-        z-index: 2;
+        z-index: 6;
         box-shadow: rgba(0, 0, 0, 0.25) 0px 0px 30px;
         backdrop-filter: blur(10px);
         border-radius: 10px;
