@@ -462,7 +462,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
                 const result = (await this.platform.showMessageBox(
                     {
                         type: 'warning',
-                        detail: data,
+                        detail: data.slice(0, 1000),
                         message: this.translate.instant('Paste multiple lines?'),
                         buttons,
                         defaultId: 0,
