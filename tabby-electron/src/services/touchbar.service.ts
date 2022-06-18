@@ -1,5 +1,5 @@
 import deepEqual from 'deep-equal'
-import { Subject, distinctUntilChanged } from 'rxjs'
+import { Subject, distinctUntilChanged, map } from 'rxjs'
 import { ipcRenderer } from 'electron'
 import { Injectable, NgZone } from '@angular/core'
 import { AppService, HostAppService, Platform } from 'tabby-core'
@@ -22,7 +22,10 @@ export class TouchbarService {
 
         app.tabOpened$.subscribe(tab => {
             tab.titleChange$.subscribe(() => this.update())
-            tab.activity$.subscribe(() => this.update())
+            tab.activity$.pipe(
+                map(x => !x || tab === app.activeTab),
+                distinctUntilChanged(),
+            ).subscribe(() => this.update())
         })
 
         ipcRenderer.on('touchbar-selection', (_event, index) => this.zone.run(() => {
