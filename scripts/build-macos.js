@@ -27,7 +27,7 @@ builder({
         npmRebuild: process.env.ARCH !== 'arm64',
         publish: {
             provider: 'github',
-            channel: `latest-${process.arch}`,
+            channel: `latest-${process.env.ARCH}`,
         },
     },
     publish: isTag ? 'always' : 'onTagOrDraft',
