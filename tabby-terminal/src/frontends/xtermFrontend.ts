@@ -148,7 +148,14 @@ export class XTermFrontend extends Frontend {
                     return true
                 }
             }
+
+            if (event.type === 'keydown' && event.key === '/' && event.ctrlKey) {
+                this.input.next(Buffer.from('\u001f', 'binary'))
+                return false
+            }
+
             this.hotkeysService.pushKeyEvent(name, event)
+
             let ret = true
             if (this.hotkeysService.matchActiveHotkey(true) !== null) {
                 event.stopPropagation()
