@@ -145,10 +145,10 @@
   resolved "https://registry.yarnpkg.com/@discoveryjs/json-ext/-/json-ext-0.5.2.tgz#8f03a22a04de437254e8ce8cc84ba39689288752"
   integrity sha512-HyYEUDeIj5rRQU2Hk5HTB2uHsbRQpF70nvMhVzi+VJR0X+xNEhjPui4/kBf3VeH/wqD28PT4sVOm8qqLjBrSZg==
 
-"@electron/get@^1.13.0":
-  version "1.13.1"
-  resolved "https://registry.yarnpkg.com/@electron/get/-/get-1.13.1.tgz#42a0aa62fd1189638bd966e23effaebb16108368"
-  integrity sha512-U5vkXDZ9DwXtkPqlB45tfYnnYBN8PePp1z/XDCupnSpdrxT8/ThCv9WCwPLf9oqiSGZTkH6dx2jDUPuoXpjkcA==
+"@electron/get@^1.14.1":
+  version "1.14.1"
+  resolved "https://registry.yarnpkg.com/@electron/get/-/get-1.14.1.tgz#16ba75f02dffb74c23965e72d617adc721d27f40"
+  integrity sha512-BrZYyL/6m0ZXz/lDxy/nlVhQz+WF+iPS6qXolEU8atw7h6v1aYkjwJZ63m+bJMBTxDE66X+r2tPS4a/8C82sZw==
   dependencies:
     debug "^4.1.1"
     env-paths "^2.2.0"
@@ -1039,10 +1039,10 @@ ansistyles@~0.1.3:
   resolved "https://registry.npmjs.org/ansistyles/-/ansistyles-0.1.3.tgz"
   integrity sha1-XeYEFb2gcbs3EnhUyGT0GyMlRTk=
 
-app-builder-bin@3.7.1:
-  version "3.7.1"
-  resolved "https://registry.yarnpkg.com/app-builder-bin/-/app-builder-bin-3.7.1.tgz#cb0825c5e12efc85b196ac3ed9c89f076c61040e"
-  integrity sha512-ql93vEUq6WsstGXD+SBLSIQw6SNnhbDEM0swzgugytMxLp3rT24Ag/jcC80ZHxiPRTdew1niuR7P3/FCrDqIjw==
+app-builder-bin@4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/app-builder-bin/-/app-builder-bin-4.0.0.tgz#1df8e654bd1395e4a319d82545c98667d7eed2f0"
+  integrity sha512-xwdG0FJPQMe0M0UA4Tz0zEB8rBJTRA5a476ZawAqiBkMv16GRK5xpXThOjMaEOFnZ6zabejjG4J3da0SXG63KA==
 
 app-builder-lib@23.0.9:
   version "23.0.9"
@@ -1164,10 +1164,22 @@ asap@~2.0.3:
   resolved "https://registry.npmjs.org/asap/-/asap-2.0.6.tgz"
   integrity sha1-5QNHYR1+aQlDIIu9r+vLwvuGbUY=
 
-asar@^3.0.0, asar@^3.0.3:
+asar@^3.0.0:
   version "3.0.3"
   resolved "https://registry.npmjs.org/asar/-/asar-3.0.3.tgz"
   integrity sha512-k7zd+KoR+n8pl71PvgElcoKHrVNiSXtw7odKbyNpmgKe7EGRF9Pnu3uLOukD37EvavKwVFxOUpqXTIZC5B5Pmw==
+  dependencies:
+    chromium-pickle-js "^0.2.0"
+    commander "^5.0.0"
+    glob "^7.1.6"
+    minimatch "^3.0.4"
+  optionalDependencies:
+    "@types/glob" "^7.1.1"
+
+asar@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/asar/-/asar-3.1.0.tgz#70b0509449fe3daccc63beb4d3c7d2e24d3c6473"
+  integrity sha512-vyxPxP5arcAqN4F/ebHd/HhwnAiZtwhglvdmc7BR2f0ywbVNTOpSeyhLDbGXtE/y58hv1oC75TaNIXutnsOZsQ==
   dependencies:
     chromium-pickle-js "^0.2.0"
     commander "^5.0.0"
@@ -2770,12 +2782,12 @@ electron-to-chromium@^1.3.723:
   resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.736.tgz#f632d900a1f788dab22fec9c62ec5c9c8f0c4052"
   integrity sha512-DY8dA7gR51MSo66DqitEQoUMQ0Z+A2DSXFi7tK304bdTVqczCAfUuyQw6Wdg8hIoo5zIxkU1L24RQtUce1Ioig==
 
-electron@18.2.4:
-  version "18.2.4"
-  resolved "https://registry.yarnpkg.com/electron/-/electron-18.2.4.tgz#3ea3392f008ea4bdf66b0e3b2e1769e04370323c"
-  integrity sha512-wSjU2N6kBGyGKb2GgBhujpfKtnmNr+gDaZZ6fMmlVMoPJ+GvuW0Zr1ImKPdb5zPXopPYmaURDSvHuAfSd4oHFA==
+electron@19.0.5:
+  version "19.0.5"
+  resolved "https://registry.yarnpkg.com/electron/-/electron-19.0.5.tgz#852042c3f598cf2b3874cbcccc0308002c2b3fe9"
+  integrity sha512-gC4kPr/Mf7QbeE5NAo1AC4Zg/SXLnW0ttlyzhVdyB2aErBspWh231UhHLJUlOdaVNqitdbnppdaXjoZHsR5QzQ==
   dependencies:
-    "@electron/get" "^1.13.0"
+    "@electron/get" "^1.14.1"
     "@types/node" "^16.11.26"
     extract-zip "^1.0.3"
 
