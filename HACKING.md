@@ -4,7 +4,7 @@ Tabby is an Electron app, with the frontend written in Typescript with the help 
 
 # Getting started
 
-First of all, clone this repository. You'll also need Node.js 14 or newer and Yarn.
+First of all, clone this repository. You'll also need Node.js 15 or newer and Yarn.
 
 First, install the dependencies:
 
@@ -23,7 +23,6 @@ yarn
 
 ```
 # Windows:
-npm -g install windows-build-tools
 yarn
 ```
 
