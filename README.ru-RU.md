@@ -254,6 +254,7 @@ Pull-запросы и плагины приветствуются!
     <td align="center"><a href="https://github.com/hisamafahri"><img src="https://avatars.githubusercontent.com/u/65691613?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Hisam Fahri</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=hisamafahri" title="Code">💻</a></td>
     <td align="center"><a href="https://liangchengj.com"><img src="https://avatars.githubusercontent.com/u/48881023?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Liangcheng Juves</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=LiangchengJ" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/attet"><img src="https://avatars.githubusercontent.com/u/1911416?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Atte Timonen</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=attet" title="Code">💻</a></td>
+    <td align="center"><a href="https://www.linkedin.com/in/joaolmpinto/"><img src="https://avatars.githubusercontent.com/u/1143125?v=4?s=100" width="100px;" alt=""/><br /><sub><b>João Pinto</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=joaompinto" title="Documentation">📖</a></td>
   </tr>
 </table>
 
