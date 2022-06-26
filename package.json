@@ -51,7 +51,7 @@
     "macos-release": "^3.1.0",
     "ngx-sortablejs": "^11.1.0",
     "ngx-toastr": "^14.0.0",
-    "node-abi": "^3.15.0",
+    "node-abi": "^3.22.0",
     "node-sass": "^7.0.1",
     "npmlog": "6.0.2",
     "npx": "^10.2.2",
