@@ -1288,10 +1288,10 @@ app-builder-bin@4.0.0:
   resolved "https://registry.yarnpkg.com/app-builder-bin/-/app-builder-bin-4.0.0.tgz#1df8e654bd1395e4a319d82545c98667d7eed2f0"
   integrity sha512-xwdG0FJPQMe0M0UA4Tz0zEB8rBJTRA5a476ZawAqiBkMv16GRK5xpXThOjMaEOFnZ6zabejjG4J3da0SXG63KA==
 
-app-builder-lib@23.0.9:
-  version "23.0.9"
-  resolved "https://registry.yarnpkg.com/app-builder-lib/-/app-builder-lib-23.0.9.tgz#c429299b12bf2210f30dfd671b38869bbc5917b7"
-  integrity sha512-2JboeCVrL+PksZ7IHp2teXbMUBnlucc3LhKGV+irxEA0l36bHs939AVtcaiATqyGnJcZkRdaB6TDd7SZfu+pxQ==
+app-builder-lib@23.1.0:
+  version "23.1.0"
+  resolved "https://registry.yarnpkg.com/app-builder-lib/-/app-builder-lib-23.1.0.tgz#39bab8eb445d06ad9168eb2513c7f267923df2ba"
+  integrity sha512-aZpKjBBLzyxtr4Cmbyi3dl8uRO8SI2PG2MYEKYRZL6pl7IsKP2hJkCYzlD6NjLJlRIAZcFPFjFbJliO74DFf7w==
   dependencies:
     "7zip-bin" "~5.1.1"
     "@develar/schema-utils" "~2.6.5"
@@ -2802,12 +2802,12 @@ dir-glob@^3.0.1:
   dependencies:
     path-type "^4.0.0"
 
-dmg-builder@23.0.9:
-  version "23.0.9"
-  resolved "https://registry.yarnpkg.com/dmg-builder/-/dmg-builder-23.0.9.tgz#ee509dba5631057a65e3d78434a8736179b2093a"
-  integrity sha512-a9mq85K31czOjso+T0aN9pWlmydzhehapU+ussFMD5FwD3l3JCK2ILlRfXuR3penbZT6LKCHuQFDIaZvsusY1w==
+dmg-builder@23.1.0:
+  version "23.1.0"
+  resolved "https://registry.yarnpkg.com/dmg-builder/-/dmg-builder-23.1.0.tgz#94426db22b762e7ffc61f0da1f68d385059a20ed"
+  integrity sha512-CzhPk/k12nJ2KqTbePkIwHOLiaWneQu2cgXCT9Hb5FhwI1vxTPalLsg8OZ57wKCrkL8AEftqqSff8gB5yWY/xw==
   dependencies:
-    app-builder-lib "23.0.9"
+    app-builder-lib "23.1.0"
     builder-util "23.0.9"
     builder-util-runtime "9.0.2"
     fs-extra "^10.0.0"
@@ -2919,17 +2919,17 @@ ejs@^3.1.7:
   dependencies:
     jake "^10.8.5"
 
-electron-builder@^23.0.9:
-  version "23.0.9"
-  resolved "https://registry.yarnpkg.com/electron-builder/-/electron-builder-23.0.9.tgz#b181cbee1584d5c5c2eedfb6bc0348e6660600d3"
-  integrity sha512-qeAbUfgVOBMjrDfGaTDsM2wuiPsISbADKLaMM27HAeVTjs6o4UuUFl+DzDVPal3v61W6nAB9kvBTeU9RZ/jH7g==
+electron-builder@^23.1.0:
+  version "23.1.0"
+  resolved "https://registry.yarnpkg.com/electron-builder/-/electron-builder-23.1.0.tgz#fdd213387008e44ab7dcabe53b84dbd969c1a7cc"
+  integrity sha512-UEblaQY8N9m8/HriOwl7jgFJ4olpWDXwdDBqwUkQiRHVNRnCfrA0u8LV03li5ZYhma6zFWzfIZbHd+uk8y//lQ==
   dependencies:
     "@types/yargs" "^17.0.1"
-    app-builder-lib "23.0.9"
+    app-builder-lib "23.1.0"
     builder-util "23.0.9"
     builder-util-runtime "9.0.2"
     chalk "^4.1.1"
-    dmg-builder "23.0.9"
+    dmg-builder "23.1.0"
     fs-extra "^10.0.0"
     is-ci "^3.0.0"
     lazy-val "^1.0.5"
@@ -3705,16 +3705,7 @@ fs-constants@^1.0.0:
   resolved "https://registry.yarnpkg.com/fs-constants/-/fs-constants-1.0.0.tgz#6be0de9be998ce16af8afc24497b9ee9b7ccd9ad"
   integrity sha512-y6OAwoSIf7FyjMIv94u+b5rdheZEjzR63GTyZJm5qh4Bi+2YgwLCcI/fPFZkL5PSixOt6ZNKm+w+Hfp/Bciwow==
 
-fs-extra@^10.0.0:
-  version "10.0.0"
-  resolved "https://registry.yarnpkg.com/fs-extra/-/fs-extra-10.0.0.tgz#9ff61b655dde53fb34a82df84bb214ce802e17c1"
-  integrity sha512-C5owb14u9eJwizKGdchcDUQeFtlSHHthBk8pbX9Vc1PFZrLombudjDnNns88aYslCyF6IY5SUw3Roz6xShcEIQ==
-  dependencies:
-    graceful-fs "^4.2.0"
-    jsonfile "^6.0.1"
-    universalify "^2.0.0"
-
-fs-extra@^10.1.0:
+fs-extra@^10.0.0, fs-extra@^10.1.0:
   version "10.1.0"
   resolved "https://registry.yarnpkg.com/fs-extra/-/fs-extra-10.1.0.tgz#02873cfbc4084dde127eaa5f9905eef2325d1abf"
   integrity sha512-oRXApq54ETRj4eMiFzGnHWGy+zo5raudjuxN0b8H7s/RU2oW0Wvsx9O0ACRN/kRq9E8Vu/ReskGB5o3ji+FzHQ==
@@ -9517,23 +9508,10 @@ yargs@^15.0.1:
     y18n "^4.0.0"
     yargs-parser "^18.1.2"
 
-yargs@^17.0.0:
+yargs@^17.0.0, yargs@^17.0.1, yargs@^17.2.1:
   version "17.5.1"
   resolved "https://registry.yarnpkg.com/yargs/-/yargs-17.5.1.tgz#e109900cab6fcb7fd44b1d8249166feb0b36e58e"
   integrity sha512-t6YAJcxDkNX7NFYiVtKvWUz8l+PaKTLiL63mJYWR2GnHq2gjEWISzsLp9wg3aY36dY1j+gfIEL3pIF+XlJJfbA==
-  dependencies:
-    cliui "^7.0.2"
-    escalade "^3.1.1"
-    get-caller-file "^2.0.5"
-    require-directory "^2.1.1"
-    string-width "^4.2.3"
-    y18n "^5.0.5"
-    yargs-parser "^21.0.0"
-
-yargs@^17.0.1, yargs@^17.2.1:
-  version "17.3.1"
-  resolved "https://registry.yarnpkg.com/yargs/-/yargs-17.3.1.tgz#da56b28f32e2fd45aefb402ed9c26f42be4c07b9"
-  integrity sha512-WUANQeVgjLbNsEmGk20f+nlHgOqzRFpiGWVaBrYGYIGANIIu3lWjoyi0fNlFmJkvfhCZ6BXINe7/W2O2bV4iaA==
   dependencies:
     cliui "^7.0.2"
     escalade "^3.1.1"
