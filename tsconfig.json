@@ -44,5 +44,10 @@
       "../node_modules",
       "../../app/node_modules"
     ]
-  }
+  },
+  "angularCompilerOptions": {
+    "strictTemplates": true,
+    "enableResourceInlining": true,
+    "strictInjectionParameters": true,
+  },
 }
