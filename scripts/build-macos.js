@@ -25,10 +25,10 @@ builder({
             identity: !process.env.CI || process.env.CSC_LINK ? undefined : null,
         },
         npmRebuild: process.env.ARCH !== 'arm64',
-        publish: {
+        publish: process.env.GH_TOKEN ? {
             provider: 'github',
             channel: `latest-${process.env.ARCH}`,
-        },
+        } : undefined,
     },
     publish: isTag ? 'always' : 'onTagOrDraft',
 }).catch(e => {
