@@ -201,6 +201,8 @@ export class TaskCompletionContextMenu extends TabContextMenuItemProvider {
             type: 'checkbox',
             checked: !!extTab.__outputNotificationSubscription,
             click: () => {
+                tab.clearActivity()
+
                 if (extTab.__outputNotificationSubscription) {
                     extTab.__outputNotificationSubscription.unsubscribe()
                     extTab.__outputNotificationSubscription = null
