@@ -60,8 +60,19 @@ ul.nav-tabs.mb-2(ngbNav, #nav='ngbNav')
     li(ngbNavItem)
         a(ngbNavLink, translate) Installed
         ng-template(ngbNavContent)
+            .input-group.mb-3.mt-3
+                .input-group-prepend
+                    .input-group-text
+                        i.fas.fa-fw.fa-search
+                input.form-control(
+                    type='text',
+                    [(ngModel)]='_2',
+                    (ngModelChange)='searchInstalled(_2)',
+                    [placeholder]='"Search plugins"|translate'
+                )
+
             ngb-accordion.mb-4([closeOthers]='true')
-                ng-container(*ngFor='let plugin of pluginManager.installedPlugins')
+                ng-container(*ngFor='let plugin of installedPlugins$')
                     ngb-panel
                         ng-template(ngbPanelTitle)
                             .text-left.mr-auto

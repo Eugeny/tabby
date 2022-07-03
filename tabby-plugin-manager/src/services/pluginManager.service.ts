@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { compare as semverCompare } from 'semver'
-import { Observable, from, forkJoin, map } from 'rxjs'
+import { Observable, from, forkJoin, map, of } from 'rxjs'
 import { Injectable, Inject } from '@angular/core'
 import { Logger, LogService, PlatformService, BOOTSTRAP_DATA, BootstrapData, PluginInfo } from 'tabby-core'
 import { PLUGIN_BLACKLIST } from '../../../app/src/pluginBlacklist'
@@ -43,6 +43,10 @@ export class PluginManagerService {
             }),
             map(x => x.sort((a, b) => a.name.localeCompare(b.name))),
         )
+    }
+
+    listInstalled (query: string): Observable<PluginInfo[]> {
+        return of(this.installedPlugins.filter(x=>x.name.includes(query)))
     }
 
     _listAvailableInternal (namePrefix: string, keyword: string, query?: string): Observable<PluginInfo[]> {

@@ -23,12 +23,15 @@ export class PluginsSettingsTabComponent {
     @Input() availablePlugins$: Observable<PluginInfo[]>
     @Input() availablePluginsQuery$ = new BehaviorSubject<string>('')
     @Input() availablePluginsReady = false
+    @Input() installedPluginsQuery$ = new BehaviorSubject<string>('')
     @Input() knownUpgrades: Record<string, PluginInfo|null> = {}
     @Input() busy = new Map<string, BusyState>()
     @Input() erroredPlugin: string
     @Input() errorMessage: string
 
     @HostBinding('class.content-box') true
+
+    installedPlugins$: PluginInfo[] = []
 
     constructor (
         private config: ConfigService,
@@ -58,6 +61,18 @@ export class PluginsSettingsTabComponent {
                 this.knownUpgrades[plugin.name] = available.find(x => x.name === plugin.name && semverGt(x.version, plugin.version)) ?? null
             }
         })
+
+        this.installedPluginsQuery$
+            .asObservable()
+            .pipe(
+                debounceTime(200),
+                distinctUntilChanged(),
+                flatMap(query => {
+                    return this.pluginManager.listInstalled(query)
+                })
+            ).subscribe(plugin => {
+                this.installedPlugins$ = plugin
+            })
     }
 
     openPluginsFolder (): void {
@@ -66,6 +81,10 @@ export class PluginsSettingsTabComponent {
 
     searchAvailable (query: string) {
         this.availablePluginsQuery$.next(query)
+    }
+
+    searchInstalled (query: string) {
+        this.installedPluginsQuery$.next(query)
     }
 
     isAlreadyInstalled (plugin: PluginInfo): boolean {
