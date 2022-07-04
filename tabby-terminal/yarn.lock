@@ -158,9 +158,9 @@ xtend@^4.0.0:
   integrity sha512-LKYU1iAXJXUgAXn9URjiu+MWhyUXHsvfp7mcuYm9dSUKK0/CjtrUwFAxD82/mCWbtLsGjFIad0wIsod4zrTAEQ==
 
 xterm-addon-fit@^0.6.0-beta.8:
-  version "0.6.0-beta.9"
-  resolved "https://registry.yarnpkg.com/xterm-addon-fit/-/xterm-addon-fit-0.6.0-beta.9.tgz#55d550b7e8f3b90ee0781fdddf876b8502a31540"
-  integrity sha512-QrlwItVFiapkiJ2YL2rj2drtOvFmr8luDyV286MCrVSK4iGxSnsOdT+NcjeNig1lqYmy5FAo8iuP4FPY//NDog==
+  version "0.6.0-beta.12"
+  resolved "https://registry.yarnpkg.com/xterm-addon-fit/-/xterm-addon-fit-0.6.0-beta.12.tgz#340dfb4ae8ebff2322128b09217fade15e3b1a3f"
+  integrity sha512-xM28LlZWvX1TCgTIhsk6ga2M4iATu1X+LfcU7LCvg0c2pD707AXvywUuHkOAzi/sZ5EgydHVO3mWFJDsqWyt6A==
 
 xterm-addon-image@^0.1.0:
   version "0.1.0"
