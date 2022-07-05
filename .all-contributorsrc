@@ -765,6 +765,15 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "Qiming-Liu",
+      "name": "Alan",
+      "avatar_url": "https://avatars.githubusercontent.com/u/68600416?v=4",
+      "profile": "https://github.com/Qiming-Liu",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
