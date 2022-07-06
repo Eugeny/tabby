@@ -121,17 +121,6 @@ export class CommonOptionsContextMenu extends TabContextMenuItemProvider {
                     click: () => this.app.duplicateTab(tab),
                 },
                 {
-                    label: this.translate.instant('Restart'),
-                    click: () => {
-                        this.app.duplicateTab(tab)
-                        if (this.app.tabs.includes(tab)) {
-                            this.app.closeTab(tab, true)
-                        } else {
-                            tab.destroy()
-                        }
-                    },
-                },
-                {
                     label: this.translate.instant('Color'),
                     sublabel: currentColor ? this.translate.instant(currentColor) : undefined,
                     submenu: TAB_COLORS.map(color => ({
