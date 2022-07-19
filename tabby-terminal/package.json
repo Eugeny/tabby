@@ -31,7 +31,7 @@
     "xterm-addon-image": "^0.1.0",
     "xterm-addon-ligatures": "^0.6.0-beta.14",
     "xterm-addon-search": "^0.9.0-beta.18",
-    "xterm-addon-serialize": "^0.7.0-beta.12",
+    "xterm-addon-serialize": "^0.8.0-beta.3",
     "xterm-addon-unicode11": "^0.4.0-beta.3",
     "xterm-addon-webgl": "^0.12.0-beta.27",
     "zmodem.js": "^0.1.9"
