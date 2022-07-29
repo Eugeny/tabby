@@ -328,6 +328,14 @@ export class XTermFrontend extends Frontend {
         }
     }
 
+    scrollToTop (): void {
+        this.xterm.scrollToTop()
+    }
+
+    scrollPages (pages: number): void {
+        this.xterm.scrollPages(pages)
+    }
+
     scrollToBottom (): void {
         this.xtermCore._scrollToBottom()
     }

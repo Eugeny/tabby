@@ -279,6 +279,15 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
                 case 'copy-current-path':
                     this.copyCurrentPath()
                     break
+                case 'scroll-to-top':
+                    this.frontend?.scrollToTop()
+                    break
+                case 'scroll-up':
+                    this.frontend?.scrollPages(-1)
+                    break
+                case 'scroll-down':
+                    this.frontend?.scrollPages(1)
+                    break
                 case 'scroll-to-bottom':
                     this.frontend?.scrollToBottom()
                     break

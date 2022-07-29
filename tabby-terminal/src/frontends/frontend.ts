@@ -75,6 +75,9 @@ export abstract class Frontend {
     abstract write (data: string): Promise<void>
     abstract clear (): void
     abstract visualBell (): void
+
+    abstract scrollToTop (): void
+    abstract scrollPages (pages: number): void
     abstract scrollToBottom (): void
 
     abstract configure (): void
