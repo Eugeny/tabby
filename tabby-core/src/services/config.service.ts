@@ -205,7 +205,6 @@ export class ConfigService {
         cleanStore = await this.maybeEncryptConfig(cleanStore)
         await this.platform.saveConfig(yaml.dump(cleanStore))
         this.emitChange()
-        this.hostApp.broadcastConfigChange(JSON.parse(JSON.stringify(this.store)))
     }
 
     /**

@@ -38,12 +38,6 @@ export abstract class HostAppService {
 
     abstract newWindow (): void
 
-    /**
-     * Notifies other windows of config file changes
-     */
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
-    broadcastConfigChange (_configStore: Record<string, any>): void { }
-
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     emitReady (): void { }
 

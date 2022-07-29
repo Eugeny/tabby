@@ -1,7 +1,7 @@
 import * as glasstron from 'glasstron'
 
 import { Subject, Observable, debounceTime } from 'rxjs'
-import { BrowserWindow, app, ipcMain, Rectangle, Menu, screen, BrowserWindowConstructorOptions, TouchBar, nativeImage } from 'electron'
+import { BrowserWindow, app, ipcMain, Rectangle, Menu, screen, BrowserWindowConstructorOptions, TouchBar, nativeImage, WebContents } from 'electron'
 import ElectronConfig = require('electron-config')
 import { enable as enableRemote } from '@electron/remote/main'
 import * as os from 'os'
@@ -33,6 +33,7 @@ const activityIcon = nativeImage.createFromPath(`${app.getAppPath()}/assets/acti
 export class Window {
     ready: Promise<void>
     isMainWindow = false
+    webContents: WebContents
     private visible = new Subject<boolean>()
     private closed = new Subject<void>()
     private window?: GlasstronWindow
@@ -101,6 +102,8 @@ export class Window {
         } else {
             this.window = new glasstron.BrowserWindow(bwOptions)
         }
+
+        this.webContents = this.window.webContents
 
         this.window.once('ready-to-show', () => {
             if (process.platform === 'darwin') {
