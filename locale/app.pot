@@ -104,7 +104,7 @@ msgstr ""
 msgid "Are you sure you want to close Tabby? You can disable this prompt in Settings -> Window."
 msgstr ""
 
-#: tabby-core/src/services/config.service.ts:380
+#: tabby-core/src/services/config.service.ts:379
 msgid "Are you sure?"
 msgstr ""
 
@@ -128,7 +128,7 @@ msgstr ""
 msgid "Authentication method"
 msgstr ""
 
-#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:77
+#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:83
 msgid "Author"
 msgstr ""
 
@@ -197,7 +197,7 @@ msgstr ""
 msgid "Bracketed paste (requires shell support)"
 msgstr ""
 
-#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:48
+#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:54
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:174
 msgid "Built-in"
 msgstr ""
@@ -214,7 +214,7 @@ msgstr ""
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:79
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:99
 #: tabby-ssh/src/sftpContextMenu.ts:40
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:460
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:469
 msgid "Cancel"
 msgstr ""
 
@@ -256,7 +256,7 @@ msgstr ""
 msgid "Close and never show again"
 msgstr ""
 
-#: tabby-core/src/hotkeys.ts:233
+#: tabby-core/src/hotkeys.ts:237
 msgid "Close focused pane"
 msgstr ""
 
@@ -285,7 +285,7 @@ msgstr ""
 msgid "Color scheme"
 msgstr ""
 
-#: tabby-core/src/hotkeys.ts:65
+#: tabby-core/src/hotkeys.ts:69
 msgid "Combine all tabs into the current tab"
 msgstr ""
 
@@ -361,8 +361,8 @@ msgstr ""
 
 #: tabby-terminal/src/api/baseTerminalTab.component.ts:203
 #: tabby-terminal/src/api/baseTerminalTab.component.ts:211
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:551
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:755
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:560
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:764
 #: tabby-terminal/src/tabContextMenu.ts:29
 msgid "Copied"
 msgstr ""
@@ -389,7 +389,7 @@ msgstr ""
 msgid "Copy with formatting"
 msgstr ""
 
-#: tabby-core/src/services/config.service.ts:365
+#: tabby-core/src/services/config.service.ts:364
 msgid "Could not decrypt config"
 msgstr ""
 
@@ -438,11 +438,11 @@ msgstr ""
 msgid "Debugging"
 msgstr ""
 
-#: tabby-core/src/hotkeys.ts:249
+#: tabby-core/src/hotkeys.ts:253
 msgid "Decrease horizontal split size"
 msgstr ""
 
-#: tabby-core/src/hotkeys.ts:241
+#: tabby-core/src/hotkeys.ts:245
 msgid "Decrease vertical split size"
 msgstr ""
 
@@ -521,7 +521,7 @@ msgstr ""
 msgid "Direct"
 msgstr ""
 
-#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:55
+#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:61
 msgid "Disable"
 msgstr ""
 
@@ -537,7 +537,7 @@ msgstr ""
 msgid "Disable GPU acceleration"
 msgstr ""
 
-#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:48
+#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:54
 msgid "Disabled"
 msgstr ""
 
@@ -630,7 +630,7 @@ msgstr ""
 msgid "Edit locally"
 msgstr ""
 
-#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:56
+#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:62
 msgid "Enable"
 msgstr ""
 
@@ -671,8 +671,8 @@ msgstr ""
 msgid "Environment"
 msgstr ""
 
-#: tabby-core/src/services/config.service.ts:369
-#: tabby-core/src/services/config.service.ts:383
+#: tabby-core/src/services/config.service.ts:368
+#: tabby-core/src/services/config.service.ts:382
 msgid "Erase config"
 msgstr ""
 
@@ -732,11 +732,10 @@ msgstr ""
 msgid "Focus follows mouse"
 msgstr ""
 
-#: tabby-core/src/hotkeys.ts:189
+#: tabby-core/src/hotkeys.ts:193
 msgid "Focus next pane"
 msgstr ""
 
-#: tabby-core/src/hotkeys.ts:193
 #: tabby-core/src/hotkeys.ts:197
 #: tabby-core/src/hotkeys.ts:201
 #: tabby-core/src/hotkeys.ts:205
@@ -745,26 +744,27 @@ msgstr ""
 #: tabby-core/src/hotkeys.ts:217
 #: tabby-core/src/hotkeys.ts:221
 #: tabby-core/src/hotkeys.ts:225
+#: tabby-core/src/hotkeys.ts:229
 msgid "Focus pane {number}"
 msgstr ""
 
-#: tabby-core/src/hotkeys.ts:185
+#: tabby-core/src/hotkeys.ts:189
 msgid "Focus previous pane"
 msgstr ""
 
-#: tabby-core/src/hotkeys.ts:169
+#: tabby-core/src/hotkeys.ts:173
 msgid "Focus the pane above"
 msgstr ""
 
-#: tabby-core/src/hotkeys.ts:173
+#: tabby-core/src/hotkeys.ts:177
 msgid "Focus the pane below"
 msgstr ""
 
-#: tabby-core/src/hotkeys.ts:177
+#: tabby-core/src/hotkeys.ts:181
 msgid "Focus the pane on the left"
 msgstr ""
 
-#: tabby-core/src/hotkeys.ts:181
+#: tabby-core/src/hotkeys.ts:185
 msgid "Focus the pane on the right"
 msgstr ""
 
@@ -937,11 +937,11 @@ msgstr ""
 msgid "Immediately echoes your input locally"
 msgstr ""
 
-#: tabby-core/src/hotkeys.ts:245
+#: tabby-core/src/hotkeys.ts:249
 msgid "Increase horizontal split size"
 msgstr ""
 
-#: tabby-core/src/hotkeys.ts:237
+#: tabby-core/src/hotkeys.ts:241
 msgid "Increase vertical split size"
 msgstr ""
 
@@ -1110,7 +1110,7 @@ msgstr ""
 msgid "Max Keep Alive Count"
 msgstr ""
 
-#: tabby-core/src/hotkeys.ts:165
+#: tabby-core/src/hotkeys.ts:169
 msgid "Maximize the active pane"
 msgstr ""
 
@@ -1184,7 +1184,7 @@ msgstr ""
 msgid "New tab"
 msgstr ""
 
-#: tabby-core/src/hotkeys.ts:264
+#: tabby-core/src/hotkeys.ts:268
 msgid "New tab: {profile}"
 msgstr ""
 
@@ -1253,7 +1253,7 @@ msgstr ""
 msgid "Off"
 msgstr ""
 
-#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:79
+#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:85
 msgid "Official"
 msgstr ""
 
@@ -1368,7 +1368,7 @@ msgid "Password"
 msgstr ""
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:67
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:459
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:468
 #: tabby-terminal/src/tabContextMenu.ts:34
 msgid "Paste"
 msgstr ""
@@ -1377,7 +1377,7 @@ msgstr ""
 msgid "Paste from clipboard"
 msgstr ""
 
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:466
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:475
 msgid "Paste multiple lines?"
 msgstr ""
 
@@ -1481,8 +1481,8 @@ msgstr ""
 msgid "Quick connect"
 msgstr ""
 
-#: tabby-core/src/services/config.service.ts:370
-#: tabby-core/src/services/config.service.ts:384
+#: tabby-core/src/services/config.service.ts:369
+#: tabby-core/src/services/config.service.ts:383
 msgid "Quit"
 msgstr ""
 
@@ -1574,6 +1574,10 @@ msgstr ""
 msgid "Restart current Telnet session"
 msgstr ""
 
+#: tabby-core/src/hotkeys.ts:61
+msgid "Restart tab"
+msgstr ""
+
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:134
 msgid "Restart the app to apply changes"
 msgstr ""
@@ -1634,8 +1638,20 @@ msgstr ""
 msgid "Scroll on input"
 msgstr ""
 
-#: tabby-terminal/src/hotkeys.ts:78
+#: tabby-terminal/src/hotkeys.ts:86
+msgid "Scroll terminal one page down"
+msgstr ""
+
+#: tabby-terminal/src/hotkeys.ts:82
+msgid "Scroll terminal one page up"
+msgstr ""
+
+#: tabby-terminal/src/hotkeys.ts:90
 msgid "Scroll terminal to bottom"
+msgstr ""
+
+#: tabby-terminal/src/hotkeys.ts:78
+msgid "Scroll terminal to top"
 msgstr ""
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:16
@@ -1743,7 +1759,7 @@ msgstr ""
 msgid "Shell"
 msgstr ""
 
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:553
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:562
 msgid "Shell does not support current path detection"
 msgstr ""
 
@@ -1751,7 +1767,7 @@ msgstr ""
 msgid "Shell integration"
 msgstr ""
 
-#: tabby-core/src/hotkeys.ts:268
+#: tabby-core/src/hotkeys.ts:272
 msgid "Show {type} profile selector"
 msgstr ""
 
@@ -1846,19 +1862,19 @@ msgstr ""
 msgid "Split"
 msgstr ""
 
-#: tabby-core/src/hotkeys.ts:153
+#: tabby-core/src/hotkeys.ts:157
 msgid "Split to the bottom"
 msgstr ""
 
-#: tabby-core/src/hotkeys.ts:157
+#: tabby-core/src/hotkeys.ts:161
 msgid "Split to the left"
 msgstr ""
 
-#: tabby-core/src/hotkeys.ts:149
+#: tabby-core/src/hotkeys.ts:153
 msgid "Split to the right"
 msgstr ""
 
-#: tabby-core/src/hotkeys.ts:161
+#: tabby-core/src/hotkeys.ts:165
 msgid "Split to the top"
 msgstr ""
 
@@ -1898,11 +1914,11 @@ msgstr ""
 msgid "Substitutions allowed."
 msgstr ""
 
-#: tabby-core/src/tabContextMenu.ts:279
+#: tabby-core/src/tabContextMenu.ts:281
 msgid "Switch profile"
 msgstr ""
 
-#: tabby-core/src/hotkeys.ts:229
+#: tabby-core/src/hotkeys.ts:233
 msgid "Switch profile in the active pane"
 msgstr ""
 
@@ -1946,7 +1962,7 @@ msgstr ""
 #: tabby-core/src/hotkeys.ts:137
 #: tabby-core/src/hotkeys.ts:141
 #: tabby-core/src/hotkeys.ts:145
-#: tabby-core/src/hotkeys.ts:69
+#: tabby-core/src/hotkeys.ts:149
 #: tabby-core/src/hotkeys.ts:73
 #: tabby-core/src/hotkeys.ts:77
 #: tabby-core/src/hotkeys.ts:81
@@ -1957,7 +1973,7 @@ msgstr ""
 msgid "Tab {number}"
 msgstr ""
 
-#: tabby-core/src/tabContextMenu.ts:212
+#: tabby-core/src/tabContextMenu.ts:214
 msgid "Tab activity"
 msgstr ""
 
@@ -2047,7 +2063,7 @@ msgstr ""
 msgid "Top"
 msgstr ""
 
-#: tabby-core/src/services/config.service.ts:368
+#: tabby-core/src/services/config.service.ts:367
 msgid "Try again"
 msgstr ""
 
@@ -2055,7 +2071,7 @@ msgstr ""
 msgid "Trying saved password"
 msgstr ""
 
-#: tabby-core/src/hotkeys.ts:61
+#: tabby-core/src/hotkeys.ts:65
 msgid "Turn current tab's panes into separate tabs"
 msgstr ""
 
@@ -2063,7 +2079,7 @@ msgstr ""
 msgid "Ungrouped"
 msgstr ""
 
-#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:57
+#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:63
 msgid "Uninstall"
 msgstr ""
 
@@ -2088,7 +2104,7 @@ msgstr ""
 msgid "Update"
 msgstr ""
 
-#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:50
+#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:56
 msgid "Upgrade to {version}"
 msgstr ""
 
@@ -2155,7 +2171,7 @@ msgstr ""
 msgid "Verify host keys when connecting"
 msgstr ""
 
-#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:73
+#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:79
 msgid "Version"
 msgstr ""
 
