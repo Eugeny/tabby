@@ -31,7 +31,7 @@ export class Application {
         this.useBuiltinGraphics()
         this.ptyManager.init(this)
 
-        ipcMain.on('app:save-config', async (event, config) => {
+        ipcMain.handle('app:save-config', async (event, config) => {
             await saveConfig(config)
             this.broadcastExcept('host:config-change', event.sender, config)
         })

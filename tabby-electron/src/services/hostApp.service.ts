@@ -58,8 +58,8 @@ export class ElectronHostAppService extends HostAppService {
         this.electron.ipcRenderer.send('app:new-window')
     }
 
-    saveConfig (data: string): void {
-        this.electron.ipcRenderer.send('app:save-config', data)
+    async saveConfig (data: string): Promise<void> {
+        await this.electron.ipcRenderer.invoke('app:save-config', data)
     }
 
     emitReady (): void {
