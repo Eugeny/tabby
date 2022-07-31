@@ -109,7 +109,7 @@ export class ElectronPlatformService extends PlatformService {
     }
 
     async saveConfig (content: string): Promise<void> {
-        this.hostApp.saveConfig(content)
+        await this.hostApp.saveConfig(content)
     }
 
     getConfigPath (): string|null {
