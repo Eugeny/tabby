@@ -168,9 +168,9 @@ xterm-addon-image@^0.1.0:
   integrity sha512-xMvcEQ2rVUIXbbj5BRhznrZU24CRaMiSo8l2HH/E1FeE+G+KKduoF6mwja856/n4ekZ7K0ALZmmyDsbZODhDqQ==
 
 xterm-addon-ligatures@^0.6.0-beta.14:
-  version "0.6.0-beta.14"
-  resolved "https://registry.yarnpkg.com/xterm-addon-ligatures/-/xterm-addon-ligatures-0.6.0-beta.14.tgz#392b8df0e32dcfc87f43b79901ec1c2abc997ae7"
-  integrity sha512-WeObuNFfGULKhfvbFyCccjxBk+BX6YMvG54lu40kgW5ubwpt0BcnKTQAxHvt9mSeT0lG0A5GxcbimBeRWc484Q==
+  version "0.6.0-beta.19"
+  resolved "https://registry.yarnpkg.com/xterm-addon-ligatures/-/xterm-addon-ligatures-0.6.0-beta.19.tgz#5e43eeaf84968e014769a5f2c6a3a3601dc4771c"
+  integrity sha512-A0BIjFF6g5aPI0HiI2JMhhMV3gaHbpZ+ua+UNagkID0GxZ/ezn0wVOAtNQl/KlqnFueoyZIxlbyXmWNAfJVPRg==
   dependencies:
     font-finder "^1.1.0"
     font-ligatures "^1.4.1"
