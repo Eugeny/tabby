@@ -276,6 +276,7 @@ Dank geht an diese wunderbaren Menschen ([emoji key](https://allcontributors.org
     <td align="center"><a href="https://spirit55555.dk/"><img src="https://avatars.githubusercontent.com/u/2357565?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Anders G. Jørgensen</b></sub></a><br /><a href="#financial-Spirit55555" title="Financial">💵</a></td>
     <td align="center"><a href="https://github.com/djradon"><img src="https://avatars.githubusercontent.com/u/5224156?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Dave Richardson</b></sub></a><br /><a href="#financial-djradon" title="Financial">💵</a></td>
     <td align="center"><a href="https://twitter.com/tpberntsen"><img src="https://avatars.githubusercontent.com/u/922318?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Thomas Peter Berntsen</b></sub></a><br /><a href="#financial-tpberntsen" title="Financial">💵</a></td>
+    <td align="center"><a href="https://bandism.net/"><img src="https://avatars.githubusercontent.com/u/22633385?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Ikko Ashimine</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=eltociear" title="Documentation">📖</a></td>
   </tr>
 </table>
 
