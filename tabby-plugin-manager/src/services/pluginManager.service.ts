@@ -62,7 +62,7 @@ export class PluginManagerService {
                     version: item.package.version,
                     homepage: item.package.links.homepage,
                     author: (item.package.author || {}).name,
-                    isOfficial: item.package.publisher.name === OFFICIAL_NPM_ACCOUNT,
+                    isOfficial: item.package.publisher.username === OFFICIAL_NPM_ACCOUNT,
                 }))
             ),
             map(plugins => plugins.filter(x => x.packageName.startsWith(namePrefix))),
