@@ -279,6 +279,10 @@ Windows上では、`Tabby.exe`がある場所と同じ場所に`data`フォル�
     <td align="center"><a href="https://github.com/giejqf"><img src="https://avatars.githubusercontent.com/u/9211230?v=4?s=100" width="100px;" alt=""/><br /><sub><b>giejqf</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=giejqf" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/LacazeThomas"><img src="https://avatars.githubusercontent.com/u/19855907?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Thomas LACAZE</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=LacazeThomas" title="Code">💻</a></td>
   </tr>
+  <tr>
+    <td align="center"><a href="https://pochen.me/"><img src="https://avatars.githubusercontent.com/u/1329716?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Po Chen</b></sub></a><br /><a href="#financial-princemaple" title="Financial">💵</a></td>
+    <td align="center"><a href="https://victorchandra.carrd.co/"><img src="https://avatars.githubusercontent.com/u/41635105?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Victor Chandra</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=mzmznasipadang" title="Documentation">📖</a></td>
+  </tr>
 </table>
 
 <!-- markdownlint-restore -->

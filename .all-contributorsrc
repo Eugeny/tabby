@@ -902,6 +902,24 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "princemaple",
+      "name": "Po Chen",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1329716?v=4",
+      "profile": "https://pochen.me/",
+      "contributions": [
+        "financial"
+      ]
+    },
+    {
+      "login": "mzmznasipadang",
+      "name": "Victor Chandra",
+      "avatar_url": "https://avatars.githubusercontent.com/u/41635105?v=4",
+      "profile": "https://victorchandra.carrd.co/",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
