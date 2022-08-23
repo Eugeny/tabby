@@ -21,62 +21,62 @@
 
 <br/>
 <p align="center">
-このREADMEは次の言語でも使用可能です: <a  href="./README.md">:gb: English</a> · <a  href="./README.ru-RU.md">:ru: Русский</a> · <a  href="./README.ko-KR.md">:kr: 한국어</a> · <a  href="./README.zh-CN.md">:cn: 简体中文</a> · <a  href="./README.it-IT.md">:it: Italiano</a> · <a href="./README.de-DE.md">:de: Deutsch</a>
+このREADMEは次の言語にも対応: <a  href="./README.md">:gb: English</a> · <a  href="./README.ru-RU.md">:ru: Русский</a> · <a  href="./README.ko-KR.md">:kr: 한국어</a> · <a  href="./README.zh-CN.md">:cn: 简体中文</a> · <a  href="./README.it-IT.md">:it: Italiano</a> · <a href="./README.de-DE.md">:de: Deutsch</a> · <a href="./README.id-ID.md">:id: Bahasa Indonesia</a>
 </p>
 
 ----
 
-[**Tabby**](https://tabby.sh)(以前は**Terminus**と呼ばれていた)は、Windows、macOS、Linux用の高度に設定可能なターミナル・エミュレータ、SSH、シリアルクライアントです
+[**Tabby**](https://tabby.sh)(旧**Terminus**)は、Windows、macOS、Linux向けの高度なカスタマイズに対応した端末エミュレータ、SSH、シリアルコンソールです
 
-* SSH、Telnetクライアントとコネクションマネージャーの統合
-* 統合されたシリアルターミナル
-* テーピングとカラースキーム
-* 完全に設定可能なショートカットとマルチコード・ショートカット
-* スプリットペイン
-* タブの記憶
-* PowerShell（およびPS Core）、WSL、Git-Bash、Cygwin、MSYS2、Cmder、CMDのサポート
+* SSH、Telnetクライアントと接続マネージャーの統合
+* シリアルコンソールの統合
+* テーマと配色のカスタマイズ
+* 自由なショートカットのカスタマイズと複数キー入力にも対応
+* ペイン分割に対応
+* タブの保存機能
+* PowerShell（または PS Core）やWSL、Git-Bash、Cygwin、MSYS2、Cmder、CMDに対応
 * Zmodemを介したSSHセッションへの直接ファイル転送
-* 全角文字を含むユニコードのフルサポート
-* 高速に流れる出力で詰まることがない
-* タブ補完を含むWindowsでの適切なシェル体験 (Clink経由)
-* SSHの秘密と設定のための統合された暗号化コンテナ
-* SSH、SFTP、Telnetクライアントが[Webアプリ](https://tabby.sh/app)として利用可能([セルフホスティング](https://github.com/Eugeny/tabby-web)も可能)。
+* 全角文字を含むUnicodeの完全対応
+* 大量の出力にも止まることはありません
+* タブキーによる補完機能にも対応したWindows上での快適なシェル (Clink使用)
+* SSHの機密性の高い情報と設定を保存する暗号化コンテナの搭載
+* SSH、SFTP、Telnetクライアントが[Webアプリ](https://tabby.sh/app)として利用可能 ([セルフホスティング](https://github.com/Eugeny/tabby-web)も可能)
 
 # コンテンツ <!-- omit in toc -->
 
-- [Tabbyとは](#Tabbbyとは)
-- [ターミナルの機能](#ターミナルの機能)
-- [SSHクライアント](#SSHクライアント)
-- [シリアルターミナル](#シリアルターミナル)
-- [ポータブル](#ポータブル)
+- [Tabbyとは](#tabbyとは)
+- [ターミナル機能](#ターミナル機能)
+- [SSHクライアント](#sshクライアント)
+- [シリアルコンソール](#シリアルコンソール)
+- [ポータブル機能](#ポータブル機能)
 - [プラグイン](#プラグイン)
 - [テーマ](#テーマ)
 - [コントリビュート](#コントリビュート)
 
 <a name="about"></a>
 
-# Tabbbyとは
+# Tabbyとは
 
-* **Tabbyは**Windows 標準のターミナル（conhost）、PowerShell ISE、PuTTY、macOSのTerminal.appおよびiTermの代替となるものです
+* **Tabbyは**Windows 標準のターミナル（conhost）、PowerShell ISE、PuTTY、macOSのTerminal.appおよびiTermの代替となるアプリケーションです。
 
-* **Tabbyは**は新しいシェルでも**なければ**、MinGWやCygwinの置き換えでも**ありません**。また、軽量でも**ありません**。もしRAMの使用量が重要であれば、[Conemu](https://conemu.github.io)や[Alacritty](https://github.com/jwilm/alacritty)を検討してください
+* **Tabby**は新しいシェル**でもなければ**、MinGWやCygwinの置き換え**でもありません**。また、軽量**でもありません**。RAMの使用量を重視するのではあれば、[Conemu](https://conemu.github.io)や[Alacritty](https://github.com/jwilm/alacritty)の利用をお勧めします。
 
 <a name="terminal"></a>
 
-# ターミナルの機能
+# ターミナル機能
 
 ![](docs/readme-terminal.png)
 
 * V220ターミナル＋各種拡張機能
-* 複数のネストされたスプリットペイン
-* ウィンドウのどの側にもタブがある
-* グローバルスポーンホットキー("Quake console")を持つオプションのドッキング自在なウィンドウ
+* 複数ネストされたペイン分割に対応
+* ウィンドウ内に自由に配置可能なタブ
+* グローバルホットキーで呼び出せるドックウィンドウ機能（"Quakeコンソール"）
 * 進行状況の検出
 * プロセス完了時の通知
-* 括弧付きペースト、複数行のペースト警告
-* フォントの合字
-* カスタムシェルプロファイル
-* オプションのRMBペーストとコピーオンセレクト(PuTTYスタイル)
+* ブラケットペーストや複数行のペーストの警告機能
+* 合字フォントの対応
+* シェルプロファイルの自由なカスタマイズ
+* RMBペーストと選択時の自動コピー機能（PuTTYスタイル）の対応
 
 <a name="ssh"></a>
 
@@ -84,49 +84,49 @@
 
 ![](docs/readme-ssh.png)
 
-* SSH2クライアントとコネクションマネージャ
+* SSH2クライアントと接続マネージャー
 * X11とポートフォワーディング
-* 自動ジャンプホスト管理
-* エージェント転送(PageantとWindowsネイティブOpenSSHエージェントを含む)
+* 自動ジャンプサーバー管理
+* エージェント転送(PageantとWindows標準OpenSSHエージェントを含む)
 * ログインスクリプト
 
 <a name="serial"></a>
 
-# シリアルターミナル
+# シリアルコンソール
 
-* 保存されたコネクション
-* リードライン入力のサポート
-* オプションの16進バイト入力およびhexdump出力
+* 接続の保存機能
+* 行単位入力の対応
+* 16進バイト入力および16進ダンプ出力の対応
 * 改行コードの変換
 * 自動再接続
 
 <a name="portable"></a>
 
-# ポータブル
+# ポータブル機能
 
-Windows上では、`Tabby.exe`がある場所と同じ場所に`data`フォルダを作成すれば、ポータブルアプリとして実行されます。
+Windows上では、`Tabby.exe`がある場所と同じ場所に`data`フォルダを作成すれば、ポータブルアプリケーションとして実行することができます。
 
 <a name="plugins"></a>
 
 # プラグイン
 
-プラグインやテーマは、Tabby内の設定ビューから直接インストールすることができます。
+プラグインやテーマは、Tabby内の設定画面から直接インストールすることができます。
 
-* [docker](https://github.com/Eugeny/tabby-docker) - Dockerコンテナへ接続する
-* [title-control](https://github.com/kbjr/terminus-title-control) - ターミナルタブのタイトルを、プレフィックス、サフィックス、削除する文字列を指定して変更可能にする
-* [quick-cmds](https://github.com/Domain/terminus-quick-cmds) - 1つまたはすべてのターミナルタブに素早くコマンドを送信する
-* [save-output](https://github.com/Eugeny/tabby-save-output) - ターミナルの出力をファイルに記録する
-* [sync-config](https://github.com/starxg/terminus-sync-config) - GistまたはGiteeにコンフィグを同期する
-* [clippy](https://github.com/Eugeny/tabby-clippy) - いつも悩まされるプラグインの例
-* [workspace-manager](https://github.com/composer404/tabby-workspace-manager) - 与えられた設定に基づき、カスタムワークスペースプロファイルを作成可能にする
-* [search-in-browser](https://github.com/composer404/tabby-search-in-browser) - デフォルトのシステムブラウザを開き、Tabbyのタブから選択されたテキストを表示する
+* [docker](https://github.com/Eugeny/tabby-docker) - Dockerコンテナに接続することができます
+* [title-control](https://github.com/kbjr/terminus-title-control) - タブ名の前後に文字を入れたり指定した文字の削除をすることができます
+* [quick-cmds](https://github.com/Domain/terminus-quick-cmds) - 一つもしくは複数のタブに手軽にコマンド送信することができます
+* [save-output](https://github.com/Eugeny/tabby-save-output) - ターミナルの出力をファイルに保存することができます
+* [sync-config](https://github.com/starxg/terminus-sync-config) - GistやGiteeに設定ファイルを同期することができます
+* [clippy](https://github.com/Eugeny/tabby-clippy) - いつもあなたを悩ますプラグインの作例
+* [workspace-manager](https://github.com/composer404/tabby-workspace-manager) - 指定された設定からカスタマイズされたワークスペースを作成することができます
+* [search-in-browser](https://github.com/composer404/tabby-search-in-browser) - Tabby内の端末で選択したテキストを標準の既定ブラウザで開くことができます。
 
 <a name="themes"></a>
 
 # テーマ
 
 * [hype](https://github.com/Eugeny/tabby-theme-hype) - Hyperをイメージしたテーマ
-* [relaxed](https://github.com/Relaxed-Theme/relaxed-terminal-themes#terminus) - TabbyのためのRelaxedテーマ
+* [relaxed](https://github.com/Relaxed-Theme/relaxed-terminal-themes#terminus) - Tabby向けのRelaxedテーマ
 * [gruvbox](https://github.com/porkloin/terminus-theme-gruvbox)
 * [windows10](https://www.npmjs.com/package/terminus-theme-windows10)
 * [altair](https://github.com/yxuko/terminus-altair)
@@ -140,7 +140,7 @@ Windows上では、`Tabby.exe`がある場所と同じ場所に`data`フォル�
 <a name="contributing"></a>
 # コントリビュート
 
-プルリクエストやプラグインを歓迎します!
+プルリクエストやプラグインは大歓迎です!
 
 プロジェクトの構成や、ごく簡単なプラグイン開発のチュートリアルについては、[HACKING.md](https://github.com/Eugeny/tabby/blob/master/HACKING.md)及び、[API docs](https://docs.tabby.sh/)を参照してください。
 
@@ -277,6 +277,7 @@ Windows上では、`Tabby.exe`がある場所と同じ場所に`data`フォル�
     <td align="center"><a href="https://twitter.com/tpberntsen"><img src="https://avatars.githubusercontent.com/u/922318?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Thomas Peter Berntsen</b></sub></a><br /><a href="#financial-tpberntsen" title="Financial">💵</a></td>
     <td align="center"><a href="https://bandism.net/"><img src="https://avatars.githubusercontent.com/u/22633385?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Ikko Ashimine</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=eltociear" title="Documentation">📖</a></td>
     <td align="center"><a href="https://github.com/giejqf"><img src="https://avatars.githubusercontent.com/u/9211230?v=4?s=100" width="100px;" alt=""/><br /><sub><b>giejqf</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=giejqf" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/LacazeThomas"><img src="https://avatars.githubusercontent.com/u/19855907?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Thomas LACAZE</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=LacazeThomas" title="Code">💻</a></td>
   </tr>
 </table>
 
@@ -285,4 +286,4 @@ Windows上では、`Tabby.exe`がある場所と同じ場所に`data`フォル�
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
-このプロジェクトは[all-contributors](https://github.com/all-contributors/all-contributors)の仕様に準拠しています。どのような種類の貢献でも歓迎します!
+このプロジェクトは[all-contributors](https://github.com/all-contributors/all-contributors)の仕様に準拠しています。どのような形の貢献でも歓迎します!
