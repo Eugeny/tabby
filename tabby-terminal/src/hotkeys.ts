@@ -74,6 +74,18 @@ export class TerminalHotkeyProvider extends HotkeyProvider {
             name: this.translate.instant('Focus all panes at once (broadcast)'),
         },
         {
+            id: 'scroll-to-top',
+            name: this.translate.instant('Scroll terminal to top'),
+        },
+        {
+            id: 'scroll-up',
+            name: this.translate.instant('Scroll terminal one page up'),
+        },
+        {
+            id: 'scroll-down',
+            name: this.translate.instant('Scroll terminal one page down'),
+        },
+        {
             id: 'scroll-to-bottom',
             name: this.translate.instant('Scroll terminal to bottom'),
         },

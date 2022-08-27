@@ -1,4 +1,4 @@
-import { app, ipcMain, Menu, Tray, shell, screen, globalShortcut, MenuItemConstructorOptions } from 'electron'
+import { app, ipcMain, Menu, Tray, shell, screen, globalShortcut, MenuItemConstructorOptions, WebContents } from 'electron'
 import promiseIpc from 'electron-promise-ipc'
 import * as remote from '@electron/remote/main'
 import { exec } from 'mz/child_process'
@@ -31,13 +31,9 @@ export class Application {
         this.useBuiltinGraphics()
         this.ptyManager.init(this)
 
-        ipcMain.on('app:config-change', (_event, config) => {
-            this.broadcast('host:config-change', config)
-            this.configStore = config
-        })
-
-        ipcMain.on('app:save-config', (_event, data) => {
-            saveConfig(data)
+        ipcMain.handle('app:save-config', async (event, config) => {
+            await saveConfig(config)
+            this.broadcastExcept('host:config-change', event.sender, config)
         })
 
         ipcMain.on('app:register-global-hotkey', (_event, specs) => {
@@ -168,6 +164,14 @@ export class Application {
     broadcast (event: string, ...args: any[]): void {
         for (const window of this.windows) {
             window.send(event, ...args)
+        }
+    }
+
+    broadcastExcept (event: string, except: WebContents, ...args: any[]): void {
+        for (const window of this.windows) {
+            if (window.webContents.id === except.id) {
+                window.send(event, ...args)
+            }
         }
     }
 

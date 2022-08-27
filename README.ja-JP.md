@@ -13,137 +13,141 @@
 
 ----
 
-### Downloads:
+### ダウンロード:
 
-* [Ultima versione](https://github.com/Eugeny/tabby/releases/latest)
-* [Repository](https://packagecloud.io/eugeny/tabby): [Pacchetto Debian/Ubuntu](https://packagecloud.io/eugeny/tabby/install#bash-deb), [Pachetto RPM](https://packagecloud.io/eugeny/tabby/install#bash-rpm)
-* [Ultima edizione nightly](https://nightly.link/Eugeny/tabby/workflows/build/master)
+* [Latest release](https://github.com/Eugeny/tabby/releases/latest)
+* [Repositories](https://packagecloud.io/eugeny/tabby): [Debian/Ubuntu-based](https://packagecloud.io/eugeny/tabby/install#bash-deb), [RPM-based](https://packagecloud.io/eugeny/tabby/install#bash-rpm)
+* [Latest nightly build](https://nightly.link/Eugeny/tabby/workflows/build/master)
 
 <br/>
 <p align="center">
-Questo README è disponibile anche in: <a  href="./README.md">:gb: English</a> · <a  href="./README.ru-RU.md">:ru: Русский</a> · <a  href="./README.ko-KR.md">:kr: 한국어</a> · <a  href="./README.zh-CN.md">:cn: 简体中文</a> · <a href="./README.de-DE.md">:de: Deutsch</a> · <a href="./README.ja-JP.md">:jp: 日本語</a> · <a href="./README.id-ID.md">:id: Bahasa Indonesia</a>
+このREADMEは次の言語にも対応: <a  href="./README.md">:gb: English</a> · <a  href="./README.ru-RU.md">:ru: Русский</a> · <a  href="./README.ko-KR.md">:kr: 한국어</a> · <a  href="./README.zh-CN.md">:cn: 简体中文</a> · <a  href="./README.it-IT.md">:it: Italiano</a> · <a href="./README.de-DE.md">:de: Deutsch</a> · <a href="./README.id-ID.md">:id: Bahasa Indonesia</a>
+</p>
 
 ----
 
-[**Tabby**](https://tabby.sh) (precedentemente **Terminus**) è un emulatore di terminale, SSH e client seriale altamente configurabile per Windows, macOS e Linux
+[**Tabby**](https://tabby.sh)(旧**Terminus**)は、Windows、macOS、Linux向けの高度なカスタマイズに対応した端末エミュレータ、SSH、シリアルコンソールです
 
-* Client SSH e Telnet integrato con gestore delle connessioni
-* Terminale seriale integrato
-* Temi e combinazioni di colori
-* Scorciatoie completamente configurabili e scorciatoie multi-tasto
-* Divisibile in pannelli
-* Ricorda le schede aperte
-* Supporto PowerShell (e PS Core), WSL, Git-Bash, Cygwin, MSYS2, Cmder e CMD
-* Trasferimento file diretto da/a sessioni SSH tramite Zmodem
-* Pieno supporto Unicode inclusi caratteri a doppia larghezza
-* Non si blocca su output a flusso rapido
-* Proper shell experience on Windows including tab completion (via Clink)
-* Integrated encrypted container for SSH secrets and configuration
-* Esperienza shell studiaat per Windows incluso il completamento delle schede (tramite Clink)
-* Contenitore crittografato integrato per chiavi SSH e file di configurazione
-* Client SSH, SFTP e Telnet disponibile come [web app](https://tabby.sh/app) (anche [self-hosted](https://github.com/Eugeny/tabby-web)).
+* SSH、Telnetクライアントと接続マネージャーの統合
+* シリアルコンソールの統合
+* テーマと配色のカスタマイズ
+* 自由なショートカットのカスタマイズと複数キー入力にも対応
+* ペイン分割に対応
+* タブの保存機能
+* PowerShell（または PS Core）やWSL、Git-Bash、Cygwin、MSYS2、Cmder、CMDに対応
+* Zmodemを介したSSHセッションへの直接ファイル転送
+* 全角文字を含むUnicodeの完全対応
+* 大量の出力にも止まることはありません
+* タブキーによる補完機能にも対応したWindows上での快適なシェル (Clink使用)
+* SSHの機密性の高い情報と設定を保存する暗号化コンテナの搭載
+* SSH、SFTP、Telnetクライアントが[Webアプリ](https://tabby.sh/app)として利用可能 ([セルフホスティング](https://github.com/Eugeny/tabby-web)も可能)
 
-# Contenuti <!-- omit in toc -->
+# コンテンツ <!-- omit in toc -->
 
-- [Cosa è e cosa non è Tabby](#cosa-è-e-cosa-non-è-tabby)
-- [Caratteristiche del Terminale](#caratteristiche-del-terminale)
-- [Client SSH](#client-ssh)
-- [Terminale Seriale](#terminale-seriale)
-- [Portabilità](#portabilità)
-- [Plugin](#plugin)
-- [Temi](#temi)
-- [Partecipazione](#partecipazione)
+- [Tabbyとは](#tabbyとは)
+- [ターミナル機能](#ターミナル機能)
+- [SSHクライアント](#sshクライアント)
+- [シリアルコンソール](#シリアルコンソール)
+- [ポータブル機能](#ポータブル機能)
+- [プラグイン](#プラグイン)
+- [テーマ](#テーマ)
+- [コントリビュート](#コントリビュート)
 
 <a name="about"></a>
 
-# Cosa è e cosa non è Tabby
+# Tabbyとは
 
-* **Tabby è** un'alternativa al terminale standard di Windows (conhost), PowerShell ISE, PuTTY, macOS Terminal.app e iTerm
+* **Tabbyは**Windows 標準のターミナル（conhost）、PowerShell ISE、PuTTY、macOSのTerminal.appおよびiTermの代替となるアプリケーションです。
 
-* **Tabby non è** una nuova shell o un'alternativa a MinGW o Cygwin. Non è nemmeno leggero: se l'utilizzo della RAM è importante, considera [Conemu](https://conemu.github.io) o [Alacritty](https://github.com/jwilm/alacritty)
+* **Tabby**は新しいシェル**でもなければ**、MinGWやCygwinの置き換え**でもありません**。また、軽量**でもありません**。RAMの使用量を重視するのではあれば、[Conemu](https://conemu.github.io)や[Alacritty](https://github.com/jwilm/alacritty)の利用をお勧めします。
 
 <a name="terminal"></a>
 
-# Caratteristiche del Terminale
+# ターミナル機能
 
 ![](docs/readme-terminal.png)
 
-* Un terminale V220 + vari estensioni
-* Suddivisione in pannelli
-* Schede su qualsiasi lato della finestra
-* Finestra agganciabile opzionale con un tasto di scelta rapida ("Quake console")
-* Rilevamento del progresso
-* Notifica al completamento del processo
-* Incolla tra parentesi e avvisi di incollaggio multilinea
-* Legature dei caratteri
-* Profili shell personalizzati
-* Incolla RMB e copia su selezione opzionale (in stile PuTTY)
+* V220ターミナル＋各種拡張機能
+* 複数ネストされたペイン分割に対応
+* ウィンドウ内に自由に配置可能なタブ
+* グローバルホットキーで呼び出せるドックウィンドウ機能（"Quakeコンソール"）
+* 進行状況の検出
+* プロセス完了時の通知
+* ブラケットペーストや複数行のペーストの警告機能
+* 合字フォントの対応
+* シェルプロファイルの自由なカスタマイズ
+* RMBペーストと選択時の自動コピー機能（PuTTYスタイル）の対応
 
 <a name="ssh"></a>
-# Client SSH
+
+# SSHクライアント
 
 ![](docs/readme-ssh.png)
 
-* Client SSH2 con un gestore di connessioni
-* X11 e port forwarding
-* Gestione automatica dell'host di salto
-* Inoltro dell'agente (incluso Pageant e l'agente OpenSSH nativo di Windows)
-* Script di accesso
+* SSH2クライアントと接続マネージャー
+* X11とポートフォワーディング
+* 自動ジャンプサーバー管理
+* エージェント転送(PageantとWindows標準OpenSSHエージェントを含む)
+* ログインスクリプト
 
 <a name="serial"></a>
-# Terminale Seriale
 
-* Connessioni salvate
-* Supporto per l'input Readline
-* Input esadecimale byte per byte opzionale e output hexdump
-* Conversione nuova riga
-* Riconnessione automatica
+# シリアルコンソール
+
+* 接続の保存機能
+* 行単位入力の対応
+* 16進バイト入力および16進ダンプ出力の対応
+* 改行コードの変換
+* 自動再接続
 
 <a name="portable"></a>
-# Portabilità
 
-Tabby può essere eseguito come app portatile su Windows, se crei una cartella `data` nella stessa posizione in cui si trova `Tabby.exe`.
+# ポータブル機能
+
+Windows上では、`Tabby.exe`がある場所と同じ場所に`data`フォルダを作成すれば、ポータブルアプリケーションとして実行することができます。
 
 <a name="plugins"></a>
-# Plugin
 
-Plugins and themes can be installed directly from the Settings view inside Tabby.
+# プラグイン
 
-* [docker](https://github.com/Eugeny/tabby-docker) - connect to Docker containers
-* [title-control](https://github.com/kbjr/terminus-title-control) - allows modifying the title of the terminal tabs by providing a prefix, suffix, and/or strings to be removed
-* [quick-cmds](https://github.com/Domain/terminus-quick-cmds) - quickly send commands to one or all terminal tabs
-* [save-output](https://github.com/Eugeny/tabby-save-output) - record terminal output into a file
-* [sync-config](https://github.com/starxg/terminus-sync-config) - sync the config to Gist or Gitee
-* [clippy](https://github.com/Eugeny/tabby-clippy) - an example plugin which annoys you all the time
-* [workspace-manager](https://github.com/composer404/tabby-workspace-manager) - allows creating custom workspace profiles based on the given config
-* [search-in-browser](https://github.com/composer404/tabby-search-in-browser) - opens default system browser with a text selected from the Tabby's tab
+プラグインやテーマは、Tabby内の設定画面から直接インストールすることができます。
+
+* [docker](https://github.com/Eugeny/tabby-docker) - Dockerコンテナに接続することができます
+* [title-control](https://github.com/kbjr/terminus-title-control) - タブ名の前後に文字を入れたり指定した文字の削除をすることができます
+* [quick-cmds](https://github.com/Domain/terminus-quick-cmds) - 一つもしくは複数のタブに手軽にコマンド送信することができます
+* [save-output](https://github.com/Eugeny/tabby-save-output) - ターミナルの出力をファイルに保存することができます
+* [sync-config](https://github.com/starxg/terminus-sync-config) - GistやGiteeに設定ファイルを同期することができます
+* [clippy](https://github.com/Eugeny/tabby-clippy) - いつもあなたを悩ますプラグインの作例
+* [workspace-manager](https://github.com/composer404/tabby-workspace-manager) - 指定された設定からカスタマイズされたワークスペースを作成することができます
+* [search-in-browser](https://github.com/composer404/tabby-search-in-browser) - Tabby内の端末で選択したテキストを標準の既定ブラウザで開くことができます。
 
 <a name="themes"></a>
-# Temi
 
-* [hype](https://github.com/Eugeny/tabby-theme-hype) - a Hyper inspired theme
-* [relaxed](https://github.com/Relaxed-Theme/relaxed-terminal-themes#terminus) - the Relaxed theme for Tabby
+# テーマ
+
+* [hype](https://github.com/Eugeny/tabby-theme-hype) - Hyperをイメージしたテーマ
+* [relaxed](https://github.com/Relaxed-Theme/relaxed-terminal-themes#terminus) - Tabby向けのRelaxedテーマ
 * [gruvbox](https://github.com/porkloin/terminus-theme-gruvbox)
 * [windows10](https://www.npmjs.com/package/terminus-theme-windows10)
 * [altair](https://github.com/yxuko/terminus-altair)
 
-# Sponsor <!-- omit in toc -->
+# スポンサー <!-- omit in toc -->
 
 [![](https://assets-production.packagecloud.io/assets/packagecloud-logo-light-scaled-26ce8e96060fddf74afbd4445e63ba35590d4aaa56edc98495bb390ef3cae0ae.png)](https://packagecloud.io)
 
-[**packagecloud**](https://packagecloud.io) ha fornito gratuitamente un hosting per i repository Debian/RPM
+[**packagecloud**](https://packagecloud.io)は、Debian/RPMリポジトリのホスティングを無償で提供しています
 
 <a name="contributing"></a>
-# Partecipazione
+# コントリビュート
 
-Richieste pull e plugin sono i benvenuti!
+プルリクエストやプラグインは大歓迎です!
 
-Vedi [HACKING.md](https://github.com/Eugeny/tabby/blob/master/HACKING.md) e la [documentazione API](https://docs.tabby.sh/) per informazioni su come è strutturato il progetto e un brevissimo tutorial sullo sviluppo dei plugin.
+プロジェクトの構成や、ごく簡単なプラグイン開発のチュートリアルについては、[HACKING.md](https://github.com/Eugeny/tabby/blob/master/HACKING.md)及び、[API docs](https://docs.tabby.sh/)を参照してください。
 
 ---
 <a name="contributors"></a>
 
-Grazie a queste persone meravigliose ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+この素晴らしい人たち([emoji key](https://allcontributors.org/docs/en/emoji-key))に感謝します:
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
@@ -286,4 +290,4 @@ Grazie a queste persone meravigliose ([emoji key](https://allcontributors.org/do
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
-Questo progetto segue le specifiche [all-contributors](https://github.com/all-contributors/all-contributors). Contributi di qualsiasi genere sono ben accetti!
+このプロジェクトは[all-contributors](https://github.com/all-contributors/all-contributors)の仕様に準拠しています。どのような形の貢献でも歓迎します!

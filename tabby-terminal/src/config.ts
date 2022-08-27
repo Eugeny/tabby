@@ -5,7 +5,6 @@ export class TerminalConfigProvider extends ConfigProvider {
     defaults = {
         hotkeys: {
             'copy-current-path': [],
-            'scroll-to-bottom': [],
         },
         terminal: {
             frontend: 'xterm',
@@ -113,6 +112,10 @@ export class TerminalConfigProvider extends ConfigProvider {
                 'pane-focus-all': [
                     '⌘-Shift-I',
                 ],
+                'scroll-to-top': ['Shift-PageUp'],
+                'scroll-up': ['PageUp'],
+                'scroll-down': ['PageDown'],
+                'scroll-to-bottom': ['Shift-PageDown'],
             },
         },
         [Platform.Windows]: {
@@ -157,6 +160,10 @@ export class TerminalConfigProvider extends ConfigProvider {
                 'pane-focus-all': [
                     'Ctrl-Shift-I',
                 ],
+                'scroll-to-top': ['Ctrl-PageUp'],
+                'scroll-up': ['PageUp'],
+                'scroll-down': ['PageDown'],
+                'scroll-to-bottom': ['Ctrl-PageDown'],
             },
         },
         [Platform.Linux]: {
@@ -199,6 +206,10 @@ export class TerminalConfigProvider extends ConfigProvider {
                 'pane-focus-all': [
                     'Ctrl-Shift-I',
                 ],
+                'scroll-to-top': ['Ctrl-PageUp'],
+                'scroll-up': ['PageUp'],
+                'scroll-down': ['PageDown'],
+                'scroll-to-bottom': ['Ctrl-PageDown'],
             },
         },
     }

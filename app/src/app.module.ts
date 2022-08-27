@@ -28,7 +28,11 @@ export function getRootModule (plugins: any[]) {
     @NgModule({
         imports,
         bootstrap,
-    }) class RootModule { } // eslint-disable-line @typescript-eslint/no-extraneous-class
+    }) class RootModule {
+        ngDoBootstrap () {
+            (window as any)['requestAnimationFrame'] = window[window['Zone'].__symbol__('requestAnimationFrame')]
+        }
+    }
 
     return RootModule
 }

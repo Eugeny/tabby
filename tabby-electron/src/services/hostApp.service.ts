@@ -58,15 +58,8 @@ export class ElectronHostAppService extends HostAppService {
         this.electron.ipcRenderer.send('app:new-window')
     }
 
-    /**
-     * Notifies other windows of config file changes
-     */
-    broadcastConfigChange (configStore: Record<string, any>): void {
-        this.electron.ipcRenderer.send('app:config-change', configStore)
-    }
-
-    saveConfig (data: string): void {
-        this.electron.ipcRenderer.send('app:save-config', data)
+    async saveConfig (data: string): Promise<void> {
+        await this.electron.ipcRenderer.invoke('app:save-config', data)
     }
 
     emitReady (): void {

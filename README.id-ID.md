@@ -15,135 +15,139 @@
 
 ### Downloads:
 
-* [Ultima versione](https://github.com/Eugeny/tabby/releases/latest)
-* [Repository](https://packagecloud.io/eugeny/tabby): [Pacchetto Debian/Ubuntu](https://packagecloud.io/eugeny/tabby/install#bash-deb), [Pachetto RPM](https://packagecloud.io/eugeny/tabby/install#bash-rpm)
-* [Ultima edizione nightly](https://nightly.link/Eugeny/tabby/workflows/build/master)
+* [Rilis Terbaru](https://github.com/Eugeny/tabby/releases/latest)
+* [Repositories](https://packagecloud.io/eugeny/tabby): [Debian/Ubuntu-based](https://packagecloud.io/eugeny/tabby/install#bash-deb), [RPM-based](https://packagecloud.io/eugeny/tabby/install#bash-rpm)
+* [Latest nightly build](https://nightly.link/Eugeny/tabby/workflows/build/master)
 
 <br/>
 <p align="center">
-Questo README è disponibile anche in: <a  href="./README.md">:gb: English</a> · <a  href="./README.ru-RU.md">:ru: Русский</a> · <a  href="./README.ko-KR.md">:kr: 한국어</a> · <a  href="./README.zh-CN.md">:cn: 简体中文</a> · <a href="./README.de-DE.md">:de: Deutsch</a> · <a href="./README.ja-JP.md">:jp: 日本語</a> · <a href="./README.id-ID.md">:id: Bahasa Indonesia</a>
+This README is also available in: <a  href="./README.ru-RU.md">:ru: Русский</a> · <a  href="./README.ko-KR.md">:kr: 한국어</a> · <a  href="./README.zh-CN.md">:cn: 简体中文</a> · <a  href="./README.it-IT.md">:it: Italiano</a> · <a href="./README.de-DE.md">:de: Deutsch</a> · <a href="./README.ja-JP.md">:jp: 日本語</a> · <a href="./README.id-ID.md">:id: Bahasa Indonesia</a>
+</p>
 
 ----
 
-[**Tabby**](https://tabby.sh) (precedentemente **Terminus**) è un emulatore di terminale, SSH e client seriale altamente configurabile per Windows, macOS e Linux
+[**Tabby**](https://tabby.sh) (sebelumnya **Terminus**) adalah emulator terminal, SSH, dan klien serial yang sangat dapat dikonfigurasi untuk Windows, macOS, dan Linux 
 
-* Client SSH e Telnet integrato con gestore delle connessioni
-* Terminale seriale integrato
-* Temi e combinazioni di colori
-* Scorciatoie completamente configurabili e scorciatoie multi-tasto
-* Divisibile in pannelli
-* Ricorda le schede aperte
-* Supporto PowerShell (e PS Core), WSL, Git-Bash, Cygwin, MSYS2, Cmder e CMD
-* Trasferimento file diretto da/a sessioni SSH tramite Zmodem
-* Pieno supporto Unicode inclusi caratteri a doppia larghezza
-* Non si blocca su output a flusso rapido
-* Proper shell experience on Windows including tab completion (via Clink)
-* Integrated encrypted container for SSH secrets and configuration
-* Esperienza shell studiaat per Windows incluso il completamento delle schede (tramite Clink)
-* Contenitore crittografato integrato per chiavi SSH e file di configurazione
-* Client SSH, SFTP e Telnet disponibile come [web app](https://tabby.sh/app) (anche [self-hosted](https://github.com/Eugeny/tabby-web)).
+* Integrasi SSH dan klien Telnet dan Koneksi Manager
+* Integrasi terminal serial
+* Tema dan skema warna
+* Pintasan yang dapat dikonfigurasi sepenuhnya dan pintasan multi-chord 
+* Panel yang bisa dipisahkan
+* Mengingat tab anda
+* Mensupport PowerShell (dan PS Core), WSL, Git-Bash, Cygwin, MSYS2, Cmder dan CMD
+* File transfer secara langsung dari/ke sesi SSH via Zmodem
+* Support Unicode termaksud karakter double-width
+* Tidak tersedak dengan output yang mengalir dengan cepat
+* Pengalaman shell yang tepat di Windows termasuk penyelesaian tab (via Clink)
+* Wadah terintregrasi terenkripsi untuk rahasia dan konfigurasi SSH
+* SSH, SFTP dan klien Telnet tersedia sebagai [aplikasi web](https://tabby.sh/app) (dan juga [self-hosted](https://github.com/Eugeny/tabby-web)).
 
-# Contenuti <!-- omit in toc -->
+# Contents <!-- omit in toc -->
 
-- [Cosa è e cosa non è Tabby](#cosa-è-e-cosa-non-è-tabby)
-- [Caratteristiche del Terminale](#caratteristiche-del-terminale)
-- [Client SSH](#client-ssh)
-- [Terminale Seriale](#terminale-seriale)
-- [Portabilità](#portabilità)
-- [Plugin](#plugin)
-- [Temi](#temi)
-- [Partecipazione](#partecipazione)
+- [Apa itu Tabby dan bukan Tabby](#what-tabby-is-and-isnt)
+- [Fitur Terminal](#terminal-features)
+- [SSH Client](#ssh-client)
+- [Serial Terminal](#serial-terminal)
+- [Portabel](#portable)
+- [Plugins](#plugins)
+- [Tema](#themes)
+- [Kontribusi](#contributing)
 
 <a name="about"></a>
 
-# Cosa è e cosa non è Tabby
+# What Tabby is and isn't
 
-* **Tabby è** un'alternativa al terminale standard di Windows (conhost), PowerShell ISE, PuTTY, macOS Terminal.app e iTerm
+* **Tabby adalah** sebuah alternatif untuk standar Windows' terminal (conhost), PowerShell ISE, PuTTY, macOS Terminal.app dan iTerm
 
-* **Tabby non è** una nuova shell o un'alternativa a MinGW o Cygwin. Non è nemmeno leggero: se l'utilizzo della RAM è importante, considera [Conemu](https://conemu.github.io) o [Alacritty](https://github.com/jwilm/alacritty)
+* **Tabby bukan** shell yang baru atau peganti MinGW atau Cygwin. Dan bukan applikasi ringan - jika penggunaan RAM diutamakan, mungkin boleh mencoba [Conemu](https://conemu.github.io) atau [Alacritty](https://github.com/jwilm/alacritty)
 
 <a name="terminal"></a>
 
-# Caratteristiche del Terminale
+# Fitur terminal 
 
 ![](docs/readme-terminal.png)
 
-* Un terminale V220 + vari estensioni
-* Suddivisione in pannelli
-* Schede su qualsiasi lato della finestra
-* Finestra agganciabile opzionale con un tasto di scelta rapida ("Quake console")
-* Rilevamento del progresso
-* Notifica al completamento del processo
-* Incolla tra parentesi e avvisi di incollaggio multilinea
-* Legature dei caratteri
-* Profili shell personalizzati
-* Incolla RMB e copia su selezione opzionale (in stile PuTTY)
+* Adalah V220 terminal + berbagai macam extensi
+* Beberapa panel split bersarang 
+* Tab di sisi mana pun dari jendela
+* Jendela dockable opsional dengan hotkey spawn global ("Quake console")
+* Deteksi Progres
+* Notifikasi untuk penyelesaian proses
+* Tempel tanda kurung, peringatan tempel multiline
+* Pengikat font
+* Kustom profil shell
+* Opsional tempel RMB dan copy-on select (PuTTY style)
 
 <a name="ssh"></a>
-# Client SSH
+
+# Klien SSH 
 
 ![](docs/readme-ssh.png)
 
-* Client SSH2 con un gestore di connessioni
-* X11 e port forwarding
-* Gestione automatica dell'host di salto
-* Inoltro dell'agente (incluso Pageant e l'agente OpenSSH nativo di Windows)
-* Script di accesso
+* Klien SSH2 dengan manajer koneksi
+* X11 dan port forwarding
+* Otomatis berpindah host management
+* Agent forwarding (termaksud Pageant dan Windows native OpenSSH Agent)
+* Login scripts
 
 <a name="serial"></a>
-# Terminale Seriale
 
-* Connessioni salvate
-* Supporto per l'input Readline
-* Input esadecimale byte per byte opzionale e output hexdump
-* Conversione nuova riga
-* Riconnessione automatica
+# Serial Terminal
+
+* Koneksi yang disimpan
+* Support Readline input
+* Opsional hex byte-by-byte input dan hexdump output
+* Konversi Newline
+* Rekoneksi secara otomatis
 
 <a name="portable"></a>
-# Portabilità
 
-Tabby può essere eseguito come app portatile su Windows, se crei una cartella `data` nella stessa posizione in cui si trova `Tabby.exe`.
+# Portabel
+
+Tabby tetap bisa berjalan sebagai applikasi portabel di Windows, jika anda membuat folder `data` di tempat tinggal yang sama dengan `Tabby.exe`.
 
 <a name="plugins"></a>
-# Plugin
 
-Plugins and themes can be installed directly from the Settings view inside Tabby.
+# Plugins
 
-* [docker](https://github.com/Eugeny/tabby-docker) - connect to Docker containers
-* [title-control](https://github.com/kbjr/terminus-title-control) - allows modifying the title of the terminal tabs by providing a prefix, suffix, and/or strings to be removed
-* [quick-cmds](https://github.com/Domain/terminus-quick-cmds) - quickly send commands to one or all terminal tabs
-* [save-output](https://github.com/Eugeny/tabby-save-output) - record terminal output into a file
-* [sync-config](https://github.com/starxg/terminus-sync-config) - sync the config to Gist or Gitee
-* [clippy](https://github.com/Eugeny/tabby-clippy) - an example plugin which annoys you all the time
-* [workspace-manager](https://github.com/composer404/tabby-workspace-manager) - allows creating custom workspace profiles based on the given config
-* [search-in-browser](https://github.com/composer404/tabby-search-in-browser) - opens default system browser with a text selected from the Tabby's tab
+Tema dan Plugin bisa langsung di instal dari Pengaturan didalam Tabby.
+
+* [docker](https://github.com/Eugeny/tabby-docker) - untuk menkonek ke Docker containers
+* [title-control](https://github.com/kbjr/terminus-title-control) - memperbolehkan untuk mengganti judul di tab terminal dengan menyediakan prefix, suffix, dan/atau strings untuk di buang
+* [quick-cmds](https://github.com/Domain/terminus-quick-cmds) - kirimkan command ke satu atau semua tab terminal dengan cepat
+* [save-output](https://github.com/Eugeny/tabby-save-output) - merekam output terminal ke suatu file
+* [sync-config](https://github.com/starxg/terminus-sync-config) - sinkronisasi config ke Gist atau Gitee
+* [clippy](https://github.com/Eugeny/tabby-clippy) - suatu contoh plugin yang akan mengganggu anda setiap saat
+* [workspace-manager](https://github.com/composer404/tabby-workspace-manager) - memperbolehkan membuat kustom profil workspace dari konfigurasi yang diberikan
+* [search-in-browser](https://github.com/composer404/tabby-search-in-browser) - membuka browser default dengan text yang dipilih dari Tab Tabby
 
 <a name="themes"></a>
-# Temi
 
-* [hype](https://github.com/Eugeny/tabby-theme-hype) - a Hyper inspired theme
-* [relaxed](https://github.com/Relaxed-Theme/relaxed-terminal-themes#terminus) - the Relaxed theme for Tabby
+# Tema
+
+* [hype](https://github.com/Eugeny/tabby-theme-hype) - inspirasi dari tema Hyper
+* [relaxed](https://github.com/Relaxed-Theme/relaxed-terminal-themes#terminus) - Tabby, tapi lebih santuy
 * [gruvbox](https://github.com/porkloin/terminus-theme-gruvbox)
 * [windows10](https://www.npmjs.com/package/terminus-theme-windows10)
 * [altair](https://github.com/yxuko/terminus-altair)
 
-# Sponsor <!-- omit in toc -->
+# Sponsors <!-- omit in toc -->
 
 [![](https://assets-production.packagecloud.io/assets/packagecloud-logo-light-scaled-26ce8e96060fddf74afbd4445e63ba35590d4aaa56edc98495bb390ef3cae0ae.png)](https://packagecloud.io)
 
-[**packagecloud**](https://packagecloud.io) ha fornito gratuitamente un hosting per i repository Debian/RPM
+[**packagecloud**](https://packagecloud.io) telah menyediakan hosting gratis untuk Debian/RPM Repisitory
 
 <a name="contributing"></a>
-# Partecipazione
+# Kontribusi
 
-Richieste pull e plugin sono i benvenuti!
+Pull requests dan plugins dipersilahkan!
 
-Vedi [HACKING.md](https://github.com/Eugeny/tabby/blob/master/HACKING.md) e la [documentazione API](https://docs.tabby.sh/) per informazioni su come è strutturato il progetto e un brevissimo tutorial sullo sviluppo dei plugin.
+Lihat [HACKING.md](https://github.com/Eugeny/tabby/blob/master/HACKING.md) dan [API docs](https://docs.tabby.sh/) untuk informasi lebih lajut tentang project ini, dan tutorial singkat untuk plugin.
 
 ---
 <a name="contributors"></a>
 
-Grazie a queste persone meravigliose ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+Terima kasih kepada mereka yang telah membantu ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
@@ -286,4 +290,4 @@ Grazie a queste persone meravigliose ([emoji key](https://allcontributors.org/do
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
-Questo progetto segue le specifiche [all-contributors](https://github.com/all-contributors/all-contributors). Contributi di qualsiasi genere sono ben accetti!
+Project ini mengikuti semua spesifikasi dari [all-contributors](https://github.com/all-contributors/all-contributors). Kontribusi akan sangat diterima!

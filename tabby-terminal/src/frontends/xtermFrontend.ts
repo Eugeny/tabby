@@ -39,13 +39,14 @@ class FlowControl {
         this.bytesWritten += data.length
         if (this.bytesWritten > this.bytesThreshold) {
             this.pendingCallbacks++
-            if (this.pendingCallbacks > this.highWatermark) {
+            this.bytesWritten = 0
+            if (!this.blocked && this.pendingCallbacks > this.highWatermark) {
                 this.blocked = true
                 this.blocked$.next(true)
             }
             this.xterm.write(data, () => {
                 this.pendingCallbacks--
-                if (this.pendingCallbacks < this.lowWatermark) {
+                if (this.blocked && this.pendingCallbacks < this.lowWatermark) {
                     this.blocked = false
                     this.blocked$.next(false)
                 }
@@ -147,7 +148,21 @@ export class XTermFrontend extends Frontend {
                     return true
                 }
             }
+
+            // Ctrl-/
+            if (event.type === 'keydown' && event.key === '/' && event.ctrlKey) {
+                this.input.next(Buffer.from('\u001f', 'binary'))
+                return false
+            }
+
+            // Ctrl-@
+            if (event.type === 'keydown' && event.key === '@' && event.ctrlKey) {
+                this.input.next(Buffer.from('\u0000', 'binary'))
+                return false
+            }
+
             this.hotkeysService.pushKeyEvent(name, event)
+
             let ret = true
             if (this.hotkeysService.matchActiveHotkey(true) !== null) {
                 event.stopPropagation()
@@ -311,6 +326,14 @@ export class XTermFrontend extends Frontend {
                 this.element!.style.animation = 'terminalShakeFrames 0.3s ease'
             })
         }
+    }
+
+    scrollToTop (): void {
+        this.xterm.scrollToTop()
+    }
+
+    scrollPages (pages: number): void {
+        this.xterm.scrollPages(pages)
     }
 
     scrollToBottom (): void {

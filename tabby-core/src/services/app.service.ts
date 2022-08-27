@@ -1,4 +1,4 @@
-import { Observable, Subject, AsyncSubject, takeUntil } from 'rxjs'
+import { Observable, Subject, AsyncSubject, takeUntil, debounceTime } from 'rxjs'
 import { Injectable, Inject } from '@angular/core'
 
 import { BaseTabComponent } from '../components/baseTab.component'
@@ -58,6 +58,7 @@ export class AppService {
     private tabClosed = new Subject<BaseTabComponent>()
     private tabDragActive = new Subject<BaseTabComponent|null>()
     private ready = new AsyncSubject<void>()
+    private recoveryStateChangedHint = new Subject<void>()
 
     private completionObservers = new Map<BaseTabComponent, CompletionObserver>()
 
@@ -82,11 +83,16 @@ export class AppService {
         @Inject(BOOTSTRAP_DATA) private bootstrapData: BootstrapData,
     ) {
         this.tabsChanged$.subscribe(() => {
+            this.recoveryStateChangedHint.next()
+        })
+
+        setInterval(() => {
+            this.recoveryStateChangedHint.next()
+        }, 30000)
+
+        this.recoveryStateChangedHint.pipe(debounceTime(1000)).subscribe(() => {
             this.tabRecovery.saveTabs(this.tabs)
         })
-        setInterval(() => {
-            this.tabRecovery.saveTabs(this.tabs)
-        }, 30000)
 
         config.ready$.toPromise().then(async () => {
             if (this.bootstrapData.isMainWindow) {
@@ -117,7 +123,7 @@ export class AppService {
 
         if (this.bootstrapData.isMainWindow) {
             tab.recoveryStateChangedHint$.subscribe(() => {
-                this.tabRecovery.saveTabs(this.tabs)
+                this.recoveryStateChangedHint.next()
             })
         }
 

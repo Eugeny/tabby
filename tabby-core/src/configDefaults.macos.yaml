@@ -39,6 +39,7 @@ hotkeys:
   tab-10:
     - '⌘-0'
   duplicate-tab: []
+  restart-tab: []
   explode-tab:
     - '⌘-Shift-.'
   combine-tabs:

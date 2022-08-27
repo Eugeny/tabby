@@ -38,7 +38,8 @@ jobs:
         include:
           - arch: x86_64
           - arch: arm64
-
+      fail-fast: false
+      
     steps:
     - name: Checkout
       uses: actions/checkout@v3
@@ -274,6 +275,7 @@ jobs:
         include:
           - arch: x64
           - arch: arm64
+      fail-fast: false
 
     steps:
     - name: Checkout

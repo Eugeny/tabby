@@ -10,22 +10,16 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2022-05-17 06:35\n"
+"PO-Revision-Date: 2022-07-29 22:12\n"
 
 #: tabby-local/src/components/terminalTab.component.ts:113
 msgid "\"{command}\" is still running. Close?"
 msgstr "\"{command}\"が実行中です。閉じますか？"
 
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:78
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:85
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:89
 msgid "{name} copy"
 msgstr "{name} コピー"
-
-#: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:13
-msgid "<strong translate=\"\">Working directory detection</strong>\n"
-"<div translate=\"\">Learn how to allow Tabby to detect remote shell's working directory.</div>"
-msgstr "<strong translate=\"\">作業ディレクトリの検出</strong>\n"
-"<div translate=\"\">Tabbyにリモート側の作業ディレクトリを検出させる方法をご紹介します。</div>"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:76
 msgid "A second font family used to display characters missing in the main font"
@@ -95,7 +89,7 @@ msgstr "SSHエージェントのパイプのパス"
 msgid "Agent type"
 msgstr "SSHエージェントの種類"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:163
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:170
 msgid "Allows opening .bat files in tabs, but breaks some shells"
 msgstr ".batファイルを開くことを許可 (シェルが正常に動作しない可能性があります)"
 
@@ -120,7 +114,7 @@ msgstr "アプリケーションの設定"
 msgid "Are you sure you want to close Tabby? You can disable this prompt in Settings -> Window."
 msgstr "Tabbyを閉じてもよろしいですか？この画面は設定 -> ウィンドウから無効にすることができます。"
 
-#: tabby-core/src/services/config.service.ts:380
+#: tabby-core/src/services/config.service.ts:379
 msgid "Are you sure?"
 msgstr "本当によろしいですか？"
 
@@ -136,7 +130,7 @@ msgstr "質問する"
 msgid "Ask before closing the browser tab"
 msgstr "ブラウザタブを閉じる前に確認する"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:134
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:141
 msgid "Audible"
 msgstr "音を鳴らす"
 
@@ -144,7 +138,7 @@ msgstr "音を鳴らす"
 msgid "Authentication method"
 msgstr "認証方法"
 
-#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:77
+#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:83
 msgid "Author"
 msgstr "作者"
 
@@ -152,7 +146,7 @@ msgstr "作者"
 msgid "Auto"
 msgstr "自動"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:147
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:154
 msgid "Auto-open a terminal on app start"
 msgstr "アプリケーション起動時に端末を自動で開く"
 
@@ -209,12 +203,12 @@ msgstr "太字フォントの太さ"
 msgid "Bottom"
 msgstr "下部"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:107
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:114
 msgid "Bracketed paste (requires shell support)"
 msgstr "ブラケットペースト (シェルが対応している必要があります)"
 
-#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:48
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:166
+#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:54
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:174
 msgid "Built-in"
 msgstr "組込み"
 
@@ -224,13 +218,13 @@ msgstr "組込み"
 #: locale/tmp-html/tabby-settings/src/components/setVaultPassphraseModal.component.html:14
 #: locale/tmp-html/tabby-ssh/src/components/sftpCreateDirectoryModal.component.html:10
 #: locale/tmp-html/tabby-ssh/src/components/sftpDeleteModal.component.html:7
-#: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:30
-#: tabby-electron/src/services/updater.service.ts:143
+#: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:32
+#: tabby-electron/src/services/updater.service.ts:140
 #: tabby-local/src/components/terminalTab.component.ts:118
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:79
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:99
 #: tabby-ssh/src/sftpContextMenu.ts:40
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:458
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:469
 msgid "Cancel"
 msgstr "キャンセル"
 
@@ -259,7 +253,7 @@ msgstr "最近使用したプロファイルをクリア"
 msgid "Clear terminal"
 msgstr "端末をクリア"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:92
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:99
 msgid "Clipboard"
 msgstr "クリップボード"
 
@@ -272,7 +266,7 @@ msgstr "閉じる"
 msgid "Close and never show again"
 msgstr "閉じて今後表示しない"
 
-#: tabby-core/src/hotkeys.ts:197
+#: tabby-core/src/hotkeys.ts:237
 msgid "Close focused pane"
 msgstr "フォーカスしているペインを閉じる"
 
@@ -301,7 +295,7 @@ msgstr "色"
 msgid "Color scheme"
 msgstr "配色"
 
-#: tabby-core/src/hotkeys.ts:65
+#: tabby-core/src/hotkeys.ts:69
 msgid "Combine all tabs into the current tab"
 msgstr "すべてのタブを現在のタブに統合"
 
@@ -371,14 +365,14 @@ msgstr "接続に失敗しました: {error}"
 msgid "Connection name will be used instead"
 msgstr "代わりに接続名が使用されます"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:57
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:64
 msgid "Context menu"
 msgstr "コンテキストメニュー"
 
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:201
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:209
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:549
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:753
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:203
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:211
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:560
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:764
 #: tabby-terminal/src/tabContextMenu.ts:29
 msgid "Copied"
 msgstr "コピーしました"
@@ -393,7 +387,7 @@ msgstr "コピー"
 msgid "Copy current path"
 msgstr "現在のパスをコピー"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:95
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:102
 msgid "Copy on select"
 msgstr "選択時にコピー"
 
@@ -401,11 +395,11 @@ msgstr "選択時にコピー"
 msgid "Copy to clipboard"
 msgstr "クリップボードにコピー"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:101
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:108
 msgid "Copy with formatting"
 msgstr "書式付きコピー"
 
-#: tabby-core/src/services/config.service.ts:365
+#: tabby-core/src/services/config.service.ts:364
 msgid "Could not decrypt config"
 msgstr "設定を復号できませんでした"
 
@@ -438,7 +432,7 @@ msgstr "現在のプロセス: {name}"
 msgid "Cursor shape"
 msgstr "カーソルの形状"
 
-#: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:47
+#: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:49
 msgid "Custom"
 msgstr "カスタム"
 
@@ -454,11 +448,11 @@ msgstr "データ長"
 msgid "Debugging"
 msgstr "デバッグ"
 
-#: tabby-core/src/hotkeys.ts:213
+#: tabby-core/src/hotkeys.ts:253
 msgid "Decrease horizontal split size"
 msgstr "水平方向の分割サイズを縮小"
 
-#: tabby-core/src/hotkeys.ts:205
+#: tabby-core/src/hotkeys.ts:245
 msgid "Decrease vertical split size"
 msgstr "垂直方向の分割サイズを縮小"
 
@@ -480,9 +474,9 @@ msgstr "{type} の既定値"
 
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:28
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:9
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:130
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:195
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:208
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:138
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:203
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:216
 #: tabby-settings/src/components/vaultSettingsTab.component.ts:49
 #: tabby-ssh/src/sftpContextMenu.ts:39
 #: tabby-ssh/src/sftpContextMenu.ts:47
@@ -491,8 +485,8 @@ msgstr "{type} の既定値"
 msgid "Delete"
 msgstr "削除"
 
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:128
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:193
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:136
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:201
 #: tabby-terminal/src/components/colorSchemeSettingsTab.component.ts:87
 msgid "Delete \"{name}\"?"
 msgstr "{name} を削除しますか？"
@@ -513,7 +507,7 @@ msgstr "次の単語を削除"
 msgid "Delete previous word"
 msgstr "前の単語を削除"
 
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:205
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:213
 msgid "Delete the group's profiles?"
 msgstr "グループのプロファイルを削除しますか？"
 
@@ -537,7 +531,7 @@ msgstr "デバイス"
 msgid "Direct"
 msgstr "直接"
 
-#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:55
+#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:61
 msgid "Disable"
 msgstr "無効"
 
@@ -545,15 +539,15 @@ msgstr "無効"
 msgid "Disable dynamic tab title"
 msgstr "動的なタブ名を無効にする"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:197
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:204
 msgid "Disable fluent background while dragging"
 msgstr "ドラッグ中にFluentを無効にする"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:190
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:197
 msgid "Disable GPU acceleration"
 msgstr "GPUアクセラレーションを無効化"
 
-#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:48
+#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:54
 msgid "Disabled"
 msgstr "無効化"
 
@@ -567,6 +561,10 @@ msgstr "切断"
 #: tabby-telnet/src/components/telnetTab.component.ts:122
 msgid "Disconnect from {host}?"
 msgstr "{host} から切断しますか？"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:30
+msgid "Display images via Sixel escape sequences"
+msgstr "Sixelエスケープシーケンスによって画像を表示"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:88
 msgid "Display on"
@@ -606,7 +604,7 @@ msgstr "ドック時の端末のスペース"
 msgid "Docking"
 msgstr "ドック表示"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:73
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:80
 msgid "Double-click selection will stop at these characters"
 msgstr "ダブルクリックによる選択時に区切りとなる文字を設定できます"
 
@@ -620,7 +618,7 @@ msgstr "ダウンロード"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:23
 msgid "Draw bold text in bright colors"
-msgstr "太字を明瞭な色で表示"
+msgstr "太字のテキストを明るい色で表示"
 
 #: tabby-core/src/tabContextMenu.ts:120
 msgid "Duplicate"
@@ -638,7 +636,11 @@ msgstr "タブを複製"
 msgid "Edit"
 msgstr "編集"
 
-#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:56
+#: tabby-electron/src/sftpContextMenu.ts:30
+msgid "Edit locally"
+msgstr "ローカル上で編集する"
+
+#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:62
 msgid "Enable"
 msgstr "有効"
 
@@ -679,8 +681,8 @@ msgstr "行末"
 msgid "Environment"
 msgstr "環境"
 
-#: tabby-core/src/services/config.service.ts:369
-#: tabby-core/src/services/config.service.ts:383
+#: tabby-core/src/services/config.service.ts:368
+#: tabby-core/src/services/config.service.ts:382
 msgid "Erase config"
 msgstr "設定を消去"
 
@@ -724,39 +726,55 @@ msgstr "フィルター"
 msgid "Fixed"
 msgstr "固定"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:198
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:205
 msgid "Fluent background sometimes causes drag lag"
 msgstr "Fluentはドラッグ中に遅延を発生させる場合があります"
 
 #: tabby-local/src/tabContextMenu.ts:136
 msgid "Focus all panes"
-msgstr "すべてのペインをフォーカス"
+msgstr "すべてのペインにフォーカス"
 
 #: tabby-terminal/src/hotkeys.ts:74
 msgid "Focus all panes at once (broadcast)"
-msgstr "すべてのペインを一度にフォーカス (ブロードキャスト)"
+msgstr "一度にすべてのペインをフォーカス (ブロードキャスト)"
 
-#: tabby-core/src/hotkeys.ts:189
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:189
+msgid "Focus follows mouse"
+msgstr "マウスに合わせてフォーカス"
+
+#: tabby-core/src/hotkeys.ts:193
 msgid "Focus next pane"
 msgstr "次のペインにフォーカス"
 
-#: tabby-core/src/hotkeys.ts:185
+#: tabby-core/src/hotkeys.ts:197
+#: tabby-core/src/hotkeys.ts:201
+#: tabby-core/src/hotkeys.ts:205
+#: tabby-core/src/hotkeys.ts:209
+#: tabby-core/src/hotkeys.ts:213
+#: tabby-core/src/hotkeys.ts:217
+#: tabby-core/src/hotkeys.ts:221
+#: tabby-core/src/hotkeys.ts:225
+#: tabby-core/src/hotkeys.ts:229
+msgid "Focus pane {number}"
+msgstr "ペイン {number} にフォーカス"
+
+#: tabby-core/src/hotkeys.ts:189
 msgid "Focus previous pane"
 msgstr "前のペインにフォーカス"
 
-#: tabby-core/src/hotkeys.ts:169
+#: tabby-core/src/hotkeys.ts:173
 msgid "Focus the pane above"
 msgstr "上のペインにフォーカス"
 
-#: tabby-core/src/hotkeys.ts:173
+#: tabby-core/src/hotkeys.ts:177
 msgid "Focus the pane below"
 msgstr "下のペインにフォーカス"
 
-#: tabby-core/src/hotkeys.ts:177
+#: tabby-core/src/hotkeys.ts:181
 msgid "Focus the pane on the left"
 msgstr "左側のペインにフォーカス"
 
-#: tabby-core/src/hotkeys.ts:181
+#: tabby-core/src/hotkeys.ts:185
 msgid "Focus the pane on the right"
 msgstr "右側のペインにフォーカス"
 
@@ -846,7 +864,7 @@ msgstr "緑色"
 msgid "Group"
 msgstr "グループ"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:187
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:194
 msgid "Hacks"
 msgstr "調整"
 
@@ -855,8 +873,8 @@ msgid "Help track the number of Tabby installs across the world!"
 msgstr "世界中でのTabbyのインストール数の調査にご協力ください！"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:50
-msgid "Help translate Tabby<i class=\"fas fa-external-link-square-alt ml-1\"></i>"
-msgstr "Tabby<i class=\"fas fa-external-link-square-alt ml-1\"></i>の翻訳に協力する"
+msgid "Help translate Tabby"
+msgstr "Tabbyの翻訳に参加する"
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:32
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:44
@@ -929,17 +947,17 @@ msgstr "無効にした場合、プロファイルセレクターにカスタム
 msgid "Immediately echoes your input locally"
 msgstr "送信した入力をローカル上で直ちに表示します"
 
-#: tabby-core/src/hotkeys.ts:209
+#: tabby-core/src/hotkeys.ts:249
 msgid "Increase horizontal split size"
 msgstr "水平方向の分割サイズを拡大"
 
-#: tabby-core/src/hotkeys.ts:201
+#: tabby-core/src/hotkeys.ts:241
 msgid "Increase vertical split size"
 msgstr "垂直方向の分割サイズを拡大"
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:18
 msgid "Input is sent as you type"
-msgstr "入力データは入力中に送信されます"
+msgstr "入力する度に入力が送信されます"
 
 #: locale/tmp-html/tabby-terminal/src/components/streamProcessingSettings.component.html:4
 msgid "Input mode"
@@ -953,7 +971,7 @@ msgstr "入力の改行"
 msgid "Installed"
 msgstr "インストール済み"
 
-#: tabby-electron/src/services/updater.service.ts:140
+#: tabby-electron/src/services/updater.service.ts:137
 msgid "Installing the update will close all tabs and restart Tabby."
 msgstr "アップデートをインストールすると、すべてのタブが閉じられ、Tabbyを再起動します。"
 
@@ -982,8 +1000,8 @@ msgstr "次の単語にジャンプ"
 msgid "Jump to previous word"
 msgstr "前の単語にジャンプ"
 
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:131
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:196
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:139
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:204
 #: tabby-settings/src/components/vaultSettingsTab.component.ts:50
 #: tabby-terminal/src/components/colorSchemeSettingsTab.component.ts:90
 #: tabby-terminal/src/components/loginScriptsSettings.component.ts:33
@@ -1007,7 +1025,7 @@ msgstr "キー"
 msgid "Key exchange"
 msgstr "鍵交換"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:29
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:36
 msgid "Keyboard"
 msgstr "キーボード"
 
@@ -1047,7 +1065,7 @@ msgstr "Tabbyにリモート側の作業ディレクトリを検出させる方�
 msgid "Left"
 msgstr "左側"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:33
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:40
 msgid "Lets the shell handle Meta key instead of OS"
 msgstr "OSの代わりにシェルにメタキーを処理させます"
 
@@ -1090,7 +1108,7 @@ msgstr "ローカル端末"
 msgid "Login scripts"
 msgstr "ログインスクリプト"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:50
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:57
 msgid "Long-click for context menu"
 msgstr "長押しするとコンテキストメニューが表示されます"
 
@@ -1102,7 +1120,7 @@ msgstr "プロファイルの管理"
 msgid "Max Keep Alive Count"
 msgstr "最大Keep-Alive"
 
-#: tabby-core/src/hotkeys.ts:165
+#: tabby-core/src/hotkeys.ts:169
 msgid "Maximize the active pane"
 msgstr "有効なペインを最大化"
 
@@ -1110,7 +1128,7 @@ msgstr "有効なペインを最大化"
 msgid "Modified on {date}"
 msgstr "更新日 {date}"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:46
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:53
 msgid "Mouse"
 msgstr "マウス"
 
@@ -1122,9 +1140,13 @@ msgstr "タブを左に移動"
 msgid "Move tab to the right"
 msgstr "タブを右に移動"
 
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:207
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:215
 msgid "Move to \"Ungrouped\""
 msgstr "\"未分類\" に移動"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:190
+msgid "Moving the mouse over an inactive pane will cause it to activate"
+msgstr "アクティブでないペインの上にマウスを移動すると、アクティブになります"
 
 #: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:12
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:14
@@ -1155,7 +1177,7 @@ msgstr "{platform} の新しい設定"
 msgid "New item"
 msgstr "新しい項目"
 
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:177
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:185
 #: tabby-settings/src/components/vaultSettingsTab.component.ts:118
 msgid "New name"
 msgstr "新しい名前"
@@ -1172,7 +1194,7 @@ msgstr "新しいプロファイル名"
 msgid "New tab"
 msgstr "新しいタブ"
 
-#: tabby-core/src/hotkeys.ts:228
+#: tabby-core/src/hotkeys.ts:268
 msgid "New tab: {profile}"
 msgstr "新しいタブ: {profile}"
 
@@ -1201,7 +1223,7 @@ msgstr "次のタブ"
 msgid "No color"
 msgstr "色指定なし"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:83
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:90
 msgid "No modifier"
 msgstr "変更しない"
 
@@ -1236,12 +1258,12 @@ msgid "Number of lines kept in the buffer"
 msgstr "バッファに保持される行数"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:70
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:128
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:54
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:135
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:61
 msgid "Off"
 msgstr "オフ"
 
-#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:79
+#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:85
 msgid "Official"
 msgstr "公式"
 
@@ -1355,8 +1377,8 @@ msgstr "ハッシュ値 {hash}... の秘密鍵のパスフレーズ"
 msgid "Password"
 msgstr "パスワード"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:60
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:457
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:67
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:468
 #: tabby-terminal/src/tabContextMenu.ts:34
 msgid "Paste"
 msgstr "貼り付け"
@@ -1365,11 +1387,11 @@ msgstr "貼り付け"
 msgid "Paste from clipboard"
 msgstr "クリップボードから貼り付け"
 
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:464
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:475
 msgid "Paste multiple lines?"
 msgstr "複数行の貼り付けを行いますか？"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:66
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:73
 msgid "Paste on middle-click"
 msgstr "中クリックで貼り付け"
 
@@ -1417,7 +1439,7 @@ msgstr "キーを押してください"
 msgid "Prevents accidental closing"
 msgstr "偶発的な終了を防止"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:108
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:115
 msgid "Prevents accidental execution of pasted commands"
 msgstr "貼り付けたコマンドの偶発的な実行を防止することができます"
 
@@ -1469,8 +1491,8 @@ msgstr "Tabbyの設定をすべてVaultに保存します"
 msgid "Quick connect"
 msgstr "クイック接続"
 
-#: tabby-core/src/services/config.service.ts:370
-#: tabby-core/src/services/config.service.ts:384
+#: tabby-core/src/services/config.service.ts:369
+#: tabby-core/src/services/config.service.ts:383
 msgid "Quit"
 msgstr "終了"
 
@@ -1542,7 +1564,7 @@ msgstr "置換"
 msgid "Report a problem"
 msgstr "問題を報告"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:79
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:86
 msgid "Require a key to click links"
 msgstr "特定のキーを使用してリンクを開く"
 
@@ -1562,11 +1584,15 @@ msgstr "現在のSSHセッションを再起動"
 msgid "Restart current Telnet session"
 msgstr "現在のTelnetセッションを再起動"
 
+#: tabby-core/src/hotkeys.ts:61
+msgid "Restart tab"
+msgstr ""
+
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:134
 msgid "Restart the app to apply changes"
 msgstr "変更を反映するには再起動が必要です"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:153
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:160
 msgid "Restore terminal tabs on app start"
 msgstr "アプリケーション起動時に端末タブを復元する"
 
@@ -1580,7 +1606,7 @@ msgstr "複数のタブでセッションを再利用する"
 msgid "Right"
 msgstr "右側"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:49
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:56
 msgid "Right click"
 msgstr "右クリック"
 
@@ -1590,7 +1616,7 @@ msgstr "管理者として実行"
 
 #: locale/tmp-html/tabby-core/src/components/renameTabModal.component.html:6
 #: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:54
-#: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:28
+#: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:30
 msgid "Save"
 msgstr "保存"
 
@@ -1618,19 +1644,31 @@ msgstr "保存しました"
 msgid "Saved layout"
 msgstr "保存されたレイアウト"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:39
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:46
 msgid "Scroll on input"
 msgstr "入力時にスクロール"
 
-#: tabby-terminal/src/hotkeys.ts:78
+#: tabby-terminal/src/hotkeys.ts:86
+msgid "Scroll terminal one page down"
+msgstr ""
+
+#: tabby-terminal/src/hotkeys.ts:82
+msgid "Scroll terminal one page up"
+msgstr ""
+
+#: tabby-terminal/src/hotkeys.ts:90
 msgid "Scroll terminal to bottom"
 msgstr "端末を最下部までスクロール"
+
+#: tabby-terminal/src/hotkeys.ts:78
+msgid "Scroll terminal to top"
+msgstr ""
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:16
 msgid "Scrollback"
 msgstr "バックスクロール"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:40
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:47
 msgid "Scrolls the terminal to the bottom on user input"
 msgstr "ユーザー入力時に端末を下にスクロール"
 
@@ -1655,7 +1693,7 @@ msgid "Secret sync token"
 msgstr "シークレット同期トークン"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:45
-#: tabby-electron/src/services/platform.service.ts:209
+#: tabby-electron/src/services/platform.service.ts:195
 msgid "Select"
 msgstr "選択"
 
@@ -1710,7 +1748,7 @@ msgstr "パスフレーズを設定"
 msgid "Set password"
 msgstr "パスワードを設定"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:162
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:169
 msgid "Set Tabby as %COMSPEC%"
 msgstr "Tabbyを %COMSPEC% に設定"
 
@@ -1731,7 +1769,7 @@ msgstr "設定"
 msgid "Shell"
 msgstr "シェル"
 
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:551
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:562
 msgid "Shell does not support current path detection"
 msgstr "シェルは現在のパス検出に対応していません"
 
@@ -1739,11 +1777,11 @@ msgstr "シェルは現在のパス検出に対応していません"
 msgid "Shell integration"
 msgstr "シェル統合"
 
-#: tabby-core/src/hotkeys.ts:232
+#: tabby-core/src/hotkeys.ts:272
 msgid "Show {type} profile selector"
 msgstr "{type} プロファイルセレクターを表示"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:115
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:122
 msgid "Show a confirmation box when pasting multiple lines"
 msgstr "複数の行を貼り付けるときに確認ボックスを表示する"
 
@@ -1759,7 +1797,7 @@ msgstr "設定ファイルを表示"
 msgid "Show defaults"
 msgstr "既定を表示"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:140
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:147
 msgid "Show Mixer"
 msgstr "ミキサーを表示"
 
@@ -1791,6 +1829,10 @@ msgstr "シリアル接続を表示"
 msgid "Show vault contents"
 msgstr "Vaultのデータを表示"
 
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:29
+msgid "Sixel graphics support (experimental)"
+msgstr "Sixel Graphicsのサポート (実験的)"
+
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:140
 msgid "Skip MoTD/banner"
 msgstr "MoTD/バナーをスキップ"
@@ -1818,7 +1860,7 @@ msgstr "SOCKSプロキシホスト"
 msgid "SOCKS proxy port"
 msgstr "SOCKSプロキシポート"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:121
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:128
 msgid "Sound"
 msgstr "サウンド"
 
@@ -1830,19 +1872,19 @@ msgstr "ソースコード"
 msgid "Split"
 msgstr "分割"
 
-#: tabby-core/src/hotkeys.ts:153
+#: tabby-core/src/hotkeys.ts:157
 msgid "Split to the bottom"
 msgstr "下部に分割"
 
-#: tabby-core/src/hotkeys.ts:157
+#: tabby-core/src/hotkeys.ts:161
 msgid "Split to the left"
 msgstr "左側に分割"
 
-#: tabby-core/src/hotkeys.ts:149
+#: tabby-core/src/hotkeys.ts:153
 msgid "Split to the right"
 msgstr "右側に分割"
 
-#: tabby-core/src/hotkeys.ts:161
+#: tabby-core/src/hotkeys.ts:165
 msgid "Split to the top"
 msgstr "上部に分割"
 
@@ -1862,7 +1904,7 @@ msgstr "{user}@{host}:{port} のSSHパスワード"
 msgid "Standard"
 msgstr "標準"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:144
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:151
 msgid "Startup"
 msgstr "起動時"
 
@@ -1882,11 +1924,11 @@ msgstr "最新情報を受け取る"
 msgid "Substitutions allowed."
 msgstr "置換することができます。"
 
-#: tabby-core/src/tabContextMenu.ts:279
+#: tabby-core/src/tabContextMenu.ts:281
 msgid "Switch profile"
 msgstr "プロファイルを切り替える"
 
-#: tabby-core/src/hotkeys.ts:193
+#: tabby-core/src/hotkeys.ts:233
 msgid "Switch profile in the active pane"
 msgstr "アクティブなペインでプロファイルを切り替える"
 
@@ -1930,7 +1972,7 @@ msgstr "ウィンドウ設定の同期"
 #: tabby-core/src/hotkeys.ts:137
 #: tabby-core/src/hotkeys.ts:141
 #: tabby-core/src/hotkeys.ts:145
-#: tabby-core/src/hotkeys.ts:69
+#: tabby-core/src/hotkeys.ts:149
 #: tabby-core/src/hotkeys.ts:73
 #: tabby-core/src/hotkeys.ts:77
 #: tabby-core/src/hotkeys.ts:81
@@ -1941,7 +1983,7 @@ msgstr "ウィンドウ設定の同期"
 msgid "Tab {number}"
 msgstr "タブ {number}"
 
-#: tabby-core/src/tabContextMenu.ts:212
+#: tabby-core/src/tabContextMenu.ts:214
 msgid "Tab activity"
 msgstr "タブのアクティビティ"
 
@@ -1969,7 +2011,7 @@ msgstr "タブの幅"
 msgid "Telnet session"
 msgstr "Telnetセッション"
 
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:190
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:192
 #: tabby-terminal/src/settings.ts:43
 msgid "Terminal"
 msgstr "端末"
@@ -1978,7 +2020,7 @@ msgstr "端末"
 msgid "Terminal background"
 msgstr "端末の背景"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:124
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:131
 msgid "Terminal bell"
 msgstr "端末ベル"
 
@@ -2006,7 +2048,7 @@ msgstr "特定の種類のすべてのプロファイルに反映されます。
 msgid "Thin"
 msgstr "スリム"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:191
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:198
 msgid "Tick this if you're experiencing aliasing, ghosting or other visual issues"
 msgstr "画像のギザギザやずれて見えるなどの表示の乱れが軽減される場合があります"
 
@@ -2031,7 +2073,7 @@ msgstr "Tabbyウィンドウの表示を切り替え"
 msgid "Top"
 msgstr "上部"
 
-#: tabby-core/src/services/config.service.ts:368
+#: tabby-core/src/services/config.service.ts:367
 msgid "Try again"
 msgstr "再試行"
 
@@ -2039,7 +2081,7 @@ msgstr "再試行"
 msgid "Trying saved password"
 msgstr "保存されたパスワードを試みています"
 
-#: tabby-core/src/hotkeys.ts:61
+#: tabby-core/src/hotkeys.ts:65
 msgid "Turn current tab's panes into separate tabs"
 msgstr "現在のタブペインを分割"
 
@@ -2047,11 +2089,11 @@ msgstr "現在のタブペインを分割"
 msgid "Ungrouped"
 msgstr "未分類"
 
-#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:57
+#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:63
 msgid "Uninstall"
 msgstr "アンインストール"
 
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:241
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:249
 msgid "Unknown"
 msgstr "不明"
 
@@ -2068,11 +2110,11 @@ msgid "Up"
 msgstr "上へ"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:14
-#: tabby-electron/src/services/updater.service.ts:142
+#: tabby-electron/src/services/updater.service.ts:139
 msgid "Update"
 msgstr "アップデート"
 
-#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:50
+#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:56
 msgid "Upgrade to {version}"
 msgstr "{version} にアップグレード"
 
@@ -2085,7 +2127,7 @@ msgstr "アップロード"
 msgid "Upload as a new config"
 msgstr "新しい設定としてアップロード"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:32
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:39
 msgid "Use {altKeyName} as the Meta key"
 msgstr "メタキーとして {altKeyName} を使用する"
 
@@ -2139,7 +2181,7 @@ msgstr "機密性の高い情報を保存するには、Vaultのマスターパ�
 msgid "Verify host keys when connecting"
 msgstr "接続時にホストキーを確認"
 
-#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:73
+#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:79
 msgid "Version"
 msgstr "バージョン"
 
@@ -2151,11 +2193,11 @@ msgstr "バージョン: {version}"
 msgid "Vibrancy"
 msgstr "磨りガラス"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:131
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:138
 msgid "Visual"
 msgstr "ビジュアル表示"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:114
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:121
 msgid "Warn on multi-line paste"
 msgstr "複数行貼り付け時に警告"
 
@@ -2179,7 +2221,7 @@ msgstr "ようこそ"
 msgid "What's new"
 msgstr "最新情報"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:80
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:87
 msgid "When enabled, links are only clickable while holding this key"
 msgstr "有効な場合、指定されたキーを押しながらクリックしたときだけ、リンクを開けるようにします。"
 
@@ -2208,7 +2250,7 @@ msgstr "画面の端から垂直方向の幅"
 msgid "Window frame"
 msgstr "ウィンドウのフレーム"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:159
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:166
 msgid "Windows"
 msgstr "ウィンドウ"
 
@@ -2220,7 +2262,7 @@ msgstr "ConPTYにはWindows 10ビルド18309以上を推奨します"
 msgid "WinSCP path"
 msgstr "WinSCPのパス"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:72
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:79
 msgid "Word separators"
 msgstr "区切り文字"
 
@@ -2233,7 +2275,7 @@ msgstr "作業ディレクトリ"
 msgid "Working directory detection"
 msgstr "作業ディレクトリの検出"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:139
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:146
 msgid "WSL terminal bell can only be muted via Volume Mixer"
 msgstr "WSLによる端末ベルは音量ミキサーでのみミュートすることができます"
 

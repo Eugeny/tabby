@@ -109,7 +109,7 @@ export class ElectronPlatformService extends PlatformService {
     }
 
     async saveConfig (content: string): Promise<void> {
-        this.hostApp.saveConfig(content)
+        await this.hostApp.saveConfig(content)
     }
 
     getConfigPath (): string|null {
@@ -138,7 +138,7 @@ export class ElectronPlatformService extends PlatformService {
 
     async listFonts (): Promise<string[]> {
         if (this.hostApp.platform === Platform.Windows || this.hostApp.platform === Platform.macOS) {
-            let fonts = await new Promise<any[]>((resolve) => fontManager.findFonts({}, resolve))
+            let fonts = await new Promise<any[]>(resolve => fontManager.getAvailableFonts(resolve))
             fonts = fonts.map(x => x.family.trim())
             return fonts
         }

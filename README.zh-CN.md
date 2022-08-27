@@ -21,7 +21,7 @@
 
 <br/>
 <p align="center">
-本 README 还适用于以下语言: <a  href="./README.md">:gb: English</a> · <a  href="./README.ru-RU.md">:ru: Русский</a> · <a  href="./README.ko-KR.md">:kr: 한국어</a> · <a  href="./README.it-IT.md">:it: Italiano</a> · <a href="./README.de-DE.md">:de: Deutsch</a>
+本 README 还适用于以下语言: <a  href="./README.md">:gb: English</a> · <a  href="./README.ru-RU.md">:ru: Русский</a> · <a  href="./README.ko-KR.md">:kr: 한국어</a> · <a  href="./README.it-IT.md">:it: Italiano</a> · <a href="./README.de-DE.md">:de: Deutsch</a> · <a href="./README.ja-JP.md">:jp: 日本語</a> · <a href="./README.id-ID.md">:id: Bahasa Indonesia</a>
 </p>
 
 ----
@@ -253,6 +253,30 @@
     <td align="center"><a href="https://github.com/hisamafahri"><img src="https://avatars.githubusercontent.com/u/65691613?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Hisam Fahri</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=hisamafahri" title="Code">💻</a></td>
     <td align="center"><a href="https://liangchengj.com"><img src="https://avatars.githubusercontent.com/u/48881023?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Liangcheng Juves</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=LiangchengJ" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/attet"><img src="https://avatars.githubusercontent.com/u/1911416?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Atte Timonen</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=attet" title="Code">💻</a></td>
+    <td align="center"><a href="https://www.linkedin.com/in/joaolmpinto/"><img src="https://avatars.githubusercontent.com/u/1143125?v=4?s=100" width="100px;" alt=""/><br /><sub><b>João Pinto</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=joaompinto" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://github.com/Qiming-Liu"><img src="https://avatars.githubusercontent.com/u/68600416?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Alan</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=Qiming-Liu" title="Code">💻</a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="https://74th.tech/"><img src="https://avatars.githubusercontent.com/u/1060011?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Atsushi Morimoto</b></sub></a><br /><a href="#financial-74th" title="Financial">💵</a></td>
+    <td align="center"><a href="https://arles.red/"><img src="https://avatars.githubusercontent.com/u/5369096?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Arles</b></sub></a><br /><a href="#financial-aarles" title="Financial">💵</a></td>
+    <td align="center"><a href="https://pentestbook.six2dez.com/"><img src="https://avatars.githubusercontent.com/u/24670991?v=4?s=100" width="100px;" alt=""/><br /><sub><b>six2dez</b></sub></a><br /><a href="#financial-six2dez" title="Financial">💵</a></td>
+    <td align="center"><a href="https://github.com/CandiceJoy"><img src="https://avatars.githubusercontent.com/u/8854890?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Candice</b></sub></a><br /><a href="#financial-CandiceJoy" title="Financial">💵</a></td>
+    <td align="center"><a href="https://github.com/kingrowen"><img src="https://avatars.githubusercontent.com/u/13178700?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Rowen Willabus</b></sub></a><br /><a href="#financial-kingrowen" title="Financial">💵</a></td>
+    <td align="center"><a href="https://hengy1.top/"><img src="https://avatars.githubusercontent.com/u/98681454?v=4?s=100" width="100px;" alt=""/><br /><sub><b>HengY1Coding✨</b></sub></a><br /><a href="#financial-HengY1Sky" title="Financial">💵</a></td>
+    <td align="center"><a href="https://github.com/FrancisHG"><img src="https://avatars.githubusercontent.com/u/1611626?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Francis Gelderloos</b></sub></a><br /><a href="#financial-FrancisHG" title="Financial">💵</a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="https://github.com/astromasoud"><img src="https://avatars.githubusercontent.com/u/18737721?v=4?s=100" width="100px;" alt=""/><br /><sub><b>astromasoud</b></sub></a><br /><a href="#financial-astromasoud" title="Financial">💵</a></td>
+    <td align="center"><a href="https://spirit55555.dk/"><img src="https://avatars.githubusercontent.com/u/2357565?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Anders G. Jørgensen</b></sub></a><br /><a href="#financial-Spirit55555" title="Financial">💵</a></td>
+    <td align="center"><a href="https://github.com/djradon"><img src="https://avatars.githubusercontent.com/u/5224156?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Dave Richardson</b></sub></a><br /><a href="#financial-djradon" title="Financial">💵</a></td>
+    <td align="center"><a href="https://twitter.com/tpberntsen"><img src="https://avatars.githubusercontent.com/u/922318?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Thomas Peter Berntsen</b></sub></a><br /><a href="#financial-tpberntsen" title="Financial">💵</a></td>
+    <td align="center"><a href="https://bandism.net/"><img src="https://avatars.githubusercontent.com/u/22633385?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Ikko Ashimine</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=eltociear" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://github.com/giejqf"><img src="https://avatars.githubusercontent.com/u/9211230?v=4?s=100" width="100px;" alt=""/><br /><sub><b>giejqf</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=giejqf" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/LacazeThomas"><img src="https://avatars.githubusercontent.com/u/19855907?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Thomas LACAZE</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=LacazeThomas" title="Code">💻</a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="https://pochen.me/"><img src="https://avatars.githubusercontent.com/u/1329716?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Po Chen</b></sub></a><br /><a href="#financial-princemaple" title="Financial">💵</a></td>
+    <td align="center"><a href="https://victorchandra.carrd.co/"><img src="https://avatars.githubusercontent.com/u/41635105?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Victor Chandra</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=mzmznasipadang" title="Documentation">📖</a></td>
   </tr>
 </table>
 

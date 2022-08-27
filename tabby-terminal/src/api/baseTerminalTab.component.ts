@@ -279,6 +279,15 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
                 case 'copy-current-path':
                     this.copyCurrentPath()
                     break
+                case 'scroll-to-top':
+                    this.frontend?.scrollToTop()
+                    break
+                case 'scroll-up':
+                    this.frontend?.scrollPages(-1)
+                    break
+                case 'scroll-down':
+                    this.frontend?.scrollPages(1)
+                    break
                 case 'scroll-to-bottom':
                     this.frontend?.scrollToBottom()
                     break
@@ -462,7 +471,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
                 const result = (await this.platform.showMessageBox(
                     {
                         type: 'warning',
-                        detail: data,
+                        detail: data.slice(0, 1000),
                         message: this.translate.instant('Paste multiple lines?'),
                         buttons,
                         defaultId: 0,
