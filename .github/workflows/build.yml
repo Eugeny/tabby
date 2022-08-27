@@ -182,6 +182,7 @@ jobs:
             curl -fsSL https://deb.nodesource.com/setup_16.x | bash - &&
             apt install make build-essential git ruby libarchive-tools nodejs rpm libsecret-1-dev libfontconfig1-dev -y &&
             git config --global --add safe.directory /github/workspace &&
+            gem install public_suffix -v 4.0.7 &&
             gem install fpm --no-document &&
             npm i -g yarn &&
             cd /github/workspace &&
@@ -203,6 +204,7 @@ jobs:
             curl -fsSL https://deb.nodesource.com/setup_16.x | bash - &&
             apt install make build-essential git ruby libarchive-tools nodejs rpm libsecret-1-dev libfontconfig1-dev -y &&
             git config --global --add safe.directory /github/workspace &&
+            gem install public_suffix -v 4.0.7 &&
             gem install fpm --no-document &&
             npm i -g yarn &&
             cd /github/workspace &&
