@@ -15,10 +15,10 @@ builder({
         extraMetadata: {
             version: vars.version,
         },
-        publish: process.env.GH_TOKEN ? {
+        publish: process.env.GH_TOKEN || process.env.GITHUB_TOKEN ? {
             provider: 'github',
             channel: `latest-${process.arch}`,
         } : undefined,
     },
-    publish: isTag ? 'always' : 'onTagOrDraft',
+     publish: ( process.env.GH_TOKEN || process.env.GITHUB_TOKEN ) ? ( isTag ? 'always' : 'onTagOrDraft' ) : 'never',
 }).catch(() => process.exit(1))
