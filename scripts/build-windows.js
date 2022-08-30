@@ -21,4 +21,7 @@ builder({
         } : undefined,
     },
      publish: ( process.env.GH_TOKEN || process.env.GITHUB_TOKEN ) ? ( isTag ? 'always' : 'onTagOrDraft' ) : 'never',
-}).catch(() => process.exit(1))
+}).catch(e => {
+    console.error(e)
+    process.exit(1)
+})
