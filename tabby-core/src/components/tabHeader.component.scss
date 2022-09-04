@@ -59,41 +59,49 @@ $tabs-height: 38px;
         margin-left: 10px;
     }
 
-    button {
-        display: block;
-        flex: none;
-        background: transparent;
-        opacity: 0;
-        -webkit-app-region: no-drag;
-
+    .buttons {
+        display: flex;
         position: absolute;
-        right: 0;
+        align-items: center;
+        height: 100%;
+        top: 2px;
+        right: 3px;
+        opacity: 0;
 
-        $button-size: 26px;
-        width: $button-size;
-        height: $button-size;
-        border-radius: $button-size / 6;
-        line-height: $button-size;
-        align-self: center;
+        button {
+            display: flex;
+            align-items: center;
+            flex: none;
+            justify-content: center;
 
-        text-align: center;
-        font-size: 20px;
+            background: transparent;
+            -webkit-app-region: no-drag;
 
-        &:focus {
-          outline: 0;
+            $button-size: 26px;
+            width: $button-size;
+            height: $button-size;
+            border-radius: $button-size / 6;
+            line-height: $button-size;
+            align-self: center;
+
+            text-align: center;
+            font-size: 20px;
+
+            &:focus {
+              outline: 0;
+            }
         }
     }
 
     &:hover .name:not(.no-hover) {
-        -webkit-mask-image: linear-gradient(black 0 0), linear-gradient(to left, transparent 0%, black 100%);
-        -webkit-mask-size: calc(100% - 60px) auto, 60px auto;
+        -webkit-mask-image: linear-gradient(black 0 0), linear-gradient(to left, transparent 0%, transparent 50%, black 100%);
+        -webkit-mask-size: calc(100% - 80px) auto, 80px auto;
         -webkit-mask-repeat: no-repeat;
         -webkit-mask-position: left, right;
     }
 
-    &:hover button {
+    &:hover .buttons {
         transition: 0.25s opacity;
-        display: block;
         opacity: 1;
     }
 

@@ -13,13 +13,17 @@ profile-icon(
 
 .name(
     [title]='tab.customTitle || tab.title',
-    [class.no-hover]='config.store.terminal.hideCloseButton'
+    [class.no-hover]='config.store.terminal.hideCloseButton && config.store.terminal.hideTabOptionsButton'
     cdkDrag,
     cdkDragRootElement='tab-header',
     [cdkDragData]='tab',
     (cdkDragStarted)='onTabDragStart(tab)',
     (cdkDragEnded)='onTabDragEnd()',
 ) {{tab.customTitle || tab.title}}
-button(*ngIf='!config.store.terminal.hideCloseButton',(click)='app.closeTab(tab, true)') &times;
+
+.buttons
+    button(*ngIf='!config.store.terminal.hideTabOptionsButton',(click)='onContextMenu($event)') !{require('../icons/tab-options.svg')}
+
+    button(*ngIf='!config.store.terminal.hideCloseButton',(click)='app.closeTab(tab, true)') &times;
 
 ng-content

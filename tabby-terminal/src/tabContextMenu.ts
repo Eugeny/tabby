@@ -48,6 +48,14 @@ export class MiscContextMenu extends TabContextMenuItemProvider {
     constructor (private translate: TranslateService) { super() }
 
     async getItems (tab: BaseTabComponent): Promise<MenuItemOptions[]> {
+        if (tab instanceof BaseTerminalTabComponent && tab.enableToolbar && !tab.pinToolbar) {
+            return [{
+                label: this.translate.instant('Show toolbar'),
+                click: () => {
+                    tab.pinToolbar = true
+                },
+            }]
+        }
         if (tab instanceof BaseTerminalTabComponent && tab.session?.supportsWorkingDirectory()) {
             return [{
                 label: this.translate.instant('Copy current path'),

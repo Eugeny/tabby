@@ -297,6 +297,15 @@ h3.mt-4(translate) Tabs
 
 .form-line
     .header
+        .title(translate) Hide tab options button
+
+    toggle(
+        [(ngModel)]='config.store.terminal.hideTabOptionsButton',
+        (ngModelChange)='config.save();',
+    )
+
+.form-line
+    .header
         .title(translate) Hide tab close button
 
     toggle(

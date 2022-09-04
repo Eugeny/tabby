@@ -41,7 +41,7 @@ export class TabManagementContextMenu extends TabContextMenuItemProvider {
                 },
             },
         ]
-        if (tabHeader) {
+        if (!tab.parent) {
             items = [
                 ...items,
                 {
@@ -69,24 +69,22 @@ export class TabManagementContextMenu extends TabContextMenuItemProvider {
                     },
                 },
             ]
-        } else {
-            if (tab.parent instanceof SplitTabComponent) {
-                const directions: SplitDirection[] = ['r', 'b', 'l', 't']
-                items.push({
-                    label: this.translate.instant('Split'),
-                    submenu: directions.map(dir => ({
-                        label: {
-                            r: this.translate.instant('Right'),
-                            b: this.translate.instant('Down'),
-                            l: this.translate.instant('Left'),
-                            t: this.translate.instant('Up'),
-                        }[dir],
-                        click: () => {
-                            (tab.parent as SplitTabComponent).splitTab(tab, dir)
-                        },
-                    })) as MenuItemOptions[],
-                })
-            }
+        } else if (tab.parent instanceof SplitTabComponent) {
+            const directions: SplitDirection[] = ['r', 'b', 'l', 't']
+            items.push({
+                label: this.translate.instant('Split'),
+                submenu: directions.map(dir => ({
+                    label: {
+                        r: this.translate.instant('Right'),
+                        b: this.translate.instant('Down'),
+                        l: this.translate.instant('Left'),
+                        t: this.translate.instant('Up'),
+                    }[dir],
+                    click: () => {
+                        (tab.parent as SplitTabComponent).splitTab(tab, dir)
+                    },
+                })) as MenuItemOptions[],
+            })
         }
         return items
     }
@@ -273,9 +271,9 @@ export class ProfilesContextMenu extends TabContextMenuItemProvider {
         tab.destroy()
     }
 
-    async getItems (tab: BaseTabComponent, tabHeader?: TabHeaderComponent): Promise<MenuItemOptions[]> {
+    async getItems (tab: BaseTabComponent): Promise<MenuItemOptions[]> {
 
-        if (!tabHeader && tab.parent instanceof SplitTabComponent && tab.parent.getAllTabs().length > 1) {
+        if (tab.parent instanceof SplitTabComponent && tab.parent.getAllTabs().length > 1) {
             return [
                 {
                     label: this.translate.instant('Switch profile'),
