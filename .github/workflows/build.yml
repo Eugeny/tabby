@@ -129,7 +129,7 @@ jobs:
       matrix:
         build-arch: [ x64, arm64, armv7l ]
 
-    if: matrix.build-arch == "x64" || (github.repository == 'Eugeny/tabby' && startsWith(github.ref, 'refs/tags'))
+    if: ${{matrix.build-arch == "x64" || (github.repository == 'Eugeny/tabby' && startsWith(github.ref, 'refs/tags'))}}
 
     steps:
     - name: Checkout
@@ -177,6 +177,7 @@ jobs:
 
     - name: Install deps and Build (arm64)
       uses: docker://multiarch/ubuntu-core:arm64-bionic
+      if: github.repository == 'Eugeny/tabby' && startsWith(github.ref, 'refs/tags')
       with:
           args: >
             bash -c
@@ -199,6 +200,7 @@ jobs:
 
     - name: Install deps and Build (armv7l)
       uses: docker://multiarch/ubuntu-core:armhf-bionic
+      if: github.repository == 'Eugeny/tabby' && startsWith(github.ref, 'refs/tags')
       with:
           args: >
             bash -c
