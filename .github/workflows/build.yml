@@ -62,7 +62,7 @@ jobs:
       run: |
         rm -rf app/node_modules/cpu-features
         rm -rf app/node_modules/ssh2/crypto/build
-      if: ${{ matrix.arch == 'arm64' }}
+      if: matrix.arch == 'arm64'
 
     - name: Webpack
       run: yarn run build
@@ -129,8 +129,6 @@ jobs:
       matrix:
         build-arch: [ x64, arm64, armv7l ]
 
-    if: ${{matrix.build-arch == "x64" || (github.repository == 'Eugeny/tabby' && startsWith(github.ref, 'refs/tags'))}}
-
     steps:
     - name: Checkout
       uses: actions/checkout@v3
@@ -139,13 +137,13 @@ jobs:
 
     - name: Set up multiarch/qemu-user-static
       run: docker run --rm --privileged multiarch/qemu-user-static:register --reset
-      if: ${{matrix.build-arch != 'x64'}}
+      if: matrix.build-arch != 'x64'
 
     - name: Install Node (x64)
       uses: actions/setup-node@v3.2.0
       with:
         node-version: 16
-      if: ${{matrix.build-arch == 'x64'}}
+      if: matrix.build-arch == 'x64'
 
     - name: Install deps (x64)
       run: |
@@ -153,11 +151,11 @@ jobs:
         sudo apt-get install libarchive-tools zsh
         npm i -g yarn
         yarn --network-timeout 1000000
-      if: ${{matrix.build-arch == 'x64'}}
+      if: matrix.build-arch == 'x64'
 
     - name: Webpack (x64)
       run: yarn run build
-      if: ${{matrix.build-arch == 'x64'}}
+      if: matrix.build-arch == 'x64'
 
     - name: Prepackage plugins (x64)
       run: scripts/prepackage-plugins.js
@@ -173,11 +171,10 @@ jobs:
 
     - name: Build web resources
       run: zsh -c 'tar czf tabby-web.tar.gz (tabby-*|web)/dist'
-      if: ${{matrix.build-arch == 'x64'}}
+      if: matrix.build-arch == 'x64'
 
     - name: Install deps and Build (arm64)
       uses: docker://multiarch/ubuntu-core:arm64-bionic
-      if: github.repository == 'Eugeny/tabby' && startsWith(github.ref, 'refs/tags')
       with:
           args: >
             bash -c
@@ -196,11 +193,10 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         USE_HARD_LINKS: false
-      if: ${{matrix.build-arch == 'arm64'}}
+      if: matrix.build-arch == 'arm64' && github.repository == 'Eugeny/tabby' && startsWith(github.ref, 'refs/tags')
 
     - name: Install deps and Build (armv7l)
       uses: docker://multiarch/ubuntu-core:armhf-bionic
-      if: github.repository == 'Eugeny/tabby' && startsWith(github.ref, 'refs/tags')
       with:
           args: >
             bash -c
@@ -220,13 +216,13 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         USE_HARD_LINKS: false
-      if: ${{matrix.build-arch == 'armv7l'}}
+      if: matrix.build-arch == 'armv7l' && github.repository == 'Eugeny/tabby' && startsWith(github.ref, 'refs/tags')
 
     - name: Upload symbols
       run: |
         sudo npm install -g @sentry/cli --unsafe-perm
         ./scripts/sentry-upload.js
-      if: ${{matrix.build-arch == 'x64'}}
+      if: matrix.build-arch == 'x64'
       env:
         SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
         SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
@@ -270,7 +266,7 @@ jobs:
       with:
         name: Web tarball
         path: tabby-web.tar.gz
-      if: ${{matrix.build-arch == 'x64'}}
+      if: matrix.build-arch == 'x64'
 
 
   Windows-Build:
