@@ -1,6 +1,7 @@
 import { firstBy } from 'thenby'
 import { Component, Input, HostListener, ViewChildren, QueryList, ElementRef } from '@angular/core' // eslint-disable-line @typescript-eslint/no-unused-vars
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
+import FuzzySearch from 'fuzzy-search'
 import { SelectorOption } from '../api/selector'
 
 /** @hidden */
@@ -28,18 +29,21 @@ export class SelectorModalComponent<T> {
     }
 
     @HostListener('keydown', ['$event']) onKeyUp (event: KeyboardEvent): void {
-        if (event.key === 'ArrowUp') {
+        if (event.key === 'PageUp' || event.key === 'ArrowUp' && event.metaKey) {
+            this.selectedIndex -= 10
+            event.preventDefault()
+        } else if (event.key === 'PageDown' || event.key === 'ArrowDown' && event.metaKey) {
+            this.selectedIndex += 10
+            event.preventDefault()
+        } else if (event.key === 'ArrowUp') {
             this.selectedIndex--
             event.preventDefault()
-        }
-        if (event.key === 'ArrowDown') {
+        } else if (event.key === 'ArrowDown') {
             this.selectedIndex++
             event.preventDefault()
-        }
-        if (event.key === 'Enter') {
+        } else if (event.key === 'Enter') {
             this.selectOption(this.filteredOptions[this.selectedIndex])
-        }
-        if (event.key === 'Escape') {
+        } else if (event.key === 'Escape') {
             this.close()
         }
         if (event.key === 'Backspace' && this.canEditSelected()) {
@@ -64,9 +68,17 @@ export class SelectorModalComponent<T> {
             )
                 .filter(x => !x.freeInputPattern)
         } else {
-            const terms = f.split(' ')
             // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
-            this.filteredOptions = this.options.filter(x => x.freeInputPattern ?? this.filterMatches(x, terms))
+            this.filteredOptions = new FuzzySearch(
+                this.options,
+                ['name', 'group', 'description'],
+                { sort: true },
+              ).search(f)
+
+            const freeOption = this.options.find(x => x.freeInputPattern)
+            if (freeOption && !this.filteredOptions.includes(freeOption)) {
+                this.filteredOptions.push(freeOption)
+            }
         }
         this.selectedIndex = Math.max(0, this.selectedIndex)
         this.selectedIndex = Math.min(this.filteredOptions.length - 1, this.selectedIndex)
