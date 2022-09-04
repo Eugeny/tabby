@@ -73,7 +73,7 @@ export class SelectorModalComponent<T> {
                 this.options,
                 ['name', 'group', 'description'],
                 { sort: true },
-              ).search(f)
+            ).search(f)
 
             const freeOption = this.options.find(x => x.freeInputPattern)
             if (freeOption && !this.filteredOptions.includes(freeOption)) {
