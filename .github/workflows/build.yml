@@ -39,7 +39,7 @@ jobs:
           - arch: x86_64
           - arch: arm64
       fail-fast: false
-      
+
     steps:
     - name: Checkout
       uses: actions/checkout@v3
@@ -128,7 +128,9 @@ jobs:
     strategy:
       matrix:
         build-arch: [ x64, arm64, armv7l ]
-        
+
+    if: matrix.build-arch == "x64" || (github.repository == 'Eugeny/tabby' && startsWith(github.ref, 'refs/tags'))
+
     steps:
     - name: Checkout
       uses: actions/checkout@v3
@@ -152,7 +154,7 @@ jobs:
         npm i -g yarn
         yarn --network-timeout 1000000
       if: ${{matrix.build-arch == 'x64'}}
-       
+
     - name: Webpack (x64)
       run: yarn run build
       if: ${{matrix.build-arch == 'x64'}}
@@ -160,7 +162,7 @@ jobs:
     - name: Prepackage plugins (x64)
       run: scripts/prepackage-plugins.js
       if: ${{matrix.build-arch == 'x64'}}
-       
+
     - name: Build packages (x64)
       run: scripts/build-linux.js
       if: ${{matrix.build-arch == 'x64'}}
@@ -175,7 +177,7 @@ jobs:
 
     - name: Install deps and Build (arm64)
       uses: docker://multiarch/ubuntu-core:arm64-bionic
-      with: 
+      with:
           args: >
             bash -c
             "apt update && apt install curl lsb-release gnupg -y &&
@@ -197,7 +199,7 @@ jobs:
 
     - name: Install deps and Build (armv7l)
       uses: docker://multiarch/ubuntu-core:armhf-bionic
-      with: 
+      with:
           args: >
             bash -c
             "apt update && apt install curl lsb-release gnupg -y &&
