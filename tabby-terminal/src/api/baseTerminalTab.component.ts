@@ -456,13 +456,12 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
             data = data.replaceAll('\n', '\r')
         }
 
-        if (data.endsWith('\n')) {
+        if (data.indexOf('\n') === data.length - 1) {
+            // Ends with a newline and has no other line breaks
             data = data.substring(0, data.length - 1)
         }
 
         if (!this.alternateScreenActive) {
-            data = data.trim()
-
             if (data.includes('\r') && this.config.store.terminal.warnOnMultilinePaste) {
                 const buttons = [
                     this.translate.instant('Paste'),
@@ -481,6 +480,8 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
                 if (result === 1) {
                     return
                 }
+            } else {
+                data = data.trim()
             }
         }
 
