@@ -28,7 +28,7 @@ export class TabManagementContextMenu extends TabContextMenuItemProvider {
         super()
     }
 
-    async getItems (tab: BaseTabComponent, tabHeader?: TabHeaderComponent): Promise<MenuItemOptions[]> {
+    async getItems (tab: BaseTabComponent): Promise<MenuItemOptions[]> {
         let items: MenuItemOptions[] = [
             {
                 label: this.translate.instant('Close'),
