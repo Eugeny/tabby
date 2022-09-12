@@ -40,7 +40,7 @@
     "serialport": "10.4.0",
     "serialport-binding-webserialapi": "^1.0.3",
     "windows-native-registry": "^3.2.1",
-    "windows-process-tree": "^0.3.3"
+    "windows-process-tree": "^0.3.4"
   },
   "devDependencies": {
     "@types/mz": "2.7.4",
