@@ -1,5 +1,9 @@
 import * as shellQuote from 'shell-quote'
 import * as net from 'net'
+import * as fs from 'fs/promises'
+import * as tmp from 'tmp-promise'
+import * as sshpk from 'sshpk'
+import * as forge from 'node-forge'
 import socksv5 from '@luminati-io/socksv5'
 import { Duplex } from 'stream'
 import { Injectable } from '@angular/core'
@@ -45,9 +49,17 @@ export class SSHService {
             return
         }
         const args = [await this.getWinSCPURI(session.profile, undefined, session.authUsername ?? undefined)]
+
         if (session.activePrivateKey) {
-            args.push('/privatekey')
-            args.push(session.activePrivateKey)
+            const tmpFile = await tmp.file()
+            const privateKey = await sshpk.parsePrivateKey(session.activePrivateKey, 'auto')/* .toString('putty') */
+            const forgePrivateKey = forge.pki.decryptRsaPrivateKey(privateKey.toString('pem'))
+            const ppk = forge.ssh.privateKeyToPutty(forgePrivateKey)
+            await fs.writeFile(tmpFile.path, ppk)
+            args.push(`/privatekey=${tmpFile.path}`)
+            setTimeout(() => {
+                tmpFile.cleanup()
+            }, 5000)
         }
         this.platform.exec(path, args)
     }
