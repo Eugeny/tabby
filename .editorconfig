@@ -1,0 +1,39 @@
+root = true
+
+[*]
+end_of_line = LF
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+[*.sln]
+indent_style = tab
+# TODO Determine if there is a preferred tab width for this file type
+
+# Programming/Scripts
+[*.{js,ts}]
+indent_style = space
+indent_size = 4
+
+[*.cpp]
+indent_style = tab
+# TODO Determine if there is a preferred tab width for this file type
+
+# Markup
+[*.pug]
+indent_style = space
+indent_size = 4
+
+# Stylesheets
+[*.scss]
+indent_style = space
+indent_size = 4
+
+# Data Files
+[*.json]
+indent_style = space
+indent_size = 2
+
+[*.{yaml,yml}]
+indent_style = space
+indent_size = 2
