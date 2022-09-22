@@ -1,0 +1,44 @@
+!
+! Melange Dark
+! https://github.com/savq/melange
+!
+*.foreground:  #ece1d7
+*.background:  #2a2520
+*.cursorColor: #ece1d7
+!
+! Black
+*.color0:      #352f2a
+*.color8:      #4d453e
+!
+! Red
+*.color1       #b65c60
+*.color9       #f17c64
+!
+! Green
+*.color2       #78997a
+*.color10      #99d59d
+!
+! Yellow
+*.color3       #ebc06d
+*.color11      #ebc06d
+!
+! Blue
+*.color4       #9aacce
+*.color12      #9aacce
+!
+! Magenta
+*.color5       #b380b0
+*.color13      #ce9bcb
+!
+! Cyan
+*.color6       #86a3a3
+*.color14      #88b3b2
+!
+! White
+*.color7       #a38d78
+*.color15      #c1a78e
+!
+! Bold, Italic, Underline
+*.colorBD:     #fff4ea
+!*.colorIT:
+!*.colorUL:
