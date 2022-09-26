@@ -283,6 +283,7 @@ Dank geht an diese wunderbaren Menschen ([emoji key](https://allcontributors.org
   <tr>
     <td align="center"><a href="https://pochen.me/"><img src="https://avatars.githubusercontent.com/u/1329716?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Po Chen</b></sub></a><br /><a href="#financial-princemaple" title="Financial">💵</a></td>
     <td align="center"><a href="https://victorchandra.carrd.co/"><img src="https://avatars.githubusercontent.com/u/41635105?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Victor Chandra</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=mzmznasipadang" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://github.com/daniel347x"><img src="https://avatars.githubusercontent.com/u/309746?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Dan Nissenbaum</b></sub></a><br /><a href="#financial-daniel347x" title="Financial">💵</a></td>
   </tr>
 </table>
 
