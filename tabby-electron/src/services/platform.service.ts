@@ -80,8 +80,8 @@ export class ElectronPlatformService extends PlatformService {
         return null
     }
 
-    exec (app: string, argv: string[]): void {
-        execFile(app, argv)
+    async exec (app: string, argv: string[]): Promise<void> {
+        await execFile(app, argv)
     }
 
     isShellIntegrationSupported (): boolean {
