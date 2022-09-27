@@ -145,7 +145,7 @@ export abstract class PlatformService {
         throw new Error('Not implemented')
     }
 
-    exec (app: string, argv: string[]): void {
+    async exec (app: string, argv: string[]): Promise<void> {
         throw new Error('Not implemented')
     }
 
