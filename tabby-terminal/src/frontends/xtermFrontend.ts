@@ -10,6 +10,7 @@ import { WebglAddon } from 'xterm-addon-webgl'
 import { Unicode11Addon } from 'xterm-addon-unicode11'
 import { SerializeAddon } from 'xterm-addon-serialize'
 import { ImageAddon } from 'xterm-addon-image'
+import { CanvasAddon } from 'xterm-addon-canvas'
 import './xterm.css'
 import deepEqual from 'deep-equal'
 import { Attributes } from 'xterm/src/common/buffer/Constants'
@@ -60,9 +61,9 @@ class FlowControl {
 /** @hidden */
 export class XTermFrontend extends Frontend {
     enableResizing = true
+    xterm: Terminal
     protected xtermCore: any
     protected enableWebGL = false
-    private xterm: Terminal
     private element?: HTMLElement
     private configuredFontSize = 0
     private configuredLinePadding = 0
@@ -76,6 +77,7 @@ export class XTermFrontend extends Frontend {
     private serializeAddon = new SerializeAddon()
     private ligaturesAddon?: LigaturesAddon
     private webGLAddon?: WebglAddon
+    private canvasAddon?: CanvasAddon
     private opened = false
     private resizeObserver?: any
     private flowControl: FlowControl
@@ -94,6 +96,7 @@ export class XTermFrontend extends Frontend {
 
         this.xterm = new Terminal({
             allowTransparency: true,
+            allowProposedApi: true,
             overviewRulerWidth: 8,
             windowsMode: process.platform === 'win32',
         })
@@ -236,6 +239,14 @@ export class XTermFrontend extends Frontend {
             ).subscribe(() => {
                 this.webGLAddon?.clearTextureAtlas()
             })
+        } else {
+            this.canvasAddon = new CanvasAddon()
+            this.xterm.loadAddon(this.canvasAddon)
+            this.platformService.displayMetricsChanged$.pipe(
+                takeUntil(this.destroyed$),
+            ).subscribe(() => {
+                this.canvasAddon?.clearTextureAtlas()
+            })
         }
 
         this.ready.next()
@@ -275,6 +286,7 @@ export class XTermFrontend extends Frontend {
     destroy (): void {
         super.destroy()
         this.webGLAddon?.dispose()
+        this.canvasAddon?.dispose()
         this.xterm.dispose()
     }
 
@@ -356,7 +368,6 @@ export class XTermFrontend extends Frontend {
         })
 
         this.xterm.options.fontFamily = getCSSFontFamily(config)
-        this.xterm.options.bellStyle = config.terminal.bell
         this.xterm.options.cursorStyle = {
             beam: 'bar',
         }[config.terminal.cursor] || config.terminal.cursor
@@ -375,7 +386,7 @@ export class XTermFrontend extends Frontend {
 
         const theme: ITheme = {
             foreground: config.terminal.colorScheme.foreground,
-            selection: config.terminal.colorScheme.selection || '#88888888',
+            selectionBackground: config.terminal.colorScheme.selection || '#88888888',
             selectionForeground: config.terminal.colorScheme.selectionForeground || undefined,
             background: config.terminal.background === 'colorScheme' ? config.terminal.colorScheme.background : '#00000000',
             cursor: config.terminal.colorScheme.cursor,
@@ -472,14 +483,14 @@ export class XTermFrontend extends Frontend {
         if (!selection) {
             return ''
         }
-        if (selection.startRow === selection.endRow) {
-            html += this.getLineAsHTML(selection.startRow, selection.startColumn, selection.endColumn)
+        if (selection.start.y === selection.end.y) {
+            html += this.getLineAsHTML(selection.start.y, selection.start.x, selection.end.x)
         } else {
-            html += this.getLineAsHTML(selection.startRow, selection.startColumn, this.xterm.cols)
-            for (let y = selection.startRow + 1; y < selection.endRow; y++) {
+            html += this.getLineAsHTML(selection.start.y, selection.start.x, this.xterm.cols)
+            for (let y = selection.start.y + 1; y < selection.end.y; y++) {
                 html += this.getLineAsHTML(y, 0, this.xterm.cols)
             }
-            html += this.getLineAsHTML(selection.endRow, 0, selection.endColumn)
+            html += this.getLineAsHTML(selection.end.y, 0, selection.end.x)
         }
         html += '</div>'
         return html
