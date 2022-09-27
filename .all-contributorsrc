@@ -938,6 +938,15 @@
       "contributions": [
         "financial"
       ]
+    },
+    {
+      "login": "spenserblack",
+      "name": "Spenser Black",
+      "avatar_url": "https://avatars.githubusercontent.com/u/8546709?v=4",
+      "profile": "http://spenserblack.github.io",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
