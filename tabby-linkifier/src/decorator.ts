@@ -34,7 +34,6 @@ export class LinkHighlighterDecorator extends TerminalDecorator {
             const openLink = async uri => handler.handle(await getLink(uri), tab)
 
             const addon = new WebLinksAddon(
-                this.onClick.bind(this),
                 async (event, uri) => {
                     if (!this.willHandleEvent(event)) {
                         return
