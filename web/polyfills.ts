@@ -48,7 +48,7 @@ Tabby.registerMock('fs', {
     appendFile: () => null,
     constants: {},
 })
-Tabby.registerMock('any-promise', Promise)
+Tabby.registerMock('fs/promises', {})
 Tabby.registerMock('tls', {})
 Tabby.registerMock('module', {
     globalPaths: [],
@@ -92,6 +92,7 @@ Tabby.registerMock('keytar', {
 })
 Tabby.registerMock('@serialport/bindings', {})
 Tabby.registerMock('@serialport/bindings-cpp', {})
+Tabby.registerMock('tmp', {})
 
 Tabby.registerModule('net', {
     Socket: SocketProxy,

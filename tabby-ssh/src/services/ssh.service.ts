@@ -50,18 +50,17 @@ export class SSHService {
         }
         const args = [await this.getWinSCPURI(session.profile, undefined, session.authUsername ?? undefined)]
 
+        let tmpFile: tmp.FileResult|null = null
         if (session.activePrivateKey) {
-            const tmpFile = await tmp.file()
+            tmpFile = await tmp.file()
             const privateKey = await sshpk.parsePrivateKey(session.activePrivateKey, 'auto')/* .toString('putty') */
             const forgePrivateKey = forge.pki.decryptRsaPrivateKey(privateKey.toString('pem'))
             const ppk = forge.ssh.privateKeyToPutty(forgePrivateKey)
             await fs.writeFile(tmpFile.path, ppk)
             args.push(`/privatekey=${tmpFile.path}`)
-            setTimeout(() => {
-                tmpFile.cleanup()
-            }, 5000)
         }
-        this.platform.exec(path, args)
+        await this.platform.exec(path, args)
+        tmpFile?.cleanup()
     }
 }
 
