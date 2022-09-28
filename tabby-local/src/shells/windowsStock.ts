@@ -74,7 +74,7 @@ export class WindowsStockShellsProvider extends ShellProvider {
 
     private async getPowerShellPath () {
         for (const name of ['pwsh.exe', 'powershell.exe']) {
-            if (await promisify(hasbin)(name)) {
+            if (await new Promise(resolve => hasbin(name, resolve))) {
                 return name
             }
         }
