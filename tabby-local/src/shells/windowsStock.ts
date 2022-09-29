@@ -1,7 +1,6 @@
 import * as path from 'path'
 import * as fs from 'fs/promises'
 import hasbin from 'hasbin'
-import { promisify } from 'util'
 import { Injectable } from '@angular/core'
 import { HostAppService, Platform } from 'tabby-core'
 import { ElectronService } from 'tabby-electron'
