@@ -15,12 +15,9 @@ builder({
         extraMetadata: {
             version: vars.version,
         },
-        publish: process.env.GH_TOKEN || process.env.GITHUB_TOKEN ? {
-            provider: 'github',
-            channel: `latest-${process.arch}`,
-        } : undefined,
+        publish: process.env.KEYGEN_TOKEN ? vars.keygenConfig : undefined,
     },
-     publish: ( process.env.GH_TOKEN || process.env.GITHUB_TOKEN ) ? ( isTag ? 'always' : 'onTagOrDraft' ) : 'never',
+    publish: process.env.KEYGEN_TOKEN ? isTag ? 'always' : 'onTagOrDraft' : 'never',
 }).catch(e => {
     console.error(e)
     process.exit(1)

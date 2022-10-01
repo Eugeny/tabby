@@ -34,8 +34,6 @@ extraResources:
 - extras
 asarUnpack:
 - 'dist/*.map'
-publish:
-- provider: github
 
 win:
   icon: "./build/windows/icon.ico"

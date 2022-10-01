@@ -55,12 +55,6 @@ export class ElectronUpdaterService extends UpdaterService {
             if (config.store.enableAutomaticUpdates && this.electronUpdaterAvailable && !process.env.TABBY_DEV) {
                 this.logger.debug('Checking for updates')
                 try {
-                    this.autoUpdater.setFeedURL({
-                        provider: 'github',
-                        repo: 'tabby',
-                        owner: 'eugeny',
-                        channel: `latest-${process.arch}`,
-                    })
                     this.autoUpdater.checkForUpdates()
                 } catch (e) {
                     this.electronUpdaterAvailable = false

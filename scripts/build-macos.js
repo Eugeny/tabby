@@ -25,12 +25,15 @@ builder({
             identity: !process.env.CI || process.env.CSC_LINK ? undefined : null,
         },
         npmRebuild: process.env.ARCH !== 'arm64',
-        publish: process.env.GH_TOKEN || process.env.GITHUB_TOKEN ? {
-            provider: 'github',
-            channel: `latest-${process.env.ARCH}`,
+        publish: process.env.KEYGEN_TOKEN ? {
+            product: {
+                arm64: '98fbadee-c707-4cd6-9d99-56683595a846',
+                x86_64: 'f5a48841-d5b8-4b7b-aaa7-cf5bffd36461',
+            }[process.env.ARCH],
+            ...vars.keygenConfig,
         } : undefined,
     },
-     publish: ( process.env.GH_TOKEN || process.env.GITHUB_TOKEN ) ? ( isTag ? 'always' : 'onTagOrDraft' ) : 'never',
+    publish: process.env.KEYGEN_TOKEN ? isTag ? 'always' : 'onTagOrDraft' : 'never',
 }).catch(e => {
     console.error(e)
     process.exit(1)
