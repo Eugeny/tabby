@@ -80,6 +80,7 @@ jobs:
       env:
         ARCH: ${{matrix.arch}}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        KEYGEN_TOKEN: ${{ secrets.KEYGEN_TOKEN }}
         CSC_LINK: ${{ secrets.CSC_LINK }}
         CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
         APPSTORE_USERNAME: ${{ secrets.APPSTORE_USERNAME }}
@@ -166,6 +167,7 @@ jobs:
       if: ${{matrix.build-arch == 'x64'}}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        KEYGEN_TOKEN: ${{ secrets.KEYGEN_TOKEN }}
         USE_HARD_LINKS: false
         # DEBUG: electron-builder,electron-builder:*
 
@@ -192,6 +194,7 @@ jobs:
             USE_SYSTEM_FPM=true scripts/build-linux.js"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        KEYGEN_TOKEN: ${{ secrets.KEYGEN_TOKEN }}
         USE_HARD_LINKS: false
       if: matrix.build-arch == 'arm64' && github.repository == 'Eugeny/tabby' && startsWith(github.ref, 'refs/tags')
 
@@ -215,6 +218,7 @@ jobs:
             USE_SYSTEM_FPM=true scripts/build-linux.js"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        KEYGEN_TOKEN: ${{ secrets.KEYGEN_TOKEN }}
         USE_HARD_LINKS: false
       if: matrix.build-arch == 'armv7l' && github.repository == 'Eugeny/tabby' && startsWith(github.ref, 'refs/tags')
 
@@ -311,6 +315,7 @@ jobs:
       env:
         ARCH: ${{matrix.arch}}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        KEYGEN_TOKEN: ${{ secrets.KEYGEN_TOKEN }}
         WIN_CSC_LINK: ${{ secrets.WIN_CSC_LINK }}
         WIN_CSC_KEY_PASSWORD: ${{ secrets.WIN_CSC_KEY_PASSWORD }}
         DEBUG: electron-builder,electron-builder:*
