@@ -25,13 +25,13 @@ builder({
             identity: !process.env.CI || process.env.CSC_LINK ? undefined : null,
         },
         npmRebuild: process.env.ARCH !== 'arm64',
-        publish: process.env.KEYGEN_TOKEN ? {
-            product: {
-                arm64: '98fbadee-c707-4cd6-9d99-56683595a846',
-                x86_64: 'f5a48841-d5b8-4b7b-aaa7-cf5bffd36461',
-            }[process.env.ARCH],
-            ...vars.keygenConfig,
-        } : undefined,
+        publish: process.env.KEYGEN_TOKEN ? [
+            vars.keygenConfig,
+            {
+                provider: 'github',
+                channel: `latest-${process.env.ARCH}`,
+            },
+        ] : undefined,
     },
     publish: process.env.KEYGEN_TOKEN ? isTag ? 'always' : 'onTagOrDraft' : 'never',
 }).catch(e => {
