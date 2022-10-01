@@ -78,7 +78,7 @@
     "thenby": "^1.3.4",
     "ts-loader": "^9.2.8",
     "tslib": "^2.3.1",
-    "typedoc": "^0.22.15",
+    "typedoc": "^0.22.18",
     "typescript": "^4.3.5",
     "utils-decorators": "^1.10.4",
     "val-loader": "4.0.0",
