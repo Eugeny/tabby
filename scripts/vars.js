@@ -65,6 +65,7 @@ exports.keygenConfig = {
             x64: '7bf45071-3031-4a26-9f2e-72604308313e',
             arm64: '39e3c736-d4d4-4fbf-a201-324b7bab0d17',
             armv7l: '50ae0a82-7f47-4fa4-b0a8-b0d575ce9409',
+            armhf: '7df5aa12-04ab-4075-a0fe-93b0bbea9643',
         }[process.env.ARCH ?? process.arch],
     }[process.platform],
 }
