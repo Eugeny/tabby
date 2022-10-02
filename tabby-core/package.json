@@ -28,7 +28,7 @@
     "ngx-perfect-scrollbar": "^10.1.0",
     "ngx-translate-messageformat-compiler": "^4.11.0",
     "readable-stream": "4.2.0",
-    "uuid": "^8.0.0"
+    "uuid": "^9.0.0"
   },
   "peerDependencies": {
     "@angular/animations": "^9.1.9",
