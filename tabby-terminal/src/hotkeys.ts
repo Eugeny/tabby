@@ -14,6 +14,10 @@ export class TerminalHotkeyProvider extends HotkeyProvider {
             name: this.translate.instant('Paste from clipboard'),
         },
         {
+            id: 'select-all',
+            name: this.translate.instant('Select all'),
+        },
+        {
             id: 'home',
             name: this.translate.instant('Beginning of the line'),
         },
