@@ -122,7 +122,7 @@ export class TerminalConfigProvider extends ConfigProvider {
         [Platform.Windows]: {
             terminal: {
                 font: 'Consolas',
-                rightClick: 'paste',
+                rightClick: 'clipboard',
                 pasteOnMiddleClick: false,
                 copyOnSelect: true,
             },

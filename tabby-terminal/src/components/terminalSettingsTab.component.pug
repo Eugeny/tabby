@@ -71,32 +71,15 @@ div.mt-4
         .header
             .title(translate) Right click
             .description(*ngIf='config.store.terminal.rightClick == "paste"', translate) Long-click for context menu
-        .btn-group(
+
+        select.form-control(
             [(ngModel)]='config.store.terminal.rightClick',
-            (ngModelChange)='config.save()',
-            ngbRadioGroup
+            (ngModelChange)='config.save()'
         )
-            label.btn.btn-secondary(ngbButtonLabel)
-                input(
-                    type='radio',
-                    ngbButton,
-                    value='off'
-                )
-                span(translate) Off
-            label.btn.btn-secondary(ngbButtonLabel)
-                input(
-                    type='radio',
-                    ngbButton,
-                    value='menu'
-                )
-                span(translate) Context menu
-            label.btn.btn-secondary(ngbButtonLabel)
-                input(
-                    type='radio',
-                    ngbButton,
-                    value='paste'
-                )
-                span(translate) Paste
+            option(ngValue='off', translate) Off
+            option(ngValue='menu', translate) Context menu
+            option(ngValue='paste', translate) Paste
+            option(ngValue='clipboard', translate) Paste if no selection, else copy
 
     .form-line
         .header

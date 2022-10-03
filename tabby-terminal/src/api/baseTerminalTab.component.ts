@@ -609,10 +609,20 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
     protected async handleRightMouseUp (event: MouseEvent): Promise<void> {
         event.preventDefault()
         event.stopPropagation()
-        if (this.config.store.terminal.rightClick === 'paste') {
+        if (this.config.store.terminal.rightClick === 'paste'
+            || this.config.store.terminal.rightClick === 'clipboard') {
             const duration = Date.now() - this.rightMouseDownTime
             if (duration < 250) {
-                this.paste()
+                if (this.config.store.terminal.rightClick === 'paste') {
+                    this.paste()
+                } else if (this.config.store.terminal.rightClick === 'clipboard') {
+                    if (this.frontend?.getSelection()) {
+                        this.frontend.copySelection()
+                        this.frontend.clearSelection()
+                    } else {
+                        this.paste()
+                    }
+                }
             } else {
                 this.platform.popupContextMenu(await this.buildContextMenu(), event)
             }
