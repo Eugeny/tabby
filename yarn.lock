@@ -1104,10 +1104,10 @@ JSONStream@~1.3.1:
     jsonparse "^1.2.0"
     through ">=2.2.7 <3"
 
-abab@^2.0.5:
-  version "2.0.5"
-  resolved "https://registry.yarnpkg.com/abab/-/abab-2.0.5.tgz#c0b678fb32d60fc1219c784d6a826fe385aeb79a"
-  integrity sha512-9IK9EadsbHo6jLWIpxpR6pL0sazTXV6+SQv25ZB+F7Bj9mJNaOc4nCRabwd5M/JwmUa8idz6Eci6eKfJryPs6Q==
+abab@^2.0.6:
+  version "2.0.6"
+  resolved "https://registry.yarnpkg.com/abab/-/abab-2.0.6.tgz#41b80f2c871d19686216b82309231cfd3cb3d291"
+  integrity sha512-j2afSsaIENvHZN2B8GOpF566vZ5WVk5opAiMTvWgaQT8DkbOqsTfvNAvHoRGU2zzP8cPoqys+xHTRDWW8L+/BA==
 
 abbrev@1:
   version "1.1.1"
@@ -2336,10 +2336,10 @@ compare-version@^0.1.2:
   resolved "https://registry.yarnpkg.com/compare-version/-/compare-version-0.1.2.tgz#0162ec2d9351f5ddd59a9202cba935366a725080"
   integrity sha512-pJDh5/4wrEnXX/VWRZvruAGHkzKdr46z11OlTPN+VrATlWWhSKewNCJ1futCO5C7eJB3nPMFZA1LeYtcFboZ2A==
 
-compare-versions@^4:
-  version "4.1.1"
-  resolved "https://registry.yarnpkg.com/compare-versions/-/compare-versions-4.1.1.tgz#d881fc9f47d6eb2b8f63109dc5e82dae39c3680c"
-  integrity sha512-jHQA7zMUpbO+FhPz/kADChZVSk3edtD7c3WkEAjleBtwgAl0ji6wGrYxryaBhViGgq0A+Pb6JPhjhg9jpth4mQ==
+compare-versions@^5:
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/compare-versions/-/compare-versions-5.0.1.tgz#14c6008436d994c3787aba38d4087fabe858555e"
+  integrity sha512-v8Au3l0b+Nwkp4G142JcgJFh1/TUhdxut7wzD1Nq1dyp5oa3tXaqb03EXOAB6jS4gMlalkjAUPZBMiAfKUixHQ==
 
 concat-map@0.0.1:
   version "0.0.1"
@@ -8099,24 +8099,19 @@ source-code-pro@^2.38.0:
   resolved "https://registry.yarnpkg.com/source-code-pro/-/source-code-pro-2.38.0.tgz#85c57689f7386bb9d0515fb00ba4845bfb7b485b"
   integrity sha512-JMXu7l3XrLREG17eEwY66ANG9716WTu6OeNvZfRKQKANEvbSERDZjk5AYTHeV6owQNPQTeiiW3ri2Ou93XFGvg==
 
-source-map-js@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/source-map-js/-/source-map-js-1.0.1.tgz#a1741c131e3c77d048252adfa24e23b908670caf"
-  integrity sha512-4+TN2b3tqOCd/kaGRJ/sTYA0tR0mdXx26ipdolxcwtJVqEnqNYvlCAt1q3ypy4QMlYus+Zh34RNtYLoq2oQ4IA==
-
 source-map-js@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/source-map-js/-/source-map-js-1.0.2.tgz#adbc361d9c62df380125e7f161f71c826f1e490c"
   integrity sha512-R0XvVJ9WusLiqTCEiGCmICCMplcCkIwwR11mOSD9CR5u+IXYdiseeEuXCVAjS54zqwkLcPNnmU4OeJ6tUrWhDw==
 
-source-map-loader@^3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/source-map-loader/-/source-map-loader-3.0.1.tgz#9ae5edc7c2d42570934be4c95d1ccc6352eba52d"
-  integrity sha512-Vp1UsfyPvgujKQzi4pyDiTOnE3E4H+yHvkVRN3c/9PJmQS4CQJExvcDvaX/D+RV+xQben9HJ56jMJS3CgUeWyA==
+source-map-loader@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/source-map-loader/-/source-map-loader-4.0.0.tgz#bdc6b118bc6c87ee4d8d851f2d4efcc5abdb2ef5"
+  integrity sha512-i3KVgM3+QPAHNbGavK+VBq03YoJl24m9JWNbLgsjTj8aJzXG9M61bantBTNBt7CNwY2FYf+RJRYJ3pzalKjIrw==
   dependencies:
-    abab "^2.0.5"
+    abab "^2.0.6"
     iconv-lite "^0.6.3"
-    source-map-js "^1.0.1"
+    source-map-js "^1.0.2"
 
 source-map-support@^0.5.19, source-map-support@~0.5.20:
   version "0.5.21"
