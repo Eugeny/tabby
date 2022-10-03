@@ -12,7 +12,7 @@
     "@biesbjerg/ngx-translate-extract-marker": "^1.0.0",
     "@fortawesome/fontawesome-free": "^6.1.1",
     "@ng-bootstrap/ng-bootstrap": "^10.0.0",
-    "@sentry/cli": "^1.74.3",
+    "@sentry/cli": "^2.6.0",
     "@sentry/electron": "^2.5.4",
     "@tabby-gang/to-string-loader": "^1.1.7-beta.2",
     "@types/deep-equal": "1.0.1",
