@@ -29,7 +29,7 @@
     "axios": "^0.27.2",
     "browserify-sign": "^4.2.1",
     "clone-deep": "^4.0.1",
-    "compare-versions": "^4",
+    "compare-versions": "^5",
     "core-js": "^3.21.1",
     "core-js-pure": "^3.21.1",
     "cross-env": "7.0.3",
