@@ -6016,10 +6016,10 @@ no-case@^3.0.4:
     lower-case "^2.0.2"
     tslib "^2.0.3"
 
-node-abi@^3.0.0, node-abi@^3.15.0, node-abi@^3.5.0:
-  version "3.15.0"
-  resolved "https://registry.yarnpkg.com/node-abi/-/node-abi-3.15.0.tgz#cd9ac8c58328129b49998cc6fa16aa5506152716"
-  integrity sha512-Ic6z/j6I9RLm4ov7npo1I48UQr2BEyFCqh6p7S1dhEx9jPO0GPGq/e2Rb7x7DroQrmiVMz/Bw1vJm9sPAl2nxA==
+node-abi@^3.0.0, node-abi@^3.25.0, node-abi@^3.5.0:
+  version "3.25.0"
+  resolved "https://registry.yarnpkg.com/node-abi/-/node-abi-3.25.0.tgz#ca57dd23ae67679ce152b6c45cae2c57ed04faff"
+  integrity sha512-p+0xx5ruIQ+8X57CRIMxbTZRT7tU0Tjn2C/aAK68AEMrbGsCo6IjnDdPNhEyyjWCT4bRtzomXchYd3sSgk3BJQ==
   dependencies:
     semver "^7.3.5"
 
