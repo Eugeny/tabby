@@ -620,6 +620,44 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
         this.layout()
     }
 
+    private getPaneRect (pane: BaseTabComponent): DOMRect {
+        const viewRef = this.viewRefs.get(pane)!
+        const element = viewRef.rootNodes[0] as HTMLElement
+        return element.getBoundingClientRect()
+    }
+
+    getNearestPaneInDirection (from: BaseTabComponent, direction: SplitDirection): BaseTabComponent {
+        const rect = this.getPaneRect(from)
+
+        let nearest: BaseTabComponent | null = null
+        let nearestDistance = Infinity
+
+        let panes = this.getAllTabs().map(pane => ({ pane, rect: this.getPaneRect(pane) }))
+
+        if (direction === 'l') {
+            panes = panes.filter(pane => pane.rect.right <= rect.left)
+        } else if (direction === 'r') {
+            panes = panes.filter(pane => pane.rect.left >= rect.right)
+        } else if (direction === 't') {
+            panes = panes.filter(pane => pane.rect.bottom <= rect.top)
+        } else {
+            panes = panes.filter(pane => pane.rect.top >= rect.bottom)
+        }
+
+        for (const pane of panes) {
+            if (pane.pane === from) {
+                continue
+            }
+            const distance = Math.abs(rect.left + rect.width / 2 - pane.rect.left - pane.rect.width / 2) + Math.abs(rect.top + rect.height / 2 - pane.rect.top - pane.rect.height / 2)
+            if (distance < nearestDistance) {
+                nearest = pane.pane
+                nearestDistance = distance
+            }
+        }
+
+        return nearest ?? from
+    }
+
     /**
      * Moves focus in the given direction
      */
@@ -628,36 +666,7 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
             return
         }
 
-        let rel: BaseTabComponent | SplitContainer = this.focusedTab
-        let parent = this.getParentOf(rel)
-        if (!parent) {
-            return
-        }
-
-        const orientation = ['l', 'r'].includes(dir) ? 'h' : 'v'
-
-        while (parent !== this.root && parent.orientation !== orientation) {
-            rel = parent
-            parent = this.getParentOf(rel)
-            if (!parent) {
-                return
-            }
-        }
-
-        if (parent.orientation !== orientation) {
-            return
-        }
-
-        const index = parent.children.indexOf(rel)
-        if (['l', 't'].includes(dir)) {
-            if (index > 0) {
-                this.focusAnyIn(parent.children[index - 1])
-            }
-        } else {
-            if (index < parent.children.length - 1) {
-                this.focusAnyIn(parent.children[index + 1])
-            }
-        }
+        this.focus(this.getNearestPaneInDirection(this.focusedTab, dir))
     }
 
     navigateLinear (delta: number): void {
