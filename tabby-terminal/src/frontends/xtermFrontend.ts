@@ -447,6 +447,7 @@ export class XTermFrontend extends Frontend {
 
     cancelSearch (): void {
         this.search.clearDecorations()
+        this.focus()
     }
 
     saveState (): any {
