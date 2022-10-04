@@ -69,6 +69,7 @@ export class TerminalConfigProvider extends ConfigProvider {
             scrollbackLines: 25000,
             drawBoldTextInBrightColors: true,
             sixel: true,
+            minimumContrastRatio: 4,
         },
     }
 

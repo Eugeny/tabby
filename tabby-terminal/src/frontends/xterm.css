@@ -17,18 +17,3 @@
     right: 1px;
     pointer-events: none;
 }
-
-.xterm-find-result-decoration {
-    box-sizing: content-box;
-
-    border-radius: 3px;
-    padding: 2px;
-    margin: -2px;
-    outline: 2px solid yellow;
-    backdrop-filter: contrast(2);
-}
-
-.xterm-find-active-result-decoration {
-    backdrop-filter: contrast(4);
-    outline-width: 2px !important;
-}

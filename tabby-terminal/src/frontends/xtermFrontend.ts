@@ -378,6 +378,7 @@ export class XTermFrontend extends Frontend {
         this.xterm.options.drawBoldTextInBrightColors = config.terminal.drawBoldTextInBrightColors
         this.xterm.options.fontWeight = config.terminal.fontWeight
         this.xterm.options.fontWeightBold = config.terminal.fontWeightBold
+        this.xterm.options.minimumContrastRatio = config.terminal.minimumContrastRatio
         this.configuredFontSize = config.terminal.fontSize
         this.configuredLinePadding = config.terminal.linePadding
         this.setFontSize()
@@ -417,11 +418,12 @@ export class XTermFrontend extends Frontend {
         return {
             ...searchOptions,
             decorations: {
-                matchOverviewRuler: '#cccc00',
+                matchOverviewRuler: '#888',
                 activeMatchColorOverviewRuler: '#ffff00',
-                matchBorder: '#cc0',
+                matchBorder: '#888',
+                matchBackground: '#888',
                 activeMatchBorder: '#ff0',
-                activeMatchBackground: 'rgba(255, 255, 0, 0.125)',
+                activeMatchBackground: '#ff0',
             },
         }
     }
