@@ -118,7 +118,7 @@ export class ConfigSyncSettingsTabComponent extends BaseComponent {
 
     openSyncHost () {
         if (this.config.store.configSync.host === 'https://api.tabby.sh') {
-            this.platform.openExternal('https://tabby.sh/app')
+            this.platform.openExternal('https://app.tabby.sh')
         } else {
             this.platform.openExternal(this.config.store.configSync.host)
         }
