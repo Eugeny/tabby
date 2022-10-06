@@ -935,10 +935,6 @@ msgstr ""
 msgid "Icon"
 msgstr ""
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:154
-msgid "id.tab-width.dynamic"
-msgstr ""
-
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:64
 msgid "If disabled, only custom profiles will show up in the profile selector"
 msgstr ""
@@ -2311,5 +2307,7 @@ msgstr ""
 #: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:55
 msgctxt "[Dynamic] port forwarding"
 msgid "id.port-forwarding.dynamic"
-msgstr ""
+msgstr "Dynamic"
 
+msgid "id.tab-width.dynamic"
+msgstr "Dynamic"
