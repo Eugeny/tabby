@@ -947,6 +947,24 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "zuedev",
+      "name": "Alex",
+      "avatar_url": "https://avatars.githubusercontent.com/u/24614929?v=4",
+      "profile": "https://github.com/zuedev",
+      "contributions": [
+        "financial"
+      ]
+    },
+    {
+      "login": "HengY1Cola",
+      "name": "HengY1Coding✨",
+      "avatar_url": "https://avatars.githubusercontent.com/u/98681454?v=4",
+      "profile": "https://hengy1.top/",
+      "contributions": [
+        "financial"
+      ]
     }
   ],
   "contributorsPerLine": 7,
