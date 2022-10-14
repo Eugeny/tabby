@@ -11,7 +11,7 @@ jobs:
         fetch-depth: 0
 
     - name: Installing Node
-      uses: actions/setup-node@v3.5.0
+      uses: actions/setup-node@v3.5.1
       with:
         node-version: 16
 
@@ -47,7 +47,7 @@ jobs:
         fetch-depth: 0
 
     - name: Installing Node
-      uses: actions/setup-node@v3.5.0
+      uses: actions/setup-node@v3.5.1
       with:
         node-version: 16
 
@@ -141,7 +141,7 @@ jobs:
       if: matrix.build-arch != 'x64'
 
     - name: Install Node (x64)
-      uses: actions/setup-node@v3.5.0
+      uses: actions/setup-node@v3.5.1
       with:
         node-version: 16
       if: matrix.build-arch == 'x64'
@@ -290,7 +290,7 @@ jobs:
         fetch-depth: 0
 
     - name: Installing Node
-      uses: actions/setup-node@v3.5.0
+      uses: actions/setup-node@v3.5.1
       with:
         node-version: 16
 
