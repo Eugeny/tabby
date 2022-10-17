@@ -162,10 +162,10 @@ xterm-addon-canvas@^0.2.0:
   resolved "https://registry.yarnpkg.com/xterm-addon-canvas/-/xterm-addon-canvas-0.2.0.tgz#ba0080d4071f172f94e8c0b5e6151dd7e386f1a1"
   integrity sha512-b4tMT05US9Rlqv6R0XZTHsfq8MRKzwxITwpvckuod/l4lokcCokHPbgpYAytOgrzqkzWjYI+Ol8en6cMGf8ncg==
 
-xterm-addon-fit@^0.6.0-beta.8:
-  version "0.6.0"
-  resolved "https://registry.yarnpkg.com/xterm-addon-fit/-/xterm-addon-fit-0.6.0.tgz#142e1ce181da48763668332593fc440349c88c34"
-  integrity sha512-9/7A+1KEjkFam0yxTaHfuk9LEvvTSBi0PZmEkzJqgafXPEXL9pCMAVV7rB09sX6ATRDXAdBpQhZkhKj7CGvYeg==
+xterm-addon-fit@^0.7.0-beta.2:
+  version "0.7.0-beta.2"
+  resolved "https://registry.yarnpkg.com/xterm-addon-fit/-/xterm-addon-fit-0.7.0-beta.2.tgz#0bd683b896ffa13ed3171c07beb8c752239b552a"
+  integrity sha512-mVgbt5WQZs2qIXFXw2M/52wh52KhP1M3kP0KutWN14KJLZvrOmi5m0WI1SVyOoOjUMp7eafpXrLOb5suHLJaOA==
 
 xterm-addon-image@^0.2.0:
   version "0.2.0"
