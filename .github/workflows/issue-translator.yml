@@ -9,7 +9,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: tomsun28/issues-translate-action@v2.6
+      - uses: tomsun28/issues-translate-action@v2.7
         with:
           IS_MODIFY_TITLE: true
           CUSTOM_BOT_NOTE: The translator bot has detected that this issue body's language is not English, and has translated it automatically.
