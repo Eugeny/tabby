@@ -21,7 +21,7 @@
 
 <br/>
 <p align="center">
-本 README 还适用于以下语言: <a  href="./README.md">:gb: English</a> · <a  href="./README.ru-RU.md">:ru: Русский</a> · <a  href="./README.ko-KR.md">:kr: 한국어</a> · <a  href="./README.it-IT.md">:it: Italiano</a> · <a href="./README.de-DE.md">:de: Deutsch</a> · <a href="./README.ja-JP.md">:jp: 日本語</a> · <a href="./README.id-ID.md">:id: Bahasa Indonesia</a>
+本 README 还适用于以下语言: <a  href="./README.md">:gb: English</a> · <a  href="./README.es-ES.md">:es: Spanish</a> · <a  href="./README.ru-RU.md">:ru: Русский</a> · <a  href="./README.ko-KR.md">:kr: 한국어</a> · <a  href="./README.it-IT.md">:it: Italiano</a> · <a href="./README.de-DE.md">:de: Deutsch</a> · <a href="./README.ja-JP.md">:jp: 日本語</a> · <a href="./README.id-ID.md">:id: Bahasa Indonesia</a>
 </p>
 
 ----
@@ -282,6 +282,9 @@
     <td align="center"><a href="http://spenserblack.github.io"><img src="https://avatars.githubusercontent.com/u/8546709?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Spenser Black</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=spenserblack" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/zuedev"><img src="https://avatars.githubusercontent.com/u/24614929?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Alex</b></sub></a><br /><a href="#financial-zuedev" title="Financial">💵</a></td>
     <td align="center"><a href="https://hengy1.top/"><img src="https://avatars.githubusercontent.com/u/98681454?v=4?s=100" width="100px;" alt=""/><br /><sub><b>HengY1Coding✨</b></sub></a><br /><a href="#financial-HengY1Cola" title="Financial">💵</a></td>
+  </tr>
+  <tr>
+	<td align="center"><a href="https://www.stackscale.com/"><img src="https://avatars.githubusercontent.com/u/195768?v=4?s=100" width="100px;" alt="David Carrero [Stackscale.com]"/><br /><sub><b>David Carrero</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=dcarrero" title="Documentation">📖</a></td>
   </tr>
 </table>
 
