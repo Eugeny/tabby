@@ -7,7 +7,8 @@
     "README.it-IT.md",
     "README.de-DE.md",
     "README.id-ID.md",
-    "README.ja-JP.md"
+    "README.ja-JP.md",
+    "README.es-ES.md"
   ],
   "imageSize": 100,
   "commit": false,
@@ -965,7 +966,16 @@
       "contributions": [
         "financial"
       ]
-    }
+    },
+    {
+      "login": "dcarrero",
+      "name": "David Carrero",
+      "avatar_url": "https://avatars.githubusercontent.com/u/195768?v=4",
+      "profile": "https://www.stackscale.com/",
+      "contributions": [
+        "doc"
+      ]
+    },
   ],
   "contributorsPerLine": 7,
   "projectName": "tabby",
