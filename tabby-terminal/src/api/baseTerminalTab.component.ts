@@ -191,6 +191,20 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
         this.logger = this.log.create('baseTerminalTab')
         this.setTitle(this.translate.instant('Terminal'))
 
+        this.subscribeUntilDestroyed(this.hotkeys.unfilteredHotkey$, async hotkey => {
+            if (!this.hasFocus) {
+                return
+            }
+            if (hotkey === 'search') {
+                this.showSearchPanel = true
+                setImmediate(() => {
+                    const input = this.element.nativeElement.querySelector('.search-input')
+                    input?.focus()
+                    input?.select()
+                })
+            }
+        })
+
         this.subscribeUntilDestroyed(this.hotkeys.hotkey$, async hotkey => {
             if (!this.hasFocus) {
                 return
@@ -263,14 +277,6 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
                             [Platform.macOS]: '\x1bd',
                             [Platform.Linux]: '\x1bd',
                         }[this.hostApp.platform])
-                    })
-                    break
-                case 'search':
-                    this.showSearchPanel = true
-                    setImmediate(() => {
-                        const input = this.element.nativeElement.querySelector('.search-input')
-                        input?.focus()
-                        input?.select()
                     })
                     break
                 case 'pane-focus-all':

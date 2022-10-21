@@ -1,5 +1,5 @@
 import { Injectable, Inject, NgZone, EventEmitter } from '@angular/core'
-import { Observable, Subject } from 'rxjs'
+import { Observable, Subject, filter } from 'rxjs'
 import { HotkeyDescription, HotkeyProvider } from '../api/hotkeyProvider'
 import { KeyEventData, getKeyName, Keystroke, KeyName, getKeystrokeName, metaKeyName, altKeyName } from './hotkeys.util'
 import { ConfigService } from './config.service'
@@ -28,7 +28,16 @@ export class HotkeysService {
     /**
      * Fired for each recognized hotkey
      */
-    get hotkey$ (): Observable<string> { return this._hotkey }
+    get unfilteredHotkey$ (): Observable<string> { return this._hotkey }
+
+    /**
+     * Fired for each recognized hotkey
+     */
+    get hotkey$ (): Observable<string> {
+        return this._hotkey.pipe(filter(() => {
+            return document.querySelectorAll('input:focus').length === 0
+        }))
+    }
 
     /**
      * Fired for once hotkey is released
@@ -292,11 +301,9 @@ export class HotkeysService {
                 this.emitHotkeyOff(this.pressedHotkey)
             }
         }
-        if (document.querySelectorAll('input:focus').length === 0) {
-            console.debug('Matched hotkey', hotkey)
-            this._hotkey.next(hotkey)
-            this.pressedHotkey = hotkey
-        }
+        console.debug('Matched hotkey', hotkey)
+        this._hotkey.next(hotkey)
+        this.pressedHotkey = hotkey
         this.recognitionPhase = false
     }
 
