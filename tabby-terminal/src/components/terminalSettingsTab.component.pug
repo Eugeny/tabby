@@ -10,8 +10,8 @@ div
             [(ngModel)]='config.store.terminal.frontend',
             (ngModelChange)='config.save()',
         )
-            option(value='xterm') xterm
             option(value='xterm-webgl') xterm (WebGL)
+            option(value='xterm') xterm (canvas)
 
     .form-line
         .header
