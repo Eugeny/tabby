@@ -418,12 +418,10 @@ export class XTermFrontend extends Frontend {
         return {
             ...searchOptions,
             decorations: {
-                matchOverviewRuler: '#888',
+                matchOverviewRuler: '#888888',
                 activeMatchColorOverviewRuler: '#ffff00',
-                matchBorder: '#888',
-                matchBackground: '#888',
-                activeMatchBorder: '#ff0',
-                activeMatchBackground: '#ff0',
+                matchBackground: '#888888',
+                activeMatchBackground: '#ffff00',
             },
         }
     }
