@@ -412,6 +412,7 @@ export class XTermFrontend extends Frontend {
     setZoom (zoom: number): void {
         this.zoom = zoom
         this.setFontSize()
+        this.resizeHandler()
     }
 
     private getSearchOptions (searchOptions?: SearchOptions): ISearchOptions {
@@ -474,7 +475,7 @@ export class XTermFrontend extends Frontend {
         const scale = Math.pow(1.1, this.zoom)
         this.xterm.options.fontSize = this.configuredFontSize * scale
         // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
-        this.xterm.options.lineHeight = (this.configuredFontSize + this.configuredLinePadding * 2) / this.configuredFontSize * scale
+        this.xterm.options.lineHeight = Math.max(1, (this.configuredFontSize + this.configuredLinePadding * 2) / this.configuredFontSize * scale)
         this.resizeHandler()
     }
 
