@@ -29,27 +29,42 @@ export class LinkHighlighterDecorator extends TerminalDecorator {
             },
         }
 
-        for (const handler of this.handlers) {
-            const getLink = async uri => handler.convert(uri, tab)
-            const openLink = async uri => handler.handle(await getLink(uri), tab)
-
-            const addon = new WebLinksAddon(
-                async (event, uri) => {
-                    if (!this.willHandleEvent(event)) {
-                        return
-                    }
-                    if (!await handler.verify(await handler.convert(uri, tab), tab)) {
-                        return
-                    }
-                    openLink(uri)
-                },
-                {
-                    urlRegex: handler.regex,
-                },
-            )
-
-            tab.frontend.xterm.loadAddon(addon)
+        const openLink = async uri => {
+            for (const handler of this.handlers) {
+                if (!handler.regex.test(uri)) {
+                    continue
+                }
+                if (!await handler.verify(await handler.convert(uri, tab), tab)) {
+                    continue
+                }
+                handler.handle(await handler.convert(uri, tab), tab)
+            }
         }
+
+        let regex = new RegExp('')
+        const regexSource = this.handlers.map(x => `(${x.regex.source})`).join('|')
+        try {
+            regex = new RegExp(regexSource)
+            console.debug('Linkifier regexp', regex)
+        } catch (error) {
+            console.error('Could not build regex for your link handlers:', error)
+            console.error('Regex source was:', regexSource)
+            return
+        }
+
+        const addon = new WebLinksAddon(
+            async (event, uri) => {
+                if (!this.willHandleEvent(event)) {
+                    return
+                }
+                openLink(uri)
+            },
+            {
+                urlRegex: regex,
+            },
+        )
+
+        tab.frontend.xterm.loadAddon(addon)
     }
 
     private willHandleEvent (event: MouseEvent) {
