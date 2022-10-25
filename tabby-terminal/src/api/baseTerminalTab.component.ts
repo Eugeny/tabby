@@ -488,7 +488,10 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
                 }
             } else {
                 if (this.config.store.terminal.trimWhitespaceOnPaste) {
-                    data = data.trim()
+                    data = data.trimEnd()
+                    if (!data.includes('\r')) {
+                        data = data.trimStart()
+                    }
                 }
             }
         }
