@@ -16,6 +16,7 @@ appearance:
   opacity: 1.0
   vibrancy: false
   vibrancyType: 'blur'
+  lastTabClosesWindow: false
 terminal:
   showBuiltinProfiles: true
   showRecentProfiles: 3

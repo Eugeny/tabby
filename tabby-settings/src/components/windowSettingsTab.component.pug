@@ -313,6 +313,15 @@ h3.mt-4(translate) Tabs
         (ngModelChange)='config.save();',
     )
 
+.form-line
+    .header
+        .title(translate) Close the window after closing the last tab
+
+    toggle(
+        [(ngModel)]='config.store.appearance.lastTabClosesWindow',
+        (ngModelChange)='config.save();',
+    )
+
 h3.mt-4(translate) Panes
 
 .form-line()
