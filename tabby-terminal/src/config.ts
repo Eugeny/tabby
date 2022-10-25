@@ -70,6 +70,7 @@ export class TerminalConfigProvider extends ConfigProvider {
             drawBoldTextInBrightColors: true,
             sixel: true,
             minimumContrastRatio: 4,
+            trimWhitespaceOnPaste: true,
         },
     }
 

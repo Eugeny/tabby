@@ -153,6 +153,15 @@ div.mt-4
             (ngModelChange)='config.save()',
         )
 
+    .form-line
+        .header
+            .title(translate) Trim whitespace and newlines
+            .description(translate) Remove whitespace and newlines around the copied text
+        toggle(
+            [(ngModel)]='config.store.terminal.trimWhitespaceOnPaste',
+            (ngModelChange)='config.save()',
+        )
+
 div.mt-4
     h3(translate) Sound
 

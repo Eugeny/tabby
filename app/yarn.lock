@@ -114,10 +114,10 @@
   dependencies:
     debug "^4.3.2"
 
-"@tabby-gang/node-pty@^0.11.0-beta.202":
-  version "0.11.0-beta.202"
-  resolved "https://registry.yarnpkg.com/@tabby-gang/node-pty/-/node-pty-0.11.0-beta.202.tgz#4d6302f7db226f56de4f01303c9f4abd9a9d7a0f"
-  integrity sha512-Z/hgI2bjWE6c0nYlCmduNnMVorGgj5868xWX2BxCB0DjsmnMSuO8ktsYjXHIV//JBqIed8TUBdS+x/mQvg/ZUQ==
+"@tabby-gang/node-pty@^0.11.0-beta.203":
+  version "0.11.0-beta.204"
+  resolved "https://registry.yarnpkg.com/@tabby-gang/node-pty/-/node-pty-0.11.0-beta.204.tgz#80d4393c7a233d3298f47a4755467a246b0099f9"
+  integrity sha512-sNT5Z2MEkEIhToAdVAdZ/lfeQ9UgFE3h2ENlOux+WHBrl1k0BiUEIOd/jh/K3mNAGEfcZ44gNQQ50g5KXTQEmA==
   dependencies:
     nan "^2.16.0"
 

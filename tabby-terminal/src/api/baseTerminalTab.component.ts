@@ -462,7 +462,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
             data = data.replaceAll('\n', '\r')
         }
 
-        if (data.indexOf('\n') === data.length - 1) {
+        if (this.config.store.terminal.trimWhitespaceOnPaste && data.indexOf('\n') === data.length - 1) {
             // Ends with a newline and has no other line breaks
             data = data.substring(0, data.length - 1)
         }
@@ -487,7 +487,9 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
                     return
                 }
             } else {
-                data = data.trim()
+                if (this.config.store.terminal.trimWhitespaceOnPaste) {
+                    data = data.trim()
+                }
             }
         }
 
