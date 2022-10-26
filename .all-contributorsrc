@@ -975,6 +975,15 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "zhoro",
+      "name": "Andrii Zhovtiak",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1105687?v=4",
+      "profile": "https://github.com/zhoro",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
