@@ -74,6 +74,9 @@ jobs:
 
     - run: sed -i '' 's/updateInfo = await/\/\/updateInfo = await/g' node_modules/app-builder-lib/out/targets/ArchiveTarget.js
 
+    # Work around electron-builder beta bug
+    - run: ln -s ../../node_modules/electron app/node_modules
+
     - name: Build and sign packages
       run: scripts/build-macos.js
       if: github.repository == 'Eugeny/tabby' && github.event_name == 'push' && (github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags'))

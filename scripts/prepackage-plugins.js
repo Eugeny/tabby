@@ -28,6 +28,7 @@ vars.builtinPlugins.forEach(plugin => {
             electronVersion: vars.electronVersion,
             arch: process.env.ARCH ?? process.arch,
             force: true,
+            useCache: false,
         })
     }
     sh.cd('..')
