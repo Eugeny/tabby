@@ -16,6 +16,7 @@ if (process.env.GITHUB_HEAD_REF) {
 builder({
     dir: true,
     mac: ['pkg', 'zip'],
+    x64: process.env.ARCH === 'x86_64',
     arm64: process.env.ARCH === 'arm64',
     config: {
         extraMetadata: {
