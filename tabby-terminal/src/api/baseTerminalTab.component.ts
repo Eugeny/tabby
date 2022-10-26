@@ -301,7 +301,8 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
         })
 
         this.bellPlayer = document.createElement('audio')
-        this.bellPlayer.src = require('../bell.ogg').default
+        this.bellPlayer.src = require<string>('../bell.ogg')
+        this.bellPlayer.load()
 
         this.contextMenuProviders.sort((a, b) => a.weight - b.weight)
     }
