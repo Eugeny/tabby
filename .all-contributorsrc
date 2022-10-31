@@ -984,6 +984,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "JohnMasoner",
+      "name": "Mason Ma",
+      "avatar_url": "https://avatars.githubusercontent.com/u/42313377?v=4",
+      "profile": "https://github.com/JohnMasoner",
+      "contributions": [
+        "financial"
+      ]
     }
   ],
   "contributorsPerLine": 7,
