@@ -96,3 +96,4 @@ export * from './middleware/oscProcessing'
 export * from './api/middleware'
 export * from './session'
 export { LoginScriptsSettingsComponent, StreamProcessingSettingsComponent }
+export { MultifocusService } from './services/multifocus.service'

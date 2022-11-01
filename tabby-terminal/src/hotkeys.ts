@@ -78,6 +78,10 @@ export class TerminalHotkeyProvider extends HotkeyProvider {
             name: this.translate.instant('Focus all panes at once (broadcast)'),
         },
         {
+            id: 'focus-all-tabs',
+            name: this.translate.instant('Focus all tabs at once (broadcast)'),
+        },
+        {
             id: 'scroll-to-top',
             name: this.translate.instant('Scroll terminal to top'),
         },

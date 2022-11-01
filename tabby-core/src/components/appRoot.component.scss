@@ -185,3 +185,18 @@ hotkey-hint {
 ::ng-deep .btn-update svg {
     fill: cyan;
 }
+
+::ng-deep .broadcast-status-warning {
+    background: red;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    padding: 5px 10px;
+    color: black;
+    border-radius: 0 0 5px 5px;
+
+    width: 300px;
+    margin-left: -150px;
+    text-align: center;
+    font-weight: bold;
+}

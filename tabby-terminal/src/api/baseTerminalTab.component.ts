@@ -1,4 +1,4 @@
-import { Observable, Subject, Subscription, first, auditTime } from 'rxjs'
+import { Observable, Subject, first, auditTime } from 'rxjs'
 import { Spinner } from 'cli-spinner'
 import colors from 'ansi-colors'
 import { NgZone, OnInit, OnDestroy, Injector, ViewChild, HostBinding, Input, ElementRef, InjectFlags } from '@angular/core'
@@ -12,6 +12,7 @@ import { XTermFrontend, XTermWebGLFrontend } from '../frontends/xtermFrontend'
 import { ResizeEvent } from './interfaces'
 import { TerminalDecorator } from './decorator'
 import { SearchPanelComponent } from '../components/searchPanel.component'
+import { MultifocusService } from '../services/multifocus.service'
 
 /**
  * A class to base your custom terminal tabs on
@@ -117,6 +118,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
     protected contextMenuProviders: TabContextMenuItemProvider[]
     protected hostWindow: HostWindowService
     protected translate: TranslateService
+    protected multifocus: MultifocusService
     // Deps end
 
     protected logger: Logger
@@ -124,7 +126,6 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
     protected sessionChanged = new Subject<BaseSession|null>()
     private bellPlayer: HTMLAudioElement
     private termContainerSubscriptions = new SubscriptionContainer()
-    private allFocusModeSubscription: Subscription|null = null
     private sessionHandlers = new SubscriptionContainer()
     private spinner = new Spinner({
         stream: {
@@ -187,6 +188,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
         this.contextMenuProviders = injector.get<any>(TabContextMenuItemProvider, null, InjectFlags.Optional) as TabContextMenuItemProvider[]
         this.hostWindow = injector.get(HostWindowService)
         this.translate = injector.get(TranslateService)
+        this.multifocus = injector.get(MultifocusService)
 
         this.logger = this.log.create('baseTerminalTab')
         this.setTitle(this.translate.instant('Terminal'))
@@ -278,9 +280,6 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
                             [Platform.Linux]: '\x1bd',
                         }[this.hostApp.platform])
                     })
-                    break
-                case 'pane-focus-all':
-                    this.focusAllPanes()
                     break
                 case 'copy-current-path':
                     this.copyCurrentPath()
@@ -387,7 +386,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
         this.frontend.focus()
 
         this.blurred$.subscribe(() => {
-            this.cancelFocusAllPanes()
+            this.multifocus.cancel()
         })
     }
 
@@ -533,36 +532,6 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
         this.frontend?.setZoom(this.zoom)
     }
 
-    focusAllPanes (): void {
-        if (this.allFocusModeSubscription) {
-            return
-        }
-        if (this.parent instanceof SplitTabComponent) {
-            const parent = this.parent
-            parent._allFocusMode = true
-            parent.layout()
-            this.allFocusModeSubscription = this.frontend?.input$.subscribe(data => {
-                for (const tab of parent.getAllTabs()) {
-                    if (tab !== this && tab instanceof BaseTerminalTabComponent) {
-                        tab.sendInput(data)
-                    }
-                }
-            }) ?? null
-        }
-    }
-
-    cancelFocusAllPanes (): void {
-        if (!this.allFocusModeSubscription) {
-            return
-        }
-        if (this.parent instanceof SplitTabComponent) {
-            this.allFocusModeSubscription.unsubscribe()
-            this.allFocusModeSubscription = null
-            this.parent._allFocusMode = false
-            this.parent.layout()
-        }
-    }
-
     async copyCurrentPath (): Promise<void> {
         let cwd: string|null = null
         if (this.session?.supportsWorkingDirectory()) {
@@ -666,7 +635,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
         this.termContainerSubscriptions.subscribe(this.frontend.mouseEvent$, event => {
             if (event.type === 'mousedown') {
                 if (event.which === 1) {
-                    this.cancelFocusAllPanes()
+                    this.multifocus.cancel()
                 }
                 if (event.which === 2) {
                     if (this.config.store.terminal.pasteOnMiddleClick) {

@@ -115,6 +115,9 @@ export class TerminalConfigProvider extends ConfigProvider {
                 'pane-focus-all': [
                     '⌘-Shift-I',
                 ],
+                'focus-all-tabs': [
+                    '⌘-⌥-Shift-I',
+                ],
                 'scroll-to-top': ['Shift-PageUp'],
                 'scroll-up': ['⌥-PageUp'],
                 'scroll-down': ['⌥-PageDown'],
@@ -163,6 +166,9 @@ export class TerminalConfigProvider extends ConfigProvider {
                 'pane-focus-all': [
                     'Ctrl-Shift-I',
                 ],
+                'focus-all-tabs': [
+                    'Ctrl-Alt-Shift-I',
+                ],
                 'scroll-to-top': ['Ctrl-PageUp'],
                 'scroll-up': ['Alt-PageUp'],
                 'scroll-down': ['Alt-PageDown'],
@@ -208,6 +214,9 @@ export class TerminalConfigProvider extends ConfigProvider {
                 ],
                 'pane-focus-all': [
                     'Ctrl-Shift-I',
+                ],
+                'focus-all-tabs': [
+                    'Ctrl-Alt-Shift-I',
                 ],
                 'scroll-to-top': ['Ctrl-PageUp'],
                 'scroll-up': ['Alt-PageUp'],

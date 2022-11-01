@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { ConfigService, BaseTabComponent, TabContextMenuItemProvider, SplitTabComponent, NotificationsService, MenuItemOptions, ProfilesService, PromptModalComponent, TranslateService } from 'tabby-core'
+import { MultifocusService } from 'tabby-terminal'
 import { TerminalTabComponent } from './components/terminalTab.component'
 import { UACService } from './services/uac.service'
 import { TerminalService } from './services/terminal.service'
@@ -65,6 +66,7 @@ export class NewTabContextMenu extends TabContextMenuItemProvider {
         private terminalService: TerminalService,
         private uac: UACService,
         private translate: TranslateService,
+        private multifocus: MultifocusService,
     ) {
         super()
     }
@@ -131,13 +133,21 @@ export class NewTabContextMenu extends TabContextMenuItemProvider {
             })
         }
 
-        if (tab instanceof TerminalTabComponent && tab.parent instanceof SplitTabComponent && tab.parent.getAllTabs().length > 1) {
+        if (tab instanceof TerminalTabComponent && tab.parent instanceof SplitTabComponent) {
             items.push({
-                label: this.translate.instant('Focus all panes'),
+                label: this.translate.instant('Focus all tabs'),
                 click: () => {
-                    tab.focusAllPanes()
+                    this.multifocus.focusAllTabs()
                 },
             })
+            if (tab.parent.getAllTabs().length > 1) {
+                items.push({
+                    label: this.translate.instant('Focus all panes'),
+                    click: () => {
+                        this.multifocus.focusAllPanes()
+                    },
+                })
+            }
         }
 
         return items

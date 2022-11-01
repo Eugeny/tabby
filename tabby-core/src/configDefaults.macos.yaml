@@ -17,7 +17,7 @@ hotkeys:
   move-tab-right:
     - '⌘-Shift-Right'
   rearrange-panes:
-    - '⌘-Shift'
+    - 'Ctrl-Shift'
   tab-1:
     - '⌘-1'
   tab-2:
