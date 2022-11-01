@@ -2,8 +2,6 @@ import * as shellQuote from 'shell-quote'
 import * as net from 'net'
 import * as fs from 'fs/promises'
 import * as tmp from 'tmp-promise'
-import * as sshpk from 'sshpk'
-import * as forge from 'node-forge'
 import socksv5 from '@luminati-io/socksv5'
 import { Duplex } from 'stream'
 import { Injectable } from '@angular/core'
@@ -53,10 +51,9 @@ export class SSHService {
         let tmpFile: tmp.FileResult|null = null
         if (session.activePrivateKey) {
             tmpFile = await tmp.file()
-            const privateKey = await sshpk.parsePrivateKey(session.activePrivateKey, 'auto')/* .toString('putty') */
-            const forgePrivateKey = forge.pki.decryptRsaPrivateKey(privateKey.toString('pem'))
-            const ppk = forge.ssh.privateKeyToPutty(forgePrivateKey)
-            await fs.writeFile(tmpFile.path, ppk)
+            await fs.writeFile(tmpFile.path, session.activePrivateKey)
+            const winSCPcom = path.slice(0, -3) + 'com'
+            await this.platform.exec(winSCPcom, ['/keygen', tmpFile.path, `/output=${tmpFile.path}`])
             args.push(`/privatekey=${tmpFile.path}`)
         }
         await this.platform.exec(path, args)
