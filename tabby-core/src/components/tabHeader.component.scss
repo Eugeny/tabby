@@ -3,23 +3,26 @@ $tabs-height: 38px;
 :host {
     position: relative;
     cursor: pointer;
+    box-sizing: content-box;
 
     > * { cursor: pointer; }
 
     flex: 1000 1 200px;
     width: 200px;
-    padding: 0 10px;
+    // flex-basis and width are also set through animation on AppRoot
 
-    &.flex-width {
-        flex: 1000 1 auto;
-        width: auto;
-    }
+    padding: 0 10px;
 
     display: flex;
     flex-direction: row;
     min-width: 0;
 
     overflow: hidden;
+
+    &.flex-width {
+        flex: 1000 1 auto;
+        width: auto;
+    }
 
     &.vertical {
       flex: none;

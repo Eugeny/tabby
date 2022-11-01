@@ -17,38 +17,47 @@ import { TabBodyComponent } from './tabBody.component'
 import { SplitTabComponent } from './splitTab.component'
 import { AppService, FileTransfer, HostWindowService, PlatformService, ToolbarButton, ToolbarButtonProvider } from '../api'
 
+function makeTabAnimation (dimension: string, size: number) {
+    return [
+        state('in', style({
+            'flex-basis': '{{size}}',
+            [dimension]: '{{size}}',
+        }), {
+            params: { size: `${size}px` },
+        }),
+        transition(':enter', [
+            style({
+                'flex-basis': '1px',
+                [dimension]: '1px',
+            }),
+            animate('250ms ease-out', style({
+                'flex-basis': '{{size}}',
+                [dimension]: '{{size}}',
+            })),
+        ]),
+        transition(':leave', [
+            style({
+                'flex-basis': 'auto',
+                'padding-left': '*',
+                'padding-right': '*',
+                [dimension]: '*',
+            }),
+            animate('250ms ease-in-out', style({
+                'padding-left': 0,
+                'padding-right': 0,
+                [dimension]: '0',
+            })),
+        ]),
+    ]
+}
+
 /** @hidden */
 @Component({
     selector: 'app-root',
     template: require('./appRoot.component.pug'),
     styles: [require('./appRoot.component.scss')],
     animations: [
-        trigger('animateTab', [
-            state('in', style({
-                'flex-basis': 'auto',
-                width: 'auto',
-            })),
-            transition(':enter', [
-                style({
-                    'flex-basis': '1px',
-                    width: '1px',
-                }),
-                animate('250ms ease-in-out', style({
-                    'flex-basis': 'auto',
-                    width: 'auto',
-                })),
-            ]),
-            transition(':leave', [
-                style({
-                    'flex-basis': 'auto',
-                    width: 'auto',
-                }),
-                animate('250ms ease-in-out', style({
-                    'flex-basis': '1px',
-                    width: '1px',
-                })),
-            ]),
-        ]),
+        trigger('animateTab', makeTabAnimation('width', 200)),
     ],
 })
 export class AppRootComponent {
@@ -194,6 +203,13 @@ export class AppRootComponent {
 
     hasVerticalTabs () {
         return this.config.store.appearance.tabsLocation === 'left' || this.config.store.appearance.tabsLocation === 'right'
+    }
+
+    get targetTabSize (): any {
+        if (this.hasVerticalTabs()) {
+            return '*'
+        }
+        return this.config.store.appearance.flexTabs ? '*' : '200px'
     }
 
     async generateButtonSubmenu (button: ToolbarButton) {
