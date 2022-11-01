@@ -16,6 +16,7 @@ import deepEqual from 'deep-equal'
 import { Attributes } from 'xterm/src/common/buffer/Constants'
 import { AttributeData } from 'xterm/src/common/buffer/AttributeData'
 import { CellData } from 'xterm/src/common/buffer/CellData'
+import sixelWorkerScript from 'xterm-addon-image/lib/xterm-addon-image-worker.js'
 
 const COLOR_NAMES = [
     'black', 'red', 'green', 'yellow', 'blue', 'magenta', 'cyan', 'white',
@@ -133,7 +134,7 @@ export class XTermFrontend extends Frontend {
             this.xterm.loadAddon(new ImageAddon(
                 URL.createObjectURL(
                     new Blob(
-                        [require('xterm-addon-image/lib/xterm-addon-image-worker.js')],
+                        [sixelWorkerScript],
                         { type: 'application/javascript' },
                     ),
                 ),
@@ -222,7 +223,6 @@ export class XTermFrontend extends Frontend {
     }
 
     async attach (host: HTMLElement): Promise<void> {
-        this.configure()
         this.element = host
 
         this.xterm.open(host)
@@ -230,6 +230,9 @@ export class XTermFrontend extends Frontend {
 
         // Work around font loading bugs
         await new Promise(resolve => setTimeout(resolve, this.hostApp.platform === Platform.Web ? 1000 : 0))
+
+        // Just configure the colors to avoid a flash
+        this.configureColors()
 
         if (this.enableWebGL) {
             this.webGLAddon = new WebglAddon()
@@ -249,6 +252,9 @@ export class XTermFrontend extends Frontend {
             })
         }
 
+        // Allow an animation frame
+        await new Promise(r => setTimeout(r, 100))
+
         this.ready.next()
         this.ready.complete()
 
@@ -261,6 +267,9 @@ export class XTermFrontend extends Frontend {
         window.addEventListener('resize', this.resizeHandler)
 
         this.resizeHandler()
+
+        // Allow an animation frame
+        await new Promise(r => setTimeout(r, 0))
 
         host.addEventListener('dragOver', (event: any) => this.dragOver.next(event))
         host.addEventListener('drop', event => this.drop.next(event))
@@ -352,6 +361,28 @@ export class XTermFrontend extends Frontend {
         this.xtermCore._scrollToBottom()
     }
 
+    private configureColors () {
+        const config = this.configService.store
+
+        const theme: ITheme = {
+            foreground: config.terminal.colorScheme.foreground,
+            selectionBackground: config.terminal.colorScheme.selection || '#88888888',
+            selectionForeground: config.terminal.colorScheme.selectionForeground || undefined,
+            background: config.terminal.background === 'colorScheme' ? config.terminal.colorScheme.background : '#00000000',
+            cursor: config.terminal.colorScheme.cursor,
+            cursorAccent: config.terminal.colorScheme.cursorAccent,
+        }
+
+        for (let i = 0; i < COLOR_NAMES.length; i++) {
+            theme[COLOR_NAMES[i]] = config.terminal.colorScheme.colors[i]
+        }
+
+        if (this.xtermCore._colorManager && !deepEqual(this.configuredTheme, theme)) {
+            this.xterm.options.theme = theme
+            this.configuredTheme = theme
+        }
+    }
+
     configure (): void {
         const config = this.configService.store
 
@@ -385,23 +416,7 @@ export class XTermFrontend extends Frontend {
 
         this.copyOnSelect = config.terminal.copyOnSelect
 
-        const theme: ITheme = {
-            foreground: config.terminal.colorScheme.foreground,
-            selectionBackground: config.terminal.colorScheme.selection || '#88888888',
-            selectionForeground: config.terminal.colorScheme.selectionForeground || undefined,
-            background: config.terminal.background === 'colorScheme' ? config.terminal.colorScheme.background : '#00000000',
-            cursor: config.terminal.colorScheme.cursor,
-            cursorAccent: config.terminal.colorScheme.cursorAccent,
-        }
-
-        for (let i = 0; i < COLOR_NAMES.length; i++) {
-            theme[COLOR_NAMES[i]] = config.terminal.colorScheme.colors[i]
-        }
-
-        if (this.xtermCore._colorManager && !deepEqual(this.configuredTheme, theme)) {
-            this.xterm.options.theme = theme
-            this.configuredTheme = theme
-        }
+        this.configureColors()
 
         if (this.opened && config.terminal.ligatures && !this.ligaturesAddon && this.hostApp.platform !== Platform.Web) {
             this.ligaturesAddon = new LigaturesAddon()
