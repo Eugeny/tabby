@@ -18,6 +18,7 @@ export { HostAppService, Platform } from './hostApp'
 export { FileProvider } from './fileProvider'
 export { ProfileProvider, Profile, PartialProfile, ProfileSettingsComponent } from './profileProvider'
 export { PromptModalComponent } from '../components/promptModal.component'
+export * from './commands'
 
 export { AppService } from '../services/app.service'
 export { ConfigService, configMerge, ConfigProxy } from '../services/config.service'

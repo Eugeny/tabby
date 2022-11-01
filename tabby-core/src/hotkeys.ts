@@ -9,6 +9,10 @@ import { PartialProfile, Profile } from './api'
 export class AppHotkeyProvider extends HotkeyProvider {
     hotkeys: HotkeyDescription[] = [
         {
+            id: 'command-selector',
+            name: this.translate.instant('Show command selector'),
+        },
+        {
             id: 'profile-selector',
             name: this.translate.instant('Show profile selector'),
         },
@@ -18,7 +22,7 @@ export class AppHotkeyProvider extends HotkeyProvider {
         },
         {
             id: 'rename-tab',
-            name: this.translate.instant('Rename Tab'),
+            name: this.translate.instant('Rename tab'),
         },
         {
             id: 'close-tab',

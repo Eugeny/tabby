@@ -31,6 +31,9 @@ export interface ToolbarButton {
     showInToolbar?: boolean
 
     showInStartPage?: boolean
+
+    /** @hidden */
+    commandLabel?: string
 }
 
 /**

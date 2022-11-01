@@ -93,5 +93,7 @@ hotkeys:
     - '⌘-E'
   switch-profile:
     - '⌘-Shift-E'
+  command-selector:
+    - '⌘-Shift-P'
 appearance:
   vibrancy: true

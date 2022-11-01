@@ -44,6 +44,7 @@ import { ConfigService } from './services/config.service'
 import { VaultFileProvider } from './services/vault.service'
 import { HotkeysService } from './services/hotkeys.service'
 import { LocaleService, TranslateServiceWrapper } from './services/locale.service'
+import { CommandService } from './services/commands.service'
 
 import { StandardTheme, StandardCompactTheme, PaperTheme } from './theme'
 import { CoreConfigProvider } from './config'
@@ -161,6 +162,7 @@ export default class AppModule { // eslint-disable-line @typescript-eslint/no-ex
         config: ConfigService,
         platform: PlatformService,
         hotkeys: HotkeysService,
+        commands: CommandService,
         public locale: LocaleService,
         private translate: TranslateService,
         private profilesService: ProfilesService,
@@ -194,6 +196,9 @@ export default class AppModule { // eslint-disable-line @typescript-eslint/no-ex
                     return
                 }
                 this.showSelector(provider)
+            }
+            if (hotkey === 'command-selector') {
+                commands.showSelector()
             }
         })
     }

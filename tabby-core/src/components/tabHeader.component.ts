@@ -1,10 +1,8 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Component, Input, Optional, Inject, HostBinding, HostListener, NgZone } from '@angular/core'
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { auditTime } from 'rxjs'
 import { TabContextMenuItemProvider } from '../api/tabContextMenuProvider'
 import { BaseTabComponent } from './baseTab.component'
-import { RenameTabModalComponent } from './renameTabModal.component'
 import { SplitTabComponent } from './splitTab.component'
 import { HotkeysService } from '../services/hotkeys.service'
 import { AppService } from '../services/app.service'
@@ -31,7 +29,6 @@ export class TabHeaderComponent extends BaseComponent {
         public app: AppService,
         public config: ConfigService,
         public hostApp: HostAppService,
-        private ngbModal: NgbModal,
         private hotkeys: HotkeysService,
         private platform: PlatformService,
         private zone: NgZone,
@@ -41,7 +38,7 @@ export class TabHeaderComponent extends BaseComponent {
         this.subscribeUntilDestroyed(this.hotkeys.hotkey$, (hotkey) => {
             if (this.app.activeTab === this.tab) {
                 if (hotkey === 'rename-tab') {
-                    this.showRenameTabModal()
+                    this.app.renameTab(this.tab)
                 }
             }
         })
@@ -58,27 +55,17 @@ export class TabHeaderComponent extends BaseComponent {
         })
     }
 
-    showRenameTabModal (): void {
-        const modal = this.ngbModal.open(RenameTabModalComponent)
-        modal.componentInstance.value = this.tab.customTitle || this.tab.title
-        modal.result.then(result => {
-            this.tab.setTitle(result)
-            this.tab.customTitle = result
-            this.app.emitTabsChanged()
-        }).catch(() => null)
-    }
-
     async buildContextMenu (): Promise<MenuItemOptions[]> {
         let items: MenuItemOptions[] = []
         // Top-level tab menu
-        for (const section of await Promise.all(this.contextMenuProviders.map(x => x.getItems(this.tab, this)))) {
+        for (const section of await Promise.all(this.contextMenuProviders.map(x => x.getItems(this.tab, true)))) {
             items.push({ type: 'separator' })
             items = items.concat(section)
         }
         if (this.tab instanceof SplitTabComponent) {
             const tab = this.tab.getFocusedTab()
             if (tab) {
-                for (let section of await Promise.all(this.contextMenuProviders.map(x => x.getItems(tab, this)))) {
+                for (let section of await Promise.all(this.contextMenuProviders.map(x => x.getItems(tab, true)))) {
                     // eslint-disable-next-line @typescript-eslint/no-loop-func
                     section = section.filter(item => !items.some(ex => ex.label === item.label))
                     if (section.length) {
@@ -107,7 +94,7 @@ export class TabHeaderComponent extends BaseComponent {
     }
 
     @HostListener('dblclick', ['$event']) onDoubleClick ($event: MouseEvent): void {
-        this.showRenameTabModal()
+        this.app.renameTab(this.tab)
         $event.stopPropagation()
     }
 

@@ -1,5 +1,5 @@
 import { Injectable, Optional, Inject } from '@angular/core'
-import { BaseTabComponent, TabContextMenuItemProvider, TabHeaderComponent, NotificationsService, MenuItemOptions, TranslateService } from 'tabby-core'
+import { BaseTabComponent, TabContextMenuItemProvider, NotificationsService, MenuItemOptions, TranslateService } from 'tabby-core'
 import { BaseTerminalTabComponent } from './api/baseTerminalTab.component'
 import { TerminalContextMenuItemProvider } from './api/contextMenuProvider'
 
@@ -15,7 +15,7 @@ export class CopyPasteContextMenu extends TabContextMenuItemProvider {
         super()
     }
 
-    async getItems (tab: BaseTabComponent, tabHeader?: TabHeaderComponent): Promise<MenuItemOptions[]> {
+    async getItems (tab: BaseTabComponent, tabHeader?: boolean): Promise<MenuItemOptions[]> {
         if (tabHeader) {
             return []
         }
@@ -77,7 +77,7 @@ export class LegacyContextMenu extends TabContextMenuItemProvider {
         super()
     }
 
-    async getItems (tab: BaseTabComponent, _tabHeader?: TabHeaderComponent): Promise<MenuItemOptions[]> {
+    async getItems (tab: BaseTabComponent): Promise<MenuItemOptions[]> {
         if (!this.contextMenuProviders) {
             return []
         }

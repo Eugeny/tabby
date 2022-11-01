@@ -95,3 +95,5 @@ hotkeys:
     - 'Ctrl-Alt-T'
   profile-selector:
     - 'Ctrl-Shift-E'
+  command-selector:
+    - 'Ctrl-Shift-P'

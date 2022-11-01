@@ -1,8 +1,10 @@
-import { Observable, Subject, AsyncSubject, takeUntil, debounceTime } from 'rxjs'
 import { Injectable, Inject } from '@angular/core'
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
+import { Observable, Subject, AsyncSubject, takeUntil, debounceTime } from 'rxjs'
 
 import { BaseTabComponent } from '../components/baseTab.component'
 import { SplitTabComponent } from '../components/splitTab.component'
+import { RenameTabModalComponent } from '../components/renameTabModal.component'
 import { SelectorOption } from '../api/selector'
 import { RecoveryToken } from '../api/tabRecovery'
 import { BootstrapData, BOOTSTRAP_DATA } from '../api/mainProcess'
@@ -80,6 +82,7 @@ export class AppService {
         private tabRecovery: TabRecoveryService,
         private tabsService: TabsService,
         private selector: SelectorService,
+        private ngbModal: NgbModal,
         @Inject(BOOTSTRAP_DATA) private bootstrapData: BootstrapData,
     ) {
         this.tabsChanged$.subscribe(() => {
@@ -316,6 +319,16 @@ export class AppService {
         const i2 = this.tabs.indexOf(b)
         this.tabs[i1] = b
         this.tabs[i2] = a
+    }
+
+    renameTab (tab: BaseTabComponent): void {
+        const modal = this.ngbModal.open(RenameTabModalComponent)
+        modal.componentInstance.value = tab.customTitle || tab.title
+        modal.result.then(result => {
+            tab.setTitle(result)
+            tab.customTitle = result
+            this.emitTabsChanged()
+        }).catch(() => null)
     }
 
     /** @hidden */

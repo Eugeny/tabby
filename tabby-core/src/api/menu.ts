@@ -6,4 +6,7 @@ export interface MenuItemOptions {
     checked?: boolean
     submenu?: MenuItemOptions[]
     click?: () => void
+
+    /** @hidden */
+    commandLabel?: string
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
-import { ConfigService, BaseTabComponent, TabContextMenuItemProvider, TabHeaderComponent, SplitTabComponent, NotificationsService, MenuItemOptions, ProfilesService, PromptModalComponent, TranslateService } from 'tabby-core'
+import { ConfigService, BaseTabComponent, TabContextMenuItemProvider, SplitTabComponent, NotificationsService, MenuItemOptions, ProfilesService, PromptModalComponent, TranslateService } from 'tabby-core'
 import { TerminalTabComponent } from './components/terminalTab.component'
 import { UACService } from './services/uac.service'
 import { TerminalService } from './services/terminal.service'
@@ -18,7 +18,7 @@ export class SaveAsProfileContextMenu extends TabContextMenuItemProvider {
         super()
     }
 
-    async getItems (tab: BaseTabComponent, _tabHeader?: TabHeaderComponent): Promise<MenuItemOptions[]> {
+    async getItems (tab: BaseTabComponent): Promise<MenuItemOptions[]> {
         if (!(tab instanceof TerminalTabComponent)) {
             return []
         }
@@ -69,7 +69,7 @@ export class NewTabContextMenu extends TabContextMenuItemProvider {
         super()
     }
 
-    async getItems (tab: BaseTabComponent, tabHeader?: TabHeaderComponent): Promise<MenuItemOptions[]> {
+    async getItems (tab: BaseTabComponent, tabHeader?: boolean): Promise<MenuItemOptions[]> {
         const profiles = (await this.profilesService.getProfiles()).filter(x => x.type === 'local') as LocalProfile[]
 
         const items: MenuItemOptions[] = [
