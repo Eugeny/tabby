@@ -65,7 +65,7 @@
     "pug-static-loader": "2.0.0",
     "raw-loader": "4.0.2",
     "sass-loader": "^12.6.0",
-    "shell-quote": "^1.7.3",
+    "shell-quote": "^1.7.4",
     "shelljs": "0.8.5",
     "slugify": "^1.6.5",
     "sortablejs": "^1.15.0",
