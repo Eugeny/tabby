@@ -70,7 +70,7 @@
     "slugify": "^1.6.5",
     "sortablejs": "^1.15.0",
     "source-code-pro": "^2.38.0",
-    "source-map-loader": "^3.0.1",
+    "source-map-loader": "^4.0.1",
     "source-sans-pro": "3.6.0",
     "ssh2": "Eugeny/ssh2#22735cecf1d9c118b2b8af1c2f80fe5b04996fe1",
     "style-loader": "^3.3.1",
