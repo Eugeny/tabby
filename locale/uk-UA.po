@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Ukrainian\n"
 "Language: uk_UA\n"
-"PO-Revision-Date: 2022-07-29 22:13\n"
+"PO-Revision-Date: 2022-11-03 19:25\n"
 
 #: tabby-local/src/components/terminalTab.component.ts:113
 msgid "\"{command}\" is still running. Close?"
@@ -178,7 +178,7 @@ msgstr "Тип фону"
 msgid "Baud rate"
 msgstr "Швидкість передачі даних"
 
-#: tabby-terminal/src/hotkeys.ts:18
+#: tabby-terminal/src/hotkeys.ts:22
 msgid "Beginning of the line"
 msgstr "Початок рядка"
 
@@ -219,12 +219,12 @@ msgstr "Вбудовані"
 #: locale/tmp-html/tabby-ssh/src/components/sftpCreateDirectoryModal.component.html:10
 #: locale/tmp-html/tabby-ssh/src/components/sftpDeleteModal.component.html:7
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:32
-#: tabby-electron/src/services/updater.service.ts:140
+#: tabby-electron/src/services/updater.service.ts:134
 #: tabby-local/src/components/terminalTab.component.ts:118
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:79
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:99
 #: tabby-ssh/src/sftpContextMenu.ts:40
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:469
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:468
 msgid "Cancel"
 msgstr "Скасувати"
 
@@ -249,7 +249,7 @@ msgstr "Шифри"
 msgid "Clear recent profiles"
 msgstr "Очистити останні профілі"
 
-#: tabby-terminal/src/hotkeys.ts:46
+#: tabby-terminal/src/hotkeys.ts:50
 msgid "Clear terminal"
 msgstr "Очистити термінал"
 
@@ -287,7 +287,7 @@ msgid "Close tabs to the right"
 msgstr "Закрити вкладки праворуч"
 
 #: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:35
-#: tabby-core/src/tabContextMenu.ts:124
+#: tabby-core/src/tabContextMenu.ts:122
 msgid "Color"
 msgstr "Колір"
 
@@ -371,19 +371,18 @@ msgstr "Контекстне меню"
 
 #: tabby-terminal/src/api/baseTerminalTab.component.ts:203
 #: tabby-terminal/src/api/baseTerminalTab.component.ts:211
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:560
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:764
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:561
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:765
 #: tabby-terminal/src/tabContextMenu.ts:29
 msgid "Copied"
 msgstr "Скопійовано"
 
-#: tabby-linkifier/src/decorator.ts:52
 #: tabby-terminal/src/tabContextMenu.ts:25
 msgid "Copy"
 msgstr "Копіювати"
 
-#: tabby-terminal/src/hotkeys.ts:66
-#: tabby-terminal/src/tabContextMenu.ts:53
+#: tabby-terminal/src/hotkeys.ts:70
+#: tabby-terminal/src/tabContextMenu.ts:61
 msgid "Copy current path"
 msgstr "Копіювати поточний шлях"
 
@@ -424,7 +423,7 @@ msgstr "Поточна схема оформлення"
 msgid "Current host key fingerprint"
 msgstr "Відбиток ключа поточного хоста"
 
-#: tabby-core/src/tabContextMenu.ts:175
+#: tabby-core/src/tabContextMenu.ts:173
 msgid "Current process: {name}"
 msgstr "Поточний процес: {name}"
 
@@ -495,15 +494,15 @@ msgstr "Видалити {name}?"
 msgid "Delete {fullPath}?"
 msgstr "Видалити {fullPath}?"
 
-#: tabby-terminal/src/hotkeys.ts:38
+#: tabby-terminal/src/hotkeys.ts:42
 msgid "Delete entire line"
 msgstr "Видалити увесь рядок"
 
-#: tabby-terminal/src/hotkeys.ts:42
+#: tabby-terminal/src/hotkeys.ts:46
 msgid "Delete next word"
 msgstr "Видалити наступне слово"
 
-#: tabby-terminal/src/hotkeys.ts:34
+#: tabby-terminal/src/hotkeys.ts:38
 msgid "Delete previous word"
 msgstr "Видалити попереднє слово"
 
@@ -539,11 +538,11 @@ msgstr "Вимкнути"
 msgid "Disable dynamic tab title"
 msgstr "Вимкнути динамічний заголовок вкладки"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:204
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:210
 msgid "Disable fluent background while dragging"
 msgstr "Вимкнути прозорий фон під час перетягування вікна"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:197
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:203
 msgid "Disable GPU acceleration"
 msgstr "Вимкнути апаратне прискорення"
 
@@ -564,7 +563,7 @@ msgstr "Від'єднатися від {host}?"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:30
 msgid "Display images via Sixel escape sequences"
-msgstr ""
+msgstr "Показувати зображення з допомогою послідовності Sixel"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:88
 msgid "Display on"
@@ -608,7 +607,7 @@ msgstr "Закріплення"
 msgid "Double-click selection will stop at these characters"
 msgstr "Виділення за подвійним клацанням зупиниться на цих символах"
 
-#: tabby-core/src/tabContextMenu.ts:80
+#: tabby-core/src/tabContextMenu.ts:79
 msgid "Down"
 msgstr "Вниз"
 
@@ -620,7 +619,7 @@ msgstr "Завантажити"
 msgid "Draw bold text in bright colors"
 msgstr "Малює жирний текст яскравими кольорами"
 
-#: tabby-core/src/tabContextMenu.ts:120
+#: tabby-core/src/tabContextMenu.ts:118
 msgid "Duplicate"
 msgstr "Дублювати"
 
@@ -638,7 +637,7 @@ msgstr "Редагувати"
 
 #: tabby-electron/src/sftpContextMenu.ts:30
 msgid "Edit locally"
-msgstr ""
+msgstr "Редагувати локально"
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:62
 msgid "Enable"
@@ -673,7 +672,7 @@ msgstr "Вмикає експериментальне API ConPTY Windows"
 msgid "Encrypt config file"
 msgstr "Шифрувати файл конфігурації"
 
-#: tabby-terminal/src/hotkeys.ts:22
+#: tabby-terminal/src/hotkeys.ts:26
 msgid "End of the line"
 msgstr "Кінець рядка"
 
@@ -726,7 +725,7 @@ msgstr "Фільтр"
 msgid "Fixed"
 msgstr "Фіксований"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:205
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:211
 msgid "Fluent background sometimes causes drag lag"
 msgstr "Іноді прозорий фон викликає лаги під час перетягування"
 
@@ -734,13 +733,13 @@ msgstr "Іноді прозорий фон викликає лаги під ча
 msgid "Focus all panes"
 msgstr "Сфокусуватися на всіх панелях"
 
-#: tabby-terminal/src/hotkeys.ts:74
+#: tabby-terminal/src/hotkeys.ts:78
 msgid "Focus all panes at once (broadcast)"
 msgstr "Фокус на всі панелі одразу (broadcast)"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:189
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:195
 msgid "Focus follows mouse"
-msgstr ""
+msgstr "Фокус слідує за курсором"
 
 #: tabby-core/src/hotkeys.ts:193
 msgid "Focus next pane"
@@ -756,7 +755,7 @@ msgstr "Фокус на наступній панелі"
 #: tabby-core/src/hotkeys.ts:225
 #: tabby-core/src/hotkeys.ts:229
 msgid "Focus pane {number}"
-msgstr ""
+msgstr "Фокус на панелі {number}"
 
 #: tabby-core/src/hotkeys.ts:189
 msgid "Focus previous pane"
@@ -782,7 +781,7 @@ msgstr "Фокус на панелі праворуч"
 msgid "Font"
 msgstr "Шрифт"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:183
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:189
 msgid "For keyboard shortcuts"
 msgstr "Комбінації клавіш"
 
@@ -864,7 +863,7 @@ msgstr "Зелений"
 msgid "Group"
 msgstr "Група"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:194
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:200
 msgid "Hacks"
 msgstr "Проблеми"
 
@@ -881,13 +880,17 @@ msgstr "Допоможіть перекласти Tabby"
 msgid "Hexadecimal"
 msgstr "Шістнадцятковий"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:175
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:181
 msgid "Hide tab close button"
 msgstr "Приховати кнопку закриття вкладки"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:163
 msgid "Hide tab index"
 msgstr "Приховати нумерацію вкладок"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:175
+msgid "Hide tab options button"
+msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:123
 msgid "Hide window on focus loss"
@@ -971,11 +974,11 @@ msgstr "Перенесення рядків у введенні"
 msgid "Installed"
 msgstr "Встановлено"
 
-#: tabby-electron/src/services/updater.service.ts:137
+#: tabby-electron/src/services/updater.service.ts:131
 msgid "Installing the update will close all tabs and restart Tabby."
 msgstr "Встановлення оновлення закриє всі вкладки й перезавантажить Tabby."
 
-#: tabby-terminal/src/hotkeys.ts:62
+#: tabby-terminal/src/hotkeys.ts:66
 msgid "Intelligent Ctrl-C (copy/abort)"
 msgstr "Інтелектуальний Ctrl-C (копіювати/скасувати)"
 
@@ -992,11 +995,11 @@ msgstr "Некоректний синтаксис"
 msgid "Jump host"
 msgstr "Проміжний хост"
 
-#: tabby-terminal/src/hotkeys.ts:30
+#: tabby-terminal/src/hotkeys.ts:34
 msgid "Jump to next word"
 msgstr "Перейти до наступного слова"
 
-#: tabby-terminal/src/hotkeys.ts:26
+#: tabby-terminal/src/hotkeys.ts:30
 msgid "Jump to previous word"
 msgstr "Перейти до попереднього слова"
 
@@ -1061,7 +1064,7 @@ msgstr "Дізнайтеся, як дозволити Tabby визначати �
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:141
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:76
-#: tabby-core/src/tabContextMenu.ts:81
+#: tabby-core/src/tabContextMenu.ts:80
 msgid "Left"
 msgstr "Ліворуч"
 
@@ -1144,9 +1147,9 @@ msgstr "Перенести вкладку праворуч"
 msgid "Move to \"Ungrouped\""
 msgstr "Перемістити до «Без групи»"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:190
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:196
 msgid "Moving the mouse over an inactive pane will cause it to activate"
-msgstr ""
+msgstr "Наведення курсора на неактивну панель зробить її активною"
 
 #: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:12
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:14
@@ -1245,11 +1248,11 @@ msgstr "Стандартний розмір шрифта"
 msgid "Not found"
 msgstr "Не знайдено"
 
-#: tabby-core/src/tabContextMenu.ts:200
+#: tabby-core/src/tabContextMenu.ts:198
 msgid "Notify on activity"
 msgstr "Повідомляти про активність"
 
-#: tabby-core/src/tabContextMenu.ts:178
+#: tabby-core/src/tabContextMenu.ts:176
 msgid "Notify when done"
 msgstr "Повідомити про завершення"
 
@@ -1274,10 +1277,6 @@ msgstr "На GitHub Discussions"
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:41
 msgid "Opacity"
 msgstr "Прозорість"
-
-#: tabby-linkifier/src/decorator.ts:46
-msgid "Open"
-msgstr "Відкрити"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:82
 msgid "Open DevTools"
@@ -1352,11 +1351,11 @@ msgstr "Перезаписати віддалену конфігурацію т�
 msgid "Overwrite the local config and start syncing?"
 msgstr "Перезаписати локальну конфігурацію та розпочати синхронізацію?"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:182
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:188
 msgid "Pane resize step"
 msgstr "Крок зміни розміру панелі"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:179
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:185
 msgid "Panes"
 msgstr "Панелі"
 
@@ -1378,7 +1377,7 @@ msgid "Password"
 msgstr "Пароль"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:67
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:468
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:467
 #: tabby-terminal/src/tabContextMenu.ts:34
 msgid "Paste"
 msgstr "Вставити"
@@ -1387,7 +1386,7 @@ msgstr "Вставити"
 msgid "Paste from clipboard"
 msgstr "Вставити з буферу обміну"
 
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:475
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:474
 msgid "Paste multiple lines?"
 msgstr "Вставити кілька рядків?"
 
@@ -1451,11 +1450,11 @@ msgstr "Попередня вкладка"
 msgid "Private keys"
 msgstr "Приватні ключі"
 
-#: tabby-core/src/tabContextMenu.ts:186
+#: tabby-core/src/tabContextMenu.ts:184
 msgid "Process completed"
 msgstr "Процес завершено"
 
-#: tabby-core/src/tabContextMenu.ts:142
+#: tabby-core/src/tabContextMenu.ts:140
 msgid "Profile name"
 msgstr "Ім'я профілю"
 
@@ -1538,7 +1537,7 @@ msgid "Remote"
 msgstr "Дистанційне"
 
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:25
-#: tabby-core/src/tabContextMenu.ts:116
+#: tabby-core/src/tabContextMenu.ts:114
 msgid "Rename"
 msgstr "Перейменувати"
 
@@ -1568,7 +1567,7 @@ msgstr "Повідомити про проблему"
 msgid "Require a key to click links"
 msgstr "Вимагати натискання кнопки для переходу за посиланнями"
 
-#: tabby-terminal/src/hotkeys.ts:58
+#: tabby-terminal/src/hotkeys.ts:62
 msgid "Reset zoom"
 msgstr "Скинути масштаб"
 
@@ -1586,7 +1585,7 @@ msgstr "Перезапустити поточну сесію Telnet"
 
 #: tabby-core/src/hotkeys.ts:61
 msgid "Restart tab"
-msgstr ""
+msgstr "Перезапуск вкладки"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:134
 msgid "Restart the app to apply changes"
@@ -1602,7 +1601,7 @@ msgstr "Повторне використання сесії для кілько
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:144
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:79
-#: tabby-core/src/tabContextMenu.ts:79
+#: tabby-core/src/tabContextMenu.ts:78
 msgid "Right"
 msgstr "Праворуч"
 
@@ -1632,7 +1631,7 @@ msgstr "Зберегти та застосувати"
 msgid "Save as profile"
 msgstr "Зберегти як профіль"
 
-#: tabby-core/src/tabContextMenu.ts:139
+#: tabby-core/src/tabContextMenu.ts:137
 msgid "Save layout as profile"
 msgstr "Зберегти макет як профіль"
 
@@ -1648,21 +1647,21 @@ msgstr "Збережений макет"
 msgid "Scroll on input"
 msgstr "Прокручувати під час введення"
 
-#: tabby-terminal/src/hotkeys.ts:86
-msgid "Scroll terminal one page down"
-msgstr ""
-
-#: tabby-terminal/src/hotkeys.ts:82
-msgid "Scroll terminal one page up"
-msgstr ""
-
 #: tabby-terminal/src/hotkeys.ts:90
+msgid "Scroll terminal one page down"
+msgstr "Прокрутити на одну сторінку донизу"
+
+#: tabby-terminal/src/hotkeys.ts:86
+msgid "Scroll terminal one page up"
+msgstr "Прокрутити на одну сторінку вгору"
+
+#: tabby-terminal/src/hotkeys.ts:94
 msgid "Scroll terminal to bottom"
 msgstr "Прокрутка терміналу донизу"
 
-#: tabby-terminal/src/hotkeys.ts:78
+#: tabby-terminal/src/hotkeys.ts:82
 msgid "Scroll terminal to top"
-msgstr ""
+msgstr "Прокрутка терміналу вгору"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:16
 msgid "Scrollback"
@@ -1672,7 +1671,7 @@ msgstr "Буфер зворотного прокручування"
 msgid "Scrolls the terminal to the bottom on user input"
 msgstr "Прокручує термінал вниз під час введення"
 
-#: tabby-terminal/src/hotkeys.ts:70
+#: tabby-terminal/src/hotkeys.ts:74
 msgid "Search"
 msgstr "Пошук"
 
@@ -1700,6 +1699,10 @@ msgstr "Обрати"
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:64
 msgid "Select a base profile to use as a template"
 msgstr "Виберіть базовий профіль для використання в якості шаблону"
+
+#: tabby-terminal/src/hotkeys.ts:18
+msgid "Select all"
+msgstr ""
 
 #: tabby-core/src/services/fileProviders.service.ts:46
 msgid "Select file storage"
@@ -1769,7 +1772,7 @@ msgstr "Налаштування"
 msgid "Shell"
 msgstr "Shell"
 
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:562
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:563
 msgid "Shell does not support current path detection"
 msgstr "Shell не підтримує виявлення поточного шляху"
 
@@ -1825,13 +1828,17 @@ msgstr "Показати замітки до випуску"
 msgid "Show Serial connections"
 msgstr "Показати з'єднання по послідовному порту"
 
+#: tabby-terminal/src/tabContextMenu.ts:53
+msgid "Show toolbar"
+msgstr ""
+
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:44
 msgid "Show vault contents"
 msgstr "Показати вміст сховища"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:29
 msgid "Sixel graphics support (experimental)"
-msgstr ""
+msgstr "Підтримка графіки Sixel (експериментальна)"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:140
 msgid "Skip MoTD/banner"
@@ -1868,7 +1875,7 @@ msgstr "Звук"
 msgid "Source code"
 msgstr "Вихідний код"
 
-#: tabby-core/src/tabContextMenu.ts:76
+#: tabby-core/src/tabContextMenu.ts:75
 msgid "Split"
 msgstr "Розділити"
 
@@ -1924,7 +1931,7 @@ msgstr "Підписатись на оновлення"
 msgid "Substitutions allowed."
 msgstr "Допускаються заміни."
 
-#: tabby-core/src/tabContextMenu.ts:281
+#: tabby-core/src/tabContextMenu.ts:279
 msgid "Switch profile"
 msgstr "Змінити профіль"
 
@@ -1983,7 +1990,7 @@ msgstr "Синхронізувати налаштування вікна"
 msgid "Tab {number}"
 msgstr "Вкладка {number}"
 
-#: tabby-core/src/tabContextMenu.ts:214
+#: tabby-core/src/tabContextMenu.ts:212
 msgid "Tab activity"
 msgstr "Активність вкладки"
 
@@ -2048,7 +2055,7 @@ msgstr "Це застосовується до всіх профілів зад�
 msgid "Thin"
 msgstr "Тонкий"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:198
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:204
 msgid "Tick this if you're experiencing aliasing, ghosting or other visual issues"
 msgstr "Увімкніть, якщо бачите aliasing, ghosting або інші проблеми з відображенням"
 
@@ -2105,12 +2112,12 @@ msgstr "Невідомий тип секретних даних {type} для {k
 msgid "Unpin"
 msgstr "Відкріпити"
 
-#: tabby-core/src/tabContextMenu.ts:82
+#: tabby-core/src/tabContextMenu.ts:81
 msgid "Up"
 msgstr "Вгору"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:14
-#: tabby-electron/src/services/updater.service.ts:139
+#: tabby-electron/src/services/updater.service.ts:133
 msgid "Update"
 msgstr "Оновити"
 
@@ -2299,11 +2306,11 @@ msgstr "Ви можете змінити його пізніше, але якщ�
 msgid "You could be under a man-in-the-middle attack right now, or the host key could have just been changed."
 msgstr "Можливо, зараз ви перебуваєте під атакою «man-in-the-middle», або ключ хоста міг бути змінений."
 
-#: tabby-terminal/src/hotkeys.ts:50
+#: tabby-terminal/src/hotkeys.ts:54
 msgid "Zoom in"
 msgstr "Збільшити"
 
-#: tabby-terminal/src/hotkeys.ts:54
+#: tabby-terminal/src/hotkeys.ts:58
 msgid "Zoom out"
 msgstr "Зменшити"
 
