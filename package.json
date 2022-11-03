@@ -39,7 +39,7 @@
     "electron-builder": "^24.0.0-alpha.1",
     "electron-download": "^4.1.1",
     "electron-installer-snap": "^5.1.0",
-    "electron-notarize": "^1.2.1",
+    "electron-notarize": "^1.2.2",
     "electron-rebuild": "^3.2.9",
     "eslint": "^7.32.0",
     "file-loader": "^6.2.0",
