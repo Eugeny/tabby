@@ -47,7 +47,7 @@
     "graceful-fs": "^4.2.10",
     "html-loader": "4.2.0",
     "json-loader": "^0.5.7",
-    "lru-cache": "^6.0.0",
+    "lru-cache": "^7.14.1",
     "macos-release": "^3.1.0",
     "ngx-sortablejs": "^11.1.0",
     "ngx-toastr": "^14.0.0",
