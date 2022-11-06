@@ -293,6 +293,7 @@ Dank geht an diese wunderbaren Menschen ([emoji key](https://allcontributors.org
     <td align="center"><a href="https://www.stackscale.com/"><img src="https://avatars.githubusercontent.com/u/195768?v=4?s=100" width="100px;" alt=""/><br /><sub><b>David Carrero</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=dcarrero" title="Documentation">📖</a></td>
     <td align="center"><a href="https://github.com/zhoro"><img src="https://avatars.githubusercontent.com/u/1105687?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Andrii Zhovtiak</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=zhoro" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/JohnMasoner"><img src="https://avatars.githubusercontent.com/u/42313377?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Mason Ma</b></sub></a><br /><a href="#financial-JohnMasoner" title="Financial">💵</a></td>
+    <td align="center"><a href="https://github.com/ntimo"><img src="https://avatars.githubusercontent.com/u/6145026?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Timo</b></sub></a><br /><a href="#financial-ntimo" title="Financial">💵</a></td>
   </tr>
 </table>
 

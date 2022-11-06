@@ -993,6 +993,15 @@
       "contributions": [
         "financial"
       ]
+    },
+    {
+      "login": "ntimo",
+      "name": "Timo",
+      "avatar_url": "https://avatars.githubusercontent.com/u/6145026?v=4",
+      "profile": "https://github.com/ntimo",
+      "contributions": [
+        "financial"
+      ]
     }
   ],
   "contributorsPerLine": 7,
