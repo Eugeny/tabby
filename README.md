@@ -137,7 +137,7 @@ Plugins and themes can be installed directly from the Settings view inside Tabby
 
 [**packagecloud**](https://packagecloud.io) has provided free Debian/RPM repository hosting
 
-[![](https://user-images.githubusercontent.com/161476/193406404-1784f40c-eaba-44d0-af11-d8bd35517382.png)](https://keygen.sh/?via=eugene)
+[![](https://user-images.githubusercontent.com/161476/200423885-7aba2202-fea7-4409-95b9-3a062ce902c7.png)](https://keygen.sh/?via=eugene)
 
 [**keygen**](https://keygen.sh/?via=eugene) has provided free release & auto-update hosting
 
