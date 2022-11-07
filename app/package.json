@@ -47,7 +47,7 @@
     "@types/node": "18.7.23",
     "atomically": "^1.7.0",
     "ngx-filesize": "^2.0.16",
-    "patch-package": "^6.4.7"
+    "patch-package": "^6.5.0"
   },
   "peerDependencies": {
     "tabby-community-color-schemes": "*",
