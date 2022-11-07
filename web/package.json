@@ -20,5 +20,5 @@
     "scripts": {
         "postinstall": "patch-package"
     },
-    "version": "1.0.171-nightly.3"
+    "version": "1.0.187-nightly.1"
 }

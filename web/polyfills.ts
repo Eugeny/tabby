@@ -42,6 +42,7 @@ export class SocketProxy extends Duplex {
 }
 
 Tabby.registerMock('fs', {
+    rmdirSync: () => null,
     realpathSync: () => null,
     readdir: () => null,
     stat: () => null,
@@ -71,6 +72,10 @@ Tabby.registerMock('os', {
     arch: () => 'web',
     platform: () => 'web',
     homedir: () => '/home',
+    tmpdir: () => '/tmp',
+    constants: {
+        errno: {},
+    },
 })
 Tabby.registerModule('buffer', {
     Buffer: window['Buffer'],
@@ -141,8 +146,11 @@ Tabby.registerModule('rxjs/operators', require('rxjs'))
 Tabby.registerModule('string_decoder', require('string_decoder'))
 Tabby.registerModule('js-yaml', require('js-yaml'))
 Tabby.registerModule('zone.js/dist/zone.js', require('zone.js/dist/zone.js'))
+Tabby.registerModule('any-promise', require('any-promise'))
 
 Object.assign(window, {
     __dirname: '__dirname',
     setImmediate: setTimeout as any,
 })
+
+process.addListener = () => null
