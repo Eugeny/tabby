@@ -1,0 +1,2379 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Crowdin-Project: tabby\n"
+"X-Crowdin-Project-ID: 493349\n"
+"X-Crowdin-Language: sv-SE\n"
+"X-Crowdin-File: /locale/app.pot\n"
+"X-Crowdin-File-ID: 75\n"
+"Project-Id-Version: tabby\n"
+"Language-Team: Swedish\n"
+"Language: sv_SE\n"
+"PO-Revision-Date: 2022-11-09 19:21\n"
+
+#: tabby-local/src/components/terminalTab.component.ts:113
+msgid "\"{command}\" is still running. Close?"
+msgstr "\"{command}\" körs fortfarande. Stänga?"
+
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:78
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:89
+msgid "{name} copy"
+msgstr "{name} kopia"
+
+#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:82
+msgid "A second font family used to display characters missing in the main font"
+msgstr "En andra typsnittsfamilj som används för att visa tecken som saknas i huvudtypsnittet"
+
+#: tabby-core/src/components/transfersMenu.component.ts:49
+msgid "Abort all"
+msgstr "Avbryt alla"
+
+#: locale/tmp-html/tabby-ssh/src/components/hostKeyPromptModal.component.html:24
+msgid "Accept and remember key"
+msgstr "Acceptera och kom ihåg nyckel"
+
+#: locale/tmp-html/tabby-ssh/src/components/hostKeyPromptModal.component.html:25
+msgid "Accept just this once"
+msgstr "Acceptera bara denna gång"
+
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:84
+msgid "Accessibility"
+msgstr "Tillgänglighet"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:20
+msgid "Acrylic background"
+msgstr "Akryl bakgrund"
+
+#: locale/tmp-html/tabby-local/src/components/commandLineEditor.component.html:28
+#: locale/tmp-html/tabby-local/src/components/environmentEditor.component.html:15
+msgid "Add"
+msgstr "Lägg till"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:16
+msgid "Add a port forward"
+msgstr "Lägg till en vidarebefordrad port"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:115
+msgid "Add a private key"
+msgstr "Lägg till en privat nyckel"
+
+#: locale/tmp-html/tabby-settings/src/components/multiHotkeyInput.component.html:8
+msgid "Add..."
+msgstr "Lägg till..."
+
+#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:89
+msgid "Additional space between lines"
+msgstr "Ytterligare utrymme mellan raderna"
+
+#: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:22
+#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:64
+#: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:52
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:124
+msgid "Advanced"
+msgstr "Avancerat"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:90
+msgid "Agent"
+msgstr "Agent"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:134
+msgid "Agent forwarding"
+msgstr "Agent vidarebefordran"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:35
+msgid "Agent pipe path"
+msgstr "Agent processökväg"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:24
+msgid "Agent type"
+msgstr "Agent typ"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:172
+msgid "Allows opening .bat files in tabs, but breaks some shells"
+msgstr "Tillåter att öppna .bat-filer i flikar, men kraschar några skal"
+
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:60
+msgid "Allows quickly opening a terminal in the selected folder"
+msgstr "Tillåter att snabbt öppna en terminal i den valda mappen"
+
+#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:2
+#: tabby-terminal/src/settings.ts:14
+msgid "Appearance"
+msgstr "Utseende"
+
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:4
+msgid "Application"
+msgstr "Applikation"
+
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:47
+msgid "Application settings"
+msgstr "Applikationsinställningar"
+
+#: tabby-web/src/services/hostWindow.service.ts:19
+msgid "Are you sure you want to close Tabby? You can disable this prompt in Settings -> Window."
+msgstr "Är du säker på att du vill stänga Tabby? Du kan inaktivera denna prompt i Inställningar -> Fönster."
+
+#: tabby-core/src/services/config.service.ts:379
+msgid "Are you sure?"
+msgstr "Är du säker?"
+
+#: locale/tmp-html/tabby-local/src/components/commandLineEditor.component.html:20
+msgid "Arguments"
+msgstr "Argument"
+
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:26
+msgid "Ask a question"
+msgstr "Ställ en fråga"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:13
+msgid "Ask before closing the browser tab"
+msgstr "Fråga innan webbläsarfliken stängs"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:143
+msgid "Audible"
+msgstr "Hörbar"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:74
+msgid "Authentication method"
+msgstr "Autentiseringsmetod"
+
+#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:83
+msgid "Author"
+msgstr "Författare"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:78
+msgid "Auto"
+msgstr "Auto"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:156
+msgid "Auto-open a terminal on app start"
+msgstr "Öppna en terminal automatiskt vid appstart"
+
+#: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:13
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:53
+#: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:28
+msgid "Automatic"
+msgstr "Automatisk"
+
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:73
+msgid "Automatic Updates"
+msgstr "Automatiska uppdateringar"
+
+#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:57
+msgid "Automatically upload changes and check for updates every minute"
+msgstr "Ladda automatiskt upp ändringar och sök efter uppdateringar varje minut"
+
+#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:10
+msgid "Available"
+msgstr "Tillgängliga"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:28
+msgid "Background type"
+msgstr "Bakgrundstyp"
+
+#: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:14
+#: tabby-serial/src/components/serialTab.component.ts:118
+#: tabby-serial/src/profiles.ts:86
+msgid "Baud rate"
+msgstr "Baudhastighet"
+
+#: tabby-terminal/src/hotkeys.ts:22
+msgid "Beginning of the line"
+msgstr "Början av raden"
+
+#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:69
+msgid "Blink cursor"
+msgstr "Blinkande markör"
+
+#: tabby-core/src/utils.ts:61
+msgid "Blue"
+msgstr "Blå"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:32
+msgid "Blur"
+msgstr "Oskärpa"
+
+#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:28
+msgid "Bold font weight"
+msgstr "Fet teckensnittsvikt"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:138
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:82
+msgid "Bottom"
+msgstr "Botten"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:109
+msgid "Bracketed paste (requires shell support)"
+msgstr "Inklistring inom parentes (kräver stöd för skal)"
+
+#: tabby-terminal/src/services/multifocus.service.ts:19
+msgid "Broadcast mode. Click anywhere to cancel."
+msgstr "Sändningsläge. Klicka var som helst för att avbryta."
+
+#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:54
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:174
+msgid "Built-in"
+msgstr "Inbyggt"
+
+#: locale/tmp-html/tabby-core/src/components/renameTabModal.component.html:7
+#: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:55
+#: locale/tmp-html/tabby-settings/src/components/hotkeyInputModal.component.html:14
+#: locale/tmp-html/tabby-settings/src/components/setVaultPassphraseModal.component.html:14
+#: locale/tmp-html/tabby-ssh/src/components/sftpCreateDirectoryModal.component.html:10
+#: locale/tmp-html/tabby-ssh/src/components/sftpDeleteModal.component.html:7
+#: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:32
+#: tabby-electron/src/services/updater.service.ts:134
+#: tabby-local/src/components/terminalTab.component.ts:118
+#: tabby-settings/src/components/configSyncSettingsTab.component.ts:79
+#: tabby-settings/src/components/configSyncSettingsTab.component.ts:99
+#: tabby-ssh/src/sftpContextMenu.ts:40
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:474
+msgid "Cancel"
+msgstr "Avbryt"
+
+#: locale/tmp-html/tabby-serial/src/components/serialTab.component.html:4
+msgid "Change baud rate"
+msgstr "Ändra baudhastighet"
+
+#: tabby-core/src/tabContextMenu.ts:133
+msgid "Change tab color"
+msgstr "Ändra flikfärg"
+
+#: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:12
+msgid "Change the master passphrase"
+msgstr "Ändra huvudlösenordsfrasen"
+
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:13
+msgid "Check for updates"
+msgstr "Sök efter uppdateringar"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:172
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:176
+msgid "Ciphers"
+msgstr "Chiffer"
+
+#: tabby-core/src/services/profiles.service.ts:128
+msgid "Clear recent profiles"
+msgstr "Rensa senaste profilerna"
+
+#: tabby-terminal/src/hotkeys.ts:50
+msgid "Clear terminal"
+msgstr "Rensa terminal"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:94
+msgid "Clipboard"
+msgstr "Urklipp"
+
+#: locale/tmp-html/tabby-core/src/components/safeModeModal.component.html:7
+#: tabby-core/src/tabContextMenu.ts:33
+msgid "Close"
+msgstr "Stäng"
+
+#: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:32
+msgid "Close and never show again"
+msgstr "Stäng och visa aldrig igen"
+
+#: tabby-core/src/hotkeys.ts:241
+msgid "Close focused pane"
+msgstr "Stäng fokuserad panel"
+
+#: tabby-core/src/tabContextMenu.ts:48
+msgid "Close other tabs"
+msgstr "Stäng andra flikar"
+
+#: tabby-core/src/hotkeys.ts:29
+#: tabby-core/src/tabContextMenu.ts:34
+msgid "Close tab"
+msgstr "Stäng flik"
+
+#: tabby-core/src/tabContextMenu.ts:64
+msgid "Close tabs to the left"
+msgstr "Stäng flikar till vänster"
+
+#: tabby-core/src/tabContextMenu.ts:56
+msgid "Close tabs to the right"
+msgstr "Stäng flikar till höger"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:187
+msgid "Close the window after closing the last tab"
+msgstr "Stäng fönstret efter att ha stängt den sista fliken"
+
+#: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:35
+#: tabby-core/src/tabContextMenu.ts:132
+msgid "Color"
+msgstr "Färg"
+
+#: tabby-terminal/src/settings.ts:29
+msgid "Color scheme"
+msgstr "Färgschema"
+
+#: tabby-core/src/hotkeys.ts:73
+msgid "Combine all tabs into the current tab"
+msgstr "Kombinera alla flikar till den aktuella fliken"
+
+#: locale/tmp-html/tabby-local/src/components/commandLineEditor.component.html:4
+msgid "Command line"
+msgstr "Kommandorad"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:13
+msgid "Command's stdin/stdout is used instead of a network connection"
+msgstr "Kommandot stdin/stdout används istället för en nätverksanslutning"
+
+#: tabby-core/src/services/commands.service.ts:77
+msgid "Commands"
+msgstr "Kommandon"
+
+#: tabby-core/src/theme.ts:20
+msgid "Compact"
+msgstr "Kompakt"
+
+#: tabby-settings/src/components/configSyncSettingsTab.component.ts:108
+msgid "Config downloaded"
+msgstr "Konfiguration nerladdad"
+
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:109
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:114
+msgid "Config file"
+msgstr "Konfigurationsfil"
+
+#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:2
+#: tabby-settings/src/settings.ts:73
+msgid "Config sync"
+msgstr "Konfigurationssynkronisering"
+
+#: tabby-settings/src/components/configSyncSettingsTab.component.ts:90
+msgid "Config uploaded"
+msgstr "Konfiguration uppladdad"
+
+#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:35
+msgid "Configs"
+msgstr "Konfigurationer"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:21
+msgid "Connect through a proxy server"
+msgstr "Anslut via en proxyserver"
+
+#: tabby-core/src/index.ts:219
+#: tabby-core/src/services/profiles.service.ts:173
+msgid "Connect to \"%s\"..."
+msgstr "Anslut till \"%s\"..."
+
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:17
+msgid "Connect to a different host first and use it as a proxy"
+msgstr "Anslut först till en annan värd och använd den som proxy"
+
+#: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:17
+#: tabby-serial/src/components/serialTab.component.ts:72
+#: tabby-ssh/src/components/sshTab.component.ts:145
+#: tabby-telnet/src/components/telnetTab.component.ts:81
+msgid "Connecting"
+msgstr "Ansluter"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:7
+msgid "Connection"
+msgstr "Anslutning"
+
+#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:30
+msgid "Connection failed: {error}"
+msgstr "Anslutning misslyckades: {error}"
+
+#: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:42
+msgid "Connection name will be used instead"
+msgstr "Anslutningsnamn kommer att användas istället"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:61
+msgid "Context menu"
+msgstr "Snabbmeny"
+
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:219
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:227
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:542
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:756
+#: tabby-terminal/src/tabContextMenu.ts:29
+msgid "Copied"
+msgstr "Kopierad"
+
+#: tabby-terminal/src/tabContextMenu.ts:25
+msgid "Copy"
+msgstr "Kopiera"
+
+#: tabby-terminal/src/hotkeys.ts:70
+#: tabby-terminal/src/tabContextMenu.ts:61
+msgid "Copy current path"
+msgstr "Kopiera aktuell sökväg"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:97
+msgid "Copy on select"
+msgstr "Kopiera vid val"
+
+#: tabby-terminal/src/hotkeys.ts:10
+msgid "Copy to clipboard"
+msgstr "Kopiera till urklipp"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:103
+msgid "Copy with formatting"
+msgstr "Kopiera med formatering"
+
+#: tabby-core/src/services/config.service.ts:364
+msgid "Could not decrypt config"
+msgstr "Kunde inte dekryptera konfigurationen"
+
+#: locale/tmp-html/tabby-ssh/src/components/sftpCreateDirectoryModal.component.html:9
+msgid "Create"
+msgstr "Skapa"
+
+#: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:5
+#: tabby-ssh/src/sftpContextMenu.ts:29
+msgid "Create directory"
+msgstr "Skapa mapp"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:93
+msgid "Current"
+msgstr "Nuvarande"
+
+#: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:3
+msgid "Current color scheme"
+msgstr "Nuvarande färgschema"
+
+#: locale/tmp-html/tabby-ssh/src/components/hostKeyPromptModal.component.html:17
+msgid "Current host key fingerprint"
+msgstr "Aktuell värdnyckels fingeravtryck"
+
+#: tabby-core/src/tabContextMenu.ts:184
+msgid "Current process: {name}"
+msgstr "Aktuell process: {name}"
+
+#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:53
+msgid "Cursor shape"
+msgstr "Markörens form"
+
+#: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:49
+msgid "Custom"
+msgstr "Anpassad"
+
+#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:95
+msgid "Custom CSS"
+msgstr "Anpassad CSS"
+
+#: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:26
+msgid "Data bits"
+msgstr "Databitar"
+
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:80
+msgid "Debugging"
+msgstr "Felsökning"
+
+#: tabby-core/src/hotkeys.ts:257
+msgid "Decrease horizontal split size"
+msgstr "Minska storlek på horisontellt delad vy"
+
+#: tabby-core/src/hotkeys.ts:249
+msgid "Decrease vertical split size"
+msgstr "Minska storlek på vertikalt delad vy"
+
+#: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:8
+msgid "Default profile for new tabs"
+msgstr "Standardprofil för nya flikar"
+
+#: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:70
+msgid "Default profile settings"
+msgstr "Inställningar för standardprofil"
+
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:118
+msgid "Defaults"
+msgstr "Standardvärden"
+
+#: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:6
+msgid "Defaults for {type}"
+msgstr "Standardvärden för {type}"
+
+#: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:28
+#: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:9
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:138
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:203
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:216
+#: tabby-settings/src/components/vaultSettingsTab.component.ts:49
+#: tabby-ssh/src/sftpContextMenu.ts:39
+#: tabby-ssh/src/sftpContextMenu.ts:47
+#: tabby-terminal/src/components/colorSchemeSettingsTab.component.ts:89
+#: tabby-terminal/src/components/loginScriptsSettings.component.ts:32
+msgid "Delete"
+msgstr "Radera"
+
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:136
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:201
+#: tabby-terminal/src/components/colorSchemeSettingsTab.component.ts:87
+msgid "Delete \"{name}\"?"
+msgstr "Radera \"{name}\"?"
+
+#: tabby-ssh/src/sftpContextMenu.ts:35
+msgid "Delete {fullPath}?"
+msgstr "Radera {fullPath}?"
+
+#: tabby-terminal/src/hotkeys.ts:42
+msgid "Delete entire line"
+msgstr "Radera hela raden"
+
+#: tabby-terminal/src/hotkeys.ts:46
+msgid "Delete next word"
+msgstr "Radera nästa ord"
+
+#: tabby-terminal/src/hotkeys.ts:38
+msgid "Delete previous word"
+msgstr "Radera föregående ord"
+
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:213
+msgid "Delete the group's profiles?"
+msgstr "Radera gruppens profiler?"
+
+#: tabby-terminal/src/components/loginScriptsSettings.component.ts:29
+msgid "Delete this script?"
+msgstr "Radera det här skriptet?"
+
+#: tabby-settings/src/components/vaultSettingsTab.component.ts:47
+msgid "Delete vault contents?"
+msgstr "Radera innehållet i valvet?"
+
+#: locale/tmp-html/tabby-ssh/src/components/sftpDeleteModal.component.html:3
+msgid "Deleting"
+msgstr "Raderar"
+
+#: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:8
+msgid "Device"
+msgstr "Enhet"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:10
+msgid "Direct"
+msgstr "Direkt"
+
+#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:61
+msgid "Disable"
+msgstr "Inaktivera"
+
+#: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:41
+msgid "Disable dynamic tab title"
+msgstr "Inaktivera dynamisk fliktitel"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:216
+msgid "Disable fluent background while dragging"
+msgstr "Inaktivera flytande bakgrund medan du drar"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:209
+msgid "Disable GPU acceleration"
+msgstr "Inaktivera GPU-acceleration"
+
+#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:54
+msgid "Disabled"
+msgstr "Inaktiverad"
+
+#: locale/tmp-html/tabby-ssh/src/components/hostKeyPromptModal.component.html:26
+#: tabby-ssh/src/components/sshTab.component.ts:246
+#: tabby-telnet/src/components/telnetTab.component.ts:124
+msgid "Disconnect"
+msgstr "Koppla ifrån"
+
+#: tabby-ssh/src/components/sshTab.component.ts:244
+#: tabby-telnet/src/components/telnetTab.component.ts:122
+msgid "Disconnect from {host}?"
+msgstr "Koppla bort från {host}?"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:30
+msgid "Display images via Sixel escape sequences"
+msgstr "Visa bilder via Sixel escape-sekvenser"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:88
+msgid "Display on"
+msgstr "Display på"
+
+#: tabby-core/src/components/transfersMenu.component.ts:50
+msgid "Do not abort"
+msgstr "Avbryt inte"
+
+#: tabby-ssh/src/components/sshTab.component.ts:247
+#: tabby-telnet/src/components/telnetTab.component.ts:125
+msgid "Do not close"
+msgstr "Stäng inte"
+
+#: locale/tmp-html/tabby-core/src/components/unlockVaultModal.component.html:6
+#: locale/tmp-html/tabby-core/src/components/unlockVaultModal.component.html:8
+msgid "Do not remember"
+msgstr "Kom inte ihåg"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:102
+msgid "Dock always on top"
+msgstr "Dock alltid på toppen"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:65
+msgid "Dock the terminal"
+msgstr "Docka terminalen"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:109
+msgid "Docked terminal size"
+msgstr "Dockad terminalstorlek"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:116
+msgid "Docked terminal space"
+msgstr "Dockat terminalutrymme"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:62
+msgid "Docking"
+msgstr "Dockning"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:75
+msgid "Double-click selection will stop at these characters"
+msgstr "Dubbelklicka val kommer att stanna vid dessa tecken"
+
+#: tabby-core/src/tabContextMenu.ts:79
+msgid "Down"
+msgstr "Ner"
+
+#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:47
+msgid "Download"
+msgstr "Ladda ner"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:23
+msgid "Draw bold text in bright colors"
+msgstr "Rita fet text i ljusa färger"
+
+#: tabby-core/src/tabContextMenu.ts:127
+msgid "Duplicate"
+msgstr "Duplicera"
+
+#: tabby-local/src/tabContextMenu.ts:123
+msgid "Duplicate as administrator"
+msgstr "Duplicera som administratör"
+
+#: tabby-core/src/hotkeys.ts:61
+#: tabby-core/src/tabContextMenu.ts:128
+msgid "Duplicate tab"
+msgstr "Duplicera flik"
+
+#: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:7
+msgid "Edit"
+msgstr "Redigera"
+
+#: tabby-electron/src/sftpContextMenu.ts:30
+msgid "Edit locally"
+msgstr "Redigera lokalt"
+
+#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:62
+msgid "Enable"
+msgstr "Aktivera"
+
+#: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:19
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:66
+msgid "Enable analytics"
+msgstr "Aktivera analyser"
+
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:87
+msgid "Enable animations"
+msgstr "Aktivera animationer"
+
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:74
+msgid "Enable automatic installation of updates when they become available."
+msgstr "Aktivera automatisk installation av uppdateringar när de blir tillgängliga."
+
+#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:16
+msgid "Enable font ligatures"
+msgstr "Aktivera teckensnittsligaturer"
+
+#: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:26
+msgid "Enable global hotkey (Ctrl-Space)"
+msgstr "Aktivera global snabbtangent (Ctrl-Mellanslag)"
+
+#: locale/tmp-html/tabby-local/src/components/shellSettingsTab.component.html:6
+msgid "Enables the experimental Windows ConPTY API"
+msgstr "Aktiverar det experimentella Windows ConPTY API"
+
+#: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:36
+msgid "Encrypt config file"
+msgstr "Kryptera konfigurationsfil"
+
+#: tabby-terminal/src/hotkeys.ts:26
+msgid "End of the line"
+msgstr "Slutet av raden"
+
+#: locale/tmp-html/tabby-local/src/components/localProfileSettings.component.html:19
+msgid "Environment"
+msgstr "Miljö"
+
+#: tabby-core/src/services/config.service.ts:368
+#: tabby-core/src/services/config.service.ts:382
+msgid "Erase config"
+msgstr "Radera konfiguration"
+
+#: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:12
+msgid "Erase the Vault"
+msgstr "Radera valvet"
+
+#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:6
+msgid "Error in {plugin}:"
+msgstr "Fel i {plugin}:"
+
+#: locale/tmp-html/tabby-terminal/src/components/loginScriptsSettings.component.html:9
+msgid "Exact match"
+msgstr "Exakt matchning"
+
+#: locale/tmp-html/tabby-local/src/components/environmentEditor.component.html:19
+msgid "Example:"
+msgstr "Exempel:"
+
+#: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:27
+msgid "Export"
+msgstr "Exportera"
+
+#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:81
+msgid "Fallback font"
+msgstr "Reservtypsnitt"
+
+#: locale/tmp-html/tabby-core/src/components/transfersMenu.component.html:3
+msgid "File transfers"
+msgstr "Filöverföringar"
+
+#: tabby-settings/src/components/vaultSettingsTab.component.ts:91
+msgid "File: {description}"
+msgstr "Fil: {description}"
+
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:17
+msgid "Filter"
+msgstr "Filtrera"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:157
+msgid "Fixed"
+msgstr "Fast"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:217
+msgid "Fluent background sometimes causes drag lag"
+msgstr "Flytande bakgrund orsakar ibland draglag"
+
+#: tabby-local/src/tabContextMenu.ts:145
+msgid "Focus all panes"
+msgstr "Fokusera alla paneler"
+
+#: tabby-terminal/src/hotkeys.ts:78
+msgid "Focus all panes at once (broadcast)"
+msgstr "Fokusera alla paneler samtidigt (sändning)"
+
+#: tabby-local/src/tabContextMenu.ts:138
+msgid "Focus all tabs"
+msgstr "Fokusera alla flikar"
+
+#: tabby-terminal/src/hotkeys.ts:82
+msgid "Focus all tabs at once (broadcast)"
+msgstr "Fokusera alla flikar samtidigt (sändning)"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:201
+msgid "Focus follows mouse"
+msgstr "Fokus följer mus"
+
+#: tabby-core/src/hotkeys.ts:197
+msgid "Focus next pane"
+msgstr "Fokusera nästa panel"
+
+#: tabby-core/src/hotkeys.ts:201
+#: tabby-core/src/hotkeys.ts:205
+#: tabby-core/src/hotkeys.ts:209
+#: tabby-core/src/hotkeys.ts:213
+#: tabby-core/src/hotkeys.ts:217
+#: tabby-core/src/hotkeys.ts:221
+#: tabby-core/src/hotkeys.ts:225
+#: tabby-core/src/hotkeys.ts:229
+#: tabby-core/src/hotkeys.ts:233
+msgid "Focus pane {number}"
+msgstr "Fokusera panel {nummer}"
+
+#: tabby-core/src/hotkeys.ts:193
+msgid "Focus previous pane"
+msgstr "Fokusera föregående panel"
+
+#: tabby-core/src/hotkeys.ts:177
+msgid "Focus the pane above"
+msgstr "Fokusera panelen ovan"
+
+#: tabby-core/src/hotkeys.ts:181
+msgid "Focus the pane below"
+msgstr "Fokusera panelen under"
+
+#: tabby-core/src/hotkeys.ts:185
+msgid "Focus the pane on the left"
+msgstr "Fokusera panelen till vänster"
+
+#: tabby-core/src/hotkeys.ts:189
+msgid "Focus the pane on the right"
+msgstr "Fokusera panelen till höger"
+
+#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:7
+msgid "Font"
+msgstr "Typsnitt"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:195
+msgid "For keyboard shortcuts"
+msgstr "För kortkommandon"
+
+#: tabby-terminal/src/components/streamProcessingSettings.component.ts:51
+msgid "Force CR"
+msgstr "Tvinga CR"
+
+#: tabby-terminal/src/components/streamProcessingSettings.component.ts:53
+msgid "Force CRLF"
+msgstr "Tvinga CRLF"
+
+#: tabby-terminal/src/components/streamProcessingSettings.component.ts:52
+msgid "Force LF"
+msgstr "Tvinga LF"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:25
+msgid "Forces a specific SSH agent connection type."
+msgstr "Framtvingar en specifik SSH-agentanslutningstyp."
+
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:105
+msgid "Forget"
+msgstr "Glöm bort"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:58
+msgid "Forward port"
+msgstr "Vidarebefordra port"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingModal.component.html:3
+msgid "Forwarded ports"
+msgstr "Vidarebefordrade portar"
+
+#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:47
+msgid "From color scheme"
+msgstr "Från färgschema"
+
+#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:44
+msgid "From theme"
+msgstr "Från tema"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:6
+msgid "Frontend"
+msgstr "Frontend"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:58
+msgid "Full"
+msgstr "Full"
+
+#: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:3
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:3
+#: locale/tmp-html/tabby-telnet/src/components/telnetProfileSettings.component.html:3
+msgid "General"
+msgstr "Allmän"
+
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:21
+msgid "Generate a pre-filled GitHub issue"
+msgstr "Generera ett förifyllt GitHub-problem"
+
+#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:27
+msgid "Get"
+msgstr "Hämta"
+
+#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:20
+msgid "Get it from the Tabby Web settings window"
+msgstr "Hämta det från fönstret Tabby Web-inställningar"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:22
+msgid "Gives the window a blurred transparent background"
+msgstr "Ger fönstret en suddig transparent bakgrund"
+
+#: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:22
+msgid "Go up"
+msgstr "Gå upp"
+
+#: tabby-core/src/utils.ts:62
+msgid "Green"
+msgstr "Grön"
+
+#: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:16
+msgid "Group"
+msgstr "Grupp"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:206
+msgid "Hacks"
+msgstr "Hacks"
+
+#: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:20
+msgid "Help track the number of Tabby installs across the world!"
+msgstr "Hjälp till att spåra antalet Tabby-installationer över hela världen!"
+
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:50
+msgid "Help translate Tabby"
+msgstr "Hjälp till att översätta Tabby"
+
+#: tabby-terminal/src/components/streamProcessingSettings.component.ts:32
+#: tabby-terminal/src/components/streamProcessingSettings.component.ts:44
+msgid "Hexadecimal"
+msgstr "Hexadecimal"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:181
+msgid "Hide tab close button"
+msgstr "Dölj flikstängningsknappen"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:163
+msgid "Hide tab index"
+msgstr "Dölj flikindex"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:175
+msgid "Hide tab options button"
+msgstr "Dölj flikalternativsknappen"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:123
+msgid "Hide window on focus loss"
+msgstr "Dölj fönstret vid fokusförlust"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:124
+msgid "Hides the docked terminal when you click away."
+msgstr "Döljer den dockade terminalen när du klickar bort."
+
+#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:28
+msgid "Homepage"
+msgstr "Hemsida"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:34
+#: locale/tmp-html/tabby-telnet/src/components/telnetProfileSettings.component.html:6
+msgid "Host"
+msgstr "Värd"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:206
+msgid "Host key"
+msgstr "Värdnyckel"
+
+#: locale/tmp-html/tabby-ssh/src/components/hostKeyPromptModal.component.html:3
+msgid "Host key verification"
+msgstr "Värdnyckelverifiering"
+
+#: locale/tmp-html/tabby-settings/src/components/hotkeySettingsTab.component.html:2
+#: tabby-settings/src/settings.ts:15
+msgid "Hotkeys"
+msgstr "Snabbtangenter"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:24
+msgid "HTTP proxy"
+msgstr "HTTP-proxy"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:61
+msgid "HTTP proxy host"
+msgstr "HTTP-proxy-värd"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:65
+msgid "HTTP proxy port"
+msgstr "HTTP-proxyport"
+
+#: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:20
+msgid "Icon"
+msgstr "Ikon"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:154
+msgid "id.tab-width.dynamic"
+msgstr "id.tab-width.dynamic"
+
+#: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:64
+msgid "If disabled, only custom profiles will show up in the profile selector"
+msgstr "Om inaktiverad, kommer endast anpassade profiler att visas i profilväljaren"
+
+#: tabby-terminal/src/components/streamProcessingSettings.component.ts:23
+msgid "Immediately echoes your input locally"
+msgstr "Ekar omedelbart din inmatning lokalt"
+
+#: tabby-core/src/hotkeys.ts:253
+msgid "Increase horizontal split size"
+msgstr "Öka storlek på horisontellt delad vy"
+
+#: tabby-core/src/hotkeys.ts:245
+msgid "Increase vertical split size"
+msgstr "Öka storlek på vertikalt delad vy"
+
+#: tabby-terminal/src/components/streamProcessingSettings.component.ts:18
+msgid "Input is sent as you type"
+msgstr "Inmatning skickas när du skriver"
+
+#: locale/tmp-html/tabby-terminal/src/components/streamProcessingSettings.component.html:4
+msgid "Input mode"
+msgstr "Inmatningsläge"
+
+#: locale/tmp-html/tabby-terminal/src/components/streamProcessingSettings.component.html:15
+msgid "Input newlines"
+msgstr "Inmatningsradbrytning"
+
+#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:41
+msgid "Installed"
+msgstr "Installerad"
+
+#: tabby-electron/src/services/updater.service.ts:131
+msgid "Installing the update will close all tabs and restart Tabby."
+msgstr "Om du installerar uppdateringen stängs alla flikar och Tabby startas om."
+
+#: tabby-terminal/src/hotkeys.ts:66
+msgid "Intelligent Ctrl-C (copy/abort)"
+msgstr "Intelligent Ctrl-C (kopiera/avbryt)"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:94
+msgid "Interactive"
+msgstr "Interaktiv"
+
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:124
+msgid "Invalid syntax"
+msgstr "Felaktig syntax"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:16
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:43
+msgid "Jump host"
+msgstr "Mellanvärd"
+
+#: tabby-terminal/src/hotkeys.ts:34
+msgid "Jump to next word"
+msgstr "Hoppa till nästa ord"
+
+#: tabby-terminal/src/hotkeys.ts:30
+msgid "Jump to previous word"
+msgstr "Hoppa till föregående ord"
+
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:139
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:204
+#: tabby-settings/src/components/vaultSettingsTab.component.ts:50
+#: tabby-terminal/src/components/colorSchemeSettingsTab.component.ts:90
+#: tabby-terminal/src/components/loginScriptsSettings.component.ts:33
+#: tabby-terminal/src/components/streamProcessingSettings.component.ts:49
+msgid "Keep"
+msgstr "Behåll"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:154
+msgid "Keep Alive Interval (Milliseconds)"
+msgstr "Håll-vid-liv-intervall (millisekunder)"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:103
+msgid "Keep docked terminal always on top"
+msgstr "Håll dockad terminal alltid överst"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:86
+msgid "Key"
+msgstr "Nyckel"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:186
+msgid "Key exchange"
+msgstr "Nyckelbyte"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:36
+msgid "Keyboard"
+msgstr "Tangentbord"
+
+#: locale/tmp-html/tabby-ssh/src/components/keyboardInteractiveAuthPanel.component.html:2
+msgid "Keyboard-interactive auth"
+msgstr "Tangentbordsinteraktiv autentisering"
+
+#: tabby-local/src/components/terminalTab.component.ts:117
+msgid "Kill"
+msgstr "Döda"
+
+#: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:10
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:50
+msgid "Language"
+msgstr "Språk"
+
+#: locale/tmp-html/tabby-ssh/src/components/hostKeyPromptModal.component.html:11
+msgid "Last known host key fingerprint"
+msgstr "Senast kända värdnyckelfingeravtryck"
+
+#: tabby-ssh/src/tabContextMenu.ts:32
+msgid "Launch WinSCP"
+msgstr "Starta WinSCP"
+
+#: tabby-ssh/src/hotkeys.ts:14
+msgid "Launch WinSCP for current SSH session"
+msgstr "Starta WinSCP för aktuell SSH-session"
+
+#: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:14
+#: locale/tmp-html/tabby-ssh/src/components/sshTab.component.html:7
+msgid "Learn how to allow Tabby to detect remote shell's working directory."
+msgstr "Lär dig hur du tillåter Tabby att upptäcka fjärrskalets arbetskatalog."
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:141
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:76
+#: tabby-core/src/tabContextMenu.ts:80
+msgid "Left"
+msgstr "Vänster"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:40
+msgid "Lets the shell handle Meta key instead of OS"
+msgstr "Låter skalet hantera Meta-nyckeln istället för OS"
+
+#: tabby-terminal/src/components/streamProcessingSettings.component.ts:27
+msgid "Line by line"
+msgstr "Rad för rad"
+
+#: tabby-terminal/src/components/streamProcessingSettings.component.ts:28
+msgid "Line editor, input is sent after you press Enter"
+msgstr "Radredigerare, inmatning skickas efter att du tryckt på Enter"
+
+#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:88
+msgid "Line padding"
+msgstr "Linjestoppning"
+
+#: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:19
+msgid "Loading"
+msgstr "Laddar"
+
+#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:38
+msgid "Loading configs..."
+msgstr "Läser in konfigurationer..."
+
+#: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:49
+#: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:5
+msgid "Local"
+msgstr "Lokal"
+
+#: tabby-terminal/src/components/streamProcessingSettings.component.ts:22
+msgid "Local echo"
+msgstr "Lokalt eko"
+
+#: tabby-local/src/profiles.ts:12
+msgid "Local terminal"
+msgstr "Lokal terminal"
+
+#: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:81
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:216
+#: locale/tmp-html/tabby-telnet/src/components/telnetProfileSettings.component.html:16
+msgid "Login scripts"
+msgstr "Inloggningsskript"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:57
+msgid "Long-click for context menu"
+msgstr "Långklicka för snabbmeny"
+
+#: tabby-core/src/services/profiles.service.ts:157
+msgid "Manage profiles"
+msgstr "Hantera profiler"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:160
+msgid "Max Keep Alive Count"
+msgstr "Max Håll-vid-liv-antal"
+
+#: tabby-core/src/hotkeys.ts:173
+msgid "Maximize the active pane"
+msgstr "Maximera den aktiva panelen"
+
+#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:75
+msgid "Minimum contrast ratio"
+msgstr "Minsta kontrastförhållande"
+
+#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:43
+msgid "Modified on {date}"
+msgstr "Ändrad den {date}"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:53
+msgid "Mouse"
+msgstr "Mus"
+
+#: tabby-core/src/hotkeys.ts:49
+msgid "Move tab to the left"
+msgstr "Flytta fliken till vänster"
+
+#: tabby-core/src/hotkeys.ts:53
+msgid "Move tab to the right"
+msgstr "Flytta fliken till höger"
+
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:215
+msgid "Move to \"Ungrouped\""
+msgstr "Flytta till \"Ogrupperad\""
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:202
+msgid "Moving the mouse over an inactive pane will cause it to activate"
+msgstr "Om du flyttar musen över en inaktiv panel kommer den att aktiveras"
+
+#: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:12
+#: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:14
+msgid "Name"
+msgstr "Namn"
+
+#: tabby-settings/src/components/configSyncSettingsTab.component.ts:60
+msgid "Name for the new config"
+msgstr "Namn på den nya konfigurationen"
+
+#: locale/tmp-html/tabby-ssh/src/components/sftpCreateDirectoryModal.component.html:3
+msgid "Name for the new directory"
+msgstr "Namn på den nya mappen"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:52
+msgid "Native"
+msgstr "Inbyggd"
+
+#: tabby-local/src/tabContextMenu.ts:105
+msgid "New admin tab"
+msgstr "Ny adminflik"
+
+#: tabby-settings/src/components/configSyncSettingsTab.component.ts:58
+msgid "New config on {platform}"
+msgstr "Ny konfiguration på {plattform}"
+
+#: locale/tmp-html/tabby-terminal/src/components/loginScriptsSettings.component.html:15
+msgid "New item"
+msgstr "Nytt objekt"
+
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:185
+#: tabby-settings/src/components/vaultSettingsTab.component.ts:118
+msgid "New name"
+msgstr "Nytt namn"
+
+#: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:22
+msgid "New profile"
+msgstr "Ny profil"
+
+#: tabby-local/src/tabContextMenu.ts:31
+msgid "New profile name"
+msgstr "Nytt profilnamn"
+
+#: tabby-local/src/hotkeys.ts:10
+msgid "New tab"
+msgstr "Ny flik"
+
+#: tabby-core/src/hotkeys.ts:272
+msgid "New tab: {profile}"
+msgstr "Ny flik: {profil}"
+
+#: tabby-local/src/buttonProvider.ts:20
+#: tabby-local/src/tabContextMenu.ts:79
+msgid "New terminal"
+msgstr "Ny terminal"
+
+#: tabby-electron/src/hotkeys.ts:10
+msgid "New window"
+msgstr "Nytt fönster"
+
+#: tabby-local/src/services/dockMenu.service.ts:62
+msgid "New Window"
+msgstr "Nytt fönster"
+
+#: tabby-local/src/tabContextMenu.ts:89
+msgid "New with profile"
+msgstr "Nytt med profil"
+
+#: tabby-core/src/hotkeys.ts:41
+msgid "Next tab"
+msgstr "Nästa flik"
+
+#: tabby-core/src/utils.ts:60
+msgid "No color"
+msgstr "Ingen färg"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:85
+msgid "No modifier"
+msgstr "Ingen modifierare"
+
+#: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:41
+msgid "None"
+msgstr "Ingen"
+
+#: tabby-terminal/src/components/streamProcessingSettings.component.ts:17
+#: tabby-terminal/src/components/streamProcessingSettings.component.ts:39
+msgid "Normal"
+msgstr "Normal"
+
+#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:22
+msgid "Normal font weight"
+msgstr "Normal teckensnittsvikt"
+
+#: tabby-terminal/src/components/searchPanel.component.ts:47
+#: tabby-terminal/src/components/searchPanel.component.ts:57
+msgid "Not found"
+msgstr "Hittades inte"
+
+#: tabby-core/src/tabContextMenu.ts:209
+msgid "Notify on activity"
+msgstr "Meddela om aktivitet"
+
+#: tabby-core/src/tabContextMenu.ts:187
+msgid "Notify when done"
+msgstr "Meddela när du är klar"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:17
+msgid "Number of lines kept in the buffer"
+msgstr "Antal rader i bufferten"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:70
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:137
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:60
+msgid "Off"
+msgstr "Av"
+
+#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:85
+msgid "Official"
+msgstr "Officiell"
+
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:26
+msgid "On GitHub Discussions"
+msgstr "På GitHub-diskussioner"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:41
+msgid "Opacity"
+msgstr "Opacitet"
+
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:82
+msgid "Open DevTools"
+msgstr "Öppna DevTools"
+
+#: tabby-settings/src/hotkeys.ts:11
+msgid "Open Settings"
+msgstr "Öppna Inställningar"
+
+#: tabby-settings/src/hotkeys.ts:25
+msgid "Open settings tab: {tab}"
+msgstr "Öppna fliken Inställningar: {tab}"
+
+#: tabby-ssh/src/tabContextMenu.ts:25
+msgid "Open SFTP panel"
+msgstr "Öppna SFTP-panelen"
+
+#: locale/tmp-html/tabby-terminal/src/components/loginScriptsSettings.component.html:9
+msgid "Optional"
+msgstr "Frivillig"
+
+#: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:11
+#: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:33
+msgid "Options"
+msgstr "Alternativ"
+
+#: tabby-core/src/utils.ts:63
+msgid "Orange"
+msgstr "Orange"
+
+#: tabby-local/src/shells/macDefault.ts:25
+msgid "OS default"
+msgstr "OS standard"
+
+#: tabby-local/src/shells/winDefault.ts:43
+msgid "OS default ({name})"
+msgstr "OS standard ({name})"
+
+#: tabby-terminal/src/components/streamProcessingSettings.component.ts:45
+msgid "Output is shown as a hexdump"
+msgstr "Utdata visas som en hexdump"
+
+#: tabby-terminal/src/components/streamProcessingSettings.component.ts:40
+msgid "Output is shown as it is received"
+msgstr "Utdata visas när den tas emot"
+
+#: locale/tmp-html/tabby-terminal/src/components/streamProcessingSettings.component.html:23
+msgid "Output mode"
+msgstr "Utgångsläge"
+
+#: locale/tmp-html/tabby-terminal/src/components/streamProcessingSettings.component.html:34
+msgid "Output newlines"
+msgstr "Utgångsradbrytningar"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:42
+msgid "Override X11 display"
+msgstr "Åsidosätt X11-skärm"
+
+#: tabby-settings/src/components/configSyncSettingsTab.component.ts:98
+msgid "Overwrite local and sync"
+msgstr "Skriv över lokal och synkronisera"
+
+#: tabby-settings/src/components/configSyncSettingsTab.component.ts:78
+msgid "Overwrite remote and sync"
+msgstr "Skriv över fjärr och synkronisera"
+
+#: tabby-settings/src/components/configSyncSettingsTab.component.ts:76
+msgid "Overwrite the config on the remote side and start syncing?"
+msgstr "Skriv över konfigurationen på fjärrsidan och börja synkronisera?"
+
+#: tabby-settings/src/components/configSyncSettingsTab.component.ts:96
+msgid "Overwrite the local config and start syncing?"
+msgstr "Vill du skriva över den lokala konfigurationen och börja synkronisera?"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:194
+msgid "Pane resize step"
+msgstr "Panelomskalningssteg"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:191
+msgid "Panes"
+msgstr "Paneler"
+
+#: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:38
+msgid "Parity"
+msgstr "Paritet"
+
+#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:67
+msgid "Partial config sync is not possible when the config is encrypted via Vault."
+msgstr "Delvis konfigurationssynkronisering är inte möjlig när konfigurationen är krypterad via Valvet."
+
+#: tabby-settings/src/components/vaultSettingsTab.component.ts:87
+msgid "Passphrase for a private key with hash {hash}..."
+msgstr "Lösenfras för en privat nyckel med hash {hash}..."
+
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:100
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:82
+msgid "Password"
+msgstr "Lösenord"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:62
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:473
+#: tabby-terminal/src/tabContextMenu.ts:34
+msgid "Paste"
+msgstr "Klistra in"
+
+#: tabby-terminal/src/hotkeys.ts:14
+msgid "Paste from clipboard"
+msgstr "Klistra in från urklipp"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:63
+msgid "Paste if no selection, else copy"
+msgstr "Klistra in om inget val, annars kopiera"
+
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:480
+msgid "Paste multiple lines?"
+msgstr "Klistra in flera rader?"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:68
+msgid "Paste on middle-click"
+msgstr "Klistra in vid mittenklick"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:43
+msgid "Path or address of the local X11 socket"
+msgstr "Sökväg eller adress till det lokala X11-uttaget"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalToolbar.component.html:4
+msgid "Pin"
+msgstr "Fäst"
+
+#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:3
+msgid "Plugins"
+msgstr "Plugins"
+
+#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:4
+msgid "Plugins folder"
+msgstr "Plugins-mappen"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:38
+#: locale/tmp-html/tabby-telnet/src/components/telnetProfileSettings.component.html:10
+msgid "Port"
+msgstr "Port"
+
+#: tabby-serial/src/components/serialTab.component.ts:77
+msgid "Port opened"
+msgstr "Port öppnad"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:119
+#: locale/tmp-html/tabby-ssh/src/components/sshTab.component.html:12
+msgid "Ports"
+msgstr "Portar"
+
+#: tabby-serial/src/components/serialTab.component.ts:92
+#: tabby-ssh/src/components/sshTab.component.ts:177
+#: tabby-telnet/src/components/telnetTab.component.ts:58
+msgid "Press any key to reconnect"
+msgstr "Tryck på valfri tangent för att återansluta"
+
+#: locale/tmp-html/tabby-settings/src/components/hotkeyInputModal.component.html:3
+msgid "Press the key now"
+msgstr "Tryck på knappen nu"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:14
+msgid "Prevents accidental closing"
+msgstr "Förhindrar oavsiktlig stängning"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:110
+msgid "Prevents accidental execution of pasted commands"
+msgstr "Förhindrar oavsiktlig exekvering av inklistrade kommandon"
+
+#: tabby-core/src/hotkeys.ts:45
+msgid "Previous tab"
+msgstr "Föregående flik"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:108
+msgid "Private keys"
+msgstr "Privata nycklar"
+
+#: tabby-core/src/tabContextMenu.ts:195
+msgid "Process completed"
+msgstr "Processen avslutad"
+
+#: tabby-core/src/tabContextMenu.ts:151
+msgid "Profile name"
+msgstr "Profilnamn"
+
+#: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:2
+#: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:4
+#: tabby-local/src/services/dockMenu.service.ts:40
+msgid "Profiles"
+msgstr "Profiler"
+
+#: tabby-core/src/buttonProvider.ts:40
+#: tabby-settings/src/settings.ts:58
+msgid "Profiles & connections"
+msgstr "Profiler & anslutningar"
+
+#: locale/tmp-html/tabby-local/src/components/commandLineEditor.component.html:13
+msgid "Program"
+msgstr "Program"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:30
+msgid "Proxy command"
+msgstr "Proxy kommando"
+
+#: tabby-core/src/utils.ts:64
+msgid "Purple"
+msgstr "Lila"
+
+#: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:37
+msgid "Puts all of Tabby's configuration into the vault"
+msgstr "Lägger in hela Tabbys konfiguration i valvet"
+
+#: tabby-core/src/index.ts:218
+#: tabby-core/src/services/profiles.service.ts:172
+msgid "Quick connect"
+msgstr "Snabbanslutning"
+
+#: tabby-core/src/services/config.service.ts:369
+#: tabby-core/src/services/config.service.ts:383
+msgid "Quit"
+msgstr "Avsluta"
+
+#: tabby-telnet/src/profiles.ts:48
+msgid "Raw socket connection"
+msgstr "Raw socket anslutning"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:166
+msgid "Ready Timeout (Milliseconds)"
+msgstr "Klar timeout (millisekunder)"
+
+#: tabby-core/src/services/profiles.service.ts:115
+#: tabby-core/src/services/profiles.service.ts:129
+#: tabby-local/src/services/dockMenu.service.ts:28
+msgid "Recent"
+msgstr "Nyligen"
+
+#: locale/tmp-html/tabby-serial/src/components/serialTab.component.html:5
+#: locale/tmp-html/tabby-ssh/src/components/sshTab.component.html:10
+#: locale/tmp-html/tabby-telnet/src/components/telnetTab.component.html:3
+msgid "Reconnect"
+msgstr "Återanslut"
+
+#: tabby-core/src/utils.ts:65
+msgid "Red"
+msgstr "Röd"
+
+#: locale/tmp-html/tabby-terminal/src/components/loginScriptsSettings.component.html:9
+msgid "Regex"
+msgstr "Regex"
+
+#: tabby-settings/src/components/releaseNotesTab.component.ts:27
+msgid "Release notes"
+msgstr "Versionsinformation"
+
+#: locale/tmp-html/tabby-core/src/components/unlockVaultModal.component.html:6
+msgid "Remember for {time}"
+msgstr "Kom ihåg för {time}"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:5
+#: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:52
+msgid "Remote"
+msgstr "Fjärr"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:124
+msgid "Remove whitespace and newlines around the copied text"
+msgstr "Ta bort blanksteg och radbrytningar runt den kopierade texten"
+
+#: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:25
+#: tabby-core/src/tabContextMenu.ts:120
+msgid "Rename"
+msgstr "Döp om"
+
+#: tabby-core/src/hotkeys.ts:25
+#: tabby-core/src/tabContextMenu.ts:121
+msgid "Rename tab"
+msgstr "Byt namn på fliken"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:3
+msgid "Rendering"
+msgstr "Rendering"
+
+#: tabby-core/src/hotkeys.ts:33
+msgid "Reopen last tab"
+msgstr "Öppna senast stängda flik"
+
+#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:46
+#: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:26
+msgid "Replace"
+msgstr "Byta ut"
+
+#: locale/tmp-html/tabby-core/src/components/startPage.component.html:11
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:21
+msgid "Report a problem"
+msgstr "Rapportera ett problem"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:81
+msgid "Require a key to click links"
+msgstr "Kräv en nyckel för att klicka på länkar"
+
+#: tabby-terminal/src/hotkeys.ts:62
+msgid "Reset zoom"
+msgstr "Återställ zoom"
+
+#: tabby-serial/src/hotkeys.ts:14
+msgid "Restart current serial session"
+msgstr "Starta om aktuell seriell session"
+
+#: tabby-ssh/src/hotkeys.ts:10
+msgid "Restart current SSH session"
+msgstr "Starta om aktuell SSH-session"
+
+#: tabby-telnet/src/hotkeys.ts:10
+msgid "Restart current Telnet session"
+msgstr "Starta om aktuell Telnet-session"
+
+#: tabby-core/src/hotkeys.ts:65
+msgid "Restart tab"
+msgstr "Starta om fliken"
+
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:134
+msgid "Restart the app to apply changes"
+msgstr "Starta om appen för att tillämpa ändringar"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:162
+msgid "Restore terminal tabs on app start"
+msgstr "Återställ terminalflikar vid appstart"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:147
+msgid "Reuse session for multiple tabs"
+msgstr "Återanvänd session för flera flikar"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:144
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:79
+#: tabby-core/src/tabContextMenu.ts:78
+msgid "Right"
+msgstr "Höger"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:56
+msgid "Right click"
+msgstr "Högerklicka"
+
+#: locale/tmp-html/tabby-local/src/components/localProfileSettings.component.html:5
+msgid "Run as administrator"
+msgstr "Kör som administratör"
+
+#: locale/tmp-html/tabby-core/src/components/renameTabModal.component.html:6
+#: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:54
+#: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:30
+msgid "Save"
+msgstr "Spara"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:101
+msgid "Save a password in the keychain"
+msgstr "Spara ett lösenord i nyckelringen"
+
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:123
+msgid "Save and apply"
+msgstr "Spara och tillämpa"
+
+#: tabby-local/src/tabContextMenu.ts:28
+msgid "Save as profile"
+msgstr "Spara som profil"
+
+#: tabby-core/src/tabContextMenu.ts:148
+msgid "Save layout as profile"
+msgstr "Spara layout som profil"
+
+#: tabby-local/src/tabContextMenu.ts:49
+msgid "Saved"
+msgstr "Sparad"
+
+#: tabby-core/src/profiles.ts:19
+msgid "Saved layout"
+msgstr "Sparad layout"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:46
+msgid "Scroll on input"
+msgstr "Bläddra vid inmatning"
+
+#: tabby-terminal/src/hotkeys.ts:94
+msgid "Scroll terminal one page down"
+msgstr "Skrolla terminalen en sida ner"
+
+#: tabby-terminal/src/hotkeys.ts:90
+msgid "Scroll terminal one page up"
+msgstr "Skrolla terminalen en sida upp"
+
+#: tabby-terminal/src/hotkeys.ts:98
+msgid "Scroll terminal to bottom"
+msgstr "Skrolla terminalen till botten"
+
+#: tabby-terminal/src/hotkeys.ts:86
+msgid "Scroll terminal to top"
+msgstr "Skrolla terminalen till toppen"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:16
+msgid "Scrollback"
+msgstr "Historik"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:47
+msgid "Scrolls the terminal to the bottom on user input"
+msgstr "Skrollar terminalen till botten vid användarinmatning"
+
+#: tabby-terminal/src/hotkeys.ts:74
+msgid "Search"
+msgstr "Sök"
+
+#: tabby-terminal/src/components/colorSchemeSettingsTab.component.ts:10
+msgid "Search color schemes"
+msgstr "Sök efter färgscheman"
+
+#: tabby-settings/src/components/hotkeySettingsTab.component.ts:11
+msgid "Search hotkeys"
+msgstr "Sök snabbtangenter"
+
+#: tabby-plugin-manager/src/components/pluginsSettingsTab.component.ts:14
+msgid "Search plugins"
+msgstr "Sök plugins"
+
+#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:19
+msgid "Secret sync token"
+msgstr "Hemligt synkroniseringstoken"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:45
+#: tabby-electron/src/services/platform.service.ts:195
+msgid "Select"
+msgstr "Välj"
+
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:64
+msgid "Select a base profile to use as a template"
+msgstr "Välj en basprofil att använda som mall"
+
+#: tabby-terminal/src/hotkeys.ts:18
+msgid "Select all"
+msgstr "Välj alla"
+
+#: tabby-core/src/services/fileProviders.service.ts:46
+msgid "Select file storage"
+msgstr "Välj fillagring"
+
+#: tabby-core/src/index.ts:230
+msgid "Select profile"
+msgstr "Välj profil"
+
+#: tabby-core/src/services/profiles.service.ts:181
+msgid "Select profile or enter an address"
+msgstr "Välj profil eller ange en adress"
+
+#: tabby-terminal/src/components/streamProcessingSettings.component.ts:33
+msgid "Send bytes by typing in hex values"
+msgstr "Skicka byte genom att skriva in hexadecimala värden"
+
+#: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:75
+msgid "Sends data one byte at a time"
+msgstr "Skickar data en byte i taget"
+
+#: tabby-serial/src/profiles.ts:14
+#: tabby-serial/src/profiles.ts:72
+msgid "Serial"
+msgstr "Serie"
+
+#: tabby-serial/src/profiles.ts:51
+#: tabby-serial/src/profiles.ts:62
+msgid "Serial connection"
+msgstr "Seriell anslutning"
+
+#: tabby-serial/src/profiles.ts:71
+msgid "Serial: {description}"
+msgstr "Serienummer: {beskrivning}"
+
+#: locale/tmp-html/tabby-settings/src/components/setVaultPassphraseModal.component.html:2
+#: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:5
+msgid "Set master passphrase"
+msgstr "Ställ in huvudlösenfras"
+
+#: locale/tmp-html/tabby-settings/src/components/setVaultPassphraseModal.component.html:13
+msgid "Set passphrase"
+msgstr "Ställ in lösenordsfras"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:104
+msgid "Set password"
+msgstr "Välj lösenord"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:171
+msgid "Set Tabby as %COMSPEC%"
+msgstr "Ställ in Tabby som %COMSPEC%"
+
+#: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:57
+msgid "Set to 0 to disable recent profiles"
+msgstr "Ställ in 0 för att inaktivera senaste profiler"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:36
+msgid "Sets the SSH agent's named pipe path."
+msgstr "Ställer in SSH-agentens namngivna processökväg."
+
+#: tabby-settings/src/buttonProvider.ts:28
+#: tabby-settings/src/components/settingsTab.component.ts:57
+msgid "Settings"
+msgstr "inställningar"
+
+#: locale/tmp-html/tabby-local/src/components/shellSettingsTab.component.html:2
+msgid "Shell"
+msgstr "Skal"
+
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:544
+msgid "Shell does not support current path detection"
+msgstr "Skalet stöder inte detektering av strömväg"
+
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:59
+msgid "Shell integration"
+msgstr "Skalintegration"
+
+#: tabby-core/src/hotkeys.ts:276
+msgid "Show {type} profile selector"
+msgstr "Visa profilväljaren {typ}"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:117
+msgid "Show a confirmation box when pasting multiple lines"
+msgstr "Visa en bekräftelseruta när du klistrar in flera rader"
+
+#: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:63
+msgid "Show built-in profiles in selector"
+msgstr "Visa inbyggda profiler i väljaren"
+
+#: tabby-core/src/hotkeys.ts:13
+msgid "Show command selector"
+msgstr "Visa kommandoväljare"
+
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:126
+msgid "Show config file"
+msgstr "Visa konfigurationsfil"
+
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:125
+msgid "Show defaults"
+msgstr "Visa standardinställningar"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:149
+msgid "Show Mixer"
+msgstr "Visa mixer"
+
+#: tabby-core/src/hotkeys.ts:57
+msgid "Show pane labels (for rearranging)"
+msgstr "Visa paneletiketter (för att ordna om)"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:169
+msgid "Show profile icon on tab"
+msgstr "Visa profilikon på fliken"
+
+#: tabby-core/src/hotkeys.ts:17
+msgid "Show profile selector"
+msgstr "Visa profilväljare"
+
+#: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:56
+msgid "Show recent profiles in selector"
+msgstr "Visa senaste profiler i väljaren"
+
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:36
+msgid "Show release notes"
+msgstr "Visa release notes"
+
+#: tabby-serial/src/hotkeys.ts:10
+msgid "Show Serial connections"
+msgstr "Visa seriella anslutningar"
+
+#: tabby-terminal/src/tabContextMenu.ts:53
+msgid "Show toolbar"
+msgstr "Visa verktygsfält"
+
+#: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:44
+msgid "Show vault contents"
+msgstr "Visa valvets innehåll"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:29
+msgid "Sixel graphics support (experimental)"
+msgstr "Stöd för Sixel-grafik (experimentellt)"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:140
+msgid "Skip MoTD/banner"
+msgstr "Hoppa över MoTD/banner"
+
+#: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:74
+msgid "Slow feed"
+msgstr "Långsam matning"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:66
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:89
+msgid "Snaps the window to a side of the screen"
+msgstr "Fäster fönstret mot en sida av skärmen"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:26
+#: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:9
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:20
+msgid "SOCKS proxy"
+msgstr "SOCKS proxy"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:51
+msgid "SOCKS proxy host"
+msgstr "SOCKS proxy värd"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:55
+msgid "SOCKS proxy port"
+msgstr "SOCKS proxyport"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:130
+msgid "Sound"
+msgstr "Ljud"
+
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:31
+msgid "Source code"
+msgstr "Källkod"
+
+#: tabby-core/src/tabContextMenu.ts:75
+msgid "Split"
+msgstr "Dela"
+
+#: tabby-core/src/hotkeys.ts:161
+msgid "Split to the bottom"
+msgstr "Dela till botten"
+
+#: tabby-core/src/tabContextMenu.ts:85
+msgid "Split to the down"
+msgstr "Dela till nedåt"
+
+#: tabby-core/src/hotkeys.ts:165
+#: tabby-core/src/tabContextMenu.ts:86
+msgid "Split to the left"
+msgstr "Dela åt vänster"
+
+#: tabby-core/src/hotkeys.ts:157
+#: tabby-core/src/tabContextMenu.ts:84
+msgid "Split to the right"
+msgstr "Dela till höger"
+
+#: tabby-core/src/hotkeys.ts:169
+msgid "Split to the top"
+msgstr "Dela till toppen"
+
+#: tabby-core/src/tabContextMenu.ts:87
+msgid "Split to the up"
+msgstr "Dela uppåt"
+
+#: tabby-ssh/src/profiles.ts:80
+msgid "SSH connection"
+msgstr "SSH-anslutning"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:47
+msgid "SSH connection management is now done through the \"Profiles & connections\" tab"
+msgstr "SSH-anslutningshantering görs nu via fliken \"Profiler & anslutningar\"."
+
+#: tabby-settings/src/components/vaultSettingsTab.component.ts:84
+msgid "SSH password for {user}@{host}:{port}"
+msgstr "SSH-lösenord för {user}@{host}:{port}"
+
+#: tabby-core/src/theme.ts:8
+msgid "Standard"
+msgstr "Standard"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:153
+msgid "Startup"
+msgstr "Börja"
+
+#: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:32
+msgid "Stop bits"
+msgstr "Stoppa bitar"
+
+#: tabby-terminal/src/components/streamProcessingSettings.component.ts:50
+msgid "Strip"
+msgstr "Remsa"
+
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:41
+msgid "Subscribe to updates"
+msgstr "Prenumerera på uppdateringar"
+
+#: locale/tmp-html/tabby-local/src/components/environmentEditor.component.html:17
+msgid "Substitutions allowed."
+msgstr "Byten tillåtna."
+
+#: tabby-core/src/tabContextMenu.ts:290
+msgid "Switch profile"
+msgstr "Byt profil"
+
+#: tabby-core/src/hotkeys.ts:237
+msgid "Switch profile in the active pane"
+msgstr "Byt profil i den aktiva panelen"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:7
+msgid "Switches terminal frontend implementation (experimental)"
+msgstr "Switchar terminal frontend implementering (experimentell)"
+
+#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:4
+msgid "Sync"
+msgstr "Synkronisera"
+
+#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:56
+msgid "Sync automatically"
+msgstr "Synkronisera automatiskt"
+
+#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:8
+msgid "Sync host"
+msgstr "Synkronisera värd"
+
+#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:71
+msgid "Sync hotkeys"
+msgstr "Synkronisera snabbtangenter"
+
+#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:83
+msgid "Sync Vault"
+msgstr "Synkronisera valv"
+
+#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:77
+msgid "Sync window settings"
+msgstr "Synkronisera fönsterinställningar"
+
+#: tabby-core/src/hotkeys.ts:101
+#: tabby-core/src/hotkeys.ts:105
+#: tabby-core/src/hotkeys.ts:109
+#: tabby-core/src/hotkeys.ts:113
+#: tabby-core/src/hotkeys.ts:117
+#: tabby-core/src/hotkeys.ts:121
+#: tabby-core/src/hotkeys.ts:125
+#: tabby-core/src/hotkeys.ts:129
+#: tabby-core/src/hotkeys.ts:133
+#: tabby-core/src/hotkeys.ts:137
+#: tabby-core/src/hotkeys.ts:141
+#: tabby-core/src/hotkeys.ts:145
+#: tabby-core/src/hotkeys.ts:149
+#: tabby-core/src/hotkeys.ts:153
+#: tabby-core/src/hotkeys.ts:77
+#: tabby-core/src/hotkeys.ts:81
+#: tabby-core/src/hotkeys.ts:85
+#: tabby-core/src/hotkeys.ts:89
+#: tabby-core/src/hotkeys.ts:93
+#: tabby-core/src/hotkeys.ts:97
+msgid "Tab {number}"
+msgstr "Flik {nummer}"
+
+#: tabby-core/src/tabContextMenu.ts:223
+msgid "Tab activity"
+msgstr "Flikaktivitet"
+
+#: locale/tmp-html/tabby-core/src/components/safeModeModal.component.html:3
+msgid "Tabby could not start with your plugins, so all third party plugins have been disabled in this session. The error was:"
+msgstr "Tabby kunde inte starta med dina plugins, så alla tredjeparts plugins har inaktiverats i den här sessionen. Felet var:"
+
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:41
+msgid "Tabby news and updates on Twitter"
+msgstr "Tabby nyheter och uppdateringar på Twitter"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:128
+msgid "Tabs"
+msgstr "Flikar"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:131
+msgid "Tabs location"
+msgstr "Flikplacering"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:150
+msgid "Tabs width"
+msgstr "Flikarnas bredd"
+
+#: tabby-telnet/src/profiles.ts:32
+msgid "Telnet session"
+msgstr "Telnet-session"
+
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:194
+#: tabby-terminal/src/settings.ts:43
+msgid "Terminal"
+msgstr "Terminal"
+
+#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:40
+msgid "Terminal background"
+msgstr "Terminal bakgrund"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:133
+msgid "Terminal bell"
+msgstr "Terminalklocka"
+
+#: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:7
+msgid "Thank you for downloading Tabby!"
+msgstr "Tack för att du laddade ner Tabby!"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:5
+msgid "Theme"
+msgstr "Tema"
+
+#: tabby-core/src/components/transfersMenu.component.ts:47
+msgid "There are active file transfers"
+msgstr "Det finns aktiva filöverföringar"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:102
+msgid "There is a saved password for this connection"
+msgstr "Det finns ett sparat lösenord för denna anslutning"
+
+#: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:71
+msgid "These apply to all profiles of a given type"
+msgstr "Dessa gäller alla profiler av en angiven typ"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:55
+msgid "Thin"
+msgstr "Tunn"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:210
+msgid "Tick this if you're experiencing aliasing, ghosting or other visual issues"
+msgstr "Kryssa för detta om du upplever aliaseffekt, spökbilder eller andra visuella problem"
+
+#: tabby-core/src/hotkeys.ts:21
+msgid "Toggle fullscreen mode"
+msgstr "Växla helskärmsläge"
+
+#: tabby-core/src/hotkeys.ts:37
+msgid "Toggle last tab"
+msgstr "Växla sista fliken"
+
+#: tabby-electron/src/hotkeys.ts:14
+msgid "Toggle terminal window"
+msgstr "Växla terminalfönster"
+
+#: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:27
+msgid "Toggles the Tabby window visibility"
+msgstr "Växlar synlighet för Tabby-fönstret"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:135
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:73
+msgid "Top"
+msgstr "Toppen"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:123
+msgid "Trim whitespace and newlines"
+msgstr "Trimma blanksteg och radbrytningar"
+
+#: tabby-core/src/services/config.service.ts:367
+msgid "Try again"
+msgstr "Försök igen"
+
+#: tabby-ssh/src/session/ssh.ts:482
+msgid "Trying saved password"
+msgstr "Försöker sparat lösenord"
+
+#: tabby-core/src/hotkeys.ts:69
+msgid "Turn current tab's panes into separate tabs"
+msgstr "Förvandla nuvarande fliks paneler till separata flikar"
+
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:18
+msgid "Ungrouped"
+msgstr "Ogrupperad"
+
+#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:63
+msgid "Uninstall"
+msgstr "Avinstallera"
+
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:249
+msgid "Unknown"
+msgstr "Okänd"
+
+#: tabby-settings/src/components/vaultSettingsTab.component.ts:93
+msgid "Unknown secret of type {type} for {key}"
+msgstr "Okänd hemlighet av typen {type} för {key}"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalToolbar.component.html:4
+msgid "Unpin"
+msgstr "Lossa"
+
+#: tabby-core/src/tabContextMenu.ts:81
+msgid "Up"
+msgstr "Upp"
+
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:14
+#: tabby-electron/src/services/updater.service.ts:133
+msgid "Update"
+msgstr "Uppdatera"
+
+#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:56
+msgid "Upgrade to {version}"
+msgstr "Uppgradera till {version}"
+
+#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:46
+#: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:8
+msgid "Upload"
+msgstr "Ladda upp"
+
+#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:49
+msgid "Upload as a new config"
+msgstr "Ladda upp som en ny konfiguration"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:39
+msgid "Use {altKeyName} as the Meta key"
+msgstr "Använd {altKeyName} som Meta-nyckel"
+
+#: locale/tmp-html/tabby-local/src/components/shellSettingsTab.component.html:5
+msgid "Use ConPTY"
+msgstr "Använd ConPTY"
+
+#: tabby-local/src/shells/linuxDefault.ts:31
+#: tabby-local/src/shells/linuxDefault.ts:38
+msgid "User default"
+msgstr "Användarstandard"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:70
+msgid "Username"
+msgstr "Användarnamn"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:25
+msgid "Using CONNECT method"
+msgstr "Använder CONNECT-metoden"
+
+#: tabby-ssh/src/session/ssh.ts:471
+msgid "Using preset password"
+msgstr "Använder förinställt lösenord"
+
+#: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:9
+msgid "Vault"
+msgstr "Valv"
+
+#: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:4
+msgid "Vault is an always-encrypted container for secrets such as SSH passwords and private key passphrases."
+msgstr "Valvet är en alltid krypterad behållare för hemligheter så som SSH-lösenord och privata nyckellösenfraser."
+
+#: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:17
+msgid "Vault is empty"
+msgstr "Valvet är tomt"
+
+#: locale/tmp-html/tabby-core/src/components/unlockVaultModal.component.html:4
+#: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:43
+msgid "Vault is locked"
+msgstr "Valvet är låst"
+
+#: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:3
+msgid "Vault is not configured"
+msgstr "Valvet är inte konfigurerat"
+
+#: tabby-core/src/services/fileProviders.service.ts:39
+msgid "Vault master passphrase needs to be set to allow storing secrets"
+msgstr "Valv-huvudlösenord måste ställas in för att tillåta lagring av hemligheter"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:11
+msgid "Verify host keys when connecting"
+msgstr "Verifiera värdnycklar när du ansluter"
+
+#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:79
+msgid "Version"
+msgstr "Version"
+
+#: locale/tmp-html/tabby-core/src/components/startPage.component.html:13
+msgid "Version: {version}"
+msgstr "Version: {version}"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:21
+msgid "Vibrancy"
+msgstr "Vibrans"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:140
+msgid "Visual"
+msgstr "Visuell"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:116
+msgid "Warn on multi-line paste"
+msgstr "Varna för flerraders inklistring"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:5
+msgid "Warn when closing active connections"
+msgstr "Varna när aktiva anslutningar stängs"
+
+#: locale/tmp-html/tabby-ssh/src/components/hostKeyPromptModal.component.html:6
+msgid "Warning: remote host's key has suddenly changed!"
+msgstr "Varning: fjärrvärdens nyckel har plötsligt ändrats!"
+
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:67
+msgid "We're only tracking your Tabby and OS versions."
+msgstr "Vi spårar bara dina Tabby- och OS-versioner."
+
+#: tabby-core/src/components/welcomeTab.component.ts:24
+msgid "Welcome"
+msgstr "Välkommen"
+
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:36
+msgid "What's new"
+msgstr "Vad är nytt"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:82
+msgid "When enabled, links are only clickable while holding this key"
+msgstr "När aktiverad, är länkar endast klickbara medans du håller ned denna tangent"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:18
+msgid "When WinSCP is detected, you can launch an SCP session from the context menu."
+msgstr "När WinSCP upptäcks kan du starta en SCP-session från snabbmenyn."
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:48
+msgid "Whether a custom window or an OS native window should be used"
+msgstr "Om ett anpassat fönster eller ett OS-inbyggt fönster ska användas"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:2
+#: tabby-settings/src/settings.ts:30
+msgid "Window"
+msgstr "Fönster"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:117
+msgid "Window dimension along the edge"
+msgstr "Fönstermått längs kanten"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:110
+msgid "Window dimension away from the edge"
+msgstr "Fönstermått bort från kanten"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:47
+msgid "Window frame"
+msgstr "Fönsterram"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:168
+msgid "Windows"
+msgstr "Fönster"
+
+#: locale/tmp-html/tabby-local/src/components/shellSettingsTab.component.html:11
+msgid "Windows 10 build 18309 or above is recommended for ConPTY"
+msgstr "Windows 10 build 18309 eller högre rekommenderas för ConPTY"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:17
+msgid "WinSCP path"
+msgstr "WinSCP sökväg"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:74
+msgid "Word separators"
+msgstr "Ordavgränsare"
+
+#: locale/tmp-html/tabby-local/src/components/localProfileSettings.component.html:10
+msgid "Working directory"
+msgstr "Arbetskatalog"
+
+#: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:13
+#: locale/tmp-html/tabby-ssh/src/components/sshTab.component.html:6
+msgid "Working directory detection"
+msgstr "Detektering av arbetskatalog"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:148
+msgid "WSL terminal bell can only be muted via Volume Mixer"
+msgstr "WSL-terminalklockan kan endast stängas av via Ljudmixeralternativ"
+
+#: locale/tmp-html/tabby-local/src/components/shellSettingsTab.component.html:14
+msgid "WSL terminal only supports TrueColor with ConPTY"
+msgstr "WSL-terminalen stöder endast TrueColor med ConPTY"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:128
+msgid "X11 forwarding"
+msgstr "X11 vidarebefordran"
+
+#: tabby-core/src/utils.ts:66
+msgid "Yellow"
+msgstr "Gul"
+
+#: locale/tmp-html/tabby-settings/src/components/setVaultPassphraseModal.component.html:4
+msgid "You can change it later, but it's unrecoverable if forgotten."
+msgstr "Du kan ändra det senare, men det går inte att återställa om det glöms bort."
+
+#: locale/tmp-html/tabby-ssh/src/components/hostKeyPromptModal.component.html:7
+msgid "You could be under a man-in-the-middle attack right now, or the host key could have just been changed."
+msgstr "Du kan vara under en man-in-the-middle-attack just nu, eller så kan värdnyckeln bara ha ändrats."
+
+#: tabby-terminal/src/hotkeys.ts:54
+msgid "Zoom in"
+msgstr "Zooma in"
+
+#: tabby-terminal/src/hotkeys.ts:58
+msgid "Zoom out"
+msgstr "Zooma ut"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:5
+#: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:55
+msgctxt "[Dynamic] port forwarding"
+msgid "id.port-forwarding.dynamic"
+msgstr "id.port-forwarding.dynamic"
+
