@@ -18,6 +18,7 @@ import localeKO from '@angular/common/locales/ko'
 import localePL from '@angular/common/locales/pl'
 import localePT from '@angular/common/locales/pt'
 import localeRU from '@angular/common/locales/ru'
+import localeSV from '@angular/common/locales/sv'
 import localeUK from '@angular/common/locales/uk'
 import localeZH from '@angular/common/locales/zh'
 import { Observable, Subject } from 'rxjs'
@@ -41,6 +42,7 @@ registerLocaleData(localeKO)
 registerLocaleData(localePL)
 registerLocaleData(localePT)
 registerLocaleData(localeRU)
+registerLocaleData(localeSV)
 registerLocaleData(localeUK)
 registerLocaleData(localeZH)
 
@@ -127,6 +129,10 @@ export class LocaleService {
         {
             code: 'pt-BR',
             name: 'Português do Brasil',
+        },
+        {
+            code: 'sv-SE',
+            name: 'Svenska',
         },
         {
             code: 'bg-BG',

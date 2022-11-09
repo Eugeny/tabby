@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Korean\n"
 "Language: ko_KR\n"
-"PO-Revision-Date: 2022-11-03 19:25\n"
+"PO-Revision-Date: 2022-11-09 20:04\n"
 
 #: tabby-local/src/components/terminalTab.component.ts:113
 msgid "\"{command}\" is still running. Close?"
@@ -21,7 +21,7 @@ msgstr "\"{command}\" 명령어가 여전히 동작중입니다. 닫을까요?"
 msgid "{name} copy"
 msgstr "{name} 복사"
 
-#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:76
+#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:82
 msgid "A second font family used to display characters missing in the main font"
 msgstr "메인 글꼴에서 누락된 문자를 표시하기 위해 사용하는 2번째 글꼴"
 
@@ -62,7 +62,7 @@ msgstr "개인 키 추가"
 msgid "Add..."
 msgstr "추가..."
 
-#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:83
+#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:89
 msgid "Additional space between lines"
 msgstr "행간 간격"
 
@@ -89,7 +89,7 @@ msgstr "에이전트 연계 경로"
 msgid "Agent type"
 msgstr "에이전트 유형"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:170
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:172
 msgid "Allows opening .bat files in tabs, but breaks some shells"
 msgstr "탭에 .bat 파일 열기를 허용합니다. 몇몇 쉘 환경에서 동작하지 않을 수 있습니다."
 
@@ -130,7 +130,7 @@ msgstr "질문하기"
 msgid "Ask before closing the browser tab"
 msgstr "브라우저 탭을 닫기 전에 물어보기"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:141
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:143
 msgid "Audible"
 msgstr "소리"
 
@@ -146,7 +146,7 @@ msgstr "만든 사람"
 msgid "Auto"
 msgstr "자동"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:154
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:156
 msgid "Auto-open a terminal on app start"
 msgstr "앱 시작 시 터미널을 자동으로 열기"
 
@@ -203,9 +203,13 @@ msgstr "굵은 글꼴 두께"
 msgid "Bottom"
 msgstr "아래"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:114
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:109
 msgid "Bracketed paste (requires shell support)"
 msgstr "괄호(Bracketed)식 붙여넣기 (쉘 지원 필요)"
+
+#: tabby-terminal/src/services/multifocus.service.ts:19
+msgid "Broadcast mode. Click anywhere to cancel."
+msgstr ""
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:54
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:174
@@ -224,13 +228,17 @@ msgstr "빌트인"
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:79
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:99
 #: tabby-ssh/src/sftpContextMenu.ts:40
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:468
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:474
 msgid "Cancel"
 msgstr "취소"
 
 #: locale/tmp-html/tabby-serial/src/components/serialTab.component.html:4
 msgid "Change baud rate"
 msgstr "baud rate 속도를 변경합니다"
+
+#: tabby-core/src/tabContextMenu.ts:133
+msgid "Change tab color"
+msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:12
 msgid "Change the master passphrase"
@@ -253,12 +261,12 @@ msgstr "최근 프로필 삭제"
 msgid "Clear terminal"
 msgstr "터미널 비우기"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:99
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:94
 msgid "Clipboard"
 msgstr "클립보드"
 
 #: locale/tmp-html/tabby-core/src/components/safeModeModal.component.html:7
-#: tabby-core/src/tabContextMenu.ts:34
+#: tabby-core/src/tabContextMenu.ts:33
 msgid "Close"
 msgstr "닫기"
 
@@ -266,7 +274,7 @@ msgstr "닫기"
 msgid "Close and never show again"
 msgstr "닫고 다시 보여주지 않음"
 
-#: tabby-core/src/hotkeys.ts:237
+#: tabby-core/src/hotkeys.ts:241
 msgid "Close focused pane"
 msgstr "보고 있는 항목 닫기"
 
@@ -274,7 +282,8 @@ msgstr "보고 있는 항목 닫기"
 msgid "Close other tabs"
 msgstr "다른 탭 닫기"
 
-#: tabby-core/src/hotkeys.ts:25
+#: tabby-core/src/hotkeys.ts:29
+#: tabby-core/src/tabContextMenu.ts:34
 msgid "Close tab"
 msgstr "탭 닫기"
 
@@ -286,8 +295,12 @@ msgstr "왼쪽 탭들 모두 닫기"
 msgid "Close tabs to the right"
 msgstr "오른쪽 탭들 모두 닫기"
 
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:187
+msgid "Close the window after closing the last tab"
+msgstr ""
+
 #: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:35
-#: tabby-core/src/tabContextMenu.ts:122
+#: tabby-core/src/tabContextMenu.ts:132
 msgid "Color"
 msgstr "색상"
 
@@ -295,7 +308,7 @@ msgstr "색상"
 msgid "Color scheme"
 msgstr "색상 구성"
 
-#: tabby-core/src/hotkeys.ts:69
+#: tabby-core/src/hotkeys.ts:73
 msgid "Combine all tabs into the current tab"
 msgstr "모든 탭을 현재 탭으로 합치기"
 
@@ -306,6 +319,10 @@ msgstr "명령줄"
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:13
 msgid "Command's stdin/stdout is used instead of a network connection"
 msgstr "명령어의 네트워크 연결 대신 표준 입출력이 사용됩니다."
+
+#: tabby-core/src/services/commands.service.ts:77
+msgid "Commands"
+msgstr ""
 
 #: tabby-core/src/theme.ts:20
 msgid "Compact"
@@ -337,7 +354,7 @@ msgstr "설정"
 msgid "Connect through a proxy server"
 msgstr "프록시 서버를 통해 연결하기"
 
-#: tabby-core/src/index.ts:214
+#: tabby-core/src/index.ts:219
 #: tabby-core/src/services/profiles.service.ts:173
 msgid "Connect to \"%s\"..."
 msgstr "\"%s\"에 연결하기"
@@ -365,14 +382,14 @@ msgstr "연결 실패: {error}"
 msgid "Connection name will be used instead"
 msgstr "연결 이름이 대신 사용됩니다."
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:64
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:61
 msgid "Context menu"
 msgstr "컨텍스트 메뉴"
 
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:203
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:211
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:561
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:765
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:219
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:227
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:542
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:756
 #: tabby-terminal/src/tabContextMenu.ts:29
 msgid "Copied"
 msgstr "복사됨"
@@ -386,7 +403,7 @@ msgstr "복사"
 msgid "Copy current path"
 msgstr "현재 경로 복사"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:102
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:97
 msgid "Copy on select"
 msgstr "선택 영역 복사"
 
@@ -394,7 +411,7 @@ msgstr "선택 영역 복사"
 msgid "Copy to clipboard"
 msgstr "클립보드에 복사"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:108
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:103
 msgid "Copy with formatting"
 msgstr ""
 
@@ -423,7 +440,7 @@ msgstr "현재 색상 구성"
 msgid "Current host key fingerprint"
 msgstr "현재 호스트 키 핑거프린트"
 
-#: tabby-core/src/tabContextMenu.ts:173
+#: tabby-core/src/tabContextMenu.ts:184
 msgid "Current process: {name}"
 msgstr "현재 프로세스: {name}"
 
@@ -435,7 +452,7 @@ msgstr "커서 모양"
 msgid "Custom"
 msgstr "사용자 정의"
 
-#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:89
+#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:95
 msgid "Custom CSS"
 msgstr "사용자 정의 CSS"
 
@@ -447,11 +464,11 @@ msgstr "데이터 비트"
 msgid "Debugging"
 msgstr "디버깅"
 
-#: tabby-core/src/hotkeys.ts:253
+#: tabby-core/src/hotkeys.ts:257
 msgid "Decrease horizontal split size"
 msgstr ""
 
-#: tabby-core/src/hotkeys.ts:245
+#: tabby-core/src/hotkeys.ts:249
 msgid "Decrease vertical split size"
 msgstr ""
 
@@ -538,11 +555,11 @@ msgstr "비활성화"
 msgid "Disable dynamic tab title"
 msgstr "동적 탭 제목 비활성화"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:210
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:216
 msgid "Disable fluent background while dragging"
 msgstr ""
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:203
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:209
 msgid "Disable GPU acceleration"
 msgstr "GPU 가속 비활성화"
 
@@ -603,7 +620,7 @@ msgstr "도킹된 터미널 공간"
 msgid "Docking"
 msgstr "도킹"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:80
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:75
 msgid "Double-click selection will stop at these characters"
 msgstr "더블 클릭으로 선택하여 해당 문자 끝에 중단"
 
@@ -619,15 +636,16 @@ msgstr "다운로드"
 msgid "Draw bold text in bright colors"
 msgstr ""
 
-#: tabby-core/src/tabContextMenu.ts:118
+#: tabby-core/src/tabContextMenu.ts:127
 msgid "Duplicate"
 msgstr "복제"
 
-#: tabby-local/src/tabContextMenu.ts:121
+#: tabby-local/src/tabContextMenu.ts:123
 msgid "Duplicate as administrator"
 msgstr "관리자에서 복제"
 
-#: tabby-core/src/hotkeys.ts:57
+#: tabby-core/src/hotkeys.ts:61
+#: tabby-core/src/tabContextMenu.ts:128
 msgid "Duplicate tab"
 msgstr "탭 복제"
 
@@ -705,7 +723,7 @@ msgstr "예시:"
 msgid "Export"
 msgstr "내보내기"
 
-#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:75
+#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:81
 msgid "Fallback font"
 msgstr "대체 글꼴"
 
@@ -725,11 +743,11 @@ msgstr ""
 msgid "Fixed"
 msgstr "고정"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:211
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:217
 msgid "Fluent background sometimes causes drag lag"
 msgstr ""
 
-#: tabby-local/src/tabContextMenu.ts:136
+#: tabby-local/src/tabContextMenu.ts:145
 msgid "Focus all panes"
 msgstr "모든 항목 포커스"
 
@@ -737,15 +755,22 @@ msgstr "모든 항목 포커스"
 msgid "Focus all panes at once (broadcast)"
 msgstr "모든 항목을 한번에 포커스 (방영)"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:195
+#: tabby-local/src/tabContextMenu.ts:138
+msgid "Focus all tabs"
+msgstr ""
+
+#: tabby-terminal/src/hotkeys.ts:82
+msgid "Focus all tabs at once (broadcast)"
+msgstr ""
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:201
 msgid "Focus follows mouse"
 msgstr ""
 
-#: tabby-core/src/hotkeys.ts:193
+#: tabby-core/src/hotkeys.ts:197
 msgid "Focus next pane"
 msgstr "다음 항목 포커스"
 
-#: tabby-core/src/hotkeys.ts:197
 #: tabby-core/src/hotkeys.ts:201
 #: tabby-core/src/hotkeys.ts:205
 #: tabby-core/src/hotkeys.ts:209
@@ -754,26 +779,27 @@ msgstr "다음 항목 포커스"
 #: tabby-core/src/hotkeys.ts:221
 #: tabby-core/src/hotkeys.ts:225
 #: tabby-core/src/hotkeys.ts:229
+#: tabby-core/src/hotkeys.ts:233
 msgid "Focus pane {number}"
 msgstr ""
 
-#: tabby-core/src/hotkeys.ts:189
+#: tabby-core/src/hotkeys.ts:193
 msgid "Focus previous pane"
 msgstr "이전 항목 포커스"
 
-#: tabby-core/src/hotkeys.ts:173
+#: tabby-core/src/hotkeys.ts:177
 msgid "Focus the pane above"
 msgstr "위 항목 포커스"
 
-#: tabby-core/src/hotkeys.ts:177
+#: tabby-core/src/hotkeys.ts:181
 msgid "Focus the pane below"
 msgstr "아래 항목 포커스"
 
-#: tabby-core/src/hotkeys.ts:181
+#: tabby-core/src/hotkeys.ts:185
 msgid "Focus the pane on the left"
 msgstr "왼쪽 항목 포커스"
 
-#: tabby-core/src/hotkeys.ts:185
+#: tabby-core/src/hotkeys.ts:189
 msgid "Focus the pane on the right"
 msgstr "오른쪽 항목 포커스"
 
@@ -781,7 +807,7 @@ msgstr "오른쪽 항목 포커스"
 msgid "Font"
 msgstr "글꼴"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:189
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:195
 msgid "For keyboard shortcuts"
 msgstr ""
 
@@ -863,7 +889,7 @@ msgstr "녹색"
 msgid "Group"
 msgstr "그룹"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:200
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:206
 msgid "Hacks"
 msgstr "핵"
 
@@ -950,11 +976,11 @@ msgstr "비활성화 시, 사용자 지정 프로밀만 프로필 선택 란에 
 msgid "Immediately echoes your input locally"
 msgstr "로컬 입력 란에 즉시 출력"
 
-#: tabby-core/src/hotkeys.ts:249
+#: tabby-core/src/hotkeys.ts:253
 msgid "Increase horizontal split size"
 msgstr ""
 
-#: tabby-core/src/hotkeys.ts:241
+#: tabby-core/src/hotkeys.ts:245
 msgid "Increase vertical split size"
 msgstr ""
 
@@ -1080,7 +1106,7 @@ msgstr "라인별"
 msgid "Line editor, input is sent after you press Enter"
 msgstr "줄 편집기, 입력한 내용을 Enter 키 누른 후 전송"
 
-#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:82
+#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:88
 msgid "Line padding"
 msgstr "줄 간격"
 
@@ -1123,9 +1149,13 @@ msgstr "프로필 관리"
 msgid "Max Keep Alive Count"
 msgstr "최대 유지 횟수"
 
-#: tabby-core/src/hotkeys.ts:169
+#: tabby-core/src/hotkeys.ts:173
 msgid "Maximize the active pane"
 msgstr "활성 항목 최대화"
+
+#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:75
+msgid "Minimum contrast ratio"
+msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:43
 msgid "Modified on {date}"
@@ -1135,11 +1165,11 @@ msgstr "{date} 에 수정"
 msgid "Mouse"
 msgstr "마우스"
 
-#: tabby-core/src/hotkeys.ts:45
+#: tabby-core/src/hotkeys.ts:49
 msgid "Move tab to the left"
 msgstr "탭을 왼쪽으로 이동"
 
-#: tabby-core/src/hotkeys.ts:49
+#: tabby-core/src/hotkeys.ts:53
 msgid "Move tab to the right"
 msgstr "탭을 오른쪽으로 이동"
 
@@ -1147,7 +1177,7 @@ msgstr "탭을 오른쪽으로 이동"
 msgid "Move to \"Ungrouped\""
 msgstr ""
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:196
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:202
 msgid "Moving the mouse over an inactive pane will cause it to activate"
 msgstr ""
 
@@ -1168,7 +1198,7 @@ msgstr ""
 msgid "Native"
 msgstr "네이티브"
 
-#: tabby-local/src/tabContextMenu.ts:103
+#: tabby-local/src/tabContextMenu.ts:105
 msgid "New admin tab"
 msgstr ""
 
@@ -1189,7 +1219,7 @@ msgstr "새 이름"
 msgid "New profile"
 msgstr "새 프로필"
 
-#: tabby-local/src/tabContextMenu.ts:30
+#: tabby-local/src/tabContextMenu.ts:31
 msgid "New profile name"
 msgstr "새 프로필 이름"
 
@@ -1197,12 +1227,12 @@ msgstr "새 프로필 이름"
 msgid "New tab"
 msgstr "새 탭"
 
-#: tabby-core/src/hotkeys.ts:268
+#: tabby-core/src/hotkeys.ts:272
 msgid "New tab: {profile}"
 msgstr "새 탭: {profile}"
 
 #: tabby-local/src/buttonProvider.ts:20
-#: tabby-local/src/tabContextMenu.ts:77
+#: tabby-local/src/tabContextMenu.ts:79
 msgid "New terminal"
 msgstr "새 터미널"
 
@@ -1214,11 +1244,11 @@ msgstr "새 창"
 msgid "New Window"
 msgstr ""
 
-#: tabby-local/src/tabContextMenu.ts:87
+#: tabby-local/src/tabContextMenu.ts:89
 msgid "New with profile"
 msgstr ""
 
-#: tabby-core/src/hotkeys.ts:37
+#: tabby-core/src/hotkeys.ts:41
 msgid "Next tab"
 msgstr "다음 탭"
 
@@ -1226,7 +1256,7 @@ msgstr "다음 탭"
 msgid "No color"
 msgstr "색 없음"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:90
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:85
 msgid "No modifier"
 msgstr ""
 
@@ -1248,11 +1278,11 @@ msgstr "일반 글꼴 두께"
 msgid "Not found"
 msgstr ""
 
-#: tabby-core/src/tabContextMenu.ts:198
+#: tabby-core/src/tabContextMenu.ts:209
 msgid "Notify on activity"
 msgstr ""
 
-#: tabby-core/src/tabContextMenu.ts:176
+#: tabby-core/src/tabContextMenu.ts:187
 msgid "Notify when done"
 msgstr ""
 
@@ -1261,8 +1291,8 @@ msgid "Number of lines kept in the buffer"
 msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:70
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:135
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:61
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:137
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:60
 msgid "Off"
 msgstr "끄기"
 
@@ -1351,11 +1381,11 @@ msgstr ""
 msgid "Overwrite the local config and start syncing?"
 msgstr ""
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:188
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:194
 msgid "Pane resize step"
 msgstr ""
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:185
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:191
 msgid "Panes"
 msgstr ""
 
@@ -1376,8 +1406,8 @@ msgstr ""
 msgid "Password"
 msgstr "비밀번호"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:67
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:467
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:62
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:473
 #: tabby-terminal/src/tabContextMenu.ts:34
 msgid "Paste"
 msgstr "붙여넣기"
@@ -1386,11 +1416,15 @@ msgstr "붙여넣기"
 msgid "Paste from clipboard"
 msgstr "클립보드에서 붙여넣기"
 
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:474
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:63
+msgid "Paste if no selection, else copy"
+msgstr ""
+
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:480
 msgid "Paste multiple lines?"
 msgstr ""
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:73
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:68
 msgid "Paste on middle-click"
 msgstr ""
 
@@ -1438,11 +1472,11 @@ msgstr ""
 msgid "Prevents accidental closing"
 msgstr ""
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:115
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:110
 msgid "Prevents accidental execution of pasted commands"
 msgstr ""
 
-#: tabby-core/src/hotkeys.ts:41
+#: tabby-core/src/hotkeys.ts:45
 msgid "Previous tab"
 msgstr ""
 
@@ -1450,11 +1484,11 @@ msgstr ""
 msgid "Private keys"
 msgstr "비밀 키"
 
-#: tabby-core/src/tabContextMenu.ts:184
+#: tabby-core/src/tabContextMenu.ts:195
 msgid "Process completed"
 msgstr ""
 
-#: tabby-core/src/tabContextMenu.ts:140
+#: tabby-core/src/tabContextMenu.ts:151
 msgid "Profile name"
 msgstr "프로필 이름"
 
@@ -1485,7 +1519,7 @@ msgstr "보라"
 msgid "Puts all of Tabby's configuration into the vault"
 msgstr ""
 
-#: tabby-core/src/index.ts:213
+#: tabby-core/src/index.ts:218
 #: tabby-core/src/services/profiles.service.ts:172
 msgid "Quick connect"
 msgstr "빠른 연결"
@@ -1536,20 +1570,25 @@ msgstr ""
 msgid "Remote"
 msgstr ""
 
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:124
+msgid "Remove whitespace and newlines around the copied text"
+msgstr ""
+
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:25
-#: tabby-core/src/tabContextMenu.ts:114
+#: tabby-core/src/tabContextMenu.ts:120
 msgid "Rename"
 msgstr "이름 바꾸기"
 
-#: tabby-core/src/hotkeys.ts:21
-msgid "Rename Tab"
-msgstr "탭 이름 바꾸기"
+#: tabby-core/src/hotkeys.ts:25
+#: tabby-core/src/tabContextMenu.ts:121
+msgid "Rename tab"
+msgstr ""
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:3
 msgid "Rendering"
 msgstr "렌더링"
 
-#: tabby-core/src/hotkeys.ts:29
+#: tabby-core/src/hotkeys.ts:33
 msgid "Reopen last tab"
 msgstr "마지막 탭 다시 열기"
 
@@ -1563,7 +1602,7 @@ msgstr ""
 msgid "Report a problem"
 msgstr "문제 신고하기"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:86
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:81
 msgid "Require a key to click links"
 msgstr ""
 
@@ -1583,7 +1622,7 @@ msgstr "현재 SSH 세션 재시작"
 msgid "Restart current Telnet session"
 msgstr "현재 텔넷 세션 재시작"
 
-#: tabby-core/src/hotkeys.ts:61
+#: tabby-core/src/hotkeys.ts:65
 msgid "Restart tab"
 msgstr ""
 
@@ -1591,7 +1630,7 @@ msgstr ""
 msgid "Restart the app to apply changes"
 msgstr ""
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:160
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:162
 msgid "Restore terminal tabs on app start"
 msgstr "앱 시작 시 터미널 탭 복원"
 
@@ -1627,15 +1666,15 @@ msgstr "비밀번호를 키체인에 저장"
 msgid "Save and apply"
 msgstr "저장 및 적용"
 
-#: tabby-local/src/tabContextMenu.ts:27
+#: tabby-local/src/tabContextMenu.ts:28
 msgid "Save as profile"
 msgstr ""
 
-#: tabby-core/src/tabContextMenu.ts:137
+#: tabby-core/src/tabContextMenu.ts:148
 msgid "Save layout as profile"
 msgstr ""
 
-#: tabby-local/src/tabContextMenu.ts:48
+#: tabby-local/src/tabContextMenu.ts:49
 msgid "Saved"
 msgstr "저장됨"
 
@@ -1647,19 +1686,19 @@ msgstr "저장된 레이아웃"
 msgid "Scroll on input"
 msgstr ""
 
-#: tabby-terminal/src/hotkeys.ts:90
+#: tabby-terminal/src/hotkeys.ts:94
 msgid "Scroll terminal one page down"
 msgstr ""
 
-#: tabby-terminal/src/hotkeys.ts:86
+#: tabby-terminal/src/hotkeys.ts:90
 msgid "Scroll terminal one page up"
 msgstr ""
 
-#: tabby-terminal/src/hotkeys.ts:94
+#: tabby-terminal/src/hotkeys.ts:98
 msgid "Scroll terminal to bottom"
 msgstr ""
 
-#: tabby-terminal/src/hotkeys.ts:82
+#: tabby-terminal/src/hotkeys.ts:86
 msgid "Scroll terminal to top"
 msgstr ""
 
@@ -1708,7 +1747,7 @@ msgstr ""
 msgid "Select file storage"
 msgstr ""
 
-#: tabby-core/src/index.ts:225
+#: tabby-core/src/index.ts:230
 msgid "Select profile"
 msgstr ""
 
@@ -1751,7 +1790,7 @@ msgstr "암호 설정"
 msgid "Set password"
 msgstr "비밀번호 설정"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:169
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:171
 msgid "Set Tabby as %COMSPEC%"
 msgstr ""
 
@@ -1772,7 +1811,7 @@ msgstr "설정"
 msgid "Shell"
 msgstr "셸"
 
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:563
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:544
 msgid "Shell does not support current path detection"
 msgstr ""
 
@@ -1780,16 +1819,20 @@ msgstr ""
 msgid "Shell integration"
 msgstr "셸 통합"
 
-#: tabby-core/src/hotkeys.ts:272
+#: tabby-core/src/hotkeys.ts:276
 msgid "Show {type} profile selector"
 msgstr ""
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:122
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:117
 msgid "Show a confirmation box when pasting multiple lines"
 msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:63
 msgid "Show built-in profiles in selector"
+msgstr ""
+
+#: tabby-core/src/hotkeys.ts:13
+msgid "Show command selector"
 msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:126
@@ -1800,11 +1843,11 @@ msgstr ""
 msgid "Show defaults"
 msgstr ""
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:147
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:149
 msgid "Show Mixer"
 msgstr ""
 
-#: tabby-core/src/hotkeys.ts:53
+#: tabby-core/src/hotkeys.ts:57
 msgid "Show pane labels (for rearranging)"
 msgstr ""
 
@@ -1812,7 +1855,7 @@ msgstr ""
 msgid "Show profile icon on tab"
 msgstr "탭에 프로필 아이콘 표시"
 
-#: tabby-core/src/hotkeys.ts:13
+#: tabby-core/src/hotkeys.ts:17
 msgid "Show profile selector"
 msgstr ""
 
@@ -1867,7 +1910,7 @@ msgstr "SOCKS 프록시 호스트"
 msgid "SOCKS proxy port"
 msgstr "SOCKS 프록시 포트"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:128
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:130
 msgid "Sound"
 msgstr ""
 
@@ -1879,21 +1922,31 @@ msgstr "소스 코드"
 msgid "Split"
 msgstr "분할"
 
-#: tabby-core/src/hotkeys.ts:157
+#: tabby-core/src/hotkeys.ts:161
 msgid "Split to the bottom"
 msgstr "아래쪽으로 분할"
 
-#: tabby-core/src/hotkeys.ts:161
+#: tabby-core/src/tabContextMenu.ts:85
+msgid "Split to the down"
+msgstr ""
+
+#: tabby-core/src/hotkeys.ts:165
+#: tabby-core/src/tabContextMenu.ts:86
 msgid "Split to the left"
 msgstr "왼쪽으로 분할"
 
-#: tabby-core/src/hotkeys.ts:153
+#: tabby-core/src/hotkeys.ts:157
+#: tabby-core/src/tabContextMenu.ts:84
 msgid "Split to the right"
 msgstr "오른쪽으로 분할"
 
-#: tabby-core/src/hotkeys.ts:165
+#: tabby-core/src/hotkeys.ts:169
 msgid "Split to the top"
 msgstr "위쪽으로 분할"
+
+#: tabby-core/src/tabContextMenu.ts:87
+msgid "Split to the up"
+msgstr ""
 
 #: tabby-ssh/src/profiles.ts:80
 msgid "SSH connection"
@@ -1911,7 +1964,7 @@ msgstr "{user}@{host}:{port} 의 SSH 비밀번호"
 msgid "Standard"
 msgstr "표준"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:151
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:153
 msgid "Startup"
 msgstr ""
 
@@ -1931,11 +1984,11 @@ msgstr ""
 msgid "Substitutions allowed."
 msgstr ""
 
-#: tabby-core/src/tabContextMenu.ts:279
+#: tabby-core/src/tabContextMenu.ts:290
 msgid "Switch profile"
 msgstr ""
 
-#: tabby-core/src/hotkeys.ts:233
+#: tabby-core/src/hotkeys.ts:237
 msgid "Switch profile in the active pane"
 msgstr ""
 
@@ -1980,7 +2033,7 @@ msgstr ""
 #: tabby-core/src/hotkeys.ts:141
 #: tabby-core/src/hotkeys.ts:145
 #: tabby-core/src/hotkeys.ts:149
-#: tabby-core/src/hotkeys.ts:73
+#: tabby-core/src/hotkeys.ts:153
 #: tabby-core/src/hotkeys.ts:77
 #: tabby-core/src/hotkeys.ts:81
 #: tabby-core/src/hotkeys.ts:85
@@ -1990,7 +2043,7 @@ msgstr ""
 msgid "Tab {number}"
 msgstr "탭 {number}"
 
-#: tabby-core/src/tabContextMenu.ts:212
+#: tabby-core/src/tabContextMenu.ts:223
 msgid "Tab activity"
 msgstr ""
 
@@ -2018,7 +2071,7 @@ msgstr "탭 너비"
 msgid "Telnet session"
 msgstr "텔넷 세션"
 
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:192
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:194
 #: tabby-terminal/src/settings.ts:43
 msgid "Terminal"
 msgstr "터미널"
@@ -2027,7 +2080,7 @@ msgstr "터미널"
 msgid "Terminal background"
 msgstr ""
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:131
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:133
 msgid "Terminal bell"
 msgstr ""
 
@@ -2055,15 +2108,15 @@ msgstr "이와 같은 유형의 모든 프로필에 적용됩니다."
 msgid "Thin"
 msgstr "얇게"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:204
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:210
 msgid "Tick this if you're experiencing aliasing, ghosting or other visual issues"
 msgstr "계단 현상이나 고스팅 현상 등, 시각적 문제가 있을 경우 이 옵션을 활성화하세요."
 
-#: tabby-core/src/hotkeys.ts:17
+#: tabby-core/src/hotkeys.ts:21
 msgid "Toggle fullscreen mode"
 msgstr ""
 
-#: tabby-core/src/hotkeys.ts:33
+#: tabby-core/src/hotkeys.ts:37
 msgid "Toggle last tab"
 msgstr ""
 
@@ -2080,6 +2133,10 @@ msgstr ""
 msgid "Top"
 msgstr "위"
 
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:123
+msgid "Trim whitespace and newlines"
+msgstr ""
+
 #: tabby-core/src/services/config.service.ts:367
 msgid "Try again"
 msgstr "다시 시도"
@@ -2088,7 +2145,7 @@ msgstr "다시 시도"
 msgid "Trying saved password"
 msgstr ""
 
-#: tabby-core/src/hotkeys.ts:65
+#: tabby-core/src/hotkeys.ts:69
 msgid "Turn current tab's panes into separate tabs"
 msgstr ""
 
@@ -2200,11 +2257,11 @@ msgstr "버전: {version}"
 msgid "Vibrancy"
 msgstr ""
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:138
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:140
 msgid "Visual"
 msgstr "시각 효과"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:121
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:116
 msgid "Warn on multi-line paste"
 msgstr "여러 줄을 붙여넣을 때 경고"
 
@@ -2228,7 +2285,7 @@ msgstr "환영합니다"
 msgid "What's new"
 msgstr "새로운 기능"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:87
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:82
 msgid "When enabled, links are only clickable while holding this key"
 msgstr ""
 
@@ -2257,7 +2314,7 @@ msgstr ""
 msgid "Window frame"
 msgstr ""
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:166
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:168
 msgid "Windows"
 msgstr ""
 
@@ -2269,7 +2326,7 @@ msgstr "ConPTY를 위해서는 Windows 10 빌드 18309 이상이 권장됩니다
 msgid "WinSCP path"
 msgstr "WinSCP 경로"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:79
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:74
 msgid "Word separators"
 msgstr ""
 
@@ -2282,7 +2339,7 @@ msgstr "작업 폴더"
 msgid "Working directory detection"
 msgstr ""
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:146
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:148
 msgid "WSL terminal bell can only be muted via Volume Mixer"
 msgstr "WSL 터미널의 벨은 오직 볼륨 믹서를 통해서만 음소거할 수 있습니다."
 
