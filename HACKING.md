@@ -4,12 +4,16 @@ Tabby is an Electron app, with the frontend written in Typescript with the help 
 
 # Getting started
 
-First of all, clone this repository. You'll also need Node.js 15 or newer and Yarn.
+First of all, clone this repository.
 
-First, install the dependencies:
+# Install Dependencies
+- [Node.js](https://nodejs.org/en/download/) **version 15 or newer*
+- [Yarn](https://yarnpkg.com/)
+
+First, from within the `tabby` directory install the dependencies via yarn:
 
 ```
-# macOS:
+# macOS & Windows:
 yarn
 ```
 
@@ -21,18 +25,13 @@ sudo apt install libfontconfig-dev libsecret-1-dev libarchive-tools libnss3 liba
 yarn
 ```
 
-```
-# Windows:
-yarn
-```
-
-Now, check if your build is working:
+Build Tabby:
 
 ```
 yarn run build
 ```
 
-Start Tabby with
+Start Tabby
 
 ```
 yarn start
