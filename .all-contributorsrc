@@ -1002,6 +1002,15 @@
       "contributions": [
         "financial"
       ]
+    },
+    {
+      "login": "EvinRWatson",
+      "name": "Evin Watson",
+      "avatar_url": "https://avatars.githubusercontent.com/u/24227251?v=4",
+      "profile": "https://www.linkedin.com/in/evinwatson/",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
