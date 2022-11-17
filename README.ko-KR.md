@@ -285,6 +285,7 @@ Pull requests and plugins are welcome!
       <td align="center"><a href="https://github.com/JohnMasoner"><img src="https://avatars.githubusercontent.com/u/42313377?v=4?s=100" width="100px;" alt="Mason Ma"/><br /><sub><b>Mason Ma</b></sub></a><br /><a href="#financial-JohnMasoner" title="Financial">💵</a></td>
       <td align="center"><a href="https://github.com/ntimo"><img src="https://avatars.githubusercontent.com/u/6145026?v=4?s=100" width="100px;" alt="Timo"/><br /><sub><b>Timo</b></sub></a><br /><a href="#financial-ntimo" title="Financial">💵</a></td>
       <td align="center"><a href="https://www.linkedin.com/in/evinwatson/"><img src="https://avatars.githubusercontent.com/u/24227251?v=4?s=100" width="100px;" alt="Evin Watson"/><br /><sub><b>Evin Watson</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=EvinRWatson" title="Documentation">📖</a></td>
+      <td align="center"><a href="https://t.me/hendrjl"><img src="https://avatars.githubusercontent.com/u/15981200?v=4?s=100" width="100px;" alt="Hendra Juli"/><br /><sub><b>Hendra Juli</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=deulizealand" title="Documentation">📖</a></td>
     </tr>
   </tbody>
 </table>
