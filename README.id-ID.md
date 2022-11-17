@@ -26,20 +26,20 @@ This README is also available in: <a  href="./README.es-ES.md">:es: Spanish</a> 
 
 ----
 
-[**Tabby**](https://tabby.sh) (sebelumnya **Terminus**) adalah emulator terminal, SSH, dan klien serial yang sangat dapat dikonfigurasi untuk Windows, macOS, dan Linux 
+[**Tabby**](https://tabby.sh) (sebelumnya **Terminus**) adalah emulator terminal, SSH, dan klien serial yang sangat dapat dikonfigurasi untuk Windows, macOS, dan Linux
 
 * Integrasi SSH dan klien Telnet dan Koneksi Manager
 * Integrasi terminal serial
 * Tema dan skema warna
-* Pintasan yang dapat dikonfigurasi sepenuhnya dan pintasan multi-chord 
+* Pintasan yang dapat dikonfigurasi sepenuhnya dan pintasan multi-chord
 * Panel yang bisa dipisahkan
 * Mengingat tab anda
-* Mensupport PowerShell (dan PS Core), WSL, Git-Bash, Cygwin, MSYS2, Cmder dan CMD
-* File transfer secara langsung dari/ke sesi SSH via Zmodem
-* Support Unicode termaksud karakter double-width
-* Tidak tersedak dengan output yang mengalir dengan cepat
-* Pengalaman shell yang tepat di Windows termasuk penyelesaian tab (via Clink)
-* Wadah terintregrasi terenkripsi untuk rahasia dan konfigurasi SSH
+* Mendukung PowerShell (dan PS Core), WSL, Git-Bash, Cygwin, MSYS2, Cmder dan CMD
+* File transfer secara langsung dari/ke sesi SSH melalui Zmodem
+* Mendukung Unicode termasuk karakter double-width
+* Tidak tersendat dengan output yang tampil dengan cepat
+* Pengalaman shell yang tepat di Windows termasuk penyelesaian tab (melalui Clink)
+* Terintegrasi dengan wadah terenkripsi untuk rahasia dan konfigurasi SSH
 * SSH, SFTP dan klien Telnet tersedia sebagai [aplikasi web](https://tabby.sh/app) (dan juga [self-hosted](https://github.com/Eugeny/tabby-web)).
 
 # Contents <!-- omit in toc -->
@@ -57,22 +57,22 @@ This README is also available in: <a  href="./README.es-ES.md">:es: Spanish</a> 
 
 # What Tabby is and isn't
 
-* **Tabby adalah** sebuah alternatif untuk standar Windows' terminal (conhost), PowerShell ISE, PuTTY, macOS Terminal.app dan iTerm
+* **Tabby adalah** sebuah alternatif untuk terminal standar Windows' (conhost), PowerShell ISE, PuTTY, macOS Terminal.app dan iTerm
 
-* **Tabby bukan** shell yang baru atau peganti MinGW atau Cygwin. Dan bukan applikasi ringan - jika penggunaan RAM diutamakan, mungkin boleh mencoba [Conemu](https://conemu.github.io) atau [Alacritty](https://github.com/jwilm/alacritty)
+* **Tabby bukan** shell yang baru atau peganti MinGW atau Cygwin. Dan bukan applikasi ringan - jika mengutamakan penggunaan RAM, mungkin boleh mencoba [Conemu](https://conemu.github.io) atau [Alacritty](https://github.com/jwilm/alacritty)
 
 <a name="terminal"></a>
 
-# Fitur terminal 
+# Fitur terminal
 
 ![](docs/readme-terminal.png)
 
-* Adalah V220 terminal + berbagai macam extensi
-* Beberapa panel split bersarang 
+* Terminal V220  + berbagai macam ekstensi
+* Beberapa pembagian panel
 * Tab di sisi mana pun dari jendela
 * Jendela dockable opsional dengan hotkey spawn global ("Quake console")
 * Deteksi Progres
-* Notifikasi untuk penyelesaian proses
+* Notifikasi saat proses telah selesai
 * Tempel tanda kurung, peringatan tempel multiline
 * Pengikat font
 * Kustom profil shell
@@ -80,11 +80,11 @@ This README is also available in: <a  href="./README.es-ES.md">:es: Spanish</a> 
 
 <a name="ssh"></a>
 
-# Klien SSH 
+# Klien SSH
 
 ![](docs/readme-ssh.png)
 
-* Klien SSH2 dengan manajer koneksi
+* Klien SSH2 dengan manajemen koneksi
 * X11 dan port forwarding
 * Otomatis berpindah host management
 * Agent forwarding (termaksud Pageant dan Windows native OpenSSH Agent)
@@ -104,7 +104,7 @@ This README is also available in: <a  href="./README.es-ES.md">:es: Spanish</a> 
 
 # Portabel
 
-Tabby tetap bisa berjalan sebagai applikasi portabel di Windows, jika anda membuat folder `data` di tempat tinggal yang sama dengan `Tabby.exe`.
+Tabby tetap bisa berjalan sebagai applikasi portabel di Windows, jika anda membuat folder `data` di tempat yang sama dengan `Tabby.exe`.
 
 <a name="plugins"></a>
 
@@ -112,11 +112,11 @@ Tabby tetap bisa berjalan sebagai applikasi portabel di Windows, jika anda membu
 
 Tema dan Plugin bisa langsung di instal dari Pengaturan didalam Tabby.
 
-* [docker](https://github.com/Eugeny/tabby-docker) - untuk menkonek ke Docker containers
+* [docker](https://github.com/Eugeny/tabby-docker) - untuk koneksi ke Docker containers
 * [title-control](https://github.com/kbjr/terminus-title-control) - memperbolehkan untuk mengganti judul di tab terminal dengan menyediakan prefix, suffix, dan/atau strings untuk di buang
-* [quick-cmds](https://github.com/Domain/terminus-quick-cmds) - kirimkan command ke satu atau semua tab terminal dengan cepat
+* [quick-cmds](https://github.com/Domain/terminus-quick-cmds) - kirimkan perintah ke satu atau semua tab terminal dengan cepat
 * [save-output](https://github.com/Eugeny/tabby-save-output) - merekam output terminal ke suatu file
-* [sync-config](https://github.com/starxg/terminus-sync-config) - sinkronisasi config ke Gist atau Gitee
+* [sync-config](https://github.com/starxg/terminus-sync-config) - sinkronisasi konfigurasi ke Gist atau Gitee
 * [clippy](https://github.com/Eugeny/tabby-clippy) - suatu contoh plugin yang akan mengganggu anda setiap saat
 * [workspace-manager](https://github.com/composer404/tabby-workspace-manager) - memperbolehkan membuat kustom profil workspace dari konfigurasi yang diberikan
 * [search-in-browser](https://github.com/composer404/tabby-search-in-browser) - membuka browser default dengan text yang dipilih dari Tab Tabby
