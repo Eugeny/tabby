@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2022-11-09 20:04\n"
+"PO-Revision-Date: 2022-11-17 09:56\n"
 
 #: tabby-local/src/components/terminalTab.component.ts:113
 msgid "\"{command}\" is still running. Close?"
@@ -238,7 +238,7 @@ msgstr "更改波特率"
 
 #: tabby-core/src/tabContextMenu.ts:133
 msgid "Change tab color"
-msgstr ""
+msgstr "更改标签颜色"
 
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:12
 msgid "Change the master passphrase"
@@ -297,7 +297,7 @@ msgstr "关闭右侧标签页"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:187
 msgid "Close the window after closing the last tab"
-msgstr ""
+msgstr "所有标签都关闭时关闭主窗口"
 
 #: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:35
 #: tabby-core/src/tabContextMenu.ts:132
@@ -322,7 +322,7 @@ msgstr "使用命令的 stdin/stdout，而不是网络连接。"
 
 #: tabby-core/src/services/commands.service.ts:77
 msgid "Commands"
-msgstr ""
+msgstr "命令"
 
 #: tabby-core/src/theme.ts:20
 msgid "Compact"
@@ -761,7 +761,7 @@ msgstr ""
 
 #: tabby-terminal/src/hotkeys.ts:82
 msgid "Focus all tabs at once (broadcast)"
-msgstr ""
+msgstr "同时聚焦所有窗格 (广播)"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:201
 msgid "Focus follows mouse"
@@ -1572,7 +1572,7 @@ msgstr "远程"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:124
 msgid "Remove whitespace and newlines around the copied text"
-msgstr ""
+msgstr "删除复制文本周围的空格和换行"
 
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:25
 #: tabby-core/src/tabContextMenu.ts:120
@@ -1582,7 +1582,7 @@ msgstr "重命名"
 #: tabby-core/src/hotkeys.ts:25
 #: tabby-core/src/tabContextMenu.ts:121
 msgid "Rename tab"
-msgstr ""
+msgstr "重命名标签"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:3
 msgid "Rendering"
