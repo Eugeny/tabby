@@ -2,6 +2,7 @@ import { Injectable, Optional, Inject } from '@angular/core'
 import { BaseTabComponent, TabContextMenuItemProvider, NotificationsService, MenuItemOptions, TranslateService } from 'tabby-core'
 import { BaseTerminalTabComponent } from './api/baseTerminalTab.component'
 import { TerminalContextMenuItemProvider } from './api/contextMenuProvider'
+import { MultifocusService } from './services/multifocus.service'
 
 /** @hidden */
 @Injectable()
@@ -45,24 +46,42 @@ export class CopyPasteContextMenu extends TabContextMenuItemProvider {
 export class MiscContextMenu extends TabContextMenuItemProvider {
     weight = 1
 
-    constructor (private translate: TranslateService) { super() }
+    constructor (
+        private translate: TranslateService,
+        private multifocus: MultifocusService,
+    ) { super() }
 
     async getItems (tab: BaseTabComponent): Promise<MenuItemOptions[]> {
+        const items: MenuItemOptions[] = []
         if (tab instanceof BaseTerminalTabComponent && tab.enableToolbar && !tab.pinToolbar) {
-            return [{
+            items.push({
                 label: this.translate.instant('Show toolbar'),
                 click: () => {
                     tab.pinToolbar = true
                 },
-            }]
+            })
         }
         if (tab instanceof BaseTerminalTabComponent && tab.session?.supportsWorkingDirectory()) {
-            return [{
+            items.push({
                 label: this.translate.instant('Copy current path'),
                 click: () => tab.copyCurrentPath(),
-            }]
+            })
         }
-        return []
+        items.push({
+            label: this.translate.instant('Focus all tabs'),
+            click: () => {
+                this.multifocus.focusAllTabs()
+            },
+        })
+        if (tab.parent.getAllTabs().length > 1) {
+            items.push({
+                label: this.translate.instant('Focus all panes'),
+                click: () => {
+                    this.multifocus.focusAllPanes()
+                },
+            })
+        }
+        return items
     }
 }
 
