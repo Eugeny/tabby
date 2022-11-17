@@ -84,9 +84,9 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
         super.ngOnInit()
     }
 
-    async setupOneSession (injector: Injector, profile: SSHProfile): Promise<SSHSession> {
+    async setupOneSession (injector: Injector, profile: SSHProfile, multiplex = true): Promise<SSHSession> {
         let session = await this.sshMultiplexer.getSession(profile)
-        if (!session || !profile.options.reuseSession) {
+        if (!multiplex || !session || !profile.options.reuseSession) {
             session = new SSHSession(injector, profile)
 
             if (profile.options.jumpHost) {
@@ -146,11 +146,8 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
 
             try {
                 await session.start()
+            } finally {
                 this.stopSpinner()
-            } catch (e) {
-                this.stopSpinner()
-                this.write(colors.black.bgRed(' X ') + ' ' + colors.red(e.message) + '\r\n')
-                return session
             }
 
             this.sshMultiplexer.addSession(session)
@@ -186,21 +183,14 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
         super.attachSessionHandlers()
     }
 
-    async initializeSession (): Promise<void> {
-        this.reconnectOffered = false
+    private async initializeSessionMaybeMultiplex (multiplex = true): Promise<void> {
         if (!this.profile) {
-            this.logger.error('No SSH connection info supplied')
-            return
+            throw new Error('No SSH connection info supplied')
         }
 
-        try {
-            this.sshSession = await this.setupOneSession(this.injector, this.profile)
-        } catch (e) {
-            this.write(colors.black.bgRed(' X ') + ' ' + colors.red(e.message) + '\r\n')
-            return
-        }
-
+        this.sshSession = await this.setupOneSession(this.injector, this.profile, multiplex)
         const session = new SSHShellSession(this.injector, this.sshSession, this.profile)
+
         this.setSession(session)
         this.attachSessionHandler(session.serviceMessage$, msg => {
             msg = msg.replace(/\n/g, '\r\n      ')
@@ -210,6 +200,20 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
 
         await session.start()
         this.session?.resize(this.size.columns, this.size.rows)
+    }
+
+    async initializeSession (): Promise<void> {
+        this.reconnectOffered = false
+        try {
+            await this.initializeSessionMaybeMultiplex(true)
+        } catch {
+            try {
+                await this.initializeSessionMaybeMultiplex(false)
+            } catch (e) {
+                this.write(colors.black.bgRed(' X ') + ' ' + colors.red(e.message) + '\r\n')
+                return
+            }
+        }
     }
 
     async getRecoveryToken (options?: GetRecoveryTokenOptions): Promise<RecoveryToken> {

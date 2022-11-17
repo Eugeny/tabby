@@ -15,7 +15,9 @@ export class SSHMultiplexerService {
         const key = await this.getMultiplexerKey(session.profile)
         this.sessions.set(key, session)
         session.willDestroy$.subscribe(() => {
-            this.sessions.delete(key)
+            if (this.sessions.get(key) === session) {
+                this.sessions.delete(key)
+            }
         })
     }
 

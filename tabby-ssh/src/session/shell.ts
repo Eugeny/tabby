@@ -1,5 +1,4 @@
 import { Observable, Subject } from 'rxjs'
-import colors from 'ansi-colors'
 import stripAnsi from 'strip-ansi'
 import { ClientChannel } from 'ssh2'
 import { Injector } from '@angular/core'
@@ -41,11 +40,10 @@ export class SSHShellSession extends BaseSession {
         try {
             this.shell = await this.ssh.openShellChannel({ x11: this.profile.options.x11 ?? false })
         } catch (err) {
-            this.emitServiceMessage(colors.bgRed.black(' X ') + ` Remote rejected opening a shell channel: ${err}`)
             if (err.toString().includes('Unable to request X11')) {
                 this.emitServiceMessage('    Make sure `xauth` is installed on the remote side')
             }
-            return
+            throw new Error(`Remote rejected opening a shell channel: ${err}`)
         }
 
         this.open = true
