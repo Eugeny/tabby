@@ -37,7 +37,7 @@
   "optionalDependencies": {
     "@tabby-gang/windows-blurbehind": "^3.0.0",
     "macos-native-processlist": "^2.1.0",
-    "serialport": "10.4.0",
+    "serialport": "10.5.0",
     "serialport-binding-webserialapi": "^1.0.3",
     "windows-native-registry": "^3.2.1",
     "windows-process-tree": "^0.3.4"
