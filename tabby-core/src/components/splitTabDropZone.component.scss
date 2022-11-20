@@ -15,6 +15,10 @@
         border-radius: 5px;
         border: 1px solid rgba(255, 255, 255, .25);
         transition: all 125ms cubic-bezier(0, 0, 0.2, 1);
+
+        > ::ng-deep  * {
+            display: none !important;
+        }
     }
 
     &.highlighted {
