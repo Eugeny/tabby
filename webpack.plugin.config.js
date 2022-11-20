@@ -60,7 +60,7 @@ module.exports = options => {
                         loader: 'source-map-loader',
                         options: {
                             filterSourceMappingUrl: (url, resourcePath) => {
-                                if (/node_modules/.test(resourcePath)) {
+                                if (/node_modules/.test(resourcePath) && !resourcePath.includes('xterm')) {
                                     return false
                                 }
                                 return true
