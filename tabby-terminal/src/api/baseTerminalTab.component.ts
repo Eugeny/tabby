@@ -123,6 +123,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
 
     protected logger: Logger
     protected output = new Subject<string>()
+    protected binaryOutput = new Subject<Buffer>()
     protected sessionChanged = new Subject<BaseSession|null>()
     private bellPlayer: HTMLAudioElement
     private termContainerSubscriptions = new SubscriptionContainer()
@@ -153,6 +154,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
     }
 
     get output$ (): Observable<string> { return this.output }
+    get binaryOutput$ (): Observable<Buffer> { return this.binaryOutput }
 
     get resize$ (): Observable<ResizeEvent> {
         if (!this.frontend) {
@@ -369,7 +371,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
         this.configure()
 
         setTimeout(() => {
-            this.output.subscribe(() => {
+            this.binaryOutput$.subscribe(() => {
                 this.displayActivity()
             })
         }, 1000)
@@ -564,6 +566,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
             }
         })
         this.output.complete()
+        this.binaryOutput.complete()
         this.frontendReady.complete()
 
         super.destroy()
@@ -738,6 +741,12 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
             if (this.enablePassthrough) {
                 this.output.next(data)
                 this.write(data)
+            }
+        })
+
+        this.attachSessionHandler(this.session.binaryOutput$, data => {
+            if (this.enablePassthrough) {
+                this.binaryOutput.next(data)
             }
         })
 

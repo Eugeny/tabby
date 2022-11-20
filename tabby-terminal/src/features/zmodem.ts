@@ -4,13 +4,14 @@ import { Observable, filter, first } from 'rxjs'
 import { Injectable } from '@angular/core'
 import { TerminalDecorator } from '../api/decorator'
 import { BaseTerminalTabComponent } from '../api/baseTerminalTab.component'
+import { SessionMiddleware } from '../api/middleware'
 import { LogService, Logger, HotkeysService, PlatformService, FileUpload } from 'tabby-core'
 
 const SPACER = '            '
 
-/** @hidden */
-@Injectable()
-export class ZModemDecorator extends TerminalDecorator {
+class ZModemMiddleware extends SessionMiddleware {
+    private sentry: ZModem.Sentry
+    private isActive = false
     private logger: Logger
     private activeSession: any = null
     private cancelEvent: Observable<any>
@@ -21,65 +22,52 @@ export class ZModemDecorator extends TerminalDecorator {
         private platform: PlatformService,
     ) {
         super()
-        this.logger = log.create('zmodem')
-        this.cancelEvent = hotkeys.hotkey$.pipe(filter(x => x === 'ctrl-c'))
-    }
+        this.cancelEvent = this.outputToSession$.pipe(filter(x => x.length === 1 && x[0] === 3))
 
-    attach (terminal: BaseTerminalTabComponent): void {
-        let isActive = false
-        const sentry = new ZModem.Sentry({
+        this.logger = log.create('zmodem')
+        this.sentry = new ZModem.Sentry({
             to_terminal: data => {
-                if (isActive) {
-                    terminal.write(data)
+                if (this.isActive) {
+                    this.outputToTerminal.next(Buffer.from(data))
                 }
             },
-            sender: data => terminal.session!.feedFromTerminal(Buffer.from(data)),
+            sender: data => this.outputToSession.next(Buffer.from(data)),
             on_detect: async detection => {
                 try {
-                    terminal.enablePassthrough = false
-                    isActive = true
-                    await this.process(terminal, detection)
+                    this.isActive = true
+                    await this.process(detection)
                 } finally {
-                    terminal.enablePassthrough = true
-                    isActive = false
+                    this.isActive = false
                 }
             },
             on_retract: () => {
-                this.showMessage(terminal, 'transfer cancelled')
+                this.showMessage('transfer cancelled')
             },
         })
-        setTimeout(() => {
-            this.attachToSession(sentry, terminal)
-            this.subscribeUntilDetached(terminal, terminal.sessionChanged$.subscribe(() => {
-                this.attachToSession(sentry, terminal)
-            }))
-        })
     }
 
-    private attachToSession (sentry, terminal) {
-        if (!terminal.session) {
-            return
-        }
-        this.subscribeUntilDetached(terminal, terminal.session.binaryOutput$.subscribe(data => {
-            const chunkSize = 1024
-            for (let i = 0; i <= Math.floor(data.length / chunkSize); i++) {
-                try {
-                    sentry.consume(Buffer.from(data.slice(i * chunkSize, (i + 1) * chunkSize)))
-                } catch (e) {
-                    this.showMessage(terminal, colors.bgRed.black(' Error ') + ' ' + e)
-                    this.logger.error('protocol error', e)
-                    this.activeSession.abort()
-                    this.activeSession = null
-                    terminal.enablePassthrough = true
-                    return
-                }
+    feedFromSession (data: Buffer): void {
+        const chunkSize = 1024
+        for (let i = 0; i <= Math.floor(data.length / chunkSize); i++) {
+            try {
+                this.sentry.consume(Buffer.from(data.slice(i * chunkSize, (i + 1) * chunkSize)))
+            } catch (e) {
+                this.showMessage(colors.bgRed.black(' Error ') + ' ' + e)
+                this.logger.error('protocol error', e)
+                this.activeSession.abort()
+                this.activeSession = null
+                this.isActive = false
+                return
             }
-        }))
+        }
+        if (!this.isActive) {
+            this.outputToTerminal.next(data)
+        }
     }
 
-    private async process (terminal, detection): Promise<void> {
-        this.showMessage(terminal, colors.bgBlue.black(' ZMODEM ') + ' Session started')
-        this.showMessage(terminal, '------------------------')
+    private async process (detection): Promise<void> {
+        this.showMessage(colors.bgBlue.black(' ZMODEM ') + ' Session started')
+        this.showMessage('------------------------')
 
         const zsession = detection.confirm()
         this.activeSession = zsession
@@ -90,7 +78,7 @@ export class ZModemDecorator extends TerminalDecorator {
             let filesRemaining = transfers.length
             let sizeRemaining = transfers.reduce((a, b) => a + b.getSize(), 0)
             for (const transfer of transfers) {
-                await this.sendFile(terminal, zsession, transfer, filesRemaining, sizeRemaining)
+                await this.sendFile(zsession, transfer, filesRemaining, sizeRemaining)
                 filesRemaining--
                 sizeRemaining -= transfer.getSize()
             }
@@ -98,7 +86,7 @@ export class ZModemDecorator extends TerminalDecorator {
             await zsession.close()
         } else {
             zsession.on('offer', xfer => {
-                this.receiveFile(terminal, xfer, zsession)
+                this.receiveFile(xfer, zsession)
             })
 
             zsession.start()
@@ -108,29 +96,27 @@ export class ZModemDecorator extends TerminalDecorator {
         }
     }
 
-    private async receiveFile (terminal, xfer, zsession) {
+    private async receiveFile (xfer, zsession) {
         const details: {
             name: string,
             size: number,
         } = xfer.get_details()
-        this.showMessage(terminal, colors.bgYellow.black(' Offered ') + ' ' + details.name, true)
+        this.showMessage(colors.bgYellow.black(' Offered ') + ' ' + details.name, true)
         this.logger.info('offered', xfer)
 
         const transfer = await this.platform.startDownload(details.name, 0o644, details.size)
         if (!transfer) {
-            this.showMessage(terminal, colors.bgRed.black(' Rejected ') + ' ' + details.name)
+            this.showMessage(colors.bgRed.black(' Rejected ') + ' ' + details.name)
             xfer.skip()
             return
         }
 
         let canceled = false
         const cancelSubscription = this.cancelEvent.subscribe(() => {
-            if (terminal.hasFocus) {
-                try {
-                    zsession._skip()
-                } catch {}
-                canceled = true
-            }
+            try {
+                zsession._skip()
+            } catch {}
+            canceled = true
         })
 
         try {
@@ -141,7 +127,7 @@ export class ZModemDecorator extends TerminalDecorator {
                             return
                         }
                         transfer.write(Buffer.from(chunk))
-                        this.showMessage(terminal, colors.bgYellow.black(' ' + Math.round(100 * transfer.getCompletedBytes() / details.size).toString().padStart(3, ' ') + '% ') + ' ' + details.name, true)
+                        this.showMessage(colors.bgYellow.black(' ' + Math.round(100 * transfer.getCompletedBytes() / details.size).toString().padStart(3, ' ') + '% ') + ' ' + details.name, true)
                     },
                 }),
                 this.cancelEvent.pipe(first()).toPromise(),
@@ -150,19 +136,19 @@ export class ZModemDecorator extends TerminalDecorator {
             // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
             if (canceled) {
                 transfer.cancel()
-                this.showMessage(terminal, colors.bgRed.black(' Canceled ') + ' ' + details.name)
+                this.showMessage(colors.bgRed.black(' Canceled ') + ' ' + details.name)
             } else {
                 transfer.close()
-                this.showMessage(terminal, colors.bgGreen.black(' Received ') + ' ' + details.name)
+                this.showMessage(colors.bgGreen.black(' Received ') + ' ' + details.name)
             }
         } catch {
-            this.showMessage(terminal, colors.bgRed.black(' Error ') + ' ' + details.name)
+            this.showMessage(colors.bgRed.black(' Error ') + ' ' + details.name)
         }
 
         cancelSubscription.unsubscribe()
     }
 
-    private async sendFile (terminal, zsession, transfer: FileUpload, filesRemaining, sizeRemaining) {
+    private async sendFile (zsession, transfer: FileUpload, filesRemaining, sizeRemaining) {
         const offer = {
             name: transfer.getName(),
             size: transfer.getSize(),
@@ -171,15 +157,13 @@ export class ZModemDecorator extends TerminalDecorator {
             bytes_remaining: sizeRemaining,
         }
         this.logger.info('offering', offer)
-        this.showMessage(terminal, colors.bgYellow.black(' Offered ') + ' ' + offer.name, true)
+        this.showMessage(colors.bgYellow.black(' Offered ') + ' ' + offer.name, true)
 
         const xfer = await zsession.send_offer(offer)
         if (xfer) {
             let canceled = false
             const cancelSubscription = this.cancelEvent.subscribe(() => {
-                if (terminal.hasFocus) {
-                    canceled = true
-                }
+                canceled = true
             })
 
             while (true) {
@@ -190,7 +174,7 @@ export class ZModemDecorator extends TerminalDecorator {
                 }
 
                 await xfer.send(chunk)
-                this.showMessage(terminal, colors.bgYellow.black(' ' + Math.round(100 * transfer.getCompletedBytes() / offer.size).toString().padStart(3, ' ') + '% ') + offer.name, true)
+                this.showMessage(colors.bgYellow.black(' ' + Math.round(100 * transfer.getCompletedBytes() / offer.size).toString().padStart(3, ' ') + '% ') + offer.name, true)
             }
 
             // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
@@ -204,23 +188,51 @@ export class ZModemDecorator extends TerminalDecorator {
 
             // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
             if (canceled) {
-                this.showMessage(terminal, colors.bgRed.black(' Canceled ') + ' ' + offer.name)
+                this.showMessage(colors.bgRed.black(' Canceled ') + ' ' + offer.name)
             } else {
-                this.showMessage(terminal, colors.bgGreen.black(' Sent ') + ' ' + offer.name)
+                this.showMessage(colors.bgGreen.black(' Sent ') + ' ' + offer.name)
             }
 
             cancelSubscription.unsubscribe()
         } else {
             transfer.cancel()
-            this.showMessage(terminal, colors.bgRed.black(' Rejected ') + ' ' + offer.name)
+            this.showMessage(colors.bgRed.black(' Rejected ') + ' ' + offer.name)
             this.logger.warn('rejected by the other side')
         }
     }
 
-    private showMessage (terminal, msg: string, overwrite = false) {
-        terminal.write(Buffer.from(`\r${msg}${SPACER}`))
+    private showMessage (msg: string, overwrite = false) {
+        this.outputToTerminal.next(Buffer.from(`\r${msg}${SPACER}`))
         if (!overwrite) {
-            terminal.write(Buffer.from('\r\n'))
+            this.outputToTerminal.next(Buffer.from('\r\n'))
         }
+    }
+}
+
+/** @hidden */
+@Injectable()
+export class ZModemDecorator extends TerminalDecorator {
+    constructor (
+        private log: LogService,
+        private hotkeys: HotkeysService,
+        private platform: PlatformService,
+    ) {
+        super()
+    }
+
+    attach (terminal: BaseTerminalTabComponent): void {
+        setTimeout(() => {
+            this.attachToSession(terminal)
+            this.subscribeUntilDetached(terminal, terminal.sessionChanged$.subscribe(() => {
+                this.attachToSession(terminal)
+            }))
+        })
+    }
+
+    private attachToSession (terminal: BaseTerminalTabComponent) {
+        if (!terminal.session) {
+            return
+        }
+        terminal.session.middleware.unshift(new ZModemMiddleware(this.log, this.hotkeys, this.platform))
     }
 }

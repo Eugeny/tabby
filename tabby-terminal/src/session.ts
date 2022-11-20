@@ -2,7 +2,7 @@ import { Observable, Subject } from 'rxjs'
 import { Logger } from 'tabby-core'
 import { LoginScriptProcessor, LoginScriptsOptions } from './middleware/loginScriptProcessing'
 import { OSCProcessor } from './middleware/oscProcessing'
-import { SesssionMiddlewareStack } from './api/middleware'
+import { SessionMiddlewareStack } from './api/middleware'
 
 /**
  * A session object for a [[BaseTerminalTabComponent]]
@@ -11,8 +11,8 @@ import { SesssionMiddlewareStack } from './api/middleware'
 export abstract class BaseSession {
     open: boolean
     truePID?: number
-    oscProcessor = new OSCProcessor()
-    protected readonly middleware = new SesssionMiddlewareStack()
+    readonly oscProcessor = new OSCProcessor()
+    readonly middleware = new SessionMiddlewareStack()
     protected output = new Subject<string>()
     protected binaryOutput = new Subject<Buffer>()
     protected closed = new Subject<void>()

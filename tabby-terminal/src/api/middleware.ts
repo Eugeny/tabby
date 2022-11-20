@@ -22,7 +22,7 @@ export class SessionMiddleware {
     }
 }
 
-export class SesssionMiddlewareStack extends SessionMiddleware {
+export class SessionMiddlewareStack extends SessionMiddleware {
     private stack: SessionMiddleware[] = []
     private subs = new SubscriptionContainer()
 
