@@ -44,4 +44,5 @@ pluginBlacklist: []
 hacks:
   disableGPU: false
   disableVibrancyWhileDragging: false
+  enableFluentBackground: false
 language: null

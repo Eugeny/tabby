@@ -31,7 +31,7 @@ h3.mb-3(translate) Window
         (ngModelChange)='saveConfiguration()'
     )
 
-.form-line(*ngIf='config.store.appearance.vibrancy && isFluentVibrancySupported')
+.form-line(*ngIf='config.store.appearance.vibrancy && isFluentVibrancySupported && config.store.hacks.enableFluentBackground')
     .header
         .title(translate) Background type
     .btn-group(
@@ -348,7 +348,7 @@ h3.mt-4(translate) Panes
 
 h3.mt-4(translate) Hacks
 
-.form-line
+.form-line(*ngIf='hostApp.platform !== Platform.Web')
     .header
         .title(translate) Disable GPU acceleration
         .description(translate) Tick this if you're experiencing aliasing, ghosting or other visual issues
@@ -358,7 +358,17 @@ h3.mt-4(translate) Hacks
         (ngModelChange)='config.save(); config.requestRestart()'
     )
 
-.form-line(*ngIf='hostApp.platform === Platform.Windows')
+.form-line(*ngIf='hostApp.platform === Platform.Windows && isFluentVibrancySupported')
+    .header
+        .title(translate) Enable fluent background option
+        .description(translate) Experimental Windows 10 background style known to cause issues
+
+    toggle(
+        [(ngModel)]='config.store.hacks.enableFluentBackground',
+        (ngModelChange)='config.save()'
+    )
+
+.form-line(*ngIf='hostApp.platform === Platform.Windows && isFluentVibrancySupported')
     .header
         .title(translate) Disable fluent background while dragging
         .description(translate) Fluent background sometimes causes drag lag
