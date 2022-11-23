@@ -1029,6 +1029,15 @@
       "contributions": [
         "financial"
       ]
+    },
+    {
+      "login": "almzau",
+      "name": "Allan",
+      "avatar_url": "https://avatars.githubusercontent.com/u/29115846?v=4",
+      "profile": "https://github.com/almzau",
+      "contributions": [
+        "design"
+      ]
     }
   ],
   "contributorsPerLine": 7,
