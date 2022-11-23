@@ -4,7 +4,7 @@
     "@angular/cdk": "^12.2.9",
     "@angular/common": "^12.0.0",
     "@angular/compiler": "^12.0.0",
-    "@angular/compiler-cli": "^12.0.0",
+    "@angular/compiler-cli": "^15.0.1",
     "@angular/core": "^12.0.0",
     "@angular/forms": "^12.0.0",
     "@angular/platform-browser": "^12.0.0",
