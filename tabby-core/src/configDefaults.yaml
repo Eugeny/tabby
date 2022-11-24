@@ -30,6 +30,8 @@ hotkeys:
 profiles: []
 profileDefaults:
   __nonStructural: true
+  ssh:
+    disableDynamicTitle: true
 recoverTabs: true
 enableAnalytics: true
 enableWelcomeTab: true
