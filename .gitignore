@@ -27,6 +27,7 @@ yarn-error.log
 docs/api
 .travis.ssh.key
 *.code-workspace
+.idea/
 
 .electron-symbols
 sentry.properties
