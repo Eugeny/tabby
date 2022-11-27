@@ -3,7 +3,7 @@ $tabs-height: 38px;
 :host {
     position: relative;
     cursor: pointer;
-    box-sizing: content-box;
+    box-sizing: border-box;
 
     > * { cursor: pointer; }
 
