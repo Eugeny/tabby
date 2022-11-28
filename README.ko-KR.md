@@ -290,6 +290,7 @@ Pull requests and plugins are welcome!
     </tr>
     <tr>
       <td align="center"><a href="https://github.com/almzau"><img src="https://avatars.githubusercontent.com/u/29115846?v=4?s=100" width="100px;" alt="Allan"/><br /><sub><b>Allan</b></sub></a><br /><a href="#design-almzau" title="Design">🎨</a></td>
+      <td align="center"><a href="https://oidamo.de"><img src="https://avatars.githubusercontent.com/u/17959794?v=4?s=100" width="100px;" alt="Benjamin Brandmeier"/><br /><sub><b>Benjamin Brandmeier</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=BenjaminBrandmeier" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>
