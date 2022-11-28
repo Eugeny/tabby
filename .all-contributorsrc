@@ -1038,6 +1038,15 @@
       "contributions": [
         "design"
       ]
+    },
+    {
+      "login": "BenjaminBrandmeier",
+      "name": "Benjamin Brandmeier",
+      "avatar_url": "https://avatars.githubusercontent.com/u/17959794?v=4",
+      "profile": "https://oidamo.de",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
