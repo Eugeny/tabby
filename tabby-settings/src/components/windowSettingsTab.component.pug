@@ -279,6 +279,15 @@ h3.mt-4(translate) Tabs
 
 .form-line
     .header
+        .title(translate) Show tabs in fullscreen mode
+
+    toggle(
+        [(ngModel)]='config.store.appearance.tabsInFullscreen',
+        (ngModelChange)='config.save();',
+    )
+
+.form-line
+    .header
         .title(translate) Hide tab index
 
     toggle(

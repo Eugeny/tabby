@@ -9,7 +9,10 @@ title-bar(
     [class.tabs-on-top]='config.store.appearance.tabsLocation == "top" || config.store.appearance.tabsLocation == "left"',
     [class.tabs-on-side]='hasVerticalTabs()',
 )
-    .tab-bar((dblclick)='hostWindow.toggleMaximize()')
+    .tab-bar(
+        *ngIf='!hostWindow.isFullscreen || config.store.appearance.tabsInFullscreen',
+        (dblclick)='hostWindow.toggleMaximize()'
+    )
         .inset.background(*ngIf='hostApp.platform == Platform.macOS \
         && !hostWindow.isFullscreen \
         && config.store.appearance.frame == "thin" \

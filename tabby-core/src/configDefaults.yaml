@@ -9,6 +9,7 @@ appearance:
   dockAlwaysOnTop: true
   flexTabs: false
   tabsLocation: top
+  tabsInFullscreen: false
   cycleTabs: true
   theme: Standard
   frame: thin
