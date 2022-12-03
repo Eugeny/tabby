@@ -12,6 +12,7 @@ import { SplitContainer } from './splitTab.component'
 export class SplitTabSpannerComponent extends SelfPositioningComponent {
     @Input() container: SplitContainer
     @Input() index: number
+    @Output() resizing = new EventEmitter<boolean>()
     @Output() change = new EventEmitter<void>()
     @HostBinding('class.active') isActive = false
     @HostBinding('class.h') isHorizontal = false
@@ -30,6 +31,7 @@ export class SplitTabSpannerComponent extends SelfPositioningComponent {
 
         this.element.nativeElement.addEventListener('mousedown', (e: MouseEvent) => {
             this.isActive = true
+            this.resizing.emit(true)
             const start = this.isVertical ? e.pageY : e.pageX
             let current = start
             const oldPosition: number = this.isVertical ? this.element.nativeElement.offsetTop : this.element.nativeElement.offsetLeft
@@ -46,6 +48,7 @@ export class SplitTabSpannerComponent extends SelfPositioningComponent {
 
             const offHandler = () => {
                 this.isActive = false
+                this.resizing.emit(false)
                 document.removeEventListener('mouseup', offHandler)
                 this.element.nativeElement.parentElement.removeEventListener('mousemove', dragHandler)
 
