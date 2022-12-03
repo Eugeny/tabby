@@ -1056,6 +1056,15 @@
       "contributions": [
         "translation"
       ]
+    },
+    {
+      "login": "hermitpopcorn",
+      "name": "hermitpopcorn",
+      "avatar_url": "https://avatars.githubusercontent.com/u/16042129?v=4",
+      "profile": "https://github.com/hermitpopcorn",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
