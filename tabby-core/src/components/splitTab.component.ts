@@ -169,6 +169,7 @@ export type SplitDropZoneInfo = {
             [container]='spanner.container'
             [index]='spanner.index'
             (change)='onSpannerAdjusted(spanner)'
+            (resizing)='onSpannerResizing($event)'
         ></split-tab-spanner>
         <split-tab-drop-zone
             *ngFor='let dropZone of _dropZones'
@@ -210,6 +211,9 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
 
     /** @hidden */
     _allFocusMode = false
+
+    /** @hidden */
+    _spannerResizing = false
 
     /**
      * Disables display of dynamic window/tab title provided by the shell
@@ -738,6 +742,11 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
     }
 
     /** @hidden */
+    onSpannerResizing (state: boolean): void {
+        this._spannerResizing = state
+    }
+
+    /** @hidden */
     onTabDropped (tab: BaseTabComponent, zone: SplitDropZoneInfo) { // eslint-disable-line @typescript-eslint/explicit-module-boundary-types
         if (tab === this) {
             return
@@ -809,7 +818,12 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
         this.viewRefs.set(tab, ref)
         tab.addEventListenerUntilDestroyed(ref.rootNodes[0], 'click', () => this.focus(tab))
         if (this.config.store.terminal.focusFollowsMouse) {
-            tab.addEventListenerUntilDestroyed(ref.rootNodes[0], 'mousemove', () => this.focus(tab))
+            tab.addEventListenerUntilDestroyed(ref.rootNodes[0], 'mousemove', () => {
+                if (this._spannerResizing) {
+                    return
+                }
+                this.focus(tab)
+            })
         }
 
         tab.subscribeUntilDestroyed(tab.titleChange$, () => this.updateTitle())
