@@ -52,7 +52,8 @@ export class EditSFTPContextMenu extends SFTPContextMenuItemProvider {
             if (!upload.length) {
                 return
             }
-            sftp.upload(item.fullPath, upload[0])
+            await sftp.upload(item.fullPath, upload[0])
+            await sftp.chmod(item.fullPath, item.mode)
         })).subscribe()
         watcher.on('close', () => events.complete())
         sftp.closed$.subscribe(() => watcher.close())

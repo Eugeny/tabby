@@ -138,6 +138,11 @@ export class SFTPSession {
         await promisify((f: any) => this.sftp.unlink(p, f))()
     }
 
+    async chmod (p: string, mode: string|number): Promise<void> {
+        this.logger.debug('chmod', p, mode)
+        await promisify((f: any) => this.sftp.chmod(p, mode, f))()
+    }
+
     async upload (path: string, transfer: FileUpload): Promise<void> {
         this.logger.info('Uploading into', path)
         const tempPath = path + '.tabby-upload'
