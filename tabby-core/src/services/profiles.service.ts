@@ -106,6 +106,10 @@ export class ProfilesService {
     }
 
     showProfileSelector (): Promise<PartialProfile<Profile>|null> {
+        if (this.selector.active) {
+            return Promise.resolve(null)
+        }
+
         return new Promise<PartialProfile<Profile>|null>(async (resolve, reject) => {
             try {
                 const recentProfiles = this.getRecentProfiles()

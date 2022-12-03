@@ -67,6 +67,10 @@ export class CommandService {
     }
 
     async showSelector (): Promise<void> {
+        if (this.selector.active) {
+            return
+        }
+
         const context: CommandContext = {}
         const tab = this.app.activeTab
         if (tab instanceof SplitTabComponent) {

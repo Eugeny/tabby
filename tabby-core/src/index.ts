@@ -204,6 +204,10 @@ export default class AppModule { // eslint-disable-line @typescript-eslint/no-ex
     }
 
     async showSelector (provider: ProfileProvider<Profile>): Promise<void> {
+        if (this.selector.active) {
+            return
+        }
+
         let profiles = await this.profilesService.getProfiles()
 
         profiles = profiles.filter(x => !x.isTemplate && x.type === provider.id)
