@@ -21,7 +21,7 @@ export class SelectorService {
     show <T> (name: string, options: SelectorOption<T>[]): Promise<T> {
         const modal = this.ngbModal.open(SelectorModalComponent)
         this.current = modal
-        modal.result.then(() => {
+        modal.result.finally(() => {
             this.current = null
         })
         const instance: SelectorModalComponent<T> = modal.componentInstance
