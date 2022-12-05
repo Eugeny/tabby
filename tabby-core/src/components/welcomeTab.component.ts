@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { Component } from '@angular/core'
+import { Component, Injector } from '@angular/core'
 import { TranslateService } from '@ngx-translate/core'
 import { BaseTabComponent } from './baseTab.component'
 import { ConfigService } from '../services/config.service'
@@ -19,8 +19,9 @@ export class WelcomeTabComponent extends BaseTabComponent {
         public config: ConfigService,
         public locale: LocaleService,
         translate: TranslateService,
+        injector: Injector,
     ) {
-        super()
+        super(injector)
         this.setTitle(translate.instant('Welcome'))
     }
 

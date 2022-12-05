@@ -1,7 +1,8 @@
 import { Observable, Subject, distinctUntilChanged, filter, debounceTime } from 'rxjs'
-import { EmbeddedViewRef, ViewContainerRef, ViewRef } from '@angular/core'
+import { EmbeddedViewRef, Injector, ViewContainerRef, ViewRef } from '@angular/core'
 import { RecoveryToken } from '../api/tabRecovery'
 import { BaseComponent } from './base.component'
+import { ConfigService } from '../services/config.service'
 
 /**
  * Represents an active "process" inside a tab,
@@ -87,8 +88,11 @@ export abstract class BaseTabComponent extends BaseComponent {
     get destroyed$ (): Observable<void> { return this.destroyed }
     get recoveryStateChangedHint$ (): Observable<void> { return this.recoveryStateChangedHint }
 
-    protected constructor () {
+    protected config: ConfigService
+
+    protected constructor (injector: Injector) {
         super()
+        this.config = injector.get(ConfigService)
         this.focused$.subscribe(() => {
             this.hasFocus = true
         })

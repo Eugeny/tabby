@@ -1,5 +1,5 @@
 import { Inject, Injectable, Optional } from '@angular/core'
-import { AppService, Command, CommandContext, ConfigService, MenuItemOptions, SplitTabComponent, TabContextMenuItemProvider, ToolbarButton, ToolbarButtonProvider, TranslateService } from '../api'
+import { AppService, Command, CommandContext, CommandProvider, ConfigService, MenuItemOptions, SplitTabComponent, TabContextMenuItemProvider, ToolbarButton, ToolbarButtonProvider, TranslateService } from '../api'
 import { SelectorService } from './selector.service'
 
 @Injectable({ providedIn: 'root' })
@@ -11,6 +11,7 @@ export class CommandService {
         private translate: TranslateService,
         @Optional() @Inject(TabContextMenuItemProvider) protected contextMenuProviders: TabContextMenuItemProvider[],
         @Inject(ToolbarButtonProvider) private toolbarButtonProviders: ToolbarButtonProvider[],
+        @Inject(CommandProvider) private commandProviders: CommandProvider[],
     ) {
         this.contextMenuProviders.sort((a, b) => a.weight - b.weight)
     }
@@ -60,10 +61,20 @@ export class CommandService {
         }
         items.forEach(x => flattenItem(x))
 
-        let commands = buttons.map(x => Command.fromToolbarButton(x))
-        commands = commands.concat(flatItems.map(x => Command.fromMenuItem(x)))
+        const commands = buttons.map(x => Command.fromToolbarButton(x))
+        commands.push(...flatItems.map(x => Command.fromMenuItem(x)))
 
-        return commands
+        for (const provider of this.config.enabledServices(this.commandProviders)) {
+            commands.push(...await provider.provide(context))
+        }
+
+        return commands.sort((a, b) => (a.weight ?? 0) - (b.weight ?? 0))
+    }
+
+    async run (id: string, context: CommandContext): Promise<void> {
+        const commands = await this.getCommands(context)
+        const command = commands.find(x => x.id === id)
+        await command?.run()
     }
 
     async showSelector (): Promise<void> {
@@ -81,7 +92,7 @@ export class CommandService {
             this.translate.instant('Commands'),
             commands.map(c => ({
                 name: c.label,
-                callback: c.click,
+                callback: c.run,
                 description: c.sublabel,
                 icon: c.icon,
             })),

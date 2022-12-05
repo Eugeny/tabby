@@ -97,8 +97,8 @@ export class SelectorModalComponent<T> {
     }
 
     selectOption (option: SelectorOption<T>): void {
-        option.callback?.(this.filter)
         this.modalInstance.close(option.result)
+        setTimeout(() => option.callback?.(this.filter))
     }
 
     canEditSelected (): boolean {

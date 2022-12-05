@@ -5,11 +5,11 @@ div
 
     .list-group.mb-4
         a.list-group-item.list-group-item-action.d-flex(
-            *ngFor='let button of getButtons(); trackBy: buttonsTrackBy',
-            (click)='button.click()',
+            *ngFor='let command of commands; trackBy: buttonsTrackBy',
+            (click)='command.run()',
         )
-            .d-flex.align-self-center([innerHTML]='sanitizeIcon(button.icon)')
-            span {{button.title}}
+            .d-flex.align-self-center([innerHTML]='sanitizeIcon(command.icon)')
+            span {{command.label}}
 
 footer.d-flex.align-items-center
     .btn-group.mr-auto

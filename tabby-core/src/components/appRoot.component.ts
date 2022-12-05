@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { Component, Inject, Input, HostListener, HostBinding, ViewChildren, ViewChild } from '@angular/core'
+import { Component, Input, HostListener, HostBinding, ViewChildren, ViewChild } from '@angular/core'
 import { trigger, style, animate, transition, state } from '@angular/animations'
 import { NgbDropdown, NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop'
@@ -10,12 +10,13 @@ import { Logger, LogService } from '../services/log.service'
 import { ConfigService } from '../services/config.service'
 import { ThemesService } from '../services/themes.service'
 import { UpdaterService } from '../services/updater.service'
+import { CommandService } from '../services/commands.service'
 
 import { BaseTabComponent } from './baseTab.component'
 import { SafeModeModalComponent } from './safeModeModal.component'
 import { TabBodyComponent } from './tabBody.component'
 import { SplitTabComponent } from './splitTab.component'
-import { AppService, FileTransfer, HostWindowService, PlatformService, ToolbarButton, ToolbarButtonProvider } from '../api'
+import { AppService, Command, CommandLocation, FileTransfer, HostWindowService, PlatformService } from '../api'
 
 function makeTabAnimation (dimension: string, size: number) {
     return [
@@ -63,8 +64,8 @@ function makeTabAnimation (dimension: string, size: number) {
 export class AppRootComponent {
     Platform = Platform
     @Input() ready = false
-    @Input() leftToolbarButtons: ToolbarButton[]
-    @Input() rightToolbarButtons: ToolbarButton[]
+    @Input() leftToolbarButtons: Command[]
+    @Input() rightToolbarButtons: Command[]
     @HostBinding('class.platform-win32') platformClassWindows = process.platform === 'win32'
     @HostBinding('class.platform-darwin') platformClassMacOS = process.platform === 'darwin'
     @HostBinding('class.platform-linux') platformClassLinux = process.platform === 'linux'
@@ -79,11 +80,11 @@ export class AppRootComponent {
     constructor (
         private hotkeys: HotkeysService,
         private updater: UpdaterService,
+        private commands: CommandService,
         public hostWindow: HostWindowService,
         public hostApp: HostAppService,
         public config: ConfigService,
         public app: AppService,
-        @Inject(ToolbarButtonProvider) private toolbarButtonProviders: ToolbarButtonProvider[],
         platform: PlatformService,
         log: LogService,
         ngbModal: NgbModal,
@@ -170,9 +171,9 @@ export class AppRootComponent {
             this.activeTransfersDropdown.open()
         })
 
-        config.ready$.toPromise().then(() => {
-            this.leftToolbarButtons = this.getToolbarButtons(false)
-            this.rightToolbarButtons = this.getToolbarButtons(true)
+        config.ready$.toPromise().then(async () => {
+            this.leftToolbarButtons = await this.getToolbarButtons(false)
+            this.rightToolbarButtons = await this.getToolbarButtons(true)
 
             setInterval(() => {
                 if (this.config.store.enableAutomaticUpdates) {
@@ -212,16 +213,6 @@ export class AppRootComponent {
         return this.config.store.appearance.flexTabs ? '*' : '200px'
     }
 
-    async generateButtonSubmenu (button: ToolbarButton) {
-        if (button.submenu) {
-            button.submenuItems = await button.submenu()
-        }
-    }
-
-    hasIcons (submenuItems: ToolbarButton[]): boolean {
-        return submenuItems.some(x => !!x.icon)
-    }
-
     onTabsReordered (event: CdkDragDrop<BaseTabComponent[]>) {
         const tab: BaseTabComponent = event.item.data
         if (!this.app.tabs.includes(tab)) {
@@ -244,14 +235,8 @@ export class AppRootComponent {
         return this.config.store?.appearance.vibrancy
     }
 
-    private getToolbarButtons (aboveZero: boolean): ToolbarButton[] {
-        let buttons: ToolbarButton[] = []
-        this.config.enabledServices(this.toolbarButtonProviders).forEach(provider => {
-            buttons = buttons.concat(provider.provide())
-        })
-        return buttons
-            .filter(x => x.showInToolbar ?? true)
-            .filter(button => (button.weight ?? 0) > 0 === aboveZero)
-            .sort((a: ToolbarButton, b: ToolbarButton) => (a.weight ?? 0) - (b.weight ?? 0))
+    private async getToolbarButtons (aboveZero: boolean): Promise<Command[]> {
+        return (await this.commands.getCommands({ tab: this.app.activeTab ?? undefined }))
+            .filter(x => x.locations?.includes(aboveZero ? CommandLocation.RightToolbar : CommandLocation.LeftToolbar))
     }
 }

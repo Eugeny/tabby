@@ -175,7 +175,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
     get sessionChanged$ (): Observable<BaseSession|null> { return this.sessionChanged }
 
     constructor (protected injector: Injector) {
-        super()
+        super(injector)
 
         this.config = injector.get(ConfigService)
         this.element = injector.get(ElementRef)

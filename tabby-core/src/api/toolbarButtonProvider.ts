@@ -27,13 +27,6 @@ export interface ToolbarButton {
 
     /** @hidden */
     submenuItems?: ToolbarButton[]
-
-    showInToolbar?: boolean
-
-    showInStartPage?: boolean
-
-    /** @hidden */
-    commandLabel?: string
 }
 
 /**

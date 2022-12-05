@@ -2,26 +2,19 @@
 import { Injectable } from '@angular/core'
 import { TranslateService } from '@ngx-translate/core'
 
-import { ToolbarButton, ToolbarButtonProvider } from './api/toolbarButtonProvider'
 import { HostAppService, Platform } from './api/hostApp'
-import { HotkeysService } from './services/hotkeys.service'
 import { ProfilesService } from './services/profiles.service'
+import { CommandProvider, Command, CommandLocation } from './api/commands'
 
 /** @hidden */
-@Injectable()
-export class ButtonProvider extends ToolbarButtonProvider {
+@Injectable({ providedIn: 'root' })
+export class CoreCommandProvider extends CommandProvider {
     constructor (
         private hostApp: HostAppService,
         private profilesService: ProfilesService,
         private translate: TranslateService,
-        hotkeys: HotkeysService,
     ) {
         super()
-        hotkeys.hotkey$.subscribe(hotkey => {
-            if (hotkey === 'profile-selector') {
-                this.activate()
-            }
-        })
     }
 
     async activate () {
@@ -31,21 +24,22 @@ export class ButtonProvider extends ToolbarButtonProvider {
         }
     }
 
-    provide (): ToolbarButton[] {
+    async provide (): Promise<Command[]> {
         return [
             {
+                id: 'profile-selector',
+                locations: [CommandLocation.LeftToolbar, CommandLocation.StartPage],
+                label: this.translate.instant('Profiles & connections'),
                 icon: this.hostApp.platform === Platform.Web
                     ? require('./icons/plus.svg')
                     : require('./icons/profiles.svg'),
-                title: this.translate.instant('Profiles & connections'),
-                click: () => this.activate(),
+                run: async () => this.activate(),
             },
             ...this.profilesService.getRecentProfiles().map(profile => ({
+                label: profile.name,
+                locations: [CommandLocation.StartPage],
                 icon: require('./icons/history.svg'),
-                title: profile.name,
-                showInToolbar: false,
-                showinStartPage: true,
-                click: async () => {
+                run: async () => {
                     const p = (await this.profilesService.getProfiles()).find(x => x.id === profile.id) ?? profile
                     this.profilesService.launchProfile(p)
                 },

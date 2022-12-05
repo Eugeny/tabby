@@ -2,7 +2,7 @@
 import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker'
 import * as yaml from 'js-yaml'
 import { debounce } from 'utils-decorators/dist/esm/debounce/debounce'
-import { Component, Inject, Input, HostBinding, NgZone } from '@angular/core'
+import { Component, Inject, Input, HostBinding, NgZone, Injector } from '@angular/core'
 import {
     ConfigService,
     BaseTabComponent,
@@ -52,8 +52,9 @@ export class SettingsTabComponent extends BaseTabComponent {
         private app: AppService,
         @Inject(SettingsTabProvider) public settingsProviders: SettingsTabProvider[],
         translate: TranslateService,
+        injector: Injector,
     ) {
-        super()
+        super(injector)
         this.setTitle(translate.instant(_('Settings')))
         this.settingsProviders = config.enabledServices(this.settingsProviders)
         this.settingsProviders = this.settingsProviders.filter(x => !!x.getComponentType())

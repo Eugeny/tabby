@@ -37,7 +37,7 @@ import { FastHtmlBindDirective } from './directives/fastHtmlBind.directive'
 import { DropZoneDirective } from './directives/dropZone.directive'
 import { CdkAutoDropGroup } from './directives/cdkAutoDropGroup.directive'
 
-import { Theme, CLIHandler, TabContextMenuItemProvider, TabRecoveryProvider, HotkeyProvider, ConfigProvider, PlatformService, FileProvider, ToolbarButtonProvider, ProfilesService, ProfileProvider, SelectorOption, Profile, SelectorService } from './api'
+import { Theme, CLIHandler, TabContextMenuItemProvider, TabRecoveryProvider, HotkeyProvider, ConfigProvider, PlatformService, FileProvider, ProfilesService, ProfileProvider, SelectorOption, Profile, SelectorService, CommandProvider } from './api'
 
 import { AppService } from './services/app.service'
 import { ConfigService } from './services/config.service'
@@ -51,8 +51,8 @@ import { CoreConfigProvider } from './config'
 import { AppHotkeyProvider } from './hotkeys'
 import { TaskCompletionContextMenu, CommonOptionsContextMenu, TabManagementContextMenu, ProfilesContextMenu } from './tabContextMenu'
 import { LastCLIHandler, ProfileCLIHandler } from './cli'
-import { ButtonProvider } from './buttonProvider'
 import { SplitLayoutProfilesService } from './profiles'
+import { CoreCommandProvider } from './commands'
 
 import 'perfect-scrollbar/css/perfect-scrollbar.css'
 
@@ -75,8 +75,8 @@ const PROVIDERS = [
     { provide: CLIHandler, useClass: LastCLIHandler, multi: true },
     { provide: PERFECT_SCROLLBAR_CONFIG, useValue: { suppressScrollX: true } },
     { provide: FileProvider, useClass: VaultFileProvider, multi: true },
-    { provide: ToolbarButtonProvider, useClass: ButtonProvider, multi: true },
     { provide: ProfileProvider, useExisting: SplitLayoutProfilesService, multi: true },
+    { provide: CommandProvider, useExisting: CoreCommandProvider, multi: true },
     {
         provide: LOCALE_ID,
         deps: [LocaleService],
@@ -180,7 +180,7 @@ export default class AppModule { // eslint-disable-line @typescript-eslint/no-ex
             console.error('Unhandled exception:', err)
         })
 
-        hotkeys.hotkey$.subscribe(async (hotkey) => {
+        hotkeys.hotkey$.subscribe(async hotkey => {
             if (hotkey.startsWith('profile.')) {
                 const id = hotkey.substring(hotkey.indexOf('.') + 1)
                 const profiles = await profilesService.getProfiles()
@@ -199,6 +199,10 @@ export default class AppModule { // eslint-disable-line @typescript-eslint/no-ex
             }
             if (hotkey === 'command-selector') {
                 commands.showSelector()
+            }
+
+            if (hotkey === 'profile-selector') {
+                commands.run('profile-selector', {})
             }
         })
     }

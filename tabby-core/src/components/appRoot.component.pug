@@ -38,26 +38,14 @@ title-bar(
         .btn-group.background
             .d-flex(
                 *ngFor='let button of leftToolbarButtons',
-                ngbDropdown,
-                (openChange)='generateButtonSubmenu(button)',
+                ngbDropdown
             )
                 button.btn.btn-secondary.btn-tab-bar(
-                    [title]='button.title',
-                    (click)='button.click && button.click()',
+                    [title]='button.label',
+                    (click)='button.run && button.run()',
                     [fastHtmlBind]='button.icon',
                     ngbDropdownToggle,
                 )
-                div(*ngIf='button.submenu', ngbDropdownMenu)
-                    button.dropdown-item.d-flex.align-items-center(
-                        *ngFor='let item of button.submenuItems',
-                        (click)='item.click()',
-                        ngbDropdownItem,
-                    )
-                        .icon-wrapper(
-                            *ngIf='hasIcons(button.submenuItems)',
-                            [fastHtmlBind]='item.icon'
-                        )
-                        div([class.ml-3]='hasIcons(button.submenuItems)') {{item.title}}
 
             .d-flex(
                 ngbDropdown,
@@ -80,26 +68,14 @@ title-bar(
         .btn-group.background
             .d-flex(
                 *ngFor='let button of rightToolbarButtons',
-                ngbDropdown,
-                (openChange)='generateButtonSubmenu(button)',
+                ngbDropdown
             )
                 button.btn.btn-secondary.btn-tab-bar(
                     [title]='button.title',
-                    (click)='button.click && button.click()',
+                    (click)='button.run && button.run()',
                     [fastHtmlBind]='button.icon',
                     ngbDropdownToggle,
                 )
-                div(*ngIf='button.submenu', ngbDropdownMenu)
-                    button.dropdown-item.d-flex.align-items-center(
-                        *ngFor='let item of button.submenuItems',
-                        (click)='item.click()',
-                        ngbDropdownItem,
-                    )
-                        .icon-wrapper(
-                            *ngIf='hasIcons(button.submenuItems)',
-                            [fastHtmlBind]='item.icon'
-                        )
-                        div([class.ml-3]='hasIcons(button.submenuItems)') {{item.title}}
 
             button.btn.btn-secondary.btn-tab-bar.btn-update(
                 *ngIf='updatesAvailable',
