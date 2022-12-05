@@ -98,7 +98,7 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
 
                 const jumpSession = await this.setupOneSession(
                     this.injector,
-                    this.profilesService.getConfigProxyForProfile(jumpConnection)
+                    this.profilesService.getConfigProxyForProfile(jumpConnection),
                 )
 
                 jumpSession.ref()
@@ -118,7 +118,7 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
                             return
                         }
                         resolve(stream)
-                    }
+                    },
                 ))
             }
         }
@@ -252,7 +252,7 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
                 ],
                 defaultId: 0,
                 cancelId: 1,
-            }
+            },
         )).response === 0
     }
 

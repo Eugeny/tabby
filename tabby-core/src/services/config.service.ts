@@ -41,7 +41,7 @@ export class ConfigProxy {
                         enumerable: true,
                         configurable: false,
                         get: () => proxy,
-                    }
+                    },
                 )
             } else {
                 Object.defineProperty(
@@ -54,7 +54,7 @@ export class ConfigProxy {
                         set: (value) => {
                             this.__setValue(key, value)
                         },
-                    }
+                    },
                 )
             }
         }

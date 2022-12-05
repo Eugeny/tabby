@@ -451,13 +451,13 @@ export class XTermFrontend extends Frontend {
 
     findNext (term: string, searchOptions?: SearchOptions): SearchState {
         return this.wrapSearchResult(
-            this.search.findNext(term, this.getSearchOptions(searchOptions))
+            this.search.findNext(term, this.getSearchOptions(searchOptions)),
         )
     }
 
     findPrevious (term: string, searchOptions?: SearchOptions): SearchState {
         return this.wrapSearchResult(
-            this.search.findPrevious(term, this.getSearchOptions(searchOptions))
+            this.search.findPrevious(term, this.getSearchOptions(searchOptions)),
         )
     }
 

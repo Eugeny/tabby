@@ -34,7 +34,7 @@ export class LoginScriptsSettingsComponent {
                 ],
                 defaultId: 0,
                 cancelId: 1,
-            }
+            },
         )).response === 0) {
             this.scripts = this.scripts.filter(x => x !== script)
         }

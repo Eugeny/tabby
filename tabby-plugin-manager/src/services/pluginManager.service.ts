@@ -51,7 +51,7 @@ export class PluginManagerService {
 
     _listAvailableInternal (namePrefix: string, keyword: string, query?: string): Observable<PluginInfo[]> {
         return from(
-            axios.get(`https://registry.npmjs.com/-/v1/search?text=keywords%3A${keyword}%20${query}&size=250`)
+            axios.get(`https://registry.npmjs.com/-/v1/search?text=keywords%3A${keyword}%20${query}&size=250`),
         ).pipe(
             map(response => response.data.objects
                 .filter(item => !item.keywords?.includes('tabby-dummy-transition-plugin'))
@@ -61,9 +61,9 @@ export class PluginManagerService {
                     description: item.package.description,
                     version: item.package.version,
                     homepage: item.package.links.homepage,
-                    author: (item.package.author || {}).name,
+                    author: item.package.author?.name,
                     isOfficial: item.package.publisher.username === OFFICIAL_NPM_ACCOUNT,
-                }))
+                })),
             ),
             map(plugins => plugins.filter(x => x.packageName.startsWith(namePrefix))),
             map(plugins => plugins.filter(x => !PLUGIN_BLACKLIST.includes(x.packageName))),

@@ -51,7 +51,7 @@ export class VaultSettingsTabComponent extends BaseComponent {
                 ],
                 defaultId: 1,
                 cancelId: 1,
-            }
+            },
         )).response === 0) {
             await this.vault.setEnabled(false)
         }

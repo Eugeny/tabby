@@ -483,7 +483,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
                         buttons,
                         defaultId: 0,
                         cancelId: 1,
-                    }
+                    },
                 )).response
                 if (result === 1) {
                     return

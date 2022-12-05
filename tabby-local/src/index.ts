@@ -132,5 +132,5 @@ export default class LocalTerminalModule { // eslint-disable-line @typescript-es
 }
 
 export { TerminalTabComponent }
-export { TerminalService, ShellProvider }
+export { TerminalService }
 export * from './api'

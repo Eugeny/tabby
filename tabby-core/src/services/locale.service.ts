@@ -67,7 +67,7 @@ export class TranslateServiceWrapper extends TranslateService {
         }
         this.translations[this.defaultLang][key] ??= this.compiler.compile(
             this._defaultTranslation[key] || key,
-            this.defaultLang
+            this.defaultLang,
         )
         return super.getParsedResult(translations, key, interpolateParams ?? {})
     }

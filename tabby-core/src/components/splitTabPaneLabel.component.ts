@@ -74,7 +74,7 @@ export class SplitTabPaneLabelComponent extends SelfPositioningComponent {
             tabElement.offsetTop,
             tabElement.clientWidth,
             tabElement.clientHeight,
-            'px'
+            'px',
         )
     }
 }

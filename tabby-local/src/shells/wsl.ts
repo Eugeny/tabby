@@ -74,7 +74,7 @@ export class WSLShellProvider extends ShellProvider {
             }
         }
 
-        if (!lxss || !lxss.DefaultDistribution || !isWindowsBuild(WIN_BUILD_WSL_EXE_DISTRO_FLAG)) {
+        if (!lxss?.DefaultDistribution || !isWindowsBuild(WIN_BUILD_WSL_EXE_DISTRO_FLAG)) {
             if (await fs.exists(bashPath)) {
                 return [{
                     id: 'wsl',

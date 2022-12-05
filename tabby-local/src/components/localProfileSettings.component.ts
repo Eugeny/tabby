@@ -36,7 +36,7 @@ export class LocalProfileSettingsComponent implements ProfileSettingsComponent<L
                 // TODO
                 // defaultPath: shell.fsBase,
                 properties: ['openDirectory', 'showHiddenFiles'],
-            }
+            },
         )).filePaths
         this.profile.options.cwd = paths[0]
     }

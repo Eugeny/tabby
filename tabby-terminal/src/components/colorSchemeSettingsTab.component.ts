@@ -91,7 +91,7 @@ export class ColorSchemeSettingsTabComponent {
                 ],
                 defaultId: 1,
                 cancelId: 1,
-            }
+            },
         )).response === 0) {
             this.customColorSchemes = this.customColorSchemes.filter(x => x.name !== scheme.name)
             this.config.store.terminal.customColorSchemes = this.customColorSchemes

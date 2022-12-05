@@ -29,7 +29,7 @@ export class SerialProfileSettingsComponent implements ProfileSettingsComponent<
         map((q: string) => [
             null,
             ...BAUD_RATES.filter(x => !q || x.toString().startsWith(q)),
-        ])
+        ]),
     )
 
     portsFormatter = port => {

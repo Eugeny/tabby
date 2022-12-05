@@ -36,7 +36,7 @@ export class PluginsSettingsTabComponent {
     constructor (
         private config: ConfigService,
         private platform: PlatformService,
-        public pluginManager: PluginManagerService
+        public pluginManager: PluginManagerService,
     ) {
     }
 
@@ -51,7 +51,7 @@ export class PluginsSettingsTabComponent {
                     return this.pluginManager.listAvailable(query).pipe(tap(() => {
                         this.availablePluginsReady = true
                     }))
-                })
+                }),
             )
         this.availablePlugins$.pipe(first(), map((plugins: PluginInfo[]) => {
             plugins.sort((a, b) => a.name > b.name ? 1 : -1)
@@ -69,7 +69,7 @@ export class PluginsSettingsTabComponent {
                 distinctUntilChanged(),
                 flatMap(query => {
                     return this.pluginManager.listInstalled(query)
-                })
+                }),
             ).subscribe(plugin => {
                 this.installedPlugins$ = plugin
             })

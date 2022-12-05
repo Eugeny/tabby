@@ -5,8 +5,15 @@ parserOptions:
   - '*/tsconfig.typings.json'
 extends:
   - 'plugin:@typescript-eslint/all'
+  - plugin:import/recommended
+  - plugin:import/typescript
 plugins:
   - '@typescript-eslint'
+  - 'import'
+settings:
+  import/resolver:
+    typescript: true
+    node: true
 env:
   browser: true
   es6: true
@@ -126,3 +133,11 @@ rules:
   - allowAliases: in-unions-and-intersections
     allowLiterals: always
     allowCallbacks: always
+  '@typescript-eslint/sort-type-constituents': off
+  '@typescript-eslint/parameter-properties':
+  - error
+  - prefer: parameter-property
+  'import/no-named-as-default-member': off
+  '@typescript-eslint/consistent-type-exports': off
+  '@typescript-eslint/consistent-generic-constructors': off
+  'keyword-spacing': off

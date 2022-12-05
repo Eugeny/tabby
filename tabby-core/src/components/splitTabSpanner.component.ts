@@ -77,14 +77,14 @@ export class SplitTabSpannerComponent extends SelfPositioningComponent {
                 this.container.x,
                 this.container.y + this.container.h * this.container.getOffsetRatio(this.index),
                 this.container.w,
-                0
+                0,
             )
         } else {
             this.setDimensions(
                 this.container.x + this.container.w * this.container.getOffsetRatio(this.index),
                 this.container.y,
                 0,
-                this.container.h
+                this.container.h,
             )
         }
     }

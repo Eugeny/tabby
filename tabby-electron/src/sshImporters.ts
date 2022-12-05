@@ -178,7 +178,7 @@ export class PrivateKeyLocator extends AutoPrivateKeyLocator {
             if (/^id_[\w\d]+$/.test(file)) {
                 const privateKeyContents = await fs.readFile(
                     path.join(keysPath, file),
-                    { encoding: null }
+                    { encoding: null },
                 )
                 results.push([file, privateKeyContents])
             }

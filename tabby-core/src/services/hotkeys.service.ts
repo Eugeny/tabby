@@ -218,7 +218,7 @@ export class HotkeysService {
                 let matched = true
                 for (const item of sequence) {
                     const nextOffset = currentSequence.slice(lastIndex).findIndex(
-                        x => x.toLowerCase() === item.toLowerCase()
+                        x => x.toLowerCase() === item.toLowerCase(),
                     )
                     if (nextOffset === -1) {
                         matched = false
@@ -274,7 +274,7 @@ export class HotkeysService {
         return (
             await Promise.all(
                 this.config.enabledServices(this.hotkeyProviders)
-                    .map(async x => x.provide())
+                    .map(async x => x.provide()),
             )
         ).reduce((a, b) => a.concat(b))
     }

@@ -75,4 +75,4 @@ export default class SSHModule { }
 
 export * from './api'
 export { SFTPFile, SFTPSession } from './session/sftp'
-export { SFTPPanelComponent, SFTPContextMenuItemProvider }
+export { SFTPPanelComponent }

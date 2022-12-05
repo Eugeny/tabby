@@ -34,15 +34,9 @@ export function wrapPromise <T> (zone: NgZone, promise: Promise<T>): Promise<T> 
 }
 
 export class ResettableTimeout {
-    private fn: () => void
-    private timeout: number
-    private id: any
+    private id: any = null
 
-    constructor (fn: () => void, timeout: number) {
-        this.fn = fn
-        this.timeout = timeout
-        this.id = null
-    }
+    constructor (private fn: () => void, private timeout: number) {}
 
     set (timeout?: number): void {
         this.clear()

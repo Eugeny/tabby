@@ -18,8 +18,8 @@ export class SettingsTabBodyComponent {
         setImmediate(() => {
             this.component = this.placeholder.createComponent(
                 this.componentFactoryResolver.resolveComponentFactory(
-                    this.provider.getComponentType()
-                )
+                    this.provider.getComponentType(),
+                ),
             )
         })
     }

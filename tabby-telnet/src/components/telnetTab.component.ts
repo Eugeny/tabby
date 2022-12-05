@@ -126,7 +126,7 @@ export class TelnetTabComponent extends BaseTerminalTabComponent {
                 ],
                 defaultId: 0,
                 cancelId: 1,
-            }
+            },
         )).response === 0
     }
 }

@@ -29,7 +29,7 @@ export class LoginScriptProcessor extends SessionMiddleware {
 
     constructor (
         private logger: Logger,
-        options: LoginScriptsOptions
+        options: LoginScriptsOptions,
     ) {
         super()
         this.remainingScripts = deepClone(options.scripts ?? [])

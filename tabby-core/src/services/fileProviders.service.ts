@@ -47,7 +47,7 @@ export class FileProvidersService {
             providers.map(p => ({
                 name: p.name,
                 result: p,
-            }))
+            })),
         )
     }
 }

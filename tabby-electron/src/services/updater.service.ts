@@ -135,7 +135,7 @@ export class ElectronUpdaterService extends UpdaterService {
                     ],
                     defaultId: 0,
                     cancelId: 1,
-                }
+                },
             )).response === 0) {
                 await this.downloaded
                 this.autoUpdater.quitAndInstall()

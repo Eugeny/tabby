@@ -12,7 +12,7 @@ export class RenameTabModalComponent {
     @ViewChild('input') input: ElementRef
 
     constructor (
-        private modalInstance: NgbActiveModal
+        private modalInstance: NgbActiveModal,
     ) { }
 
     ngOnInit () {

@@ -554,7 +554,7 @@ export class SSHSession {
                         socket.on('close', () => {
                             stream.close()
                         })
-                    }
+                    },
                 )
             }).then(() => {
                 this.emitServiceMessage(colors.bgGreen.black(' -> ') + ` Forwarded ${fw}`)

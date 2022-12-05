@@ -14,7 +14,7 @@ export class TabRecoveryService {
     private constructor (
         @Inject(TabRecoveryProvider) private tabRecoveryProviders: TabRecoveryProvider<BaseTabComponent>[]|null,
         private config: ConfigService,
-        log: LogService
+        log: LogService,
     ) {
         this.logger = log.create('tabRecovery')
     }
@@ -25,8 +25,8 @@ export class TabRecoveryService {
         }
         window.localStorage.tabsRecovery = JSON.stringify(
             (await Promise.all(
-                tabs.map(async tab => this.getFullRecoveryToken(tab, { includeState: true }))
-            )).filter(token => !!token)
+                tabs.map(async tab => this.getFullRecoveryToken(tab, { includeState: true })),
+            )).filter(token => !!token),
         )
     }
 

@@ -140,7 +140,7 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
                 ],
                 defaultId: 1,
                 cancelId: 1,
-            }
+            },
         )).response === 0) {
             this.profilesService.providerForProfile(profile)?.deleteProfile(
                 this.profilesService.getConfigProxyForProfile(profile))
@@ -205,7 +205,7 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
                 ],
                 defaultId: 1,
                 cancelId: 1,
-            }
+            },
         )).response === 0) {
             if ((await this.platform.showMessageBox(
                 {
@@ -217,7 +217,7 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
                     ],
                     defaultId: 0,
                     cancelId: 0,
-                }
+                },
             )).response === 0) {
                 for (const profile of this.profiles.filter(x => x.group === group.name)) {
                     delete profile.group

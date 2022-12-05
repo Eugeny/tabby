@@ -79,7 +79,7 @@ export class SessionMiddlewareStack extends SessionMiddleware {
         for (let i = 0; i < this.stack.length - 1; i++) {
             this.subs.subscribe(
                 this.stack[i].outputToTerminal$,
-                x => this.stack[i + 1].feedFromSession(x)
+                x => this.stack[i + 1].feedFromSession(x),
             )
         }
         this.subs.subscribe(
@@ -90,7 +90,7 @@ export class SessionMiddlewareStack extends SessionMiddleware {
         for (let i = this.stack.length - 2; i >= 0; i--) {
             this.subs.subscribe(
                 this.stack[i + 1].outputToSession$,
-                x => this.stack[i].feedFromTerminal(x)
+                x => this.stack[i].feedFromTerminal(x),
             )
         }
         this.subs.subscribe(

@@ -78,7 +78,7 @@ export class ElectronDockingService extends DockingService {
     getScreens (): Screen[] {
         const primaryDisplayID = this.electron.screen.getPrimaryDisplay().id
         return this.electron.screen.getAllDisplays().sort((a, b) =>
-            a.bounds.x === b.bounds.x ? a.bounds.y - b.bounds.y : a.bounds.x - b.bounds.x
+            a.bounds.x === b.bounds.x ? a.bounds.y - b.bounds.y : a.bounds.x - b.bounds.x,
         ).map((display, index) => {
             return {
                 ...display,
