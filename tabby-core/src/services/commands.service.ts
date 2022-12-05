@@ -4,6 +4,8 @@ import { SelectorService } from './selector.service'
 
 @Injectable({ providedIn: 'root' })
 export class CommandService {
+    private lastCommand = Promise.resolve()
+
     constructor (
         private selector: SelectorService,
         private config: ConfigService,
@@ -68,7 +70,17 @@ export class CommandService {
             commands.push(...await provider.provide(context))
         }
 
-        return commands.sort((a, b) => (a.weight ?? 0) - (b.weight ?? 0))
+        return commands
+            .sort((a, b) => (a.weight ?? 0) - (b.weight ?? 0))
+            .map(command => {
+                const run = command.run
+                command.run = async () => {
+                    // Serialize execution
+                    this.lastCommand = this.lastCommand.finally(run)
+                    await this.lastCommand
+                }
+                return command
+            })
     }
 
     async run (id: string, context: CommandContext): Promise<void> {
