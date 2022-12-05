@@ -89,7 +89,7 @@ export class Window {
             }
         }
 
-        if ((this.configStore.appearance || {}).frame === 'native') {
+        if (this.configStore.appearance?.frame === 'native') {
             bwOptions.frame = true
         } else {
             if (process.platform === 'darwin') {
@@ -108,7 +108,7 @@ export class Window {
         this.window.once('ready-to-show', () => {
             if (process.platform === 'darwin') {
                 this.window.setVibrancy(macOSVibrancyType)
-            } else if (process.platform === 'win32' && (this.configStore.appearance || {}).vibrancy) {
+            } else if (process.platform === 'win32' && this.configStore.appearance?.vibrancy) {
                 this.setVibrancy(true)
             }
 

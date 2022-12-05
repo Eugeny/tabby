@@ -141,3 +141,4 @@ rules:
   '@typescript-eslint/consistent-type-exports': off
   '@typescript-eslint/consistent-generic-constructors': off
   'keyword-spacing': off
+  '@typescript-eslint/keyword-spacing': off

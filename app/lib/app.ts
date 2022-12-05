@@ -65,7 +65,7 @@ export class Application {
 
         if (process.platform === 'linux') {
             app.commandLine.appendSwitch('no-sandbox')
-            if (((this.configStore.appearance || {}).opacity || 1) !== 1) {
+            if ((this.configStore.appearance?.opacity || 1) !== 1) {
                 app.commandLine.appendSwitch('enable-transparent-visuals')
                 app.disableHardwareAcceleration()
             }
@@ -112,7 +112,7 @@ export class Application {
     async newWindow (options?: WindowOptions): Promise<Window> {
         const window = new Window(this, this.configStore, options)
         this.windows.push(window)
-        if (this.windows.length === 1){
+        if (this.windows.length === 1) {
             window.makeMain()
         }
         window.visible$.subscribe(visible => {
