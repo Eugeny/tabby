@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@electron/remote@2.0.8":
-  version "2.0.8"
-  resolved "https://registry.yarnpkg.com/@electron/remote/-/remote-2.0.8.tgz#85ff321f0490222993207106e2f720273bb1a5c3"
-  integrity sha512-P10v3+iFCIvEPeYzTWWGwwHmqWnjoh8RYnbtZAb3RlQefy4guagzIwcWtfftABIfm6JJTNQf4WPSKWZOpLmHXw==
+"@electron/remote@2.0.9":
+  version "2.0.9"
+  resolved "https://registry.yarnpkg.com/@electron/remote/-/remote-2.0.9.tgz#092ff085407bc907f45b89a72c36faa773ccf2d9"
+  integrity sha512-LR0W0ID6WAKHaSs0x5LX9aiG+5pFBNAJL6eQAJfGkCuZPUa6nZz+czZLdlTDETG45CgF/0raSvCtYOYUpr6c+A==
 
 "@iarna/cli@^1.2.0":
   version "1.2.0"
