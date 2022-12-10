@@ -55,11 +55,11 @@ This README is also available in: <a  href="./README.es-ES.md">:es: Spanish</a> 
 
 <a name="about"></a>
 
-# What Tabby is and isn't
+# Apa itu Tabby dan bukan Tabby
 
 * **Tabby adalah** sebuah alternatif untuk terminal standar Windows' (conhost), PowerShell ISE, PuTTY, macOS Terminal.app dan iTerm
 
-* **Tabby bukan** shell yang baru atau peganti MinGW atau Cygwin. Dan bukan applikasi ringan - jika mengutamakan penggunaan RAM, mungkin boleh mencoba [Conemu](https://conemu.github.io) atau [Alacritty](https://github.com/jwilm/alacritty)
+* **Tabby bukan** shell yang baru atau pengganti MinGW atau Cygwin. Dan bukan aplikasi ringan - jika mengutamakan penggunaan RAM, mungkin boleh mencoba [Conemu](https://conemu.github.io) atau [Alacritty](https://github.com/jwilm/alacritty)
 
 <a name="terminal"></a>
 
@@ -87,7 +87,7 @@ This README is also available in: <a  href="./README.es-ES.md">:es: Spanish</a> 
 * Klien SSH2 dengan manajemen koneksi
 * X11 dan port forwarding
 * Otomatis berpindah host management
-* Agent forwarding (termaksud Pageant dan Windows native OpenSSH Agent)
+* Agent forwarding (termasuk Pageant dan Windows native OpenSSH Agent)
 * Login scripts
 
 <a name="serial"></a>
@@ -104,13 +104,13 @@ This README is also available in: <a  href="./README.es-ES.md">:es: Spanish</a> 
 
 # Portabel
 
-Tabby tetap bisa berjalan sebagai applikasi portabel di Windows, jika anda membuat folder `data` di tempat yang sama dengan `Tabby.exe`.
+Tabby tetap bisa berjalan sebagai aplikasi portabel di Windows, jika anda membuat folder `data` di tempat yang sama dengan `Tabby.exe`.
 
 <a name="plugins"></a>
 
 # Plugins
 
-Tema dan Plugin bisa langsung di instal dari Pengaturan didalam Tabby.
+Tema dan Plugin bisa langsung di install dari Pengaturan di dalam Tabby.
 
 * [docker](https://github.com/Eugeny/tabby-docker) - untuk koneksi ke Docker containers
 * [title-control](https://github.com/kbjr/terminus-title-control) - memperbolehkan untuk mengganti judul di tab terminal dengan menyediakan prefix, suffix, dan/atau strings untuk di buang
