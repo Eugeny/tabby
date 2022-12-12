@@ -20,7 +20,7 @@
 
 <br/>
 <p  align="center">
-Diese README ist auch verfügbar in: <a  href="./README.md">:gb: English</a> · <a  href="./README.es-ES.md">:es: Spanish</a> · <a  href="./README.ru-RU.md">:ru: Русский</a> · <a  href="./README.ko-KR.md">:kr: 한국어</a> · <a  href="./README.zh-CN.md">:cn: 简体中文</a> · <a  href="./README.it-IT.md">:it: Italiano</a> · <a href="./README.ja-JP.md">:jp: 日本語</a> · <a href="./README.id-ID.md">:id: Bahasa Indonesia</a>
+Diese README ist auch verfügbar in: <a  href="./README.md">:gb: English</a> · <a  href="./README.es-ES.md">:es: Spanish</a> · <a  href="./README.ru-RU.md">:ru: Русский</a> · <a  href="./README.ko-KR.md">:kr: 한국어</a> · <a  href="./README.zh-CN.md">:cn: 简体中文</a> · <a  href="./README.it-IT.md">:it: Italiano</a> · <a href="./README.ja-JP.md">:jp: 日本語</a> · <a href="./README.id-ID.md">:id: Bahasa Indonesia</a> · <a href="./README.pt-BR.md">:br: Português</a>
 </p>
 
 ----
@@ -50,21 +50,21 @@ Diese README ist auch verfügbar in: <a  href="./README.md">:gb: English</a> · 
 - [Portabel](#portable)
 - [Plugins](#plugins)
 - [Themen](#themes)
-- [Beitragen](#contributing) 
+- [Beitragen](#contributing)
 
-<a  name="about"></a>  
+<a  name="about"></a>
 
 # Was Tabby ist und was nicht
 
-**Tabby ist** eine Alternative zu Windows Standard-Terminal (conhost), PowerShell ISE, PuTTY, macOS Terminal.app und iTerm 
+**Tabby ist** eine Alternative zu Windows Standard-Terminal (conhost), PowerShell ISE, PuTTY, macOS Terminal.app und iTerm
 
 **Tabby ist weder** eine neue Shell noch ein MinGW- oder Cygwin-Ersatz. Sie ist auch nicht gerade sparsam - wenn die RAM-Nutzung von Bedeutung ist, solltest Du [Conemu](https://conemu.github.io) oder [Alacritty](https://github.com/jwilm/alacritty) in Betracht ziehen.
 
-<a  name="terminal"></a> 
+<a  name="terminal"></a>
 
 # Terminal-Funktionen
 
-![](docs/readme-terminal.png) 
+![](docs/readme-terminal.png)
 
 * Ein V220-Terminal + verschiedene Erweiterungen
 * Mehrere verschachtelte, geteilte Fenster
@@ -75,19 +75,19 @@ Diese README ist auch verfügbar in: <a  href="./README.md">:gb: English</a> · 
 * Einfügen in Klammern, mehrzeilige Einfügewarnungen
 * Schriftart-Ligaturen
 * Benutzerdefinierte Shell-Profile
-* Optionales RMB-Einfügen und Kopieren bei Auswahl (PuTTY-Stil) 
+* Optionales RMB-Einfügen und Kopieren bei Auswahl (PuTTY-Stil)
 
 <a  name="ssh"></a>
 
 # SSH Client
 
-![](docs/readme-ssh.png)  
+![](docs/readme-ssh.png)
 
 * SSH2-Client mit einem Verbindungsmanager
 * X11 und Portweiterleitung
 * Automatisches Jump-Host-Management
 * Agent-Weiterleitung (inkl. Pageant und Windows-eigenem OpenSSH-Agent)
-* Anmeldeskripte 
+* Anmeldeskripte
 
 <a  name="serial"></a>
 
@@ -97,13 +97,13 @@ Diese README ist auch verfügbar in: <a  href="./README.md">:gb: English</a> · 
 * Unterstützung von Readline-Eingaben
 * Optionale hexadezimale Byte-für-Byte-Eingabe und Hexdump-Ausgabe
 * Newline-Konvertierung
-* Automatische Wiederverbindung  
+* Automatische Wiederverbindung
 
 <a  name="portable"></a>
 
 # Portabel
 
-Tabby läuft als portable Anwendung unter Windows, wenn Sie einen `data`-Ordner am selben Ort erstellen, an dem sich auch `Tabby.exe` befindet. 
+Tabby läuft als portable Anwendung unter Windows, wenn Sie einen `data`-Ordner am selben Ort erstellen, an dem sich auch `Tabby.exe` befindet.
 
 <a  name="plugins"></a>
 
@@ -118,7 +118,7 @@ Plugins und Themen können direkt aus der Ansicht "Einstellungen" in Tabby insta
 * [sync-config](https://github.com/starxg/terminus-sync-config) - synchronisiert die Konfiguration mit Gist oder Gitee
 * [clippy](https://github.com/Eugeny/tabby-clippy) - ein Beispiel-Plugin, das einen die ganze Zeit nervt
 * [workspace-manager](https://github.com/composer404/tabby-workspace-manager) - ermöglicht das Erstellen eigener Workspace-Profile auf Basis der angegebenen Konfiguration
-* [search-in-browser](https://github.com/composer404/tabby-search-in-browser) - öffnet den Standard-Systembrowser mit einem Text, der aus dem Tabby Tab ausgewählt wurde 
+* [search-in-browser](https://github.com/composer404/tabby-search-in-browser) - öffnet den Standard-Systembrowser mit einem Text, der aus dem Tabby Tab ausgewählt wurde
 
 <a  name="themes"></a>
 
@@ -128,13 +128,13 @@ Plugins und Themen können direkt aus der Ansicht "Einstellungen" in Tabby insta
 * [relaxed](https://github.com/Relaxed-Theme/relaxed-terminal-themes#terminus) - das entspannte Thema für Tabby
 * [gruvbox](https://github.com/porkloin/terminus-theme-gruvbox)
 * [windows10](https://www.npmjs.com/package/terminus-theme-windows10)
-* [altair](https://github.com/yxuko/terminus-altair) 
+* [altair](https://github.com/yxuko/terminus-altair)
 
 # Sponsoren <!-- omit in toc -->
 
-[![](https://assets-production.packagecloud.io/assets/packagecloud-logo-light-scaled-26ce8e96060fddf74afbd4445e63ba35590d4aaa56edc98495bb390ef3cae0ae.png)](https://packagecloud.io) 
+[![](https://assets-production.packagecloud.io/assets/packagecloud-logo-light-scaled-26ce8e96060fddf74afbd4445e63ba35590d4aaa56edc98495bb390ef3cae0ae.png)](https://packagecloud.io)
 
-[**packagecloud**](https://packagecloud.io) bietet kostenloses Debian/RPM-Repository-Hosting an 
+[**packagecloud**](https://packagecloud.io) bietet kostenloses Debian/RPM-Repository-Hosting an
 
 <a  name="contributing"></a>
 
