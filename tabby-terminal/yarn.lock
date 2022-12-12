@@ -167,10 +167,10 @@ xterm-addon-fit@^0.6.0:
   resolved "https://registry.yarnpkg.com/xterm-addon-fit/-/xterm-addon-fit-0.6.0.tgz#142e1ce181da48763668332593fc440349c88c34"
   integrity sha512-9/7A+1KEjkFam0yxTaHfuk9LEvvTSBi0PZmEkzJqgafXPEXL9pCMAVV7rB09sX6ATRDXAdBpQhZkhKj7CGvYeg==
 
-xterm-addon-image@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/xterm-addon-image/-/xterm-addon-image-0.2.0.tgz#47f58a522c7d21c7b2fc7a2d18aff324461974f1"
-  integrity sha512-rGbwUcwnJQqN1LTdEhqUS83xtBpApUWOJISjN/Efbg8TplqdXsHOVDmEcnLvhBn5cCzAZIqD2OZaan1+cI7mWA==
+xterm-addon-image@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/xterm-addon-image/-/xterm-addon-image-0.3.0.tgz#851168047262c08027960aec1ea980ec413b1406"
+  integrity sha512-N7xC5MDxK171fXWmmSsTHo5bmFLROjzzJO7iklV3GkBNjblwgoP1RTZX688yn+prjokm1sVih8xfyyInfbkTGw==
 
 xterm-addon-ligatures@^0.6.0:
   version "0.6.0"
