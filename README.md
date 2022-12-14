@@ -11,6 +11,12 @@
   </a>
 </p>
 
+---
+
+
+> 👋 Managing remote environments? Check out [Warpgate, my smart SSH/HTTP/MySQL bastion server](https://github.com/warp-tech/warpgate), it works great with Tabby, you'll love it.
+
+
 ----
 
 ### Downloads:
