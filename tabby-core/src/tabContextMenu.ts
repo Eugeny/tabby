@@ -180,7 +180,7 @@ export class TaskCompletionContextMenu extends TabContextMenuItemProvider {
         const process = await tab.getCurrentProcess()
         const items: MenuItemOptions[] = []
 
-        const extTab: (BaseTabComponent & { __completionNotificationEnabled?: boolean, __outputNotificationSubscription?: Subscription|null }) = tab
+        const extTab: (BaseTabComponent & { __completionNotificationEnabled?: boolean, __outputNotificationSubscription?: Subscription | null }) = tab
 
         if (process) {
             items.push({
@@ -281,7 +281,7 @@ export class ProfilesContextMenu extends TabContextMenuItemProvider {
         }
 
         const newTab = this.tabsService.create(params)
-        ;(tab.parent as SplitTabComponent).replaceTab(tab, newTab)
+            ; (tab.parent as SplitTabComponent).replaceTab(tab, newTab)
 
         tab.destroy()
     }

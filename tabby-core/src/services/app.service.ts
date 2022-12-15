@@ -47,29 +47,29 @@ class CompletionObserver {
 export class AppService {
     tabs: BaseTabComponent[] = []
 
-    get activeTab (): BaseTabComponent|null { return this._activeTab ?? null }
+    get activeTab (): BaseTabComponent | null { return this._activeTab ?? null }
 
     private lastTabIndex = 0
     private _activeTab: BaseTabComponent | null = null
     private closedTabsStack: RecoveryToken[] = []
 
-    private activeTabChange = new Subject<BaseTabComponent|null>()
+    private activeTabChange = new Subject<BaseTabComponent | null>()
     private tabsChanged = new Subject<void>()
     private tabOpened = new Subject<BaseTabComponent>()
     private tabRemoved = new Subject<BaseTabComponent>()
     private tabClosed = new Subject<BaseTabComponent>()
-    private tabDragActive = new Subject<BaseTabComponent|null>()
+    private tabDragActive = new Subject<BaseTabComponent | null>()
     private ready = new AsyncSubject<void>()
     private recoveryStateChangedHint = new Subject<void>()
 
     private completionObservers = new Map<BaseTabComponent, CompletionObserver>()
 
-    get activeTabChange$ (): Observable<BaseTabComponent|null> { return this.activeTabChange }
+    get activeTabChange$ (): Observable<BaseTabComponent | null> { return this.activeTabChange }
     get tabOpened$ (): Observable<BaseTabComponent> { return this.tabOpened }
     get tabsChanged$ (): Observable<void> { return this.tabsChanged }
     get tabRemoved$ (): Observable<BaseTabComponent> { return this.tabRemoved }
     get tabClosed$ (): Observable<BaseTabComponent> { return this.tabClosed }
-    get tabDragActive$ (): Observable<BaseTabComponent|null> { return this.tabDragActive }
+    get tabDragActive$ (): Observable<BaseTabComponent | null> { return this.tabDragActive }
 
     /** Fires once when the app is ready */
     get ready$ (): Observable<void> { return this.ready }
@@ -119,7 +119,7 @@ export class AppService {
         hostWindow.windowFocused$.subscribe(() => this._activeTab?.emitFocused())
     }
 
-    addTabRaw (tab: BaseTabComponent, index: number|null = null): void {
+    addTabRaw (tab: BaseTabComponent, index: number | null = null): void {
         if (index !== null) {
             this.tabs.splice(index, 0, tab)
         } else {
@@ -171,9 +171,9 @@ export class AppService {
      * Adds a new tab **without** wrapping it in a SplitTabComponent
      * @param inputs  Properties to be assigned on the new tab component instance
      */
-    openNewTabRaw <T extends BaseTabComponent> (params: NewTabParameters<T>, index: number|null = null): T {
+    openNewTabRaw<T extends BaseTabComponent>(params: NewTabParameters<T>, index: number | null = null): T {
         const tab = this.tabsService.create(params)
-        this.addTabRaw(tab,index)
+        this.addTabRaw(tab, index)
         return tab
     }
 
@@ -181,7 +181,7 @@ export class AppService {
      * Adds a new tab while wrapping it in a SplitTabComponent
      * @param inputs  Properties to be assigned on the new tab component instance
      */
-    openNewTab <T extends BaseTabComponent> (params: NewTabParameters<T>): T {
+    openNewTab<T extends BaseTabComponent>(params: NewTabParameters<T>): T {
         if (params.type as any === SplitTabComponent) {
             return this.openNewTabRaw(params)
         }
@@ -193,31 +193,31 @@ export class AppService {
      * Adds a new tab while wrapping it in a SplitTabComponent
      * @param inputs  Properties to be assigned on the new tab component instance
      */
-     openNewTabAtActiveTabNext <T extends BaseTabComponent> (params: NewTabParameters<T>): T {
+    openNewTabAtActiveTabNext<T extends BaseTabComponent>(params: NewTabParameters<T>): T {
         let index: number | null = null
-        if (index ===null && this.activeTab) {
+        if (index === null && this.activeTab) {
             index = this.tabs.indexOf(this.activeTab) + 1
         }
-        
+
         if (params.type as any === SplitTabComponent) {
-            return this.openNewTabRaw(params,index)
+            return this.openNewTabRaw(params, index)
         }
         const tab = this.tabsService.create(params)
-        this.wrapAndAddTab(tab,index)
+        this.wrapAndAddTab(tab, index)
         return tab
     }
 
     /**
      * Adds an existing tab while wrapping it in a SplitTabComponent
      */
-    wrapAndAddTab (tab: BaseTabComponent, index: number|null = null): SplitTabComponent {
+    wrapAndAddTab (tab: BaseTabComponent, index: number | null = null): SplitTabComponent {
         const splitTab = this.tabsService.create({ type: SplitTabComponent })
         splitTab.addTab(tab, null, 'r')
-        this.addTabRaw(splitTab,index)
+        this.addTabRaw(splitTab, index)
         return splitTab
     }
 
-    async reopenLastTab (): Promise<BaseTabComponent|null> {
+    async reopenLastTab (): Promise<BaseTabComponent | null> {
         const token = this.closedTabsStack.pop()
         if (token) {
             const recoveredTab = await this.tabRecovery.recoverTab(token)
@@ -234,7 +234,7 @@ export class AppService {
         return null
     }
 
-    selectTab (tab: BaseTabComponent|null): void {
+    selectTab (tab: BaseTabComponent | null): void {
         if (tab && this._activeTab === tab) {
             this._activeTab.emitFocused()
             return
@@ -256,7 +256,7 @@ export class AppService {
         this.hostWindow.setTitle(this._activeTab?.title)
     }
 
-    getParentTab (tab: BaseTabComponent): SplitTabComponent|null {
+    getParentTab (tab: BaseTabComponent): SplitTabComponent | null {
         for (const topLevelTab of this.tabs) {
             if (topLevelTab instanceof SplitTabComponent) {
                 if (topLevelTab.getAllTabs().includes(tab)) {
@@ -368,11 +368,11 @@ export class AppService {
         tab.destroy()
     }
 
-    async sftpTab (tab: BaseTabComponent): Promise<BaseTabComponent|null> {
-        return await tab.openSftp()
+    async sftpTab (tab: BaseTabComponent): Promise<BaseTabComponent | null> {
+        return tab.openSftp()
     }
 
-    async duplicateTab (tab: BaseTabComponent): Promise<BaseTabComponent|null> {
+    async duplicateTab (tab: BaseTabComponent): Promise<BaseTabComponent | null> {
         const dup = await this.tabsService.duplicate(tab)
         if (dup) {
             this.addTabRaw(dup, this.tabs.indexOf(tab) + 1)
@@ -442,7 +442,7 @@ export class AppService {
     }
 
     // Deprecated
-    showSelector <T> (name: string, options: SelectorOption<T>[]): Promise<T> {
+    showSelector<T>(name: string, options: SelectorOption<T>[]): Promise<T> {
         return this.selector.show(name, options)
     }
 
@@ -471,7 +471,7 @@ export class AppService {
         }
 
         let x = 1
-        let previous: BaseTabComponent|null = null
+        let previous: BaseTabComponent | null = null
         const stride = Math.ceil(Math.sqrt(allChildren.length + 1))
         for (const child of allChildren) {
             into.add(child, x ? previous : null, x ? 'r' : 'b')

@@ -24,12 +24,12 @@ import deepClone from 'clone-deep'
 export class SSHTabComponent extends BaseTerminalTabComponent {
     Platform = Platform
     profile?: SSHProfile
-    sshSession: SSHSession|null = null
-    session: SSHShellSession|null = null
+    sshSession: SSHSession | null = null
+    session: SSHShellSession | null = null
     sftpPanelVisible = false
     sftpPath = '/'
     enableToolbar = true
-    activeKIPrompt: KeyboardInteractivePrompt|null = null
+    activeKIPrompt: KeyboardInteractivePrompt | null = null
     private recentInputs = ''
     private reconnectOffered = false
 
@@ -60,10 +60,10 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
             }
             switch (hotkey) {
                 case 'home':
-                    this.sendInput('\x1bOH' )
+                    this.sendInput('\x1bOH')
                     break
                 case 'end':
-                    this.sendInput('\x1bOF' )
+                    this.sendInput('\x1bOF')
                     break
                 case 'restart-ssh-session':
                     this.reconnect()
@@ -266,37 +266,35 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
         }, 100)
     }
 
-    async openSftp (): Promise<BaseTabComponent|null>{
-        let profileName =""
+    async openSftp (): Promise<BaseTabComponent | null> {
+        let profileName = ''
         if (this.hostApp.platform === Platform.macOS) {
-            profileName = "ssh2sftp_mac_template"
+            profileName = 'ssh2sftp_mac_template'
         } else if (this.hostApp.platform === Platform.Linux) {
-            profileName = "ssh2sftp_linux_template"
-        } else if (this.hostApp.platform === Platform.Windows){
-            profileName = "ssh2sftp_win_template"
-        } else if (this.hostApp.platform === Platform.Web){
+            profileName = 'ssh2sftp_linux_template'
+        } else if (this.hostApp.platform === Platform.Windows) {
+            profileName = 'ssh2sftp_win_template'
+        } else {
             return null
         }
 
-        let tmpprofile = (await this.profilesService.getProfiles()).find(x => x.name === profileName)
+        const tmpprofile = (await this.profilesService.getProfiles()).find(x => x.name === profileName)
         if (!tmpprofile) {
             console.error('Requested profile', profileName, 'not found')
             return null
-        }else {
-            let profile = deepClone(tmpprofile)
-            if(this.profile?.name) {
-                profile.name =  "sftp_" + this.profile?.name
+        } else {
+            const profile = deepClone(tmpprofile)
+            if (this.profile?.name) {
+                profile.name = 'sftp_' + this.profile.name
             }
-            if(profile.options && this.profile?.options){
-                let args = profile.options["args"]
-                if (args as Array<string>) {
-                    args.push("-P")
-                    const port = this.profile.options.port as number
-                    args.push(port.toString())
-                    args.push(this.profile.options.user as string + "@" + this.profile.options.host as string)
-                }
+            if (profile.options && this.profile?.options) {
+                const args = profile.options['args']
+                args?.push('-P')
+                const port = this.profile.options.port!
+                args?.push(port.toString())
+                args?.push(this.profile.options.user  + '@' + this.profile.options.host )
             }
-            let params = await this.profilesService.newTabParametersForProfile(profile)
+            const params = await this.profilesService.newTabParametersForProfile(profile)
             if (params) {
                 return this.appService.openNewTabAtActiveTabNext(params)
             }

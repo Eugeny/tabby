@@ -22,7 +22,7 @@ export abstract class BaseTabComponent extends BaseComponent {
     /**
      * Parent tab (usually a SplitTabComponent)
      */
-    parent: BaseTabComponent|null = null
+    parent: BaseTabComponent | null = null
 
     /**
      * Current tab title
@@ -47,23 +47,23 @@ export abstract class BaseTabComponent extends BaseComponent {
     /**
      * Open sftp tab of ssh session
      */
-    async openSftp (): Promise<BaseTabComponent|null>{
+    async openSftp (): Promise<BaseTabComponent | null> {
         return null
     }
 
     /**
      * CSS color override for the tab's header
      */
-    get color (): string|null { return this._color }
-    set color (value: string|null) { this._color = value }
-    private _color: string|null = null
+    get color (): string | null { return this._color }
+    set color (value: string | null) { this._color = value }
+    private _color: string | null = null
 
     /**
      * icon override for the tab's header
      */
-    get icon (): string|null { return this._icon }
-    set icon (value: string|null) { this._icon = value }
-    private _icon: string|null = null
+    get icon (): string | null { return this._icon }
+    set icon (value: string | null) { this._icon = value }
+    private _icon: string | null = null
 
     hasFocus = false
 
@@ -80,7 +80,7 @@ export abstract class BaseTabComponent extends BaseComponent {
     private titleChange = new Subject<string>()
     private focused = new Subject<void>()
     private blurred = new Subject<void>()
-    private progress = new Subject<number|null>()
+    private progress = new Subject<number | null>()
     private activity = new Subject<boolean>()
     private destroyed = new Subject<void>()
 
@@ -89,7 +89,7 @@ export abstract class BaseTabComponent extends BaseComponent {
     get focused$ (): Observable<void> { return this.focused }
     get blurred$ (): Observable<void> { return this.blurred }
     get titleChange$ (): Observable<string> { return this.titleChange.pipe(distinctUntilChanged()) }
-    get progress$ (): Observable<number|null> { return this.progress.pipe(distinctUntilChanged()) }
+    get progress$ (): Observable<number | null> { return this.progress.pipe(distinctUntilChanged()) }
     get activity$ (): Observable<boolean> { return this.activity }
     get destroyed$ (): Observable<void> { return this.destroyed }
     get recoveryStateChangedHint$ (): Observable<void> { return this.recoveryStateChangedHint }
@@ -122,7 +122,7 @@ export abstract class BaseTabComponent extends BaseComponent {
      *
      * @param  {type} progress: value between 0 and 1, or `null` to remove
      */
-    setProgress (progress: number|null): void {
+    setProgress (progress: number | null): void {
         this.progress.next(progress)
     }
 
@@ -153,14 +153,14 @@ export abstract class BaseTabComponent extends BaseComponent {
      * @return JSON serializable tab state representation
      *         for your [[TabRecoveryProvider]] to parse
      */
-    async getRecoveryToken (options?: GetRecoveryTokenOptions): Promise<RecoveryToken|null> { // eslint-disable-line @typescript-eslint/no-unused-vars
+    async getRecoveryToken (options?: GetRecoveryTokenOptions): Promise<RecoveryToken | null> { // eslint-disable-line @typescript-eslint/no-unused-vars
         return null
     }
 
     /**
      * Override this to enable task completion notifications for the tab
      */
-    async getCurrentProcess (): Promise<BaseTabProcess|null> {
+    async getCurrentProcess (): Promise<BaseTabProcess | null> {
         return null
     }
 

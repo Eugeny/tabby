@@ -43,15 +43,15 @@ export class SSHProfilesService extends ProfileProvider<SSHProfile> {
             httpProxyHost: null,
             httpProxyPort: null,
             reuseSession: true,
-            userLoginScripts:'tmux att || tmux',
-            userLoginScriptsDelay:300,
+            userLoginScripts: 'tmux att || tmux',
+            userLoginScriptsDelay: 300,
         },
     }
 
     constructor (
         private passwordStorage: PasswordStorageService,
         private translate: TranslateService,
-        @Inject(SSHProfileImporter) @Optional() private importers: SSHProfileImporter[]|null,
+        @Inject(SSHProfileImporter) @Optional() private importers: SSHProfileImporter[] | null,
     ) {
         super()
         for (const k of Object.values(SSHAlgorithmType)) {
@@ -85,8 +85,8 @@ export class SSHProfilesService extends ProfileProvider<SSHProfile> {
                     host: '',
                     port: 22,
                     user: 'root',
-                    userLoginScripts:'tmux att || tmux',
-                    userLoginScriptsDelay:300,
+                    userLoginScripts: 'tmux att || tmux',
+                    userLoginScriptsDelay: 300,
                 },
                 isBuiltin: true,
                 isTemplate: true,
@@ -119,7 +119,7 @@ export class SSHProfilesService extends ProfileProvider<SSHProfile> {
     }
 
     quickConnect (query: string): PartialProfile<SSHProfile> {
-        let user: string|undefined = undefined
+        let user: string | undefined = undefined
         let host = query
         let port = 22
         if (host.includes('@')) {
@@ -146,7 +146,7 @@ export class SSHProfilesService extends ProfileProvider<SSHProfile> {
         }
     }
 
-    intoQuickConnectString (profile: SSHProfile): string|null {
+    intoQuickConnectString (profile: SSHProfile): string | null {
         let s = profile.options.host
         if (profile.options.user !== 'root') {
             s = `${profile.options.user}@${s}`

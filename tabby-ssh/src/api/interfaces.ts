@@ -16,7 +16,7 @@ export interface SSHProfileOptions extends LoginScriptsOptions {
     host: string
     port?: number
     user: string
-    auth?: null|'password'|'publicKey'|'agent'|'keyboardInteractive'
+    auth?: null | 'password' | 'publicKey' | 'agent' | 'keyboardInteractive'
     password?: string
     privateKeys?: string[]
     keepaliveInterval?: number

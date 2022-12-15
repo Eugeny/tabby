@@ -128,7 +128,7 @@ export class ConfigService {
     private changed = new Subject<void>()
     private _store: any
     private defaults: any
-    private servicesCache: Record<string, Function[]>|null = null // eslint-disable-line @typescript-eslint/ban-types
+    private servicesCache: Record<string, Function[]> | null = null // eslint-disable-line @typescript-eslint/ban-types
 
     get changed$ (): Observable<void> { return this.changed }
 
@@ -191,7 +191,7 @@ export class ConfigService {
         }
         this._store = await this.maybeDecryptConfig(this._store)
         this.migrate(this._store)
-        if (this._store.profiles.length == 0){
+        if (this._store.profiles.length === 0) {
             this._store.profiles = deepClone(this.defaults.profiles)
         }
         this.store = new ConfigProxy(this._store, this.defaults)
@@ -237,7 +237,7 @@ export class ConfigService {
      *
      * @typeparam T Base provider type
      */
-    enabledServices<T extends object> (services: T[]): T[] { // eslint-disable-line @typescript-eslint/ban-types
+    enabledServices<T extends object>(services: T[]): T[] { // eslint-disable-line @typescript-eslint/ban-types
         if (!this.servicesCache) {
             this.servicesCache = {}
             const ngModule = window['rootModule'].ɵinj

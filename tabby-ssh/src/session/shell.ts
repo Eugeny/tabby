@@ -12,7 +12,7 @@ export class SSHShellSession extends BaseSession {
     shell?: ClientChannel
     get serviceMessage$ (): Observable<string> { return this.serviceMessage }
     private serviceMessage = new Subject<string>()
-    private ssh: SSHSession|null
+    private ssh: SSHSession | null
 
     constructor (
         injector: Injector,
@@ -70,13 +70,13 @@ export class SSHShellSession extends BaseSession {
             }
         })
 
-        if (this.profile.options.userLoginScripts 
-                && this.profile.options.userLoginScripts.length > 0
-                && this.profile.options.userLoginScriptsDelay 
-                && this.profile.options.userLoginScriptsDelay >= 0
-                ){
-            let userLoginScriptsDelay = this.profile.options.userLoginScriptsDelay
-            let userLoginScripts = this.profile.options.userLoginScripts + "\r\n"
+        if (this.profile.options.userLoginScripts
+            && this.profile.options.userLoginScripts.length > 0
+            && this.profile.options.userLoginScriptsDelay
+            && this.profile.options.userLoginScriptsDelay >= 0
+        ) {
+            const userLoginScriptsDelay = this.profile.options.userLoginScriptsDelay
+            const userLoginScripts = this.profile.options.userLoginScripts + '\r\n'
             setTimeout(() => {
                 this.write(Buffer.from(userLoginScripts))
             }, userLoginScriptsDelay)
@@ -125,7 +125,7 @@ export class SSHShellSession extends BaseSession {
         return !!this.reportedCWD
     }
 
-    async getWorkingDirectory (): Promise<string|null> {
+    async getWorkingDirectory (): Promise<string | null> {
         return this.reportedCWD ?? null
     }
 }

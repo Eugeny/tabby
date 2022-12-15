@@ -151,7 +151,7 @@ export type SplitDropZoneInfo = {
     position: number
 } | {
     type: 'relative'
-    relativeTo?: BaseTabComponent|SplitContainer
+    relativeTo?: BaseTabComponent | SplitContainer
     side: SplitDirection
 })
 
@@ -217,8 +217,8 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
     disableDynamicTitle = false
 
     /** @hidden */
-    private focusedTab: BaseTabComponent|null = null
-    private maximizedTab: BaseTabComponent|null = null
+    private focusedTab: BaseTabComponent | null = null
+    private maximizedTab: BaseTabComponent | null = null
     private viewRefs: Map<BaseTabComponent, EmbeddedViewRef<any>> = new Map()
 
     private tabAdded = new Subject<BaseTabComponent>()
@@ -229,9 +229,9 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
     private initialized = new Subject<void>()
 
 
-    async openSftp (): Promise<BaseTabComponent|null>{
-        for (let key of this.viewRefs.keys()) {
-            let ans = await key.openSftp()
+    async openSftp (): Promise<BaseTabComponent | null> {
+        for (const key of this.viewRefs.keys()) {
+            const ans = await key.openSftp()
             if (ans) {
                 return ans
             }
@@ -405,11 +405,11 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
         return this.root.getAllTabs()
     }
 
-    getFocusedTab (): BaseTabComponent|null {
+    getFocusedTab (): BaseTabComponent | null {
         return this.focusedTab
     }
 
-    getMaximizedTab (): BaseTabComponent|null {
+    getMaximizedTab (): BaseTabComponent | null {
         return this.maximizedTab
     }
 
@@ -429,7 +429,7 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
         this.layout()
     }
 
-    maximize (tab: BaseTabComponent|null): void {
+    maximize (tab: BaseTabComponent | null): void {
         this.maximizedTab = tab
         this.layout()
     }
@@ -448,14 +448,14 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
         }
     }
 
-    addTab (tab: BaseTabComponent, relative: BaseTabComponent|null, side: SplitDirection): Promise<void> {
+    addTab (tab: BaseTabComponent, relative: BaseTabComponent | null, side: SplitDirection): Promise<void> {
         return this.add(tab, relative, side)
     }
 
     /**
      * Inserts a new `tab` to the `side` of the `relative` tab
      */
-    async add (thing: BaseTabComponent|SplitContainer, relative: BaseTabComponent|SplitContainer|null, side: SplitDirection): Promise<void> {
+    async add (thing: BaseTabComponent | SplitContainer, relative: BaseTabComponent | SplitContainer | null, side: SplitDirection): Promise<void> {
         if (thing instanceof SplitTabComponent) {
             const tab = thing
             thing = tab.root
@@ -700,7 +700,7 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
         this.focus(all[target])
     }
 
-    async splitTab (tab: BaseTabComponent, dir: SplitDirection): Promise<BaseTabComponent|null> {
+    async splitTab (tab: BaseTabComponent, dir: SplitDirection): Promise<BaseTabComponent | null> {
         const newTab = await this.tabsService.duplicate(tab)
         if (newTab) {
             await this.addTab(newTab, tab, dir)
@@ -711,7 +711,7 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
     /**
      * @returns the immediate parent of `tab`
      */
-    getParentOf (tab: BaseTabComponent | SplitContainer, root?: SplitContainer): SplitContainer|null {
+    getParentOf (tab: BaseTabComponent | SplitContainer, root?: SplitContainer): SplitContainer | null {
         root = root ?? this.root
         for (const child of root.children) {
             if (child instanceof SplitContainer) {
@@ -738,7 +738,7 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
     }
 
     /** @hidden */
-    async getCurrentProcess (): Promise<BaseTabProcess|null> {
+    async getCurrentProcess (): Promise<BaseTabProcess | null> {
         return (await Promise.all(this.getAllTabs().map(x => x.getCurrentProcess()))).find(x => !!x) ?? null
     }
 
@@ -783,21 +783,21 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
         super.clearActivity()
     }
 
-    get icon (): string|null {
+    get icon (): string | null {
         return this.getFocusedTab()?.icon ?? null
     }
 
-    set icon (icon: string|null) {
+    set icon (icon: string | null) {
         for (const t of this.getAllTabs()) {
             t.icon = icon
         }
     }
 
-    get color (): string|null {
+    get color (): string | null {
         return this.getFocusedTab()?.color ?? null
     }
 
-    set color (color: string|null) {
+    set color (color: string | null) {
         for (const t of this.getAllTabs()) {
             t.color = color
         }
@@ -927,7 +927,7 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
                 this._dropZones.push({
                     type: 'relative',
                     relativeTo: root.children[i],
-                    side: root.orientation === 'v' ? 'b': 'r',
+                    side: root.orientation === 'v' ? 'b' : 'r',
                     x: root.orientation === 'v' ? childX + thickness : childX + offset - thickness / 2,
                     y: root.orientation === 'v' ? childY + offset - thickness / 2 : childY + thickness,
                     w: root.orientation === 'v' ? childW - thickness * 2 : thickness,
