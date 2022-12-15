@@ -191,6 +191,9 @@ export class ConfigService {
         }
         this._store = await this.maybeDecryptConfig(this._store)
         this.migrate(this._store)
+        if (this._store.profiles.length == 0){
+            this._store.profiles = deepClone(this.defaults.profiles)
+        }
         this.store = new ConfigProxy(this._store, this.defaults)
         this.vault.setStore(this.store.vault)
     }

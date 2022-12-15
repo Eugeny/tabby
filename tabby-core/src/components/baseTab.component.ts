@@ -45,6 +45,13 @@ export abstract class BaseTabComponent extends BaseComponent {
     hostView: ViewRef
 
     /**
+     * Open sftp tab of ssh session
+     */
+    async openSftp (): Promise<BaseTabComponent|null>{
+        return null
+    }
+
+    /**
      * CSS color override for the tab's header
      */
     get color (): string|null { return this._color }

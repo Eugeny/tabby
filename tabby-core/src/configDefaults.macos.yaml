@@ -38,8 +38,12 @@ hotkeys:
     - '⌘-9'
   tab-10:
     - '⌘-0'
-  duplicate-tab: []
-  restart-tab: []
+  sftp-tab: 
+    - '⌘-Shift-S'
+  duplicate-tab:
+    - '⌘-Shift-D'
+  restart-tab:
+    - '⌘-Shift-R'
   explode-tab:
     - '⌘-Shift-.'
   combine-tabs:

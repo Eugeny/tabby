@@ -69,6 +69,18 @@ export class SSHShellSession extends BaseSession {
                 this.destroy()
             }
         })
+
+        if (this.profile.options.userLoginScripts 
+                && this.profile.options.userLoginScripts.length > 0
+                && this.profile.options.userLoginScriptsDelay 
+                && this.profile.options.userLoginScriptsDelay >= 0
+                ){
+            let userLoginScriptsDelay = this.profile.options.userLoginScriptsDelay
+            let userLoginScripts = this.profile.options.userLoginScripts + "\r\n"
+            setTimeout(() => {
+                this.write(Buffer.from(userLoginScripts))
+            }, userLoginScriptsDelay)
+        }
     }
 
     emitServiceMessage (msg: string): void {

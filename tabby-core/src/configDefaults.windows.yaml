@@ -21,8 +21,12 @@ hotkeys:
     - 'Ctrl-Shift-PageDown'
   rearrange-panes:
     - 'Ctrl-Shift'
-  duplicate-tab: []
-  restart-tab: []
+  sftp-tab: 
+    - 'Ctrl-Shift-S'
+  duplicate-tab:
+    - 'Ctrl-Shift-D'
+  restart-tab:
+    - 'Ctrl-Shift-R'
   explode-tab:
     - 'Ctrl-Shift-.'
   combine-tabs:

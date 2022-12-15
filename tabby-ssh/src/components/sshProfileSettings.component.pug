@@ -249,8 +249,29 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
                         checkbox([text]='alg', [(ngModel)]='algorithms.serverHostKey[alg]')
 
     li(ngbNavItem)
-        a(ngbNavLink, translate) Login scripts
+        a(ngbNavLink, translate) Expects
         ng-template(ngbNavContent)
             login-scripts-settings([options]='profile.options', #loginScriptsSettings)
+
+    li(ngbNavItem)
+        a(ngbNavLink, translate) Login scripts
+        ng-template(ngbNavContent)
+            .form-line
+                .header
+                    .title(translate) userLoginScriptsDelay (Milliseconds)
+                input.form-control(
+                    type='number',
+                    placeholder='300',
+                    [(ngModel)]='profile.options.userLoginScriptsDelay',
+                )
+
+            .form-line
+                .header
+                    .title(translate) userLoginScripts
+                input.form-control(
+                    type='text',
+                    placeholder='3',
+                    [(ngModel)]='profile.options.userLoginScripts',
+                )
 
 div([ngbNavOutlet]='nav')

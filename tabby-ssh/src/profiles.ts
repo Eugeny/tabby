@@ -43,6 +43,8 @@ export class SSHProfilesService extends ProfileProvider<SSHProfile> {
             httpProxyHost: null,
             httpProxyPort: null,
             reuseSession: true,
+            userLoginScripts:'tmux att || tmux',
+            userLoginScriptsDelay:300,
         },
     }
 
@@ -83,6 +85,8 @@ export class SSHProfilesService extends ProfileProvider<SSHProfile> {
                     host: '',
                     port: 22,
                     user: 'root',
+                    userLoginScripts:'tmux att || tmux',
+                    userLoginScriptsDelay:300,
                 },
                 isBuiltin: true,
                 isTemplate: true,

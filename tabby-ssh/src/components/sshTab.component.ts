@@ -3,7 +3,7 @@ import colors from 'ansi-colors'
 import { Component, Injector, HostListener } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { first } from 'rxjs'
-import { GetRecoveryTokenOptions, Platform, ProfilesService, RecoveryToken } from 'tabby-core'
+import { GetRecoveryTokenOptions, BaseTabComponent, Platform, AppService, ProfilesService, RecoveryToken } from 'tabby-core'
 import { BaseTerminalTabComponent } from 'tabby-terminal'
 import { SSHService } from '../services/ssh.service'
 import { KeyboardInteractivePrompt, SSHSession } from '../session/ssh'
@@ -11,6 +11,8 @@ import { SSHPortForwardingModalComponent } from './sshPortForwardingModal.compon
 import { SSHProfile } from '../api'
 import { SSHShellSession } from '../session/shell'
 import { SSHMultiplexerService } from '../services/sshMultiplexer.service'
+import deepClone from 'clone-deep'
+
 
 /** @hidden */
 @Component({
@@ -33,6 +35,7 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
 
     constructor (
         injector: Injector,
+        private appService: AppService,
         public ssh: SSHService,
         private ngbModal: NgbModal,
         private profilesService: ProfilesService,
@@ -262,6 +265,50 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
             this.sftpPanelVisible = true
         }, 100)
     }
+
+    async openSftp (): Promise<BaseTabComponent|null>{
+        let profileName =""
+        if (this.hostApp.platform === Platform.macOS) {
+            profileName = "ssh2sftp_mac_template"
+        } else if (this.hostApp.platform === Platform.Linux) {
+            profileName = "ssh2sftp_linux_template"
+        } else if (this.hostApp.platform === Platform.Windows){
+            profileName = "ssh2sftp_win_template"
+        } else if (this.hostApp.platform === Platform.Web){
+            return null
+        }
+
+        let tmpprofile = (await this.profilesService.getProfiles()).find(x => x.name === profileName)
+        if (!tmpprofile) {
+            console.error('Requested profile', profileName, 'not found')
+            return null
+        }else {
+            let profile = deepClone(tmpprofile)
+            if(this.profile?.name) {
+                profile.name =  "sftp_" + this.profile?.name
+            }
+            if(profile.options && this.profile?.options){
+                let args = profile.options["args"]
+                if (args as Array<string>) {
+                    args.push("-P")
+                    const port = this.profile.options.port as number
+                    args.push(port.toString())
+                    args.push(this.profile.options.user as string + "@" + this.profile.options.host as string)
+                }
+            }
+            let params = await this.profilesService.newTabParametersForProfile(profile)
+            if (params) {
+                return this.appService.openNewTabAtActiveTabNext(params)
+            }
+        }
+        return null
+    }
+
+    async openSFTPInNewTab (): Promise<void> {
+        await this.openSftp()
+        return
+    }
+
 
     @HostListener('click')
     onClick (): void {

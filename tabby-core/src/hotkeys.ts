@@ -57,6 +57,10 @@ export class AppHotkeyProvider extends HotkeyProvider {
             name: this.translate.instant('Show pane labels (for rearranging)'),
         },
         {
+            id: 'sftp-tab',
+            name: this.translate.instant('Sftp tab'),
+        },
+        {
             id: 'duplicate-tab',
             name: this.translate.instant('Duplicate tab'),
         },

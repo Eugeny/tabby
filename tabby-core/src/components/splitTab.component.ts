@@ -228,6 +228,17 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
     private focusChanged = new Subject<BaseTabComponent>()
     private initialized = new Subject<void>()
 
+
+    async openSftp (): Promise<BaseTabComponent|null>{
+        for (let key of this.viewRefs.keys()) {
+            let ans = await key.openSftp()
+            if (ans) {
+                return ans
+            }
+        }
+        return null
+    }
+
     get tabAdded$ (): Observable<BaseTabComponent> { return this.tabAdded }
 
     /**
