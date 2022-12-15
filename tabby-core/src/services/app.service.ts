@@ -195,7 +195,7 @@ export class AppService {
      */
     openNewTabAtActiveTabNext<T extends BaseTabComponent>(params: NewTabParameters<T>): T {
         let index: number | null = null
-        if (index === null && this.activeTab) {
+        if (this.activeTab) {
             index = this.tabs.indexOf(this.activeTab) + 1
         }
 
