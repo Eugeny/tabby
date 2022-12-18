@@ -3,11 +3,12 @@ import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker'
 import { Component, NgZone } from '@angular/core'
 import {
     ConfigService,
+    Hotkey,
     HotkeyDescription,
     HotkeysService,
     HostAppService,
 } from 'tabby-core'
-import { Hotkey } from 'tabby-core/src/api/hotkeyProvider'
+import deepEqual from 'deep-equal'
 
 _('Search hotkeys')
 
@@ -66,7 +67,7 @@ export class HotkeySettingsTabComponent {
             .flat()
 
         const isDuplicate = allHotkeys
-            .filter(hotkey => JSON.stringify(hotkey) === JSON.stringify(strokes))
+            .filter(hotkey => deepEqual(hotkey, strokes))
             .length > 1
 
         return { strokes, isDuplicate }
