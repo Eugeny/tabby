@@ -7,6 +7,7 @@ import {
     HotkeysService,
     HostAppService,
 } from 'tabby-core'
+import { Hotkey } from 'tabby-core/src/api/hotkeyProvider'
 
 _('Search hotkeys')
 
@@ -30,28 +31,44 @@ export class HotkeySettingsTabComponent {
         })
     }
 
-    getHotkey (id: string) {
+    getHotkeys (id: string): Hotkey[] {
         let ptr = this.config.store.hotkeys
         for (const token of id.split(/\./g)) {
             ptr = ptr[token]
         }
-        return ptr
+        return (ptr || []).map(hotkey => this.detectDuplicates(hotkey))
     }
 
-    setHotkey (id: string, value) {
+    setHotkeys (id: string, hotkeys: Hotkey[]) {
         let ptr = this.config.store
         let prop = 'hotkeys'
         for (const token of id.split(/\./g)) {
             ptr = ptr[prop]
             prop = token
         }
-        ptr[prop] = value
+        ptr[prop] = hotkeys.map(hotkey =>
+            hotkey.strokes.length === 1 && Array.isArray(hotkey.strokes)
+                ? hotkey.strokes[0]
+                : hotkey.strokes,
+        )
         this.config.save()
     }
 
     hotkeyFilterFn (hotkey: HotkeyDescription, query: string): boolean {
-        // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
-        const s = hotkey.name + hotkey.id + (this.getHotkey(hotkey.id) || []).toString()
+        const s = hotkey.name + hotkey.id + this.getHotkeys(hotkey.id).map(h => h.strokes).toString()
         return s.toLowerCase().includes(query.toLowerCase())
+    }
+
+    private detectDuplicates (strokes: string[] | string): Hotkey {
+        const allHotkeys = Object
+            .values(this.config.store.hotkeys)
+            .filter((value: unknown) => Array.isArray(value))
+            .flat()
+
+        const isDuplicate = allHotkeys
+            .filter(hotkey => JSON.stringify(hotkey) === JSON.stringify(strokes))
+            .length > 1
+
+        return { strokes, isDuplicate }
     }
 }
