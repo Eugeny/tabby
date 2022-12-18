@@ -1,7 +1,8 @@
-import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core'
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { HotkeyInputModalComponent } from './hotkeyInputModal.component'
-import { Hotkey } from 'tabby-core/src/api/hotkeyProvider'
+import { Hotkey } from 'tabby-core'
+import deepEqual from 'deep-equal'
 
 /** @hidden */
 @Component({
@@ -24,7 +25,7 @@ export class MultiHotkeyInputComponent {
 
     editItem (item: Hotkey): void {
         this.ngbModal.open(HotkeyInputModalComponent).result.then((newStrokes: string[]) => {
-            this.hotkeys.find(hotkey => this.isEqual(hotkey, item))!.strokes = newStrokes
+            this.hotkeys.find(hotkey => deepEqual(hotkey.strokes, item.strokes))!.strokes = newStrokes
             this.storeUpdatedHotkeys()
         })
     }
@@ -43,9 +44,5 @@ export class MultiHotkeyInputComponent {
 
     private storeUpdatedHotkeys () {
         this.hotkeysChange.emit(this.hotkeys)
-    }
-
-    private isEqual (h: Hotkey, item: Hotkey) {
-        return JSON.stringify(h.strokes) === JSON.stringify(item.strokes)
     }
 }
