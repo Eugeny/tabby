@@ -14,6 +14,6 @@ h3.mb-3(translate) Hotkeys
                 span.ml-2.text-muted ({{hotkey.id}})
             .col-4.pr-5
                 multi-hotkey-input(
-                    [model]='getHotkey(hotkey.id) || []',
-                    (modelChange)='setHotkey(hotkey.id, $event)'
+                    [hotkeys]='getHotkeys(hotkey.id) || []',
+                    (hotkeysChange)='setHotkeys(hotkey.id, $event)'
                 )

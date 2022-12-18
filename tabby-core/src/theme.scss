@@ -162,6 +162,11 @@ multi-hotkey-input {
         }
     }
 
+    .item:has(.duplicate) {
+        background-color: theme-color('danger');
+        border: 1px solid theme-color('danger');
+    }
+
     .add {
         color: #777;
         padding: 4px 10px 0;
@@ -170,6 +175,11 @@ multi-hotkey-input {
     .add, .item .body, .item .remove {
         &:hover { background: darken($body-bg2, 5%); }
         &:active { background: darken($body-bg2, 15%); }
+    }
+
+    .add:has(.duplicate), .item:has(.duplicate) .body, .item:has(.duplicate) .remove {
+        &:hover { background: darken(theme-color('danger'), 5%); }
+        &:active { background: darken(theme-color('danger'), 15%); }
     }
 }
 
