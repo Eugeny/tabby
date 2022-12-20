@@ -27,7 +27,7 @@
     "ps-node": "^0.1.6",
     "runes": "^0.4.2",
     "xterm": "^5.0.0",
-    "xterm-addon-canvas": "^0.2.0",
+    "xterm-addon-canvas": "^0.3.0",
     "xterm-addon-fit": "^0.6.0",
     "xterm-addon-image": "^0.2.0",
     "xterm-addon-ligatures": "^0.6.0",
