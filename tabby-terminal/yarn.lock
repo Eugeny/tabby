@@ -195,10 +195,10 @@ xterm-addon-unicode11@^0.4.0:
   resolved "https://registry.yarnpkg.com/xterm-addon-unicode11/-/xterm-addon-unicode11-0.4.0.tgz#59a4abbb591befb69ca0c5f7c3f9fa9c1c05353e"
   integrity sha512-HkUwR4gc8MKVFy2Ux8zUnjqARYpfl7dJ9na3TwRbAUbF4JlCv707m4Z07WVaDMIRUZsfZ+5LgSi+Ss7PfZqNcw==
 
-xterm-addon-webgl@^0.13.0:
-  version "0.13.0"
-  resolved "https://registry.yarnpkg.com/xterm-addon-webgl/-/xterm-addon-webgl-0.13.0.tgz#b1d42ec454390ad8595aa8c8dde714b98a5eb896"
-  integrity sha512-xL4qBQWUHjFR620/8VHCtrTMVQsnZaAtd1IxFoiKPhC63wKp6b+73a45s97lb34yeo57PoqZhE9Jq5pB++ksPQ==
+xterm-addon-webgl@^0.14.0:
+  version "0.14.0"
+  resolved "https://registry.yarnpkg.com/xterm-addon-webgl/-/xterm-addon-webgl-0.14.0.tgz#bd9136710bd5d130a0a51fd42e6d14ea39348236"
+  integrity sha512-zcxL4RVVjeS7NNFeKe5HHQI8OUEx3wZpE4EqLoTVipa2UrTR+qLsigo16UEp/yVcYBMhK7tsJ/AJokoEe/f0mw==
 
 xterm@^5.0.0:
   version "5.0.0"

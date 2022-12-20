@@ -34,7 +34,7 @@
     "xterm-addon-search": "^0.10.0",
     "xterm-addon-serialize": "^0.8.0",
     "xterm-addon-unicode11": "^0.4.0",
-    "xterm-addon-webgl": "^0.13.0",
+    "xterm-addon-webgl": "^0.14.0",
     "zmodem.js": "^0.1.9"
   },
   "peerDependencies": {
