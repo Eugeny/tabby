@@ -1,0 +1,13 @@
+# When this file is named "default_inputrc" and is in the binaries
+# directory or profile directory, it provides enhanced default settings.
+
+# Override the built-in Readline defaults with ones that provide a more
+# enhanced Clink experience.
+
+colored-completion-prefix                   on
+colored-stats                               on
+mark-symlinked-directories                  on
+completion-auto-query-items                 on
+history-point-at-end-of-anchored-search     on
+search-ignore-case                          on
+
