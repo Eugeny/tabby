@@ -73,7 +73,7 @@ export class SearchPanelComponent {
         this.config.save()
     }
 
-    ngOnDestroy () {
+    ngOnDestroy (): void {
         this.queryChanged.complete()
     }
 }
