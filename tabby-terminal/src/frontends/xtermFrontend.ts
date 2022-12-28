@@ -16,7 +16,6 @@ import deepEqual from 'deep-equal'
 import { Attributes } from 'xterm/src/common/buffer/Constants'
 import { AttributeData } from 'xterm/src/common/buffer/AttributeData'
 import { CellData } from 'xterm/src/common/buffer/CellData'
-import sixelWorkerScript from 'xterm-addon-image/lib/xterm-addon-image-worker.js'
 
 const COLOR_NAMES = [
     'black', 'red', 'green', 'yellow', 'blue', 'magenta', 'cyan', 'white',
@@ -131,14 +130,7 @@ export class XTermFrontend extends Frontend {
         this.xterm.unicode.activeVersion = '11'
 
         if (this.configService.store.terminal.sixel) {
-            this.xterm.loadAddon(new ImageAddon(
-                URL.createObjectURL(
-                    new Blob(
-                        [sixelWorkerScript],
-                        { type: 'application/javascript' },
-                    ),
-                ),
-            ))
+            this.xterm.loadAddon(new ImageAddon())
         }
 
         const keyboardEventHandler = (name: string, event: KeyboardEvent) => {
@@ -377,7 +369,7 @@ export class XTermFrontend extends Frontend {
             theme[COLOR_NAMES[i]] = config.terminal.colorScheme.colors[i]
         }
 
-        if (this.xtermCore._colorManager && !deepEqual(this.configuredTheme, theme)) {
+        if (!deepEqual(this.configuredTheme, theme)) {
             this.xterm.options.theme = theme
             this.configuredTheme = theme
         }

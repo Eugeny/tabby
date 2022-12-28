@@ -1,0 +1,13 @@
+diff --git a/node_modules/xterm/src/common/CircularList.ts b/node_modules/xterm/src/common/CircularList.ts
+index 8ab80d5..622a1ef 100644
+--- a/node_modules/xterm/src/common/CircularList.ts
++++ b/node_modules/xterm/src/common/CircularList.ts
+@@ -4,7 +4,7 @@
+  */
+ 
+ import { ICircularList } from 'common/Types';
+-import { EventEmitter, IEvent } from 'common/EventEmitter';
++import { EventEmitter } from 'common/EventEmitter';
+ import { Disposable } from 'common/Lifecycle';
+ 
+ export interface IInsertEvent {
