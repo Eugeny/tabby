@@ -1067,6 +1067,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "joshuatz",
+      "name": "Joshua Tzucker",
+      "avatar_url": "https://avatars.githubusercontent.com/u/17817563?v=4",
+      "profile": "https://joshuatz.com/",
+      "contributions": [
+        "financial"
+      ]
     }
   ],
   "contributorsPerLine": 7,
