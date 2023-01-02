@@ -27,7 +27,7 @@
     "ngx-filesize": "^2.0.16",
     "ngx-perfect-scrollbar": "^10.1.0",
     "ngx-translate-messageformat-compiler": "^4.11.0",
-    "readable-stream": "4.2.0",
+    "readable-stream": "4.3.0",
     "uuid": "^9.0.0"
   },
   "peerDependencies": {
