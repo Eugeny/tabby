@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Portuguese, Brazilian\n"
 "Language: pt_BR\n"
-"PO-Revision-Date: 2022-11-09 20:04\n"
+"PO-Revision-Date: 2023-01-03 09:14\n"
 
 #: tabby-local/src/components/terminalTab.component.ts:113
 msgid "\"{command}\" is still running. Close?"
@@ -238,7 +238,7 @@ msgstr "Alterar taxa de dados"
 
 #: tabby-core/src/tabContextMenu.ts:133
 msgid "Change tab color"
-msgstr ""
+msgstr "Mudar cor da aba"
 
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:12
 msgid "Change the master passphrase"
@@ -297,7 +297,7 @@ msgstr "Fechar abas à direita"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:187
 msgid "Close the window after closing the last tab"
-msgstr ""
+msgstr "Fechar a janela depois de fechar a última aba"
 
 #: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:35
 #: tabby-core/src/tabContextMenu.ts:132
@@ -322,7 +322,7 @@ msgstr "stdin/stdout do comando é usado ao invés de uma conexão de rede"
 
 #: tabby-core/src/services/commands.service.ts:77
 msgid "Commands"
-msgstr ""
+msgstr "Comandos"
 
 #: tabby-core/src/theme.ts:20
 msgid "Compact"
@@ -757,7 +757,7 @@ msgstr "Focar todos os painéis de uma vez (Broadcast)"
 
 #: tabby-local/src/tabContextMenu.ts:138
 msgid "Focus all tabs"
-msgstr ""
+msgstr "Focar todas as abas"
 
 #: tabby-terminal/src/hotkeys.ts:82
 msgid "Focus all tabs at once (broadcast)"
@@ -916,7 +916,7 @@ msgstr "Ocultar índice da aba"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:175
 msgid "Hide tab options button"
-msgstr ""
+msgstr "Ocultar botão de opções de aba"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:123
 msgid "Hide window on focus loss"
@@ -1582,7 +1582,7 @@ msgstr "Renomear"
 #: tabby-core/src/hotkeys.ts:25
 #: tabby-core/src/tabContextMenu.ts:121
 msgid "Rename tab"
-msgstr ""
+msgstr "Renomear aba"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:3
 msgid "Rendering"
@@ -1624,7 +1624,7 @@ msgstr "Reiniciar sessão de Telnet atual"
 
 #: tabby-core/src/hotkeys.ts:65
 msgid "Restart tab"
-msgstr ""
+msgstr "Reiniciar aba"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:134
 msgid "Restart the app to apply changes"
@@ -1688,11 +1688,11 @@ msgstr "Rolar na entrada"
 
 #: tabby-terminal/src/hotkeys.ts:94
 msgid "Scroll terminal one page down"
-msgstr ""
+msgstr "Rolar terminal uma página para baixo"
 
 #: tabby-terminal/src/hotkeys.ts:90
 msgid "Scroll terminal one page up"
-msgstr ""
+msgstr "Rolar o terminal uma página para cima"
 
 #: tabby-terminal/src/hotkeys.ts:98
 msgid "Scroll terminal to bottom"
@@ -1700,7 +1700,7 @@ msgstr "Rolar terminal para baixo"
 
 #: tabby-terminal/src/hotkeys.ts:86
 msgid "Scroll terminal to top"
-msgstr ""
+msgstr "Rolar o terminal para o topo"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:16
 msgid "Scrollback"
@@ -1741,7 +1741,7 @@ msgstr "Selecione um perfil base para usar como um modelo"
 
 #: tabby-terminal/src/hotkeys.ts:18
 msgid "Select all"
-msgstr ""
+msgstr "Selecionar tudo"
 
 #: tabby-core/src/services/fileProviders.service.ts:46
 msgid "Select file storage"
@@ -1873,7 +1873,7 @@ msgstr "Mostrar conexões em série"
 
 #: tabby-terminal/src/tabContextMenu.ts:53
 msgid "Show toolbar"
-msgstr ""
+msgstr "Mostrar barra de ferramentas"
 
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:44
 msgid "Show vault contents"
@@ -1928,7 +1928,7 @@ msgstr "Dividir para baixo"
 
 #: tabby-core/src/tabContextMenu.ts:85
 msgid "Split to the down"
-msgstr ""
+msgstr "Dividir para baixo"
 
 #: tabby-core/src/hotkeys.ts:165
 #: tabby-core/src/tabContextMenu.ts:86
@@ -1946,7 +1946,7 @@ msgstr "Rolar para o topo"
 
 #: tabby-core/src/tabContextMenu.ts:87
 msgid "Split to the up"
-msgstr ""
+msgstr "Dividir para cima"
 
 #: tabby-ssh/src/profiles.ts:80
 msgid "SSH connection"

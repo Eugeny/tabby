@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2022-11-17 09:56\n"
+"PO-Revision-Date: 2023-01-03 09:14\n"
 
 #: tabby-local/src/components/terminalTab.component.ts:113
 msgid "\"{command}\" is still running. Close?"
@@ -162,7 +162,7 @@ msgstr "自動アップデート"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:57
 msgid "Automatically upload changes and check for updates every minute"
-msgstr "自動的に変更のアップロードと一分ごとに更新の確認を行います。"
+msgstr "変更を自動的にアップロードし、一分ごとに更新を確認します。"
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:10
 msgid "Available"

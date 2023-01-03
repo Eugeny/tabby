@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Swedish\n"
 "Language: sv_SE\n"
-"PO-Revision-Date: 2022-11-17 09:56\n"
+"PO-Revision-Date: 2023-01-03 09:14\n"
 
 #: tabby-local/src/components/terminalTab.component.ts:113
 msgid "\"{command}\" is still running. Close?"
@@ -1805,7 +1805,7 @@ msgstr "Ställer in SSH-agentens namngivna processökväg."
 #: tabby-settings/src/buttonProvider.ts:28
 #: tabby-settings/src/components/settingsTab.component.ts:57
 msgid "Settings"
-msgstr "inställningar"
+msgstr "Inställningar"
 
 #: locale/tmp-html/tabby-local/src/components/shellSettingsTab.component.html:2
 msgid "Shell"
@@ -2222,7 +2222,7 @@ msgstr "Valv"
 
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:4
 msgid "Vault is an always-encrypted container for secrets such as SSH passwords and private key passphrases."
-msgstr "Valvet är en alltid krypterad behållare för hemligheter så som SSH-lösenord och privata nyckellösenfraser."
+msgstr "Valvet är en alltid-krypterad behållare för hemligheter så som SSH-lösenord och privata nyckellösenfraser."
 
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:17
 msgid "Vault is empty"
