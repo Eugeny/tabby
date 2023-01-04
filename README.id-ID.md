@@ -303,6 +303,7 @@ Terima kasih kepada mereka yang telah membantu ([emoji key](https://allcontribut
     <td align="center"><a href="https://github.com/patric1025"><img src="https://avatars.githubusercontent.com/u/65654040?v=4?s=100" width="100px;" alt=""/><br /><sub><b>patric1025</b></sub></a><br /><a href="#translation-patric1025" title="Translation">🌍</a></td>
     <td align="center"><a href="https://github.com/hermitpopcorn"><img src="https://avatars.githubusercontent.com/u/16042129?v=4?s=100" width="100px;" alt=""/><br /><sub><b>hermitpopcorn</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=hermitpopcorn" title="Code">💻</a></td>
     <td align="center"><a href="https://joshuatz.com/"><img src="https://avatars.githubusercontent.com/u/17817563?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Joshua Tzucker</b></sub></a><br /><a href="#financial-joshuatz" title="Financial">💵</a></td>
+    <td align="center"><a href="https://github.com/luxifr"><img src="https://avatars.githubusercontent.com/u/665715?v=4?s=100" width="100px;" alt=""/><br /><sub><b>luxifr</b></sub></a><br /><a href="#financial-luxifr" title="Financial">💵</a></td>
   </tr>
 </table>
 
