@@ -38,3 +38,4 @@ export { VaultService, Vault, VaultSecret, VaultFileSecret, VAULT_SECRET_TYPE_FI
 export { FileProvidersService } from '../services/fileProviders.service'
 export { LocaleService, TranslateServiceWrapper as TranslateService } from '../services/locale.service'
 export * from '../utils'
+export { UTF8Splitter } from '../utfSplitter'

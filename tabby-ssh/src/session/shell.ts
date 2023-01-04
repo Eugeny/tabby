@@ -2,11 +2,10 @@ import { Observable, Subject } from 'rxjs'
 import stripAnsi from 'strip-ansi'
 import { ClientChannel } from 'ssh2'
 import { Injector } from '@angular/core'
-import { LogService } from 'tabby-core'
+import { LogService, UTF8Splitter } from 'tabby-core'
 import { BaseSession } from 'tabby-terminal'
 import { SSHSession } from './ssh'
 import { SSHProfile } from '../api'
-import { UTF8Splitter } from '../../../app/lib/utfSplitter'
 
 
 export class SSHShellSession extends BaseSession {
