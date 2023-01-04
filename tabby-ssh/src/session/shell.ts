@@ -6,6 +6,7 @@ import { LogService } from 'tabby-core'
 import { BaseSession } from 'tabby-terminal'
 import { SSHSession } from './ssh'
 import { SSHProfile } from '../api'
+import { UTF8Splitter } from '../../../app/lib/utfSplitter'
 
 
 export class SSHShellSession extends BaseSession {
@@ -13,6 +14,7 @@ export class SSHShellSession extends BaseSession {
     get serviceMessage$ (): Observable<string> { return this.serviceMessage }
     private serviceMessage = new Subject<string>()
     private ssh: SSHSession|null
+    private decoder = new UTF8Splitter()
 
     constructor (
         injector: Injector,
@@ -60,10 +62,14 @@ export class SSHShellSession extends BaseSession {
         })
 
         this.shell.on('data', data => {
-            this.emitOutput(data)
+            this.emitOutput(this.decoder.write(data))
         })
 
         this.shell.on('end', () => {
+            const remainder = this.decoder.flush()
+            if (remainder.length) {
+                this.emitOutput(remainder)
+            }
             this.logger.info('Shell session ended')
             if (this.open) {
                 this.destroy()
