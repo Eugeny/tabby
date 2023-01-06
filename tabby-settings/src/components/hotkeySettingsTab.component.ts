@@ -8,7 +8,6 @@ import {
     HotkeysService,
     HostAppService,
 } from 'tabby-core'
-import deepEqual from 'deep-equal'
 
 _('Search hotkeys')
 
@@ -20,6 +19,7 @@ _('Search hotkeys')
 export class HotkeySettingsTabComponent {
     hotkeyFilter = ''
     hotkeyDescriptions: HotkeyDescription[]
+    allDuplicateHotkeys = this.getAllDuplicateHotkeys()
 
     constructor (
         public config: ConfigService,
@@ -53,6 +53,7 @@ export class HotkeySettingsTabComponent {
                 : hotkey.strokes,
         )
         this.config.save()
+        this.allDuplicateHotkeys = this.getAllDuplicateHotkeys()
     }
 
     hotkeyFilterFn (hotkey: HotkeyDescription, query: string): boolean {
@@ -60,16 +61,23 @@ export class HotkeySettingsTabComponent {
         return s.toLowerCase().includes(query.toLowerCase())
     }
 
-    private detectDuplicates (strokes: string[] | string): Hotkey {
+    private getAllDuplicateHotkeys (): string[] {
         const allHotkeys = Object
             .values(this.config.store.hotkeys)
             .filter((value: unknown) => Array.isArray(value))
             .flat()
+            .map((hotkey: string | string[]) => this.toHotkeyIdentifier(hotkey))
 
-        const isDuplicate = allHotkeys
-            .filter(hotkey => deepEqual(hotkey, strokes))
-            .length > 1
+        return allHotkeys.filter(hotkey => allHotkeys.indexOf(hotkey) !== allHotkeys.lastIndexOf(hotkey))
+    }
 
+    private detectDuplicates (strokes: string[] | string): Hotkey {
+        const hotkeyIdentifier = this.toHotkeyIdentifier(strokes)
+        const isDuplicate = this.allDuplicateHotkeys.includes(hotkeyIdentifier)
         return { strokes, isDuplicate }
+    }
+
+    private toHotkeyIdentifier (hotkey: string[] | string): string {
+        return Array.isArray(hotkey) ? hotkey.join('$#!') : hotkey
     }
 }
