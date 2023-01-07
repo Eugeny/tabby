@@ -300,6 +300,7 @@ Pull-запросы и плагины приветствуются!
     <td align="center"><a href="https://github.com/hermitpopcorn"><img src="https://avatars.githubusercontent.com/u/16042129?v=4?s=100" width="100px;" alt=""/><br /><sub><b>hermitpopcorn</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=hermitpopcorn" title="Code">💻</a></td>
     <td align="center"><a href="https://joshuatz.com/"><img src="https://avatars.githubusercontent.com/u/17817563?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Joshua Tzucker</b></sub></a><br /><a href="#financial-joshuatz" title="Financial">💵</a></td>
     <td align="center"><a href="https://github.com/luxifr"><img src="https://avatars.githubusercontent.com/u/665715?v=4?s=100" width="100px;" alt=""/><br /><sub><b>luxifr</b></sub></a><br /><a href="#financial-luxifr" title="Financial">💵</a></td>
+    <td align="center"><a href="https://github.com/ukulanne"><img src="https://avatars.githubusercontent.com/u/28586666?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Anne Summers</b></sub></a><br /><a href="#financial-ukulanne" title="Financial">💵</a></td>
   </tr>
 </table>
 
