@@ -1,10 +1,21 @@
 .header
-    .breadcrumb.mr-auto
+    input.form-control.flex-grow-1.w-0(
+        *ngIf='editingPath !== null',
+        type='text',
+        autofocus,
+        (keydown.enter)='confirmPath()',
+        (keydown.esc)='editingPath = null',
+        (blur)='editingPath = null',
+        [(ngModel)]='editingPath'
+    )
+    .breadcrumb(*ngIf='editingPath === null', (dblclick)='editPath()')
         a.breadcrumb-item((click)='navigate("/")') SFTP
         a.breadcrumb-item(
             *ngFor='let segment of pathSegments',
             (click)='navigate(segment.path)'
         ) {{segment.name}}
+
+    .breadcrumb-spacer.flex-grow-1.h-100((dblclick)='editPath()')
 
     button.btn.btn-link.btn-sm.d-flex((click)='openCreateDirectoryModal()')
         i.fas.fa-plus.mr-1

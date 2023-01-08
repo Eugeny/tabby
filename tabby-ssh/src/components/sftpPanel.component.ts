@@ -27,6 +27,7 @@ export class SFTPPanelComponent {
     @Output() pathChange = new EventEmitter<string>()
     pathSegments: PathSegment[] = []
     @Input() cwdDetectionAvailable = false
+    editingPath: string|null = null
 
     constructor (
         private ngbModal: NgbModal,
@@ -180,6 +181,18 @@ export class SFTPPanelComponent {
 
     dismissCWDTip (): void {
         window.localStorage.sshCWDTipDismissed = 'true'
+    }
+
+    editPath (): void {
+        this.editingPath = this.path
+    }
+
+    confirmPath (): void {
+        if (this.editingPath === null) {
+            return
+        }
+        this.navigate(this.editingPath)
+        this.editingPath = null
     }
 
     close (): void {
