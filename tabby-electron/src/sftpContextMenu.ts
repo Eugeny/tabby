@@ -21,15 +21,21 @@ export class EditSFTPContextMenu extends SFTPContextMenuItemProvider {
     }
 
     async getItems (item: SFTPFile, panel: SFTPPanelComponent): Promise<MenuItemOptions[]> {
-        if (item.isDirectory) {
-            return []
-        }
-        return [
+        const items: MenuItemOptions[] = [
             {
-                click: () => this.edit(item, panel.sftp),
-                label: this.translate.instant('Edit locally'),
+                click: () => this.platform.setClipboard({
+                    text: item.fullPath,
+                }),
+                label: this.translate.instant('Copy full path'),
             },
         ]
+        if (!item.isDirectory) {
+            items.push({
+                click: () => this.edit(item, panel.sftp),
+                label: this.translate.instant('Edit locally'),
+            })
+        }
+        return items
     }
 
     private async edit (item: SFTPFile, sftp: SFTPSession) {
