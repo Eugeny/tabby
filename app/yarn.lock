@@ -1094,11 +1094,6 @@ figgy-pudding@^3.4.1, figgy-pudding@^3.5.1:
   resolved "https://registry.yarnpkg.com/figgy-pudding/-/figgy-pudding-3.5.2.tgz#b4eee8148abb01dcf1d1ac34367d59e12fa61d6e"
   integrity sha512-0btnI/H8f2pavGMN8w40mlSKOfTK2SVJmBfBeVIj3kNw0swwgzyRq0d5TJVOwodFmtvpPeWPN/MCcfuWF0Ezbw==
 
-"filesize@>= 4.0.0":
-  version "6.3.0"
-  resolved "https://registry.yarnpkg.com/filesize/-/filesize-6.3.0.tgz#dff53cfb3f104c9e422f346d53be8dbcc971bf11"
-  integrity sha512-ytx0ruGpDHKWVoiui6+BY/QMNngtDQ/pJaFwfBpQif0J63+E8DLdFyqS3NkKQn7vIruUEpoGD9JUJSg7Kp+I0g==
-
 fill-range@^7.0.1:
   version "7.0.1"
   resolved "https://registry.yarnpkg.com/fill-range/-/fill-range-7.0.1.tgz#1919a6a7c75fe38b2c7c77e5198535da9acdda40"
@@ -2261,13 +2256,12 @@ native-process-working-directory@^1.0.2:
   dependencies:
     node-addon-api "^3.1.0"
 
-ngx-filesize@^2.0.16:
-  version "2.0.16"
-  resolved "https://registry.yarnpkg.com/ngx-filesize/-/ngx-filesize-2.0.16.tgz#fdaba04170edb6cfcdf7be932783cf913b03f016"
-  integrity sha512-VdaCirE7hSyfQh8ZEmhzNEhbddiTYUHF4V6OX+KyTmnQSVx4hp9kmzDX5YlkIlmClI6wI+LZmH9/q7XS3fsMPA==
+ngx-filesize@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/ngx-filesize/-/ngx-filesize-3.0.1.tgz#620933ae181a1128905404e43b26abb99accba90"
+  integrity sha512-792I4fiG9EEPYjGib2+YTYAzfWIlccfy8uXNSXFFepuAntoS+eijLwnl0m7ajcQuNgbTtwEf9VmYIPN8mS3jqQ==
   dependencies:
-    filesize ">= 4.0.0"
-    tslib "^2.0.0"
+    tslib "^2.3.0"
 
 nice-try@^1.0.4:
   version "1.0.5"
@@ -3717,10 +3711,10 @@ tough-cookie@~2.5.0:
     psl "^1.1.28"
     punycode "^2.1.1"
 
-tslib@^2.0.0, tslib@^2.1.0:
-  version "2.3.1"
-  resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.3.1.tgz#e8a335add5ceae51aa261d32a490158ef042ef01"
-  integrity sha512-77EbyPPpMz+FRFRuAFlWMtmgUWGe9UOG2Z25NqCwiIjRhOf5iKGuzSe5P2w1laq+FkRy4p+PCuVkJSGkzTEKVw==
+tslib@^2.1.0, tslib@^2.3.0:
+  version "2.4.1"
+  resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.4.1.tgz#0d0bfbaac2880b91e22df0768e55be9753a5b17e"
+  integrity sha512-tGyy4dAjRIEwI7BzsB0lynWgOpfqjUdq91XXAlIWD2OwKBH7oCl/GZG/HT4BOHrTlPMOASlMQ7veyTqpmRcrNA==
 
 tunnel-agent@^0.6.0:
   version "0.6.0"
