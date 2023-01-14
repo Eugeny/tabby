@@ -56,7 +56,7 @@ export class WSLShellProvider extends ShellProvider {
         const lxss = wnr.getRegistryKey(wnr.HK.CU, lxssPath)
         const shells: Shell[] = []
 
-        if (null != lxss && null != lxss.DefaultDistribution) {
+        if (lxss?.DefaultDistribution) {
             const defaultDistKey = wnr.getRegistryKey(wnr.HK.CU, lxssPath + '\\' + String(lxss.DefaultDistribution.value))
             if (defaultDistKey?.DistributionName) {
                 const shell: Shell = {
@@ -92,7 +92,7 @@ export class WSLShellProvider extends ShellProvider {
         }
         for (const child of wnr.listRegistrySubkeys(wnr.HK.CU, lxssPath) as string[]) {
             const childKey = wnr.getRegistryKey(wnr.HK.CU, lxssPath + '\\' + child)
-            if (!childKey.DistributionName) {
+            if (!childKey.DistributionName || !childKey.BasePath) {
                 continue
             }
             const wslVersion = (childKey.Flags?.value || 0) & 8 ? 2 : 1
