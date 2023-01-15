@@ -12,7 +12,7 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
                     input.form-control(
                         type='text',
                         [(ngModel)]='config.store.configSync.host',
-                        (ngModelChange)='config.save()',
+                        (keydown.enter)='config.save()',
                     )
                     .input-group-append(*ngIf='config.store.configSync.host')
                         button.btn.btn-secondary((click)='openSyncHost()')
@@ -27,7 +27,7 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
                     input.form-control(
                         type='password',
                         [(ngModel)]='config.store.configSync.token',
-                        (ngModelChange)='config.save(); testConnection()'
+                        (keydown.enter)='config.save(); testConnection()'
                     )
                     .input-group-append(*ngIf='config.store.configSync.token')
                         .input-group-text
