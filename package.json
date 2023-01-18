@@ -100,7 +100,7 @@
     "build": "npm run build:typings && node scripts/build-modules.js",
     "build:typings": "node scripts/build-typings.js",
     "watch": "cross-env TABBY_DEV=1 webpack --progress --color --watch",
-    "start": "cross-env TABBY_DEV=1 electron app -d --inspect",
+    "start": "cross-env TABBY_DEV=1 electron app -d --inspect=5858",
     "start:prod": "electron app --debug",
     "prod": "cross-env TABBY_DEV=1 electron app",
     "docs": "node scripts/build-docs.js",

@@ -90,20 +90,20 @@ export class OpenPathCLIHandler extends CLIHandler {
                 this.hostWindow.bringToFront()
                 return true
             } else if (opAsPath.endsWith('.bat')) {
-                const psProfile = (await this.profiles.getProfiles()).find(x => x.id === 'cmd')
-                if (psProfile) {
-                    psProfile.options!.pauseAfterExit = true
-                    psProfile.options?.args?.push(opAsPath)
-                    this.terminal.openTab(psProfile)
-                    this.hostWindow.bringToFront()
-                    return true
-                }
-            } else if (opAsPath.endsWith('.ps1')) {
-                const cmdProfile = (await this.profiles.getProfiles()).find(x => x.id === 'powershell')
+                const cmdProfile = (await this.profiles.getProfiles()).find(x => x.id === 'local:cmd')
                 if (cmdProfile) {
                     cmdProfile.options!.pauseAfterExit = true
                     cmdProfile.options?.args?.push(opAsPath)
                     this.terminal.openTab(cmdProfile)
+                    this.hostWindow.bringToFront()
+                    return true
+                }
+            } else if (opAsPath.endsWith('.ps1')) {
+                const psProfile = (await this.profiles.getProfiles()).find(x => x.id === 'local:powershell')
+                if (psProfile) {
+                    psProfile.options!.pauseAfterExit = true
+                    psProfile.options?.args?.push(opAsPath)
+                    this.terminal.openTab(psProfile)
                     this.hostWindow.bringToFront()
                     return true
                 }

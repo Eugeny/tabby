@@ -28,7 +28,12 @@ export class HotkeySettingsTabComponent {
         hotkeys: HotkeysService,
     ) {
         hotkeys.getHotkeyDescriptions().then(descriptions => {
-            this.hotkeyDescriptions = descriptions
+            let tmp = {}
+            let res:HotkeyDescription[] = []
+            this.hotkeyDescriptions = descriptions.reduce((a, b)=> {
+                    tmp[b.id] ? '' : tmp[b.id] = true && a.push(b)
+                    return a
+                }, res)
         })
     }
 
