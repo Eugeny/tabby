@@ -50,7 +50,7 @@ import { StandardTheme, StandardCompactTheme, PaperTheme } from './theme'
 import { CoreConfigProvider } from './config'
 import { AppHotkeyProvider } from './hotkeys'
 import { TaskCompletionContextMenu, CommonOptionsContextMenu, TabManagementContextMenu, ProfilesContextMenu } from './tabContextMenu'
-import { LastCLIHandler, ProfileCLIHandler } from './cli'
+import { LastCLIHandler, ProfileCLIHandler, URICLIHandler } from './cli'
 import { SplitLayoutProfilesService } from './profiles'
 import { CoreCommandProvider } from './commands'
 
@@ -72,6 +72,7 @@ const PROVIDERS = [
     { provide: TabContextMenuItemProvider, useClass: ProfilesContextMenu, multi: true },
     { provide: TabRecoveryProvider, useExisting: SplitTabRecoveryProvider, multi: true },
     { provide: CLIHandler, useClass: ProfileCLIHandler, multi: true },
+    { provide: CLIHandler, useClass: URICLIHandler, multi: true },
     { provide: CLIHandler, useClass: LastCLIHandler, multi: true },
     { provide: PERFECT_SCROLLBAR_CONFIG, useValue: { suppressScrollX: true } },
     { provide: FileProvider, useClass: VaultFileProvider, multi: true },

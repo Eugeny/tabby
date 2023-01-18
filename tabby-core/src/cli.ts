@@ -51,6 +51,54 @@ export class ProfileCLIHandler extends CLIHandler {
 }
 
 @Injectable()
+export class URICLIHandler extends CLIHandler {
+    firstMatchOnly = true;
+    priority = -50;
+
+    constructor(
+        private profiles: ProfilesService,
+        private hostWindow: HostWindowService
+    ) {
+        super();
+    }
+
+    async handle(event: CLIEvent): Promise<boolean> {
+        const op = event.argv._[0];
+        if (op === "url") {
+            this.handleOpenURI(event.argv.URI, event.argv.tabtitle);
+            return true;
+        }
+        return false;
+    }
+
+    private async handleOpenURI(URI: string, tabTitle: string) {
+
+        URI = URI.replace(/^SSH:\/\//i, "");
+        const profile = await this.profiles.quickConnect(URI);
+
+        if (!profile) {
+            console.error("Requested URI", URI, "can't be resoleved");
+            return;
+        }
+
+        if (tabTitle) {
+            profile.name = tabTitle;
+            profile.disableDynamicTitle = true;
+        }
+
+        const user = profile.options!.user;
+        if (user?.includes(":")) {
+            const parts = user.split(/:/g);
+            profile.options!.user = decodeURIComponent(parts[0]);
+            profile.options!.password = decodeURIComponent(parts.slice(1, parts.length).join(":"));
+        }
+
+        this.profiles.openNewTabForProfile(profile);
+        this.hostWindow.bringToFront();
+    }
+}
+
+@Injectable()
 export class LastCLIHandler extends CLIHandler {
     firstMatchOnly = true
     priority = -999

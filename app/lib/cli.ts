@@ -16,6 +16,15 @@ export function parseArgs (argv: string[], cwd: string): any {
         .command('profile [profileName]', 'open a tab with specified profile', {
             profileName: { type: 'string' },
         })
+        .command( "url <URI>", "open a tab with specified URI", (yargs) => {
+            return yargs.positional("URI", {
+                type: "string",
+                describe: "URI to connect, format [SSH://][user[:password]@]<host>[:port]",
+            }).option("tabtitle", {
+                type: "string",
+                describe: "specified tabtitle",
+            });
+        })
         .command('paste [text]', 'paste stdin into the active tab', yargs => {
             return yargs.option('escape', {
                 alias: 'e',
