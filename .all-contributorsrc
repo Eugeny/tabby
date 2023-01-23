@@ -1094,6 +1094,15 @@
       "contributions": [
         "financial"
       ]
+    },
+    {
+      "login": "Clem-Fern",
+      "name": "Clem",
+      "avatar_url": "https://avatars.githubusercontent.com/u/20025949?v=4",
+      "profile": "https://github.com/Clem-Fern",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
