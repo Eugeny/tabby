@@ -199,6 +199,11 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
         })
 
         await session.start()
+
+        if (this.config.store.ssh.clearServiceMessagesOnConnect) {
+            this.frontend?.clear()
+        }
+
         this.session?.resize(this.size.columns, this.size.rows)
     }
 

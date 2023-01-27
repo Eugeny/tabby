@@ -11,6 +11,7 @@ export class SSHConfigProvider extends ConfigProvider {
             x11Display: null,
             knownHosts: [],
             verifyHostKeys: true,
+            clearServiceMessagesOnConnect: true,
         },
         hotkeys: {
             'restart-ssh-session': [],
