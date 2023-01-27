@@ -1,0 +1,2152 @@
+clickableLinks:
+  modifier: metaKey
+appearance:
+  useNativeFrame: false
+  tabsOnTop: false
+  dockSpace: 0.71
+  dockFill: 0.55
+  dockAlwaysOnTop: false
+  css: ''
+  dockHideOnBlur: true
+  vibrancy: false
+terminal:
+  shell: default
+  passAlt: true
+  fallbackFont: fontt
+  alwaysUseWorkingDirectory: false
+  showDefaultProfiles: true
+  searchOptions: {}
+  bell: visual
+  customColorSchemes:
+    - name: IC_Orange_PPL
+      foreground: '#ffcb83'
+      background: '#262626'
+      cursor: '#fc531d'
+      colors:
+        - '#000000'
+        - '#c13900'
+        - '#a4a900'
+        - '#caaf00'
+        - '#bd6d00'
+        - '#fc5e00'
+        - '#f79500'
+        - '#ffc88a'
+        - '#6a4f2a'
+        - '#ff8c68'
+        - '#f6ff40'
+        - '#ffe36e'
+        - '#ffbe55'
+        - '#fc874f'
+        - '#c69752'
+        - '#fafaff'
+    - name: My Custom
+      foreground: '#9cc2c3'
+      background: '#001E27'
+      cursor: '#f34b00'
+      colors:
+        - '#002831'
+        - '#d11c24'
+        - '#6cbe6c'
+        - '#a57706'
+        - '#2176c7'
+        - '#c61c6f'
+        - '#259286'
+        - '#eae3cb'
+        - '#006488'
+        - '#f5163b'
+        - '#51ef84'
+        - '#b27e28'
+        - '#178ec8'
+        - '#e24d8e'
+        - '#00b39e'
+        - '#fcf4dc'
+      cursorAccent: '#ded8df'
+      selection: '#f4511e'
+      selectionForeground: '#ffffff'
+  colorScheme:
+    name: My Custom
+    foreground: '#9cc2c3'
+    background: '#001E27'
+    cursor: '#f34b00'
+    colors:
+      - '#002831'
+      - '#d11c24'
+      - '#6cbe6c'
+      - '#a57706'
+      - '#2176c7'
+      - '#c61c6f'
+      - '#259286'
+      - '#eae3cb'
+      - '#006488'
+      - '#f5163b'
+      - '#51ef84'
+      - '#b27e28'
+      - '#178ec8'
+      - '#e24d8e'
+      - '#00b39e'
+      - '#fcf4dc'
+    cursorAccent: '#ded8df'
+    selection: '#f4511e'
+    selectionForeground: '#ffffff'
+  scrollbackLines: 10000
+  fontSize: 13
+  showTabProfileIcon: true
+  showBuiltinProfiles: false
+  font: CaskaydiaCove NF
+  copyAsHTML: false
+  cursorBlink: false
+  showRecentProfiles: 10
+  minimumContrastRatio: 6
+  sixel: false
+ssh:
+  x11Display: localhost:0.0
+  knownHosts:
+    - host: 192.168.78.233
+      port: 22
+      type: ssh-ed25519
+      digest: jlE2kc6ftJDnBy2dQi8js0sI7KcrjSe34ulFTFrYlGE=
+    - host: 192.168.78.233
+      port: 22
+      type: ecdsa-sha2-nistp256
+      digest: O8saJ12DAXOdJpOENIkj4pmr/CURZNXZtRaWv2CSg44=
+    - host: 192.168.76.221
+      port: 22
+      type: ssh-rsa
+      digest: aGXSq6ZgBvKUgmSd/vzhmXMflRPK+h0ene5RgcThljo=
+    - host: 192.168.78.233
+      port: 22
+      type: ssh-dss
+      digest: 8s6qF6ebUVEJfrriXHjRFfyglL9hl4q/JFLq/ML49kY=
+    - host: erich
+      port: 22
+      type: ecdsa-sha2-nistp256
+      digest: O8saJ12DAXOdJpOENIkj4pmr/CURZNXZtRaWv2CSg44=
+    - host: cdp-fs1a
+      port: 22
+      type: ecdsa-sha2-nistp256
+      digest: O8saJ12DAXOdJpOENIkj4pmr/CURZNXZtRaWv2CSg44=
+    - host: intern.syslink.de
+      port: 2209
+      type: ecdsa-sha2-nistp256
+      digest: iAoMMek7vnA1BzhiijoRM74EsUA7yvlbR5TGAizKzeI=
+    - host: 192.168.76.221
+      port: 22
+      type: ecdsa-sha2-nistp256
+      digest: O8saJ12DAXOdJpOENIkj4pmr/CURZNXZtRaWv2CSg44=
+    - host: localhost
+      port: 2222
+      type: rsa-sha2-256
+      digest: SU5MM6rCWY8RQVpBuXOwSrhPj6WPpuWKidemt2MtZes=
+    - host: '192.1'
+      port: 22
+      type: ecdsa-sha2-nistp256
+      digest: O8saJ12DAXOdJpOENIkj4pmr/CURZNXZtRaWv2CSg44=
+    - host: 192.168.77.150
+      port: 22
+      type: ecdsa-sha2-nistp256
+      digest: O8saJ12DAXOdJpOENIkj4pmr/CURZNXZtRaWv2CSg44=
+    - host: 192.168.77.146
+      port: 22
+      type: ecdsa-sha2-nistp256
+      digest: uAQQ6TXkPU2UPn+TiSSzMPTewkibV/pQaZyhQ3tZ6RA=
+    - host: 10.143.55.12
+      port: 22
+      type: ecdsa-sha2-nistp256
+      digest: O8saJ12DAXOdJpOENIkj4pmr/CURZNXZtRaWv2CSg44=
+    - host: 192.168.78.233
+      port: 22
+      type: rsa-sha2-256
+      digest: aGXSq6ZgBvKUgmSd/vzhmXMflRPK+h0ene5RgcThljo=
+    - host: ajenti.org
+      port: 22
+      type: ecdsa-sha2-nistp256
+      digest: qADyj3TNaBIftYfcPft0w9nJJUXVTzwt5hIs9ZxTgK4=
+    - host: bastion.elements.click
+      port: 22
+      type: ecdsa-sha2-nistp256
+      digest: BLJioHQipZVyQzsEYEzwCHmRcUZQg/UVKR4qckhecQk=
+    - host: 192.168.76.233
+      port: 22
+      type: ecdsa-sha2-nistp256
+      digest: O8saJ12DAXOdJpOENIkj4pmr/CURZNXZtRaWv2CSg44=
+    - host: 192.168.72.29
+      port: 22
+      type: ecdsa-sha2-nistp256
+      digest: c0nnOlM9z+E1kxddmlRw18hpm+S4K18XsGx4ZnOcW+I=
+    - host: cloud.elements.tv
+      port: 22
+      type: ssh-rsa
+      digest: +YSuAC1ubLMomwjFEnG3AlKKRM/v+Ucu0W54FfKUCrE=
+    - host: repo.elements.tv
+      port: 22
+      type: ecdsa-sha2-nistp256
+      digest: +JZPuVvOO2P+sLFNatCpm08IIs8kwC1OPIJHa4eOKXk=
+    - host: medialibrary.pirates-technik.de
+      port: 22
+      type: ecdsa-sha2-nistp256
+      digest: O8saJ12DAXOdJpOENIkj4pmr/CURZNXZtRaWv2CSg44=
+    - host: 192.168.77.253
+      port: 22
+      type: ecdsa-sha2-nistp256
+      digest: iAoMMek7vnA1BzhiijoRM74EsUA7yvlbR5TGAizKzeI=
+    - host: 192.168.77.254
+      port: 22
+      type: ecdsa-sha2-nistp256
+      digest: sVwS2N/jD6DhhctH6laIPnmAqCny+NQM2b5tdL8a0Y0=
+    - host: 192.168.77.253
+      port: 2222
+      type: rsa-sha2-256
+      digest: HFmxChjt0lt8koIKyDAmkqrbMLG1yyr+/h5FY8UWEvQ=
+    - host: 192.168.73.12
+      port: 22
+      type: ecdsa-sha2-nistp256
+      digest: sxIPMexRScusAZ43I4VKGAPIiHTd8w+RyoXbFgpIZ2U=
+    - host: 10.147.19.209
+      port: 22
+      type: ecdsa-sha2-nistp256
+      digest: A7Y3s87M/6kESx3mqyI7uec/zndFB8wcIqqmmt9pUS0=
+    - host: 10.143.32.82
+      port: 22
+      type: ecdsa-sha2-nistp256
+      digest: O8saJ12DAXOdJpOENIkj4pmr/CURZNXZtRaWv2CSg44=
+    - host: 192.168.55.231
+      port: 22
+      type: ecdsa-sha2-nistp256
+      digest: O8saJ12DAXOdJpOENIkj4pmr/CURZNXZtRaWv2CSg44=
+    - host: 192.168.55.210
+      port: 22
+      type: ecdsa-sha2-nistp256
+      digest: A7Y3s87M/6kESx3mqyI7uec/zndFB8wcIqqmmt9pUS0=
+    - host: 192.168.72.48
+      port: 22
+      type: ecdsa-sha2-nistp256
+      digest: sUixtmRXMT0T+jkDvZAgxd/Ewd6CxFJ5HUD9wPiN+UM=
+    - host: 192.168.72.103
+      port: 22
+      type: rsa-sha2-256
+      digest: aGXSq6ZgBvKUgmSd/vzhmXMflRPK+h0ene5RgcThljo=
+    - host: 192.168.76.221
+      port: 22
+      type: rsa-sha2-256
+      digest: aGXSq6ZgBvKUgmSd/vzhmXMflRPK+h0ene5RgcThljo=
+    - host: 192.168.72.90
+      port: 22
+      type: ecdsa-sha2-nistp256
+      digest: O8saJ12DAXOdJpOENIkj4pmr/CURZNXZtRaWv2CSg44=
+    - host: 192.168.72.91
+      port: 22
+      type: ecdsa-sha2-nistp256
+      digest: O8saJ12DAXOdJpOENIkj4pmr/CURZNXZtRaWv2CSg44=
+    - host: guest-lap-vpn.elements.tv
+      port: 3333
+      type: rsa-sha2-256
+      digest: HFmxChjt0lt8koIKyDAmkqrbMLG1yyr+/h5FY8UWEvQ=
+    - host: 192.168.72.69
+      port: 22
+      type: ecdsa-sha2-nistp256
+      digest: O8saJ12DAXOdJpOENIkj4pmr/CURZNXZtRaWv2CSg44=
+    - host: 192.168.77.209
+      port: 22
+      type: ssh-rsa
+      digest: 2AQLIcqfKqTZyVWtV7ohkExPio2rtS7oMtko8gloRbg=
+    - host: 192.168.72.30
+      port: 22
+      type: ecdsa-sha2-nistp256
+      digest: O8saJ12DAXOdJpOENIkj4pmr/CURZNXZtRaWv2CSg44=
+    - host: 192.168.73.167
+      port: 22
+      type: ecdsa-sha2-nistp256
+      digest: O8saJ12DAXOdJpOENIkj4pmr/CURZNXZtRaWv2CSg44=
+    - host: 192.168.72.8
+      port: 22
+      type: ecdsa-sha2-nistp256
+      digest: O8saJ12DAXOdJpOENIkj4pmr/CURZNXZtRaWv2CSg44=
+    - host: 192.168.74.96
+      port: 22
+      type: ecdsa-sha2-nistp256
+      digest: O8saJ12DAXOdJpOENIkj4pmr/CURZNXZtRaWv2CSg44=
+    - host: 192.168.74.42
+      port: 22
+      type: ecdsa-sha2-nistp256
+      digest: O8saJ12DAXOdJpOENIkj4pmr/CURZNXZtRaWv2CSg44=
+    - host: 192.168.72.118
+      port: 22
+      type: ecdsa-sha2-nistp256
+      digest: O8saJ12DAXOdJpOENIkj4pmr/CURZNXZtRaWv2CSg44=
+    - host: 192.168.72.207
+      port: 22
+      type: ecdsa-sha2-nistp256
+      digest: O8saJ12DAXOdJpOENIkj4pmr/CURZNXZtRaWv2CSg44=
+    - host: 192.168.74.10
+      port: 22
+      type: ecdsa-sha2-nistp256
+      digest: O8saJ12DAXOdJpOENIkj4pmr/CURZNXZtRaWv2CSg44=
+    - host: 192.168.74.222
+      port: 22
+      type: ecdsa-sha2-nistp256
+      digest: hS3H/PBvVw7+uwJCvBOY47JyEfAs6DjZJ5YLpKGcExM=
+    - host: ''
+      port: 22
+      type: ecdsa-sha2-nistp256
+      digest: DOeva6RAbvyawzlhWV7Hf/lQw6eIcPQDQEW1ky8QKzM=
+    - host: 192.168.79.146
+      port: 22
+      type: ecdsa-sha2-nistp256
+      digest: sxIPMexRScusAZ43I4VKGAPIiHTd8w+RyoXbFgpIZ2U=
+    - host: 192.168.73.22
+      port: 22
+      type: ecdsa-sha2-nistp256
+      digest: bfKnww4HHg4mpffmfq7p/l4Lrz5tjbXX89YCFO3lww8=
+    - host: 192.168.78.69
+      port: 22
+      type: ecdsa-sha2-nistp256
+      digest: O8saJ12DAXOdJpOENIkj4pmr/CURZNXZtRaWv2CSg44=
+    - host: 192.168.73.27
+      port: 22
+      type: ecdsa-sha2-nistp256
+      digest: of2TWRAMVb+iZk4iW5hYSKYP063vsuYZmPfIooiYG+E=
+    - host: ' 192.168.73.27'
+      port: 22
+      type: ecdsa-sha2-nistp256
+      digest: of2TWRAMVb+iZk4iW5hYSKYP063vsuYZmPfIooiYG+E=
+    - host: 192.168.78.141
+      port: 22
+      type: ecdsa-sha2-nistp256
+      digest: O8saJ12DAXOdJpOENIkj4pmr/CURZNXZtRaWv2CSg44=
+    - host: videolibrary.fondazionesistematoscana.it
+      port: 22
+      type: ecdsa-sha2-nistp256
+      digest: O8saJ12DAXOdJpOENIkj4pmr/CURZNXZtRaWv2CSg44=
+    - host: 192.168.73.15
+      port: 22
+      type: ecdsa-sha2-nistp256
+      digest: O8saJ12DAXOdJpOENIkj4pmr/CURZNXZtRaWv2CSg44=
+    - host: ec2-3-121-213-105.eu-central-1.compute.amazonaws.com
+      port: 22
+      type: ecdsa-sha2-nistp256
+      digest: ++ZOi/GUAQHUwt5PPw/9zSkJUEvEPCBu8T0DNYsBy4w=
+    - host: 192.168.72.199
+      port: 22
+      type: ecdsa-sha2-nistp256
+      digest: O8saJ12DAXOdJpOENIkj4pmr/CURZNXZtRaWv2CSg44=
+    - host: 192.168.72.139
+      port: 22
+      type: ecdsa-sha2-nistp256
+      digest: O8saJ12DAXOdJpOENIkj4pmr/CURZNXZtRaWv2CSg44=
+    - host: 192.168.73.2
+      port: 22
+      type: ecdsa-sha2-nistp256
+      digest: O8saJ12DAXOdJpOENIkj4pmr/CURZNXZtRaWv2CSg44=
+    - host: 192.168.73.4
+      port: 22
+      type: ecdsa-sha2-nistp256
+      digest: O8saJ12DAXOdJpOENIkj4pmr/CURZNXZtRaWv2CSg44=
+    - host: 192.168.73.36
+      port: 22
+      type: ecdsa-sha2-nistp256
+      digest: O8saJ12DAXOdJpOENIkj4pmr/CURZNXZtRaWv2CSg44=
+    - host: 192.168.76.222
+      port: 22
+      type: ecdsa-sha2-nistp256
+      digest: O8saJ12DAXOdJpOENIkj4pmr/CURZNXZtRaWv2CSg44=
+    - host: 192.168.73.69
+      port: 22
+      type: ecdsa-sha2-nistp256
+      digest: O8saJ12DAXOdJpOENIkj4pmr/CURZNXZtRaWv2CSg44=
+    - host: 192.168.73.96
+      port: 22
+      type: ecdsa-sha2-nistp256
+      digest: O8saJ12DAXOdJpOENIkj4pmr/CURZNXZtRaWv2CSg44=
+    - host: 192.168.73.66
+      port: 22
+      type: ecdsa-sha2-nistp256
+      digest: O8saJ12DAXOdJpOENIkj4pmr/CURZNXZtRaWv2CSg44=
+    - host: 54.219.173.68
+      port: 22
+      type: ecdsa-sha2-nistp256
+      digest: 6urc0VxScLyi0fp/SsUVgua1uFrczXK8U5tCPKAX7xo=
+    - host: 172.31.16.178
+      port: 22
+      type: ecdsa-sha2-nistp256
+      digest: gdmvkG9q2YgD03nIYCA5ERW+nTIQLcHuIWYmjgA9YAc=
+    - host: 192.168.73.110
+      port: 22
+      type: ecdsa-sha2-nistp256
+      digest: O8saJ12DAXOdJpOENIkj4pmr/CURZNXZtRaWv2CSg44=
+    - host: 192.168.55.222
+      port: 22
+      type: ecdsa-sha2-nistp256
+      digest: O8saJ12DAXOdJpOENIkj4pmr/CURZNXZtRaWv2CSg44=
+    - host: 192.168.78.55
+      port: 22
+      type: ecdsa-sha2-nistp256
+      digest: O8saJ12DAXOdJpOENIkj4pmr/CURZNXZtRaWv2CSg44=
+    - host: cloudws.elements.tv
+      port: 22
+      type: ecdsa-sha2-nistp256
+      digest: pKmTucuCC9UceBdex6MXPPPHqfZKJJPk57XG3t2YtwQ=
+    - host: 192.168.73.156
+      port: 22
+      type: ecdsa-sha2-nistp256
+      digest: d8eIZTLV4lB/7Cjt9K0wmB1QBwMqli2gJpMlca423S0=
+    - host: 192.168.79.111
+      port: 22
+      type: ecdsa-sha2-nistp256
+      digest: d8eIZTLV4lB/7Cjt9K0wmB1QBwMqli2gJpMlca423S0=
+    - host: ' 192.168.55.222'
+      port: 22
+      type: ecdsa-sha2-nistp256
+      digest: O8saJ12DAXOdJpOENIkj4pmr/CURZNXZtRaWv2CSg44=
+    - host: 192.168.79.101
+      port: 22
+      type: ecdsa-sha2-nistp256
+      digest: O8saJ12DAXOdJpOENIkj4pmr/CURZNXZtRaWv2CSg44=
+titleControl:
+  prefix: ''
+  replacePattern: \pid \t
+qc:
+  cmds:
+    - name: LS
+      text: ls
+      appendCR: true
+      group: null
+serial: {}
+saveOutput:
+  autoSave: 'on'
+  autoSaveDirectory: /Users/eugene/Downloads
+syncConfig:
+  type: 'Off'
+version: 3
+profiles:
+  - icon: fas fa-desktop
+    options:
+      host: 192.168.76.221
+      algorithms:
+        kex:
+          - curve25519-sha256
+          - curve25519-sha256@libssh.org
+          - diffie-hellman-group14-sha256
+          - diffie-hellman-group15-sha512
+          - diffie-hellman-group16-sha512
+          - diffie-hellman-group17-sha512
+          - diffie-hellman-group18-sha512
+          - ecdh-sha2-nistp256
+          - ecdh-sha2-nistp384
+          - ecdh-sha2-nistp521
+        cipher:
+          - aes192-ctr
+          - aes256-ctr
+          - aes256-gcm
+          - aes256-gcm@openssh.com
+        hmac:
+          - hmac-sha1
+          - hmac-sha1-etm@openssh.com
+          - hmac-sha2-256
+          - hmac-sha2-256-etm@openssh.com
+          - hmac-sha2-512
+          - hmac-sha2-512-etm@openssh.com
+        serverHostKey:
+          - ecdsa-sha2-nistp256
+          - ecdsa-sha2-nistp384
+          - ecdsa-sha2-nistp521
+          - rsa-sha2-256
+          - rsa-sha2-512
+          - ssh-ed25519
+          - ssh-rsa
+      reuseSession: false
+      user: otptest
+      privateKeys: []
+      forwardedPorts: []
+      scripts: []
+    weight: -1
+    group: ELEMENTS
+    color: '#ffd500'
+    name: OTP test
+    id: ssh:custom:OTP-test:bc3eaef0-e351-4e8a-a737-9f1649c09da5
+    type: ssh
+  - type: telnet
+    name: BBS
+    icon: fas fa-network-wired
+    options:
+      host: cavebbs.homeip.net
+      inputMode: null
+      scripts: []
+    id: telnet:custom:BBS:310e208b-d5b1-4e35-9664-477fe4acf91f
+  - name: Redbull dynamic
+    icon: fas fa-desktop
+    options:
+      algorithms:
+        kex:
+          - curve25519-sha256
+          - curve25519-sha256@libssh.org
+          - diffie-hellman-group14-sha256
+          - diffie-hellman-group15-sha512
+          - diffie-hellman-group16-sha512
+          - diffie-hellman-group17-sha512
+          - diffie-hellman-group18-sha512
+          - ecdh-sha2-nistp256
+          - ecdh-sha2-nistp384
+          - ecdh-sha2-nistp521
+        hmac:
+          - hmac-sha1
+          - hmac-sha1-etm@openssh.com
+          - hmac-sha2-256
+          - hmac-sha2-256-etm@openssh.com
+          - hmac-sha2-512
+          - hmac-sha2-512-etm@openssh.com
+        cipher:
+          - aes128-ctr
+          - aes128-gcm
+          - aes128-gcm@openssh.com
+          - aes192-ctr
+          - aes256-ctr
+          - aes256-gcm
+          - aes256-gcm@openssh.com
+        serverHostKey:
+          - ecdsa-sha2-nistp256
+          - ecdsa-sha2-nistp384
+          - ecdsa-sha2-nistp521
+          - rsa-sha2-256
+          - rsa-sha2-512
+          - ssh-ed25519
+          - ssh-rsa
+      privateKeys: []
+      scripts: []
+      forwardedPorts: []
+    weight: -1
+    type: ssh
+    id: ssh:custom:Redbull-dynamic:0d4b9b6e-7135-4083-8073-431c0737d1c6
+  - icon: fas fa-desktop
+    options:
+      name: Gitlab
+      group: null
+      host: 192.168.77.254
+      algorithms:
+        hmac:
+          - hmac-sha1
+          - hmac-sha2-256
+          - hmac-sha2-512
+        kex:
+          - diffie-hellman-group-exchange-sha256
+          - diffie-hellman-group14-sha1
+          - diffie-hellman-group14-sha256
+          - diffie-hellman-group16-sha512
+          - diffie-hellman-group18-sha512
+          - ecdh-sha2-nistp256
+          - ecdh-sha2-nistp384
+          - ecdh-sha2-nistp521
+        serverHostKey:
+          - ecdsa-sha2-nistp256
+          - ecdsa-sha2-nistp384
+          - ecdsa-sha2-nistp521
+          - rsa-sha2-256
+          - rsa-sha2-512
+          - ssh-dss
+          - ssh-ed25519
+        cipher:
+          - aes128-ctr
+          - aes128-gcm
+          - aes128-gcm@openssh.com
+          - aes192-ctr
+          - aes256-ctr
+          - aes256-gcm
+          - aes256-gcm@openssh.com
+      scripts:
+        - expect: Linux ci
+          send: ls
+      privateKeys: []
+      forwardedPorts: []
+    group: ELEMENTS
+    type: ssh
+    name: Infrastructure 254 / gateway
+    id: ssh:custom:Infrastructure-254-gateway:d4519724-b2af-45fe-b937-036398938ffb
+  - icon: fas fa-desktop
+    options:
+      name: Gitlab
+      group: null
+      host: 192.168.77.253
+      algorithms:
+        hmac:
+          - hmac-sha1
+          - hmac-sha2-256
+          - hmac-sha2-512
+        kex:
+          - diffie-hellman-group-exchange-sha256
+          - diffie-hellman-group14-sha1
+          - diffie-hellman-group14-sha256
+          - diffie-hellman-group16-sha512
+          - diffie-hellman-group18-sha512
+          - ecdh-sha2-nistp256
+          - ecdh-sha2-nistp384
+          - ecdh-sha2-nistp521
+        serverHostKey:
+          - ecdsa-sha2-nistp256
+          - ecdsa-sha2-nistp384
+          - ecdsa-sha2-nistp521
+          - rsa-sha2-256
+          - rsa-sha2-512
+          - ssh-dss
+          - ssh-ed25519
+        cipher:
+          - aes128-ctr
+          - aes128-gcm
+          - aes128-gcm@openssh.com
+          - aes192-ctr
+          - aes256-ctr
+          - aes256-gcm
+          - aes256-gcm@openssh.com
+      scripts:
+        - expect: Linux ci
+          send: ls
+      privateKeys: []
+      forwardedPorts: []
+    group: ELEMENTS
+    type: ssh
+    name: Infrastructure 253
+    id: ssh:custom:Infrastructure-253:95a95b28-ef86-4a5f-b618-0a0eb81ae65b
+  - icon: fas fa-desktop
+    options:
+      host: cloud.elements.tv
+      algorithms:
+        hmac:
+          - hmac-sha1
+          - hmac-sha1-etm@openssh.com
+          - hmac-sha2-256
+          - hmac-sha2-256-etm@openssh.com
+          - hmac-sha2-512
+          - hmac-sha2-512-etm@openssh.com
+        kex:
+          - curve25519-sha256
+          - curve25519-sha256@libssh.org
+          - diffie-hellman-group-exchange-sha256
+          - diffie-hellman-group14-sha256
+          - diffie-hellman-group15-sha512
+          - diffie-hellman-group16-sha512
+          - diffie-hellman-group17-sha512
+          - diffie-hellman-group18-sha512
+          - ecdh-sha2-nistp256
+          - ecdh-sha2-nistp384
+          - ecdh-sha2-nistp521
+        cipher:
+          - aes128-ctr
+          - aes128-gcm
+          - aes128-gcm@openssh.com
+          - aes192-ctr
+          - aes256-ctr
+          - aes256-gcm
+          - aes256-gcm@openssh.com
+        serverHostKey:
+          - ecdsa-sha2-nistp256
+          - ecdsa-sha2-nistp384
+          - ecdsa-sha2-nistp521
+          - rsa-sha2-256
+          - rsa-sha2-512
+          - ssh-ed25519
+          - ssh-rsa
+      privateKeys: []
+      forwardedPorts: []
+      scripts: []
+    weight: -1
+    name: cloud.elements.tv
+    group: Work
+    type: ssh
+    id: ssh:custom:cloud.elements.tv:64bf9eaa-408b-478e-8f6c-0cfb425b9af4
+  - name: 103 QA VM
+    icon: fas fa-server
+    options:
+      host: 192.168.72.103
+      algorithms:
+        kex:
+          - curve25519-sha256
+          - curve25519-sha256@libssh.org
+          - diffie-hellman-group-exchange-sha1
+          - diffie-hellman-group-exchange-sha256
+          - diffie-hellman-group1-sha1
+          - diffie-hellman-group14-sha256
+          - diffie-hellman-group16-sha512
+          - diffie-hellman-group17-sha512
+          - diffie-hellman-group18-sha512
+        cipher:
+          - 3des-cbc
+          - aes128-cbc
+          - aes128-ctr
+          - aes128-gcm
+          - aes128-gcm@openssh.com
+          - aes192-cbc
+          - aes192-ctr
+          - aes256-cbc
+          - aes256-ctr
+          - aes256-gcm
+          - aes256-gcm@openssh.com
+          - arcfour
+          - arcfour128
+          - arcfour256
+          - blowfish-cbc
+        serverHostKey:
+          - rsa-sha2-256
+          - rsa-sha2-512
+          - ssh-dss
+          - ssh-ed25519
+          - ssh-rsa
+        hmac:
+          - hmac-sha1
+          - hmac-sha1-etm@openssh.com
+          - hmac-sha2-256
+          - hmac-sha2-256-etm@openssh.com
+          - hmac-sha2-512
+          - hmac-sha2-512-etm@openssh.com
+      forwardedPorts:
+        - type: Local
+          host: 127.0.0.1
+          port: 18983
+          targetAddress: 127.0.0.1
+          targetPort: 8983
+          description: Solr
+      skipBanner: true
+      jumpHost: ssh:df24d66a-b843-4f87-a119-3bb40a343895
+      privateKeys: []
+      scripts: []
+    weight: -1
+    disableDynamicTitle: true
+    group: ELEMENTS
+    color: '#0c0'
+    id: ssh:custom:103-QA-VM:576f85c8-0def-4924-8f3c-f2b085d4126f
+    type: ssh
+  - name: QA 221 over SL Warpgate
+    icon: fas fa-desktop
+    options:
+      user: admin:QA221
+      algorithms:
+        hmac:
+          - hmac-sha1
+          - hmac-sha1-etm@openssh.com
+          - hmac-sha2-256
+          - hmac-sha2-256-etm@openssh.com
+          - hmac-sha2-512
+          - hmac-sha2-512-etm@openssh.com
+        kex:
+          - curve25519-sha256
+          - curve25519-sha256@libssh.org
+          - diffie-hellman-group-exchange-sha256
+          - diffie-hellman-group14-sha256
+          - diffie-hellman-group15-sha512
+          - diffie-hellman-group16-sha512
+          - diffie-hellman-group17-sha512
+          - diffie-hellman-group18-sha512
+          - ecdh-sha2-nistp256
+          - ecdh-sha2-nistp384
+          - ecdh-sha2-nistp521
+        cipher:
+          - aes128-ctr
+          - aes128-gcm
+          - aes128-gcm@openssh.com
+          - aes192-ctr
+          - aes256-ctr
+          - aes256-gcm
+          - aes256-gcm@openssh.com
+        serverHostKey:
+          - ecdsa-sha2-nistp256
+          - ecdsa-sha2-nistp384
+          - ecdsa-sha2-nistp521
+          - rsa-sha2-256
+          - rsa-sha2-512
+          - ssh-ed25519
+          - ssh-rsa
+      host: guest-lap-vpn.elements.tv
+      port: 3333
+      privateKeys: []
+      forwardedPorts: []
+      scripts: []
+    weight: -1
+    group: Work
+    color: '#0275d8'
+    id: >-
+      ssh:custom:QA-221-over-SL-Warpgate-Kopie:7ee8d9c3-bc02-4f79-a131-dcdb08c6ad7d
+    type: ssh
+  - name: K8s W1
+    icon: fas fa-desktop
+    options:
+      host: 192.168.73.12
+      algorithms:
+        hmac:
+          - hmac-sha1
+          - hmac-sha1-etm@openssh.com
+          - hmac-sha2-256
+          - hmac-sha2-256-etm@openssh.com
+          - hmac-sha2-512
+          - hmac-sha2-512-etm@openssh.com
+        kex:
+          - curve25519-sha256
+          - curve25519-sha256@libssh.org
+          - diffie-hellman-group-exchange-sha256
+          - diffie-hellman-group14-sha256
+          - diffie-hellman-group15-sha512
+          - diffie-hellman-group16-sha512
+          - diffie-hellman-group17-sha512
+          - diffie-hellman-group18-sha512
+          - ecdh-sha2-nistp256
+          - ecdh-sha2-nistp384
+          - ecdh-sha2-nistp521
+        cipher:
+          - aes128-ctr
+          - aes128-gcm
+          - aes128-gcm@openssh.com
+          - aes192-ctr
+          - aes256-ctr
+          - aes256-gcm
+          - aes256-gcm@openssh.com
+        serverHostKey:
+          - ecdsa-sha2-nistp256
+          - ecdsa-sha2-nistp384
+          - ecdsa-sha2-nistp521
+          - rsa-sha2-256
+          - rsa-sha2-512
+          - ssh-ed25519
+          - ssh-rsa
+      privateKeys: []
+      forwardedPorts: []
+      scripts: []
+    weight: -1
+    group: Work
+    type: ssh
+    id: ssh:custom:K8s-W1:e1f635d3-bf24-4be0-a0de-8dce65beb315
+  - name: QA 233 over SL Warpgate
+    icon: fas fa-desktop
+    options:
+      user: admin:QA233
+      algorithms:
+        hmac:
+          - hmac-sha1
+          - hmac-sha1-etm@openssh.com
+          - hmac-sha2-256
+          - hmac-sha2-256-etm@openssh.com
+          - hmac-sha2-512
+          - hmac-sha2-512-etm@openssh.com
+        kex:
+          - curve25519-sha256
+          - curve25519-sha256@libssh.org
+          - diffie-hellman-group-exchange-sha256
+          - diffie-hellman-group14-sha256
+          - diffie-hellman-group15-sha512
+          - diffie-hellman-group16-sha512
+          - diffie-hellman-group17-sha512
+          - diffie-hellman-group18-sha512
+          - ecdh-sha2-nistp256
+          - ecdh-sha2-nistp384
+          - ecdh-sha2-nistp521
+        cipher:
+          - aes128-ctr
+          - aes128-gcm
+          - aes128-gcm@openssh.com
+          - aes192-ctr
+          - aes256-ctr
+          - aes256-gcm
+          - aes256-gcm@openssh.com
+        serverHostKey:
+          - ecdsa-sha2-nistp256
+          - ecdsa-sha2-nistp384
+          - ecdsa-sha2-nistp521
+          - rsa-sha2-256
+          - rsa-sha2-512
+          - ssh-ed25519
+          - ssh-rsa
+      host: guest-lap-vpn.elements.tv
+      port: 3333
+      privateKeys: []
+      forwardedPorts: []
+      scripts: []
+    weight: -1
+    id: ssh:custom:QA-233-over-SL-Warpgate:61787bbf-043d-4b6a-8d83-2ceda89140d7
+    group: Work
+    color: '#0275d8'
+    type: ssh
+  - name: repo.elements.tv
+    icon: fas fa-desktop
+    options:
+      host: repo.elements.tv
+      algorithms:
+        hmac:
+          - hmac-sha1
+          - hmac-sha1-etm@openssh.com
+          - hmac-sha2-256
+          - hmac-sha2-256-etm@openssh.com
+          - hmac-sha2-512
+          - hmac-sha2-512-etm@openssh.com
+        kex:
+          - curve25519-sha256
+          - curve25519-sha256@libssh.org
+          - diffie-hellman-group-exchange-sha256
+          - diffie-hellman-group14-sha256
+          - diffie-hellman-group15-sha512
+          - diffie-hellman-group16-sha512
+          - diffie-hellman-group17-sha512
+          - diffie-hellman-group18-sha512
+          - ecdh-sha2-nistp256
+          - ecdh-sha2-nistp384
+          - ecdh-sha2-nistp521
+        cipher:
+          - aes128-ctr
+          - aes128-gcm
+          - aes128-gcm@openssh.com
+          - aes192-ctr
+          - aes256-ctr
+          - aes256-gcm
+          - aes256-gcm@openssh.com
+        serverHostKey:
+          - ecdsa-sha2-nistp256
+          - ecdsa-sha2-nistp384
+          - ecdsa-sha2-nistp521
+          - rsa-sha2-256
+          - rsa-sha2-512
+          - ssh-ed25519
+          - ssh-rsa
+      privateKeys: []
+      forwardedPorts: []
+      scripts: []
+    weight: -1
+    group: Work
+    type: ssh
+    id: ssh:custom:repo.elements.tv:aecd6085-f5bb-43d0-9b0c-6aead6f1b5cf
+  - name: Local proxy socket
+    icon: fas fa-network-wired
+    options:
+      host: localhost
+      port: 8888
+      inputMode: readline
+    id: telnet:custom:Local-proxy-socket:d44abc03-c1ff-4b25-adb9-eed6795e6972
+    type: telnet
+  - name: Warpgate test
+    options:
+      host: localhost
+      algorithms:
+        hmac:
+          - hmac-md5
+          - hmac-md5-96
+          - hmac-ripemd160
+          - hmac-sha1
+          - hmac-sha1-96
+          - hmac-sha1-etm@openssh.com
+          - hmac-sha2-256
+          - hmac-sha2-256-96
+          - hmac-sha2-256-etm@openssh.com
+          - hmac-sha2-512
+          - hmac-sha2-512-96
+          - hmac-sha2-512-etm@openssh.com
+        kex:
+          - curve25519-sha256
+          - curve25519-sha256@libssh.org
+          - diffie-hellman-group-exchange-sha1
+          - diffie-hellman-group-exchange-sha256
+          - diffie-hellman-group1-sha1
+          - diffie-hellman-group14-sha1
+          - diffie-hellman-group15-sha512
+        cipher:
+          - aes128-gcm@openssh.com
+          - aes192-cbc
+          - aes192-ctr
+          - aes256-cbc
+          - aes256-ctr
+          - aes256-gcm
+          - aes256-gcm@openssh.com
+        serverHostKey:
+          - ecdsa-sha2-nistp256
+          - ecdsa-sha2-nistp384
+          - ecdsa-sha2-nistp521
+          - rsa-sha2-256
+          - rsa-sha2-512
+          - ssh-dss
+          - ssh-ed25519
+          - ssh-rsa
+      port: 2222
+      user: user:qa233
+      privateKeys: []
+      forwardedPorts: []
+      scripts: []
+    weight: -1
+    id: ssh:custom:Warpgate-test:8c8cfe2d-b29c-450c-abdc-570e3ae6a92d
+    type: ssh
+  - name: CDP
+    icon: fas fa-desktop
+    options:
+      host: cdp-fs1a
+      algorithms:
+        hmac:
+          - hmac-sha1
+          - hmac-sha1-etm@openssh.com
+          - hmac-sha2-256
+          - hmac-sha2-256-etm@openssh.com
+          - hmac-sha2-512
+          - hmac-sha2-512-etm@openssh.com
+        kex:
+          - curve25519-sha256
+          - curve25519-sha256@libssh.org
+          - diffie-hellman-group-exchange-sha256
+          - diffie-hellman-group14-sha256
+          - diffie-hellman-group15-sha512
+          - diffie-hellman-group16-sha512
+          - diffie-hellman-group17-sha512
+          - diffie-hellman-group18-sha512
+          - ecdh-sha2-nistp256
+          - ecdh-sha2-nistp384
+          - ecdh-sha2-nistp521
+        cipher:
+          - aes128-ctr
+          - aes128-gcm
+          - aes128-gcm@openssh.com
+          - aes192-ctr
+          - aes256-ctr
+          - aes256-gcm
+          - aes256-gcm@openssh.com
+        serverHostKey:
+          - ecdsa-sha2-nistp256
+          - ecdsa-sha2-nistp384
+          - ecdsa-sha2-nistp521
+          - rsa-sha2-256
+          - rsa-sha2-512
+          - ssh-ed25519
+          - ssh-rsa
+      jumpHost: ssh:custom:Erich:8e9ca94b-62f9-46f7-90ad-a0f9a3c49c93
+      privateKeys: []
+      forwardedPorts: []
+      scripts: []
+    weight: -1
+    group: CBC
+    type: ssh
+    id: ssh:custom:CDP:4760b887-e30c-4cad-8db9-6922d7ee1519
+  - icon: fas fa-desktop
+    options:
+      host: erich
+      algorithms:
+        hmac:
+          - hmac-sha1
+          - hmac-sha1-etm@openssh.com
+          - hmac-sha2-256
+          - hmac-sha2-256-etm@openssh.com
+          - hmac-sha2-512
+          - hmac-sha2-512-etm@openssh.com
+        kex:
+          - curve25519-sha256
+          - curve25519-sha256@libssh.org
+          - diffie-hellman-group-exchange-sha256
+          - diffie-hellman-group14-sha256
+          - diffie-hellman-group15-sha512
+          - diffie-hellman-group16-sha512
+          - diffie-hellman-group17-sha512
+          - diffie-hellman-group18-sha512
+          - ecdh-sha2-nistp256
+          - ecdh-sha2-nistp384
+          - ecdh-sha2-nistp521
+        cipher:
+          - aes128-ctr
+          - aes128-gcm
+          - aes128-gcm@openssh.com
+          - aes192-ctr
+          - aes256-ctr
+          - aes256-gcm
+          - aes256-gcm@openssh.com
+        serverHostKey:
+          - ecdsa-sha2-nistp256
+          - ecdsa-sha2-nistp384
+          - ecdsa-sha2-nistp521
+          - rsa-sha2-256
+          - rsa-sha2-512
+          - ssh-ed25519
+          - ssh-rsa
+      privateKeys: []
+      forwardedPorts: []
+    weight: -1
+    name: Erich
+    group: CBC
+    type: ssh
+    id: ssh:custom:Erich:8e9ca94b-62f9-46f7-90ad-a0f9a3c49c93
+  - icon: fas fa-desktop
+    options:
+      host: 192.168.77.150
+      algorithms:
+        kex:
+          - curve25519-sha256
+          - curve25519-sha256@libssh.org
+          - diffie-hellman-group14-sha256
+          - diffie-hellman-group15-sha512
+          - diffie-hellman-group16-sha512
+          - diffie-hellman-group17-sha512
+          - diffie-hellman-group18-sha512
+          - ecdh-sha2-nistp256
+          - ecdh-sha2-nistp384
+          - ecdh-sha2-nistp521
+        hmac:
+          - hmac-sha1
+          - hmac-sha1-etm@openssh.com
+          - hmac-sha2-256
+          - hmac-sha2-256-etm@openssh.com
+          - hmac-sha2-512
+          - hmac-sha2-512-etm@openssh.com
+        cipher:
+          - aes128-ctr
+          - aes128-gcm
+          - aes128-gcm@openssh.com
+          - aes192-ctr
+          - aes256-ctr
+          - aes256-gcm
+          - aes256-gcm@openssh.com
+        serverHostKey:
+          - ecdsa-sha2-nistp256
+          - ecdsa-sha2-nistp384
+          - ecdsa-sha2-nistp521
+          - rsa-sha2-256
+          - rsa-sha2-512
+          - ssh-ed25519
+          - ssh-rsa
+      auth: publicKey
+      jumpHost: ssh:df24d66a-b843-4f87-a119-3bb40a343895
+      privateKeys: []
+      forwardedPorts: []
+      scripts: []
+    weight: -1
+    disableDynamicTitle: true
+    group: ELEMENTS
+    name: EL7 Gitlab Runner
+    id: ssh:custom:EL7-Gitlab-Runner:2ee42ccc-46bb-451a-9bb9-e9a718ddccb7
+    type: ssh
+  - icon: fas fa-desktop
+    options:
+      host: 159.223.127.106
+      algorithms:
+        hmac:
+          - hmac-sha1
+          - hmac-sha1-etm@openssh.com
+          - hmac-sha2-256
+          - hmac-sha2-256-etm@openssh.com
+          - hmac-sha2-512
+          - hmac-sha2-512-etm@openssh.com
+        kex:
+          - curve25519-sha256
+          - curve25519-sha256@libssh.org
+          - diffie-hellman-group-exchange-sha256
+          - diffie-hellman-group14-sha256
+          - diffie-hellman-group15-sha512
+          - diffie-hellman-group16-sha512
+          - diffie-hellman-group17-sha512
+          - diffie-hellman-group18-sha512
+          - ecdh-sha2-nistp256
+          - ecdh-sha2-nistp384
+          - ecdh-sha2-nistp521
+        cipher:
+          - aes128-ctr
+          - aes128-gcm
+          - aes128-gcm@openssh.com
+          - aes192-ctr
+          - aes256-ctr
+          - aes256-gcm
+          - aes256-gcm@openssh.com
+        serverHostKey:
+          - ecdsa-sha2-nistp256
+          - ecdsa-sha2-nistp384
+          - ecdsa-sha2-nistp521
+          - rsa-sha2-256
+          - rsa-sha2-512
+          - ssh-ed25519
+          - ssh-rsa
+      privateKeys:
+        - file:///Users/eugene/testkey.rsa
+      auth: publicKey
+      forwardedPorts: []
+      scripts: []
+    weight: -1
+    name: test droplet
+    type: ssh
+    id: ssh:custom:test-droplet:490b6423-be33-41ae-ad71-fcd6b2c64d71
+  - name: Redbull  mlnode02
+    icon: fas fa-desktop
+    options:
+      host: 10.143.55.12
+      algorithms:
+        hmac:
+          - hmac-sha1
+          - hmac-sha1-etm@openssh.com
+          - hmac-sha2-256
+          - hmac-sha2-256-etm@openssh.com
+          - hmac-sha2-512
+          - hmac-sha2-512-etm@openssh.com
+        kex:
+          - curve25519-sha256
+          - curve25519-sha256@libssh.org
+          - diffie-hellman-group14-sha256
+          - diffie-hellman-group15-sha512
+          - diffie-hellman-group16-sha512
+          - diffie-hellman-group17-sha512
+          - diffie-hellman-group18-sha512
+          - ecdh-sha2-nistp256
+          - ecdh-sha2-nistp384
+          - ecdh-sha2-nistp521
+        cipher:
+          - aes128-ctr
+          - aes128-gcm
+          - aes128-gcm@openssh.com
+          - aes192-ctr
+          - aes256-ctr
+          - aes256-gcm
+          - aes256-gcm@openssh.com
+        serverHostKey:
+          - ecdsa-sha2-nistp256
+          - ecdsa-sha2-nistp384
+          - ecdsa-sha2-nistp521
+          - rsa-sha2-256
+          - rsa-sha2-512
+          - ssh-ed25519
+          - ssh-rsa
+      privateKeys: []
+      forwardedPorts: []
+      scripts: []
+    weight: -1
+    type: ssh
+    id: ssh:custom:Redbull-mlnode02:35dd4f80-36f7-476e-83f5-e9958fa5d176
+  - name: Click Prod 1
+    icon: fas fa-desktop
+    options:
+      host: 172.31.16.178
+      user: admin
+      algorithms:
+        hmac:
+          - hmac-sha1
+          - hmac-sha1-etm@openssh.com
+          - hmac-sha2-256
+          - hmac-sha2-256-etm@openssh.com
+          - hmac-sha2-512
+          - hmac-sha2-512-etm@openssh.com
+        kex:
+          - curve25519-sha256
+          - curve25519-sha256@libssh.org
+          - diffie-hellman-group-exchange-sha256
+          - diffie-hellman-group14-sha256
+          - diffie-hellman-group15-sha512
+          - diffie-hellman-group16-sha512
+          - diffie-hellman-group17-sha512
+          - diffie-hellman-group18-sha512
+          - ecdh-sha2-nistp256
+          - ecdh-sha2-nistp384
+          - ecdh-sha2-nistp521
+        cipher:
+          - aes128-ctr
+          - aes128-gcm
+          - aes128-gcm@openssh.com
+          - aes192-ctr
+          - aes256-ctr
+          - aes256-gcm
+          - aes256-gcm@openssh.com
+        serverHostKey:
+          - ecdsa-sha2-nistp256
+          - ecdsa-sha2-nistp384
+          - ecdsa-sha2-nistp521
+          - rsa-sha2-256
+          - rsa-sha2-512
+          - ssh-ed25519
+          - ssh-rsa
+      jumpHost: ssh:custom:Click-Bastion:f03cbcc6-a28c-417b-8e68-55a8486144e9
+      auth: publicKey
+      privateKeys:
+        - file:///Users/eugene/Work/elements-cloud-mgmt/aws-access.pem
+      forwardedPorts: []
+      scripts: []
+    weight: -1
+    id: ssh:custom:Click-Prod-1:2e85a840-2519-48df-bcfe-a7fdcc6f66ab
+    group: ELEMENTS Click
+    color: red
+    type: ssh
+  - name: Click Bastion
+    icon: fas fa-desktop
+    options:
+      host: bastion.elements.click
+      user: ec2-user
+      algorithms:
+        hmac:
+          - hmac-sha1
+          - hmac-sha1-etm@openssh.com
+          - hmac-sha2-256
+          - hmac-sha2-256-etm@openssh.com
+          - hmac-sha2-512
+          - hmac-sha2-512-etm@openssh.com
+        kex:
+          - curve25519-sha256
+          - curve25519-sha256@libssh.org
+          - diffie-hellman-group-exchange-sha256
+          - diffie-hellman-group14-sha256
+          - diffie-hellman-group15-sha512
+          - diffie-hellman-group16-sha512
+          - diffie-hellman-group17-sha512
+          - diffie-hellman-group18-sha512
+          - ecdh-sha2-nistp256
+          - ecdh-sha2-nistp384
+          - ecdh-sha2-nistp521
+        cipher:
+          - aes128-ctr
+          - aes128-gcm
+          - aes128-gcm@openssh.com
+          - aes192-ctr
+          - aes256-ctr
+          - aes256-gcm
+          - aes256-gcm@openssh.com
+        serverHostKey:
+          - ecdsa-sha2-nistp256
+          - ecdsa-sha2-nistp384
+          - ecdsa-sha2-nistp521
+          - rsa-sha2-256
+          - rsa-sha2-512
+          - ssh-ed25519
+          - ssh-rsa
+      privateKeys: []
+      forwardedPorts: []
+      scripts: []
+    weight: -1
+    id: ssh:custom:Click-Bastion:f03cbcc6-a28c-417b-8e68-55a8486144e9
+    group: ELEMENTS Click
+    color: red
+    type: ssh
+  - name: 221 QA VM
+    icon: fas fa-desktop
+    options:
+      host: 192.168.76.221
+      algorithms:
+        kex:
+          - curve25519-sha256
+          - curve25519-sha256@libssh.org
+          - diffie-hellman-group14-sha256
+          - diffie-hellman-group15-sha512
+          - diffie-hellman-group16-sha512
+          - diffie-hellman-group17-sha512
+          - diffie-hellman-group18-sha512
+          - ecdh-sha2-nistp256
+          - ecdh-sha2-nistp384
+          - ecdh-sha2-nistp521
+        cipher:
+          - aes192-ctr
+          - aes256-ctr
+          - aes256-gcm
+          - aes256-gcm@openssh.com
+        hmac:
+          - hmac-sha1
+          - hmac-sha1-etm@openssh.com
+          - hmac-sha2-256
+          - hmac-sha2-256-etm@openssh.com
+          - hmac-sha2-512
+          - hmac-sha2-512-etm@openssh.com
+        serverHostKey:
+          - ecdsa-sha2-nistp256
+          - ecdsa-sha2-nistp384
+          - ecdsa-sha2-nistp521
+          - rsa-sha2-256
+          - rsa-sha2-512
+          - ssh-ed25519
+          - ssh-rsa
+      auth: password
+      reuseSession: false
+      forwardedPorts:
+        - type: Local
+          host: 127.0.0.1
+          port: 18983
+          targetAddress: 127.0.0.1
+          targetPort: 8983
+          description: Solr
+      jumpHost: ssh:df24d66a-b843-4f87-a119-3bb40a343895
+      privateKeys: []
+      scripts: []
+    weight: -1
+    id: ssh:custom:221-QA-VM:0c6d2310-ccce-4158-9966-e41eff2f5d05
+    disableDynamicTitle: true
+    group: ELEMENTS
+    color: '#ffd500'
+    type: ssh
+  - name: 233 QA VM
+    icon: fas fa-server
+    options:
+      host: 192.168.78.233
+      algorithms:
+        kex:
+          - curve25519-sha256
+          - curve25519-sha256@libssh.org
+          - diffie-hellman-group-exchange-sha1
+          - diffie-hellman-group-exchange-sha256
+          - diffie-hellman-group1-sha1
+          - diffie-hellman-group14-sha256
+          - diffie-hellman-group16-sha512
+          - diffie-hellman-group17-sha512
+          - diffie-hellman-group18-sha512
+        cipher:
+          - aes128-gcm
+          - aes256-gcm
+          - aes256-gcm@openssh.com
+        serverHostKey:
+          - rsa-sha2-256
+          - rsa-sha2-512
+          - ssh-dss
+          - ssh-ed25519
+          - ssh-rsa
+        hmac:
+          - hmac-sha1
+          - hmac-sha1-etm@openssh.com
+          - hmac-sha2-256
+          - hmac-sha2-256-etm@openssh.com
+          - hmac-sha2-512
+          - hmac-sha2-512-etm@openssh.com
+      forwardedPorts:
+        - type: Dynamic
+          host: 127.0.0.1
+          port: 5555
+          targetAddress: 127.0.0.1
+          targetPort: 80
+          description: Proxy
+        - type: Local
+          host: 127.0.0.1
+          port: 18983
+          targetAddress: 127.0.0.1
+          targetPort: 8983
+          description: Solr
+      skipBanner: true
+      jumpHost: ssh:df24d66a-b843-4f87-a119-3bb40a343895
+      auth: password
+      privateKeys: []
+      scripts: []
+    weight: -1
+    id: ssh:custom:233-QA-VM:0f8eaae7-296c-4625-ada1-01bece3177d5
+    group: ELEMENTS
+    color: '#0c0'
+    type: ssh
+  - type: local
+    name: Tabby Backend Poetry
+    options:
+      command: /Library/Frameworks/Python.framework/Versions/3.10/bin/poetry
+      env: {}
+      args:
+        - shell
+      cwd: /Users/eugene/work/tabby-web/backend
+    id: local:custom:Tabby-Backend-Poetry:5d792564-cfa8-4124-9b32-872ed044a498
+  - icon: fas fa-desktop
+    options:
+      host: gateway1.infra.tabby.sh
+      algorithms: {}
+    weight: -1
+    name: Tabby Gateway 1
+    id: ssh:custom:Tabby-Gateway-1:3eba1912-5fce-4ea2-b8c7-e97f5a1cca03
+    group: Test
+    type: ssh
+  - name: test profile
+    icon: fas fa-desktop
+    options:
+      host: '192.1'
+      algorithms: {}
+      proxyCommand: nc -v 192.168.78.233 22
+    weight: -1
+    id: ssh:custom:test-profile:c305528b-5c96-4002-ad93-4a93eb84b35a
+    type: ssh
+  - name: AI worker
+    icon: fas fa-desktop
+    options:
+      host: 192.168.72.29
+      algorithms:
+        kex:
+          - curve25519-sha256
+          - curve25519-sha256@libssh.org
+          - diffie-hellman-group14-sha256
+          - diffie-hellman-group15-sha512
+          - diffie-hellman-group16-sha512
+          - diffie-hellman-group17-sha512
+          - diffie-hellman-group18-sha512
+          - ecdh-sha2-nistp256
+          - ecdh-sha2-nistp384
+          - ecdh-sha2-nistp521
+        hmac:
+          - hmac-sha1
+          - hmac-sha1-etm@openssh.com
+          - hmac-sha2-256
+          - hmac-sha2-256-etm@openssh.com
+          - hmac-sha2-512
+          - hmac-sha2-512-etm@openssh.com
+        cipher:
+          - aes128-ctr
+          - aes128-gcm
+          - aes128-gcm@openssh.com
+          - aes192-ctr
+          - aes256-ctr
+          - aes256-gcm
+          - aes256-gcm@openssh.com
+        serverHostKey:
+          - ecdsa-sha2-nistp256
+          - ecdsa-sha2-nistp384
+          - ecdsa-sha2-nistp521
+          - rsa-sha2-256
+          - rsa-sha2-512
+          - ssh-ed25519
+          - ssh-rsa
+      forwardedPorts:
+        - type: Local
+          host: 127.0.0.1
+          port: 8000
+          targetAddress: 127.0.0.1
+          targetPort: 80
+        - type: Dynamic
+          host: 127.0.0.1
+          port: 8001
+          targetAddress: 127.0.0.1
+          targetPort: 80
+      user: syslink
+      privateKeys: []
+      scripts: []
+    weight: -1
+    id: ssh:custom:AI-worker:1c69e56b-408f-463f-b4d4-e074e0998fbf
+    group: ELEMENTS
+    type: ssh
+  - type: ssh
+    icon: fas fa-desktop
+    name: QA limited user
+    group: Work
+    options:
+      name: QA
+      host: 192.168.78.233
+      path: /
+      group: Syslink
+      algorithms:
+        hmac:
+          - hmac-sha1
+          - hmac-sha2-256
+          - hmac-sha2-512
+        kex:
+          - diffie-hellman-group-exchange-sha256
+          - diffie-hellman-group14-sha1
+          - ecdh-sha2-nistp256
+          - ecdh-sha2-nistp384
+          - ecdh-sha2-nistp521
+        cipher:
+          - aes128-ctr
+          - aes128-gcm
+          - aes128-gcm@openssh.com
+          - aes192-ctr
+          - aes256-ctr
+          - aes256-gcm
+          - aes256-gcm@openssh.com
+        serverHostKey:
+          - ecdsa-sha2-nistp256
+          - ecdsa-sha2-nistp384
+          - ecdsa-sha2-nistp521
+          - ssh-ed25519
+          - ssh-rsa
+      jumpHost: ssh:df24d66a-b843-4f87-a119-3bb40a343895
+      auth: password
+      privateKeys:
+        - /Users/eugene/.ssh/github_rsa.pub
+        - /Users/eugene/.ssh/id_rsa
+      forwardedPorts:
+        - type: Local
+          host: 127.0.0.1
+          port: 8888
+          targetAddress: 127.0.0.1
+          targetPort: 8888
+      user: syslink
+      scripts: []
+    color: orange
+    id: ssh:custom:QA-limited-user:baf3ff95-e05d-4213-b044-3b8095a3d7c4
+  - type: docker
+    name: >-
+      Docker test pyDocker test pyDocker test pyDocker test pyDocker test
+      pyDocker test pyDocker test
+      pyDockerpyDockerpyDockerpyDockerpyDockerpyDockerpyDockerpyDockerpyDockerpyDocker
+      test pyDocker test pyDocker test py
+    icon: fab fa-docker
+    options:
+      imageID: sha256:0a3a95c81a2bd8d2ee9653097a4e0ae63d8765636874083afb5e9a7d52b6b9f1
+      command: /usr/bin/python3
+    id: docker:custom:Docker-test:79bba61d-a30b-49f6-ba7d-cca05d4caa48
+  - id: ssh:custom:CentOS-6:01ca29c7-a9a1-4b37-8211-8747e663878f
+    name: CentOS 6
+    icon: fas fa-desktop
+    options:
+      host: 192.168.72.43
+      algorithms:
+        kex:
+          - curve25519-sha256
+          - curve25519-sha256@libssh.org
+          - diffie-hellman-group1-sha1
+          - diffie-hellman-group14-sha1
+          - diffie-hellman-group14-sha256
+          - diffie-hellman-group15-sha512
+          - diffie-hellman-group16-sha512
+          - diffie-hellman-group17-sha512
+          - diffie-hellman-group18-sha512
+          - ecdh-sha2-nistp256
+          - ecdh-sha2-nistp384
+          - ecdh-sha2-nistp521
+      auth: password
+    weight: -1
+    group: ELEMENTS
+    type: ssh
+  - id: telnet:custom:233-telnet:f2b59033-4ebf-46e4-b4b2-8b5eb7f62005
+    type: telnet
+    name: Telnet
+    icon: fas fa-network-wired
+    options:
+      host: 192.168.78.233
+      inputMode: null
+      outputNewlines: null
+      scripts: []
+    group: Test
+  - id: telnet:custom:Google:77a8c1e3-6a78-4f73-9264-01ba9e9bb25d
+    type: telnet
+    icon: fas fa-network-wired
+    options:
+      host: google.com
+      port: 80
+      scripts:
+        - expect: ''
+          send: ''
+      outputMode: hex
+      inputMode: readline
+    group: Test
+    name: HTTP socket test
+  - id: ssh:5c7cc15f-e9fe-4758-932f-6f1abb1a6780
+    icon: fas fa-desktop
+    name: ajenti
+    color: yellow
+    options:
+      name: ajenti
+      host: ajenti.org
+      path: /
+      group: fgh
+      algorithms:
+        hmac:
+          - hmac-sha1
+          - hmac-sha2-256
+          - hmac-sha2-512
+        kex:
+          - diffie-hellman-group-exchange-sha256
+          - diffie-hellman-group1-sha1
+        cipher:
+          - aes128-ctr
+          - aes128-gcm
+          - aes128-gcm@openssh.com
+          - aes192-ctr
+          - aes256-ctr
+          - aes256-gcm
+          - aes256-gcm@openssh.com
+        serverHostKey:
+          - ecdsa-sha2-nistp256
+          - ecdsa-sha2-nistp384
+          - ecdsa-sha2-nistp521
+          - ssh-rsa
+      color: purple
+      privateKeys:
+        - >-
+          vault://85c0940514b79887abc7db0dab7693f36b3ceb2c845e1de717f89a19593d21ee
+      scripts:
+        - expect: Last login
+          send: ls
+          isRegex: false
+          optional: false
+        - expect: rpmbuild
+          send: date
+        - expect: Jul \d+
+          send: \n\nexit\x55
+          isRegex: true
+      forwardedPorts:
+        - type: Dynamic
+          host: 127.0.0.1
+          port: 8000
+          targetAddress: 127.0.0.1
+          targetPort: 80
+    disableDynamicTitle: true
+    type: ssh
+  - id: ssh:df24d66a-b843-4f87-a119-3bb40a343895
+    icon: fas fa-desktop
+    name: syslink
+    options:
+      name: syslink
+      group: null
+      host: intern.syslink.de
+      port: 2209
+      algorithms:
+        hmac:
+          - hmac-sha1
+          - hmac-sha2-256
+          - hmac-sha2-512
+        kex:
+          - diffie-hellman-group-exchange-sha256
+          - diffie-hellman-group14-sha1
+          - diffie-hellman-group14-sha256
+          - diffie-hellman-group16-sha512
+          - diffie-hellman-group18-sha512
+          - ecdh-sha2-nistp256
+          - ecdh-sha2-nistp384
+          - ecdh-sha2-nistp521
+        cipher:
+          - aes128-ctr
+          - aes128-gcm
+          - aes128-gcm@openssh.com
+          - aes192-ctr
+          - aes256-ctr
+          - aes256-gcm
+          - aes256-gcm@openssh.com
+        serverHostKey:
+          - ecdsa-sha2-nistp256
+          - ecdsa-sha2-nistp384
+          - ecdsa-sha2-nistp521
+          - ssh-ed25519
+          - ssh-rsa
+      privateKey: ''
+      scripts: []
+      privateKeys: []
+      forwardedPorts: []
+    group: Work
+    disableDynamicTitle: true
+    type: ssh
+  - id: ssh:08b59493-b9ef-41bd-9b14-66f1d6b07172
+    icon: fas fa-desktop
+    name: Gitlab
+    options:
+      name: Gitlab
+      group: null
+      host: 192.168.77.146
+      algorithms:
+        hmac:
+          - hmac-sha1
+          - hmac-sha2-256
+          - hmac-sha2-512
+        kex:
+          - diffie-hellman-group-exchange-sha256
+          - diffie-hellman-group14-sha1
+          - diffie-hellman-group14-sha256
+          - diffie-hellman-group16-sha512
+          - diffie-hellman-group18-sha512
+          - ecdh-sha2-nistp256
+          - ecdh-sha2-nistp384
+          - ecdh-sha2-nistp521
+        serverHostKey:
+          - ecdsa-sha2-nistp256
+          - ecdsa-sha2-nistp384
+          - ecdsa-sha2-nistp521
+          - rsa-sha2-256
+          - rsa-sha2-512
+          - ssh-dss
+          - ssh-ed25519
+        cipher:
+          - aes128-ctr
+          - aes128-gcm
+          - aes128-gcm@openssh.com
+          - aes192-ctr
+          - aes256-ctr
+          - aes256-gcm
+          - aes256-gcm@openssh.com
+      privateKeys: []
+      forwardedPorts: []
+      scripts: []
+    group: ELEMENTS
+    type: ssh
+  - id: serial:96953201-8fac-4435-a596-4f351e7eebf0
+    type: serial
+    icon: fas fa-microchip
+    name: Fortigate
+    options:
+      name: Fortigate
+      port: /dev/tty.Bluetooth-Incoming-Port
+      baudrate: '9600'
+      parity: odd
+      scripts: []
+    group: Test
+  - id: split-layout:custom:Layout:696aef0c-f7fb-4410-bfef-eb8c56cd0fa1
+    type: split-layout
+    name: Layout
+    options:
+      recoveryToken:
+        type: app:split-tab
+        ratios:
+          - 1
+        orientation: h
+        children:
+          - type: app:split-tab
+            ratios:
+              - 0.5
+              - 0.5
+            orientation: v
+            children:
+              - type: app:local-tab
+                profile:
+                  id: local:default
+                  type: local
+                  name: Betriebssystem-Standard
+                  group: ''
+                  options:
+                    command: /bin/zsh
+                    args:
+                      - '--login'
+                    cwd: /Users/eugene/Work/warpgate
+                    env: {}
+                    width: null
+                    height: null
+                    pauseAfterExit: false
+                    runAsAdministrator: false
+                    restoreFromPTYID: false
+                  icon: ''
+                  color: ''
+                  disableDynamicTitle: false
+                  weight: 0
+                  isBuiltin: true
+                  isTemplate: false
+                savedState: false
+                tabTitle: eugene@Eugenes-MBP:~/Work/warpgate
+                tabCustomTitle: ''
+                disableDynamicTitle: false
+              - type: app:local-tab
+                profile:
+                  id: local:default
+                  type: local
+                  name: Betriebssystem-Standard
+                  group: ''
+                  options:
+                    command: /bin/zsh
+                    args:
+                      - '--login'
+                    cwd: /Users/eugene/Work/warpgate
+                    env: {}
+                    width: null
+                    height: null
+                    pauseAfterExit: false
+                    runAsAdministrator: false
+                    restoreFromPTYID: false
+                  icon: ''
+                  color: ''
+                  disableDynamicTitle: false
+                  weight: 0
+                  isBuiltin: true
+                  isTemplate: false
+                savedState: false
+                tabTitle: eugene@Eugenes-MBP:~/Work/warpgate
+                tabCustomTitle: ''
+                disableDynamicTitle: false
+enableExperimentalFeatures: true
+recentProfiles:
+  - id: ssh:fcf607a8-f880-403d-ae18-0186e0379a96
+    type: ssh
+    icon: fas fa-desktop
+    name: QA
+    group: Work
+    options:
+      name: QA
+      host: 192.168.78.233
+      path: /
+      group: Syslink
+      algorithms:
+        hmac:
+          - hmac-sha1
+          - hmac-sha2-256
+          - hmac-sha2-512
+        kex:
+          - diffie-hellman-group-exchange-sha256
+          - diffie-hellman-group14-sha1
+          - ecdh-sha2-nistp256
+          - ecdh-sha2-nistp384
+          - ecdh-sha2-nistp521
+        cipher:
+          - aes128-ctr
+          - aes128-gcm
+          - aes128-gcm@openssh.com
+          - aes192-ctr
+          - aes256-ctr
+          - aes256-gcm
+          - aes256-gcm@openssh.com
+        serverHostKey:
+          - ecdsa-sha2-nistp256
+          - ecdsa-sha2-nistp384
+          - ecdsa-sha2-nistp521
+          - ssh-ed25519
+          - ssh-rsa
+      x11: true
+      jumpHost: ssh:df24d66a-b843-4f87-a119-3bb40a343895
+      auth: password
+      privateKeys:
+        - /Users/eugene/.ssh/github_rsa.pub
+        - /Users/eugene/.ssh/id_rsa
+      forwardedPorts:
+        - type: Local
+          host: 127.0.0.1
+          port: 8888
+          targetAddress: 127.0.0.1
+          targetPort: 8888
+      scripts: []
+    color: orange
+  - id: ssh:5c7cc15f-e9fe-4758-932f-6f1abb1a6780
+    type: ssh
+    icon: fas fa-desktop
+    name: ajenti
+    color: yellow
+    options:
+      name: ajenti
+      host: ajenti.org
+      path: /
+      group: fgh
+      algorithms:
+        hmac:
+          - hmac-sha1
+          - hmac-sha2-256
+          - hmac-sha2-512
+        kex:
+          - diffie-hellman-group-exchange-sha256
+          - diffie-hellman-group1-sha1
+        cipher:
+          - aes128-ctr
+          - aes128-gcm
+          - aes128-gcm@openssh.com
+          - aes192-ctr
+          - aes256-ctr
+          - aes256-gcm
+          - aes256-gcm@openssh.com
+        serverHostKey:
+          - ecdsa-sha2-nistp256
+          - ecdsa-sha2-nistp384
+          - ecdsa-sha2-nistp521
+          - ssh-rsa
+      color: purple
+      auth: password
+      jumpHost: ''
+      skipBanner: true
+      privateKeys:
+        - >-
+          vault://85c0940514b79887abc7db0dab7693f36b3ceb2c845e1de717f89a19593d21ee
+      scripts:
+        - expect: Last login
+          send: ls
+          isRegex: false
+          optional: false
+        - expect: rpmbuild
+          send: date
+        - expect: Jul \d+
+          send: \n\nexit\x55
+          isRegex: true
+      forwardedPorts:
+        - type: Dynamic
+          host: 127.0.0.1
+          port: 8000
+          targetAddress: 127.0.0.1
+          targetPort: 80
+    disableDynamicTitle: true
+  - id: serial:port-devtty-Bluetooth-Incoming-Port
+    type: serial
+    name: Serial
+    icon: fas fa-microchip
+    isBuiltin: true
+    options:
+      port: /dev/tty.Bluetooth-Incoming-Port
+      baudrate: 2400
+electronFlags:
+  - - force_discrete_gpu
+    - '0'
+web: {}
+hotkeys:
+  shell: {}
+  paste:
+    - - ⌘-V
+  new-tab:
+    - - ⌘-T
+  shell-selector:
+    - - Ctrl-Shift-N
+  profile:
+    work: []
+    dash: []
+    zsh: []
+    sh: []
+  settings:
+    - - ⌘-,
+  toggle-window:
+    - - Ctrl-Space
+  search:
+    - - ⌘-F
+    - - Ctrl-Shift-F
+  copy:
+    - - ⌘-C
+  close-pane:
+    - - ⌘-Shift-W
+  copy-current-path:
+    - - Ctrl-Shift-C
+  show-quick-cmds:
+    - - ⌥-Q
+  ssh:
+    - - ⌘-S
+  home:
+    - ⌘-Left
+    - Home
+  end:
+    - ⌘-Right
+    - End
+  previous-word:
+    - ⌥-Left
+  next-word:
+    - ⌥-Right
+  delete-previous-word:
+    - ⌥-Backspace
+  delete-next-word:
+    - ⌥-Delete
+  zoom-in:
+    - ⌘-=
+    - ⌘-Shift-=
+  zoom-out:
+    - ⌘--
+    - ⌘-Shift--
+  reset-zoom:
+    - ⌘-0
+  ctrl-c: []
+  pane-focus-all:
+    - ⌘-Shift-I
+  telnet-profile-selector: []
+  restart-telnet-session: []
+  ssh-profile-selector: []
+  restart-ssh-session: []
+  launch-winscp: []
+  serial:
+    - Alt-K
+  restart-serial-session: []
+  new-window:
+    - ⌘-N
+  profile-selector:
+    - ⌘-E
+  toggle-fullscreen:
+    - Ctrl+⌘+F
+  rename-tab:
+    - ⌘-R
+  close-tab:
+    - - ⌘-W
+  reopen-tab:
+    - ⌘-Shift-T
+  next-tab:
+    - - Ctrl-Tab
+  previous-tab:
+    - - Ctrl-Shift-Tab
+  move-tab-left:
+    - ⌘-Shift-Left
+  move-tab-right:
+    - ⌘-Shift-Right
+  tab-1:
+    - ⌘-1
+  tab-2:
+    - ⌘-2
+  tab-3:
+    - ⌘-3
+  tab-4:
+    - ⌘-4
+  tab-5:
+    - ⌘-5
+  tab-6:
+    - ⌘-6
+  tab-7:
+    - ⌘-7
+  tab-8:
+    - ⌘-8
+  tab-9:
+    - ⌘-9
+  tab-10:
+    - ⌘-0
+  tab-11: []
+  tab-12: []
+  tab-13: []
+  tab-14: []
+  tab-15: []
+  tab-16: []
+  tab-17: []
+  tab-18: []
+  tab-19: []
+  tab-20: []
+  split-right:
+    - ⌘-Shift-D
+  split-bottom:
+    - ⌘-D
+  split-left: []
+  split-top: []
+  pane-maximize:
+    - ⌘-⌥-Enter
+  pane-nav-up:
+    - - ⌘-⌥-Up
+  pane-nav-down:
+    - - ⌘-⌥-Down
+  pane-nav-left:
+    - - ⌘-⌥-Left
+  pane-nav-right:
+    - - ⌘-⌥-Right
+  pane-nav-previous:
+    - ⌘-⌥-[
+  pane-nav-next:
+    - ⌘-⌥-]
+  switch-profile:
+    - ⌘-Shift-E
+  select-all:
+    - ⌘-A
+  rearrange-panes:
+    - - Ctrl-Shift
+  profile-selectors:
+    telnet:
+      - - Ctrl-Shift-T
+  toggle-clippy:
+    - - Ctrl-Shift-H
+  toggle-last-tab: []
+  duplicate-tab: []
+  search-in-browser: []
+  workspace-profile-1: []
+  workspace-profile-2: []
+  workspace-profile-3: []
+  workspace-profile-4: []
+  workspace-profile-5: []
+  scroll-to-bottom:
+    - - Shift-PageDown
+  clear:
+    - ⌘-K
+  settings-tab:
+    vault: []
+    window:
+      - - ⌘-Shift-V
+  explode-tab:
+    - ⌘-Shift-.
+  combine-tabs:
+    - ⌘-Shift-,
+  pane-increase-vertical:
+    - - Ctrl-Shift-Up
+  pane-decrease-vertical:
+    - - Ctrl-Shift-Down
+  pane-increase-horizontal:
+    - - Ctrl-Shift-Left
+  pane-decrease-horizontal:
+    - - Ctrl-Shift-Right
+  delete-line:
+    - ⌘-Backspace
+  pane-nav-1: []
+  pane-nav-2: []
+  pane-nav-3: []
+  pane-nav-4: []
+  pane-nav-5: []
+  pane-nav-6: []
+  pane-nav-7: []
+  pane-nav-8: []
+  pane-nav-9: []
+  restart-tab: []
+  scroll-to-top:
+    - - Shift-PageUp
+  scroll-up: []
+  scroll-down: []
+  command-selector:
+    - ⌘-Shift-P
+  focus-all-tabs:
+    - ⌘-⌥-Shift-I
+clippyPlugin: {}
+profileDefaults:
+  ssh:
+    disableDynamicTitle: true
+    type: ssh
+enableAnalytics: false
+workspaceManager: {}
+searchInBrowserPlugin: {}
+hacks: {}
+configSync:
+  parts: {}
+  token: >-
+    3a45b9456b0ab257cb6fa8c986e9d2d05fc0185b1b3644958d681d4a393ffa44a74f2ef83f0dc51cf523859472ee88487c9783db93e0361b276285096c24fcc9
+  configID: 7
+enableWelcomeTab: false
+pluginBlacklist:
+  - plugin-fig-integration
+docker:
+  socket: ''
+  host: ''
+accessibility: {}

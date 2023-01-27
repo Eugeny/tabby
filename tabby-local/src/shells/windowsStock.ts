@@ -2,19 +2,21 @@ import * as path from 'path'
 import * as fs from 'fs/promises'
 import hasbin from 'hasbin'
 import { Injectable } from '@angular/core'
-import { HostAppService, Platform } from 'tabby-core'
+import { HostAppService, Platform, ConfigService } from 'tabby-core'
 import { ElectronService } from 'tabby-electron'
 
-import { ShellProvider, Shell } from '../api'
+import { Shell } from '../api'
+import { WindowsBaseShellProvider } from './windowsBase'
 
 /** @hidden */
 @Injectable()
-export class WindowsStockShellsProvider extends ShellProvider {
+export class WindowsStockShellsProvider extends WindowsBaseShellProvider {
     constructor (
-        private hostApp: HostAppService,
+        hostApp: HostAppService,
+        config: ConfigService,
         private electron: ElectronService,
     ) {
-        super()
+        super(hostApp, config)
     }
 
     async provide (): Promise<Shell[]> {
@@ -64,9 +66,7 @@ export class WindowsStockShellsProvider extends ShellProvider {
                 command: await this.getPowerShellPath(),
                 args: ['-nologo'],
                 icon: require('../icons/powershell.svg'),
-                env: {
-                    TERM: 'cygwin',
-                },
+                env: this.getEnvironment(),
             },
         ]
     }

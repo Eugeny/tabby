@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core'
-import { HostAppService, Platform } from 'tabby-core'
+import { HostAppService, ConfigService, Platform } from 'tabby-core'
 
-import { ShellProvider, Shell } from '../api'
+import { Shell } from '../api'
+import { WindowsBaseShellProvider } from './windowsBase'
 
 /* eslint-disable block-scoped-var */
 
@@ -11,11 +12,13 @@ try {
 
 /** @hidden */
 @Injectable()
-export class PowerShellCoreShellProvider extends ShellProvider {
+export class PowerShellCoreShellProvider extends WindowsBaseShellProvider {
+    // eslint-disable-next-line @typescript-eslint/no-useless-constructor
     constructor (
-        private hostApp: HostAppService,
+        hostApp: HostAppService,
+        config: ConfigService,
     ) {
-        super()
+        super(hostApp, config)
     }
 
     async provide (): Promise<Shell[]> {
@@ -35,9 +38,7 @@ export class PowerShellCoreShellProvider extends ShellProvider {
             command: pwshPath,
             args: ['-nologo'],
             icon: require('../icons/powershell-core.svg'),
-            env: {
-                TERM: 'cygwin',
-            },
+            env: this.getEnvironment(),
         }]
     }
 }

@@ -23,6 +23,7 @@ terminal:
   showRecentProfiles: 3
   paneResizeStep: 0.1
   focusFollowsMouse: false
+  identification: null
 hotkeys:
   profile:
     __nonStructural: true

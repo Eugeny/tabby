@@ -4,7 +4,7 @@ import slugify from 'slugify'
 import deepClone from 'clone-deep'
 import { Component, Inject } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
-import { ConfigService, HostAppService, Profile, SelectorService, ProfilesService, PromptModalComponent, PlatformService, BaseComponent, PartialProfile, ProfileProvider, TranslateService } from 'tabby-core'
+import { ConfigService, HostAppService, Profile, SelectorService, ProfilesService, PromptModalComponent, PlatformService, BaseComponent, PartialProfile, ProfileProvider, TranslateService, Platform } from 'tabby-core'
 import { EditProfileModalComponent } from './editProfileModal.component'
 
 interface ProfileGroup {
@@ -28,6 +28,7 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
     templateProfiles: PartialProfile<Profile>[] = []
     profileGroups: ProfileGroup[]
     filter = ''
+    Platform = Platform
 
     constructor (
         public config: ConfigService,

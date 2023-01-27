@@ -108,6 +108,18 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
                     (ngModelChange)='config.save()'
                 )
 
+            .form-line.content-box(*ngIf='hostApp.platform === Platform.Windows')
+                .header
+                    .title(translate) Terminal identification
+                    .description(translate) How Tabby presents itself through environment vars
+
+                select.form-control(
+                    [(ngModel)]='config.store.terminal.identification',
+                    (ngModelChange)='config.save()',
+                )
+                    option(ngValue='wt', translation) Windows Terminal
+                    option(ngValue='cygwin', translation) Cygwin
+
             .form-line.content-box
                 .header
                     .title(translate) Default profile settings

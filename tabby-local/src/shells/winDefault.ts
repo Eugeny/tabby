@@ -42,7 +42,6 @@ export class WindowsDefaultShellProvider extends ShellProvider {
                     id: 'default',
                     name: this.translate.instant('OS default ({name})', shell),
                     hidden: true,
-                    env: {},
                 }]
             }
         }

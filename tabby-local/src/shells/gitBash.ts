@@ -1,8 +1,9 @@
 import * as path from 'path'
 import { Injectable } from '@angular/core'
-import { HostAppService, Platform } from 'tabby-core'
+import { Platform, ConfigService, HostAppService } from 'tabby-core'
 
-import { ShellProvider, Shell } from '../api'
+import { Shell } from '../api'
+import { WindowsBaseShellProvider } from './windowsBase'
 
 /* eslint-disable block-scoped-var */
 
@@ -12,11 +13,13 @@ try {
 
 /** @hidden */
 @Injectable()
-export class GitBashShellProvider extends ShellProvider {
+export class GitBashShellProvider extends WindowsBaseShellProvider {
+    // eslint-disable-next-line @typescript-eslint/no-useless-constructor
     constructor (
-        private hostApp: HostAppService,
+        hostApp: HostAppService,
+        config: ConfigService,
     ) {
-        super()
+        super(hostApp, config)
     }
 
     async provide (): Promise<Shell[]> {
@@ -40,9 +43,7 @@ export class GitBashShellProvider extends ShellProvider {
             command: path.join(gitBashPath, 'bin', 'bash.exe'),
             args: ['--login', '-i'],
             icon: require('../icons/git-bash.svg'),
-            env: {
-                TERM: 'cygwin',
-            },
+            env: this.getEnvironment(),
         }]
     }
 }
