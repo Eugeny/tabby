@@ -16,7 +16,8 @@
   },
   "files": [
     "dist",
-    "util/pagent.exe"
+    "util/pagent.exe",
+    "typings"
   ],
   "author": "Eugene Pankov",
   "license": "MIT",
