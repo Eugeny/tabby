@@ -315,10 +315,13 @@ asynckit@^0.4.0:
   resolved "https://registry.yarnpkg.com/asynckit/-/asynckit-0.4.0.tgz"
   integrity sha1-x57Zf380y48robyXkLzDZkdLS3k=
 
-atomically@^1.7.0:
-  version "1.7.0"
-  resolved "https://registry.yarnpkg.com/atomically/-/atomically-1.7.0.tgz#c07a0458432ea6dbc9a3506fffa424b48bccaafe"
-  integrity sha512-Xcz9l0z7y9yQ9rdDaxlmaI4uJHf/T8g9hOEzJcsEqX2SjCj4J20uK7+ldkDHMbpJDK76wF7xEIgxc/vSlsfw5w==
+atomically@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/atomically/-/atomically-2.0.0.tgz#0026565bfdb4f12d8a5484f04e1387b29c14f2fe"
+  integrity sha512-KpioFPR6tOK/u3z1tFplHI9l2yK3Nu8cl47gAsTfPT6i2UClTXoqOk8dZqGIwWWopen4bSP5HnlaPUDWC7IfKw==
+  dependencies:
+    stubborn-fs "^1.2.1"
+    when-exit "^2.0.0"
 
 aws-sign2@~0.7.0:
   version "0.7.0"
@@ -3598,6 +3601,11 @@ strip-json-comments@~2.0.1:
   resolved "https://registry.npmjs.org/strip-json-comments/-/strip-json-comments-2.0.1.tgz"
   integrity sha1-PFMZQukIwml8DsNEhYwobHygpgo=
 
+stubborn-fs@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/stubborn-fs/-/stubborn-fs-1.2.1.tgz#3758a8b2b9be9212d1af1a286de2f04836e5b41c"
+  integrity sha512-IgTveO0OGXMMi9iZtfPoYQY6IpeZR3ILtSsjMapFgLxofWaHG1sNlInV7yTRDV06YiNdwiKrK7505Fxq8ly+YA==
+
 supports-color@^5.3.0:
   version "5.5.0"
   resolved "https://registry.yarnpkg.com/supports-color/-/supports-color-5.5.0.tgz#e2e69a44ac8772f78a1ec0b35b689df6530efc8f"
@@ -3889,6 +3897,11 @@ wcwidth@^1.0.0:
   integrity sha1-8LDc+RW8X/FSivrbLA4XtTLaL+g=
   dependencies:
     defaults "^1.0.3"
+
+when-exit@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/when-exit/-/when-exit-2.0.0.tgz#e5a4f30dbb8a6a8382490cd0718807357e7b98fe"
+  integrity sha512-17lB0PWIgOuil9dgC/vdQY0aq5lwT0umemaIsOTNDBsc1TwclvocXOvkwenwUXEawN5mW3F64X52xPkTFnihDw==
 
 which-module@^2.0.0:
   version "2.0.0"
