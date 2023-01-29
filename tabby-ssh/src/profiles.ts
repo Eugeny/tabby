@@ -1,4 +1,4 @@
-import { Inject, Injectable, Optional } from '@angular/core'
+import { Injectable, InjectFlags, Injector } from '@angular/core'
 import { ProfileProvider, NewTabParameters, PartialProfile, TranslateService } from 'tabby-core'
 import * as ALGORITHMS from 'ssh2/lib/protocol/constants'
 import { SSHProfileSettingsComponent } from './components/sshProfileSettings.component'
@@ -49,7 +49,7 @@ export class SSHProfilesService extends ProfileProvider<SSHProfile> {
     constructor (
         private passwordStorage: PasswordStorageService,
         private translate: TranslateService,
-        @Inject(SSHProfileImporter) @Optional() private importers: SSHProfileImporter[]|null,
+        private injector: Injector,
     ) {
         super()
         for (const k of Object.values(SSHAlgorithmType)) {
@@ -65,12 +65,13 @@ export class SSHProfilesService extends ProfileProvider<SSHProfile> {
     }
 
     async getBuiltinProfiles (): Promise<PartialProfile<SSHProfile>[]> {
+        const importers = this.injector.get<SSHProfileImporter[]>(SSHProfileImporter as any, [], InjectFlags.Optional)
         let imported: PartialProfile<SSHProfile>[] = []
-        for (const importer of this.importers ?? []) {
+        for (const importer of importers) {
             try {
                 imported = imported.concat(await importer.getProfiles())
             } catch (e) {
-                console.warn('Could not parse OpenSSH config:', e)
+                console.warn('Could not import SSH profiles:', e)
             }
         }
         return [
