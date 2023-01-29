@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core'
 import { PlatformService, LogService, UpdaterService, DockingService, HostAppService, ThemesService, Platform, AppService, ConfigService, WIN_BUILD_FLUENT_BG_SUPPORTED, isWindowsBuild, HostWindowService, HotkeyProvider, ConfigProvider, FileProvider } from 'tabby-core'
 import { TerminalColorSchemeProvider } from 'tabby-terminal'
-import { SFTPContextMenuItemProvider, SSHProfileImporter, AutoPrivateKeyLocator } from 'tabby-ssh'
+import { SFTPContextMenuItemProvider, AutoPrivateKeyLocator, SSH_PROFILE_IMPORTER } from 'tabby-ssh'
 import { auditTime } from 'rxjs'
 
 import { HyperColorSchemes } from './colorSchemes'
@@ -32,8 +32,8 @@ import { OpenSSHImporter, PrivateKeyLocator, StaticFileImporter } from './sshImp
         { provide: ConfigProvider, useClass: ElectronConfigProvider, multi: true },
         { provide: FileProvider, useClass: ElectronFileProvider, multi: true },
         { provide: SFTPContextMenuItemProvider, useClass: EditSFTPContextMenu, multi: true },
-        { provide: SSHProfileImporter, useExisting: OpenSSHImporter, multi: true },
-        { provide: SSHProfileImporter, useExisting: StaticFileImporter, multi: true },
+        { provide: SSH_PROFILE_IMPORTER, useExisting: OpenSSHImporter, multi: true },
+        { provide: SSH_PROFILE_IMPORTER, useExisting: StaticFileImporter, multi: true },
         { provide: AutoPrivateKeyLocator, useExisting: PrivateKeyLocator, multi: true },
     ],
 })

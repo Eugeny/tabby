@@ -4,7 +4,7 @@ import * as ALGORITHMS from 'ssh2/lib/protocol/constants'
 import { SSHProfileSettingsComponent } from './components/sshProfileSettings.component'
 import { SSHTabComponent } from './components/sshTab.component'
 import { PasswordStorageService } from './services/passwordStorage.service'
-import { ALGORITHM_BLACKLIST, SSHAlgorithmType, SSHProfile } from './api'
+import { ALGORITHM_BLACKLIST, SSH_PROFILE_IMPORTER, SSHAlgorithmType, SSHProfile } from './api'
 import { SSHProfileImporter } from './api/importer'
 
 @Injectable({ providedIn: 'root' })
@@ -65,7 +65,7 @@ export class SSHProfilesService extends ProfileProvider<SSHProfile> {
     }
 
     async getBuiltinProfiles (): Promise<PartialProfile<SSHProfile>[]> {
-        const importers = this.injector.get<SSHProfileImporter[]>(SSHProfileImporter as any, [], InjectFlags.Optional)
+        const importers = this.injector.get<SSHProfileImporter[]>(SSH_PROFILE_IMPORTER as any, [], InjectFlags.Optional)
         let imported: PartialProfile<SSHProfile>[] = []
         for (const importer of importers) {
             try {
