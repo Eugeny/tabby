@@ -40,14 +40,14 @@
     "serialport": "10.5.0",
     "serialport-binding-webserialapi": "^1.0.3",
     "windows-native-registry": "^3.2.1",
-    "windows-process-tree": "^0.3.4"
+    "windows-process-tree": "^0.3.4",
+    "patch-package": "^6.5.0"
   },
   "devDependencies": {
     "@types/mz": "2.7.4",
     "@types/node": "18.7.23",
     "atomically": "^1.7.0",
-    "ngx-filesize": "^2.0.16",
-    "patch-package": "^6.5.0"
+    "ngx-filesize": "^2.0.16"
   },
   "peerDependencies": {
     "tabby-community-color-schemes": "*",
