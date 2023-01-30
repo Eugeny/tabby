@@ -3129,10 +3129,10 @@ electron-to-chromium@^1.4.251:
   resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.270.tgz#2c6ea409b45cdb5c3e0cb2c08cf6c0ba7e0f2c26"
   integrity sha512-KNhIzgLiJmDDC444dj9vEOpZEgsV96ult9Iff98Vanumn+ShJHd5se8aX6KeVxdc0YQeqdrezBZv89rleDbvSg==
 
-electron@21.3.0:
-  version "21.3.0"
-  resolved "https://registry.yarnpkg.com/electron/-/electron-21.3.0.tgz#e9905e240add950443dc115b4be13d36162f0a05"
-  integrity sha512-MGRpshN8fBcx4IRuBABIsGDv0tB/MclIFsyFHFFXsBCUc+vIXaE/E6vuWaniGIFSz5WyeuapfTH5IeRb+7yIfw==
+electron@21.3.1:
+  version "21.3.1"
+  resolved "https://registry.yarnpkg.com/electron/-/electron-21.3.1.tgz#02a61053ace79ecdc592afc641ff663dec805b42"
+  integrity sha512-Ik/I9oFHA1h32JRtRm6GMgYdUctFpF/tPnHyATg4r3LXBTUT6habGh3GxSdmmTa5JgtA7uJUEm8EjjZItk7T3g==
   dependencies:
     "@electron/get" "^1.14.1"
     "@types/node" "^16.11.26"
@@ -8455,9 +8455,9 @@ sprintf-js@~1.0.2:
   resolved "https://registry.yarnpkg.com/sprintf-js/-/sprintf-js-1.0.3.tgz#04e6926f662895354f3dd015203633b857297e2c"
   integrity sha1-BOaSb2YolTVPPdAVIDYzuFcpfiw=
 
-ssh2@Eugeny/ssh2#22735cecf1d9c118b2b8af1c2f80fe5b04996fe1:
+ssh2@Eugeny/ssh2#9de907d62907d6d45debdcc0ed8dda5b7b19dc7c:
   version "1.11.0"
-  resolved "https://codeload.github.com/Eugeny/ssh2/tar.gz/22735cecf1d9c118b2b8af1c2f80fe5b04996fe1"
+  resolved "https://codeload.github.com/Eugeny/ssh2/tar.gz/9de907d62907d6d45debdcc0ed8dda5b7b19dc7c"
   dependencies:
     asn1 "^0.2.4"
     bcrypt-pbkdf "^1.0.2"
