@@ -100,7 +100,7 @@ function substituteEnv (env: Record<string, string>) {
     env = { ...env }
     const pattern = process.platform === 'win32' ? /%(\w+)%/g : /\$(\w+)\b/g
     for (const [key, value] of Object.entries(env)) {
-        env[key] = value.replace(pattern, function (substring, p1) {
+        env[key] = value.toString().replace(pattern, function (substring, p1) {
             if (process.platform === 'win32') {
                 return Object.entries(process.env).find(x => x[0].toLowerCase() === p1.toLowerCase())?.[1] ?? ''
             } else {
