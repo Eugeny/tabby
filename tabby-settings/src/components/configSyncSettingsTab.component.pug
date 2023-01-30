@@ -77,6 +77,12 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
                             )
                                 i.fas.fa-arrow-down
                                 span.ml-2(translate) Download
+                            button.btn.btn-link.ml-1(
+                                (click)='delete(cfg)',
+                                [class.hover-reveal]='!isActiveConfig(cfg)'
+                            )
+                                i.fas.fa-trash
+                                span.ml-2(translate) Delete
                         a.list-group-item.list-group-item-action.d-flex.align-items-center(
                             href='#',
                             (click)='uploadAsNew()'
