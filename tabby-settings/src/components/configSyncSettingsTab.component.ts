@@ -112,9 +112,9 @@ export class ConfigSyncSettingsTabComponent extends BaseComponent {
         if ((await this.platform.showMessageBox({
             type: 'warning',
             message: this.translate.instant('Delete the config on the remote side?'),
-                buttons: [
-                    this.translate.instant('Delete'),
-                    this.translate.instant('Cancel'),
+            buttons: [
+                this.translate.instant('Delete'),
+                this.translate.instant('Cancel'),
             ],
             defaultId: 1,
             cancelId: 1,
