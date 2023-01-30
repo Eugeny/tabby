@@ -47,6 +47,7 @@ export class SelectorModalComponent<T> {
             this.close()
         }
         if (event.key === 'Backspace' && this.canEditSelected()) {
+            event.preventDefault()
             this.filter = this.filteredOptions[this.selectedIndex].freeInputEquivalent!
             this.onFilterChange()
         }
