@@ -1112,6 +1112,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "siccous",
+      "name": "Tomáš Hruška",
+      "avatar_url": "https://avatars.githubusercontent.com/u/7812885?v=4",
+      "profile": "https://github.com/siccous",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
