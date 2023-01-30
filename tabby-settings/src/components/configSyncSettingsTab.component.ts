@@ -108,6 +108,24 @@ export class ConfigSyncSettingsTabComponent extends BaseComponent {
         this.notifications.info(this.translate.instant('Config downloaded'))
     }
 
+    async delete (cfg: Config) {
+        if ((await this.platform.showMessageBox({
+            type: 'warning',
+            message: this.translate.instant('Delete the config on the remote side?'),
+                buttons: [
+                    this.translate.instant('Delete'),
+                    this.translate.instant('Cancel'),
+            ],
+            defaultId: 1,
+            cancelId: 1,
+        })).response === 1) {
+            return
+        }
+        await this.configSync.delete(cfg)
+        this.loadConfigs()
+        this.notifications.info(this.translate.instant('Config deleted'))
+    }
+
     hasMatchingRemoteConfig () {
         return !!this.configs?.find(c => this.isActiveConfig(c))
     }
