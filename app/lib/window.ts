@@ -1,4 +1,4 @@
-import * as glasstron from 'glasstron'
+import * as glasstron from 'glasstron-clarity'
 
 import { Subject, Observable, debounceTime } from 'rxjs'
 import { BrowserWindow, app, ipcMain, Rectangle, Menu, screen, BrowserWindowConstructorOptions, TouchBar, nativeImage, WebContents } from 'electron'

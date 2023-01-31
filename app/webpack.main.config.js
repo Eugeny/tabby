@@ -41,7 +41,7 @@ module.exports = {
         'electron-debug': 'commonjs electron-debug',
         'electron-promise-ipc': 'commonjs electron-promise-ipc',
         fs: 'commonjs fs',
-        glasstron: 'commonjs glasstron',
+        glasstron: 'commonjs glasstron-clarity',
         mz: 'commonjs mz',
         npm: 'commonjs npm',
         'node:os': 'commonjs os',
