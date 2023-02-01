@@ -1,3 +1,5 @@
+import { PartialProfile, Profile } from './profileProvider'
+
 export interface HotkeyDescription {
     id: string
     name: string
@@ -14,4 +16,8 @@ export interface Hotkey {
  */
 export abstract class HotkeyProvider {
     abstract provide (): Promise<HotkeyDescription[]>
+
+    static getProfileHotkeyName (profile: PartialProfile<Profile>): string {
+        return (profile.id ?? profile.name).replace(/\./g, '-')
+    }
 }
