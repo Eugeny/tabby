@@ -258,6 +258,7 @@ export default class AppModule { // eslint-disable-line @typescript-eslint/no-ex
 
 export { AppRootComponent as bootstrap }
 export * from './api'
+export { AppHotkeyProvider }
 
 // Deprecations
 export { ToolbarButton as IToolbarButton } from './api'
