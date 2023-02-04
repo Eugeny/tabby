@@ -616,16 +616,9 @@ export class SSHSession {
 
     async loadPrivateKey (name: string, privateKeyContents: Buffer): Promise<string|null> {
         this.emitServiceMessage(`Loading private key: ${name}`)
-        try {
-            const parsedKey = await this.parsePrivateKey(privateKeyContents.toString())
-            this.activePrivateKey = parsedKey.toString('openssh')
-            return this.activePrivateKey
-        } catch (error) {
-            this.emitServiceMessage(colors.bgRed.black(' X ') + ' Could not read the private key file')
-            this.emitServiceMessage(colors.bgRed.black(' X ') + ` ${error}`)
-            this.notifications.error('Could not read the private key file')
-            return null
-        }
+        const parsedKey = await this.parsePrivateKey(privateKeyContents.toString())
+        this.activePrivateKey = parsedKey.toString('openssh')
+        return this.activePrivateKey
     }
 
     async parsePrivateKey (privateKey: string): Promise<any> {
@@ -649,7 +642,10 @@ export class SSHSession {
                     modal.componentInstance.password = true
                     modal.componentInstance.showRememberCheckbox = true
 
-                    const result = await modal.result
+                    const result = await modal.result.catch(() => {
+                        throw new Error('Passphrase prompt cancelled')
+                    })
+
                     passphrase = result?.value
                     if (passphrase && result.remember) {
                         this.passwordStorage.savePrivateKeyPassword(keyHash, passphrase)
