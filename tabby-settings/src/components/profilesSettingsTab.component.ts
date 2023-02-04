@@ -4,7 +4,7 @@ import slugify from 'slugify'
 import deepClone from 'clone-deep'
 import { Component, Inject } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
-import { ConfigService, HostAppService, Profile, SelectorService, ProfilesService, PromptModalComponent, PlatformService, BaseComponent, PartialProfile, ProfileProvider, TranslateService, Platform } from 'tabby-core'
+import { ConfigService, HostAppService, Profile, SelectorService, ProfilesService, PromptModalComponent, PlatformService, BaseComponent, PartialProfile, ProfileProvider, TranslateService, Platform, AppHotkeyProvider } from 'tabby-core'
 import { EditProfileModalComponent } from './editProfileModal.component'
 
 interface ProfileGroup {
@@ -146,6 +146,13 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
             this.profilesService.providerForProfile(profile)?.deleteProfile(
                 this.profilesService.getConfigProxyForProfile(profile))
             this.config.store.profiles = this.config.store.profiles.filter(x => x !== profile)
+            const profileHotkeyName = AppHotkeyProvider.getProfileHotkeyName(profile)
+            if (this.config.store.hotkeys.profile.hasOwnProperty(profileHotkeyName)) {
+                const profileHotkeys = deepClone(this.config.store.hotkeys.profile)
+                // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
+                delete profileHotkeys[profileHotkeyName]
+                this.config.store.hotkeys.profile = profileHotkeys
+            }
             await this.config.save()
         }
     }
