@@ -38,7 +38,7 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
             ng-container(*ngIf='config.store.configSync.token')
                 .alert.alert-danger(*ngIf='connectionSuccessful === false')
                     i.fas.fa-exclamation-triangle
-                    span.ml-2(translate='Connection failed: {error}', [translateParams]='{error: connectionError}')
+                    span.ms-2(translate='Connection failed: {error}', [translateParams]='{error: connectionError}')
 
             ng-container(*ngIf='connectionSuccessful')
                 .form-line
@@ -47,7 +47,7 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
 
                 div(*ngIf='configs === null')
                     i.fas.fa-fw.fa-circle-notch.fa-spin
-                    span.ml-2(translate) Loading configs...
+                    span.ms-2(translate) Loading configs...
 
                 ng-container(*ngIf='configs !== null')
                     .list-group-light
@@ -57,39 +57,39 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
                         )
                             i.fas.fa-fw.text-success([class.fa-check]='isActiveConfig(cfg)')
                             i.fas.fa-fw.fa-file
-                            .ml-2.d-flex.flex-column.align-items-start
+                            .ms-2.d-flex.flex-column.align-items-start
                                 div {{cfg.name}}
                                 small.text-muted(
                                     translate='Modified on {date}',
                                     [translateParams]='{date: cfg.modified_at|date:"medium"}'
                                 )
-                            .mr-auto
-                            button.btn.btn-link.ml-1(
+                            .me-auto
+                            button.btn.btn-link.ms-1(
                                 (click)='uploadAndSync(cfg)',
                                 [class.hover-reveal]='!isActiveConfig(cfg)'
                             )
                                 i.fas.fa-arrow-up
-                                span.ml-2(*ngIf='isActiveConfig(cfg)', translate) Upload
-                                span.ml-2(*ngIf='!isActiveConfig(cfg)', translate) Replace
-                            button.btn.btn-link.ml-1(
+                                span.ms-2(*ngIf='isActiveConfig(cfg)', translate) Upload
+                                span.ms-2(*ngIf='!isActiveConfig(cfg)', translate) Replace
+                            button.btn.btn-link.ms-1(
                                 (click)='downloadAndSync(cfg)',
                                 [class.hover-reveal]='!isActiveConfig(cfg)'
                             )
                                 i.fas.fa-arrow-down
-                                span.ml-2(translate) Download
-                            button.btn.btn-link.ml-1(
+                                span.ms-2(translate) Download
+                            button.btn.btn-link.ms-1(
                                 (click)='delete(cfg)',
                                 [class.hover-reveal]='!isActiveConfig(cfg)'
                             )
                                 i.fas.fa-trash
-                                span.ml-2(translate) Delete
+                                span.ms-2(translate) Delete
                         a.list-group-item.list-group-item-action.d-flex.align-items-center(
                             href='#',
                             (click)='uploadAsNew()'
                         )
                             i.fas.fa-fw
                             i.fas.fa-fw.fa-cloud-upload-alt
-                            .ml-2(translate) Upload as a new config
+                            .ms-2(translate) Upload as a new config
 
             ng-container(*ngIf='hasMatchingRemoteConfig()')
                 .form-line

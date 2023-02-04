@@ -196,7 +196,7 @@ div.mt-4
                 span(translate) Audible
 
     .alert.alert-info.d-flex.align-items-center(*ngIf='config.store.terminal.bell != "audible" && (config.store.terminal.profile || "").startsWith("wsl")')
-        .mr-auto(translate) WSL terminal bell can only be muted via Volume Mixer
+        .me-auto(translate) WSL terminal bell can only be muted via Volume Mixer
         button.btn.btn-secondary((click)='openWSLVolumeMixer()', translate) Show Mixer
 
 .mt-4

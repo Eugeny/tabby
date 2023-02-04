@@ -1,8 +1,8 @@
 terminal-toolbar([tab]='this')
-    i.fas.fa-xs.fa-circle.text-success.mr-2(*ngIf='session && session.open')
-    i.fas.fa-xs.fa-circle.text-danger.mr-2(*ngIf='!session || !session.open')
-    strong.mr-auto {{profile.options.host}}:{{profile.options.port}}
+    i.fas.fa-xs.fa-circle.text-success.me-2(*ngIf='session && session.open')
+    i.fas.fa-xs.fa-circle.text-danger.me-2(*ngIf='!session || !session.open')
+    strong.me-auto {{profile.options.host}}:{{profile.options.port}}
 
-    button.btn.btn-sm.btn-link.mr-2((click)='reconnect()')
+    button.btn.btn-sm.btn-link.me-2((click)='reconnect()')
         i.fas.fa-redo
         span(translate) Reconnect

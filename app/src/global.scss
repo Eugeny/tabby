@@ -53,6 +53,10 @@ a, button {
     &>.form-control, &>.input-group {
         width: 33%;
     }
+
+    &>.form-check {
+        display: flex;
+    }
 }
 
 input[type=range] {
@@ -175,19 +179,19 @@ ngb-typeahead-window {
 
 // Windows high contrast mode
 @media screen and (forced-colors: active) {
-    .custom-switch .custom-control-label::before {
+    .form-switch .form-check-label::before {
         background: buttonface;
     }
 
-    .custom-switch .custom-control-label::after {
+    .form-switch .form-check-label::after {
         background: buttontext;
     }
 
-    .custom-switch .custom-control-input:checked ~ .custom-control-label::before {
+    .form-switch .form-check-input:checked ~ .form-check-label::before {
         background: activetext;
     }
 
-    .custom-switch .custom-control-input:checked ~ .custom-control-label::after {
+    .form-switch .form-check-input:checked ~ .form-check-label::after {
         background: canvas;
     }
 

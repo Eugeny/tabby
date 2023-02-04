@@ -6,16 +6,16 @@
         strong(translate) Warning: remote host's key has suddenly changed!
         div(translate) You could be under a man-in-the-middle attack right now, or the host key could have just been changed.
 
-    .form-group(*ngIf='isMismatched')
+    .mb-3(*ngIf='isMismatched')
         .d-flex.align-items-center
             label(translate) Last known host key fingerprint
-            .badge.badge-danger.ml-auto {{ selector.type }}
+            .badge.text-bg-danger.ms-auto {{ selector.type }}
         code {{knownHost.digest}}
 
-    .form-group
+    .mb-3
         .d-flex.align-items-center
             label(translate) Current host key fingerprint
-            .badge.badge-success.ml-auto {{ selector.type }}
+            .badge.text-bg-success.ms-auto {{ selector.type }}
         code {{digest}}
 
 .modal-footer

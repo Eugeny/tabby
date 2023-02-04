@@ -18,11 +18,11 @@
     .breadcrumb-spacer.flex-grow-1.h-100((dblclick)='editPath()')
 
     button.btn.btn-link.btn-sm.d-flex((click)='openCreateDirectoryModal()')
-        i.fas.fa-plus.mr-1
+        i.fas.fa-plus.me-1
         div(translate) Create directory
 
     button.btn.btn-link.btn-sm.d-flex((click)='upload()')
-        i.fas.fa-upload.mr-1
+        i.fas.fa-upload.me-1
         div(translate) Upload
 
     button.btn.btn-link.btn-close((click)='close()') !{require('../../../tabby-core/src/icons/times.svg')}
@@ -32,7 +32,7 @@
         *ngIf='shouldShowCWDTip && !cwdDetectionAvailable',
         (click)='platform.openExternal("https://tabby.sh/go/cwd-detection")'
     )
-        .mr-auto
+        .me-auto
             strong(translate) Working directory detection
             div(translate) Learn how to allow Tabby to detect remote shell's working directory.
         button.close((click)='dismissCWDTip()')
@@ -55,7 +55,7 @@
             )
                 i.fa-fw([class]='getIcon(item)')
                 div {{item.name}}
-                .mr-auto
+                .me-auto
                 .size(*ngIf='!item.isDirectory') {{item.size|filesize}}
                 .date {{item.modified|date:'medium'}}
                 .mode {{getModeString(item)}}

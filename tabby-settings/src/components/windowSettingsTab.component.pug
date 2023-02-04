@@ -146,7 +146,7 @@ h3.mt-4(translate) Docking
             )
             span(translate) Bottom
 
-.ml-5.form-line(*ngIf='docking && config.store.appearance.dock != "off"')
+.ms-5.form-line(*ngIf='docking && config.store.appearance.dock != "off"')
     .header
         .title(translate) Display on
         .description(translate) Snaps the window to a side of the screen
@@ -171,7 +171,7 @@ h3.mt-4(translate) Docking
             )
             | {{screen.name}}
 
-.ml-5.form-line(*ngIf='docking && config.store.appearance.dock != "off"')
+.ms-5.form-line(*ngIf='docking && config.store.appearance.dock != "off"')
     .header
         .title(translate) Dock always on top
         .description(translate) Keep docked terminal always on top
@@ -180,7 +180,7 @@ h3.mt-4(translate) Docking
         (ngModelChange)='saveConfiguration(); docking.dock()',
     )
 
-.ml-5.form-line(*ngIf='docking && config.store.appearance.dock != "off"')
+.ms-5.form-line(*ngIf='docking && config.store.appearance.dock != "off"')
     .header
         .title(translate) Docked terminal size
         .description(translate) Window dimension away from the edge
@@ -193,7 +193,7 @@ h3.mt-4(translate) Docking
         step='0.01'
     )
 
-.ml-5.form-line(*ngIf='docking && config.store.appearance.dock != "off"')
+.ms-5.form-line(*ngIf='docking && config.store.appearance.dock != "off"')
     .header
         .title(translate) Docked terminal space
         .description(translate) Window dimension along the edge
@@ -206,7 +206,7 @@ h3.mt-4(translate) Docking
         step='0.01'
     )
 
-.ml-5.form-line(*ngIf='docking && config.store.appearance.dock != "off"')
+.ms-5.form-line(*ngIf='docking && config.store.appearance.dock != "off"')
     .header
         .title(translate) Hide window on focus loss
         .description(translate) Hides the docked terminal when you click away.

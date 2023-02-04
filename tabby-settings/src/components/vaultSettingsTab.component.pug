@@ -8,7 +8,7 @@
 div(*ngIf='vault.isEnabled()')
     .d-flex.align-items-center.mb-3
         h3.m-0(translate) Vault
-        .d-flex.ml-auto(ngbDropdown, *ngIf='vault.isEnabled()')
+        .d-flex.ms-auto(ngbDropdown, *ngIf='vault.isEnabled()')
             button.btn.btn-secondary(ngbDropdownToggle, translate) Options
             div(ngbDropdownMenu)
                 a(ngbDropdownItem, (click)='changePassphrase()')
@@ -24,9 +24,9 @@ div(*ngIf='vault.isEnabled()')
             h3.m-3(translate) Vault is empty
 
         .list-group
-            .list-group-item.d-flex.align-items-center.p-1.pl-3(*ngFor='let secret of vaultContents.secrets')
+            .list-group-item.d-flex.align-items-center.p-1.ps-3(*ngFor='let secret of vaultContents.secrets')
                 i.fas.fa-key
-                .mr-auto {{getSecretLabel(secret)}}
+                .me-auto {{getSecretLabel(secret)}}
 
                 .hover-reveal(ngbDropdown)
                     button.btn.btn-link(ngbDropdownToggle)

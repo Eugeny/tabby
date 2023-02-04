@@ -27,7 +27,7 @@ ng-container(*ngIf='state.resultCount > 0')
         [fastHtmlBind]='icons.arrowDown'
     )
 
-.mr-2
+.me-2
 
 button.btn.btn-link(
     (click)='options.caseSensitive = !options.caseSensitive; saveSearchOptions()',
@@ -53,7 +53,7 @@ button.btn.btn-link(
     [fastHtmlBind]='icons.wholeWord'
 )
 
-.mr-2
+.me-2
 
 button.btn.btn-link(
     (click)='close.emit()',

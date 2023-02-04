@@ -175,13 +175,12 @@ $badge-padding-y: 4px;
 $badge-padding-x: 6px;
 
 
-$custom-control-indicator-size: 1.2rem;
-$custom-control-indicator-bg: $body-bg;
-$custom-control-indicator-border-color: lighten($body-bg, 25%);
-$custom-control-indicator-checked-bg: theme-color("primary");
-$custom-control-indicator-checked-color: $body-bg;
-$custom-control-indicator-checked-border-color: transparent;
-$custom-control-indicator-active-bg: rgba(255, 255, 0, 0.5);
+$form-check-input-border: lighten($body-bg, 25%);
+$form-check-input-width: 1.4em;
+$form-switch-width: 2.5em;
+$form-switch-color: lighten($body-bg, 25%);
+$form-switch-focus-color: lighten($body-bg, 40%);
+$form-switch-checked-color: map-get($theme-colors, "primary");
 
 
 $modal-content-bg:               $content-bg-solid;

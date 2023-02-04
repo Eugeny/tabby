@@ -1,7 +1,7 @@
 .modal-body
     .d-flex.align-items-center.mb-3
         h3.m-0(translate) Vault is locked
-        .ml-auto(ngbDropdown, placement='bottom-right')
+        .ms-auto(ngbDropdown, placement='bottom-right')
             button.btn.btn-link(ngbDropdownToggle, (click)='$event.stopPropagation()')
                 span(
                     *ngIf='rememberFor',
@@ -29,6 +29,5 @@
             (keyup.enter)='ok()',
             (keyup.esc)='cancel()',
         )
-        .input-group-append
-            button.btn.btn-secondary((click)='ok()', *ngIf='passphrase')
-                i.fas.fa-check
+        button.btn.btn-secondary((click)='ok()', *ngIf='passphrase')
+            i.fas.fa-check

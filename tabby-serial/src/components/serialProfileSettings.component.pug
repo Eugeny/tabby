@@ -4,7 +4,7 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
         ng-template(ngbNavContent)
             .row
                 .col-6(ng:if='hostApp.platform !== Platform.Web')
-                    .form-group
+                    .mb-3
                         label(translate) Device
                         input.form-control(
                             type='text',
@@ -15,7 +15,7 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
                         )
 
                 .col-6
-                    .form-group
+                    .mb-3
                         label(translate) Baud rate
                         input.form-control(
                             type='number',

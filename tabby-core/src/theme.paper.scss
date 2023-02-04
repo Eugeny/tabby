@@ -19,10 +19,9 @@ $tab-border-radius: 5px;
 $button-hover-bg: rgba(0, 0, 0, .125);
 $button-active-bg: rgba(0, 0, 0, .25);
 
-$theme-colors: (
-    "primary":    $orange,
-    "secondary":  $base0
-);
+
+$primary: #fd7e14;
+$secondary: #495057;
 
 $content-bg: rgba($white, 0.65);
 $content-bg-solid: $white;
@@ -257,8 +256,8 @@ multi-hotkey-input {
     }
 
     .item:has(.duplicate) {
-        background-color: theme-color('danger');
-        border: 1px solid theme-color('danger');
+        background-color: map-get($theme-colors, 'danger');
+        border: 1px solid map-get($theme-colors, 'danger');
     }
 
     .add {
@@ -272,8 +271,8 @@ multi-hotkey-input {
     }
 
     .add:has(.duplicate), .item:has(.duplicate) .body, .item:has(.duplicate) .remove {
-        &:hover { background: darken(theme-color('danger'), 5%); }
-        &:active { background: darken(theme-color('danger'), 15%); }
+        &:hover { background: darken(map-get($theme-colors, 'danger'), 5%); }
+        &:active { background: darken(map-get($theme-colors, 'danger'), 15%); }
     }
 }
 
@@ -303,7 +302,7 @@ hotkey-input-modal {
     }
 }
 
-.form-group label {
+.mb-3 label {
     margin-bottom: 2px;
 }
 
@@ -370,7 +369,7 @@ toggle {
     }
 
     &.active .body .toggle {
-        background: theme-colors(primary) !important;
+        background: map-get($theme-colors, primary) !important;
     }
 }
 

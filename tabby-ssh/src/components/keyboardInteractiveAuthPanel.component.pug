@@ -1,6 +1,6 @@
 .d-flex
     strong(translate) Keyboard-interactive auth
-    .ml-2 {{prompt.name}}
+    .ms-2 {{prompt.name}}
 
 .prompt-text {{prompt.prompts[step].prompt}}
 
@@ -18,7 +18,7 @@ input.form-control.mt-2(
         *ngIf='step > 0',
         (click)='previous()'
     )
-    .ml-auto
+    .ms-auto
     button.btn.btn-primary(
         (click)='next()'
     )

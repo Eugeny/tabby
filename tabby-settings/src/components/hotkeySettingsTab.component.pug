@@ -6,13 +6,13 @@ h3.mb-3(translate) Hotkeys
             i.fas.fa-fw.fa-search
     input.form-control(type='search', [placeholder]='"Search hotkeys"|translate', [(ngModel)]='hotkeyFilter')
 
-.form-group.hotkeys-table
+.mb-3.hotkeys-table
     ng-container(*ngFor='let hotkey of hotkeyDescriptions')
         .row.align-items-center(*ngIf='!hotkeyFilter || hotkeyFilterFn(hotkey, hotkeyFilter)')
             .col-8.py-2
                 span {{hotkey.name|translate}}
-                span.ml-2.text-muted ({{hotkey.id}})
-            .col-4.pr-5
+                span.ms-2.text-muted ({{hotkey.id}})
+            .col-4.pe-5
                 multi-hotkey-input(
                     [hotkeys]='getHotkeys(hotkey.id) || []',
                     (hotkeysChange)='setHotkeys(hotkey.id, $event)'

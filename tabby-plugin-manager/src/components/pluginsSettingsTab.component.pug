@@ -1,6 +1,6 @@
 .d-flex.mb-3
     h3(translate) Plugins
-    button.btn.btn-secondary.btn-sm.ml-auto((click)='openPluginsFolder()')
+    button.btn.btn-secondary.btn-sm.ms-auto((click)='openPluginsFolder()')
         i.fas.fa-folder
         span(translate) Plugins folder
 
@@ -43,14 +43,14 @@ ul.nav-tabs.mb-2(ngbNav, #nav='ngbNav')
                                     )
                                         i.fas.fa-fw.fa-cloud-download(*ngIf='busy.get(plugin.name) != BusyState.Installing')
                                         i.fas.fa-fw.fa-circle-notch.fa-spin(*ngIf='busy.get(plugin.name) == BusyState.Installing')
-                                        span.ml-2(translate) Get
+                                        span.ms-2(translate) Get
 
                                     button.btn.btn-secondary.btn-block.justify-content-center(
                                         *ngIf='plugin.homepage',
                                         (click)='showPluginHomepage(plugin)'
                                     )
                                         i.fas.fa-fw.fa-external-link-alt
-                                        span.ml-2(translate) Homepage
+                                        span.ms-2(translate) Homepage
 
                                 .col-8
                                     ng-container(*ngTemplateOutlet='pluginInfo; context: { plugin }')
@@ -75,14 +75,14 @@ ul.nav-tabs.mb-2(ngbNav, #nav='ngbNav')
                 ng-container(*ngFor='let plugin of installedPlugins$')
                     ngb-panel
                         ng-template(ngbPanelTitle)
-                            .text-left.mr-auto
+                            .text-left.me-auto
                                 div
                                     strong {{plugin.name}}
-                                    small.text-muted.ml-2(*ngIf='plugin.isBuiltin', translate) Built-in
-                                    small.text-warning.ml-2(*ngIf='!isPluginEnabled(plugin)', translate) Disabled
+                                    small.text-muted.ms-2(*ngIf='plugin.isBuiltin', translate) Built-in
+                                    small.text-warning.ms-2(*ngIf='!isPluginEnabled(plugin)', translate) Disabled
                                 small.d-block.text-muted {{plugin.description}}
 
-                            button.btn.btn-primary.ml-2(
+                            button.btn.btn-primary.ms-2(
                                 *ngIf='knownUpgrades[plugin.name]',
                                 (click)='upgradePlugin(plugin)',
                                 [disabled]='busy.has(plugin.name)'
@@ -133,11 +133,11 @@ ng-template(#pluginInfo, let-plugin='plugin')
         .col-4
             strong(translate) Author
         .col-8
-            .badge.badge-success(*ngIf='plugin.isOfficial')
+            .badge.text-bg-success(*ngIf='plugin.isOfficial')
                 i.fas.fa-check
-                span.ml-1(translate) Official
+                span.ms-1(translate) Official
             a.btn.btn-link.px-0.w-auto((click)='showPluginInfo(plugin)', *ngIf='!plugin.isOfficial')
                 span {{plugin.author}}
-                i.fas.fa-fw.fa-external-link-alt.ml-2
+                i.fas.fa-fw.fa-external-link-alt.ms-2
 
 .mb-4([ngbNavOutlet]='nav')

@@ -23,12 +23,11 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
 
             .d-flex.mb-3
                 .input-group
-                    .input-group-prepend
-                        .input-group-text
-                            i.fas.fa-fw.fa-search
+                    .input-group-text
+                        i.fas.fa-fw.fa-search
                     input.form-control(type='search', [placeholder]='"Filter"|translate', [(ngModel)]='filter')
 
-                button.btn.btn-primary.flex-shrink-0.ml-3((click)='newProfile()')
+                button.btn.btn-primary.flex-shrink-0.ms-3((click)='newProfile()')
                     i.fas.fa-fw.fa-plus
                     span(translate) New profile
 
@@ -40,20 +39,20 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
                         )
                             .fa.fa-fw.fa-chevron-right(*ngIf='group.collapsed')
                             .fa.fa-fw.fa-chevron-down(*ngIf='!group.collapsed')
-                            span.ml-3.mr-auto {{group.name || ("Ungrouped"|translate)}}
-                            button.btn.btn-sm.btn-link.hover-reveal.ml-2(
+                            span.ms-3.me-auto {{group.name || ("Ungrouped"|translate)}}
+                            button.btn.btn-sm.btn-link.hover-reveal.ms-2(
                                 *ngIf='group.editable && group.name',
                                 (click)='$event.stopPropagation(); editGroup(group)'
                             )
                                 i.fas.fa-pencil-alt
-                            button.btn.btn-sm.btn-link.hover-reveal.ml-2(
+                            button.btn.btn-sm.btn-link.hover-reveal.ms-2(
                                 *ngIf='group.editable && group.name',
                                 (click)='$event.stopPropagation(); deleteGroup(group)'
                             )
                                 i.fas.fa-trash-alt
                         ng-container(*ngIf='!group.collapsed')
                             ng-container(*ngFor='let profile of group.profiles')
-                                .list-group-item.pl-5.d-flex.align-items-center(
+                                .list-group-item.ps-5.d-flex.align-items-center(
                                     *ngIf='isProfileVisible(profile)',
                                     [class.list-group-item-action]='!profile.isBuiltin',
                                     (click)='profile.isBuiltin ? null : editProfile(profile)'
@@ -64,23 +63,23 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
                                     )
 
                                     .no-wrap {{profile.name}}
-                                    .text-muted.no-wrap.ml-2 {{getDescription(profile)}}
+                                    .text-muted.no-wrap.ms-2 {{getDescription(profile)}}
 
-                                    .mr-auto
+                                    .me-auto
 
-                                    button.btn.btn-link.hover-reveal.ml-1((click)='$event.stopPropagation(); launchProfile(profile)')
+                                    button.btn.btn-link.hover-reveal.ms-1((click)='$event.stopPropagation(); launchProfile(profile)')
                                         i.fas.fa-play
 
-                                    button.btn.btn-link.hover-reveal.ml-1((click)='$event.stopPropagation(); newProfile(profile)')
+                                    button.btn.btn-link.hover-reveal.ms-1((click)='$event.stopPropagation(); newProfile(profile)')
                                         i.fas.fa-copy
 
-                                    button.btn.btn-link.hover-reveal.ml-1(
+                                    button.btn.btn-link.hover-reveal.ms-1(
                                         *ngIf='!profile.isBuiltin',
                                         (click)='$event.stopPropagation(); deleteProfile(profile)'
                                     )
                                         i.fas.fa-trash-alt
 
-                                    .ml-1(class='badge badge-{{getTypeColorClass(profile)}}') {{getTypeLabel(profile)}}
+                                    .ms-1(class='badge text-bg-{{getTypeColorClass(profile)}}') {{getTypeLabel(profile)}}
 
     li(ngbNavItem)
         a(ngbNavLink, translate) Advanced

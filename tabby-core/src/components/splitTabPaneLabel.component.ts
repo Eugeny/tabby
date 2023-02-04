@@ -15,7 +15,7 @@ import { SelfPositioningComponent } from './selfPositioning.component'
         (cdkDragStarted)='onTabDragStart(tab)'
         (cdkDragEnded)='onTabDragEnd()'
     >
-        <i class="fa fa-window-maximize mr-3"></i>
+        <i class="fa fa-window-maximize me-3"></i>
         <label>{{tab.title}}</label>
     </div>
     `,

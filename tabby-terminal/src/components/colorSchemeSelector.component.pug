@@ -2,7 +2,7 @@
     .bg-dark.p-3.mb-4(*ngIf='model')
         .d-flex.align-items-center
             span {{model.name}}
-            .mr-auto
+            .me-auto
             a.btn-link((click)='selectScheme(null); $event.preventDefault()', href='#', translate) Clear
 
         color-scheme-preview([scheme]='model')
@@ -24,8 +24,8 @@
                 .d-flex.w-100.align-items-center
                     i.fas.fa-fw([class.fa-check]='model?.name === scheme.name')
 
-                    .ml-2
+                    .ms-2
 
-                    .mr-auto {{scheme.name}}
+                    .me-auto {{scheme.name}}
 
                 color-scheme-preview([scheme]='scheme')
