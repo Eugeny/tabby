@@ -169,7 +169,7 @@ export class Application {
 
     broadcastExcept (event: string, except: WebContents, ...args: any[]): void {
         for (const window of this.windows) {
-            if (window.webContents.id === except.id) {
+            if (window.webContents.id !== except.id) {
                 window.send(event, ...args)
             }
         }

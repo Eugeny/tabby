@@ -9,6 +9,7 @@ import { ConfigProvider } from '../api/configProvider'
 import { PlatformService } from '../api/platform'
 import { HostAppService } from '../api/hostApp'
 import { Vault, VaultService } from './vault.service'
+import { serializeFunction } from '../utils'
 const deepmerge = require('deepmerge')
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
@@ -146,6 +147,7 @@ export class ConfigService {
             this.store.vault = vault.store
             this.save()
         })
+        this.save = serializeFunction(this.save.bind(this))
     }
 
     mergeDefaults (): unknown {
