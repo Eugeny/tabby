@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2023-01-03 09:14\n"
+"PO-Revision-Date: 2023-02-04 18:52\n"
 
 #: tabby-local/src/components/terminalTab.component.ts:113
 msgid "\"{command}\" is still running. Close?"
@@ -186,7 +186,7 @@ msgstr "Inicio de la línea"
 msgid "Blink cursor"
 msgstr "Parpadear cursor"
 
-#: tabby-core/src/utils.ts:61
+#: tabby-core/src/utils.ts:55
 msgid "Blue"
 msgstr "Azul"
 
@@ -228,7 +228,7 @@ msgstr "Integrado"
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:79
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:99
 #: tabby-ssh/src/sftpContextMenu.ts:40
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:474
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:476
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -253,7 +253,7 @@ msgstr "Buscar actualizaciones"
 msgid "Ciphers"
 msgstr "Cifrados"
 
-#: tabby-core/src/services/profiles.service.ts:128
+#: tabby-core/src/services/profiles.service.ts:132
 msgid "Clear recent profiles"
 msgstr "Limpiar los perfiles recientes"
 
@@ -295,7 +295,7 @@ msgstr "Cerrar las pestañas de la izquierda"
 msgid "Close tabs to the right"
 msgstr "Cerrar las pestañas de la derecha"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:187
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:193
 msgid "Close the window after closing the last tab"
 msgstr "Cerrar la ventana después de cerrar la última pestaña"
 
@@ -320,7 +320,7 @@ msgstr "Línea de comandos"
 msgid "Command's stdin/stdout is used instead of a network connection"
 msgstr "El stdin/stdout del comando se utiliza en lugar de una conexión de red"
 
-#: tabby-core/src/services/commands.service.ts:77
+#: tabby-core/src/services/commands.service.ts:104
 msgid "Commands"
 msgstr "Comandos"
 
@@ -354,8 +354,8 @@ msgstr "Configuraciones"
 msgid "Connect through a proxy server"
 msgstr "Conectar a través de un servidor proxy"
 
-#: tabby-core/src/index.ts:219
-#: tabby-core/src/services/profiles.service.ts:173
+#: tabby-core/src/index.ts:227
+#: tabby-core/src/services/profiles.service.ts:177
 msgid "Connect to \"%s\"..."
 msgstr "Conectarse a %s..."
 
@@ -386,20 +386,20 @@ msgstr "El nombre de la conexión se utilizará en su lugar"
 msgid "Context menu"
 msgstr "Menú contextual"
 
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:219
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:227
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:542
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:756
-#: tabby-terminal/src/tabContextMenu.ts:29
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:221
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:229
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:544
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:765
+#: tabby-terminal/src/tabContextMenu.ts:30
 msgid "Copied"
 msgstr "Copiado"
 
-#: tabby-terminal/src/tabContextMenu.ts:25
+#: tabby-terminal/src/tabContextMenu.ts:26
 msgid "Copy"
 msgstr "Copiar"
 
 #: tabby-terminal/src/hotkeys.ts:70
-#: tabby-terminal/src/tabContextMenu.ts:61
+#: tabby-terminal/src/tabContextMenu.ts:66
 msgid "Copy current path"
 msgstr "Copiar la ruta actual"
 
@@ -555,11 +555,11 @@ msgstr "Deshabilitar"
 msgid "Disable dynamic tab title"
 msgstr "Deshabilitar el título de la pestaña dinámica"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:216
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:229
 msgid "Disable fluent background while dragging"
 msgstr "Desactivar el fondo de fluidez mientras arrastra"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:209
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:215
 msgid "Disable GPU acceleration"
 msgstr "Deshabilitar la aceleración de GPU"
 
@@ -568,12 +568,12 @@ msgid "Disabled"
 msgstr "Deshabilitado"
 
 #: locale/tmp-html/tabby-ssh/src/components/hostKeyPromptModal.component.html:26
-#: tabby-ssh/src/components/sshTab.component.ts:246
+#: tabby-ssh/src/components/sshTab.component.ts:250
 #: tabby-telnet/src/components/telnetTab.component.ts:124
 msgid "Disconnect"
 msgstr "Desconectar"
 
-#: tabby-ssh/src/components/sshTab.component.ts:244
+#: tabby-ssh/src/components/sshTab.component.ts:248
 #: tabby-telnet/src/components/telnetTab.component.ts:122
 msgid "Disconnect from {host}?"
 msgstr "¿Desconectarse desde {host}?"
@@ -590,7 +590,7 @@ msgstr "Mostrar en pantalla"
 msgid "Do not abort"
 msgstr "No abortar"
 
-#: tabby-ssh/src/components/sshTab.component.ts:247
+#: tabby-ssh/src/components/sshTab.component.ts:251
 #: tabby-telnet/src/components/telnetTab.component.ts:125
 msgid "Do not close"
 msgstr "No cerrar"
@@ -640,7 +640,7 @@ msgstr "Mostrar texto en negrita en colores brillantes"
 msgid "Duplicate"
 msgstr "Duplicar"
 
-#: tabby-local/src/tabContextMenu.ts:123
+#: tabby-local/src/tabContextMenu.ts:121
 msgid "Duplicate as administrator"
 msgstr "Duplicar como administrador"
 
@@ -673,6 +673,10 @@ msgstr "Activar animaciones"
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:74
 msgid "Enable automatic installation of updates when they become available."
 msgstr "Habilitar la instalación automática de actualizaciones cuando estén disponibles."
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:222
+msgid "Enable fluent background option"
+msgstr "Activar la opción de fondo de fluido"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:16
 msgid "Enable font ligatures"
@@ -719,6 +723,10 @@ msgstr "Coincidencia exacta"
 msgid "Example:"
 msgstr "Ejemplo:"
 
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:223
+msgid "Experimental Windows 10 background style known to cause issues"
+msgstr "Se sabe que el estilo de fondo experimental de Windows 10 causa problemas"
+
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:27
 msgid "Export"
 msgstr "Exportar"
@@ -743,11 +751,11 @@ msgstr "Filtro"
 msgid "Fixed"
 msgstr "Solucionado"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:217
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:230
 msgid "Fluent background sometimes causes drag lag"
 msgstr "Fondo fluido a veces causa retraso de arrastre"
 
-#: tabby-local/src/tabContextMenu.ts:145
+#: tabby-terminal/src/tabContextMenu.ts:78
 msgid "Focus all panes"
 msgstr "Enfocar todos los paneles"
 
@@ -755,7 +763,7 @@ msgstr "Enfocar todos los paneles"
 msgid "Focus all panes at once (broadcast)"
 msgstr "Enfocar todos los paneles a la vez (transmitir)"
 
-#: tabby-local/src/tabContextMenu.ts:138
+#: tabby-terminal/src/tabContextMenu.ts:71
 msgid "Focus all tabs"
 msgstr "Enfocar todas las pestañas"
 
@@ -763,7 +771,7 @@ msgstr "Enfocar todas las pestañas"
 msgid "Focus all tabs at once (broadcast)"
 msgstr "Enfocar todas las pestañas a la vez (transmisión)"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:201
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:207
 msgid "Focus follows mouse"
 msgstr "El foco sigue al ratón"
 
@@ -807,7 +815,7 @@ msgstr "Central el panel de la derecha"
 msgid "Font"
 msgstr "Fuente"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:195
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:201
 msgid "For keyboard shortcuts"
 msgstr "Para atajos de teclado"
 
@@ -881,7 +889,7 @@ msgstr "Le da a la ventana un fondo transparente borroso"
 msgid "Go up"
 msgstr "Ir arriba"
 
-#: tabby-core/src/utils.ts:62
+#: tabby-core/src/utils.ts:56
 msgid "Green"
 msgstr "Verde"
 
@@ -889,7 +897,7 @@ msgstr "Verde"
 msgid "Group"
 msgstr "Grupo"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:206
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:212
 msgid "Hacks"
 msgstr "Hacks"
 
@@ -906,15 +914,15 @@ msgstr "Ayuda a traducir Tabby"
 msgid "Hexadecimal"
 msgstr "Hexadecimal"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:181
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:187
 msgid "Hide tab close button"
 msgstr "Ocultar botón de cierre de pestaña"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:163
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:169
 msgid "Hide tab index"
 msgstr "Ocultar índice de pestaña"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:175
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:181
 msgid "Hide tab options button"
 msgstr "Ocultar botón de opciones de pestaña"
 
@@ -1141,7 +1149,7 @@ msgstr "Código de acceso"
 msgid "Long-click for context menu"
 msgstr "Clic extendido para el menú contextual"
 
-#: tabby-core/src/services/profiles.service.ts:157
+#: tabby-core/src/services/profiles.service.ts:161
 msgid "Manage profiles"
 msgstr "Administrar perfiles"
 
@@ -1177,7 +1185,7 @@ msgstr "Mover pestaña a la derecha"
 msgid "Move to \"Ungrouped\""
 msgstr "Mover a \"Desagrupado\""
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:202
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:208
 msgid "Moving the mouse over an inactive pane will cause it to activate"
 msgstr "Al mover el ratón sobre un panel inactivo se activará"
 
@@ -1198,7 +1206,7 @@ msgstr "Nombre para el nuevo directorio"
 msgid "Native"
 msgstr "Nativo"
 
-#: tabby-local/src/tabContextMenu.ts:105
+#: tabby-local/src/tabContextMenu.ts:103
 msgid "New admin tab"
 msgstr "Nueva pestaña de administración"
 
@@ -1219,7 +1227,7 @@ msgstr "Nuevo nombre"
 msgid "New profile"
 msgstr "Nuevo perfil"
 
-#: tabby-local/src/tabContextMenu.ts:31
+#: tabby-local/src/tabContextMenu.ts:30
 msgid "New profile name"
 msgstr "Nuevo nombre de perfil"
 
@@ -1232,7 +1240,7 @@ msgid "New tab: {profile}"
 msgstr "Nueva pestaña: {profile}"
 
 #: tabby-local/src/buttonProvider.ts:20
-#: tabby-local/src/tabContextMenu.ts:79
+#: tabby-local/src/tabContextMenu.ts:77
 msgid "New terminal"
 msgstr "Nuevo terminal"
 
@@ -1244,7 +1252,7 @@ msgstr "Nueva ventana"
 msgid "New Window"
 msgstr "Nueva ventana"
 
-#: tabby-local/src/tabContextMenu.ts:89
+#: tabby-local/src/tabContextMenu.ts:87
 msgid "New with profile"
 msgstr "Nuevo con perfil"
 
@@ -1252,7 +1260,7 @@ msgstr "Nuevo con perfil"
 msgid "Next tab"
 msgstr "Siguiente pestaña"
 
-#: tabby-core/src/utils.ts:60
+#: tabby-core/src/utils.ts:54
 msgid "No color"
 msgstr "Sin color"
 
@@ -1273,8 +1281,8 @@ msgstr "Normal"
 msgid "Normal font weight"
 msgstr "Peso de fuente normal"
 
-#: tabby-terminal/src/components/searchPanel.component.ts:47
-#: tabby-terminal/src/components/searchPanel.component.ts:57
+#: tabby-terminal/src/components/searchPanel.component.ts:54
+#: tabby-terminal/src/components/searchPanel.component.ts:64
 msgid "Not found"
 msgstr "No encontrado"
 
@@ -1333,7 +1341,7 @@ msgstr "Opcional"
 msgid "Options"
 msgstr "Opciones"
 
-#: tabby-core/src/utils.ts:63
+#: tabby-core/src/utils.ts:57
 msgid "Orange"
 msgstr "Naranja"
 
@@ -1381,11 +1389,11 @@ msgstr "¿Sobrescribir la configuración en el lado remoto y empezar a sincroniz
 msgid "Overwrite the local config and start syncing?"
 msgstr "¿Sobrescribir la configuración local y empezar a sincronizar?"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:194
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:200
 msgid "Pane resize step"
 msgstr "Paso de redimensionado del panel"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:191
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:197
 msgid "Panes"
 msgstr "Paneles"
 
@@ -1407,8 +1415,8 @@ msgid "Password"
 msgstr "Contraseña"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:62
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:473
-#: tabby-terminal/src/tabContextMenu.ts:34
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:475
+#: tabby-terminal/src/tabContextMenu.ts:35
 msgid "Paste"
 msgstr "Pegar"
 
@@ -1420,7 +1428,7 @@ msgstr "Pegar desde el portapapeles"
 msgid "Paste if no selection, else copy"
 msgstr "Pegar si no hay selección, sino copiar"
 
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:480
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:482
 msgid "Paste multiple lines?"
 msgstr "¿Pegar múltiples líneas?"
 
@@ -1459,7 +1467,7 @@ msgid "Ports"
 msgstr "Puertos"
 
 #: tabby-serial/src/components/serialTab.component.ts:92
-#: tabby-ssh/src/components/sshTab.component.ts:177
+#: tabby-ssh/src/components/sshTab.component.ts:174
 #: tabby-telnet/src/components/telnetTab.component.ts:58
 msgid "Press any key to reconnect"
 msgstr "Pulse cualquier tecla para reconectar"
@@ -1498,7 +1506,7 @@ msgstr "Nombre de perfil"
 msgid "Profiles"
 msgstr "Perfiles"
 
-#: tabby-core/src/buttonProvider.ts:40
+#: tabby-core/src/commands.ts:32
 #: tabby-settings/src/settings.ts:58
 msgid "Profiles & connections"
 msgstr "Perfiles y conexiones"
@@ -1511,7 +1519,7 @@ msgstr "Programa"
 msgid "Proxy command"
 msgstr "Comando proxy"
 
-#: tabby-core/src/utils.ts:64
+#: tabby-core/src/utils.ts:58
 msgid "Purple"
 msgstr "Morado"
 
@@ -1519,8 +1527,8 @@ msgstr "Morado"
 msgid "Puts all of Tabby's configuration into the vault"
 msgstr "Poner toda la configuración de Tabby en la vault"
 
-#: tabby-core/src/index.ts:218
-#: tabby-core/src/services/profiles.service.ts:172
+#: tabby-core/src/index.ts:226
+#: tabby-core/src/services/profiles.service.ts:176
 msgid "Quick connect"
 msgstr "Conexión rápida"
 
@@ -1537,8 +1545,8 @@ msgstr "Conexión de socket sin procesar"
 msgid "Ready Timeout (Milliseconds)"
 msgstr "Tiempo de espera listo (Milisegundos)"
 
-#: tabby-core/src/services/profiles.service.ts:115
-#: tabby-core/src/services/profiles.service.ts:129
+#: tabby-core/src/services/profiles.service.ts:119
+#: tabby-core/src/services/profiles.service.ts:133
 #: tabby-local/src/services/dockMenu.service.ts:28
 msgid "Recent"
 msgstr "Reciente"
@@ -1549,7 +1557,7 @@ msgstr "Reciente"
 msgid "Reconnect"
 msgstr "Reconectar"
 
-#: tabby-core/src/utils.ts:65
+#: tabby-core/src/utils.ts:59
 msgid "Red"
 msgstr "Rojo"
 
@@ -1666,7 +1674,7 @@ msgstr "Guardar una contraseña en el llavero"
 msgid "Save and apply"
 msgstr "Guardar y aplicar"
 
-#: tabby-local/src/tabContextMenu.ts:28
+#: tabby-local/src/tabContextMenu.ts:27
 msgid "Save as profile"
 msgstr "Guardar como perfil"
 
@@ -1674,7 +1682,7 @@ msgstr "Guardar como perfil"
 msgid "Save layout as profile"
 msgstr "Guardar diseño como perfil"
 
-#: tabby-local/src/tabContextMenu.ts:49
+#: tabby-local/src/tabContextMenu.ts:48
 msgid "Saved"
 msgstr "Guardado"
 
@@ -1718,7 +1726,7 @@ msgstr "Buscar"
 msgid "Search color schemes"
 msgstr "Buscar esquemas de color"
 
-#: tabby-settings/src/components/hotkeySettingsTab.component.ts:11
+#: tabby-settings/src/components/hotkeySettingsTab.component.ts:13
 msgid "Search hotkeys"
 msgstr "Buscar atajos"
 
@@ -1747,11 +1755,11 @@ msgstr "Seleccionar todo"
 msgid "Select file storage"
 msgstr "Seleccionar archivo de almacenamiento"
 
-#: tabby-core/src/index.ts:230
+#: tabby-core/src/index.ts:238
 msgid "Select profile"
 msgstr "Seleccionar perfil"
 
-#: tabby-core/src/services/profiles.service.ts:181
+#: tabby-core/src/services/profiles.service.ts:185
 msgid "Select profile or enter an address"
 msgstr "Seleccionar perfil o introducir una dirección"
 
@@ -1803,7 +1811,7 @@ msgid "Sets the SSH agent's named pipe path."
 msgstr "Establece la ruta de la tubería nombrada por el agente SSH."
 
 #: tabby-settings/src/buttonProvider.ts:28
-#: tabby-settings/src/components/settingsTab.component.ts:57
+#: tabby-settings/src/components/settingsTab.component.ts:58
 msgid "Settings"
 msgstr "Ajustes"
 
@@ -1811,7 +1819,7 @@ msgstr "Ajustes"
 msgid "Shell"
 msgstr "Escudo"
 
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:544
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:546
 msgid "Shell does not support current path detection"
 msgstr "Shell no soporta la detección actual de rutas"
 
@@ -1851,7 +1859,7 @@ msgstr "Mostrar Mixer"
 msgid "Show pane labels (for rearranging)"
 msgstr "Mostrar etiquetas de panel (para reordenar)"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:169
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:175
 msgid "Show profile icon on tab"
 msgstr "Mostrar icono de perfil en pestaña"
 
@@ -1871,7 +1879,11 @@ msgstr "Mostrar notas del lanzamiento"
 msgid "Show Serial connections"
 msgstr "Mostrar conexiones Serial"
 
-#: tabby-terminal/src/tabContextMenu.ts:53
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:163
+msgid "Show tabs in fullscreen mode"
+msgstr "Mostrar pestañas en modo de pantalla completa"
+
+#: tabby-terminal/src/tabContextMenu.ts:58
 msgid "Show toolbar"
 msgstr "Mostrar barra de herramientas"
 
@@ -2071,7 +2083,7 @@ msgstr "Ancho de pestañas"
 msgid "Telnet session"
 msgstr "Sesión de Telnet"
 
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:194
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:196
 #: tabby-terminal/src/settings.ts:43
 msgid "Terminal"
 msgstr "Terminal"
@@ -2108,7 +2120,7 @@ msgstr "Estos se aplican a todos los perfiles de un tipo determinado"
 msgid "Thin"
 msgstr "Estrecho"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:210
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:216
 msgid "Tick this if you're experiencing aliasing, ghosting or other visual issues"
 msgstr "Marque esto si está experimentando aliasing, efecto fantasma u otros problemas visuales"
 
@@ -2277,7 +2289,7 @@ msgstr "Advertencia: ¡la clave del host remoto ha cambiado repentinamente!"
 msgid "We're only tracking your Tabby and OS versions."
 msgstr "Solo estamos rastreando sus versiones de Tabby y SO."
 
-#: tabby-core/src/components/welcomeTab.component.ts:24
+#: tabby-core/src/components/welcomeTab.component.ts:25
 msgid "Welcome"
 msgstr "Bienvenido"
 
@@ -2351,7 +2363,7 @@ msgstr "La terminal WSL sólo soporta TrueColor con ConPTY"
 msgid "X11 forwarding"
 msgstr "Reenvío X11"
 
-#: tabby-core/src/utils.ts:66
+#: tabby-core/src/utils.ts:60
 msgid "Yellow"
 msgstr "Amarillo"
 
