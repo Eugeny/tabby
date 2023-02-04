@@ -1,5 +1,4 @@
-import { Profile } from 'tabby-core'
-import { LoginScriptsOptions } from 'tabby-terminal'
+import { BaseTerminalProfile, LoginScriptsOptions } from 'tabby-terminal'
 
 export enum SSHAlgorithmType {
     HMAC = 'hmac',
@@ -8,7 +7,7 @@ export enum SSHAlgorithmType {
     HOSTKEY = 'serverHostKey',
 }
 
-export interface SSHProfile extends Profile {
+export interface SSHProfile extends BaseTerminalProfile {
     options: SSHProfileOptions
 }
 

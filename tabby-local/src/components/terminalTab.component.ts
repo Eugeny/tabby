@@ -13,9 +13,8 @@ import { UACService } from '../services/uac.service'
     styles: BaseTerminalTabComponent.styles,
     animations: BaseTerminalTabComponent.animations,
 })
-export class TerminalTabComponent extends BaseTerminalTabComponent {
+export class TerminalTabComponent extends BaseTerminalTabComponent<LocalProfile> {
     @Input() sessionOptions: SessionOptions // Deprecated
-    @Input() profile: LocalProfile
     session: Session|null = null
 
     // eslint-disable-next-line @typescript-eslint/no-useless-constructor

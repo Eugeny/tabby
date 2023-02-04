@@ -14,8 +14,7 @@ import { SerialSession, BAUD_RATES, SerialProfile } from '../api'
     styles: [require('./serialTab.component.scss'), ...BaseTerminalTabComponent.styles],
     animations: BaseTerminalTabComponent.animations,
 })
-export class SerialTabComponent extends BaseTerminalTabComponent {
-    profile?: SerialProfile
+export class SerialTabComponent extends BaseTerminalTabComponent<SerialProfile> {
     session: SerialSession|null = null
     serialPort: any
     Platform = Platform
@@ -56,16 +55,11 @@ export class SerialTabComponent extends BaseTerminalTabComponent {
         super.ngOnInit()
 
         setImmediate(() => {
-            this.setTitle(this.profile!.name)
+            this.setTitle(this.profile.name)
         })
     }
 
     async initializeSession () {
-        if (!this.profile) {
-            this.logger.error('No serial profile info supplied')
-            return
-        }
-
         const session = new SerialSession(this.injector, this.profile)
         this.setSession(session)
 
@@ -121,6 +115,6 @@ export class SerialTabComponent extends BaseTerminalTabComponent {
             })),
         )
         this.serialPort.update({ baudRate: rate })
-        this.profile!.options.baudrate = rate
+        this.profile.options.baudrate = rate
     }
 }

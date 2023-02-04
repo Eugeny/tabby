@@ -18,7 +18,7 @@ export class SFTPContextMenu extends TabContextMenuItemProvider {
     }
 
     async getItems (tab: BaseTabComponent): Promise<MenuItemOptions[]> {
-        if (!(tab instanceof SSHTabComponent) || !tab.profile) {
+        if (!(tab instanceof SSHTabComponent)) {
             return []
         }
         const items = [{

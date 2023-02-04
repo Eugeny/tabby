@@ -10,7 +10,7 @@ import { BaseTerminalTabComponent } from '../api/baseTerminalTab.component'
     styles: [require('./terminalToolbar.component.scss')],
 })
 export class TerminalToolbarComponent {
-    @Input() tab: BaseTerminalTabComponent
+    @Input() tab: BaseTerminalTabComponent<any>
 
     // eslint-disable-next-line @typescript-eslint/no-useless-constructor
     constructor (

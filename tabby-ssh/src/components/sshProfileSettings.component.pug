@@ -249,6 +249,11 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
                         checkbox([text]='alg', [(ngModel)]='algorithms.serverHostKey[alg]')
 
     li(ngbNavItem)
+        a(ngbNavLink, translate) Color scheme
+        ng-template(ngbNavContent)
+            color-scheme-selector([(model)]='profile.terminalColorScheme')
+
+    li(ngbNavItem)
         a(ngbNavLink, translate) Login scripts
         ng-template(ngbNavContent)
             login-scripts-settings([options]='profile.options', #loginScriptsSettings)

@@ -9,7 +9,7 @@ import { BaseSession } from '../session'
 
 import { Frontend } from '../frontends/frontend'
 import { XTermFrontend, XTermWebGLFrontend } from '../frontends/xtermFrontend'
-import { ResizeEvent } from './interfaces'
+import { ResizeEvent, BaseTerminalProfile } from './interfaces'
 import { TerminalDecorator } from './decorator'
 import { SearchPanelComponent } from '../components/searchPanel.component'
 import { MultifocusService } from '../services/multifocus.service'
@@ -17,7 +17,7 @@ import { MultifocusService } from '../services/multifocus.service'
 /**
  * A class to base your custom terminal tabs on
  */
-export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit, OnDestroy {
+export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends BaseTabComponent implements OnInit, OnDestroy {
     static template: string = require<string>('../components/baseTerminalTab.component.pug')
     static styles: string[] = [require<string>('../components/baseTerminalTab.component.scss')]
     static animations: AnimationTriggerMetadata[] = [
@@ -89,6 +89,8 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
 
     frontendReady = new Subject<void>()
     size: ResizeEvent
+
+    profile: P
 
     /**
      * Enables normall passthrough from session output to terminal input
@@ -356,12 +358,12 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
 
         setImmediate(async () => {
             if (this.hasFocus) {
-                await this.frontend?.attach(this.content.nativeElement)
-                this.frontend?.configure()
+                await this.frontend?.attach(this.content.nativeElement, this.profile)
+                this.frontend?.configure(this.profile)
             } else {
                 this.focused$.pipe(first()).subscribe(async () => {
-                    await this.frontend?.attach(this.content.nativeElement)
-                    this.frontend?.configure()
+                    await this.frontend?.attach(this.content.nativeElement, this.profile)
+                    this.frontend?.configure(this.profile)
                 })
             }
         })
@@ -508,11 +510,12 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
      * Applies the user settings to the terminal
      */
     configure (): void {
-        this.frontend?.configure()
+        this.frontend?.configure(this.profile)
 
         if (this.config.store.terminal.background === 'colorScheme') {
-            if (this.config.store.terminal.colorScheme.background) {
-                this.backgroundColor = this.config.store.terminal.colorScheme.background
+            const scheme = this.profile.terminalColorScheme ?? this.config.store.terminal.colorScheme
+            if (scheme.background) {
+                this.backgroundColor = scheme.background
             }
         } else {
             this.backgroundColor = null
@@ -809,7 +812,7 @@ export class BaseTerminalTabComponent extends BaseTabComponent implements OnInit
         }
     }
 
-    protected forEachFocusedTerminalPane (cb: (tab: BaseTerminalTabComponent) => void): void {
+    protected forEachFocusedTerminalPane (cb: (tab: BaseTerminalTabComponent<any>) => void): void {
         if (this.parent && this.parent instanceof SplitTabComponent && this.parent._allFocusMode) {
             for (const tab of this.parent.getAllTabs()) {
                 if (tab instanceof BaseTerminalTabComponent) {

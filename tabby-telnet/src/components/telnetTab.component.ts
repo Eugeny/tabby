@@ -14,9 +14,8 @@ import { TelnetProfile, TelnetSession } from '../session'
     styles: [require('./telnetTab.component.scss'), ...BaseTerminalTabComponent.styles],
     animations: BaseTerminalTabComponent.animations,
 })
-export class TelnetTabComponent extends BaseTerminalTabComponent {
+export class TelnetTabComponent extends BaseTerminalTabComponent<TelnetProfile> {
     Platform = Platform
-    profile?: TelnetProfile
     session: TelnetSession|null = null
     private reconnectOffered = false
 
@@ -29,10 +28,6 @@ export class TelnetTabComponent extends BaseTerminalTabComponent {
     }
 
     ngOnInit (): void {
-        if (!this.profile) {
-            throw new Error('Profile not set')
-        }
-
         this.logger = this.log.create('telnetTab')
 
         this.subscribeUntilDestroyed(this.hotkeys.hotkey$, hotkey => {
@@ -69,10 +64,6 @@ export class TelnetTabComponent extends BaseTerminalTabComponent {
 
     async initializeSession (): Promise<void> {
         this.reconnectOffered = false
-        if (!this.profile) {
-            this.logger.error('No Telnet connection info supplied')
-            return
-        }
 
         const session = new TelnetSession(this.injector, this.profile)
         this.setSession(session)
@@ -119,7 +110,7 @@ export class TelnetTabComponent extends BaseTerminalTabComponent {
         return (await this.platform.showMessageBox(
             {
                 type: 'warning',
-                message: this.translate.instant(_('Disconnect from {host}?'), this.profile?.options),
+                message: this.translate.instant(_('Disconnect from {host}?'), this.profile.options),
                 buttons: [
                     this.translate.instant(_('Disconnect')),
                     this.translate.instant(_('Do not close')),

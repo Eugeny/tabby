@@ -23,6 +23,7 @@ export class ProfilesService {
         weight: 0,
         isBuiltin: false,
         isTemplate: false,
+        terminalColorScheme: null,
     }
 
     constructor (

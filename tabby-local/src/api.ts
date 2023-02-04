@@ -1,4 +1,4 @@
-import { Profile } from 'tabby-core'
+import { BaseTerminalProfile } from 'tabby-terminal'
 
 export interface Shell {
     id: string
@@ -44,7 +44,7 @@ export interface SessionOptions {
     runAsAdministrator?: boolean
 }
 
-export interface LocalProfile extends Profile {
+export interface LocalProfile extends BaseTerminalProfile {
     options: SessionOptions
 }
 

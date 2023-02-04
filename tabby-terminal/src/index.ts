@@ -17,6 +17,7 @@ import { SearchPanelComponent } from './components/searchPanel.component'
 import { StreamProcessingSettingsComponent } from './components/streamProcessingSettings.component'
 import { LoginScriptsSettingsComponent } from './components/loginScriptsSettings.component'
 import { TerminalToolbarComponent } from './components/terminalToolbar.component'
+import { ColorSchemeSelectorComponent } from './components/colorSchemeSelector.component'
 
 import { TerminalDecorator } from './api/decorator'
 import { TerminalContextMenuItemProvider } from './api/contextMenuProvider'
@@ -64,10 +65,12 @@ import { TerminalCLIHandler } from './cli'
         AppearanceSettingsTabComponent,
         ColorSchemeSettingsTabComponent,
         TerminalSettingsTabComponent,
+        ColorSchemeSelectorComponent,
     ],
     declarations: [
         ColorPickerComponent,
         ColorSchemePreviewComponent,
+        ColorSchemeSelectorComponent,
         AppearanceSettingsTabComponent,
         ColorSchemeSettingsTabComponent,
         TerminalSettingsTabComponent,
@@ -78,6 +81,7 @@ import { TerminalCLIHandler } from './cli'
     ],
     exports: [
         ColorPickerComponent,
+        ColorSchemeSelectorComponent,
         SearchPanelComponent,
         StreamProcessingSettingsComponent,
         LoginScriptsSettingsComponent,

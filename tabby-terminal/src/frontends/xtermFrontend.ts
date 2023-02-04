@@ -16,6 +16,7 @@ import deepEqual from 'deep-equal'
 import { Attributes } from 'xterm/src/common/buffer/Constants'
 import { AttributeData } from 'xterm/src/common/buffer/AttributeData'
 import { CellData } from 'xterm/src/common/buffer/CellData'
+import { BaseTerminalProfile, TerminalColorScheme } from '../api/interfaces'
 
 const COLOR_NAMES = [
     'black', 'red', 'green', 'yellow', 'blue', 'magenta', 'cyan', 'white',
@@ -214,7 +215,7 @@ export class XTermFrontend extends Frontend {
         })
     }
 
-    async attach (host: HTMLElement): Promise<void> {
+    async attach (host: HTMLElement, profile: BaseTerminalProfile): Promise<void> {
         this.element = host
 
         this.xterm.open(host)
@@ -224,7 +225,7 @@ export class XTermFrontend extends Frontend {
         await new Promise(resolve => setTimeout(resolve, this.hostApp.platform === Platform.Web ? 1000 : 0))
 
         // Just configure the colors to avoid a flash
-        this.configureColors()
+        this.configureColors(profile.terminalColorScheme)
 
         if (this.enableWebGL) {
             this.webGLAddon = new WebglAddon()
@@ -353,20 +354,22 @@ export class XTermFrontend extends Frontend {
         this.xtermCore._scrollToBottom()
     }
 
-    private configureColors () {
+    private configureColors (scheme: TerminalColorScheme|undefined): void {
         const config = this.configService.store
 
+        scheme = scheme ?? config.terminal.colorScheme
+
         const theme: ITheme = {
-            foreground: config.terminal.colorScheme.foreground,
-            selectionBackground: config.terminal.colorScheme.selection || '#88888888',
-            selectionForeground: config.terminal.colorScheme.selectionForeground || undefined,
-            background: config.terminal.background === 'colorScheme' ? config.terminal.colorScheme.background : '#00000000',
-            cursor: config.terminal.colorScheme.cursor,
-            cursorAccent: config.terminal.colorScheme.cursorAccent,
+            foreground: scheme!.foreground,
+            selectionBackground: scheme!.selection ?? '#88888888',
+            selectionForeground: scheme!.selectionForeground ?? undefined,
+            background: config.terminal.background === 'colorScheme' ? scheme!.background : '#00000000',
+            cursor: scheme!.cursor,
+            cursorAccent: scheme!.cursorAccent,
         }
 
         for (let i = 0; i < COLOR_NAMES.length; i++) {
-            theme[COLOR_NAMES[i]] = config.terminal.colorScheme.colors[i]
+            theme[COLOR_NAMES[i]] = scheme!.colors[i]
         }
 
         if (!deepEqual(this.configuredTheme, theme)) {
@@ -375,7 +378,7 @@ export class XTermFrontend extends Frontend {
         }
     }
 
-    configure (): void {
+    configure (profile: BaseTerminalProfile): void {
         const config = this.configService.store
 
         setImmediate(() => {
@@ -408,7 +411,7 @@ export class XTermFrontend extends Frontend {
 
         this.copyOnSelect = config.terminal.copyOnSelect
 
-        this.configureColors()
+        this.configureColors(profile.terminalColorScheme)
 
         if (this.opened && config.terminal.ligatures && !this.ligaturesAddon && this.hostApp.platform !== Platform.Web) {
             this.ligaturesAddon = new LigaturesAddon()

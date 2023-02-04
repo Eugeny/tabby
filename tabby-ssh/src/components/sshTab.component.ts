@@ -19,9 +19,8 @@ import { SSHMultiplexerService } from '../services/sshMultiplexer.service'
     styles: [require('./sshTab.component.scss'), ...BaseTerminalTabComponent.styles],
     animations: BaseTerminalTabComponent.animations,
 })
-export class SSHTabComponent extends BaseTerminalTabComponent {
+export class SSHTabComponent extends BaseTerminalTabComponent<SSHProfile> {
     Platform = Platform
-    profile?: SSHProfile
     sshSession: SSHSession|null = null
     session: SSHShellSession|null = null
     sftpPanelVisible = false
@@ -45,10 +44,6 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
     }
 
     ngOnInit (): void {
-        if (!this.profile) {
-            throw new Error('Profile not set')
-        }
-
         this.logger = this.log.create('terminalTab')
 
         this.subscribeUntilDestroyed(this.hotkeys.hotkey$, hotkey => {
@@ -184,10 +179,6 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
     }
 
     private async initializeSessionMaybeMultiplex (multiplex = true): Promise<void> {
-        if (!this.profile) {
-            throw new Error('No SSH connection info supplied')
-        }
-
         this.sshSession = await this.setupOneSession(this.injector, this.profile, multiplex)
         const session = new SSHShellSession(this.injector, this.sshSession, this.profile)
 
@@ -244,13 +235,13 @@ export class SSHTabComponent extends BaseTerminalTabComponent {
         if (!this.session?.open) {
             return true
         }
-        if (!(this.profile?.options.warnOnClose ?? this.config.store.ssh.warnOnClose)) {
+        if (!(this.profile.options.warnOnClose ?? this.config.store.ssh.warnOnClose)) {
             return true
         }
         return (await this.platform.showMessageBox(
             {
                 type: 'warning',
-                message: this.translate.instant(_('Disconnect from {host}?'), this.profile?.options),
+                message: this.translate.instant(_('Disconnect from {host}?'), this.profile.options),
                 buttons: [
                     this.translate.instant(_('Disconnect')),
                     this.translate.instant(_('Do not close')),

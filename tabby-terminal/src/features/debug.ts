@@ -12,7 +12,7 @@ export class DebugDecorator extends TerminalDecorator {
         super()
     }
 
-    attach (terminal: BaseTerminalTabComponent): void {
+    attach (terminal: BaseTerminalTabComponent<any>): void {
         let sessionOutputBuffer = ''
         const bufferLength = 8192
 
@@ -83,23 +83,23 @@ export class DebugDecorator extends TerminalDecorator {
         }
     }
 
-    private doSaveState (terminal: BaseTerminalTabComponent) {
+    private doSaveState (terminal: BaseTerminalTabComponent<any>) {
         this.saveFile(terminal.frontend!.saveState(), 'state.txt')
     }
 
-    private async doCopyState (terminal: BaseTerminalTabComponent) {
+    private async doCopyState (terminal: BaseTerminalTabComponent<any>) {
         const data = '```' + JSON.stringify(terminal.frontend!.saveState()) + '```'
         this.platform.setClipboard({ text: data })
     }
 
-    private async doLoadState (terminal: BaseTerminalTabComponent) {
+    private async doLoadState (terminal: BaseTerminalTabComponent<any>) {
         const data = await this.loadFile()
         if (data) {
             terminal.frontend!.restoreState(data)
         }
     }
 
-    private async doPasteState (terminal: BaseTerminalTabComponent) {
+    private async doPasteState (terminal: BaseTerminalTabComponent<any>) {
         let data = this.platform.readClipboard()
         if (data) {
             if (data.startsWith('`')) {
@@ -118,14 +118,14 @@ export class DebugDecorator extends TerminalDecorator {
         this.platform.setClipboard({ text: data })
     }
 
-    private async doLoadOutput (terminal: BaseTerminalTabComponent) {
+    private async doLoadOutput (terminal: BaseTerminalTabComponent<any>) {
         const data = await this.loadFile()
         if (data) {
             await terminal.frontend?.write(data)
         }
     }
 
-    private async doPasteOutput (terminal: BaseTerminalTabComponent) {
+    private async doPasteOutput (terminal: BaseTerminalTabComponent<any>) {
         let data = this.platform.readClipboard()
         if (data) {
             if (data.startsWith('`')) {

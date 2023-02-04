@@ -14,7 +14,7 @@ export class LinkHighlighterDecorator extends TerminalDecorator {
         super()
     }
 
-    attach (tab: BaseTerminalTabComponent): void {
+    attach (tab: BaseTerminalTabComponent<any>): void {
         if (!(tab.frontend instanceof XTermFrontend)) {
             // not xterm
             return

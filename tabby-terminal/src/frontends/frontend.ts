@@ -1,6 +1,6 @@
 import { Injector } from '@angular/core'
 import { Observable, Subject, AsyncSubject, ReplaySubject, BehaviorSubject } from 'rxjs'
-import { ResizeEvent } from '../api/interfaces'
+import { BaseTerminalProfile, ResizeEvent } from '../api/interfaces'
 
 export interface SearchOptions {
     regex?: boolean
@@ -64,7 +64,7 @@ export abstract class Frontend {
         }
     }
 
-    abstract attach (host: HTMLElement): Promise<void>
+    abstract attach (host: HTMLElement, profile: BaseTerminalProfile): Promise<void>
     detach (host: HTMLElement): void { } // eslint-disable-line
 
     abstract getSelection (): string
@@ -80,7 +80,7 @@ export abstract class Frontend {
     abstract scrollPages (pages: number): void
     abstract scrollToBottom (): void
 
-    abstract configure (): void
+    abstract configure (profile: BaseTerminalProfile): void
     abstract setZoom (zoom: number): void
 
     abstract findNext (term: string, searchOptions?: SearchOptions): SearchState

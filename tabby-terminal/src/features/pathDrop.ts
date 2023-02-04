@@ -5,7 +5,7 @@ import { BaseTerminalTabComponent } from '../api/baseTerminalTab.component'
 /** @hidden */
 @Injectable()
 export class PathDropDecorator extends TerminalDecorator {
-    attach (terminal: BaseTerminalTabComponent): void {
+    attach (terminal: BaseTerminalTabComponent<any>): void {
         setTimeout(() => {
             this.subscribeUntilDetached(terminal, terminal.frontend?.dragOver$.subscribe(event => {
                 event.preventDefault()
@@ -19,7 +19,7 @@ export class PathDropDecorator extends TerminalDecorator {
         })
     }
 
-    private injectPath (terminal: BaseTerminalTabComponent, path: string) {
+    private injectPath (terminal: BaseTerminalTabComponent<any>, path: string) {
         if (path.includes(' ')) {
             path = `"${path}"`
         }

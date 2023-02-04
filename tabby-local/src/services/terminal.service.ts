@@ -30,7 +30,7 @@ export class TerminalService {
      * Launches a new terminal with a specific shell and CWD
      * @param pause Wait for a keypress when the shell exits
      */
-    async openTab (profile?: PartialProfile<LocalProfile>|null, cwd?: string|null, pause?: boolean): Promise<TerminalTabComponent> {
+    async openTab (profile?: PartialProfile<LocalProfile>|null, cwd?: string|null, pause?: boolean): Promise<TerminalTabComponent|null> {
         if (!profile) {
             profile = await this.getDefaultProfile()
         }
@@ -55,6 +55,6 @@ export class TerminalService {
         return (await this.profilesService.openNewTabForProfile({
             ...fullProfile,
             options,
-        })) as TerminalTabComponent
+        })) as TerminalTabComponent|null
     }
 }

@@ -2,12 +2,12 @@ import { Socket } from 'net'
 import colors from 'ansi-colors'
 import stripAnsi from 'strip-ansi'
 import { Injector } from '@angular/core'
-import { Profile, LogService } from 'tabby-core'
-import { BaseSession, LoginScriptsOptions, SessionMiddleware, StreamProcessingOptions, TerminalStreamProcessor } from 'tabby-terminal'
+import { LogService } from 'tabby-core'
+import { BaseSession, BaseTerminalProfile, LoginScriptsOptions, SessionMiddleware, StreamProcessingOptions, TerminalStreamProcessor } from 'tabby-terminal'
 import { Subject, Observable } from 'rxjs'
 
 
-export interface TelnetProfile extends Profile {
+export interface TelnetProfile extends BaseTerminalProfile {
     options: TelnetProfileOptions
 }
 

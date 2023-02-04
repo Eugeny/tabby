@@ -6,7 +6,7 @@ import { SplitTabComponent, TranslateService, AppService, HotkeysService } from 
 @Injectable({ providedIn: 'root' })
 export class MultifocusService {
     private inputSubscription: Subscription|null = null
-    private currentTab: BaseTerminalTabComponent|null = null
+    private currentTab: BaseTerminalTabComponent<any>|null = null
     private warningElement: HTMLElement
 
     constructor (
@@ -32,7 +32,7 @@ export class MultifocusService {
         })
     }
 
-    start (currentTab: BaseTerminalTabComponent, tabs: BaseTerminalTabComponent[]): void {
+    start (currentTab: BaseTerminalTabComponent<any>, tabs: BaseTerminalTabComponent<any>[]): void {
         if (this.inputSubscription) {
             return
         }
@@ -87,7 +87,7 @@ export class MultifocusService {
                 } else {
                     return []
                 }
-            }) as (_) => BaseTerminalTabComponent[])
+            }) as (_) => BaseTerminalTabComponent<any>[])
             .flat()
         this.start(currentTab, tabs)
 

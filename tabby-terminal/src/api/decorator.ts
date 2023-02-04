@@ -5,18 +5,18 @@ import { BaseTerminalTabComponent } from './baseTerminalTab.component'
  * Extend to automatically run actions on new terminals
  */
 export abstract class TerminalDecorator {
-    private smartSubscriptions = new Map<BaseTerminalTabComponent, Subscription[]>()
+    private smartSubscriptions = new Map<BaseTerminalTabComponent<any>, Subscription[]>()
 
     /**
      * Called when a new terminal tab starts
      */
-    attach (terminal: BaseTerminalTabComponent): void { } // eslint-disable-line
+    attach (terminal: BaseTerminalTabComponent<any>): void { } // eslint-disable-line
 
     /**
      * Called before a terminal tab is destroyed.
      * Make sure to call super()
      */
-    detach (terminal: BaseTerminalTabComponent): void {
+    detach (terminal: BaseTerminalTabComponent<any>): void {
         for (const s of this.smartSubscriptions.get(terminal) ?? []) {
             s.unsubscribe()
         }
@@ -26,7 +26,7 @@ export abstract class TerminalDecorator {
     /**
      * Automatically cancel @subscription once detached from @terminal
      */
-    protected subscribeUntilDetached (terminal: BaseTerminalTabComponent, subscription?: Subscription): void {
+    protected subscribeUntilDetached (terminal: BaseTerminalTabComponent<any>, subscription?: Subscription): void {
         if (!subscription) {
             return
         }

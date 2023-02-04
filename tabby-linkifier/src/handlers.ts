@@ -65,7 +65,7 @@ export class BaseFileHandler extends LinkHandler {
         }
     }
 
-    async convert (uri: string, tab?: BaseTerminalTabComponent): Promise<string> {
+    async convert (uri: string, tab?: BaseTerminalTabComponent<any>): Promise<string> {
         let p = untildify(uri)
         if (!path.isAbsolute(p) && tab) {
             const cwd = await tab.session?.getWorkingDirectory()
@@ -102,7 +102,7 @@ export class WindowsFileHandler extends BaseFileHandler {
         super(toastr, platform)
     }
 
-    convert (uri: string, tab?: BaseTerminalTabComponent): Promise<string> {
+    convert (uri: string, tab?: BaseTerminalTabComponent<any>): Promise<string> {
         const sanitizedUri = uri.replace(/"/g, '')
         return super.convert(sanitizedUri, tab)
     }

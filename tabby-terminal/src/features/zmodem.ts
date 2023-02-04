@@ -220,7 +220,7 @@ export class ZModemDecorator extends TerminalDecorator {
         super()
     }
 
-    attach (terminal: BaseTerminalTabComponent): void {
+    attach (terminal: BaseTerminalTabComponent<any>): void {
         setTimeout(() => {
             this.attachToSession(terminal)
             this.subscribeUntilDetached(terminal, terminal.sessionChanged$.subscribe(() => {
@@ -229,7 +229,7 @@ export class ZModemDecorator extends TerminalDecorator {
         })
     }
 
-    private attachToSession (terminal: BaseTerminalTabComponent) {
+    private attachToSession (terminal: BaseTerminalTabComponent<any>) {
         if (!terminal.session) {
             return
         }

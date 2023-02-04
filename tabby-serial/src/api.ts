@@ -1,12 +1,12 @@
 import stripAnsi from 'strip-ansi'
 import { SerialPortStream } from '@serialport/stream'
-import { LogService, NotificationsService, Profile } from 'tabby-core'
+import { LogService, NotificationsService } from 'tabby-core'
 import { Subject, Observable } from 'rxjs'
 import { Injector, NgZone } from '@angular/core'
-import { BaseSession, LoginScriptsOptions, SessionMiddleware, StreamProcessingOptions, TerminalStreamProcessor } from 'tabby-terminal'
+import { BaseSession, BaseTerminalProfile, LoginScriptsOptions, SessionMiddleware, StreamProcessingOptions, TerminalStreamProcessor } from 'tabby-terminal'
 import { SerialService } from './services/serial.service'
 
-export interface SerialProfile extends Profile {
+export interface SerialProfile extends BaseTerminalProfile {
     options: SerialProfileOptions
 }
 

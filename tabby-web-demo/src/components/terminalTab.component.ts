@@ -1,6 +1,9 @@
 import { Component, Injector } from '@angular/core'
-import { BaseTerminalTabComponent } from 'tabby-terminal'
+import { BaseTerminalProfile, BaseTerminalTabComponent } from 'tabby-terminal'
 import { Session } from '../session'
+
+// eslint-disable-next-line @typescript-eslint/no-type-alias
+type DemoProfile = BaseTerminalProfile
 
 /** @hidden */
 @Component({
@@ -9,7 +12,7 @@ import { Session } from '../session'
     styles: BaseTerminalTabComponent.styles,
     animations: BaseTerminalTabComponent.animations,
 })
-export class DemoTerminalTabComponent extends BaseTerminalTabComponent {
+export class DemoTerminalTabComponent extends BaseTerminalTabComponent<DemoProfile> {
     session: Session|null = null
 
     // eslint-disable-next-line @typescript-eslint/no-useless-constructor

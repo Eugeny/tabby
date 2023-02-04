@@ -22,6 +22,7 @@ export class SaveAsProfileContextMenu extends TabContextMenuItemProvider {
         if (!(tab instanceof TerminalTabComponent)) {
             return []
         }
+        const terminalTab = tab
         const items: MenuItemOptions[] = [
             {
                 label: this.translate.instant('Save as profile'),
@@ -34,8 +35,8 @@ export class SaveAsProfileContextMenu extends TabContextMenuItemProvider {
                     }
                     const profile = {
                         options: {
-                            ...tab.profile.options,
-                            cwd: await tab.session?.getWorkingDirectory() ?? tab.profile.options.cwd,
+                            ...terminalTab.profile.options,
+                            cwd: await terminalTab.session?.getWorkingDirectory() ?? terminalTab.profile.options.cwd,
                         },
                         name,
                         type: 'local',
@@ -117,13 +118,14 @@ export class NewTabContextMenu extends TabContextMenuItemProvider {
         }
 
         if (tab instanceof TerminalTabComponent && tabHeader && this.uac.isAvailable) {
+            const terminalTab = tab
             items.push({
                 label: this.translate.instant('Duplicate as administrator'),
                 click: () => {
                     this.profilesService.openNewTabForProfile({
-                        ...tab.profile,
+                        ...terminalTab.profile,
                         options: {
-                            ...tab.profile.options,
+                            ...terminalTab.profile.options,
                             runAsAdministrator: true,
                         },
                     })

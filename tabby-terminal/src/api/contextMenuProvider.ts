@@ -8,5 +8,5 @@ import { BaseTerminalTabComponent } from './baseTerminalTab.component'
 export abstract class TerminalContextMenuItemProvider {
     weight: number
 
-    abstract getItems (tab: BaseTerminalTabComponent): Promise<MenuItemOptions[]>
+    abstract getItems (tab: BaseTerminalTabComponent<any>): Promise<MenuItemOptions[]>
 }
