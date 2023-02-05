@@ -68,11 +68,6 @@ events@^3.3.0:
   resolved "https://registry.yarnpkg.com/events/-/events-3.3.0.tgz#31a95ad0a924e2d2c419a813aeb2c4e878ea7400"
   integrity sha512-mQw+2fkQbALzQ7V0MY0IqdnXNOeTtP4r0lN9z7AAawCXgqea7bDii20AYrIBrFd/Hx0M2Ocz6S111CaFkUcb0Q==
 
-"filesize@>= 4.0.0":
-  version "6.3.0"
-  resolved "https://registry.yarnpkg.com/filesize/-/filesize-6.3.0.tgz#dff53cfb3f104c9e422f346d53be8dbcc971bf11"
-  integrity sha512-ytx0ruGpDHKWVoiui6+BY/QMNngtDQ/pJaFwfBpQif0J63+E8DLdFyqS3NkKQn7vIruUEpoGD9JUJSg7Kp+I0g==
-
 fuzzy-search@^3.2.1:
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/fuzzy-search/-/fuzzy-search-3.2.1.tgz#65d5faad6bc633aee86f1898b7788dfe312ac6c9"
@@ -141,34 +136,12 @@ ms@2.1.2:
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.1.2.tgz#d09d1f357b443f493382a8eb3ccd183872ae6009"
   integrity sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==
 
-ngx-filesize@^2.0.16:
-  version "2.0.16"
-  resolved "https://registry.yarnpkg.com/ngx-filesize/-/ngx-filesize-2.0.16.tgz#fdaba04170edb6cfcdf7be932783cf913b03f016"
-  integrity sha512-VdaCirE7hSyfQh8ZEmhzNEhbddiTYUHF4V6OX+KyTmnQSVx4hp9kmzDX5YlkIlmClI6wI+LZmH9/q7XS3fsMPA==
-  dependencies:
-    filesize ">= 4.0.0"
-    tslib "^2.0.0"
-
-ngx-perfect-scrollbar@^10.1.0:
-  version "10.1.1"
-  resolved "https://registry.yarnpkg.com/ngx-perfect-scrollbar/-/ngx-perfect-scrollbar-10.1.1.tgz#f89832b9109e89bb59d516184638accd028e9735"
-  integrity sha512-f9IaDJGlBzSxnJ3Ki76n2JdzfQngUFyCf0E+CuVLaR5jL0IJDcTu7vOs8wexXunRMTd8xvIv0+sdIxf8hXAGWg==
-  dependencies:
-    perfect-scrollbar "1.5.0"
-    resize-observer-polyfill "^1.5.0"
-    tslib "^2.0.0"
-
 ngx-translate-messageformat-compiler@^4.11.0:
   version "4.11.0"
   resolved "https://registry.yarnpkg.com/ngx-translate-messageformat-compiler/-/ngx-translate-messageformat-compiler-4.11.0.tgz#c9b71dd139ba5fcdcd809001e22622de589fd707"
   integrity sha512-OdGfWV4fF3DhZqGIHcLmOnQDufugmZ+E90NYr1UPGRZgT10lilr9oLmIrisy3lW4THnZFNo9JXsX7+fX84LbDw==
   dependencies:
     tslib "^1.10.0"
-
-perfect-scrollbar@1.5.0:
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/perfect-scrollbar/-/perfect-scrollbar-1.5.0.tgz#821d224ed8ff61990c23f26db63048cdc75b6b83"
-  integrity sha512-NrNHJn5mUGupSiheBTy6x+6SXCFbLlm8fVZh9moIzw/LgqElN5q4ncR4pbCBCYuCJ8Kcl9mYM0NgDxvW+b4LxA==
 
 process@^0.11.10:
   version "0.11.10"
@@ -185,20 +158,10 @@ readable-stream@4.2.0:
     events "^3.3.0"
     process "^0.11.10"
 
-resize-observer-polyfill@^1.5.0:
-  version "1.5.1"
-  resolved "https://registry.yarnpkg.com/resize-observer-polyfill/-/resize-observer-polyfill-1.5.1.tgz#0e9020dd3d21024458d4ebd27e23e40269810464"
-  integrity sha512-LwZrotdHOo12nQuZlHEmtuXdqGoOD0OhaxopaNFxWzInpEgaLWoVuAMbTzixuosCx2nEG58ngzW3vxdWoxIgdg==
-
 tslib@^1.10.0:
   version "1.14.1"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.14.1.tgz#cf2d38bdc34a134bcaf1091c41f6619e2f672d00"
   integrity sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==
-
-tslib@^2.0.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.1.0.tgz#da60860f1c2ecaa5703ab7d39bc05b6bf988b97a"
-  integrity sha512-hcVC3wYEziELGGmEEXue7D75zbwIIVUMWAVbHItGPx0ziyXxrOMQx4rQEVEV45Ut/1IotuEvwqPopzIOkDMf0A==
 
 tslib@^2.3.0:
   version "2.3.1"

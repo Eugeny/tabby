@@ -1,11 +1,9 @@
 import { NgModule, ModuleWithProviders, LOCALE_ID } from '@angular/core'
-import { BrowserModule } from '@angular/platform-browser'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { CommonModule } from '@angular/common'
 import { FormsModule } from '@angular/forms'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
-import { PerfectScrollbarModule, PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar'
 import { NgxFilesizeModule } from 'ngx-filesize'
-import { SortablejsModule } from 'ngx-sortablejs'
 import { DragDropModule } from '@angular/cdk/drag-drop'
 import { TranslateModule, TranslateCompiler, TranslateService } from '@ngx-translate/core'
 import { TranslateMessageFormatCompiler, MESSAGE_FORMAT_CONFIG } from 'ngx-translate-messageformat-compiler'
@@ -54,8 +52,6 @@ import { LastCLIHandler, ProfileCLIHandler } from './cli'
 import { SplitLayoutProfilesService } from './profiles'
 import { CoreCommandProvider } from './commands'
 
-import 'perfect-scrollbar/css/perfect-scrollbar.css'
-
 export function TranslateMessageFormatCompilerFactory (): TranslateMessageFormatCompiler {
     return new TranslateMessageFormatCompiler()
 }
@@ -73,7 +69,6 @@ const PROVIDERS = [
     { provide: TabRecoveryProvider, useExisting: SplitTabRecoveryProvider, multi: true },
     { provide: CLIHandler, useClass: ProfileCLIHandler, multi: true },
     { provide: CLIHandler, useClass: LastCLIHandler, multi: true },
-    { provide: PERFECT_SCROLLBAR_CONFIG, useValue: { suppressScrollX: true } },
     { provide: FileProvider, useClass: VaultFileProvider, multi: true },
     { provide: ProfileProvider, useExisting: SplitLayoutProfilesService, multi: true },
     { provide: CommandProvider, useExisting: CoreCommandProvider, multi: true },
@@ -95,14 +90,12 @@ const PROVIDERS = [
 /** @hidden */
 @NgModule({
     imports: [
-        BrowserModule,
         BrowserAnimationsModule,
+        CommonModule,
         FormsModule,
         NgbModule,
         NgxFilesizeModule,
-        PerfectScrollbarModule,
         DragDropModule,
-        SortablejsModule.forRoot({ animation: 150 }),
         TranslateModule,
     ],
     declarations: [
@@ -133,6 +126,7 @@ const PROVIDERS = [
         ProfileIconComponent,
     ],
     entryComponents: [
+        AppRootComponent,
         PromptModalComponent,
         RenameTabModalComponent,
         SafeModeModalComponent,
@@ -149,7 +143,6 @@ const PROVIDERS = [
         DropZoneDirective,
         FastHtmlBindDirective,
         AlwaysVisibleTypeaheadDirective,
-        SortablejsModule,
         DragDropModule,
         TranslateModule,
         CdkAutoDropGroup,

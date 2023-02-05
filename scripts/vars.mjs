@@ -17,17 +17,17 @@ if (version.includes('-c')) {
 
 export const builtinPlugins = [
     'tabby-core',
-    // 'tabby-settings',
-    // 'tabby-terminal',
-    // 'tabby-web',
-    // 'tabby-community-color-schemes',
-    // 'tabby-ssh',
-    // 'tabby-serial',
-    // 'tabby-telnet',
-    // 'tabby-electron',
-    // 'tabby-local',
-    // 'tabby-plugin-manager',
-    // 'tabby-linkifier',
+    'tabby-settings',
+    'tabby-terminal',
+    'tabby-web',
+    'tabby-community-color-schemes',
+    'tabby-ssh',
+    'tabby-serial',
+    'tabby-telnet',
+    'tabby-electron',
+    'tabby-local',
+    'tabby-plugin-manager',
+    'tabby-linkifier',
 ]
 
 export const packagesWithDocs = [

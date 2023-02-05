@@ -12,6 +12,9 @@ overrides:
 - files: '*.mjs'
   plugins:
     - 'import'
+  parserOptions:
+    sourceType: module
+    ecmaVersion: latest
 
 - files: '*.ts'
   parser: '@typescript-eslint/parser'

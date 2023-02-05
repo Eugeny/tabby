@@ -24,7 +24,7 @@
     "cli-spinner": "^0.2.10",
     "dataurl": "0.1.0",
     "hexer": "^1.5.0",
-    "ngx-colors": "^3.0.4",
+    "ngx-colors": "^3.4.0",
     "patch-package": "^6.5.0",
     "ps-node": "^0.1.6",
     "runes": "^0.4.2",
