@@ -34,8 +34,9 @@ export default () => ({
                 test: /\.(m?)js$/,
                 loader: 'babel-loader',
                 options: {
-                    compact: false,
                     plugins: [linkerPlugin],
+                    compact: false,
+                    cacheDirectory: true,
                 },
                 resolve: {
                     fullySpecified: false,

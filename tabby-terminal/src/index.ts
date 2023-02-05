@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core'
-import { BrowserModule } from '@angular/platform-browser'
+// import { BrowserModule } from '@angular/platform-browser'
 import { FormsModule } from '@angular/forms'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { ToastrModule } from 'ngx-toastr'
@@ -37,7 +37,7 @@ import { TerminalCLIHandler } from './cli'
 /** @hidden */
 @NgModule({
     imports: [
-        BrowserModule,
+        // BrowserModule,
         FormsModule,
         NgbModule,
         ToastrModule,
@@ -60,12 +60,6 @@ import { TerminalCLIHandler } from './cli'
         { provide: TabContextMenuItemProvider, useClass: LegacyContextMenu, multi: true },
 
         { provide: CLIHandler, useClass: TerminalCLIHandler, multi: true },
-    ],
-    entryComponents: [
-        AppearanceSettingsTabComponent,
-        ColorSchemeSettingsTabComponent,
-        TerminalSettingsTabComponent,
-        ColorSchemeSelectorComponent,
     ],
     declarations: [
         ColorPickerComponent,

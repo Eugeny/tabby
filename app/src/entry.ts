@@ -8,9 +8,8 @@ import './toastr.scss'
 // Importing before @angular/*
 import { findPlugins, initModuleLookup, loadPlugins } from './plugins'
 
-import { enableProdMode, NgModuleRef, ApplicationRef } from '@angular/core'
-import { enableDebugTools } from '@angular/platform-browser'
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic'
+import { enableProdMode } from '@angular/core'
+import { bootstrapApplication } from '@angular/platform-browser'
 import { ipcRenderer } from 'electron'
 
 import { getRootModule } from './app.module'
@@ -31,7 +30,7 @@ if (process.env.TABBY_DEV && !process.env.TABBY_FORCE_ANGULAR_PROD) {
     enableProdMode()
 }
 
-async function bootstrap (bootstrapData: BootstrapData, plugins: PluginInfo[], safeMode = false): Promise<NgModuleRef<any>> {
+async function bootstrap (bootstrapData: BootstrapData, plugins: PluginInfo[], safeMode = false): Promise<void> {
     if (safeMode) {
         plugins = plugins.filter(x => x.isBuiltin)
     }
@@ -41,15 +40,40 @@ async function bootstrap (bootstrapData: BootstrapData, plugins: PluginInfo[], s
     })
     const module = getRootModule(pluginModules)
     window['rootModule'] = module
-    const moduleRef = await platformBrowserDynamic([
-        { provide: BOOTSTRAP_DATA, useValue: bootstrapData },
-    ]).bootstrapModule(module)
-    if (process.env.TABBY_DEV) {
-        const applicationRef = moduleRef.injector.get(ApplicationRef)
-        const componentRef = applicationRef.components[0]
-        enableDebugTools(componentRef)
+
+    function crawlProviders (m) {
+        if (m.ngModule) {
+            return [...crawlProviders(m.ngModule), ...m.providers ?? []]
+        }
+        const providers = m.ɵinj?.providers ?? []
+        for (const exp of m.ɵmod?.exports ?? []) {
+            providers.push(...crawlProviders(exp))
+        }
+        return providers
     }
-    return moduleRef
+
+    const providers = pluginModules.map(x => crawlProviders(x)).flat()
+
+    console.log(providers)
+
+    bootstrapApplication(
+        pluginModules.find(x => x.bootstrap).bootstrap,
+        {
+            providers: [
+                { provide: BOOTSTRAP_DATA, useValue: bootstrapData },
+                ...providers,
+            ],
+        },
+    )
+    // const moduleRef = await platformBrowserDynamic([
+    //     { provide: BOOTSTRAP_DATA, useValue: bootstrapData },
+    // ]).bootstrapModule(module)
+    // if (process.env.TABBY_DEV) {
+    //     const applicationRef = moduleRef.injector.get(ApplicationRef)
+    //     const componentRef = applicationRef.components[0]
+    //     enableDebugTools(componentRef)
+    // }
+    // return moduleRef
 }
 
 ipcRenderer.once('start', async (_$event, bootstrapData: BootstrapData) => {

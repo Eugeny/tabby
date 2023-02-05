@@ -56,17 +56,6 @@ export default options => {
             rules: [
                 ...options.rules ?? [],
                 {
-                    test: /\.mjs$/,
-                    loader: 'babel-loader',
-                    options: {
-                        compact: false,
-                        plugins: [linkerPlugin],
-                    },
-                    resolve: {
-                        fullySpecified: false,
-                    },
-                },
-                {
                     test: /\.js$/,
                     enforce: 'pre',
                     use: {
@@ -84,12 +73,26 @@ export default options => {
                 },
                 {
                     test: /\.ts$/,
-                    use: {
-                        loader: 'ts-loader',
-                        options: {
-                            configFile: path.resolve(options.dirname, 'tsconfig.json'),
-                            allowTsInNodeModules: true,
+                    use: [
+                        {
+                            loader: 'ts-loader',
+                            options: {
+                                configFile: path.resolve(options.dirname, 'tsconfig.json'),
+                                allowTsInNodeModules: true,
+                            },
                         },
+                    ],
+                },
+                {
+                    test: /\.mjs$/,
+                    loader: 'babel-loader',
+                    options: {
+                        plugins: [linkerPlugin],
+                        compact: false,
+                        cacheDirectory: true,
+                    },
+                    resolve: {
+                        fullySpecified: false,
                     },
                 },
                 { test: /\.pug$/, use: ['apply-loader', 'pug-loader'] },

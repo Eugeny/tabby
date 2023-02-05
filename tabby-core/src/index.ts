@@ -125,17 +125,8 @@ const PROVIDERS = [
         CdkAutoDropGroup,
         ProfileIconComponent,
     ],
-    entryComponents: [
-        AppRootComponent,
-        PromptModalComponent,
-        RenameTabModalComponent,
-        SafeModeModalComponent,
-        SelectorModalComponent,
-        SplitTabComponent,
-        UnlockVaultModalComponent,
-        WelcomeTabComponent,
-    ],
     exports: [
+        AppRootComponent,
         CheckboxComponent,
         ToggleComponent,
         PromptModalComponent,

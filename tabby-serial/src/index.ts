@@ -30,10 +30,6 @@ import { SerialProfilesService } from './profiles'
         { provide: TabRecoveryProvider, useClass: RecoveryProvider, multi: true },
         { provide: HotkeyProvider, useClass: SerialHotkeyProvider, multi: true },
     ],
-    entryComponents: [
-        SerialProfileSettingsComponent,
-        SerialTabComponent,
-    ],
     declarations: [
         SerialProfileSettingsComponent,
         SerialTabComponent,

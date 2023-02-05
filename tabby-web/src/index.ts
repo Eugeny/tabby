@@ -27,8 +27,5 @@ import './styles.scss'
     declarations: [
         MessageBoxModalComponent,
     ],
-    entryComponents: [
-        MessageBoxModalComponent,
-    ],
 })
 export default class WebModule { } // eslint-disable-line @typescript-eslint/no-extraneous-class

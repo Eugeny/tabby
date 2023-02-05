@@ -1,20 +1,13 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { NgModule } from '@angular/core'
+import { ApplicationRef, ComponentFactoryResolver, NgModule } from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
-import { ToastrModule } from 'ngx-toastr'
+// import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
+// import { ToastrModule } from 'ngx-toastr'
 
 export function getRootModule (plugins: any[]) {
     const imports = [
         BrowserModule,
         ...plugins,
-        NgbModule,
-        ToastrModule.forRoot({
-            positionClass: 'toast-bottom-center',
-            toastClass: 'toast',
-            preventDuplicates: true,
-            extendedTimeOut: 1000,
-        }),
     ]
 
     const bootstrap = [
@@ -27,10 +20,18 @@ export function getRootModule (plugins: any[]) {
 
     @NgModule({
         imports,
-        bootstrap,
     }) class RootModule {
-        ngDoBootstrap () {
+        constructor (private resolver: ComponentFactoryResolver) { }
+
+        ngDoBootstrap (appRef: ApplicationRef) {
             (window as any)['requestAnimationFrame'] = window[window['Zone'].__symbol__('requestAnimationFrame')]
+
+            bootstrap.forEach(componentDef => {
+                const factory = this.resolver.resolveComponentFactory(componentDef)
+                if (document.querySelector(factory.selector)) {
+                    appRef.bootstrap(factory)
+                }
+            })
         }
     }
 
