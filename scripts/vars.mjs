@@ -1,53 +1,55 @@
-const path = require('path')
-const fs = require('fs')
-const semver = require('semver')
-const childProcess = require('child_process')
+import * as path from 'path'
+import * as fs from 'fs'
+import * as semver from 'semver'
+import * as childProcess from 'child_process'
+
+const __dirname = path.dirname(new URL(import.meta.url).pathname)
 
 const electronInfo = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../node_modules/electron/package.json')))
 
-exports.version = childProcess.execSync('git describe --tags', { encoding:'utf-8' })
-exports.version = exports.version.substring(1).trim()
-exports.version = exports.version.replace('-', '-c')
+export let version = childProcess.execSync('git describe --tags', { encoding:'utf-8' })
+version = version.substring(1).trim()
+version = version.replace('-', '-c')
 
-if (exports.version.includes('-c')) {
-    exports.version = semver.inc(exports.version, 'prepatch').replace('-0', `-nightly.${process.env.REV ?? 0}`)
+if (version.includes('-c')) {
+    version = semver.inc(version, 'prepatch').replace('-0', `-nightly.${process.env.REV ?? 0}`)
 }
 
-exports.builtinPlugins = [
+export const builtinPlugins = [
     'tabby-core',
-    'tabby-settings',
-    'tabby-terminal',
-    'tabby-web',
-    'tabby-community-color-schemes',
-    'tabby-ssh',
-    'tabby-serial',
-    'tabby-telnet',
-    'tabby-electron',
-    'tabby-local',
-    'tabby-plugin-manager',
-    'tabby-linkifier',
+    // 'tabby-settings',
+    // 'tabby-terminal',
+    // 'tabby-web',
+    // 'tabby-community-color-schemes',
+    // 'tabby-ssh',
+    // 'tabby-serial',
+    // 'tabby-telnet',
+    // 'tabby-electron',
+    // 'tabby-local',
+    // 'tabby-plugin-manager',
+    // 'tabby-linkifier',
 ]
 
-exports.packagesWithDocs = [
+export const packagesWithDocs = [
     ['.', 'tabby-core'],
     ['terminal', 'tabby-terminal'],
     ['local', 'tabby-local'],
     ['settings', 'tabby-settings'],
 ]
 
-exports.allPackages = [
-    ...exports.builtinPlugins,
+export const allPackages = [
+    ...builtinPlugins,
     'web',
     'tabby-web-demo',
 ]
 
-exports.bundledModules = [
+export const bundledModules = [
     '@angular',
     '@ng-bootstrap',
 ]
-exports.electronVersion = electronInfo.version
+export const electronVersion = electronInfo.version
 
-exports.keygenConfig = {
+export const keygenConfig = {
     provider: 'keygen',
     account: 'a06315f2-1031-47c6-9181-e92a20ec815e',
     channel: 'stable',
@@ -70,6 +72,6 @@ exports.keygenConfig = {
     }[process.platform],
 }
 
-if (!exports.keygenConfig.product) {
+if (!keygenConfig.product) {
     throw new Error(`Unrecognized platform ${process.platform}/${process.env.ARCH ?? process.arch}`)
 }

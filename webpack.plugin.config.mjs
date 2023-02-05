@@ -1,25 +1,27 @@
-const path = require('path')
-const webpack = require('webpack')
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+import * as path from 'path'
+import wp from 'webpack'
+import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
 
 const bundleAnalyzer = new BundleAnalyzerPlugin({
     analyzerPort: 0,
 })
 
-module.exports = options => {
+import linkerPlugin from '@angular/compiler-cli/linker/babel'
+
+export default options => {
     const sourceMapOptions = {
         exclude: [/node_modules/, /vendor/],
         filename: '[file].map',
         moduleFilenameTemplate: `webpack-tabby-${options.name}:///[resource-path]`,
     }
-    let SourceMapDevToolPlugin = webpack.SourceMapDevToolPlugin
+    let devtoolPlugin = wp.SourceMapDevToolPlugin
 
     if (process.env.CI) {
         sourceMapOptions.append = '\n//# sourceMappingURL=../../../app.asar.unpacked/assets/webpack/[url]'
     }
 
     if (process.platform === 'win32' && process.env.TABBY_DEV) {
-        SourceMapDevToolPlugin = webpack.EvalSourceMapDevToolPlugin
+        devtoolPlugin = wp.EvalSourceMapDevToolPlugin
     }
 
     const isDev = !!process.env.TABBY_DEV
@@ -54,6 +56,17 @@ module.exports = options => {
             rules: [
                 ...options.rules ?? [],
                 {
+                    test: /\.mjs$/,
+                    loader: 'babel-loader',
+                    options: {
+                        compact: false,
+                        plugins: [linkerPlugin],
+                    },
+                    resolve: {
+                        fullySpecified: false,
+                    },
+                },
+                {
                     test: /\.js$/,
                     enforce: 'pre',
                     use: {
@@ -84,7 +97,7 @@ module.exports = options => {
                 { test: /\.scss$/, use: ['style-loader', 'css-loader', 'sass-loader'], exclude: /(theme.*|component)\.scss/ },
                 { test: /\.css$/, use: ['@tabby-gang/to-string-loader', 'css-loader'], include: /component\.css/ },
                 { test: /\.css$/, use: ['style-loader', 'css-loader'], exclude: /component\.css/ },
-                { test: /\.yaml$/, use: ['json-loader', 'yaml-loader'] },
+                { test: /\.yaml$/, use: ['yaml-loader'] },
                 { test: /\.svg/, use: ['svg-inline-loader'] },
                 {
                     test: /\.(eot|otf|woff|woff2|ogg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
@@ -134,7 +147,7 @@ module.exports = options => {
             ...options.externals || [],
         ],
         plugins: [
-            new SourceMapDevToolPlugin(sourceMapOptions),
+            new devtoolPlugin(sourceMapOptions),
         ],
     }
     if (process.env.PLUGIN_BUNDLE_ANALYZER === options.name) {

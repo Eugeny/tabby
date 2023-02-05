@@ -1,7 +1,9 @@
-const path = require('path')
-const webpack = require('webpack')
+import * as path from 'path'
+import wp from 'webpack'
+const __dirname = path.dirname(new URL(import.meta.url).pathname)
+import linkerPlugin from '@angular/compiler-cli/linker/babel'
 
-module.exports = {
+export default () => ({
     name: 'tabby',
     target: 'node',
     entry: {
@@ -28,6 +30,17 @@ module.exports = {
     },
     module: {
         rules: [
+            {
+                test: /\.(m?)js$/,
+                loader: 'babel-loader',
+                options: {
+                    compact: false,
+                    plugins: [linkerPlugin],
+                },
+                resolve: {
+                    fullySpecified: false,
+                },
+            },
             {
                 test: /\.ts$/,
                 use: {
@@ -56,9 +69,9 @@ module.exports = {
         path: 'commonjs path',
     },
     plugins: [
-        new webpack.optimize.ModuleConcatenationPlugin(),
-        new webpack.DefinePlugin({
+        new wp.optimize.ModuleConcatenationPlugin(),
+        new wp.DefinePlugin({
             'process.type': '"renderer"',
         }),
     ],
-}
+})

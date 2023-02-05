@@ -1,7 +1,7 @@
 #!/usr/bin/env node
-const sh = require('shelljs')
-const vars = require('./vars')
-const log = require('npmlog')
+import sh from 'shelljs'
+import * as vars from './vars.mjs'
+import log from 'npmlog'
 
 log.info('patch')
 sh.exec(`yarn patch-package`, { fatal: true })

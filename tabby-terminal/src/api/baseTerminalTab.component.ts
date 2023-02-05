@@ -666,9 +666,9 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
                 let wheelDeltaY = 0
 
                 if ('wheelDeltaY' in event) {
-                    wheelDeltaY = (event as WheelEvent)['wheelDeltaY']
+                    wheelDeltaY = (event as unknown as WheelEvent)['wheelDeltaY']
                 } else {
-                    wheelDeltaY = (event as WheelEvent).deltaY
+                    wheelDeltaY = (event as unknown as WheelEvent).deltaY
                 }
 
                 if (event.altKey) {

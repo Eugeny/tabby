@@ -1,8 +1,9 @@
-const path = require('path')
-const webpack = require('webpack')
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+import * as path from 'path'
+import wp from 'webpack'
+import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
+const __dirname = path.dirname(new URL(import.meta.url).pathname)
 
-module.exports = {
+const config = {
     name: 'tabby-main',
     target: 'electron-main',
     entry: {
@@ -55,13 +56,15 @@ module.exports = {
         'yargs/yargs': 'commonjs yargs/yargs',
     },
     plugins: [
-        new webpack.optimize.ModuleConcatenationPlugin(),
-        new webpack.DefinePlugin({
+        new wp.optimize.ModuleConcatenationPlugin(),
+        new wp.DefinePlugin({
             'process.type': '"main"',
         }),
     ],
 }
 
 if (process.env.BUNDLE_ANALYZER) {
-    module.exports.plugins.push(new BundleAnalyzerPlugin())
+    config.plugins.push(new BundleAnalyzerPlugin())
 }
+
+export default () => config

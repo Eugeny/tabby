@@ -1,4 +1,5 @@
-const path = require('path')
+import * as path from 'path'
+const __dirname = path.dirname(new URL(import.meta.url).pathname)
 
 const externals = {}
 for (const key of [
@@ -20,7 +21,7 @@ for (const key of [
     externals[key] = `commonjs ${key}`
 }
 
-module.exports = {
+const config = {
     name: 'tabby-web-entry',
     target: 'web',
     entry: {
@@ -70,3 +71,5 @@ module.exports = {
     },
     externals,
 }
+
+export default config

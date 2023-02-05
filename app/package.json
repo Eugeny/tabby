@@ -47,7 +47,7 @@
     "@types/mz": "2.7.4",
     "@types/node": "18.7.23",
     "atomically": "^1.7.0",
-    "ngx-filesize": "^2.0.16"
+    "ngx-filesize": "^3.0.1"
   },
   "peerDependencies": {
     "tabby-community-color-schemes": "*",
