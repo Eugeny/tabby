@@ -1,5 +1,5 @@
 import { Observable, Subject, distinctUntilChanged, filter, debounceTime } from 'rxjs'
-import { Component, EmbeddedViewRef, Injector, ViewContainerRef, ViewRef } from '@angular/core'
+import { EmbeddedViewRef, Injector, ViewContainerRef, ViewRef } from '@angular/core'
 import { RecoveryToken } from '../api/tabRecovery'
 import { BaseComponent } from './base.component'
 import { ConfigService } from '../services/config.service'

@@ -44,11 +44,11 @@
     "windows-process-tree": "^0.3.4"
   },
   "devDependencies": {
+    "@ngx-translate/core": "^14.0.0",
     "@types/mz": "2.7.4",
-    "@types/node": "18.7.23",
+    "@types/node": "18.11.19",
     "atomically": "^1.7.0",
     "filesize": "^9",
-    "@ngx-translate/core": "^14.0.0",
     "ngx-filesize": "^3.0.1"
   },
   "peerDependencies": {

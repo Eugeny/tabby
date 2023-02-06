@@ -14,6 +14,7 @@
     "@ng-bootstrap/ng-bootstrap": "^14.0.1",
     "@ngtools/webpack": "^15.1.4",
     "@popperjs/core": "^2.11.6",
+    "rxjs": "^7.5.7",
     "@sentry/cli": "^1.74.3",
     "@sentry/electron": "^2.5.4",
     "@tabby-gang/to-string-loader": "^1.1.7-beta.2",

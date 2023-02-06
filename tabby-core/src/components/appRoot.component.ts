@@ -90,7 +90,7 @@ export class AppRootComponent {
         ngbModal: NgbModal,
         _themes: ThemesService,
     ) {
-        document.querySelector('app-root')?.remove()
+        // document.querySelector('app-root')?.remove()
         this.logger = log.create('main')
         this.logger.info('v', platform.getAppVersion())
 
