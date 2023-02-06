@@ -6,7 +6,7 @@ import { SessionOptions } from '../api'
 /** @hidden */
 @Component({
     selector: 'command-line-editor',
-    template: require('./commandLineEditor.component.pug'),
+    templateUrl:'./commandLineEditor.component.pug',
 })
 export class CommandLineEditorComponent {
     @Input() argvMode = false

@@ -1,5 +1,5 @@
 .head
-    .bg-dark.p-3.mb-4(*ngIf='model')
+    .bg-dark.p-3.mb-4(*ngIf='model != null')
         .d-flex.align-items-center
             span {{model.name}}
             .me-auto
@@ -18,8 +18,7 @@
         ng-container(*ngFor='let scheme of allColorSchemes')
             .list-group-item.list-group-item-action(
                 [hidden]='filter && !scheme.name.toLowerCase().includes(filter.toLowerCase())',
-                (click)='selectScheme(scheme)',
-                [class.active]='(currentCustomScheme || currentStockScheme) === scheme'
+                (click)='selectScheme(scheme)'
             )
                 .d-flex.w-100.align-items-center
                     i.fas.fa-fw([class.fa-check]='model?.name === scheme.name')

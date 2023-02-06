@@ -17,7 +17,6 @@
   "author": "Eugene Pankov",
   "license": "MIT",
   "devDependencies": {
-    "@ngx-translate/core": "^14.0.0",
     "bootstrap": "^5.3.0-alpha.1",
     "deepmerge": "^4.1.1",
     "fuzzy-search": "^3.2.1",

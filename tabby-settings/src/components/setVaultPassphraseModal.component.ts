@@ -3,10 +3,11 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
 
 /** @hidden */
 @Component({
-    template: require('./setVaultPassphraseModal.component.pug'),
+    templateUrl:'./setVaultPassphraseModal.component.pug',
 })
 export class SetVaultPassphraseModalComponent {
     passphrase: string
+    showPassphrase = false
     @ViewChild('input') input: ElementRef
 
     constructor (

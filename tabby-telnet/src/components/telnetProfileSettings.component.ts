@@ -6,7 +6,7 @@ import { TelnetProfile } from '../session'
 
 /** @hidden */
 @Component({
-    template: require('./telnetProfileSettings.component.pug'),
+    templateUrl:'./telnetProfileSettings.component.pug',
 })
 export class TelnetProfileSettingsComponent implements ProfileSettingsComponent<TelnetProfile> {
     profile: TelnetProfile

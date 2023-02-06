@@ -11,7 +11,7 @@ import { CheckboxComponent } from './checkbox.component'
       <label class="cform-check-label"></label>
     </div>
     `,
-    styles: [require('./toggle.component.scss')],
+    styleUrls: ['./toggle.component.scss'],
     providers: [
         { provide: NG_VALUE_ACCESSOR, useExisting: ToggleComponent, multi: true },
     ],

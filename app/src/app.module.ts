@@ -9,13 +9,13 @@ import { ToastrModule } from 'ngx-toastr'
     standalone: true,
     imports: [CommonModule],
     selector: 'root',
-    template: '<div *ngIf="true">Hi</div>',
+    template: '',
 })
 export class RootComponent {
     static bootstrapComponent: any
     constructor (private viewContainerRef: ViewContainerRef) { }
     ngAfterViewInit () {
-        // this.viewContainerRef.createComponent(RootComponent.bootstrapComponent)
+        this.viewContainerRef.createComponent(RootComponent.bootstrapComponent)
     }
 }
 
@@ -24,7 +24,7 @@ export function getRootModule (plugins: any[]) {
         BrowserModule,
         // CommonModule,
         // ...plugins,
-        // NgbModule,
+        NgbModule,
         ToastrModule.forRoot({
             positionClass: 'toast-bottom-center',
             toastClass: 'toast',

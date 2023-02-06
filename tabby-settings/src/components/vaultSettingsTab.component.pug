@@ -35,21 +35,21 @@ div(*ngIf='vault.isEnabled()')
                         button(
                             ngbDropdownItem,
                             *ngIf='secret.type === VAULT_SECRET_TYPE_FILE',
-                            (click)='renameFile(secret)'
+                            (click)='renameFile(castAny(secret))'
                         )
                             i.fas.fa-fw.fa-pencil-alt
                             span(translate) Rename
                         button(
                             ngbDropdownItem,
                             *ngIf='secret.type === VAULT_SECRET_TYPE_FILE',
-                            (click)='replaceFileContent(secret)'
+                            (click)='replaceFileContent(castAny(secret))'
                         )
                             i.fas.fa-fw.fa-file-import
                             span(translate) Replace
                         button(
                             ngbDropdownItem,
                             *ngIf='secret.type === VAULT_SECRET_TYPE_FILE',
-                            (click)='exportFile(secret)'
+                            (click)='exportFile(castAny(secret))'
                         )
                             i.fas.fa-fw.fa-file-export
                             span(translate) Export

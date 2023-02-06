@@ -1,5 +1,5 @@
 import { Observable, Subject, distinctUntilChanged, filter, debounceTime } from 'rxjs'
-import { EmbeddedViewRef, Injector, ViewContainerRef, ViewRef } from '@angular/core'
+import { Component, EmbeddedViewRef, Injector, ViewContainerRef, ViewRef } from '@angular/core'
 import { RecoveryToken } from '../api/tabRecovery'
 import { BaseComponent } from './base.component'
 import { ConfigService } from '../services/config.service'
@@ -19,6 +19,7 @@ export interface GetRecoveryTokenOptions {
 /**
  * Abstract base class for custom tab components
  */
+// @Component({ template: '' })
 export abstract class BaseTabComponent extends BaseComponent {
     /**
      * Parent tab (usually a SplitTabComponent)

@@ -15,8 +15,8 @@ import { PlatformService } from '../api/platform'
 /** @hidden */
 @Component({
     selector: 'tab-header',
-    template: require('./tabHeader.component.pug'),
-    styles: [require('./tabHeader.component.scss')],
+    templateUrl:'./tabHeader.component.pug',
+    styleUrls: ['./tabHeader.component.scss'],
 })
 export class TabHeaderComponent extends BaseComponent {
     @Input() index: number

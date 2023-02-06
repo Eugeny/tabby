@@ -1,3 +1,4 @@
+import * as fs from 'fs'
 import * as path from 'path'
 import wp from 'webpack'
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
@@ -7,7 +8,17 @@ const bundleAnalyzer = new BundleAnalyzerPlugin({
     analyzerPort: 0,
 })
 
-import linkerPlugin from '@angular/compiler-cli/linker/babel'
+import { createEs2015LinkerPlugin } from '@angular/compiler-cli/linker/babel'
+const linkerPlugin = createEs2015LinkerPlugin({
+    linkerJitMode: true,
+    fileSystem: {
+        resolve: path.resolve,
+        exists: fs.existsSync,
+        dirname: path.dirname,
+        relative: path.relative,
+        readFile: fs.readFileSync,
+    },
+})
 
 export default options => {
     const sourceMapOptions = {
@@ -73,15 +84,7 @@ export default options => {
                     },
                 },
                 {
-                    test: /\.ts$/,
-                    use: [
-                        {
-                            loader: '@ngtools/webpack',
-                        },
-                    ],
-                },
-                {
-                    test: /\.mjs$/,
+                    test: /\.(m?)js$/,
                     loader: 'babel-loader',
                     options: {
                         plugins: [linkerPlugin],
@@ -92,7 +95,26 @@ export default options => {
                         fullySpecified: false,
                     },
                 },
-                { test: /\.pug$/, use: ['apply-loader', 'pug-loader'] },
+                {
+                    test: /\.ts$/,
+                    use: [
+                        {
+                            loader: '@ngtools/webpack',
+                        },
+                    ],
+                },
+                {
+                    test: /\.pug$/,
+                    use: [
+                        'apply-loader',
+                        {
+                            loader: 'pug-loader',
+                            options: {
+                                pretty: true,
+                            },
+                        },
+                    ],
+                },
                 { test: /\.scss$/, use: ['@tabby-gang/to-string-loader', 'css-loader', 'sass-loader'], include: /(theme.*|component)\.scss/ },
                 { test: /\.scss$/, use: ['style-loader', 'css-loader', 'sass-loader'], exclude: /(theme.*|component)\.scss/ },
                 { test: /\.css$/, use: ['@tabby-gang/to-string-loader', 'css-loader'], include: /component\.css/ },
@@ -151,7 +173,7 @@ export default options => {
             new AngularWebpackPlugin({
                 tsconfig: path.resolve(options.dirname, 'tsconfig.json'),
                 directTemplateLoading: false,
-                jitMode: false,
+                jitMode: true,
             })
         ],
     }

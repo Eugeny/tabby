@@ -4,8 +4,8 @@ import { KeyboardInteractivePrompt } from '../session/ssh'
 
 @Component({
     selector: 'keyboard-interactive-auth-panel',
-    template: require('./keyboardInteractiveAuthPanel.component.pug'),
-    styles: [require('./keyboardInteractiveAuthPanel.component.scss')],
+    templateUrl:'./keyboardInteractiveAuthPanel.component.pug',
+    styleUrls: ['./keyboardInteractiveAuthPanel.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class KeyboardInteractiveAuthComponent {

@@ -236,7 +236,10 @@ export class ConfigService {
      *
      * @typeparam T Base provider type
      */
-    enabledServices<T extends object> (services: T[]): T[] { // eslint-disable-line @typescript-eslint/ban-types
+    enabledServices<T extends object> (services: T[]|undefined): T[] { // eslint-disable-line @typescript-eslint/ban-types
+        if (!services) {
+            return []
+        }
         if (!this.servicesCache) {
             this.servicesCache = {}
             for (const imp of window['pluginModules']) {

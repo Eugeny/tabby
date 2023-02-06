@@ -1,8 +1,19 @@
+import * as fs from 'fs'
 import * as path from 'path'
 import wp from 'webpack'
 const __dirname = path.dirname(new URL(import.meta.url).pathname)
 import { AngularWebpackPlugin } from '@ngtools/webpack'
-import linkerPlugin from '@angular/compiler-cli/linker/babel'
+import { createEs2015LinkerPlugin } from '@angular/compiler-cli/linker/babel'
+const linkerPlugin = createEs2015LinkerPlugin({
+    linkerJitMode: true,
+    fileSystem: {
+        resolve: path.resolve,
+        exists: fs.existsSync,
+        dirname: path.dirname,
+        relative: path.relative,
+        readFile: fs.readFileSync,
+    },
+})
 
 export default () => ({
     name: 'tabby',
@@ -75,7 +86,7 @@ export default () => ({
         new AngularWebpackPlugin({
             tsconfig: path.resolve(__dirname, 'tsconfig.json'),
             directTemplateLoading: false,
-            jitMode: false,
+            jitMode: true,
         })
     ],
 })

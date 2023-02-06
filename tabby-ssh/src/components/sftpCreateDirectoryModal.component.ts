@@ -4,7 +4,7 @@ import { BaseComponent } from 'tabby-core'
 
 /** @hidden */
 @Component({
-    template: require('./sftpCreateDirectoryModal.component.pug'),
+    templateUrl:'./sftpCreateDirectoryModal.component.pug',
 })
 export class SFTPCreateDirectoryModalComponent extends BaseComponent {
     directoryName: string

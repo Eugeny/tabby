@@ -18,7 +18,7 @@ import { SplitDropZoneInfo, SplitTabComponent } from './splitTab.component'
     >
     </div>
     `,
-    styles: [require('./splitTabDropZone.component.scss')],
+    styleUrls: ['./splitTabDropZone.component.scss'],
 })
 export class SplitTabDropZoneComponent extends SelfPositioningComponent {
     @Input() dropZone: SplitDropZoneInfo

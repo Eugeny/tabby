@@ -6,8 +6,8 @@ import { AppService } from '../services/app.service'
 /** @hidden */
 @Component({
     selector: 'window-controls',
-    template: require('./windowControls.component.pug'),
-    styles: [require('./windowControls.component.scss')],
+    templateUrl:'./windowControls.component.pug',
+    styleUrls: ['./windowControls.component.scss'],
 })
 export class WindowControlsComponent {
     constructor (public hostWindow: HostWindowService, public app: AppService) { }

@@ -1,7 +1,7 @@
 import { Observable, Subject, first, auditTime } from 'rxjs'
 import { Spinner } from 'cli-spinner'
 import colors from 'ansi-colors'
-import { NgZone, OnInit, OnDestroy, Injector, ViewChild, HostBinding, Input, ElementRef, InjectFlags } from '@angular/core'
+import { NgZone, OnInit, OnDestroy, Injector, ViewChild, HostBinding, Input, ElementRef, InjectFlags, Component } from '@angular/core'
 import { trigger, transition, style, animate, AnimationTriggerMetadata } from '@angular/animations'
 import { AppService, ConfigService, BaseTabComponent, HostAppService, HotkeysService, NotificationsService, Platform, LogService, Logger, TabContextMenuItemProvider, SplitTabComponent, SubscriptionContainer, MenuItemOptions, PlatformService, HostWindowService, ResettableTimeout, TranslateService } from 'tabby-core'
 
@@ -17,6 +17,7 @@ import { MultifocusService } from '../services/multifocus.service'
 /**
  * A class to base your custom terminal tabs on
  */
+@Component({ template: '' })
 export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends BaseTabComponent implements OnInit, OnDestroy {
     static template: string = require<string>('../components/baseTerminalTab.component.pug')
     static styles: string[] = [require<string>('../components/baseTerminalTab.component.scss')]

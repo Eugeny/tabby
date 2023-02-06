@@ -23,9 +23,9 @@ import { ReleaseNotesComponent } from './releaseNotesTab.component'
 /** @hidden */
 @Component({
     selector: 'settings-tab',
-    template: require('./settingsTab.component.pug'),
-    styles: [
-        require('./settingsTab.component.scss'),
+    templateUrl:'./settingsTab.component.pug',
+    styleUrls: [
+        './settingsTab.component.scss',
     ],
 })
 export class SettingsTabComponent extends BaseTabComponent {
@@ -48,7 +48,7 @@ export class SettingsTabComponent extends BaseTabComponent {
         public platform: PlatformService,
         public zone: NgZone,
         public locale: LocaleService,
-        private updater: UpdaterService,
+        public updater: UpdaterService,
         private app: AppService,
         @Inject(SettingsTabProvider) public settingsProviders: SettingsTabProvider[],
         translate: TranslateService,

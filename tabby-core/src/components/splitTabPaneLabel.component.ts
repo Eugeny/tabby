@@ -19,7 +19,7 @@ import { SelfPositioningComponent } from './selfPositioning.component'
         <label>{{tab.title}}</label>
     </div>
     `,
-    styles: [require('./splitTabPaneLabel.component.scss')],
+    styleUrls: ['./splitTabPaneLabel.component.scss'],
 })
 export class SplitTabPaneLabelComponent extends SelfPositioningComponent {
     @Input() tab: BaseTabComponent

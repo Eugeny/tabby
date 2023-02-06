@@ -3,8 +3,8 @@ import { Component, Input, Output, EventEmitter } from '@angular/core'
 /** @hidden */
 @Component({
     selector: 'color-picker',
-    template: require('./colorPicker.component.pug'),
-    styles: [require('./colorPicker.component.scss')],
+    templateUrl:'./colorPicker.component.pug',
+    styleUrls: ['./colorPicker.component.scss'],
 })
 export class ColorPickerComponent {
     @Input() model: string

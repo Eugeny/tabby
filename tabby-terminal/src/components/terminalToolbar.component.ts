@@ -6,8 +6,8 @@ import { BaseTerminalTabComponent } from '../api/baseTerminalTab.component'
 /** @hidden */
 @Component({
     selector: 'terminal-toolbar',
-    template: require('./terminalToolbar.component.pug'),
-    styles: [require('./terminalToolbar.component.scss')],
+    templateUrl:'./terminalToolbar.component.pug',
+    styleUrls: ['./terminalToolbar.component.scss'],
 })
 export class TerminalToolbarComponent {
     @Input() tab: BaseTerminalTabComponent<any>

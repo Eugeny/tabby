@@ -15,8 +15,8 @@ export interface Release {
 /** @hidden */
 @Component({
     selector: 'release-notes-tab',
-    template: require('./releaseNotesTab.component.pug'),
-    styles: [require('./releaseNotesTab.component.scss')],
+    templateUrl:'./releaseNotesTab.component.pug',
+    styleUrls: ['./releaseNotesTab.component.scss'],
 })
 export class ReleaseNotesComponent extends BaseTabComponent {
     releases: Release[] = []

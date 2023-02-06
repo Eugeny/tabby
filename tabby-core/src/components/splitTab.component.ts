@@ -186,7 +186,7 @@ export type SplitDropZoneInfo = {
         >
         </split-tab-pane-label>
     `,
-    styles: [require('./splitTab.component.scss')],
+    styleUrls: ['./splitTab.component.scss'],
 })
 export class SplitTabComponent extends BaseTabComponent implements AfterViewInit, OnDestroy {
     static DIRECTIONS: SplitDirection[] = ['t', 'r', 'b', 'l']

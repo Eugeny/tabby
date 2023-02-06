@@ -5,8 +5,8 @@ import { BaseComponent } from './base.component'
 /** @hidden */
 @Component({
     selector: 'profile-icon',
-    template: require('./profileIcon.component.pug'),
-    styles: [require('./profileIcon.component.scss')],
+    templateUrl:'./profileIcon.component.pug',
+    styleUrls: ['./profileIcon.component.scss'],
 })
 export class ProfileIconComponent extends BaseComponent {
     @Input() icon?: string

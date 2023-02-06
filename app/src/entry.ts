@@ -8,9 +8,9 @@ import './toastr.scss'
 // Importing before @angular/*
 import { findPlugins, initModuleLookup, loadPlugins } from './plugins'
 
-import { enableProdMode, NgModuleRef, ApplicationRef, importProvidersFrom } from '@angular/core'
+import { enableProdMode, NgModuleRef, ApplicationRef, importProvidersFrom, CompilerFactory, COMPILER_OPTIONS } from '@angular/core'
 import { bootstrapApplication, enableDebugTools } from '@angular/platform-browser'
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic'
+import { JitCompilerFactory, platformBrowserDynamic } from '@angular/platform-browser-dynamic'
 import { ipcRenderer } from 'electron'
 
 import { getRootModule, RootComponent } from './app.module'
@@ -40,8 +40,6 @@ async function bootstrap (bootstrapData: BootstrapData, plugins: PluginInfo[], s
     const pluginModules = await loadPlugins(plugins, (current, total) => {
         (document.querySelector('.progress .bar') as HTMLElement).style.width = `${100 * current / total}%` // eslint-disable-line
     })
-
-    pluginModules.splice(0, 999)
 
     window['pluginModules'] = pluginModules
 

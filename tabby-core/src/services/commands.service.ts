@@ -12,7 +12,7 @@ export class CommandService {
         private app: AppService,
         private translate: TranslateService,
         @Optional() @Inject(TabContextMenuItemProvider) protected contextMenuProviders: TabContextMenuItemProvider[],
-        @Inject(ToolbarButtonProvider) private toolbarButtonProviders: ToolbarButtonProvider[],
+        @Optional() @Inject(ToolbarButtonProvider) private toolbarButtonProviders: ToolbarButtonProvider[],
         @Inject(CommandProvider) private commandProviders: CommandProvider[],
     ) {
         this.contextMenuProviders.sort((a, b) => a.weight - b.weight)

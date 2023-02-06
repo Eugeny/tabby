@@ -8,7 +8,7 @@ import { Config, ConfigSyncService } from '../services/configSync.service'
 /** @hidden */
 @Component({
     selector: 'config-sync-settings-tab',
-    template: require('./configSyncSettingsTab.component.pug'),
+    templateUrl:'./configSyncSettingsTab.component.pug',
 })
 export class ConfigSyncSettingsTabComponent extends BaseComponent {
     connectionSuccessful: boolean|null = null

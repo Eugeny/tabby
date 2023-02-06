@@ -15,8 +15,8 @@ interface PathSegment {
 
 @Component({
     selector: 'sftp-panel',
-    template: require('./sftpPanel.component.pug'),
-    styles: [require('./sftpPanel.component.scss')],
+    templateUrl:'./sftpPanel.component.pug',
+    styleUrls: ['./sftpPanel.component.scss'],
 })
 export class SFTPPanelComponent {
     @Input() session: SSHSession

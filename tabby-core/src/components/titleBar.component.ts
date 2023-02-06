@@ -1,9 +1,12 @@
 import { Component } from '@angular/core'
+import { HostWindowService } from '../api'
 
 /** @hidden */
 @Component({
     selector: 'title-bar',
-    template: require('./titleBar.component.pug'),
-    styles: [require('./titleBar.component.scss')],
+    templateUrl:'./titleBar.component.pug',
+    styleUrls: ['./titleBar.component.scss'],
 })
-export class TitleBarComponent { } // eslint-disable-line @typescript-eslint/no-extraneous-class
+export class TitleBarComponent {
+    constructor (public hostWindow: HostWindowService) { }
+}

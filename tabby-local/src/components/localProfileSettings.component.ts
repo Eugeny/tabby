@@ -8,7 +8,7 @@ import { ProfileSettingsComponent } from 'tabby-core'
 
 /** @hidden */
 @Component({
-    template: require('./localProfileSettings.component.pug'),
+    templateUrl:'./localProfileSettings.component.pug',
 })
 export class LocalProfileSettingsComponent implements ProfileSettingsComponent<LocalProfile> {
     profile: LocalProfile

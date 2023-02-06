@@ -7,8 +7,8 @@ import { ConfigService, getCSSFontFamily, PlatformService } from 'tabby-core'
 
 /** @hidden */
 @Component({
-    template: require('./appearanceSettingsTab.component.pug'),
-    styles: [require('./appearanceSettingsTab.component.scss')],
+    templateUrl:'./appearanceSettingsTab.component.pug',
+    styleUrls: ['./appearanceSettingsTab.component.scss'],
 })
 export class AppearanceSettingsTabComponent {
     fonts: string[] = []
