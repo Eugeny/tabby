@@ -10,14 +10,14 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Korean\n"
 "Language: ko_KR\n"
-"PO-Revision-Date: 2023-02-04 18:52\n"
+"PO-Revision-Date: 2023-02-06 19:58\n"
 
-#: tabby-local/src/components/terminalTab.component.ts:113
+#: tabby-local/src/components/terminalTab.component.ts:112
 msgid "\"{command}\" is still running. Close?"
 msgstr "\"{command}\" 명령어가 여전히 동작중입니다. 닫을까요?"
 
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:78
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:89
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:79
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:90
 msgid "{name} copy"
 msgstr "{name} 복사"
 
@@ -67,7 +67,7 @@ msgid "Additional space between lines"
 msgstr "행간 간격"
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:22
-#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:64
+#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:65
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:52
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:124
 msgid "Advanced"
@@ -114,7 +114,7 @@ msgstr "응용 프로그램 설정"
 msgid "Are you sure you want to close Tabby? You can disable this prompt in Settings -> Window."
 msgstr "Tabby를 정말로 닫으시겠습니까? 더 이상 이 질문을 보지 않으려면 설정 -> 창 에서 변경할 수 있습니다."
 
-#: tabby-core/src/services/config.service.ts:379
+#: tabby-core/src/services/config.service.ts:381
 msgid "Are you sure?"
 msgstr "확실한가요?"
 
@@ -160,7 +160,7 @@ msgstr "자동"
 msgid "Automatic Updates"
 msgstr "자동 업데이트"
 
-#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:57
+#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:58
 msgid "Automatically upload changes and check for updates every minute"
 msgstr "자동으로 변경사항 업로드 후 매 분마다 갱신 확인"
 
@@ -173,7 +173,7 @@ msgid "Background type"
 msgstr "배경 유형"
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:14
-#: tabby-serial/src/components/serialTab.component.ts:118
+#: tabby-serial/src/components/serialTab.component.ts:112
 #: tabby-serial/src/profiles.ts:86
 msgid "Baud rate"
 msgstr "전송 속도"
@@ -212,7 +212,7 @@ msgid "Broadcast mode. Click anywhere to cancel."
 msgstr "브로드캐스트 모드. 취소하려면 아무 곳이나 클릭하세요."
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:54
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:174
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:175
 msgid "Built-in"
 msgstr "빌트인"
 
@@ -224,11 +224,12 @@ msgstr "빌트인"
 #: locale/tmp-html/tabby-ssh/src/components/sftpDeleteModal.component.html:7
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:32
 #: tabby-electron/src/services/updater.service.ts:134
-#: tabby-local/src/components/terminalTab.component.ts:118
+#: tabby-local/src/components/terminalTab.component.ts:117
+#: tabby-settings/src/components/configSyncSettingsTab.component.ts:117
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:79
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:99
 #: tabby-ssh/src/sftpContextMenu.ts:40
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:476
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:478
 msgid "Cancel"
 msgstr "취소"
 
@@ -253,13 +254,21 @@ msgstr "업데이트 확인"
 msgid "Ciphers"
 msgstr "암호화"
 
-#: tabby-core/src/services/profiles.service.ts:132
+#: locale/tmp-html/tabby-terminal/src/components/colorSchemeSelector.component.html:5
+msgid "Clear"
+msgstr ""
+
+#: tabby-core/src/services/profiles.service.ts:133
 msgid "Clear recent profiles"
 msgstr "최근 프로필 삭제"
 
 #: tabby-terminal/src/hotkeys.ts:50
 msgid "Clear terminal"
 msgstr "터미널 비우기"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:49
+msgid "Clear terminal after connection"
+msgstr ""
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:94
 msgid "Clipboard"
@@ -304,6 +313,7 @@ msgstr "마지막 탭을 닫은 후 창 닫기"
 msgid "Color"
 msgstr "색상"
 
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:216
 #: tabby-terminal/src/settings.ts:29
 msgid "Color scheme"
 msgstr "색상 구성"
@@ -327,6 +337,10 @@ msgstr "명령어"
 #: tabby-core/src/theme.ts:20
 msgid "Compact"
 msgstr "콤팩트"
+
+#: tabby-settings/src/components/configSyncSettingsTab.component.ts:126
+msgid "Config deleted"
+msgstr ""
 
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:108
 msgid "Config downloaded"
@@ -355,7 +369,7 @@ msgid "Connect through a proxy server"
 msgstr "프록시 서버를 통해 연결하기"
 
 #: tabby-core/src/index.ts:227
-#: tabby-core/src/services/profiles.service.ts:177
+#: tabby-core/src/services/profiles.service.ts:178
 msgid "Connect to \"%s\"..."
 msgstr "\"%s\"에 연결하기"
 
@@ -363,10 +377,10 @@ msgstr "\"%s\"에 연결하기"
 msgid "Connect to a different host first and use it as a proxy"
 msgstr "다른 호스트에 먼저 연결 후 프록시로 사용"
 
-#: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:17
-#: tabby-serial/src/components/serialTab.component.ts:72
-#: tabby-ssh/src/components/sshTab.component.ts:145
-#: tabby-telnet/src/components/telnetTab.component.ts:81
+#: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:19
+#: tabby-serial/src/components/serialTab.component.ts:66
+#: tabby-ssh/src/components/sshTab.component.ts:140
+#: tabby-telnet/src/components/telnetTab.component.ts:72
 msgid "Connecting"
 msgstr "연결 중"
 
@@ -386,10 +400,10 @@ msgstr "연결 이름이 대신 사용됩니다."
 msgid "Context menu"
 msgstr "컨텍스트 메뉴"
 
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:221
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:229
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:544
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:765
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:223
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:231
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:547
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:768
 #: tabby-terminal/src/tabContextMenu.ts:30
 msgid "Copied"
 msgstr "복사됨"
@@ -403,6 +417,10 @@ msgstr "복사"
 msgid "Copy current path"
 msgstr "현재 경로 복사"
 
+#: tabby-electron/src/sftpContextMenu.ts:29
+msgid "Copy full path"
+msgstr ""
+
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:97
 msgid "Copy on select"
 msgstr "선택 영역 복사"
@@ -415,7 +433,7 @@ msgstr "클립보드에 복사"
 msgid "Copy with formatting"
 msgstr "포맷과 함께 복사"
 
-#: tabby-core/src/services/config.service.ts:364
+#: tabby-core/src/services/config.service.ts:366
 msgid "Could not decrypt config"
 msgstr "설정 해독에 실패했습니다."
 
@@ -423,7 +441,7 @@ msgstr "설정 해독에 실패했습니다."
 msgid "Create"
 msgstr "생성"
 
-#: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:5
+#: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:7
 #: tabby-ssh/src/sftpContextMenu.ts:29
 msgid "Create directory"
 msgstr "디렉토리 생성"
@@ -476,7 +494,7 @@ msgstr "세로 분할 크기 작게"
 msgid "Default profile for new tabs"
 msgstr "새 탭의 기본 프로필"
 
-#: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:70
+#: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:80
 msgid "Default profile settings"
 msgstr "기본 프로필 설정"
 
@@ -488,11 +506,13 @@ msgstr "기본값"
 msgid "Defaults for {type}"
 msgstr "{type} 의 기본값"
 
+#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:48
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:28
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:9
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:138
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:203
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:216
+#: tabby-settings/src/components/configSyncSettingsTab.component.ts:116
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:139
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:204
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:217
 #: tabby-settings/src/components/vaultSettingsTab.component.ts:49
 #: tabby-ssh/src/sftpContextMenu.ts:39
 #: tabby-ssh/src/sftpContextMenu.ts:47
@@ -501,8 +521,8 @@ msgstr "{type} 의 기본값"
 msgid "Delete"
 msgstr "삭제"
 
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:136
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:201
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:137
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:202
 #: tabby-terminal/src/components/colorSchemeSettingsTab.component.ts:87
 msgid "Delete \"{name}\"?"
 msgstr "{name} 을/를 삭제하시겠습니까?"
@@ -523,7 +543,11 @@ msgstr "다음 단어 삭제"
 msgid "Delete previous word"
 msgstr "이전 단어 삭제"
 
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:213
+#: tabby-settings/src/components/configSyncSettingsTab.component.ts:114
+msgid "Delete the config on the remote side?"
+msgstr ""
+
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:214
 msgid "Delete the group's profiles?"
 msgstr "그룹의 프로필을 삭제하시겠습니까?"
 
@@ -568,13 +592,13 @@ msgid "Disabled"
 msgstr "비활성화됨"
 
 #: locale/tmp-html/tabby-ssh/src/components/hostKeyPromptModal.component.html:26
-#: tabby-ssh/src/components/sshTab.component.ts:250
-#: tabby-telnet/src/components/telnetTab.component.ts:124
+#: tabby-ssh/src/components/sshTab.component.ts:246
+#: tabby-telnet/src/components/telnetTab.component.ts:115
 msgid "Disconnect"
 msgstr "연결 끊기"
 
-#: tabby-ssh/src/components/sshTab.component.ts:248
-#: tabby-telnet/src/components/telnetTab.component.ts:122
+#: tabby-ssh/src/components/sshTab.component.ts:244
+#: tabby-telnet/src/components/telnetTab.component.ts:113
 msgid "Disconnect from {host}?"
 msgstr "{host} 로부터 연결을 끊으시겠습니까?"
 
@@ -590,8 +614,8 @@ msgstr "표시할 곳"
 msgid "Do not abort"
 msgstr "중단하지 않음"
 
-#: tabby-ssh/src/components/sshTab.component.ts:251
-#: tabby-telnet/src/components/telnetTab.component.ts:125
+#: tabby-ssh/src/components/sshTab.component.ts:247
+#: tabby-telnet/src/components/telnetTab.component.ts:116
 msgid "Do not close"
 msgstr "닫지 않음"
 
@@ -640,7 +664,7 @@ msgstr "밝은 색으로 굵은 글꼴 채우기"
 msgid "Duplicate"
 msgstr "복제"
 
-#: tabby-local/src/tabContextMenu.ts:121
+#: tabby-local/src/tabContextMenu.ts:123
 msgid "Duplicate as administrator"
 msgstr "관리자에서 복제"
 
@@ -653,7 +677,7 @@ msgstr "탭 복제"
 msgid "Edit"
 msgstr "편집"
 
-#: tabby-electron/src/sftpContextMenu.ts:30
+#: tabby-electron/src/sftpContextMenu.ts:35
 msgid "Edit locally"
 msgstr "로컬 편집"
 
@@ -702,8 +726,8 @@ msgstr "줄 끝"
 msgid "Environment"
 msgstr "환경"
 
-#: tabby-core/src/services/config.service.ts:368
-#: tabby-core/src/services/config.service.ts:382
+#: tabby-core/src/services/config.service.ts:370
+#: tabby-core/src/services/config.service.ts:384
 msgid "Erase config"
 msgstr "설정 지우기"
 
@@ -885,7 +909,7 @@ msgstr "Tabby 웹 설정 창에서 받기"
 msgid "Gives the window a blurred transparent background"
 msgstr "배경을 투명하고 흐릿하게 표시합니다."
 
-#: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:22
+#: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:24
 msgid "Go up"
 msgstr "상위 폴더로"
 
@@ -955,6 +979,10 @@ msgstr "호스트 키 확인"
 #: tabby-settings/src/settings.ts:15
 msgid "Hotkeys"
 msgstr "단축키"
+
+#: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:71
+msgid "How Tabby presents itself through environment vars"
+msgstr ""
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:24
 msgid "HTTP proxy"
@@ -1037,8 +1065,8 @@ msgstr "다음 단어로 이동"
 msgid "Jump to previous word"
 msgstr "이전 단어로 이동"
 
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:139
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:204
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:140
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:205
 #: tabby-settings/src/components/vaultSettingsTab.component.ts:50
 #: tabby-terminal/src/components/colorSchemeSettingsTab.component.ts:90
 #: tabby-terminal/src/components/loginScriptsSettings.component.ts:33
@@ -1070,7 +1098,7 @@ msgstr "키보드"
 msgid "Keyboard-interactive auth"
 msgstr "키보드 상호작용 인증"
 
-#: tabby-local/src/components/terminalTab.component.ts:117
+#: tabby-local/src/components/terminalTab.component.ts:116
 msgid "Kill"
 msgstr "종료"
 
@@ -1091,7 +1119,7 @@ msgstr "WinSCP 실행"
 msgid "Launch WinSCP for current SSH session"
 msgstr "현재 SSH 세션용으로 WinSCP 실행"
 
-#: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:14
+#: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:16
 #: locale/tmp-html/tabby-ssh/src/components/sshTab.component.html:7
 msgid "Learn how to allow Tabby to detect remote shell's working directory."
 msgstr "Tabby가 원격 쉘에서 작업 디렉토리 감지를 허용하는 방법 알아보기"
@@ -1118,7 +1146,7 @@ msgstr "줄 편집기, 입력한 내용을 Enter 키 누른 후 전송"
 msgid "Line padding"
 msgstr "줄 간격"
 
-#: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:19
+#: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:21
 msgid "Loading"
 msgstr "불러오는 중"
 
@@ -1140,7 +1168,7 @@ msgid "Local terminal"
 msgstr "로컬 터미널"
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:81
-#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:216
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:221
 #: locale/tmp-html/tabby-telnet/src/components/telnetProfileSettings.component.html:16
 msgid "Login scripts"
 msgstr "로그인 스크립트"
@@ -1149,7 +1177,7 @@ msgstr "로그인 스크립트"
 msgid "Long-click for context menu"
 msgstr "길게 클릭하여 메뉴 표시"
 
-#: tabby-core/src/services/profiles.service.ts:161
+#: tabby-core/src/services/profiles.service.ts:162
 msgid "Manage profiles"
 msgstr "프로필 관리"
 
@@ -1181,7 +1209,7 @@ msgstr "탭을 왼쪽으로 이동"
 msgid "Move tab to the right"
 msgstr "탭을 오른쪽으로 이동"
 
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:215
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:216
 msgid "Move to \"Ungrouped\""
 msgstr "\"그룹화되지 않음\"으로 이동"
 
@@ -1206,7 +1234,7 @@ msgstr "새 디렉토리 이름"
 msgid "Native"
 msgstr "네이티브"
 
-#: tabby-local/src/tabContextMenu.ts:103
+#: tabby-local/src/tabContextMenu.ts:104
 msgid "New admin tab"
 msgstr "새 관리자 탭"
 
@@ -1218,7 +1246,7 @@ msgstr "{platform} 새 구성"
 msgid "New item"
 msgstr "새 아이템"
 
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:185
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:186
 #: tabby-settings/src/components/vaultSettingsTab.component.ts:118
 msgid "New name"
 msgstr "새 이름"
@@ -1227,7 +1255,7 @@ msgstr "새 이름"
 msgid "New profile"
 msgstr "새 프로필"
 
-#: tabby-local/src/tabContextMenu.ts:30
+#: tabby-local/src/tabContextMenu.ts:31
 msgid "New profile name"
 msgstr "새 프로필 이름"
 
@@ -1240,7 +1268,7 @@ msgid "New tab: {profile}"
 msgstr "새 탭: {profile}"
 
 #: tabby-local/src/buttonProvider.ts:20
-#: tabby-local/src/tabContextMenu.ts:77
+#: tabby-local/src/tabContextMenu.ts:78
 msgid "New terminal"
 msgstr "새 터미널"
 
@@ -1252,7 +1280,7 @@ msgstr "새 창"
 msgid "New Window"
 msgstr "새 윈도우"
 
-#: tabby-local/src/tabContextMenu.ts:87
+#: tabby-local/src/tabContextMenu.ts:88
 msgid "New with profile"
 msgstr "기본 프로필로 새로 만들기"
 
@@ -1401,7 +1429,7 @@ msgstr ""
 msgid "Parity"
 msgstr "패리티"
 
-#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:67
+#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:68
 msgid "Partial config sync is not possible when the config is encrypted via Vault."
 msgstr "구성이 Vault를 통해 암호화된 경우 부분 구성 동기화를 수행할 수 없습니다."
 
@@ -1415,7 +1443,7 @@ msgid "Password"
 msgstr "비밀번호"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:62
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:475
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:477
 #: tabby-terminal/src/tabContextMenu.ts:35
 msgid "Paste"
 msgstr "붙여넣기"
@@ -1428,7 +1456,7 @@ msgstr "클립보드에서 붙여넣기"
 msgid "Paste if no selection, else copy"
 msgstr "선택 항목이 없으면 붙여넣기, 있으면 복사"
 
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:482
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:484
 msgid "Paste multiple lines?"
 msgstr "여러 줄을 붙여 넣을까요?"
 
@@ -1457,7 +1485,7 @@ msgstr "플러그인 폴더"
 msgid "Port"
 msgstr "포트"
 
-#: tabby-serial/src/components/serialTab.component.ts:77
+#: tabby-serial/src/components/serialTab.component.ts:71
 msgid "Port opened"
 msgstr "포트 열림"
 
@@ -1466,9 +1494,9 @@ msgstr "포트 열림"
 msgid "Ports"
 msgstr ""
 
-#: tabby-serial/src/components/serialTab.component.ts:92
-#: tabby-ssh/src/components/sshTab.component.ts:174
-#: tabby-telnet/src/components/telnetTab.component.ts:58
+#: tabby-serial/src/components/serialTab.component.ts:86
+#: tabby-ssh/src/components/sshTab.component.ts:169
+#: tabby-telnet/src/components/telnetTab.component.ts:53
 msgid "Press any key to reconnect"
 msgstr "다시 연결하려면 아무 키나 누르세요"
 
@@ -1528,12 +1556,12 @@ msgid "Puts all of Tabby's configuration into the vault"
 msgstr "Tabby의 모든 설정을 vault에 기록합니다"
 
 #: tabby-core/src/index.ts:226
-#: tabby-core/src/services/profiles.service.ts:176
+#: tabby-core/src/services/profiles.service.ts:177
 msgid "Quick connect"
 msgstr "빠른 연결"
 
-#: tabby-core/src/services/config.service.ts:369
-#: tabby-core/src/services/config.service.ts:383
+#: tabby-core/src/services/config.service.ts:371
+#: tabby-core/src/services/config.service.ts:385
 msgid "Quit"
 msgstr "끝내기"
 
@@ -1545,8 +1573,8 @@ msgstr "Raw 소켓 연결"
 msgid "Ready Timeout (Milliseconds)"
 msgstr ""
 
-#: tabby-core/src/services/profiles.service.ts:119
-#: tabby-core/src/services/profiles.service.ts:133
+#: tabby-core/src/services/profiles.service.ts:120
+#: tabby-core/src/services/profiles.service.ts:134
 #: tabby-local/src/services/dockMenu.service.ts:28
 msgid "Recent"
 msgstr ""
@@ -1674,7 +1702,7 @@ msgstr "비밀번호를 키체인에 저장"
 msgid "Save and apply"
 msgstr "저장 및 적용"
 
-#: tabby-local/src/tabContextMenu.ts:27
+#: tabby-local/src/tabContextMenu.ts:28
 msgid "Save as profile"
 msgstr "프로필로 저장"
 
@@ -1682,7 +1710,7 @@ msgstr "프로필로 저장"
 msgid "Save layout as profile"
 msgstr ""
 
-#: tabby-local/src/tabContextMenu.ts:48
+#: tabby-local/src/tabContextMenu.ts:49
 msgid "Saved"
 msgstr "저장됨"
 
@@ -1722,11 +1750,12 @@ msgstr "사용자 입력 시 터미널을 맨 아래로 스크롤 합니다"
 msgid "Search"
 msgstr "검색"
 
+#: tabby-terminal/src/components/colorSchemeSelector.component.ts:9
 #: tabby-terminal/src/components/colorSchemeSettingsTab.component.ts:10
 msgid "Search color schemes"
 msgstr "색상 구성 검색"
 
-#: tabby-settings/src/components/hotkeySettingsTab.component.ts:13
+#: tabby-settings/src/components/hotkeySettingsTab.component.ts:12
 msgid "Search hotkeys"
 msgstr "단축키 검색"
 
@@ -1743,7 +1772,7 @@ msgstr "비밀 동기화 토큰"
 msgid "Select"
 msgstr "선택"
 
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:64
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:65
 msgid "Select a base profile to use as a template"
 msgstr "템플릿으로 사용할 프로필 선택"
 
@@ -1759,7 +1788,7 @@ msgstr ""
 msgid "Select profile"
 msgstr "프로필 선택"
 
-#: tabby-core/src/services/profiles.service.ts:185
+#: tabby-core/src/services/profiles.service.ts:186
 msgid "Select profile or enter an address"
 msgstr "프로필 선택 또는 주소 입력"
 
@@ -1819,7 +1848,7 @@ msgstr "설정"
 msgid "Shell"
 msgstr "셸"
 
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:546
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:549
 msgid "Shell does not support current path detection"
 msgstr "Shell이 현재 경로 감지를 지원하지 않습니다."
 
@@ -1960,11 +1989,11 @@ msgstr "위쪽으로 분할"
 msgid "Split to the up"
 msgstr "위쪽으로 분할"
 
-#: tabby-ssh/src/profiles.ts:80
+#: tabby-ssh/src/profiles.ts:81
 msgid "SSH connection"
 msgstr "SSH 연결"
 
-#: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:47
+#: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:53
 msgid "SSH connection management is now done through the \"Profiles & connections\" tab"
 msgstr "이제 \"프로필 및 연결\" 탭을 통해 SSH 연결 관리가 수행됩니다."
 
@@ -2012,7 +2041,7 @@ msgstr "터미널 프론트엔드 구현 변경 (실험적)"
 msgid "Sync"
 msgstr "동기화"
 
-#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:56
+#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:57
 msgid "Sync automatically"
 msgstr "자동으로 동기화"
 
@@ -2020,15 +2049,15 @@ msgstr "자동으로 동기화"
 msgid "Sync host"
 msgstr "호스트 동기화"
 
-#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:71
+#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:72
 msgid "Sync hotkeys"
 msgstr "단축키 동기화"
 
-#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:83
+#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:84
 msgid "Sync Vault"
 msgstr "Vault 동기화"
 
-#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:77
+#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:78
 msgid "Sync window settings"
 msgstr "창 구성 동기화"
 
@@ -2083,7 +2112,7 @@ msgstr "탭 너비"
 msgid "Telnet session"
 msgstr "텔넷 세션"
 
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:196
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:198
 #: tabby-terminal/src/settings.ts:43
 msgid "Terminal"
 msgstr "터미널"
@@ -2095,6 +2124,10 @@ msgstr "터미널 배경색"
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:133
 msgid "Terminal bell"
 msgstr "터미널 벨"
+
+#: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:70
+msgid "Terminal identification"
+msgstr ""
 
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:7
 msgid "Thank you for downloading Tabby!"
@@ -2112,7 +2145,7 @@ msgstr ""
 msgid "There is a saved password for this connection"
 msgstr "이 연결에 대해 저장된 비밀번호가 있습니다."
 
-#: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:71
+#: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:81
 msgid "These apply to all profiles of a given type"
 msgstr "이와 같은 유형의 모든 프로필에 적용됩니다."
 
@@ -2149,7 +2182,7 @@ msgstr "위"
 msgid "Trim whitespace and newlines"
 msgstr "공백 및 개행문자 제거"
 
-#: tabby-core/src/services/config.service.ts:367
+#: tabby-core/src/services/config.service.ts:369
 msgid "Try again"
 msgstr "다시 시도"
 
@@ -2169,7 +2202,7 @@ msgstr "그룹 해제됨"
 msgid "Uninstall"
 msgstr "설치 제거"
 
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:249
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:250
 msgid "Unknown"
 msgstr "알 수 없음"
 
@@ -2195,11 +2228,11 @@ msgid "Upgrade to {version}"
 msgstr "{version} 로 업그레이드"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:46
-#: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:8
+#: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:10
 msgid "Upload"
 msgstr "업로드"
 
-#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:49
+#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:50
 msgid "Upload as a new config"
 msgstr ""
 
@@ -2346,7 +2379,7 @@ msgstr "단어 구분 기호"
 msgid "Working directory"
 msgstr "작업 폴더"
 
-#: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:13
+#: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:15
 #: locale/tmp-html/tabby-ssh/src/components/sshTab.component.html:6
 msgid "Working directory detection"
 msgstr "작업 디렉토리 감지"
