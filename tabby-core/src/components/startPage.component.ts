@@ -28,6 +28,7 @@ export class StartPageComponent {
         return this.domSanitizer.bypassSecurityTrustHtml(icon ?? '')
     }
 
+    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
     buttonsTrackBy (_, btn: Command): any {
         return btn.label + btn.icon
     }

@@ -156,21 +156,21 @@ export class ProfilesService {
                     callback: () => resolve(p),
                 }))]
 
-                // TODO try {
-                //     const { SettingsTabComponent } = window['nodeRequire']('tabby-settings')
-                //     options.push({
-                //         name: this.translate.instant('Manage profiles'),
-                //         icon: 'fas fa-window-restore',
-                //         weight: 10,
-                //         callback: () => {
-                //             this.app.openNewTabRaw({
-                //                 type: SettingsTabComponent,
-                //                 inputs: { activeTab: 'profiles' },
-                //             })
-                //             resolve(null)
-                //         },
-                //     })
-                // } catch { }
+                try {
+                    const { SettingsTabComponent } = window['nodeRequire']('tabby-settings')
+                    options.push({
+                        name: this.translate.instant('Manage profiles'),
+                        icon: 'fas fa-window-restore',
+                        weight: 10,
+                        callback: () => {
+                            this.app.openNewTabRaw({
+                                type: SettingsTabComponent,
+                                inputs: { activeTab: 'profiles' },
+                            })
+                            resolve(null)
+                        },
+                    })
+                } catch { }
 
                 if (this.getProviders().some(x => x.supportsQuickConnect)) {
                     options.push({
