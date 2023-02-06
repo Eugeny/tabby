@@ -40,31 +40,41 @@ h5(translate) Add a port forward
     input.form-control(type='text', placeholder='Description', [(ngModel)]='newForward.description')
 
 .d-flex
-    .btn-group.me-auto(
-        [(ngModel)]='newForward.type',
-        ngbRadioGroup
-    )
-        label.btn.btn-secondary.m-0(ngbButtonLabel)
-            input(
-                type='radio',
-                ngbButton,
-                [value]='PortForwardType.Local'
-            )
-            span(translate) Local
-        label.btn.btn-secondary.m-0(ngbButtonLabel)
-            input(
-                type='radio',
-                ngbButton,
-                [value]='PortForwardType.Remote'
-            )
-            span(translate) Remote
-        label.btn.btn-secondary.m-0(ngbButtonLabel)
-            input(
-                type='radio',
-                ngbButton,
-                [value]='PortForwardType.Dynamic'
-            )
-            span(translate, translateContext='[Dynamic] port forwarding') id.port-forwarding.dynamic
+    .btn-group.me-auto
+        input.btn-check(
+            type='radio',
+            [(ngModel)]='newForward.type',
+            id='newForwardTypeLocal',
+            name='newForwardType',
+            [value]='PortForwardType.Local'
+        )
+        label.btn.btn-secondary.m-0(
+            for='newForwardTypeLocal',
+            translate
+        ) Local
+        input.btn-check(
+            type='radio',
+            [(ngModel)]='newForward.type',
+            id='newForwardTypeRemote',
+            name='newForwardType',
+            [value]='PortForwardType.Remote'
+        )
+        label.btn.btn-secondary.m-0(
+            for='newForwardTypeRemote',
+            translate
+        ) Remote
+        input.btn-check(
+            type='radio',
+            [(ngModel)]='newForward.type',
+            id='newForwardTypeDynamic',
+            name='newForwardType',
+            [value]='PortForwardType.Dynamic'
+        )
+        label.btn.btn-secondary.m-0(
+            for='newForwardTypeDynamic',
+            translate,
+            translateContext='[Dynamic] port forwarding'
+        ) id.port-forwarding.dynamic
 
     button.btn.btn-primary((click)='addForward()')
         i.fas.fa-check.me-2

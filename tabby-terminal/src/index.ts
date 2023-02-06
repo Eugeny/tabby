@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core'
-// import { BrowserModule } from '@angular/platform-browser'
+import { CommonModule } from '@angular/common'
 import { FormsModule } from '@angular/forms'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { ToastrModule } from 'ngx-toastr'
@@ -37,7 +37,7 @@ import { TerminalCLIHandler } from './cli'
 /** @hidden */
 @NgModule({
     imports: [
-        // BrowserModule,
+        CommonModule,
         FormsModule,
         NgbModule,
         ToastrModule,

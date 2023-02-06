@@ -213,7 +213,7 @@ hotkey-input-modal {
     margin-bottom: 2px;
 }
 
-[ngbradiogroup] > label.active {
+.btn-check:checked + label {
     background: $blue;
 }
 

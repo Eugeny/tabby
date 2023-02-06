@@ -168,31 +168,36 @@ div.mt-4
     .form-line
         .header
             .title(translate) Terminal bell
-        .btn-group(
-            [(ngModel)]='config.store.terminal.bell',
-            (ngModelChange)='config.save()',
-            ngbRadioGroup
-        )
-            label.btn.btn-secondary(ngbButtonLabel)
-                input(
-                    type='radio',
-                    ngbButton,
-                    [value]='"off"'
-                )
+        .btn-group
+            input.btn-check(
+                type='radio',
+                name='bell',
+                [(ngModel)]='config.store.terminal.bell',
+                (ngModelChange)='config.save()',
+                id='bellOff',
+                [value]='"off"'
+            )
+            label.btn.btn-secondary(for='bellOff')
                 span(translate) Off
-            label.btn.btn-secondary(ngbButtonLabel)
-                input(
-                    type='radio',
-                    ngbButton,
-                    [value]='"visual"'
-                )
+            input.btn-check(
+                type='radio',
+                name='bell',
+                [(ngModel)]='config.store.terminal.bell',
+                (ngModelChange)='config.save()',
+                id='bellVisual',
+                [value]='"visual"'
+            )
+            label.btn.btn-secondary(for='bellVisual')
                 span(translate) Visual
-            label.btn.btn-secondary(ngbButtonLabel)
-                input(
-                    type='radio',
-                    ngbButton,
-                    [value]='"audible"'
-                )
+            input.btn-check(
+                type='radio',
+                name='bell',
+                [(ngModel)]='config.store.terminal.bell',
+                (ngModelChange)='config.save()',
+                id='bellAudible',
+                [value]='"audible"'
+            )
+            label.btn.btn-secondary(for='bellAudible')
                 span(translate) Audible
 
     .alert.alert-info.d-flex.align-items-center(*ngIf='config.store.terminal.bell != "audible" && (config.store.terminal.profile || "").startsWith("wsl")')

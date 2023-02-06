@@ -2,7 +2,7 @@
 import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker'
 import * as yaml from 'js-yaml'
 import { debounce } from 'utils-decorators/dist/esm/debounce/debounce'
-import { Component, Inject, Input, HostBinding, NgZone, Injector } from '@angular/core'
+import { Component, Inject, Input, HostBinding, Injector } from '@angular/core'
 import {
     ConfigService,
     BaseTabComponent,
@@ -46,7 +46,6 @@ export class SettingsTabComponent extends BaseTabComponent {
         public hostWindow: HostWindowService,
         public homeBase: HomeBaseService,
         public platform: PlatformService,
-        public zone: NgZone,
         public locale: LocaleService,
         public updater: UpdaterService,
         private app: AppService,

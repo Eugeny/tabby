@@ -107,28 +107,63 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
             .mb-3
                 label(translate) Authentication method
 
-                .btn-group.mt-1.w-100(
-                    [(ngModel)]='profile.options.auth',
-                    ngbRadioGroup
-                )
-                    label.btn.btn-secondary(ngbButtonLabel)
-                        input(type='radio', ngbButton, [value]='null')
+                .btn-group.mt-1.w-100
+                    input.btn-check(
+                        type='radio',
+                        name='auth',
+                        [(ngModel)]='profile.options.auth',
+                        id='authAuto',
+                        [value]='null'
+                    )
+                    label.btn.btn-secondary(
+                        for='authAuto'
+                    )
                         i.far.fa-lightbulb
                         .m-0(translate) Auto
-                    label.btn.btn-secondary(ngbButtonLabel)
-                        input(type='radio', ngbButton, [value]='"password"')
+                    input.btn-check(
+                        type='radio',
+                        name='auth',
+                        [(ngModel)]='profile.options.auth',
+                        id='authPassword',
+                        [value]='"password"'
+                    )
+                    label.btn.btn-secondary(
+                        for='authPassword'
+                    )
                         i.fas.fa-font
                         .m-0(translate) Password
-                    label.btn.btn-secondary(ngbButtonLabel)
-                        input(type='radio', ngbButton, [value]='"publicKey"')
+                    input.btn-check(
+                        type='radio',
+                        name='auth',
+                        [(ngModel)]='profile.options.auth',
+                        id='authPublicKey',
+                        [value]='"publicKey"'
+                    )
+                    label.btn.btn-secondary(
+                        for='authPublicKey'
+                    )
                         i.fas.fa-key
                         .m-0(translate) Key
-                    label.btn.btn-secondary(ngbButtonLabel, ng:if='hostApp.platform !== Platform.Web')
-                        input(type='radio', ngbButton, [value]='"agent"')
+                    input.btn-check(
+                        type='radio',
+                        name='auth',
+                        [(ngModel)]='profile.options.auth',
+                        id='authAgent',
+                        [value]='"agent"'
+                    )
+                    label.btn.btn-secondary(
+                        for='authAgent'
+                    , ng:if='hostApp.platform !== Platform.Web')
                         i.fas.fa-user-secret
                         .m-0(translate) Agent
+                    input.btn-check(
+                        type='radio',
+                        name='auth',
+                        [(ngModel)]='profile.options.auth',
+                        id='auth"keyboardInteractive"'
+                        [value]='"keyboardInteractive"'
+                    )
                     label.btn.btn-secondary(ngbButtonLabel)
-                        input(type='radio', ngbButton, [value]='"keyboardInteractive"')
                         i.far.fa-keyboard
                         .m-0(translate) Interactive
 

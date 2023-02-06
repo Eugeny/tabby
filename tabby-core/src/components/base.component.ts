@@ -1,4 +1,3 @@
-import { Component } from '@angular/core'
 import { Observable, Subscription, Subject } from 'rxjs'
 
 interface CancellableEvent {
@@ -42,7 +41,6 @@ export class SubscriptionContainer {
     }
 }
 
-@Component({ template: '' })
 export class BaseComponent {
     protected get destroyed$ (): Observable<void> { return this._destroyed }
     private _destroyed = new Subject<void>()

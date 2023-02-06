@@ -34,24 +34,30 @@ h3.mb-3(translate) Window
 .form-line(*ngIf='config.store.appearance.vibrancy && isFluentVibrancySupported && config.store.hacks.enableFluentBackground')
     .header
         .title(translate) Background type
-    .btn-group(
-        [(ngModel)]='config.store.appearance.vibrancyType',
-        (ngModelChange)='saveConfiguration()',
-        ngbRadioGroup
-    )
-        label.btn.btn-secondary(ngbButtonLabel)
-            input(
-                type='radio',
-                ngbButton,
-                [value]='"blur"'
-            )
+    .btn-group
+        input.btn-check(
+            type='radio',
+            name='vibracy',
+            [(ngModel)]='config.store.appearance.vibrancyType',
+            (ngModelChange)='saveConfiguration()',
+            id='vibrancyTypeBlur',
+            [value]='"blur"'
+        )
+        label.btn.btn-secondary(
+            for='vibrancyTypeBlur'
+        )
             span(translate) Blur
-        label.btn.btn-secondary(ngbButtonLabel)
-            input(
-                type='radio',
-                ngbButton,
-                [value]='"fluent"'
-            )
+        input.btn-check(
+            type='radio',
+            name='vibracy',
+            [(ngModel)]='config.store.appearance.vibrancyType',
+            (ngModelChange)='saveConfiguration()',
+            id='vibrancyTypeFluent',
+            [value]='"fluent"'
+        )
+        label.btn.btn-secondary(
+            for='vibrancyTypeFluent'
+        )
             span Fluent
 
 .form-line(*ngIf='platform.supportsWindowControls')
@@ -71,31 +77,36 @@ h3.mb-3(translate) Window
         .title(translate) Window frame
         .description(translate) Whether a custom window or an OS native window should be used
 
-    .btn-group(
-        [(ngModel)]='config.store.appearance.frame',
-        (ngModelChange)='saveConfiguration(true)',
-        ngbRadioGroup
-    )
-        label.btn.btn-secondary(ngbButtonLabel)
-            input(
-                type='radio',
-                ngbButton,
-                [value]='"native"'
-            )
+    .btn-group
+        input.btn-check(
+            type='radio',
+            name='frame',
+            [(ngModel)]='config.store.appearance.frame',
+            (ngModelChange)='saveConfiguration(true)',
+            id='frameNative',
+            [value]='"native"'
+        )
+        label.btn.btn-secondary(for='frameNative')
             span(translate) Native
-        label.btn.btn-secondary(ngbButtonLabel)
-            input(
-                type='radio',
-                ngbButton,
-                [value]='"thin"'
-            )
+        input.btn-check(
+            type='radio',
+            name='frame',
+            [(ngModel)]='config.store.appearance.frame',
+            (ngModelChange)='saveConfiguration(true)',
+            id='frameThin',
+            [value]='"thin"'
+        )
+        label.btn.btn-secondary(for='frameThin')
             span(translate) Thin
-        label.btn.btn-secondary(ngbButtonLabel)
-            input(
-                type='radio',
-                ngbButton,
-                [value]='"full"'
-            )
+        input.btn-check(
+            type='radio',
+            name='frame',
+            [(ngModel)]='config.store.appearance.frame',
+            (ngModelChange)='saveConfiguration(true)',
+            id='frameFull',
+            [value]='"full"'
+        )
+        label.btn.btn-secondary(for='frameFull')
             span(translate) Full
 
 h3.mt-4(translate) Docking
@@ -105,45 +116,56 @@ h3.mt-4(translate) Docking
         .title(translate) Dock the terminal
         .description(translate) Snaps the window to a side of the screen
 
-    .btn-group(
-        [(ngModel)]='config.store.appearance.dock',
-        (ngModelChange)='saveConfiguration(); docking.dock()',
-        ngbRadioGroup
-    )
-        label.btn.btn-secondary(ngbButtonLabel)
-            input(
-                type='radio',
-                ngbButton,
-                [value]='"off"'
-            )
+    .btn-group
+        input.btn-check(
+            type='radio',
+            name='docking',
+            [(ngModel)]='config.store.appearance.dock',
+            (ngModelChange)='saveConfiguration(); docking.dock()',
+            id='dockingOff',
+            [value]='"off"'
+        )
+        label.btn.btn-secondary(for='dockingOff')
             span(translate) Off
-        label.btn.btn-secondary(ngbButtonLabel)
-            input(
-                type='radio',
-                ngbButton,
-                [value]='"top"'
-            )
+        input.btn-check(
+            type='radio',
+            name='docking',
+            [(ngModel)]='config.store.appearance.dock',
+            (ngModelChange)='saveConfiguration(); docking.dock()',
+            id='dockingTop',
+            [value]='"top"'
+        )
+        label.btn.btn-secondary(for='dockingTop')
             span(translate) Top
-        label.btn.btn-secondary(ngbButtonLabel)
-            input(
-                type='radio',
-                ngbButton,
-                [value]='"left"'
-            )
+        input.btn-check(
+            type='radio',
+            name='docking',
+            [(ngModel)]='config.store.appearance.dock',
+            (ngModelChange)='saveConfiguration(); docking.dock()',
+            id='dockingLeft',
+            [value]='"left"'
+        )
+        label.btn.btn-secondary(for='dockingLeft')
             span(translate) Left
-        label.btn.btn-secondary(ngbButtonLabel)
-            input(
-                type='radio',
-                ngbButton,
-                [value]='"right"'
-            )
+        input.btn-check(
+            type='radio',
+            name='docking',
+            [(ngModel)]='config.store.appearance.dock',
+            (ngModelChange)='saveConfiguration(); docking.dock()',
+            id='dockingRight',
+            [value]='"right"'
+        )
+        label.btn.btn-secondary(for='dockingRight')
             span(translate) Right
-        label.btn.btn-secondary(ngbButtonLabel)
-            input(
-                type='radio',
-                ngbButton,
-                [value]='"bottom"'
-            )
+        input.btn-check(
+            type='radio',
+            name='docking',
+            [(ngModel)]='config.store.appearance.dock',
+            (ngModelChange)='saveConfiguration(); docking.dock()',
+            id='dockingBottom',
+            [value]='"bottom"'
+        )
+        label.btn.btn-secondary(for='dockingBottom')
             span(translate) Bottom
 
 .ms-5.form-line(*ngIf='docking && config.store.appearance.dock != "off"')
@@ -151,24 +173,26 @@ h3.mt-4(translate) Docking
         .title(translate) Display on
         .description(translate) Snaps the window to a side of the screen
 
-    div(
-        [(ngModel)]='config.store.appearance.dockScreen',
-        (ngModelChange)='saveConfiguration(); docking.dock()',
-        ngbRadioGroup
-    )
-        label.btn.btn-secondary(ngbButtonLabel)
-            input(
-                type='radio',
-                ngbButton,
-                value='current'
-            )
+    div
+        input.btn-check(
+            type='radio',
+            name='dockScreen',
+            [(ngModel)]='config.store.appearance.dockScreen',
+            (ngModelChange)='saveConfiguration(); docking.dock()',
+            id='dockScreenCurrent',
+            value='current'
+        )
+        label.btn.btn-secondary(id='dockScreenCurrent')
             span(translate) Current
-        label.btn.btn-secondary(*ngFor='let screen of screens', ngbButtonLabel)
-            input(
-                type='radio',
-                ngbButton,
-                [value]='screen.id'
-            )
+        input.btn-check(
+            type='radio',
+            name='dockScreen',
+            [(ngModel)]='config.store.appearance.dockScreen',
+            (ngModelChange)='saveConfiguration(); docking.dock()',
+            id='dockScreen{{screen.id}}',
+            [value]='screen.id'
+        )
+        label.btn.btn-secondary(*ngFor='let screen of screens', for='dockScreen{{screen.id}}')
             | {{screen.name}}
 
 .ms-5.form-line(*ngIf='docking && config.store.appearance.dock != "off"')
@@ -220,61 +244,71 @@ h3.mt-4(translate) Tabs
 .form-line
     .header
         .title(translate) Tabs location
-    .btn-group(
-        [(ngModel)]='config.store.appearance.tabsLocation',
-        (ngModelChange)='saveConfiguration()',
-        ngbRadioGroup
-    )
-        label.btn.btn-secondary(ngbButtonLabel)
-            input(
-                type='radio',
-                ngbButton,
-                [value]='"top"'
-            )
+    .btn-group
+        input.btn-check(
+            type='radio',
+            name='tabsLocation',
+            [(ngModel)]='config.store.appearance.tabsLocation',
+            (ngModelChange)='saveConfiguration()',
+            id='tabsLocationTop',
+            [value]='"top"'
+        )
+        label.btn.btn-secondary(for='tabsLocationTop')
             span(translate) Top
-        label.btn.btn-secondary(ngbButtonLabel)
-            input(
-                type='radio',
-                ngbButton,
-                [value]='"bottom"'
-            )
+        input.btn-check(
+            type='radio',
+            name='tabsLocation',
+            [(ngModel)]='config.store.appearance.tabsLocation',
+            (ngModelChange)='saveConfiguration()',
+            id='tabsLocationBottom',
+            [value]='"bottom"'
+        )
+        label.btn.btn-secondary(for='tabsLocationBottom')
             span(translate) Bottom
-        label.btn.btn-secondary(ngbButtonLabel)
-            input(
-                type='radio',
-                ngbButton,
-                [value]='"left"'
-            )
+        input.btn-check(
+            type='radio',
+            name='tabsLocation',
+            [(ngModel)]='config.store.appearance.tabsLocation',
+            (ngModelChange)='saveConfiguration()',
+            id='tabsLocationLeft',
+            [value]='"left"'
+        )
+        label.btn.btn-secondary(for='tabsLocationLeft')
             span(translate) Left
-        label.btn.btn-secondary(ngbButtonLabel)
-            input(
-                type='radio',
-                ngbButton,
-                [value]='"right"'
-            )
+        input.btn-check(
+            type='radio',
+            name='tabsLocation',
+            [(ngModel)]='config.store.appearance.tabsLocation',
+            (ngModelChange)='saveConfiguration()',
+            id='tabsLocationRight',
+            [value]='"right"'
+        )
+        label.btn.btn-secondary(for='tabsLocationRight')
             span(translate) Right
 
 .form-line
     .header
         .title(translate) Tabs width
-    .btn-group(
-        [(ngModel)]='config.store.appearance.flexTabs',
-        (ngModelChange)='saveConfiguration()',
-        ngbRadioGroup
-    )
-        label.btn.btn-secondary(ngbButtonLabel)
-            input(
-                type='radio',
-                ngbButton,
-                [value]='true'
-            )
+    .btn-group
+        input.btn-check(
+            type='radio',
+            name='flexTabs',
+            [(ngModel)]='config.store.appearance.flexTabs',
+            (ngModelChange)='saveConfiguration()',
+            id='flexTabsTrue',
+            [value]='true'
+        )
+        label.btn.btn-secondary(for='flexTabsTrue')
             span(translate, translateComment='[Dynamic] tab width') id.tab-width.dynamic
-        label.btn.btn-secondary(ngbButtonLabel)
-            input(
-                type='radio',
-                ngbButton,
-                [value]='false'
-            )
+        input.btn-check(
+            type='radio',
+            name='flexTabs',
+            [(ngModel)]='config.store.appearance.flexTabs',
+            (ngModelChange)='saveConfiguration()',
+            id='flexTabsFalse',
+            [value]='false'
+        )
+        label.btn.btn-secondary(for='flexTabsFalse')
             span(translate) Fixed
 
 .form-line

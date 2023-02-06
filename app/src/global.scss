@@ -13,10 +13,6 @@ body {
     user-select: text;
 }
 
-[ngbradiogroup] input[type="radio"] {
-    display: none;
-}
-
 a, button {
     &.btn {
         display: inline-flex;
