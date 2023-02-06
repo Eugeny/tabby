@@ -17,7 +17,6 @@ import { SafeModeModalComponent } from './safeModeModal.component'
 import { TabBodyComponent } from './tabBody.component'
 import { SplitTabComponent } from './splitTab.component'
 import { AppService, Command, CommandLocation, FileTransfer, HostWindowService, PlatformService } from '../api'
-import { CommonModule } from '@angular/common'
 
 function makeTabAnimation (dimension: string, size: number) {
     return [
@@ -55,9 +54,8 @@ function makeTabAnimation (dimension: string, size: number) {
 
 /** @hidden */
 @Component({
-    imports: [CommonModule],
     selector: 'app-root',
-    template: require('./appRoot.component.pug'),
+    templateUrl: './1.pug',
     styles: [require('./appRoot.component.scss')],
     animations: [
         trigger('animateTab', makeTabAnimation('width', 200)),

@@ -239,8 +239,7 @@ export class ConfigService {
     enabledServices<T extends object> (services: T[]): T[] { // eslint-disable-line @typescript-eslint/ban-types
         if (!this.servicesCache) {
             this.servicesCache = {}
-            const ngModule = window['rootModule'].ɵinj
-            for (const imp of ngModule.imports) {
+            for (const imp of window['pluginModules']) {
                 const module = imp.ngModule || imp
                 if (module.ɵinj?.providers) {
                     this.servicesCache[module.pluginName] = module.ɵinj.providers.map(provider => {

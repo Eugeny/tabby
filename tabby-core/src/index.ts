@@ -126,6 +126,7 @@ const PROVIDERS = [
         ProfileIconComponent,
     ],
     exports: [
+        AppRootComponent,
         CheckboxComponent,
         ToggleComponent,
         PromptModalComponent,

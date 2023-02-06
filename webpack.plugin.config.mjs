@@ -1,6 +1,7 @@
 import * as path from 'path'
 import wp from 'webpack'
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
+import { AngularWebpackPlugin } from '@ngtools/webpack'
 
 const bundleAnalyzer = new BundleAnalyzerPlugin({
     analyzerPort: 0,
@@ -75,11 +76,7 @@ export default options => {
                     test: /\.ts$/,
                     use: [
                         {
-                            loader: 'ts-loader',
-                            options: {
-                                configFile: path.resolve(options.dirname, 'tsconfig.json'),
-                                allowTsInNodeModules: true,
-                            },
+                            loader: '@ngtools/webpack',
                         },
                     ],
                 },
@@ -151,6 +148,11 @@ export default options => {
         ],
         plugins: [
             new devtoolPlugin(sourceMapOptions),
+            new AngularWebpackPlugin({
+                tsconfig: path.resolve(options.dirname, 'tsconfig.json'),
+                directTemplateLoading: false,
+                jitMode: false,
+            })
         ],
     }
     if (process.env.PLUGIN_BUNDLE_ANALYZER === options.name) {

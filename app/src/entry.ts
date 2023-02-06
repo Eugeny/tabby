@@ -8,13 +8,14 @@ import './toastr.scss'
 // Importing before @angular/*
 import { findPlugins, initModuleLookup, loadPlugins } from './plugins'
 
-import { enableProdMode, NgModuleRef, ApplicationRef } from '@angular/core'
-import { enableDebugTools } from '@angular/platform-browser'
+import { enableProdMode, NgModuleRef, ApplicationRef, importProvidersFrom } from '@angular/core'
+import { bootstrapApplication, enableDebugTools } from '@angular/platform-browser'
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic'
 import { ipcRenderer } from 'electron'
 
-import { getRootModule } from './app.module'
+import { getRootModule, RootComponent } from './app.module'
 import { BootstrapData, BOOTSTRAP_DATA, PluginInfo } from '../../tabby-core/src/api/mainProcess'
+import { ToastrModule } from 'ngx-toastr'
 
 // Always land on the start view
 location.hash = ''
@@ -39,17 +40,35 @@ async function bootstrap (bootstrapData: BootstrapData, plugins: PluginInfo[], s
     const pluginModules = await loadPlugins(plugins, (current, total) => {
         (document.querySelector('.progress .bar') as HTMLElement).style.width = `${100 * current / total}%` // eslint-disable-line
     })
-    const module = getRootModule(pluginModules)
-    window['rootModule'] = module
-    const moduleRef = await platformBrowserDynamic([
+
+    pluginModules.splice(0, 999)
+
+    window['pluginModules'] = pluginModules
+
+    const providers = [
         { provide: BOOTSTRAP_DATA, useValue: bootstrapData },
-    ]).bootstrapModule(module)
+        importProvidersFrom([
+            ...pluginModules,
+            ToastrModule.forRoot({
+                positionClass: 'toast-bottom-center',
+                toastClass: 'toast',
+                preventDuplicates: true,
+                extendedTimeOut: 1000,
+            }),
+        ]),
+    ]
+    RootComponent.bootstrapComponent = pluginModules.find(x => x.bootstrap)?.bootstrap
+    bootstrapApplication(RootComponent, { providers })
+    // const module = getRootModule(pluginModules)
+    // const moduleRef = await platformBrowserDynamic([
+    //     { provide: BOOTSTRAP_DATA, useValue: bootstrapData },
+    // ]).bootstrapModule(module)
     if (process.env.TABBY_DEV) {
         // const applicationRef = moduleRef.injector.get(ApplicationRef)
         // const componentRef = applicationRef.components[0]
         // enableDebugTools(componentRef)
     }
-    return moduleRef
+    // return moduleRef
 }
 
 ipcRenderer.once('start', async (_$event, bootstrapData: BootstrapData) => {

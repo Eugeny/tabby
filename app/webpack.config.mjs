@@ -1,6 +1,7 @@
 import * as path from 'path'
 import wp from 'webpack'
 const __dirname = path.dirname(new URL(import.meta.url).pathname)
+import { AngularWebpackPlugin } from '@ngtools/webpack'
 import linkerPlugin from '@angular/compiler-cli/linker/babel'
 
 export default () => ({
@@ -45,10 +46,7 @@ export default () => ({
             {
                 test: /\.ts$/,
                 use: {
-                    loader: 'ts-loader',
-                    options: {
-                        configFile: path.resolve(__dirname, 'tsconfig.json'),
-                    },
+                    loader: '@ngtools/webpack',
                 },
             },
             { test: /\.scss$/, use: ['style-loader', 'css-loader', 'sass-loader'] },
@@ -74,5 +72,10 @@ export default () => ({
         new wp.DefinePlugin({
             'process.type': '"renderer"',
         }),
+        new AngularWebpackPlugin({
+            tsconfig: path.resolve(__dirname, 'tsconfig.json'),
+            directTemplateLoading: false,
+            jitMode: false,
+        })
     ],
 })
