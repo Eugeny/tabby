@@ -1,7 +1,9 @@
 #!/usr/bin/env node
-const rebuild = require('electron-rebuild').default
-const path = require('path')
-const vars = require('./vars')
+import { rebuild } from 'electron-rebuild'
+import * as path from 'path'
+import * as vars from './vars.mjs'
+
+const __dirname = path.dirname(new URL(import.meta.url).pathname)
 
 if (process.platform === 'win32' || process.platform === 'linux') {
     process.env.ARCH = ((process.env.ARCH || process.arch) === 'arm') ? 'armv7l' : process.env.ARCH || process.arch

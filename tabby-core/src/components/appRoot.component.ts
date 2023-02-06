@@ -56,7 +56,6 @@ function makeTabAnimation (dimension: string, size: number) {
 /** @hidden */
 @Component({
     imports: [CommonModule],
-    standalone: true,
     selector: 'app-root',
     template: require('./appRoot.component.pug'),
     styles: [require('./appRoot.component.scss')],
