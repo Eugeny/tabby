@@ -20,7 +20,7 @@
     "@types/electron-debug": "^2.1.0",
     "@types/fs-extra": "^9.0.13",
     "@types/js-yaml": "^4.0.5",
-    "@types/node": "16.0.1",
+    "@types/node": "18.13.0",
     "@types/sortablejs": "^1.15.0",
     "@types/webpack-env": "^1.18.0",
     "@typescript-eslint/eslint-plugin": "^5.45.0",
