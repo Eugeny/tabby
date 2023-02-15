@@ -16,9 +16,8 @@ command-line-editor([model]='profile.options')
             placeholder='Home directory',
             [(ngModel)]='profile.options.cwd'
         )
-        .input-group-append
-            button.btn.btn-secondary((click)='pickWorkingDirectory()')
-                i.fas.fa-folder-open
+        button.btn.btn-secondary((click)='pickWorkingDirectory()')
+            i.fas.fa-folder-open
 
 .mb-3
     label(translate) Environment

@@ -2,13 +2,12 @@ ng-container(*ngIf='!argvMode')
     .mb-3
         label(translate) Command line
         .input-group
-            .input-group-prepend
-                a.input-group-text(
-                    (click)='switchToArgv()',
-                    ngbTooltip='Split into unescaped arguments',
-                    href='#'
-                )
-                    i.fas.fa-fw.fa-caret-right
+            a.input-group-text.text-decoration-none(
+                (click)='switchToArgv()',
+                ngbTooltip='Split into unescaped arguments',
+                href='#'
+            )
+                i.fas.fa-fw.fa-caret-right
             input.form-control.text-monospace(
                 [(ngModel)]='command',
                 (ngModelChange)='parseCommand()'
@@ -18,13 +17,12 @@ ng-container(*ngIf='argvMode')
     .mb-3
         label(translate) Program
         .input-group
-            .input-group-prepend
-                a.input-group-text(
-                    (click)='switchToCommand()',
-                    ngbTooltip='Combine into a single escaped command',
-                    href='#'
-                )
-                    i.fas.fa-fw.fa-caret-down
+            a.input-group-text.text-decoration-none(
+                (click)='switchToCommand()',
+                ngbTooltip='Combine into a single escaped command',
+                href='#'
+            )
+                i.fas.fa-fw.fa-caret-down
             input.form-control.text-monospace(
                 type='text',
                 [(ngModel)]='_model.command',
@@ -39,9 +37,8 @@ ng-container(*ngIf='argvMode')
                 type='text',
                 [(ngModel)]='_model.args[i]',
             )
-            .input-group-append
-                button.btn.btn-secondary((click)='_model.args.splice(i, 1)')
-                    i.fas.fa-fw.fa-trash
+            button.btn.btn-secondary((click)='_model.args.splice(i, 1)')
+                i.fas.fa-fw.fa-trash
 
         .mt-2
             button.btn.btn-secondary((click)='_model.args.push("")')

@@ -14,9 +14,11 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
                         [(ngModel)]='config.store.configSync.host',
                         (keydown.enter)='config.save()',
                     )
-                    .input-group-append(*ngIf='config.store.configSync.host')
-                        button.btn.btn-secondary((click)='openSyncHost()')
-                            i.fas.fa-external-link-alt
+                    button.btn.btn-secondary(
+                        *ngIf='config.store.configSync.host',
+                        (click)='openSyncHost()'
+                    )
+                        i.fas.fa-external-link-alt
 
             .form-line
                 .header
@@ -29,11 +31,10 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
                         [(ngModel)]='config.store.configSync.token',
                         (keydown.enter)='config.save(); testConnection()'
                     )
-                    .input-group-append(*ngIf='config.store.configSync.token')
-                        .input-group-text
-                            i.fas.fa-fw.fa-circle-notch.fa-spin.text-warning(*ngIf='connectionSuccessful === null')
-                            i.fas.fa-fw.fa-check.text-success(*ngIf='connectionSuccessful')
-                            i.fas.fa-fw.fa-exclamation-triangle.text-danger(*ngIf='connectionSuccessful === false')
+                    .input-group-text(*ngIf='config.store.configSync.token')
+                        i.fas.fa-fw.fa-circle-notch.fa-spin.text-warning(*ngIf='connectionSuccessful === null')
+                        i.fas.fa-fw.fa-check.text-success(*ngIf='connectionSuccessful')
+                        i.fas.fa-fw.fa-exclamation-triangle.text-danger(*ngIf='connectionSuccessful === false')
 
             ng-container(*ngIf='config.store.configSync.token')
                 .alert.alert-danger(*ngIf='connectionSuccessful === false')
@@ -50,7 +51,7 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
                     span.ms-2(translate) Loading configs...
 
                 ng-container(*ngIf='configs !== null')
-                    .list-group-light
+                    .list-group.list-group-light
                         .list-group-item.d-flex.align-items-center(
                             *ngFor='let cfg of configs',
                             [class.active]='isActiveConfig(cfg)',

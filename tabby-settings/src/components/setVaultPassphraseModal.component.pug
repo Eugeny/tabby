@@ -11,9 +11,8 @@ h3.modal-header.m-0.pb-0(translate) Set master passphrase
             (keyup.enter)='ok()',
             (keyup.esc)='cancel()',
         )
-        .input-group-append
-            button.btn.btn-secondary((click)='showPassphrase = !showPassphrase')
-                i.fas.fa-eye
+        button.btn.btn-secondary((click)='showPassphrase = !showPassphrase')
+            i.fas.fa-eye
 
 .modal-footer
     button.btn.btn-primary((click)='ok()', translate) Set passphrase

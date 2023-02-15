@@ -17,23 +17,18 @@ h5(translate) Add a port forward
 
 .input-group.mb-2(*ngIf='newForward.type === PortForwardType.Dynamic')
     input.form-control(type='text', [(ngModel)]='newForward.host')
-    .input-group-append
-        .input-group-text :
+    .input-group-text :
     input.form-control(type='number', [(ngModel)]='newForward.port')
-    .input-group-append
-        .input-group-text &rarr;
-    .input-group-append.input-group-text(style='flex: 3 1 0', translate) SOCKS proxy
+    .input-group-text &rarr;
+    .input-group-text(style='flex: 3 1 0', translate) SOCKS proxy
 
 .input-group.mb-2(*ngIf='newForward.type !== PortForwardType.Dynamic')
     input.form-control(type='text', [(ngModel)]='newForward.host')
-    .input-group-append
-        .input-group-text :
+    .input-group-text :
     input.form-control(type='number', [(ngModel)]='newForward.port')
-    .input-group-append
-        .input-group-text &rarr;
+    .input-group-text &rarr;
     input.form-control(type='text', [(ngModel)]='newForward.targetAddress')
-    .input-group-append
-        .input-group-text :
+    .input-group-text :
     input.form-control(type='number', [(ngModel)]='newForward.targetPort')
 
 .input-group.mb-2

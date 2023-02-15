@@ -343,6 +343,8 @@ search-panel {
 }
 
 .btn-link {
+    text-decoration: none;
+
     &:hover, &[aria-expanded=true], &:active, &.active {
         color: $link-hover-color;
         border-radius: $btn-border-radius;

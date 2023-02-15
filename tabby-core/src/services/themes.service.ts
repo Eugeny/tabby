@@ -18,10 +18,34 @@ export class ThemesService {
         this.applyTheme(this.findTheme('Standard')!)
         config.ready$.toPromise().then(() => {
             this.applyCurrentTheme()
+            this.applyThemeVariables()
             config.changed$.subscribe(() => {
                 this.applyCurrentTheme()
             })
         })
+        config.changed$.subscribe(() => this.applyThemeVariables())
+    }
+
+    private applyThemeVariables () {
+        const theme = this.config.store.terminal.colorScheme
+        document.documentElement.style.setProperty('--bs-body-bg', this.config.store?.appearance.vibrancy ? 'rgba(255, 255, 255,.4)' : theme.background)
+        document.documentElement.style.setProperty('--bs-body-color', theme.foreground)
+        document.documentElement.style.setProperty('--bs-black', theme.colors[0])
+        document.documentElement.style.setProperty('--bs-blue', theme.colors[1])
+        document.documentElement.style.setProperty('--bs-green', theme.colors[2])
+        document.documentElement.style.setProperty('--bs-cyan', theme.colors[3])
+        document.documentElement.style.setProperty('--bs-red', theme.colors[4])
+        document.documentElement.style.setProperty('--bs-purple', theme.colors[5])
+        document.documentElement.style.setProperty('--bs-yellow', theme.colors[6])
+        document.documentElement.style.setProperty('--bs-gray', theme.colors[7])
+        document.documentElement.style.setProperty('--bs-gray-dark', theme.colors[8])
+        // document.documentElement.style.setProperty('--bs-blue', theme.colors[9])
+        // document.documentElement.style.setProperty('--bs-green', theme.colors[10])
+        // document.documentElement.style.setProperty('--bs-cyan', theme.colors[11])
+        // document.documentElement.style.setProperty('--bs-red', theme.colors[12])
+        // document.documentElement.style.setProperty('--bs-purple', theme.colors[13])
+        // document.documentElement.style.setProperty('--bs-yellow', theme.colors[14])
+        document.documentElement.style.setProperty('--bs-white', theme.colors[15])
     }
 
     findTheme (name: string): Theme|null {

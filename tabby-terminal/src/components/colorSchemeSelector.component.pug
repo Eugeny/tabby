@@ -8,13 +8,12 @@
         color-scheme-preview([scheme]='model')
 
     .input-group.mb-3
-        .input-group-prepend
-            .input-group-text
-                i.fas.fa-fw.fa-search
+        .input-group-text
+            i.fas.fa-fw.fa-search
         input.form-control(type='search', [placeholder]='"Search color schemes"|translate', [(ngModel)]='filter')
 
 .body
-    .list-group-light.mb-3
+    .list-group.list-group-light.mb-3
         ng-container(*ngFor='let scheme of allColorSchemes')
             .list-group-item.list-group-item-action(
                 [hidden]='filter && !scheme.name.toLowerCase().includes(filter.toLowerCase())',

@@ -38,12 +38,11 @@
                         [ngbTypeahead]='iconSearch',
                         [resultTemplate]='rt'
                     )
-                    .input-group-append
-                        .input-group-text
-                            profile-icon(
-                                [icon]='profile.icon',
-                                [color]='profile.color'
-                            )
+                    .input-group-text
+                        profile-icon(
+                            [icon]='profile.icon',
+                            [color]='profile.color'
+                        )
 
                 ng-template(#rt,let-r='result',let-t='term')
                     i([class]='"fa-fw " + r')

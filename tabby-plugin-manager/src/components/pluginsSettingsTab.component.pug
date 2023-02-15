@@ -16,10 +16,9 @@ ul.nav-tabs.mb-2(ngbNav, #nav='ngbNav')
         a(ngbNavLink, translate) Available
         ng-template(ngbNavContent)
             .input-group.mb-3.mt-3
-                .input-group-prepend
-                    .input-group-text
-                        i.fas.fa-fw.fa-circle-notch.fa-spin(*ngIf='!availablePluginsReady')
-                        i.fas.fa-fw.fa-search(*ngIf='availablePluginsReady')
+                .input-group-text
+                    i.fas.fa-fw.fa-circle-notch.fa-spin(*ngIf='!availablePluginsReady')
+                    i.fas.fa-fw.fa-search(*ngIf='availablePluginsReady')
                 input.form-control(
                     type='text',
                     [(ngModel)]='_1',
@@ -61,9 +60,8 @@ ul.nav-tabs.mb-2(ngbNav, #nav='ngbNav')
         a(ngbNavLink, translate) Installed
         ng-template(ngbNavContent)
             .input-group.mb-3.mt-3
-                .input-group-prepend
-                    .input-group-text
-                        i.fas.fa-fw.fa-search
+                .input-group-text
+                    i.fas.fa-fw.fa-search
                 input.form-control(
                     type='text',
                     [(ngModel)]='_2',
