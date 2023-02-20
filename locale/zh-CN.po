@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2023-02-06 19:58\n"
+"PO-Revision-Date: 2023-02-20 10:39\n"
 
 #: tabby-local/src/components/terminalTab.component.ts:112
 msgid "\"{command}\" is still running. Close?"
@@ -23,7 +23,7 @@ msgstr "{name} 副本"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:82
 msgid "A second font family used to display characters missing in the main font"
-msgstr "第二种字体，用于显示主字体中缺失的字符"
+msgstr "首选字体缺失时使用备选字体显示字符"
 
 #: tabby-core/src/components/transfersMenu.component.ts:49
 msgid "Abort all"
@@ -256,7 +256,7 @@ msgstr "加密方法"
 
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSelector.component.html:5
 msgid "Clear"
-msgstr ""
+msgstr "清除"
 
 #: tabby-core/src/services/profiles.service.ts:133
 msgid "Clear recent profiles"
@@ -268,7 +268,7 @@ msgstr "清空终端内容"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:49
 msgid "Clear terminal after connection"
-msgstr ""
+msgstr "连接后清空终端"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:94
 msgid "Clipboard"
@@ -340,7 +340,7 @@ msgstr "紧凑"
 
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:126
 msgid "Config deleted"
-msgstr ""
+msgstr "配置已删除"
 
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:108
 msgid "Config downloaded"
@@ -419,7 +419,7 @@ msgstr "复制当前路径"
 
 #: tabby-electron/src/sftpContextMenu.ts:29
 msgid "Copy full path"
-msgstr ""
+msgstr "复制完整路径"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:97
 msgid "Copy on select"
@@ -545,7 +545,7 @@ msgstr "删除上一个单词"
 
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:114
 msgid "Delete the config on the remote side?"
-msgstr ""
+msgstr "是否删除远程配置？"
 
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:214
 msgid "Delete the group's profiles?"
@@ -982,7 +982,7 @@ msgstr "快捷键"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:71
 msgid "How Tabby presents itself through environment vars"
-msgstr ""
+msgstr "Tabby如何通过环境变量呈现自己"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:24
 msgid "HTTP proxy"
@@ -2127,7 +2127,7 @@ msgstr "终端提示音"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:70
 msgid "Terminal identification"
-msgstr ""
+msgstr "终端标识"
 
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:7
 msgid "Thank you for downloading Tabby!"

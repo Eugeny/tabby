@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Bulgarian\n"
 "Language: bg_BG\n"
-"PO-Revision-Date: 2023-02-06 19:58\n"
+"PO-Revision-Date: 2023-02-20 10:39\n"
 
 #: tabby-local/src/components/terminalTab.component.ts:112
 msgid "\"{command}\" is still running. Close?"
@@ -256,7 +256,7 @@ msgstr "Шифри"
 
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSelector.component.html:5
 msgid "Clear"
-msgstr ""
+msgstr "Изчисти"
 
 #: tabby-core/src/services/profiles.service.ts:133
 msgid "Clear recent profiles"
@@ -268,7 +268,7 @@ msgstr "Изчисти терминала"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:49
 msgid "Clear terminal after connection"
-msgstr ""
+msgstr "Изчисти терминала след свързване"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:94
 msgid "Clipboard"
@@ -340,7 +340,7 @@ msgstr "Компактна"
 
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:126
 msgid "Config deleted"
-msgstr ""
+msgstr "Конфигурацията е изтрита"
 
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:108
 msgid "Config downloaded"
@@ -419,7 +419,7 @@ msgstr "Копирай текущия път"
 
 #: tabby-electron/src/sftpContextMenu.ts:29
 msgid "Copy full path"
-msgstr ""
+msgstr "Копирай пълния път"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:97
 msgid "Copy on select"
@@ -545,7 +545,7 @@ msgstr "Изтрий предишна дума"
 
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:114
 msgid "Delete the config on the remote side?"
-msgstr ""
+msgstr "Изтриване конфигурацията на отсрещната страна?"
 
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:214
 msgid "Delete the group's profiles?"
@@ -700,7 +700,7 @@ msgstr "Включи автоматично инсталиране на нали
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:222
 msgid "Enable fluent background option"
-msgstr ""
+msgstr "Включи на опцията за плавен фон"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:16
 msgid "Enable font ligatures"
@@ -749,7 +749,7 @@ msgstr "Пример:"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:223
 msgid "Experimental Windows 10 background style known to cause issues"
-msgstr ""
+msgstr "Експериментален стил на фона на Windows 10, за който се знае, че причинява проблеми"
 
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:27
 msgid "Export"
@@ -982,7 +982,7 @@ msgstr "Бързи клавиши"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:71
 msgid "How Tabby presents itself through environment vars"
-msgstr ""
+msgstr "Как Tabby се представя чрез променливи на средата"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:24
 msgid "HTTP proxy"
@@ -1910,7 +1910,7 @@ msgstr "Покажи серийните връзки"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:163
 msgid "Show tabs in fullscreen mode"
-msgstr ""
+msgstr "Показване на табове в режим на цял екран"
 
 #: tabby-terminal/src/tabContextMenu.ts:58
 msgid "Show toolbar"
@@ -2127,7 +2127,7 @@ msgstr "Звънец на терминала"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:70
 msgid "Terminal identification"
-msgstr ""
+msgstr "Идентифициране на терминала"
 
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:7
 msgid "Thank you for downloading Tabby!"
