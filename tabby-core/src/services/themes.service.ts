@@ -1,5 +1,6 @@
 import { Inject, Injectable } from '@angular/core'
 import { Subject, Observable } from 'rxjs'
+import * as Color from 'color'
 import { ConfigService } from '../services/config.service'
 import { Theme } from '../api/theme'
 
@@ -28,24 +29,45 @@ export class ThemesService {
 
     private applyThemeVariables () {
         const theme = this.config.store.terminal.colorScheme
-        document.documentElement.style.setProperty('--bs-body-bg', this.config.store?.appearance.vibrancy ? 'rgba(255, 255, 255,.4)' : theme.background)
+        const background = this.config.store?.appearance.vibrancy ? 'rgba(255, 255, 255,.4)' : theme.background
+        const backgroundDark = this.config.store?.appearance.vibrancy ? 'rgba(255, 255, 255,.5)' : Color(theme.background).darken(0.25).string()
+        const accentIndex = 4
+        document.documentElement.style.setProperty('--bs-body-bg', background)
         document.documentElement.style.setProperty('--bs-body-color', theme.foreground)
         document.documentElement.style.setProperty('--bs-black', theme.colors[0])
-        document.documentElement.style.setProperty('--bs-blue', theme.colors[1])
+        document.documentElement.style.setProperty('--bs-red', theme.colors[1])
         document.documentElement.style.setProperty('--bs-green', theme.colors[2])
-        document.documentElement.style.setProperty('--bs-cyan', theme.colors[3])
-        document.documentElement.style.setProperty('--bs-red', theme.colors[4])
+        document.documentElement.style.setProperty('--bs-yellow', theme.colors[3])
+        document.documentElement.style.setProperty('--bs-blue', theme.colors[4])
         document.documentElement.style.setProperty('--bs-purple', theme.colors[5])
-        document.documentElement.style.setProperty('--bs-yellow', theme.colors[6])
+        document.documentElement.style.setProperty('--bs-cyan', theme.colors[6])
         document.documentElement.style.setProperty('--bs-gray', theme.colors[7])
         document.documentElement.style.setProperty('--bs-gray-dark', theme.colors[8])
-        // document.documentElement.style.setProperty('--bs-blue', theme.colors[9])
+        // document.documentElement.style.setProperty('--bs-red', theme.colors[9])
         // document.documentElement.style.setProperty('--bs-green', theme.colors[10])
-        // document.documentElement.style.setProperty('--bs-cyan', theme.colors[11])
-        // document.documentElement.style.setProperty('--bs-red', theme.colors[12])
+        // document.documentElement.style.setProperty('--bs-yellow', theme.colors[11])
+        // document.documentElement.style.setProperty('--bs-blue', theme.colors[12])
         // document.documentElement.style.setProperty('--bs-purple', theme.colors[13])
-        // document.documentElement.style.setProperty('--bs-yellow', theme.colors[14])
-        document.documentElement.style.setProperty('--bs-white', theme.colors[15])
+        // document.documentElement.style.setProperty('--bs-cyan', theme.colors[14])
+
+        document.documentElement.style.setProperty('--theme-fg-light', Color(theme.foreground).lighten(0.25).string())
+        document.documentElement.style.setProperty('--theme-bg-dark', backgroundDark)
+        document.documentElement.style.setProperty('--theme-bg-darker', Color(backgroundDark).darken(0.25).string())
+
+        for (const [color, index] of Object.entries({
+            primary: accentIndex,
+            secondary: 8,
+            warning: 3,
+            danger: 1,
+            success: 2,
+            dark: 0,
+            light: 15,
+        })) {
+            document.documentElement.style.setProperty(`--bs-${color}`, theme.colors[index])
+            document.documentElement.style.setProperty(`--theme-${color}`, theme.colors[index])
+            document.documentElement.style.setProperty(`--theme-${color}-dark`, Color(theme.colors[index]).darken(0.25).string())
+            document.documentElement.style.setProperty(`--theme-${color}-darker`, Color(theme.colors[index]).darken(0.5).string())
+        }
     }
 
     findTheme (name: string): Theme|null {

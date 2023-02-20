@@ -6,7 +6,7 @@ app-root {
 
     &> .content {
         .tab-bar {
-            background: var(--bs-gray-dark);
+            background: var(--theme-bg-dark);
 
             .btn-tab-bar {
                 background: transparent;
@@ -158,17 +158,8 @@ $tab-border-radius: 5px;
 // $dropdown-link-disabled-color:   #333;
 // $dropdown-header-color:          #333;
 
-// $list-group-color: $body-color;
-// $list-group-bg: rgba($black,.05);
-// $list-group-border-color:  rgba($black,.1);
-// $list-group-hover-bg: rgba($black,.1);
-// $list-group-link-active-bg: rgba($black,.2);
-
-// $list-group-action-color: $body-color;
 // $list-group-action-bg: rgba($black,.05);
 // $list-group-action-active-bg: $list-group-link-active-bg;
-
-// $list-group-border-radius: 0;
 
 // $pre-bg: $dropdown-bg;
 // $pre-color: $dropdown-link-color;
@@ -180,6 +171,24 @@ $tab-border-radius: 5px;
 @import "./theme.vendor.scss";
 
 
+.list-group {
+    --bs-list-group-bg: var(--theme-bg-dark);
+    --bs-list-group-border-color: var(--theme-bg-darker);
+    --bs-list-group-border-width: 0;
+    // --bs-list-group-item-padding-x: 1rem;
+    // --bs-list-group-item-padding-y: 0.5rem;
+    --bs-list-group-action-color: var(--bs-body-color);
+    --bs-list-group-action-hover-color: var(--theme-fg);
+    --bs-list-group-action-hover-bg: var(--theme-bg-darker);
+
+    --bs-list-group-action-active-color: var(--theme-fg);
+    --bs-list-group-action-active-bg: var(--theme-bg-darker);
+    --bs-list-group-disabled-color: var(--bs-secondary-color);
+    --bs-list-group-disabled-bg: var(--bs-body-bg);
+    // --bs-list-group-active-color: #fff;
+    // --bs-list-group-active-bg: #0d6efd;
+    // --bs-list-group-active-border-color: #0d6efd;
+}
 
 .nav {
     // scss-docs-start nav-css-vars
@@ -188,7 +197,7 @@ $tab-border-radius: 5px;
     // @include rfs($nav-link-font-size, --#{$prefix}nav-link-font-size);
     // --#{$prefix}nav-link-font-weight: #{$nav-link-font-weight};
     --#{$prefix}nav-link-color: var(--bs-body-color);
-    --#{$prefix}nav-link-hover-color: var(--bs-white);
+    --#{$prefix}nav-link-hover-color: var(--theme-fg-light);
     --#{$prefix}nav-link-disabled-color: var(--bs-gray);
     // scss-docs-end nav-css-vars
 }
@@ -209,8 +218,8 @@ $tab-border-radius: 5px;
 .nav-pills {
     // scss-docs-start nav-pills-css-vars
     --#{$prefix}nav-pills-border-radius: #{$nav-pills-border-radius};
-    --#{$prefix}nav-pills-link-active-color: #{$nav-pills-link-active-color};
-    --#{$prefix}nav-pills-link-active-bg: #{$nav-pills-link-active-bg};
+    --#{$prefix}nav-pills-link-active-color: var(--theme-light);
+    --#{$prefix}nav-pills-link-active-bg: var(--bs-primary);
     // scss-docs-end nav-pills-css-vars
 }
 
@@ -252,147 +261,170 @@ $tab-border-radius: 5px;
 }
 
 
-// tab-body {
-//     background: $content-bg;
+tab-body {
+    terminal-toolbar {
+        background: var(--bs-body-bg);
 
-//     terminal-toolbar .btn, .toolbar-pin-button {
-//         font-weight: bold;
-//     }
-// }
+        .btn, .toolbar-pin-button {
+            font-weight: bold;
+        }
+    }
+}
 
-// multi-hotkey-input {
-//     .item {
-//         background: $body-bg2;
-//         border: 1px solid $blue;
-//         border-radius: 3px;
-//         margin-right: 5px;
+@each $color, $value in $theme-colors {
+    .btn-#{$color} {
+        // 6c757d
+        --bs-btn-bg: var(--theme-#{$color});
+        --bs-btn-border-color: var(--theme-#{$color});
+        --bs-btn-disabled-bg: var(--theme-#{$color});
+        --bs-btn-disabled-border-color: var(--theme-#{$color});
 
-//         .body {
-//             padding: 3px 0 2px;
+        --bs-btn-hover-border-color: var(--theme-#{$color}-dark);
+        --bs-btn-hover-bg: var(--theme-#{$color}-dark);
 
-//             .stroke {
-//                 padding: 0 6px;
-//                 border-right: 1px solid $content-bg;
-//             }
-//         }
+        --bs-btn-active-border-color: var(--theme-#{$color}-darker);
+        --bs-btn-active-bg: var(--theme-#{$color}-darker);
 
-//         .remove {
-//             padding: 3px 8px 2px;
-//         }
-//     }
 
-//     .item:has(.duplicate) {
-//         background-color: map-get($theme-colors, 'danger');
-//         border: 1px solid map-get($theme-colors, 'danger');
-//     }
+        --bs-btn-color: #fff;
+        --bs-btn-hover-color: #fff;
+        --bs-btn-focus-shadow-rgb: 130, 138, 145;
+        --bs-btn-active-color: #fff;
+        --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+        --bs-btn-disabled-color: #fff;
+    }
+}
 
-//     .add {
-//         color: #777;
-//         padding: 4px 10px 0;
-//     }
 
-//     .add, .item .body, .item .remove {
-//         &:hover { background: darken($body-bg2, 5%); }
-//         &:active { background: darken($body-bg2, 15%); }
-//     }
+multi-hotkey-input {
+    .item {
+        background: var(--theme-bg-dark);
+        border: 1px solid var(--bs-primary);
+        border-radius: 3px;
+        margin-right: 5px;
 
-//     .add:has(.duplicate), .item:has(.duplicate) .body, .item:has(.duplicate) .remove {
-//         &:hover { background: darken(map-get($theme-colors, 'danger'), 5%); }
-//         &:active { background: darken(map-get($theme-colors, 'danger'), 15%); }
-//     }
-// }
+        .body {
+            padding: 3px 0 2px;
 
-// hotkey-input-modal {
-//     .input {
-//         background: $input-bg;
-//         padding: 10px;
-//         font-size: 24px;
-//         line-height: 27px;
-//         height: 55px;
+            .stroke {
+                padding: 0 6px;
+                border-right: 1px solid var(--bs-body-bg);
+            }
+        }
 
-//         .stroke {
-//             background: $body-bg2;
-//             border: 1px solid $blue;
-//             border-radius: 3px;
-//             margin-right: 10px;
-//             padding: 3px 10px;
-//         }
-//     }
+        .remove {
+            padding: 3px 8px 2px;
+        }
+    }
 
-//     .timeout {
-//         background: $input-bg;
+    .item:has(.duplicate) {
+        background-color: var(--bs-danger);
+        border: 1px solid var(--bs-danger);
+    }
 
-//         div {
-//             background: $blue;
-//         }
-//     }
-// }
+    .add {
+        color: #777;
+        padding: 4px 10px 0;
+    }
 
-// .mb-3 label {
-//     margin-bottom: 2px;
-// }
+    .add, .item .body, .item .remove {
+        &:hover { background: var(--theme-bg-dark); }
+        &:active { background: var(--theme-bg-darker); }
+    }
 
-// .btn-check:checked + label {
-//     background: $blue;
-// }
+    .add:has(.duplicate), .item:has(.duplicate) .body, .item:has(.duplicate) .remove {
+        &:hover { background: var(--theme-danger-dark); }
+        &:active { background: var(--theme-danger-darker); }
+    }
+}
 
-// .btn {
-//     i + * {
-//         margin-left: 5px;
-//     }
+hotkey-input-modal {
+    .input {
+        // background: $input-bg;
+        padding: 10px;
+        font-size: 24px;
+        line-height: 27px;
+        height: 55px;
 
-//     &.btn-lg i + * {
-//         margin-left: 10px;
-//     }
-// }
+        .stroke {
+            background: var(--theme-bg-dark);
+            border: 1px solid var(--bs-primary);
+            border-radius: 3px;
+            margin-right: 10px;
+            padding: 3px 10px;
+        }
+    }
 
-// .input-group-addon + .form-control {
-//     border-left: none;
-// }
+    .timeout {
+        background: $input-bg;
 
-// .input-group > select.form-control {
-//     flex-direction: row;
-// }
+        div {
+            background: $blue;
+        }
+    }
+}
 
-// .list-group-item {
-//     // transition: 0.0625s background ease;
+.mb-3 label {
+    margin-bottom: 2px;
+}
 
-//     i + * {
-//         margin-left: 10px;
-//     }
-// }
+.btn {
+    i + * {
+        margin-left: 5px;
+    }
 
-// .list-group.list-group-flush .list-group-item {
-//     background: transparent;
-//     border: none;
+    &.btn-lg i + * {
+        margin-left: 10px;
+    }
+}
 
-//     &:not(:last-child) {
-//         border-bottom: none;
-//     }
+.input-group-addon + .form-control {
+    border-left: none;
+}
 
-//     &.list-group-item-action {
-//         &:hover, &.active {
-//             background: $list-group-hover-bg;
-//         }
-//     }
-// }
+.input-group > select.form-control {
+    flex-direction: row;
+}
 
-// .list-group-light {
-//     .list-group-item {
-//         border: none !important;
-//         outline: none !important;
-//         background: transparent;
-//         border-radius: $border-radius;
-//         margin: 0 !important;
+.list-group-item {
+    // transition: 0.0625s background ease;
 
-//         &.list-group-item-action {
-//             &:hover, &.active {
-//                 background: $component-active-bg;
-//                 color: $component-active-color;
-//             }
-//         }
-//     }
-// }
+    i + * {
+        margin-left: 10px;
+    }
+}
+
+.list-group.list-group-flush .list-group-item {
+    background: transparent;
+    border: none;
+
+    &:not(:last-child) {
+        border-bottom: none;
+    }
+
+    &.list-group-item-action {
+        &:hover, &.active {
+            // background: $list-group-hover-bg;
+        }
+    }
+}
+
+.list-group-light {
+    .list-group-item {
+        border: none !important;
+        outline: none !important;
+        background: transparent;
+        border-radius: $border-radius;
+        margin: 0 !important;
+
+        &.list-group-item-action {
+            &:hover, &.active {
+                background: var(--bs-primary);
+                color: var(--bs-body-color);
+            }
+        }
+    }
+}
 
 // checkbox i.on {
 //     color: $blue;
@@ -407,58 +439,45 @@ $tab-border-radius: 5px;
 //     }
 // }
 
-// .list-group-item svg {
-//     fill: white;
-//     fill-opacity: 0.75;
-// }
+.list-group-item svg {
+    fill: var(--bs-body-color);
+    fill-opacity: 0.75;
+}
 
-// *::-webkit-scrollbar {
-//     background: rgba(0, 0, 0, .125);
-//     width: 10px;
-//     margin: 5px;
-// }
+*::-webkit-scrollbar {
+    background: rgba(0, 0, 0, .125);
+    width: 10px;
+    margin: 5px;
+}
 
-// *::-webkit-scrollbar-thumb {
-//     background: rgba(255, 255, 255, .25);
-// }
+*::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, .25);
+}
 
-// *::-webkit-scrollbar-corner,
-// *::-webkit-resizer {
-//     opacity: 0;
-// }
+*::-webkit-scrollbar-corner,
+*::-webkit-resizer {
+    opacity: 0;
+}
 
-// search-panel {
-//     background: #131d27 !important;
+search-panel {
+    background: var(--theme-bg-dark) !important;
 
-//     input {
-//         border-radius: 0 !important;
-//     }
-// }
+    input {
+        border-radius: 0 !important;
+    }
+}
 
 
-// .btn {
-//     cursor: pointer;
-//     justify-content: flex-start;
-//     overflow: hidden;
+.btn {
+    cursor: pointer;
+    justify-content: flex-start;
+    overflow: hidden;
 
-//     &.disabled,
-//     &:disabled {
-//         cursor: not-allowed;
-//     }
-// }
-
-// .btn-warning:not(:disabled):not(.disabled) {
-//     &.active, &:active {
-//         color: $gray-900;
-//     }
-// }
-
-// .btn-secondary:not(:disabled):not(.disabled) {
-//     &.active, &:active {
-//         background: #191e23;
-//         align-items: center;
-//     }
-// }
+    &.disabled,
+    &:disabled {
+        cursor: not-allowed;
+    }
+}
 
 // .btn-link {
 //     text-decoration: none;
@@ -486,14 +505,19 @@ $tab-border-radius: 5px;
 //     box-shadow: $dropdown-box-shadow;
 // }
 
-// ngx-colors-panel .opened {
-//     background: $body-bg !important;
+ngx-colors-panel .opened {
+    background: var(--bs-body-bg) !important;
 
-//     button {
-//         color: $body-color !important;
-//     }
+    button {
+        color: var(--bs-body-color) !important;
+    }
 
-//     .button svg {
-//         fill: white;
-//     }
-// }
+    .button svg {
+        fill: white;
+    }
+}
+
+.text-muted {
+    color: var(--bs-body-color) !important;
+    opacity: .5;
+}
