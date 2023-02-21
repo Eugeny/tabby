@@ -95,6 +95,7 @@
     "lzma-native": "^8.0.0",
     "*/node-abi": "^3.25.0",
     "**/graceful-fs": "^4.2.4"
+    "nan": "2.17.0"
   },
   "scripts": {
     "build": "npm run build:typings && node scripts/build-modules.js",
