@@ -31,7 +31,7 @@
     "xterm": "^5.1.0",
     "xterm-addon-canvas": "^0.3.0",
     "xterm-addon-fit": "^0.7.0",
-    "xterm-addon-image": "^0.3.1",
+    "xterm-addon-image": "^0.4.0",
     "xterm-addon-ligatures": "^0.6.0",
     "xterm-addon-search": "^0.11.0",
     "xterm-addon-serialize": "^0.9.0",
