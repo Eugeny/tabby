@@ -1,9 +1,9 @@
 #!/usr/bin/env node
-const sh = require('shelljs')
-const fs = require('fs/promises')
-const vars = require('./vars')
-const log = require('npmlog')
-const { GettextExtractor, JsExtractors, HtmlExtractors } = require('gettext-extractor')
+import sh from 'shelljs'
+import fs from 'node:fs/promises'
+import * as vars from './vars.mjs'
+import log from 'npmlog'
+import { GettextExtractor, JsExtractors, HtmlExtractors } from 'gettext-extractor'
 
 let extractor = new GettextExtractor()
 

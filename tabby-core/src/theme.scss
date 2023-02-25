@@ -418,3 +418,11 @@ ngx-colors-panel .opened {
         fill: white;
     }
 }
+
+split-tab-spanner {
+    background: rgba(0, 0, 0, .2);
+
+    &:hover, &.active {
+        background: rgba(255, 255, 255, .125);
+    }
+}

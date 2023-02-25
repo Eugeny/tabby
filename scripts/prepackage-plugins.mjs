@@ -1,10 +1,12 @@
 #!/usr/bin/env node
-const rebuild = require('electron-rebuild').default
-const sh = require('shelljs')
-const path = require('path')
-const fs = require('fs')
-const vars = require('./vars')
-const log = require('npmlog')
+import { rebuild } from 'electron-rebuild'
+import sh from 'shelljs'
+import path from 'node:path'
+import fs from 'node:fs'
+import * as vars from './vars.mjs'
+import log from 'npmlog'
+
+const __dirname = path.dirname(new URL(import.meta.url).pathname)
 
 let target = path.resolve(__dirname, '../builtin-plugins')
 sh.mkdir('-p', target)

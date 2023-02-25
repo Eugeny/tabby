@@ -1,8 +1,8 @@
 #!/usr/bin/env node
-const sh = require('shelljs')
-const vars = require('./vars')
-const log = require('npmlog')
-const { execSync } = require('child_process')
+import sh from 'shelljs'
+import * as vars from './vars.mjs'
+import log from 'npmlog'
+import { execSync } from 'child_process'
 
 vars.allPackages.forEach(plugin => {
     log.info('bump', plugin)

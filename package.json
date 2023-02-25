@@ -99,17 +99,17 @@
     "**/graceful-fs": "^4.2.4"
   },
   "scripts": {
-    "build": "npm run build:typings && node scripts/build-modules.js",
-    "build:typings": "node scripts/build-typings.js",
+    "build": "npm run build:typings && node scripts/build-modules.mjs",
+    "build:typings": "node scripts/build-typings.mjs",
     "watch": "cross-env TABBY_DEV=1 webpack --progress --color --watch",
     "start": "cross-env TABBY_DEV=1 electron app -d --inspect",
     "start:prod": "electron app --debug",
     "prod": "cross-env TABBY_DEV=1 electron app",
-    "docs": "node scripts/build-docs.js",
+    "docs": "node scripts/build-docs.mjs",
     "lint": "eslint --ext ts */src */lib",
     "postinstall": "patch-package && node ./scripts/install-deps.mjs && node ./scripts/build-native.mjs",
     "i18n:pull": "crowdin pull --skip-untranslated-strings",
-    "i18n:extract": "node scripts/i18n-extract.js",
+    "i18n:extract": "node scripts/i18n-extract.mjs",
     "i18n:push": "crowdin push"
   },
   "type": "module",

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
-const sh = require('shelljs')
-const vars = require('./vars')
+import sh from 'shelljs'
+import * as vars from './vars.mjs'
 
 const sentryCli = process.platform === 'win32' ? 'node_modules\\.bin\\sentry-cli.cmd' : 'sentry-cli'
 

@@ -1,31 +1,21 @@
 #!/usr/bin/env node
 /* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
-const builder = require('electron-builder').build
-const vars = require('./vars')
+import { build as builder } from 'electron-builder'
+import * as vars from './vars.mjs'
 
 const isTag = (process.env.GITHUB_REF || '').startsWith('refs/tags/')
 
-process.env.ARCH = process.env.ARCH || process.arch
-
-if (process.env.GITHUB_HEAD_REF) {
-    delete process.env.CSC_LINK
-    delete process.env.CSC_KEY_PASSWORD
-    process.env.CSC_IDENTITY_AUTO_DISCOVERY = 'false'
-}
+process.env.ARCH = (process.env.ARCH || process.arch) === 'arm' ? 'armv7l' : process.env.ARCH || process.arch
 
 builder({
     dir: true,
-    mac: ['pkg', 'zip'],
-    x64: process.env.ARCH === 'x86_64',
+    linux: ['deb', 'tar.gz', 'rpm', 'pacman'],
+    armv7l: process.env.ARCH === 'armv7l',
     arm64: process.env.ARCH === 'arm64',
     config: {
         extraMetadata: {
             version: vars.version,
         },
-        mac: {
-            identity: !process.env.CI || process.env.CSC_LINK ? undefined : null,
-        },
-        npmRebuild: process.env.ARCH !== 'arm64',
         publish: process.env.KEYGEN_TOKEN ? [
             vars.keygenConfig,
             {

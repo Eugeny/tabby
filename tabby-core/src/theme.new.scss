@@ -559,3 +559,11 @@ ngx-colors-panel .opened {
 start-page {
     background: var(--theme-bg);
 }
+
+split-tab-spanner {
+    background: rgba(var(--bs-dark-rgb), .1);
+
+    &:hover, &.active {
+        background: rgba(var(--bs-dark-rgb), .2);
+    }
+}

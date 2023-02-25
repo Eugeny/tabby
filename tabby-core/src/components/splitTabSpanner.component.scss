@@ -3,7 +3,6 @@
     position: absolute;
     z-index: 5;
     transition: 0.125s background;
-    background: rgba(0, 0, 0, .2);
 
     &.v {
         cursor: ns-resize;
@@ -15,9 +14,5 @@
         cursor: ew-resize;
         width: 10px;
         margin-left: -5px;
-    }
-
-    &:hover, &.active {
-        background: rgba(255, 255, 255, .125);
     }
 }

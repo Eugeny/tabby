@@ -1,16 +1,15 @@
 #!/usr/bin/env node
 /* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
-const builder = require('electron-builder').build
-const vars = require('./vars')
+import { build as builder } from 'electron-builder'
+import * as vars from './vars.mjs'
 
-const isTag = (process.env.GITHUB_REF || '').startsWith('refs/tags/')
+const isTag = (process.env.GITHUB_REF || process.env.BUILD_SOURCEBRANCH || '').startsWith('refs/tags/')
 
-process.env.ARCH = (process.env.ARCH || process.arch) === 'arm' ? 'armv7l' : process.env.ARCH || process.arch
+process.env.ARCH = process.env.ARCH || process.arch
 
 builder({
     dir: true,
-    linux: ['deb', 'tar.gz', 'rpm', 'pacman'],
-    armv7l: process.env.ARCH === 'armv7l',
+    win: ['nsis', 'zip'],
     arm64: process.env.ARCH === 'arm64',
     config: {
         extraMetadata: {

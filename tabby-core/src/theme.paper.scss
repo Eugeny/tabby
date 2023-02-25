@@ -397,3 +397,11 @@ terminal-toolbar {
 .bg-dark{
     background-color: $base2 !important;
 }
+
+split-tab-spanner {
+    background: rgba(0, 0, 0, .2);
+
+    &:hover, &.active {
+        background: rgba(255, 255, 255, .125);
+    }
+}
