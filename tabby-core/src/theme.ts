@@ -31,17 +31,18 @@ export class StandardCompactTheme extends Theme {
 /** @hidden */
 @Injectable()
 export class PaperTheme extends Theme {
-    name = 'Paper'
+    name = 'Paper (legacy)'
     css = require('./theme.paper.scss')
     terminalBackground = '#f7f1e0'
 }
 
 /** @hidden */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class NewTheme extends Theme {
-    name = this.translate.instant('Standard')
+    name = this.translate.instant('Follow the color scheme')
     css = require('./theme.new.scss')
     terminalBackground = '#f7f1e0'
+    followsColorScheme = true
 
     constructor (private translate: TranslateService) {
         super()

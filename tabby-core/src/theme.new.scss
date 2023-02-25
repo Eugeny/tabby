@@ -4,6 +4,10 @@ $font-size-base: 14rem / 16;
 app-root {
     background: transparent;
 
+    &.vibrant {
+        background: rgba(var(--bs-dark-rgb),.65);
+    }
+
     &> .content {
         .tab-bar {
             background: var(--theme-bg-more);
@@ -166,6 +170,9 @@ $modal-footer-border-color:      transparent;
 
 // $headings-font-weight: lighter;
 // $headings-color: $base0;
+
+$form-check-input-width: 1.4em;
+$form-switch-width: 2.5em;
 
 @import '~bootstrap/scss/bootstrap.scss';
 @import "./theme.vendor.scss";
@@ -530,6 +537,13 @@ ngx-colors-panel .opened {
 
 .form-switch .form-check-input {
     --bs-form-switch-bg: inherit;
+    border-color: var(--theme-bg-more);
+    background-color: var(--theme-bg-more-2);
+
+    &:checked {
+        border-color: var(--theme-primary-more);
+        background-color: var(--theme-primary);
+    }
 }
 
 .form-control:focus {
@@ -540,4 +554,8 @@ ngx-colors-panel .opened {
     --bs-accordion-bg: var(--theme-bg-more);
     --bs-accordion-active-color: var(--theme-fg);
     --bs-accordion-active-bg: var(--theme-bg-more-2);
+}
+
+start-page {
+    background: var(--theme-bg);
 }

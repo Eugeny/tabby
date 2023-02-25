@@ -55,7 +55,7 @@ h3.mb-3(translate) Appearance
         color-scheme-preview([scheme]='config.store.terminal.colorScheme', [fontPreview]='true')
 
 .content-box
-    .form-line
+    .form-line(*ngIf='!themes.findCurrentTheme().followsColorScheme')
         .header
             .title(translate) Terminal background
 

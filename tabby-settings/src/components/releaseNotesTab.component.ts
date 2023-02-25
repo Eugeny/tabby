@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker'
 import axios from 'axios'
-import { marked } from 'marked'
+import * as marked from '../../node_modules/marked/src/marked'
 import { Component, Injector } from '@angular/core'
 import { BaseTabComponent, TranslateService } from 'tabby-core'
 
@@ -36,7 +36,7 @@ export class ReleaseNotesComponent extends BaseTabComponent {
         this.releases = this.releases.concat(response.data.map(r => ({
             name: r.name,
             version: r.tag_name,
-            content: marked(r.body),
+            content: marked.marked(r.body),
             date: new Date(r.created_at),
         })))
         this.lastPage = page

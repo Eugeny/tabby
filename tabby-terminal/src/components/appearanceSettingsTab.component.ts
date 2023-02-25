@@ -3,7 +3,7 @@ import { Observable, debounceTime, distinctUntilChanged, map } from 'rxjs'
 import { debounce } from 'utils-decorators/dist/esm/debounce/debounce'
 
 import { Component } from '@angular/core'
-import { ConfigService, getCSSFontFamily, PlatformService } from 'tabby-core'
+import { ConfigService, getCSSFontFamily, PlatformService, ThemesService } from 'tabby-core'
 
 /** @hidden */
 @Component({
@@ -15,6 +15,7 @@ export class AppearanceSettingsTabComponent {
 
     constructor (
         public config: ConfigService,
+        public themes: ThemesService,
         private platform: PlatformService,
     ) { }
 

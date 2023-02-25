@@ -1,6 +1,6 @@
 import { BehaviorSubject, filter, firstValueFrom, takeUntil } from 'rxjs'
 import { Injector } from '@angular/core'
-import { ConfigService, getCSSFontFamily, HostAppService, HotkeysService, Platform, PlatformService } from 'tabby-core'
+import { ConfigService, getCSSFontFamily, HostAppService, HotkeysService, Platform, PlatformService, ThemesService } from 'tabby-core'
 import { Frontend, SearchOptions, SearchState } from './frontend'
 import { Terminal, ITheme } from 'xterm'
 import { FitAddon } from 'xterm-addon-fit'
@@ -87,6 +87,7 @@ export class XTermFrontend extends Frontend {
     private hotkeysService: HotkeysService
     private platformService: PlatformService
     private hostApp: HostAppService
+    private themes: ThemesService
 
     constructor (injector: Injector) {
         super(injector)
@@ -94,6 +95,7 @@ export class XTermFrontend extends Frontend {
         this.hotkeysService = injector.get(HotkeysService)
         this.platformService = injector.get(PlatformService)
         this.hostApp = injector.get(HostAppService)
+        this.themes = injector.get(ThemesService)
 
         this.xterm = new Terminal({
             allowTransparency: true,
@@ -363,7 +365,7 @@ export class XTermFrontend extends Frontend {
             foreground: scheme!.foreground,
             selectionBackground: scheme!.selection ?? '#88888888',
             selectionForeground: scheme!.selectionForeground ?? undefined,
-            background: config.terminal.background === 'colorScheme' ? scheme!.background : '#00000000',
+            background: (!this.themes.findCurrentTheme().followsColorScheme && config.terminal.background === 'colorScheme') ? scheme!.background : '#00000000',
             cursor: scheme!.cursor,
             cursorAccent: scheme!.cursorAccent,
         }

@@ -3,6 +3,7 @@ import { Subject, Observable } from 'rxjs'
 import * as Color from 'color'
 import { ConfigService } from '../services/config.service'
 import { Theme } from '../api/theme'
+import { NewTheme } from '../theme'
 
 @Injectable({ providedIn: 'root' })
 export class ThemesService {
@@ -10,13 +11,16 @@ export class ThemesService {
     private themeChanged = new Subject<Theme>()
 
     private styleElement: HTMLElement|null = null
+    private rootElementStyleBackup = ''
 
     /** @hidden */
     private constructor (
         private config: ConfigService,
+        private standardTheme: NewTheme,
         @Inject(Theme) private themes: Theme[],
     ) {
-        this.applyTheme(this.findTheme('Standard')!)
+        this.rootElementStyleBackup = document.documentElement.style.cssText
+        this.applyTheme(standardTheme)
         config.ready$.toPromise().then(() => {
             this.applyCurrentTheme()
             this.applyThemeVariables()
@@ -28,6 +32,11 @@ export class ThemesService {
     }
 
     private applyThemeVariables () {
+        if (!this.findCurrentTheme().followsColorScheme) {
+            document.documentElement.style.cssText = this.rootElementStyleBackup
+            return
+        }
+
         const theme = this.config.store.terminal.colorScheme
         const isDark = Color(theme.background).luminosity() < Color(theme.foreground).luminosity()
 
@@ -45,12 +54,17 @@ export class ThemesService {
             return Color(some).lighten(factor)
         }
 
-        const background = this.config.store?.appearance.vibrancy ? 'rgba(255, 255, 255,.4)' : theme.background
-        const backgroundMore = this.config.store?.appearance.vibrancy ? 'rgba(255, 255, 255,.5)' : more(theme.background, 0.25).string()
+        let background = Color(theme.background)
+        if (this.config.store?.appearance.vibrancy) {
+            background = background.fade(0.6)
+        }
+        // const background = theme.background
+        const backgroundMore = more(background.string(), 0.25).string()
+        // const backgroundMore =more(theme.background, 0.25).string()
         const accentIndex = 4
         const vars: Record<string, string> = {}
 
-        vars['--bs-body-bg'] = background
+        vars['--bs-body-bg'] = background.string()
         vars['--bs-body-color'] = theme.foreground
         vars['--bs-black'] = theme.colors[0]
         vars['--bs-red'] = theme.colors[1]
@@ -118,7 +132,7 @@ export class ThemesService {
     }
 
     findCurrentTheme (): Theme {
-        return this.findTheme(this.config.store.appearance.theme) ?? this.findTheme('Standard')!
+        return this.findTheme(this.config.store.appearance.theme) ?? this.standardTheme
     }
 
     applyTheme (theme: Theme): void {

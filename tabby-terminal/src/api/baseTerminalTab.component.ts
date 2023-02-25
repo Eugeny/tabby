@@ -3,7 +3,7 @@ import { Spinner } from 'cli-spinner'
 import colors from 'ansi-colors'
 import { NgZone, OnInit, OnDestroy, Injector, ViewChild, HostBinding, Input, ElementRef, InjectFlags, Component } from '@angular/core'
 import { trigger, transition, style, animate, AnimationTriggerMetadata } from '@angular/animations'
-import { AppService, ConfigService, BaseTabComponent, HostAppService, HotkeysService, NotificationsService, Platform, LogService, Logger, TabContextMenuItemProvider, SplitTabComponent, SubscriptionContainer, MenuItemOptions, PlatformService, HostWindowService, ResettableTimeout, TranslateService } from 'tabby-core'
+import { AppService, ConfigService, BaseTabComponent, HostAppService, HotkeysService, NotificationsService, Platform, LogService, Logger, TabContextMenuItemProvider, SplitTabComponent, SubscriptionContainer, MenuItemOptions, PlatformService, HostWindowService, ResettableTimeout, TranslateService, ThemesService } from 'tabby-core'
 
 import { BaseSession } from '../session'
 
@@ -122,6 +122,7 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
     protected hostWindow: HostWindowService
     protected translate: TranslateService
     protected multifocus: MultifocusService
+    protected themes: ThemesService
     // Deps end
 
     protected logger: Logger
@@ -513,7 +514,7 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
     configure (): void {
         this.frontend?.configure(this.profile)
 
-        if (this.config.store.terminal.background === 'colorScheme') {
+        if (!this.themes.findCurrentTheme().followsColorScheme && this.config.store.terminal.background === 'colorScheme') {
             const scheme = this.profile.terminalColorScheme ?? this.config.store.terminal.colorScheme
             if (scheme.background) {
                 this.backgroundColor = scheme.background
