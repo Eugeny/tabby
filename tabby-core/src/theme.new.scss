@@ -6,7 +6,7 @@ app-root {
 
     &> .content {
         .tab-bar {
-            background: var(--theme-bg-dark);
+            background: var(--theme-bg-more);
 
             .btn-tab-bar {
                 background: transparent;
@@ -144,8 +144,8 @@ $tab-border-radius: 5px;
 
 // $modal-content-bg:               $content-bg-solid;
 // $modal-content-border-color:     $body-bg;
-// $modal-header-border-color:      transparent;
-// $modal-footer-border-color:      transparent;
+$modal-header-border-color:      transparent;
+$modal-footer-border-color:      transparent;
 
 // $popover-bg:                     $body-bg;
 
@@ -170,56 +170,61 @@ $tab-border-radius: 5px;
 @import '~bootstrap/scss/bootstrap.scss';
 @import "./theme.vendor.scss";
 
+body {
+    --bs-border-color: var(--theme-bg-more-2);
+    --bs-form-control-bg: var(--theme-bg-more);
+    --bs-emphasis-color: var(--theme-fg-less-2);
+}
 
 .list-group {
-    --bs-list-group-bg: var(--theme-bg-dark);
-    --bs-list-group-border-color: var(--theme-bg-darker);
+    --bs-list-group-bg: var(--theme-bg-more);
+    --bs-list-group-border-color: var(--theme-bg-more-2);
     --bs-list-group-border-width: 0;
     // --bs-list-group-item-padding-x: 1rem;
     // --bs-list-group-item-padding-y: 0.5rem;
     --bs-list-group-action-color: var(--bs-body-color);
     --bs-list-group-action-hover-color: var(--theme-fg);
-    --bs-list-group-action-hover-bg: var(--theme-bg-darker);
+    --bs-list-group-action-hover-bg: var(--theme-bg-more-2);
 
     --bs-list-group-action-active-color: var(--theme-fg);
-    --bs-list-group-action-active-bg: var(--theme-bg-darker);
+    --bs-list-group-action-active-bg: var(--theme-bg-more-2);
     --bs-list-group-disabled-color: var(--bs-secondary-color);
     --bs-list-group-disabled-bg: var(--bs-body-bg);
-    // --bs-list-group-active-color: #fff;
-    // --bs-list-group-active-bg: #0d6efd;
+    --bs-list-group-active-color: var(--bs-primary-color);
+    --bs-list-group-active-bg: var(--bs-primary-bg);
     // --bs-list-group-active-border-color: #0d6efd;
 }
 
 .nav {
     // scss-docs-start nav-css-vars
-    // --#{$prefix}nav-link-padding-x: #{$nav-link-padding-x};
-    // --#{$prefix}nav-link-padding-y: #{$nav-link-padding-y};
-    // @include rfs($nav-link-font-size, --#{$prefix}nav-link-font-size);
-    // --#{$prefix}nav-link-font-weight: #{$nav-link-font-weight};
-    --#{$prefix}nav-link-color: var(--bs-body-color);
-    --#{$prefix}nav-link-hover-color: var(--theme-fg-light);
-    --#{$prefix}nav-link-disabled-color: var(--bs-gray);
+    // --bs-nav-link-padding-x: #{$nav-link-padding-x};
+    // --bs-nav-link-padding-y: #{$nav-link-padding-y};
+    // @include rfs($nav-link-font-size, --bs-nav-link-font-size);
+    // --bs-nav-link-font-weight: #{$nav-link-font-weight};
+    --bs-nav-link-color: var(--bs-body-color);
+    --bs-nav-link-hover-color: var(--theme-fg-less-2);
+    --bs-nav-link-disabled-color: var(--bs-gray);
     // scss-docs-end nav-css-vars
 }
 
 .nav-tabs {
     // scss-docs-start nav-tabs-css-vars
-    --#{$prefix}nav-tabs-border-width: 2px;
-    --#{$prefix}nav-tabs-border-radius: 0;
-    --#{$prefix}nav-tabs-link-hover-border-color: var(--bs-body-bg);
-    --#{$prefix}nav-tabs-border-color: var(--bs-white);
-    --#{$prefix}nav-tabs-link-active-color: var(--bs-white);
+    --bs-nav-tabs-border-width: 2px;
+    --bs-nav-tabs-border-radius: 0;
+    --bs-nav-tabs-link-hover-border-color: var(--bs-body-bg);
+    --bs-nav-tabs-border-color: var(--theme-fg-less-2);
+    --bs-nav-tabs-link-active-color: var(--theme-fg-less-2);
 
-    --#{$prefix}nav-tabs-link-active-bg: transparent;
-    --#{$prefix}nav-tabs-link-active-border-color: transparent;
+    --bs-nav-tabs-link-active-bg: transparent;
+    --bs-nav-tabs-link-active-border-color: transparent;
     // scss-docs-end nav-tabs-css-vars
 }
 
 .nav-pills {
     // scss-docs-start nav-pills-css-vars
-    --#{$prefix}nav-pills-border-radius: #{$nav-pills-border-radius};
-    --#{$prefix}nav-pills-link-active-color: var(--theme-light);
-    --#{$prefix}nav-pills-link-active-bg: var(--bs-primary);
+    --bs-nav-pills-border-radius: #{$nav-pills-border-radius};
+    --bs-nav-pills-link-active-color: var(--theme-bg-more);
+    --bs-nav-pills-link-active-bg: var(--bs-primary);
     // scss-docs-end nav-pills-css-vars
 }
 
@@ -258,6 +263,10 @@ $tab-border-radius: 5px;
         color: var(--bs-nav-tabs-link-active-color);
         border-color: var(--bs-nav-tabs-border-color);
     }
+
+    .nav-item {
+        outline: none !important;
+    }
 }
 
 
@@ -279,26 +288,32 @@ tab-body {
         --bs-btn-disabled-bg: var(--theme-#{$color});
         --bs-btn-disabled-border-color: var(--theme-#{$color});
 
-        --bs-btn-hover-border-color: var(--theme-#{$color}-dark);
-        --bs-btn-hover-bg: var(--theme-#{$color}-dark);
+        --bs-btn-hover-border-color: var(--theme-#{$color}-less);
+        --bs-btn-hover-bg: var(--theme-#{$color}-less);
 
-        --bs-btn-active-border-color: var(--theme-#{$color}-darker);
-        --bs-btn-active-bg: var(--theme-#{$color}-darker);
+        --bs-btn-active-border-color: var(--theme-#{$color}-less-2);
+        --bs-btn-active-bg: var(--theme-#{$color}-less-2);
 
-
-        --bs-btn-color: #fff;
-        --bs-btn-hover-color: #fff;
         --bs-btn-focus-shadow-rgb: 130, 138, 145;
-        --bs-btn-active-color: #fff;
         --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-        --bs-btn-disabled-color: #fff;
+
+        --bs-btn-color: var(--theme-#{$color}-more-2);
+        --bs-btn-hover-color: var(--theme-#{$color}-more-2);
+        --bs-btn-active-color: var(--theme-#{$color}-more-2);
+        --bs-btn-disabled-color: var(--theme-#{$color}-more-2);
+    }
+
+    .alert-#{$color} {
+        --bs-alert-bg: var(--theme-#{$color}-more-2);
+        --bs-alert-border-color: var(--theme-#{$color}-more);
+        --bs-alert-color: var(--theme-#{$color});
     }
 }
 
 
 multi-hotkey-input {
     .item {
-        background: var(--theme-bg-dark);
+        background: var(--theme-bg-more);
         border: 1px solid var(--bs-primary);
         border-radius: 3px;
         margin-right: 5px;
@@ -328,13 +343,13 @@ multi-hotkey-input {
     }
 
     .add, .item .body, .item .remove {
-        &:hover { background: var(--theme-bg-dark); }
-        &:active { background: var(--theme-bg-darker); }
+        &:hover { background: var(--theme-bg-more); }
+        &:active { background: var(--theme-bg-more-2); }
     }
 
     .add:has(.duplicate), .item:has(.duplicate) .body, .item:has(.duplicate) .remove {
-        &:hover { background: var(--theme-danger-dark); }
-        &:active { background: var(--theme-danger-darker); }
+        &:hover { background: var(--theme-danger-less); }
+        &:active { background: var(--theme-danger-less-2); }
     }
 }
 
@@ -347,7 +362,7 @@ hotkey-input-modal {
         height: 55px;
 
         .stroke {
-            background: var(--theme-bg-dark);
+            background: var(--theme-bg-more);
             border: 1px solid var(--bs-primary);
             border-radius: 3px;
             margin-right: 10px;
@@ -401,12 +416,6 @@ hotkey-input-modal {
     &:not(:last-child) {
         border-bottom: none;
     }
-
-    &.list-group-item-action {
-        &:hover, &.active {
-            // background: $list-group-hover-bg;
-        }
-    }
 }
 
 .list-group-light {
@@ -417,11 +426,8 @@ hotkey-input-modal {
         border-radius: $border-radius;
         margin: 0 !important;
 
-        &.list-group-item-action {
-            &:hover, &.active {
-                background: var(--bs-primary);
-                color: var(--bs-body-color);
-            }
+        &.active {
+            background-color: var(--bs-list-group-active-bg);
         }
     }
 }
@@ -460,7 +466,7 @@ hotkey-input-modal {
 }
 
 search-panel {
-    background: var(--theme-bg-dark) !important;
+    background: var(--theme-bg-more) !important;
 
     input {
         border-radius: 0 !important;
@@ -479,18 +485,18 @@ search-panel {
     }
 }
 
-// .btn-link {
-//     text-decoration: none;
+.btn-link {
+    text-decoration: none;
 
-//     &:hover, &[aria-expanded=true], &:active, &.active {
-//         color: $link-hover-color;
-//         border-radius: $btn-border-radius;
-//     }
+    // &:hover, &[aria-expanded=true], &:active, &.active {
+    //     color: $link-hover-color;
+    //     border-radius: $btn-border-radius;
+    // }
 
-//     &[aria-expanded=true], &:active, &.active {
-//         background: rgba(255, 255, 255, 0.1);
-//     }
-// }
+    // &[aria-expanded=true], &:active, &.active {
+    //     background: rgba(255, 255, 255, 0.1);
+    // }
+}
 
 // .btn-group .btn.active {
 //     border-color: transparent !important;
@@ -518,6 +524,20 @@ ngx-colors-panel .opened {
 }
 
 .text-muted {
-    color: var(--bs-body-color) !important;
+    // color: var(--bs-body-color) !important;
     opacity: .5;
+}
+
+.form-switch .form-check-input {
+    --bs-form-switch-bg: inherit;
+}
+
+.form-control:focus {
+    border-color: var(--theme-fg-more-2);
+}
+
+.accordion {
+    --bs-accordion-bg: var(--theme-bg-more);
+    --bs-accordion-active-color: var(--theme-fg);
+    --bs-accordion-active-bg: var(--theme-bg-more-2);
 }

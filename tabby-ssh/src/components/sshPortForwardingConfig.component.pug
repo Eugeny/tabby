@@ -1,7 +1,7 @@
 .list-group.mb-3
     .list-group-item.d-flex.align-items-center(*ngFor='let fw of model')
         div
-            .ms-2.d-flex.align-items-center
+            .d-flex.align-items-center
                 strong(*ngIf='fw.type === PortForwardType.Local', translate) Local
                 strong(*ngIf='fw.type === PortForwardType.Remote', translate) Remote
                 strong(*ngIf='fw.type === PortForwardType.Dynamic', translate, translateContext='[Dynamic] port forwarding') id.port-forwarding.dynamic

@@ -29,44 +29,87 @@ export class ThemesService {
 
     private applyThemeVariables () {
         const theme = this.config.store.terminal.colorScheme
+        const isDark = Color(theme.background).luminosity() < Color(theme.foreground).luminosity()
+
+        function more (some, factor) {
+            if (isDark) {
+                return Color(some).darken(factor)
+            }
+            return Color(some).lighten(factor)
+        }
+
+        function less (some, factor) {
+            if (!isDark) {
+                return Color(some).darken(factor)
+            }
+            return Color(some).lighten(factor)
+        }
+
         const background = this.config.store?.appearance.vibrancy ? 'rgba(255, 255, 255,.4)' : theme.background
-        const backgroundDark = this.config.store?.appearance.vibrancy ? 'rgba(255, 255, 255,.5)' : Color(theme.background).darken(0.25).string()
+        const backgroundMore = this.config.store?.appearance.vibrancy ? 'rgba(255, 255, 255,.5)' : more(theme.background, 0.25).string()
         const accentIndex = 4
-        document.documentElement.style.setProperty('--bs-body-bg', background)
-        document.documentElement.style.setProperty('--bs-body-color', theme.foreground)
-        document.documentElement.style.setProperty('--bs-black', theme.colors[0])
-        document.documentElement.style.setProperty('--bs-red', theme.colors[1])
-        document.documentElement.style.setProperty('--bs-green', theme.colors[2])
-        document.documentElement.style.setProperty('--bs-yellow', theme.colors[3])
-        document.documentElement.style.setProperty('--bs-blue', theme.colors[4])
-        document.documentElement.style.setProperty('--bs-purple', theme.colors[5])
-        document.documentElement.style.setProperty('--bs-cyan', theme.colors[6])
-        document.documentElement.style.setProperty('--bs-gray', theme.colors[7])
-        document.documentElement.style.setProperty('--bs-gray-dark', theme.colors[8])
-        // document.documentElement.style.setProperty('--bs-red', theme.colors[9])
-        // document.documentElement.style.setProperty('--bs-green', theme.colors[10])
-        // document.documentElement.style.setProperty('--bs-yellow', theme.colors[11])
-        // document.documentElement.style.setProperty('--bs-blue', theme.colors[12])
-        // document.documentElement.style.setProperty('--bs-purple', theme.colors[13])
-        // document.documentElement.style.setProperty('--bs-cyan', theme.colors[14])
+        const vars: Record<string, string> = {}
 
-        document.documentElement.style.setProperty('--theme-fg-light', Color(theme.foreground).lighten(0.25).string())
-        document.documentElement.style.setProperty('--theme-bg-dark', backgroundDark)
-        document.documentElement.style.setProperty('--theme-bg-darker', Color(backgroundDark).darken(0.25).string())
+        vars['--bs-body-bg'] = background
+        vars['--bs-body-color'] = theme.foreground
+        vars['--bs-black'] = theme.colors[0]
+        vars['--bs-red'] = theme.colors[1]
+        vars['--bs-green'] = theme.colors[2]
+        vars['--bs-yellow'] = theme.colors[3]
+        vars['--bs-blue'] = theme.colors[4]
+        vars['--bs-purple'] = theme.colors[5]
+        vars['--bs-cyan'] = theme.colors[6]
+        vars['--bs-gray'] = theme.colors[7]
+        vars['--bs-gray-dark'] = theme.colors[8]
+        // vars['--bs-red'] = theme.colors[9]
+        // vars['--bs-green'] = theme.colors[10]
+        // vars['--bs-yellow'] = theme.colors[11]
+        // vars['--bs-blue'] = theme.colors[12]
+        // vars['--bs-purple'] = theme.colors[13]
+        // vars['--bs-cyan'] = theme.colors[14]
 
-        for (const [color, index] of Object.entries({
-            primary: accentIndex,
-            secondary: 8,
-            warning: 3,
-            danger: 1,
-            success: 2,
-            dark: 0,
-            light: 15,
-        })) {
-            document.documentElement.style.setProperty(`--bs-${color}`, theme.colors[index])
-            document.documentElement.style.setProperty(`--theme-${color}`, theme.colors[index])
-            document.documentElement.style.setProperty(`--theme-${color}-dark`, Color(theme.colors[index]).darken(0.25).string())
-            document.documentElement.style.setProperty(`--theme-${color}-darker`, Color(theme.colors[index]).darken(0.5).string())
+        vars['--theme-fg-more-2'] = more(theme.foreground, 0.5).string()
+        vars['--theme-fg-more'] = more(theme.foreground, 0.25).string()
+        vars['--theme-fg'] = theme.foreground
+        vars['--theme-fg-less'] = less(theme.foreground, 0.25).string()
+        vars['--theme-fg-less-2'] = less(theme.foreground, 0.5).string()
+
+        vars['--theme-bg-less-2'] = less(theme.background, 0.5).string()
+        vars['--theme-bg-less'] = less(theme.background, 0.25).string()
+        vars['--theme-bg'] = theme.background
+        vars['--theme-bg-more'] = backgroundMore
+        vars['--theme-bg-more-2'] = more(backgroundMore, 0.25).string()
+
+        const themeColors = {
+            primary: theme.colors[accentIndex],
+            secondary: theme.colors[8],
+            tertiary: theme.colors[8],
+            warning: theme.colors[3],
+            danger: theme.colors[1],
+            success: theme.colors[2],
+            info: theme.colors[4],
+            dark: more(theme.background, 0.5).string(),
+            light: more(theme.foreground, 0.5).string(),
+            link: theme.colors[8], // for .btn-link
+        }
+
+        for (const [key, color] of Object.entries(themeColors)) {
+            vars[`--bs-${key}-bg`] = more(color, 0.5).string()
+            vars[`--bs-${key}-color`] = less(color, 0.5).string()
+            vars[`--bs-${key}`] = color
+            vars[`--bs-${key}-rgb`] = Color(color).rgb().array().join(', ')
+            vars[`--theme-${key}-more-2`] = more(color, 1).string()
+            vars[`--theme-${key}-more`] = more(color, 0.5).string()
+            vars[`--theme-${key}`] = color
+            vars[`--theme-${key}-less`] = less(color, 0.25).string()
+            vars[`--theme-${key}-less-2`] = less(color, 0.75).string()
+        }
+
+        const switchBackground = less(theme.colors[accentIndex], 0.25).string()
+        vars['--bs-form-switch-bg'] = `url("data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%27-4 -4 8 8%27%3e%3ccircle r=%273%27 fill=%27${switchBackground}%27/%3e%3c/svg%3e")`
+
+        for (const [key, value] of Object.entries(vars)) {
+            document.documentElement.style.setProperty(key, value)
         }
     }
 
