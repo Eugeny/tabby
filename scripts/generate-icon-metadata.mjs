@@ -3,7 +3,9 @@ import jsYaml from 'js-yaml'
 import fs from 'node:fs'
 import path from 'node:path'
 
-const __dirname = path.dirname(new URL(import.meta.url).pathname)
+import * as url from 'url'
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
+
 
 const metadata = jsYaml.load(fs.readFileSync(path.resolve(__dirname, '../node_modules/@fortawesome/fontawesome-free/metadata/icons.yml')))
 

@@ -3,7 +3,9 @@ import { rebuild } from 'electron-rebuild'
 import * as path from 'path'
 import * as vars from './vars.mjs'
 
-const __dirname = path.dirname(new URL(import.meta.url).pathname)
+import * as url from 'url'
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
+
 
 if (process.platform === 'win32' || process.platform === 'linux') {
     process.env.ARCH = ((process.env.ARCH || process.arch) === 'arm') ? 'armv7l' : process.env.ARCH || process.arch

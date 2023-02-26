@@ -6,7 +6,9 @@ import fs from 'node:fs'
 import * as vars from './vars.mjs'
 import log from 'npmlog'
 
-const __dirname = path.dirname(new URL(import.meta.url).pathname)
+import * as url from 'url'
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
+
 
 let target = path.resolve(__dirname, '../builtin-plugins')
 sh.mkdir('-p', target)

@@ -1,5 +1,7 @@
 import * as path from 'path'
-const __dirname = path.dirname(new URL(import.meta.url).pathname)
+import * as url from 'url'
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
+
 
 const externals = {}
 for (const key of [

@@ -3,7 +3,8 @@ import * as fs from 'fs'
 import * as semver from 'semver'
 import * as childProcess from 'child_process'
 
-const __dirname = path.dirname(new URL(import.meta.url).pathname)
+import * as url from 'url'
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
 
 const electronInfo = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../node_modules/electron/package.json')))
 

@@ -1,7 +1,9 @@
 import * as fs from 'fs'
 import * as path from 'path'
 import wp from 'webpack'
-const __dirname = path.dirname(new URL(import.meta.url).pathname)
+import * as url from 'url'
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
+
 import { AngularWebpackPlugin } from '@ngtools/webpack'
 import { createEs2015LinkerPlugin } from '@angular/compiler-cli/linker/babel'
 const linkerPlugin = createEs2015LinkerPlugin({
