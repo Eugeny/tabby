@@ -413,7 +413,9 @@ export class Window {
             this.touchBarControl.selectedIndex = selectedIndex
         })
 
-        this.window.webContents.on('new-window', event => event.preventDefault())
+        this.window.webContents.setWindowOpenHandler(() => {
+            return { action: 'deny' }
+        })
 
         ipcMain.on('window-set-disable-vibrancy-while-dragging', (_event, value) => {
             this.disableVibrancyWhileDragging = value && this.configStore.hacks?.disableVibrancyWhileDragging

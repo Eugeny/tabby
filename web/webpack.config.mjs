@@ -44,10 +44,10 @@ const config = {
         modules: ['../app/node_modules', 'node_modules', '../node_modules', '../app/assets/'].map(x => path.join(__dirname, x)),
         extensions: ['.ts', '.js'],
         fallback: {
-            stream: require.resolve('stream-browserify'),
-            assert: require.resolve('assert/'),
-            constants: require.resolve('constants-browserify'),
-            util: require.resolve('util/'),
+            stream: path.join(__dirname, 'node_modules/stream-browserify/index.js'),
+            assert: path.join(__dirname, 'node_modules/assert/assert.js'),
+            constants: path.join(__dirname, 'node_modules/constants-browserify/constants.json'),
+            util: path.join(__dirname, 'node_modules/util/util.js'),
         },
     },
     module: {
