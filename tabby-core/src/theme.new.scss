@@ -29,7 +29,6 @@ app-root {
                 tab-header {
                     border-left: 1px solid transparent;
                     border-right: 1px solid transparent;
-//                     color: $base01;
                     transition: 0.125s ease-out width;
 
                     .index {
@@ -42,8 +41,8 @@ app-root {
                         border: none;
                         transition: 0.25s all;
 
-//                         &:hover { background: $button-hover-bg !important; }
-//                         &:active { background: $button-active-bg !important; }
+                        &:hover { background: var(--theme-bg-more-2) !important; }
+                        &:active { background: var(--theme-bg-more-2) !important; }
                     }
 
                     .progressbar {

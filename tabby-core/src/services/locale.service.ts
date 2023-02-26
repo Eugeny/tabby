@@ -56,24 +56,6 @@ function flattenMessageFormatTranslation (po: any) {
 }
 
 @Injectable({ providedIn: 'root' })
-export class TranslateServiceWrapper extends TranslateService {
-    private _defaultTranslation: Record<string, string>|null
-
-    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-    getParsedResult (translations: any, key: any, interpolateParams?: any): any {
-        if (!this._defaultTranslation) {
-            const po = require(`../../../locale/en-US.po`)
-            this._defaultTranslation = flattenMessageFormatTranslation(po)
-        }
-        this.translations[this.defaultLang][key] ??= this.compiler.compile(
-            this._defaultTranslation[key] || key,
-            this.defaultLang,
-        )
-        return super.getParsedResult(translations, key, interpolateParams ?? {})
-    }
-}
-
-@Injectable({ providedIn: 'root' })
 export class LocaleService {
     private logger: Logger
 
@@ -176,6 +158,7 @@ export class LocaleService {
         private translate: TranslateService,
         log: LogService,
     ) {
+        this.patchTranslateService(translate)
         this.logger = log.create('translate')
         config.changed$.subscribe(() => {
             this.refresh()
@@ -189,6 +172,24 @@ export class LocaleService {
             LocaleService.allLanguages.find(x => x.code === 'en-US')!.name = 'English (simplified)'
             LocaleService.allLanguages.find(x => x.code === 'en-GB')!.name = 'English (traditional)'
         }
+    }
+
+    private patchTranslateService (translate: TranslateService) {
+        translate['_defaultTranslation'] = null
+        const oldGetParsedResult = translate.getParsedResult.bind(translate)
+
+        // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+        translate.getParsedResult = function (translations: any, key: any, interpolateParams?: any): any {
+            if (!this._defaultTranslation) {
+                const po = require(`../../../locale/en-US.po`)
+                this._defaultTranslation = flattenMessageFormatTranslation(po)
+            }
+            this.translations[this.defaultLang][key] ??= this.compiler.compile(
+                this._defaultTranslation[key] || key,
+                this.defaultLang,
+            )
+            return oldGetParsedResult(translations, key, interpolateParams ?? {})
+        }.bind(translate)
     }
 
     refresh (): void {

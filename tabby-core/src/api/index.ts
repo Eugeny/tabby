@@ -36,6 +36,7 @@ export { TabsService, NewTabParameters, TabComponentType } from '../services/tab
 export { UpdaterService } from '../services/updater.service'
 export { VaultService, Vault, VaultSecret, VaultFileSecret, VAULT_SECRET_TYPE_FILE, StoredVault, VaultSecretKey } from '../services/vault.service'
 export { FileProvidersService } from '../services/fileProviders.service'
-export { LocaleService, TranslateServiceWrapper as TranslateService } from '../services/locale.service'
+export { LocaleService } from '../services/locale.service'
+export { TranslateService } from '@ngx-translate/core'
 export * from '../utils'
 export { UTF8Splitter } from '../utfSplitter'

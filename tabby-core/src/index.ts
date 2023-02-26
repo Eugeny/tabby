@@ -41,7 +41,7 @@ import { AppService } from './services/app.service'
 import { ConfigService } from './services/config.service'
 import { VaultFileProvider } from './services/vault.service'
 import { HotkeysService } from './services/hotkeys.service'
-import { LocaleService, TranslateServiceWrapper } from './services/locale.service'
+import { LocaleService } from './services/locale.service'
 import { CommandService } from './services/commands.service'
 
 import { StandardTheme, StandardCompactTheme, PaperTheme, NewTheme } from './theme'
@@ -82,10 +82,6 @@ const PROVIDERS = [
         provide: MESSAGE_FORMAT_CONFIG,
         useValue: LocaleService.allLanguages.map(x => x.code),
     },
-    {
-        provide: TranslateService,
-        useClass: TranslateServiceWrapper,
-    },
 ]
 
 /** @hidden */
@@ -97,7 +93,13 @@ const PROVIDERS = [
         NgbModule,
         NgxFilesizeModule,
         DragDropModule,
-        TranslateModule,
+        TranslateModule.forRoot({
+            defaultLanguage: 'en',
+            compiler: {
+                provide: TranslateCompiler,
+                useFactory: TranslateMessageFormatCompilerFactory,
+            },
+        }),
     ],
     declarations: [
         AppRootComponent,
@@ -224,18 +226,10 @@ export default class AppModule { // eslint-disable-line @typescript-eslint/no-ex
     }
 
     static forRoot (): ModuleWithProviders<AppModule> {
-        const translateModule = TranslateModule.forRoot({
-            defaultLanguage: 'en',
-            compiler: {
-                provide: TranslateCompiler,
-                useFactory: TranslateMessageFormatCompilerFactory,
-            },
-        })
         return {
             ngModule: AppModule,
             providers: [
                 ...PROVIDERS,
-                ...translateModule.providers!.filter(x => x !== TranslateService),
             ],
         }
     }

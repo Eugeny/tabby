@@ -195,6 +195,7 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
         this.hostWindow = injector.get(HostWindowService)
         this.translate = injector.get(TranslateService)
         this.multifocus = injector.get(MultifocusService)
+        this.themes = injector.get(ThemesService)
 
         this.logger = this.log.create('baseTerminalTab')
         this.setTitle(this.translate.instant('Terminal'))
