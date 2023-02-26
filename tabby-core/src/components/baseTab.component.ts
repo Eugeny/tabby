@@ -19,6 +19,7 @@ export interface GetRecoveryTokenOptions {
 /**
  * Abstract base class for custom tab components
  */
+// @Component({ template: '' })
 export abstract class BaseTabComponent extends BaseComponent {
     /**
      * Parent tab (usually a SplitTabComponent)

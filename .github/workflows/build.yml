@@ -68,7 +68,7 @@ jobs:
       run: yarn run build
 
     - name: Prepackage plugins
-      run: scripts/prepackage-plugins.js
+      run: scripts/prepackage-plugins.mjs
       env:
         ARCH: ${{matrix.arch}}
 
@@ -78,7 +78,7 @@ jobs:
     - run: ln -s ../../node_modules/electron app/node_modules
 
     - name: Build and sign packages
-      run: scripts/build-macos.js
+      run: scripts/build-macos.mjs
       if: github.repository == 'Eugeny/tabby' && github.event_name == 'push' && (github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags'))
       env:
         ARCH: ${{matrix.arch}}
@@ -92,7 +92,7 @@ jobs:
         # DEBUG: electron-builder,electron-builder:*
 
     - name: Build packages without signing
-      run: scripts/build-macos.js
+      run: scripts/build-macos.mjs
       if: "! (github.repository == 'Eugeny/tabby' && github.event_name == 'push' && (github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags')))"
       env:
         ARCH: ${{matrix.arch}}
@@ -101,7 +101,7 @@ jobs:
     - name: Upload symbols
       run: |
         sudo npm install -g @sentry/cli --unsafe-perm
-        ./scripts/sentry-upload.js
+        ./scripts/sentry-upload.mjs
       env:
         SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
         SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
@@ -162,11 +162,11 @@ jobs:
       if: matrix.build-arch == 'x64'
 
     - name: Prepackage plugins (x64)
-      run: scripts/prepackage-plugins.js
+      run: scripts/prepackage-plugins.mjs
       if: ${{matrix.build-arch == 'x64'}}
 
     - name: Build packages (x64)
-      run: scripts/build-linux.js
+      run: scripts/build-linux.mjs
       if: ${{matrix.build-arch == 'x64'}}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -193,8 +193,8 @@ jobs:
             cd /github/workspace &&
             yarn --network-timeout 1000000 &&
             yarn run build &&
-            scripts/prepackage-plugins.js &&
-            USE_SYSTEM_FPM=true scripts/build-linux.js"
+            scripts/prepackage-plugins.mjs &&
+            USE_SYSTEM_FPM=true scripts/build-linux.mjs"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         KEYGEN_TOKEN: ${{ secrets.KEYGEN_TOKEN }}
@@ -217,8 +217,8 @@ jobs:
             sed -i '/    \"electron\":/c\    \"electron\": \"17.0.0\",' package.json &&
             yarn --network-timeout 1000000 &&
             yarn run build &&
-            scripts/prepackage-plugins.js &&
-            USE_SYSTEM_FPM=true scripts/build-linux.js"
+            scripts/prepackage-plugins.mjs &&
+            USE_SYSTEM_FPM=true scripts/build-linux.mjs"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         KEYGEN_TOKEN: ${{ secrets.KEYGEN_TOKEN }}
@@ -228,7 +228,7 @@ jobs:
     - name: Upload symbols
       run: |
         sudo npm install -g @sentry/cli --unsafe-perm
-        ./scripts/sentry-upload.js
+        ./scripts/sentry-upload.mjs
       if: matrix.build-arch == 'x64'
       env:
         SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
@@ -308,12 +308,12 @@ jobs:
         npm i -g yarn@1.19.1
         yarn --network-timeout 1000000
         yarn run build
-        node scripts/prepackage-plugins.js
+        node scripts/prepackage-plugins.mjs
       env:
         ARCH: ${{matrix.arch}}
 
     - name: Build and sign packages
-      run: node scripts/build-windows.js
+      run: node scripts/build-windows.mjs
       if: github.repository == 'Eugeny/tabby' && github.event_name == 'push' && (github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags'))
       env:
         ARCH: ${{matrix.arch}}
@@ -324,7 +324,7 @@ jobs:
         DEBUG: electron-builder,electron-builder:*
 
     - name: Build packages without signing
-      run: node scripts/build-windows.js
+      run: node scripts/build-windows.mjs
       if: "!(github.repository == 'Eugeny/tabby' && github.event_name == 'push' && (github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags')))"
       env:
         ARCH: ${{matrix.arch}}
@@ -332,7 +332,7 @@ jobs:
     - name: Upload symbols
       run: |
         npm install @sentry/cli
-        node scripts/sentry-upload.js
+        node scripts/sentry-upload.mjs
       env:
         SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
         SENTRY_ORG: ${{ secrets.SENTRY_ORG }}

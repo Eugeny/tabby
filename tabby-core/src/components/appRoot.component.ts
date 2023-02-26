@@ -55,8 +55,8 @@ function makeTabAnimation (dimension: string, size: number) {
 /** @hidden */
 @Component({
     selector: 'app-root',
-    template: require('./appRoot.component.pug'),
-    styles: [require('./appRoot.component.scss')],
+    templateUrl: './appRoot.component.pug',
+    styleUrls: ['./appRoot.component.scss'],
     animations: [
         trigger('animateTab', makeTabAnimation('width', 200)),
     ],
@@ -90,6 +90,7 @@ export class AppRootComponent {
         ngbModal: NgbModal,
         _themes: ThemesService,
     ) {
+        // document.querySelector('app-root')?.remove()
         this.logger = log.create('main')
         this.logger.info('v', platform.getAppVersion())
 

@@ -1,31 +1,29 @@
 .head
-    .bg-dark.p-3.mb-4(*ngIf='model')
+    .bg-dark.p-3.mb-4(*ngIf='model != null')
         .d-flex.align-items-center
             span {{model.name}}
-            .mr-auto
+            .me-auto
             a.btn-link((click)='selectScheme(null); $event.preventDefault()', href='#', translate) Clear
 
         color-scheme-preview([scheme]='model')
 
     .input-group.mb-3
-        .input-group-prepend
-            .input-group-text
-                i.fas.fa-fw.fa-search
+        .input-group-text
+            i.fas.fa-fw.fa-search
         input.form-control(type='search', [placeholder]='"Search color schemes"|translate', [(ngModel)]='filter')
 
 .body
-    .list-group-light.mb-3
+    .list-group.list-group-light.mb-3
         ng-container(*ngFor='let scheme of allColorSchemes')
             .list-group-item.list-group-item-action(
                 [hidden]='filter && !scheme.name.toLowerCase().includes(filter.toLowerCase())',
-                (click)='selectScheme(scheme)',
-                [class.active]='(currentCustomScheme || currentStockScheme) === scheme'
+                (click)='selectScheme(scheme)'
             )
                 .d-flex.w-100.align-items-center
                     i.fas.fa-fw([class.fa-check]='model?.name === scheme.name')
 
-                    .ml-2
+                    .ms-2
 
-                    .mr-auto {{scheme.name}}
+                    .me-auto {{scheme.name}}
 
                 color-scheme-preview([scheme]='scheme')

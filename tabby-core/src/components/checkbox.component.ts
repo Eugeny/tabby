@@ -6,9 +6,9 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms'
 @Component({
     selector: 'checkbox',
     template: `
-        <div class="custom-control custom-checkbox">
-            <input type="checkbox" class="custom-control-input" [(ngModel)]='model'>
-            <label class="custom-control-label">{{text}}</label>
+        <div class="form-check form-checkbox">
+            <input type="checkbox" class="form-check-input" [(ngModel)]='model'>
+            <label class="form-check-label">{{text}}</label>
         </div>
     `,
     providers: [

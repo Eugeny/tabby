@@ -21,14 +21,14 @@
                     [icon]='option.icon',
                     [color]='option.color'
                 )
-                .title.mr-2 {{getOptionText(option)}}
+                .title.me-2 {{getOptionText(option)}}
                 .description.no-wrap.text-muted(
                     *ngIf='option.description !== getOptionText(option)'
                 ) {{option.description}}
-                .ml-auto
-                .no-wrap.badge.badge-secondary.text-muted.ml-2(*ngIf='selectedIndex == i && canEditSelected()')
+                .ms-auto
+                .no-wrap.badge.text-bg-secondary.text-muted.ms-2(*ngIf='selectedIndex == i && canEditSelected()')
                     span Backspace
-                    i.fas.fa-pencil.ml-1
-                .no-wrap.badge.badge-secondary.text-muted.ml-2(*ngIf='selectedIndex == i')
+                    i.fas.fa-pencil.ms-1
+                .no-wrap.badge.text-bg-secondary.text-muted.ms-2(*ngIf='selectedIndex == i')
                     span Enter
-                    i.fas.fa-arrow-right.ml-1
+                    i.fas.fa-arrow-right.ms-1

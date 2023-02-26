@@ -1,4 +1,5 @@
-div([sortablejs]='scripts')
+div
+    //TODO ([sortablejs]='scripts')
     .input-group.flex-grow-1(*ngFor='let script of scripts')
         input.form-control(
             type='text',
@@ -10,7 +11,7 @@ div([sortablejs]='scripts')
             placeholder='Send',
             [(ngModel)]='script.send'
         )
-        .input-group-append.input-group-text.p-0.border-0
+        .input-group-text.p-0.border-0
             .hover-reveal(ngbDropdown)
                 button.btn.btn-link.btn-sm(ngbDropdownToggle)
                     i.fas.fa-fw.fa-cog

@@ -17,9 +17,9 @@
   "author": "Eugene Pankov",
   "license": "MIT",
   "devDependencies": {
-    "@types/marked": "^4.0.2",
-    "marked": "^4.0.8",
-    "ngx-infinite-scroll": "^10.0.1"
+    "@types/marked": "^4.0.8",
+    "marked": "^4.2.12",
+    "ngx-infinite-scroll": "^15"
   },
   "peerDependencies": {
     "@angular/animations": "^9.1.9",

@@ -4,16 +4,18 @@
     $height: 30px;
     $padding: 2px;
     display: inline-flex;
-    overflow: visible;
     border-radius: 3px;
     line-height: $height;
     height: $height;
     transition: 0.25s opacity;
     align-items: center;
-    overflow: hidden;
     padding-right: 10px;
     padding-left: 10px;
     margin-left: -10px;
+
+    .form-check {
+        margin: 0;
+    }
 
     &.disabled {
         opacity: 0.5;
@@ -21,5 +23,9 @@
 
     * {
         cursor: pointer;
+    }
+
+    label {
+        display: none;
     }
 }

@@ -5,7 +5,7 @@ import { Theme } from './api'
 /** @hidden */
 @Injectable()
 export class StandardTheme extends Theme {
-    name = this.translate.instant('Standard')
+    name = this.translate.instant('Standard (legacy)')
     css = require('./theme.scss')
     terminalBackground = '#222a33'
 
@@ -17,7 +17,7 @@ export class StandardTheme extends Theme {
 /** @hidden */
 @Injectable()
 export class StandardCompactTheme extends Theme {
-    name = this.translate.instant('Compact')
+    name = this.translate.instant('Compact (legacy)')
     css = require('./theme.compact.scss')
     terminalBackground = '#222a33'
     macOSWindowButtonsInsetX = 8
@@ -31,7 +31,20 @@ export class StandardCompactTheme extends Theme {
 /** @hidden */
 @Injectable()
 export class PaperTheme extends Theme {
-    name = 'Paper'
+    name = 'Paper (legacy)'
     css = require('./theme.paper.scss')
     terminalBackground = '#f7f1e0'
+}
+
+/** @hidden */
+@Injectable({ providedIn: 'root' })
+export class NewTheme extends Theme {
+    name = this.translate.instant('Follow the color scheme')
+    css = require('./theme.new.scss')
+    terminalBackground = '#f7f1e0'
+    followsColorScheme = true
+
+    constructor (private translate: TranslateService) {
+        super()
+    }
 }

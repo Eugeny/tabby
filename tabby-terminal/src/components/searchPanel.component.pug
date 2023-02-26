@@ -9,8 +9,7 @@
         (keyup.esc)='close.emit()',
         [placeholder]='"Search"|translate'
     )
-    .input-group-append(*ngIf='state.resultCount > 0')
-        .input-group-text.result-counter {{state.resultIndex + 1}} / {{state.resultCount}}
+    .input-group-text.result-counter(*ngIf='state.resultCount > 0') {{state.resultIndex ?? 0 + 1}} / {{state.resultCount}}
 
 ng-container(*ngIf='state.resultCount > 0')
     button.btn.btn-link(
@@ -27,7 +26,7 @@ ng-container(*ngIf='state.resultCount > 0')
         [fastHtmlBind]='icons.arrowDown'
     )
 
-.mr-2
+.me-2
 
 button.btn.btn-link(
     (click)='options.caseSensitive = !options.caseSensitive; saveSearchOptions()',
@@ -53,7 +52,7 @@ button.btn.btn-link(
     [fastHtmlBind]='icons.wholeWord'
 )
 
-.mr-2
+.me-2
 
 button.btn.btn-link(
     (click)='close.emit()',

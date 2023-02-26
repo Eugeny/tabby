@@ -19,8 +19,8 @@ _('Ungrouped')
 
 /** @hidden */
 @Component({
-    template: require('./profilesSettingsTab.component.pug'),
-    styles: [require('./profilesSettingsTab.component.scss')],
+    templateUrl:'./profilesSettingsTab.component.pug',
+    styleUrls: ['./profilesSettingsTab.component.scss'],
 })
 export class ProfilesSettingsTabComponent extends BaseComponent {
     profiles: PartialProfile<Profile>[] = []

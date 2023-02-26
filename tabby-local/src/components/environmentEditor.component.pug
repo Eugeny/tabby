@@ -1,20 +1,18 @@
 .mb-2.d-flex.align-items-center(*ngFor='let pair of vars')
     .input-group
         input.form-control.w-25.text-monospace([(ngModel)]='pair.key', (blur)='emitUpdate()', placeholder='Variable name')
-        .input-group-append
-            .input-group-text =
+        .input-group-text =
         input.form-control.w-50.text-monospace([(ngModel)]='pair.value', (blur)='emitUpdate()', placeholder='Value')
-        .input-group-append
-            button.btn.btn-secondary((click)='removeEnvironmentVar(pair.key)')
-                i.fas.fa-fw.fa-trash
+        button.btn.btn-secondary((click)='removeEnvironmentVar(pair.key)')
+            i.fas.fa-fw.fa-trash
 
 .d-flex
     button.btn.btn-secondary((click)='addEnvironmentVar()')
-        i.fas.fa-plus.mr-2
+        i.fas.fa-plus.me-2
         span(translate) Add
 
-    .ml-auto
+    .ms-auto
     .text-muted(translate) Substitutions allowed.
-    .d-flex.ml-1(*ngIf='shouldShowExample()')
+    .d-flex.ms-1(*ngIf='shouldShowExample()')
         .text-muted(translate) Example:
-        a.ml-1((click)='addExample()', href='#') extend PATH
+        a.ms-1((click)='addExample()', href='#') extend PATH

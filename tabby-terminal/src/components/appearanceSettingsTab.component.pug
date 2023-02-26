@@ -55,59 +55,76 @@ h3.mb-3(translate) Appearance
         color-scheme-preview([scheme]='config.store.terminal.colorScheme', [fontPreview]='true')
 
 .content-box
-    .form-line
+    .form-line(*ngIf='!themes.findCurrentTheme().followsColorScheme')
         .header
             .title(translate) Terminal background
 
-        .btn-group(
-            [(ngModel)]='config.store.terminal.background',
-            (ngModelChange)='config.save()',
-            ngbRadioGroup
-        )
-            label.btn.btn-secondary(ngbButtonLabel)
-                input(
-                    type='radio',
-                    ngbButton,
-                    [value]='"theme"'
-                )
+        .btn-group(role='group')
+            input.btn-check(
+                type='radio',
+                name='background',
+                [(ngModel)]='config.store.terminal.background',
+                (ngModelChange)='config.save()',
+                id='backgroundTheme',
+                [value]='"theme"'
+            )
+            label.btn.btn-secondary(
+                for='backgroundTheme'
+            )
                 span(translate) From theme
-            label.btn.btn-secondary(ngbButtonLabel)
-                input(
-                    type='radio',
-                    ngbButton,
-                    [value]='"colorScheme"'
-                )
+            input.btn-check(
+                type='radio',
+                name='background',
+                [(ngModel)]='config.store.terminal.background',
+                (ngModelChange)='config.save()',
+                id='backgroundColorScheme',
+                [value]='"colorScheme"'
+            )
+            label.btn.btn-secondary(
+                for='backgroundColorScheme'
+            )
                 span(translate) From color scheme
 
     .form-line
         .header
             .title(translate) Cursor shape
 
-        .btn-group(
-            [(ngModel)]='config.store.terminal.cursor',
-            (ngModelChange)='config.save()',
-            ngbRadioGroup
-        )
-            label.btn.btn-secondary(ngbButtonLabel)
-                input(
-                    type='radio',
-                    ngbButton,
-                    [value]='"block"'
-                )
+        .btn-group(role='group')
+            input.btn-check(
+                type='radio',
+                name='cursor',
+                [(ngModel)]='config.store.terminal.cursor',
+                (ngModelChange)='config.save()',
+                id='cursorBlock',
+                [value]='"block"'
+            )
+            label.btn.btn-secondary(
+                for='cursorBlock'
+            )
                 | █
-            label.btn.btn-secondary(ngbButtonLabel)
-                input(
-                    type='radio',
-                    ngbButton,
-                    [value]='"beam"'
-                )
+            input.btn-check(
+                type='radio',
+                name='cursor',
+                [(ngModel)]='config.store.terminal.cursor',
+                (ngModelChange)='config.save()',
+                id='cursorBeam',
+                [value]='"beam"'
+            )
+            label.btn.btn-secondary(
+                for='cursorBeam'
+            )
                 | |
-            label.btn.btn-secondary(ngbButtonLabel)
-                input(
-                    type='radio',
-                    ngbButton,
-                    [value]='"underline"'
-                )
+            input.btn-check(
+                type='radio',
+                name='cursor',
+                [(ngModel)]='config.store.terminal.cursor',
+                (ngModelChange)='config.save()',
+                id='cursorUnderline',
+                [value]='"underline"'
+            )
+            label.btn.btn-secondary(
+                for='cursorUnderline'
+            )
                 | ▁
 
     .form-line

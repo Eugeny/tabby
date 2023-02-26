@@ -8,6 +8,8 @@
     box-shadow: 0 1px 0 rgba(0,0,0,.25);
     padding: 7px 12px;
     background-image: none;
+    display: block !important;
+    border: none !important;
     width: auto;
     flex-basis: auto;
     border-radius: 0.5rem;
@@ -15,10 +17,12 @@
 
     &.toast-error {
       background-color: #BD362F;
+      color: white !important;
     }
 
     &.toast-info {
       background-color: #555;
+      color: #eee !important;
     }
   }
 }

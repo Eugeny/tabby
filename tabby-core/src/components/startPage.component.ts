@@ -7,8 +7,8 @@ import { Command, CommandLocation } from '../api/commands'
 /** @hidden */
 @Component({
     selector: 'start-page',
-    template: require('./startPage.component.pug'),
-    styles: [require('./startPage.component.scss')],
+    templateUrl:'./startPage.component.pug',
+    styleUrls: ['./startPage.component.scss'],
 })
 export class StartPageComponent {
     version: string
@@ -28,7 +28,8 @@ export class StartPageComponent {
         return this.domSanitizer.bypassSecurityTrustHtml(icon ?? '')
     }
 
-    buttonsTrackBy (btn: Command): any {
+    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+    buttonsTrackBy (_, btn: Command): any {
         return btn.label + btn.icon
     }
 }

@@ -7,8 +7,8 @@ import { SelectorOption } from '../api/selector'
 /** @hidden */
 @Component({
     selector: 'selector-modal',
-    template: require('./selectorModal.component.pug'),
-    styles: [require('./selectorModal.component.scss')],
+    templateUrl:'./selectorModal.component.pug',
+    styleUrls: ['./selectorModal.component.scss'],
 })
 export class SelectorModalComponent<T> {
     @Input() options: SelectorOption<T>[]

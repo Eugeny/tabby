@@ -5,8 +5,8 @@ import { ConfigService, NotificationsService, TranslateService } from 'tabby-cor
 
 @Component({
     selector: 'search-panel',
-    template: require('./searchPanel.component.pug'),
-    styles: [require('./searchPanel.component.scss')],
+    templateUrl:'./searchPanel.component.pug',
+    styleUrls: ['./searchPanel.component.scss'],
 })
 export class SearchPanelComponent {
     @Input() query: string

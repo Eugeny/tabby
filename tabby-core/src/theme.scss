@@ -7,6 +7,7 @@ $button-hover-bg: rgba(0, 0, 0, .25);
 $button-active-bg: rgba(0, 0, 0, .5);
 
 @import '~bootstrap/scss/bootstrap.scss';
+@import "./theme.vendor.scss";
 
 window-controls {
     svg {
@@ -163,8 +164,8 @@ multi-hotkey-input {
     }
 
     .item:has(.duplicate) {
-        background-color: theme-color('danger');
-        border: 1px solid theme-color('danger');
+        background-color: map-get($theme-colors, 'danger');
+        border: 1px solid map-get($theme-colors, 'danger');
     }
 
     .add {
@@ -178,8 +179,8 @@ multi-hotkey-input {
     }
 
     .add:has(.duplicate), .item:has(.duplicate) .body, .item:has(.duplicate) .remove {
-        &:hover { background: darken(theme-color('danger'), 5%); }
-        &:active { background: darken(theme-color('danger'), 15%); }
+        &:hover { background: darken(map-get($theme-colors, 'danger'), 5%); }
+        &:active { background: darken(map-get($theme-colors, 'danger'), 15%); }
     }
 }
 
@@ -209,11 +210,11 @@ hotkey-input-modal {
     }
 }
 
-.form-group label {
+.mb-3 label {
     margin-bottom: 2px;
 }
 
-[ngbradiogroup] > label.active {
+.btn-check:checked + label {
     background: $blue;
 }
 
@@ -342,6 +343,8 @@ search-panel {
 }
 
 .btn-link {
+    text-decoration: none;
+
     &:hover, &[aria-expanded=true], &:active, &.active {
         color: $link-hover-color;
         border-radius: $btn-border-radius;
@@ -375,9 +378,9 @@ search-panel {
             font-size: 18px;
         }
 
-        @include hover-focus {
-            color: $nav-tabs-link-active-color;
-        }
+        // @include hover-focus {
+        //     color: $nav-tabs-link-active-color;
+        // }
 
         &.disabled {
             color: $nav-link-disabled-color;
@@ -413,5 +416,13 @@ ngx-colors-panel .opened {
 
     .button svg {
         fill: white;
+    }
+}
+
+split-tab-spanner {
+    background: rgba(0, 0, 0, .2);
+
+    &:hover, &.active {
+        background: rgba(255, 255, 255, .125);
     }
 }

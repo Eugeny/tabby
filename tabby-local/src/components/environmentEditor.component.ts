@@ -5,8 +5,8 @@ import { Subject } from 'rxjs'
 /** @hidden */
 @Component({
     selector: 'environment-editor',
-    template: require('./environmentEditor.component.pug'),
-    styles: [require('./environmentEditor.component.scss')],
+    templateUrl:'./environmentEditor.component.pug',
+    styleUrls: ['./environmentEditor.component.scss'],
 })
 export class EnvironmentEditorComponent {
     @Output() modelChange = new Subject<any>()

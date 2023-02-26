@@ -5,11 +5,12 @@ import { SettingsTabProvider } from '../api'
 @Component({
     selector: 'settings-tab-body',
     template: '<ng-template #placeholder></ng-template>',
+    styles: [`:host { display: block; padding-bottom: 20px; }`],
 })
 export class SettingsTabBodyComponent {
     @Input() provider: SettingsTabProvider
     @ViewChild('placeholder', { read: ViewContainerRef }) placeholder: ViewContainerRef
-    component: ComponentRef<Component>
+    component: ComponentRef<unknown>
 
     constructor (private componentFactoryResolver: ComponentFactoryResolver) { }
 

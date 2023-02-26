@@ -1,5 +1,5 @@
+import { CommonModule } from '@angular/common'
 import { NgModule } from '@angular/core'
-import { BrowserModule } from '@angular/platform-browser'
 import { FormsModule } from '@angular/forms'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 
@@ -12,16 +12,13 @@ import { PluginsSettingsTabProvider } from './settings'
 
 @NgModule({
     imports: [
-        BrowserModule,
+        CommonModule,
         FormsModule,
         NgbModule,
         TabbyCorePlugin,
     ],
     providers: [
         { provide: SettingsTabProvider, useClass: PluginsSettingsTabProvider, multi: true },
-    ],
-    entryComponents: [
-        PluginsSettingsTabComponent,
     ],
     declarations: [
         PluginsSettingsTabComponent,

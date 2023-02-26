@@ -6,7 +6,7 @@ import { ForwardedPortConfig } from '../api'
 
 /** @hidden */
 @Component({
-    template: require('./sshPortForwardingModal.component.pug'),
+    templateUrl:'./sshPortForwardingModal.component.pug',
 })
 export class SSHPortForwardingModalComponent {
     @Input() session: SSHSession

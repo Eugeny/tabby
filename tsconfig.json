@@ -36,7 +36,7 @@
       "common*": [
         "../../tabby-terminal/node_modules/xterm/src/common*"
       ],
-      "tabby-*": ["../../tabby-*/src"]
+      "tabby-*": ["../../tabby-*/src"],
     }
   },
   "typeAcquisition": {

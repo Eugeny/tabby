@@ -10,7 +10,7 @@
 .modal-body
     .row
         .col-12.col-lg-4
-            .form-group(*ngIf='!defaultsMode')
+            .mb-3(*ngIf='!defaultsMode')
                 label(translate) Name
                 input.form-control(
                     type='text',
@@ -18,7 +18,7 @@
                     [(ngModel)]='profile.name',
                 )
 
-            .form-group(*ngIf='!defaultsMode')
+            .mb-3(*ngIf='!defaultsMode')
                 label(translate) Group
                 input.form-control(
                     type='text',
@@ -28,7 +28,7 @@
                     [ngbTypeahead]='groupTypeahead',
                 )
 
-            .form-group(*ngIf='!defaultsMode')
+            .mb-3(*ngIf='!defaultsMode')
                 label(translate) Icon
                 .input-group
                     input.form-control(
@@ -38,16 +38,15 @@
                         [ngbTypeahead]='iconSearch',
                         [resultTemplate]='rt'
                     )
-                    .input-group-append
-                        .input-group-text
-                            profile-icon(
-                                [icon]='profile.icon',
-                                [color]='profile.color'
-                            )
+                    .input-group-text
+                        profile-icon(
+                            [icon]='profile.icon',
+                            [color]='profile.color'
+                        )
 
                 ng-template(#rt,let-r='result',let-t='term')
                     i([class]='"fa-fw " + r')
-                    ngb-highlight.ml-2([result]='r', [term]='t')
+                    ngb-highlight.ms-2([result]='r', [term]='t')
 
             .form-line
                 .header

@@ -5,8 +5,8 @@ import { FileDownload, FileTransfer, PlatformService } from '../api/platform'
 /** @hidden */
 @Component({
     selector: 'transfers-menu',
-    template: require('./transfersMenu.component.pug'),
-    styles: [require('./transfersMenu.component.scss')],
+    templateUrl:'./transfersMenu.component.pug',
+    styleUrls: ['./transfersMenu.component.scss'],
 })
 export class TransfersMenuComponent {
     @Input() transfers: FileTransfer[]

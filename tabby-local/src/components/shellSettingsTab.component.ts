@@ -3,7 +3,7 @@ import { WIN_BUILD_CONPTY_SUPPORTED, WIN_BUILD_CONPTY_STABLE, isWindowsBuild, Co
 
 /** @hidden */
 @Component({
-    template: require('./shellSettingsTab.component.pug'),
+    templateUrl:'./shellSettingsTab.component.pug',
 })
 export class ShellSettingsTabComponent {
     isConPTYAvailable: boolean

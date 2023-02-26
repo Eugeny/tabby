@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core'
-import { BrowserModule } from '@angular/platform-browser'
+import { CommonModule } from '@angular/common'
 import { FormsModule } from '@angular/forms'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { InfiniteScrollModule } from 'ngx-infinite-scroll'
@@ -30,7 +30,7 @@ import { HotkeySettingsTabProvider, WindowSettingsTabProvider, VaultSettingsTabP
 /** @hidden */
 @NgModule({
     imports: [
-        BrowserModule,
+        CommonModule,
         FormsModule,
         NgbModule,
         TabbyCorePlugin,
@@ -45,18 +45,6 @@ import { HotkeySettingsTabProvider, WindowSettingsTabProvider, VaultSettingsTabP
         { provide: SettingsTabProvider, useClass: VaultSettingsTabProvider, multi: true },
         { provide: SettingsTabProvider, useClass: ProfilesSettingsTabProvider, multi: true },
         { provide: SettingsTabProvider, useClass: ConfigSyncSettingsTabProvider, multi: true },
-    ],
-    entryComponents: [
-        EditProfileModalComponent,
-        HotkeyInputModalComponent,
-        HotkeySettingsTabComponent,
-        ProfilesSettingsTabComponent,
-        SettingsTabComponent,
-        SetVaultPassphraseModalComponent,
-        VaultSettingsTabComponent,
-        WindowSettingsTabComponent,
-        ConfigSyncSettingsTabComponent,
-        ReleaseNotesComponent,
     ],
     declarations: [
         EditProfileModalComponent,

@@ -3,12 +3,12 @@
 
     .d-flex.align-items-center(*ngIf='!editing')
         span {{getCurrentSchemeName()}}
-        .mr-auto
+        .me-auto
         .btn-toolbar
             button.btn.btn-secondary((click)='editScheme()')
                 i.fas.fa-pen
                 span(translate) Edit
-            .mr-1
+            .me-1
             button.btn.btn-danger(
                 (click)='deleteScheme(config.store.terminal.colorScheme)',
                 *ngIf='currentCustomScheme'
@@ -17,11 +17,11 @@
                 span(translate) Delete
 
     div(*ngIf='editing')
-        .form-group
+        .mb-3
             label(translate) Name
             input.form-control(type='text', [(ngModel)]='config.store.terminal.colorScheme.name')
 
-        .form-group
+        .mb-3
             color-picker(
                 [(model)]='config.store.terminal.colorScheme.foreground',
                 (modelChange)='config.save()',
@@ -69,11 +69,11 @@
     color-scheme-preview([scheme]='config.store.terminal.colorScheme')
 
     .btn-toolbar.d-flex.mt-2(*ngIf='editing')
-        .mr-auto
+        .me-auto
         button.btn.btn-primary((click)='saveScheme()')
             i.fas.fa-check
             span(translate) Save
-        .mr-1
+        .me-1
         button.btn.btn-secondary((click)='cancelEditing()')
             i.fas.fa-times
             span(translate) Cancel
@@ -81,13 +81,12 @@
     hr.mt-3.mb-4
 
     .input-group.mb-3
-        .input-group-prepend
-            .input-group-text
-                i.fas.fa-fw.fa-search
+        .input-group-text
+            i.fas.fa-fw.fa-search
         input.form-control(type='search', [placeholder]='"Search color schemes"|translate', [(ngModel)]='filter')
 
 .body
-    .list-group-light.mb-3
+    .list-group.list-group-light.mb-3
         ng-container(*ngFor='let scheme of allColorSchemes')
             .list-group-item.list-group-item-action(
                 [hidden]='filter && !scheme.name.toLowerCase().includes(filter.toLowerCase())',
@@ -97,11 +96,11 @@
                 .d-flex.w-100.align-items-center
                     i.fas.fa-fw([class.fa-check]='(currentCustomScheme || currentStockScheme) === scheme')
 
-                    .ml-2
+                    .ms-2
 
-                    .mr-auto
+                    .me-auto
                         span {{scheme.name}}
-                        .badge.badge-info.ml-2(*ngIf='customColorSchemes.includes(scheme)', translate) Custom
+                        .badge.text-bg-info.ms-2(*ngIf='customColorSchemes.includes(scheme)', translate) Custom
 
                     div
                         .d-flex

@@ -1,9 +1,9 @@
 terminal-toolbar([tab]='this')
-    i.fas.fa-xs.fa-circle.text-success.mr-2(*ngIf='session && session.open')
-    i.fas.fa-xs.fa-circle.text-danger.mr-2(*ngIf='!session || !session.open')
-    strong.mr-auto {{profile.options.user}}@{{profile.options.host}}:{{profile.options.port}}
+    i.fas.fa-xs.fa-circle.text-success.me-2(*ngIf='session && session.open')
+    i.fas.fa-xs.fa-circle.text-danger.me-2(*ngIf='!session || !session.open')
+    strong.me-auto {{profile.options.user}}@{{profile.options.host}}:{{profile.options.port}}
 
-    .mr-2(
+    .me-2(
         ngbDropdown,
         container='body',
         *ngIf='session && !session.supportsWorkingDirectory()',
@@ -13,16 +13,16 @@ terminal-toolbar([tab]='this')
             i.far.fa-lightbulb.text-primary
         .bg-dark(ngbDropdownMenu)
             a.d-flex.align-items-center(ngbDropdownItem, (click)='platform.openExternal("https://tabby.sh/go/cwd-detection")')
-                .mr-auto
+                .me-auto
                     strong(translate) Working directory detection
                     div(translate) Learn how to allow Tabby to detect remote shell's working directory.
-                i.fas.fa-arrow-right.ml-4
+                i.fas.fa-arrow-right.ms-4
 
-    button.btn.btn-sm.btn-link.mr-2((click)='reconnect()')
+    button.btn.btn-sm.btn-link.me-2((click)='reconnect()')
         i.fas.fa-redo
         span(translate) Reconnect
 
-    button.btn.btn-sm.btn-link.mr-2((click)='openSFTP()', *ngIf='session && session.open')
+    button.btn.btn-sm.btn-link.me-2((click)='openSFTP()', *ngIf='session && session.open')
         i.far.fa-folder-open
         span SFTP
 

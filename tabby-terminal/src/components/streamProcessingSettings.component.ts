@@ -6,7 +6,7 @@ import { StreamProcessingOptions } from '../middleware/streamProcessing'
 /** @hidden */
 @Component({
     selector: 'stream-processing-settings',
-    template: require('./streamProcessingSettings.component.pug'),
+    templateUrl:'./streamProcessingSettings.component.pug',
 })
 export class StreamProcessingSettingsComponent {
     @Input() options: StreamProcessingOptions

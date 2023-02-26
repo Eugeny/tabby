@@ -18,7 +18,7 @@ import {
 /** @hidden */
 @Component({
     selector: 'window-settings-tab',
-    template: require('./windowSettingsTab.component.pug'),
+    templateUrl:'./windowSettingsTab.component.pug',
 })
 export class WindowSettingsTabComponent extends BaseComponent {
     screens: Screen[]

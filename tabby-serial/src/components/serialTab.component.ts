@@ -11,7 +11,7 @@ import { SerialSession, BAUD_RATES, SerialProfile } from '../api'
 @Component({
     selector: 'serial-tab',
     template: `${BaseTerminalTabComponent.template} ${require('./serialTab.component.pug')}`,
-    styles: [require('./serialTab.component.scss'), ...BaseTerminalTabComponent.styles],
+    styleUrls: ['./serialTab.component.scss', ...BaseTerminalTabComponent.styles],
     animations: BaseTerminalTabComponent.animations,
 })
 export class SerialTabComponent extends BaseTerminalTabComponent<SerialProfile> {

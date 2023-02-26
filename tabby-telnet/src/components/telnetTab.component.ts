@@ -11,7 +11,7 @@ import { TelnetProfile, TelnetSession } from '../session'
 @Component({
     selector: 'telnet-tab',
     template: `${BaseTerminalTabComponent.template} ${require('./telnetTab.component.pug')}`,
-    styles: [require('./telnetTab.component.scss'), ...BaseTerminalTabComponent.styles],
+    styleUrls: ['./telnetTab.component.scss', ...BaseTerminalTabComponent.styles],
     animations: BaseTerminalTabComponent.animations,
 })
 export class TelnetTabComponent extends BaseTerminalTabComponent<TelnetProfile> {

@@ -8,7 +8,7 @@
 profile-icon(
     *ngIf='config.store.terminal.showTabProfileIcon && tab.icon',
     [icon]='tab.icon',
-    [color]='tab.color'
+    [color]='tab.color ?? undefined'
 )
 
 .name(

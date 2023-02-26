@@ -11,7 +11,7 @@ _('Search color schemes')
 /** @hidden */
 @Component({
     selector: 'color-scheme-selector',
-    template: require('./colorSchemeSelector.component.pug'),
+    templateUrl:'./colorSchemeSelector.component.pug',
     styles: [`
         :host {
             display: block;
@@ -45,7 +45,7 @@ export class ColorSchemeSelectorComponent {
         this.changeDetector.markForCheck()
     }
 
-    selectScheme (scheme: TerminalColorScheme) {
+    selectScheme (scheme: TerminalColorScheme|null) {
         this.model = scheme
         this.modelChange.emit(scheme)
         this.changeDetector.markForCheck()

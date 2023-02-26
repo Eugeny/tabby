@@ -1,8 +1,13 @@
 :host {
-    background: #000000bf;
     padding: 5px 15px 5px 15px;
     display: flex;
     z-index: 3;
+
+    ::ng-deep .btn {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
 }
 
 .content {
@@ -15,10 +20,4 @@
     margin: 0 10px 0 0;
     cursor: move;
     opacity: .3;
-}
-
-::ng-deep .btn {
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
 }

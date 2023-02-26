@@ -2,7 +2,7 @@
     ul.nav-pills(ngbNav, #nav='ngbNav', [activeId]='activeTab', orientation='vertical')
         li(ngbNavItem='application')
             a(ngbNavLink)
-                i.fas.fa-fw.fa-window-maximize.mr-2
+                i.fas.fa-fw.fa-window-maximize.me-2
                 span(translate) Application
             ng-template(ngbNavContent)
                 .content-box
@@ -71,7 +71,7 @@
                             .title(translate) Language
                             a.description((click)='homeBase.openTranslations()')
                                 span(translate) Help translate Tabby
-                                i.fas.fa-external-link-square-alt.ml-1
+                                i.fas.fa-external-link-square-alt.ms-1
                         select.form-control([(ngModel)]='config.store.language', (ngModelChange)='saveConfiguration(true)')
                             option([ngValue]='null', translate) Automatic
                             option(
@@ -117,7 +117,7 @@
         ng-container(*ngFor='let provider of settingsProviders')
             li(*ngIf='provider.prioritized', [ngbNavItem]='provider.id')
                 a.d-flex.align-items-center(ngbNavLink)
-                    i(class='fas fa-fw mr-2 fa-{{provider.icon}}')
+                    i(class='fas fa-fw me-2 fa-{{provider.icon}}')
                     span {{provider.title|translate}}
                 ng-template(ngbNavContent)
                     settings-tab-body([provider]='provider')
@@ -127,14 +127,14 @@
         ng-container(*ngFor='let provider of settingsProviders')
             li(*ngIf='!provider.prioritized', [ngbNavItem]='provider.id')
                 a.d-flex.align-items-center(ngbNavLink)
-                    i(class='fas fa-fw mr-2 fa-{{provider.icon || "puzzle-piece"}}')
+                    i(class='fas fa-fw me-2 fa-{{provider.icon || "puzzle-piece"}}')
                     span {{provider.title|translate}}
                 ng-template(ngbNavContent)
                     settings-tab-body([provider]='provider')
 
         li(ngbNavItem='config-file')
             a.d-flex.align-items-center(ngbNavLink)
-                i.fas.fa-fw.fa-code.mr-2
+                i.fas.fa-fw.fa-code.me-2
                 span(translate) Config file
             ng-template.test(ngbNavContent)
                 .d-flex.flex-column.w-100.h-100
@@ -152,20 +152,20 @@
                             )
                     .mt-3.d-flex
                         button.btn.btn-primary((click)='saveConfigFile()', *ngIf='isConfigFileValid()')
-                            i.fas.fa-check.mr-2
+                            i.fas.fa-check.me-2
                             span(translate) Save and apply
                         button.btn.btn-primary(disabled, *ngIf='!isConfigFileValid()')
-                            i.fas.fa-exclamation-triangle.mr-2
+                            i.fas.fa-exclamation-triangle.me-2
                             span(translate) Invalid syntax
-                        button.btn.btn-secondary.ml-auto(
+                        button.btn.btn-secondary.ms-auto(
                             (click)='showConfigDefaults = !showConfigDefaults',
                             translate
                         ) Show defaults
-                        button.btn.btn-secondary.ml-3(
+                        button.btn.btn-secondary.ms-3(
                             *ngIf='platform.getConfigPath()',
                             (click)='showConfigFile()'
                         )
-                            i.fas.fa-external-link-square-alt.mr-2
+                            i.fas.fa-external-link-square-alt.me-2
                             span(translate) Show config file
 
     div([ngbNavOutlet]='nav')

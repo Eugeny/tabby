@@ -13,4 +13,5 @@ export abstract class Theme {
 
     macOSWindowButtonsInsetX?: number
     macOSWindowButtonsInsetY?: number
+    followsColorScheme?: boolean
 }

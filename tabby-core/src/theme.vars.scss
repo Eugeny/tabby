@@ -175,13 +175,12 @@ $badge-padding-y: 4px;
 $badge-padding-x: 6px;
 
 
-$custom-control-indicator-size: 1.2rem;
-$custom-control-indicator-bg: $body-bg;
-$custom-control-indicator-border-color: lighten($body-bg, 25%);
-$custom-control-indicator-checked-bg: theme-color("primary");
-$custom-control-indicator-checked-color: $body-bg;
-$custom-control-indicator-checked-border-color: transparent;
-$custom-control-indicator-active-bg: rgba(255, 255, 0, 0.5);
+$form-check-input-border: lighten($body-bg, 25%);
+$form-check-input-width: 1.4em;
+$form-switch-width: 2.5em;
+$form-switch-color: lighten($body-bg, 25%);
+$form-switch-focus-color: lighten($body-bg, 40%);
+$form-switch-checked-color: map-get($theme-colors, "primary");
 
 
 $modal-content-bg:               $content-bg-solid;
@@ -201,3 +200,13 @@ $alert-color-level: -5;
 $text-muted: rgba(255, 255, 255, 0.5);
 
 $card-bg: $list-group-bg;
+
+$tooltip-color: rgba(255, 255, 255, .75);
+$tooltip-bg: rgba(0, 0, 0, .75);
+
+$accordion-border-color: $list-group-border-color;
+$accordion-bg: $list-group-bg;
+$accordion-button-active-bg: $list-group-active-bg;
+$accordion-button-active-color: $list-group-active-color;
+
+$btn-close-color: $body-color;

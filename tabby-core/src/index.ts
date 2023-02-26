@@ -1,11 +1,9 @@
 import { NgModule, ModuleWithProviders, LOCALE_ID } from '@angular/core'
-import { BrowserModule } from '@angular/platform-browser'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { CommonModule } from '@angular/common'
 import { FormsModule } from '@angular/forms'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
-import { PerfectScrollbarModule, PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar'
 import { NgxFilesizeModule } from 'ngx-filesize'
-import { SortablejsModule } from 'ngx-sortablejs'
 import { DragDropModule } from '@angular/cdk/drag-drop'
 import { TranslateModule, TranslateCompiler, TranslateService } from '@ngx-translate/core'
 import { TranslateMessageFormatCompiler, MESSAGE_FORMAT_CONFIG } from 'ngx-translate-messageformat-compiler'
@@ -43,18 +41,16 @@ import { AppService } from './services/app.service'
 import { ConfigService } from './services/config.service'
 import { VaultFileProvider } from './services/vault.service'
 import { HotkeysService } from './services/hotkeys.service'
-import { LocaleService, TranslateServiceWrapper } from './services/locale.service'
+import { LocaleService } from './services/locale.service'
 import { CommandService } from './services/commands.service'
 
-import { StandardTheme, StandardCompactTheme, PaperTheme } from './theme'
+import { StandardTheme, StandardCompactTheme, PaperTheme, NewTheme } from './theme'
 import { CoreConfigProvider } from './config'
 import { AppHotkeyProvider } from './hotkeys'
 import { TaskCompletionContextMenu, CommonOptionsContextMenu, TabManagementContextMenu, ProfilesContextMenu } from './tabContextMenu'
 import { LastCLIHandler, ProfileCLIHandler } from './cli'
 import { SplitLayoutProfilesService } from './profiles'
 import { CoreCommandProvider } from './commands'
-
-import 'perfect-scrollbar/css/perfect-scrollbar.css'
 
 export function TranslateMessageFormatCompilerFactory (): TranslateMessageFormatCompiler {
     return new TranslateMessageFormatCompiler()
@@ -65,6 +61,7 @@ const PROVIDERS = [
     { provide: Theme, useClass: StandardTheme, multi: true },
     { provide: Theme, useClass: StandardCompactTheme, multi: true },
     { provide: Theme, useClass: PaperTheme, multi: true },
+    { provide: Theme, useClass: NewTheme, multi: true },
     { provide: ConfigProvider, useClass: CoreConfigProvider, multi: true },
     { provide: TabContextMenuItemProvider, useClass: CommonOptionsContextMenu, multi: true },
     { provide: TabContextMenuItemProvider, useClass: TabManagementContextMenu, multi: true },
@@ -73,7 +70,6 @@ const PROVIDERS = [
     { provide: TabRecoveryProvider, useExisting: SplitTabRecoveryProvider, multi: true },
     { provide: CLIHandler, useClass: ProfileCLIHandler, multi: true },
     { provide: CLIHandler, useClass: LastCLIHandler, multi: true },
-    { provide: PERFECT_SCROLLBAR_CONFIG, useValue: { suppressScrollX: true } },
     { provide: FileProvider, useClass: VaultFileProvider, multi: true },
     { provide: ProfileProvider, useExisting: SplitLayoutProfilesService, multi: true },
     { provide: CommandProvider, useExisting: CoreCommandProvider, multi: true },
@@ -86,24 +82,24 @@ const PROVIDERS = [
         provide: MESSAGE_FORMAT_CONFIG,
         useValue: LocaleService.allLanguages.map(x => x.code),
     },
-    {
-        provide: TranslateService,
-        useClass: TranslateServiceWrapper,
-    },
 ]
 
 /** @hidden */
 @NgModule({
     imports: [
-        BrowserModule,
         BrowserAnimationsModule,
+        CommonModule,
         FormsModule,
         NgbModule,
         NgxFilesizeModule,
-        PerfectScrollbarModule,
         DragDropModule,
-        SortablejsModule.forRoot({ animation: 150 }),
-        TranslateModule,
+        TranslateModule.forRoot({
+            defaultLanguage: 'en',
+            compiler: {
+                provide: TranslateCompiler,
+                useFactory: TranslateMessageFormatCompilerFactory,
+            },
+        }),
     ],
     declarations: [
         AppRootComponent,
@@ -132,16 +128,8 @@ const PROVIDERS = [
         CdkAutoDropGroup,
         ProfileIconComponent,
     ],
-    entryComponents: [
-        PromptModalComponent,
-        RenameTabModalComponent,
-        SafeModeModalComponent,
-        SelectorModalComponent,
-        SplitTabComponent,
-        UnlockVaultModalComponent,
-        WelcomeTabComponent,
-    ],
     exports: [
+        AppRootComponent,
         CheckboxComponent,
         ToggleComponent,
         PromptModalComponent,
@@ -149,7 +137,6 @@ const PROVIDERS = [
         DropZoneDirective,
         FastHtmlBindDirective,
         AlwaysVisibleTypeaheadDirective,
-        SortablejsModule,
         DragDropModule,
         TranslateModule,
         CdkAutoDropGroup,
@@ -239,18 +226,10 @@ export default class AppModule { // eslint-disable-line @typescript-eslint/no-ex
     }
 
     static forRoot (): ModuleWithProviders<AppModule> {
-        const translateModule = TranslateModule.forRoot({
-            defaultLanguage: 'en',
-            compiler: {
-                provide: TranslateCompiler,
-                useFactory: TranslateMessageFormatCompilerFactory,
-            },
-        })
         return {
             ngModule: AppModule,
             providers: [
                 ...PROVIDERS,
-                ...translateModule.providers!.filter(x => x !== TranslateService),
             ],
         }
     }

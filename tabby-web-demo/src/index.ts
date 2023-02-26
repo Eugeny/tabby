@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core'
-import { BrowserModule } from '@angular/platform-browser'
+// import { BrowserModule } from '@angular/platform-browser'
 import { FormsModule } from '@angular/forms'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 
@@ -12,7 +12,7 @@ import { DemoProfilesService } from './profiles'
 /** @hidden */
 @NgModule({
     imports: [
-        BrowserModule,
+        // BrowserModule,
         FormsModule,
         NgbModule,
         TabbyCorePlugin,
@@ -20,9 +20,6 @@ import { DemoProfilesService } from './profiles'
     ],
     providers: [
         { provide: ProfileProvider, useClass: DemoProfilesService, multi: true },
-    ],
-    entryComponents: [
-        DemoTerminalTabComponent,
     ],
     declarations: [
         DemoTerminalTabComponent,

@@ -5,8 +5,8 @@ import { TerminalColorScheme } from '../api/interfaces'
 /** @hidden */
 @Component({
     selector: 'color-scheme-preview',
-    template: require('./colorSchemePreview.component.pug'),
-    styles: [require('./colorSchemePreview.component.scss')],
+    templateUrl:'./colorSchemePreview.component.pug',
+    styleUrls: ['./colorSchemePreview.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ColorSchemePreviewComponent extends BaseComponent {

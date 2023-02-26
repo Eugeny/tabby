@@ -4,7 +4,7 @@ import { BaseComponent, HotkeysService, MessageBoxOptions } from 'tabby-core'
 
 /** @hidden */
 @Component({
-    template: require('./messageBoxModal.component.pug'),
+    templateUrl:'./messageBoxModal.component.pug',
 })
 export class MessageBoxModalComponent extends BaseComponent {
     @Input() options: MessageBoxOptions

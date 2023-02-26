@@ -3,7 +3,7 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
         a(ngbNavLink, translate) General
         ng-template(ngbNavContent)
             .d-flex.w-100.mt-3
-                .form-group.mr-2(
+                .mb-3.me-2(
                     ngbDropdown
                 )
                     label(translate) Connection
@@ -35,21 +35,21 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
                             div(translate) HTTP proxy
                             .text-muted(translate) Using CONNECT method
 
-                .form-group.w-100(*ngIf='connectionMode === "proxyCommand"')
+                .mb-3.w-100(*ngIf='connectionMode === "proxyCommand"')
                     label(translate) Proxy command
                     input.form-control(
                         type='text',
                         [(ngModel)]='profile.options.proxyCommand',
                     )
 
-                .form-group.w-100.mr-2(*ngIf='connectionMode !== "proxyCommand"')
+                .mb-3.w-100.me-2(*ngIf='connectionMode !== "proxyCommand"')
                     label(translate) Host
                     input.form-control(
                         type='text',
                         [(ngModel)]='profile.options.host',
                     )
 
-                .form-group(*ngIf='connectionMode !== "proxyCommand"')
+                .mb-3(*ngIf='connectionMode !== "proxyCommand"')
                     label(translate) Port
                     input.form-control(
                         type='number',
@@ -57,7 +57,7 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
                         [(ngModel)]='profile.options.port',
                     )
 
-            .form-group(*ngIf='connectionMode === "jumpHost"')
+            .mb-3(*ngIf='connectionMode === "jumpHost"')
                 label(translate) Jump host
                 select.form-control([(ngModel)]='profile.options.jumpHost')
                     option([ngValue]='null', translate) Select
@@ -65,14 +65,14 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
 
 
             .d-flex.w-100(*ngIf='connectionMode === "socksProxy"')
-                .form-group.w-100.mr-2
+                .mb-3.w-100.me-2
                     label(translate) SOCKS proxy host
                     input.form-control(
                         type='text',
                         [(ngModel)]='profile.options.socksProxyHost',
                     )
 
-                .form-group
+                .mb-3
                     label(translate) SOCKS proxy port
                     input.form-control(
                         type='number',
@@ -81,14 +81,14 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
                     )
 
             .d-flex.w-100(*ngIf='connectionMode === "httpProxy"')
-                .form-group.w-100.mr-2
+                .mb-3.w-100.me-2
                     label(translate) HTTP proxy host
                     input.form-control(
                         type='text',
                         [(ngModel)]='profile.options.httpProxyHost',
                     )
 
-                .form-group
+                .mb-3
                     label(translate) HTTP proxy port
                     input.form-control(
                         type='number',
@@ -96,7 +96,7 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
                         [(ngModel)]='profile.options.httpProxyPort',
                     )
 
-            .form-group
+            .mb-3
                 label(translate) Username
                 input.form-control(
                     type='text',
@@ -104,31 +104,66 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
                     [(ngModel)]='profile.options.user',
                 )
 
-            .form-group
+            .mb-3
                 label(translate) Authentication method
 
-                .btn-group.mt-1.w-100(
-                    [(ngModel)]='profile.options.auth',
-                    ngbRadioGroup
-                )
-                    label.btn.btn-secondary(ngbButtonLabel)
-                        input(type='radio', ngbButton, [value]='null')
+                .btn-group.mt-1.w-100
+                    input.btn-check(
+                        type='radio',
+                        name='auth',
+                        [(ngModel)]='profile.options.auth',
+                        id='authAuto',
+                        [value]='null'
+                    )
+                    label.btn.btn-secondary(
+                        for='authAuto'
+                    )
                         i.far.fa-lightbulb
                         .m-0(translate) Auto
-                    label.btn.btn-secondary(ngbButtonLabel)
-                        input(type='radio', ngbButton, [value]='"password"')
+                    input.btn-check(
+                        type='radio',
+                        name='auth',
+                        [(ngModel)]='profile.options.auth',
+                        id='authPassword',
+                        [value]='"password"'
+                    )
+                    label.btn.btn-secondary(
+                        for='authPassword'
+                    )
                         i.fas.fa-font
                         .m-0(translate) Password
-                    label.btn.btn-secondary(ngbButtonLabel)
-                        input(type='radio', ngbButton, [value]='"publicKey"')
+                    input.btn-check(
+                        type='radio',
+                        name='auth',
+                        [(ngModel)]='profile.options.auth',
+                        id='authPublicKey',
+                        [value]='"publicKey"'
+                    )
+                    label.btn.btn-secondary(
+                        for='authPublicKey'
+                    )
                         i.fas.fa-key
                         .m-0(translate) Key
-                    label.btn.btn-secondary(ngbButtonLabel, ng:if='hostApp.platform !== Platform.Web')
-                        input(type='radio', ngbButton, [value]='"agent"')
+                    input.btn-check(
+                        type='radio',
+                        name='auth',
+                        [(ngModel)]='profile.options.auth',
+                        id='authAgent',
+                        [value]='"agent"'
+                    )
+                    label.btn.btn-secondary(
+                        for='authAgent'
+                    , ng:if='hostApp.platform !== Platform.Web')
                         i.fas.fa-user-secret
                         .m-0(translate) Agent
+                    input.btn-check(
+                        type='radio',
+                        name='auth',
+                        [(ngModel)]='profile.options.auth',
+                        id='auth"keyboardInteractive"'
+                        [value]='"keyboardInteractive"'
+                    )
                     label.btn.btn-secondary(ngbButtonLabel)
-                        input(type='radio', ngbButton, [value]='"keyboardInteractive"')
                         i.far.fa-keyboard
                         .m-0(translate) Interactive
 
@@ -137,19 +172,19 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
                     .title(translate) Password
                     .description(*ngIf='!hasSavedPassword', translate) Save a password in the keychain
                     .description(*ngIf='hasSavedPassword', translate) There is a saved password for this connection
-                button.btn.btn-success.ml-4(*ngIf='!hasSavedPassword', (click)='setPassword()')
+                button.btn.btn-success.ms-4(*ngIf='!hasSavedPassword', (click)='setPassword()')
                     i.fas.fa-key
                     span(translate) Set password
-                button.btn.btn-danger.ml-4(*ngIf='hasSavedPassword', (click)='clearSavedPassword()')
+                button.btn.btn-danger.ms-4(*ngIf='hasSavedPassword', (click)='clearSavedPassword()')
                     i.fas.fa-trash-alt
                     span(translate) Forget
 
-            .form-group(*ngIf='!profile.options.auth || profile.options.auth === "publicKey"')
+            .mb-3(*ngIf='!profile.options.auth || profile.options.auth === "publicKey"')
                 label(translate) Private keys
                 .list-group.mb-2
-                    .list-group-item.d-flex.align-items-center.p-1.pl-3(*ngFor='let path of profile.options.privateKeys')
+                    .list-group-item.d-flex.align-items-center.p-1.ps-3(*ngFor='let path of profile.options.privateKeys')
                         i.fas.fa-key
-                        .no-wrap.mr-auto {{path}}
+                        .no-wrap.me-auto {{path}}
                         button.btn.btn-link((click)='removePrivateKey(path)')
                             i.fas.fa-trash
                 button.btn.btn-secondary((click)='addPrivateKey()')
@@ -249,7 +284,7 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
                         checkbox([text]='alg', [(ngModel)]='algorithms.serverHostKey[alg]')
 
     li(ngbNavItem)
-        a(ngbNavLink, translate) Color scheme
+        a(ngbNavLink, translate) Colors
         ng-template(ngbNavContent)
             color-scheme-selector([(model)]='profile.terminalColorScheme')
 

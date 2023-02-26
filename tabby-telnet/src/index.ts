@@ -32,10 +32,6 @@ import { TelnetProfilesService } from './profiles'
         { provide: HotkeyProvider, useClass: TelnetHotkeyProvider, multi: true },
         { provide: ProfileProvider, useExisting: TelnetProfilesService, multi: true },
     ],
-    entryComponents: [
-        TelnetProfileSettingsComponent,
-        TelnetTabComponent,
-    ],
     declarations: [
         TelnetProfileSettingsComponent,
         TelnetTabComponent,

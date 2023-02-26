@@ -37,17 +37,19 @@
   "optionalDependencies": {
     "@tabby-gang/windows-blurbehind": "^3.0.0",
     "macos-native-processlist": "^2.1.0",
+    "patch-package": "^6.5.0",
     "serialport": "10.5.0",
     "serialport-binding-webserialapi": "^1.0.3",
     "windows-native-registry": "^3.2.1",
-    "windows-process-tree": "^0.3.4",
-    "patch-package": "^6.5.0"
+    "windows-process-tree": "^0.3.4"
   },
   "devDependencies": {
+    "@ngx-translate/core": "^14.0.0",
     "@types/mz": "2.7.4",
-    "@types/node": "18.7.23",
+    "@types/node": "18.11.19",
     "atomically": "^1.7.0",
-    "ngx-filesize": "^2.0.16"
+    "filesize": "^9",
+    "ngx-filesize": "^3.0.1"
   },
   "peerDependencies": {
     "tabby-community-color-schemes": "*",

@@ -7,8 +7,8 @@ import deepEqual from 'deep-equal'
 /** @hidden */
 @Component({
     selector: 'multi-hotkey-input',
-    template: require('./multiHotkeyInput.component.pug'),
-    styles: [require('./multiHotkeyInput.component.scss')],
+    templateUrl:'./multiHotkeyInput.component.pug',
+    styleUrls: ['./multiHotkeyInput.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MultiHotkeyInputComponent {
@@ -45,4 +45,7 @@ export class MultiHotkeyInputComponent {
     private storeUpdatedHotkeys () {
         this.hotkeysChange.emit(this.hotkeys)
     }
+
+    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+    protected castAny = (x: any): any => x
 }

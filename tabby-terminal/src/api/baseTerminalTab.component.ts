@@ -1,9 +1,9 @@
 import { Observable, Subject, first, auditTime } from 'rxjs'
 import { Spinner } from 'cli-spinner'
 import colors from 'ansi-colors'
-import { NgZone, OnInit, OnDestroy, Injector, ViewChild, HostBinding, Input, ElementRef, InjectFlags } from '@angular/core'
+import { NgZone, OnInit, OnDestroy, Injector, ViewChild, HostBinding, Input, ElementRef, InjectFlags, Component } from '@angular/core'
 import { trigger, transition, style, animate, AnimationTriggerMetadata } from '@angular/animations'
-import { AppService, ConfigService, BaseTabComponent, HostAppService, HotkeysService, NotificationsService, Platform, LogService, Logger, TabContextMenuItemProvider, SplitTabComponent, SubscriptionContainer, MenuItemOptions, PlatformService, HostWindowService, ResettableTimeout, TranslateService } from 'tabby-core'
+import { AppService, ConfigService, BaseTabComponent, HostAppService, HotkeysService, NotificationsService, Platform, LogService, Logger, TabContextMenuItemProvider, SplitTabComponent, SubscriptionContainer, MenuItemOptions, PlatformService, HostWindowService, ResettableTimeout, TranslateService, ThemesService } from 'tabby-core'
 
 import { BaseSession } from '../session'
 
@@ -17,6 +17,7 @@ import { MultifocusService } from '../services/multifocus.service'
 /**
  * A class to base your custom terminal tabs on
  */
+@Component({ template: '' })
 export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends BaseTabComponent implements OnInit, OnDestroy {
     static template: string = require<string>('../components/baseTerminalTab.component.pug')
     static styles: string[] = [require<string>('../components/baseTerminalTab.component.scss')]
@@ -121,6 +122,7 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
     protected hostWindow: HostWindowService
     protected translate: TranslateService
     protected multifocus: MultifocusService
+    protected themes: ThemesService
     // Deps end
 
     protected logger: Logger
@@ -193,6 +195,7 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
         this.hostWindow = injector.get(HostWindowService)
         this.translate = injector.get(TranslateService)
         this.multifocus = injector.get(MultifocusService)
+        this.themes = injector.get(ThemesService)
 
         this.logger = this.log.create('baseTerminalTab')
         this.setTitle(this.translate.instant('Terminal'))
@@ -512,7 +515,7 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
     configure (): void {
         this.frontend?.configure(this.profile)
 
-        if (this.config.store.terminal.background === 'colorScheme') {
+        if (!this.themes.findCurrentTheme().followsColorScheme && this.config.store.terminal.background === 'colorScheme') {
             const scheme = this.profile.terminalColorScheme ?? this.config.store.terminal.colorScheme
             if (scheme.background) {
                 this.backgroundColor = scheme.background
@@ -666,9 +669,9 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
                 let wheelDeltaY = 0
 
                 if ('wheelDeltaY' in event) {
-                    wheelDeltaY = (event as WheelEvent)['wheelDeltaY']
+                    wheelDeltaY = (event as unknown as WheelEvent)['wheelDeltaY']
                 } else {
-                    wheelDeltaY = (event as WheelEvent).deltaY
+                    wheelDeltaY = (event as unknown as WheelEvent).deltaY
                 }
 
                 if (event.altKey) {

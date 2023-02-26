@@ -3,8 +3,8 @@ appId: org.tabby
 productName: Tabby
 compression: normal
 npmRebuild: false
-afterSign: "./build/mac/afterSignHook.js"
-afterAllArtifactBuild: "./build/mac/afterBuildHook.js"
+afterSign: "./build/mac/afterSignHook.cjs"
+afterAllArtifactBuild: "./build/mac/afterBuildHook.cjs"
 files:
 - '**/*'
 - dist

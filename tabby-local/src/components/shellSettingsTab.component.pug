@@ -11,7 +11,7 @@ h3.mb-3(translate) Shell
     )
 
 .alert.alert-info.d-flex.align-items-center(*ngIf='config.store.terminal.useConPTY && isConPTYAvailable && !isConPTYStable')
-    .mr-auto(translate) Windows 10 build 18309 or above is recommended for ConPTY
+    .me-auto(translate) Windows 10 build 18309 or above is recommended for ConPTY
 
 .alert.alert-info.d-flex.align-items-center(*ngIf='config.store.terminal.profile.startsWith("WSL") && (!config.store.terminal.useConPTY)')
-    .mr-auto(translate) WSL terminal only supports TrueColor with ConPTY
+    .me-auto(translate) WSL terminal only supports TrueColor with ConPTY

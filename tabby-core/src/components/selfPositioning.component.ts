@@ -1,11 +1,12 @@
-import { HostBinding, ElementRef } from '@angular/core'
+import { HostBinding, ElementRef, Component } from '@angular/core'
 import { BaseComponent } from './base.component'
 
+@Component({})
 export abstract class SelfPositioningComponent extends BaseComponent {
-    @HostBinding('style.left') cssLeft: string
-    @HostBinding('style.top') cssTop: string
-    @HostBinding('style.width') cssWidth: string | null
-    @HostBinding('style.height') cssHeight: string | null
+    @HostBinding('style.left') cssLeft = ''
+    @HostBinding('style.top') cssTop = ''
+    @HostBinding('style.width') cssWidth: string | null = null
+    @HostBinding('style.height') cssHeight: string | null = null
 
     constructor (protected element: ElementRef) { super() }
 

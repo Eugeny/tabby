@@ -39,8 +39,10 @@ async function bootstrap (bootstrapData: BootstrapData, plugins: PluginInfo[], s
     const pluginModules = await loadPlugins(plugins, (current, total) => {
         (document.querySelector('.progress .bar') as HTMLElement).style.width = `${100 * current / total}%` // eslint-disable-line
     })
+
+    window['pluginModules'] = pluginModules
+
     const module = getRootModule(pluginModules)
-    window['rootModule'] = module
     const moduleRef = await platformBrowserDynamic([
         { provide: BOOTSTRAP_DATA, useValue: bootstrapData },
     ]).bootstrapModule(module)
