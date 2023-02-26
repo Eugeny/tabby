@@ -365,7 +365,7 @@ export class XTermFrontend extends Frontend {
             foreground: scheme!.foreground,
             selectionBackground: scheme!.selection ?? '#88888888',
             selectionForeground: scheme!.selectionForeground ?? undefined,
-            background: (!this.themes.findCurrentTheme().followsColorScheme && config.terminal.background === 'colorScheme') ? scheme!.background : '#00000000',
+            background: !this.themes.findCurrentTheme().followsColorScheme && config.terminal.background === 'colorScheme' ? scheme!.background : '#00000000',
             cursor: scheme!.cursor,
             cursorAccent: scheme!.cursorAccent,
         }
