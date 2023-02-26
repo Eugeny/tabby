@@ -294,9 +294,9 @@ minimist@^1.2.6:
   integrity sha512-bzfL1YUZsP41gmu/qjrEk0Q6i2ix/cVeAhbCbqH9u3zYutS1cLg00qhrD0M2MVdCcx4Sc0UpP2eBWo9rotpq6g==
 
 ngx-colors@^3.4.0:
-  version "3.4.0"
-  resolved "https://registry.yarnpkg.com/ngx-colors/-/ngx-colors-3.4.0.tgz#522d37563202053bd5b68ce8726afbfddf2f83a5"
-  integrity sha512-aJBpOC7t6DUDcEfkyFo6+6JzdHH82hCuj+zdqAmdrFTMyOVFZCw0FhCfcEuQRNsR1yYtyMRhSs6zUXr7oTiNlw==
+  version "3.5.0"
+  resolved "https://registry.yarnpkg.com/ngx-colors/-/ngx-colors-3.5.0.tgz#6ffcc1edb3969329b4c4fff055f57a9d1a37c1ba"
+  integrity sha512-8aOpSuTCvxOe2sJiDLeiUgJgw5jrzI7D+4XZ88QeKK/+fAM1QHji+C8Zg8n3QH6SG4IdlZufE3tOC0VaKlMMvQ==
   dependencies:
     tslib "^2.0.0"
 
