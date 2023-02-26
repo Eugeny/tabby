@@ -38,10 +38,10 @@ sftp-panel.bg-dark(
     @panelSlide,
     [@.disabled]='!config.store.accessibility.animations',
     [(path)]='sftpPath',
-    *ngIf='sftpPanelVisible',
+    *ngIf='sftpPanelVisible && sshSession',
     (click)='$event.stopPropagation()',
-    [session]='sshSession',
-    [cwdDetectionAvailable]='session?.supportsWorkingDirectory()',
+    [session]='sshSession!',
+    [cwdDetectionAvailable]='session?.supportsWorkingDirectory() ?? false',
     (closed)='sftpPanelVisible = false'
 )
 
@@ -49,5 +49,5 @@ keyboard-interactive-auth-panel.bg-dark(
     *ngIf='activeKIPrompt',
     [prompt]='activeKIPrompt',
     (click)='$event.stopPropagation()',
-    (done)='activeKIPrompt = null; frontend.focus()'
+    (done)='activeKIPrompt = null; frontend?.focus()'
 )

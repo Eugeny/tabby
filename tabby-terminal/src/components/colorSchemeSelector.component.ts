@@ -11,7 +11,7 @@ _('Search color schemes')
 /** @hidden */
 @Component({
     selector: 'color-scheme-selector',
-    templateUrl:'./colorSchemeSelector.component.pug',
+    templateUrl: './colorSchemeSelector.component.pug',
     styles: [`
         :host {
             display: block;
@@ -25,8 +25,8 @@ export class ColorSchemeSelectorComponent {
     allColorSchemes: TerminalColorScheme[] = []
     filter = ''
 
-    @Input() model: TerminalColorScheme|null = null
-    @Output() modelChange = new EventEmitter<TerminalColorScheme|null>()
+    @Input() model?: TerminalColorScheme
+    @Output() modelChange = new EventEmitter<TerminalColorScheme|undefined>()
 
     @HostBinding('class.content-box') true
 
@@ -45,7 +45,7 @@ export class ColorSchemeSelectorComponent {
         this.changeDetector.markForCheck()
     }
 
-    selectScheme (scheme: TerminalColorScheme|null) {
+    selectScheme (scheme: TerminalColorScheme|undefined) {
         this.model = scheme
         this.modelChange.emit(scheme)
         this.changeDetector.markForCheck()

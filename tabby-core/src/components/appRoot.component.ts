@@ -79,8 +79,8 @@ export class AppRootComponent {
 
     constructor (
         private hotkeys: HotkeysService,
-        private updater: UpdaterService,
         private commands: CommandService,
+        public updater: UpdaterService,
         public hostWindow: HostWindowService,
         public hostApp: HostAppService,
         public config: ConfigService,

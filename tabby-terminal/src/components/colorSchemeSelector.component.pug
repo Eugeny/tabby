@@ -1,9 +1,9 @@
 .head
-    .bg-dark.p-3.mb-4(*ngIf='model != null')
+    .bg-dark.p-3.mb-4(*ngIf='model != undefined')
         .d-flex.align-items-center
             span {{model.name}}
             .me-auto
-            a.btn-link((click)='selectScheme(null); $event.preventDefault()', href='#', translate) Clear
+            a.btn-link((click)='selectScheme(undefined); $event.preventDefault()', href='#', translate) Clear
 
         color-scheme-preview([scheme]='model')
 

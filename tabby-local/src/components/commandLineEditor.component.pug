@@ -13,7 +13,7 @@ ng-container(*ngIf='!argvMode')
                 (ngModelChange)='parseCommand()'
             )
 
-ng-container(*ngIf='argvMode')
+ng-container(*ngIf='argvMode && _model')
     .mb-3
         label(translate) Program
         .input-group
@@ -28,7 +28,7 @@ ng-container(*ngIf='argvMode')
                 [(ngModel)]='_model.command',
             )
 
-    .mb-3
+    .mb-3(*ngIf='_model.args')
         label(translate) Arguments
         .input-group(
             *ngFor='let arg of _model.args; index as i; trackBy: trackByIndex',

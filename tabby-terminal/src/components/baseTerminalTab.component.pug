@@ -1,11 +1,11 @@
 .terminal-toolbar-spacer
 .content(#content, [style.opacity]='frontendIsReady ? 1 : 0')
 search-panel(
-    *ngIf='showSearchPanel && hasFocus',
+    *ngIf='showSearchPanel && hasFocus && frontend',
     @toolbarSlide,
     [@.disabled]='!config.store.accessibility.animations',
     [frontend]='frontend',
-    (close)='showSearchPanel = false; frontend?.cancelSearch()'
+    (close)='showSearchPanel = false; frontend.cancelSearch()'
 )
 
 button.btn.btn-sm.btn-link.toolbar-pin-button(

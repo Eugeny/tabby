@@ -60,4 +60,12 @@ export class StreamProcessingSettingsComponent {
     getOutputModeName (key) {
         return this.outputModes.find(x => x.key === key)?.name
     }
+
+    setInputMode (mode) {
+        this.options.inputMode = mode
+    }
+
+    setOutputMode (mode) {
+        this.options.outputMode = mode
+    }
 }

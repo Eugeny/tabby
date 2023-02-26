@@ -62,7 +62,7 @@
                 *ngFor='let _ of config.store.terminal.colorScheme.colors; let idx = index; trackBy: colorsTrackBy',
                 [(model)]='config.store.terminal.colorScheme.colors[idx]',
                 (modelChange)='config.save()',
-                [title]='idx',
+                [title]='idx.toString()',
                 hint='ANSI color {{idx}}'
             )
 

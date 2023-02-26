@@ -185,6 +185,7 @@ h3.mt-4(translate) Docking
         label.btn.btn-secondary(id='dockScreenCurrent')
             span(translate) Current
         input.btn-check(
+            *ngFor='let screen of screens',
             type='radio',
             name='dockScreen',
             [(ngModel)]='config.store.appearance.dockScreen',

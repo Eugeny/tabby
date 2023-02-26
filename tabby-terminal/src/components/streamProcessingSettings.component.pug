@@ -10,7 +10,7 @@
         div(ngbDropdownMenu)
             a.d-flex.flex-column(
                 *ngFor='let mode of inputModes',
-                (click)='options.inputMode = mode.key',
+                (click)='setInputMode(mode.key)',
                 ngbDropdownItem
             )
                 div {{mode.name|translate}}
@@ -37,7 +37,7 @@
         div(ngbDropdownMenu)
             a.d-flex.flex-column(
                 *ngFor='let mode of outputModes',
-                (click)='options.outputMode = mode.key',
+                (click)='setOutputMode(mode.key)',
                 ngbDropdownItem
             )
                 div {{mode.name|translate}}

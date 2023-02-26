@@ -195,6 +195,7 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
         a(ngbNavLink, translate) Ports
         ng-template(ngbNavContent)
             ssh-port-forwarding-config(
+                *ngIf='profile.options.forwardedPorts',
                 [model]='profile.options.forwardedPorts',
                 (forwardAdded)='onForwardAdded($event)',
                 (forwardRemoved)='onForwardRemoved($event)'

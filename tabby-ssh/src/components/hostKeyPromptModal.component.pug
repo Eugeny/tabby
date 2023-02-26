@@ -10,7 +10,7 @@
         .d-flex.align-items-center
             label(translate) Last known host key fingerprint
             .badge.text-bg-danger.ms-auto {{ selector.type }}
-        code {{knownHost.digest}}
+        code {{knownHost?.digest}}
 
     .mb-3
         .d-flex.align-items-center

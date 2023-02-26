@@ -32,6 +32,8 @@ export class PluginsSettingsTabComponent {
     @HostBinding('class.content-box') true
 
     installedPlugins$: PluginInfo[] = []
+    installedFilter = ''
+    availableFilter = ''
 
     constructor (
         private config: ConfigService,

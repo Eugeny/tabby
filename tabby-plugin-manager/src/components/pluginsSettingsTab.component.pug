@@ -21,8 +21,8 @@ ul.nav-tabs.mb-2(ngbNav, #nav='ngbNav')
                     i.fas.fa-fw.fa-search(*ngIf='availablePluginsReady')
                 input.form-control(
                     type='text',
-                    [(ngModel)]='_1',
-                    (ngModelChange)='searchAvailable(_1)',
+                    [(ngModel)]='availableFilter',
+                    (ngModelChange)='searchAvailable(availableFilter)',
                     [placeholder]='"Search plugins"|translate'
                 )
 
@@ -64,8 +64,8 @@ ul.nav-tabs.mb-2(ngbNav, #nav='ngbNav')
                     i.fas.fa-fw.fa-search
                 input.form-control(
                     type='text',
-                    [(ngModel)]='_2',
-                    (ngModelChange)='searchInstalled(_2)',
+                    [(ngModel)]='installedFilter',
+                    (ngModelChange)='searchInstalled(installedFilter)',
                     [placeholder]='"Search plugins"|translate'
                 )
 
@@ -89,7 +89,7 @@ ul.nav-tabs.mb-2(ngbNav, #nav='ngbNav')
                                 i.fas.fa-fw.fa-circle-notch.fa-spin(*ngIf='busy.get(plugin.name) == BusyState.Installing')
                                 span(
                                     translate='Upgrade to {version}',
-                                    [translateParams]='{version: knownUpgrades[plugin.name].version}'
+                                    [translateParams]='{version: knownUpgrades[plugin.name]?.version}'
                                 )
 
                         ng-template(ngbPanelContent)
