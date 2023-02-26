@@ -95,7 +95,7 @@
   "resolutions": {
     "*/pug": "^3",
     "lzma-native": "^8.0.0",
-    "*/node-abi": "^3.25.0",
+    "*/node-abi": "^3.33.0",
     "**/graceful-fs": "^4.2.4"
   },
   "scripts": {
