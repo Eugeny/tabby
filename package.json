@@ -10,7 +10,7 @@
     "@angular/platform-browser": "^15.1.3",
     "@angular/platform-browser-dynamic": "^15.1.3",
     "@biesbjerg/ngx-translate-extract-marker": "^1.0.0",
-    "@fortawesome/fontawesome-free": "^6.2.0",
+    "@fortawesome/fontawesome-free": "^6.3.0",
     "@ng-bootstrap/ng-bootstrap": "^14.0.1",
     "@ngtools/webpack": "^15.1.4",
     "@popperjs/core": "^2.11.6",
