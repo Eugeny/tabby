@@ -72,4 +72,4 @@ const config = {
     externals,
 }
 
-export default config
+export default () => config
