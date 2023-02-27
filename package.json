@@ -43,7 +43,7 @@
     "electron-installer-snap": "^5.1.0",
     "electron-notarize": "^1.2.2",
     "electron-rebuild": "^3.2.9",
-    "eslint": "^8.29.0",
+    "eslint": "^8.35.0",
     "eslint-import-resolver-typescript": "^3.5.2",
     "eslint-plugin-import": "^2.26.0",
     "file-loader": "^6.2.0",
