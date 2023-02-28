@@ -25,7 +25,7 @@
     "@types/node": "16.0.1",
     "@types/webpack-env": "^1.18.0",
     "@typescript-eslint/eslint-plugin": "^5.45.0",
-    "@typescript-eslint/parser": "^5.45.0",
+    "@typescript-eslint/parser": "^5.54.0",
     "apply-loader": "2.0.0",
     "axios": "^0.27.2",
     "babel-loader": "^9.1.2",
