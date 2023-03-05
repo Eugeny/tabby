@@ -132,7 +132,7 @@ export class SerialSession extends BaseSession {
     }
 
     write (data: Buffer): void {
-        this.serial?.write(data.toString())
+        this.serial?.write(data)
     }
 
     async destroy (): Promise<void> {
