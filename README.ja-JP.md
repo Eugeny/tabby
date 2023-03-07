@@ -311,6 +311,7 @@ Windows上では、`Tabby.exe`がある場所と同じ場所に`data`フォル�
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/Clem-Fern"><img src="https://avatars.githubusercontent.com/u/20025949?v=4?s=100" width="100px;" alt="Clem"/><br /><sub><b>Clem</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=Clem-Fern" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/elizabeth-dev"><img src="https://avatars.githubusercontent.com/u/13015727?v=4?s=100" width="100px;" alt="Elizabeth Martín Campos"/><br /><sub><b>Elizabeth Martín Campos</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=elizabeth-dev" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/siccous"><img src="https://avatars.githubusercontent.com/u/7812885?v=4?s=100" width="100px;" alt="Tomáš Hruška"/><br /><sub><b>Tomáš Hruška</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=siccous" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/karaketir16"><img src="https://avatars.githubusercontent.com/u/27349806?v=4?s=100" width="100px;" alt="Osman Karaketir"/><br /><sub><b>Osman Karaketir</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=karaketir16" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>
