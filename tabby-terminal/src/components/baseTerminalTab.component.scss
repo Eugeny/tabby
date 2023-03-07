@@ -10,7 +10,7 @@
         position: relative;
         display: block;
         overflow: hidden;
-        margin: 15px;
+        margin: calc(max(0px, 30px * var(--spaciness) - 15px));
         transition: opacity ease-out 0.25s;
         opacity: 0;
 

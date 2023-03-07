@@ -10,11 +10,12 @@
     cursor: default;
     animation: 0.5s ease-out fadeIn;
     transition: 0.25s background;
+
+    --tabs-height: calc(38px * var(--spaciness));
+    --side-tab-width: calc(200px * var(--spaciness));
 }
 
-$tabs-height: 38px;
 $tab-border-radius: 4px;
-$side-tab-width: 200px;
 
 .wrap {
   display: flex;
@@ -46,19 +47,19 @@ $side-tab-width: 200px;
 
 .content.tabs-on-side > .tab-bar {
     height: 100%;
-    width: $side-tab-width;
+    width: var(--side-tab-width);
     overflow-y: auto;
     overflow-x: hidden;
     flex-direction: column;
     background: rgba(0, 0, 0, 0.25);
 
     .tabs {
-        width: $side-tab-width;
+        width: var(--side-tab-width);
         flex: none;
         flex-direction: column;
 
         tab-header {
-            flex: 0 0 $tabs-height;
+            flex: 0 0 var(--tabs-height);
         }
     }
 
@@ -69,18 +70,22 @@ $side-tab-width: 200px;
     &>.inset {
         opacity: 0;
     }
+
+    ::ng-deep tab-header {
+        width: 100% !important;
+    }
 }
 
 
 .tab-bar {
     flex: none;
-    height: $tabs-height;
+    height: var(--tabs-height);
     display: flex;
     width: 100%;
 
     .btn-tab-bar {
-        line-height: $tabs-height + 2px;
-        height: $tabs-height;
+        line-height: calc(var(--tabs-height) + 2px);
+        height: var(--tabs-height);
         cursor: pointer;
 
         display: flex;
@@ -122,8 +127,8 @@ $side-tab-width: 200px;
     }
 
     & > .inset {
-        width: 85px;
-        height: $tabs-height;
+        width: calc(70px + 15px * var(--spaciness));
+        height: var(--tabs-height);
         flex: none;
         -webkit-app-region: drag;
     }
@@ -170,16 +175,10 @@ hotkey-hint {
 
 ::ng-deep .btn-tab-bar svg,
 ::ng-deep .btn-tab-bar + .dropdown-menu svg {
-    width: 22px;
-    height: 16px;
+    width: calc(22px * var(--spaciness));
+    height: calc(16px * var(--spaciness));
     fill: white;
     fill-opacity: 0.75;
-}
-
-.icon-wrapper {
-    display: flex;
-    width: 16px;
-    height: 17px;
 }
 
 ::ng-deep .btn-update svg {

@@ -9,6 +9,18 @@ h3.mb-3(translate) Window
     )
         option(*ngFor='let theme of themes', [ngValue]='theme.name') {{theme.name}}
 
+.form-line
+    .header
+        .title(translate) Spaciness
+        .description(translate) Controls the amount of space between elements
+    input(
+        type='range',
+        [(ngModel)]='config.store.appearance.spaciness',
+        (mouseup)='saveConfiguration()',
+        min='0.6',
+        max='1.4',
+        step='0.1'
+    )
 
 .form-line(*ngIf='hostApp.platform === Platform.Web')
     .header

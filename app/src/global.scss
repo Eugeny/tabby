@@ -1,3 +1,7 @@
+html {
+    --spaciness: 1;
+}
+
 body {
     min-height: 100vh;
     overflow: hidden;
@@ -21,8 +25,8 @@ a, button {
 
         & > svg {
             pointer-events: none;
-            width: 16px;
-            height: 16px;
+            // width: 16px;
+            // height: 16px;
         }
     }
 }

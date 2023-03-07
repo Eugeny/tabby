@@ -35,7 +35,7 @@ $tabs-height: 38px;
         -webkit-app-region: no-drag;
         cursor: -webkit-grab;
 
-        width: 22px;
+        width: calc(22px * var(--spaciness));
         border-radius: 10px;
         text-align: center;
         transition: 0.25s all;
