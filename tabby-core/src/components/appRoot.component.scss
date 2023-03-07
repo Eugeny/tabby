@@ -118,8 +118,11 @@ $tab-border-radius: 4px;
     &>.drag-space {
         min-width: 1px;
         flex: 1 0 1%;
-        margin-top: 2px; // for window resizing
         -webkit-app-region: drag;
+
+        .tabs-on-top & {
+            margin-top: 2px; // for window resizing
+        }
 
         &.persistent {
           min-width: 72px; // 2 x 36 px height, ie 2 squares
