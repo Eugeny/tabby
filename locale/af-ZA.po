@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Afrikaans\n"
 "Language: af_ZA\n"
-"PO-Revision-Date: 2023-02-06 19:58\n"
+"PO-Revision-Date: 2023-03-17 23:07\n"
 
 #: tabby-local/src/components/terminalTab.component.ts:112
 msgid "\"{command}\" is still running. Close?"
@@ -256,7 +256,7 @@ msgstr "Syfers"
 
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSelector.component.html:5
 msgid "Clear"
-msgstr ""
+msgstr "Opruim"
 
 #: tabby-core/src/services/profiles.service.ts:133
 msgid "Clear recent profiles"
@@ -340,7 +340,7 @@ msgstr "Kompak"
 
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:126
 msgid "Config deleted"
-msgstr ""
+msgstr "Opstelling geskrap"
 
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:108
 msgid "Config downloaded"

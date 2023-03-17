@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2023-02-06 19:58\n"
+"PO-Revision-Date: 2023-03-17 23:07\n"
 
 #: tabby-local/src/components/terminalTab.component.ts:112
 msgid "\"{command}\" is still running. Close?"
@@ -256,7 +256,7 @@ msgstr "Chiffrement"
 
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSelector.component.html:5
 msgid "Clear"
-msgstr ""
+msgstr "Effacer"
 
 #: tabby-core/src/services/profiles.service.ts:133
 msgid "Clear recent profiles"
@@ -268,7 +268,7 @@ msgstr "Effacer le terminal"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:49
 msgid "Clear terminal after connection"
-msgstr ""
+msgstr "Effacer le terminal après la connexion"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:94
 msgid "Clipboard"
@@ -340,7 +340,7 @@ msgstr "Compact"
 
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:126
 msgid "Config deleted"
-msgstr ""
+msgstr "Configuration supprimée"
 
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:108
 msgid "Config downloaded"
@@ -410,7 +410,7 @@ msgstr "Copié"
 
 #: tabby-terminal/src/tabContextMenu.ts:26
 msgid "Copy"
-msgstr "Copie"
+msgstr "Copier"
 
 #: tabby-terminal/src/hotkeys.ts:70
 #: tabby-terminal/src/tabContextMenu.ts:66
@@ -419,7 +419,7 @@ msgstr "Copier le chemin actuel"
 
 #: tabby-electron/src/sftpContextMenu.ts:29
 msgid "Copy full path"
-msgstr ""
+msgstr "Copier le chemin complet"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:97
 msgid "Copy on select"
@@ -545,7 +545,7 @@ msgstr "Supprimer le mot précédent"
 
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:114
 msgid "Delete the config on the remote side?"
-msgstr ""
+msgstr "Supprimer la configuration du côté distant ?"
 
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:214
 msgid "Delete the group's profiles?"
@@ -982,7 +982,7 @@ msgstr "Raccourcis clavier"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:71
 msgid "How Tabby presents itself through environment vars"
-msgstr ""
+msgstr "Comment Tabby se présente à travers les variables d'environnement"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:24
 msgid "HTTP proxy"
@@ -2127,7 +2127,7 @@ msgstr "Bip du terminal"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:70
 msgid "Terminal identification"
-msgstr ""
+msgstr "Identification du terminal"
 
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:7
 msgid "Thank you for downloading Tabby!"

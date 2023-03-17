@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Chinese Traditional\n"
 "Language: zh_TW\n"
-"PO-Revision-Date: 2023-02-20 10:39\n"
+"PO-Revision-Date: 2023-03-17 23:07\n"
 
 #: tabby-local/src/components/terminalTab.component.ts:112
 msgid "\"{command}\" is still running. Close?"
@@ -23,7 +23,7 @@ msgstr "{name} 複製"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:82
 msgid "A second font family used to display characters missing in the main font"
-msgstr "第二個字體系列，用於顯示主字體中缺少的字元"
+msgstr "備用字型用於顯示主字型中缺少的字元"
 
 #: tabby-core/src/components/transfersMenu.component.ts:49
 msgid "Abort all"
@@ -52,11 +52,11 @@ msgstr "新增"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:16
 msgid "Add a port forward"
-msgstr "新增埠轉送"
+msgstr "新增通訊埠轉送"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:115
 msgid "Add a private key"
-msgstr "添加私密金鑰"
+msgstr "新增私鑰"
 
 #: locale/tmp-html/tabby-settings/src/components/multiHotkeyInput.component.html:8
 msgid "Add..."
@@ -328,7 +328,7 @@ msgstr "指令行"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:13
 msgid "Command's stdin/stdout is used instead of a network connection"
-msgstr "使用 stdin/stdout 指令代替網絡連接"
+msgstr "使用 stdin/stdout 指令代替網絡連線"
 
 #: tabby-core/src/services/commands.service.ts:104
 msgid "Commands"
@@ -366,7 +366,7 @@ msgstr "設定"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:21
 msgid "Connect through a proxy server"
-msgstr "通過代理伺服器連接"
+msgstr "通過代理伺服器連線"
 
 #: tabby-core/src/index.ts:227
 #: tabby-core/src/services/profiles.service.ts:178
@@ -375,7 +375,7 @@ msgstr "正在連線到 \"%s\"..."
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:17
 msgid "Connect to a different host first and use it as a proxy"
-msgstr "先連到其它主機並將其作為代理伺服器"
+msgstr "先連線到其它主機並將其作為代理伺服器"
 
 #: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:19
 #: tabby-serial/src/components/serialTab.component.ts:66
@@ -386,7 +386,7 @@ msgstr "正在連線"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:7
 msgid "Connection"
-msgstr "連接"
+msgstr "連線"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:30
 msgid "Connection failed: {error}"
@@ -394,7 +394,7 @@ msgstr "連線失敗: {error}"
 
 #: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:42
 msgid "Connection name will be used instead"
-msgstr "將改用連接名替换"
+msgstr "連線名稱將被使用"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:61
 msgid "Context menu"
@@ -581,7 +581,7 @@ msgstr "停用動態分頁標題"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:229
 msgid "Disable fluent background while dragging"
-msgstr "拖動時禁用 fluent 背景"
+msgstr "拖曳時停用 fluent 背景"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:215
 msgid "Disable GPU acceleration"
@@ -600,11 +600,11 @@ msgstr "中斷連線"
 #: tabby-ssh/src/components/sshTab.component.ts:244
 #: tabby-telnet/src/components/telnetTab.component.ts:113
 msgid "Disconnect from {host}?"
-msgstr "與 {host} 斷開連接嗎?"
+msgstr "與 {host} 中斷連線嗎?"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:30
 msgid "Display images via Sixel escape sequences"
-msgstr "通過六像素轉義序列顯示圖像"
+msgstr "透過Sixel跳脫序列顯示圖片"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:88
 msgid "Display on"
@@ -708,7 +708,7 @@ msgstr "啟用合字"
 
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:26
 msgid "Enable global hotkey (Ctrl-Space)"
-msgstr "啟用全域快捷鍵 (Ctrl+Space)"
+msgstr "啟用全域快速鍵 (Ctrl+Space)"
 
 #: locale/tmp-html/tabby-local/src/components/shellSettingsTab.component.html:6
 msgid "Enables the experimental Windows ConPTY API"
@@ -757,7 +757,7 @@ msgstr "匯出"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:81
 msgid "Fallback font"
-msgstr "後備字型"
+msgstr "備用字型"
 
 #: locale/tmp-html/tabby-core/src/components/transfersMenu.component.html:3
 msgid "File transfers"
@@ -777,7 +777,7 @@ msgstr "固定寬度"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:230
 msgid "Fluent background sometimes causes drag lag"
-msgstr "Fluent 背景有時會導致拖動延遲"
+msgstr "Fluent 背景有時會導致拖曳延遲"
 
 #: tabby-terminal/src/tabContextMenu.ts:78
 msgid "Focus all panes"
@@ -857,7 +857,7 @@ msgstr "強制使用 LF"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:25
 msgid "Forces a specific SSH agent connection type."
-msgstr "強制 SSH使用特定的連接類型"
+msgstr "強制 SSH使用特定的連線類型"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:105
 msgid "Forget"
@@ -865,11 +865,11 @@ msgstr "清除"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:58
 msgid "Forward port"
-msgstr "轉發埠"
+msgstr "通訊埠轉發"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingModal.component.html:3
 msgid "Forwarded ports"
-msgstr "已轉發埠"
+msgstr "已轉發通訊埠"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:47
 msgid "From color scheme"
@@ -978,7 +978,7 @@ msgstr "主機金鑰驗證"
 #: locale/tmp-html/tabby-settings/src/components/hotkeySettingsTab.component.html:2
 #: tabby-settings/src/settings.ts:15
 msgid "Hotkeys"
-msgstr "快捷鍵"
+msgstr "快速鍵"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:71
 msgid "How Tabby presents itself through environment vars"
@@ -994,7 +994,7 @@ msgstr "HTTP 代理主機位址"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:65
 msgid "HTTP proxy port"
-msgstr "HTTP 代理連接埠"
+msgstr "HTTP 代理通訊埠"
 
 #: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:20
 msgid "Icon"
@@ -1483,22 +1483,22 @@ msgstr "擴充功能資料夾"
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:38
 #: locale/tmp-html/tabby-telnet/src/components/telnetProfileSettings.component.html:10
 msgid "Port"
-msgstr "埠"
+msgstr "通訊埠"
 
 #: tabby-serial/src/components/serialTab.component.ts:71
 msgid "Port opened"
-msgstr "埠已打開"
+msgstr "通訊埠已打開"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:119
 #: locale/tmp-html/tabby-ssh/src/components/sshTab.component.html:12
 msgid "Ports"
-msgstr "埠"
+msgstr "通訊埠"
 
 #: tabby-serial/src/components/serialTab.component.ts:86
 #: tabby-ssh/src/components/sshTab.component.ts:169
 #: tabby-telnet/src/components/telnetTab.component.ts:53
 msgid "Press any key to reconnect"
-msgstr "按下任意鍵以重新連接"
+msgstr "按下任意鍵以重新連線"
 
 #: locale/tmp-html/tabby-settings/src/components/hotkeyInputModal.component.html:3
 msgid "Press the key now"
@@ -1808,7 +1808,7 @@ msgstr "序列"
 #: tabby-serial/src/profiles.ts:51
 #: tabby-serial/src/profiles.ts:62
 msgid "Serial connection"
-msgstr "序列連接"
+msgstr "序列埠連線"
 
 #: tabby-serial/src/profiles.ts:71
 msgid "Serial: {description}"
@@ -1922,7 +1922,7 @@ msgstr "顯示金鑰庫的內容"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:29
 msgid "Sixel graphics support (experimental)"
-msgstr "（實驗性）Sixel圖形支援"
+msgstr "(實驗性) Sixel圖形支援"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:140
 msgid "Skip MoTD/banner"
@@ -1995,7 +1995,7 @@ msgstr "SSH 連線"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:53
 msgid "SSH connection management is now done through the \"Profiles & connections\" tab"
-msgstr "SSH連接管理現在位於「設定檔與連線」分頁下"
+msgstr "SSH連線管理現在位於「設定檔與連線」分頁下"
 
 #: tabby-settings/src/components/vaultSettingsTab.component.ts:84
 msgid "SSH password for {user}@{host}:{port}"
@@ -2143,7 +2143,7 @@ msgstr "正在進行檔案傳輸"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:102
 msgid "There is a saved password for this connection"
-msgstr "此次連接可使用已儲存密碼"
+msgstr "此次連線可使用已儲存密碼"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:81
 msgid "These apply to all profiles of a given type"
@@ -2312,7 +2312,7 @@ msgstr "貼上多行時警告"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:5
 msgid "Warn when closing active connections"
-msgstr "關閉連接中的視窗時警告"
+msgstr "關閉連線中的視窗時警告"
 
 #: locale/tmp-html/tabby-ssh/src/components/hostKeyPromptModal.component.html:6
 msgid "Warning: remote host's key has suddenly changed!"
@@ -2420,5 +2420,5 @@ msgstr "縮小"
 #: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:55
 msgctxt "[Dynamic] port forwarding"
 msgid "id.port-forwarding.dynamic"
-msgstr "動態端口轉發"
+msgstr "動態通訊埠轉發"
 

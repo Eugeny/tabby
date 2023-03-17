@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2023-02-20 10:39\n"
+"PO-Revision-Date: 2023-03-17 23:07\n"
 
 #: tabby-local/src/components/terminalTab.component.ts:112
 msgid "\"{command}\" is still running. Close?"
@@ -23,7 +23,7 @@ msgstr "{name} コピー"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:82
 msgid "A second font family used to display characters missing in the main font"
-msgstr "既定フォントに不足してる文字を補う代替フォント"
+msgstr "既定フォントに不足している文字を表示する際に使用されます"
 
 #: tabby-core/src/components/transfersMenu.component.ts:49
 msgid "Abort all"
@@ -148,7 +148,7 @@ msgstr "自動"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:156
 msgid "Auto-open a terminal on app start"
-msgstr "アプリケーション起動時に端末を自動で開く"
+msgstr "アプリケーション起動時に新しい端末を自動で開く"
 
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:13
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:53
@@ -268,7 +268,7 @@ msgstr "端末をクリア"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:49
 msgid "Clear terminal after connection"
-msgstr "接続後に端末をクリアします"
+msgstr "接続後に端末をクリア"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:94
 msgid "Clipboard"
@@ -581,7 +581,7 @@ msgstr "動的なタブ名を無効にする"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:229
 msgid "Disable fluent background while dragging"
-msgstr "ドラッグ中にFluentを無効にする"
+msgstr "ドラッグ中はFluentを無効にする"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:215
 msgid "Disable GPU acceleration"
@@ -646,7 +646,7 @@ msgstr "ドック表示"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:75
 msgid "Double-click selection will stop at these characters"
-msgstr "ダブルクリックによる選択時に区切りとなる文字を設定できます"
+msgstr "ダブルクリックによるテキスト選択時に区切りとなる文字を設定できます"
 
 #: tabby-core/src/tabContextMenu.ts:79
 msgid "Down"
@@ -700,7 +700,7 @@ msgstr "アップデートが利用可能になったら自動的にインスト
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:222
 msgid "Enable fluent background option"
-msgstr "fluent背景の詳細設定を有効にする"
+msgstr "Fluent背景設定を有効にする"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:16
 msgid "Enable font ligatures"
@@ -841,7 +841,7 @@ msgstr "フォント"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:201
 msgid "For keyboard shortcuts"
-msgstr "キーボードショートカット用"
+msgstr "キーボードショートカット利用時に反映されます"
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:51
 msgid "Force CR"
@@ -982,7 +982,7 @@ msgstr "ホットキー"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:71
 msgid "How Tabby presents itself through environment vars"
-msgstr "環境変数を通してTabbyによる接続であることを接続先に送信します"
+msgstr "環境変数を利用してTabbyを他の端末のように扱わせます"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:24
 msgid "HTTP proxy"
@@ -1307,7 +1307,7 @@ msgstr "標準"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:22
 msgid "Normal font weight"
-msgstr "通常フォントの太さ"
+msgstr "標準フォントの太さ"
 
 #: tabby-terminal/src/components/searchPanel.component.ts:54
 #: tabby-terminal/src/components/searchPanel.component.ts:64
@@ -1458,7 +1458,7 @@ msgstr "テキストを選択していない場合は貼り付け、選択中は
 
 #: tabby-terminal/src/api/baseTerminalTab.component.ts:484
 msgid "Paste multiple lines?"
-msgstr "複数行の貼り付けを行いますか？"
+msgstr "複数行の貼り付けを実行してもよろしいですか？"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:68
 msgid "Paste on middle-click"
@@ -1608,7 +1608,7 @@ msgstr "リモート"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:124
 msgid "Remove whitespace and newlines around the copied text"
-msgstr "コピーしたテキスト前後のスペースや改行を削除します"
+msgstr "コピーしたテキストに含まれる前後の余分なスペースや改行を除去します"
 
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:25
 #: tabby-core/src/tabContextMenu.ts:120
@@ -1668,7 +1668,7 @@ msgstr "変更を反映するには再起動が必要です"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:162
 msgid "Restore terminal tabs on app start"
-msgstr "アプリケーション起動時に端末タブを復元する"
+msgstr "アプリケーション起動時に以前開いていたタブを復元する"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:147
 msgid "Reuse session for multiple tabs"
@@ -1744,7 +1744,7 @@ msgstr "バックスクロール"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:47
 msgid "Scrolls the terminal to the bottom on user input"
-msgstr "ユーザー入力時に端末を下にスクロール"
+msgstr "入力時に端末を最下部にスクロールします"
 
 #: tabby-terminal/src/hotkeys.ts:74
 msgid "Search"
@@ -1862,7 +1862,7 @@ msgstr "{type} プロファイルセレクターを表示"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:117
 msgid "Show a confirmation box when pasting multiple lines"
-msgstr "複数行を貼り付けるときに確認ボックスを表示します"
+msgstr "複数行を貼り付ける際に確認ボックスを表示します"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:63
 msgid "Show built-in profiles in selector"
@@ -2023,7 +2023,7 @@ msgstr "最新情報を受け取る"
 
 #: locale/tmp-html/tabby-local/src/components/environmentEditor.component.html:17
 msgid "Substitutions allowed."
-msgstr "置換することができます。"
+msgstr "置き換えに対応しています"
 
 #: tabby-core/src/tabContextMenu.ts:290
 msgid "Switch profile"
@@ -2127,7 +2127,7 @@ msgstr "端末音"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:70
 msgid "Terminal identification"
-msgstr "端末情報の送信"
+msgstr "端末の識別情報"
 
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:7
 msgid "Thank you for downloading Tabby!"
@@ -2312,7 +2312,7 @@ msgstr "複数行貼り付け時に警告"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:5
 msgid "Warn when closing active connections"
-msgstr "使用中の接続を閉じたときに警告"
+msgstr "使用中の接続を閉じる際に警告"
 
 #: locale/tmp-html/tabby-ssh/src/components/hostKeyPromptModal.component.html:6
 msgid "Warning: remote host's key has suddenly changed!"

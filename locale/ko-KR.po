@@ -10,11 +10,11 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Korean\n"
 "Language: ko_KR\n"
-"PO-Revision-Date: 2023-02-06 19:58\n"
+"PO-Revision-Date: 2023-03-17 23:07\n"
 
 #: tabby-local/src/components/terminalTab.component.ts:112
 msgid "\"{command}\" is still running. Close?"
-msgstr "\"{command}\" 명령어가 여전히 동작중입니다. 닫을까요?"
+msgstr "\"{command}\" 명령어가 동작중입니다. 창을 닫으시겠습니까?"
 
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:79
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:90
@@ -23,7 +23,7 @@ msgstr "{name} 복사"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:82
 msgid "A second font family used to display characters missing in the main font"
-msgstr "메인 글꼴에서 누락된 문자를 표시하기 위해 사용하는 2번째 글꼴"
+msgstr "설정된 폰트 누락시 대체하기 위한 폰트"
 
 #: tabby-core/src/components/transfersMenu.component.ts:49
 msgid "Abort all"
@@ -35,7 +35,7 @@ msgstr "허용 후 키 저장"
 
 #: locale/tmp-html/tabby-ssh/src/components/hostKeyPromptModal.component.html:25
 msgid "Accept just this once"
-msgstr "이번 한번만 허용"
+msgstr "지금만 허용하기"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:84
 msgid "Accessibility"
@@ -256,7 +256,7 @@ msgstr "암호화"
 
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSelector.component.html:5
 msgid "Clear"
-msgstr ""
+msgstr "지우기"
 
 #: tabby-core/src/services/profiles.service.ts:133
 msgid "Clear recent profiles"
@@ -268,7 +268,7 @@ msgstr "터미널 비우기"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:49
 msgid "Clear terminal after connection"
-msgstr ""
+msgstr "연결 후 터미널 지우기"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:94
 msgid "Clipboard"
@@ -340,7 +340,7 @@ msgstr "콤팩트"
 
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:126
 msgid "Config deleted"
-msgstr ""
+msgstr "설정 삭제됨"
 
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:108
 msgid "Config downloaded"
@@ -419,7 +419,7 @@ msgstr "현재 경로 복사"
 
 #: tabby-electron/src/sftpContextMenu.ts:29
 msgid "Copy full path"
-msgstr ""
+msgstr "전체 경로 복사"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:97
 msgid "Copy on select"

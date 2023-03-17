@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2023-02-20 10:39\n"
+"PO-Revision-Date: 2023-03-17 23:07\n"
 
 #: tabby-local/src/components/terminalTab.component.ts:112
 msgid "\"{command}\" is still running. Close?"
@@ -1736,7 +1736,7 @@ msgstr "滚动终端到底部"
 
 #: tabby-terminal/src/hotkeys.ts:86
 msgid "Scroll terminal to top"
-msgstr "滑动中断到顶端"
+msgstr "滑动终端到顶端"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:16
 msgid "Scrollback"
