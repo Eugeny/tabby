@@ -63,112 +63,17 @@ app-root {
                 }
             }
         }
-
-//         &.tabs-on-top .tab-bar {
-//             &>.background {
-//                 border-bottom: 1px solid $border-color;
-//             }
-
-//             tab-header {
-//                 border-bottom: 1px solid $border-color;
-
-//                 &.active {
-//                     border-bottom-color: transparent;
-//                 }
-//             }
-//         }
-
-//         &:not(.tabs-on-top) .tab-bar {
-//             &>.background {
-//                 border-top: 1px solid $border-color;
-//             }
-
-//             tab-header {
-//                 border-top: 1px solid $border-color;
-
-//                 &.active {
-//                     margin-top: -1px;
-//                 }
-//             }
-//         }
     }
-
-//     &.platform-win32, &.platform-linux {
-//         border: 1px solid #111;
-//         &>.content .tab-bar .tabs tab-header:first-child {
-//             border-left: none;
-//         }
-//     }
 }
 
 tab-body {
     background: var(--bs-body-bg);
 }
 
-// $black:     #002b36;
-// $base02:    #073642;
-// $base01:    #586e75;
-// $base00:    #657b83;
-// $base0:     #839496;
-// $base1:     #93a1a1;
-// $base2:     #eee8d5;
-// $white:     #fdf6e3;
-// $yellow:    #b58900;
-// $orange:    #cb4b16;
-// $red:       #dc322f;
-// $pink:      #d33682;
-// $purple:    #6c71c4;
-// $blue:      #268bd2;
-// $teal:      #2aa198;
-// $green:     #859900;
-
 $tab-border-radius: 5px;
-// $button-hover-bg: rgba(0, 0, 0, .125);
-// $button-active-bg: rgba(0, 0, 0, .25);
 
-
-// $btn-border-radius: 0;
-
-// $input-bg:                       $base2;
-// $input-disabled-bg:              $base1;
-
-// $input-color:                    $body-color;
-// $input-color-placeholder:        $base1;
-// $input-border-color:             $base1;
-// //$input-box-shadow:               inset 0 1px 1px rgba($black,.075);
-// $input-border-radius:            0;
-// $custom-select-border-radius: 0;
-// $input-bg-focus:                 $input-bg;
-// //$input-border-focus:             lighten($brand-primary, 25%);
-// //$input-box-shadow-focus:         $input-box-shadow, rgba($input-border-focus, .6);
-// $input-color-focus:              $input-color;
-// $input-group-addon-bg:           $body-bg;
-// $input-group-addon-border-color: $input-border-color;
-
-// $modal-content-bg:               $content-bg-solid;
-// $modal-content-border-color:     $body-bg;
 $modal-header-border-color:      transparent;
 $modal-footer-border-color:      transparent;
-
-// $popover-bg:                     $body-bg;
-
-// $dropdown-bg:                    $body-bg;
-// $dropdown-link-color:            $body-color;
-// $dropdown-link-hover-color:      #333;
-// $dropdown-link-hover-bg:         $body-bg2;
-// //$dropdown-link-active-color:     $component-active-color;
-// //$dropdown-link-active-bg:        $component-active-bg;
-// $dropdown-link-disabled-color:   #333;
-// $dropdown-header-color:          #333;
-
-// $list-group-action-bg: rgba($black,.05);
-// $list-group-action-active-bg: $list-group-link-active-bg;
-
-// $pre-bg: $dropdown-bg;
-// $pre-color: $dropdown-link-color;
-
-// $headings-font-weight: lighter;
-// $headings-color: $base0;
 
 $form-check-input-width: 1.4em;
 $form-switch-width: 2.5em;
@@ -186,8 +91,6 @@ body {
     --bs-list-group-bg: var(--theme-bg-more);
     --bs-list-group-border-color: var(--theme-bg-more-2);
     --bs-list-group-border-width: 0;
-    // --bs-list-group-item-padding-x: 1rem;
-    // --bs-list-group-item-padding-y: 0.5rem;
     --bs-list-group-action-color: var(--bs-body-color);
     --bs-list-group-action-hover-color: var(--theme-fg);
     --bs-list-group-action-hover-bg: var(--theme-bg-more-2);
@@ -198,23 +101,15 @@ body {
     --bs-list-group-disabled-bg: var(--bs-body-bg);
     --bs-list-group-active-color: var(--bs-primary-color);
     --bs-list-group-active-bg: var(--bs-primary-bg);
-    // --bs-list-group-active-border-color: #0d6efd;
 }
 
 .nav {
-    // scss-docs-start nav-css-vars
-    // --bs-nav-link-padding-x: #{$nav-link-padding-x};
-    // --bs-nav-link-padding-y: #{$nav-link-padding-y};
-    // @include rfs($nav-link-font-size, --bs-nav-link-font-size);
-    // --bs-nav-link-font-weight: #{$nav-link-font-weight};
     --bs-nav-link-color: var(--bs-body-color);
     --bs-nav-link-hover-color: var(--theme-fg-less-2);
     --bs-nav-link-disabled-color: var(--bs-gray);
-    // scss-docs-end nav-css-vars
 }
 
 .nav-tabs {
-    // scss-docs-start nav-tabs-css-vars
     --bs-nav-tabs-border-width: 2px;
     --bs-nav-tabs-border-radius: 0;
     --bs-nav-tabs-link-hover-border-color: var(--bs-body-bg);
@@ -223,15 +118,12 @@ body {
 
     --bs-nav-tabs-link-active-bg: transparent;
     --bs-nav-tabs-link-active-border-color: transparent;
-    // scss-docs-end nav-tabs-css-vars
 }
 
 .nav-pills {
-    // scss-docs-start nav-pills-css-vars
     --bs-nav-pills-border-radius: #{$nav-pills-border-radius};
     --bs-nav-pills-link-active-color: var(--theme-bg-more);
     --bs-nav-pills-link-active-bg: var(--bs-primary);
-    // scss-docs-end nav-pills-css-vars
 }
 
 .nav-tabs {
@@ -438,19 +330,6 @@ hotkey-input-modal {
     }
 }
 
-// checkbox i.on {
-//     color: $blue;
-// }
-
-// .modal .modal-footer {
-//     background: rgba(0, 0, 0, .25);
-
-//     .btn {
-//         font-weight: bold;
-//         padding: 0.375rem 1.5rem;
-//     }
-// }
-
 .list-group-item svg {
     fill: var(--bs-body-color);
     fill-opacity: 0.75;
@@ -493,29 +372,7 @@ search-panel {
 
 .btn-link {
     text-decoration: none;
-
-    // &:hover, &[aria-expanded=true], &:active, &.active {
-    //     color: $link-hover-color;
-    //     border-radius: $btn-border-radius;
-    // }
-
-    // &[aria-expanded=true], &:active, &.active {
-    //     background: rgba(255, 255, 255, 0.1);
-    // }
 }
-
-// .btn-group .btn.active {
-//     border-color: transparent !important;
-// }
-
-
-// hr {
-//     border-color: $list-group-border-color;
-// }
-
-// .dropdown-menu {
-//     box-shadow: $dropdown-box-shadow;
-// }
 
 ngx-colors-panel .opened {
     background: var(--bs-body-bg) !important;
@@ -530,7 +387,6 @@ ngx-colors-panel .opened {
 }
 
 .text-muted {
-    // color: var(--bs-body-color) !important;
     opacity: .5;
 }
 
@@ -564,5 +420,11 @@ split-tab-spanner {
 
     &:hover, &.active {
         background: rgba(var(--bs-dark-rgb), .2);
+    }
+}
+
+window-controls {
+    button svg {
+        fill: var(--theme-fg) !important;
     }
 }
