@@ -136,6 +136,9 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
         stream: {
             write: x => {
                 try {
+                    if (!this.frontend) {
+                        return
+                    }
                     this.writeRaw(x)
                 } catch {
                     this.spinner.stop()
@@ -556,6 +559,7 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
     /** @hidden */
     ngOnDestroy (): void {
         super.ngOnDestroy()
+        this.stopSpinner()
     }
 
     async destroy (): Promise<void> {
