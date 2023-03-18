@@ -458,12 +458,18 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
             tab.destroy()
         }
 
+        let allTabs: BaseTabComponent[] = []
         if (thing instanceof BaseTabComponent) {
-            if (thing.parent instanceof SplitTabComponent) {
-                thing.parent.removeTab(thing)
+            allTabs = [thing]
+        } else if (thing instanceof SplitContainer) {
+            allTabs = thing.getAllTabs()
+        }
+        for (const tab of allTabs) {
+            if (tab.parent instanceof SplitTabComponent) {
+                tab.parent.removeTab(tab)
             }
-            thing.removeFromContainer()
-            thing.parent = this
+            tab.removeFromContainer()
+            tab.parent = this
         }
 
         let target = relative ? this.getParentOf(relative) : null

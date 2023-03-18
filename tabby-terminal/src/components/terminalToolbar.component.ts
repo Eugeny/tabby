@@ -29,7 +29,7 @@ export class TerminalToolbarComponent {
     }
 
     get shouldShowDragHandle (): boolean {
-        return this.tab.parent instanceof SplitTabComponent && this.tab.parent.getAllTabs().length > 1
+        return this.tab.topmostParent instanceof SplitTabComponent && this.tab.topmostParent.getAllTabs().length > 1
     }
 
     @HostListener('mouseenter') onMouseEnter () {

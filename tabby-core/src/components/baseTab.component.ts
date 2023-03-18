@@ -192,6 +192,14 @@ export abstract class BaseTabComponent extends BaseComponent {
         this.viewContainer = undefined
     }
 
+    get topmostParent (): BaseTabComponent|null {
+        let parent = this.parent
+        while (parent?.parent) {
+            parent = parent.parent
+        }
+        return parent
+    }
+
     /**
      * Called before the tab is closed
      */
