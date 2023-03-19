@@ -1,86 +1,11 @@
-import * as psNode from 'ps-node'
 import * as fs from 'mz/fs'
 import * as fsSync from 'fs'
 import { Injector } from '@angular/core'
 import { HostAppService, ConfigService, WIN_BUILD_CONPTY_SUPPORTED, isWindowsBuild, Platform, BootstrapData, BOOTSTRAP_DATA, LogService } from 'tabby-core'
 import { BaseSession } from 'tabby-terminal'
-import { ipcRenderer } from 'electron'
-import { getWorkingDirectoryFromPID } from 'native-process-working-directory'
-import { SessionOptions, ChildProcess } from './api'
-
-/* eslint-disable block-scoped-var */
-
-try {
-    var macOSNativeProcessList = require('macos-native-processlist')  // eslint-disable-line @typescript-eslint/no-var-requires, no-var
-} catch { }
-
-try {
-    var windowsProcessTree = require('windows-process-tree')  // eslint-disable-line @typescript-eslint/no-var-requires, no-var
-} catch { }
+import { SessionOptions, ChildProcess, PTYInterface, PTYProxy } from './api'
 
 const windowsDirectoryRegex = /([a-zA-Z]:[^\:\[\]\?\"\<\>\|]+)/mi
-
-// eslint-disable-next-line @typescript-eslint/no-extraneous-class
-export class PTYProxy {
-    private id: string
-    private subscriptions: Map<string, any> = new Map()
-
-    static spawn (...options: any[]): PTYProxy {
-        return new PTYProxy(null, ...options)
-    }
-
-    static restore (id: string): PTYProxy|null {
-        if (ipcRenderer.sendSync('pty:exists', id)) {
-            return new PTYProxy(id)
-        }
-        return null
-    }
-
-    private constructor (id: string|null, ...options: any[]) {
-        if (id) {
-            this.id = id
-        } else {
-            this.id = ipcRenderer.sendSync('pty:spawn', ...options)
-        }
-    }
-
-    getPTYID (): string {
-        return this.id
-    }
-
-    getPID (): number {
-        return ipcRenderer.sendSync('pty:get-pid', this.id)
-    }
-
-    subscribe (event: string, handler: (..._: any[]) => void): void {
-        const key = `pty:${this.id}:${event}`
-        const newHandler = (_event, ...args) => handler(...args)
-        this.subscriptions.set(key, newHandler)
-        ipcRenderer.on(key, newHandler)
-    }
-
-    ackData (length: number): void {
-        ipcRenderer.send('pty:ack-data', this.id, length)
-    }
-
-    unsubscribeAll (): void {
-        for (const k of this.subscriptions.keys()) {
-            ipcRenderer.off(k, this.subscriptions.get(k))
-        }
-    }
-
-    resize (columns: number, rows: number): void {
-        ipcRenderer.send('pty:resize', this.id, columns, rows)
-    }
-
-    write (data: Buffer): void {
-        ipcRenderer.send('pty:write', this.id, data)
-    }
-
-    kill (signal?: string): void {
-        ipcRenderer.send('pty:kill', this.id, signal)
-    }
-}
 
 function mergeEnv (...envs) {
     const result = {}
@@ -121,19 +46,23 @@ export class Session extends BaseSession {
     private config: ConfigService
     private hostApp: HostAppService
     private bootstrapData: BootstrapData
+    private ptyInterface: PTYInterface
 
-    constructor (injector: Injector) {
+    constructor (
+        injector: Injector,
+    ) {
         super(injector.get(LogService).create('local'))
         this.config = injector.get(ConfigService)
         this.hostApp = injector.get(HostAppService)
+        this.ptyInterface = injector.get(PTYInterface)
         this.bootstrapData = injector.get(BOOTSTRAP_DATA)
     }
 
-    start (options: SessionOptions): void {
+    async start (options: SessionOptions): Promise<void> {
         let pty: PTYProxy|null = null
 
         if (options.restoreFromPTYID) {
-            pty = PTYProxy.restore(options.restoreFromPTYID)
+            pty = await this.ptyInterface.restore(options.restoreFromPTYID)
             options.restoreFromPTYID = undefined
         }
 
@@ -175,7 +104,7 @@ export class Session extends BaseSession {
                 cwd = undefined
             }
 
-            pty = PTYProxy.spawn(options.command, options.args ?? [], {
+            pty = await this.ptyInterface.spawn(options.command, options.args ?? [], {
                 name: 'xterm-256color',
                 cols: options.width ?? 80,
                 rows: options.height ?? 30,
@@ -191,17 +120,9 @@ export class Session extends BaseSession {
 
         this.pty = pty
 
-        this.truePID = this.pty.getPID()
-
-        setTimeout(async () => {
-            // Retrieve any possible single children now that shell has fully started
-            let processes = await this.getChildProcesses()
-            while (processes.length === 1) {
-                this.truePID = processes[0].pid
-                processes = await this.getChildProcesses()
-            }
+        pty.getTruePID().then(async () => {
             this.initialCWD = await this.getWorkingDirectory()
-        }, 2000)
+        })
 
         this.open = true
 
@@ -236,8 +157,8 @@ export class Session extends BaseSession {
         this.destroyed$.subscribe(() => this.pty!.unsubscribeAll())
     }
 
-    getPTYID (): string|null {
-        return this.pty?.getPTYID() ?? null
+    getID (): string|null {
+        return this.pty?.getID() ?? null
     }
 
     resize (columns: number, rows: number): void {
@@ -258,37 +179,7 @@ export class Session extends BaseSession {
     }
 
     async getChildProcesses (): Promise<ChildProcess[]> {
-        if (!this.truePID) {
-            return []
-        }
-        if (this.hostApp.platform === Platform.macOS) {
-            const processes = await macOSNativeProcessList.getProcessList()
-            return processes.filter(x => x.ppid === this.truePID).map(p => ({
-                pid: p.pid,
-                ppid: p.ppid,
-                command: p.name,
-            }))
-        }
-        if (this.hostApp.platform === Platform.Windows) {
-            return new Promise<ChildProcess[]>(resolve => {
-                windowsProcessTree.getProcessTree(this.truePID, tree => {
-                    resolve(tree ? tree.children.map(child => ({
-                        pid: child.pid,
-                        ppid: tree.pid,
-                        command: child.name,
-                    })) : [])
-                })
-            })
-        }
-        return new Promise<ChildProcess[]>((resolve, reject) => {
-            psNode.lookup({ ppid: this.truePID }, (err, processes) => {
-                if (err) {
-                    reject(err)
-                    return
-                }
-                resolve(processes as ChildProcess[])
-            })
-        })
+        return this.pty?.getChildProcesses() ?? []
     }
 
     async gracefullyKillProcess (): Promise<void> {
@@ -297,9 +188,9 @@ export class Session extends BaseSession {
         } else {
             await new Promise<void>((resolve) => {
                 this.kill('SIGTERM')
-                setTimeout(() => {
+                setTimeout(async () => {
                     try {
-                        process.kill(this.pty!.getPID(), 0)
+                        process.kill(await this.pty!.getPID(), 0)
                         // still alive
                         this.kill('SIGKILL')
                         resolve()
@@ -312,19 +203,16 @@ export class Session extends BaseSession {
     }
 
     supportsWorkingDirectory (): boolean {
-        return !!(this.truePID ?? this.reportedCWD ?? this.guessedCWD)
+        return !!(this.initialCWD ?? this.reportedCWD ?? this.guessedCWD)
     }
 
     async getWorkingDirectory (): Promise<string|null> {
         if (this.reportedCWD) {
             return this.reportedCWD
         }
-        if (!this.truePID) {
-            return null
-        }
         let cwd: string|null = null
         try {
-            cwd = getWorkingDirectoryFromPID(this.truePID)
+            cwd = await this.pty?.getWorkingDirectory() ?? null
         } catch (exc) {
             console.info('Could not read working directory:', exc)
         }

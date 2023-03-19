@@ -10,7 +10,6 @@ import { SessionMiddlewareStack } from './api/middleware'
  */
 export abstract class BaseSession {
     open: boolean
-    truePID?: number
     readonly oscProcessor = new OSCProcessor()
     readonly middleware = new SessionMiddlewareStack()
     protected output = new Subject<string>()
@@ -85,7 +84,7 @@ export abstract class BaseSession {
         this.binaryOutput.complete()
     }
 
-    abstract start (options: unknown): void
+    abstract start (options: unknown): Promise<void>
     abstract resize (columns: number, rows: number): void
     abstract write (data: Buffer): void
     abstract kill (signal?: string): void
