@@ -1,17 +1,16 @@
-import * as path from 'path'
 import { Injectable } from '@angular/core'
+import * as path from 'path'
 import { WIN_BUILD_CONPTY_SUPPORTED, isWindowsBuild } from 'tabby-core'
-import { ElectronService } from 'tabby-electron'
-import { SessionOptions } from '../api'
+import { SessionOptions, UACService } from 'tabby-local'
+import { ElectronService } from './electron.service'
 
 /** @hidden */
-@Injectable({ providedIn: 'root' })
-export class UACService {
-    isAvailable = false
-
-    private constructor (
+@Injectable()
+export class ElectronUACService extends UACService {
+    constructor (
         private electron: ElectronService,
     ) {
+        super()
         this.isAvailable = isWindowsBuild(WIN_BUILD_CONPTY_SUPPORTED)
     }
 
@@ -37,5 +36,4 @@ export class UACService {
         options.command = helperPath
         return options
     }
-
 }

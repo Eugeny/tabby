@@ -1,6 +1,6 @@
 command-line-editor([model]='profile.options')
 
-.form-line(*ngIf='uac.isAvailable')
+.form-line(*ngIf='uac?.isAvailable')
     .header
         .title(translate) Run as administrator
     toggle(

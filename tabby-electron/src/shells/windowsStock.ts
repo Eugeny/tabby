@@ -3,9 +3,9 @@ import * as fs from 'fs/promises'
 import hasbin from 'hasbin'
 import { Injectable } from '@angular/core'
 import { HostAppService, Platform, ConfigService } from 'tabby-core'
-import { ElectronService } from 'tabby-electron'
+import { ElectronService } from '../services/electron.service'
 
-import { Shell } from '../api'
+import { Shell } from 'tabby-local'
 import { WindowsBaseShellProvider } from './windowsBase'
 
 /** @hidden */

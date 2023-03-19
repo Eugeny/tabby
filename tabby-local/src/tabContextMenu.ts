@@ -1,10 +1,9 @@
-import { Injectable } from '@angular/core'
+import { Inject, Injectable, Optional } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { ConfigService, BaseTabComponent, TabContextMenuItemProvider, NotificationsService, MenuItemOptions, ProfilesService, PromptModalComponent, TranslateService } from 'tabby-core'
 import { TerminalTabComponent } from './components/terminalTab.component'
-import { UACService } from './services/uac.service'
 import { TerminalService } from './services/terminal.service'
-import { LocalProfile } from './api'
+import { LocalProfile, UACService } from './api'
 
 /** @hidden */
 @Injectable()
@@ -64,7 +63,7 @@ export class NewTabContextMenu extends TabContextMenuItemProvider {
         public config: ConfigService,
         private profilesService: ProfilesService,
         private terminalService: TerminalService,
-        private uac: UACService,
+        @Optional() @Inject(UACService) private uac: UACService|undefined,
         private translate: TranslateService,
     ) {
         super()
@@ -99,7 +98,7 @@ export class NewTabContextMenu extends TabContextMenuItemProvider {
             },
         ]
 
-        if (this.uac.isAvailable) {
+        if (this.uac?.isAvailable) {
             items.push({
                 label: this.translate.instant('New admin tab'),
                 submenu: profiles.map(profile => ({
@@ -117,7 +116,7 @@ export class NewTabContextMenu extends TabContextMenuItemProvider {
             })
         }
 
-        if (tab instanceof TerminalTabComponent && tabHeader && this.uac.isAvailable) {
+        if (tab instanceof TerminalTabComponent && tabHeader && this.uac?.isAvailable) {
             const terminalTab = tab
             items.push({
                 label: this.translate.instant('Duplicate as administrator'),

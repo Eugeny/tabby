@@ -3,7 +3,7 @@ import slugify from 'slugify'
 import { Injectable } from '@angular/core'
 import { HostAppService, Platform } from 'tabby-core'
 
-import { ShellProvider, Shell } from '../api'
+import { ShellProvider, Shell } from 'tabby-local'
 
 /** @hidden */
 @Injectable()

@@ -138,6 +138,10 @@ export class WebPlatformService extends PlatformService {
     setErrorHandler (handler: (_: any) => void): void {
         window.addEventListener('error', handler)
     }
+
+    async pickDirectory (): Promise<string> {
+        throw new Error('Unsupported')
+    }
 }
 
 class HTMLFileDownload extends FileDownload {

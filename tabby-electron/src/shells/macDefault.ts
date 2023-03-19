@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core'
 import promiseIpc, { RendererProcessType } from 'electron-promise-ipc'
 import { HostAppService, Platform, TranslateService } from 'tabby-core'
 
-import { ShellProvider, Shell } from '../api'
+import { ShellProvider, Shell } from 'tabby-local'
 
 /** @hidden */
 @Injectable()

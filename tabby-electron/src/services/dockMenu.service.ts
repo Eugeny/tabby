@@ -1,6 +1,6 @@
 import { NgZone, Injectable } from '@angular/core'
 import { ConfigService, HostAppService, Platform, ProfilesService, TranslateService } from 'tabby-core'
-import { ElectronService } from 'tabby-electron'
+import { ElectronService } from './electron.service'
 
 /** @hidden */
 @Injectable({ providedIn: 'root' })

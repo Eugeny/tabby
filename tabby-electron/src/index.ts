@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core'
 import { PlatformService, LogService, UpdaterService, DockingService, HostAppService, ThemesService, Platform, AppService, ConfigService, WIN_BUILD_FLUENT_BG_SUPPORTED, isWindowsBuild, HostWindowService, HotkeyProvider, ConfigProvider, FileProvider } from 'tabby-core'
 import { TerminalColorSchemeProvider } from 'tabby-terminal'
 import { SFTPContextMenuItemProvider, SSHProfileImporter, AutoPrivateKeyLocator } from 'tabby-ssh'
+import { ShellProvider, UACService } from 'tabby-local'
 import { auditTime } from 'rxjs'
 
 import { HyperColorSchemes } from './colorSchemes'
@@ -14,10 +15,26 @@ import { ElectronHostWindow } from './services/hostWindow.service'
 import { ElectronFileProvider } from './services/fileProvider.service'
 import { ElectronHostAppService } from './services/hostApp.service'
 import { ElectronService } from './services/electron.service'
+import { DockMenuService } from './services/dockMenu.service'
 import { ElectronHotkeyProvider } from './hotkeys'
 import { ElectronConfigProvider } from './config'
 import { EditSFTPContextMenu } from './sftpContextMenu'
 import { OpenSSHImporter, PrivateKeyLocator, StaticFileImporter } from './sshImporters'
+import { ElectronUACService } from './services/uac.service'
+
+import { CmderShellProvider } from './shells/cmder'
+import { Cygwin32ShellProvider } from './shells/cygwin32'
+import { Cygwin64ShellProvider } from './shells/cygwin64'
+import { GitBashShellProvider } from './shells/gitBash'
+import { LinuxDefaultShellProvider } from './shells/linuxDefault'
+import { MacOSDefaultShellProvider } from './shells/macDefault'
+import { MSYS2ShellProvider } from './shells/msys2'
+import { POSIXShellsProvider } from './shells/posix'
+import { PowerShellCoreShellProvider } from './shells/powershellCore'
+import { WindowsDefaultShellProvider } from './shells/winDefault'
+import { WindowsStockShellsProvider } from './shells/windowsStock'
+import { WSLShellProvider } from './shells/wsl'
+import { VSDevToolsProvider } from './shells/vs'
 
 @NgModule({
     providers: [
@@ -35,6 +52,27 @@ import { OpenSSHImporter, PrivateKeyLocator, StaticFileImporter } from './sshImp
         { provide: SSHProfileImporter, useExisting: OpenSSHImporter, multi: true },
         { provide: SSHProfileImporter, useExisting: StaticFileImporter, multi: true },
         { provide: AutoPrivateKeyLocator, useExisting: PrivateKeyLocator, multi: true },
+
+        { provide: ShellProvider, useClass: WindowsDefaultShellProvider, multi: true },
+        { provide: ShellProvider, useClass: MacOSDefaultShellProvider, multi: true },
+        { provide: ShellProvider, useClass: LinuxDefaultShellProvider, multi: true },
+        { provide: ShellProvider, useClass: WindowsStockShellsProvider, multi: true },
+        { provide: ShellProvider, useClass: PowerShellCoreShellProvider, multi: true },
+        { provide: ShellProvider, useClass: CmderShellProvider, multi: true },
+        { provide: ShellProvider, useClass: Cygwin32ShellProvider, multi: true },
+        { provide: ShellProvider, useClass: Cygwin64ShellProvider, multi: true },
+        { provide: ShellProvider, useClass: GitBashShellProvider, multi: true },
+        { provide: ShellProvider, useClass: POSIXShellsProvider, multi: true },
+        { provide: ShellProvider, useClass: MSYS2ShellProvider, multi: true },
+        { provide: ShellProvider, useClass: WSLShellProvider, multi: true },
+        { provide: ShellProvider, useClass: VSDevToolsProvider, multi: true },
+
+        { provide: UACService, useClass: ElectronUACService },
+
+        // For WindowsDefaultShellProvider
+        PowerShellCoreShellProvider,
+        WSLShellProvider,
+        WindowsStockShellsProvider,
     ],
 })
 export default class ElectronModule {
@@ -47,6 +85,7 @@ export default class ElectronModule {
         docking: DockingService,
         themeService: ThemesService,
         app: AppService,
+        dockMenu: DockMenuService,
     ) {
         config.ready$.toPromise().then(() => {
             touchbar.update()
@@ -87,6 +126,10 @@ export default class ElectronModule {
         })
 
         config.changed$.subscribe(() => this.updateVibrancy())
+
+        config.ready$.toPromise().then(() => {
+            dockMenu.update()
+        })
     }
 
     private registerGlobalHotkey () {

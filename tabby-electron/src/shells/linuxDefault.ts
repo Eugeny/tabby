@@ -2,7 +2,7 @@ import * as fs from 'mz/fs'
 import { Injectable } from '@angular/core'
 import { HostAppService, Platform, LogService, Logger, TranslateService } from 'tabby-core'
 
-import { ShellProvider, Shell } from '../api'
+import { ShellProvider, Shell } from 'tabby-local'
 
 /** @hidden */
 @Injectable()

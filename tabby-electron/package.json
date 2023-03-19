@@ -16,8 +16,12 @@
   ],
   "author": "Eugene Pankov",
   "license": "MIT",
+  "dependencies": {
+    "hasbin": "^1.2.3"
+  },
   "peerDependencies": {
-    "@angular/core": "^9.1.9"
+    "@angular/core": "^9.1.9",
+    "tabby-local": "*"
   },
   "devDependencies": {
     "electron-promise-ipc": "^2.2.4",

@@ -4,7 +4,7 @@ import slugify from 'slugify'
 import { Injectable } from '@angular/core'
 import { HostAppService, Platform, isWindowsBuild, WIN_BUILD_WSL_EXE_DISTRO_FLAG } from 'tabby-core'
 
-import { ShellProvider, Shell } from '../api'
+import { ShellProvider, Shell } from 'tabby-local'
 
 /* eslint-disable block-scoped-var */
 

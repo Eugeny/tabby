@@ -234,6 +234,15 @@ export class ElectronPlatformService extends PlatformService {
             handler(err)
         })
     }
+
+    async pickDirectory (): Promise<string> {
+        return (await this.electron.dialog.showOpenDialog(
+            this.hostWindow.getWindow(),
+            {
+                properties: ['openDirectory', 'showHiddenFiles'],
+            },
+        )).filePaths[0]
+    }
 }
 
 class ElectronFileUpload extends FileUpload {

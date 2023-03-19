@@ -1,6 +1,6 @@
 import { ConfigService, HostAppService } from 'tabby-core'
 
-import { ShellProvider } from '../api'
+import { ShellProvider } from 'tabby-local'
 
 export abstract class WindowsBaseShellProvider extends ShellProvider {
     constructor (

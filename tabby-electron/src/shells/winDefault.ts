@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core'
 import { HostAppService, Platform, TranslateService } from 'tabby-core'
 
-import { ShellProvider, Shell } from '../api'
+import { ShellProvider, Shell } from 'tabby-local'
 
 import { WSLShellProvider } from './wsl'
 import { PowerShellCoreShellProvider } from './powershellCore'

@@ -53,3 +53,9 @@ export interface ChildProcess {
     ppid: number
     command: string
 }
+
+export abstract class UACService {
+    isAvailable = false
+
+    abstract patchSessionOptionsForUAC (sessionOptions: SessionOptions): SessionOptions
+}

@@ -3,7 +3,7 @@ import * as fs from 'fs/promises'
 import { Injectable } from '@angular/core'
 import { HostAppService, Platform } from 'tabby-core'
 
-import { ShellProvider, Shell } from '../api'
+import { ShellProvider, Shell } from 'tabby-local'
 
 /* eslint-disable quote-props */
 const vsIconMap: Record<string, string> = {

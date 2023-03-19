@@ -1,9 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { Component } from '@angular/core'
-import { UACService } from '../services/uac.service'
-import { LocalProfile } from '../api'
-import { ElectronHostWindow, ElectronService } from 'tabby-electron'
-import { ProfileSettingsComponent } from 'tabby-core'
+import { Component, Inject, Optional } from '@angular/core'
+import { LocalProfile, UACService } from '../api'
+import { PlatformService, ProfileSettingsComponent } from 'tabby-core'
 
 
 /** @hidden */
@@ -14,9 +12,8 @@ export class LocalProfileSettingsComponent implements ProfileSettingsComponent<L
     profile: LocalProfile
 
     constructor (
-        public uac: UACService,
-        private hostWindow: ElectronHostWindow,
-        private electron: ElectronService,
+        @Optional() @Inject(UACService) public uac: UACService|undefined,
+        private platform: PlatformService,
     ) { }
 
     ngOnInit () {
@@ -30,14 +27,7 @@ export class LocalProfileSettingsComponent implements ProfileSettingsComponent<L
         // if (!shell) {
         //     return
         // }
-        const paths = (await this.electron.dialog.showOpenDialog(
-            this.hostWindow.getWindow(),
-            {
-                // TODO
-                // defaultPath: shell.fsBase,
-                properties: ['openDirectory', 'showHiddenFiles'],
-            },
-        )).filePaths
-        this.profile.options.cwd = paths[0]
+
+        this.profile.options.cwd = await this.platform.pickDirectory()
     }
 }

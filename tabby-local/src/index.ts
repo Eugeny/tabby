@@ -6,7 +6,6 @@ import { ToastrModule } from 'ngx-toastr'
 
 import TabbyCorePlugin, { HostAppService, ToolbarButtonProvider, TabRecoveryProvider, ConfigProvider, HotkeysService, HotkeyProvider, TabContextMenuItemProvider, CLIHandler, ConfigService, ProfileProvider } from 'tabby-core'
 import TabbyTerminalModule from 'tabby-terminal'
-import TabbyElectronPlugin from 'tabby-electron'
 import { SettingsTabProvider } from 'tabby-settings'
 
 import { TerminalTabComponent } from './components/terminalTab.component'
@@ -16,29 +15,13 @@ import { LocalProfileSettingsComponent } from './components/localProfileSettings
 import { CommandLineEditorComponent } from './components/commandLineEditor.component'
 
 import { TerminalService } from './services/terminal.service'
-import { DockMenuService } from './services/dockMenu.service'
 
 import { ButtonProvider } from './buttonProvider'
 import { RecoveryProvider } from './recoveryProvider'
-import { ShellProvider } from './api'
 import { ShellSettingsTabProvider } from './settings'
 import { TerminalConfigProvider } from './config'
 import { LocalTerminalHotkeyProvider } from './hotkeys'
 import { NewTabContextMenu, SaveAsProfileContextMenu } from './tabContextMenu'
-
-import { CmderShellProvider } from './shells/cmder'
-import { Cygwin32ShellProvider } from './shells/cygwin32'
-import { Cygwin64ShellProvider } from './shells/cygwin64'
-import { GitBashShellProvider } from './shells/gitBash'
-import { LinuxDefaultShellProvider } from './shells/linuxDefault'
-import { MacOSDefaultShellProvider } from './shells/macDefault'
-import { MSYS2ShellProvider } from './shells/msys2'
-import { POSIXShellsProvider } from './shells/posix'
-import { PowerShellCoreShellProvider } from './shells/powershellCore'
-import { WindowsDefaultShellProvider } from './shells/winDefault'
-import { WindowsStockShellsProvider } from './shells/windowsStock'
-import { WSLShellProvider } from './shells/wsl'
-import { VSDevToolsProvider } from './shells/vs'
 
 import { AutoOpenTabCLIHandler, OpenPathCLIHandler, TerminalCLIHandler } from './cli'
 import { LocalProfilesService } from './profiles'
@@ -51,7 +34,6 @@ import { LocalProfilesService } from './profiles'
         NgbModule,
         ToastrModule,
         TabbyCorePlugin,
-        TabbyElectronPlugin,
         TabbyTerminalModule,
     ],
     providers: [
@@ -62,20 +44,6 @@ import { LocalProfilesService } from './profiles'
         { provide: ConfigProvider, useClass: TerminalConfigProvider, multi: true },
         { provide: HotkeyProvider, useClass: LocalTerminalHotkeyProvider, multi: true },
 
-        { provide: ShellProvider, useClass: WindowsDefaultShellProvider, multi: true },
-        { provide: ShellProvider, useClass: MacOSDefaultShellProvider, multi: true },
-        { provide: ShellProvider, useClass: LinuxDefaultShellProvider, multi: true },
-        { provide: ShellProvider, useClass: WindowsStockShellsProvider, multi: true },
-        { provide: ShellProvider, useClass: PowerShellCoreShellProvider, multi: true },
-        { provide: ShellProvider, useClass: CmderShellProvider, multi: true },
-        { provide: ShellProvider, useClass: Cygwin32ShellProvider, multi: true },
-        { provide: ShellProvider, useClass: Cygwin64ShellProvider, multi: true },
-        { provide: ShellProvider, useClass: GitBashShellProvider, multi: true },
-        { provide: ShellProvider, useClass: POSIXShellsProvider, multi: true },
-        { provide: ShellProvider, useClass: MSYS2ShellProvider, multi: true },
-        { provide: ShellProvider, useClass: WSLShellProvider, multi: true },
-        { provide: ShellProvider, useClass: VSDevToolsProvider, multi: true },
-
         { provide: ProfileProvider, useClass: LocalProfilesService, multi: true },
 
         { provide: TabContextMenuItemProvider, useClass: NewTabContextMenu, multi: true },
@@ -84,11 +52,6 @@ import { LocalProfilesService } from './profiles'
         { provide: CLIHandler, useClass: TerminalCLIHandler, multi: true },
         { provide: CLIHandler, useClass: OpenPathCLIHandler, multi: true },
         { provide: CLIHandler, useClass: AutoOpenTabCLIHandler, multi: true },
-
-        // For WindowsDefaultShellProvider
-        PowerShellCoreShellProvider,
-        WSLShellProvider,
-        WindowsStockShellsProvider,
     ],
     declarations: [
         TerminalTabComponent,
@@ -108,7 +71,6 @@ export default class LocalTerminalModule { // eslint-disable-line @typescript-es
         hotkeys: HotkeysService,
         terminal: TerminalService,
         hostApp: HostAppService,
-        dockMenu: DockMenuService,
         config: ConfigService,
     ) {
         hotkeys.hotkey$.subscribe(async (hotkey) => {
@@ -118,10 +80,6 @@ export default class LocalTerminalModule { // eslint-disable-line @typescript-es
             if (hotkey === 'new-window') {
                 hostApp.newWindow()
             }
-        })
-
-        config.ready$.toPromise().then(() => {
-            dockMenu.update()
         })
     }
 }
