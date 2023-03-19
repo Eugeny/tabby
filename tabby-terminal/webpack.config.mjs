@@ -18,6 +18,5 @@ export default () => {
             },
         ],
     })
-    cfg.resolve.modules.push('node_modules/xterm/src')
     return cfg
 }

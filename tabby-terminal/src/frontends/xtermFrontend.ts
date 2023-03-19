@@ -13,9 +13,6 @@ import { ImageAddon } from 'xterm-addon-image'
 import { CanvasAddon } from 'xterm-addon-canvas'
 import './xterm.css'
 import deepEqual from 'deep-equal'
-import { Attributes } from 'xterm/src/common/buffer/Constants'
-import { AttributeData } from 'xterm/src/common/buffer/AttributeData'
-import { CellData } from 'xterm/src/common/buffer/CellData'
 import { BaseTerminalProfile, TerminalColorScheme } from '../api/interfaces'
 
 const COLOR_NAMES = [
@@ -492,60 +489,7 @@ export class XTermFrontend extends Frontend {
     }
 
     private getSelectionAsHTML (): string {
-        let html = `<div style="font-family: '${this.configService.store.terminal.font}', monospace; white-space: pre">`
-        const selection = this.xterm.getSelectionPosition()
-        if (!selection) {
-            return ''
-        }
-        if (selection.start.y === selection.end.y) {
-            html += this.getLineAsHTML(selection.start.y, selection.start.x, selection.end.x)
-        } else {
-            html += this.getLineAsHTML(selection.start.y, selection.start.x, this.xterm.cols)
-            for (let y = selection.start.y + 1; y < selection.end.y; y++) {
-                html += this.getLineAsHTML(y, 0, this.xterm.cols)
-            }
-            html += this.getLineAsHTML(selection.end.y, 0, selection.end.x)
-        }
-        html += '</div>'
-        return html
-    }
-
-    private getHexColor (mode: number, color: number, def: string): string {
-        if (mode === Attributes.CM_RGB) {
-            const rgb = AttributeData.toColorRGB(color)
-            return rgb.map(x => x.toString(16).padStart(2, '0')).join('')
-        }
-        if (mode === Attributes.CM_P16 || mode === Attributes.CM_P256) {
-            return this.configService.store.terminal.colorScheme.colors[color]
-        }
-        return def
-    }
-
-    private getLineAsHTML (y: number, start: number, end: number): string {
-        let html = '<div>'
-        let lastStyle: string|null = null
-        const outerLine = this.xterm.buffer.active.getLine(y)
-        if (!outerLine) {
-            return ''
-        }
-        const line = outerLine['_line']
-        const cell = new CellData()
-        for (let i = start; i < end; i++) {
-            line.loadCell(i, cell)
-            const fg = this.getHexColor(cell.getFgColorMode(), cell.getFgColor(), this.configService.store.terminal.colorScheme.foreground)
-            const bg = this.getHexColor(cell.getBgColorMode(), cell.getBgColor(), this.configService.store.terminal.colorScheme.background)
-            const style = `color: ${fg}; background: ${bg}; font-weight: ${cell.isBold() ? 'bold' : 'normal'}; font-style: ${cell.isItalic() ? 'italic' : 'normal'}; text-decoration: ${cell.isUnderline() ? 'underline' : 'none'}`
-            if (style !== lastStyle) {
-                if (lastStyle !== null) {
-                    html += '</span>'
-                }
-                html += `<span style="${style}">`
-                lastStyle = style
-            }
-            html += line.getString(i) || ' '
-        }
-        html += '</span></div>'
-        return html
+        return this.serializeAddon.serializeAsHTML({ includeGlobalBackground: true, onlySelection: true  })
     }
 }
 
