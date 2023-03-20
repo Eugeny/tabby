@@ -28,24 +28,27 @@ ng-container(*ngIf='state.resultCount > 0')
 
 .me-2
 
-button.btn.btn-link(
+button.btn(
     (click)='options.caseSensitive = !options.caseSensitive; saveSearchOptions()',
+    [class.btn-link]='!options.caseSensitive',
     [class.btn-info]='options.caseSensitive',
     ngbTooltip='Case sensitivity',
     placement='bottom',
     [fastHtmlBind]='icons.case'
 )
 
-button.btn.btn-link(
+button.btn(
     (click)='options.regex = !options.regex; saveSearchOptions()',
+    [class.btn-link]='!options.regex',
     [class.btn-info]='options.regex',
     ngbTooltip='Regular expression',
     placement='bottom',
     [fastHtmlBind]='icons.regexp'
 )
 
-button.btn.btn-link(
+button.btn(
     (click)='options.wholeWord = !options.wholeWord; saveSearchOptions()',
+    [class.btn-link]='!options.wholeWord',
     [class.btn-info]='options.wholeWord',
     ngbTooltip='Whole word',
     placement='bottom',
