@@ -24,3 +24,7 @@
         border-radius: 10px;
     }
 }
+
+::ng-deep .no-animations split-tab > .child {
+    transition: none;
+}

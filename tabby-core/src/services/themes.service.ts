@@ -158,6 +158,8 @@ export class ThemesService {
         for (const [key, value] of Object.entries(vars)) {
             document.documentElement.style.setProperty(key, value)
         }
+
+        document.body.classList.toggle('no-animations', !this.config.store.accessibility.animations)
     }
 
     findTheme (name: string): Theme|null {
