@@ -1,6 +1,6 @@
 import * as path from 'path'
 import * as fs from 'fs/promises'
-import hasbin from 'hasbin'
+import * as which from 'which'
 import { Injectable } from '@angular/core'
 import { HostAppService, Platform, ConfigService } from 'tabby-core'
 import { ElectronService } from '../services/electron.service'
@@ -73,7 +73,7 @@ export class WindowsStockShellsProvider extends WindowsBaseShellProvider {
 
     private async getPowerShellPath () {
         for (const name of ['pwsh.exe', 'powershell.exe']) {
-            if (await new Promise(resolve => hasbin(name, resolve))) {
+            if (await which(name, { nothrow: true })) {
                 return name
             }
         }
