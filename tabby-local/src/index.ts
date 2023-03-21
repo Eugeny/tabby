@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { ToastrModule } from 'ngx-toastr'
 
-import TabbyCorePlugin, { HostAppService, ToolbarButtonProvider, TabRecoveryProvider, ConfigProvider, HotkeysService, HotkeyProvider, TabContextMenuItemProvider, CLIHandler, ConfigService, ProfileProvider } from 'tabby-core'
+import TabbyCorePlugin, { HostAppService, ToolbarButtonProvider, TabRecoveryProvider, ConfigProvider, HotkeysService, HotkeyProvider, TabContextMenuItemProvider, CLIHandler, ProfileProvider } from 'tabby-core'
 import TabbyTerminalModule from 'tabby-terminal'
 import { SettingsTabProvider } from 'tabby-settings'
 
@@ -71,7 +71,6 @@ export default class LocalTerminalModule { // eslint-disable-line @typescript-es
         hotkeys: HotkeysService,
         terminal: TerminalService,
         hostApp: HostAppService,
-        config: ConfigService,
     ) {
         hotkeys.hotkey$.subscribe(async (hotkey) => {
             if (hotkey === 'new-tab') {

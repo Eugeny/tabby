@@ -61,7 +61,7 @@ export class ElectronPTYProxy extends PTYProxy {
         return this.id
     }
 
-    getTruePID(): Promise<number> {
+    getTruePID (): Promise<number> {
         return this.truePID
     }
 
