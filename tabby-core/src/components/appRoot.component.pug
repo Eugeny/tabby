@@ -37,14 +37,12 @@ title-bar(
 
         .btn-group.background
             .d-flex(
-                *ngFor='let button of leftToolbarButtons',
-                ngbDropdown
+                *ngFor='let button of leftToolbarButtons'
             )
                 button.btn.btn-secondary.btn-tab-bar(
                     [title]='button.label',
                     (click)='button.run && button.run()',
-                    [fastHtmlBind]='button.icon',
-                    ngbDropdownToggle,
+                    [fastHtmlBind]='button.icon'
                 )
 
             .d-flex(
@@ -67,14 +65,12 @@ title-bar(
 
         .btn-group.background
             .d-flex(
-                *ngFor='let button of rightToolbarButtons',
-                ngbDropdown
+                *ngFor='let button of rightToolbarButtons'
             )
                 button.btn.btn-secondary.btn-tab-bar(
                     [title]='button.label',
                     (click)='button.run && button.run()',
-                    [fastHtmlBind]='button.icon',
-                    ngbDropdownToggle,
+                    [fastHtmlBind]='button.icon'
                 )
 
             button.btn.btn-secondary.btn-tab-bar.btn-update(
