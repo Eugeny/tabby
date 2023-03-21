@@ -114,6 +114,18 @@
                             .title(translate) Enable animations
                         toggle([(ngModel)]='config.store.accessibility.animations', (ngModelChange)='saveConfiguration()')
 
+                    .form-line
+                        .header
+                            .title(translate) Minimum contrast ratio
+                        input.form-control(
+                            type='number',
+                            min='1',
+                            max='21',
+                            step='0.5',
+                            [(ngModel)]='config.store.terminal.minimumContrastRatio',
+                            (ngModelChange)='config.save()'
+                        )
+
         ng-container(*ngFor='let provider of settingsProviders')
             li(*ngIf='provider.prioritized', [ngbNavItem]='provider.id')
                 a.d-flex.align-items-center(ngbNavLink)

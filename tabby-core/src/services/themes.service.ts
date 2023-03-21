@@ -26,9 +26,9 @@ export class ThemesService {
             this.applyThemeVariables()
             config.changed$.subscribe(() => {
                 this.applyCurrentTheme()
+                this.applyThemeVariables()
             })
         })
-        config.changed$.subscribe(() => this.applyThemeVariables())
     }
 
     private applyThemeVariables () {
@@ -62,6 +62,7 @@ export class ThemesService {
         // const backgroundMore =more(theme.background, 0.25).string()
         const accentIndex = 4
         const vars: Record<string, string> = {}
+        const contrastPairs: string[][] = []
 
         if (this.findCurrentTheme().followsColorScheme) {
             vars['--bs-body-bg'] = background.string()
@@ -82,6 +83,8 @@ export class ThemesService {
             // vars['--bs-purple'] = theme.colors[13]
             // vars['--bs-cyan'] = theme.colors[14]
 
+            contrastPairs.push(['--bs-body-bg', '--bs-body-color'])
+
             vars['--theme-fg-more-2'] = more(theme.foreground, 0.5).string()
             vars['--theme-fg-more'] = more(theme.foreground, 0.25).string()
             vars['--theme-fg'] = theme.foreground
@@ -93,6 +96,12 @@ export class ThemesService {
             vars['--theme-bg'] = theme.background
             vars['--theme-bg-more'] = backgroundMore
             vars['--theme-bg-more-2'] = more(backgroundMore, 0.25).string()
+
+            contrastPairs.push(['--theme-bg', '--theme-fg'])
+            contrastPairs.push(['--theme-bg-less', '--theme-fg-less'])
+            contrastPairs.push(['--theme-bg-less-2', '--theme-fg-less-2'])
+            contrastPairs.push(['--theme-bg-more', '--theme-fg-more'])
+            contrastPairs.push(['--theme-bg-more-2', '--theme-fg-more-2'])
 
             const themeColors = {
                 primary: theme.colors[accentIndex],
@@ -117,6 +126,9 @@ export class ThemesService {
                 vars[`--theme-${key}`] = color
                 vars[`--theme-${key}-less`] = less(color, 0.25).string()
                 vars[`--theme-${key}-less-2`] = less(color, 0.75).string()
+                vars[`--theme-${key}-fg`] = more(color, 1).string()
+
+                contrastPairs.push([`--theme-${key}`, `--theme-${key}-fg`])
             }
 
             const switchBackground = less(theme.colors[accentIndex], 0.25).string()
@@ -124,6 +136,24 @@ export class ThemesService {
         }
 
         vars['--spaciness'] = this.config.store.appearance.spaciness
+
+        for (const [bg, fg] of contrastPairs) {
+            const colorBg = Color(vars[bg]).hsl()
+            const colorFg = Color(vars[fg]).hsl()
+            const bgContrast = colorBg.contrast(colorFg)
+            const isLightBG = colorBg.luminosity() > colorFg.luminosity()
+            if (bgContrast < this.config.store.terminal.minimumContrastRatio) {
+                const targetLuminosityDarkFG = (colorBg.luminosity() + 0.05) / this.config.store.terminal.minimumContrastRatio - 0.05
+                const targetLuminosityLightFG = (colorBg.luminosity() + 0.05) * this.config.store.terminal.minimumContrastRatio - 0.05
+
+                let candidateLuminosities = isLightBG ? [targetLuminosityDarkFG, targetLuminosityLightFG] : [targetLuminosityLightFG, targetLuminosityDarkFG]
+                candidateLuminosities = candidateLuminosities.map(x => Math.max(0, Math.min(1, x)))
+                const targetLuminosity = candidateLuminosities.reduce((a, b) => Math.abs(b - colorBg.luminosity()) < Math.abs(a - colorBg.luminosity()) ? a : b, colorFg.color[2] / 100)
+
+                colorFg.color[2] = targetLuminosity * 100
+                vars[fg] = colorFg
+            }
+        }
 
         for (const [key, value] of Object.entries(vars)) {
             document.documentElement.style.setProperty(key, value)
