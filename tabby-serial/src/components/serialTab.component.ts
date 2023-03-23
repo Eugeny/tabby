@@ -16,7 +16,6 @@ import { SerialSession, BAUD_RATES, SerialProfile } from '../api'
 })
 export class SerialTabComponent extends BaseTerminalTabComponent<SerialProfile> {
     session: SerialSession|null = null
-    serialPort: any
     Platform = Platform
 
     // eslint-disable-next-line @typescript-eslint/no-useless-constructor
@@ -114,7 +113,7 @@ export class SerialTabComponent extends BaseTerminalTabComponent<SerialProfile> 
                 name: x.toString(), result: x,
             })),
         )
-        this.serialPort.update({ baudRate: rate })
+        this.session?.serial.update({ baudRate: rate })
         this.profile.options.baudrate = rate
     }
 }
