@@ -5,7 +5,13 @@ import { SettingsTabProvider } from '../api'
 @Component({
     selector: 'settings-tab-body',
     template: '<ng-template #placeholder></ng-template>',
-    styles: [`:host { display: block; padding-bottom: 20px; }`],
+    styles: [`
+        :host {
+            display: block;
+            padding-bottom: 20px;
+            max-width: 500px;
+        }
+    `],
 })
 export class SettingsTabBodyComponent {
     @Input() provider: SettingsTabProvider

@@ -57,9 +57,6 @@ app-root {
                     &.active {
                         color: var(--theme-fg-less-2);
                         background: var(--bs-body-bg);
-
-                        border-left: 1px solid var(--theme-bg-less);
-                        border-right: 1px solid var(--theme-bg-less);
                     }
                 }
             }
@@ -84,7 +81,7 @@ $form-switch-width: 2.5em;
 
 body {
     --bs-border-color: var(--theme-bg-more-2);
-    --bs-form-control-bg: var(--theme-bg-more);
+    --bs-form-control-bg: var(--theme-bg-more-2);
     --bs-emphasis-color: var(--theme-fg-less-2);
 }
 
@@ -123,8 +120,8 @@ body {
 
 .nav-pills {
     --bs-nav-pills-border-radius: #{$nav-pills-border-radius};
-    --bs-nav-pills-link-active-color: var(--theme-bg-more);
-    --bs-nav-pills-link-active-bg: var(--bs-primary);
+    --bs-nav-pills-link-active-color: var(--theme-primary-fg);
+    --bs-nav-pills-link-active-bg: var(--theme-primary);
 }
 
 .nav-tabs {
@@ -190,8 +187,8 @@ tab-body {
         --bs-btn-hover-border-color: var(--theme-#{$color}-less);
         --bs-btn-hover-bg: var(--theme-#{$color}-less);
 
-        --bs-btn-active-border-color: var(--theme-#{$color}-less-2);
-        --bs-btn-active-bg: var(--theme-#{$color}-less-2);
+        --bs-btn-active-border-color: var(--theme-#{$color});
+        --bs-btn-active-bg: var(--theme-#{$color}-more);
 
         --bs-btn-focus-shadow-rgb: 130, 138, 145;
         --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
@@ -389,6 +386,7 @@ ngx-colors-panel .opened {
 
 .text-muted {
     opacity: .5;
+    color: var(--theme-fg) !important;
 }
 
 .form-switch .form-check-input {

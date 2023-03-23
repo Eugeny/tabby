@@ -126,7 +126,7 @@ export class ThemesService {
                 vars[`--theme-${key}`] = color
                 vars[`--theme-${key}-less`] = less(color, 0.25).string()
                 vars[`--theme-${key}-less-2`] = less(color, 0.75).string()
-                vars[`--theme-${key}-fg`] = more(color, 1).string()
+                vars[`--theme-${key}-fg`] = more(color, 3).string()
 
                 contrastPairs.push([`--theme-${key}`, `--theme-${key}-fg`])
             }
@@ -141,17 +141,8 @@ export class ThemesService {
             const colorBg = Color(vars[bg]).hsl()
             const colorFg = Color(vars[fg]).hsl()
             const bgContrast = colorBg.contrast(colorFg)
-            const isLightBG = colorBg.luminosity() > colorFg.luminosity()
             if (bgContrast < this.config.store.terminal.minimumContrastRatio) {
-                const targetLuminosityDarkFG = (colorBg.luminosity() + 0.05) / this.config.store.terminal.minimumContrastRatio - 0.05
-                const targetLuminosityLightFG = (colorBg.luminosity() + 0.05) * this.config.store.terminal.minimumContrastRatio - 0.05
-
-                let candidateLuminosities = isLightBG ? [targetLuminosityDarkFG, targetLuminosityLightFG] : [targetLuminosityLightFG, targetLuminosityDarkFG]
-                candidateLuminosities = candidateLuminosities.map(x => Math.max(0, Math.min(1, x)))
-                const targetLuminosity = candidateLuminosities.reduce((a, b) => Math.abs(b - colorBg.luminosity()) < Math.abs(a - colorBg.luminosity()) ? a : b, colorFg.color[2] / 100)
-
-                colorFg.color[2] = targetLuminosity * 100
-                vars[fg] = colorFg
+                vars[fg] = this.ensureContrast(colorFg, colorBg).string()
             }
         }
 
@@ -160,6 +151,24 @@ export class ThemesService {
         }
 
         document.body.classList.toggle('no-animations', !this.config.store.accessibility.animations)
+    }
+
+    private ensureContrast (color: Color, against: Color): Color {
+        const a = this.increaseContrast(color, against, 1.1)
+        const b = this.increaseContrast(color, against, 0.9)
+        return a.contrast(against) > b.contrast(against) ? a : b
+    }
+
+    private increaseContrast (color: Color, against: Color, step=1.1): Color {
+        color = color.hsl()
+        color.color[2] = Math.max(color.color[2], 0.01)
+        while (
+            (step < 1 && color.color[2] > 1 ||
+             step > 1 && color.color[2] < 99) &&
+             color.contrast(against) < this.config.store.terminal.minimumContrastRatio) {
+            color.color[2] *= step
+        }
+        return color
     }
 
     findTheme (name: string): Theme|null {

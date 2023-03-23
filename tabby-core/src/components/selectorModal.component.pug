@@ -26,9 +26,9 @@
                     *ngIf='option.description !== getOptionText(option)'
                 ) {{option.description}}
                 .ms-auto
-                .no-wrap.badge.text-bg-secondary.text-muted.ms-2(*ngIf='selectedIndex == i && canEditSelected()')
-                    span Backspace
+                .no-wrap.badge.text-bg-secondary.ms-2(*ngIf='selectedIndex == i && canEditSelected()')
+                    span BACKSPACE
                     i.fas.fa-pencil.ms-1
-                .no-wrap.badge.text-bg-secondary.text-muted.ms-2(*ngIf='selectedIndex == i')
-                    span Enter
+                .no-wrap.badge.text-bg-secondary.ms-2(*ngIf='selectedIndex == i')
+                    span ENTER
                     i.fas.fa-arrow-right.ms-1
