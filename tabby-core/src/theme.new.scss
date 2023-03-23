@@ -10,7 +10,7 @@ app-root {
 
     &> .content {
         .tab-bar {
-            background: var(--theme-bg-more);
+            background: var(--theme-bg-more-2);
 
             .btn-tab-bar {
                 background: transparent;
@@ -55,10 +55,11 @@ app-root {
                     }
 
                     &.active {
-                        // color: $black;
+                        color: var(--theme-fg-less-2);
                         background: var(--bs-body-bg);
-                        // border-left: 1px solid $border-color;
-                        // border-right: 1px solid $border-color;
+
+                        border-left: 1px solid var(--theme-bg-less);
+                        border-right: 1px solid var(--theme-bg-less);
                     }
                 }
             }
