@@ -113,7 +113,7 @@ export class SerialTabComponent extends BaseTerminalTabComponent<SerialProfile> 
                 name: x.toString(), result: x,
             })),
         )
-        this.session?.serial.update({ baudRate: rate })
+        this.session?.serial?.update({ baudRate: rate })
         this.profile.options.baudrate = rate
     }
 }
