@@ -1130,6 +1130,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "CryptoGnome",
+      "name": "Crypto Gnome",
+      "avatar_url": "https://avatars.githubusercontent.com/u/33667144?v=4",
+      "profile": "https://www.gnomegarden.io/",
+      "contributions": [
+        "financial"
+      ]
     }
   ],
   "contributorsPerLine": 7,
