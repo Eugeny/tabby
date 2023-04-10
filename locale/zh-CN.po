@@ -10,9 +10,9 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2023-03-17 23:07\n"
+"PO-Revision-Date: 2023-04-10 18:13\n"
 
-#: tabby-local/src/components/terminalTab.component.ts:112
+#: tabby-local/src/components/terminalTab.component.ts:111
 msgid "\"{command}\" is still running. Close?"
 msgstr "\"{command}\" 仍在运行。是否需要关闭？"
 
@@ -21,7 +21,7 @@ msgstr "\"{command}\" 仍在运行。是否需要关闭？"
 msgid "{name} copy"
 msgstr "{name} 副本"
 
-#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:82
+#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:77
 msgid "A second font family used to display characters missing in the main font"
 msgstr "首选字体缺失时使用备选字体显示字符"
 
@@ -41,12 +41,12 @@ msgstr "只接受本次"
 msgid "Accessibility"
 msgstr "辅助功能"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:20
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:27
 msgid "Acrylic background"
 msgstr "亚克力背景"
 
-#: locale/tmp-html/tabby-local/src/components/commandLineEditor.component.html:28
-#: locale/tmp-html/tabby-local/src/components/environmentEditor.component.html:15
+#: locale/tmp-html/tabby-local/src/components/commandLineEditor.component.html:24
+#: locale/tmp-html/tabby-local/src/components/environmentEditor.component.html:11
 msgid "Add"
 msgstr "添加"
 
@@ -62,13 +62,13 @@ msgstr "添加私钥"
 msgid "Add..."
 msgstr "添加…"
 
-#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:89
+#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:84
 msgid "Additional space between lines"
 msgstr "行与行之间的空隙"
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:22
-#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:65
-#: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:52
+#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:61
+#: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:50
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:124
 msgid "Advanced"
 msgstr "高级设置"
@@ -89,7 +89,7 @@ msgstr "Agent pipe 路径"
 msgid "Agent type"
 msgstr "Agent 类型"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:172
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:169
 msgid "Allows opening .bat files in tabs, but breaks some shells"
 msgstr "允许在标签页中打开.bat文件，但会中断某些shell"
 
@@ -114,11 +114,11 @@ msgstr "应用程序设置"
 msgid "Are you sure you want to close Tabby? You can disable this prompt in Settings -> Window."
 msgstr "您确定要关闭 Tabby 吗？您可以在 设置 -> 窗口 中关闭此提示。"
 
-#: tabby-core/src/services/config.service.ts:381
+#: tabby-core/src/services/config.service.ts:383
 msgid "Are you sure?"
 msgstr "您确定吗？"
 
-#: locale/tmp-html/tabby-local/src/components/commandLineEditor.component.html:20
+#: locale/tmp-html/tabby-local/src/components/commandLineEditor.component.html:18
 msgid "Arguments"
 msgstr "参数"
 
@@ -126,11 +126,11 @@ msgstr "参数"
 msgid "Ask a question"
 msgstr "提出问题"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:13
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:20
 msgid "Ask before closing the browser tab"
 msgstr "关闭标签页前询问"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:143
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:141
 msgid "Audible"
 msgstr "有声"
 
@@ -138,7 +138,7 @@ msgstr "有声"
 msgid "Authentication method"
 msgstr "身份验证方法"
 
-#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:83
+#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:79
 msgid "Author"
 msgstr "作者"
 
@@ -146,7 +146,7 @@ msgstr "作者"
 msgid "Auto"
 msgstr "自动"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:156
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:153
 msgid "Auto-open a terminal on app start"
 msgstr "在应用程序启动时自动打开一个终端窗口"
 
@@ -160,7 +160,7 @@ msgstr "自动"
 msgid "Automatic Updates"
 msgstr "自动更新"
 
-#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:58
+#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:54
 msgid "Automatically upload changes and check for updates every minute"
 msgstr "每分钟自动上传更改，并自动检查更新"
 
@@ -168,12 +168,12 @@ msgstr "每分钟自动上传更改，并自动检查更新"
 msgid "Available"
 msgstr "可用"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:28
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:35
 msgid "Background type"
 msgstr "背景类型"
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:14
-#: tabby-serial/src/components/serialTab.component.ts:112
+#: tabby-serial/src/components/serialTab.component.ts:111
 #: tabby-serial/src/profiles.ts:86
 msgid "Baud rate"
 msgstr "波特率"
@@ -182,7 +182,7 @@ msgstr "波特率"
 msgid "Beginning of the line"
 msgstr "行首"
 
-#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:69
+#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:64
 msgid "Blink cursor"
 msgstr "光标闪烁"
 
@@ -190,7 +190,7 @@ msgstr "光标闪烁"
 msgid "Blue"
 msgstr "蓝色"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:32
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:39
 msgid "Blur"
 msgstr "模糊"
 
@@ -198,8 +198,8 @@ msgstr "模糊"
 msgid "Bold font weight"
 msgstr "粗体字重"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:138
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:82
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:132
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:80
 msgid "Bottom"
 msgstr "底部"
 
@@ -211,25 +211,25 @@ msgstr "Bracketed 粘贴（需要 Shell 支持）"
 msgid "Broadcast mode. Click anywhere to cancel."
 msgstr "广播模式。点击任意位置取消。"
 
-#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:54
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:175
+#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:50
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:182
 msgid "Built-in"
 msgstr "内置"
 
 #: locale/tmp-html/tabby-core/src/components/renameTabModal.component.html:7
-#: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:55
+#: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:53
 #: locale/tmp-html/tabby-settings/src/components/hotkeyInputModal.component.html:14
-#: locale/tmp-html/tabby-settings/src/components/setVaultPassphraseModal.component.html:14
+#: locale/tmp-html/tabby-settings/src/components/setVaultPassphraseModal.component.html:12
 #: locale/tmp-html/tabby-ssh/src/components/sftpCreateDirectoryModal.component.html:10
 #: locale/tmp-html/tabby-ssh/src/components/sftpDeleteModal.component.html:7
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:32
 #: tabby-electron/src/services/updater.service.ts:134
-#: tabby-local/src/components/terminalTab.component.ts:117
+#: tabby-local/src/components/terminalTab.component.ts:116
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:117
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:79
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:99
 #: tabby-ssh/src/sftpContextMenu.ts:40
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:478
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:484
 msgid "Cancel"
 msgstr "取消"
 
@@ -304,19 +304,22 @@ msgstr "关闭左侧标签页"
 msgid "Close tabs to the right"
 msgstr "关闭右侧标签页"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:193
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:182
 msgid "Close the window after closing the last tab"
 msgstr "所有标签都关闭时关闭主窗口"
 
-#: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:35
+#: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:33
 #: tabby-core/src/tabContextMenu.ts:132
 msgid "Color"
 msgstr "颜色"
 
-#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:216
 #: tabby-terminal/src/settings.ts:29
 msgid "Color scheme"
 msgstr "配色方案"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:216
+msgid "Colors"
+msgstr ""
 
 #: tabby-core/src/hotkeys.ts:73
 msgid "Combine all tabs into the current tab"
@@ -334,9 +337,9 @@ msgstr "使用命令的 stdin/stdout，而不是网络连接。"
 msgid "Commands"
 msgstr "命令"
 
-#: tabby-core/src/theme.ts:20
-msgid "Compact"
-msgstr "紧凑"
+#: tabby-core/src/theme.ts:21
+msgid "Compact (legacy)"
+msgstr ""
 
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:126
 msgid "Config deleted"
@@ -346,8 +349,8 @@ msgstr "配置已删除"
 msgid "Config downloaded"
 msgstr "配置已下载"
 
-#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:109
-#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:114
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:115
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:120
 msgid "Config file"
 msgstr "配置文件"
 
@@ -360,7 +363,7 @@ msgstr "配置同步"
 msgid "Config uploaded"
 msgstr "配置已上传"
 
-#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:35
+#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:31
 msgid "Configs"
 msgstr "配置"
 
@@ -368,7 +371,7 @@ msgstr "配置"
 msgid "Connect through a proxy server"
 msgstr "通过代理服务器连接"
 
-#: tabby-core/src/index.ts:227
+#: tabby-core/src/index.ts:214
 #: tabby-core/src/services/profiles.service.ts:178
 msgid "Connect to \"%s\"..."
 msgstr "正在连接到 \"%s\"…"
@@ -378,8 +381,8 @@ msgid "Connect to a different host first and use it as a proxy"
 msgstr "首先连接至另一主机，并将其作为代理"
 
 #: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:19
-#: tabby-serial/src/components/serialTab.component.ts:66
-#: tabby-ssh/src/components/sshTab.component.ts:140
+#: tabby-serial/src/components/serialTab.component.ts:65
+#: tabby-ssh/src/components/sshTab.component.ts:143
 #: tabby-telnet/src/components/telnetTab.component.ts:72
 msgid "Connecting"
 msgstr "正在连接"
@@ -388,11 +391,11 @@ msgstr "正在连接"
 msgid "Connection"
 msgstr "连接"
 
-#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:30
+#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:26
 msgid "Connection failed: {error}"
 msgstr "连接失败: {error}"
 
-#: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:42
+#: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:40
 msgid "Connection name will be used instead"
 msgstr "将使用连接名称代替"
 
@@ -400,10 +403,14 @@ msgstr "将使用连接名称代替"
 msgid "Context menu"
 msgstr "右键菜单"
 
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:223
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:231
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:547
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:768
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:14
+msgid "Controls the amount of space between elements"
+msgstr ""
+
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:229
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:237
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:553
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:775
 #: tabby-terminal/src/tabContextMenu.ts:30
 msgid "Copied"
 msgstr "已复制"
@@ -433,7 +440,7 @@ msgstr "复制到剪贴板"
 msgid "Copy with formatting"
 msgstr "复制带格式"
 
-#: tabby-core/src/services/config.service.ts:366
+#: tabby-core/src/services/config.service.ts:368
 msgid "Could not decrypt config"
 msgstr "无法解密配置"
 
@@ -446,7 +453,7 @@ msgstr "创建"
 msgid "Create directory"
 msgstr "创建文件夹"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:93
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:90
 msgid "Current"
 msgstr "当前"
 
@@ -462,15 +469,15 @@ msgstr "当前主机密钥指纹"
 msgid "Current process: {name}"
 msgstr "当前进程：{name}"
 
-#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:53
+#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:51
 msgid "Cursor shape"
 msgstr "光标形状"
 
-#: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:49
+#: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:47
 msgid "Custom"
 msgstr "自定义"
 
-#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:95
+#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:90
 msgid "Custom CSS"
 msgstr "自定义 CSS"
 
@@ -494,11 +501,11 @@ msgstr "减少垂直分割大小"
 msgid "Default profile for new tabs"
 msgstr "新标签页的默认配置"
 
-#: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:80
+#: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:78
 msgid "Default profile settings"
 msgstr "默认配置设置"
 
-#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:118
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:124
 msgid "Defaults"
 msgstr "默认值"
 
@@ -506,13 +513,13 @@ msgstr "默认值"
 msgid "Defaults for {type}"
 msgstr "{type} 的默认值"
 
-#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:48
+#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:44
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:28
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:9
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:116
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:139
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:204
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:217
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:211
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:224
 #: tabby-settings/src/components/vaultSettingsTab.component.ts:49
 #: tabby-ssh/src/sftpContextMenu.ts:39
 #: tabby-ssh/src/sftpContextMenu.ts:47
@@ -522,7 +529,7 @@ msgid "Delete"
 msgstr "删除"
 
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:137
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:202
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:209
 #: tabby-terminal/src/components/colorSchemeSettingsTab.component.ts:87
 msgid "Delete \"{name}\"?"
 msgstr "删除\"{name}\"？"
@@ -547,7 +554,7 @@ msgstr "删除上一个单词"
 msgid "Delete the config on the remote side?"
 msgstr "是否删除远程配置？"
 
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:214
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:221
 msgid "Delete the group's profiles?"
 msgstr "删除此分组所有配置？"
 
@@ -571,33 +578,33 @@ msgstr "设备"
 msgid "Direct"
 msgstr "直连"
 
-#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:61
+#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:57
 msgid "Disable"
 msgstr "禁用"
 
-#: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:41
+#: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:39
 msgid "Disable dynamic tab title"
 msgstr "禁用动态标签页标题"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:229
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:218
 msgid "Disable fluent background while dragging"
 msgstr "拖动时禁用 Fluent 背景"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:215
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:204
 msgid "Disable GPU acceleration"
 msgstr "禁用 GPU 加速"
 
-#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:54
+#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:50
 msgid "Disabled"
 msgstr "已禁用"
 
 #: locale/tmp-html/tabby-ssh/src/components/hostKeyPromptModal.component.html:26
-#: tabby-ssh/src/components/sshTab.component.ts:246
+#: tabby-ssh/src/components/sshTab.component.ts:249
 #: tabby-telnet/src/components/telnetTab.component.ts:115
 msgid "Disconnect"
 msgstr "断开连接"
 
-#: tabby-ssh/src/components/sshTab.component.ts:244
+#: tabby-ssh/src/components/sshTab.component.ts:247
 #: tabby-telnet/src/components/telnetTab.component.ts:113
 msgid "Disconnect from {host}?"
 msgstr "断开与 {host} 的连接？"
@@ -606,7 +613,7 @@ msgstr "断开与 {host} 的连接？"
 msgid "Display images via Sixel escape sequences"
 msgstr "由六像素转义序列显示图像"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:88
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:85
 msgid "Display on"
 msgstr "显示于"
 
@@ -614,7 +621,7 @@ msgstr "显示于"
 msgid "Do not abort"
 msgstr "不要中止"
 
-#: tabby-ssh/src/components/sshTab.component.ts:247
+#: tabby-ssh/src/components/sshTab.component.ts:250
 #: tabby-telnet/src/components/telnetTab.component.ts:116
 msgid "Do not close"
 msgstr "不要关闭"
@@ -624,23 +631,23 @@ msgstr "不要关闭"
 msgid "Do not remember"
 msgstr "不记住"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:102
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:97
 msgid "Dock always on top"
 msgstr "窗口保持置顶"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:65
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:67
 msgid "Dock the terminal"
 msgstr "停靠终端"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:109
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:104
 msgid "Docked terminal size"
 msgstr "停靠的终端大小"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:116
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:111
 msgid "Docked terminal space"
 msgstr "停靠的终端空间"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:62
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:64
 msgid "Docking"
 msgstr "停靠"
 
@@ -652,7 +659,7 @@ msgstr "双击选择将在这些字符处停止"
 msgid "Down"
 msgstr "向下"
 
-#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:47
+#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:43
 msgid "Download"
 msgstr "下载"
 
@@ -664,7 +671,7 @@ msgstr "以亮色显示粗体"
 msgid "Duplicate"
 msgstr "克隆"
 
-#: tabby-local/src/tabContextMenu.ts:123
+#: tabby-local/src/tabContextMenu.ts:122
 msgid "Duplicate as administrator"
 msgstr "以管理员身份克隆"
 
@@ -681,7 +688,7 @@ msgstr "编辑"
 msgid "Edit locally"
 msgstr "本地编辑"
 
-#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:62
+#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:58
 msgid "Enable"
 msgstr "启用"
 
@@ -698,9 +705,9 @@ msgstr "开启动画效果"
 msgid "Enable automatic installation of updates when they become available."
 msgstr "当更新可用时，启用自动安装"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:222
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:211
 msgid "Enable fluent background option"
-msgstr "启用流利后台选项"
+msgstr "启用Fluent背景"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:16
 msgid "Enable font ligatures"
@@ -722,12 +729,12 @@ msgstr "加密配置文件"
 msgid "End of the line"
 msgstr "行尾"
 
-#: locale/tmp-html/tabby-local/src/components/localProfileSettings.component.html:19
+#: locale/tmp-html/tabby-local/src/components/localProfileSettings.component.html:17
 msgid "Environment"
 msgstr "环境变量"
 
-#: tabby-core/src/services/config.service.ts:370
-#: tabby-core/src/services/config.service.ts:384
+#: tabby-core/src/services/config.service.ts:372
+#: tabby-core/src/services/config.service.ts:386
 msgid "Erase config"
 msgstr "擦除配置"
 
@@ -739,15 +746,15 @@ msgstr "擦除保险库"
 msgid "Error in {plugin}:"
 msgstr "{plugin} 中的错误："
 
-#: locale/tmp-html/tabby-terminal/src/components/loginScriptsSettings.component.html:9
+#: locale/tmp-html/tabby-terminal/src/components/loginScriptsSettings.component.html:10
 msgid "Exact match"
 msgstr "完全匹配"
 
-#: locale/tmp-html/tabby-local/src/components/environmentEditor.component.html:19
+#: locale/tmp-html/tabby-local/src/components/environmentEditor.component.html:15
 msgid "Example:"
 msgstr "示例："
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:223
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:212
 msgid "Experimental Windows 10 background style known to cause issues"
 msgstr "实验性Windows 10 背景风格已知会导致问题"
 
@@ -755,7 +762,7 @@ msgstr "实验性Windows 10 背景风格已知会导致问题"
 msgid "Export"
 msgstr "导出"
 
-#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:81
+#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:76
 msgid "Fallback font"
 msgstr "备用字体"
 
@@ -771,11 +778,11 @@ msgstr "文件： {description}"
 msgid "Filter"
 msgstr "筛选"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:157
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:147
 msgid "Fixed"
 msgstr "固定"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:230
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:219
 msgid "Fluent background sometimes causes drag lag"
 msgstr "Fluent 背景有时会导致拖动延迟"
 
@@ -795,7 +802,7 @@ msgstr "聚焦所有标签页"
 msgid "Focus all tabs at once (broadcast)"
 msgstr "同时聚焦所有标签页 (广播)"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:207
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:196
 msgid "Focus follows mouse"
 msgstr "焦点跟随鼠标"
 
@@ -835,11 +842,15 @@ msgstr "聚焦左方的窗格"
 msgid "Focus the pane on the right"
 msgstr "聚焦右方的窗格"
 
+#: tabby-core/src/theme.ts:43
+msgid "Follow the color scheme"
+msgstr ""
+
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:7
 msgid "Font"
 msgstr "字体"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:201
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:190
 msgid "For keyboard shortcuts"
 msgstr "对于键盘快捷键"
 
@@ -863,7 +874,7 @@ msgstr "强制特定的 SSH Agent 连接类型"
 msgid "Forget"
 msgstr "忘记"
 
-#: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:58
+#: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:45
 msgid "Forward port"
 msgstr "转发端口"
 
@@ -871,7 +882,7 @@ msgstr "转发端口"
 msgid "Forwarded ports"
 msgstr "已转发端口"
 
-#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:47
+#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:46
 msgid "From color scheme"
 msgstr "取自配色方案"
 
@@ -883,7 +894,7 @@ msgstr "取自主题"
 msgid "Frontend"
 msgstr "前端"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:58
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:61
 msgid "Full"
 msgstr "完整"
 
@@ -897,15 +908,15 @@ msgstr "通用"
 msgid "Generate a pre-filled GitHub issue"
 msgstr "生成一个预填写的 GitHub 问题"
 
-#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:27
+#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:25
 msgid "Get"
 msgstr "获取"
 
-#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:20
+#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:18
 msgid "Get it from the Tabby Web settings window"
 msgstr "从 Tabby 网页设置窗口获取"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:22
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:29
 msgid "Gives the window a blurred transparent background"
 msgstr "使窗口具有模糊透明的背景"
 
@@ -921,7 +932,7 @@ msgstr "绿色"
 msgid "Group"
 msgstr "分组"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:212
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:201
 msgid "Hacks"
 msgstr "调整"
 
@@ -938,27 +949,27 @@ msgstr "帮助翻译Tabby"
 msgid "Hexadecimal"
 msgstr "十六进制"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:187
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:176
 msgid "Hide tab close button"
 msgstr "隐藏标签页关闭按钮"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:169
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:158
 msgid "Hide tab index"
 msgstr "隐藏标签页索引"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:181
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:170
 msgid "Hide tab options button"
 msgstr "隐藏标签页选项按钮"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:123
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:118
 msgid "Hide window on focus loss"
 msgstr "失去聚焦时隐藏窗口"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:124
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:119
 msgid "Hides the docked terminal when you click away."
 msgstr "点击别处时隐藏停靠的终端"
 
-#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:28
+#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:26
 msgid "Homepage"
 msgstr "主页"
 
@@ -980,7 +991,7 @@ msgstr "主机密钥校验"
 msgid "Hotkeys"
 msgstr "快捷键"
 
-#: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:71
+#: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:69
 msgid "How Tabby presents itself through environment vars"
 msgstr "Tabby如何通过环境变量呈现自己"
 
@@ -1000,11 +1011,11 @@ msgstr "HTTP 代理端口"
 msgid "Icon"
 msgstr "图标"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:154
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:145
 msgid "id.tab-width.dynamic"
 msgstr "动态"
 
-#: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:64
+#: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:62
 msgid "If disabled, only custom profiles will show up in the profile selector"
 msgstr "如果禁用，则只在配置选择器中显示自定义配置"
 
@@ -1032,7 +1043,7 @@ msgstr "输入模式"
 msgid "Input newlines"
 msgstr "输入换行符"
 
-#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:41
+#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:39
 msgid "Installed"
 msgstr "已安装"
 
@@ -1048,7 +1059,7 @@ msgstr "智能 Ctrl-C (复制/中止)"
 msgid "Interactive"
 msgstr "交互式"
 
-#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:124
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:130
 msgid "Invalid syntax"
 msgstr "无效的语法"
 
@@ -1066,7 +1077,7 @@ msgid "Jump to previous word"
 msgstr "跳到上一个单词"
 
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:140
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:205
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:212
 #: tabby-settings/src/components/vaultSettingsTab.component.ts:50
 #: tabby-terminal/src/components/colorSchemeSettingsTab.component.ts:90
 #: tabby-terminal/src/components/loginScriptsSettings.component.ts:33
@@ -1078,7 +1089,7 @@ msgstr "保留"
 msgid "Keep Alive Interval (Milliseconds)"
 msgstr "保活间隔（毫秒）"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:103
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:98
 msgid "Keep docked terminal always on top"
 msgstr "保持停靠终端置顶"
 
@@ -1098,7 +1109,7 @@ msgstr "键盘"
 msgid "Keyboard-interactive auth"
 msgstr "键盘交互认证"
 
-#: tabby-local/src/components/terminalTab.component.ts:116
+#: tabby-local/src/components/terminalTab.component.ts:115
 msgid "Kill"
 msgstr "结束进程"
 
@@ -1124,7 +1135,7 @@ msgstr "为当前的 SSH 会话启动 WinSCP"
 msgid "Learn how to allow Tabby to detect remote shell's working directory."
 msgstr "了解如何让 Tabby 检测远程 shell 的工作目录。"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:141
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:134
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:76
 #: tabby-core/src/tabContextMenu.ts:80
 msgid "Left"
@@ -1142,7 +1153,7 @@ msgstr "逐行"
 msgid "Line editor, input is sent after you press Enter"
 msgstr "行编辑器，按回车后发送输入的内容"
 
-#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:88
+#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:83
 msgid "Line padding"
 msgstr "行间距"
 
@@ -1150,11 +1161,11 @@ msgstr "行间距"
 msgid "Loading"
 msgstr "加载中"
 
-#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:38
+#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:34
 msgid "Loading configs..."
 msgstr "正在加载配置..."
 
-#: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:49
+#: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:39
 #: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:5
 msgid "Local"
 msgstr "本地"
@@ -1189,11 +1200,12 @@ msgstr "最大保活次数"
 msgid "Maximize the active pane"
 msgstr "最大化活动窗格"
 
-#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:75
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:93
+#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:70
 msgid "Minimum contrast ratio"
 msgstr "最低对比度"
 
-#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:43
+#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:39
 msgid "Modified on {date}"
 msgstr "修改于 {date}"
 
@@ -1209,11 +1221,11 @@ msgstr "将标签页移至左侧"
 msgid "Move tab to the right"
 msgstr "将标签页移至右侧"
 
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:216
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:223
 msgid "Move to \"Ungrouped\""
 msgstr "移动到 “未分组”"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:208
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:197
 msgid "Moving the mouse over an inactive pane will cause it to activate"
 msgstr "鼠标移到非活动窗格时会激活它"
 
@@ -1230,11 +1242,11 @@ msgstr "新配置名称"
 msgid "Name for the new directory"
 msgstr "为新文件夹命名"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:52
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:57
 msgid "Native"
 msgstr "原生"
 
-#: tabby-local/src/tabContextMenu.ts:104
+#: tabby-local/src/tabContextMenu.ts:103
 msgid "New admin tab"
 msgstr "新的管理标签页"
 
@@ -1242,20 +1254,20 @@ msgstr "新的管理标签页"
 msgid "New config on {platform}"
 msgstr "{platform} 上的新配置"
 
-#: locale/tmp-html/tabby-terminal/src/components/loginScriptsSettings.component.html:15
+#: locale/tmp-html/tabby-terminal/src/components/loginScriptsSettings.component.html:16
 msgid "New item"
 msgstr "新建项"
 
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:186
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:193
 #: tabby-settings/src/components/vaultSettingsTab.component.ts:118
 msgid "New name"
 msgstr "新名称"
 
-#: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:22
+#: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:20
 msgid "New profile"
 msgstr "新配置"
 
-#: tabby-local/src/tabContextMenu.ts:31
+#: tabby-local/src/tabContextMenu.ts:30
 msgid "New profile name"
 msgstr "新配置名称"
 
@@ -1268,7 +1280,7 @@ msgid "New tab: {profile}"
 msgstr "新标签页：{profile}"
 
 #: tabby-local/src/buttonProvider.ts:20
-#: tabby-local/src/tabContextMenu.ts:78
+#: tabby-local/src/tabContextMenu.ts:77
 msgid "New terminal"
 msgstr "新终端"
 
@@ -1276,11 +1288,11 @@ msgstr "新终端"
 msgid "New window"
 msgstr "新窗口"
 
-#: tabby-local/src/services/dockMenu.service.ts:62
+#: tabby-electron/src/services/dockMenu.service.ts:62
 msgid "New Window"
 msgstr "新建窗口"
 
-#: tabby-local/src/tabContextMenu.ts:88
+#: tabby-local/src/tabContextMenu.ts:87
 msgid "New with profile"
 msgstr "依据配置新建"
 
@@ -1326,13 +1338,13 @@ msgstr "完成时通知"
 msgid "Number of lines kept in the buffer"
 msgstr "保存在缓冲区的行数"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:70
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:72
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:137
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:60
 msgid "Off"
 msgstr "关闭"
 
-#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:85
+#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:81
 msgid "Official"
 msgstr "官方"
 
@@ -1340,7 +1352,7 @@ msgstr "官方"
 msgid "On GitHub Discussions"
 msgstr "在 GitHub 讨论"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:41
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:46
 msgid "Opacity"
 msgstr "不透明度"
 
@@ -1360,7 +1372,7 @@ msgstr "打开设置标签页：{tab}"
 msgid "Open SFTP panel"
 msgstr "打开 SFTP 面板"
 
-#: locale/tmp-html/tabby-terminal/src/components/loginScriptsSettings.component.html:9
+#: locale/tmp-html/tabby-terminal/src/components/loginScriptsSettings.component.html:10
 msgid "Optional"
 msgstr "选填"
 
@@ -1373,11 +1385,11 @@ msgstr "选项"
 msgid "Orange"
 msgstr "橙色"
 
-#: tabby-local/src/shells/macDefault.ts:25
+#: tabby-electron/src/shells/macDefault.ts:25
 msgid "OS default"
 msgstr "系统默认"
 
-#: tabby-local/src/shells/winDefault.ts:43
+#: tabby-electron/src/shells/winDefault.ts:43
 msgid "OS default ({name})"
 msgstr "系统默认 ({name})"
 
@@ -1417,19 +1429,23 @@ msgstr "覆盖远程的配置并开始同步？"
 msgid "Overwrite the local config and start syncing?"
 msgstr "覆盖本地配置并开始同步？"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:200
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:189
 msgid "Pane resize step"
 msgstr "窗格大小调整阶梯"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:197
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:186
 msgid "Panes"
 msgstr "窗格"
+
+#: tabby-core/src/theme.ts:35
+msgid "Paper (legacy)"
+msgstr ""
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:38
 msgid "Parity"
 msgstr "奇偶校验"
 
-#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:68
+#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:64
 msgid "Partial config sync is not possible when the config is encrypted via Vault."
 msgstr "当配置通过保险库加密时，部分配置同步不可用"
 
@@ -1443,7 +1459,7 @@ msgid "Password"
 msgstr "密码"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:62
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:477
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:483
 #: tabby-terminal/src/tabContextMenu.ts:35
 msgid "Paste"
 msgstr "粘贴"
@@ -1456,7 +1472,7 @@ msgstr "从剪贴板中粘贴"
 msgid "Paste if no selection, else copy"
 msgstr "未选择内容时粘贴，否则复制"
 
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:484
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:490
 msgid "Paste multiple lines?"
 msgstr "粘贴多行？"
 
@@ -1485,7 +1501,7 @@ msgstr "插件目录"
 msgid "Port"
 msgstr "端口"
 
-#: tabby-serial/src/components/serialTab.component.ts:71
+#: tabby-serial/src/components/serialTab.component.ts:70
 msgid "Port opened"
 msgstr "端口已打开"
 
@@ -1494,8 +1510,8 @@ msgstr "端口已打开"
 msgid "Ports"
 msgstr "端口"
 
-#: tabby-serial/src/components/serialTab.component.ts:86
-#: tabby-ssh/src/components/sshTab.component.ts:169
+#: tabby-serial/src/components/serialTab.component.ts:85
+#: tabby-ssh/src/components/sshTab.component.ts:172
 #: tabby-telnet/src/components/telnetTab.component.ts:53
 msgid "Press any key to reconnect"
 msgstr "按任意键重新连接"
@@ -1504,7 +1520,7 @@ msgstr "按任意键重新连接"
 msgid "Press the key now"
 msgstr "请输入按键"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:14
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:21
 msgid "Prevents accidental closing"
 msgstr "防止意外关闭"
 
@@ -1530,7 +1546,7 @@ msgstr "配置名称"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:2
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:4
-#: tabby-local/src/services/dockMenu.service.ts:40
+#: tabby-electron/src/services/dockMenu.service.ts:40
 msgid "Profiles"
 msgstr "配置"
 
@@ -1539,7 +1555,7 @@ msgstr "配置"
 msgid "Profiles & connections"
 msgstr "配置和连接"
 
-#: locale/tmp-html/tabby-local/src/components/commandLineEditor.component.html:13
+#: locale/tmp-html/tabby-local/src/components/commandLineEditor.component.html:12
 msgid "Program"
 msgstr "程序"
 
@@ -1555,13 +1571,13 @@ msgstr "紫色"
 msgid "Puts all of Tabby's configuration into the vault"
 msgstr "将 Tabby 的所有配置放入保险库"
 
-#: tabby-core/src/index.ts:226
+#: tabby-core/src/index.ts:213
 #: tabby-core/src/services/profiles.service.ts:177
 msgid "Quick connect"
 msgstr "快速连接"
 
-#: tabby-core/src/services/config.service.ts:371
-#: tabby-core/src/services/config.service.ts:385
+#: tabby-core/src/services/config.service.ts:373
+#: tabby-core/src/services/config.service.ts:387
 msgid "Quit"
 msgstr "退出"
 
@@ -1575,7 +1591,7 @@ msgstr "准备超时（毫秒）"
 
 #: tabby-core/src/services/profiles.service.ts:120
 #: tabby-core/src/services/profiles.service.ts:134
-#: tabby-local/src/services/dockMenu.service.ts:28
+#: tabby-electron/src/services/dockMenu.service.ts:28
 msgid "Recent"
 msgstr "最近"
 
@@ -1589,7 +1605,7 @@ msgstr "重新连接"
 msgid "Red"
 msgstr "红色"
 
-#: locale/tmp-html/tabby-terminal/src/components/loginScriptsSettings.component.html:9
+#: locale/tmp-html/tabby-terminal/src/components/loginScriptsSettings.component.html:10
 msgid "Regex"
 msgstr "正则表达式"
 
@@ -1601,8 +1617,8 @@ msgstr "更新日志"
 msgid "Remember for {time}"
 msgstr "记住密码 {time}"
 
+#: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:41
 #: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:5
-#: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:52
 msgid "Remote"
 msgstr "远程"
 
@@ -1628,7 +1644,7 @@ msgstr "渲染"
 msgid "Reopen last tab"
 msgstr "重新打开最后的标签页"
 
-#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:46
+#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:42
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:26
 msgid "Replace"
 msgstr "替换"
@@ -1662,11 +1678,11 @@ msgstr "重启当前的 Telnet 会话"
 msgid "Restart tab"
 msgstr "重启标签页"
 
-#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:134
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:140
 msgid "Restart the app to apply changes"
 msgstr "重新启动应用以使更改生效"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:162
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:159
 msgid "Restore terminal tabs on app start"
 msgstr "应用程序启动时恢复终端标签页"
 
@@ -1674,8 +1690,8 @@ msgstr "应用程序启动时恢复终端标签页"
 msgid "Reuse session for multiple tabs"
 msgstr "为多个标签页重用会话"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:144
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:79
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:136
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:78
 #: tabby-core/src/tabContextMenu.ts:78
 msgid "Right"
 msgstr "右侧"
@@ -1689,7 +1705,7 @@ msgid "Run as administrator"
 msgstr "以管理员身份运行"
 
 #: locale/tmp-html/tabby-core/src/components/renameTabModal.component.html:6
-#: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:54
+#: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:52
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:30
 msgid "Save"
 msgstr "保存"
@@ -1698,11 +1714,11 @@ msgstr "保存"
 msgid "Save a password in the keychain"
 msgstr "在钥匙串中保存密码"
 
-#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:123
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:129
 msgid "Save and apply"
 msgstr "保存并应用"
 
-#: tabby-local/src/tabContextMenu.ts:28
+#: tabby-local/src/tabContextMenu.ts:27
 msgid "Save as profile"
 msgstr "另存为配置"
 
@@ -1710,7 +1726,7 @@ msgstr "另存为配置"
 msgid "Save layout as profile"
 msgstr "保存布局为配置"
 
-#: tabby-local/src/tabContextMenu.ts:49
+#: tabby-local/src/tabContextMenu.ts:48
 msgid "Saved"
 msgstr "已保存"
 
@@ -1763,7 +1779,7 @@ msgstr "搜索快捷键"
 msgid "Search plugins"
 msgstr "搜索插件"
 
-#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:19
+#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:17
 msgid "Secret sync token"
 msgstr "加密同步令牌"
 
@@ -1784,7 +1800,7 @@ msgstr "全选"
 msgid "Select file storage"
 msgstr "选择文件存储"
 
-#: tabby-core/src/index.ts:238
+#: tabby-core/src/index.ts:225
 msgid "Select profile"
 msgstr "选择配置"
 
@@ -1819,7 +1835,7 @@ msgstr "串口：{description}"
 msgid "Set master passphrase"
 msgstr "设置主密码"
 
-#: locale/tmp-html/tabby-settings/src/components/setVaultPassphraseModal.component.html:13
+#: locale/tmp-html/tabby-settings/src/components/setVaultPassphraseModal.component.html:11
 msgid "Set passphrase"
 msgstr "设置密码"
 
@@ -1827,11 +1843,11 @@ msgstr "设置密码"
 msgid "Set password"
 msgstr "设置密码"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:171
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:168
 msgid "Set Tabby as %COMSPEC%"
 msgstr "将 Tabby 设置为 %COMSPEC%"
 
-#: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:57
+#: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:55
 msgid "Set to 0 to disable recent profiles"
 msgstr "设置为 0 以禁用最近的配置"
 
@@ -1840,7 +1856,7 @@ msgid "Sets the SSH agent's named pipe path."
 msgstr "设置 SSH agent 的命名 pipe 路径"
 
 #: tabby-settings/src/buttonProvider.ts:28
-#: tabby-settings/src/components/settingsTab.component.ts:58
+#: tabby-settings/src/components/settingsTab.component.ts:57
 msgid "Settings"
 msgstr "设置"
 
@@ -1848,7 +1864,7 @@ msgstr "设置"
 msgid "Shell"
 msgstr "Shell"
 
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:549
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:555
 msgid "Shell does not support current path detection"
 msgstr "Shell 不支持当前路径检测"
 
@@ -1864,7 +1880,7 @@ msgstr "显示 {type} 配置选择器"
 msgid "Show a confirmation box when pasting multiple lines"
 msgstr "当粘贴多行时，显示确认对话框"
 
-#: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:63
+#: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:61
 msgid "Show built-in profiles in selector"
 msgstr "在选择器中显示内置配置"
 
@@ -1872,15 +1888,15 @@ msgstr "在选择器中显示内置配置"
 msgid "Show command selector"
 msgstr "显示命令选择器"
 
-#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:126
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:132
 msgid "Show config file"
 msgstr "显示配置文件"
 
-#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:125
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:131
 msgid "Show defaults"
 msgstr "显示默认值"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:149
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:146
 msgid "Show Mixer"
 msgstr "显示音量合成器"
 
@@ -1888,7 +1904,7 @@ msgstr "显示音量合成器"
 msgid "Show pane labels (for rearranging)"
 msgstr "显示窗格标签（用于重新排列）"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:175
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:164
 msgid "Show profile icon on tab"
 msgstr "在标签上显示配置文件图标"
 
@@ -1896,7 +1912,7 @@ msgstr "在标签上显示配置文件图标"
 msgid "Show profile selector"
 msgstr "显示配置选择器"
 
-#: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:56
+#: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:54
 msgid "Show recent profiles in selector"
 msgstr "在选择器中显示最近的配置"
 
@@ -1908,7 +1924,7 @@ msgstr "显示更新日志"
 msgid "Show Serial connections"
 msgstr "显示串口连接"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:163
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:152
 msgid "Show tabs in fullscreen mode"
 msgstr "全屏模式下显示标签栏"
 
@@ -1932,12 +1948,12 @@ msgstr "跳过 MoTD/横幅消息"
 msgid "Slow feed"
 msgstr "逐字节接收"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:66
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:89
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:68
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:86
 msgid "Snaps the window to a side of the screen"
 msgstr "将窗口贴靠至屏幕的一侧"
 
-#: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:26
+#: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:22
 #: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:9
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:20
 msgid "SOCKS proxy"
@@ -1958,6 +1974,10 @@ msgstr "声音"
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:31
 msgid "Source code"
 msgstr "源码"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:13
+msgid "Spaciness"
+msgstr ""
 
 #: tabby-core/src/tabContextMenu.ts:75
 msgid "Split"
@@ -2001,11 +2021,11 @@ msgstr "现在，通过“配置和连接”选项对 SSH 连接进行管理"
 msgid "SSH password for {user}@{host}:{port}"
 msgstr "{user}@{host}:{port} 的 SSH 密码"
 
-#: tabby-core/src/theme.ts:8
-msgid "Standard"
-msgstr "标准"
+#: tabby-core/src/theme.ts:9
+msgid "Standard (legacy)"
+msgstr ""
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:153
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:150
 msgid "Startup"
 msgstr "启动时"
 
@@ -2021,7 +2041,7 @@ msgstr "过滤"
 msgid "Subscribe to updates"
 msgstr "订阅更新"
 
-#: locale/tmp-html/tabby-local/src/components/environmentEditor.component.html:17
+#: locale/tmp-html/tabby-local/src/components/environmentEditor.component.html:13
 msgid "Substitutions allowed."
 msgstr "允许替换"
 
@@ -2041,7 +2061,7 @@ msgstr "切换终端前端实现（实验性）"
 msgid "Sync"
 msgstr "同步"
 
-#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:57
+#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:53
 msgid "Sync automatically"
 msgstr "自动同步"
 
@@ -2049,15 +2069,15 @@ msgstr "自动同步"
 msgid "Sync host"
 msgstr "同步主机"
 
-#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:72
+#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:68
 msgid "Sync hotkeys"
 msgstr "同步快捷键"
 
-#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:84
+#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:80
 msgid "Sync Vault"
 msgstr "同步保险库"
 
-#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:78
+#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:74
 msgid "Sync window settings"
 msgstr "同步窗口设置"
 
@@ -2096,15 +2116,15 @@ msgstr "Tabby 不能使用您的插件启动，因此本次会话中禁用了所
 msgid "Tabby news and updates on Twitter"
 msgstr "Tabby 在 Twitter 的新闻和更新"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:128
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:123
 msgid "Tabs"
 msgstr "标签页"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:131
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:126
 msgid "Tabs location"
 msgstr "标签页位置"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:150
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:141
 msgid "Tabs width"
 msgstr "标签页宽度"
 
@@ -2112,7 +2132,7 @@ msgstr "标签页宽度"
 msgid "Telnet session"
 msgstr "Telnet 会话"
 
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:198
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:204
 #: tabby-terminal/src/settings.ts:43
 msgid "Terminal"
 msgstr "终端"
@@ -2125,7 +2145,7 @@ msgstr "终端背景"
 msgid "Terminal bell"
 msgstr "终端提示音"
 
-#: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:70
+#: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:68
 msgid "Terminal identification"
 msgstr "终端标识"
 
@@ -2145,15 +2165,15 @@ msgstr "当前有活动的文件传输"
 msgid "There is a saved password for this connection"
 msgstr "此连接已保存密码"
 
-#: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:81
+#: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:79
 msgid "These apply to all profiles of a given type"
 msgstr "应用于给定类型的所有配置文件"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:55
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:59
 msgid "Thin"
 msgstr "简约"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:216
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:205
 msgid "Tick this if you're experiencing aliasing, ghosting or other visual issues"
 msgstr "如果您遇到锯齿、重影或其他视觉问题，请打开此选项"
 
@@ -2173,8 +2193,8 @@ msgstr "切换终端窗口"
 msgid "Toggles the Tabby window visibility"
 msgstr "切换 Tabby 显示或隐藏"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:135
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:73
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:130
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:74
 msgid "Top"
 msgstr "顶部"
 
@@ -2182,7 +2202,7 @@ msgstr "顶部"
 msgid "Trim whitespace and newlines"
 msgstr "缩减空格和换行"
 
-#: tabby-core/src/services/config.service.ts:369
+#: tabby-core/src/services/config.service.ts:371
 msgid "Try again"
 msgstr "再试一次"
 
@@ -2198,11 +2218,11 @@ msgstr "将当前标签所在的窗格更改为单独的标签页"
 msgid "Ungrouped"
 msgstr "未分组"
 
-#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:63
+#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:59
 msgid "Uninstall"
 msgstr "卸载"
 
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:250
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:257
 msgid "Unknown"
 msgstr "未知"
 
@@ -2223,16 +2243,16 @@ msgstr "向上"
 msgid "Update"
 msgstr "更新"
 
-#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:56
+#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:52
 msgid "Upgrade to {version}"
 msgstr "升级至 {version}"
 
-#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:46
+#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:42
 #: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:10
 msgid "Upload"
 msgstr "上传"
 
-#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:50
+#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:46
 msgid "Upload as a new config"
 msgstr "上传为新配置"
 
@@ -2244,8 +2264,8 @@ msgstr "使用 {altKeyName} 作为 Meta 键"
 msgid "Use ConPTY"
 msgstr "使用 ConPTY"
 
-#: tabby-local/src/shells/linuxDefault.ts:31
-#: tabby-local/src/shells/linuxDefault.ts:38
+#: tabby-electron/src/shells/linuxDefault.ts:31
+#: tabby-electron/src/shells/linuxDefault.ts:38
 msgid "User default"
 msgstr "用户默认"
 
@@ -2290,7 +2310,7 @@ msgstr "为允许存储密钥，您必须设置保险库的主密码"
 msgid "Verify host keys when connecting"
 msgstr "连接时校验主机密钥"
 
-#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:79
+#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:75
 msgid "Version"
 msgstr "版本"
 
@@ -2298,11 +2318,11 @@ msgstr "版本"
 msgid "Version: {version}"
 msgstr "版本：{version}"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:21
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:28
 msgid "Vibrancy"
 msgstr "鲜明"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:140
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:139
 msgid "Visual"
 msgstr "可视化"
 
@@ -2338,28 +2358,32 @@ msgstr "如果启用，链接只有在按住此键时可被点击"
 msgid "When WinSCP is detected, you can launch an SCP session from the context menu."
 msgstr "检测到 WinSCP 时，您可以从右键菜单中启动一个 SCP 会话。"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:48
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:53
 msgid "Whether a custom window or an OS native window should be used"
 msgstr "使用自定义窗口或操作系统原生窗口"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:141
+msgid "Will prevent the SSH greeting from showing up"
+msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:2
 #: tabby-settings/src/settings.ts:30
 msgid "Window"
 msgstr "窗口"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:117
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:112
 msgid "Window dimension along the edge"
 msgstr "沿边缘的窗口尺寸"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:110
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:105
 msgid "Window dimension away from the edge"
 msgstr "远离边缘的窗口尺寸"
 
-#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:47
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:52
 msgid "Window frame"
 msgstr "窗口框架样式"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:168
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:165
 msgid "Windows"
 msgstr "窗口"
 
@@ -2384,7 +2408,7 @@ msgstr "工作目录"
 msgid "Working directory detection"
 msgstr "查找工作目录"
 
-#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:148
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:145
 msgid "WSL terminal bell can only be muted via Volume Mixer"
 msgstr "WSL 终端提示音只能通过音量混合器关闭"
 
@@ -2416,8 +2440,8 @@ msgstr "放大"
 msgid "Zoom out"
 msgstr "缩小"
 
+#: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:43
 #: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:5
-#: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:55
 msgctxt "[Dynamic] port forwarding"
 msgid "id.port-forwarding.dynamic"
 msgstr "动态端口转发"

@@ -7,7 +7,7 @@ h3.mb-3(translate) Window
         [(ngModel)]='config.store.appearance.theme',
         (ngModelChange)='saveConfiguration()',
     )
-        option(*ngFor='let theme of themes', [ngValue]='theme.name') {{theme.name}}
+        option(*ngFor='let theme of themes', [ngValue]='theme.name') {{theme.name|translate}}
 
 .form-line
     .header

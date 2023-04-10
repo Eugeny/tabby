@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { NgxFilesizeModule } from 'ngx-filesize'
 import { DragDropModule } from '@angular/cdk/drag-drop'
-import { TranslateModule, TranslateCompiler, TranslateService } from '@ngx-translate/core'
+import { TranslateModule, TranslateCompiler, TranslateService, MissingTranslationHandler } from '@ngx-translate/core'
 import { TranslateMessageFormatCompiler, MESSAGE_FORMAT_CONFIG } from 'ngx-translate-messageformat-compiler'
 
 import { AppRootComponent } from './components/appRoot.component'
@@ -41,7 +41,7 @@ import { AppService } from './services/app.service'
 import { ConfigService } from './services/config.service'
 import { VaultFileProvider } from './services/vault.service'
 import { HotkeysService } from './services/hotkeys.service'
-import { LocaleService } from './services/locale.service'
+import { CustomMissingTranslationHandler, LocaleService } from './services/locale.service'
 import { CommandService } from './services/commands.service'
 
 import { StandardTheme, StandardCompactTheme, PaperTheme, NewTheme } from './theme'
@@ -99,6 +99,10 @@ const PROVIDERS = [
                 provide: TranslateCompiler,
                 useFactory: TranslateMessageFormatCompilerFactory,
             },
+            missingTranslationHandler: {
+                provide: MissingTranslationHandler,
+                useClass: CustomMissingTranslationHandler,
+              },
         }),
     ],
     declarations: [

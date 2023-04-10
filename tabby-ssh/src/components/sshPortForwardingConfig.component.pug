@@ -32,7 +32,11 @@ h5(translate) Add a port forward
     input.form-control(type='number', [(ngModel)]='newForward.targetPort')
 
 .input-group.mb-2
-    input.form-control(type='text', placeholder='Description', [(ngModel)]='newForward.description')
+    input.form-control(
+        type='text',
+        [placeholder]='"Description"|translate',
+        [(ngModel)]='newForward.description'
+    )
 
 .d-flex
     .btn-group.me-auto

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core'
 import { registerLocaleData } from '@angular/common'
-import { TranslateService } from '@ngx-translate/core'
+import { TranslateService, MissingTranslationHandler } from '@ngx-translate/core'
+import { TranslateMessageFormatCompiler } from 'ngx-translate-messageformat-compiler'
 
 import localeENUS from '@angular/common/locales/en'
 import localeENGB from '@angular/common/locales/en-GB'
@@ -53,6 +54,19 @@ function flattenMessageFormatTranslation (po: any) {
         translation[k] = po[k].msgstr[0] || k
     }
     return translation
+}
+
+export class CustomMissingTranslationHandler extends MissingTranslationHandler {
+    compiler = new TranslateMessageFormatCompiler()
+
+    // eslint-disable-next-line @typescript-eslint/ban-types
+    handle (params: { key: string, translateService: TranslateService, interpolateParams?: Object }): any {
+        const v = this.compiler.compile(params.key, params.translateService.currentLang)
+        if (typeof v === 'string') {
+            return v
+        }
+        return v(params.interpolateParams)
+    }
 }
 
 @Injectable({ providedIn: 'root' })
