@@ -1,6 +1,7 @@
 .colorbar([style.background-color]='tab.color', *ngIf='tab.color != null')
 .progressbar([style.width]='progress + "%"', *ngIf='progress != null')
 .activity-indicator(*ngIf='tab.activity$|async')
+.current-tab-indicator
 
 .index(*ngIf='!config.store.terminal.hideTabIndex && hostApp.platform === Platform.macOS', cdkDragHandle) {{index + 1}}
 .index(*ngIf='!config.store.terminal.hideTabIndex && hostApp.platform !== Platform.macOS') {{index + 1}}

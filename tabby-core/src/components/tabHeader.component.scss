@@ -134,15 +134,29 @@ $tabs-height: 38px;
         z-index: 1;
     }
 
+    .activity-indicator, .current-tab-indicator {
+        position: absolute;
+        height: 2px;
+    }
+
     &.active .activity-indicator {
         display: none;
     }
 
     .activity-indicator {
-        position: absolute;
+        bottom: 4px;
         left: 10px;
         right: 10px;
-        bottom: 4px;
-        height: 2px;
+    }
+
+    &.active .current-tab-indicator {
+        display: block;
+    }
+
+    .current-tab-indicator {
+        display: none;
+        top: 0;
+        left: 0;
+        right: 0;
     }
 }

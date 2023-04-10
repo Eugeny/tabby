@@ -30,6 +30,7 @@ app-root {
                     border-left: 1px solid transparent;
                     border-right: 1px solid transparent;
                     transition: 0.125s ease-out width;
+                    color: var(--theme-fg-more-2);
 
                     .index {
                         color: var(--bs-body-color);
@@ -54,8 +55,12 @@ app-root {
                         opacity: .2;
                     }
 
+                    .current-tab-indicator {
+                        background:var(--bs-light);
+                    }
+
                     &.active {
-                        color: var(--theme-fg-less-2);
+                        color: var(--theme-fg);
                         background: var(--body-bg);
                     }
                 }
