@@ -19,3 +19,11 @@ export interface TerminalColorScheme {
 export interface BaseTerminalProfile extends Profile {
     terminalColorScheme?: TerminalColorScheme
 }
+
+export interface Reconnectable {
+    reconnect: () => Promise<void>;
+}
+
+export function tabIsReconnectable (object: any): object is Reconnectable {
+    return 'reconnect' in object
+}
