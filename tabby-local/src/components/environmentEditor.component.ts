@@ -5,7 +5,7 @@ import { Subject } from 'rxjs'
 /** @hidden */
 @Component({
     selector: 'environment-editor',
-    templateUrl:'./environmentEditor.component.pug',
+    templateUrl: './environmentEditor.component.pug',
     styleUrls: ['./environmentEditor.component.scss'],
 })
 export class EnvironmentEditorComponent {

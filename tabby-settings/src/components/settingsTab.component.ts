@@ -23,7 +23,7 @@ import { ReleaseNotesComponent } from './releaseNotesTab.component'
 /** @hidden */
 @Component({
     selector: 'settings-tab',
-    templateUrl:'./settingsTab.component.pug',
+    templateUrl: './settingsTab.component.pug',
     styleUrls: [
         './settingsTab.component.scss',
     ],

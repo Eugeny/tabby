@@ -15,7 +15,7 @@ interface PathSegment {
 
 @Component({
     selector: 'sftp-panel',
-    templateUrl:'./sftpPanel.component.pug',
+    templateUrl: './sftpPanel.component.pug',
     styleUrls: ['./sftpPanel.component.scss'],
 })
 export class SFTPPanelComponent {

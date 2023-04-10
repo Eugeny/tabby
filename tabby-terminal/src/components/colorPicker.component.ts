@@ -3,7 +3,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core'
 /** @hidden */
 @Component({
     selector: 'color-picker',
-    templateUrl:'./colorPicker.component.pug',
+    templateUrl: './colorPicker.component.pug',
     styleUrls: ['./colorPicker.component.scss'],
 })
 export class ColorPickerComponent {

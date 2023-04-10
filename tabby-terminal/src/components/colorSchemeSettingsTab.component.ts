@@ -11,7 +11,7 @@ _('Search color schemes')
 
 /** @hidden */
 @Component({
-    templateUrl:'./colorSchemeSettingsTab.component.pug',
+    templateUrl: './colorSchemeSettingsTab.component.pug',
     styleUrls: ['./colorSchemeSettingsTab.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })

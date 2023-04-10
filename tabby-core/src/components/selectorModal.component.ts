@@ -7,7 +7,7 @@ import { SelectorOption } from '../api/selector'
 /** @hidden */
 @Component({
     selector: 'selector-modal',
-    templateUrl:'./selectorModal.component.pug',
+    templateUrl: './selectorModal.component.pug',
     styleUrls: ['./selectorModal.component.scss'],
 })
 export class SelectorModalComponent<T> {

@@ -7,7 +7,7 @@ import { Command, CommandLocation } from '../api/commands'
 /** @hidden */
 @Component({
     selector: 'start-page',
-    templateUrl:'./startPage.component.pug',
+    templateUrl: './startPage.component.pug',
     styleUrls: ['./startPage.component.scss'],
 })
 export class StartPageComponent {

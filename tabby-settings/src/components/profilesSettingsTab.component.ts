@@ -19,7 +19,7 @@ _('Ungrouped')
 
 /** @hidden */
 @Component({
-    templateUrl:'./profilesSettingsTab.component.pug',
+    templateUrl: './profilesSettingsTab.component.pug',
     styleUrls: ['./profilesSettingsTab.component.scss'],
 })
 export class ProfilesSettingsTabComponent extends BaseComponent {

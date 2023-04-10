@@ -3,7 +3,7 @@ import { ConfigService, HostAppService, Platform, PlatformService, altKeyName, m
 
 /** @hidden */
 @Component({
-    templateUrl:'./terminalSettingsTab.component.pug',
+    templateUrl: './terminalSettingsTab.component.pug',
 })
 export class TerminalSettingsTabComponent {
     Platform = Platform

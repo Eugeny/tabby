@@ -8,7 +8,7 @@ import { SetVaultPassphraseModalComponent } from './setVaultPassphraseModal.comp
 /** @hidden */
 @Component({
     selector: 'vault-settings-tab',
-    templateUrl:'./vaultSettingsTab.component.pug',
+    templateUrl: './vaultSettingsTab.component.pug',
 })
 export class VaultSettingsTabComponent extends BaseComponent {
     vaultContents: Vault|null = null

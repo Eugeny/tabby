@@ -7,7 +7,7 @@ import { ConfigService, getCSSFontFamily, PlatformService, ThemesService } from 
 
 /** @hidden */
 @Component({
-    templateUrl:'./appearanceSettingsTab.component.pug',
+    templateUrl: './appearanceSettingsTab.component.pug',
     styleUrls: ['./appearanceSettingsTab.component.scss'],
 })
 export class AppearanceSettingsTabComponent {

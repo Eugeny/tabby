@@ -11,7 +11,7 @@ import { supportedAlgorithms } from '../algorithms'
 
 /** @hidden */
 @Component({
-    templateUrl:'./sshProfileSettings.component.pug',
+    templateUrl: './sshProfileSettings.component.pug',
 })
 export class SSHProfileSettingsComponent {
     Platform = Platform

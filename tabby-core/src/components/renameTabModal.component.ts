@@ -5,7 +5,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
 /** @hidden */
 @Component({
     selector: 'rename-tab-modal',
-    templateUrl:'./renameTabModal.component.pug',
+    templateUrl: './renameTabModal.component.pug',
 })
 export class RenameTabModalComponent {
     @Input() value: string

@@ -6,7 +6,7 @@ import { AppService } from '../services/app.service'
 /** @hidden */
 @Component({
     selector: 'window-controls',
-    templateUrl:'./windowControls.component.pug',
+    templateUrl: './windowControls.component.pug',
     styleUrls: ['./windowControls.component.scss'],
 })
 export class WindowControlsComponent {

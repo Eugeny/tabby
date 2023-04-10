@@ -3,7 +3,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
 
 /** @hidden */
 @Component({
-    templateUrl:'./unlockVaultModal.component.pug',
+    templateUrl: './unlockVaultModal.component.pug',
 })
 export class UnlockVaultModalComponent {
     passphrase: string

@@ -5,7 +5,7 @@ import { SFTPFile, SFTPSession } from '../session/sftp'
 
 /** @hidden */
 @Component({
-    templateUrl:'./sftpDeleteModal.component.pug',
+    templateUrl: './sftpDeleteModal.component.pug',
 })
 export class SFTPDeleteModalComponent extends BaseComponent {
     sftp: SFTPSession

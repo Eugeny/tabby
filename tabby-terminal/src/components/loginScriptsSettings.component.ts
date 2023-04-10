@@ -7,7 +7,7 @@ import { LoginScript, LoginScriptsOptions } from '../middleware/loginScriptProce
 /** @hidden */
 @Component({
     selector: 'login-scripts-settings',
-    templateUrl:'./loginScriptsSettings.component.pug',
+    templateUrl: './loginScriptsSettings.component.pug',
 })
 export class LoginScriptsSettingsComponent {
     @Input() options: LoginScriptsOptions

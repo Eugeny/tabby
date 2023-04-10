@@ -3,7 +3,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
 
 /** @hidden */
 @Component({
-    templateUrl:'./promptModal.component.pug',
+    templateUrl: './promptModal.component.pug',
 })
 export class PromptModalComponent {
     @Input() value: string

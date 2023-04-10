@@ -8,7 +8,7 @@ import { LocaleService } from '../services/locale.service'
 /** @hidden */
 @Component({
     selector: 'welcome-page',
-    templateUrl:'./welcomeTab.component.pug',
+    templateUrl: './welcomeTab.component.pug',
     styleUrls: ['./welcomeTab.component.scss'],
 })
 export class WelcomeTabComponent extends BaseTabComponent {

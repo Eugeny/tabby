@@ -13,7 +13,7 @@ const iconsClassList = Object.keys(iconsData).map(
 
 /** @hidden */
 @Component({
-    templateUrl:'./editProfileModal.component.pug',
+    templateUrl: './editProfileModal.component.pug',
 })
 export class EditProfileModalComponent<P extends Profile> {
     @Input() profile: P & ConfigProxy

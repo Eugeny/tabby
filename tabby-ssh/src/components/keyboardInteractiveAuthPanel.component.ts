@@ -4,7 +4,7 @@ import { KeyboardInteractivePrompt } from '../session/ssh'
 
 @Component({
     selector: 'keyboard-interactive-auth-panel',
-    templateUrl:'./keyboardInteractiveAuthPanel.component.pug',
+    templateUrl: './keyboardInteractiveAuthPanel.component.pug',
     styleUrls: ['./keyboardInteractiveAuthPanel.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
