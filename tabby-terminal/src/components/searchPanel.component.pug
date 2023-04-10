@@ -9,7 +9,7 @@
         (keyup.esc)='close.emit()',
         [placeholder]='"Search"|translate'
     )
-    .input-group-text.result-counter(*ngIf='state.resultCount > 0') {{state.resultIndex ?? 0 + 1}} / {{state.resultCount}}
+    .input-group-text.result-counter(*ngIf='state.resultCount > 0') {{(state.resultIndex ?? 0) + 1}} / {{state.resultCount}}
 
 ng-container(*ngIf='state.resultCount > 0')
     button.btn.btn-link(
