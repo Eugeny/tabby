@@ -102,7 +102,7 @@ const PROVIDERS = [
             missingTranslationHandler: {
                 provide: MissingTranslationHandler,
                 useClass: CustomMissingTranslationHandler,
-              },
+            },
         }),
     ],
     declarations: [
