@@ -64,8 +64,9 @@ export class ThemesService {
         const vars: Record<string, string> = {}
         const contrastPairs: string[][] = []
 
+        vars['--body-bg'] = background.string()
         if (this.findCurrentTheme().followsColorScheme) {
-            vars['--bs-body-bg'] = background.string()
+            vars['--bs-body-bg'] = theme.background
             vars['--bs-body-color'] = theme.foreground
             vars['--bs-black'] = theme.colors[0]
             vars['--bs-red'] = theme.colors[1]

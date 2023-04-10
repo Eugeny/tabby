@@ -56,7 +56,7 @@ app-root {
 
                     &.active {
                         color: var(--theme-fg-less-2);
-                        background: var(--bs-body-bg);
+                        background: var(--body-bg);
                     }
                 }
             }
@@ -65,7 +65,7 @@ app-root {
 }
 
 tab-body {
-    background: var(--bs-body-bg);
+    background: var(--body-bg);
 }
 
 $tab-border-radius: 5px;
@@ -80,6 +80,7 @@ $form-switch-width: 2.5em;
 @import "./theme.vendor.scss";
 
 body {
+    background: var(--body-bg);
     --bs-border-color: var(--theme-bg-more-2);
     --bs-form-control-bg: var(--theme-bg-more-2);
     --bs-emphasis-color: var(--theme-fg-less-2);
