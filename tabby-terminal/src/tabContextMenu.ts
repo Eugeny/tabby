@@ -1,7 +1,7 @@
 import { Injectable, Optional, Inject } from '@angular/core'
 import { BaseTabComponent, TabContextMenuItemProvider, NotificationsService, MenuItemOptions, TranslateService, SplitTabComponent } from 'tabby-core'
 import { BaseTerminalTabComponent } from './api/baseTerminalTab.component'
-import { tabIsReconnectable } from './api/interfaces'
+import { isReconnectable } from './api/interfaces'
 import { TerminalContextMenuItemProvider } from './api/contextMenuProvider'
 import { MultifocusService } from './services/multifocus.service'
 
@@ -97,7 +97,7 @@ export class ReconnectContextMenu extends TabContextMenuItemProvider {
     ) { super() }
 
     async getItems (tab: BaseTabComponent): Promise<MenuItemOptions[]> {
-        if (tabIsReconnectable(tab)) {
+        if (isReconnectable(tab)) {
             return [
                 {
                     label: this.translate.instant('Reconnect'),

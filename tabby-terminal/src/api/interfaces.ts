@@ -24,6 +24,7 @@ export interface Reconnectable {
     reconnect: () => Promise<void>;
 }
 
-export function tabIsReconnectable (object: any): object is Reconnectable {
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export function isReconnectable (object: any): object is Reconnectable {
     return 'reconnect' in object
 }
