@@ -1,6 +1,7 @@
 import { Injectable, Optional, Inject } from '@angular/core'
 import { BaseTabComponent, TabContextMenuItemProvider, NotificationsService, MenuItemOptions, TranslateService, SplitTabComponent } from 'tabby-core'
 import { BaseTerminalTabComponent } from './api/baseTerminalTab.component'
+import { isReconnectable } from './api/interfaces'
 import { TerminalContextMenuItemProvider } from './api/contextMenuProvider'
 import { MultifocusService } from './services/multifocus.service'
 
@@ -87,6 +88,35 @@ export class MiscContextMenu extends TabContextMenuItemProvider {
 
 /** @hidden */
 @Injectable()
+export class ReconnectContextMenu extends TabContextMenuItemProvider {
+    weight = 1
+
+    constructor (
+        private translate: TranslateService,
+        private notifications: NotificationsService,
+    ) { super() }
+
+    async getItems (tab: BaseTabComponent): Promise<MenuItemOptions[]> {
+        if (isReconnectable(tab)) {
+            return [
+                {
+                    label: this.translate.instant('Reconnect'),
+                    click: (): void => {
+                        setTimeout(() => {
+                            tab.reconnect()
+                            this.notifications.notice(this.translate.instant('Reconnect'))
+                        })
+                    },
+                },
+            ]
+        }
+        return []
+    }
+
+}
+
+/** @hidden */
+@Injectable()
 export class LegacyContextMenu extends TabContextMenuItemProvider {
     weight = 1
 
@@ -109,4 +139,5 @@ export class LegacyContextMenu extends TabContextMenuItemProvider {
         }
         return []
     }
+
 }

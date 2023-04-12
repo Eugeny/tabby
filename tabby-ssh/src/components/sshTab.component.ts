@@ -4,7 +4,7 @@ import { Component, Injector, HostListener } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { first } from 'rxjs'
 import { GetRecoveryTokenOptions, Platform, ProfilesService, RecoveryToken } from 'tabby-core'
-import { BaseTerminalTabComponent } from 'tabby-terminal'
+import { BaseTerminalTabComponent, Reconnectable } from 'tabby-terminal'
 import { SSHService } from '../services/ssh.service'
 import { KeyboardInteractivePrompt, SSHSession } from '../session/ssh'
 import { SSHPortForwardingModalComponent } from './sshPortForwardingModal.component'
@@ -22,7 +22,7 @@ import { SSHMultiplexerService } from '../services/sshMultiplexer.service'
     ],
     animations: BaseTerminalTabComponent.animations,
 })
-export class SSHTabComponent extends BaseTerminalTabComponent<SSHProfile> {
+export class SSHTabComponent extends BaseTerminalTabComponent<SSHProfile> implements Reconnectable {
     Platform = Platform
     sshSession: SSHSession|null = null
     session: SSHShellSession|null = null
