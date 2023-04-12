@@ -158,10 +158,9 @@ export class SSHTabComponent extends BaseTerminalTabComponent<SSHProfile> implem
         const session = this.session!
         this.attachSessionHandler(session.destroyed$, () => {
             if (this.frontend) {
-                
                 this.write('\r\n' + colors.black.bgWhite(' SSH ') + ` ${this.sshSession?.profile.options.host}: session closed\r\n`)
 
-                if (this.config.store.terminal.behaviorOnSessionEnds == 'close') {
+                if (this.config.store.terminal.behaviorOnSessionEnds === 'close') {
                     // Close the tab
                     this.destroy()
                 } else if (this.config.store.terminal.behaviorOnSessionEnds.startsWith('reconnect-or-')) {
