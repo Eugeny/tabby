@@ -45,7 +45,7 @@
     "electron-rebuild": "^3.2.9",
     "eslint": "^8.38.0",
     "eslint-import-resolver-typescript": "^3.5.2",
-    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-import": "^2.27.5",
     "file-loader": "^6.2.0",
     "gettext-extractor": "^3.5.4",
     "graceful-fs": "^4.2.10",
