@@ -106,13 +106,13 @@ export class ThemesService {
 
             const themeColors = {
                 primary: theme.colors[accentIndex],
-                secondary: theme.colors[8],
+                secondary: less(theme.background, 0.5).string(),
                 tertiary: theme.colors[8],
                 warning: theme.colors[3],
                 danger: theme.colors[1],
                 success: theme.colors[2],
                 info: theme.colors[4],
-                dark: more(theme.background, 0.5).string(),
+                dark: more(theme.background, 0.75).string(),
                 light: more(theme.foreground, 0.5).string(),
                 link: theme.colors[8], // for .btn-link
             }
@@ -129,7 +129,11 @@ export class ThemesService {
                 vars[`--theme-${key}-less-2`] = less(color, 0.75).string()
                 vars[`--theme-${key}-fg`] = more(color, 3).string()
 
+                vars[`--theme-${key}-active-bg`] = less(color, 1).string()
+                vars[`--theme-${key}-active-fg`] = more(color, 1).string()
+
                 contrastPairs.push([`--theme-${key}`, `--theme-${key}-fg`])
+                contrastPairs.push([`--theme-${key}-active-bg`, `--theme-${key}-active-fg`])
             }
 
             const switchBackground = less(theme.colors[accentIndex], 0.25).string()

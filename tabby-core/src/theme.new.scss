@@ -108,8 +108,8 @@ body {
 }
 
 .nav {
-    --bs-nav-link-color: var(--bs-body-color);
-    --bs-nav-link-hover-color: var(--theme-fg-less-2);
+    --bs-nav-link-color: var(--theme-fg);
+    --bs-nav-link-hover-color: var(--theme-fg-less);
     --bs-nav-link-disabled-color: var(--bs-gray);
 }
 
@@ -194,14 +194,14 @@ tab-body {
         --bs-btn-hover-bg: var(--theme-#{$color}-less);
 
         --bs-btn-active-border-color: var(--theme-#{$color});
-        --bs-btn-active-bg: var(--theme-#{$color}-more);
+        --bs-btn-active-bg: var(--theme-#{$color}-active-bg);
 
         --bs-btn-focus-shadow-rgb: 130, 138, 145;
         --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
 
         --bs-btn-color: var(--theme-#{$color}-fg);
         --bs-btn-hover-color: var(--theme-#{$color}-fg);
-        --bs-btn-active-color: var(--theme-#{$color}-fg);
+        --bs-btn-active-color: var(--theme-#{$color}-active-fg);
         --bs-btn-disabled-color: var(--theme-#{$color}-fg);
     }
 
