@@ -33,6 +33,7 @@ import { CopyPasteContextMenu, MiscContextMenu, LegacyContextMenu, ReconnectCont
 import { Frontend } from './frontends/frontend'
 import { XTermFrontend, XTermWebGLFrontend } from './frontends/xtermFrontend'
 import { TerminalCLIHandler } from './cli'
+import { DefaultColorSchemes } from './colorSchemes'
 
 /** @hidden */
 @NgModule({
@@ -61,6 +62,7 @@ import { TerminalCLIHandler } from './cli'
         { provide: TabContextMenuItemProvider, useClass: ReconnectContextMenu, multi: true },
 
         { provide: CLIHandler, useClass: TerminalCLIHandler, multi: true },
+        { provide: TerminalColorSchemeProvider, useClass: DefaultColorSchemes, multi: true },
     ],
     declarations: [
         ColorPickerComponent,
