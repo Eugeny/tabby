@@ -15,13 +15,13 @@
 
 ### ダウンロード:
 
-* [Latest release](https://github.com/Eugeny/tabby/releases/latest)
-* [Repositories](https://packagecloud.io/eugeny/tabby): [Debian/Ubuntu-based](https://packagecloud.io/eugeny/tabby/install#bash-deb), [RPM-based](https://packagecloud.io/eugeny/tabby/install#bash-rpm)
-* [Latest nightly build](https://nightly.link/Eugeny/tabby/workflows/build/master)
+* [最新のリリース](https://github.com/Eugeny/tabby/releases/latest)
+* [リポジトリ](https://packagecloud.io/eugeny/tabby): [Debian/Ubuntu向け](https://packagecloud.io/eugeny/tabby/install#bash-deb), [RPM向け](https://packagecloud.io/eugeny/tabby/install#bash-rpm)
+* [最新の開発ビルド版](https://nightly.link/Eugeny/tabby/workflows/build/master)
 
 <br/>
 <p align="center">
-このREADMEは次の言語にも対応: <a  href="./README.md">:gb: English</a> · <a  href="./README.es-ES.md">:es: Spanish</a> · <a  href="./README.ru-RU.md">:ru: Русский</a> · <a  href="./README.ko-KR.md">:kr: 한국어</a> · <a  href="./README.zh-CN.md">:cn: 简体中文</a> · <a  href="./README.it-IT.md">:it: Italiano</a> · <a href="./README.de-DE.md">:de: Deutsch</a> · <a href="./README.id-ID.md">:id: Bahasa Indonesia</a> · <a href="./README.pt-BR.md">:br: Português</a>
+このREADMEは次の言語でもご覧いただけます: <a  href="./README.md">:gb: English</a> · <a  href="./README.es-ES.md">:es: Spanish</a> · <a  href="./README.ru-RU.md">:ru: Русский</a> · <a  href="./README.ko-KR.md">:kr: 한국어</a> · <a  href="./README.zh-CN.md">:cn: 简体中文</a> · <a  href="./README.it-IT.md">:it: Italiano</a> · <a href="./README.de-DE.md">:de: Deutsch</a> · <a href="./README.id-ID.md">:id: Bahasa Indonesia</a> · <a href="./README.pt-BR.md">:br: Português</a>
 </p>
 
 ----
@@ -40,7 +40,7 @@
 * 大量の出力にも止まることはありません
 * タブキーによる補完機能にも対応したWindows上での快適なシェル (Clink使用)
 * SSHの機密性の高い情報と設定を保存する暗号化コンテナの搭載
-* SSH、SFTP、Telnetクライアントが[Webアプリ](https://tabby.sh/app)として利用可能 ([セルフホスティング](https://github.com/Eugeny/tabby-web)も可能)
+* SSH、SFTP、Telnetクライアントが[Webアプリ](https://tabby.sh/app)としても利用できます ([セルフホスティング](https://github.com/Eugeny/tabby-web)も可能)
 
 # コンテンツ <!-- omit in toc -->
 
@@ -87,7 +87,7 @@
 * SSH2クライアントと接続マネージャー
 * X11とポートフォワーディング
 * 自動ジャンプサーバー管理
-* エージェント転送(PageantとWindows標準OpenSSHエージェントを含む)
+* エージェント転送（PageantとWindows標準OpenSSHエージェントを含む）
 * ログインスクリプト
 
 <a name="serial"></a>
@@ -104,7 +104,7 @@
 
 # ポータブル機能
 
-Windows上では、`Tabby.exe`がある場所と同じ場所に`data`フォルダを作成すれば、ポータブルアプリケーションとして実行することができます。
+Windows上では、`Tabby.exe`がある場所と同じ場所に`data`フォルダを作成すれば、ポータブルアプリとして実行することができます。
 
 <a name="plugins"></a>
 
@@ -116,10 +116,10 @@ Windows上では、`Tabby.exe`がある場所と同じ場所に`data`フォル�
 * [title-control](https://github.com/kbjr/terminus-title-control) - タブ名の前後に文字を入れたり指定した文字の削除をすることができます
 * [quick-cmds](https://github.com/Domain/terminus-quick-cmds) - 一つもしくは複数のタブに手軽にコマンド送信することができます
 * [save-output](https://github.com/Eugeny/tabby-save-output) - ターミナルの出力をファイルに保存することができます
-* [sync-config](https://github.com/starxg/terminus-sync-config) - GistやGiteeに設定ファイルを同期することができます
-* [clippy](https://github.com/Eugeny/tabby-clippy) - いつもあなたを悩ますプラグインの作例
+* [sync-config](https://github.com/starxg/terminus-sync-config) - GistやGiteeで設定ファイルを同期することができます
+* [clippy](https://github.com/Eugeny/tabby-clippy) - プラグインの作例として、いつも厄介なあいつが出てくるプラグイン
 * [workspace-manager](https://github.com/composer404/tabby-workspace-manager) - 指定された設定からカスタマイズされたワークスペースを作成することができます
-* [search-in-browser](https://github.com/composer404/tabby-search-in-browser) - Tabby内の端末で選択したテキストを標準の既定ブラウザで開くことができます。
+* [search-in-browser](https://github.com/composer404/tabby-search-in-browser) - Tabby内の端末で選択したテキストを既定ブラウザで開くことができます。
 
 <a name="themes"></a>
 
@@ -137,17 +137,21 @@ Windows上では、`Tabby.exe`がある場所と同じ場所に`data`フォル�
 
 [**packagecloud**](https://packagecloud.io)は、Debian/RPMリポジトリのホスティングを無償で提供しています
 
+[![](https://user-images.githubusercontent.com/161476/200423885-7aba2202-fea7-4409-95b9-3a062ce902c7.png)](https://keygen.sh/?via=eugene)
+
+[**keygen**](https://keygen.sh/?via=eugene)は、自動リリース機能および自動更新機能のホスティングを無償で提供しています
+
 <a name="contributing"></a>
 # コントリビュート
 
 プルリクエストやプラグインは大歓迎です!
 
-プロジェクトの構成や、ごく簡単なプラグイン開発のチュートリアルについては、[HACKING.md](https://github.com/Eugeny/tabby/blob/master/HACKING.md)及び、[API docs](https://docs.tabby.sh/)を参照してください。
+プロジェクトの構成や、非常に簡単なプラグイン開発のチュートリアルについては、[HACKING.md](https://github.com/Eugeny/tabby/blob/master/HACKING.md)および、[API docs](https://docs.tabby.sh/)を参照してください。
 
 ---
 <a name="contributors"></a>
 
-この素晴らしい人たち([emoji key](https://allcontributors.org/docs/en/emoji-key))に感謝します:
+以下の素晴らしい方々([emoji key](https://allcontributors.org/docs/en/emoji-key))に感謝いたします:
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
@@ -321,4 +325,4 @@ Windows上では、`Tabby.exe`がある場所と同じ場所に`data`フォル�
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
-このプロジェクトは[all-contributors](https://github.com/all-contributors/all-contributors)の仕様に準拠しています。どのような形の貢献でも歓迎します!
+このプロジェクトは[all-contributors](https://github.com/all-contributors/all-contributors)の仕様に準拠しています。どのような形の貢献でも歓迎いたします！
