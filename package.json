@@ -27,7 +27,7 @@
     "@typescript-eslint/eslint-plugin": "^5.45.0",
     "@typescript-eslint/parser": "^5.54.1",
     "apply-loader": "2.0.0",
-    "axios": "^0.27.2",
+    "axios": "^1.3.6",
     "babel-loader": "^9.1.2",
     "browserify-sign": "^4.2.1",
     "clone-deep": "^4.0.1",
