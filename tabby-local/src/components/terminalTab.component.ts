@@ -28,7 +28,6 @@ export class TerminalTabComponent extends BaseTerminalTabComponent<LocalProfile>
         this.sessionOptions = this.profile.options
 
         this.logger = this.log.create('terminalTab')
-        this.session = new Session(this.injector)
 
         const isConPTY = isWindowsBuild(WIN_BUILD_CONPTY_SUPPORTED) && this.config.store.terminal.useConPTY
 
@@ -56,6 +55,9 @@ export class TerminalTabComponent extends BaseTerminalTabComponent<LocalProfile>
     }
 
     initializeSession (columns: number, rows: number): void {
+
+        const session = new Session(this.injector)
+
         if (this.profile.options.runAsAdministrator && this.uac?.isAvailable) {
             this.profile = {
                 ...this.profile,
@@ -63,13 +65,13 @@ export class TerminalTabComponent extends BaseTerminalTabComponent<LocalProfile>
             }
         }
 
-        this.session!.start({
+        session.start({
             ...this.profile.options,
             width: columns,
             height: rows,
         })
 
-        this.attachSessionHandlers(true)
+        this.setSession(session, true)
         this.recoveryStateChangedHint.next()
     }
 
