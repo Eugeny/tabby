@@ -157,27 +157,24 @@ export class SSHTabComponent extends BaseTerminalTabComponent<SSHProfile> implem
     protected attachSessionHandlers (): void {
         const session = this.session!
         this.attachSessionHandler(session.destroyed$, () => {
-            if (this.frontend) {
-                
+            if (
+                // Ctrl-D
+                this.recentInputs.charCodeAt(this.recentInputs.length - 1) === 4 ||
+                this.recentInputs.endsWith('exit\r')
+            ) {
+                // User closed the session
+                this.destroy()
+            } else if (this.frontend) {
+                // Session was closed abruptly
                 this.write('\r\n' + colors.black.bgWhite(' SSH ') + ` ${this.sshSession?.profile.options.host}: session closed\r\n`)
-
-                if (this.config.store.terminal.behaviorOnSessionEnds == 'close') {
-                    // Close the tab
-                    this.destroy()
-                } else if (this.config.store.terminal.behaviorOnSessionEnds.startsWith('reconnect-or-')) {
-                    // Automatically reconnect the session
-                    this.reconnect()
-                } else {
-                    // Reconnect Offer
-                    if (!this.reconnectOffered) {
-                        this.reconnectOffered = true
-                        this.write(this.translate.instant(_('Press any key to reconnect')) + '\r\n')
-                        this.input$.pipe(first()).subscribe(() => {
-                            if (!this.session?.open && this.reconnectOffered) {
-                                this.reconnect()
-                            }
-                        })
-                    }
+                if (!this.reconnectOffered) {
+                    this.reconnectOffered = true
+                    this.write(this.translate.instant(_('Press any key to reconnect')) + '\r\n')
+                    this.input$.pipe(first()).subscribe(() => {
+                        if (!this.session?.open && this.reconnectOffered) {
+                            this.reconnect()
+                        }
+                    })
                 }
             }
         })

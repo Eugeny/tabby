@@ -24,7 +24,6 @@ export class TerminalConfigProvider extends ConfigProvider {
             hideCloseButton: false,
             hideTabOptionsButton: false,
             rightClick: 'menu',
-            behaviorOnSessionEnds: 'keep-open',
             pasteOnMiddleClick: true,
             copyOnSelect: false,
             copyAsHTML: true,

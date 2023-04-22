@@ -25,7 +25,6 @@ terminal:
   paneResizeStep: 0.1
   focusFollowsMouse: false
   identification: null
-  behaviorOnSessionEnds: 'keep-open'
 hotkeys:
   profile:
     __nonStructural: true

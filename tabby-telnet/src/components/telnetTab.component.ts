@@ -48,23 +48,14 @@ export class TelnetTabComponent extends BaseTerminalTabComponent<TelnetProfile> 
         this.attachSessionHandler(session.destroyed$, () => {
             if (this.frontend) {
                 // Session was closed abruptly
-                if (this.config.store.terminal.behaviorOnSessionEnds == 'close') {
-                    // Close the tab
-                    this.destroy()
-                } else if (this.config.store.terminal.behaviorOnSessionEnds.startsWith('reconnect-or-')) {
-                    // Automatically reconnect the session
-                    this.reconnect()
-                } else {
-                    // Reconnect Offer
-                    if (!this.reconnectOffered) {
-                        this.reconnectOffered = true
-                        this.write(this.translate.instant(_('Press any key to reconnect')) + '\r\n')
-                        this.input$.pipe(first()).subscribe(() => {
-                            if (!this.session?.open && this.reconnectOffered) {
-                                this.reconnect()
-                            }
-                        })
-                    }
+                if (!this.reconnectOffered) {
+                    this.reconnectOffered = true
+                    this.write(this.translate.instant(_('Press any key to reconnect')) + '\r\n')
+                    this.input$.pipe(first()).subscribe(() => {
+                        if (!this.session?.open && this.reconnectOffered) {
+                            this.reconnect()
+                        }
+                    })
                 }
             }
         })

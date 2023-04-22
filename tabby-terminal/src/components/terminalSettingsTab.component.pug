@@ -225,24 +225,6 @@ div.mt-4
             (ngModelChange)='config.save()',
         )
 
-.mt-4
-    h3(translate) Closing
-
-    .form-line
-        .header
-            .title(translate) Tab's behavior when session ends
-            .description(*ngIf='config.store.terminal.behaviorOnSessionEnds.startsWith("reconnect-or")', translate) Automatically reconnect the Serial, Telnet or SSH session
-
-        select.form-control(
-            [(ngModel)]='config.store.terminal.behaviorOnSessionEnds',
-            (ngModelChange)='config.save()'
-        )
-            option(ngValue='keep-open', translate) Keep open
-            option(ngValue='reconnect-or-keep-open', translate) Reconnect, otherwise keep open
-            option(ngValue='reconnect-or-close', translate) Reconnect, otherwise close
-            option(ngValue='close', translate) Close
-
-
 div.mt-4(*ngIf='hostApp.platform === Platform.Windows')
     h3(translate) Windows
 
