@@ -129,6 +129,7 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
     protected output = new Subject<string>()
     protected binaryOutput = new Subject<Buffer>()
     protected sessionChanged = new Subject<BaseSession|null>()
+    protected recentInputs = ''
     private bellPlayer: HTMLAudioElement
     private termContainerSubscriptions = new SubscriptionContainer()
     private sessionHandlers = new SubscriptionContainer()
@@ -415,6 +416,11 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
                 this.frontend!.write('\r\n\r\n')
             }
         }
+
+        this.input$.subscribe(data => {
+            this.recentInputs += data
+            this.recentInputs = this.recentInputs.substring(this.recentInputs.length - 32)
+        })
     }
 
     async buildContextMenu (): Promise<MenuItemOptions[]> {

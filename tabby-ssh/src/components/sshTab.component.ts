@@ -30,7 +30,6 @@ export class SSHTabComponent extends BaseTerminalTabComponent<SSHProfile> implem
     sftpPath = '/'
     enableToolbar = true
     activeKIPrompt: KeyboardInteractivePrompt|null = null
-    private recentInputs = ''
     private reconnectOffered = false
 
     constructor (
@@ -71,15 +70,12 @@ export class SSHTabComponent extends BaseTerminalTabComponent<SSHProfile> implem
             }
         })
 
-        this.frontendReady$.pipe(first()).subscribe(() => {
-            this.initializeSession()
-            this.input$.subscribe(data => {
-                this.recentInputs += data
-                this.recentInputs = this.recentInputs.substring(this.recentInputs.length - 32)
-            })
-        })
-
         super.ngOnInit()
+    }
+
+    protected onFrontendReady (): void {
+        this.initializeSession()
+        super.onFrontendReady()
     }
 
     async setupOneSession (injector: Injector, profile: SSHProfile, multiplex = true): Promise<SSHSession> {

@@ -47,15 +47,16 @@ export class SerialTabComponent extends BaseTerminalTabComponent<SerialProfile> 
             }
         })
 
-        this.frontendReady$.pipe(first()).subscribe(() => {
-            this.initializeSession()
-        })
-
         super.ngOnInit()
 
         setImmediate(() => {
             this.setTitle(this.profile.name)
         })
+    }
+
+    protected onFrontendReady (): void {
+        this.initializeSession()
+        super.onFrontendReady()
     }
 
     async initializeSession () {

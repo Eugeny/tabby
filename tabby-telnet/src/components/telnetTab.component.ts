@@ -36,11 +36,12 @@ export class TelnetTabComponent extends BaseTerminalTabComponent<TelnetProfile> 
             }
         })
 
-        this.frontendReady$.pipe(first()).subscribe(() => {
-            this.initializeSession()
-        })
-
         super.ngOnInit()
+    }
+
+    protected onFrontendReady (): void {
+        this.initializeSession()
+        super.onFrontendReady()
     }
 
     protected attachSessionHandlers (): void {
