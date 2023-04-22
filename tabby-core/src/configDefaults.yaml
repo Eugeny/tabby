@@ -46,6 +46,8 @@ vault: null
 encrypted: false
 enableExperimentalFeatures: false
 pluginBlacklist: []
+commandBlacklist: []
+providerBlacklist: []
 hacks:
   disableGPU: false
   disableVibrancyWhileDragging: false

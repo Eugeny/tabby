@@ -193,7 +193,7 @@ export default class AppModule { // eslint-disable-line @typescript-eslint/no-ex
             }
 
             if (hotkey === 'profile-selector') {
-                commands.run('profile-selector', {})
+                commands.run('core:profile-selector', {})
             }
         })
     }

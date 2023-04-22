@@ -71,6 +71,7 @@ export class CommandService {
         }
 
         return commands
+            .filter(c => !this.config.store.commandBlacklist.includes(c.id))
             .sort((a, b) => (a.weight ?? 0) - (b.weight ?? 0))
             .map(command => {
                 const run = command.run
