@@ -84,7 +84,7 @@ export class SerialTabComponent extends BaseTerminalTabComponent<SerialProfile> 
         this.attachSessionHandler(this.session!.destroyed$, () => {
             if (this.frontend) {
                 // Session was closed abruptly
-                if (this.config.store.terminal.behaviorOnSessionEnds === 'close') {
+                if (this.config.store.terminal.behaviorOnSessionEnds == 'close') {
                     // Close the tab
                     this.destroy()
                 } else if (this.config.store.terminal.behaviorOnSessionEnds.startsWith('reconnect-or-')) {
