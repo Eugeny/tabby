@@ -153,24 +153,22 @@ export class SSHTabComponent extends BaseTerminalTabComponent<SSHProfile> implem
     protected attachSessionHandlers (): void {
         const session = this.session!
         this.attachSessionHandler(session.destroyed$, () => {
-            if (
-                // Ctrl-D
-                this.recentInputs.charCodeAt(this.recentInputs.length - 1) === 4 ||
-                this.recentInputs.endsWith('exit\r')
-            ) {
-                // User closed the session
-                this.destroy()
-            } else if (this.frontend) {
+            if (this.frontend) {
                 // Session was closed abruptly
                 this.write('\r\n' + colors.black.bgWhite(' SSH ') + ` ${this.sshSession?.profile.options.host}: session closed\r\n`)
-                if (!this.reconnectOffered) {
-                    this.reconnectOffered = true
-                    this.write(this.translate.instant(_('Press any key to reconnect')) + '\r\n')
-                    this.input$.pipe(first()).subscribe(() => {
-                        if (!this.session?.open && this.reconnectOffered) {
-                            this.reconnect()
-                        }
-                    })
+
+                if (this.profile.behaviorOnSessionEnd === 'reconnect') {
+                    this.reconnect()
+                } else if (this.profile.behaviorOnSessionEnd === 'keep' || this.profile.behaviorOnSessionEnd === 'auto' && !this.isSessionExplicitlyTerminated()) {
+                    if (!this.reconnectOffered) {
+                        this.reconnectOffered = true
+                        this.write(this.translate.instant(_('Press any key to reconnect')) + '\r\n')
+                        this.input$.pipe(first()).subscribe(() => {
+                            if (!this.session?.open && this.reconnectOffered) {
+                                this.reconnect()
+                            }
+                        })
+                    }
                 }
             }
         })
@@ -261,5 +259,11 @@ export class SSHTabComponent extends BaseTerminalTabComponent<SSHProfile> implem
     @HostListener('click')
     onClick (): void {
         this.sftpPanelVisible = false
+    }
+
+    protected isSessionExplicitlyTerminated (): boolean {
+        return super.isSessionExplicitlyTerminated() ||
+        this.recentInputs.charCodeAt(this.recentInputs.length - 1) === 4 ||
+        this.recentInputs.endsWith('exit\r')
     }
 }

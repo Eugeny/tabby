@@ -771,11 +771,12 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
             }
         })
 
-        if (destroyOnSessionClose) {
-            this.attachSessionHandler(this.session.closed$, () => {
+        this.attachSessionHandler(this.session.closed$, () => {
+            const behavior = this.profile.behaviorOnSessionEnd
+            if (destroyOnSessionClose || behavior === 'close' || behavior === 'auto' && this.isSessionExplicitlyTerminated()) {
                 this.destroy()
-            })
-        }
+            }
+        })
 
         this.attachSessionHandler(this.session.destroyed$, () => {
             this.setSession(null)
@@ -840,5 +841,12 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
         } else {
             cb(this)
         }
+    }
+
+    /**
+     * Return true if the user explicitly exit the session
+     */
+    protected isSessionExplicitlyTerminated (): boolean {
+        return false
     }
 }

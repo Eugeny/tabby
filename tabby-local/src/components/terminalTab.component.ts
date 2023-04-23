@@ -71,7 +71,7 @@ export class TerminalTabComponent extends BaseTerminalTabComponent<LocalProfile>
             height: rows,
         })
 
-        this.setSession(session, true)
+        this.setSession(session)
         this.recoveryStateChangedHint.next()
     }
 
@@ -126,5 +126,13 @@ export class TerminalTabComponent extends BaseTerminalTabComponent<LocalProfile>
     ngOnDestroy (): void {
         super.ngOnDestroy()
         this.session?.destroy()
+    }
+
+    /**
+     * Return true if the user explicitly exit the session.
+     * Always return true for terminalTab as the session can only be ended by the user
+     */
+    protected isSessionExplicitlyTerminated (): boolean {
+        return true
     }
 }

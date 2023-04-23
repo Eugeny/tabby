@@ -83,12 +83,21 @@ export class SerialTabComponent extends BaseTerminalTabComponent<SerialProfile> 
             this.session?.resize(this.size.columns, this.size.rows)
         })
         this.attachSessionHandler(this.session!.destroyed$, () => {
-            this.write(this.translate.instant(_('Press any key to reconnect')) + '\r\n')
-            this.input$.pipe(first()).subscribe(() => {
-                if (!this.session?.open) {
+            if (this.frontend) {
+                // Session was closed abruptly
+                this.write('\r\n' + colors.black.bgWhite(' SERIAL ') + ` session closed\r\n`)
+
+                if (this.profile.behaviorOnSessionEnd === 'reconnect') {
                     this.reconnect()
+                } else if (this.profile.behaviorOnSessionEnd === 'keep' || this.profile.behaviorOnSessionEnd === 'auto' && !this.isSessionExplicitlyTerminated()) {
+                    this.write(this.translate.instant(_('Press any key to reconnect')) + '\r\n')
+                    this.input$.pipe(first()).subscribe(() => {
+                        if (!this.session?.open) {
+                            this.reconnect()
+                        }
+                    })
                 }
-            })
+            }
         })
         super.attachSessionHandlers()
     }
@@ -116,5 +125,11 @@ export class SerialTabComponent extends BaseTerminalTabComponent<SerialProfile> 
         )
         this.session?.serial?.update({ baudRate: rate })
         this.profile.options.baudrate = rate
+    }
+
+    protected isSessionExplicitlyTerminated (): boolean {
+        return super.isSessionExplicitlyTerminated() ||
+        this.recentInputs.endsWith('close\r') ||
+        this.recentInputs.endsWith('quit\r')
     }
 }
