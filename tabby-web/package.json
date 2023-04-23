@@ -1,6 +1,6 @@
 {
   "name": "tabby-web",
-  "version": "1.0.197-nightly.0",
+  "version": "1.0.197-nightly.1",
   "description": "Web-specific bindings",
   "keywords": [
     "tabby-builtin-plugin"
