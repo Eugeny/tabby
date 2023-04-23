@@ -34,13 +34,13 @@
     "tmp-promise": "^3.0.3"
   },
   "peerDependencies": {
-    "@angular/animations": "^9.1.9",
-    "@angular/common": "^9.1.11",
-    "@angular/core": "^9.1.9",
-    "@angular/forms": "^9.1.11",
-    "@angular/platform-browser": "^9.1.11",
-    "@ng-bootstrap/ng-bootstrap": "^6.1.0",
-    "rxjs": "^6.5.5",
+    "@angular/animations": "^15",
+    "@angular/common": "^15",
+    "@angular/core": "^15",
+    "@angular/forms": "^15",
+    "@angular/platform-browser": "^15",
+    "@ng-bootstrap/ng-bootstrap": "^14",
+    "rxjs": "^7",
     "tabby-core": "*",
     "tabby-settings": "*",
     "tabby-terminal": "*"

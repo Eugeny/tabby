@@ -12,6 +12,7 @@
     "watch": "webpack --progress --color --watch"
   },
   "files": [
+    "dist",
     "typings"
   ],
   "author": "Eugene Pankov",

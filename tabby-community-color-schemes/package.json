@@ -17,7 +17,7 @@
   "author": "Eugene Pankov",
   "license": "MIT",
   "peerDependencies": {
-    "@angular/core": "^9.1.9",
+    "@angular/core": "^15",
     "tabby-core": "*",
     "tabby-terminal": "*"
   }
