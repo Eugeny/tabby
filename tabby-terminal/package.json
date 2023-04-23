@@ -1,6 +1,6 @@
 {
   "name": "tabby-terminal",
-  "version": "1.0.189-nightly.2",
+  "version": "1.0.197-nightly.0",
   "description": "Tabby's terminal emulation core",
   "keywords": [
     "tabby-builtin-plugin"
@@ -13,6 +13,7 @@
     "prepare": "patch-package"
   },
   "files": [
+    "dist",
     "typings"
   ],
   "author": "Eugene Pankov",

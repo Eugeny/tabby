@@ -1,6 +1,6 @@
 {
   "name": "tabby-serial",
-  "version": "1.0.189-nightly.2",
+  "version": "1.0.197-nightly.0",
   "description": "Serial connections for Tabby",
   "keywords": [
     "tabby-builtin-plugin"
@@ -12,7 +12,8 @@
     "watch": "webpack --progress --color --watch"
   },
   "files": [
-    "dist"
+    "dist",
+    "typings"
   ],
   "author": "Eugene Pankov",
   "license": "MIT",
