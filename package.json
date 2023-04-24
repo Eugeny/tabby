@@ -47,7 +47,7 @@
     "eslint-import-resolver-typescript": "^3.5.2",
     "eslint-plugin-import": "^2.27.5",
     "file-loader": "^6.2.0",
-    "gettext-extractor": "^3.5.4",
+    "gettext-extractor": "^3.7.2",
     "graceful-fs": "^4.2.10",
     "html-loader": "4.2.0",
     "json-loader": "^0.5.7",
