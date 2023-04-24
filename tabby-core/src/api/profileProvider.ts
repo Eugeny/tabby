@@ -14,6 +14,7 @@ export interface Profile {
     icon?: string
     color?: string
     disableDynamicTitle: boolean
+    behaviorOnSessionEnd: 'auto'|'keep'|'reconnect'|'close'
 
     weight: number
     isBuiltin: boolean
