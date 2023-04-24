@@ -65,6 +65,18 @@
                     .description(translate) Connection name will be used instead
                 toggle([(ngModel)]='profile.disableDynamicTitle')
 
+            .form-line
+                .header
+                    .title(translate) When a session ends
+                    .description(*ngIf='profile.behaviorOnSessionEnd == "auto"', translate) Only close the tab when session is explicitly terminated
+                select.form-control(
+                    [(ngModel)]='profile.behaviorOnSessionEnd',
+                )
+                    option(ngValue='auto', translate) Auto
+                    option(ngValue='keep', translate) Keep
+                    option(*ngIf='profile.type == "serial" || profile.type == "telnet" || profile.type == "ssh"', ngValue='reconnect', translate) Reconnect
+                    option(ngValue='close', translate) Close
+
             .mb-4
 
         .col-12.col-lg-8(*ngIf='this.profileProvider.settingsComponent')

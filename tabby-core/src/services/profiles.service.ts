@@ -24,6 +24,7 @@ export class ProfilesService {
         isBuiltin: false,
         isTemplate: false,
         terminalColorScheme: null,
+        behaviorOnSessionEnd: 'auto',
     }
 
     constructor (
