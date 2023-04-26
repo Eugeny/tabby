@@ -46,7 +46,7 @@
   "devDependencies": {
     "@ngx-translate/core": "^14.0.0",
     "@types/mz": "2.7.4",
-    "@types/node": "18.11.19",
+    "@types/node": "18.16.1",
     "atomically": "^1.7.0",
     "filesize": "^9",
     "ngx-filesize": "^3.0.1"
