@@ -317,6 +317,7 @@ Obrigado vai para essas pessoas maravilhosas ([emoji key](https://allcontributor
     <td align="center"><a href="https://github.com/karaketir16"><img src="https://avatars.githubusercontent.com/u/27349806?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Osman Karaketir</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=karaketir16" title="Code">💻</a></td>
     <td align="center"><a href="https://www.gnomegarden.io/"><img src="https://avatars.githubusercontent.com/u/33667144?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Crypto Gnome</b></sub></a><br /><a href="#financial-CryptoGnome" title="Financial">💵</a></td>
     <td align="center"><a href="https://github.com/rbukovansky"><img src="https://avatars.githubusercontent.com/u/1004491?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Richard Bukovansky</b></sub></a><br /><a href="#financial-rbukovansky" title="Financial">💵</a></td>
+    <td align="center"><a href="https://github.com/pseudocc"><img src="https://avatars.githubusercontent.com/u/85104110?v=4?s=100" width="100px;" alt=""/><br /><sub><b>catlas</b></sub></a><br /><a href="#financial-pseudocc" title="Financial">💵</a></td>
   </tr>
 </table>
 

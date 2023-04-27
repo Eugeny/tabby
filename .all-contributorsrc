@@ -1148,6 +1148,15 @@
       "contributions": [
         "financial"
       ]
+    },
+    {
+      "login": "pseudocc",
+      "name": "catlas",
+      "avatar_url": "https://avatars.githubusercontent.com/u/85104110?v=4",
+      "profile": "https://github.com/pseudocc",
+      "contributions": [
+        "financial"
+      ]
     }
   ],
   "contributorsPerLine": 7,
