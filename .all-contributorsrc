@@ -1157,6 +1157,15 @@
       "contributions": [
         "financial"
       ]
+    },
+    {
+      "login": "Kapocsi",
+      "name": "Thomas Kapocsi",
+      "avatar_url": "https://avatars.githubusercontent.com/u/84490604?v=4",
+      "profile": "http://kapocsi.ca",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
