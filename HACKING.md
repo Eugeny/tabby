@@ -42,13 +42,13 @@ yarn start
 To build an installer, first complete a "normal" build as described above and then run:
 
 ```
-node scripts/prepackage-plugins.js
+node scripts/prepackage-plugins.mjs
 
-node scripts/build-windows.js
+node scripts/build-windows.mjs
 # or
-node scripts/build-linux.js
+node scripts/build-linux.mjs
 # or
-node scripts/build-macos.js
+node scripts/build-macos.mjs
 ```
 
 The artifacts will be produced in the `dist` folder.
