@@ -212,6 +212,11 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
                 this.showSearchPanel = true
                 setImmediate(() => {
                     const input = this.element.nativeElement.querySelector('.search-input')
+                    const selectedText = (this.frontend?.getSelection() ?? '').trim()
+                    if (input && selectedText.length) {
+                        input.value = selectedText
+                    }
+
                     input?.focus()
                     input?.select()
                 })
