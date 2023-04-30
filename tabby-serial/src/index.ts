@@ -36,3 +36,6 @@ import { SerialProfilesService } from './profiles'
     ],
 })
 export default class SerialModule { } // eslint-disable-line @typescript-eslint/no-extraneous-class
+
+export { SerialTabComponent }
+export { SerialSession } from './api'
