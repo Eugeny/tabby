@@ -465,9 +465,9 @@ xtend@^4.0.0:
   integrity sha512-LKYU1iAXJXUgAXn9URjiu+MWhyUXHsvfp7mcuYm9dSUKK0/CjtrUwFAxD82/mCWbtLsGjFIad0wIsod4zrTAEQ==
 
 xterm-addon-canvas@^0.4.0-beta.9:
-  version "0.4.0-beta.9"
-  resolved "https://registry.yarnpkg.com/xterm-addon-canvas/-/xterm-addon-canvas-0.4.0-beta.9.tgz#e570fa4592890f92cc86706f2bba0dd128a8641d"
-  integrity sha512-BWRVWyUW7NY2g4BBMm3ecPQvbdyKXFgABnpmh4m0TVHqFJMNeXdNuTc94KiDbE+cvw8jtAY9NC/OIM4HcgjAIQ==
+  version "0.4.0-beta.10"
+  resolved "https://registry.yarnpkg.com/xterm-addon-canvas/-/xterm-addon-canvas-0.4.0-beta.10.tgz#96c5ebe22b203f90a0a241a0c3cbeeee9fa2f10a"
+  integrity sha512-pP8aReRpWauhvw2Jk6OO4wFJULtRPm7poJ/cRBBbOwabvKr17uQkAPisLKHY9jxkVWixcHi9l/6jyrGE5hwYwA==
 
 xterm-addon-fit@^0.7.0:
   version "0.7.0"
