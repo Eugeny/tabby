@@ -20,10 +20,19 @@ export interface BaseTerminalProfile extends Profile {
     terminalColorScheme?: TerminalColorScheme
 }
 
+
+/**
+ * Use ConnectableTerminalTab instead
+ * @deprecated
+ */
 export interface Reconnectable {
     reconnect: () => Promise<void>;
 }
 
+/**
+ * Use ConnectableTerminalTab instead
+ * @deprecated
+ */
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export function isReconnectable (object: any): object is Reconnectable {
     return 'reconnect' in object
