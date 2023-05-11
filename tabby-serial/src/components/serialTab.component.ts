@@ -4,7 +4,7 @@ import colors from 'ansi-colors'
 import { Component, Injector } from '@angular/core'
 import { first } from 'rxjs'
 import { GetRecoveryTokenOptions, Platform, SelectorService } from 'tabby-core'
-import { BaseTerminalTabComponent, Reconnectable } from 'tabby-terminal'
+import { BaseTerminalTabComponent, ConnectableTerminalTabComponent, Reconnectable } from 'tabby-terminal'
 import { SerialSession, BAUD_RATES, SerialProfile } from '../api'
 
 /** @hidden */
@@ -14,7 +14,7 @@ import { SerialSession, BAUD_RATES, SerialProfile } from '../api'
     styleUrls: ['./serialTab.component.scss', ...BaseTerminalTabComponent.styles],
     animations: BaseTerminalTabComponent.animations,
 })
-export class SerialTabComponent extends BaseTerminalTabComponent<SerialProfile> implements Reconnectable {
+export class SerialTabComponent extends ConnectableTerminalTabComponent<SerialProfile> implements Reconnectable {
     session: SerialSession|null = null
     Platform = Platform
 

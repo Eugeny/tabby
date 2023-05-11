@@ -3,7 +3,7 @@ import colors from 'ansi-colors'
 import { Component, Injector } from '@angular/core'
 import { first } from 'rxjs'
 import { GetRecoveryTokenOptions, Platform, RecoveryToken } from 'tabby-core'
-import { BaseTerminalTabComponent, Reconnectable } from 'tabby-terminal'
+import { BaseTerminalTabComponent, ConnectableTerminalTabComponent, Reconnectable } from 'tabby-terminal'
 import { TelnetProfile, TelnetSession } from '../session'
 
 
@@ -14,10 +14,9 @@ import { TelnetProfile, TelnetSession } from '../session'
     styleUrls: ['./telnetTab.component.scss', ...BaseTerminalTabComponent.styles],
     animations: BaseTerminalTabComponent.animations,
 })
-export class TelnetTabComponent extends BaseTerminalTabComponent<TelnetProfile> implements Reconnectable {
+export class TelnetTabComponent extends ConnectableTerminalTabComponent<TelnetProfile> implements Reconnectable {
     Platform = Platform
     session: TelnetSession|null = null
-    private reconnectOffered = false
 
     // eslint-disable-next-line @typescript-eslint/no-useless-constructor
     constructor (
