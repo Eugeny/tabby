@@ -6,7 +6,7 @@ import { first } from 'rxjs'
 
 import { BaseTerminalProfile } from './interfaces'
 import { BaseTerminalTabComponent } from './baseTerminalTab.component'
-import { GetRecoveryTokenOptions } from 'tabby-core'
+import { GetRecoveryTokenOptions, RecoveryToken } from 'tabby-core'
 
 
 /**
@@ -77,7 +77,7 @@ export abstract class ConnectableTerminalTabComponent<P extends BaseTerminalProf
         }
     }
 
-    async getRecoveryToken (options?: GetRecoveryTokenOptions): Promise<any> {
+    async getRecoveryToken (options?: GetRecoveryTokenOptions): Promise<RecoveryToken> {
         return {
             type: `app:${this.profile.type}-tab`,
             profile: this.profile,
