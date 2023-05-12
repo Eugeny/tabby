@@ -1,9 +1,8 @@
 import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker'
 import colors from 'ansi-colors'
 import { Component, Injector } from '@angular/core'
-import { first } from 'rxjs'
 import { GetRecoveryTokenOptions, Platform, RecoveryToken } from 'tabby-core'
-import { BaseTerminalTabComponent, ConnectableTerminalTabComponent, Reconnectable } from 'tabby-terminal'
+import { BaseTerminalTabComponent, ConnectableTerminalTabComponent } from 'tabby-terminal'
 import { TelnetProfile, TelnetSession } from '../session'
 
 
@@ -14,7 +13,7 @@ import { TelnetProfile, TelnetSession } from '../session'
     styleUrls: ['./telnetTab.component.scss', ...BaseTerminalTabComponent.styles],
     animations: BaseTerminalTabComponent.animations,
 })
-export class TelnetTabComponent extends ConnectableTerminalTabComponent<TelnetProfile> implements Reconnectable {
+export class TelnetTabComponent extends ConnectableTerminalTabComponent<TelnetProfile> {
     Platform = Platform
     session: TelnetSession|null = null
 
@@ -53,15 +52,7 @@ export class TelnetTabComponent extends ConnectableTerminalTabComponent<TelnetPr
                 if (this.profile.behaviorOnSessionEnd === 'reconnect') {
                     this.reconnect()
                 } else if (this.profile.behaviorOnSessionEnd === 'keep' || this.profile.behaviorOnSessionEnd === 'auto' && !this.isSessionExplicitlyTerminated()) {
-                    if (!this.reconnectOffered) {
-                        this.reconnectOffered = true
-                        this.write(this.translate.instant(_('Press any key to reconnect')) + '\r\n')
-                        this.input$.pipe(first()).subscribe(() => {
-                            if (!this.session?.open && this.reconnectOffered) {
-                                this.reconnect()
-                            }
-                        })
-                    }
+                    this.offerReconnection()
                 }
             }
         })
@@ -69,7 +60,7 @@ export class TelnetTabComponent extends ConnectableTerminalTabComponent<TelnetPr
     }
 
     async initializeSession (): Promise<void> {
-        this.reconnectOffered = false
+        await super.initializeSession()
 
         const session = new TelnetSession(this.injector, this.profile)
         this.setSession(session)

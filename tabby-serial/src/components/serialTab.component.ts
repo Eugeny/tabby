@@ -2,9 +2,8 @@
 import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker'
 import colors from 'ansi-colors'
 import { Component, Injector } from '@angular/core'
-import { first } from 'rxjs'
 import { GetRecoveryTokenOptions, Platform, SelectorService } from 'tabby-core'
-import { BaseTerminalTabComponent, ConnectableTerminalTabComponent, Reconnectable } from 'tabby-terminal'
+import { BaseTerminalTabComponent, ConnectableTerminalTabComponent } from 'tabby-terminal'
 import { SerialSession, BAUD_RATES, SerialProfile } from '../api'
 
 /** @hidden */
@@ -14,7 +13,7 @@ import { SerialSession, BAUD_RATES, SerialProfile } from '../api'
     styleUrls: ['./serialTab.component.scss', ...BaseTerminalTabComponent.styles],
     animations: BaseTerminalTabComponent.animations,
 })
-export class SerialTabComponent extends ConnectableTerminalTabComponent<SerialProfile> implements Reconnectable {
+export class SerialTabComponent extends ConnectableTerminalTabComponent<SerialProfile> {
     session: SerialSession|null = null
     Platform = Platform
 
@@ -90,12 +89,7 @@ export class SerialTabComponent extends ConnectableTerminalTabComponent<SerialPr
                 if (this.profile.behaviorOnSessionEnd === 'reconnect') {
                     this.reconnect()
                 } else if (this.profile.behaviorOnSessionEnd === 'keep' || this.profile.behaviorOnSessionEnd === 'auto' && !this.isSessionExplicitlyTerminated()) {
-                    this.write(this.translate.instant(_('Press any key to reconnect')) + '\r\n')
-                    this.input$.pipe(first()).subscribe(() => {
-                        if (!this.session?.open) {
-                            this.reconnect()
-                        }
-                    })
+                    this.offerReconnection()
                 }
             }
         })

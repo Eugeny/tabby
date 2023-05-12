@@ -2,9 +2,8 @@ import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker'
 import colors from 'ansi-colors'
 import { Component, Injector, HostListener } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
-import { first } from 'rxjs'
 import { GetRecoveryTokenOptions, Platform, ProfilesService, RecoveryToken } from 'tabby-core'
-import { BaseTerminalTabComponent, ConnectableTerminalTabComponent, Reconnectable } from 'tabby-terminal'
+import { BaseTerminalTabComponent, ConnectableTerminalTabComponent } from 'tabby-terminal'
 import { SSHService } from '../services/ssh.service'
 import { KeyboardInteractivePrompt, SSHSession } from '../session/ssh'
 import { SSHPortForwardingModalComponent } from './sshPortForwardingModal.component'
@@ -22,7 +21,7 @@ import { SSHMultiplexerService } from '../services/sshMultiplexer.service'
     ],
     animations: BaseTerminalTabComponent.animations,
 })
-export class SSHTabComponent extends ConnectableTerminalTabComponent<SSHProfile> implements Reconnectable {
+export class SSHTabComponent extends ConnectableTerminalTabComponent<SSHProfile> {
     Platform = Platform
     sshSession: SSHSession|null = null
     session: SSHShellSession|null = null
@@ -159,15 +158,7 @@ export class SSHTabComponent extends ConnectableTerminalTabComponent<SSHProfile>
                 if (this.profile.behaviorOnSessionEnd === 'reconnect') {
                     this.reconnect()
                 } else if (this.profile.behaviorOnSessionEnd === 'keep' || this.profile.behaviorOnSessionEnd === 'auto' && !this.isSessionExplicitlyTerminated()) {
-                    if (!this.reconnectOffered) {
-                        this.reconnectOffered = true
-                        this.write(this.translate.instant(_('Press any key to reconnect')) + '\r\n')
-                        this.input$.pipe(first()).subscribe(() => {
-                            if (!this.session?.open && this.reconnectOffered) {
-                                this.reconnect()
-                            }
-                        })
-                    }
+                    this.offerReconnection()
                 }
             }
         })
@@ -195,7 +186,7 @@ export class SSHTabComponent extends ConnectableTerminalTabComponent<SSHProfile>
     }
 
     async initializeSession (): Promise<void> {
-        this.reconnectOffered = false
+        await super.initializeSession()
         try {
             await this.initializeSessionMaybeMultiplex(true)
         } catch {

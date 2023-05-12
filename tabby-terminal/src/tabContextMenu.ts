@@ -4,6 +4,7 @@ import { BaseTerminalTabComponent } from './api/baseTerminalTab.component'
 import { isReconnectable } from './api/interfaces'
 import { TerminalContextMenuItemProvider } from './api/contextMenuProvider'
 import { MultifocusService } from './services/multifocus.service'
+import { ConnectableTerminalTabComponent } from './api/connectableTerminalTab.component'
 
 /** @hidden */
 @Injectable()
@@ -97,7 +98,7 @@ export class ReconnectContextMenu extends TabContextMenuItemProvider {
     ) { super() }
 
     async getItems (tab: BaseTabComponent): Promise<MenuItemOptions[]> {
-        if (isReconnectable(tab)) {
+        if (isReconnectable(tab) || tab instanceof ConnectableTerminalTabComponent) {
             return [
                 {
                     label: this.translate.instant('Reconnect'),
