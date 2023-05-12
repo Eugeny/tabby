@@ -73,14 +73,6 @@ export class TelnetTabComponent extends ConnectableTerminalTabComponent<TelnetPr
         }
     }
 
-    async getRecoveryToken (options?: GetRecoveryTokenOptions): Promise<RecoveryToken> {
-        return {
-            type: 'app:telnet-tab',
-            profile: this.profile,
-            savedState: options?.includeState && this.frontend?.saveState(),
-        }
-    }
-
     async canClose (): Promise<boolean> {
         if (!this.session?.open) {
             return true

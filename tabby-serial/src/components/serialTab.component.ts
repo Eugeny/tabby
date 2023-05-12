@@ -90,14 +90,6 @@ export class SerialTabComponent extends ConnectableTerminalTabComponent<SerialPr
         }
     }
 
-    async getRecoveryToken (options?: GetRecoveryTokenOptions): Promise<any> {
-        return {
-            type: 'app:serial-tab',
-            profile: this.profile,
-            savedState: options?.includeState && this.frontend?.saveState(),
-        }
-    }
-
     async changeBaudRate () {
         const rate = await this.selector.show(
             this.translate.instant(_('Baud rate')),

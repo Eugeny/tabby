@@ -186,14 +186,6 @@ export class SSHTabComponent extends ConnectableTerminalTabComponent<SSHProfile>
         }
     }
 
-    async getRecoveryToken (options?: GetRecoveryTokenOptions): Promise<RecoveryToken> {
-        return {
-            type: 'app:ssh-tab',
-            profile: this.profile,
-            savedState: options?.includeState && this.frontend?.saveState(),
-        }
-    }
-
     showPortForwarding (): void {
         const modal = this.ngbModal.open(SSHPortForwardingModalComponent).componentInstance as SSHPortForwardingModalComponent
         modal.session = this.sshSession!

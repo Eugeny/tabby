@@ -6,6 +6,8 @@ import { first } from 'rxjs'
 
 import { BaseTerminalProfile } from './interfaces'
 import { BaseTerminalTabComponent } from './baseTerminalTab.component'
+import { GetRecoveryTokenOptions } from 'tabby-core'
+
 
 /**
  * A class to base your custom connectable terminal tabs on
@@ -66,6 +68,14 @@ export abstract class ConnectableTerminalTabComponent<P extends BaseTerminalProf
                     this.reconnect()
                 }
             })
+        }
+    }
+
+    async getRecoveryToken (options?: GetRecoveryTokenOptions): Promise<any> {
+        return {
+            type: `app:${this.profile.type}-tab`,
+            profile: this.profile,
+            savedState: options?.includeState && this.frontend?.saveState(),
         }
     }
 
