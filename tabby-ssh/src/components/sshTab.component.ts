@@ -44,8 +44,6 @@ export class SSHTabComponent extends ConnectableTerminalTabComponent<SSHProfile>
     }
 
     ngOnInit (): void {
-        this.logger = this.log.create('terminalTab')
-
         this.subscribeUntilDestroyed(this.hotkeys.hotkey$, hotkey => {
             if (!this.hasFocus) {
                 return

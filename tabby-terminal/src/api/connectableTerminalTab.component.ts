@@ -27,6 +27,12 @@ export abstract class ConnectableTerminalTabComponent<P extends BaseTerminalProf
         })
     }
 
+    ngOnInit (): void {
+        this.logger = this.log.create(`${this.profile.type}Tab`)
+
+        super.ngOnInit()
+    }
+
     protected onFrontendReady (): void {
         this.initializeSession()
         super.onFrontendReady()

@@ -27,8 +27,6 @@ export class SerialTabComponent extends ConnectableTerminalTabComponent<SerialPr
     }
 
     ngOnInit () {
-        this.logger = this.log.create('terminalTab')
-
         this.subscribeUntilDestroyed(this.hotkeys.hotkey$, hotkey => {
             if (!this.hasFocus) {
                 return
