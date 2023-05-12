@@ -26,7 +26,7 @@ export abstract class ConnectableTerminalTabComponent<P extends BaseTerminalProf
     }
 
     /**
-    * Initialize Connectable Session. 
+    * Initialize Connectable Session.
     * Set reconnectOffered to false
     */
     async initializeSession (): Promise<void> {
@@ -36,7 +36,7 @@ export abstract class ConnectableTerminalTabComponent<P extends BaseTerminalProf
     /**
     * Method called when session is destroyed. Handle the tab behavior on session end for connectable tab
     */
-    protected onSessionDestroyed() {
+    protected onSessionDestroyed (): void {
         super.onSessionDestroyed()
 
         if (this.frontend) {
@@ -47,12 +47,12 @@ export abstract class ConnectableTerminalTabComponent<P extends BaseTerminalProf
             }
         }
     }
-    
+
     /**
     * Offering reconnection to the user if it hasn't been done yet.
     * Set reconnectOffered to true
     */
-    offerReconnection () {
+    offerReconnection (): void {
         if (!this.reconnectOffered) {
             this.reconnectOffered = true
             this.write(this.translate.instant(_('Press any key to reconnect')) + '\r\n')

@@ -784,7 +784,7 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
         })
 
         this.attachSessionHandler(this.session.destroyed$, () => {
-            this.onSessionDestroyed()            
+            this.onSessionDestroyed()
         })
 
         this.attachSessionHandler(this.session.oscProcessor.copyRequested$, content => {
@@ -796,7 +796,7 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
     /**
      * Method called when session is destroyed. Set the session to null
      */
-    protected onSessionDestroyed() {
+    protected onSessionDestroyed (): void {
         this.setSession(null)
     }
 

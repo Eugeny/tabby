@@ -148,7 +148,7 @@ export class SSHTabComponent extends ConnectableTerminalTabComponent<SSHProfile>
         return session
     }
 
-    protected onSessionDestroyed() {
+    protected onSessionDestroyed (): void {
         if (this.frontend) {
             // Session was closed abruptly
             this.write('\r\n' + colors.black.bgWhite(' SSH ') + ` ${this.sshSession?.profile.options.host}: session closed\r\n`)

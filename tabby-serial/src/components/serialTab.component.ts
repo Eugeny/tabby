@@ -86,7 +86,7 @@ export class SerialTabComponent extends ConnectableTerminalTabComponent<SerialPr
         super.attachSessionHandlers()
     }
 
-    protected onSessionDestroyed() {
+    protected onSessionDestroyed (): void {
         if (this.frontend) {
             // Session was closed abruptly
             this.write('\r\n' + colors.black.bgWhite(' SERIAL ') + ` session closed\r\n`)
