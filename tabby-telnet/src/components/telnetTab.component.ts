@@ -37,11 +37,6 @@ export class TelnetTabComponent extends ConnectableTerminalTabComponent<TelnetPr
         super.ngOnInit()
     }
 
-    protected onFrontendReady (): void {
-        this.initializeSession()
-        super.onFrontendReady()
-    }
-
     protected onSessionDestroyed (): void {
         if (this.frontend) {
             // Session was closed abruptly

@@ -25,6 +25,11 @@ export abstract class ConnectableTerminalTabComponent<P extends BaseTerminalProf
         })
     }
 
+    protected onFrontendReady (): void {
+        this.initializeSession()
+        super.onFrontendReady()
+    }
+
     /**
     * Initialize Connectable Session.
     * Set reconnectOffered to false

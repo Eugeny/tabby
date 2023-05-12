@@ -53,11 +53,6 @@ export class SerialTabComponent extends ConnectableTerminalTabComponent<SerialPr
         })
     }
 
-    protected onFrontendReady (): void {
-        this.initializeSession()
-        super.onFrontendReady()
-    }
-
     async initializeSession () {
         super.initializeSession()
 

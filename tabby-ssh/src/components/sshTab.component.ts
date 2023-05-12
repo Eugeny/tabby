@@ -71,11 +71,6 @@ export class SSHTabComponent extends ConnectableTerminalTabComponent<SSHProfile>
         super.ngOnInit()
     }
 
-    protected onFrontendReady (): void {
-        this.initializeSession()
-        super.onFrontendReady()
-    }
-
     async setupOneSession (injector: Injector, profile: SSHProfile, multiplex = true): Promise<SSHSession> {
         let session = await this.sshMultiplexer.getSession(profile)
         if (!multiplex || !session || !profile.options.reuseSession) {
