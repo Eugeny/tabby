@@ -94,12 +94,6 @@ export class TelnetTabComponent extends ConnectableTerminalTabComponent<TelnetPr
         }
     }
 
-    async reconnect (): Promise<void> {
-        this.session?.destroy()
-        await this.initializeSession()
-        this.session?.releaseInitialDataBuffer()
-    }
-
     async canClose (): Promise<boolean> {
         if (!this.session?.open) {
             return true

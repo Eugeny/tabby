@@ -212,12 +212,6 @@ export class SSHTabComponent extends ConnectableTerminalTabComponent<SSHProfile>
         modal.session = this.sshSession!
     }
 
-    async reconnect (): Promise<void> {
-        this.session?.destroy()
-        await this.initializeSession()
-        this.session?.releaseInitialDataBuffer()
-    }
-
     async canClose (): Promise<boolean> {
         if (!this.session?.open) {
             return true

@@ -59,6 +59,8 @@ export class SerialTabComponent extends ConnectableTerminalTabComponent<SerialPr
     }
 
     async initializeSession () {
+        super.initializeSession()
+
         const session = new SerialSession(this.injector, this.profile)
         this.setSession(session)
 
@@ -102,12 +104,6 @@ export class SerialTabComponent extends ConnectableTerminalTabComponent<SerialPr
             profile: this.profile,
             savedState: options?.includeState && this.frontend?.saveState(),
         }
-    }
-
-    async reconnect (): Promise<void> {
-        this.session?.destroy()
-        await this.initializeSession()
-        this.session?.releaseInitialDataBuffer()
     }
 
     async changeBaudRate () {
