@@ -32,6 +32,21 @@ export abstract class ConnectableTerminalTabComponent<P extends BaseTerminalProf
     async initializeSession (): Promise<void> {
         this.reconnectOffered = false
     }
+
+    /**
+    * Method called when session is destroyed. Handle the tab behavior on session end for connectable tab
+    */
+    protected onSessionDestroyed() {
+        super.onSessionDestroyed()
+
+        if (this.frontend) {
+            if (this.profile.behaviorOnSessionEnd === 'reconnect') {
+                this.reconnect()
+            } else if (this.profile.behaviorOnSessionEnd === 'keep' || this.profile.behaviorOnSessionEnd === 'auto' && !this.isSessionExplicitlyTerminated()) {
+                this.offerReconnection()
+            }
+        }
+    }
     
     /**
     * Offering reconnection to the user if it hasn't been done yet.

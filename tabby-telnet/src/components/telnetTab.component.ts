@@ -42,21 +42,13 @@ export class TelnetTabComponent extends ConnectableTerminalTabComponent<TelnetPr
         super.onFrontendReady()
     }
 
-    protected attachSessionHandlers (): void {
-        const session = this.session!
-        this.attachSessionHandler(session.destroyed$, () => {
-            if (this.frontend) {
-                // Session was closed abruptly
-                this.write('\r\n' + colors.black.bgWhite(' TELNET ') + ` ${this.session?.profile.options.host}: session closed\r\n`)
+    protected onSessionDestroyed() {
+        if (this.frontend) {
+            // Session was closed abruptly
+            this.write('\r\n' + colors.black.bgWhite(' TELNET ') + ` ${this.session?.profile.options.host}: session closed\r\n`)
 
-                if (this.profile.behaviorOnSessionEnd === 'reconnect') {
-                    this.reconnect()
-                } else if (this.profile.behaviorOnSessionEnd === 'keep' || this.profile.behaviorOnSessionEnd === 'auto' && !this.isSessionExplicitlyTerminated()) {
-                    this.offerReconnection()
-                }
-            }
-        })
-        super.attachSessionHandlers()
+            super.onSessionDestroyed()
+        }
     }
 
     async initializeSession (): Promise<void> {

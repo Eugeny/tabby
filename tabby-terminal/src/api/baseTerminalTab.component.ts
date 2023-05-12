@@ -784,13 +784,20 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
         })
 
         this.attachSessionHandler(this.session.destroyed$, () => {
-            this.setSession(null)
+            this.onSessionDestroyed()            
         })
 
         this.attachSessionHandler(this.session.oscProcessor.copyRequested$, content => {
             this.platform.setClipboard({ text: content })
             this.notifications.notice(this.translate.instant('Copied'))
         })
+    }
+
+    /**
+     * Method called when session is destroyed. Set the session to null
+     */
+    protected onSessionDestroyed() {
+        this.setSession(null)
     }
 
     protected detachSessionHandlers (): void {

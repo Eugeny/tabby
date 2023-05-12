@@ -83,19 +83,16 @@ export class SerialTabComponent extends ConnectableTerminalTabComponent<SerialPr
             this.write(`\r\n${colors.black.bgWhite(' Serial ')} ${msg}\r\n`)
             this.session?.resize(this.size.columns, this.size.rows)
         })
-        this.attachSessionHandler(this.session!.destroyed$, () => {
-            if (this.frontend) {
-                // Session was closed abruptly
-                this.write('\r\n' + colors.black.bgWhite(' SERIAL ') + ` session closed\r\n`)
-
-                if (this.profile.behaviorOnSessionEnd === 'reconnect') {
-                    this.reconnect()
-                } else if (this.profile.behaviorOnSessionEnd === 'keep' || this.profile.behaviorOnSessionEnd === 'auto' && !this.isSessionExplicitlyTerminated()) {
-                    this.offerReconnection()
-                }
-            }
-        })
         super.attachSessionHandlers()
+    }
+
+    protected onSessionDestroyed() {
+        if (this.frontend) {
+            // Session was closed abruptly
+            this.write('\r\n' + colors.black.bgWhite(' SERIAL ') + ` session closed\r\n`)
+
+            super.onSessionDestroyed()
+        }
     }
 
     async getRecoveryToken (options?: GetRecoveryTokenOptions): Promise<any> {
