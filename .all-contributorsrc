@@ -1166,6 +1166,15 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "dylhack",
+      "name": "Dylan Hackworth",
+      "avatar_url": "https://avatars.githubusercontent.com/u/27179786?v=4",
+      "profile": "https://dylhack.dev/",
+      "contributions": [
+        "financial"
+      ]
     }
   ],
   "contributorsPerLine": 7,
