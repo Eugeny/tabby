@@ -787,7 +787,7 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
     }
 
     get icon (): string|null {
-        return this.getFocusedTab()?.icon ?? null
+        return this.getFocusedTab()?.icon ?? this.getAllTabs()[0]?.icon ?? null
     }
 
     set icon (icon: string|null) {
@@ -797,7 +797,7 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
     }
 
     get color (): string|null {
-        return this.getFocusedTab()?.color ?? null
+        return this.getFocusedTab()?.color ?? this.getAllTabs()[0]?.color ?? null
     }
 
     set color (color: string|null) {
