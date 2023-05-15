@@ -2,8 +2,8 @@ import { Observable, Subject } from 'rxjs'
 import stripAnsi from 'strip-ansi'
 import { ClientChannel } from 'ssh2'
 import { Injector } from '@angular/core'
-import { LogService, UTF8Splitter } from 'tabby-core'
-import { BaseSession } from 'tabby-terminal'
+import { LogService } from 'tabby-core'
+import { BaseSession, UTF8SplitterMiddleware } from 'tabby-terminal'
 import { SSHSession } from './ssh'
 import { SSHProfile } from '../api'
 
@@ -13,7 +13,6 @@ export class SSHShellSession extends BaseSession {
     get serviceMessage$ (): Observable<string> { return this.serviceMessage }
     private serviceMessage = new Subject<string>()
     private ssh: SSHSession|null
-    private decoder = new UTF8Splitter()
 
     constructor (
         injector: Injector,
@@ -24,6 +23,7 @@ export class SSHShellSession extends BaseSession {
         this.ssh = ssh
         this.setLoginScriptsOptions(this.profile.options)
         this.ssh.serviceMessage$.subscribe(m => this.serviceMessage.next(m))
+        this.middleware.push(new UTF8SplitterMiddleware())
     }
 
     async start (): Promise<void> {
@@ -61,14 +61,10 @@ export class SSHShellSession extends BaseSession {
         })
 
         this.shell.on('data', data => {
-            this.emitOutput(this.decoder.write(data))
+            this.emitOutput(data)
         })
 
         this.shell.on('end', () => {
-            const remainder = this.decoder.flush()
-            if (remainder.length) {
-                this.emitOutput(remainder)
-            }
             this.logger.info('Shell session ended')
             if (this.open) {
                 this.destroy()

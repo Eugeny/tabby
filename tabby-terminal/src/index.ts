@@ -94,6 +94,7 @@ export * from './api/interfaces'
 export * from './middleware/streamProcessing'
 export * from './middleware/loginScriptProcessing'
 export * from './middleware/oscProcessing'
+export * from './middleware/utf8Splitter'
 export * from './api/middleware'
 export * from './session'
 export { LoginScriptsSettingsComponent, StreamProcessingSettingsComponent }
