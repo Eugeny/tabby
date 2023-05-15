@@ -81,6 +81,8 @@ $modal-footer-border-color:      transparent;
 $form-check-input-width: 1.4em;
 $form-switch-width: 2.5em;
 
+$input-placeholder-color: var(--theme-fg-more-2);
+
 @import '~bootstrap/scss/bootstrap.scss';
 @import "./theme.vendor.scss";
 
