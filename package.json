@@ -7,6 +7,7 @@
     "@angular/compiler-cli": "^15.2.6",
     "@angular/core": "^15.2.6",
     "@angular/forms": "^15.2.6",
+    "@angular/localize": "^15.2.9",
     "@angular/platform-browser": "^15.2.6",
     "@angular/platform-browser-dynamic": "^15.2.6",
     "@biesbjerg/ngx-translate-extract-marker": "^1.0.0",

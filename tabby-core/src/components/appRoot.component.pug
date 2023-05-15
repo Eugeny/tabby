@@ -51,7 +51,7 @@ title-bar(
                 #activeTransfersDropdown='ngbDropdown'
             )
                 button.btn.btn-secondary.btn-tab-bar(
-                    *ngIf='activeTransfers.length > 0',
+                    [hidden]='activeTransfers.length == 0',
                     title='File transfers',
                     ngbDropdownToggle
                 ) !{require('../icons/transfers.svg')}

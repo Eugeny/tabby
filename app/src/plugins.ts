@@ -27,6 +27,8 @@ const cachedBuiltinModules = {
     '@angular/compiler': require('@angular/compiler'),
     '@angular/core': require('@angular/core'),
     '@angular/forms': require('@angular/forms'),
+    '@angular/localize': require('@angular/localize'),
+    '@angular/localize/init': require('@angular/localize/init'),
     '@angular/platform-browser': require('@angular/platform-browser'),
     '@angular/platform-browser/animations': require('@angular/platform-browser/animations'),
     '@angular/platform-browser-dynamic': require('@angular/platform-browser-dynamic'),

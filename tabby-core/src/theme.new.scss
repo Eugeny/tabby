@@ -171,6 +171,13 @@ body {
     }
 }
 
+.dropdown-menu {
+    --bs-dropdown-bg: var(--theme-bg-more);
+}
+
+.progress {
+    --bs-progress-height: 3px;
+}
 
 tab-body {
     terminal-toolbar {

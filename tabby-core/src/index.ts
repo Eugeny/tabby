@@ -8,6 +8,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop'
 import { TranslateModule, TranslateCompiler, TranslateService, MissingTranslationHandler } from '@ngx-translate/core'
 import { TranslateMessageFormatCompiler, MESSAGE_FORMAT_CONFIG } from 'ngx-translate-messageformat-compiler'
 
+import '@angular/localize/init'
+
 import { AppRootComponent } from './components/appRoot.component'
 import { CheckboxComponent } from './components/checkbox.component'
 import { TabBodyComponent } from './components/tabBody.component'

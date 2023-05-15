@@ -138,6 +138,8 @@ Tabby.registerModule('@angular/platform-browser', require('@angular/platform-bro
 Tabby.registerModule('@angular/platform-browser/animations', require('@angular/platform-browser/animations'))
 Tabby.registerModule('@angular/platform-browser-dynamic', require('@angular/platform-browser-dynamic'))
 Tabby.registerModule('@angular/animations', require('@angular/animations'))
+Tabby.registerModule('@angular/localize', require('@angular/localize'))
+Tabby.registerModule('@angular/localize/init', require('@angular/localize/init'))
 Tabby.registerModule('@ng-bootstrap/ng-bootstrap', require('@ng-bootstrap/ng-bootstrap'))
 Tabby.registerModule('ngx-toastr', require('ngx-toastr'))
 Tabby.registerModule('deepmerge', require('deepmerge'))

@@ -75,6 +75,15 @@
   dependencies:
     tslib "^2.3.0"
 
+"@angular/localize@^15.2.9":
+  version "15.2.9"
+  resolved "https://registry.yarnpkg.com/@angular/localize/-/localize-15.2.9.tgz#9fd960b5b6daab597c816b33e2f00977719c673f"
+  integrity sha512-7ZGK3BWwIukSK5ORWjM3y/FYj7/ZJFl1RO1GCeL/tHD4nq0kd3q3pYvcpnoi9HGl+q8AkL24xdsfzgCFo8SB0g==
+  dependencies:
+    "@babel/core" "7.19.3"
+    glob "8.1.0"
+    yargs "^17.2.1"
+
 "@angular/platform-browser-dynamic@^15.2.6":
   version "15.2.6"
   resolved "https://registry.yarnpkg.com/@angular/platform-browser-dynamic/-/platform-browser-dynamic-15.2.6.tgz#e3b347524b547385e90aad9bed59b5f14e6716cb"
@@ -4083,6 +4092,17 @@ glob-to-regexp@^0.4.1:
     minimatch "^3.1.1"
     once "^1.3.0"
     path-is-absolute "^1.0.0"
+
+glob@8.1.0:
+  version "8.1.0"
+  resolved "https://registry.yarnpkg.com/glob/-/glob-8.1.0.tgz#d388f656593ef708ee3e34640fdfb99a9fd1c33e"
+  integrity sha512-r8hpEjiQEYlF2QU0df3dS+nxxSIreXQS1qRhMJM0Q5NDdR386C7jb7Hwwod8Fgiuex+k0GFjgft18yvxm5XoCQ==
+  dependencies:
+    fs.realpath "^1.0.0"
+    inflight "^1.0.4"
+    inherits "2"
+    minimatch "^5.0.1"
+    once "^1.3.0"
 
 glob@^8.0.1, glob@^8.0.3:
   version "8.0.3"
