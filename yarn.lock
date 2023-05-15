@@ -8891,10 +8891,10 @@ util-extend@^1.0.1:
   resolved "https://registry.npmjs.org/util-extend/-/util-extend-1.0.3.tgz"
   integrity sha1-p8IW0mdUUWljeztu3GypEZ4v+T8=
 
-utils-decorators@^1.10.4:
-  version "1.10.4"
-  resolved "https://registry.yarnpkg.com/utils-decorators/-/utils-decorators-1.10.4.tgz#df3482fdddf127ca6db7ac58e0d3a19c99678bf1"
-  integrity sha512-f/GnLD+TA6DOW53v+3frv8kehx3q9UBtsB47yU2ie8A0rTd0w2fW0FLeYUEEgmqhTk3xHt9uihSish/nD3aQeg==
+utils-decorators@^2.0.6:
+  version "2.0.6"
+  resolved "https://registry.yarnpkg.com/utils-decorators/-/utils-decorators-2.0.6.tgz#9ba53a7fa86a0853c506b0f352d717d3847b2032"
+  integrity sha512-GIjMKdVdkUK61di5kfX71S2kUI0MXQbRa3FFv7woBPGeExpYd/dx+/x5rM/3ucVUd4+NqO8WwjRymQn7mnoAnw==
   dependencies:
     tinyqueue "^2.0.3"
 
