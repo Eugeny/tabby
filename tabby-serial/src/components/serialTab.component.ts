@@ -2,9 +2,8 @@
 import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker'
 import colors from 'ansi-colors'
 import { Component, Injector } from '@angular/core'
-import { first } from 'rxjs'
-import { GetRecoveryTokenOptions, Platform, SelectorService } from 'tabby-core'
-import { BaseTerminalTabComponent, Reconnectable } from 'tabby-terminal'
+import { Platform, SelectorService } from 'tabby-core'
+import { BaseTerminalTabComponent, ConnectableTerminalTabComponent } from 'tabby-terminal'
 import { SerialSession, BAUD_RATES, SerialProfile } from '../api'
 
 /** @hidden */
@@ -14,7 +13,7 @@ import { SerialSession, BAUD_RATES, SerialProfile } from '../api'
     styleUrls: ['./serialTab.component.scss', ...BaseTerminalTabComponent.styles],
     animations: BaseTerminalTabComponent.animations,
 })
-export class SerialTabComponent extends BaseTerminalTabComponent<SerialProfile> implements Reconnectable {
+export class SerialTabComponent extends ConnectableTerminalTabComponent<SerialProfile> {
     session: SerialSession|null = null
     Platform = Platform
 
@@ -28,8 +27,6 @@ export class SerialTabComponent extends BaseTerminalTabComponent<SerialProfile> 
     }
 
     ngOnInit () {
-        this.logger = this.log.create('terminalTab')
-
         this.subscribeUntilDestroyed(this.hotkeys.hotkey$, hotkey => {
             if (!this.hasFocus) {
                 return
@@ -54,12 +51,9 @@ export class SerialTabComponent extends BaseTerminalTabComponent<SerialProfile> 
         })
     }
 
-    protected onFrontendReady (): void {
-        this.initializeSession()
-        super.onFrontendReady()
-    }
-
     async initializeSession () {
+        super.initializeSession()
+
         const session = new SerialSession(this.injector, this.profile)
         this.setSession(session)
 
@@ -82,38 +76,16 @@ export class SerialTabComponent extends BaseTerminalTabComponent<SerialProfile> 
             this.write(`\r\n${colors.black.bgWhite(' Serial ')} ${msg}\r\n`)
             this.session?.resize(this.size.columns, this.size.rows)
         })
-        this.attachSessionHandler(this.session!.destroyed$, () => {
-            if (this.frontend) {
-                // Session was closed abruptly
-                this.write('\r\n' + colors.black.bgWhite(' SERIAL ') + ` session closed\r\n`)
-
-                if (this.profile.behaviorOnSessionEnd === 'reconnect') {
-                    this.reconnect()
-                } else if (this.profile.behaviorOnSessionEnd === 'keep' || this.profile.behaviorOnSessionEnd === 'auto' && !this.isSessionExplicitlyTerminated()) {
-                    this.write(this.translate.instant(_('Press any key to reconnect')) + '\r\n')
-                    this.input$.pipe(first()).subscribe(() => {
-                        if (!this.session?.open) {
-                            this.reconnect()
-                        }
-                    })
-                }
-            }
-        })
         super.attachSessionHandlers()
     }
 
-    async getRecoveryToken (options?: GetRecoveryTokenOptions): Promise<any> {
-        return {
-            type: 'app:serial-tab',
-            profile: this.profile,
-            savedState: options?.includeState && this.frontend?.saveState(),
-        }
-    }
+    protected onSessionDestroyed (): void {
+        if (this.frontend) {
+            // Session was closed abruptly
+            this.write('\r\n' + colors.black.bgWhite(' SERIAL ') + ` session closed\r\n`)
 
-    async reconnect (): Promise<void> {
-        this.session?.destroy()
-        await this.initializeSession()
-        this.session?.releaseInitialDataBuffer()
+            super.onSessionDestroyed()
+        }
     }
 
     async changeBaudRate () {

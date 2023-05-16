@@ -2,9 +2,8 @@ import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker'
 import colors from 'ansi-colors'
 import { Component, Injector, HostListener } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
-import { first } from 'rxjs'
-import { GetRecoveryTokenOptions, Platform, ProfilesService, RecoveryToken } from 'tabby-core'
-import { BaseTerminalTabComponent, Reconnectable } from 'tabby-terminal'
+import { Platform, ProfilesService } from 'tabby-core'
+import { BaseTerminalTabComponent, ConnectableTerminalTabComponent } from 'tabby-terminal'
 import { SSHService } from '../services/ssh.service'
 import { KeyboardInteractivePrompt, SSHSession } from '../session/ssh'
 import { SSHPortForwardingModalComponent } from './sshPortForwardingModal.component'
@@ -22,7 +21,7 @@ import { SSHMultiplexerService } from '../services/sshMultiplexer.service'
     ],
     animations: BaseTerminalTabComponent.animations,
 })
-export class SSHTabComponent extends BaseTerminalTabComponent<SSHProfile> implements Reconnectable {
+export class SSHTabComponent extends ConnectableTerminalTabComponent<SSHProfile> {
     Platform = Platform
     sshSession: SSHSession|null = null
     session: SSHShellSession|null = null
@@ -30,7 +29,6 @@ export class SSHTabComponent extends BaseTerminalTabComponent<SSHProfile> implem
     sftpPath = '/'
     enableToolbar = true
     activeKIPrompt: KeyboardInteractivePrompt|null = null
-    private reconnectOffered = false
 
     constructor (
         injector: Injector,
@@ -46,8 +44,6 @@ export class SSHTabComponent extends BaseTerminalTabComponent<SSHProfile> implem
     }
 
     ngOnInit (): void {
-        this.logger = this.log.create('terminalTab')
-
         this.subscribeUntilDestroyed(this.hotkeys.hotkey$, hotkey => {
             if (!this.hasFocus) {
                 return
@@ -71,11 +67,6 @@ export class SSHTabComponent extends BaseTerminalTabComponent<SSHProfile> implem
         })
 
         super.ngOnInit()
-    }
-
-    protected onFrontendReady (): void {
-        this.initializeSession()
-        super.onFrontendReady()
     }
 
     async setupOneSession (injector: Injector, profile: SSHProfile, multiplex = true): Promise<SSHSession> {
@@ -150,29 +141,13 @@ export class SSHTabComponent extends BaseTerminalTabComponent<SSHProfile> implem
         return session
     }
 
-    protected attachSessionHandlers (): void {
-        const session = this.session!
-        this.attachSessionHandler(session.destroyed$, () => {
-            if (this.frontend) {
-                // Session was closed abruptly
-                this.write('\r\n' + colors.black.bgWhite(' SSH ') + ` ${this.sshSession?.profile.options.host}: session closed\r\n`)
+    protected onSessionDestroyed (): void {
+        if (this.frontend) {
+            // Session was closed abruptly
+            this.write('\r\n' + colors.black.bgWhite(' SSH ') + ` ${this.sshSession?.profile.options.host}: session closed\r\n`)
 
-                if (this.profile.behaviorOnSessionEnd === 'reconnect') {
-                    this.reconnect()
-                } else if (this.profile.behaviorOnSessionEnd === 'keep' || this.profile.behaviorOnSessionEnd === 'auto' && !this.isSessionExplicitlyTerminated()) {
-                    if (!this.reconnectOffered) {
-                        this.reconnectOffered = true
-                        this.write(this.translate.instant(_('Press any key to reconnect')) + '\r\n')
-                        this.input$.pipe(first()).subscribe(() => {
-                            if (!this.session?.open && this.reconnectOffered) {
-                                this.reconnect()
-                            }
-                        })
-                    }
-                }
-            }
-        })
-        super.attachSessionHandlers()
+            super.onSessionDestroyed()
+        }
     }
 
     private async initializeSessionMaybeMultiplex (multiplex = true): Promise<void> {
@@ -196,7 +171,7 @@ export class SSHTabComponent extends BaseTerminalTabComponent<SSHProfile> implem
     }
 
     async initializeSession (): Promise<void> {
-        this.reconnectOffered = false
+        await super.initializeSession()
         try {
             await this.initializeSessionMaybeMultiplex(true)
         } catch {
@@ -209,23 +184,9 @@ export class SSHTabComponent extends BaseTerminalTabComponent<SSHProfile> implem
         }
     }
 
-    async getRecoveryToken (options?: GetRecoveryTokenOptions): Promise<RecoveryToken> {
-        return {
-            type: 'app:ssh-tab',
-            profile: this.profile,
-            savedState: options?.includeState && this.frontend?.saveState(),
-        }
-    }
-
     showPortForwarding (): void {
         const modal = this.ngbModal.open(SSHPortForwardingModalComponent).componentInstance as SSHPortForwardingModalComponent
         modal.session = this.sshSession!
-    }
-
-    async reconnect (): Promise<void> {
-        this.session?.destroy()
-        await this.initializeSession()
-        this.session?.releaseInitialDataBuffer()
     }
 
     async canClose (): Promise<boolean> {

@@ -9,7 +9,7 @@ import { BaseSession } from '../session'
 
 import { Frontend } from '../frontends/frontend'
 import { XTermFrontend, XTermWebGLFrontend } from '../frontends/xtermFrontend'
-import { ResizeEvent, BaseTerminalProfile, isReconnectable } from './interfaces'
+import { ResizeEvent, BaseTerminalProfile } from './interfaces'
 import { TerminalDecorator } from './decorator'
 import { SearchPanelComponent } from '../components/searchPanel.component'
 import { MultifocusService } from '../services/multifocus.service'
@@ -311,11 +311,6 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
                     break
                 case 'scroll-to-bottom':
                     this.frontend?.scrollToBottom()
-                    break
-                case 'reconnect-tab':
-                    if (isReconnectable(this)) {
-                        this.reconnect()
-                    }
                     break
             }
         })
@@ -784,13 +779,20 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
         })
 
         this.attachSessionHandler(this.session.destroyed$, () => {
-            this.setSession(null)
+            this.onSessionDestroyed()
         })
 
         this.attachSessionHandler(this.session.oscProcessor.copyRequested$, content => {
             this.platform.setClipboard({ text: content })
             this.notifications.notice(this.translate.instant('Copied'))
         })
+    }
+
+    /**
+     * Method called when session is destroyed. Set the session to null
+     */
+    protected onSessionDestroyed (): void {
+        this.setSession(null)
     }
 
     protected detachSessionHandlers (): void {
