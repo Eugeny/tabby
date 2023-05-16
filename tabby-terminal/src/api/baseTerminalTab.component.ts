@@ -9,7 +9,7 @@ import { BaseSession } from '../session'
 
 import { Frontend } from '../frontends/frontend'
 import { XTermFrontend, XTermWebGLFrontend } from '../frontends/xtermFrontend'
-import { ResizeEvent, BaseTerminalProfile, isReconnectable } from './interfaces'
+import { ResizeEvent, BaseTerminalProfile } from './interfaces'
 import { TerminalDecorator } from './decorator'
 import { SearchPanelComponent } from '../components/searchPanel.component'
 import { MultifocusService } from '../services/multifocus.service'
@@ -311,11 +311,6 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
                     break
                 case 'scroll-to-bottom':
                     this.frontend?.scrollToBottom()
-                    break
-                case 'reconnect-tab':
-                    if (isReconnectable(this)) {
-                        this.reconnect()
-                    }
                     break
             }
         })
