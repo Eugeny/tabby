@@ -1175,6 +1175,15 @@
       "contributions": [
         "financial"
       ]
+    },
+    {
+      "login": "echo304",
+      "name": "Sangboak Lee",
+      "avatar_url": "https://avatars.githubusercontent.com/u/16456651?v=4",
+      "profile": "https://github.com/echo304",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
