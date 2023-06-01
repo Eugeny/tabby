@@ -92,12 +92,43 @@ export function initModuleLookup (userPluginsPath: string): void {
     })
 }
 
-export async function findPlugins (): Promise<PluginInfo[]> {
-    const paths = nodeModule.globalPaths
-    let foundPlugins: PluginInfo[] = []
+const PLUGIN_PREFIX = 'tabby-'
+const LEGACY_PLUGIN_PREFIX = 'terminus-'
+
+async function getCandidateLocationsInPluginDir (pluginDir: any): Promise<{ pluginDir: string, packageName: string }[]> {
     const candidateLocations: { pluginDir: string, packageName: string }[] = []
-    const PREFIX = 'tabby-'
-    const LEGACY_PREFIX = 'terminus-'
+
+    if (await fs.exists(pluginDir)) {
+        const pluginNames = await fs.readdir(pluginDir)
+        if (await fs.exists(path.join(pluginDir, 'package.json'))) {
+            candidateLocations.push({
+                pluginDir: path.dirname(pluginDir),
+                packageName: path.basename(pluginDir),
+            })
+        }
+
+        const promises = []
+
+        for (const packageName of pluginNames) {
+            if ((packageName.startsWith(PLUGIN_PREFIX) || packageName.startsWith(LEGACY_PLUGIN_PREFIX)) && !PLUGIN_BLACKLIST.includes(packageName)) {
+                const pluginPath = path.join(pluginDir, packageName)
+                const infoPath = path.join(pluginPath, 'package.json')
+                promises.push(fs.exists(infoPath).then(result => {
+                    if (result) {
+                        candidateLocations.push({ pluginDir, packageName })
+                    }
+                }))
+            }
+        }
+
+        await Promise.all(promises)
+    }
+
+    return candidateLocations
+}
+
+async function getPluginCandidateLocation (paths: any): Promise<{ pluginDir: string, packageName: string }[]> {
+    const candidateLocationsPromises: Promise<{ pluginDir: string, packageName: string }[]>[] = []
 
     const processedPaths = []
 
@@ -108,69 +139,84 @@ export async function findPlugins (): Promise<PluginInfo[]> {
         processedPaths.push(pluginDir)
 
         pluginDir = normalizePath(pluginDir)
-        if (!await fs.exists(pluginDir)) {
-            continue
-        }
-        const pluginNames = await fs.readdir(pluginDir)
-        if (await fs.exists(path.join(pluginDir, 'package.json'))) {
-            candidateLocations.push({
-                pluginDir: path.dirname(pluginDir),
-                packageName: path.basename(pluginDir),
-            })
-        }
-        for (const packageName of pluginNames) {
-            if ((packageName.startsWith(PREFIX) || packageName.startsWith(LEGACY_PREFIX)) && !PLUGIN_BLACKLIST.includes(packageName)) {
-                candidateLocations.push({ pluginDir, packageName })
-            }
-        }
+
+        candidateLocationsPromises.push(getCandidateLocationsInPluginDir(pluginDir))
+
     }
 
-    for (const { pluginDir, packageName } of candidateLocations) {
-        const pluginPath = path.join(pluginDir, packageName)
-        const infoPath = path.join(pluginPath, 'package.json')
-        if (!await fs.exists(infoPath)) {
-            continue
+    const candidateLocations: { pluginDir: string, packageName: string }[] = []
+    for (const pluginCandidateLocations of await Promise.all(candidateLocationsPromises)) {
+        candidateLocations.push(...pluginCandidateLocations)
+    }
+
+    return candidateLocations
+}
+
+async function parsePluginInfo (pluginDir: string, packageName: string): Promise<PluginInfo|null> {
+    const pluginPath = path.join(pluginDir, packageName)
+    const infoPath = path.join(pluginPath, 'package.json')
+
+    const name = packageName.startsWith(PLUGIN_PREFIX) ? packageName.substring(PLUGIN_PREFIX.length) : packageName.substring(LEGACY_PLUGIN_PREFIX.length)
+
+    try {
+        const info = JSON.parse(await fs.readFile(infoPath, { encoding: 'utf-8' }))
+
+        if (!info.keywords || !(info.keywords.includes('terminus-plugin') || info.keywords.includes('terminus-builtin-plugin') || info.keywords.includes('tabby-plugin') || info.keywords.includes('tabby-builtin-plugin'))) {
+            return null
         }
 
-        const name = packageName.startsWith(PREFIX) ? packageName.substring(PREFIX.length) : packageName.substring(LEGACY_PREFIX.length)
+        let author = info.author
+        author = author.name || author
+
+        console.log(`Found ${name} in ${pluginDir}`)
+
+        return {
+            name: name,
+            packageName: packageName,
+            isBuiltin: pluginDir === builtinPluginsPath,
+            isLegacy: info.keywords.includes('terminus-plugin') || info.keywords.includes('terminus-builtin-plugin'),
+            version: info.version,
+            description: info.description,
+            author,
+            path: pluginPath,
+            info,
+        }
+    } catch (error) {
+        console.error('Cannot load package info for', packageName)
+        return null
+    }
+}
+
+export async function findPlugins (): Promise<PluginInfo[]> {
+    const paths = nodeModule.globalPaths
+    let foundPlugins: PluginInfo[] = []
+
+    const candidateLocations: { pluginDir: string, packageName: string }[] = await getPluginCandidateLocation(paths)
+
+    const foundPluginsPromises: Promise<PluginInfo|null>[] = []
+    for (const { pluginDir, packageName } of candidateLocations) {
 
         if (builtinModules.includes(packageName) && pluginDir !== builtinPluginsPath) {
             continue
         }
 
-        console.log(`Found ${name} in ${pluginDir}`)
+        foundPluginsPromises.push(parsePluginInfo(pluginDir, packageName))
+    }
 
-        const existing = foundPlugins.find(x => x.name === name)
-        if (existing) {
-            if (existing.isLegacy) {
-                console.info(`Plugin ${packageName} already exists, overriding`)
-                foundPlugins = foundPlugins.filter(x => x.name !== name)
-            } else {
-                console.info(`Plugin ${packageName} already exists, skipping`)
-                continue
+    for (const pluginInfo of await Promise.all(foundPluginsPromises)) {
+        if (pluginInfo) {
+            const existing = foundPlugins.find(x => x.name === pluginInfo.name)
+            if (existing) {
+                if (existing.isLegacy) {
+                    console.info(`Plugin ${pluginInfo.packageName} already exists, overriding`)
+                    foundPlugins = foundPlugins.filter(x => x.name !== pluginInfo.name)
+                } else {
+                    console.info(`Plugin ${pluginInfo.packageName} already exists, skipping`)
+                    continue
+                }
             }
-        }
 
-        try {
-            const info = JSON.parse(await fs.readFile(infoPath, { encoding: 'utf-8' }))
-            if (!info.keywords || !(info.keywords.includes('terminus-plugin') || info.keywords.includes('terminus-builtin-plugin') || info.keywords.includes('tabby-plugin') || info.keywords.includes('tabby-builtin-plugin'))) {
-                continue
-            }
-            let author = info.author
-            author = author.name || author
-            foundPlugins.push({
-                name: name,
-                packageName: packageName,
-                isBuiltin: pluginDir === builtinPluginsPath,
-                isLegacy: info.keywords.includes('terminus-plugin') || info.keywords.includes('terminus-builtin-plugin'),
-                version: info.version,
-                description: info.description,
-                author,
-                path: pluginPath,
-                info,
-            })
-        } catch (error) {
-            console.error('Cannot load package info for', packageName)
+            foundPlugins.push(pluginInfo)
         }
     }
 
@@ -181,26 +227,36 @@ export async function findPlugins (): Promise<PluginInfo[]> {
 
 export async function loadPlugins (foundPlugins: PluginInfo[], progress: ProgressCallback): Promise<any[]> {
     const plugins: any[] = []
-    progress(0, 1)
+    const pluginsPromises: Promise<any>[] = []
+
     let index = 0
-    for (const foundPlugin of foundPlugins) {
-        console.info(`Loading ${foundPlugin.name}: ${nodeRequire.resolve(foundPlugin.path)}`)
-        progress(index, foundPlugins.length)
-        try {
-            const packageModule = nodeRequire(foundPlugin.path)
-            if (foundPlugin.packageName.startsWith('tabby-')) {
-                cachedBuiltinModules[foundPlugin.packageName.replace('tabby-', 'terminus-')] = packageModule
-            }
-            const pluginModule = packageModule.default.forRoot ? packageModule.default.forRoot() : packageModule.default
-            pluginModule.pluginName = foundPlugin.name
-            pluginModule.bootstrap = packageModule.bootstrap
-            plugins.push(pluginModule)
-            await new Promise(x => setTimeout(x, 50))
-        } catch (error) {
-            console.error(`Could not load ${foundPlugin.name}:`, error)
-        }
+    const setProgress = function () {
         index++
+        progress(index, foundPlugins.length)
+    }
+
+    progress(0, 1)
+    for (const foundPlugin of foundPlugins) {
+        pluginsPromises.push(new Promise(x => {
+            console.info(`Loading ${foundPlugin.name}: ${nodeRequire.resolve(foundPlugin.path)}`)
+            try {
+                const packageModule = nodeRequire(foundPlugin.path)
+                if (foundPlugin.packageName.startsWith('tabby-')) {
+                    cachedBuiltinModules[foundPlugin.packageName.replace('tabby-', 'terminus-')] = packageModule
+                }
+                const pluginModule = packageModule.default.forRoot ? packageModule.default.forRoot() : packageModule.default
+                pluginModule.pluginName = foundPlugin.name
+                pluginModule.bootstrap = packageModule.bootstrap
+                plugins.push(pluginModule)
+                setTimeout(x, 50)
+            } catch (error) {
+                console.error(`Could not load ${foundPlugin.name}:`, error)
+            }
+            setProgress()
+        }))
     }
     progress(1, 1)
+
+    await Promise.all(pluginsPromises)
     return plugins
 }
