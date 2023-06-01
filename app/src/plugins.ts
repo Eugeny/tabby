@@ -248,11 +248,11 @@ export async function loadPlugins (foundPlugins: PluginInfo[], progress: Progres
                 pluginModule.pluginName = foundPlugin.name
                 pluginModule.bootstrap = packageModule.bootstrap
                 plugins.push(pluginModule)
-                setTimeout(x, 50)
             } catch (error) {
                 console.error(`Could not load ${foundPlugin.name}:`, error)
             }
             setProgress()
+            setTimeout(x, 50)
         }))
     }
     progress(1, 1)
