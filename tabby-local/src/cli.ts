@@ -130,7 +130,7 @@ export class AutoOpenTabCLIHandler extends CLIHandler {
     }
 
     async handle (event: CLIEvent): Promise<boolean> {
-        if (!event.secondInstance && this.config.store.terminal.autoOpen) {
+        if (!event.secondInstance && this.config.store.terminal.autoOpen && !this.config.store.enableWelcomeTab) {
             this.app.ready$.subscribe(() => {
                 this.terminal.openTab()
             })
