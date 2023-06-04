@@ -153,6 +153,8 @@ export class ProfilesService {
 
                 profiles = profiles.filter(x => !x.isTemplate)
 
+                profiles = profiles.filter(x => x.id && !this.config.store.profileBlacklist.includes(x.id))
+
                 options = [...options, ...profiles.map((p): SelectorOption<void> => ({
                     ...this.selectorOptionForProfile(p),
                     weight: p.isBuiltin ? 2 : 1,

@@ -48,6 +48,7 @@ enableExperimentalFeatures: false
 pluginBlacklist: []
 commandBlacklist: []
 providerBlacklist: []
+profileBlacklist: []
 hacks:
   disableGPU: false
   disableVibrancyWhileDragging: false

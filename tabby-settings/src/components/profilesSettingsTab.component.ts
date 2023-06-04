@@ -297,4 +297,18 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
         this.config.store.profileDefaults[provider.id] = model
         await this.config.save()
     }
+
+    blacklistProfile (profile: PartialProfile<Profile>): void {
+        this.config.store.profileBlacklist = [...this.config.store.profileBlacklist, profile.id]
+        this.config.save()
+    }
+
+    unblacklistProfile (profile: PartialProfile<Profile>): void {
+        this.config.store.profileBlacklist = this.config.store.profileBlacklist.filter(x => x !== profile.id)
+        this.config.save()
+    }
+
+    isProfileBlacklisted (profile: PartialProfile<Profile>): boolean {
+        return profile.id && this.config.store.profileBlacklist.includes(profile.id)
+    }
 }
