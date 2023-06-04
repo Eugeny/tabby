@@ -96,6 +96,8 @@ export class ProfilesService {
         const freeInputEquivalent = provider?.intoQuickConnectString(fullProfile) ?? undefined
         return {
             ...profile,
+            // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
+            group: profile.group || '',
             freeInputEquivalent,
             description: provider?.getDescription(fullProfile),
         }

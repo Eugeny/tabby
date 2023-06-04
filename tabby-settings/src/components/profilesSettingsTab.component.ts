@@ -163,10 +163,13 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
         const profileGroupCollapsed = JSON.parse(window.localStorage.profileGroupCollapsed ?? '{}')
 
         for (const profile of this.profiles) {
-            let group = this.profileGroups.find(x => x.name === profile.group)
+            // Group null, undefined and empty together
+            // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
+            let group = this.profileGroups.find(x => x.name === (profile.group || ''))
             if (!group) {
                 group = {
-                    name: profile.group,
+                    // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
+                    name: profile.group || '',
                     profiles: [],
                     editable: true,
                     collapsed: profileGroupCollapsed[profile.group ?? ''] ?? false,
