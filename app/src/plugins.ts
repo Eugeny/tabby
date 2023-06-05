@@ -255,8 +255,8 @@ export async function loadPlugins (foundPlugins: PluginInfo[], progress: Progres
             setTimeout(x, 50)
         }))
     }
-    progress(1, 1)
-
     await Promise.all(pluginsPromises)
+
+    progress(1, 1)
     return plugins
 }
