@@ -49,7 +49,7 @@
     "@types/node": "18.11.19",
     "atomically": "^1.7.0",
     "filesize": "^9",
-    "ngx-filesize": "^3.0.1"
+    "ngx-filesize": "^3.0.2"
   },
   "peerDependencies": {
     "tabby-community-color-schemes": "*",
