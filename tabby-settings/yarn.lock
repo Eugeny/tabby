@@ -12,10 +12,10 @@ marked@^4.2.12:
   resolved "https://registry.yarnpkg.com/marked/-/marked-4.2.12.tgz#d69a64e21d71b06250da995dcd065c11083bebb5"
   integrity sha512-yr8hSKa3Fv4D3jdZmtMMPghgVt6TWbk86WQaWhDloQjRSQhMMYCAro7jP7VDJrjjdV8pxVxMssXS8B8Y5DZ5aw==
 
-ngx-infinite-scroll@^15:
-  version "15.0.0"
-  resolved "https://registry.yarnpkg.com/ngx-infinite-scroll/-/ngx-infinite-scroll-15.0.0.tgz#61bbf89f121a796880a4ad67fe785b406532b220"
-  integrity sha512-FSP5UphRdl47vW8f/dRnPAU+napzruAKizBX2HS7MH292Ca+va6IU0J5+UQQmO5rXod2RZV7UhJ6+7g4xLfs1A==
+ngx-infinite-scroll@^16:
+  version "16.0.0"
+  resolved "https://registry.yarnpkg.com/ngx-infinite-scroll/-/ngx-infinite-scroll-16.0.0.tgz#287b48898bc291a0e7c5b3344cf337d7ac82e2dd"
+  integrity sha512-bzyNYd+wVlUUxcopRVr2DAa81eEc8vITtKVvb+c7R1uy8hWPTlxOEXf3L1qA4FMwTEzCQ9b37TXzlJji3qBy+A==
   dependencies:
     tslib "^2.3.0"
 
