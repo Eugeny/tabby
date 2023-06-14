@@ -260,7 +260,7 @@ export class XTermFrontend extends Frontend {
         this.xterm.loadAddon(this.search)
 
         this.search.onDidChangeResults(state => {
-            this.searchState = state ?? { resultCount: 0 }
+            this.searchState = state
         })
 
         window.addEventListener('resize', this.resizeHandler)
