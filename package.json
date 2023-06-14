@@ -68,7 +68,7 @@
     "pug-static-loader": "2.0.0",
     "raw-loader": "4.0.2",
     "rxjs": "^7.5.7",
-    "sass": "^1.58.0",
+    "sass": "^1.63.4",
     "sass-loader": "^13.2.0",
     "shell-quote": "^1.7.4",
     "shelljs": "0.8.5",
