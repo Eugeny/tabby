@@ -22,8 +22,19 @@ export abstract class ConnectableTerminalTabComponent<P extends BaseTerminalProf
         super(injector)
 
         this.subscribeUntilDestroyed(this.hotkeys.hotkey$, hotkey => {
-            if (this.hasFocus && hotkey === 'reconnect-tab') {
-                this.reconnect()
+            if (!this.hasFocus) {
+                return
+            }
+
+            switch (hotkey) {
+                case 'reconnect-tab':
+                    this.reconnect()
+                    this.notifications.notice(this.translate.instant('Reconnect'))
+                    break
+                case 'disconnect-tab':
+                    this.disconnect()
+                    this.notifications.notice(this.translate.instant('Disconnect'))
+                    break
             }
         })
     }
