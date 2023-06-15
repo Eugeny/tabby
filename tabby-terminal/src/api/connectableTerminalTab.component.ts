@@ -16,6 +16,7 @@ import { GetRecoveryTokenOptions, RecoveryToken } from 'tabby-core'
 export abstract class ConnectableTerminalTabComponent<P extends BaseTerminalProfile> extends BaseTerminalTabComponent<P> {
 
     protected reconnectOffered = false
+    protected isDisconnectedByHand = false
 
     constructor (protected injector: Injector) {
         super(injector)
@@ -44,6 +45,7 @@ export abstract class ConnectableTerminalTabComponent<P extends BaseTerminalProf
     */
     async initializeSession (): Promise<void> {
         this.reconnectOffered = false
+        this.isDisconnectedByHand = false
     }
 
     /**
@@ -53,7 +55,7 @@ export abstract class ConnectableTerminalTabComponent<P extends BaseTerminalProf
         super.onSessionDestroyed()
 
         if (this.frontend) {
-            if (this.profile.behaviorOnSessionEnd === 'reconnect') {
+            if (this.profile.behaviorOnSessionEnd === 'reconnect' && !this.isDisconnectedByHand) {
                 this.reconnect()
             } else if (this.profile.behaviorOnSessionEnd === 'keep' || !this.doesTabShouldBeDestroyedOnSessionClosed()) {
                 this.offerReconnection()
@@ -77,12 +79,27 @@ export abstract class ConnectableTerminalTabComponent<P extends BaseTerminalProf
         }
     }
 
+    /**
+     * Return true if tab should be destroyed on session closed.
+     */
+    protected doesTabShouldBeDestroyedOnSessionClosed (): boolean {
+        if (this.isDisconnectedByHand) {
+            return false
+        }
+        return super.doesTabShouldBeDestroyedOnSessionClosed()
+    }
+
     async getRecoveryToken (options?: GetRecoveryTokenOptions): Promise<RecoveryToken> {
         return {
             type: `app:${this.profile.type}-tab`,
             profile: this.profile,
             savedState: options?.includeState && this.frontend?.saveState(),
         }
+    }
+
+    async disconnect (): Promise<void> {
+        this.isDisconnectedByHand = true
+        await this.session?.destroy()
     }
 
     async reconnect (): Promise<void> {
