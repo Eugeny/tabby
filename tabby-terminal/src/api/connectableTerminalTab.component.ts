@@ -55,7 +55,7 @@ export abstract class ConnectableTerminalTabComponent<P extends BaseTerminalProf
         if (this.frontend) {
             if (this.profile.behaviorOnSessionEnd === 'reconnect') {
                 this.reconnect()
-            } else if (this.profile.behaviorOnSessionEnd === 'keep' || this.profile.behaviorOnSessionEnd === 'auto' && !this.isSessionExplicitlyTerminated()) {
+            } else if (this.profile.behaviorOnSessionEnd === 'keep' || !this.doesTabShouldBeDestroyedOnSessionClosed()) {
                 this.offerReconnection()
             }
         }

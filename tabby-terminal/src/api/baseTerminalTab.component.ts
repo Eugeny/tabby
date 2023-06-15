@@ -772,10 +772,7 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
         })
 
         this.attachSessionHandler(this.session.closed$, () => {
-            const behavior = this.profile.behaviorOnSessionEnd
-            if (destroyOnSessionClose || behavior === 'close' || behavior === 'auto' && this.isSessionExplicitlyTerminated()) {
-                this.destroy()
-            }
+            this.onSessionClosed(destroyOnSessionClose)
         })
 
         this.attachSessionHandler(this.session.destroyed$, () => {
@@ -786,6 +783,26 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
             this.platform.setClipboard({ text: content })
             this.notifications.notice(this.translate.instant('Copied'))
         })
+    }
+
+    /**
+     * Method called when session is closed.
+     */
+    protected onSessionClosed (destroyOnSessionClose = false): void {
+        if (destroyOnSessionClose || this.doesTabShouldBeDestroyedOnSessionClosed()) {
+            this.destroy()
+        }
+    }
+
+    /**
+     * Return true if tab should be destroyed on session closed.
+     */
+    protected doesTabShouldBeDestroyedOnSessionClosed (): boolean {
+        const behavior = this.profile.behaviorOnSessionEnd
+        if (behavior === 'close' || behavior === 'auto' && this.isSessionExplicitlyTerminated()) {
+            return true
+        }
+        return false
     }
 
     /**
