@@ -101,6 +101,10 @@ export class TerminalHotkeyProvider extends HotkeyProvider {
             id: 'reconnect-tab',
             name: this.translate.instant('Reconnect current tab (Serial/Telnet/SSH)'),
         },
+        {
+            id: 'disconnect-tab',
+            name: this.translate.instant('Disconnect current tab (Serial/Telnet/SSH)'),
+        },
     ]
 
     constructor (private translate: TranslateService) { super() }

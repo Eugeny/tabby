@@ -23,6 +23,7 @@ hotkeys:
   duplicate-tab: []
   restart-tab: []
   reconnect-tab: []
+  disconnect-tab: []
   explode-tab:
     - 'Ctrl-Shift-.'
   combine-tabs:

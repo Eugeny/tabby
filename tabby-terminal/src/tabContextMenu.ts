@@ -100,6 +100,15 @@ export class ReconnectContextMenu extends TabContextMenuItemProvider {
         if (tab instanceof ConnectableTerminalTabComponent) {
             return [
                 {
+                    label: this.translate.instant('Disconnect'),
+                    click: (): void => {
+                        setTimeout(() => {
+                            tab.disconnect()
+                            this.notifications.notice(this.translate.instant('Disconnect'))
+                        })
+                    },
+                },
+                {
                     label: this.translate.instant('Reconnect'),
                     click: (): void => {
                         setTimeout(() => {
