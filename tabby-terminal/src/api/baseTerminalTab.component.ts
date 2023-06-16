@@ -789,7 +789,7 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
      * Method called when session is closed.
      */
     protected onSessionClosed (destroyOnSessionClose = false): void {
-        if (destroyOnSessionClose || this.doesTabShouldBeDestroyedOnSessionClosed()) {
+        if (destroyOnSessionClose || this.shouldTabBeDestroyedOnSessionClose()) {
             this.destroy()
         }
     }
@@ -797,12 +797,9 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
     /**
      * Return true if tab should be destroyed on session closed.
      */
-    protected doesTabShouldBeDestroyedOnSessionClosed (): boolean {
+    protected shouldTabBeDestroyedOnSessionClose (): boolean {
         const behavior = this.profile.behaviorOnSessionEnd
-        if (behavior === 'close' || behavior === 'auto' && this.isSessionExplicitlyTerminated()) {
-            return true
-        }
-        return false
+        return behavior === 'close' || behavior === 'auto' && this.isSessionExplicitlyTerminated()
     }
 
     /**

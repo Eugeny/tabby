@@ -68,7 +68,7 @@ export abstract class ConnectableTerminalTabComponent<P extends BaseTerminalProf
         if (this.frontend) {
             if (this.profile.behaviorOnSessionEnd === 'reconnect' && !this.isDisconnectedByHand) {
                 this.reconnect()
-            } else if (this.profile.behaviorOnSessionEnd === 'keep' || !this.doesTabShouldBeDestroyedOnSessionClosed()) {
+            } else if (this.profile.behaviorOnSessionEnd === 'keep' || !this.shouldTabBeDestroyedOnSessionClose()) {
                 this.offerReconnection()
             }
         }
@@ -93,11 +93,11 @@ export abstract class ConnectableTerminalTabComponent<P extends BaseTerminalProf
     /**
      * Return true if tab should be destroyed on session closed.
      */
-    protected doesTabShouldBeDestroyedOnSessionClosed (): boolean {
+    protected shouldTabBeDestroyedOnSessionClose (): boolean {
         if (this.isDisconnectedByHand) {
             return false
         }
-        return super.doesTabShouldBeDestroyedOnSessionClosed()
+        return super.shouldTabBeDestroyedOnSessionClose()
     }
 
     async getRecoveryToken (options?: GetRecoveryTokenOptions): Promise<RecoveryToken> {
