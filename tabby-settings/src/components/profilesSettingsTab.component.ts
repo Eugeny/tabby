@@ -60,6 +60,7 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
     async newProfile (base?: PartialProfile<Profile>): Promise<void> {
         if (!base) {
             const profiles = [...this.templateProfiles, ...this.builtinProfiles, ...this.profiles]
+            profiles = profiles.filter(x => !this.isProfileBlacklisted(x))
             profiles.sort((a, b) => (a.weight ?? 0) - (b.weight ?? 0))
             base = await this.selector.show(
                 this.translate.instant('Select a base profile to use as a template'),
