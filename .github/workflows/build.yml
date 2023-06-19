@@ -175,14 +175,12 @@ jobs:
       run: |
           sudo apt-get update -y && sudo apt-get install schroot sbuild debootstrap -y
           sudo mkdir  -p /tmp/debootstrap-cache /build-chroot
-          sudo debootstrap --include=git,curl,gnupg,ca-certificates,crossbuild-essential-${{matrix.arch}},libarchive-tools,cmake --variant=buildd --exclude=snapd --components=main,restricted,universe,multiverse --extractor=dpkg-deb --cache-dir=/tmp/debootstrap-cache/ bionic /build-chroot/
-          echo 'deb [arch=amd64,i386] http://archive.ubuntu.com/ubuntu bionic main restricted universe multiverse' | sudo tee /build-chroot/etc/apt/sources.list >/dev/null
-          echo 'deb [arch=arm64,armhf] http://ports.ubuntu.com/ubuntu-ports bionic main restricted universe multiverse' | sudo tee -a /build-chroot/etc/apt/sources.list >/dev/null
+          sudo debootstrap --include=git,curl,gnupg,ca-certificates,crossbuild-essential-${{matrix.arch}},libarchive-tools,cmake --variant=buildd --extractor=dpkg-deb --cache-dir=/tmp/debootstrap-cache/ buster /build-chroot/
           wget https://nodejs.org/dist/v18.16.0/node-v18.16.0-linux-x64.tar.xz
           tar -xJf node-v18.16.0-linux-x64.tar.xz
           sudo cp node-v18.16.0-linux-x64/* /build-chroot/usr/local/ -R
           echo "[build-chroot]
-          description=Ubuntu 18.04 Build chroot
+          description=Debian Buster Build chroot
           type=directory
           directory=/build-chroot
           root-groups=root,sudo
