@@ -136,9 +136,9 @@ jobs:
           - build-arch: arm64
             arch: arm64
             triplet: aarch64-linux-gnu-
-#           - build-arch: armv7l
-#             arch: armhf
-#             triplet: arm-linux-gnueabihf-
+          - build-arch: armv7l
+            arch: armhf
+            triplet: arm-linux-gnueabihf-
     env:
       CC: ${{matrix.triplet}}-gcc
       CXX: ${{matrix.triplet}}-g++
@@ -155,7 +155,7 @@ jobs:
     - name: Install Node
       uses: actions/setup-node@v3.6.0
       with:
-        node-version: 16
+        node-version: 18
 
     - name: Install deps (x64)
       run: |
@@ -178,8 +178,9 @@ jobs:
           sudo debootstrap --include=git,curl,gnupg,ca-certificates,crossbuild-essential-${{matrix.arch}},libarchive-tools,cmake --variant=buildd --exclude=snapd --components=main,restricted,universe,multiverse --extractor=dpkg-deb --cache-dir=/tmp/debootstrap-cache/ bionic /build-chroot/
           echo 'deb [arch=amd64,i386] http://archive.ubuntu.com/ubuntu bionic main restricted universe multiverse' | sudo tee /build-chroot/etc/apt/sources.list >/dev/null
           echo 'deb [arch=arm64,armhf] http://ports.ubuntu.com/ubuntu-ports bionic main restricted universe multiverse' | sudo tee -a /build-chroot/etc/apt/sources.list >/dev/null
-          curl -s https://deb.nodesource.com/gpgkey/nodesource.gpg.key | gpg --dearmor | sudo tee /build-chroot/etc/apt/trusted.gpg.d/nodesource.gpg >/dev/null
-          echo 'deb http://deb.nodesource.com/node_16.x bionic main' | sudo tee /build-chroot/etc/apt/sources.list.d/nodesource.list >/dev/null
+          curl https://nodejs.org/dist/v18.16.0/node-v18.16.0-linux-x64.tar.xz -o node.tar.xz
+          tar -xJf node-v18.16.0-linux-x64.tar.xz
+          sudo cp node-v18.16.0-linux-x64/* /build-chroot/usr/local/ -R
           echo "[build-chroot]
           description=Ubuntu 18.04 Build chroot
           type=directory
