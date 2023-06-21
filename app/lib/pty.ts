@@ -1,4 +1,4 @@
-import * as nodePTY from '@tabby-gang/node-pty'
+import * as nodePTY from 'node-pty'
 import { v4 as uuidv4 } from 'uuid'
 import { ipcMain } from 'electron'
 import { Application } from './app'
