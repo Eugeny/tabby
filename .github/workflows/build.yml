@@ -203,8 +203,9 @@ jobs:
           yarn --network-timeout 1000000 --arch=${{matrix.arch}}
           cd ./app/node_modules/node-pty 
           npx node-gyp configure build
-          cd ../../..
-          yarn rebuild
+          cd ../../
+          npm rebuild node-pty
+          cd ..
           yarn run build"
       if: matrix.build-arch != 'x64'
 
