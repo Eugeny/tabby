@@ -175,12 +175,13 @@ jobs:
       run: |
           sudo apt-get update -y && sudo apt-get install schroot sbuild debootstrap -y
           sudo mkdir  -p /tmp/debootstrap-cache /build-chroot
-          sudo debootstrap --include=git,curl,gnupg,ca-certificates,crossbuild-essential-${{matrix.arch}},libarchive-tools,cmake --variant=buildd --extractor=dpkg-deb --cache-dir=/tmp/debootstrap-cache/ buster /build-chroot/
-          wget https://nodejs.org/dist/v18.16.0/node-v18.16.0-linux-x64.tar.xz
-          tar -xJf node-v18.16.0-linux-x64.tar.xz
-          sudo cp node-v18.16.0-linux-x64/* /build-chroot/usr/local/ -R
+          sudo debootstrap --include=git,curl,gnupg,ca-certificates,crossbuild-essential-${{matrix.arch}},libarchive-tools,cmake --variant=buildd --exclude=snapd --components=main,restricted,universe,multiverse --extractor=dpkg-deb --cache-dir=/tmp/debootstrap-cache/ bionic /build-chroot/
+          echo 'deb [arch=amd64,i386] http://archive.ubuntu.com/ubuntu bionic main restricted universe multiverse' | sudo tee /build-chroot/etc/apt/sources.list >/dev/null
+          echo 'deb [arch=arm64,armhf] http://ports.ubuntu.com/ubuntu-ports bionic main restricted universe multiverse' | sudo tee -a /build-chroot/etc/apt/sources.list >/dev/null
+          curl -s https://deb.nodesource.com/gpgkey/nodesource.gpg.key | gpg --dearmor | sudo tee /build-chroot/etc/apt/trusted.gpg.d/nodesource.gpg >/dev/null
+          echo 'deb http://deb.nodesource.com/node_16.x bionic main' | sudo tee /build-chroot/etc/apt/sources.list.d/nodesource.list >/dev/null
           echo "[build-chroot]
-          description=Debian Buster Build chroot
+          description=Ubuntu 18.04 Build chroot
           type=directory
           directory=/build-chroot
           root-groups=root,sudo
@@ -193,13 +194,15 @@ jobs:
 
     - name: Install deps and CrossBuild ${{matrix.build-arch}}
       run: |
-          sudo schroot -c build-chroot -u root -- bash -c "apt-get update -y &&
-          dpkg --add-architecture ${{matrix.arch}} &&
-          apt-get install -y nodejs libfontconfig-dev:${{matrix.arch}} libsecret-1-dev:${{matrix.arch}} libnss3:${{matrix.arch}} libatk1.0-0:${{matrix.arch}} libatk-bridge2.0-0:${{matrix.arch}} libgdk-pixbuf2.0-0:${{matrix.arch}} libgtk-3-0:${{matrix.arch}} libgbm1:${{matrix.arch}} &&
-          npm i -g yarn && 
-          export CC=${{matrix.triplet}}gcc CXX=${{matrix.triplet}}g++ ARCH=${{matrix.build-arch}} &&
-          export npm_config_arch=${{matrix.build-arch}} npm_config_target_arch=${{matrix.build-arch}} &&
-          yarn --network-timeout 1000000 --arch=${{matrix.arch}} &&
+          sudo schroot -c build-chroot -u root -- bash -c "apt-get update -y
+          dpkg --add-architecture ${{matrix.arch}}
+          apt-get install -y nodejs libfontconfig-dev:${{matrix.arch}} libsecret-1-dev:${{matrix.arch}} libnss3:${{matrix.arch}} libatk1.0-0:${{matrix.arch}} libatk-bridge2.0-0:${{matrix.arch}} libgdk-pixbuf2.0-0:${{matrix.arch}} libgtk-3-0:${{matrix.arch}} libgbm1:${{matrix.arch}}
+          npm i -g yarn node-pregyp 
+          export CC=${{matrix.triplet}}gcc CXX=${{matrix.triplet}}g++ ARCH=${{matrix.build-arch}}
+          export npm_config_arch=${{matrix.build-arch}} npm_config_target_arch=${{matrix.build-arch}}
+          ls ./node_modules || echo node_modules not present 
+          yarn --network-timeout 1000000 --arch=${{matrix.arch}}
+          ls ./node_modules
           yarn run build"
       if: matrix.build-arch != 'x64'
 
