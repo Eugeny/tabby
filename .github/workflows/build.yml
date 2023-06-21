@@ -200,11 +200,11 @@ jobs:
           export CC=${{matrix.triplet}}gcc CXX=${{matrix.triplet}}g++ ARCH=${{matrix.build-arch}}
           export npm_config_arch=${{matrix.build-arch}} npm_config_target_arch=${{matrix.build-arch}}
           npm i -g yarn node-pre-gyp
-          npm i node-pty
+          yarn --network-timeout 1000000 --arch=${{matrix.arch}} --mode skip-build
           cd ./app/node_modules/node-pty 
-          node-gyp configure build
-          cd ../../.. 
-          yarn --network-timeout 1000000 --arch=${{matrix.arch}}
+          npx node-gyp configure build
+          cd ../../..
+          yarn rebuild
           yarn run build"
       if: matrix.build-arch != 'x64'
 
