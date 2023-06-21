@@ -204,7 +204,8 @@ jobs:
           cd ./app/node_modules/node-pty 
           npx node-gyp configure build
           cd ../../
-          npm rebuild node-pty
+          echo Rebuilding node-pty
+          yarn rebuild node-pty
           cd ..
           yarn run build"
       if: matrix.build-arch != 'x64'
