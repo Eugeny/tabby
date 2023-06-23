@@ -134,11 +134,9 @@ jobs:
         include:
           - build-arch: x64
           - build-arch: arm64
-            npm_arch: arm64
             arch: arm64
             triplet: aarch64-linux-gnu-
-          - build-arch: armv7l
-            npm_arch: arm
+          - build-arch: arm 
             arch: armhf
             triplet: arm-linux-gnueabihf-
     env:
@@ -200,9 +198,9 @@ jobs:
           dpkg --add-architecture ${{matrix.arch}}
           apt-get install -y nodejs libfontconfig-dev:${{matrix.arch}} libsecret-1-dev:${{matrix.arch}} libnss3:${{matrix.arch}} libatk1.0-0:${{matrix.arch}} libatk-bridge2.0-0:${{matrix.arch}} libgdk-pixbuf2.0-0:${{matrix.arch}} libgtk-3-0:${{matrix.arch}} libgbm1:${{matrix.arch}}
           export CC=${{matrix.triplet}}gcc CXX=${{matrix.triplet}}g++ ARCH=${{matrix.build-arch}}
-          export npm_config_arch=${{matrix.npm_arch}} npm_config_target_arch=${{matrix.build-arch}}
+          export npm_config_arch=${{matrix.build-arch}} npm_config_target_arch=${{matrix.build-arch}}
           npm i -g yarn
-          yarn --network-timeout 1000000 --arch=${{matrix.npm_arch}} --target_arch=${{matrix.build-arch}}
+          yarn --network-timeout 1000000 --arch=${{matrix.build-arch}} --target_arch=${{matrix.build-arch}}
           yarn run build --arch=${{matrix.build-arch}} --target_arch=${{matrix.build-arch}}"
       if: matrix.build-arch != 'x64'
 
