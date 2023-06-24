@@ -140,8 +140,9 @@ jobs:
             arch: armhf
             triplet: arm-linux-gnueabihf-
     env:
-      CC: ${{matrix.triplet}}-gcc
-      CXX: ${{matrix.triplet}}-g++
+      CC: ${{matrix.triplet}}gcc
+      CXX: ${{matrix.triplet}}g++
+      PKG_CONFIG: ${{matrix.triplet))pkg-config
       ARCH: ${{matrix.build-arch}}
       npm_config_arch: ${{matrix.build-arch}}
       npm_config_target_arch: ${{matrix.build-arch}}
@@ -161,6 +162,7 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install libarchive-tools zsh 
+        
     - name: Install npm_modules (x64)
       run: |
         npm i -g yarn
@@ -175,7 +177,7 @@ jobs:
       run: |
           sudo apt-get update -y && sudo apt-get install schroot sbuild debootstrap -y
           sudo mkdir  -p /tmp/debootstrap-cache /build-chroot
-          sudo debootstrap --include=git,curl,gnupg,ca-certificates,crossbuild-essential-${{matrix.arch}},python-dev,python3-dev,libarchive-tools,cmake --variant=buildd --exclude=snapd --components=main,restricted,universe,multiverse --extractor=dpkg-deb --cache-dir=/tmp/debootstrap-cache/ bionic /build-chroot/
+          sudo debootstrap --include=git,curl,gnupg,ca-certificates,crossbuild-essential-${{matrix.arch}},pkg-config-${{matrix.triplet%-}},python-dev,python3-dev,libarchive-tools,cmake --variant=buildd --exclude=snapd --components=main,restricted,universe,multiverse --extractor=dpkg-deb --cache-dir=/tmp/debootstrap-cache/ bionic /build-chroot/
           echo 'deb [arch=amd64,i386] http://archive.ubuntu.com/ubuntu bionic main restricted universe multiverse' | sudo tee /build-chroot/etc/apt/sources.list >/dev/null
           echo 'deb [arch=arm64,armhf] http://ports.ubuntu.com/ubuntu-ports bionic main restricted universe multiverse' | sudo tee -a /build-chroot/etc/apt/sources.list >/dev/null
           curl -s https://deb.nodesource.com/gpgkey/nodesource.gpg.key | gpg --dearmor | sudo tee /build-chroot/etc/apt/trusted.gpg.d/nodesource.gpg >/dev/null
@@ -187,6 +189,7 @@ jobs:
           root-groups=root,sudo
           profile=buildd
           personality=linux
+          preserve-environment=true
           union-type=overlay" | sudo tee /etc/schroot/chroot.d/build-chroot.pref >/dev/null 
           echo "/home           /home           none    rw,bind         0       0" | sudo tee -a /etc/schroot/buildd/fstab >/dev/null
       if: matrix.build-arch != 'x64'
@@ -196,8 +199,8 @@ jobs:
           sudo schroot -c build-chroot -u root -- bash -c "apt-get update -y
           dpkg --add-architecture ${{matrix.arch}}
           apt-get install -y nodejs libfontconfig-dev:${{matrix.arch}} libsecret-1-dev:${{matrix.arch}} libnss3:${{matrix.arch}} libatk1.0-0:${{matrix.arch}} libatk-bridge2.0-0:${{matrix.arch}} libgdk-pixbuf2.0-0:${{matrix.arch}} libgtk-3-0:${{matrix.arch}} libgbm1:${{matrix.arch}}
-          export CC=${{matrix.triplet}}gcc CXX=${{matrix.triplet}}g++ ARCH=${{matrix.build-arch}}
-          export npm_config_arch=${{matrix.build-arch}} npm_config_target_arch=${{matrix.build-arch}}
+          # export CC=${{matrix.triplet}}gcc CXX=${{matrix.triplet}}g++ PKG_BUILD=${{matrix.triplet}}pkg-config
+          # export ARCH=${{matrix.build-arch}} npm_config_arch=${{matrix.build-arch}} npm_config_target_arch=${{matrix.build-arch}}
           npm i -g yarn
           yarn --network-timeout 1000000 --arch=${{matrix.build-arch}} --target_arch=${{matrix.build-arch}}
           yarn run build --arch=${{matrix.build-arch}} --target_arch=${{matrix.build-arch}}"
