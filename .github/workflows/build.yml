@@ -194,12 +194,15 @@ jobs:
           sudo schroot -c build-chroot -u root -- bash -c "apt-get update -y
           dpkg --add-architecture ${{matrix.arch}}
           apt-get install -y nodejs libfontconfig-dev:${{matrix.arch}} libsecret-1-dev:${{matrix.arch}} libnss3:${{matrix.arch}} libatk1.0-0:${{matrix.arch}} libatk-bridge2.0-0:${{matrix.arch}} libgdk-pixbuf2.0-0:${{matrix.arch}} libgtk-3-0:${{matrix.arch}} libgbm1:${{matrix.arch}}
-          export CC=${{matrix.triplet}}gcc CXX=${{matrix.triplet}}g++ LD=${{matrix.triplet}}ld PKG_CONFIG_PATH=/usr/lib/${triplet%-}/pkfconfig/
+          export CC=${{matrix.triplet}}gcc CXX=${{matrix.triplet}}g++ LD=${{matrix.triplet}}ld 
+          if [[ ${{matrix.arch}} == 'arm64' ]]; then
+            export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/usr/lib/aarch64-linux-gnu/pkgconfig/
+          elif [[ ${{matrix.arch}} == 'armhf' ]]; then
+            export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/usr/lib/arm-linux-gnueabihf/pkgconfig/
+          fi
           export ARCH=${{matrix.build-arch}} npm_config_arch=${{matrix.build-arch}} npm_config_target_arch=${{matrix.build-arch}}
           npm i -g yarn
           yarn --network-timeout 1000000 --arch=${{matrix.build-arch}} --target_arch=${{matrix.build-arch}}"
-      env: 
-        triplet: ${{matrix.triplet}}
       if: matrix.build-arch != 'x64'
 
     - name: Webpack (${{matrix.arch}})
