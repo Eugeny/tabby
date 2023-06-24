@@ -202,9 +202,8 @@ jobs:
           sudo schroot -c build-chroot -u root -- bash -c "apt-get update -y
           dpkg --add-architecture ${{matrix.arch}}
           DEBIAN_FRONTEND=noninteractive apt-get -yq install nodejs libfontconfig-dev:${{matrix.arch}} libsecret-1-dev:${{matrix.arch}} libnss3:${{matrix.arch}} libatk1.0-0:${{matrix.arch}} libatk-bridge2.0-0:${{matrix.arch}} libgdk-pixbuf2.0-0:${{matrix.arch}} libgtk-3-0:${{matrix.arch}} libgbm1:${{matrix.arch}}
-          env 
-          # export CC=${{matrix.triplet}}gcc CXX=${{matrix.triplet}}g++ PKG_BUILD=${{matrix.triplet}}pkg-config LD= ${{matrix.triplet}}ld
-          # export ARCH=${{matrix.build-arch}} npm_config_arch=${{matrix.build-arch}} npm_config_target_arch=${{matrix.build-arch}}
+          export CC=${{matrix.triplet}}gcc CXX=${{matrix.triplet}}g++ PKG_BUILD=${{matrix.triplet}}pkg-config LD= ${{matrix.triplet}}ld
+          export ARCH=${{matrix.build-arch}} npm_config_arch=${{matrix.build-arch}} npm_config_target_arch=${{matrix.build-arch}}
           npm i -g yarn
           yarn --network-timeout 1000000 --arch=${{matrix.build-arch}} --target_arch=${{matrix.build-arch}}
           yarn run build --arch=${{matrix.build-arch}} --target_arch=${{matrix.build-arch}}"
