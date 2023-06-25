@@ -158,15 +158,15 @@ jobs:
       with:
         node-version: 18
 
-    - name: Install deps (x64)
+    - name: Install deps (amd64)
       run: |
         sudo apt-get update
         sudo apt-get install libarchive-tools zsh 
         
-    - name: Install npm_modules (x64)
+    - name: Install npm_modules (amd64)
       run: |
         npm i -g yarn
-        yarn --network-timeout 1000000 --arch=${{matrix.arch}}
+        yarn --network-timeout 1000000
       if: matrix.build-arch == 'x64'
       
     - name: Setup Crossbuild (${{matrix.arch}})
@@ -270,7 +270,7 @@ jobs:
 #         USE_HARD_LINKS: false
 #       if: matrix.build-arch == 'arm' && github.repository == 'Eugeny/tabby' && startsWith(github.ref, 'refs/tags')
 
-    - name: Upload symbols (x64 only)
+    - name: Upload symbols (amd64 only)
       run: |
         sudo npm install -g @sentry/cli --unsafe-perm
         ./scripts/sentry-upload.mjs
@@ -314,7 +314,7 @@ jobs:
         path: dist/*.tar.gz
 
     - uses: actions/upload-artifact@master
-      name: Upload web tarball (x64 only)
+      name: Upload web tarball (amd64 only)
       with:
         name: Web tarball
         path: tabby-web.tar.gz
