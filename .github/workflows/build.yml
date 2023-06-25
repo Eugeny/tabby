@@ -133,6 +133,7 @@ jobs:
       matrix:
         include:
           - build-arch: x64
+            arch: amd64
           - build-arch: arm64
             arch: arm64
             triplet: aarch64-linux-gnu-
