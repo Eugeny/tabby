@@ -131,101 +131,146 @@ jobs:
     needs: Lint
     strategy:
       matrix:
-        build-arch: [ x64, arm64, armv7l ]
+        include:
+          - build-arch: x64
+            arch: amd64
+          - build-arch: arm64
+            arch: arm64
+            triplet: aarch64-linux-gnu-
+          - build-arch: arm 
+            arch: armhf
+            triplet: arm-linux-gnueabihf-
+    env:
+      CC: ${{matrix.triplet}}gcc
+      CXX: ${{matrix.triplet}}g++
+      ARCH: ${{matrix.build-arch}}
+      npm_config_arch: ${{matrix.build-arch}}
+      npm_config_target_arch: ${{matrix.build-arch}}
 
     steps:
     - name: Checkout
       uses: actions/checkout@v3
       with:
         fetch-depth: 0
-
-    - name: Set up multiarch/qemu-user-static
-      run: docker run --rm --privileged multiarch/qemu-user-static:register --reset
-      if: matrix.build-arch != 'x64'
-
-    - name: Install Node (x64)
+            
+    - name: Install Node
       uses: actions/setup-node@v3.6.0
       with:
-        node-version: 16
-      if: matrix.build-arch == 'x64'
+        node-version: 18
 
-    - name: Install deps (x64)
+    - name: Install deps (amd64)
       run: |
         sudo apt-get update
-        sudo apt-get install libarchive-tools zsh
+        sudo apt-get install libarchive-tools zsh 
+        
+    - name: Install npm_modules (amd64)
+      run: |
         npm i -g yarn
         yarn --network-timeout 1000000
       if: matrix.build-arch == 'x64'
+      
+    - name: Setup Crossbuild (${{matrix.arch}})
+      run: |
+          sudo apt-get update -y && sudo apt-get install schroot sbuild debootstrap -y
+          sudo debootstrap --include=git,curl,gnupg,ca-certificates,crossbuild-essential-${{matrix.arch}},python-dev,python3-dev,libarchive-tools,cmake --variant=buildd --exclude=snapd --components=main,restricted,universe,multiverse --extractor=dpkg-deb bionic /build-chroot/
+          echo 'deb [arch=amd64,i386] http://archive.ubuntu.com/ubuntu bionic main restricted universe multiverse' | sudo tee /build-chroot/etc/apt/sources.list >/dev/null
+          echo 'deb [arch=arm64,armhf] http://ports.ubuntu.com/ubuntu-ports bionic main restricted universe multiverse' | sudo tee -a /build-chroot/etc/apt/sources.list >/dev/null
+          curl -s https://deb.nodesource.com/gpgkey/nodesource.gpg.key | gpg --dearmor | sudo tee /build-chroot/etc/apt/trusted.gpg.d/nodesource.gpg >/dev/null
+          echo 'deb http://deb.nodesource.com/node_16.x bionic main' | sudo tee /build-chroot/etc/apt/sources.list.d/nodesource.list >/dev/null
+          echo "[build-chroot]
+          description=Ubuntu 18.04 Build chroot
+          type=directory
+          directory=/build-chroot
+          root-groups=root,sudo
+          profile=buildd
+          personality=linux
+          union-type=overlay" | sudo tee /etc/schroot/chroot.d/build-chroot.pref >/dev/null 
+          echo "/home           /home           none    rw,bind         0       0" | sudo tee -a /etc/schroot/buildd/fstab >/dev/null
 
-    - name: Webpack (x64)
-      run: yarn run build
-      if: matrix.build-arch == 'x64'
+      if: matrix.build-arch != 'x64'
 
-    - name: Prepackage plugins (x64)
+    - name: Install node_modules & CrossBuild native modules for ${{matrix.arch}}
+      run: |
+          sudo schroot -c build-chroot -u root -- bash -c "apt-get update -y
+          dpkg --add-architecture ${{matrix.arch}}
+          apt-get install -y nodejs libfontconfig-dev:${{matrix.arch}} libsecret-1-dev:${{matrix.arch}} libnss3:${{matrix.arch}} libatk1.0-0:${{matrix.arch}} libatk-bridge2.0-0:${{matrix.arch}} libgdk-pixbuf2.0-0:${{matrix.arch}} libgtk-3-0:${{matrix.arch}} libgbm1:${{matrix.arch}}
+          export CC=${{matrix.triplet}}gcc CXX=${{matrix.triplet}}g++ LD=${{matrix.triplet}}ld 
+          if [[ ${{matrix.arch}} == 'arm64' ]]; then
+            export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/usr/lib/aarch64-linux-gnu/pkgconfig/
+          elif [[ ${{matrix.arch}} == 'armhf' ]]; then
+            export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/usr/lib/arm-linux-gnueabihf/pkgconfig/
+          fi
+          export ARCH=${{matrix.build-arch}} npm_config_arch=${{matrix.build-arch}} npm_config_target_arch=${{matrix.build-arch}}
+          npm i -g yarn
+          yarn --network-timeout 1000000 --arch=${{matrix.build-arch}} --target_arch=${{matrix.build-arch}}"
+      if: matrix.build-arch != 'x64'
+
+    - name: Webpack (${{matrix.arch}})
+      run: yarn run build --arch=${{matrix.build-arch}} --target_arch=${{matrix.build-arch}}
+
+    - name: Prepackage plugins (${{matrix.arch}})
       run: scripts/prepackage-plugins.mjs
-      if: ${{matrix.build-arch == 'x64'}}
-
-    - name: Build packages (x64)
+      
+    - name: Build packages (${{matrix.arch}})
       run: scripts/build-linux.mjs
-      if: ${{matrix.build-arch == 'x64'}}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         KEYGEN_TOKEN: ${{ secrets.KEYGEN_TOKEN }}
         USE_HARD_LINKS: false
         # DEBUG: electron-builder,electron-builder:*
-
+        
     - name: Build web resources
       run: zsh -c 'tar czf tabby-web.tar.gz (tabby-*|web)/dist'
       if: matrix.build-arch == 'x64'
 
-    - name: Install deps and Build (arm64)
-      uses: docker://multiarch/ubuntu-core:arm64-bionic
-      with:
-          args: >
-            bash -c
-            "apt update && apt install curl lsb-release gnupg -y &&
-            curl -fsSL https://deb.nodesource.com/setup_16.x | bash - &&
-            apt install make build-essential git ruby libarchive-tools nodejs rpm libsecret-1-dev libfontconfig1-dev -y &&
-            git config --global --add safe.directory /github/workspace &&
-            gem install public_suffix -v 4.0.7 &&
-            gem install fpm --no-document &&
-            npm i -g yarn &&
-            cd /github/workspace &&
-            yarn --network-timeout 1000000 &&
-            yarn run build &&
-            scripts/prepackage-plugins.mjs &&
-            USE_SYSTEM_FPM=true scripts/build-linux.mjs"
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        KEYGEN_TOKEN: ${{ secrets.KEYGEN_TOKEN }}
-        USE_HARD_LINKS: false
-      if: matrix.build-arch == 'arm64' && github.repository == 'Eugeny/tabby' && startsWith(github.ref, 'refs/tags')
+#     - name: Install deps and Build (arm64)
+#       uses: docker://multiarch/ubuntu-core:arm64-bionic
+#       with:
+#           args: >
+#             bash -c
+#             "apt update && apt install curl lsb-release gnupg -y &&
+#             curl -fsSL https://deb.nodesource.com/setup_16.x | bash - &&
+#             apt install make build-essential git ruby libarchive-tools nodejs rpm libsecret-1-dev libfontconfig1-dev -y &&
+#             git config --global --add safe.directory /github/workspace &&
+#             gem install public_suffix -v 4.0.7 &&
+#             gem install fpm --no-document &&
+#             npm i -g yarn &&
+#             cd /github/workspace &&
+#             yarn --network-timeout 1000000 &&
+#             yarn run build &&
+#             scripts/prepackage-plugins.mjs &&
+#             USE_SYSTEM_FPM=true scripts/build-linux.mjs"
+#       env:
+#         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#         KEYGEN_TOKEN: ${{ secrets.KEYGEN_TOKEN }}
+#         USE_HARD_LINKS: false
+#       if: matrix.build-arch == 'arm64' && github.repository == 'Eugeny/tabby' && startsWith(github.ref, 'refs/tags')
 
-    - name: Install deps and Build (armv7l)
-      uses: docker://multiarch/ubuntu-core:armhf-bionic
-      with:
-          args: >
-            bash -c
-            "apt update && apt install curl lsb-release gnupg -y &&
-            curl -fsSL https://deb.nodesource.com/setup_16.x | bash - &&
-            apt install make build-essential git ruby libarchive-tools nodejs rpm libsecret-1-dev libfontconfig1-dev -y &&
-            git config --global --add safe.directory /github/workspace &&
-            gem install public_suffix -v 4.0.7 &&
-            gem install fpm --no-document &&
-            npm i -g yarn &&
-            cd /github/workspace &&
-            sed -i '/    \"electron\":/c\    \"electron\": \"17.0.0\",' package.json &&
-            yarn --network-timeout 1000000 &&
-            yarn run build &&
-            scripts/prepackage-plugins.mjs &&
-            USE_SYSTEM_FPM=true scripts/build-linux.mjs"
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        KEYGEN_TOKEN: ${{ secrets.KEYGEN_TOKEN }}
-        USE_HARD_LINKS: false
-      if: matrix.build-arch == 'armv7l' && github.repository == 'Eugeny/tabby' && startsWith(github.ref, 'refs/tags')
+#     - name: Install deps and Build (armv7l)
+#       uses: docker://multiarch/ubuntu-core:armhf-bionic
+#       with:
+#           args: >
+#             bash -c
+#             "apt update && apt install curl lsb-release gnupg -y &&
+#             curl -fsSL https://deb.nodesource.com/setup_16.x | bash - &&
+#             apt install make build-essential git ruby libarchive-tools nodejs rpm libsecret-1-dev libfontconfig1-dev -y &&
+#             git config --global --add safe.directory /github/workspace &&
+#             gem install public_suffix -v 4.0.7 &&
+#             gem install fpm --no-document &&
+#             npm i -g yarn &&
+#             cd /github/workspace &&
+#             sed -i '/    \"electron\":/c\    \"electron\": \"17.0.0\",' package.json &&
+#             yarn --network-timeout 1000000 &&
+#             yarn run build &&
+#             scripts/prepackage-plugins.mjs &&
+#             USE_SYSTEM_FPM=true scripts/build-linux.mjs"
+#       env:
+#         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#         KEYGEN_TOKEN: ${{ secrets.KEYGEN_TOKEN }}
+#         USE_HARD_LINKS: false
+#       if: matrix.build-arch == 'arm' && github.repository == 'Eugeny/tabby' && startsWith(github.ref, 'refs/tags')
 
-    - name: Upload symbols
+    - name: Upload symbols (amd64 only)
       run: |
         sudo npm install -g @sentry/cli --unsafe-perm
         ./scripts/sentry-upload.mjs
@@ -245,31 +290,37 @@ jobs:
         dir: 'dist'
 
     - uses: actions/upload-artifact@master
-      name: Upload DEB
+      name: Upload AppImage (${{matrix.arch}})
       with:
-        name: Linux DEB (${{matrix.build-arch}})
+        name: Linux AppImage (${{matrix.arch}})
+        path: dist/*.AppImage
+    
+    - uses: actions/upload-artifact@master
+      name: Upload DEB (${{matrix.arch}})
+      with:
+        name: Linux DEB (${{matrix.arch}})
         path: dist/*.deb
 
     - uses: actions/upload-artifact@master
-      name: Upload RPM
+      name: Upload RPM (${{matrix.arch}})
       with:
-        name: Linux RPM (${{matrix.build-arch}})
+        name: Linux RPM (${{matrix.arch}})
         path: dist/*.rpm
 
     - uses: actions/upload-artifact@master
-      name: Upload Pacman Package
+      name: Upload Pacman Package (${{matrix.arch}})
       with:
-        name: Linux Pacman (${{matrix.build-arch}})
+        name: Linux Pacman (${{matrix.arch}})
         path: dist/*.pacman
 
     - uses: actions/upload-artifact@master
-      name: Upload Linux tarball
+      name: Upload Linux tarball (${{matrix.arch}})
       with:
-        name: Linux tarball (${{matrix.build-arch}})
+        name: Linux tarball (${{matrix.arch}})
         path: dist/*.tar.gz
 
     - uses: actions/upload-artifact@master
-      name: Upload web tarball
+      name: Upload web tarball (amd64 only)
       with:
         name: Web tarball
         path: tabby-web.tar.gz
