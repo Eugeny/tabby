@@ -9,7 +9,7 @@ process.env.ARCH = (process.env.ARCH || process.arch) === 'arm' ? 'armv7l' : pro
 
 builder({
     dir: true,
-    linux: ['deb', 'tar.gz', 'rpm', 'pacman', 'appimage'],
+    linux: ['deb', 'tar.gz', 'rpm', 'pacman'],
     armv7l: process.env.ARCH === 'armv7l',
     arm64: process.env.ARCH === 'arm64',
     config: {

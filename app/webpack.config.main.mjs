@@ -47,7 +47,7 @@ const config = {
         mz: 'commonjs mz',
         npm: 'commonjs npm',
         'node:os': 'commonjs os',
-        'node-pty': 'commonjs node-pty',
+        '@tabby-gang/node-pty': 'commonjs @tabby-gang/node-pty',
         path: 'commonjs path',
         util: 'commonjs util',
         'source-map-support': 'commonjs source-map-support',
