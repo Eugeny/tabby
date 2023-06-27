@@ -138,13 +138,6 @@
   dependencies:
     debug "^4.3.2"
 
-"@tabby-gang/node-pty@^0.11.0-beta.203":
-  version "0.11.0-beta.204"
-  resolved "https://registry.yarnpkg.com/@tabby-gang/node-pty/-/node-pty-0.11.0-beta.204.tgz#80d4393c7a233d3298f47a4755467a246b0099f9"
-  integrity sha512-sNT5Z2MEkEIhToAdVAdZ/lfeQ9UgFE3h2ENlOux+WHBrl1k0BiUEIOd/jh/K3mNAGEfcZ44gNQQ50g5KXTQEmA==
-  dependencies:
-    nan "^2.16.0"
-
 "@tabby-gang/windows-blurbehind@^3.0.0":
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/@tabby-gang/windows-blurbehind/-/windows-blurbehind-3.0.0.tgz#48d409c2eb14a12c867b70de5ee4d6769ef45e8f"
@@ -2264,7 +2257,7 @@ mz@^2.7.0:
     object-assign "^4.0.1"
     thenify-all "^1.0.0"
 
-nan@^2.16.0, nan@^2.17.0, "nan@github:jkleinsc/nan#remove_accessor_signature":
+nan@^2.17.0, "nan@github:jkleinsc/nan#remove_accessor_signature":
   version "2.16.0"
   resolved "https://codeload.github.com/jkleinsc/nan/tar.gz/6a2f95a6a2209d8aa7542fb18099fd808a802059"
 
@@ -2351,6 +2344,13 @@ node-gyp@^5.0.2, node-gyp@^5.1.0:
     semver "^5.7.1"
     tar "^4.4.12"
     which "^1.3.1"
+
+node-pty@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/node-pty/-/node-pty-1.0.0.tgz#7daafc0aca1c4ca3de15c61330373af4af5861fd"
+  integrity sha512-wtBMWWS7dFZm/VgqElrTvtfMq4GzJ6+edFI0Y0zyzygUSZMgZdraDUMUhCIvkjhJjme15qWmbyJbtAx4ot4uZA==
+  dependencies:
+    nan "^2.17.0"
 
 nopt@^4.0.1, nopt@^4.0.3:
   version "4.0.3"
