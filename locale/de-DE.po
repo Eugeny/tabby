@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: German\n"
 "Language: de_DE\n"
-"PO-Revision-Date: 2023-04-10 18:13\n"
+"PO-Revision-Date: 2023-06-28 08:41\n"
 
 #: tabby-local/src/components/terminalTab.component.ts:111
 msgid "\"{command}\" is still running. Close?"
@@ -319,7 +319,7 @@ msgstr "Farbschema"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:216
 msgid "Colors"
-msgstr ""
+msgstr "Farben"
 
 #: tabby-core/src/hotkeys.ts:73
 msgid "Combine all tabs into the current tab"
@@ -339,7 +339,7 @@ msgstr "Befehle"
 
 #: tabby-core/src/theme.ts:21
 msgid "Compact (legacy)"
-msgstr ""
+msgstr "Kompakt (alte Version)"
 
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:126
 msgid "Config deleted"
@@ -405,7 +405,7 @@ msgstr "Kontextmenü"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:14
 msgid "Controls the amount of space between elements"
-msgstr ""
+msgstr "Legt den Abstand zwischen den Elementen fest"
 
 #: tabby-terminal/src/api/baseTerminalTab.component.ts:229
 #: tabby-terminal/src/api/baseTerminalTab.component.ts:237
@@ -844,7 +844,7 @@ msgstr "Fokussiere den Bereich rechts"
 
 #: tabby-core/src/theme.ts:43
 msgid "Follow the color scheme"
-msgstr ""
+msgstr "An Farbschema halten"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:7
 msgid "Font"
@@ -1439,7 +1439,7 @@ msgstr "Bereiche"
 
 #: tabby-core/src/theme.ts:35
 msgid "Paper (legacy)"
-msgstr ""
+msgstr "Paper (Vorgängerversion)"
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:38
 msgid "Parity"
@@ -1977,7 +1977,7 @@ msgstr "Quellcode"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:13
 msgid "Spaciness"
-msgstr ""
+msgstr "Platzhalter"
 
 #: tabby-core/src/tabContextMenu.ts:75
 msgid "Split"
@@ -2023,7 +2023,7 @@ msgstr "SSH-Passwort für {user}@{host}:{port}"
 
 #: tabby-core/src/theme.ts:9
 msgid "Standard (legacy)"
-msgstr ""
+msgstr "Standard (alte Version)"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:150
 msgid "Startup"
@@ -2126,7 +2126,7 @@ msgstr "Tab Position "
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:141
 msgid "Tabs width"
-msgstr "Tabs Breite"
+msgstr "Tab Breite"
 
 #: tabby-telnet/src/profiles.ts:32
 msgid "Telnet session"
@@ -2364,7 +2364,7 @@ msgstr "Ob ein benutzerdefiniertes Fenster- oder das Fenster Layout des Betriebs
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:141
 msgid "Will prevent the SSH greeting from showing up"
-msgstr ""
+msgstr "Verhindert, dass die SSH-Begrüßung angezeigt wird"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:2
 #: tabby-settings/src/settings.ts:30

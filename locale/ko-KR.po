@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Korean\n"
 "Language: ko_KR\n"
-"PO-Revision-Date: 2023-04-10 18:13\n"
+"PO-Revision-Date: 2023-06-28 08:41\n"
 
 #: tabby-local/src/components/terminalTab.component.ts:111
 msgid "\"{command}\" is still running. Close?"
@@ -166,7 +166,7 @@ msgstr "자동으로 변경사항 업로드 후 매 분마다 갱신 확인"
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:10
 msgid "Available"
-msgstr "유효한"
+msgstr "사용 가능"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:35
 msgid "Background type"
@@ -319,7 +319,7 @@ msgstr "색상 구성"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:216
 msgid "Colors"
-msgstr ""
+msgstr "색상"
 
 #: tabby-core/src/hotkeys.ts:73
 msgid "Combine all tabs into the current tab"
@@ -405,7 +405,7 @@ msgstr "컨텍스트 메뉴"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:14
 msgid "Controls the amount of space between elements"
-msgstr ""
+msgstr "UI 요소 간 간격을 변경합니다"
 
 #: tabby-terminal/src/api/baseTerminalTab.component.ts:229
 #: tabby-terminal/src/api/baseTerminalTab.component.ts:237
@@ -552,7 +552,7 @@ msgstr "이전 단어 삭제"
 
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:114
 msgid "Delete the config on the remote side?"
-msgstr ""
+msgstr "리모트 설정을 삭제하시겠습니까?"
 
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:221
 msgid "Delete the group's profiles?"
@@ -707,7 +707,7 @@ msgstr "업데이트 가능할 때 자동으로 설치하도록 활성"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:211
 msgid "Enable fluent background option"
-msgstr ""
+msgstr "fluent 배경 활성화"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:16
 msgid "Enable font ligatures"
@@ -756,7 +756,7 @@ msgstr "예시:"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:212
 msgid "Experimental Windows 10 background style known to cause issues"
-msgstr ""
+msgstr "실험 버전의 Windows 10에서 배경 스타일이 충돌할 수 있습니다"
 
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:27
 msgid "Export"
@@ -844,7 +844,7 @@ msgstr "오른쪽 항목 포커스"
 
 #: tabby-core/src/theme.ts:43
 msgid "Follow the color scheme"
-msgstr ""
+msgstr "색상표 설정을 따릅니다"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:7
 msgid "Font"
@@ -1435,7 +1435,7 @@ msgstr "창 크기 조절 단계"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:186
 msgid "Panes"
-msgstr ""
+msgstr "패널"
 
 #: tabby-core/src/theme.ts:35
 msgid "Paper (legacy)"
@@ -1587,7 +1587,7 @@ msgstr "Raw 소켓 연결"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:166
 msgid "Ready Timeout (Milliseconds)"
-msgstr ""
+msgstr "타임아웃 (밀리초)"
 
 #: tabby-core/src/services/profiles.service.ts:120
 #: tabby-core/src/services/profiles.service.ts:134
@@ -1647,7 +1647,7 @@ msgstr "마지막 탭 다시 열기"
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:42
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:26
 msgid "Replace"
-msgstr ""
+msgstr "덮어쓰기"
 
 #: locale/tmp-html/tabby-core/src/components/startPage.component.html:11
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:21
@@ -1724,7 +1724,7 @@ msgstr "프로필로 저장"
 
 #: tabby-core/src/tabContextMenu.ts:148
 msgid "Save layout as profile"
-msgstr ""
+msgstr "프로파일로 레이아웃 저장"
 
 #: tabby-local/src/tabContextMenu.ts:48
 msgid "Saved"
@@ -1798,7 +1798,7 @@ msgstr "전체 선택"
 
 #: tabby-core/src/services/fileProviders.service.ts:46
 msgid "Select file storage"
-msgstr ""
+msgstr "저장소에서 파일 선택"
 
 #: tabby-core/src/index.ts:225
 msgid "Select profile"
@@ -1977,7 +1977,7 @@ msgstr "소스 코드"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:13
 msgid "Spaciness"
-msgstr ""
+msgstr "UI 간격"
 
 #: tabby-core/src/tabContextMenu.ts:75
 msgid "Split"
@@ -2039,7 +2039,7 @@ msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:41
 msgid "Subscribe to updates"
-msgstr ""
+msgstr "새로운 소식 구독하기"
 
 #: locale/tmp-html/tabby-local/src/components/environmentEditor.component.html:13
 msgid "Substitutions allowed."
@@ -2051,7 +2051,7 @@ msgstr "프로필 전환"
 
 #: tabby-core/src/hotkeys.ts:237
 msgid "Switch profile in the active pane"
-msgstr ""
+msgstr "활성화된 패널의 프로파일을 전환"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:7
 msgid "Switches terminal frontend implementation (experimental)"
@@ -2114,11 +2114,11 @@ msgstr "Tabby가 플러그인과 함께 시작할 수 없으므로, 이 세션�
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:41
 msgid "Tabby news and updates on Twitter"
-msgstr ""
+msgstr "Twitter에서 Tabby의 최신 정보를 받을 수 있습니다"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:123
 msgid "Tabs"
-msgstr ""
+msgstr "탭"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:126
 msgid "Tabs location"
@@ -2183,11 +2183,11 @@ msgstr "전체화면 전환"
 
 #: tabby-core/src/hotkeys.ts:37
 msgid "Toggle last tab"
-msgstr ""
+msgstr "마지막 탭 전환"
 
 #: tabby-electron/src/hotkeys.ts:14
 msgid "Toggle terminal window"
-msgstr ""
+msgstr "터미널 창 전환"
 
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:27
 msgid "Toggles the Tabby window visibility"
@@ -2254,7 +2254,7 @@ msgstr "업로드"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:46
 msgid "Upload as a new config"
-msgstr ""
+msgstr "새로운 설정으로 업로드"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:39
 msgid "Use {altKeyName} as the Meta key"
@@ -2279,7 +2279,7 @@ msgstr "CONNECT 메서드 사용"
 
 #: tabby-ssh/src/session/ssh.ts:471
 msgid "Using preset password"
-msgstr ""
+msgstr "사전 설정된 비밀번호 사용"
 
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:9
 msgid "Vault"
@@ -2364,7 +2364,7 @@ msgstr "사용자 지정 창 또는 OS 기본 창 사용 여부"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:141
 msgid "Will prevent the SSH greeting from showing up"
-msgstr ""
+msgstr "SSH 연결 시 메세지 표시하지 않음"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:2
 #: tabby-settings/src/settings.ts:30
@@ -2373,11 +2373,11 @@ msgstr "창"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:112
 msgid "Window dimension along the edge"
-msgstr ""
+msgstr "화면 가장자리부터 수평 너비"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:105
 msgid "Window dimension away from the edge"
-msgstr ""
+msgstr "화면 가장자리부터 수직 너비"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:52
 msgid "Window frame"
@@ -2385,7 +2385,7 @@ msgstr "창 프레임"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:165
 msgid "Windows"
-msgstr ""
+msgstr "창"
 
 #: locale/tmp-html/tabby-local/src/components/shellSettingsTab.component.html:11
 msgid "Windows 10 build 18309 or above is recommended for ConPTY"

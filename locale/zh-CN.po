@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2023-04-10 18:13\n"
+"PO-Revision-Date: 2023-06-28 08:41\n"
 
 #: tabby-local/src/components/terminalTab.component.ts:111
 msgid "\"{command}\" is still running. Close?"
@@ -64,7 +64,7 @@ msgstr "添加…"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:84
 msgid "Additional space between lines"
-msgstr "行与行之间的空隙"
+msgstr "行间距"
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:22
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:61
@@ -196,7 +196,7 @@ msgstr "模糊"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:28
 msgid "Bold font weight"
-msgstr "粗体字重"
+msgstr "粗体字体粗细"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:132
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:80
@@ -319,7 +319,7 @@ msgstr "配色方案"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:216
 msgid "Colors"
-msgstr ""
+msgstr "色彩"
 
 #: tabby-core/src/hotkeys.ts:73
 msgid "Combine all tabs into the current tab"
@@ -339,7 +339,7 @@ msgstr "命令"
 
 #: tabby-core/src/theme.ts:21
 msgid "Compact (legacy)"
-msgstr ""
+msgstr "紧凑模式（旧版）"
 
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:126
 msgid "Config deleted"
@@ -405,7 +405,7 @@ msgstr "右键菜单"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:14
 msgid "Controls the amount of space between elements"
-msgstr ""
+msgstr "控制元素之间的间隔"
 
 #: tabby-terminal/src/api/baseTerminalTab.component.ts:229
 #: tabby-terminal/src/api/baseTerminalTab.component.ts:237
@@ -844,7 +844,7 @@ msgstr "聚焦右方的窗格"
 
 #: tabby-core/src/theme.ts:43
 msgid "Follow the color scheme"
-msgstr ""
+msgstr "依照配色方案"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:7
 msgid "Font"
@@ -1319,7 +1319,7 @@ msgstr "一般"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:22
 msgid "Normal font weight"
-msgstr "正常字重"
+msgstr "正常字体粗细"
 
 #: tabby-terminal/src/components/searchPanel.component.ts:54
 #: tabby-terminal/src/components/searchPanel.component.ts:64
@@ -1439,7 +1439,7 @@ msgstr "窗格"
 
 #: tabby-core/src/theme.ts:35
 msgid "Paper (legacy)"
-msgstr ""
+msgstr "纸张（旧版）"
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:38
 msgid "Parity"
@@ -1977,7 +1977,7 @@ msgstr "源码"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:13
 msgid "Spaciness"
-msgstr ""
+msgstr "间隔"
 
 #: tabby-core/src/tabContextMenu.ts:75
 msgid "Split"
@@ -2023,7 +2023,7 @@ msgstr "{user}@{host}:{port} 的 SSH 密码"
 
 #: tabby-core/src/theme.ts:9
 msgid "Standard (legacy)"
-msgstr ""
+msgstr "标准模式（旧版）"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:150
 msgid "Startup"
@@ -2364,7 +2364,7 @@ msgstr "使用自定义窗口或操作系统原生窗口"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:141
 msgid "Will prevent the SSH greeting from showing up"
-msgstr ""
+msgstr "不显示 SSH 问候语"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:2
 #: tabby-settings/src/settings.ts:30

@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Swedish\n"
 "Language: sv_SE\n"
-"PO-Revision-Date: 2023-04-10 18:13\n"
+"PO-Revision-Date: 2023-06-28 08:41\n"
 
 #: tabby-local/src/components/terminalTab.component.ts:111
 msgid "\"{command}\" is still running. Close?"
@@ -319,7 +319,7 @@ msgstr "Färgschema"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:216
 msgid "Colors"
-msgstr ""
+msgstr "Färger"
 
 #: tabby-core/src/hotkeys.ts:73
 msgid "Combine all tabs into the current tab"
@@ -339,7 +339,7 @@ msgstr "Kommandon"
 
 #: tabby-core/src/theme.ts:21
 msgid "Compact (legacy)"
-msgstr ""
+msgstr "Kompakt (legacy)"
 
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:126
 msgid "Config deleted"
@@ -405,7 +405,7 @@ msgstr "Snabbmeny"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:14
 msgid "Controls the amount of space between elements"
-msgstr ""
+msgstr "Styr mängden utrymme mellan element"
 
 #: tabby-terminal/src/api/baseTerminalTab.component.ts:229
 #: tabby-terminal/src/api/baseTerminalTab.component.ts:237
@@ -844,7 +844,7 @@ msgstr "Fokusera panelen till höger"
 
 #: tabby-core/src/theme.ts:43
 msgid "Follow the color scheme"
-msgstr ""
+msgstr "Följ färgschemat"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:7
 msgid "Font"
@@ -1439,7 +1439,7 @@ msgstr "Paneler"
 
 #: tabby-core/src/theme.ts:35
 msgid "Paper (legacy)"
-msgstr ""
+msgstr "Papper (legacy)"
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:38
 msgid "Parity"
@@ -1977,7 +1977,7 @@ msgstr "Källkod"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:13
 msgid "Spaciness"
-msgstr ""
+msgstr "Rymlighet"
 
 #: tabby-core/src/tabContextMenu.ts:75
 msgid "Split"
@@ -2023,7 +2023,7 @@ msgstr "SSH-lösenord för {user}@{host}:{port}"
 
 #: tabby-core/src/theme.ts:9
 msgid "Standard (legacy)"
-msgstr ""
+msgstr "Standard (legacy)"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:150
 msgid "Startup"
@@ -2364,7 +2364,7 @@ msgstr "Om ett anpassat fönster eller ett OS-inbyggt fönster ska användas"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:141
 msgid "Will prevent the SSH greeting from showing up"
-msgstr ""
+msgstr "Kommer att förhindra att SSH-hälsning visas"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:2
 #: tabby-settings/src/settings.ts:30

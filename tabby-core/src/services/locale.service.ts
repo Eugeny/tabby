@@ -7,6 +7,7 @@ import localeENUS from '@angular/common/locales/en'
 import localeENGB from '@angular/common/locales/en-GB'
 import localeAF from '@angular/common/locales/af'
 import localeBG from '@angular/common/locales/bg'
+import localeCS from '@angular/common/locales/cs'
 import localeDA from '@angular/common/locales/da'
 import localeDE from '@angular/common/locales/de'
 import localeES from '@angular/common/locales/es'
@@ -31,6 +32,7 @@ registerLocaleData(localeENUS)
 registerLocaleData(localeENGB)
 registerLocaleData(localeAF)
 registerLocaleData(localeBG)
+registerLocaleData(localeCS)
 registerLocaleData(localeDA)
 registerLocaleData(localeDE)
 registerLocaleData(localeES)
@@ -81,6 +83,10 @@ export class LocaleService {
         {
             code: 'id-ID',
             name: 'Bahasa Indonesia',
+        },
+        {
+            code: 'cs-CZ',
+            name: 'Čeština',
         },
         {
             code: 'da-DK',

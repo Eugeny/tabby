@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2023-04-10 18:13\n"
+"PO-Revision-Date: 2023-06-28 08:41\n"
 
 #: tabby-local/src/components/terminalTab.component.ts:111
 msgid "\"{command}\" is still running. Close?"
@@ -148,7 +148,7 @@ msgstr "自動"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:153
 msgid "Auto-open a terminal on app start"
-msgstr "アプリケーション起動時に新しい端末を自動で開く"
+msgstr "起動時に新しい端末を自動で開く"
 
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:13
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:53
@@ -214,7 +214,7 @@ msgstr "ブロードキャストモードです。中断するにはクリック
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:50
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:182
 msgid "Built-in"
-msgstr "組込み"
+msgstr "標準"
 
 #: locale/tmp-html/tabby-core/src/components/renameTabModal.component.html:7
 #: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:53
@@ -319,7 +319,7 @@ msgstr "配色"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:216
 msgid "Colors"
-msgstr ""
+msgstr "配色"
 
 #: tabby-core/src/hotkeys.ts:73
 msgid "Combine all tabs into the current tab"
@@ -339,7 +339,7 @@ msgstr "コマンド"
 
 #: tabby-core/src/theme.ts:21
 msgid "Compact (legacy)"
-msgstr ""
+msgstr "コンパクト (非推奨)"
 
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:126
 msgid "Config deleted"
@@ -405,7 +405,7 @@ msgstr "コンテキストメニュー"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:14
 msgid "Controls the amount of space between elements"
-msgstr ""
+msgstr "UI要素間の間隔を変更します"
 
 #: tabby-terminal/src/api/baseTerminalTab.component.ts:229
 #: tabby-terminal/src/api/baseTerminalTab.component.ts:237
@@ -479,7 +479,7 @@ msgstr "カスタム"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:90
 msgid "Custom CSS"
-msgstr "カスタム CSS"
+msgstr "カスタムCSS"
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:26
 msgid "Data bits"
@@ -844,7 +844,7 @@ msgstr "右側のペインにフォーカス"
 
 #: tabby-core/src/theme.ts:43
 msgid "Follow the color scheme"
-msgstr ""
+msgstr "配色設定に合わせる"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:7
 msgid "Font"
@@ -947,7 +947,7 @@ msgstr "Tabbyの翻訳に参加する"
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:32
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:44
 msgid "Hexadecimal"
-msgstr "16進"
+msgstr "16進数"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:176
 msgid "Hide tab close button"
@@ -1427,7 +1427,7 @@ msgstr "リモート側の設定を上書きして同期を開始しますか？
 
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:96
 msgid "Overwrite the local config and start syncing?"
-msgstr "ローカル設定を上書きして同期を開始しますか？"
+msgstr "これまでのローカル上の設定を上書きして、同期を開始しますか？"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:189
 msgid "Pane resize step"
@@ -1439,7 +1439,7 @@ msgstr "ペイン"
 
 #: tabby-core/src/theme.ts:35
 msgid "Paper (legacy)"
-msgstr ""
+msgstr "ペーパー (非推奨)"
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:38
 msgid "Parity"
@@ -1451,7 +1451,7 @@ msgstr "設定ファイルがVaultによって暗号化されている場合、�
 
 #: tabby-settings/src/components/vaultSettingsTab.component.ts:87
 msgid "Passphrase for a private key with hash {hash}..."
-msgstr "ハッシュ値 {hash}... の秘密鍵のパスフレーズ"
+msgstr "秘密鍵のパスフレーズ ハッシュ値 {hash}..."
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:100
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:82
@@ -1470,7 +1470,7 @@ msgstr "クリップボードから貼り付け"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:63
 msgid "Paste if no selection, else copy"
-msgstr "テキストを選択していない場合は貼り付け、選択中はコピー"
+msgstr "通常は貼り付け、テキスト選択時のみコピー、"
 
 #: tabby-terminal/src/api/baseTerminalTab.component.ts:490
 msgid "Paste multiple lines?"
@@ -1684,7 +1684,7 @@ msgstr "変更を反映するには再起動が必要です"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:159
 msgid "Restore terminal tabs on app start"
-msgstr "アプリケーション起動時に以前開いていたタブを復元する"
+msgstr "起動時に以前開いていたタブを復元する"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:147
 msgid "Reuse session for multiple tabs"
@@ -1810,7 +1810,7 @@ msgstr "プロファイルの選択、またはアドレスを入力"
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:33
 msgid "Send bytes by typing in hex values"
-msgstr "16進数の値を入力してバイトを送信"
+msgstr "16進数で入力したバイトを送信"
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:75
 msgid "Sends data one byte at a time"
@@ -1882,7 +1882,7 @@ msgstr "複数行を貼り付ける際に確認ボックスを表示します"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:61
 msgid "Show built-in profiles in selector"
-msgstr "セレクターに組み込みプロファイルを表示する"
+msgstr "セレクターに標準プロファイルを表示する"
 
 #: tabby-core/src/hotkeys.ts:13
 msgid "Show command selector"
@@ -1977,7 +1977,7 @@ msgstr "ソースコード"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:13
 msgid "Spaciness"
-msgstr ""
+msgstr "UIの間隔"
 
 #: tabby-core/src/tabContextMenu.ts:75
 msgid "Split"
@@ -2015,7 +2015,7 @@ msgstr "SSH接続"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:53
 msgid "SSH connection management is now done through the \"Profiles & connections\" tab"
-msgstr "SSH接続の管理は「プロファイルと接続」タブからできるようになりました。"
+msgstr "SSH接続の管理は「プロファイルと接続」からできるようになりました。"
 
 #: tabby-settings/src/components/vaultSettingsTab.component.ts:84
 msgid "SSH password for {user}@{host}:{port}"
@@ -2023,7 +2023,7 @@ msgstr "{user}@{host}:{port} のSSHパスワード"
 
 #: tabby-core/src/theme.ts:9
 msgid "Standard (legacy)"
-msgstr ""
+msgstr "標準 (非推奨)"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:150
 msgid "Startup"
@@ -2352,7 +2352,7 @@ msgstr "最新情報"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:82
 msgid "When enabled, links are only clickable while holding this key"
-msgstr "有効な場合、指定されたキーを押しながらクリックしたときだけ、リンクを開けるようにします。"
+msgstr "有効にすると、特定のキーを押しながらクリックした時だけ、リンクを開けるようにします。"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:18
 msgid "When WinSCP is detected, you can launch an SCP session from the context menu."
@@ -2360,11 +2360,11 @@ msgstr "WinSCPが検出されると、コンテキストメニューからSCPセ
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:53
 msgid "Whether a custom window or an OS native window should be used"
-msgstr "カスタムウィンドウを使用するか、OS標準のウィンドウを使用するかを選択することができます。"
+msgstr "カスタムウィンドウを使用するか、OSの標準ウィンドウを使用するかを選択できます。"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:141
 msgid "Will prevent the SSH greeting from showing up"
-msgstr ""
+msgstr "SSH接続時のメッセージが表示されなくなります"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:2
 #: tabby-settings/src/settings.ts:30
