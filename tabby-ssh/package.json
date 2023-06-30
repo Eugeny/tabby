@@ -23,7 +23,7 @@
   "license": "MIT",
   "devDependencies": {
     "@types/node": "20.3.1",
-    "@types/ssh2": "^0.5.46",
+    "@types/ssh2": "^1.11.12",
     "ansi-colors": "^4.1.1",
     "sshpk": "Eugeny/node-sshpk#c2b71d1243714d2daf0988f84c3323d180817136",
     "strip-ansi": "^7.0.0"
