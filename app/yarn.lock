@@ -138,13 +138,6 @@
   dependencies:
     debug "^4.3.2"
 
-"@tabby-gang/node-pty@^0.11.0-beta.203":
-  version "0.11.0-beta.204"
-  resolved "https://registry.yarnpkg.com/@tabby-gang/node-pty/-/node-pty-0.11.0-beta.204.tgz#80d4393c7a233d3298f47a4755467a246b0099f9"
-  integrity sha512-sNT5Z2MEkEIhToAdVAdZ/lfeQ9UgFE3h2ENlOux+WHBrl1k0BiUEIOd/jh/K3mNAGEfcZ44gNQQ50g5KXTQEmA==
-  dependencies:
-    nan "^2.16.0"
-
 "@tabby-gang/windows-blurbehind@^3.0.0":
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/@tabby-gang/windows-blurbehind/-/windows-blurbehind-3.0.0.tgz#48d409c2eb14a12c867b70de5ee4d6769ef45e8f"
@@ -159,10 +152,10 @@
   dependencies:
     "@types/node" "*"
 
-"@types/node@*", "@types/node@20.3.1":
-  version "20.3.1"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.3.1.tgz#e8a83f1aa8b649377bb1fb5d7bac5cb90e784dfe"
-  integrity sha512-EhcH/wvidPy1WeML3TtYFGR83UzjxeWRen9V402T8aUGYsCHOmfoisV3ZSg03gAFIbLq8TnWOJ0f4cALtnSEUg==
+"@types/node@*", "@types/node@20.4.0":
+  version "20.4.0"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.4.0.tgz#01d637d1891e419bc85763b46f42809cd2d5addb"
+  integrity sha512-jfT7iTf/4kOQ9S7CHV9BIyRaQqHu67mOjsIQBC3BKZvzvUB6zLxEwJ6sBE3ozcvP8kF6Uk5PXN0Q+c0dfhGX0g==
 
 "@types/node@^10.12.18":
   version "10.17.60"
@@ -2264,7 +2257,7 @@ mz@^2.7.0:
     object-assign "^4.0.1"
     thenify-all "^1.0.0"
 
-nan@^2.16.0, nan@^2.17.0, "nan@github:jkleinsc/nan#remove_accessor_signature":
+nan@^2.14.0, nan@^2.17.0, "nan@github:jkleinsc/nan#remove_accessor_signature":
   version "2.16.0"
   resolved "https://codeload.github.com/jkleinsc/nan/tar.gz/6a2f95a6a2209d8aa7542fb18099fd808a802059"
 
@@ -2351,6 +2344,13 @@ node-gyp@^5.0.2, node-gyp@^5.1.0:
     semver "^5.7.1"
     tar "^4.4.12"
     which "^1.3.1"
+
+node-pty@^0.11.0-beta32:
+  version "0.11.0-beta9"
+  resolved "https://registry.yarnpkg.com/node-pty/-/node-pty-0.11.0-beta9.tgz#38a899d62b1c5c395ca466dfac5203eff989d350"
+  integrity sha512-bU/2zYV6xBMVMHaMe+yr4WEw36PCA0hyZ7A0IBQFWy5l1vjsD52sZ9sGJk+dH7bw3xpuBLHMh9Eq4Di8rJz4IQ==
+  dependencies:
+    nan "^2.14.0"
 
 nopt@^4.0.1, nopt@^4.0.3:
   version "4.0.3"
