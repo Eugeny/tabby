@@ -1,5 +1,6 @@
 import { Injectable, Optional, Inject } from '@angular/core'
-import { BaseTabComponent, TabContextMenuItemProvider, NotificationsService, MenuItemOptions, TranslateService, SplitTabComponent } from 'tabby-core'
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
+import { BaseTabComponent, TabContextMenuItemProvider, NotificationsService, MenuItemOptions, TranslateService, SplitTabComponent, PromptModalComponent, ConfigService } from 'tabby-core'
 import { BaseTerminalTabComponent } from './api/baseTerminalTab.component'
 import { TerminalContextMenuItemProvider } from './api/contextMenuProvider'
 import { MultifocusService } from './services/multifocus.service'
@@ -149,4 +150,61 @@ export class LegacyContextMenu extends TabContextMenuItemProvider {
         return []
     }
 
+}
+
+/** @hidden */
+@Injectable()
+export class SaveAsProfileContextMenu extends TabContextMenuItemProvider {
+    constructor (
+        private config: ConfigService,
+        private ngbModal: NgbModal,
+        private notifications: NotificationsService,
+        private translate: TranslateService,
+    ) {
+        super()
+    }
+
+    async getItems (tab: BaseTabComponent): Promise<MenuItemOptions[]> {
+        if (tab instanceof BaseTerminalTabComponent) {
+            return [
+                {
+                    label: this.translate.instant('Save as profile'),
+                    click: async () => {
+                        const modal = this.ngbModal.open(PromptModalComponent)
+                        modal.componentInstance.prompt = this.translate.instant('New profile name')
+                        const name = (await modal.result)?.value
+                        if (!name) {
+                            return
+                        }
+
+                        let options = {...tab.profile.options}
+                        const cwd = await tab.session?.getWorkingDirectory() ?? tab.profile.options.cwd
+                        if (cwd) {
+                            options = { 
+                                ...options,
+                                cwd
+                            }
+                        }
+
+                        const profile = {
+                            options,
+                            name,
+                            type: tab.profile.type,
+                        }
+
+                        console.log(profile)
+
+                        this.config.store.profiles = [
+                            ...this.config.store.profiles,
+                            profile,
+                        ]
+                        this.config.save()
+                        this.notifications.info(this.translate.instant('Saved'))
+                    },
+                },
+            ]
+        }
+
+        return []
+    }
 }

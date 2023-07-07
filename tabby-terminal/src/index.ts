@@ -28,7 +28,7 @@ import { PathDropDecorator } from './features/pathDrop'
 import { ZModemDecorator } from './features/zmodem'
 import { TerminalConfigProvider } from './config'
 import { TerminalHotkeyProvider } from './hotkeys'
-import { CopyPasteContextMenu, MiscContextMenu, LegacyContextMenu, ReconnectContextMenu } from './tabContextMenu'
+import { CopyPasteContextMenu, MiscContextMenu, LegacyContextMenu, ReconnectContextMenu, SaveAsProfileContextMenu } from './tabContextMenu'
 
 import { Frontend } from './frontends/frontend'
 import { XTermFrontend, XTermWebGLFrontend } from './frontends/xtermFrontend'
@@ -60,6 +60,7 @@ import { DefaultColorSchemes } from './colorSchemes'
         { provide: TabContextMenuItemProvider, useClass: MiscContextMenu, multi: true },
         { provide: TabContextMenuItemProvider, useClass: LegacyContextMenu, multi: true },
         { provide: TabContextMenuItemProvider, useClass: ReconnectContextMenu, multi: true },
+        { provide: TabContextMenuItemProvider, useClass: SaveAsProfileContextMenu, multi: true },
 
         { provide: CLIHandler, useClass: TerminalCLIHandler, multi: true },
         { provide: TerminalColorSchemeProvider, useClass: DefaultColorSchemes, multi: true },
