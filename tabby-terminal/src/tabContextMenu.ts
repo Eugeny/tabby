@@ -1,10 +1,12 @@
 import { Injectable, Optional, Inject } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
-import { BaseTabComponent, TabContextMenuItemProvider, NotificationsService, MenuItemOptions, TranslateService, SplitTabComponent, PromptModalComponent, ConfigService } from 'tabby-core'
+import { BaseTabComponent, TabContextMenuItemProvider, NotificationsService, MenuItemOptions, TranslateService, SplitTabComponent, PromptModalComponent, ConfigService, PartialProfile, Profile } from 'tabby-core'
 import { BaseTerminalTabComponent } from './api/baseTerminalTab.component'
 import { TerminalContextMenuItemProvider } from './api/contextMenuProvider'
 import { MultifocusService } from './services/multifocus.service'
 import { ConnectableTerminalTabComponent } from './api/connectableTerminalTab.component'
+import { v4 as uuidv4 } from 'uuid'
+import slugify from 'slugify'
 
 /** @hidden */
 @Injectable()
@@ -186,13 +188,13 @@ export class SaveAsProfileContextMenu extends TabContextMenuItemProvider {
                             }
                         }
 
-                        const profile = {
+                        const profile: PartialProfile<Profile> = {
                             options,
                             name,
                             type: tab.profile.type,
                         }
 
-                        console.log(profile)
+                        profile.id = `${profile.type}:custom:${slugify(profile.name)}:${uuidv4()}`
 
                         this.config.store.profiles = [
                             ...this.config.store.profiles,
