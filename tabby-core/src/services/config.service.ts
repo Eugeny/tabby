@@ -205,7 +205,7 @@ export class ConfigService {
         // Scrub undefined values
         let cleanStore = JSON.parse(JSON.stringify(this._store))
         cleanStore = await this.maybeEncryptConfig(cleanStore)
-        await this.platform.saveConfig(yaml.dump(cleanStore))
+        await this.platform.saveConfig(yaml.dump(cleanStore, {skipInvalid: true}))
         this.emitChange()
     }
 
@@ -213,7 +213,7 @@ export class ConfigService {
      * Reads config YAML as string
      */
     readRaw (): string {
-        return yaml.dump(this._store)
+        return yaml.dump(this._store, {skipInvalid: true})
     }
 
     /**
