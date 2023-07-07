@@ -1,6 +1,6 @@
 import { Injectable, Optional, Inject } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
-import { BaseTabComponent, TabContextMenuItemProvider, NotificationsService, MenuItemOptions, TranslateService, SplitTabComponent, PromptModalComponent, ConfigService, PartialProfile, Profile } from 'tabby-core'
+import { BaseTabComponent, TabContextMenuItemProvider, NotificationsService, MenuItemOptions, TranslateService, SplitTabComponent, PromptModalComponent, ConfigService, PartialProfile, Profile} from 'tabby-core'
 import { BaseTerminalTabComponent } from './api/baseTerminalTab.component'
 import { TerminalContextMenuItemProvider } from './api/contextMenuProvider'
 import { MultifocusService } from './services/multifocus.service'
@@ -174,27 +174,33 @@ export class SaveAsProfileContextMenu extends TabContextMenuItemProvider {
                     click: async () => {
                         const modal = this.ngbModal.open(PromptModalComponent)
                         modal.componentInstance.prompt = this.translate.instant('New profile name')
+                        modal.componentInstance.value = tab.profile.name
                         const name = (await modal.result)?.value
                         if (!name) {
                             return
                         }
 
-                        let options = {...tab.profile.options}
+                        let options = {
+                            ...tab.profile.options
+                        }
+
                         const cwd = await tab.session?.getWorkingDirectory() ?? tab.profile.options.cwd
                         if (cwd) {
-                            options = { 
-                                ...options,
-                                cwd
-                            }
+                            options.cwd = cwd
                         }
 
                         const profile: PartialProfile<Profile> = {
-                            options,
-                            name,
                             type: tab.profile.type,
+                            name,
+                            options
                         }
 
-                        profile.id = `${profile.type}:custom:${slugify(profile.name)}:${uuidv4()}`
+                        profile.id = `${profile.type}:custom:${slugify(name)}:${uuidv4()}`
+                        profile.group = tab.profile.group
+                        profile.icon = tab.profile.icon
+                        profile.color = tab.profile.color
+                        profile.disableDynamicTitle = tab.profile.disableDynamicTitle
+                        profile.behaviorOnSessionEnd = tab.profile.behaviorOnSessionEnd
 
                         this.config.store.profiles = [
                             ...this.config.store.profiles,
