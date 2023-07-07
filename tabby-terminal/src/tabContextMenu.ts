@@ -1,6 +1,6 @@
 import { Injectable, Optional, Inject } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
-import { BaseTabComponent, TabContextMenuItemProvider, NotificationsService, MenuItemOptions, TranslateService, SplitTabComponent, PromptModalComponent, ConfigService, PartialProfile, Profile} from 'tabby-core'
+import { BaseTabComponent, TabContextMenuItemProvider, NotificationsService, MenuItemOptions, TranslateService, SplitTabComponent, PromptModalComponent, ConfigService, PartialProfile, Profile } from 'tabby-core'
 import { BaseTerminalTabComponent } from './api/baseTerminalTab.component'
 import { TerminalContextMenuItemProvider } from './api/contextMenuProvider'
 import { MultifocusService } from './services/multifocus.service'
@@ -180,8 +180,8 @@ export class SaveAsProfileContextMenu extends TabContextMenuItemProvider {
                             return
                         }
 
-                        let options = {
-                            ...tab.profile.options
+                        const options = {
+                            ...tab.profile.options,
                         }
 
                         const cwd = await tab.session?.getWorkingDirectory() ?? tab.profile.options.cwd
@@ -192,7 +192,7 @@ export class SaveAsProfileContextMenu extends TabContextMenuItemProvider {
                         const profile: PartialProfile<Profile> = {
                             type: tab.profile.type,
                             name,
-                            options
+                            options,
                         }
 
                         profile.id = `${profile.type}:custom:${slugify(name)}:${uuidv4()}`
