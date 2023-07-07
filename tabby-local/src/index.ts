@@ -21,7 +21,7 @@ import { RecoveryProvider } from './recoveryProvider'
 import { ShellSettingsTabProvider } from './settings'
 import { TerminalConfigProvider } from './config'
 import { LocalTerminalHotkeyProvider } from './hotkeys'
-import { NewTabContextMenu, SaveAsProfileContextMenu } from './tabContextMenu'
+import { NewTabContextMenu } from './tabContextMenu'
 
 import { AutoOpenTabCLIHandler, OpenPathCLIHandler, TerminalCLIHandler } from './cli'
 import { LocalProfilesService } from './profiles'
@@ -47,7 +47,6 @@ import { LocalProfilesService } from './profiles'
         { provide: ProfileProvider, useClass: LocalProfilesService, multi: true },
 
         { provide: TabContextMenuItemProvider, useClass: NewTabContextMenu, multi: true },
-        { provide: TabContextMenuItemProvider, useClass: SaveAsProfileContextMenu, multi: true },
 
         { provide: CLIHandler, useClass: TerminalCLIHandler, multi: true },
         { provide: CLIHandler, useClass: OpenPathCLIHandler, multi: true },
