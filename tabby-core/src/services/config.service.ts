@@ -351,6 +351,14 @@ export class ConfigService {
             delete window.localStorage.lastSerialConnection
             config.version = 3
         }
+        if (config.version < 4) {
+            for (const p of config.profiles ?? []) {
+                if (!p.id) {
+                    p.id = `${p.type}:custom:${uuidv4()}`
+                }
+            }
+            config.version = 4
+        }
     }
 
     private async maybeDecryptConfig (store) {
