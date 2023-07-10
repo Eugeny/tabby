@@ -66,6 +66,7 @@ export class TelnetSession extends BaseSession {
     private lastWidth = 0
     private lastHeight = 0
     private requestedOptions = new Set<number>()
+    private telnetRemoteEcho = false
 
     constructor (
         injector: Injector,
@@ -159,7 +160,7 @@ export class TelnetSession extends BaseSession {
                 data = data.slice(3)
                 this.logger.debug('<', commandName || command, optionName || option)
 
-                if (command === TelnetCommands.WILL || command === TelnetCommands.WONT) {
+                if (command === TelnetCommands.WILL || command === TelnetCommands.WONT || command === TelnetCommands.DONT) {
                     if (this.requestedOptions.has(option)) {
                         this.requestedOptions.delete(option)
                         continue
@@ -172,6 +173,11 @@ export class TelnetSession extends BaseSession {
                         TelnetOptions.ECHO,
                     ].includes(option)) {
                         this.emitTelnet(TelnetCommands.DO, option)
+                        if (option === TelnetOptions.ECHO && this.streamProcessor.forceEcho) {
+                            this.telnetRemoteEcho = true
+                            this.streamProcessor.forceEcho = false
+                            this.requestOption(TelnetCommands.WONT, option)
+                        }
                     } else {
                         this.logger.debug('(!) Unhandled option')
                         this.emitTelnet(TelnetCommands.DONT, option)
@@ -182,8 +188,13 @@ export class TelnetSession extends BaseSession {
                         this.emitTelnet(TelnetCommands.WILL, option)
                         this.emitSize()
                     } else if (option === TelnetOptions.ECHO) {
-                        this.streamProcessor.forceEcho = true
-                        this.emitTelnet(TelnetCommands.WILL, option)
+                        if (this.telnetRemoteEcho) {
+                            this.streamProcessor.forceEcho = false
+                            this.emitTelnet(TelnetCommands.WONT, option)
+                        } else {
+                            this.streamProcessor.forceEcho = true
+                            this.emitTelnet(TelnetCommands.WILL, option)
+                        }
                     } else if (option === TelnetOptions.TERMINAL_TYPE) {
                         this.emitTelnet(TelnetCommands.WILL, option)
                     } else {
@@ -197,7 +208,16 @@ export class TelnetSession extends BaseSession {
                         this.emitTelnet(TelnetCommands.WONT, option)
                     } else {
                         this.logger.debug('(!) Unhandled option')
-                        this.emitTelnet(TelnetCommands.WILL, option)
+                        this.emitTelnet(TelnetCommands.WONT, option)
+                    }
+                }
+                if (command === TelnetCommands.WONT) {
+                    if (option === TelnetOptions.ECHO) {
+                        this.telnetRemoteEcho = false
+                        this.emitTelnet(TelnetCommands.DONT, option)
+                    } else {
+                        this.logger.debug('(!) Unhandled option')
+                        this.emitTelnet(TelnetCommands.DONT, option)
                     }
                 }
                 if (command === TelnetCommands.SUBOPTION) {
