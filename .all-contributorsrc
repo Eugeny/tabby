@@ -1193,6 +1193,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "DehanLUO",
+      "name": "Han",
+      "avatar_url": "https://avatars.githubusercontent.com/u/53093688?v=4",
+      "profile": "https://github.com/DehanLUO",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
@@ -1201,5 +1210,6 @@
   "repoType": "github",
   "repoHost": "https://github.com",
   "commitConvention": "none",
-  "skipCi": true
+  "skipCi": true,
+  "commitType": "docs"
 }
