@@ -1,58 +1,8 @@
 import { Inject, Injectable, Optional } from '@angular/core'
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
-import { ConfigService, BaseTabComponent, TabContextMenuItemProvider, NotificationsService, MenuItemOptions, ProfilesService, PromptModalComponent, TranslateService } from 'tabby-core'
+import { ConfigService, BaseTabComponent, TabContextMenuItemProvider, MenuItemOptions, ProfilesService, TranslateService } from 'tabby-core'
 import { TerminalTabComponent } from './components/terminalTab.component'
 import { TerminalService } from './services/terminal.service'
 import { LocalProfile, UACService } from './api'
-
-/** @hidden */
-@Injectable()
-export class SaveAsProfileContextMenu extends TabContextMenuItemProvider {
-    constructor (
-        private config: ConfigService,
-        private ngbModal: NgbModal,
-        private notifications: NotificationsService,
-        private translate: TranslateService,
-    ) {
-        super()
-    }
-
-    async getItems (tab: BaseTabComponent): Promise<MenuItemOptions[]> {
-        if (!(tab instanceof TerminalTabComponent)) {
-            return []
-        }
-        const terminalTab = tab
-        const items: MenuItemOptions[] = [
-            {
-                label: this.translate.instant('Save as profile'),
-                click: async () => {
-                    const modal = this.ngbModal.open(PromptModalComponent)
-                    modal.componentInstance.prompt = this.translate.instant('New profile name')
-                    const name = (await modal.result)?.value
-                    if (!name) {
-                        return
-                    }
-                    const profile = {
-                        options: {
-                            ...terminalTab.profile.options,
-                            cwd: await terminalTab.session?.getWorkingDirectory() ?? terminalTab.profile.options.cwd,
-                        },
-                        name,
-                        type: 'local',
-                    }
-                    this.config.store.profiles = [
-                        ...this.config.store.profiles,
-                        profile,
-                    ]
-                    this.config.save()
-                    this.notifications.info(this.translate.instant('Saved'))
-                },
-            },
-        ]
-
-        return items
-    }
-}
 
 /** @hidden */
 @Injectable()

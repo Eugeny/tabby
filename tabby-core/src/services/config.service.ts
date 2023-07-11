@@ -213,7 +213,9 @@ export class ConfigService {
      * Reads config YAML as string
      */
     readRaw (): string {
-        return yaml.dump(this._store)
+        // Scrub undefined values
+        const cleanStore = JSON.parse(JSON.stringify(this._store))
+        return yaml.dump(cleanStore)
     }
 
     /**
@@ -350,6 +352,14 @@ export class ConfigService {
             delete config.serial?.connections
             delete window.localStorage.lastSerialConnection
             config.version = 3
+        }
+        if (config.version < 4) {
+            for (const p of config.profiles ?? []) {
+                if (!p.id) {
+                    p.id = `${p.type}:custom:${uuidv4()}`
+                }
+            }
+            config.version = 4
         }
     }
 
