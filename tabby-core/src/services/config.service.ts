@@ -213,7 +213,9 @@ export class ConfigService {
      * Reads config YAML as string
      */
     readRaw (): string {
-        return yaml.dump(this._store)
+        // Scrub undefined values
+        const cleanStore = JSON.parse(JSON.stringify(this._store))
+        return yaml.dump(cleanStore)
     }
 
     /**
