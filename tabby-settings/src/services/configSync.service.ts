@@ -97,7 +97,7 @@ export class ConfigSyncService {
                     data[part] = remoteData[part]
                 }
             }
-            const content = yaml.dump(data, { skipInvalid: true })
+            const content = yaml.dump(data)
             const result = await this.updateConfig(this.config.store.configSync.configID, {
                 content,
                 last_used_with_version: this.platform.getAppVersion(),
@@ -154,7 +154,7 @@ export class ConfigSyncService {
     }
 
     private async writeConfigDataFromSync (data: any) {
-        await this.platform.saveConfig(yaml.dump(data, { skipInvalid: true }))
+        await this.platform.saveConfig(yaml.dump(data))
         await this.config.load()
         await this.config.save()
     }
