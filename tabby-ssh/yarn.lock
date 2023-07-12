@@ -9,25 +9,22 @@
   dependencies:
     ipv6 "*"
 
-"@types/node@*", "@types/node@20.3.1":
+"@types/node@20.3.1":
   version "20.3.1"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-20.3.1.tgz#e8a83f1aa8b649377bb1fb5d7bac5cb90e784dfe"
   integrity sha512-EhcH/wvidPy1WeML3TtYFGR83UzjxeWRen9V402T8aUGYsCHOmfoisV3ZSg03gAFIbLq8TnWOJ0f4cALtnSEUg==
 
-"@types/ssh2-streams@*":
-  version "0.1.8"
-  resolved "https://registry.yarnpkg.com/@types/ssh2-streams/-/ssh2-streams-0.1.8.tgz#142af404dae059931aea7fcd1511b5478964feb6"
-  integrity sha512-I7gixRPUvVIyJuCEvnmhr3KvA2dC0639kKswqD4H5b4/FOcnPtNU+qWLiXdKIqqX9twUvi5j0U1mwKE5CUsrfA==
-  dependencies:
-    "@types/node" "*"
+"@types/node@^18.11.18":
+  version "18.16.19"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.16.19.tgz#cb03fca8910fdeb7595b755126a8a78144714eea"
+  integrity sha512-IXl7o+R9iti9eBW4Wg2hx1xQDig183jj7YLn8F7udNceyfkbn1ZxmzZXuak20gR40D7pIkIY1kYGx5VIGbaHKA==
 
-"@types/ssh2@^0.5.46":
-  version "0.5.52"
-  resolved "https://registry.yarnpkg.com/@types/ssh2/-/ssh2-0.5.52.tgz#9dbd8084e2a976e551d5e5e70b978ed8b5965741"
-  integrity sha512-lbLLlXxdCZOSJMCInKH2+9V/77ET2J6NPQHpFI0kda61Dd1KglJs+fPQBchizmzYSOJBgdTajhPqBO1xxLywvg==
+"@types/ssh2@^1.11.13":
+  version "1.11.13"
+  resolved "https://registry.yarnpkg.com/@types/ssh2/-/ssh2-1.11.13.tgz#e6224da936abec0541bf26aa826b1cc37ea70d69"
+  integrity sha512-08WbG68HvQ2YVi74n2iSUnYHYpUdFc/s2IsI0BHBdJwaqYJpWlVv9elL0tYShTv60yr0ObdxJR5NrCRiGJ/0CQ==
   dependencies:
-    "@types/node" "*"
-    "@types/ssh2-streams" "*"
+    "@types/node" "^18.11.18"
 
 ansi-colors@^4.1.1:
   version "4.1.3"
