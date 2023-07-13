@@ -26,7 +26,7 @@
     "dataurl": "0.1.0",
     "hexer": "^1.5.0",
     "ngx-colors": "^3.4.0",
-    "patch-package": "^6.5.0",
+    "patch-package": "^7.0.2",
     "runes": "^0.4.2",
     "xterm": "^5.2.0",
     "xterm-addon-canvas": "^0.4.0",
