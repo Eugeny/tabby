@@ -96,11 +96,9 @@ export class Window {
                 bwOptions.titleBarStyle = 'hidden'
                 // If not macOS and native appearance is not toggled, use WCO.
             } else {
-                bwOptions.titleBarStyle = 'hidden',
+                bwOptions.titleBarStyle = 'hidden'
                 bwOptions.titleBarOverlay = {
                     color: '#00000000',
-                    symbolColor: '#ffffff',
-                    height: 32,
                 }
             }
         }
@@ -392,6 +390,23 @@ export class Window {
                 return
             }
             this.setVibrancy(enabled, type)
+        })
+
+        ipcMain.on('window-set-window-controls-color', (event, theme) => {
+            if (!this.window || event.sender !== this.window.webContents) {
+                return
+            }
+
+            // let color: string = theme.backgroundMore
+            let symbolColor: string = theme.foreground
+
+            this.window.setTitleBarOverlay(
+                {
+                    // color: '#00000000',
+                    symbolColor: symbolColor,
+                    height: 32,
+                }
+            )
         })
 
         ipcMain.on('window-set-title', (event, title) => {

@@ -88,6 +88,11 @@ title-bar(
             && (hostApp.platform == Platform.Linux)',
         )
 
+        div.window-controls-spacer(
+            *ngIf='config.store.appearance.frame == "thin" \
+            && (hostApp.platform == Platform.Windows)',
+        )
+
     .content
         start-page.content-tab.content-tab-active(*ngIf='ready && app.tabs.length == 0')
 

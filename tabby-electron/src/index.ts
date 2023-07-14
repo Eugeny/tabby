@@ -99,6 +99,7 @@ export default class ElectronModule {
             })
             this.registerGlobalHotkey()
             this.updateVibrancy()
+            this.updateWindowControlsColor()
         })
 
         config.changed$.subscribe(() => {
@@ -130,6 +131,8 @@ export default class ElectronModule {
         })
 
         config.changed$.subscribe(() => this.updateVibrancy())
+
+        config.changed$.subscribe(() => this.updateWindowControlsColor())
 
         config.ready$.toPromise().then(() => {
             dockMenu.update()
@@ -168,6 +171,15 @@ export default class ElectronModule {
         this.electron.ipcRenderer.send('window-set-vibrancy', this.config.store.appearance.vibrancy, vibrancyType)
 
         this.hostWindow.setOpacity(this.config.store.appearance.opacity)
+    }
+
+    private updateWindowControlsColor () {
+        // if windows and not using native frame, WCO does not exist, return.
+        if (this.hostApp.platform === Platform.Windows && this.config.store.appearance.frame == "native") {
+            return
+        }
+
+        this.electron.ipcRenderer.send('window-set-window-controls-color', this.config.store.terminal.colorScheme)
     }
 }
 

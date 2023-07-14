@@ -142,6 +142,11 @@ $tab-border-radius: 4px;
         }
     }
 
+    &>.window-controls-spacer {
+        min-width: 138px;
+        height: 100%;
+    }
+
     & > .inset {
         width: calc(70px + 15px * var(--spaciness));
         height: var(--tabs-height);
