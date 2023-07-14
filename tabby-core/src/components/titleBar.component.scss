@@ -23,4 +23,11 @@ $titlebar-height: 30px;
             display: none;
         }
     }
+
+    // Account for WCO on Windows.
+    &.hide-controls {
+        window-controls {
+            display: none;
+        }
+    }
  }

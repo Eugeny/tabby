@@ -1,16 +1,20 @@
 title-bar(
   *ngIf='ready && !hostWindow.isFullscreen && config.store.appearance.frame == "full" && config.store.appearance.dock == "off"',
   (dblclick)='hostWindow.toggleMaximize()',
+  [class.hide-controls]='hostApp.platform !== Platform.Linux && !hostWindow.isFullscreen',
   [class.inset]='hostApp.platform == Platform.macOS && !hostWindow.isFullscreen'
 )
 
 .content(
     *ngIf='ready',
     [class.tabs-on-top]='config.store.appearance.tabsLocation == "top" || config.store.appearance.tabsLocation == "left"',
-    [class.tabs-on-side]='hasVerticalTabs()',
+    [class.tabs-on-left]='hasVerticalTabs() && config.store.appearance.tabsLocation == "left"',
+    [class.tabs-titlebar-enabled]='config.store.appearance.frame == "full"',
+    [class.tabs-on-right]='hasVerticalTabs() && config.store.appearance.tabsLocation == "right"',
 )
     .tab-bar(
         *ngIf='!hostWindow.isFullscreen || config.store.appearance.tabsInFullscreen',
+        [class.tab-bar-no-controls-overlay]='hostApp.platform == Platform.macOS',
         (dblclick)='hostWindow.toggleMaximize()'
     )
         .inset.background(*ngIf='hostApp.platform == Platform.macOS \
@@ -81,7 +85,7 @@ title-bar(
 
         window-controls.background(
             *ngIf='config.store.appearance.frame == "thin" \
-            && (hostApp.platform == Platform.Windows || hostApp.platform == Platform.Linux)',
+            && (hostApp.platform == Platform.Linux)',
         )
 
     .content

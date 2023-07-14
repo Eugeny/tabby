@@ -94,12 +94,21 @@ export class Window {
         } else {
             if (process.platform === 'darwin') {
                 bwOptions.titleBarStyle = 'hidden'
+                // If not macOS and native appearance is not toggled, use WCO.
+            } else {
+                bwOptions.titleBarStyle = 'hidden',
+                bwOptions.titleBarOverlay = {
+                    color: '#00000000',
+                    symbolColor: '#ffffff',
+                    height: 32,
+                }
             }
         }
 
         if (process.platform === 'darwin') {
             this.window = new BrowserWindow(bwOptions) as GlasstronWindow
         } else {
+            // this.window = new BrowserWindow(bwOptions) as GlasstronWindow
             this.window = new glasstron.BrowserWindow(bwOptions)
         }
 
@@ -186,6 +195,7 @@ export class Window {
                 } catch (error) {
                     console.error('Failed to set window blur', error)
                 }
+            // }
             } else {
                 DwmEnableBlurBehindWindow(this.window.getNativeWindowHandle(), enabled)
             }
