@@ -398,14 +398,14 @@ export class Window {
             }
 
             // let color: string = theme.backgroundMore
-            let symbolColor: string = theme.foreground
+            const symbolColor: string = theme.foreground
 
             this.window.setTitleBarOverlay(
                 {
                     // color: '#00000000',
                     symbolColor: symbolColor,
                     height: 32,
-                }
+                },
             )
         })
 

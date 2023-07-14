@@ -175,7 +175,7 @@ export default class ElectronModule {
 
     private updateWindowControlsColor () {
         // if windows and not using native frame, WCO does not exist, return.
-        if (this.hostApp.platform === Platform.Windows && this.config.store.appearance.frame == "native") {
+        if (this.hostApp.platform === Platform.Windows && this.config.store.appearance.frame === 'native') {
             return
         }
 
