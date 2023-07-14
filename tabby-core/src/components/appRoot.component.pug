@@ -89,9 +89,7 @@ title-bar(
         )
 
         div.window-controls-spacer(
-            *ngIf='config.store.appearance.frame == "thin" \
-            && (hostApp.platform == Platform.Windows) \
-            && (config.store.appearance.tabsLocation !== "bottom"',
+            *ngIf='config.store.appearance.frame == "thin" && (hostApp.platform == Platform.Windows) && (config.store.appearance.tabsLocation !== "bottom")',
         )
     .content
         start-page.content-tab.content-tab-active(*ngIf='ready && app.tabs.length == 0')
