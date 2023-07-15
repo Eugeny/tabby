@@ -77,7 +77,7 @@ export class SelectorModalComponent<T> {
             ).search(f)
 
             this.options.filter(x => x.freeInputPattern).forEach(freeOption => {
-                if (freeOption && !this.filteredOptions.includes(freeOption)) {
+                if (!this.filteredOptions.includes(freeOption)) {
                     this.filteredOptions.push(freeOption)
                 }
             })
