@@ -3,7 +3,7 @@ import colors from 'ansi-colors'
 import stripAnsi from 'strip-ansi'
 import { Injector } from '@angular/core'
 import { LogService } from 'tabby-core'
-import { BaseSession, BaseTerminalProfile, LoginScriptsOptions, SessionMiddleware, StreamProcessingOptions, TerminalStreamProcessor } from 'tabby-terminal'
+import { BaseSession, BaseTerminalProfile, InputProcessingOptions, InputProcessor, LoginScriptsOptions, SessionMiddleware, StreamProcessingOptions, TerminalStreamProcessor } from 'tabby-terminal'
 import { Subject, Observable } from 'rxjs'
 
 
@@ -14,6 +14,7 @@ export interface TelnetProfile extends BaseTerminalProfile {
 export interface TelnetProfileOptions extends StreamProcessingOptions, LoginScriptsOptions {
     host: string
     port?: number
+    input: InputProcessingOptions,
 }
 
 enum TelnetCommands {
@@ -75,6 +76,7 @@ export class TelnetSession extends BaseSession {
         super(injector.get(LogService).create(`telnet-${profile.options.host}-${profile.options.port}`))
         this.streamProcessor = new TerminalStreamProcessor(profile.options)
         this.middleware.push(this.streamProcessor)
+        this.middleware.push(new InputProcessor(profile.options.input))
         this.setLoginScriptsOptions(profile.options)
     }
 

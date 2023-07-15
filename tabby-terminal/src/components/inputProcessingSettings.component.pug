@@ -1,0 +1,9 @@
+.form-line
+    .header
+        .title(translate) Backspace key mode
+
+    select.form-control([(ngModel)]='options.backspace')
+        option(
+            *ngFor='let mode of backspaceModes',
+            [value]='mode.key',
+        ) {{mode.name|translate}}
