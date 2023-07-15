@@ -219,6 +219,7 @@ export default class AppModule { // eslint-disable-line @typescript-eslint/no-ex
                 name: this.translate.instant('Quick connect'),
                 freeInputPattern: this.translate.instant('Connect to "%s"...'),
                 icon: 'fas fa-arrow-right',
+                description: `(${provider.name.toUpperCase()})`,
                 callback: query => {
                     const p = provider.quickConnect(query)
                     if (p) {
