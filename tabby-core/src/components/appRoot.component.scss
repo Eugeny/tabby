@@ -35,17 +35,16 @@ $tab-border-radius: 4px;
         flex-direction: column;
     }
 
-    &.tabs-on-side {
+    &.tabs-on-right {
         flex-direction: row-reverse;
-
-        &.tabs-on-top {
-            flex-direction: row;
-        }
     }
 
+    &.tabs-on-left {
+        flex-direction: row;
+    }
 }
 
-.content.tabs-on-side > .tab-bar {
+.content.tabs-on-left > .tab-bar, .content.tabs-on-right > .tab-bar {
     height: 100%;
     width: var(--side-tab-width);
     overflow-y: auto;
@@ -76,6 +75,18 @@ $tab-border-radius: 4px;
     }
 }
 
+.content.tabs-on-left > .tab-bar.tab-bar-no-controls-overlay, .content.tabs-titlebar-enabled {
+    .tabs {
+        padding-top: 0 !important;
+    }
+}
+
+.content.tabs-on-right > .tab-bar {
+    .tabs {
+        // Account for WCO on Windows.
+        padding-top: 36px;
+    }
+}
 
 .tab-bar {
     flex: none;
@@ -125,8 +136,15 @@ $tab-border-radius: 4px;
         }
 
         &.persistent {
-          min-width: 72px; // 2 x 36 px height, ie 2 squares
+        //   min-width: 72px; // 2 x 36 px height, ie 2 squares
+        // Given WCO on Windows, the min-width of the window buttons is about 138px.
+            min-width: 138px;
         }
+    }
+
+    &>.window-controls-spacer {
+        min-width: 138px;
+        height: 100%;
     }
 
     & > .inset {

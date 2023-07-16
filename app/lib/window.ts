@@ -92,8 +92,11 @@ export class Window {
         if (this.configStore.appearance?.frame === 'native') {
             bwOptions.frame = true
         } else {
-            if (process.platform === 'darwin') {
-                bwOptions.titleBarStyle = 'hidden'
+            bwOptions.titleBarStyle = 'hidden'
+            if (process.platform === 'win32') {
+                bwOptions.titleBarOverlay = {
+                    color: '#00000000',
+                }
             }
         }
 
@@ -382,6 +385,21 @@ export class Window {
                 return
             }
             this.setVibrancy(enabled, type)
+        })
+
+        ipcMain.on('window-set-window-controls-color', (event, theme) => {
+            if (!this.window || event.sender !== this.window.webContents) {
+                return
+            }
+
+            const symbolColor: string = theme.foreground
+
+            this.window.setTitleBarOverlay(
+                {
+                    symbolColor: symbolColor,
+                    height: 32,
+                },
+            )
         })
 
         ipcMain.on('window-set-title', (event, title) => {
