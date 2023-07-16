@@ -73,11 +73,6 @@ export class LoginScriptProcessor extends SessionMiddleware {
         super.feedFromSession(data)
     }
 
-    close (): void {
-        this.outputToSession.complete()
-        super.close()
-    }
-
     executeUnconditionalScripts (): void {
         for (const script of this.remainingScripts) {
             if (!script.expect) {

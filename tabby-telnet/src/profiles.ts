@@ -19,6 +19,7 @@ export class TelnetProfilesService extends ProfileProvider<TelnetProfile> {
             inputNewlines: null,
             outputNewlines: 'crlf',
             scripts: [],
+            input: { backspace: 'backspace' },
         },
     }
 

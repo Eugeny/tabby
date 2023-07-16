@@ -294,4 +294,9 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
         ng-template(ngbNavContent)
             login-scripts-settings([options]='profile.options', #loginScriptsSettings)
 
+    li(ngbNavItem)
+        a(ngbNavLink, translate) Input
+        ng-template(ngbNavContent)
+            input-processing-settings([options]='profile.options.input')
+
 div([ngbNavOutlet]='nav')

@@ -1,4 +1,4 @@
-import { BaseTerminalProfile, LoginScriptsOptions } from 'tabby-terminal'
+import { BaseTerminalProfile, InputProcessingOptions, LoginScriptsOptions } from 'tabby-terminal'
 
 export enum SSHAlgorithmType {
     HMAC = 'hmac',
@@ -34,6 +34,7 @@ export interface SSHProfileOptions extends LoginScriptsOptions {
     httpProxyHost?: string
     httpProxyPort?: number
     reuseSession?: boolean
+    input: InputProcessingOptions,
 }
 
 export enum PortForwardType {

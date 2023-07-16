@@ -2257,7 +2257,7 @@ mz@^2.7.0:
     object-assign "^4.0.1"
     thenify-all "^1.0.0"
 
-nan@^2.14.0, nan@^2.17.0, "nan@github:jkleinsc/nan#remove_accessor_signature":
+nan@^2.17.0, "nan@github:jkleinsc/nan#remove_accessor_signature":
   version "2.16.0"
   resolved "https://codeload.github.com/jkleinsc/nan/tar.gz/6a2f95a6a2209d8aa7542fb18099fd808a802059"
 
@@ -2345,12 +2345,12 @@ node-gyp@^5.0.2, node-gyp@^5.1.0:
     tar "^4.4.12"
     which "^1.3.1"
 
-node-pty@^0.11.0-beta32:
-  version "0.11.0-beta9"
-  resolved "https://registry.yarnpkg.com/node-pty/-/node-pty-0.11.0-beta9.tgz#38a899d62b1c5c395ca466dfac5203eff989d350"
-  integrity sha512-bU/2zYV6xBMVMHaMe+yr4WEw36PCA0hyZ7A0IBQFWy5l1vjsD52sZ9sGJk+dH7bw3xpuBLHMh9Eq4Di8rJz4IQ==
+node-pty@^1.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/node-pty/-/node-pty-1.0.0.tgz#7daafc0aca1c4ca3de15c61330373af4af5861fd"
+  integrity sha512-wtBMWWS7dFZm/VgqElrTvtfMq4GzJ6+edFI0Y0zyzygUSZMgZdraDUMUhCIvkjhJjme15qWmbyJbtAx4ot4uZA==
   dependencies:
-    nan "^2.14.0"
+    nan "^2.17.0"
 
 nopt@^4.0.1, nopt@^4.0.3:
   version "4.0.3"

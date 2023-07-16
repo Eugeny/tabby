@@ -43,6 +43,7 @@ export class SSHProfilesService extends ProfileProvider<SSHProfile> {
             httpProxyHost: null,
             httpProxyPort: null,
             reuseSession: true,
+            input: { backspace: 'backspace' },
         },
     }
 

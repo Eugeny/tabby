@@ -18,6 +18,7 @@ import { StreamProcessingSettingsComponent } from './components/streamProcessing
 import { LoginScriptsSettingsComponent } from './components/loginScriptsSettings.component'
 import { TerminalToolbarComponent } from './components/terminalToolbar.component'
 import { ColorSchemeSelectorComponent } from './components/colorSchemeSelector.component'
+import { InputProcessingSettingsComponent } from './components/inputProcessingSettings.component'
 
 import { TerminalDecorator } from './api/decorator'
 import { TerminalContextMenuItemProvider } from './api/contextMenuProvider'
@@ -76,6 +77,7 @@ import { DefaultColorSchemes } from './colorSchemes'
         StreamProcessingSettingsComponent,
         LoginScriptsSettingsComponent,
         TerminalToolbarComponent,
+        InputProcessingSettingsComponent,
     ],
     exports: [
         ColorPickerComponent,
@@ -84,6 +86,7 @@ import { DefaultColorSchemes } from './colorSchemes'
         StreamProcessingSettingsComponent,
         LoginScriptsSettingsComponent,
         TerminalToolbarComponent,
+        InputProcessingSettingsComponent,
     ],
 })
 export default class TerminalModule { } // eslint-disable-line @typescript-eslint/no-extraneous-class
@@ -97,6 +100,7 @@ export * from './middleware/streamProcessing'
 export * from './middleware/loginScriptProcessing'
 export * from './middleware/oscProcessing'
 export * from './middleware/utf8Splitter'
+export * from './middleware/inputProcessing'
 export * from './api/middleware'
 export * from './session'
 export { LoginScriptsSettingsComponent, StreamProcessingSettingsComponent }

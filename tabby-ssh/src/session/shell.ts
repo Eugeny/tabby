@@ -3,7 +3,7 @@ import stripAnsi from 'strip-ansi'
 import { ClientChannel } from 'ssh2'
 import { Injector } from '@angular/core'
 import { LogService } from 'tabby-core'
-import { BaseSession, UTF8SplitterMiddleware } from 'tabby-terminal'
+import { BaseSession, UTF8SplitterMiddleware, InputProcessor } from 'tabby-terminal'
 import { SSHSession } from './ssh'
 import { SSHProfile } from '../api'
 
@@ -24,6 +24,7 @@ export class SSHShellSession extends BaseSession {
         this.setLoginScriptsOptions(this.profile.options)
         this.ssh.serviceMessage$.subscribe(m => this.serviceMessage.next(m))
         this.middleware.push(new UTF8SplitterMiddleware())
+        this.middleware.push(new InputProcessor(profile.options.input))
     }
 
     async start (): Promise<void> {
