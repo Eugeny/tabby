@@ -1211,6 +1211,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "FeroTheFox",
+      "name": "fero",
+      "avatar_url": "https://avatars.githubusercontent.com/u/52982404?v=4",
+      "profile": "https://github.com/FeroTheFox",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
