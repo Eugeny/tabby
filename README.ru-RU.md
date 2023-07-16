@@ -319,6 +319,7 @@ Pull-запросы и плагины приветствуются!
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/qyecst"><img src="https://avatars.githubusercontent.com/u/13901864?v=4?s=100" width="100px;" alt="qyecst"/><br /><sub><b>qyecst</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=qyecst" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/DehanLUO"><img src="https://avatars.githubusercontent.com/u/53093688?v=4?s=100" width="100px;" alt="Han"/><br /><sub><b>Han</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=DehanLUO" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/wljince007"><img src="https://avatars.githubusercontent.com/u/88243938?v=4?s=100" width="100px;" alt="wljince007"/><br /><sub><b>wljince007</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=wljince007" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/FeroTheFox"><img src="https://avatars.githubusercontent.com/u/52982404?v=4?s=100" width="100px;" alt="fero"/><br /><sub><b>fero</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=FeroTheFox" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>
