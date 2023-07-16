@@ -92,11 +92,8 @@ export class Window {
         if (this.configStore.appearance?.frame === 'native') {
             bwOptions.frame = true
         } else {
-            if (process.platform === 'darwin') {
-                bwOptions.titleBarStyle = 'hidden'
-                // If not macOS and native appearance is not toggled, use WCO.
-            } else {
-                bwOptions.titleBarStyle = 'hidden'
+            bwOptions.titleBarStyle = 'hidden'
+            if (process.platform === 'win32') {
                 bwOptions.titleBarOverlay = {
                     color: '#00000000',
                 }
@@ -106,7 +103,6 @@ export class Window {
         if (process.platform === 'darwin') {
             this.window = new BrowserWindow(bwOptions) as GlasstronWindow
         } else {
-            // this.window = new BrowserWindow(bwOptions) as GlasstronWindow
             this.window = new glasstron.BrowserWindow(bwOptions)
         }
 
@@ -193,7 +189,6 @@ export class Window {
                 } catch (error) {
                     console.error('Failed to set window blur', error)
                 }
-            // }
             } else {
                 DwmEnableBlurBehindWindow(this.window.getNativeWindowHandle(), enabled)
             }
@@ -397,12 +392,10 @@ export class Window {
                 return
             }
 
-            // let color: string = theme.backgroundMore
             const symbolColor: string = theme.foreground
 
             this.window.setTitleBarOverlay(
                 {
-                    // color: '#00000000',
                     symbolColor: symbolColor,
                     height: 32,
                 },
