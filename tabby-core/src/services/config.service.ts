@@ -15,6 +15,9 @@ const deepmerge = require('deepmerge')
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const configMerge = (a, b) => deepmerge(a, b, { arrayMerge: (_d, s) => s }) // eslint-disable-line @typescript-eslint/no-var-requires
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const configMergeByDefault = (a, b) => deepmerge(a, b) // eslint-disable-line @typescript-eslint/no-var-requires
+
 const LATEST_VERSION = 1
 
 function isStructuralMember (v) {
@@ -162,7 +165,7 @@ export class ConfigService {
                 defaults = configMerge(provider.defaults, defaults)
             }
             return defaults
-        }).reduce(configMerge)
+        }).reduce(configMergeByDefault)
     }
 
     getDefaults (): Record<string, any> {
