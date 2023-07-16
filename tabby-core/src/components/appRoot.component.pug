@@ -1,7 +1,7 @@
 title-bar(
   *ngIf='ready && !hostWindow.isFullscreen && config.store.appearance.frame == "full" && config.store.appearance.dock == "off"',
   (dblclick)='hostWindow.toggleMaximize()',
-  [hide-controls]='hostApp.platform !== Platform.Linux && !hostWindow.isFullscreen',
+  [hideControls]='hostApp.platform !== Platform.Linux && !hostWindow.isFullscreen',
   [class.inset]='hostApp.platform == Platform.macOS && !hostWindow.isFullscreen'
 )
 
