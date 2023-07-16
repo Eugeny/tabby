@@ -12,6 +12,7 @@ import {
     BaseComponent,
     Screen,
     PlatformService,
+    WIN_BUILD_WINDOW_MATERIAL_SUPPORTED,
 } from 'tabby-core'
 
 
@@ -24,6 +25,7 @@ export class WindowSettingsTabComponent extends BaseComponent {
     screens: Screen[]
     Platform = Platform
     isFluentVibrancySupported = false
+    isWindowMaterialSupported = false
 
     @HostBinding('class.content-box') true
 
@@ -48,6 +50,7 @@ export class WindowSettingsTabComponent extends BaseComponent {
         }
 
         this.isFluentVibrancySupported = isWindowsBuild(WIN_BUILD_FLUENT_BG_SUPPORTED)
+        this.isWindowMaterialSupported = isWindowsBuild(WIN_BUILD_WINDOW_MATERIAL_SUPPORTED)
     }
 
     @debounce(500)

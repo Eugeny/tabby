@@ -54,7 +54,6 @@ const config = {
         'source-map-support': 'commonjs source-map-support',
         'windows-swca': 'commonjs windows-swca',
         'windows-native-registry': 'commonjs windows-native-registry',
-        '@tabby-gang/windows-blurbehind': 'commonjs @tabby-gang/windows-blurbehind',
         'yargs/yargs': 'commonjs yargs/yargs',
     },
     plugins: [

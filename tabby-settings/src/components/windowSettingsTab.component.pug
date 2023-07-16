@@ -34,16 +34,17 @@ h3.mb-3(translate) Window
 
 .form-line(*ngIf='platform.supportsWindowControls')
     .header
-        .title(*ngIf='hostApp.platform !== Platform.macOS', translate) Acrylic background
+        .title(*ngIf='hostApp.platform !== Platform.macOS', translate) Blurred background
         .title(*ngIf='hostApp.platform === Platform.macOS', translate) Vibrancy
-        .description(translate) Gives the window a blurred transparent background
+        .description(*ngIf='hostApp.platform !== Platform.Linux', translate) Gives the window a blurred transparent background
+        .description(*ngIf='hostApp.platform === Platform.Linux', translate) Enables transparent windows background under KWM
 
     toggle(
         [(ngModel)]='config.store.appearance.vibrancy',
         (ngModelChange)='saveConfiguration()'
     )
 
-.form-line(*ngIf='config.store.appearance.vibrancy && isFluentVibrancySupported && config.store.hacks.enableFluentBackground')
+.form-line(*ngIf='config.store.appearance.vibrancy && (isWindowMaterialSupported || (isFluentVibrancySupported && config.store.hacks.enableFluentBackground))')
     .header
         .title(translate) Background type
     .btn-group

@@ -35,7 +35,6 @@
     "yargs": "^17.7.2"
   },
   "optionalDependencies": {
-    "@tabby-gang/windows-blurbehind": "^3.0.0",
     "macos-native-processlist": "^2.1.0",
     "patch-package": "^6.5.0",
     "serialport": "11.0.1",

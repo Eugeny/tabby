@@ -6,6 +6,7 @@ export const WIN_BUILD_CONPTY_SUPPORTED = 17692
 export const WIN_BUILD_CONPTY_STABLE = 18309
 export const WIN_BUILD_WSL_EXE_DISTRO_FLAG = 17763
 export const WIN_BUILD_FLUENT_BG_SUPPORTED = 17063
+export const WIN_BUILD_WINDOW_MATERIAL_SUPPORTED = 22621
 
 export function getWindows10Build (): number|undefined {
     return process.platform === 'win32' && parseFloat(os.release()) >= 10 ? parseInt(os.release().split('.')[2]) : undefined

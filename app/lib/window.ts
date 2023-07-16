@@ -12,11 +12,6 @@ import { compare as compareVersions } from 'compare-versions'
 import type { Application } from './app'
 import { parseArgs } from './cli'
 
-let DwmEnableBlurBehindWindow: any = null
-if (process.platform === 'win32') {
-    DwmEnableBlurBehindWindow = require('@tabby-gang/windows-blurbehind').DwmEnableBlurBehindWindow
-}
-
 export interface WindowOptions {
     hidden?: boolean
 }
@@ -177,6 +172,10 @@ export class Window {
         this.window.webContents.send('host:became-main-window')
     }
 
+    setMaterial (material: string): void {
+        this.window.setBackgroundMaterial(material)
+    }
+
     setVibrancy (enabled: boolean, type?: string, userRequested?: boolean): void {
         if (userRequested ?? true) {
             this.lastVibrancy = { enabled, type }
@@ -190,8 +189,6 @@ export class Window {
                 } catch (error) {
                     console.error('Failed to set window blur', error)
                 }
-            } else {
-                DwmEnableBlurBehindWindow(this.window.getNativeWindowHandle(), enabled)
             }
         } else if (process.platform === 'linux') {
             this.window.setBackgroundColor(enabled ? '#00000000' : '#131d27')
@@ -371,6 +368,10 @@ export class Window {
 
         this.on('window-set-vibrancy', (_, enabled, type) => {
             this.setVibrancy(enabled, type)
+        })
+
+        this.on('window-set-material', (_, material) => {
+            this.setMaterial(material)
         })
 
         this.on('window-set-window-controls-color', (_, theme) => {
