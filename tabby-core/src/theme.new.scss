@@ -110,7 +110,7 @@ body {
 }
 
 .nav {
-    --bs-nav-link-color: var(--theme-fg);
+    --bs-nav-link-color: var(--theme-fg-more);
     --bs-nav-link-hover-color: var(--theme-fg-less);
     --bs-nav-link-disabled-color: var(--bs-gray);
 }
@@ -119,8 +119,8 @@ body {
     --bs-nav-tabs-border-width: 2px;
     --bs-nav-tabs-border-radius: 0;
     --bs-nav-tabs-link-hover-border-color: var(--bs-body-bg);
-    --bs-nav-tabs-border-color: var(--theme-fg-less-2);
-    --bs-nav-tabs-link-active-color: var(--theme-fg-less-2);
+    --bs-nav-tabs-border-color: var(--theme-fg);
+    --bs-nav-tabs-link-active-color: var(--theme-fg);
 
     --bs-nav-tabs-link-active-bg: transparent;
     --bs-nav-tabs-link-active-border-color: transparent;

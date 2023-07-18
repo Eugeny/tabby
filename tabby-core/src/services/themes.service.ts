@@ -3,6 +3,7 @@ import { Subject, Observable } from 'rxjs'
 import * as Color from 'color'
 import { ConfigService } from '../services/config.service'
 import { Theme } from '../api/theme'
+import { PlatformService } from '../api/platform'
 import { NewTheme } from '../theme'
 
 @Injectable({ providedIn: 'root' })
@@ -17,6 +18,7 @@ export class ThemesService {
     private constructor (
         private config: ConfigService,
         private standardTheme: NewTheme,
+        private platform: PlatformService,
         @Inject(Theme) private themes: Theme[],
     ) {
         this.rootElementStyleBackup = document.documentElement.style.cssText
@@ -24,6 +26,10 @@ export class ThemesService {
         config.ready$.toPromise().then(() => {
             this.applyCurrentTheme()
             this.applyThemeVariables()
+            platform.themeChanged$.subscribe(() => {
+                this.applyCurrentTheme()
+                this.applyThemeVariables()
+            })
             config.changed$.subscribe(() => {
                 this.applyCurrentTheme()
                 this.applyThemeVariables()
@@ -36,7 +42,7 @@ export class ThemesService {
             document.documentElement.style.cssText = this.rootElementStyleBackup
         }
 
-        const theme = this.config.store.terminal.colorScheme
+        const theme = this._getActiveColorScheme()
         const isDark = Color(theme.background).luminosity() < Color(theme.foreground).luminosity()
 
         function more (some, factor) {
@@ -106,8 +112,10 @@ export class ThemesService {
 
             const themeColors = {
                 primary: theme.colors[accentIndex],
-                secondary: less(theme.background, 0.5).string(),
-                tertiary: theme.colors[8],
+                secondary: isDark
+                    ? less(theme.background, 0.5).string()
+                    : less(theme.background, 0.125).string(),
+                tertiary: more(theme.background, 0.75).string(),
                 warning: theme.colors[3],
                 danger: theme.colors[1],
                 success: theme.colors[2],
@@ -182,6 +190,15 @@ export class ThemesService {
 
     findCurrentTheme (): Theme {
         return this.findTheme(this.config.store.appearance.theme) ?? this.standardTheme
+    }
+
+    /// @hidden
+    _getActiveColorScheme (): any {
+        if (this.platform.getTheme() === 'light') {
+            return this.config.store.terminal.lightColorScheme
+        } else {
+            return this.config.store.terminal.colorScheme
+        }
     }
 
     applyTheme (theme: Theme): void {

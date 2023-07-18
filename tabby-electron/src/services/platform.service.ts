@@ -10,6 +10,7 @@ import { ElectronService } from '../services/electron.service'
 import { ElectronHostWindow } from './hostWindow.service'
 import { ShellIntegrationService } from './shellIntegration.service'
 import { ElectronHostAppService } from './hostApp.service'
+import { PlatformTheme } from '../../../tabby-core/src/api/platform'
 const fontManager = require('fontmanager-redux') // eslint-disable-line
 
 /* eslint-disable block-scoped-var */
@@ -39,6 +40,10 @@ export class ElectronPlatformService extends PlatformService {
 
         electron.ipcRenderer.on('host:display-metrics-changed', () => {
             this.zone.run(() => this.displayMetricsChanged.next())
+        })
+
+        electron.nativeTheme.on('updated', () => {
+            this.zone.run(() => this.themeChanged.next(this.getTheme()))
         })
     }
 
@@ -242,6 +247,14 @@ export class ElectronPlatformService extends PlatformService {
                 properties: ['openDirectory', 'showHiddenFiles'],
             },
         )).filePaths[0]
+    }
+
+    getTheme (): PlatformTheme {
+        if (this.electron.nativeTheme.shouldUseDarkColors) {
+            return 'dark'
+        } else {
+            return 'light'
+        }
     }
 }
 

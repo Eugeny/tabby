@@ -1,0 +1,116 @@
+.head
+    .d-flex.align-items-center(*ngIf='!editing')
+        strong.me-2(translate) Current color scheme
+        span {{getCurrentSchemeName()}}
+        .me-auto
+        .btn-toolbar
+            button.btn.btn-secondary((click)='editScheme()')
+                i.fas.fa-pen
+                span(translate) Edit
+            .me-1
+            button.btn.btn-danger(
+                (click)='deleteScheme(config.store.terminal[this.configKey])',
+                *ngIf='currentCustomScheme'
+            )
+                i.fas.fa-trash
+                span(translate) Delete
+
+    div(*ngIf='editing')
+        .mb-3
+            label(translate) Name
+            input.form-control(type='text', [(ngModel)]='config.store.terminal[this.configKey].name')
+
+        .mb-3
+            color-picker(
+                [(model)]='config.store.terminal[this.configKey].foreground',
+                (modelChange)='config.save()',
+                title='FG',
+                hint='Foreground'
+            )
+            color-picker(
+                [(model)]='config.store.terminal[this.configKey].background',
+                (modelChange)='config.save()',
+                title='BG',
+                hint='Background'
+            )
+            color-picker(
+                [(model)]='config.store.terminal[this.configKey].cursor',
+                (modelChange)='config.save()',
+                title='CU',
+                hint='Cursor color'
+            )
+            color-picker(
+                [(model)]='config.store.terminal[this.configKey].cursorAccent',
+                (modelChange)='config.save()',
+                title='CA',
+                hint='Block cursor foreground'
+            )
+            color-picker(
+                [(model)]='config.store.terminal[this.configKey].selection',
+                (modelChange)='config.save()',
+                title='SB',
+                hint='Selection background'
+            )
+            color-picker(
+                [(model)]='config.store.terminal[this.configKey].selectionForeground',
+                (modelChange)='config.save()',
+                title='SF',
+                hint='Selection foreground'
+            )
+            color-picker(
+                *ngFor='let _ of config.store.terminal[this.configKey].colors; let idx = index; trackBy: colorsTrackBy',
+                [(model)]='config.store.terminal[this.configKey].colors[idx]',
+                (modelChange)='config.save()',
+                [title]='idx.toString()',
+                hint='ANSI color {{idx}}'
+            )
+
+    color-scheme-preview([scheme]='config.store.terminal[this.configKey]')
+
+    .btn-toolbar.d-flex.mt-2(*ngIf='editing')
+        .me-auto
+        button.btn.btn-primary((click)='saveScheme()')
+            i.fas.fa-check
+            span(translate) Save
+        .me-1
+        button.btn.btn-secondary((click)='cancelEditing()')
+            i.fas.fa-times
+            span(translate) Cancel
+
+    hr.mt-3.mb-4
+
+    .input-group.mb-3
+        .input-group-text
+            i.fas.fa-fw.fa-search
+        input.form-control(type='search', [placeholder]='"Search color schemes"|translate', [(ngModel)]='filter')
+
+.body
+    .list-group.list-group-light.mb-3
+        ng-container(*ngFor='let scheme of allColorSchemes')
+            .list-group-item.list-group-item-action(
+                [hidden]='filter && !scheme.name.toLowerCase().includes(filter.toLowerCase())',
+                (click)='selectScheme(scheme)',
+                [class.active]='(currentCustomScheme || currentStockScheme) === scheme'
+            )
+                .d-flex.w-100.align-items-center
+                    i.fas.fa-fw([class.fa-check]='(currentCustomScheme || currentStockScheme) === scheme')
+
+                    .ms-2
+
+                    .me-auto
+                        span {{scheme.name}}
+                        .badge.text-bg-info.ms-2(*ngIf='customColorSchemes.includes(scheme)', translate) Custom
+
+                    div
+                        .d-flex
+                            .swatch(
+                                *ngFor='let index of colorIndexes.slice(0, 8)',
+                                [style.background-color]='scheme.colors[index]'
+                            )
+                        .d-flex
+                            .swatch(
+                                *ngFor='let index of colorIndexes.slice(8, 16)',
+                                [style.background-color]='scheme.colors[index]'
+                            )
+
+                color-scheme-preview([scheme]='scheme')

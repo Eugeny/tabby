@@ -27,9 +27,41 @@ export class DefaultColorSchemes extends TerminalColorSchemeProvider {
             '#b7fff9',
             '#ffffff',
         ],
+        selection: undefined,
+        cursorAccent: undefined,
+    }
+
+    static defaultLightColorScheme: TerminalColorScheme = {
+        name: 'Tabby Default Light',
+        foreground: '#4d4d4c',
+        background: '#ffffff',
+        cursor: '#4d4d4c',
+        colors: [
+            '#000000',
+            '#c82829',
+            '#718c00',
+            '#eab700',
+            '#4271ae',
+            '#8959a8',
+            '#3e999f',
+            '#ffffff',
+            '#000000',
+            '#c82829',
+            '#718c00',
+            '#eab700',
+            '#4271ae',
+            '#8959a8',
+            '#3e999f',
+            '#ffffff',
+        ],
+        selection: undefined,
+        cursorAccent: undefined,
     }
 
     async getSchemes (): Promise<TerminalColorScheme[]> {
-        return [DefaultColorSchemes.defaultColorScheme]
+        return [
+            DefaultColorSchemes.defaultColorScheme,
+            DefaultColorSchemes.defaultLightColorScheme,
+        ]
     }
 }

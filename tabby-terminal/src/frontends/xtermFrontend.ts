@@ -363,7 +363,7 @@ export class XTermFrontend extends Frontend {
     private configureColors (scheme: TerminalColorScheme|undefined): void {
         const config = this.configService.store
 
-        scheme = scheme ?? config.terminal.colorScheme
+        scheme = scheme ?? this.themes._getActiveColorScheme()
 
         const theme: ITheme = {
             foreground: scheme!.foreground,

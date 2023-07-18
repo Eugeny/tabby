@@ -86,14 +86,18 @@ export interface FileUploadOptions {
     multiple: boolean
 }
 
+export type PlatformTheme = 'light'|'dark'
+
 export abstract class PlatformService {
     supportsWindowControls = false
 
     get fileTransferStarted$ (): Observable<FileTransfer> { return this.fileTransferStarted }
     get displayMetricsChanged$ (): Observable<void> { return this.displayMetricsChanged }
+    get themeChanged$ (): Observable<PlatformTheme> { return this.themeChanged }
 
     protected fileTransferStarted = new Subject<FileTransfer>()
     protected displayMetricsChanged = new Subject<void>()
+    protected themeChanged = new Subject<PlatformTheme>()
 
     abstract readClipboard (): string
     abstract setClipboard (content: ClipboardContent): void
@@ -167,6 +171,10 @@ export abstract class PlatformService {
 
     openPath (path: string): void {
         throw new Error('Not implemented')
+    }
+
+    getTheme (): PlatformTheme {
+        return 'dark'
     }
 
     abstract getOSRelease (): string

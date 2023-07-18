@@ -11,7 +11,7 @@ appearance:
   tabsLocation: top
   tabsInFullscreen: false
   cycleTabs: true
-  theme: Standard
+  theme: Follow the color scheme
   frame: thin
   css: '/* * { color: blue !important; } */'
   opacity: 1.0

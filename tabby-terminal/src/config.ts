@@ -33,9 +33,11 @@ export class TerminalConfigProvider extends ConfigProvider {
             wordSeparator: ' ()[]{}\'"',
             colorScheme: {
                 __nonStructural: true,
-                selection: null,
-                cursorAccent: null,
                 ...DefaultColorSchemes.defaultColorScheme,
+            },
+            lightColorScheme: {
+                __nonStructural: true,
+                ...DefaultColorSchemes.defaultLightColorScheme,
             },
             customColorSchemes: [],
             warnOnMultilinePaste: true,

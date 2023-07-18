@@ -331,6 +331,10 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
             this.frontend?.focus()
         })
 
+        this.subscribeUntilDestroyed(this.platform.themeChanged$, () => {
+            this.configure()
+        })
+
         const cls: new (..._) => Frontend = {
             xterm: XTermFrontend,
             'xterm-webgl': XTermWebGLFrontend,

@@ -19,6 +19,7 @@ import { LoginScriptsSettingsComponent } from './components/loginScriptsSettings
 import { TerminalToolbarComponent } from './components/terminalToolbar.component'
 import { ColorSchemeSelectorComponent } from './components/colorSchemeSelector.component'
 import { InputProcessingSettingsComponent } from './components/inputProcessingSettings.component'
+import { ColorSchemeSettingsForModeComponent } from './components/colorSchemeSettingsForMode.component'
 
 import { TerminalDecorator } from './api/decorator'
 import { TerminalContextMenuItemProvider } from './api/contextMenuProvider'
@@ -78,6 +79,7 @@ import { DefaultColorSchemes } from './colorSchemes'
         LoginScriptsSettingsComponent,
         TerminalToolbarComponent,
         InputProcessingSettingsComponent,
+        ColorSchemeSettingsForModeComponent,
     ],
     exports: [
         ColorPickerComponent,
