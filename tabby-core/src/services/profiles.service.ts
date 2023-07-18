@@ -177,17 +177,20 @@ export class ProfilesService {
                     })
                 } catch { }
 
-                if (this.getProviders().some(x => x.supportsQuickConnect)) {
+                this.getProviders().filter(x => x.supportsQuickConnect).forEach(provider => {
                     options.push({
                         name: this.translate.instant('Quick connect'),
                         freeInputPattern: this.translate.instant('Connect to "%s"...'),
+                        description: `(${provider.name.toUpperCase()})`,
                         icon: 'fas fa-arrow-right',
+                        weight: provider.id !== this.config.store.defaultQuickConnectProvider ? 1 : 0,
                         callback: query => {
-                            const profile = this.quickConnect(query)
+                            const profile = provider.quickConnect(query)
                             resolve(profile)
                         },
                     })
-                }
+                })
+
                 await this.selector.show(this.translate.instant('Select profile or enter an address'), options)
             } catch (err) {
                 reject(err)

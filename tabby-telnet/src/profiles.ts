@@ -8,7 +8,7 @@ import { TelnetProfile } from './session'
 export class TelnetProfilesService extends ProfileProvider<TelnetProfile> {
     id = 'telnet'
     name = 'Telnet'
-    supportsQuickConnect = false
+    supportsQuickConnect = true
     settingsComponent = TelnetProfileSettingsComponent
     configDefaults = {
         options: {

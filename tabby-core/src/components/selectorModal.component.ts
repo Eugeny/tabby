@@ -76,10 +76,11 @@ export class SelectorModalComponent<T> {
                 { sort: true },
             ).search(f)
 
-            const freeOption = this.options.find(x => x.freeInputPattern)
-            if (freeOption && !this.filteredOptions.includes(freeOption)) {
-                this.filteredOptions.push(freeOption)
-            }
+            this.options.filter(x => x.freeInputPattern).forEach(freeOption => {
+                if (!this.filteredOptions.includes(freeOption)) {
+                    this.filteredOptions.push(freeOption)
+                }
+            })
         }
         this.selectedIndex = Math.max(0, this.selectedIndex)
         this.selectedIndex = Math.min(this.filteredOptions.length - 1, this.selectedIndex)

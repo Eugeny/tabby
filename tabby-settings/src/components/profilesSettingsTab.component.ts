@@ -312,4 +312,8 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
     isProfileBlacklisted (profile: PartialProfile<Profile>): boolean {
         return profile.id && this.config.store.profileBlacklist.includes(profile.id)
     }
+
+    getQuickConnectProviders (): ProfileProvider<Profile>[] {
+        return this.profileProviders.filter(x => x.supportsQuickConnect)
+    }
 }
