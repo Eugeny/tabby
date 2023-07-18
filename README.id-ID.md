@@ -44,14 +44,14 @@ This README is also available in: <a  href="./README.md">:gb: English</a> · <a 
 
 # Contents <!-- omit in toc -->
 
-- [Apa itu Tabby dan bukan Tabby](#what-tabby-is-and-isnt)
-- [Fitur Terminal](#terminal-features)
-- [SSH Client](#ssh-client)
+- [Apa itu Tabby dan bukan Tabby](#apa-itu-tabby-dan-bukan-tabby)
+- [Fitur terminal](#fitur-terminal)
+- [Klien SSH](#klien-ssh)
 - [Serial Terminal](#serial-terminal)
-- [Portabel](#portable)
+- [Portabel](#portabel)
 - [Plugins](#plugins)
-- [Tema](#themes)
-- [Kontribusi](#contributing)
+- [Tema](#tema)
+- [Kontribusi](#kontribusi)
 
 <a name="about"></a>
 
@@ -120,6 +120,7 @@ Tema dan Plugin bisa langsung di install dari Pengaturan di dalam Tabby.
 * [clippy](https://github.com/Eugeny/tabby-clippy) - suatu contoh plugin yang akan mengganggu anda setiap saat
 * [workspace-manager](https://github.com/composer404/tabby-workspace-manager) - memperbolehkan membuat kustom profil workspace dari konfigurasi yang diberikan
 * [search-in-browser](https://github.com/composer404/tabby-search-in-browser) - membuka browser default dengan text yang dipilih dari Tab Tabby
+* [sftp-tab](https://github.com/wljince007/tabby-sftp-tab) - open sftp tab for ssh connection
 
 <a name="themes"></a>
 

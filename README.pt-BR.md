@@ -44,14 +44,14 @@ Esse README também está disponível em: <a  href="./README.md">:gb: English</a
 
 # Conteúdo <!-- omit in toc -->
 
-- [O que é Tabby e o que não é](#what-tabby-is-and-isnt)
-- [Recursos do Terminal](#terminal-features)
-- [Cliente SSH](#ssh-client)
-- [Terminal Serial](#serial-terminal)
-- [Portátil](#portable)
+- [O que é Tabby e o que não é](#o-que-é-tabby-e-o-que-não-é)
+- [Recursos do Terminal](#recursos-do-terminal)
+- [Cliente SSH](#cliente-ssh)
+- [Terminal Serial](#terminal-serial)
+- [Portátil](#portátil)
 - [Plugins](#plugins)
-- [Temas](#themes)
-- [Contribuições](#contributing)
+- [Temas](#temas)
+- [Contribuições](#contribuições)
 
 <a name="about"></a>
 
@@ -120,6 +120,7 @@ Plugins e temas podem ser instalados durante a execução na pagina de configura
 * [clippy](https://github.com/Eugeny/tabby-clippy) - um plugin de exemplo que te incomoda o tempo todo
 * [workspace-manager](https://github.com/composer404/tabby-workspace-manager) - permite criar perfis de espaço de trabalho personalizados com base na configuração fornecida
 * [search-in-browser](https://github.com/composer404/tabby-search-in-browser) - abre o navegador padrão do sistema com um texto selecionado na guia do Tabby
+* [sftp-tab](https://github.com/wljince007/tabby-sftp-tab) - open sftp tab for ssh connection
 
 <a name="themes"></a>
 

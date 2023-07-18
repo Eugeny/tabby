@@ -43,14 +43,14 @@ Diese README ist auch verfügbar in: <a  href="./README.md">:gb: English</a> · 
 
 # Inhaltsverzeichnis <!-- omit in toc -->
 
-- [Was Tabby ist und was nicht](#what-tabby-is-and-isnt)
-- [Terminal-Funktionen](#terminal-features)
+- [Was Tabby ist und was nicht](#was-tabby-ist-und-was-nicht)
+- [Terminal-Funktionen](#terminal-funktionen)
 - [SSH Client](#ssh-client)
-- [Serielles Terminal](#serial-terminal)
-- [Portabel](#portable)
+- [Serielles Terminal](#serielles-terminal)
+- [Portabel](#portabel)
 - [Plugins](#plugins)
-- [Themen](#themes)
-- [Beitragen](#contributing)
+- [Themen](#themen)
+- [Beitragen](#beitragen)
 
 <a  name="about"></a>
 
@@ -119,6 +119,7 @@ Plugins und Themen können direkt aus der Ansicht "Einstellungen" in Tabby insta
 * [clippy](https://github.com/Eugeny/tabby-clippy) - ein Beispiel-Plugin, das einen die ganze Zeit nervt
 * [workspace-manager](https://github.com/composer404/tabby-workspace-manager) - ermöglicht das Erstellen eigener Workspace-Profile auf Basis der angegebenen Konfiguration
 * [search-in-browser](https://github.com/composer404/tabby-search-in-browser) - öffnet den Standard-Systembrowser mit einem Text, der aus dem Tabby Tab ausgewählt wurde
+* [sftp-tab](https://github.com/wljince007/tabby-sftp-tab) - open sftp tab for ssh connection
 
 <a  name="themes"></a>
 

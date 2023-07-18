@@ -116,6 +116,7 @@
 * [clippy](https://github.com/Eugeny/tabby-clippy) - 一个可以一直烦你的示例插件
 * [workspace-manager](https://github.com/composer404/tabby-workspace-manager) - 允许根据给定的配置创建自定义工作区配置文件
 * [search-in-browser](https://github.com/composer404/tabby-search-in-browser) - 从 Tabby 标签页带有选中的文本来打开系统默认浏览器
+* [sftp-tab](https://github.com/wljince007/tabby-sftp-tab) - 为ssh连接打开sftp标签页
 
 <a name="themes"></a>
 # 主题

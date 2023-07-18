@@ -117,6 +117,7 @@ Plugins and themes can be installed directly from the Settings view inside Tabby
 * [clippy](https://github.com/Eugeny/tabby-clippy) - an example plugin which annoys you all the time
 * [workspace-manager](https://github.com/composer404/tabby-workspace-manager) - allows creating custom workspace profiles based on the given config
 * [search-in-browser](https://github.com/composer404/tabby-search-in-browser) - opens default system browser with a text selected from the Tabby's tab
+* [sftp-tab](https://github.com/wljince007/tabby-sftp-tab) - open sftp tab for ssh connection
 
 <a name="themes"></a>
 # Temi
