@@ -1,15 +1,15 @@
 diff --git a/node_modules/app-builder-lib/out/appInfo.js b/node_modules/app-builder-lib/out/appInfo.js
-index 363f32c..a0434a9 100644
+index 49f6dca..0ea11f2 100644
 --- a/node_modules/app-builder-lib/out/appInfo.js
 +++ b/node_modules/app-builder-lib/out/appInfo.js
-@@ -100,9 +100,7 @@ class AppInfo {
+@@ -112,9 +112,7 @@ class AppInfo {
          return this.info.metadata.name;
      }
      get linuxPackageName() {
 -        const name = this.name;
 -        // https://github.com/electron-userland/electron-builder/issues/2963
 -        return name.startsWith("@") ? this.sanitizedProductName : name;
-+        return 'tabby-terminal'
++        return 'tabby-terminal';
      }
      get sanitizedName() {
-         return filename_1.sanitizeFileName(this.name);
+         return (0, filename_1.sanitizeFileName)(this.name);
