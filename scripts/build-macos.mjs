@@ -13,6 +13,9 @@ if (process.env.GITHUB_HEAD_REF) {
     process.env.CSC_IDENTITY_AUTO_DISCOVERY = 'false'
 }
 
+process.env.APPLE_ID ??= process.env.APPSTORE_USERNAME
+process.env.APPLE_APP_SPECIFIC_PASSWORD ??= process.env.APPSTORE_PASSWORD
+
 builder({
     dir: true,
     mac: ['pkg', 'zip'],
@@ -24,6 +27,13 @@ builder({
         },
         mac: {
             identity: !process.env.CI || process.env.CSC_LINK ? undefined : null,
+            notarize: process.env.APPLE_TEAM_ID ? {
+                appBundleId: 'org.tabby',
+                teamId: process.env.APPLE_TEAM_ID,
+            } : false,
+        },
+        pkg: {
+            identity: !process.env.CI || process.env.CSC_INSTALLER_LINK ? undefined : null,
         },
         npmRebuild: process.env.ARCH !== 'arm64',
         publish: process.env.KEYGEN_TOKEN ? [
