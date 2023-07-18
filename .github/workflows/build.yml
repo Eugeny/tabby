@@ -86,6 +86,8 @@ jobs:
         KEYGEN_TOKEN: ${{ secrets.KEYGEN_TOKEN }}
         CSC_LINK: ${{ secrets.CSC_LINK }}
         CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
+        CSC_INSTALLER_LINK: ${{ secrets.CSC_INSTALLER_LINK }}
+        CSC_INSTALLER_KEY_PASSWORD: ${{ secrets.CSC_INSTALLER_KEY_PASSWORD }}
         APPSTORE_USERNAME: ${{ secrets.APPSTORE_USERNAME }}
         APPSTORE_PASSWORD: ${{ secrets.APPSTORE_PASSWORD }}
         USE_HARD_LINKS: false
@@ -137,7 +139,7 @@ jobs:
           - build-arch: arm64
             arch: arm64
             triplet: aarch64-linux-gnu-
-          - build-arch: arm 
+          - build-arch: arm
             arch: armhf
             triplet: arm-linux-gnueabihf-
     env:
@@ -152,7 +154,7 @@ jobs:
       uses: actions/checkout@v3
       with:
         fetch-depth: 0
-            
+
     - name: Install Node
       uses: actions/setup-node@v3.6.0
       with:
@@ -161,14 +163,14 @@ jobs:
     - name: Install deps (amd64)
       run: |
         sudo apt-get update
-        sudo apt-get install libarchive-tools zsh 
-        
+        sudo apt-get install libarchive-tools zsh
+
     - name: Install npm_modules (amd64)
       run: |
         npm i -g yarn
         yarn --network-timeout 1000000
       if: matrix.build-arch == 'x64'
-      
+
     - name: Setup Crossbuild (${{matrix.arch}})
       run: |
           sudo apt-get update -y && sudo apt-get install schroot sbuild debootstrap -y
@@ -184,7 +186,7 @@ jobs:
           root-groups=root,sudo
           profile=buildd
           personality=linux
-          union-type=overlay" | sudo tee /etc/schroot/chroot.d/build-chroot.pref >/dev/null 
+          union-type=overlay" | sudo tee /etc/schroot/chroot.d/build-chroot.pref >/dev/null
           echo "/home           /home           none    rw,bind         0       0" | sudo tee -a /etc/schroot/buildd/fstab >/dev/null
 
       if: matrix.build-arch != 'x64'
@@ -194,7 +196,7 @@ jobs:
           sudo schroot -c build-chroot -u root -- bash -c "apt-get update -y
           dpkg --add-architecture ${{matrix.arch}}
           apt-get install -y nodejs libfontconfig-dev:${{matrix.arch}} libsecret-1-dev:${{matrix.arch}} libnss3:${{matrix.arch}} libatk1.0-0:${{matrix.arch}} libatk-bridge2.0-0:${{matrix.arch}} libgdk-pixbuf2.0-0:${{matrix.arch}} libgtk-3-0:${{matrix.arch}} libgbm1:${{matrix.arch}}
-          export CC=${{matrix.triplet}}gcc CXX=${{matrix.triplet}}g++ LD=${{matrix.triplet}}ld 
+          export CC=${{matrix.triplet}}gcc CXX=${{matrix.triplet}}g++ LD=${{matrix.triplet}}ld
           if [[ ${{matrix.arch}} == 'arm64' ]]; then
             export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/usr/lib/aarch64-linux-gnu/pkgconfig/
           elif [[ ${{matrix.arch}} == 'armhf' ]]; then
@@ -210,7 +212,7 @@ jobs:
 
     - name: Prepackage plugins (${{matrix.arch}})
       run: scripts/prepackage-plugins.mjs
-      
+
     - name: Build packages (${{matrix.arch}})
       run: scripts/build-linux.mjs
       env:
@@ -218,7 +220,7 @@ jobs:
         KEYGEN_TOKEN: ${{ secrets.KEYGEN_TOKEN }}
         USE_HARD_LINKS: false
         # DEBUG: electron-builder,electron-builder:*
-        
+
     - name: Build web resources
       run: zsh -c 'tar czf tabby-web.tar.gz (tabby-*|web)/dist'
       if: matrix.build-arch == 'x64'
@@ -294,7 +296,7 @@ jobs:
       with:
         name: Linux AppImage (${{matrix.arch}})
         path: dist/*.AppImage
-    
+
     - uses: actions/upload-artifact@master
       name: Upload DEB (${{matrix.arch}})
       with:
