@@ -54,3 +54,4 @@ hacks:
   disableVibrancyWhileDragging: false
   enableFluentBackground: false
 language: null
+defaultQuickConnectProvider: "ssh"

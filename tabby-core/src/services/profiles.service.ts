@@ -183,6 +183,7 @@ export class ProfilesService {
                         freeInputPattern: this.translate.instant('Connect to "%s"...'),
                         description: `(${provider.name.toUpperCase()})`,
                         icon: 'fas fa-arrow-right',
+                        weight: provider.id !== this.config.store.defaultQuickConnectProvider ? 1 : 0,
                         callback: query => {
                             const profile = provider.quickConnect(query)
                             resolve(profile)
