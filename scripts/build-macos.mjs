@@ -32,9 +32,6 @@ builder({
                 teamId: process.env.APPLE_TEAM_ID,
             } : false,
         },
-        pkg: {
-            identity: !process.env.CI || process.env.CSC_INSTALLER_LINK ? undefined : null,
-        },
         npmRebuild: process.env.ARCH !== 'arm64',
         publish: process.env.KEYGEN_TOKEN ? [
             vars.keygenConfig,
