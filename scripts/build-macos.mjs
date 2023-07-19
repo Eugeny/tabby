@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+
 /* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
 import { build as builder } from 'electron-builder'
 import * as vars from './vars.mjs'
