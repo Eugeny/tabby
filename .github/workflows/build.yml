@@ -86,8 +86,6 @@ jobs:
         KEYGEN_TOKEN: ${{ secrets.KEYGEN_TOKEN }}
         CSC_LINK: ${{ secrets.CSC_LINK }}
         CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
-        CSC_INSTALLER_LINK: ${{ secrets.CSC_INSTALLER_LINK }}
-        CSC_INSTALLER_KEY_PASSWORD: ${{ secrets.CSC_INSTALLER_KEY_PASSWORD }}
         APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
         APPSTORE_USERNAME: ${{ secrets.APPSTORE_USERNAME }}
         APPSTORE_PASSWORD: ${{ secrets.APPSTORE_PASSWORD }}
