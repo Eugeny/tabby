@@ -118,12 +118,12 @@ export class ProfilesService {
             try {
                 const recentProfiles = this.getRecentProfiles()
 
-                let options: SelectorOption<void>[] = recentProfiles.map(p => ({
+                let options: SelectorOption<void>[] = recentProfiles.map((p, i) => ({
                     ...this.selectorOptionForProfile(p),
                     group: this.translate.instant('Recent'),
                     icon: 'fas fa-history',
                     color: p.color,
-                    weight: -2,
+                    weight: i - (recentProfiles.length + 1),
                     callback: async () => {
                         if (p.id) {
                             p = (await this.getProfiles()).find(x => x.id === p.id) ?? p
