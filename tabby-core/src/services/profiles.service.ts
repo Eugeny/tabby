@@ -80,8 +80,6 @@ export class ProfilesService {
         return list
     }
 
-
-
     providerForProfile <T extends Profile> (profile: PartialProfile<T>): ProfileProvider<T>|null {
         const provider = this.profileProviders.find(x => x.id === profile.type) ?? null
         return provider as unknown as ProfileProvider<T>|null
@@ -248,7 +246,8 @@ export class ProfilesService {
     /**
     * Set global defaults for a given profile provider
     */
-    setProviderDefaults (provider: ProfileProvider<Profile>, pdefaults: any) {
+    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+    setProviderDefaults (provider: ProfileProvider<Profile>, pdefaults: any): void {
         this.config.store.profileDefaults[provider.id] = pdefaults
     }
 
@@ -284,7 +283,7 @@ export class ProfilesService {
         let groups: PartialProfileGroup<ProfileGroup>[] = this.config.store.groups ?? []
         groups = groups.map(x => {
             x.editable = true
-            x.collapsed = profileGroupCollapsed[x.id ?? ''] ?? false
+            x.collapsed = profileGroupCollapsed[x.id] ?? false
 
             if (includeProfiles) {
                 x.profiles = profiles.filter(p => p.group === x.id)
@@ -326,7 +325,7 @@ export class ProfilesService {
     /**
     * Save ProfileGroup collapse state in localStorage
     */
-    saveProfileGroupCollapse(group: PartialProfileGroup<ProfileGroup>) {
+    saveProfileGroupCollapse (group: PartialProfileGroup<ProfileGroup>): void {
         const profileGroupCollapsed = JSON.parse(window.localStorage.profileGroupCollapsed ?? '{}')
         profileGroupCollapsed[group.id] = group.collapsed
         window.localStorage.profileGroupCollapsed = JSON.stringify(profileGroupCollapsed)

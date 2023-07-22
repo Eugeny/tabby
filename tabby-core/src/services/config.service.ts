@@ -372,7 +372,7 @@ export class ConfigService {
                     continue
                 }
 
-                let group = groups.find(x => x.name === (p.group))
+                let group = groups.find(x => x.name === p.group)
                 if (!group) {
                     group = {
                         id: `${uuidv4()}`,
@@ -387,6 +387,7 @@ export class ConfigService {
             for (const g of groups) {
                 if (profileGroupCollapsed[g.name]) {
                     const collapsed = profileGroupCollapsed[g.name]
+                    // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
                     delete profileGroupCollapsed[g.name]
                     profileGroupCollapsed[g.id] = collapsed
                 }
