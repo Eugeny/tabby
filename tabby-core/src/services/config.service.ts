@@ -368,7 +368,7 @@ export class ConfigService {
         if (config.version < 5) {
             const groups: PartialProfileGroup<ProfileGroup>[] = []
             for (const p of config.profiles ?? []) {
-                if (!`${p.group}`.trim()) {
+                if (!(p.group ?? '').trim()) {
                     continue
                 }
 
