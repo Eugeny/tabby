@@ -310,8 +310,8 @@ export class ProfilesService {
             ungrouped.collapsed = profileGroupCollapsed[ungrouped.id] ?? false
 
             if (includeProfiles) {
-                builtIn.profiles = profiles.filter(p => p.group === builtIn.id)
-                profiles = profiles.filter(p => p.group !== builtIn.id)
+                builtIn.profiles = profiles.filter(p => p.isBuiltin)
+                profiles = profiles.filter(p => !p.isBuiltin)
 
                 ungrouped.profiles = profiles
             }
