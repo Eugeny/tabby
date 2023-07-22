@@ -214,7 +214,7 @@ export class ProfilesService {
     }
 
     getConfigProxyForProfile <T extends Profile> (profile: PartialProfile<T>, skipUserDefaults = false): T {
-        const defaults = this.getProfileDefaults(profile).reduce(configMerge, {})
+        const defaults = this.getProfileDefaults(profile, skipUserDefaults).reduce(configMerge, {})
         return new ConfigProxy(profile, defaults) as unknown as T
     }
 
