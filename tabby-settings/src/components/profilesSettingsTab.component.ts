@@ -282,7 +282,7 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
             EditProfileModalComponent,
             { size: 'lg' },
         )
-        const model = this.config.store.profileDefaults[provider.id] ?? {}
+        const model = this.profilesService.getProviderDefaults(provider)
         model.type = provider.id
         modal.componentInstance.profile = Object.assign({}, model)
         modal.componentInstance.profileProvider = provider
@@ -295,7 +295,7 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
             delete model[k]
         }
         Object.assign(model, result)
-        this.config.store.profileDefaults[provider.id] = model
+        this.profilesService.setProviderDefaults(provider, model)
         await this.config.save()
     }
 

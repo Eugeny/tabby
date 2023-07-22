@@ -212,12 +212,7 @@ export class ProfilesService {
     }
 
     getConfigProxyForProfile <T extends Profile> (profile: PartialProfile<T>, skipUserDefaults = false): T {
-        const provider = this.providerForProfile(profile)
-        const defaults = [
-            this.profileDefaults,
-            provider?.configDefaults ?? {},
-            !provider || skipUserDefaults ? {} : this.config.store.profileDefaults[provider.id] ?? {},
-        ].reduce(configMerge, {})
+        const defaults = this.getProfileDefaults(profile).reduce(configMerge, {})
         return new ConfigProxy(profile, defaults) as unknown as T
     }
 
@@ -234,4 +229,38 @@ export class ProfilesService {
         }
         window.localStorage['recentProfiles'] = JSON.stringify(recentProfiles)
     }
+
+    /*
+    * Methods used to interract with Profile/ProfileGroup/Global defaults
+    */
+
+    /**
+    * Return global defaults for a given profile provider
+    * Always return something, empty object if no defaults found
+    */
+    getProviderDefaults (provider: ProfileProvider<Profile>): any {
+        const defaults = this.config.store.profileDefaults
+        return defaults[provider.id] ?? {}
+    }
+
+    /**
+    * Set global defaults for a given profile provider
+    */
+    setProviderDefaults (provider: ProfileProvider<Profile>, pdefaults: any) {
+        this.config.store.profileDefaults[provider.id] = pdefaults
+    }
+
+    /**
+    * Return defaults for a given profile
+    * Always return something, empty object if no defaults found
+    */
+    getProfileDefaults (profile: PartialProfile<Profile>, skipUserDefaults = false): any {
+        const provider = this.providerForProfile(profile)
+        return [
+            this.profileDefaults,
+            provider?.configDefaults ?? {},
+            !provider || skipUserDefaults ? {} : this.getProviderDefaults(provider),
+        ]
+    }
+
 }
