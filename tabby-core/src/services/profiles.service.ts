@@ -323,4 +323,13 @@ export class ProfilesService {
         return groups
     }
 
+    /**
+    * Save ProfileGroup collapse state in localStorage
+    */
+    saveProfileGroupCollapse(group: PartialProfileGroup<ProfileGroup>) {
+        const profileGroupCollapsed = JSON.parse(window.localStorage.profileGroupCollapsed ?? '{}')
+        profileGroupCollapsed[group.id] = group.collapsed
+        window.localStorage.profileGroupCollapsed = JSON.stringify(profileGroupCollapsed)
+    }
+
 }
