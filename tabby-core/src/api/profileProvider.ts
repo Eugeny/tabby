@@ -21,6 +21,11 @@ export interface Profile {
     isTemplate: boolean
 }
 
+export interface ProfileDefaults {
+    id: string
+    //[provider]:
+}
+
 export type PartialProfile<T extends Profile> = Omit<Omit<Omit<{
     [K in keyof T]?: T[K]
 }, 'options'>, 'type'>, 'name'> & {

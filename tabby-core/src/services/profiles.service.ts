@@ -2,7 +2,7 @@ import { Injectable, Inject } from '@angular/core'
 import { TranslateService } from '@ngx-translate/core'
 import { NewTabParameters } from './tabs.service'
 import { BaseTabComponent } from '../components/baseTab.component'
-import { PartialProfile, Profile, ProfileProvider } from '../api/profileProvider'
+import { PartialProfile, Profile, ProfileDefaults, ProfileProvider } from '../api/profileProvider'
 import { SelectorOption } from '../api/selector'
 import { AppService } from './app.service'
 import { configMerge, ConfigProxy, ConfigService } from './config.service'
@@ -212,12 +212,7 @@ export class ProfilesService {
     }
 
     getConfigProxyForProfile <T extends Profile> (profile: PartialProfile<T>, skipUserDefaults = false): T {
-        const provider = this.providerForProfile(profile)
-        const defaults = [
-            this.profileDefaults,
-            provider?.configDefaults ?? {},
-            !provider || skipUserDefaults ? {} : this.config.store.profileDefaults[provider.id] ?? {},
-        ].reduce(configMerge, {})
+        const defaults = this.getProfileDefaults(profile).reduce(configMerge, {})
         return new ConfigProxy(profile, defaults) as unknown as T
     }
 
@@ -234,4 +229,72 @@ export class ProfilesService {
         }
         window.localStorage['recentProfiles'] = JSON.stringify(recentProfiles)
     }
+
+    /*
+    * Methods used to interract with Profile/ProfileGroup/Global defaults
+    */
+
+    /**
+    * Return ProfileDefaults Array from config
+    */
+    private getAllDefaults (): ProfileDefaults[] {
+        return this.config.store.profileDefaults
+    }
+
+    /**
+    * Return ProfileDefaults for a given defaultsId (ex. 'global', 'profileId' or 'groupId')
+    */
+    private getDefaults (defaultsId: string): ProfileDefaults {
+        return this.getAllDefaults().find(x => x.id == defaultsId) ?? { id: defaultsId }
+    }
+
+    /**
+    * Replace or insert ProfileDefaults in config
+    */
+    private setDefaults (defaults: ProfileDefaults) {
+        let allDefaults = this.getAllDefaults().filter(x => x.id !== defaults.id)   
+        allDefaults.push(defaults)
+    
+        this.config.store.profileDefaults = allDefaults
+    }
+
+    /**
+    * Replace or insert ProfileDefaults in config
+    */
+    /*private deleteDefaults (defaults: ProfileDefaults) {
+        if (defaults.id === 'global') {
+            throw new Error('Unable to delete \'global\' profile Defaults')
+        }
+        this.config.store.profileDefaults = this.getAllDefaults().filter(x => x.id !== defaults.id)   
+    }*/
+
+    /**
+    * Return global defaults for a given profile provider
+    */
+    getProviderDefaults (defaultsId: string, provider: ProfileProvider<Profile>): any {
+        const defaults = this.getDefaults(defaultsId)
+        return defaults[provider.id] ?? {}
+    }
+
+    /**
+    * Set global defaults for a given profile provider
+    */
+    setProviderDefaults (defaultsId: string, provider: ProfileProvider<Profile>, pdefaults: any) {
+        const defaults = this.getDefaults(defaultsId)
+        defaults[provider.id] = pdefaults
+        this.setDefaults(defaults)
+    }
+
+    /**
+    * Return defaults for a given profile
+    */
+    getProfileDefaults (profile: PartialProfile<Profile>, skipUserDefaults = false): any {
+        const provider = this.providerForProfile(profile)
+        return [
+            this.profileDefaults,
+            provider?.configDefaults ?? {},
+            !provider || skipUserDefaults ? {} : this.getProviderDefaults('global', provider),
+        ]
+    }
+
 }

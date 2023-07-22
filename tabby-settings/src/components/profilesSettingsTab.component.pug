@@ -170,7 +170,7 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
 
             .list-group.mt-3.mb-3.content-box
                 a.list-group-item.list-group-item-action(
-                    (click)='editDefaults(provider)',
+                    (click)='editGlobalDefaults(provider)',
                     *ngFor='let provider of profileProviders'
                 ) {{provider.name|translate}}
 

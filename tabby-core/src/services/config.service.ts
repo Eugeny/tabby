@@ -10,6 +10,7 @@ import { PlatformService } from '../api/platform'
 import { HostAppService } from '../api/hostApp'
 import { Vault, VaultService } from './vault.service'
 import { serializeFunction } from '../utils'
+import { ProfileDefaults } from '../api/profileProvider'
 const deepmerge = require('deepmerge')
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
@@ -363,6 +364,16 @@ export class ConfigService {
                 }
             }
             config.version = 4
+        }
+        if (config.version < 5) {
+            const oldDefaults = config.profileDefaults
+            const globalDefaults: ProfileDefaults = {
+                id: 'global',
+                ...oldDefaults
+            }
+            config.profileDefaults = []
+            config.profileDefaults.push(globalDefaults)
+            config.version = 5
         }
     }
 
