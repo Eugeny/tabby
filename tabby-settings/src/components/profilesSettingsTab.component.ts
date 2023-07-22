@@ -277,16 +277,12 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
         window.localStorage.profileGroupCollapsed = JSON.stringify(profileGroupCollapsed)
     }
 
-    /**
-    * Edit Defaults for a given profile provider
-    * defaultsId: used to identify defaults stored in config (ex. value: group ID)
-    */
-    async editDefaults (defaultsId: string, provider: ProfileProvider<Profile>): Promise<void> {
+    async editDefaults (provider: ProfileProvider<Profile>): Promise<void> {
         const modal = this.ngbModal.open(
             EditProfileModalComponent,
             { size: 'lg' },
         )
-        const model = this.profilesService.getProviderDefaults(defaultsId, provider)
+        const model = this.config.store.profileDefaults[provider.id] ?? {}
         model.type = provider.id
         modal.componentInstance.profile = Object.assign({}, model)
         modal.componentInstance.profileProvider = provider
@@ -299,15 +295,8 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
             delete model[k]
         }
         Object.assign(model, result)
-        this.profilesService.setProviderDefaults(defaultsId, provider, model)
+        this.config.store.profileDefaults[provider.id] = model
         await this.config.save()
-    }
-
-    /**
-    * Edit global Defaults for a given profile provider
-    */
-    async editGlobalDefaults (provider: ProfileProvider<Profile>): Promise<void> {
-        return this.editDefaults('global', provider)
     }
 
     blacklistProfile (profile: PartialProfile<Profile>): void {
