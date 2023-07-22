@@ -31,6 +31,22 @@ export type PartialProfile<T extends Profile> = Omit<Omit<Omit<{
     }
 }
 
+export interface ProfileGroup {
+    id: string
+    name: string
+    profiles: PartialProfile<Profile>[]
+    defaults: any
+    editable: boolean
+    collapsed: boolean
+}
+
+export type PartialProfileGroup<T extends ProfileGroup> = Omit<Omit<{
+    [K in keyof T]?: T[K]
+}, 'id'>, 'name'> & {
+    id: string
+    name: string
+}
+
 export interface ProfileSettingsComponent<P extends Profile> {
     profile: P
     save?: () => void

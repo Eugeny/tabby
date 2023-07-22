@@ -16,7 +16,7 @@ export { BootstrapData, PluginInfo, BOOTSTRAP_DATA } from './mainProcess'
 export { HostWindowService } from './hostWindow'
 export { HostAppService, Platform } from './hostApp'
 export { FileProvider } from './fileProvider'
-export { ProfileProvider, Profile, PartialProfile, ProfileSettingsComponent } from './profileProvider'
+export { ProfileProvider, Profile, PartialProfile, ProfileSettingsComponent, ProfileGroup, PartialProfileGroup} from './profileProvider'
 export { PromptModalComponent } from '../components/promptModal.component'
 export * from './commands'
 

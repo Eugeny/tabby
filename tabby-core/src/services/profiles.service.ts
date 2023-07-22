@@ -2,7 +2,7 @@ import { Injectable, Inject } from '@angular/core'
 import { TranslateService } from '@ngx-translate/core'
 import { NewTabParameters } from './tabs.service'
 import { BaseTabComponent } from '../components/baseTab.component'
-import { PartialProfile, Profile, ProfileProvider } from '../api/profileProvider'
+import { PartialProfile, PartialProfileGroup, Profile, ProfileGroup, ProfileProvider } from '../api/profileProvider'
 import { SelectorOption } from '../api/selector'
 import { AppService } from './app.service'
 import { configMerge, ConfigProxy, ConfigService } from './config.service'
@@ -79,6 +79,8 @@ export class ProfilesService {
         list.sort((a, b) => (a.isBuiltin ? 1 : 0) - (b.isBuiltin ? 1 : 0))
         return list
     }
+
+
 
     providerForProfile <T extends Profile> (profile: PartialProfile<T>): ProfileProvider<T>|null {
         const provider = this.profileProviders.find(x => x.id === profile.type) ?? null
@@ -261,6 +263,64 @@ export class ProfilesService {
             provider?.configDefaults ?? {},
             !provider || skipUserDefaults ? {} : this.getProviderDefaults(provider),
         ]
+    }
+
+    /*
+    * Methods used to interract with ProfileGroup
+    */
+
+    /**
+    * Return an Array of the existing ProfileGroups
+    * arg: includeProfiles (default: false) -> if false, does not fill up the profiles field of ProfileGroup
+    * arg: includeNonUserGroup (default: false) -> if false, does not add built-in and ungrouped groups
+    */
+    async getProfileGroups (includeProfiles = false, includeNonUserGroup = false): Promise<PartialProfileGroup<ProfileGroup>[]> {
+        let profiles: PartialProfile<Profile>[] = []
+        if (includeProfiles) {
+            profiles = await this.getProfiles()
+        }
+
+        const profileGroupCollapsed = JSON.parse(window.localStorage.profileGroupCollapsed ?? '{}')
+        let groups: PartialProfileGroup<ProfileGroup>[] = this.config.store.groups ?? []
+        groups = groups.map(x => {
+            x.editable = true
+            x.collapsed = profileGroupCollapsed[x.id ?? ''] ?? false
+
+            if (includeProfiles) {
+                x.profiles = profiles.filter(p => p.group === x.id)
+                profiles = profiles.filter(p => p.group !== x.id)
+            }
+
+            return x
+        })
+
+        if (includeNonUserGroup) {
+            const builtIn: PartialProfileGroup<ProfileGroup> = {
+                id: 'built-in',
+                name: this.translate.instant('Built-in'),
+                editable: false,
+            }
+            builtIn.collapsed = profileGroupCollapsed[builtIn.id] ?? false
+
+            const ungrouped: PartialProfileGroup<ProfileGroup> = {
+                id: 'ungrouped',
+                name: this.translate.instant('Ungrouped'),
+                editable: false,
+            }
+            ungrouped.collapsed = profileGroupCollapsed[ungrouped.id] ?? false
+
+            if (includeProfiles) {
+                builtIn.profiles = profiles.filter(p => p.group === builtIn.id)
+                profiles = profiles.filter(p => p.group !== builtIn.id)
+
+                ungrouped.profiles = profiles
+            }
+
+            groups.push(builtIn)
+            groups.push(ungrouped)
+        }
+
+        return groups
     }
 
 }
