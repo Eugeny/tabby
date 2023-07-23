@@ -94,11 +94,18 @@ export class ProfilesService {
     * arg: saveConfig (default: true) -> invoke after the Profile was updated
     */
     async writeProfile (profile: PartialProfile<Profile>, saveConfig = true): Promise<void> {
-        this.deleteProfile(profile, false)
+        const cProfile = this.config.store.profiles.find(p => p.id === profile.id)
+        if (cProfile) {
+            // Fully replace the config
+            for (const k in cProfile) {
+                // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
+                delete cProfile[k]
+            }
+            Object.assign(cProfile, profile)
 
-        this.config.store.profiles.push(profile)
-        if (saveConfig) {
-            return this.config.save()
+            if (saveConfig) {
+                return this.config.save()
+            }
         }
     }
 
@@ -415,15 +422,17 @@ export class ProfilesService {
     * arg: saveConfig (default: true) -> invoke after the ProfileGroup was updated
     */
     async writeProfileGroup (group: PartialProfileGroup<ProfileGroup>, saveConfig = true): Promise<void> {
-        this.deleteProfileGroup(group, false, false)
-
         delete group.profiles
         delete group.editable
         delete group.collapsed
 
-        this.config.store.groups.push(group)
-        if (saveConfig) {
-            return this.config.save()
+        const cGroup = this.config.store.groups.find(g => g.id === group.id)
+        if (cGroup) {
+            Object.assign(cGroup, group)
+
+            if (saveConfig) {
+                return this.config.save()
+            }
         }
     }
 
