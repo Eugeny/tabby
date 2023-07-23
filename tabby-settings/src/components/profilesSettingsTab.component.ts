@@ -1,6 +1,4 @@
 import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker'
-import { v4 as uuidv4 } from 'uuid'
-import slugify from 'slugify'
 import deepClone from 'clone-deep'
 import { Component, Inject } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
@@ -16,7 +14,6 @@ _('Ungrouped')
     styleUrls: ['./profilesSettingsTab.component.scss'],
 })
 export class ProfilesSettingsTabComponent extends BaseComponent {
-    profiles: PartialProfile<Profile>[] = []
     builtinProfiles: PartialProfile<Profile>[] = []
     templateProfiles: PartialProfile<Profile>[] = []
     profileGroups: PartialProfileGroup<ProfileGroup>[]
@@ -39,7 +36,7 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
 
     async ngOnInit (): Promise<void> {
         this.refresh()
-        this.builtinProfiles = (await this.profilesService.getProfiles()).filter(x => x.isBuiltin)
+        this.builtinProfiles = (await this.profilesService.getProfiles(true, false)).filter(x => x.isBuiltin)
         this.templateProfiles = this.builtinProfiles.filter(x => x.isTemplate)
         this.builtinProfiles = this.builtinProfiles.filter(x => !x.isTemplate)
         this.refresh()
@@ -52,7 +49,7 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
 
     async newProfile (base?: PartialProfile<Profile>): Promise<void> {
         if (!base) {
-            let profiles = [...this.templateProfiles, ...this.builtinProfiles, ...this.profiles]
+            let profiles = await this.profilesService.getProfiles()
             profiles = profiles.filter(x => !this.isProfileBlacklisted(x))
             profiles.sort((a, b) => (a.weight ?? 0) - (b.weight ?? 0))
             base = await this.selector.show(
@@ -83,9 +80,7 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
             const cfgProxy = this.profilesService.getConfigProxyForProfile(profile)
             profile.name = this.profilesService.providerForProfile(profile)?.getSuggestedName(cfgProxy) ?? this.translate.instant('{name} copy', base)
         }
-        profile.id = `${profile.type}:custom:${slugify(profile.name)}:${uuidv4()}`
-        this.config.store.profiles = [profile, ...this.config.store.profiles]
-        await this.config.save()
+        this.profilesService.newProfile(profile)
     }
 
     async editProfile (profile: PartialProfile<Profile>): Promise<void> {
@@ -142,7 +137,6 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
     }
 
     async refresh (): Promise<void> {
-        this.profiles = this.config.store.profiles
         const groups = await this.profilesService.getProfileGroups(true, true)
         groups.sort((a, b) => a.name.localeCompare(b.name))
         groups.sort((a, b) => (a.id === 'built-in' ? 1 : 0) - (b.id === 'built-in' ? 1 : 0))

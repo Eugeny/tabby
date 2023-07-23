@@ -99,7 +99,7 @@ export class EditProfileModalComponent<P extends Profile> {
                     id: uuidv4(),
                     name: this.profileGroup,
                 }
-                this.profilesService.writeProfileGroup(newGroup, false)
+                this.profilesService.newProfileGroup(newGroup, false, false)
                 this.profileGroup = newGroup
             }
             this.profile.group = this.profileGroup.id

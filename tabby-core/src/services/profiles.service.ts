@@ -9,6 +9,8 @@ import { configMerge, ConfigProxy, ConfigService } from './config.service'
 import { NotificationsService } from './notifications.service'
 import { SelectorService } from './selector.service'
 import deepClone from 'clone-deep'
+import { v4 as uuidv4 } from 'uuid'
+import slugify from 'slugify'
 
 @Injectable({ providedIn: 'root' })
 export class ProfilesService {
@@ -87,6 +89,28 @@ export class ProfilesService {
         list.sort((a, b) => sortKey(a).localeCompare(sortKey(b)))
         list.sort((a, b) => (a.isBuiltin ? 1 : 0) - (b.isBuiltin ? 1 : 0))
         return clone ? deepClone(list) : list
+    }
+
+    /**
+    * Insert a new Profile in config
+    * arg: saveConfig (default: true) -> invoke after the Profile was updated
+    * arg: genId (default: true) -> generate uuid in before pushing Profile into config
+    */
+    async newProfile (profile: PartialProfile<Profile>, saveConfig = true, genId = true): Promise<void> {
+        if (genId) {
+            profile.id = `${profile.type}:custom:${slugify(profile.name)}:${uuidv4()}`
+        }
+
+        const cProfile = this.config.store.profiles.find(p => p.id === profile.id)
+        if (cProfile) {
+            throw new Error(`Cannot insert new Profile, duplicated Id: ${profile.id}`)
+        }
+
+        this.config.store.profiles.push(profile)
+
+        if (saveConfig) {
+            return this.config.save()
+        }
     }
 
     /**
@@ -415,6 +439,28 @@ export class ProfilesService {
         }
 
         return groups
+    }
+
+    /**
+    * Insert a new ProfileGroup in config
+    * arg: saveConfig (default: true) -> invoke after the Profile was updated
+    * arg: genId (default: true) -> generate uuid in before pushing Profile into config
+    */
+    async newProfileGroup (group: PartialProfileGroup<ProfileGroup>, saveConfig = true, genId = true): Promise<void> {
+        if (genId) {
+            group.id = `${uuidv4()}`
+        }
+
+        const cProfileGroup = this.config.store.groups.find(p => p.id === group.id)
+        if (cProfileGroup) {
+            throw new Error(`Cannot insert new ProfileGroup, duplicated Id: ${group.id}`)
+        }
+
+        this.config.store.groups.push(group)
+
+        if (saveConfig) {
+            return this.config.save()
+        }
     }
 
     /**
