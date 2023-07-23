@@ -60,7 +60,7 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
                 profiles.map(p => ({
                     icon: p.icon,
                     description: this.profilesService.getDescription(p) ?? undefined,
-                    name: p.group ? `${p.group} / ${p.name}` : p.name,
+                    name: p.group ? `${this.profilesService.resolveProfileGroupName(p.group)} / ${p.name}` : p.name,
                     result: p,
                 })),
             )
