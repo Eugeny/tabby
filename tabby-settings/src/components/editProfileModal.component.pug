@@ -24,8 +24,10 @@
                     type='text',
                     alwaysVisibleTypeahead,
                     placeholder='Ungrouped',
-                    [(ngModel)]='profile.group',
+                    [(ngModel)]='profileGroup',
                     [ngbTypeahead]='groupTypeahead',
+                    [inputFormatter]="groupFormatter",
+			        [resultFormatter]="groupFormatter",
                 )
 
             .mb-3(*ngIf='!defaultsMode')

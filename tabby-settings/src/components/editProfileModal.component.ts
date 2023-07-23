@@ -2,7 +2,8 @@
 import { Observable, OperatorFunction, debounceTime, map, distinctUntilChanged } from 'rxjs'
 import { Component, Input, ViewChild, ViewContainerRef, ComponentFactoryResolver, Injector } from '@angular/core'
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
-import { ConfigProxy, ConfigService, Profile, ProfileProvider, ProfileSettingsComponent, ProfilesService, TAB_COLORS } from 'tabby-core'
+import { ConfigProxy, ConfigService, PartialProfileGroup, Profile, ProfileProvider, ProfileSettingsComponent, ProfilesService, TAB_COLORS, ProfileGroup } from 'tabby-core'
+import { v4 as uuidv4 } from 'uuid'
 
 const iconsData = require('../../../tabby-core/src/icons.json')
 const iconsClassList = Object.keys(iconsData).map(
@@ -20,7 +21,8 @@ export class EditProfileModalComponent<P extends Profile> {
     @Input() profileProvider: ProfileProvider<P>
     @Input() settingsComponent: new () => ProfileSettingsComponent<P>
     @Input() defaultsMode = false
-    groupNames: string[]
+    @Input() profileGroup: PartialProfileGroup<ProfileGroup> | string | undefined
+    groups: PartialProfileGroup<ProfileGroup>[]
     @ViewChild('placeholder', { read: ViewContainerRef }) placeholder: ViewContainerRef
 
     private _profile: Profile
@@ -33,11 +35,12 @@ export class EditProfileModalComponent<P extends Profile> {
         config: ConfigService,
         private modalInstance: NgbActiveModal,
     ) {
-        this.groupNames = [...new Set(
-            (config.store.profiles as Profile[])
-                .map(x => x.group)
-                .filter(x => !!x),
-        )].sort() as string[]
+        if (!this.defaultsMode) {
+            this.profilesService.getProfileGroups().then(groups => { 
+                this.groups = groups
+                this.profileGroup = groups.find(g => g.id === this.profile.group)
+            })
+        }
     }
 
     colorsAutocomplete = text$ => text$.pipe(
@@ -72,12 +75,14 @@ export class EditProfileModalComponent<P extends Profile> {
         }
     }
 
-    groupTypeahead = (text$: Observable<string>) =>
+    groupTypeahead: OperatorFunction<string, readonly PartialProfileGroup<ProfileGroup>[]> = (text$: Observable<string>) =>
         text$.pipe(
             debounceTime(200),
             distinctUntilChanged(),
-            map(q => this.groupNames.filter(x => !q || x.toLowerCase().includes(q.toLowerCase()))),
+            map(q => this.groups.filter(g => !q || g.name.toLowerCase().includes(q.toLowerCase()))),
         )
+
+    groupFormatter = (g: PartialProfileGroup<ProfileGroup>) => g.name
 
     iconSearch: OperatorFunction<string, string[]> = (text$: Observable<string>) =>
         text$.pipe(
@@ -86,7 +91,20 @@ export class EditProfileModalComponent<P extends Profile> {
         )
 
     save () {
-        this.profile.group ||= undefined
+        if (!this.profileGroup) {
+            this.profile.group = undefined
+        } else {
+            if (typeof this.profileGroup === 'string') {
+                const newGroup: PartialProfileGroup<ProfileGroup> = {
+                    id: uuidv4(),
+                    name: this.profileGroup
+                }
+                this.groups.push(newGroup)
+                this.profileGroup = newGroup
+            }
+            this.profile.group = this.profileGroup.id
+        }
+
         this.settingsComponentInstance?.save?.()
         this.profile.__cleanup()
         this.modalInstance.close(this._profile)
