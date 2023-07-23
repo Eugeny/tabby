@@ -37,6 +37,117 @@ export class ProfilesService {
         @Inject(ProfileProvider) private profileProviders: ProfileProvider<Profile>[],
     ) { }
 
+    /*
+    * Methods used to interract with ProfileProvider
+    */
+
+    getProviders (): ProfileProvider<Profile>[] {
+        return [...this.profileProviders]
+    }
+
+    providerForProfile <T extends Profile> (profile: PartialProfile<T>): ProfileProvider<T>|null {
+        const provider = this.profileProviders.find(x => x.id === profile.type) ?? null
+        return provider as unknown as ProfileProvider<T>|null
+    }
+
+    getDescription <P extends Profile> (profile: PartialProfile<P>): string|null {
+        profile = this.getConfigProxyForProfile(profile)
+        return this.providerForProfile(profile)?.getDescription(profile) ?? null
+    }
+
+    /*
+    * Methods used to interract with Profile
+    */
+
+    /*
+    * Return ConfigProxy for a given Profile
+    * arg: skipUserDefaults -> do not merge global provider defaults in ConfigProxy
+    */
+    getConfigProxyForProfile <T extends Profile> (profile: PartialProfile<T>, skipUserDefaults = false): T {
+        const defaults = this.getProfileDefaults(profile, skipUserDefaults).reduce(configMerge, {})
+        return new ConfigProxy(profile, defaults) as unknown as T
+    }
+
+    /**
+    * Return an Array of Profiles
+    * arg: includeBuiltin (default: true) -> include BuiltinProfiles
+    * arg: clone (default: false) -> return deepclone Array
+    */
+    async getProfiles (includeBuiltin = true, clone = false): Promise<PartialProfile<Profile>[]> {
+        let list = this.config.store.profiles ?? []
+        if (includeBuiltin) {
+            const lists = await Promise.all(this.config.enabledServices(this.profileProviders).map(x => x.getBuiltinProfiles()))
+            list = [
+                ...this.config.store.profiles ?? [],
+                ...lists.reduce((a, b) => a.concat(b), []),
+            ]
+        }
+
+        const sortKey = p => `${this.resolveProfileGroupName(p.group ?? '')} / ${p.name}`
+        list.sort((a, b) => sortKey(a).localeCompare(sortKey(b)))
+        list.sort((a, b) => (a.isBuiltin ? 1 : 0) - (b.isBuiltin ? 1 : 0))
+        return clone ? deepClone(list) : list
+    }
+
+    /**
+    * Write a Profile in config
+    * arg: saveConfig (default: true) -> invoke after the Profile was updated
+    */
+    async writeProfile (profile: PartialProfile<Profile>, saveConfig = true): Promise<void> {
+        this.deleteProfile(profile, false)
+
+        this.config.store.profiles.push(profile)
+        if (saveConfig) {
+            return this.config.save()
+        }
+    }
+
+    /**
+    * Delete a Profile from config
+    * arg: saveConfig (default: true) -> invoke after the Profile was deleted
+    */
+    async deleteProfile (profile: PartialProfile<Profile>, saveConfig = true): Promise<void> {
+        this.providerForProfile(profile)?.deleteProfile(this.getConfigProxyForProfile(profile))
+        this.config.store.profiles = this.config.store.profiles.filter(p => p.id !== profile.id)
+
+        const profileHotkeyName = ProfilesService.getProfileHotkeyName(profile)
+        if (this.config.store.hotkeys.profile.hasOwnProperty(profileHotkeyName)) {
+            const profileHotkeys = deepClone(this.config.store.hotkeys.profile)
+            // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
+            delete profileHotkeys[profileHotkeyName]
+            this.config.store.hotkeys.profile = profileHotkeys
+        }
+
+        if (saveConfig) {
+            return this.config.save()
+        }
+    }
+
+    /**
+    * Delete all Profiles from config using option filter
+    * arg: options { group: string } -> options used to filter which profile have to be deleted
+    * arg: saveConfig (default: true) -> invoke after the Profile was deleted
+    */
+    async deleteBulkProfiles (options: { group: string }, saveConfig = true): Promise<void> {
+        for (const profile of this.config.store.profiles.filter(p => p.group === options.group)) {
+            this.providerForProfile(profile)?.deleteProfile(this.getConfigProxyForProfile(profile))
+
+            const profileHotkeyName = ProfilesService.getProfileHotkeyName(profile)
+            if (this.config.store.hotkeys.profile.hasOwnProperty(profileHotkeyName)) {
+                const profileHotkeys = deepClone(this.config.store.hotkeys.profile)
+                // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
+                delete profileHotkeys[profileHotkeyName]
+                this.config.store.hotkeys.profile = profileHotkeys
+            }
+        }
+
+        this.config.store.profiles = this.config.store.profiles.filter(p => p.group !== options.group)
+
+        if (saveConfig) {
+            return this.config.save()
+        }
+    }
+
     async openNewTabForProfile <P extends Profile> (profile: PartialProfile<P>): Promise<BaseTabComponent|null> {
         const params = await this.newTabParametersForProfile(profile)
         if (params) {
@@ -64,32 +175,27 @@ export class ProfilesService {
         return params
     }
 
-    getProviders (): ProfileProvider<Profile>[] {
-        return [...this.profileProviders]
+    async launchProfile (profile: PartialProfile<Profile>): Promise<void> {
+        await this.openNewTabForProfile(profile)
+
+        let recentProfiles: PartialProfile<Profile>[] = JSON.parse(window.localStorage['recentProfiles'] ?? '[]')
+        if (this.config.store.terminal.showRecentProfiles > 0) {
+            recentProfiles = recentProfiles.filter(x => x.group !== profile.group || x.name !== profile.name)
+            recentProfiles.unshift(profile)
+            recentProfiles = recentProfiles.slice(0, this.config.store.terminal.showRecentProfiles)
+        } else {
+            recentProfiles = []
+        }
+        window.localStorage['recentProfiles'] = JSON.stringify(recentProfiles)
     }
 
-    async getProfiles (): Promise<PartialProfile<Profile>[]> {
-        const lists = await Promise.all(this.config.enabledServices(this.profileProviders).map(x => x.getBuiltinProfiles()))
-        let list = lists.reduce((a, b) => a.concat(b), [])
-        list = [
-            ...this.config.store.profiles ?? [],
-            ...list,
-        ]
-        const sortKey = p => `${this.resolveProfileGroupName(p.group ?? '')} / ${p.name}`
-        list.sort((a, b) => sortKey(a).localeCompare(sortKey(b)))
-        list.sort((a, b) => (a.isBuiltin ? 1 : 0) - (b.isBuiltin ? 1 : 0))
-        return list
+    static getProfileHotkeyName (profile: PartialProfile<Profile>): string {
+        return (profile.id ?? profile.name).replace(/\./g, '-')
     }
 
-    providerForProfile <T extends Profile> (profile: PartialProfile<T>): ProfileProvider<T>|null {
-        const provider = this.profileProviders.find(x => x.id === profile.type) ?? null
-        return provider as unknown as ProfileProvider<T>|null
-    }
-
-    getDescription <P extends Profile> (profile: PartialProfile<P>): string|null {
-        profile = this.getConfigProxyForProfile(profile)
-        return this.providerForProfile(profile)?.getDescription(profile) ?? null
-    }
+    /*
+    * Methods used to interract with Profile Selector
+    */
 
     selectorOptionForProfile <P extends Profile, T> (profile: PartialProfile<P>): SelectorOption<T> {
         const fullProfile = this.getConfigProxyForProfile(profile)
@@ -101,12 +207,6 @@ export class ProfilesService {
             freeInputEquivalent,
             description: provider?.getDescription(fullProfile),
         }
-    }
-
-    getRecentProfiles (): PartialProfile<Profile>[] {
-        let recentProfiles: PartialProfile<Profile>[] = JSON.parse(window.localStorage['recentProfiles'] ?? '[]')
-        recentProfiles = recentProfiles.slice(0, this.config.store.terminal.showRecentProfiles)
-        return recentProfiles
     }
 
     showProfileSelector (): Promise<PartialProfile<Profile>|null> {
@@ -198,6 +298,12 @@ export class ProfilesService {
         })
     }
 
+    getRecentProfiles (): PartialProfile<Profile>[] {
+        let recentProfiles: PartialProfile<Profile>[] = JSON.parse(window.localStorage['recentProfiles'] ?? '[]')
+        recentProfiles = recentProfiles.slice(0, this.config.store.terminal.showRecentProfiles)
+        return recentProfiles
+    }
+
     async quickConnect (query: string): Promise<PartialProfile<Profile>|null> {
         for (const provider of this.getProviders()) {
             if (provider.supportsQuickConnect) {
@@ -209,25 +315,6 @@ export class ProfilesService {
         }
         this.notifications.error(`Could not parse "${query}"`)
         return null
-    }
-
-    getConfigProxyForProfile <T extends Profile> (profile: PartialProfile<T>, skipUserDefaults = false): T {
-        const defaults = this.getProfileDefaults(profile, skipUserDefaults).reduce(configMerge, {})
-        return new ConfigProxy(profile, defaults) as unknown as T
-    }
-
-    async launchProfile (profile: PartialProfile<Profile>): Promise<void> {
-        await this.openNewTabForProfile(profile)
-
-        let recentProfiles: PartialProfile<Profile>[] = JSON.parse(window.localStorage['recentProfiles'] ?? '[]')
-        if (this.config.store.terminal.showRecentProfiles > 0) {
-            recentProfiles = recentProfiles.filter(x => x.group !== profile.group || x.name !== profile.name)
-            recentProfiles.unshift(profile)
-            recentProfiles = recentProfiles.slice(0, this.config.store.terminal.showRecentProfiles)
-        } else {
-            recentProfiles = []
-        }
-        window.localStorage['recentProfiles'] = JSON.stringify(recentProfiles)
     }
 
     /*
@@ -254,6 +341,7 @@ export class ProfilesService {
     /**
     * Return defaults for a given profile
     * Always return something, empty object if no defaults found
+    * arg: skipUserDefaults -> do not merge global provider defaults in ConfigProxy
     */
     getProfileDefaults (profile: PartialProfile<Profile>, skipUserDefaults = false): any {
         const provider = this.providerForProfile(profile)
@@ -276,7 +364,7 @@ export class ProfilesService {
     async getProfileGroups (includeProfiles = false, includeNonUserGroup = false): Promise<PartialProfileGroup<ProfileGroup>[]> {
         let profiles: PartialProfile<Profile>[] = []
         if (includeProfiles) {
-            profiles = await this.getProfiles()
+            profiles = await this.getProfiles(includeNonUserGroup, true)
         }
 
         const profileGroupCollapsed = JSON.parse(window.localStorage.profileGroupCollapsed ?? '{}')
@@ -327,7 +415,7 @@ export class ProfilesService {
     * arg: saveConfig (default: true) -> invoke after the ProfileGroup was updated
     */
     async writeProfileGroup (group: PartialProfileGroup<ProfileGroup>, saveConfig = true): Promise<void> {
-        this.deleteProfileGroup(group, false)
+        this.deleteProfileGroup(group, false, false)
 
         delete group.profiles
         delete group.editable
@@ -346,12 +434,13 @@ export class ProfilesService {
     async deleteProfileGroup (group: PartialProfileGroup<ProfileGroup>, saveConfig = true, deleteProfiles = true): Promise<void> {
         this.config.store.groups = this.config.store.groups.filter(g => g.id !== group.id)
         if (deleteProfiles) {
-            this.config.store.profiles = this.config.store.profiles.filter(x => x.group !== group.id)
+            await this.deleteBulkProfiles({ group: group.id }, false)
         } else {
             for (const profile of this.config.store.profiles.filter(x => x.group === group.id)) {
                 delete profile.group
             }
         }
+
         if (saveConfig) {
             return this.config.save()
         }
