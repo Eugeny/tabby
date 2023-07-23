@@ -167,7 +167,7 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
         const result = await modal.result
         if (result) {
             group.name = result.value
-            await this.config.save()
+            await this.profilesService.writeProfileGroup(group)
         }
     }
 
@@ -184,7 +184,8 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
                 cancelId: 1,
             },
         )).response === 0) {
-            if ((await this.platform.showMessageBox(
+            let deleteProfiles = false
+            if ((group.profiles?.length ?? 0) > 0 && (await this.platform.showMessageBox(
                 {
                     type: 'warning',
                     message: this.translate.instant('Delete the group\'s profiles?'),
@@ -195,14 +196,11 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
                     defaultId: 0,
                     cancelId: 0,
                 },
-            )).response === 0) {
-                for (const profile of this.profiles.filter(x => x.group === group.id)) {
-                    delete profile.group
-                }
-            } else {
-                this.config.store.profiles = this.config.store.profiles.filter(x => x.group !== group.id)
+            )).response !== 0) {
+                deleteProfiles = true
             }
-            await this.config.save()
+
+            await this.profilesService.deleteProfileGroup(group, true, deleteProfiles)
         }
     }
 

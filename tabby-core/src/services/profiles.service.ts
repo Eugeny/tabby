@@ -8,6 +8,7 @@ import { AppService } from './app.service'
 import { configMerge, ConfigProxy, ConfigService } from './config.service'
 import { NotificationsService } from './notifications.service'
 import { SelectorService } from './selector.service'
+import deepClone from 'clone-deep'
 
 @Injectable({ providedIn: 'root' })
 export class ProfilesService {
@@ -74,7 +75,7 @@ export class ProfilesService {
             ...this.config.store.profiles ?? [],
             ...list,
         ]
-        const sortKey = p => `${p.group ?? ''} / ${p.name}`
+        const sortKey = p => `${this.resolveProfileGroupName(p.group ?? '')} / ${p.name}`
         list.sort((a, b) => sortKey(a).localeCompare(sortKey(b)))
         list.sort((a, b) => (a.isBuiltin ? 1 : 0) - (b.isBuiltin ? 1 : 0))
         return list
@@ -96,8 +97,7 @@ export class ProfilesService {
         const freeInputEquivalent = provider?.intoQuickConnectString(fullProfile) ?? undefined
         return {
             ...profile,
-            // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
-            group: profile.group || '',
+            group: this.resolveProfileGroupName(profile.group ?? ''),
             freeInputEquivalent,
             description: provider?.getDescription(fullProfile),
         }
@@ -280,7 +280,7 @@ export class ProfilesService {
         }
 
         const profileGroupCollapsed = JSON.parse(window.localStorage.profileGroupCollapsed ?? '{}')
-        let groups: PartialProfileGroup<ProfileGroup>[] = this.config.store.groups ?? []
+        let groups: PartialProfileGroup<ProfileGroup>[] = deepClone(this.config.store.groups ?? [])
         groups = groups.map(x => {
             x.editable = true
             x.collapsed = profileGroupCollapsed[x.id] ?? false
@@ -320,6 +320,48 @@ export class ProfilesService {
         }
 
         return groups
+    }
+
+    /**
+    * Write a ProfileGroup in config
+    * arg: saveConfig (default: true) -> invoke after the ProfileGroup was updated
+    */
+    async writeProfileGroup (group: PartialProfileGroup<ProfileGroup>, saveConfig = true): Promise<void> {
+        this.deleteProfileGroup(group, false)
+
+        delete group.profiles
+        delete group.editable
+        delete group.collapsed
+
+        this.config.store.groups.push(group)
+        if (saveConfig) {
+            return this.config.save()
+        }
+    }
+
+    /**
+    * Delete a ProfileGroup from config
+    * arg: saveConfig (default: true) -> invoke after the ProfileGroup was deleted
+    */
+    async deleteProfileGroup (group: PartialProfileGroup<ProfileGroup>, saveConfig = true, deleteProfiles = true): Promise<void> {
+        this.config.store.groups = this.config.store.groups.filter(g => g.id !== group.id)
+        if (deleteProfiles) {
+            this.config.store.profiles = this.config.store.profiles.filter(x => x.group !== group.id)
+        } else {
+            for (const profile of this.config.store.profiles.filter(x => x.group === group.id)) {
+                delete profile.group
+            }
+        }
+        if (saveConfig) {
+            return this.config.save()
+        }
+    }
+
+    /**
+    * Resolve and return ProfileGroup from ProfileGroup ID
+    */
+    resolveProfileGroupName (groupId: string): string {
+        return this.config.store.groups.find(g => g.id === groupId)?.name ?? ''
     }
 
     /**

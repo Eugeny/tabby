@@ -36,7 +36,7 @@ export class EditProfileModalComponent<P extends Profile> {
         private modalInstance: NgbActiveModal,
     ) {
         if (!this.defaultsMode) {
-            this.profilesService.getProfileGroups().then(groups => { 
+            this.profilesService.getProfileGroups().then(groups => {
                 this.groups = groups
                 this.profileGroup = groups.find(g => g.id === this.profile.group)
             })
@@ -97,9 +97,9 @@ export class EditProfileModalComponent<P extends Profile> {
             if (typeof this.profileGroup === 'string') {
                 const newGroup: PartialProfileGroup<ProfileGroup> = {
                     id: uuidv4(),
-                    name: this.profileGroup
+                    name: this.profileGroup,
                 }
-                this.groups.push(newGroup)
+                this.profilesService.writeProfileGroup(newGroup, false)
                 this.profileGroup = newGroup
             }
             this.profile.group = this.profileGroup.id
