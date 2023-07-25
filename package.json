@@ -40,7 +40,7 @@
     "css-loader": "^6.7.3",
     "deep-equal": "2.0.5",
     "electron": "^25.3.0",
-    "electron-builder": "^24.0.0-alpha.1",
+    "electron-builder": "^24.6.3",
     "electron-download": "^4.1.1",
     "electron-installer-snap": "^5.1.0",
     "electron-rebuild": "^3.2.9",
