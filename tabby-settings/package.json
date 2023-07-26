@@ -18,8 +18,8 @@
   "author": "Eugene Pankov",
   "license": "MIT",
   "devDependencies": {
-    "@types/marked": "^4.0.8",
-    "marked": "^4.2.12",
+    "@types/marked": "^5.0.1",
+    "marked": "^5.1.2",
     "ngx-infinite-scroll": "^16"
   },
   "peerDependencies": {
