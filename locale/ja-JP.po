@@ -10,14 +10,14 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2023-06-28 08:41\n"
+"PO-Revision-Date: 2023-08-03 08:25\n"
 
-#: tabby-local/src/components/terminalTab.component.ts:111
+#: tabby-local/src/components/terminalTab.component.ts:113
 msgid "\"{command}\" is still running. Close?"
 msgstr "\"{command}\"が実行中です。閉じますか？"
 
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:79
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:90
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:80
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:91
 msgid "{name} copy"
 msgstr "{name} コピー"
 
@@ -68,7 +68,7 @@ msgstr "行間にスペースを空けます"
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:22
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:61
-#: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:50
+#: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:58
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:124
 msgid "Advanced"
 msgstr "詳細"
@@ -114,7 +114,7 @@ msgstr "アプリケーションの設定"
 msgid "Are you sure you want to close Tabby? You can disable this prompt in Settings -> Window."
 msgstr "Tabbyを閉じてもよろしいですか？この画面は設定 -> ウィンドウから無効にすることができます。"
 
-#: tabby-core/src/services/config.service.ts:383
+#: tabby-core/src/services/config.service.ts:398
 msgid "Are you sure?"
 msgstr "本当によろしいですか？"
 
@@ -142,6 +142,7 @@ msgstr "認証方法"
 msgid "Author"
 msgstr "作者"
 
+#: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:50
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:78
 msgid "Auto"
 msgstr "自動"
@@ -172,9 +173,13 @@ msgstr "利用可能"
 msgid "Background type"
 msgstr "透過の種類"
 
+#: locale/tmp-html/tabby-terminal/src/components/inputProcessingSettings.component.html:4
+msgid "Backspace key mode"
+msgstr ""
+
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:14
-#: tabby-serial/src/components/serialTab.component.ts:111
-#: tabby-serial/src/profiles.ts:86
+#: tabby-serial/src/components/serialTab.component.ts:93
+#: tabby-serial/src/profiles.ts:87
 msgid "Baud rate"
 msgstr "伝送速度"
 
@@ -186,7 +191,7 @@ msgstr "行頭に移動"
 msgid "Blink cursor"
 msgstr "カーソルの点滅"
 
-#: tabby-core/src/utils.ts:55
+#: tabby-core/src/utils.ts:60
 msgid "Blue"
 msgstr "青色"
 
@@ -212,24 +217,24 @@ msgid "Broadcast mode. Click anywhere to cancel."
 msgstr "ブロードキャストモードです。中断するにはクリックしてください。"
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:50
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:182
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:186
 msgid "Built-in"
 msgstr "標準"
 
 #: locale/tmp-html/tabby-core/src/components/renameTabModal.component.html:7
-#: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:53
+#: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:65
 #: locale/tmp-html/tabby-settings/src/components/hotkeyInputModal.component.html:14
 #: locale/tmp-html/tabby-settings/src/components/setVaultPassphraseModal.component.html:12
 #: locale/tmp-html/tabby-ssh/src/components/sftpCreateDirectoryModal.component.html:10
 #: locale/tmp-html/tabby-ssh/src/components/sftpDeleteModal.component.html:7
-#: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:32
+#: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsForMode.component.html:31
 #: tabby-electron/src/services/updater.service.ts:134
-#: tabby-local/src/components/terminalTab.component.ts:116
+#: tabby-local/src/components/terminalTab.component.ts:118
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:117
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:79
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:99
 #: tabby-ssh/src/sftpContextMenu.ts:40
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:484
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:499
 msgid "Cancel"
 msgstr "キャンセル"
 
@@ -258,7 +263,7 @@ msgstr "暗号方式"
 msgid "Clear"
 msgstr "クリア"
 
-#: tabby-core/src/services/profiles.service.ts:133
+#: tabby-core/src/services/profiles.service.ts:136
 msgid "Clear recent profiles"
 msgstr "最近使用したプロファイルをクリア"
 
@@ -275,6 +280,7 @@ msgid "Clipboard"
 msgstr "クリップボード"
 
 #: locale/tmp-html/tabby-core/src/components/safeModeModal.component.html:7
+#: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:53
 #: tabby-core/src/tabContextMenu.ts:33
 msgid "Close"
 msgstr "閉じる"
@@ -317,13 +323,17 @@ msgstr "色"
 msgid "Color scheme"
 msgstr "配色"
 
+#: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:2
+msgid "Color schemes"
+msgstr ""
+
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:216
 msgid "Colors"
 msgstr "配色"
 
 #: tabby-core/src/hotkeys.ts:73
 msgid "Combine all tabs into the current tab"
-msgstr "すべてのタブを現在のタブに統合"
+msgstr "すべてのタブを現在開いているタブに統合"
 
 #: locale/tmp-html/tabby-local/src/components/commandLineEditor.component.html:4
 msgid "Command line"
@@ -333,11 +343,11 @@ msgstr "コマンドライン"
 msgid "Command's stdin/stdout is used instead of a network connection"
 msgstr "ネットワーク接続の代わりにコマンドの stdin/stdout が使用されます"
 
-#: tabby-core/src/services/commands.service.ts:104
+#: tabby-core/src/services/commands.service.ts:105
 msgid "Commands"
 msgstr "コマンド"
 
-#: tabby-core/src/theme.ts:21
+#: tabby-core/src/theme.ts:16
 msgid "Compact (legacy)"
 msgstr "コンパクト (非推奨)"
 
@@ -371,8 +381,8 @@ msgstr "設定"
 msgid "Connect through a proxy server"
 msgstr "プロキシサーバー経由で接続"
 
-#: tabby-core/src/index.ts:214
-#: tabby-core/src/services/profiles.service.ts:178
+#: tabby-core/src/index.ts:220
+#: tabby-core/src/services/profiles.service.ts:183
 msgid "Connect to \"%s\"..."
 msgstr "'%s' に接続中..."
 
@@ -381,9 +391,9 @@ msgid "Connect to a different host first and use it as a proxy"
 msgstr "最初に別のホストに接続し、プロキシとして使用します"
 
 #: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:19
-#: tabby-serial/src/components/serialTab.component.ts:65
-#: tabby-ssh/src/components/sshTab.component.ts:143
-#: tabby-telnet/src/components/telnetTab.component.ts:72
+#: tabby-serial/src/components/serialTab.component.ts:60
+#: tabby-ssh/src/components/sshTab.component.ts:130
+#: tabby-telnet/src/components/telnetTab.component.ts:54
 msgid "Connecting"
 msgstr "接続中"
 
@@ -407,22 +417,22 @@ msgstr "コンテキストメニュー"
 msgid "Controls the amount of space between elements"
 msgstr "UI要素間の間隔を変更します"
 
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:229
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:237
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:553
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:775
-#: tabby-terminal/src/tabContextMenu.ts:30
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:235
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:243
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:568
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:788
+#: tabby-terminal/src/tabContextMenu.ts:34
 msgid "Copied"
 msgstr "コピーしました"
 
-#: tabby-terminal/src/tabContextMenu.ts:26
+#: tabby-terminal/src/tabContextMenu.ts:30
 msgid "Copy"
 msgstr "コピー"
 
 #: tabby-terminal/src/hotkeys.ts:70
-#: tabby-terminal/src/tabContextMenu.ts:66
+#: tabby-terminal/src/tabContextMenu.ts:70
 msgid "Copy current path"
-msgstr "現在のパスをコピー"
+msgstr "カレントパスをコピー"
 
 #: tabby-electron/src/sftpContextMenu.ts:29
 msgid "Copy full path"
@@ -440,7 +450,7 @@ msgstr "クリップボードにコピー"
 msgid "Copy with formatting"
 msgstr "書式付きコピー"
 
-#: tabby-core/src/services/config.service.ts:368
+#: tabby-core/src/services/config.service.ts:383
 msgid "Could not decrypt config"
 msgstr "設定を復号できませんでした"
 
@@ -457,7 +467,7 @@ msgstr "新規ディレクトリを作成"
 msgid "Current"
 msgstr "現在"
 
-#: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:3
+#: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsForMode.component.html:3
 msgid "Current color scheme"
 msgstr "使用中の配色"
 
@@ -473,13 +483,17 @@ msgstr "現在のプロセス: {name}"
 msgid "Cursor shape"
 msgstr "カーソルの形状"
 
-#: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:47
+#: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsForMode.component.html:46
 msgid "Custom"
 msgstr "カスタム"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:90
 msgid "Custom CSS"
 msgstr "カスタムCSS"
+
+#: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:4
+msgid "Dark mode"
+msgstr ""
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:26
 msgid "Data bits"
@@ -497,11 +511,19 @@ msgstr "水平方向の分割サイズを縮小"
 msgid "Decrease vertical split size"
 msgstr "垂直方向の分割サイズを縮小"
 
+#: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:86
+msgid "Default \"Connect to\" type"
+msgstr ""
+
+#: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:87
+msgid "Default connection type used by quick connect feature (ex. SSH, Telnet)"
+msgstr ""
+
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:8
 msgid "Default profile for new tabs"
 msgstr "新しいタブの既定プロファイル"
 
-#: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:78
+#: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:95
 msgid "Default profile settings"
 msgstr "既定プロファイルの設定"
 
@@ -514,23 +536,24 @@ msgid "Defaults for {type}"
 msgstr "{type} の既定値"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:44
+#: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:45
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:28
-#: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:9
+#: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsForMode.component.html:8
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:116
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:139
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:211
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:224
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:140
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:215
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:228
 #: tabby-settings/src/components/vaultSettingsTab.component.ts:49
 #: tabby-ssh/src/sftpContextMenu.ts:39
 #: tabby-ssh/src/sftpContextMenu.ts:47
-#: tabby-terminal/src/components/colorSchemeSettingsTab.component.ts:89
+#: tabby-terminal/src/components/colorSchemeSettingsForMode.component.ts:92
 #: tabby-terminal/src/components/loginScriptsSettings.component.ts:32
 msgid "Delete"
 msgstr "削除"
 
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:137
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:209
-#: tabby-terminal/src/components/colorSchemeSettingsTab.component.ts:87
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:138
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:213
+#: tabby-terminal/src/components/colorSchemeSettingsForMode.component.ts:90
 msgid "Delete \"{name}\"?"
 msgstr "{name} を削除しますか？"
 
@@ -554,7 +577,7 @@ msgstr "前の単語を削除"
 msgid "Delete the config on the remote side?"
 msgstr "リモート側の設定を消去しますか？"
 
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:221
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:225
 msgid "Delete the group's profiles?"
 msgstr "グループのプロファイルを削除しますか？"
 
@@ -599,13 +622,20 @@ msgid "Disabled"
 msgstr "無効化"
 
 #: locale/tmp-html/tabby-ssh/src/components/hostKeyPromptModal.component.html:26
-#: tabby-ssh/src/components/sshTab.component.ts:249
-#: tabby-telnet/src/components/telnetTab.component.ts:115
+#: tabby-ssh/src/components/sshTab.component.ts:204
+#: tabby-telnet/src/components/telnetTab.component.ts:83
+#: tabby-terminal/src/api/connectableTerminalTab.component.ts:36
+#: tabby-terminal/src/tabContextMenu.ts:106
+#: tabby-terminal/src/tabContextMenu.ts:110
 msgid "Disconnect"
 msgstr "切断"
 
-#: tabby-ssh/src/components/sshTab.component.ts:247
-#: tabby-telnet/src/components/telnetTab.component.ts:113
+#: tabby-terminal/src/hotkeys.ts:106
+msgid "Disconnect current tab (Serial/Telnet/SSH)"
+msgstr ""
+
+#: tabby-ssh/src/components/sshTab.component.ts:202
+#: tabby-telnet/src/components/telnetTab.component.ts:81
 msgid "Disconnect from {host}?"
 msgstr "{host} から切断しますか？"
 
@@ -621,8 +651,8 @@ msgstr "表示"
 msgid "Do not abort"
 msgstr "中止しない"
 
-#: tabby-ssh/src/components/sshTab.component.ts:250
-#: tabby-telnet/src/components/telnetTab.component.ts:116
+#: tabby-ssh/src/components/sshTab.component.ts:205
+#: tabby-telnet/src/components/telnetTab.component.ts:84
 msgid "Do not close"
 msgstr "閉じない"
 
@@ -667,11 +697,12 @@ msgstr "ダウンロード"
 msgid "Draw bold text in bright colors"
 msgstr "太字のテキストを明るい色で表示"
 
+#: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:42
 #: tabby-core/src/tabContextMenu.ts:127
 msgid "Duplicate"
 msgstr "複製"
 
-#: tabby-local/src/tabContextMenu.ts:122
+#: tabby-local/src/tabContextMenu.ts:72
 msgid "Duplicate as administrator"
 msgstr "管理者として複製"
 
@@ -680,7 +711,7 @@ msgstr "管理者として複製"
 msgid "Duplicate tab"
 msgstr "タブを複製"
 
-#: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:7
+#: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsForMode.component.html:6
 msgid "Edit"
 msgstr "編集"
 
@@ -733,8 +764,8 @@ msgstr "行末に移動"
 msgid "Environment"
 msgstr "環境"
 
-#: tabby-core/src/services/config.service.ts:372
-#: tabby-core/src/services/config.service.ts:386
+#: tabby-core/src/services/config.service.ts:387
+#: tabby-core/src/services/config.service.ts:401
 msgid "Erase config"
 msgstr "設定を消去"
 
@@ -786,7 +817,7 @@ msgstr "固定"
 msgid "Fluent background sometimes causes drag lag"
 msgstr "Fluentはドラッグ中にラグを発生させる場合があります"
 
-#: tabby-terminal/src/tabContextMenu.ts:78
+#: tabby-terminal/src/tabContextMenu.ts:82
 msgid "Focus all panes"
 msgstr "すべてのペインにフォーカス"
 
@@ -794,7 +825,7 @@ msgstr "すべてのペインにフォーカス"
 msgid "Focus all panes at once (broadcast)"
 msgstr "一度にすべてのペインをフォーカス (ブロードキャスト)"
 
-#: tabby-terminal/src/tabContextMenu.ts:71
+#: tabby-terminal/src/tabContextMenu.ts:75
 msgid "Focus all tabs"
 msgstr "すべてのタブにフォーカスする"
 
@@ -842,11 +873,11 @@ msgstr "左側のペインにフォーカス"
 msgid "Focus the pane on the right"
 msgstr "右側のペインにフォーカス"
 
-#: tabby-core/src/theme.ts:43
+#: tabby-core/src/theme.ts:34
 msgid "Follow the color scheme"
 msgstr "配色設定に合わせる"
 
-#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:7
+#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:5
 msgid "Font"
 msgstr "フォント"
 
@@ -924,7 +955,7 @@ msgstr "ウィンドウの背景を透過します"
 msgid "Go up"
 msgstr "上へ"
 
-#: tabby-core/src/utils.ts:56
+#: tabby-core/src/utils.ts:61
 msgid "Green"
 msgstr "緑色"
 
@@ -948,6 +979,10 @@ msgstr "Tabbyの翻訳に参加する"
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:44
 msgid "Hexadecimal"
 msgstr "16進数"
+
+#: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:43
+msgid "Hide"
+msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:176
 msgid "Hide tab close button"
@@ -991,7 +1026,7 @@ msgstr "ホストキーの検証"
 msgid "Hotkeys"
 msgstr "ホットキー"
 
-#: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:69
+#: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:77
 msgid "How Tabby presents itself through environment vars"
 msgstr "環境変数を利用してTabbyを他の端末のように扱わせます"
 
@@ -1015,7 +1050,7 @@ msgstr "アイコン"
 msgid "id.tab-width.dynamic"
 msgstr "可変"
 
-#: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:62
+#: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:70
 msgid "If disabled, only custom profiles will show up in the profile selector"
 msgstr "無効にした場合、プロファイルセレクターにカスタムプロファイルのみが表示されます"
 
@@ -1030,6 +1065,12 @@ msgstr "水平方向の分割サイズを拡大"
 #: tabby-core/src/hotkeys.ts:245
 msgid "Increase vertical split size"
 msgstr "垂直方向の分割サイズを拡大"
+
+#: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:86
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:226
+#: locale/tmp-html/tabby-telnet/src/components/telnetProfileSettings.component.html:21
+msgid "Input"
+msgstr ""
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:18
 msgid "Input is sent as you type"
@@ -1076,10 +1117,11 @@ msgstr "次の単語に移動"
 msgid "Jump to previous word"
 msgstr "前の単語に移動"
 
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:140
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:212
+#: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:51
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:141
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:216
 #: tabby-settings/src/components/vaultSettingsTab.component.ts:50
-#: tabby-terminal/src/components/colorSchemeSettingsTab.component.ts:90
+#: tabby-terminal/src/components/colorSchemeSettingsForMode.component.ts:93
 #: tabby-terminal/src/components/loginScriptsSettings.component.ts:33
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:49
 msgid "Keep"
@@ -1109,7 +1151,7 @@ msgstr "キーボード"
 msgid "Keyboard-interactive auth"
 msgstr "キーボードインタラクティブ認証"
 
-#: tabby-local/src/components/terminalTab.component.ts:115
+#: tabby-local/src/components/terminalTab.component.ts:117
 msgid "Kill"
 msgstr "強制終了"
 
@@ -1144,6 +1186,10 @@ msgstr "左側"
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:40
 msgid "Lets the shell handle Meta key instead of OS"
 msgstr "OSの代わりにシェルにメタキーを処理させます"
+
+#: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:9
+msgid "Light mode"
+msgstr ""
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:27
 msgid "Line by line"
@@ -1188,7 +1234,7 @@ msgstr "ログインスクリプト"
 msgid "Long-click for context menu"
 msgstr "長押しするとコンテキストメニューが表示されます"
 
-#: tabby-core/src/services/profiles.service.ts:162
+#: tabby-core/src/services/profiles.service.ts:167
 msgid "Manage profiles"
 msgstr "プロファイルの管理"
 
@@ -1221,7 +1267,7 @@ msgstr "タブを左に移動"
 msgid "Move tab to the right"
 msgstr "タブを右に移動"
 
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:223
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:227
 msgid "Move to \"Ungrouped\""
 msgstr "\"未分類\" に移動"
 
@@ -1230,7 +1276,7 @@ msgid "Moving the mouse over an inactive pane will cause it to activate"
 msgstr "マウスの移動でアクティブなペインを切り替えることができます。"
 
 #: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:12
-#: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:14
+#: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsForMode.component.html:13
 msgid "Name"
 msgstr "名前"
 
@@ -1246,7 +1292,7 @@ msgstr "新しいディレクトリの名前"
 msgid "Native"
 msgstr "標準"
 
-#: tabby-local/src/tabContextMenu.ts:103
+#: tabby-local/src/tabContextMenu.ts:53
 msgid "New admin tab"
 msgstr "新しい管理者タブ"
 
@@ -1258,7 +1304,7 @@ msgstr "{platform} の新しい設定"
 msgid "New item"
 msgstr "新しい項目"
 
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:193
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:197
 #: tabby-settings/src/components/vaultSettingsTab.component.ts:118
 msgid "New name"
 msgstr "新しい名前"
@@ -1267,32 +1313,32 @@ msgstr "新しい名前"
 msgid "New profile"
 msgstr "新しいプロファイル"
 
-#: tabby-local/src/tabContextMenu.ts:30
+#: tabby-terminal/src/tabContextMenu.ts:176
 msgid "New profile name"
 msgstr "新しいプロファイル名"
 
 #: tabby-local/src/hotkeys.ts:10
 msgid "New tab"
-msgstr "新しいタブ"
+msgstr "新しいタブを開く"
 
 #: tabby-core/src/hotkeys.ts:272
 msgid "New tab: {profile}"
 msgstr "新しいタブ: {profile}"
 
 #: tabby-local/src/buttonProvider.ts:20
-#: tabby-local/src/tabContextMenu.ts:77
+#: tabby-local/src/tabContextMenu.ts:27
 msgid "New terminal"
 msgstr "新しいターミナル"
 
 #: tabby-electron/src/hotkeys.ts:10
 msgid "New window"
-msgstr "新しいウインドウ"
+msgstr "新しいウィンドウを開く"
 
 #: tabby-electron/src/services/dockMenu.service.ts:62
 msgid "New Window"
 msgstr "新しいウィンドウ"
 
-#: tabby-local/src/tabContextMenu.ts:87
+#: tabby-local/src/tabContextMenu.ts:37
 msgid "New with profile"
 msgstr "新しいプロファイルを追加"
 
@@ -1300,7 +1346,7 @@ msgstr "新しいプロファイルを追加"
 msgid "Next tab"
 msgstr "次のタブ"
 
-#: tabby-core/src/utils.ts:54
+#: tabby-core/src/utils.ts:59
 msgid "No color"
 msgstr "色指定なし"
 
@@ -1352,6 +1398,10 @@ msgstr "公式"
 msgid "On GitHub Discussions"
 msgstr "GitHub Discussions"
 
+#: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:47
+msgid "Only close the tab when session is explicitly terminated"
+msgstr ""
+
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:46
 msgid "Opacity"
 msgstr "不透明度"
@@ -1381,7 +1431,7 @@ msgstr "オプション"
 msgid "Options"
 msgstr "設定"
 
-#: tabby-core/src/utils.ts:57
+#: tabby-core/src/utils.ts:62
 msgid "Orange"
 msgstr "橙色"
 
@@ -1437,7 +1487,7 @@ msgstr "ペインサイズの変更幅"
 msgid "Panes"
 msgstr "ペイン"
 
-#: tabby-core/src/theme.ts:35
+#: tabby-core/src/theme.ts:26
 msgid "Paper (legacy)"
 msgstr "ペーパー (非推奨)"
 
@@ -1449,6 +1499,10 @@ msgstr "パリティ"
 msgid "Partial config sync is not possible when the config is encrypted via Vault."
 msgstr "設定ファイルがVaultによって暗号化されている場合、部分的な設定の同期はできません。"
 
+#: tabby-terminal/src/components/inputProcessingSettings.component.ts:17
+msgid "Pass-through"
+msgstr ""
+
 #: tabby-settings/src/components/vaultSettingsTab.component.ts:87
 msgid "Passphrase for a private key with hash {hash}..."
 msgstr "秘密鍵のパスフレーズ ハッシュ値 {hash}..."
@@ -1459,8 +1513,8 @@ msgid "Password"
 msgstr "パスワード"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:62
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:483
-#: tabby-terminal/src/tabContextMenu.ts:35
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:498
+#: tabby-terminal/src/tabContextMenu.ts:39
 msgid "Paste"
 msgstr "貼り付け"
 
@@ -1472,7 +1526,7 @@ msgstr "クリップボードから貼り付け"
 msgid "Paste if no selection, else copy"
 msgstr "通常は貼り付け、テキスト選択時のみコピー、"
 
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:490
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:505
 msgid "Paste multiple lines?"
 msgstr "複数行の貼り付けを実行してもよろしいですか？"
 
@@ -1501,7 +1555,7 @@ msgstr "プラグインのフォルダー"
 msgid "Port"
 msgstr "ポート"
 
-#: tabby-serial/src/components/serialTab.component.ts:70
+#: tabby-serial/src/components/serialTab.component.ts:65
 msgid "Port opened"
 msgstr "ポートが開いています"
 
@@ -1510,9 +1564,7 @@ msgstr "ポートが開いています"
 msgid "Ports"
 msgstr "ポート"
 
-#: tabby-serial/src/components/serialTab.component.ts:85
-#: tabby-ssh/src/components/sshTab.component.ts:172
-#: tabby-telnet/src/components/telnetTab.component.ts:53
+#: tabby-terminal/src/api/connectableTerminalTab.component.ts:84
 msgid "Press any key to reconnect"
 msgstr "再接続するには何かキーを押してください"
 
@@ -1563,7 +1615,7 @@ msgstr "プログラム"
 msgid "Proxy command"
 msgstr "プロキシコマンド"
 
-#: tabby-core/src/utils.ts:58
+#: tabby-core/src/utils.ts:63
 msgid "Purple"
 msgstr "紫色"
 
@@ -1571,17 +1623,17 @@ msgstr "紫色"
 msgid "Puts all of Tabby's configuration into the vault"
 msgstr "Tabbyの設定をすべてVaultに保存します"
 
-#: tabby-core/src/index.ts:213
-#: tabby-core/src/services/profiles.service.ts:177
+#: tabby-core/src/index.ts:219
+#: tabby-core/src/services/profiles.service.ts:182
 msgid "Quick connect"
 msgstr "クイック接続"
 
-#: tabby-core/src/services/config.service.ts:373
-#: tabby-core/src/services/config.service.ts:387
+#: tabby-core/src/services/config.service.ts:388
+#: tabby-core/src/services/config.service.ts:402
 msgid "Quit"
 msgstr "終了"
 
-#: tabby-telnet/src/profiles.ts:48
+#: tabby-telnet/src/profiles.ts:49
 msgid "Raw socket connection"
 msgstr "Rawソケット接続"
 
@@ -1589,19 +1641,27 @@ msgstr "Rawソケット接続"
 msgid "Ready Timeout (Milliseconds)"
 msgstr "タイムアウト (ミリ秒)"
 
-#: tabby-core/src/services/profiles.service.ts:120
-#: tabby-core/src/services/profiles.service.ts:134
+#: tabby-core/src/services/profiles.service.ts:123
+#: tabby-core/src/services/profiles.service.ts:137
 #: tabby-electron/src/services/dockMenu.service.ts:28
 msgid "Recent"
 msgstr "最近"
 
 #: locale/tmp-html/tabby-serial/src/components/serialTab.component.html:5
+#: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:52
 #: locale/tmp-html/tabby-ssh/src/components/sshTab.component.html:10
 #: locale/tmp-html/tabby-telnet/src/components/telnetTab.component.html:3
+#: tabby-terminal/src/api/connectableTerminalTab.component.ts:32
+#: tabby-terminal/src/tabContextMenu.ts:115
+#: tabby-terminal/src/tabContextMenu.ts:119
 msgid "Reconnect"
 msgstr "再接続"
 
-#: tabby-core/src/utils.ts:59
+#: tabby-terminal/src/hotkeys.ts:102
+msgid "Reconnect current tab (Serial/Telnet/SSH)"
+msgstr ""
+
+#: tabby-core/src/utils.ts:64
 msgid "Red"
 msgstr "赤色"
 
@@ -1705,8 +1765,8 @@ msgid "Run as administrator"
 msgstr "管理者として実行"
 
 #: locale/tmp-html/tabby-core/src/components/renameTabModal.component.html:6
-#: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:52
-#: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:30
+#: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:64
+#: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsForMode.component.html:29
 msgid "Save"
 msgstr "保存"
 
@@ -1718,7 +1778,7 @@ msgstr "キーチェーンにパスワードを保存する"
 msgid "Save and apply"
 msgstr "保存して反映"
 
-#: tabby-local/src/tabContextMenu.ts:27
+#: tabby-terminal/src/tabContextMenu.ts:173
 msgid "Save as profile"
 msgstr "プロファイルとして保存"
 
@@ -1726,7 +1786,7 @@ msgstr "プロファイルとして保存"
 msgid "Save layout as profile"
 msgstr "プロファイルとしてレイアウトを保存"
 
-#: tabby-local/src/tabContextMenu.ts:48
+#: tabby-terminal/src/tabContextMenu.ts:210
 msgid "Saved"
 msgstr "保存しました"
 
@@ -1767,7 +1827,7 @@ msgid "Search"
 msgstr "検索"
 
 #: tabby-terminal/src/components/colorSchemeSelector.component.ts:9
-#: tabby-terminal/src/components/colorSchemeSettingsTab.component.ts:10
+#: tabby-terminal/src/components/colorSchemeSettingsForMode.component.ts:10
 msgid "Search color schemes"
 msgstr "配色を検索"
 
@@ -1784,11 +1844,11 @@ msgid "Secret sync token"
 msgstr "シークレット同期トークン"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:45
-#: tabby-electron/src/services/platform.service.ts:195
+#: tabby-electron/src/services/platform.service.ts:200
 msgid "Select"
 msgstr "選択"
 
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:65
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:66
 msgid "Select a base profile to use as a template"
 msgstr "テンプレートとして使用する基本プロファイルを選択"
 
@@ -1800,11 +1860,11 @@ msgstr "すべて選択"
 msgid "Select file storage"
 msgstr "ファイルストレージを選択"
 
-#: tabby-core/src/index.ts:225
+#: tabby-core/src/index.ts:232
 msgid "Select profile"
 msgstr "プロファイルを選択"
 
-#: tabby-core/src/services/profiles.service.ts:186
+#: tabby-core/src/services/profiles.service.ts:194
 msgid "Select profile or enter an address"
 msgstr "プロファイルの選択、またはアドレスを入力"
 
@@ -1817,16 +1877,16 @@ msgid "Sends data one byte at a time"
 msgstr "1バイトごとにデータを送信します"
 
 #: tabby-serial/src/profiles.ts:14
-#: tabby-serial/src/profiles.ts:72
+#: tabby-serial/src/profiles.ts:73
 msgid "Serial"
 msgstr "シリアル"
 
-#: tabby-serial/src/profiles.ts:51
-#: tabby-serial/src/profiles.ts:62
+#: tabby-serial/src/profiles.ts:52
+#: tabby-serial/src/profiles.ts:63
 msgid "Serial connection"
 msgstr "シリアル接続"
 
-#: tabby-serial/src/profiles.ts:71
+#: tabby-serial/src/profiles.ts:72
 msgid "Serial: {description}"
 msgstr "シリアル: {description}"
 
@@ -1847,7 +1907,7 @@ msgstr "パスワードを設定"
 msgid "Set Tabby as %COMSPEC%"
 msgstr "Tabbyを %COMSPEC% に設定"
 
-#: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:55
+#: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:63
 msgid "Set to 0 to disable recent profiles"
 msgstr "最近使用したプロファイルをセレクターに表示しない場合は0に設定してください"
 
@@ -1864,13 +1924,17 @@ msgstr "設定"
 msgid "Shell"
 msgstr "シェル"
 
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:555
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:570
 msgid "Shell does not support current path detection"
-msgstr "シェルは現在のパス検出に対応していません"
+msgstr "シェルはカレントパスの検出に対応していません"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:59
 msgid "Shell integration"
 msgstr "シェル統合"
+
+#: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:44
+msgid "Show"
+msgstr ""
 
 #: tabby-core/src/hotkeys.ts:276
 msgid "Show {type} profile selector"
@@ -1880,7 +1944,7 @@ msgstr "{type} プロファイルセレクターを表示"
 msgid "Show a confirmation box when pasting multiple lines"
 msgstr "複数行を貼り付ける際に確認ボックスを表示します"
 
-#: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:61
+#: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:69
 msgid "Show built-in profiles in selector"
 msgstr "セレクターに標準プロファイルを表示する"
 
@@ -1912,7 +1976,7 @@ msgstr "タブにプロファイルアイコンを表示"
 msgid "Show profile selector"
 msgstr "プロファイルセレクターを表示"
 
-#: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:54
+#: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:62
 msgid "Show recent profiles in selector"
 msgstr "最近使用したプロファイルの表示数"
 
@@ -1928,7 +1992,7 @@ msgstr "シリアル接続を表示"
 msgid "Show tabs in fullscreen mode"
 msgstr "全画面表示時にタブを表示"
 
-#: tabby-terminal/src/tabContextMenu.ts:58
+#: tabby-terminal/src/tabContextMenu.ts:62
 msgid "Show toolbar"
 msgstr "ツールバーを表示"
 
@@ -2009,7 +2073,7 @@ msgstr "上部に分割"
 msgid "Split to the up"
 msgstr "上部に分割"
 
-#: tabby-ssh/src/profiles.ts:81
+#: tabby-ssh/src/profiles.ts:82
 msgid "SSH connection"
 msgstr "SSH接続"
 
@@ -2021,7 +2085,7 @@ msgstr "SSH接続の管理は「プロファイルと接続」からできるよ
 msgid "SSH password for {user}@{host}:{port}"
 msgstr "{user}@{host}:{port} のSSHパスワード"
 
-#: tabby-core/src/theme.ts:9
+#: tabby-core/src/theme.ts:8
 msgid "Standard (legacy)"
 msgstr "標準 (非推奨)"
 
@@ -2128,11 +2192,11 @@ msgstr "タブの位置"
 msgid "Tabs width"
 msgstr "タブの幅"
 
-#: tabby-telnet/src/profiles.ts:32
+#: tabby-telnet/src/profiles.ts:33
 msgid "Telnet session"
 msgstr "Telnetセッション"
 
-#: tabby-terminal/src/api/baseTerminalTab.component.ts:204
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:205
 #: tabby-terminal/src/settings.ts:43
 msgid "Terminal"
 msgstr "端末"
@@ -2145,7 +2209,7 @@ msgstr "端末の背景"
 msgid "Terminal bell"
 msgstr "端末音"
 
-#: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:68
+#: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:76
 msgid "Terminal identification"
 msgstr "端末の識別情報"
 
@@ -2165,7 +2229,7 @@ msgstr "ファイル転送を使用中"
 msgid "There is a saved password for this connection"
 msgstr "この接続に利用可能なパスワードが保存されています。"
 
-#: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:79
+#: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:96
 msgid "These apply to all profiles of a given type"
 msgstr "特定の種類のすべてのプロファイルに反映されます。"
 
@@ -2202,7 +2266,7 @@ msgstr "上部"
 msgid "Trim whitespace and newlines"
 msgstr "スペースや改行を取り除く"
 
-#: tabby-core/src/services/config.service.ts:371
+#: tabby-core/src/services/config.service.ts:386
 msgid "Try again"
 msgstr "再試行"
 
@@ -2222,7 +2286,7 @@ msgstr "未分類"
 msgid "Uninstall"
 msgstr "アンインストール"
 
-#: tabby-settings/src/components/profilesSettingsTab.component.ts:257
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:261
 msgid "Unknown"
 msgstr "不明"
 
@@ -2350,6 +2414,10 @@ msgstr "ようこそ"
 msgid "What's new"
 msgstr "最新情報"
 
+#: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:46
+msgid "When a session ends"
+msgstr ""
+
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:82
 msgid "When enabled, links are only clickable while holding this key"
 msgstr "有効にすると、特定のキーを押しながらクリックした時だけ、リンクを開けるようにします。"
@@ -2420,7 +2488,7 @@ msgstr "WSL端末はConPTYによるTrueColorのみをサポートしています
 msgid "X11 forwarding"
 msgstr "X11転送"
 
-#: tabby-core/src/utils.ts:60
+#: tabby-core/src/utils.ts:65
 msgid "Yellow"
 msgstr "黄色"
 
