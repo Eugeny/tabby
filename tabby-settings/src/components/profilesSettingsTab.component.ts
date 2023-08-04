@@ -8,6 +8,10 @@ import { EditProfileModalComponent } from './editProfileModal.component'
 _('Filter')
 _('Ungrouped')
 
+interface CollapsableProfileGroup extends ProfileGroup {
+    collapsed: boolean
+}
+
 /** @hidden */
 @Component({
     templateUrl: './profilesSettingsTab.component.pug',
@@ -16,7 +20,7 @@ _('Ungrouped')
 export class ProfilesSettingsTabComponent extends BaseComponent {
     builtinProfiles: PartialProfile<Profile>[] = []
     templateProfiles: PartialProfile<Profile>[] = []
-    profileGroups: PartialProfileGroup<ProfileGroup>[]
+    profileGroups: PartialProfileGroup<CollapsableProfileGroup>[]
     filter = ''
     Platform = Platform
 
@@ -137,21 +141,22 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
     }
 
     async refresh (): Promise<void> {
+        const profileGroupCollapsed = JSON.parse(window.localStorage.profileGroupCollapsed ?? '{}')
         const groups = await this.profilesService.getProfileGroups(true, true)
         groups.sort((a, b) => a.name.localeCompare(b.name))
         groups.sort((a, b) => (a.id === 'built-in' ? 1 : 0) - (b.id === 'built-in' ? 1 : 0))
         groups.sort((a, b) => (a.id === 'ungrouped' ? 0 : 1) - (b.id === 'ungrouped' ? 0 : 1))
-        this.profileGroups = groups
+        this.profileGroups = groups.map(g => ProfilesSettingsTabComponent.intoPartialCollapsableProfileGroup(g, profileGroupCollapsed[g.id] ?? false))
     }
 
-    async editGroup (group: PartialProfileGroup<ProfileGroup>): Promise<void> {
+    async editGroup (group: PartialProfileGroup<CollapsableProfileGroup>): Promise<void> {
         const modal = this.ngbModal.open(PromptModalComponent)
         modal.componentInstance.prompt = this.translate.instant('New name')
         modal.componentInstance.value = group.name
         const result = await modal.result
         if (result) {
             group.name = result.value
-            await this.profilesService.writeProfileGroup(group)
+            await this.profilesService.writeProfileGroup(ProfilesSettingsTabComponent.collapsableIntoPartialProfileGroup(group))
         }
     }
 
@@ -217,9 +222,9 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
         }[this.profilesService.providerForProfile(profile)?.id ?? ''] ?? 'warning'
     }
 
-    toggleGroupCollapse (group: PartialProfileGroup<ProfileGroup>): void {
+    toggleGroupCollapse (group: PartialProfileGroup<CollapsableProfileGroup>): void {
         group.collapsed = !group.collapsed
-        this.profilesService.saveProfileGroupCollapse(group)
+        this.saveProfileGroupCollapse(group)
     }
 
     async editDefaults (provider: ProfileProvider<Profile>): Promise<void> {
@@ -260,5 +265,28 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
 
     getQuickConnectProviders (): ProfileProvider<Profile>[] {
         return this.profileProviders.filter(x => x.supportsQuickConnect)
+    }
+
+    /**
+    * Save ProfileGroup collapse state in localStorage
+    */
+    private saveProfileGroupCollapse (group: PartialProfileGroup<CollapsableProfileGroup>): void {
+        const profileGroupCollapsed = JSON.parse(window.localStorage.profileGroupCollapsed ?? '{}')
+        profileGroupCollapsed[group.id] = group.collapsed
+        window.localStorage.profileGroupCollapsed = JSON.stringify(profileGroupCollapsed)
+    }
+
+    private static collapsableIntoPartialProfileGroup (group: PartialProfileGroup<CollapsableProfileGroup>): PartialProfileGroup<ProfileGroup> {
+        const g: any = { ...group }
+        delete g.collapsed
+        return g
+    }
+
+    private static intoPartialCollapsableProfileGroup (group: PartialProfileGroup<ProfileGroup>, collapsed: boolean): PartialProfileGroup<CollapsableProfileGroup> {
+        const collapsableGroup = {
+            ...group,
+            collapsed,
+        }
+        return collapsableGroup
     }
 }

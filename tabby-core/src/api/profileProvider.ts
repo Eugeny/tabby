@@ -37,7 +37,6 @@ export interface ProfileGroup {
     profiles: PartialProfile<Profile>[]
     defaults: any
     editable: boolean
-    collapsed: boolean
 }
 
 export type PartialProfileGroup<T extends ProfileGroup> = Omit<Omit<{

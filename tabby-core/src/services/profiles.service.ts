@@ -398,11 +398,9 @@ export class ProfilesService {
             profiles = await this.getProfiles(includeNonUserGroup, true)
         }
 
-        const profileGroupCollapsed = JSON.parse(window.localStorage.profileGroupCollapsed ?? '{}')
         let groups: PartialProfileGroup<ProfileGroup>[] = deepClone(this.config.store.groups ?? [])
         groups = groups.map(x => {
             x.editable = true
-            x.collapsed = profileGroupCollapsed[x.id] ?? false
 
             if (includeProfiles) {
                 x.profiles = profiles.filter(p => p.group === x.id)
@@ -418,14 +416,12 @@ export class ProfilesService {
                 name: this.translate.instant('Built-in'),
                 editable: false,
             }
-            builtIn.collapsed = profileGroupCollapsed[builtIn.id] ?? false
 
             const ungrouped: PartialProfileGroup<ProfileGroup> = {
                 id: 'ungrouped',
                 name: this.translate.instant('Ungrouped'),
                 editable: false,
             }
-            ungrouped.collapsed = profileGroupCollapsed[ungrouped.id] ?? false
 
             if (includeProfiles) {
                 builtIn.profiles = profiles.filter(p => p.isBuiltin)
@@ -470,7 +466,6 @@ export class ProfilesService {
     async writeProfileGroup (group: PartialProfileGroup<ProfileGroup>, saveConfig = true): Promise<void> {
         delete group.profiles
         delete group.editable
-        delete group.collapsed
 
         const cGroup = this.config.store.groups.find(g => g.id === group.id)
         if (cGroup) {
@@ -506,15 +501,6 @@ export class ProfilesService {
     */
     resolveProfileGroupName (groupId: string): string {
         return this.config.store.groups.find(g => g.id === groupId)?.name ?? ''
-    }
-
-    /**
-    * Save ProfileGroup collapse state in localStorage
-    */
-    saveProfileGroupCollapse (group: PartialProfileGroup<ProfileGroup>): void {
-        const profileGroupCollapsed = JSON.parse(window.localStorage.profileGroupCollapsed ?? '{}')
-        profileGroupCollapsed[group.id] = group.collapsed
-        window.localStorage.profileGroupCollapsed = JSON.stringify(profileGroupCollapsed)
     }
 
 }
