@@ -120,11 +120,10 @@ export class ProfilesService {
     async writeProfile (profile: PartialProfile<Profile>, saveConfig = true): Promise<void> {
         const cProfile = this.config.store.profiles.find(p => p.id === profile.id)
         if (cProfile) {
-            // Fully replace the config
-            for (const k in cProfile) {
-                // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
-                delete cProfile[k]
+            if (!profile.group) {
+                delete cProfile.group
             }
+
             Object.assign(cProfile, profile)
 
             if (saveConfig) {
