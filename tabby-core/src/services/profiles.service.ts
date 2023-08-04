@@ -496,10 +496,10 @@ export class ProfilesService {
     }
 
     /**
-    * Resolve and return ProfileGroup from ProfileGroup ID
+    * Resolve and return ProfileGroup Name from ProfileGroup ID
     */
     resolveProfileGroupName (groupId: string): string {
-        return this.config.store.groups.find(g => g.id === groupId)?.name ?? ''
+        return this.config.store.groups.find(g => g.id === groupId)?.name ?? groupId
     }
 
 }
