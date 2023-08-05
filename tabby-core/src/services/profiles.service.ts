@@ -410,11 +410,13 @@ export class ProfilesService {
         })
 
         if (includeNonUserGroup) {
-            const builtIn: PartialProfileGroup<ProfileGroup> = {
+            const builtInGroups: PartialProfileGroup<ProfileGroup>[] = []
+            builtInGroups.push({
                 id: 'built-in',
                 name: this.translate.instant('Built-in'),
                 editable: false,
-            }
+                profiles: [],
+            })
 
             const ungrouped: PartialProfileGroup<ProfileGroup> = {
                 id: 'ungrouped',
@@ -423,13 +425,25 @@ export class ProfilesService {
             }
 
             if (includeProfiles) {
-                builtIn.profiles = profiles.filter(p => p.isBuiltin)
-                profiles = profiles.filter(p => !p.isBuiltin)
+                for (const profile of profiles.filter(p => p.isBuiltin)) {
+                    let group: PartialProfileGroup<ProfileGroup> | undefined = builtInGroups.find(g => g.id === slugify(profile.group ?? 'built-in'))
+                    if (!group) {
+                        group = {
+                            id: `${slugify(profile.group!)}`,
+                            name: `${profile.group!}`,
+                            editable: false,
+                            profiles: [],
+                        }
+                        builtInGroups.push(group)
+                    }
 
-                ungrouped.profiles = profiles
+                    group.profiles!.push(profile)
+                }
+
+                ungrouped.profiles = profiles.filter(p => !p.isBuiltin)
             }
 
-            groups.push(builtIn)
+            groups = groups.concat(builtInGroups)
             groups.push(ungrouped)
         }
 
