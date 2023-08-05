@@ -67,7 +67,7 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
 
                                     .me-auto
 
-                                    button.btn.btn-link.hover-reveal.ms-1((click)='$event.stopPropagation(); launchProfile(profile)')
+                                    button.btn.btn-link.hover-reveal.ms-1(*ngIf='!profile.isTemplate', (click)='$event.stopPropagation(); launchProfile(profile)')
                                         i.fas.fa-play
 
                                     .ms-1.hover-reveal(ngbDropdown, placement='bottom-right top-right auto')
