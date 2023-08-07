@@ -66,7 +66,7 @@ export class XTermFrontend extends Frontend {
     private configuredFontSize = 0
     private configuredLinePadding = 0
     private zoom = 0
-    resizeHandler: () => void
+    private resizeHandler: () => void
     private configuredTheme: ITheme = {}
     private copyOnSelect = false
     private preventNextOnSelectionChangeEvent = false
