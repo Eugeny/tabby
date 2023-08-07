@@ -230,11 +230,13 @@ export class AppService {
         if (this._activeTab) {
             this._activeTab.clearActivity()
             this._activeTab.emitBlurred()
+            this._activeTab.emitVisibility(false)
         }
         this._activeTab = tab
         this.activeTabChange.next(tab)
         setImmediate(() => {
             this._activeTab?.emitFocused()
+            this._activeTab?.emitVisibility(true)
         })
         this.hostWindow.setTitle(this._activeTab?.title)
     }

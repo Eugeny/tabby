@@ -275,6 +275,7 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
             }
         })
         this.blurred$.subscribe(() => this.getAllTabs().forEach(x => x.emitBlurred()))
+        this.visibility$.subscribe(visibility => this.getAllTabs().forEach(x => x.emitVisibility(visibility)))
 
         this.tabAdded$.subscribe(() => this.updateTitle())
         this.tabRemoved$.subscribe(() => this.updateTitle())

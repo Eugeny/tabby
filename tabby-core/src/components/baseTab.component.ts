@@ -75,6 +75,7 @@ export abstract class BaseTabComponent extends BaseComponent {
     private titleChange = new Subject<string>()
     private focused = new Subject<void>()
     private blurred = new Subject<void>()
+    private visibility = new Subject<boolean>()
     private progress = new Subject<number|null>()
     private activity = new Subject<boolean>()
     private destroyed = new Subject<void>()
@@ -83,6 +84,7 @@ export abstract class BaseTabComponent extends BaseComponent {
 
     get focused$ (): Observable<void> { return this.focused }
     get blurred$ (): Observable<void> { return this.blurred }
+    get visibility$ (): Observable<boolean> { return this.visibility }
     get titleChange$ (): Observable<string> { return this.titleChange.pipe(distinctUntilChanged()) }
     get progress$ (): Observable<number|null> { return this.progress.pipe(distinctUntilChanged()) }
     get activity$ (): Observable<boolean> { return this.activity }
@@ -175,6 +177,10 @@ export abstract class BaseTabComponent extends BaseComponent {
 
     emitBlurred (): void {
         this.blurred.next()
+    }
+
+    emitVisibility (visibility: boolean): void {
+        this.visibility.next(visibility)
     }
 
     insertIntoContainer (container: ViewContainerRef): EmbeddedViewRef<any> {

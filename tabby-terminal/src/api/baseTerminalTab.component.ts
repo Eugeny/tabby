@@ -408,6 +408,23 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
         this.blurred$.subscribe(() => {
             this.multifocus.cancel()
         })
+
+        this.visibility$.subscribe(visibility => {
+            if (this.frontend instanceof XTermFrontend) {
+                if (visibility) {
+                    // this.frontend.resizeHandler()
+                    const term = this.frontend.xterm as any
+                    term._core._renderService.clear()
+                    term._core._renderService.handleResize(term.cols, term.rows)
+                } else {
+                    this.frontend.xterm.element?.querySelectorAll('canvas').forEach(c => {
+                        c.height = c.width = 0
+                        c.style.height = c.style.width = '0px'
+                    })
+                }
+            }
+            console.log('visibility:', this.title, visibility)
+        })
     }
 
     protected onFrontendReady (): void {
