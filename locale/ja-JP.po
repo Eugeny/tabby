@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2023-08-03 08:25\n"
+"PO-Revision-Date: 2023-08-07 20:37\n"
 
 #: tabby-local/src/components/terminalTab.component.ts:113
 msgid "\"{command}\" is still running. Close?"
@@ -325,7 +325,7 @@ msgstr "配色"
 
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:2
 msgid "Color schemes"
-msgstr ""
+msgstr "配色"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:216
 msgid "Colors"
@@ -493,7 +493,7 @@ msgstr "カスタムCSS"
 
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:4
 msgid "Dark mode"
-msgstr ""
+msgstr "ダークモード"
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:26
 msgid "Data bits"
@@ -982,7 +982,7 @@ msgstr "16進数"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:43
 msgid "Hide"
-msgstr ""
+msgstr "非表示"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:176
 msgid "Hide tab close button"
@@ -1070,7 +1070,7 @@ msgstr "垂直方向の分割サイズを拡大"
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:226
 #: locale/tmp-html/tabby-telnet/src/components/telnetProfileSettings.component.html:21
 msgid "Input"
-msgstr ""
+msgstr "入力"
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:18
 msgid "Input is sent as you type"
@@ -1189,7 +1189,7 @@ msgstr "OSの代わりにシェルにメタキーを処理させます"
 
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:9
 msgid "Light mode"
-msgstr ""
+msgstr "ライトモード"
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:27
 msgid "Line by line"
@@ -1501,7 +1501,7 @@ msgstr "設定ファイルがVaultによって暗号化されている場合、�
 
 #: tabby-terminal/src/components/inputProcessingSettings.component.ts:17
 msgid "Pass-through"
-msgstr ""
+msgstr "パススルー"
 
 #: tabby-settings/src/components/vaultSettingsTab.component.ts:87
 msgid "Passphrase for a private key with hash {hash}..."
@@ -1934,7 +1934,7 @@ msgstr "シェル統合"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:44
 msgid "Show"
-msgstr ""
+msgstr "表示"
 
 #: tabby-core/src/hotkeys.ts:276
 msgid "Show {type} profile selector"

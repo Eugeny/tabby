@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Ukrainian\n"
 "Language: uk_UA\n"
-"PO-Revision-Date: 2023-08-03 08:25\n"
+"PO-Revision-Date: 2023-08-07 20:37\n"
 
 #: tabby-local/src/components/terminalTab.component.ts:113
 msgid "\"{command}\" is still running. Close?"
@@ -325,7 +325,7 @@ msgstr "Кольорова схема"
 
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:2
 msgid "Color schemes"
-msgstr ""
+msgstr "Кольорові схеми"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:216
 msgid "Colors"
@@ -493,7 +493,7 @@ msgstr "Користувацький CSS"
 
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:4
 msgid "Dark mode"
-msgstr ""
+msgstr "Темна тема"
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:26
 msgid "Data bits"
@@ -513,7 +513,7 @@ msgstr "Зменшити розмір поділу по вертикалі"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:86
 msgid "Default \"Connect to\" type"
-msgstr ""
+msgstr "За замовчуванням \"Під'єднатись до\" тип"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:87
 msgid "Default connection type used by quick connect feature (ex. SSH, Telnet)"
@@ -982,7 +982,7 @@ msgstr "Шістнадцятковий"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:43
 msgid "Hide"
-msgstr ""
+msgstr "Приховати"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:176
 msgid "Hide tab close button"
@@ -1189,7 +1189,7 @@ msgstr "Дозволяє оболонці обробляти клавішу Meta
 
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:9
 msgid "Light mode"
-msgstr ""
+msgstr "Світла тема"
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:27
 msgid "Line by line"
@@ -1934,7 +1934,7 @@ msgstr "Інтеграція в систему"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:44
 msgid "Show"
-msgstr ""
+msgstr "Показати"
 
 #: tabby-core/src/hotkeys.ts:276
 msgid "Show {type} profile selector"

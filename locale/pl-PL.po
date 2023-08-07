@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Polish\n"
 "Language: pl_PL\n"
-"PO-Revision-Date: 2023-08-03 08:25\n"
+"PO-Revision-Date: 2023-08-07 20:37\n"
 
 #: tabby-local/src/components/terminalTab.component.ts:113
 msgid "\"{command}\" is still running. Close?"
@@ -175,7 +175,7 @@ msgstr "Typ tła"
 
 #: locale/tmp-html/tabby-terminal/src/components/inputProcessingSettings.component.html:4
 msgid "Backspace key mode"
-msgstr ""
+msgstr "Tryb klawisza Backspace"
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:14
 #: tabby-serial/src/components/serialTab.component.ts:93
@@ -240,7 +240,7 @@ msgstr "Anuluj"
 
 #: locale/tmp-html/tabby-serial/src/components/serialTab.component.html:4
 msgid "Change baud rate"
-msgstr "Zmień szybkość transmisji szeregowuej (baud)"
+msgstr "Zmień współczynnik baud"
 
 #: tabby-core/src/tabContextMenu.ts:133
 msgid "Change tab color"
@@ -273,7 +273,7 @@ msgstr "Wyczyść terminal"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:49
 msgid "Clear terminal after connection"
-msgstr "Wyczyść terminal po połączeniu"
+msgstr "Wyczyść terminal po nawiązaniu połączenia"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:94
 msgid "Clipboard"
@@ -287,7 +287,7 @@ msgstr "Zamknij"
 
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:32
 msgid "Close and never show again"
-msgstr "Zamknij i nigdy więcej nie pokazuj"
+msgstr "Zamknij i nie pokazuj ponownie"
 
 #: tabby-core/src/hotkeys.ts:241
 msgid "Close focused pane"
@@ -321,11 +321,11 @@ msgstr "Kolor"
 
 #: tabby-terminal/src/settings.ts:29
 msgid "Color scheme"
-msgstr "Szablon kolorów"
+msgstr "Schemat kolorów"
 
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:2
 msgid "Color schemes"
-msgstr ""
+msgstr "Schematy kolorów"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:216
 msgid "Colors"
@@ -333,7 +333,7 @@ msgstr "Kolory"
 
 #: tabby-core/src/hotkeys.ts:73
 msgid "Combine all tabs into the current tab"
-msgstr "Połącz wszystkie karty w aktualną kartę"
+msgstr "Scal wszystkie inne karty z aktywną kartą"
 
 #: locale/tmp-html/tabby-local/src/components/commandLineEditor.component.html:4
 msgid "Command line"
@@ -415,7 +415,7 @@ msgstr "Menu kontekstowe"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:14
 msgid "Controls the amount of space between elements"
-msgstr "Kontroluje ilość odstępu między elementami"
+msgstr "Kontroluje odstępy między elementami"
 
 #: tabby-terminal/src/api/baseTerminalTab.component.ts:235
 #: tabby-terminal/src/api/baseTerminalTab.component.ts:243
@@ -493,7 +493,7 @@ msgstr "Niestandardowy CSS"
 
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:4
 msgid "Dark mode"
-msgstr ""
+msgstr "Tryb ciemny"
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:26
 msgid "Data bits"
@@ -513,11 +513,11 @@ msgstr "Zmniejsz rozmiar pionowego podziału"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:86
 msgid "Default \"Connect to\" type"
-msgstr ""
+msgstr "Domyślny typ połączeń"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:87
 msgid "Default connection type used by quick connect feature (ex. SSH, Telnet)"
-msgstr ""
+msgstr "Domyślny typ łączności używany przez funkcję \"szybkie połączenie\" (np. SSH, Telnet)"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:8
 msgid "Default profile for new tabs"
@@ -632,7 +632,7 @@ msgstr "Rozłącz"
 
 #: tabby-terminal/src/hotkeys.ts:106
 msgid "Disconnect current tab (Serial/Telnet/SSH)"
-msgstr ""
+msgstr "Rozłącz aktywną kartę (Serial/Telnet/SSH)"
 
 #: tabby-ssh/src/components/sshTab.component.ts:202
 #: tabby-telnet/src/components/telnetTab.component.ts:81
@@ -700,16 +700,16 @@ msgstr "Rysuj pogrubiony tekst w jasnych kolorach"
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:42
 #: tabby-core/src/tabContextMenu.ts:127
 msgid "Duplicate"
-msgstr "Powiel"
+msgstr "Duplikuj"
 
 #: tabby-local/src/tabContextMenu.ts:72
 msgid "Duplicate as administrator"
-msgstr "Powiel jako administrator"
+msgstr "Duplikuj jako administrator"
 
 #: tabby-core/src/hotkeys.ts:61
 #: tabby-core/src/tabContextMenu.ts:128
 msgid "Duplicate tab"
-msgstr "Powiel kartę"
+msgstr "Duplikuj kartę"
 
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsForMode.component.html:6
 msgid "Edit"
@@ -787,7 +787,7 @@ msgstr "Przykład:"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:212
 msgid "Experimental Windows 10 background style known to cause issues"
-msgstr "Eksperymentalny styl tła Windows 10 powodujący problemy"
+msgstr "Eksperymentalny styl tła Windows 10 mogący powodować problemy"
 
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:27
 msgid "Export"
@@ -982,7 +982,7 @@ msgstr "Heksadecymalny"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:43
 msgid "Hide"
-msgstr ""
+msgstr "Ukryj"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:176
 msgid "Hide tab close button"
@@ -1070,7 +1070,7 @@ msgstr "Zwiększ rozmiar pionowego podziału"
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:226
 #: locale/tmp-html/tabby-telnet/src/components/telnetProfileSettings.component.html:21
 msgid "Input"
-msgstr ""
+msgstr "Polecenie"
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:18
 msgid "Input is sent as you type"
@@ -1189,7 +1189,7 @@ msgstr "Pozwala, aby powłoka obsługiwała klawisz Meta zamiast systemu operacy
 
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:9
 msgid "Light mode"
-msgstr ""
+msgstr "Tryb jasny"
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:27
 msgid "Line by line"
@@ -1382,7 +1382,7 @@ msgstr "Powiadom o zakończeniu"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:17
 msgid "Number of lines kept in the buffer"
-msgstr "Liczba linii utrzymywanych w buforze"
+msgstr "Ilość linijek utrzymywanych w buforze"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:72
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:137
@@ -1400,7 +1400,7 @@ msgstr "Dyskusje na GitHubie"
 
 #: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:47
 msgid "Only close the tab when session is explicitly terminated"
-msgstr ""
+msgstr "Karta pozostanie otwarta aż zakończysz sesję"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:46
 msgid "Opacity"
@@ -1501,7 +1501,7 @@ msgstr "Częściowa synchronizacja konfiguracji nie jest możliwa, gdy konfigura
 
 #: tabby-terminal/src/components/inputProcessingSettings.component.ts:17
 msgid "Pass-through"
-msgstr ""
+msgstr "Przepustowość"
 
 #: tabby-settings/src/components/vaultSettingsTab.component.ts:87
 msgid "Passphrase for a private key with hash {hash}..."
@@ -1544,7 +1544,7 @@ msgstr "Pin"
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:3
 msgid "Plugins"
-msgstr "Wtyczki"
+msgstr "Rozszerzenia"
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:4
 msgid "Plugins folder"
@@ -1659,7 +1659,7 @@ msgstr "Połącz ponownie"
 
 #: tabby-terminal/src/hotkeys.ts:102
 msgid "Reconnect current tab (Serial/Telnet/SSH)"
-msgstr ""
+msgstr "Odnów połączenie aktywnej karty (Serial/Telnet/SSH)"
 
 #: tabby-core/src/utils.ts:64
 msgid "Red"
@@ -1716,7 +1716,7 @@ msgstr "Zgłoś Problem"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:81
 msgid "Require a key to click links"
-msgstr "Wymaga dodatkowego klawisza, aby kliknąć linki"
+msgstr "Wymagaj dodatkowego klawisza, aby otworzyć link"
 
 #: tabby-terminal/src/hotkeys.ts:62
 msgid "Reset zoom"
@@ -1796,7 +1796,7 @@ msgstr "Zapisany układ"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:46
 msgid "Scroll on input"
-msgstr "Przewiń przy wprowadzaniu"
+msgstr "Przewiń przy wprowadzaniu poleceń"
 
 #: tabby-terminal/src/hotkeys.ts:94
 msgid "Scroll terminal one page down"
@@ -1808,7 +1808,7 @@ msgstr "Przewiń terminal w górę o jedną stronę"
 
 #: tabby-terminal/src/hotkeys.ts:98
 msgid "Scroll terminal to bottom"
-msgstr "Przewiń terminal na dół"
+msgstr "Przewiń terminal do samego dołu"
 
 #: tabby-terminal/src/hotkeys.ts:86
 msgid "Scroll terminal to top"
@@ -1820,7 +1820,7 @@ msgstr "Przewijanie wstecz"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:47
 msgid "Scrolls the terminal to the bottom on user input"
-msgstr "Przewiń terminal na dół na wejściu użytkownika"
+msgstr "Przewiń terminal do dołu, kiedy wprowadzane jest polecenie"
 
 #: tabby-terminal/src/hotkeys.ts:74
 msgid "Search"
@@ -1934,7 +1934,7 @@ msgstr "Integracja powłoki"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:44
 msgid "Show"
-msgstr ""
+msgstr "Wyświetl"
 
 #: tabby-core/src/hotkeys.ts:276
 msgid "Show {type} profile selector"
@@ -2103,11 +2103,11 @@ msgstr "Pasek"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:41
 msgid "Subscribe to updates"
-msgstr "Subskrybuj powiadomienia"
+msgstr "Subskrybuj aktualizacje"
 
 #: locale/tmp-html/tabby-local/src/components/environmentEditor.component.html:13
 msgid "Substitutions allowed."
-msgstr "Podstawienia dozwolone."
+msgstr "Zastępstwa dozwolone."
 
 #: tabby-core/src/tabContextMenu.ts:290
 msgid "Switch profile"
@@ -2174,7 +2174,7 @@ msgstr "Aktywność zakładki"
 
 #: locale/tmp-html/tabby-core/src/components/safeModeModal.component.html:3
 msgid "Tabby could not start with your plugins, so all third party plugins have been disabled in this session. The error was:"
-msgstr "Tabby nie mógł rozpocząć z Twoimi wtyczkami, więc wszystkie wtyczki firm trzecich zostały wyłączone w tej sesji. Błąd:"
+msgstr "Tabby nie mógł rozpocząć z zainstalowanymi wtyczkami, więc wtyczki firm trzecich zostały wyłączone w tej sesji. Błąd:"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:41
 msgid "Tabby news and updates on Twitter"
@@ -2384,7 +2384,7 @@ msgstr "Wersja: {version}"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:28
 msgid "Vibrancy"
-msgstr "Rozmyte tło"
+msgstr "Transparentne tło"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:139
 msgid "Visual"
@@ -2416,11 +2416,11 @@ msgstr "Nowości"
 
 #: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:46
 msgid "When a session ends"
-msgstr ""
+msgstr "Kończąc sesję"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:82
 msgid "When enabled, links are only clickable while holding this key"
-msgstr "Gdy włączone, linki można kliknąć tylko podczas przytrzymania tego klawisza"
+msgstr "Po włączeniu, linki można klikać tylko podczas przytrzymania tego klawisza"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:18
 msgid "When WinSCP is detected, you can launch an SCP session from the context menu."
