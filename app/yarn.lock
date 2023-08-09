@@ -152,10 +152,10 @@
   dependencies:
     "@types/node" "*"
 
-"@types/node@*", "@types/node@20.3.1":
-  version "20.3.1"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.3.1.tgz#e8a83f1aa8b649377bb1fb5d7bac5cb90e784dfe"
-  integrity sha512-EhcH/wvidPy1WeML3TtYFGR83UzjxeWRen9V402T8aUGYsCHOmfoisV3ZSg03gAFIbLq8TnWOJ0f4cALtnSEUg==
+"@types/node@*", "@types/node@20.4.9":
+  version "20.4.9"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.4.9.tgz#c7164e0f8d3f12dfae336af0b1f7fdec8c6b204f"
+  integrity sha512-8e2HYcg7ohnTUbHk8focoklEQYvemQmu9M/f43DZVx43kHn0tE3BY/6gSDxS7k0SprtS0NHvj+L80cGLnoOUcQ==
 
 "@types/node@^10.12.18":
   version "10.17.60"
