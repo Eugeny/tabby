@@ -65,8 +65,8 @@ export class ProfilesService {
     * Return ConfigProxy for a given Profile
     * arg: skipUserDefaults -> do not merge global provider defaults in ConfigProxy
     */
-    getConfigProxyForProfile <T extends Profile> (profile: PartialProfile<T>, skipUserDefaults = false): T {
-        const defaults = this.getProfileDefaults(profile, skipUserDefaults).reduce(configMerge, {})
+    getConfigProxyForProfile <T extends Profile> (profile: PartialProfile<T>, skipGlobalDefaults = false, skipGroupDefaults = false): T {
+        const defaults = this.getProfileDefaults(profile, skipGlobalDefaults, skipGroupDefaults).reduce(configMerge, {})
         return new ConfigProxy(profile, defaults) as unknown as T
     }
 
@@ -373,18 +373,28 @@ export class ProfilesService {
     * Always return something, empty object if no defaults found
     * arg: skipUserDefaults -> do not merge global provider defaults in ConfigProxy
     */
-    getProfileDefaults (profile: PartialProfile<Profile>, skipUserDefaults = false): any {
+    getProfileDefaults (profile: PartialProfile<Profile>, skipGlobalDefaults = false, skipGroupDefaults = false): any[] {
         const provider = this.providerForProfile(profile)
+
         return [
             this.profileDefaults,
             provider?.configDefaults ?? {},
-            !provider || skipUserDefaults ? {} : this.getProviderDefaults(provider),
+            provider && !skipGlobalDefaults ? this.getProviderDefaults(provider) : {},
+            provider && !skipGlobalDefaults && !skipGroupDefaults ? this.getProviderProfileGroupDefaults(profile.group ?? '', provider) : {},
         ]
     }
 
     /*
     * Methods used to interract with ProfileGroup
     */
+
+    /**
+    * Synchronously return an Array of the existing ProfileGroups
+    * Does not return builtin groups
+    */
+    getSyncProfileGroups (): PartialProfileGroup<ProfileGroup>[] {
+        return deepClone(this.config.store.groups ?? [])
+    }
 
     /**
     * Return an Array of the existing ProfileGroups
@@ -397,7 +407,7 @@ export class ProfilesService {
             profiles = await this.getProfiles(includeNonUserGroup, true)
         }
 
-        let groups: PartialProfileGroup<ProfileGroup>[] = deepClone(this.config.store.groups ?? [])
+        let groups: PartialProfileGroup<ProfileGroup>[] = this.getSyncProfileGroups()
         groups = groups.map(x => {
             x.editable = true
 
@@ -514,6 +524,15 @@ export class ProfilesService {
     */
     resolveProfileGroupName (groupId: string): string {
         return this.config.store.groups.find(g => g.id === groupId)?.name ?? groupId
+    }
+
+    /**
+    * Return defaults for a given group ID and provider
+    * Always return something, empty object if no defaults found
+    * arg: skipUserDefaults -> do not merge global provider defaults in ConfigProxy
+    */
+    getProviderProfileGroupDefaults (groupId: string, provider: ProfileProvider<Profile>): any {
+        return this.getSyncProfileGroups().find(g => g.id === groupId)?.defaults?.[provider.id] ?? {}
     }
 
 }

@@ -27,9 +27,17 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
                         i.fas.fa-fw.fa-search
                     input.form-control(type='search', [placeholder]='"Filter"|translate', [(ngModel)]='filter')
 
-                button.btn.btn-primary.flex-shrink-0.ms-3((click)='newProfile()')
-                    i.fas.fa-fw.fa-plus
-                    span(translate) New profile
+                div(ngbDropdown).d-inline-block.flex-shrink-0.ms-3
+                    button.btn.btn-primary(ngbDropdownToggle)
+                        i.fas.fa-fw.fa-plus
+                        span(translate) New
+                    div(ngbDropdownMenu)
+                        button(ngbDropdownItem, (click)='newProfile()')
+                            i.fas.fa-fw.fa-plus
+                            span(translate) New profile
+                        button(ngbDropdownItem, (click)='newProfileGroup()')
+                            i.fas.fa-fw.fa-plus
+                            span(translate) New profile Group
 
             .list-group.mt-3.mb-3
                 ng-container(*ngFor='let group of profileGroups')
@@ -37,17 +45,17 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
                         .list-group-item.list-group-item-action.d-flex.align-items-center(
                             (click)='toggleGroupCollapse(group)'
                         )
-                            .fa.fa-fw.fa-chevron-right(*ngIf='group.collapsed')
-                            .fa.fa-fw.fa-chevron-down(*ngIf='!group.collapsed')
+                            .fa.fa-fw.fa-chevron-right(*ngIf='group.collapsed && group.profiles?.length > 0')
+                            .fa.fa-fw.fa-chevron-down(*ngIf='!group.collapsed && group.profiles?.length > 0')
                             span.ms-3.me-auto {{group.name || ("Ungrouped"|translate)}}
                             button.btn.btn-sm.btn-link.hover-reveal.ms-2(
                                 *ngIf='group.editable && group.name',
-                                (click)='$event.stopPropagation(); editGroup(group)'
+                                (click)='$event.stopPropagation(); editProfileGroup(group)'
                             )
                                 i.fas.fa-pencil-alt
                             button.btn.btn-sm.btn-link.hover-reveal.ms-2(
                                 *ngIf='group.editable && group.name',
-                                (click)='$event.stopPropagation(); deleteGroup(group)'
+                                (click)='$event.stopPropagation(); deleteProfileGroup(group)'
                             )
                                 i.fas.fa-trash-alt
                         ng-container(*ngIf='!group.collapsed')

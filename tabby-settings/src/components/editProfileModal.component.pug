@@ -1,7 +1,7 @@
-.modal-header(*ngIf='!defaultsMode')
+.modal-header(*ngIf='defaultsMode === "disabled"')
     h3.m-0 {{profile.name}}
 
-.modal-header(*ngIf='defaultsMode')
+.modal-header(*ngIf='defaultsMode !== "disabled"')
     h3.m-0(
         translate='Defaults for {type}',
         [translateParams]='{type: profileProvider.name}'
@@ -10,7 +10,7 @@
 .modal-body
     .row
         .col-12.col-lg-4
-            .mb-3(*ngIf='!defaultsMode')
+            .mb-3(*ngIf='defaultsMode === "disabled"')
                 label(translate) Name
                 input.form-control(
                     type='text',
@@ -18,7 +18,7 @@
                     [(ngModel)]='profile.name',
                 )
 
-            .mb-3(*ngIf='!defaultsMode')
+            .mb-3(*ngIf='defaultsMode === "disabled"')
                 label(translate) Group
                 input.form-control(
                     type='text',
@@ -28,9 +28,10 @@
                     [ngbTypeahead]='groupTypeahead',
                     [inputFormatter]="groupFormatter",
 			        [resultFormatter]="groupFormatter",
+			        [editable]="false"
                 )
 
-            .mb-3(*ngIf='!defaultsMode')
+            .mb-3(*ngIf='defaultsMode === "disabled"')
                 label(translate) Icon
                 .input-group
                     input.form-control(

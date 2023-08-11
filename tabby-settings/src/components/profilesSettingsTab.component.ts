@@ -4,6 +4,7 @@ import { Component, Inject } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { ConfigService, HostAppService, Profile, SelectorService, ProfilesService, PromptModalComponent, PlatformService, BaseComponent, PartialProfile, ProfileProvider, TranslateService, Platform, ProfileGroup, PartialProfileGroup } from 'tabby-core'
 import { EditProfileModalComponent } from './editProfileModal.component'
+import { EditProfileGroupModalComponent, EditProfileGroupModalComponentResult } from './editProfileGroupModal.component'
 
 _('Filter')
 _('Ungrouped')
@@ -140,27 +141,73 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
         }
     }
 
-    async refresh (): Promise<void> {
-        const profileGroupCollapsed = JSON.parse(window.localStorage.profileGroupCollapsed ?? '{}')
-        const groups = await this.profilesService.getProfileGroups(true, true)
-        groups.sort((a, b) => a.name.localeCompare(b.name))
-        groups.sort((a, b) => (a.id === 'built-in' || !a.editable ? 1 : 0) - (b.id === 'built-in' || !b.editable ? 1 : 0))
-        groups.sort((a, b) => (a.id === 'ungrouped' ? 0 : 1) - (b.id === 'ungrouped' ? 0 : 1))
-        this.profileGroups = groups.map(g => ProfilesSettingsTabComponent.intoPartialCollapsableProfileGroup(g, profileGroupCollapsed[g.id] ?? false))
-    }
-
-    async editGroup (group: PartialProfileGroup<CollapsableProfileGroup>): Promise<void> {
+    async newProfileGroup (): Promise<void> {
         const modal = this.ngbModal.open(PromptModalComponent)
-        modal.componentInstance.prompt = this.translate.instant('New name')
-        modal.componentInstance.value = group.name
+        modal.componentInstance.prompt = this.translate.instant('New group name')
         const result = await modal.result
-        if (result) {
-            group.name = result.value
-            await this.profilesService.writeProfileGroup(ProfilesSettingsTabComponent.collapsableIntoPartialProfileGroup(group))
+        if (result?.value.trim()) {
+            await this.profilesService.newProfileGroup({ id: '', name: result.value })
         }
     }
 
-    async deleteGroup (group: PartialProfileGroup<ProfileGroup>): Promise<void> {
+    async editProfileGroup (group: PartialProfileGroup<CollapsableProfileGroup>): Promise<void> {
+        const result = await this.showProfileGroupEditModal(group)
+        if (!result) {
+            return
+        }
+        Object.assign(group, result)
+        await this.profilesService.writeProfileGroup(ProfilesSettingsTabComponent.collapsableIntoPartialProfileGroup(group))
+    }
+
+    async showProfileGroupEditModal (group: PartialProfileGroup<CollapsableProfileGroup>): Promise<PartialProfileGroup<CollapsableProfileGroup>|null> {
+        const modal = this.ngbModal.open(
+            EditProfileGroupModalComponent,
+            { size: 'lg' },
+        )
+
+        modal.componentInstance.group = deepClone(group)
+        modal.componentInstance.providers = this.profileProviders
+
+        const result: EditProfileGroupModalComponentResult<CollapsableProfileGroup> | null = await modal.result.catch(() => null)
+        if (!result) {
+            return null
+        }
+
+        if (result.provider) {
+            return this.editProfileGroupDefaults(result.group, result.provider)
+        }
+
+        return result.group
+    }
+
+    private async editProfileGroupDefaults (group: PartialProfileGroup<CollapsableProfileGroup>, provider: ProfileProvider<Profile>): Promise<PartialProfileGroup<CollapsableProfileGroup>|null> {
+        const modal = this.ngbModal.open(
+            EditProfileModalComponent,
+            { size: 'lg' },
+        )
+        const model = group.defaults?.[provider.id] ?? {}
+        model.type = provider.id
+        modal.componentInstance.profile = Object.assign({}, model)
+        modal.componentInstance.profileProvider = provider
+        modal.componentInstance.defaultsMode = 'group'
+
+        const result = await modal.result.catch(() => null)
+        if (result) {
+            // Fully replace the config
+            for (const k in model) {
+                // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
+                delete model[k]
+            }
+            Object.assign(model, result)
+            if (!group.defaults) {
+                group.defaults = {}
+            }
+            group.defaults[provider.id] = model
+        }
+        return this.showProfileGroupEditModal(group)
+    }
+
+    async deleteProfileGroup (group: PartialProfileGroup<ProfileGroup>): Promise<void> {
         if ((await this.platform.showMessageBox(
             {
                 type: 'warning',
@@ -193,6 +240,15 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
         }
     }
 
+    async refresh (): Promise<void> {
+        const profileGroupCollapsed = JSON.parse(window.localStorage.profileGroupCollapsed ?? '{}')
+        const groups = await this.profilesService.getProfileGroups(true, true)
+        groups.sort((a, b) => a.name.localeCompare(b.name))
+        groups.sort((a, b) => (a.id === 'built-in' || !a.editable ? 1 : 0) - (b.id === 'built-in' || !b.editable ? 1 : 0))
+        groups.sort((a, b) => (a.id === 'ungrouped' ? 0 : 1) - (b.id === 'ungrouped' ? 0 : 1))
+        this.profileGroups = groups.map(g => ProfilesSettingsTabComponent.intoPartialCollapsableProfileGroup(g, profileGroupCollapsed[g.id] ?? false))
+    }
+
     isGroupVisible (group: PartialProfileGroup<ProfileGroup>): boolean {
         return !this.filter || (group.profiles ?? []).some(x => this.isProfileVisible(x))
     }
@@ -223,6 +279,9 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
     }
 
     toggleGroupCollapse (group: PartialProfileGroup<CollapsableProfileGroup>): void {
+        if (group.profiles?.length === 0) {
+            return
+        }
         group.collapsed = !group.collapsed
         this.saveProfileGroupCollapse(group)
     }
@@ -236,7 +295,7 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
         model.type = provider.id
         modal.componentInstance.profile = Object.assign({}, model)
         modal.componentInstance.profileProvider = provider
-        modal.componentInstance.defaultsMode = true
+        modal.componentInstance.defaultsMode = 'enabled'
         const result = await modal.result
 
         // Fully replace the config

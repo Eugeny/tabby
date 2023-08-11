@@ -3,7 +3,6 @@ import { Observable, OperatorFunction, debounceTime, map, distinctUntilChanged }
 import { Component, Input, ViewChild, ViewContainerRef, ComponentFactoryResolver, Injector } from '@angular/core'
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
 import { ConfigProxy, ConfigService, PartialProfileGroup, Profile, ProfileProvider, ProfileSettingsComponent, ProfilesService, TAB_COLORS, ProfileGroup } from 'tabby-core'
-import { v4 as uuidv4 } from 'uuid'
 
 const iconsData = require('../../../tabby-core/src/icons.json')
 const iconsClassList = Object.keys(iconsData).map(
@@ -20,8 +19,8 @@ export class EditProfileModalComponent<P extends Profile> {
     @Input() profile: P & ConfigProxy
     @Input() profileProvider: ProfileProvider<P>
     @Input() settingsComponent: new () => ProfileSettingsComponent<P>
-    @Input() defaultsMode = false
-    @Input() profileGroup: PartialProfileGroup<ProfileGroup> | string | undefined
+    @Input() defaultsMode: 'enabled'|'group'|'disabled' = 'disabled'
+    @Input() profileGroup: PartialProfileGroup<ProfileGroup> | undefined
     groups: PartialProfileGroup<ProfileGroup>[]
     @ViewChild('placeholder', { read: ViewContainerRef }) placeholder: ViewContainerRef
 
@@ -35,7 +34,7 @@ export class EditProfileModalComponent<P extends Profile> {
         config: ConfigService,
         private modalInstance: NgbActiveModal,
     ) {
-        if (!this.defaultsMode) {
+        if (this.defaultsMode === 'disabled') {
             this.profilesService.getProfileGroups().then(groups => {
                 this.groups = groups
                 this.profileGroup = groups.find(g => g.id === this.profile.group)
@@ -59,7 +58,7 @@ export class EditProfileModalComponent<P extends Profile> {
 
     ngOnInit () {
         this._profile = this.profile
-        this.profile = this.profilesService.getConfigProxyForProfile(this.profile, this.defaultsMode)
+        this.profile = this.profilesService.getConfigProxyForProfile(this.profile, this.defaultsMode === 'enabled', this.defaultsMode === 'group')
     }
 
     ngAfterViewInit () {
@@ -94,14 +93,6 @@ export class EditProfileModalComponent<P extends Profile> {
         if (!this.profileGroup) {
             this.profile.group = undefined
         } else {
-            if (typeof this.profileGroup === 'string') {
-                const newGroup: PartialProfileGroup<ProfileGroup> = {
-                    id: uuidv4(),
-                    name: this.profileGroup,
-                }
-                this.profilesService.newProfileGroup(newGroup, false, false)
-                this.profileGroup = newGroup
-            }
             this.profile.group = this.profileGroup.id
         }
 
