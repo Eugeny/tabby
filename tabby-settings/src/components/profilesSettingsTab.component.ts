@@ -308,6 +308,24 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
         await this.config.save()
     }
 
+    async deleteDefaults (provider: ProfileProvider<Profile>): Promise<void> {
+        if ((await this.platform.showMessageBox(
+            {
+                type: 'warning',
+                message: this.translate.instant('Restore settings to defaults ?'),
+                buttons: [
+                    this.translate.instant('Delete'),
+                    this.translate.instant('Keep'),
+                ],
+                defaultId: 1,
+                cancelId: 1,
+            },
+        )).response === 0) {
+            this.profilesService.setProviderDefaults(provider, {})
+            await this.config.save()
+        }
+    }
+
     blacklistProfile (profile: PartialProfile<Profile>): void {
         this.config.store.profileBlacklist = [...this.config.store.profileBlacklist, profile.id]
         this.config.save()
