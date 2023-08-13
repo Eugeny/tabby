@@ -392,14 +392,15 @@ export class Window {
                 return
             }
 
-            const symbolColor: string = theme.foreground
-
-            this.window.setTitleBarOverlay(
-                {
-                    symbolColor: symbolColor,
-                    height: 32,
-                },
-            )
+            if (process.platform === 'win32') {
+                const symbolColor: string = theme.foreground
+                this.window.setTitleBarOverlay(
+                    {
+                        symbolColor: symbolColor,
+                        height: 32,
+                    },
+                )
+            }
         })
 
         ipcMain.on('window-set-title', (event, title) => {

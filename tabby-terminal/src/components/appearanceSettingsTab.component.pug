@@ -1,24 +1,24 @@
 h3.mb-3(translate) Appearance
+.form-line
+    .header
+        .title(translate) Font
+
+    .input-group.w-75
+        input.form-control(
+            type='text',
+            [ngbTypeahead]='fontAutocomplete',
+            [(ngModel)]='config.store.terminal.font',
+            (ngModelChange)='config.save()',
+        )
+        input.form-control.font-size-input(
+            type='number',
+            max='48',
+            [(ngModel)]='config.store.terminal.fontSize',
+            (ngModelChange)='fixFontSize(); config.save()',
+        )
+
 .row
     .col-12.col-md-6
-        .form-line
-            .header
-                .title(translate) Font
-
-            .input-group.w-75
-                input.form-control.w-75(
-                    type='text',
-                    [ngbTypeahead]='fontAutocomplete',
-                    [(ngModel)]='config.store.terminal.font',
-                    (ngModelChange)='config.save()',
-                )
-                input.form-control.w-25(
-                    type='number',
-                    max='48',
-                    [(ngModel)]='config.store.terminal.fontSize',
-                    (ngModelChange)='fixFontSize(); config.save()',
-                )
-
         .form-line
             .header
                 .title(translate) Enable font ligatures
