@@ -117,6 +117,7 @@
 * [clippy](https://github.com/Eugeny/tabby-clippy) — плагин-пример, который постоянно будет вас бесить;
 * [workspace-manager](https://github.com/composer404/tabby-workspace-manager) — позволяет создавать пользовательские провили рабочего окружеиня на основе конфига;
 * [search-in-browser](https://github.com/composer404/tabby-search-in-browser) — открывает браузер по умолчанию с текстом, выделенном во вкладке Tabby.
+* [sftp-tab](https://github.com/wljince007/tabby-sftp-tab) - open sftp tab for ssh connection like SecureCRT
 
 <a name="themes"></a>
 # Темы
