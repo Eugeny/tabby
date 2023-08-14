@@ -2,14 +2,14 @@ import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker'
 import slugify from 'slugify'
 import deepClone from 'clone-deep'
 import { Injectable } from '@angular/core'
-import { ProfileProvider, NewTabParameters, SelectorService, HostAppService, Platform, TranslateService } from 'tabby-core'
+import { NewTabParameters, SelectorService, HostAppService, Platform, TranslateService, ConnectableProfileProvider } from 'tabby-core'
 import { SerialProfileSettingsComponent } from './components/serialProfileSettings.component'
 import { SerialTabComponent } from './components/serialTab.component'
 import { SerialService } from './services/serial.service'
 import { BAUD_RATES, SerialProfile } from './api'
 
 @Injectable({ providedIn: 'root' })
-export class SerialProfilesService extends ProfileProvider<SerialProfile> {
+export class SerialProfilesService extends ConnectableProfileProvider<SerialProfile> {
     id = 'serial'
     name = _('Serial')
     settingsComponent = SerialProfileSettingsComponent

@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core'
-import { ProfileProvider, NewTabParameters, PartialProfile, TranslateService } from 'tabby-core'
+import { NewTabParameters, PartialProfile, TranslateService, ConnectableProfileProvider } from 'tabby-core'
 import { TelnetProfileSettingsComponent } from './components/telnetProfileSettings.component'
 import { TelnetTabComponent } from './components/telnetTab.component'
 import { TelnetProfile } from './session'
 
 @Injectable({ providedIn: 'root' })
-export class TelnetProfilesService extends ProfileProvider<TelnetProfile> {
+export class TelnetProfilesService extends ConnectableProfileProvider<TelnetProfile> {
     id = 'telnet'
     name = 'Telnet'
     supportsQuickConnect = true

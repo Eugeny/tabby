@@ -83,7 +83,7 @@ export class SSHTabComponent extends ConnectableTerminalTabComponent<SSHProfile>
 
                 const jumpSession = await this.setupOneSession(
                     this.injector,
-                    this.profilesService.getConfigProxyForProfile(jumpConnection),
+                    this.profilesService.getConfigProxyForProfile<SSHProfile>(jumpConnection),
                 )
 
                 jumpSession.ref()

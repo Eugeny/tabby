@@ -37,7 +37,7 @@ import { FastHtmlBindDirective } from './directives/fastHtmlBind.directive'
 import { DropZoneDirective } from './directives/dropZone.directive'
 import { CdkAutoDropGroup } from './directives/cdkAutoDropGroup.directive'
 
-import { Theme, CLIHandler, TabContextMenuItemProvider, TabRecoveryProvider, HotkeyProvider, ConfigProvider, PlatformService, FileProvider, ProfilesService, ProfileProvider, SelectorOption, Profile, SelectorService, CommandProvider } from './api'
+import { Theme, CLIHandler, TabContextMenuItemProvider, TabRecoveryProvider, HotkeyProvider, ConfigProvider, PlatformService, FileProvider, ProfilesService, ProfileProvider, ConnectableProfileProvider, SelectorOption, Profile, SelectorService, CommandProvider } from './api'
 
 import { AppService } from './services/app.service'
 import { ConfigService } from './services/config.service'
@@ -214,7 +214,7 @@ export default class AppModule { // eslint-disable-line @typescript-eslint/no-ex
             callback: () => this.profilesService.openNewTabForProfile(p),
         }))
 
-        if (provider.supportsQuickConnect) {
+        if (provider instanceof ConnectableProfileProvider) {
             options.push({
                 name: this.translate.instant('Quick connect'),
                 freeInputPattern: this.translate.instant('Connect to "%s"...'),

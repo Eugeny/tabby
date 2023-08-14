@@ -2,7 +2,7 @@
 import { Observable, OperatorFunction, debounceTime, map, distinctUntilChanged } from 'rxjs'
 import { Component, Input, ViewChild, ViewContainerRef, ComponentFactoryResolver, Injector } from '@angular/core'
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
-import { ConfigProxy, ConfigService, Profile, ProfileProvider, ProfileSettingsComponent, ProfilesService, TAB_COLORS } from 'tabby-core'
+import { ConfigProxy, ConfigService, Profile, ProfileProvider, ProfileSettingsComponent, ProfilesService, TAB_COLORS, ConnectableProfileProvider } from 'tabby-core'
 
 const iconsData = require('../../../tabby-core/src/icons.json')
 const iconsClassList = Object.keys(iconsData).map(
@@ -95,4 +95,9 @@ export class EditProfileModalComponent<P extends Profile> {
     cancel () {
         this.modalInstance.dismiss()
     }
+
+    isConnectable (): boolean {
+        return this.profileProvider instanceof ConnectableProfileProvider
+    }
+
 }

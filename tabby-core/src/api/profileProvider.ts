@@ -21,6 +21,9 @@ export interface Profile {
     isTemplate: boolean
 }
 
+export interface ConnectableProfile extends Profile {
+}
+
 export type PartialProfile<T extends Profile> = Omit<Omit<Omit<{
     [K in keyof T]?: T[K]
 }, 'options'>, 'type'>, 'name'> & {
@@ -39,7 +42,6 @@ export interface ProfileSettingsComponent<P extends Profile> {
 export abstract class ProfileProvider<P extends Profile> {
     id: string
     name: string
-    supportsQuickConnect = false
     settingsComponent?: new (...args: any[]) => ProfileSettingsComponent<P>
     configDefaults = {}
 
@@ -53,6 +55,11 @@ export abstract class ProfileProvider<P extends Profile> {
 
     abstract getDescription (profile: PartialProfile<P>): string
 
+    deleteProfile (profile: P): void { }
+}
+
+export abstract class ConnectableProfileProvider<P extends ConnectableProfile> extends ProfileProvider<P> {
+
     quickConnect (query: string): PartialProfile<P>|null {
         return null
     }
@@ -61,5 +68,4 @@ export abstract class ProfileProvider<P extends Profile> {
         return null
     }
 
-    deleteProfile (profile: P): void { }
 }
