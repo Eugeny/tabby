@@ -32,6 +32,7 @@ export class SerialProfilesService extends ConnectableProfileProvider<SerialProf
             slowSend: false,
             input: { backspace: 'backspace' },
         },
+        clearServiceMessagesOnConnect: false,
     }
 
     constructor (

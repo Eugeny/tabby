@@ -44,6 +44,7 @@ export class SSHProfilesService extends ConnectableProfileProvider<SSHProfile> {
             reuseSession: true,
             input: { backspace: 'backspace' },
         },
+        clearServiceMessagesOnConnect: true,
     }
 
     constructor (

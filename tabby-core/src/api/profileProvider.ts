@@ -22,6 +22,7 @@ export interface Profile {
 }
 
 export interface ConnectableProfile extends Profile {
+    clearServiceMessagesOnConnect: boolean
 }
 
 export type PartialProfile<T extends Profile> = Omit<Omit<Omit<{

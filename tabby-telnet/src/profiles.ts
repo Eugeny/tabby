@@ -21,6 +21,7 @@ export class TelnetProfilesService extends ConnectableProfileProvider<TelnetProf
             scripts: [],
             input: { backspace: 'backspace' },
         },
+        clearServiceMessagesOnConnect: false,
     }
 
     constructor (private translate: TranslateService) { super() }
