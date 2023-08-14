@@ -34,7 +34,7 @@ export class SSHMultiplexerService {
             if (!jumpConnection) {
                 return key
             }
-            const jumpProfile = this.profilesService.getConfigProxyForProfile(jumpConnection)
+            const jumpProfile = this.profilesService.getConfigProxyForProfile<SSHProfile>(jumpConnection)
             key += '$' + await this.getMultiplexerKey(jumpProfile)
         }
         return key

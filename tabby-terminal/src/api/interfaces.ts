@@ -1,4 +1,4 @@
-import { Profile } from 'tabby-core'
+import { ConnectableProfile, Profile } from 'tabby-core'
 
 export interface ResizeEvent {
     columns: number
@@ -19,3 +19,5 @@ export interface TerminalColorScheme {
 export interface BaseTerminalProfile extends Profile {
     terminalColorScheme?: TerminalColorScheme
 }
+
+export interface ConnectableTerminalProfile extends BaseTerminalProfile, ConnectableProfile {}

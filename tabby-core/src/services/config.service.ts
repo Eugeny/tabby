@@ -397,6 +397,13 @@ export class ConfigService {
             config.groups = groups
             config.version = 5
         }
+        if (config.version < 6) {
+            if (config.ssh.clearServiceMessagesOnConnect === false) {
+                config.profileDefaults.ssh.clearServiceMessagesOnConnect = false
+                delete config.ssh?.clearServiceMessagesOnConnect
+            }
+            config.version = 6
+        }
     }
 
     private async maybeDecryptConfig (store) {

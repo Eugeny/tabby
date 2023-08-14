@@ -77,9 +77,15 @@
                 )
                     option(ngValue='auto', translate) Auto
                     option(ngValue='keep', translate) Keep
-                    option(*ngIf='profile.type == "serial" || profile.type == "telnet" || profile.type == "ssh"', ngValue='reconnect', translate) Reconnect
+                    option(*ngIf='isConnectable()', ngValue='reconnect', translate) Reconnect
                     option(ngValue='close', translate) Close
-
+            
+            .form-line(*ngIf='isConnectable()')
+                .header
+                    .title(translate) Clear terminal after connection
+                toggle(
+                    [(ngModel)]='profile.clearServiceMessagesOnConnect',
+                )
             .mb-4
 
         .col-12.col-lg-8(*ngIf='this.profileProvider.settingsComponent')

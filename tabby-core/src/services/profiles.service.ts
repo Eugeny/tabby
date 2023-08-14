@@ -2,7 +2,7 @@ import { Injectable, Inject } from '@angular/core'
 import { TranslateService } from '@ngx-translate/core'
 import { NewTabParameters } from './tabs.service'
 import { BaseTabComponent } from '../components/baseTab.component'
-import { PartialProfile, PartialProfileGroup, Profile, ProfileGroup, ProfileProvider } from '../api/profileProvider'
+import { ConnectableProfileProvider, PartialProfile, PartialProfileGroup, Profile, ProfileGroup, ProfileProvider } from '../api/profileProvider'
 import { SelectorOption } from '../api/selector'
 import { AppService } from './app.service'
 import { configMerge, ConfigProxy, ConfigService } from './config.service'
@@ -230,7 +230,7 @@ export class ProfilesService {
     selectorOptionForProfile <P extends Profile, T> (profile: PartialProfile<P>): SelectorOption<T> {
         const fullProfile = this.getConfigProxyForProfile(profile)
         const provider = this.providerForProfile(fullProfile)
-        const freeInputEquivalent = provider?.intoQuickConnectString(fullProfile) ?? undefined
+        const freeInputEquivalent = provider instanceof ConnectableProfileProvider ? provider.intoQuickConnectString(fullProfile) ?? undefined : undefined
         return {
             ...profile,
             group: this.resolveProfileGroupName(profile.group ?? ''),
@@ -307,18 +307,20 @@ export class ProfilesService {
                     })
                 } catch { }
 
-                this.getProviders().filter(x => x.supportsQuickConnect).forEach(provider => {
-                    options.push({
-                        name: this.translate.instant('Quick connect'),
-                        freeInputPattern: this.translate.instant('Connect to "%s"...'),
-                        description: `(${provider.name.toUpperCase()})`,
-                        icon: 'fas fa-arrow-right',
-                        weight: provider.id !== this.config.store.defaultQuickConnectProvider ? 1 : 0,
-                        callback: query => {
-                            const profile = provider.quickConnect(query)
-                            resolve(profile)
-                        },
-                    })
+                this.getProviders().forEach(provider => {
+                    if (provider instanceof ConnectableProfileProvider) {
+                        options.push({
+                            name: this.translate.instant('Quick connect'),
+                            freeInputPattern: this.translate.instant('Connect to "%s"...'),
+                            description: `(${provider.name.toUpperCase()})`,
+                            icon: 'fas fa-arrow-right',
+                            weight: provider.id !== this.config.store.defaultQuickConnectProvider ? 1 : 0,
+                            callback: query => {
+                                const profile = provider.quickConnect(query)
+                                resolve(profile)
+                            },
+                        })
+                    }
                 })
 
                 await this.selector.show(this.translate.instant('Select profile or enter an address'), options)
@@ -336,7 +338,7 @@ export class ProfilesService {
 
     async quickConnect (query: string): Promise<PartialProfile<Profile>|null> {
         for (const provider of this.getProviders()) {
-            if (provider.supportsQuickConnect) {
+            if (provider instanceof ConnectableProfileProvider) {
                 const profile = provider.quickConnect(query)
                 if (profile) {
                     return profile

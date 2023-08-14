@@ -2,7 +2,7 @@ import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker'
 import deepClone from 'clone-deep'
 import { Component, Inject } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
-import { ConfigService, HostAppService, Profile, SelectorService, ProfilesService, PromptModalComponent, PlatformService, BaseComponent, PartialProfile, ProfileProvider, TranslateService, Platform, ProfileGroup, PartialProfileGroup } from 'tabby-core'
+import { ConfigService, HostAppService, Profile, SelectorService, ProfilesService, PromptModalComponent, PlatformService, BaseComponent, PartialProfile, ProfileProvider, TranslateService, Platform, ProfileGroup, PartialProfileGroup, ConnectableProfileProvider } from 'tabby-core'
 import { EditProfileModalComponent } from './editProfileModal.component'
 import { EditProfileGroupModalComponent, EditProfileGroupModalComponentResult } from './editProfileGroupModal.component'
 
@@ -341,7 +341,7 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
     }
 
     getQuickConnectProviders (): ProfileProvider<Profile>[] {
-        return this.profileProviders.filter(x => x.supportsQuickConnect)
+        return this.profileProviders.filter(x => x instanceof ConnectableProfileProvider)
     }
 
     /**
