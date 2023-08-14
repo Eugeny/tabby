@@ -163,10 +163,6 @@ export class SSHTabComponent extends ConnectableTerminalTabComponent<SSHProfile>
 
         await session.start()
 
-        if (this.config.store.ssh.clearServiceMessagesOnConnect) {
-            this.frontend?.clear()
-        }
-
         this.session?.resize(this.size.columns, this.size.rows)
     }
 
