@@ -35,9 +35,11 @@ export class VaultSettingsTabComponent extends BaseComponent {
 
     async enableVault () {
         const modal = this.ngbModal.open(SetVaultPassphraseModalComponent)
-        const newPassphrase = await modal.result
-        await this.vault.setEnabled(true, newPassphrase)
-        this.vaultContents = await this.vault.load(newPassphrase)
+        const newPassphrase = await modal.result.catch(() => null)
+        if (newPassphrase) {
+            await this.vault.setEnabled(true, newPassphrase)
+            this.vaultContents = await this.vault.load(newPassphrase)
+        }
     }
 
     async disableVault () {
@@ -65,8 +67,10 @@ export class VaultSettingsTabComponent extends BaseComponent {
             return
         }
         const modal = this.ngbModal.open(SetVaultPassphraseModalComponent)
-        const newPassphrase = await modal.result
-        this.vault.save(this.vaultContents, newPassphrase)
+        const newPassphrase = await modal.result.catch(() => null)
+        if (newPassphrase) {
+            this.vault.save(this.vaultContents, newPassphrase)
+        }
     }
 
     async toggleConfigEncrypted () {
@@ -118,7 +122,7 @@ export class VaultSettingsTabComponent extends BaseComponent {
         modal.componentInstance.prompt = this.translate.instant('New name')
         modal.componentInstance.value = secret.key.description
 
-        const description = (await modal.result)?.value
+        const description = (await modal.result.catch(() => null))?.value
         if (!description) {
             return
         }

@@ -59,7 +59,7 @@ export class ConfigSyncSettingsTabComponent extends BaseComponent {
         const modal = this.ngbModal.open(PromptModalComponent)
         modal.componentInstance.prompt = this.translate.instant('Name for the new config')
         modal.componentInstance.value = name
-        name = (await modal.result)?.value
+        name = (await modal.result.catch(() => null))?.value
         if (!name) {
             return
         }

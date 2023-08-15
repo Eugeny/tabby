@@ -149,7 +149,7 @@ export class CommonOptionsContextMenu extends TabContextMenuItemProvider {
                     click: async () => {
                         const modal = this.ngbModal.open(PromptModalComponent)
                         modal.componentInstance.prompt = this.translate.instant('Profile name')
-                        const name = (await modal.result)?.value
+                        const name = (await modal.result.catch(() => null))?.value
                         if (!name) {
                             return
                         }

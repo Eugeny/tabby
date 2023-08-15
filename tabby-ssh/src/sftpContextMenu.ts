@@ -53,6 +53,6 @@ export class CommonSFTPContextMenu extends SFTPContextMenuItemProvider {
         const modal = this.ngbModal.open(SFTPDeleteModalComponent)
         modal.componentInstance.item = item
         modal.componentInstance.sftp = session
-        await modal.result
+        await modal.result.catch(() => {return})
     }
 }

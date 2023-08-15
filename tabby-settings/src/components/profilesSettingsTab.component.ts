@@ -144,7 +144,7 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
     async newProfileGroup (): Promise<void> {
         const modal = this.ngbModal.open(PromptModalComponent)
         modal.componentInstance.prompt = this.translate.instant('New group name')
-        const result = await modal.result
+        const result = await modal.result.catch(() => null)
         if (result?.value.trim()) {
             await this.profilesService.newProfileGroup({ id: '', name: result.value })
         }
@@ -296,16 +296,17 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
         modal.componentInstance.profile = Object.assign({}, model)
         modal.componentInstance.profileProvider = provider
         modal.componentInstance.defaultsMode = 'enabled'
-        const result = await modal.result
-
-        // Fully replace the config
-        for (const k in model) {
-            // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
-            delete model[k]
+        const result = await modal.result.catch(() => null)
+        if (result) {
+            // Fully replace the config
+            for (const k in model) {
+                // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
+                delete model[k]
+            }
+            Object.assign(model, result)
+            this.profilesService.setProviderDefaults(provider, model)
+            await this.config.save()
         }
-        Object.assign(model, result)
-        this.profilesService.setProviderDefaults(provider, model)
-        await this.config.save()
     }
 
     async deleteDefaults (provider: ProfileProvider<Profile>): Promise<void> {

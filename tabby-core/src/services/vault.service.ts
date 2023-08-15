@@ -285,7 +285,7 @@ export class VaultFileProvider extends FileProvider {
                     icon: 'fas fa-file',
                     result: f,
                 })),
-            ])
+            ]).catch(() => null)
             if (result) {
                 return `${this.prefix}${result.key.id}`
             }
