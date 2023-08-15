@@ -65,7 +65,10 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
                     name: p.group ? `${this.profilesService.resolveProfileGroupName(p.group)} / ${p.name}` : p.name,
                     result: p,
                 })),
-            )
+            ).catch(() => undefined)
+            if (!base) {
+                return
+            }
         }
         const profile: PartialProfile<Profile> = deepClone(base)
         delete profile.id

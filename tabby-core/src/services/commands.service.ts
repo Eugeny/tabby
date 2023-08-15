@@ -109,6 +109,6 @@ export class CommandService {
                 description: c.sublabel,
                 icon: c.icon,
             })),
-        )
+        ).catch(() => {return})
     }
 }

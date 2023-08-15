@@ -229,7 +229,7 @@ export default class AppModule { // eslint-disable-line @typescript-eslint/no-ex
             })
         }
 
-        await this.selector.show(this.translate.instant('Select profile'), options)
+        await this.selector.show(this.translate.instant('Select profile'), options).catch(() => {return})
     }
 
     static forRoot (): ModuleWithProviders<AppModule> {

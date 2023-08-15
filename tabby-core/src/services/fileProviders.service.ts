@@ -13,8 +13,9 @@ export class FileProvidersService {
     ) { }
 
     async selectAndStoreFile (description: string): Promise<string> {
-        const p = await this.selectProvider()
-        return p.selectAndStoreFile(description)
+        return this.selectProvider().then(p => {
+            return p.selectAndStoreFile(description)
+        })
     }
 
     async retrieveFile (key: string): Promise<Buffer> {
