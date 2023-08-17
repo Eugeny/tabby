@@ -33,11 +33,10 @@ export class SelectorModalComponent<T> {
             this.close()
         } else if (this.filteredOptions.length > 0) {
             if (event.key === 'PageUp' || event.key === 'ArrowUp' && event.metaKey) {
-                this.selectedIndex -= Math.min(10, this.selectedIndex === 0 ? 1 : this.selectedIndex)
+                this.selectedIndex -= Math.min(10, Math.max(1, this.selectedIndex))
                 event.preventDefault()
             } else if (event.key === 'PageDown' || event.key === 'ArrowDown' && event.metaKey) {
-                const newI = this.filteredOptions.length - this.selectedIndex - 1
-                this.selectedIndex += Math.min(10, newI === 0 ? 1 : newI)
+                this.selectedIndex += Math.min(10, Math.max(1, this.filteredOptions.length - this.selectedIndex - 1))
                 event.preventDefault()
             } else if (event.key === 'ArrowUp') {
                 this.selectedIndex--
