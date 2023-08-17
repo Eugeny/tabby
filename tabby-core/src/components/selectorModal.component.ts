@@ -29,34 +29,36 @@ export class SelectorModalComponent<T> {
     }
 
     @HostListener('keydown', ['$event']) onKeyUp (event: KeyboardEvent): void {
-        if (event.key === 'PageUp' || event.key === 'ArrowUp' && event.metaKey) {
-            this.selectedIndex -= 10
-            event.preventDefault()
-        } else if (event.key === 'PageDown' || event.key === 'ArrowDown' && event.metaKey) {
-            this.selectedIndex += 10
-            event.preventDefault()
-        } else if (event.key === 'ArrowUp') {
-            this.selectedIndex--
-            event.preventDefault()
-        } else if (event.key === 'ArrowDown') {
-            this.selectedIndex++
-            event.preventDefault()
-        } else if (event.key === 'Enter') {
-            this.selectOption(this.filteredOptions[this.selectedIndex])
-        } else if (event.key === 'Escape') {
+        if (event.key === 'Escape') {
             this.close()
-        }
-        if (event.key === 'Backspace' && this.canEditSelected()) {
-            event.preventDefault()
-            this.filter = this.filteredOptions[this.selectedIndex].freeInputEquivalent!
-            this.onFilterChange()
-        }
+        } else if (this.filteredOptions.length > 0) {
+            if (event.key === 'PageUp' || event.key === 'ArrowUp' && event.metaKey) {
+                this.selectedIndex -= Math.min(10, Math.max(1, this.selectedIndex))
+                event.preventDefault()
+            } else if (event.key === 'PageDown' || event.key === 'ArrowDown' && event.metaKey) {
+                this.selectedIndex += Math.min(10, Math.max(1, this.filteredOptions.length - this.selectedIndex - 1))
+                event.preventDefault()
+            } else if (event.key === 'ArrowUp') {
+                this.selectedIndex--
+                event.preventDefault()
+            } else if (event.key === 'ArrowDown') {
+                this.selectedIndex++
+                event.preventDefault()
+            } else if (event.key === 'Enter') {
+                this.selectOption(this.filteredOptions[this.selectedIndex])
+            } else if (event.key === 'Backspace' && this.canEditSelected()) {
+                event.preventDefault()
+                this.filter = this.filteredOptions[this.selectedIndex].freeInputEquivalent!
+                this.onFilterChange()
+            }
 
-        this.selectedIndex = (this.selectedIndex + this.filteredOptions.length) % this.filteredOptions.length
-        Array.from(this.itemChildren)[this.selectedIndex]?.nativeElement.scrollIntoView({
-            behavior: 'smooth',
-            block: 'nearest',
-        })
+            this.selectedIndex = (this.selectedIndex + this.filteredOptions.length) % this.filteredOptions.length
+
+            Array.from(this.itemChildren)[this.selectedIndex]?.nativeElement.scrollIntoView({
+                behavior: 'smooth',
+                block: 'nearest',
+            })
+        }
     }
 
     onFilterChange (): void {
