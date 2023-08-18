@@ -2,7 +2,7 @@ import { Injectable, Inject } from '@angular/core'
 import { TranslateService } from '@ngx-translate/core'
 import { NewTabParameters } from './tabs.service'
 import { BaseTabComponent } from '../components/baseTab.component'
-import { ConnectableProfileProvider, PartialProfile, PartialProfileGroup, Profile, ProfileGroup, ProfileProvider } from '../api/profileProvider'
+import { QuickConnectProfileProvider, PartialProfile, PartialProfileGroup, Profile, ProfileGroup, ProfileProvider } from '../api/profileProvider'
 import { SelectorOption } from '../api/selector'
 import { AppService } from './app.service'
 import { configMerge, ConfigProxy, ConfigService } from './config.service'
@@ -230,7 +230,7 @@ export class ProfilesService {
     selectorOptionForProfile <P extends Profile, T> (profile: PartialProfile<P>): SelectorOption<T> {
         const fullProfile = this.getConfigProxyForProfile(profile)
         const provider = this.providerForProfile(fullProfile)
-        const freeInputEquivalent = provider instanceof ConnectableProfileProvider ? provider.intoQuickConnectString(fullProfile) ?? undefined : undefined
+        const freeInputEquivalent = provider instanceof QuickConnectProfileProvider ? provider.intoQuickConnectString(fullProfile) ?? undefined : undefined
         return {
             ...profile,
             group: this.resolveProfileGroupName(profile.group ?? ''),
@@ -308,7 +308,7 @@ export class ProfilesService {
                 } catch { }
 
                 this.getProviders().forEach(provider => {
-                    if (provider instanceof ConnectableProfileProvider) {
+                    if (provider instanceof QuickConnectProfileProvider) {
                         options.push({
                             name: this.translate.instant('Quick connect'),
                             freeInputPattern: this.translate.instant('Connect to "%s"...'),
@@ -338,7 +338,7 @@ export class ProfilesService {
 
     async quickConnect (query: string): Promise<PartialProfile<Profile>|null> {
         for (const provider of this.getProviders()) {
-            if (provider instanceof ConnectableProfileProvider) {
+            if (provider instanceof QuickConnectProfileProvider) {
                 const profile = provider.quickConnect(query)
                 if (profile) {
                     return profile

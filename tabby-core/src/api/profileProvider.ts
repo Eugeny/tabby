@@ -74,14 +74,12 @@ export abstract class ProfileProvider<P extends Profile> {
     deleteProfile (profile: P): void { }
 }
 
-export abstract class ConnectableProfileProvider<P extends ConnectableProfile> extends ProfileProvider<P> {
+export abstract class ConnectableProfileProvider<P extends ConnectableProfile> extends ProfileProvider<P> {}
 
-    quickConnect (query: string): PartialProfile<P>|null {
-        return null
-    }
+export abstract class QuickConnectProfileProvider<P extends ConnectableProfile> extends ConnectableProfileProvider<P> {
 
-    intoQuickConnectString (profile: P): string|null {
-        return null
-    }
+    abstract quickConnect (query: string): PartialProfile<P>|null
+
+    abstract intoQuickConnectString (profile: P): string|null
 
 }
