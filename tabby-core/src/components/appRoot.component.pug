@@ -35,8 +35,7 @@ title-bar(
                 [@animateTab]='{value: "in", params: {size: targetTabSize}}',
                 [@.disabled]='hasVerticalTabs() || !config.store.accessibility.animations',
                 (click)='app.selectTab(tab)',
-                [class.fully-draggable]='hostApp.platform != Platform.macOS',
-                [class.drag-region]='hostApp.platform == Platform.macOS && !(app.tabDragActive$|async)',
+                [class.fully-draggable]='hostApp.platform != Platform.macOS'
             )
 
         .btn-group.background
@@ -65,7 +64,7 @@ title-bar(
                     (transfersChange)='onTransfersChange()'
                 )
 
-        .drag-space.background([class.persistent]='config.store.appearance.frame == "thin" && hostApp.platform != Platform.macOS')
+        .drag-space.background([class.persistent]='config.store.appearance.frame == "thin"')
 
         .btn-group.background
             .d-flex(
