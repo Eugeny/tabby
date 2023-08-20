@@ -84,6 +84,7 @@ export abstract class BaseTabComponent extends BaseComponent {
 
     get focused$ (): Observable<void> { return this.focused }
     get blurred$ (): Observable<void> { return this.blurred }
+    /* @hidden */
     get visibility$ (): Observable<boolean> { return this.visibility }
     get titleChange$ (): Observable<string> { return this.titleChange.pipe(distinctUntilChanged()) }
     get progress$ (): Observable<number|null> { return this.progress.pipe(distinctUntilChanged()) }
@@ -179,6 +180,7 @@ export abstract class BaseTabComponent extends BaseComponent {
         this.blurred.next()
     }
 
+    /* @hidden */
     emitVisibility (visibility: boolean): void {
         this.visibility.next(visibility)
     }

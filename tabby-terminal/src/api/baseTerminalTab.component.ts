@@ -1,4 +1,4 @@
-import { Observable, Subject, first, auditTime } from 'rxjs'
+import { Observable, Subject, first, auditTime, debounce, interval } from 'rxjs'
 import { Spinner } from 'cli-spinner'
 import colors from 'ansi-colors'
 import { NgZone, OnInit, OnDestroy, Injector, ViewChild, HostBinding, Input, ElementRef, InjectFlags, Component } from '@angular/core'
@@ -13,6 +13,9 @@ import { ResizeEvent, BaseTerminalProfile } from './interfaces'
 import { TerminalDecorator } from './decorator'
 import { SearchPanelComponent } from '../components/searchPanel.component'
 import { MultifocusService } from '../services/multifocus.service'
+
+
+const INACTIVE_TAB_UNLOAD_DELAY = 1000 * 30
 
 /**
  * A class to base your custom terminal tabs on
@@ -409,22 +412,23 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
             this.multifocus.cancel()
         })
 
-        this.visibility$.subscribe(visibility => {
-            if (this.frontend instanceof XTermFrontend) {
-                if (visibility) {
-                    // this.frontend.resizeHandler()
-                    const term = this.frontend.xterm as any
-                    term._core._renderService.clear()
-                    term._core._renderService.handleResize(term.cols, term.rows)
-                } else {
-                    this.frontend.xterm.element?.querySelectorAll('canvas').forEach(c => {
-                        c.height = c.width = 0
-                        c.style.height = c.style.width = '0px'
-                    })
+        this.visibility$
+            .pipe(debounce(visibility => interval(visibility ? 0 : INACTIVE_TAB_UNLOAD_DELAY)))
+            .subscribe(visibility => {
+                if (this.frontend instanceof XTermFrontend) {
+                    if (visibility) {
+                        // this.frontend.resizeHandler()
+                        const term = this.frontend.xterm as any
+                        term._core._renderService.clear()
+                        term._core._renderService.handleResize(term.cols, term.rows)
+                    } else {
+                        this.frontend.xterm.element?.querySelectorAll('canvas').forEach(c => {
+                            c.height = c.width = 0
+                            c.style.height = c.style.width = '0px'
+                        })
+                    }
                 }
-            }
-            console.log('visibility:', this.title, visibility)
-        })
+            })
     }
 
     protected onFrontendReady (): void {
