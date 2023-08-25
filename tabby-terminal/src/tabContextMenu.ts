@@ -175,7 +175,7 @@ export class SaveAsProfileContextMenu extends TabContextMenuItemProvider {
                         const modal = this.ngbModal.open(PromptModalComponent)
                         modal.componentInstance.prompt = this.translate.instant('New profile name')
                         modal.componentInstance.value = tab.profile.name
-                        const name = (await modal.result)?.value
+                        const name = (await modal.result.catch(() => null))?.value
                         if (!name) {
                             return
                         }

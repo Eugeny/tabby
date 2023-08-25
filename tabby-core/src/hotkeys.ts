@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core'
 import { TranslateService } from '@ngx-translate/core'
 import { ProfilesService } from './services/profiles.service'
 import { HotkeyDescription, HotkeyProvider } from './api/hotkeyProvider'
-import { PartialProfile, Profile } from './api'
 
 /** @hidden */
 @Injectable()
@@ -268,7 +267,7 @@ export class AppHotkeyProvider extends HotkeyProvider {
         return [
             ...this.hotkeys,
             ...profiles.map(profile => ({
-                id: `profile.${AppHotkeyProvider.getProfileHotkeyName(profile)}`,
+                id: `profile.${ProfilesService.getProfileHotkeyName(profile)}`,
                 name: this.translate.instant('New tab: {profile}', { profile: profile.name }),
             })),
             ...this.profilesService.getProviders().map(provider => ({
@@ -278,7 +277,4 @@ export class AppHotkeyProvider extends HotkeyProvider {
         ]
     }
 
-    static getProfileHotkeyName (profile: PartialProfile<Profile>): string {
-        return (profile.id ?? profile.name).replace(/\./g, '-')
-    }
 }

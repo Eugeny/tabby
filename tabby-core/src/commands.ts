@@ -18,7 +18,7 @@ export class CoreCommandProvider extends CommandProvider {
     }
 
     async activate () {
-        const profile = await this.profilesService.showProfileSelector()
+        const profile = await this.profilesService.showProfileSelector().catch(() => null)
         if (profile) {
             this.profilesService.launchProfile(profile)
         }

@@ -1,0 +1,32 @@
+.modal-header
+    h3.m-0 {{group.name}}
+
+.modal-body
+    .row
+        .col-12.col-lg-4
+            .mb-3
+                label(translate) Name
+                input.form-control(
+                    type='text',
+                    autofocus,
+                    [(ngModel)]='group.name',
+                )
+
+        .col-12.col-lg-8
+            .form-line.content-box
+                .header
+                    .title(translate) Default profile group settings
+                    .description(translate) These apply to all profiles of a given type in this group
+
+            .list-group.mt-3.mb-3.content-box
+                a.list-group-item.list-group-item-action.d-flex.align-items-center(
+                    (click)='editDefaults(provider)',
+                    *ngFor='let provider of providers'
+                ) {{provider.name|translate}}
+                    .me-auto
+                    button.btn.btn-link.hover-reveal.ms-1((click)='$event.stopPropagation(); deleteDefaults(provider)')
+                        i.fas.fa-trash-arrow-up
+
+.modal-footer
+    button.btn.btn-primary((click)='save()', translate) Save
+    button.btn.btn-danger((click)='cancel()', translate) Cancel

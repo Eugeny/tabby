@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core'
-import { ProfileProvider, NewTabParameters, PartialProfile, TranslateService } from 'tabby-core'
+import { NewTabParameters, PartialProfile, TranslateService, QuickConnectProfileProvider } from 'tabby-core'
 import { TelnetProfileSettingsComponent } from './components/telnetProfileSettings.component'
 import { TelnetTabComponent } from './components/telnetTab.component'
 import { TelnetProfile } from './session'
 
 @Injectable({ providedIn: 'root' })
-export class TelnetProfilesService extends ProfileProvider<TelnetProfile> {
+export class TelnetProfilesService extends QuickConnectProfileProvider<TelnetProfile> {
     id = 'telnet'
     name = 'Telnet'
     supportsQuickConnect = true
@@ -21,6 +21,7 @@ export class TelnetProfilesService extends ProfileProvider<TelnetProfile> {
             scripts: [],
             input: { backspace: 'backspace' },
         },
+        clearServiceMessagesOnConnect: false,
     }
 
     constructor (private translate: TranslateService) { super() }
@@ -94,5 +95,13 @@ export class TelnetProfilesService extends ProfileProvider<TelnetProfile> {
                 outputNewlines: 'crlf',
             },
         }
+    }
+
+    intoQuickConnectString (profile: TelnetProfile): string | null {
+        let s = profile.options.host
+        if (profile.options.port !== 23) {
+            s = `${s}:${profile.options.port}`
+        }
+        return s
     }
 }

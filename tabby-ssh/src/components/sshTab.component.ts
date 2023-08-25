@@ -83,7 +83,7 @@ export class SSHTabComponent extends ConnectableTerminalTabComponent<SSHProfile>
 
                 const jumpSession = await this.setupOneSession(
                     this.injector,
-                    this.profilesService.getConfigProxyForProfile(jumpConnection),
+                    this.profilesService.getConfigProxyForProfile<SSHProfile>(jumpConnection),
                 )
 
                 jumpSession.ref()
@@ -162,10 +162,6 @@ export class SSHTabComponent extends ConnectableTerminalTabComponent<SSHProfile>
         })
 
         await session.start()
-
-        if (this.config.store.ssh.clearServiceMessagesOnConnect) {
-            this.frontend?.clear()
-        }
 
         this.session?.resize(this.size.columns, this.size.rows)
     }

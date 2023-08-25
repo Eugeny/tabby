@@ -113,8 +113,8 @@ export class SFTPPanelComponent {
 
     async openCreateDirectoryModal (): Promise<void> {
         const modal = this.ngbModal.open(SFTPCreateDirectoryModalComponent)
-        const directoryName = await modal.result
-        if (directoryName !== '') {
+        const directoryName = await modal.result.catch(() => null)
+        if (directoryName?.trim()) {
             this.sftp.mkdir(path.join(this.path, directoryName)).then(() => {
                 this.notifications.notice('The directory was created successfully')
                 this.navigate(path.join(this.path, directoryName))

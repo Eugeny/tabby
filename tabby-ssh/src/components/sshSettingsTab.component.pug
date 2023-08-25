@@ -61,12 +61,4 @@ h3 SSH
         (ngModelChange)='config.save()'
     )
 
-.form-line
-    .header
-        .title(translate) Clear terminal after connection
-    toggle(
-        [(ngModel)]='config.store.ssh.clearServiceMessagesOnConnect',
-        (ngModelChange)='config.save()',
-    )
-
 .alert.alert-info(translate) SSH connection management is now done through the "Profiles & connections" tab

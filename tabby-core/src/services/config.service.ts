@@ -10,6 +10,7 @@ import { PlatformService } from '../api/platform'
 import { HostAppService } from '../api/hostApp'
 import { Vault, VaultService } from './vault.service'
 import { serializeFunction } from '../utils'
+import { PartialProfileGroup, ProfileGroup } from '../api/profileProvider'
 const deepmerge = require('deepmerge')
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
@@ -363,6 +364,45 @@ export class ConfigService {
                 }
             }
             config.version = 4
+        }
+        if (config.version < 5) {
+            const groups: PartialProfileGroup<ProfileGroup>[] = []
+            for (const p of config.profiles ?? []) {
+                if (!(p.group ?? '').trim()) {
+                    continue
+                }
+
+                let group = groups.find(x => x.name === p.group)
+                if (!group) {
+                    group = {
+                        id: `${uuidv4()}`,
+                        name: `${p.group}`,
+                    }
+                    groups.push(group)
+                }
+                p.group = group.id
+            }
+
+            const profileGroupCollapsed = JSON.parse(window.localStorage.profileGroupCollapsed ?? '{}')
+            for (const g of groups) {
+                if (profileGroupCollapsed[g.name]) {
+                    const collapsed = profileGroupCollapsed[g.name]
+                    // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
+                    delete profileGroupCollapsed[g.name]
+                    profileGroupCollapsed[g.id] = collapsed
+                }
+            }
+            window.localStorage.profileGroupCollapsed = JSON.stringify(profileGroupCollapsed)
+
+            config.groups = groups
+            config.version = 5
+        }
+        if (config.version < 6) {
+            if (config.ssh.clearServiceMessagesOnConnect === false) {
+                config.profileDefaults.ssh.clearServiceMessagesOnConnect = false
+                delete config.ssh?.clearServiceMessagesOnConnect
+            }
+            config.version = 6
         }
     }
 

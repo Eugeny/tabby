@@ -78,7 +78,7 @@ export class SelectorModalComponent<T> {
                 { sort: true },
             ).search(f)
 
-            this.options.filter(x => x.freeInputPattern).forEach(freeOption => {
+            this.options.filter(x => x.freeInputPattern).sort(firstBy<SelectorOption<T>, number>(x => x.weight ?? 0)).forEach(freeOption => {
                 if (!this.filteredOptions.includes(freeOption)) {
                     this.filteredOptions.push(freeOption)
                 }

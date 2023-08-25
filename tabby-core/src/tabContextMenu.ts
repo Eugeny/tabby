@@ -149,7 +149,7 @@ export class CommonOptionsContextMenu extends TabContextMenuItemProvider {
                     click: async () => {
                         const modal = this.ngbModal.open(PromptModalComponent)
                         modal.componentInstance.prompt = this.translate.instant('Profile name')
-                        const name = (await modal.result)?.value
+                        const name = (await modal.result.catch(() => null))?.value
                         if (!name) {
                             return
                         }
@@ -262,7 +262,7 @@ export class ProfilesContextMenu extends TabContextMenuItemProvider {
     }
 
     async switchTabProfile (tab: BaseTabComponent) {
-        const profile = await this.profilesService.showProfileSelector()
+        const profile = await this.profilesService.showProfileSelector().catch(() => null)
         if (!profile) {
             return
         }

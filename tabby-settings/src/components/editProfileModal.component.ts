@@ -2,7 +2,7 @@
 import { Observable, OperatorFunction, debounceTime, map, distinctUntilChanged } from 'rxjs'
 import { Component, Input, ViewChild, ViewContainerRef, ComponentFactoryResolver, Injector } from '@angular/core'
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
-import { ConfigProxy, ConfigService, Profile, ProfileProvider, ProfileSettingsComponent, ProfilesService, TAB_COLORS } from 'tabby-core'
+import { ConfigProxy, PartialProfileGroup, Profile, ProfileProvider, ProfileSettingsComponent, ProfilesService, TAB_COLORS, ProfileGroup, ConnectableProfileProvider } from 'tabby-core'
 
 const iconsData = require('../../../tabby-core/src/icons.json')
 const iconsClassList = Object.keys(iconsData).map(
@@ -19,8 +19,9 @@ export class EditProfileModalComponent<P extends Profile> {
     @Input() profile: P & ConfigProxy
     @Input() profileProvider: ProfileProvider<P>
     @Input() settingsComponent: new () => ProfileSettingsComponent<P>
-    @Input() defaultsMode = false
-    groupNames: string[]
+    @Input() defaultsMode: 'enabled'|'group'|'disabled' = 'disabled'
+    @Input() profileGroup: PartialProfileGroup<ProfileGroup> | undefined
+    groups: PartialProfileGroup<ProfileGroup>[]
     @ViewChild('placeholder', { read: ViewContainerRef }) placeholder: ViewContainerRef
 
     private _profile: Profile
@@ -30,14 +31,14 @@ export class EditProfileModalComponent<P extends Profile> {
         private injector: Injector,
         private componentFactoryResolver: ComponentFactoryResolver,
         private profilesService: ProfilesService,
-        config: ConfigService,
         private modalInstance: NgbActiveModal,
     ) {
-        this.groupNames = [...new Set(
-            (config.store.profiles as Profile[])
-                .map(x => x.group)
-                .filter(x => !!x),
-        )].sort() as string[]
+        if (this.defaultsMode === 'disabled') {
+            this.profilesService.getProfileGroups().then(groups => {
+                this.groups = groups
+                this.profileGroup = groups.find(g => g.id === this.profile.group)
+            })
+        }
     }
 
     colorsAutocomplete = text$ => text$.pipe(
@@ -56,7 +57,7 @@ export class EditProfileModalComponent<P extends Profile> {
 
     ngOnInit () {
         this._profile = this.profile
-        this.profile = this.profilesService.getConfigProxyForProfile(this.profile, this.defaultsMode)
+        this.profile = this.profilesService.getConfigProxyForProfile(this.profile, { skipGlobalDefaults: this.defaultsMode === 'enabled', skipGroupDefaults: this.defaultsMode === 'group' })
     }
 
     ngAfterViewInit () {
@@ -72,12 +73,14 @@ export class EditProfileModalComponent<P extends Profile> {
         }
     }
 
-    groupTypeahead = (text$: Observable<string>) =>
+    groupTypeahead: OperatorFunction<string, readonly PartialProfileGroup<ProfileGroup>[]> = (text$: Observable<string>) =>
         text$.pipe(
             debounceTime(200),
             distinctUntilChanged(),
-            map(q => this.groupNames.filter(x => !q || x.toLowerCase().includes(q.toLowerCase()))),
+            map(q => this.groups.filter(g => !q || g.name.toLowerCase().includes(q.toLowerCase()))),
         )
+
+    groupFormatter = (g: PartialProfileGroup<ProfileGroup>) => g.name
 
     iconSearch: OperatorFunction<string, string[]> = (text$: Observable<string>) =>
         text$.pipe(
@@ -86,7 +89,12 @@ export class EditProfileModalComponent<P extends Profile> {
         )
 
     save () {
-        this.profile.group ||= undefined
+        if (!this.profileGroup) {
+            this.profile.group = undefined
+        } else {
+            this.profile.group = this.profileGroup.id
+        }
+
         this.settingsComponentInstance?.save?.()
         this.profile.__cleanup()
         this.modalInstance.close(this._profile)
@@ -95,4 +103,9 @@ export class EditProfileModalComponent<P extends Profile> {
     cancel () {
         this.modalInstance.dismiss()
     }
+
+    isConnectable (): boolean {
+        return this.profileProvider instanceof ConnectableProfileProvider
+    }
+
 }

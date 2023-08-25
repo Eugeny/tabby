@@ -75,7 +75,7 @@ export class SSHProfileSettingsComponent {
         modal.componentInstance.prompt = `Password for ${this.profile.options.user}@${this.profile.options.host}`
         modal.componentInstance.password = true
         try {
-            const result = await modal.result
+            const result = await modal.result.catch(() => null)
             if (result?.value) {
                 this.passwordStorage.savePassword(this.profile, result.value)
                 this.hasSavedPassword = true
@@ -89,11 +89,13 @@ export class SSHProfileSettingsComponent {
     }
 
     async addPrivateKey () {
-        const ref = await this.fileProviders.selectAndStoreFile(`private key for ${this.profile.name}`)
-        this.profile.options.privateKeys = [
-            ...this.profile.options.privateKeys!,
-            ref,
-        ]
+        const ref = await this.fileProviders.selectAndStoreFile(`private key for ${this.profile.name}`).catch(() => null)
+        if (ref) {
+            this.profile.options.privateKeys = [
+                ...this.profile.options.privateKeys!,
+                ref,
+            ]
+        }
     }
 
     removePrivateKey (path: string) {

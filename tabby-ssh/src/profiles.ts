@@ -1,5 +1,5 @@
 import { Injectable, InjectFlags, Injector } from '@angular/core'
-import { ProfileProvider, NewTabParameters, PartialProfile, TranslateService } from 'tabby-core'
+import { NewTabParameters, PartialProfile, TranslateService, QuickConnectProfileProvider } from 'tabby-core'
 import * as ALGORITHMS from 'ssh2/lib/protocol/constants'
 import { SSHProfileSettingsComponent } from './components/sshProfileSettings.component'
 import { SSHTabComponent } from './components/sshTab.component'
@@ -8,10 +8,9 @@ import { ALGORITHM_BLACKLIST, SSHAlgorithmType, SSHProfile } from './api'
 import { SSHProfileImporter } from './api/importer'
 
 @Injectable({ providedIn: 'root' })
-export class SSHProfilesService extends ProfileProvider<SSHProfile> {
+export class SSHProfilesService extends QuickConnectProfileProvider<SSHProfile> {
     id = 'ssh'
     name = 'SSH'
-    supportsQuickConnect = true
     settingsComponent = SSHProfileSettingsComponent
     configDefaults = {
         options: {
@@ -45,6 +44,7 @@ export class SSHProfilesService extends ProfileProvider<SSHProfile> {
             reuseSession: true,
             input: { backspace: 'backspace' },
         },
+        clearServiceMessagesOnConnect: true,
     }
 
     constructor (
