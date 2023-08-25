@@ -188,10 +188,10 @@ export default class AppModule { // eslint-disable-line @typescript-eslint/no-ex
                 if (!provider) {
                     return
                 }
-                this.showSelector(provider)
+                this.showSelector(provider).catch(() => null)
             }
             if (hotkey === 'command-selector') {
-                commands.showSelector().catch(() => {return})
+                commands.showSelector().catch(() => null)
             }
 
             if (hotkey === 'profile-selector') {
@@ -229,7 +229,7 @@ export default class AppModule { // eslint-disable-line @typescript-eslint/no-ex
             })
         }
 
-        await this.selector.show(this.translate.instant('Select profile'), options).catch(() => {return})
+        await this.selector.show(this.translate.instant('Select profile'), options)
     }
 
     static forRoot (): ModuleWithProviders<AppModule> {

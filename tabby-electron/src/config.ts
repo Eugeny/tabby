@@ -22,5 +22,6 @@ export class ElectronConfigProvider extends ConfigProvider {
             },
         },
     }
+
     defaults = {}
 }

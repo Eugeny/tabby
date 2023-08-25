@@ -33,6 +33,7 @@ export class StreamProcessingSettingsComponent {
             description: _('Send bytes by typing in hex values'),
         },
     ]
+
     outputModes = [
         {
             key: null,
@@ -45,6 +46,7 @@ export class StreamProcessingSettingsComponent {
             description: _('Output is shown as a hexdump'),
         },
     ]
+
     newlineModes = [
         { key: null, name: _('Keep') },
         { key: 'strip', name: _('Strip') },

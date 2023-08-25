@@ -1,6 +1,5 @@
 import * as fs from 'mz/fs'
 import * as crypto from 'crypto'
-// eslint-disable-next-line @typescript-eslint/no-duplicate-imports, no-duplicate-imports
 import * as sshpk from 'sshpk'
 import colors from 'ansi-colors'
 import stripAnsi from 'strip-ansi'

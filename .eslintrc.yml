@@ -1,7 +1,13 @@
 settings:
+  import/parsers:
+    '@typescript-eslint/parser': ['.ts']
   import/resolver:
-    typescript: true
+    typescript:
+      project:
+      - tsconfig.json
+      - tabby-*/tsconfig.json
     node: true
+
 env:
   browser: true
   es6: true
@@ -28,7 +34,7 @@ overrides:
     - plugin:import/typescript
   plugins:
     - '@typescript-eslint'
-    - 'import'
+    - import
   rules:
     '@typescript-eslint/semi':
     - error
@@ -130,6 +136,7 @@ overrides:
     '@typescript-eslint/naming-convention': off
     '@typescript-eslint/lines-between-class-members':
     - error
+    - always
     - exceptAfterSingleLine: true
     '@typescript-eslint/dot-notation': off
     '@typescript-eslint/no-implicit-any-catch': off
@@ -152,3 +159,6 @@ overrides:
     '@typescript-eslint/consistent-generic-constructors': off
     'keyword-spacing': off
     '@typescript-eslint/keyword-spacing': off
+    '@typescript-eslint/class-methods-use-this': off
+    '@typescript-eslint/lines-around-comment': off
+    '@typescript-eslint/no-redundant-type-constituents': off # broken

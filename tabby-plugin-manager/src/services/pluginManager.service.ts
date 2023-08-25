@@ -68,7 +68,7 @@ export class PluginManagerService {
             map(plugins => plugins.filter(x => x.packageName.startsWith(namePrefix))),
             map(plugins => plugins.filter(x => !PLUGIN_BLACKLIST.includes(x.packageName))),
             map(plugins => {
-                const mapping: Record<string, PluginInfo[]> = {}
+                const mapping: Record<string, PluginInfo[]|undefined> = {}
                 for (const p of plugins) {
                     mapping[p.name] ??= []
                     mapping[p.name].push(p)

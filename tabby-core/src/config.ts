@@ -9,5 +9,6 @@ export class CoreConfigProvider extends ConfigProvider {
         [Platform.Linux]: require('./configDefaults.linux.yaml').default,
         [Platform.Web]: require('./configDefaults.web.yaml').default,
     }
+
     defaults = require('./configDefaults.yaml').default
 }

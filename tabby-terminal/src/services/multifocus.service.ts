@@ -106,6 +106,7 @@ export class MultifocusService {
             return
         }
         const tabs = currentTab.getAllTabs().filter(t => t instanceof BaseTerminalTabComponent)
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
         this.start(pane, tabs as any)
     }
 }

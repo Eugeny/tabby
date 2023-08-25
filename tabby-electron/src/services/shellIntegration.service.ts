@@ -33,6 +33,7 @@ export class ShellIntegrationService {
             command: 'paste "%V"',
         },
     ]
+
     private constructor (
         private electron: ElectronService,
         private hostApp: HostAppService,

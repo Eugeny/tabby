@@ -18,6 +18,7 @@ export class SFTPCreateDirectoryModalComponent extends BaseComponent {
     create (): void {
         this.modalInstance.close(this.directoryName)
     }
+
     cancel (): void {
         this.modalInstance.close('')
     }

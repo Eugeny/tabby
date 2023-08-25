@@ -1,5 +1,4 @@
 import * as C from 'constants'
-// eslint-disable-next-line @typescript-eslint/no-duplicate-imports, no-duplicate-imports
 import { Subject, Observable } from 'rxjs'
 import { posix as posixPath } from 'path'
 import { Injector, NgZone } from '@angular/core'

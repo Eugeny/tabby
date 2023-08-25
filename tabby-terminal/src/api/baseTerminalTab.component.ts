@@ -150,11 +150,13 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
             },
         },
     })
+
     private spinnerActive = false
     private spinnerPaused = false
     private toolbarRevealTimeout = new ResettableTimeout(() => {
         this.revealToolbar = false
     }, 1000)
+
     private frontendWriteLock = Promise.resolve()
 
     get input$ (): Observable<Buffer> {

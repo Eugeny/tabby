@@ -20,6 +20,7 @@ export class SettingsConfigProvider extends ConfigProvider {
             },
         },
     }
+
     platformDefaults = {
         [Platform.macOS]: {
             hotkeys: {
