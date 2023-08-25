@@ -141,9 +141,9 @@ export class ProfilesService {
 
     /**
     * Delete all Profiles from config using option filter
-    * arg: options { group: string } -> options used to filter which profile have to be deleted
+    * arg: filter (p: PartialProfile<Profile>) => boolean -> predicate used to decide which profiles have to be deleted
     */
-    async deleteBulkProfiles (filter: (p: PartialProfile<Profile>) => boolean): Promise<void> {
+    async bulkDeleteProfiles (filter: (p: PartialProfile<Profile>) => boolean): Promise<void> {
         for (const profile of this.config.store.profiles.filter(filter)) {
             this.providerForProfile(profile)?.deleteProfile(this.getConfigProxyForProfile(profile))
 
@@ -156,7 +156,7 @@ export class ProfilesService {
             }
         }
 
-        this.config.store.profiles = this.config.store.profiles.filter(!filter)
+        this.config.store.profiles = this.config.store.profiles.filter(x => !filter(x))
     }
 
     async openNewTabForProfile <P extends Profile> (profile: PartialProfile<P>): Promise<BaseTabComponent|null> {
@@ -480,7 +480,7 @@ export class ProfilesService {
     async deleteProfileGroup (group: PartialProfileGroup<ProfileGroup>, options?: { deleteProfiles?: boolean }): Promise<void> {
         this.config.store.groups = this.config.store.groups.filter(g => g.id !== group.id)
         if (options?.deleteProfiles) {
-            await this.deleteBulkProfiles((p) => p.group === group.id)
+            await this.bulkDeleteProfiles((p) => p.group === group.id)
         } else {
             for (const profile of this.config.store.profiles.filter(x => x.group === group.id)) {
                 delete profile.group
