@@ -323,7 +323,7 @@ export class ProfilesService {
                     }
                 })
 
-                await this.selector.show(this.translate.instant('Select profile or enter an address'), options).catch(() => resolve(null))
+                await this.selector.show(this.translate.instant('Select profile or enter an address'), options).catch(() => reject())
             } catch (err) {
                 reject(err)
             }
