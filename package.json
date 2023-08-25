@@ -58,7 +58,7 @@
     "node-abi": "^3.45.0",
     "npmlog": "6.0.2",
     "npx": "^10.2.2",
-    "patch-package": "^6.4.7",
+    "patch-package": "^8.0.0",
     "po-gettext-loader": "^1.0.0",
     "pug": "3",
     "pug-cli": "^1.0.0-alpha6",
