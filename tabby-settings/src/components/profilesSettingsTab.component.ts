@@ -88,7 +88,7 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
             const cfgProxy = this.profilesService.getConfigProxyForProfile(profile)
             profile.name = this.profilesService.providerForProfile(profile)?.getSuggestedName(cfgProxy) ?? this.translate.instant('{name} copy', base)
         }
-        this.profilesService.newProfile(profile)
+        this.profilesService.newProfile(profile).then(() => this.config.save())
     }
 
     async editProfile (profile: PartialProfile<Profile>): Promise<void> {
@@ -97,7 +97,7 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
             return
         }
         Object.assign(profile, result)
-        await this.profilesService.writeProfile(profile)
+        await this.profilesService.writeProfile(profile).then(() => this.config.save())
     }
 
     async showProfileEditModal (profile: PartialProfile<Profile>): Promise<PartialProfile<Profile>|null> {
@@ -140,7 +140,7 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
                 cancelId: 1,
             },
         )).response === 0) {
-            this.profilesService.deleteProfile(profile)
+            this.profilesService.deleteProfile(profile).then(() => this.config.save())
         }
     }
 
@@ -149,7 +149,7 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
         modal.componentInstance.prompt = this.translate.instant('New group name')
         const result = await modal.result.catch(() => null)
         if (result?.value.trim()) {
-            await this.profilesService.newProfileGroup({ id: '', name: result.value })
+            await this.profilesService.newProfileGroup({ id: '', name: result.value }).then(() => this.config.save())
         }
     }
 
@@ -159,7 +159,7 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
             return
         }
         Object.assign(group, result)
-        await this.profilesService.writeProfileGroup(ProfilesSettingsTabComponent.collapsableIntoPartialProfileGroup(group))
+        await this.profilesService.writeProfileGroup(ProfilesSettingsTabComponent.collapsableIntoPartialProfileGroup(group)).then(() => this.config.save())
     }
 
     async showProfileGroupEditModal (group: PartialProfileGroup<CollapsableProfileGroup>): Promise<PartialProfileGroup<CollapsableProfileGroup>|null> {
@@ -239,7 +239,7 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
                 deleteProfiles = true
             }
 
-            await this.profilesService.deleteProfileGroup(group, true, deleteProfiles)
+            await this.profilesService.deleteProfileGroup(group, deleteProfiles).then(() => this.config.save())
         }
     }
 

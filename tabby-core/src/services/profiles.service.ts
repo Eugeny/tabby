@@ -93,10 +93,9 @@ export class ProfilesService {
 
     /**
     * Insert a new Profile in config
-    * arg: saveConfig (default: true) -> invoke after the Profile was updated
     * arg: genId (default: true) -> generate uuid in before pushing Profile into config
     */
-    async newProfile (profile: PartialProfile<Profile>, saveConfig = true, genId = true): Promise<void> {
+    async newProfile (profile: PartialProfile<Profile>, genId = true): Promise<void> {
         if (genId) {
             profile.id = `${profile.type}:custom:${slugify(profile.name)}:${uuidv4()}`
         }
@@ -107,17 +106,12 @@ export class ProfilesService {
         }
 
         this.config.store.profiles.push(profile)
-
-        if (saveConfig) {
-            return this.config.save()
-        }
     }
 
     /**
     * Write a Profile in config
-    * arg: saveConfig (default: true) -> invoke after the Profile was updated
     */
-    async writeProfile (profile: PartialProfile<Profile>, saveConfig = true): Promise<void> {
+    async writeProfile (profile: PartialProfile<Profile>): Promise<void> {
         const cProfile = this.config.store.profiles.find(p => p.id === profile.id)
         if (cProfile) {
             if (!profile.group) {
@@ -125,18 +119,13 @@ export class ProfilesService {
             }
 
             Object.assign(cProfile, profile)
-
-            if (saveConfig) {
-                return this.config.save()
-            }
         }
     }
 
     /**
     * Delete a Profile from config
-    * arg: saveConfig (default: true) -> invoke after the Profile was deleted
     */
-    async deleteProfile (profile: PartialProfile<Profile>, saveConfig = true): Promise<void> {
+    async deleteProfile (profile: PartialProfile<Profile>): Promise<void> {
         this.providerForProfile(profile)?.deleteProfile(this.getConfigProxyForProfile(profile))
         this.config.store.profiles = this.config.store.profiles.filter(p => p.id !== profile.id)
 
@@ -147,18 +136,13 @@ export class ProfilesService {
             delete profileHotkeys[profileHotkeyName]
             this.config.store.hotkeys.profile = profileHotkeys
         }
-
-        if (saveConfig) {
-            return this.config.save()
-        }
     }
 
     /**
     * Delete all Profiles from config using option filter
     * arg: options { group: string } -> options used to filter which profile have to be deleted
-    * arg: saveConfig (default: true) -> invoke after the Profile was deleted
     */
-    async deleteBulkProfiles (options: { group: string }, saveConfig = true): Promise<void> {
+    async deleteBulkProfiles (options: { group: string }): Promise<void> {
         for (const profile of this.config.store.profiles.filter(p => p.group === options.group)) {
             this.providerForProfile(profile)?.deleteProfile(this.getConfigProxyForProfile(profile))
 
@@ -172,10 +156,6 @@ export class ProfilesService {
         }
 
         this.config.store.profiles = this.config.store.profiles.filter(p => p.group !== options.group)
-
-        if (saveConfig) {
-            return this.config.save()
-        }
     }
 
     async openNewTabForProfile <P extends Profile> (profile: PartialProfile<P>): Promise<BaseTabComponent|null> {
@@ -464,10 +444,9 @@ export class ProfilesService {
 
     /**
     * Insert a new ProfileGroup in config
-    * arg: saveConfig (default: true) -> invoke after the Profile was updated
     * arg: genId (default: true) -> generate uuid in before pushing Profile into config
     */
-    async newProfileGroup (group: PartialProfileGroup<ProfileGroup>, saveConfig = true, genId = true): Promise<void> {
+    async newProfileGroup (group: PartialProfileGroup<ProfileGroup>, genId = true): Promise<void> {
         if (genId) {
             group.id = `${uuidv4()}`
         }
@@ -478,46 +457,32 @@ export class ProfilesService {
         }
 
         this.config.store.groups.push(group)
-
-        if (saveConfig) {
-            return this.config.save()
-        }
     }
 
     /**
     * Write a ProfileGroup in config
-    * arg: saveConfig (default: true) -> invoke after the ProfileGroup was updated
     */
-    async writeProfileGroup (group: PartialProfileGroup<ProfileGroup>, saveConfig = true): Promise<void> {
+    async writeProfileGroup (group: PartialProfileGroup<ProfileGroup>): Promise<void> {
         delete group.profiles
         delete group.editable
 
         const cGroup = this.config.store.groups.find(g => g.id === group.id)
         if (cGroup) {
             Object.assign(cGroup, group)
-
-            if (saveConfig) {
-                return this.config.save()
-            }
         }
     }
 
     /**
     * Delete a ProfileGroup from config
-    * arg: saveConfig (default: true) -> invoke after the ProfileGroup was deleted
     */
-    async deleteProfileGroup (group: PartialProfileGroup<ProfileGroup>, saveConfig = true, deleteProfiles = true): Promise<void> {
+    async deleteProfileGroup (group: PartialProfileGroup<ProfileGroup>, deleteProfiles = true): Promise<void> {
         this.config.store.groups = this.config.store.groups.filter(g => g.id !== group.id)
         if (deleteProfiles) {
-            await this.deleteBulkProfiles({ group: group.id }, false)
+            await this.deleteBulkProfiles({ group: group.id })
         } else {
             for (const profile of this.config.store.profiles.filter(x => x.group === group.id)) {
                 delete profile.group
             }
-        }
-
-        if (saveConfig) {
-            return this.config.save()
         }
     }
 
