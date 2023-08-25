@@ -64,9 +64,10 @@ export class ProfilesService {
     /*
     * Return ConfigProxy for a given Profile
     * arg: skipUserDefaults -> do not merge global provider defaults in ConfigProxy
+    * arg: skipGroupDefaults -> do not merge parent group provider defaults in ConfigProxy
     */
-    getConfigProxyForProfile <T extends Profile> (profile: PartialProfile<T>, skipGlobalDefaults = false, skipGroupDefaults = false): T {
-        const defaults = this.getProfileDefaults(profile, skipGlobalDefaults, skipGroupDefaults).reduce(configMerge, {})
+    getConfigProxyForProfile <T extends Profile> (profile: PartialProfile<T>, options?: { skipGlobalDefaults?: boolean, skipGroupDefaults?: boolean }): T {
+        const defaults = this.getProfileDefaults(profile, options).reduce(configMerge, {})
         return new ConfigProxy(profile, defaults) as unknown as T
     }
 
@@ -75,9 +76,9 @@ export class ProfilesService {
     * arg: includeBuiltin (default: true) -> include BuiltinProfiles
     * arg: clone (default: false) -> return deepclone Array
     */
-    async getProfiles (includeBuiltin = true, clone = false): Promise<PartialProfile<Profile>[]> {
+    async getProfiles (options?: { includeBuiltin?: boolean, clone?: boolean }): Promise<PartialProfile<Profile>[]> {
         let list = this.config.store.profiles ?? []
-        if (includeBuiltin) {
+        if (options?.includeBuiltin ?? true) {
             const lists = await Promise.all(this.config.enabledServices(this.profileProviders).map(x => x.getBuiltinProfiles()))
             list = [
                 ...this.config.store.profiles ?? [],
@@ -88,15 +89,15 @@ export class ProfilesService {
         const sortKey = p => `${this.resolveProfileGroupName(p.group ?? '')} / ${p.name}`
         list.sort((a, b) => sortKey(a).localeCompare(sortKey(b)))
         list.sort((a, b) => (a.isBuiltin ? 1 : 0) - (b.isBuiltin ? 1 : 0))
-        return clone ? deepClone(list) : list
+        return options?.clone ? deepClone(list) : list
     }
 
     /**
     * Insert a new Profile in config
     * arg: genId (default: true) -> generate uuid in before pushing Profile into config
     */
-    async newProfile (profile: PartialProfile<Profile>, genId = true): Promise<void> {
-        if (genId) {
+    async newProfile (profile: PartialProfile<Profile>, options?: { genId?: boolean }): Promise<void> {
+        if (options?.genId ?? true) {
             profile.id = `${profile.type}:custom:${slugify(profile.name)}:${uuidv4()}`
         }
 
@@ -354,15 +355,16 @@ export class ProfilesService {
     * Return defaults for a given profile
     * Always return something, empty object if no defaults found
     * arg: skipUserDefaults -> do not merge global provider defaults in ConfigProxy
+    * arg: skipGroupDefaults -> do not merge parent group provider defaults in ConfigProxy
     */
-    getProfileDefaults (profile: PartialProfile<Profile>, skipGlobalDefaults = false, skipGroupDefaults = false): any[] {
+    getProfileDefaults (profile: PartialProfile<Profile>, options?: { skipGlobalDefaults?: boolean, skipGroupDefaults?: boolean }): any[] {
         const provider = this.providerForProfile(profile)
 
         return [
             this.profileDefaults,
             provider?.configDefaults ?? {},
-            provider && !skipGlobalDefaults ? this.getProviderDefaults(provider) : {},
-            provider && !skipGlobalDefaults && !skipGroupDefaults ? this.getProviderProfileGroupDefaults(profile.group ?? '', provider) : {},
+            provider && !options?.skipGlobalDefaults ? this.getProviderDefaults(provider) : {},
+            provider && !options?.skipGlobalDefaults && !options?.skipGroupDefaults ? this.getProviderProfileGroupDefaults(profile.group ?? '', provider) : {},
         ]
     }
 
@@ -383,17 +385,17 @@ export class ProfilesService {
     * arg: includeProfiles (default: false) -> if false, does not fill up the profiles field of ProfileGroup
     * arg: includeNonUserGroup (default: false) -> if false, does not add built-in and ungrouped groups
     */
-    async getProfileGroups (includeProfiles = false, includeNonUserGroup = false): Promise<PartialProfileGroup<ProfileGroup>[]> {
+    async getProfileGroups (options?: { includeProfiles?: boolean, includeNonUserGroup?: boolean }): Promise<PartialProfileGroup<ProfileGroup>[]> {
         let profiles: PartialProfile<Profile>[] = []
-        if (includeProfiles) {
-            profiles = await this.getProfiles(includeNonUserGroup, true)
+        if (options?.includeProfiles) {
+            profiles = await this.getProfiles({ includeBuiltin: options.includeNonUserGroup, clone: true })
         }
 
         let groups: PartialProfileGroup<ProfileGroup>[] = this.getSyncProfileGroups()
         groups = groups.map(x => {
             x.editable = true
 
-            if (includeProfiles) {
+            if (options?.includeProfiles) {
                 x.profiles = profiles.filter(p => p.group === x.id)
                 profiles = profiles.filter(p => p.group !== x.id)
             }
@@ -401,7 +403,7 @@ export class ProfilesService {
             return x
         })
 
-        if (includeNonUserGroup) {
+        if (options?.includeNonUserGroup) {
             const builtInGroups: PartialProfileGroup<ProfileGroup>[] = []
             builtInGroups.push({
                 id: 'built-in',
@@ -416,7 +418,7 @@ export class ProfilesService {
                 editable: false,
             }
 
-            if (includeProfiles) {
+            if (options.includeProfiles) {
                 for (const profile of profiles.filter(p => p.isBuiltin)) {
                     let group: PartialProfileGroup<ProfileGroup> | undefined = builtInGroups.find(g => g.id === slugify(profile.group ?? 'built-in'))
                     if (!group) {
@@ -446,8 +448,8 @@ export class ProfilesService {
     * Insert a new ProfileGroup in config
     * arg: genId (default: true) -> generate uuid in before pushing Profile into config
     */
-    async newProfileGroup (group: PartialProfileGroup<ProfileGroup>, genId = true): Promise<void> {
-        if (genId) {
+    async newProfileGroup (group: PartialProfileGroup<ProfileGroup>, options?: { genId?: boolean }): Promise<void> {
+        if (options?.genId ?? true) {
             group.id = `${uuidv4()}`
         }
 
@@ -475,9 +477,9 @@ export class ProfilesService {
     /**
     * Delete a ProfileGroup from config
     */
-    async deleteProfileGroup (group: PartialProfileGroup<ProfileGroup>, deleteProfiles = true): Promise<void> {
+    async deleteProfileGroup (group: PartialProfileGroup<ProfileGroup>, options?: { deleteProfiles?: boolean }): Promise<void> {
         this.config.store.groups = this.config.store.groups.filter(g => g.id !== group.id)
-        if (deleteProfiles) {
+        if (options?.deleteProfiles) {
             await this.deleteBulkProfiles({ group: group.id })
         } else {
             for (const profile of this.config.store.profiles.filter(x => x.group === group.id)) {

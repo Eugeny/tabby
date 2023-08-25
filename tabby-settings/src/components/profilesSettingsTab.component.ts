@@ -41,7 +41,7 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
 
     async ngOnInit (): Promise<void> {
         this.refresh()
-        this.builtinProfiles = (await this.profilesService.getProfiles(true, false)).filter(x => x.isBuiltin)
+        this.builtinProfiles = (await this.profilesService.getProfiles()).filter(x => x.isBuiltin)
         this.templateProfiles = this.builtinProfiles.filter(x => x.isTemplate)
         this.builtinProfiles = this.builtinProfiles.filter(x => !x.isTemplate)
         this.refresh()
@@ -239,13 +239,13 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
                 deleteProfiles = true
             }
 
-            await this.profilesService.deleteProfileGroup(group, deleteProfiles).then(() => this.config.save())
+            await this.profilesService.deleteProfileGroup(group, { deleteProfiles }).then(() => this.config.save())
         }
     }
 
     async refresh (): Promise<void> {
         const profileGroupCollapsed = JSON.parse(window.localStorage.profileGroupCollapsed ?? '{}')
-        const groups = await this.profilesService.getProfileGroups(true, true)
+        const groups = await this.profilesService.getProfileGroups({ includeNonUserGroup: true, includeProfiles: true })
         groups.sort((a, b) => a.name.localeCompare(b.name))
         groups.sort((a, b) => (a.id === 'built-in' || !a.editable ? 1 : 0) - (b.id === 'built-in' || !b.editable ? 1 : 0))
         groups.sort((a, b) => (a.id === 'ungrouped' ? 0 : 1) - (b.id === 'ungrouped' ? 0 : 1))
