@@ -68,8 +68,9 @@ export class PluginManagerService {
             map(plugins => plugins.filter(x => x.packageName.startsWith(namePrefix))),
             map(plugins => plugins.filter(x => !PLUGIN_BLACKLIST.includes(x.packageName))),
             map(plugins => {
-                const mapping: Record<string, PluginInfo[]|undefined> = {}
+                const mapping: Record<string, PluginInfo[]> = {}
                 for (const p of plugins) {
+                    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
                     mapping[p.name] ??= []
                     mapping[p.name].push(p)
                 }
