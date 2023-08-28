@@ -3947,12 +3947,12 @@ widest-line@^2.0.0:
   dependencies:
     string-width "^2.1.1"
 
-windows-native-registry@^3.2.1:
-  version "3.2.1"
-  resolved "https://registry.yarnpkg.com/windows-native-registry/-/windows-native-registry-3.2.1.tgz#8a60feb456398992677a1f8cad1eecb6b4f0d5f4"
-  integrity sha512-LUHzDUyabwcKNJNlIBVAmg/gdvzOWbuPPyeGmMGSYMAh+m4ZqmafrtyRuyWaviJ1lTzGT/MmhTVb5t8IO3Nlkg==
+windows-native-registry@^3.2.2:
+  version "3.2.2"
+  resolved "https://registry.yarnpkg.com/windows-native-registry/-/windows-native-registry-3.2.2.tgz#2398dc0d0d8fe14f06295e56488b8ff3f371c284"
+  integrity sha512-yg1ZnuzUExn+Uq3cODB23Ju15URw0F/sRrSpjavVhHMi46s6Pcukp4+PtumoELmefoeHarCgci0XV34COpuYkw==
   dependencies:
-    node-addon-api "^3.1.0"
+    node-addon-api "^4.3.0"
 
 windows-process-tree@^0.4.0:
   version "0.4.0"
