@@ -1,5 +1,5 @@
 import { Component } from '@angular/core'
-import { PlatformService } from 'tabby-core'
+import { ConfigService, PlatformService } from 'tabby-core'
 
 /** @hidden */
 @Component({
@@ -10,6 +10,7 @@ export class ColorSchemeSettingsTabComponent {
 
     constructor (
         platform: PlatformService,
+        public config: ConfigService,
     ) {
         this.defaultTab = platform.getTheme()
     }
