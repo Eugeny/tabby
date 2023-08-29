@@ -3,7 +3,7 @@ import { Subject, Observable } from 'rxjs'
 import * as Color from 'color'
 import { ConfigService } from '../services/config.service'
 import { Theme } from '../api/theme'
-import { PlatformService } from '../api/platform'
+import { PlatformService, PlatformTheme } from '../api/platform'
 import { NewTheme } from '../theme'
 
 @Injectable({ providedIn: 'root' })
@@ -194,7 +194,14 @@ export class ThemesService {
 
     /// @hidden
     _getActiveColorScheme (): any {
-        if (this.platform.getTheme() === 'light') {
+        let theme: PlatformTheme = 'dark'
+        if (this.config.store.appearance.colorSchemeMode === 'light') {
+            theme = 'light'
+        } else if (this.config.store.appearance.colorSchemeMode === 'auto') {
+            theme = this.platform.getTheme()
+        }
+
+        if (theme === 'light') {
             return this.config.store.terminal.lightColorScheme
         } else {
             return this.config.store.terminal.colorScheme

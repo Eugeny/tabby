@@ -1,10 +1,10 @@
-.container.mt-5.mb-5
-    .mb-4
+.container.mt-3.mb-3
+    .mb-3
         .tabby-logo
         h1.tabby-title Tabby
             sup α
 
-    .text-center.mb-5(translate) Thank you for downloading Tabby!
+    .text-center.mb-3(translate) Thank you for downloading Tabby!
 
     .form-line
         .header
@@ -18,10 +18,51 @@
 
     .form-line
         .header
+            .title(translate) Switch color scheme
+
+        .btn-group(role='group')
+            input.btn-check(
+                type='radio',
+                name='colorSchemeMode',
+                [(ngModel)]='config.store.appearance.colorSchemeMode',
+                (ngModelChange)='config.save()',
+                id='colorSchemeModeAuto',
+                [value]='"auto"'
+            )
+            label.btn.btn-secondary(
+                for='colorSchemeModeAuto'
+            )
+                span(translate) From system
+            input.btn-check(
+                type='radio',
+                name='colorSchemeMode',
+                [(ngModel)]='config.store.appearance.colorSchemeMode',
+                (ngModelChange)='config.save()',
+                id='colorSchemeModeDark',
+                [value]='"dark"'
+            )
+            label.btn.btn-secondary(
+                for='colorSchemeModeDark'
+            )
+                span(translate) Always dark
+            input.btn-check(
+                type='radio',
+                name='colorSchemeMode',
+                [(ngModel)]='config.store.appearance.colorSchemeMode',
+                (ngModelChange)='config.save()',
+                id='colorSchemeModeLight',
+                [value]='"light"'
+            )
+            label.btn.btn-secondary(
+                for='colorSchemeModeLight'
+            )
+                span(translate) Always light
+
+    .form-line
+        .header
             .title(translate) Enable analytics
             .description(translate) Help track the number of Tabby installs across the world!
         toggle([(ngModel)]='config.store.enableAnalytics')
-
 
     .form-line
         .header

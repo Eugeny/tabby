@@ -19,6 +19,7 @@ appearance:
   vibrancyType: 'blur'
   lastTabClosesWindow: false
   spaciness: 1
+  colorSchemeMode: 'dark'
 terminal:
   showBuiltinProfiles: true
   showRecentProfiles: 3

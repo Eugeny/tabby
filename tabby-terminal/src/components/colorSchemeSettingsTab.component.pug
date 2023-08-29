@@ -1,5 +1,47 @@
 h3.mb-3(translate) Color schemes
 
+.form-line
+    .header
+        .title(translate) Switch color scheme
+
+    .btn-group(role='group')
+        input.btn-check(
+            type='radio',
+            name='colorSchemeMode',
+            [(ngModel)]='config.store.appearance.colorSchemeMode',
+            (ngModelChange)='config.save()',
+            id='colorSchemeModeAuto',
+            [value]='"auto"'
+        )
+        label.btn.btn-secondary(
+            for='colorSchemeModeAuto'
+        )
+            span(translate) From system
+        input.btn-check(
+            type='radio',
+            name='colorSchemeMode',
+            [(ngModel)]='config.store.appearance.colorSchemeMode',
+            (ngModelChange)='config.save()',
+            id='colorSchemeModeDark',
+            [value]='"dark"'
+        )
+        label.btn.btn-secondary(
+            for='colorSchemeModeDark'
+        )
+            span(translate) Always dark
+        input.btn-check(
+            type='radio',
+            name='colorSchemeMode',
+            [(ngModel)]='config.store.appearance.colorSchemeMode',
+            (ngModelChange)='config.save()',
+            id='colorSchemeModeLight',
+            [value]='"light"'
+        )
+        label.btn.btn-secondary(
+            for='colorSchemeModeLight'
+        )
+            span(translate) Always light
+
 ul.nav-tabs(ngbNav, #nav='ngbNav', [activeId]='defaultTab')
     li(ngbNavItem='dark')
         a(ngbNavLink, translate) Dark mode

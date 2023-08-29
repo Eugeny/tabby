@@ -96,5 +96,3 @@ hotkeys:
     - '⌘-Shift-E'
   command-selector:
     - '⌘-Shift-P'
-appearance:
-  vibrancy: true
