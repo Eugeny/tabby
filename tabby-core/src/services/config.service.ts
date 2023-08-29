@@ -398,7 +398,9 @@ export class ConfigService {
             config.version = 5
         }
         if (config.version < 6) {
-            if (config.ssh.clearServiceMessagesOnConnect === false) {
+            if (config.ssh?.clearServiceMessagesOnConnect === false) {
+                config.profileDefaults ??= {}
+                config.profileDefaults.ssh ??= {}
                 config.profileDefaults.ssh.clearServiceMessagesOnConnect = false
                 delete config.ssh?.clearServiceMessagesOnConnect
             }
