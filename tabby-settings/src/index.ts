@@ -19,7 +19,7 @@ import { SetVaultPassphraseModalComponent } from './components/setVaultPassphras
 import { ProfilesSettingsTabComponent } from './components/profilesSettingsTab.component'
 import { ReleaseNotesComponent } from './components/releaseNotesTab.component'
 import { ConfigSyncSettingsTabComponent } from './components/configSyncSettingsTab.component'
-import { ShowSecretModalComponent } from "./components/showSecretModal.component";
+import { ShowSecretModalComponent } from './components/showSecretModal.component'
 
 import { ConfigSyncService } from './services/configSync.service'
 

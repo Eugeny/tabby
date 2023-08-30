@@ -1,18 +1,18 @@
 import { Component, Input } from '@angular/core'
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
-import {NotificationsService, VaultFileSecret} from "tabby-core";
+import { NotificationsService, VaultFileSecret } from 'tabby-core'
 
 /** @hidden */
 @Component({
     templateUrl: './showSecretModal.component.pug',
 })
 export class ShowSecretModalComponent {
-    @Input() title: String
+    @Input() title: string
     @Input() secret: VaultFileSecret
 
     constructor (
         public modalInstance: NgbActiveModal,
-        private notifications: NotificationsService
+        private notifications: NotificationsService,
     ) { }
 
     close (): void {

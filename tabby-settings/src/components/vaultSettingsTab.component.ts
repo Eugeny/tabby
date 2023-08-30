@@ -3,7 +3,7 @@ import { Component, HostBinding } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { BaseComponent, VaultService, VaultSecret, Vault, PlatformService, ConfigService, VAULT_SECRET_TYPE_FILE, PromptModalComponent, VaultFileSecret, TranslateService } from 'tabby-core'
 import { SetVaultPassphraseModalComponent } from './setVaultPassphraseModal.component'
-import {ShowSecretModalComponent} from "./showSecretModal.component";
+import { ShowSecretModalComponent } from './showSecretModal.component'
 
 
 /** @hidden */
