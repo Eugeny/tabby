@@ -160,10 +160,12 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
                         type='radio',
                         name='auth',
                         [(ngModel)]='profile.options.auth',
-                        id='auth"keyboardInteractive"'
+                        id='auth"keyboardInteractive"',
                         [value]='"keyboardInteractive"'
                     )
-                    label.btn.btn-secondary(ngbButtonLabel)
+                    label.btn.btn-secondary(
+                        for='auth"keyboardInteractive"'
+                    )
                         i.far.fa-keyboard
                         .m-0(translate) Interactive
 
