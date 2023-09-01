@@ -3,6 +3,7 @@ import { Component, HostBinding } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { BaseComponent, VaultService, VaultSecret, Vault, PlatformService, ConfigService, VAULT_SECRET_TYPE_FILE, PromptModalComponent, VaultFileSecret, TranslateService } from 'tabby-core'
 import { SetVaultPassphraseModalComponent } from './setVaultPassphraseModal.component'
+import { ShowSecretModalComponent } from './showSecretModal.component'
 
 
 /** @hidden */
@@ -95,6 +96,16 @@ export class VaultSettingsTabComponent extends BaseComponent {
             return this.translate.instant('File: {description}', (secret as VaultFileSecret).key)
         }
         return this.translate.instant('Unknown secret of type {type} for {key}', { type: secret.type, key: JSON.stringify(secret.key) })
+    }
+
+    showSecret (secret: VaultSecret) {
+        if (!this.vaultContents) {
+            return
+        }
+        const modal = this.ngbModal.open(ShowSecretModalComponent)
+        modal.componentInstance.title = this.getSecretLabel(secret)
+        modal.componentInstance.secret = secret
+
     }
 
     removeSecret (secret: VaultSecret) {

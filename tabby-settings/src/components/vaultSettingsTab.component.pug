@@ -32,6 +32,9 @@ div(*ngIf='vault.isEnabled()')
                     button.btn.btn-link(ngbDropdownToggle)
                         i.fas.fa-ellipsis-v
                     div(ngbDropdownMenu)
+                        button(ngbDropdownItem, (click)='showSecret(secret)')
+                            i.fas.fa-fw.fa-eye
+                            span(translate) Show
                         button(
                             ngbDropdownItem,
                             *ngIf='secret.type === VAULT_SECRET_TYPE_FILE',
