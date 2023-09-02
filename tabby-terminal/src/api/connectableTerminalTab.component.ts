@@ -46,7 +46,9 @@ export abstract class ConnectableTerminalTabComponent<P extends ConnectableTermi
     }
 
     protected onFrontendReady (): void {
-        this.initializeSession()
+        this.initializeSession().then(() => {
+            this.clearServiceMessagesOnConnect()
+        })
         super.onFrontendReady()
     }
 
@@ -57,9 +59,6 @@ export abstract class ConnectableTerminalTabComponent<P extends ConnectableTermi
     async initializeSession (): Promise<void> {
         this.reconnectOffered = false
         this.isDisconnectedByHand = false
-        if (this.profile.clearServiceMessagesOnConnect) {
-            this.frontend?.clear()
-        }
     }
 
     /**
@@ -119,7 +118,14 @@ export abstract class ConnectableTerminalTabComponent<P extends ConnectableTermi
     async reconnect (): Promise<void> {
         this.session?.destroy()
         await this.initializeSession()
+        this.clearServiceMessagesOnConnect()
         this.session?.releaseInitialDataBuffer()
+    }
+
+    private clearServiceMessagesOnConnect (): void {
+        if (this.profile.clearServiceMessagesOnConnect) {
+            this.frontend?.clear()
+        }
     }
 
 }
