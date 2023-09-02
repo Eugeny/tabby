@@ -123,7 +123,7 @@ export abstract class ConnectableTerminalTabComponent<P extends ConnectableTermi
     }
 
     private clearServiceMessagesOnConnect (): void {
-        if (this.profile.clearServiceMessagesOnConnect) {
+        if (this.profile.clearServiceMessagesOnConnect && this.session?.open) {
             this.frontend?.clear()
         }
     }
