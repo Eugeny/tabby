@@ -70,25 +70,24 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
                 return
             }
         }
-        const profile: PartialProfile<Profile> = deepClone(base)
-        delete profile.id
+        const baseProfile: PartialProfile<Profile> = deepClone(base)
+        delete baseProfile.id
         if (base.isTemplate) {
-            profile.name = ''
+            baseProfile.name = ''
         } else if (!base.isBuiltin) {
-            profile.name = this.translate.instant('{name} copy', base)
+            baseProfile.name = this.translate.instant('{name} copy', base)
         }
-        profile.isBuiltin = false
-        profile.isTemplate = false
-        const result = await this.showProfileEditModal(profile)
+        baseProfile.isBuiltin = false
+        baseProfile.isTemplate = false
+        const result = await this.showProfileEditModal(baseProfile)
         if (!result) {
             return
         }
-        Object.assign(profile, result)
-        if (!profile.name) {
-            const cfgProxy = this.profilesService.getConfigProxyForProfile(profile)
-            profile.name = this.profilesService.providerForProfile(profile)?.getSuggestedName(cfgProxy) ?? this.translate.instant('{name} copy', base)
+        if (!result.name) {
+            const cfgProxy = this.profilesService.getConfigProxyForProfile(result)
+            result.name = this.profilesService.providerForProfile(result)?.getSuggestedName(cfgProxy) ?? this.translate.instant('{name} copy', base)
         }
-        await this.profilesService.newProfile(profile)
+        await this.profilesService.newProfile(result)
         await this.config.save()
     }
 
@@ -97,8 +96,7 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
         if (!result) {
             return
         }
-        Object.assign(profile, result)
-        await this.profilesService.writeProfile(profile)
+        await this.profilesService.writeProfile(result)
         await this.config.save()
     }
 
@@ -117,12 +115,6 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
         const result = await modal.result.catch(() => null)
         if (!result) {
             return null
-        }
-
-        // Fully replace the config
-        for (const k in profile) {
-            // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
-            delete profile[k]
         }
 
         result.type = provider.id
@@ -162,8 +154,7 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
         if (!result) {
             return
         }
-        Object.assign(group, result)
-        await this.profilesService.writeProfileGroup(ProfilesSettingsTabComponent.collapsableIntoPartialProfileGroup(group))
+        await this.profilesService.writeProfileGroup(ProfilesSettingsTabComponent.collapsableIntoPartialProfileGroup(result))
         await this.config.save()
     }
 
