@@ -139,6 +139,7 @@ Plugins and themes can be installed directly from the Settings view inside Tabby
 * [gruvbox](https://github.com/porkloin/terminus-theme-gruvbox)
 * [windows10](https://www.npmjs.com/package/terminus-theme-windows10)
 * [altair](https://github.com/yxuko/terminus-altair)
+* [catppuccin](https://github.com/catppuccin/tabby) - Soothing pastel theme for Tabby 
 
 # Sponsors <!-- omit in toc -->
 
