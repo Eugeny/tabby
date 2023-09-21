@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Chinese Traditional\n"
 "Language: zh_TW\n"
-"PO-Revision-Date: 2023-08-03 08:25\n"
+"PO-Revision-Date: 2023-09-21 07:04\n"
 
 #: tabby-local/src/components/terminalTab.component.ts:113
 msgid "\"{command}\" is still running. Close?"
@@ -175,7 +175,7 @@ msgstr "背景類別"
 
 #: locale/tmp-html/tabby-terminal/src/components/inputProcessingSettings.component.html:4
 msgid "Backspace key mode"
-msgstr ""
+msgstr "Backspace鍵模式"
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:14
 #: tabby-serial/src/components/serialTab.component.ts:93
@@ -325,7 +325,7 @@ msgstr "顏色機制"
 
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:2
 msgid "Color schemes"
-msgstr ""
+msgstr "配色方案"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:216
 msgid "Colors"
@@ -493,7 +493,7 @@ msgstr "自訂 CSS"
 
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:4
 msgid "Dark mode"
-msgstr ""
+msgstr "深色模式"
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:26
 msgid "Data bits"
@@ -513,11 +513,11 @@ msgstr "縮小垂直分割大小"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:86
 msgid "Default \"Connect to\" type"
-msgstr ""
+msgstr "預設的 \"連線到\" 類型"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:87
 msgid "Default connection type used by quick connect feature (ex. SSH, Telnet)"
-msgstr ""
+msgstr "預設的快速連線功能類型 (ex. SSH, Telnet)"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:8
 msgid "Default profile for new tabs"
@@ -632,7 +632,7 @@ msgstr "中斷連線"
 
 #: tabby-terminal/src/hotkeys.ts:106
 msgid "Disconnect current tab (Serial/Telnet/SSH)"
-msgstr ""
+msgstr "中斷目前分頁的連線 (Serial/Telnet/SSH)"
 
 #: tabby-ssh/src/components/sshTab.component.ts:202
 #: tabby-telnet/src/components/telnetTab.component.ts:81
@@ -945,7 +945,7 @@ msgstr "取得"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:18
 msgid "Get it from the Tabby Web settings window"
-msgstr "從 Tabby 網頁設定窗口獲取"
+msgstr "從 Tabby 網頁設定視窗獲取"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:29
 msgid "Gives the window a blurred transparent background"
@@ -982,7 +982,7 @@ msgstr "十六進制"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:43
 msgid "Hide"
-msgstr ""
+msgstr "隱藏"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:176
 msgid "Hide tab close button"
@@ -1070,7 +1070,7 @@ msgstr "增加垂直分割大小"
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:226
 #: locale/tmp-html/tabby-telnet/src/components/telnetProfileSettings.component.html:21
 msgid "Input"
-msgstr ""
+msgstr "輸入"
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:18
 msgid "Input is sent as you type"
@@ -1189,7 +1189,7 @@ msgstr "使用 Shell 替代作業系統處理 Meta 鍵"
 
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:9
 msgid "Light mode"
-msgstr ""
+msgstr "淺色模式"
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:27
 msgid "Line by line"
@@ -1400,7 +1400,7 @@ msgstr "GitHub 討論"
 
 #: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:47
 msgid "Only close the tab when session is explicitly terminated"
-msgstr ""
+msgstr "只有在連線階段確定終止後才關閉分頁"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:46
 msgid "Opacity"
@@ -1501,7 +1501,7 @@ msgstr "部分設定檔無法同步，因為已被金鑰庫加密"
 
 #: tabby-terminal/src/components/inputProcessingSettings.component.ts:17
 msgid "Pass-through"
-msgstr ""
+msgstr "直通"
 
 #: tabby-settings/src/components/vaultSettingsTab.component.ts:87
 msgid "Passphrase for a private key with hash {hash}..."
@@ -1659,7 +1659,7 @@ msgstr "重新連線"
 
 #: tabby-terminal/src/hotkeys.ts:102
 msgid "Reconnect current tab (Serial/Telnet/SSH)"
-msgstr ""
+msgstr "重新連線目前的分頁 (Serial/Telnet/SSH)"
 
 #: tabby-core/src/utils.ts:64
 msgid "Red"
@@ -1934,7 +1934,7 @@ msgstr "Shell 整合"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:44
 msgid "Show"
-msgstr ""
+msgstr "顯示"
 
 #: tabby-core/src/hotkeys.ts:276
 msgid "Show {type} profile selector"
@@ -2015,7 +2015,7 @@ msgstr "逐字節接收"
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:68
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:86
 msgid "Snaps the window to a side of the screen"
-msgstr "將視窗折至螢幕的其中一邊"
+msgstr "將視窗貼齊螢幕的其中一邊"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:22
 #: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:9
@@ -2416,7 +2416,7 @@ msgstr "最新消息"
 
 #: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:46
 msgid "When a session ends"
-msgstr ""
+msgstr "當連線階段結束"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:82
 msgid "When enabled, links are only clickable while holding this key"
@@ -2441,11 +2441,11 @@ msgstr "視窗"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:112
 msgid "Window dimension along the edge"
-msgstr "沿邊緣的窗口尺寸"
+msgstr "沿著邊緣的視窗尺寸"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:105
 msgid "Window dimension away from the edge"
-msgstr "遠離邊緣的窗口尺寸"
+msgstr "距離邊緣的視窗尺寸"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:52
 msgid "Window frame"

@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2023-08-03 08:25\n"
+"PO-Revision-Date: 2023-09-07 15:05\n"
 
 #: tabby-local/src/components/terminalTab.component.ts:113
 msgid "\"{command}\" is still running. Close?"
@@ -493,7 +493,7 @@ msgstr "CSS personnalisé"
 
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:4
 msgid "Dark mode"
-msgstr ""
+msgstr "Mode sombre"
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:26
 msgid "Data bits"
@@ -632,7 +632,7 @@ msgstr "Déconnecter"
 
 #: tabby-terminal/src/hotkeys.ts:106
 msgid "Disconnect current tab (Serial/Telnet/SSH)"
-msgstr ""
+msgstr "Déconnecter l'onglet actuel (Serial/Telnet/SSH)"
 
 #: tabby-ssh/src/components/sshTab.component.ts:202
 #: tabby-telnet/src/components/telnetTab.component.ts:81
@@ -982,7 +982,7 @@ msgstr "Hexadécimal"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:43
 msgid "Hide"
-msgstr ""
+msgstr "Masquer"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:176
 msgid "Hide tab close button"
@@ -1070,7 +1070,7 @@ msgstr "Augmenter la taille de la séparation verticale"
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:226
 #: locale/tmp-html/tabby-telnet/src/components/telnetProfileSettings.component.html:21
 msgid "Input"
-msgstr ""
+msgstr "Saisir"
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:18
 msgid "Input is sent as you type"
@@ -1189,7 +1189,7 @@ msgstr "Laisser le shell gérer la Méta Key à la place de l'OS"
 
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:9
 msgid "Light mode"
-msgstr ""
+msgstr "Mode clair"
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:27
 msgid "Line by line"
@@ -1659,7 +1659,7 @@ msgstr "Reconnecter"
 
 #: tabby-terminal/src/hotkeys.ts:102
 msgid "Reconnect current tab (Serial/Telnet/SSH)"
-msgstr ""
+msgstr "Reconnecter l'onglet actuel (Serial/Telnet/SSH)"
 
 #: tabby-core/src/utils.ts:64
 msgid "Red"
@@ -1934,7 +1934,7 @@ msgstr "Intégration au menu contextuel"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:44
 msgid "Show"
-msgstr ""
+msgstr "Afficher"
 
 #: tabby-core/src/hotkeys.ts:276
 msgid "Show {type} profile selector"
@@ -2416,7 +2416,7 @@ msgstr "Quoi de neuf"
 
 #: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:46
 msgid "When a session ends"
-msgstr ""
+msgstr "Quand une session se termine"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:82
 msgid "When enabled, links are only clickable while holding this key"
