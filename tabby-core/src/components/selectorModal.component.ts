@@ -18,17 +18,18 @@ export class SelectorModalComponent<T> {
     @Input() selectedIndex = 0
     hasGroups = false
     @ViewChildren('item') itemChildren: QueryList<ElementRef>
+    private preventEdit: boolean
 
-    constructor (
-        public modalInstance: NgbActiveModal,
-    ) { }
+    constructor (public modalInstance: NgbActiveModal) {
+        this.preventEdit = false
+    }
 
     ngOnInit (): void {
         this.onFilterChange()
         this.hasGroups = this.options.some(x => x.group)
     }
 
-    @HostListener('keydown', ['$event']) onKeyUp (event: KeyboardEvent): void {
+    @HostListener('keydown', ['$event']) onKeyDown (event: KeyboardEvent): void {
         if (event.key === 'Escape') {
             this.close()
         } else if (this.filteredOptions.length > 0) {
@@ -46,10 +47,14 @@ export class SelectorModalComponent<T> {
                 event.preventDefault()
             } else if (event.key === 'Enter') {
                 this.selectOption(this.filteredOptions[this.selectedIndex])
-            } else if (event.key === 'Backspace' && this.canEditSelected()) {
-                event.preventDefault()
-                this.filter = this.filteredOptions[this.selectedIndex].freeInputEquivalent!
-                this.onFilterChange()
+            } else if (event.key === 'Backspace' && !this.preventEdit) {
+                if (this.canEditSelected()) {
+                    event.preventDefault()
+                    this.filter = this.filteredOptions[this.selectedIndex].freeInputEquivalent!
+                    this.onFilterChange()
+                } else {
+                    this.preventEdit = true
+                }
             }
 
             this.selectedIndex = (this.selectedIndex + this.filteredOptions.length) % this.filteredOptions.length
@@ -58,6 +63,12 @@ export class SelectorModalComponent<T> {
                 behavior: 'smooth',
                 block: 'nearest',
             })
+        }
+    }
+
+    @HostListener('keyup', ['$event']) onKeyUp (event: KeyboardEvent): void {
+        if (event.key === 'Backspace' && this.preventEdit) {
+            this.preventEdit = false
         }
     }
 
