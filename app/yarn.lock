@@ -145,10 +145,10 @@
   dependencies:
     "@types/node" "^10.12.18"
 
-"@types/mz@2.7.4":
-  version "2.7.4"
-  resolved "https://registry.yarnpkg.com/@types/mz/-/mz-2.7.4.tgz#f9d1535cb5171199b28ae6abd6ec29e856551401"
-  integrity sha512-Zs0imXxyWT20j3Z2NwKpr0IO2LmLactBblNyLua5Az4UHuqOQ02V3jPTgyKwDkuc33/ahw+C3O1PIZdrhFMuQA==
+"@types/mz@2.7.5":
+  version "2.7.5"
+  resolved "https://registry.yarnpkg.com/@types/mz/-/mz-2.7.5.tgz#6d7d6cf06a2a02b8203260a341744a76b5ecde9b"
+  integrity sha512-GFQyFu0/5xfAbfxou079uRovHaoHibbn7t98orGdF7T33mF9xBPd5JU64TdXHy351SMZGtFKGO9Uwv4/7GCllg==
   dependencies:
     "@types/node" "*"
 
