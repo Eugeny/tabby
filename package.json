@@ -115,5 +115,8 @@
     "i18n:push": "crowdin push"
   },
   "type": "module",
-  "private": true
+  "private": true,
+  "dependencies": {
+    "dotenv": "^16.3.1"
+  }
 }
