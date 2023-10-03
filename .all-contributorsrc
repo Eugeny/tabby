@@ -1229,6 +1229,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "nwalser",
+      "name": "Nathaniel Walser",
+      "avatar_url": "https://avatars.githubusercontent.com/u/33339996?v=4",
+      "profile": "https://www.nathaniel-walser.com",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
