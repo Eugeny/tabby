@@ -4,8 +4,8 @@ import * as yaml from 'js-yaml'
 import { writeFile } from 'atomically'
 
 
-export const configPath = path.join(process.env.CONFIG_DIRECTORY!, 'config.yaml')
-const legacyConfigPath = path.join(process.env.CONFIG_DIRECTORY!, '../terminus', 'config.yaml')
+export const configPath = path.join(process.env.TABBY_CONFIG_DIRECTORY!, 'config.yaml')
+const legacyConfigPath = path.join(process.env.TABBY_CONFIG_DIRECTORY!, '../terminus', 'config.yaml')
 
 
 export function migrateConfig (): void {

@@ -3,7 +3,7 @@ import { app, ipcMain, Menu, dialog } from 'electron'
 // set defaults of environment variables
 import 'dotenv/config'
 process.env.TABBY_PLUGINS ??= ''
-process.env.CONFIG_DIRECTORY ??= app.getPath('userData')
+process.env.TABBY_CONFIG_DIRECTORY ??= app.getPath('userData')
 
 
 import 'v8-compile-cache'
