@@ -11,6 +11,7 @@ import { ElectronHostWindow } from './hostWindow.service'
 import { ShellIntegrationService } from './shellIntegration.service'
 import { ElectronHostAppService } from './hostApp.service'
 import { PlatformTheme } from '../../../tabby-core/src/api/platform'
+import { configPath } from '../../../app/lib/config'
 const fontManager = require('fontmanager-redux') // eslint-disable-line
 
 /* eslint-disable block-scoped-var */
@@ -36,7 +37,7 @@ export class ElectronPlatformService extends PlatformService {
         private translate: TranslateService,
     ) {
         super()
-        this.configPath = path.join(electron.app.getPath('userData'), 'config.yaml')
+        this.configPath = configPath
 
         electron.ipcRenderer.on('host:display-metrics-changed', () => {
             this.zone.run(() => this.displayMetricsChanged.next())
