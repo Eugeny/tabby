@@ -18,7 +18,7 @@ process.env.APPLE_APP_SPECIFIC_PASSWORD ??= process.env.APPSTORE_PASSWORD
 
 builder({
     dir: true,
-    mac: ['pkg', 'zip'],
+    mac: ['dmg', 'zip'],
     x64: process.env.ARCH === 'x86_64',
     arm64: process.env.ARCH === 'arm64',
     config: {

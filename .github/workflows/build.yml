@@ -110,16 +110,16 @@ jobs:
 
     - name: Package artifacts
       run: |
-        mkdir artifact-pkg
-        mv dist/*.pkg artifact-pkg/
+        mkdir artifact-dmg
+        mv dist/*.dmg artifact-dmg/
         mkdir artifact-zip
         mv dist/*.zip artifact-zip/
 
     - uses: actions/upload-artifact@master
-      name: Upload PKG
+      name: Upload DMG
       with:
-        name: macOS .pkg (${{matrix.arch}})
-        path: artifact-pkg
+        name: macOS .dmg (${{matrix.arch}})
+        path: artifact-dmg
 
     - uses: actions/upload-artifact@master
       name: Upload ZIP
