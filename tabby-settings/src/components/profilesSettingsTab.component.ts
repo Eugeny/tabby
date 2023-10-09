@@ -21,6 +21,7 @@ interface CollapsableProfileGroup extends ProfileGroup {
 export class ProfilesSettingsTabComponent extends BaseComponent {
     builtinProfiles: PartialProfile<Profile>[] = []
     templateProfiles: PartialProfile<Profile>[] = []
+    customProfiles: PartialProfile<Profile>[] = []
     profileGroups: PartialProfileGroup<CollapsableProfileGroup>[]
     filter = ''
     Platform = Platform
@@ -42,6 +43,7 @@ export class ProfilesSettingsTabComponent extends BaseComponent {
     async ngOnInit (): Promise<void> {
         this.refresh()
         this.builtinProfiles = (await this.profilesService.getProfiles()).filter(x => x.isBuiltin)
+        this.customProfiles = (await this.profilesService.getProfiles()).filter(x => !x.isBuiltin)
         this.templateProfiles = this.builtinProfiles.filter(x => x.isTemplate)
         this.builtinProfiles = this.builtinProfiles.filter(x => !x.isTemplate)
         this.refresh()
