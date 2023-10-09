@@ -12,7 +12,7 @@ ul.nav-tabs(ngbNav, #nav='ngbNav')
                     [(ngModel)]='config.store.terminal.profile',
                     (ngModelChange)='config.save()',
                 )
-                    optgroup([label]='"Custom Profiles"|translate')
+                    optgroup([label]='"Custom Profiles"|translate',  *ngIf='customProfiles?.length > 0')
                         option(
                             *ngFor='let profile of customProfiles',
                             [ngValue]='profile.id'
