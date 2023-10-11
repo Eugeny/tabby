@@ -343,6 +343,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="https://siebsie23.nl/"><img src="https://avatars.githubusercontent.com/u/25083973?v=4?s=100" width="100px;" alt="Sibren"/><br /><sub><b>Sibren</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=siebsie23" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://www.nathaniel-walser.com"><img src="https://avatars.githubusercontent.com/u/33339996?v=4?s=100" width="100px;" alt="Nathaniel Walser"/><br /><sub><b>Nathaniel Walser</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=nwalser" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/aaronhuggins"><img src="https://avatars.githubusercontent.com/u/16567111?v=4?s=100" width="100px;" alt="Aaron Huggins"/><br /><sub><b>Aaron Huggins</b></sub></a><br /><a href="#design-aaronhuggins" title="Design">🎨</a></td>
     </tr>
   </tbody>
 </table>
