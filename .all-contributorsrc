@@ -1238,6 +1238,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "aaronhuggins",
+      "name": "Aaron Huggins",
+      "avatar_url": "https://avatars.githubusercontent.com/u/16567111?v=4",
+      "profile": "https://github.com/aaronhuggins",
+      "contributions": [
+        "design"
+      ]
     }
   ],
   "contributorsPerLine": 7,
