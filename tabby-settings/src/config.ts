@@ -4,8 +4,8 @@ import { ConfigProvider, Platform } from 'tabby-core'
 export class SettingsConfigProvider extends ConfigProvider {
     defaults = {
         configSync: {
-            host: 'https://api.tabby.sh',
-            token: '',
+            host: null,
+            token: null,
             configID: null,
             auto: false,
             parts: {

@@ -141,4 +141,8 @@ export class ConfigSyncSettingsTabComponent extends BaseComponent {
             this.platform.openExternal(this.config.store.configSync.host)
         }
     }
+
+    openTabbyWebInfo () {
+        this.platform.openExternal('https://github.com/Eugeny/tabby-web')
+    }
 }

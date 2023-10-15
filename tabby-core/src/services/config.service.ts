@@ -406,6 +406,14 @@ export class ConfigService {
             }
             config.version = 6
         }
+        if (config.version < 7) {
+            if (!config.configSync?.host || config.configSync?.host === 'https://api.tabby.sh') {
+                config.configSync ??= {}
+                delete config.configSync.host
+                delete config.configSync.token
+            }
+            config.version = 7
+        }
     }
 
     private async maybeDecryptConfig (store) {
