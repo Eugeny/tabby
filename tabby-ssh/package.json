@@ -22,7 +22,7 @@
   "author": "Eugene Pankov",
   "license": "MIT",
   "devDependencies": {
-    "@types/node": "20.3.1",
+    "@types/node": "20.8.8",
     "@types/ssh2": "^0.5.46",
     "ansi-colors": "^4.1.1",
     "diffie-hellman": "^5.0.3",
