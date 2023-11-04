@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Italian\n"
 "Language: it_IT\n"
-"PO-Revision-Date: 2023-10-06 11:30\n"
+"PO-Revision-Date: 2023-11-04 21:09\n"
 
 #: tabby-local/src/components/terminalTab.component.ts:113
 msgid "\"{command}\" is still running. Close?"
@@ -100,12 +100,12 @@ msgstr "Permetti l'apertura rapida di un terminale nella cartella selezionata"
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:25
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:11
 msgid "Always dark"
-msgstr ""
+msgstr "Sempre scuro"
 
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:27
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:13
 msgid "Always light"
-msgstr ""
+msgstr "Sempre chiaro"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:2
 #: tabby-terminal/src/settings.ts:14
@@ -538,7 +538,7 @@ msgstr "Profilo predefinito per le nuove schede"
 
 #: locale/tmp-html/tabby-settings/src/components/editProfileGroupModal.component.html:16
 msgid "Default profile group settings"
-msgstr ""
+msgstr "Impostazioni predefinite profilo di gruppo"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:101
 msgid "Default profile settings"
@@ -846,7 +846,7 @@ msgstr "Evidenzia tutti i riquadri contemporaneamente (scrivi su tutti)"
 
 #: tabby-terminal/src/tabContextMenu.ts:75
 msgid "Focus all tabs"
-msgstr "Attacca tutte le schede"
+msgstr "Utilizza tutte le schede"
 
 #: tabby-terminal/src/hotkeys.ts:82
 msgid "Focus all tabs at once (broadcast)"
@@ -939,7 +939,7 @@ msgstr "Dal tema in uso"
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:23
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:9
 msgid "From system"
-msgstr ""
+msgstr "Di sistema"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:44
 msgid "From theme"
@@ -1321,7 +1321,7 @@ msgstr "Nativa"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:21
 msgid "New"
-msgstr ""
+msgstr "Nuovo"
 
 #: tabby-local/src/tabContextMenu.ts:53
 msgid "New admin tab"
@@ -1333,7 +1333,7 @@ msgstr "Nuova configurazione su {platform}"
 
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:144
 msgid "New group name"
-msgstr ""
+msgstr "Nome del nuovo gruppo"
 
 #: locale/tmp-html/tabby-terminal/src/components/loginScriptsSettings.component.html:16
 msgid "New item"
@@ -1349,7 +1349,7 @@ msgstr "Nuovo profilo"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:24
 msgid "New profile Group"
-msgstr ""
+msgstr "Nome del nuovo profilo di gruppo"
 
 #: tabby-terminal/src/tabContextMenu.ts:176
 msgid "New profile name"
@@ -1782,11 +1782,11 @@ msgstr "Riavvia l'app per applicare le modifiche"
 
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:316
 msgid "Restore settings to defaults ?"
-msgstr ""
+msgstr "Ripristinare le impostazioni predefinite?"
 
 #: tabby-settings/src/components/editProfileGroupModal.component.ts:36
 msgid "Restore settings to inherited defaults ?"
-msgstr ""
+msgstr "Ripristinare le impostazioni predefinite ereditate?"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:159
 msgid "Restore terminal tabs on app start"
@@ -2160,7 +2160,7 @@ msgstr "Sostituzioni consentite."
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:19
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:5
 msgid "Switch color scheme"
-msgstr ""
+msgstr "Cambia schema colore"
 
 #: tabby-core/src/tabContextMenu.ts:290
 msgid "Switch profile"
@@ -2288,7 +2288,7 @@ msgstr "Questi si applicano a tutti i profili di un dato tipo"
 
 #: locale/tmp-html/tabby-settings/src/components/editProfileGroupModal.component.html:17
 msgid "These apply to all profiles of a given type in this group"
-msgstr ""
+msgstr "Questa modifica si applica a tutti i profili di un dato tipo in questo gruppo"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:59
 msgid "Thin"

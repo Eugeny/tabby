@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: German\n"
 "Language: de_DE\n"
-"PO-Revision-Date: 2023-10-06 11:30\n"
+"PO-Revision-Date: 2023-11-04 21:09\n"
 
 #: tabby-local/src/components/terminalTab.component.ts:113
 msgid "\"{command}\" is still running. Close?"
@@ -337,7 +337,7 @@ msgstr "Farbschema"
 
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:2
 msgid "Color schemes"
-msgstr ""
+msgstr "Farbschema"
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:81
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:216
@@ -506,7 +506,7 @@ msgstr "Benutzerdefiniertes CSS"
 
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:17
 msgid "Dark mode"
-msgstr ""
+msgstr "Dunkler Modus"
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:26
 msgid "Data bits"
@@ -526,11 +526,11 @@ msgstr "Größe der vertikalen Teilung verringern"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:92
 msgid "Default \"Connect to\" type"
-msgstr ""
+msgstr "Standards Verbindungstyp"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:93
 msgid "Default connection type used by quick connect feature (ex. SSH, Telnet)"
-msgstr ""
+msgstr "Standard Verbindung für Schnellverbanbindungen (z.B. SSH, Telnet)"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:8
 msgid "Default profile for new tabs"
@@ -538,7 +538,7 @@ msgstr "Standardprofil für neue Tabs"
 
 #: locale/tmp-html/tabby-settings/src/components/editProfileGroupModal.component.html:16
 msgid "Default profile group settings"
-msgstr ""
+msgstr "Sandart Profil Gruppeneinstellungen"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:101
 msgid "Default profile settings"
@@ -651,7 +651,7 @@ msgstr "Verbindung trennen"
 
 #: tabby-terminal/src/hotkeys.ts:106
 msgid "Disconnect current tab (Serial/Telnet/SSH)"
-msgstr ""
+msgstr "Aktuelle Tab Verbindung trennen (Serial/Telnet/SSH)"
 
 #: tabby-ssh/src/components/sshTab.component.ts:198
 #: tabby-telnet/src/components/telnetTab.component.ts:81
@@ -939,7 +939,7 @@ msgstr "Aus dem Farbschema"
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:23
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:9
 msgid "From system"
-msgstr ""
+msgstr "Vom System"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:44
 msgid "From theme"
@@ -1006,7 +1006,7 @@ msgstr "Hexadezimal"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:49
 msgid "Hide"
-msgstr ""
+msgstr "Verbergen"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:176
 msgid "Hide tab close button"
@@ -1094,7 +1094,7 @@ msgstr "Größe der vertikalen Teilung vergrößern"
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:226
 #: locale/tmp-html/tabby-telnet/src/components/telnetProfileSettings.component.html:21
 msgid "Input"
-msgstr ""
+msgstr "Eingabe"
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:18
 msgid "Input is sent as you type"
@@ -1215,7 +1215,7 @@ msgstr "Ermöglicht der Shell das reagieren auf die Meta-Taste statt des Betrieb
 
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:22
 msgid "Light mode"
-msgstr ""
+msgstr "Heller Modus"
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:27
 msgid "Line by line"
@@ -1321,7 +1321,7 @@ msgstr "Nativ"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:21
 msgid "New"
-msgstr ""
+msgstr "Neu"
 
 #: tabby-local/src/tabContextMenu.ts:53
 msgid "New admin tab"
@@ -1333,7 +1333,7 @@ msgstr "Neue Konfiguration auf {platform}"
 
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:144
 msgid "New group name"
-msgstr ""
+msgstr "Neuer Gruppenname"
 
 #: locale/tmp-html/tabby-terminal/src/components/loginScriptsSettings.component.html:16
 msgid "New item"
@@ -1349,7 +1349,7 @@ msgstr "Neues Profil"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:24
 msgid "New profile Group"
-msgstr ""
+msgstr "Neues Gruppenprofil"
 
 #: tabby-terminal/src/tabContextMenu.ts:176
 msgid "New profile name"
@@ -1438,7 +1438,7 @@ msgstr "Auf GitHub Discussions"
 
 #: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:47
 msgid "Only close the tab when session is explicitly terminated"
-msgstr ""
+msgstr "Tab nur schließen, wenn die Sitzung beendet wird"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:46
 msgid "Opacity"
@@ -1697,7 +1697,7 @@ msgstr "Neu verbinden"
 
 #: tabby-terminal/src/hotkeys.ts:102
 msgid "Reconnect current tab (Serial/Telnet/SSH)"
-msgstr ""
+msgstr "Verbindung zum aktuellen Tab wiederaufnehmen (Serial/Telnet/SSH)"
 
 #: tabby-core/src/utils.ts:64
 msgid "Red"
@@ -1782,7 +1782,7 @@ msgstr "Anwendung neu starten, um Änderungen zu übernehmen"
 
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:316
 msgid "Restore settings to defaults ?"
-msgstr ""
+msgstr "Standard Einstellungen wiederherstellen?"
 
 #: tabby-settings/src/components/editProfileGroupModal.component.ts:36
 msgid "Restore settings to inherited defaults ?"
@@ -2160,7 +2160,7 @@ msgstr "Ersetzungen erlaubt."
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:19
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:5
 msgid "Switch color scheme"
-msgstr ""
+msgstr "Farbschema wechseln"
 
 #: tabby-core/src/tabContextMenu.ts:290
 msgid "Switch profile"
@@ -2288,7 +2288,7 @@ msgstr "Diese gelten für alle Profile eines bestimmten Typs"
 
 #: locale/tmp-html/tabby-settings/src/components/editProfileGroupModal.component.html:17
 msgid "These apply to all profiles of a given type in this group"
-msgstr ""
+msgstr "Diese gelten für alle Profile eines bestimmten Typs in dieser Gruppe"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:59
 msgid "Thin"
@@ -2474,7 +2474,7 @@ msgstr "Was gibt's Neues?"
 
 #: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:46
 msgid "When a session ends"
-msgstr ""
+msgstr "Wenn eine Sitzung endet"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:82
 msgid "When enabled, links are only clickable while holding this key"
