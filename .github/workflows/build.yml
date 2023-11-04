@@ -2,7 +2,7 @@ name: Package-Build
 on: [push, pull_request]
 jobs:
   Lint:
-    runs-on: macos-11
+    runs-on: ubuntu-20.04
 
     steps:
     - name: Checkout
@@ -162,7 +162,7 @@ jobs:
     - name: Install deps (amd64)
       run: |
         sudo apt-get update
-        sudo apt-get install libarchive-tools zsh
+        sudo apt-get install libarchive-tools zsh python3-distutils
 
     - name: Install npm_modules (amd64)
       run: |
