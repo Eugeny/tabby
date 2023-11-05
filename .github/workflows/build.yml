@@ -31,7 +31,7 @@ jobs:
       run: yarn run lint
 
   macOS-Build:
-    runs-on: macos-11
+    runs-on: macos-12
     needs: Lint
     strategy:
       matrix:
