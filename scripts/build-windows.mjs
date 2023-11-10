@@ -12,6 +12,7 @@ builder({
     win: ['nsis', 'zip'],
     arm64: process.env.ARCH === 'arm64',
     config: {
+        npmRebuild: true,
         extraMetadata: {
             version: vars.version,
         },
