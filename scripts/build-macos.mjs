@@ -32,6 +32,7 @@ builder({
                 teamId: process.env.APPLE_TEAM_ID,
             } : false,
         },
+        npmRebuild: true,
         publish: process.env.KEYGEN_TOKEN ? [
             vars.keygenConfig,
             {
