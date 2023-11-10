@@ -2,7 +2,6 @@
 appId: org.tabby
 productName: Tabby
 compression: normal
-npmRebuild: false
 files:
 - '**/*'
 - dist
