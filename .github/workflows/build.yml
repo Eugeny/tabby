@@ -53,7 +53,8 @@ jobs:
 
     - name: Install deps
       run: |
-        sudo -H pip install setuptools
+        sudo -H pip3 install setuptools
+        npm config set python python3
         sudo npm i -g yarn@1.22.1
         yarn --network-timeout 1000000
       env:
