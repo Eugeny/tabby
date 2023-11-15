@@ -54,7 +54,7 @@ jobs:
     - name: Install deps
       run: |
         sudo -H pip install setuptools
-        sudo npm i -g yarn@1.22.1 node-gyp@10
+        sudo npm i -g yarn@1.22.1
         yarn --network-timeout 1000000
       env:
         ARCH: ${{matrix.arch}}
