@@ -13,6 +13,7 @@ builder({
     armv7l: process.env.ARCH === 'armv7l',
     arm64: process.env.ARCH === 'arm64',
     config: {
+        npmRebuild: false,
         extraMetadata: {
             version: vars.version,
         },
