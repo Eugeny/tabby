@@ -1,6 +1,6 @@
 title-bar(
-  *ngIf='ready && !hostWindow.isFullscreen && config.store.appearance.frame == "full" && config.store.appearance.dock == "off"',
-  (dblclick)='hostWindow.toggleMaximize()',
+  *ngIf='ready && !hostWindow.isFullscreen && config.store.appearance.dock == "off" && (config.store.appearance.frame == "full" || isTilteBarNeeded())',
+  (dblclick)='toggleMaximize()',
   [hideControls]='hostApp.platform !== Platform.Linux && !hostWindow.isFullscreen',
   [class.inset]='hostApp.platform == Platform.macOS && !hostWindow.isFullscreen'
 )
@@ -9,13 +9,13 @@ title-bar(
     *ngIf='ready',
     [class.tabs-on-top]='config.store.appearance.tabsLocation == "top" || config.store.appearance.tabsLocation == "left"',
     [class.tabs-on-left]='hasVerticalTabs() && config.store.appearance.tabsLocation == "left"',
-    [class.tabs-titlebar-enabled]='config.store.appearance.frame == "full"',
+    [class.tabs-titlebar-enabled]='config.store.appearance.frame == "full" || isTilteBarNeeded()',
     [class.tabs-on-right]='hasVerticalTabs() && config.store.appearance.tabsLocation == "right"',
 )
     .tab-bar(
         *ngIf='!hostWindow.isFullscreen || config.store.appearance.tabsInFullscreen',
         [class.tab-bar-no-controls-overlay]='hostApp.platform == Platform.macOS',
-        (dblclick)='hostWindow.toggleMaximize()'
+        (dblclick)='toggleMaximize(config.store.appearance.frame == "full" || isTilteBarNeeded())'
     )
         .inset.background(*ngIf='hostApp.platform == Platform.macOS \
         && !hostWindow.isFullscreen \
@@ -64,7 +64,12 @@ title-bar(
                     (transfersChange)='onTransfersChange()'
                 )
 
-        .drag-space.background([class.persistent]='config.store.appearance.frame == "thin"')
+        .btn-space.background(
+            [class.persistent]='config.store.appearance.frame == "thin"',
+            [class.drag]='config.store.appearance.frame == "thin" \
+            && config.store.appearance.tabsLocation != "left" \
+            && config.store.appearance.tabsLocation != "right"'
+        )
 
         .btn-group.background
             .d-flex(
@@ -84,7 +89,9 @@ title-bar(
 
         window-controls.background(
             *ngIf='config.store.appearance.frame == "thin" \
-            && (hostApp.platform == Platform.Linux)',
+            && config.store.appearance.tabsLocation != "left" \
+            && config.store.appearance.tabsLocation != "right" \
+            && hostApp.platform == Platform.Linux',
         )
 
         div.window-controls-spacer(

@@ -62,7 +62,7 @@ $tab-border-radius: 4px;
         }
     }
 
-    .drag-space {
+    .btn-space {
         flex: auto;
     }
 
@@ -126,13 +126,16 @@ $tab-border-radius: 4px;
         min-width: 0;
     }
 
-    &>.drag-space {
+    &>.btn-space {
         min-width: 1px;
         flex: 1 0 1%;
-        -webkit-app-region: drag;
 
         .tabs-on-top & {
             margin-top: 2px; // for window resizing
+        }
+
+        &.drag {
+            -webkit-app-region: drag;
         }
 
         &.persistent {
