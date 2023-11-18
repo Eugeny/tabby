@@ -1,5 +1,5 @@
 title-bar(
-  *ngIf='ready && !hostWindow.isFullscreen && config.store.appearance.dock == "off" && (config.store.appearance.frame == "full" || isTilteBarNeeded())',
+  *ngIf='ready && !hostWindow.isFullscreen && config.store.appearance.dock == "off" && (config.store.appearance.frame == "full" || (isTilteBarNeeded() && hostApp.platform !== Platform.macOS))',
   (dblclick)='toggleMaximize()',
   [hideControls]='hostApp.platform !== Platform.Linux && !hostWindow.isFullscreen',
   [class.inset]='hostApp.platform == Platform.macOS && !hostWindow.isFullscreen'
@@ -7,15 +7,15 @@ title-bar(
 
 .content(
     *ngIf='ready',
-    [class.tabs-on-top]='config.store.appearance.tabsLocation == "top" || config.store.appearance.tabsLocation == "left"',
+    [class.tabs-on-top]='config.store.appearance.tabsLocation == "top" || config.store.appearance.tabsLocation == "left" || config.store.appearance.tabsLocation == "right"',
     [class.tabs-on-left]='hasVerticalTabs() && config.store.appearance.tabsLocation == "left"',
-    [class.tabs-titlebar-enabled]='config.store.appearance.frame == "full" || isTilteBarNeeded()',
+    [class.tabs-titlebar-enabled]='config.store.appearance.frame == "full" || (isTilteBarNeeded() && hostApp.platform !== Platform.macOS)',
     [class.tabs-on-right]='hasVerticalTabs() && config.store.appearance.tabsLocation == "right"',
 )
     .tab-bar(
         *ngIf='!hostWindow.isFullscreen || config.store.appearance.tabsInFullscreen',
         [class.tab-bar-no-controls-overlay]='hostApp.platform == Platform.macOS',
-        (dblclick)='toggleMaximize(config.store.appearance.frame == "full" || isTilteBarNeeded())'
+        (dblclick)='toggleMaximize(config.store.appearance.frame == "full" || (isTilteBarNeeded() && hostApp.platform !== Platform.macOS))'
     )
         .inset.background(*ngIf='hostApp.platform == Platform.macOS \
         && !hostWindow.isFullscreen \
@@ -35,7 +35,7 @@ title-bar(
                 [@animateTab]='{value: "in", params: {size: targetTabSize}}',
                 [@.disabled]='hasVerticalTabs() || !config.store.accessibility.animations',
                 (click)='app.selectTab(tab)',
-                [class.fully-draggable]='hostApp.platform != Platform.macOS'
+                [class.fully-draggable]='hostApp.platform !== Platform.macOS'
             )
 
         .btn-group.background
@@ -67,8 +67,7 @@ title-bar(
         .btn-space.background(
             [class.persistent]='config.store.appearance.frame == "thin"',
             [class.drag]='config.store.appearance.frame == "thin" \
-            && config.store.appearance.tabsLocation != "left" \
-            && config.store.appearance.tabsLocation != "right"'
+            && ((config.store.appearance.tabsLocation !== "left" && config.store.appearance.tabsLocation !== "right") || hostApp.platform !== Platform.macOS)'
         )
 
         .btn-group.background
@@ -89,8 +88,8 @@ title-bar(
 
         window-controls.background(
             *ngIf='config.store.appearance.frame == "thin" \
-            && config.store.appearance.tabsLocation != "left" \
-            && config.store.appearance.tabsLocation != "right" \
+            && config.store.appearance.tabsLocation !== "left" \
+            && config.store.appearance.tabsLocation !== "right" \
             && hostApp.platform == Platform.Linux',
         )
 
