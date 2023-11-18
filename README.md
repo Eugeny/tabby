@@ -130,6 +130,7 @@ Plugins and themes can be installed directly from the Settings view inside Tabby
 * [search-in-browser](https://github.com/composer404/tabby-search-in-browser) - opens default system browser with a text selected from the Tabby's tab
 * [sftp-tab](https://github.com/wljince007/tabby-sftp-tab) - open sftp tab for ssh connection like SecureCRT
 * [background](https://github.com/moemoechu/tabby-background) - change Tabby background image and more...
+* [highlight](https://github.com/moemoechu/tabby-highlight) - Tabby terminal keyword highlight plugin
 
 <a name="themes"></a>
 
