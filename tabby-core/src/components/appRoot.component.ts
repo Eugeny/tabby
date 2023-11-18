@@ -248,6 +248,6 @@ export class AppRootComponent {
     }
 
     isTilteBarNeeded (): boolean {
-        return this.config.store.appearance.frame == 'thin' && this.config.store.appearance.tabsLocation != 'top' && this.config.store.appearance.tabsLocation != 'bottom'
+        return this.config.store.appearance.frame === 'thin' && this.config.store.appearance.tabsLocation !== 'top' && this.config.store.appearance.tabsLocation !== 'bottom'
     }
 }
