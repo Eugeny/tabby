@@ -25,7 +25,7 @@ export class ElectronUpdaterService extends UpdaterService {
         super()
         this.logger = log.create('updater')
 
-        if (process.platform === 'linux') {
+        if (process.platform === 'linux' || process.env.PORTABLE_EXECUTABLE_FILE) {
             this.electronUpdaterAvailable = false
             return
         }
