@@ -241,13 +241,18 @@ export class AppRootComponent {
             .filter(x => x.locations?.includes(aboveZero ? CommandLocation.RightToolbar : CommandLocation.LeftToolbar))
     }
 
-    toggleMaximize (ignore=false): void {
-        if (!ignore) {
-            this.hostWindow.toggleMaximize()
-        }
+    toggleMaximize (): void {
+        this.hostWindow.toggleMaximize()
     }
 
-    isTilteBarNeeded (): boolean {
-        return this.config.store.appearance.frame === 'thin' && this.config.store.appearance.tabsLocation !== 'top' && this.config.store.appearance.tabsLocation !== 'bottom'
+    protected isTitleBarNeeded (): boolean {
+        return (
+            this.config.store.appearance.frame === 'full'
+            ||
+                this.hostApp.platform !== Platform.macOS
+                && this.config.store.appearance.frame === 'thin'
+                && this.config.store.appearance.tabsLocation !== 'top'
+                && this.config.store.appearance.tabsLocation !== 'bottom'
+        )
     }
 }
