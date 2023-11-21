@@ -240,4 +240,19 @@ export class AppRootComponent {
         return (await this.commands.getCommands({ tab: this.app.activeTab ?? undefined }))
             .filter(x => x.locations?.includes(aboveZero ? CommandLocation.RightToolbar : CommandLocation.LeftToolbar))
     }
+
+    toggleMaximize (): void {
+        this.hostWindow.toggleMaximize()
+    }
+
+    protected isTitleBarNeeded (): boolean {
+        return (
+            this.config.store.appearance.frame === 'full'
+            ||
+                this.hostApp.platform !== Platform.macOS
+                && this.config.store.appearance.frame === 'thin'
+                && this.config.store.appearance.tabsLocation !== 'top'
+                && this.config.store.appearance.tabsLocation !== 'bottom'
+        )
+    }
 }
