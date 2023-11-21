@@ -1247,6 +1247,15 @@
       "contributions": [
         "design"
       ]
+    },
+    {
+      "login": "zKXDEX",
+      "name": "KDex",
+      "avatar_url": "https://avatars.githubusercontent.com/u/66271780?v=4",
+      "profile": "https://zkxdex.github.io/",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
