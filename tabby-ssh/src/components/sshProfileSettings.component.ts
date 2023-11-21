@@ -67,7 +67,7 @@ export class SSHProfileSettingsComponent {
     }
 
     getJumpHostLabel (p: PartialProfile<SSHProfile>) {
-        return p.group ? `${p.group} / ${p.name}` : p.name
+        return p.group ? `${this.profilesService.resolveProfileGroupName(p.group)} / ${p.name}` : p.name
     }
 
     async setPassword () {
