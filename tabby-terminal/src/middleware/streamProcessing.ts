@@ -9,7 +9,7 @@ import { SessionMiddleware } from '../api/middleware'
 
 export type InputMode = null | 'local-echo' | 'readline' | 'readline-hex'
 export type OutputMode = null | 'hex'
-export type NewlineMode = null | 'cr' | 'lf' | 'crlf'
+export type NewlineMode = null | 'cr' | 'lf' | 'crlf' | 'implicit_cr' | 'implicit_lf'
 
 export interface StreamProcessingOptions {
     inputMode?: InputMode
@@ -134,6 +134,13 @@ export class TerminalStreamProcessor extends SessionMiddleware {
         if (!mode) {
             return data
         }
+        else if (mode == 'implicit_cr') {
+            return bufferReplace(data, '\n', '\r\n')
+        }
+        else if (mode == 'implicit_lf') {
+            return bufferReplace(data, '\r', '\r\n')
+        }
+
         data = bufferReplace(data, '\r\n', '\n')
         data = bufferReplace(data, '\r', '\n')
         const replacement = {
