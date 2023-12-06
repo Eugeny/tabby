@@ -916,6 +916,14 @@ msgstr "CRLF 강제"
 msgid "Force LF"
 msgstr "LF 강제"
 
+#: tabby-terminal/src/components/streamProcessingSettings.component.ts:56
+msgid "Implicit CR in every LF"
+msgstr "LF에만 CR 추가"
+
+#: tabby-terminal/src/components/streamProcessingSettings.component.ts:57
+msgid "Implicit LF in every CR"
+msgstr "CR에만 LF 추가"
+
 #: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:25
 msgid "Forces a specific SSH agent connection type."
 msgstr "특정 SSH 에이전트로 연결 유형 강제"

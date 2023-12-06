@@ -53,6 +53,8 @@ export class StreamProcessingSettingsComponent {
         { key: 'cr', name: _('Force CR') },
         { key: 'lf', name: _('Force LF') },
         { key: 'crlf', name: _('Force CRLF') },
+        { key: 'implicit_cr', name: _('Implicit CR in every LF') },
+        { key: 'implicit_lf', name: _('Implicit LF in every CR') },
     ]
 
     getInputModeName (key) {
