@@ -133,11 +133,9 @@ export class TerminalStreamProcessor extends SessionMiddleware {
     private replaceNewlines (data: Buffer, mode?: NewlineMode): Buffer {
         if (!mode) {
             return data
-        }
-        else if (mode == 'implicit_cr') {
+        } else if (mode === 'implicit_cr') {
             return bufferReplace(data, '\n', '\r\n')
-        }
-        else if (mode == 'implicit_lf') {
+        } else if (mode === 'implicit_lf') {
             return bufferReplace(data, '\r', '\r\n')
         }
 
