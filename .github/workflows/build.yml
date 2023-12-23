@@ -13,11 +13,11 @@ jobs:
     - name: Installing Node
       uses: actions/setup-node@v3.7.0
       with:
-        node-version: 16
+        node-version: 18
 
     - name: Install deps
       run: |
-        npm i -g yarn@1.19.1
+        npm i -g yarn
         cd app
         yarn
         cd ..
@@ -49,13 +49,13 @@ jobs:
     - name: Installing Node
       uses: actions/setup-node@v3.7.0
       with:
-        node-version: 16
+        node-version: 18
 
     - name: Install deps
       run: |
         sudo -H pip3 install setuptools
         npm config set python python3
-        sudo npm i -g yarn@1.22.1
+        sudo npm i -g yarn
         yarn --network-timeout 1000000
       env:
         ARCH: ${{matrix.arch}}
@@ -96,7 +96,7 @@ jobs:
 
     - name: Build packages without signing
       run: scripts/build-macos.mjs
-      if: "! (github.repository == 'Eugeny/tabby' && github.event_name == 'push' && (github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags')))"
+      if: ! (github.repository == 'Eugeny/tabby' && github.event_name == 'push' && (github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags')))
       env:
         ARCH: ${{matrix.arch}}
         # DEBUG: electron-builder,electron-builder:*
@@ -164,33 +164,30 @@ jobs:
     - name: Install deps (amd64)
       run: |
         sudo apt-get update
-        sudo apt-get install libarchive-tools zsh python3-distutils
-
-    - name: Install npm_modules (amd64)
-      run: |
-        npm i -g yarn
-        yarn --network-timeout 1000000
-      if: matrix.build-arch == 'x64'
+        sudo apt-get install libarchive-tools zsh crossbuild-essential-${{matrix.arch}}
 
     - name: Setup Crossbuild (${{matrix.arch}})
       run: |
-          sudo apt-get update -y && sudo apt-get install schroot sbuild debootstrap -y
-          sudo debootstrap --include=git,curl,gnupg,ca-certificates,crossbuild-essential-${{matrix.arch}},python-dev,python3-dev,libarchive-tools,cmake --variant=buildd --exclude=snapd --components=main,restricted,universe,multiverse --extractor=dpkg-deb bionic /build-chroot/
-          echo 'deb [arch=amd64,i386] http://archive.ubuntu.com/ubuntu bionic main restricted universe multiverse' | sudo tee /build-chroot/etc/apt/sources.list >/dev/null
-          echo 'deb [arch=arm64,armhf] http://ports.ubuntu.com/ubuntu-ports bionic main restricted universe multiverse' | sudo tee -a /build-chroot/etc/apt/sources.list >/dev/null
-          curl -s https://deb.nodesource.com/gpgkey/nodesource.gpg.key | gpg --dearmor | sudo tee /build-chroot/etc/apt/trusted.gpg.d/nodesource.gpg >/dev/null
-          echo 'deb http://deb.nodesource.com/node_16.x bionic main' | sudo tee /build-chroot/etc/apt/sources.list.d/nodesource.list >/dev/null
-          echo "[build-chroot]
-          description=Ubuntu 18.04 Build chroot
-          type=directory
-          directory=/build-chroot
-          root-groups=root,sudo
-          profile=buildd
-          personality=linux
-          union-type=overlay" | sudo tee /etc/schroot/chroot.d/build-chroot.pref >/dev/null
-          echo "/home           /home           none    rw,bind         0       0" | sudo tee -a /etc/schroot/buildd/fstab >/dev/null
-
+          echo "CFLAGS=--sysroot=/build-sysroot/" >> $GITHUB_ENV
+          echo "CXXFLAGS=--sysroot=/build-sysroot/" >> $GITHUB_ENV
+            echo "LDFLAGS=--sysroot=/build-sysroot/" >> $GITHUB_ENV
+          [[ ${npm_config_arch} == 'arm' ]] && echo "npm_config_arch=armv7l" >> $GITHUB_ENV
+          if [[ ${{matrix.arch}} == 'armhf' ]]; then
+            echo "PKG_CONFIG_PATH=/build-sysroot/usr/lib/pkgconfig/:/build-sysroot/usr/lib/arm-linux-gnueabihf/pkgconfig/" >> $GITHUB_ENV
+          elif [[ ${{matrix.arch}} == 'arm64' ]]; then
+            echo "PKG_CONFIG_PATH=/build-sysroot/usr/lib/pkgconfig/:/build-sysroot/usr/lib/aarch64-linux-gnu/pkgconfig/" >> $GITHUB_ENV
+          fi
+          sudo apt-get update -y && sudo apt-get install debootstrap qemu-user-static binfmt-support -y
+          sudo qemu-debootstrap --include=libfontconfig1-dev,libsecret-1-dev,libnss3,libatk1.0-0,libatk-bridge2.0-0,libgdk-pixbuf2.0-0,libgtk-3-0,libgbm1 --variant=buildd --exclude=snapd --components=main,restricted,universe,multiverse --extractor=dpkg-deb --arch ${{matrix.arch}} bionic /build-sysroot/ http://ports.ubuntu.com/ubuntu-ports/
+          sudo find /build-sysroot -type l -lname '/*' -exec sh -c 'file="$0"; dir=$(dirname "$file"); target=$(readlink "$0"); prefix=$(dirname "$dir" | sed 's@[^/]*@\.\.@g'); newtarget="$prefix$target"; ln -snf $newtarget $file' {} \; ;
       if: matrix.build-arch != 'x64'
+
+    - name: Install npm_modules (amd64)
+      run: |
+          npm i -g yarn node-gyp
+          npm prefix -g | $(npm config set node_gyp "$_/node_modules/node-gyp/bin/node-gyp.js")
+          yarn --network-timeout 1000000 --arch=${{matrix.build-arch}} --target-arch=${{matrix.build-arch}}
+      if: matrix.build-arch == 'x64'
 
     - name: Install node_modules & CrossBuild native modules for ${{matrix.arch}}
       run: |
@@ -349,7 +346,7 @@ jobs:
     - name: Installing Node
       uses: actions/setup-node@v3.7.0
       with:
-        node-version: 16
+        node-version: 18
 
     - name: Update node-gyp
       run: |
@@ -379,7 +376,7 @@ jobs:
 
     - name: Build packages without signing
       run: node scripts/build-windows.mjs
-      if: "!(github.repository == 'Eugeny/tabby' && github.event_name == 'push' && (github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags')))"
+      if: ! (github.repository == 'Eugeny/tabby' && github.event_name == 'push' && (github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags')))
       env:
         ARCH: ${{matrix.arch}}
 
