@@ -162,6 +162,7 @@ jobs:
 
     - name: Download cached sysroot
       uses: actions/cache@v3
+      id: cache-sysroot
       if: matrix.build-arch !='x64'
       with:
         key: sysroot-${{matrix.build-arch}}
@@ -189,7 +190,7 @@ jobs:
           sudo apt-get update -y && sudo apt-get install debootstrap qemu-user-static binfmt-support -y
           sudo qemu-debootstrap --include=libfontconfig1-dev,libsecret-1-dev,libnss3,libatk1.0-0,libatk-bridge2.0-0,libgdk-pixbuf2.0-0,libgtk-3-0,libgbm1 --variant=buildd --exclude=snapd --components=main,restricted,universe,multiverse --extractor=dpkg-deb --arch ${{matrix.arch}} bionic /${{matrix.build-arch}}-sysroot/ http://ports.ubuntu.com/ubuntu-ports/
           sudo find /${{matrix.build-arch}}-sysroot -type l -lname '/*' -exec sh -c 'file="$0"; dir=$(dirname "$file"); target=$(readlink "$0"); prefix=$(dirname "$dir" | sed 's@[^/]*@\.\.@g'); newtarget="$prefix$target"; ln -snf $newtarget $file' {} \; ;
-      if: matrix.build-arch != 'x64'
+      if: matrix.build-arch != 'x64' && steps.cache-sysroot.outputs.cache-hit != 'true'
 
     - name: Install npm_modules (amd64)
       run: |
