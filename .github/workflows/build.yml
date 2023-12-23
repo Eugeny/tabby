@@ -211,7 +211,7 @@ jobs:
         USE_HARD_LINKS: false
         # DEBUG: electron-builder,electron-builder:*
 
-    - name: Build web resources
+    - name: Build web resources (amd64 only)
       run: zsh -c 'tar czf tabby-web.tar.gz (tabby-*|web)/dist'
       if: matrix.build-arch == 'x64'
 
