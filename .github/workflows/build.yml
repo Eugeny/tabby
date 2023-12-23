@@ -176,13 +176,16 @@ jobs:
       run: |
           echo "CFLAGS=--sysroot=/${{matrix.build-arch}}-sysroot/" >> $GITHUB_ENV
           echo "CXXFLAGS=--sysroot=/${{matrix.build-arch}}-sysroot/" >> $GITHUB_ENV
-            echo "LDFLAGS=--sysroot=/${{matrix.build-arch}}-sysroot/" >> $GITHUB_ENV
+          echo "LDFLAGS=--sysroot=/${{matrix.build-arch}}-sysroot/" >> $GITHUB_ENV
+
           [[ ${npm_config_arch} == 'arm' ]] && echo "npm_config_arch=armv7l" >> $GITHUB_ENV
+
           if [[ ${{matrix.arch}} == 'armhf' ]]; then
             echo "PKG_CONFIG_PATH=/${{matrix.build-arch}}-sysroot/usr/lib/pkgconfig/:/${{matrix.build-arch}}-sysroot/usr/lib/arm-linux-gnueabihf/pkgconfig/" >> $GITHUB_ENV
           elif [[ ${{matrix.arch}} == 'arm64' ]]; then
             echo "PKG_CONFIG_PATH=/${{matrix.build-arch}}-sysroot/usr/lib/pkgconfig/:/${{matrix.build-arch}}-sysroot/usr/lib/aarch64-linux-gnu/pkgconfig/" >> $GITHUB_ENV
           fi
+
           sudo apt-get update -y && sudo apt-get install debootstrap qemu-user-static binfmt-support -y
           sudo qemu-debootstrap --include=libfontconfig1-dev,libsecret-1-dev,libnss3,libatk1.0-0,libatk-bridge2.0-0,libgdk-pixbuf2.0-0,libgtk-3-0,libgbm1 --variant=buildd --exclude=snapd --components=main,restricted,universe,multiverse --extractor=dpkg-deb --arch ${{matrix.arch}} bionic /${{matrix.build-arch}}-sysroot/ http://ports.ubuntu.com/ubuntu-ports/
           sudo find /${{matrix.build-arch}}-sysroot -type l -lname '/*' -exec sh -c 'file="$0"; dir=$(dirname "$file"); target=$(readlink "$0"); prefix=$(dirname "$dir" | sed 's@[^/]*@\.\.@g'); newtarget="$prefix$target"; ln -snf $newtarget $file' {} \; ;
@@ -192,23 +195,6 @@ jobs:
       run: |
           npm i -g yarn node-gyp
           yarn --network-timeout 1000000 --arch=${{matrix.build-arch}} --target-arch=${{matrix.build-arch}}
-      if: matrix.build-arch == 'x64'
-
-    - name: Install node_modules & CrossBuild native modules for ${{matrix.arch}}
-      run: |
-          sudo schroot -c build-chroot -u root -- bash -c "apt-get update -y
-          dpkg --add-architecture ${{matrix.arch}}
-          apt-get install -y nodejs libfontconfig-dev:${{matrix.arch}} libsecret-1-dev:${{matrix.arch}} libnss3:${{matrix.arch}} libatk1.0-0:${{matrix.arch}} libatk-bridge2.0-0:${{matrix.arch}} libgdk-pixbuf2.0-0:${{matrix.arch}} libgtk-3-0:${{matrix.arch}} libgbm1:${{matrix.arch}}
-          export CC=${{matrix.triplet}}gcc CXX=${{matrix.triplet}}g++ LD=${{matrix.triplet}}ld
-          if [[ ${{matrix.arch}} == 'arm64' ]]; then
-            export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/usr/lib/aarch64-linux-gnu/pkgconfig/
-          elif [[ ${{matrix.arch}} == 'armhf' ]]; then
-            export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/usr/lib/arm-linux-gnueabihf/pkgconfig/
-          fi
-          export ARCH=${{matrix.build-arch}} npm_config_arch=${{matrix.build-arch}} npm_config_target_arch=${{matrix.build-arch}}
-          npm i -g yarn
-          yarn --network-timeout 1000000 --arch=${{matrix.build-arch}} --target_arch=${{matrix.build-arch}}"
-      if: matrix.build-arch != 'x64'
 
     - name: Webpack (${{matrix.arch}})
       run: yarn run build --arch=${{matrix.build-arch}} --target_arch=${{matrix.build-arch}}
