@@ -37,12 +37,12 @@ export class SSHService {
         if (password) {
             uri += ':' + encodeURIComponent(password)
         }
-        if (profile.options.host.includes(':')) {  
-            uri += `@[${profile.options.host}]:${profile.options.port}${cwd ?? '/'}`;
-          } else {
-            uri += `@${profile.options.host}:${profile.options.port}${cwd ?? '/'}`;
-          }
-        return uri
+        if (profile.options.host.includes(':')) {
+            uri += `@[${profile.options.host}]:${profile.options.port}${cwd ?? '/'}`
+        }
+        else {
+            uri += `@${profile.options.host}:${profile.options.port}${cwd ?? '/'}`
+        }
     }
 
     async launchWinSCP (session: SSHSession): Promise<void> {
