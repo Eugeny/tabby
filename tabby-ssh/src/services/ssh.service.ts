@@ -39,8 +39,7 @@ export class SSHService {
         }
         if (profile.options.host.includes(':')) {
             uri += `@[${profile.options.host}]:${profile.options.port}${cwd ?? '/'}`
-        }
-        else {
+        }else {
             uri += `@${profile.options.host}:${profile.options.port}${cwd ?? '/'}`
         }
     }
