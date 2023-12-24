@@ -42,6 +42,7 @@ export class SSHService {
         }else {
             uri += `@${profile.options.host}:${profile.options.port}${cwd ?? '/'}`
         }
+        return uri
     }
 
     async launchWinSCP (session: SSHSession): Promise<void> {
