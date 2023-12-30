@@ -131,6 +131,7 @@ Plugins and themes can be installed directly from the Settings view inside Tabby
 * [sftp-tab](https://github.com/wljince007/tabby-sftp-tab) - open sftp tab for ssh connection like SecureCRT
 * [background](https://github.com/moemoechu/tabby-background) - change Tabby background image and more...
 * [highlight](https://github.com/moemoechu/tabby-highlight) - Tabby terminal keyword highlight plugin
+* [web-auth-handler](https://github.com/Jazzmoon/tabby-web-auth-handler) - In-app web authentication popups (Built primarily for warpgate in-browser auth) 
 
 <a name="themes"></a>
 
