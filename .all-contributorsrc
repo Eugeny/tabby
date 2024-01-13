@@ -1265,6 +1265,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "ashneilson",
+      "name": "Ash Neilson",
+      "avatar_url": "https://avatars.githubusercontent.com/u/35913512?v=4",
+      "profile": "https://github.com/ashneilson",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
