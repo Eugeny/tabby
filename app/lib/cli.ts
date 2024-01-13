@@ -28,6 +28,16 @@ export function parseArgs (argv: string[], cwd: string): any {
         .command('recent [index]', 'open a tab with a recent profile', {
             profileNumber: { type: 'number' },
         })
+        .command('quickConnect <providerId> <query>', 'open a tab for specified quick connect provider', yargs => {
+            return yargs.positional('providerId', {
+                describe: 'The name of a quick connect profile provider',
+                type: 'string',
+                choices: ['ssh', 'telnet'],
+            }).positional('query', {
+                describe: 'The quick connect query string',
+                type: 'string',
+            })
+        })
         .version(app.getVersion())
         .option('debug', {
             alias: 'd',
