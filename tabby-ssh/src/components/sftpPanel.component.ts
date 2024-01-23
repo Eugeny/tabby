@@ -81,12 +81,64 @@ export class SFTPPanelComponent {
             a.name.localeCompare(b.name))
     }
 
+    getFileType(fileExtension: string): string {
+        const codeExtensions = ["js", "ts", "py", "java", "cpp", "h", "cs", "html", "css", "rb", "php", "swift", "go", "kt", "sh", "json", "cc",
+        "c", "xml"];
+        const imageExtensions = ["jpg", "jpeg", "png", "gif", "bmp"];
+        const pdfExtensions = ["pdf"];
+        const archiveExtensions = ["zip", "rar", "tar", "gz"];
+        const wordExtensions = ["doc", "docx"];
+        const videoExtensions = ["mp4", "avi", "mkv", "mov"];
+        const powerpointExtensions = ["ppt", "pptx"];
+        const textExtensions = ["txt", "log"];
+        const audioExtensions = ["mp3", "wav", "flac"];
+        const excelExtensions = ["xls", "xlsx"];
+    
+        const lowerCaseExtension = fileExtension.toLowerCase();
+    
+        if (codeExtensions.includes(lowerCaseExtension)) {
+            return "code";
+        } else if (imageExtensions.includes(lowerCaseExtension)) {
+            return "image";
+        } else if (pdfExtensions.includes(lowerCaseExtension)) {
+            return "pdf";
+        } else if (archiveExtensions.includes(lowerCaseExtension)) {
+            return "archive";
+        } else if (wordExtensions.includes(lowerCaseExtension)) {
+            return "word";
+        } else if (videoExtensions.includes(lowerCaseExtension)) {
+            return "video";
+        } else if (powerpointExtensions.includes(lowerCaseExtension)) {
+            return "powerpoint";
+        } else if (textExtensions.includes(lowerCaseExtension)) {
+            return "text";
+        } else if (audioExtensions.includes(lowerCaseExtension)) {
+            return "audio";
+        } else if (excelExtensions.includes(lowerCaseExtension)) {
+            return "excel";
+        } else {
+            return "unknown";
+        }
+    }
+
     getIcon (item: SFTPFile): string {
         if (item.isDirectory) {
             return 'fas fa-folder text-info'
         }
         if (item.isSymlink) {
             return 'fas fa-link text-warning'
+        }
+        const fileMatch = /\.([^.]+)$/.exec(item.name);
+        const extension = fileMatch?fileMatch[1]:null;
+        if (extension !== null) {
+            const fileType = this.getFileType(extension);
+    
+            switch (fileType) {
+                case "unknown":
+                    return 'fas fa-file';
+                default:
+                    return `fa-solid fa-file-${fileType} `;
+            }
         }
         return 'fas fa-file'
     }
