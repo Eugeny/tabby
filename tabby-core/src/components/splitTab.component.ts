@@ -350,7 +350,7 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
                     }
                     break
                 case 'close-pane':
-                    this.removeTab(this.focusedTab)
+                    this.focusedTab.destroy()
                     break
                 case 'pane-increase-vertical':
                     this.resizePane('v')
