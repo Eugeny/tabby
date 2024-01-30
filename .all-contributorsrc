@@ -1283,6 +1283,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "botprzemek",
+      "name": "botprzemek",
+      "avatar_url": "https://avatars.githubusercontent.com/u/92102878?v=4",
+      "profile": "http://botprzemek.pl",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
