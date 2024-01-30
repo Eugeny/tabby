@@ -2,7 +2,7 @@
 
 
 <p align="center">
-  <a href="https://github.com/Eugeny/tabby/releases/latest"><img alt="GitHub All Releases" src="https://img.shields.io/github/downloads/eugeny/tabby/total.svg?label=DOWNLOADS&logo=github&style=for-the-badge"></a> &nbsp; <a href="https://nightly.link/Eugeny/tabby/workflows/build/master"><img src="https://shields.io/badge/-Nightly%20Builds-orange?logo=hackthebox&logoColor=fff&style=for-the-badge"/></a> &nbsp; <a href="https://matrix.to/#/#tabby-general:matrix.org"><img alt="Matrix" src="https://img.shields.io/matrix/tabby-general:matrix.org?logo=matrix&style=for-the-badge&color=magenta"></a>
+  <a href="https://github.com/Eugeny/tabby/releases/latest"><img alt="Wszystkie wydania na GitHubie" src="https://img.shields.io/github/downloads/eugeny/tabby/total.svg?label=POBRANIA&logo=github&style=for-the-badge"></a> &nbsp; <a href="https://nightly.link/Eugeny/tabby/workflows/build/master"><img src="https://shields.io/badge/-Nightly%20Builds-orange?logo=hackthebox&logoColor=fff&style=for-the-badge"/></a> &nbsp; <a href="https://matrix.to/#/#tabby-general:matrix.org"><img alt="Matrix" src="https://img.shields.io/matrix/tabby-general:matrix.org?logo=matrix&style=for-the-badge&color=magenta"></a> &nbsp <a href="https://translate.tabby.sh/"><img alt="Przetłumacz" src="https://shields.io/badge/Translate-UI-white?logo=googletranslate&style=for-the-badge&color=white&logoColor=fff"></a> &nbsp; <a href="https://twitter.com/eugeeeeny"><img alt="Twitter" src="https://shields.io/badge/Subscribe-News-blue?logo=twitter&style=for-the-badge&color=blue"></a>
 </p>
 
 <p align="center">
@@ -11,139 +11,161 @@
   </a>
 </p>
 
+---
+
+
+> 👋 Zarządzasz zdalnymi środowiskami? Rzuć okiem na [WarpGate, inteligentny serwer typu bastion SSH/HTTP/MySQL](https://github.com/warp-tech/warpgate), świetnie współdziała z Tabby, pokochasz go!
+
+> 👋 [Tabby-Web](https://github.com/Eugeny/tabby-web) poszukuje sponsorów. Nie jestem w stanie pokryć kosztów hostowania całej infrastruktury, jeśli jesteś zainteresowany wsparciem, proszę [skontakuj się ze mną!](https://twitter.com/eugeeeeny)
+
+
 ----
 
-### 다운로드:
+### Pobieranie:
 
-* [Latest release](https://github.com/Eugeny/tabby/releases/latest)
-* [Repositories](https://packagecloud.io/eugeny/tabby): [Debian/Ubuntu-based](https://packagecloud.io/eugeny/tabby/install#bash-deb), [RPM-based](https://packagecloud.io/eugeny/tabby/install#bash-rpm)
-* [Latest nightly build](https://nightly.link/Eugeny/tabby/workflows/build/master)
+* [Ostatnie wydania](https://github.com/Eugeny/tabby/releases/latest)
+* [Repozytoria](https://packagecloud.io/eugeny/tabby): [Systemy Debian/Ubuntu](https://packagecloud.io/eugeny/tabby/install#bash-deb), [Środowiska RPM](https://packagecloud.io/eugeny/tabby/install#bash-rpm)
+* [Ostatnie wydania developerskie](https://nightly.link/Eugeny/tabby/workflows/build/master)
 
 <br/>
 <p align="center">
-This README is also available in: <a  href="./README.md">:gb: English</a> · <a  href="./README.es-ES.md">:es: Spanish</a> · <a  href="./README.ru-RU.md">:ru: Русский</a> · <a  href="./README.zh-CN.md">:cn: 简体中文</a> · <a  href="./README.it-IT.md">:it: Italiano</a> · <a href="./README.de-DE.md">:de: Deutsch</a> · <a href="./README.ja-JP.md">:jp: 日本語</a> · <a href="./README.id-ID.md">:id: Bahasa Indonesia</a> · <a href="./README.pt-BR.md">:brazil: Português</a> · <a href="./README.pl-PL.md">:poland: Polski</a>
+Ten plik README jest również dostępny w językach: <a  href="./README.md">:gb: English</a> · <a  href="./README.es-ES.md">:es: Spanish</a> · <a  href="./README.ru-RU.md">:ru: Русский</a> · <a  href="./README.ko-KR.md">:kr: 한국어</a> · <a  href="./README.zh-CN.md">:cn: 简体中文</a> · <a  href="./README.it-IT.md">:it: Italiano</a> · <a href="./README.de-DE.md">:de: Deutsch</a> · <a href="./README.ja-JP.md">:jp: 日本語</a> · <a href="./README.id-ID.md">:id: Bahasa Indonesia</a> · <a href="./README.pt-BR.md">🇧🇷 Português</a>
 </p>
 
 ----
 
-**Tabby** (구 **Terminus**)는 Windows, macOS 및 Linux용으로 뛰어난 구성의 터미널 에뮬레이터, SSH 및 시리얼 클라이언트입니다.
+[**Tabby**](https://tabby.sh) (formalnie **Terminus**) to wysoce konfigurowalny emulator konsoli, SSH oraz klienta konsoli szeregowej na systemy Windows 10, macOS oraz Linux
 
-* 통합 SSH 클라이언트 및 연결 관리자
-* 통합 시리얼 터미널
-* 테마 및 색 구성표
-* 전체 구성이 가능한 단축키 및 다중 코드 단축키
-* 창 분할
-* 이전 탭 사용을 기억
-* PowerShell (및 PS Core), WSL, Git-Bash, Cygwin, Cmder 및 CMD 지원
-* Zmodem을 통한 SSH 세션 간의 직접 파일 전송
-* 2바이트 문자를 포함한 전체 유니코드 지원
-* 빠르게 출력되는 것에 대해 휩쓸리지 않음
-* 탭 완성을 포함한 Windows에서의 적절한 셸 환경 (Clink을 통해)
-* SSH 시크릿 및 구성을 위한 통합 암호화 컨테이너
+* Zintegrowany klient SSH i Telnet oraz menedżer sesji
+* Zintegrowany klient terminala szeregowego
+* Motywy and palety kolorów
+* W pełni konfigurowalne skróty klawiszowe
+* Dzielenie ekranu
+* Zapamiętywanie okien z poprzednich sesji
+* PowerShell (oraz PS Core), WSL, Git-Bash, Cygwin, MSYS2, Cmder i wsparcie dla CMD
+* Bezpośredni transfer plików sesji SSH przez Zmodem
+* Pełne wsparcie dla znaków Unicode wraz z podwójnymi znakami
+* Nie zawieszanie się przy szybko wyświetlanych wynikach
+* Pełne doświadczenie powłoki na systemie Windows zawierającej podpowiedzi (przez Clink)
+* Zintegrowany zaszyfrowany kontener na klucze SSH i jego konfigurację
+* Klient SSH, SFTP oraz Telnet dostępny jako [aplikacja webowa](https://tabby.sh/app) (również jako [własna instacja](https://github.com/Eugeny/tabby-web)).
 
-# 목차 <!-- omit in toc -->
+# Spis treści <!-- omit in toc -->
 
-- [Tabby는 무엇인가](#tabby는-무엇인가)
-- [터미널 기능](#터미널-기능)
-- [SSH 클라이언트](#ssh-클라이언트)
-- [시리얼 터미널](#시리얼-터미널)
-- [포터블](#포터블)
-- [플러그인](#플러그인)
-- [테마](#테마)
-- [기여](#기여)
+- [Czym jest, a czym nie jest Tabby](#what-tabby-is-and-isnt)
+- [Funkcje konsoli](#terminal-features)
+- [Klient SSH](#ssh-client)
+- [Konsola szeregowa](#serial-terminal)
+- [Wersja przenośna](#portable)
+- [Wtyczki](#plugins)
+- [Motywy i palety kolorów](#themes)
+- [Współtworzenie](#contributing)
 
 <a name="about"></a>
 
-# Tabby는 무엇인가
+# Czym jest, a czym nie jest Tabby
 
-* **Tabby는** Windows의 표준 터미널 (conhost), PowerShell ISE, PuTTY 또는 iTerm의 대안 프로그램입니다.
+* **Tabby jest** alternatywą dla standardowej konsoli Windows (conhost), PowerShell ISE, PuTTY, Terminal.app oraz iTerm z macOS
 
-* **Tabby는** 새로운 셸이나 MinGW 또는 Cygwin을 대체하지 **않습니다**. 가볍지도 않습니다. - RAM 사용량이 중요한 경우, [Conemu](https://conemu.github.io) 또는 [Alacritty](https://github.com/jwilm/alacritty)를 고려하십시오.
+* **Tabby nie jest** nową powłoką lub zamiennikiem dla MinGW czy Cygwin. Nie jest również zatrważająco szybki - jeśli ważne jest dla Ciebie użycie pamięci RAM, rozważ użycie [Conemu](https://conemu.github.io) lub [Alacritty](https://github.com/jwilm/alacritty)
 
 <a name="terminal"></a>
 
-# 터미널 기능
+# Funkcje konsoli
 
 ![](docs/readme-terminal.png)
 
-* A V220 터미널 + 다양한 확장
-* 여러 개의 분할 창 중첩
-* 모든 측면에 탭이 위치함
-* 전역 스폰 단축키가 있는 도킹 가능한 윈도우 ("Quake console")
-* 진행률 탐지
-* 프로세스 완료 시 알림
-* 괄호 붙여넣기, 여러 줄 붙여넣기 경고
-* 폰트 합자(ligatures)
-* 커스텀 셸 프로필
-* RMB 붙여넣기 및 복사 선택 옵션 (PuTTY 스타일)
+* Konsola V220 + wiele rozszerzeń
+* Wiele nakładających się podzielonych okien
+* Okna na każdej stronie ekranu
+* Opcjonalne dokowanie okna za pomocą skrótu ("Quake console")
+* Wykrywanie postępu (Pasek)
+* Powiadomienia przy ukończeniu procesu podczas postępu
+* Wklejanie z nawiasami, ostrzeżenie przy wielu liniach
+* Wsparcie różnych czcionek
+* Niestandardowe profile powłoki
+* Opcjonalne wklejanie PPM oraz kopiowanie na zaznaczeniu (Styl PuTTY)
 
 <a name="ssh"></a>
-# SSH 클라이언트
+
+# Klient SSH
 
 ![](docs/readme-ssh.png)
 
-* 연결 관리자가 있는 SSH2 클라이언트
-* X11 및 포트 포워딩
-* 자동 jump 호스트 관리
-* 에이전트 전달 (Pageant 및 Windows 기본 OpenSSH 에이전트 포함)
-* 로그인 스크립트
+* Klient SSH2 z zarządzaniem połączeń
+* X11 oraz przekierowywanie portów
+* Automatyczne przejście między hostami
+* Przekierowanie agenta (Pageant oraz Windowsowy natywny "OpenSSH Agent")
+* Skrypty logowania
 
 <a name="serial"></a>
-# 시리얼 터미널
 
-* 연결 저장
-* Readline 입력 지원
-* 선택적 hex byte별 입력 및 hexdump 출력
-* 개행 변환
-* 자동 재접속
+# Konsola Szeregowa
+
+* Zapisane połączenia
+* Wczytywanie danych wejścia linii
+* Opcjonalna konwersja danych wejścia i wyjścia na szesnastkowe "byte-by-byte"
+* Konwersja na nową linię
+* Automatyczne połączenie po rozłączeniu
 
 <a name="portable"></a>
-# 포터블
 
-`Tabby.exe`가 있는 동일한 위치에 `data` 폴더를 생성하면 Windows에서 Tabby가 포터블 앱으로 실행됩니다.
+# Wersja przenośna
+
+Tabby będzie uruchamiał się jako aplikacja przenośna, tylko wtedy, kiedy utworzysz folder `data` w tej samej lokacji, w której znajduje się `Tabby.exe`.
 
 <a name="plugins"></a>
-# 플러그인
 
-플러그인과 테마는 Tabby 내부의 설정에서 직접 설치할 수 있습니다.
+# Wtyczki
 
-* [clickable-links](https://github.com/Eugeny/tabby-clickable-links) - m터미널의 경로 및 URL을 클릭 가능하게
-* [docker](https://github.com/Eugeny/tabby-docker) - Docker 컨테이너에 연결
-* [title-control](https://github.com/kbjr/terminus-title-control) - 접두사, 접미사 및/또는 문자열 제거를 제공하여 터미널 탭의 제목을 수정
-* [quick-cmds](https://github.com/Domain/terminus-quick-cmds) - 하나 또는 모든 터미널 탭에 신속한 명령 전송
-* [save-output](https://github.com/Eugeny/tabby-save-output) - 터미널 출력을 파일에 기록
-* [sync-config](https://github.com/starxg/terminus-sync-config) - 구성을 Gist 또는 Gitee에 동기화
-* [clippy](https://github.com/Eugeny/tabby-clippy) - 항상 당신을 귀찮게 하는 예제 플러그인
-* [workspace-manager](https://github.com/composer404/tabby-workspace-manager) - 주어진 구성을 기반으로 사용자 정의 작업 공간 프로필을 생성할 수 있습니다
-* [search-in-browser](https://github.com/composer404/tabby-search-in-browser) - Tabby의 탭에서 선택한 텍스트로 기본 시스템 브라우저를 엽니다
-* [sftp-tab](https://github.com/wljince007/tabby-sftp-tab) - open sftp tab for ssh connection like SecureCRT
+Wtyczki (jak i motywy) mogą być instalowane bezpośrednio z widoku ustawień w środku aplikacji Tabby.
+
+* [docker](https://github.com/Eugeny/tabby-docker) - połączenie z kontenerami Docker
+* [title-control](https://github.com/kbjr/terminus-title-control) - pozwala na zmienianie tytułu konsoli jako prefiks, sufiks lub/albo tekst do usunięcia
+* [quick-cmds](https://github.com/Domain/terminus-quick-cmds) - szybko wysyłaj komendy z jednej konsoli do wielu
+* [save-output](https://github.com/Eugeny/tabby-save-output) - zapisuj dane wyjściowe do pliku
+* [sync-config](https://github.com/starxg/terminus-sync-config) - synchronizuj konfigurację przez Gista lub Gitee
+* [clippy](https://github.com/Eugeny/tabby-clippy) - przykładowa wtyczka, która zwyczajnie denerwuje
+* [workspace-manager](https://github.com/composer404/tabby-workspace-manager) - pozwala na utworzenie niestandardowego profilu pracy w aplikacji odpowiednio do konfiguracji
+* [search-in-browser](https://github.com/composer404/tabby-search-in-browser) - otwiera domyślną przeglądarkę z zaznaczonym tekstem w oknie Tabby
+* [sftp-tab](https://github.com/wljince007/tabby-sftp-tab) - otwiera okno z połączeniem SFTP dla połączeń SSH jak SecureCRT
+* [background](https://github.com/moemoechu/tabby-background) - zmień tło Tabby oraz wiele więcej
+* [highlight](https://github.com/moemoechu/tabby-highlight) - Tabby terminal keyword highlight plugin
+* [web-auth-handler](https://github.com/Jazzmoon/tabby-web-auth-handler) - okienka autoryzacji wewnątrz konsoli (Zbudowany głównie pod autoryzację projektu Warpgate w przeglądarce)
 
 <a name="themes"></a>
-# 테마
 
-* [hype](https://github.com/Eugeny/tabby-theme-hype) - Hyper에서 영감을 받은 테마
-* [relaxed](https://github.com/Relaxed-Theme/relaxed-terminal-themes#terminus) - Tabby를 위해 여유로움을 제공하는 테마
-* [gruvbox](https://github.com/porkloin/terminus-theme-gruvbox)
-* [windows10](https://www.npmjs.com/package/terminus-theme-windows10)
-* [altair](https://github.com/yxuko/terminus-altair)
+# Motywy i palety kolorów
 
-# 스폰서 <!-- omit in toc -->
+* [hype](https://github.com/Eugeny/tabby-theme-hype) - Motyw zainspirowany konsolą "Hyper"
+* [relaxed](https://github.com/Relaxed-Theme/relaxed-terminal-themes#terminus) - Motyw "pełnej relaksacji"
+* [gruvbox](https://github.com/porkloin/terminus-theme-gruvbox) - Motyw zainspirowany konsolą "Hyper" (kolejny)
+* [windows10](https://www.npmjs.com/package/terminus-theme-windows10) - Motyw zainspirowany Microsoftem
+* [altair](https://github.com/yxuko/terminus-altair) - Motwy autorstwa Yacine Kanzari
+* [catppuccin](https://github.com/catppuccin/tabby) - Paleta pastelowa dla Tabby
+* [noctis](https://github.com/aaronhuggins/tabby-colors-noctis) - Paleta kolorów zainspirowana motywem Noctis z VS Code
+
+# Sponsorzy <!-- omit in toc -->
 
 [![](https://assets-production.packagecloud.io/assets/packagecloud-logo-light-scaled-26ce8e96060fddf74afbd4445e63ba35590d4aaa56edc98495bb390ef3cae0ae.png)](https://packagecloud.io)
 
-[**packagecloud**](https://packagecloud.io)가 무료 Debian/RPM 저장소 호스팅을 제공하였습니다.
+[**packagecloud**](https://packagecloud.io) zapewnia darmowe utrzymanie repozytorium Debian/RPM
+
+[![](https://user-images.githubusercontent.com/161476/200423885-7aba2202-fea7-4409-95b9-3a062ce902c7.png)](https://keygen.sh/?via=eugene)
+
+[**keygen**](https://keygen.sh/?via=eugene) zapewnia darmowe wydawanie oraz automatycznie utrzymywanie strony
 
 <a name="contributing"></a>
-# 기여
+# Współtworzenie
 
-Pull requests and plugins are welcome!
+Pull requesty and dodawanie nowych wtyczek jest mile widziane!
 
-프로젝트 배치 방법에 대한 자세한 내용과 매우 간단한 플러그인 개발 튜토리얼은 [HACKING.md](https://github.com/Eugeny/tabby/blob/master/HACKING.md) 및 [API docs](https://docs.tabby.sh/)를 참조하십시오.
+Zobacz plik [HAKOWANIE.md](https://github.com/Eugeny/tabby/blob/master/HACKING.md) oraz [Dokumentację API](https://docs.tabby.sh/), aby poznać, jak projekt jest prowadzony wraz ze wstępnym poradnikiem jak tworzyć wtyczki.
 
 ---
 <a name="contributors"></a>
 
-여기있는 멋진 사람들에게 진심으로 감사합니다. ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+Dziękujemy wszystkim osobom współtworzącym ten projekt ([emotki są specjalizacją](https://allcontributors.org/docs/en/emoji-key)):
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
@@ -338,6 +360,4 @@ Pull requests and plugins are welcome!
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
-이 프로젝트는 [모든 기여자](https://github.com/all-contributors/all-contributors)의 규격을 따릅니다. 어떠한 종류의 기여도 모두 환영합니다!
-
-<img src="https://ga-beacon.appspot.com/UA-3278102-18/github/readme" width="1"/>
+Ten projekt podlega specyfikacji [dla współautorów](https://github.com/all-contributors/all-contributors). Wszelkiego rodzaju przyczynianie się do rozwoju jest tu mile widziane!

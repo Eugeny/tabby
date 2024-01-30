@@ -29,7 +29,7 @@
 
 <br/>
 <p align="center">
-This README is also available in: <a  href="./README.es-ES.md">:es: Spanish</a> · <a  href="./README.ru-RU.md">:ru: Русский</a> · <a  href="./README.ko-KR.md">:kr: 한국어</a> · <a  href="./README.zh-CN.md">:cn: 简体中文</a> · <a  href="./README.it-IT.md">:it: Italiano</a> · <a href="./README.de-DE.md">:de: Deutsch</a> · <a href="./README.ja-JP.md">:jp: 日本語</a> · <a href="./README.id-ID.md">:id: Bahasa Indonesia</a> · <a href="./README.pt-BR.md">🇧🇷 Português</a>
+This README is also available in: <a  href="./README.es-ES.md">:es: Spanish</a> · <a  href="./README.ru-RU.md">:ru: Русский</a> · <a  href="./README.ko-KR.md">:kr: 한국어</a> · <a  href="./README.zh-CN.md">:cn: 简体中文</a> · <a  href="./README.it-IT.md">:it: Italiano</a> · <a href="./README.de-DE.md">:de: Deutsch</a> · <a href="./README.ja-JP.md">:jp: 日本語</a> · <a href="./README.id-ID.md">:id: Bahasa Indonesia</a> · <a href="./README.pt-BR.md">:brazil: Português</a> · <a href="./README.pl-PL.md">:poland: Polski</a>
 </p>
 
 ----
@@ -131,7 +131,7 @@ Plugins and themes can be installed directly from the Settings view inside Tabby
 * [sftp-tab](https://github.com/wljince007/tabby-sftp-tab) - open sftp tab for ssh connection like SecureCRT
 * [background](https://github.com/moemoechu/tabby-background) - change Tabby background image and more...
 * [highlight](https://github.com/moemoechu/tabby-highlight) - Tabby terminal keyword highlight plugin
-* [web-auth-handler](https://github.com/Jazzmoon/tabby-web-auth-handler) - In-app web authentication popups (Built primarily for warpgate in-browser auth) 
+* [web-auth-handler](https://github.com/Jazzmoon/tabby-web-auth-handler) - In-app web authentication popups (Built primarily for warpgate in-browser auth)
 
 <a name="themes"></a>
 
