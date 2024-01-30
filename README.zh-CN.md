@@ -330,6 +330,9 @@
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/ashneilson"><img src="https://avatars.githubusercontent.com/u/35913512?v=4?s=100" width="100px;" alt="Ash Neilson"/><br /><sub><b>Ash Neilson</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=ashneilson" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/cfs4819"><img src="https://avatars.githubusercontent.com/u/53071761?v=4?s=100" width="100px;" alt="Chen Fansong"/><br /><sub><b>Chen Fansong</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=cfs4819" title="Code">💻</a></td>
     </tr>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="http://botprzemek.pl"><img src="https://avatars.githubusercontent.com/u/92102878?v=4?s=100" width="100px;" alt="botprzemek"/><br /><sub><b>botprzemek</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=botprzemek" title="Documentation">📖</a></td>
+    </tr>
   </tbody>
 </table>
 
