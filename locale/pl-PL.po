@@ -745,7 +745,7 @@ msgstr "Włącz"
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:32
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:66
 msgid "Enable analytics"
-msgstr "Wyłącz Analitykę"
+msgstr "Włącz Analitykę"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:87
 msgid "Enable animations"
