@@ -128,7 +128,7 @@ export abstract class BaseTabComponent extends BaseComponent {
     }
 
     /**
-     * Shows the acticity marker on the tab header
+     * Shows the activity marker on the tab header
      */
     displayActivity (): void {
         if (!this.hasActivity) {
@@ -138,7 +138,7 @@ export abstract class BaseTabComponent extends BaseComponent {
     }
 
     /**
-     * Removes the acticity marker from the tab header
+     * Removes the activity marker from the tab header
      */
     clearActivity (): void {
         if (this.hasActivity) {
