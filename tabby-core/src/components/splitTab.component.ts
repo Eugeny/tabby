@@ -475,7 +475,7 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
 
         let target = relative ? this.getParentOf(relative) : null
         if (!target) {
-            // Rewrap the root container just in case the orientation isn't compatibile
+            // Rewrap the root container just in case the orientation isn't compatible
             target = new SplitContainer()
             target.orientation = ['l', 'r'].includes(side) ? 'h' : 'v'
             target.children = [this.root]

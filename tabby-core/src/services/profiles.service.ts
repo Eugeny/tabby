@@ -40,7 +40,7 @@ export class ProfilesService {
     ) { }
 
     /*
-    * Methods used to interract with ProfileProvider
+    * Methods used to interact with ProfileProvider
     */
 
     getProviders (): ProfileProvider<Profile>[] {
@@ -58,7 +58,7 @@ export class ProfilesService {
     }
 
     /*
-    * Methods used to interract with Profile
+    * Methods used to interact with Profile
     */
 
     /*
@@ -206,7 +206,7 @@ export class ProfilesService {
     }
 
     /*
-    * Methods used to interract with Profile Selector
+    * Methods used to interact with Profile Selector
     */
 
     selectorOptionForProfile <P extends Profile, T> (profile: PartialProfile<P>): SelectorOption<T> {
@@ -332,7 +332,7 @@ export class ProfilesService {
     }
 
     /*
-    * Methods used to interract with Profile/ProfileGroup/Global defaults
+    * Methods used to interact with Profile/ProfileGroup/Global defaults
     */
 
     /**
@@ -370,7 +370,7 @@ export class ProfilesService {
     }
 
     /*
-    * Methods used to interract with ProfileGroup
+    * Methods used to interact with ProfileGroup
     */
 
     /**

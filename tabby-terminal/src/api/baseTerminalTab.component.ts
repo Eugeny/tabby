@@ -97,7 +97,7 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
     profile: P
 
     /**
-     * Enables normall passthrough from session output to terminal input
+     * Enables normal passthrough from session output to terminal input
      */
     enablePassthrough = true
 
