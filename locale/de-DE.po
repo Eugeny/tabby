@@ -1786,7 +1786,7 @@ msgstr "Standard Einstellungen wiederherstellen?"
 
 #: tabby-settings/src/components/editProfileGroupModal.component.ts:36
 msgid "Restore settings to inherited defaults ?"
-msgstr ""
+msgstr "Geerbte Standard Einstellungen wiederherstellen?"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:159
 msgid "Restore terminal tabs on app start"
