@@ -91,7 +91,7 @@ msgstr "Agenttyp"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:169
 msgid "Allows opening .bat files in tabs, but breaks some shells"
-msgstr "Ermöglicht das Öffnen von .bat Dateien in Tabs, es kann Shells zum abstürzen führen"
+msgstr "Ermöglicht das Öffnen von .bat Dateien in Tabs, es kann Shells zum Absturz bringen"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:60
 msgid "Allows quickly opening a terminal in the selected folder"
