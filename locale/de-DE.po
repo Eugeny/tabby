@@ -1539,7 +1539,7 @@ msgstr "Teilweise Konfigurations-Synchronisation ist nicht möglich, wenn die Ko
 
 #: tabby-terminal/src/components/inputProcessingSettings.component.ts:17
 msgid "Pass-through"
-msgstr ""
+msgstr "Durchreichen"
 
 #: tabby-settings/src/components/vaultSettingsTab.component.ts:92
 msgid "Passphrase for a private key with hash {hash}..."
