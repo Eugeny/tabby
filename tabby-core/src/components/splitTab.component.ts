@@ -767,10 +767,10 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
     }
 
     destroy (): void {
-        super.destroy()
         for (const x of this.getAllTabs()) {
             x.destroy()
         }
+        super.destroy()
     }
 
     layout (): void {

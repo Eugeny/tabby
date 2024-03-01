@@ -37,6 +37,7 @@ export class TabsService {
         const componentRef = componentFactory.create(this.injector)
         const tab = componentRef.instance
         tab.hostView = componentRef.hostView
+        tab.destroyed$.subscribe(() => componentRef.destroy())
         Object.assign(tab, params.inputs ?? {})
         return tab
     }

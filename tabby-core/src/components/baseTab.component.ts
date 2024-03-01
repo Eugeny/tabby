@@ -226,7 +226,6 @@ export abstract class BaseTabComponent extends BaseComponent {
             this.destroyed.next()
         }
         this.destroyed.complete()
-        this.hostView.destroy()
     }
 
     /** @hidden */
