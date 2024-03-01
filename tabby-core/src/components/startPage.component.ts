@@ -1,5 +1,6 @@
 import { Component } from '@angular/core'
 import { DomSanitizer } from '@angular/platform-browser'
+import { firstBy } from 'thenby'
 import { HomeBaseService } from '../services/homeBase.service'
 import { CommandService } from '../services/commands.service'
 import { Command, CommandLocation } from '../api/commands'
@@ -20,7 +21,8 @@ export class StartPageComponent {
         commands: CommandService,
     ) {
         commands.getCommands({}).then(c => {
-            this.commands = c.filter(x => x.locations?.includes(CommandLocation.StartPage))
+            this.commands = c.filter(x => x.locations.includes(CommandLocation.StartPage))
+            this.commands.sort(firstBy(x => x.weight ?? 0))
         })
     }
 
