@@ -88,7 +88,7 @@
     "utils-decorators": "^2.0.6",
     "val-loader": "5.0.1",
     "webpack": "^5.86.0",
-    "webpack-bundle-analyzer": "^4.7.0",
+    "webpack-bundle-analyzer": "^4.9.1",
     "webpack-cli": "^5.0.1",
     "yaml-loader": "0.8.0",
     "zone.js": "^0.13.0"
