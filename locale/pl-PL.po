@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Polish\n"
 "Language: pl_PL\n"
-"PO-Revision-Date: 2023-10-06 11:30\n"
+"PO-Revision-Date: 2024-03-04 09:41\n"
 
 #: tabby-local/src/components/terminalTab.component.ts:113
 msgid "\"{command}\" is still running. Close?"
@@ -100,12 +100,12 @@ msgstr "Pozwala na szybkie otwarcie terminalu w wybranym folderze"
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:25
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:11
 msgid "Always dark"
-msgstr ""
+msgstr "Zawsze ciemny"
 
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:27
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:13
 msgid "Always light"
-msgstr ""
+msgstr "Zawsze jasny"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:2
 #: tabby-terminal/src/settings.ts:14
@@ -538,7 +538,7 @@ msgstr "Domyślny profil dla nowych kart"
 
 #: locale/tmp-html/tabby-settings/src/components/editProfileGroupModal.component.html:16
 msgid "Default profile group settings"
-msgstr ""
+msgstr "Domyślne ustawienia profilu grupy"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:101
 msgid "Default profile settings"
@@ -745,7 +745,7 @@ msgstr "Włącz"
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:32
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:66
 msgid "Enable analytics"
-msgstr "Wyłącz Analitykę"
+msgstr "Włącz Analitykę"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:87
 msgid "Enable animations"
@@ -939,7 +939,7 @@ msgstr "Ze schematu kolorów"
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:23
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:9
 msgid "From system"
-msgstr ""
+msgstr "Z systemu"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:44
 msgid "From theme"
@@ -1321,7 +1321,7 @@ msgstr "Natywna"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:21
 msgid "New"
-msgstr ""
+msgstr "Nowy"
 
 #: tabby-local/src/tabContextMenu.ts:53
 msgid "New admin tab"
@@ -1333,7 +1333,7 @@ msgstr "Nowa konfiguracja na {platform}"
 
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:144
 msgid "New group name"
-msgstr ""
+msgstr "Nazwa nowej grupy"
 
 #: locale/tmp-html/tabby-terminal/src/components/loginScriptsSettings.component.html:16
 msgid "New item"
@@ -1349,7 +1349,7 @@ msgstr "Nowy profil"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:24
 msgid "New profile Group"
-msgstr ""
+msgstr "Nowy grupa profili"
 
 #: tabby-terminal/src/tabContextMenu.ts:176
 msgid "New profile name"
@@ -1782,11 +1782,11 @@ msgstr "Zresetuj aplikację, aby zastosować zmiany"
 
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:316
 msgid "Restore settings to defaults ?"
-msgstr ""
+msgstr "Przywrócić ustawienia domyślne?"
 
 #: tabby-settings/src/components/editProfileGroupModal.component.ts:36
 msgid "Restore settings to inherited defaults ?"
-msgstr ""
+msgstr "Przywrócić ustawienia do odziedziczonych domyślnych?"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:159
 msgid "Restore terminal tabs on app start"
@@ -2160,7 +2160,7 @@ msgstr "Zastępstwa dozwolone."
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:19
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:5
 msgid "Switch color scheme"
-msgstr ""
+msgstr "Zmień schemat kolorów"
 
 #: tabby-core/src/tabContextMenu.ts:290
 msgid "Switch profile"

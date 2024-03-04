@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: English, United Kingdom\n"
 "Language: en_GB\n"
-"PO-Revision-Date: 2023-10-06 11:30\n"
+"PO-Revision-Date: 2024-03-04 09:41\n"
 
 #: tabby-local/src/components/terminalTab.component.ts:113
 msgid "\"{command}\" is still running. Close?"
@@ -337,7 +337,7 @@ msgstr "Colour scheme"
 
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:2
 msgid "Color schemes"
-msgstr ""
+msgstr "Colour schemes"
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:81
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:216
@@ -2160,7 +2160,7 @@ msgstr ""
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:19
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:5
 msgid "Switch color scheme"
-msgstr ""
+msgstr "Switch colour scheme"
 
 #: tabby-core/src/tabContextMenu.ts:290
 msgid "Switch profile"

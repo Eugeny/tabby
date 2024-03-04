@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Afrikaans\n"
 "Language: af_ZA\n"
-"PO-Revision-Date: 2023-10-06 11:30\n"
+"PO-Revision-Date: 2024-03-04 09:41\n"
 
 #: tabby-local/src/components/terminalTab.component.ts:113
 msgid "\"{command}\" is still running. Close?"
@@ -100,12 +100,12 @@ msgstr "Laat toe om 'n terminaal vinnig oop te maak in die geselekteerde vouer"
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:25
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:11
 msgid "Always dark"
-msgstr ""
+msgstr "Altyd Donker"
 
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:27
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:13
 msgid "Always light"
-msgstr ""
+msgstr "Altyd Lig"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:2
 #: tabby-terminal/src/settings.ts:14
@@ -185,7 +185,7 @@ msgstr "Agtergrond tipe"
 
 #: locale/tmp-html/tabby-terminal/src/components/inputProcessingSettings.component.html:4
 msgid "Backspace key mode"
-msgstr ""
+msgstr "Terugspasie-sleutelmodus"
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:14
 #: tabby-serial/src/components/serialTab.component.ts:93
@@ -284,7 +284,7 @@ msgstr "Maak terminaal skoon"
 
 #: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:58
 msgid "Clear terminal after connection"
-msgstr ""
+msgstr "Maak terminaal skoon na verbinding"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:94
 msgid "Clipboard"
@@ -337,12 +337,12 @@ msgstr "Kleur skema"
 
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:2
 msgid "Color schemes"
-msgstr ""
+msgstr "Kleurskemas"
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:81
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:216
 msgid "Colors"
-msgstr ""
+msgstr "Kleure"
 
 #: tabby-core/src/hotkeys.ts:72
 msgid "Combine all tabs into the current tab"
@@ -362,7 +362,7 @@ msgstr "Bevele"
 
 #: tabby-core/src/theme.ts:16
 msgid "Compact (legacy)"
-msgstr ""
+msgstr "Kompak (erfenis)"
 
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:126
 msgid "Config deleted"
@@ -428,7 +428,7 @@ msgstr "Kontekskieslys"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:14
 msgid "Controls the amount of space between elements"
-msgstr ""
+msgstr "Beheer die hoeveelheid spasie tussen elemente"
 
 #: tabby-terminal/src/api/baseTerminalTab.component.ts:240
 #: tabby-terminal/src/api/baseTerminalTab.component.ts:248
@@ -449,7 +449,7 @@ msgstr "Kopieer huidige pad"
 
 #: tabby-electron/src/sftpContextMenu.ts:29
 msgid "Copy full path"
-msgstr ""
+msgstr "Kopieer volle pad"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:97
 msgid "Copy on select"
@@ -506,7 +506,7 @@ msgstr "Pasgemaakte CSS"
 
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:17
 msgid "Dark mode"
-msgstr ""
+msgstr "Donker modus"
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:26
 msgid "Data bits"
@@ -526,11 +526,11 @@ msgstr "Verminder die vertikale verdelingsgrootte"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:92
 msgid "Default \"Connect to\" type"
-msgstr ""
+msgstr "Standaard \"Koppel aan\" tiepe"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:93
 msgid "Default connection type used by quick connect feature (ex. SSH, Telnet)"
-msgstr ""
+msgstr "Standaard verbindingssoort gebruik deur die vinnige koppelingsfunksie (bv. SSH, Telnet)"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:8
 msgid "Default profile for new tabs"
@@ -538,7 +538,7 @@ msgstr "Verstekprofiel vir nuwe oortjies"
 
 #: locale/tmp-html/tabby-settings/src/components/editProfileGroupModal.component.html:16
 msgid "Default profile group settings"
-msgstr ""
+msgstr "Standaard profielgroepinstellings"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:101
 msgid "Default profile settings"
@@ -594,7 +594,7 @@ msgstr "Skrap vorige woord"
 
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:114
 msgid "Delete the config on the remote side?"
-msgstr ""
+msgstr "Verwyder die konfigurasie aan die afgeleë kant?"
 
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:226
 msgid "Delete the group's profiles?"
@@ -651,7 +651,7 @@ msgstr "Ontkoppel"
 
 #: tabby-terminal/src/hotkeys.ts:106
 msgid "Disconnect current tab (Serial/Telnet/SSH)"
-msgstr ""
+msgstr "Ontkoppel huidige oortjie (Serieel/Telnet/SSH)"
 
 #: tabby-ssh/src/components/sshTab.component.ts:198
 #: tabby-telnet/src/components/telnetTab.component.ts:81
@@ -757,7 +757,7 @@ msgstr "Aktiveer outomatiese installasie van opdaterings wanneer hulle beskikbaa
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:211
 msgid "Enable fluent background option"
-msgstr ""
+msgstr "Aktiveer vloeiende agtergrondopsie"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:16
 msgid "Enable font ligatures"
@@ -806,7 +806,7 @@ msgstr "Voorbeeld:"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:212
 msgid "Experimental Windows 10 background style known to cause issues"
-msgstr ""
+msgstr "Eksperimentele Windows 10 agtergrondstyl wat bekend is om probleme te veroorsaak"
 
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:28
 msgid "Export"
@@ -894,7 +894,7 @@ msgstr "Fokus die ruit aan die regterkant"
 
 #: tabby-core/src/theme.ts:34
 msgid "Follow the color scheme"
-msgstr ""
+msgstr "Volg die kleurskema"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:5
 msgid "Font"
@@ -939,7 +939,7 @@ msgstr "Van kleurskema"
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:23
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:9
 msgid "From system"
-msgstr ""
+msgstr "Van stelsel"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:44
 msgid "From theme"
@@ -1006,7 +1006,7 @@ msgstr "Heksadesimaal"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:49
 msgid "Hide"
-msgstr ""
+msgstr "Versteek"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:176
 msgid "Hide tab close button"
@@ -1052,7 +1052,7 @@ msgstr "Sneltoetse"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:83
 msgid "How Tabby presents itself through environment vars"
-msgstr ""
+msgstr "Hoe Tabby homself deur omgewingsveranderlikes voorstel"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:24
 msgid "HTTP proxy"
@@ -1094,7 +1094,7 @@ msgstr "Verhoog die vertikale verdelingsgrootte"
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:226
 #: locale/tmp-html/tabby-telnet/src/components/telnetProfileSettings.component.html:21
 msgid "Input"
-msgstr ""
+msgstr "Invoer"
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:18
 msgid "Input is sent as you type"
@@ -1215,7 +1215,7 @@ msgstr "Laat die dop Meta-sleutel hanteer in plaas van BS"
 
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:22
 msgid "Light mode"
-msgstr ""
+msgstr "Ligte modus"
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:27
 msgid "Line by line"
@@ -1321,7 +1321,7 @@ msgstr "Inheems"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:21
 msgid "New"
-msgstr ""
+msgstr "Nuwe"
 
 #: tabby-local/src/tabContextMenu.ts:53
 msgid "New admin tab"
@@ -1333,7 +1333,7 @@ msgstr "Nuwe opstelling op {platform}"
 
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:144
 msgid "New group name"
-msgstr ""
+msgstr "Nuwe groepnaam"
 
 #: locale/tmp-html/tabby-terminal/src/components/loginScriptsSettings.component.html:16
 msgid "New item"
@@ -1349,7 +1349,7 @@ msgstr "Nuwe profiel"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:24
 msgid "New profile Group"
-msgstr ""
+msgstr "Nuwe profielgroep"
 
 #: tabby-terminal/src/tabContextMenu.ts:176
 msgid "New profile name"
@@ -1438,7 +1438,7 @@ msgstr "Op GitHub-besprekings"
 
 #: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:47
 msgid "Only close the tab when session is explicitly terminated"
-msgstr ""
+msgstr "Sluit net die oortjie wanneer die sessie uitdruklik beëindig is"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:46
 msgid "Opacity"
@@ -1527,7 +1527,7 @@ msgstr "Panele"
 
 #: tabby-core/src/theme.ts:26
 msgid "Paper (legacy)"
-msgstr ""
+msgstr "Papier (erfenis)"
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:38
 msgid "Parity"
@@ -1539,7 +1539,7 @@ msgstr "Gedeeltelike opstelling-sinkronisering is nie moontlik wanneer die opste
 
 #: tabby-terminal/src/components/inputProcessingSettings.component.ts:17
 msgid "Pass-through"
-msgstr ""
+msgstr "Deurlaat"
 
 #: tabby-settings/src/components/vaultSettingsTab.component.ts:92
 msgid "Passphrase for a private key with hash {hash}..."
@@ -1697,7 +1697,7 @@ msgstr "Herkoppel"
 
 #: tabby-terminal/src/hotkeys.ts:102
 msgid "Reconnect current tab (Serial/Telnet/SSH)"
-msgstr ""
+msgstr "Herkoppel huidige oortjie (Serieel/Telnet/SSH)"
 
 #: tabby-core/src/utils.ts:64
 msgid "Red"
@@ -1782,11 +1782,11 @@ msgstr "Herbegin die toep om veranderinge toe te pas"
 
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:316
 msgid "Restore settings to defaults ?"
-msgstr ""
+msgstr "Herstel instellings na verstek ?"
 
 #: tabby-settings/src/components/editProfileGroupModal.component.ts:36
 msgid "Restore settings to inherited defaults ?"
-msgstr ""
+msgstr "Herstel instellings na oorgeërfde verstekwaardes ?"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:159
 msgid "Restore terminal tabs on app start"
@@ -1982,7 +1982,7 @@ msgstr "Dop Integrasies"
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:50
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:25
 msgid "Show"
-msgstr ""
+msgstr "Wys"
 
 #: tabby-core/src/hotkeys.ts:275
 msgid "Show {type} profile selector"
@@ -2038,7 +2038,7 @@ msgstr "Show Serie verbindings"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:152
 msgid "Show tabs in fullscreen mode"
-msgstr ""
+msgstr "Wys oortjies in volskermmodus"
 
 #: tabby-terminal/src/tabContextMenu.ts:62
 msgid "Show toolbar"
@@ -2089,7 +2089,7 @@ msgstr "Bronkode"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:13
 msgid "Spaciness"
-msgstr ""
+msgstr "Ruimtelikheid"
 
 #: tabby-core/src/tabContextMenu.ts:75
 msgid "Split"
@@ -2135,7 +2135,7 @@ msgstr "SSH-wagwoord vir {user}@{host}:{port}"
 
 #: tabby-core/src/theme.ts:8
 msgid "Standard (legacy)"
-msgstr ""
+msgstr "Standaard (erfenis)"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:150
 msgid "Startup"
@@ -2160,7 +2160,7 @@ msgstr "Plaasvervangers toegelaat."
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:19
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:5
 msgid "Switch color scheme"
-msgstr ""
+msgstr "Skakel kleurskema"
 
 #: tabby-core/src/tabContextMenu.ts:290
 msgid "Switch profile"
@@ -2264,7 +2264,7 @@ msgstr "Terminaal klok"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:82
 msgid "Terminal identification"
-msgstr ""
+msgstr "Terminale identifikasie"
 
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:7
 msgid "Thank you for downloading Tabby!"
@@ -2288,7 +2288,7 @@ msgstr "Dit is van toepassing op alle profiele van 'n gegewe tipe"
 
 #: locale/tmp-html/tabby-settings/src/components/editProfileGroupModal.component.html:17
 msgid "These apply to all profiles of a given type in this group"
-msgstr ""
+msgstr "Dit is van toepassing op alle profiele van 'n gegewe tipe in hierdie groep"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:59
 msgid "Thin"
@@ -2474,7 +2474,7 @@ msgstr "Wat's nuut"
 
 #: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:46
 msgid "When a session ends"
-msgstr ""
+msgstr "Wanneer 'n sessie eindig"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:82
 msgid "When enabled, links are only clickable while holding this key"
@@ -2490,7 +2490,7 @@ msgstr "Of 'n pasgemaakte venster of 'n OS-inheemse venster gebruik moet word"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:141
 msgid "Will prevent the SSH greeting from showing up"
-msgstr ""
+msgstr "Sal voorkom dat die SSH-groet verskyn"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:2
 #: tabby-settings/src/settings.ts:30

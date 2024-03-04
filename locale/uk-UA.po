@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Ukrainian\n"
 "Language: uk_UA\n"
-"PO-Revision-Date: 2023-10-06 11:30\n"
+"PO-Revision-Date: 2024-03-04 09:41\n"
 
 #: tabby-local/src/components/terminalTab.component.ts:113
 msgid "\"{command}\" is still running. Close?"
@@ -100,12 +100,12 @@ msgstr "Дозволяє швидко відкрити термінал у ви�
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:25
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:11
 msgid "Always dark"
-msgstr ""
+msgstr "Завжди темно"
 
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:27
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:13
 msgid "Always light"
-msgstr ""
+msgstr "Завжди світити"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:2
 #: tabby-terminal/src/settings.ts:14
@@ -185,7 +185,7 @@ msgstr "Тип фону"
 
 #: locale/tmp-html/tabby-terminal/src/components/inputProcessingSettings.component.html:4
 msgid "Backspace key mode"
-msgstr ""
+msgstr "Режим клавіші Backspace"
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:14
 #: tabby-serial/src/components/serialTab.component.ts:93
@@ -530,7 +530,7 @@ msgstr "За замовчуванням \"Під'єднатись до\" тип"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:93
 msgid "Default connection type used by quick connect feature (ex. SSH, Telnet)"
-msgstr ""
+msgstr "Тип підключення за замовчуванням використовується для швидкого з'єднання (напр., SSH, Telnet)"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:8
 msgid "Default profile for new tabs"
@@ -538,7 +538,7 @@ msgstr "Зменшити розмір поділу по вертикалі"
 
 #: locale/tmp-html/tabby-settings/src/components/editProfileGroupModal.component.html:16
 msgid "Default profile group settings"
-msgstr ""
+msgstr "Налаштування групи за замовчуванням"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:101
 msgid "Default profile settings"
@@ -651,7 +651,7 @@ msgstr "Від'єднатися"
 
 #: tabby-terminal/src/hotkeys.ts:106
 msgid "Disconnect current tab (Serial/Telnet/SSH)"
-msgstr ""
+msgstr "Відключити поточну вкладку (Serial/Telnet/SSH)"
 
 #: tabby-ssh/src/components/sshTab.component.ts:198
 #: tabby-telnet/src/components/telnetTab.component.ts:81
@@ -939,7 +939,7 @@ msgstr "З колірної схеми"
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:23
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:9
 msgid "From system"
-msgstr ""
+msgstr "З системи"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:44
 msgid "From theme"
@@ -1094,7 +1094,7 @@ msgstr "Збільшити розмір поділу по вертикалі"
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:226
 #: locale/tmp-html/tabby-telnet/src/components/telnetProfileSettings.component.html:21
 msgid "Input"
-msgstr ""
+msgstr "Input"
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:18
 msgid "Input is sent as you type"
@@ -1321,7 +1321,7 @@ msgstr "Рідний"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:21
 msgid "New"
-msgstr ""
+msgstr "Новий"
 
 #: tabby-local/src/tabContextMenu.ts:53
 msgid "New admin tab"
@@ -1333,7 +1333,7 @@ msgstr "Нова конфігурація на {platform}"
 
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:144
 msgid "New group name"
-msgstr ""
+msgstr "Нова назва групи"
 
 #: locale/tmp-html/tabby-terminal/src/components/loginScriptsSettings.component.html:16
 msgid "New item"
@@ -1349,7 +1349,7 @@ msgstr "Новий профіль"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:24
 msgid "New profile Group"
-msgstr ""
+msgstr "Нова група профілів"
 
 #: tabby-terminal/src/tabContextMenu.ts:176
 msgid "New profile name"
@@ -1438,7 +1438,7 @@ msgstr "На GitHub Discussions"
 
 #: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:47
 msgid "Only close the tab when session is explicitly terminated"
-msgstr ""
+msgstr "Закривати вкладку при явному припиненні сеансу"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:46
 msgid "Opacity"
@@ -1539,7 +1539,7 @@ msgstr "Часткова синхронізація конфігурації н�
 
 #: tabby-terminal/src/components/inputProcessingSettings.component.ts:17
 msgid "Pass-through"
-msgstr ""
+msgstr "Дохід"
 
 #: tabby-settings/src/components/vaultSettingsTab.component.ts:92
 msgid "Passphrase for a private key with hash {hash}..."
@@ -1697,7 +1697,7 @@ msgstr "Відновити з'єднання"
 
 #: tabby-terminal/src/hotkeys.ts:102
 msgid "Reconnect current tab (Serial/Telnet/SSH)"
-msgstr ""
+msgstr "Повторне підключення поточної вкладки (Serial/Telnet/SSH)"
 
 #: tabby-core/src/utils.ts:64
 msgid "Red"
@@ -1782,11 +1782,11 @@ msgstr "Перезапустіть програму, щоб застосуват
 
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:316
 msgid "Restore settings to defaults ?"
-msgstr ""
+msgstr "Відновити налаштування за замовчуванням?"
 
 #: tabby-settings/src/components/editProfileGroupModal.component.ts:36
 msgid "Restore settings to inherited defaults ?"
-msgstr ""
+msgstr "Відновити параметри до типових значень?"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:159
 msgid "Restore terminal tabs on app start"
@@ -2160,7 +2160,7 @@ msgstr "Допускаються заміни."
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:19
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:5
 msgid "Switch color scheme"
-msgstr ""
+msgstr "Переключити колірну схему"
 
 #: tabby-core/src/tabContextMenu.ts:290
 msgid "Switch profile"
@@ -2288,7 +2288,7 @@ msgstr "Це застосовується до всіх профілів зад�
 
 #: locale/tmp-html/tabby-settings/src/components/editProfileGroupModal.component.html:17
 msgid "These apply to all profiles of a given type in this group"
-msgstr ""
+msgstr "До всіх профілів даного типу в цій групі"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:59
 msgid "Thin"
@@ -2474,7 +2474,7 @@ msgstr "Що нового"
 
 #: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:46
 msgid "When a session ends"
-msgstr ""
+msgstr "Коли сесія закінчиться"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:82
 msgid "When enabled, links are only clickable while holding this key"

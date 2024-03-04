@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Korean\n"
 "Language: ko_KR\n"
-"PO-Revision-Date: 2023-11-04 21:09\n"
+"PO-Revision-Date: 2024-03-04 09:41\n"
 
 #: tabby-local/src/components/terminalTab.component.ts:113
 msgid "\"{command}\" is still running. Close?"
@@ -362,7 +362,7 @@ msgstr "명령어"
 
 #: tabby-core/src/theme.ts:16
 msgid "Compact (legacy)"
-msgstr ""
+msgstr "컴팩트 (레거시)"
 
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:126
 msgid "Config deleted"
@@ -916,14 +916,6 @@ msgstr "CRLF 강제"
 msgid "Force LF"
 msgstr "LF 강제"
 
-#: tabby-terminal/src/components/streamProcessingSettings.component.ts:56
-msgid "Implicit CR in every LF"
-msgstr "LF에만 CR 추가"
-
-#: tabby-terminal/src/components/streamProcessingSettings.component.ts:57
-msgid "Implicit LF in every CR"
-msgstr "CR에만 LF 추가"
-
 #: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:25
 msgid "Forces a specific SSH agent connection type."
 msgstr "특정 SSH 에이전트로 연결 유형 강제"
@@ -1060,7 +1052,7 @@ msgstr "단축키"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:83
 msgid "How Tabby presents itself through environment vars"
-msgstr ""
+msgstr "Tabby가 환경 변수에서 표시되는 방식"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:24
 msgid "HTTP proxy"
@@ -1096,13 +1088,13 @@ msgstr "가로 분할 크기 크게"
 
 #: tabby-core/src/hotkeys.ts:244
 msgid "Increase vertical split size"
-msgstr "세로 분할 크기 작게"
+msgstr "세로 분할 크기 크게"
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:91
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:226
 #: locale/tmp-html/tabby-telnet/src/components/telnetProfileSettings.component.html:21
 msgid "Input"
-msgstr ""
+msgstr "입력"
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:18
 msgid "Input is sent as you type"
@@ -1479,7 +1471,7 @@ msgstr "옵션"
 
 #: tabby-core/src/utils.ts:62
 msgid "Orange"
-msgstr ""
+msgstr "주황색"
 
 #: tabby-electron/src/shells/macDefault.ts:25
 msgid "OS default"
@@ -1535,7 +1527,7 @@ msgstr "패널"
 
 #: tabby-core/src/theme.ts:26
 msgid "Paper (legacy)"
-msgstr ""
+msgstr "종이 (레거시)"
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:38
 msgid "Parity"
@@ -1547,11 +1539,11 @@ msgstr "구성이 Vault를 통해 암호화된 경우 부분 구성 동기화를
 
 #: tabby-terminal/src/components/inputProcessingSettings.component.ts:17
 msgid "Pass-through"
-msgstr ""
+msgstr "왼쪽 글자 삭제"
 
 #: tabby-settings/src/components/vaultSettingsTab.component.ts:92
 msgid "Passphrase for a private key with hash {hash}..."
-msgstr ""
+msgstr "해시 {hash} 의 개인 키(Private key) 암호..."
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:100
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:82
@@ -1691,7 +1683,7 @@ msgstr "타임아웃 (밀리초)"
 #: tabby-core/src/services/profiles.service.ts:249
 #: tabby-electron/src/services/dockMenu.service.ts:28
 msgid "Recent"
-msgstr ""
+msgstr "최근"
 
 #: locale/tmp-html/tabby-serial/src/components/serialTab.component.html:5
 #: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:52
@@ -2018,11 +2010,11 @@ msgstr "기본값 표시"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:146
 msgid "Show Mixer"
-msgstr ""
+msgstr "믹서 표시"
 
 #: tabby-core/src/hotkeys.ts:56
 msgid "Show pane labels (for rearranging)"
-msgstr ""
+msgstr "항목 라벨 표시 (재배열 용도)"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:164
 msgid "Show profile icon on tab"
@@ -2143,7 +2135,7 @@ msgstr "{user}@{host}:{port} 의 SSH 비밀번호"
 
 #: tabby-core/src/theme.ts:8
 msgid "Standard (legacy)"
-msgstr ""
+msgstr "기본 (레거시)"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:150
 msgid "Startup"
@@ -2155,7 +2147,7 @@ msgstr "정지 비트"
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:52
 msgid "Strip"
-msgstr ""
+msgstr "스트립(Strip)"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:41
 msgid "Subscribe to updates"
@@ -2272,7 +2264,7 @@ msgstr "터미널 벨"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:82
 msgid "Terminal identification"
-msgstr ""
+msgstr "터미널 식별 방식"
 
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:7
 msgid "Thank you for downloading Tabby!"
@@ -2284,7 +2276,7 @@ msgstr "테마"
 
 #: tabby-core/src/components/transfersMenu.component.ts:47
 msgid "There are active file transfers"
-msgstr ""
+msgstr "활성화된 파일 전송이 있습니다"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:102
 msgid "There is a saved password for this connection"
@@ -2296,7 +2288,7 @@ msgstr "이와 같은 유형의 모든 프로필에 적용됩니다."
 
 #: locale/tmp-html/tabby-settings/src/components/editProfileGroupModal.component.html:17
 msgid "These apply to all profiles of a given type in this group"
-msgstr ""
+msgstr "이 그룹의 해당 유형을 가진 모든 프로필에 적용됩니다"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:59
 msgid "Thin"
@@ -2320,7 +2312,7 @@ msgstr "터미널 창 전환"
 
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:40
 msgid "Toggles the Tabby window visibility"
-msgstr ""
+msgstr "Tabby 창 표시 전환"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:130
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:74
@@ -2358,7 +2350,7 @@ msgstr "알 수 없음"
 
 #: tabby-settings/src/components/vaultSettingsTab.component.ts:98
 msgid "Unknown secret of type {type} for {key}"
-msgstr ""
+msgstr "{key} 에 대한 알 수 없는 타입 {type}"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalToolbar.component.html:4
 msgid "Unpin"
@@ -2548,7 +2540,7 @@ msgstr "WSL 터미널의 벨은 오직 볼륨 믹서를 통해서만 음소거�
 
 #: locale/tmp-html/tabby-local/src/components/shellSettingsTab.component.html:14
 msgid "WSL terminal only supports TrueColor with ConPTY"
-msgstr ""
+msgstr "WSL terminal의 TrueColor는 ConPTY가 활성화 되어있을 때만 지원됨"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:128
 msgid "X11 forwarding"
@@ -2578,5 +2570,5 @@ msgstr "축소"
 #: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:5
 msgctxt "[Dynamic] port forwarding"
 msgid "id.port-forwarding.dynamic"
-msgstr ""
+msgstr "동적"
 

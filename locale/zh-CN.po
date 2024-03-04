@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2023-10-06 11:30\n"
+"PO-Revision-Date: 2024-03-04 09:41\n"
 
 #: tabby-local/src/components/terminalTab.component.ts:113
 msgid "\"{command}\" is still running. Close?"
@@ -100,7 +100,7 @@ msgstr "允许在选定的文件夹中快速打开终端"
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:25
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:11
 msgid "Always dark"
-msgstr ""
+msgstr "始终使用暗色"
 
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:27
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:13
