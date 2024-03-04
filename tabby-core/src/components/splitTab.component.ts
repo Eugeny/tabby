@@ -841,7 +841,7 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
         tab.subscribeUntilDestroyed(tab.recoveryStateChangedHint$, () => {
             this.recoveryStateChangedHint.next()
         })
-        tab.subscribeUntilDestroyed(tab.destroyed$, () => {
+        tab.destroyed$.subscribe(() => {
             this.removeTab(tab)
         })
     }

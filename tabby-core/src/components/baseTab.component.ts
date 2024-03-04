@@ -195,7 +195,10 @@ export abstract class BaseTabComponent extends BaseComponent {
         if (!this.viewContainer || !this.viewContainerEmbeddedRef) {
             return
         }
-        this.viewContainer.detach(this.viewContainer.indexOf(this.viewContainerEmbeddedRef))
+        const viewIndex = this.viewContainer.indexOf(this.viewContainerEmbeddedRef)
+        if (viewIndex !== -1) {
+            this.viewContainer.detach(viewIndex)
+        }
         this.viewContainerEmbeddedRef = undefined
         this.viewContainer = undefined
     }
