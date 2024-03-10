@@ -76,8 +76,6 @@ snap:
   - system-observe
 deb:
   depends:
-  - gconf2
-  - gconf-service
   - gnome-keyring
   - libnotify4
   - libsecret-1-0
