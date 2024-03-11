@@ -471,6 +471,8 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
             }
             tab.removeFromContainer()
             tab.parent = this
+
+            tab.emitVisibility(this.visibility.value)
         }
 
         let target = relative ? this.getParentOf(relative) : null
