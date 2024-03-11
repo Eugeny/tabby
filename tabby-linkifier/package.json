@@ -18,7 +18,7 @@
   "author": "Eugene Pankov",
   "license": "MIT",
   "devDependencies": {
-    "untildify": "^4.0.0",
-    "xterm-addon-web-links": "^0.7.0"
+    "@xterm/addon-web-links": "^0.10.0",
+    "untildify": "^4.0.0"
   }
 }
