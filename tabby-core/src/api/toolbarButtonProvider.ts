@@ -9,16 +9,6 @@ export interface ToolbarButton {
 
     title: string
 
-    /**
-     * Optional Touch Bar icon ID
-     */
-    touchBarNSImage?: string
-
-    /**
-     * Optional Touch Bar button label
-     */
-    touchBarTitle?: string
-
     weight?: number
 
     click?: () => void
