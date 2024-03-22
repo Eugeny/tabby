@@ -205,7 +205,7 @@ export class SSHSession {
         }
 
         const hostVerifiedPromise: Promise<void> = new Promise((resolve, reject) => {
-            let hostkey_old: string | undefined
+            let hostkey_old: string = ''
             let isKeyVerified: boolean = false
             ssh.on('handshake', async handshake => {
                 if (isKeyVerified) {
