@@ -194,7 +194,7 @@ export class ConfigSyncService {
                     }
                 }
             } catch (error) {
-                this.logger.debug("Recovering from autoSync network error")
+                this.logger.debug('Recovering from autoSync network error')
             }
             await new Promise(resolve => setTimeout(resolve, 60000))
         }
