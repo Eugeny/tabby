@@ -205,15 +205,15 @@ export class SSHSession {
         }
 
         const hostVerifiedPromise: Promise<void> = new Promise((resolve, reject) => {
-            let hostkey_old = ''
+            let hostkeyOld = ''
             let isKeyVerified = false
             ssh.on('handshake', async handshake => {
                 if (isKeyVerified) {
                     resolve()
                     return
                 }
-                if (hostkey_old !== handshake.serverHostKey) {
-                    hostkey_old = handshake.serverHostKey
+                if (hostkeyOld !== handshake.serverHostKey) {
+                    hostkeyOld = handshake.serverHostKey
                     if (!await this.verifyHostKey(handshake)) {
                         this.ssh.end()
                         reject(new Error('Host key verification failed'))
