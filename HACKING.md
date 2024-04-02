@@ -23,6 +23,8 @@ sudo apt install libfontconfig-dev libsecret-1-dev libarchive-tools libnss3 liba
 yarn
 ```
 
+_⚠️Note: If you forked this repository, you may need to pull down the tags from this repository before installing node modules. `git pull --tags upstream master`_
+
 Build Tabby:
 
 ```
