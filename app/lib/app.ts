@@ -183,7 +183,7 @@ export class Application {
     }
 
     enableTray (): void {
-        if (!!this.tray || process.platform === 'linux') {
+        if (!!this.tray || process.platform === 'linux' || this.configStore.showTray === false) {
             return
         }
         if (process.platform === 'darwin') {

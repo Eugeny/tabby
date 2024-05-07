@@ -2036,12 +2036,20 @@ msgstr ""
 msgid "Show Serial connections"
 msgstr ""
 
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:73
+msgid "Show Tabby in tray or menu bar."
+msgstr ""
+
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:152
 msgid "Show tabs in fullscreen mode"
 msgstr ""
 
 #: tabby-terminal/src/tabContextMenu.ts:62
 msgid "Show toolbar"
+msgstr ""
+
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:73
+msgid "Show tray"
 msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:45
