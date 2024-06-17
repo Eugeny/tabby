@@ -102,15 +102,6 @@
 
                     .form-line(*ngIf='hostApp.platform !== Platform.Web')
                         .header
-                            .title(translate) Show tray
-                            .description(translate) Show Tabby in tray or menu bar.
-                        toggle(
-                            [(ngModel)]='config.store.showTray',
-                            (ngModelChange)='saveConfiguration(true)'
-                        )
-
-                    .form-line(*ngIf='hostApp.platform !== Platform.Web')
-                        .header
                             .title(translate) Debugging
 
                         button.btn.btn-secondary((click)='hostWindow.openDevTools()')

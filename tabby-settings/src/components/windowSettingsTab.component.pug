@@ -121,6 +121,15 @@ h3.mb-3(translate) Window
         label.btn.btn-secondary(for='frameFull')
             span(translate) Full
 
+.form-line(*ngIf='hostApp.platform !== Platform.Web && hostApp.platform !== Platform.Linux')
+    .header
+        .title(translate) Show tray
+        .description(translate) Show Tabby in tray or menu bar.
+    toggle(
+        [(ngModel)]='config.store.showTray',
+        (ngModelChange)='saveConfiguration(true)'
+    )
+
 h3.mt-4(translate) Docking
 
 .form-line(*ngIf='docking')
