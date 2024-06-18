@@ -2037,7 +2037,7 @@ msgid "Show Serial connections"
 msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:73
-msgid "Show Tabby in tray or menu bar."
+msgid "Hide Tabby in tray or menu bar."
 msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:152
@@ -2049,7 +2049,7 @@ msgid "Show toolbar"
 msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:73
-msgid "Show tray"
+msgid "Hide tray"
 msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:45
