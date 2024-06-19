@@ -1292,6 +1292,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "C41M50N",
+      "name": "Charles Buffington",
+      "avatar_url": "https://avatars.githubusercontent.com/u/29805363?v=4",
+      "profile": "https://cbuff.dev",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
