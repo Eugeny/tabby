@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { ToastrModule } from 'ngx-toastr'
 
-import TabbyCorePlugin, { HostAppService, ToolbarButtonProvider, TabRecoveryProvider, ConfigProvider, HotkeysService, HotkeyProvider, TabContextMenuItemProvider, CLIHandler, ProfileProvider } from 'tabby-core'
+import TabbyCorePlugin, { HostAppService, TabRecoveryProvider, ConfigProvider, HotkeysService, HotkeyProvider, CLIHandler, ProfileProvider, CommandProvider } from 'tabby-core'
 import TabbyTerminalModule from 'tabby-terminal'
 import { SettingsTabProvider } from 'tabby-settings'
 
@@ -16,15 +16,14 @@ import { CommandLineEditorComponent } from './components/commandLineEditor.compo
 
 import { TerminalService } from './services/terminal.service'
 
-import { ButtonProvider } from './buttonProvider'
 import { RecoveryProvider } from './recoveryProvider'
 import { ShellSettingsTabProvider } from './settings'
 import { TerminalConfigProvider } from './config'
 import { LocalTerminalHotkeyProvider } from './hotkeys'
-import { NewTabContextMenu } from './tabContextMenu'
 
 import { AutoOpenTabCLIHandler, OpenPathCLIHandler, TerminalCLIHandler } from './cli'
 import { LocalProfilesService } from './profiles'
+import { LocalCommandProvider } from './commands'
 
 /** @hidden */
 @NgModule({
@@ -39,14 +38,12 @@ import { LocalProfilesService } from './profiles'
     providers: [
         { provide: SettingsTabProvider, useClass: ShellSettingsTabProvider, multi: true },
 
-        { provide: ToolbarButtonProvider, useClass: ButtonProvider, multi: true },
+        { provide: CommandProvider, useExisting: LocalCommandProvider, multi: true },
         { provide: TabRecoveryProvider, useClass: RecoveryProvider, multi: true },
         { provide: ConfigProvider, useClass: TerminalConfigProvider, multi: true },
         { provide: HotkeyProvider, useClass: LocalTerminalHotkeyProvider, multi: true },
 
         { provide: ProfileProvider, useClass: LocalProfilesService, multi: true },
-
-        { provide: TabContextMenuItemProvider, useClass: NewTabContextMenu, multi: true },
 
         { provide: CLIHandler, useClass: TerminalCLIHandler, multi: true },
         { provide: CLIHandler, useClass: OpenPathCLIHandler, multi: true },

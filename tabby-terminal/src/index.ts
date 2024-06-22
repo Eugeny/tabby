@@ -5,7 +5,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { ToastrModule } from 'ngx-toastr'
 import { NgxColorsModule } from 'ngx-colors'
 
-import TabbyCorePlugin, { ConfigProvider, HotkeyProvider, TabContextMenuItemProvider, CLIHandler } from 'tabby-core'
+import TabbyCorePlugin, { ConfigProvider, HotkeyProvider, CLIHandler, CommandProvider } from 'tabby-core'
 import { SettingsTabProvider } from 'tabby-settings'
 
 import { AppearanceSettingsTabComponent } from './components/appearanceSettingsTab.component'
@@ -30,7 +30,7 @@ import { PathDropDecorator } from './features/pathDrop'
 import { ZModemDecorator } from './features/zmodem'
 import { TerminalConfigProvider } from './config'
 import { TerminalHotkeyProvider } from './hotkeys'
-import { CopyPasteContextMenu, MiscContextMenu, LegacyContextMenu, ReconnectContextMenu, SaveAsProfileContextMenu } from './tabContextMenu'
+import { TerminalCommandProvider } from './commands'
 
 import { Frontend } from './frontends/frontend'
 import { XTermFrontend, XTermWebGLFrontend } from './frontends/xtermFrontend'
@@ -58,11 +58,7 @@ import { DefaultColorSchemes } from './colorSchemes'
         { provide: TerminalDecorator, useClass: ZModemDecorator, multi: true },
         { provide: TerminalDecorator, useClass: DebugDecorator, multi: true },
 
-        { provide: TabContextMenuItemProvider, useClass: CopyPasteContextMenu, multi: true },
-        { provide: TabContextMenuItemProvider, useClass: MiscContextMenu, multi: true },
-        { provide: TabContextMenuItemProvider, useClass: LegacyContextMenu, multi: true },
-        { provide: TabContextMenuItemProvider, useClass: ReconnectContextMenu, multi: true },
-        { provide: TabContextMenuItemProvider, useClass: SaveAsProfileContextMenu, multi: true },
+        { provide: CommandProvider, useExisting: TerminalCommandProvider, multi: true },
 
         { provide: CLIHandler, useClass: TerminalCLIHandler, multi: true },
         { provide: TerminalColorSchemeProvider, useClass: DefaultColorSchemes, multi: true },

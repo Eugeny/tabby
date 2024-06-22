@@ -1,6 +1,4 @@
-export interface MenuItemOptions {
-    type?: 'normal' | 'separator' | 'submenu' | 'checkbox' | 'radio'
-    label?: string
+export type MenuItemOptions = {
     sublabel?: string
     enabled?: boolean
     checked?: boolean
@@ -9,4 +7,10 @@ export interface MenuItemOptions {
 
     /** @hidden */
     commandLabel?: string
-}
+} & ({
+    type: 'separator',
+    label?: string,
+} | {
+    type?: 'normal' | 'submenu' | 'checkbox' | 'radio',
+    label: string,
+})
