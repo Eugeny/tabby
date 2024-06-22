@@ -3,6 +3,7 @@
     width: 600px;
     max-width: 80vw;
     right: 40px;
+    height: 36px;
     z-index: 5;
     border-radius: 0 0 5px 5px;
     background: rgba(0, 0, 0, .95);
@@ -22,6 +23,6 @@
     opacity: .5;
 }
 
-::ng-deep svg {
+:host ::ng-deep svg {
     height: 16px;
 }
