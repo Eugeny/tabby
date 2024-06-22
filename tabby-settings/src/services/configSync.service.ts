@@ -184,13 +184,17 @@ export class ConfigSyncService {
 
     private async autoSync () {
         while (true) {
-            if (this.isEnabled() && this.config.store.configSync.auto) {
-                const cfg = await this.getConfig(this.config.store.configSync.configID)
-                if (new Date(cfg.modified_at) > this.lastRemoteChange) {
-                    this.logger.info('Remote config changed, downloading')
-                    this.download()
-                    this.lastRemoteChange = new Date(cfg.modified_at)
+            try {
+                if (this.isEnabled() && this.config.store.configSync.auto) {
+                    const cfg = await this.getConfig(this.config.store.configSync.configID)
+                    if (new Date(cfg.modified_at) > this.lastRemoteChange) {
+                        this.logger.info('Remote config changed, downloading')
+                        this.download()
+                        this.lastRemoteChange = new Date(cfg.modified_at)
+                    }
                 }
+            } catch (error) {
+                this.logger.debug('Recovering from autoSync network error')
             }
             await new Promise(resolve => setTimeout(resolve, 60000))
         }

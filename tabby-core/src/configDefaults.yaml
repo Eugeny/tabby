@@ -43,6 +43,7 @@ enableWelcomeTab: true
 electronFlags:
   - ['force_discrete_gpu', '0']
 enableAutomaticUpdates: true
+hideTray: false
 version: 1
 vault: null
 encrypted: false

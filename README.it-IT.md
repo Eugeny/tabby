@@ -333,6 +333,7 @@ Grazie a queste persone meravigliose ([emoji key](https://allcontributors.org/do
     </tr>
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="https://5k.work/"><img src="https://avatars.githubusercontent.com/u/82694310?v=4?s=100" width="100px;" alt="Mxmilu"/><br /><sub><b>Mxmilu</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=Mxmilu666" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://cbuff.dev"><img src="https://avatars.githubusercontent.com/u/29805363?v=4?s=100" width="100px;" alt="Charles Buffington"/><br /><sub><b>Charles Buffington</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=C41M50N" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>
