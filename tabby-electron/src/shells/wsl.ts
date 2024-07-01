@@ -6,6 +6,8 @@ import { HostAppService, Platform, isWindowsBuild, WIN_BUILD_WSL_EXE_DISTRO_FLAG
 
 import { ShellProvider, Shell } from 'tabby-local'
 
+import { PowerShell } from 'node-powershell'
+
 /* eslint-disable block-scoped-var */
 
 try {
@@ -38,10 +40,42 @@ const wslIconMap: Record<string, string> = {
 /** @hidden */
 @Injectable()
 export class WSLShellProvider extends ShellProvider {
+    private _pwsh: PowerShell
+
     constructor (
         private hostApp: HostAppService,
     ) {
         super()
+
+        // make sure that this will not use the powershell profile
+        // that may take a long time to load
+        this._pwsh = new PowerShell({
+            executableOptions: {
+                '-NoProfile': true,
+            },
+        })
+    }
+
+    private async _resolveIcon (defaultDistKey: any): Promise<string> {
+        let _icon = wslIconMap.Linux
+
+        // check if the register has PackageFamilyName
+        if (defaultDistKey.PackageFamilyName) {
+            // get the icon from the package family name
+            const packageFamilyName = (defaultDistKey.PackageFamilyName.value as string).split('_')[0]
+
+            if (packageFamilyName) {
+                const _ret = await this._pwsh.invoke(`Get-AppxPackage ${packageFamilyName} | ConvertTo-Json`)
+
+                if (!_ret.hadErrors && _ret.stdout?.toString() !== undefined && _ret.stdout.toString() !== '') {
+                    const appx = JSON.parse(_ret.stdout.toString())
+                    const installationLocation = appx.InstallLocation
+                    _icon = `${installationLocation}\\Assets\\Square44x44Logo.targetsize-16.png`
+                }
+            }
+        }
+
+        return _icon
     }
 
     async provide (): Promise<Shell[]> {
@@ -59,6 +93,7 @@ export class WSLShellProvider extends ShellProvider {
         if (lxss?.DefaultDistribution) {
             const defaultDistKey = wnr.getRegistryKey(wnr.HK.CU, lxssPath + '\\' + String(lxss.DefaultDistribution.value))
             if (defaultDistKey?.DistributionName) {
+                const _icon = await this._resolveIcon(defaultDistKey)
                 const shell: Shell = {
                     id: 'wsl',
                     name: 'WSL / Default distro',
@@ -68,7 +103,7 @@ export class WSLShellProvider extends ShellProvider {
                         COLORTERM: 'truecolor',
                     },
                     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-                    icon: wslIconMap[defaultDistKey.DistributionName.value] ?? wslIconMap.Linux,
+                    icon: wslIconMap[defaultDistKey.DistributionName.value] ?? _icon,
                 }
                 shells.push(shell)
             }
@@ -90,11 +125,14 @@ export class WSLShellProvider extends ShellProvider {
                 return []
             }
         }
+
         for (const child of wnr.listRegistrySubkeys(wnr.HK.CU, lxssPath) as string[]) {
             const childKey = wnr.getRegistryKey(wnr.HK.CU, lxssPath + '\\' + child)
             if (!childKey.DistributionName || !childKey.BasePath) {
                 continue
             }
+
+            const _icon = await this._resolveIcon(childKey)
             const wslVersion = (childKey.Flags?.value || 0) & 8 ? 2 : 1
             const name = childKey.DistributionName.value
             const fsBase = wslVersion === 2 ? `\\\\wsl$\\${name}` : childKey.BasePath.value as string + '\\rootfs'
@@ -110,7 +148,7 @@ export class WSLShellProvider extends ShellProvider {
                     COLORTERM: 'truecolor',
                 },
                 // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-                icon: wslIconMap[name] ?? wslIconMap.Linux,
+                icon: wslIconMap[name] ?? _icon,
             }
             shells.push(shell)
         }

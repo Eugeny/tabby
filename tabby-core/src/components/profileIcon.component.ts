@@ -12,7 +12,15 @@ export class ProfileIconComponent extends BaseComponent {
     @Input() icon?: string
     @Input() color?: string
 
+    get pngPath (): string {
+        return `<img src="${this.icon?.trim()}" width="16" height="16" />`
+    }
+
     get isHTML (): boolean {
         return this.icon?.startsWith('<') ?? false
+    }
+
+    get isPNG (): boolean {
+        return this.icon?.endsWith('.png') ?? false
     }
 }
