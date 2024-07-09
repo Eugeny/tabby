@@ -1,15 +1,15 @@
 import { Observable, Subject } from 'rxjs'
 import stripAnsi from 'strip-ansi'
-import { ClientChannel } from 'ssh2'
 import { Injector } from '@angular/core'
 import { LogService } from 'tabby-core'
 import { BaseSession, UTF8SplitterMiddleware, InputProcessor } from 'tabby-terminal'
 import { SSHSession } from './ssh'
 import { SSHProfile } from '../api'
+import * as russh from 'russh'
 
 
 export class SSHShellSession extends BaseSession {
-    shell?: ClientChannel
+    shell?: russh.Channel
     get serviceMessage$ (): Observable<string> { return this.serviceMessage }
     private serviceMessage = new Subject<string>()
     private ssh: SSHSession|null
@@ -53,19 +53,19 @@ export class SSHShellSession extends BaseSession {
 
         this.loginScriptProcessor?.executeUnconditionalScripts()
 
-        this.shell.on('greeting', greeting => {
-            this.emitServiceMessage(`Shell greeting: ${greeting}`)
+        // this.shell.on('greeting', greeting => {
+        //     this.emitServiceMessage(`Shell greeting: ${greeting}`)
+        // })
+
+        // this.shell.on('banner', banner => {
+        //     this.emitServiceMessage(`Shell banner: ${banner}`)
+        // })
+
+        this.shell.data$.subscribe(data => {
+            this.emitOutput(Buffer.from(data))
         })
 
-        this.shell.on('banner', banner => {
-            this.emitServiceMessage(`Shell banner: ${banner}`)
-        })
-
-        this.shell.on('data', data => {
-            this.emitOutput(data)
-        })
-
-        this.shell.on('end', () => {
+        this.shell.eof$.subscribe(() => {
             this.logger.info('Shell session ended')
             if (this.open) {
                 this.destroy()
@@ -79,19 +79,22 @@ export class SSHShellSession extends BaseSession {
     }
 
     resize (columns: number, rows: number): void {
-        if (this.shell) {
-            this.shell.setWindow(rows, columns, rows, columns)
-        }
+        this.shell?.resizePTY({
+            columns,
+            rows,
+            pixHeight: 0,
+            pixWidth: 0,
+        })
     }
 
     write (data: Buffer): void {
         if (this.shell) {
-            this.shell.write(data)
+            this.shell.write(new Uint8Array(data))
         }
     }
 
-    kill (signal?: string): void {
-        this.shell?.signal(signal ?? 'TERM')
+    kill (_signal?: string): void {
+        // this.shell?.signal(signal ?? 'TERM')
     }
 
     async destroy (): Promise<void> {

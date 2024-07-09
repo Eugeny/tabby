@@ -94,17 +94,17 @@ export class SSHTabComponent extends ConnectableTerminalTabComponent<SSHProfile>
                     }
                 })
 
-                session.jumpStream = await new Promise((resolve, reject) => jumpSession.ssh.forwardOut(
-                    '127.0.0.1', 0, profile.options.host, profile.options.port ?? 22,
-                    (err, stream) => {
-                        if (err) {
-                            jumpSession.emitServiceMessage(colors.bgRed.black(' X ') + ` Could not set up port forward on ${jumpConnection.name}`)
-                            reject(err)
-                            return
-                        }
-                        resolve(stream)
-                    },
-                ))
+                // session.jumpStream = await new Promise((resolve, reject) => jumpSession.ssh.forwardOut(
+                //     '127.0.0.1', 0, profile.options.host, profile.options.port ?? 22,
+                //     (err, stream) => {
+                //         if (err) {
+                //             jumpSession.emitServiceMessage(colors.bgRed.black(' X ') + ` Could not set up port forward on ${jumpConnection.name}`)
+                //             reject(err)
+                //             return
+                //         }
+                //         resolve(stream)
+                //     },
+                // ))
             }
         }
 

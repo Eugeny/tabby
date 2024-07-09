@@ -51,13 +51,3 @@ export interface ForwardedPortConfig {
     targetPort: number
     description: string
 }
-
-export let ALGORITHM_BLACKLIST = [
-    // cause native crashes in node crypto, use EC instead
-    'diffie-hellman-group-exchange-sha256',
-    'diffie-hellman-group-exchange-sha1',
-]
-
-if (!process.env.TABBY_ENABLE_SSH_ALG_BLACKLIST) {
-    ALGORITHM_BLACKLIST = []
-}

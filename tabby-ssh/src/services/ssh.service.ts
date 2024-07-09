@@ -1,6 +1,6 @@
 import * as shellQuote from 'shell-quote'
 import * as net from 'net'
-import * as fs from 'fs/promises'
+// import * as fs from 'fs/promises'
 import * as tmp from 'tmp-promise'
 import socksv5 from '@luminati-io/socksv5'
 import { Duplex } from 'stream'
@@ -55,7 +55,7 @@ export class SSHService {
         let tmpFile: tmp.FileResult|null = null
         if (session.activePrivateKey) {
             tmpFile = await tmp.file()
-            await fs.writeFile(tmpFile.path, session.activePrivateKey)
+            // await fs.writeFile(tmpFile.path, session.activePrivateKey)
             const winSCPcom = path.slice(0, -3) + 'com'
             await this.platform.exec(winSCPcom, ['/keygen', tmpFile.path, `/output=${tmpFile.path}`])
             args.push(`/privatekey=${tmpFile.path}`)

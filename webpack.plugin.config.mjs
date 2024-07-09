@@ -157,6 +157,7 @@ export default options => {
             'os',
             'path',
             'readline',
+            'russh',
             '@luminati-io/socksv5',
             'stream',
             'windows-native-registry',
