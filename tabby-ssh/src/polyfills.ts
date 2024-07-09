@@ -7,6 +7,6 @@ nodeCrypto.createDiffieHellman = browserDH.createDiffieHellman
 // Declare function missing from @types
 declare module 'ssh2' {
     interface Client {
-        setNoDelay(enable?: boolean): this
+        setNoDelay: (enable?: boolean) => this
     }
 }
