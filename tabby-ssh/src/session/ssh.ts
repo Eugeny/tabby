@@ -219,7 +219,7 @@ export class SSHSession {
             ssh.on('ready', () => {
                 connected = true
                 // Fix SSH Lagging
-                ssh.setNoDelay(true);
+                ssh.setNoDelay(true)
                 if (this.savedPassword) {
                     this.passwordStorage.savePassword(this.profile, this.savedPassword)
                 }
