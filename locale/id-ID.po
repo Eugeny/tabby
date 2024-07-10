@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Indonesian\n"
 "Language: id_ID\n"
-"PO-Revision-Date: 2024-03-11 20:11\n"
+"PO-Revision-Date: 2024-07-10 09:04\n"
 
 #: tabby-local/src/components/terminalTab.component.ts:113
 msgid "\"{command}\" is still running. Close?"
@@ -1762,11 +1762,11 @@ msgstr "Ukuran Semula"
 
 #: tabby-serial/src/hotkeys.ts:14
 msgid "Restart current serial session"
-msgstr ""
+msgstr "Mulai ulang sesi serial saat ini"
 
 #: tabby-ssh/src/hotkeys.ts:10
 msgid "Restart current SSH session"
-msgstr ""
+msgstr "Mulai ulang sesi SSH saat ini"
 
 #: tabby-telnet/src/hotkeys.ts:10
 msgid "Restart current Telnet session"
@@ -2401,7 +2401,7 @@ msgstr ""
 
 #: tabby-ssh/src/session/ssh.ts:465
 msgid "Using preset password"
-msgstr ""
+msgstr "Gunakan kata sandi yang telah disetel sebelumnya"
 
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:9
 msgid "Vault"

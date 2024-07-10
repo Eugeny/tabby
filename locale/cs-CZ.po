@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Czech\n"
 "Language: cs_CZ\n"
-"PO-Revision-Date: 2024-03-11 20:11\n"
+"PO-Revision-Date: 2024-07-10 09:04\n"
 
 #: tabby-local/src/components/terminalTab.component.ts:113
 msgid "\"{command}\" is still running. Close?"
@@ -1935,7 +1935,7 @@ msgstr "Sériové připojení"
 
 #: tabby-serial/src/profiles.ts:73
 msgid "Serial: {description}"
-msgstr "Seriální: {description}"
+msgstr "Sériový: {description}"
 
 #: locale/tmp-html/tabby-settings/src/components/setVaultPassphraseModal.component.html:2
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:5
