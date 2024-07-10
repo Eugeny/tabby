@@ -3,10 +3,11 @@ import * as crypto from 'crypto'
 import * as sshpk from 'sshpk'
 import colors from 'ansi-colors'
 import stripAnsi from 'strip-ansi'
+import * as shellQuote from 'shell-quote'
 import { Injector } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { ConfigService, FileProvidersService, HostAppService, NotificationsService, Platform, PlatformService, PromptModalComponent, LogService, Logger, TranslateService } from 'tabby-core'
-// import { Socket } from 'net'
+import { Socket } from 'net'
 // import { Client, ClientChannel, SFTPWrapper } from 'ssh2'
 import { Subject, Observable } from 'rxjs'
 import { HostKeyPromptModalComponent } from '../components/hostKeyPromptModal.component'
@@ -14,7 +15,7 @@ import { HostKeyPromptModalComponent } from '../components/hostKeyPromptModal.co
 import { PasswordStorageService } from '../services/passwordStorage.service'
 import { SSHKnownHostsService } from '../services/sshKnownHosts.service'
 import { SFTPSession } from './sftp'
-import { SSHAlgorithmType, SSHProfile, SSHProxyStream, AutoPrivateKeyLocator } from '../api'
+import { SSHAlgorithmType, SSHProfile, SSHProxyStream, AutoPrivateKeyLocator, PortForwardType } from '../api'
 import { ForwardedPort } from './forwards'
 import { X11Socket } from './x11'
 import { supportedAlgorithms } from '../algorithms'
@@ -32,11 +33,6 @@ interface AuthMethod {
     name?: string
     contents?: Buffer
 }
-
-// interface Handshake {
-//     kex: string
-//     serverHostKey: string
-// }
 
 export class KeyboardInteractivePrompt {
     readonly responses: string[] = []
@@ -200,7 +196,6 @@ export class SSHSession {
         // return new SFTPSession(this.sftp, this.injector)
     }
 
-
     async start (): Promise<void> {
         // const log = (s: any) => this.emitServiceMessage(s)
 
@@ -212,8 +207,30 @@ export class SSHSession {
         }
 
         // todo migrate connection opts
+
+        // eslint-disable-next-line @typescript-eslint/init-declarations
+        let transport: russh.SshTransport
+        if (this.profile.options.proxyCommand) {
+            this.emitServiceMessage(colors.bgBlue.black(' Proxy command ') + ` Using ${this.profile.options.proxyCommand}`)
+
+            const argv = shellQuote.parse(this.profile.options.proxyCommand)
+            transport = await russh.SshTransport.newCommand(argv[0], argv.slice(1))
+            // TODO stderr service messages
+            // this.proxyCommandStream.destroyed$.subscribe(err => {
+            //     if (err) {
+            //         this.emitServiceMessage(colors.bgRed.black(' X ') + ` ${err.message}`)
+            //         this.destroy()
+            //     }
+            // })
+            // this.proxyCommandStream.message$.subscribe(message => {
+            //     this.emitServiceMessage(colors.bgBlue.black(' Proxy ') + ' ' + message.trim())
+            // })
+        } else {
+            transport = await russh.SshTransport.newSocket(`${this.profile.options.host.trim()}:${this.profile.options.port ?? 22}`)
+        }
+
         this.ssh = await russh.SSHClient.connect(
-            `${this.profile.options.host.trim()}:${this.profile.options.port ?? 22}`,
+            transport,
             async key => {
                 if (!await this.verifyHostKey(key)) {
                     return false
@@ -231,13 +248,19 @@ export class SSHSession {
             },
         )
 
+        this.ssh.banner$.subscribe(banner => {
+            if (!this.profile.options.skipBanner) {
+                this.emitServiceMessage(banner)
+            }
+        })
+
         this.ssh.disconnect$.subscribe(() => {
             if (this.open) {
                 this.destroy()
             }
         })
 
-        // auth
+        // Authentication
 
         this.authUsername ??= this.profile.options.user
         if (!this.authUsername) {
@@ -276,24 +299,6 @@ export class SSHSession {
             this.passwordStorage.savePassword(this.profile, this.savedPassword)
         }
 
-        //zone ?
-
-        // const resultPromise: Promise<void> = new Promise(async (resolve, reject) => {
-
-
-        // ssh.on('greeting', greeting => {
-        //     if (!this.profile.options.skipBanner) {
-        //         log('Greeting: ' + greeting)
-        //     }
-        // })
-
-        // ssh.on('banner', banner => {
-        //     if (!this.profile.options.skipBanner) {
-        //         log(banner)
-        //     }
-        // })
-        // })
-
         try {
             // if (this.profile.options.socksProxyHost) {
             //     this.emitServiceMessage(colors.bgBlue.black(' Proxy ') + ` Using ${this.profile.options.socksProxyHost}:${this.profile.options.socksProxyPort}`)
@@ -303,21 +308,6 @@ export class SSHSession {
             //     this.emitServiceMessage(colors.bgBlue.black(' Proxy ') + ` Using ${this.profile.options.httpProxyHost}:${this.profile.options.httpProxyPort}`)
             //     this.proxyCommandStream = new HTTPProxyStream(this.profile)
             // }
-            // if (this.profile.options.proxyCommand) {
-            //     this.emitServiceMessage(colors.bgBlue.black(' Proxy command ') + ` Using ${this.profile.options.proxyCommand}`)
-            //     this.proxyCommandStream = new ProxyCommandStream(this.profile.options.proxyCommand)
-            // }
-            // if (this.proxyCommandStream) {
-            //     this.proxyCommandStream.destroyed$.subscribe(err => {
-            //         if (err) {
-            //             this.emitServiceMessage(colors.bgRed.black(' X ') + ` ${err.message}`)
-            //             this.destroy()
-            //         }
-            //     })
-
-            //     this.proxyCommandStream.message$.subscribe(message => {
-            //         this.emitServiceMessage(colors.bgBlue.black(' Proxy ') + ' ' + message.trim())
-            //     })
 
             //     await this.proxyCommandStream.start()
             // }
@@ -327,59 +317,45 @@ export class SSHSession {
             //     host: this.profile.options.host.trim(),
             //     port: this.profile.options.port ?? 22,
             //     sock: this.proxyCommandStream?.socket ?? this.jumpStream,
-            //     username: this.authUsername ?? undefined,
-            //     tryKeyboard: true,
             //     agent: this.agentPath,
             //     agentForward: this.profile.options.agentForward && !!this.agentPath,
             //     keepaliveInterval: this.profile.options.keepaliveInterval ?? 15000,
             //     keepaliveCountMax: this.profile.options.keepaliveCountMax,
             //     readyTimeout: this.profile.options.readyTimeout,
-            //     algorithms,
-            //     authHandler: (methodsLeft, partialSuccess, callback) => {
-            //         this.zone.run(async () => {
-            //             callback(await this.handleAuth(methodsLeft))
-            //         })
-            //     },
             // })
         } catch (e) {
             this.notifications.error(e.message)
             throw e
         }
 
-        // for (const fw of this.profile.options.forwardedPorts ?? []) {
-        //     this.addPortForward(Object.assign(new ForwardedPort(), fw))
-        // }
+        for (const fw of this.profile.options.forwardedPorts ?? []) {
+            this.addPortForward(Object.assign(new ForwardedPort(), fw))
+        }
 
         this.open = true
 
-        // this.ssh.on('tcp connection', (details, accept, reject) => {
-        //     this.logger.info(`Incoming forwarded connection: (remote) ${details.srcIP}:${details.srcPort} -> (local) ${details.destIP}:${details.destPort}`)
-        //     const forward = this.forwardedPorts.find(x => x.port === details.destPort)
-        //     if (!forward) {
-        //         this.emitServiceMessage(colors.bgRed.black(' X ') + ` Rejected incoming forwarded connection for unrecognized port ${details.destPort}`)
-        //         reject()
-        //         return
-        //     }
-        //     const socket = new Socket()
-        //     socket.connect(forward.targetPort, forward.targetAddress)
-        //     socket.on('error', e => {
-        //         // eslint-disable-next-line @typescript-eslint/no-base-to-string
-        //         this.emitServiceMessage(colors.bgRed.black(' X ') + ` Could not forward the remote connection to ${forward.targetAddress}:${forward.targetPort}: ${e}`)
-        //         reject()
-        //     })
-        //     socket.on('connect', () => {
-        //         this.logger.info('Connection forwarded')
-        //         const stream = accept()
-        //         stream.pipe(socket)
-        //         socket.pipe(stream)
-        //         stream.on('close', () => {
-        //             socket.destroy()
-        //         })
-        //         socket.on('close', () => {
-        //             stream.close()
-        //         })
-        //     })
-        // })
+        this.ssh.tcpChannelOpen$.subscribe(async event => {
+            this.logger.info(`Incoming forwarded connection: ${event.clientAddress}:${event.clientPort} -> ${event.targetAddress}:${event.targetPort}`)
+            const forward = this.forwardedPorts.find(x => x.port === event.targetPort && x.host === event.targetAddress)
+            if (!forward) {
+                this.emitServiceMessage(colors.bgRed.black(' X ') + ` Rejected incoming forwarded connection for unrecognized port ${event.targetAddress}:${event.targetPort}`)
+                return
+            }
+            const socket = new Socket()
+            socket.connect(forward.targetPort, forward.targetAddress)
+            socket.on('error', e => {
+                // eslint-disable-next-line @typescript-eslint/no-base-to-string
+                this.emitServiceMessage(colors.bgRed.black(' X ') + ` Could not forward the remote connection to ${forward.targetAddress}:${forward.targetPort}: ${e}`)
+                event.channel.close()
+            })
+            event.channel.data$.subscribe(data => socket.write(data))
+            socket.on('data', data => event.channel.write(Uint8Array.from(data)))
+            event.channel.closed$.subscribe(() => socket.destroy())
+            socket.on('close', () => event.channel.close())
+            socket.on('connect', () => {
+                this.logger.info('Connection forwarded')
+            })
+        })
 
         this.ssh.x11ChannelOpen$.subscribe(async event => {
             this.logger.info(`Incoming X11 connection from ${event.clientAddress}:${event.clientPort}`)
@@ -541,7 +517,7 @@ export class SSHSession {
                         break
                     }
 
-                    const prompts = await state.prompts()
+                    const prompts = state.prompts()
 
                     let responses: string[] = []
                     // OpenSSH can send a k-i request without prompts
@@ -550,7 +526,7 @@ export class SSHSession {
                         const prompt = new KeyboardInteractivePrompt(
                             state.name,
                             state.instructions,
-                            await state.prompts(),
+                            state.prompts(),
                         )
                         this.emitKeyboardInteractivePrompt(prompt)
 
@@ -573,67 +549,66 @@ export class SSHSession {
         return null
     }
 
-    async addPortForward (_fw: ForwardedPort): Promise<void> {
-        // if (fw.type === PortForwardType.Local || fw.type === PortForwardType.Dynamic) {
-        //     await fw.startLocalListener((accept, reject, sourceAddress, sourcePort, targetAddress, targetPort) => {
-        //         this.logger.info(`New connection on ${fw}`)
-        //         this.ssh.forwardOut(
-        //             sourceAddress ?? '127.0.0.1',
-        //             sourcePort ?? 0,
-        //             targetAddress,
-        //             targetPort,
-        //             (err, stream) => {
-        //                 if (err) {
-        //                     // eslint-disable-next-line @typescript-eslint/no-base-to-string
-        //                     this.emitServiceMessage(colors.bgRed.black(' X ') + ` Remote has rejected the forwarded connection to ${targetAddress}:${targetPort} via ${fw}: ${err}`)
-        //                     reject()
-        //                     return
-        //                 }
-        //                 const socket = accept()
-        //                 stream.pipe(socket)
-        //                 socket.pipe(stream)
-        //                 stream.on('close', () => {
-        //                     socket.destroy()
-        //                 })
-        //                 socket.on('close', () => {
-        //                     stream.close()
-        //                 })
-        //             },
-        //         )
-        //     }).then(() => {
-        //         this.emitServiceMessage(colors.bgGreen.black(' -> ') + ` Forwarded ${fw}`)
-        //         this.forwardedPorts.push(fw)
-        //     }).catch(e => {
-        //         this.emitServiceMessage(colors.bgRed.black(' X ') + ` Failed to forward port ${fw}: ${e}`)
-        //         throw e
-        //     })
-        // }
-        // if (fw.type === PortForwardType.Remote) {
-        //     await new Promise<void>((resolve, reject) => {
-        //         this.ssh.forwardIn(fw.host, fw.port, err => {
-        //             if (err) {
-        //                 // eslint-disable-next-line @typescript-eslint/no-base-to-string
-        //                 this.emitServiceMessage(colors.bgRed.black(' X ') + ` Remote rejected port forwarding for ${fw}: ${err}`)
-        //                 reject(err)
-        //                 return
-        //             }
-        //             resolve()
-        //         })
-        //     })
-        //     this.emitServiceMessage(colors.bgGreen.black(' <- ') + ` Forwarded ${fw}`)
-        //     this.forwardedPorts.push(fw)
-        // }
+    async addPortForward (fw: ForwardedPort): Promise<void> {
+        if (fw.type === PortForwardType.Local || fw.type === PortForwardType.Dynamic) {
+            await fw.startLocalListener(async (accept, reject, sourceAddress, sourcePort, targetAddress, targetPort) => {
+                this.logger.info(`New connection on ${fw}`)
+                if (!(this.ssh instanceof russh.AuthenticatedSSHClient)) {
+                    this.logger.error(`Connection while unauthenticated on ${fw}`)
+                    reject()
+                    return
+                }
+                const channel = await this.ssh.openTCPForwardChannel({
+                    addressToConnectTo: targetAddress,
+                    portToConnectTo: targetPort,
+                    originatorAddress: sourceAddress ?? '127.0.0.1',
+                    originatorPort: sourcePort ?? 0,
+                }).catch(err => {
+                    this.emitServiceMessage(colors.bgRed.black(' X ') + ` Remote has rejected the forwarded connection to ${targetAddress}:${targetPort} via ${fw}: ${err}`)
+                    reject()
+                    throw err
+                })
+                const socket = accept()
+                channel.data$.subscribe(data => socket.write(data))
+                socket.on('data', data => channel.write(Uint8Array.from(data)))
+                channel.closed$.subscribe(() => socket.destroy())
+                socket.on('close', () => channel.close())
+            }).then(() => {
+                this.emitServiceMessage(colors.bgGreen.black(' -> ') + ` Forwarded ${fw}`)
+                this.forwardedPorts.push(fw)
+            }).catch(e => {
+                this.emitServiceMessage(colors.bgRed.black(' X ') + ` Failed to forward port ${fw}: ${e}`)
+                throw e
+            })
+        }
+        if (fw.type === PortForwardType.Remote) {
+            if (!(this.ssh instanceof russh.AuthenticatedSSHClient)) {
+                throw new Error('Cannot add remote port forward before auth')
+            }
+            try {
+                await this.ssh.forwardTCPPort(fw.host, fw.port)
+            } catch (err) {
+                // eslint-disable-next-line @typescript-eslint/no-base-to-string
+                this.emitServiceMessage(colors.bgRed.black(' X ') + ` Remote rejected port forwarding for ${fw}: ${err}`)
+                return
+            }
+            this.emitServiceMessage(colors.bgGreen.black(' <- ') + ` Forwarded ${fw}`)
+            this.forwardedPorts.push(fw)
+        }
     }
 
     async removePortForward (fw: ForwardedPort): Promise<void> {
-        // if (fw.type === PortForwardType.Local || fw.type === PortForwardType.Dynamic) {
-        //     fw.stopLocalListener()
-        //     this.forwardedPorts = this.forwardedPorts.filter(x => x !== fw)
-        // }
-        // if (fw.type === PortForwardType.Remote) {
-        //     this.ssh.unforwardIn(fw.host, fw.port)
-        //     this.forwardedPorts = this.forwardedPorts.filter(x => x !== fw)
-        // }
+        if (fw.type === PortForwardType.Local || fw.type === PortForwardType.Dynamic) {
+            fw.stopLocalListener()
+            this.forwardedPorts = this.forwardedPorts.filter(x => x !== fw)
+        }
+        if (fw.type === PortForwardType.Remote) {
+            if (!(this.ssh instanceof russh.AuthenticatedSSHClient)) {
+                throw new Error('Cannot remove remote port forward before auth')
+            }
+            this.ssh.stopForwardingTCPPort(fw.host, fw.port)
+            this.forwardedPorts = this.forwardedPorts.filter(x => x !== fw)
+        }
         this.emitServiceMessage(`Stopped forwarding ${fw}`)
     }
 

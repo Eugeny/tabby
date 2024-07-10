@@ -53,14 +53,6 @@ export class SSHShellSession extends BaseSession {
 
         this.loginScriptProcessor?.executeUnconditionalScripts()
 
-        // this.shell.on('greeting', greeting => {
-        //     this.emitServiceMessage(`Shell greeting: ${greeting}`)
-        // })
-
-        // this.shell.on('banner', banner => {
-        //     this.emitServiceMessage(`Shell banner: ${banner}`)
-        // })
-
         this.shell.data$.subscribe(data => {
             this.emitOutput(Buffer.from(data))
         })
