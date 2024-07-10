@@ -16,7 +16,7 @@ import { SSHKnownHostsService } from '../services/sshKnownHosts.service'
 import { SFTPSession } from './sftp'
 import { SSHAlgorithmType, SSHProfile, SSHProxyStream, AutoPrivateKeyLocator } from '../api'
 import { ForwardedPort } from './forwards'
-// import { X11Socket } from './x11'
+import { X11Socket } from './x11'
 import { supportedAlgorithms } from '../algorithms'
 import * as russh from 'russh'
 
@@ -381,36 +381,40 @@ export class SSHSession {
         //     })
         // })
 
-        // this.ssh.on('x11', async (details, accept, reject) => {
-        //     this.logger.info(`Incoming X11 connection from ${details.srcIP}:${details.srcPort}`)
-        //     const displaySpec = (this.config.store.ssh.x11Display || process.env.DISPLAY) ?? 'localhost:0'
-        //     this.logger.debug(`Trying display ${displaySpec}`)
+        this.ssh.x11ChannelOpen$.subscribe(async event => {
+            this.logger.info(`Incoming X11 connection from ${event.clientAddress}:${event.clientPort}`)
+            const displaySpec = (this.config.store.ssh.x11Display || process.env.DISPLAY) ?? 'localhost:0'
+            this.logger.debug(`Trying display ${displaySpec}`)
 
-        //     const socket = new X11Socket()
-        //     try {
-        //         const x11Stream = await socket.connect(displaySpec)
-        //         this.logger.info('Connection forwarded')
-        //         const stream = accept()
-        //         stream.pipe(x11Stream)
-        //         x11Stream.pipe(stream)
-        //         stream.on('close', () => {
-        //             socket.destroy()
-        //         })
-        //         x11Stream.on('close', () => {
-        //             stream.close()
-        //         })
-        //     } catch (e) {
-        //         // eslint-disable-next-line @typescript-eslint/no-base-to-string
-        //         this.emitServiceMessage(colors.bgRed.black(' X ') + ` Could not connect to the X server: ${e}`)
-        //         this.emitServiceMessage(`    Tabby tried to connect to ${JSON.stringify(X11Socket.resolveDisplaySpec(displaySpec))} based on the DISPLAY environment var (${displaySpec})`)
-        //         if (process.platform === 'win32') {
-        //             this.emitServiceMessage('    To use X forwarding, you need a local X server, e.g.:')
-        //             this.emitServiceMessage('    * VcXsrv: https://sourceforge.net/projects/vcxsrv/')
-        //             this.emitServiceMessage('    * Xming: https://sourceforge.net/projects/xming/')
-        //         }
-        //         reject()
-        //     }
-        // })
+            const socket = new X11Socket()
+            try {
+                const x11Stream = await socket.connect(displaySpec)
+                this.logger.info('Connection forwarded')
+
+                event.channel.data$.subscribe(data => {
+                    x11Stream.write(data)
+                })
+                x11Stream.on('data', data => {
+                    event.channel.write(Uint8Array.from(data))
+                })
+                event.channel.closed$.subscribe(() => {
+                    socket.destroy()
+                })
+                x11Stream.on('close', () => {
+                    event.channel.close()
+                })
+            } catch (e) {
+                // eslint-disable-next-line @typescript-eslint/no-base-to-string
+                this.emitServiceMessage(colors.bgRed.black(' X ') + ` Could not connect to the X server: ${e}`)
+                this.emitServiceMessage(`    Tabby tried to connect to ${JSON.stringify(X11Socket.resolveDisplaySpec(displaySpec))} based on the DISPLAY environment var (${displaySpec})`)
+                if (process.platform === 'win32') {
+                    this.emitServiceMessage('    To use X forwarding, you need a local X server, e.g.:')
+                    this.emitServiceMessage('    * VcXsrv: https://sourceforge.net/projects/vcxsrv/')
+                    this.emitServiceMessage('    * Xming: https://sourceforge.net/projects/xming/')
+                }
+                event.channel.close()
+            }
+        })
     }
 
     private async verifyHostKey (key: russh.SshPublicKey): Promise<boolean> {
