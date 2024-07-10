@@ -1,7 +1,10 @@
 terminal-toolbar([tab]='this')
     i.fas.fa-xs.fa-circle.text-success.me-2(*ngIf='session && session.open')
     i.fas.fa-xs.fa-circle.text-danger.me-2(*ngIf='!session || !session.open')
-    strong.me-auto {{profile.options.user}}@{{profile.options.host}}:{{profile.options.port}}
+    strong.me-auto(
+        style='user-select: text; cursor: text;'
+        onclick='event.stopPropagation()'
+    ) {{profile.options.user}}@{{profile.options.host}}:{{profile.options.port}}
 
     .me-2(
         ngbDropdown,
@@ -11,7 +14,7 @@ terminal-toolbar([tab]='this')
     )
         button.btn.btn-sm.btn-link(ngbDropdownToggle)
             i.far.fa-lightbulb.text-primary
-        .bg-dark(ngbDropdownMenu)
+        .bg-dark(ngbDropdownMenu)yarn
             a.d-flex.align-items-center(ngbDropdownItem, (click)='platform.openExternal("https://tabby.sh/go/cwd-detection")')
                 .me-auto
                     strong(translate) Working directory detection
