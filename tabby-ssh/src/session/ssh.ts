@@ -64,7 +64,7 @@ export class KeyboardInteractivePrompt {
 export class SSHSession {
     shell?: russh.Channel
     ssh: russh.SSHClient|russh.AuthenticatedSSHClient
-    // sftp?: SFTPWrapper
+    sftp?: russh.SFTP
     forwardedPorts: ForwardedPort[] = []
     jumpStream: any
     proxyCommandStream: SSHProxyStream|null = null
@@ -100,7 +100,7 @@ export class SSHSession {
     private privateKeyImporters: AutoPrivateKeyLocator[]
 
     constructor (
-        injector: Injector,
+        private injector: Injector,
         public profile: SSHProfile,
     ) {
         this.logger = injector.get(LogService).create(`ssh-${profile.options.host}-${profile.options.port}`)
@@ -189,11 +189,13 @@ export class SSHSession {
     }
 
     async openSFTP (): Promise<SFTPSession> {
-        throw new Error('Not implemented')
-        // if (!this.sftp) {
-        //     this.sftp = await wrapPromise(this.zone, promisify<SFTPWrapper>(f => this.ssh.sftp(f))())
-        // }
-        // return new SFTPSession(this.sftp, this.injector)
+        if (!(this.ssh instanceof russh.AuthenticatedSSHClient)) {
+            throw new Error('Cannot open SFTP session before auth')
+        }
+        if (!this.sftp) {
+            this.sftp = await this.ssh.openSFTPChannel()
+        }
+        return new SFTPSession(this.sftp, this.injector)
     }
 
     async start (): Promise<void> {
