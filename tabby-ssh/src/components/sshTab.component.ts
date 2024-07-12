@@ -58,8 +58,12 @@ export class SSHTabComponent extends ConnectableTerminalTabComponent<SSHProfile>
                 case 'restart-ssh-session':
                     this.reconnect()
                     break
-                case 'open-sftp-pane':
-                    this.openSFTP()
+                case 'toggle-sftp-pane':
+                    if (this.sftpPanelVisible) {
+                        this.sftpPanelVisible = false
+                    } else {
+                        this.openSFTP()
+                    }
                     break
                 case 'launch-winscp':
                     if (this.sshSession) {
