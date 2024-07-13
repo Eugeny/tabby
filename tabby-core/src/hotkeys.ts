@@ -258,7 +258,7 @@ export class AppHotkeyProvider extends HotkeyProvider {
         {
             id: 'toggle-sftp-pane',
             name: this.translate.instant('Toggle SFTP panel'),
-        }
+        },
     ]
 
     constructor (

@@ -27,11 +27,11 @@ export class SSHTabComponent extends ConnectableTerminalTabComponent<SSHProfile>
     sshSession: SSHSession|null = null
     session: SSHShellSession|null = null
     sftpPanelVisible = false
-    isSftpPanelPinned = false;
+    isSftpPanelPinned = false
     sftpPath = '/'
     enableToolbar = true
     activeKIPrompt: KeyboardInteractivePrompt|null = null
-    @ViewChild(SFTPPanelComponent, { static: false }) sftpPanel: SFTPPanelComponent;
+    @ViewChild(SFTPPanelComponent, { static: false }) sftpPanel: SFTPPanelComponent
 
     constructor (
         injector: Injector,
@@ -223,25 +223,25 @@ export class SSHTabComponent extends ConnectableTerminalTabComponent<SSHProfile>
         }, 100)
     }
 
-    ngAfterViewChecked() {
-        if (this.sftpPanel && !this.sftpPanel.pinStateChange.observers.length) {
-            this.subscribeToPinState();
+    ngAfterViewChecked (): void {
+        if (!this.sftpPanel.pinStateChange.observers.length) {
+            this.subscribeToPinState()
         }
     }
 
-    subscribeToPinState() {
+    subscribeToPinState (): void {
         this.sftpPanel.pinStateChange.subscribe((isPinned: boolean) => {
-            this.isSftpPanelPinned = isPinned;
-        });
+            this.isSftpPanelPinned = isPinned
+        })
         this.sftpPanel.closed.subscribe(() => {
-            this.isSftpPanelPinned = false;
-        });
+            this.isSftpPanelPinned = false
+        })
     }
 
     @HostListener('click')
-    onClick(): void {
+    onClick (): void {
         if (!this.isSftpPanelPinned) {
-            this.sftpPanelVisible = false;
+            this.sftpPanelVisible = false
         }
     }
 

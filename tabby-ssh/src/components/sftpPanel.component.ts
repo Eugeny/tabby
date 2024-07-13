@@ -248,9 +248,9 @@ export class SFTPPanelComponent {
         this.editingPath = null
     }
 
-    togglePinSFTPPanel() {
-        this.pinSFTPPanel = !this.pinSFTPPanel;
-        this.pinStateChange.emit(this.pinSFTPPanel);
+    togglePinSFTPPanel (): void {
+        this.pinSFTPPanel = !this.pinSFTPPanel
+        this.pinStateChange.emit(this.pinSFTPPanel)
     }
 
     close (): void {
