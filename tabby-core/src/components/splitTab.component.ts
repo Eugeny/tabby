@@ -381,6 +381,9 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
                     }
                 }
             }, 100)
+
+            // Propagate visibility to new children
+            this.emitVisibility(this.visibility.value)
         }
         this.initialized.next()
         this.initialized.complete()
