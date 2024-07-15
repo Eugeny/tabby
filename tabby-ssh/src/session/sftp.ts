@@ -91,24 +91,22 @@ export class SFTPSession {
     }
 
     readlink (p: string): Promise<string> {
-        throw new Error('Not implemented')
-        // this.logger.debug('readlink', p)
-        // return wrapPromise(this.zone, promisify<string>(f => this.sftp.readlink(p, f))())
+        this.logger.debug('readlink', p)
+        return this.sftp.readlink(p)
     }
 
     async stat (p: string): Promise<SFTPFile> {
-        throw new Error('Not implemented')
-        // this.logger.debug('stat', p)
-        // const stats = await wrapPromise(this.zone, promisify<Stats>(f => this.sftp.stat(p, f))())
-        // return {
-        //     name: posixPath.basename(p),
-        //     fullPath: p,
-        //     isDirectory: stats.isDirectory(),
-        //     isSymlink: stats.isSymbolicLink(),
-        //     mode: stats.mode,
-        //     size: stats.size,
-        //     modified: new Date(stats.mtime * 1000),
-        // }
+        this.logger.debug('stat', p)
+        const stats = await this.sftp.stat(p)
+        return {
+            name: posixPath.basename(p),
+            fullPath: p,
+            isDirectory: stats.type === russh.SFTPFileType.Directory,
+            isSymlink: stats.type === russh.SFTPFileType.Symlink,
+            mode: stats.permissions ?? 0,
+            size: stats.size,
+            modified: new Date((stats.mtime ?? 0) * 1000),
+        }
     }
 
     async open (p: string, mode: string): Promise<SFTPFileHandle> {
@@ -127,9 +125,8 @@ export class SFTPSession {
     }
 
     async rename (oldPath: string, newPath: string): Promise<void> {
-        throw new Error('Not implemented')
-        // this.logger.debug('rename', oldPath, newPath)
-        // await promisify((f: any) => this.sftp.rename(oldPath, newPath, f))()
+        this.logger.debug('rename', oldPath, newPath)
+        await this.sftp.rename(oldPath, newPath)
     }
 
     async unlink (p: string): Promise<void> {
@@ -137,9 +134,8 @@ export class SFTPSession {
     }
 
     async chmod (p: string, mode: string|number): Promise<void> {
-        throw new Error('Not implemented')
-        // this.logger.debug('chmod', p, mode)
-        // await promisify((f: any) => this.sftp.chmod(p, mode, f))()
+        this.logger.debug('chmod', p, mode)
+        await this.sftp.chmod(p, mode)
     }
 
     async upload (path: string, transfer: FileUpload): Promise<void> {
@@ -192,11 +188,11 @@ export class SFTPSession {
         return {
             fullPath: p,
             name: posixPath.basename(p),
-            isDirectory: entry.type === russh.SFTPFileType.Directory,
-            isSymlink: entry.type === russh.SFTPFileType.Symlink,
-            mode: entry.permissions ?? 0,
-            size: entry.objectSize,
-            modified: new Date((entry.mtime ?? 0) * 1000),
+            isDirectory: entry.metadata.type === russh.SFTPFileType.Directory,
+            isSymlink: entry.metadata.type === russh.SFTPFileType.Symlink,
+            mode: entry.metadata.permissions ?? 0,
+            size: entry.metadata.size,
+            modified: new Date((entry.metadata.mtime ?? 0) * 1000),
         }
     }
 }
