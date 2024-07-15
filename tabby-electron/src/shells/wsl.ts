@@ -56,7 +56,14 @@ export class WSLShellProvider extends ShellProvider {
         })
     }
 
-    private async _resolveIcon (defaultDistKey: any): Promise<string> {
+    private _resolveIcon (defaultDistKey: any): Promise<string> {
+        return this._resolveIconInner(defaultDistKey).catch(e => {
+            console.error('Failed to resolve icon for WSL distribution:', defaultDistKey, e)
+            return wslIconMap.Linux
+        })
+    }
+
+    private async _resolveIconInner (defaultDistKey: any): Promise<string> {
         let _icon = wslIconMap.Linux
 
         // check if the register has PackageFamilyName
