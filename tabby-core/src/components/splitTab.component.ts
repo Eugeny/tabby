@@ -838,22 +838,22 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
         }
 
         tab.subscribeUntilDestroyed(
-            this.observeUntilChildDetached(tab.titleChange$),
+            this.observeUntilChildDetached(tab, tab.titleChange$),
             () => this.updateTitle(),
         )
         tab.subscribeUntilDestroyed(
-            this.observeUntilChildDetached(tab.activity$),
+            this.observeUntilChildDetached(tab, tab.activity$),
             a => a ? this.displayActivity() : this.clearActivity(),
         )
         tab.subscribeUntilDestroyed(
-            this.observeUntilChildDetached(tab.progress$),
+            this.observeUntilChildDetached(tab, tab.progress$),
             p => this.setProgress(p),
         )
         if (tab.title) {
             this.updateTitle()
         }
         tab.subscribeUntilDestroyed(
-            this.observeUntilChildDetached(tab.recoveryStateChangedHint$),
+            this.observeUntilChildDetached(tab, tab.recoveryStateChangedHint$),
             () => {
                 this.recoveryStateChangedHint.next()
             },
@@ -865,7 +865,7 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
 
     private observeUntilChildDetached<T> (tab: BaseTabComponent, event: Observable<T>): Observable<T> {
         return event.pipe(takeWhile(() => {
-            this.getAllTabs().includes(tab)
+            return this.getAllTabs().includes(tab)
         }))
     }
 
