@@ -1,4 +1,4 @@
-import { Observable, Subject } from 'rxjs'
+import { Observable, Subject, takeUntil, takeWhile } from 'rxjs'
 import { Component, Injectable, ViewChild, ViewContainerRef, EmbeddedViewRef, AfterViewInit, OnDestroy, Injector } from '@angular/core'
 import { BaseTabComponent, BaseTabProcess, GetRecoveryTokenOptions } from './baseTab.component'
 import { TabRecoveryProvider, RecoveryToken } from '../api/tabRecovery'
@@ -837,18 +837,36 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
             })
         }
 
-        tab.subscribeUntilDestroyed(tab.titleChange$, () => this.updateTitle())
-        tab.subscribeUntilDestroyed(tab.activity$, a => a ? this.displayActivity() : this.clearActivity())
-        tab.subscribeUntilDestroyed(tab.progress$, p => this.setProgress(p))
+        tab.subscribeUntilDestroyed(
+            this.observeUntilChildDetached(tab.titleChange$),
+            () => this.updateTitle(),
+        )
+        tab.subscribeUntilDestroyed(
+            this.observeUntilChildDetached(tab.activity$),
+            a => a ? this.displayActivity() : this.clearActivity(),
+        )
+        tab.subscribeUntilDestroyed(
+            this.observeUntilChildDetached(tab.progress$),
+            p => this.setProgress(p),
+        )
         if (tab.title) {
             this.updateTitle()
         }
-        tab.subscribeUntilDestroyed(tab.recoveryStateChangedHint$, () => {
-            this.recoveryStateChangedHint.next()
-        })
+        tab.subscribeUntilDestroyed(
+            this.observeUntilChildDetached(tab.recoveryStateChangedHint$),
+            () => {
+                this.recoveryStateChangedHint.next()
+            },
+        )
         tab.destroyed$.subscribe(() => {
             this.removeTab(tab)
         })
+    }
+
+    private observeUntilChildDetached<T> (tab: BaseTabComponent, event: Observable<T>): Observable<T> {
+        return event.pipe(takeWhile(() => {
+            this.getAllTabs().includes(tab)
+        }))
     }
 
     private onAfterTabAdded (tab: BaseTabComponent) {
