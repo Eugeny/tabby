@@ -635,10 +635,10 @@
       ]
     },
     {
-      "login": "X-0x01",
-      "name": "X-0x01",
+      "login": "0x973",
+      "name": "0x973",
       "avatar_url": "https://avatars.githubusercontent.com/u/19320096?v=4",
-      "profile": "http://pingbase.cn",
+      "profile": "https://github.com/0x973",
       "contributions": [
         "code"
       ]
@@ -1262,6 +1262,51 @@
       "name": "ChangHwan Kim",
       "avatar_url": "https://avatars.githubusercontent.com/u/26755098?v=4",
       "profile": "https://github.com/kimbob13",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "ashneilson",
+      "name": "Ash Neilson",
+      "avatar_url": "https://avatars.githubusercontent.com/u/35913512?v=4",
+      "profile": "https://github.com/ashneilson",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "cfs4819",
+      "name": "Chen Fansong",
+      "avatar_url": "https://avatars.githubusercontent.com/u/53071761?v=4",
+      "profile": "https://github.com/cfs4819",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "Mxmilu666",
+      "name": "Mxmilu",
+      "avatar_url": "https://avatars.githubusercontent.com/u/82694310?v=4",
+      "profile": "https://5k.work/",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "C41M50N",
+      "name": "Charles Buffington",
+      "avatar_url": "https://avatars.githubusercontent.com/u/29805363?v=4",
+      "profile": "https://cbuff.dev",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "GeminiLn",
+      "name": "Yu Qin",
+      "avatar_url": "https://avatars.githubusercontent.com/u/12425057?v=4",
+      "profile": "https://github.com/GeminiLn",
       "contributions": [
         "code"
       ]

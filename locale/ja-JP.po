@@ -10,11 +10,11 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2023-11-04 21:09\n"
+"PO-Revision-Date: 2024-07-10 09:04\n"
 
 #: tabby-local/src/components/terminalTab.component.ts:113
 msgid "\"{command}\" is still running. Close?"
-msgstr "\"{command}\"が実行中です。閉じますか？"
+msgstr "\"{command}\"が実行中です。閉じてもよろしいですか？"
 
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:78
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:88
@@ -23,7 +23,7 @@ msgstr "{name} コピー"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:77
 msgid "A second font family used to display characters missing in the main font"
-msgstr "既定フォントに不足している文字を表示する際に使用されます"
+msgstr "メインフォントに不足している文字を表示する際に使用されます"
 
 #: tabby-core/src/components/transfersMenu.component.ts:49
 msgid "Abort all"
@@ -64,7 +64,7 @@ msgstr "追加..."
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:84
 msgid "Additional space between lines"
-msgstr "行間にスペースを空けます"
+msgstr "行と行の間隔を広げます"
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:22
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:61
@@ -79,15 +79,15 @@ msgstr "SSHエージェント"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:134
 msgid "Agent forwarding"
-msgstr "SSHエージェントの転送"
+msgstr "SSHエージェント転送"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:35
 msgid "Agent pipe path"
-msgstr "SSHエージェントのパイプのパス"
+msgstr "SSHエージェントのパイプ名"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:24
 msgid "Agent type"
-msgstr "SSHエージェントの種類"
+msgstr "SSHエージェントの指定"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:169
 msgid "Allows opening .bat files in tabs, but breaks some shells"
@@ -354,7 +354,7 @@ msgstr "コマンドライン"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:13
 msgid "Command's stdin/stdout is used instead of a network connection"
-msgstr "ネットワーク接続の代わりにコマンドの stdin/stdout が使用されます"
+msgstr "ネットワーク接続の代わりにコマンドの stdin/stdout を使用します"
 
 #: tabby-core/src/services/commands.service.ts:105
 msgid "Commands"
@@ -486,7 +486,7 @@ msgstr "使用中の配色"
 
 #: locale/tmp-html/tabby-ssh/src/components/hostKeyPromptModal.component.html:17
 msgid "Current host key fingerprint"
-msgstr "使用中のホストキーのフィンガープリント"
+msgstr "現在のホスト鍵のフィンガープリント"
 
 #: tabby-core/src/tabContextMenu.ts:184
 msgid "Current process: {name}"
@@ -618,7 +618,7 @@ msgstr "デバイス"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:10
 msgid "Direct"
-msgstr "直接"
+msgstr "直接接続"
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:57
 msgid "Disable"
@@ -1039,11 +1039,11 @@ msgstr "ホスト"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:206
 msgid "Host key"
-msgstr "ホストキー"
+msgstr "ホスト鍵"
 
 #: locale/tmp-html/tabby-ssh/src/components/hostKeyPromptModal.component.html:3
 msgid "Host key verification"
-msgstr "ホストキーの検証"
+msgstr "ホスト鍵の検証"
 
 #: locale/tmp-html/tabby-settings/src/components/hotkeySettingsTab.component.html:2
 #: tabby-settings/src/settings.ts:15
@@ -1131,7 +1131,7 @@ msgstr "無効な構文"
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:16
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:43
 msgid "Jump host"
-msgstr "ジャンプサーバー"
+msgstr "踏み台サーバー"
 
 #: tabby-terminal/src/hotkeys.ts:34
 msgid "Jump to next word"
@@ -1188,7 +1188,7 @@ msgstr "言語"
 
 #: locale/tmp-html/tabby-ssh/src/components/hostKeyPromptModal.component.html:11
 msgid "Last known host key fingerprint"
-msgstr "最後に使用したホストキーのフィンガープリント"
+msgstr "最後に使われたホスト鍵のフィンガープリント"
 
 #: tabby-ssh/src/tabContextMenu.ts:32
 msgid "Launch WinSCP"
@@ -1201,7 +1201,7 @@ msgstr "現在のSSHセッションでWinSCPを起動"
 #: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:16
 #: locale/tmp-html/tabby-ssh/src/components/sshTab.component.html:7
 msgid "Learn how to allow Tabby to detect remote shell's working directory."
-msgstr "Tabbyにリモート側の作業ディレクトリを検出させる方法をご紹介します。"
+msgstr "リモート上の作業ディレクトリを自動検出する方法をご紹介します。"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:134
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:76
@@ -1227,7 +1227,7 @@ msgstr "Enterキーを押すと入力が送信されます"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:83
 msgid "Line padding"
-msgstr "行間の大きさ"
+msgstr "行間"
 
 #: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:21
 msgid "Loading"
@@ -1325,7 +1325,7 @@ msgstr "新規"
 
 #: tabby-local/src/tabContextMenu.ts:53
 msgid "New admin tab"
-msgstr "新しい管理者タブ"
+msgstr "新しい管理者権限タブ"
 
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:58
 msgid "New config on {platform}"
@@ -1511,11 +1511,11 @@ msgstr "リモートを上書きして同期"
 
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:76
 msgid "Overwrite the config on the remote side and start syncing?"
-msgstr "リモート上の設定を上書きして同期を開始しますか？"
+msgstr "リモート上の設定を上書きして、同期を開始しますか？"
 
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:96
 msgid "Overwrite the local config and start syncing?"
-msgstr "これまでのローカル上の設定を上書きして、同期を開始しますか？"
+msgstr "現在のローカル上の設定を上書きして、同期を開始しますか？"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:189
 msgid "Pane resize step"
@@ -1535,7 +1535,7 @@ msgstr "パリティ"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:64
 msgid "Partial config sync is not possible when the config is encrypted via Vault."
-msgstr "設定ファイルがVaultによって暗号化されている場合、部分的な設定の同期はできません。"
+msgstr "Vaultによって設定ファイルを暗号化した場合、設定の一部だけを同期から外すことはできません。"
 
 #: tabby-terminal/src/components/inputProcessingSettings.component.ts:17
 msgid "Pass-through"
@@ -1562,11 +1562,11 @@ msgstr "クリップボードから貼り付け"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:63
 msgid "Paste if no selection, else copy"
-msgstr "通常は貼り付け、テキスト選択時のみコピー、"
+msgstr "通常は貼り付け、テキスト選択時のみコピー"
 
 #: tabby-terminal/src/api/baseTerminalTab.component.ts:528
 msgid "Paste multiple lines?"
-msgstr "複数行の貼り付けを実行してもよろしいですか？"
+msgstr "複数行貼り付けを実行してもよろしいですか？"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:68
 msgid "Paste on middle-click"
@@ -1960,7 +1960,7 @@ msgstr "最近使用したプロファイルをセレクターに表示しない
 
 #: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:36
 msgid "Sets the SSH agent's named pipe path."
-msgstr "SSHエージェントの名前付きパイプのパスを設定"
+msgstr "SSHエージェントの名前付きパイプのパスを指定します。"
 
 #: tabby-settings/src/buttonProvider.ts:28
 #: tabby-settings/src/components/settingsTab.component.ts:57
@@ -1990,7 +1990,7 @@ msgstr "{type} プロファイルセレクターを表示"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:117
 msgid "Show a confirmation box when pasting multiple lines"
-msgstr "複数行を貼り付ける際に確認ボックスを表示します"
+msgstr "複数行の貼り付けをする際に確認画面を表示します"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:75
 msgid "Show built-in profiles in selector"
@@ -2268,7 +2268,7 @@ msgstr "端末の識別情報"
 
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:7
 msgid "Thank you for downloading Tabby!"
-msgstr "Tabbyをダウンロードしていただきありがとうございます！"
+msgstr "Tabbyをダウンロードしてくださり、ありがとうございます！"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:5
 msgid "Theme"
@@ -2280,7 +2280,7 @@ msgstr "ファイル転送を使用中"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:102
 msgid "There is a saved password for this connection"
-msgstr "この接続に利用可能なパスワードが保存されています。"
+msgstr "この接続に使用するパスワードを保存しています。"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:102
 msgid "These apply to all profiles of a given type"
@@ -2397,7 +2397,7 @@ msgstr "ユーザー名"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:25
 msgid "Using CONNECT method"
-msgstr "CONNECTメソッドの使用"
+msgstr "CONNECTメソッドを使用します"
 
 #: tabby-ssh/src/session/ssh.ts:465
 msgid "Using preset password"
@@ -2426,11 +2426,11 @@ msgstr "Vaultが設定されていません"
 
 #: tabby-core/src/services/fileProviders.service.ts:40
 msgid "Vault master passphrase needs to be set to allow storing secrets"
-msgstr "機密性の高い情報を保存するには、Vaultのマスターパスフレーズを設定する必要があります"
+msgstr "機密性の高い情報を保存するには、Vaultにマスターパスフレーズを設定する必要があります"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:11
 msgid "Verify host keys when connecting"
-msgstr "接続時にホストキーを確認"
+msgstr "接続時にホスト鍵を検証"
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:75
 msgid "Version"
@@ -2478,7 +2478,7 @@ msgstr "セッション終了時"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:82
 msgid "When enabled, links are only clickable while holding this key"
-msgstr "有効にすると、特定のキーを押しながらクリックした時のみリンクが開けるようになります"
+msgstr "有効にすると、特定のキーを押しながらクリックした時のみリンクを開きます"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:18
 msgid "When WinSCP is detected, you can launch an SCP session from the context menu."
@@ -2556,7 +2556,7 @@ msgstr "後から変更できますが、忘れた場合復元することはで
 
 #: locale/tmp-html/tabby-ssh/src/components/hostKeyPromptModal.component.html:7
 msgid "You could be under a man-in-the-middle attack right now, or the host key could have just been changed."
-msgstr "現在中間者攻撃を受けているか、もしくは、ホストキーが変更された可能性があります。"
+msgstr "現在中間者攻撃を受けているか、もしくはホスト鍵が変更された可能性があります。"
 
 #: tabby-terminal/src/hotkeys.ts:54
 msgid "Zoom in"

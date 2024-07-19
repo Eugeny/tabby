@@ -1,101 +1,101 @@
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Crowdin-Project: tabby\n"
 "X-Crowdin-Project-ID: 493349\n"
-"X-Crowdin-Language: id\n"
+"X-Crowdin-Language: sr\n"
 "X-Crowdin-File: /locale/app.pot\n"
 "X-Crowdin-File-ID: 75\n"
 "Project-Id-Version: tabby\n"
-"Language-Team: Indonesian\n"
-"Language: id_ID\n"
+"Language-Team: Serbian (Cyrillic)\n"
+"Language: sr_SP\n"
 "PO-Revision-Date: 2024-07-10 09:04\n"
 
 #: tabby-local/src/components/terminalTab.component.ts:113
 msgid "\"{command}\" is still running. Close?"
-msgstr "\"{command}\" masih berjalan. Tutup?"
+msgstr "\"{command}\" је и даље покренута. Затворити?"
 
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:78
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:88
 msgid "{name} copy"
-msgstr "{name} salin"
+msgstr "копирај {name}"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:77
 msgid "A second font family used to display characters missing in the main font"
-msgstr "Keluarga font kedua digunakan untuk menampilkan karakter yang hilang di font utama"
+msgstr "Друга породица фонта се користи за приказивање карактера који недостају у главном фонту"
 
 #: tabby-core/src/components/transfersMenu.component.ts:49
 msgid "Abort all"
-msgstr "Batalkan semua"
+msgstr "Откажи све"
 
 #: locale/tmp-html/tabby-ssh/src/components/hostKeyPromptModal.component.html:24
 msgid "Accept and remember key"
-msgstr "Terima dan ingat kunci"
+msgstr "Прихвати и запамти кључ"
 
 #: locale/tmp-html/tabby-ssh/src/components/hostKeyPromptModal.component.html:25
 msgid "Accept just this once"
-msgstr "Terima kali ini saja"
+msgstr "Прихвати га само једном"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:84
 msgid "Accessibility"
-msgstr "Aksesbilitas"
+msgstr "Приступачност"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:27
 msgid "Acrylic background"
-msgstr "Latar belakang akrilik"
+msgstr "Акрилична позадина"
 
 #: locale/tmp-html/tabby-local/src/components/commandLineEditor.component.html:24
 #: locale/tmp-html/tabby-local/src/components/environmentEditor.component.html:11
 msgid "Add"
-msgstr "Tambah"
+msgstr "Додај"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:16
 msgid "Add a port forward"
-msgstr "Tambah port forward"
+msgstr "Додај прослеђивање порта"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:115
 msgid "Add a private key"
-msgstr "Tambah kunci pribadi"
+msgstr "Додај приватни кључ"
 
 #: locale/tmp-html/tabby-settings/src/components/multiHotkeyInput.component.html:8
 msgid "Add..."
-msgstr "Tambah..."
+msgstr "Додај..."
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:84
 msgid "Additional space between lines"
-msgstr "Ruang tambahan antar baris"
+msgstr "Додатни размак између линија"
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:22
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:61
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:64
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:124
 msgid "Advanced"
-msgstr "Lanjutan"
+msgstr "Напредно"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:90
 msgid "Agent"
-msgstr "Agen"
+msgstr "Агент"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:134
 msgid "Agent forwarding"
-msgstr "Penerusan agen"
+msgstr "Прослеђивање агента"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:35
 msgid "Agent pipe path"
-msgstr "Jalur pipa agen"
+msgstr "Путања агента"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:24
 msgid "Agent type"
-msgstr "Jenis agen"
+msgstr "Тип агента"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:169
 msgid "Allows opening .bat files in tabs, but breaks some shells"
-msgstr "Izinkan membuka berkas .bat di tab, tapi memecahkan beberapa shell"
+msgstr "Омогућава отварање .bat у картицама, али квари неке шкољке"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:60
 msgid "Allows quickly opening a terminal in the selected folder"
-msgstr "Izinkan buka dengan cepat terminal di direktori terpilih"
+msgstr "Омогућава брзо отварање терминала у изабраном директоријуму"
 
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:25
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:11
@@ -110,78 +110,78 @@ msgstr ""
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:2
 #: tabby-terminal/src/settings.ts:14
 msgid "Appearance"
-msgstr "Tampilan"
+msgstr "Изглед"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:4
 msgid "Application"
-msgstr "Aplikasi"
+msgstr "Апликација"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:47
 msgid "Application settings"
-msgstr "Pengaturan aplikasi"
+msgstr "Поставке апликације"
 
 #: tabby-web/src/services/hostWindow.service.ts:19
 msgid "Are you sure you want to close Tabby? You can disable this prompt in Settings -> Window."
-msgstr "Anda yakin ingin menutup Tabby? Anda bisa menonaktifkan prompt ini di Pengaturan -> Jendela."
+msgstr "Да ли сте сигурни да желите да затворите Tabby? Можете онемогућити овај упит у Подешавања -> Прозор."
 
 #: tabby-core/src/services/config.service.ts:440
 msgid "Are you sure?"
-msgstr "Anda yakin?"
+msgstr "Да ли сте сигурни?"
 
 #: locale/tmp-html/tabby-local/src/components/commandLineEditor.component.html:18
 msgid "Arguments"
-msgstr "Argumen"
+msgstr "Аргументи"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:26
 msgid "Ask a question"
-msgstr "Berikan pertanyaan"
+msgstr "Поставите питање"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:20
 msgid "Ask before closing the browser tab"
-msgstr "Tanya sebelum tutup tab peramban"
+msgstr "Питајте пре затварања картица претраживача"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:141
 msgid "Audible"
-msgstr "Terdengar"
+msgstr "Чијно"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:74
 msgid "Authentication method"
-msgstr "Metode otentikasi"
+msgstr "Метода аутентификације"
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:79
 msgid "Author"
-msgstr "Pencipta"
+msgstr "Аутор"
 
 #: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:50
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:78
 msgid "Auto"
-msgstr "Otomatis"
+msgstr "Аутоматски"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:153
 msgid "Auto-open a terminal on app start"
-msgstr "Otomatis buka terminal saat memulai aplikasi"
+msgstr "Аутоматски отвори терминал приликом покретања апликације"
 
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:13
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:53
 #: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:28
 msgid "Automatic"
-msgstr "Otomatis"
+msgstr "Аутоматско"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:73
 msgid "Automatic Updates"
-msgstr "Pembaruan Otomatis"
+msgstr "Аутоматска ажурирања"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:54
 msgid "Automatically upload changes and check for updates every minute"
-msgstr "Otomatis unggah perubahan dan cek pembaruan setiap menit"
+msgstr "Аутоматски отпреми промене и провери ажурирања сваког минута"
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:10
 msgid "Available"
-msgstr "Tersedia"
+msgstr "Доступно"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:35
 msgid "Background type"
-msgstr "Jenis latar belakang"
+msgstr "Тип позадине"
 
 #: locale/tmp-html/tabby-terminal/src/components/inputProcessingSettings.component.html:4
 msgid "Backspace key mode"
@@ -191,45 +191,45 @@ msgstr ""
 #: tabby-serial/src/components/serialTab.component.ts:93
 #: tabby-serial/src/profiles.ts:88
 msgid "Baud rate"
-msgstr "Baud rate"
+msgstr "Број бауда"
 
 #: tabby-terminal/src/hotkeys.ts:22
 msgid "Beginning of the line"
-msgstr "Awal baris"
+msgstr "Почетак линије"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:64
 msgid "Blink cursor"
-msgstr "Kursor berkedip"
+msgstr "Трепћући курсор"
 
 #: tabby-core/src/utils.ts:60
 msgid "Blue"
-msgstr "Biru"
+msgstr "Плава"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:39
 msgid "Blur"
-msgstr "Buram"
+msgstr "Замагљено"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:28
 msgid "Bold font weight"
-msgstr "Ukuran ketebalan huruf"
+msgstr "Јачина подебљања фонта"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:132
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:80
 msgid "Bottom"
-msgstr "Bawah"
+msgstr "Дно"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:109
 msgid "Bracketed paste (requires shell support)"
-msgstr "Tempel tanda kurung (butuh dukungan shell)"
+msgstr "Лепљење са заградама (захтева подршку за шкољку)"
 
 #: tabby-terminal/src/services/multifocus.service.ts:19
 msgid "Broadcast mode. Click anywhere to cancel."
-msgstr ""
+msgstr "Режим емитовања. Кликните било где да откажете."
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:50
 #: tabby-core/src/services/profiles.service.ts:411
 msgid "Built-in"
-msgstr "Bawaan"
+msgstr "Уграђено"
 
 #: locale/tmp-html/tabby-core/src/components/renameTabModal.component.html:7
 #: locale/tmp-html/tabby-settings/src/components/editProfileGroupModal.component.html:28
@@ -247,93 +247,93 @@ msgstr "Bawaan"
 #: tabby-ssh/src/sftpContextMenu.ts:40
 #: tabby-terminal/src/api/baseTerminalTab.component.ts:522
 msgid "Cancel"
-msgstr "Batal"
+msgstr "Откажи"
 
 #: locale/tmp-html/tabby-serial/src/components/serialTab.component.html:4
 msgid "Change baud rate"
-msgstr "Ubah baud rate"
+msgstr "Измени број бауда"
 
 #: tabby-core/src/tabContextMenu.ts:133
 msgid "Change tab color"
-msgstr ""
+msgstr "Промени боју картице"
 
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:12
 msgid "Change the master passphrase"
-msgstr "Ubah frasa sandi utama"
+msgstr "Промени мастер фразу"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:13
 msgid "Check for updates"
-msgstr "Cek pembaruan"
+msgstr "Провери ажурирања"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:172
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:176
 msgid "Ciphers"
-msgstr "Sandi"
+msgstr "Шифре"
 
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSelector.component.html:5
 msgid "Clear"
-msgstr "Bersihkan"
+msgstr "Очисти"
 
 #: tabby-core/src/services/profiles.service.ts:248
 msgid "Clear recent profiles"
-msgstr "Bersihkan profil terbaru"
+msgstr "Очисти недавне профиле"
 
 #: tabby-terminal/src/hotkeys.ts:50
 msgid "Clear terminal"
-msgstr "Bersihkan terminal"
+msgstr "Очисти терминал"
 
 #: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:58
 msgid "Clear terminal after connection"
-msgstr "Bershikan terminal setelah koneksi"
+msgstr "Очисти терминал након конектовања"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:94
 msgid "Clipboard"
-msgstr "Papan clip"
+msgstr "Привремена меморија"
 
 #: locale/tmp-html/tabby-core/src/components/safeModeModal.component.html:7
 #: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:53
 #: locale/tmp-html/tabby-settings/src/components/showSecretModal.component.html:10
 #: tabby-core/src/tabContextMenu.ts:33
 msgid "Close"
-msgstr "Tutup"
+msgstr "Затвори"
 
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:45
 msgid "Close and never show again"
-msgstr "Tutup dan jangan tampilkan lagi"
+msgstr "Затвори и не приказуј више"
 
 #: tabby-core/src/hotkeys.ts:240
 msgid "Close focused pane"
-msgstr "Tutup panel fokus"
+msgstr "Затвори фокусирано окно"
 
 #: tabby-core/src/tabContextMenu.ts:48
 msgid "Close other tabs"
-msgstr "Tutup tab lain"
+msgstr "Затвори друге картице"
 
 #: tabby-core/src/hotkeys.ts:28
 #: tabby-core/src/tabContextMenu.ts:34
 msgid "Close tab"
-msgstr "Tutup tab"
+msgstr "Затвори картицу"
 
 #: tabby-core/src/tabContextMenu.ts:64
 msgid "Close tabs to the left"
-msgstr "Tutup tab ke kiri"
+msgstr "Затвори картице са леве стране"
 
 #: tabby-core/src/tabContextMenu.ts:56
 msgid "Close tabs to the right"
-msgstr "Tutup tab ke kanan"
+msgstr "Затвори картице са десне стране"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:182
 msgid "Close the window after closing the last tab"
-msgstr ""
+msgstr "Затвори прозор после затварања последње картице"
 
 #: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:33
 #: tabby-core/src/tabContextMenu.ts:132
 msgid "Color"
-msgstr "Warna"
+msgstr "Боја"
 
 #: tabby-terminal/src/settings.ts:29
 msgid "Color scheme"
-msgstr "Skema warna"
+msgstr "Шема боја"
 
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:2
 msgid "Color schemes"
@@ -342,23 +342,23 @@ msgstr ""
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:81
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:216
 msgid "Colors"
-msgstr "Warna-warna"
+msgstr ""
 
 #: tabby-core/src/hotkeys.ts:72
 msgid "Combine all tabs into the current tab"
-msgstr "Gabungkan semua tab ke tab saat ini"
+msgstr "Комбинуј све картице у тренутну картицу"
 
 #: locale/tmp-html/tabby-local/src/components/commandLineEditor.component.html:4
 msgid "Command line"
-msgstr "Baris perintah"
+msgstr "Командна линија"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:13
 msgid "Command's stdin/stdout is used instead of a network connection"
-msgstr "Perintah stdin/stdout digunakan sebagai pengganti koneksi jaringan"
+msgstr ""
 
 #: tabby-core/src/services/commands.service.ts:105
 msgid "Commands"
-msgstr "Perintah-perintah"
+msgstr "Команде"
 
 #: tabby-core/src/theme.ts:16
 msgid "Compact (legacy)"
@@ -366,65 +366,65 @@ msgstr ""
 
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:126
 msgid "Config deleted"
-msgstr "Konfigurasi telah dihapus"
+msgstr "Конфигурација је обрисана"
 
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:108
 msgid "Config downloaded"
-msgstr "Konfigurasi diunduh"
+msgstr "Конфигурација је преузета"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:115
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:120
 msgid "Config file"
-msgstr "Berkas konfigurasi"
+msgstr "Конфигурациона датотека"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:2
 #: tabby-settings/src/settings.ts:73
 msgid "Config sync"
-msgstr "Sinkronisasi konfigurasi"
+msgstr "Синхронизовање конфигурације"
 
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:90
 msgid "Config uploaded"
-msgstr "Konfigurasi diunggah"
+msgstr "Конфигурација је отпремљена"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:31
 msgid "Configs"
-msgstr "Konfigurasi"
+msgstr "Конфигурације"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:21
 msgid "Connect through a proxy server"
-msgstr "Terhubung melalui server proxy"
+msgstr "Повежи се кроз прокси сервер"
 
 #: tabby-core/src/index.ts:220
 #: tabby-core/src/services/profiles.service.ts:296
 msgid "Connect to \"%s\"..."
-msgstr "Hubungkan ke \"%s\"..."
+msgstr "Повежи се на \"%s\"..."
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:17
 msgid "Connect to a different host first and use it as a proxy"
-msgstr "Hubungkan ke host yang berbeda terlebih dahulu dan gunakan sebagai proxy"
+msgstr "Повежи се на различитог домаћина прво и користи га као прокси"
 
 #: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:19
 #: tabby-serial/src/components/serialTab.component.ts:60
 #: tabby-ssh/src/components/sshTab.component.ts:130
 #: tabby-telnet/src/components/telnetTab.component.ts:54
 msgid "Connecting"
-msgstr "Menghubungkan"
+msgstr "Повезивање"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:7
 msgid "Connection"
-msgstr "Koneksi"
+msgstr "Повезивање"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:26
 msgid "Connection failed: {error}"
-msgstr "Koneksi gagal: {error}"
+msgstr "Повезивање није успело: {error}"
 
 #: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:40
 msgid "Connection name will be used instead"
-msgstr "Nama koneksi akan digunakan sebagai gantinya"
+msgstr "Име конекције ће бити коришћено уместо"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:61
 msgid "Context menu"
-msgstr "Menu konteks"
+msgstr "Контекстни мени"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:14
 msgid "Controls the amount of space between elements"
@@ -436,73 +436,73 @@ msgstr ""
 #: tabby-terminal/src/api/baseTerminalTab.component.ts:811
 #: tabby-terminal/src/tabContextMenu.ts:34
 msgid "Copied"
-msgstr "Disalin"
+msgstr "Копирано"
 
 #: tabby-terminal/src/tabContextMenu.ts:30
 msgid "Copy"
-msgstr "Salin"
+msgstr "Копирај"
 
 #: tabby-terminal/src/hotkeys.ts:70
 #: tabby-terminal/src/tabContextMenu.ts:70
 msgid "Copy current path"
-msgstr "Salin jalur saat ini"
+msgstr "Копирај тренутну путању"
 
 #: tabby-electron/src/sftpContextMenu.ts:29
 msgid "Copy full path"
-msgstr ""
+msgstr "Копирај целу путању"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:97
 msgid "Copy on select"
-msgstr "Salin pada saat pilih"
+msgstr "Копирај приликом селектовања"
 
 #: tabby-terminal/src/hotkeys.ts:10
 msgid "Copy to clipboard"
-msgstr "Salin ke papan klip"
+msgstr "Копирај у привремену меморију"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:103
 msgid "Copy with formatting"
-msgstr "Salin dengan formatting"
+msgstr "Копирај са форматирањем"
 
 #: tabby-core/src/services/config.service.ts:425
 msgid "Could not decrypt config"
-msgstr "Tidak bisa mendekripsi konfigurasi"
+msgstr "Немогуће је дешифровати конфигурацију"
 
 #: locale/tmp-html/tabby-ssh/src/components/sftpCreateDirectoryModal.component.html:9
 msgid "Create"
-msgstr "Buat"
+msgstr "Направи"
 
 #: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:7
 #: tabby-ssh/src/sftpContextMenu.ts:29
 msgid "Create directory"
-msgstr "Buat direktori"
+msgstr "Направи директоријум"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:90
 msgid "Current"
-msgstr "Saat ini"
+msgstr "Тренутно"
 
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsForMode.component.html:3
 msgid "Current color scheme"
-msgstr "Skema warna saat ini"
+msgstr "Тренутна шема боја"
 
 #: locale/tmp-html/tabby-ssh/src/components/hostKeyPromptModal.component.html:17
 msgid "Current host key fingerprint"
-msgstr "Sidik jari kunci host saat ini"
+msgstr "Тренутни кључ отиска домаћина"
 
 #: tabby-core/src/tabContextMenu.ts:184
 msgid "Current process: {name}"
-msgstr "Proses saat ini: {name}"
+msgstr "Тренутни процес: {name}"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:51
 msgid "Cursor shape"
-msgstr "Bentuk kursor"
+msgstr "Облик курсора"
 
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsForMode.component.html:46
 msgid "Custom"
-msgstr "Kustom"
+msgstr "Прилагођено"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:90
 msgid "Custom CSS"
-msgstr "CSS khusus"
+msgstr "Прилагођени CSS"
 
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:17
 msgid "Dark mode"
@@ -510,19 +510,19 @@ msgstr ""
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:26
 msgid "Data bits"
-msgstr "Data bits"
+msgstr "Битови података"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:80
 msgid "Debugging"
-msgstr "Men-debug"
+msgstr "Отклањање грешака"
 
 #: tabby-core/src/hotkeys.ts:256
 msgid "Decrease horizontal split size"
-msgstr "Kurangi ukuran pemisahan horizontal"
+msgstr "Смањите величину хоризонталне поделе"
 
 #: tabby-core/src/hotkeys.ts:248
 msgid "Decrease vertical split size"
-msgstr "Kurangi ukuran pemisahan vertical"
+msgstr "Смањите величину хоризонталне поделе"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:92
 msgid "Default \"Connect to\" type"
@@ -534,7 +534,7 @@ msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:8
 msgid "Default profile for new tabs"
-msgstr "Profil bawaan untuk tab baru"
+msgstr "Подразумевани профил за нове картице"
 
 #: locale/tmp-html/tabby-settings/src/components/editProfileGroupModal.component.html:16
 msgid "Default profile group settings"
@@ -542,15 +542,15 @@ msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:101
 msgid "Default profile settings"
-msgstr "Pengaturan profil bawaan"
+msgstr "Подрзумевана подешавања профила"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:124
 msgid "Defaults"
-msgstr "Bawaan"
+msgstr "Подразумевано"
 
 #: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:6
 msgid "Defaults for {type}"
-msgstr "Bawaan untuk {type}"
+msgstr "Подразумевано за {type}"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:44
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:51
@@ -568,77 +568,77 @@ msgstr "Bawaan untuk {type}"
 #: tabby-terminal/src/components/colorSchemeSettingsForMode.component.ts:92
 #: tabby-terminal/src/components/loginScriptsSettings.component.ts:32
 msgid "Delete"
-msgstr "Hapus"
+msgstr "Обриши"
 
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:128
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:213
 #: tabby-terminal/src/components/colorSchemeSettingsForMode.component.ts:90
 msgid "Delete \"{name}\"?"
-msgstr "Hapus \"{name}\"?"
+msgstr "Обриши {name}\"?"
 
 #: tabby-ssh/src/sftpContextMenu.ts:35
 msgid "Delete {fullPath}?"
-msgstr "Hapus {fullPath}?"
+msgstr "Обриши {fullPath}?"
 
 #: tabby-terminal/src/hotkeys.ts:42
 msgid "Delete entire line"
-msgstr "Hapus seluruh baris"
+msgstr "Обриши целу линију"
 
 #: tabby-terminal/src/hotkeys.ts:46
 msgid "Delete next word"
-msgstr "Hapus kata selanjutnya"
+msgstr "Обриши следећу реч"
 
 #: tabby-terminal/src/hotkeys.ts:38
 msgid "Delete previous word"
-msgstr "Hapus kata sebelumnya"
+msgstr "Обриши претходну реч"
 
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:114
 msgid "Delete the config on the remote side?"
-msgstr ""
+msgstr "Обрисати конфигурацију на удаљеном делу?"
 
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:226
 msgid "Delete the group's profiles?"
-msgstr "Hapus profil grup?"
+msgstr "Обрисати профиле група?"
 
 #: tabby-terminal/src/components/loginScriptsSettings.component.ts:29
 msgid "Delete this script?"
-msgstr "Hapus skrip ini?"
+msgstr "Обрисати ову скрипту?"
 
 #: tabby-settings/src/components/vaultSettingsTab.component.ts:50
 msgid "Delete vault contents?"
-msgstr "Hapus konten vault?"
+msgstr "Обрисати садржај трезора?"
 
 #: locale/tmp-html/tabby-ssh/src/components/sftpDeleteModal.component.html:3
 msgid "Deleting"
-msgstr "Menghapus"
+msgstr "Брисање"
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:8
 msgid "Device"
-msgstr "Perangkat"
+msgstr "Уређај"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:10
 msgid "Direct"
-msgstr "Langsung"
+msgstr "Директно"
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:57
 msgid "Disable"
-msgstr "Matikan"
+msgstr "Онемогући"
 
 #: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:39
 msgid "Disable dynamic tab title"
-msgstr "Matikan judul tab dinamis"
+msgstr "Онемогући динамички наслов картице"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:218
 msgid "Disable fluent background while dragging"
-msgstr "Nonaktifkan latar belakang yang lancar saat menyeret"
+msgstr "Онемогући течну позадину приликом превлачења"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:204
 msgid "Disable GPU acceleration"
-msgstr "Matikan akselerasi GPU"
+msgstr "Онемогући убрзање графичке јединице"
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:50
 msgid "Disabled"
-msgstr "Dinonaktifkan"
+msgstr "Онемогућено"
 
 #: locale/tmp-html/tabby-ssh/src/components/hostKeyPromptModal.component.html:26
 #: tabby-ssh/src/components/sshTab.component.ts:200
@@ -647,7 +647,7 @@ msgstr "Dinonaktifkan"
 #: tabby-terminal/src/tabContextMenu.ts:106
 #: tabby-terminal/src/tabContextMenu.ts:110
 msgid "Disconnect"
-msgstr "Putuskan"
+msgstr "Прекини везу"
 
 #: tabby-terminal/src/hotkeys.ts:106
 msgid "Disconnect current tab (Serial/Telnet/SSH)"
@@ -656,209 +656,209 @@ msgstr ""
 #: tabby-ssh/src/components/sshTab.component.ts:198
 #: tabby-telnet/src/components/telnetTab.component.ts:81
 msgid "Disconnect from {host}?"
-msgstr "Putuskan dari {host}?"
+msgstr "Прекинути везу са {host}?"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:30
 msgid "Display images via Sixel escape sequences"
-msgstr ""
+msgstr "Прикажи слике преко Sixel излазних секвенци"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:85
 msgid "Display on"
-msgstr "Tampil pada"
+msgstr "Прикажи на"
 
 #: tabby-core/src/components/transfersMenu.component.ts:50
 msgid "Do not abort"
-msgstr "Jangan dibatalkan"
+msgstr "Не отказуј"
 
 #: tabby-ssh/src/components/sshTab.component.ts:201
 #: tabby-telnet/src/components/telnetTab.component.ts:84
 msgid "Do not close"
-msgstr "Jangan tutup"
+msgstr "Не затварај"
 
 #: locale/tmp-html/tabby-core/src/components/unlockVaultModal.component.html:6
 #: locale/tmp-html/tabby-core/src/components/unlockVaultModal.component.html:8
 msgid "Do not remember"
-msgstr "Jangan ingat"
+msgstr "Не памти"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:97
 msgid "Dock always on top"
-msgstr "Kait selalu diatas"
+msgstr "На врху осталих прозора"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:67
 msgid "Dock the terminal"
-msgstr "Kaitkan terminal"
+msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:104
 msgid "Docked terminal size"
-msgstr "Kaitkan ukuran terminal"
+msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:111
 msgid "Docked terminal space"
-msgstr "Kaitkan ruang terminal"
+msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:64
 msgid "Docking"
-msgstr "Mengaitkan"
+msgstr ""
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:75
 msgid "Double-click selection will stop at these characters"
-msgstr "Pilihan klik dua kali akan berhenti di karakter ini"
+msgstr "Избор двоструким кликом ће се зауставити на овим карактерима"
 
 #: tabby-core/src/tabContextMenu.ts:79
 msgid "Down"
-msgstr "Turun"
+msgstr "Доле"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:43
 msgid "Download"
-msgstr "Unduh"
+msgstr "Преузми"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:23
 msgid "Draw bold text in bright colors"
-msgstr "Menampilkan teks tebal dalam warna cerah"
+msgstr "Нацртај подебљани текст јарким бојама"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:48
 #: tabby-core/src/tabContextMenu.ts:127
 msgid "Duplicate"
-msgstr "Duplikasi"
+msgstr "Умножи"
 
 #: tabby-local/src/tabContextMenu.ts:72
 msgid "Duplicate as administrator"
-msgstr "Duplikat sebagai administrator"
+msgstr "Умножи као администратор"
 
 #: tabby-core/src/hotkeys.ts:60
 #: tabby-core/src/tabContextMenu.ts:128
 msgid "Duplicate tab"
-msgstr "Duplikat tab"
+msgstr "Умножи картицу"
 
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsForMode.component.html:6
 msgid "Edit"
-msgstr "Sunting"
+msgstr "Уреди"
 
 #: tabby-electron/src/sftpContextMenu.ts:35
 msgid "Edit locally"
-msgstr "Sunting Lokal"
+msgstr "Уреди локално"
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:58
 msgid "Enable"
-msgstr "Izinkan"
+msgstr "Омогући"
 
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:32
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:66
 msgid "Enable analytics"
-msgstr "Izinkan analitik"
+msgstr "Омогући аналитику"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:87
 msgid "Enable animations"
-msgstr "Aktifkan animasi"
+msgstr "Омогући анимације"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:74
 msgid "Enable automatic installation of updates when they become available."
-msgstr "Aktifkan penginstalan pembaruan otomatis saat tersedia."
+msgstr "Омогући аутоматско инсталирање надоградњи када постану доступна."
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:211
 msgid "Enable fluent background option"
-msgstr ""
+msgstr "Омогући опцију течне позадине"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:16
 msgid "Enable font ligatures"
-msgstr "Aktifkan ligatur font"
+msgstr "Омогући лигатуре фонта"
 
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:39
 msgid "Enable global hotkey (Ctrl-Space)"
-msgstr "Aktifkan hotkey global (Ctrl-Space)"
+msgstr "Омогући глобалну пречицу (Ctrl-Space)"
 
 #: locale/tmp-html/tabby-local/src/components/shellSettingsTab.component.html:6
 msgid "Enables the experimental Windows ConPTY API"
-msgstr "Mengaktifkan Windows ConPTY API eksperimental"
+msgstr "Омогући експерименталан Windows ConPTY API"
 
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:37
 msgid "Encrypt config file"
-msgstr "Enkripsi berkas konfigurasi"
+msgstr "Шифруј конфигурациону датотеку"
 
 #: tabby-terminal/src/hotkeys.ts:26
 msgid "End of the line"
-msgstr "Baris akhir"
+msgstr "Крај линије"
 
 #: locale/tmp-html/tabby-local/src/components/localProfileSettings.component.html:17
 msgid "Environment"
-msgstr "Lingkungan"
+msgstr "Окружење"
 
 #: tabby-core/src/services/config.service.ts:429
 #: tabby-core/src/services/config.service.ts:443
 msgid "Erase config"
-msgstr "Hapus konfigurasi"
+msgstr "Обриши конфигурацију"
 
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:12
 msgid "Erase the Vault"
-msgstr "Hapus vault"
+msgstr "Обриши трезор"
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:6
 msgid "Error in {plugin}:"
-msgstr "Eror di {plugin}:"
+msgstr "Грешка у {plugin}:"
 
 #: locale/tmp-html/tabby-terminal/src/components/loginScriptsSettings.component.html:10
 msgid "Exact match"
-msgstr "Paling cocok"
+msgstr "Тачно подударање"
 
 #: locale/tmp-html/tabby-local/src/components/environmentEditor.component.html:15
 msgid "Example:"
-msgstr "Contoh:"
+msgstr "Пример:"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:212
 msgid "Experimental Windows 10 background style known to cause issues"
-msgstr ""
+msgstr "Експерименталан стил позадине за Windows 10 уме да проузрокује проблеме"
 
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:28
 msgid "Export"
-msgstr "Ekspor"
+msgstr "Извези"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:76
 msgid "Fallback font"
-msgstr "Font cadangan"
+msgstr "Резервни фонт"
 
 #: locale/tmp-html/tabby-core/src/components/transfersMenu.component.html:3
 msgid "File transfers"
-msgstr "Transfer berkas"
+msgstr "Преноси датотека"
 
 #: tabby-settings/src/components/vaultSettingsTab.component.ts:96
 msgid "File: {description}"
-msgstr "Berkas: {description}"
+msgstr "Датотека: {description}"
 
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:9
 msgid "Filter"
-msgstr "Saring"
+msgstr "Филтер"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:147
 msgid "Fixed"
-msgstr "Tetap"
+msgstr "Фиксно"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:219
 msgid "Fluent background sometimes causes drag lag"
-msgstr "Latar belakang yang lancar terkadang menyebabkan kelambatan seret"
+msgstr "Течна позадина понекад узрокује кашњење у повлачењу"
 
 #: tabby-terminal/src/tabContextMenu.ts:82
 msgid "Focus all panes"
-msgstr "Fokuskan semua panel"
+msgstr "Фокусирај сва окна"
 
 #: tabby-terminal/src/hotkeys.ts:78
 msgid "Focus all panes at once (broadcast)"
-msgstr "Fokuskan semua panel sekaligus (siaran)"
+msgstr "Фокусирај сва окна одједном (емитовање)"
 
 #: tabby-terminal/src/tabContextMenu.ts:75
 msgid "Focus all tabs"
-msgstr ""
+msgstr "Фокусирај све картице"
 
 #: tabby-terminal/src/hotkeys.ts:82
 msgid "Focus all tabs at once (broadcast)"
-msgstr ""
+msgstr "Фокусирај све картице одједном (емитовање)"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:196
 msgid "Focus follows mouse"
-msgstr ""
+msgstr "Фокусирај праћење миша"
 
 #: tabby-core/src/hotkeys.ts:196
 msgid "Focus next pane"
-msgstr "Fokuskan panel berikutnya"
+msgstr "Фокусирај следеће окно"
 
 #: tabby-core/src/hotkeys.ts:200
 #: tabby-core/src/hotkeys.ts:204
@@ -870,71 +870,71 @@ msgstr "Fokuskan panel berikutnya"
 #: tabby-core/src/hotkeys.ts:228
 #: tabby-core/src/hotkeys.ts:232
 msgid "Focus pane {number}"
-msgstr ""
+msgstr "Фокусирај окно {number}"
 
 #: tabby-core/src/hotkeys.ts:192
 msgid "Focus previous pane"
-msgstr "Fokuskan panel sebelumnya"
+msgstr "Фокусирај претходно окно"
 
 #: tabby-core/src/hotkeys.ts:176
 msgid "Focus the pane above"
-msgstr "Fokuskan panel di atas"
+msgstr "Фокусирај окно изнад"
 
 #: tabby-core/src/hotkeys.ts:180
 msgid "Focus the pane below"
-msgstr "Fokuskan panel di bawah"
+msgstr "Фокусирај окно испод"
 
 #: tabby-core/src/hotkeys.ts:184
 msgid "Focus the pane on the left"
-msgstr "Fokuskan panel di kiri"
+msgstr "Фокусирај окно са леве стране"
 
 #: tabby-core/src/hotkeys.ts:188
 msgid "Focus the pane on the right"
-msgstr "Fokuskan panel di kanan"
+msgstr "Фокусирај окно на десну страну"
 
 #: tabby-core/src/theme.ts:34
 msgid "Follow the color scheme"
-msgstr "Ikuti Sekema Warna"
+msgstr ""
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:5
 msgid "Font"
-msgstr "Font"
+msgstr "Фонт"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:190
 msgid "For keyboard shortcuts"
-msgstr "Untuk pintasan keyboard"
+msgstr "За тастерске пречице"
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:53
 msgid "Force CR"
-msgstr "Paksakan CR"
+msgstr "Форсирај CR"
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:55
 msgid "Force CRLF"
-msgstr "Paksakan CRLF"
+msgstr "Форсирај CRLF"
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:54
 msgid "Force LF"
-msgstr "Paksakan LF"
+msgstr "Форсирај LF"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:25
 msgid "Forces a specific SSH agent connection type."
-msgstr "Memaksa jenis koneksi agen SSH tertentu."
+msgstr "Форсира специфичан тип конекције SSH агента."
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:105
 msgid "Forget"
-msgstr "Lupakan"
+msgstr "Заборави"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:45
 msgid "Forward port"
-msgstr "Port penerusan"
+msgstr "Проследи порт"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingModal.component.html:3
 msgid "Forwarded ports"
-msgstr "Port diteruskan"
+msgstr "Прослеђени портови"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:46
 msgid "From color scheme"
-msgstr "Dari skema warna"
+msgstr "Из шеме боја"
 
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:23
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:9
@@ -943,66 +943,66 @@ msgstr ""
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:44
 msgid "From theme"
-msgstr "Dari tema"
+msgstr "Из теме"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:6
 msgid "Frontend"
-msgstr "Tampilan Depan"
+msgstr "Предњи крај"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:61
 msgid "Full"
-msgstr "Penuh"
+msgstr "Цео"
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:3
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:3
 #: locale/tmp-html/tabby-telnet/src/components/telnetProfileSettings.component.html:3
 msgid "General"
-msgstr "Umum"
+msgstr "Опште"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:21
 msgid "Generate a pre-filled GitHub issue"
-msgstr "Buat pra-diisi isu di GitHub"
+msgstr ""
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:25
 msgid "Get"
-msgstr "Dapatkan"
+msgstr "Преузми"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:18
 msgid "Get it from the Tabby Web settings window"
-msgstr "Dapatkan dari jendela pengaturan Web Tabby"
+msgstr "Преузми из подешавања прозора за Tabby Web"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:29
 msgid "Gives the window a blurred transparent background"
-msgstr "Beri jendela latar belakang transparan buram"
+msgstr "Даје прозору замућену провидну позадину"
 
 #: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:24
 msgid "Go up"
-msgstr "Naik"
+msgstr "На врх"
 
 #: tabby-core/src/utils.ts:61
 msgid "Green"
-msgstr "Hijau"
+msgstr "Зелено"
 
 #: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:16
 msgid "Group"
-msgstr "Grup"
+msgstr "Група"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:201
 msgid "Hacks"
-msgstr "Peretasan"
+msgstr "Хакови"
 
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:33
 msgid "Help track the number of Tabby installs across the world!"
-msgstr "Bantu lacak jumlah pemasangan Tabby di seluruh dunia!"
+msgstr "Помози праћењу броја инсталација Tabby-ја у целом свету!"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:50
 msgid "Help translate Tabby"
-msgstr "Bantu terjemahkan Tabby"
+msgstr "Помози у превођењу Tabby-ја"
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:32
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:45
 msgid "Hexadecimal"
-msgstr "Heksadesimal"
+msgstr "Хексадецимални"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:49
 msgid "Hide"
@@ -1010,45 +1010,45 @@ msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:176
 msgid "Hide tab close button"
-msgstr "Sembunyikan tombol tutup tab"
+msgstr "Сакриј дугме за затварање картице"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:158
 msgid "Hide tab index"
-msgstr "Sembunyikan indeks tab"
+msgstr "Сакриј индекс картице"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:170
 msgid "Hide tab options button"
-msgstr "Sembunyikan tombol opsi tab"
+msgstr "Сакриј дугме за опције картице"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:118
 msgid "Hide window on focus loss"
-msgstr "Sembunyikan jendela saat kehilangan fokus"
+msgstr "Сакриј прозор приликом губитка фокуса"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:119
 msgid "Hides the docked terminal when you click away."
-msgstr "Sembunyikan terminal yang terkait saat Anda mengklik."
+msgstr ""
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:26
 msgid "Homepage"
-msgstr "Beranda"
+msgstr "Почетна страна"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:34
 #: locale/tmp-html/tabby-telnet/src/components/telnetProfileSettings.component.html:6
 msgid "Host"
-msgstr "Host"
+msgstr "Домаћин"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:206
 msgid "Host key"
-msgstr "Kunci host"
+msgstr "Кључ домаћина"
 
 #: locale/tmp-html/tabby-ssh/src/components/hostKeyPromptModal.component.html:3
 msgid "Host key verification"
-msgstr "Kunci verifikasi host"
+msgstr "Верификација кључа домаћина"
 
 #: locale/tmp-html/tabby-settings/src/components/hotkeySettingsTab.component.html:2
 #: tabby-settings/src/settings.ts:15
 msgid "Hotkeys"
-msgstr "Pintasan"
+msgstr "Тастерске пречице"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:83
 msgid "How Tabby presents itself through environment vars"
@@ -1056,39 +1056,39 @@ msgstr ""
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:24
 msgid "HTTP proxy"
-msgstr "HTTP proxy"
+msgstr "HTTP прокси"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:61
 msgid "HTTP proxy host"
-msgstr "Host HTTP proxy"
+msgstr "Домаћин HTTP прокси-ја"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:65
 msgid "HTTP proxy port"
-msgstr "Port HTTP proxy"
+msgstr "Порт HTTP прокси-ја"
 
 #: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:20
 msgid "Icon"
-msgstr "Ikon"
+msgstr "Икона"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:145
 msgid "id.tab-width.dynamic"
-msgstr "id.lebar-tab.dinamis"
+msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:76
 msgid "If disabled, only custom profiles will show up in the profile selector"
-msgstr "Jika dimatikan, hanya profil khusus yang akan tampil di pemilhan profil"
+msgstr "Уколико је онемогућено, само прилагођени профили ће се приказати у одабиру профила"
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:23
 msgid "Immediately echoes your input locally"
-msgstr "Segera menggemakan masukan Anda secara lokal"
+msgstr "Одмах локално одзвања ваш унос"
 
 #: tabby-core/src/hotkeys.ts:252
 msgid "Increase horizontal split size"
-msgstr "Tingkatkan ukuran pemisahan horizontal"
+msgstr "Повећај величину хоризонталне поделе"
 
 #: tabby-core/src/hotkeys.ts:244
 msgid "Increase vertical split size"
-msgstr "Tingkatkan ukuran pemisahan vertikal"
+msgstr "Повећај величину хоризонталне поделе"
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:91
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:226
@@ -1098,48 +1098,48 @@ msgstr ""
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:18
 msgid "Input is sent as you type"
-msgstr "Masukan dikirim saat Anda mengetik"
+msgstr "Унос се шаље како куцате"
 
 #: locale/tmp-html/tabby-terminal/src/components/streamProcessingSettings.component.html:4
 msgid "Input mode"
-msgstr "Modus masukan"
+msgstr "Режим уноса"
 
 #: locale/tmp-html/tabby-terminal/src/components/streamProcessingSettings.component.html:15
 msgid "Input newlines"
-msgstr "Masukan garis baru"
+msgstr "Унос нових линија"
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:39
 msgid "Installed"
-msgstr "Terpasang"
+msgstr "Инсталирано"
 
 #: tabby-electron/src/services/updater.service.ts:131
 msgid "Installing the update will close all tabs and restart Tabby."
-msgstr "Pemasangan pembaruan akan menutup semua tab dan mengulang kembali Tabby."
+msgstr "Инсталирање надоградње ће затворити све картице и поново покренути Tabby."
 
 #: tabby-terminal/src/hotkeys.ts:66
 msgid "Intelligent Ctrl-C (copy/abort)"
-msgstr "Ctrl-C cerdas (salin/batal)"
+msgstr ""
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:94
 msgid "Interactive"
-msgstr "Interaktif"
+msgstr "Интерактивно"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:130
 msgid "Invalid syntax"
-msgstr "Sintaks tidak sah"
+msgstr "Неисправна синтакса"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:16
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:43
 msgid "Jump host"
-msgstr "Lompat host"
+msgstr ""
 
 #: tabby-terminal/src/hotkeys.ts:34
 msgid "Jump to next word"
-msgstr "Lompat ke kata berikutnya"
+msgstr ""
 
 #: tabby-terminal/src/hotkeys.ts:30
 msgid "Jump to previous word"
-msgstr "Lompat ke kata sebelumnya"
+msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:51
 #: tabby-settings/src/components/editProfileGroupModal.component.ts:39
@@ -1151,40 +1151,40 @@ msgstr "Lompat ke kata sebelumnya"
 #: tabby-terminal/src/components/loginScriptsSettings.component.ts:33
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:51
 msgid "Keep"
-msgstr "Tetap"
+msgstr ""
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:154
 msgid "Keep Alive Interval (Milliseconds)"
-msgstr "Interval Tetap Hidup (Milidetik)"
+msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:98
 msgid "Keep docked terminal always on top"
-msgstr "Terminal tetap selalu diatas"
+msgstr ""
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:86
 msgid "Key"
-msgstr "Kunci"
+msgstr "Кључ"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:186
 msgid "Key exchange"
-msgstr "Bertukar kunci"
+msgstr ""
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:36
 msgid "Keyboard"
-msgstr "Papan ketik"
+msgstr "Тастатура"
 
 #: locale/tmp-html/tabby-ssh/src/components/keyboardInteractiveAuthPanel.component.html:2
 msgid "Keyboard-interactive auth"
-msgstr "Otentikasi keyboard-interaktif"
+msgstr ""
 
 #: tabby-local/src/components/terminalTab.component.ts:117
 msgid "Kill"
-msgstr "Matikan"
+msgstr ""
 
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:10
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:50
 msgid "Language"
-msgstr "Bahasa"
+msgstr "Језик"
 
 #: locale/tmp-html/tabby-ssh/src/components/hostKeyPromptModal.component.html:11
 msgid "Last known host key fingerprint"
@@ -1192,26 +1192,26 @@ msgstr ""
 
 #: tabby-ssh/src/tabContextMenu.ts:32
 msgid "Launch WinSCP"
-msgstr "Buka WinSCP"
+msgstr "Покрени WinSCP"
 
 #: tabby-ssh/src/hotkeys.ts:14
 msgid "Launch WinSCP for current SSH session"
-msgstr "Buka WinSCP untuk sesi SSH saat ini"
+msgstr "Покрени WinSCP за тренутну SSH сесију"
 
 #: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:16
 #: locale/tmp-html/tabby-ssh/src/components/sshTab.component.html:7
 msgid "Learn how to allow Tabby to detect remote shell's working directory."
-msgstr "Pelajari cara mengizinkan Tabby mendeteksi direktori kerja shell jarak jauh."
+msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:134
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:76
 #: tabby-core/src/tabContextMenu.ts:80
 msgid "Left"
-msgstr "Kiri"
+msgstr "Лево"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:40
 msgid "Lets the shell handle Meta key instead of OS"
-msgstr "Biarkan shell menangani kunci Meta daripada OS"
+msgstr "Дозвољава љусци да рукује Мета кључем уместо ОС-а"
 
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:22
 msgid "Light mode"
@@ -1219,105 +1219,105 @@ msgstr ""
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:27
 msgid "Line by line"
-msgstr "Baris per baris"
+msgstr "Линија по линију"
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:28
 msgid "Line editor, input is sent after you press Enter"
-msgstr "Editor baris, masukkan dikirim setelah Anda tekan Enter"
+msgstr "Уређивач линија, унос се шаље након што притиснете ентер"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:83
 msgid "Line padding"
-msgstr "Bantalan garis"
+msgstr "Водећи размак линије"
 
 #: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:21
 msgid "Loading"
-msgstr "Memuat"
+msgstr "Учитавање"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:34
 msgid "Loading configs..."
-msgstr "Memuat konfigurasi..."
+msgstr "Учитавање конфигурација..."
 
 #: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:39
 #: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:5
 msgid "Local"
-msgstr "Lokal"
+msgstr "Локално"
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:22
 msgid "Local echo"
-msgstr "Echo Lokal"
+msgstr "Локални ехо"
 
 #: tabby-local/src/profiles.ts:12
 msgid "Local terminal"
-msgstr "Terminal lokal"
+msgstr "Локални терминал"
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:86
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:221
 #: locale/tmp-html/tabby-telnet/src/components/telnetProfileSettings.component.html:16
 msgid "Login scripts"
-msgstr "Skrip masuk"
+msgstr "Скрипте за учитавање"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:57
 msgid "Long-click for context menu"
-msgstr "Klik lama untuk menu konteks"
+msgstr "Дуги клик за контекстни мени"
 
 #: tabby-core/src/services/profiles.service.ts:279
 msgid "Manage profiles"
-msgstr "Kelola profil"
+msgstr "Управљање профилима"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:160
 msgid "Max Keep Alive Count"
-msgstr ""
+msgstr "Максималан Keep Alive Count"
 
 #: tabby-core/src/hotkeys.ts:172
 msgid "Maximize the active pane"
-msgstr ""
+msgstr "Максимизирај активно окно"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:93
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:70
 msgid "Minimum contrast ratio"
-msgstr ""
+msgstr "Минимални однос контраста"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:39
 msgid "Modified on {date}"
-msgstr "Diubah pada {date}"
+msgstr "Измењено у {date}"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:53
 msgid "Mouse"
-msgstr "Kursor"
+msgstr "Миш"
 
 #: tabby-core/src/hotkeys.ts:48
 msgid "Move tab to the left"
-msgstr "Geser tab ke kiri"
+msgstr "Помери картицу лево"
 
 #: tabby-core/src/hotkeys.ts:52
 msgid "Move tab to the right"
-msgstr "Geser tab ke kanan"
+msgstr "Помери картицу десно"
 
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:228
 msgid "Move to \"Ungrouped\""
-msgstr "Pindahkan ke \"Tanpa Group\""
+msgstr "Помери у ”Негруписано”"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:197
 msgid "Moving the mouse over an inactive pane will cause it to activate"
-msgstr ""
+msgstr "Померање миша преко неактивног окна ће га активирати"
 
 #: locale/tmp-html/tabby-settings/src/components/editProfileGroupModal.component.html:9
 #: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:12
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsForMode.component.html:13
 msgid "Name"
-msgstr "Nama"
+msgstr "Име"
 
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:60
 msgid "Name for the new config"
-msgstr "Nama untuk konfigurasi baru"
+msgstr "Име нове конфигурације"
 
 #: locale/tmp-html/tabby-ssh/src/components/sftpCreateDirectoryModal.component.html:3
 msgid "Name for the new directory"
-msgstr "Nama untuk direktori baru"
+msgstr "Име новог директоријума"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:57
 msgid "Native"
-msgstr "Asli"
+msgstr "Изворно"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:21
 msgid "New"
@@ -1325,11 +1325,11 @@ msgstr ""
 
 #: tabby-local/src/tabContextMenu.ts:53
 msgid "New admin tab"
-msgstr "Tab admin baru"
+msgstr "Нова администраторска картица"
 
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:58
 msgid "New config on {platform}"
-msgstr "Pengaturan baru di {platform}"
+msgstr "Нова конфигурација на {platform}"
 
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:144
 msgid "New group name"
@@ -1337,15 +1337,15 @@ msgstr ""
 
 #: locale/tmp-html/tabby-terminal/src/components/loginScriptsSettings.component.html:16
 msgid "New item"
-msgstr "Item baru"
+msgstr "Нова ставка"
 
 #: tabby-settings/src/components/vaultSettingsTab.component.ts:133
 msgid "New name"
-msgstr "Nama baru"
+msgstr "Ново име"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:23
 msgid "New profile"
-msgstr "Profil baru"
+msgstr "Нови профил"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:24
 msgid "New profile Group"
@@ -1353,88 +1353,88 @@ msgstr ""
 
 #: tabby-terminal/src/tabContextMenu.ts:176
 msgid "New profile name"
-msgstr "Nama profil baru"
+msgstr "Ново име профила"
 
 #: tabby-local/src/hotkeys.ts:10
 msgid "New tab"
-msgstr "Tab Baru"
+msgstr "Нова картица"
 
 #: tabby-core/src/hotkeys.ts:271
 msgid "New tab: {profile}"
-msgstr "Tab baru: {profile}"
+msgstr "Нова картица: {profile}"
 
 #: tabby-local/src/buttonProvider.ts:20
 #: tabby-local/src/tabContextMenu.ts:27
 msgid "New terminal"
-msgstr "Terminal Baru"
+msgstr "Нови терминал"
 
 #: tabby-electron/src/hotkeys.ts:10
 msgid "New window"
-msgstr "Jendela baru"
+msgstr "Нови прозор"
 
 #: tabby-electron/src/services/dockMenu.service.ts:62
 msgid "New Window"
-msgstr "Jendela Baru"
+msgstr "Нови прозор"
 
 #: tabby-local/src/tabContextMenu.ts:37
 msgid "New with profile"
-msgstr "Buka baru dengan profil tertentu"
+msgstr "Ново са профилом"
 
 #: tabby-core/src/hotkeys.ts:40
 msgid "Next tab"
-msgstr "Tab selanjutnya"
+msgstr "Следећа картица"
 
 #: tabby-core/src/utils.ts:59
 msgid "No color"
-msgstr "Tidak berwarna"
+msgstr "Без боје"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:85
 msgid "No modifier"
-msgstr "Tidak ada modifier"
+msgstr "Без модификатора"
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:41
 msgid "None"
-msgstr "Tidak ada"
+msgstr "Ништа"
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:17
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:40
 msgid "Normal"
-msgstr "Normal"
+msgstr "Нормално"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:22
 msgid "Normal font weight"
-msgstr "Ketebalan font normal"
+msgstr "Нормално подебљање фонта"
 
 #: tabby-terminal/src/components/searchPanel.component.ts:54
 #: tabby-terminal/src/components/searchPanel.component.ts:64
 msgid "Not found"
-msgstr "Tidak ditemukan"
+msgstr "Није пронађено"
 
 #: tabby-core/src/tabContextMenu.ts:209
 msgid "Notify on activity"
-msgstr "Beri tahu tentang aktivitas"
+msgstr "Обавести приликом активности"
 
 #: tabby-core/src/tabContextMenu.ts:187
 msgid "Notify when done"
-msgstr "Beri tahu saat selesai"
+msgstr "Обавести када је завршено"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:17
 msgid "Number of lines kept in the buffer"
-msgstr "Jumlah baris yang disimpan dalam buffer"
+msgstr "Број битова остављених у баферу"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:72
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:137
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:60
 msgid "Off"
-msgstr "Mati"
+msgstr "Искључено"
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:81
 msgid "Official"
-msgstr "Resmi"
+msgstr "Званично"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:26
 msgid "On GitHub Discussions"
-msgstr "Di Diskusi GitHub"
+msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:47
 msgid "Only close the tab when session is explicitly terminated"
@@ -1442,88 +1442,88 @@ msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:46
 msgid "Opacity"
-msgstr "Keburaman"
+msgstr "Непрозирност"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:82
 msgid "Open DevTools"
-msgstr "Buka DevTools"
+msgstr "Отвори алатке за развој"
 
 #: tabby-settings/src/hotkeys.ts:11
 msgid "Open Settings"
-msgstr "Buka Pengaturan"
+msgstr "Отвори подешавања"
 
 #: tabby-settings/src/hotkeys.ts:25
 msgid "Open settings tab: {tab}"
-msgstr "Buka pengaturan tab: {tab}"
+msgstr "Отвори картицу подешавања: {tab}"
 
 #: tabby-ssh/src/tabContextMenu.ts:25
 msgid "Open SFTP panel"
-msgstr "Buka panel SFTP"
+msgstr "Отвори SFTP панел"
 
 #: locale/tmp-html/tabby-terminal/src/components/loginScriptsSettings.component.html:10
 msgid "Optional"
-msgstr "Opsional"
+msgstr "Опцинално"
 
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:11
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:34
 msgid "Options"
-msgstr "Pilihan"
+msgstr "Опције"
 
 #: tabby-core/src/utils.ts:62
 msgid "Orange"
-msgstr "Oranye"
+msgstr "Наранџастo"
 
 #: tabby-electron/src/shells/macDefault.ts:25
 msgid "OS default"
-msgstr "Default OS"
+msgstr "Подразумевано за ОС"
 
 #: tabby-electron/src/shells/winDefault.ts:43
 msgid "OS default ({name})"
-msgstr "Default OS ({name})"
+msgstr "Подразумевано за ОС ({name})"
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:46
 msgid "Output is shown as a hexdump"
-msgstr "Output ditampilkan sebagai hexdump"
+msgstr ""
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:41
 msgid "Output is shown as it is received"
-msgstr "Luaran ditampilkan layaknya saat diterima"
+msgstr ""
 
 #: locale/tmp-html/tabby-terminal/src/components/streamProcessingSettings.component.html:23
 msgid "Output mode"
-msgstr "Mode luaran"
+msgstr "Режим излаза"
 
 #: locale/tmp-html/tabby-terminal/src/components/streamProcessingSettings.component.html:34
 msgid "Output newlines"
-msgstr "Baris baru luaran"
+msgstr "Излаз нових линија"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:42
 msgid "Override X11 display"
-msgstr "Ganti tampilan X11"
+msgstr ""
 
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:98
 msgid "Overwrite local and sync"
-msgstr "Timpa lokal dan sinkronkan"
+msgstr ""
 
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:78
 msgid "Overwrite remote and sync"
-msgstr "Timpa jarak jauh dan sinkronkan"
+msgstr ""
 
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:76
 msgid "Overwrite the config on the remote side and start syncing?"
-msgstr "Timpa konfigurasi di sisi jarak jauh dan mulai menyinkronkan?"
+msgstr ""
 
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:96
 msgid "Overwrite the local config and start syncing?"
-msgstr "Timpa konfigurasi lokal dan mulai menyinkronkan?"
+msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:189
 msgid "Pane resize step"
-msgstr "Langkah mengubah ukuran panel"
+msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:186
 msgid "Panes"
-msgstr "Panel"
+msgstr "Окна"
 
 #: tabby-core/src/theme.ts:26
 msgid "Paper (legacy)"
@@ -1531,11 +1531,11 @@ msgstr ""
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:38
 msgid "Parity"
-msgstr "Keseimbangan"
+msgstr "Паритет"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:64
 msgid "Partial config sync is not possible when the config is encrypted via Vault."
-msgstr "Sinkronisasi konfigurasi parsial tidak dimungkinkan saat konfigurasi dienkripsi melalui Vault."
+msgstr ""
 
 #: tabby-terminal/src/components/inputProcessingSettings.component.ts:17
 msgid "Pass-through"
@@ -1543,147 +1543,147 @@ msgstr ""
 
 #: tabby-settings/src/components/vaultSettingsTab.component.ts:92
 msgid "Passphrase for a private key with hash {hash}..."
-msgstr "Frasa sandi untuk kunci pribadi dengan hash {hash}..."
+msgstr ""
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:100
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:82
 msgid "Password"
-msgstr "Kata sandi"
+msgstr "Лозинка"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:62
 #: tabby-terminal/src/api/baseTerminalTab.component.ts:521
 #: tabby-terminal/src/tabContextMenu.ts:39
 msgid "Paste"
-msgstr "Tempel"
+msgstr "Налепи"
 
 #: tabby-terminal/src/hotkeys.ts:14
 msgid "Paste from clipboard"
-msgstr "Tempel dari papanklip"
+msgstr "Налепи из оставе"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:63
 msgid "Paste if no selection, else copy"
-msgstr ""
+msgstr "Налепи ако нема избора, иначе копирај"
 
 #: tabby-terminal/src/api/baseTerminalTab.component.ts:528
 msgid "Paste multiple lines?"
-msgstr "Tempel beberapa baris?"
+msgstr "Налепи више линија?"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:68
 msgid "Paste on middle-click"
-msgstr "Tempel di klik tengah"
+msgstr ""
 
 #: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:43
 msgid "Path or address of the local X11 socket"
-msgstr "Jalur atau alamat soket X11 lokal"
+msgstr ""
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalToolbar.component.html:4
 msgid "Pin"
-msgstr "Pin"
+msgstr "Закачи"
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:3
 msgid "Plugins"
-msgstr "Plugin"
+msgstr "Додаци"
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:4
 msgid "Plugins folder"
-msgstr "Folder plugin"
+msgstr "Директоријум са додацима"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:38
 #: locale/tmp-html/tabby-telnet/src/components/telnetProfileSettings.component.html:10
 msgid "Port"
-msgstr "Port"
+msgstr "Порт"
 
 #: tabby-serial/src/components/serialTab.component.ts:65
 msgid "Port opened"
-msgstr "Port dibuka"
+msgstr "Отворен порт"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:119
 #: locale/tmp-html/tabby-ssh/src/components/sshTab.component.html:12
 msgid "Ports"
-msgstr "Port"
+msgstr "Портови"
 
 #: tabby-terminal/src/api/connectableTerminalTab.component.ts:87
 msgid "Press any key to reconnect"
-msgstr "Tekan tombol apa saja untuk menghubungkan ulang"
+msgstr "Притисните било који тастер да би сте се поново повезали"
 
 #: locale/tmp-html/tabby-settings/src/components/hotkeyInputModal.component.html:3
 msgid "Press the key now"
-msgstr "Tekan tombol sekarang"
+msgstr "Притисните било који тастер сада"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:21
 msgid "Prevents accidental closing"
-msgstr "Cegah keluar tak disengaja"
+msgstr "Спречава случајно затварање"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:110
 msgid "Prevents accidental execution of pasted commands"
-msgstr "Mencegah eksekusi tidak sengaja dari perintah yang ditempel"
+msgstr "Спречава случајно покретање налепљених команда"
 
 #: tabby-core/src/hotkeys.ts:44
 msgid "Previous tab"
-msgstr "Tab sebelumnya"
+msgstr "Претходна картица"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:108
 msgid "Private keys"
-msgstr ""
+msgstr "Приватни кључеви"
 
 #: tabby-core/src/tabContextMenu.ts:195
 msgid "Process completed"
-msgstr "Proses selesai"
+msgstr "Процес је завршен"
 
 #: tabby-core/src/tabContextMenu.ts:151
 msgid "Profile name"
-msgstr "Nama profil"
+msgstr "Име профила"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:2
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:4
 #: tabby-electron/src/services/dockMenu.service.ts:40
 msgid "Profiles"
-msgstr "Profil"
+msgstr "Профили"
 
 #: tabby-core/src/commands.ts:32
 #: tabby-settings/src/settings.ts:58
 msgid "Profiles & connections"
-msgstr "Profil & koneksi"
+msgstr "Профили и конекције"
 
 #: locale/tmp-html/tabby-local/src/components/commandLineEditor.component.html:12
 msgid "Program"
-msgstr "Program"
+msgstr "Програм"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:30
 msgid "Proxy command"
-msgstr ""
+msgstr "Команда за прокси"
 
 #: tabby-core/src/utils.ts:63
 msgid "Purple"
-msgstr "Ungu"
+msgstr "Љубичасто"
 
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:38
 msgid "Puts all of Tabby's configuration into the vault"
-msgstr ""
+msgstr "Ставља сву Tabby-јеву конфигурацију у трезор"
 
 #: tabby-core/src/index.ts:219
 #: tabby-core/src/services/profiles.service.ts:295
 msgid "Quick connect"
-msgstr "Sambung Cepat"
+msgstr "Брзо повезивање"
 
 #: tabby-core/src/services/config.service.ts:430
 #: tabby-core/src/services/config.service.ts:444
 msgid "Quit"
-msgstr "Keluar"
+msgstr "Изађи"
 
 #: tabby-telnet/src/profiles.ts:50
 msgid "Raw socket connection"
-msgstr ""
+msgstr "Необрађена конекција сокетом"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:166
 msgid "Ready Timeout (Milliseconds)"
-msgstr ""
+msgstr "Време спремности (милисекунде)"
 
 #: tabby-core/src/services/profiles.service.ts:235
 #: tabby-core/src/services/profiles.service.ts:249
 #: tabby-electron/src/services/dockMenu.service.ts:28
 msgid "Recent"
-msgstr "Terbaru"
+msgstr "Недавно"
 
 #: locale/tmp-html/tabby-serial/src/components/serialTab.component.html:5
 #: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:52
@@ -1693,7 +1693,7 @@ msgstr "Terbaru"
 #: tabby-terminal/src/tabContextMenu.ts:115
 #: tabby-terminal/src/tabContextMenu.ts:119
 msgid "Reconnect"
-msgstr "Sambungkan Kembali"
+msgstr "Повежи се поново"
 
 #: tabby-terminal/src/hotkeys.ts:102
 msgid "Reconnect current tab (Serial/Telnet/SSH)"
@@ -1701,84 +1701,84 @@ msgstr ""
 
 #: tabby-core/src/utils.ts:64
 msgid "Red"
-msgstr "Merah"
+msgstr "Црвено"
 
 #: locale/tmp-html/tabby-terminal/src/components/loginScriptsSettings.component.html:10
 msgid "Regex"
-msgstr "Ekspresi reguler"
+msgstr "Регуларни израз"
 
 #: tabby-settings/src/components/releaseNotesTab.component.ts:27
 msgid "Release notes"
-msgstr "Catatan Rilis"
+msgstr "Белешке о издању"
 
 #: locale/tmp-html/tabby-core/src/components/unlockVaultModal.component.html:6
 msgid "Remember for {time}"
-msgstr "Ingat untuk {time}"
+msgstr "Запамти за {time}"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:41
 #: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:5
 msgid "Remote"
-msgstr "Jarak Jauh"
+msgstr "Удаљено"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:124
 msgid "Remove whitespace and newlines around the copied text"
-msgstr ""
+msgstr "Уклони размаке и празне линије око копираног текста"
 
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:26
 #: tabby-core/src/tabContextMenu.ts:120
 msgid "Rename"
-msgstr "Ganti Nama"
+msgstr "Преименуј"
 
 #: tabby-core/src/hotkeys.ts:24
 #: tabby-core/src/tabContextMenu.ts:121
 msgid "Rename tab"
-msgstr ""
+msgstr "Преименуј картицу"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:3
 msgid "Rendering"
-msgstr "Rendering"
+msgstr "Рендеровање"
 
 #: tabby-core/src/hotkeys.ts:32
 msgid "Reopen last tab"
-msgstr "Buka Kembali Tab Terakhir"
+msgstr "Поново отвори последњу картицу"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:42
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:27
 msgid "Replace"
-msgstr "Menggantikan"
+msgstr "Замени"
 
 #: locale/tmp-html/tabby-core/src/components/startPage.component.html:11
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:21
 msgid "Report a problem"
-msgstr "Laporkan Masalah"
+msgstr "Пријави проблем"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:81
 msgid "Require a key to click links"
-msgstr "Perlukan tombol khusus untuk membuka tautan"
+msgstr "Захтевај кључ како би кликнули на везе"
 
 #: tabby-terminal/src/hotkeys.ts:62
 msgid "Reset zoom"
-msgstr "Ukuran Semula"
+msgstr "Ресетуј зумирање"
 
 #: tabby-serial/src/hotkeys.ts:14
 msgid "Restart current serial session"
-msgstr "Mulai ulang sesi serial saat ini"
+msgstr "Поново покрени тренутну серијску сесију"
 
 #: tabby-ssh/src/hotkeys.ts:10
 msgid "Restart current SSH session"
-msgstr "Mulai ulang sesi SSH saat ini"
+msgstr "Поново покрени тренутну SSH сесију"
 
 #: tabby-telnet/src/hotkeys.ts:10
 msgid "Restart current Telnet session"
-msgstr ""
+msgstr "Поново покрени тренутну Telnet сесију"
 
 #: tabby-core/src/hotkeys.ts:64
 msgid "Restart tab"
-msgstr "Muat ulang tab"
+msgstr "Поново покрени картицу"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:140
 msgid "Restart the app to apply changes"
-msgstr "Mulai ulang aplikasi untuk menerapkan perubahan"
+msgstr "Поново покрените апликацију да се примене промене"
 
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:316
 msgid "Restore settings to defaults ?"
@@ -1790,173 +1790,173 @@ msgstr ""
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:159
 msgid "Restore terminal tabs on app start"
-msgstr ""
+msgstr "Поврати картице терминала приликом покретања апликације"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:147
 msgid "Reuse session for multiple tabs"
-msgstr "Gunakan sesi untuk banyak tab"
+msgstr "Поново користи сесију за више картица"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:136
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:78
 #: tabby-core/src/tabContextMenu.ts:78
 msgid "Right"
-msgstr "Kanan"
+msgstr "Десно"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:56
 msgid "Right click"
-msgstr "Klik kanan"
+msgstr "Десни клик"
 
 #: locale/tmp-html/tabby-local/src/components/localProfileSettings.component.html:5
 msgid "Run as administrator"
-msgstr "Jalan sebagai administrator"
+msgstr "Покрени као администратор"
 
 #: locale/tmp-html/tabby-core/src/components/renameTabModal.component.html:6
 #: locale/tmp-html/tabby-settings/src/components/editProfileGroupModal.component.html:27
 #: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:70
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsForMode.component.html:29
 msgid "Save"
-msgstr "Simpan"
+msgstr "Сачувај"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:101
 msgid "Save a password in the keychain"
-msgstr "Simpan password di keychain"
+msgstr "Сачувај лозинку у keychain-у"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:129
 msgid "Save and apply"
-msgstr "Simpan dan terapkan"
+msgstr "Сачувај и примени"
 
 #: tabby-terminal/src/tabContextMenu.ts:173
 msgid "Save as profile"
-msgstr "Simpan sebagai profil"
+msgstr "Сачувај као профил"
 
 #: tabby-core/src/tabContextMenu.ts:148
 msgid "Save layout as profile"
-msgstr "Simpan tata letak sebagai profil"
+msgstr "Сачувај изглед као профил"
 
 #: tabby-terminal/src/tabContextMenu.ts:210
 msgid "Saved"
-msgstr "Disimpan"
+msgstr "Сачувано"
 
 #: tabby-core/src/profiles.ts:19
 msgid "Saved layout"
-msgstr "Tata letak tersimpan"
+msgstr "Сачуван распоред"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:46
 msgid "Scroll on input"
-msgstr "Gulir saat input"
+msgstr "Помери на унос"
 
 #: tabby-terminal/src/hotkeys.ts:94
 msgid "Scroll terminal one page down"
-msgstr ""
+msgstr "Помери терминал једну страницу доле"
 
 #: tabby-terminal/src/hotkeys.ts:90
 msgid "Scroll terminal one page up"
-msgstr ""
+msgstr "Помери терминал једну страницу горе"
 
 #: tabby-terminal/src/hotkeys.ts:98
 msgid "Scroll terminal to bottom"
-msgstr "Gulir terminal ke bawah"
+msgstr "Помери терминал на дно"
 
 #: tabby-terminal/src/hotkeys.ts:86
 msgid "Scroll terminal to top"
-msgstr ""
+msgstr "Помери терминал на врх"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:16
 msgid "Scrollback"
-msgstr "Gulir kembali"
+msgstr "Померање уназад"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:47
 msgid "Scrolls the terminal to the bottom on user input"
-msgstr "Gulir terminal ke bawah saat pengguna meng-input"
+msgstr "Помера терминал на дно корисничког уноса"
 
 #: tabby-terminal/src/hotkeys.ts:74
 msgid "Search"
-msgstr "Cari"
+msgstr "Претрага"
 
 #: tabby-terminal/src/components/colorSchemeSelector.component.ts:9
 #: tabby-terminal/src/components/colorSchemeSettingsForMode.component.ts:10
 msgid "Search color schemes"
-msgstr "Cari skema warna"
+msgstr "Претражи шеме боја"
 
 #: tabby-settings/src/components/hotkeySettingsTab.component.ts:12
 msgid "Search hotkeys"
-msgstr "Cari hotkey"
+msgstr "Претражи тастерске пречице"
 
 #: tabby-plugin-manager/src/components/pluginsSettingsTab.component.ts:14
 msgid "Search plugins"
-msgstr "Cari pluggin"
+msgstr "Претражи додатке"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:17
 msgid "Secret sync token"
-msgstr "Token sinkronisasi rahasia"
+msgstr "Тајни токен за синхронизацију"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:45
 #: tabby-electron/src/services/platform.service.ts:200
 msgid "Select"
-msgstr "Pilih"
+msgstr "Изабери"
 
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:61
 msgid "Select a base profile to use as a template"
-msgstr "Pilih profil utama sebagai template"
+msgstr "Изаберите основни профил који ћете користити као шаблон"
 
 #: tabby-terminal/src/hotkeys.ts:18
 msgid "Select all"
-msgstr "Pilih semua"
+msgstr "Изабери све"
 
 #: tabby-core/src/services/fileProviders.service.ts:47
 msgid "Select file storage"
-msgstr "Pilih penyimpanan file"
+msgstr "Избор складишта датотека"
 
 #: tabby-core/src/index.ts:232
 msgid "Select profile"
-msgstr "Pilih profile"
+msgstr "Избор профила"
 
 #: tabby-core/src/services/profiles.service.ts:308
 msgid "Select profile or enter an address"
-msgstr "Pilih profile atau masukkan alamat"
+msgstr "Изаберите профил или унесите адресу"
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:33
 msgid "Send bytes by typing in hex values"
-msgstr "Kirim byte dengan mengetik nilai hex"
+msgstr ""
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:75
 msgid "Sends data one byte at a time"
-msgstr "Kirim data satu byte pada suatu waktu"
+msgstr ""
 
 #: tabby-serial/src/profiles.ts:14
 #: tabby-serial/src/profiles.ts:74
 msgid "Serial"
-msgstr "Serial"
+msgstr "Серијски"
 
 #: tabby-serial/src/profiles.ts:53
 #: tabby-serial/src/profiles.ts:64
 msgid "Serial connection"
-msgstr "Koneksi serial"
+msgstr "Серијска конекција"
 
 #: tabby-serial/src/profiles.ts:73
 msgid "Serial: {description}"
-msgstr "Serial: {description}"
+msgstr "Серијски: {description}"
 
 #: locale/tmp-html/tabby-settings/src/components/setVaultPassphraseModal.component.html:2
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:5
 msgid "Set master passphrase"
-msgstr "Buat kata sandi utama"
+msgstr "Постави мастер фразу"
 
 #: locale/tmp-html/tabby-settings/src/components/setVaultPassphraseModal.component.html:11
 msgid "Set passphrase"
-msgstr "Buat kata sandi"
+msgstr "Постави фразу"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:104
 msgid "Set password"
-msgstr "Buat kata sandi"
+msgstr "Постави лозинку"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:168
 msgid "Set Tabby as %COMSPEC%"
-msgstr "Atur Tabby sebagai %COMSPEC%"
+msgstr "Постави Tabby као %COMSPEC%"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:69
 msgid "Set to 0 to disable recent profiles"
-msgstr "Atur ke 0 untuk men-disable profile saat ini"
+msgstr "Поставите на 0 да би сте онемогућили скорашње профиле"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:36
 msgid "Sets the SSH agent's named pipe path."
@@ -1965,19 +1965,19 @@ msgstr ""
 #: tabby-settings/src/buttonProvider.ts:28
 #: tabby-settings/src/components/settingsTab.component.ts:57
 msgid "Settings"
-msgstr "Pengaturan"
+msgstr "Подешавања"
 
 #: locale/tmp-html/tabby-local/src/components/shellSettingsTab.component.html:2
 msgid "Shell"
-msgstr "Shell"
+msgstr "Шкољка"
 
 #: tabby-terminal/src/api/baseTerminalTab.component.ts:593
 msgid "Shell does not support current path detection"
-msgstr "Shell tidak mendukung deteksi path saat ini"
+msgstr "Шкољка не подржава детекцију тренутне путање"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:59
 msgid "Shell integration"
-msgstr "Integrasi Shell"
+msgstr "Интеграција шкољке"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:50
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:25
@@ -1986,31 +1986,31 @@ msgstr ""
 
 #: tabby-core/src/hotkeys.ts:275
 msgid "Show {type} profile selector"
-msgstr "Tampilkan {type} selector profile"
+msgstr ""
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:117
 msgid "Show a confirmation box when pasting multiple lines"
-msgstr "Tampilkan dialog konfirmasi ketika menempel banyak baris"
+msgstr "Прикажи прозор за потврду приликом лепљења више линија"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:75
 msgid "Show built-in profiles in selector"
-msgstr "Tampilkan built-in profile di selector"
+msgstr ""
 
 #: tabby-core/src/hotkeys.ts:12
 msgid "Show command selector"
-msgstr "Tampilkan pemilihan perintah"
+msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:132
 msgid "Show config file"
-msgstr "Tampilkan file konfigurasi"
+msgstr "Прикажи конфигурациону датотеку"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:131
 msgid "Show defaults"
-msgstr "Tampilkan bawaan"
+msgstr "Прикажи подразумевана"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:146
 msgid "Show Mixer"
-msgstr "Tampilkan Mixer"
+msgstr "Прикажи миксер"
 
 #: tabby-core/src/hotkeys.ts:56
 msgid "Show pane labels (for rearranging)"
@@ -2018,23 +2018,23 @@ msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:164
 msgid "Show profile icon on tab"
-msgstr "Tampilkan ikon profile di tab"
+msgstr "Прикажи иконицу профила у картици"
 
 #: tabby-core/src/hotkeys.ts:16
 msgid "Show profile selector"
-msgstr "Tampilkan selector profil"
+msgstr "Прикажи одабирач профила"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:68
 msgid "Show recent profiles in selector"
-msgstr "Tampilkan profil terbaru di selector"
+msgstr "Прикажи скорашње профиле у одабирачу"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:36
 msgid "Show release notes"
-msgstr "Tampilkan catatan pembaruan"
+msgstr "Прикажи белешке о издању"
 
 #: tabby-serial/src/hotkeys.ts:10
 msgid "Show Serial connections"
-msgstr ""
+msgstr "Прикажи серијске конекције"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:152
 msgid "Show tabs in fullscreen mode"
@@ -2042,15 +2042,15 @@ msgstr ""
 
 #: tabby-terminal/src/tabContextMenu.ts:62
 msgid "Show toolbar"
-msgstr ""
+msgstr "Прикажи траку са алаткама"
 
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:45
 msgid "Show vault contents"
-msgstr ""
+msgstr "Прикажи садржаје сефа"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:29
 msgid "Sixel graphics support (experimental)"
-msgstr ""
+msgstr "Графичка подршка за Sixel (експериментално)"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:140
 msgid "Skip MoTD/banner"
@@ -2081,11 +2081,11 @@ msgstr ""
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:130
 msgid "Sound"
-msgstr "Bunyi"
+msgstr "Звук"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:31
 msgid "Source code"
-msgstr "Kode Sumber"
+msgstr "Изворни код"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:13
 msgid "Spaciness"
@@ -2093,45 +2093,45 @@ msgstr ""
 
 #: tabby-core/src/tabContextMenu.ts:75
 msgid "Split"
-msgstr "Bagi"
+msgstr "Подели"
 
 #: tabby-core/src/hotkeys.ts:160
 msgid "Split to the bottom"
-msgstr "Membelah ke bawah"
+msgstr "Подели на дно"
 
 #: tabby-core/src/tabContextMenu.ts:85
 msgid "Split to the down"
-msgstr ""
+msgstr "Подели на доле"
 
 #: tabby-core/src/hotkeys.ts:164
 #: tabby-core/src/tabContextMenu.ts:86
 msgid "Split to the left"
-msgstr "Membelah ke kiri"
+msgstr "Подели на лево"
 
 #: tabby-core/src/hotkeys.ts:156
 #: tabby-core/src/tabContextMenu.ts:84
 msgid "Split to the right"
-msgstr "Membelah ke kanan"
+msgstr "Подели на десно"
 
 #: tabby-core/src/hotkeys.ts:168
 msgid "Split to the top"
-msgstr "Membelah ke atas"
+msgstr "Подели на врх"
 
 #: tabby-core/src/tabContextMenu.ts:87
 msgid "Split to the up"
-msgstr ""
+msgstr "Подели на дно"
 
 #: tabby-ssh/src/profiles.ts:82
 msgid "SSH connection"
-msgstr "Koneksi SSH"
+msgstr "SSH конекција"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:47
 msgid "SSH connection management is now done through the \"Profiles & connections\" tab"
-msgstr "Koneksi SSH sekarang dapat dilakukan melalui Tab \"Profil&Koneksi\""
+msgstr "Управљање SSH конекцијом се сада врши кроз картицу ”Профили и конекције”"
 
 #: tabby-settings/src/components/vaultSettingsTab.component.ts:89
 msgid "SSH password for {user}@{host}:{port}"
-msgstr "Password SSH untuk {user}@{host}:{port}"
+msgstr "SSH лозинка за {user}@{host}:{port}"
 
 #: tabby-core/src/theme.ts:8
 msgid "Standard (legacy)"
@@ -2139,23 +2139,23 @@ msgstr ""
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:150
 msgid "Startup"
-msgstr "Permulaan"
+msgstr "Покретање"
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:32
 msgid "Stop bits"
-msgstr "Berhentikan Bit"
+msgstr "Заустави битове"
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:52
 msgid "Strip"
-msgstr "Strip"
+msgstr "Трака"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:41
 msgid "Subscribe to updates"
-msgstr "Berlangganan untuk memperbarui"
+msgstr "Претплатите се на ажурирања"
 
 #: locale/tmp-html/tabby-local/src/components/environmentEditor.component.html:13
 msgid "Substitutions allowed."
-msgstr "Pergantian diperbolehkan."
+msgstr "Замене су дозвољене."
 
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:19
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:5
@@ -2164,39 +2164,39 @@ msgstr ""
 
 #: tabby-core/src/tabContextMenu.ts:290
 msgid "Switch profile"
-msgstr "Beralih Profil"
+msgstr "Пребаци профил"
 
 #: tabby-core/src/hotkeys.ts:236
 msgid "Switch profile in the active pane"
-msgstr "Beralih profil di panel yang aktif"
+msgstr "Пребаци профил у активном окну"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:7
 msgid "Switches terminal frontend implementation (experimental)"
-msgstr "Gantikan terminal implementasi frontend (Experimetal)"
+msgstr "Пребацује спољну имплементацију терминала (експериментално)"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:4
 msgid "Sync"
-msgstr "Sinkronisasi"
+msgstr "Синхронизација"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:53
 msgid "Sync automatically"
-msgstr "Sinkron dengan Otomatis"
+msgstr "Синхронизуј аутоматски"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:8
 msgid "Sync host"
-msgstr "Sinkron Host"
+msgstr "Синхронизуј домаћина"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:68
 msgid "Sync hotkeys"
-msgstr "Sinkron Hotkeys"
+msgstr "Синхронизуј тастерске пречице"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:80
 msgid "Sync Vault"
-msgstr "Sinkron Brankas"
+msgstr "Синхронизуј сеф"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:74
 msgid "Sync window settings"
-msgstr "Sinkron Penganturan Jendela"
+msgstr "Синхронизуј подешавања прозора"
 
 #: tabby-core/src/hotkeys.ts:100
 #: tabby-core/src/hotkeys.ts:104
@@ -2219,72 +2219,72 @@ msgstr "Sinkron Penganturan Jendela"
 #: tabby-core/src/hotkeys.ts:92
 #: tabby-core/src/hotkeys.ts:96
 msgid "Tab {number}"
-msgstr "Tab {number}"
+msgstr "Картица {number}"
 
 #: tabby-core/src/tabContextMenu.ts:223
 msgid "Tab activity"
-msgstr "Aktifitas tab"
+msgstr "Активност картице"
 
 #: locale/tmp-html/tabby-core/src/components/safeModeModal.component.html:3
 msgid "Tabby could not start with your plugins, so all third party plugins have been disabled in this session. The error was:"
-msgstr "Tabby tidak bisa memulai dengan plugin anda, sehingga plugin pihak ketiga telah di nonaktifkan untuk sesi ini. Errornya adalah:"
+msgstr "Tabby није могао да се покрене са вашим додацима, тако да су сви додаци треће стране онемогућеи у овој сесији. Грешка је:"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:41
 msgid "Tabby news and updates on Twitter"
-msgstr "Berita dan Pembaharuan Tabby di Twitter"
+msgstr "Вести и ажурирања на Твитеру за Tabby"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:123
 msgid "Tabs"
-msgstr "Tabs"
+msgstr "Картице"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:126
 msgid "Tabs location"
-msgstr "Lokasi Tabs"
+msgstr "Локација картица"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:141
 msgid "Tabs width"
-msgstr "Panjang Tab"
+msgstr "Ширина картица"
 
 #: tabby-telnet/src/profiles.ts:34
 msgid "Telnet session"
-msgstr "Sesi Telnet"
+msgstr "Telnet сесија"
 
 #: tabby-terminal/src/api/baseTerminalTab.component.ts:210
 #: tabby-terminal/src/settings.ts:43
 msgid "Terminal"
-msgstr "Terminal"
+msgstr "Терминал"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:40
 msgid "Terminal background"
-msgstr "Background Terminal"
+msgstr "Позадина терминала"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:133
 msgid "Terminal bell"
-msgstr "Bell Terminal"
+msgstr "Звоно терминала"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:82
 msgid "Terminal identification"
-msgstr ""
+msgstr "Идентификација терминала"
 
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:7
 msgid "Thank you for downloading Tabby!"
-msgstr "Terima Kasih telah mengunduh Tabby!"
+msgstr "Хвала вам што сте преузели Tabby!"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:5
 msgid "Theme"
-msgstr "Tema"
+msgstr "Изглед"
 
 #: tabby-core/src/components/transfersMenu.component.ts:47
 msgid "There are active file transfers"
-msgstr "Sedang ada transfer file aktif"
+msgstr "У току су активни преноси датотека"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:102
 msgid "There is a saved password for this connection"
-msgstr "Ada password tersimpan untuk koneksi ini"
+msgstr "Постоји сачувана лозинка за ову конекцију"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:102
 msgid "These apply to all profiles of a given type"
-msgstr "Ini diterapkan ke seluruh profile dari tipe tersebut"
+msgstr "Ово се односи на све профиле датог типа"
 
 #: locale/tmp-html/tabby-settings/src/components/editProfileGroupModal.component.html:17
 msgid "These apply to all profiles of a given type in this group"
@@ -2292,169 +2292,169 @@ msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:59
 msgid "Thin"
-msgstr "Tipis"
+msgstr "Танко"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:205
 msgid "Tick this if you're experiencing aliasing, ghosting or other visual issues"
-msgstr "Centang ini jika anda mengalami aliasing, ghosting atau isu visual lainnya"
+msgstr ""
 
 #: tabby-core/src/hotkeys.ts:20
 msgid "Toggle fullscreen mode"
-msgstr "Beralih ke mode layar penuh"
+msgstr "Пребаци се на режим приказа на целом екрану"
 
 #: tabby-core/src/hotkeys.ts:36
 msgid "Toggle last tab"
-msgstr "aktifkan tab terakhir"
+msgstr "Пребаци се на последњу картицу"
 
 #: tabby-electron/src/hotkeys.ts:14
 msgid "Toggle terminal window"
-msgstr "Aktifkan jendela terminal"
+msgstr "Пребаци се на прозор терминала"
 
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:40
 msgid "Toggles the Tabby window visibility"
-msgstr "Alihkan visibilitas jendela Tabby"
+msgstr "Пребацује се на видљивост Tabby-јевог прозора"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:130
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:74
 msgid "Top"
-msgstr "Atas"
+msgstr "Врх"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:123
 msgid "Trim whitespace and newlines"
-msgstr ""
+msgstr "Скрати размак и нове редове"
 
 #: tabby-core/src/services/config.service.ts:428
 msgid "Try again"
-msgstr "Coba Kembali"
+msgstr "Покушајте поново"
 
 #: tabby-ssh/src/session/ssh.ts:476
 msgid "Trying saved password"
-msgstr "Mencoba dengan kata sandi yang tersimpan"
+msgstr "Покушавам са сачуваном лозинком"
 
 #: tabby-core/src/hotkeys.ts:68
 msgid "Turn current tab's panes into separate tabs"
-msgstr "Ubah tab sekarang menjadi tab terpisah"
+msgstr "Претвори окна тренутне картице у засебне картице"
 
 #: tabby-core/src/services/profiles.service.ts:418
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:10
 msgid "Ungrouped"
-msgstr "Bubarkan Grup"
+msgstr "Негруписано"
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:59
 msgid "Uninstall"
-msgstr "Hapus Aplikasi"
+msgstr "Деинсталирај"
 
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:269
 msgid "Unknown"
-msgstr "Tidak Diketahui"
+msgstr "Непознато"
 
 #: tabby-settings/src/components/vaultSettingsTab.component.ts:98
 msgid "Unknown secret of type {type} for {key}"
-msgstr "Tidak Diketahui tipe secret {type} untuk {key}"
+msgstr "Непозната тајта типа {type} за {key}"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalToolbar.component.html:4
 msgid "Unpin"
-msgstr "Lepas Sematan"
+msgstr "Откачи"
 
 #: tabby-core/src/tabContextMenu.ts:81
 msgid "Up"
-msgstr ""
+msgstr "Горе"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:14
 #: tabby-electron/src/services/updater.service.ts:133
 msgid "Update"
-msgstr "Perbarui"
+msgstr "Ажурирање"
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:52
 msgid "Upgrade to {version}"
-msgstr "Pemutahiran ke {version}"
+msgstr "Ажурирај на {version}"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:42
 #: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:10
 msgid "Upload"
-msgstr "Unggah"
+msgstr "Отпремање"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:46
 msgid "Upload as a new config"
-msgstr "Unggah sebagai pengaturan baru"
+msgstr "Отпреми као нову конфигурацију"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:39
 msgid "Use {altKeyName} as the Meta key"
-msgstr "Gunakan {altKeyName} sebagai tombol Meta"
+msgstr "Користи {altKeyName} као Мета кључ"
 
 #: locale/tmp-html/tabby-local/src/components/shellSettingsTab.component.html:5
 msgid "Use ConPTY"
-msgstr "Gunakan ConPTY"
+msgstr "Користи ConPTY"
 
 #: tabby-electron/src/shells/linuxDefault.ts:31
 #: tabby-electron/src/shells/linuxDefault.ts:38
 msgid "User default"
-msgstr ""
+msgstr "Подразумевано за корисника"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:70
 msgid "Username"
-msgstr ""
+msgstr "Корисничко име"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:25
 msgid "Using CONNECT method"
-msgstr ""
+msgstr "Коришћење CONNECT методе"
 
 #: tabby-ssh/src/session/ssh.ts:465
 msgid "Using preset password"
-msgstr "Gunakan kata sandi yang telah disetel sebelumnya"
+msgstr "Коришћење унапред постављене лозинке"
 
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:9
 msgid "Vault"
-msgstr "Brankas"
+msgstr "Трезор"
 
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:4
 msgid "Vault is an always-encrypted container for secrets such as SSH passwords and private key passphrases."
-msgstr "Brankas adalah kotak penyimpanan yang selalu dienkripsi, berisi sandi rahasia seperti sandi SSH dan passphrase private key."
+msgstr "Трезор је увек-енкриптован контејнер за тајне попут лозинки за SSH и приступне фазе за приватни кључ."
 
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:17
 msgid "Vault is empty"
-msgstr "Brankas kosong"
+msgstr "Трезор је празан"
 
 #: locale/tmp-html/tabby-core/src/components/unlockVaultModal.component.html:4
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:44
 msgid "Vault is locked"
-msgstr "Brankas terkunci"
+msgstr "Трезор је закључан"
 
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:3
 msgid "Vault is not configured"
-msgstr ""
+msgstr "Трезор није конфигурисан"
 
 #: tabby-core/src/services/fileProviders.service.ts:40
 msgid "Vault master passphrase needs to be set to allow storing secrets"
-msgstr ""
+msgstr "Мастер приступна фаза за трезор мора да буде постављена коришћењем тајни за чување"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:11
 msgid "Verify host keys when connecting"
-msgstr ""
+msgstr "Верификуј кључеве домаћина приликом повезивања"
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:75
 msgid "Version"
-msgstr "Versi"
+msgstr "Верзија"
 
 #: locale/tmp-html/tabby-core/src/components/startPage.component.html:13
 msgid "Version: {version}"
-msgstr "Versi: {version}"
+msgstr "Верзија: {version}"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:28
 msgid "Vibrancy"
-msgstr ""
+msgstr "Вибрантност"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:139
 msgid "Visual"
-msgstr ""
+msgstr "Визуелно"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:116
 msgid "Warn on multi-line paste"
-msgstr "Peringatkan ketika menempel lebih dari satu baris"
+msgstr "Упозори приликом лепљења више линија"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:5
 msgid "Warn when closing active connections"
-msgstr "Peringatkan ketika menutup sambungan yang masih aktif"
+msgstr ""
 
 #: locale/tmp-html/tabby-ssh/src/components/hostKeyPromptModal.component.html:6
 msgid "Warning: remote host's key has suddenly changed!"
@@ -2462,15 +2462,15 @@ msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:67
 msgid "We're only tracking your Tabby and OS versions."
-msgstr "Kami hanya mencatat versi Tabby dan sistem operasi Anda."
+msgstr ""
 
 #: tabby-core/src/components/welcomeTab.component.ts:25
 msgid "Welcome"
-msgstr "Selamat datang"
+msgstr "Добро дошли"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:36
 msgid "What's new"
-msgstr ""
+msgstr "Шта је ново"
 
 #: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:46
 msgid "When a session ends"
@@ -2478,7 +2478,7 @@ msgstr ""
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:82
 msgid "When enabled, links are only clickable while holding this key"
-msgstr "Jika diaktifkan, tautan hanya bisa diklik bila tombol ini sedang ditekan"
+msgstr ""
 
 #: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:18
 msgid "When WinSCP is detected, you can launch an SCP session from the context menu."
@@ -2495,7 +2495,7 @@ msgstr ""
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:2
 #: tabby-settings/src/settings.ts:30
 msgid "Window"
-msgstr ""
+msgstr "Прозор"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:112
 msgid "Window dimension along the edge"
@@ -2507,32 +2507,32 @@ msgstr ""
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:52
 msgid "Window frame"
-msgstr ""
+msgstr "Оквир прозора"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:165
 msgid "Windows"
-msgstr "Windows"
+msgstr ""
 
 #: locale/tmp-html/tabby-local/src/components/shellSettingsTab.component.html:11
 msgid "Windows 10 build 18309 or above is recommended for ConPTY"
-msgstr "Windows 10 build 18309 atau lebih baru disarankan untuk ConPTY"
+msgstr ""
 
 #: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:17
 msgid "WinSCP path"
-msgstr ""
+msgstr "Путања за WinSCP"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:74
 msgid "Word separators"
-msgstr "Pemisah kata"
+msgstr "Одвајачи речи"
 
 #: locale/tmp-html/tabby-local/src/components/localProfileSettings.component.html:10
 msgid "Working directory"
-msgstr "Direktori kerja"
+msgstr "Радни директоријум"
 
 #: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:15
 #: locale/tmp-html/tabby-ssh/src/components/sshTab.component.html:6
 msgid "Working directory detection"
-msgstr ""
+msgstr "Детекција радног директоријума"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:145
 msgid "WSL terminal bell can only be muted via Volume Mixer"
@@ -2548,7 +2548,7 @@ msgstr ""
 
 #: tabby-core/src/utils.ts:65
 msgid "Yellow"
-msgstr "Kuning"
+msgstr "Жуто"
 
 #: locale/tmp-html/tabby-settings/src/components/setVaultPassphraseModal.component.html:4
 msgid "You can change it later, but it's unrecoverable if forgotten."
@@ -2560,11 +2560,11 @@ msgstr ""
 
 #: tabby-terminal/src/hotkeys.ts:54
 msgid "Zoom in"
-msgstr "Perbesar"
+msgstr "Увећај"
 
 #: tabby-terminal/src/hotkeys.ts:58
 msgid "Zoom out"
-msgstr "Perkecil"
+msgstr "Умањи"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:43
 #: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:5

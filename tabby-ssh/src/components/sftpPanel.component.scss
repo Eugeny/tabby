@@ -29,6 +29,12 @@
         font-weight: bold;
     }
 
+    .list-group-item-action {
+        &:hover {
+            background: rgba(white, .05);
+        }
+    }
+
     .mode, .size, .date {
         font-family: monospace;
         opacity: .5;

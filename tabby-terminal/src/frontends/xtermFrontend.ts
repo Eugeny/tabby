@@ -2,15 +2,15 @@ import { BehaviorSubject, filter, firstValueFrom, takeUntil } from 'rxjs'
 import { Injector } from '@angular/core'
 import { ConfigService, getCSSFontFamily, getWindows10Build, HostAppService, HotkeysService, Platform, PlatformService, ThemesService } from 'tabby-core'
 import { Frontend, SearchOptions, SearchState } from './frontend'
-import { Terminal, ITheme } from 'xterm'
-import { FitAddon } from 'xterm-addon-fit'
-import { LigaturesAddon } from 'xterm-addon-ligatures'
-import { ISearchOptions, SearchAddon } from 'xterm-addon-search'
-import { WebglAddon } from 'xterm-addon-webgl'
-import { Unicode11Addon } from 'xterm-addon-unicode11'
-import { SerializeAddon } from 'xterm-addon-serialize'
-import { ImageAddon } from 'xterm-addon-image'
-import { CanvasAddon } from 'xterm-addon-canvas'
+import { Terminal, ITheme } from '@xterm/xterm'
+import { FitAddon } from '@xterm/addon-fit'
+import { LigaturesAddon } from '@xterm/addon-ligatures'
+import { ISearchOptions, SearchAddon } from '@xterm/addon-search'
+import { WebglAddon } from '@xterm/addon-webgl'
+import { Unicode11Addon } from '@xterm/addon-unicode11'
+import { SerializeAddon } from '@xterm/addon-serialize'
+import { ImageAddon } from '@xterm/addon-image'
+import { CanvasAddon } from '@xterm/addon-canvas'
 import './xterm.css'
 import deepEqual from 'deep-equal'
 import { BaseTerminalProfile, TerminalColorScheme } from '../api/interfaces'
@@ -398,6 +398,10 @@ export class XTermFrontend extends Frontend {
                 this.resizeHandler()
             }
         })
+
+        this.xtermCore.browser.isWindows = this.hostApp.platform === Platform.Windows
+        this.xtermCore.browser.isLinux = this.hostApp.platform === Platform.Linux
+        this.xtermCore.browser.isMac = this.hostApp.platform === Platform.macOS
 
         this.xterm.options.fontFamily = getCSSFontFamily(config)
         this.xterm.options.cursorStyle = {

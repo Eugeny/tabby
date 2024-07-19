@@ -183,9 +183,10 @@ export class Application {
     }
 
     enableTray (): void {
-        if (!!this.tray || process.platform === 'linux') {
+        if (!!this.tray || process.platform === 'linux' || (this.configStore.hideTray ?? false) === true) {
             return
         }
+
         if (process.platform === 'darwin') {
             this.tray = new Tray(`${app.getAppPath()}/assets/tray-darwinTemplate.png`)
             this.tray.setPressedImage(`${app.getAppPath()}/assets/tray-darwinHighlightTemplate.png`)
