@@ -145,7 +145,7 @@ export class WebPlatformService extends PlatformService {
 }
 
 class HTMLFileDownload extends FileDownload {
-    private buffers: Buffer[] = []
+    private buffers: Uint8Array[] = []
 
     constructor (
         private name: string,
@@ -167,8 +167,8 @@ class HTMLFileDownload extends FileDownload {
         return this.size
     }
 
-    async write (buffer: Buffer): Promise<void> {
-        this.buffers.push(Buffer.from(buffer))
+    async write (buffer: Uint8Array): Promise<void> {
+        this.buffers.push(Uint8Array.from(buffer))
         this.increaseProgress(buffer.length)
         if (this.isComplete()) {
             this.finish()

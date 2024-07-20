@@ -18,54 +18,27 @@ export interface SFTPFile {
 export class SFTPFileHandle {
     position = 0
 
-    // constructor (
-    //     private sftp: russh.SFTP,
-    //     private handle: Buffer,
-    //     private zone: NgZone,
-    // ) { }
+    constructor (
+        private inner: russh.SFTPFile|null,
+    ) { }
 
-    read (): Promise<Buffer> {
-        throw new Error('Not implemented')
-        // const buffer = Buffer.alloc(256 * 1024)
-        // return wrapPromise(this.zone, new Promise((resolve, reject) => {
-        //     while (true) {
-        //         const wait = this.sftp.read(this.handle, buffer, 0, buffer.length, this.position, (err, read) => {
-        //             if (err) {
-        //                 reject(err)
-        //                 return
-        //             }
-        //             this.position += read
-        //             resolve(buffer.slice(0, read))
-        //         })
-        //         if (!wait) {
-        //             break
-        //         }
-        //     }
-        // }))
+    async read (): Promise<Uint8Array> {
+        if (!this.inner) {
+            return Promise.resolve(new Uint8Array(0))
+        }
+        return this.inner.read(256 * 1024)
     }
 
-    write (chunk: Buffer): Promise<void> {
-        throw new Error('Not implemented')
-        // return wrapPromise(this.zone, new Promise<void>((resolve, reject) => {
-        //     while (true) {
-        //         const wait = this.sftp.write(this.handle, chunk, 0, chunk.length, this.position, err => {
-        //             if (err) {
-        //                 reject(err)
-        //                 return
-        //             }
-        //             this.position += chunk.length
-        //             resolve()
-        //         })
-        //         if (!wait) {
-        //             break
-        //         }
-        //     }
-        // }))
+    async write (chunk: Uint8Array): Promise<void> {
+        if (!this.inner) {
+            throw new Error('File handle is closed')
+        }
+        await this.inner.writeAll(chunk)
     }
 
-    close (): Promise<void> {
-        throw new Error('Not implemented')
-        // return wrapPromise(this.zone, promisify(this.sftp.close.bind(this.sftp))(this.handle))
+    async close (): Promise<void> {
+        await this.inner?.shutdown()
+        this.inner = null
     }
 }
 
@@ -109,11 +82,10 @@ export class SFTPSession {
         }
     }
 
-    async open (p: string, mode: string): Promise<SFTPFileHandle> {
-        throw new Error('Not implemented')
-        // this.logger.debug('open', p)
-        // const handle = await wrapPromise(this.zone, promisify<Buffer>(f => this.sftp.open(p, mode, f))())
-        // return new SFTPFileHandle(this.sftp, handle, this.zone)
+    async open (p: string, mode: number): Promise<SFTPFileHandle> {
+        this.logger.debug('open', p, mode)
+        const handle = await this.sftp.open(p, mode)
+        return new SFTPFileHandle(handle)
     }
 
     async rmdir (p: string): Promise<void> {
@@ -139,49 +111,45 @@ export class SFTPSession {
     }
 
     async upload (path: string, transfer: FileUpload): Promise<void> {
-        throw new Error('Not implemented')
-        // this.logger.info('Uploading into', path)
-        // const tempPath = path + '.tabby-upload'
-        // try {
-        //     const handle = await this.open(tempPath, 'w')
-        //     while (true) {
-        //         const chunk = await transfer.read()
-        //         if (!chunk.length) {
-        //             break
-        //         }
-        //         await handle.write(chunk)
-        //     }
-        //     handle.close()
-        //     try {
-        //         await this.unlink(path)
-        //     } catch { }
-        //     await this.rename(tempPath, path)
-        //     transfer.close()
-        // } catch (e) {
-        //     transfer.cancel()
-        //     this.unlink(tempPath)
-        //     throw e
-        // }
+        this.logger.info('Uploading into', path)
+        const tempPath = path + '.tabby-upload'
+        try {
+            const handle = await this.open(tempPath, russh.OPEN_WRITE | russh.OPEN_CREATE)
+            while (true) {
+                const chunk = await transfer.read()
+                if (!chunk.length) {
+                    break
+                }
+                await handle.write(chunk)
+            }
+            await handle.close()
+            await this.unlink(path).catch(() => null)
+            await this.rename(tempPath, path)
+            transfer.close()
+        } catch (e) {
+            transfer.cancel()
+            this.unlink(tempPath).catch(() => null)
+            throw e
+        }
     }
 
     async download (path: string, transfer: FileDownload): Promise<void> {
-        throw new Error('Not implemented')
-        // this.logger.info('Downloading', path)
-        // try {
-        //     const handle = await this.open(path, 'r')
-        //     while (true) {
-        //         const chunk = await handle.read()
-        //         if (!chunk.length) {
-        //             break
-        //         }
-        //         await transfer.write(chunk)
-        //     }
-        //     transfer.close()
-        //     handle.close()
-        // } catch (e) {
-        //     transfer.cancel()
-        //     throw e
-        // }
+        this.logger.info('Downloading', path)
+        try {
+            const handle = await this.open(path, russh.OPEN_READ)
+            while (true) {
+                const chunk = await handle.read()
+                if (!chunk.length) {
+                    break
+                }
+                await transfer.write(chunk)
+            }
+            transfer.close()
+            handle.close()
+        } catch (e) {
+            transfer.cancel()
+            throw e
+        }
     }
 
     private _makeFile (p: string, entry: russh.SFTPDirectoryEntry): SFTPFile {

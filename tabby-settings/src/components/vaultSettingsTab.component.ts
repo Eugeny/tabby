@@ -123,7 +123,7 @@ export class VaultSettingsTabComponent extends BaseComponent {
         }
         await this.vault.updateSecret(secret, {
             ...secret,
-            value: (await transfers[0].readAll()).toString('base64'),
+            value: Buffer.from(await transfers[0].readAll()).toString('base64'),
         })
         this.loadVault()
     }

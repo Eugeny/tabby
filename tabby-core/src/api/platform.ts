@@ -63,22 +63,24 @@ export abstract class FileTransfer {
 }
 
 export abstract class FileDownload extends FileTransfer {
-    abstract write (buffer: Buffer): Promise<void>
+    abstract write (buffer: Uint8Array): Promise<void>
 }
 
 export abstract class FileUpload extends FileTransfer {
-    abstract read (): Promise<Buffer>
+    abstract read (): Promise<Uint8Array>
 
-    async readAll (): Promise<Buffer> {
-        const buffers: Buffer[] = []
+    async readAll (): Promise<Uint8Array> {
+        const result = new Uint8Array(this.getSize())
+        let pos = 0
         while (true) {
             const buf = await this.read()
             if (!buf.length) {
                 break
             }
-            buffers.push(Buffer.from(buf))
+            result.set(buf, pos)
+            pos += buf.length
         }
-        return Buffer.concat(buffers)
+        return result
     }
 }
 
@@ -210,12 +212,12 @@ export class HTMLFileUpload extends FileUpload {
         return this.file.size
     }
 
-    async read (): Promise<Buffer> {
+    async read (): Promise<Uint8Array> {
         const result: any = await this.reader.read()
         if (result.done || !result.value) {
-            return Buffer.from('')
+            return new Uint8Array(0)
         }
-        const chunk = Buffer.from(result.value)
+        const chunk = new Uint8Array(result.value)
         this.increaseProgress(chunk.length)
         return chunk
     }
