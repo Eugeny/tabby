@@ -57,6 +57,9 @@ jobs:
       with:
         node-version: 16
 
+    - run: npm i -g npx
+    - run: rustup target add ${{matrix.rust_triple}}
+
     - name: Install deps
       run: |
         sudo -H pip3 install setuptools
@@ -166,6 +169,9 @@ jobs:
       uses: actions/setup-node@v3.7.0
       with:
         node-version: 18
+
+    - run: npm i -g npx
+    - run: rustup target add ${{matrix.rust_triple}}
 
     - name: Install deps (amd64)
       run: |
@@ -315,6 +321,9 @@ jobs:
       uses: actions/setup-node@v3.7.0
       with:
         node-version: 16
+
+    - run: npm i -g npx
+    - run: rustup target add ${{matrix.rust_triple}}
 
     - name: Update node-gyp
       run: |
