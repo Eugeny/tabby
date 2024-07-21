@@ -37,8 +37,14 @@ jobs:
       matrix:
         include:
           - arch: x86_64
+            rust_triple: x86_64-apple-darwin
           - arch: arm64
+            rust_triple: aarch64-apple-darwin
       fail-fast: false
+
+    env:
+      ARCH: ${{matrix.arch}}
+      RUST_TARGET_TRIPLE: ${{matrix.rust_triple}}
 
     steps:
     - name: Checkout
@@ -57,8 +63,6 @@ jobs:
         npm config set python python3
         sudo npm i -g yarn@1.22.1
         yarn --network-timeout 1000000
-      env:
-        ARCH: ${{matrix.arch}}
 
     - name: Fix cross build
       run: |
@@ -71,8 +75,6 @@ jobs:
 
     - name: Prepackage plugins
       run: scripts/prepackage-plugins.mjs
-      env:
-        ARCH: ${{matrix.arch}}
 
     - run: sed -i '' 's/updateInfo = await/\/\/updateInfo = await/g' node_modules/app-builder-lib/out/targets/ArchiveTarget.js
 
@@ -137,11 +139,14 @@ jobs:
         include:
           - build-arch: x64
             arch: amd64
+            rust_triple: x86_64-unknown-linux-gnu
           - build-arch: arm64
             arch: arm64
+            rust_triple: aarch64-unknown-linux-gnu
             triplet: aarch64-linux-gnu-
           - build-arch: arm
             arch: armhf
+            rust_triple: arm-unknown-linux-gnueabihf
             triplet: arm-linux-gnueabihf-
     env:
       CC: ${{matrix.triplet}}gcc
@@ -149,6 +154,7 @@ jobs:
       ARCH: ${{matrix.build-arch}}
       npm_config_arch: ${{matrix.build-arch}}
       npm_config_target_arch: ${{matrix.build-arch}}
+      RUST_TARGET_TRIPLE: ${{matrix.rust_triple}}
 
     steps:
     - name: Checkout
@@ -227,53 +233,6 @@ jobs:
       run: zsh -c 'tar czf tabby-web.tar.gz (tabby-*|web)/dist'
       if: matrix.build-arch == 'x64'
 
-#     - name: Install deps and Build (arm64)
-#       uses: docker://multiarch/ubuntu-core:arm64-bionic
-#       with:
-#           args: >
-#             bash -c
-#             "apt update && apt install curl lsb-release gnupg -y &&
-#             curl -fsSL https://deb.nodesource.com/setup_16.x | bash - &&
-#             apt install make build-essential git ruby libarchive-tools nodejs rpm libsecret-1-dev libfontconfig1-dev -y &&
-#             git config --global --add safe.directory /github/workspace &&
-#             gem install public_suffix -v 4.0.7 &&
-#             gem install fpm --no-document &&
-#             npm i -g yarn &&
-#             cd /github/workspace &&
-#             yarn --network-timeout 1000000 &&
-#             yarn run build &&
-#             scripts/prepackage-plugins.mjs &&
-#             USE_SYSTEM_FPM=true scripts/build-linux.mjs"
-#       env:
-#         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#         KEYGEN_TOKEN: ${{ secrets.KEYGEN_TOKEN }}
-#         USE_HARD_LINKS: false
-#       if: matrix.build-arch == 'arm64' && github.repository == 'Eugeny/tabby' && startsWith(github.ref, 'refs/tags')
-
-#     - name: Install deps and Build (armv7l)
-#       uses: docker://multiarch/ubuntu-core:armhf-bionic
-#       with:
-#           args: >
-#             bash -c
-#             "apt update && apt install curl lsb-release gnupg -y &&
-#             curl -fsSL https://deb.nodesource.com/setup_16.x | bash - &&
-#             apt install make build-essential git ruby libarchive-tools nodejs rpm libsecret-1-dev libfontconfig1-dev -y &&
-#             git config --global --add safe.directory /github/workspace &&
-#             gem install public_suffix -v 4.0.7 &&
-#             gem install fpm --no-document &&
-#             npm i -g yarn &&
-#             cd /github/workspace &&
-#             sed -i '/    \"electron\":/c\    \"electron\": \"17.0.0\",' package.json &&
-#             yarn --network-timeout 1000000 &&
-#             yarn run build &&
-#             scripts/prepackage-plugins.mjs &&
-#             USE_SYSTEM_FPM=true scripts/build-linux.mjs"
-#       env:
-#         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#         KEYGEN_TOKEN: ${{ secrets.KEYGEN_TOKEN }}
-#         USE_HARD_LINKS: false
-#       if: matrix.build-arch == 'arm' && github.repository == 'Eugeny/tabby' && startsWith(github.ref, 'refs/tags')
-
     - name: Upload symbols (amd64 only)
       run: |
         sudo npm install -g @sentry/cli --unsafe-perm
@@ -330,7 +289,6 @@ jobs:
         path: tabby-web.tar.gz
       if: matrix.build-arch == 'x64'
 
-
   Windows-Build:
     runs-on: windows-2022
     needs: Lint
@@ -338,8 +296,14 @@ jobs:
       matrix:
         include:
           - arch: x64
+            rust_triple: x86_64-pc-windows-msvc
           - arch: arm64
+            rust_triple: aarch64-pc-windows-msvc
       fail-fast: false
+
+    env:
+      RUST_TARGET_TRIPLE: ${{matrix.rust_triple}}
+      ARCH: ${{matrix.arch}}
 
     steps:
     - name: Checkout
@@ -364,8 +328,6 @@ jobs:
         yarn --network-timeout 1000000
         yarn run build
         node scripts/prepackage-plugins.mjs
-      env:
-        ARCH: ${{matrix.arch}}
 
     - name: Build and sign packages
       run: node scripts/build-windows.mjs
@@ -381,8 +343,6 @@ jobs:
     - name: Build packages without signing
       run: node scripts/build-windows.mjs
       if: "!(github.repository == 'Eugeny/tabby' && github.event_name == 'push' && (github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags')))"
-      env:
-        ARCH: ${{matrix.arch}}
 
     - name: Upload symbols
       run: |
