@@ -150,6 +150,8 @@ jobs:
             arch: armhf
             rust_triple: arm-unknown-linux-gnueabihf
             triplet: arm-linux-gnueabihf-
+      fail-fast: false
+
     env:
       CC: ${{matrix.triplet}}gcc
       CXX: ${{matrix.triplet}}g++
