@@ -215,7 +215,7 @@ jobs:
           fi
           export RUSTUP_HOME=/rustup
           export CARGO_HOME=/cargo
-          curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --default-toolchain none -y
+          curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
           source "/cargo/env"
           rustup target add ${{matrix.rust_triple}}
           export ARCH=${{matrix.build-arch}} npm_config_arch=${{matrix.build-arch}} npm_config_target_arch=${{matrix.build-arch}} RUST_TARGET_TRIPLE=${{matrix.rust_triple}}
