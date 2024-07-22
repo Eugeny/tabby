@@ -213,6 +213,8 @@ jobs:
           elif [[ ${{matrix.arch}} == 'armhf' ]]; then
             export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/usr/lib/arm-linux-gnueabihf/pkgconfig/
           fi
+          export RUSTUP_HOME=/rustup
+          export CARGO_HOME=/cargo
           curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --default-toolchain none -y
           source "$HOME/.cargo/env"
           rustup target add ${{matrix.rust_triple}}
