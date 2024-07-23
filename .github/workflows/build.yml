@@ -300,7 +300,7 @@ jobs:
       if: matrix.build-arch == 'x64'
 
   Windows-Build:
-    runs-on: windows-2022
+    runs-on: windows-latest
     needs: Lint
     strategy:
       matrix:
@@ -331,7 +331,7 @@ jobs:
 
     - name: Update node-gyp
       run: |
-        npm install --global node-gyp@8.4.1
+        npm install --global node-gyp@10.2.0
         npm prefix -g | % {npm config set node_gyp "$_\node_modules\node-gyp\bin\node-gyp.js"}
 
     - name: Build
