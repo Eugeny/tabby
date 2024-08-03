@@ -1,4 +1,3 @@
-import type { AppUpdater } from 'electron-updater'
 import { Injectable } from '@angular/core'
 import axios from 'axios'
 
@@ -13,7 +12,6 @@ export class ElectronUpdaterService extends UpdaterService {
     private downloaded: Promise<boolean>
     private electronUpdaterAvailable = true
     private updateURL: string
-    private autoUpdater: AppUpdater
 
     constructor (
         log: LogService,
@@ -30,32 +28,28 @@ export class ElectronUpdaterService extends UpdaterService {
             return
         }
 
-        this.autoUpdater = electron.remote.require('electron-updater').autoUpdater
-        this.autoUpdater.autoDownload = true
-        this.autoUpdater.autoInstallOnAppQuit = false
-
-        this.autoUpdater.on('update-available', () => {
+        this.electron.ipcRenderer.on('updater:update-available', () => {
             this.logger.info('Update available')
         })
 
-        this.autoUpdater.on('update-not-available', () => {
+        this.electron.ipcRenderer.on('updater:update-not-available', () => {
             this.logger.info('No updates')
         })
 
-        this.autoUpdater.on('error', err => {
+        this.electron.ipcRenderer.on('updater:error', err => {
             this.logger.error(err)
             this.electronUpdaterAvailable = false
         })
 
         this.downloaded = new Promise<boolean>(resolve => {
-            this.autoUpdater.once('update-downloaded', () => resolve(true))
+            this.electron.ipcRenderer.once('updater:update-downloaded', () => resolve(true))
         })
 
         config.ready$.toPromise().then(() => {
             if (config.store.enableAutomaticUpdates && this.electronUpdaterAvailable && !process.env.TABBY_DEV) {
                 this.logger.debug('Checking for updates')
                 try {
-                    this.autoUpdater.checkForUpdates()
+                    this.electron.ipcRenderer.send('updater:check-for-updates')
                 } catch (e) {
                     this.electronUpdaterAvailable = false
                     this.logger.info('Electron updater unavailable, falling back', e)
@@ -82,26 +76,26 @@ export class ElectronUpdaterService extends UpdaterService {
                     reject(err)
                 }
                 cancel = () => {
-                    this.autoUpdater.off('error', onError)
-                    this.autoUpdater.off('update-not-available', onNoUpdate)
-                    this.autoUpdater.off('update-available', onUpdate)
+                    this.electron.ipcRenderer.off('updater:error', onError)
+                    this.electron.ipcRenderer.off('updater:update-not-available', onNoUpdate)
+                    this.electron.ipcRenderer.off('updater:update-available', onUpdate)
                 }
-                this.autoUpdater.on('error', onError)
-                this.autoUpdater.on('update-not-available', onNoUpdate)
-                this.autoUpdater.on('update-available', onUpdate)
+                this.electron.ipcRenderer.on('updater:error', onError)
+                this.electron.ipcRenderer.on('updater:update-not-available', onNoUpdate)
+                this.electron.ipcRenderer.on('updater:update-available', onUpdate)
                 try {
-                    this.autoUpdater.checkForUpdates()
+                    this.electron.ipcRenderer.send('updater:check-for-updates')
                 } catch (e) {
                     this.electronUpdaterAvailable = false
                     this.logger.info('Electron updater unavailable, falling back', e)
                 }
             })
 
-            this.autoUpdater.on('update-available', () => {
+            this.electron.ipcRenderer.on('updater:update-available', () => {
                 this.logger.info('Update available')
             })
 
-            this.autoUpdater.once('update-not-available', () => {
+            this.electron.ipcRenderer.once('updater:update-not-available', () => {
                 this.logger.info('No updates')
             })
 
@@ -138,7 +132,7 @@ export class ElectronUpdaterService extends UpdaterService {
                 },
             )).response === 0) {
                 await this.downloaded
-                this.autoUpdater.quitAndInstall()
+                this.electron.ipcRenderer.send('updater:quit-and-install')
             }
         }
     }

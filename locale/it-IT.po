@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Italian\n"
 "Language: it_IT\n"
-"PO-Revision-Date: 2024-03-11 20:11\n"
+"PO-Revision-Date: 2024-07-10 09:04\n"
 
 #: tabby-local/src/components/terminalTab.component.ts:113
 msgid "\"{command}\" is still running. Close?"
@@ -31,7 +31,7 @@ msgstr "Annulla tutto"
 
 #: locale/tmp-html/tabby-ssh/src/components/hostKeyPromptModal.component.html:24
 msgid "Accept and remember key"
-msgstr "Accetta e ricorda la chiave"
+msgstr "Accetta e ricorda chiave"
 
 #: locale/tmp-html/tabby-ssh/src/components/hostKeyPromptModal.component.html:25
 msgid "Accept just this once"
@@ -43,7 +43,7 @@ msgstr "Accessibilità"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:27
 msgid "Acrylic background"
-msgstr "Sfondo traslucido"
+msgstr "Sfondo acrilico"
 
 #: locale/tmp-html/tabby-local/src/components/commandLineEditor.component.html:24
 #: locale/tmp-html/tabby-local/src/components/environmentEditor.component.html:11
@@ -225,8 +225,7 @@ msgstr "Incolla tra parentesi (richiede una shell che lo supporti)"
 
 #: tabby-terminal/src/services/multifocus.service.ts:19
 msgid "Broadcast mode. Click anywhere to cancel."
-msgstr "Modalità broadcast. \n"
-"Fai clic ovunque per annullare."
+msgstr "Modalità broadcast. Fai clic ovunque per disabilitare."
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:50
 #: tabby-core/src/services/profiles.service.ts:411
@@ -508,7 +507,7 @@ msgstr "CSS personalizzato"
 
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:17
 msgid "Dark mode"
-msgstr "Modalità scura"
+msgstr "Tema scuro"
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:26
 msgid "Data bits"
@@ -708,7 +707,7 @@ msgstr "La selezione con doppio clic si fermerà a questi caratteri"
 
 #: tabby-core/src/tabContextMenu.ts:79
 msgid "Down"
-msgstr "Giù"
+msgstr "In basso"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:43
 msgid "Download"
@@ -896,7 +895,7 @@ msgstr "Evidenzia il riquadro a destra"
 
 #: tabby-core/src/theme.ts:34
 msgid "Follow the color scheme"
-msgstr "Segui lo schema dei colori"
+msgstr "Segui il tema di sistema"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:5
 msgid "Font"
@@ -1209,7 +1208,7 @@ msgstr "Scopri come consentire a Tabby di rilevare la cartella di lavoro della s
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:76
 #: tabby-core/src/tabContextMenu.ts:80
 msgid "Left"
-msgstr "Sinistra"
+msgstr "A sinistra"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:40
 msgid "Lets the shell handle Meta key instead of OS"
@@ -1802,7 +1801,7 @@ msgstr "Riusa la sessione per più schede"
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:78
 #: tabby-core/src/tabContextMenu.ts:78
 msgid "Right"
-msgstr "Destra"
+msgstr "A destra"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:56
 msgid "Right click"
@@ -2361,7 +2360,7 @@ msgstr "Sgancia"
 
 #: tabby-core/src/tabContextMenu.ts:81
 msgid "Up"
-msgstr "Su"
+msgstr "In alto"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:14
 #: tabby-electron/src/services/updater.service.ts:133
@@ -2429,7 +2428,7 @@ msgstr "La cassaforte non è configurata"
 
 #: tabby-core/src/services/fileProviders.service.ts:40
 msgid "Vault master passphrase needs to be set to allow storing secrets"
-msgstr "Per consentire la memorizzazione di dati cifrati  deve essere impostata la frase segreta principale della cassaforte."
+msgstr "Per consentire la memorizzazione di dati cifrati deve essere impostata la frase segreta principale della cassaforte"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:11
 msgid "Verify host keys when connecting"
@@ -2465,7 +2464,7 @@ msgstr "Attenzione: la chiave dell'host remoto è improvvisamente cambiata!"
 
 #: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:67
 msgid "We're only tracking your Tabby and OS versions."
-msgstr "Monitoreremo soltanto le versioni di Tabby e del sistema operativo."
+msgstr "Monitoreremo soltanto le versioni di Tabby e del Sistema Operativo."
 
 #: tabby-core/src/components/welcomeTab.component.ts:25
 msgid "Welcome"
@@ -2510,7 +2509,7 @@ msgstr "Dimensione finestra fuori dal bordo"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:52
 msgid "Window frame"
-msgstr "Cornice finestra"
+msgstr "Cornice della finestra"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:165
 msgid "Windows"
@@ -2526,7 +2525,7 @@ msgstr "Percorso WinSCP"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:74
 msgid "Word separators"
-msgstr "Separatori parole"
+msgstr "Separatori di parole"
 
 #: locale/tmp-html/tabby-local/src/components/localProfileSettings.component.html:10
 msgid "Working directory"
@@ -2563,11 +2562,11 @@ msgstr "In questo momento potresti essere sotto un attacco man-in-the-middle, o 
 
 #: tabby-terminal/src/hotkeys.ts:54
 msgid "Zoom in"
-msgstr "Zoom +"
+msgstr "Zoom avanti"
 
 #: tabby-terminal/src/hotkeys.ts:58
 msgid "Zoom out"
-msgstr "Zoom -"
+msgstr "Zoom indietro"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:43
 #: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:5

@@ -399,6 +399,10 @@ export class XTermFrontend extends Frontend {
             }
         })
 
+        this.xtermCore.browser.isWindows = this.hostApp.platform === Platform.Windows
+        this.xtermCore.browser.isLinux = this.hostApp.platform === Platform.Linux
+        this.xtermCore.browser.isMac = this.hostApp.platform === Platform.macOS
+
         this.xterm.options.fontFamily = getCSSFontFamily(config)
         this.xterm.options.cursorStyle = {
             beam: 'bar',

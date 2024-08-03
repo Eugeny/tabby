@@ -1,5 +1,5 @@
 import * as glasstron from 'glasstron'
-
+import { autoUpdater } from 'electron-updater'
 import { Subject, Observable, debounceTime } from 'rxjs'
 import { BrowserWindow, app, ipcMain, Rectangle, Menu, screen, BrowserWindowConstructorOptions, TouchBar, nativeImage, WebContents } from 'electron'
 import ElectronConfig = require('electron-config')
@@ -159,6 +159,7 @@ export class Window {
         }
 
         this.setupWindowManagement()
+        this.setupUpdater()
 
         this.ready = new Promise(resolve => {
             const listener = event => {
@@ -346,11 +347,8 @@ export class Window {
             this.send('host:window-focused')
         })
 
-        ipcMain.on('ready', event => {
-            if (!this.window || event.sender !== this.window.webContents) {
-                return
-            }
-            this.window.webContents.send('start', {
+        this.on('ready', () => {
+            this.window?.webContents.send('start', {
                 config: this.configStore,
                 executable: app.getPath('exe'),
                 windowID: this.window.id,
@@ -359,42 +357,26 @@ export class Window {
             })
         })
 
-        ipcMain.on('window-minimize', event => {
-            if (!this.window || event.sender !== this.window.webContents) {
-                return
-            }
-            this.window.minimize()
+        this.on('window-minimize', () => {
+            this.window?.minimize()
         })
 
-        ipcMain.on('window-set-bounds', (event, bounds) => {
-            if (!this.window || event.sender !== this.window.webContents) {
-                return
-            }
-            this.window.setBounds(bounds)
+        this.on('window-set-bounds', (_, bounds) => {
+            this.window?.setBounds(bounds)
         })
 
-        ipcMain.on('window-set-always-on-top', (event, flag) => {
-            if (!this.window || event.sender !== this.window.webContents) {
-                return
-            }
-            this.window.setAlwaysOnTop(flag)
+        this.on('window-set-always-on-top', (_, flag) => {
+            this.window?.setAlwaysOnTop(flag)
         })
 
-        ipcMain.on('window-set-vibrancy', (event, enabled, type) => {
-            if (!this.window || event.sender !== this.window.webContents) {
-                return
-            }
+        this.on('window-set-vibrancy', (_, enabled, type) => {
             this.setVibrancy(enabled, type)
         })
 
-        ipcMain.on('window-set-window-controls-color', (event, theme) => {
-            if (!this.window || event.sender !== this.window.webContents) {
-                return
-            }
-
+        this.on('window-set-window-controls-color', (_, theme) => {
             if (process.platform === 'win32') {
                 const symbolColor: string = theme.foreground
-                this.window.setTitleBarOverlay(
+                this.window?.setTitleBarOverlay(
                     {
                         symbolColor: symbolColor,
                         height: 32,
@@ -403,32 +385,23 @@ export class Window {
             }
         })
 
-        ipcMain.on('window-set-title', (event, title) => {
-            if (!this.window || event.sender !== this.window.webContents) {
-                return
-            }
-            this.window.setTitle(title)
+        this.on('window-set-title', (_, title) => {
+            this.window?.setTitle(title)
         })
 
-        ipcMain.on('window-bring-to-front', event => {
-            if (!this.window || event.sender !== this.window.webContents) {
-                return
-            }
-            if (this.window.isMinimized()) {
+        this.on('window-bring-to-front', () => {
+            if (this.window?.isMinimized()) {
                 this.window.restore()
             }
             this.present()
         })
 
-        ipcMain.on('window-close', event => {
-            if (!this.window || event.sender !== this.window.webContents) {
-                return
-            }
+        this.on('window-close', () => {
             this.closing = true
             this.window.close()
         })
 
-        ipcMain.on('window-set-touch-bar', (_event, segments, selectedIndex) => {
+        this.on('window-set-touch-bar', (_, segments, selectedIndex) => {
             this.touchBarControl.segments = segments.map(s => ({
                 label: s.label,
                 icon: s.hasActivity ? activityIcon : undefined,
@@ -468,8 +441,46 @@ export class Window {
             this.window.setOpacity(opacity)
         })
 
-        ipcMain.on('window-set-progress-bar', (_event, value) => {
-            this.window.setProgressBar(value, { mode: value < 0 ? 'none' : 'normal' })
+        this.on('window-set-progress-bar', (_, value) => {
+            this.window?.setProgressBar(value, { mode: value < 0 ? 'none' : 'normal' })
+        })
+    }
+
+    on (event: string, listener: (...args: any[]) => void): void {
+        ipcMain.on(event, (e, ...args) => {
+            if (!this.window || e.sender !== this.window.webContents) {
+                return
+            }
+            listener(e, ...args)
+        })
+    }
+
+    private setupUpdater () {
+        autoUpdater.autoDownload = true
+        autoUpdater.autoInstallOnAppQuit = true
+
+        autoUpdater.on('update-available', () => {
+            this.send('updater:update-available')
+        })
+
+        autoUpdater.on('update-not-available', () => {
+            this.send('updater:update-not-available')
+        })
+
+        autoUpdater.on('error', err => {
+            this.send('updater:error', err)
+        })
+
+        autoUpdater.on('update-downloaded', () => {
+            this.send('updater:update-downloaded')
+        })
+
+        this.on('updater:check-for-updates', () => {
+            autoUpdater.checkForUpdates()
+        })
+
+        this.on('updater:quit-and-install', () => {
+            autoUpdater.quitAndInstall()
         })
     }
 

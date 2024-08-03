@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Danish\n"
 "Language: da_DK\n"
-"PO-Revision-Date: 2024-03-11 20:11\n"
+"PO-Revision-Date: 2024-07-10 09:04\n"
 
 #: tabby-local/src/components/terminalTab.component.ts:113
 msgid "\"{command}\" is still running. Close?"
@@ -100,12 +100,12 @@ msgstr "Tillader hurtigt at åbne en terminal i den valgte mappe"
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:25
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:11
 msgid "Always dark"
-msgstr ""
+msgstr "Altid mørk"
 
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:27
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:13
 msgid "Always light"
-msgstr ""
+msgstr "Altid lys"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:2
 #: tabby-terminal/src/settings.ts:14
@@ -272,7 +272,7 @@ msgstr "Ciphers"
 
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSelector.component.html:5
 msgid "Clear"
-msgstr ""
+msgstr "Ryd"
 
 #: tabby-core/src/services/profiles.service.ts:248
 msgid "Clear recent profiles"
@@ -324,7 +324,7 @@ msgstr "Luk faner til højre"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:182
 msgid "Close the window after closing the last tab"
-msgstr ""
+msgstr "Luk vinduet efter lukningen af den sidste fane"
 
 #: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:33
 #: tabby-core/src/tabContextMenu.ts:132
@@ -337,16 +337,16 @@ msgstr "Farvetema"
 
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:2
 msgid "Color schemes"
-msgstr ""
+msgstr "Farveskemaer"
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:81
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:216
 msgid "Colors"
-msgstr ""
+msgstr "Farver"
 
 #: tabby-core/src/hotkeys.ts:72
 msgid "Combine all tabs into the current tab"
-msgstr ""
+msgstr "Kombinér alle faner til den aktuelle fane"
 
 #: locale/tmp-html/tabby-local/src/components/commandLineEditor.component.html:4
 msgid "Command line"
@@ -358,15 +358,15 @@ msgstr "Kommandoens stdin/stdout bruges i stedet for en netværksforbindelse"
 
 #: tabby-core/src/services/commands.service.ts:105
 msgid "Commands"
-msgstr ""
+msgstr "Kommandoer"
 
 #: tabby-core/src/theme.ts:16
 msgid "Compact (legacy)"
-msgstr ""
+msgstr "Kompakt (ældre)"
 
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:126
 msgid "Config deleted"
-msgstr ""
+msgstr "Konfig slettet"
 
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:108
 msgid "Config downloaded"
@@ -428,7 +428,7 @@ msgstr "Kontekstmenu"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:14
 msgid "Controls the amount of space between elements"
-msgstr ""
+msgstr "Styrer mængden af mellemrum mellem elementer"
 
 #: tabby-terminal/src/api/baseTerminalTab.component.ts:240
 #: tabby-terminal/src/api/baseTerminalTab.component.ts:248
@@ -449,7 +449,7 @@ msgstr "Kopiér nuværende sti"
 
 #: tabby-electron/src/sftpContextMenu.ts:29
 msgid "Copy full path"
-msgstr ""
+msgstr "Kopiér hele stien"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:97
 msgid "Copy on select"
@@ -461,7 +461,7 @@ msgstr "Kopiér til udklipsholder"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:103
 msgid "Copy with formatting"
-msgstr ""
+msgstr "Kopiér med formatering"
 
 #: tabby-core/src/services/config.service.ts:425
 msgid "Could not decrypt config"
@@ -469,12 +469,12 @@ msgstr "Kunne ikke dekryptere konfiguration"
 
 #: locale/tmp-html/tabby-ssh/src/components/sftpCreateDirectoryModal.component.html:9
 msgid "Create"
-msgstr ""
+msgstr "Opret"
 
 #: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:7
 #: tabby-ssh/src/sftpContextMenu.ts:29
 msgid "Create directory"
-msgstr ""
+msgstr "Opret mappe"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:90
 msgid "Current"
@@ -498,7 +498,7 @@ msgstr "Markørens form"
 
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsForMode.component.html:46
 msgid "Custom"
-msgstr ""
+msgstr "Tilpasset"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:90
 msgid "Custom CSS"
@@ -506,7 +506,7 @@ msgstr "Brugerdefineret CSS"
 
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:17
 msgid "Dark mode"
-msgstr ""
+msgstr "Mørk tilstand"
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:26
 msgid "Data bits"
@@ -518,15 +518,15 @@ msgstr "Fejlfinding"
 
 #: tabby-core/src/hotkeys.ts:256
 msgid "Decrease horizontal split size"
-msgstr ""
+msgstr "Reducér den vandrette splitstørrelse"
 
 #: tabby-core/src/hotkeys.ts:248
 msgid "Decrease vertical split size"
-msgstr ""
+msgstr "Reducér den lodrette splitstørrelse"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:92
 msgid "Default \"Connect to\" type"
-msgstr ""
+msgstr "Standard \"Forbind til\"-type"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:93
 msgid "Default connection type used by quick connect feature (ex. SSH, Telnet)"
@@ -582,7 +582,7 @@ msgstr "Slet {fullPath}?"
 
 #: tabby-terminal/src/hotkeys.ts:42
 msgid "Delete entire line"
-msgstr ""
+msgstr "Slet hele linjen"
 
 #: tabby-terminal/src/hotkeys.ts:46
 msgid "Delete next word"
@@ -594,7 +594,7 @@ msgstr "Slet forrige ord"
 
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:114
 msgid "Delete the config on the remote side?"
-msgstr ""
+msgstr "Slet konfigurationen på fjernsiden?"
 
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:226
 msgid "Delete the group's profiles?"
