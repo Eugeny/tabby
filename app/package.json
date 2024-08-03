@@ -15,7 +15,7 @@
     "watch": "webpack --progress --color --watch"
   },
   "dependencies": {
-    "@electron/remote": "2.0.10",
+    "@electron/remote": "^2",
     "node-pty": "^1.0",
     "any-promise": "^1.3.0",
     "electron-config": "2.0.0",
@@ -63,8 +63,7 @@
     "tabby-terminal": "*"
   },
   "resolutions": {
-    "*/node-abi": "^2.20.0",
-    "node-gyp": "^10.0.0",
-    "nan": "github:jkleinsc/nan#remove_accessor_signature"
+    "*/node-abi": "^3",
+    "node-gyp": "^10.0.0"
   }
 }

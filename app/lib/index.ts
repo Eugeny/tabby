@@ -31,6 +31,8 @@ try {
     app.exit(1)
 }
 
+process.mainModule = module
+
 const application = new Application(configStore)
 
 ipcMain.on('app:new-window', () => {

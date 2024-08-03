@@ -42,6 +42,7 @@ const config = {
         'electron-config': 'commonjs electron-config',
         'electron-debug': 'commonjs electron-debug',
         'electron-promise-ipc': 'commonjs electron-promise-ipc',
+        'electron-updater': 'commonjs electron-updater',
         fs: 'commonjs fs',
         glasstron: 'commonjs glasstron',
         mz: 'commonjs mz',

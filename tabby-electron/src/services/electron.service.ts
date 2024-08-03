@@ -16,7 +16,6 @@ export class ElectronService {
     clipboard: Clipboard
     globalShortcut: GlobalShortcut
     screen: Screen
-    remote = remote
     process: any
     autoUpdater: AutoUpdater
     powerSaveBlocker: PowerSaveBlocker
@@ -43,7 +42,6 @@ export class ElectronService {
         this.TouchBar = remote.TouchBar
         this.BrowserWindow = remote.BrowserWindow
         this.Menu = remote.Menu
-        this.MenuItem = remote.MenuItem
         this.MenuItem = remote.MenuItem
         this.nativeTheme = remote.nativeTheme
     }
