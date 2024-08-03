@@ -1,6 +1,5 @@
 import * as fs from 'mz/fs'
 import * as crypto from 'crypto'
-import * as sshpk from 'sshpk'
 import colors from 'ansi-colors'
 import stripAnsi from 'strip-ansi'
 import * as shellQuote from 'shell-quote'
@@ -8,7 +7,6 @@ import { Injector } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { ConfigService, FileProvidersService, HostAppService, NotificationsService, Platform, PlatformService, PromptModalComponent, LogService, Logger, TranslateService } from 'tabby-core'
 import { Socket } from 'net'
-// import { Client, ClientChannel, SFTPWrapper } from 'ssh2'
 import { Subject, Observable } from 'rxjs'
 import { HostKeyPromptModalComponent } from '../components/hostKeyPromptModal.component'
 // import { HTTPProxyStream, ProxyCommandStream, SocksProxyStream } from '../services/ssh.service'
@@ -648,25 +646,24 @@ export class SSHSession {
 
     async loadPrivateKey (name: string, privateKeyContents: Buffer): Promise<russh.KeyPair> {
         this.emitServiceMessage(`Loading private key: ${name}`)
-        //todo passphrase handling
-        this.activePrivateKey = await russh.KeyPair.parse(privateKeyContents.toString())
+        this.activePrivateKey = await this.loadPrivateKeyWithPassphraseMaybe(privateKeyContents.toString())
         return this.activePrivateKey
     }
 
-    async parsePrivateKey (privateKey: string): Promise<any> {
+    async loadPrivateKeyWithPassphraseMaybe (privateKey: string): Promise<russh.KeyPair> {
         const keyHash = crypto.createHash('sha512').update(privateKey).digest('hex')
         let triedSavedPassphrase = false
         let passphrase: string|null = null
         while (true) {
             try {
-                return sshpk.parsePrivateKey(privateKey, 'auto', { passphrase })
+                return await russh.KeyPair.parse(privateKey, passphrase ?? undefined)
             } catch (e) {
                 if (!triedSavedPassphrase) {
                     passphrase = await this.passwordStorage.loadPrivateKeyPassword(keyHash)
                     triedSavedPassphrase = true
                     continue
                 }
-                if (e instanceof sshpk.KeyEncryptedError || e instanceof sshpk.KeyParseError) {
+                if (e.toString() === 'Error: Keys(KeyIsEncrypted)' || e.toString() === 'Error: Keys(SshKey(Crypto))') {
                     await this.passwordStorage.deletePrivateKeyPassword(keyHash)
 
                     const modal = this.ngbModal.open(PromptModalComponent)

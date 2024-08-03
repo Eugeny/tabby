@@ -67,12 +67,6 @@ jobs:
       env:
         ARCH: ${{matrix.arch}}
 
-    - name: Fix cross build
-      run: |
-        rm -rf app/node_modules/cpu-features
-        rm -rf app/node_modules/ssh2/crypto/build
-      if: matrix.arch == 'arm64'
-
     - name: Webpack
       run: yarn run build
 
