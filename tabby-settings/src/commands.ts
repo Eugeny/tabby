@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core'
-import { ToolbarButtonProvider, ToolbarButton, AppService, HostAppService, HotkeysService, TranslateService } from 'tabby-core'
+import { CommandProvider, AppService, HostAppService, HotkeysService, TranslateService, Command, CommandLocation } from 'tabby-core'
 
 import { SettingsTabComponent } from './components/settingsTab.component'
 
 /** @hidden */
-@Injectable()
-export class ButtonProvider extends ToolbarButtonProvider {
+@Injectable({ providedIn: 'root' })
+export class SettingsCommandProvider extends CommandProvider {
     constructor (
         hostApp: HostAppService,
         hotkeys: HotkeysService,
@@ -22,13 +22,14 @@ export class ButtonProvider extends ToolbarButtonProvider {
         })
     }
 
-    provide (): ToolbarButton[] {
+    async provide (): Promise<Command[]> {
         return [{
+            id: 'settings:open',
             icon: require('./icons/cog.svg'),
-            title: this.translate.instant('Settings'),
-            touchBarNSImage: 'NSTouchBarComposeTemplate',
-            weight: 10,
-            click: (): void => this.open(),
+            label: this.translate.instant('Settings'),
+            weight: 99,
+            locations: [CommandLocation.RightToolbar, CommandLocation.StartPage],
+            run: async () => this.open(),
         }]
     }
 
