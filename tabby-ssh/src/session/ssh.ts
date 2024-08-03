@@ -9,7 +9,7 @@ import { ConfigService, FileProvidersService, HostAppService, NotificationsServi
 import { Socket } from 'net'
 import { Subject, Observable } from 'rxjs'
 import { HostKeyPromptModalComponent } from '../components/hostKeyPromptModal.component'
-// import { HTTPProxyStream, ProxyCommandStream, SocksProxyStream } from '../services/ssh.service'
+// import { HTTPProxyStream, SocksProxyStream } from '../services/ssh.service'
 import { PasswordStorageService } from '../services/passwordStorage.service'
 import { SSHKnownHostsService } from '../services/sshKnownHosts.service'
 import { SFTPSession } from './sftp'
@@ -64,7 +64,7 @@ export class SSHSession {
     ssh: russh.SSHClient|russh.AuthenticatedSSHClient
     sftp?: russh.SFTP
     forwardedPorts: ForwardedPort[] = []
-    jumpStream: any
+    jumpChannel: russh.Channel|null = null
     proxyCommandStream: SSHProxyStream|null = null
     savedPassword?: string
     get serviceMessage$ (): Observable<string> { return this.serviceMessage }
@@ -225,6 +225,9 @@ export class SSHSession {
             // this.proxyCommandStream.message$.subscribe(message => {
             //     this.emitServiceMessage(colors.bgBlue.black(' Proxy ') + ' ' + message.trim())
             // })
+        } else if (this.jumpChannel) {
+            transport = await russh.SshTransport.newSshChannel(await this.jumpChannel.take())
+            this.jumpChannel = null
         } else {
             transport = await russh.SshTransport.newSocket(`${this.profile.options.host.trim()}:${this.profile.options.port ?? 22}`)
         }
@@ -314,9 +317,6 @@ export class SSHSession {
 
 
             // ssh.connect({
-            //     host: this.profile.options.host.trim(),
-            //     port: this.profile.options.port ?? 22,
-            //     sock: this.proxyCommandStream?.socket ?? this.jumpStream,
             //     agent: this.agentPath,
             //     agentForward: this.profile.options.agentForward && !!this.agentPath,
             //     keepaliveInterval: this.profile.options.keepaliveInterval ?? 15000,
