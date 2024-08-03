@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core'
-import { PlatformService, LogService, UpdaterService, DockingService, HostAppService, ThemesService, Platform, AppService, ConfigService, WIN_BUILD_FLUENT_BG_SUPPORTED, isWindowsBuild, HostWindowService, HotkeyProvider, ConfigProvider, FileProvider, WIN_BUILD_WINDOW_MATERIAL_SUPPORTED } from 'tabby-core'
+import { PlatformService, LogService, UpdaterService, DockingService, HostAppService, ThemesService, Platform, AppService, ConfigService, isWindowsBuild, HostWindowService, HotkeyProvider, ConfigProvider, FileProvider, WIN_BUILD_WINDOW_MATERIAL_SUPPORTED } from 'tabby-core'
 import { TerminalColorSchemeProvider } from 'tabby-terminal'
 import { SFTPContextMenuItemProvider, SSHProfileImporter, AutoPrivateKeyLocator } from 'tabby-ssh'
 import { PTYInterface, ShellProvider, UACService } from 'tabby-local'
@@ -178,11 +178,9 @@ export default class ElectronModule {
             return
         }
 
-        let vibrancyType = this.config.store.appearance.vibrancyType
-        if (this.hostApp.platform === Platform.Windows && !isWindowsBuild(WIN_BUILD_FLUENT_BG_SUPPORTED)) {
-            vibrancyType = null
+        if (this.hostApp.platform === Platform.macOS) {
+            this.electron.ipcRenderer.send('window-set-vibrancy', this.config.store.appearance.vibrancy)
         }
-        this.electron.ipcRenderer.send('window-set-vibrancy', this.config.store.appearance.vibrancy, vibrancyType)
     }
 
     private updateWindowControlsColor () {

@@ -1,10 +1,8 @@
-import * as glasstron from 'glasstron'
 import { autoUpdater } from 'electron-updater'
 import { Subject, Observable, debounceTime } from 'rxjs'
 import { BrowserWindow, app, ipcMain, Rectangle, Menu, screen, BrowserWindowConstructorOptions, TouchBar, nativeImage, WebContents } from 'electron'
 import ElectronConfig = require('electron-config')
 import { enable as enableRemote } from '@electron/remote/main'
-import * as os from 'os'
 import * as path from 'path'
 import macOSRelease from 'macos-release'
 import { compare as compareVersions } from 'compare-versions'
@@ -14,11 +12,6 @@ import { parseArgs } from './cli'
 
 export interface WindowOptions {
     hidden?: boolean
-}
-
-abstract class GlasstronWindow extends BrowserWindow {
-    blurType: string
-    abstract setBlur (_: boolean)
 }
 
 const macOSVibrancyType: any = process.platform === 'darwin' ? compareVersions(macOSRelease().version || '0.0', '10.14', '>=') ? 'under-window' : 'dark' : null
@@ -31,14 +24,11 @@ export class Window {
     webContents: WebContents
     private visible = new Subject<boolean>()
     private closed = new Subject<void>()
-    private window?: GlasstronWindow
+    private window?: BrowserWindow
     private windowConfig: ElectronConfig
     private windowBounds?: Rectangle
     private closing = false
-    private lastVibrancy: { enabled: boolean, type?: string } | null = null
-    private disableVibrancyWhileDragging = false
     private touchBarControl: any
-    private isFluentVibrancy = false
     private dockHidden = false
 
     get visible$ (): Observable<boolean> { return this.visible }
@@ -66,6 +56,7 @@ export class Window {
             },
             maximizable: true,
             frame: false,
+            transparent: true,
             show: false,
             backgroundColor: '#00000000',
             acceptFirstMouse: true,
@@ -95,11 +86,15 @@ export class Window {
             }
         }
 
-        if (process.platform === 'darwin') {
-            this.window = new BrowserWindow(bwOptions) as GlasstronWindow
-        } else {
-            this.window = new glasstron.BrowserWindow(bwOptions)
-        }
+        this.window = new BrowserWindow(bwOptions)
+
+        // https://github.com/electron/electron/issues/39959#issuecomment-1758736966
+        this.window.on('blur', () => {
+            this.window.setBackgroundColor('#00000000')
+        })
+        this.window.on('focus', () => {
+            this.window.setBackgroundColor('#00000000')
+        })
 
         this.webContents = this.window.webContents
 
@@ -172,28 +167,12 @@ export class Window {
         this.window.webContents.send('host:became-main-window')
     }
 
-    setMaterial (material: string): void {
+    setMaterial (material: 'mica'|'acrylic'|'auto'): void {
         this.window.setBackgroundMaterial(material)
     }
 
-    setVibrancy (enabled: boolean, type?: string, userRequested?: boolean): void {
-        if (userRequested ?? true) {
-            this.lastVibrancy = { enabled, type }
-        }
-        if (process.platform === 'win32') {
-            if (parseFloat(os.release()) >= 10) {
-                this.window.blurType = enabled ? type === 'fluent' ? 'acrylic' : 'blurbehind' : null
-                try {
-                    this.window.setBlur(enabled)
-                    this.isFluentVibrancy = enabled && type === 'fluent'
-                } catch (error) {
-                    console.error('Failed to set window blur', error)
-                }
-            }
-        } else if (process.platform === 'linux') {
-            this.window.setBackgroundColor(enabled ? '#00000000' : '#131d27')
-            this.window.setBlur(enabled)
-        } else {
+    setVibrancy (enabled: boolean): void {
+        if (process.platform === 'darwin') {
             this.window.setVibrancy(enabled ? macOSVibrancyType : null)
         }
     }
@@ -366,8 +345,8 @@ export class Window {
             this.window?.setAlwaysOnTop(flag)
         })
 
-        this.on('window-set-vibrancy', (_, enabled, type) => {
-            this.setVibrancy(enabled, type)
+        this.on('window-set-vibrancy', (_, enabled) => {
+            this.setVibrancy(enabled)
         })
 
         this.on('window-set-material', (_, material) => {
@@ -413,26 +392,6 @@ export class Window {
         this.window.webContents.setWindowOpenHandler(() => {
             return { action: 'deny' }
         })
-
-        ipcMain.on('window-set-disable-vibrancy-while-dragging', (_event, value) => {
-            this.disableVibrancyWhileDragging = value && this.configStore.hacks?.disableVibrancyWhileDragging
-        })
-
-        let moveEndedTimeout: any = null
-        const onBoundsChange = () => {
-            if (!this.lastVibrancy?.enabled || !this.disableVibrancyWhileDragging || !this.isFluentVibrancy) {
-                return
-            }
-            this.setVibrancy(false, undefined, false)
-            if (moveEndedTimeout) {
-                clearTimeout(moveEndedTimeout)
-            }
-            moveEndedTimeout = setTimeout(() => {
-                this.setVibrancy(this.lastVibrancy.enabled, this.lastVibrancy.type)
-            }, 50)
-        }
-        this.window.on('move', onBoundsChange)
-        this.window.on('resize', onBoundsChange)
 
         ipcMain.on('window-set-traffic-light-position', (_event, x, y) => {
             this.window.setWindowButtonPosition({ x, y })

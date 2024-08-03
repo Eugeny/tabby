@@ -32,19 +32,18 @@ h3.mb-3(translate) Window
     )
 
 
-.form-line(*ngIf='platform.supportsWindowControls')
+.form-line(*ngIf='platform.supportsWindowControls && (hostApp.platform !== Platform.Windows || isWindowMaterialSupported)')
     .header
         .title(*ngIf='hostApp.platform !== Platform.macOS', translate) Blurred background
         .title(*ngIf='hostApp.platform === Platform.macOS', translate) Vibrancy
-        .description(*ngIf='hostApp.platform !== Platform.Linux', translate) Gives the window a blurred transparent background
-        .description(*ngIf='hostApp.platform === Platform.Linux', translate) Enables transparent windows background under KWM
+        .description(*ngIf='hostApp.platform === Platform.Linux', translate) Gives the window a blurred transparent background
 
     toggle(
         [(ngModel)]='config.store.appearance.vibrancy',
         (ngModelChange)='saveConfiguration()'
     )
 
-.form-line(*ngIf='config.store.appearance.vibrancy && (isWindowMaterialSupported || (isFluentVibrancySupported && config.store.hacks.enableFluentBackground))')
+.form-line(*ngIf='config.store.appearance.vibrancy && isWindowMaterialSupported')
     .header
         .title(translate) Background type
     .btn-group
@@ -59,7 +58,7 @@ h3.mb-3(translate) Window
         label.btn.btn-secondary(
             for='vibrancyTypeBlur'
         )
-            span(translate) Blur
+            span(translate) Acrylic
         input.btn-check(
             type='radio',
             name='vibracy',
@@ -71,7 +70,7 @@ h3.mb-3(translate) Window
         label.btn.btn-secondary(
             for='vibrancyTypeFluent'
         )
-            span Fluent
+            span Mica
 
 .form-line(*ngIf='platform.supportsWindowControls')
     .header
@@ -421,25 +420,5 @@ h3.mt-4(translate) Hacks
 
     toggle(
         [(ngModel)]='config.store.hacks.disableGPU',
-        (ngModelChange)='config.save(); config.requestRestart()'
-    )
-
-.form-line(*ngIf='hostApp.platform === Platform.Windows && isFluentVibrancySupported')
-    .header
-        .title(translate) Enable fluent background option
-        .description(translate) Experimental Windows 10 background style known to cause issues
-
-    toggle(
-        [(ngModel)]='config.store.hacks.enableFluentBackground',
-        (ngModelChange)='config.save()'
-    )
-
-.form-line(*ngIf='hostApp.platform === Platform.Windows && isFluentVibrancySupported')
-    .header
-        .title(translate) Disable fluent background while dragging
-        .description(translate) Fluent background sometimes causes drag lag
-
-    toggle(
-        [(ngModel)]='config.store.hacks.disableVibrancyWhileDragging',
         (ngModelChange)='config.save(); config.requestRestart()'
     )

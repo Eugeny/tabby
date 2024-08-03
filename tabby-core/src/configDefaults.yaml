@@ -54,7 +54,5 @@ providerBlacklist: []
 profileBlacklist: []
 hacks:
   disableGPU: false
-  disableVibrancyWhileDragging: false
-  enableFluentBackground: false
 language: null
 defaultQuickConnectProvider: "ssh"

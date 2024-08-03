@@ -1,5 +1,5 @@
 import { Injectable, NgZone, Injector } from '@angular/core'
-import { isWindowsBuild, WIN_BUILD_FLUENT_BG_SUPPORTED, HostAppService, Platform, CLIHandler, WIN_BUILD_WINDOW_MATERIAL_SUPPORTED } from 'tabby-core'
+import { HostAppService, Platform, CLIHandler } from 'tabby-core'
 import { ElectronService } from '../services/electron.service'
 
 
@@ -48,10 +48,6 @@ export class ElectronHostAppService extends HostAppService {
         electron.ipcRenderer.on('host:config-change', () => this.zone.run(() => {
             this.configChangeBroadcast.next()
         }))
-
-        if (isWindowsBuild(WIN_BUILD_FLUENT_BG_SUPPORTED) && !isWindowsBuild(WIN_BUILD_WINDOW_MATERIAL_SUPPORTED)) {
-            electron.ipcRenderer.send('window-set-disable-vibrancy-while-dragging', true)
-        }
     }
 
     newWindow (): void {

@@ -173,13 +173,6 @@
   dependencies:
     debug "^4.3.2"
 
-"@tabby-gang/windows-blurbehind@^3.0.0":
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/@tabby-gang/windows-blurbehind/-/windows-blurbehind-3.0.0.tgz#48d409c2eb14a12c867b70de5ee4d6769ef45e8f"
-  integrity sha512-ah6eJcoQZWOZfu9sd2pWlOJmfl1v+2EZQMeIp7MWvg+/16WS16UFNdnOtlV6AUiABHfZo2QKfCNUEuorCM+Q2A==
-  dependencies:
-    "@types/node" "^10.12.18"
-
 "@types/mz@2.7.4":
   version "2.7.4"
   resolved "https://registry.yarnpkg.com/@types/mz/-/mz-2.7.4.tgz#f9d1535cb5171199b28ae6abd6ec29e856551401"
@@ -191,11 +184,6 @@
   version "20.3.1"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-20.3.1.tgz#e8a83f1aa8b649377bb1fb5d7bac5cb90e784dfe"
   integrity sha512-EhcH/wvidPy1WeML3TtYFGR83UzjxeWRen9V402T8aUGYsCHOmfoisV3ZSg03gAFIbLq8TnWOJ0f4cALtnSEUg==
-
-"@types/node@^10.12.18":
-  version "10.17.60"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-10.17.60.tgz#35f3d6213daed95da7f0f73e75bcc6980e90597b"
-  integrity sha512-F0KIgDJfy2nA3zMLmWGKxcH2ZVEtCZXHHdOQs2gSaQ27+lNeEfGxzkIw90aXswATX7AZ33tahPbzy6KAfUreVw==
 
 "@types/semver@^7.3.6":
   version "7.3.9"
@@ -1480,14 +1468,6 @@ github-from-package@0.0.0:
   version "0.0.0"
   resolved "https://registry.npmjs.org/github-from-package/-/github-from-package-0.0.0.tgz"
   integrity sha1-l/tdlr/eiXMxPyDoKI75oWf6ZM4=
-
-glasstron@0.1.1:
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/glasstron/-/glasstron-0.1.1.tgz#491a2e6f7e7b285c3776c5f7af7aaba2269833b2"
-  integrity sha512-oLEMQM5wwdAQ44NrXD3wjk+b3dsfQG1XtkLn5pCxQNa3ri1AtWvvzpnhFUd88ZTmguHvkY4c3JKzcPSYaJAKKA==
-  dependencies:
-    node-addon-api "^4.0.0"
-    x11 "^2.3.0"
 
 glob@^10.2.2, glob@^10.3.10:
   version "10.3.10"
