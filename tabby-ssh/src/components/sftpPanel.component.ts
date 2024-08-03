@@ -1,6 +1,6 @@
 import * as C from 'constants'
 import { posix as path } from 'path'
-import { Component, Input, Output, EventEmitter, Inject, Optional } from '@angular/core'
+import { Component, Input, Output, EventEmitter, Inject, Optional, HostBinding } from '@angular/core'
 import { FileUpload, MenuItemOptions, NotificationsService, PlatformService } from 'tabby-core'
 import { SFTPSession, SFTPFile } from '../session/sftp'
 import { SSHSession } from '../session/ssh'
@@ -28,6 +28,8 @@ export class SFTPPanelComponent {
     pathSegments: PathSegment[] = []
     @Input() cwdDetectionAvailable = false
     editingPath: string|null = null
+    @HostBinding('class.pinned') pinSFTPPanel = false
+    @Output() pinStateChange = new EventEmitter<boolean>()
 
     constructor (
         private ngbModal: NgbModal,
@@ -244,6 +246,11 @@ export class SFTPPanelComponent {
         }
         this.navigate(this.editingPath)
         this.editingPath = null
+    }
+
+    togglePinSFTPPanel (): void {
+        this.pinSFTPPanel = !this.pinSFTPPanel
+        this.pinStateChange.emit(this.pinSFTPPanel)
     }
 
     close (): void {

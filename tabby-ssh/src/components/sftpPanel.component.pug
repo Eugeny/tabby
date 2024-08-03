@@ -24,6 +24,11 @@
     button.btn.btn-link.btn-sm.flex-shrink-0.d-flex((click)='upload()')
         i.fas.fa-upload.me-1
         div(translate) Upload
+    
+    button.btn.btn-link.btn-sm.flex-shrink-0.d-flex((click)='togglePinSFTPPanel()')
+        i.fas.fa-thumbtack
+        span(*ngIf='pinSFTPPanel', translate) Unpin
+        span(*ngIf='!pinSFTPPanel', translate) Pin
 
     button.btn.btn-link.text-decoration-none((click)='close()') !{require('../../../tabby-core/src/icons/times.svg')}
 
