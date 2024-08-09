@@ -60,6 +60,7 @@ mac:
     NSDownloadsFolderUsageDescription: "A subprocess requests access to the user's Downloads folder."
     NSNetworkVolumesUsageDescription: 'A subprocess requests access to files on a network volume.'
     NSRemovableVolumesUsageDescription: 'A subprocess requests access to files on a removable volume.'
+    NSAppleEventsUsageDescription: 'A subprocess requests permission to send AppleScript events to another application.'
 
 linux:
   category: "Utility;TerminalEmulator;System"
