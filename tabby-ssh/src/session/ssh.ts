@@ -1,11 +1,11 @@
-import * as fs from 'mz/fs'
+// import * as fs from 'mz/fs'
 import * as crypto from 'crypto'
 import colors from 'ansi-colors'
 import stripAnsi from 'strip-ansi'
 import * as shellQuote from 'shell-quote'
 import { Injector } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
-import { ConfigService, FileProvidersService, HostAppService, NotificationsService, Platform, PlatformService, PromptModalComponent, LogService, Logger, TranslateService } from 'tabby-core'
+import { ConfigService, FileProvidersService, HostAppService, NotificationsService, PlatformService, PromptModalComponent, LogService, Logger, TranslateService } from 'tabby-core'
 import { Socket } from 'net'
 import { Subject, Observable } from 'rxjs'
 import { HostKeyPromptModalComponent } from '../components/hostKeyPromptModal.component'
@@ -19,7 +19,7 @@ import { X11Socket } from './x11'
 import { supportedAlgorithms } from '../algorithms'
 import * as russh from 'russh'
 
-const WINDOWS_OPENSSH_AGENT_PIPE = '\\\\.\\pipe\\openssh-ssh-agent'
+// const WINDOWS_OPENSSH_AGENT_PIPE = '\\\\.\\pipe\\openssh-ssh-agent'
 
 export interface Prompt {
     prompt: string
@@ -90,7 +90,6 @@ export class SSHSession {
     private hostApp: HostAppService
     private platform: PlatformService
     private notifications: NotificationsService
-    // private zone: NgZone
     private fileProviders: FileProvidersService
     private config: ConfigService
     private translate: TranslateService
@@ -108,7 +107,6 @@ export class SSHSession {
         this.hostApp = injector.get(HostAppService)
         this.platform = injector.get(PlatformService)
         this.notifications = injector.get(NotificationsService)
-        // this.zone = injector.get(NgZone)
         this.fileProviders = injector.get(FileProvidersService)
         this.config = injector.get(ConfigService)
         this.translate = injector.get(TranslateService)
@@ -123,26 +121,26 @@ export class SSHSession {
     }
 
     async init (): Promise<void> {
-        if (this.hostApp.platform === Platform.Windows) {
-            if (this.config.store.ssh.agentType === 'auto') {
-                if (await fs.exists(WINDOWS_OPENSSH_AGENT_PIPE)) {
-                    this.agentPath = WINDOWS_OPENSSH_AGENT_PIPE
-                } else {
-                    if (
-                        await this.platform.isProcessRunning('pageant.exe') ||
-                        await this.platform.isProcessRunning('gpg-agent.exe')
-                    ) {
-                        this.agentPath = 'pageant'
-                    }
-                }
-            } else if (this.config.store.ssh.agentType === 'pageant') {
-                this.agentPath = 'pageant'
-            } else {
-                this.agentPath = this.config.store.ssh.agentPath || WINDOWS_OPENSSH_AGENT_PIPE
-            }
-        } else {
-            this.agentPath = process.env.SSH_AUTH_SOCK!
-        }
+        // TODO if (this.hostApp.platform === Platform.Windows) {
+        //     if (this.config.store.ssh.agentType === 'auto') {
+        //         if (await fs.exists(WINDOWS_OPENSSH_AGENT_PIPE)) {
+        //             this.agentPath = WINDOWS_OPENSSH_AGENT_PIPE
+        //         } else {
+        //             if (
+        //                 await this.platform.isProcessRunning('pageant.exe') ||
+        //                 await this.platform.isProcessRunning('gpg-agent.exe')
+        //             ) {
+        //                 this.agentPath = 'pageant'
+        //             }
+        //         }
+        //     } else if (this.config.store.ssh.agentType === 'pageant') {
+        //         this.agentPath = 'pageant'
+        //     } else {
+        //         this.agentPath = this.config.store.ssh.agentPath || WINDOWS_OPENSSH_AGENT_PIPE
+        //     }
+        // } else {
+        //     this.agentPath = process.env.SSH_AUTH_SOCK!
+        // }
 
         this.remainingAuthMethods = [{ type: 'none' }]
         if (!this.profile.options.auth || this.profile.options.auth === 'publicKey') {
@@ -171,11 +169,11 @@ export class SSHSession {
             }
         }
         if (!this.profile.options.auth || this.profile.options.auth === 'agent') {
-            if (!this.agentPath) {
-                this.emitServiceMessage(colors.bgYellow.yellow.black(' ! ') + ` Agent auth selected, but no running agent is detected`)
-            } else {
-                this.remainingAuthMethods.push({ type: 'agent' })
-            }
+            // if (!this.agentPath) {
+            //     this.emitServiceMessage(colors.bgYellow.yellow.black(' ! ') + ` Agent auth selected, but no running agent is detected`)
+            // } else {
+            this.remainingAuthMethods.push({ type: 'agent' })
+            // }
         }
         if (!this.profile.options.auth || this.profile.options.auth === 'password') {
             this.remainingAuthMethods.push({ type: 'password' })
@@ -543,6 +541,17 @@ export class SSHSession {
                     if (state instanceof russh.AuthenticatedSSHClient) {
                         return state
                     }
+                }
+            }
+            if (method.type === 'agent') {
+                try {
+                    const result = await this.ssh.authenticateWithAgent(this.authUsername)
+                    if (result) {
+                        return result
+                    }
+                } catch (e) {
+                    this.emitServiceMessage(colors.bgYellow.yellow.black(' ! ') + ` Failed to authenticate using agent: ${e}`)
+                    continue
                 }
             }
         }
