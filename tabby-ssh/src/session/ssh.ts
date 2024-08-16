@@ -5,7 +5,7 @@ import stripAnsi from 'strip-ansi'
 import * as shellQuote from 'shell-quote'
 import { Injector } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
-import { ConfigService, FileProvidersService, HostAppService, NotificationsService, PlatformService, PromptModalComponent, LogService, Logger, TranslateService } from 'tabby-core'
+import { ConfigService, FileProvidersService, NotificationsService, PromptModalComponent, LogService, Logger, TranslateService } from 'tabby-core'
 import { Socket } from 'net'
 import { Subject, Observable } from 'rxjs'
 import { HostKeyPromptModalComponent } from '../components/hostKeyPromptModal.component'
@@ -87,8 +87,8 @@ export class SSHSession {
 
     private passwordStorage: PasswordStorageService
     private ngbModal: NgbModal
-    private hostApp: HostAppService
-    private platform: PlatformService
+    // private hostApp: HostAppService
+    // private platform: PlatformService
     private notifications: NotificationsService
     private fileProviders: FileProvidersService
     private config: ConfigService
@@ -104,8 +104,8 @@ export class SSHSession {
 
         this.passwordStorage = injector.get(PasswordStorageService)
         this.ngbModal = injector.get(NgbModal)
-        this.hostApp = injector.get(HostAppService)
-        this.platform = injector.get(PlatformService)
+        // this.hostApp = injector.get(HostAppService)
+        // this.platform = injector.get(PlatformService)
         this.notifications = injector.get(NotificationsService)
         this.fileProviders = injector.get(FileProvidersService)
         this.config = injector.get(ConfigService)
