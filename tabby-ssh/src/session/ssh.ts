@@ -1,11 +1,11 @@
-// import * as fs from 'mz/fs'
+import * as fs from 'mz/fs'
 import * as crypto from 'crypto'
 import colors from 'ansi-colors'
 import stripAnsi from 'strip-ansi'
 import * as shellQuote from 'shell-quote'
 import { Injector } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
-import { ConfigService, FileProvidersService, NotificationsService, PromptModalComponent, LogService, Logger, TranslateService } from 'tabby-core'
+import { ConfigService, FileProvidersService, NotificationsService, PromptModalComponent, LogService, Logger, TranslateService, Platform, HostAppService } from 'tabby-core'
 import { Socket } from 'net'
 import { Subject, Observable } from 'rxjs'
 import { HostKeyPromptModalComponent } from '../components/hostKeyPromptModal.component'
@@ -19,17 +19,30 @@ import { X11Socket } from './x11'
 import { supportedAlgorithms } from '../algorithms'
 import * as russh from 'russh'
 
-// const WINDOWS_OPENSSH_AGENT_PIPE = '\\\\.\\pipe\\openssh-ssh-agent'
+const WINDOWS_OPENSSH_AGENT_PIPE = '\\\\.\\pipe\\openssh-ssh-agent'
 
 export interface Prompt {
     prompt: string
     echo?: boolean
 }
 
-interface AuthMethod {
-    type: 'none'|'publickey'|'agent'|'password'|'keyboard-interactive'|'hostbased'
-    name?: string
-    contents?: Buffer
+type AuthMethod = {
+    type: 'none'|'password'|'keyboard-interactive'|'hostbased'
+} | {
+    type: 'publickey'
+    name: string
+    contents: Buffer
+} | {
+    type: 'agent',
+    kind: 'unix-socket',
+    path: string
+} | {
+    type: 'agent',
+    kind: 'named-pipe',
+    path: string
+} | {
+    type: 'agent',
+    kind: 'pageant',
 }
 
 export class KeyboardInteractivePrompt {
@@ -71,7 +84,6 @@ export class SSHSession {
     get keyboardInteractivePrompt$ (): Observable<KeyboardInteractivePrompt> { return this.keyboardInteractivePrompt }
     get willDestroy$ (): Observable<void> { return this.willDestroy }
 
-    agentPath?: string
     activePrivateKey: russh.KeyPair|null = null
     authUsername: string|null = null
 
@@ -87,8 +99,7 @@ export class SSHSession {
 
     private passwordStorage: PasswordStorageService
     private ngbModal: NgbModal
-    // private hostApp: HostAppService
-    // private platform: PlatformService
+    private hostApp: HostAppService
     private notifications: NotificationsService
     private fileProviders: FileProvidersService
     private config: ConfigService
@@ -104,8 +115,7 @@ export class SSHSession {
 
         this.passwordStorage = injector.get(PasswordStorageService)
         this.ngbModal = injector.get(NgbModal)
-        // this.hostApp = injector.get(HostAppService)
-        // this.platform = injector.get(PlatformService)
+        this.hostApp = injector.get(HostAppService)
         this.notifications = injector.get(NotificationsService)
         this.fileProviders = injector.get(FileProvidersService)
         this.config = injector.get(ConfigService)
@@ -121,27 +131,6 @@ export class SSHSession {
     }
 
     async init (): Promise<void> {
-        // TODO if (this.hostApp.platform === Platform.Windows) {
-        //     if (this.config.store.ssh.agentType === 'auto') {
-        //         if (await fs.exists(WINDOWS_OPENSSH_AGENT_PIPE)) {
-        //             this.agentPath = WINDOWS_OPENSSH_AGENT_PIPE
-        //         } else {
-        //             if (
-        //                 await this.platform.isProcessRunning('pageant.exe') ||
-        //                 await this.platform.isProcessRunning('gpg-agent.exe')
-        //             ) {
-        //                 this.agentPath = 'pageant'
-        //             }
-        //         }
-        //     } else if (this.config.store.ssh.agentType === 'pageant') {
-        //         this.agentPath = 'pageant'
-        //     } else {
-        //         this.agentPath = this.config.store.ssh.agentPath || WINDOWS_OPENSSH_AGENT_PIPE
-        //     }
-        // } else {
-        //     this.agentPath = process.env.SSH_AUTH_SOCK!
-        // }
-
         this.remainingAuthMethods = [{ type: 'none' }]
         if (!this.profile.options.auth || this.profile.options.auth === 'publicKey') {
             if (this.profile.options.privateKeys?.length) {
@@ -169,11 +158,41 @@ export class SSHSession {
             }
         }
         if (!this.profile.options.auth || this.profile.options.auth === 'agent') {
-            // if (!this.agentPath) {
-            //     this.emitServiceMessage(colors.bgYellow.yellow.black(' ! ') + ` Agent auth selected, but no running agent is detected`)
-            // } else {
-            this.remainingAuthMethods.push({ type: 'agent' })
-            // }
+            if (this.hostApp.platform === Platform.Windows) {
+                if (this.config.store.ssh.agentType === 'auto') {
+                    if (await fs.exists(WINDOWS_OPENSSH_AGENT_PIPE)) {
+                        this.remainingAuthMethods.push({
+                            type: 'agent',
+                            kind: 'named-pipe',
+                            path: WINDOWS_OPENSSH_AGENT_PIPE,
+                        })
+                    } else if (russh.isPageantRunning()) {
+                        this.remainingAuthMethods.push({
+                            type: 'agent',
+                            kind: 'pageant',
+                        })
+                    } else {
+                        this.emitServiceMessage(colors.bgYellow.yellow.black(' ! ') + ` Agent auth selected, but no running Agent process is found`)
+                    }
+                } else if (this.config.store.ssh.agentType === 'pageant') {
+                    this.remainingAuthMethods.push({
+                        type: 'agent',
+                        kind: 'pageant',
+                    })
+                } else {
+                    this.remainingAuthMethods.push({
+                        type: 'agent',
+                        kind: 'named-pipe',
+                        path: this.config.store.ssh.agentPath || WINDOWS_OPENSSH_AGENT_PIPE,
+                    })
+                }
+            } else {
+                this.remainingAuthMethods.push({
+                    type: 'agent',
+                    kind: 'unix-socket',
+                    path: process.env.SSH_AUTH_SOCK!,
+                })
+            }
         }
         if (!this.profile.options.auth || this.profile.options.auth === 'password') {
             this.remainingAuthMethods.push({ type: 'password' })
@@ -497,7 +516,7 @@ export class SSHSession {
             }
             if (method.type === 'publickey' && method.contents) {
                 try {
-                    const key = await this.loadPrivateKey(method.name!, method.contents)
+                    const key = await this.loadPrivateKey(method.name, method.contents)
                     const result = await this.ssh.authenticateWithKeyPair(this.authUsername, key)
                     if (result) {
                         return result
@@ -545,7 +564,7 @@ export class SSHSession {
             }
             if (method.type === 'agent') {
                 try {
-                    const result = await this.ssh.authenticateWithAgent(this.authUsername)
+                    const result = await this.ssh.authenticateWithAgent(this.authUsername, method)
                     if (result) {
                         return result
                     }
