@@ -157,40 +157,15 @@ export class SSHSession {
                 }
             }
         }
+
         if (!this.profile.options.auth || this.profile.options.auth === 'agent') {
-            if (this.hostApp.platform === Platform.Windows) {
-                if (this.config.store.ssh.agentType === 'auto') {
-                    if (await fs.exists(WINDOWS_OPENSSH_AGENT_PIPE)) {
-                        this.remainingAuthMethods.push({
-                            type: 'agent',
-                            kind: 'named-pipe',
-                            path: WINDOWS_OPENSSH_AGENT_PIPE,
-                        })
-                    } else if (russh.isPageantRunning()) {
-                        this.remainingAuthMethods.push({
-                            type: 'agent',
-                            kind: 'pageant',
-                        })
-                    } else {
-                        this.emitServiceMessage(colors.bgYellow.yellow.black(' ! ') + ` Agent auth selected, but no running Agent process is found`)
-                    }
-                } else if (this.config.store.ssh.agentType === 'pageant') {
-                    this.remainingAuthMethods.push({
-                        type: 'agent',
-                        kind: 'pageant',
-                    })
-                } else {
-                    this.remainingAuthMethods.push({
-                        type: 'agent',
-                        kind: 'named-pipe',
-                        path: this.config.store.ssh.agentPath || WINDOWS_OPENSSH_AGENT_PIPE,
-                    })
-                }
+            const spec = await this.getAgentConnectionSpec()
+            if (!spec) {
+                this.emitServiceMessage(colors.bgYellow.yellow.black(' ! ') + ` Agent auth selected, but no running Agent process is found`)
             } else {
                 this.remainingAuthMethods.push({
                     type: 'agent',
-                    kind: 'unix-socket',
-                    path: process.env.SSH_AUTH_SOCK!,
+                    ...spec,
                 })
             }
         }
@@ -201,6 +176,40 @@ export class SSHSession {
             this.remainingAuthMethods.push({ type: 'keyboard-interactive' })
         }
         this.remainingAuthMethods.push({ type: 'hostbased' })
+    }
+
+    private async getAgentConnectionSpec (): Promise<russh.AgentConnectionSpec|null> {
+        if (this.hostApp.platform === Platform.Windows) {
+            if (this.config.store.ssh.agentType === 'auto') {
+                if (await fs.exists(WINDOWS_OPENSSH_AGENT_PIPE)) {
+                    return {
+                        kind: 'named-pipe',
+                        path: WINDOWS_OPENSSH_AGENT_PIPE,
+                    }
+                } else if (russh.isPageantRunning()) {
+                    return {
+                        kind: 'pageant',
+                    }
+                } else {
+                    this.emitServiceMessage(colors.bgYellow.yellow.black(' ! ') + ` Agent auth selected, but no running Agent process is found`)
+                }
+            } else if (this.config.store.ssh.agentType === 'pageant') {
+                return {
+                    kind: 'pageant',
+                }
+            } else {
+                return {
+                    kind: 'named-pipe',
+                    path: this.config.store.ssh.agentPath || WINDOWS_OPENSSH_AGENT_PIPE,
+                }
+            }
+        } else {
+            return {
+                kind: 'unix-socket',
+                path: process.env.SSH_AUTH_SOCK!,
+            }
+        }
+        return null
     }
 
     async openSFTP (): Promise<SFTPSession> {
@@ -334,8 +343,6 @@ export class SSHSession {
 
 
             // ssh.connect({
-            //     agent: this.agentPath,
-            //     agentForward: this.profile.options.agentForward && !!this.agentPath,
             //     keepaliveInterval: this.profile.options.keepaliveInterval ?? 15000,
             //     keepaliveCountMax: this.profile.options.keepaliveCountMax,
             //     readyTimeout: this.profile.options.readyTimeout,
@@ -407,6 +414,19 @@ export class SSHSession {
                 }
                 event.channel.close()
             }
+        })
+
+        this.ssh.agentChannelOpen$.subscribe(async channel => {
+            const spec = await this.getAgentConnectionSpec()
+            if (!spec) {
+                await channel.close()
+                return
+            }
+
+            const agent = await russh.SSHAgentStream.connect(spec)
+            channel.data$.subscribe(data => agent.write(data))
+            agent.data$.subscribe(data => channel.write(data), undefined, () => channel.close())
+            channel.closed$.subscribe(() => agent.close())
         })
     }
 
@@ -667,6 +687,9 @@ export class SSHSession {
                 authCookie: crypto.randomBytes(16).toString('hex'),
                 screenNumber: 0,
             })
+        }
+        if (this.profile.options.agentForward) {
+            await ch.requestAgentForwarding()
         }
         await ch.requestShell()
         return ch
