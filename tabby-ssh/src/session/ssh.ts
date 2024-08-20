@@ -514,7 +514,7 @@ export class SSHSession {
                     continue
                 }
             }
-            if (method.type === 'publickey' && method.contents) {
+            if (method.type === 'publickey') {
                 try {
                     const key = await this.loadPrivateKey(method.name, method.contents)
                     const result = await this.ssh.authenticateWithKeyPair(this.authUsername, key)
