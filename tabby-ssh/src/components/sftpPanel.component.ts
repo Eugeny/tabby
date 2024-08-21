@@ -188,7 +188,7 @@ export class SFTPPanelComponent {
     async uploadOneWithFolder (transfer: FileUpload): Promise<void> {
         const savedPath = this.path
         const RelativePath = transfer.getRelativePath()
-        if (RelativePath == null){
+        if (RelativePath == null) {
             return
         }
 
@@ -201,7 +201,7 @@ export class SFTPPanelComponent {
                     accumPath = path.posix.join(accumPath, pathParts)
                     try {
                         await this.sftp.mkdir(path.join(this.path, accumPath))
-                    } catch (e) {
+                    } catch {
                         // Intentionally ignoring errors from making duplicate dirs.
                     }
                 }

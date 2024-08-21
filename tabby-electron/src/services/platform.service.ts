@@ -231,7 +231,7 @@ export class ElectronPlatformService extends PlatformService {
                 const files = await this.getAllFiles(folderPath)
                 fileInfos = fileInfos.concat(files.map(file => ({
                     fullPath: file,
-                    relativePath: path.posix.join(path.basename(folderPath), path.posix.relative(folderPath, file))
+                    relativePath: path.posix.join(path.basename(folderPath), path.posix.relative(folderPath, file)),
                 })))
             }
 
