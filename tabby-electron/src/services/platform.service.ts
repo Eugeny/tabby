@@ -48,7 +48,7 @@ export class ElectronPlatformService extends PlatformService {
         })
     }
 
-    async getAllFiles(dir: string) {
+    async getAllFiles (dir: string): string[] {
         let files: string[] = []
         const items = await fs.readdir(dir, { withFileTypes: true })
         for (const item of items) {
@@ -229,9 +229,9 @@ export class ElectronPlatformService extends PlatformService {
             let allFiles: string[] = []
             let relativePaths: string[] = []
             for (const folderPath of paths) {
-                let files = await this.getAllFiles(folderPath)
+                const files = await this.getAllFiles(folderPath)
                 allFiles = allFiles.concat(files)
-                relativePaths = relativePaths.concat(files.map(file => path.posix.join(path.basename(folderPath),path.posix.relative(folderPath, file))))
+                relativePaths = relativePaths.concat(files.map(file => path.posix.join(path.basename(folderPath), path.posix.relative(folderPath, file))))
             }
 
             return Promise.all(allFiles.map(async (p, index) => {
@@ -300,7 +300,7 @@ class ElectronFileUpload extends FileUpload {
     private buffer: Buffer
     private powerSaveBlocker = 0
 
-    constructor (private filePath: string, private electron: ElectronService, private relativePath: string="") {
+    constructor (private filePath: string, private electron: ElectronService, private relativePath = '') {
         super()
         this.buffer = Buffer.alloc(256 * 1024)
         this.powerSaveBlocker = electron.powerSaveBlocker.start('prevent-app-suspension')
@@ -316,7 +316,7 @@ class ElectronFileUpload extends FileUpload {
     getName (): string {
         return path.basename(this.filePath)
     }
-    
+
     getRelativePath (): string {
         return this.relativePath
     }
@@ -364,7 +364,7 @@ class ElectronFileDownload extends FileDownload {
     }
 
     getRelativePath (): string {
-        return ""
+        return ''
     }
 
     getMode (): number {

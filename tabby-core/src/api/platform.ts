@@ -205,7 +205,7 @@ export class HTMLFileUpload extends FileUpload {
     }
 
     getRelativePath (): string {
-        return ""
+        return ''
     }
 
     getMode (): number {

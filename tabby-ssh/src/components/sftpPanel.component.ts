@@ -187,7 +187,7 @@ export class SFTPPanelComponent {
 
     async uploadOneWithFolder (transfer: FileUpload): Promise<void> {
         const savedPath = this.path
-        
+
         try {
             await this.sftp.stat(path.join(this.path, transfer.getRelativePath()))
         } catch (e) {
