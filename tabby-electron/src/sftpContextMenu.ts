@@ -54,7 +54,7 @@ export class EditSFTPContextMenu extends SFTPContextMenuItemProvider {
             if (event === 'rename') {
                 watcher.close()
             }
-            const upload = await this.platform.startUpload({ multiple: false }, [tempPath])
+            const upload = await this.platform.startUpload({ multiple: false, directory: false }, [tempPath])
             if (!upload.length) {
                 return
             }

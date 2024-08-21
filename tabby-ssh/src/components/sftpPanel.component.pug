@@ -25,6 +25,10 @@
         i.fas.fa-upload.me-1
         div(translate) Upload
 
+    button.btn.btn-link.btn-sm.flex-shrink-0.d-flex((click)='uploadFolder()')
+        i.fas.fa-upload.me-1
+        div(translate) Upload Folder
+
     button.btn.btn-link.text-decoration-none((click)='close()') !{require('../../../tabby-core/src/icons/times.svg')}
 
 .body(dropZone, (transfer)='uploadOne($event)')

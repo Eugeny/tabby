@@ -74,7 +74,7 @@ class ZModemMiddleware extends SessionMiddleware {
         this.logger.info('new session', zsession)
 
         if (zsession.type === 'send') {
-            const transfers = await this.platform.startUpload({ multiple: true })
+            const transfers = await this.platform.startUpload({ multiple: true, directory: false })
             let filesRemaining = transfers.length
             let sizeRemaining = transfers.reduce((a, b) => a + b.getSize(), 0)
             for (const transfer of transfers) {

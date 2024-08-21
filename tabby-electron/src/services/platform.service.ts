@@ -48,6 +48,20 @@ export class ElectronPlatformService extends PlatformService {
         })
     }
 
+    async getAllFiles(dir: string) {
+        let files: string[] = []
+        const items = await fs.readdir(dir, { withFileTypes: true })
+        for (const item of items) {
+            const fullPath = path.posix.join(dir, item.name)
+            if (item.isDirectory()) {
+                files = files.concat(await this.getAllFiles(fullPath))
+            } else {
+                files.push(fullPath)
+            }
+        }
+        return files
+    }
+
     readClipboard (): string {
         return this.electron.clipboard.readText()
     }
@@ -187,11 +201,14 @@ export class ElectronPlatformService extends PlatformService {
     }
 
     async startUpload (options?: FileUploadOptions, paths?: string[]): Promise<FileUpload[]> {
-        options ??= { multiple: false }
+        options ??= { multiple: false, directory: false }
 
         const properties: any[] = ['openFile', 'treatPackageAsDirectory']
         if (options.multiple) {
             properties.push('multiSelections')
+        }
+        if (options.directory) {
+            properties.push('openDirectory')
         }
 
         if (!paths) {
@@ -208,12 +225,29 @@ export class ElectronPlatformService extends PlatformService {
             paths = result.filePaths
         }
 
-        return Promise.all(paths.map(async p => {
-            const transfer = new ElectronFileUpload(p, this.electron)
-            await wrapPromise(this.zone, transfer.open())
-            this.fileTransferStarted.next(transfer)
-            return transfer
-        }))
+        if(options.directory) {
+            let allFiles: string[] = []
+            let relativePaths: string[] = []
+            for (const folderPath of paths) {
+                let files = await this.getAllFiles(folderPath)
+                allFiles = allFiles.concat(files)
+                relativePaths = relativePaths.concat(files.map(file => path.posix.join(path.basename(folderPath),path.posix.relative(folderPath, file))))
+            }
+
+            return Promise.all(allFiles.map(async (p, index) => {
+                const transfer = new ElectronFileUpload(p, this.electron, relativePaths[index])
+                await wrapPromise(this.zone, transfer.open())
+                this.fileTransferStarted.next(transfer)
+                return transfer
+            }))
+        } else {
+            return Promise.all(paths.map(async p => {
+                const transfer = new ElectronFileUpload(p, this.electron)
+                await wrapPromise(this.zone, transfer.open())
+                this.fileTransferStarted.next(transfer)
+                return transfer
+            }))
+        }
     }
 
     async startDownload (name: string, mode: number, size: number, filePath?: string): Promise<FileDownload|null> {
@@ -266,7 +300,7 @@ class ElectronFileUpload extends FileUpload {
     private buffer: Buffer
     private powerSaveBlocker = 0
 
-    constructor (private filePath: string, private electron: ElectronService) {
+    constructor (private filePath: string, private electron: ElectronService, private relativePath: string="") {
         super()
         this.buffer = Buffer.alloc(256 * 1024)
         this.powerSaveBlocker = electron.powerSaveBlocker.start('prevent-app-suspension')
@@ -281,6 +315,10 @@ class ElectronFileUpload extends FileUpload {
 
     getName (): string {
         return path.basename(this.filePath)
+    }
+    
+    getRelativePath (): string {
+        return this.relativePath
     }
 
     getMode (): number {
@@ -323,6 +361,10 @@ class ElectronFileDownload extends FileDownload {
 
     getName (): string {
         return path.basename(this.filePath)
+    }
+
+    getRelativePath (): string {
+        return ""
     }
 
     getMode (): number {

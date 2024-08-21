@@ -176,8 +176,38 @@ export class SFTPPanelComponent {
     }
 
     async upload (): Promise<void> {
-        const transfers = await this.platform.startUpload({ multiple: true })
+        const transfers = await this.platform.startUpload({ multiple: true, directory: false })
         await Promise.all(transfers.map(t => this.uploadOne(t)))
+    }
+
+    async uploadFolder (): Promise<void> {
+        const transfers = await this.platform.startUpload({ multiple: true, directory: true })
+        await Promise.all(transfers.map(t => this.uploadOneWithFolder(t)))
+    }
+
+    async uploadOneWithFolder (transfer: FileUpload): Promise<void> {
+        const savedPath = this.path
+        
+        try {
+            await this.sftp.stat(path.join(this.path, transfer.getRelativePath()))
+        } catch (e) {
+            if (e instanceof Error && e.message.includes('No such file')) {
+                let accumPath = ""
+                for (const pathParts of path.posix.dirname(transfer.getRelativePath()).split(path.posix.sep)) {
+                    accumPath = path.posix.join(accumPath,pathParts)
+                    this.sftp.mkdir(path.join(this.path, accumPath)).then(() => {
+                        this.notifications.notice('The directory was created successfully')
+                    }).catch(() => {})
+                }
+            } else {
+                console.log("THROW HERE")
+                throw e;
+            }
+        }
+        await this.sftp.upload(path.join(this.path, transfer.getRelativePath()), transfer)
+        if (this.path === savedPath) {
+            await this.navigate(this.path)
+        }
     }
 
     async uploadOne (transfer: FileUpload): Promise<void> {
