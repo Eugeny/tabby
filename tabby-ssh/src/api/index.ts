@@ -1,5 +1,4 @@
 export * from './contextMenu'
 export * from './interfaces'
 export * from './importer'
-export * from './proxyStream'
 export { SSHMultiplexerService } from '../services/sshMultiplexer.service'

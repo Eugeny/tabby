@@ -15,7 +15,6 @@
   },
   "files": [
     "dist",
-    "util/pagent.exe",
     "typings"
   ],
   "author": "Eugene Pankov",
@@ -23,11 +22,9 @@
   "devDependencies": {
     "@types/node": "20.3.1",
     "ansi-colors": "^4.1.1",
-    "diffie-hellman": "^5.0.3",
     "strip-ansi": "^7.0.0"
   },
   "dependencies": {
-    "@luminati-io/socksv5": "^0.0.7",
     "run-script-os": "^1.1.3",
     "tmp-promise": "^3.0.3"
   },
