@@ -254,6 +254,22 @@ export class SSHSession {
         } else if (this.jumpChannel) {
             transport = await russh.SshTransport.newSshChannel(await this.jumpChannel.take())
             this.jumpChannel = null
+        } else if (this.profile.options.socksProxyHost) {
+            this.emitServiceMessage(colors.bgBlue.black(' Proxy ') + ` Using ${this.profile.options.socksProxyHost}:${this.profile.options.socksProxyPort}`)
+            transport = await russh.SshTransport.newSocksProxy(
+                this.profile.options.socksProxyHost,
+                this.profile.options.socksProxyPort ?? 1080,
+                this.profile.options.host,
+                this.profile.options.port ?? 22,
+            )
+        } else if (this.profile.options.httpProxyHost) {
+            this.emitServiceMessage(colors.bgBlue.black(' Proxy ') + ` Using ${this.profile.options.httpProxyHost}:${this.profile.options.httpProxyPort}`)
+            transport = await russh.SshTransport.newHttpProxy(
+                this.profile.options.httpProxyHost,
+                this.profile.options.httpProxyPort ?? 8080,
+                this.profile.options.host,
+                this.profile.options.port ?? 22,
+            )
         } else {
             transport = await russh.SshTransport.newSocket(`${this.profile.options.host.trim()}:${this.profile.options.port ?? 22}`)
         }
@@ -329,19 +345,6 @@ export class SSHSession {
         }
 
         try {
-            // if (this.profile.options.socksProxyHost) {
-            //     this.emitServiceMessage(colors.bgBlue.black(' Proxy ') + ` Using ${this.profile.options.socksProxyHost}:${this.profile.options.socksProxyPort}`)
-            //     this.proxyCommandStream = new SocksProxyStream(this.profile)
-            // }
-            // if (this.profile.options.httpProxyHost) {
-            //     this.emitServiceMessage(colors.bgBlue.black(' Proxy ') + ` Using ${this.profile.options.httpProxyHost}:${this.profile.options.httpProxyPort}`)
-            //     this.proxyCommandStream = new HTTPProxyStream(this.profile)
-            // }
-
-            //     await this.proxyCommandStream.start()
-            // }
-
-
             // ssh.connect({
             //     keepaliveInterval: this.profile.options.keepaliveInterval ?? 15000,
             //     keepaliveCountMax: this.profile.options.keepaliveCountMax,
