@@ -160,7 +160,7 @@ class HTMLFileDownload extends FileDownload {
     }
 
     getRelativePath (): string {
-        return ""
+        return ''
     }
 
     getMode (): number {

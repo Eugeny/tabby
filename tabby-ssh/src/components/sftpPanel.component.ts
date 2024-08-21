@@ -192,16 +192,17 @@ export class SFTPPanelComponent {
             await this.sftp.stat(path.join(this.path, transfer.getRelativePath()))
         } catch (e) {
             if (e instanceof Error && e.message.includes('No such file')) {
-                let accumPath = ""
+                let accumPath = ''
                 for (const pathParts of path.posix.dirname(transfer.getRelativePath()).split(path.posix.sep)) {
-                    accumPath = path.posix.join(accumPath,pathParts)
+                    accumPath = path.posix.join(accumPath, pathParts)
                     this.sftp.mkdir(path.join(this.path, accumPath)).then(() => {
                         this.notifications.notice('The directory was created successfully')
-                    }).catch(() => {})
+                    }).catch(() => {
+                        // Intentionally ignoring errors from making duplicate dirs.
+                    })
                 }
             } else {
-                console.log("THROW HERE")
-                throw e;
+                throw e
             }
         }
         await this.sftp.upload(path.join(this.path, transfer.getRelativePath()), transfer)

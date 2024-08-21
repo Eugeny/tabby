@@ -48,7 +48,7 @@ export class ElectronPlatformService extends PlatformService {
         })
     }
 
-    async getAllFiles (dir: string): string[] {
+    async getAllFiles (dir: string): Promise<string[]> {
         let files: string[] = []
         const items = await fs.readdir(dir, { withFileTypes: true })
         for (const item of items) {
