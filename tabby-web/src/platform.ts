@@ -159,8 +159,8 @@ class HTMLFileDownload extends FileDownload {
         return this.name
     }
 
-    getRelativePath (): string {
-        return ''
+    getRelativePath (): null {
+        return null
     }
 
     getMode (): number {

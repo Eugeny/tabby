@@ -226,16 +226,17 @@ export class ElectronPlatformService extends PlatformService {
         }
 
         if(options.directory) {
-            let allFiles: string[] = []
-            let relativePaths: string[] = []
+            let fileInfos: { fullPath: string, relativePath: string }[] = []
             for (const folderPath of paths) {
                 const files = await this.getAllFiles(folderPath)
-                allFiles = allFiles.concat(files)
-                relativePaths = relativePaths.concat(files.map(file => path.posix.join(path.basename(folderPath), path.posix.relative(folderPath, file))))
+                fileInfos = fileInfos.concat(files.map(file => ({
+                    fullPath: file,
+                    relativePath: path.posix.join(path.basename(folderPath), path.posix.relative(folderPath, file))
+                })))
             }
 
-            return Promise.all(allFiles.map(async (p, index) => {
-                const transfer = new ElectronFileUpload(p, this.electron, relativePaths[index])
+            return Promise.all(fileInfos.map(async (fileInfo) => {
+                const transfer = new ElectronFileUpload(fileInfo.fullPath, this.electron, fileInfo.relativePath)
                 await wrapPromise(this.zone, transfer.open())
                 this.fileTransferStarted.next(transfer)
                 return transfer
@@ -363,8 +364,8 @@ class ElectronFileDownload extends FileDownload {
         return path.basename(this.filePath)
     }
 
-    getRelativePath (): string {
-        return ''
+    getRelativePath (): null {
+        return null
     }
 
     getMode (): number {

@@ -22,7 +22,7 @@ export interface MessageBoxResult {
 
 export abstract class FileTransfer {
     abstract getName (): string
-    abstract getRelativePath (): string
+    abstract getRelativePath (): string | null
     abstract getMode (): number
     abstract getSize (): number
     abstract close (): void
@@ -204,8 +204,8 @@ export class HTMLFileUpload extends FileUpload {
         return this.file.name
     }
 
-    getRelativePath (): string {
-        return ''
+    getRelativePath (): null {
+        return null
     }
 
     getMode (): number {

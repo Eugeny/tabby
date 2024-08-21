@@ -187,25 +187,29 @@ export class SFTPPanelComponent {
 
     async uploadOneWithFolder (transfer: FileUpload): Promise<void> {
         const savedPath = this.path
+        const RelativePath = transfer.getRelativePath()
+        if (RelativePath == null){
+            return
+        }
 
         try {
-            await this.sftp.stat(path.join(this.path, transfer.getRelativePath()))
+            await this.sftp.stat(path.join(this.path, RelativePath))
         } catch (e) {
             if (e instanceof Error && e.message.includes('No such file')) {
                 let accumPath = ''
-                for (const pathParts of path.posix.dirname(transfer.getRelativePath()).split(path.posix.sep)) {
+                for (const pathParts of path.posix.dirname(RelativePath).split(path.posix.sep)) {
                     accumPath = path.posix.join(accumPath, pathParts)
-                    this.sftp.mkdir(path.join(this.path, accumPath)).then(() => {
-                        this.notifications.notice('The directory was created successfully')
-                    }).catch(() => {
+                    try {
+                        await this.sftp.mkdir(path.join(this.path, accumPath))
+                    } catch (e) {
                         // Intentionally ignoring errors from making duplicate dirs.
-                    })
+                    }
                 }
             } else {
                 throw e
             }
         }
-        await this.sftp.upload(path.join(this.path, transfer.getRelativePath()), transfer)
+        await this.sftp.upload(path.join(this.path, RelativePath), transfer)
         if (this.path === savedPath) {
             await this.navigate(this.path)
         }
