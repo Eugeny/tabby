@@ -13,7 +13,7 @@ import { HostKeyPromptModalComponent } from '../components/hostKeyPromptModal.co
 import { PasswordStorageService } from '../services/passwordStorage.service'
 import { SSHKnownHostsService } from '../services/sshKnownHosts.service'
 import { SFTPSession } from './sftp'
-import { SSHAlgorithmType, SSHProfile, SSHProxyStream, AutoPrivateKeyLocator, PortForwardType } from '../api'
+import { SSHAlgorithmType, SSHProfile, AutoPrivateKeyLocator, PortForwardType } from '../api'
 import { ForwardedPort } from './forwards'
 import { X11Socket } from './x11'
 import { supportedAlgorithms } from '../algorithms'
@@ -78,7 +78,6 @@ export class SSHSession {
     sftp?: russh.SFTP
     forwardedPorts: ForwardedPort[] = []
     jumpChannel: russh.Channel|null = null
-    proxyCommandStream: SSHProxyStream|null = null
     savedPassword?: string
     get serviceMessage$ (): Observable<string> { return this.serviceMessage }
     get keyboardInteractivePrompt$ (): Observable<KeyboardInteractivePrompt> { return this.keyboardInteractivePrompt }
@@ -668,7 +667,6 @@ export class SSHSession {
         this.willDestroy.next()
         this.willDestroy.complete()
         this.serviceMessage.complete()
-        this.proxyCommandStream?.stop()
         this.ssh.disconnect()
     }
 

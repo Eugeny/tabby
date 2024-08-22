@@ -25,6 +25,7 @@
     "strip-ansi": "^7.0.0"
   },
   "dependencies": {
+    "@luminati-io/socksv5": "^0.0.7",
     "run-script-os": "^1.1.3",
     "tmp-promise": "^3.0.3"
   },
