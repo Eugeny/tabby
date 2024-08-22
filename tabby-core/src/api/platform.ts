@@ -109,13 +109,13 @@ export abstract class PlatformService {
     abstract startDownload (name: string, mode: number, size: number): Promise<FileDownload|null>
     abstract startUpload (options?: FileUploadOptions): Promise<FileUpload[]>
 
-    async startUploadFromDragEvent(event: DragEvent, multiple = false): Promise<FileUpload[]> {
+    async startUploadFromDragEvent (event: DragEvent, multiple = false): Promise<FileUpload[]> {
         const result: FileUpload[] = []
-    
+
         if (!event.dataTransfer) {
             return Promise.resolve([])
         }
-    
+
         const traverseFileTree = (item: any, path = ''): Promise<void> => {
             return new Promise((resolve) => {
                 if (item.isFile) {
@@ -124,7 +124,7 @@ export abstract class PlatformService {
                         this.fileTransferStarted.next(transfer)
                         result.push(transfer)
                         resolve()
-                    });
+                    })
                 } else if (item.isDirectory) {
                     const dirReader = item.createReader()
                     dirReader.readEntries(async (entries: any[]) => {
@@ -138,10 +138,11 @@ export abstract class PlatformService {
                 }
             })
         }
-    
+
         const promises: Promise<void>[] = []
-    
+
         const items = event.dataTransfer.items
+        // eslint-disable-next-line @typescript-eslint/prefer-for-of
         for (let i = 0; i < items.length; i++) {
             const item = items[i].webkitGetAsEntry()
             if (item) {
@@ -151,7 +152,6 @@ export abstract class PlatformService {
                 }
             }
         }
-    
         return Promise.all(promises).then(() => result)
     }
 
