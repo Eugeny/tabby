@@ -40,5 +40,8 @@
     "tabby-core": "*",
     "tabby-settings": "*",
     "tabby-terminal": "*"
+  },
+  "resolutions": {
+    "glob": "7.2.3"
   }
 }
