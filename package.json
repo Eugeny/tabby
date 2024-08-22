@@ -53,7 +53,7 @@
     "html-loader": "4.2.0",
     "json-loader": "^0.5.7",
     "lru-cache": "^6.0.0",
-    "macos-release": "^3.1.0",
+    "macos-release": "^3.3.0",
     "ngx-toastr": "^16.0.2",
     "node-abi": "^3.65.0",
     "npmlog": "6.0.2",
