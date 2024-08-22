@@ -151,6 +151,7 @@ class HTMLFileDownload extends FileDownload {
         private name: string,
         private mode: number,
         private size: number,
+        private relativePath: string|null = null,
     ) {
         super()
     }
@@ -159,8 +160,8 @@ class HTMLFileDownload extends FileDownload {
         return this.name
     }
 
-    getRelativePath (): null {
-        return null
+    getRelativePath (): string|null {
+        return this.relativePath
     }
 
     getMode (): number {

@@ -109,22 +109,50 @@ export abstract class PlatformService {
     abstract startDownload (name: string, mode: number, size: number): Promise<FileDownload|null>
     abstract startUpload (options?: FileUploadOptions): Promise<FileUpload[]>
 
-    startUploadFromDragEvent (event: DragEvent, multiple = false): FileUpload[] {
+    async startUploadFromDragEvent(event: DragEvent, multiple = false): Promise<FileUpload[]> {
         const result: FileUpload[] = []
+    
         if (!event.dataTransfer) {
-            return []
+            return Promise.resolve([])
         }
-        // eslint-disable-next-line @typescript-eslint/prefer-for-of
-        for (let i = 0; i < event.dataTransfer.files.length; i++) {
-            const file = event.dataTransfer.files[i]
-            const transfer = new HTMLFileUpload(file)
-            this.fileTransferStarted.next(transfer)
-            result.push(transfer)
-            if (!multiple) {
-                break
+    
+        const traverseFileTree = (item: any, path = ''): Promise<void> => {
+            return new Promise((resolve) => {
+                if (item.isFile) {
+                    item.file((file: File) => {
+                        const transfer = new HTMLFileUpload(file, `${path}/${item.name}`)
+                        this.fileTransferStarted.next(transfer)
+                        result.push(transfer)
+                        resolve()
+                    });
+                } else if (item.isDirectory) {
+                    const dirReader = item.createReader()
+                    dirReader.readEntries(async (entries: any[]) => {
+                        for (const entry of entries) {
+                            await traverseFileTree(entry, `${path}${item.name}/`)
+                        }
+                        resolve()
+                    })
+                } else {
+                    resolve()
+                }
+            })
+        }
+    
+        const promises: Promise<void>[] = []
+    
+        const items = event.dataTransfer.items
+        for (let i = 0; i < items.length; i++) {
+            const item = items[i].webkitGetAsEntry()
+            if (item) {
+                promises.push(traverseFileTree(item))
+                if (!multiple) {
+                    break
+                }
             }
         }
-        return result
+    
+        return Promise.all(promises).then(() => result)
     }
 
     getConfigPath (): string|null {
@@ -194,7 +222,7 @@ export class HTMLFileUpload extends FileUpload {
     private stream: ReadableStream
     private reader: ReadableStreamDefaultReader
 
-    constructor (private file: File) {
+    constructor (private file: File, private relativePath: string|null = null) {
         super()
         this.stream = this.file.stream()
         this.reader = this.stream.getReader()
@@ -204,8 +232,8 @@ export class HTMLFileUpload extends FileUpload {
         return this.file.name
     }
 
-    getRelativePath (): null {
-        return null
+    getRelativePath (): string|null {
+        return this.relativePath
     }
 
     getMode (): number {

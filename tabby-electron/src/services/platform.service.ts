@@ -301,7 +301,7 @@ class ElectronFileUpload extends FileUpload {
     private buffer: Buffer
     private powerSaveBlocker = 0
 
-    constructor (private filePath: string, private electron: ElectronService, private relativePath = '') {
+    constructor (private filePath: string, private electron: ElectronService, private relativePath: string|null = null  ) {
         super()
         this.buffer = Buffer.alloc(256 * 1024)
         this.powerSaveBlocker = electron.powerSaveBlocker.start('prevent-app-suspension')
@@ -318,7 +318,7 @@ class ElectronFileUpload extends FileUpload {
         return path.basename(this.filePath)
     }
 
-    getRelativePath (): string {
+    getRelativePath (): string|null {
         return this.relativePath
     }
 
