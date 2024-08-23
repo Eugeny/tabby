@@ -1,3 +1,4 @@
+import deepEqual from 'deep-equal'
 import { BehaviorSubject, filter, firstValueFrom, takeUntil } from 'rxjs'
 import { Injector } from '@angular/core'
 import { ConfigService, getCSSFontFamily, getWindows10Build, HostAppService, HotkeysService, Platform, PlatformService, ThemesService } from 'tabby-core'
@@ -11,9 +12,9 @@ import { Unicode11Addon } from '@xterm/addon-unicode11'
 import { SerializeAddon } from '@xterm/addon-serialize'
 import { ImageAddon } from '@xterm/addon-image'
 import { CanvasAddon } from '@xterm/addon-canvas'
-import './xterm.css'
-import deepEqual from 'deep-equal'
 import { BaseTerminalProfile, TerminalColorScheme } from '../api/interfaces'
+import { getTerminalBackgroundColor } from '../helpers'
+import './xterm.css'
 
 const COLOR_NAMES = [
     'black', 'red', 'green', 'yellow', 'blue', 'magenta', 'cyan', 'white',
@@ -361,21 +362,21 @@ export class XTermFrontend extends Frontend {
     }
 
     private configureColors (scheme: TerminalColorScheme|undefined): void {
-        const config = this.configService.store
+        const appColorScheme = this.themes._getActiveColorScheme() as TerminalColorScheme
 
-        scheme = scheme ?? this.themes._getActiveColorScheme()
+        scheme = scheme ?? appColorScheme
 
         const theme: ITheme = {
-            foreground: scheme!.foreground,
-            selectionBackground: scheme!.selection ?? '#88888888',
-            selectionForeground: scheme!.selectionForeground ?? undefined,
-            background: !this.themes.findCurrentTheme().followsColorScheme && config.terminal.background === 'colorScheme' ? scheme!.background : '#00000000',
-            cursor: scheme!.cursor,
-            cursorAccent: scheme!.cursorAccent,
+            foreground: scheme.foreground,
+            selectionBackground: scheme.selection ?? '#88888888',
+            selectionForeground: scheme.selectionForeground ?? undefined,
+            background: getTerminalBackgroundColor(this.configService, this.themes, scheme) ?? '#00000000',
+            cursor: scheme.cursor,
+            cursorAccent: scheme.cursorAccent,
         }
 
         for (let i = 0; i < COLOR_NAMES.length; i++) {
-            theme[COLOR_NAMES[i]] = scheme!.colors[i]
+            theme[COLOR_NAMES[i]] = scheme.colors[i]
         }
 
         if (!deepEqual(this.configuredTheme, theme)) {
