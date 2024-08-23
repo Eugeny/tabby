@@ -135,7 +135,7 @@ export class WebPlatformService extends PlatformService {
         })
     }
 
-    async startUploadDirectory (paths?: string[]): Promise<DirectoryUpload> {
+    async startUploadDirectory (_paths?: string[]): Promise<DirectoryUpload> {
         return new DirectoryUpload()
     }
 

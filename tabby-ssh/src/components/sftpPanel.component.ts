@@ -194,7 +194,7 @@ export class SFTPPanelComponent {
                 } catch {
                     // Intentionally ignoring errors from making duplicate dirs.
                 }
-                await this.uploadOneFolder(t, path.posix.join(accumPath,t.getName()))
+                await this.uploadOneFolder(t, path.posix.join(accumPath, t.getName()))
             } else {
                 await this.sftp.upload(path.posix.join(this.path, accumPath, t.getName()), t)
             }

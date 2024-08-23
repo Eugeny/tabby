@@ -90,19 +90,19 @@ export interface FileUploadOptions {
 export class DirectoryUpload {
     private childrens: (FileUpload|DirectoryUpload)[] = []
 
-    constructor(private name = '') {
+    constructor (private name = '') {
         // Just set name for now.
     }
 
-    getName () {
+    getName (): string {
         return this.name
     }
 
-    getChildrens () {
+    getChildrens (): (FileUpload|DirectoryUpload)[] {
         return this.childrens
     }
 
-    pushChildren (item: FileUpload|DirectoryUpload) {
+    pushChildren (item: FileUpload|DirectoryUpload): void {
         this.childrens.push(item)
     }
 }
