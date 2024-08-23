@@ -85,7 +85,26 @@ export abstract class FileUpload extends FileTransfer {
 
 export interface FileUploadOptions {
     multiple: boolean
-    directory: boolean
+}
+
+export class DirectoryUpload {
+    private childrens: (FileUpload|DirectoryUpload)[] = []
+
+    constructor(private name = '') {
+        // Just set name for now.
+    }
+
+    getName () {
+        return this.name
+    }
+
+    getChildrens () {
+        return this.childrens
+    }
+
+    pushChildren (item: FileUpload|DirectoryUpload) {
+        this.childrens.push(item)
+    }
 }
 
 export type PlatformTheme = 'light'|'dark'
@@ -108,31 +127,34 @@ export abstract class PlatformService {
 
     abstract startDownload (name: string, mode: number, size: number): Promise<FileDownload|null>
     abstract startUpload (options?: FileUploadOptions): Promise<FileUpload[]>
+    abstract startUploadDirectory (paths?: string[]): Promise<DirectoryUpload>
 
-    async startUploadFromDragEvent (event: DragEvent, multiple = false): Promise<FileUpload[]> {
-        const result: FileUpload[] = []
+    async startUploadFromDragEvent (event: DragEvent, multiple = false): Promise<DirectoryUpload> {
+        const result = new DirectoryUpload()
 
         if (!event.dataTransfer) {
-            return Promise.resolve([])
+            return Promise.resolve(result)
         }
 
-        const traverseFileTree = (item: any, path = ''): Promise<void> => {
+        const traverseFileTree = (item: any, root: DirectoryUpload = result): Promise<void> => {
             return new Promise((resolve) => {
                 if (item.isFile) {
                     item.file((file: File) => {
-                        const transfer = new HTMLFileUpload(file, `${path}/${item.name}`)
+                        const transfer = new HTMLFileUpload(file)
                         this.fileTransferStarted.next(transfer)
-                        result.push(transfer)
+                        root.pushChildren(transfer)
                         resolve()
                     })
                 } else if (item.isDirectory) {
                     const dirReader = item.createReader()
+                    const childrenFolder = new DirectoryUpload(item.name)
                     dirReader.readEntries(async (entries: any[]) => {
                         for (const entry of entries) {
-                            await traverseFileTree(entry, `${path}${item.name}/`)
+                            await traverseFileTree(entry, childrenFolder)
                         }
                         resolve()
                     })
+                    root.pushChildren(childrenFolder)
                 } else {
                     resolve()
                 }

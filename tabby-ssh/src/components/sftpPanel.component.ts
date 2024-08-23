@@ -1,7 +1,7 @@
 import * as C from 'constants'
 import { posix as path } from 'path'
 import { Component, Input, Output, EventEmitter, Inject, Optional } from '@angular/core'
-import { FileUpload, MenuItemOptions, NotificationsService, PlatformService } from 'tabby-core'
+import { FileUpload, DirectoryUpload, MenuItemOptions, NotificationsService, PlatformService } from 'tabby-core'
 import { SFTPSession, SFTPFile } from '../session/sftp'
 import { SSHSession } from '../session/ssh'
 import { SFTPContextMenuItemProvider } from '../api'
@@ -176,40 +176,29 @@ export class SFTPPanelComponent {
     }
 
     async upload (): Promise<void> {
-        const transfers = await this.platform.startUpload({ multiple: true, directory: false })
+        const transfers = await this.platform.startUpload({ multiple: true })
         await Promise.all(transfers.map(t => this.uploadOne(t)))
     }
 
     async uploadFolder (): Promise<void> {
-        const transfers = await this.platform.startUpload({ multiple: true, directory: true })
-        await Promise.all(transfers.map(t => this.uploadOneWithFolder(t)))
+        const transfer = await this.platform.startUploadDirectory()
+        await this.uploadOneFolder(transfer)
     }
 
-    async uploadOneWithFolder (transfer: FileUpload): Promise<void> {
+    async uploadOneFolder (transfer: DirectoryUpload, accumPath = ''): Promise<void> {
         const savedPath = this.path
-        const RelativePath = transfer.getRelativePath()
-        if (RelativePath == null) {
-            return
-        }
-
-        try {
-            await this.sftp.stat(path.join(this.path, RelativePath))
-        } catch (e) {
-            if (e instanceof Error && e.message.includes('No such file')) {
-                let accumPath = ''
-                for (const pathParts of path.posix.dirname(RelativePath).split(path.posix.sep)) {
-                    accumPath = path.posix.join(accumPath, pathParts)
-                    try {
-                        await this.sftp.mkdir(path.join(this.path, accumPath))
-                    } catch {
-                        // Intentionally ignoring errors from making duplicate dirs.
-                    }
+        for(const t of transfer.getChildrens()) {
+            if (t instanceof DirectoryUpload) {
+                try {
+                    await this.sftp.mkdir(path.posix.join(this.path, accumPath, t.getName()))
+                } catch {
+                    // Intentionally ignoring errors from making duplicate dirs.
                 }
+                await this.uploadOneFolder(t, path.posix.join(accumPath,t.getName()))
             } else {
-                throw e
+                await this.sftp.upload(path.posix.join(this.path, accumPath, t.getName()), t)
             }
         }
-        await this.sftp.upload(path.join(this.path, RelativePath), transfer)
         if (this.path === savedPath) {
             await this.navigate(this.path)
         }

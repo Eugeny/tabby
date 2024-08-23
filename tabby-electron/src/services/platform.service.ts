@@ -5,7 +5,7 @@ import * as os from 'os'
 import promiseIpc, { RendererProcessType } from 'electron-promise-ipc'
 import { execFile } from 'mz/child_process'
 import { Injectable, NgZone } from '@angular/core'
-import { PlatformService, ClipboardContent, Platform, MenuItemOptions, MessageBoxOptions, MessageBoxResult, FileUpload, FileDownload, FileUploadOptions, wrapPromise, TranslateService } from 'tabby-core'
+import { PlatformService, ClipboardContent, Platform, MenuItemOptions, MessageBoxOptions, MessageBoxResult, DirectoryUpload, FileUpload, FileDownload, FileUploadOptions, wrapPromise, TranslateService } from 'tabby-core'
 import { ElectronService } from '../services/electron.service'
 import { ElectronHostWindow } from './hostWindow.service'
 import { ShellIntegrationService } from './shellIntegration.service'
@@ -48,18 +48,19 @@ export class ElectronPlatformService extends PlatformService {
         })
     }
 
-    async getAllFiles (dir: string): Promise<string[]> {
-        let files: string[] = []
+    async getAllFiles (dir: string, root: DirectoryUpload): Promise<DirectoryUpload> {
         const items = await fs.readdir(dir, { withFileTypes: true })
         for (const item of items) {
-            const fullPath = path.posix.join(dir, item.name)
             if (item.isDirectory()) {
-                files = files.concat(await this.getAllFiles(fullPath))
+                root.pushChildren(await this.getAllFiles(path.join(dir, item.name), new DirectoryUpload(item.name)))
             } else {
-                files.push(fullPath)
+                let file = new ElectronFileUpload(path.join(dir, item.name), this.electron)
+                root.pushChildren(file)
+                await wrapPromise(this.zone, file.open())
+                this.fileTransferStarted.next(file)
             }
         }
-        return files
+        return root
     }
 
     readClipboard (): string {
@@ -201,14 +202,11 @@ export class ElectronPlatformService extends PlatformService {
     }
 
     async startUpload (options?: FileUploadOptions, paths?: string[]): Promise<FileUpload[]> {
-        options ??= { multiple: false, directory: false }
+        options ??= { multiple: false }
 
         const properties: any[] = ['openFile', 'treatPackageAsDirectory']
         if (options.multiple) {
             properties.push('multiSelections')
-        }
-        if (options.directory) {
-            properties.push('openDirectory')
         }
 
         if (!paths) {
@@ -225,30 +223,34 @@ export class ElectronPlatformService extends PlatformService {
             paths = result.filePaths
         }
 
-        if(options.directory) {
-            let fileInfos: { fullPath: string, relativePath: string }[] = []
-            for (const folderPath of paths) {
-                const files = await this.getAllFiles(folderPath)
-                fileInfos = fileInfos.concat(files.map(file => ({
-                    fullPath: file,
-                    relativePath: path.posix.join(path.basename(folderPath), path.posix.relative(folderPath, file)),
-                })))
-            }
+        return Promise.all(paths.map(async p => {
+            const transfer = new ElectronFileUpload(p, this.electron)
+            await wrapPromise(this.zone, transfer.open())
+            this.fileTransferStarted.next(transfer)
+            return transfer
+        }))
+    }
 
-            return Promise.all(fileInfos.map(async (fileInfo) => {
-                const transfer = new ElectronFileUpload(fileInfo.fullPath, this.electron, fileInfo.relativePath)
-                await wrapPromise(this.zone, transfer.open())
-                this.fileTransferStarted.next(transfer)
-                return transfer
-            }))
-        } else {
-            return Promise.all(paths.map(async p => {
-                const transfer = new ElectronFileUpload(p, this.electron)
-                await wrapPromise(this.zone, transfer.open())
-                this.fileTransferStarted.next(transfer)
-                return transfer
-            }))
+    async startUploadDirectory (paths?: string[]): Promise<DirectoryUpload> {
+        const properties: any[] = ['openFile', 'treatPackageAsDirectory', 'openDirectory']
+
+        if (!paths) {
+            const result = await this.electron.dialog.showOpenDialog(
+                this.hostWindow.getWindow(),
+                {
+                    buttonLabel: this.translate.instant('Select'),
+                    properties,
+                },
+            )
+            if (result.canceled) {
+                return new DirectoryUpload()
+            }
+            paths = result.filePaths
         }
+
+        let root = new DirectoryUpload()
+        root.pushChildren(await this.getAllFiles(paths[0].split(path.sep).join(path.posix.sep),new DirectoryUpload(path.basename(paths[0]))))
+        return root
     }
 
     async startDownload (name: string, mode: number, size: number, filePath?: string): Promise<FileDownload|null> {

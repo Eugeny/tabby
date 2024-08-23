@@ -31,7 +31,7 @@
 
     button.btn.btn-link.text-decoration-none((click)='close()') !{require('../../../tabby-core/src/icons/times.svg')}
 
-.body(dropZone, (transfer)='uploadOneWithFolder($event)')
+.body(dropZone, (transfer)='uploadOneFolder($event)')
     a.alert.alert-info.d-flex.align-items-center(
         *ngIf='shouldShowCWDTip && !cwdDetectionAvailable',
         (click)='platform.openExternal("https://tabby.sh/go/cwd-detection")'
