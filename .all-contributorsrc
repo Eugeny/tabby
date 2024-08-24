@@ -1310,6 +1310,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "fireblue",
+      "name": "fireblue",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1034929?v=4",
+      "profile": "https://github.com/fireblue",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,

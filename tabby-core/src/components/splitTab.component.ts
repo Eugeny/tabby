@@ -821,7 +821,13 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
         if (this.disableDynamicTitle) {
             return
         }
-        this.setTitle([...new Set(this.getAllTabs().map(x => x.title))].join(' | '))
+        const titles = [
+            this.getFocusedTab()?.title,
+            ...this.getAllTabs()
+                .filter(x => x !== this.getFocusedTab())
+                .map(x => x.title),
+        ]
+        this.setTitle([...new Set(titles)].join(' | '))
     }
 
     private attachTabView (tab: BaseTabComponent) {
@@ -837,6 +843,10 @@ export class SplitTabComponent extends BaseTabComponent implements AfterViewInit
             })
         }
 
+        tab.subscribeUntilDestroyed(
+            this.observeUntilChildDetached(tab, tab.focused$),
+            () => this.updateTitle(),
+        )
         tab.subscribeUntilDestroyed(
             this.observeUntilChildDetached(tab, tab.titleChange$),
             () => this.updateTitle(),
