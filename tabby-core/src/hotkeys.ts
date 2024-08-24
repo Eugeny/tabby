@@ -255,6 +255,10 @@ export class AppHotkeyProvider extends HotkeyProvider {
             id: 'pane-decrease-horizontal',
             name: this.translate.instant('Decrease horizontal split size'),
         },
+        {
+            id: 'toggle-sftp-pane',
+            name: this.translate.instant('Toggle SFTP panel'),
+        },
     ]
 
     constructor (

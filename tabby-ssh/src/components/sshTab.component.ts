@@ -1,6 +1,6 @@
 import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker'
 import colors from 'ansi-colors'
-import { Component, Injector, HostListener } from '@angular/core'
+import { Component, Injector, HostListener, ViewChild } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { Platform, ProfilesService } from 'tabby-core'
 import { BaseTerminalTabComponent, ConnectableTerminalTabComponent } from 'tabby-terminal'
@@ -10,6 +10,7 @@ import { SSHPortForwardingModalComponent } from './sshPortForwardingModal.compon
 import { SSHProfile } from '../api'
 import { SSHShellSession } from '../session/shell'
 import { SSHMultiplexerService } from '../services/sshMultiplexer.service'
+import { SFTPPanelComponent } from './sftpPanel.component'
 
 /** @hidden */
 @Component({
@@ -26,9 +27,11 @@ export class SSHTabComponent extends ConnectableTerminalTabComponent<SSHProfile>
     sshSession: SSHSession|null = null
     session: SSHShellSession|null = null
     sftpPanelVisible = false
+    isSftpPanelPinned = false
     sftpPath = '/'
     enableToolbar = true
     activeKIPrompt: KeyboardInteractivePrompt|null = null
+    @ViewChild(SFTPPanelComponent, { static: false }) sftpPanel: SFTPPanelComponent
 
     constructor (
         injector: Injector,
@@ -57,6 +60,13 @@ export class SSHTabComponent extends ConnectableTerminalTabComponent<SSHProfile>
                     break
                 case 'restart-ssh-session':
                     this.reconnect()
+                    break
+                case 'toggle-sftp-pane':
+                    if (this.sftpPanelVisible) {
+                        this.sftpPanelVisible = false
+                    } else {
+                        this.openSFTP()
+                    }
                     break
                 case 'launch-winscp':
                     if (this.sshSession) {
@@ -213,9 +223,26 @@ export class SSHTabComponent extends ConnectableTerminalTabComponent<SSHProfile>
         }, 100)
     }
 
+    ngAfterViewChecked (): void {
+        if (!this.sftpPanel.pinStateChange.observers.length) {
+            this.subscribeToPinState()
+        }
+    }
+
+    subscribeToPinState (): void {
+        this.sftpPanel.pinStateChange.subscribe((isPinned: boolean) => {
+            this.isSftpPanelPinned = isPinned
+        })
+        this.sftpPanel.closed.subscribe(() => {
+            this.isSftpPanelPinned = false
+        })
+    }
+
     @HostListener('click')
     onClick (): void {
-        this.sftpPanelVisible = false
+        if (!this.isSftpPanelPinned) {
+            this.sftpPanelVisible = false
+        }
     }
 
     protected isSessionExplicitlyTerminated (): boolean {
