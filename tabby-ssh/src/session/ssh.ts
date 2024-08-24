@@ -9,7 +9,6 @@ import { ConfigService, FileProvidersService, NotificationsService, PromptModalC
 import { Socket } from 'net'
 import { Subject, Observable } from 'rxjs'
 import { HostKeyPromptModalComponent } from '../components/hostKeyPromptModal.component'
-// import { HTTPProxyStream, SocksProxyStream } from '../services/ssh.service'
 import { PasswordStorageService } from '../services/passwordStorage.service'
 import { SSHKnownHostsService } from '../services/sshKnownHosts.service'
 import { SFTPSession } from './sftp'
@@ -222,16 +221,12 @@ export class SSHSession {
     }
 
     async start (): Promise<void> {
-        // const log = (s: any) => this.emitServiceMessage(s)
-
         await this.init()
 
         const algorithms = {}
         for (const key of Object.values(SSHAlgorithmType)) {
             algorithms[key] = this.profile.options.algorithms![key].filter(x => supportedAlgorithms[key].includes(x))
         }
-
-        // todo migrate connection opts
 
         // eslint-disable-next-line @typescript-eslint/init-declarations
         let transport: russh.SshTransport
@@ -240,16 +235,6 @@ export class SSHSession {
 
             const argv = shellQuote.parse(this.profile.options.proxyCommand)
             transport = await russh.SshTransport.newCommand(argv[0], argv.slice(1))
-            // TODO stderr service messages
-            // this.proxyCommandStream.destroyed$.subscribe(err => {
-            //     if (err) {
-            //         this.emitServiceMessage(colors.bgRed.black(' X ') + ` ${err.message}`)
-            //         this.destroy()
-            //     }
-            // })
-            // this.proxyCommandStream.message$.subscribe(message => {
-            //     this.emitServiceMessage(colors.bgBlue.black(' Proxy ') + ' ' + message.trim())
-            // })
         } else if (this.jumpChannel) {
             transport = await russh.SshTransport.newSshChannel(await this.jumpChannel.take())
             this.jumpChannel = null
@@ -289,6 +274,9 @@ export class SSHSession {
                     mac: this.profile.options.algorithms?.[SSHAlgorithmType.HMAC]?.filter(x => supportedAlgorithms[SSHAlgorithmType.HMAC].includes(x)),
                     key: this.profile.options.algorithms?.[SSHAlgorithmType.HOSTKEY]?.filter(x => supportedAlgorithms[SSHAlgorithmType.HOSTKEY].includes(x)),
                 },
+                keepaliveIntervalSeconds: Math.round((this.profile.options.keepaliveInterval ?? 15000) / 1000),
+                keepaliveCountMax: this.profile.options.keepaliveCountMax,
+                connectionTimeoutSeconds: this.profile.options.readyTimeout ? Math.round(this.profile.options.readyTimeout / 1000) : null,
             },
         )
 
@@ -341,17 +329,6 @@ export class SSHSession {
 
         if (this.savedPassword) {
             this.passwordStorage.savePassword(this.profile, this.savedPassword)
-        }
-
-        try {
-            // ssh.connect({
-            //     keepaliveInterval: this.profile.options.keepaliveInterval ?? 15000,
-            //     keepaliveCountMax: this.profile.options.keepaliveCountMax,
-            //     readyTimeout: this.profile.options.readyTimeout,
-            // })
-        } catch (e) {
-            this.notifications.error(e.message)
-            throw e
         }
 
         for (const fw of this.profile.options.forwardedPorts ?? []) {
