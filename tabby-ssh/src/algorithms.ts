@@ -25,6 +25,7 @@ export const defaultAlgorithms = {
         'ecdsa-sha2-nistp521',
         'rsa-sha2-256',
         'rsa-sha2-512',
+        'ssh-rsa',
     ],
     [SSHAlgorithmType.CIPHER]: [
         'chacha20-poly1305@openssh.com',
