@@ -22,7 +22,6 @@ export interface MessageBoxResult {
 
 export abstract class FileTransfer {
     abstract getName (): string
-    abstract getRelativePath (): string | null
     abstract getMode (): number
     abstract getSize (): number
     abstract close (): void
@@ -244,7 +243,7 @@ export class HTMLFileUpload extends FileUpload {
     private stream: ReadableStream
     private reader: ReadableStreamDefaultReader
 
-    constructor (private file: File, private relativePath: string|null = null) {
+    constructor (private file: File) {
         super()
         this.stream = this.file.stream()
         this.reader = this.stream.getReader()
@@ -252,10 +251,6 @@ export class HTMLFileUpload extends FileUpload {
 
     getName (): string {
         return this.file.name
-    }
-
-    getRelativePath (): string|null {
-        return this.relativePath
     }
 
     getMode (): number {

@@ -155,17 +155,12 @@ class HTMLFileDownload extends FileDownload {
         private name: string,
         private mode: number,
         private size: number,
-        private relativePath: string|null = null,
     ) {
         super()
     }
 
     getName (): string {
         return this.name
-    }
-
-    getRelativePath (): string|null {
-        return this.relativePath
     }
 
     getMode (): number {
