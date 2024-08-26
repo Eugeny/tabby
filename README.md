@@ -16,9 +16,6 @@
 
 > 👋 Managing remote environments? Check out [Warpgate, my smart SSH/HTTP/MySQL bastion server](https://github.com/warp-tech/warpgate), it works great with Tabby, you'll love it.
 
-> 👋 [Tabby-web](https://github.com/Eugeny/tabby-web) is looking for sponsors. As I can't afford to host it myself any longer, I'm looking for a sponsor to cover the hosting costs. If you're interested, please [get in touch](https://twitter.com/eugeeeeny)!
-
-
 ----
 
 ### Downloads:
