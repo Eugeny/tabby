@@ -155,6 +155,11 @@ Plugins and themes can be installed directly from the Settings view inside Tabby
 
 [**keygen**](https://keygen.sh/?via=eugene) has provided free release & auto-update hosting
 
+<a href="https://iqhive.com/"><img src="https://private-user-images.githubusercontent.com/161476/361584584-ed292436-1d50-46bc-b479-78222c83ed22.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MjQ3MDg3NjgsIm5iZiI6MTcyNDcwODQ2OCwicGF0aCI6Ii8xNjE0NzYvMzYxNTg0NTg0LWVkMjkyNDM2LTFkNTAtNDZiYy1iNDc5LTc4MjIyYzgzZWQyMi5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwODI2JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDgyNlQyMTQxMDhaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1iYzNlZjIxN2JiYzBkYTU5NGE4YmZlZDJiNmIxZWE1ZTAyOTNhYjJlZTRhOGZjYTk4N2E4MzMzZjg0ZTNkZWQ0JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.pQzR2d71YV4TIxOH3Lg20HpNKrm_r2D-xfkEM_F2DTs" width="100"></a>
+
+[**IQ Hive**](https://iqhive.com) is providing financial support for the project development
+
+
 <a name="contributing"></a>
 # Contributing
 
