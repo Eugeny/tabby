@@ -14,11 +14,19 @@ input.form-control.mt-2(
 )
 
 .d-flex.mt-3
-    button.btn.btn-secondary(
+    checkbox(
+        *ngIf='isPassword()',
+        [(ngModel)]='remember',
+        [text]='"Save password"|translate'
+    )
+
+    .ms-auto
+
+    button.btn.btn-secondary.me-3(
         *ngIf='step > 0',
         (click)='previous()'
     )
-    .ms-auto
+
     button.btn.btn-primary(
         (click)='next()'
     )

@@ -26,7 +26,13 @@ export interface Prompt {
 }
 
 type AuthMethod = {
-    type: 'none'|'password'|'keyboard-interactive'|'hostbased'
+    type: 'none'|'prompt-password'|'hostbased'
+} | {
+    type: 'keyboard-interactive',
+    savedPassword?: string
+} | {
+    type: 'saved-password',
+    password: string
 } | {
     type: 'publickey'
     name: string
@@ -62,6 +68,10 @@ export class KeyboardInteractivePrompt {
         this.responses = new Array(this.prompts.length).fill('')
     }
 
+    isAPasswordPrompt (index: number): boolean {
+        return this.prompts[index].prompt.toLowerCase().includes('password') && !this.prompts[index].echo
+    }
+
     respond (): void {
         this._resolve(this.responses)
     }
@@ -93,7 +103,6 @@ export class SSHSession {
     private serviceMessage = new Subject<string>()
     private keyboardInteractivePrompt = new Subject<KeyboardInteractivePrompt>()
     private willDestroy = new Subject<void>()
-    private keychainPasswordUsed = false
 
     private passwordStorage: PasswordStorageService
     private ngbModal: NgbModal
@@ -168,9 +177,20 @@ export class SSHSession {
             }
         }
         if (!this.profile.options.auth || this.profile.options.auth === 'password') {
-            this.remainingAuthMethods.push({ type: 'password' })
+            if (this.profile.options.password) {
+                this.remainingAuthMethods.push({ type: 'saved-password', password: this.profile.options.password })
+            }
+            const password = await this.passwordStorage.loadPassword(this.profile)
+            if (password) {
+                this.remainingAuthMethods.push({ type: 'saved-password', password })
+            }
+            this.remainingAuthMethods.push({ type: 'prompt-password' })
         }
         if (!this.profile.options.auth || this.profile.options.auth === 'keyboardInteractive') {
+            const savedPassword = this.profile.options.password ?? await this.passwordStorage.loadPassword(this.profile)
+            if (savedPassword) {
+                this.remainingAuthMethods.push({ type: 'keyboard-interactive', savedPassword })
+            }
             this.remainingAuthMethods.push({ type: 'keyboard-interactive' })
         }
         this.remainingAuthMethods.push({ type: 'hostbased' })
@@ -276,7 +296,7 @@ export class SSHSession {
                 },
                 keepaliveIntervalSeconds: Math.round((this.profile.options.keepaliveInterval ?? 15000) / 1000),
                 keepaliveCountMax: this.profile.options.keepaliveCountMax,
-                connectionTimeoutSeconds: this.profile.options.readyTimeout ? Math.round(this.profile.options.readyTimeout / 1000) : null,
+                connectionTimeoutSeconds: this.profile.options.readyTimeout ? Math.round(this.profile.options.readyTimeout / 1000) : undefined,
             },
         )
 
@@ -470,27 +490,14 @@ export class SSHSession {
                 this.logger.info('Server does not support auth method', method.type)
                 continue
             }
-            if (method.type === 'password') {
-                if (this.profile.options.password) {
-                    this.emitServiceMessage(this.translate.instant('Using preset password'))
-                    const result = await this.ssh.authenticateWithPassword(this.authUsername, this.profile.options.password)
-                    if (result) {
-                        return result
-                    }
+            if (method.type === 'saved-password') {
+                this.emitServiceMessage(this.translate.instant('Using saved password'))
+                const result = await this.ssh.authenticateWithPassword(this.authUsername, method.password)
+                if (result) {
+                    return result
                 }
-
-                if (!this.keychainPasswordUsed && this.profile.options.user) {
-                    const password = await this.passwordStorage.loadPassword(this.profile)
-                    if (password) {
-                        this.emitServiceMessage(this.translate.instant('Trying saved password'))
-                        this.keychainPasswordUsed = true
-                        const result = await this.ssh.authenticateWithPassword(this.authUsername, password)
-                        if (result) {
-                            return result
-                        }
-                    }
-                }
-
+            }
+            if (method.type === 'prompt-password') {
                 const modal = this.ngbModal.open(PromptModalComponent)
                 modal.componentInstance.prompt = `Password for ${this.authUsername}@${this.profile.options.host}`
                 modal.componentInstance.password = true
@@ -544,6 +551,17 @@ export class SSHSession {
                             state.instructions,
                             state.prompts(),
                         )
+
+                        if (method.savedPassword) {
+                            // eslint-disable-next-line max-depth
+                            for (let i = 0; i < prompt.prompts.length; i++) {
+                                // eslint-disable-next-line max-depth
+                                if (prompt.isAPasswordPrompt(i)) {
+                                    prompt.responses[i] = method.savedPassword
+                                }
+                            }
+                        }
+
                         this.emitKeyboardInteractivePrompt(prompt)
 
                         try {
