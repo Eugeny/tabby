@@ -24,6 +24,7 @@ builder({
     config: {
         extraMetadata: {
             version: vars.version,
+            teamId: process.env.APPLE_TEAM_ID,
         },
         mac: {
             identity: !process.env.CI || process.env.CSC_LINK ? undefined : null,
