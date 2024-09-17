@@ -27,12 +27,8 @@ export class HomeBaseService {
         this.platform.openExternal('https://github.com/Eugeny/tabby')
     }
 
-    openDiscussions (): void {
-        this.platform.openExternal('https://github.com/Eugeny/tabby/discussions')
-    }
-
-    openTwitter (): void {
-        this.platform.openExternal('https://twitter.com/eugeeeeny')
+    openDiscord (): void {
+        this.platform.openExternal('https://discord.gg/4c5EVTBhtp')
     }
 
     openTranslations (): void {
