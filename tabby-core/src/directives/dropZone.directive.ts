@@ -1,5 +1,5 @@
 import { Directive, Output, ElementRef, EventEmitter, AfterViewInit } from '@angular/core'
-import { FileUpload, PlatformService } from '../api/platform'
+import { DirectoryUpload, PlatformService } from '../api/platform'
 import './dropZone.directive.scss'
 
 /** @hidden */
@@ -7,7 +7,7 @@ import './dropZone.directive.scss'
     selector: '[dropZone]',
 })
 export class DropZoneDirective implements AfterViewInit {
-    @Output() transfer = new EventEmitter<FileUpload>()
+    @Output() transfer = new EventEmitter<DirectoryUpload>()
     private dropHint?: HTMLElement
 
     constructor (
@@ -27,11 +27,9 @@ export class DropZoneDirective implements AfterViewInit {
                 })
             }
         })
-        this.el.nativeElement.addEventListener('drop', (event: DragEvent) => {
+        this.el.nativeElement.addEventListener('drop', async (event: DragEvent) => {
             this.removeHint()
-            for (const transfer of this.platform.startUploadFromDragEvent(event, true)) {
-                this.transfer.emit(transfer)
-            }
+            this.transfer.emit(await this.platform.startUploadFromDragEvent(event, true))
         })
         this.el.nativeElement.addEventListener('dragleave', () => {
             this.removeHint()

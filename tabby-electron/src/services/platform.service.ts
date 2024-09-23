@@ -5,7 +5,7 @@ import * as os from 'os'
 import promiseIpc, { RendererProcessType } from 'electron-promise-ipc'
 import { execFile } from 'mz/child_process'
 import { Injectable, NgZone } from '@angular/core'
-import { PlatformService, ClipboardContent, Platform, MenuItemOptions, MessageBoxOptions, MessageBoxResult, FileUpload, FileDownload, FileUploadOptions, wrapPromise, TranslateService } from 'tabby-core'
+import { PlatformService, ClipboardContent, Platform, MenuItemOptions, MessageBoxOptions, MessageBoxResult, DirectoryUpload, FileUpload, FileDownload, FileUploadOptions, wrapPromise, TranslateService } from 'tabby-core'
 import { ElectronService } from '../services/electron.service'
 import { ElectronHostWindow } from './hostWindow.service'
 import { ShellIntegrationService } from './shellIntegration.service'
@@ -46,6 +46,21 @@ export class ElectronPlatformService extends PlatformService {
         electron.nativeTheme.on('updated', () => {
             this.zone.run(() => this.themeChanged.next(this.getTheme()))
         })
+    }
+
+    async getAllFiles (dir: string, root: DirectoryUpload): Promise<DirectoryUpload> {
+        const items = await fs.readdir(dir, { withFileTypes: true })
+        for (const item of items) {
+            if (item.isDirectory()) {
+                root.pushChildren(await this.getAllFiles(path.join(dir, item.name), new DirectoryUpload(item.name)))
+            } else {
+                const file = new ElectronFileUpload(path.join(dir, item.name), this.electron)
+                root.pushChildren(file)
+                await wrapPromise(this.zone, file.open())
+                this.fileTransferStarted.next(file)
+            }
+        }
+        return root
     }
 
     readClipboard (): string {
@@ -214,6 +229,28 @@ export class ElectronPlatformService extends PlatformService {
             this.fileTransferStarted.next(transfer)
             return transfer
         }))
+    }
+
+    async startUploadDirectory (paths?: string[]): Promise<DirectoryUpload> {
+        const properties: any[] = ['openFile', 'treatPackageAsDirectory', 'openDirectory']
+
+        if (!paths) {
+            const result = await this.electron.dialog.showOpenDialog(
+                this.hostWindow.getWindow(),
+                {
+                    buttonLabel: this.translate.instant('Select'),
+                    properties,
+                },
+            )
+            if (result.canceled) {
+                return new DirectoryUpload()
+            }
+            paths = result.filePaths
+        }
+
+        const root = new DirectoryUpload()
+        root.pushChildren(await this.getAllFiles(paths[0].split(path.sep).join(path.posix.sep), new DirectoryUpload(path.basename(paths[0]))))
+        return root
     }
 
     async startDownload (name: string, mode: number, size: number, filePath?: string): Promise<FileDownload|null> {

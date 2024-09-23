@@ -23,11 +23,15 @@
 
     button.btn.btn-link.btn-sm.flex-shrink-0.d-flex((click)='upload()')
         i.fas.fa-upload.me-1
-        div(translate) Upload
+        div(translate) Upload files
+
+    button.btn.btn-link.btn-sm.flex-shrink-0.d-flex((click)='uploadFolder()')
+        i.fas.fa-upload.me-1
+        div(translate) Upload folder
 
     button.btn.btn-link.text-decoration-none((click)='close()') !{require('../../../tabby-core/src/icons/times.svg')}
 
-.body(dropZone, (transfer)='uploadOne($event)')
+.body(dropZone, (transfer)='uploadOneFolder($event)')
     a.alert.alert-info.d-flex.align-items-center(
         *ngIf='shouldShowCWDTip && !cwdDetectionAvailable',
         (click)='platform.openExternal("https://tabby.sh/go/cwd-detection")'

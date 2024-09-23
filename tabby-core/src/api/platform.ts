@@ -88,6 +88,26 @@ export interface FileUploadOptions {
     multiple: boolean
 }
 
+export class DirectoryUpload {
+    private childrens: (FileUpload|DirectoryUpload)[] = []
+
+    constructor (private name = '') {
+        // Just set name for now.
+    }
+
+    getName (): string {
+        return this.name
+    }
+
+    getChildrens (): (FileUpload|DirectoryUpload)[] {
+        return this.childrens
+    }
+
+    pushChildren (item: FileUpload|DirectoryUpload): void {
+        this.childrens.push(item)
+    }
+}
+
 export type PlatformTheme = 'light'|'dark'
 
 export abstract class PlatformService {
@@ -108,23 +128,54 @@ export abstract class PlatformService {
 
     abstract startDownload (name: string, mode: number, size: number): Promise<FileDownload|null>
     abstract startUpload (options?: FileUploadOptions): Promise<FileUpload[]>
+    abstract startUploadDirectory (paths?: string[]): Promise<DirectoryUpload>
 
-    startUploadFromDragEvent (event: DragEvent, multiple = false): FileUpload[] {
-        const result: FileUpload[] = []
+    async startUploadFromDragEvent (event: DragEvent, multiple = false): Promise<DirectoryUpload> {
+        const result = new DirectoryUpload()
+
         if (!event.dataTransfer) {
-            return []
+            return Promise.resolve(result)
         }
+
+        const traverseFileTree = (item: any, root: DirectoryUpload = result): Promise<void> => {
+            return new Promise((resolve) => {
+                if (item.isFile) {
+                    item.file((file: File) => {
+                        const transfer = new HTMLFileUpload(file)
+                        this.fileTransferStarted.next(transfer)
+                        root.pushChildren(transfer)
+                        resolve()
+                    })
+                } else if (item.isDirectory) {
+                    const dirReader = item.createReader()
+                    const childrenFolder = new DirectoryUpload(item.name)
+                    dirReader.readEntries(async (entries: any[]) => {
+                        for (const entry of entries) {
+                            await traverseFileTree(entry, childrenFolder)
+                        }
+                        resolve()
+                    })
+                    root.pushChildren(childrenFolder)
+                } else {
+                    resolve()
+                }
+            })
+        }
+
+        const promises: Promise<void>[] = []
+
+        const items = event.dataTransfer.items
         // eslint-disable-next-line @typescript-eslint/prefer-for-of
-        for (let i = 0; i < event.dataTransfer.files.length; i++) {
-            const file = event.dataTransfer.files[i]
-            const transfer = new HTMLFileUpload(file)
-            this.fileTransferStarted.next(transfer)
-            result.push(transfer)
-            if (!multiple) {
-                break
+        for (let i = 0; i < items.length; i++) {
+            const item = items[i].webkitGetAsEntry()
+            if (item) {
+                promises.push(traverseFileTree(item))
+                if (!multiple) {
+                    break
+                }
             }
         }
-        return result
+        return Promise.all(promises).then(() => result)
     }
 
     getConfigPath (): string|null {
