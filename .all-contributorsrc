@@ -1328,6 +1328,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "0x07E5",
+      "name": "0x07E5",
+      "avatar_url": "https://avatars.githubusercontent.com/u/120720697?v=4",
+      "profile": "https://github.com/0x07E5",
+      "contributions": [
+        "security"
+      ]
     }
   ],
   "contributorsPerLine": 7,
