@@ -333,6 +333,7 @@ export class SSHSession {
                 algorithms,
                 authHandler: (methodsLeft, partialSuccess, callback) => {
                     this.zone.run(async () => {
+                        await hostVerifiedPromise
                         callback(await this.handleAuth(methodsLeft))
                     })
                 },
