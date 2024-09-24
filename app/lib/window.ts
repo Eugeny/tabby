@@ -108,7 +108,7 @@ export class Window {
 
         this.webContents = this.window.webContents
 
-        this.window.once('ready-to-show', () => {
+        this.window.webContents.once('did-finish-load', () => {
             if (process.platform === 'darwin') {
                 this.window.setVibrancy(macOSVibrancyType)
             } else if (process.platform === 'win32' && this.configStore.appearance?.vibrancy) {
@@ -139,7 +139,7 @@ export class Window {
 
         enableRemote(this.window.webContents)
 
-        this.window.loadURL(`file://${app.getAppPath()}/dist/index.html`, { extraHeaders: 'pragma: no-cache\n' })
+        this.window.loadFile(path.join(app.getAppPath(), 'dist', 'index.html'))
 
         this.window.webContents.setVisualZoomLevelLimits(1, 1)
         this.window.webContents.setZoomFactor(1)
