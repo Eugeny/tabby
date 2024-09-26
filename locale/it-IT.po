@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Italian\n"
 "Language: it_IT\n"
-"PO-Revision-Date: 2024-07-10 09:04\n"
+"PO-Revision-Date: 2024-09-26 08:04\n"
 
 #: tabby-local/src/components/terminalTab.component.ts:113
 msgid "\"{command}\" is still running. Close?"
@@ -23,7 +23,7 @@ msgstr "{name} copia"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:77
 msgid "A second font family used to display characters missing in the main font"
-msgstr "Una famiglia di font secondaria usata per visualizzare quelle mancanti nella font  principale"
+msgstr "Un set di caratteri secondario usato per mostrare quelli mancanti del font principale"
 
 #: tabby-core/src/components/transfersMenu.component.ts:49
 msgid "Abort all"

@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2024-07-10 09:04\n"
+"PO-Revision-Date: 2024-09-26 08:04\n"
 
 #: tabby-local/src/components/terminalTab.component.ts:113
 msgid "\"{command}\" is still running. Close?"
@@ -185,7 +185,7 @@ msgstr "透過の種類"
 
 #: locale/tmp-html/tabby-terminal/src/components/inputProcessingSettings.component.html:4
 msgid "Backspace key mode"
-msgstr "BackSpaceキー"
+msgstr "Backspaceキー"
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:14
 #: tabby-serial/src/components/serialTab.component.ts:93
@@ -526,7 +526,7 @@ msgstr "垂直方向の分割サイズを縮小"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:92
 msgid "Default \"Connect to\" type"
-msgstr "既定の接続"
+msgstr "既定の接続方式"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:93
 msgid "Default connection type used by quick connect feature (ex. SSH, Telnet)"
@@ -630,7 +630,7 @@ msgstr "動的なタブ名を無効にする"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:218
 msgid "Disable fluent background while dragging"
-msgstr "ドラッグ中はFluentを無効にする"
+msgstr "ドラッグ中はFluent背景を無効化する"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:204
 msgid "Disable GPU acceleration"
@@ -757,7 +757,7 @@ msgstr "アップデートが利用可能になったら自動的にインスト
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:211
 msgid "Enable fluent background option"
-msgstr "Fluent背景設定を有効にする"
+msgstr "Fluent背景オプションを有効にする"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:16
 msgid "Enable font ligatures"
@@ -806,7 +806,7 @@ msgstr "例:"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:212
 msgid "Experimental Windows 10 background style known to cause issues"
-msgstr "Windows10では問題が発生する場合があります。"
+msgstr "不具合が報告されているWindows10風の実験的な背景"
 
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:28
 msgid "Export"
@@ -834,7 +834,7 @@ msgstr "固定"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:219
 msgid "Fluent background sometimes causes drag lag"
-msgstr "Fluentはドラッグ中にラグを発生させる場合があります"
+msgstr "Fluent背景はドラッグ中にラグを発生させることがあります"
 
 #: tabby-terminal/src/tabContextMenu.ts:82
 msgid "Focus all panes"
@@ -1052,7 +1052,7 @@ msgstr "ホットキー"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:83
 msgid "How Tabby presents itself through environment vars"
-msgstr "環境変数を利用してTabbyを他の端末のように扱わせます"
+msgstr "環境変数を利用して、Tabbyを他の端末として認識させます"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:24
 msgid "HTTP proxy"
@@ -1299,7 +1299,7 @@ msgstr "\"未分類\" に移動"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:197
 msgid "Moving the mouse over an inactive pane will cause it to activate"
-msgstr "マウスの移動でアクティブなペインを切り替えることができます。"
+msgstr "マウスの移動に合わせてアクティブなペインを切り替えます。"
 
 #: locale/tmp-html/tabby-settings/src/components/editProfileGroupModal.component.html:9
 #: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:12
@@ -1366,7 +1366,7 @@ msgstr "新しいタブ: {profile}"
 #: tabby-local/src/buttonProvider.ts:20
 #: tabby-local/src/tabContextMenu.ts:27
 msgid "New terminal"
-msgstr "新しいターミナル"
+msgstr "新しい端末"
 
 #: tabby-electron/src/hotkeys.ts:10
 msgid "New window"
@@ -1956,7 +1956,7 @@ msgstr "Tabbyを %COMSPEC% に設定"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:69
 msgid "Set to 0 to disable recent profiles"
-msgstr "最近使用したプロファイルをセレクターに表示しない場合は0に設定してください"
+msgstr "セレクターに最近使用したプロファイルを表示したくない場合は、0に設定してください"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:36
 msgid "Sets the SSH agent's named pipe path."
@@ -1994,7 +1994,7 @@ msgstr "複数行の貼り付けをする際に確認画面を表示します"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:75
 msgid "Show built-in profiles in selector"
-msgstr "セレクターに標準プロファイルを表示する"
+msgstr "標準プロファイルをセレクターに表示"
 
 #: tabby-core/src/hotkeys.ts:12
 msgid "Show command selector"
@@ -2089,7 +2089,7 @@ msgstr "ソースコード"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:13
 msgid "Spaciness"
-msgstr "UIの間隔"
+msgstr "UI間隔"
 
 #: tabby-core/src/tabContextMenu.ts:75
 msgid "Split"
