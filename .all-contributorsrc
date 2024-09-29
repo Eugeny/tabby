@@ -1328,6 +1328,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "SelfHosted-Club",
+      "name": "SelfHosted",
+      "avatar_url": "https://avatars.githubusercontent.com/u/128927132?v=4",
+      "profile": "https://www.selfhosted.sg/",
+      "contributions": [
+        "financial"
+      ]
     }
   ],
   "contributorsPerLine": 7,
