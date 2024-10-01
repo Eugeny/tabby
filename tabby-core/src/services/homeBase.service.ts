@@ -28,7 +28,7 @@ export class HomeBaseService {
     }
 
     openDiscord (): void {
-        this.platform.openExternal('https://discord.gg/4c5EVTBhtp')
+        this.platform.openExternal('https://discord.gg/Vn7BjmzhtF')
     }
 
     openTranslations (): void {
