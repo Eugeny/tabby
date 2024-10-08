@@ -72,7 +72,7 @@ This README is also available in: <a  href="./README.es-ES.md">:es: Spanish</a> 
 
 ![](docs/readme-terminal.png)
 
-* A V220 terminal + various extensions
+* A VT220 terminal + various extensions
 * Multiple nested split panes
 * Tabs on any side of the window
 * Optional dockable window with a global spawn hotkey ("Quake console")

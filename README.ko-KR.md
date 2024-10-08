@@ -66,7 +66,7 @@ This README is also available in: <a  href="./README.md">:gb: English</a> · <a 
 
 ![](docs/readme-terminal.png)
 
-* A V220 터미널 + 다양한 확장
+* A VT220 터미널 + 다양한 확장
 * 여러 개의 분할 창 중첩
 * 모든 측면에 탭이 위치함
 * 전역 스폰 단축키가 있는 도킹 가능한 윈도우 ("Quake console")

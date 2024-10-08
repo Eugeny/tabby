@@ -66,7 +66,7 @@ Diese README ist auch verfügbar in: <a  href="./README.md">:gb: English</a> · 
 
 ![](docs/readme-terminal.png)
 
-* Ein V220-Terminal + verschiedene Erweiterungen
+* Ein VT220-Terminal + verschiedene Erweiterungen
 * Mehrere verschachtelte, geteilte Fenster
 * Tabs auf jeder Seite des Fensters
 * Optional andockbares Fenster mit einem globalen Spawn-Hotkey ("Quake-Konsole")

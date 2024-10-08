@@ -67,7 +67,7 @@ Este fichero README está disponible en: <a  href="./README.md">:gb: English</a>
 
 ![](docs/readme-terminal.png)
 
-* Un terminal V220 + varias extensiones
+* Un terminal VT220 + varias extensiones
 * Múltiples paneles divididos anidados
 * Pestañas en cualquier lado de la ventana
 * Ventana acoplable opcional con una tecla de acceso directo global ("consola de Quake")

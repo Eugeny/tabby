@@ -68,7 +68,7 @@ Questo README Ã¨ disponibile anche in: <a  href="./README.md">:gb: English</a> Â
 
 ![](docs/readme-terminal.png)
 
-* Un terminale V220 + vari estensioni
+* Un terminale VT220 + vari estensioni
 * Suddivisione in pannelli
 * Schede su qualsiasi lato della finestra
 * Finestra agganciabile opzionale con un tasto di scelta rapida ("Quake console")
