@@ -238,7 +238,7 @@ export class AppRootComponent {
 
     private async getToolbarButtons (aboveZero: boolean): Promise<Command[]> {
         return (await this.commands.getCommands({ tab: this.app.activeTab ?? undefined }))
-            .filter(x => x.locations?.includes(aboveZero ? CommandLocation.RightToolbar : CommandLocation.LeftToolbar))
+            .filter(x => x.locations.includes(aboveZero ? CommandLocation.RightToolbar : CommandLocation.LeftToolbar))
     }
 
     toggleMaximize (): void {
