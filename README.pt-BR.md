@@ -67,7 +67,7 @@ Esse README também está disponível em: <a  href="./README.md">:gb: English</a
 
 ![](docs/readme-terminal.png)
 
-* Um terminal V220 + várias extensões
+* Um terminal VT220 + várias extensões
 * Múltiplos painéis divididos aninhados
 * Guias em qualquer lado da janela
 * Opção de minimizar para a barra de tarefas com uma tecla de atalho global ("Quake console")

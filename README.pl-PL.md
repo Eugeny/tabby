@@ -75,7 +75,7 @@ Ten plik README jest również dostępny w językach: <a  href="./README.md">:gb
 
 ![](docs/readme-terminal.png)
 
-* Konsola V220 + wiele rozszerzeń
+* Konsola VT220 + wiele rozszerzeń
 * Wiele nakładających się podzielonych okien
 * Okna na każdej stronie ekranu
 * Opcjonalne dokowanie okna za pomocą skrótu ("Quake console")

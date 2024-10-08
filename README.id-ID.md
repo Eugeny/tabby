@@ -67,7 +67,7 @@ This README is also available in: <a  href="./README.md">:gb: English</a> · <a 
 
 ![](docs/readme-terminal.png)
 
-* Terminal V220  + berbagai macam ekstensi
+* Terminal VT220  + berbagai macam ekstensi
 * Beberapa pembagian panel
 * Tab di sisi mana pun dari jendela
 * Jendela dockable opsional dengan hotkey spawn global ("Quake console")
