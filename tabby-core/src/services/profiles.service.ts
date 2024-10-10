@@ -66,9 +66,9 @@ export class ProfilesService {
     * arg: skipUserDefaults -> do not merge global provider defaults in ConfigProxy
     * arg: skipGroupDefaults -> do not merge parent group provider defaults in ConfigProxy
     */
-    getConfigProxyForProfile <T extends Profile> (profile: PartialProfile<T>, options?: { skipGlobalDefaults?: boolean, skipGroupDefaults?: boolean }): T {
+    getConfigProxyForProfile <T extends Profile> (profile: PartialProfile<T>, options?: { skipGlobalDefaults?: boolean, skipGroupDefaults?: boolean }): T & ConfigProxy {
         const defaults = this.getProfileDefaults(profile, options).reduce(configMerge, {})
-        return new ConfigProxy(profile, defaults) as unknown as T
+        return new ConfigProxy(profile, defaults) as unknown as T & ConfigProxy
     }
 
     /**
