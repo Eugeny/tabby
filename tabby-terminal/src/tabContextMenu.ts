@@ -1,12 +1,10 @@
 import { Injectable, Optional, Inject } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
-import { BaseTabComponent, TabContextMenuItemProvider, NotificationsService, MenuItemOptions, TranslateService, SplitTabComponent, PromptModalComponent, ConfigService, PartialProfile, Profile } from 'tabby-core'
+import { BaseTabComponent, TabContextMenuItemProvider, NotificationsService, MenuItemOptions, TranslateService, SplitTabComponent, PromptModalComponent, ConfigService, PartialProfile, Profile, ProfilesService, ConfigProxy } from 'tabby-core'
 import { BaseTerminalTabComponent } from './api/baseTerminalTab.component'
 import { TerminalContextMenuItemProvider } from './api/contextMenuProvider'
 import { MultifocusService } from './services/multifocus.service'
 import { ConnectableTerminalTabComponent } from './api/connectableTerminalTab.component'
-import { v4 as uuidv4 } from 'uuid'
-import slugify from 'slugify'
 
 /** @hidden */
 @Injectable()
@@ -162,6 +160,7 @@ export class SaveAsProfileContextMenu extends TabContextMenuItemProvider {
         private ngbModal: NgbModal,
         private notifications: NotificationsService,
         private translate: TranslateService,
+        private profilesService: ProfilesService,
     ) {
         super()
     }
@@ -180,9 +179,8 @@ export class SaveAsProfileContextMenu extends TabContextMenuItemProvider {
                             return
                         }
 
-                        const options = {
-                            ...tab.profile.options,
-                        }
+                        const tab_options = tab.profile.options instanceof ConfigProxy ? (tab.profile.options as ConfigProxy).__getReal() : tab.profile.options
+                        const options = {...tab_options}
 
                         const cwd = await tab.session?.getWorkingDirectory() ?? tab.profile.options.cwd
                         if (cwd) {
@@ -195,18 +193,18 @@ export class SaveAsProfileContextMenu extends TabContextMenuItemProvider {
                             options,
                         }
 
-                        profile.id = `${profile.type}:custom:${slugify(name)}:${uuidv4()}`
                         profile.group = tab.profile.group
                         profile.icon = tab.profile.icon
                         profile.color = tab.profile.color
                         profile.disableDynamicTitle = tab.profile.disableDynamicTitle
                         profile.behaviorOnSessionEnd = tab.profile.behaviorOnSessionEnd
 
-                        this.config.store.profiles = [
-                            ...this.config.store.profiles,
-                            profile,
-                        ]
+                        this.profilesService.getConfigProxyForProfile(profile).__cleanup()
+                        profile.type = tab.profile.type
+
+                        this.profilesService.newProfile(profile)
                         this.config.save()
+
                         this.notifications.info(this.translate.instant('Saved'))
                     },
                 },
