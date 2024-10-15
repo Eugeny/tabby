@@ -102,6 +102,10 @@ export class ConfigProxy {
                 }
             }
         }
+
+        this.__getReal = () => { // eslint-disable-line @typescript-eslint/unbound-method
+            return real
+        }
     }
 
     // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-empty-function
@@ -112,6 +116,8 @@ export class ConfigProxy {
     __getDefault (_key: string): any { }
     // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-empty-function
     __cleanup () { }
+    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-empty-function
+    __getReal (): any { }
 }
 
 @Injectable({ providedIn: 'root' })
