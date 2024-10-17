@@ -180,7 +180,7 @@ export class SaveAsProfileContextMenu extends TabContextMenuItemProvider {
                         }
 
                         const tab_options = tab.profile.options instanceof ConfigProxy ? (tab.profile.options as ConfigProxy).__getReal() : tab.profile.options
-                        const options = {...tab_options}
+                        const options = { ...tab_options }
 
                         const cwd = await tab.session?.getWorkingDirectory() ?? tab.profile.options.cwd
                         if (cwd) {
