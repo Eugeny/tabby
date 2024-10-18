@@ -51,6 +51,7 @@ sftp-panel.bg-dark(
 keyboard-interactive-auth-panel.bg-dark(
     *ngIf='activeKIPrompt',
     [prompt]='activeKIPrompt',
+    [profile]='profile',
     (click)='$event.stopPropagation()',
     (done)='activeKIPrompt = null; frontend?.focus()'
 )

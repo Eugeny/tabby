@@ -11,22 +11,17 @@
     "build": "webpack --progress --color",
     "watch": "webpack --progress --color --watch",
     "postinstall": "run-script-os",
-    "postinstall:darwin:linux": "exit",
-    "postinstall:win32": "xcopy /i /y ..\\node_modules\\ssh2\\util\\pagent.exe util\\"
+    "postinstall:darwin:linux": "exit"
   },
   "files": [
     "dist",
-    "util/pagent.exe",
     "typings"
   ],
   "author": "Eugene Pankov",
   "license": "MIT",
   "devDependencies": {
     "@types/node": "20.3.1",
-    "@types/ssh2": "^0.5.46",
     "ansi-colors": "^4.1.1",
-    "diffie-hellman": "^5.0.3",
-    "sshpk": "Eugeny/node-sshpk#c2b71d1243714d2daf0988f84c3323d180817136",
     "strip-ansi": "^7.0.0"
   },
   "dependencies": {
@@ -45,5 +40,8 @@
     "tabby-core": "*",
     "tabby-settings": "*",
     "tabby-terminal": "*"
+  },
+  "resolutions": {
+    "glob": "7.2.3"
   }
 }

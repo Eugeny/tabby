@@ -1,24 +1,22 @@
 import * as fs from 'mz/fs'
 import * as crypto from 'crypto'
-import * as sshpk from 'sshpk'
 import colors from 'ansi-colors'
 import stripAnsi from 'strip-ansi'
-import { Injector, NgZone } from '@angular/core'
+import * as shellQuote from 'shell-quote'
+import { Injector } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
-import { ConfigService, FileProvidersService, HostAppService, NotificationsService, Platform, PlatformService, wrapPromise, PromptModalComponent, LogService, Logger, TranslateService } from 'tabby-core'
+import { ConfigService, FileProvidersService, NotificationsService, PromptModalComponent, LogService, Logger, TranslateService, Platform, HostAppService } from 'tabby-core'
 import { Socket } from 'net'
-import { Client, ClientChannel, SFTPWrapper } from 'ssh2'
 import { Subject, Observable } from 'rxjs'
 import { HostKeyPromptModalComponent } from '../components/hostKeyPromptModal.component'
-import { HTTPProxyStream, ProxyCommandStream, SocksProxyStream } from '../services/ssh.service'
 import { PasswordStorageService } from '../services/passwordStorage.service'
 import { SSHKnownHostsService } from '../services/sshKnownHosts.service'
-import { promisify } from 'util'
 import { SFTPSession } from './sftp'
-import { SSHAlgorithmType, PortForwardType, SSHProfile, SSHProxyStream, AutoPrivateKeyLocator } from '../api'
+import { SSHAlgorithmType, SSHProfile, AutoPrivateKeyLocator, PortForwardType } from '../api'
 import { ForwardedPort } from './forwards'
 import { X11Socket } from './x11'
 import { supportedAlgorithms } from '../algorithms'
+import * as russh from 'russh'
 
 const WINDOWS_OPENSSH_AGENT_PIPE = '\\\\.\\pipe\\openssh-ssh-agent'
 
@@ -27,48 +25,74 @@ export interface Prompt {
     echo?: boolean
 }
 
-interface AuthMethod {
-    type: 'none'|'publickey'|'agent'|'password'|'keyboard-interactive'|'hostbased'
-    name?: string
-    contents?: Buffer
-}
-
-interface Handshake {
-    kex: string
-    serverHostKey: string
+type AuthMethod = {
+    type: 'none'|'prompt-password'|'hostbased'
+} | {
+    type: 'keyboard-interactive',
+    savedPassword?: string
+} | {
+    type: 'saved-password',
+    password: string
+} | {
+    type: 'publickey'
+    name: string
+    contents: Buffer
+} | {
+    type: 'agent',
+    kind: 'unix-socket',
+    path: string
+} | {
+    type: 'agent',
+    kind: 'named-pipe',
+    path: string
+} | {
+    type: 'agent',
+    kind: 'pageant',
 }
 
 export class KeyboardInteractivePrompt {
-    responses: string[] = []
+    readonly responses: string[] = []
+
+    private _resolve: (value: string[]) => void
+    private _reject: (reason: any) => void
+    readonly promise = new Promise<string[]>((resolve, reject) => {
+        this._resolve = resolve
+        this._reject = reject
+    })
 
     constructor (
         public name: string,
         public instruction: string,
         public prompts: Prompt[],
-        private callback: (_: string[]) => void,
     ) {
         this.responses = new Array(this.prompts.length).fill('')
     }
 
+    isAPasswordPrompt (index: number): boolean {
+        return this.prompts[index].prompt.toLowerCase().includes('password') && !this.prompts[index].echo
+    }
+
     respond (): void {
-        this.callback(this.responses)
+        this._resolve(this.responses)
+    }
+
+    reject (): void {
+        this._reject(new Error('Keyboard-interactive auth rejected'))
     }
 }
 
 export class SSHSession {
-    shell?: ClientChannel
-    ssh: Client
-    sftp?: SFTPWrapper
+    shell?: russh.Channel
+    ssh: russh.SSHClient|russh.AuthenticatedSSHClient
+    sftp?: russh.SFTP
     forwardedPorts: ForwardedPort[] = []
-    jumpStream: any
-    proxyCommandStream: SSHProxyStream|null = null
+    jumpChannel: russh.Channel|null = null
     savedPassword?: string
     get serviceMessage$ (): Observable<string> { return this.serviceMessage }
     get keyboardInteractivePrompt$ (): Observable<KeyboardInteractivePrompt> { return this.keyboardInteractivePrompt }
     get willDestroy$ (): Observable<void> { return this.willDestroy }
 
-    agentPath?: string
-    activePrivateKey: string|null = null
+    activePrivateKey: russh.KeyPair|null = null
     authUsername: string|null = null
 
     open = false
@@ -79,15 +103,11 @@ export class SSHSession {
     private serviceMessage = new Subject<string>()
     private keyboardInteractivePrompt = new Subject<KeyboardInteractivePrompt>()
     private willDestroy = new Subject<void>()
-    private keychainPasswordUsed = false
-    private hostKeyDigest = ''
 
     private passwordStorage: PasswordStorageService
     private ngbModal: NgbModal
     private hostApp: HostAppService
-    private platform: PlatformService
     private notifications: NotificationsService
-    private zone: NgZone
     private fileProviders: FileProvidersService
     private config: ConfigService
     private translate: TranslateService
@@ -103,9 +123,7 @@ export class SSHSession {
         this.passwordStorage = injector.get(PasswordStorageService)
         this.ngbModal = injector.get(NgbModal)
         this.hostApp = injector.get(HostAppService)
-        this.platform = injector.get(PlatformService)
         this.notifications = injector.get(NotificationsService)
-        this.zone = injector.get(NgZone)
         this.fileProviders = injector.get(FileProvidersService)
         this.config = injector.get(ConfigService)
         this.translate = injector.get(TranslateService)
@@ -120,27 +138,6 @@ export class SSHSession {
     }
 
     async init (): Promise<void> {
-        if (this.hostApp.platform === Platform.Windows) {
-            if (this.config.store.ssh.agentType === 'auto') {
-                if (await fs.exists(WINDOWS_OPENSSH_AGENT_PIPE)) {
-                    this.agentPath = WINDOWS_OPENSSH_AGENT_PIPE
-                } else {
-                    if (
-                        await this.platform.isProcessRunning('pageant.exe') ||
-                        await this.platform.isProcessRunning('gpg-agent.exe')
-                    ) {
-                        this.agentPath = 'pageant'
-                    }
-                }
-            } else if (this.config.store.ssh.agentType === 'pageant') {
-                this.agentPath = 'pageant'
-            } else {
-                this.agentPath = this.config.store.ssh.agentPath || WINDOWS_OPENSSH_AGENT_PIPE
-            }
-        } else {
-            this.agentPath = process.env.SSH_AUTH_SOCK!
-        }
-
         this.remainingAuthMethods = [{ type: 'none' }]
         if (!this.profile.options.auth || this.profile.options.auth === 'publicKey') {
             if (this.profile.options.privateKeys?.length) {
@@ -167,184 +164,192 @@ export class SSHSession {
                 }
             }
         }
+
         if (!this.profile.options.auth || this.profile.options.auth === 'agent') {
-            if (!this.agentPath) {
-                this.emitServiceMessage(colors.bgYellow.yellow.black(' ! ') + ` Agent auth selected, but no running agent is detected`)
+            const spec = await this.getAgentConnectionSpec()
+            if (!spec) {
+                this.emitServiceMessage(colors.bgYellow.yellow.black(' ! ') + ` Agent auth selected, but no running Agent process is found`)
             } else {
-                this.remainingAuthMethods.push({ type: 'agent' })
+                this.remainingAuthMethods.push({
+                    type: 'agent',
+                    ...spec,
+                })
             }
         }
         if (!this.profile.options.auth || this.profile.options.auth === 'password') {
-            this.remainingAuthMethods.push({ type: 'password' })
+            if (this.profile.options.password) {
+                this.remainingAuthMethods.push({ type: 'saved-password', password: this.profile.options.password })
+            }
+            const password = await this.passwordStorage.loadPassword(this.profile)
+            if (password) {
+                this.remainingAuthMethods.push({ type: 'saved-password', password })
+            }
+            this.remainingAuthMethods.push({ type: 'prompt-password' })
         }
         if (!this.profile.options.auth || this.profile.options.auth === 'keyboardInteractive') {
+            const savedPassword = this.profile.options.password ?? await this.passwordStorage.loadPassword(this.profile)
+            if (savedPassword) {
+                this.remainingAuthMethods.push({ type: 'keyboard-interactive', savedPassword })
+            }
             this.remainingAuthMethods.push({ type: 'keyboard-interactive' })
         }
         this.remainingAuthMethods.push({ type: 'hostbased' })
     }
 
+    private async getAgentConnectionSpec (): Promise<russh.AgentConnectionSpec|null> {
+        if (this.hostApp.platform === Platform.Windows) {
+            if (this.config.store.ssh.agentType === 'auto') {
+                if (await fs.exists(WINDOWS_OPENSSH_AGENT_PIPE)) {
+                    return {
+                        kind: 'named-pipe',
+                        path: WINDOWS_OPENSSH_AGENT_PIPE,
+                    }
+                } else if (russh.isPageantRunning()) {
+                    return {
+                        kind: 'pageant',
+                    }
+                } else {
+                    this.emitServiceMessage(colors.bgYellow.yellow.black(' ! ') + ` Agent auth selected, but no running Agent process is found`)
+                }
+            } else if (this.config.store.ssh.agentType === 'pageant') {
+                return {
+                    kind: 'pageant',
+                }
+            } else {
+                return {
+                    kind: 'named-pipe',
+                    path: this.config.store.ssh.agentPath || WINDOWS_OPENSSH_AGENT_PIPE,
+                }
+            }
+        } else {
+            return {
+                kind: 'unix-socket',
+                path: process.env.SSH_AUTH_SOCK!,
+            }
+        }
+        return null
+    }
+
     async openSFTP (): Promise<SFTPSession> {
+        if (!(this.ssh instanceof russh.AuthenticatedSSHClient)) {
+            throw new Error('Cannot open SFTP session before auth')
+        }
         if (!this.sftp) {
-            this.sftp = await wrapPromise(this.zone, promisify<SFTPWrapper>(f => this.ssh.sftp(f))())
+            this.sftp = await this.ssh.openSFTPChannel()
         }
         return new SFTPSession(this.sftp, this.injector)
     }
 
-
     async start (): Promise<void> {
-        const log = (s: any) => this.emitServiceMessage(s)
-
-        const ssh = new Client()
-        this.ssh = ssh
         await this.init()
 
-        let connected = false
         const algorithms = {}
         for (const key of Object.values(SSHAlgorithmType)) {
             algorithms[key] = this.profile.options.algorithms![key].filter(x => supportedAlgorithms[key].includes(x))
         }
 
-        const hostVerifiedPromise: Promise<void> = new Promise((resolve, reject) => {
-            ssh.on('handshake', async handshake => {
-                if (!await this.verifyHostKey(handshake)) {
-                    this.ssh.end()
-                    reject(new Error('Host key verification failed'))
-                }
-                this.logger.info('Handshake complete:', handshake)
-                resolve()
-            })
-        })
+        // eslint-disable-next-line @typescript-eslint/init-declarations
+        let transport: russh.SshTransport
+        if (this.profile.options.proxyCommand) {
+            this.emitServiceMessage(colors.bgBlue.black(' Proxy command ') + ` Using ${this.profile.options.proxyCommand}`)
 
-        const resultPromise: Promise<void> = new Promise(async (resolve, reject) => {
-            ssh.on('ready', () => {
-                connected = true
-                // Fix SSH Lagging
-                ssh.setNoDelay(true)
-                if (this.savedPassword) {
-                    this.passwordStorage.savePassword(this.profile, this.savedPassword)
-                }
-
-                this.zone.run(resolve)
-            })
-            ssh.on('error', error => {
-                if (error.message === 'All configured authentication methods failed') {
-                    this.passwordStorage.deletePassword(this.profile)
-                }
-                this.zone.run(() => {
-                    if (connected) {
-                        // eslint-disable-next-line @typescript-eslint/no-base-to-string
-                        this.notifications.error(error.toString())
-                    } else {
-                        reject(error)
-                    }
-                })
-            })
-            ssh.on('close', () => {
-                if (this.open) {
-                    this.destroy()
-                }
-            })
-
-            ssh.on('keyboard-interactive', (name, instructions, instructionsLang, prompts, finish) => this.zone.run(async () => {
-                this.emitKeyboardInteractivePrompt(new KeyboardInteractivePrompt(
-                    name,
-                    instructions,
-                    prompts,
-                    finish,
-                ))
-            }))
-
-            ssh.on('greeting', greeting => {
-                if (!this.profile.options.skipBanner) {
-                    log('Greeting: ' + greeting)
-                }
-            })
-
-            ssh.on('banner', banner => {
-                if (!this.profile.options.skipBanner) {
-                    log(banner)
-                }
-            })
-        })
-
-        try {
-            if (this.profile.options.socksProxyHost) {
-                this.emitServiceMessage(colors.bgBlue.black(' Proxy ') + ` Using ${this.profile.options.socksProxyHost}:${this.profile.options.socksProxyPort}`)
-                this.proxyCommandStream = new SocksProxyStream(this.profile)
-            }
-            if (this.profile.options.httpProxyHost) {
-                this.emitServiceMessage(colors.bgBlue.black(' Proxy ') + ` Using ${this.profile.options.httpProxyHost}:${this.profile.options.httpProxyPort}`)
-                this.proxyCommandStream = new HTTPProxyStream(this.profile)
-            }
-            if (this.profile.options.proxyCommand) {
-                this.emitServiceMessage(colors.bgBlue.black(' Proxy command ') + ` Using ${this.profile.options.proxyCommand}`)
-                this.proxyCommandStream = new ProxyCommandStream(this.profile.options.proxyCommand)
-            }
-            if (this.proxyCommandStream) {
-                this.proxyCommandStream.destroyed$.subscribe(err => {
-                    if (err) {
-                        this.emitServiceMessage(colors.bgRed.black(' X ') + ` ${err.message}`)
-                        this.destroy()
-                    }
-                })
-
-                this.proxyCommandStream.message$.subscribe(message => {
-                    this.emitServiceMessage(colors.bgBlue.black(' Proxy ') + ' ' + message.trim())
-                })
-
-                await this.proxyCommandStream.start()
-            }
-
-            this.authUsername ??= this.profile.options.user
-            if (!this.authUsername) {
-                const modal = this.ngbModal.open(PromptModalComponent)
-                modal.componentInstance.prompt = `Username for ${this.profile.options.host}`
-                try {
-                    const result = await modal.result.catch(() => null)
-                    this.authUsername = result?.value ?? null
-                } catch {
-                    this.authUsername = 'root'
-                }
-            }
-            if (this.authUsername?.startsWith('$')) {
-                try {
-                    const result = process.env[this.authUsername.slice(1)]
-                    this.authUsername = result ?? this.authUsername
-                } catch {
-                    this.authUsername = 'root'
-                }
-            }
-
-            ssh.connect({
-                host: this.profile.options.host.trim(),
-                port: this.profile.options.port ?? 22,
-                sock: this.proxyCommandStream?.socket ?? this.jumpStream,
-                username: this.authUsername ?? undefined,
-                tryKeyboard: true,
-                agent: this.agentPath,
-                agentForward: this.profile.options.agentForward && !!this.agentPath,
-                keepaliveInterval: this.profile.options.keepaliveInterval ?? 15000,
-                keepaliveCountMax: this.profile.options.keepaliveCountMax,
-                readyTimeout: this.profile.options.readyTimeout,
-                hostVerifier: (key: any) => {
-                    this.hostKeyDigest = crypto.createHash('sha256').update(key).digest('base64')
-                    return true
-                },
-                algorithms,
-                authHandler: (methodsLeft, partialSuccess, callback) => {
-                    this.zone.run(async () => {
-                        await hostVerifiedPromise
-                        callback(await this.handleAuth(methodsLeft))
-                    })
-                },
-            })
-        } catch (e) {
-            this.notifications.error(e.message)
-            throw e
+            const argv = shellQuote.parse(this.profile.options.proxyCommand)
+            transport = await russh.SshTransport.newCommand(argv[0], argv.slice(1))
+        } else if (this.jumpChannel) {
+            transport = await russh.SshTransport.newSshChannel(await this.jumpChannel.take())
+            this.jumpChannel = null
+        } else if (this.profile.options.socksProxyHost) {
+            this.emitServiceMessage(colors.bgBlue.black(' Proxy ') + ` Using ${this.profile.options.socksProxyHost}:${this.profile.options.socksProxyPort}`)
+            transport = await russh.SshTransport.newSocksProxy(
+                this.profile.options.socksProxyHost,
+                this.profile.options.socksProxyPort ?? 1080,
+                this.profile.options.host,
+                this.profile.options.port ?? 22,
+            )
+        } else if (this.profile.options.httpProxyHost) {
+            this.emitServiceMessage(colors.bgBlue.black(' Proxy ') + ` Using ${this.profile.options.httpProxyHost}:${this.profile.options.httpProxyPort}`)
+            transport = await russh.SshTransport.newHttpProxy(
+                this.profile.options.httpProxyHost,
+                this.profile.options.httpProxyPort ?? 8080,
+                this.profile.options.host,
+                this.profile.options.port ?? 22,
+            )
+        } else {
+            transport = await russh.SshTransport.newSocket(`${this.profile.options.host.trim()}:${this.profile.options.port ?? 22}`)
         }
 
-        await resultPromise
-        await hostVerifiedPromise
+        this.ssh = await russh.SSHClient.connect(
+            transport,
+            async key => {
+                if (!await this.verifyHostKey(key)) {
+                    return false
+                }
+                this.logger.info('Host key verified')
+                return true
+            },
+            {
+                preferred: {
+                    ciphers: this.profile.options.algorithms?.[SSHAlgorithmType.CIPHER]?.filter(x => supportedAlgorithms[SSHAlgorithmType.CIPHER].includes(x)),
+                    kex: this.profile.options.algorithms?.[SSHAlgorithmType.KEX]?.filter(x => supportedAlgorithms[SSHAlgorithmType.KEX].includes(x)),
+                    mac: this.profile.options.algorithms?.[SSHAlgorithmType.HMAC]?.filter(x => supportedAlgorithms[SSHAlgorithmType.HMAC].includes(x)),
+                    key: this.profile.options.algorithms?.[SSHAlgorithmType.HOSTKEY]?.filter(x => supportedAlgorithms[SSHAlgorithmType.HOSTKEY].includes(x)),
+                },
+                keepaliveIntervalSeconds: Math.round((this.profile.options.keepaliveInterval ?? 15000) / 1000),
+                keepaliveCountMax: this.profile.options.keepaliveCountMax,
+                connectionTimeoutSeconds: this.profile.options.readyTimeout ? Math.round(this.profile.options.readyTimeout / 1000) : undefined,
+            },
+        )
+
+        this.ssh.banner$.subscribe(banner => {
+            if (!this.profile.options.skipBanner) {
+                this.emitServiceMessage(banner)
+            }
+        })
+
+        this.ssh.disconnect$.subscribe(() => {
+            if (this.open) {
+                this.destroy()
+            }
+        })
+
+        // Authentication
+
+        this.authUsername ??= this.profile.options.user
+        if (!this.authUsername) {
+            const modal = this.ngbModal.open(PromptModalComponent)
+            modal.componentInstance.prompt = `Username for ${this.profile.options.host}`
+            try {
+                const result = await modal.result.catch(() => null)
+                this.authUsername = result?.value ?? null
+            } catch {
+                this.authUsername = 'root'
+            }
+        }
+
+        if (this.authUsername?.startsWith('$')) {
+            try {
+                const result = process.env[this.authUsername.slice(1)]
+                this.authUsername = result ?? this.authUsername
+            } catch {
+                this.authUsername = 'root'
+            }
+        }
+
+        const authenticatedClient = await this.handleAuth()
+        if (authenticatedClient) {
+            this.ssh = authenticatedClient
+        } else {
+            this.ssh.disconnect()
+            this.passwordStorage.deletePassword(this.profile)
+            // eslint-disable-next-line @typescript-eslint/no-base-to-string
+            throw new Error('Authentication rejected')
+        }
+
+        // auth success
+
+        if (this.savedPassword) {
+            this.passwordStorage.savePassword(this.profile, this.savedPassword)
+        }
 
         for (const fw of this.profile.options.forwardedPorts ?? []) {
             this.addPortForward(Object.assign(new ForwardedPort(), fw))
@@ -352,12 +357,11 @@ export class SSHSession {
 
         this.open = true
 
-        this.ssh.on('tcp connection', (details, accept, reject) => {
-            this.logger.info(`Incoming forwarded connection: (remote) ${details.srcIP}:${details.srcPort} -> (local) ${details.destIP}:${details.destPort}`)
-            const forward = this.forwardedPorts.find(x => x.port === details.destPort)
+        this.ssh.tcpChannelOpen$.subscribe(async event => {
+            this.logger.info(`Incoming forwarded connection: ${event.clientAddress}:${event.clientPort} -> ${event.targetAddress}:${event.targetPort}`)
+            const forward = this.forwardedPorts.find(x => x.port === event.targetPort && x.host === event.targetAddress)
             if (!forward) {
-                this.emitServiceMessage(colors.bgRed.black(' X ') + ` Rejected incoming forwarded connection for unrecognized port ${details.destPort}`)
-                reject()
+                this.emitServiceMessage(colors.bgRed.black(' X ') + ` Rejected incoming forwarded connection for unrecognized port ${event.targetAddress}:${event.targetPort}`)
                 return
             }
             const socket = new Socket()
@@ -365,24 +369,19 @@ export class SSHSession {
             socket.on('error', e => {
                 // eslint-disable-next-line @typescript-eslint/no-base-to-string
                 this.emitServiceMessage(colors.bgRed.black(' X ') + ` Could not forward the remote connection to ${forward.targetAddress}:${forward.targetPort}: ${e}`)
-                reject()
+                event.channel.close()
             })
+            event.channel.data$.subscribe(data => socket.write(data))
+            socket.on('data', data => event.channel.write(Uint8Array.from(data)))
+            event.channel.closed$.subscribe(() => socket.destroy())
+            socket.on('close', () => event.channel.close())
             socket.on('connect', () => {
                 this.logger.info('Connection forwarded')
-                const stream = accept()
-                stream.pipe(socket)
-                socket.pipe(stream)
-                stream.on('close', () => {
-                    socket.destroy()
-                })
-                socket.on('close', () => {
-                    stream.close()
-                })
             })
         })
 
-        this.ssh.on('x11', async (details, accept, reject) => {
-            this.logger.info(`Incoming X11 connection from ${details.srcIP}:${details.srcPort}`)
+        this.ssh.x11ChannelOpen$.subscribe(async event => {
+            this.logger.info(`Incoming X11 connection from ${event.clientAddress}:${event.clientPort}`)
             const displaySpec = (this.config.store.ssh.x11Display || process.env.DISPLAY) ?? 'localhost:0'
             this.logger.debug(`Trying display ${displaySpec}`)
 
@@ -390,14 +389,18 @@ export class SSHSession {
             try {
                 const x11Stream = await socket.connect(displaySpec)
                 this.logger.info('Connection forwarded')
-                const stream = accept()
-                stream.pipe(x11Stream)
-                x11Stream.pipe(stream)
-                stream.on('close', () => {
+
+                event.channel.data$.subscribe(data => {
+                    x11Stream.write(data)
+                })
+                x11Stream.on('data', data => {
+                    event.channel.write(Uint8Array.from(data))
+                })
+                event.channel.closed$.subscribe(() => {
                     socket.destroy()
                 })
                 x11Stream.on('close', () => {
-                    stream.close()
+                    event.channel.close()
                 })
             } catch (e) {
                 // eslint-disable-next-line @typescript-eslint/no-base-to-string
@@ -408,27 +411,43 @@ export class SSHSession {
                     this.emitServiceMessage('    * VcXsrv: https://sourceforge.net/projects/vcxsrv/')
                     this.emitServiceMessage('    * Xming: https://sourceforge.net/projects/xming/')
                 }
-                reject()
+                event.channel.close()
             }
+        })
+
+        this.ssh.agentChannelOpen$.subscribe(async channel => {
+            const spec = await this.getAgentConnectionSpec()
+            if (!spec) {
+                await channel.close()
+                return
+            }
+
+            const agent = await russh.SSHAgentStream.connect(spec)
+            channel.data$.subscribe(data => agent.write(data))
+            agent.data$.subscribe(data => channel.write(data), undefined, () => channel.close())
+            channel.closed$.subscribe(() => agent.close())
         })
     }
 
-    private async verifyHostKey (handshake: Handshake): Promise<boolean> {
+    private async verifyHostKey (key: russh.SshPublicKey): Promise<boolean> {
         this.emitServiceMessage('Host key fingerprint:')
-        this.emitServiceMessage(colors.white.bgBlack(` ${handshake.serverHostKey} `) + colors.bgBlackBright(' ' + this.hostKeyDigest + ' '))
+        this.emitServiceMessage(colors.white.bgBlack(` ${key.algorithm()} `) + colors.bgBlackBright(' ' + key.fingerprint() + ' '))
         if (!this.config.store.ssh.verifyHostKeys) {
             return true
         }
         const selector = {
             host: this.profile.options.host,
             port: this.profile.options.port ?? 22,
-            type: handshake.serverHostKey,
+            type: key.algorithm(),
         }
+
+        const keyDigest = crypto.createHash('sha256').update(key.bytes()).digest('base64')
+
         const knownHost = this.knownHosts.getFor(selector)
-        if (!knownHost || knownHost.digest !== this.hostKeyDigest) {
+        if (!knownHost || knownHost.digest !== keyDigest) {
             const modal = this.ngbModal.open(HostKeyPromptModalComponent)
             modal.componentInstance.selector = selector
-            modal.componentInstance.digest = this.hostKeyDigest
+            modal.componentInstance.digest = keyDigest
             return modal.result.catch(() => false)
         }
         return true
@@ -450,57 +469,49 @@ export class SSHSession {
         this.keyboardInteractivePrompt.next(prompt)
     }
 
-    async handleAuth (methodsLeft?: string[] | null): Promise<any> {
+    async handleAuth (methodsLeft?: string[] | null): Promise<russh.AuthenticatedSSHClient|null> {
         this.activePrivateKey = null
+
+        if (!(this.ssh instanceof russh.SSHClient)) {
+            throw new Error('Wrong state for auth handling')
+        }
+
+        if (!this.authUsername) {
+            throw new Error('No username')
+        }
 
         while (true) {
             const method = this.remainingAuthMethods.shift()
             if (!method) {
-                return false
+                return null
             }
             if (methodsLeft && !methodsLeft.includes(method.type) && method.type !== 'agent') {
                 // Agent can still be used even if not in methodsLeft
                 this.logger.info('Server does not support auth method', method.type)
                 continue
             }
-            if (method.type === 'password') {
-                if (this.profile.options.password) {
-                    this.emitServiceMessage(this.translate.instant('Using preset password'))
-                    return {
-                        type: 'password',
-                        username: this.authUsername,
-                        password: this.profile.options.password,
-                    }
+            if (method.type === 'saved-password') {
+                this.emitServiceMessage(this.translate.instant('Using saved password'))
+                const result = await this.ssh.authenticateWithPassword(this.authUsername, method.password)
+                if (result) {
+                    return result
                 }
-
-                if (!this.keychainPasswordUsed && this.profile.options.user) {
-                    const password = await this.passwordStorage.loadPassword(this.profile)
-                    if (password) {
-                        this.emitServiceMessage(this.translate.instant('Trying saved password'))
-                        this.keychainPasswordUsed = true
-                        return {
-                            type: 'password',
-                            username: this.authUsername,
-                            password,
-                        }
-                    }
-                }
-
+            }
+            if (method.type === 'prompt-password') {
                 const modal = this.ngbModal.open(PromptModalComponent)
                 modal.componentInstance.prompt = `Password for ${this.authUsername}@${this.profile.options.host}`
                 modal.componentInstance.password = true
                 modal.componentInstance.showRememberCheckbox = true
 
                 try {
-                    const result = await modal.result.catch(() => null)
-                    if (result) {
-                        if (result.remember) {
-                            this.savedPassword = result.value
+                    const promptResult = await modal.result.catch(() => null)
+                    if (promptResult) {
+                        if (promptResult.remember) {
+                            this.savedPassword = promptResult.value
                         }
-                        return {
-                            type: 'password',
-                            username: this.authUsername,
-                            password: result.value,
+                        const result = await this.ssh.authenticateWithPassword(this.authUsername, promptResult.value)
+                        if (result) {
+                            return result
                         }
                     } else {
                         continue
@@ -509,50 +520,104 @@ export class SSHSession {
                     continue
                 }
             }
-            if (method.type === 'publickey' && method.contents) {
+            if (method.type === 'publickey') {
                 try {
-                    const key = await this.loadPrivateKey(method.name!, method.contents)
-                    return {
-                        type: 'publickey',
-                        username: this.authUsername,
-                        key,
+                    const key = await this.loadPrivateKey(method.name, method.contents)
+                    const result = await this.ssh.authenticateWithKeyPair(this.authUsername, key)
+                    if (result) {
+                        return result
                     }
                 } catch (e) {
                     this.emitServiceMessage(colors.bgYellow.yellow.black(' ! ') + ` Failed to load private key ${method.name}: ${e}`)
                     continue
                 }
             }
-            return method.type
+            if (method.type === 'keyboard-interactive') {
+                let state: russh.AuthenticatedSSHClient|russh.KeyboardInteractiveAuthenticationState = await this.ssh.startKeyboardInteractiveAuthentication(this.authUsername)
+
+                while (true) {
+                    if (state.state === 'failure') {
+                        break
+                    }
+
+                    const prompts = state.prompts()
+
+                    let responses: string[] = []
+                    // OpenSSH can send a k-i request without prompts
+                    // just respond ok to it
+                    if (prompts.length > 0) {
+                        const prompt = new KeyboardInteractivePrompt(
+                            state.name,
+                            state.instructions,
+                            state.prompts(),
+                        )
+
+                        if (method.savedPassword) {
+                            // eslint-disable-next-line max-depth
+                            for (let i = 0; i < prompt.prompts.length; i++) {
+                                // eslint-disable-next-line max-depth
+                                if (prompt.isAPasswordPrompt(i)) {
+                                    prompt.responses[i] = method.savedPassword
+                                }
+                            }
+                        }
+
+                        this.emitKeyboardInteractivePrompt(prompt)
+
+                        try {
+                            // eslint-disable-next-line @typescript-eslint/await-thenable
+                            responses = await prompt.promise
+                        } catch {
+                            break // this loop
+                        }
+                    }
+
+                    state = await this.ssh .continueKeyboardInteractiveAuthentication(responses)
+
+                    if (state instanceof russh.AuthenticatedSSHClient) {
+                        return state
+                    }
+                }
+            }
+            if (method.type === 'agent') {
+                try {
+                    const result = await this.ssh.authenticateWithAgent(this.authUsername, method)
+                    if (result) {
+                        return result
+                    }
+                } catch (e) {
+                    this.emitServiceMessage(colors.bgYellow.yellow.black(' ! ') + ` Failed to authenticate using agent: ${e}`)
+                    continue
+                }
+            }
         }
+        return null
     }
 
     async addPortForward (fw: ForwardedPort): Promise<void> {
         if (fw.type === PortForwardType.Local || fw.type === PortForwardType.Dynamic) {
-            await fw.startLocalListener((accept, reject, sourceAddress, sourcePort, targetAddress, targetPort) => {
+            await fw.startLocalListener(async (accept, reject, sourceAddress, sourcePort, targetAddress, targetPort) => {
                 this.logger.info(`New connection on ${fw}`)
-                this.ssh.forwardOut(
-                    sourceAddress ?? '127.0.0.1',
-                    sourcePort ?? 0,
-                    targetAddress,
-                    targetPort,
-                    (err, stream) => {
-                        if (err) {
-                            // eslint-disable-next-line @typescript-eslint/no-base-to-string
-                            this.emitServiceMessage(colors.bgRed.black(' X ') + ` Remote has rejected the forwarded connection to ${targetAddress}:${targetPort} via ${fw}: ${err}`)
-                            reject()
-                            return
-                        }
-                        const socket = accept()
-                        stream.pipe(socket)
-                        socket.pipe(stream)
-                        stream.on('close', () => {
-                            socket.destroy()
-                        })
-                        socket.on('close', () => {
-                            stream.close()
-                        })
-                    },
-                )
+                if (!(this.ssh instanceof russh.AuthenticatedSSHClient)) {
+                    this.logger.error(`Connection while unauthenticated on ${fw}`)
+                    reject()
+                    return
+                }
+                const channel = await this.ssh.openTCPForwardChannel({
+                    addressToConnectTo: targetAddress,
+                    portToConnectTo: targetPort,
+                    originatorAddress: sourceAddress ?? '127.0.0.1',
+                    originatorPort: sourcePort ?? 0,
+                }).catch(err => {
+                    this.emitServiceMessage(colors.bgRed.black(' X ') + ` Remote has rejected the forwarded connection to ${targetAddress}:${targetPort} via ${fw}: ${err}`)
+                    reject()
+                    throw err
+                })
+                const socket = accept()
+                channel.data$.subscribe(data => socket.write(data))
+                socket.on('data', data => channel.write(Uint8Array.from(data)))
+                channel.closed$.subscribe(() => socket.destroy())
+                socket.on('close', () => channel.close())
             }).then(() => {
                 this.emitServiceMessage(colors.bgGreen.black(' -> ') + ` Forwarded ${fw}`)
                 this.forwardedPorts.push(fw)
@@ -562,17 +627,16 @@ export class SSHSession {
             })
         }
         if (fw.type === PortForwardType.Remote) {
-            await new Promise<void>((resolve, reject) => {
-                this.ssh.forwardIn(fw.host, fw.port, err => {
-                    if (err) {
-                        // eslint-disable-next-line @typescript-eslint/no-base-to-string
-                        this.emitServiceMessage(colors.bgRed.black(' X ') + ` Remote rejected port forwarding for ${fw}: ${err}`)
-                        reject(err)
-                        return
-                    }
-                    resolve()
-                })
-            })
+            if (!(this.ssh instanceof russh.AuthenticatedSSHClient)) {
+                throw new Error('Cannot add remote port forward before auth')
+            }
+            try {
+                await this.ssh.forwardTCPPort(fw.host, fw.port)
+            } catch (err) {
+                // eslint-disable-next-line @typescript-eslint/no-base-to-string
+                this.emitServiceMessage(colors.bgRed.black(' X ') + ` Remote rejected port forwarding for ${fw}: ${err}`)
+                return
+            }
             this.emitServiceMessage(colors.bgGreen.black(' <- ') + ` Forwarded ${fw}`)
             this.forwardedPorts.push(fw)
         }
@@ -584,7 +648,10 @@ export class SSHSession {
             this.forwardedPorts = this.forwardedPorts.filter(x => x !== fw)
         }
         if (fw.type === PortForwardType.Remote) {
-            this.ssh.unforwardIn(fw.host, fw.port)
+            if (!(this.ssh instanceof russh.AuthenticatedSSHClient)) {
+                throw new Error('Cannot remove remote port forward before auth')
+            }
+            this.ssh.stopForwardingTCPPort(fw.host, fw.port)
             this.forwardedPorts = this.forwardedPorts.filter(x => x !== fw)
         }
         this.emitServiceMessage(`Stopped forwarding ${fw}`)
@@ -595,43 +662,55 @@ export class SSHSession {
         this.willDestroy.next()
         this.willDestroy.complete()
         this.serviceMessage.complete()
-        this.proxyCommandStream?.stop()
-        this.ssh.end()
+        this.ssh.disconnect()
     }
 
-    openShellChannel (options: { x11: boolean }): Promise<ClientChannel> {
-        return new Promise<ClientChannel>((resolve, reject) => {
-            this.ssh.shell({ term: 'xterm-256color' }, options, (err, shell) => {
-                if (err) {
-                    reject(err)
-                } else {
-                    resolve(shell)
-                }
-            })
+    async openShellChannel (options: { x11: boolean }): Promise<russh.Channel> {
+        if (!(this.ssh instanceof russh.AuthenticatedSSHClient)) {
+            throw new Error('Cannot open shell channel before auth')
+        }
+        const ch = await this.ssh.openSessionChannel()
+        await ch.requestPTY('xterm-256color', {
+            columns: 80,
+            rows: 24,
+            pixHeight: 0,
+            pixWidth: 0,
         })
+        if (options.x11) {
+            await ch.requestX11Forwarding({
+                singleConnection: false,
+                authProtocol: 'MIT-MAGIC-COOKIE-1',
+                authCookie: crypto.randomBytes(16).toString('hex'),
+                screenNumber: 0,
+            })
+        }
+        if (this.profile.options.agentForward) {
+            await ch.requestAgentForwarding()
+        }
+        await ch.requestShell()
+        return ch
     }
 
-    async loadPrivateKey (name: string, privateKeyContents: Buffer): Promise<string|null> {
+    async loadPrivateKey (name: string, privateKeyContents: Buffer): Promise<russh.KeyPair> {
         this.emitServiceMessage(`Loading private key: ${name}`)
-        const parsedKey = await this.parsePrivateKey(privateKeyContents.toString())
-        this.activePrivateKey = parsedKey.toString('openssh')
+        this.activePrivateKey = await this.loadPrivateKeyWithPassphraseMaybe(privateKeyContents.toString())
         return this.activePrivateKey
     }
 
-    async parsePrivateKey (privateKey: string): Promise<any> {
+    async loadPrivateKeyWithPassphraseMaybe (privateKey: string): Promise<russh.KeyPair> {
         const keyHash = crypto.createHash('sha512').update(privateKey).digest('hex')
         let triedSavedPassphrase = false
         let passphrase: string|null = null
         while (true) {
             try {
-                return sshpk.parsePrivateKey(privateKey, 'auto', { passphrase })
+                return await russh.KeyPair.parse(privateKey, passphrase ?? undefined)
             } catch (e) {
                 if (!triedSavedPassphrase) {
                     passphrase = await this.passwordStorage.loadPrivateKeyPassword(keyHash)
                     triedSavedPassphrase = true
                     continue
                 }
-                if (e instanceof sshpk.KeyEncryptedError || e instanceof sshpk.KeyParseError) {
+                if (e.toString() === 'Error: Keys(KeyIsEncrypted)' || e.toString() === 'Error: Keys(SshKey(Crypto))') {
                     await this.passwordStorage.deletePrivateKeyPassword(keyHash)
 
                     const modal = this.ngbModal.open(PromptModalComponent)

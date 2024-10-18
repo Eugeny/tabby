@@ -1,20 +1,45 @@
-import * as ALGORITHMS from 'ssh2/lib/protocol/constants'
-import { ALGORITHM_BLACKLIST, SSHAlgorithmType } from './api'
+import * as russh from 'russh'
+import { SSHAlgorithmType } from './api'
 
-// Counteracts https://github.com/mscdex/ssh2/commit/f1b5ac3c81734c194740016eab79a699efae83d8
-ALGORITHMS.DEFAULT_CIPHER.push('aes128-gcm')
-ALGORITHMS.DEFAULT_CIPHER.push('aes256-gcm')
-ALGORITHMS.SUPPORTED_CIPHER.push('aes128-gcm')
-ALGORITHMS.SUPPORTED_CIPHER.push('aes256-gcm')
+export const supportedAlgorithms = {
+    [SSHAlgorithmType.KEX]: russh.getSupportedKexAlgorithms().filter(x => x !== 'none'),
+    [SSHAlgorithmType.HOSTKEY]: russh.getSupportedKeyTypes().filter(x => x !== 'none'),
+    [SSHAlgorithmType.CIPHER]: russh.getSupportedCiphers().filter(x => x !== 'clear'),
+    [SSHAlgorithmType.HMAC]: russh.getSupportedMACs().filter(x => x !== 'none'),
+}
 
-export const supportedAlgorithms: Record<string, string> = {}
-
-for (const k of Object.values(SSHAlgorithmType)) {
-    const supportedAlg = {
-        [SSHAlgorithmType.KEX]: 'SUPPORTED_KEX',
-        [SSHAlgorithmType.HOSTKEY]: 'SUPPORTED_SERVER_HOST_KEY',
-        [SSHAlgorithmType.CIPHER]: 'SUPPORTED_CIPHER',
-        [SSHAlgorithmType.HMAC]: 'SUPPORTED_MAC',
-    }[k]
-    supportedAlgorithms[k] = ALGORITHMS[supportedAlg].filter(x => !ALGORITHM_BLACKLIST.includes(x)).sort()
+export const defaultAlgorithms = {
+    [SSHAlgorithmType.KEX]: [
+        'curve25519-sha256',
+        'curve25519-sha256@libssh.org',
+        'diffie-hellman-group16-sha512',
+        'diffie-hellman-group14-sha256',
+        'ext-info-c',
+        'ext-info-s',
+        'kex-strict-c-v00@openssh.com',
+        'kex-strict-s-v00@openssh.com',
+    ],
+    [SSHAlgorithmType.HOSTKEY]: [
+        'ssh-ed25519',
+        'ecdsa-sha2-nistp256',
+        'ecdsa-sha2-nistp521',
+        'rsa-sha2-256',
+        'rsa-sha2-512',
+        'ssh-rsa',
+    ],
+    [SSHAlgorithmType.CIPHER]: [
+        'chacha20-poly1305@openssh.com',
+        'aes256-gcm@openssh.com',
+        'aes256-ctr',
+        'aes192-ctr',
+        'aes128-ctr',
+    ],
+    [SSHAlgorithmType.HMAC]: [
+        'hmac-sha2-512-etm@openssh.com',
+        'hmac-sha2-256-etm@openssh.com',
+        'hmac-sha2-512',
+        'hmac-sha2-256',
+        'hmac-sha1-etm@openssh.com',
+        'hmac-sha1',
+    ],
 }

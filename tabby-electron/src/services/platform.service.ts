@@ -300,12 +300,12 @@ class ElectronFileUpload extends FileUpload {
     private size: number
     private mode: number
     private file: fs.FileHandle
-    private buffer: Buffer
+    private buffer: Uint8Array
     private powerSaveBlocker = 0
 
     constructor (private filePath: string, private electron: ElectronService) {
         super()
-        this.buffer = Buffer.alloc(256 * 1024)
+        this.buffer = new Uint8Array(256 * 1024)
         this.powerSaveBlocker = electron.powerSaveBlocker.start('prevent-app-suspension')
     }
 
@@ -328,7 +328,7 @@ class ElectronFileUpload extends FileUpload {
         return this.size
     }
 
-    async read (): Promise<Buffer> {
+    async read (): Promise<Uint8Array> {
         const result = await this.file.read(this.buffer, 0, this.buffer.length, null)
         this.increaseProgress(result.bytesRead)
         return this.buffer.slice(0, result.bytesRead)
@@ -370,7 +370,7 @@ class ElectronFileDownload extends FileDownload {
         return this.size
     }
 
-    async write (buffer: Buffer): Promise<void> {
+    async write (buffer: Uint8Array): Promise<void> {
         let pos = 0
         while (pos < buffer.length) {
             const result = await this.file.write(buffer, pos, buffer.length - pos, null)

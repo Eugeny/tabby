@@ -1,12 +1,9 @@
-import * as C from 'constants'
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Subject, Observable } from 'rxjs'
 import { posix as posixPath } from 'path'
-import { Injector, NgZone } from '@angular/core'
-import { FileDownload, FileUpload, Logger, LogService, wrapPromise } from 'tabby-core'
-import { SFTPWrapper } from 'ssh2'
-import { promisify } from 'util'
-
-import type { FileEntry, Stats } from 'ssh2-streams'
+import { Injector } from '@angular/core'
+import { FileDownload, FileUpload, Logger, LogService } from 'tabby-core'
+import * as russh from 'russh'
 
 export interface SFTPFile {
     name: string
@@ -22,63 +19,37 @@ export class SFTPFileHandle {
     position = 0
 
     constructor (
-        private sftp: SFTPWrapper,
-        private handle: Buffer,
-        private zone: NgZone,
+        private inner: russh.SFTPFile|null,
     ) { }
 
-    read (): Promise<Buffer> {
-        const buffer = Buffer.alloc(256 * 1024)
-        return wrapPromise(this.zone, new Promise((resolve, reject) => {
-            while (true) {
-                const wait = this.sftp.read(this.handle, buffer, 0, buffer.length, this.position, (err, read) => {
-                    if (err) {
-                        reject(err)
-                        return
-                    }
-                    this.position += read
-                    resolve(buffer.slice(0, read))
-                })
-                if (!wait) {
-                    break
-                }
-            }
-        }))
+    async read (): Promise<Uint8Array> {
+        if (!this.inner) {
+            return Promise.resolve(new Uint8Array(0))
+        }
+        return this.inner.read(256 * 1024)
     }
 
-    write (chunk: Buffer): Promise<void> {
-        return wrapPromise(this.zone, new Promise<void>((resolve, reject) => {
-            while (true) {
-                const wait = this.sftp.write(this.handle, chunk, 0, chunk.length, this.position, err => {
-                    if (err) {
-                        reject(err)
-                        return
-                    }
-                    this.position += chunk.length
-                    resolve()
-                })
-                if (!wait) {
-                    break
-                }
-            }
-        }))
+    async write (chunk: Uint8Array): Promise<void> {
+        if (!this.inner) {
+            throw new Error('File handle is closed')
+        }
+        await this.inner.writeAll(chunk)
     }
 
-    close (): Promise<void> {
-        return wrapPromise(this.zone, promisify(this.sftp.close.bind(this.sftp))(this.handle))
+    async close (): Promise<void> {
+        await this.inner?.shutdown()
+        this.inner = null
     }
 }
 
 export class SFTPSession {
     get closed$ (): Observable<void> { return this.closed }
     private closed = new Subject<void>()
-    private zone: NgZone
     private logger: Logger
 
-    constructor (private sftp: SFTPWrapper, injector: Injector) {
-        this.zone = injector.get(NgZone)
+    constructor (private sftp: russh.SFTP, injector: Injector) {
         this.logger = injector.get(LogService).create('sftp')
-        sftp.on('close', () => {
+        sftp.closed$.subscribe(() => {
             this.closed.next()
             this.closed.complete()
         })
@@ -86,67 +57,64 @@ export class SFTPSession {
 
     async readdir (p: string): Promise<SFTPFile[]> {
         this.logger.debug('readdir', p)
-        const entries = await wrapPromise(this.zone, promisify<FileEntry[]>(f => this.sftp.readdir(p, f))())
+        const entries = await this.sftp.readDirectory(p)
         return entries.map(entry => this._makeFile(
-            posixPath.join(p, entry.filename), entry,
+            posixPath.join(p, entry.name), entry,
         ))
     }
 
     readlink (p: string): Promise<string> {
         this.logger.debug('readlink', p)
-        return wrapPromise(this.zone, promisify<string>(f => this.sftp.readlink(p, f))())
+        return this.sftp.readlink(p)
     }
 
     async stat (p: string): Promise<SFTPFile> {
         this.logger.debug('stat', p)
-        const stats = await wrapPromise(this.zone, promisify<Stats>(f => this.sftp.stat(p, f))())
+        const stats = await this.sftp.stat(p)
         return {
             name: posixPath.basename(p),
             fullPath: p,
-            isDirectory: stats.isDirectory(),
-            isSymlink: stats.isSymbolicLink(),
-            mode: stats.mode,
+            isDirectory: stats.type === russh.SFTPFileType.Directory,
+            isSymlink: stats.type === russh.SFTPFileType.Symlink,
+            mode: stats.permissions ?? 0,
             size: stats.size,
-            modified: new Date(stats.mtime * 1000),
+            modified: new Date((stats.mtime ?? 0) * 1000),
         }
     }
 
-    async open (p: string, mode: string): Promise<SFTPFileHandle> {
-        this.logger.debug('open', p)
-        const handle = await wrapPromise(this.zone, promisify<Buffer>(f => this.sftp.open(p, mode, f))())
-        return new SFTPFileHandle(this.sftp, handle, this.zone)
+    async open (p: string, mode: number): Promise<SFTPFileHandle> {
+        this.logger.debug('open', p, mode)
+        const handle = await this.sftp.open(p, mode)
+        return new SFTPFileHandle(handle)
     }
 
     async rmdir (p: string): Promise<void> {
-        this.logger.debug('rmdir', p)
-        await promisify((f: any) => this.sftp.rmdir(p, f))()
+        await this.sftp.removeDirectory(p)
     }
 
     async mkdir (p: string): Promise<void> {
-        this.logger.debug('mkdir', p)
-        await promisify((f: any) => this.sftp.mkdir(p, f))()
+        await this.sftp.createDirectory(p)
     }
 
     async rename (oldPath: string, newPath: string): Promise<void> {
         this.logger.debug('rename', oldPath, newPath)
-        await promisify((f: any) => this.sftp.rename(oldPath, newPath, f))()
+        await this.sftp.rename(oldPath, newPath)
     }
 
     async unlink (p: string): Promise<void> {
-        this.logger.debug('unlink', p)
-        await promisify((f: any) => this.sftp.unlink(p, f))()
+        await this.sftp.removeFile(p)
     }
 
     async chmod (p: string, mode: string|number): Promise<void> {
         this.logger.debug('chmod', p, mode)
-        await promisify((f: any) => this.sftp.chmod(p, mode, f))()
+        await this.sftp.chmod(p, mode)
     }
 
     async upload (path: string, transfer: FileUpload): Promise<void> {
         this.logger.info('Uploading into', path)
         const tempPath = path + '.tabby-upload'
         try {
-            const handle = await this.open(tempPath, 'w')
+            const handle = await this.open(tempPath, russh.OPEN_WRITE | russh.OPEN_CREATE)
             while (true) {
                 const chunk = await transfer.read()
                 if (!chunk.length) {
@@ -154,15 +122,13 @@ export class SFTPSession {
                 }
                 await handle.write(chunk)
             }
-            handle.close()
-            try {
-                await this.unlink(path)
-            } catch { }
+            await handle.close()
+            await this.unlink(path).catch(() => null)
             await this.rename(tempPath, path)
             transfer.close()
         } catch (e) {
             transfer.cancel()
-            this.unlink(tempPath)
+            this.unlink(tempPath).catch(() => null)
             throw e
         }
     }
@@ -170,7 +136,7 @@ export class SFTPSession {
     async download (path: string, transfer: FileDownload): Promise<void> {
         this.logger.info('Downloading', path)
         try {
-            const handle = await this.open(path, 'r')
+            const handle = await this.open(path, russh.OPEN_READ)
             while (true) {
                 const chunk = await handle.read()
                 if (!chunk.length) {
@@ -186,15 +152,15 @@ export class SFTPSession {
         }
     }
 
-    private _makeFile (p: string, entry: FileEntry): SFTPFile {
+    private _makeFile (p: string, entry: russh.SFTPDirectoryEntry): SFTPFile {
         return {
             fullPath: p,
             name: posixPath.basename(p),
-            isDirectory: (entry.attrs.mode & C.S_IFDIR) === C.S_IFDIR,
-            isSymlink: (entry.attrs.mode & C.S_IFLNK) === C.S_IFLNK,
-            mode: entry.attrs.mode,
-            size: entry.attrs.size,
-            modified: new Date(entry.attrs.mtime * 1000),
+            isDirectory: entry.metadata.type === russh.SFTPFileType.Directory,
+            isSymlink: entry.metadata.type === russh.SFTPFileType.Symlink,
+            mode: entry.metadata.permissions ?? 0,
+            size: entry.metadata.size,
+            modified: new Date((entry.metadata.mtime ?? 0) * 1000),
         }
     }
 }

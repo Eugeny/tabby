@@ -37,8 +37,14 @@ jobs:
       matrix:
         include:
           - arch: x86_64
+            rust_triple: x86_64-apple-darwin
           - arch: arm64
+            rust_triple: aarch64-apple-darwin
       fail-fast: false
+
+    env:
+      ARCH: ${{matrix.arch}}
+      RUST_TARGET_TRIPLE: ${{matrix.rust_triple}}
 
     steps:
     - name: Checkout
@@ -51,6 +57,8 @@ jobs:
       with:
         node-version: 18
 
+    - run: rustup target add ${{matrix.rust_triple}}
+
     - name: Install deps
       run: |
         sudo -H pip3 install setuptools
@@ -58,12 +66,6 @@ jobs:
         yarn --network-timeout 1000000
       env:
         ARCH: ${{matrix.arch}}
-
-    - name: Fix cross build
-      run: |
-        rm -rf app/node_modules/cpu-features
-        rm -rf app/node_modules/ssh2/crypto/build
-      if: matrix.arch == 'arm64'
 
     - name: Webpack
       run: yarn run build
@@ -136,18 +138,24 @@ jobs:
         include:
           - build-arch: x64
             arch: amd64
+            rust_triple: x86_64-unknown-linux-gnu
           - build-arch: arm64
             arch: arm64
+            rust_triple: aarch64-unknown-linux-gnu
             triplet: aarch64-linux-gnu-
           - build-arch: arm
             arch: armhf
+            rust_triple: arm-unknown-linux-gnueabihf
             triplet: arm-linux-gnueabihf-
+      fail-fast: false
+
     env:
       CC: ${{matrix.triplet}}gcc
       CXX: ${{matrix.triplet}}g++
       ARCH: ${{matrix.build-arch}}
       npm_config_arch: ${{matrix.build-arch}}
       npm_config_target_arch: ${{matrix.build-arch}}
+      RUST_TARGET_TRIPLE: ${{matrix.rust_triple}}
 
     steps:
     - name: Checkout
@@ -159,6 +167,8 @@ jobs:
       uses: actions/setup-node@v3.7.0
       with:
         node-version: 18
+
+    - run: rustup target add ${{matrix.rust_triple}}
 
     - name: Install dependencies
       run: |
@@ -280,16 +290,21 @@ jobs:
         path: tabby-web.tar.gz
       if: matrix.build-arch == 'x64'
 
-
   Windows-Build:
-    runs-on: windows-2022
+    runs-on: windows-latest
     needs: Lint
     strategy:
       matrix:
         include:
           - arch: x64
+            rust_triple: x86_64-pc-windows-msvc
           - arch: arm64
+            rust_triple: aarch64-pc-windows-msvc
       fail-fast: false
+
+    env:
+      RUST_TARGET_TRIPLE: ${{matrix.rust_triple}}
+      ARCH: ${{matrix.arch}}
 
     steps:
     - name: Checkout
@@ -301,6 +316,14 @@ jobs:
       uses: actions/setup-node@v3.7.0
       with:
         node-version: 18
+
+    - run: npm i -g npx
+    - run: rustup target add ${{matrix.rust_triple}}
+
+    - name: Update node-gyp
+      run: |
+        npm install --global node-gyp@10.2.0
+        npm prefix -g | % {npm config set node_gyp "$_\node_modules\node-gyp\bin\node-gyp.js"}
 
     - name: Build
       shell: powershell

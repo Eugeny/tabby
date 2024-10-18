@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter, ViewChild, ElementRef, ChangeDetectionStrategy } from '@angular/core'
 import { KeyboardInteractivePrompt } from '../session/ssh'
-
+import { SSHProfile } from '../api'
+import { PasswordStorageService } from '../services/passwordStorage.service'
 
 @Component({
     selector: 'keyboard-interactive-auth-panel',
@@ -9,13 +10,17 @@ import { KeyboardInteractivePrompt } from '../session/ssh'
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class KeyboardInteractiveAuthComponent {
+    @Input() profile: SSHProfile
     @Input() prompt: KeyboardInteractivePrompt
     @Input() step = 0
     @Output() done = new EventEmitter()
     @ViewChild('input') input: ElementRef
+    remember = false
+
+    constructor (private passwordStorage: PasswordStorageService) {}
 
     isPassword (): boolean {
-        return this.prompt.prompts[this.step].prompt.toLowerCase().includes('password') || !this.prompt.prompts[this.step].echo
+        return this.prompt.isAPasswordPrompt(this.step)
     }
 
     previous (): void {
@@ -26,6 +31,10 @@ export class KeyboardInteractiveAuthComponent {
     }
 
     next (): void {
+        if (this.isPassword() && this.remember) {
+            this.passwordStorage.savePassword(this.profile, this.prompt.responses[this.step])
+        }
+
         if (this.step === this.prompt.prompts.length - 1) {
             this.prompt.respond()
             this.done.emit()

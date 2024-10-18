@@ -1,11 +1,11 @@
 import { Injectable, InjectFlags, Injector } from '@angular/core'
 import { NewTabParameters, PartialProfile, TranslateService, QuickConnectProfileProvider } from 'tabby-core'
-import * as ALGORITHMS from 'ssh2/lib/protocol/constants'
 import { SSHProfileSettingsComponent } from './components/sshProfileSettings.component'
 import { SSHTabComponent } from './components/sshTab.component'
 import { PasswordStorageService } from './services/passwordStorage.service'
-import { ALGORITHM_BLACKLIST, SSHAlgorithmType, SSHProfile } from './api'
+import { SSHAlgorithmType, SSHProfile } from './api'
 import { SSHProfileImporter } from './api/importer'
+import { defaultAlgorithms } from './algorithms'
 
 @Injectable({ providedIn: 'root' })
 export class SSHProfilesService extends QuickConnectProfileProvider<SSHProfile> {
@@ -29,10 +29,10 @@ export class SSHProfilesService extends QuickConnectProfileProvider<SSHProfile> 
             agentForward: false,
             warnOnClose: null,
             algorithms: {
-                hmac: [],
-                kex: [],
-                cipher: [],
-                serverHostKey: [],
+                hmac: [] as string[],
+                kex: [] as string[],
+                cipher: [] as string[],
+                serverHostKey: [] as string[],
             },
             proxyCommand: null,
             forwardedPorts: [],
@@ -54,13 +54,7 @@ export class SSHProfilesService extends QuickConnectProfileProvider<SSHProfile> 
     ) {
         super()
         for (const k of Object.values(SSHAlgorithmType)) {
-            const defaultAlg = {
-                [SSHAlgorithmType.KEX]: 'DEFAULT_KEX',
-                [SSHAlgorithmType.HOSTKEY]: 'DEFAULT_SERVER_HOST_KEY',
-                [SSHAlgorithmType.CIPHER]: 'DEFAULT_CIPHER',
-                [SSHAlgorithmType.HMAC]: 'DEFAULT_MAC',
-            }[k]
-            this.configDefaults.options.algorithms[k] = ALGORITHMS[defaultAlg].filter(x => !ALGORITHM_BLACKLIST.includes(x))
+            this.configDefaults.options.algorithms[k] = [...defaultAlgorithms[k]]
             this.configDefaults.options.algorithms[k].sort()
         }
     }
