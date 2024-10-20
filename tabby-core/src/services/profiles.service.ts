@@ -487,6 +487,12 @@ export class ProfilesService {
                 delete profile.group
             }
         }
+        if (this.config.store.hotkeys['group-selectors'].hasOwnProperty(group.id)) {
+            const groupSelectorsHotkeys = { ...this.config.store.hotkeys['group-selectors'] }
+            // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
+            delete groupSelectorsHotkeys[group.id]
+            this.config.store.hotkeys['group-selectors'] = groupSelectorsHotkeys
+        }
     }
 
     /**
