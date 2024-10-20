@@ -264,6 +264,7 @@ export class AppHotkeyProvider extends HotkeyProvider {
 
     async provide (): Promise<HotkeyDescription[]> {
         const profiles = await this.profilesService.getProfiles()
+        const groups = await this.profilesService.getProfileGroups()
         return [
             ...this.hotkeys,
             ...profiles.map(profile => ({
@@ -273,6 +274,10 @@ export class AppHotkeyProvider extends HotkeyProvider {
             ...this.profilesService.getProviders().map(provider => ({
                 id: `profile-selectors.${provider.id}`,
                 name: this.translate.instant('Show {type} profile selector', { type: provider.name }),
+            })),
+            ...groups.map(group => ({
+                id: `group-selectors.${group.id}`,
+                name: this.translate.instant('Show profile selector for group {name}', { name: group.name }),
             })),
         ]
     }
