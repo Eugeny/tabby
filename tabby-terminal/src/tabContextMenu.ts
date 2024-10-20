@@ -1,4 +1,3 @@
-import deepClone from 'clone-deep'
 import { Injectable, Optional, Inject } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { BaseTabComponent, TabContextMenuItemProvider, NotificationsService, MenuItemOptions, TranslateService, SplitTabComponent, PromptModalComponent, ConfigService, PartialProfile, Profile } from 'tabby-core'
@@ -181,7 +180,7 @@ export class SaveAsProfileContextMenu extends TabContextMenuItemProvider {
                             return
                         }
 
-                        const options = deepClone(tab.profile.options)
+                        const options = JSON.parse(JSON.stringify(tab.profile.options))
 
                         const cwd = await tab.session?.getWorkingDirectory() ?? tab.profile.options.cwd
                         if (cwd) {
