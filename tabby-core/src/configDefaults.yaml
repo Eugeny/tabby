@@ -31,6 +31,8 @@ hotkeys:
     __nonStructural: true
   profile-selectors:
     __nonStructural: true
+  group-selectors:
+    __nonStructural: true
 profiles: []
 groups: []
 profileDefaults:
