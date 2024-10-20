@@ -1,27 +1,39 @@
-command-line-editor([model]='profile.options')
+ul.nav-tabs(ngbNav, #nav='ngbNav')
+    li(ngbNavItem)
+        a(ngbNavLink, translate) General
+        ng-template(ngbNavContent)
+            command-line-editor([model]='profile.options')
 
-.form-line(*ngIf='uac?.isAvailable')
-    .header
-        .title(translate) Run as administrator
-    toggle(
-        [(ngModel)]='profile.options.runAsAdministrator',
-    )
+            .form-line(*ngIf='uac?.isAvailable')
+                .header
+                    .title(translate) Run as administrator
+                toggle(
+                    [(ngModel)]='profile.options.runAsAdministrator',
+                )
 
-.mb-3
-    label(translate) Working directory
+            .mb-3
+                label(translate) Working directory
 
-    .input-group
-        input.form-control(
-            type='text',
-            placeholder='Home directory',
-            [(ngModel)]='profile.options.cwd'
-        )
-        button.btn.btn-secondary((click)='pickWorkingDirectory()')
-            i.fas.fa-folder-open
 
-.mb-3
-    label(translate) Environment
-    environment-editor(
-        type='text',
-        [(model)]='profile.options.env',
-    )
+                .input-group
+                    input.form-control(
+                        type='text',
+                        placeholder='Home directory',
+                        [(ngModel)]='profile.options.cwd'
+                    )
+                    button.btn.btn-secondary((click)='pickWorkingDirectory()')
+                        i.fas.fa-folder-open
+
+            .mb-3
+                label(translate) Environment
+                environment-editor(
+                    type='text',
+                    [(model)]='profile.options.env',
+                )
+
+    li(ngbNavItem)
+        a(ngbNavLink, translate) Colors
+        ng-template(ngbNavContent)
+            color-scheme-selector([(model)]='profile.terminalColorScheme')
+
+div([ngbNavOutlet]='nav')
