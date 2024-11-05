@@ -147,7 +147,11 @@ function convertHostToSSHProfile (host: string, settings: Record<string, string 
             case SSHProfilePropertyNames.JumpHost:
                 const basicString = settings[key]
                 if (typeof basicString === 'string') {
-                    options[targetName] = basicString
+                    if (targetName === SSHProfilePropertyNames.JumpHost) {
+                        options[targetName] = deriveID(basicString)
+                    } else {
+                        options[targetName] = basicString
+                    }
                 } else {
                     console.log('Unexpected value in settings for ' + key)
                 }
