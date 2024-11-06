@@ -1,4 +1,3 @@
-import at from 'core-js-pure/actual/array/at'
 import * as fs from 'fs/promises'
 import * as fsSync from 'fs'
 import * as path from 'path'
@@ -6,125 +5,297 @@ import slugify from 'slugify'
 import * as yaml from 'js-yaml'
 import { Injectable } from '@angular/core'
 import { PartialProfile } from 'tabby-core'
-import { SSHProfileImporter, PortForwardType, SSHProfile, SSHProfileOptions, AutoPrivateKeyLocator } from 'tabby-ssh'
+import {
+    SSHProfileImporter,
+    PortForwardType,
+    SSHProfile,
+    AutoPrivateKeyLocator,
+    ForwardedPortConfig,
+} from 'tabby-ssh'
 
 import { ElectronService } from './services/electron.service'
+import SSHConfig, { LineType } from 'ssh-config'
+
+// Enum to delineate the properties in SSHProfile options
+enum SSHProfilePropertyNames {
+    Host = 'host',
+    Port = 'port',
+    User = 'user',
+    X11 = 'x11',
+    PrivateKeys = 'privateKeys',
+    KeepaliveInterval = 'keepaliveInterval',
+    KeepaliveCountMax = 'keepaliveCountMax',
+    ReadyTimeout = 'readyTimeout',
+    JumpHost = 'jumpHost',
+    AgentForward = 'agentForward',
+    ProxyCommand = 'proxyCommand',
+    ForwardedPorts = 'forwardedPorts',
+}
+
+// Data structure to map the (lowercase) ssh-config attributes (as keys) to a tuple
+// containing the name of the corresponding SSHProfile attribute
+const decodeFields: Record<string, SSHProfilePropertyNames> = {
+    hostname: SSHProfilePropertyNames.Host,
+    user: SSHProfilePropertyNames.User,
+    port: SSHProfilePropertyNames.Port,
+    forwardx11: SSHProfilePropertyNames.X11,
+    serveraliveinterval: SSHProfilePropertyNames.KeepaliveInterval,
+    serveralivecountmax: SSHProfilePropertyNames.KeepaliveCountMax,
+    connecttimeout: SSHProfilePropertyNames.ReadyTimeout,
+    proxyjump: SSHProfilePropertyNames.JumpHost,
+    forwardagent: SSHProfilePropertyNames.AgentForward,
+    identityfile: SSHProfilePropertyNames.PrivateKeys,
+    proxycommand: SSHProfilePropertyNames.ProxyCommand,
+    localforward: SSHProfilePropertyNames.ForwardedPorts,
+    remoteforward: SSHProfilePropertyNames.ForwardedPorts,
+    dynamicforward: SSHProfilePropertyNames.ForwardedPorts,
+}
+
+// Function to use the above to return details corresponding to the supplied SSHProperty name.
+// If the name of the supplied SSH Config file Property is valid, and one that we process,
+// then we get back the name of the corresponding Property in the SSHProfile object
+function decodeTarget (SSHProperty: string): string {
+    const lower = SSHProperty.toLowerCase()
+    if (lower in decodeFields) {
+        return decodeFields[lower]
+    }
+    return ''
+}
+
+// Function to combine SSHConfig values into a single string. This is used to smash
+// together the proxyCommand values which are split on whitespace and presented as
+// an array of objects in the SSHConfig object
+function convertSSHConfigValuesToString (arg: string | string[] | object[]): string {
+    if (typeof arg === 'string') { return arg }
+    let allStrings = true
+    for (const item of arg) {
+        if (typeof item !== 'string') {
+            allStrings = false
+            break
+        }
+    }
+    if (allStrings) {
+        return arg.join(' ')
+    }
+
+    // Have to explicitly unwrap the arg into a list of objects to avoid Typescript grumbles
+    const objList: object[] = []
+    for (const item of arg) {
+        if ( typeof item === 'object' && 'val' in item ) {
+            objList.push(item)
+        }
+    }
+    return objList.filter(obj => 'val' in obj)
+        .map(obj => 'val' in obj ? obj.val as string: '')
+        .join(' ')
+}
+
+// Function to read in the SSH config file and return it as a string
+async function readSSHConfigFile (filePath: string): Promise<string> {
+    try {
+        return await fs.readFile(filePath, 'utf8')
+    } catch (err) {
+        console.error('Error reading SSH config file:', err)
+        return ''
+    }
+}
+// Function to take an ssh-config entry and convert it into an SSHProfile
+function convertHostToSSHProfile (host: string, settings: Record<string, string | string[] | object[] >): PartialProfile<SSHProfile> {
+
+    // inline function to generate an id for this profile
+    const deriveID = (name: string) => 'openssh-config:' + slugify(name)
+
+    // Start point of the profile, with an ID, name, type and group
+    const thisProfile: PartialProfile<SSHProfile> = {
+        id: deriveID(host),
+        name: `${host} (.ssh/config)`,
+        type: 'ssh',
+        group: 'Imported from .ssh/config',
+    }
+    const options = {}
+
+    function convertToForwardedPortDescriptor (forwardType: PortForwardType.Local | PortForwardType.Remote | PortForwardType.Dynamic, details: string): ForwardedPortConfig {
+        const detailsParts = details.split(/\s/)
+        const bindParts = detailsParts[0].trim().split(':')
+        if (bindParts.length === 1) {
+            bindParts.unshift('127.0.0.1')
+        }
+        let tgtParts = ['', '22']
+        if ( detailsParts.length > 1 ) {
+            tgtParts = detailsParts[1].trim().split(':')
+        }
+        return {
+            host: bindParts[0],
+            port: parseInt(bindParts[1]),
+            targetAddress: tgtParts[0],
+            targetPort: parseInt(tgtParts[1]),
+            type: forwardType,
+            description: details,
+        }
+    }
+
+    // for each ssh-config key in turn...
+    for (const key in settings) {
+        // decode a target attribute and an action
+        const targetName = decodeTarget(key)
+
+        switch (targetName) {
+
+            // The following have single string values
+            case SSHProfilePropertyNames.User:
+            case SSHProfilePropertyNames.Host:
+            case SSHProfilePropertyNames.JumpHost:
+                const basicString = settings[key]
+                if (typeof basicString === 'string') {
+                    if (targetName === SSHProfilePropertyNames.JumpHost) {
+                        options[targetName] = deriveID(basicString)
+                    } else {
+                        options[targetName] = basicString
+                    }
+                } else {
+                    console.log('Unexpected value in settings for ' + key)
+                }
+                break
+
+            // The following have single integer values
+            case SSHProfilePropertyNames.Port:
+            case SSHProfilePropertyNames.KeepaliveInterval:
+            case SSHProfilePropertyNames.KeepaliveCountMax:
+            case SSHProfilePropertyNames.ReadyTimeout:
+                const numberString = settings[key]
+                if (typeof numberString === 'string') {
+                    options[targetName] = parseInt(numberString, 10)
+                } else {
+                    console.log('Unexpected value in settings for ' + key)
+                }
+                break
+
+            // The following have single yes/no values
+            case SSHProfilePropertyNames.X11:
+            case SSHProfilePropertyNames.AgentForward:
+                let booleanString = settings[key]
+                booleanString = typeof booleanString === 'string' ? booleanString.toLowerCase() : ''
+                if ( booleanString === 'yes' || booleanString === 'no' ) {
+                    options[targetName] = booleanString === 'yes'
+                } else {
+                    console.log('Unexpected value in settings for ' + key)
+                }
+                break
+
+            // ProxyCommand will be an array if unquoted and containing multiple words,
+            // or a simple string otherwise
+            case SSHProfilePropertyNames.ProxyCommand:
+                const proxyCommand = convertSSHConfigValuesToString(settings[key])
+                options[targetName] = proxyCommand
+                break
+
+            // IdentityFile may have multiple values and the need to have '~' converted to the
+            // path to the HOME directory
+            case SSHProfilePropertyNames.PrivateKeys:
+                const processedKeys: string [] = (settings[key] as string[]).map( s => {
+                    let retVal: string = s
+                    if (s.startsWith('~/')) {
+                        retVal = path.join(process.env.HOME ?? '~', s.slice(2))
+                    }
+                    return retVal
+                })
+                options[targetName] = processedKeys
+                break
+
+            // The port forwarding directives all end up in the same space, but with a different value
+            // in the SSHProfileOptions object
+            case SSHProfilePropertyNames.ForwardedPorts:
+                const forwardTypeString = key.toLowerCase()
+                let forwardType: PortForwardType | null = null
+                switch (forwardTypeString) {
+                    case 'localforward':
+                        forwardType = PortForwardType.Local
+                        break
+                    case 'remoteforward':
+                        forwardType = PortForwardType.Remote
+                        break
+                    case 'dynamicforward':
+                        forwardType = PortForwardType.Dynamic
+                        break
+                }
+                if (forwardType) {
+                    options[targetName] ??= []
+                    for (const forwarderDetails of settings[key]) {
+                        if (typeof forwarderDetails === 'string') {
+                            options[targetName].push(convertToForwardedPortDescriptor(forwardType, forwarderDetails))
+                        }
+                    }
+                }
+                break
+
+        }
+
+    }
+    thisProfile.options = options
+    return thisProfile
+}
+
+function convertToSSHProfiles (config: SSHConfig): PartialProfile<SSHProfile>[] {
+    const myMap = new Map<string, PartialProfile<SSHProfile>>()
+
+    function noWildCardsInName (name: string) {
+        return !/[?*]/.test(name)
+    }
+
+    for (const entry of config) {
+        // Each entry represents a line in the SSH Config. If the line is a 'Host' line,
+        // then it will also contain the configuration for that identifiable Host.
+        // There may be more than one host per line and some 'Hosts' have wildcards in their
+        // names
+        // If this is a genuine entry rather than a Comment...
+        // ... and there is a 'Host' Parameter
+        if (entry.type === LineType.DIRECTIVE && entry.param === 'Host') {
+
+            // for each Name in this entry
+            const hostList: string[] = []
+            // if there is more than one host specified on this line, then the names will be
+            // in an array
+            if (typeof entry.value === 'string') {
+                hostList.push(entry.value)
+            } else if (Array.isArray(entry.value)) {
+                for (const item of entry.value) {
+                    hostList.push(item.val)
+                }
+            }
+            // for each Host identified on this line, check that there are no wildcards in the
+            // name and that we've not seen the name before.
+            // If that is the case, then get the full configuration for this name.
+            // If that has a 'Hostname' property (if that's missing, the name is not usable
+            // for our purposes) then convert the configuration into an SSHProfile and stash it
+            for (const host of hostList) {
+                if (noWildCardsInName(host)) {
+                    if (!(host in myMap)) {
+                        // NOTE: SSHConfig.compute() lies about the return types
+                        const configuration: Record<string, string | string[] | object[]> = config.compute(host)
+                        if (configuration['HostName']) {
+                            myMap[host] = convertHostToSSHProfile(host, configuration)
+                        }
+                    }
+                }
+            }
+        }
+    }
+    // Convert the values from the map into a list of Partial SSHProfiles sorted
+    // by Hostname
+    return Object.keys(myMap).sort().map(key => myMap[key])
+}
 
 
 @Injectable({ providedIn: 'root' })
 export class OpenSSHImporter extends SSHProfileImporter {
     async getProfiles (): Promise<PartialProfile<SSHProfile>[]> {
-        const deriveID = name => 'openssh-config:' + slugify(name)
 
-        const results: PartialProfile<SSHProfile>[] = []
         const configPath = path.join(process.env.HOME ?? '~', '.ssh', 'config')
-        try {
-            const lines = (await fs.readFile(configPath, 'utf8')).split('\n')
-            const globalOptions: Partial<SSHProfileOptions> = {}
-            let currentProfile: PartialProfile<SSHProfile>|null = null
-            for (let line of lines) {
-                if (line.trim().startsWith('#') || !line.trim()) {
-                    continue
-                }
-                if (line.toLowerCase().startsWith('host ')) {
-                    if (currentProfile) {
-                        results.push(currentProfile)
-                    }
-                    const name = line.substr(5).trim()
-                    currentProfile = {
-                        id: deriveID(name),
-                        name: `${name} (.ssh/config)`,
-                        type: 'ssh',
-                        group: 'Imported from .ssh/config',
-                        options: {
-                            ...globalOptions,
-                            host: name,
-                        },
-                    }
-                } else {
-                    const target: Partial<SSHProfileOptions> = currentProfile?.options ?? globalOptions
-                    line = line.trim()
-                    const idx = /\s/.exec(line)?.index ?? -1
-                    if (idx === -1) {
-                        continue
-                    }
-                    const key = line.substr(0, idx).trim()
-                    const value = line.substr(idx + 1).trim()
 
-                    if (key === 'IdentityFile') {
-                        target.privateKeys = value.split(',').map(s => s.trim()).map(s => {
-                            if (s.startsWith('~')) {
-                                s = path.join(process.env.HOME ?? '~', s.slice(2))
-                            }
-                            return s
-                        })
-                    } else if (key === 'RemoteForward') {
-                        const bind = value.split(/\s/)[0].trim()
-                        const tgt = value.split(/\s/)[1].trim()
-                        target.forwardedPorts ??= []
-                        target.forwardedPorts.push({
-                            type: PortForwardType.Remote,
-                            description: value,
-                            host: bind.split(':')[0] ?? '127.0.0.1',
-                            port: parseInt(bind.split(':')[1] ?? bind),
-                            targetAddress: tgt.split(':')[0],
-                            targetPort: parseInt(tgt.split(':')[1]),
-                        })
-                    } else if (key === 'LocalForward') {
-                        const bind = value.split(/\s/)[0].trim()
-                        const tgt = value.split(/\s/)[1].trim()
-                        target.forwardedPorts ??= []
-                        target.forwardedPorts.push({
-                            type: PortForwardType.Local,
-                            description: value,
-                            host: bind.includes(':') ? bind.split(':')[0] : '127.0.0.1',
-                            port: parseInt(at(bind.split(':'), -1)),
-                            targetAddress: tgt.split(':')[0],
-                            targetPort: parseInt(tgt.split(':')[1]),
-                        })
-                    } else if (key === 'DynamicForward') {
-                        const bind = value.trim()
-                        target.forwardedPorts ??= []
-                        target.forwardedPorts.push({
-                            type: PortForwardType.Dynamic,
-                            description: value,
-                            host: bind.includes(':') ? bind.split(':')[0] : '127.0.0.1',
-                            port: parseInt(at(bind.split(':'), -1)),
-                            targetAddress: '',
-                            targetPort: 22,
-                        })
-                    } else {
-                        const mappedKey = {
-                            hostname: 'host',
-                            host: 'host',
-                            port: 'port',
-                            user: 'user',
-                            forwardx11: 'x11',
-                            serveraliveinterval: 'keepaliveInterval',
-                            serveralivecountmax: 'keepaliveCountMax',
-                            proxycommand: 'proxyCommand',
-                            proxyjump: 'jumpHost',
-                        }[key.toLowerCase()]
-                        if (mappedKey) {
-                            target[mappedKey] = value
-                        }
-                    }
-                }
-            }
-            if (currentProfile) {
-                results.push(currentProfile)
-            }
-            for (const p of results) {
-                if (p.options?.proxyCommand) {
-                    p.options.proxyCommand = p.options.proxyCommand
-                        .replace('%h', p.options.host ?? '')
-                        .replace('%p', (p.options.port ?? 22).toString())
-                }
-                if (p.options?.jumpHost) {
-                    p.options.jumpHost = deriveID(p.options.jumpHost)
-                }
-            }
-            return results
+        try {
+            const sshConfigContent = await readSSHConfigFile(configPath)
+            const config: SSHConfig = SSHConfig.parse(sshConfigContent)
+            return convertToSSHProfiles(config)
         } catch (e) {
             if (e.code === 'ENOENT') {
                 return []
