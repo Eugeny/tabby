@@ -72,7 +72,7 @@
     "sass-loader": "^13.2.0",
     "shell-quote": "^1.7.4",
     "shelljs": "0.8.5",
-    "slugify": "^1.6.5",
+    "slugify": "^1.6.6",
     "source-code-pro": "^2.38.0",
     "source-map-loader": "^4.0.1",
     "source-sans-pro": "3.6.0",
