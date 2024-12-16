@@ -4,10 +4,10 @@
 # Override the built-in Readline defaults with ones that provide a more
 # enhanced Clink experience.
 
-colored-completion-prefix                   on
-colored-stats                               on
-mark-symlinked-directories                  on
-completion-auto-query-items                 on
-history-point-at-end-of-anchored-search     on
-search-ignore-case                          on
+set colored-completion-prefix                   on
+set colored-stats                               on
+set mark-symlinked-directories                  on
+set completion-auto-query-items                 on
+set history-point-at-end-of-anchored-search     on
+set search-ignore-case                          on
 
