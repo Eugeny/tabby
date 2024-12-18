@@ -312,6 +312,10 @@ jobs:
       with:
         fetch-depth: 0
 
+    - name: Code signing with Software Trust Manager
+      uses: digicert/ssm-code-signing@v1.0.0
+      if: github.repository == 'Eugeny/tabby' && github.event_name == 'push' && (github.ref == 'refs/heads/signingtest' || startsWith(github.ref, 'refs/tags'))
+
     - name: Installing Node
       uses: actions/setup-node@v3.7.0
       with:
@@ -336,8 +340,23 @@ jobs:
         ARCH: ${{matrix.arch}}
 
     - name: Build and sign packages
-      run: node scripts/build-windows.mjs
-      if: github.repository == 'Eugeny/tabby' && github.event_name == 'push' && (github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags'))
+      run: |
+        echo "${{ secrets.SM_CLIENT_CERT_FILE_B64 }}" | base64 --decode > Certificate_pkcs12.p12
+        $env:SM_HOST="${{ secrets.SM_HOST }}"
+        $env:SM_API_KEY="${{ secrets.SM_API_KEY }}"
+        $env:SM_HOST=https://one.nl.digicert.com
+        $env:SM_CLIENT_CERT_FILE=Certificate_pkcs12.p12
+        $env:SM_CLIENT_CERT_PASSWORD=${{ secrets.SM_CLIENT_CERT_PASSWORD }}
+        $env:SM_KEYPAIR_ALIAS=${{ secrets.SM_KEYPAIR_ALIAS }}
+        curl -X GET https://one.digicert.com/signingmanager/api-ui/v1/releases/Keylockertools-windows-x64.msi/download -H "x-api-key:${{ secrets.SM_API_KEY }}" -o Keylockertools-windows-x64.msi
+        msiexec /i Keylockertools-windows-x64.msi /quiet /qn
+        smksp_registrar.exe list
+        smctl.exe keypair ls
+        smctl windows certsync
+        C:\Windows\System32\certutil.exe -csp "DigiCert Signing Manager KSP" -key -user
+
+        node scripts/build-windows.mjs
+      if: github.repository == 'Eugeny/tabby' && github.event_name == 'push' && (github.ref == 'refs/heads/signingtest' || startsWith(github.ref, 'refs/tags'))
       env:
         ARCH: ${{matrix.arch}}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
