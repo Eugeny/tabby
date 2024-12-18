@@ -292,7 +292,7 @@ jobs:
 
   Windows-Build:
     runs-on: windows-latest
-    needs: Lint
+    # needs: Lint
     strategy:
       matrix:
         include:
@@ -329,25 +329,25 @@ jobs:
         npm install --global node-gyp@10.2.0
         npm prefix -g | % {npm config set node_gyp "$_\node_modules\node-gyp\bin\node-gyp.js"}
 
-    - name: Build
-      shell: powershell
-      run: |
-        npm i -g yar node-gyp
-        yarn --network-timeout 1000000
-        yarn run build
-        node scripts/prepackage-plugins.mjs
-      env:
-        ARCH: ${{matrix.arch}}
+    # - name: Build
+    #   shell: powershell
+    #   run: |
+    #     npm i -g yar node-gyp
+    #     yarn --network-timeout 1000000
+    #     yarn run build
+    #     node scripts/prepackage-plugins.mjs
+    #   env:
+    #     ARCH: ${{matrix.arch}}
 
     - name: Build and sign packages
       run: |
         echo "${{ secrets.SM_CLIENT_CERT_FILE_B64 }}" | base64 --decode > Certificate_pkcs12.p12
         $env:SM_HOST="${{ secrets.SM_HOST }}"
         $env:SM_API_KEY="${{ secrets.SM_API_KEY }}"
-        $env:SM_HOST=https://one.nl.digicert.com
-        $env:SM_CLIENT_CERT_FILE=Certificate_pkcs12.p12
-        $env:SM_CLIENT_CERT_PASSWORD=${{ secrets.SM_CLIENT_CERT_PASSWORD }}
-        $env:SM_KEYPAIR_ALIAS=${{ secrets.SM_KEYPAIR_ALIAS }}
+        $env:SM_HOST="https://one.nl.digicert.com"
+        $env:SM_CLIENT_CERT_FILE="Certificate_pkcs12.p12"
+        $env:SM_CLIENT_CERT_PASSWORD="${{ secrets.SM_CLIENT_CERT_PASSWORD }}"
+        $env:SM_KEYPAIR_ALIAS="${{ secrets.SM_KEYPAIR_ALIAS }}"
         curl -X GET https://one.digicert.com/signingmanager/api-ui/v1/releases/Keylockertools-windows-x64.msi/download -H "x-api-key:${{ secrets.SM_API_KEY }}" -o Keylockertools-windows-x64.msi
         msiexec /i Keylockertools-windows-x64.msi /quiet /qn
         smksp_registrar.exe list
