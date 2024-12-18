@@ -24,6 +24,7 @@ builder({
             },
         ] : undefined,
         win: {
+            publisherName: process.env.SM_PUBLISHER_NAME,
             sign: async function (configuration) {
                 if (configuration.path) {
                     execSync(
