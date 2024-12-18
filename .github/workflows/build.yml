@@ -341,15 +341,13 @@ jobs:
 
     - name: Build and sign packages
       run: |
-        echo "${{ secrets.SM_CLIENT_CERT_FILE_B64 }}" | base64 --decode > Certificate_pkcs12.p12
+        echo "${{ secrets.SM_CLIENT_CERT_FILE_B64 }}" | % {[Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($_))} > Certificate_pkcs12.p12
         $env:SM_HOST="${{ secrets.SM_HOST }}"
         $env:SM_API_KEY="${{ secrets.SM_API_KEY }}"
         $env:SM_HOST="https://one.nl.digicert.com"
         $env:SM_CLIENT_CERT_FILE="Certificate_pkcs12.p12"
         $env:SM_CLIENT_CERT_PASSWORD="${{ secrets.SM_CLIENT_CERT_PASSWORD }}"
         $env:SM_KEYPAIR_ALIAS="${{ secrets.SM_KEYPAIR_ALIAS }}"
-        curl -X GET https://one.digicert.com/signingmanager/api-ui/v1/releases/Keylockertools-windows-x64.msi/download -H "x-api-key:${{ secrets.SM_API_KEY }}" -o Keylockertools-windows-x64.msi
-        msiexec /i Keylockertools-windows-x64.msi /quiet /qn
         smksp_registrar.exe list
         smctl.exe keypair ls
         smctl windows certsync
