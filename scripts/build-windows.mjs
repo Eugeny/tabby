@@ -24,11 +24,15 @@ builder({
             },
         ] : undefined,
         win: {
+            certificateSha1: process.env.SM_CODE_SIGNING_CERT_SHA1_HASH,
             publisherName: process.env.SM_PUBLISHER_NAME,
+            signingHashAlgorithms: ['sha256'],
             sign: async function (configuration) {
                 if (configuration.path) {
                     execSync(
-                        `smctl sign --keypair-alias=${process.env.SM_KEYPAIR_ALIAS} --input "${String(configuration.path)}"`
+                        `smctl sign --keypair-alias=${process.env.SM_KEYPAIR_ALIAS} --input "${String(configuration.path)}"`, {
+                            stdio: 'inherit'
+                        }
                     )
                 }
             }
