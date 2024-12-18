@@ -333,7 +333,7 @@ jobs:
       shell: powershell
       run: |
         npm i -g yar node-gyp
-        yarn --network-timeout 1000000
+        yarn --network-timeout 1000000 --ignore-scripts
         # yarn run build
         # node scripts/prepackage-plugins.mjs
       env:
@@ -353,6 +353,7 @@ jobs:
         smctl windows certsync
         C:\Windows\System32\certutil.exe -csp "DigiCert Signing Manager KSP" -key -user
 
+        $env:CSC_IDENTITY_AUTO_DISCOVERY="false"
         node scripts/build-windows.mjs
       if: github.repository == 'Eugeny/tabby' && github.event_name == 'push' && (github.ref == 'refs/heads/signingtest' || startsWith(github.ref, 'refs/tags'))
       env:
