@@ -329,15 +329,15 @@ jobs:
         npm install --global node-gyp@10.2.0
         npm prefix -g | % {npm config set node_gyp "$_\node_modules\node-gyp\bin\node-gyp.js"}
 
-    # - name: Build
-    #   shell: powershell
-    #   run: |
-    #     npm i -g yar node-gyp
-    #     yarn --network-timeout 1000000
-    #     yarn run build
-    #     node scripts/prepackage-plugins.mjs
-    #   env:
-    #     ARCH: ${{matrix.arch}}
+    - name: Build
+      shell: powershell
+      run: |
+        npm i -g yar node-gyp
+        yarn --network-timeout 1000000
+        # yarn run build
+        # node scripts/prepackage-plugins.mjs
+      env:
+        ARCH: ${{matrix.arch}}
 
     - name: Build and sign packages
       run: |
