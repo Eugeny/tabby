@@ -341,27 +341,27 @@ jobs:
 
     - name: Build and sign packages
       run: |
-        echo "${{ secrets.SM_CLIENT_CERT_FILE_B64 }}" | % {[Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($_))} > Certificate_pkcs12.p12
-        $env:SM_HOST="${{ secrets.SM_HOST }}"
-        $env:SM_API_KEY="${{ secrets.SM_API_KEY }}"
-        $env:SM_HOST="https://one.nl.digicert.com"
-        $env:SM_CLIENT_CERT_FILE="Certificate_pkcs12.p12"
-        $env:SM_CLIENT_CERT_PASSWORD="${{ secrets.SM_CLIENT_CERT_PASSWORD }}"
-        $env:SM_KEYPAIR_ALIAS="${{ secrets.SM_KEYPAIR_ALIAS }}"
+        echo "${{ secrets.SM_CLIENT_CERT_FILE_B64 }}" | % {[Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($_))} > $env:CERT_TEMP_PATH
         smksp_registrar.exe list
         smctl.exe keypair ls
         smctl windows certsync
         C:\Windows\System32\certutil.exe -csp "DigiCert Signing Manager KSP" -key -user
 
-        $env:CSC_IDENTITY_AUTO_DISCOVERY="false"
+        # not used but necessary for electron-builder to run
+        $env:WIN_CSC_LINK=$env:CERT_TEMP_PATH
+        $env:WIN_CSC_KEY_PASSWORD=$env:SM_CLIENT_CERT_PASSWORD
         node scripts/build-windows.mjs
       if: github.repository == 'Eugeny/tabby' && github.event_name == 'push' && (github.ref == 'refs/heads/signingtest' || startsWith(github.ref, 'refs/tags'))
       env:
         ARCH: ${{matrix.arch}}
+        CERT_TEMP_PATH: Certificate_pkcs12.p12
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         KEYGEN_TOKEN: ${{ secrets.KEYGEN_TOKEN }}
-        WIN_CSC_LINK: ${{ secrets.WIN_CSC_LINK }}
-        WIN_CSC_KEY_PASSWORD: ${{ secrets.WIN_CSC_KEY_PASSWORD }}
+        SM_API_KEY: ${{ secrets.SM_API_KEY }}
+        SM_HOST: https://one.nl.digicert.com
+        SM_CLIENT_CERT_FILE: Certificate_pkcs12.p12
+        SM_CLIENT_CERT_PASSWORD: ${{ secrets.SM_CLIENT_CERT_PASSWORD }}
+        SM_KEYPAIR_ALIAS: ${{ secrets.SM_KEYPAIR_ALIAS }}
         DEBUG: electron-builder,electron-builder:*
 
     - name: Build packages without signing
