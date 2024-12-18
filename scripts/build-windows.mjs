@@ -7,6 +7,7 @@ import { execSync } from 'child_process'
 const isTag = (process.env.GITHUB_REF || process.env.BUILD_SOURCEBRANCH || '').startsWith('refs/tags/')
 
 process.env.ARCH = process.env.ARCH || process.arch
+console.log(process.env)
 
 builder({
     dir: true,
