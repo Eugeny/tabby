@@ -11,7 +11,7 @@ jobs:
         fetch-depth: 0
 
     - name: Installing Node
-      uses: actions/setup-node@v3.7.0
+      uses: actions/setup-node@v4.0.0
       with:
         node-version: 18
 
@@ -53,7 +53,7 @@ jobs:
         fetch-depth: 0
 
     - name: Installing Node
-      uses: actions/setup-node@v3.7.0
+      uses: actions/setup-node@v4.0.0
       with:
         node-version: 18
 
@@ -164,7 +164,7 @@ jobs:
         fetch-depth: 0
 
     - name: Install Node
-      uses: actions/setup-node@v3.7.0
+      uses: actions/setup-node@v4.0.0
       with:
         node-version: 18
 
@@ -313,7 +313,7 @@ jobs:
         fetch-depth: 0
 
     - name: Installing Node
-      uses: actions/setup-node@v3.7.0
+      uses: actions/setup-node@v4.0.0
       with:
         node-version: 18
 
