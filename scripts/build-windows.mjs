@@ -5,9 +5,9 @@ import * as vars from './vars.mjs'
 import { execSync } from 'child_process'
 
 const isTag = (process.env.GITHUB_REF || process.env.BUILD_SOURCEBRANCH || '').startsWith('refs/tags/')
+const keypair = process.env.SM_KEYPAIR_ALIAS
 
 process.env.ARCH = process.env.ARCH || process.arch
-console.log(process.env)
 
 builder({
     dir: true,
@@ -31,7 +31,7 @@ builder({
             sign: async function (configuration) {
                 if (configuration.path) {
                     execSync(
-                        `smctl sign --keypair-alias=${process.env.SM_KEYPAIR_ALIAS} --input "${String(configuration.path)}"`, {
+                        `smctl sign --keypair-alias=${keypair} --input "${String(configuration.path)}"`, {
                             stdio: 'inherit'
                         }
                     )
