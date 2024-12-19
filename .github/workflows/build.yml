@@ -31,7 +31,7 @@ jobs:
       run: yarn run lint
 
   macOS-Build:
-    runs-on: macos-12
+    runs-on: macos-15
     needs: Lint
     strategy:
       matrix:
@@ -82,7 +82,7 @@ jobs:
 
     - name: Build and sign packages
       run: scripts/build-macos.mjs
-      if: github.repository == 'Eugeny/tabby' && github.event_name == 'push' && (github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags'))
+      if: github.repository == 'Eugeny/tabby' && github.event_name == 'push' && (github.ref_protected || startsWith(github.ref, 'refs/tags'))
       env:
         ARCH: ${{matrix.arch}}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -97,7 +97,7 @@ jobs:
 
     - name: Build packages without signing
       run: scripts/build-macos.mjs
-      if: "! (github.repository == 'Eugeny/tabby' && github.event_name == 'push' && (github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags')))"
+      if: "! (github.repository == 'Eugeny/tabby' && github.event_name == 'push' && (github.ref_protected || startsWith(github.ref, 'refs/tags')))"
       env:
         ARCH: ${{matrix.arch}}
         # DEBUG: electron-builder,electron-builder:*
