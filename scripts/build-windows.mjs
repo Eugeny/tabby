@@ -28,6 +28,7 @@ builder({
             certificateSha1: process.env.SM_CODE_SIGNING_CERT_SHA1_HASH,
             publisherName: process.env.SM_PUBLISHER_NAME,
             signingHashAlgorithms: ['sha256'],
+            forceCodeSigning: !!keypair,
             sign: keypair ? async function (configuration) {
                 if (configuration.path) {
                     execSync(

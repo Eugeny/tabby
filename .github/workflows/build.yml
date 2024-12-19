@@ -340,6 +340,7 @@ jobs:
         ARCH: ${{matrix.arch}}
 
     - name: Build and sign packages
+      shell: powershell
       run: |
         echo "${{ secrets.SM_CLIENT_CERT_FILE_B64 }}" | % {[Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($_))} > $env:CERT_TEMP_PATH
         smksp_registrar.exe list
