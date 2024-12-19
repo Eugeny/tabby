@@ -413,6 +413,11 @@ simple-swizzle@^0.2.2:
   dependencies:
     is-arrayish "^0.3.1"
 
+ssh-config@^5.0.0:
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/ssh-config/-/ssh-config-5.0.1.tgz#44ee7db10d3340c79780afd142af05cf641408b9"
+  integrity sha512-Bh9CRGFq7pLpWFPmLOyirzYhbpme8FXZe3lZckWvmABdcIEiGB8tNbmEEZdppnr6EiQ0WcGTMoYDp8Tjomq9gw==
+
 stack-trace@0.0.x:
   version "0.0.10"
   resolved "https://registry.yarnpkg.com/stack-trace/-/stack-trace-0.0.10.tgz#547c70b347e8d32b4e108ea1a2a159e5fdde19c0"
