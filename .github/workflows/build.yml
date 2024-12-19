@@ -314,7 +314,7 @@ jobs:
 
     - name: Code signing with Software Trust Manager
       uses: digicert/ssm-code-signing@v1.0.0
-      if: github.repository == 'Eugeny/tabby' && github.event_name == 'push' && (github.ref == 'refs/heads/signingtest' || startsWith(github.ref, 'refs/tags'))
+      if: github.repository == 'Eugeny/tabby' && github.event_name == 'push' && (github.ref_protected || startsWith(github.ref, 'refs/tags'))
 
     - name: Installing Node
       uses: actions/setup-node@v3.7.0
@@ -351,7 +351,7 @@ jobs:
         $env:WIN_CSC_LINK=$env:CERT_TEMP_PATH
         $env:WIN_CSC_KEY_PASSWORD=$env:SM_CLIENT_CERT_PASSWORD
         node scripts/build-windows.mjs
-      if: github.repository == 'Eugeny/tabby' && github.event_name == 'push' && (github.ref == 'refs/heads/signingtest' || startsWith(github.ref, 'refs/tags'))
+      if: github.repository == 'Eugeny/tabby' && github.event_name == 'push' && (github.ref_protected || startsWith(github.ref, 'refs/tags'))
       env:
         ARCH: ${{matrix.arch}}
         CERT_TEMP_PATH: Certificate_pkcs12.p12
@@ -368,7 +368,7 @@ jobs:
 
     - name: Build packages without signing
       run: node scripts/build-windows.mjs
-      if: "! (github.repository == 'Eugeny/tabby' && github.event_name == 'push' && (github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags')))"
+      if: "! (github.repository == 'Eugeny/tabby' && github.event_name == 'push' && (github.ref_protected || startsWith(github.ref, 'refs/tags')))"
       env:
         ARCH: ${{matrix.arch}}
 

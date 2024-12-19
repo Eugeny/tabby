@@ -28,7 +28,7 @@ builder({
             certificateSha1: process.env.SM_CODE_SIGNING_CERT_SHA1_HASH,
             publisherName: process.env.SM_PUBLISHER_NAME,
             signingHashAlgorithms: ['sha256'],
-            sign: async function (configuration) {
+            sign: keypair ? async function (configuration) {
                 if (configuration.path) {
                     execSync(
                         `smctl sign --keypair-alias=${keypair} --input "${String(configuration.path)}"`, {
@@ -36,7 +36,7 @@ builder({
                         }
                     )
                 }
-            }
+            } : undefined,
         },
     },
 
