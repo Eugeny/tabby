@@ -344,8 +344,10 @@ jobs:
       run: |
         echo "${{ secrets.SM_CLIENT_CERT_FILE_B64 }}" | % {[Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($_))} > $env:CERT_TEMP_PATH
         smksp_registrar.exe list
+        smctl.exe healthcheck
         smctl.exe keypair ls
-        smctl windows certsync
+        smctl windows certsync --keypair-alias ${{ secrets.SM_KEYPAIR_ALIAS }}
+        smctl.exe certificate ls
         C:\Windows\System32\certutil.exe -csp "DigiCert Signing Manager KSP" -key -user
 
         # not used but necessary for electron-builder to run
