@@ -1,6 +1,7 @@
 import * as fs from 'fs/promises'
 import * as fsSync from 'fs'
 import * as path from 'path'
+import * as glob from 'glob'
 import slugify from 'slugify'
 import * as yaml from 'js-yaml'
 import { Injectable } from '@angular/core'
@@ -14,7 +15,7 @@ import {
 } from 'tabby-ssh'
 
 import { ElectronService } from './services/electron.service'
-import SSHConfig, { LineType } from 'ssh-config'
+import SSHConfig, { Directive, LineType } from 'ssh-config'
 
 // Enum to delineate the properties in SSHProfile options
 enum SSHProfilePropertyNames {
@@ -90,15 +91,73 @@ function convertSSHConfigValuesToString (arg: string | string[] | object[]): str
         .join(' ')
 }
 
-// Function to read in the SSH config file and return it as a string
-async function readSSHConfigFile (filePath: string): Promise<string> {
+// Function to read in the SSH config file recursively and parse any Include directives
+async function parseSSHConfigFile (
+    filePath: string,
+    visited = new Set<string>(),
+): Promise<SSHConfig> {
+    // If we've already processed this file, return an empty config to avoid infinite recursion
+    if (visited.has(filePath)) {
+        return SSHConfig.parse('')
+    }
+    visited.add(filePath)
+
+    let raw = ''
     try {
-        return await fs.readFile(filePath, 'utf8')
+        raw = await fs.readFile(filePath, 'utf8')
     } catch (err) {
         console.error('Error reading SSH config file:', err)
-        return ''
+        // Return an empty parsed config on error
+        return SSHConfig.parse('')
     }
+
+    const config = SSHConfig.parse(raw)
+
+    // Make a shallow copy of `config` first to avoid mutating during iteration
+    for (const entry of [...config]) {
+        // Check if it's an Include directive
+        if (entry.type === LineType.DIRECTIVE && entry.param.toLowerCase() === 'include') {
+            const directive = entry as Directive
+
+            // entry.value can be a string or an array of { val, separator, ... }
+            const includePaths: string[] = Array.isArray(directive.value)
+                ? directive.value.map(v => v.val)
+                : [directive.value]
+
+            for (let incPath of includePaths) {
+                // Expand '~' to HOME
+                if (incPath.startsWith('~')) {
+                    incPath = path.join(process.env.HOME ?? '~', incPath.slice(1))
+                // Otherwise, if it's not absolute, resolve it relative to the current file's directory
+                } else if (!path.isAbsolute(incPath)) {
+                    incPath = path.join(path.dirname(filePath), incPath)
+                }
+
+                // Expand wildcards using glob
+                const matches = glob.sync(incPath)
+                for (const match of matches) {
+                    const includedConfig = await parseSSHConfigFile(match, visited)
+
+                    // Add each parsed line from the includedConfig to the main config
+                    // Note: we use `push(...)` because `SSHConfig` extends `Array<Line>`.
+                    for (const c of includedConfig) {
+                        config.push(c)
+                    }
+                }
+            }
+
+            // Remove the original Include directive from `config`
+            // because we already processed it (by pushing its lines).
+            // We can't call `config.remove(entry)` directly, so we'll remove it via splice.
+            const idx = config.indexOf(entry)
+            if (idx !== -1) {
+                config.splice(idx, 1)
+            }
+        }
+    }
+    return config
 }
+
 // Function to take an ssh-config entry and convert it into an SSHProfile
 function convertHostToSSHProfile (host: string, settings: Record<string, string | string[] | object[] >): PartialProfile<SSHProfile> {
 
@@ -293,8 +352,7 @@ export class OpenSSHImporter extends SSHProfileImporter {
         const configPath = path.join(process.env.HOME ?? '~', '.ssh', 'config')
 
         try {
-            const sshConfigContent = await readSSHConfigFile(configPath)
-            const config: SSHConfig = SSHConfig.parse(sshConfigContent)
+            const config: SSHConfig = await parseSSHConfigFile(configPath)
             return convertToSSHProfiles(config)
         } catch (e) {
             if (e.code === 'ENOENT') {
