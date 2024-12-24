@@ -360,6 +360,10 @@ jobs:
         SM_CLIENT_CERT_FILE: Certificate_pkcs12.p12
         SM_CLIENT_CERT_PASSWORD: ${{ secrets.SM_CLIENT_CERT_PASSWORD }}
         SM_PUBLISHER_NAME: ${{ secrets.SM_PUBLISHER_NAME }}
+        SM_API_KEY: ${{ vars.SM_API_KEY }}
+        SM_HOST: ${{ vars.SM_HOST }}
+        SM_CODE_SIGNING_CERT_SHA1_HASH: ${{ vars.SM_CODE_SIGNING_CERT_SHA1_HASH }}
+        SM_KEYPAIR_ALIAS: ${{ vars.SM_KEYPAIR_ALIAS }}
         DEBUG: electron-builder,electron-builder:*
 
     - name: Build packages without signing
