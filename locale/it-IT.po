@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Italian\n"
 "Language: it_IT\n"
-"PO-Revision-Date: 2024-09-26 08:04\n"
+"PO-Revision-Date: 2024-12-24 22:58\n"
 
 #: tabby-local/src/components/terminalTab.component.ts:113
 msgid "\"{command}\" is still running. Close?"
@@ -192,7 +192,7 @@ msgstr "Modalità tasto backspace"
 #: tabby-serial/src/components/serialTab.component.ts:93
 #: tabby-serial/src/profiles.ts:88
 msgid "Baud rate"
-msgstr "Velocità di trasmissione"
+msgstr "Velocità trasmissione"
 
 #: tabby-terminal/src/hotkeys.ts:22
 msgid "Beginning of the line"
@@ -479,7 +479,7 @@ msgstr "Crea cartella"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:90
 msgid "Current"
-msgstr "Corrente"
+msgstr "Attuale"
 
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsForMode.component.html:3
 msgid "Current color scheme"
@@ -487,7 +487,7 @@ msgstr "Tema in uso"
 
 #: locale/tmp-html/tabby-ssh/src/components/hostKeyPromptModal.component.html:17
 msgid "Current host key fingerprint"
-msgstr "Firma della chiave host attuale"
+msgstr "Firma chiave host attuale"
 
 #: tabby-core/src/tabContextMenu.ts:184
 msgid "Current process: {name}"
@@ -495,7 +495,7 @@ msgstr "Processo attuale: {name}"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:51
 msgid "Cursor shape"
-msgstr "Forma del cursore"
+msgstr "Forma cursore"
 
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsForMode.component.html:46
 msgid "Custom"
@@ -531,7 +531,7 @@ msgstr "\"Connetti a\" predefinito"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:93
 msgid "Default connection type used by quick connect feature (ex. SSH, Telnet)"
-msgstr "Tipo di connessione predefinito usato dalla funzione di connessione rapida (es. SSH, Telnet)"
+msgstr "Tipo di connessione predefinita usato dalla funzione di connessione rapida (es. SSH, Telnet)"
 
 #: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:8
 msgid "Default profile for new tabs"
@@ -791,7 +791,7 @@ msgstr "Cancella configurazione"
 
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:12
 msgid "Erase the Vault"
-msgstr "Cancella la cassaforte"
+msgstr "Cancella cassaforte"
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:6
 msgid "Error in {plugin}:"
@@ -1189,7 +1189,7 @@ msgstr "Lingua"
 
 #: locale/tmp-html/tabby-ssh/src/components/hostKeyPromptModal.component.html:11
 msgid "Last known host key fingerprint"
-msgstr "Ultima firma nota della chiave host"
+msgstr "Ultima firma nota chiave host"
 
 #: tabby-ssh/src/tabContextMenu.ts:32
 msgid "Launch WinSCP"
@@ -1439,7 +1439,7 @@ msgstr "Nelle discussioni di GitHub"
 
 #: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:47
 msgid "Only close the tab when session is explicitly terminated"
-msgstr "Chiude la scheda solo quando la sessione è esplicitamente terminata"
+msgstr "Chiudi la scheda solo quando la sessione è esplicitamente terminata"
 
 #: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:46
 msgid "Opacity"
@@ -1476,11 +1476,11 @@ msgstr "Arancione"
 
 #: tabby-electron/src/shells/macDefault.ts:25
 msgid "OS default"
-msgstr "Predefinito del OS"
+msgstr "Predefinito S.O."
 
 #: tabby-electron/src/shells/winDefault.ts:43
 msgid "OS default ({name})"
-msgstr "Predefinito del OS ({name})"
+msgstr "Predefinito S.O. ({name})"
 
 #: tabby-terminal/src/components/streamProcessingSettings.component.ts:46
 msgid "Output is shown as a hexdump"
@@ -1678,7 +1678,7 @@ msgstr "Connessione raw socket"
 
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:166
 msgid "Ready Timeout (Milliseconds)"
-msgstr "Tempo di preparazione (in millisecondi)"
+msgstr "Tempo stato pronto (millisecondi)"
 
 #: tabby-core/src/services/profiles.service.ts:235
 #: tabby-core/src/services/profiles.service.ts:249
@@ -1694,7 +1694,7 @@ msgstr "Recente"
 #: tabby-terminal/src/tabContextMenu.ts:115
 #: tabby-terminal/src/tabContextMenu.ts:119
 msgid "Reconnect"
-msgstr "Riconetti"
+msgstr "Riconnetti"
 
 #: tabby-terminal/src/hotkeys.ts:102
 msgid "Reconnect current tab (Serial/Telnet/SSH)"
@@ -1723,7 +1723,7 @@ msgstr "Remoto"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:124
 msgid "Remove whitespace and newlines around the copied text"
-msgstr "Rimuovi spazi bianchi e a riorni a capo dal testo copiato"
+msgstr "Rimuovi spazi bianchi e a ritorni a capo dal testo copiato"
 
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:26
 #: tabby-core/src/tabContextMenu.ts:120
@@ -2011,7 +2011,7 @@ msgstr "Visualizza predefiniti"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:146
 msgid "Show Mixer"
-msgstr "Visualizza Mixer"
+msgstr "Visualizza mixer"
 
 #: tabby-core/src/hotkeys.ts:56
 msgid "Show pane labels (for rearranging)"
@@ -2382,7 +2382,7 @@ msgstr "Carica come nuova configurazione"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:39
 msgid "Use {altKeyName} as the Meta key"
-msgstr "Usa {altKeyName} come chiave Meta"
+msgstr "Come chiave meta usa {altKeyName} "
 
 #: locale/tmp-html/tabby-local/src/components/shellSettingsTab.component.html:5
 msgid "Use ConPTY"
@@ -2554,7 +2554,7 @@ msgstr "Giallo"
 
 #: locale/tmp-html/tabby-settings/src/components/setVaultPassphraseModal.component.html:4
 msgid "You can change it later, but it's unrecoverable if forgotten."
-msgstr "Si può cambiare più tardi, ma è irrecuperabile se dimenticata."
+msgstr "Si può modificare più tardi, ma è irrecuperabile se dimenticata."
 
 #: locale/tmp-html/tabby-ssh/src/components/hostKeyPromptModal.component.html:7
 msgid "You could be under a man-in-the-middle attack right now, or the host key could have just been changed."
