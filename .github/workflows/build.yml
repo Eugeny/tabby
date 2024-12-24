@@ -80,7 +80,7 @@ jobs:
 
     - name: Build and sign packages
       run: scripts/build-macos.mjs
-      if: github.repository == 'Eugeny/tabby' && github.event_name == 'push' && (github.ref_protected || startsWith(github.ref, 'refs/tags'))
+      if: github.event_name == 'push' && (github.ref_protected || startsWith(github.ref, 'refs/tags'))
       env:
         ARCH: ${{matrix.arch}}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -95,7 +95,7 @@ jobs:
 
     - name: Build packages without signing
       run: scripts/build-macos.mjs
-      if: "! (github.repository == 'Eugeny/tabby' && github.event_name == 'push' && (github.ref_protected || startsWith(github.ref, 'refs/tags')))"
+      if: "! (github.event_name == 'push' && (github.ref_protected || startsWith(github.ref, 'refs/tags')))"
       env:
         ARCH: ${{matrix.arch}}
         # DEBUG: electron-builder,electron-builder:*
@@ -242,7 +242,7 @@ jobs:
 
     - name: Upload packages to packagecloud.io
       uses: TykTechnologies/packagecloud-action@main
-      if: github.repository == 'Eugeny/tabby' && github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
+      if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
       env:
         PACKAGECLOUD_TOKEN: ${{ secrets.PACKAGECLOUD_TOKEN }}
       with:
@@ -312,7 +312,7 @@ jobs:
 
     - name: Code signing with Software Trust Manager
       uses: digicert/ssm-code-signing@v1.0.0
-      if: github.repository == 'Eugeny/tabby' && github.event_name == 'push' && (github.ref_protected || startsWith(github.ref, 'refs/tags'))
+      if: github.event_name == 'push' && (github.ref_protected || startsWith(github.ref, 'refs/tags'))
 
     - name: Installing Node
       uses: actions/setup-node@v3.7.0
@@ -337,10 +337,20 @@ jobs:
       env:
         ARCH: ${{matrix.arch}}
 
+    - name: Decode certificate
+      if: github.event_name == 'push' && (github.ref_protected || startsWith(github.ref, 'refs/tags'))
+      env:
+        SM_CLIENT_CERT_FILE_B64: ${{ secrets.SM_CLIENT_CERT_FILE_B64 }}
+      run: |
+        SM_CLIENT_CERT_FILE=$RUNNER_TEMP/certificate.p12
+        echo "$SM_CLIENT_CERT_FILE_B64" | base64 --decode > $SM_CLIENT_CERT_FILE
+        echo "SM_CLIENT_CERT_FILE=$SM_CLIENT_CERT_FILE" >> "$GITHUB_ENV"
+      shell: bash
+
     - name: Build and sign packages
+      if: github.event_name == 'push' && (github.ref_protected || startsWith(github.ref, 'refs/tags'))
       shell: powershell
       run: |
-        echo "${{ secrets.SM_CLIENT_CERT_FILE_B64 }}" | % {[Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($_))} > $env:SM_CLIENT_CERT_FILE
         Get-FileHash $env:SM_CLIENT_CERT_FILE -Algorithm MD5
         smksp_registrar.exe list
         smctl.exe healthcheck
@@ -354,12 +364,10 @@ jobs:
         $env:WIN_CSC_LINK=$env:SM_CLIENT_CERT_FILE
         $env:WIN_CSC_KEY_PASSWORD=$env:SM_CLIENT_CERT_PASSWORD
         node scripts/build-windows.mjs
-      if: github.repository == 'Eugeny/tabby' && github.event_name == 'push' && (github.ref_protected || startsWith(github.ref, 'refs/tags'))
       env:
         ARCH: ${{matrix.arch}}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         KEYGEN_TOKEN: ${{ secrets.KEYGEN_TOKEN }}
-        SM_CLIENT_CERT_FILE: Certificate_pkcs12.p12
         SM_CLIENT_CERT_PASSWORD: ${{ secrets.SM_CLIENT_CERT_PASSWORD }}
         SM_PUBLISHER_NAME: ${{ secrets.SM_PUBLISHER_NAME }}
         SM_API_KEY: ${{ vars.SM_API_KEY }}
@@ -370,7 +378,7 @@ jobs:
 
     - name: Build packages without signing
       run: node scripts/build-windows.mjs
-      if: "! (github.repository == 'Eugeny/tabby' && github.event_name == 'push' && (github.ref_protected || startsWith(github.ref, 'refs/tags')))"
+      if: "! (github.event_name == 'push' && (github.ref_protected || startsWith(github.ref, 'refs/tags')))"
       env:
         ARCH: ${{matrix.arch}}
 
