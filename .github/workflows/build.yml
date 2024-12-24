@@ -340,31 +340,26 @@ jobs:
     - name: Build and sign packages
       shell: powershell
       run: |
-        echo "${{ secrets.SM_CLIENT_CERT_FILE_B64 }}" | % {[Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($_))} > $env:CERT_TEMP_PATH
+        echo "${{ secrets.SM_CLIENT_CERT_FILE_B64 }}" | % {[Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($_))} > $env:SM_CLIENT_CERT_FILE
         smksp_registrar.exe list
         smctl.exe healthcheck
         smctl.exe keypair ls
-        smctl windows certsync --keypair-alias ${{ secrets.SM_KEYPAIR_ALIAS }}
+        smctl windows certsync --keypair-alias $env:SM_KEYPAIR_ALIAS
         smctl.exe certificate ls
         C:\Windows\System32\certutil.exe -csp "DigiCert Signing Manager KSP" -key -user
 
         # not used but necessary for electron-builder to run
-        $env:WIN_CSC_LINK=$env:CERT_TEMP_PATH
+        $env:WIN_CSC_LINK=$env:SM_CLIENT_CERT_FILE
         $env:WIN_CSC_KEY_PASSWORD=$env:SM_CLIENT_CERT_PASSWORD
         node scripts/build-windows.mjs
       if: github.repository == 'Eugeny/tabby' && github.event_name == 'push' && (github.ref_protected || startsWith(github.ref, 'refs/tags'))
       env:
         ARCH: ${{matrix.arch}}
-        CERT_TEMP_PATH: Certificate_pkcs12.p12
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         KEYGEN_TOKEN: ${{ secrets.KEYGEN_TOKEN }}
-        SM_API_KEY: ${{ secrets.SM_API_KEY }}
-        SM_HOST: ${{ secrets.SM_HOST }}
         SM_CLIENT_CERT_FILE: Certificate_pkcs12.p12
         SM_CLIENT_CERT_PASSWORD: ${{ secrets.SM_CLIENT_CERT_PASSWORD }}
-        SM_KEYPAIR_ALIAS: ${{ secrets.SM_KEYPAIR_ALIAS }}
         SM_PUBLISHER_NAME: ${{ secrets.SM_PUBLISHER_NAME }}
-        SM_CODE_SIGNING_CERT_SHA1_HASH: ${{ secrets.SM_CODE_SIGNING_CERT_SHA1_HASH }}
         DEBUG: electron-builder,electron-builder:*
 
     - name: Build packages without signing
