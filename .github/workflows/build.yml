@@ -341,12 +341,14 @@ jobs:
       shell: powershell
       run: |
         echo "${{ secrets.SM_CLIENT_CERT_FILE_B64 }}" | % {[Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($_))} > $env:SM_CLIENT_CERT_FILE
+        Get-FileHash $env:SM_CLIENT_CERT_FILE -Algorithm MD5
         smksp_registrar.exe list
         smctl.exe healthcheck
         smctl.exe keypair ls
         smctl windows certsync --keypair-alias $env:SM_KEYPAIR_ALIAS
         smctl.exe certificate ls
         C:\Windows\System32\certutil.exe -csp "DigiCert Signing Manager KSP" -key -user
+        smksp_cert_sync.exe
 
         # not used but necessary for electron-builder to run
         $env:WIN_CSC_LINK=$env:SM_CLIENT_CERT_FILE
