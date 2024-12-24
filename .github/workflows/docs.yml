@@ -18,6 +18,7 @@ jobs:
 
     - name: Build
       run: |
+        apt update && apt install libfontconfig1-dev
         yarn cache clean
         cd app
         yarn
