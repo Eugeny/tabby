@@ -312,7 +312,7 @@ jobs:
 
     - name: Code signing with Software Trust Manager
       uses: digicert/ssm-code-signing@v1.0.0
-      if: github.event_name == 'push' && (github.ref_protected || startsWith(github.ref, 'refs/tags'))
+      if: github.event_name == 'push' && (startsWith(github.ref, 'refs/tags'))
 
     - name: Installing Node
       uses: actions/setup-node@v3.7.0
@@ -338,7 +338,7 @@ jobs:
         ARCH: ${{matrix.arch}}
 
     - name: Decode certificate
-      if: github.event_name == 'push' && (github.ref_protected || startsWith(github.ref, 'refs/tags'))
+      if: github.event_name == 'push' && (startsWith(github.ref, 'refs/tags'))
       env:
         SM_CLIENT_CERT_FILE_B64: ${{ secrets.SM_CLIENT_CERT_FILE_B64 }}
       run: |
@@ -348,7 +348,7 @@ jobs:
       shell: bash
 
     - name: Build and sign packages
-      if: github.event_name == 'push' && (github.ref_protected || startsWith(github.ref, 'refs/tags'))
+      if: github.event_name == 'push' && (startsWith(github.ref, 'refs/tags'))
       shell: powershell
       run: |
         Get-FileHash $env:SM_CLIENT_CERT_FILE -Algorithm MD5
@@ -378,7 +378,7 @@ jobs:
 
     - name: Build packages without signing
       run: node scripts/build-windows.mjs
-      if: "! (github.event_name == 'push' && (github.ref_protected || startsWith(github.ref, 'refs/tags')))"
+      if: "! (github.event_name == 'push' && (startsWith(github.ref, 'refs/tags')))"
       env:
         ARCH: ${{matrix.arch}}
 
