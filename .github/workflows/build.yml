@@ -31,7 +31,7 @@ jobs:
       run: yarn run lint
 
   macOS-Build:
-    runs-on: macos-12
+    runs-on: macos-15
     needs: Lint
     strategy:
       matrix:
@@ -61,8 +61,6 @@ jobs:
 
     - name: Install deps
       run: |
-        sudo -H pip3 install setuptools
-        sudo npm i -g yarn
         yarn --network-timeout 1000000
       env:
         ARCH: ${{matrix.arch}}
@@ -82,7 +80,7 @@ jobs:
 
     - name: Build and sign packages
       run: scripts/build-macos.mjs
-      if: github.repository == 'Eugeny/tabby' && github.event_name == 'push' && (github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags'))
+      if: github.event_name == 'push' && (github.ref_protected || startsWith(github.ref, 'refs/tags'))
       env:
         ARCH: ${{matrix.arch}}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -97,7 +95,7 @@ jobs:
 
     - name: Build packages without signing
       run: scripts/build-macos.mjs
-      if: "! (github.repository == 'Eugeny/tabby' && github.event_name == 'push' && (github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags')))"
+      if: "! (github.event_name == 'push' && (github.ref_protected || startsWith(github.ref, 'refs/tags')))"
       env:
         ARCH: ${{matrix.arch}}
         # DEBUG: electron-builder,electron-builder:*
@@ -244,7 +242,7 @@ jobs:
 
     - name: Upload packages to packagecloud.io
       uses: TykTechnologies/packagecloud-action@main
-      if: github.repository == 'Eugeny/tabby' && github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
+      if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
       env:
         PACKAGECLOUD_TOKEN: ${{ secrets.PACKAGECLOUD_TOKEN }}
       with:
@@ -312,6 +310,10 @@ jobs:
       with:
         fetch-depth: 0
 
+    - name: Code signing with Software Trust Manager
+      uses: digicert/ssm-code-signing@v1.0.0
+      if: github.event_name == 'push' && (startsWith(github.ref, 'refs/tags'))
+
     - name: Installing Node
       uses: actions/setup-node@v3.7.0
       with:
@@ -335,20 +337,48 @@ jobs:
       env:
         ARCH: ${{matrix.arch}}
 
+    - name: Decode certificate
+      if: github.event_name == 'push' && (startsWith(github.ref, 'refs/tags'))
+      env:
+        SM_CLIENT_CERT_FILE_B64: ${{ secrets.SM_CLIENT_CERT_FILE_B64 }}
+      run: |
+        SM_CLIENT_CERT_FILE=$RUNNER_TEMP/certificate.p12
+        echo "$SM_CLIENT_CERT_FILE_B64" | base64 --decode > $SM_CLIENT_CERT_FILE
+        echo "SM_CLIENT_CERT_FILE=$SM_CLIENT_CERT_FILE" >> "$GITHUB_ENV"
+      shell: bash
+
     - name: Build and sign packages
-      run: node scripts/build-windows.mjs
-      if: github.repository == 'Eugeny/tabby' && github.event_name == 'push' && (github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags'))
+      if: github.event_name == 'push' && (startsWith(github.ref, 'refs/tags'))
+      shell: powershell
+      run: |
+        Get-FileHash $env:SM_CLIENT_CERT_FILE -Algorithm MD5
+        smksp_registrar.exe list
+        smctl.exe healthcheck
+        smctl.exe keypair ls
+        smctl windows certsync --keypair-alias $env:SM_KEYPAIR_ALIAS
+        smctl.exe certificate ls
+        C:\Windows\System32\certutil.exe -csp "DigiCert Signing Manager KSP" -key -user
+        smksp_cert_sync.exe
+
+        # not used but necessary for electron-builder to run
+        $env:WIN_CSC_LINK=$env:SM_CLIENT_CERT_FILE
+        $env:WIN_CSC_KEY_PASSWORD=$env:SM_CLIENT_CERT_PASSWORD
+        node scripts/build-windows.mjs
       env:
         ARCH: ${{matrix.arch}}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         KEYGEN_TOKEN: ${{ secrets.KEYGEN_TOKEN }}
-        WIN_CSC_LINK: ${{ secrets.WIN_CSC_LINK }}
-        WIN_CSC_KEY_PASSWORD: ${{ secrets.WIN_CSC_KEY_PASSWORD }}
+        SM_CLIENT_CERT_PASSWORD: ${{ secrets.SM_CLIENT_CERT_PASSWORD }}
+        SM_PUBLISHER_NAME: ${{ secrets.SM_PUBLISHER_NAME }}
+        SM_API_KEY: ${{ vars.SM_API_KEY }}
+        SM_HOST: ${{ vars.SM_HOST }}
+        SM_CODE_SIGNING_CERT_SHA1_HASH: ${{ vars.SM_CODE_SIGNING_CERT_SHA1_HASH }}
+        SM_KEYPAIR_ALIAS: ${{ vars.SM_KEYPAIR_ALIAS }}
         DEBUG: electron-builder,electron-builder:*
 
     - name: Build packages without signing
       run: node scripts/build-windows.mjs
-      if: "! (github.repository == 'Eugeny/tabby' && github.event_name == 'push' && (github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags')))"
+      if: "! (github.event_name == 'push' && (startsWith(github.ref, 'refs/tags')))"
       env:
         ARCH: ${{matrix.arch}}
 

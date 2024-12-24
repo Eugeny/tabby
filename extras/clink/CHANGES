@@ -1,888 +1,489 @@
 # Changes
 
-## Releases from [chrisant996/clink](https://github.com/chrisant996/clink) fork
+### Releases from [chrisant996/clink](https://github.com/chrisant996/clink) fork
+
+#### v1.7.6
+
+- Update Win8.1 character width measurements from [wcwidth-verifier](https://github.com/chrisant996/wcwidth-verifier).
+- Fixed a case where other popup list colors could interfere with the `colors.border` color in `clink.popuplist()`.
+- Fixed [#709](https://github.com/chrisant996/clink/issues/709); TAB expansion doesn't work for `cd ~` (regression introduced in v1.3.36).
+
+#### v1.7.5
+
+- Added new Lua API [console.ellipsify()](#console.ellipsify) to truncate an input string in various ways.
+- Added new [rl_buffer:setcommentrow()](#rl_buffer:setcommentrow) to let [`"luafunc:"` commands](#luakeybindings) immediately show text in the comment row.
+- Adjusted some character width measurements based on analysis from [wcwidth-verifier](https://github.com/chrisant996/wcwidth-verifier) on Win8.1, Win10 with conhost, Win10 with Windows Terminal 1.22, Win11 with conhost, and Win11 with Windows Terminal 1.22.
+- The Headline, Pure, and Bureau clinkprompt files now consider unpublished branches as being "ahead", even in cases where git doesn't report a specific "ahead by" count.
+- Internal changes to the right side prompt implementation, to disentangle unnecessary internal dependencies.
+
+#### v1.7.4
+
+- Changed searching for color themes and custom prompts to always include `themes\` directories under the Clink program directory and Clink profile directory, even when the `clink.path` setting has been used to remove them from the list of script directories.
+- Improved emoji width measurements.
+  - Unqualified emojis are counted as a single cell now.  Windows Terminal intentionally renders these as a single cell for compatibility with the behavior of the first terminal programs on Linux that began to support emoji characters (an important compatibility detail for the Windows Subsystem for Linux, for example).
+  - Country flag emoji character pairs are recognized.
+  - Skin tone variant selectors are recognized.
+  - The zero width joiner is recognized when it joins two emoji characters, or an emoji and a male or female symbol.
+  - **NOTE:**  A given OS version and terminal program version will only recognize certain combinations of joined emojis as valid sequences.  And Windows Terminal is one of the only terminal programs on Windows that can draw color emoji characters.  Clink has no way to know how a given terminal will actually render sequences of Unicode emoji characters.  If a terminal program renders a particular emoji sequence differently than Clink predicts, then the display may become garbled.  If that happens, don't use that emoji sequence.  But if a terminal program renders an emoji sequence as a single glyph and Clink predicts the width incorrectly, then please open an issue with details about the emoji.
+- The pure.clinkprompt now also supports virtualenv's `VIRTUAL_ENV_DISABLE_PROMPT` and `VIRTUAL_ENV_PROMPT` environment variables.
+- Added [console.cellcountiter()](#console.cellcountiter) so scripts can iterate over Unicode character sequences in a string.  Using `unicode.iter()` returns one codepoint at a time, but emojis can have multiple codepoints and `console.cellcountiter()` groups them together for easy processing and accurate overall width measures (measuring the width of each codepoint in an emoji sequence is not the same as measuring the width of the emoji sequence as a whole).
+- Fixed the right side transient prompt so it shows up even when identical to the right side normal prompt.
+- Fixed the `demo` callback in .clinkprompt files.
+- Fixed potential for incomplete input of Unicode surrogate pairs.  An easy way to encounter the problem was using the Windows emoji picker to input an emoji that's a sequence of other emojis joined together -- for example, the pride flag emoji is a flag emoji joined with a rainbow emoji, and the rainbow emoji uses a surrogate pair.
+- Fixed an edge case where if a .clinkprompt file calls `require()` to load a module, and later on a different script also calls `require()` for the same module, then any event handlers or prompt filters registered by the required module accidentally only worked inside the .clinkprompt that originally required it.  Now required modules behave the same regardless whether they are first required by a .clinkprompt file or by some other script file.
+- Fixed [#685](https://github.com/chrisant996/clink/issues/685); CTRL-L while input text is present redraws the input line wrong.
+- Fixed [#686](https://github.com/chrisant996/clink/issues/686); `clink config -h` shows inaccurate info.
+- Fixed [#696](https://github.com/chrisant996/clink/issues/696); console width length off-by-one on certain characters (in particular U+26A1).
+- Fixed [#698](https://github.com/chrisant996/clink/issues/698); script error when using `clink config prompt show pure`.
+- Fixed [#701](https://github.com/chrisant996/clink/issues/701); issues in Antares prompt (missing tag and error when truncation is needed).
+
+#### v1.7.3
+
+- Added the missing Tomorrow* color themes.
+- Fixed [#682](https://github.com/chrisant996/clink/issues/682); the `clink config theme use` and `clink config prompt use` commands had no effect if there is no `clink_settings` file yet.
+
+#### v1.7.2
+
+- Fixed an error when the updater tried to install the new `themes\` subdirectory and files.
+
+#### v1.7.0
+
+Clink now supports color theme files and custom prompt files.  These enable packaging Clink color settings or Clink custom prompts into shareable files.  This finally makes it easy to download and apply themes or prompts shared by other people, or copy them and modify them.  The new [clink-themes](https://github.com/chrisant996/clink-themes) repo is a site where .clinktheme and .clinkprompt files can be shared (see [Contributing](https://github.com/chrisant996/clink-themes#contributing) for details on how to contribute your own themes and prompts).
+
+- Added support for `*.clinktheme` color theme files; see [Color Themes](#color-themes) for more information.
+  - Added several `clink config theme` commands for color themes (run `clink config theme --help`).
+  - The famous [Dracula](https://draculatheme.com), [Solarized](https://github.com/altercation/solarized) (light and dark), and [Tomorrow](https://github.com/chriskempson/tomorrow-theme) (1 light, 4 dark) themes are included.
+  - Use <code>clink config theme use <span class="arg">name</span></code> to apply a color theme, or set the `CLINK_COLORTHEME` environment variable to the color theme name.
+- Added support for `*.clinkprompt` custom prompt files; see [Custom Prompts](#custom-prompts) for more information.  This makes it easy to share custom prompts, and to have a library of many different custom prompts and switch between them quickly and easily.  One .clinkprompt can be active at a time; activating one deactivates any others.
+  - Added several `clink config prompt` commands for custom prompts (run `clink config prompt --help`).
+  - [Oh-My-Posh](#oh-my-posh) support is included.
+  - Also included are ports of [Agnoster](https://github.com/agnoster/agnoster-zsh-theme), [Pure](https://github.com/sindresorhus/pure), [Headline](https://github.com/Moarram/headline), [Antares](https://github.com/elB4RTO/zsh-themes/tree/master/antares), and a few others (all ported from zsh to Clink).
+  - Use <code>clink config prompt use <span class="arg">name</span></code> to activate a custom prompt module, or set the `CLINK_CUSTOMPROMPT` environment variable to the custom prompt name.
+- Added the ability to show input hints in the comment row (below the input line).
+  - Input hints are off by default, and can be enabled with `clink set comment_row.show_hints true`.
+  - Argmatchers can provide input hints; see [Show a Usage Hint](#addarg_hint) for more information.
+  - Lua scripts can create custom hinters; see [Showing Input Hints](#showinginputhints) for more information.
+- Enhanced the syntax for setting colors; added `italic` and `reverse`, and added `#XXXXXX` and `#XXX` shortcuts for specifying 24-bit color values.
+- Added more popup list colors:  `color.popup_border`, `color.popup_header`, `color.popup_footer`, `color.popup_select`, and `color.popup_selectdesc`.
+- Changed phrasing from "Accept Suggestion" to "Insert Suggestion" in the documentation and in the auto-suggestions usage hint text.
+- Changed the Lua `print()` function to support UTF8 output and terminal escape codes.  Now the only reasons for a script to use `clink.print()` instead of `print()` are (1) background compatibility or (2) using `NONL` to suppress printing a line ending.
+- Improved terminal output logging when the `debug.log_terminal` setting is enabled (the setting is only for diagnostic use).
+  - Now it captures all WriteConsoleW and WriteFile output sent to stdout or stderr (instead of only capturing output from the Readline library).
+  - Added a `debug.log_output_callstacks` setting which includes callstacks for each output reported by the `debug.log_terminal` setting.
+- Added a workaround for Unicode limitations in legacy console windows and legacy terminals (improves cursor position accuracy when Unicode surrogate pairs are present).
+- Added several new Lua APIs for color themes and custom prompts:  [clink.getprompts()](#clink.getprompts), [clink.applyprompt()](#clink.applyprompt), [clink.getclinkprompt()](#clink.getclinkprompt), [clink.getthemes()](#clink.getthemes), [clink.readtheme()](#clink.readtheme), [clink.applytheme()](#clink.applytheme), [settings.clear()](#settings.clear), [settings.parsecolor()](#settings.parsecolor), [settings.formatcolor()](#settings.formatcolor), [os.createguid()](#os.createguid).
+- Added [git Lua APIs](#git) for use by custom prompts.
+- Added optional `cookie` argument to [clink.promptcoroutine()](#clink.promptcoroutine) to make it simple for *.clinkprompt files to allow customization that makes use of asynchronous prompt filtering without needing modifications to the main *.clinkprompt file.
+- Fixed detecting file associations (some file extensions weren't detected as having file associations, causing executable completion to omit them, and causing input line coloring to be inaccurate).
+- Fixed a case where updating the right side prompt could leave stray characters behind.
+- Fixed a case where the `match.coloring_rules` setting could have no effect.
+- Fixed delay when typing `X:` and it's a remote drive.
+- Fixed coloring `2>&1`; the `1` wasn't colored.
+- Fixed color of leading blank lines in a prompt string (use the terminal's default color, not the `color.prompt` color).
+- Fixed `rl.collapsetilde()` which just didn't do its job.
+- Fixed `%clink_dummy_capture_env%` to stop accidentally leaking into the environment variables collection.
+- Fixed an infinite loop when `prompt.async` was false.
+- Fixed <kbd>F9</kbd> to stop jumping one past the actual entered history number.
+- Fixed various edge case bugs in the input line display, which were uncovered while adding the ability to show input hints.
+
+#### v1.6.21
+
+- Reduced the performance overhead of hooked APIs from about 20 microseconds to about 2 microseconds.
+- Enhanced the executable recognition to avoid flickering red (or `color.unrecognized`) for an executable name that was already recognized in a recent previous input line.
+- Enhanced the `srcmap` command in the Lua debugger so that `srcmap dir` automatically sets up source mappings for Clink's built in scripts using `dir` as the repo root.
+- Fixed when `history.expand_mode` is `off`; it didn't fully turn off all of the history expansion syntax forms (for example the `^` syntax).
+- Fixed input line coloring when the first word is a device name (e.g. `nul` or `com1:`); it should use `color.unrecognized` for the color.
+- Fixed [#651](https://github.com/chrisant996/clink/issues/651); completion doesn't work for `./` and `../` anymore in the first word of a command line.  Now when the `match.translate_slashes` setting is `system` or `backslash` then completing `./` and `../` can complete the word as a path, even though CMD does not consider it to be a path.
+- Fixed [#653](https://github.com/chrisant996/clink/issues/653); `clink_start.cmd` gets run twice if the binaries directory is the same as the profile directory.
+- Fixed [#654](https://github.com/chrisant996/clink/issues/654); input line coloring doesn't treat `^` correctly inside quotes (and related quirks).
+
+#### v1.6.20
+
+- Fixed [#652](https://github.com/chrisant996/clink/issues/652); error when trying to update again after updating to v1.6.20 (regression introduced in v1.6.19).
+
+#### v1.6.19
 
-### v1.2.9
+- Fixed truncated descriptions with `clink set exec.` and then `clink-select-complete` (<kbd>Ctrl</kbd>-<kbd>Space</kbd>) (regression introduced in v1.6.11).
+- Fixed fully qualified paths from a different local drive accidentally being colored with `color.unrecognized`.
+- Fixed [#648](https://github.com/chrisant996/clink/issues/648); on Windows 8.1 the title bar can get changed to "Windows PowerShell" for the rest of the CMD session.
 
-- Added detection for possible antivirus interference when injecting Clink.
-- Ignore duplicate scripts paths when loading scripts.
-- Fixed [#118](https://github.com/chrisant996/clink/issues/118); inputrc is not read from state directory (regression introduced in v1.0.0).
+#### v1.6.18
 
-### v1.2.8
+- Added a new callback function that can be assigned to an argument position in the table given to `:addarg()` via `onalias=` (see [Responding to Arguments in Argmatchers](#responsive-argmatchers) for more information).  The git argmatcher in the [clink-completions](https://github.com/vladimir-kotikov/clink-completions) repo uses this to support git aliases.
+- When a doskey alias doesn't include any `$` tokens then CMD is guaranteed to ignore the rest of the command line after the alias, so now argmatcher parsing also ignores the rest of the command line and colors it using `color.unexpected`.
+- Suppress the ANSICON warning in the log file and diagnostics output on Windows 8.1.  The performance problem in ANSICON exists, but apparently there isn't a better alternative before Windows 10.
 
-- Fixed `...\` or `.../` to change directories (path separator after several dots).
-- Fixed `/dirname/` to change directories (forward slashes when a directory is the only thing in the input line).
-- Fixed [#114](https://github.com/chrisant996/clink/issues/114); "Clink already loaded in process" error when autorun is installed for both Current User and All Users.
-- Fixed [#113](https://github.com/chrisant996/clink/issues/113); forward slash translation didn't work with the `cd` command.
+#### v1.6.17
 
-### v1.2.7
+- Added warning in the log file and in `clink-diagnostics` (<kbd>Ctrl</kbd>-<kbd>X</kbd>,<kbd>Ctrl</kbd>-<kbd>Z</kbd>) when ANSICON is detected on Windows 8.1 or greater (it's unnecessary, less functional, and greatly degrades performance).
+- Added language info in `clink-diagnostics` when the code page is not 1252 (for easier troubleshooting).
+- Fixed finding argmatchers registered with exact names (typing `foo` couldn't find an argmatcher registered as `c:\dir\foo.exe` because it accidentally looked for `c:\dir\foo.EXE`).
+- Fixed [#631](https://github.com/chrisant996/clink/issues/631); script error after `cmd ` when the current language is German.
 
-- Fixed [#113](https://github.com/chrisant996/clink/issues/113); `clink.slash_translation()` had been removed (regression introduced in v1.0.0).
-    - The new `match.translate_slashes` setting controls the default behavior for slash translation for completion matches.
-    - The new `clink.translateslashes()` API can override slash translation for completion matches (and `clink.slash_translation()` is supported for backward compatibility).
+#### v1.6.16
 
-### v1.2.6
+- Added a workaround for how [scoop](https://scoop.sh/) tries to control app versions and updates ([#615](https://github.com/chrisant996/clink/issues/615); scoop causes `clink autorun install` to use a wrong path).
+- Added an `auto` mode for the `match.translate_slashes` setting.  This mode makes completion translate all slashes in the completed word to match whichever kind occurs first in the word, or to the system path separator if there are no slashes yet (e.g. when completing a directory name).
+- Changed the default to `auto` for the `match.translate_slashes` setting.
+- Updated the `clink.slash_translation()` function.
+- UNC share name completion works with forward slashes now (e.g. `//localhost/`).
+- Added a `clink-toggle-slashes` bindable command, bound by default to <kbd>Ctrl</kbd>-<kbd>/</kbd>.  The command toggles between forward and backslashes in the word at the cursor point, or in the <em>N</em>th word if a numeric argument is provided (e.g. by the <kbd>Alt</kbd>-Digit keys).
+- Fixed the `off` mode for the `matches.translate_slashes` setting (regression introduced in v1.1.23).
+- Fixed input line coloring of `@` in `for %a in (*) do @whatever`.
+- Fixed crash in `glob-list-expansions` when used on an empty word (regression introduced in v1.3.36).
+- Fixed wildcard completions when `match.wild` is on and `match.substring` is off.
+- Fixed obscure edge case where match filtering with wildcards could potentially yield inaccurate results immediately after an auto-suggestion was offered.
 
-- Fixed tilde expansion for directory by itself; now `~\` can change the working directory to the `~` directory.
-- Fixed pagination when displaying completions that take more than 1 line to display.
-- Fixed inserting directory match completions when a Lua script didn't include a trailing path separator in the directory match.
-- Fixed [#111](https://github.com/chrisant996/clink/issues/111); `..` completion is different from bash (regression introduced in v1.0.0).
+#### v1.6.15
 
-### v1.2.5
-
-- Added `os.expandenv()` function to expand environment variables in a string.
-- Added `console.cellcount()` function to count the cells a string will use when displayed.
-- Added `console.plaintext()` function to remove ANSI escape codes from a string.
-- Clink now sets `%=clink.bin%` that points to the Clink binaries directory.  This can be particularly useful for a portable installation of Clink so that scripts can find the Clink binaries directory and construct relative paths to other nearby files.
-- Clean up column alignment in `--help` texts.
-- Fixed `history.sticky_search` with anchored history search.
-- Fixed `clink inject --profile` to use correct log file name while initially injecting.
-- Fixed Clink autorun to be more compatible with Cmder ([Cmder #2536](https://github.com/cmderdev/cmder/issues/2536)).
-
-### v1.2.4
-
-- Added support for <kbd>Shift</kbd>+<kbd>Arrows</kbd> to select text and typing to replace selected text.
-- Added optional argument to `word_classifications:classifyword()` and `word_classifications:applycolor()` to allow only applying color where another color hasn't yet been applied.
-- Fixed first <kbd>Up</kbd> after reusing a history line so that it gets the reused history line, rather than getting the previous history line.
-- Fixed `add-history` command to not add blank lines to history.
-- Fixed `rl.setmatches()` (regression introduced in v1.1.26).
-- Fixed input coloring for `clink set` and any color setting name (regression introduced in v1.2).
-- Fixed potential crash with `clink history --session`.
-- Fixed <kbd>Ctrl</kbd>+<kbd>D</kbd> when `cmd.ctrld_exits` is disabled; it didn't exit, but it did still discard the input line and start a new prompt.
-- Fixed [#107](https://github.com/chrisant996/clink/issues/107); autorun reports inject failures (regression introduced in v1.2.3).
-- Fixed [#106](https://github.com/chrisant996/clink/issues/106); history missing `--bare` option (regression introduced in v1.2.3).
-
-### v1.2.3
-
-- Added `history.sticky_search` setting:  when enabled, reusing a history line does not add the reused line to the end of the history, and it leaves the history search position on the reused line so next/prev history can continue from there (e.g. replaying commands via <kbd>Up</kbd> several times then <kbd>Enter</kbd>, <kbd>Down</kbd>, <kbd>Enter</kbd>, etc).
-- Added failure reporting and logging when `clink inject` fails.
-- Added `--unique` flag for use with `clink history compact --unique` to remove duplicate entries from the history list.
-- The `clink-popup-complete` command now matches wildcards.
-- Restored the <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>U</kbd> key binding from v0.4.9 (moves the current working directory up one level).
-- Fixed searching for inputrc files to also search in the profile directory (regression introduced in v1.0.0).
-- Fixed incremental search in the History popup list to search in reverse order (bottom to top).
-- Fixed `clink-popup-history` to set the history search position like other history search commands do, so that it plays well with the `history.sticky_search` setting.
-
-### v1.2.2
-
-- Added `%CLINK_HISTORY_LABEL%` environment variable to use a different master history file (fixes [#99](https://github.com/chrisant996/clink/issues/99)).
-
-### v1.2.1
-
-- Added Troubleshooting Tips section in the documentation.
-- Added backward compatibility for `clink set` with v0.4.9.  Old setting names and values are not documented, but are automatically mapped to the appropriate new setting(s).  This was done so that suggestions in old web sites and posts can usually continue to work, to reduce confusion and support burden.
-- Fixed [#97](https://github.com/chrisant996/clink/issues/97); VS2017 error C2039: 'min': is not a member of 'std'.
-- Fixed [#96](https://github.com/chrisant996/clink/issues/96); wrong setting string (the name of a setting was accidentally truncated).
-- Fixed some slightly inaccurate/incomplete migration from old settings to new settings.
-
-### v1.2
-
-- First official release from [chrisant996/clink](https://github.com/chrisant996/clink) fork.
-
-### v1.1.49
-
-- Added `clink.classifier()` to enable coloring the input line independently from argmatchers.
-- Added `word_classifications:applycolor()` to apply SGR escape codes anywhere in the input line.
-- Removed `word_classifications:iswordclassified()`.
-- Fixed the Product Version string in the binary file version resources.
-
-### v1.1.48
-
-- Added `clink.getansihost()` function to get Clink's best guess who will process ANSI escape codes (can be useful for avoiding 256 bit and 24 bit color codes, for example).
-- Added detection for being hosted in ConsoleZ.
-- Fixed [#20](https://github.com/chrisant996/clink/issues/20); `set /p VAR=""` shows the normal command prompt text instead of empty prompt text.
-
-### v1.1.47
-
-- Added default key binding for <kbd>Ctrl</kbd>+<kbd>Space</kbd> to invoke `old-menu-complete`, which is the most similar to CMD's standard <kbd>Tab</kbd> behavior.
-- Fixed `search-ignore-case` config variable to be on by default.
-
-### v1.1.46
-
-- Added `rl.setvariable()` to temporarily override the value of a Readline config variable.
-- The completion commands now also expand tilde by itself (`~`), in addition to tilde followed by a path separator (`~\etc`).
-- Fixed [#94](https://github.com/chrisant996/clink/issues/94); setting `history.save` to False also disables interactive history in subsequent sessions.
-
-### v1.1.45
-
-- Fixed [#93](https://github.com/chrisant996/clink/issues/93); stdout is sometimes broken by Cmder init.bat.
-
-### v1.1.44
-
-- Added `clink.getsession()`.
-- Added `%CLINK_NOAUTORUN%` which overrides automatic inject when Clink is installed for autorun.
-- Fixed [#92](https://github.com/chrisant996/clink/issues/92); `clink-popup-history` and similar commands not working with ConEmu and Cmder (regression introduced in v1.1.25).
-
-### v1.1.43
-
-- Added `clink history --diag` flag that prints diagnostic information while performing history operations.
-- Minor optimization in `clink history` when printing the full list of history items.
-- Fixed `clink history compact` so it actually performs compaction.
-
-### v1.1.42
-
-- Added `clink history --bare` flag to omit history item numbers.
-- Added several Lua functions:
-    - `io.popenrw()` is like `io.popen()`, but returns both a read file handle and a write file handle (see documentation for important usage warning).
-    - `os.createtmpfile()` creates a unique named temporary file, with control over the prefix and suffix and path.
-    - `os.getfullpathname()` to get the full path name for a file.
-    - `os.getlongpathname()` to get the long path name for a file.
-    - `os.getshortpathname()` to get the 8.3 short path name (if available) for a file.
-- Improved argument validation for Clink's Lua APIs.  This could expose bugs in existing scripts, so there is also a `lua.strict` setting that can be disabled to revert back to loose argument validation.
-- Updated documentation.
-- Fixed `clink history compact` so that it forces compaction as intended.
-- Fixed completion for `clink set` so that filename completion works in string settings.
-- Fixed backwards return value from `rl.invokecommand()`.
-- Fixed console input/output modes across `luafunc:` key bindings, in case the Lua functions spawn a process that alters the console mode without restoring it.
-
-### v1.1.41
-
-- Added `terminal.adjust_cursor_style` setting as a workaround to avoid interfering with the Windows 10 Cursor Shape console setting.  There are several trade-offs, though.
-- Added `rl_buffer:refreshline()` function to redraw the input line, e.g. in case something has written over it.
-- Added `os.getpid()` function to get the process ID, intended mainly to help salt unique resource names.
-- Added `clink.onfiltermatches()` so scripts can register a callback function to run after Clink generates matches and before it displays them.
-
-### v1.1.40
-
-- Added a group of `clink-complete-numbers` commands that do completion for numbers from the console screen, bound to <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>N</kbd> by default.
-- Added `rl.getlastcommand()` function that returns the name of the last command invoked by key bindings.
-- Fixed sort order in <kbd>Alt</kbd>+<kbd>H</kbd> for the newly supported key bindings (that were added in v1.1.39).
-- Fixed <kbd>Ctrl</kbd>+<kbd>Space</kbd> (regression introduced in v1.1.39).
-- Fixed various <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>whatever</kbd> combinations (regression introduced in v1.1.39).
-- Fixed `rl.setmatches()` when the input line is not empty and `clink.colorize_input` is enabled.
-
-### v1.1.39
-
-- Added support for many more key bindings, such as <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+Letter keys.
-- Added `terminal.differentiate_keys` setting that when enabled allows binding <kbd>Ctrl</kbd> + <kbd>H</kbd> or <kbd>I</kbd> or <kbd>M</kbd> or <kbd>[</kbd> separately from <kbd>Backspace</kbd>, <kbd>Tab</kbd>, <kbd>Return</kbd>, or <kbd>Escape</kbd>.
-- Removed `terminal.modify_other_keys` setting and made it always enabled.
-- Changed `terminal.use_altgr_substitute` to be disabled by default so that <kbd>Ctrl</kbd>+<kbd>Alt</kbd> key bindings can work by default on keyboards with <kbd>AltGr</kbd>.
-- Changed output from `clink echo` so it's directly usable in the inputrc files.
-- Fixed `terminal.use_altgr_substitute` to only affect <kbd>AltGr</kbd> substitute key combinations (it had always broken the <kbd>RightAlt</kbd> key in general on other keyboard layouts).
-- Fixed a benign issue with the console input mode in `clink echo`.
-
-### v1.1.38
-
-- Fixed [#84](https://github.com/chrisant996/clink/issues/84); added `terminal.use_altgr_substitute` setting.
-- Fixed [#80](https://github.com/chrisant996/clink/issues/80); clink.log is not deleted when Cmder injects Clink.
-
-### v1.1.37
-
-- Fixed copy to clipboard (it never cleared the clipboard!).
-- Fixed [#82](https://github.com/chrisant996/clink/issues/82); added two new `clink.paste_crlf` modes: `ampersand` replaces newlines with ampersands, and `crlf` pastes newlines as-is and executes any commands ending in a newline.
-- Fixed [#69](https://github.com/chrisant996/clink/issues/69); space in the prompt disappears after enter echo: added support for CJK codepages.
-
-### v1.1.36
-
-- Fixed [#79](https://github.com/chrisant996/clink/issues/79); Issue with United States - international keyboard layout (regression introduced in v1.1.0).
-- Fixed [#78](https://github.com/chrisant996/clink/issues/78); crash when history file contains a line longer than 8192 characters (regression introduced in v1.1.2-alpha).
-
-### v1.1.35
-
-- Fixed when the `mark-directories` inputrc variable is `off` (regression introduced in v1.1.1-alpha).
-- Fixed Lua reading from stdin, especially in the Lua debugger (regression introduced in v1.1.25).
-- Fixed exponential cost performance bug in Readline when removing duplicate matches.
-
-### v1.1.34
-
-- Fixed copying to clipboard (CF_UNICODETEXT was put on the clipboard correctly, but CF_TEXT was empty and should have been omitted to let Windows automatically convert it from the Unicode text).
-
-### v1.1.33
-
-- Make the "replacing arglink" warning message a little more informative, and write a lua traceback to the Clink log file.
-- Fixed [#77](https://github.com/chrisant996/clink/issues/77); with ConsoleZ scrolling does not always work.
-- Fixed [#76](https://github.com/chrisant996/clink/issues/76); cannot `cd` up multiple directories normally.
-
-### v1.1.32
-
-- Added support for non-standard escape codes to set the window title or print environment variables.  Depending on the `terminal.emulation` setting, the behavior is slightly different.  When `emulate` Clink processes the escape codes.  When `native` with ConEmu (and Clink) the escape codes are passed to ConEmu, except that Clink processes the environment variable codes in prompt strings.  When `native` with other terminals, Clink preprocesses the title and environment variable escape codes in prompt strings, but passes the escape codes to the terminal outside of prompt strings.
-- Fixed [#67](https://github.com/chrisant996/clink/issues/67); AutoRun interferes with Cmder.
-
-### v1.1.31
-
-- Fixed [#74](https://github.com/chrisant996/clink/issues/74); clink gets confused by non-standard ConEmu escape codes.
-- Fixed [#73](https://github.com/chrisant996/clink/issues/73); `exec.space_prefix` and other settings defined in Lua scripts don't take effect until second input line (regression introduced in v1.1.4).
-
-### v1.1.30
-
-- Fixed history compacting on x86 (regression introduced in v1.1.2-alpha).
-
-### v1.1.29
-
-- Added `clink installscripts` and `clink uninstallscripts` to make it easy for package managers like Scoop to install/uninstall script packages for use with Clink.  The installed script paths are stored in the registry for the current user.
-- Fixed `bold` vs `bright` colors to more accurately follow generally accepted ANSI escape code conventions:
-    - Renamed `dim` to `nobold` for clarity (though `dim` is still recognized for backward compatibility).
-    - `bold` adds intensity to a non-intense color (e.g. `cyan` which is 36).
-    - `nobold` removes intensity added by `bold` (e.g. `1;36` becomes `36`), but does not remove intensity from an explicit intense color (such as `bright cyan` which is `96`).
-- Fixed support for `--file=` flags in argmatchers.
-- Fixed match display filtering on the first try for a word (regression introduced in v1.1.19).
-- Fixed the `clink --profile` flag (regression introduced in v1.1.10).
-- Fixed `clink info` to accurately report the script dirs (it didn't account for the `clink.path` setting correctly).
-
-### v1.1.28
-
-- Renamed the `log.rl_terminal` setting to `debug.log_terminal`; it has already been repeatedly very useful in multiple was since it was added, so it stays.
-- Fixed [#70](https://github.com/chrisant996/clink/issues/70); ctrl+c not working (regression introduced in v1.1.25).
-
-### v1.1.27
-
-- Added `color.argmatcher` setting which, when set, is used to color a command name if it has an associated argmatcher (this supersedes `color.cmd`, `color.doskey`, and `color.input`).  By default it's not set.
-- Added `log.rl_terminal` setting which logs all terminal input and output for Readline (this setting may be renamed or removed in the future).
-
-### v1.1.26
-
-- Added `rl.invokecommand()` which can invoke a Readline command from inside a "luafunc:" key binding.
-- Added `rl.setmatches()` which can override match completions from inside a "luafunc:" key binding.
-- Worked around UTF8 key binding problem with Readline which had been causing some meta key bindings (M-x, M-C-x, etc) to sometimes produce garbled key bindings and garbled entries in `clink-show-help` (<kbd>Alt</kbd>+<kbd>H</kbd>).
-- Fixed crash if "luafunc:" key binding macro refers to a symbol that doesn't exist.
-
-### v1.1.25
-
-- Added `clink-find-conhost` command that, when in a default (conhost) console window, is equivalent to picking "Find..." from the system menu.
-- Added `clink-mark-conhost` command that, when in a default (conhost) console window, is equivalent to picking "Mark" from the system menu.
-- `clink-copy-word` now copies the current word by default, but copies the nth word if a numeric argument is entered (see "Readline Arguments" in the Readline manual).
-- Fixed match display filtering to not exceed the screen width (regression introduced in v1.1.12).
-- Fixed multi-key sequences; in some cases it could get confused about whether an input key is part of a multi-key binding sequence (regression introduced in v1.1.1-alpha).
-- Fixed stray input processing by conhost (holding <kbd>Ctrl</kbd>+<kbd>A</kbd> or <kbd>Ctrl</kbd>+<kbd>F</kbd> or etc could accidentally trigger conhost's shortcut keys).
-- Fixed popup window location and size when using Windows Terminal.
-- Fixed input coloring after `operate-and-get-next`; also fixes brief flicker of incorrect coloring whenever the input line is modified.
-
-### v1.1.24
-
-- `auto` for `terminal.emulation` now uses native VT support on Windows 10 build 15063 and higher, unless the HKCU\Console\ForceV2 regkey is 0.
-- Special quote handling now enables `"dir\"fi` to complete to `"dir\file"`.  CMD simply strips quotes during completion, and now Clink behaves similarly.
-- <strong>Breaking Change:</strong> `line:getword()` and `line:getendword()` now strip quotes from the word.  This should generally automagically make existing match generators work even with embedded quotes, but there's a chance that some match generator might need to be updated.  This seems like a reasonable compromise, given the general benefit purchased by this breaking change.
-- `os:globdirs()` and `os:globfile()` strip quotes from the <span class="arg">globpattern</span> in order to behave more like CMD.  Embedded quotes are nonsensical and the intended interpretation is clear, so the APIs now help out with that.
-- Fixed [#66](https://github.com/chrisant996/clink/issues/66); crash when injecting into 32 bit cmd (regression introduced in v1.1.21).
-- Fixed [#64](https://github.com/chrisant996/clink/issues/64); wrong cursor position when PROMPT contains BEL character.
-- Fixed [#62](https://github.com/chrisant996/clink/issues/62); argmatchers should color `-x:"foo"` as a flag if `-x:` is a flag.
-- Fixed [#61](https://github.com/chrisant996/clink/issues/61); argmatchers should not handle completion for text immediately following `-flag:`.  Instead it always uses file completion.  A custom generator can be used to override that behavior.
-- Fixed [#60](https://github.com/chrisant996/clink/issues/60); completion fails with multiple slashes.
-- Fixed completion in some circumstances.  Readline and Clink didn't always agree on where the word breaks were; now Clink always tells Readline where the word breaks are (so that completion, input colorization, and lua scripts can all work properly and consistently).
-- Fixed 256 color ANSI codes.
-
-### v1.1.23
-
-- Fixed [#57](https://github.com/chrisant996/clink/issues/57); slashes not normalized in some cases.
-- Fixed [#45](https://github.com/chrisant996/clink/issues/45); interaction between `history.dupe_mode`=`erase_prev` and `history.shared`=`false`.
-- Fixed `menu-complete-wraparound` when off and there's only 1 match.
-
-### v1.1.22
-
-- Added `menu-complete-wraparound` (on by default) that controls whether completion commands wrap around when cycling past an end (affects popup windows as well).
-- Fixed match completion getting stuck (regression introduced in v1.1.19).
-- Fixed active mark region so it gets deactivated appropriately (it wasn't hooked up fully for Readline's callback mode, which is the mode Clink uses).
-- Fixed `clink-show-help` (<kbd>Alt</kbd>+<kbd>H</kbd>) so it's able to list `C-@` bindings.
-- Fixed inconsistent mark color.
-
-### v1.1.21
-
-- Added `clink.oninject()` so scripts can register a callback function to run when Clink is injected into CMD.
-- Added `console.linehascolor()` function that returns whether the specified line contains any of the specified colors.
-- Added `console.findprevline()` and `console.findnextline()` functions that can search backwards or forwards for text and/or colors in the screen buffer.  Regular expressions may be used.
-- Fixed doskey alias parsing for match generators and input line coloring (Clink had been using slightly different parsing rules than CMD does).
-- Fixed the "-- More --" prompt while listing key bindings; <kbd>Esc</kbd> didn't quit, and unexpected keys weren't ignored.
-
-### v1.1.20
-
-- Now you can bind Lua functions to keys via "luafunc:" macros!  Added new `rl_buffer` type that gets passed to the Lua function.
-- Added a group of `console` Lua APIs intended mainly for use by Lua function key bindings (e.g. `console.scroll()`).
-- Added `string.equalsi()` function that performs a case insensitive UTF8 comparison of two strings.
-- Added `string.matchlen()` function that compares two UTF8 strings and returns how many characters match at the beginning, or -1 if the entire strings match. It respects the `match.ignore_case` and `match.ignore_accents` settings.
-- Added `path.toparent()` function that adjust the input string by moving up one directory level.
-- Added `clink.onendedit()` so scripts can register a callback function to run when editing finishes (e.g. <kbd>Enter</kbd> is pressed).  If desired, the function can even change the input text.  This is very powerful, and should be used carefully.
-- Changed `os.getbatterystatus()` to return a table with the battery status details, rather than four separate return values.
-- Fixed the `doskey.enhanced` setting to not expand doskey aliases when preceded by a space.  However, a doskey alias after a `&` or `|` command separator needs to be preceded by two spaces to avoid expanding it.  That's so `alias & alias` expands both, and ` alias &  alias` expands neither; while the rules are more complicated to explain, they make more sense visually.
-- Fixed environment variable completion (regression introduced in v1.1.19).
-- Fixed Cmder startup (regression introduced in v1.1.17).  Cmder expects to be able to replace Clink v0.4.9's clink.lua file, but there is no such thing anymore in newer versions of Clink.  To be properly backwardly compatible with Clink v0.4.9 requires loading clink.lua (if it exists) from the first script directory listed by `clink info`, and ignoring clink.lua files in all other script directories.
-
-### v1.1.19
-
-- Improved responsiveness while typing:  matches are collected only on demand, instead of always while typing.  This makes it possible to always support match completion for UNC paths.
-- Fixed [#50](https://github.com/chrisant996/clink/issues/50); <kbd>Alt</kbd>+<kbd>H</kbd> could warn about likely mistakes in key bindings.
-
-### v1.1.18
-
-- The input text now has context sensitive coloring based on the argmatchers. It's on by default and can be turned off with `clink set clink.colorize_input false`.
-- Updated the Readline library to 8.1.
-- Terminal emulation now supports the audible bell character.
-- Fixed [#48](https://github.com/chrisant996/clink/issues/48); `menu-complete` gets stuck.
-- Fixed [#47](https://github.com/chrisant996/clink/issues/47); <kbd>Alt</kbd>+<kbd>D</kbd> erases history instead of word.
-- Fixed [#46](https://github.com/chrisant996/clink/issues/46); typing `..` in subdirectory of root doesn't work.
-- Fixed restoring color after pager when showing help.
-- Fixed `clink set` match completions for color settings.
-
-### v1.1.17
-
-- Added `os.getbatterystatus()` function that gets battery status information much faster than launching `wmic`.
-- Fixed [#44](https://github.com/chrisant996/clink/issues/44); Path completion doesn't work with `cd /d`.
-- Fixed loading scripts to ignore loading clink.lua, so that loading scripts behaves like Clink v0.4.9.
-
-### v1.1.16
-
-- Added `match.ignore_accent` setting (enabled by default) that ignores Latin alphabet diacriticals when completing matches (e.g. `ä` matches `a`, `ı` matches `i`, `ł` matches `l`, etc).
-- Fixed [#42](https://github.com/chrisant996/clink/issues/42); history lines are split on special characters.
-- Fixed [#41](https://github.com/chrisant996/clink/issues/41); Enable custom doskey handling of `..` and `-`.
-- Fixed Readline bug inserting dir matches; `\win_  foo` (cursor at `_`) would become `\Windows\\_  foo`.
-- Fixed the `quoted-insert` command to insert just `\x1b` when <kbd>ESC</kbd> is pressed.
-
-### v1.1.15
-
-- Migrating settings now immediately writes a new settings file, instead of waiting until a setting is changed.
-- Added support to detect when running in Windows Terminal and use native terminal support (which enables things like Xterm 256 and 24-bit color support).
-- Added terminal emulation support for Xterm 256 and 24-bit color escape codes. Clink maps the specified color to the most similar color in the active 16 color palette (using the CIELAB color space). To get full support for 24-bit color, it's necessary to use ConEmu or Windows Terminal or a similar console host, or to set `terminal.emulation` to `native` (which isn't supported on some older Windows OS versions).
-- Allow doskey macros named `..` or `-`, and also now doskey macros that resolve to `..` or `-` or a directory name will work (just like if the macro text had been typed at the Clink prompt).
-- Fixed compatibility problem with various scripts getting the %HOME% environment variable. Now if it isn't set, then Clink synthesizes %HOME% from %HOMEDRIVE% and %HOMEPATH% or from %USERPROFILE%.
-- Fixed saving color settings to behave like other settings: only write a setting's value to the setting file if it differs from the default value.
-- Fixed the `clink.print()` Lua function so it also works during loading scripts and during prompt filtering.
-- Fixed the Readline input text display getting garbled if the filtered prompt includes Xterm's OSC window title code (`\x1b]0;text\x07`). Clink doesn't support that escape code, but at no longer garbles the input text if that escape code is present.
-
-### v1.1.14
-
-- Migrate settings and history from an old version of Clink, if present.  This only happens if the new-version Clink settings or history files don't exist.  (Deleting an existing new-version Clink settings or history file will cause migration to happen again.)
-- Added `color.prompt` setting for backward compatibility with Clink v0.4.x.
-
-### v1.1.13
-
-- Fixed `clink.arg.register_parser` backward compatibility.
-
-### v1.1.12
-
-- Added `clink.ondisplaymatches()` as a replacement for the deprecated `clink.match_display_filter`.  The new API is able to support popup list windows as well.
-- Speculative possible fix for [#35](https://github.com/chrisant996/clink/issues/35) Crash when clink on clink.bat.
-- Fixed [#33](https://github.com/chrisant996/clink/issues/33); Tab autocomplete, auto-quoting paths doesn't seem to work as in Clink 0.4.9.
-
-### v1.1.11
-
-- Changed to load Lua scripts only once per session, unless forced to reload them.  This enables backward compatibility for things like [z.lua](https://github.com/skywind3000/z.lua) which has certain features that rely on Clink only loading scripts once per session.
-- Added `clink.onbeginedit()` so scripts can register a callback function to run each time the edit prompt is activated.
-- Added `lua.reload_scripts` setting to optionally force reloading Lua scripts each time the edit prompt is activated.
-- Added `color.message` setting for the Readline message area color (e.g. the search prompt message or digit argument prompt message, etc).
-- Fixed stray sticky `=` appended to completions after typing `set ` and then typing a different command.
-
-### v1.1.10
-
-- Fixed [#32](https://github.com/chrisant996/clink/issues/32); hooking `ReadConsoleW` on Windows 7.
-
-### v1.1.9
-
-- Added backward compatibility for `clink.match_display_filter`.  The clink-completions/git.lua script uses it a lot, and that should all be working now.
-- `settings.add` adds a color setting when the type is string and the name starts with "color.".
-- `settings.get` now has an extra parameter to request the user friendly color name when getting a color setting.
-- Added `clink.version_encoded` variable with the Clink version number as _MMmmmpppp_ (e.g. v1.1.9 is `10010009`) to make it easy for scripts to check for feature availability.
-- The `clink info` command now shows Lua script paths as well.
-- Fixed backward compatibility for loading scripts from the profile directory (if `clink.path` isn't set, then load scripts from the DLL directory and the profile directory).
-- Fixed some `color.input` bleed through to other things (introduced in v1.1.5).
-- Fixed scroll commands (regression introduced by input line color in v1.1.5).
-- Fixed horizontally sorted match display and re-enabled the performance fix from v1.1.4.
-- Fixed wildcard evaluation with non-file and non-directory matches (e.g. a branch name `origin/master` accidentally didn't match `or` or `*ma` because of the `/`).
-- Fixed sort order of `foo\` vs `foo.bar\` when displaying matches or using the `menu-complete` family of commands.
-- Fixed potentially-missing trailing path separator when `menu-complete` completes a directory match (regression introduced by wildcard matching in v1.1.5).
-- Other obscure minor fixes.
-
-### v1.1.8
-
-- Fixed file match completions when an argmatcher only generates flag matches.
-- Fixed automatic inferring whether Readline should use filename completion and/or display rules (regression introduced by backward compatibility in v1.1.3-alpha).
-- Fixed backward compatibility for `clink.find_files()` and `clink.find_dirs()` (regression introduced by performance improvement in v1.1.7).
-    - Ignore extra arguments after the first one (the performance improvement in v1.1.7 revealed that some scripts call `clink.find_files()` with extra invalid arguments; e.g. clink-completions/modules/matchers.lua).
-    - Don't append a trailing path separator on directory names returned by these functions (the new `os.globfiles()` and `os.globdirs()` functions do, but the old `clink.find_files()` and `clink.find_dirs()` functions should not).
-- Fixed backward compatibility for coloring matches (regression introduced by backward compatibility changes in v1.1.4).
-
-### v1.1.7
-
-- Performance improvement when displaying matches:  When enumerating files and dirs, the `os.globfiles` and `os.globdirs` functions have all the info about each file.  Now they can return that info in a table.  This frees the match display function from needing to do any further file system IO.  The performance boost is noticeable.
-- Rewrote the color settings:  the .fg and .bg sub-settings are gone, and the main setting now uses a more natural syntax (e.g. `clink set color.input bright yellow` or `clink set color.modmark bright cyan on blue`).
-- Added "cmd" match type for shell (CMD.EXE) command completions.
-- Added VT emulation for the reverse video SGR parameters.
-- Fixed tab completion for <code>clink set <em>setting</em></code>, and also handle the new color setting syntax.
-- Fixed confusing behavior if multiple scripts try to add settings with the same name (now the first one succeeds and the rest report errors).
-
-### v1.1.6
-
-- Hooked up tilde completion in the `cd`, `md`, and `rd` command argmatchers.
-- Hooked up tilde completion with the `exec.enable` setting ("~\pro" matches "C:\Users\myusername\program.exe").
-- When `terminal.emulation` is `auto`, now it also detects ANSI{32|64}.DLL just like Clink 0.4.8 did.
-
-### v1.1.5
-
-- The `menu-complete` family of commands now support matching `?` and `*` wildcards when the `match.wild` setting is enabled.
-- Added `colour.input` and `colour.modmark` settings for coloring Readline's input line.
-- Added `clink.upper()` Lua function, and both `clink.lower()` and `clink.upper()` are properly UTF8 aware now.
-- Added `clink-copy-word` command that copies the word at the cursor to the clipboard.
-- Added `clink.promptfilter` setting to control whether to filter the prompt with Lua scripts.
-- Renamed `terminal.emulate` setting to `terminal.emulation`.
-- Improved executable file extension logic to consistently use %PATHEXT% (and efficiently).
-- Improved file extension logic (e.g. "file.foo bar" has no extension because of the space).
-- Updated arg matcher for `clink` itself (was missing some flags).
-- Changed `colour.hidden` setting to not be set by default.
-- Fixed [#28](https://github.com/chrisant996/clink/issues/28); Tab completion for "~" does not work.
-- Fixed [#25](https://github.com/chrisant996/clink/issues/25); Unicode surrogate pairs (and emoji) input isn't working -- Microsoft Terminal renders the text correctly, but ConEmu and the default conhost still don't (and that isn't a Clink issue).
-- Fixed screen size bug in Readline on Windows.
-- Fixed the backwards values in the `terminal.emulation` setting.
-- Fixed `....` so it works properly again.
-- Fixed case sensitive sorting of matches.
-- Fixed script error when %PATHEXT% is empty.
-- Fixed the `exec.cwd` Clink setting to default to true, so that the default behavior is consistent with how v0.4.x behaved.
-- Fixed the `cd`, `md`, `rd`, etc argmatchers to only match one argument to be consistent with the actual command syntax.
-
-### v1.1.4
-
-- Automatically detect when running inside ConEmu and disable Clink's Virtual Terminal emulation.
-- Added `search-ignore-case` inputrc variable that makes the history search commands case insensitive.
-- Suppress adding a space after completing a flag match that ends with `:` or `=` (e.g. `msbuild -maxCpuCount:`).
-- Report any errors while loading Lua scripts.
-- Report an error if a Lua script tries to add a flag string that begins with a letter.
-- Fixed slow printing of possible matches.  Readline is inefficient about emitting output, so Clink supplies a custom implementation.
-- Fixed some bugs in auto detection of flag prefix characters.
-- Fixed backward compatibility for flags, and for args when merging two parsers by calling `clink.arg.register_parser('foo')` multiple times for the same command string.
-- Fixed truncated message when the last line of a prompt exceeds 128 characters.
-- Fixed abort (<kbd>Ctrl</kbd>+<kbd>G</kbd> or <kbd>Esc</kbd>) in non-incremental history search mode.
-- Fixed saved values for settings added by Lua scripts; now the saved value is available to the script immediately on adding the setting, and saved values are retained even if the setting isn't always added by the script.
-- Fixed (and documented) shorthand form for defining an argmatcher.
-- Fixed length of colored match prefix after a path separator.
-- Fixed normalizing a slash by itself (`command /` mustn't become `command \` since that can interfere with completing flags).
-- Fixed the `completion-auto-query-items` inputrc variable.
-- Fixed the key binding list to correctly respect `completion-display-width`.
-- _No visible effect yet:  internal change that parses the input line to identify colors to use for each word (command, argument, flag, etc), but the colors aren't yet applied to the input line._
-
-### v1.1.3-alpha
-
-- Fixed argmatcher lookup to be more strict, like in Clink 0.4.9 (match exact names, or name plus an extension from %PATHEXT%).
-- Backward compatibility:
-    - Most things should work now.
-    - Dropping the new Clink on top of the vendor\clink directory in Cmder seems to work -- _but make a backup before you try this at home!_
-- API changes:
-    - Added `log.info()` function.
-    - Added Clink version numbers in `clink.version_major`, etc.
-    - Added `_argmatcher:getwordbreakinfo()` callback; removed `_argmatcher:setprefixincluded()` (it was a mess, and it was new to v1.x, so there's no compatibility concern with removing it).
-    - Deprecated `_argmatcher:setflagprefix()`; now it happens automagically when using `_argmatcher:addflags()`.
-    - Introduced several deprecated functions to support backward compatibility.
-- Improvements to Lua debugger:
-    - Added `lua.traceback_on_error`, `lua.break_on_error`, and `lua.break_on_traceback` settings to make debugging script errors easier.
-    - Made `pause()` consistent about pausing in the caller (rather than sometimes inside the pause command itself).
-    - The debugger automatically shows the stack trace when entering debug mode, and on every pause.
-    - Show 3 lines of source context by default.
-    - The help list is sorted now.
-    - Fixed the `set` command in the debugger to behave as documented.
-
-### v1.1.2-alpha
-
-- Documentation is mostly updated; just the argmatcher Lua API and Clink command line options are left to be documented.
-- Added `history.max_lines` setting that controls how many lines of command history to save (1 to 50000, default is 2500).
-- Added `readline.hide_stderr` setting that can suppress stderr output from the Readline library.
-- For backward compatibility with 0.4.8, `clink_inputrc` files are loaded as well.
-- Lua script API changes:
-    - `addmatch()` in Lua scripts takes an optional match type argument.
-    - Removed `displayable`, `aux`, and `suffix` fields in matches.
-    - Revert the change to disallow mixing file/directory/symlink with other match types (it broke the tests and certain completion scenarios).
-- Fixed issues:
-    - [#18](https://github.com/chrisant996/clink/issues/18) alt+digit then alt+ctrl+y isn't working.
-    - [#17](https://github.com/chrisant996/clink/issues/17) arrow keys don't exit `reverse-search-history` like in bash.
-    - [#16](https://github.com/chrisant996/clink/issues/16) problems with $T in doskey macros.
-    - [#13](https://github.com/chrisant996/clink/issues/13) `clink history delete <n>` returns a CRT error.
-- Other fixes:
-    - There should be no more problems running on Windows Insider builds because Clink now uses [Detours](https://github.com/microsoft/detours) for hooking APIs.
-    - Fixed crash in `insert-completions` due to heap failure (introduced by the performance changes for displaying matches).
-    - Fixed `clink` and `history` built-in aliases (solve glitchy path problem).
-    - Fixed scrolling to top of screen buffer.
-    - Fixed env var and `set` completions.
-    - Fixed `tilde-expand` for quoted text.
-    - Fixed <kbd>Esc</kbd> in Readline's digit argument input mode (it doesn't try to cancel the mode, because that's not how Readline is documented to work).
-    - Fixed exit code from some `clink` command line options.
-- Set locale to UTF8 much earlier to avoid quirky behavior early in script processing.
-
-### v1.1.1-alpha
-
-- Exclusively use Readline's completion implementation.  This (with fixes and enhancements in Readline itself) makes the completion experience much nicer and more sophisticated, and removes a lot of code that was added in v1.0.0a0.
-- Exclusively use Readline's key binding implementation.  This makes it possible to have a single consistent way to set key bindings (inputrc) and for `clink-show-help` to list all key bindings, and removes a lot of code that was added in v1.0.0a0.
-- Converted all of Clink's internal key behaviors to be implemented as commands that can be bound in the inputrc file.
-- Rewrote and refactored the pagination routine to be used in multiple places.
-- Fixed prompt filtering to correctly use the specified priority order.
-- Readline library:
-    - Updated the Readline library from v6.2 to v8.0.  This picked up lots of bug fixes and new capabilities (for example colored completions).
-    - Changed Readline to support backslash as a path separator.
-    - The pager prompt in Readline is optionally colored, controlled by the `colour.interact` Clink setting.
-    - Added `completion-auto-query-items` config variable (on by default) which asks whether to list possible matches when the number of lines listed will fill one screen page.
-    - Added `history-point-at-end-of-anchored-search` config variable in inputrc to make the cursor point behave like 4Dos/4NT/TakeCommand when searching forward and backward through command history.
-    - Fixed prev history at top of history.
-    - Fixed to get the current values of environment variables when needed, rather than always getting the value from whenever Clink was started.
-    - Fixed coloring directory completions.
-    - Fixed `menu-complete` for `\dir` and `.` and `..`.
-    - Fixed slow performance when displaying matches.  Readline was calling stat() at least once per match (!!).  A new match type field enables faster performance, coloring readonly and hidden file matches, applying filename completion rules only to filenames (vs branch names or other text strings), correct match de-duplication, and more.  The Lua match APIs can supply the new match type.
-    - Fixed inserting a completion to happen as a single undo group.
-    - Fixed tilde to map to `%USERPROFILE%` instead of `%APPDATA%` on Windows.
-- Typing a directory by itself uses `cd /d` to change to the directory:
-    - Typing a directory with a trailing path separator changes to the directory.
-    - Typing `..\` changes to the parent directory.
-    - Typing `...` or `....` etc moves up an extra parent directory level for each extra dot (2 dots move up one parent, 3 dots moves up two parents, etc).  A trailing path separator is optional when there are more than 2 dots.
-    - Typing `-` or `cd -` or `chdir -` changes to the previous directory.
-- Commands that are new, enhanced, or fixed:
-    - Added `add-history` and `remove-history` commands (similar to 4Dos/4NT/TakeCommand).
-    - Got the `menu-complete`, `menu-complete-backward`, and `old-menu-complete` commands working (they never worked properly before in Clink).
-        - Also added a corresponding `old-menu-complete-backward` command for reverse order.
-        - All of the `*-menu-complete-*` commands support wildcards (`*` and `?`).
-    - Added `clink-show-help` command (<kbd>Alt</kbd>+<kbd>H</kbd>).  The help now lists _**all**_ key bindings, and it shows user-friendly key names (like `A-Up` or `C-x,C-r` or `C-S-PgUp` or `A-C-S-F3`).
-    - Added `clink-popup-completions` command that shows a popup window listing possible completions.  <kbd>Enter</kbd> inserts the highlighted completion.
-    - Added `clink-popup-directories` command that shows a popup window listing recent directories.  <kbd>Enter</kbd> changes to the highlighted directory, or <kbd>Shift</kbd>+<kbd>Enter</kbd> inserts the highlighted directory in the editing line (or <kbd>Ctrl</kbd>+<kbd>Enter</kbd>).
-    - Added `clink-popup-history` command that shows a popup window listing command history.  <kbd>Enter</kbd> executes the highlighted command, or <kbd>Shift</kbd>+<kbd>Enter</kbd> jumps to the highlighted command in the history (or <kbd>Ctrl</kbd>+<kbd>Enter</kbd>).
-    - Added `clink-scroll-lineup`, `clink-scroll-linedown`, `clink-scroll-page-up`, `clink-scroll-page-down`, `clink-scroll-top`, and `clink-scroll-bottom` commands that do what it looks like they'd do and are bound to the keys it looks like they'd be.
-    - Added `clink-expand-doskey` command (<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>f</kbd>) that expands the current line according to the current doskey aliases.
-    - Added `clink-expand-env-var` command (<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>e</kbd>) that expands the environment variable at the cursor point.
-    - Added `clink-exit` command (<kbd>Alt</kbd>+<kbd>F4</kbd>) that exits CMD.
-- Fixed keyboard input issues:
-    - <kbd>Esc</kbd> is a bindable key now (`\e[27;27~`).
-    - Added more bindable key combinations (run `clink echo` then press keys to see the key sequence to use in the inputrc file).
-    - <kbd>Ctrl</kbd>+<kbd>@</kbd> (NUL) didn't work.
-    - <kbd>Ins</kbd> toggles insert/overwrite mode.
-    - Unbound keys are ignored now, instead of inserting gibberish characters (part of the terminal internal key sequence).
-    - Fixed input handling so the `quoted-insert` command can work properly.
-    - Fixed <kbd>Esc</kbd> while searching.
-    - Fixed vi mode (was working in v0.4.9, but not in v1.0.x).
-- Fixed command history issues:
-    - The `dont_add_to_history_cmds` Clink setting is a space-delimited list of commands to not add to history.
-    - Fixed bleeding between history banks.
-    - Fixed uninitialized variable that made history updates intermittently do nothing or corrupt the other history bank.
-    - Fixed output from `clink history` to convert to UTF16 when writing to the console (but write UTF8 when output is redirected).
-- Fixed terminal output issues:
-    - Added `terminal.emulate` Clink setting that controls whether Clink does VT emulation or passes all ANSI escape codes directly to the console host.  For example, this lets the prompt and completion coloring take advantage of more sophisticated ANSI escape codes such as XTerm 256 color and 16 bit color support.
-    - Added back support for the `prefer-visible-bell` config variable.
-    - Fixed underline support.
-    - Fixed handling for UTF8 output from Readline.
-    - Fixed invisible cursor point in Lua debugger.
-- Completions:
-    - Added `match.sort_dirs` Clink setting that specifies where to sort directories in the list of possible completions:  before files, mixed in with files, or after files.
-    - Don't attempt completing incomplete UNC paths:  at least the `\\server\share\` path components are required (for anything shorter the OS APIs are guaranteed to fail, but will fail slowly).
-    - Fixed sorting to use Unicode aware locale based sorting (like Windows does) instead of dumb UTF8 byte comparisons.
-    - Fixed arbitrary limit on completions (had been limited to 64KB worth of completions).
-    - Fixed quoting spaces in completions.
-    - Fixed to use the same list as CMD for characters that require quoting.
-    - Fixed normalizing UNC paths.
-    - Fixed volume relative completions (e.g. `x:foo`).
-    - Disallow mixing file/directory/symlink with other match types.  This was to avoid a confusing/malfunctioning case in match display and prefix highlighting.
-- Fixed UTF8 encoding in various Lua functions.
-- Fixed printing stderr output from Readline, Lua, and Clink.
-- Fixed crashes and other failures when starting Clink in 32 bit CMD.
-- Fixed some memory leaks that accumulated with each new line of input.
-- Fixed prompt filtering API to be backward compatible with v0.4.9 scripts.
-- Fixed Lua errors from `clink set` (it neglected to fully initialize Clink's Lua integration before loading Lua scripts).
-- Fixed UTF8 conversion bug that could truncate a string without fully converting it.
-- Fixed serious rampant memory corruption bug in v1.0.x (not present in v0.4.9), which had been causing intermittent malfunctions and data corruption and crashes.
-- Fixed multi-line doskey macros to show the prompt in between lines, like CMD does.
-- Removed the 4096 byte limit on input.
-- Renamed the Clink DLL back to what it was in v0.4.x, to fix compile time problems.
-- Other fixed issues:
-    - [mridgers #544](https://github.com/mridgers/clink/issues/544) Clink v1.0.0.a1 doesn't support cyrillic characters keyboard input on Windows 10 with console V2.
-    - [mridgers #543](https://github.com/mridgers/clink/issues/543) Not compatible with Windows Insider Build 20150.
-    - [mridgers #537](https://github.com/mridgers/clink/issues/537) Clink breaks the CMDS tool.
-    - [mridgers #520](https://github.com/mridgers/clink/issues/520) Clink 1.0.0.a1 - `clink set history_io 1` Error.
-    - [mridgers #519](https://github.com/mridgers/clink/issues/519) Clink v1.0.0.a1 - `-s|--scripts [path]` command line arg removed?
-    - [mridgers #516](https://github.com/mridgers/clink/issues/516) Doskey $T not handled properly.
-    - [mridgers #512](https://github.com/mridgers/clink/issues/512) Command history missing in .history.
-    - [mridgers #503](https://github.com/mridgers/clink/issues/503) Keyboard shortcut for scrolling.
-    - [mridgers #501](https://github.com/mridgers/clink/issues/501) <kbd>Ctrl</kbd>+<kbd>Backspace</kbd> works now.
-    - [mridgers #487](https://github.com/mridgers/clink/issues/487) Clink breaks ConEmu-specific Escape codes.
-    - [mridgers #480](https://github.com/mridgers/clink/issues/480) History never saved.
-    - [mridgers #465](https://github.com/mridgers/clink/issues/465) Using LuaJIT (FFI).
-    - [mridgers #456](https://github.com/mridgers/clink/issues/456) Clear-screen not working properly when PROMPT is two lines long.
-    - [mridgers #453](https://github.com/mridgers/clink/issues/453) Wrong cursor position when a line contains non-printable characters.
-    - [mridgers #442](https://github.com/mridgers/clink/issues/442) Unable to paste more than 1024 characters using <kbd>Ctrl</kbd>+<kbd>V</kbd>.
-    - [mridgers #422](https://github.com/mridgers/clink/issues/422) Problem with filename modifiers.
-    - [mridgers #420](https://github.com/mridgers/clink/issues/420) Use NtSuspendProcess instead of CreateToolhelp32Snapshot to freeze the threads.
-    - [mridgers #372](https://github.com/mridgers/clink/issues/372) Provide a way to select a previous directory.
-    - [mridgers #365](https://github.com/mridgers/clink/issues/365) history-search behavior.
-    - [mridgers #342](https://github.com/mridgers/clink/issues/342) Clink_inputrc not being processed if it the clink_inputrc is a link (created via mklink).
-- Fixed many other bugs.
-
-## Releases from [mridgers/clink](https://github.com/mridgers/clink) original repo
-
-### v1.0.0a1 _(alpha test release)_
-
-- Improve terminal integration with the Readline library.
-- Internal improvements to the built-in ecma48 terminal emulator.
-- Fixed use after free in Doskey emulation.
-- Fixed dash-dash flag completion.
-- Search ancestors for a compatible target process (for when cmd.exe starts another process that subsequently starts clink; especially useful during development).
-- Use clink/terminal's wcwidth() implementation.
-- screen_buffer::set_cursor() should be relative to the visible area.
-- Try to adjust the cursor position better when resizing the terminal.
-- Some internal Lua functions needed the unquoted clink exe path.
-- The origin path now affects the hash in the dll cache, to guard against directory moves.
-- More code reorganization.
-
-### v1.0.0a0 _(alpha test release)_
-
-- Extensive code reorganization, refactoring, and rewriting -- multiple times -- almost everything was touched.
-- OS integration:
-    - Fixed Doskey macros on Win8, and on Win10.
-    - Fixed `clink_x??.exe` startup stall on Windows 10.
-    - Removed XP support. It doesn't load DLLs like Clink uses them.
-    - Removed Powershell support.
-- Readline integration:
-    - Search for multiple places for [.|_]inputrc (fixes [mridgers #258](https://github.com/mridgers/clink/issues/258)).
-    - Disabled Readline's completion code, and only use the clink alternative code.
-    - Removed redundant slash translation and shims to make it happen.
-    - Removed control of Readline's suffix appending and disabled it.
-- `clink` commands and flags:
-    - Changed `--cfgdir` to `--profile`, it's no longer required, and added help about it.
-    - Added a `--version` option to print Clink's version.
-    - Added `clink info` to print information about Clink.
-    - Added `clink echo` command to echo input key sequences to stdout.
-    - Added `clink history` command (fixes [mridgers #172](https://github.com/mridgers/clink/issues/172)).
-    - Added `history` as an alias for `clink history`.
-    - Added internal `--list` flag to `clink set` for match generation.
-    - Removed `--scripts` argument (fixes [mridgers #206](https://github.com/mridgers/clink/issues/206)).
-    - Updated `clink autorun` command's help text.
-- Lua scripts:
-    - Prefer `userprofile` over other standard environment variables for where to look for lua scripts.
-    - New API for argument style completion scripts.
-    - Refactored prompt filtering, and introduced new prompt filtering API.
-    - Refactored generating matches, and introduced new match generator API.
-    - Removed built in completions scripts for git, go, hg, and p4. There's better ones.
-    - Renamed many of clink's Lua functions.
-    - Moved functions from `clink` to `os` in Lua.
-    - Removed `clink.is_match()` in Lua; don't presume anything on anyone's behalf about matches.
-    - Added some current dir functions in Lua.
-    - Added some env/dir functions in Lua.
-    - Exposed path manipulation functions to Lua.
-    - Embed the core Lua scripts instead of loading them from files.
-- Terminal IO:
-    - Added a module for scrolling the screen.
-    - Rewrote the terminal emulation module, and all Readline IO goes through it.
-    - Use VT220-style control codes for special keys.
-    - If <kbd>Alt</kbd> is pressed send ESC in the input stream rather than setting meta bit.
-    - Replaced wcwidth() with a more complete and correct version.
-- Settings:
-    - Added `clink_path` setting for where to look for lua scripts.
-    - Added `match.ignore_case` setting.
-    - Added `files.unc_paths` setting for optional matching from UNC paths.
-    - Added a setting to skip adding lines that start with `history`.
-    - Removed `esc_clears_line` setting.
-    - Pasting CRLFs doesn't really make sense.
-    - Don't write out settings that are set to default.
-- Make sure <kbd>Ctrl</kbd>-<kbd>C</kbd> doesn't modify history.
-- Make a cached copy of Clink's DLL when injecting so as to not lock the master.
-- Guard against Readline's writes to stderr.
-- Remove `clink_inputrc_base` file and embed its content (fixes [mridgers #257](https://github.com/mridgers/clink/issues/257)).
-- Include more metadata in the Clink's executables.
-
-### v0.4.9
-
-- Fixed broken Doskey on Win10 (#438, #451)
-
-### v0.4.8
-
-- Environment variable `clink_profile` overrides Clink's profile path (#390).
-- Load a clink_inputrc file from Clink's profile directory (fixes #406).
-- Bug fixes;
-    - Redraw issues when prompts end in OSC ANSI codes (#387, #384).
-    - Fixed `clink autorun --help` crash.
-
-### v0.4.7
-
-- Bug fixes;
-    - Sometimes autorun tries to run clink.exe (#374).
-    - Autorun would cause cmd.exe to return an error if it wasn't interactive (#373).
-
-### v0.4.6
-
-- HOME is only set if it is currently unset.
-- Readline can be initialised with .inputrc and _inputrc files too (#258).
-- Bug fixes;
-    - Executable completion;
-        - Paths from PATH were checked twice.
-        - Incorrect results were returned for words ending in `.` or `-`.
-        - Directories . and .. were incorrectly displayed.
-    - Fixed a crash if .bat script's stdout is redirected (#366).
-    - Occasional crash when injecting Clink (#351).
-    - Display errors;
-        - When editing near the window's right-hand edge (#347).
-        - Double display of multi-line prompts when resizing the terminal (#352).
-        - Very rare wrap artefacts when making the terminal window larger.
-    - Doskey emulation (#344).
-    - Improved `clink autorun` help (#348).
-    - Fixed launching Clink when clink.bat is renamed (#357).
-
-### v0.4.5
-
-- Improved `clink autorun`. It now defaults to the Current User registry hive.
-- `clink set` gives more details for enumeration-type settings.
-- Tab completion for p4vc.
-- New settings `history_expand_mode` to control history expansion in quotes (#317).
-- Bug fixes;
-    - Use full width of the terminal (#337).
-    - Fixed MinGW compile error (#335).
-    - Autorun now defaults to the current user's hive (#332).
-    - Creating clink.html no longer needs Pandoc, plus it looks a bit better (#331).
-    - Added settings to control history expansion (#326).
-    - Correct fallback when `use_altgr_substitute` is off (#325).
-    - Load history prior to saving it on shutdown (#318).
-    - Added Shift-Tab documentation and menu completion example (#190).
-    - Added shim for backwards menu completion (#190).
-    - Input handling now outputs <code>\e`Z</code> for <kbd>Shift</kbd>-<kbd>Tab</kbd> (#190).
-    - Updated Readme with current Premake info (#310).
-    - Guard against there being no buffer to read from (#304).
-    - Fixed artefacts when resizing conhost's buffer (#139).
-    - Clear remaining characters if scroll window was too small (#301)
-    - Escape % characters when expanding aliases (#280).
-    - Fixed leaking exception filters.
-    - Clearing the screen doesn't leave artefacts behind.
-
-### v0.4.4
-
-- Completing .. behaves more like Bash (#277).
-- Escape from yes/no question when <kbd>Ctrl</kbd>+<kbd>C</kbd> is pressed.
-- Valid XP executables (#278, #289).
-- Fixed n-th argument yank not working as expected (#254).
-- Fixed prompt colours sometimes not working (#279, #286).
-- Fixed `!0` causing Clink to crash.
-- Save/restore cursor position in case Readline moves it.
-
-### v0.4.3
-
-- Localised Y/N when auto-answering "terminate?" prompt.
-- `$*` would early out if there was no arguments.
-- Disable ANSI code support if third party provides it.
-- Installer can now set %CLINK_DIR% to install location.
-- Improved output from `clink set`.
-- Support for Windows 10 Technical Preview.
-- <kbd>Ctrl</kbd>-<kbd>L</kbd> now scrolls last line to the top of the window rather than clearing.
-- New option to control how newline characters are pasted to the line.
-- New options to control history;
-    - `history_file_lines` - maximum lines saved to disk.
-    - `history_ignore_space` - ignore lines prefixed with whitespace.
-    - `history_dupe_mode` - how duplicate entries are handled.
-    - `history_io` - load/save history from disk every line.
-- Fixed nonfunctional numpad keys.
-- Fixed missing WINCH signals if other processes resize the buffer.
-- Support <kbd>Alt</kbd> codes sent from Conhost.
-
-### v0.4.2
-
-- Prompt colouring no longer requires third party ANSI code utility.
-- Override settings with environment variables prefixed with 'clink'.
-- Ctrl-PgUp goes up a directory.
-- Updated Go completions (by matrixik).
-- Arguments to clink.arg.new_parser() now initialise parser's flags/args (from vladimir-kotikov).
-- New clink.arg.add_flags() and clink.arg.add_arguments() functions.
-- Removed footer and <kbd>Alt</kbd>-<kbd>H</kbd> tip for more succinct stdout output.
-- Bug fixes;
-    - Windows XP works again.
-    - Fixed race condition in lua_execute().
-
-### v0.4.1
-
-- Bug fixes;
-    - Various Unicode fixes causing corrupt environment variables.
-    - Fixed thread resume/suspend causing rare system-wide deadlock.
-    - Fixed incorrect translation of suffixed slash when completing flags.
-- Add `--nolog` argument to disable file logging. Fix #187 Fix #154
-- Added missing escape sequences from doskey emulation.
-- Reinstated unix-kill-line key binding.
-- Mapped <kbd>PgUp</kbd>/<kbd>Down</kbd> to search history using line typed so far.
-- Added documentation covering escape codes for special keys.
-- Added support for Windows' <kbd>AltGr</kbd> substitute <kbd>Ctrl</kbd>-<kbd>Alt</kbd>.
-- Support for Readline's 'menu' style completion (see docs).
-
-### v0.4
-
-- New features;
-    - Better `clink.arg` API. Easier, more intuitive, and more powerful.
-    - Whitespace prefix skips exec matching.
-    - Added a `set` verb to easily change settings from the command line.
-    - Basic support for a shells other than cmd.exe.
-    - Completion for Go (contributed by Dobroslaw Zybort).
-    - Setting `exec_match_style` to -1 disables it entirely.
-    - Make history persistence optional.
-    - Alias/doskey completion.
-    - Very basic support for Powershell.
-    - View cmd.exe's autorun entry without needing admin rights.
-- New key bindings;
-    - <kbd>Ctrl</kbd>-<kbd>Alt</kbd>-<kbd>C</kbd> : Copy command line to the clipboard.
-    - <kbd>Ctrl</kbd>-<kbd>Alt</kbd>-<kbd>E</kbd> : Expand environment variable under cursor.
-    - <kbd>Ctrl</kbd>-<kbd>Alt</kbd>-<kbd>U</kbd> : "up directory" (formerly <kbd>Shift</kbd>-<kbd>Up</kbd>).
-    - <kbd>Ctrl</kbd>-<kbd>U</kbd> : Adds `..\` to the command line.
-    - <kbd>Alt</kbd>-<kbd>H</kbd> : Shows active keymap's key bindings.
-- New Lua functions;
-    - clink.execute().
-    - clink.get_host_process().
-    - clink.match_files().
-    - clink.match_words().
-    - clink.get_console_aliases().
-- Lots of bug fixes, including;
-    - Better command extraction.
-    - Fixed cmd.exe command paging and <kbd>Ctrl</kbd>-<kbd>C</kbd>/<kbd>Ctrl</kbd>-<kbd>Break</kbd> handling.
-    - Multiple locale fixes.
-    - Use localised text for "Terminate batch job?" prompt.
-
-### v0.3
-
-- Automatic answering of cmd.exe's "Terminate batch script?" prompt.
-- Coloured prompts (requires ANSICON or ConEmu).
-- Added Shift-Up keyboard shortcut to automatically execute `cd ..`
-- Mapped <kbd>Ctrl</kbd>-<kbd>Z</kbd> to undo, Microsoft style.
-- Improved integration of Readline;
-    - New input handling code (<kbd>Ctrl</kbd>-<kbd>Alt</kbd> combos now work).
-    - An implementation of the Termcap library.
-    - Fully functional Vi-mode support.
-    - Support for resizable consoles.
-    - Line wrapping now works correctly (issue 50).
-- Adjustable executable match style (issue 65).
-- Improved environment variable completion.
-- Added settings file to customise Clink.
-- New Lua features and functions;
-    - Matches can now be filtered in Lua before they are display.
-    - clink.quote_split().
-    - clink.arg.node_merge().
-    - clink.get_screen_info() (issue 71).
-    - clink.split() (for splitting strings).
-    - clink.chdir().
-    - clink.get_cwd().
-    - Functions to query Clink's settings.
-- New command line options;
-    - <code>--profile <span class="arg">dir</span></code> to override default profile directory.
-    - `--nohostcheck` disables verification that host is cmd.exe.
-    - `--pid` specifies the process to inject into.
-- Update Mercurial completion (issue 73).
-- Start menu shortcut starts in USERPROFILE, like cmd.exe
-- Zip distribution is now portable.
-
-### v0.2.1
-
-- The .history file now merges multiple sessions together.
-- Fixed missing y/n, pause, and other prompts.
-- Fixed segfault in loader executable.
-- Better ConEmu compatibility.
-
-### v0.2
-
-- Basic argument completion for `git`, `hg`, `svn`, and `p4`.
-- Traditional Bash clear screen (<kbd>Ctrl</kbd>-<kbd>L</kbd>) and exit shortcuts (<kbd>Ctrl</kbd>-<kbd>D</kbd>).
-- Scrollable command window using <kbd>PgUp</kbd>/<kbd>PgDown</kbd> keys.
-- Doskey support.
-- Automatic quoting of file names with spaces.
-- Scriptable custom prompts.
-- New argument framework to ease writing context-sensitive match generators.
-- History and log file is now saved per-user rather than globally.
-- Improved Clink's command line interface (`clink --help`).
-- More reliable handling of cmd.exe's autorun entry.
-- General improvements to executable and directory-command completion.
-- Symbolic link support.
-- Documentation.
-- Windows 8 support.
-- Improved hooking so Clink can be shared with other thirdparty utilities that
-  also hook cmd.exe (ConEmu, ANSICon, etc.).
-
-### v0.1.1
-
-- Fixed <kbd>AltGr</kbd>+<kbd>&lt;key&gt;</kbd> on international keyboards.
-- Fixed broken completion when directories have a `-` in their name (Mark Hammond)
-- The check for single match scenarios now correctly handles case-insensitivity.
-
-### v0.1
-
-- Initial release.
-
-<!-- vim: wrap nolist ft=markdown
--->
+- Fixed hiding internal script names in the `clink-diagnostics` output (regression introduced in v1.6.11).
+- Fixed [#613](https://github.com/chrisant996/clink/issues/613); wrong input line coloring for `cmd /c "command line"`.
+
+#### v1.6.14
+
+- Fixed `menu-complete` to respect `completion-auto-query-items`.
+- Fixed missing line break before `dump-macros`, `dump-variables`, `clink-dump-functions`, and `clink-dump-macros` (regression introduced in v1.6.3).
+- Fixed `rl.getbinding()` to return `clink-select-complete` instead of `clink-popup-complete` (the latter is just an alias; the real command name is `clink-select-complete`).
+
+#### v1.6.13
+
+- Popup lists can now be filtered.
+  - Press <kbd>F4</kbd> in a popup list to toggle the search mode between "find" and "filter".
+  - The `clink.popup_search_mode` setting controls the default search mode.
+  - The `clink.popuplist()` function can be told to start in a specific search mode.
+- Added `os.findfiles()` to allow getting files/directories one at a time (versus `os.globfiles()` which collects the entire set all at once into a table).
+- Added `exec.associations` setting to let Executable Completion include files with registered file associations as matches (e.g. launchable documents such as "*.pdf" files).
+- Fixed <kbd>Ctrl</kbd>-<kbd>C</kbd> in a popup list copying the wrong entry after having used <kbd>Del</kbd> to delete an entry.
+- Fixed input line coloring to use `color.executable` also for files included by the `exec.path` setting, if the files have registered file associations.
+
+#### v1.6.12
+
+- Fixed [#597](https://github.com/chrisant996/clink/issues/597); prompt shows leftover text sometimes (regression introduced in v1.6.10).
+- Fixed [#596](https://github.com/chrisant996/clink/issues/596); it's easy to forget whether <kbd>Enter</kbd> in history list executes or inserts.
+
+#### v1.6.11
+
+- Added `os.setalias()` for setting a doskey alias without needing to invoke the doskey.exe program.
+- Fixed a case where match descriptions could be displayed with incorrect padding and truncation.
+- Lua debugging enhancements:
+  - Changed the built-in embedded scripts to include debug info, which allows some Lua error messages to be more useful for troubleshooting.
+  - Added `srcmap` command in the Lua debugger to override where to find source files.
+
+#### v1.6.10
+
+- Added an optimization to further reduce flicker when re-drawing the prompt.
+- Added a `user_data.shared_user_data` table to allow linked argmatchers to share data with each other while an input line is being parsed (see [Responding to Arguments in Argmatchers](https://chrisant996.github.io/clink/clink.html#responsive-argmatchers) for details).
+- Fixed [#579](https://github.com/chrisant996/clink/issues/579); popup lists could accidentally truncate text in the first column when there's only one column.
+- Fixed [#576](https://github.com/chrisant996/clink/issues/576); setup exe doesn't remove old uninstall exe files.
+- Fixed [#575](https://github.com/chrisant996/clink/issues/575); error when `color.executable` is set and `color.unrecognized` is not (regression introduced in v1.6.2).
+
+#### v1.6.9
+
+- Fixed [#574](https://github.com/chrisant996/clink/issues/574); `prompt.spacing` "eats" lines containing Unicode Surrogate Pairs such as for some [nerdfont](https://nerdfonts.com) icons (Windows Terminal accidentally returns that such lines are empty).
+- Fixed [#573](https://github.com/chrisant996/clink/issues/573); C# was unable to read Clink's version resource.
+- Fixed [#555](https://github.com/chrisant996/clink/issues/555); security advisory [CVE-2020-24370](https://github.com/advisories/GHSA-gfr4-c37g-mm3v) for a Lua bug.
+
+#### v1.6.8
+
+- Fixed [#571](https://github.com/chrisant996/clink/issues/571); error in clink.bat under some circumstances (regression introduced in v1.6.7).
+
+#### v1.6.7
+
+- Recognize the little-known `cmd /r` as a synonym for `cmd /c` so that Clink can optimize and skip injecting into a `cmd /r` process.
+- Fixed displaying descriptions when they're left-justified (regression introduced in v1.6.6).
+- Fixed `argmatcher:chaincommand("run")` to not find argmatchers for builtin CMD command names (since CMD doesn't get invoked in that case, so it won't get interpreted as a CMD command).
+- Fixed `argmatcher:chaincommand()` to find an argmatcher for a builtin CMD command even if a directory exists with the same name (since CMD interprets that case as a CMD command).
+- Fixed `argmatcher:chaincommand("cmd")` so when `exec.aliases` is enabled it can include aliases as completions.
+- Fixed `argmatcher:addarg({loopchars="+", etcetc})` so that `-Q:+x` still gets parsed into two input words `-Q:` and `+x`.
+- Fixed to parse `foo^ bar` as two words "foo" and "bar".
+- Fixed to recognize `^echo` (etc) as a builtin CMD command name despite embedded `^` characters.
+- Fixed [#570](https://github.com/chrisant996/clink/issues/570); fixed #569 more thoroughly, and `cd /d` cannot be used anywhere because it also requires command extensions.
+
+#### v1.6.6
+
+- Added `clink history --no-show-time` to allow omitting history timestamps even when the `history.time_stamp` setting is `show`.
+- Fixed match display to not right justify descriptions when the screen isn't wide enough or when descriptions contain aligned columns (like `clink set` completions do since v1.6.3).
+- Fixed `clink history` when output is redirected; strip any escape codes that might be embedded in the time format.
+- Fixed [#569](https://github.com/chrisant996/clink/issues/569); `cmd /e:off` causes syntax error in clink.bat script.
+- Fixed [#567](https://github.com/chrisant996/clink/issues/567); `clink history compact` accidentally deletes all timestamps.
+- Fixed documentation error in Lua API Reference about `"w"` mode in `io.open()` and `io.sopen()` (the behavior was correct, but the documentation was inaccurate/unclear).
+
+#### v1.6.5
+
+- Added all match fields in the table of matches passed to the `clink.onfiltermatches()` callback function.
+- Fixed stripping colors from strings (e.g. when displaying in popup lists); it didn't strip 8-bit and 24-bit colors correctly.
+
+#### v1.6.4
+
+- Added `rl_buffer:hassuggestion()` and `rl_buffer:insertsuggestion()` for direct access to inserting suggestions without invoking Readline commands.
+- Added `clink.dirmatchesexact()` and `clink.filematchesexact()` which are the same as the non-`exact` variants, except these don't append a `*` to the search pattern.  For example, `clink.filematchesexact("*.zip")` can collect exactly "\*.zip" file matches instead of "\*.zip\*".
+- Added OS version info to `clink info`.
+- Added UNC share name completion when using Executable Completion (the `exec.enable` setting).
+- Fixed completing input `.` or `..` when the `exec.enable` setting is enabled.
+- Fixed applying `colored-completion-prefix` when match display filtering is active or a match has a custom `display` field.
+- Fixed the `exec.path` setting so it doesn't accidentally include directories if their names end with an executable extension such as `.exe`.
+- Fixed finding an argmatcher registered with a full path (e.g. `c:\foo\bar.exe`) when a full path is entered without a drive letter (e.g. enter `\foo\bar.exe`).
+- Fixed [#562](https://github.com/chrisant996/clink/issues/562); `clink autorun install` strips quotes by mistake.
+
+#### v1.6.3
+
+- **Breaking Change:** For the four <kbd>Ctrl</kbd>-<kbd>-</kbd> key combinations, Clink got the <kbd>Shift</kbd> key backwards and generated inaccurate input codes.  And that broke the Readline/bash default key binding for `undo` (the Windows default key binding of <kbd>Ctrl</kbd>-<kbd>z</kbd> works fine).  If your .inputrc file has bindings for any of the <kbd>Ctrl</kbd>-<kbd>-</kbd> key combinations then you can keep the keys working the same by updating the key bindings.  You can even use the [`$if clink_version >= 1.6.3`](#if_clink_version) syntax in your .inputrc file to make it define the key bindings differently in different versions of Clink.
+  Key Combination | Old Code | New Code
+  -|-|-
+  <kbd>Ctrl</kbd>-<kbd>-</kbd> | `"\C-_"` or `C-_` | `"\e[27;5;189~"`
+  <kbd>Ctrl</kbd>-<kbd>Shift</kbd>-<kbd>-</kbd> | `"\e[27;6;189~"` | `"\C-_"` or `C-_`
+  <kbd>Ctrl</kbd>-<kbd>Alt</kbd>-<kbd>-</kbd> | `"\e\C-_"` or `"\M-\C-_"` or `M-C-_` or etc | `"\e[27;7;189~"`
+  <kbd>Ctrl</kbd>-<kbd>Alt</kbd>-<kbd>Shift</kbd>-<kbd>-</kbd> | `"\e[27;8;189~"` | `"\e\C-_"` or `"\M-\C-_"` or `M-C-_` or etc
+- Completions for all `clink set` settings include the current value in the description field (e.g. type `clink set `<kbd>Alt</kbd>-<kbd>=</kbd> to see Clink settings and their current values).
+- Fixed to differentiate between `undo` and `vi-undo` commands again (they do the same thing, but are technically different commands).
+- Fixed `execute-named-command` to also accept <kbd>Ctrl</kbd>-<kbd>-</kbd> for `undo` (the emacs binding for undo).
+- Fixed redisplaying multi-line prompts after using completion during `execute-named-command`.
+- Fixed accidentally loading the history file twice on each prompt; now it loads once, as intended.
+- Fixed another double-free and potential crash in the Readline library; after navigating through history entries and then editing a history entry, pressing <kbd>Ctrl</kbd>-<kbd>c</kbd> or <kbd>Ctrl</kbd>-<kbd>Break</kbd> could cause a crash or memory corruption (regression exposed by changes in Readline 8.2).
+- Applied fixes for 6 Lua bugs, curated by [@goodusername123](https://github.com/goodusername123) (thank you!) from [Lua.org](https://lua.org/bugs.html):
+  - "Dead keys with nil values can stay in weak tables."
+  - "Expression list with four or more expressions in a 'for' loop can crash the interpreter."
+  - "Label between local definitions can mix-up their initializations."
+  - "Return hook may not see correct values for active local variables when function returns."
+  - "Suspended __le metamethod can give wrong result."
+  - "Wrong code generated for a 'goto' followed by a label inside an 'if'."
+- Fixed the Lua debugger so 5-digit line numbers don't break indentation when showing source code lines.
+
+#### v1.6.2
+
+- Added optional argument `argmatcher:chaincommand(aliases)` to let the argmatcher know that the chained command will have doskey aliases expanded.
+- Fixed match display potentially missing some matches (regression introduced in v1.6.1).  In particular, git command completions were affected.
+- Fixed command line input parsing so that the first word (the command word) `foo/` is interpreted as two words `foo` and `/` just like CMD does.
+- Fixed [#549](https://github.com/chrisant996/clink/issues/549); `cd -` intercept interferes with `cd` doskey alias.
+- Fixed [#546](https://github.com/chrisant996/clink/issues/546); in Windows 10 when "Wrap text output on resize" is unchecked or the Window Width is different from the Screen Buffer Width, then the display becomes garbled.  The root cause is a limitation in how Windows 10 implements support for ANSI escape codes, but Clink now has workaround code that tries to compensate for the problems as much as possible (the terminal display will be a bit jittery, though; there's nothing that can be done about that).
+- Fixed updating the display after using `clink-popup-show-help` to invoke a command that changes only the cursor position.
+- Fixed a case where a custom strategy for auto-suggestions could accidentally skip inserting part of the suggestion.
+- Fixed a race condition where `clink-diagnostics` could encounter an error while printing information about coroutines.
+
+**Important pre-release changes in Readline:**
+Readline 8.2 introduced a crash in the `undo` command after navigating through history and making edits in history entries.  The following pre-release updates in Readline fix the crash and several related issues.  They also fix many other edge-case stability issues, and add a couple of new features.
+- Fixed crashes due to memory corruption in the undo information for editing operations.
+- Fixed many issues found by Address Sanitizer (ASAN); these are edge cases where crashes or memory corruption or malfunctions or memory leaks occurred.
+- Added new `execute-named-command` bindable command which reads a command name from the input and executes it (default is <kbd>Alt</kbd>-<kbd>x</kbd>).
+- Allow `quoted-insert` into search strings.
+- Repeated invocations of `vi-yank-pop` now cycle through the kill ring.
+- Fixed when `do-lowercase-version` is bound to something that's not an uppercase letter.
+- Fixed getting the value of the `active-region-start-color` config variable.
+
+#### v1.6.1
+
+**Features:**
+- Improved input line parsing and coloring:
+  - Commands starting with `@` are supported, and completion correctly ignores the `@`.
+  - Each of the following CMD syntax errors are recognized:  lines starting with `&` or `@2>`, and lines containing `& &` or `2>&file`.
+  - The whole redirections `2>file` or `>file` or `2>&1` are colored instead of only the `>` or `>&`.
+- Completions for `clink set` color settings include a color sample in the description field (e.g. type `clink set color`<kbd>Alt</kbd>-<kbd>=</kbd> to see the color settings and their current color samples).
+- The `clink-reload` bindable command now reverts key bindings and config variables before reloading the inputrc file, so that old bindings and values don't linger in the current session if they've been removed from the inputrc file.
+- Added `clink-dump-functions` and `clink-dump-macros` bindable commands.  These behave similar to `dump-functions` and `dump-macros`, but they show user-friendly key names and `luafunc:` macros are listed as functions instead of as macros.
+- Added some new "bigword" cursor movement commands for moving to the next or previous space delimited word; `clink-backward-bigword`, `clink-forward-bigword`, `cua-backward-bigword`, `cua-forward-bigword`.
+- Added a new conditional directive `$if clink_version` in the inputrc file (e.g. `$if clink_version >= 1.6.1`).
+- Added a new `prompt.spacing` setting which can control blank lines before the prompt (it was a clink-flex-prompt feature which has now been incorporated into Clink itself).
+- Added a new `match.coloring_rules` setting and `%CLINK_MATCH_COLORS%` environment variable, both of which supersede Readline's `%LS_COLORS%` definitions when displaying match completions.
+- Internal changes.
+
+**Lua:**
+- Added `line_state:getrangeoffset()` and `line_state:getrangelength()` to get the beginning offset and length of the range in the input line described by the line_state.
+- Added `console.explodeansi()` to split a string into substrings on ANSI escape code boundaries.
+- Added `rl.getinputrcfilename()` to get the loaded inputrc file name.
+- Added `rl.translatekey()` to translate between key sequence formats (input key, key binding, and friendly key name).
+- Added `rl.bracketpromptcodes()` to apply `\1` and `\2` codes as needed by Readline in certain inputrc config variables.
+- Document the `CLINK_EXE` global variable which has existed since v1.0.0 but was accidentally undocumented.
+
+**Fixes:**
+- Removed superfluous `;39` and/or `;49` from color setting escape codes in some cases.
+- Fixed `console.readinput()` repeatedly returning nil after `console.checkinput()` returns true (regression introduced in v1.5.12).
+- Fixed loading the `default_inputrc` file if it exists (introduced in v1.3.5, and it never worked properly until now).
+- Fixed the `history-size` config variable to be completely ignored (it interfered with Clink's history database and settings, which were meant to supersede it).
+- Fixed the `clink-popup-show-help` command when including unbound commands (numeric argument of 4) so it doesn't double-list the bound `luafunc:` macros.
+- Fixed updating column text in `clink.popuplist()` when <kbd>Del</kbd> is pressed (e.g. history timestamps in the `clink-popup-history` command).
+- Fixed the width of `clink.popuplist()` to take the title into account.
+- Fixed Lua argument errors for some objects (the argument # in the error message was one lower than it should have been in some messages).
+- Fixed the return value from `rl_buffer:setcursor()`.
+- Fixed `console:getnumlines()` between onendedit and onbeginedit.
+- Fixed erasing the "History expansion for" preview when the transient prompt is enabled.
+- Fixed the transient prompt sometimes not erasing properly (regression introduced in v1.5.17).
+- Fixed the color of flags for `clink set` (e.g. `--help`).
+- Fixed the `clink-reload` command so any inputrc file parse errors are printed on new lines.
+- Fixed the `lua.break_on_error` setting so it works properly in released builds of Clink.
+
+#### v1.6.0
+- Updated the Readline library to v8.2 patch 7 (the list here omits changes that were contributed to Readline from Clink, or which do not affect Clink).
+  - New features:
+    - History expansion better understands multiple history expansions that may contain strings that would ordinarily inhibit history expansion (e.g., `abc!$!$`).
+    - There is a new `fetch-history` bindable command that retrieves the history entry corresponding to its numeric argument. Negative arguments count back from the end of the history.
+    - There is a new option: `enable-active-region`. This separates control of the active region and bracketed-paste. It has the same default value as `enable-bracketed-paste`, and enabling bracketed paste enables the active region. Users can now turn off the active region while leaving bracketed paste enabled. (Note that bracketed paste is currently ignored in Clink.)
+    - Readline looks in `%LS_COLORS%` for a custom filename extension (`*.readline-colored-completion-prefix`) and uses that as the default color for the common prefix displayed when `colored-completion-prefix` is set, superseding the `so` type if both are present.
+    - Two new bindable string variables: `active-region-start-color` and `active-region-end-color`. The first sets the color used to display the active region; the second is unused and unnecessary in Clink, but exists anyway for compatibility. If set, these are used in place of terminal standout mode.
+  - Fixes:
+    - Fixed a problem with cleaning up active marks.
+    - Fixed a problem with arithmetic comparison operators checking the version in the inputrc file.
+    - Fixed a bug that could cause readline to crash if the application removed the callback line handler before readline read all typeahead.
+    - Added additional checks for read errors in the middle of readline commands.
+    - Fixed a problem with `unix-filename-rubout` that caused it to delete too much when applied to a pathname consisting only of one or more slashes.
+    - Fixed a couple problems where `transpose-words` could corrupt the end of the input line.
+    - Fixed an issue that caused a history line's undo list to be cleared when it should not have been.
+    - Fixed leaked memory from undo lists.
+    - When replacing a history entry, make sure the existing entry has a non-NULL timestamp before copying it; it may have been added by the application, not the history library.
+- The `blink-matching-paren` setting works in Clink now.
+- Completion works for UNC share names now (share names like `\\server\share`, not server names like `\\server`).
+- Improved undo grouping for consecutive inserted text.
+- Added `os.enumshares()` to enumerate the SMB UNC shares on a given server.
+- Fixed Lua error messages from custom Lua libraries that report errors using table objects instead of strings.
+- Fixed issue with the `autosuggest.hint` setting where it could apply incorrect input line coloring when the <kbd>Right</kbd> key isn't bound to one of the usual commands for that key.
+- Internal changes and optimizations.
+
+#### v1.5.18
+- Fixed [#524](https://github.com/chrisant996/clink/issues/524) and [#523](https://github.com/chrisant996/clink/issues/523); garbled display in wide terminal windows (regression introduced in v1.5.14, which exacerbated and revealed a bug that's existed since Clink v1.0.0 alpha and which could intermittently garble Unicode text or escape sequences).
+- Fixed the transient prompt sometimes not displaying properly (regression introduced in v1.5.17).
+
+#### v1.5.17
+- Reduced flicker when async prompt filtering redraws the prompt.
+- When `_argmatcher:addarg()` or `_argmatcher:addflags()` is passed a table containing <code>nowordbreakchars="<span class="arg">chars</span>"</code> then the <span class="arg">chars</span> are not treated as word breaks for that argument index or for flags (see [Overcoming Word Breaks](#addarg_nowordbreakchars) for more information).
+- Added a `user_data` argument to the custom classifier function for an argmatcher (set via `_argmatcher:setclassifier()`).
+- Improved input line coloring for `clink set` so that `color.unexpected` is only used for a completed word that isn't a match.
+- Fixed reading lines from stdin in Lua scripts (e.g. `io.stdin:read()`).
+- Fixed accidentally showing matches in a single column sometimes even when there are no descriptions.
+- Fixed an incomplete `clink inject` if an explicit or implicit `endlocal` happens after `clink inject` but before the prompt is shown (the injection didn't finish successfully until the next time an environment variable was set, but now it finishes immediately).
+
+#### v1.5.16
+- Fixed [#522](https://github.com/chrisant996/clink/issues/522); garbled display in JetBrains WebStorm terminal (regression introduced in v1.5.15).
+  - Fixing this required reverting the change that automatically chose a default for `color.suggestion` based on the current console colors.
+- Fixed `:chaincommand()` so that generators and classifiers that come after argmatchers in the priority order receive the same `line_state` objects as ones that come before argmatchers in the priority order.
+- Fixed `:setdelayinit()` with linked argmatchers; the callback function was only called for registered argmatchers (e.g. `clink.argmatcher("foo"):setdelayinit(func)`) and it wasn't called for linked argmatchers (e.g. `"-x" .. clink.argmatcher():setdelayinit(func)`).
+- Fixed the word parser to recognize a single digit as a word when followed by punctuation.
+- Fixed `loopchars` for characters like `-` or `*` that are also Lua pattern characters.
+
+#### v1.5.15
+- Added localized descriptions for flag completions in `cmd`, `cd`, and `rd`.
+- Added partial ability to detect light/dark console color themes:
+  - Added `console.getcolortable()` which returns a table with the console's current 16 predefined colors.  When possible, the table includes a field indicating whether the current console color theme is a light or dark theme.
+  - At this time, the colors can be accurately retrieved only when using the legacy conhost terminal.  When using Windows Terminal, ConEmu, or other ConPty-based terminals there is currently no way to accurately retrieve the colors.  Once the [Terminal#10639](https://github.com/microsoft/terminal/issues/10639) issue is fixed then Clink will also detect the background color in these terminal programs.
+  - Changed the default for `color.suggestion` so that it attempts to detect light themes (bright background colors) when possible, and it attempts to automatically choose a default color for suggestions that is faint but has sufficient contrast to be readable.
+- Fixed the `onlink` callback function in `:addflags()` so that the `arg_index` parameter is correctly `0` instead of `1`.
+- Fixed the upper bound line number for Lua console line API functions.
+- Fixed `console.getlinetext()` when emojis are present.
+
+#### v1.5.14
+- Added a visible usage hint for [Auto-Suggestions](#gettingstarted_autosuggest) to help make the feature more discoverable and usable.  The usage hint can be hidden by turning off the `autosuggest.hint` setting.
+- Added new callback functions that can be assigned to an argument position in the table given to `:addarg()` via `onadvance=` and `onlink=` (see [Responding to Arguments in Argmatchers](#responsive-argmatchers) for more information).
+- Fixed displaying match descriptions containing embedded color codes.
+- Fixed finding argmatchers for doskey alias names containing quotes.
+- Fixed parsing the input line when a doskey alias references a command with an argmatcher that uses the `:chaincommand()` function (e.g. an alias `foo=sudo dir $*` with an argmatcher like `clink.argmatcher("sudo"):chaincommand()` so that completions and input line coloring work properly for the rest of the input line).
+- Fixed the `exec.commands` setting with an argmatcher that uses the `:chaincommand()` function.
+- Fixed `_argmatcher:setclassifier()` so the custom classifier is called for flags as well as for arguments.
+
+#### v1.5.13
+- Added `clink.onhistory()` to register a function to be called when the input line has been accepted and is about to be added to history (and optionally cancel adding it).
+- Fixed `history delete` with a negative number so it indexes backwards from the end, as advertised.
+- Fixed calling `clink.refilterprompt()` from a coroutine, and related fixes to ensure various Lua functions coexist properly with coroutines.
+- Fixed [#520](https://github.com/chrisant996/clink/issues/520); add a link to the Releases page in the updater dialog box.
+
+#### v1.5.12
+- Fixed updating the input line display after using `clink-popup-history` or `win-popup-history` (regression introduced in v1.5.3; the fix in v1.5.4 was incomplete).
+- Fixed `console.checkinput()` so it doesn't eat whatever pending input it detects.
+- Fixed the updater to be more specific about what PowerShell cmdlet it invokes, in case a module replaces the built-in `Expand-Archive` cmdlet.
+
+#### v1.5.11
+- Fixed prompt filters and other Lua coroutines when `color.executable` and `color.unrecognized` are both empty (regression introduced in v1.5.10).
+
+#### v1.5.10
+- Changed `clink update` to consider "up-to-date" as a successful case.
+- Fixed a case where the `completion` auto-suggest strategy could be temporarily prevented from providing a suggestion (regression introduced in v1.4.22).
+- Fixed leaked memory when showing history expansion previews.
+- Fixed [#511](https://github.com/chrisant996/clink/issues/511); `!` doesn't need to be treated as a word break character.
+- Internal changes.
+
+#### v1.5.9
+- Added default key binding <kbd>Alt</kbd>-<kbd>Ctrl</kbd>-<kbd>Up</kbd> for `clink-popup-history`.
+- Fixed the `match.max_rows` setting to control the number of rows of items (instead of the total number of rows including description rows).
+- Fixed [#509](https://github.com/chrisant996/clink/issues/509); crash when using `clink-popup-history` if `history.time_stamp` is `off` (regression introduced in v1.5.7).
+
+#### v1.5.8
+- Fixed [#504](https://github.com/chrisant996/clink/issues/504); the `clink.autoupdate` setting behaves like `auto` even when it's set to `check` (regression introduced in v1.5.5).
+- Fixed [#503](https://github.com/chrisant996/clink/issues/503); the updater could hang if any additional CMD instances were started while the "Clink Update" prompt window was open (regression introduced in v1.5.5).
+
+#### v1.5.7
+- Added vertical scrollbars in `clink-select-complete` and in popup lists.
+- Added `terminal.scrollbars` setting which can disable the vertical scrollbars (e.g. according to preference, or if a terminal or font is incompatible with extended Unicode box drawing characters).
+- Added `clink set --info` flag.
+- Added language-related diagnostic info in `clink info`.
+- Added minor optimization when displaying prompt text.
+- Added enhancements in the pager used when displaying help or matches; <kbd>Tab</kbd> or <kbd>Space</kbd> or <kbd>Y</kbd> print the next page, <kbd>D</kbd> prints the next half-page, <kbd>Enter</kbd> prints the next line, <kbd>N</kbd> or <kbd>Q</kbd> stop printing, and <kbd>?</kbd> shows the available keys in the `-- More --` pager prompt (the enhancements were accidentally lost in v1.1.1-alpha).
+- Horizontal scrolling in popup lists works for all columns, if text doesn't fit in the column.
+- Fixed crash in `rl.getmatchcolor(match, type)`; when the optional `type` parameter was passed in, the API could crash.
+- Fixed [#498](https://github.com/chrisant996/clink/issues/498); when `autosuggest.enable` is False, cycling or searching through history and then pressing <kbd>Right</kbd> does nothing (regression introduced in v1.5.4).
+- Internal improvements.
+
+#### v1.5.6
+- Added `os.getpushddepth()`, which works when `%PROMPT%` contains exactly one `$+`.
+- The `clink-popup-history` and `win-history-list` commands show timestamps when `history.time_stamp` is set to `show`.
+- Fixed `os.geterrorlevel()` when `cmd /u` was used.
+- Fixed word break parsing in the input line when certain Unicode characters are present.
+- Fixed Unicode string conversions to disallow translating to "similar" characters (which could be problematic in filenames).
+- Fixed a crash in `rl.getkeybindings()` if it's called by a Lua script running inside `clink set`.
+- Fixed Lua debugger input if a script error occurs inside `clink set`.
+- Fixed a width quirk in `clink-select-complete` where typing to narrow the list to a single item accidentally made the column width at least 3 characters, even if the item was only 1 or 2 characters width.
+- Fixed `clink history` to handle escape codes embedded in the `history.time_format` setting.
+- Fixed a potential crash after using `remove-history` at the beginning of the history list.
+- Fixed [#494](https://github.com/chrisant996/clink/issues/494); Lua error when using `unicode.fromcodepage()` (reported and fixed before the bug was published).
+- Fixed [#493](https://github.com/chrisant996/clink/issues/493); `clink-select-complete` displays the selected item incorrectly if both `colored-stats` and `colored-completion-prefix` are `off` (regression introduced in v1.5.5).
+
+#### v1.5.5
+- Changed the `clink.autoupdate` setting to allow `off`, `check` (the default), `prompt`, and `auto` for more control over how and when updating happens.  When set to `prompt` or `auto` Clink can trigger updates automatically, so you don't need to even run `clink update`.
+- Enhanced `debug.log_terminal` to include low level console keyboard and mouse input events.
+- Fixed `debug.log_terminal` to capture all input (regression introduced in v1.5.2).
+- Fixed slowness during `clink-select-complete` while typing, caused by excessive match generation.
+- Fixed selection highlight in `clink-select-complete` when the whole match text has been typed.
+- Fixed [#486](https://github.com/chrisant996/clink/issues/486); window title escape code doesn't work properly if it contains emojis or UTF8 content.
+- Internal changes.
+
+#### v1.5.4
+- Further contrast improvements for default colors to be readable in both Dark and Light terminal themes.
+- Added `arginfo` field in `builder:addmatches()` and in match display filtering.
+- Auto-suggestions are no longer shown while searching history; it was too distracting and confusing.
+- Fixed updating the input line display after using `clink-popup-history` or `win-popup-history` (regression introduced in v1.5.3).
+- Fixed `old-menu-complete` and `menu-complete` when there's only one match.  The first time it should insert the match, and subsequent times should ding instead of cycling through the same match over and over and requiring an equal number of `undo` to undo.
+- Fixed match display filtering to support the `match.substring` setting.
+- Fixed match display filtering to support the `files.system` setting.
+- Fixed the cursor position if match display filtering happens the first time `clink-select-complete` is used in a session.
+- Fixed a case where two `undo` were required to fully undo what `menu-complete` inserted.
+- Fixed <kbd>Esc</kbd> during incremental history search mode so it cancels the search.
+- Fixed input line coloring after `non-incremental-reverse-search-history` or `non-incremental-forward-search-history` finds an exact match for the search text (since v1.1.5).
+- Internal changes and optimizations.
+
+#### v1.5.3
+- Added `builder:setfullyqualified()` to force completions to be inserted as fully qualified path names.
+- Completions for <code>clink set <span class="arg">setting_name</span> <span class="arg">input</span></code> use fully qualified path names for <span class="arg">input</span>.  This helps avoid accidentally setting relative paths in global settings; since the current directory changes frequently, setting relative paths usually leads to unintended consequences.
+- Only load a script from a `completions\` directory if the associated command exists in the file system.  Also, pass the fully qualified file name as input to the script (in Lua, use `...` to get script arguments, e.g. `local command = ...`).
+- `clink info` now reports whether Clink is injected.
+- Improve efficiency of updating the input line display.  This eliminates some redundant processing in the Readline library and in Clink.
+- Fixed input line parsing and coloring when the `doskey.enhanced` setting is off or when doskey macro expansion is suppressed.
+- Fixed `line_state:getwordinfo()` to accurately set the `.alias` field when the `doskey.enhanced` setting is off or when doskey macro expansion is suppressed.
+- Fixed coloring the command word in the command line when queued keys select and accept a command line from history instantly (it could accidentally continue without applying the appropriate coloring).
+- Fixed script error in `clink.filematches(nil)` and `clink.dirmatches(nil)`; they were meant to behave the same as passing an empty string.
+
+#### v1.5.2
+- Adjusted the colors in "Use enhanced defaults" to have sufficient contrast to be readable in both Dark and Light terminal themes.
+- More reliably detect whether hosted in Windows Terminal, and even when Windows Terminal is set as the default terminal application.
+- Fixed crash in `clink.popuplist()` when the `current` argument is past the end of the list of items.
+- Fixed cursor location when the input line contains embedded CTRL characters.
+- Fixed [#474](https://github.com/chrisant996/clink/issues/474); pasting is slow in Windows Terminal and ConEmu.
+- Fixed [#470](https://github.com/chrisant996/clink/issues/470); typo in help text.
+
+#### v1.5.1
+- Added `rl.getcommandbindings()` to get info about a command, including the key(s) bound to it, if any.
+- Changed to also allow `clink.popuplist()` inside a function registered by `clink.onfiltermatches()`.
+- Changed console input mode handling to more aggressively clear `ENABLE_VIRTUAL_TERMINAL_INPUT` since it interferes with input (especially <kbd>Ctrl</kbd> key combinations) and some console programs set it but accidentally neglect to clear it when they're finished.
+
+#### v1.5.0
+- Added code-signing.
+- Added note after successful `clink update` to clarify that the update will take effect in new Clink windows.
+- Fixed order of running the autostart script (from the `clink.autostart` setting) vs loading Lua; the autostart script should run before Lua so that Lua scripts can query environment variables set by it.  Otherwise Lua scripts may behave differently on initial load versus after invoking the `clink-reload` command (e.g. <kbd>Ctrl</kbd>-<kbd>X</kbd>,<kbd>Ctrl</kbd>-<kbd>R</kbd>).
+- Fixed precedence of match colors; readonly should be lower precedence than executable.
+- Fixed [#469](https://github.com/chrisant996/clink/issues/469); incorrect usage of `memset()`.
 
