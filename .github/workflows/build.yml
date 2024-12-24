@@ -359,7 +359,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         KEYGEN_TOKEN: ${{ secrets.KEYGEN_TOKEN }}
         SM_API_KEY: ${{ secrets.SM_API_KEY }}
-        SM_HOST: https://one.nl.digicert.com
+        SM_HOST: ${{ secrets.SM_HOST }}
         SM_CLIENT_CERT_FILE: Certificate_pkcs12.p12
         SM_CLIENT_CERT_PASSWORD: ${{ secrets.SM_CLIENT_CERT_PASSWORD }}
         SM_KEYPAIR_ALIAS: ${{ secrets.SM_KEYPAIR_ALIAS }}
