@@ -35,11 +35,14 @@ builder({
                 console.log('Signing', configuration)
                 if (configuration.path) {
                     try {
-                        execSync(
+                        const out = execSync(
                             `smctl sign --keypair-alias=${keypair} --input "${String(configuration.path)}"`, {
                                 stdio: 'inherit'
                             }
                         )
+                        if (out.toString().includes('FAILED')) {
+                            throw new Error(out.toString())
+                        }
                     } catch (e) {
                         console.error(`Failed to sign ${configuration.path}`)
                         console.error(e)
