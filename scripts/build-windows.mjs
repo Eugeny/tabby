@@ -31,11 +31,17 @@ builder({
             forceCodeSigning: !!keypair,
             sign: keypair ? async function (configuration) {
                 if (configuration.path) {
-                    execSync(
-                        `smctl sign --keypair-alias=${keypair} --input "${String(configuration.path)}"`, {
-                            stdio: 'inherit'
-                        }
-                    )
+                    try {
+                        execSync(
+                            `smctl sign --keypair-alias=${keypair} --input "${String(configuration.path)}"`, {
+                                stdio: 'inherit'
+                            }
+                        )
+                    } catch (e) {
+                        console.error(`Failed to sign ${configuration.path}`)
+                        console.error(e)
+                        process.exit(1)
+                    }
                 }
             } : undefined,
         },
