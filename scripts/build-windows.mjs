@@ -9,6 +9,8 @@ const keypair = process.env.SM_KEYPAIR_ALIAS
 
 process.env.ARCH = process.env.ARCH || process.arch
 
+console.log('Signing enabled:', !!keypair)
+
 builder({
     dir: true,
     win: ['nsis', 'zip'],
@@ -24,12 +26,13 @@ builder({
                 channel: `latest-${process.env.ARCH}`,
             },
         ] : undefined,
+        forceCodeSigning: !!keypair,
         win: {
             certificateSha1: process.env.SM_CODE_SIGNING_CERT_SHA1_HASH,
             publisherName: process.env.SM_PUBLISHER_NAME,
             signingHashAlgorithms: ['sha256'],
-            forceCodeSigning: !!keypair,
             sign: keypair ? async function (configuration) {
+                console.log('Signing', configuration)
                 if (configuration.path) {
                     try {
                         execSync(
