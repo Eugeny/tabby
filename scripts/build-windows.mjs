@@ -52,7 +52,7 @@ builder({
         },
     },
 
-    publish: process.env.KEYGEN_TOKEN ? isTag ? 'always' : 'onTagOrDraft' : 'never',
+    publish: (process.env.KEYGEN_TOKEN && isTag) ? 'always' : 'never',
 }).catch(e => {
     console.error(e)
     process.exit(1)
