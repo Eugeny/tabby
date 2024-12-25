@@ -32,7 +32,8 @@ extraResources:
 - extras
 asarUnpack:
 - 'dist/*.map'
-
+- node_modules/keytar/build/Release/*.node
+- node_modules/**/*.node
 win:
   icon: "./build/windows/icon.ico"
   artifactName: tabby-${version}-portable-${env.ARCH}.${ext}
