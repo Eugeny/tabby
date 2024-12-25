@@ -41,7 +41,7 @@ builder({
                         if (out.toString().includes('FAILED')) {
                             throw new Error(out.toString())
                         }
-                        console.log(out)
+                        console.log(out.toString())
                     } catch (e) {
                         console.error(`Failed to sign ${configuration.path}`)
                         console.error(e)
