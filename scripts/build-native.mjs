@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { rebuild } from 'electron-rebuild'
+import { rebuild } from '@electron/rebuild'
 import * as path from 'path'
 import * as vars from './vars.mjs'
 

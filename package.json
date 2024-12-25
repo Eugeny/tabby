@@ -43,7 +43,7 @@
     "electron-builder": "^24.6.4",
     "electron-download": "^4.1.1",
     "electron-installer-snap": "^5.1.0",
-    "electron-rebuild": "^3.2.9",
+    "@electron/rebuild": "^3.7.1",
     "eslint": "^8.48.0",
     "eslint-import-resolver-typescript": "^3.6.0",
     "eslint-plugin-import": "^2.28.1",
