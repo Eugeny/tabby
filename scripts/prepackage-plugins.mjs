@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { rebuild } from 'electron-rebuild'
+import { rebuild } from '@electron/rebuild'
 import sh from 'shelljs'
 import path from 'node:path'
 import fs from 'node:fs'
