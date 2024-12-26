@@ -78,15 +78,15 @@
     "@serialport/bindings-interface" "^1.2.1"
     debug "^4.3.3"
 
-"@serialport/bindings-cpp@11.0.3":
-  version "11.0.3"
-  resolved "https://registry.yarnpkg.com/@serialport/bindings-cpp/-/bindings-cpp-11.0.3.tgz#ab4d4826ef657e326b6c99d6b8a113d834378a93"
-  integrity sha512-xgNDJ7pHHZCJMoDsEH+D8q5CV+V3RGN4/jLEG9SQ7q6kh+o03axV0l/upPHZ0HW4tTXpGgqPIGbXOTrD4RGQQA==
+"@serialport/bindings-cpp@12.0.1":
+  version "12.0.1"
+  resolved "https://registry.yarnpkg.com/@serialport/bindings-cpp/-/bindings-cpp-12.0.1.tgz#b7588a8b3e124e7679622ce980a7d8528e9f36a3"
+  integrity sha512-r2XOwY2dDvbW7dKqSPIk2gzsr6M6Qpe9+/Ngs94fNaNlcTRCV02PfaoDmRgcubpNVVcLATlxSxPTIDw12dbKOg==
   dependencies:
     "@serialport/bindings-interface" "1.2.2"
     "@serialport/parser-readline" "11.0.0"
     debug "4.3.4"
-    node-addon-api "6.1.0"
+    node-addon-api "7.0.0"
     node-gyp-build "4.6.0"
 
 "@serialport/bindings-interface@1.2.2":
@@ -99,35 +99,35 @@
   resolved "https://registry.yarnpkg.com/@serialport/bindings-interface/-/bindings-interface-1.2.1.tgz#1ee80b0951ef4e4fd8a5a186621feff046aa2faf"
   integrity sha512-63Dyqz2gtryRDDckFusOYqLYhR3Hq/M4sEdbF9i/VsvDb6T+tNVgoAKUZ+FMrXXKnCSu+hYbk+MTc0XQANszxw==
 
-"@serialport/parser-byte-length@11.0.1":
-  version "11.0.1"
-  resolved "https://registry.yarnpkg.com/@serialport/parser-byte-length/-/parser-byte-length-11.0.1.tgz#26e4f3b2d66aaac0859b18a57c648d0eec78392a"
-  integrity sha512-UsffR5b3NHwhjJzsWv5fZMkoq3wGNyUcRTA9jlu02w+2kMlBRJPzlPVB5szVX0VWUEqkCg+3VaU2XWuYr+uAUA==
+"@serialport/parser-byte-length@12.0.0":
+  version "12.0.0"
+  resolved "https://registry.yarnpkg.com/@serialport/parser-byte-length/-/parser-byte-length-12.0.0.tgz#18b1db5d1b3b9d8e1153eb2ab3975ac5445b844a"
+  integrity sha512-0ei0txFAj+s6FTiCJFBJ1T2hpKkX8Md0Pu6dqMrYoirjPskDLJRgZGLqoy3/lnU1bkvHpnJO+9oJ3PB9v8rNlg==
 
-"@serialport/parser-cctalk@11.0.1":
-  version "11.0.1"
-  resolved "https://registry.yarnpkg.com/@serialport/parser-cctalk/-/parser-cctalk-11.0.1.tgz#70c5ccc8fc5ebbe5c317005791155d3b2812efa6"
-  integrity sha512-klzVQfRcC1m0SVDV2Dy9hHfwweO2/mUMUyuXK04FRkKHy5/AdETmk9KTVVVVfpDCSysvHoyQPwiDFq8ddwX3cQ==
+"@serialport/parser-cctalk@12.0.0":
+  version "12.0.0"
+  resolved "https://registry.yarnpkg.com/@serialport/parser-cctalk/-/parser-cctalk-12.0.0.tgz#f5c573b1ad2a9eed377aea9d70d264b36ca5dd5d"
+  integrity sha512-0PfLzO9t2X5ufKuBO34DQKLXrCCqS9xz2D0pfuaLNeTkyGUBv426zxoMf3rsMRodDOZNbFblu3Ae84MOQXjnZw==
 
 "@serialport/parser-delimiter@11.0.0":
   version "11.0.0"
   resolved "https://registry.yarnpkg.com/@serialport/parser-delimiter/-/parser-delimiter-11.0.0.tgz#e830c6bb49723d4446131277dc3243b502d09388"
   integrity sha512-aZLJhlRTjSmEwllLG7S4J8s8ctRAS0cbvCpO87smLvl3e4BgzbVgF6Z6zaJd3Aji2uSiYgfedCdNc4L6W+1E2g==
 
-"@serialport/parser-delimiter@11.0.1":
-  version "11.0.1"
-  resolved "https://registry.yarnpkg.com/@serialport/parser-delimiter/-/parser-delimiter-11.0.1.tgz#c0bcc24d8060c6b352cbe6003ebe95671ad32221"
-  integrity sha512-NAsYa3OFt2xEnj/+0BRkQP2qkRNbXBPEq6uFJEdNdzcTSF+BTRXkoIRrWBq3N6koovPqW6lnbxc/iJYe5AX/2Q==
+"@serialport/parser-delimiter@12.0.0":
+  version "12.0.0"
+  resolved "https://registry.yarnpkg.com/@serialport/parser-delimiter/-/parser-delimiter-12.0.0.tgz#43d3687f982829cc9b48ee0b21f2de80d0f19778"
+  integrity sha512-gu26tVt5lQoybhorLTPsH2j2LnX3AOP2x/34+DUSTNaUTzu2fBXw+isVjQJpUBFWu6aeQRZw5bJol5X9Gxjblw==
 
-"@serialport/parser-inter-byte-timeout@11.0.1":
-  version "11.0.1"
-  resolved "https://registry.yarnpkg.com/@serialport/parser-inter-byte-timeout/-/parser-inter-byte-timeout-11.0.1.tgz#ed6d939eeb3bec94579fb3628dc6dcd0c9a3dd21"
-  integrity sha512-PEFV9dSpW+ptH1rLhdB9KgE+rbJ/FvQiZz0mx+4jkv/Po4g3PNsEEMXfMW0aQVSFVsmitvmE0jHlhGjLv8GQEg==
+"@serialport/parser-inter-byte-timeout@12.0.0":
+  version "12.0.0"
+  resolved "https://registry.yarnpkg.com/@serialport/parser-inter-byte-timeout/-/parser-inter-byte-timeout-12.0.0.tgz#1436f36fac92c950d290744e8ce56b2273a61d08"
+  integrity sha512-GnCh8K0NAESfhCuXAt+FfBRz1Cf9CzIgXfp7SdMgXwrtuUnCC/yuRTUFWRvuzhYKoAo1TL0hhUo77SFHUH1T/w==
 
-"@serialport/parser-packet-length@11.0.1":
-  version "11.0.1"
-  resolved "https://registry.yarnpkg.com/@serialport/parser-packet-length/-/parser-packet-length-11.0.1.tgz#9d7982a6eeaf9a5bdfe642ceb287f171ab2965b7"
-  integrity sha512-KwPu8dsAI+eN4fnUS1vVmrOpUtBK4p9L9cHhwn5ZmfcvwvZMHp/J+IEu7xH0g5aM1/8QEoaql26BQP+sZ71NQQ==
+"@serialport/parser-packet-length@12.0.0":
+  version "12.0.0"
+  resolved "https://registry.yarnpkg.com/@serialport/parser-packet-length/-/parser-packet-length-12.0.0.tgz#3b5b8b47b6971c03dbc90ba61c0b8c5ec8bb0798"
+  integrity sha512-p1hiCRqvGHHLCN/8ZiPUY/G0zrxd7gtZs251n+cfNTn+87rwcdUeu9Dps3Aadx30/sOGGFL6brIRGK4l/t7MuQ==
 
 "@serialport/parser-readline@11.0.0":
   version "11.0.0"
@@ -136,37 +136,37 @@
   dependencies:
     "@serialport/parser-delimiter" "11.0.0"
 
-"@serialport/parser-readline@11.0.1":
-  version "11.0.1"
-  resolved "https://registry.yarnpkg.com/@serialport/parser-readline/-/parser-readline-11.0.1.tgz#e85805ae803c2dc507eefa390abec6a67ceef313"
-  integrity sha512-wkJ3EI733+yhbi7eBWzs/qn8+cfIBcYQjfrILPNqslAy6VlgdKw+pHoblDFmg78GN0TqGUDSWlTJ65oLEPVp5Q==
+"@serialport/parser-readline@12.0.0":
+  version "12.0.0"
+  resolved "https://registry.yarnpkg.com/@serialport/parser-readline/-/parser-readline-12.0.0.tgz#50e992004d7a84d5a12e0b016adb9021d3a72fbb"
+  integrity sha512-O7cywCWC8PiOMvo/gglEBfAkLjp/SENEML46BXDykfKP5mTPM46XMaX1L0waWU6DXJpBgjaL7+yX6VriVPbN4w==
   dependencies:
-    "@serialport/parser-delimiter" "11.0.1"
+    "@serialport/parser-delimiter" "12.0.0"
 
-"@serialport/parser-ready@11.0.1":
-  version "11.0.1"
-  resolved "https://registry.yarnpkg.com/@serialport/parser-ready/-/parser-ready-11.0.1.tgz#bba01283a121880641e43c27193e6708fef2907c"
-  integrity sha512-v/bvlgKhrNt+SVLSqlfXCO1HEinfRRMGnzqbpdVCgu2SiWIEenCLjs51JisKVYQoQFcXdP/EHZnzm7NPXHDlAg==
+"@serialport/parser-ready@12.0.0":
+  version "12.0.0"
+  resolved "https://registry.yarnpkg.com/@serialport/parser-ready/-/parser-ready-12.0.0.tgz#193495e10c5a663029bce074d4f84cad173aab82"
+  integrity sha512-ygDwj3O4SDpZlbrRUraoXIoIqb8sM7aMKryGjYTIF0JRnKeB1ys8+wIp0RFMdFbO62YriUDextHB5Um5cKFSWg==
 
-"@serialport/parser-regex@11.0.1":
-  version "11.0.1"
-  resolved "https://registry.yarnpkg.com/@serialport/parser-regex/-/parser-regex-11.0.1.tgz#7833ca6029c8c58eb39dd6fe984756cf09d769b7"
-  integrity sha512-Lf3k7qibYqZ0+/wX3UA8fRng3WtQ+UyLpjQhG1COs6OBSq5/I5tYXczfhlrbA0gHo1qzgzr2V2t7m6FoBSc81Q==
+"@serialport/parser-regex@12.0.0":
+  version "12.0.0"
+  resolved "https://registry.yarnpkg.com/@serialport/parser-regex/-/parser-regex-12.0.0.tgz#ffbb2b113f3a50d7760fcdff5a4dd0f213ab8166"
+  integrity sha512-dCAVh4P/pZrLcPv9NJ2mvPRBg64L5jXuiRxIlyxxdZGH4WubwXVXY/kBTihQmiAMPxbT3yshSX8f2+feqWsxqA==
 
-"@serialport/parser-slip-encoder@11.0.1":
-  version "11.0.1"
-  resolved "https://registry.yarnpkg.com/@serialport/parser-slip-encoder/-/parser-slip-encoder-11.0.1.tgz#4ba0c335627e3d1203279a5f8a4c1af0c829b7fe"
-  integrity sha512-l4mXsAGzpmPO7+uqKJqtPDW643irfnGEWbiy34FoYvuOs8n0SmiMtgQZFAtvlTNQCRWE2tykF/WG6K/McJthDw==
+"@serialport/parser-slip-encoder@12.0.0":
+  version "12.0.0"
+  resolved "https://registry.yarnpkg.com/@serialport/parser-slip-encoder/-/parser-slip-encoder-12.0.0.tgz#362099d4cd170afe8583f1fa607176fd4fc14f1d"
+  integrity sha512-0APxDGR9YvJXTRfY+uRGhzOhTpU5akSH183RUcwzN7QXh8/1jwFsFLCu0grmAUfi+fItCkR+Xr1TcNJLR13VNA==
 
-"@serialport/parser-spacepacket@11.0.1":
-  version "11.0.1"
-  resolved "https://registry.yarnpkg.com/@serialport/parser-spacepacket/-/parser-spacepacket-11.0.1.tgz#9e1c372f45433afb9a5dbec7b5a298c710b0455b"
-  integrity sha512-Lq7fXoOsLOMo4XEt9HB31zV5LhrteXlsOy2o6r39TfRwU6x8Nou9jQMA9vW0a6yPra5zwsHIaNrA6tDOGj2Ozg==
+"@serialport/parser-spacepacket@12.0.0":
+  version "12.0.0"
+  resolved "https://registry.yarnpkg.com/@serialport/parser-spacepacket/-/parser-spacepacket-12.0.0.tgz#347e34b0221f29eb252ebd341a0acfff920ad814"
+  integrity sha512-dozONxhPC/78pntuxpz/NOtVps8qIc/UZzdc/LuPvVsqCoJXiRxOg6ZtCP/W58iibJDKPZPAWPGYeZt9DJxI+Q==
 
-"@serialport/stream@11.0.1":
-  version "11.0.1"
-  resolved "https://registry.yarnpkg.com/@serialport/stream/-/stream-11.0.1.tgz#ed40c66d517cfebf7185cd9c37ba0a08e76f88b2"
-  integrity sha512-6pjyKRg8MQuvhGfg36+PF7K5eGNQcEswCSiAg1UPilqqFS8X1QnaiSCn5UFp/hCN+pAtlFjkOi0ztvtmSI7n4g==
+"@serialport/stream@12.0.0":
+  version "12.0.0"
+  resolved "https://registry.yarnpkg.com/@serialport/stream/-/stream-12.0.0.tgz#047f97f780d92ddfc04303cb625e0f7e5a01a2bf"
+  integrity sha512-9On64rhzuqKdOQyiYLYv2lQOh3TZU/D3+IWCR5gk0alPel2nwpp4YwDEGiUBfrQZEdQ6xww0PWkzqth4wqwX3Q==
   dependencies:
     "@serialport/bindings-interface" "1.2.2"
     debug "4.3.4"
@@ -2653,10 +2653,10 @@ node-addon-api@3.1.0, node-addon-api@^3.0.2, node-addon-api@^3.1.0:
   resolved "https://registry.npmjs.org/node-addon-api/-/node-addon-api-3.1.0.tgz"
   integrity sha512-flmrDNB06LIl5lywUz7YlNGZH/5p0M7W28k8hzd9Lshtdh1wshD2Y+U4h9LD6KObOy1f+fEVdgprPrEymjM5uw==
 
-node-addon-api@6.1.0:
-  version "6.1.0"
-  resolved "https://registry.yarnpkg.com/node-addon-api/-/node-addon-api-6.1.0.tgz#ac8470034e58e67d0c6f1204a18ae6995d9c0d76"
-  integrity sha512-+eawOlIgy680F0kBzPUNFhMZGtJ1YmqM6l4+Crf4IkImjYrO/mqPwRMh352g23uIaQKFItcQ64I7KMaJxHgAVA==
+node-addon-api@7.0.0:
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/node-addon-api/-/node-addon-api-7.0.0.tgz#8136add2f510997b3b94814f4af1cce0b0e3962e"
+  integrity sha512-vgbBJTS4m5/KkE16t5Ly0WW9hz46swAstv0hYYwMtbG7AznRhNyfLRe8HZAiWIpcHzoO7HxhLuBQj9rJ/Ho0ZA==
 
 node-addon-api@^4.0.0, node-addon-api@^4.3.0:
   version "4.3.0"
@@ -3704,24 +3704,24 @@ serialport-binding-webserialapi@^1.0.3:
     "@serialport/binding-abstract" "^9.0.2"
     "@serialport/stream" "^9.0.2"
 
-serialport@11.0.1:
-  version "11.0.1"
-  resolved "https://registry.yarnpkg.com/serialport/-/serialport-11.0.1.tgz#9c7aad877d38124a938a50f89eaef22c44825eae"
-  integrity sha512-j/ntDuewAkqL6g5wKjwV2RTyLBL9cpob8aRd3yLAViYApTsJoYqRleyuzst0OboNTBjBsoxQ4YKYhuYHi1XViQ==
+serialport@12.0.0:
+  version "12.0.0"
+  resolved "https://registry.yarnpkg.com/serialport/-/serialport-12.0.0.tgz#136f0976042f57a2e99e886221a2109934531602"
+  integrity sha512-AmH3D9hHPFmnF/oq/rvigfiAouAKyK/TjnrkwZRYSFZxNggJxwvbAbfYrLeuvq7ktUdhuHdVdSjj852Z55R+uA==
   dependencies:
     "@serialport/binding-mock" "10.2.2"
-    "@serialport/bindings-cpp" "11.0.3"
-    "@serialport/parser-byte-length" "11.0.1"
-    "@serialport/parser-cctalk" "11.0.1"
-    "@serialport/parser-delimiter" "11.0.1"
-    "@serialport/parser-inter-byte-timeout" "11.0.1"
-    "@serialport/parser-packet-length" "11.0.1"
-    "@serialport/parser-readline" "11.0.1"
-    "@serialport/parser-ready" "11.0.1"
-    "@serialport/parser-regex" "11.0.1"
-    "@serialport/parser-slip-encoder" "11.0.1"
-    "@serialport/parser-spacepacket" "11.0.1"
-    "@serialport/stream" "11.0.1"
+    "@serialport/bindings-cpp" "12.0.1"
+    "@serialport/parser-byte-length" "12.0.0"
+    "@serialport/parser-cctalk" "12.0.0"
+    "@serialport/parser-delimiter" "12.0.0"
+    "@serialport/parser-inter-byte-timeout" "12.0.0"
+    "@serialport/parser-packet-length" "12.0.0"
+    "@serialport/parser-readline" "12.0.0"
+    "@serialport/parser-ready" "12.0.0"
+    "@serialport/parser-regex" "12.0.0"
+    "@serialport/parser-slip-encoder" "12.0.0"
+    "@serialport/parser-spacepacket" "12.0.0"
+    "@serialport/stream" "12.0.0"
     debug "4.3.4"
 
 set-blocking@^2.0.0, set-blocking@~2.0.0:
