@@ -65,6 +65,8 @@
   },
   "resolutions": {
     "*/node-abi": "^3",
-    "node-gyp": "^10.0.0"
+    "node-gyp": "^10.0.0",
+    "nan": "2.22.0",
+    "node-addon-api": "^8.3.0"
   }
 }
