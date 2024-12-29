@@ -106,56 +106,43 @@ async function parseSSHConfigFile (
     try {
         raw = await fs.readFile(filePath, 'utf8')
     } catch (err) {
-        console.error('Error reading SSH config file:', err)
-        // Return an empty parsed config on error
+        console.error(`Error reading SSH config file: ${filePath}`, err)
         return SSHConfig.parse('')
     }
 
-    const config = SSHConfig.parse(raw)
-
-    // Make a shallow copy of `config` first to avoid mutating during iteration
-    for (const entry of [...config]) {
-        // Check if it's an Include directive
+    const parsed = SSHConfig.parse(raw)
+    const merged = SSHConfig.parse('')
+    for (const entry of parsed) {
         if (entry.type === LineType.DIRECTIVE && entry.param.toLowerCase() === 'include') {
             const directive = entry as Directive
-
-            // entry.value can be a string or an array of { val, separator, ... }
-            const includePaths: string[] = Array.isArray(directive.value)
-                ? directive.value.map(v => v.val)
-                : [directive.value]
-
-            for (let incPath of includePaths) {
-                // Expand '~' to HOME
-                if (incPath.startsWith('~')) {
-                    incPath = path.join(process.env.HOME ?? '~', incPath.slice(1))
-                // Otherwise, if it's not absolute, resolve it relative to the current file's directory
-                } else if (!path.isAbsolute(incPath)) {
-                    incPath = path.join(path.dirname(filePath), incPath)
-                }
-
-                // Expand wildcards using glob
-                const matches = glob.sync(incPath)
-                for (const match of matches) {
-                    const includedConfig = await parseSSHConfigFile(match, visited)
-
-                    // Add each parsed line from the includedConfig to the main config
-                    // Note: we use `push(...)` because `SSHConfig` extends `Array<Line>`.
-                    for (const c of includedConfig) {
-                        config.push(c)
-                    }
-                }
+            if (typeof directive.value !== 'string') {
+                continue
             }
 
-            // Remove the original Include directive from `config`
-            // because we already processed it (by pushing its lines).
-            // We can't call `config.remove(entry)` directly, so we'll remove it via splice.
-            const idx = config.indexOf(entry)
-            if (idx !== -1) {
-                config.splice(idx, 1)
+            // ssh_config(5) says "Files without absolute paths are assumed to be in ~/.ssh if included in a user configuration file or /etc/ssh if included from the system configuration file."
+            let incPath = ''
+            if (path.isAbsolute(directive.value)) {
+                incPath = directive.value
+            } else if (directive.value.startsWith('~')) {
+                incPath = path.join(process.env.HOME ?? '~', directive.value.slice(1))
+            } else {
+                incPath = path.join(process.env.HOME ?? '~', '.ssh', directive.value)
             }
+
+            const matches = glob.sync(incPath)
+            for (const match of matches) {
+                const stat = await fs.stat(match)
+                if (stat.isDirectory()) {
+                    continue
+                }
+                const matchedConfig = await parseSSHConfigFile(match, visited)
+                merged.push(...matchedConfig)
+            }
+        } else {
+            merged.push(entry)
         }
     }
-    return config
+    return merged
 }
 
 // Function to take an ssh-config entry and convert it into an SSHProfile
