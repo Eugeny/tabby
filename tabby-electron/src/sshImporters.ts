@@ -272,7 +272,7 @@ function convertToSSHProfiles (config: SSHConfig): PartialProfile<SSHProfile>[] 
                     if (!(host in myMap)) {
                         // NOTE: SSHConfig.compute() lies about the return types
                         const configuration: Record<string, string | string[] | object[]> = config.compute(host)
-                        if (configuration['HostName']) {
+                        if (Object.keys(configuration).map(key => key.toLowerCase()).includes('hostname')) {
                             myMap[host] = convertHostToSSHProfile(host, configuration)
                         }
                     }
