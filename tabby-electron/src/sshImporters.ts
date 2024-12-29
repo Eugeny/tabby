@@ -125,12 +125,11 @@ async function parseSSHConfigFile (
                 : [directive.value]
 
             for (let incPath of includePaths) {
-                // Expand '~' to HOME
+                // ssh_config(5) says "Files without absolute paths are assumed to be in ~/.ssh if included in a user configuration file or /etc/ssh if included from the system configuration file."
                 if (incPath.startsWith('~')) {
                     incPath = path.join(process.env.HOME ?? '~', incPath.slice(1))
-                // Otherwise, if it's not absolute, resolve it relative to the current file's directory
                 } else if (!path.isAbsolute(incPath)) {
-                    incPath = path.join(path.dirname(filePath), incPath)
+                    incPath = path.join(process.env.HOME ?? '~', '.ssh', incPath)
                 }
 
                 // Expand wildcards using glob
