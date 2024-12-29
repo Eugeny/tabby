@@ -9,7 +9,8 @@
   "typings": "typings/index.d.ts",
   "scripts": {
     "build": "webpack --progress --color",
-    "watch": "webpack --progress --color --watch"
+    "watch": "webpack --progress --color --watch",
+    "test": "export HOME=$(pwd) && tsx tests/test-parseSSHConfigFile.ts"
   },
   "files": [
     "dist",
@@ -26,6 +27,7 @@
     "ps-node": "^0.1.6",
     "ssh-config": "^5.0.0",
     "tmp-promise": "^3.0.2",
+    "tsx": "^4.19.2",
     "which": "^3.0.0",
     "winston": "^3.3.3"
   }
