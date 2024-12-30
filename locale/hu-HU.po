@@ -1,0 +1,2574 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Crowdin-Project: tabby\n"
+"X-Crowdin-Project-ID: 493349\n"
+"X-Crowdin-Language: hu-HU\n"
+"X-Crowdin-File: /locale/app.pot\n"
+"X-Crowdin-File-ID: 75\n"
+"Project-Id-Version: tabby\n"
+"Language-Team: Hungarian, Hungary\n"
+"Language: hu_HU\n"
+"PO-Revision-Date: 2024-09-26 08:04\n"
+
+#: tabby-local/src/components/terminalTab.component.ts:113
+msgid "\"{command}\" is still running. Close?"
+msgstr "\"{command}\" még fut. Bezárjam?"
+
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:78
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:88
+msgid "{name} copy"
+msgstr "{name} másolás"
+
+#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:77
+msgid "A second font family used to display characters missing in the main font"
+msgstr "Másodlagos betűkészlet van ahsználatban a hiányzó elsődleges helyett"
+
+#: tabby-core/src/components/transfersMenu.component.ts:49
+msgid "Abort all"
+msgstr "Minden megszakítása"
+
+#: locale/tmp-html/tabby-ssh/src/components/hostKeyPromptModal.component.html:24
+msgid "Accept and remember key"
+msgstr "A kulcs elfogadása és megjegyzése"
+
+#: locale/tmp-html/tabby-ssh/src/components/hostKeyPromptModal.component.html:25
+msgid "Accept just this once"
+msgstr "Csak egyszer legyen elfogadva"
+
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:84
+msgid "Accessibility"
+msgstr "Kisegítő lehetőségek"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:27
+msgid "Acrylic background"
+msgstr "Akril háttér"
+
+#: locale/tmp-html/tabby-local/src/components/commandLineEditor.component.html:24
+#: locale/tmp-html/tabby-local/src/components/environmentEditor.component.html:11
+msgid "Add"
+msgstr "Hozzáadás"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:16
+msgid "Add a port forward"
+msgstr "Port továbbítás hozzáadása"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:115
+msgid "Add a private key"
+msgstr "Privát kulcs hozzáadása"
+
+#: locale/tmp-html/tabby-settings/src/components/multiHotkeyInput.component.html:8
+msgid "Add..."
+msgstr "Hozzáadás..."
+
+#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:84
+msgid "Additional space between lines"
+msgstr "További hely a sorok között"
+
+#: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:22
+#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:61
+#: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:64
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:124
+msgid "Advanced"
+msgstr "Haladó"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:90
+msgid "Agent"
+msgstr "Ügynök"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:134
+msgid "Agent forwarding"
+msgstr "Ügynök továbbítása"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:35
+msgid "Agent pipe path"
+msgstr "Ügynök vezeték útvonala"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:24
+msgid "Agent type"
+msgstr "Ügynök típusa"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:169
+msgid "Allows opening .bat files in tabs, but breaks some shells"
+msgstr "Engedélyezi a .bat fájlok megnyitását a lapokban, de egyes shell-ek összeomolhatnak tőle."
+
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:60
+msgid "Allows quickly opening a terminal in the selected folder"
+msgstr "Engedélyezi a terminál mappákon belüli gyors megnyitását (jobb klikk)"
+
+#: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:25
+#: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:11
+msgid "Always dark"
+msgstr "Mindig sötét"
+
+#: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:27
+#: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:13
+msgid "Always light"
+msgstr "Mindig világos"
+
+#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:2
+#: tabby-terminal/src/settings.ts:14
+msgid "Appearance"
+msgstr "Megjelenés"
+
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:4
+msgid "Application"
+msgstr "Alkalmazás"
+
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:47
+msgid "Application settings"
+msgstr "Alkalmazás beállításai"
+
+#: tabby-web/src/services/hostWindow.service.ts:19
+msgid "Are you sure you want to close Tabby? You can disable this prompt in Settings -> Window."
+msgstr "Biztos be akarja zárni a Tabby-t? Le tudod tiltani ezt az üzenetet a Beállítások -> Ablak menüben."
+
+#: tabby-core/src/services/config.service.ts:440
+msgid "Are you sure?"
+msgstr "Biztos benne?"
+
+#: locale/tmp-html/tabby-local/src/components/commandLineEditor.component.html:18
+msgid "Arguments"
+msgstr "Argumentumok"
+
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:26
+msgid "Ask a question"
+msgstr "Kérdés feltétele"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:20
+msgid "Ask before closing the browser tab"
+msgstr "Kérdezzen rá, mielőtt bezárja a böngésző lapot."
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:141
+msgid "Audible"
+msgstr "Hallható"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:74
+msgid "Authentication method"
+msgstr "Hitelesítési mód"
+
+#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:79
+msgid "Author"
+msgstr "Szerző"
+
+#: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:50
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:78
+msgid "Auto"
+msgstr "Auto"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:153
+msgid "Auto-open a terminal on app start"
+msgstr "Terminál megnyitása az app indításakor"
+
+#: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:13
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:53
+#: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:28
+msgid "Automatic"
+msgstr "Autómata"
+
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:73
+msgid "Automatic Updates"
+msgstr "Automatikus frissítések"
+
+#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:54
+msgid "Automatically upload changes and check for updates every minute"
+msgstr "Változások automatikus feltöltése, és ellenőrzése percenként"
+
+#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:10
+msgid "Available"
+msgstr "Elérhető"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:35
+msgid "Background type"
+msgstr "Háttér típusa"
+
+#: locale/tmp-html/tabby-terminal/src/components/inputProcessingSettings.component.html:4
+msgid "Backspace key mode"
+msgstr "Backspace gomb mód"
+
+#: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:14
+#: tabby-serial/src/components/serialTab.component.ts:93
+#: tabby-serial/src/profiles.ts:88
+msgid "Baud rate"
+msgstr ""Átiveli sebesség
+
+#: tabby-terminal/src/hotkeys.ts:22
+msgid "Beginning of the line"
+msgstr "A sor kezdése"
+
+#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:64
+msgid "Blink cursor"
+msgstr "Kurzor villogtatása"
+
+#: tabby-core/src/utils.ts:60
+msgid "Blue"
+msgstr "Kék"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:39
+msgid "Blur"
+msgstr "Homályos"
+
+#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:28
+msgid "Bold font weight"
+msgstr "Félkövér betűtípus"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:132
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:80
+msgid "Bottom"
+msgstr "Alja"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:109
+msgid "Bracketed paste (requires shell support)"
+msgstr "Zárójeles beilleszés (shell támogatása szükséges"
+
+#: tabby-terminal/src/services/multifocus.service.ts:19
+msgid "Broadcast mode. Click anywhere to cancel."
+msgstr "Közvetítés mód. Kattítnson bárhová a megszakításhoz."
+
+#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:50
+#: tabby-core/src/services/profiles.service.ts:411
+msgid "Built-in"
+msgstr "Beépített"
+
+#: locale/tmp-html/tabby-core/src/components/renameTabModal.component.html:7
+#: locale/tmp-html/tabby-settings/src/components/editProfileGroupModal.component.html:28
+#: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:71
+#: locale/tmp-html/tabby-settings/src/components/hotkeyInputModal.component.html:14
+#: locale/tmp-html/tabby-settings/src/components/setVaultPassphraseModal.component.html:12
+#: locale/tmp-html/tabby-ssh/src/components/sftpCreateDirectoryModal.component.html:10
+#: locale/tmp-html/tabby-ssh/src/components/sftpDeleteModal.component.html:7
+#: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsForMode.component.html:31
+#: tabby-electron/src/services/updater.service.ts:134
+#: tabby-local/src/components/terminalTab.component.ts:118
+#: tabby-settings/src/components/configSyncSettingsTab.component.ts:117
+#: tabby-settings/src/components/configSyncSettingsTab.component.ts:79
+#: tabby-settings/src/components/configSyncSettingsTab.component.ts:99
+#: tabby-ssh/src/sftpContextMenu.ts:40
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:522
+msgid "Cancel"
+msgstr "Mégse"
+
+#: locale/tmp-html/tabby-serial/src/components/serialTab.component.html:4
+msgid "Change baud rate"
+msgstr "Átviteli sebesség megváltoztatása"
+
+#: tabby-core/src/tabContextMenu.ts:133
+msgid "Change tab color"
+msgstr "Lap színének megváltoztatása"
+
+#: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:12
+msgid "Change the master passphrase"
+msgstr "Mester jelmondat megváltoztatása"
+
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:13
+msgid "Check for updates"
+msgstr "Frissítések keresése"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:172
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:176
+msgid "Ciphers"
+msgstr "Csiperek"
+
+#: locale/tmp-html/tabby-terminal/src/components/colorSchemeSelector.component.html:5
+msgid "Clear"
+msgstr "Ürítés"
+
+#: tabby-core/src/services/profiles.service.ts:248
+msgid "Clear recent profiles"
+msgstr "Legutóbbi profilok ürítése"
+
+#: tabby-terminal/src/hotkeys.ts:50
+msgid "Clear terminal"
+msgstr "Terminál ürítése"
+
+#: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:58
+msgid "Clear terminal after connection"
+msgstr "Terminál ürítése kapcsolódás után"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:94
+msgid "Clipboard"
+msgstr "Vágólap"
+
+#: locale/tmp-html/tabby-core/src/components/safeModeModal.component.html:7
+#: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:53
+#: locale/tmp-html/tabby-settings/src/components/showSecretModal.component.html:10
+#: tabby-core/src/tabContextMenu.ts:33
+msgid "Close"
+msgstr "Bezárás"
+
+#: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:45
+msgid "Close and never show again"
+msgstr "Bezárás, és soha ne mutassa újra"
+
+#: tabby-core/src/hotkeys.ts:240
+msgid "Close focused pane"
+msgstr "Fókuszált tábla bezárása"
+
+#: tabby-core/src/tabContextMenu.ts:48
+msgid "Close other tabs"
+msgstr "Többi lap bezárása"
+
+#: tabby-core/src/hotkeys.ts:28
+#: tabby-core/src/tabContextMenu.ts:34
+msgid "Close tab"
+msgstr "Lap bezárása"
+
+#: tabby-core/src/tabContextMenu.ts:64
+msgid "Close tabs to the left"
+msgstr "Lapok balra zárása"
+
+#: tabby-core/src/tabContextMenu.ts:56
+msgid "Close tabs to the right"
+msgstr "Lapok jobbra zárása"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:182
+msgid "Close the window after closing the last tab"
+msgstr "Ablak bezárása, miután az utolsó lap is bezárásra került"
+
+#: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:33
+#: tabby-core/src/tabContextMenu.ts:132
+msgid "Color"
+msgstr "Szín"
+
+#: tabby-terminal/src/settings.ts:29
+msgid "Color scheme"
+msgstr "Színséma"
+
+#: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:2
+msgid "Color schemes"
+msgstr "Színsémák"
+
+#: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:81
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:216
+msgid "Colors"
+msgstr "Színek"
+
+#: tabby-core/src/hotkeys.ts:72
+msgid "Combine all tabs into the current tab"
+msgstr "Az összes lap a jelenlegi lapba kombinálása"
+
+#: locale/tmp-html/tabby-local/src/components/commandLineEditor.component.html:4
+msgid "Command line"
+msgstr "Parancssor"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:13
+msgid "Command's stdin/stdout is used instead of a network connection"
+msgstr "A parancs stdin/stdout-ja van használva a hálózati kapcsolat helyett"
+
+#: tabby-core/src/services/commands.service.ts:105
+msgid "Commands"
+msgstr "Parancsok"
+
+#: tabby-core/src/theme.ts:16
+msgid "Compact (legacy)"
+msgstr "Kompakt (örökség)"
+
+#: tabby-settings/src/components/configSyncSettingsTab.component.ts:126
+msgid "Config deleted"
+msgstr "Konfiguráció törölve"
+
+#: tabby-settings/src/components/configSyncSettingsTab.component.ts:108
+msgid "Config downloaded"
+msgstr "Konfiguráció letöltve"
+
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:115
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:120
+msgid "Config file"
+msgstr "Konfigurációs fájl"
+
+#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:2
+#: tabby-settings/src/settings.ts:73
+msgid "Config sync"
+msgstr "Konfiguráció szinkronizálása"
+
+#: tabby-settings/src/components/configSyncSettingsTab.component.ts:90
+msgid "Config uploaded"
+msgstr "Konfiguráció feltöltve"
+
+#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:31
+msgid "Configs"
+msgstr "Konfigurációk"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:21
+msgid "Connect through a proxy server"
+msgstr "Csatlakozás proxy szerveren kereszül"
+
+#: tabby-core/src/index.ts:220
+#: tabby-core/src/services/profiles.service.ts:296
+msgid "Connect to \"%s\"..."
+msgstr "Csatlakozás \"%s\"-hoz..."
+
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:17
+msgid "Connect to a different host first and use it as a proxy"
+msgstr "Először egy másik gazdához csatlakozás, majd proxy-ként való használata."
+
+#: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:19
+#: tabby-serial/src/components/serialTab.component.ts:60
+#: tabby-ssh/src/components/sshTab.component.ts:130
+#: tabby-telnet/src/components/telnetTab.component.ts:54
+msgid "Connecting"
+msgstr "Csatlakozás"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:7
+msgid "Connection"
+msgstr "Kapcsolat"
+
+#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:26
+msgid "Connection failed: {error}"
+msgstr "Kapcsolat megszűnt: {error}"
+
+#: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:40
+msgid "Connection name will be used instead"
+msgstr "A kapcsolat neve lesz használva"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:61
+msgid "Context menu"
+msgstr "Kontextus menü"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:14
+msgid "Controls the amount of space between elements"
+msgstr "A szóközök számának szabályozása elemek között"
+
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:240
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:248
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:591
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:811
+#: tabby-terminal/src/tabContextMenu.ts:34
+msgid "Copied"
+msgstr "Másolva"
+
+#: tabby-terminal/src/tabContextMenu.ts:30
+msgid "Copy"
+msgstr "Másolás"
+
+#: tabby-terminal/src/hotkeys.ts:70
+#: tabby-terminal/src/tabContextMenu.ts:70
+msgid "Copy current path"
+msgstr "Jelenlegi útvonal másolása"
+
+#: tabby-electron/src/sftpContextMenu.ts:29
+msgid "Copy full path"
+msgstr "Teljes útvonal másolása"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:97
+msgid "Copy on select"
+msgstr "Másolás kiválasztáskor"
+
+#: tabby-terminal/src/hotkeys.ts:10
+msgid "Copy to clipboard"
+msgstr "Másolás vágólapra"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:103
+msgid "Copy with formatting"
+msgstr "Másolás formázással"
+
+#: tabby-core/src/services/config.service.ts:425
+msgid "Could not decrypt config"
+msgstr "A konfigurációt nem lehet visszafejteni"
+
+#: locale/tmp-html/tabby-ssh/src/components/sftpCreateDirectoryModal.component.html:9
+msgid "Create"
+msgstr "Létrehozás"
+
+#: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:7
+#: tabby-ssh/src/sftpContextMenu.ts:29
+msgid "Create directory"
+msgstr "Könyvtár létreozása"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:90
+msgid "Current"
+msgstr "Jelenlegi"
+
+#: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsForMode.component.html:3
+msgid "Current color scheme"
+msgstr "Jelenlegi szín séma"
+
+#: locale/tmp-html/tabby-ssh/src/components/hostKeyPromptModal.component.html:17
+msgid "Current host key fingerprint"
+msgstr "Jelenlegi gazda kulcs ujjlenyomata"
+
+#: tabby-core/src/tabContextMenu.ts:184
+msgid "Current process: {name}"
+msgstr "Jelenlegi folyamat: {name}"
+
+#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:51
+msgid "Cursor shape"
+msgstr "Kurzor formája"
+
+#: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsForMode.component.html:46
+msgid "Custom"
+msgstr "Egyedi"
+
+#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:90
+msgid "Custom CSS"
+msgstr "Egyedi CSS"
+
+#: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:17
+msgid "Dark mode"
+msgstr "Sötét mód"
+
+#: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:26
+msgid "Data bits"
+msgstr "Adat bitek"
+
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:80
+msgid "Debugging"
+msgstr "Hibakeresés"
+
+#: tabby-core/src/hotkeys.ts:256
+msgid "Decrease horizontal split size"
+msgstr "Vízszintes feloszás csökkentése"
+
+#: tabby-core/src/hotkeys.ts:248
+msgid "Decrease vertical split size"
+msgstr "Függőleges feloszás csökkentése"
+
+#: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:92
+msgid "Default \"Connect to\" type"
+msgstr "Alapméretezett \"Connect to\" típus"
+
+#: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:93
+msgid "Default connection type used by quick connect feature (ex. SSH, Telnet)"
+msgstr "Alapméretezett kapcsolat típusa a gyors csatalakozáshoz (pl. SSH, Telnet)"
+
+#: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:8
+msgid "Default profile for new tabs"
+msgstr "Alapméretezett profil új lapokhoz"
+
+#: locale/tmp-html/tabby-settings/src/components/editProfileGroupModal.component.html:16
+msgid "Default profile group settings"
+msgstr "Alapméretezett profil csoportos beállításokhoz"
+
+#: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:101
+msgid "Default profile settings"
+msgstr "Alapméretezett profil beállítások"
+
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:124
+msgid "Defaults"
+msgstr "Alapméretezettek"
+
+#: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:6
+msgid "Defaults for {type}"
+msgstr "Alapméretezett ehhez: {type}"
+
+#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:44
+#: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:51
+#: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:29
+#: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsForMode.component.html:8
+#: tabby-settings/src/components/configSyncSettingsTab.component.ts:116
+#: tabby-settings/src/components/editProfileGroupModal.component.ts:38
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:130
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:215
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:229
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:318
+#: tabby-settings/src/components/vaultSettingsTab.component.ts:52
+#: tabby-ssh/src/sftpContextMenu.ts:39
+#: tabby-ssh/src/sftpContextMenu.ts:47
+#: tabby-terminal/src/components/colorSchemeSettingsForMode.component.ts:92
+#: tabby-terminal/src/components/loginScriptsSettings.component.ts:32
+msgid "Delete"
+msgstr "Törlés"
+
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:128
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:213
+#: tabby-terminal/src/components/colorSchemeSettingsForMode.component.ts:90
+msgid "Delete \"{name}\"?"
+msgstr "\"{name}\" törölhető?"
+
+#: tabby-ssh/src/sftpContextMenu.ts:35
+msgid "Delete {fullPath}?"
+msgstr "{fullPath} törlése?"
+
+#: tabby-terminal/src/hotkeys.ts:42
+msgid "Delete entire line"
+msgstr "Teljes sor törlése"
+
+#: tabby-terminal/src/hotkeys.ts:46
+msgid "Delete next word"
+msgstr "Következő szó törlése"
+
+#: tabby-terminal/src/hotkeys.ts:38
+msgid "Delete previous word"
+msgstr "Előző szó törlése"
+
+#: tabby-settings/src/components/configSyncSettingsTab.component.ts:114
+msgid "Delete the config on the remote side?"
+msgstr "Töröljem a konfigurációt a távoli oldalon?"
+
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:226
+msgid "Delete the group's profiles?"
+msgstr "Töröljem a csoport profiljait?"
+
+#: tabby-terminal/src/components/loginScriptsSettings.component.ts:29
+msgid "Delete this script?"
+msgstr "Töröljem ezt a szkriptet?"
+
+#: tabby-settings/src/components/vaultSettingsTab.component.ts:50
+msgid "Delete vault contents?"
+msgstr "Töröljem"
+
+#: locale/tmp-html/tabby-ssh/src/components/sftpDeleteModal.component.html:3
+msgid "Deleting"
+msgstr "Törlés"
+
+#: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:8
+msgid "Device"
+msgstr "Eszköz"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:10
+msgid "Direct"
+msgstr "Direkt"
+
+#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:57
+msgid "Disable"
+msgstr "Letiltás"
+
+#: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:39
+msgid "Disable dynamic tab title"
+msgstr "Dinamikusan változó lapméret letiltása"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:218
+msgid "Disable fluent background while dragging"
+msgstr "Folyékony háttér letiltása húzás közben"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:204
+msgid "Disable GPU acceleration"
+msgstr "GPU-s gyorsítás letiltása"
+
+#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:50
+msgid "Disabled"
+msgstr "Letiltva"
+
+#: locale/tmp-html/tabby-ssh/src/components/hostKeyPromptModal.component.html:26
+#: tabby-ssh/src/components/sshTab.component.ts:200
+#: tabby-telnet/src/components/telnetTab.component.ts:83
+#: tabby-terminal/src/api/connectableTerminalTab.component.ts:36
+#: tabby-terminal/src/tabContextMenu.ts:106
+#: tabby-terminal/src/tabContextMenu.ts:110
+msgid "Disconnect"
+msgstr "Kapcsolat bontása"
+
+#: tabby-terminal/src/hotkeys.ts:106
+msgid "Disconnect current tab (Serial/Telnet/SSH)"
+msgstr "Lecsatlakozás a jelenlegi lapról (Soros port/Telnet/SSH)"
+
+#: tabby-ssh/src/components/sshTab.component.ts:198
+#: tabby-telnet/src/components/telnetTab.component.ts:81
+msgid "Disconnect from {host}?"
+msgstr "{host}: Kapcsolat bontása?"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:30
+msgid "Display images via Sixel escape sequences"
+msgstr "Képek megjelenítése Sixel szökési képkockákkal"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:85
+msgid "Display on"
+msgstr "Képernyő bekapcsolva"
+
+#: tabby-core/src/components/transfersMenu.component.ts:50
+msgid "Do not abort"
+msgstr "Ne szüntesse meg"
+
+#: tabby-ssh/src/components/sshTab.component.ts:201
+#: tabby-telnet/src/components/telnetTab.component.ts:84
+msgid "Do not close"
+msgstr "Ne zárja be"
+
+#: locale/tmp-html/tabby-core/src/components/unlockVaultModal.component.html:6
+#: locale/tmp-html/tabby-core/src/components/unlockVaultModal.component.html:8
+msgid "Do not remember"
+msgstr "Ne emlékezzen"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:97
+msgid "Dock always on top"
+msgstr "Rögzítés mindig felülre"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:67
+msgid "Dock the terminal"
+msgstr "Terminál rögzítése"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:104
+msgid "Docked terminal size"
+msgstr "Rögzített terminál méret"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:111
+msgid "Docked terminal space"
+msgstr "Rögzített terminál hely"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:64
+msgid "Docking"
+msgstr "Rögzítés"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:75
+msgid "Double-click selection will stop at these characters"
+msgstr "Dupla kattintás a kiválasztáskor megáll ezeknél a karaktereknél"
+
+#: tabby-core/src/tabContextMenu.ts:79
+msgid "Down"
+msgstr "Le"
+
+#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:43
+msgid "Download"
+msgstr "Letöltés"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:23
+msgid "Draw bold text in bright colors"
+msgstr "Felkövér szöveg világos színekkel való kirajzolása"
+
+#: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:48
+#: tabby-core/src/tabContextMenu.ts:127
+msgid "Duplicate"
+msgstr "Másolat"
+
+#: tabby-local/src/tabContextMenu.ts:72
+msgid "Duplicate as administrator"
+msgstr "Másolat adminisztrátorként"
+
+#: tabby-core/src/hotkeys.ts:60
+#: tabby-core/src/tabContextMenu.ts:128
+msgid "Duplicate tab"
+msgstr "Lap kétszerezése"
+
+#: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsForMode.component.html:6
+msgid "Edit"
+msgstr "Szerkesztés"
+
+#: tabby-electron/src/sftpContextMenu.ts:35
+msgid "Edit locally"
+msgstr "Szerkesztés helyileg"
+
+#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:58
+msgid "Enable"
+msgstr "Engedélyezés"
+
+#: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:32
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:66
+msgid "Enable analytics"
+msgstr "Elemzés engedélyezése"
+
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:87
+msgid "Enable animations"
+msgstr "Animációk engedélyezése"
+
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:74
+msgid "Enable automatic installation of updates when they become available."
+msgstr "Frissítések automatikus telepítésének engedélyezése, amikr elérhetővé válnak."
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:211
+msgid "Enable fluent background option"
+msgstr "Folyékony háttér beállítás engedélyezése"
+
+#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:16
+msgid "Enable font ligatures"
+msgstr "Betűk folyékony írása"
+
+#: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:39
+msgid "Enable global hotkey (Ctrl-Space)"
+msgstr "Globális gyorsgomb engedélyezése (Ctrl-Szóköz)"
+
+#: locale/tmp-html/tabby-local/src/components/shellSettingsTab.component.html:6
+msgid "Enables the experimental Windows ConPTY API"
+msgstr "Kísérleti Windows ConPTY API engedélyezése"
+
+#: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:37
+msgid "Encrypt config file"
+msgstr "Konfigurációs fájl titkosítása"
+
+#: tabby-terminal/src/hotkeys.ts:26
+msgid "End of the line"
+msgstr "Sor vége"
+
+#: locale/tmp-html/tabby-local/src/components/localProfileSettings.component.html:17
+msgid "Environment"
+msgstr "Környezet"
+
+#: tabby-core/src/services/config.service.ts:429
+#: tabby-core/src/services/config.service.ts:443
+msgid "Erase config"
+msgstr "Konfiguráció törlése"
+
+#: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:12
+msgid "Erase the Vault"
+msgstr "A széf törlése"
+
+#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:6
+msgid "Error in {plugin}:"
+msgstr "Hiba, {plugin}:"
+
+#: locale/tmp-html/tabby-terminal/src/components/loginScriptsSettings.component.html:10
+msgid "Exact match"
+msgstr "Pontos egyezés"
+
+#: locale/tmp-html/tabby-local/src/components/environmentEditor.component.html:15
+msgid "Example:"
+msgstr "Példa:"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:212
+msgid "Experimental Windows 10 background style known to cause issues"
+msgstr "Kísérleti Windows 10 háttérkép stílus ismerten hibákat okozhat"
+
+#: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:28
+msgid "Export"
+msgstr "Exportálás"
+
+#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:76
+msgid "Fallback font"
+msgstr "Vissazeső betűtípus"
+
+#: locale/tmp-html/tabby-core/src/components/transfersMenu.component.html:3
+msgid "File transfers"
+msgstr "Fájlok átvitele"
+
+#: tabby-settings/src/components/vaultSettingsTab.component.ts:96
+msgid "File: {description}"
+msgstr "Fájl: {description}"
+
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:9
+msgid "Filter"
+msgstr "Szűrő"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:147
+msgid "Fixed"
+msgstr "Rögzített"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:219
+msgid "Fluent background sometimes causes drag lag"
+msgstr "A folyékony háttérkép néha hűzáskor befagyást okozhat"
+
+#: tabby-terminal/src/tabContextMenu.ts:82
+msgid "Focus all panes"
+msgstr "Fókusz minden táblára"
+
+#: tabby-terminal/src/hotkeys.ts:78
+msgid "Focus all panes at once (broadcast)"
+msgstr "Fókusz minden táblára egyszerre (közvetítés)"
+
+#: tabby-terminal/src/tabContextMenu.ts:75
+msgid "Focus all tabs"
+msgstr "Fókusz minden lapon"
+
+#: tabby-terminal/src/hotkeys.ts:82
+msgid "Focus all tabs at once (broadcast)"
+msgstr "Fókusz minden lapra egyszerre (közvetítés)"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:196
+msgid "Focus follows mouse"
+msgstr "Fókus követi az egeret"
+
+#: tabby-core/src/hotkeys.ts:196
+msgid "Focus next pane"
+msgstr "Következő tábla fókuszálása"
+
+#: tabby-core/src/hotkeys.ts:200
+#: tabby-core/src/hotkeys.ts:204
+#: tabby-core/src/hotkeys.ts:208
+#: tabby-core/src/hotkeys.ts:212
+#: tabby-core/src/hotkeys.ts:216
+#: tabby-core/src/hotkeys.ts:220
+#: tabby-core/src/hotkeys.ts:224
+#: tabby-core/src/hotkeys.ts:228
+#: tabby-core/src/hotkeys.ts:232
+msgid "Focus pane {number}"
+msgstr "Fókuszált tábla {number}"
+
+#: tabby-core/src/hotkeys.ts:192
+msgid "Focus previous pane"
+msgstr "Fókusz az előző táblára"
+
+#: tabby-core/src/hotkeys.ts:176
+msgid "Focus the pane above"
+msgstr "Fókusz a következő táblára"
+
+#: tabby-core/src/hotkeys.ts:180
+msgid "Focus the pane below"
+msgstr "Fókusz a lenti táblára"
+
+#: tabby-core/src/hotkeys.ts:184
+msgid "Focus the pane on the left"
+msgstr "Fókusz a bal oldali táblára"
+
+#: tabby-core/src/hotkeys.ts:188
+msgid "Focus the pane on the right"
+msgstr "Fókusz a jobb oldali táblára"
+
+#: tabby-core/src/theme.ts:34
+msgid "Follow the color scheme"
+msgstr "Színséma követése"
+
+#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:5
+msgid "Font"
+msgstr "Betűtípus"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:190
+msgid "For keyboard shortcuts"
+msgstr "Billentyűzet gyorsgomboknak"
+
+#: tabby-terminal/src/components/streamProcessingSettings.component.ts:53
+msgid "Force CR"
+msgstr "CR erőltetése"
+
+#: tabby-terminal/src/components/streamProcessingSettings.component.ts:55
+msgid "Force CRLF"
+msgstr "CRLF erőltetése"
+
+#: tabby-terminal/src/components/streamProcessingSettings.component.ts:54
+msgid "Force LF"
+msgstr "LF erőltetése"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:25
+msgid "Forces a specific SSH agent connection type."
+msgstr "Erőleteti egy specifikus SSH ügynök kapcsolat típusát."
+
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:105
+msgid "Forget"
+msgstr "Elfeletés"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:45
+msgid "Forward port"
+msgstr "Port továbbítása"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingModal.component.html:3
+msgid "Forwarded ports"
+msgstr "Továbbított portok"
+
+#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:46
+msgid "From color scheme"
+msgstr "Színsémából"
+
+#: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:23
+#: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:9
+msgid "From system"
+msgstr "Rendszerből"
+
+#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:44
+msgid "From theme"
+msgstr "Témából"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:6
+msgid "Frontend"
+msgstr "Előlap"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:61
+msgid "Full"
+msgstr "Teljes"
+
+#: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:3
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:3
+#: locale/tmp-html/tabby-telnet/src/components/telnetProfileSettings.component.html:3
+msgid "General"
+msgstr "Általános"
+
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:21
+msgid "Generate a pre-filled GitHub issue"
+msgstr "Előre kitöltöss GitHub hibajegy generálása"
+
+#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:25
+msgid "Get"
+msgstr "Szerzés"
+
+#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:18
+msgid "Get it from the Tabby Web settings window"
+msgstr "Megszerzés a Tabby Web beállítás ablakból"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:29
+msgid "Gives the window a blurred transparent background"
+msgstr "Feladja a jelenlegi ablak homályos hátterét"
+
+#: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:24
+msgid "Go up"
+msgstr "Menjen fel"
+
+#: tabby-core/src/utils.ts:61
+msgid "Green"
+msgstr "Zöld"
+
+#: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:16
+msgid "Group"
+msgstr "Csoport"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:201
+msgid "Hacks"
+msgstr "Hekkek"
+
+#: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:33
+msgid "Help track the number of Tabby installs across the world!"
+msgstr "Segítsen követni a Tabby felhasználók számát a világ körül!"
+
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:50
+msgid "Help translate Tabby"
+msgstr "Segítsen a fordításban"
+
+#: tabby-terminal/src/components/streamProcessingSettings.component.ts:32
+#: tabby-terminal/src/components/streamProcessingSettings.component.ts:45
+msgid "Hexadecimal"
+msgstr "Hexadecimális"
+
+#: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:49
+msgid "Hide"
+msgstr "Elrejtés"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:176
+msgid "Hide tab close button"
+msgstr "Lap elrejtése bezáráskor"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:158
+msgid "Hide tab index"
+msgstr "Lap index elrejtése"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:170
+msgid "Hide tab options button"
+msgstr "Lap beállítások elrejtése"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:118
+msgid "Hide window on focus loss"
+msgstr "Ablak elrejtése fókusz elvesztésekor"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:119
+msgid "Hides the docked terminal when you click away."
+msgstr "Rögzített terminál elrejése máshová kattintáskor."
+
+#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:26
+msgid "Homepage"
+msgstr "Kezdőoldal"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:34
+#: locale/tmp-html/tabby-telnet/src/components/telnetProfileSettings.component.html:6
+msgid "Host"
+msgstr "Gazda"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:206
+msgid "Host key"
+msgstr "Gazda kulcs"
+
+#: locale/tmp-html/tabby-ssh/src/components/hostKeyPromptModal.component.html:3
+msgid "Host key verification"
+msgstr "Gazda kulcs azonosítása"
+
+#: locale/tmp-html/tabby-settings/src/components/hotkeySettingsTab.component.html:2
+#: tabby-settings/src/settings.ts:15
+msgid "Hotkeys"
+msgstr "Gyorsgombok"
+
+#: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:83
+msgid "How Tabby presents itself through environment vars"
+msgstr "Hogyan mutatja be magát a Tabby a környezeti változókon keresztül"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:24
+msgid "HTTP proxy"
+msgstr "HTTP proxy"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:61
+msgid "HTTP proxy host"
+msgstr "HTTP proxy gazda"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:65
+msgid "HTTP proxy port"
+msgstr "HTTP proxy port"
+
+#: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:20
+msgid "Icon"
+msgstr "Ikon"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:145
+msgid "id.tab-width.dynamic"
+msgstr "Dinamikus"
+
+#: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:76
+msgid "If disabled, only custom profiles will show up in the profile selector"
+msgstr "Ha le van tiltva, csak egyedi profilok fognak megjelenni a profil választóban"
+
+#: tabby-terminal/src/components/streamProcessingSettings.component.ts:23
+msgid "Immediately echoes your input locally"
+msgstr "Rögtön kiírja a bemenetet helyileg"
+
+#: tabby-core/src/hotkeys.ts:252
+msgid "Increase horizontal split size"
+msgstr "Vízszintes felosztás növelése"
+
+#: tabby-core/src/hotkeys.ts:244
+msgid "Increase vertical split size"
+msgstr "Függőleges felosztás növelése"
+
+#: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:91
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:226
+#: locale/tmp-html/tabby-telnet/src/components/telnetProfileSettings.component.html:21
+msgid "Input"
+msgstr "Bemenet"
+
+#: tabby-terminal/src/components/streamProcessingSettings.component.ts:18
+msgid "Input is sent as you type"
+msgstr "Bemenet elküldése íráskor"
+
+#: locale/tmp-html/tabby-terminal/src/components/streamProcessingSettings.component.html:4
+msgid "Input mode"
+msgstr "Bemeneti mód"
+
+#: locale/tmp-html/tabby-terminal/src/components/streamProcessingSettings.component.html:15
+msgid "Input newlines"
+msgstr "Újsorok bemenete"
+
+#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:39
+msgid "Installed"
+msgstr "Telepítve"
+
+#: tabby-electron/src/services/updater.service.ts:131
+msgid "Installing the update will close all tabs and restart Tabby."
+msgstr "A frissítés telepítése be fogja zárni a lapokat, és újraindítja a Tabby-t."
+
+#: tabby-terminal/src/hotkeys.ts:66
+msgid "Intelligent Ctrl-C (copy/abort)"
+msgstr "Inteligens Ctrl-C (másolás/elvetés)"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:94
+msgid "Interactive"
+msgstr "Interaktív"
+
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:130
+msgid "Invalid syntax"
+msgstr "Hibás bemenet"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:16
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:43
+msgid "Jump host"
+msgstr "Ugrás a gazdára"
+
+#: tabby-terminal/src/hotkeys.ts:34
+msgid "Jump to next word"
+msgstr "Ugrás a következő szóra"
+
+#: tabby-terminal/src/hotkeys.ts:30
+msgid "Jump to previous word"
+msgstr "Ugrás az előző szóra"
+
+#: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:51
+#: tabby-settings/src/components/editProfileGroupModal.component.ts:39
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:131
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:216
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:319
+#: tabby-settings/src/components/vaultSettingsTab.component.ts:53
+#: tabby-terminal/src/components/colorSchemeSettingsForMode.component.ts:93
+#: tabby-terminal/src/components/loginScriptsSettings.component.ts:33
+#: tabby-terminal/src/components/streamProcessingSettings.component.ts:51
+msgid "Keep"
+msgstr "Megtartás"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:154
+msgid "Keep Alive Interval (Milliseconds)"
+msgstr "Ébren tartás intervalluma (miliszekundumokban)"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:98
+msgid "Keep docked terminal always on top"
+msgstr "Rögzített terminál mindig felül tartása"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:86
+msgid "Key"
+msgstr "Billentyű"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:186
+msgid "Key exchange"
+msgstr "Billentyűcsere"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:36
+msgid "Keyboard"
+msgstr "Billentyűzet"
+
+#: locale/tmp-html/tabby-ssh/src/components/keyboardInteractiveAuthPanel.component.html:2
+msgid "Keyboard-interactive auth"
+msgstr "Interaktív billentyűzet azonosítás"
+
+#: tabby-local/src/components/terminalTab.component.ts:117
+msgid "Kill"
+msgstr "Lelövés"
+
+#: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:10
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:50
+msgid "Language"
+msgstr "Nyelvezet"
+
+#: locale/tmp-html/tabby-ssh/src/components/hostKeyPromptModal.component.html:11
+msgid "Last known host key fingerprint"
+msgstr "Utolsó ismert gazda kulcs ujjlenyomata"
+
+#: tabby-ssh/src/tabContextMenu.ts:32
+msgid "Launch WinSCP"
+msgstr "WinSCP indítása"
+
+#: tabby-ssh/src/hotkeys.ts:14
+msgid "Launch WinSCP for current SSH session"
+msgstr "WinSCP indítása a jelenlegi SSH-ra"
+
+#: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:16
+#: locale/tmp-html/tabby-ssh/src/components/sshTab.component.html:7
+msgid "Learn how to allow Tabby to detect remote shell's working directory."
+msgstr "Tudja meg, hogyan engedélyezheti a Tabby-nak, hogy érzékelje a távoli shell munkakönyvtárát."
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:134
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:76
+#: tabby-core/src/tabContextMenu.ts:80
+msgid "Left"
+msgstr "Bal"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:40
+msgid "Lets the shell handle Meta key instead of OS"
+msgstr "Hadd kezelje a shell a Meta gombot a rendszer helyett"
+
+#: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:22
+msgid "Light mode"
+msgstr "Világos mód"
+
+#: tabby-terminal/src/components/streamProcessingSettings.component.ts:27
+msgid "Line by line"
+msgstr "Sorrol sorra"
+
+#: tabby-terminal/src/components/streamProcessingSettings.component.ts:28
+msgid "Line editor, input is sent after you press Enter"
+msgstr "Soronkénti szerkesztés, a bemenet az Enter lenyomása után lesz elküldve"
+
+#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:83
+msgid "Line padding"
+msgstr "Sorok kitöltése"
+
+#: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:21
+msgid "Loading"
+msgstr "Betöltés"
+
+#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:34
+msgid "Loading configs..."
+msgstr "Konfigurációk betöltése"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:39
+#: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:5
+msgid "Local"
+msgstr "Helyi"
+
+#: tabby-terminal/src/components/streamProcessingSettings.component.ts:22
+msgid "Local echo"
+msgstr "Helyi kiírás"
+
+#: tabby-local/src/profiles.ts:12
+msgid "Local terminal"
+msgstr "Helyi terminál"
+
+#: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:86
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:221
+#: locale/tmp-html/tabby-telnet/src/components/telnetProfileSettings.component.html:16
+msgid "Login scripts"
+msgstr "Indítási szkriptek"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:57
+msgid "Long-click for context menu"
+msgstr "Hosszú kattintás a kontextus menühöz"
+
+#: tabby-core/src/services/profiles.service.ts:279
+msgid "Manage profiles"
+msgstr "Profilok kezelése"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:160
+msgid "Max Keep Alive Count"
+msgstr "Max Ébren Tartási Számláló"
+
+#: tabby-core/src/hotkeys.ts:172
+msgid "Maximize the active pane"
+msgstr "Maximise the active pane"
+
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:93
+#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:70
+msgid "Minimum contrast ratio"
+msgstr "Minimum kontraszt arány"
+
+#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:39
+msgid "Modified on {date}"
+msgstr "Módosítva ekkor: {date}"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:53
+msgid "Mouse"
+msgstr "Egér"
+
+#: tabby-core/src/hotkeys.ts:48
+msgid "Move tab to the left"
+msgstr "Lap balra mozgatása"
+
+#: tabby-core/src/hotkeys.ts:52
+msgid "Move tab to the right"
+msgstr "Lap jobbra mozgatása"
+
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:228
+msgid "Move to \"Ungrouped\""
+msgstr "Áthelyezés \"Ungrouped\""
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:197
+msgid "Moving the mouse over an inactive pane will cause it to activate"
+msgstr "Egér mozgatása egy inaktív lap felett felébreszti"
+
+#: locale/tmp-html/tabby-settings/src/components/editProfileGroupModal.component.html:9
+#: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:12
+#: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsForMode.component.html:13
+msgid "Name"
+msgstr "Név"
+
+#: tabby-settings/src/components/configSyncSettingsTab.component.ts:60
+msgid "Name for the new config"
+msgstr "Új konfiguráció neve"
+
+#: locale/tmp-html/tabby-ssh/src/components/sftpCreateDirectoryModal.component.html:3
+msgid "Name for the new directory"
+msgstr "Új könyvtár neve"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:57
+msgid "Native"
+msgstr "Natív"
+
+#: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:21
+msgid "New"
+msgstr "Új"
+
+#: tabby-local/src/tabContextMenu.ts:53
+msgid "New admin tab"
+msgstr "Új admin lap"
+
+#: tabby-settings/src/components/configSyncSettingsTab.component.ts:58
+msgid "New config on {platform}"
+msgstr "Új konfiguráció {platform}"
+
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:144
+msgid "New group name"
+msgstr "Új csoport név"
+
+#: locale/tmp-html/tabby-terminal/src/components/loginScriptsSettings.component.html:16
+msgid "New item"
+msgstr "Új cikk"
+
+#: tabby-settings/src/components/vaultSettingsTab.component.ts:133
+msgid "New name"
+msgstr "Új név"
+
+#: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:23
+msgid "New profile"
+msgstr "Új profil"
+
+#: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:24
+msgid "New profile Group"
+msgstr "Új profil csoport"
+
+#: tabby-terminal/src/tabContextMenu.ts:176
+msgid "New profile name"
+msgstr "Új profil név"
+
+#: tabby-local/src/hotkeys.ts:10
+msgid "New tab"
+msgstr "Új lap"
+
+#: tabby-core/src/hotkeys.ts:271
+msgid "New tab: {profile}"
+msgstr "Új lap: {profile}"
+
+#: tabby-local/src/buttonProvider.ts:20
+#: tabby-local/src/tabContextMenu.ts:27
+msgid "New terminal"
+msgstr "Új terminál"
+
+#: tabby-electron/src/hotkeys.ts:10
+msgid "New window"
+msgstr "Új ablak"
+
+#: tabby-electron/src/services/dockMenu.service.ts:62
+msgid "New Window"
+msgstr "Új Ablak"
+
+#: tabby-local/src/tabContextMenu.ts:37
+msgid "New with profile"
+msgstr "Új profillal"
+
+#: tabby-core/src/hotkeys.ts:40
+msgid "Next tab"
+msgstr "Következő lap"
+
+#: tabby-core/src/utils.ts:59
+msgid "No color"
+msgstr "Nincs szín"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:85
+msgid "No modifier"
+msgstr "Nincs módosító"
+
+#: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:41
+msgid "None"
+msgstr "Egyik sem"
+
+#: tabby-terminal/src/components/streamProcessingSettings.component.ts:17
+#: tabby-terminal/src/components/streamProcessingSettings.component.ts:40
+msgid "Normal"
+msgstr "Normális"
+
+#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:22
+msgid "Normal font weight"
+msgstr "Normális betű súly"
+
+#: tabby-terminal/src/components/searchPanel.component.ts:54
+#: tabby-terminal/src/components/searchPanel.component.ts:64
+msgid "Not found"
+msgstr "Nem található"
+
+#: tabby-core/src/tabContextMenu.ts:209
+msgid "Notify on activity"
+msgstr "Értesítsen aktivitáskor"
+
+#: tabby-core/src/tabContextMenu.ts:187
+msgid "Notify when done"
+msgstr "Értesítsen, ha kész"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:17
+msgid "Number of lines kept in the buffer"
+msgstr "Sorok száma amennyit a pufferben tart"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:72
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:137
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:60
+msgid "Off"
+msgstr "Ki"
+
+#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:81
+msgid "Official"
+msgstr "Hivatalos"
+
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:26
+msgid "On GitHub Discussions"
+msgstr "GitHub fórumon"
+
+#: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:47
+msgid "Only close the tab when session is explicitly terminated"
+msgstr "Csak akkor zárja be a lapot, ha a session expliciten le lett zárva"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:46
+msgid "Opacity"
+msgstr "Átlátszóság"
+
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:82
+msgid "Open DevTools"
+msgstr "DevTools megnyitása"
+
+#: tabby-settings/src/hotkeys.ts:11
+msgid "Open Settings"
+msgstr "Beállítások megnyitása"
+
+#: tabby-settings/src/hotkeys.ts:25
+msgid "Open settings tab: {tab}"
+msgstr "Beállítás lap megnyitása: {tab}"
+
+#: tabby-ssh/src/tabContextMenu.ts:25
+msgid "Open SFTP panel"
+msgstr "SFTP panel megnyitása"
+
+#: locale/tmp-html/tabby-terminal/src/components/loginScriptsSettings.component.html:10
+msgid "Optional"
+msgstr "opcionális"
+
+#: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:11
+#: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:34
+msgid "Options"
+msgstr "Beállítások"
+
+#: tabby-core/src/utils.ts:62
+msgid "Orange"
+msgstr "Narancs"
+
+#: tabby-electron/src/shells/macDefault.ts:25
+msgid "OS default"
+msgstr "Rendszer alapméretezése"
+
+#: tabby-electron/src/shells/winDefault.ts:43
+msgid "OS default ({name})"
+msgstr "Rendszer alapméretezése({name})"
+
+#: tabby-terminal/src/components/streamProcessingSettings.component.ts:46
+msgid "Output is shown as a hexdump"
+msgstr "A kimenet hexdump-ként jelenik meg"
+
+#: tabby-terminal/src/components/streamProcessingSettings.component.ts:41
+msgid "Output is shown as it is received"
+msgstr "A kimenet úgy jelenki meg, ahogy megérkezik"
+
+#: locale/tmp-html/tabby-terminal/src/components/streamProcessingSettings.component.html:23
+msgid "Output mode"
+msgstr "Kimeneti mód"
+
+#: locale/tmp-html/tabby-terminal/src/components/streamProcessingSettings.component.html:34
+msgid "Output newlines"
+msgstr "Újsorok kimenete"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:42
+msgid "Override X11 display"
+msgstr "X11 kijelző felülírása"
+
+#: tabby-settings/src/components/configSyncSettingsTab.component.ts:98
+msgid "Overwrite local and sync"
+msgstr "Helyi és szinkronizált felülírása"
+
+#: tabby-settings/src/components/configSyncSettingsTab.component.ts:78
+msgid "Overwrite remote and sync"
+msgstr "Távoli és szinkronizált felülírása"
+
+#: tabby-settings/src/components/configSyncSettingsTab.component.ts:76
+msgid "Overwrite the config on the remote side and start syncing?"
+msgstr "Felülírjam a konfigurációt a távoli oldalon, és szinkronizáljak?"
+
+#: tabby-settings/src/components/configSyncSettingsTab.component.ts:96
+msgid "Overwrite the local config and start syncing?"
+msgstr "Felülírjam a konfigurációt a helyi oldalon, és szinkronizáljak?"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:189
+msgid "Pane resize step"
+msgstr "Tábla átméretezési lépés"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:186
+msgid "Panes"
+msgstr "Táblák"
+
+#: tabby-core/src/theme.ts:26
+msgid "Paper (legacy)"
+msgstr "Papír (örökség)"
+
+#: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:38
+msgid "Parity"
+msgstr "Paritás"
+
+#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:64
+msgid "Partial config sync is not possible when the config is encrypted via Vault."
+msgstr "A részleges konfiguráció szinkronizálása nem lehetséges, ha a konfiguráció titkosított a Széfen keresztül"
+
+#: tabby-terminal/src/components/inputProcessingSettings.component.ts:17
+msgid "Pass-through"
+msgstr "Áthaladó"
+
+#: tabby-settings/src/components/vaultSettingsTab.component.ts:92
+msgid "Passphrase for a private key with hash {hash}..."
+msgstr "Hash-t tartalmazó titkos kulcs jelmondata {hash}..."
+
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:100
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:82
+msgid "Password"
+msgstr "Jelszó"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:62
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:521
+#: tabby-terminal/src/tabContextMenu.ts:39
+msgid "Paste"
+msgstr "Beillesztés"
+
+#: tabby-terminal/src/hotkeys.ts:14
+msgid "Paste from clipboard"
+msgstr "Beilleszés vágólapról"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:63
+msgid "Paste if no selection, else copy"
+msgstr "Beillesztés, ha nincs kijelölés, különben másolás"
+
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:528
+msgid "Paste multiple lines?"
+msgstr "Beillesszek több sort?"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:68
+msgid "Paste on middle-click"
+msgstr "Beillesztés középső klikkel"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:43
+msgid "Path or address of the local X11 socket"
+msgstr "A helyi X11 socket elérési útvonala vagy címe"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalToolbar.component.html:4
+msgid "Pin"
+msgstr "Kitűzés"
+
+#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:3
+msgid "Plugins"
+msgstr "Bővítmények"
+
+#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:4
+msgid "Plugins folder"
+msgstr "Bővítmény mappa"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:38
+#: locale/tmp-html/tabby-telnet/src/components/telnetProfileSettings.component.html:10
+msgid "Port"
+msgstr "Port"
+
+#: tabby-serial/src/components/serialTab.component.ts:65
+msgid "Port opened"
+msgstr "Port nyitva"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:119
+#: locale/tmp-html/tabby-ssh/src/components/sshTab.component.html:12
+msgid "Ports"
+msgstr "Portok"
+
+#: tabby-terminal/src/api/connectableTerminalTab.component.ts:87
+msgid "Press any key to reconnect"
+msgstr "Nyomja meg bármelyik gombot az újracsatlakozáshoz"
+
+#: locale/tmp-html/tabby-settings/src/components/hotkeyInputModal.component.html:3
+msgid "Press the key now"
+msgstr "Most nyomja meg a gombot"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:21
+msgid "Prevents accidental closing"
+msgstr "Megakadályozza a véletlen bezárást"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:110
+msgid "Prevents accidental execution of pasted commands"
+msgstr "Megakadályozza a beillesztett parancsok véletlen végrehajtását"
+
+#: tabby-core/src/hotkeys.ts:44
+msgid "Previous tab"
+msgstr "Előző lap"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:108
+msgid "Private keys"
+msgstr "Privát kulcsok"
+
+#: tabby-core/src/tabContextMenu.ts:195
+msgid "Process completed"
+msgstr "Folyamat befejezve"
+
+#: tabby-core/src/tabContextMenu.ts:151
+msgid "Profile name"
+msgstr "Profil neve"
+
+#: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:2
+#: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:4
+#: tabby-electron/src/services/dockMenu.service.ts:40
+msgid "Profiles"
+msgstr "Profilok"
+
+#: tabby-core/src/commands.ts:32
+#: tabby-settings/src/settings.ts:58
+msgid "Profiles & connections"
+msgstr "Profilok és kapcsolatok"
+
+#: locale/tmp-html/tabby-local/src/components/commandLineEditor.component.html:12
+msgid "Program"
+msgstr "Program"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:30
+msgid "Proxy command"
+msgstr "Proxy parancs"
+
+#: tabby-core/src/utils.ts:63
+msgid "Purple"
+msgstr "Lila"
+
+#: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:38
+msgid "Puts all of Tabby's configuration into the vault"
+msgstr "Tabby összes konfigurációját a széfbe helyezi."
+
+#: tabby-core/src/index.ts:219
+#: tabby-core/src/services/profiles.service.ts:295
+msgid "Quick connect"
+msgstr "Gyors csatlakozás"
+
+#: tabby-core/src/services/config.service.ts:430
+#: tabby-core/src/services/config.service.ts:444
+msgid "Quit"
+msgstr "Kilépés"
+
+#: tabby-telnet/src/profiles.ts:50
+msgid "Raw socket connection"
+msgstr "Nyers socket csatlakozás"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:166
+msgid "Ready Timeout (Milliseconds)"
+msgstr "Készenléti időkorlát (milliszekundumokban)"
+
+#: tabby-core/src/services/profiles.service.ts:235
+#: tabby-core/src/services/profiles.service.ts:249
+#: tabby-electron/src/services/dockMenu.service.ts:28
+msgid "Recent"
+msgstr "Legutóbbi"
+
+#: locale/tmp-html/tabby-serial/src/components/serialTab.component.html:5
+#: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:52
+#: locale/tmp-html/tabby-ssh/src/components/sshTab.component.html:10
+#: locale/tmp-html/tabby-telnet/src/components/telnetTab.component.html:3
+#: tabby-terminal/src/api/connectableTerminalTab.component.ts:32
+#: tabby-terminal/src/tabContextMenu.ts:115
+#: tabby-terminal/src/tabContextMenu.ts:119
+msgid "Reconnect"
+msgstr "Újracsatlakozás"
+
+#: tabby-terminal/src/hotkeys.ts:102
+msgid "Reconnect current tab (Serial/Telnet/SSH)"
+msgstr "Az aktuális lap újracsatlakoztatása (Soros/Telnet/SSH)"
+
+#: tabby-core/src/utils.ts:64
+msgid "Red"
+msgstr "Piros"
+
+#: locale/tmp-html/tabby-terminal/src/components/loginScriptsSettings.component.html:10
+msgid "Regex"
+msgstr "Regex"
+
+#: tabby-settings/src/components/releaseNotesTab.component.ts:27
+msgid "Release notes"
+msgstr "Kiadási jegyzetek"
+
+#: locale/tmp-html/tabby-core/src/components/unlockVaultModal.component.html:6
+msgid "Remember for {time}"
+msgstr "Emlékezés {time} ideig"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:41
+#: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:5
+msgid "Remote"
+msgstr "Távoli"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:124
+msgid "Remove whitespace and newlines around the copied text"
+msgstr "A másolt szöveg körüli szóközök és újsorok eltávolítása"
+
+#: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:26
+#: tabby-core/src/tabContextMenu.ts:120
+msgid "Rename"
+msgstr "Átnevezés"
+
+#: tabby-core/src/hotkeys.ts:24
+#: tabby-core/src/tabContextMenu.ts:121
+msgid "Rename tab"
+msgstr "Lap átnevezése"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:3
+msgid "Rendering"
+msgstr "Renderelés"
+
+#: tabby-core/src/hotkeys.ts:32
+msgid "Reopen last tab"
+msgstr "Legutóbbi lap újranyitása"
+
+#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:42
+#: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:27
+msgid "Replace"
+msgstr "Csere"
+
+#: locale/tmp-html/tabby-core/src/components/startPage.component.html:11
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:21
+msgid "Report a problem"
+msgstr "Probélma bejelentése"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:81
+msgid "Require a key to click links"
+msgstr "A linkekre való kattintáshoz kulcsot igényel"
+
+#: tabby-terminal/src/hotkeys.ts:62
+msgid "Reset zoom"
+msgstr "Nagyítás visszaállítása"
+
+#: tabby-serial/src/hotkeys.ts:14
+msgid "Restart current serial session"
+msgstr "Jelenlegi soros munkamenet újraindítása"
+
+#: tabby-ssh/src/hotkeys.ts:10
+msgid "Restart current SSH session"
+msgstr "Jelenlegi SSH munkamenet újraindítása"
+
+#: tabby-telnet/src/hotkeys.ts:10
+msgid "Restart current Telnet session"
+msgstr "Jelenlegi Telnet munkamenet újraindítása"
+
+#: tabby-core/src/hotkeys.ts:64
+msgid "Restart tab"
+msgstr "Lap újraindítása"
+
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:140
+msgid "Restart the app to apply changes"
+msgstr "A módosítások alkalmazásához indítsa újra az appot"
+
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:316
+msgid "Restore settings to defaults ?"
+msgstr "A beállítások visszaállítása az alapértelmezettekre?"
+
+#: tabby-settings/src/components/editProfileGroupModal.component.ts:36
+msgid "Restore settings to inherited defaults ?"
+msgstr "A beállítások visszaállítása az örökölt alapértelmezettekre?"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:159
+msgid "Restore terminal tabs on app start"
+msgstr "Terminál lapok visszaállítása az alkalmazás indításakor"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:147
+msgid "Reuse session for multiple tabs"
+msgstr "Munkamenet újrafelhasználása több laphoz"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:136
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:78
+#: tabby-core/src/tabContextMenu.ts:78
+msgid "Right"
+msgstr "Jobb"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:56
+msgid "Right click"
+msgstr "Jobb klikk"
+
+#: locale/tmp-html/tabby-local/src/components/localProfileSettings.component.html:5
+msgid "Run as administrator"
+msgstr "Futtatás rendszergazdaként"
+
+#: locale/tmp-html/tabby-core/src/components/renameTabModal.component.html:6
+#: locale/tmp-html/tabby-settings/src/components/editProfileGroupModal.component.html:27
+#: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:70
+#: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsForMode.component.html:29
+msgid "Save"
+msgstr "Mentés"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:101
+msgid "Save a password in the keychain"
+msgstr "Jelszó mentése a kulcstartón"
+
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:129
+msgid "Save and apply"
+msgstr "Mentés és alkalmazás"
+
+#: tabby-terminal/src/tabContextMenu.ts:173
+msgid "Save as profile"
+msgstr "Mentés profilként"
+
+#: tabby-core/src/tabContextMenu.ts:148
+msgid "Save layout as profile"
+msgstr "Elrendezés mentése profilként"
+
+#: tabby-terminal/src/tabContextMenu.ts:210
+msgid "Saved"
+msgstr "Mentve"
+
+#: tabby-core/src/profiles.ts:19
+msgid "Saved layout"
+msgstr "Mentett elrendezés"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:46
+msgid "Scroll on input"
+msgstr "Görgetés a bevitelkor"
+
+#: tabby-terminal/src/hotkeys.ts:94
+msgid "Scroll terminal one page down"
+msgstr "Görgesse a terminált egy oldallal lejjebb"
+
+#: tabby-terminal/src/hotkeys.ts:90
+msgid "Scroll terminal one page up"
+msgstr "Görgesse a terminált egy oldallal feljebb"
+
+#: tabby-terminal/src/hotkeys.ts:98
+msgid "Scroll terminal to bottom"
+msgstr "Görgesse a terminált az aljára"
+
+#: tabby-terminal/src/hotkeys.ts:86
+msgid "Scroll terminal to top"
+msgstr "Görgesse a terminált az tetejére"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:16
+msgid "Scrollback"
+msgstr "Visszapörgetés"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:47
+msgid "Scrolls the terminal to the bottom on user input"
+msgstr "Terminált az aljára gördíti bevitelre"
+
+#: tabby-terminal/src/hotkeys.ts:74
+msgid "Search"
+msgstr "Keresés"
+
+#: tabby-terminal/src/components/colorSchemeSelector.component.ts:9
+#: tabby-terminal/src/components/colorSchemeSettingsForMode.component.ts:10
+msgid "Search color schemes"
+msgstr "Színsémák keresése"
+
+#: tabby-settings/src/components/hotkeySettingsTab.component.ts:12
+msgid "Search hotkeys"
+msgstr "Keresési gyorsgombok"
+
+#: tabby-plugin-manager/src/components/pluginsSettingsTab.component.ts:14
+msgid "Search plugins"
+msgstr "Bővítmények keresése"
+
+#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:17
+msgid "Secret sync token"
+msgstr "Titkos szinkronizációs tokenek"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:45
+#: tabby-electron/src/services/platform.service.ts:200
+msgid "Select"
+msgstr "Kiválasztás"
+
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:61
+msgid "Select a base profile to use as a template"
+msgstr "Válasszon ki egy sablonként használandó alapprofilt"
+
+#: tabby-terminal/src/hotkeys.ts:18
+msgid "Select all"
+msgstr "Minden kiválasztása"
+
+#: tabby-core/src/services/fileProviders.service.ts:47
+msgid "Select file storage"
+msgstr "Fájltároló kiválasztása"
+
+#: tabby-core/src/index.ts:232
+msgid "Select profile"
+msgstr "Profil kiválasztása"
+
+#: tabby-core/src/services/profiles.service.ts:308
+msgid "Select profile or enter an address"
+msgstr "Profil kiválasztása vagy cím megadása"
+
+#: tabby-terminal/src/components/streamProcessingSettings.component.ts:33
+msgid "Send bytes by typing in hex values"
+msgstr "Bájtok küldése hexa értékek beírásával"
+
+#: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:75
+msgid "Sends data one byte at a time"
+msgstr "Egyszerre egy bájtnyi adatot küld"
+
+#: tabby-serial/src/profiles.ts:14
+#: tabby-serial/src/profiles.ts:74
+msgid "Serial"
+msgstr "Soros"
+
+#: tabby-serial/src/profiles.ts:53
+#: tabby-serial/src/profiles.ts:64
+msgid "Serial connection"
+msgstr "Soros kapcsolat"
+
+#: tabby-serial/src/profiles.ts:73
+msgid "Serial: {description}"
+msgstr "Soros: {description}"
+
+#: locale/tmp-html/tabby-settings/src/components/setVaultPassphraseModal.component.html:2
+#: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:5
+msgid "Set master passphrase"
+msgstr "Mester jelmondat beállítása"
+
+#: locale/tmp-html/tabby-settings/src/components/setVaultPassphraseModal.component.html:11
+msgid "Set passphrase"
+msgstr "Jelmondat beállítása"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:104
+msgid "Set password"
+msgstr "Jelszó beállítása"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:168
+msgid "Set Tabby as %COMSPEC%"
+msgstr "Tabby beállítása mint %COMSPEC%"
+
+#: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:69
+msgid "Set to 0 to disable recent profiles"
+msgstr "A legutóbbi profilok letiltásához állítsa 0-ra"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:36
+msgid "Sets the SSH agent's named pipe path."
+msgstr "Beállítja az SSH ügynök nevesített csővezetékének elérési útvonalát."
+
+#: tabby-settings/src/buttonProvider.ts:28
+#: tabby-settings/src/components/settingsTab.component.ts:57
+msgid "Settings"
+msgstr "Beállítások"
+
+#: locale/tmp-html/tabby-local/src/components/shellSettingsTab.component.html:2
+msgid "Shell"
+msgstr "Shell"
+
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:593
+msgid "Shell does not support current path detection"
+msgstr "A shell nem támogatja az aktuális útvonal felismerését"
+
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:59
+msgid "Shell integration"
+msgstr "Shell integráció"
+
+#: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:50
+#: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:25
+msgid "Show"
+msgstr "Mutatás"
+
+#: tabby-core/src/hotkeys.ts:275
+msgid "Show {type} profile selector"
+msgstr "{type} profilválasztó megjelenítése"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:117
+msgid "Show a confirmation box when pasting multiple lines"
+msgstr "Megerősítő ablak megjelenítése több sor beillesztésekor"
+
+#: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:75
+msgid "Show built-in profiles in selector"
+msgstr "Beépített profilok megjelenítése a választóban"
+
+#: tabby-core/src/hotkeys.ts:12
+msgid "Show command selector"
+msgstr "Parancsválasztó megjelenítése"
+
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:132
+msgid "Show config file"
+msgstr "Konfigurációs fájl megjelenítése"
+
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:131
+msgid "Show defaults"
+msgstr "Alapméretezettek megjelenítése"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:146
+msgid "Show Mixer"
+msgstr "Keverő megjelenítése"
+
+#: tabby-core/src/hotkeys.ts:56
+msgid "Show pane labels (for rearranging)"
+msgstr "Táblacímkék megjelenítése (átrendezéshez)"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:164
+msgid "Show profile icon on tab"
+msgstr "Profil ikon megjelenítése a lapon"
+
+#: tabby-core/src/hotkeys.ts:16
+msgid "Show profile selector"
+msgstr "Profilválasztó megjelenítése"
+
+#: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:68
+msgid "Show recent profiles in selector"
+msgstr "Legutóbbi profilok megjelenítése a szelektorban"
+
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:36
+msgid "Show release notes"
+msgstr "Kiadási jegyzet megjelenítése"
+
+#: tabby-serial/src/hotkeys.ts:10
+msgid "Show Serial connections"
+msgstr "Soros kapcsolatok megjelenítése"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:152
+msgid "Show tabs in fullscreen mode"
+msgstr "Lapok megjelenítése teljesképernyős módban"
+
+#: tabby-terminal/src/tabContextMenu.ts:62
+msgid "Show toolbar"
+msgstr "Eszköztár megjelenítése"
+
+#: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:45
+msgid "Show vault contents"
+msgstr "Széf tartalmának megjelenítése"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:29
+msgid "Sixel graphics support (experimental)"
+msgstr "Sixel grafikus támogatás (kísérleti)"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:140
+msgid "Skip MoTD/banner"
+msgstr "MoTD/banner átugrása"
+
+#: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:74
+msgid "Slow feed"
+msgstr "Lassú adagolás"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:68
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:86
+msgid "Snaps the window to a side of the screen"
+msgstr "Az ablakot a képernyő egyik oldalához rögzíti"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:22
+#: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:9
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:20
+msgid "SOCKS proxy"
+msgstr "SOCKS proxy"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:51
+msgid "SOCKS proxy host"
+msgstr "SOCKS proxy gazda"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:55
+msgid "SOCKS proxy port"
+msgstr "SOCKS proxy port"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:130
+msgid "Sound"
+msgstr "Hang"
+
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:31
+msgid "Source code"
+msgstr "Forráskód"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:13
+msgid "Spaciness"
+msgstr "Terjedelem"
+
+#: tabby-core/src/tabContextMenu.ts:75
+msgid "Split"
+msgstr "Osztás"
+
+#: tabby-core/src/hotkeys.ts:160
+msgid "Split to the bottom"
+msgstr "Osztás az aljára"
+
+#: tabby-core/src/tabContextMenu.ts:85
+msgid "Split to the down"
+msgstr "Osztás lentre"
+
+#: tabby-core/src/hotkeys.ts:164
+#: tabby-core/src/tabContextMenu.ts:86
+msgid "Split to the left"
+msgstr "Osztás balra"
+
+#: tabby-core/src/hotkeys.ts:156
+#: tabby-core/src/tabContextMenu.ts:84
+msgid "Split to the right"
+msgstr "Osztás jobbra"
+
+#: tabby-core/src/hotkeys.ts:168
+msgid "Split to the top"
+msgstr "Osztás a tetejére"
+
+#: tabby-core/src/tabContextMenu.ts:87
+msgid "Split to the up"
+msgstr "Osztás fentre"
+
+#: tabby-ssh/src/profiles.ts:82
+msgid "SSH connection"
+msgstr "SSH kapcsolat"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:47
+msgid "SSH connection management is now done through the \"Profiles & connections\" tab"
+msgstr "Az SSH kapcsolat kezelése mostantól a \"Profiles & connections\" fülön keresztül történik"
+
+#: tabby-settings/src/components/vaultSettingsTab.component.ts:89
+msgid "SSH password for {user}@{host}:{port}"
+msgstr "SSH jelszó ide: {user}@{host}:{port}"
+
+#: tabby-core/src/theme.ts:8
+msgid "Standard (legacy)"
+msgstr "Standard (örökölt)"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:150
+msgid "Startup"
+msgstr "Indítás"
+
+#: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:32
+msgid "Stop bits"
+msgstr "Bitek mutatása"
+
+#: tabby-terminal/src/components/streamProcessingSettings.component.ts:52
+msgid "Strip"
+msgstr "Szalag"
+
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:41
+msgid "Subscribe to updates"
+msgstr "Feliratkozás a frissítésekre"
+
+#: locale/tmp-html/tabby-local/src/components/environmentEditor.component.html:13
+msgid "Substitutions allowed."
+msgstr "Csere megengedett."
+
+#: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:19
+#: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:5
+msgid "Switch color scheme"
+msgstr "Színséma váltása"
+
+#: tabby-core/src/tabContextMenu.ts:290
+msgid "Switch profile"
+msgstr "Profil váltása"
+
+#: tabby-core/src/hotkeys.ts:236
+msgid "Switch profile in the active pane"
+msgstr "Profilváltás az aktív táblában"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:7
+msgid "Switches terminal frontend implementation (experimental)"
+msgstr "Átkapcsolja a terminál frontend megvalósítását (kísérleti)"
+
+#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:4
+msgid "Sync"
+msgstr "Szinkronizálás"
+
+#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:53
+msgid "Sync automatically"
+msgstr "Automatikus szinkronizálás"
+
+#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:8
+msgid "Sync host"
+msgstr "Gazda szinkronizálása"
+
+#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:68
+msgid "Sync hotkeys"
+msgstr "Gyorsgombok szinkronizálása"
+
+#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:80
+msgid "Sync Vault"
+msgstr "Széf szinkronizálása"
+
+#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:74
+msgid "Sync window settings"
+msgstr "Ablak beállítások szinkronizálása"
+
+#: tabby-core/src/hotkeys.ts:100
+#: tabby-core/src/hotkeys.ts:104
+#: tabby-core/src/hotkeys.ts:108
+#: tabby-core/src/hotkeys.ts:112
+#: tabby-core/src/hotkeys.ts:116
+#: tabby-core/src/hotkeys.ts:120
+#: tabby-core/src/hotkeys.ts:124
+#: tabby-core/src/hotkeys.ts:128
+#: tabby-core/src/hotkeys.ts:132
+#: tabby-core/src/hotkeys.ts:136
+#: tabby-core/src/hotkeys.ts:140
+#: tabby-core/src/hotkeys.ts:144
+#: tabby-core/src/hotkeys.ts:148
+#: tabby-core/src/hotkeys.ts:152
+#: tabby-core/src/hotkeys.ts:76
+#: tabby-core/src/hotkeys.ts:80
+#: tabby-core/src/hotkeys.ts:84
+#: tabby-core/src/hotkeys.ts:88
+#: tabby-core/src/hotkeys.ts:92
+#: tabby-core/src/hotkeys.ts:96
+msgid "Tab {number}"
+msgstr "lap {number}"
+
+#: tabby-core/src/tabContextMenu.ts:223
+msgid "Tab activity"
+msgstr "Lap aktivitás"
+
+#: locale/tmp-html/tabby-core/src/components/safeModeModal.component.html:3
+msgid "Tabby could not start with your plugins, so all third party plugins have been disabled in this session. The error was:"
+msgstr "A Tabby nem tudott elindulni a pluginjaival, ezért minden harmadik féltől származó plugint letiltottunk ebben a munkamenetben. A hiba a következő volt:"
+
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:41
+msgid "Tabby news and updates on Twitter"
+msgstr "Tabby hírek és frissítések a Twitter-en"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:123
+msgid "Tabs"
+msgstr "Lapok"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:126
+msgid "Tabs location"
+msgstr "Lapok helye"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:141
+msgid "Tabs width"
+msgstr "Lapok szélessége"
+
+#: tabby-telnet/src/profiles.ts:34
+msgid "Telnet session"
+msgstr "Telnet szakasz"
+
+#: tabby-terminal/src/api/baseTerminalTab.component.ts:210
+#: tabby-terminal/src/settings.ts:43
+msgid "Terminal"
+msgstr "Terminál"
+
+#: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:40
+msgid "Terminal background"
+msgstr "Terminál háttér"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:133
+msgid "Terminal bell"
+msgstr "Terminál csengő"
+
+#: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:82
+msgid "Terminal identification"
+msgstr "Terminál azonosítása"
+
+#: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:7
+msgid "Thank you for downloading Tabby!"
+msgstr "Köszönjük, hogy letöltötte Tabby-t!"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:5
+msgid "Theme"
+msgstr "Téma"
+
+#: tabby-core/src/components/transfersMenu.component.ts:47
+msgid "There are active file transfers"
+msgstr "Aktív fájlátvitel van folyamatban"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:102
+msgid "There is a saved password for this connection"
+msgstr "Van egy elmentett jelszó ehhez a kapcsolathoz"
+
+#: locale/tmp-html/tabby-settings/src/components/profilesSettingsTab.component.html:102
+msgid "These apply to all profiles of a given type"
+msgstr "Ezek egy adott típus összes profiljára vonatkoznak"
+
+#: locale/tmp-html/tabby-settings/src/components/editProfileGroupModal.component.html:17
+msgid "These apply to all profiles of a given type in this group"
+msgstr "Ezek egy adott típus összes profiljára vonatkoznak ebben a csoportban."
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:59
+msgid "Thin"
+msgstr "Vékony"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:205
+msgid "Tick this if you're experiencing aliasing, ghosting or other visual issues"
+msgstr "Jelölje be ezt a lehetőséget, ha aliasing, szellemkép vagy egyéb vizuális problémák merülnek fel."
+
+#: tabby-core/src/hotkeys.ts:20
+msgid "Toggle fullscreen mode"
+msgstr "Teljesképernyős mód átkapcsolása"
+
+#: tabby-core/src/hotkeys.ts:36
+msgid "Toggle last tab"
+msgstr "Utolsó lap átkapcsolása"
+
+#: tabby-electron/src/hotkeys.ts:14
+msgid "Toggle terminal window"
+msgstr "Terminál ablak átkapcsolása"
+
+#: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:40
+msgid "Toggles the Tabby window visibility"
+msgstr "A Tabby ablak átlátszóságának átkapcsolása"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:130
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:74
+msgid "Top"
+msgstr "Felső"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:123
+msgid "Trim whitespace and newlines"
+msgstr "A szóközök és újsorok levágása"
+
+#: tabby-core/src/services/config.service.ts:428
+msgid "Try again"
+msgstr "Újrapróbálkozás"
+
+#: tabby-ssh/src/session/ssh.ts:476
+msgid "Trying saved password"
+msgstr "Elmentett jelszó kipróbálása"
+
+#: tabby-core/src/hotkeys.ts:68
+msgid "Turn current tab's panes into separate tabs"
+msgstr "Az aktuális lap ablakait különálló lapokká alakítja át"
+
+#: tabby-core/src/services/profiles.service.ts:418
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:10
+msgid "Ungrouped"
+msgstr "Csoportosítatlan"
+
+#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:59
+msgid "Uninstall"
+msgstr "Eltávolítás"
+
+#: tabby-settings/src/components/profilesSettingsTab.component.ts:269
+msgid "Unknown"
+msgstr "Ismeretlen"
+
+#: tabby-settings/src/components/vaultSettingsTab.component.ts:98
+msgid "Unknown secret of type {type} for {key}"
+msgstr "Ismeretlen {type} típusú titok a {kulcs} esetében"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalToolbar.component.html:4
+msgid "Unpin"
+msgstr "Kitűzés feloldása"
+
+#: tabby-core/src/tabContextMenu.ts:81
+msgid "Up"
+msgstr "Fel"
+
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:14
+#: tabby-electron/src/services/updater.service.ts:133
+msgid "Update"
+msgstr "Frissítés"
+
+#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:52
+msgid "Upgrade to {version}"
+msgstr "Fríssítés {version}-ra"
+
+#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:42
+#: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:10
+msgid "Upload"
+msgstr "Feltöltés"
+
+#: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:46
+msgid "Upload as a new config"
+msgstr "Új konfigurációként való feltöltés"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:39
+msgid "Use {altKeyName} as the Meta key"
+msgstr "Használja {altKeyName} Meta kulcsot"
+
+#: locale/tmp-html/tabby-local/src/components/shellSettingsTab.component.html:5
+msgid "Use ConPTY"
+msgstr "ConPTY használata"
+
+#: tabby-electron/src/shells/linuxDefault.ts:31
+#: tabby-electron/src/shells/linuxDefault.ts:38
+msgid "User default"
+msgstr "Felhasználó alapméretezése"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:70
+msgid "Username"
+msgstr "Felhasználónév"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:25
+msgid "Using CONNECT method"
+msgstr "CONNECT metódus használata"
+
+#: tabby-ssh/src/session/ssh.ts:465
+msgid "Using preset password"
+msgstr "Előre beállított jelszó használata"
+
+#: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:9
+msgid "Vault"
+msgstr "Széf"
+
+#: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:4
+msgid "Vault is an always-encrypted container for secrets such as SSH passwords and private key passphrases."
+msgstr "A Széf egy mindig titkosított tároló olyan titkok számára, mint az SSH jelszavak és a privát kulcsok jelszavai."
+
+#: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:17
+msgid "Vault is empty"
+msgstr "A Széf üres"
+
+#: locale/tmp-html/tabby-core/src/components/unlockVaultModal.component.html:4
+#: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:44
+msgid "Vault is locked"
+msgstr "A Széf le van zárva"
+
+#: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:3
+msgid "Vault is not configured"
+msgstr "A Széf nincs konfigurálva"
+
+#: tabby-core/src/services/fileProviders.service.ts:40
+msgid "Vault master passphrase needs to be set to allow storing secrets"
+msgstr "A Széf mester jelmondatát be kell állítani a titkok tárolásának engedélyezéséhez"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:11
+msgid "Verify host keys when connecting"
+msgstr "Csatlakozáskor ellenőrizze a gazda kulcsokat"
+
+#: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:75
+msgid "Version"
+msgstr "Verzió"
+
+#: locale/tmp-html/tabby-core/src/components/startPage.component.html:13
+msgid "Version: {version}"
+msgstr "Verzió: {version}"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:28
+msgid "Vibrancy"
+msgstr "Rezgés"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:139
+msgid "Visual"
+msgstr "Vizuális"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:116
+msgid "Warn on multi-line paste"
+msgstr "Figyelmeztetés a többsoros beillesztésre"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:5
+msgid "Warn when closing active connections"
+msgstr "Figyelmeztetés aktív kapcsolatok lezárásakor"
+
+#: locale/tmp-html/tabby-ssh/src/components/hostKeyPromptModal.component.html:6
+msgid "Warning: remote host's key has suddenly changed!"
+msgstr "Figyelmeztetés: a távoli állomás kulcsa hirtelen megváltozott!"
+
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:67
+msgid "We're only tracking your Tabby and OS versions."
+msgstr "Csak a Tabby és az operációs rendszer verzióit követjük nyomon."
+
+#: tabby-core/src/components/welcomeTab.component.ts:25
+msgid "Welcome"
+msgstr "Üdvözlet"
+
+#: locale/tmp-html/tabby-settings/src/components/settingsTab.component.html:36
+msgid "What's new"
+msgstr "Újdonságok"
+
+#: locale/tmp-html/tabby-settings/src/components/editProfileModal.component.html:46
+msgid "When a session ends"
+msgstr "Amikor a munkamenet véget ér"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:82
+msgid "When enabled, links are only clickable while holding this key"
+msgstr "Ha engedélyezve van, a linkek csak akkor kattinthatók, ha ezt a billentyűt nyomva tartják."
+
+#: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:18
+msgid "When WinSCP is detected, you can launch an SCP session from the context menu."
+msgstr "A WinSCP észlelésekor a kontextusmenüből indíthat SCP-munkamenetet."
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:53
+msgid "Whether a custom window or an OS native window should be used"
+msgstr "Egyéni ablak vagy az operációs rendszer natív ablaka legyen-e használva"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:141
+msgid "Will prevent the SSH greeting from showing up"
+msgstr "Megakadályozza, hogy az SSH üdvözlés megjelenjen"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:2
+#: tabby-settings/src/settings.ts:30
+msgid "Window"
+msgstr "Ablak"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:112
+msgid "Window dimension along the edge"
+msgstr "Ablakméret a széle mentén"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:105
+msgid "Window dimension away from the edge"
+msgstr "Ablakméret a szélétől távolodva"
+
+#: locale/tmp-html/tabby-settings/src/components/windowSettingsTab.component.html:52
+msgid "Window frame"
+msgstr "Ablak keret"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:165
+msgid "Windows"
+msgstr "Ablakok"
+
+#: locale/tmp-html/tabby-local/src/components/shellSettingsTab.component.html:11
+msgid "Windows 10 build 18309 or above is recommended for ConPTY"
+msgstr "A Windows 10 18309-es vagy magasabb verziója ajánlott a ConPTY rendszerhez."
+
+#: locale/tmp-html/tabby-ssh/src/components/sshSettingsTab.component.html:17
+msgid "WinSCP path"
+msgstr "WinSCP útvonal"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:74
+msgid "Word separators"
+msgstr "Szó elválasztók"
+
+#: locale/tmp-html/tabby-local/src/components/localProfileSettings.component.html:10
+msgid "Working directory"
+msgstr "Munkakönyvtár"
+
+#: locale/tmp-html/tabby-ssh/src/components/sftpPanel.component.html:15
+#: locale/tmp-html/tabby-ssh/src/components/sshTab.component.html:6
+msgid "Working directory detection"
+msgstr "Munkakönyvtár érzékelése"
+
+#: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:145
+msgid "WSL terminal bell can only be muted via Volume Mixer"
+msgstr "A WSL terminál csengője csak a Hangerőkeverő segítségével némítható el."
+
+#: locale/tmp-html/tabby-local/src/components/shellSettingsTab.component.html:14
+msgid "WSL terminal only supports TrueColor with ConPTY"
+msgstr "A WSL terminál csak a TrueColor-t támogatja a ConPTY-vel együtt."
+
+#: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:128
+msgid "X11 forwarding"
+msgstr "X11 továbbítás"
+
+#: tabby-core/src/utils.ts:65
+msgid "Yellow"
+msgstr "Sárga"
+
+#: locale/tmp-html/tabby-settings/src/components/setVaultPassphraseModal.component.html:4
+msgid "You can change it later, but it's unrecoverable if forgotten."
+msgstr "Később megváltoztathatja, de ha elfelejtette, akkor ez visszaállíthatatlan."
+
+#: locale/tmp-html/tabby-ssh/src/components/hostKeyPromptModal.component.html:7
+msgid "You could be under a man-in-the-middle attack right now, or the host key could have just been changed."
+msgstr "Lehet, hogy épp egy man-in-the-middle támadás alatt áll, vagy a gazdakulcsot épp most változtatták meg."
+
+#: tabby-terminal/src/hotkeys.ts:54
+msgid "Zoom in"
+msgstr "Belenagyítás"
+
+#: tabby-terminal/src/hotkeys.ts:58
+msgid "Zoom out"
+msgstr "Kicsinyítés"
+
+#: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:43
+#: locale/tmp-html/tabby-ssh/src/components/sshPortForwardingConfig.component.html:5
+msgctxt "[Dynamic] port forwarding"
+msgid "id.port-forwarding.dynamic"
+msgstr "Dinamikus"
+
