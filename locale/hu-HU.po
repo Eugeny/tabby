@@ -1,5 +1,3 @@
-msgid ""
-msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Crowdin-Project: tabby\n"
@@ -191,7 +189,7 @@ msgstr "Backspace gomb mód"
 #: tabby-serial/src/components/serialTab.component.ts:93
 #: tabby-serial/src/profiles.ts:88
 msgid "Baud rate"
-msgstr ""Átiveli sebesség
+msgstr "Átiveli sebesség"
 
 #: tabby-terminal/src/hotkeys.ts:22
 msgid "Beginning of the line"
