@@ -2,7 +2,7 @@ name: Package-Build
 on: [push, pull_request]
 jobs:
   Lint:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
 
     steps:
     - name: Checkout
@@ -17,6 +17,7 @@ jobs:
 
     - name: Install deps
       run: |
+        sudo apt-get update && sudo apt-get install -y libfontconfig1-dev
         npm i -g yarn
         cd app
         yarn
@@ -129,7 +130,7 @@ jobs:
         path: artifact-zip
 
   Linux-Build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     needs: Lint
     strategy:
       matrix:
@@ -171,7 +172,7 @@ jobs:
     - name: Install dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install libarchive-tools zsh crossbuild-essential-${{matrix.arch}}
+        sudo apt-get install libfontconfig1-dev libarchive-tools zsh crossbuild-essential-${{matrix.arch}}
 
     - name: Setup tar to run as root
       run: sudo chmod u+s "$(command -v tar)"
