@@ -2,7 +2,7 @@ name: Package-Build
 on: [push, pull_request]
 jobs:
   Lint:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
 
     steps:
     - name: Checkout
@@ -129,7 +129,7 @@ jobs:
         path: artifact-zip
 
   Linux-Build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     needs: Lint
     strategy:
       matrix:
