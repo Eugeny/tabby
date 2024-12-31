@@ -172,7 +172,7 @@ jobs:
     - name: Install dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install libarchive-tools zsh crossbuild-essential-${{matrix.arch}}
+        sudo apt-get install libfontconfig1-dev libarchive-tools zsh crossbuild-essential-${{matrix.arch}}
 
     - name: Setup tar to run as root
       run: sudo chmod u+s "$(command -v tar)"
