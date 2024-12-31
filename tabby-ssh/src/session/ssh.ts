@@ -37,6 +37,7 @@ type AuthMethod = {
     type: 'publickey'
     name: string
     contents: Buffer
+    hashAlg: 'sha256'|'sha512'|'sha1'|null
 } | {
     type: 'agent',
     kind: 'unix-socket',
@@ -137,29 +138,37 @@ export class SSHSession {
         })
     }
 
+    private addPublicKeyAuthMethod (name: string, contents: Buffer) {
+        for (const hashAlg of ['sha512', 'sha256', 'sha1', null] as const) {
+            this.remainingAuthMethods.push({
+                type: 'publickey',
+                name,
+                contents,
+                hashAlg,
+            })
+        }
+    }
+
     async init (): Promise<void> {
         this.remainingAuthMethods = [{ type: 'none' }]
         if (!this.profile.options.auth || this.profile.options.auth === 'publicKey') {
             if (this.profile.options.privateKeys?.length) {
                 for (const pk of this.profile.options.privateKeys) {
+                    // eslint-disable-next-line @typescript-eslint/init-declarations
+                    let contents: Buffer
                     try {
-                        this.remainingAuthMethods.push({
-                            type: 'publickey',
-                            name: pk,
-                            contents: await this.fileProviders.retrieveFile(pk),
-                        })
+                        contents = await this.fileProviders.retrieveFile(pk)
                     } catch (error) {
                         this.emitServiceMessage(colors.bgYellow.yellow.black(' ! ') + ` Could not load private key ${pk}: ${error}`)
+                        continue
                     }
+
+                    this.addPublicKeyAuthMethod(pk, contents)
                 }
             } else {
                 for (const importer of this.privateKeyImporters) {
                     for (const [name, contents] of await importer.getKeys()) {
-                        this.remainingAuthMethods.push({
-                            type: 'publickey',
-                            name,
-                            contents,
-                        })
+                        this.addPublicKeyAuthMethod(name, contents)
                     }
                 }
             }
@@ -523,7 +532,17 @@ export class SSHSession {
             if (method.type === 'publickey') {
                 try {
                     const key = await this.loadPrivateKey(method.name, method.contents)
-                    const result = await this.ssh.authenticateWithKeyPair(this.authUsername, key)
+                    const possibleHashAlgs = (['ssh-rsa', 'rsa-sha2-256', 'rsa-sha2-512'].includes(key.algorithm) ? ['sha256', 'sha512', 'sha1'] : [null]) as (string|null)[]
+                    if (!possibleHashAlgs.includes(method.hashAlg)) {
+                        // skip incompatible hash algs
+                        continue
+                    }
+                    let msg = `Using private key: ${method.name}`
+                    if (method.hashAlg) {
+                        msg += ` (${method.hashAlg})`
+                    }
+                    this.emitServiceMessage(msg)
+                    const result = await this.ssh.authenticateWithKeyPair(this.authUsername, key, method.hashAlg)
                     if (result) {
                         return result
                     }
@@ -692,13 +711,15 @@ export class SSHSession {
     }
 
     async loadPrivateKey (name: string, privateKeyContents: Buffer): Promise<russh.KeyPair> {
-        this.emitServiceMessage(`Loading private key: ${name}`)
         this.activePrivateKey = await this.loadPrivateKeyWithPassphraseMaybe(privateKeyContents.toString())
         return this.activePrivateKey
     }
 
     async loadPrivateKeyWithPassphraseMaybe (privateKey: string): Promise<russh.KeyPair> {
         const keyHash = crypto.createHash('sha512').update(privateKey).digest('hex')
+
+        privateKey = privateKey.replaceAll('EC PRIVATE KEY', 'PRIVATE KEY')
+
         let triedSavedPassphrase = false
         let passphrase: string|null = null
         while (true) {
