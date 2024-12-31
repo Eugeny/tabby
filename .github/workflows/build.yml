@@ -17,6 +17,7 @@ jobs:
 
     - name: Install deps
       run: |
+        apt-get update && apt-get install -y libfontconfig1-dev
         npm i -g yarn
         cd app
         yarn
