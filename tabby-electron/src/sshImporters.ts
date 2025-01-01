@@ -1,6 +1,7 @@
 import * as fs from 'fs/promises'
 import * as fsSync from 'fs'
 import * as path from 'path'
+import * as glob from 'glob'
 import slugify from 'slugify'
 import * as yaml from 'js-yaml'
 import { Injectable } from '@angular/core'
@@ -14,7 +15,7 @@ import {
 } from 'tabby-ssh'
 
 import { ElectronService } from './services/electron.service'
-import SSHConfig, { LineType } from 'ssh-config'
+import SSHConfig, { Directive, LineType } from 'ssh-config'
 
 // Enum to delineate the properties in SSHProfile options
 enum SSHProfilePropertyNames {
@@ -90,15 +91,60 @@ function convertSSHConfigValuesToString (arg: string | string[] | object[]): str
         .join(' ')
 }
 
-// Function to read in the SSH config file and return it as a string
-async function readSSHConfigFile (filePath: string): Promise<string> {
-    try {
-        return await fs.readFile(filePath, 'utf8')
-    } catch (err) {
-        console.error('Error reading SSH config file:', err)
-        return ''
+// Function to read in the SSH config file recursively and parse any Include directives
+async function parseSSHConfigFile (
+    filePath: string,
+    visited = new Set<string>(),
+): Promise<SSHConfig> {
+    // If we've already processed this file, return an empty config to avoid infinite recursion
+    if (visited.has(filePath)) {
+        return SSHConfig.parse('')
     }
+    visited.add(filePath)
+
+    let raw = ''
+    try {
+        raw = await fs.readFile(filePath, 'utf8')
+    } catch (err) {
+        console.error(`Error reading SSH config file: ${filePath}`, err)
+        return SSHConfig.parse('')
+    }
+
+    const parsed = SSHConfig.parse(raw)
+    const merged = SSHConfig.parse('')
+    for (const entry of parsed) {
+        if (entry.type === LineType.DIRECTIVE && entry.param.toLowerCase() === 'include') {
+            const directive = entry as Directive
+            if (typeof directive.value !== 'string') {
+                continue
+            }
+
+            // ssh_config(5) says "Files without absolute paths are assumed to be in ~/.ssh if included in a user configuration file or /etc/ssh if included from the system configuration file."
+            let incPath = ''
+            if (path.isAbsolute(directive.value)) {
+                incPath = directive.value
+            } else if (directive.value.startsWith('~')) {
+                incPath = path.join(process.env.HOME ?? '~', directive.value.slice(1))
+            } else {
+                incPath = path.join(process.env.HOME ?? '~', '.ssh', directive.value)
+            }
+
+            const matches = glob.sync(incPath)
+            for (const match of matches) {
+                const stat = await fs.stat(match)
+                if (stat.isDirectory()) {
+                    continue
+                }
+                const matchedConfig = await parseSSHConfigFile(match, visited)
+                merged.push(...matchedConfig)
+            }
+        } else {
+            merged.push(entry)
+        }
+    }
+    return merged
 }
+
 // Function to take an ssh-config entry and convert it into an SSHProfile
 function convertHostToSSHProfile (host: string, settings: Record<string, string | string[] | object[] >): PartialProfile<SSHProfile> {
 
@@ -293,8 +339,7 @@ export class OpenSSHImporter extends SSHProfileImporter {
         const configPath = path.join(process.env.HOME ?? '~', '.ssh', 'config')
 
         try {
-            const sshConfigContent = await readSSHConfigFile(configPath)
-            const config: SSHConfig = SSHConfig.parse(sshConfigContent)
+            const config: SSHConfig = await parseSSHConfigFile(configPath)
             return convertToSSHProfiles(config)
         } catch (e) {
             if (e.code === 'ENOENT') {
