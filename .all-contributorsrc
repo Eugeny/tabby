@@ -1337,6 +1337,24 @@
       "contributions": [
         "financial"
       ]
+    },
+    {
+      "login": "xhiroga",
+      "name": "Hiroaki Ogasawara",
+      "avatar_url": "https://avatars.githubusercontent.com/u/13391129?v=4",
+      "profile": "http://hiroga.hatenablog.com/",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "geodic",
+      "name": "geodic",
+      "avatar_url": "https://avatars.githubusercontent.com/u/64704703?v=4",
+      "profile": "https://github.com/geodic",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
