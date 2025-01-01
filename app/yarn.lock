@@ -185,10 +185,10 @@
   dependencies:
     "@types/node" "^10.12.18"
 
-"@types/mz@2.7.4":
-  version "2.7.4"
-  resolved "https://registry.yarnpkg.com/@types/mz/-/mz-2.7.4.tgz#f9d1535cb5171199b28ae6abd6ec29e856551401"
-  integrity sha512-Zs0imXxyWT20j3Z2NwKpr0IO2LmLactBblNyLua5Az4UHuqOQ02V3jPTgyKwDkuc33/ahw+C3O1PIZdrhFMuQA==
+"@types/mz@2.7.6":
+  version "2.7.6"
+  resolved "https://registry.yarnpkg.com/@types/mz/-/mz-2.7.6.tgz#20e076b3198878c139608432e7e4a2f0e0200986"
+  integrity sha512-+y7boPceq5fyKDhD0wnnEtGgBJop/hewqmCwtjlF6XIjZ06VNe5GLLOoRTzUzal+FwXcTFegOyTOV7WAXC1yOw==
   dependencies:
     "@types/node" "*"
 
