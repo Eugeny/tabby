@@ -11,5 +11,4 @@ const paths = [
 
 paths.forEach(x => log.info(`Using config: ${x}`))
 
-const config = await Promise.all(paths.map(x => import(x).then(x => x.default())))
-export default () => config
+export default () => Promise.all(paths.map(x => import(x).then(x => x.default())))
