@@ -1,0 +1,39 @@
+diff --git a/node_modules/node-pty/src/win/winpty.cc b/node_modules/node-pty/src/win/winpty.cc
+index b054dee..a094b1c 100644
+--- a/node_modules/node-pty/src/win/winpty.cc
++++ b/node_modules/node-pty/src/win/winpty.cc
+@@ -164,7 +164,7 @@ static NAN_METHOD(PtyStartProcess) {
+     Nan::ThrowError(why.str().c_str());
+     goto cleanup;
+   }
+-
++  {
+   int cols = info[4]->Int32Value(Nan::GetCurrentContext()).FromJust();
+   int rows = info[5]->Int32Value(Nan::GetCurrentContext()).FromJust();
+   bool debug = Nan::To<bool>(info[6]).FromJust();
+@@ -179,6 +179,7 @@ static NAN_METHOD(PtyStartProcess) {
+     throw_winpty_error("Error creating WinPTY config", error_ptr);
+     goto cleanup;
+   }
++  {
+   winpty_error_free(error_ptr);
+ 
+   // Set pty size on config
+@@ -215,7 +216,7 @@ static NAN_METHOD(PtyStartProcess) {
+   winpty_error_free(error_ptr);
+ 
+   // Set return values
+-  v8::Local<v8::Object> marshal = Nan::New<v8::Object>();
++  {v8::Local<v8::Object> marshal = Nan::New<v8::Object>();
+   Nan::Set(marshal, Nan::New<v8::String>("innerPid").ToLocalChecked(), Nan::New<v8::Number>((int)GetProcessId(handle)));
+   Nan::Set(marshal, Nan::New<v8::String>("innerPidHandle").ToLocalChecked(), Nan::New<v8::Number>((int)handle));
+   Nan::Set(marshal, Nan::New<v8::String>("pid").ToLocalChecked(), Nan::New<v8::Number>((int)winpty_agent_process(pc)));
+@@ -232,7 +233,7 @@ static NAN_METHOD(PtyStartProcess) {
+     Nan::Set(marshal, Nan::New<v8::String>("conout").ToLocalChecked(), Nan::New<v8::String>(conoutPipeNameStr).ToLocalChecked());
+   }
+   info.GetReturnValue().Set(marshal);
+-
++  }}}
+   goto cleanup;
+ 
+ cleanup:
