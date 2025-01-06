@@ -5,6 +5,7 @@
 # enhanced Clink experience.
 
 clink.default_bindings            = windows
+clink.autoupdate                  = off
 cmd.ctrld_exits                   = False
 color.arginfo                     = sgr 38;5;172
 color.argmatcher                  = sgr 1;38;5;40
@@ -29,4 +30,3 @@ history.max_lines                 = 25000
 history.time_stamp                = show
 match.expand_envvars              = True
 match.substring                   = True
-
