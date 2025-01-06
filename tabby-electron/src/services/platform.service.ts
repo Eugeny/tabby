@@ -18,7 +18,7 @@ const fontManager = require('fontmanager-redux') // eslint-disable-line
 
 try {
     // eslint-disable-next-line no-var
-    var windowsProcessTreeNative = require('windows-process-tree/build/Release/windows_process_tree.node')
+    var windowsProcessTreeNative = require('@tabby-gang/windows-process-tree/build/Release/windows_process_tree.node')
     // eslint-disable-next-line no-var
     var wnr = require('windows-native-registry')
 } catch { }

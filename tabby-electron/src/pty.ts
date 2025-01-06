@@ -10,7 +10,7 @@ try {
 } catch { }
 
 try {
-    var windowsProcessTree = require('windows-process-tree')  // eslint-disable-line @typescript-eslint/no-var-requires, no-var
+    var windowsProcessTree = require('@tabby-gang/windows-process-tree')  // eslint-disable-line @typescript-eslint/no-var-requires, no-var
 } catch { }
 
 export class ElectronPTYInterface extends PTYInterface {
