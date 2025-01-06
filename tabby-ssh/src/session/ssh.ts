@@ -502,7 +502,7 @@ export class SSHSession {
             if (method.type === 'saved-password') {
                 this.emitServiceMessage(this.translate.instant('Using saved password'))
                 const result = await this.ssh.authenticateWithPassword(this.authUsername, method.password)
-                if (result) {
+                if (result instanceof russh.AuthenticatedSSHClient) {
                     return result
                 }
             }
@@ -519,7 +519,7 @@ export class SSHSession {
                             this.savedPassword = promptResult.value
                         }
                         const result = await this.ssh.authenticateWithPassword(this.authUsername, promptResult.value)
-                        if (result) {
+                        if (result instanceof russh.AuthenticatedSSHClient) {
                             return result
                         }
                     } else {
@@ -543,7 +543,7 @@ export class SSHSession {
                     }
                     this.emitServiceMessage(msg)
                     const result = await this.ssh.authenticateWithKeyPair(this.authUsername, key, method.hashAlg)
-                    if (result) {
+                    if (result instanceof russh.AuthenticatedSSHClient) {
                         return result
                     }
                 } catch (e) {
@@ -601,7 +601,7 @@ export class SSHSession {
             if (method.type === 'agent') {
                 try {
                     const result = await this.ssh.authenticateWithAgent(this.authUsername, method)
-                    if (result) {
+                    if (result instanceof russh.AuthenticatedSSHClient) {
                         return result
                     }
                 } catch (e) {
