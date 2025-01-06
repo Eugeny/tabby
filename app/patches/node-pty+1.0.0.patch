@@ -1,3 +1,17 @@
+diff --git a/node_modules/node-pty/binding.gyp b/node_modules/node-pty/binding.gyp
+index 79a93e7..efb0a3f 100644
+--- a/node_modules/node-pty/binding.gyp
++++ b/node_modules/node-pty/binding.gyp
+@@ -18,6 +18,9 @@
+               ]
+             }
+           },
++        'defines': [
++          'NOMINMAX'
++        ]
+       }],
+     ],
+   },
 diff --git a/node_modules/node-pty/src/win/winpty.cc b/node_modules/node-pty/src/win/winpty.cc
 index b054dee..a094b1c 100644
 --- a/node_modules/node-pty/src/win/winpty.cc
