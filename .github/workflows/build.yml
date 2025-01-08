@@ -13,7 +13,7 @@ jobs:
     - name: Installing Node
       uses: actions/setup-node@v3.7.0
       with:
-        node-version: 18
+        node-version: 22
 
     - name: Install deps
       run: |
@@ -56,7 +56,7 @@ jobs:
     - name: Installing Node
       uses: actions/setup-node@v3.7.0
       with:
-        node-version: 18
+        node-version: 22
 
     - run: rustup target add ${{matrix.rust_triple}}
 
@@ -165,7 +165,7 @@ jobs:
     - name: Install Node
       uses: actions/setup-node@v3.7.0
       with:
-        node-version: 18
+        node-version: 22
 
     - run: rustup target add ${{matrix.rust_triple}}
 
@@ -318,7 +318,7 @@ jobs:
     - name: Installing Node
       uses: actions/setup-node@v3.7.0
       with:
-        node-version: 18
+        node-version: 22
 
     - run: npm i -g npx
     - run: rustup target add ${{matrix.rust_triple}}
