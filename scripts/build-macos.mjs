@@ -29,7 +29,6 @@ builder({
         mac: {
             identity: !process.env.CI || process.env.CSC_LINK ? undefined : null,
             notarize: process.env.APPLE_TEAM_ID ? {
-                appBundleId: 'org.tabby',
                 teamId: process.env.APPLE_TEAM_ID,
             } : false,
         },
