@@ -87,7 +87,7 @@ export class SSHSession {
     ssh: russh.SSHClient|russh.AuthenticatedSSHClient
     sftp?: russh.SFTP
     forwardedPorts: ForwardedPort[] = []
-    jumpChannel: russh.Channel|null = null
+    jumpChannel: russh.NewChannel|null = null
     savedPassword?: string
     get serviceMessage$ (): Observable<string> { return this.serviceMessage }
     get keyboardInteractivePrompt$ (): Observable<KeyboardInteractivePrompt> { return this.keyboardInteractivePrompt }
@@ -244,7 +244,7 @@ export class SSHSession {
             throw new Error('Cannot open SFTP session before auth')
         }
         if (!this.sftp) {
-            this.sftp = await this.ssh.openSFTPChannel()
+            this.sftp = await this.ssh.activateSFTP(await this.ssh.openSessionChannel())
         }
         return new SFTPSession(this.sftp, this.injector)
     }
@@ -368,22 +368,31 @@ export class SSHSession {
 
         this.ssh.tcpChannelOpen$.subscribe(async event => {
             this.logger.info(`Incoming forwarded connection: ${event.clientAddress}:${event.clientPort} -> ${event.targetAddress}:${event.targetPort}`)
+
+            if (!(this.ssh instanceof russh.AuthenticatedSSHClient)) {
+                throw new Error('Cannot open agent channel before auth')
+            }
+
+            const channel = await this.ssh.activateChannel(event.channel)
+
             const forward = this.forwardedPorts.find(x => x.port === event.targetPort && x.host === event.targetAddress)
             if (!forward) {
                 this.emitServiceMessage(colors.bgRed.black(' X ') + ` Rejected incoming forwarded connection for unrecognized port ${event.targetAddress}:${event.targetPort}`)
+                channel.close()
                 return
             }
+
             const socket = new Socket()
             socket.connect(forward.targetPort, forward.targetAddress)
             socket.on('error', e => {
                 // eslint-disable-next-line @typescript-eslint/no-base-to-string
                 this.emitServiceMessage(colors.bgRed.black(' X ') + ` Could not forward the remote connection to ${forward.targetAddress}:${forward.targetPort}: ${e}`)
-                event.channel.close()
+                channel.close()
             })
-            event.channel.data$.subscribe(data => socket.write(data))
-            socket.on('data', data => event.channel.write(Uint8Array.from(data)))
-            event.channel.closed$.subscribe(() => socket.destroy())
-            socket.on('close', () => event.channel.close())
+            channel.data$.subscribe(data => socket.write(data))
+            socket.on('data', data => channel.write(Uint8Array.from(data)))
+            channel.closed$.subscribe(() => socket.destroy())
+            socket.on('close', () => channel.close())
             socket.on('connect', () => {
                 this.logger.info('Connection forwarded')
             })
@@ -394,22 +403,28 @@ export class SSHSession {
             const displaySpec = (this.config.store.ssh.x11Display || process.env.DISPLAY) ?? 'localhost:0'
             this.logger.debug(`Trying display ${displaySpec}`)
 
+            if (!(this.ssh instanceof russh.AuthenticatedSSHClient)) {
+                throw new Error('Cannot open agent channel before auth')
+            }
+
+            const channel = await this.ssh.activateChannel(event.channel)
+
             const socket = new X11Socket()
             try {
                 const x11Stream = await socket.connect(displaySpec)
                 this.logger.info('Connection forwarded')
 
-                event.channel.data$.subscribe(data => {
+                channel.data$.subscribe(data => {
                     x11Stream.write(data)
                 })
                 x11Stream.on('data', data => {
-                    event.channel.write(Uint8Array.from(data))
+                    channel.write(Uint8Array.from(data))
                 })
-                event.channel.closed$.subscribe(() => {
+                channel.closed$.subscribe(() => {
                     socket.destroy()
                 })
                 x11Stream.on('close', () => {
-                    event.channel.close()
+                    channel.close()
                 })
             } catch (e) {
                 // eslint-disable-next-line @typescript-eslint/no-base-to-string
@@ -420,11 +435,17 @@ export class SSHSession {
                     this.emitServiceMessage('    * VcXsrv: https://sourceforge.net/projects/vcxsrv/')
                     this.emitServiceMessage('    * Xming: https://sourceforge.net/projects/xming/')
                 }
-                event.channel.close()
+                channel.close()
             }
         })
 
-        this.ssh.agentChannelOpen$.subscribe(async channel => {
+        this.ssh.agentChannelOpen$.subscribe(async newChannel => {
+            if (!(this.ssh instanceof russh.AuthenticatedSSHClient)) {
+                throw new Error('Cannot open agent channel before auth')
+            }
+
+            const channel = await this.ssh.activateChannel(newChannel)
+
             const spec = await this.getAgentConnectionSpec()
             if (!spec) {
                 await channel.close()
@@ -622,7 +643,7 @@ export class SSHSession {
                     reject()
                     return
                 }
-                const channel = await this.ssh.openTCPForwardChannel({
+                const channel = await this.ssh.activateChannel(await this.ssh.openTCPForwardChannel({
                     addressToConnectTo: targetAddress,
                     portToConnectTo: targetPort,
                     originatorAddress: sourceAddress ?? '127.0.0.1',
@@ -631,7 +652,7 @@ export class SSHSession {
                     this.emitServiceMessage(colors.bgRed.black(' X ') + ` Remote has rejected the forwarded connection to ${targetAddress}:${targetPort} via ${fw}: ${err}`)
                     reject()
                     throw err
-                })
+                }))
                 const socket = accept()
                 channel.data$.subscribe(data => socket.write(data))
                 socket.on('data', data => channel.write(Uint8Array.from(data)))
@@ -688,7 +709,7 @@ export class SSHSession {
         if (!(this.ssh instanceof russh.AuthenticatedSSHClient)) {
             throw new Error('Cannot open shell channel before auth')
         }
-        const ch = await this.ssh.openSessionChannel()
+        const ch = await this.ssh.activateChannel(await this.ssh.openSessionChannel())
         await ch.requestPTY('xterm-256color', {
             columns: 80,
             rows: 24,
