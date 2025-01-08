@@ -100,3 +100,7 @@ rpm:
   - '_build_id_links none'
   - '--replaces'
   - 'terminus-terminal'
+electronFuses:
+  runAsNode: false
+  enableNodeOptionsEnvironmentVariable: false
+  nodeCliInspect: false
