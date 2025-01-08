@@ -10,6 +10,8 @@ log.info('deps', 'app')
 
 sh.cd('app')
 sh.exec(`yarn install --force --network-timeout 1000000`, { fatal: true })
+// Some native packages might fail to build before patch-package gets a chance to run via postinstall
+sh.exec(`yarn postinstall`, { fatal: false })
 sh.cd('..')
 
 sh.cd('web')
@@ -21,8 +23,6 @@ vars.allPackages.forEach(plugin => {
     log.info('deps', plugin)
     sh.cd(plugin)
     sh.exec(`yarn install --force --network-timeout 1000000`, { fatal: true })
-    // Some native packages might fail to build before patch-package gets a chance to run via postinstall
-    sh.exec(`yarn postinstall`, { fatal: false })
     sh.cd('..')
 })
 
