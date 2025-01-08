@@ -265,7 +265,7 @@ export class SSHSession {
             const argv = shellQuote.parse(this.profile.options.proxyCommand)
             transport = await russh.SshTransport.newCommand(argv[0], argv.slice(1))
         } else if (this.jumpChannel) {
-            transport = await russh.SshTransport.newSshChannel(await this.jumpChannel.take())
+            transport = await russh.SshTransport.newSshChannel(this.jumpChannel.take())
             this.jumpChannel = null
         } else if (this.profile.options.socksProxyHost) {
             this.emitServiceMessage(colors.bgBlue.black(' Proxy ') + ` Using ${this.profile.options.socksProxyHost}:${this.profile.options.socksProxyPort}`)
