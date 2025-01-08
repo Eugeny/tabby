@@ -371,7 +371,7 @@ jobs:
         KEYGEN_TOKEN: ${{ secrets.KEYGEN_TOKEN }}
         SM_CLIENT_CERT_PASSWORD: ${{ secrets.SM_CLIENT_CERT_PASSWORD }}
         SM_PUBLISHER_NAME: ${{ secrets.SM_PUBLISHER_NAME }}
-        SM_API_KEY: ${{ vars.SM_API_KEY }}
+        SM_API_KEY: ${{ secrets.SM_API_KEY }}
         SM_HOST: ${{ vars.SM_HOST }}
         SM_CODE_SIGNING_CERT_SHA1_HASH: ${{ vars.SM_CODE_SIGNING_CERT_SHA1_HASH }}
         SM_KEYPAIR_ALIAS: ${{ vars.SM_KEYPAIR_ALIAS }}
