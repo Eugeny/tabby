@@ -71,7 +71,8 @@ linux:
   executableArgs:
   - "--no-sandbox"
   desktop:
-    StartupWMClass: tabby
+    entry:
+      StartupWMClass: tabby
 snap:
   plugs:
   - default
@@ -103,4 +104,4 @@ rpm:
 electronFuses:
   runAsNode: false
   enableNodeOptionsEnvironmentVariable: false
-  nodeCliInspect: false
+  enableNodeCliInspectArguments: false
