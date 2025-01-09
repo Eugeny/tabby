@@ -37,7 +37,6 @@ type AuthMethod = {
     type: 'publickey'
     name: string
     contents: Buffer
-    hashAlg: 'sha256'|'sha512'|'sha1'|null
 } | {
     type: 'agent',
     kind: 'unix-socket',
@@ -139,14 +138,11 @@ export class SSHSession {
     }
 
     private addPublicKeyAuthMethod (name: string, contents: Buffer) {
-        for (const hashAlg of ['sha512', 'sha256', 'sha1', null] as const) {
-            this.remainingAuthMethods.push({
-                type: 'publickey',
-                name,
-                contents,
-                hashAlg,
-            })
-        }
+        this.remainingAuthMethods.push({
+            type: 'publickey',
+            name,
+            contents,
+        })
     }
 
     async init (): Promise<void> {
@@ -553,19 +549,13 @@ export class SSHSession {
             if (method.type === 'publickey') {
                 try {
                     const key = await this.loadPrivateKey(method.name, method.contents)
-                    const possibleHashAlgs = (['ssh-rsa', 'rsa-sha2-256', 'rsa-sha2-512'].includes(key.algorithm) ? ['sha256', 'sha512', 'sha1'] : [null]) as (string|null)[]
-                    if (!possibleHashAlgs.includes(method.hashAlg)) {
-                        // skip incompatible hash algs
-                        continue
-                    }
-                    let msg = `Using private key: ${method.name}`
-                    if (method.hashAlg) {
-                        msg += ` (${method.hashAlg})`
-                    }
-                    this.emitServiceMessage(msg)
-                    const result = await this.ssh.authenticateWithKeyPair(this.authUsername, key, method.hashAlg)
-                    if (result instanceof russh.AuthenticatedSSHClient) {
-                        return result
+                    const possibleHashAlgs = ['ssh-rsa', 'rsa-sha2-256', 'rsa-sha2-512'].includes(key.algorithm) ? ['sha256', 'sha512', 'sha1'] as const : [null] as const
+                    this.emitServiceMessage(`Trying private key: ${method.name}`)
+                    for (const alg of possibleHashAlgs) {
+                        const result = await this.ssh.authenticateWithKeyPair(this.authUsername, key, alg)
+                        if (result instanceof russh.AuthenticatedSSHClient) {
+                            return result
+                        }
                     }
                 } catch (e) {
                     this.emitServiceMessage(colors.bgYellow.yellow.black(' ! ') + ` Failed to load private key ${method.name}: ${e}`)
@@ -752,7 +742,12 @@ export class SSHSession {
                     triedSavedPassphrase = true
                     continue
                 }
-                if (e.toString() === 'Error: Keys(KeyIsEncrypted)' || e.toString() === 'Error: Keys(SshKey(Crypto))') {
+                if ([
+                    'Error: Keys(KeyIsEncrypted)',
+                    'Error: Keys(SshKey(Ppk(Encrypted)))',
+                    'Error: Keys(SshKey(Ppk(IncorrectMac)))',
+                    'Error: Keys(SshKey(Crypto))',
+                ].includes(e.toString())) {
                     await this.passwordStorage.deletePrivateKeyPassword(keyHash)
 
                     const modal = this.ngbModal.open(PromptModalComponent)
