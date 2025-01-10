@@ -130,7 +130,10 @@ export default class ElectronModule {
             })
         })
 
-        config.changed$.subscribe(() => this.updateVibrancy())
+        config.changed$.subscribe(() => {
+            this.updateVibrancy()
+            this.updateDarkMode()
+        })
 
         config.changed$.subscribe(() => this.updateWindowControlsColor())
 
@@ -171,6 +174,11 @@ export default class ElectronModule {
         this.electron.ipcRenderer.send('window-set-vibrancy', this.config.store.appearance.vibrancy, vibrancyType)
 
         this.hostWindow.setOpacity(this.config.store.appearance.opacity)
+    }
+
+    private updateDarkMode () {
+        const colorSchemeMode = this.config.store.appearance.colorSchemeMode
+        this.electron.ipcRenderer.send('window-set-dark-mode', colorSchemeMode)
     }
 
     private updateWindowControlsColor () {
