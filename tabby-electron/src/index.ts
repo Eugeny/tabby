@@ -177,7 +177,7 @@ export default class ElectronModule {
     }
 
     private updateDarkMode () {
-        let colorSchemeMode = this.config.store.appearance.colorSchemeMode
+        const colorSchemeMode = this.config.store.appearance.colorSchemeMode
         this.electron.ipcRenderer.send('window-set-dark-mode', colorSchemeMode)
     }
 
