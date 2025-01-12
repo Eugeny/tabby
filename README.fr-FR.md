@@ -18,7 +18,7 @@
 
 ----
 
-### Downloads:
+###  Téléchargements:
 
 * [Dernière version](https://github.com/Eugeny/tabby/releases/latest)
 * [Repositories](https://packagecloud.io/eugeny/tabby): [Debian/Ubuntu-based](https://packagecloud.io/eugeny/tabby/install#bash-deb), [RPM-based](https://packagecloud.io/eugeny/tabby/install#bash-rpm)
@@ -49,7 +49,7 @@ Le README est aussi disponible en: <a  href="./README.es-ES.md">:es: Spanish</a>
 
 # Contents <!-- omit in toc -->
 
-- [What Tabby is and isn't](#what-tabby-is-and-isnt)
+- [Ce que Tabby est et n'est pas](#what-tabby-is-and-isnt)
 - [Terminal features](#terminal-features)
 - [SSH Client](#ssh-client)
 - [Serial Terminal](#serial-terminal)
@@ -60,7 +60,7 @@ Le README est aussi disponible en: <a  href="./README.es-ES.md">:es: Spanish</a>
 
 <a name="about"></a>
 
-# What Tabby is and isn't
+# Ce que Tabby est et n'est pas
 
 * **Tabby is** an alternative to Windows' standard terminal (conhost), PowerShell ISE, PuTTY, macOS Terminal.app and iTerm
 
