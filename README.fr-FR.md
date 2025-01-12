@@ -49,7 +49,7 @@ Le README est aussi disponible en: <a  href="./README.es-ES.md">:es: Spanish</a>
 
 # Contents <!-- omit in toc -->
 
-- [Ce que Tabby est et n'est pas](#what-tabby-is-and-isnt)
+- [Ce que Tabby est et n'est pas](#ce-que-tabby-est-et-n'est-pas)
 - [Terminal features](#terminal-features)
 - [SSH Client](#ssh-client)
 - [Serial Terminal](#serial-terminal)
