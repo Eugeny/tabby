@@ -20,27 +20,27 @@
 
 ### Downloads:
 
-* [Latest release](https://github.com/Eugeny/tabby/releases/latest)
+* [Dernière version](https://github.com/Eugeny/tabby/releases/latest)
 * [Repositories](https://packagecloud.io/eugeny/tabby): [Debian/Ubuntu-based](https://packagecloud.io/eugeny/tabby/install#bash-deb), [RPM-based](https://packagecloud.io/eugeny/tabby/install#bash-rpm)
 * [Latest nightly build](https://nightly.link/Eugeny/tabby/workflows/build/master)
 
 <br/>
 <p align="center">
-This README is also available in: <a  href="./README.es-ES.md">:es: Spanish</a> · <a  href="./README.ru-RU.md">:ru: Русский</a> · <a  href="./README.ko-KR.md">:kr: 한국어</a> · <a  href="./README.zh-CN.md">:cn: 简体中文</a> · <a  href="./README.it-IT.md">:it: Italiano</a> · <a href="./README.de-DE.md">:de: Deutsch</a> · <a href="./README.ja-JP.md">:jp: 日本語</a> · <a href="./README.id-ID.md">:id: Bahasa Indonesia</a> · <a href="./README.pt-BR.md">:brazil: Português</a> · <a href="./README.pl-PL.md">:poland: Polski</a>
+Le README est aussi disponible en: <a  href="./README.es-ES.md">:es: Spanish</a> · <a  href="./README.ru-RU.md">:ru: Русский</a> · <a  href="./README.ko-KR.md">:kr: 한국어</a> · <a  href="./README.zh-CN.md">:cn: 简体中文</a> · <a  href="./README.it-IT.md">:it: Italiano</a> · <a href="./README.de-DE.md">:de: Deutsch</a> · <a href="./README.ja-JP.md">:jp: 日本語</a> · <a href="./README.id-ID.md">:id: Bahasa Indonesia</a> · <a href="./README.pt-BR.md">:brazil: Português</a> · <a href="./README.pl-PL.md">:poland: Polski</a>
 </p>
 
 ----
 
-[**Tabby**](https://tabby.sh) (formerly **Terminus**) is a highly configurable terminal emulator, SSH and serial client for Windows 10, macOS and Linux
+[**Tabby**](https://tabby.sh) (précédemment **Terminus**) est un émulateur de terminal et un client de série très configurable pour Windows 10, macOS and Linux
 
-* Integrated SSH and Telnet client and connection manager
-* Integrated serial terminal
-* Theming and color schemes
-* Fully configurable shortcuts and multi-chord shortcuts
-* Split panes
-* Remembers your tabs
-* PowerShell (and PS Core), WSL, Git-Bash, Cygwin, MSYS2, Cmder and CMD support
-* Direct file transfer from/to SSH sessions via Zmodem
+* Clients SSH et Telnet et gestion de connection intégrés
+* Terminal série intégré
+* Thèmes et combinaisons de couleurs
+* Raccourcis entièrement configurable et multi-touches
+* Division de l'écran
+* Onglets sauvegardés
+* Supporte PowerShell (et PS Core), WSL, Git-Bash, Cygwin, MSYS2, Cmder et CMD
+* Transfert direct de fichiers depuis/vers des sessions SSH via Zmodem
 * Full Unicode support including double-width characters
 * Doesn't choke on fast-flowing outputs
 * Proper shell experience on Windows including tab completion (via Clink)
