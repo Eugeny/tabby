@@ -81,7 +81,7 @@ Le README est aussi disponible en: <a  href="./README.es-ES.md">:es: Spanish</a>
 * Collage entre crochets, avertissements de collage multiligne
 * Ligatures de police
 * Profils de shell personnalisés
-* Collage RMB et sélection copy-on facultative (style PuTTY)
+* Collage RMB et sélection copy-on facultatif (style PuTTY)
 
 <a name="ssh"></a>
 
