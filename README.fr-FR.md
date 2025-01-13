@@ -37,55 +37,55 @@ Le README est aussi disponible en: <a  href="./README.es-ES.md">:es: Spanish</a>
 * Terminal série intégré
 * Thèmes et combinaisons de couleurs
 * Raccourcis entièrement configurable et multi-touches
-* Division de l'écran
+* Volets divisés
 * Onglets sauvegardés
 * Supporte PowerShell (et PS Core), WSL, Git-Bash, Cygwin, MSYS2, Cmder et CMD
 * Transfert direct de fichiers depuis/vers des sessions SSH via Zmodem
-* Full Unicode support including double-width characters
-* Doesn't choke on fast-flowing outputs
-* Proper shell experience on Windows including tab completion (via Clink)
-* Integrated encrypted container for SSH secrets and configuration
-* SSH, SFTP and Telnet client available as a [web app](https://tabby.sh/app) (also [self-hosted](https://github.com/Eugeny/tabby-web)).
+* Supporte entièrement l'Unicode dont les caractères de largeur double
+* Ne ralentit pas avec les débits rapides
+* Expérience shell appropriée sur Windows, y compris la saisie semi-automatique des tabulations (via Clink)
+* Conteneur crypté intégré pour les secrets et la configuration SSH
+* Clients SSH, SFTP et Telnet disponible en tant que [web app](https://tabby.sh/app) (voir aussi [self-hosted](https://github.com/Eugeny/tabby-web)).
 
-# Contents <!-- omit in toc -->
+# Contenus <!-- omit in toc -->
 
 - [Ce que Tabby est et n'est pas](#ce-que-tabby-est-et-n'est-pas)
-- [Terminal features](#terminal-features)
-- [SSH Client](#ssh-client)
+- [Caractéristiques du Terminal](#caractéristiques-du-terminal)
+- [Client SSH](#client-ssh)
 - [Serial Terminal](#serial-terminal)
 - [Portable](#portable)
 - [Plugins](#plugins)
-- [Themes](#themes)
-- [Contributing](#contributing)
+- [Themes](#thèmes)
+- [Contributions](#contributions)
 
 <a name="about"></a>
 
 # Ce que Tabby est et n'est pas
 
-* **Tabby is** an alternative to Windows' standard terminal (conhost), PowerShell ISE, PuTTY, macOS Terminal.app and iTerm
+* **Tabby est** une alternative au terminal standard de Windows (conhost), à PowerShell ISE, à PuTTY, à macOS Terminal.app et à iTerm
 
-* **Tabby is not** a new shell or a MinGW or Cygwin replacement. Neither is it lightweight - if RAM usage is of importance, consider [Conemu](https://conemu.github.io) or [Alacritty](https://github.com/jwilm/alacritty)
+* **Tabby n'est pas** un nouveau shell ou un remplacement de MinGW ou Cygwin. Ce n'est pas non plus un terminal léger - si l'usage de la RAM est important, considérez [Conemu](https://conemu.github.io) ou [Alacritty](https://github.com/jwilm/alacritty)
 
 <a name="terminal"></a>
 
-# Terminal features
+# Caractéristiques du Terminal
 
 ![](docs/readme-terminal.png)
 
-* A VT220 terminal + various extensions
-* Multiple nested split panes
-* Tabs on any side of the window
-* Optional dockable window with a global spawn hotkey ("Quake console")
-* Progress detection
-* Notification on process completion
-* Bracketed paste, multiline paste warnings
-* Font ligatures
-* Custom shell profiles
-* Optional RMB paste and copy-on select (PuTTY style)
+* Un terminal VT220 + diverses extensions
+* Plusieurs volets fractionnés imbriqués
+* Onglets de chaque côté de la fenêtre
+* Fenêtre ancrable facultative avec un raccourci clavier global ("Quake console")
+* Détection de progression
+* Notification à la fin du processus
+* Collage entre crochets, avertissements de collage multiligne
+* Ligatures de police
+* Profils de shell personnalisés
+* Collage RMB et sélection copy-on facultative (style PuTTY)
 
 <a name="ssh"></a>
 
-# SSH Client
+# Client SSH
 
 ![](docs/readme-ssh.png)
 
@@ -109,65 +109,64 @@ Le README est aussi disponible en: <a  href="./README.es-ES.md">:es: Spanish</a>
 
 # Portable
 
-Tabby will run as a portable app on Windows, if you create a `data` folder in the same location where `Tabby.exe` lives.
+Tabby peut fonctionner comme une app Windows portable, si vous créez un dossier 'data' au même endroit où `Tabby.exe` vit.
 
 <a name="plugins"></a>
 
 # Plugins
 
-Plugins and themes can be installed directly from the Settings view inside Tabby.
+Les plugins et les thèmes peuvent être installé directement depuis les réglages (Settings view) à l'intérieur de Tabby.
 
-* [docker](https://github.com/Eugeny/tabby-docker) - connect to Docker containers
-* [title-control](https://github.com/kbjr/terminus-title-control) - allows modifying the title of the terminal tabs by providing a prefix, suffix, and/or strings to be removed
-* [quick-cmds](https://github.com/Domain/terminus-quick-cmds) - quickly send commands to one or all terminal tabs
-* [save-output](https://github.com/Eugeny/tabby-save-output) - record terminal output into a file
-* [sync-config](https://github.com/starxg/terminus-sync-config) - sync the config to Gist or Gitee
-* [clippy](https://github.com/Eugeny/tabby-clippy) - an example plugin which annoys you all the time
-* [workspace-manager](https://github.com/composer404/tabby-workspace-manager) - allows creating custom workspace profiles based on the given config
-* [search-in-browser](https://github.com/composer404/tabby-search-in-browser) - opens default system browser with a text selected from the Tabby's tab
-* [sftp-tab](https://github.com/wljince007/tabby-sftp-tab) - open sftp tab for ssh connection like SecureCRT
-* [background](https://github.com/moemoechu/tabby-background) - change Tabby background image and more...
-* [highlight](https://github.com/moemoechu/tabby-highlight) - Tabby terminal keyword highlight plugin
-* [web-auth-handler](https://github.com/Jazzmoon/tabby-web-auth-handler) - In-app web authentication popups (Built primarily for warpgate in-browser auth)
+* [docker](https://github.com/Eugeny/tabby-docker) - connection aux containers Docker
+* [title-control](https://github.com/kbjr/terminus-title-control) - permet la modification des titre des onglest du terminale en fournissant un préfixe, un suffixe et/ou des chaînes de caractères à supprimer
+* [quick-cmds](https://github.com/Domain/terminus-quick-cmds) - envoie rapidement des commandes à un ou tous les onglets du terminal
+* [save-output](https://github.com/Eugeny/tabby-save-output) - enregistre la sortie du termianl dans un fichier
+* [sync-config](https://github.com/starxg/terminus-sync-config) - synchronise la configuration vers Gist ou Gitee
+* [clippy](https://github.com/Eugeny/tabby-clippy) - un plugin d'exemple qui vous ennuie tout le temps
+* [workspace-manager](https://github.com/composer404/tabby-workspace-manager) - permet la création de profils d'espace de travail personnalisées basés sur la configuration donnée
+* [search-in-browser](https://github.com/composer404/tabby-search-in-browser) - ouvre le navigateur par défaut du système avec un texte sélectionné depuis Tabby
+* [sftp-tab](https://github.com/wljince007/tabby-sftp-tab) - ouvre un onglet sftp pour une connection SSH comme SecureCRT
+* [background](https://github.com/moemoechu/tabby-background) - change le fond d'écran de Tabby et plus encore...
+* [highlight](https://github.com/moemoechu/tabby-highlight) - un plugin de surlignage de mots-clés dans le terminal Tabby
+* [web-auth-handler](https://github.com/Jazzmoon/tabby-web-auth-handler) - Popups d'authentification web à l'intérieur de Tabby (destiné en premier lieu pour warpgate in-browser auth)
 
 <a name="themes"></a>
 
-# Themes
+# Thèmes
 
-* [hype](https://github.com/Eugeny/tabby-theme-hype) - a Hyper inspired theme
-* [relaxed](https://github.com/Relaxed-Theme/relaxed-terminal-themes#terminus) - the Relaxed theme for Tabby
+* [hype](https://github.com/Eugeny/tabby-theme-hype) - un thème inspiré par Hyper
+* [relaxed](https://github.com/Relaxed-Theme/relaxed-terminal-themes#terminus) - le thème Relaxed pour Tabby
 * [gruvbox](https://github.com/porkloin/terminus-theme-gruvbox)
 * [windows10](https://www.npmjs.com/package/terminus-theme-windows10)
 * [altair](https://github.com/yxuko/terminus-altair)
-* [catppuccin](https://github.com/catppuccin/tabby) - Soothing pastel theme for Tabby
-* [noctis](https://github.com/aaronhuggins/tabby-colors-noctis) - color themes inspired by Noctis VS Code theme
+* [catppuccin](https://github.com/catppuccin/tabby) - Thème pastel apaisant pour Tabby
+* [noctis](https://github.com/aaronhuggins/tabby-colors-noctis) -thème de couleurs inspiré par le thème Noctis VS Code
 
 # Sponsors <!-- omit in toc -->
 
 [![](https://assets-production.packagecloud.io/assets/packagecloud-logo-light-scaled-26ce8e96060fddf74afbd4445e63ba35590d4aaa56edc98495bb390ef3cae0ae.png)](https://packagecloud.io)
 
-[**packagecloud**](https://packagecloud.io) has provided free Debian/RPM repository hosting
+[**packagecloud**](https://packagecloud.io) a fourni un hébergement gratuit des repositories Debian/RPM
 
 [![](https://user-images.githubusercontent.com/161476/200423885-7aba2202-fea7-4409-95b9-3a062ce902c7.png)](https://keygen.sh/?via=eugene)
 
-[**keygen**](https://keygen.sh/?via=eugene) has provided free release & auto-update hosting
+[**keygen**](https://keygen.sh/?via=eugene) a fourni un hébergement gratuit des mise à jour
 
 <a href="https://iqhive.com/"><img src="https://private-user-images.githubusercontent.com/161476/361584584-ed292436-1d50-46bc-b479-78222c83ed22.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MjQ3MDg3NjgsIm5iZiI6MTcyNDcwODQ2OCwicGF0aCI6Ii8xNjE0NzYvMzYxNTg0NTg0LWVkMjkyNDM2LTFkNTAtNDZiYy1iNDc5LTc4MjIyYzgzZWQyMi5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwODI2JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDgyNlQyMTQxMDhaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1iYzNlZjIxN2JiYzBkYTU5NGE4YmZlZDJiNmIxZWE1ZTAyOTNhYjJlZTRhOGZjYTk4N2E4MzMzZjg0ZTNkZWQ0JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.pQzR2d71YV4TIxOH3Lg20HpNKrm_r2D-xfkEM_F2DTs" width="100"></a>
 
-[**IQ Hive**](https://iqhive.com) is providing financial support for the project development
+[**IQ Hive**](https://iqhive.com) apporte un soutien financier au développemnent du projet
 
 
 <a name="contributing"></a>
-# Contributing
+# Contributions
 
-Pull requests and plugins are welcome!
+Les pull requests et les plugins sont les bienvenus!
 
-See [HACKING.md](https://github.com/Eugeny/tabby/blob/master/HACKING.md) and [API docs](https://docs.tabby.sh/) for information of how the project is laid out, and a very brief plugin development tutorial.
+Voir [HACKING.md](https://github.com/Eugeny/tabby/blob/master/HACKING.md) et [API docs](https://docs.tabby.sh/) pour obtenir des informations sur la manière dont le projet est organisé et un très bref didacticiel sur le développement de plugins..
 
 ---
 <a name="contributors"></a>
-
-Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+Un grand merci à ces merveilleuses personnes ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
@@ -374,5 +373,5 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
-This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind are welcome!
+Ce projet suit les spécifications [all-contributors](https://github.com/all-contributors/all-contributors). Les contributions de n'importe quelle sorte sont les bienvenues !
 
