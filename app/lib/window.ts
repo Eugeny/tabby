@@ -101,6 +101,10 @@ export class Window {
         }
 
         if (process.platform === 'darwin') {
+            bwOptions.visualEffectState = 'active'
+        }
+
+        if (process.platform === 'darwin') {
             this.window = new BrowserWindow(bwOptions) as GlasstronWindow
         } else {
             this.window = new glasstron.BrowserWindow(bwOptions)
