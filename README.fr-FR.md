@@ -120,7 +120,7 @@ Les plugins et les thèmes peuvent être installé directement depuis les régla
 * [docker](https://github.com/Eugeny/tabby-docker) - connection aux containers Docker
 * [title-control](https://github.com/kbjr/terminus-title-control) - permet la modification des titre des onglest du terminale en fournissant un préfixe, un suffixe et/ou des chaînes de caractères à supprimer
 * [quick-cmds](https://github.com/Domain/terminus-quick-cmds) - envoie rapidement des commandes à un ou tous les onglets du terminal
-* [save-output](https://github.com/Eugeny/tabby-save-output) - enregistre la sortie du termianl dans un fichier
+* [save-output](https://github.com/Eugeny/tabby-save-output) - enregistre la sortie du terminal dans un fichier
 * [sync-config](https://github.com/starxg/terminus-sync-config) - synchronise la configuration vers Gist ou Gitee
 * [clippy](https://github.com/Eugeny/tabby-clippy) - un plugin d'exemple qui vous ennuie tout le temps
 * [workspace-manager](https://github.com/composer404/tabby-workspace-manager) - permet la création de profils d'espace de travail personnalisées basés sur la configuration donnée
