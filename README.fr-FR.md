@@ -13,39 +13,38 @@
 
 ---
 
-
-> 👋 Managing remote environments? Check out [Warpgate, my smart SSH/HTTP/MySQL bastion server](https://github.com/warp-tech/warpgate), it works great with Tabby, you'll love it.
+> 👋 Vous gérez des environnements distants ? Découvrez [Warpgate, mon serveur bastion intelligent pour SSH/HTTP/MySQL](https://github.com/warp-tech/warpgate). Il fonctionne parfaitement avec Tabby, vous allez l’adorer.
 
 ----
 
 ###  Téléchargements:
 
 * [Dernière version](https://github.com/Eugeny/tabby/releases/latest)
-* [Repositories](https://packagecloud.io/eugeny/tabby): [Debian/Ubuntu-based](https://packagecloud.io/eugeny/tabby/install#bash-deb), [RPM-based](https://packagecloud.io/eugeny/tabby/install#bash-rpm)
-* [Latest nightly build](https://nightly.link/Eugeny/tabby/workflows/build/master)
+* [Repositories](https://packagecloud.io/eugeny/tabby): [Basé sur Debian/Ubuntu](https://packagecloud.io/eugeny/tabby/install#bash-deb), [Basé sur RPM](https://packagecloud.io/eugeny/tabby/install#bash-rpm)
+* [Dernière version en cours de test](https://nightly.link/Eugeny/tabby/workflows/build/master)
 
 <br/>
 <p align="center">
-Le README est aussi disponible en: <a  href="./README.es-ES.md">:es: Spanish</a> · <a  href="./README.ru-RU.md">:ru: Русский</a> · <a  href="./README.ko-KR.md">:kr: 한국어</a> · <a  href="./README.zh-CN.md">:cn: 简体中文</a> · <a  href="./README.it-IT.md">:it: Italiano</a> · <a href="./README.de-DE.md">:de: Deutsch</a> · <a href="./README.ja-JP.md">:jp: 日本語</a> · <a href="./README.id-ID.md">:id: Bahasa Indonesia</a> · <a href="./README.pt-BR.md">:brazil: Português</a> · <a href="./README.pl-PL.md">:poland: Polski</a>
+Le README est aussi disponible en: <a  href="./README.md">:uk: English</a> · <a  href="./README.es-ES.md">:es: Spanish</a> · <a  href="./README.ru-RU.md">:ru: Русский</a> · <a  href="./README.ko-KR.md">:kr: 한국어</a> · <a  href="./README.zh-CN.md">:cn: 简体中文</a> · <a  href="./README.it-IT.md">:it: Italiano</a> · <a href="./README.de-DE.md">:de: Deutsch</a> · <a href="./README.ja-JP.md">:jp: 日本語</a> · <a href="./README.id-ID.md">:id: Bahasa Indonesia</a> · <a href="./README.pt-BR.md">:brazil: Português</a> · <a href="./README.pl-PL.md">:poland: Polski</a>
 </p>
 
 ----
 
-[**Tabby**](https://tabby.sh) (précédemment **Terminus**) est un émulateur de terminal et un client de série hautement configurable pour Windows 10, macOS and Linux
+[**Tabby**](https://tabby.sh) (anciennement **Terminus**) est un émulateur de terminal hautement configurable, ainsi qu’un client SSH et série, disponible pour Windows 10, macOS et Linux.
 
-* Clients SSH et Telnet et gestion de connection intégrés
+* Client SSH et Telnet intégré avec gestionnaire de connexions
 * Terminal série intégré
-* Thèmes et combinaisons de couleurs
-* Raccourcis entièrement configurable et multi-touches
+* Thèmes et combinaisons de couleurs personnalisables
+* Raccourcis entièrement configurables, y compris les raccourcis à plusieurs combinaisons
 * Volets divisés
-* Onglets sauvegardés
-* Supporte PowerShell (et PS Core), WSL, Git-Bash, Cygwin, MSYS2, Cmder et CMD
+* Mémorisation des onglets ouverts
+* Prise en charge de PowerShell (et PS Core), WSL, Git-Bash, Cygwin, MSYS2, Cmder et CMD
 * Transfert direct de fichiers depuis/vers des sessions SSH via Zmodem
-* Supporte entièrement l'Unicode dont les caractères de largeur double
-* Ne ralentit pas avec les débits rapides
-* Expérience shell appropriée sur Windows, y compris la saisie semi-automatique des tabulations (via Clink)
-* Conteneur crypté intégré pour les secrets et la configuration SSH
-* Clients SSH, SFTP et Telnet disponible en tant que [web app](https://tabby.sh/app) (voir aussi [self-hosted](https://github.com/Eugeny/tabby-web)).
+* Prise en charge complète d’Unicode, y compris les caractères à double largeur
+* Ne se bloque pas face à des sorties rapides et volumineuses
+* Expérience shell améliorée sur Windows, avec autocomplétion via Clink
+* Conteneur chiffré intégré pour les secrets SSH et la configuration
+* Client SSH, SFTP et Telnet également disponible en tant qu’[application web](https://tabby.sh/app) (y compris [auto-hébergée](https://github.com/Eugeny/tabby-web)).
 
 # Contenus <!-- omit in toc -->
 
