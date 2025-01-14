@@ -31,7 +31,7 @@ Le README est aussi disponible en: <a  href="./README.es-ES.md">:es: Spanish</a>
 
 ----
 
-[**Tabby**](https://tabby.sh) (précédemment **Terminus**) est un émulateur de terminal et un client de série très configurable pour Windows 10, macOS and Linux
+[**Tabby**](https://tabby.sh) (précédemment **Terminus**) est un émulateur de terminal et un client de série hautement configurable pour Windows 10, macOS and Linux
 
 * Clients SSH et Telnet et gestion de connection intégrés
 * Terminal série intégré
@@ -52,7 +52,7 @@ Le README est aussi disponible en: <a  href="./README.es-ES.md">:es: Spanish</a>
 - [Ce que Tabby est et n'est pas](#ce-que-tabby-est-et-n'est-pas)
 - [Caractéristiques du Terminal](#caractéristiques-du-terminal)
 - [Client SSH](#client-ssh)
-- [Serial Terminal](#serial-terminal)
+- [Terminal Série](#terminal-série)
 - [Portable](#portable)
 - [Plugins](#plugins)
 - [Themes](#thèmes)
@@ -89,21 +89,22 @@ Le README est aussi disponible en: <a  href="./README.es-ES.md">:es: Spanish</a>
 
 ![](docs/readme-ssh.png)
 
-* SSH2 client with a connection manager
-* X11 and port forwarding
-* Automatic jump host management
-* Agent forwarding (incl. Pageant and Windows native OpenSSH Agent)
-* Login scripts
+* Client SSH2 avec gestionnaire de connexions
+* Redirection X11 et de ports
+* Gestion automatique des hôtes intermédiaires
+* Transfert d'agent (y compris Pageant et l'agent OpenSSH natif sous Windows)
+* Scripts de connexion
+
 
 <a name="serial"></a>
 
-# Serial Terminal
+# Terminal Série
 
-* Saved connections
-* Readline input support
-* Optional hex byte-by-byte input and hexdump output
-* Newline conversion
-* Automatic reconnection
+* Connexions enregistrées
+* Prise en charge de l'entrée Readline
+* Entrée hexadécimale optionnelle octet par octet et sortie en hexadump
+* Conversion des fins de ligne
+* Reconnexion automatique
 
 <a name="portable"></a>
 
