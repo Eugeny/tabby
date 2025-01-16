@@ -533,7 +533,7 @@ export class SSHSession {
 
         while (true) {
             const m = methodsLeft
-            const method = this.remainingAuthMethods.find(x => !m || m.includes(sshAuthTypeForMethod(x)))
+            const method = this.remainingAuthMethods.find(x => m.length === 0 || m.includes(sshAuthTypeForMethod(x)))
 
             if (!method) {
                 return null
