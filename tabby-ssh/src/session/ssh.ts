@@ -50,6 +50,18 @@ type AuthMethod = {
     kind: 'pageant',
 }
 
+function sshAuthTypeForMethod (m: AuthMethod): string {
+    switch (m.type) {
+        case 'none': return 'none'
+        case 'hostbased': return 'hostbased'
+        case 'prompt-password': return 'password'
+        case 'saved-password': return 'password'
+        case 'keyboard-interactive': return 'keyboard-interactive'
+        case 'publickey': return 'publickey'
+        case 'agent': return 'agent'
+    }
+}
+
 export class KeyboardInteractivePrompt {
     readonly responses: string[] = []
 
@@ -181,6 +193,13 @@ export class SSHSession {
                 })
             }
         }
+        if (!this.profile.options.auth || this.profile.options.auth === 'keyboardInteractive') {
+            const savedPassword = this.profile.options.password ?? await this.passwordStorage.loadPassword(this.profile)
+            if (savedPassword) {
+                this.remainingAuthMethods.push({ type: 'keyboard-interactive', savedPassword })
+            }
+            this.remainingAuthMethods.push({ type: 'keyboard-interactive' })
+        }
         if (!this.profile.options.auth || this.profile.options.auth === 'password') {
             if (this.profile.options.password) {
                 this.remainingAuthMethods.push({ type: 'saved-password', password: this.profile.options.password })
@@ -190,13 +209,6 @@ export class SSHSession {
                 this.remainingAuthMethods.push({ type: 'saved-password', password })
             }
             this.remainingAuthMethods.push({ type: 'prompt-password' })
-        }
-        if (!this.profile.options.auth || this.profile.options.auth === 'keyboardInteractive') {
-            const savedPassword = this.profile.options.password ?? await this.passwordStorage.loadPassword(this.profile)
-            if (savedPassword) {
-                this.remainingAuthMethods.push({ type: 'keyboard-interactive', savedPassword })
-            }
-            this.remainingAuthMethods.push({ type: 'keyboard-interactive' })
         }
         this.remainingAuthMethods.push({ type: 'hostbased' })
     }
@@ -495,7 +507,7 @@ export class SSHSession {
         this.keyboardInteractivePrompt.next(prompt)
     }
 
-    async handleAuth (methodsLeft?: string[] | null): Promise<russh.AuthenticatedSSHClient|null> {
+    async handleAuth (): Promise<russh.AuthenticatedSSHClient|null> {
         this.activePrivateKey = null
 
         if (!(this.ssh instanceof russh.SSHClient)) {
@@ -506,22 +518,36 @@ export class SSHSession {
             throw new Error('No username')
         }
 
+        const noneResult = await this.ssh.authenticateNone(this.authUsername)
+        if (noneResult instanceof russh.AuthenticatedSSHClient) {
+            return noneResult
+        }
+
+        let methodsLeft = noneResult.remainingMethods
+
+        function maybeSetRemainingMethods (r: russh.AuthFailure) {
+            if (r.remainingMethods.length) {
+                methodsLeft = r.remainingMethods
+            }
+        }
+
         while (true) {
-            const method = this.remainingAuthMethods.shift()
+            const m = methodsLeft
+            const method = this.remainingAuthMethods.find(x => !m || m.includes(sshAuthTypeForMethod(x)))
+
             if (!method) {
                 return null
             }
-            if (methodsLeft && !methodsLeft.includes(method.type) && method.type !== 'agent') {
-                // Agent can still be used even if not in methodsLeft
-                this.logger.info('Server does not support auth method', method.type)
-                continue
-            }
+
+            this.remainingAuthMethods = this.remainingAuthMethods.filter(x => x !== method)
+
             if (method.type === 'saved-password') {
                 this.emitServiceMessage(this.translate.instant('Using saved password'))
                 const result = await this.ssh.authenticateWithPassword(this.authUsername, method.password)
                 if (result instanceof russh.AuthenticatedSSHClient) {
                     return result
                 }
+                maybeSetRemainingMethods(result)
             }
             if (method.type === 'prompt-password') {
                 const modal = this.ngbModal.open(PromptModalComponent)
@@ -539,6 +565,7 @@ export class SSHSession {
                         if (result instanceof russh.AuthenticatedSSHClient) {
                             return result
                         }
+                        maybeSetRemainingMethods(result)
                     } else {
                         continue
                     }
@@ -556,6 +583,7 @@ export class SSHSession {
                         if (result instanceof russh.AuthenticatedSSHClient) {
                             return result
                         }
+                        maybeSetRemainingMethods(result)
                     }
                 } catch (e) {
                     this.emitServiceMessage(colors.bgYellow.yellow.black(' ! ') + ` Failed to load private key ${method.name}: ${e}`)
@@ -567,6 +595,7 @@ export class SSHSession {
 
                 while (true) {
                     if (state.state === 'failure') {
+                        maybeSetRemainingMethods(state)
                         break
                     }
 
@@ -602,7 +631,7 @@ export class SSHSession {
                         }
                     }
 
-                    state = await this.ssh .continueKeyboardInteractiveAuthentication(responses)
+                    state = await this.ssh.continueKeyboardInteractiveAuthentication(responses)
 
                     if (state instanceof russh.AuthenticatedSSHClient) {
                         return state
@@ -615,6 +644,7 @@ export class SSHSession {
                     if (result instanceof russh.AuthenticatedSSHClient) {
                         return result
                     }
+                    maybeSetRemainingMethods(result)
                 } catch (e) {
                     this.emitServiceMessage(colors.bgYellow.yellow.black(' ! ') + ` Failed to authenticate using agent: ${e}`)
                     continue
