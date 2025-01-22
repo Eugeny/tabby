@@ -130,7 +130,7 @@ jobs:
         path: artifact-zip
 
   Linux-Build:
-    runs-on: ubuntu-24.04
+    runs-on: ${{matrix.os}}
     needs: Lint
     strategy:
       matrix:
@@ -138,14 +138,17 @@ jobs:
           - build-arch: x64
             arch: amd64
             rust_triple: x86_64-unknown-linux-gnu
+            os: ubuntu-24.04
           - build-arch: arm64
             arch: arm64
             rust_triple: aarch64-unknown-linux-gnu
             triplet: aarch64-linux-gnu-
+            os: ubuntu-24.04-arm
           - build-arch: arm
             arch: armhf
             rust_triple: arm-unknown-linux-gnueabihf
             triplet: arm-linux-gnueabihf-
+            os: ubuntu-24.04
       fail-fast: false
 
     env:
@@ -176,12 +179,12 @@ jobs:
 
     - name: Setup tar to run as root
       run: sudo chmod u+s "$(command -v tar)"
-      if: matrix.build-arch != 'x64'
+      if: matrix.build-arch == 'arm'
 
     - name: Download cached sysroot
       uses: actions/cache@v3
       id: dl-cached-sysroot
-      if: matrix.build-arch !='x64'
+      if: matrix.build-arch == 'arm'
       with:
         key: sysroot-${{matrix.build-arch}}
         path: /${{matrix.build-arch}}-sysroot
@@ -191,7 +194,7 @@ jobs:
         sudo apt-get update -y && sudo apt-get install debootstrap qemu-user-static binfmt-support -y
         sudo qemu-debootstrap --include=libfontconfig1-dev,libsecret-1-dev,libnss3,libatk1.0-0,libatk-bridge2.0-0,libgdk-pixbuf2.0-0,libgtk-3-0,libgbm1 --variant=buildd --exclude=snapd --components=main,restricted,universe,multiverse --extractor=dpkg-deb --arch ${{matrix.arch}} bionic /${{matrix.build-arch}}-sysroot/ http://ports.ubuntu.com/ubuntu-ports/
         sudo find /${{matrix.build-arch}}-sysroot -type l -lname '/*' -exec sh -c 'file="$0"; dir=$(dirname "$file"); target=$(readlink "$0"); prefix=$(dirname "$dir" | sed 's@[^/]*@\.\.@g'); newtarget="$prefix$target"; ln -snf $newtarget $file' {} \; ;
-      if: matrix.build-arch != 'x64' && steps.dl-cached-sysroot.outputs.cache-hit != 'true'
+      if: matrix.build-arch == 'arm' && steps.dl-cached-sysroot.outputs.cache-hit != 'true'
 
     - name: Setup env to use ${{matrix.build-arch}} sysroot
       run: |
@@ -206,7 +209,7 @@ jobs:
         elif [[ ${{matrix.arch}} == 'arm64' ]]; then
           echo "PKG_CONFIG_PATH=/${{matrix.build-arch}}-sysroot/usr/lib/pkgconfig/:/${{matrix.build-arch}}-sysroot/usr/lib/aarch64-linux-gnu/pkgconfig/" >> $GITHUB_ENV
         fi
-      if: matrix.build-arch != 'x64'
+      if: matrix.build-arch == 'arm'
 
     - name: Install npm_modules (amd64)
       run: |
