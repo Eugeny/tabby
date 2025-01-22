@@ -1,8 +1,8 @@
 diff --git a/node_modules/app-builder-lib/out/appInfo.js b/node_modules/app-builder-lib/out/appInfo.js
-index 49f6dca..0ea11f2 100644
+index 7fbbef7..0821807 100644
 --- a/node_modules/app-builder-lib/out/appInfo.js
 +++ b/node_modules/app-builder-lib/out/appInfo.js
-@@ -112,9 +112,7 @@ class AppInfo {
+@@ -116,9 +116,7 @@ class AppInfo {
          return this.info.metadata.name;
      }
      get linuxPackageName() {

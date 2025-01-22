@@ -321,16 +321,7 @@
   resolved "https://registry.yarnpkg.com/@discoveryjs/json-ext/-/json-ext-0.5.7.tgz#1d572bfbbe14b7704e0ba0f39b74815b84870d70"
   integrity sha512-dBVuXR082gk3jsFp7Rd/JI4kytwGHecnCoTtXFb7DB6CNHp4rg5k1bhg0nWdLGLnOV71lmDzGQaLMy8iPLY0pw==
 
-"@electron/asar@3.2.17":
-  version "3.2.17"
-  resolved "https://registry.yarnpkg.com/@electron/asar/-/asar-3.2.17.tgz#91d28087aad80d1a1c8cc4e667c6476edf50f949"
-  integrity sha512-OcWImUI686w8LkghQj9R2ynZ2ME693Ek6L1SiaAgqGKzBaTIZw3fHDqN82Rcl+EU1Gm9EgkJ5KLIY/q5DCRbbA==
-  dependencies:
-    commander "^5.0.0"
-    glob "^7.1.6"
-    minimatch "^3.0.4"
-
-"@electron/asar@^3.2.7":
+"@electron/asar@3.2.18", "@electron/asar@^3.2.7":
   version "3.2.18"
   resolved "https://registry.yarnpkg.com/@electron/asar/-/asar-3.2.18.tgz#fa607f829209bab8b9e0ce6658d3fe81b2cba517"
   integrity sha512-2XyvMe3N3Nrs8cV39IKELRHTYUWFKrmqqSY1U+GMlc0jvqjIVnoxhNd2H4JolWQncbJi1DCvb5TNxZuI2fEjWg==
@@ -362,21 +353,6 @@
     sumchecker "^3.0.1"
   optionalDependencies:
     global-agent "^3.0.0"
-
-"@electron/node-gyp@git+https://github.com/electron/node-gyp.git#06b29aafb7708acef8b3669835c8a7857ebc92d2":
-  version "10.2.0-electron.1"
-  resolved "git+https://github.com/electron/node-gyp.git#06b29aafb7708acef8b3669835c8a7857ebc92d2"
-  dependencies:
-    env-paths "^2.2.0"
-    exponential-backoff "^3.1.1"
-    glob "^8.1.0"
-    graceful-fs "^4.2.6"
-    make-fetch-happen "^10.2.1"
-    nopt "^6.0.0"
-    proc-log "^2.0.1"
-    semver "^7.3.5"
-    tar "^6.2.1"
-    which "^2.0.2"
 
 "@electron/node-gyp@https://github.com/electron/node-gyp#06b29aafb7708acef8b3669835c8a7857ebc92d2":
   version "10.2.0-electron.1"
@@ -1500,13 +1476,13 @@ app-builder-bin@5.0.0-alpha.12:
   resolved "https://registry.yarnpkg.com/app-builder-bin/-/app-builder-bin-5.0.0-alpha.12.tgz#2daf82f8badc698e0adcc95ba36af4ff0650dc80"
   integrity sha512-j87o0j6LqPL3QRr8yid6c+Tt5gC7xNfYo6uQIQkorAC6MpeayVMZrEDzKmJJ/Hlv7EnOQpaRm53k6ktDYZyB6w==
 
-app-builder-lib@26.0.0-alpha.8:
-  version "26.0.0-alpha.8"
-  resolved "https://registry.yarnpkg.com/app-builder-lib/-/app-builder-lib-26.0.0-alpha.8.tgz#2ecc525692fa300414e4906dc001adec0ecb2567"
-  integrity sha512-IvvGAa/RXwuNPiSckIBPjBxI4et8PWb+TsJnhKa/XtxOH64ncs6hDtV7bSxIeUmbvUj3R8dm32dej7UO0Cgtng==
+app-builder-lib@26.0.0-alpha.10:
+  version "26.0.0-alpha.10"
+  resolved "https://registry.yarnpkg.com/app-builder-lib/-/app-builder-lib-26.0.0-alpha.10.tgz#3eb3f64ffa5e995595ad61497c5e7a0c2d64b817"
+  integrity sha512-9K3MulGK7j+En4KjH3aq7AzDqe8nn35x7O9l5kwl16nWFdBthcdy1IKsx9CgjMSF+eTNctOZlXwnYiPiGzY+GQ==
   dependencies:
     "@develar/schema-utils" "~2.6.5"
-    "@electron/asar" "3.2.17"
+    "@electron/asar" "3.2.18"
     "@electron/fuses" "^1.8.0"
     "@electron/notarize" "2.5.0"
     "@electron/osx-sign" "1.3.1"
@@ -1516,7 +1492,7 @@ app-builder-lib@26.0.0-alpha.8:
     "@types/fs-extra" "9.0.13"
     async-exit-hook "^2.0.1"
     bluebird-lst "^1.0.9"
-    builder-util "26.0.0-alpha.8"
+    builder-util "26.0.0-alpha.10"
     builder-util-runtime "9.3.0-alpha.0"
     chromium-pickle-js "^0.2.0"
     config-file-ts "0.2.8-rc1"
@@ -1524,7 +1500,7 @@ app-builder-lib@26.0.0-alpha.8:
     dotenv "^16.4.5"
     dotenv-expand "^11.0.6"
     ejs "^3.1.8"
-    electron-publish "26.0.0-alpha.8"
+    electron-publish "26.0.0-alpha.10"
     fs-extra "^10.1.0"
     hosted-git-info "^4.1.0"
     is-ci "^3.0.0"
@@ -2054,10 +2030,10 @@ builder-util-runtime@9.3.0-alpha.0:
     debug "^4.3.4"
     sax "^1.2.4"
 
-builder-util@26.0.0-alpha.8:
-  version "26.0.0-alpha.8"
-  resolved "https://registry.yarnpkg.com/builder-util/-/builder-util-26.0.0-alpha.8.tgz#83369a6b66d8659281d72ae41102caee7dd6f0f9"
-  integrity sha512-qQLArPCYUvlx1Ess7Bwsdbx7F4lnPRZBMOeoVuofcdBWIg1HbGdgYp9I0VNcD2O9D2+lVUHI1gSkCj03oRXRnQ==
+builder-util@26.0.0-alpha.10:
+  version "26.0.0-alpha.10"
+  resolved "https://registry.yarnpkg.com/builder-util/-/builder-util-26.0.0-alpha.10.tgz#f445a530c28da6e3650b93e92263c06c6f89a2cc"
+  integrity sha512-RMVOAgdd+tzwpyF5C8gx9KjzwdUvkUEubpsHTvb2JwlQnBcyBc6hyVCU2gt2MivQCLbjCOEgsUX1/zHrWDqGfg==
   dependencies:
     "7zip-bin" "~5.2.0"
     "@types/debug" "^4.1.6"
@@ -2065,7 +2041,7 @@ builder-util@26.0.0-alpha.8:
     bluebird-lst "^1.0.9"
     builder-util-runtime "9.3.0-alpha.0"
     chalk "^4.1.2"
-    cross-spawn "^7.0.3"
+    cross-spawn "^7.0.6"
     debug "^4.3.4"
     fs-extra "^10.1.0"
     http-proxy-agent "^7.0.0"
@@ -2725,7 +2701,7 @@ cross-spawn@^6.0.0, cross-spawn@^6.0.5:
     shebang-command "^1.2.0"
     which "^1.2.9"
 
-cross-spawn@^7.0.0:
+cross-spawn@^7.0.0, cross-spawn@^7.0.6:
   version "7.0.6"
   resolved "https://registry.yarnpkg.com/cross-spawn/-/cross-spawn-7.0.6.tgz#8a58fe78f00dcd70c370451759dfbfaf03e8ee9f"
   integrity sha512-uV2QOWP2nWzsy2aMp8aRibhi9dlzF5Hgh5SHaB9OiTGEyDTiJJyx0uy51QXdyWbtAHNua4XJzUKca3OzKUd3vA==
@@ -2962,13 +2938,13 @@ dir-glob@^3.0.1:
   dependencies:
     path-type "^4.0.0"
 
-dmg-builder@26.0.0-alpha.8:
-  version "26.0.0-alpha.8"
-  resolved "https://registry.yarnpkg.com/dmg-builder/-/dmg-builder-26.0.0-alpha.8.tgz#d9766adef7124fbaa21300256b53c4bf6c89f62b"
-  integrity sha512-H53RkHuUBIgiZtTTdjGigD5BVKYoH6t7Y+ZNmjdzMuptL6rCni7K0mrqvVycCkYRvdeM8BWZeUvw4iOwRQIhmQ==
+dmg-builder@26.0.0-alpha.10:
+  version "26.0.0-alpha.10"
+  resolved "https://registry.yarnpkg.com/dmg-builder/-/dmg-builder-26.0.0-alpha.10.tgz#d4d908922005a0c852d0919a7dd0b8f77d3c4bd0"
+  integrity sha512-RWzCNLLu4dGIvBf8kBzjF/zI5aMOSA149S1V2NgAA4La8f8ghdJAm/DI5crSb2zDijFLyTNmUGTtvU6eHgiZyQ==
   dependencies:
-    app-builder-lib "26.0.0-alpha.8"
-    builder-util "26.0.0-alpha.8"
+    app-builder-lib "26.0.0-alpha.10"
+    builder-util "26.0.0-alpha.10"
     builder-util-runtime "9.3.0-alpha.0"
     fs-extra "^10.1.0"
     iconv-lite "^0.6.2"
@@ -3091,16 +3067,16 @@ ejs@^3.1.8:
   dependencies:
     jake "^10.8.5"
 
-electron-builder@^26.0.0-alpha.8:
-  version "26.0.0-alpha.8"
-  resolved "https://registry.yarnpkg.com/electron-builder/-/electron-builder-26.0.0-alpha.8.tgz#61529b4e977deedf2612a5ca152ee14f69a2aba2"
-  integrity sha512-sx9ObBOEPiHdmDkTRehZWZG2Z26dL6v+Ue3PMji6bj6q5EwY+3h8Q0qZk5JEvUYO2LRuGFbkYpnzdOZrbxRd7A==
+electron-builder@^26.0.0-alpha.10:
+  version "26.0.0-alpha.10"
+  resolved "https://registry.yarnpkg.com/electron-builder/-/electron-builder-26.0.0-alpha.10.tgz#6f629f5f1f3340286af71cabd12d94edc53f15ea"
+  integrity sha512-QTitqOlP5aZ/8zhnxqjRb6BxSR7Kvwv07PoBGeIXADwSPHQhKhZ+S+GRFzUSYQrMTTJLGzUHbnAes6fZ3uThEA==
   dependencies:
-    app-builder-lib "26.0.0-alpha.8"
-    builder-util "26.0.0-alpha.8"
+    app-builder-lib "26.0.0-alpha.10"
+    builder-util "26.0.0-alpha.10"
     builder-util-runtime "9.3.0-alpha.0"
     chalk "^4.1.2"
-    dmg-builder "26.0.0-alpha.8"
+    dmg-builder "26.0.0-alpha.10"
     fs-extra "^10.1.0"
     is-ci "^3.0.0"
     lazy-val "^1.0.5"
@@ -3190,13 +3166,13 @@ electron-localshortcut@^3.1.0:
     keyboardevent-from-electron-accelerator "^2.0.0"
     keyboardevents-areequal "^0.2.1"
 
-electron-publish@26.0.0-alpha.8:
-  version "26.0.0-alpha.8"
-  resolved "https://registry.yarnpkg.com/electron-publish/-/electron-publish-26.0.0-alpha.8.tgz#8e2234905e3a1a1909170543b159283600919562"
-  integrity sha512-IGHPQkfSL+LYAIiqJ2E1mVTxNPFh4XRvQ+OPmBFrgpZrR32NrMlxssUyx1B0N1bGLjevjBMMitlwKFNM5WPnXg==
+electron-publish@26.0.0-alpha.10:
+  version "26.0.0-alpha.10"
+  resolved "https://registry.yarnpkg.com/electron-publish/-/electron-publish-26.0.0-alpha.10.tgz#16ac95acca2d796ca00c7a90ca27ebf31855f284"
+  integrity sha512-yUkCJD7MLN57d6PJ8PMcBCR35xytA+jHyrOiS/H0hlmTOWq1sXN+tIBylX4h0dD/C6mn75/y5eE156Pe2nccPw==
   dependencies:
     "@types/fs-extra" "^9.0.11"
-    builder-util "26.0.0-alpha.8"
+    builder-util "26.0.0-alpha.10"
     builder-util-runtime "9.3.0-alpha.0"
     chalk "^4.1.2"
     form-data "^4.0.0"
