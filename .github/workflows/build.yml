@@ -170,6 +170,10 @@ jobs:
       with:
         node-version: 22
 
+    - name: Install FPM
+      run: |
+        gem install fpm
+
     - run: rustup target add ${{matrix.rust_triple}}
 
     - name: Install dependencies
@@ -211,7 +215,7 @@ jobs:
         fi
       if: matrix.build-arch == 'arm'
 
-    - name: Install npm_modules (amd64)
+    - name: Install npm_modules (native)
       run: |
         npm i -g yarn node-gyp
         yarn --network-timeout 1000000 --arch=${{matrix.build-arch}} --target-arch=${{matrix.build-arch}}
@@ -228,6 +232,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         KEYGEN_TOKEN: ${{ secrets.KEYGEN_TOKEN }}
         USE_HARD_LINKS: false
+        USE_SYSTEM_FPM: true
         # DEBUG: electron-builder,electron-builder:*
 
     - name: Build web resources (amd64 only)
