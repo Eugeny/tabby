@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Turkish\n"
 "Language: tr_TR\n"
-"PO-Revision-Date: 2024-12-24 22:58\n"
+"PO-Revision-Date: 2025-01-22 22:02\n"
 
 #: tabby-local/src/components/terminalTab.component.ts:113
 msgid "\"{command}\" is still running. Close?"
@@ -966,7 +966,7 @@ msgstr "Hazır bir GitHub sorunu oluşturun"
 
 #: locale/tmp-html/tabby-plugin-manager/src/components/pluginsSettingsTab.component.html:25
 msgid "Get"
-msgstr "Getir"
+msgstr "Yükle"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:18
 msgid "Get it from the Tabby Web settings window"

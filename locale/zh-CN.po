@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2024-12-24 22:58\n"
+"PO-Revision-Date: 2025-01-22 22:02\n"
 
 #: tabby-local/src/components/terminalTab.component.ts:113
 msgid "\"{command}\" is still running. Close?"

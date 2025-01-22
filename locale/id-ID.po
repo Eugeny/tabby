@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Indonesian\n"
 "Language: id_ID\n"
-"PO-Revision-Date: 2024-12-24 22:58\n"
+"PO-Revision-Date: 2025-01-22 22:02\n"
 
 #: tabby-local/src/components/terminalTab.component.ts:113
 msgid "\"{command}\" is still running. Close?"
@@ -23,7 +23,7 @@ msgstr "{name} salin"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:77
 msgid "A second font family used to display characters missing in the main font"
-msgstr "Keluarga font kedua digunakan untuk menampilkan karakter yang hilang di font utama"
+msgstr "Keluarga huruf kedua digunakan untuk menampilkan karakter yang hilang di huruf utama"
 
 #: tabby-core/src/components/transfersMenu.component.ts:49
 msgid "Abort all"
@@ -100,12 +100,12 @@ msgstr "Izinkan buka dengan cepat terminal di direktori terpilih"
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:25
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:11
 msgid "Always dark"
-msgstr ""
+msgstr "Selalu gelap"
 
 #: locale/tmp-html/tabby-core/src/components/welcomeTab.component.html:27
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:13
 msgid "Always light"
-msgstr ""
+msgstr "Selalu terang"
 
 #: locale/tmp-html/tabby-terminal/src/components/appearanceSettingsTab.component.html:2
 #: tabby-terminal/src/settings.ts:14
@@ -255,7 +255,7 @@ msgstr "Ubah baud rate"
 
 #: tabby-core/src/tabContextMenu.ts:133
 msgid "Change tab color"
-msgstr ""
+msgstr "Rubah warna label"
 
 #: locale/tmp-html/tabby-settings/src/components/vaultSettingsTab.component.html:12
 msgid "Change the master passphrase"
@@ -337,7 +337,7 @@ msgstr "Skema warna"
 
 #: locale/tmp-html/tabby-terminal/src/components/colorSchemeSettingsTab.component.html:2
 msgid "Color schemes"
-msgstr ""
+msgstr "Warna Skema"
 
 #: locale/tmp-html/tabby-serial/src/components/serialProfileSettings.component.html:81
 #: locale/tmp-html/tabby-ssh/src/components/sshProfileSettings.component.html:216
@@ -362,7 +362,7 @@ msgstr "Perintah-perintah"
 
 #: tabby-core/src/theme.ts:16
 msgid "Compact (legacy)"
-msgstr ""
+msgstr "Padat (tua)"
 
 #: tabby-settings/src/components/configSyncSettingsTab.component.ts:126
 msgid "Config deleted"
@@ -449,7 +449,7 @@ msgstr "Salin jalur saat ini"
 
 #: tabby-electron/src/sftpContextMenu.ts:29
 msgid "Copy full path"
-msgstr ""
+msgstr "Salin alamat lengkap"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:97
 msgid "Copy on select"
@@ -1732,7 +1732,7 @@ msgstr "Ganti Nama"
 #: tabby-core/src/hotkeys.ts:24
 #: tabby-core/src/tabContextMenu.ts:121
 msgid "Rename tab"
-msgstr ""
+msgstr "Ganti nama label"
 
 #: locale/tmp-html/tabby-terminal/src/components/terminalSettingsTab.component.html:3
 msgid "Rendering"
@@ -1770,7 +1770,7 @@ msgstr "Mulai ulang sesi SSH saat ini"
 
 #: tabby-telnet/src/hotkeys.ts:10
 msgid "Restart current Telnet session"
-msgstr ""
+msgstr "Mulai ulang sesi Telnet saat ini"
 
 #: tabby-core/src/hotkeys.ts:64
 msgid "Restart tab"
@@ -1782,7 +1782,7 @@ msgstr "Mulai ulang aplikasi untuk menerapkan perubahan"
 
 #: tabby-settings/src/components/profilesSettingsTab.component.ts:316
 msgid "Restore settings to defaults ?"
-msgstr ""
+msgstr "Kembali ke settingan sebelumnya ?"
 
 #: tabby-settings/src/components/editProfileGroupModal.component.ts:36
 msgid "Restore settings to inherited defaults ?"

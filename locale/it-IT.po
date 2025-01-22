@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: tabby\n"
 "Language-Team: Italian\n"
 "Language: it_IT\n"
-"PO-Revision-Date: 2024-12-24 22:58\n"
+"PO-Revision-Date: 2025-01-22 22:02\n"
 
 #: tabby-local/src/components/terminalTab.component.ts:113
 msgid "\"{command}\" is still running. Close?"
@@ -2177,7 +2177,7 @@ msgstr "Cambia l'implementazione del frontend del terminale (sperimentale)"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:4
 msgid "Sync"
-msgstr "Sincronizazione"
+msgstr "Sincronizzazione"
 
 #: locale/tmp-html/tabby-settings/src/components/configSyncSettingsTab.component.html:53
 msgid "Sync automatically"
