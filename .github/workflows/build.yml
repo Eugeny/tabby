@@ -172,7 +172,7 @@ jobs:
 
     - name: Install FPM
       run: |
-        gem install fpm
+        sudo gem install fpm
 
     - run: rustup target add ${{matrix.rust_triple}}
 
