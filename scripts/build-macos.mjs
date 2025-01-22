@@ -28,9 +28,7 @@ builder({
         },
         mac: {
             identity: !process.env.CI || process.env.CSC_LINK ? undefined : null,
-            notarize: process.env.APPLE_TEAM_ID ? {
-                teamId: process.env.APPLE_TEAM_ID,
-            } : false,
+            notarize: !!process.env.APPLE_TEAM_ID,
         },
         npmRebuild: process.env.ARCH !== 'arm64',
         publish: process.env.KEYGEN_TOKEN ? [

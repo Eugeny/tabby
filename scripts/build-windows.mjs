@@ -28,27 +28,29 @@ builder({
         ] : undefined,
         forceCodeSigning: !!keypair,
         win: {
-            certificateSha1: process.env.SM_CODE_SIGNING_CERT_SHA1_HASH,
-            publisherName: process.env.SM_PUBLISHER_NAME,
-            signingHashAlgorithms: ['sha256'],
-            sign: keypair ? async function (configuration) {
-                console.log('Signing', configuration)
-                if (configuration.path) {
-                    try {
-                        const out = execSync(
-                            `smctl sign --keypair-alias=${keypair} --input "${String(configuration.path)}"`
-                        )
-                        if (out.toString().includes('FAILED')) {
-                            throw new Error(out.toString())
+            signtoolOptions: {
+                certificateSha1: process.env.SM_CODE_SIGNING_CERT_SHA1_HASH,
+                publisherName: process.env.SM_PUBLISHER_NAME,
+                signingHashAlgorithms: ['sha256'],
+                sign: keypair ? async function (configuration) {
+                    console.log('Signing', configuration)
+                    if (configuration.path) {
+                        try {
+                            const out = execSync(
+                                `smctl sign --keypair-alias=${keypair} --input "${String(configuration.path)}"`
+                            )
+                            if (out.toString().includes('FAILED')) {
+                                throw new Error(out.toString())
+                            }
+                            console.log(out.toString())
+                        } catch (e) {
+                            console.error(`Failed to sign ${configuration.path}`)
+                            console.error(e)
+                            process.exit(1)
                         }
-                        console.log(out.toString())
-                    } catch (e) {
-                        console.error(`Failed to sign ${configuration.path}`)
-                        console.error(e)
-                        process.exit(1)
                     }
-                }
-            } : undefined,
+                } : undefined,
+            },
         },
     },
 
