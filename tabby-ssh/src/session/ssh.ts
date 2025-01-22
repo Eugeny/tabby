@@ -58,7 +58,7 @@ function sshAuthTypeForMethod (m: AuthMethod): string {
         case 'saved-password': return 'password'
         case 'keyboard-interactive': return 'keyboard-interactive'
         case 'publickey': return 'publickey'
-        case 'agent': return 'agent'
+        case 'agent': return 'publickey'
     }
 }
 
