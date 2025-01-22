@@ -23,6 +23,7 @@ export class ThemesService {
     ) {
         this.rootElementStyleBackup = document.documentElement.style.cssText
         this.applyTheme(standardTheme)
+        this.applyThemeVariables()
         config.ready$.toPromise().then(() => {
             this.applyCurrentTheme()
             this.applyThemeVariables()
@@ -35,6 +36,11 @@ export class ThemesService {
                 this.applyThemeVariables()
             })
         })
+    }
+
+    private getConfigStoreOrDefaults (): any {
+        /// Theme service is active before the vault is unlocked and config is available
+        return this.config.store ?? this.config.getDefaults()
     }
 
     private applyThemeVariables () {
@@ -60,7 +66,7 @@ export class ThemesService {
         }
 
         let background = Color(theme.background)
-        if (this.config.store?.appearance.vibrancy) {
+        if (this.getConfigStoreOrDefaults().appearance.vibrancy) {
             background = background.fade(0.6)
         }
         // const background = theme.background
@@ -148,13 +154,13 @@ export class ThemesService {
             vars['--bs-form-switch-bg'] = `url("data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%27-4 -4 8 8%27%3e%3ccircle r=%273%27 fill=%27${switchBackground}%27/%3e%3c/svg%3e")`
         }
 
-        vars['--spaciness'] = this.config.store.appearance.spaciness
+        vars['--spaciness'] = this.getConfigStoreOrDefaults().appearance.spaciness
 
         for (const [bg, fg] of contrastPairs) {
             const colorBg = Color(vars[bg]).hsl()
             const colorFg = Color(vars[fg]).hsl()
             const bgContrast = colorBg.contrast(colorFg)
-            if (bgContrast < this.config.store.terminal.minimumContrastRatio) {
+            if (bgContrast < this.getConfigStoreOrDefaults().terminal.minimumContrastRatio) {
                 vars[fg] = this.ensureContrast(colorFg, colorBg).string()
             }
         }
@@ -163,7 +169,7 @@ export class ThemesService {
             document.documentElement.style.setProperty(key, value)
         }
 
-        document.body.classList.toggle('no-animations', !this.config.store.accessibility.animations)
+        document.body.classList.toggle('no-animations', !this.getConfigStoreOrDefaults().accessibility.animations)
     }
 
     private ensureContrast (color: Color, against: Color): Color {
@@ -178,7 +184,7 @@ export class ThemesService {
         while (
             (step < 1 && color.color[2] > 1 ||
              step > 1 && color.color[2] < 99) &&
-             color.contrast(against) < this.config.store.terminal.minimumContrastRatio) {
+             color.contrast(against) < this.getConfigStoreOrDefaults().terminal.minimumContrastRatio) {
             color.color[2] *= step
         }
         return color
@@ -189,22 +195,22 @@ export class ThemesService {
     }
 
     findCurrentTheme (): Theme {
-        return this.findTheme(this.config.store.appearance.theme) ?? this.standardTheme
+        return this.findTheme(this.getConfigStoreOrDefaults().appearance.theme) ?? this.standardTheme
     }
 
     /// @hidden
     _getActiveColorScheme (): any {
         let theme: PlatformTheme = 'dark'
-        if (this.config.store.appearance.colorSchemeMode === 'light') {
+        if (this.getConfigStoreOrDefaults().appearance.colorSchemeMode === 'light') {
             theme = 'light'
-        } else if (this.config.store.appearance.colorSchemeMode === 'auto') {
+        } else if (this.getConfigStoreOrDefaults().appearance.colorSchemeMode === 'auto') {
             theme = this.platform.getTheme()
         }
 
         if (theme === 'light') {
-            return this.config.store.terminal.lightColorScheme
+            return this.getConfigStoreOrDefaults().terminal.lightColorScheme
         } else {
-            return this.config.store.terminal.colorScheme
+            return this.getConfigStoreOrDefaults().terminal.colorScheme
         }
     }
 
@@ -215,7 +221,7 @@ export class ThemesService {
             document.querySelector('head')!.appendChild(this.styleElement)
         }
         this.styleElement.textContent = theme.css
-        document.querySelector('style#custom-css')!.innerHTML = this.config.store?.appearance?.css
+        document.querySelector('style#custom-css')!.innerHTML = this.getConfigStoreOrDefaults().appearance.css
         this.themeChanged.next(theme)
     }
 
